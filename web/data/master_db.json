@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-05-05T20:40:40.764888+00:00",
-  "total_clinics": 646,
-  "with_district": 611,
-  "with_categories": 431,
-  "with_reviews_scraped": 435,
+  "generated_at": "2026-05-05T20:50:43.136806+00:00",
+  "total_clinics": 648,
+  "with_district": 612,
+  "with_categories": 434,
+  "with_reviews_scraped": 440,
   "language_total": {
     "th": 1,
-    "en": 14580,
-    "other": 41
+    "en": 14727,
+    "other": 42
   },
   "district_counts": {
     "Pathum Wan": 271,
     "Phaya Thai": 108,
-    "Bang Rak": 84,
+    "Bang Rak": 85,
     "Watthana": 48,
     "Huai Khwang": 26,
     "Sathon": 22,
@@ -26,12 +26,12 @@
     "Khlong San": 1
   },
   "category_counts": {
-    "facial": 268,
-    "laser": 197,
-    "botox": 127,
-    "dental": 104,
-    "filler": 98,
-    "hifu": 97,
+    "facial": 271,
+    "laser": 198,
+    "botox": 130,
+    "dental": 105,
+    "filler": 100,
+    "hifu": 98,
     "hair_transplant": 16,
     "eye": 6
   },
@@ -22659,6 +22659,102 @@
       "maps_url": "https://www.google.com/maps/place/Bangkok+Grand+Dental+Clinic/data=!4m7!3m6!1s0x30e29e8c6dedf845:0x36190bb397b0a85d!8m2!3d13.7571188!4d100.5658855!16s%2Fg%2F11bvvzmrcd!19sChIJRfjtbYye4jARXaiwl7MLGTY?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2990244962739_0xc6cfddb81b4f5d4e",
+      "place_id": "0x30e2990244962739:0xc6cfddb81b4f5d4e",
+      "name": "GETGLOW Clinic สาขา Silom Edge",
+      "name_lang": "other",
+      "primary_type": "Skin care clinic",
+      "address": "\nชั้น 3 ตึก, 2 Si Lom Rd, Suriya Wong, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 96 883 3444",
+      "website": "",
+      "lat": 13.7292981,
+      "lng": 100.5360232,
+      "rating": 5.0,
+      "total_reviews": 132,
+      "trust_score": 77.9,
+      "categories": [
+        "botox",
+        "dental",
+        "facial",
+        "filler"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 2,
+      "avg_author_review_count": 6.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 30,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 4,
+        "filler": 1,
+        "dental": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 9
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "promotion",
+          "count": 4
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 22,
+          "avg": 4.82
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 25,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The clinic is clean, easy to get to, the doctor gives good advice, and the admin responds to messages very quickly. A K-pop fan recommended it when there's a promotion – the price is amazing!",
+          "rating": 5,
+          "author": "Thanita Charuratana"
+        },
+        {
+          "text": "Came here as recommend by a local friend. Recieved 2 treatments, an IV vitamin drip and Botox. Prices were completely reasonable.  Staff was helpful if I lived closer, id be back many times over",
+          "rating": 5,
+          "author": "Jennifaa"
+        },
+        {
+          "text": "The doctor and staff at the clinic were so lovely! The service was excellent; they kept checking on me throughout the visit. I was very impressed and will definitely be back!",
+          "rating": 5,
+          "author": "Fai NCN"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/GETGLOW+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+Silom+Edge/data=!4m7!3m6!1s0x30e2990244962739:0xc6cfddb81b4f5d4e!8m2!3d13.7292981!4d100.5360232!16s%2Fg%2F11v_15czc1!19sChIJOSeWRAKZ4jARTl1PG7jdz8Y?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fd0565aa2e1_0xf3385a74ded00c0d",
       "place_id": "0x30e29fd0565aa2e1:0xf3385a74ded00c0d",
       "name": "Syringe clinic",
@@ -23303,6 +23399,93 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/BPC+%28Sathorn%29+:+Bangkok+Physiotherapy+Center/data=!4m7!3m6!1s0x30e29fd7db9a62e7:0x8257a5e6a2dc2d2a!8m2!3d13.7236387!4d100.5378948!16s%2Fg%2F11lnhsfd86!19sChIJ52Ka29ef4jARKi3coualV4I?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f2c0371db67_0x9b81c607a6f74a27",
+      "place_id": "0x30e29f2c0371db67:0x9b81c607a6f74a27",
+      "name": "Pruksa Clinic พฤกษาคลินิก สาขาสีลมคอมเพล็กซ์ ชั้น3",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n395/4 Si Lom Rd, Si Lom, บางรัก Bangkok 10500, Thailand",
+      "district": "",
+      "phone": "+66 81 618 7619",
+      "website": "",
+      "lat": 13.72817,
+      "lng": 100.534944,
+      "rating": 4.9,
+      "total_reviews": 105,
+      "trust_score": 77.5,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 6,
+      "avg_author_review_count": 8.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 32,
+        "other": 1
+      },
+      "service_mentions": {
+        "facial": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 49,
+          "avg": 4.98
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The staff were attentive and very caring.\nI’ve been a customer here for about 7 years. 🙏🏽❤️ …",
+          "rating": 5,
+          "author": "Praphaphan Suwannachai"
+        },
+        {
+          "text": "The doctor gave good advice and the staff were lovely. I've been here many times.",
+          "rating": 5,
+          "author": "Pornprom Likitkhositkul"
+        },
+        {
+          "text": "The staff are lovely and very attentive. They look young and the doctor has a gentle hand.",
+          "rating": 5,
+          "author": "Pichit Sakulkerewatana"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pruksa+Clinic+%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%993/data=!4m7!3m6!1s0x30e29f2c0371db67:0x9b81c607a6f74a27!8m2!3d13.72817!4d100.534944!16s%2Fg%2F1thzr70p!19sChIJZ9txAyyf4jARJ0r3pgfGgZs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f85b75d8483_0x9301b77e69c4a696",
@@ -27784,6 +27967,99 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%88%E0%B9%80%E0%B8%A3+Global+Medical+Clinic/data=!4m7!3m6!1s0x30e29f2c12350e73:0x46c9fa17029feec8!8m2!3d13.7278021!4d100.5341957!16s%2Fg%2F1pzpnghzp!19sChIJcw41Eiyf4jARyO6fAhf6yUY?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x63e72364b6795263_0x9e44b53637f71008",
+      "place_id": "0x63e72364b6795263:0x9e44b53637f71008",
+      "name": "Lily nice clinic",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\nชั้น 5 ห้องเลขที่ 511, ศูนย์การค้าสีลมคอมเพล็กซ์, 191 Si Lom Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 81 964 4650",
+      "website": "https://www.instagram.com/lilyniceclinic?igsh=anBwb2s2eW9kazdt",
+      "lat": 13.728009,
+      "lng": 100.5350679,
+      "rating": 5.0,
+      "total_reviews": 41,
+      "trust_score": 75.8,
+      "categories": [
+        "botox",
+        "facial"
+      ],
+      "scraped_review_count": 41,
+      "local_guide_count": 9,
+      "avg_author_review_count": 10.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 32,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 2,
+        "facial": 7
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 12
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 14,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 21,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I came for a treatment and the staff were very polite and provided excellent service. I will definitely come again if I have the opportunity.",
+          "rating": 5,
+          "author": "pimploy kruapim"
+        },
+        {
+          "text": "Great location. The staff is very nice and welcoming. They also offer great services.",
+          "rating": 5,
+          "author": "Sharmaine T Wgnr"
+        },
+        {
+          "text": "Visiting from NYC and discovered Lily nice wellness and aesthetic clinic by chance.\nThe results and experiences are amazing.\nHighly recommended 🤩 …",
+          "rating": 5,
+          "author": "G"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Lily+nice+clinic/data=!4m7!3m6!1s0x63e72364b6795263:0x9e44b53637f71008!8m2!3d13.728009!4d100.5350679!16s%2Fg%2F11wh06fsyv!19sChIJY1J5tmQj52MRCBD3Nza1RJ4?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f6946e5e5ab_0xd517ba93d3c71824",
       "place_id": "0x30e29f6946e5e5ab:0xd517ba93d3c71824",
       "name": "The Vyta Clinic",
@@ -28436,6 +28712,105 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Na+Clinic/data=!4m7!3m6!1s0x30e29fd72fe7a2cd:0x41f1ae48344b9d56!8m2!3d13.7434134!4d100.544032!16s%2Fg%2F11scnmgv7l!19sChIJzaLnL9ef4jARVp1LNEiu8UE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x311d61130a8c5f47_0x72d3cd986a1e0e73",
+      "place_id": "0x311d61130a8c5f47:0x72d3cd986a1e0e73",
+      "name": "FXC FaceXercise Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nFXC Clinic GPF Witthayu Towers, 93/1 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 98 271 2744",
+      "website": "http://fxcclinic.com/",
+      "lat": 13.7374004,
+      "lng": 100.5474385,
+      "rating": 4.9,
+      "total_reviews": 57,
+      "trust_score": 75.4,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 9,
+      "avg_author_review_count": 7.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 41,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 2,
+        "filler": 2,
+        "hifu": 3,
+        "facial": 3,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 11
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 9
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 9,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 38,
+          "avg": 4.84
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dr. Den is lovely, very calm, and gives excellent advice and explanations. The staff provides great service, and the matcha latte is delicious.",
+          "rating": 5,
+          "author": "Janrapee Suwannatuch"
+        },
+        {
+          "text": "The recommendations and service were excellent. The doctor is skilled and provides great advice 👍 …",
+          "rating": 5,
+          "author": "เบญจพร รัตนชาติวิเชียร"
+        },
+        {
+          "text": "I was very impressed. The doctor gave excellent advice, and the staff provided great care. Overall, I liked it very much.",
+          "rating": 5,
+          "author": "Nooplaifon Changing"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/FXC+FaceXercise+Clinic/data=!4m7!3m6!1s0x311d61130a8c5f47:0x72d3cd986a1e0e73!8m2!3d13.7374004!4d100.5474385!16s%2Fg%2F11hmgs0t7r!19sChIJR1-MChNhHTERcw4eapjN03I?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ec347ddb677_0x1053d3dab38e6585",
@@ -30822,6 +31197,80 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lotus+Dental+Clinic/data=!4m7!3m6!1s0x30e2993187915337:0x9d03a0fa6b03f80f!8m2!3d13.7486192!4d100.5238488!16s%2Fg%2F1ptyf1c3_!19sChIJN1ORhzGZ4jARD_gDa_qgA50?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fc6b653eb65_0x423014c8320814d3",
+      "place_id": "0x30e29fc6b653eb65:0x423014c8320814d3",
+      "name": "สหคลินิกพญาไท ออลซีซั่น เพลส",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nศูนย์การค้าออลซีซั่น เพลส 87/205-206 ห้อง123F ชั้น 1 Bangkok 10330, Thailand",
+      "district": "",
+      "phone": "+66 61 406 4154",
+      "website": "https://www.phyathai.com/",
+      "lat": 13.7391457,
+      "lng": 100.5484962,
+      "rating": 4.9,
+      "total_reviews": 38,
+      "trust_score": 74.1,
+      "categories": [],
+      "scraped_review_count": 38,
+      "local_guide_count": 6,
+      "avg_author_review_count": 30.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 12,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 38,
+          "avg": 4.89
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This was my first time using their services and I was very impressed. From the reception staff to the doctor, the doctor was very thorough in examining my symptoms. The wait time was short, and the staff were attentive and helpful throughout the process. I highly recommend this place!",
+          "rating": 5,
+          "author": "ปานทิพย์ แก้วแสง"
+        },
+        {
+          "text": "A new clinic in the CRC building at All Seasons Place has opened, replacing BNH Clinic.",
+          "rating": 5,
+          "author": "Nattapong Manothai"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97+%E0%B8%AD%E0%B8%AD%E0%B8%A5%E0%B8%8B%E0%B8%B5%E0%B8%8B%E0%B8%B1%E0%B9%88%E0%B8%99+%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B8%AA/data=!4m7!3m6!1s0x30e29fc6b653eb65:0x423014c8320814d3!8m2!3d13.7391457!4d100.5484962!16s%2Fg%2F11yzp9jchn!19sChIJZetTtsaf4jAR0xQIMsgUMEI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fb9fb810259_0x9c9cecc355c68f9c",
@@ -38644,54 +39093,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%88%E0%B8%B4%E0%B8%95%E0%B9%80%E0%B8%A7%E0%B8%8A+%28BaanSathorn+mental+health+clinic%29/data=!4m7!3m6!1s0x30e29f0009a28b35:0x3597c117dab0d5b8!8m2!3d13.7232046!4d100.5476904!16s%2Fg%2F11wtjsl93q!19sChIJNYuiCQCf4jARuNWw2hfBlzU?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x311d61130a8c5f47_0x72d3cd986a1e0e73",
-      "place_id": "0x311d61130a8c5f47:0x72d3cd986a1e0e73",
-      "name": "FXC FaceXercise Clinic",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\nFXC Clinic GPF Witthayu Towers, 93/1 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 98 271 2744",
-      "website": "http://fxcclinic.com/",
-      "lat": 13.7374004,
-      "lng": 100.5474385,
-      "rating": 4.9,
-      "total_reviews": 57,
-      "trust_score": 70.1,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/FXC+FaceXercise+Clinic/data=!4m7!3m6!1s0x311d61130a8c5f47:0x72d3cd986a1e0e73!8m2!3d13.7374004!4d100.5474385!16s%2Fg%2F11hmgs0t7r!19sChIJR1-MChNhHTERcw4eapjN03I?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29eb095c69ae9_0x3fb25f702bec60f",
       "place_id": "0x30e29eb095c69ae9:0x3fb25f702bec60f",
       "name": "คลินิกผิว อนุสาวรีย์ชัยฯ",
@@ -39388,52 +39789,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Anderson+Hair+Center/data=!4m7!3m6!1s0x30e29fba4a9214e3:0x38d1a0043981c26c!8m2!3d13.7439088!4d100.5480524!16s%2Fg%2F1tdmbbf_!19sChIJ4xSSSrqf4jARbMKBOQSg0Tg?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x63e72364b6795263_0x9e44b53637f71008",
-      "place_id": "0x63e72364b6795263:0x9e44b53637f71008",
-      "name": "Lily nice clinic",
-      "name_lang": "en",
-      "primary_type": "Clinic",
-      "address": "\nชั้น 5 ห้องเลขที่ 511, ศูนย์การค้าสีลมคอมเพล็กซ์, 191 Si Lom Rd, Si Lom, Bang Rak, Bangkok 10500, Thailand",
-      "district": "Bang Rak",
-      "phone": "+66 81 964 4650",
-      "website": "https://www.instagram.com/lilyniceclinic?igsh=anBwb2s2eW9kazdt",
-      "lat": 13.728009,
-      "lng": 100.5350679,
-      "rating": 5.0,
-      "total_reviews": 41,
-      "trust_score": 69.4,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Lily+nice+clinic/data=!4m7!3m6!1s0x63e72364b6795263:0x9e44b53637f71008!8m2!3d13.728009!4d100.5350679!16s%2Fg%2F11wh06fsyv!19sChIJY1J5tmQj52MRCBD3Nza1RJ4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f64561df2df_0x683f3427da906e49",
@@ -41933,52 +42288,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/THE+KEITH+CLINIC+%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%84%E0%B8%B5%E0%B8%98%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e299ca453eda11:0xd02f30ef3239192f!8m2!3d13.7736213!4d100.5422205!16s%2Fg%2F11tdrksfjc!19sChIJEdo-RcqZ4jARLxk5Mu8wL9A?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29fc6b653eb65_0x423014c8320814d3",
-      "place_id": "0x30e29fc6b653eb65:0x423014c8320814d3",
-      "name": "สหคลินิกพญาไท ออลซีซั่น เพลส",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\nศูนย์การค้าออลซีซั่น เพลส 87/205-206 ห้อง123F ชั้น 1 Bangkok 10330, Thailand",
-      "district": "",
-      "phone": "+66 61 406 4154",
-      "website": "https://www.phyathai.com/",
-      "lat": 13.7391457,
-      "lng": 100.5484962,
-      "rating": 4.9,
-      "total_reviews": 38,
-      "trust_score": 68.0,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97+%E0%B8%AD%E0%B8%AD%E0%B8%A5%E0%B8%8B%E0%B8%B5%E0%B8%8B%E0%B8%B1%E0%B9%88%E0%B8%99+%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B8%AA/data=!4m7!3m6!1s0x30e29fc6b653eb65:0x423014c8320814d3!8m2!3d13.7391457!4d100.5484962!16s%2Fg%2F11yzp9jchn!19sChIJZetTtsaf4jAR0xQIMsgUMEI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f52de550669_0x85b6558f81b81b6e",
