@@ -1,126 +1,248 @@
-# Bangkok Google Maps Restaurant Scraper (NordVPN 전용)
+# Bangkok Clinics — Operator Manual
 
-방콕 반경 30km 의 Google Maps 식당을 500m 그리드로 발견하고, 30+ 리뷰 식당에 대해 상세 정보와 리뷰를 수집하는 파이프라인. NordVPN 서비스 인증(OpenVPN)으로 8개 SOCKS5 포트를 띄우고, 1 워커는 grid 스캔, 7 워커는 리뷰 수집을 병렬로 돈다. 각 SOCKS5 포트는 실패 시 자동으로 새 NordVPN 서버로 교체된다.
+Independent directory of Bangkok aesthetic and medical clinics. End-to-end pipeline from Google Maps scraping → analysis → public website.
 
-## 요구사항
+This document is for operators (you and the team) running the pipeline day-to-day. Not for end users.
 
-- Python 3.10+
-- Node.js 18+ (`node-openvpn-socks` 빌드/실행)
-- macOS / Linux (Docker 불필요)
-- NordVPN 구독 (service credentials 확보 필요)
+## Quick reference
 
-## 빠른 시작
-
-```bash
-# 1) NordVPN 서비스 credentials 준비
-#    https://my.nordaccount.com/dashboard/nordvpn/ → "Set up NordVPN manually"
-#    2줄 파일로 저장:
-cat > nordvpn/auth.txt <<EOF
-YOUR_USERNAME_HERE
-YOUR_PASSWORD_HERE
-EOF
-chmod 600 nordvpn/auth.txt
-
-# 2) 1회성 환경 셋업 (venv + playwright + npm + 빌드)
-bash scripts/setup.sh
-
-# 3) 파이프라인 기동
-bash scripts/run.sh
-
-# 4) 진행 모니터
-tail -f logs/grid.log     # 그리드 스캔
-tail -f logs/review.log   # 리뷰 수집
-cat /tmp/vpn_status.json  # 포트별 현재 exit IP
-
-# 5) 중단 (언제든지 안전, resume 됨)
-bash scripts/stop.sh
-```
-
-## 아키텍처
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  nordvpn_runner.py                                          │
-│  ├─ NordVPN API → 9,000+ 서버 pool (랜덤 pick, IP dedup)    │
-│  └─ 8 × node-openvpn-socks 프로세스 (각자 포트 2080-2087)   │
-│     각 포트 = 독립 NordVPN 터널 + 로컬 SOCKS5               │
-└─────────────────────────────────────────────────────────────┘
-                              │
-        ┌─────────────────────┴───────────────────────┐
-        │                                             │
-┌───────▼────────┐              ┌─────────────────────▼─────────┐
-│ scraper_grid   │              │ scraper.py                    │
-│ (port 2080,    │ discovered   │ (ports 2081-2087, 7 workers)  │
-│  1 worker)     │─────────────▶│                               │
-│                │  .csv        │ discovered_places.csv         │
-│ 500m spiral    │  (30초 주기  │ 30초 주기로 재스캔하여        │
-│ 11,499 points  │   재스캔)    │ review_count≥30 만 상세페이지│
-│ 반경 30km      │              │ 진입 → 리뷰/메타 저장         │
-└────────────────┘              └───────────────────────────────┘
-        │                                             │
-        └──────────────┬──────────────────────────────┘
-                       ▼
-              bangkok_reviews/output/
-              ├── discovered_places.csv
-              ├── restaurants.csv
-              ├── restaurant_features.csv
-              ├── restaurant_hours.csv
-              └── reviews/
-                  ├── <pid>_reviews.csv
-                  └── <pid>_meta.csv
-```
-
-### VPN 교체(rotation) 트리거
-
-- **즉시**: SOCKS 연결 죽음 감지 (`ERR_SOCKS_CONNECTION_FAILED`, `ERR_PROXY_*`, `ERR_CONNECTION_RESET` 등)
-- **느린 작업**: 1건 처리가 120초 초과 시 다음 작업 전
-- **주기**: 각 워커 15건 성공마다
-- **구현**: 스크래퍼가 `/tmp/rotate_port_<idx>` 터치 → `nordvpn_runner` 가 감지 → 해당 포트 노드만 새 NordVPN 서버로 교체
-
-### 중단 후 재개 (resume)
-
-- `scripts/stop.sh` 또는 Ctrl+C 로 graceful 종료
-- `scripts/run.sh` 다시 실행하면 이어서 진행
-- Grid: `output/discovered_places.checkpoint` (처리된 좌표 기록)
-- Review: `output/reviews/<pid>_reviews.csv` 의 `sort_source` 컬럼으로
-  - `relevant`+`newest` 다 있으면 complete → 스킵
-  - 하나만 있으면 partial → 재시도
-  - 없으면 재시도 (리뷰수 30+ 확인 후)
-
-## 설정 (`bangkok_reviews/config.py`)
-
-| 항목 | 기본 | 설명 |
-|---|---|---|
-| `SEARCH_QUERIES` | `["restaurant in Sukhumvit Bangkok"]` | 현재는 grid 기반이라 의미 없음 |
-| `MIN_REVIEW_COUNT` | 30 | 이 미만의 식당은 상세/리뷰 수집 안 함 |
-| `REVIEWS_PER_RATING` | 10 | 1~5점 각각 최대 N건 (relevant + newest 모두) |
-| `HEADLESS` | `False` | 디버깅 시 브라우저 가시 — 프로덕션은 `True` 권장 |
-| `SLOW_MO` | 300 ms | 너무 빠르면 차단 위험 |
-| `LANGUAGE` | `en` | Google Maps UI 영어 고정 |
-| `GRID_CENTER_LAT/LNG` | Siam Paragon | 기준 좌표 |
-| `GRID_ZONES` | `[(30000, 500)]` | 30km 반경 500m 균일 |
-| `GRID_N_WORKERS` | 1 | grid 전용 워커 수 |
-| `N_WORKERS` | 7 | review 워커 수 |
-| `PROXY_PORT_BASE` | 2081 | review 워커 시작 포트 |
-| `GRID_PROXY_PORT` | 2080 | grid 전용 포트 |
-| `VPN_PORT_BASE` | 2080 | `nordvpn_runner` 의 idx=0 포트 |
-
-## 출력 스키마
-
-자세한 CSV 컬럼 설명은 [`SPEC.md`](SPEC.md) 참조.
-
-## 트러블슈팅
-
-| 증상 | 원인/해결 |
+| Task | Command / Location |
 |---|---|
-| `nordvpn_runner` 에서 `AUTH_FAILED` 반복 | service credentials 오류. NordVPN 대시보드에서 재확인 |
-| 8개 중 한 두 개 포트가 계속 실패 | NordVPN 동시접속 한도 (플랜마다 6~10). 필요 시 `run.sh` 의 `--ports` 조정 |
-| Grid 결과가 계속 0건 | exit IP 가 Google 에 차단됨. 자동 rotate 됨. 몇 분 기다려보기 |
-| 동의 다이얼로그로 빈 결과 | 쿠키 + `dismiss_consent` 로 자동 처리. 지속되면 `scraper.py` 의 `dismiss_popups` 확장 |
-| 디스크 계속 증가 | `output/reviews/` 의 각 식당당 ~60KB. 30k 식당이면 ~2GB. 정상 |
+| Check pipeline alive | `tail -f logs/watchdog.log` |
+| Check scraping progress | `tail -f logs/bangkok_clinics_grid.log` `tail -f logs/bangkok_clinics_review.log` |
+| Check master_db rebuild | `tail -f logs/master_db_builder.log` |
+| Check auto git push | `tail -f logs/auto_push_loop.log` |
+| Production site (Vercel) | https://bangkokbotoxclinic.com |
+| Vercel staging URL | https://bangkokbotoxclinicbyym.vercel.app |
+| GitHub repo | https://github.com/presidentoko/bangkokbotoxclinic |
+| Vercel dashboard | https://vercel.com/dashboard |
 
-## 라이선스 / 주의
+## Architecture
 
-- Google Maps 이용약관을 준수하세요. 이 도구는 연구/개인 용도로 제공됩니다.
-- NordVPN 약관: 자동화 사용 관련 정책 확인.
-- 개인정보 포함된 리뷰 데이터 처리 시 해당 지역 법규(GDPR 등) 준수.
+```
+[Google Maps]
+     ↓ (scraper, every minute)
+bangkok_clinics/output/clinics.csv + reviews/<id>_reviews.csv
+     ↓ (master_db_builder, 5 min poll)
+web/data/master_db.json   ← cleaned, scored, categorized
+     ↓ (auto_push_loop, 10 min poll)
+GitHub (origin/main)
+     ↓ (Vercel auto-deploy on push)
+https://bangkokbotoxclinic.com
+```
+
+End-to-end latency: new clinic discovered → live on prod ≈ 15-30 min.
+
+## Background services (managed by `scripts/watchdog.py`)
+
+| Service | What it does | Restart on death |
+|---|---|---|
+| `nordvpn_runner` | 8 NordVPN SOCKS5 tunnels (ports 2080-2087) | Yes |
+| `bangkok_clinics_grid` | Discovers new clinics via Google Maps grid | Yes (until grid done) |
+| `bangkok_clinics_review` | Scrapes detail + reviews for each discovered clinic | Yes |
+| `master_db_builder` | Rebuilds `web/data/master_db.json` every 5 min on change | Yes |
+| `auto_push_loop` | Auto-commit + push master_db changes every 10 min | Yes |
+| `vercel_deploy_loop` | (Legacy) Vercel deploy hook trigger — only used if `VERCEL_DEPLOY_HOOK` env set; otherwise idle | Yes |
+
+Watchdog itself is auto-respawned every 5 min by Windows Task Scheduler entry `DeliverableWatchdogCheck` running `scripts/ensure_watchdog.bat`.
+
+## Pause / resume scrapers
+
+To pause a service (without killing watchdog):
+```powershell
+New-Item -ItemType File run/<service_name>.disabled
+```
+
+To resume:
+```powershell
+Remove-Item run/<service_name>.disabled
+```
+
+Currently paused services (resume only when you want to scrape these cities again):
+- `bangkok_review`, `ayutthaya_grid`, `chiang_mai_grid`, `phuket_grid`, `pattaya_grid`, `pattaya_review`, `chiang_rai_grid`, `khon_kaen_grid`, `korat_grid`, `hat_yai_grid`, `hua_hin_grid`, `krabi_grid`, `koh_samui_grid`, `udon_thani_grid`, `telegram_monitor`
+
+## Multi-domain deploy (Phase 2 specialty domains)
+
+Same codebase, 5 Vercel projects, different env per project:
+
+| Domain | NEXT_PUBLIC_SITE_FOCUS | NEXT_PUBLIC_SITE_URL |
+|---|---|---|
+| bangkokbotoxclinic.com | `botox` | `https://bangkokbotoxclinic.com` |
+| bangkokfillers.com | `filler` | `https://bangkokfillers.com` |
+| haifacialclinic.com | `hifu` | `https://haifacialclinic.com` |
+| (4th — your call) | `laser` or `facial` | … |
+| (5th — your call) | `dental` | … |
+
+When ready to launch domain N:
+1. Vercel → Add New Project → import same GitHub repo
+2. Set Root Directory = `web`
+3. Set env vars (see `web/.env.example`)
+4. Deploy
+5. Connect domain in Vercel dashboard + DNS at registrar
+
+## Vercel env vars (production)
+
+All optional except `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_SITE_FOCUS`.
+
+| Var | Purpose | Example |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL | `https://bangkokbotoxclinic.com` |
+| `NEXT_PUBLIC_SITE_FOCUS` | Specialty filter | `botox` |
+| `NEXT_PUBLIC_KLOOK_AID` | Klook affiliate ID | (empty until partner) |
+| `NEXT_PUBLIC_ADSENSE_CLIENT` | AdSense client ID | (empty until enabled) |
+| `LEAD_WEBHOOK_URL` | Slack/Discord webhook for lead notifications | `https://hooks.slack.com/...` |
+| `SPONSORED_EDITORS_PICK` | CSV clinic IDs for top Editor's Pick badge | `0x...,0x...` |
+| `SPONSORED_RECOMMENDED` | CSV clinic IDs for Recommended badge | `0x...,0x...` |
+| `SPONSORED_FEATURED` | CSV clinic IDs for Featured badge | `0x...,0x...` |
+
+## Revenue model
+
+### CPL (Cost Per Lead)
+- Every clinic page has a green LINE button → opens BookingForm modal.
+- Form submission hits `/api/lead`.
+- If `LEAD_WEBHOOK_URL` is set, a Slack/Discord notification is posted with all fields.
+- Operator manually relays the booking request to the clinic via their LINE/phone.
+- Bill clinics ฿50/lead or ฿5,000/month flat once volume is proven.
+
+### Featured slots
+- Add a clinic ID to `SPONSORED_EDITORS_PICK` / `SPONSORED_RECOMMENDED` / `SPONSORED_FEATURED` env on Vercel → redeploy.
+- Sorted to the top of all category/district lists with a coloured badge.
+- ฿10,000/month per slot.
+
+### Market intelligence (B2B SaaS)
+- Pitch on `/for-clinics`. Future: build a `/dashboard` page reading from master_db.json showing competitor analytics.
+- ฿8,000/month per clinic.
+
+## Daily ops checklist
+
+Run **once a day** (e.g. morning):
+
+1. Scrape progress
+   ```powershell
+   Get-Content logs/bangkok_clinics_grid.log -Tail 5
+   Get-Content logs/bangkok_clinics_review.log -Tail 5
+   ```
+   Expected: `processed=N pending=M …` lines updating, no `KICK` in last 30 min.
+
+2. Master DB freshness
+   ```powershell
+   Get-Item web/data/master_db.json | Select-Object LastWriteTime, Length
+   ```
+   Expected: LastWriteTime within last 30 minutes.
+
+3. Auto-push success
+   ```powershell
+   Get-Content logs/auto_push_loop.log -Tail 10
+   ```
+   Expected: at least one `push 완료` line in last 1 hour. If only `변경 없음` then scrape is not adding new data — check VPN.
+
+4. Vercel deploy status
+   - https://vercel.com/dashboard → click project → Deployments tab → most recent should be < 30 min old.
+
+5. Live site
+   - https://bangkokbotoxclinic.com → loads, shows recent clinic data.
+
+## Troubleshooting
+
+### Scraper stuck — no new clinics in last hour
+
+```powershell
+# Check VPN tunnels alive
+Get-Content $env:TEMP/vpn_status.json | ConvertFrom-Json | Select-Object -ExpandProperty ports | Where-Object alive -eq $true | Measure-Object
+```
+Should be ≥ 4. If < 4, VPN is failing — check NordVPN account/credentials in `nordvpn/auth.txt`.
+
+### Auto-push failing
+
+```powershell
+Get-Content logs/auto_push_loop.log -Tail 30
+```
+Common causes:
+- `~/.git-credentials` missing/corrupt → re-run setup with new PAT
+- GitHub token revoked → generate new at https://github.com/settings/tokens
+
+### Vercel build failing
+
+- Vercel dashboard → Deployments → click failed → Logs.
+- Common: env var typo, master_db.json schema change.
+- Manually rebuild: dashboard → ⋯ → Redeploy.
+
+### Site shows stale data
+
+- Check Vercel deploy timestamp.
+- Manually trigger: dashboard → ⋯ → Redeploy.
+- Or push an empty commit:
+  ```bash
+  git commit --allow-empty -m "trigger redeploy" && git push
+  ```
+
+## Adding a new clinic to Featured slot
+
+1. Find the clinic ID on the live site (URL: `/clinic/<id>`)
+2. Vercel dashboard → Settings → Environment Variables
+3. Edit `SPONSORED_EDITORS_PICK` (or `_RECOMMENDED` or `_FEATURED`) → add the ID, comma-separated
+4. Save → Vercel auto-redeploys (~ 2 min)
+5. Refresh site → clinic now has the badge and is sorted top of category pages
+
+## Manual data correction
+
+If a clinic complains about a wrong listing:
+1. Check the source on Google Maps — is it actually wrong there too? If yes, ask them to update Google. If no, file a bug.
+2. To temporarily exclude a clinic from listings (rare): add their `place_id` to a hardcoded blocklist in `web/lib/data.ts` (TODO: env-driven blocklist).
+
+## File map
+
+```
+deliverable/
+├── README.md                          # this file
+├── SPEC.md                            # technical spec (scraper architecture)
+├── nordvpn_runner.py                  # 8x SOCKS5 tunnel orchestrator
+├── nordvpn/                           # NordVPN config (auth.txt gitignored)
+├── node-openvpn-socks/                # OpenVPN SOCKS5 client (Node.js)
+├── bangkok_clinics/                   # active scraper
+│   ├── config.py                      # SEARCH_QUERY, MIN_REVIEW_COUNT, etc.
+│   ├── scraper_grid.py                # discovers clinics
+│   ├── scraper.py                     # collects reviews + metadata
+│   └── output/                        # CSVs (gitignored)
+│       ├── clinics.csv                # 1 row per clinic
+│       └── reviews/<pid>_reviews.csv  # individual review files
+├── bangkok_reviews/                   # legacy restaurant scraper (paused)
+├── scripts/
+│   ├── watchdog.py                    # process supervisor (root of all)
+│   ├── ensure_watchdog.bat            # Windows scheduled task entry
+│   ├── ensure_watchdog.vbs            # silent launcher
+│   ├── run.sh / stop.sh               # manual start/stop
+│   └── run_clinics.sh                 # phase1/phase2 helper
+├── web/                               # Next.js 16 app — Vercel deploys this
+│   ├── app/                           # routes (App Router)
+│   ├── components/                    # React components
+│   ├── lib/                           # data loading, types, helpers
+│   ├── data/master_db.json            # cleaned source-of-truth (committed!)
+│   ├── scripts/
+│   │   ├── build_master_db.py         # CSV → JSON cleaner
+│   │   ├── watch_and_build.py         # 5-min polling daemon
+│   │   ├── auto_git_push.py           # commit + push when JSON changes
+│   │   └── auto_push_loop.py          # 10-min daemon
+│   └── vercel.json                    # Vercel config
+├── logs/                              # rotated logs (gitignored)
+├── run/                               # PID + state files (gitignored)
+└── .venv/                             # Python venv (gitignored)
+```
+
+## When you (the operator) leave for the day
+
+The pipeline runs unattended. As long as:
+- Watchdog is alive (auto-respawned by scheduler)
+- VPN tunnels stay up (auto-rotated)
+- GitHub credentials valid
+
+…it will continue scraping, building, pushing, and deploying every 30 minutes for as long as the laptop stays on.
+
+If the laptop sleeps/restarts: watchdog re-spawns on next scheduler tick (≤ 5 min). Scrape resumes from where it left off (resume-safe by design).
+
+## Contacts
+
+- Developer (handoff): see git log, contact through repo issues.
+- NordVPN account: stored in `nordvpn/auth.txt` (do not commit).
+- GitHub: presidentoko / bangkokbotoxclinic.
+- Vercel: linked to GitHub repo, auto-deploy on `main` push.

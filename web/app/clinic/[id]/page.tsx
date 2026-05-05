@@ -8,7 +8,9 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { MapEmbed } from "@/components/MapEmbed";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
-import { isSponsored } from "@/lib/sponsored";
+import { LineButton } from "@/components/LineButton";
+import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
+import { sponsoredTier } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -38,9 +40,22 @@ export default async function ClinicPage(
   const c = getClinicById(db.clinics, id);
   if (!c) notFound();
 
-  const sponsored = isSponsored(c.id);
+  const tier = sponsoredTier(c.id);
   const trend = c.rating_trend.trend;
   const samples = [...c.sample_reviews_en, ...c.sample_reviews_th].slice(0, 4);
+
+  // 동일 카테고리 내 trust score percentile (낮을수록 상위)
+  const sameCategory = c.categories.length > 0
+    ? db.clinics.filter((x) => x.categories.some((cat) => c.categories.includes(cat)))
+    : db.clinics;
+  const sortedTrust = sameCategory
+    .map((x) => x.trust_score)
+    .sort((a, b) => b - a);
+  const idx = sortedTrust.indexOf(c.trust_score);
+  const percentile = sortedTrust.length > 0 ? Math.round((idx / sortedTrust.length) * 100) : 100;
+  const rankingLabel = c.categories.length > 0
+    ? CATEGORY_LABELS[c.categories[0]] ?? "Bangkok"
+    : "Bangkok";
 
   // Trust Score breakdown for donut
   const ratingPart = (c.rating / 5) * 50;
@@ -83,9 +98,9 @@ export default async function ClinicPage(
         <span className="text-[var(--fg)]">{c.name}</span>
       </nav>
 
-      {sponsored && (
-        <div className="mb-3 inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
-          <span>★</span> Featured Partner
+      {tier && (
+        <div className="mb-3">
+          <SponsoredBadge clinicId={c.id} />
         </div>
       )}
 
@@ -119,8 +134,16 @@ export default async function ClinicPage(
           </div>
         </div>
 
+        <div className="mt-4 flex flex-wrap gap-2 items-center">
+          <AIVerifiedBadge clinic={c} size="md" />
+          {percentile <= 25 && (
+            <RelativeRanking percentile={percentile} label={rankingLabel} />
+          )}
+          <Freshness generatedAt={db.generated_at} mode="detail" />
+        </div>
+
         {c.categories.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {c.categories.map((cat) => (
               <a
                 key={cat}
@@ -206,6 +229,13 @@ export default async function ClinicPage(
 
         {/* Sticky sidebar */}
         <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
+          <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+            <LineButton clinicName={c.name} phone={c.phone} size="lg" />
+            <p className="text-[11px] text-[var(--muted)] mt-2 text-center">
+              Free, no obligation. We confirm your slot within 24h.
+            </p>
+          </div>
+
           <BookingForm clinicName={c.name} />
 
           <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">

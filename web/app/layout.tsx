@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
+import { Logo } from "@/components/Logo";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
 const cfg = getSiteConfig();
@@ -34,33 +35,54 @@ export default function RootLayout({
       <body>
         <OrgJsonLd />
         <WebsiteJsonLd />
-        <header className="border-b border-[var(--border)] bg-white">
-          <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-            <a href="/" className="font-bold tracking-tight text-lg">
-              {cfg.brand}<span style={{ color: cfg.themeAccent }}>.</span>
+        <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
+          <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+            <a href="/" className="flex items-center hover:opacity-80 transition">
+              <Logo accent={cfg.themeAccent} />
             </a>
-            <nav className="text-sm flex gap-4 text-[var(--muted)]">
+            <nav className="text-sm flex gap-4 md:gap-5 text-[var(--muted)] items-center">
               {cfg.focus === "all" ? (
                 <>
                   <a href="/c/botox" className="hover:text-black">Botox</a>
                   <a href="/c/filler" className="hover:text-black">Filler</a>
-                  <a href="/c/hifu" className="hover:text-black">HIFU</a>
-                  <a href="/c/facial" className="hover:text-black">Facial</a>
-                  <a href="/c/laser" className="hover:text-black">Laser</a>
+                  <a href="/c/hifu" className="hover:text-black hidden sm:inline">HIFU</a>
+                  <a href="/c/facial" className="hover:text-black hidden sm:inline">Facial</a>
+                  <a href="/c/laser" className="hover:text-black hidden md:inline">Laser</a>
                 </>
               ) : (
                 <>
-                  <a href="/" className="hover:text-black">All Clinics</a>
-                  <a href={`/c/${cfg.focus}`} className="hover:text-black">By Service</a>
+                  <a href="/" className="hover:text-black hidden sm:inline">Top Clinics</a>
+                  <a href={`/c/${cfg.focus}`} className="hover:text-black hidden md:inline">By Service</a>
                 </>
               )}
+              <a href="/best/genuine-brand" className="hover:text-black hidden md:inline">Best of</a>
+              <a href="/about" className="hover:text-black hidden md:inline">About</a>
+              <a
+                href="/for-clinics"
+                className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold"
+              >
+                For clinics →
+              </a>
+              <a href="/th" className="text-xs hover:text-black">TH</a>
             </nav>
           </div>
         </header>
         <main>{children}</main>
-        <footer className="border-t border-[var(--border)] mt-16">
-          <div className="max-w-5xl mx-auto px-4 py-6 text-sm text-[var(--muted)]">
-            Independent review aggregation. Not affiliated with any clinic. Data sourced from public Google Maps listings.
+        <footer className="border-t border-[var(--border)] mt-16 bg-white">
+          <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
+            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
+              <a href="/about" className="hover:text-black">About</a>
+              <a href="/contact" className="hover:text-black">Contact</a>
+              <a href="/for-clinics" className="hover:text-black">For Clinics</a>
+              <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
+              <a href="/llms.txt" className="hover:text-black">llms.txt</a>
+            </div>
+            <p className="text-xs leading-relaxed max-w-2xl">
+              Independent review aggregation. Not affiliated with any clinic. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
+            </p>
+            <p className="text-xs mt-3">
+              © {new Date().getFullYear()} {cfg.brand}
+            </p>
           </div>
         </footer>
       </body>

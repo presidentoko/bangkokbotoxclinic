@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { loadMasterDb } from "@/lib/data";
+import { BEST_FOR } from "@/lib/bestFor";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
@@ -11,6 +12,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const items: MetadataRoute.Sitemap = [
     { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
+    { url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
+    { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE}/for-clinics`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   for (const s of SERVICES) {
@@ -19,6 +24,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: updated,
       changeFrequency: "daily",
       priority: 0.9,
+    });
+  }
+
+  for (const c of BEST_FOR) {
+    items.push({
+      url: `${SITE}/best/${c.slug}`,
+      lastModified: updated,
+      changeFrequency: "daily",
+      priority: 0.85,
     });
   }
 
@@ -35,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${SITE}/c/${s}/${slug}`,
         lastModified: updated,
         changeFrequency: "weekly",
-        priority: 0.8,  // long-tail SEO 핵심
+        priority: 0.8,
       });
     }
   }

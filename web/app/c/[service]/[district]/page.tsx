@@ -4,7 +4,7 @@ import { ClinicCard } from "@/components/ClinicCard";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
-import { LeadCapture } from "@/components/LeadCapture";
+import { BookingForm } from "@/components/BookingForm";
 import type { Metadata } from "next";
 
 const VALID_SERVICES = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -88,7 +88,9 @@ export default async function ServiceDistrictPage(
               <ClinicCard key={c.id} clinic={c} rank={i + 6} />
             ))}
           </div>
-          <LeadCapture service={label} context={`category_district_${service}_${district}`} />
+          <div className="my-6">
+            <BookingForm defaultService={service} />
+          </div>
         </>
       )}
 

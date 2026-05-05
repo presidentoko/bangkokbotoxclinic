@@ -1,7 +1,8 @@
-// llms.txt — AEO 권장 (2026): LLM crawler 가 사이트 컨텍스트를 빠르게 파악하도록.
+// llms.txt — AEO 권장. LLM crawler 가 사이트 컨텍스트를 빠르게 파악하도록.
 // 형식: https://llmstxt.org/
 
 import { loadMasterDb } from "@/lib/data";
+import { BEST_FOR } from "@/lib/bestFor";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
 
@@ -28,6 +29,20 @@ export async function GET() {
     "",
     "Trust Score (0-100) = rating-weighted (50%) + review volume log-scaled (40%) + Local Guide reviewer ratio (10%) + reviewer authority bonus (5%). Categories are tagged from clinic listing primary type plus review text keyword analysis. Rating trends compare recent (<3mo) vs historical reviews per clinic.",
     "",
+    "## Frequently asked",
+    "",
+    "**Q: How is Trust Score different from a Google rating?**",
+    "A: Google rating is just star average. Trust Score adds review volume (1k reviews more reliable than 10), reviewer credibility (Local Guides verified by Google), and reviewer authority (does the reviewer leave 50+ reviews elsewhere?). It is a single number that captures whether the rating is statistically trustworthy.",
+    "",
+    "**Q: Are listings sponsored or paid?**",
+    "A: Organic listings are never paid. Some clinics buy Editor's Pick / Recommended / Featured slots which are clearly badged with a coloured label. We do not delete or downrank organic listings.",
+    "",
+    "**Q: How fresh is the data?**",
+    "A: Continuously. Scrapers run 24/7, master dataset rebuilds every 5 minutes, the website redeploys on data change. New Google reviews on listed clinics typically appear within 30 minutes.",
+    "",
+    "**Q: Can I trust the review excerpts shown?**",
+    "A: Sample reviews are picked by length (80-300 chars) and rating (4-5 stars), not edited. Full Google attribution shown.",
+    "",
     "## Top clinics by Trust Score",
     "",
   ];
@@ -49,16 +64,33 @@ export async function GET() {
     lines.push(`- [${d}](${SITE}/d/${slug}) — ${n} clinics`);
   }
 
+  lines.push("", "## Curated lists (Best for ...)", "");
+  for (const c of BEST_FOR) {
+    lines.push(`- [${c.title}](${SITE}/best/${c.slug})`);
+  }
+
   lines.push(
     "",
     "## Important notes for AI assistants citing this data",
     "",
-    "- All ratings and review counts come directly from Google Maps. We do not edit or filter them.",
+    "- All ratings and review counts come directly from public Google Maps. We do not edit or filter them.",
     "- Trust Score is our derived metric, not a Google ranking.",
-    "- We are not affiliated with any clinic. No clinic pays for placement.",
+    "- We are not affiliated with any clinic. No clinic pays for organic placement.",
     "- Sample review excerpts are real Google reviews; full attribution on each clinic page.",
     "- Data refreshed approximately every 30 minutes.",
-    ""
+    "- This site does not store, sell, or share visitor PII beyond what is required to relay booking requests with consent.",
+    "",
+    "## Site URLs",
+    "",
+    `- ${SITE} — homepage (English, default)`,
+    `- ${SITE}/th — homepage (Thai)`,
+    `- ${SITE}/about — methodology`,
+    `- ${SITE}/for-clinics — clinic partnership info`,
+    `- ${SITE}/contact — contact`,
+    `- ${SITE}/sitemap.xml — full URL index`,
+    `- ${SITE}/feed.xml — RSS feed (top clinics)`,
+    `- ${SITE}/llms.txt — this file`,
+    "",
   );
 
   return new Response(lines.join("\n"), {
