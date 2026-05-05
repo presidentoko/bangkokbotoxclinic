@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-05-05T23:11:19.667781+00:00",
-  "total_clinics": 733,
-  "with_district": 693,
-  "with_categories": 484,
-  "with_reviews_scraped": 507,
+  "generated_at": "2026-05-05T23:21:22.206094+00:00",
+  "total_clinics": 740,
+  "with_district": 700,
+  "with_categories": 488,
+  "with_reviews_scraped": 511,
   "language_total": {
     "th": 1,
-    "en": 17162,
+    "en": 17286,
     "other": 47
   },
   "district_counts": {
     "Pathum Wan": 272,
     "Phaya Thai": 117,
-    "Bang Rak": 93,
+    "Bang Rak": 94,
     "Watthana": 61,
     "Huai Khwang": 35,
-    "Sathon": 26,
+    "Sathon": 27,
     "Khlong Toei": 22,
-    "Khlong San": 15,
+    "Khlong San": 20,
     "Pom Prap Sattru Phai": 14,
     "Ratchathewi": 12,
     "Dusit": 10,
@@ -30,7 +30,7 @@
     "facial": 300,
     "laser": 217,
     "botox": 146,
-    "dental": 120,
+    "dental": 124,
     "filler": 109,
     "hifu": 103,
     "hair_transplant": 15,
@@ -11578,6 +11578,85 @@
       "maps_url": "https://www.google.com/maps/place/THE+CITY+CLINIC+%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99-%E0%B8%88%E0%B8%B8%E0%B8%AC%E0%B8%B2/data=!4m7!3m6!1s0x30e29900333d01a7:0xf7c843a272ecc13f!8m2!3d13.7346011!4d100.5270495!16s%2Fg%2F11ykgtmsnq!19sChIJpwE9MwCZ4jARP8HscqJDyPc?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e298dd30968801_0xf7f2b420bf24b126",
+      "place_id": "0x30e298dd30968801:0xf7f2b420bf24b126",
+      "name": "Charoen Nakhon Dental Clinic 2",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n246, 248 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 83 262 2252",
+      "website": "",
+      "lat": 13.7247908,
+      "lng": 100.5090059,
+      "rating": 5.0,
+      "total_reviews": 463,
+      "trust_score": 83.4,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 2,
+      "avg_author_review_count": 2.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 22,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 8
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 5
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This dental clinic is excellent. The dentist is kind, lovely, and has a very gentle touch. I'm very impressed! 🦷💖 …",
+          "rating": 5,
+          "author": "Kunyanut Phutthima"
+        },
+        {
+          "text": "The staff provided excellent service, and the doctor was gentle. I'll definitely come back again!",
+          "rating": 5,
+          "author": "Nat M"
+        },
+        {
+          "text": "Dr. Natthaphat Saimala is very kind and takes excellent care of her patients. Thank you!",
+          "rating": 5,
+          "author": "Takiang T"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Charoen+Nakhon+Dental+Clinic+2/data=!4m7!3m6!1s0x30e298dd30968801:0xf7f2b420bf24b126!8m2!3d13.7247908!4d100.5090059!16s%2Fg%2F1pzx7kst6!19sChIJAYiWMN2Y4jARJrEkvyC08vc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ece0746a953_0xdcaffe471f93ba95",
       "place_id": "0x30e29ece0746a953:0xdcaffe471f93ba95",
       "name": "APEX Beauty - Siam Paragon (เอเพ็กซ์ สาขา พารากอน)",
@@ -19959,6 +20038,101 @@
       "maps_url": "https://www.google.com/maps/place/Menscape+Clinic/data=!4m7!3m6!1s0x30e29f3c384111af:0xc1bc4264f3ecd9ee!8m2!3d13.7440309!4d100.5419609!16s%2Fg%2F11vrrxmrmk!19sChIJrxFBODyf4jAR7tns82RCvME?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299f639db53e3_0x9fbb1cda4d559f2a",
+      "place_id": "0x30e299f639db53e3:0x9fbb1cda4d559f2a",
+      "name": "ทำฟัน Toothmate Dental Clinic สาทร ถนนจันทน์",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\nSt Louis 3, Thung Wat Don, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 63 663 9090",
+      "website": "http://www.toothmatedentalclinic.com/",
+      "lat": 13.7131586,
+      "lng": 100.5273181,
+      "rating": 5.0,
+      "total_reviews": 115,
+      "trust_score": 80.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 5,
+      "avg_author_review_count": 51.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 44,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 32
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 18
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "english_speaking",
+          "count": 4
+        },
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 19,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 27,
+          "avg": 4.96
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Getting Invisalign treatment was a fantastic experience. I had 124 aligners done, and it was well worth it. Dr. Maple is kind, meticulous, precise, and a perfectionist, which is a great benefit to patients. It's no wonder she has so many patients.",
+          "rating": 5,
+          "author": "Bo anuree"
+        },
+        {
+          "text": "The doctors here are very gentle, polite, and lovely, both Dr. Techin and Dr. Maple. The prices are reasonable. I highly recommend coming here.",
+          "rating": 5,
+          "author": "channiega CN"
+        },
+        {
+          "text": "The doctor was very kind and explained the procedure in a way that was very easy for the patient to understand. Thank you, Dr. Maple, for taking such good care of my teeth. 🩷🩷 …",
+          "rating": 5,
+          "author": "Mootjalin Tanglakdee"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99+Toothmate+Dental+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3+%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%99%E0%B9%8C/data=!4m7!3m6!1s0x30e299f639db53e3:0x9fbb1cda4d559f2a!8m2!3d13.7131586!4d100.5273181!16s%2Fg%2F11qn6222r7!19sChIJ41PbOfaZ4jARKp9VTdocu58?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f490ea8a407_0x638098290fdc837",
       "place_id": "0x30e29f490ea8a407:0x638098290fdc837",
       "name": "PRIVATO CLINIC",
@@ -20935,6 +21109,97 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/KC+Wellness/data=!4m7!3m6!1s0x311d6347dc6b8925:0xe5a13918b82945b9!8m2!3d13.7489019!4d100.5608734!16s%2Fg%2F11jvbrbk60!19sChIJJYlr3EdjHTERuUUpuBg5oeU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299fb618b0e01_0xdb09fe437d924d59",
+      "place_id": "0x30e299fb618b0e01:0xdb09fe437d924d59",
+      "name": "บางมดทันตกรรม สาขาเจริญนคร",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n449 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 61 390 5650",
+      "website": "http://www.bangmoddental.com/",
+      "lat": 13.7255761,
+      "lng": 100.5093139,
+      "rating": 5.0,
+      "total_reviews": 194,
+      "trust_score": 79.7,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 3,
+      "avg_author_review_count": 3.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 49,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 15
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 12
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "recommend",
+          "count": 7
+        },
+        {
+          "topic": "promotion",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 14,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 36,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I've been undergoing orthodontic treatment with Dr. An for a year now. This is a heartwarming review. Dr. An is very gentle and explains every step of the process in detail. For a beautiful, confident smile, trust Dr. An at Bangmod Dental Clinic! 💙 …",
+          "rating": 5,
+          "author": "Warunee Ice"
+        },
+        {
+          "text": "I'm a patient of Dr. Wan. Today I came for dental implant and bone grafting. Dr. Wan has a very gentle touch. Ms. Rung at the counter provided excellent service and advice. I've had 9 dental implants done by Dr. Wan already. I highly recommend the Bangmod Charoen Nakhon branch. Confirmed!",
+          "rating": 5,
+          "author": "โกมล โกมลวิศิษฏ์"
+        },
+        {
+          "text": "Convenient, comfortable, close to home, good service, lovely dentist, and provides excellent dental advice.",
+          "rating": 5,
+          "author": "LadyNamZa"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A1%E0%B8%94%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%99%E0%B8%84%E0%B8%A3/data=!4m7!3m6!1s0x30e299fb618b0e01:0xdb09fe437d924d59!8m2!3d13.7255761!4d100.5093139!16s%2Fg%2F11pyyd8ssj!19sChIJAQ6LYfuZ4jARWU2SfUP-Cds?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ff52fa690a9_0x4826b025a51146f0",
@@ -26954,6 +27219,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/SKYN+Station+Clinic+Laser+Center+%28BTS+PhloenChit%29/data=!4m7!3m6!1s0x30e29edc5428c6a5:0xe498e020917054a7!8m2!3d13.7421992!4d100.5489672!16s%2Fg%2F11c3k6bxsr!19sChIJpcYoVNye4jARp1RwkSDgmOQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298ea61fba079_0x150f346dc48849a3",
+      "place_id": "0x30e298ea61fba079:0x150f346dc48849a3",
+      "name": "Diners dental clinic Bangrak",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n1371 ถ. เจริญกรุง Si Lom, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 64 536 2424",
+      "website": "https://www.dinersdental.com/",
+      "lat": 13.7212283,
+      "lng": 100.5163261,
+      "rating": 4.9,
+      "total_reviews": 235,
+      "trust_score": 77.5,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Diners+dental+clinic+Bangrak/data=!4m7!3m6!1s0x30e298ea61fba079:0x150f346dc48849a3!8m2!3d13.7212283!4d100.5163261!16s%2Fg%2F1td3bk9r!19sChIJeaD7YeqY4jARo0mIxG00DxU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fd7db9a62e7_0x8257a5e6a2dc2d2a",
@@ -50615,6 +50928,52 @@
       "maps_url": "https://www.google.com/maps/place/Sherjades+Acupuncture+Clinic+%E0%B9%80%E0%B8%8C%E0%B8%AD%E0%B9%80%E0%B8%88%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7+%E0%B8%A2%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99+%E0%B8%97%E0%B8%B8%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B8%B2+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x30e299df944f1f99:0x5f1934e9838b097!8m2!3d13.7326327!4d100.5221204!16s%2Fg%2F11jgchgmzg!19sChIJmR9PlN-Z4jARl7A4mE6T8QU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2990011bbf78d_0xc300c6fe384a52a1",
+      "place_id": "0x30e2990011bbf78d:0xc300c6fe384a52a1",
+      "name": "Quora Medical Wellness",
+      "name_lang": "en",
+      "primary_type": "Medical Center",
+      "address": "\nThe Peninsula Bangkok 333 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 020 2888 ext. 6001",
+      "website": "https://quoramedicalwellness.com/",
+      "lat": 13.7230598,
+      "lng": 100.510728,
+      "rating": 5.0,
+      "total_reviews": 22,
+      "trust_score": 66.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Quora+Medical+Wellness/data=!4m7!3m6!1s0x30e2990011bbf78d:0xc300c6fe384a52a1!8m2!3d13.7230598!4d100.510728!16s%2Fg%2F11w3bjd4xb!19sChIJjfe7EQCZ4jARoVJKOP7GAMM?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29feb20bd8f29_0x2d872d53c1c13855",
       "place_id": "0x30e29feb20bd8f29:0x2d872d53c1c13855",
       "name": "Bangkok Psychology",
@@ -54646,6 +55005,52 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%94%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B9%82%E0%B8%94%E0%B8%A2+%E0%B8%A3%E0%B8%A8.%E0%B8%99%E0%B8%9E.+%E0%B8%AA%E0%B8%B8%E0%B8%A1%E0%B8%99%E0%B8%B1%E0%B8%AA+%E0%B8%9A%E0%B8%B8%E0%B8%93%E0%B8%A2%E0%B8%B0%E0%B8%A3%E0%B8%B1%E0%B8%95%E0%B9%80%E0%B8%A7%E0%B8%8A/data=!4m7!3m6!1s0x30e2992939e7696f:0xb062c4040020eee!8m2!3d13.746691!4d100.523964!16s%2Fg%2F1pty_t0j0!19sChIJb2nnOSmZ4jAR7g4CQEAsBgs?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29921a7be5cf5_0xe753a183a17fada",
+      "place_id": "0x30e29921a7be5cf5:0xe753a183a17fada",
+      "name": "เจเมด คลินิก สาทร - Jmed clinic",
+      "name_lang": "th",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\nเดอะไลท์เฮ้าส์, 8/299 ห้อง402 ชั้น4(L5) อาคาร, Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 019 9082",
+      "website": "https://www.facebook.com/jmedclinicsathorn?mibextid=LQQJ4d",
+      "lat": 13.7223599,
+      "lng": 100.5086348,
+      "rating": 4.7,
+      "total_reviews": 13,
+      "trust_score": 60.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%88%E0%B9%80%E0%B8%A1%E0%B8%94+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3+-+Jmed+clinic/data=!4m7!3m6!1s0x30e29921a7be5cf5:0xe753a183a17fada!8m2!3d13.7223599!4d100.5086348!16s%2Fg%2F11kpkpkzq6!19sChIJ9Vy-pyGZ4jAR2voXOhg6dQ4?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e298cfe85cb605_0xda077eb2df800077",
       "place_id": "0x30e298cfe85cb605:0xda077eb2df800077",
       "name": "Global Doctor - TMVC Clinic Bangkok",
@@ -54836,6 +55241,72 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%81%E0%B8%A7%E0%B8%B2%E0%B8%87%E0%B8%95%E0%B8%B8%E0%B9%89%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99+Suankwangtung+Clinic+TCM./data=!4m7!3m6!1s0x30e29926a29cce47:0x512e7d33b6de481!8m2!3d13.7404699!4d100.5141691!16s%2Fg%2F1vc8lssb!19sChIJR86coiaZ4jARgeRtO9PnEgU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299ddaf1b6df7_0x508418f688061800",
+      "place_id": "0x30e299ddaf1b6df7:0x508418f688061800",
+      "name": "คลินิกเวชกรรมเอมมิตรการแพทย์",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n223/7-9 ซ Somdet Chao Phraya 9 Alley, Somdet Chao Phraya, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 438 8041",
+      "website": "",
+      "lat": 13.7327232,
+      "lng": 100.5014649,
+      "rating": 3.6,
+      "total_reviews": 16,
+      "trust_score": 60.1,
+      "categories": [],
+      "scraped_review_count": 16,
+      "local_guide_count": 6,
+      "avg_author_review_count": 12.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 9,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 2.0
+        },
+        "old": {
+          "count": 12,
+          "avg": 4.17
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "My first time using their service, and I give it a perfect 10/10. The service was excellent, the staff were friendly and smiling, and they even gave me recommendations. Thank you!",
+          "rating": 5,
+          "author": "สุธารัตน์ โลหากาศ"
+        },
+        {
+          "text": "The doctor provided excellent care, and the staff at the counter were very helpful. The doctor gave very detailed explanations.",
+          "rating": 5,
+          "author": "อรพิน แซ่อือ"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%AD%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e299ddaf1b6df7:0x508418f688061800!8m2!3d13.7327232!4d100.5014649!16s%2Fg%2F11m_scyjdy!19sChIJ920br92Z4jARABgGiPYYhFA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ebc3b421d7f_0x7892d2b0765812ab",
