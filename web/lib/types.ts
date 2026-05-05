@@ -1,0 +1,88 @@
+// master_db.json 스키마
+
+export type RatingTrendBucket = {
+  count: number;
+  avg: number | null;
+};
+
+export type RatingTrend = {
+  recent: RatingTrendBucket;
+  midterm: RatingTrendBucket;
+  old: RatingTrendBucket;
+  trend: "improving" | "declining" | "stable" | "insufficient_data";
+};
+
+export type SampleReview = {
+  text: string;
+  rating: number;
+  author: string;
+};
+
+export type Clinic = {
+  id: string;
+  place_id: string;
+  name: string;
+  name_lang: "th" | "en" | "other";
+  primary_type: string;
+  address: string;
+  district: string;
+  phone: string;
+  website: string;
+  lat: number | null;
+  lng: number | null;
+  rating: number;
+  total_reviews: number;
+  trust_score: number;
+  categories: string[];
+  scraped_review_count: number;
+  local_guide_count: number;
+  avg_author_review_count: number;
+  language_breakdown: { th: number; en: number; other: number };
+  service_mentions: Record<string, number>;
+  mentioned_topics: { topic: string; count: number }[];
+  rating_trend: RatingTrend;
+  sample_reviews_th: SampleReview[];
+  sample_reviews_en: SampleReview[];
+  business_status: string;
+  maps_url: string;
+};
+
+export type MasterDb = {
+  generated_at: string;
+  total_clinics: number;
+  with_district: number;
+  with_categories: number;
+  with_reviews_scraped: number;
+  language_total: { th: number; en: number; other: number };
+  district_counts: Record<string, number>;
+  category_counts: Record<string, number>;
+  clinics: Clinic[];
+};
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  botox: "Botox",
+  filler: "Filler",
+  hifu: "HIFU",
+  facial: "Facial",
+  laser: "Laser",
+  dental: "Dental",
+  hair_transplant: "Hair Transplant",
+  eye: "Eye / LASIK",
+};
+
+export const TOPIC_LABELS: Record<string, string> = {
+  genuine_brand: "Genuine brand",
+  english_speaking: "English-speaking staff",
+  clean_facility: "Clean facility",
+  long_wait: "Long wait time",
+  expensive: "Expensive",
+  affordable: "Affordable",
+  professional: "Professional",
+  friendly_staff: "Friendly staff",
+  results_satisfied: "Satisfied results",
+  no_pain: "No pain",
+  recommend: "Recommended",
+  korean_doctor: "Korean-trained doctor",
+  promotion: "Promotion / discount",
+  premium: "Premium",
+};

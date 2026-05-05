@@ -1,0 +1,99 @@
+# ── Secrets — 절대 커밋 금지 ──
+nordvpn/auth.txt
+*.env
+*.env.local
+.env.*.local
+*credentials*
+*secret*
+
+# ── 큰 데이터 (스크래퍼 출력) — Vercel 안 필요 ──
+bangkok_clinics/output/clinics.csv
+bangkok_clinics/output/discovered_places.csv
+bangkok_clinics/output/discovered_places.*.checkpoint
+bangkok_clinics/output/discovered_places.checkpoint*
+bangkok_clinics/output/clinic_features.csv
+bangkok_clinics/output/clinic_hours.csv
+bangkok_clinics/output/restaurant_*.csv
+bangkok_clinics/output/restaurants.csv
+bangkok_clinics/output/reviews/
+
+bangkok_reviews/output/
+bangkok_reviews/output_*/
+ayutthaya/output/
+ayutthaya/output_*/
+chiang_mai/output/
+chiang_mai/output_*/
+phuket/output/
+phuket/output_*/
+pattaya/output/
+pattaya/output_*/
+chiang_rai/output/
+chiang_rai/output_*/
+hat_yai/output/
+hat_yai/output_*/
+hua_hin/output/
+hua_hin/output_*/
+khon_kaen/output/
+khon_kaen/output_*/
+koh_samui/output/
+koh_samui/output_*/
+korat/output/
+korat/output_*/
+krabi/output/
+krabi/output_*/
+udon_thani/output/
+udon_thani/output_*/
+wongnai/
+
+# ── 로그 ──
+logs/
+*.log
+nohup.out
+
+# ── Runtime state ──
+run/*.pid
+run/*.disabled
+run/stop_*
+run/deploy_trigger.state
+
+# ── Python ──
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# ── Node ──
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+
+# ── node-openvpn-socks 빌드 산출물 (재빌드 가능) ──
+node-openvpn-socks/node_modules/
+
+# ── 임시 스크래퍼 부산물 ──
+*.zip
+__MACOSX/
+photo_run.out
+deliverable_code.zip
+wongnai_scraper.zip
+wongnai/
+
+# ── 명시적으로 INCLUDE 할 데이터 (위 와일드카드에 잡히지 않게) ──
+!web/data/master_db.json
+!web/.env.example

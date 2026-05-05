@@ -1,0 +1,32 @@
+{
+  "name": "openvpn-socks",
+  "version": "0.1.0",
+  "description": "Pure-Node.js OpenVPN client that exposes a local SOCKS5 proxy. No tun/tap, no native dependencies.",
+  "main": "dist/cli.js",
+  "bin": {
+    "openvpn-socks": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/cli.ts",
+    "dev": "ts-node src/cli.ts"
+  },
+  "files": [
+    "dist/**/*.js",
+    "README.md"
+  ],
+  "keywords": [
+    "openvpn",
+    "socks5",
+    "proxy",
+    "vpn"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

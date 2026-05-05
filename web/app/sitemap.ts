@@ -1,0 +1,53 @@
+import type { MetadataRoute } from "next";
+import { loadMasterDb } from "@/lib/data";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
+const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const db = await loadMasterDb();
+  const districts = Object.keys(db.district_counts);
+  const updated = new Date(db.generated_at);
+
+  const items: MetadataRoute.Sitemap = [
+    { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
+  ];
+
+  for (const s of SERVICES) {
+    items.push({
+      url: `${SITE}/c/${s}`,
+      lastModified: updated,
+      changeFrequency: "daily",
+      priority: 0.9,
+    });
+  }
+
+  for (const d of districts) {
+    const slug = d.toLowerCase().replace(/\s+/g, "-");
+    items.push({
+      url: `${SITE}/d/${slug}`,
+      lastModified: updated,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    });
+    for (const s of SERVICES) {
+      items.push({
+        url: `${SITE}/c/${s}/${slug}`,
+        lastModified: updated,
+        changeFrequency: "weekly",
+        priority: 0.8,  // long-tail SEO 핵심
+      });
+    }
+  }
+
+  for (const c of db.clinics) {
+    items.push({
+      url: `${SITE}/clinic/${c.id}`,
+      lastModified: updated,
+      changeFrequency: "weekly",
+      priority: c.trust_score >= 70 ? 0.8 : c.trust_score >= 50 ? 0.6 : 0.4,
+    });
+  }
+
+  return items;
+}
