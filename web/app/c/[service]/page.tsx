@@ -5,7 +5,9 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { CATEGORY_FAQS } from "@/lib/faq";
 import { AffiliateInline } from "@/components/AffiliateSlot";
-import { LeadCapture } from "@/components/LeadCapture";
+import { BookingForm } from "@/components/BookingForm";
+import { StatsBar } from "@/components/StatsBar";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -46,14 +48,25 @@ export default async function ServicePage(
     .filter(([, n]) => n >= 3)
     .sort((a, b) => b[1] - a[1]);
 
+  const totalReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
+  const withScraped = filtered.filter((c) => c.scraped_review_count > 0).length;
+
   return (
+    <>
+      <StatsBar
+        generatedAt={db.generated_at}
+        totalClinics={filtered.length}
+        totalReviews={totalReviews}
+        withScraped={withScraped}
+      />
     <div className="max-w-5xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
         <span>{label}</span>
       </nav>
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
+      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2 flex items-center gap-3">
+        <CategoryIcon category={service} size={32} />
         {label} Clinics in Bangkok
       </h1>
       <p className="text-[var(--muted)] mb-8">
@@ -102,7 +115,9 @@ export default async function ServicePage(
         )}
       </section>
 
-      <LeadCapture service={label} context={`category_${service}`} />
+      <div className="my-8">
+        <BookingForm defaultService={service} />
+      </div>
 
       {(CATEGORY_FAQS[service] ?? []).length > 0 && (
         <section className="mt-12">
@@ -131,5 +146,6 @@ export default async function ServicePage(
         }))}
       />
     </div>
+    </>
   );
 }

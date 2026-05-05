@@ -620,12 +620,12 @@ def build_services() -> list[Service]:
             progress_grace_sec=120,
         ),
         Service(
-            name="vercel_deploy_loop",
-            cmd=["web/scripts/deploy_loop.py"],
+            name="auto_push_loop",
+            cmd=["web/scripts/auto_push_loop.py"],
             cwd=ROOT,
-            env_extra={},  # VERCEL_DEPLOY_HOOK 는 OS env 에서 picked up
-            log_file=LOGS / "vercel_deploy_loop.log",
-            # progress 패턴 없음 — 30분 주기라 stale 검사 무의미. PID 살아있는지만.
+            env_extra={},
+            log_file=LOGS / "auto_push_loop.log",
+            # 10분 주기라 stale 검사 무의미. PID 살아있는지만.
         ),
         Service(
             name="telegram_monitor",

@@ -1,13 +1,18 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
+import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ClinicJsonLd } from "@/components/JsonLd";
-import { LeadCapture } from "@/components/LeadCapture";
+import { BookingForm } from "@/components/BookingForm";
+import { TrustDonut } from "@/components/TrustBadge";
+import { CategoryIcon } from "@/components/CategoryIcon";
+import { MapEmbed } from "@/components/MapEmbed";
+import { RatingChart } from "@/components/RatingChart";
+import { TopicCluster } from "@/components/TopicCluster";
+import { isSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  // 모든 클리닉을 정적 빌드 — Tier 미적용 (현재 587개 → 빌드 가능 규모)
   return db.clinics.map((c) => ({ id: c.id }));
 }
 
@@ -33,12 +38,34 @@ export default async function ClinicPage(
   const c = getClinicById(db.clinics, id);
   if (!c) notFound();
 
+  const sponsored = isSponsored(c.id);
   const trend = c.rating_trend.trend;
-  const topTopics = c.mentioned_topics.slice(0, 8);
   const samples = [...c.sample_reviews_en, ...c.sample_reviews_th].slice(0, 4);
 
+  // Trust Score breakdown for donut
+  const ratingPart = (c.rating / 5) * 50;
+  const volumePart = Math.min(40, Math.log10(Math.max(1, c.total_reviews)) * 12);
+  const lgRatio = c.scraped_review_count > 0 ? c.local_guide_count / c.scraped_review_count : 0;
+  const lgPart = Math.min(10, lgRatio * 20);
+  const authPart = Math.min(5, Math.log10(Math.max(1, c.avg_author_review_count)) * 2);
+  const breakdown = [
+    { label: "Rating", value: ratingPart, max: 50, color: "#16a34a" },
+    { label: "Volume", value: volumePart, max: 40, color: "#2563eb" },
+    { label: "Local Gd", value: lgPart, max: 10, color: "#7c3aed" },
+    { label: "Authority", value: authPart, max: 5, color: "#0891b2" },
+  ];
+
+  // Similar clinics
+  const similar = db.clinics
+    .filter((other) =>
+      other.id !== c.id &&
+      (other.district === c.district || c.categories.some((cat) => other.categories.includes(cat)))
+    )
+    .sort((a, b) => b.trust_score - a.trust_score)
+    .slice(0, 4);
+
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         {c.district && (
@@ -53,135 +80,196 @@ export default async function ClinicPage(
           </>
         )}
         <span className="mx-2">›</span>
-        <span>{c.name}</span>
+        <span className="text-[var(--fg)]">{c.name}</span>
       </nav>
 
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1">{c.name}</h1>
-      <p className="text-[var(--muted)] mb-4">{c.primary_type} {c.district && `· ${c.district}`}</p>
-
-      <div className="flex flex-wrap gap-2 mb-6">
-        <span className="bg-yellow-50 text-yellow-900 px-3 py-1 rounded-md text-sm font-semibold">
-          ★ {c.rating.toFixed(1)} ({c.total_reviews.toLocaleString()})
-        </span>
-        <span className="bg-blue-50 text-blue-800 px-3 py-1 rounded-md text-sm font-semibold">
-          Trust Score {c.trust_score}
-        </span>
-        {c.local_guide_count > 0 && (
-          <span className="bg-purple-50 text-purple-800 px-3 py-1 rounded-md text-sm">
-            Verified by {c.local_guide_count} Local Guides
-          </span>
-        )}
-        {trend === "improving" && (
-          <span className="bg-green-50 text-green-800 px-3 py-1 rounded-md text-sm">
-            ↗ Trending up
-          </span>
-        )}
-        {trend === "declining" && (
-          <span className="bg-orange-50 text-orange-800 px-3 py-1 rounded-md text-sm">
-            ↘ Quality declining
-          </span>
-        )}
-        {c.business_status && (
-          <span className={`px-3 py-1 rounded-md text-sm ${c.business_status === "Open" ? "bg-green-50 text-green-800" : "bg-gray-100 text-gray-700"}`}>
-            {c.business_status}
-          </span>
-        )}
-      </div>
-
-      {topTopics.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-2">
-            What reviewers mention
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {topTopics.map((t) => (
-              <span key={t.topic} className="bg-white border border-[var(--border)] px-3 py-1 rounded-full text-sm">
-                {TOPIC_LABELS[t.topic] ?? t.topic} <span className="text-[var(--muted)]">×{t.count}</span>
-              </span>
-            ))}
-          </div>
-        </section>
+      {sponsored && (
+        <div className="mb-3 inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
+          <span>★</span> Featured Partner
+        </div>
       )}
 
-      {c.categories.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-2">
-            Services mentioned
-          </h2>
-          <div className="flex flex-wrap gap-2">
+      {/* Header */}
+      <header className="mb-8">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1">{c.name}</h1>
+            <p className="text-[var(--muted)] flex items-center gap-2 flex-wrap">
+              <span>{c.primary_type}</span>
+              {c.district && (
+                <>
+                  <span>·</span>
+                  <span className="flex items-center gap-1">📍 {c.district}</span>
+                </>
+              )}
+              {c.business_status === "Open" && (
+                <span className="flex items-center gap-1 text-green-700 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Open
+                </span>
+              )}
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="bg-yellow-50 text-yellow-900 px-4 py-2 rounded-lg text-2xl font-bold">
+              ★ {c.rating.toFixed(1)}
+            </div>
+            <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
+              {c.total_reviews.toLocaleString()} Google reviews
+            </div>
+          </div>
+        </div>
+
+        {c.categories.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
             {c.categories.map((cat) => (
               <a
                 key={cat}
                 href={`/c/${cat}`}
-                className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-100"
+                className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm hover:bg-blue-100 inline-flex items-center gap-1.5"
               >
+                <CategoryIcon category={cat} size={14} />
                 {CATEGORY_LABELS[cat] ?? cat}
-                {c.service_mentions[cat] ? ` · ${c.service_mentions[cat]} mentions` : ""}
+                {c.service_mentions[cat] ? (
+                  <span className="opacity-70 text-xs">· {c.service_mentions[cat]} mentions</span>
+                ) : null}
               </a>
             ))}
+            {trend === "improving" && (
+              <span className="bg-green-50 text-green-800 px-3 py-1 rounded-full text-sm">
+                ↗ Trending up
+              </span>
+            )}
+            {trend === "declining" && (
+              <span className="bg-orange-50 text-orange-800 px-3 py-1 rounded-full text-sm">
+                ↘ Quality declining
+              </span>
+            )}
           </div>
-        </section>
-      )}
+        )}
+      </header>
 
-      {samples.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-2">
-            Real review excerpts
-          </h2>
-          <div className="grid gap-3">
-            {samples.map((r, i) => (
-              <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
-                <p className="text-sm">{r.text}</p>
-                <footer className="mt-1.5 text-xs text-[var(--muted)]">
-                  — {r.author} · ★{r.rating}
-                </footer>
-              </blockquote>
-            ))}
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Main column */}
+        <div className="lg:col-span-2 space-y-6">
+          <TrustDonut score={c.trust_score} breakdown={breakdown} />
+
+          <RatingChart trend={c.rating_trend} />
+
+          {c.mentioned_topics.length > 0 && (
+            <TopicCluster topics={c.mentioned_topics.slice(0, 12)} />
+          )}
+
+          <MapEmbed lat={c.lat} lng={c.lng} name={c.name} height={320} />
+
+          {samples.length > 0 && (
+            <section>
+              <h2 className="text-lg font-bold mb-3">Real review excerpts</h2>
+              <div className="space-y-3">
+                {samples.map((r, i) => (
+                  <blockquote key={i} className="border-l-4 border-[var(--accent)] bg-white px-4 py-3 rounded-r">
+                    <p className="text-sm leading-relaxed">{r.text}</p>
+                    <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
+                      <span className="font-medium">{r.author || "Google reviewer"}</span>
+                      <span>·</span>
+                      <span className="text-yellow-700">★ {r.rating}</span>
+                    </footer>
+                  </blockquote>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section className="grid sm:grid-cols-2 gap-3">
+            <div className="bg-white border border-[var(--border)] rounded-lg p-4">
+              <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Address</div>
+              <div className="text-sm leading-relaxed">{c.address || "—"}</div>
+            </div>
+            <div className="bg-white border border-[var(--border)] rounded-lg p-4">
+              <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Phone</div>
+              <div className="text-sm">{c.phone || "—"}</div>
+              {c.website && (
+                <>
+                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Website</div>
+                  <a
+                    href={c.website}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-sm text-[var(--accent)] hover:underline truncate block"
+                  >
+                    {c.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                  </a>
+                </>
+              )}
+            </div>
+          </section>
+        </div>
+
+        {/* Sticky sidebar */}
+        <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
+          <BookingForm clinicName={c.name} />
+
+          <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">
+            <a
+              href={c.maps_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-black text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-gray-800 text-sm"
+            >
+              View on Google Maps
+            </a>
+            {c.phone && (
+              <a
+                href={`tel:${c.phone.replace(/[^+\d]/g, "")}`}
+                className="block w-full bg-white border border-[var(--border)] py-2.5 px-4 rounded-lg font-bold text-center hover:border-black text-sm"
+              >
+                📞 Call clinic
+              </a>
+            )}
+            {c.website && (
+              <a
+                href={c.website}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="block w-full bg-white border border-[var(--border)] py-2.5 px-4 rounded-lg font-bold text-center hover:border-black text-sm"
+              >
+                Visit website
+              </a>
+            )}
           </div>
-        </section>
-      )}
 
-      <section className="mb-8 grid gap-3 sm:grid-cols-2">
-        <div className="bg-white border border-[var(--border)] rounded-lg p-4">
-          <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Address</div>
-          <div className="text-sm">{c.address || "—"}</div>
-        </div>
-        <div className="bg-white border border-[var(--border)] rounded-lg p-4">
-          <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Phone</div>
-          <div className="text-sm">{c.phone || "—"}</div>
-        </div>
-      </section>
-
-      <section className="flex flex-wrap gap-3">
-        <a
-          href={c.maps_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 min-w-[200px] bg-black text-white py-3 px-4 rounded-lg font-bold text-center hover:bg-gray-800"
-        >
-          View on Google Maps
-        </a>
-        {c.phone && (
-          <a
-            href={`tel:${c.phone.replace(/[^+\d]/g, "")}`}
-            className="flex-1 min-w-[200px] bg-white border border-[var(--border)] py-3 px-4 rounded-lg font-bold text-center hover:border-[var(--accent)] hover:text-[var(--accent)]"
-          >
-            Call Clinic
-          </a>
-        )}
-        {c.website && (
-          <a
-            href={c.website}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="flex-1 min-w-[200px] bg-white border border-[var(--border)] py-3 px-4 rounded-lg font-bold text-center hover:border-[var(--accent)] hover:text-[var(--accent)]"
-          >
-            Visit Website
-          </a>
-        )}
-      </section>
-
-      <LeadCapture clinicName={c.name} context="clinic_detail" />
+          {similar.length > 0 && (
+            <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
+                Similar clinics
+              </h3>
+              <div className="space-y-2">
+                {similar.map((s) => (
+                  <a
+                    key={s.id}
+                    href={`/clinic/${s.id}`}
+                    className="block group"
+                  >
+                    <div className="font-medium text-sm group-hover:text-[var(--accent)] truncate transition">
+                      {s.name}
+                    </div>
+                    <div className="text-xs text-[var(--muted)] flex items-center gap-2">
+                      <span>{s.district}</span>
+                      <span>·</span>
+                      <span>★ {s.rating.toFixed(1)}</span>
+                      <span>·</span>
+                      <span className="font-medium" style={{
+                        color: s.trust_score >= 75 ? "#16a34a" : s.trust_score >= 60 ? "#059669" : "#ca8a04"
+                      }}>
+                        Trust {s.trust_score.toFixed(0)}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
+      </div>
 
       <ClinicJsonLd c={c} />
       <BreadcrumbJsonLd items={[
