@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-05-05T21:00:45.110479+00:00",
-  "total_clinics": 649,
-  "with_district": 613,
-  "with_categories": 434,
-  "with_reviews_scraped": 440,
+  "generated_at": "2026-05-05T21:10:47.770755+00:00",
+  "total_clinics": 651,
+  "with_district": 615,
+  "with_categories": 437,
+  "with_reviews_scraped": 442,
   "language_total": {
     "th": 1,
-    "en": 14687,
+    "en": 14698,
     "other": 42
   },
   "district_counts": {
     "Pathum Wan": 271,
     "Phaya Thai": 108,
-    "Bang Rak": 85,
+    "Bang Rak": 86,
     "Watthana": 48,
     "Huai Khwang": 26,
     "Sathon": 22,
-    "Pom Prap Sattru Phai": 13,
+    "Pom Prap Sattru Phai": 14,
     "Ratchathewi": 11,
     "Khlong Toei": 11,
     "Din Daeng": 6,
@@ -26,11 +26,11 @@
     "Khlong San": 1
   },
   "category_counts": {
-    "facial": 270,
-    "laser": 197,
-    "botox": 129,
+    "facial": 273,
+    "laser": 198,
+    "botox": 131,
     "dental": 105,
-    "filler": 100,
+    "filler": 101,
     "hifu": 98,
     "hair_transplant": 16,
     "eye": 6
@@ -991,6 +991,101 @@
       "maps_url": "https://www.google.com/maps/place/Aura+Bangkok+clinic+Siam/data=!4m7!3m6!1s0x680dfbd1dc9df66b:0x23c5145489c61521!8m2!3d13.7452121!4d100.5338857!16s%2Fg%2F11sk0rv4_j!19sChIJa_ad3NH7DWgRIRXGiVQUxSM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2993bacb0f1bf_0x9fc32631cf4b0efd",
+      "place_id": "0x30e2993bacb0f1bf:0x9fc32631cf4b0efd",
+      "name": "Hua Chiew Hospital",
+      "name_lang": "en",
+      "primary_type": "Private hospital",
+      "address": "\n665 Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 223 1351",
+      "website": "http://www.hc-hospital.com/",
+      "lat": 13.7500823,
+      "lng": 100.5154121,
+      "rating": 4.4,
+      "total_reviews": 2156,
+      "trust_score": 92.6,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 14,
+      "avg_author_review_count": 31.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 30,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "long_wait",
+          "count": 6
+        },
+        {
+          "topic": "clean_facility",
+          "count": 5
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 5
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 44,
+          "avg": 4.16
+        },
+        "midterm": {
+          "count": 6,
+          "avg": 3.17
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "(Translated by Google) Using my social security benefits here is great, really great.\n\n(Original)\nUsing my social security benefits here is great, really great.",
+          "rating": 5,
+          "author": "PW"
+        },
+        {
+          "text": "The service was excellent. I'm so glad I transferred my social security insurance here. The patient rooms are clean and well-equipped. The doctor answered my questions clearly, and the nurses were always helpful when I needed to use the restroom or change clothes.",
+          "rating": 5,
+          "author": "Baitoey ThePandan"
+        },
+        {
+          "text": "I came in for my annual health checkup today and was very impressed. The nurses were very attentive, friendly, and helpful. They provided prompt service and were attentive to every step of the way. I felt safe and comfortable coming here for my checkup. Thank you so much to the entire team. 🩺 …",
+          "rating": 5,
+          "author": "Unchalee Mhoomak"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Hua+Chiew+Hospital/data=!4m7!3m6!1s0x30e2993bacb0f1bf:0x9fc32631cf4b0efd!8m2!3d13.7500823!4d100.5154121!16s%2Fg%2F1tpb8f7t!19sChIJv_GwrDuZ4jAR_Q5LzzEmw58?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fe59b4186cf_0xf8dcf7b7924458e9",
       "place_id": "0x30e29fe59b4186cf:0xf8dcf7b7924458e9",
       "name": "THE KLINIQUE Surgery Center",
@@ -1376,101 +1471,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+%E0%B9%80%E0%B8%97%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%A1%E0%B8%B4%E0%B8%99%E0%B8%AD%E0%B8%A5+%E0%B8%AD%E0%B9%82%E0%B8%A8%E0%B8%81/data=!4m7!3m6!1s0x30e29f9bb0488815:0xfee0f1fd26bcda11!8m2!3d13.7373243!4d100.5605703!16s%2Fg%2F11kbxdh2mn!19sChIJFYhIsJuf4jAREdq8Jv3x4P4?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2993bacb0f1bf_0x9fc32631cf4b0efd",
-      "place_id": "0x30e2993bacb0f1bf:0x9fc32631cf4b0efd",
-      "name": "Hua Chiew Hospital",
-      "name_lang": "en",
-      "primary_type": "Private hospital",
-      "address": "\n665 Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 2 223 1351",
-      "website": "http://www.hc-hospital.com/",
-      "lat": 13.7500823,
-      "lng": 100.5154121,
-      "rating": 4.4,
-      "total_reviews": 2156,
-      "trust_score": 91.5,
-      "categories": [
-        "laser"
-      ],
-      "scraped_review_count": 60,
-      "local_guide_count": 14,
-      "avg_author_review_count": 26.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 36,
-        "other": 0
-      },
-      "service_mentions": {
-        "laser": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 9
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 6
-        },
-        {
-          "topic": "recommend",
-          "count": 4
-        },
-        {
-          "topic": "long_wait",
-          "count": 3
-        },
-        {
-          "topic": "professional",
-          "count": 2
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 44,
-          "avg": 4.16
-        },
-        "midterm": {
-          "count": 16,
-          "avg": 3.25
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "(Translated by Google) Using my social security benefits here is great, really great.\n\n(Original)\nUsing my social security benefits here is great, really great.",
-          "rating": 5,
-          "author": "PW"
-        },
-        {
-          "text": "The service was excellent. I'm so glad I transferred my social security insurance here. The patient rooms are clean and well-equipped. The doctor answered my questions clearly, and the nurses were always helpful when I needed to use the restroom or change clothes.",
-          "rating": 5,
-          "author": "Baitoey ThePandan"
-        },
-        {
-          "text": "I came in for my annual health checkup today and was very impressed. The nurses were very attentive, friendly, and helpful. They provided prompt service and were attentive to every step of the way. I felt safe and comfortable coming here for my checkup. Thank you so much to the entire team. 🩺 …",
-          "rating": 5,
-          "author": "Unchalee Mhoomak"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Hua+Chiew+Hospital/data=!4m7!3m6!1s0x30e2993bacb0f1bf:0x9fc32631cf4b0efd!8m2!3d13.7500823!4d100.5154121!16s%2Fg%2F1tpb8f7t!19sChIJv_GwrDuZ4jAR_Q5LzzEmw58?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29eb18003e231_0x627d0a895da6d152",
@@ -25405,85 +25405,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9B%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9C%E0%B8%A1+Hairsmith+Clinic/data=!4m7!3m6!1s0x30e29ee4eeaff63f:0xac5595ee994a98b8!8m2!3d13.7452475!4d100.5619624!16s%2Fg%2F11f15gkmmv!19sChIJP_av7uSe4jARuJhKme6VVaw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29923b6ca1663_0x11f3796a729a6336",
-      "place_id": "0x30e29923b6ca1663:0x11f3796a729a6336",
-      "name": "Phlapphla Chai Animal Hospital",
-      "name_lang": "en",
-      "primary_type": "Animal hospital",
-      "address": "\n498, Plubplachai Road, Khwaeng Pomprab Pomprab Pomprab, Khet Pomprab, Bangkok, 10100, 10100, Thailand",
-      "district": "",
-      "phone": "+66 2 623 2941",
-      "website": "",
-      "lat": 13.7450821,
-      "lng": 100.5108312,
-      "rating": 4.2,
-      "total_reviews": 62,
-      "trust_score": 77.0,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 28,
-      "avg_author_review_count": 58.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 21,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 3,
-          "avg": 3.67
-        },
-        "old": {
-          "count": 47,
-          "avg": 4.32
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor is effective; I've been to his clinic many times and recovered every time.",
-          "rating": 5,
-          "author": "Meii T"
-        },
-        {
-          "text": "The doctors who own the clinic, both male and female, provide excellent treatment, are kind, and give good advice. The nurses are also very helpful.",
-          "rating": 5,
-          "author": "ดวงกมล พุ่มรส"
-        },
-        {
-          "text": "Tactful and well cared pet clinic. The Vet is helpful and gave good advice though I paid for a small medicine item.",
-          "rating": 5,
-          "author": "jonathan foo"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Phlapphla+Chai+Animal+Hospital/data=!4m7!3m6!1s0x30e29923b6ca1663:0x11f3796a729a6336!8m2!3d13.7450821!4d100.5108312!16s%2Fg%2F11gdzm1dmf!19sChIJYxbKtiOZ4jARNmOacmp58xE?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f0fd4ecc173_0xbd9e4e8c15d8d83e",
       "place_id": "0x30e29f0fd4ecc173:0xbd9e4e8c15d8d83e",
       "name": "Avana 159 Clinic เอวาน่า 159 คลินิก",
@@ -36084,6 +36005,97 @@
       "maps_url": "https://www.google.com/maps/place/BRAC+Clinic/data=!4m7!3m6!1s0x30e29f2f1fc94a8f:0xba505e8c99e3dc7d!8m2!3d13.7404685!4d100.5495758!16s%2Fg%2F11vbg00_dg!19sChIJj0rJHy-f4jARfdzjmYxeULo?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2990813867e45_0xa76412effc5eb6f7",
+      "place_id": "0x30e2990813867e45:0xa76412effc5eb6f7",
+      "name": "Verita Neuro",
+      "name_lang": "en",
+      "primary_type": "Medical Center",
+      "address": "\nThongburi Bamrungmuang hospital, Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 84 162 7220",
+      "website": "https://veritaneuro.com/",
+      "lat": 13.7502634,
+      "lng": 100.5144139,
+      "rating": 4.8,
+      "total_reviews": 17,
+      "trust_score": 72.0,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 17,
+      "local_guide_count": 6,
+      "avg_author_review_count": 12.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 15,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 10
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 8,
+          "avg": 4.5
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I'm Marin and 3 and a half years ago I have cavernoma on my spinal cord that broke and leak on my spinal cord. It makes me more then 10 cm of presure on a spinal cord. After the surgury I can't move anything but my head. …",
+          "rating": 5,
+          "author": "Marin Ivezic"
+        },
+        {
+          "text": "The therapists are great! The nurses are also a bit clumsy sometimes, but that's the least important thing, a good experience.",
+          "rating": 5,
+          "author": "bruno babic"
+        },
+        {
+          "text": "Top quality treatment. The entire staff is extraordinarily kind, attentive and always with a wholehearted smile, replete with kind words and encouragement. Thank you for you help! …",
+          "rating": 5,
+          "author": "Robert R"
+        }
+      ],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Verita+Neuro/data=!4m7!3m6!1s0x30e2990813867e45:0xa76412effc5eb6f7!8m2!3d13.7502634!4d100.5144139!16s%2Fg%2F11rd2p3m3g!19sChIJRX6GEwiZ4jAR97Ze_O8SZKc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29c1b9437ad5b_0x652a19b3d53cbe2d",
       "place_id": "0x30e29c1b9437ad5b:0x652a19b3d53cbe2d",
       "name": "Prisma Clinic (Aqua Ari)",
@@ -42314,6 +42326,97 @@
       "maps_url": "https://www.google.com/maps/place/THE+KEITH+CLINIC+%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%84%E0%B8%B5%E0%B8%98%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e299ca453eda11:0xd02f30ef3239192f!8m2!3d13.7736213!4d100.5422205!16s%2Fg%2F11tdrksfjc!19sChIJEdo-RcqZ4jARLxk5Mu8wL9A?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2990037d3b193_0x1d2660fdeea9c885",
+      "place_id": "0x30e2990037d3b193:0x1d2660fdeea9c885",
+      "name": "Chance Wellness Clinic - 2nd Floor I'm Chinatown",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\nชั้น 2 ห้างแอมไชน่าทาวน์ 531 ถ. เจริญกรุง Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 97 193 9286",
+      "website": "https://www.instagram.com/chancewellnessclinic?igsh=NDR4cjE2c2c5aGMz&utm_source=qr",
+      "lat": 13.7415264,
+      "lng": 100.5111728,
+      "rating": 4.4,
+      "total_reviews": 20,
+      "trust_score": 68.0,
+      "categories": [
+        "botox",
+        "facial",
+        "filler"
+      ],
+      "scraped_review_count": 20,
+      "local_guide_count": 7,
+      "avg_author_review_count": 5.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 13,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 3,
+        "filler": 11,
+        "facial": 5
+      },
+      "mentioned_topics": [
+        {
+          "topic": "no_pain",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 12,
+          "avg": 4.0
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor is very understanding and attentive to the skin problems that the patient is seriously concerned about. He takes the time to perform the procedure meticulously. The clinic staff are healthy and friendly.",
+          "rating": 5,
+          "author": "aimeeaimmy"
+        },
+        {
+          "text": "The doctor has a gentle hand and gives very good advice. He solves the problem directly and addresses my concerns without pressure or sales. He also massages while applying anesthesia. The bed is also warm and relaxing. The clinic is very clean.",
+          "rating": 5,
+          "author": "kwansiri Raksapagdee"
+        },
+        {
+          "text": "My first lip injection here! It was amazing! 👍🏻👍🏻👍🏻\nIt didn't hurt as much as I thought it would. The doctor was very kind, analyzed my lip shape, and gave me advice without being pushy. The injections were …",
+          "rating": 5,
+          "author": "JIRAPHUN S."
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Chance+Wellness+Clinic+-+2nd+Floor+I%27m+Chinatown/data=!4m7!3m6!1s0x30e2990037d3b193:0x1d2660fdeea9c885!8m2!3d13.7415264!4d100.5111728!16s%2Fg%2F11lczxf_pc!19sChIJk7HTNwCZ4jARhcip7v1gJh0?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f52de550669_0x85b6558f81b81b6e",
       "place_id": "0x30e29f52de550669:0x85b6558f81b81b6e",
       "name": "SEOULYOU Clinic Asoke",
@@ -44155,6 +44258,113 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B8%94%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29ecce1ca39b7:0x7a4556536da1999e!8m2!3d13.7672766!4d100.5393852!16s%2Fg%2F1hc1_k7fh!19sChIJtznK4cye4jARnpmhbVNWRXo?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299f91041572b_0xeddd4c55fd4a64ba",
+      "place_id": "0x30e299f91041572b:0xeddd4c55fd4a64ba",
+      "name": "Bemika Clinic บีมิกะคลินิกเวชกรรม",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n144/7 Si Lom Rd, Suriya Wong, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 90 957 6715",
+      "website": "http://fb.me/bemikaclinic",
+      "lat": 13.7269965,
+      "lng": 100.5289236,
+      "rating": 5.0,
+      "total_reviews": 14,
+      "trust_score": 66.3,
+      "categories": [
+        "botox",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 14,
+      "local_guide_count": 1,
+      "avg_author_review_count": 3.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 2,
+        "facial": 3,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 11,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I’ve been coming to Bemika for 2 years and have been very happy with their services. The doctors here truly take the time to listen and provide thoughtful, reasonable consultations—without any pushy sales tactics. On top of that, their prices are very fair. Highly recommend!",
+          "rating": 5,
+          "author": "Nichcha Ekmaturapoj"
+        },
+        {
+          "text": "The doctor was very kind and gave excellent advice. The staff were also lovely and very friendly.",
+          "rating": 5,
+          "author": "Natnaree Chamniyan"
+        },
+        {
+          "text": "The service was excellent. Both the doctor and the nurses were very gentle. It was incredibly relaxing.",
+          "rating": 5,
+          "author": "Audchara Arbsuwan"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bemika+Clinic+%E0%B8%9A%E0%B8%B5%E0%B8%A1%E0%B8%B4%E0%B8%81%E0%B8%B0%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e299f91041572b:0xeddd4c55fd4a64ba!8m2!3d13.7269965!4d100.5289236!16s%2Fg%2F11j1l9db4s!19sChIJK1dBEPmZ4jARumRK_VVM3e0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2992372a89b11_0xf1655db02b63116b",
@@ -46449,6 +46659,52 @@
       "maps_url": "https://www.google.com/maps/place/Romrawin+Clinic+-+Central+World/data=!4m7!3m6!1s0x30e29f50e438b657:0xc39a2538181a13f4!8m2!3d13.7465565!4d100.5399241!16s%2Fg%2F11xr_s4gqh!19sChIJV7Y45FCf4jAR9BMaGDglmsM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29923b6ca1663_0x11f3796a729a6336",
+      "place_id": "0x30e29923b6ca1663:0x11f3796a729a6336",
+      "name": "Phlapphla Chai Animal Hospital",
+      "name_lang": "en",
+      "primary_type": "Animal hospital",
+      "address": "\n498, Plubplachai Road, Khwaeng Pomprab Pomprab Pomprab, Khet Pomprab, Bangkok, 10100, 10100, Thailand",
+      "district": "",
+      "phone": "+66 2 623 2941",
+      "website": "",
+      "lat": 13.7450821,
+      "lng": 100.5108312,
+      "rating": 4.2,
+      "total_reviews": 62,
+      "trust_score": 63.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Phlapphla+Chai+Animal+Hospital/data=!4m7!3m6!1s0x30e29923b6ca1663:0x11f3796a729a6336!8m2!3d13.7450821!4d100.5108312!16s%2Fg%2F11gdzm1dmf!19sChIJYxbKtiOZ4jARNmOacmp58xE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f24e2ec3081_0xd3a5335c6eafe437",
       "place_id": "0x30e29f24e2ec3081:0xd3a5335c6eafe437",
       "name": "Anissa Clinic อนิสสาคลินิก",
@@ -46998,52 +47254,6 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%9E%E0%B8%87%E0%B8%A8%E0%B9%8C%E0%B8%A8%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B4%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e29eb10a16a8b5:0xaaa5977c0123cf32!8m2!3d13.7657543!4d100.5368408!16s%2Fg%2F11b6dql52j!19sChIJtagWCrGe4jARMs8jAXyXpao?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2990813867e45_0xa76412effc5eb6f7",
-      "place_id": "0x30e2990813867e45:0xa76412effc5eb6f7",
-      "name": "Verita Neuro",
-      "name_lang": "en",
-      "primary_type": "Medical Center",
-      "address": "\nThongburi Bamrungmuang hospital, Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 84 162 7220",
-      "website": "https://veritaneuro.com/",
-      "lat": 13.7502634,
-      "lng": 100.5144139,
-      "rating": 4.8,
-      "total_reviews": 17,
-      "trust_score": 62.8,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Verita+Neuro/data=!4m7!3m6!1s0x30e2990813867e45:0xa76412effc5eb6f7!8m2!3d13.7502634!4d100.5144139!16s%2Fg%2F11rd2p3m3g!19sChIJRX6GEwiZ4jAR97Ze_O8SZKc?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fd1eccfe2e7_0xe4f25d7bb3a997be",
