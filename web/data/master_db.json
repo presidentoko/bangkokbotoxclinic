@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-05-05T23:31:25.553988+00:00",
-  "total_clinics": 761,
-  "with_district": 720,
-  "with_categories": 500,
-  "with_reviews_scraped": 523,
+  "generated_at": "2026-05-05T23:41:28.537285+00:00",
+  "total_clinics": 775,
+  "with_district": 732,
+  "with_categories": 511,
+  "with_reviews_scraped": 536,
   "language_total": {
     "th": 1,
-    "en": 17649,
-    "other": 47
+    "en": 18135,
+    "other": 49
   },
   "district_counts": {
     "Pathum Wan": 272,
     "Phaya Thai": 117,
     "Bang Rak": 95,
-    "Watthana": 61,
-    "Huai Khwang": 35,
-    "Khlong Toei": 33,
+    "Watthana": 65,
+    "Huai Khwang": 40,
+    "Khlong Toei": 35,
     "Sathon": 32,
     "Khlong San": 20,
     "Pom Prap Sattru Phai": 14,
     "Ratchathewi": 12,
     "Dusit": 10,
-    "Din Daeng": 8,
+    "Din Daeng": 9,
     "Samphanthawong": 5,
     "Yan Nawa": 3,
     "Phra Nakhon": 2,
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 308,
-    "laser": 222,
-    "botox": 149,
+    "facial": 318,
+    "laser": 228,
+    "botox": 154,
     "dental": 128,
-    "filler": 109,
-    "hifu": 104,
+    "filler": 113,
+    "hifu": 108,
     "hair_transplant": 15,
     "eye": 6
   },
@@ -439,6 +439,105 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/PULSE+Clinic+-+Silom/data=!4m7!3m6!1s0x30e29f2bf8065e27:0x735a32e18ce26c53!8m2!3d13.7288196!4d100.5346222!16s%2Fg%2F11cm0lfkl7!19sChIJJ14G-Cuf4jARU2zijOEyWnM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fe3d8ee1309_0xf773c24bb29c9d3f",
+      "place_id": "0x30e29fe3d8ee1309:0xf773c24bb29c9d3f",
+      "name": "Bangkok Physiotherapy Center (BPC Physio)",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n2nd Floor Boulevard Executive Residence 39 39-41 ซอย พร้อมจิตร Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 92 275 5090",
+      "website": "http://www.bpcphysio.com/",
+      "lat": 13.7376105,
+      "lng": 100.5700159,
+      "rating": 5.0,
+      "total_reviews": 694,
+      "trust_score": 93.1,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 60,
+      "local_guide_count": 20,
+      "avg_author_review_count": 14.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 57,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 26
+        },
+        {
+          "topic": "professional",
+          "count": 21
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 13
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 2
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 22,
+          "avg": 4.64
+        },
+        "midterm": {
+          "count": 38,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "All the staff were lovely, and the doctor and physiotherapist gave very helpful and precise advice. I was very impressed! 😆 …",
+          "rating": 5,
+          "author": "พ"
+        },
+        {
+          "text": "Treat office syndrome, neck, shoulder, and back pain, and chronic injuries with techniques and physiotherapy provided by expert physiotherapists. Most clinics emphasize individual assessments and provide practical advice that can be applied at home.",
+          "rating": 5,
+          "author": "wratchaya ngamsom"
+        },
+        {
+          "text": "I want to share my experience with Gam because she has truly been key in my recovery. …",
+          "rating": 5,
+          "author": "Diego Nava"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Physiotherapy+Center+%28BPC+Physio%29/data=!4m7!3m6!1s0x30e29fe3d8ee1309:0xf773c24bb29c9d3f!8m2!3d13.7376105!4d100.5700159!16s%2Fg%2F11pwwtpn3h!19sChIJCRPu2OOf4jARP52cskvCc_c?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29eb0e46114c7_0x13fb7d556873c570",
@@ -3016,6 +3115,93 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Smile+Signature+Siam+Square+Dental+Clinic/data=!4m7!3m6!1s0x30e29ed2bcea3789:0xd4e225517ed3d12a!8m2!3d13.7444534!4d100.5311584!16s%2Fg%2F11_s0x3y0!19sChIJiTfqvNKe4jARKtHTflEl4tQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f02d1e2e4ef_0xe9a42eb4b9a7fec0",
+      "place_id": "0x30e29f02d1e2e4ef:0xe9a42eb4b9a7fec0",
+      "name": "Form Recovery @ Asoke",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n4th Floor, Unit 401 Mille Malle, 66/4 Sukhumvit 20 Alley, Khwaeng Khlong Toei, Khet Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 63 471 5557",
+      "website": "https://formrecovery.com/",
+      "lat": 13.730079,
+      "lng": 100.563572,
+      "rating": 4.9,
+      "total_reviews": 399,
+      "trust_score": 89.1,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 16,
+      "avg_author_review_count": 17.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 45,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 19
+        },
+        {
+          "topic": "recommend",
+          "count": 16
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 15,
+          "avg": 4.93
+        },
+        "midterm": {
+          "count": 35,
+          "avg": 4.89
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dr Pee is excellent doctor.  He help my friend release the back pain.  Thank you very much. We will come again",
+          "rating": 5,
+          "author": "Angela Tam"
+        },
+        {
+          "text": "Had some tightness in my calves and IT band after training, so I decided to get it checked.\n\nFeeling much better after the session, and also got some useful stretches to keep doing on my own.\n\nThanks to K.Folk / K.Aun for the help really professional and helpful.",
+          "rating": 5,
+          "author": "Kunchai Sodhom"
+        },
+        {
+          "text": "Class recovery center. Team saw me first thing in the morning short notice Helped get me in shape to play a tournament the following morning. Highly recommend",
+          "rating": 5,
+          "author": "luis aloma"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Form+Recovery+@+Asoke/data=!4m7!3m6!1s0x30e29f02d1e2e4ef:0xe9a42eb4b9a7fec0!8m2!3d13.730079!4d100.563572!16s%2Fg%2F11dxf05v8d!19sChIJ7-Ti0QKf4jARwP6nubQupOk?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f07d066b57b_0x3f9279483b385310",
@@ -13240,6 +13426,99 @@
       "maps_url": "https://www.google.com/maps/place/Issavee+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x30e2999c93d404f9:0x51cf2c5ebbdf4f4!8m2!3d13.7456046!4d100.5242815!16s%2Fg%2F11q2vyprx9!19sChIJ-QTUk5yZ4jAR9PS968XyHAU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f93835ba767_0xdc00c6a7c6146cc3",
+      "place_id": "0x30e29f93835ba767:0xdc00c6a7c6146cc3",
+      "name": "APEX Clinic - Emporium (เอเพ็กซ์ สาขาเอ็มโพเรียม ชั้น B1)",
+      "name_lang": "th",
+      "primary_type": "Laser hair removal service",
+      "address": "\nศูนย์การค้าเอ็มโพเรียม ห้องB1F07 ชั้น B1 เลขที่ 622 Sukhumvit 24 Alley, Khwaeng Khlong Tan, Khet Khlong Toei, Krung Thep Maha Nakhon 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 94 530 9009",
+      "website": "https://www.apexprofoundbeauty.com/",
+      "lat": 13.7304455,
+      "lng": 100.5688431,
+      "rating": 4.9,
+      "total_reviews": 241,
+      "trust_score": 82.7,
+      "categories": [
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 8,
+      "avg_author_review_count": 9.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1,
+        "laser": 25
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 14
+        },
+        {
+          "topic": "clean_facility",
+          "count": 10
+        },
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "no_pain",
+          "count": 5
+        },
+        {
+          "topic": "professional",
+          "count": 3
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 18,
+          "avg": 4.78
+        },
+        "midterm": {
+          "count": 32,
+          "avg": 4.81
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Today I tried Pico laser tone and I loved it! It wasn't painful at all. All the staff were very helpful and the doctor gave excellent advice.",
+          "rating": 5,
+          "author": "Vianna Vianna"
+        },
+        {
+          "text": "Today I came to this branch for underarm laser hair removal. I'm very impressed and I really like it; it wasn't painful at all. All the staff were very nice. I'll definitely be coming back again. 🫶🏻 …",
+          "rating": 5,
+          "author": "Aaaem"
+        },
+        {
+          "text": "This is my second week using the weight loss pen service, and I've already lost two kilos in just one week! The results are amazing! The staff are incredibly helpful and provide great advice. The doctor is very gentle and also beautiful! I'll update you again next week. ❤❤❤",
+          "rating": 5,
+          "author": "นพมาศ หงษ์น้อย"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/APEX+Clinic+-+Emporium+%28%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%9E%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B9%82%E0%B8%9E%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+B1%29/data=!4m7!3m6!1s0x30e29f93835ba767:0xdc00c6a7c6146cc3!8m2!3d13.7304455!4d100.5688431!16s%2Fg%2F11k3h1czy8!19sChIJZ6dbg5Of4jARw2wUxqfGANw?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f8770b1387f_0x1650970a7e7d737b",
       "place_id": "0x30e29f8770b1387f:0x1650970a7e7d737b",
       "name": "Smile Center Dental Clinic (Mahatun Plaza)",
@@ -14547,6 +14826,105 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Honest+Clinic/data=!4m7!3m6!1s0x30e298d980137023:0x172662e7469793f3!8m2!3d13.7330874!4d100.5250727!16s%2Fg%2F11c2lcvx5w!19sChIJI3ATgNmY4jAR85OXRudiJhc?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f6535da0437_0x1bdb89b5606b42ee",
+      "place_id": "0x30e29f6535da0437:0x1bdb89b5606b42ee",
+      "name": "KKC Clinic Emporium",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nFloor B1, Emporium 622 Sukhumvit Rd, Khlong Tan, Bangkok 10110, Thailand",
+      "district": "",
+      "phone": "+66 2 664 9158",
+      "website": "https://kkcclinic.com/en/locations/emporium/",
+      "lat": 13.729934,
+      "lng": 100.5690231,
+      "rating": 4.9,
+      "total_reviews": 206,
+      "trust_score": 82.3,
+      "categories": [
+        "botox",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 9,
+      "avg_author_review_count": 8.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 48,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 6,
+        "facial": 10,
+        "laser": 7
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 15
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 12
+        },
+        {
+          "topic": "professional",
+          "count": 11
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 6
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 3
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 13,
+          "avg": 4.85
+        },
+        "midterm": {
+          "count": 37,
+          "avg": 4.97
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I had my masseter botoxed. I was a bit anxious but they calmed me down so well! Were also very cooperative and good company :).",
+          "rating": 5,
+          "author": "natalie p."
+        },
+        {
+          "text": "Great service, i did a co2 laser resurfacing.\nOre, the consultant was very kind and attentive. Thank you.",
+          "rating": 5,
+          "author": "Muriel Larrondo"
+        },
+        {
+          "text": "Had a great experience, Zee was very helpful and took time to give us a great consultation. Saw instant results after the procedure. Very happy with the results.",
+          "rating": 5,
+          "author": "Dolka D"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/KKC+Clinic+Emporium/data=!4m7!3m6!1s0x30e29f6535da0437:0x1bdb89b5606b42ee!8m2!3d13.729934!4d100.5690231!16s%2Fg%2F11fjzf5nh1!19sChIJNwTaNWWf4jAR7kJrYLWJ2xs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2995298bfabe1_0x39e8286126b0211e",
@@ -19827,6 +20205,117 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%8B+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%87%E0%B8%B2%E0%B8%A1%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A2%E0%B8%81%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B1%E0%B8%9A+-+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C+%28Central+World%29/data=!4m7!3m6!1s0x30e29ed2cb8b25cd:0x7941f22450e86463!8m2!3d13.7459047!4d100.5396107!16s%2Fg%2F1ptwx_lbg!19sChIJzSWLy9Ke4jARY2ToUCTyQXk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29e9d99d41ac9_0x3812e90ba91dc54e",
+      "place_id": "0x30e29e9d99d41ac9:0x3812e90ba91dc54e",
+      "name": "รักษ์ชนก คลินิก",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\nHokankha Alley, Din Daeng, Bangkok 10400, Thailand",
+      "district": "Din Daeng",
+      "phone": "+66 2 692 1605",
+      "website": "",
+      "lat": 13.7778916,
+      "lng": 100.5598699,
+      "rating": 5.0,
+      "total_reviews": 176,
+      "trust_score": 80.3,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu",
+        "laser"
+      ],
+      "scraped_review_count": 74,
+      "local_guide_count": 5,
+      "avg_author_review_count": 10.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 73,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 28,
+        "filler": 15,
+        "hifu": 1,
+        "facial": 5,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 19
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 11
+        },
+        {
+          "topic": "expensive",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "no_pain",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 26,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 47,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I've been treating my acne at Rakchanok Clinic for about 5 years now. I always come here to get my pimples squeezed. The doctor and staff at the clinic are very nice. They don't push hard and give good advice. The doctor's hands are very gentle when injecting. 👍🏼👍🏼👏🏻 …",
+          "rating": 5,
+          "author": "Junior JP"
+        },
+        {
+          "text": "We went here for acne treatment and our acne has improved a lot. The clinic is clean and the staff are friendly.",
+          "rating": 5,
+          "author": "Khemigar KJ"
+        },
+        {
+          "text": "I came to consult with the doctor and get my pimples popped. The doctor gave me good advice and after the first time I popped my pimples and applied medication, my face improved a lot.",
+          "rating": 5,
+          "author": "Nansita Nuchanong"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C%E0%B8%8A%E0%B8%99%E0%B8%81+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29e9d99d41ac9:0x3812e90ba91dc54e!8m2!3d13.7778916!4d100.5598699!16s%2Fg%2F1q2wlmxcw!19sChIJyRrUmZ2e4jARTsUdqQvpEjg?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f780a29afa1_0xb24bd93aa2cb1d5e",
       "place_id": "0x30e29f780a29afa1:0xb24bd93aa2cb1d5e",
       "name": "Mindjourneyclinic",
@@ -23233,6 +23722,52 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lumpini+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e29f638af3a6c3:0x528278b91a6cb5af!8m2!3d13.7243581!4d100.5486121!16s%2Fg%2F11vl943rq6!19sChIJw6bzimOf4jARr7VsGrl4glI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f93f8612403_0x43ade7c7c1558349",
+      "place_id": "0x30e29f93f8612403:0x43ade7c7c1558349",
+      "name": "Yoo En Care พระราม9",
+      "name_lang": "th",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n100/123 อาคารวรสมบัติ พลาซ่า Rama IX Rd, Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 83 992 2242",
+      "website": "http://www.yooencare.com/",
+      "lat": 13.7551896,
+      "lng": 100.5725528,
+      "rating": 5.0,
+      "total_reviews": 279,
+      "trust_score": 79.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Yoo+En+Care+%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A19/data=!4m7!3m6!1s0x30e29f93f8612403:0x43ade7c7c1558349!8m2!3d13.7551896!4d100.5725528!16s%2Fg%2F11t3660j_z!19sChIJAyRh-JOf4jARSYNVwcfnrUM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2995ef841b9e5_0x8304258722545bc8",
@@ -27844,6 +28379,105 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Laliza+Clinic+%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B8%A9%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+9/data=!4m7!3m6!1s0x30e29f5c0f521e9b:0xd48ef25437daeb36!8m2!3d13.7585047!4d100.5660244!16s%2Fg%2F11w8gl7_b6!19sChIJmx5SD1yf4jARNuvaN1TyjtQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29efd7960ef0d_0xca637b03d391c101",
+      "place_id": "0x30e29efd7960ef0d:0xca637b03d391c101",
+      "name": "Pimtara Estetica Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nRSU Tower 2nd Floor, 571 RSU 31 Sukhumvit Rd, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 81 359 9095",
+      "website": "https://www.facebook.com/PimtaraEstetica",
+      "lat": 13.733321,
+      "lng": 100.5663272,
+      "rating": 4.9,
+      "total_reviews": 105,
+      "trust_score": 77.6,
+      "categories": [
+        "botox",
+        "facial",
+        "hifu"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 7,
+      "avg_author_review_count": 6.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 33,
+        "other": 1
+      },
+      "service_mentions": {
+        "botox": 1,
+        "hifu": 8,
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "professional",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 12,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 38,
+          "avg": 4.89
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Great treatment, great doctor.. thank you Dr. Jan Pichaya for special treatment.  Nice ambience and hygiene clinic",
+          "rating": 5,
+          "author": "CT Tan"
+        },
+        {
+          "text": "I had Ulthera and Botox treatments with Dr. Jan. The doctor and nurses took excellent care of me.",
+          "rating": 5,
+          "author": "Win Sip"
+        },
+        {
+          "text": "I came for Ulthera Prime treatment. Dr. Jan is very lovely, attentive, caring, and dedicated to doing a great job.",
+          "rating": 5,
+          "author": "Patcharawan Yuckpan"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pimtara+Estetica+Clinic/data=!4m7!3m6!1s0x30e29efd7960ef0d:0xca637b03d391c101!8m2!3d13.733321!4d100.5663272!16s%2Fg%2F1pzv81d9s!19sChIJDe9gef2e4jARAcGR0wN7Y8o?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29edc5428c6a5_0xe498e020917054a7",
@@ -37579,6 +38213,109 @@
       "maps_url": "https://www.google.com/maps/place/Asoke+dental+clinic/data=!4m7!3m6!1s0x30e29f65771fccff:0xaef1f6ee258e2f4d!8m2!3d13.7453099!4d100.5631038!16s%2Fg%2F11t4wp28jq!19sChIJ_8wfd2Wf4jARTS-OJe728a4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f2efb3c3ff5_0xc8d174a49bfcf373",
+      "place_id": "0x30e29f2efb3c3ff5:0xc8d174a49bfcf373",
+      "name": "MICHIKO Clinic (Emsphere Branch) มิชิโกะคลินิก สาขาเอ็มสเฟียร์",
+      "name_lang": "th",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\nชั้น 7 ตึก EM TOWER 628, 630 ศูนย์การค้าเอ็มสเฟียร์ Sukhumvit Rd, Bangkok 10110, Thailand",
+      "district": "",
+      "phone": "+66 95 461 5442",
+      "website": "https://michikoclinic.com/",
+      "lat": 13.7322394,
+      "lng": 100.5662812,
+      "rating": 4.9,
+      "total_reviews": 36,
+      "trust_score": 73.8,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu",
+        "laser"
+      ],
+      "scraped_review_count": 36,
+      "local_guide_count": 8,
+      "avg_author_review_count": 6.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 36,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 10,
+        "filler": 16,
+        "hifu": 2,
+        "facial": 2,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 10
+        },
+        {
+          "topic": "professional",
+          "count": 7
+        },
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 8,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 12,
+          "avg": 4.83
+        },
+        "old": {
+          "count": 16,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Had the Momo moisturizing facial here and really enjoyed the experience. The clinic is clean, the staff are friendly and professional, and my skin felt genuinely soft and hydrated after. ✨ ✨😍😍😍 …",
+          "rating": 5,
+          "author": "Philippine Delay"
+        },
+        {
+          "text": "Dr Gift has very steady hands. I did Sculptra and other fillers she’s professional and nice. Hope come here to maintain in the future.",
+          "rating": 5,
+          "author": "Zhang Christina"
+        },
+        {
+          "text": "I saw Dr. Gif again today. She provided excellent care, diagnosing and addressing the specific problems accurately.",
+          "rating": 5,
+          "author": "Thararat Leelasinlapagul"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/MICHIKO+Clinic+%28Emsphere+Branch%29+%E0%B8%A1%E0%B8%B4%E0%B8%8A%E0%B8%B4%E0%B9%82%E0%B8%81%E0%B8%B0%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%AA%E0%B9%80%E0%B8%9F%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e29f2efb3c3ff5:0xc8d174a49bfcf373!8m2!3d13.7322394!4d100.5662812!16s%2Fg%2F11ltzw_936!19sChIJ9T88-y6f4jARc_P8m6R00cg?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ed2ab843c71_0x9bf7fe4cd7e27fa",
       "place_id": "0x30e29ed2ab843c71:0x9bf7fe4cd7e27fa",
       "name": "Jewelry Clinic",
@@ -38648,6 +39385,107 @@
       "maps_url": "https://www.google.com/maps/place/Craft+clinic+%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%9F+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+BTS%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97/data=!4m7!3m6!1s0x30e29f19e942466f:0x799fe87c593477ab!8m2!3d13.7572891!4d100.5335933!16s%2Fg%2F11w34fx4mp!19sChIJb0ZC6Rmf4jARq3c0WXzon3k?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fd55eb7a801_0xba824e825ba9a697",
+      "place_id": "0x30e29fd55eb7a801:0xba824e825ba9a697",
+      "name": "Sher Clinic",
+      "name_lang": "en",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\n21, 131 Soi Phetchaburi 47, Bang Kapi, Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 2 641 4241",
+      "website": "",
+      "lat": 13.7500801,
+      "lng": 100.5767116,
+      "rating": 4.6,
+      "total_reviews": 65,
+      "trust_score": 73.2,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu"
+      ],
+      "scraped_review_count": 62,
+      "local_guide_count": 12,
+      "avg_author_review_count": 6.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 60,
+        "other": 1
+      },
+      "service_mentions": {
+        "botox": 4,
+        "filler": 27,
+        "hifu": 3,
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 13
+        },
+        {
+          "topic": "recommend",
+          "count": 9
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 5
+        },
+        {
+          "topic": "long_wait",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 3.5
+        },
+        "midterm": {
+          "count": 8,
+          "avg": 3.62
+        },
+        "old": {
+          "count": 52,
+          "avg": 4.81
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "My first experience in Thailand with lip injections.\nI had 1 ml of lip filler injected at Sher Clinic.\nCouldn’t recommend the team more! I was very anxious in regards to needles and all the nurses / doctors comforted me and was very supportive!\nThe service is amazing and staff so friendly.",
+          "rating": 5,
+          "author": "Caitlin Mallam"
+        },
+        {
+          "text": "Today I got an Ultraformer and Botox injection. The doctor was so lovely, attentive, and always chatting with me. My face is so tight right now, haha. I'm definitely going to be one of my regular clinics. 🥰 …",
+          "rating": 5,
+          "author": "TAKiRA production"
+        },
+        {
+          "text": "The before and after pictures are completely different! So beautiful! The doctor followed the lip reference picture exactly. My under-eyes look so much brighter now, unlike when I looked like I hadn't slept.",
+          "rating": 5,
+          "author": "Siri Ph"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Sher+Clinic/data=!4m7!3m6!1s0x30e29fd55eb7a801:0xba824e825ba9a697!8m2!3d13.7500801!4d100.5767116!16s%2Fg%2F11vkrhx203!19sChIJAai3XtWf4jARl6apW4JOgro?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f1d08d55585_0x6ace3a8ea0232ae7",
       "place_id": "0x30e29f1d08d55585:0x6ace3a8ea0232ae7",
       "name": "16 Dental White Clinic",
@@ -39165,6 +40003,90 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Veterinary+Clinic/data=!4m7!3m6!1s0x30e29ebbcde853d3:0x9fb3a046abe4dedc!8m2!3d13.763451!4d100.543973!16s%2Fg%2F1hdz1r5fw!19sChIJ01Pozbue4jAR3N7kq0ags58?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29e58d4b35165_0x5e9541b66bd4a262",
+      "place_id": "0x30e29e58d4b35165:0x5e9541b66bd4a262",
+      "name": "Idol Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n21/131 อาคารรอยัลซิตี้อเวนิว Soi Phetchaburi 47, Bang Kapi, Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 2 641 4241",
+      "website": "",
+      "lat": 13.7501603,
+      "lng": 100.5767113,
+      "rating": 4.6,
+      "total_reviews": 126,
+      "trust_score": 73.0,
+      "categories": [
+        "facial",
+        "filler"
+      ],
+      "scraped_review_count": 30,
+      "local_guide_count": 1,
+      "avg_author_review_count": 3.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 29,
+        "other": 0
+      },
+      "service_mentions": {
+        "filler": 19
+      },
+      "mentioned_topics": [
+        {
+          "topic": "results_satisfied",
+          "count": 6
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "old": {
+          "count": 29,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I came to get lip fillers. I saw reviews on Facebook and the doctor's injections were amazing.",
+          "rating": 5,
+          "author": "Tidakaew Jullabus"
+        },
+        {
+          "text": "I came here to get my lips done. I saw reviews on Facebook, and the injection looks so beautiful and natural. 🥰 …",
+          "rating": 5,
+          "author": "Boontita gam"
+        },
+        {
+          "text": "I came to get my lips filled. I didn't have to wait long. The doctor did a very beautiful job.",
+          "rating": 5,
+          "author": "ภิรัญญา มณีรัตน์"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Idol+Clinic/data=!4m7!3m6!1s0x30e29e58d4b35165:0x5e9541b66bd4a262!8m2!3d13.7501603!4d100.5767113!16s%2Fg%2F1pv608fbd!19sChIJZVGz1Fie4jARYqLUa7ZBlV4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f0f6b798ba1_0xf7edb157e641d818",
@@ -42379,6 +43301,85 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Verita+Neuro/data=!4m7!3m6!1s0x30e2990813867e45:0xa76412effc5eb6f7!8m2!3d13.7502634!4d100.5144139!16s%2Fg%2F11rd2p3m3g!19sChIJRX6GEwiZ4jAR97Ze_O8SZKc?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x848b504b81e566cf_0xe23cf2f61c56ed2b",
+      "place_id": "0x848b504b81e566cf:0xe23cf2f61c56ed2b",
+      "name": "LymphFlow @ YU Know Polyclinic , Rama 9",
+      "name_lang": "en",
+      "primary_type": "Specialized clinic",
+      "address": "\n102 บางกะปิ Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 61 335 6551",
+      "website": "https://shorturl.asia/Axfdb",
+      "lat": 13.7506441,
+      "lng": 100.5747381,
+      "rating": 5.0,
+      "total_reviews": 11,
+      "trust_score": 72.0,
+      "categories": [],
+      "scraped_review_count": 11,
+      "local_guide_count": 4,
+      "avg_author_review_count": 13.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 9,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 11,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Amazing! Worth every penny!! Peng / Ping (so sorry if i got the name wrong), was absolutely fantastic! 10/10",
+          "rating": 5,
+          "author": "Ava May"
+        },
+        {
+          "text": "I prepared for my jaw surgery with pre-op Manual lymphatic drainage, which really helped reduce swelling and bruising after the procedure. I continued with post-op care, and my recovery was impressively fast.",
+          "rating": 5,
+          "author": "Ploy P_diamond"
+        },
+        {
+          "text": "The lymphatic drainage massage technique here is excellent; it helps to remove waste and reduce water retention effectively.",
+          "rating": 5,
+          "author": "janny jeab"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/LymphFlow+@+YU+Know+Polyclinic+,+Rama+9/data=!4m7!3m6!1s0x848b504b81e566cf:0xe23cf2f61c56ed2b!8m2!3d13.7506441!4d100.5747381!16s%2Fg%2F11z0hnt20m!19sChIJz2blgUtQi4QRK-1WHPbyPOI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299ab65adf521_0x22ba2f559714b848",
@@ -45819,6 +46820,81 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7+%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%AA%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%8A%E0%B8%B1%E0%B8%A2%E0%B8%AF/data=!4m7!3m6!1s0x30e29eb095c69ae9:0x3fb25f702bec60f!8m2!3d13.7645764!4d100.5397007!16s%2Fg%2F11cjp7s8lp!19sChIJ6ZrGlbCe4jARD8a-Avcl-wM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fc0cd54d893_0x1f220987785ab439",
+      "place_id": "0x30e29fc0cd54d893:0x1f220987785ab439",
+      "name": "OrientGlow Clinic โอเรียนต์โกลว์ คลีนิก",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n40 Thong Lo 23 Alley, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 001 3088",
+      "website": "https://www.instagram.com/orientglow.clinic",
+      "lat": 13.7388699,
+      "lng": 100.5802523,
+      "rating": 5.0,
+      "total_reviews": 15,
+      "trust_score": 70.1,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 10.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 7,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The service attitude is very good, the staff are very enthusiastic, the price is affordable, and there are fruit snacks",
+          "rating": 5,
+          "author": "xiaxia xue"
+        },
+        {
+          "text": "I was very impressed. The doctor gave great advice and was very attentive. The staff also provided excellent care.",
+          "rating": 5,
+          "author": "Sudarat Trisdikoon"
+        },
+        {
+          "text": "Yes, I came for treatment of my melasma. My melasma is starting to fade. I like how the staff are all so nice and helpful. And today I had a facial treatment. I feel like my skin is brighter after just the first time. I really like it!",
+          "rating": 5,
+          "author": "Vanisara Chonlakan"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/OrientGlow+Clinic+%E0%B9%82%E0%B8%AD%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B9%82%E0%B8%81%E0%B8%A5%E0%B8%A7%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29fc0cd54d893:0x1f220987785ab439!8m2!3d13.7388699!4d100.5802523!16s%2Fg%2F11stszrgm1!19sChIJk9hUzcCf4jARObRaeIcJIh8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fa08c614af3_0x422a2d2abb73770c",
@@ -54485,6 +55561,75 @@
       "maps_url": "https://www.google.com/maps/place/MLC+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+Silom/data=!4m7!3m6!1s0x30e29f8423da0da5:0x25053a4eb248aa52!8m2!3d13.7281939!4d100.5328575!16s%2Fg%2F11sn2plw2q!19sChIJpQ3aI4Sf4jARUqpIsk46BSU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fb5f6470c21_0x6fae429aaa8aaaba",
+      "place_id": "0x30e29fb5f6470c21:0x6fae429aaa8aaaba",
+      "name": "Adore clinic สาขา พระราม9",
+      "name_lang": "th",
+      "primary_type": "Beauty salon",
+      "address": "\nเซ็นทรัลพระราม 9 (ชั้น 3 9/9 Rama IX Rd, Khwaeng Huai Khwang, Huai Khwang, Bangkok 10320, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 2 023 0741",
+      "website": "https://adore-clinic.com/",
+      "lat": 13.7590152,
+      "lng": 100.5663121,
+      "rating": 4.3,
+      "total_reviews": 20,
+      "trust_score": 63.8,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 4.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "midterm": {
+          "count": 9,
+          "avg": 3.89
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The staff provided excellent service. After the treatment, my skin feels brighter and my dark spots have faded. 🥰 …",
+          "rating": 5,
+          "author": "วิภา ้เหมรา"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Adore+clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A19/data=!4m7!3m6!1s0x30e29fb5f6470c21:0x6fae429aaa8aaaba!8m2!3d13.7590152!4d100.5663121!16s%2Fg%2F11xfqjt29c!19sChIJIQxH9rWf4jARuqqKqppCrm8?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fb85b1801d7_0x36030ae2d8d7baf6",
       "place_id": "0x30e29fb85b1801d7:0x36030ae2d8d7baf6",
       "name": "Fastcal Clinic",
@@ -57468,6 +58613,99 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Breeze+Smile+Dental+Clinic+at+Nana,+Bangkok/data=!4m7!3m6!1s0x30e29f795c67107b:0x5c1b93e5495a647d!8m2!3d13.7423627!4d100.5531904!16s%2Fg%2F11wqdpq819!19sChIJexBnXHmf4jARfWRaSeWTG1w?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f128da76369_0xa376292e2edd4d23",
+      "place_id": "0x30e29f128da76369:0xa376292e2edd4d23",
+      "name": "Doctorlife Clinic The EmQuartier (ดอกเตอร์ไลฟ์ ดิ เอ็มควอเทียร์ ชั้น 4)",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\nดิ เอ็มควอเทียร์ เลขที่ 693 ห้องเลขที่ 4 เอ 12 ชั้น 4, Sukhumvit Rd, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 003 6196",
+      "website": "https://www.doctorlifeclinic.com/",
+      "lat": 13.7315458,
+      "lng": 100.5693758,
+      "rating": 3.1,
+      "total_reviews": 43,
+      "trust_score": 57.1,
+      "categories": [
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 43,
+      "local_guide_count": 9,
+      "avg_author_review_count": 14.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 38,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 8,
+        "laser": 7
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "promotion",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 2.0
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 1.0
+        },
+        "old": {
+          "count": 40,
+          "avg": 3.25
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "If you want to achieve your desired beauty, I highly recommend this place. The doctor provides personalized advice on your problems, and the facial treatments are very relaxing, with no staff members disturbing you in the room.",
+          "rating": 5,
+          "author": "Siratsawadee “Zaza”"
+        },
+        {
+          "text": "The service was excellent. The doctors, nurses, and sales staff were all very attentive. I've been a customer here for over 6 years. :)",
+          "rating": 5,
+          "author": "Gatuk S. Chattanon (Sudarat Chattanon)"
+        },
+        {
+          "text": "Today I came to get a treatment at the branch. The receptionist took very good care of me. I got a facial treatment that made my face bright. The staff were smiling and friendly. The consultant also gave me good advice. I felt very impressed.",
+          "rating": 5,
+          "author": "kararikk Thanaporn"
+        }
+      ],
+      "business_status": "Temporarily closed",
+      "maps_url": "https://www.google.com/maps/place/Doctorlife+Clinic+The+EmQuartier+%28%E0%B8%94%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%84%E0%B8%A5%E0%B8%9F%E0%B9%8C+%E0%B8%94%E0%B8%B4+%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+4%29/data=!4m7!3m6!1s0x30e29f128da76369:0xa376292e2edd4d23!8m2!3d13.7315458!4d100.5693758!16s%2Fg%2F11s40g0j52!19sChIJaWOnjRKf4jARI03dLi4pdqM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299cb54fff061_0x219b48087660cb07",
