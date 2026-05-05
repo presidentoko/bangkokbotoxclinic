@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-05-05T22:51:15.231417+00:00",
-  "total_clinics": 723,
-  "with_district": 684,
-  "with_categories": 480,
-  "with_reviews_scraped": 497,
+  "generated_at": "2026-05-05T23:01:16.411962+00:00",
+  "total_clinics": 725,
+  "with_district": 686,
+  "with_categories": 481,
+  "with_reviews_scraped": 499,
   "language_total": {
     "th": 1,
-    "en": 16919,
-    "other": 44
+    "en": 16957,
+    "other": 45
   },
   "district_counts": {
     "Pathum Wan": 272,
-    "Phaya Thai": 111,
+    "Phaya Thai": 112,
     "Bang Rak": 93,
     "Watthana": 61,
     "Huai Khwang": 35,
@@ -23,12 +23,13 @@
     "Din Daeng": 8,
     "Dusit": 8,
     "Samphanthawong": 5,
-    "Phra Nakhon": 2
+    "Phra Nakhon": 2,
+    "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 297,
+    "facial": 298,
     "laser": 216,
-    "botox": 145,
+    "botox": 146,
     "dental": 119,
     "filler": 109,
     "hifu": 103,
@@ -11763,6 +11764,107 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/SMILE+%26+CO.+dental+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1/data=!4m7!3m6!1s0x30e29eb5e4b8deef:0x7ed6f4b8a49d3e5a!8m2!3d13.758154!4d100.534899!16s%2Fg%2F11d_tmmk4w!19sChIJ79645LWe4jARWj6dpLj01n4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29c1da8f3a57d_0x91717bf6ab50790d",
+      "place_id": "0x30e29c1da8f3a57d:0x91717bf6ab50790d",
+      "name": "Pruksa Clinic Ari Branch",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\nคอนโดยสวดี ชั้น, 34, 1 Phahon Yothin 7, Samsen Nai, Phaya Thai, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 86 342 2330",
+      "website": "",
+      "lat": 13.781986,
+      "lng": 100.5438789,
+      "rating": 4.9,
+      "total_reviews": 314,
+      "trust_score": 83.2,
+      "categories": [
+        "botox",
+        "facial"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 7,
+      "avg_author_review_count": 5.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 30,
+        "other": 1
+      },
+      "service_mentions": {
+        "botox": 1,
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 36,
+          "avg": 4.89
+        },
+        "midterm": {
+          "count": 14,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Amazing experience ! The doctor was professional, took time to assess my skin, and recommended the right treatment without overselling. The staff was friendly, and everything was clean and well organized. Highly recommend.",
+          "rating": 5,
+          "author": "Carl Zattara"
+        },
+        {
+          "text": "Convenient location, fast service with no long waits, and the staff who extracted my pimples were very gentle.",
+          "rating": 5,
+          "author": "Piyarat Chunhaswasdikul"
+        },
+        {
+          "text": "Good service. I liked the moisturizing treatment; it brightened my skin.\nThere is parking available.",
+          "rating": 5,
+          "author": "Bonie Pcn"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pruksa+Clinic+Ari+Branch/data=!4m7!3m6!1s0x30e29c1da8f3a57d:0x91717bf6ab50790d!8m2!3d13.781986!4d100.5438789!16s%2Fg%2F1v8g8gnf!19sChIJfaXzqB2c4jARDXlQq_Z7cZE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f573f435a11_0x8fd8d581c3e1c842",
@@ -32112,6 +32214,81 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Pavicon+Hair+Center/data=!4m7!3m6!1s0x30e299097e3d1353:0x1fb72e37217acd6a!8m2!3d13.7311202!4d100.5282805!16s%2Fg%2F11s5l_39vm!19sChIJUxM9fgmZ4jARas16ITcutx8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f6cb979cbd5_0xf268f331ca1b4c1d",
+      "place_id": "0x30e29f6cb979cbd5:0xf268f331ca1b4c1d",
+      "name": "คลินิกผู้มีบุตรยาก Prime Fertility Center กรุงเทพมหานคร ผ่านการรับรองมาตรฐาน JCI และ ISO",
+      "name_lang": "th",
+      "primary_type": "Fertility clinic",
+      "address": "\n1177 อาคารเพิร์ล แบงก์ค็อก ชั้นที่ 22 Phahonyothin Rd, ตำบล/แขวง พญาไท Bangkok 10400, Thailand",
+      "district": "Chatuchak",
+      "phone": "+66 62 648 6688",
+      "website": "https://www.primefertilitycenter.com/",
+      "lat": 13.777957,
+      "lng": 100.543591,
+      "rating": 5.0,
+      "total_reviews": 40,
+      "trust_score": 75.6,
+      "categories": [],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 15.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 8,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor, nurses, and all the staff were wonderful. My first IUI attempt was successful! 💕🥹 …",
+          "rating": 5,
+          "author": "สิรวิชญ์"
+        },
+        {
+          "text": "The place was very clean, easy to get to, and the staff were friendly and polite. Most importantly, the doctor was incredibly gentle. I was very impressed!",
+          "rating": 5,
+          "author": "PLA Borimas"
+        },
+        {
+          "text": "The staff here are very helpful and provide good advice. You can consult them anytime if you have any concerns. The doctor is also lovely, gives good advice to patients, and is quite thorough in examinations. The place is clean. Overall, I'm very impressed. 😊 …",
+          "rating": 5,
+          "author": "นฤมล พรมโสดา"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%A1%E0%B8%B5%E0%B8%9A%E0%B8%B8%E0%B8%95%E0%B8%A3%E0%B8%A2%E0%B8%B2%E0%B8%81+Prime+Fertility+Center+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%AD%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B8%95%E0%B8%A3%E0%B8%90%E0%B8%B2%E0%B8%99+JCI+%E0%B9%81%E0%B8%A5%E0%B8%B0+ISO/data=!4m7!3m6!1s0x30e29f6cb979cbd5:0xf268f331ca1b4c1d!8m2!3d13.777957!4d100.543591!16s%2Fg%2F11h6tgj_x_!19sChIJ1ct5uWyf4jARHUwbyjHzaPI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ee521480c9f_0x118890740d8c2cc3",
