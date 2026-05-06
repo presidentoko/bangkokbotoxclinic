@@ -11,17 +11,17 @@ export type SiteConfig = {
 };
 
 export function getSiteConfig(): SiteConfig {
-  const brand = process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats";
-  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
+  const brand = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
+  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
   return {
     brand,
     domain,
-    title: `${brand} — Verified Restaurant Reviews & Trust Scores`,
+    title: `${brand} — Real Reviews, Not SNS Hype`,
     description:
-      "Bangkok and Pattaya restaurants ranked by Trust Score from real Google review analysis. Updated continuously.",
-    hero: `${brand} — Verified by Real Reviews`,
+      "Stop searching restaurants on Instagram. Real Bangkok and Pattaya restaurants ranked by Trust Score from verified Google reviews — no influencer fluff.",
+    hero: "Stop searching on SNS. Find restaurants by real reviews.",
     heroSub:
-      "Top restaurants ranked by Trust Score from real Google reviews. Thai, Japanese, Italian, Korean, halal and more — find your spot.",
-    themeAccent: "#dc2626", // 음식 정체성 — 빨강
+      "Bangkok and Pattaya restaurants ranked from verified Google reviews. No paid influencers. No filters.",
+    themeAccent: "#dc2626",
   };
 }
