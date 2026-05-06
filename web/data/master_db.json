@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T23:16:05.274288+00:00",
-  "total_clinics": 1271,
-  "with_district": 1214,
-  "with_categories": 803,
-  "with_reviews_scraped": 920,
+  "generated_at": "2026-05-06T23:26:10.051883+00:00",
+  "total_clinics": 1281,
+  "with_district": 1222,
+  "with_categories": 810,
+  "with_reviews_scraped": 923,
   "language_total": {
     "th": 1,
-    "en": 30997,
+    "en": 31019,
     "ko": 1,
     "ja": 0,
     "other": 80
@@ -16,29 +16,29 @@
     "Phaya Thai": 208,
     "Bang Rak": 132,
     "Watthana": 127,
-    "Huai Khwang": 89,
-    "Khlong Toei": 73,
+    "Huai Khwang": 90,
+    "Khlong Toei": 77,
     "Khlong San": 60,
-    "Sathon": 52,
+    "Sathon": 53,
     "Pom Prap Sattru Phai": 32,
     "Phra Nakhon": 31,
     "Dusit": 30,
     "Din Daeng": 25,
     "Ratchathewi": 20,
     "Samphanthawong": 8,
+    "Yan Nawa": 8,
     "Thon Buri": 6,
-    "Yan Nawa": 6,
     "Bang Kapi": 1,
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 465,
+    "facial": 469,
     "laser": 362,
     "botox": 245,
-    "dental": 241,
+    "dental": 243,
     "filler": 198,
     "hifu": 183,
-    "hair_transplant": 21,
+    "hair_transplant": 22,
     "eye": 12
   },
   "clinics": [
@@ -7939,6 +7939,65 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Homey+Dental+Clinic+-+I%27m+Park+Chula/data=!4m7!3m6!1s0x30e299873d6699cb:0x23879a38a762e594!8m2!3d13.7399384!4d100.525232!16s%2Fg%2F11qrz_zxnv!19sChIJy5lmPYeZ4jARlOVipziahyM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f48e3fb49cb_0xb240f55157e1e10e",
+      "place_id": "0x30e29f48e3fb49cb:0xb240f55157e1e10e",
+      "name": "TPI Tower",
+      "name_lang": "en",
+      "primary_type": "Commercial real estate agency",
+      "address": "\n26/56 Chan Rd, Thung Maha Mek, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 2 678 6666",
+      "website": "",
+      "lat": 13.7079087,
+      "lng": 100.5381693,
+      "rating": 4.1,
+      "total_reviews": 641,
+      "trust_score": 87.5,
+      "categories": [],
+      "scraped_review_count": 10,
+      "local_guide_count": 6,
+      "avg_author_review_count": 24.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 3,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 3.7
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "It's a hub that includes a hospital, gas station, and electric vehicle charging stations.",
+          "rating": 5,
+          "author": "Manon Buntueng"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/TPI+Tower/data=!4m7!3m6!1s0x30e29f48e3fb49cb:0xb240f55157e1e10e!8m2!3d13.7079087!4d100.5381693!16s%2Fg%2F1vvdrn94!19sChIJy0n740if4jARDuHhV1H1QLI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29edb5e9ca70f_0x896bd9d241a83ab5",
@@ -27765,6 +27824,91 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lucius+Clinic+%28%E0%B8%A5%E0%B8%B9%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B8%A2%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%29+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+Silom+Complex+Fl.3/data=!4m7!3m6!1s0x30e29f0b8cd561c1:0x326dc4e266e8df3b!8m2!3d13.7282053!4d100.5352181!16s%2Fg%2F11xgwdvhq_!19sChIJwWHVjAuf4jARO9_oZuLEbTI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f0041bc1feb_0x856214332a8a6dc5",
+      "place_id": "0x30e29f0041bc1feb:0x856214332a8a6dc5",
+      "name": "RAKSAVEE Wellness & Aesthetic",
+      "name_lang": "en",
+      "primary_type": "Dermatologist",
+      "address": "\nB208 2nd floor, K village, Sukhumvit 26, Khlong Tan, Khlong Toei, Krung Thep Maha Nakhon 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 94 924 6463",
+      "website": "https://www.instagram.com/raksavee.clinic?igsh=MTFldzF5MWM3dXJrOQ==",
+      "lat": 13.7212092,
+      "lng": 100.569179,
+      "rating": 5.0,
+      "total_reviews": 85,
+      "trust_score": 81.1,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 3,
+      "avg_author_review_count": 9.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 9,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This clinic provides excellent service. Dr. Pink gives advice without being pushy.",
+          "rating": 5,
+          "author": "Chayanuch Eamboonlue"
+        },
+        {
+          "text": "I've been here many times before. The service is excellent at every step. I'm terrified of needles, but the doctor is incredibly skilled. Both the doctor and the staff are lovely. 💕☺️ …",
+          "rating": 5,
+          "author": "jam"
+        },
+        {
+          "text": "Dr. Pink is very lovely and provided a lot of helpful information. The staff provided excellent service. I was very impressed and highly recommend this place.",
+          "rating": 5,
+          "author": "Yaovaluck Boonchaiwattana"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/RAKSAVEE+Wellness+%26+Aesthetic/data=!4m7!3m6!1s0x30e29f0041bc1feb:0x856214332a8a6dc5!8m2!3d13.7212092!4d100.569179!16s%2Fg%2F11xrlcgmvc!19sChIJ6x-8QQCf4jARxW2KKjMUYoU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299f6b6645c8b_0xaa44eb8ef8387eb9",
@@ -50277,6 +50421,56 @@
       "maps_url": "https://www.google.com/maps/place/AriyA+Wellness+Center/data=!4m7!3m6!1s0x30e298b713ff212b:0x4a8db1c9f4034e47!8m2!3d13.7255828!4d100.5444902!16s%2Fg%2F11c43116ft!19sChIJKyH_E7eY4jARR04D9MmxjUo?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fbc99e58b7b_0x8aeedd37bac1c085",
+      "place_id": "0x30e29fbc99e58b7b:0x8aeedd37bac1c085",
+      "name": "Zenitoni dental clinic คลินิกทันตกรรม เซนิโทนี่ สาขาพระราม 4",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\nThailand, Bangkok, Rama IV Rd, 2F",
+      "district": "",
+      "phone": "+66 2 035 5665",
+      "website": "https://www.zenitonidental.com/",
+      "lat": 13.7169434,
+      "lng": 100.5686431,
+      "rating": 4.8,
+      "total_reviews": 221,
+      "trust_score": 76.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Zenitoni+dental+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B9%80%E0%B8%8B%E0%B8%99%E0%B8%B4%E0%B9%82%E0%B8%97%E0%B8%99%E0%B8%B5%E0%B9%88+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+4/data=!4m7!3m6!1s0x30e29fbc99e58b7b:0x8aeedd37bac1c085!8m2!3d13.7169434!4d100.5686431!16s%2Fg%2F11h54nby0r!19sChIJe4vlmbyf4jARhcDBujfd7oo?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29e518c4f502f_0xc7dde75c9330fb71",
       "place_id": "0x30e29e518c4f502f:0xc7dde75c9330fb71",
       "name": "ESTELLA CLINIC THONG LO",
@@ -59265,6 +59459,56 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9B%E0%B8%B4%E0%B8%A2%E0%B8%B0%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%93+%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%9F%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%9F%E0%B8%B9+%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%84%E0%B8%9B/data=!4m7!3m6!1s0x30e29163fd7d3fa9:0xa2004a57e8d98b24!8m2!3d13.7593173!4d100.5459269!16s%2Fg%2F11rv6bg145!19sChIJqT99_WOR4jARJIvZ6FdKAKI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299a9ad4456b1_0xc0657ea731586a68",
+      "place_id": "0x30e299a9ad4456b1:0xc0657ea731586a68",
+      "name": "The Cosmo Clinic Central Rama 3",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nFloor 4, 79 Ratchadaphisek Rd, Chong Nonsi, Yan Nawa, Bangkok 10120, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 2 004 6959",
+      "website": "http://www.cosmobeautyclinic.com/?utm_source=google&utm_medium=wix_google_business_profile&utm_campaign=14463947048889288650",
+      "lat": 13.6976206,
+      "lng": 100.5375333,
+      "rating": 4.8,
+      "total_reviews": 145,
+      "trust_score": 73.9,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/The+Cosmo+Clinic+Central+Rama+3/data=!4m7!3m6!1s0x30e299a9ad4456b1:0xc0657ea731586a68!8m2!3d13.6976206!4d100.5375333!16s%2Fg%2F11s7v8059d!19sChIJsVZEramZ4jARaGpYMad-ZcA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0xa32ea3859c0f8b7f_0xf2dd37654c91bb1b",
@@ -70858,6 +71102,77 @@
       "maps_url": "https://www.google.com/maps/place/May+clinic+%28Pain+and+Sport+Rehab+clinic%29+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B9%80%E0%B8%A1%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e2994d4732f35b:0xd0721f04fbadd0f3!8m2!3d13.7466298!4d100.524448!16s%2Fg%2F11g10fq3y3!19sChIJW_MyR02Z4jAR89Ct-wQfctA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f1385a0cf5b_0x8f7c1a54367d2b53",
+      "place_id": "0x30e29f1385a0cf5b:0x8f7c1a54367d2b53",
+      "name": "กานต์ชนกคลินิก สาขาพระราม 4 (KANCHANOK CLINIC - Big C RAMA 4)",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n2929 ห้างบิ๊กซีพระราม 4 ชั้น 1 ห้อง F 1 17-18 Rama IV Rd, Khlong Tan, คอลงเตย Bangkok 10110, Thailand",
+      "district": "",
+      "phone": "+66 62 783 3663",
+      "website": "https://www.facebook.com/kanchanokofficial",
+      "lat": 13.7186116,
+      "lng": 100.569274,
+      "rating": 5.0,
+      "total_reviews": 59,
+      "trust_score": 71.4,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 0,
+      "avg_author_review_count": 1.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Thank you, doctor. You have a gentle touch and are kind. The staff are attentive. I'm impressed every time I visit.",
+          "rating": 5,
+          "author": "ชนิศา"
+        },
+        {
+          "text": "I came for a consultation at the Kanchanok Clinic, Rama 4 branch. The staff provided excellent service and gave me advice that was very impressive.",
+          "rating": 5,
+          "author": "Oatchaya Namlat"
+        },
+        {
+          "text": "I received service at the Rama 4 branch. The doctor gave good advice and was very thorough.",
+          "rating": 5,
+          "author": "Preeya Sangaroon"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%81%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%8A%E0%B8%99%E0%B8%81%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+4+%28KANCHANOK+CLINIC+-+Big+C+RAMA+4%29/data=!4m7!3m6!1s0x30e29f1385a0cf5b:0x8f7c1a54367d2b53!8m2!3d13.7186116!4d100.569274!16s%2Fg%2F11lsz9fr5m!19sChIJW8-ghROf4jARUyt9NlQafI8?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fcaa205cc77_0xdce0ae79b079e2f5",
       "place_id": "0x30e29fcaa205cc77:0xdce0ae79b079e2f5",
       "name": "Penteeluck Clinic Center Rama 9 - เป็นที่รัก คลินิก สาขา พระราม 9",
@@ -74151,6 +74466,56 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Hazel+Clinic+Bangkok/data=!4m7!3m6!1s0x30e29ff1cc292827:0x3081cdd326708bd4!8m2!3d13.7467104!4d100.5727948!16s%2Fg%2F11s0jgyzr2!19sChIJJygpzPGf4jAR1ItwJtPNgTA?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f7d05adb82b_0xe1ac2143b0b4f3fe",
+      "place_id": "0x30e29f7d05adb82b:0xe1ac2143b0b4f3fe",
+      "name": "Hair Restore by DHT Clinic",
+      "name_lang": "en",
+      "primary_type": "Hair transplantation clinic",
+      "address": "\nSukhumvit 24 Alley, Khlong Tan, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 65 508 6841",
+      "website": "https://hairrestorebydht.com/",
+      "lat": 13.7249836,
+      "lng": 100.5675289,
+      "rating": 4.9,
+      "total_reviews": 60,
+      "trust_score": 70.3,
+      "categories": [
+        "hair_transplant"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Hair+Restore+by+DHT+Clinic/data=!4m7!3m6!1s0x30e29f7d05adb82b:0xe1ac2143b0b4f3fe!8m2!3d13.7249836!4d100.5675289!16s%2Fg%2F11vf1bcn81!19sChIJK7itBX2f4jAR_vO0sEMhrOE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f1cdb0a034b_0xf8ff32e80dd5db74",
@@ -78545,6 +78910,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Pavicon+Mediness+Center/data=!4m7!3m6!1s0x30e29f49ca9f2c79:0x8266a7e581f81080!8m2!3d13.7310557!4d100.5284138!16s%2Fg%2F11rgrs6331!19sChIJeSyfykmf4jARgBD4geWnZoI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f50cc31e22b_0xe91776a1dbc64e65",
+      "place_id": "0x30e29f50cc31e22b:0xe91776a1dbc64e65",
+      "name": "สหแพทย์ช่องนนทรีคลินิกเวชกรรม",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n99/232 Nonsi Rd, Chong Nonsi, Yan Nawa, Bangkok 10120, Thailand",
+      "district": "Yan Nawa",
+      "phone": "+66 2 284 2187",
+      "website": "",
+      "lat": 13.6945565,
+      "lng": 100.5389037,
+      "rating": 4.7,
+      "total_reviews": 65,
+      "trust_score": 68.8,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%AB%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29f50cc31e22b:0xe91776a1dbc64e65!8m2!3d13.6945565!4d100.5389037!16s%2Fg%2F1tplms14!19sChIJK-IxzFCf4jARZU7G26F2F-k?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ea7b95232bb_0xff18c66f5c8f803f",
@@ -89683,6 +90096,56 @@
       "maps_url": "https://www.google.com/maps/place/ImagineHealth+Co.,+Ltd./data=!4m7!3m6!1s0x30e299d87a176d8d:0x3f6d3661051a2ef6!8m2!3d13.7286499!4d100.5103959!16s%2Fg%2F11s5zf4gdl!19sChIJjW0XetiZ4jAR9i4aBWE2bT8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fbfca7b265d_0x5407b7716da647d0",
+      "place_id": "0x30e29fbfca7b265d:0x5407b7716da647d0",
+      "name": "Eliza Facial Spa",
+      "name_lang": "en",
+      "primary_type": "Facial spa",
+      "address": "\n27/1 Floor 3, Market Place Nanglinchee Building, Nanglinchee Road, Chong Nonsi, Yan Nawa, Bangkok 10120, Thailand",
+      "district": "Yan Nawa",
+      "phone": "+66 93 628 8810",
+      "website": "https://www.elizacosmetics.com/",
+      "lat": 13.7101714,
+      "lng": 100.5426537,
+      "rating": 5.0,
+      "total_reviews": 14,
+      "trust_score": 63.8,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Eliza+Facial+Spa/data=!4m7!3m6!1s0x30e29fbfca7b265d:0x5407b7716da647d0!8m2!3d13.7101714!4d100.5426537!16s%2Fg%2F11gjm8vpyw!19sChIJXSZ7yr-f4jAR0EembXG3B1Q?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ed2836ad81f_0x46aff25c822a0f85",
       "place_id": "0x30e29ed2836ad81f:0x46aff25c822a0f85",
       "name": "สยามสวอน คลินิก",
@@ -93917,6 +94380,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%88%E0%B9%80%E0%B8%A1%E0%B8%94+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3+-+Jmed+clinic/data=!4m7!3m6!1s0x30e29921a7be5cf5:0xe753a183a17fada!8m2!3d13.7223599!4d100.5086348!16s%2Fg%2F11kpkpkzq6!19sChIJ9Vy-pyGZ4jAR2voXOhg6dQ4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fffcdd294d7_0x43f0d4ed1e20009",
+      "place_id": "0x30e29fffcdd294d7:0x43f0d4ed1e20009",
+      "name": "Wellnessa Clinic สุขุมวิท 24",
+      "name_lang": "other",
+      "primary_type": "Beauty salon",
+      "address": "\nSukhumvit 24 Alley, Khlong Tan, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 65 414 7616",
+      "website": "https://originhealthcare.co.th/brand/wellnessa",
+      "lat": 13.7250043,
+      "lng": 100.5675002,
+      "rating": 4.4,
+      "total_reviews": 23,
+      "trust_score": 60.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Wellnessa+Clinic+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+24/data=!4m7!3m6!1s0x30e29fffcdd294d7:0x43f0d4ed1e20009!8m2!3d13.7250043!4d100.5675002!16s%2Fg%2F11vbrnyg43!19sChIJ15TSzf-f4jARCQDi0U4NPwQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29e8d1e8201cb_0x4e47b8e6383846b5",
@@ -99814,6 +100325,56 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Bangkok+Emergency+Medical+Centre+%28Erawan+Centre%29/data=!4m7!3m6!1s0x30e299232bb97bb9:0x3aaec74896f2b330!8m2!3d13.7458753!4d100.5109642!16s%2Fg%2F1pzrsjzhy!19sChIJuXu5KyOZ4jARMLPylkjHrjo?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f74f476402f_0x735daeaed111864b",
+      "place_id": "0x30e29f74f476402f:0x735daeaed111864b",
+      "name": "คลินิคทันตกรรมสุนทรโกษา",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n15 Sunthonkosa Rd, Khwaeng Khlong Toei, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 86 305 8250",
+      "website": "http://www.facebook.com/suntornkosadental",
+      "lat": 13.7198648,
+      "lng": 100.5578524,
+      "rating": 3.7,
+      "total_reviews": 15,
+      "trust_score": 51.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B8%B8%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%82%E0%B8%81%E0%B8%A9%E0%B8%B2/data=!4m7!3m6!1s0x30e29f74f476402f:0x735daeaed111864b!8m2!3d13.7198648!4d100.5578524!16s%2Fg%2F11jgt5sl3p!19sChIJL0B29HSf4jARS4YR0a6uXXM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f93e3f823c3_0xbe82d8f8468ab5f3",
