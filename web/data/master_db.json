@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T00:01:34.890887+00:00",
-  "total_clinics": 798,
-  "with_district": 754,
-  "with_categories": 521,
-  "with_reviews_scraped": 552,
+  "generated_at": "2026-05-06T00:11:37.474735+00:00",
+  "total_clinics": 804,
+  "with_district": 760,
+  "with_categories": 525,
+  "with_reviews_scraped": 555,
   "language_total": {
     "th": 1,
-    "en": 18566,
+    "en": 18676,
     "other": 51
   },
   "district_counts": {
@@ -17,7 +17,7 @@
     "Huai Khwang": 41,
     "Khlong Toei": 35,
     "Sathon": 32,
-    "Khlong San": 20,
+    "Khlong San": 25,
     "Pom Prap Sattru Phai": 14,
     "Dusit": 13,
     "Ratchathewi": 12,
@@ -25,14 +25,14 @@
     "Phra Nakhon": 8,
     "Samphanthawong": 5,
     "Yan Nawa": 3,
-    "Thon Buri": 2,
+    "Thon Buri": 3,
     "Chatuchak": 1
   },
   "category_counts": {
     "facial": 322,
-    "laser": 231,
+    "laser": 232,
     "botox": 154,
-    "dental": 133,
+    "dental": 136,
     "filler": 113,
     "hifu": 108,
     "hair_transplant": 15,
@@ -5373,6 +5373,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/KANA+PURE+Cannabis+Dispensary+%E2%80%93+Sukhumvit+11/data=!4m7!3m6!1s0x30e29f5af60ac9d1:0xdb2b1419496bc7f0!8m2!3d13.7438954!4d100.5567909!16s%2Fg%2F11tn581ff9!19sChIJ0ckK9lqf4jAR8MdrSRkUK9s?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299cff4e5a893_0x2f3ede0661ace764",
+      "place_id": "0x30e299cff4e5a893:0x2f3ede0661ace764",
+      "name": "We Smile Dental Clinic BTS Wongwianyai คลินิกทันตกรรมวี สไมล์ บีทีเอสวงเวียนใหญ่",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n42, 1 Krung Thon Buri Road, Bang Lamphu Lang, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 95 590 3837",
+      "website": "https://wesmile-clinic.com/",
+      "lat": 13.72067,
+      "lng": 100.4940867,
+      "rating": 4.9,
+      "total_reviews": 1413,
+      "trust_score": 86.8,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/We+Smile+Dental+Clinic+BTS+Wongwianyai+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B5+%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C+%E0%B8%9A%E0%B8%B5%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%AD%E0%B8%AA%E0%B8%A7%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x30e299cff4e5a893:0x2f3ede0661ace764!8m2!3d13.72067!4d100.4940867!16s%2Fg%2F11h10vrf9f!19sChIJk6jl9M-Z4jARZOesYQbePi8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299e9641b30a3_0x2358f8a45901a69f",
@@ -19670,6 +19718,101 @@
       "maps_url": "https://www.google.com/maps/place/Reboost+Clinic+%E0%B8%A3%E0%B8%B5%E0%B8%9A%E0%B8%B9%E0%B8%AA%E0%B8%97%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e2819edb16d9fd:0x61060184997d4a56!8m2!3d13.7766299!4d100.5438902!16s%2Fg%2F11xgpvfm6m!19sChIJ_dkW256B4jARVkp9mYQBBmE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299cda8e98f1b_0x5435b4368c3beda5",
+      "place_id": "0x30e299cda8e98f1b:0x5435b4368c3beda5",
+      "name": "Numcha massage",
+      "name_lang": "en",
+      "primary_type": "Massage spa",
+      "address": "\n236 Charoen Nakhon 8 Alley, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 077 5784",
+      "website": "",
+      "lat": 13.7249413,
+      "lng": 100.5089918,
+      "rating": 4.3,
+      "total_reviews": 246,
+      "trust_score": 80.8,
+      "categories": [],
+      "scraped_review_count": 30,
+      "local_guide_count": 9,
+      "avg_author_review_count": 35.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 28,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 22,
+          "avg": 4.5
+        },
+        "old": {
+          "count": 3,
+          "avg": 3.67
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I was able to get a massage right away without waiting.\n\nI think it was the best value for money among the massage shops near Icon Siam, and I was very satisfied with the massage :) The pressure was just right, and it was great for relieving fatigue, so\n\nI visited twice in a row. I recommend it.",
+          "rating": 5,
+          "author": "Hing"
+        },
+        {
+          "text": "Good massage and good service. The staff is very friendly and the price-performance ratio is good.",
+          "rating": 5,
+          "author": "Markus Scholz"
+        },
+        {
+          "text": "I came here for massages two out of my four days in Thailand! The attentive service and great value made my body feel so light and refreshed afterward. Highly recommend this place! 👍 They also have adorable cats! 🐈 …",
+          "rating": 5,
+          "author": "Jryu Lin"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Numcha+massage/data=!4m7!3m6!1s0x30e299cda8e98f1b:0x5435b4368c3beda5!8m2!3d13.7249413!4d100.5089918!16s%2Fg%2F11t9vzf86c!19sChIJG4_pqM2Z4jARpe07jDa0NVQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f8d492df527_0x2bb68ca240c336b2",
       "place_id": "0x30e29f8d492df527:0x2bb68ca240c336b2",
       "name": "InterRehab Brain&Pain Total Office Syndrome Solution สาขาอโศก - คลินิกเฉพาะทางรักษาออฟฟิศซินโดรม เครียดสะสม นอนไม่หลับ",
@@ -24719,6 +24862,89 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/FTV+Clinic+Chidlom/data=!4m7!3m6!1s0x30e29f00588308d1:0xe288c65574eb6036!8m2!3d13.7434391!4d100.5441529!16s%2Fg%2F11vr0jsm9l!19sChIJ0QiDWACf4jARNmDrdFXGiOI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2998eeb4d758d_0x1fe7360c80daaf69",
+      "place_id": "0x30e2998eeb4d758d:0x1fe7360c80daaf69",
+      "name": "MOS Dental Clinic - Charoen Nakon",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n542, 542/1-2 เสนาเฟสท์ ชั้น 3 ห้อง 311 Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 91 717 6778",
+      "website": "http://facebook.com/mosdentalclinic",
+      "lat": 13.7193751,
+      "lng": 100.5076061,
+      "rating": 4.9,
+      "total_reviews": 165,
+      "trust_score": 79.0,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 5,
+      "avg_author_review_count": 5.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 42,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 9
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 9
+        },
+        {
+          "topic": "clean_facility",
+          "count": 5
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 40,
+          "avg": 4.9
+        },
+        "midterm": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Ms. Taek provided excellent service. She encouraged me, who was afraid of doctors, throughout the treatment.",
+          "rating": 5,
+          "author": "YUWANDA MANKHONGDAMRONGOIU"
+        },
+        {
+          "text": "I always come to here for regular check up and cleaning. Good service and friendly staffs. Dentists and nurses are also patient and explain very detail",
+          "rating": 5,
+          "author": "Yan Naing Soe"
+        },
+        {
+          "text": "Excellent service! Staff very friendly. The doctor was very gentle and gave good explanations 👍🏻 …",
+          "rating": 5,
+          "author": "Sirin Atthabodeekul"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/MOS+Dental+Clinic+-+Charoen+Nakon/data=!4m7!3m6!1s0x30e2998eeb4d758d:0x1fe7360c80daaf69!8m2!3d13.7193751!4d100.5076061!16s%2Fg%2F11hzmpcbgn!19sChIJjXVN646Z4jARaa_agAw25x8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f8a9963837f_0x58914cb0003971ff",
@@ -33179,6 +33405,89 @@
       "maps_url": "https://www.google.com/maps/place/Munare+clinic/data=!4m7!3m6!1s0x30e29f011e2c501f:0xfe5c03dd21ed660c!8m2!3d13.7627063!4d100.5644226!16s%2Fg%2F11fx8_fn2q!19sChIJH1AsHgGf4jARDGbtId0DXP4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29960aa5af1db_0xea49849cb67cff33",
+      "place_id": "0x30e29960aa5af1db:0xea49849cb67cff33",
+      "name": "Body Smile Clinic",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n612/1-3 Prajadhipok Rd, Hiranruchi, Thon Buri, Bangkok 10600, Thailand",
+      "district": "Thon Buri",
+      "phone": "+66 99 903 1593",
+      "website": "https://bodysmileclinic.com/",
+      "lat": 13.7286748,
+      "lng": 100.4936682,
+      "rating": 5.0,
+      "total_reviews": 69,
+      "trust_score": 76.3,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 7,
+      "avg_author_review_count": 5.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 15
+        },
+        {
+          "topic": "clean_facility",
+          "count": 10
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 18,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 31,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The physiotherapist, Khun Mameow, was very attentive and caring. She helped adjust my posture and muscle function through exercise. I feel straighter, my tense and sore muscles have relaxed, and I feel more energetic and stronger. My balance has also improved; I don't fall as easily as before.",
+          "rating": 5,
+          "author": "Pimpavee Pungsujarit"
+        },
+        {
+          "text": "All staff provided excellent service. My symptoms improved after receiving treatment. The physical therapist recommended exercises that were appropriate for me.",
+          "rating": 5,
+          "author": "Bnn tong"
+        },
+        {
+          "text": "Thorough assessment, accurate treatment. Staff are attentive and follow up on results.",
+          "rating": 5,
+          "author": "Napaskamol Petchnorrarat"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Body+Smile+Clinic/data=!4m7!3m6!1s0x30e29960aa5af1db:0xea49849cb67cff33!8m2!3d13.7286748!4d100.4936682!16s%2Fg%2F11scpbfrs2!19sChIJ2_FaqmCZ4jARM_98tpyESeo?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e2992c348e3e89_0x94c568e477aea6d4",
       "place_id": "0x30e2992c348e3e89:0x94c568e477aea6d4",
       "name": "Dentists' Club Clinic คลินิกทันตกรรมเดนทิสคลับ",
@@ -37601,6 +37910,52 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Dr.Pam+Clinic/data=!4m7!3m6!1s0x30e29fe92677eef3:0xb1eda70f2e77dfff!8m2!3d13.7430836!4d100.5576583!16s%2Fg%2F11fp1rk7yn!19sChIJ8-53Jumf4jAR_993Lg-n7bE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299001ef31dd3_0xabd1e5ced7d92fea",
+      "place_id": "0x30e299001ef31dd3:0xabd1e5ced7d92fea",
+      "name": "ใกล้หมอคลินิกโรคทั่วไป - KindMore Clinic",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n12 Soi Charoen Rat 4, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 124 5743",
+      "website": "http://www.facebook.com/KindmoreClinic",
+      "lat": 13.724895,
+      "lng": 100.495372,
+      "rating": 5.0,
+      "total_reviews": 106,
+      "trust_score": 74.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%82%E0%B8%A3%E0%B8%84%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%84%E0%B8%9B+-+KindMore+Clinic/data=!4m7!3m6!1s0x30e299001ef31dd3:0xabd1e5ced7d92fea!8m2!3d13.724895!4d100.495372!16s%2Fg%2F11zkr_yf96!19sChIJ0x3zHgCZ4jAR6i_Z187l0as?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f58c59e1f2f_0xd814b8f64c475ef4",
@@ -47615,6 +47970,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%88%E0%B8%B4%E0%B8%95%E0%B9%80%E0%B8%A7%E0%B8%8A+%28BaanSathorn+mental+health+clinic%29/data=!4m7!3m6!1s0x30e29f0009a28b35:0x3597c117dab0d5b8!8m2!3d13.7232046!4d100.5476904!16s%2Fg%2F11wtjsl93q!19sChIJNYuiCQCf4jARuNWw2hfBlzU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29926ae2b9da3_0xcb799077eca6ac9a",
+      "place_id": "0x30e29926ae2b9da3:0xcb799077eca6ac9a",
+      "name": "Dio Dental Clinic วงเวียนใหญ่ ทำฟัน จัดฟัน รากเทียม วงเวียนใหญ่",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n701 Prajadhipok Rd, Somdet Chao Phraya, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 91 874 4507",
+      "website": "http://www.diodental.com/",
+      "lat": 13.7270345,
+      "lng": 100.4936257,
+      "rating": 4.4,
+      "total_reviews": 150,
+      "trust_score": 70.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dio+Dental+Clinic+%E0%B8%A7%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%A7%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x30e29926ae2b9da3:0xcb799077eca6ac9a!8m2!3d13.7270345!4d100.4936257!16s%2Fg%2F11h7d_17vt!19sChIJo50rriaZ4jARmqym7HeQecs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29eb095c69ae9_0x3fb25f702bec60f",
