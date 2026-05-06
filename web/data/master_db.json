@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T11:23:24.732535+00:00",
+  "generated_at": "2026-05-06T11:33:31.502469+00:00",
   "total_clinics": 1066,
   "with_district": 1014,
-  "with_categories": 667,
-  "with_reviews_scraped": 740,
+  "with_categories": 668,
+  "with_reviews_scraped": 742,
   "language_total": {
     "th": 1,
-    "en": 24419,
+    "en": 24491,
     "ko": 1,
     "ja": 0,
     "other": 59
@@ -32,7 +32,7 @@
   },
   "category_counts": {
     "facial": 399,
-    "laser": 296,
+    "laser": 297,
     "botox": 201,
     "dental": 187,
     "filler": 148,
@@ -41794,6 +41794,91 @@
       "maps_url": "https://www.google.com/maps/place/Munare+clinic/data=!4m7!3m6!1s0x30e29f011e2c501f:0xfe5c03dd21ed660c!8m2!3d13.7627063!4d100.5644226!16s%2Fg%2F11fx8_fn2q!19sChIJH1AsHgGf4jARDGbtId0DXP4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299df944f1f99_0x5f1934e9838b097",
+      "place_id": "0x30e299df944f1f99:0x5f1934e9838b097",
+      "name": "Sherjades Acupuncture Clinic เฌอเจสคลินิก คลินิกฝังเข็ม ครอบแก้ว ยาจีน ทุยหนา โดยแพทย์แผนจีนปริญญาบัตร",
+      "name_lang": "th",
+      "primary_type": "Acupuncture clinic",
+      "address": "\n110 Soi Song Phra, Maha Phruttharam, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 63 464 9919",
+      "website": "http://www.sherjadesclinic.com/",
+      "lat": 13.7326327,
+      "lng": 100.5221204,
+      "rating": 5.0,
+      "total_reviews": 22,
+      "trust_score": 76.4,
+      "categories": [],
+      "scraped_review_count": 22,
+      "local_guide_count": 8,
+      "avg_author_review_count": 33.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 21,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 7
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 11,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dr. Meby gave excellent advice and treated the problem directly. My condition improved significantly after the first visit. She's lovely and friendly. If you're interested in acupuncture or cupping therapy, I highly recommend this place. Out of all the places I've tried, this one is the best :)",
+          "rating": 5,
+          "author": "Montiralai Thadajanyawiwat"
+        },
+        {
+          "text": "This is exceptional; it's the best acupuncture treatment I've ever had. Top-quality, truly professional service.",
+          "rating": 5,
+          "author": "Eric Ethier"
+        },
+        {
+          "text": "Professional doctor and friendly staff. I’m in the process of fixing my back. After only a few sessions I’m already feeling much better. Very pleased with this and would definitely recommend the acupuncture and sports massage.\n\nThank you and see you again.",
+          "rating": 5,
+          "author": "Christopher Morgan"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Sherjades+Acupuncture+Clinic+%E0%B9%80%E0%B8%8C%E0%B8%AD%E0%B9%80%E0%B8%88%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7+%E0%B8%A2%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99+%E0%B8%97%E0%B8%B8%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B8%B2+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x30e299df944f1f99:0x5f1934e9838b097!8m2!3d13.7326327!4d100.5221204!16s%2Fg%2F11jgchgmzg!19sChIJmR9PlN-Z4jARl7A4mE6T8QU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f0054bc6a17_0x5e74e7b933b64c65",
       "place_id": "0x30e29f0054bc6a17:0x5e74e7b933b64c65",
       "name": "Medical Wellness by Hertitude Clinic",
@@ -58235,6 +58320,91 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%9B%E0%B8%B2%E0%B9%82%E0%B8%A5+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/data=!4m7!3m6!1s0x30e29f004dbcbf77:0xdcf39eb9991f1032!8m2!3d13.7450444!4d100.5390091!16s%2Fg%2F11yc9wlph7!19sChIJd7-8TQCf4jARMhAfmbme89w?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2994ce192554b_0x3bb8c4ffad80f84c",
+      "place_id": "0x30e2994ce192554b:0x3bb8c4ffad80f84c",
+      "name": "Institute of Child and Adolescent Mental Health",
+      "name_lang": "en",
+      "primary_type": "Mental Health Clinic",
+      "address": "\n75 5 Rama VI Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 248 8999",
+      "website": "https://www.camri.go.th/",
+      "lat": 13.7661129,
+      "lng": 100.5278639,
+      "rating": 4.0,
+      "total_reviews": 30,
+      "trust_score": 71.3,
+      "categories": [],
+      "scraped_review_count": 30,
+      "local_guide_count": 13,
+      "avg_author_review_count": 292.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 18,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "long_wait",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 28,
+          "avg": 3.89
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The staff are ready to help in every aspect. They are really lovely and attentive to every detail.",
+          "rating": 5,
+          "author": "Vinithara S."
+        },
+        {
+          "text": "The staff's administrative procedures were somewhat unprofessional, which made things a bit uncomfortable, but I was impressed by the doctor's high level of medical expertise and kindness.\n\nI felt the parking lot needed improvement, as it was nearly empty.",
+          "rating": 5,
+          "author": "Eunhye Kim"
+        },
+        {
+          "text": "Parking is limited and traffic is quite congested. It would be more convenient to travel by bus.",
+          "rating": 4,
+          "author": "Aomsin Siriporn"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Institute+of+Child+and+Adolescent+Mental+Health/data=!4m7!3m6!1s0x30e2994ce192554b:0x3bb8c4ffad80f84c!8m2!3d13.7661129!4d100.5278639!16s%2Fg%2F1hm5y2409!19sChIJS1WS4UyZ4jARTPiArf_EuDs?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f14f7414409_0xe1499043e36e81f1",
       "place_id": "0x30e29f14f7414409:0xe1499043e36e81f1",
       "name": "Eleven Clinic",
@@ -71357,54 +71527,6 @@
       "maps_url": "https://www.google.com/maps/place/The+Demis+clinic/data=!4m7!3m6!1s0x30e29ed28ae6edc7:0xacba9abf16af5e48!8m2!3d13.7450452!4d100.5337615!16s%2Fg%2F1ptxr7f4q!19sChIJx-3mitKe4jARSF6vFr-auqw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e299df944f1f99_0x5f1934e9838b097",
-      "place_id": "0x30e299df944f1f99:0x5f1934e9838b097",
-      "name": "Sherjades Acupuncture Clinic เฌอเจสคลินิก คลินิกฝังเข็ม ครอบแก้ว ยาจีน ทุยหนา โดยแพทย์แผนจีนปริญญาบัตร",
-      "name_lang": "th",
-      "primary_type": "Acupuncture clinic",
-      "address": "\n110 Soi Song Phra, Maha Phruttharam, Bang Rak, Bangkok 10500, Thailand",
-      "district": "Bang Rak",
-      "phone": "+66 63 464 9919",
-      "website": "http://www.sherjadesclinic.com/",
-      "lat": 13.7326327,
-      "lng": 100.5221204,
-      "rating": 5.0,
-      "total_reviews": 22,
-      "trust_score": 66.1,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Sherjades+Acupuncture+Clinic+%E0%B9%80%E0%B8%8C%E0%B8%AD%E0%B9%80%E0%B8%88%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7+%E0%B8%A2%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99+%E0%B8%97%E0%B8%B8%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B8%B2+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x30e299df944f1f99:0x5f1934e9838b097!8m2!3d13.7326327!4d100.5221204!16s%2Fg%2F11jgchgmzg!19sChIJmR9PlN-Z4jARl7A4mE6T8QU?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f005bf3d73b_0xd8bfd81fd5c37bf5",
       "place_id": "0x30e29f005bf3d73b:0xd8bfd81fd5c37bf5",
       "name": "Bioprime Sindhorn",
@@ -79107,59 +79229,6 @@
       "maps_url": "https://www.google.com/maps/place/WClinic+%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99/data=!4m7!3m6!1s0x30e29937852a172b:0x3646d7d532c49471!8m2!3d13.7455904!4d100.5243814!16s%2Fg%2F11rnsx4zw4!19sChIJKxcqhTeZ4jARcZTEMtXXRjY?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2995e4abab3cd_0x54b29f40c9796bde",
-      "place_id": "0x30e2995e4abab3cd:0x54b29f40c9796bde",
-      "name": "คลินิกใจสบายเวชกรรม",
-      "name_lang": "th",
-      "primary_type": "Clinic",
-      "address": "\n573/22 Sam Sen Rd, Wachira Phayaban, Dusit District, Bangkok 10300, Thailand",
-      "district": "Dusit",
-      "phone": "+66 2 668 8451",
-      "website": "",
-      "lat": 13.7774083,
-      "lng": 100.5077885,
-      "rating": 4.3,
-      "total_reviews": 8,
-      "trust_score": 59.3,
-      "categories": [],
-      "scraped_review_count": 8,
-      "local_guide_count": 1,
-      "avg_author_review_count": 28.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 2,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "expensive",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 8,
-          "avg": 4.25
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%83%E0%B8%88%E0%B8%AA%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e2995e4abab3cd:0x54b29f40c9796bde!8m2!3d13.7774083!4d100.5077885!16s%2Fg%2F1tf2630f!19sChIJzbO6Sl6Z4jAR3mt5yUCfslQ?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29914b8880529_0x2ebe2fc52682d8bf",
       "place_id": "0x30e29914b8880529:0x2ebe2fc52682d8bf",
       "name": "CTLS Clinic - การแพทย์แผนไทยประยุกต์ (รักษาอาการปวด ตึง ชา ไมเกรน ออฟฟิศซินโดรม หมอนรองกระดูกทับเส้น ด้วยการกดจุดรักษา)",
@@ -80187,54 +80256,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/StarMed+Clinic+Chidlom/data=!4m7!3m6!1s0x30e29f00245ecf99:0x60100a6451a65846!8m2!3d13.7431165!4d100.5438684!16s%2Fg%2F11x1np4kms!19sChIJmc9eJACf4jARRlimUWQKEGA?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2994ce192554b_0x3bb8c4ffad80f84c",
-      "place_id": "0x30e2994ce192554b:0x3bb8c4ffad80f84c",
-      "name": "Institute of Child and Adolescent Mental Health",
-      "name_lang": "en",
-      "primary_type": "Mental health clinic",
-      "address": "\n75 5 Rama VI Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 2 248 8999",
-      "website": "https://www.camri.go.th/",
-      "lat": 13.7661129,
-      "lng": 100.5278639,
-      "rating": 4.0,
-      "total_reviews": 30,
-      "trust_score": 57.7,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Institute+of+Child+and+Adolescent+Mental+Health/data=!4m7!3m6!1s0x30e2994ce192554b:0x3bb8c4ffad80f84c!8m2!3d13.7661129!4d100.5278639!16s%2Fg%2F1hm5y2409!19sChIJS1WS4UyZ4jARTPiArf_EuDs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299232bb97bb9_0x3aaec74896f2b330",
@@ -81407,6 +81428,91 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e298c5226a8a47:0x8f217f660470e7bf!8m2!3d13.722454!4d100.516482!16s%2Fg%2F1th89fx5!19sChIJR4pqIsWY4jARv-dwBGZ_IY8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299b4a391921f_0x2baeee78abef3473",
+      "place_id": "0x30e299b4a391921f:0x2baeee78abef3473",
+      "name": "คลินิกเวชกรรมปราการ",
+      "name_lang": "th",
+      "primary_type": "Clinic",
+      "address": "\nBan Bat, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 94 963 9478",
+      "website": "https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3",
+      "lat": 13.7561402,
+      "lng": 100.5094495,
+      "rating": 3.0,
+      "total_reviews": 47,
+      "trust_score": 55.7,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 47,
+      "local_guide_count": 8,
+      "avg_author_review_count": 13.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 35,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 7,
+          "avg": 3.86
+        },
+        "midterm": {
+          "count": 10,
+          "avg": 3.3
+        },
+        "old": {
+          "count": 30,
+          "avg": 2.67
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor was kind, and the staff and nurses provided excellent service.\nAnd the injection wasn't painful at all.",
+          "rating": 5,
+          "author": "Vajarapong Vajaranant"
+        },
+        {
+          "text": "The staff are lovely and very attentive to patients. It might be a bit slow because there are a lot of patients and few staff. The doctor is straightforward and a bit fierce, but he is very attentive to patients. The clinic owner is lovely and very friendly. Overall, it's good.",
+          "rating": 5,
+          "author": "จอมจิตต์ กรรณสูตรศิษฐ์"
+        },
+        {
+          "text": "Our first visit was very impressive. The clinic's service was excellent; the doctors and nurses were very attentive to patients and spoke very politely. The clinic was also very clean.",
+          "rating": 5,
+          "author": "อําไพ ถาวร"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3/data=!4m7!3m6!1s0x30e299b4a391921f:0x2baeee78abef3473!8m2!3d13.7561402!4d100.5094495!16s%2Fg%2F11hqz7k6kg!19sChIJH5KRo7SZ4jARczTvq3juris?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f716bf45591_0x58d6c74ad9048be8",
       "place_id": "0x30e29f716bf45591:0x58d6c74ad9048be8",
       "name": "Aalia Clinic",
@@ -82016,6 +82122,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%AB%E0%B8%A5%E0%B8%B4%E0%B8%A7+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99+%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1/data=!4m7!3m6!1s0x30e2992d487847bf:0xe40c0efe7a747835!8m2!3d13.7453926!4d100.5238778!16s%2Fg%2F11nnpn_kt5!19sChIJv0d4SC2Z4jARNXh0ev4ODOQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2995e4abab3cd_0x54b29f40c9796bde",
+      "place_id": "0x30e2995e4abab3cd:0x54b29f40c9796bde",
+      "name": "คลินิกใจสบายเวชกรรม",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n573/22 Sam Sen Rd, Wachira Phayaban, Dusit District, Bangkok 10300, Thailand",
+      "district": "Dusit",
+      "phone": "+66 2 668 8451",
+      "website": "",
+      "lat": 13.7774083,
+      "lng": 100.5077885,
+      "rating": 4.3,
+      "total_reviews": 8,
+      "trust_score": 53.8,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%83%E0%B8%88%E0%B8%AA%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e2995e4abab3cd:0x54b29f40c9796bde!8m2!3d13.7774083!4d100.5077885!16s%2Fg%2F1tf2630f!19sChIJzbO6Sl6Z4jAR3mt5yUCfslQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29eb58a040a8b_0xaa4775c601386de4",
@@ -82767,54 +82921,6 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B9%84%E0%B8%8A%E0%B8%A2%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29964fdb972cb:0xbdc2f302a1b6d827!8m2!3d13.780552!4d100.520679!16s%2Fg%2F11n75zw895!19sChIJy3K5_WSZ4jARJ9i2oQLzwr0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e299b4a391921f_0x2baeee78abef3473",
-      "place_id": "0x30e299b4a391921f:0x2baeee78abef3473",
-      "name": "คลินิกเวชกรรมปราการ",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\nBan Bat, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 94 963 9478",
-      "website": "https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3",
-      "lat": 13.7561402,
-      "lng": 100.5094495,
-      "rating": 3.0,
-      "total_reviews": 47,
-      "trust_score": 50.1,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3/data=!4m7!3m6!1s0x30e299b4a391921f:0x2baeee78abef3473!8m2!3d13.7561402!4d100.5094495!16s%2Fg%2F11hqz7k6kg!19sChIJH5KRo7SZ4jARczTvq3juris?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fb218acb439_0xe5dd0d66e2c2790e",
