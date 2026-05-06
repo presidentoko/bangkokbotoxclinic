@@ -41,6 +41,8 @@ GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
+    "bangkok_clinics_grid",   # 클리닉 grid 끝나면 → 식당 review 재개
+    "bangkok_review",
     "chiang_mai_grid",
     "phuket_grid",
     "ayutthaya_grid",
@@ -616,7 +618,17 @@ def build_services() -> list[Service]:
             env_extra={},
             log_file=LOGS / "master_db_builder.log",
             progress_pattern=PROG_MDB,
-            progress_stale_sec=600,    # 5분 폴링 + 여유
+            progress_stale_sec=600,
+            progress_grace_sec=120,
+        ),
+        Service(
+            name="restaurants_db_builder",
+            cmd=["web-restaurants/scripts/watch_and_build.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "restaurants_db_builder.log",
+            progress_pattern=PROG_MDB,
+            progress_stale_sec=600,
             progress_grace_sec=120,
         ),
         Service(
