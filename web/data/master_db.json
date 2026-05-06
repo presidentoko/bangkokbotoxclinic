@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-05-06T01:22:29.810169+00:00",
-  "total_clinics": 814,
-  "with_district": 770,
+  "generated_at": "2026-05-06T01:32:32.918963+00:00",
+  "total_clinics": 816,
+  "with_district": 772,
   "with_categories": 527,
   "with_reviews_scraped": 556,
   "language_total": {
     "th": 1,
-    "en": 19097,
+    "en": 19164,
     "other": 46
   },
   "district_counts": {
     "Pathum Wan": 277,
     "Phaya Thai": 129,
     "Bang Rak": 97,
-    "Watthana": 65,
+    "Watthana": 67,
     "Huai Khwang": 41,
     "Khlong Toei": 35,
     "Sathon": 32,
@@ -29,12 +29,12 @@
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 327,
-    "laser": 238,
-    "botox": 162,
+    "facial": 326,
+    "laser": 237,
+    "botox": 161,
     "dental": 136,
-    "filler": 116,
-    "hifu": 115,
+    "filler": 115,
+    "hifu": 114,
     "hair_transplant": 16,
     "eye": 6
   },
@@ -4370,6 +4370,101 @@
       "maps_url": "https://www.google.com/maps/place/Somdech+Phra+Debaratana+Medical+Centre+Ramathibodi+Hospital/data=!4m7!3m6!1s0x30e2994d60ae77c1:0x72f1f3d48e0a4095!8m2!3d13.7683925!4d100.5280598!16s%2Fg%2F1pv2byvsy!19sChIJwXeuYE2Z4jARlUAKjtTz8XI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f30e66ca28f_0x1fb42e1d5c33d4d",
+      "place_id": "0x30e29f30e66ca28f:0x1fb42e1d5c33d4d",
+      "name": "PULSE CLINIC - Nana | Asia's Leading Lifestyle Center, Sukhumvit 13 Bangkok (พัลซ์ คลินิก นานา)",
+      "name_lang": "other",
+      "primary_type": "Medical centre",
+      "address": "\nTrendy Building, Ground Floor Room, 10/1 Soi Sukhumvit 13, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 95 915 6385",
+      "website": "https://www.pulse-clinic.com/",
+      "lat": 13.7412532,
+      "lng": 100.557887,
+      "rating": 4.9,
+      "total_reviews": 459,
+      "trust_score": 88.0,
+      "categories": [],
+      "scraped_review_count": 80,
+      "local_guide_count": 18,
+      "avg_author_review_count": 18.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 47,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 10
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 9
+        },
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "english_speaking",
+          "count": 7
+        },
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 13,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 67,
+          "avg": 4.97
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Amazing place, great location, everybody extremely friendly  highly recommend for everybody on bangkok",
+          "rating": 5,
+          "author": "Fernand"
+        },
+        {
+          "text": "The doctor and front desk staff were very helpful and spoke great english. Very convenient service.",
+          "rating": 5,
+          "author": "Finn Murphy"
+        },
+        {
+          "text": "Everything was good. The doctor was polite and professional. The clinic provided all the documents I wanted. The communication was fast and smooth!",
+          "rating": 5,
+          "author": "Dmitry"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+Nana+%7C+Asia%27s+Leading+Lifestyle+Center,+Sukhumvit+13+Bangkok+%28%E0%B8%9E%E0%B8%B1%E0%B8%A5%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2%29/data=!4m7!3m6!1s0x30e29f30e66ca28f:0x1fb42e1d5c33d4d!8m2!3d13.7412532!4d100.557887!16s%2Fg%2F11cknf6t5j!19sChIJj6Js5jCf4jARTT3D1eFC-wE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f9fb0005643_0x1f6708694f99c424",
       "place_id": "0x30e29f9fb0005643:0x1f6708694f99c424",
       "name": "Asok Skytrain Dental Clinic",
@@ -8615,8 +8710,8 @@
         "botox": 1,
         "filler": 1,
         "hifu": 13,
-        "facial": 3,
-        "laser": 29,
+        "facial": 2,
+        "laser": 31,
         "dental": 1
       },
       "mentioned_topics": [
@@ -8626,7 +8721,7 @@
         },
         {
           "topic": "recommend",
-          "count": 16
+          "count": 15
         },
         {
           "topic": "friendly_staff",
@@ -8642,7 +8737,11 @@
         },
         {
           "topic": "genuine_brand",
-          "count": 3
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
         },
         {
           "topic": "english_speaking",
@@ -8658,10 +8757,6 @@
         },
         {
           "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
           "count": 1
         },
         {
@@ -18700,6 +18795,97 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B9%E0%B8%8B%E0%B8%B9+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+-+Zuzu+Clinic/data=!4m7!3m6!1s0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b!8m2!3d13.7487931!4d100.5624284!16s%2Fg%2F11t9npk6ld!19sChIJf4sPnIWjLqMRG7uRTGU33fI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fb72b629901_0xb046260e2c510b1",
+      "place_id": "0x30e29fb72b629901:0xb046260e2c510b1",
+      "name": "Bangkok Central Clinic IVF",
+      "name_lang": "en",
+      "primary_type": "Fertility clinic",
+      "address": "\n87/3 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 2 252 3420",
+      "website": "http://www.bccivfwellness.com/",
+      "lat": 13.7385127,
+      "lng": 100.5483392,
+      "rating": 4.9,
+      "total_reviews": 103,
+      "trust_score": 81.2,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 14,
+      "avg_author_review_count": 16.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 47,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 20
+        },
+        {
+          "topic": "professional",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 12,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 15,
+          "avg": 4.4
+        },
+        "old": {
+          "count": 23,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I am a Mom now! Much appreciated with your clinic’s team, specially Dr. Tanut who explained us all situations and support my whole IVF smoothly- at the moment I’m blessed with the joy, playful with my adorable daughter just turn 5 months.",
+          "rating": 5,
+          "author": "Hieu Vo"
+        },
+        {
+          "text": "Finally, I got the daughter I've been wishing for! It happened on my first try with just one golden egg. I feel so glad I made the right decision to do ICSI here. Dr. Ball is incredibly skilled, minimizing all possible risks, and the entire …",
+          "rating": 5,
+          "author": "Rattana Cawhai"
+        },
+        {
+          "text": "Dr. Ball and the team took excellent care of me.\nEvery step was stress-free and relaxed.\n\nI'm so glad I found such a good doctor and clinic.\nI highly recommend it.",
+          "rating": 5,
+          "author": "OUM stories"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Central+Clinic+IVF/data=!4m7!3m6!1s0x30e29fb72b629901:0xb046260e2c510b1!8m2!3d13.7385127!4d100.5483392!16s%2Fg%2F11fv4h1ylt!19sChIJAZliK7ef4jARsRDF4mBiBAs?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f573f435a11_0x8fd8d581c3e1c842",
       "place_id": "0x30e29f573f435a11:0x8fd8d581c3e1c842",
       "name": "Amis Clinic",
@@ -19020,6 +19206,54 @@
       "maps_url": "https://www.google.com/maps/place/Dental+Image+Clinic+Phayathai/data=!4m7!3m6!1s0x30e29eb58a6d7063:0xf4b40a96ede5eea!8m2!3d13.7573963!4d100.533526!16s%2Fg%2F11cm0q03zs!19sChIJY3BtirWe4jAR6l7ebqlASw8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f5d6fe7d849_0x19b2c4af9582b0ce",
+      "place_id": "0x30e29f5d6fe7d849:0x19b2c4af9582b0ce",
+      "name": "Grand Dental Clinic Nana",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n6/2-5 Grand dental Soi Sukhumvit 3, คลองเตยเหนือ Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 95 646 5656",
+      "website": "https://granddentalgroups.com/",
+      "lat": 13.7430766,
+      "lng": 100.553226,
+      "rating": 4.9,
+      "total_reviews": 464,
+      "trust_score": 81.0,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Grand+Dental+Clinic+Nana/data=!4m7!3m6!1s0x30e29f5d6fe7d849:0x19b2c4af9582b0ce!8m2!3d13.7430766!4d100.553226!16s%2Fg%2F11h1yccwry!19sChIJSdjnb12f4jARzrCCla_Eshk?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fa27b622c41_0xbf058388b1c3f43d",
       "place_id": "0x30e29fa27b622c41:0xbf058388b1c3f43d",
       "name": "LitarDClinic ริต้าดี คลินิก สาขาพญาไท",
@@ -19258,52 +19492,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Clarity+Clinic+%E0%B9%80%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%AB%E0%B8%A5%E0%B8%B8%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A2%E0%B8%81%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B1%E0%B8%9A/data=!4m7!3m6!1s0x30e29f00483e6ee7:0x82238807790c7bdc!8m2!3d13.7537134!4d100.5315368!16s%2Fg%2F11xd0xvd3r!19sChIJ524-SACf4jAR3HsMeQeII4I?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f30e66ca28f_0x1fb42e1d5c33d4d",
-      "place_id": "0x30e29f30e66ca28f:0x1fb42e1d5c33d4d",
-      "name": "PULSE CLINIC - Nana | Asia's Leading Lifestyle Center, Sukhumvit 13 Bangkok (พัลซ์ คลินิก นานา)",
-      "name_lang": "other",
-      "primary_type": "Medical centre",
-      "address": "\nTrendy Building, Ground Floor Room, 10/1 Soi Sukhumvit 13, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 95 915 6385",
-      "website": "https://www.pulse-clinic.com/",
-      "lat": 13.7412532,
-      "lng": 100.557887,
-      "rating": 4.9,
-      "total_reviews": 459,
-      "trust_score": 80.9,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+Nana+%7C+Asia%27s+Leading+Lifestyle+Center,+Sukhumvit+13+Bangkok+%28%E0%B8%9E%E0%B8%B1%E0%B8%A5%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2%29/data=!4m7!3m6!1s0x30e29f30e66ca28f:0x1fb42e1d5c33d4d!8m2!3d13.7412532!4d100.557887!16s%2Fg%2F11cknf6t5j!19sChIJj6Js5jCf4jARTT3D1eFC-wE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fc7db50d6b7_0xb2ff6498a44edf4f",
@@ -32756,111 +32944,6 @@
       "maps_url": "https://www.google.com/maps/place/Move+On+Clinic+-+%E0%B8%A1%E0%B8%B9%E0%B8%9F%E0%B8%AD%E0%B8%AD%E0%B8%99+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e29f56426f2291:0xff47eacf36c38577!8m2!3d13.7588484!4d100.5717156!16s%2Fg%2F11y6g_ldpm!19sChIJkSJvQlaf4jARd4XDNs_qR_8?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29fac0e11e9b3_0x47e1dc3b8fb95c05",
-      "place_id": "0x30e29fac0e11e9b3:0x47e1dc3b8fb95c05",
-      "name": "24 Aesthe Clinic",
-      "name_lang": "en",
-      "primary_type": "Dermatologist",
-      "address": "\nGround Level 566, Four Points by Sheraton Ploenchit, Phloen Chit Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 98 152 2244",
-      "website": "",
-      "lat": 13.7425837,
-      "lng": 100.5497425,
-      "rating": 4.9,
-      "total_reviews": 31,
-      "trust_score": 76.5,
-      "categories": [
-        "dental",
-        "facial",
-        "hifu",
-        "laser"
-      ],
-      "scraped_review_count": 31,
-      "local_guide_count": 11,
-      "avg_author_review_count": 17.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 24,
-        "other": 0
-      },
-      "service_mentions": {
-        "hifu": 1,
-        "facial": 1,
-        "laser": 3,
-        "dental": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 16
-        },
-        {
-          "topic": "recommend",
-          "count": 8
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
-          "topic": "professional",
-          "count": 3
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        },
-        {
-          "topic": "premium",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 14,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 7,
-          "avg": 4.57
-        },
-        "old": {
-          "count": 10,
-          "avg": 4.9
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor is the best, and the clinic is clean. The results after the treatment are perfect.",
-          "rating": 5,
-          "author": "Krittidech"
-        },
-        {
-          "text": "I’m really impressed with the service. The doctor was skilled and honest, recommending only what was necessary without pushing extra treatments. The clinic is clean, comfortable, and conveniently located.",
-          "rating": 5,
-          "author": "Iris R."
-        },
-        {
-          "text": "The service was excellent, exceeding expectations. The clinic was clean. I highly recommend it.",
-          "rating": 5,
-          "author": "Tommy"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/24+Aesthe+Clinic/data=!4m7!3m6!1s0x30e29fac0e11e9b3:0x47e1dc3b8fb95c05!8m2!3d13.7425837!4d100.5497425!16s%2Fg%2F11tmw9xhrw!19sChIJs-kRDqyf4jARBVy5jzvc4Uc?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f004dbcbf77_0xdcf39eb9991f1032",
       "place_id": "0x30e29f004dbcbf77:0xdcf39eb9991f1032",
       "name": "สหคลินิกเปาโล สาขาเซ็นทรัลเวิลด์",
@@ -41041,52 +41124,6 @@
       "maps_url": "https://www.google.com/maps/place/JAB%26GO+Clinic+By+Vibhavadi+Hospital+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%88%E0%B8%B4%E0%B8%95/data=!4m7!3m6!1s0x30e29f004d670bfb:0x12e365a305279727!8m2!3d13.7429448!4d100.5492384!16s%2Fg%2F11lv73g77h!19sChIJ-wtnTQCf4jARJ5cnBaNl4xI?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29fb72b629901_0xb046260e2c510b1",
-      "place_id": "0x30e29fb72b629901:0xb046260e2c510b1",
-      "name": "Bangkok Central Clinic IVF",
-      "name_lang": "en",
-      "primary_type": "Fertility clinic",
-      "address": "\n87/3 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 2 252 3420",
-      "website": "http://www.bccivfwellness.com/",
-      "lat": 13.7385127,
-      "lng": 100.5483392,
-      "rating": 4.9,
-      "total_reviews": 103,
-      "trust_score": 73.2,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+Central+Clinic+IVF/data=!4m7!3m6!1s0x30e29fb72b629901:0xb046260e2c510b1!8m2!3d13.7385127!4d100.5483392!16s%2Fg%2F11fv4h1ylt!19sChIJAZliK7ef4jARsRDF4mBiBAs?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f19e942466f_0x799fe87c593477ab",
       "place_id": "0x30e29f19e942466f:0x799fe87c593477ab",
       "name": "Craft clinic คราฟ คลินิก BTSพญาไท",
@@ -43716,107 +43753,95 @@
       "maps_url": "https://www.google.com/maps/place/LIFE+by+Dr.+Pat+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%A1%E0%B8%B5%E0%B8%9A%E0%B8%B8%E0%B8%95%E0%B8%A3%E0%B8%87%E0%B9%88%E0%B8%B2%E0%B8%A2+The+best+IVF+ICSI+clinic+in+Bangkok+Thailand/data=!4m7!3m6!1s0x30e29fa93cd25283:0x17bcc95c584393bf!8m2!3d13.7371835!4d100.5477736!16s%2Fg%2F11pz2hv_f3!19sChIJg1LSPKmf4jARv5NDWFzJvBc?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29f100c5e8301_0x4e8cc154d1163621",
-      "place_id": "0x30e29f100c5e8301:0x4e8cc154d1163621",
-      "name": "KeTHAT Aesthetic Clinic",
+      "id": "0x30e29ec4ebef6ac1_0x136f065288a839d9",
+      "place_id": "0x30e29ec4ebef6ac1:0x136f065288a839d9",
+      "name": "Jetanin Institute of Assisted Conception",
       "name_lang": "en",
-      "primary_type": "Beauty school",
-      "address": "\n116 57 ซอยร่วมจิตร Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 2 115 5288",
-      "website": "http://www.kethat.com/",
-      "lat": 13.7587586,
-      "lng": 100.5410806,
-      "rating": 4.8,
-      "total_reviews": 17,
-      "trust_score": 72.3,
-      "categories": [
-        "botox",
-        "facial",
-        "filler"
-      ],
-      "scraped_review_count": 17,
-      "local_guide_count": 5,
-      "avg_author_review_count": 69.9,
+      "primary_type": "Fertility clinic",
+      "address": "\n5 Chit Lom Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 2 655 5300",
+      "website": "http://www.jetanin.com/",
+      "lat": 13.7471891,
+      "lng": 100.5447766,
+      "rating": 4.2,
+      "total_reviews": 105,
+      "trust_score": 72.2,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 9,
+      "avg_author_review_count": 15.5,
       "language_breakdown": {
         "th": 0,
-        "en": 15,
+        "en": 40,
         "other": 0
       },
-      "service_mentions": {
-        "botox": 6,
-        "filler": 5,
-        "facial": 1
-      },
+      "service_mentions": {},
       "mentioned_topics": [
         {
-          "topic": "clean_facility",
-          "count": 5
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
           "topic": "professional",
-          "count": 3
+          "count": 11
         },
         {
           "topic": "friendly_staff",
-          "count": 3
+          "count": 10
         },
         {
           "topic": "recommend",
+          "count": 10
+        },
+        {
+          "topic": "english_speaking",
           "count": 3
         },
         {
-          "topic": "genuine_brand",
-          "count": 1
+          "topic": "clean_facility",
+          "count": 3
         },
         {
-          "topic": "results_satisfied",
-          "count": 1
+          "topic": "expensive",
+          "count": 3
         },
         {
-          "topic": "no_pain",
+          "topic": "long_wait",
           "count": 1
         }
       ],
       "rating_trend": {
         "recent": {
-          "count": 3,
-          "avg": 3.67
+          "count": 7,
+          "avg": 4.0
         },
         "midterm": {
-          "count": 0,
-          "avg": null
+          "count": 21,
+          "avg": 4.52
         },
         "old": {
-          "count": 14,
-          "avg": 5.0
+          "count": 22,
+          "avg": 4.41
         },
         "trend": "declining"
       },
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "The doctor explained everything in great detail, in a very easy-to-understand way. I wasn't confused at all.\nAnd they recommended treatments based on my skin condition, not just randomly pushing certain programs. 10/10, truly excellent! 👍 …",
+          "text": "Excellent clinic with knowledgeable doctors and a caring counseling team. The process was well organized, communication was clear, and we felt confident in every step of our treatment. The staff made a stressful journey much easier. Thank you for the outstanding care.",
           "rating": 5,
-          "author": "Choladda Seedapon"
+          "author": "Ricky Chao"
         },
         {
-          "text": "The staff are lovely and polite, the clinic is clean, the service is good, and parking is convenient. The doctor is skilled, kind, and not pushy.",
+          "text": "The doctor is incredibly skilled, living up to their reputation. It's a large hospital with its own lab; I highly recommend it to anyone looking for infertility treatment. Thank you for making our dream come true.",
           "rating": 5,
-          "author": "ขวัญฤทัย เช้าวังเย็น"
+          "author": "Saharat Aiamtubtim"
         },
         {
-          "text": "The doctor is kind, polite, lovely, warm, friendly, and highly skilled.\nI trust Dr. Nam to take care of me.",
+          "text": "Great service, the doctor explained all the steps very detail. Over all experience are excellent.",
           "rating": 5,
-          "author": "natthinee jansin"
+          "author": "Su Huai"
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/KeTHAT+Aesthetic+Clinic/data=!4m7!3m6!1s0x30e29f100c5e8301:0x4e8cc154d1163621!8m2!3d13.7587586!4d100.5410806!16s%2Fg%2F11hy9hwlxh!19sChIJAYNeDBCf4jARITYW0VTBjE4?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Jetanin+Institute+of+Assisted+Conception/data=!4m7!3m6!1s0x30e29ec4ebef6ac1:0x136f065288a839d9!8m2!3d13.7471891!4d100.5447766!16s%2Fg%2F1yfjt1ydg!19sChIJwWrv68Se4jAR2TmoiFIGbxM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299e588768153_0xb26880f10ddfe89b",
@@ -49305,6 +49330,87 @@
       "maps_url": "https://www.google.com/maps/place/MAYA.Q+CLINIC+%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%B2.%E0%B8%84%E0%B8%B4%E0%B8%A7+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29b002ca58d61:0x8ea1ca83435eec5f!8m2!3d13.7257348!4d100.5287074!16s%2Fg%2F11y5g_h0bc!19sChIJYY2lLACb4jARX-xeQ4PKoY4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f4d03fa6cc3_0x64f8637756b1744a",
+      "place_id": "0x30e29f4d03fa6cc3:0x64f8637756b1744a",
+      "name": "Near Me Clinic",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\n588/8-9 Asok, Din Daeng Rd, Dindang, Din Daeng, Bangkok 10400, Thailand",
+      "district": "Watthana",
+      "phone": "+66 90 212 1122",
+      "website": "",
+      "lat": 13.7565381,
+      "lng": 100.5610343,
+      "rating": 5.0,
+      "total_reviews": 24,
+      "trust_score": 69.5,
+      "categories": [
+        "botox",
+        "facial"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 1,
+      "avg_author_review_count": 3.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1,
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "First time here. The doctor gave good advice, was sincere, and had a gentle touch. The staff were lovely and the service was impressive. 👍 …",
+          "rating": 5,
+          "author": "makamza"
+        },
+        {
+          "text": "This clinic is truly honest and reliable. Highly recommended. Good prices and excellent consultation. 💗🫶🏻✨ …",
+          "rating": 5,
+          "author": "Natnapa Rak"
+        },
+        {
+          "text": "This is my first time here. The clinic is very clean. The staff are lovely, and the doctor is wonderful and gave excellent advice.",
+          "rating": 5,
+          "author": "Nutnaree Pirom"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Near+Me+Clinic/data=!4m7!3m6!1s0x30e29f4d03fa6cc3:0x64f8637756b1744a!8m2!3d13.7565381!4d100.5610343!16s%2Fg%2F11m6xj29gj!19sChIJw2z6A02f4jARSnSxVndj-GQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f1d1421a4f1_0x63f8f7c5082a83e1",
       "place_id": "0x30e29f1d1421a4f1:0x63f8f7c5082a83e1",
       "name": "หน่วยศัลยกรรมระบบปัสสาวะ โรงพยาบาลพระมงกุฎเกล้า (Urology Department of Phramongkutklao Hospital)",
@@ -49582,91 +49688,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Next+Medical/data=!4m7!3m6!1s0x30e29f44e8ed6acd:0x5b881a293208708b!8m2!3d13.7460415!4d100.540845!16s%2Fg%2F11f7kmh54d!19sChIJzWrt6ESf4jARi3AIMikaiFs?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f4d03fa6cc3_0x64f8637756b1744a",
-      "place_id": "0x30e29f4d03fa6cc3:0x64f8637756b1744a",
-      "name": "Near Me Clinic",
-      "name_lang": "en",
-      "primary_type": "Clinic",
-      "address": "\n588/8-9 Asok, Din Daeng Rd, Dindang, Din Daeng, Bangkok 10400, Thailand",
-      "district": "Watthana",
-      "phone": "+66 90 212 1122",
-      "website": "",
-      "lat": 13.7565381,
-      "lng": 100.5610343,
-      "rating": 5.0,
-      "total_reviews": 24,
-      "trust_score": 69.3,
-      "categories": [
-        "botox",
-        "facial"
-      ],
-      "scraped_review_count": 24,
-      "local_guide_count": 2,
-      "avg_author_review_count": 3.4,
-      "language_breakdown": {
-        "th": 0,
-        "en": 22,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 1,
-        "facial": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 7
-        },
-        {
-          "topic": "recommend",
-          "count": 5
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 17,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 7,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "First time here. The doctor gave good advice, was sincere, and had a gentle touch. The staff were lovely and the service was impressive. 👍 …",
-          "rating": 5,
-          "author": "makamza"
-        },
-        {
-          "text": "This clinic is truly honest and reliable. Highly recommended. Good prices and excellent consultation. 💗🫶🏻✨ …",
-          "rating": 5,
-          "author": "Natnapa Rak"
-        },
-        {
-          "text": "This is my first time here. The clinic is very clean. The staff are lovely, and the doctor is wonderful and gave excellent advice.",
-          "rating": 5,
-          "author": "Nutnaree Pirom"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Near+Me+Clinic/data=!4m7!3m6!1s0x30e29f4d03fa6cc3:0x64f8637756b1744a!8m2!3d13.7565381!4d100.5610343!16s%2Fg%2F11m6xj29gj!19sChIJw2z6A02f4jARSnSxVndj-GQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299c0e0027a3d_0x10f885409daafb57",
@@ -50525,85 +50546,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Romrawin+Clinic+-+Central+World/data=!4m7!3m6!1s0x30e29f50e438b657:0xc39a2538181a13f4!8m2!3d13.7465565!4d100.5399241!16s%2Fg%2F11xr_s4gqh!19sChIJV7Y45FCf4jAR9BMaGDglmsM?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29fb6924001fb_0xe6dede1b79054698",
-      "place_id": "0x30e29fb6924001fb:0xe6dede1b79054698",
-      "name": "หม่าเฉิงคลินิก Macheng clinic",
-      "name_lang": "th",
-      "primary_type": "Chinese Medicine Clinic",
-      "address": "\nเลขที่ 15 อาคารศูนย์การค้าเซ็นจูรี่ เดอะมูฟวี่ พลาซ่า ห้องเลขที่ 436 ชั้น4 Phaya Thai Rd, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 91 826 5461",
-      "website": "",
-      "lat": 13.7616207,
-      "lng": 100.536874,
-      "rating": 5.0,
-      "total_reviews": 19,
-      "trust_score": 68.7,
-      "categories": [],
-      "scraped_review_count": 19,
-      "local_guide_count": 2,
-      "avg_author_review_count": 4.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 16,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 8
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 2
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 19,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor gave excellent advice. It was my first time having acupuncture, and the doctor was very gentle and lovely.",
-          "rating": 5,
-          "author": "Natty Ultraman"
-        },
-        {
-          "text": "The clinic is very clean and has a relaxing vibe. The doctor is super friendly and attentive. She gives excellent consultation. The herbal medicine didn’t take that long. The packaging is also really well designed—just open and take it, super convenient. I’m on day 4 now and already feeling better!",
-          "rating": 5,
-          "author": "T S"
-        },
-        {
-          "text": "The best Chinese treatment in town! The clinic is brand new, but the staff are experts and take great care of you. The doctor comes from a famous hospital, and the location is very easy to access via BTS—it's right in Century Mall. We will definitely be back!",
-          "rating": 5,
-          "author": "Wrsra anu"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B9%88%E0%B8%B2%E0%B9%80%E0%B8%89%E0%B8%B4%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+Macheng+clinic/data=!4m7!3m6!1s0x30e29fb6924001fb:0xe6dede1b79054698!8m2!3d13.7616207!4d100.536874!16s%2Fg%2F11z4yhpwwc!19sChIJ-wFAkraf4jARmEYFeRve3uY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299652e64334d_0xf39dbfd03be8aa6",
@@ -54250,6 +54192,52 @@
       "maps_url": "https://www.google.com/maps/place/LIL+Clinic+:+%E0%B8%A5%E0%B8%B4%E0%B8%A5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28%E0%B8%A1%E0%B8%B4%E0%B9%89%E0%B8%99%E0%B8%97%E0%B9%8C%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%991%29+%E0%B8%88%E0%B8%AD%E0%B8%94%E0%B8%A3%E0%B8%96%E0%B8%88%E0%B8%B8%E0%B8%AC%E0%B8%B2+%E0%B8%8B.10/data=!4m7!3m6!1s0x30e2991225350d05:0x242bfad04c94b704!8m2!3d13.7450935!4d100.5235013!16s%2Fg%2F11yhk9c83v!19sChIJBQ01JRKZ4jARBLeUTND6KyQ?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fac0e11e9b3_0x47e1dc3b8fb95c05",
+      "place_id": "0x30e29fac0e11e9b3:0x47e1dc3b8fb95c05",
+      "name": "24 Aesthe Clinic",
+      "name_lang": "en",
+      "primary_type": "Dermatologist",
+      "address": "\nGround Level 566, Four Points by Sheraton Ploenchit, Phloen Chit Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 98 152 2244",
+      "website": "",
+      "lat": 13.7425837,
+      "lng": 100.5497425,
+      "rating": 4.9,
+      "total_reviews": 31,
+      "trust_score": 66.9,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/24+Aesthe+Clinic/data=!4m7!3m6!1s0x30e29fac0e11e9b3:0x47e1dc3b8fb95c05!8m2!3d13.7425837!4d100.5497425!16s%2Fg%2F11tmw9xhrw!19sChIJs-kRDqyf4jARBVy5jzvc4Uc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e2998c05531141_0xbff57e9321f71bc5",
       "place_id": "0x30e2998c05531141:0xbff57e9321f71bc5",
       "name": "Alyss by Vertex Clinic ศูนย์ศัลยกรรมเรือนร่างและความงาม",
@@ -55206,52 +55194,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/ESL+clinic%28%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%99%E0%B8%88%E0%B8%99+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%95%E0%B8%B9%E0%B8%99%E0%B9%89%E0%B8%B3%29/data=!4m7!3m6!1s0x30e29ec608c4d123:0x51a1c3ec62b5fad7!8m2!3d13.7521978!4d100.5362601!16s%2Fg%2F11fyxbh6gy!19sChIJI9HECMae4jAR1_q1YuzDoVE?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29ec4ebef6ac1_0x136f065288a839d9",
-      "place_id": "0x30e29ec4ebef6ac1:0x136f065288a839d9",
-      "name": "Jetanin Institute of Assisted Conception",
-      "name_lang": "en",
-      "primary_type": "Fertility clinic",
-      "address": "\n5 Chit Lom Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 2 655 5300",
-      "website": "http://www.jetanin.com/",
-      "lat": 13.7471891,
-      "lng": 100.5447766,
-      "rating": 4.2,
-      "total_reviews": 105,
-      "trust_score": 66.3,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Jetanin+Institute+of+Assisted+Conception/data=!4m7!3m6!1s0x30e29ec4ebef6ac1:0x136f065288a839d9!8m2!3d13.7471891!4d100.5447766!16s%2Fg%2F1yfjt1ydg!19sChIJwWrv68Se4jAR2TmoiFIGbxM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fdbd6996633_0xaf4f3bdbedeef6ce",
@@ -56444,6 +56386,52 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Soleil+Clinic/data=!4m7!3m6!1s0x30e29f20fc29981d:0x9afef10fc48b615e!8m2!3d13.7375379!4d100.5587683!16s%2Fg%2F11w81zsjty!19sChIJHZgp_CCf4jARXmGLxA_x_po?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fb6924001fb_0xe6dede1b79054698",
+      "place_id": "0x30e29fb6924001fb:0xe6dede1b79054698",
+      "name": "หม่าเฉิงคลินิก Macheng clinic",
+      "name_lang": "th",
+      "primary_type": "Chinese medicine clinic",
+      "address": "\nเลขที่ 15 อาคารศูนย์การค้าเซ็นจูรี่ เดอะมูฟวี่ พลาซ่า ห้องเลขที่ 436 ชั้น4 Phaya Thai Rd, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 91 826 5461",
+      "website": "",
+      "lat": 13.7616207,
+      "lng": 100.536874,
+      "rating": 5.0,
+      "total_reviews": 19,
+      "trust_score": 65.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B9%88%E0%B8%B2%E0%B9%80%E0%B8%89%E0%B8%B4%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+Macheng+clinic/data=!4m7!3m6!1s0x30e29fb6924001fb:0xe6dede1b79054698!8m2!3d13.7616207!4d100.536874!16s%2Fg%2F11z4yhpwwc!19sChIJ-wFAkraf4jARmEYFeRve3uY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fdd94e44d63_0xb9ff6036c50c0829",
@@ -58783,6 +58771,54 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%9E%E0%B8%87%E0%B8%A8%E0%B9%8C%E0%B8%A8%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B4%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e29eb10a16a8b5:0xaaa5977c0123cf32!8m2!3d13.7657543!4d100.5368408!16s%2Fg%2F11b6dql52j!19sChIJtagWCrGe4jARMs8jAXyXpao?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f100c5e8301_0x4e8cc154d1163621",
+      "place_id": "0x30e29f100c5e8301:0x4e8cc154d1163621",
+      "name": "KeTHAT Aesthetic Clinic",
+      "name_lang": "en",
+      "primary_type": "Beauty therapy college",
+      "address": "\n116 57 ซอยร่วมจิตร Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 115 5288",
+      "website": "http://www.kethat.com/",
+      "lat": 13.7587586,
+      "lng": 100.5410806,
+      "rating": 4.8,
+      "total_reviews": 17,
+      "trust_score": 62.8,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/KeTHAT+Aesthetic+Clinic/data=!4m7!3m6!1s0x30e29f100c5e8301:0x4e8cc154d1163621!8m2!3d13.7587586!4d100.5410806!16s%2Fg%2F11hy9hwlxh!19sChIJAYNeDBCf4jARITYW0VTBjE4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fd1eccfe2e7_0xe4f25d7bb3a997be",
@@ -63065,6 +63101,52 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Chulalongkorn+Health+Center/data=!4m7!3m6!1s0x30e29ed5bd4ac469:0x45581b444c43d9f2!8m2!3d13.7359586!4d100.5259836!16s%2Fg%2F11b682tq60!19sChIJacRKvdWe4jAR8tlDTEQbWEU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ee7ddf5c0cb_0x1ab761b943e8ddeb",
+      "place_id": "0x30e29ee7ddf5c0cb:0x1ab761b943e8ddeb",
+      "name": "Dr.Natt Clinic (Nana branch)",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\n16/8-9 Sukhumvit Soi 3 Road, Klong Toei Nua, Wattana, Bangkok 10110, 3 Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 254 9451",
+      "website": "http://www.drnattclinic.com/",
+      "lat": 13.7446972,
+      "lng": 100.5535563,
+      "rating": 2.7,
+      "total_reviews": 11,
+      "trust_score": 39.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dr.Natt+Clinic+%28Nana+branch%29/data=!4m7!3m6!1s0x30e29ee7ddf5c0cb:0x1ab761b943e8ddeb!8m2!3d13.7446972!4d100.5535563!16s%2Fg%2F11bxfjs7x1!19sChIJy8D13eee4jAR693oQ7lhtxo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fab6ae269d5_0xa3493de173b016c8",
