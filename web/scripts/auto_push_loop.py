@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "web" / "scripts" / "auto_git_push.py"
 VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
-INTERVAL = 600  # 10분
+INTERVAL = 1800  # 30분 (Vercel Hobby 한도 100 deploy/24h 고려)
 
 logging.basicConfig(
     level=logging.INFO,
