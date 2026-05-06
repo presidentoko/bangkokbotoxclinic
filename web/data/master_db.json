@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T22:45:52.129215+00:00",
-  "total_clinics": 1258,
-  "with_district": 1201,
-  "with_categories": 792,
-  "with_reviews_scraped": 909,
+  "generated_at": "2026-05-06T22:55:56.806080+00:00",
+  "total_clinics": 1261,
+  "with_district": 1204,
+  "with_categories": 796,
+  "with_reviews_scraped": 911,
   "language_total": {
     "th": 1,
-    "en": 30631,
+    "en": 30705,
     "ko": 1,
     "ja": 0,
     "other": 80
@@ -18,24 +18,24 @@
     "Watthana": 127,
     "Huai Khwang": 89,
     "Khlong Toei": 73,
-    "Khlong San": 54,
+    "Khlong San": 55,
     "Sathon": 48,
     "Pom Prap Sattru Phai": 32,
+    "Phra Nakhon": 31,
     "Dusit": 30,
-    "Phra Nakhon": 30,
     "Din Daeng": 25,
     "Ratchathewi": 20,
     "Samphanthawong": 8,
     "Yan Nawa": 6,
-    "Thon Buri": 4,
+    "Thon Buri": 5,
     "Bang Kapi": 1,
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 462,
-    "laser": 360,
+    "facial": 463,
+    "laser": 361,
     "botox": 244,
-    "dental": 236,
+    "dental": 238,
     "filler": 197,
     "hifu": 182,
     "hair_transplant": 21,
@@ -2524,6 +2524,95 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+%E0%B9%80%E0%B8%97%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%A1%E0%B8%B4%E0%B8%99%E0%B8%AD%E0%B8%A5+%E0%B8%AD%E0%B9%82%E0%B8%A8%E0%B8%81/data=!4m7!3m6!1s0x30e29f9bb0488815:0xfee0f1fd26bcda11!8m2!3d13.7373243!4d100.5605703!16s%2Fg%2F11kbxdh2mn!19sChIJFYhIsJuf4jAREdq8Jv3x4P4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2996d3030c435_0x788a8ab83f42a136",
+      "place_id": "0x30e2996d3030c435:0x788a8ab83f42a136",
+      "name": "Darin Beauty and Spa",
+      "name_lang": "en",
+      "primary_type": "Spa",
+      "address": "\n303 Thanon Ram Buttri, Khwaeng Talat Yot, Khet Phra Nakhon, Bangkok 10200, Thailand",
+      "district": "Phra Nakhon",
+      "phone": "+66 88 252 4955",
+      "website": "https://m.facebook.com/DarinBeauty/",
+      "lat": 13.7595615,
+      "lng": 100.4978855,
+      "rating": 4.6,
+      "total_reviews": 2628,
+      "trust_score": 91.4,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 5.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 9,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Just got a brazillian wax done with kwan and it was just about as quick and painless as it could have possibly been!! Highly recommend coming here. It was 700 baht for the service which is pretty hard to beat!",
+          "rating": 5,
+          "author": "Kara Jewett"
+        },
+        {
+          "text": "Just did my brow lift and had the best experience. They were very attentive and the results are great!! I would 100% recommend this place, if you are nearby, do not hesitate",
+          "rating": 5,
+          "author": "Chiara Scoccia"
+        },
+        {
+          "text": "I had a gel manicure and pedicure, and I'm very, very satisfied! I would definitely go again.",
+          "rating": 5,
+          "author": "Charlotte Bala"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Darin+Beauty+and+Spa/data=!4m7!3m6!1s0x30e2996d3030c435:0x788a8ab83f42a136!8m2!3d13.7595615!4d100.4978855!16s%2Fg%2F11bvt3rg0b!19sChIJNcQwMG2Z4jARNqFCP7iKing?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29eb18003e231_0x627d0a895da6d152",
@@ -24049,6 +24138,87 @@
       "maps_url": "https://www.google.com/maps/place/Craft+clinic+%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%9F+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+BTS%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97/data=!4m7!3m6!1s0x30e29f19e942466f:0x799fe87c593477ab!8m2!3d13.7572891!4d100.5335933!16s%2Fg%2F11w34fx4mp!19sChIJb0ZC6Rmf4jARq3c0WXzon3k?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29911142b4de1_0xb3e1c79f5a560c1b",
+      "place_id": "0x30e29911142b4de1:0xb3e1c79f5a560c1b",
+      "name": "Baan Mowaan Bamrungchat Satsana Yathai Pharmacy",
+      "name_lang": "en",
+      "primary_type": "Drug store",
+      "address": "\n9 Soi Thesa, แขวง วัดราชบพิธ, Phra Nakhon, Bangkok 10200, Thailand",
+      "district": "Phra Nakhon",
+      "phone": "+66 94 479 6838",
+      "website": "http://www.mowaan.com/",
+      "lat": 13.751431,
+      "lng": 100.4999401,
+      "rating": 4.5,
+      "total_reviews": 77,
+      "trust_score": 82.1,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 41,
+      "avg_author_review_count": 169.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 33,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 7,
+          "avg": 3.86
+        },
+        "old": {
+          "count": 43,
+          "avg": 4.63
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "It's a pity that you can't enter the shop, but the owner has a shop window on the steps and sells as usual.",
+          "rating": 5,
+          "author": "Marcin Gliszczynski"
+        },
+        {
+          "text": "Friendly owner! It's a shame the interior isn't open, but it's worth stopping by if you're nearby.",
+          "rating": 5,
+          "author": "J Park"
+        },
+        {
+          "text": "So pity - it's still working as a pharmacy, but closed for sightseeing out of Covid concerns. Hopefully will open soon.",
+          "rating": 5,
+          "author": "V K"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Baan+Mowaan+Bamrungchat+Satsana+Yathai+Pharmacy/data=!4m7!3m6!1s0x30e29911142b4de1:0xb3e1c79f5a560c1b!8m2!3d13.751431!4d100.4999401!16s%2Fg%2F1hdz5dc8l!19sChIJ4U0rFBGZ4jARGwxWWp_H4bM?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299a640a0194f_0x9226c871d74d6bb3",
       "place_id": "0x30e299a640a0194f:0x9226c871d74d6bb3",
       "name": "Gangnam Clinic ICS (กังนัมคลินิก สาขา ICS)",
@@ -27153,6 +27323,89 @@
       "maps_url": "https://www.google.com/maps/place/Lucius+Clinic+%28%E0%B8%A5%E0%B8%B9%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B8%A2%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%29+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+Silom+Complex+Fl.3/data=!4m7!3m6!1s0x30e29f0b8cd561c1:0x326dc4e266e8df3b!8m2!3d13.7282053!4d100.5352181!16s%2Fg%2F11xgwdvhq_!19sChIJwWHVjAuf4jARO9_oZuLEbTI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299f6b6645c8b_0xaa44eb8ef8387eb9",
+      "place_id": "0x30e299f6b6645c8b:0xaa44eb8ef8387eb9",
+      "name": "Monoko Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n987 8 Itsaraphap Rd, Khwaeng Hiranruchi, Khet Thon Buri, Bangkok 10600, Thailand",
+      "district": "Thon Buri",
+      "phone": "+66 94 783 1993",
+      "website": "https://www.facebook.com/profile.php?id=100095118158324&mibextid=LQQJ4d",
+      "lat": 13.7329411,
+      "lng": 100.4918294,
+      "rating": 5.0,
+      "total_reviews": 229,
+      "trust_score": 81.0,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 1,
+      "avg_author_review_count": 2.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 8,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This clinic has a doctor who is kind and polite, and the assistants are also very courteous. Give it a try!",
+          "rating": 5,
+          "author": "วีระวัติ สังขละนฤวงศ์"
+        },
+        {
+          "text": "The doctor was kind and friendly, the staff provided good service, the wait time was short, and the clinic was clean.",
+          "rating": 5,
+          "author": "Daraphon Phongphet"
+        },
+        {
+          "text": "The doctor is very lovely. I'm impressed every time I come. The assistants are all lovely too. Excellent service. Highly recommended.",
+          "rating": 5,
+          "author": "Taksaorn Nualsri"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Monoko+Dental+Clinic/data=!4m7!3m6!1s0x30e299f6b6645c8b:0xaa44eb8ef8387eb9!8m2!3d13.7329411!4d100.4918294!16s%2Fg%2F11v672mfwx!19sChIJi1xktvaZ4jARuX44-I7rRKo?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ee2e68625d1_0x9270ab3ad3acd9ae",
       "place_id": "0x30e29ee2e68625d1:0x9270ab3ad3acd9ae",
       "name": "ดีไอไอ เอสเธทิค",
@@ -28686,92 +28939,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/22+Square+Clinic/data=!4m7!3m6!1s0x30e29f27a309808f:0x2ee13772ab4f3a27!8m2!3d13.7174136!4d100.5392181!16s%2Fg%2F11k461rqc8!19sChIJj4AJoyef4jARJzpPq3I34S4?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e298ee2ea5142b_0x2497ae002a112fa",
-      "place_id": "0x30e298ee2ea5142b:0x2497ae002a112fa",
-      "name": "Authentic Clinic BTS Wongwien Yai",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\n45 Krung Thon Buri Road, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
-      "district": "Khlong San",
-      "phone": "+66 61 645 1646",
-      "website": "https://opl.to/authentic_clinic",
-      "lat": 13.7215444,
-      "lng": 100.4963079,
-      "rating": 5.0,
-      "total_reviews": 198,
-      "trust_score": 80.7,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 10,
-      "local_guide_count": 1,
-      "avg_author_review_count": 3.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 8,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "promotion",
-          "count": 6
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 2
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 2
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 10,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Conveniently located near BTS Wongwian Yai, great promotional prices, and very polite and friendly staff.",
-          "rating": 5,
-          "author": "Patitta K"
-        },
-        {
-          "text": "Convenient location, close to the BTS, affordable prices, and a comfortable atmosphere in the shop.",
-          "rating": 5,
-          "author": "Tanakit Prasitviset"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Authentic+Clinic+BTS+Wongwien+Yai/data=!4m7!3m6!1s0x30e298ee2ea5142b:0x2497ae002a112fa!8m2!3d13.7215444!4d100.4963079!16s%2Fg%2F11b8yg4mrc!19sChIJKxSlLu6Y4jAR-hKhAuB6SQI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2990e271e3d41_0x873ad84e5b3e6bc8",
@@ -42853,6 +43020,56 @@
       "maps_url": "https://www.google.com/maps/place/Agile+Rehabilitation+%26+Physio+Clinic/data=!4m7!3m6!1s0x30e29f62cae22be7:0x5e18e83b957f3cbb!8m2!3d13.7358994!4d100.5450548!16s%2Fg%2F11xcw52635!19sChIJ5yviymKf4jARuzx_lTvoGF4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e298ee2ea5142b_0x2497ae002a112fa",
+      "place_id": "0x30e298ee2ea5142b:0x2497ae002a112fa",
+      "name": "Authentic Clinic BTS Wongwien Yai",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n45 Krung Thon Buri Road, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 61 645 1646",
+      "website": "https://opl.to/authentic_clinic",
+      "lat": 13.7215444,
+      "lng": 100.4963079,
+      "rating": 5.0,
+      "total_reviews": 198,
+      "trust_score": 77.6,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Authentic+Clinic+BTS+Wongwien+Yai/data=!4m7!3m6!1s0x30e298ee2ea5142b:0x2497ae002a112fa!8m2!3d13.7215444!4d100.4963079!16s%2Fg%2F11b8yg4mrc!19sChIJKxSlLu6Y4jAR-hKhAuB6SQI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fa898940f47_0x1331e00e9ee1d7c6",
       "place_id": "0x30e29fa898940f47:0x1331e00e9ee1d7c6",
       "name": "Grace Dental Clinic Huai Kwang",
@@ -48571,6 +48788,91 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Sherjades+Acupuncture+Clinic+%E0%B9%80%E0%B8%8C%E0%B8%AD%E0%B9%80%E0%B8%88%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7+%E0%B8%A2%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99+%E0%B8%97%E0%B8%B8%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B8%B2+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x30e299df944f1f99:0x5f1934e9838b097!8m2!3d13.7326327!4d100.5221204!16s%2Fg%2F11jgchgmzg!19sChIJmR9PlN-Z4jARl7A4mE6T8QU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29960aa5af1db_0xea49849cb67cff33",
+      "place_id": "0x30e29960aa5af1db:0xea49849cb67cff33",
+      "name": "Body Smile Clinic",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n612/1-3 Prajadhipok Rd, Hiranruchi, Thon Buri, Bangkok 10600, Thailand",
+      "district": "Thon Buri",
+      "phone": "+66 99 903 1593",
+      "website": "https://bodysmileclinic.com/",
+      "lat": 13.7286748,
+      "lng": 100.4936682,
+      "rating": 5.0,
+      "total_reviews": 69,
+      "trust_score": 76.3,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 7,
+      "avg_author_review_count": 5.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 13
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 18,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 31,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The physiotherapist, Khun Mameow, was very attentive and caring. She helped adjust my posture and muscle function through exercise. I feel straighter, my tense and sore muscles have relaxed, and I feel more energetic and stronger. My balance has also improved; I don't fall as easily as before.",
+          "rating": 5,
+          "author": "Pimpavee Pungsujarit"
+        },
+        {
+          "text": "All staff provided excellent service. My symptoms improved after receiving treatment. The physical therapist recommended exercises that were appropriate for me.",
+          "rating": 5,
+          "author": "Bnn tong"
+        },
+        {
+          "text": "Thorough assessment, accurate treatment. Staff are attentive and follow up on results.",
+          "rating": 5,
+          "author": "Napaskamol Petchnorrarat"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Body+Smile+Clinic/data=!4m7!3m6!1s0x30e29960aa5af1db:0xea49849cb67cff33!8m2!3d13.7286748!4d100.4936682!16s%2Fg%2F11scpbfrs2!19sChIJ2_FaqmCZ4jARM_98tpyESeo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f503c553c63_0x977f379b9b4c6d5",
@@ -66253,54 +66555,6 @@
       "maps_url": "https://www.google.com/maps/place/Atier+Wellness+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%84%E0%B8%B4%E0%B8%87%E0%B8%9E%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3/data=!4m7!3m6!1s0x30e299000a486f39:0xcaacbb5b41da3d15!8m2!3d13.7239426!4d100.5286431!16s%2Fg%2F11xrmrc43z!19sChIJOW9ICgCZ4jARFT3aQVu7rMo?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29960aa5af1db_0xea49849cb67cff33",
-      "place_id": "0x30e29960aa5af1db:0xea49849cb67cff33",
-      "name": "Body Smile Clinic",
-      "name_lang": "en",
-      "primary_type": "Physical therapy clinic",
-      "address": "\n612/1-3 Prajadhipok Rd, Hiranruchi, Thon Buri, Bangkok 10600, Thailand",
-      "district": "Thon Buri",
-      "phone": "+66 99 903 1593",
-      "website": "https://bodysmileclinic.com/",
-      "lat": 13.7286748,
-      "lng": 100.4936682,
-      "rating": 5.0,
-      "total_reviews": 69,
-      "trust_score": 72.1,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Body+Smile+Clinic/data=!4m7!3m6!1s0x30e29960aa5af1db:0xea49849cb67cff33!8m2!3d13.7286748!4d100.4936682!16s%2Fg%2F11scpbfrs2!19sChIJ2_FaqmCZ4jARM_98tpyESeo?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f0056911fc9_0x48a84e04f344f7ad",
       "place_id": "0x30e29f0056911fc9:0x48a84e04f344f7ad",
       "name": "Dr.pakpoom medical clinic",
@@ -81281,54 +81535,6 @@
       "maps_url": "https://www.google.com/maps/place/For+June+Clinic+By+Dr.+Tee+%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29f002024769d:0xc552f8aba62d6bf4!8m2!3d13.7669574!4d100.5705431!16s%2Fg%2F11wvd7jf1c!19sChIJnXYkIACf4jAR9Gstpqv4UsU?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29911142b4de1_0xb3e1c79f5a560c1b",
-      "place_id": "0x30e29911142b4de1:0xb3e1c79f5a560c1b",
-      "name": "Baan Mowaan Bamrungchat Satsana Yathai Pharmacy",
-      "name_lang": "en",
-      "primary_type": "Drug store",
-      "address": "\n9 Soi Thesa, แขวง วัดราชบพิธ, Phra Nakhon, Bangkok 10200, Thailand",
-      "district": "Phra Nakhon",
-      "phone": "+66 94 479 6838",
-      "website": "http://www.mowaan.com/",
-      "lat": 13.751431,
-      "lng": 100.4999401,
-      "rating": 4.5,
-      "total_reviews": 77,
-      "trust_score": 67.6,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Baan+Mowaan+Bamrungchat+Satsana+Yathai+Pharmacy/data=!4m7!3m6!1s0x30e29911142b4de1:0xb3e1c79f5a560c1b!8m2!3d13.751431!4d100.4999401!16s%2Fg%2F1hdz5dc8l!19sChIJ4U0rFBGZ4jARGwxWWp_H4bM?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29d239ec72643_0x96bb34713568b042",
       "place_id": "0x30e29d239ec72643:0x96bb34713568b042",
       "name": "มาจิสต้า คลินิก อารีย์ Majista Aesthetic Clinic",
@@ -90653,87 +90859,6 @@
       "maps_url": "https://www.google.com/maps/place/SLC+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/data=!4m7!3m6!1s0x30e29ff78f6647e9:0x6ee4c4995d87c713!8m2!3d13.7460134!4d100.5393966!16s%2Fg%2F11tj7p109c!19sChIJ6Udmj_ef4jARE8eHXZnE5G4?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e298fdd0aaea1f_0x50543f762029db27",
-      "place_id": "0x30e298fdd0aaea1f:0x50543f762029db27",
-      "name": "AP Clinic",
-      "name_lang": "en",
-      "primary_type": "Doctor",
-      "address": "\nอาคารอำนวยทิพย์ Itsaraphap Rd, Wat Kanlaya, Thon Buri, Bangkok 10600, Thailand",
-      "district": "Thon Buri",
-      "phone": "+66 2 041 7644",
-      "website": "http://www.apclinicbeauty.com/",
-      "lat": 13.7342446,
-      "lng": 100.4905713,
-      "rating": 4.2,
-      "total_reviews": 15,
-      "trust_score": 62.0,
-      "categories": [],
-      "scraped_review_count": 15,
-      "local_guide_count": 3,
-      "avg_author_review_count": 8.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 8,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 3
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 14,
-          "avg": 4.14
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I had a nose revision here, and the result is amazing – I'm so happy with the shape!",
-          "rating": 5,
-          "author": "mellar kira"
-        },
-        {
-          "text": "I had double eyelid surgery and a nose job at Ap Clinic. The clinic was very attentive. The clinic was clean and the service was good. I had no problems after the procedure and they followed up with me throughout. 10 out of 10, no deductions. ❤️❤️❤️",
-          "rating": 5,
-          "author": "Mind22 Saowalak"
-        },
-        {
-          "text": "The clinic is trustworthy. The doctor is skilled and gives very good advice.😍😍😍 …",
-          "rating": 5,
-          "author": "เสาวลักษณ์ เรืองรักษ์"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/AP+Clinic/data=!4m7!3m6!1s0x30e298fdd0aaea1f:0x50543f762029db27!8m2!3d13.7342446!4d100.4905713!16s%2Fg%2F11c5rqjzsr!19sChIJH-qq0P2Y4jARJ9spIHY_VFA?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29eb931cbbfbd_0x453816d8613c3584",
       "place_id": "0x30e29eb931cbbfbd:0x453816d8613c3584",
       "name": "นิติพลคลินิก สาขาประตูน้ำ",
@@ -92171,54 +92296,6 @@
       "maps_url": "https://www.google.com/maps/place/Saha+Clinic+Physio+%28%E3%83%95%E3%82%A3%E3%82%B8%E3%82%AA%E3%82%AF%E3%83%AA%E3%83%8B%E3%83%83%E3%82%AF%EF%BC%89/data=!4m7!3m6!1s0x30e29efd8c64d9f7:0xa6b9d4fdef9b0fc7!8m2!3d13.7335533!4d100.5675035!16s%2Fg%2F11dx92yqyg!19sChIJ99lkjP2e4jARxw-b7_3UuaY?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e298fc628e51f3_0xa621350dc488cd1e",
-      "place_id": "0x30e298fc628e51f3:0xa621350dc488cd1e",
-      "name": "Rama Clinic",
-      "name_lang": "en",
-      "primary_type": "Medical clinic",
-      "address": "\nPFJV+H58, Soi Itsaraphap 11, Hiranruchi, หิรัญรูจี, Bangkok 10600, Thailand",
-      "district": "",
-      "phone": "+66 2 466 5224",
-      "website": "",
-      "lat": 13.731406,
-      "lng": 100.49294,
-      "rating": 5.0,
-      "total_reviews": 8,
-      "trust_score": 60.8,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Rama+Clinic/data=!4m7!3m6!1s0x30e298fc628e51f3:0xa621350dc488cd1e!8m2!3d13.731406!4d100.49294!16s%2Fg%2F1td7qmvq!19sChIJ81GOYvyY4jARHs2IxA01IaY?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29fd153bba9db_0xcc5bf9ebabd51898",
       "place_id": "0x30e29fd153bba9db:0xcc5bf9ebabd51898",
       "name": "Modiolistics Clinic",
@@ -92315,6 +92392,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/SOUL+YOUNG+CLINIC/data=!4m7!3m6!1s0x30e29f003c8a1a29:0x21a29efba9e4c452!8m2!3d13.7439061!4d100.5333483!16s%2Fg%2F11mdffwfj9!19sChIJKRqKPACf4jARUsTkqfueoiE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298fc628e51f3_0xa621350dc488cd1e",
+      "place_id": "0x30e298fc628e51f3:0xa621350dc488cd1e",
+      "name": "Rama Clinic",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\nPFJV+H58, Soi Itsaraphap 11, Hiranruchi, หิรัญรูจี, Bangkok 10600, Thailand",
+      "district": "",
+      "phone": "+66 2 466 5224",
+      "website": "",
+      "lat": 13.731406,
+      "lng": 100.49294,
+      "rating": 5.0,
+      "total_reviews": 8,
+      "trust_score": 60.8,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Rama+Clinic/data=!4m7!3m6!1s0x30e298fc628e51f3:0xa621350dc488cd1e!8m2!3d13.731406!4d100.49294!16s%2Fg%2F1td7qmvq!19sChIJ81GOYvyY4jARHs2IxA01IaY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fdc5d4d6409_0x1cc001db3cd7b675",
@@ -93030,6 +93155,56 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+9+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+10+%E0%B9%82%E0%B8%8B%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%9F%E0%B8%9F%E0%B8%B4%E0%B8%A8%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e29e8d1e8201cb:0x4e47b8e6383846b5!8m2!3d13.7571015!4d100.5659509!16s%2Fg%2F1pp2tkht7!19sChIJywGCHo2e4jARtUY4OOa4R04?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298e487b9e8a3_0x127ecd06b0b6e41d",
+      "place_id": "0x30e298e487b9e8a3:0x127ecd06b0b6e41d",
+      "name": "Smiley Smile Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n131 Itsaraphap Rd, Somdet Chao Phraya, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 861 5708",
+      "website": "https://www.facebook.com/Smileysmilebkk/",
+      "lat": 13.7296984,
+      "lng": 100.4985504,
+      "rating": 4.5,
+      "total_reviews": 18,
+      "trust_score": 60.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Smiley+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e298e487b9e8a3:0x127ecd06b0b6e41d!8m2!3d13.7296984!4d100.4985504!16s%2Fg%2F11gczjwnjg!19sChIJo-i5h-SY4jARHeS2sAbNfhI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f5abac25403_0x3955ca8b3bde8ef4",
@@ -96771,6 +96946,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%84+%E0%B8%88%E0%B8%B4%E0%B8%95-%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B2%E0%B8%97+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e2996883c36fd9:0x1127c931b74e39b2!8m2!3d13.7750869!4d100.5067948!16s%2Fg%2F1tds90ch!19sChIJ2W_Dg2iZ4jARsjlOtzHJJxE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298fdd0aaea1f_0x50543f762029db27",
+      "place_id": "0x30e298fdd0aaea1f:0x50543f762029db27",
+      "name": "AP Clinic",
+      "name_lang": "en",
+      "primary_type": "Doctor",
+      "address": "\nอาคารอำนวยทิพย์ Itsaraphap Rd, Wat Kanlaya, Thon Buri, Bangkok 10600, Thailand",
+      "district": "Thon Buri",
+      "phone": "+66 2 041 7644",
+      "website": "http://www.apclinicbeauty.com/",
+      "lat": 13.7342446,
+      "lng": 100.4905713,
+      "rating": 4.2,
+      "total_reviews": 15,
+      "trust_score": 56.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/AP+Clinic/data=!4m7!3m6!1s0x30e298fdd0aaea1f:0x50543f762029db27!8m2!3d13.7342446!4d100.4905713!16s%2Fg%2F11c5rqjzsr!19sChIJH-qq0P2Y4jARJ9spIHY_VFA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f8b7781114f_0x5f405b936832a25c",
