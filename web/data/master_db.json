@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T15:57:45.132820+00:00",
-  "total_clinics": 1157,
-  "with_district": 1102,
-  "with_categories": 715,
-  "with_reviews_scraped": 825,
+  "generated_at": "2026-05-06T16:07:49.478625+00:00",
+  "total_clinics": 1159,
+  "with_district": 1104,
+  "with_categories": 717,
+  "with_reviews_scraped": 830,
   "language_total": {
     "th": 1,
-    "en": 26951,
+    "en": 26996,
     "ko": 1,
     "ja": 0,
     "other": 61
@@ -20,11 +20,11 @@
     "Khlong Toei": 62,
     "Khlong San": 53,
     "Sathon": 45,
-    "Pom Prap Sattru Phai": 29,
+    "Pom Prap Sattru Phai": 30,
     "Dusit": 26,
     "Din Daeng": 24,
     "Phra Nakhon": 22,
-    "Ratchathewi": 19,
+    "Ratchathewi": 20,
     "Samphanthawong": 7,
     "Yan Nawa": 5,
     "Thon Buri": 4,
@@ -32,10 +32,10 @@
     "Bang Kapi": 1
   },
   "category_counts": {
-    "facial": 425,
+    "facial": 426,
     "laser": 324,
     "botox": 219,
-    "dental": 200,
+    "dental": 201,
     "filler": 167,
     "hifu": 156,
     "hair_transplant": 20,
@@ -60768,6 +60768,99 @@
       "maps_url": "https://www.google.com/maps/place/NEVA+CLINIC/data=!4m7!3m6!1s0x30e29ea7601c8e35:0xd378071fe18d71b5!8m2!3d13.779743!4d100.545029!16s%2Fg%2F11c6tgfplh!19sChIJNY4cYKee4jARtXGN4R8HeNM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2990813867e45_0xa76412effc5eb6f7",
+      "place_id": "0x30e2990813867e45:0xa76412effc5eb6f7",
+      "name": "Verita Neuro",
+      "name_lang": "en",
+      "primary_type": "Medical Center",
+      "address": "\nThongburi Bamrungmuang hospital, Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 84 162 7220",
+      "website": "https://veritaneuro.com/",
+      "lat": 13.7502634,
+      "lng": 100.5144139,
+      "rating": 4.8,
+      "total_reviews": 17,
+      "trust_score": 72.0,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 17,
+      "local_guide_count": 6,
+      "avg_author_review_count": 12.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 15,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 10
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 8,
+          "avg": 4.5
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Today I am returning home after being in\nBangkok at VeritaNeuro\nMy time spent there was absolutely unbelievably professional, helpful, and most …",
+          "rating": 5,
+          "author": "Karen Fouzailov"
+        },
+        {
+          "text": "Top quality treatment. The entire staff is extraordinarily kind, attentive and always with a wholehearted smile, replete with kind words and encouragement. Thank you for you help!\n\n- Vivian Rovența",
+          "rating": 5,
+          "author": "Robert R"
+        },
+        {
+          "text": "The therapists are great! The nurses are also a bit clumsy sometimes, but that's the least important thing, a good experience.",
+          "rating": 5,
+          "author": "bruno babic"
+        }
+      ],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Verita+Neuro/data=!4m7!3m6!1s0x30e2990813867e45:0xa76412effc5eb6f7!8m2!3d13.7502634!4d100.5144139!16s%2Fg%2F11rd2p3m3g!19sChIJRX6GEwiZ4jAR97Ze_O8SZKc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x848b504b81e566cf_0xe23cf2f61c56ed2b",
       "place_id": "0x848b504b81e566cf:0xe23cf2f61c56ed2b",
       "name": "LymphFlow @ YU Know Polyclinic , Rama 9",
@@ -66934,6 +67027,95 @@
       "maps_url": "https://www.google.com/maps/place/Doctor+Anywhere+%28DA+Clinic%29/data=!4m7!3m6!1s0x30e29f9fb6166583:0xe5d8aa839efde4ae!8m2!3d13.7204678!4d100.5305765!16s%2Fg%2F11jn5csgsg!19sChIJg2UWtp-f4jARruT9noOq2OU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29926a29cce47_0x512e7d33b6de481",
+      "place_id": "0x30e29926a29cce47:0x512e7d33b6de481",
+      "name": "สวนกวางตุ้งคลินิก แพทย์แผนจีน Suankwangtung Clinic TCM.",
+      "name_lang": "th",
+      "primary_type": "Acupuncture clinic",
+      "address": "\n66, 68 Maitri Chit Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 87 525 7777",
+      "website": "https://suankwangtungclinic.com/",
+      "lat": 13.7404699,
+      "lng": 100.5141691,
+      "rating": 4.4,
+      "total_reviews": 22,
+      "trust_score": 69.9,
+      "categories": [],
+      "scraped_review_count": 22,
+      "local_guide_count": 7,
+      "avg_author_review_count": 50.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 18,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 16,
+          "avg": 4.12
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor and assistants provided excellent service and advice. I received acupuncture and cupping therapy, which were very effective in relieving my aches and pains. The clinic was clean. I will definitely come back again.",
+          "rating": 5,
+          "author": "006 ภัสราภร"
+        },
+        {
+          "text": "So I was looking for a good acupuncture clinic for a condition that I was just recently diagnosed with and these guys took me in right away I had to wait a few days but it was because of my own reasoning but as soon as I connected with them …",
+          "rating": 5,
+          "author": "Follow Fauzia"
+        },
+        {
+          "text": "The doctor is kind, the staff is friendly, and the clinic is clean. I will definitely come back again next time.",
+          "rating": 5,
+          "author": "ยุทธนา เสียมไหม"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%81%E0%B8%A7%E0%B8%B2%E0%B8%87%E0%B8%95%E0%B8%B8%E0%B9%89%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99+Suankwangtung+Clinic+TCM./data=!4m7!3m6!1s0x30e29926a29cce47:0x512e7d33b6de481!8m2!3d13.7404699!4d100.5141691!16s%2Fg%2F1vc8lssb!19sChIJR86coiaZ4jARgeRtO9PnEgU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f65771fccff_0xaef1f6ee258e2f4d",
       "place_id": "0x30e29f65771fccff:0xaef1f6ee258e2f4d",
       "name": "Asoke dental clinic",
@@ -70227,6 +70409,64 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Trin+Wellness+Clinic/data=!4m7!3m6!1s0x30e29f018bc5459d:0x693f825587578e02!8m2!3d13.7588887!4d100.5679035!16s%2Fg%2F11kj4187x4!19sChIJnUXFiwGf4jARAo5Xh1WCP2k?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299a8d23ab7c1_0xfb9d208c08bbe4b9",
+      "place_id": "0x30e299a8d23ab7c1:0xfb9d208c08bbe4b9",
+      "name": "คลินิกทันตกรรมณรงค์ศักดิ์",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n546 ถ. หลวง Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 221 7897",
+      "website": "",
+      "lat": 13.7465736,
+      "lng": 100.5110645,
+      "rating": 4.8,
+      "total_reviews": 5,
+      "trust_score": 68.6,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 5,
+      "local_guide_count": 2,
+      "avg_author_review_count": 121.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 4,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 4
+      },
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 4.5
+        },
+        "old": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Excellent service, everything was explained in detail, and the doctor was very kind.",
+          "rating": 5,
+          "author": "นางสาวศรีสุดา ออทอศรี"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%93%E0%B8%A3%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A8%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B4%E0%B9%8C/data=!4m7!3m6!1s0x30e299a8d23ab7c1:0xfb9d208c08bbe4b9!8m2!3d13.7465736!4d100.5110645!16s%2Fg%2F11g_rz3z5c!19sChIJwbc60qiZ4jARueS7CIwgnfs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ed2bf2744a5_0x144cdd30dceafab9",
@@ -78221,6 +78461,54 @@
       "maps_url": "https://www.google.com/maps/place/Ther+Clinic+%E0%B9%80%E0%B8%98%E0%B8%AD%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29ebea2830e29:0x1cf8ba3286e30f86!8m2!3d13.761933!4d100.547955!16s%2Fg%2F1hc82pft7!19sChIJKQ6Dor6e4jARhg_jhjK6-Bw?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2993692883dff_0x8761ac2e04f4ee1e",
+      "place_id": "0x30e2993692883dff:0x8761ac2e04f4ee1e",
+      "name": "อุรุพงษ์รักษาสัตว์ Uruphong Vet Clinic",
+      "name_lang": "th",
+      "primary_type": "Animal hospital",
+      "address": "\n894/1 Rama VI Rd, Thanon Phetchaburi, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Ratchathewi",
+      "phone": "+66 2 613 9356",
+      "website": "https://www.thai-pet.com/pet/krung-thep-maha-nakhon/bangkok/animal-hospital/2482/",
+      "lat": 13.7542279,
+      "lng": 100.5227522,
+      "rating": 4.7,
+      "total_reviews": 6,
+      "trust_score": 65.5,
+      "categories": [],
+      "scraped_review_count": 6,
+      "local_guide_count": 2,
+      "avg_author_review_count": 17.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 6,
+          "avg": 4.67
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AD%E0%B8%B8%E0%B8%A3%E0%B8%B8%E0%B8%9E%E0%B8%87%E0%B8%A9%E0%B9%8C%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C+Uruphong+Vet+Clinic/data=!4m7!3m6!1s0x30e2993692883dff:0x8761ac2e04f4ee1e!8m2!3d13.7542279!4d100.5227522!16s%2Fg%2F11f32c71bg!19sChIJ_z2IkjaZ4jARHu70BC6sYYc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29edf02364f1f_0x5b8def86b8bcf2d7",
       "place_id": "0x30e29edf02364f1f:0x5b8def86b8bcf2d7",
       "name": "StemCells21",
@@ -82185,54 +82473,6 @@
       "maps_url": "https://www.google.com/maps/place/Bumrungrad+Health+Screening+Center/data=!4m7!3m6!1s0x30e29ee38f24c703:0xc21579a6f48fbf!8m2!3d13.7455684!4d100.5528021!16s%2Fg%2F1tj4dhrc!19sChIJA8ckj-Oe4jARv4_0pnkVwgA?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2990813867e45_0xa76412effc5eb6f7",
-      "place_id": "0x30e2990813867e45:0xa76412effc5eb6f7",
-      "name": "Verita Neuro",
-      "name_lang": "en",
-      "primary_type": "Medical centre",
-      "address": "\nThongburi Bamrungmuang hospital, Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 84 162 7220",
-      "website": "https://veritaneuro.com/",
-      "lat": 13.7502634,
-      "lng": 100.5144139,
-      "rating": 4.8,
-      "total_reviews": 17,
-      "trust_score": 62.8,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Verita+Neuro/data=!4m7!3m6!1s0x30e2990813867e45:0xa76412effc5eb6f7!8m2!3d13.7502634!4d100.5144139!16s%2Fg%2F11rd2p3m3g!19sChIJRX6GEwiZ4jAR97Ze_O8SZKc?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f100c5e8301_0x4e8cc154d1163621",
       "place_id": "0x30e29f100c5e8301:0x4e8cc154d1163621",
       "name": "KeTHAT Aesthetic Clinic",
@@ -83068,64 +83308,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%9A%E0%B8%B8%E0%B9%89%E0%B8%87+By+Ladyreborn+Ltd./data=!4m7!3m6!1s0x30e299706c8c3bc1:0xf4b931a6efc274f4!8m2!3d13.7770938!4d100.526845!16s%2Fg%2F11h1g6fh3p!19sChIJwTuMbHCZ4jAR9HTC76YxufQ?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2992524f7b787_0x5351b77db646641a",
-      "place_id": "0x30e2992524f7b787:0x5351b77db646641a",
-      "name": "ศิริลักษณ์ทันตแพทย์คลินิก Sirilux Dental Clinic",
-      "name_lang": "th",
-      "primary_type": "Dentist",
-      "address": "\n18-20 Thanon Phuchong, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 2 223 3737",
-      "website": "",
-      "lat": 13.7521472,
-      "lng": 100.5168141,
-      "rating": 4.8,
-      "total_reviews": 8,
-      "trust_score": 62.1,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 8,
-      "local_guide_count": 1,
-      "avg_author_review_count": 2.4,
-      "language_breakdown": {
-        "th": 0,
-        "en": 2,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 2
-      },
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 7,
-          "avg": 4.71
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Dr. Wilai is an excellent dentist. She is calm and takes her time. Since I started getting my teeth done by Dr. Wilai, I haven't gone anywhere else.",
-          "rating": 5,
-          "author": "สุภาพรรณ นิตยสุภาภรณ์"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%93%E0%B9%8C%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+Sirilux+Dental+Clinic/data=!4m7!3m6!1s0x30e2992524f7b787:0x5351b77db646641a!8m2!3d13.7521472!4d100.5168141!16s%2Fg%2F1tdmmhhr!19sChIJh7f3JCWZ4jARGmRGtn23UVM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e298cae5612467_0x6a4df3b6252fb9b6",
@@ -85401,54 +85583,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+9+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+10+%E0%B9%82%E0%B8%8B%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%9F%E0%B8%9F%E0%B8%B4%E0%B8%A8%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e29e8d1e8201cb:0x4e47b8e6383846b5!8m2!3d13.7571015!4d100.5659509!16s%2Fg%2F1pp2tkht7!19sChIJywGCHo2e4jARtUY4OOa4R04?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29926a29cce47_0x512e7d33b6de481",
-      "place_id": "0x30e29926a29cce47:0x512e7d33b6de481",
-      "name": "สวนกวางตุ้งคลินิก แพทย์แผนจีน Suankwangtung Clinic TCM.",
-      "name_lang": "th",
-      "primary_type": "Acupuncture clinic",
-      "address": "\n66, 68 Maitri Chit Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 87 525 7777",
-      "website": "https://suankwangtungclinic.com/",
-      "lat": 13.7404699,
-      "lng": 100.5141691,
-      "rating": 4.4,
-      "total_reviews": 22,
-      "trust_score": 60.1,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%81%E0%B8%A7%E0%B8%B2%E0%B8%87%E0%B8%95%E0%B8%B8%E0%B9%89%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99+Suankwangtung+Clinic+TCM./data=!4m7!3m6!1s0x30e29926a29cce47:0x512e7d33b6de481!8m2!3d13.7404699!4d100.5141691!16s%2Fg%2F1vc8lssb!19sChIJR86coiaZ4jARgeRtO9PnEgU?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e299f79fda1fe7_0xddf58068c9bf3982",
       "place_id": "0x30e299f79fda1fe7:0xddf58068c9bf3982",
       "name": "Medecent Clinic คลินิกสิว ฝ้า สลายไขมันคางและแก้ม หน้าใส ลดริ้วรอย",
@@ -86526,6 +86660,56 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/THE+RITZ+CLINIC+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e29d8023555dbb:0x34f08cc82c75295a!8m2!3d13.7811435!4d100.5444851!16s%2Fg%2F11rhnvx5_1!19sChIJu11VI4Cd4jARWil1LMiM8DQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2992524f7b787_0x5351b77db646641a",
+      "place_id": "0x30e2992524f7b787:0x5351b77db646641a",
+      "name": "ศิริลักษณ์ทันตแพทย์คลินิก Sirilux Dental Clinic",
+      "name_lang": "th",
+      "primary_type": "Dentist",
+      "address": "\n18-20 Thanon Phuchong, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 223 3737",
+      "website": "",
+      "lat": 13.7521472,
+      "lng": 100.5168141,
+      "rating": 4.8,
+      "total_reviews": 8,
+      "trust_score": 58.8,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%93%E0%B9%8C%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+Sirilux+Dental+Clinic/data=!4m7!3m6!1s0x30e2992524f7b787:0x5351b77db646641a!8m2!3d13.7521472!4d100.5168141!16s%2Fg%2F1tdmmhhr!19sChIJh7f3JCWZ4jARGmRGtn23UVM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f3c57906971_0xad1881b9177fdaff",
@@ -88515,6 +88699,65 @@
       "maps_url": "https://www.google.com/maps/place/Rewat+Clinic/data=!4m7!3m6!1s0x30e29eba0956898b:0x6830fc2789c0c433!8m2!3d13.7638363!4d100.5411877!16s%2Fg%2F1tgf571s!19sChIJi4lWCbqe4jARM8TAiSf8MGg?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2993c6b820d9f_0x2eb963df7b5affca",
+      "place_id": "0x30e2993c6b820d9f:0x2eb963df7b5affca",
+      "name": "บำรุงเมือง คลีนิค",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n503/15 Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 87 328 2407",
+      "website": "",
+      "lat": 13.7510549,
+      "lng": 100.5116684,
+      "rating": 3.4,
+      "total_reviews": 5,
+      "trust_score": 56.4,
+      "categories": [],
+      "scraped_review_count": 5,
+      "local_guide_count": 4,
+      "avg_author_review_count": 107.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 4,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "old": {
+          "count": 4,
+          "avg": 4.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I came for a health check for my driver's license. Contacting the shop might be a bit difficult right now because the telephone line was cut. The kind doctor has been a regular customer for a long time.",
+          "rating": 5,
+          "author": "P Angle"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%84/data=!4m7!3m6!1s0x30e2993c6b820d9f:0x2eb963df7b5affca!8m2!3d13.7510549!4d100.5116684!16s%2Fg%2F1tfc41f1!19sChIJnw2CazyZ4jARyv9ae99juS4?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29e42473835ef_0xe9c232cdc366ac2c",
       "place_id": "0x30e29e42473835ef:0xe9c232cdc366ac2c",
       "name": "Romrawin Clinic - Central RAMA9",
@@ -90456,6 +90699,83 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B9%84%E0%B8%8A%E0%B8%A2%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29964fdb972cb:0xbdc2f302a1b6d827!8m2!3d13.780552!4d100.520679!16s%2Fg%2F11n75zw895!19sChIJy3K5_WSZ4jARJ9i2oQLzwr0?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299232c4470d7_0xe2bab828a6b68008",
+      "place_id": "0x30e299232c4470d7:0xe2bab828a6b68008",
+      "name": "Chiewcharat Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n520 ถ. หลวง Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 221 8599",
+      "website": "",
+      "lat": 13.7467297,
+      "lng": 100.5104502,
+      "rating": 2.9,
+      "total_reviews": 7,
+      "trust_score": 50.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 7,
+      "local_guide_count": 3,
+      "avg_author_review_count": 15.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 6,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 2.67
+        },
+        "old": {
+          "count": 4,
+          "avg": 3.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I've been getting dental work done here for over 10 years. The dentist is very good. The staff at the counter are always friendly. I've never had a bad experience.",
+          "rating": 5,
+          "author": "Nina Latusseck"
+        },
+        {
+          "text": "The doctor is skilled. It's not okay if people leave negative reviews about your counter service.",
+          "rating": 5,
+          "author": "Chaowasit Panyamahasup"
+        },
+        {
+          "text": "over the last 2 generation of my family come here to check their teeth. not expensive, good service, caring doctors. underrated place~",
+          "rating": 5,
+          "author": "Saran Rummaneethorn"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Chiewcharat+Dental+Clinic/data=!4m7!3m6!1s0x30e299232c4470d7:0xe2bab828a6b68008!8m2!3d13.7467297!4d100.5104502!16s%2Fg%2F11r9r2t_g!19sChIJ13BELCOZ4jARCIC2pii4uuI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29eefec571bcb_0x8bae8025741b413f",
       "place_id": "0x30e29eefec571bcb:0x8bae8025741b413f",
       "name": "Kluaynamthai Clinic",
@@ -91416,54 +91736,6 @@
       "maps_url": "https://www.google.com/maps/place/A+Kat+Clinic/data=!4m7!3m6!1s0x30e299353b980239:0x82e1c2d1849da13e!8m2!3d13.7556676!4d100.52864!16s%2Fg%2F1td1rx94!19sChIJOQKYOzWZ4jARPqGdhNHC4YI?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2993c6b820d9f_0x2eb963df7b5affca",
-      "place_id": "0x30e2993c6b820d9f:0x2eb963df7b5affca",
-      "name": "บำรุงเมือง คลีนิค",
-      "name_lang": "th",
-      "primary_type": "Clinic",
-      "address": "\n503/15 Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 87 328 2407",
-      "website": "",
-      "lat": 13.7510549,
-      "lng": 100.5116684,
-      "rating": 3.4,
-      "total_reviews": 5,
-      "trust_score": 42.4,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%84/data=!4m7!3m6!1s0x30e2993c6b820d9f:0x2eb963df7b5affca!8m2!3d13.7510549!4d100.5116684!16s%2Fg%2F1tfc41f1!19sChIJnw2CazyZ4jARyv9ae99juS4?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29ed5bd4ac469_0x45581b444c43d9f2",
       "place_id": "0x30e29ed5bd4ac469:0x45581b444c43d9f2",
       "name": "Chulalongkorn Health Center",
@@ -91510,56 +91782,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Chulalongkorn+Health+Center/data=!4m7!3m6!1s0x30e29ed5bd4ac469:0x45581b444c43d9f2!8m2!3d13.7359586!4d100.5259836!16s%2Fg%2F11b682tq60!19sChIJacRKvdWe4jAR8tlDTEQbWEU?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e299232c4470d7_0xe2bab828a6b68008",
-      "place_id": "0x30e299232c4470d7:0xe2bab828a6b68008",
-      "name": "Chiewcharat Dental Clinic",
-      "name_lang": "en",
-      "primary_type": "Dental clinic",
-      "address": "\n520 ถ. หลวง Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 2 221 8599",
-      "website": "",
-      "lat": 13.7467297,
-      "lng": 100.5104502,
-      "rating": 2.9,
-      "total_reviews": 7,
-      "trust_score": 39.1,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Chiewcharat+Dental+Clinic/data=!4m7!3m6!1s0x30e299232c4470d7:0xe2bab828a6b68008!8m2!3d13.7467297!4d100.5104502!16s%2Fg%2F11r9r2t_g!19sChIJ13BELCOZ4jARCIC2pii4uuI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e298fc49dea129_0x90d6c9a435daad04",
