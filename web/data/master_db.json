@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-05-06T13:24:43.029120+00:00",
-  "total_clinics": 1120,
-  "with_district": 1067,
-  "with_categories": 692,
-  "with_reviews_scraped": 775,
+  "generated_at": "2026-05-06T13:34:47.861506+00:00",
+  "total_clinics": 1123,
+  "with_district": 1070,
+  "with_categories": 695,
+  "with_reviews_scraped": 777,
   "language_total": {
     "th": 1,
-    "en": 25388,
+    "en": 25450,
     "ko": 1,
     "ja": 0,
     "other": 56
   },
   "district_counts": {
     "Pathum Wan": 307,
-    "Phaya Thai": 177,
+    "Phaya Thai": 178,
     "Bang Rak": 126,
-    "Watthana": 102,
-    "Huai Khwang": 76,
+    "Watthana": 103,
+    "Huai Khwang": 77,
     "Khlong Toei": 62,
     "Sathon": 45,
     "Khlong San": 44,
@@ -33,9 +33,9 @@
   },
   "category_counts": {
     "facial": 413,
-    "laser": 311,
+    "laser": 312,
     "botox": 209,
-    "dental": 193,
+    "dental": 195,
     "filler": 153,
     "hifu": 152,
     "hair_transplant": 19,
@@ -13001,6 +13001,95 @@
       "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+MRT+%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+9/data=!4m7!3m6!1s0x30e29fd582a21aad:0xc261932d6a8b267f!8m2!3d13.761783!4d100.5664117!16s%2Fg%2F11vz79hfts!19sChIJrRqigtWf4jARfyaLai2TYcI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fb3300e2ae9_0x20d98d15375e182e",
+      "place_id": "0x30e29fb3300e2ae9:0x20d98d15375e182e",
+      "name": "Unique Care Station Param 9",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n100/123 อาคารวรสมบัติ พลาซ่า Rama IX Rd, ห้วยขวาง Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 96 165 4242",
+      "website": "http://www.uniquecarestation.com/",
+      "lat": 13.7551763,
+      "lng": 100.5727521,
+      "rating": 5.0,
+      "total_reviews": 490,
+      "trust_score": 84.6,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 3,
+      "avg_author_review_count": 3.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 50,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 10
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 32,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 18,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The clinic is clean, the staff are lovely and very polite. I was extremely impressed!",
+          "rating": 5,
+          "author": "ลุงอยากเป็น youtube"
+        },
+        {
+          "text": "The staff were very lovely. The shockwave therapy was very effective in relieving the pain, but it takes time because my condition was severe. The atmosphere at the clinic was great; clean and relaxing.",
+          "rating": 5,
+          "author": "บุษรัตน์ กิ่มบางยาง"
+        },
+        {
+          "text": "The treatment at UnitCare, Rama 9 branch, was excellent. The doctor was very friendly, the service was great, and the place was very clean.",
+          "rating": 5,
+          "author": "เปิ้ล"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Unique+Care+Station+Param+9/data=!4m7!3m6!1s0x30e29fb3300e2ae9:0x20d98d15375e182e!8m2!3d13.7551763!4d100.5727521!16s%2Fg%2F11q582gvqk!19sChIJ6SoOMLOf4jARLhheNxWN2SA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299b960526a19_0xd2172f0614ca5ceb",
       "place_id": "0x30e299b960526a19:0xd2172f0614ca5ceb",
       "name": "Iconic Dental Clinic | คลินิกทันตกรรมไอโคนิค",
@@ -17980,6 +18069,99 @@
       "maps_url": "https://www.google.com/maps/place/BRIDDERS+OPTICAL+@ploenchit/data=!4m7!3m6!1s0x30e29edc9336946d:0x45dbbf95a1ab25be!8m2!3d13.744073!4d100.5477594!16s%2Fg%2F11gdsfdqgm!19sChIJbZQ2k9ye4jARviWroZW_20U?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29daddaf18e47_0xc6fd91e439be1efb",
+      "place_id": "0x30e29daddaf18e47:0xc6fd91e439be1efb",
+      "name": "คลินิกทันตกรรม Smile Seasons อารีย์",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n388 ชั้น 7 อาคาร เอส.พี คลินิกทันตกรรมสไมล์ซีซันส์ Samsen Nai, Phaya Thai, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 114 3274",
+      "website": "https://www.smileseasons.com/",
+      "lat": 13.7810623,
+      "lng": 100.545347,
+      "rating": 4.9,
+      "total_reviews": 377,
+      "trust_score": 83.0,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 59,
+      "local_guide_count": 5,
+      "avg_author_review_count": 5.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 57,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 13
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 11
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "professional",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 51,
+          "avg": 4.69
+        },
+        "midterm": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The service is excellent! The food is excellent!\nThe counter staff, assistants, and doctors (they're all so cute, pretty, and handsome!)\nIt's new, clean, and the music is relaxing. I highly recommend this place. You won't be disappointed.",
+          "rating": 5,
+          "author": "Design_Menu Restaurant"
+        },
+        {
+          "text": "I'm a regular customer here. The doctor is very attentive and detail-oriented. The staff are polite and provide excellent service. The clinic is very clean.",
+          "rating": 5,
+          "author": "Rweewan Kongyen"
+        },
+        {
+          "text": "This was my first time getting zoom teeth whitening, and I was very impressed! My teeth are noticeably whiter.",
+          "rating": 5,
+          "author": "Dnicon official"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+Smile+Seasons+%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e29daddaf18e47:0xc6fd91e439be1efb!8m2!3d13.7810623!4d100.545347!16s%2Fg%2F11ltnqc0qj!19sChIJR47x2q2d4jAR-x6-OeSR_cY?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f6dedeac4d1_0x20a14a46dbf783b1",
       "place_id": "0x30e29f6dedeac4d1:0x20a14a46dbf783b1",
       "name": "BIY Clinic สาขา อนุสาวรีย์ ( Victory Monument Branch)",
@@ -20255,107 +20437,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Dahlia+Clinic+%28%E0%B9%81%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B8%A2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%29+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AD%E0%B9%82%E0%B8%A8%E0%B8%81/data=!4m7!3m6!1s0x30e29f8c76b093d7:0xcf36867c3fc02314!8m2!3d13.7366042!4d100.5616795!16s%2Fg%2F11s7bbfbs2!19sChIJ15Owdoyf4jARFCPAP3yGNs8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f2bf81dd749_0x933cc282a6a268e9",
-      "place_id": "0x30e29f2bf81dd749:0x933cc282a6a268e9",
-      "name": "PULSE Clinic - Phayathai | Asia's Leading Lifestyle Center, Airport Link Phayathai Bangkok (พัลซ์ คลินิก พญาไท)",
-      "name_lang": "other",
-      "primary_type": "STD testing service",
-      "address": "\n55 12 Phaya Thai Rd, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 95 515 2826",
-      "website": "https://www.pulse-clinic.com/",
-      "lat": 13.7562721,
-      "lng": 100.5336699,
-      "rating": 5.0,
-      "total_reviews": 111,
-      "trust_score": 82.5,
-      "categories": [],
-      "scraped_review_count": 60,
-      "local_guide_count": 16,
-      "avg_author_review_count": 19.7,
-      "language_breakdown": {
-        "th": 0,
-        "en": 52,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 17
-        },
-        {
-          "topic": "recommend",
-          "count": 15
-        },
-        {
-          "topic": "english_speaking",
-          "count": 5
-        },
-        {
-          "topic": "professional",
-          "count": 5
-        },
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 60,
-          "avg": 4.95
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Warm welcome at this place, very organized, and they explain everything clearly. Highly recommended!",
-          "rating": 5,
-          "author": "Maxwell Fear"
-        },
-        {
-          "text": "Get tested for HIV and syphilis here. The place is very cozy and the staff was very polite. I'll come here again.",
-          "rating": 5,
-          "author": "Aleksandr Chu"
-        },
-        {
-          "text": "Very convenient, right next to Phayathai station. The staff, nurses and doctor are very helpful and friendly. Recommend this place for health check up. Reasonable price :)",
-          "rating": 5,
-          "author": "TMK P"
-        }
-      ],
-      "business_status": "Temporarily closed",
-      "maps_url": "https://www.google.com/maps/place/PULSE+Clinic+-+Phayathai+%7C+Asia%27s+Leading+Lifestyle+Center,+Airport+Link+Phayathai+Bangkok+%28%E0%B8%9E%E0%B8%B1%E0%B8%A5%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97%29/data=!4m7!3m6!1s0x30e29f2bf81dd749:0x933cc282a6a268e9!8m2!3d13.7562721!4d100.5336699!16s%2Fg%2F11cm0h3vml!19sChIJSdcd-Cuf4jAR6WiipoLCPJM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299bfc4836f23_0x66b9966c6650e5a5",
@@ -48820,6 +48901,54 @@
       "maps_url": "https://www.google.com/maps/place/Natacha+Clinic/data=!4m7!3m6!1s0x30e2999ddc53d25f:0xc8219ef42267e9a9!8m2!3d13.7400191!4d100.5251217!16s%2Fg%2F11fd44rm62!19sChIJX9JT3J2Z4jARqelnIvSeIcg?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f2bf81dd749_0x933cc282a6a268e9",
+      "place_id": "0x30e29f2bf81dd749:0x933cc282a6a268e9",
+      "name": "PULSE Clinic - Phayathai | Asia's Leading Lifestyle Center, Airport Link Phayathai Bangkok (พัลซ์ คลินิก พญาไท)",
+      "name_lang": "other",
+      "primary_type": "STD testing service",
+      "address": "\n55 12 Phaya Thai Rd, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 95 515 2826",
+      "website": "https://www.pulse-clinic.com/",
+      "lat": 13.7562721,
+      "lng": 100.5336699,
+      "rating": 5.0,
+      "total_reviews": 111,
+      "trust_score": 74.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Temporarily closed",
+      "maps_url": "https://www.google.com/maps/place/PULSE+Clinic+-+Phayathai+%7C+Asia%27s+Leading+Lifestyle+Center,+Airport+Link+Phayathai+Bangkok+%28%E0%B8%9E%E0%B8%B1%E0%B8%A5%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97%29/data=!4m7!3m6!1s0x30e29f2bf81dd749:0x933cc282a6a268e9!8m2!3d13.7562721!4d100.5336699!16s%2Fg%2F11cm0h3vml!19sChIJSdcd-Cuf4jAR6WiipoLCPJM?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f57a52b964b_0xf50d2e6b69b9f248",
       "place_id": "0x30e29f57a52b964b:0xf50d2e6b69b9f248",
       "name": "Matrix Clinic",
@@ -70884,11 +71013,6 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "very good service, great team, excellent results\nreally recommend for all dental business krup",
-          "rating": 5,
-          "author": "dental garden"
-        },
-        {
           "text": "I took the basic course that you sent me. It was a very enjoyable course. I gained many new ideas and knowledge that I can apply in my clinic. Thank you for sharing your marketing knowledge.",
           "rating": 5,
           "author": "กฤตยวรรณ ธีรวิโรจน์"
@@ -70897,6 +71021,11 @@
           "text": "I had the opportunity to study the Basic course and talk with Mr. Pete. I received much knowledge and concepts that are essential for running a dental clinic. Thank you for sharing your knowledge with us so fully and sincerely.",
           "rating": 5,
           "author": "Dr Pan Dental House Clinic"
+        },
+        {
+          "text": "very good service, great team, excellent results\nreally recommend for all dental business krup",
+          "rating": 5,
+          "author": "dental garden"
         }
       ],
       "business_status": "",
@@ -84671,6 +84800,81 @@
       "maps_url": "https://www.google.com/maps/place/HuangXin+Clinic+of+TCM/data=!4m7!3m6!1s0x30e29f3afe06d2d5:0x90c5f39a23b67e02!8m2!3d13.7180329!4d100.5480677!16s%2Fg%2F1pzyl1lrh!19sChIJ1dIG_jqf4jARAn62I5rzxZA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f002fa26f73_0x290fcef152dc5c66",
+      "place_id": "0x30e29f002fa26f73:0x290fcef152dc5c66",
+      "name": "โรงพยาบาลทันตกรรม คณะทันตแพทยศาสตร์ มหาวิทยาลัยศรีนครินทรวิโรฒ",
+      "name_lang": "th",
+      "primary_type": "University hospital",
+      "address": "\nSrinakharinwirot University (SWU) : 114 Soi Sukhumvit 23, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 649 5227",
+      "website": "https://hospital.dent.swu.ac.th/",
+      "lat": 13.745316,
+      "lng": 100.5664306,
+      "rating": 3.5,
+      "total_reviews": 8,
+      "trust_score": 56.5,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 8,
+      "local_guide_count": 3,
+      "avg_author_review_count": 36.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 6,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 3.67
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 3.0
+        },
+        "old": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This was my first time here, but it's a special clinic. I was impressed with everything: the doctor, the assistants, the service, the equipment – ​​everything was excellent. The doctor wasn't harsh at all. Great job!",
+          "rating": 5,
+          "author": "PATCHANEE JAIAUE"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%84%E0%B8%93%E0%B8%B0%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C+%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B9%82%E0%B8%A3%E0%B8%92/data=!4m7!3m6!1s0x30e29f002fa26f73:0x290fcef152dc5c66!8m2!3d13.745316!4d100.5664306!16s%2Fg%2F11ln9bv7dm!19sChIJc2-iLwCf4jARZlzcUvHODyk?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f00217e721b_0x61e4ab88986675c1",
       "place_id": "0x30e29f00217e721b:0x61e4ab88986675c1",
       "name": "S'RENE by SLC สาขา สยาม",
@@ -86892,25 +87096,27 @@
       "lng": 100.5581054,
       "rating": 3.5,
       "total_reviews": 11,
-      "trust_score": 48.4,
+      "trust_score": 48.3,
       "categories": [
         "facial"
       ],
-      "scraped_review_count": 10,
+      "scraped_review_count": 11,
       "local_guide_count": 0,
-      "avg_author_review_count": 2.8,
+      "avg_author_review_count": 2.6,
       "language_breakdown": {
         "th": 0,
-        "en": 5,
+        "en": 6,
         "ko": 0,
         "ja": 0,
         "other": 0
       },
-      "service_mentions": {},
+      "service_mentions": {
+        "facial": 1
+      },
       "mentioned_topics": [
         {
           "topic": "clean_facility",
-          "count": 1
+          "count": 2
         },
         {
           "topic": "promotion",
@@ -86927,8 +87133,8 @@
           "avg": 5.0
         },
         "old": {
-          "count": 9,
-          "avg": 3.67
+          "count": 10,
+          "avg": 3.4
         },
         "trend": "insufficient_data"
       },
