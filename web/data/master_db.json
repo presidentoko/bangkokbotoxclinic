@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T16:58:11.959668+00:00",
+  "generated_at": "2026-05-06T17:08:16.023638+00:00",
   "total_clinics": 1163,
   "with_district": 1108,
-  "with_categories": 719,
-  "with_reviews_scraped": 830,
+  "with_categories": 718,
+  "with_reviews_scraped": 828,
   "language_total": {
     "th": 1,
-    "en": 27328,
+    "en": 27302,
     "ko": 1,
     "ja": 0,
     "other": 66
@@ -33,9 +33,9 @@
   },
   "category_counts": {
     "facial": 429,
-    "laser": 323,
+    "laser": 324,
     "botox": 219,
-    "dental": 203,
+    "dental": 202,
     "filler": 165,
     "hifu": 159,
     "hair_transplant": 20,
@@ -725,15 +725,15 @@
       "lat": 13.7661517,
       "lng": 100.5264791,
       "rating": 4.4,
-      "total_reviews": 1547,
+      "total_reviews": 1548,
       "trust_score": 95.7,
       "categories": [],
       "scraped_review_count": 50,
-      "local_guide_count": 29,
-      "avg_author_review_count": 52.4,
+      "local_guide_count": 30,
+      "avg_author_review_count": 52.9,
       "language_breakdown": {
         "th": 0,
-        "en": 18,
+        "en": 19,
         "ko": 0,
         "ja": 0,
         "other": 0
@@ -2402,16 +2402,16 @@
       "lng": 100.5351659,
       "rating": 4.6,
       "total_reviews": 469,
-      "trust_score": 91.3,
+      "trust_score": 91.4,
       "categories": [
         "dental"
       ],
-      "scraped_review_count": 50,
-      "local_guide_count": 30,
-      "avg_author_review_count": 43.4,
+      "scraped_review_count": 59,
+      "local_guide_count": 38,
+      "avg_author_review_count": 46.0,
       "language_breakdown": {
         "th": 0,
-        "en": 15,
+        "en": 24,
         "ko": 0,
         "ja": 0,
         "other": 0
@@ -2426,6 +2426,10 @@
         },
         {
           "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
           "count": 1
         },
         {
@@ -2447,8 +2451,8 @@
           "avg": 3.0
         },
         "old": {
-          "count": 47,
-          "avg": 4.83
+          "count": 56,
+          "avg": 4.73
         },
         "trend": "insufficient_data"
       },
@@ -30450,6 +30454,109 @@
       "maps_url": "https://www.google.com/maps/place/KC+Wellness/data=!4m7!3m6!1s0x311d6347dc6b8925:0xe5a13918b82945b9!8m2!3d13.7489019!4d100.5608734!16s%2Fg%2F11jvbrbk60!19sChIJJYlr3EdjHTERuUUpuBg5oeU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f060ff3e571_0x9a31b7f6f02f3d41",
+      "place_id": "0x30e29f060ff3e571:0x9a31b7f6f02f3d41",
+      "name": "SCMC Silom 9 Clinic (MALI CLINIC เดิม) เอส ซี เอ็ม ซี คลินิก สีลม 9 ชเนษฎ์ ศรีสุโข Chanesd Srisukho , มหานครเซ็นเตอร์",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nที่ไม่ใช่ Kingpower ScMc Clinic, อาคารมหานคร เซ็นเตอร์ เลขที่ 2 สีลม 9 ตั้งอยู่บน, Soi Sueksa Witthaya, Si Lom, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 97 428 2999",
+      "website": "https://www.scmcthailand.com/",
+      "lat": 13.7244635,
+      "lng": 100.527312,
+      "rating": 4.9,
+      "total_reviews": 76,
+      "trust_score": 79.8,
+      "categories": [
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 13,
+      "avg_author_review_count": 31.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 36,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 6,
+        "laser": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 12
+        },
+        {
+          "topic": "professional",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 9
+        },
+        {
+          "topic": "english_speaking",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 47,
+          "avg": 4.83
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "English speaking Dermatologist in Bangkok. Clearly very knowledgable and experienced. Backed by a very friendly support team. Easy communication on WhatsApp. Recommended.",
+          "rating": 5,
+          "author": "Sir Frost"
+        },
+        {
+          "text": "I was so happy with the prompt service,  attention to detail and the knowledge of the doctor on various topics with skin issues.\nNothing short of excellence!!\n10 out of 10 I recommend.",
+          "rating": 5,
+          "author": "Clear Pool"
+        },
+        {
+          "text": "I came for a vitamin drip service at @maliclinic.bkk. The service was excellent, the clinic was clean, and it smelled wonderful!",
+          "rating": 5,
+          "author": "Sathida Srisukho"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/SCMC+Silom+9+Clinic+%28MALI+CLINIC+%E0%B9%80%E0%B8%94%E0%B8%B4%E0%B8%A1%29+%E0%B9%80%E0%B8%AD%E0%B8%AA+%E0%B8%8B%E0%B8%B5+%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1+%E0%B8%8B%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1+9+%E0%B8%8A%E0%B9%80%E0%B8%99%E0%B8%A9%E0%B8%8E%E0%B9%8C+%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%B8%E0%B9%82%E0%B8%82+Chanesd+Srisukho+,+%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e29f060ff3e571:0x9a31b7f6f02f3d41!8m2!3d13.7244635!4d100.527312!16s%2Fg%2F11r3f92_n3!19sChIJceXzDwaf4jARQT0v8Pa3MZo?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f81fca36dcb_0x24fd1ecaa6c4a461",
       "place_id": "0x30e29f81fca36dcb:0x24fd1ecaa6c4a461",
       "name": "TEAL DENTAL CLINIC",
@@ -42985,99 +43092,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Tooth+and+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e29f6fda04fe7f:0xcb77bf3247ff3734!8m2!3d13.7330646!4d100.5299929!16s%2Fg%2F11txfbwdj1!19sChIJf_4E2m-f4jARNDf_RzK_d8s?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2995283259d6d_0x9b4e650d5d8f954b",
-      "place_id": "0x30e2995283259d6d:0x9b4e650d5d8f954b",
-      "name": "Neurological Institute of Thailand",
-      "name_lang": "en",
-      "primary_type": "Specialized hospital",
-      "address": "\n312 Ratchawithi Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 2 306 9899",
-      "website": "https://nit.go.th/",
-      "lat": 13.7686777,
-      "lng": 100.5272122,
-      "rating": 3.8,
-      "total_reviews": 335,
-      "trust_score": 76.8,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 13,
-      "avg_author_review_count": 42.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 41,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "facial": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 6
-        },
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "professional",
-          "count": 2
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 17,
-          "avg": 3.06
-        },
-        "midterm": {
-          "count": 33,
-          "avg": 3.21
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctors here are excellent, and the nurses and staff are very caring, attentive, and friendly.",
-          "rating": 5,
-          "author": "Lucky77"
-        },
-        {
-          "text": "A government hospital treated my kratom addiction with alprazolam, but I experienced seizures and had to have my head scanned for a long time. I also suffered from memory loss and insomnia. I would like a neurological hospital to treat me. After taking conazepam 2.0, my seizures stopped completely.",
-          "rating": 5,
-          "author": "กําลังพิมพ์ยังไม่เสร็จ"
-        },
-        {
-          "text": "The doctors conduct thorough diagnoses, and the treatment outcomes are good. There's a food court available, and Ramathibodi Hospital is conveniently located within walking distance.",
-          "rating": 5,
-          "author": "ทรงยศ ลาภหลาย"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Neurological+Institute+of+Thailand/data=!4m7!3m6!1s0x30e2995283259d6d:0x9b4e650d5d8f954b!8m2!3d13.7686777!4d100.5272122!16s%2Fg%2F1tlr2_1q!19sChIJbZ0lg1KZ4jARS5WPXQ1lTps?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f0726809efd_0x3d26bc01d7723aec",
@@ -63563,91 +63577,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%9B%E0%B8%B2%E0%B9%82%E0%B8%A5+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/data=!4m7!3m6!1s0x30e29f004dbcbf77:0xdcf39eb9991f1032!8m2!3d13.7450444!4d100.5390091!16s%2Fg%2F11yc9wlph7!19sChIJd7-8TQCf4jARMhAfmbme89w?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2994ce192554b_0x3bb8c4ffad80f84c",
-      "place_id": "0x30e2994ce192554b:0x3bb8c4ffad80f84c",
-      "name": "Institute of Child and Adolescent Mental Health",
-      "name_lang": "en",
-      "primary_type": "Mental Health Clinic",
-      "address": "\n75 5 Rama VI Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 2 248 8999",
-      "website": "https://www.camri.go.th/",
-      "lat": 13.7661129,
-      "lng": 100.5278639,
-      "rating": 4.0,
-      "total_reviews": 30,
-      "trust_score": 71.3,
-      "categories": [],
-      "scraped_review_count": 30,
-      "local_guide_count": 13,
-      "avg_author_review_count": 292.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 18,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "long_wait",
-          "count": 4
-        },
-        {
-          "topic": "recommend",
-          "count": 2
-        },
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 28,
-          "avg": 3.89
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The staff are ready to help in every aspect. They are really lovely and attentive to every detail.",
-          "rating": 5,
-          "author": "Vinithara S."
-        },
-        {
-          "text": "The staff's administrative procedures were somewhat unprofessional, which made things a bit uncomfortable, but I was impressed by the doctor's high level of medical expertise and kindness.\n\nI felt the parking lot needed improvement, as it was nearly empty.",
-          "rating": 5,
-          "author": "Eunhye Kim"
-        },
-        {
-          "text": "Parking is limited and traffic is quite congested. It would be more convenient to travel by bus.",
-          "rating": 4,
-          "author": "Aomsin Siriporn"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Institute+of+Child+and+Adolescent+Mental+Health/data=!4m7!3m6!1s0x30e2994ce192554b:0x3bb8c4ffad80f84c!8m2!3d13.7661129!4d100.5278639!16s%2Fg%2F1hm5y2409!19sChIJS1WS4UyZ4jARTPiArf_EuDs?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f0069518a77_0xca06cae2d1eec321",
       "place_id": "0x30e29f0069518a77:0xca06cae2d1eec321",
       "name": "Medi Hair Emsphere",
@@ -65423,54 +65352,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/STORK+A.R.T.+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%84+%E0%B9%80%E0%B8%AD.%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B9%8C.%E0%B8%97%E0%B8%B5./data=!4m7!3m6!1s0x30e299905f87501d:0xf8dd0110c94d4555!8m2!3d13.7476449!4d100.5204968!16s%2Fg%2F11qnvhwh2j!19sChIJHVCHX5CZ4jARVUVNyRAB3fg?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f060ff3e571_0x9a31b7f6f02f3d41",
-      "place_id": "0x30e29f060ff3e571:0x9a31b7f6f02f3d41",
-      "name": "SCMC Silom 9 Clinic (MALI CLINIC เดิม) เอส ซี เอ็ม ซี คลินิก สีลม 9 ชเนษฎ์ ศรีสุโข Chanesd Srisukho , มหานครเซ็นเตอร์",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\nที่ไม่ใช่ Kingpower ScMc Clinic, อาคารมหานคร เซ็นเตอร์ เลขที่ 2 สีลม 9 ตั้งอยู่บน, Soi Sueksa Witthaya, Si Lom, Bang Rak, Bangkok 10500, Thailand",
-      "district": "Bang Rak",
-      "phone": "+66 97 428 2999",
-      "website": "https://www.scmcthailand.com/",
-      "lat": 13.7244635,
-      "lng": 100.527312,
-      "rating": 4.8,
-      "total_reviews": 77,
-      "trust_score": 70.6,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/SCMC+Silom+9+Clinic+%28MALI+CLINIC+%E0%B9%80%E0%B8%94%E0%B8%B4%E0%B8%A1%29+%E0%B9%80%E0%B8%AD%E0%B8%AA+%E0%B8%8B%E0%B8%B5+%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1+%E0%B8%8B%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1+9+%E0%B8%8A%E0%B9%80%E0%B8%99%E0%B8%A9%E0%B8%8E%E0%B9%8C+%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%B8%E0%B9%82%E0%B8%82+Chanesd+Srisukho+,+%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e29f060ff3e571:0x9a31b7f6f02f3d41!8m2!3d13.7244635!4d100.527312!16s%2Fg%2F11r3f92_n3!19sChIJceXzDwaf4jARQT0v8Pa3MZo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f58e0b68e0d_0x129c059c524b42ac",
@@ -72066,6 +71947,54 @@
       "maps_url": "https://www.google.com/maps/place/CHADA+Clinic+-+Thai-crafted+Aesthetics+Atelier/data=!4m7!3m6!1s0x30e29f8110674119:0xc848ac7c8b968d98!8m2!3d13.7448063!4d100.5338646!16s%2Fg%2F11msj_g33x!19sChIJGUFnEIGf4jARmI2Wi3ysSMg?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2995283259d6d_0x9b4e650d5d8f954b",
+      "place_id": "0x30e2995283259d6d:0x9b4e650d5d8f954b",
+      "name": "Neurological Institute of Thailand",
+      "name_lang": "en",
+      "primary_type": "Specialized hospital",
+      "address": "\n312 Ratchawithi Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 306 9899",
+      "website": "https://nit.go.th/",
+      "lat": 13.7686777,
+      "lng": 100.5272122,
+      "rating": 3.8,
+      "total_reviews": 335,
+      "trust_score": 68.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Neurological+Institute+of+Thailand/data=!4m7!3m6!1s0x30e2995283259d6d:0x9b4e650d5d8f954b!8m2!3d13.7686777!4d100.5272122!16s%2Fg%2F1tlr2_1q!19sChIJbZ0lg1KZ4jARS5WPXQ1lTps?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ff78f6647e9_0x6ee4c4995d87c713",
       "place_id": "0x30e29ff78f6647e9:0x6ee4c4995d87c713",
       "name": "SLC Clinic สาขา เซ็นทรัลเวิลด์",
@@ -76406,79 +76335,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Beautier+Clinic+Central+Rama+9/data=!4m7!3m6!1s0x30e29fd3e09fa3dd:0xa3ed8a86e96871e0!8m2!3d13.7577294!4d100.5660836!16s%2Fg%2F11xy_tldfp!19sChIJ3aOf4NOf4jAR4HFo6YaK7aM?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29947b83a9dad_0xcdcb4ce8c7a822a6",
-      "place_id": "0x30e29947b83a9dad:0xcdcb4ce8c7a822a6",
-      "name": "Public Health Service Center 6 Samoson Watthanatham Ying",
-      "name_lang": "en",
-      "primary_type": "Public Health Department",
-      "address": "\nQG68+3QM, Phitsanulok 3 Alley, Si Yaek Maha Nak, Dusit District, Bangkok 10300, Thailand",
-      "district": "Dusit",
-      "phone": "+66 2 282 8493",
-      "website": "http://www.bangkok.go.th/healthcenter6",
-      "lat": 13.7602057,
-      "lng": 100.516908,
-      "rating": 4.1,
-      "total_reviews": 15,
-      "trust_score": 66.7,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 15,
-      "local_guide_count": 6,
-      "avg_author_review_count": 61.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 13,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 2,
-          "avg": 3.0
-        },
-        "old": {
-          "count": 13,
-          "avg": 4.23
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "This is a great service center! The staff are very kind and provide excellent service with a heart. They work very quickly.",
-          "rating": 5,
-          "author": "Norapat [W] Sukpol"
-        },
-        {
-          "text": "First time using the service and very impressed. The staff were attentive and gave good advice.",
-          "rating": 5,
-          "author": "ปวีณา"
-        },
-        {
-          "text": "I had a tooth extracted today. The doctor and nurses were very caring and there were no charges at all. Thank you very much.",
-          "rating": 5,
-          "author": "sawang Srisawas"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Public+Health+Service+Center+6+Samoson+Watthanatham+Ying/data=!4m7!3m6!1s0x30e29947b83a9dad:0xcdcb4ce8c7a822a6!8m2!3d13.7602057!4d100.516908!16s%2Fg%2F11b682scy5!19sChIJrZ06uEeZ4jARpiKox-hMy80?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29edb1c06e5f9_0x7c13aa814dc96bf4",
@@ -87821,6 +87677,54 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B9%83%E0%B8%88%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+Body%26Mind+Clinic/data=!4m7!3m6!1s0x30e299da6c362d3d:0x33924b0299b0d8f6!8m2!3d13.7332296!4d100.5296211!16s%2Fg%2F11f5v3hq_z!19sChIJPS02bNqZ4jAR9tiwmQJLkjM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2994ce192554b_0x3bb8c4ffad80f84c",
+      "place_id": "0x30e2994ce192554b:0x3bb8c4ffad80f84c",
+      "name": "Institute of Child and Adolescent Mental Health",
+      "name_lang": "en",
+      "primary_type": "Mental health clinic",
+      "address": "\n75 5 Rama VI Rd, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 248 8999",
+      "website": "https://www.camri.go.th/",
+      "lat": 13.7661129,
+      "lng": 100.5278639,
+      "rating": 4.0,
+      "total_reviews": 30,
+      "trust_score": 57.7,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Institute+of+Child+and+Adolescent+Mental+Health/data=!4m7!3m6!1s0x30e2994ce192554b:0x3bb8c4ffad80f84c!8m2!3d13.7661129!4d100.5278639!16s%2Fg%2F1hm5y2409!19sChIJS1WS4UyZ4jARTPiArf_EuDs?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ed285cff811_0x412cc8b001527bef",
       "place_id": "0x30e29ed285cff811:0x412cc8b001527bef",
       "name": "Luxe Clinic",
@@ -89668,6 +89572,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Ruam+Phat+Por.+7+Clinic/data=!4m7!3m6!1s0x30e29e9a0464bba5:0xeca69d7075937217!8m2!3d13.7654631!4d100.5570827!16s%2Fg%2F1hc2mzmns!19sChIJpbtkBJqe4jARF3KTdXCdpuw?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29947b83a9dad_0xcdcb4ce8c7a822a6",
+      "place_id": "0x30e29947b83a9dad:0xcdcb4ce8c7a822a6",
+      "name": "Public Health Service Center 6 Samoson Watthanatham Ying",
+      "name_lang": "en",
+      "primary_type": "Public health department",
+      "address": "\nQG68+3QM, Phitsanulok 3 Alley, Si Yaek Maha Nak, Dusit District, Bangkok 10300, Thailand",
+      "district": "Dusit",
+      "phone": "+66 2 282 8493",
+      "website": "http://www.bangkok.go.th/healthcenter6",
+      "lat": 13.7602057,
+      "lng": 100.516908,
+      "rating": 4.1,
+      "total_reviews": 15,
+      "trust_score": 55.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Public+Health+Service+Center+6+Samoson+Watthanatham+Ying/data=!4m7!3m6!1s0x30e29947b83a9dad:0xcdcb4ce8c7a822a6!8m2!3d13.7602057!4d100.516908!16s%2Fg%2F11b682scy5!19sChIJrZ06uEeZ4jARpiKox-hMy80?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fb218acb439_0xe5dd0d66e2c2790e",
