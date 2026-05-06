@@ -44,6 +44,13 @@ export type Course = {
   sample_reviews_ko: SampleReview[];
   business_status: string;
   maps_url: string;
+  // Website 추출 (Phase 2 — 일부 코스만 채워짐)
+  holes?: number | null;
+  par?: number | null;
+  designer?: string;
+  year_opened?: number | null;
+  fee_mentions?: string[];
+  booking_links?: { href: string; label: string }[];
 };
 
 // Backward compat — restaurant code paths import "Restaurant"

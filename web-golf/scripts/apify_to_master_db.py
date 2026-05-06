@@ -21,18 +21,29 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[2]
-APIFY_DIR = Path(r"C:\Users\yn\Desktop")  # User's downloads
 WEB_DATA = ROOT / "web-golf" / "data"
 
-PLACE_FILES = [
-    "dataset_crawler-google-places_2026-05-06_08-19-13-332.json",
-    "dataset_crawler-google-places_2026-05-06_08-22-39-748.json",
-    "dataset_crawler-google-places_2026-05-06_08-28-05-180.json",
-]
-REVIEW_FILES = [
-    "dataset_Google-Maps-Reviews-Scraper_2026-05-06_08-32-58-193.json",
-    "dataset_Google-Maps-Reviews-Scraper_2026-05-06_08-46-19-105.json",
-]
+# Apify 다운로드는 Desktop 또는 Downloads — glob 으로 모든 파일 자동 picked up.
+HOME = Path.home()
+APIFY_SEARCH_DIRS = [HOME / "Desktop", HOME / "Downloads"]
+
+
+def find_files(pattern: str) -> list[Path]:
+    out: list[Path] = []
+    seen: set[str] = set()
+    for d in APIFY_SEARCH_DIRS:
+        if not d.exists():
+            continue
+        for p in d.glob(pattern):
+            if p.name in seen:
+                continue
+            seen.add(p.name)
+            out.append(p)
+    return sorted(out)
+
+
+PLACE_FILES = find_files("dataset_crawler-google-places_*.json")
+REVIEW_FILES = find_files("dataset_Google-Maps-Reviews-Scraper_*.json")
 
 
 # ── Place ID 추출 ─────────────────────────────────────────────
@@ -169,13 +180,12 @@ def main():
     out_path = WEB_DATA / "master_db.json"
 
     # 1. Places 로드 + dedupe
+    print(f"Place files found: {len(PLACE_FILES)}")
+    for path in PLACE_FILES:
+        print(f"  - {path.name}")
     places_by_id: dict[str, dict] = {}
-    for fname in PLACE_FILES:
-        p = APIFY_DIR / fname
-        if not p.exists():
-            print(f"[skip] {fname} not found")
-            continue
-        with open(p, "r", encoding="utf-8") as f:
+    for path in PLACE_FILES:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         for raw in data:
             url = raw.get("url", "")
@@ -188,24 +198,39 @@ def main():
 
     print(f"Unique places: {len(places_by_id)}")
 
-    # 2. Thailand 만 필터
-    thai_places = {pid: p for pid, p in places_by_id.items()
-                    if p.get("countryCode") == "TH"}
-    print(f"Thailand places: {len(thai_places)}")
+    # 2. Thailand + golf-related 필터
+    GOLF_KEYWORDS = ("golf", "country club", "driving range")
+    def is_golf(p):
+        cats = " ".join(p.get("categories") or []).lower()
+        category_name = (p.get("categoryName") or "").lower()
+        title = (p.get("title") or "").lower()
+        haystack = f"{cats} {category_name} {title}"
+        return any(k in haystack for k in GOLF_KEYWORDS)
 
-    # 3. Reviews 로드 + url(=place name) 별로 그룹
+    thai_places = {pid: p for pid, p in places_by_id.items()
+                    if p.get("countryCode") == "TH" and is_golf(p)}
+    print(f"Thailand golf places: {len(thai_places)}")
+
+    # 3. Reviews 로드 + url 별로 그룹 + dedupe
+    print(f"\nReview files found: {len(REVIEW_FILES)}")
+    for path in REVIEW_FILES:
+        print(f"  - {path.name}")
     reviews_by_url: dict[str, list[dict]] = defaultdict(list)
-    for fname in REVIEW_FILES:
-        p = APIFY_DIR / fname
-        if not p.exists():
-            continue
-        with open(p, "r", encoding="utf-8") as f:
+    seen_review_keys: set[tuple] = set()
+    for path in REVIEW_FILES:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         for r in data:
             url = r.get("url", "")
+            text = (r.get("text") or "")[:100]
+            stars = r.get("stars")
+            key = (url, stars, text)
+            if key in seen_review_keys:
+                continue
+            seen_review_keys.add(key)
             if url:
                 reviews_by_url[url].append(r)
-    print(f"Reviews by url: {len(reviews_by_url)} unique URLs, "
+    print(f"Reviews after dedupe: {len(reviews_by_url)} unique URLs, "
           f"{sum(len(v) for v in reviews_by_url.values())} total reviews")
 
     # 4. URL → place_id 매핑 + 리뷰 attach
@@ -362,4 +387,9 @@ def main():
 
 
 if __name__ == "__main__":
+    # Windows console UTF-8
+    import io
+    if hasattr(sys.stdout, "buffer"):
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+
     main()
