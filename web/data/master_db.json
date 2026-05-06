@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T08:32:07.259383+00:00",
-  "total_clinics": 1020,
-  "with_district": 968,
-  "with_categories": 647,
-  "with_reviews_scraped": 705,
+  "generated_at": "2026-05-06T08:37:09.317078+00:00",
+  "total_clinics": 1025,
+  "with_district": 973,
+  "with_categories": 651,
+  "with_reviews_scraped": 709,
   "language_total": {
     "th": 1,
-    "en": 23224,
+    "en": 23219,
     "ko": 0,
     "ja": 0,
     "other": 54
@@ -14,12 +14,12 @@
   "district_counts": {
     "Pathum Wan": 306,
     "Phaya Thai": 161,
-    "Bang Rak": 117,
+    "Bang Rak": 118,
     "Watthana": 86,
     "Huai Khwang": 64,
     "Khlong Toei": 48,
-    "Sathon": 39,
-    "Khlong San": 37,
+    "Sathon": 41,
+    "Khlong San": 39,
     "Pom Prap Sattru Phai": 23,
     "Din Daeng": 21,
     "Dusit": 21,
@@ -31,10 +31,10 @@
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 388,
-    "laser": 283,
+    "facial": 391,
+    "laser": 284,
     "botox": 192,
-    "dental": 181,
+    "dental": 182,
     "filler": 142,
     "hifu": 135,
     "hair_transplant": 18,
@@ -9053,6 +9053,83 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Agile+Rehabilitation+%26+Physio+Clinic/data=!4m7!3m6!1s0x30e29f62cae22be7:0x5e18e83b957f3cbb!8m2!3d13.7358994!4d100.5450548!16s%2Fg%2F11xcw52635!19sChIJ5yviymKf4jARuzx_lTvoGF4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299f99a13ae2b_0xccdf895de662149b",
+      "place_id": "0x30e299f99a13ae2b:0xccdf895de662149b",
+      "name": "OURS",
+      "name_lang": "en",
+      "primary_type": "Shopping mall",
+      "address": "\n240 1 Charoen Nakhon 10 Alley, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "",
+      "website": "",
+      "lat": 13.7243216,
+      "lng": 100.5051154,
+      "rating": 4.7,
+      "total_reviews": 101,
+      "trust_score": 85.7,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 38,
+      "avg_author_review_count": 201.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 15,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "premium",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 7,
+          "avg": 4.86
+        },
+        "midterm": {
+          "count": 21,
+          "avg": 4.81
+        },
+        "old": {
+          "count": 22,
+          "avg": 4.68
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Guess which picture is the men's restroom and which is the women's restroom?\nI was so confused until I found a urinal. Can someone please explain?",
+          "rating": 5,
+          "author": "Saimai Nattapat"
+        },
+        {
+          "text": "OURS is a project located in Charoen Nakhon Soi. It's almost at the end of the alley and on the right. There's plenty of parking, and other amenities include a cafe, an egg tart shop, a premium barbecue restaurant, a beauty clinic, a bakery, a crepe shop, and more.",
+          "rating": 5,
+          "author": "สมชาย แซ่แต้"
+        },
+        {
+          "text": "It's a very beautiful place with lots of photo opportunities, and the food is delicious.",
+          "rating": 5,
+          "author": "zeegame Narapat"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/OURS/data=!4m7!3m6!1s0x30e299f99a13ae2b:0xccdf895de662149b!8m2!3d13.7243216!4d100.5051154!16s%2Fg%2F11rvghk70p!19sChIJK64TmvmZ4jARmxRi5l2J38w?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f46682a2015_0xf3a3841789d66c75",
@@ -29111,103 +29188,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Surat+Clinic/data=!4m7!3m6!1s0x30e2996d370519cd:0xe46e5f494fe546f3!8m2!3d13.7613504!4d100.4972645!16s%2Fg%2F1tdm5r_5!19sChIJzRkFN22Z4jAR80blT0lfbuQ?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f7b39d8ddfb_0xd86c518e45d1702b",
-      "place_id": "0x30e29f7b39d8ddfb:0xd86c518e45d1702b",
-      "name": "Thonglor Pet Hospital Sathon-Naradhiwas - โรงพยาบาลสัตว์ทองหล่อ สาทร-นราธิวาส",
-      "name_lang": "th",
-      "primary_type": "Animal hospital",
-      "address": "\n130, 144 Naradhiwas Rajanagarindra Rd, Thung Wat Don, Sathon, Bangkok 10120, Thailand",
-      "district": "Sathon",
-      "phone": "+66 2 079 9909",
-      "website": "http://www.thonglorpet.com/",
-      "lat": 13.7108732,
-      "lng": 100.5352999,
-      "rating": 4.3,
-      "total_reviews": 191,
-      "trust_score": 79.4,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 16,
-      "avg_author_review_count": 19.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 31,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "professional",
-          "count": 4
-        },
-        {
-          "topic": "recommend",
-          "count": 4
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 3
-        },
-        {
-          "topic": "english_speaking",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 10,
-          "avg": 4.3
-        },
-        "midterm": {
-          "count": 34,
-          "avg": 4.18
-        },
-        "old": {
-          "count": 6,
-          "avg": 4.67
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "My pet was in critical condition. The team handled everything professionally and provided 24 hrs emergency care. Truly grateful for the vets and the excellent staff service.”",
-          "rating": 5,
-          "author": "Ben M"
-        },
-        {
-          "text": "The doctor and staff were very kind. They were very gentle when giving my cat the injection.",
-          "rating": 5,
-          "author": "Sunny Wilaiphon"
-        },
-        {
-          "text": "I took my kitten to quarantine before bringing it home. The staff and nurses were very kind.",
-          "rating": 5,
-          "author": "Chompoonut Yoosuk"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Thonglor+Pet+Hospital+Sathon-Naradhiwas+-+%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD+%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3-%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%98%E0%B8%B4%E0%B8%A7%E0%B8%B2%E0%B8%AA/data=!4m7!3m6!1s0x30e29f7b39d8ddfb:0xd86c518e45d1702b!8m2!3d13.7108732!4d100.5352999!16s%2Fg%2F11lh8wlmgb!19sChIJ-93YOXuf4jARK3DRRY5RbNg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29db44dbcd1d7_0xad075d8a4de52284",
@@ -58648,6 +58628,54 @@
       "maps_url": "https://www.google.com/maps/place/SARUNCARE+CLINIC+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B9%81%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e29ed204abb839:0x76c0b860eb3bdd2e!8m2!3d13.7452!4d100.534871!16s%2Fg%2F11g9j6fxsr!19sChIJObirBNKe4jARLt0762C4wHY?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f7b39d8ddfb_0xd86c518e45d1702b",
+      "place_id": "0x30e29f7b39d8ddfb:0xd86c518e45d1702b",
+      "name": "Thonglor Pet Hospital Sathon-Naradhiwas - โรงพยาบาลสัตว์ทองหล่อ สาทร-นราธิวาส",
+      "name_lang": "th",
+      "primary_type": "Animal hospital",
+      "address": "\n130, 144 Naradhiwas Rajanagarindra Rd, Thung Wat Don, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 2 079 9909",
+      "website": "http://www.thonglorpet.com/",
+      "lat": 13.7108732,
+      "lng": 100.5352999,
+      "rating": 4.3,
+      "total_reviews": 192,
+      "trust_score": 70.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Thonglor+Pet+Hospital+Sathon-Naradhiwas+-+%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B9%88%E0%B8%AD+%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3-%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%98%E0%B8%B4%E0%B8%A7%E0%B8%B2%E0%B8%AA/data=!4m7!3m6!1s0x30e29f7b39d8ddfb:0xd86c518e45d1702b!8m2!3d13.7108732!4d100.5352999!16s%2Fg%2F11lh8wlmgb!19sChIJ-93YOXuf4jARK3DRRY5RbNg?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fed49ef6ce7_0x5513921cc45bb0f5",
       "place_id": "0x30e29fed49ef6ce7:0x5513921cc45bb0f5",
       "name": "Wonderland Clinic (Thai Canna Med)",
@@ -65572,6 +65600,80 @@
       "maps_url": "https://www.google.com/maps/place/For+June+Clinic+By+Dr.+Tee+%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29f002024769d:0xc552f8aba62d6bf4!8m2!3d13.7669574!4d100.5705431!16s%2Fg%2F11wvd7jf1c!19sChIJnXYkIACf4jAR9Gstpqv4UsU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e298c5b16880a1_0x44e02798c951d0d2",
+      "place_id": "0x30e298c5b16880a1:0x44e02798c951d0d2",
+      "name": "สกลคลินิก",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n1435 ถ. เจริญกรุง Si Lom, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 81 330 7616",
+      "website": "",
+      "lat": 13.7200388,
+      "lng": 100.5158472,
+      "rating": 4.5,
+      "total_reviews": 8,
+      "trust_score": 67.7,
+      "categories": [
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 8,
+      "local_guide_count": 4,
+      "avg_author_review_count": 9.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 3,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1,
+        "laser": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 8,
+          "avg": 4.5
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I had a facial and had a problem with my skin the Dr at this clinic, it was very good ! The staff was great especially Nam she is amazing ! Highly recommend this clinic !",
+          "rating": 5,
+          "author": "Michael Huff"
+        },
+        {
+          "text": "The mole laser has a lifetime guarantee. I've been doing it for ten years and it's growing back. The doctor lasered it for me for free. But you have to keep your card.",
+          "rating": 5,
+          "author": "Kanokkorn Prasongthanakit"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%81%E0%B8%A5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e298c5b16880a1:0x44e02798c951d0d2!8m2!3d13.7200388!4d100.5158472!16s%2Fg%2F1tkb_jrx!19sChIJoYBoscWY4jAR0tBRyZgn4EQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29911142b4de1_0xb3e1c79f5a560c1b",
       "place_id": "0x30e29911142b4de1:0xb3e1c79f5a560c1b",
       "name": "Baan Mowaan Bamrungchat Satsana Yathai Pharmacy",
@@ -71516,6 +71618,86 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AD%E0%B8%A7%E0%B8%B2%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B9%84%E0%B8%97%E0%B8%A2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A1%E0%B8%B2%E0%B8%9A%E0%B8%B8%E0%B8%8D%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87+%28+MBK+%29/data=!4m7!3m6!1s0x30e29c50a35fbf31:0xec5e11c75f0bd468!8m2!3d13.744731!4d100.5299527!16s%2Fg%2F11bwhb0ndl!19sChIJMb9fo1Cc4jARaNQLX8cRXuw?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29961ce65a5c9_0x15bcd269acd68ae",
+      "place_id": "0x30e29961ce65a5c9:0x15bcd269acd68ae",
+      "name": "จิติพันธ์ ทันตแพทย์ คลินิก (สาขา กทม. - ย้ายแล้ว)",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n382 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 82 852 5467",
+      "website": "https://line.me/ti/p/_nwM8MoDpY",
+      "lat": 13.7218744,
+      "lng": 100.5087761,
+      "rating": 5.0,
+      "total_reviews": 5,
+      "trust_score": 64.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 5,
+      "local_guide_count": 1,
+      "avg_author_review_count": 7.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Had the best clean at this place. Dentist was fabulous. She was polite, and professional and did a thorough job of my clean. I would come back in a heartbeat. I hope they pay her well.",
+          "rating": 5,
+          "author": "Channa Cheng"
+        },
+        {
+          "text": "The doctor has a gentle hand, is kind and patient. All levels of service staff are impressive.",
+          "rating": 5,
+          "author": "bbubie BB"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%88%E0%B8%B4%E0%B8%95%E0%B8%B4%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B9%8C+%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%81%E0%B8%97%E0%B8%A1.+-+%E0%B8%A2%E0%B9%89%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A5%E0%B9%89%E0%B8%A7%29/data=!4m7!3m6!1s0x30e29961ce65a5c9:0x15bcd269acd68ae!8m2!3d13.7218744!4d100.5087761!16s%2Fg%2F11sc3_z4pz!19sChIJyaVlzmGZ4jARrmjNmibNWwE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e298e0d27bc31d_0x989ecce134f3d009",
       "place_id": "0x30e298e0d27bc31d:0x989ecce134f3d009",
       "name": "Somdet Chao Phraya Hospital",
@@ -73376,6 +73558,65 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%9A%E0%B8%B8%E0%B9%89%E0%B8%87+By+Ladyreborn+Ltd./data=!4m7!3m6!1s0x30e299706c8c3bc1:0xf4b931a6efc274f4!8m2!3d13.7770938!4d100.526845!16s%2Fg%2F11h1g6fh3p!19sChIJwTuMbHCZ4jAR9HTC76YxufQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298cae5612467_0x6a4df3b6252fb9b6",
+      "place_id": "0x30e298cae5612467:0x6a4df3b6252fb9b6",
+      "name": "POSS CLINIC(พอสส์ คลินิก สาขาสาทร)",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n264 ซอย สาทร 11 Yan Nawa, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 2 675 8837",
+      "website": "",
+      "lat": 13.7140471,
+      "lng": 100.5275302,
+      "rating": 4.0,
+      "total_reviews": 5,
+      "trust_score": 62.1,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 5,
+      "local_guide_count": 3,
+      "avg_author_review_count": 71.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 1,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "old": {
+          "count": 4,
+          "avg": 4.75
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/POSS+CLINIC%28%E0%B8%9E%E0%B8%AD%E0%B8%AA%E0%B8%AA%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%A3%29/data=!4m7!3m6!1s0x30e298cae5612467:0x6a4df3b6252fb9b6!8m2!3d13.7140471!4d100.5275302!16s%2Fg%2F1ptw_zh5b!19sChIJZyRh5cqY4jARtrkvJbbzTWo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e298fdd0aaea1f_0x50543f762029db27",
@@ -80320,6 +80561,54 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Siam+Laser+Clinic/data=!4m7!3m6!1s0x30e29ed205e2e133:0xb1769b37d184f6b1!8m2!3d13.7445988!4d100.5334128!16s%2Fg%2F11gb3yl0mb!19sChIJM-HiBdKe4jARsfaE0TebdrE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f330f20bc63_0x8efef03e0748217c",
+      "place_id": "0x30e29f330f20bc63:0x8efef03e0748217c",
+      "name": "LittleGirl Clinic",
+      "name_lang": "en",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\n101 Naradhias rajanagarindra 7,, Mobicom 3 building, Thung Maha Mek, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 64 597 2247",
+      "website": "",
+      "lat": 13.719412,
+      "lng": 100.5320022,
+      "rating": 1.7,
+      "total_reviews": 6,
+      "trust_score": 35.8,
+      "categories": [],
+      "scraped_review_count": 6,
+      "local_guide_count": 2,
+      "avg_author_review_count": 25.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 2,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 6,
+          "avg": 1.67
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/LittleGirl+Clinic/data=!4m7!3m6!1s0x30e29f330f20bc63:0x8efef03e0748217c!8m2!3d13.719412!4d100.5320022!16s%2Fg%2F11f4lj8khj!19sChIJY7wgDzOf4jARfCFIBz7w_o4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fab6ae269d5_0xa3493de173b016c8",
