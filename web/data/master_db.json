@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T07:41:45.005430+00:00",
-  "total_clinics": 956,
-  "with_district": 905,
-  "with_categories": 606,
-  "with_reviews_scraped": 659,
+  "generated_at": "2026-05-06T07:51:48.761697+00:00",
+  "total_clinics": 964,
+  "with_district": 913,
+  "with_categories": 609,
+  "with_reviews_scraped": 665,
   "language_total": {
     "th": 1,
-    "en": 22086,
+    "en": 22232,
     "ko": 0,
     "ja": 0,
     "other": 52
@@ -15,10 +15,10 @@
     "Pathum Wan": 306,
     "Phaya Thai": 151,
     "Bang Rak": 116,
-    "Watthana": 77,
+    "Watthana": 78,
+    "Khlong Toei": 45,
     "Huai Khwang": 44,
-    "Khlong Toei": 40,
-    "Sathon": 38,
+    "Sathon": 39,
     "Khlong San": 32,
     "Pom Prap Sattru Phai": 23,
     "Din Daeng": 18,
@@ -26,19 +26,19 @@
     "Ratchathewi": 17,
     "Phra Nakhon": 13,
     "Samphanthawong": 6,
-    "Yan Nawa": 3,
+    "Yan Nawa": 4,
     "Thon Buri": 3,
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 374,
-    "laser": 268,
-    "botox": 184,
-    "dental": 160,
+    "facial": 376,
+    "laser": 269,
+    "botox": 185,
+    "dental": 161,
     "filler": 135,
     "hifu": 131,
     "hair_transplant": 16,
-    "eye": 7
+    "eye": 8
   },
   "clinics": [
     {
@@ -2426,6 +2426,79 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E+BMOC+%28The+PARQ%29/data=!4m7!3m6!1s0x30e29fcbb45cbc21:0xe69c19181e057d35!8m2!3d13.7212846!4d100.5585005!16s%2Fg%2F11pz1gyqy8!19sChIJIbxctMuf4jARNX0FHhgZnOY?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f300f20543f_0xc0f6f2647efc438d",
+      "place_id": "0x30e29f300f20543f:0xc0f6f2647efc438d",
+      "name": "Vincent Clinic Asok (วินเซนต์คลินิก สาขาอโศก)",
+      "name_lang": "th",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\n388 Exchange Tower ชั้น 3 Sukhumvit Rd, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 87 646 8888",
+      "website": "https://vincent.clinic/",
+      "lat": 13.7358217,
+      "lng": 100.5617052,
+      "rating": 4.9,
+      "total_reviews": 6340,
+      "trust_score": 90.0,
+      "categories": [],
+      "scraped_review_count": 10,
+      "local_guide_count": 0,
+      "avg_author_review_count": 3.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Today I had breast augmentation surgery with Dr. Taw and Ms. Belle provided excellent service. They were very helpful, communicative, and attentive. 🥰🥰 …",
+          "rating": 5,
+          "author": "Kulthida Nisairoeng"
+        },
+        {
+          "text": "Today I had breast augmentation surgery with Dr. Taw. Belle provided excellent service and gave great advice. I'm so pleased! ❤️",
+          "rating": 5,
+          "author": "เมทินี จันทวี"
+        },
+        {
+          "text": "Today I had breast augmentation surgery with Dr. Taw. Belle was very helpful and provided a lot of information. I'm very impressed! 💕💕💕 …",
+          "rating": 5,
+          "author": "Niratcha Phaphrom"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Vincent+Clinic+Asok+%28%E0%B8%A7%E0%B8%B4%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AD%E0%B9%82%E0%B8%A8%E0%B8%81%29/data=!4m7!3m6!1s0x30e29f300f20543f:0xc0f6f2647efc438d!8m2!3d13.7358217!4d100.5617052!16s%2Fg%2F11s626yfr2!19sChIJP1QgDzCf4jARjUP8fmTy9sA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f1b06010241_0x1ccfd6ead3be497b",
@@ -5055,6 +5128,91 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AD%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%B1%E0%B8%8A%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99%28IntouchMedicare+Clinic+Klongsan%29/data=!4m7!3m6!1s0x30e298e660802c31:0x9fbc99819b23204a!8m2!3d13.7270163!4d100.5029601!16s%2Fg%2F11c5t4z4pl!19sChIJMSyAYOaY4jARSiAjm4GZvJ8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fa0663233e5_0x1f357dfaf595ffa3",
+      "place_id": "0x30e29fa0663233e5:0x1f357dfaf595ffa3",
+      "name": "YINYANG Wellness - Physiotherapy & Acupuncture & Chinese Medical Clinic Bangkok",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n4th Floor, Unit 404 Exchange Tower 388 Sukhumvit Rd, Khwaeng Khlong Toei, Klongtoey Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 81 319 9896",
+      "website": "https://www.yinyangwellnesshub.com/",
+      "lat": 13.7354143,
+      "lng": 100.5616382,
+      "rating": 5.0,
+      "total_reviews": 486,
+      "trust_score": 88.0,
+      "categories": [],
+      "scraped_review_count": 40,
+      "local_guide_count": 7,
+      "avg_author_review_count": 13.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 26,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 10
+        },
+        {
+          "topic": "professional",
+          "count": 7
+        },
+        {
+          "topic": "english_speaking",
+          "count": 5
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 40,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I exercise regularly, so I didn't think there would be any problems. But after trying physical therapy with the doctor, I found out. The doctor gave good advice and targeted the treatment.",
+          "rating": 5,
+          "author": "SSSystem"
+        },
+        {
+          "text": "Amazing sports massage. Found it on Google. I didn’t expect to find this gem. Much better physio than where I have been in Bangkok - form recovery and bpc\nThis one was on point.\n\nGot relax and sample some tea after the session to detox. Will definitely be back",
+          "rating": 5,
+          "author": "din lee"
+        },
+        {
+          "text": "It was very comfortable; a different kind of massage, closer to traditional Chinese physiotherapy.",
+          "rating": 5,
+          "author": "doudou guo"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/YINYANG+Wellness+-+Physiotherapy+%26+Acupuncture+%26+Chinese+Medical+Clinic+Bangkok/data=!4m7!3m6!1s0x30e29fa0663233e5:0x1f357dfaf595ffa3!8m2!3d13.7354143!4d100.5616382!16s%2Fg%2F11yghcjm41!19sChIJ5TMyZqCf4jARo_-V9fp9NR8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f9fb0005643_0x1f6708694f99c424",
@@ -10267,6 +10425,86 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Klinique+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+9/data=!4m7!3m6!1s0x30e29e8d18e8c5ab:0x1117967bca50f77a!8m2!3d13.7582372!4d100.5659794!16s%2Fg%2F11r99zm0z!19sChIJq8XoGI2e4jARevdQynuWFxE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f45900aaca3_0x2bc0fcfa3af0167c",
+      "place_id": "0x30e29f45900aaca3:0x2bc0fcfa3af0167c",
+      "name": "Bangkok Aesthetics Clinic",
+      "name_lang": "en",
+      "primary_type": "Dermatologist",
+      "address": "\nSixteen Place 180 Soi Sukhumvit 16, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 2 003 3365",
+      "website": "http://www.bacclinic.info/acnescar.html",
+      "lat": 13.7294146,
+      "lng": 100.5610677,
+      "rating": 4.8,
+      "total_reviews": 82,
+      "trust_score": 85.0,
+      "categories": [
+        "botox",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 20,
+      "local_guide_count": 16,
+      "avg_author_review_count": 104.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 19,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1,
+        "laser": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 5
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 9,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 11,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The service was excellent, and the doctor was very attentive to the client's concerns. I'm definitely not disappointed that I chose to have my treatment here.",
+          "rating": 5,
+          "author": "มงคลศักดิ์ อุดมสินสิริกุล"
+        },
+        {
+          "text": "The staff and doctor were lovely and provided excellent service. They didn't try to push any packages, only giving recommendations based on what was truly suitable. I intended to get 100 units of Botox, but the doctor advised me to get only 50 units. I was very impressed.",
+          "rating": 5,
+          "author": "Phob Sung"
+        },
+        {
+          "text": "The doctor was kind, the staff were attentive, polite, and gave excellent advice.",
+          "rating": 5,
+          "author": "Pawin W"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Aesthetics+Clinic/data=!4m7!3m6!1s0x30e29f45900aaca3:0x2bc0fcfa3af0167c!8m2!3d13.7294146!4d100.5610677!16s%2Fg%2F11gy6y0vt5!19sChIJo6wKkEWf4jARfBbwOvr8wCs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29929b71e719b_0x4d091f829bff0b55",
@@ -20902,6 +21140,95 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lotus+Azure+Medical+Saha+Clinic/data=!4m7!3m6!1s0x30e299e4f874571b:0x64ed5a4346968f82!8m2!3d13.7328266!4d100.5060771!16s%2Fg%2F11kbwdm6z3!19sChIJG1d0-OSZ4jARgo-WRkNa7WQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fde9b4f1f67_0x950ebeaa5561802c",
+      "place_id": "0x30e29fde9b4f1f67:0x950ebeaa5561802c",
+      "name": "HealthDeliver Clinic Phrom Phong",
+      "name_lang": "en",
+      "primary_type": "Medical Center",
+      "address": "\nGaleri 24 No.89, Soi Sukhumvit 24, Klong tan, Klong Toei, Khlong Toei Nuea, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 64 553 9506",
+      "website": "https://www.healthdeliver.asia/",
+      "lat": 13.7244825,
+      "lng": 100.5675724,
+      "rating": 4.9,
+      "total_reviews": 205,
+      "trust_score": 81.4,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 8,
+      "avg_author_review_count": 5.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 7
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "english_speaking",
+          "count": 5
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 4.92
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Quick, efficient and kind! Super easy and helpful appointment & staff. Lovely new office too.",
+          "rating": 5,
+          "author": "Kathleen Adair"
+        },
+        {
+          "text": "This is our first visit to the clinic at 24. It’s quite spacious and convenient to come from 24 or from Rama 4. I like it.",
+          "rating": 5,
+          "author": "Tashi Dorji"
+        },
+        {
+          "text": "Very impressive service.  I contacted the Clinic via Line to inquire on a medicine which I have been using.  The response was prompt and professional.  The staff on the Line efficiently and efficiently answered all my inquires; and promptly …",
+          "rating": 5,
+          "author": "PL L"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/HealthDeliver+Clinic+Phrom+Phong/data=!4m7!3m6!1s0x30e29fde9b4f1f67:0x950ebeaa5561802c!8m2!3d13.7244825!4d100.5675724!16s%2Fg%2F11w2zlvz7w!19sChIJZx9Pm96f4jARLIBhVaq-DpU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f2d655c4ed7_0x6b3623db0a821a30",
@@ -38910,6 +39237,101 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/LBC+Clinic+%E0%B9%81%E0%B8%AD%E0%B8%A5%E0%B8%9A%E0%B8%B5%E0%B8%8B%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+39+%28Sukhumvit+39%29/data=!4m7!3m6!1s0x30e29f9e8edeab13:0x7f9134b17f225744!8m2!3d13.7428266!4d100.5715828!16s%2Fg%2F11xvfh8jkc!19sChIJE6vejp6f4jARRFcif7E0kX8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f827411448b_0x25bf31b7611fb5aa",
+      "place_id": "0x30e29f827411448b:0x25bf31b7611fb5aa",
+      "name": "KOA clinic โคอา คลินิก",
+      "name_lang": "th",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\nอาคารชุดโดมัส 19 67 16 ชั้น 1 Soi Sukhumvit 16, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 82 459 6496",
+      "website": "http://www.koa-clinic.com/",
+      "lat": 13.733388,
+      "lng": 100.5612103,
+      "rating": 4.9,
+      "total_reviews": 55,
+      "trust_score": 76.0,
+      "categories": [
+        "eye",
+        "facial"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 10,
+      "avg_author_review_count": 10.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1,
+        "eye": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 21
+        },
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 21,
+          "avg": 4.81
+        },
+        "old": {
+          "count": 24,
+          "avg": 4.83
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Thank you so much, doctor. You were so calm, meticulous, and precise. You addressed all my concerns and even considered additional aesthetic benefits. 🙏🏻🫶🏻❤️ …",
+          "rating": 5,
+          "author": "ฐิตารีย์ โฆษิฐารัตนกูล"
+        },
+        {
+          "text": "The doctor gave me really good advice. He answered all my questions clearly and gave me really good advice. I definitely made the right decision by choosing to have my eyes done with him. ❤️",
+          "rating": 5,
+          "author": "Porntawan Wongpasert"
+        },
+        {
+          "text": "Dr. Korn gave very friendly and sincere advice. I felt that his advice was based on what was realistic and possible. He didn't overdo it and focused on providing advice for treatment.",
+          "rating": 5,
+          "author": "Jadsarin Treesinghavong"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/KOA+clinic+%E0%B9%82%E0%B8%84%E0%B8%AD%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29f827411448b:0x25bf31b7611fb5aa!8m2!3d13.733388!4d100.5612103!16s%2Fg%2F11tspnfyk0!19sChIJi0QRdIKf4jARqrUfYbcxvyU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f421401cb9b_0x275ab29bbacc81c9",
@@ -57882,6 +58304,56 @@
       "maps_url": "https://www.google.com/maps/place/HA+HAY+clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1/data=!4m7!3m6!1s0x30e29f60c122f74d:0xe5bf56df4a5d3635!8m2!3d13.7284432!4d100.5362337!16s%2Fg%2F11w_hv7gdk!19sChIJTfciwWCf4jARNTZdSt9Wv-U?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f39c699199b_0xbbb70db9a45300d4",
+      "place_id": "0x30e29f39c699199b:0xbbb70db9a45300d4",
+      "name": "Plugardent dental clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n562, 15 Thanon Suan Phlu, Thung Maha Mek, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 83 612 5078",
+      "website": "https://www.facebook.com/share/16FyuD9Sqg/?mibextid=wwXIfr",
+      "lat": 13.7188771,
+      "lng": 100.5387158,
+      "rating": 4.8,
+      "total_reviews": 57,
+      "trust_score": 69.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Plugardent+dental+clinic/data=!4m7!3m6!1s0x30e29f39c699199b:0xbbb70db9a45300d4!8m2!3d13.7188771!4d100.5387158!16s%2Fg%2F11lnnql9jy!19sChIJmxmZxjmf4jAR1ABTpLkNt7s?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ed26d89aabb_0x5f26257fda94b504",
       "place_id": "0x30e29ed26d89aabb:0x5f26257fda94b504",
       "name": "Hair Clinique by SLC สาขา สยามสแควร์ ซอย 2",
@@ -69104,6 +69576,54 @@
       "maps_url": "https://www.google.com/maps/place/STC+Anti-Aging+%26+Wellness+Clinic+@Century+Victory+Monument+%28%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%AA%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C%29/data=!4m7!3m6!1s0x30e29fd365b8559d:0x3b381b45fc7d1943!8m2!3d13.7618596!4d100.5369062!16s%2Fg%2F11yyfcjzdl!19sChIJnVW4ZdOf4jARQxl9_EUbODs?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fe3d3e89069_0x153c79b8d8348c7d",
+      "place_id": "0x30e29fe3d3e89069:0x153c79b8d8348c7d",
+      "name": "Mega Med Clinic",
+      "name_lang": "en",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\n399, Interchange 21 Building, Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 91 186 1865",
+      "website": "https://www.facebook.com/MegaMedClinic.Asok",
+      "lat": 13.7366986,
+      "lng": 100.5616352,
+      "rating": 5.0,
+      "total_reviews": 10,
+      "trust_score": 62.0,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Mega+Med+Clinic/data=!4m7!3m6!1s0x30e29fe3d3e89069:0x153c79b8d8348c7d!8m2!3d13.7366986!4d100.5616352!16s%2Fg%2F11fwtqzz3t!19sChIJaZDo0-Of4jARfYw02Lh5PBU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fb81d975fe9_0xd32b9e7abde82bfc",
       "place_id": "0x30e29fb81d975fe9:0xd32b9e7abde82bfc",
       "name": "Lumina Wellness Clinic",
@@ -72711,6 +73231,65 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Varela+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/data=!4m7!3m6!1s0x30e29fd1eccfe2e7:0xe4f25d7bb3a997be!8m2!3d13.7458343!4d100.5392887!16s%2Fg%2F11qgzdxnp0!19sChIJ5-LP7NGf4jARvpeps3td8uQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f3afe06d2d5_0x90c5f39a23b67e02",
+      "place_id": "0x30e29f3afe06d2d5:0x90c5f39a23b67e02",
+      "name": "HuangXin Clinic of TCM",
+      "name_lang": "en",
+      "primary_type": "Walk-in clinic",
+      "address": "\n8 1 Yen Arkat Alley, Thung Maha Mek, Yan Nawa, Bangkok 10120, Thailand",
+      "district": "Yan Nawa",
+      "phone": "+66 2 294 9375",
+      "website": "http://www.facebook.com/HuangXinclinic",
+      "lat": 13.7180329,
+      "lng": 100.5480677,
+      "rating": 3.8,
+      "total_reviews": 8,
+      "trust_score": 56.6,
+      "categories": [],
+      "scraped_review_count": 8,
+      "local_guide_count": 2,
+      "avg_author_review_count": 25.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "english_speaking",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 7,
+          "avg": 3.57
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I had stiffness and pain in my neck and shoulders, nausea, and dizziness. I came to get acupuncture with the doctor and felt much better after the first session. It wasn't painful or scary.",
+          "rating": 5,
+          "author": "Milada inspiration"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/HuangXin+Clinic+of+TCM/data=!4m7!3m6!1s0x30e29f3afe06d2d5:0x90c5f39a23b67e02!8m2!3d13.7180329!4d100.5480677!16s%2Fg%2F1pzyl1lrh!19sChIJ1dIG_jqf4jARAn62I5rzxZA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ecdfc6578a9_0xd6a21e2a09fd18cf",
