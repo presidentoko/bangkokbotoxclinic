@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T19:09:10.786733+00:00",
-  "total_clinics": 1166,
-  "with_district": 1111,
+  "generated_at": "2026-05-06T19:19:14.809622+00:00",
+  "total_clinics": 1167,
+  "with_district": 1112,
   "with_categories": 720,
-  "with_reviews_scraped": 832,
+  "with_reviews_scraped": 833,
   "language_total": {
     "th": 1,
-    "en": 27831,
+    "en": 27828,
     "ko": 1,
     "ja": 0,
     "other": 66
@@ -20,7 +20,7 @@
     "Khlong Toei": 63,
     "Khlong San": 53,
     "Sathon": 45,
-    "Pom Prap Sattru Phai": 30,
+    "Pom Prap Sattru Phai": 31,
     "Dusit": 26,
     "Din Daeng": 24,
     "Phra Nakhon": 22,
@@ -33,8 +33,8 @@
   },
   "category_counts": {
     "facial": 434,
-    "laser": 332,
-    "botox": 224,
+    "laser": 333,
+    "botox": 225,
     "dental": 203,
     "filler": 174,
     "hifu": 170,
@@ -24442,6 +24442,115 @@
       "maps_url": "https://www.google.com/maps/place/Omakase+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e29fda9acae28b:0x7f885c72fc1ee8c3!8m2!3d13.7570225!4d100.5344791!16s%2Fg%2F11sc_mxg5k!19sChIJi-LKmtqf4jARw-ge_HJciH8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299007977c26d_0xb76bfebe6d9e265d",
+      "place_id": "0x30e299007977c26d:0xb76bfebe6d9e265d",
+      "name": "Nan-Cho Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n457 ถ. เจริญกรุง Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 83 839 9910",
+      "website": "",
+      "lat": 13.7426228,
+      "lng": 100.5097149,
+      "rating": 4.9,
+      "total_reviews": 109,
+      "trust_score": 81.6,
+      "categories": [
+        "botox",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 15,
+      "avg_author_review_count": 12.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 11,
+        "facial": 4,
+        "laser": 8
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 16
+        },
+        {
+          "topic": "clean_facility",
+          "count": 14
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 14
+        },
+        {
+          "topic": "professional",
+          "count": 8
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "premium",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 9,
+          "avg": 4.56
+        },
+        "midterm": {
+          "count": 32,
+          "avg": 4.91
+        },
+        "old": {
+          "count": 9,
+          "avg": 5.0
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Extremely cozy atmosphere. I was looking to get Botox only for the upper part of my face and ended up getting my whole face done. Very attentive, fair price and excellent service.",
+          "rating": 5,
+          "author": "Rayssa Lima"
+        },
+        {
+          "text": "Had a great experience with laser hair removal here, they were able to get me in as a walk in. Thank you!",
+          "rating": 5,
+          "author": "Taylor"
+        },
+        {
+          "text": "Thank you to them, a great clinic in Chinatown, very attentive, caring, and lovely.",
+          "rating": 5,
+          "author": "Theo"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Nan-Cho+Clinic/data=!4m7!3m6!1s0x30e299007977c26d:0xb76bfebe6d9e265d!8m2!3d13.7426228!4d100.5097149!16s%2Fg%2F11vrbhmy_7!19sChIJbcJ3eQCZ4jARXSaebb7-a7c?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f5c0f521e9b_0xd48ef25437daeb36",
       "place_id": "0x30e29f5c0f521e9b:0xd48ef25437daeb36",
       "name": "Laliza Clinic ลลิษาคลินิก รักษาสิว เซ็นทรัลพระราม 9",
@@ -25709,95 +25818,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B9%E0%B8%8B%E0%B8%B9+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+-+Zuzu+Clinic/data=!4m7!3m6!1s0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b!8m2!3d13.7487931!4d100.5624284!16s%2Fg%2F11t9npk6ld!19sChIJf4sPnIWjLqMRG7uRTGU33fI?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29936c1ecea01_0x61ffd6ab9771ace7",
-      "place_id": "0x30e29936c1ecea01:0x61ffd6ab9771ace7",
-      "name": "Pornsawan Physical Rehab Clinic",
-      "name_lang": "en",
-      "primary_type": "Physical therapy clinic",
-      "address": "\nพรสวรรค์ คลีนิคกายภาพบำบัด เลขที่ 322 Phlap Phla Chai Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 83 271 5500",
-      "website": "",
-      "lat": 13.7451901,
-      "lng": 100.5108858,
-      "rating": 5.0,
-      "total_reviews": 105,
-      "trust_score": 81.2,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 12,
-      "avg_author_review_count": 11.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 40,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 19
-        },
-        {
-          "topic": "affordable",
-          "count": 14
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 9
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 2
-        },
-        {
-          "topic": "promotion",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 24,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 23,
-          "avg": 4.96
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Excellent\nGood equipment\nThe doctor is skilled, the assistants are lovely. Saved many lives.",
-          "rating": 5,
-          "author": "Varyn Ng"
-        },
-        {
-          "text": "The doctor is skilled, the staff are lovely and attentive, and the price is very reasonable. Highly recommended.",
-          "rating": 5,
-          "author": "Prasert Sattayabussayakorn"
-        },
-        {
-          "text": "I took my father to see a doctor. The doctor started by examining the root cause of my father's pain before beginning treatment. They paid attention to every detail. The doctor and assistants were kind and provided friendly care, recommending the most suitable treatment for my father.",
-          "rating": 5,
-          "author": "Yam Thanyarej"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Pornsawan+Physical+Rehab+Clinic/data=!4m7!3m6!1s0x30e29936c1ecea01:0x61ffd6ab9771ace7!8m2!3d13.7451901!4d100.5108858!16s%2Fg%2F11qbhzrgyr!19sChIJAerswTaZ4jAR56xxl6vW_2E?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fb72b629901_0xb046260e2c510b1",
@@ -52426,6 +52446,54 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%82%E0%B8%A3%E0%B8%84%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%84%E0%B8%9B+-+KindMore+Clinic/data=!4m7!3m6!1s0x30e299001ef31dd3:0xabd1e5ced7d92fea!8m2!3d13.724895!4d100.495372!16s%2Fg%2F11zkr_yf96!19sChIJ0x3zHgCZ4jAR6i_Z187l0as?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29936c1ecea01_0x61ffd6ab9771ace7",
+      "place_id": "0x30e29936c1ecea01:0x61ffd6ab9771ace7",
+      "name": "Pornsawan Physical Rehab Clinic",
+      "name_lang": "en",
+      "primary_type": "Physiotherapy Center",
+      "address": "\nพรสวรรค์ คลีนิคกายภาพบำบัด เลขที่ 322 Phlap Phla Chai Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 83 271 5500",
+      "website": "",
+      "lat": 13.7451901,
+      "lng": 100.5108858,
+      "rating": 5.0,
+      "total_reviews": 105,
+      "trust_score": 74.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pornsawan+Physical+Rehab+Clinic/data=!4m7!3m6!1s0x30e29936c1ecea01:0x61ffd6ab9771ace7!8m2!3d13.7451901!4d100.5108858!16s%2Fg%2F11qbhzrgyr!19sChIJAerswTaZ4jAR56xxl6vW_2E?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f58c59e1f2f_0xd814b8f64c475ef4",
       "place_id": "0x30e29f58c59e1f2f:0xd814b8f64c475ef4",
       "name": "คลินิกทันตกรรมสไมล์เวิร์ค Smile Works Dental Clinic",
@@ -55217,56 +55285,6 @@
       "maps_url": "https://www.google.com/maps/place/Sutthiporn+Dental+Clinic/data=!4m7!3m6!1s0x30e29e942133c14d:0x470e0152555bfef6!8m2!3d13.7619175!4d100.556309!16s%2Fg%2F1tg135jd!19sChIJTcEzIZSe4jAR9v5bVVIBDkc?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e299007977c26d_0xb76bfebe6d9e265d",
-      "place_id": "0x30e299007977c26d:0xb76bfebe6d9e265d",
-      "name": "Nan-Cho Clinic",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\n457 ถ. เจริญกรุง Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 83 839 9910",
-      "website": "",
-      "lat": 13.7426228,
-      "lng": 100.5097149,
-      "rating": 4.9,
-      "total_reviews": 109,
-      "trust_score": 73.4,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Nan-Cho+Clinic/data=!4m7!3m6!1s0x30e299007977c26d:0xb76bfebe6d9e265d!8m2!3d13.7426228!4d100.5097149!16s%2Fg%2F11vrbhmy_7!19sChIJbcJ3eQCZ4jARXSaebb7-a7c?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e299002859a125_0xecf6013a1ecc3f76",
       "place_id": "0x30e299002859a125:0xecf6013a1ecc3f76",
       "name": "ANS Clinic Acne and Scar Specialist",
@@ -56517,6 +56535,65 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/IntellihealthPlus+Clinic+by+StemCells21/data=!4m7!3m6!1s0x30e29edef5ba6515:0x7803293d47d4fa2e!8m2!3d13.7376772!4d100.5491066!16s%2Fg%2F1tc_t0ql!19sChIJFWW69d6e4jARLvrURz0pA3g?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2992372a89b11_0xf1655db02b63116b",
+      "place_id": "0x30e2992372a89b11:0xf1655db02b63116b",
+      "name": "Tong Hua Medical",
+      "name_lang": "en",
+      "primary_type": "Chinese medicine clinic",
+      "address": "\n8, 5 Soi Maitri, Wat Thep Sirin, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 224 2503",
+      "website": "",
+      "lat": 13.7446391,
+      "lng": 100.5112402,
+      "rating": 4.9,
+      "total_reviews": 27,
+      "trust_score": 73.1,
+      "categories": [],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 30.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The Chinese Medical Center's donation of medical supplies is a great act of merit.",
+          "rating": 5,
+          "author": "邓文平"
+        },
+        {
+          "text": "The fortune teller, doctor, and all staff are kind and compassionate. They are happy to serve and assist everyone who comes for treatment. Thank you very much.",
+          "rating": 5,
+          "author": "Sandy Sirikan"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Tong+Hua+Medical/data=!4m7!3m6!1s0x30e2992372a89b11:0xf1655db02b63116b!8m2!3d13.7446391!4d100.5112402!16s%2Fg%2F1tfn5nvq!19sChIJEZuociOZ4jARaxFjK7BdZfE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29c1d94a26619_0x78af737fe7b91e9a",
@@ -60180,6 +60257,82 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%94%E0%B8%A3.%E0%B8%A7%E0%B8%B4%E0%B8%8A%E0%B8%B1%E0%B8%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29fbf509e99fb:0x957e9c7fe313dfd4!8m2!3d13.7339341!4d100.5462067!16s%2Fg%2F11qps9hb94!19sChIJ-5meUL-f4jAR1N8T43-cfpU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2993af7bba273_0xde4630f0edb73e54",
+      "place_id": "0x30e2993af7bba273:0xde4630f0edb73e54",
+      "name": "Thai Traditional and Integrated Medicine Hospital",
+      "name_lang": "en",
+      "primary_type": "Hospital",
+      "address": "\n693 Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 224 3262",
+      "website": "",
+      "lat": 13.7494289,
+      "lng": 100.5163686,
+      "rating": 4.8,
+      "total_reviews": 6,
+      "trust_score": 72.3,
+      "categories": [],
+      "scraped_review_count": 6,
+      "local_guide_count": 4,
+      "avg_author_review_count": 316.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 6,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 5,
+          "avg": 4.8
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Very happy to have found this local place. It’s mainly for the locals, hence affordable prices for many alternative treatments such as CBD, acupuncture, Thai massages, etc.  It helps if one can speak Thai to get the treatments u want.",
+          "rating": 5,
+          "author": "Chen Ostapczuk"
+        },
+        {
+          "text": "I've tried many places all over the world this hospital is the Best acupuncturists and Thai medical massage plus the herbal stem.\nI highly recommend this place.\nSo Grateful to all the staffs.\nP.s. Best have English translation to thai languages app on your phone.",
+          "rating": 5,
+          "author": "Empress Yanni"
+        }
+      ],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Thai+Traditional+and+Integrated+Medicine+Hospital/data=!4m7!3m6!1s0x30e2993af7bba273:0xde4630f0edb73e54!8m2!3d13.7494289!4d100.5163686!16s%2Fg%2F11b7hc1g27!19sChIJc6K79zqZ4jARVD637fAwRt4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f930ff4811f_0x734e186dc78d407c",
@@ -77773,54 +77926,6 @@
       "maps_url": "https://www.google.com/maps/place/Beyond+skin+center+Clinic+%E0%B8%95%E0%B8%B6%E0%B8%81%E0%B8%97%E0%B8%B4%E0%B8%9B%E0%B9%82%E0%B8%81%E0%B9%89+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+5/data=!4m7!3m6!1s0x9056cc088183b4b:0xbb37e5bf79089926!8m2!3d13.787833!4d100.5357723!16s%2Fg%2F11kb_49s93!19sChIJSzsYiMBsBQkRJpkIeb_lN7s?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2992372a89b11_0xf1655db02b63116b",
-      "place_id": "0x30e2992372a89b11:0xf1655db02b63116b",
-      "name": "Tong Hua Medical",
-      "name_lang": "en",
-      "primary_type": "Chinese medicine clinic",
-      "address": "\n8, 5 Soi Maitri, Wat Thep Sirin, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 2 224 2503",
-      "website": "",
-      "lat": 13.7446391,
-      "lng": 100.5112402,
-      "rating": 4.9,
-      "total_reviews": 27,
-      "trust_score": 66.2,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Tong+Hua+Medical/data=!4m7!3m6!1s0x30e2992372a89b11:0xf1655db02b63116b!8m2!3d13.7446391!4d100.5112402!16s%2Fg%2F1tfn5nvq!19sChIJEZuociOZ4jARaxFjK7BdZfE?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x46b0a6962066fe99_0xd972034475e97f78",
       "place_id": "0x46b0a6962066fe99:0xd972034475e97f78",
       "name": "Dr. Tooth Dental Clinic Lumpini Branch, ด๊อกเตอร์ทูธคลินิกทันตกรรมสาขาลุมพินี",
@@ -86297,7 +86402,7 @@
       "place_id": "0x30e29fc7a36f7349:0x5c09b1443fff6609",
       "name": "jairuk clinic ใจรักษ์คลินิก สาขาพญาไท",
       "name_lang": "th",
-      "primary_type": "Beauty Salon",
+      "primary_type": "Beauty salon",
       "address": "\n188 Bangkok 10400, Thailand",
       "district": "",
       "phone": "+66 62 747 1222",
@@ -88279,75 +88384,6 @@
       "maps_url": "https://www.google.com/maps/place/BLOOM+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AD%E0%B8%99%E0%B8%B8%E0%B8%AA%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e29eb0bdd46a81:0xad989aac2faf8eb9!8m2!3d13.7640865!4d100.539816!16s%2Fg%2F11qndvdx23!19sChIJgWrUvbCe4jARuY6vL6yamK0?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e299232bb97bb9_0x3aaec74896f2b330",
-      "place_id": "0x30e299232bb97bb9:0x3aaec74896f2b330",
-      "name": "Bangkok Emergency Medical Centre (Erawan Centre)",
-      "name_lang": "en",
-      "primary_type": "Urgent care center",
-      "address": "\n9/1 (ชั้น 3) อาคาร Phlap Phla Chai Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 2 221 1669",
-      "website": "http://www.bangkokems.bangkok.go.th/",
-      "lat": 13.7458753,
-      "lng": 100.5109642,
-      "rating": 3.3,
-      "total_reviews": 32,
-      "trust_score": 57.6,
-      "categories": [],
-      "scraped_review_count": 32,
-      "local_guide_count": 6,
-      "avg_author_review_count": 25.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 20,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 3,
-          "avg": 2.33
-        },
-        "old": {
-          "count": 29,
-          "avg": 3.41
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Thank you so much to the Erawan Center. They notified me to pick up my bedridden mother, and she arrived in just 10 minutes. Thank you from the bottom of my heart.",
-          "rating": 5,
-          "author": "Manta Mantana"
-        },
-        {
-          "text": "Regarding the quota issue, the follow-up was excellent. Thank you and I truly appreciate it.",
-          "rating": 5,
-          "author": "Jira retail link"
-        },
-        {
-          "text": "Yesterday, we received assistance from the center in getting our elderly relative to the hospital. Thank you to all the staff.",
-          "rating": 5,
-          "author": "Narinpat P."
-        }
-      ],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+Emergency+Medical+Centre+%28Erawan+Centre%29/data=!4m7!3m6!1s0x30e299232bb97bb9:0x3aaec74896f2b330!8m2!3d13.7458753!4d100.5109642!16s%2Fg%2F1pzrsjzhy!19sChIJuXu5KyOZ4jARMLPylkjHrjo?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2996d52061a81_0x53a4da543fc6426a",
       "place_id": "0x30e2996d52061a81:0x53a4da543fc6426a",
       "name": "Dr.Khaosan International Clinic",
@@ -88540,54 +88576,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Bangkok+Psychology/data=!4m7!3m6!1s0x30e29feb20bd8f29:0x2d872d53c1c13855!8m2!3d13.7428816!4d100.5574566!16s%2Fg%2F11b6d1s8sv!19sChIJKY-9IOuf4jARVTjBwVMthy0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2993af7bba273_0xde4630f0edb73e54",
-      "place_id": "0x30e2993af7bba273:0xde4630f0edb73e54",
-      "name": "Thai Traditional and Integrated Medicine Hospital",
-      "name_lang": "en",
-      "primary_type": "Hospital",
-      "address": "\n693 Bamrung Mueang Rd, Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
-      "district": "Pom Prap Sattru Phai",
-      "phone": "+66 2 224 3262",
-      "website": "",
-      "lat": 13.7494289,
-      "lng": 100.5163686,
-      "rating": 4.8,
-      "total_reviews": 6,
-      "trust_score": 57.3,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Thai+Traditional+and+Integrated+Medicine+Hospital/data=!4m7!3m6!1s0x30e2993af7bba273:0xde4630f0edb73e54!8m2!3d13.7494289!4d100.5163686!16s%2Fg%2F11b7hc1g27!19sChIJc6K79zqZ4jARVD637fAwRt4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f128da76369_0xa376292e2edd4d23",
@@ -91254,6 +91242,54 @@
       "maps_url": "https://www.google.com/maps/place/Wellnis+Clinic+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9C%E0%B8%A1%E0%B8%A3%E0%B9%88%E0%B8%A7%E0%B8%87+%E0%B8%9C%E0%B8%A1%E0%B8%9A%E0%B8%B2%E0%B8%87+%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B8%A8%E0%B8%B5%E0%B8%A3%E0%B8%A9%E0%B8%B0%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%99+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+9/data=!4m7!3m6!1s0x30e29f25ba27fbef:0x7c99fea29fe0585e!8m2!3d13.7557626!4d100.5644959!16s%2Fg%2F11n4cr6t71!19sChIJ7_snuiWf4jARXljgn6L-mXw?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299232bb97bb9_0x3aaec74896f2b330",
+      "place_id": "0x30e299232bb97bb9:0x3aaec74896f2b330",
+      "name": "Bangkok Emergency Medical Centre (Erawan Centre)",
+      "name_lang": "en",
+      "primary_type": "Urgent care center",
+      "address": "\n9/1 (ชั้น 3) อาคาร Phlap Phla Chai Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 221 1669",
+      "website": "http://www.bangkokems.bangkok.go.th/",
+      "lat": 13.7458753,
+      "lng": 100.5109642,
+      "rating": 3.3,
+      "total_reviews": 32,
+      "trust_score": 51.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Emergency+Medical+Centre+%28Erawan+Centre%29/data=!4m7!3m6!1s0x30e299232bb97bb9:0x3aaec74896f2b330!8m2!3d13.7458753!4d100.5109642!16s%2Fg%2F1pzrsjzhy!19sChIJuXu5KyOZ4jARMLPylkjHrjo?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f93e3f823c3_0xbe82d8f8468ab5f3",
       "place_id": "0x30e29f93e3f823c3:0xbe82d8f8468ab5f3",
       "name": "Siam Loft Clinic",
@@ -91485,6 +91521,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%AD%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e299ddaf1b6df7:0x508418f688061800!8m2!3d13.7327232!4d100.5014649!16s%2Fg%2F11m_scyjdy!19sChIJ920br92Z4jARABgGiPYYhFA?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x311d631a0003d4e3_0xc042c549218bfa18",
+      "place_id": "0x311d631a0003d4e3:0xc042c549218bfa18",
+      "name": "พรีเมียร์ โฮม เฮลท์ แคร์",
+      "name_lang": "th",
+      "primary_type": "Ayurvedic clinic",
+      "address": "\n613 โรงพยาบาลธนบุรี บำรุงเมือง Khlong Maha Nak, Pom Prap Sattru Phai, Bangkok 10100, Thailand",
+      "district": "Pom Prap Sattru Phai",
+      "phone": "+66 2 106 0077",
+      "website": "https://premierehomehealthcare.co.th/%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C-%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%97%E0%B9%8C-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/",
+      "lat": 13.7500601,
+      "lng": 100.5145843,
+      "rating": 4.2,
+      "total_reviews": 5,
+      "trust_score": 50.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C+%E0%B9%82%E0%B8%AE%E0%B8%A1+%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%97%E0%B9%8C+%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x311d631a0003d4e3:0xc042c549218bfa18!8m2!3d13.7500601!4d100.5145843!16s%2Fg%2F11sv8qktdc!19sChIJ49QDABpjHTERGPqLIUnFQsA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29964fdb972cb_0xbdc2f302a1b6d827",
