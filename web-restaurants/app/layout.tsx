@@ -20,6 +20,13 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
+  // Search Console + Bing 검증 메타. Vercel ENV 로 주입 (옵션).
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
+      ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
+      : undefined,
+  },
 };
 
 export default function RootLayout({
@@ -45,6 +52,7 @@ export default function RootLayout({
               <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
               <a href="/about" className="hover:text-black hidden md:inline">About</a>
               <a href="/th" className="text-xs hover:text-black">TH</a>
+              <a href="/ko" className="text-xs hover:text-black">KO</a>
             </nav>
           </div>
         </header>

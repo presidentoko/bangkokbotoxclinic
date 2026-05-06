@@ -23,6 +23,12 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
+      ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
+      : undefined,
+  },
 };
 
 export default function RootLayout({
@@ -64,6 +70,7 @@ export default function RootLayout({
                 For clinics →
               </a>
               <a href="/th" className="text-xs hover:text-black">TH</a>
+              <a href="/ko" className="text-xs hover:text-black">KO</a>
             </nav>
           </div>
         </header>

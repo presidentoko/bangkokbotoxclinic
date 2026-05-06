@@ -93,17 +93,25 @@ def extract_district(address: str, city_id: str) -> str:
 # ── 언어 감지 ─────────────────────────────────────────────────
 _THAI_RE = re.compile(r"[฀-๿]")
 _LATIN_RE = re.compile(r"[A-Za-z]")
+_KOREAN_RE = re.compile(r"[가-힣ᄀ-ᇿ]")  # Hangul syllables + Jamo
+_JAPANESE_RE = re.compile(r"[ぁ-ゟ゠-ヿ㐀-䷿一-龯]")  # Hiragana, Katakana, CJK
 
 
 def detect_lang(text: str) -> str:
     if not text:
         return "other"
     total = len(text)
+    ko_ratio = len(_KOREAN_RE.findall(text)) / total
+    if ko_ratio > 0.15:
+        return "ko"
     th_ratio = len(_THAI_RE.findall(text)) / total
-    lt_ratio = len(_LATIN_RE.findall(text)) / total
     if th_ratio > 0.3:
         return "th"
-    if lt_ratio > 0.3 and th_ratio < 0.05:
+    ja_ratio = len(_JAPANESE_RE.findall(text)) / total
+    if ja_ratio > 0.2 and ko_ratio < 0.05:
+        return "ja"
+    lt_ratio = len(_LATIN_RE.findall(text)) / total
+    if lt_ratio > 0.3 and th_ratio < 0.05 and ko_ratio < 0.05:
         return "en"
     return "other"
 
@@ -283,13 +291,13 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
     p = reviews_dir / f"{fn}_reviews.csv"
     empty = {
         "scraped_count": 0, "local_guide_count": 0, "avg_author_review_count": 0.0,
-        "language_breakdown": {"th": 0, "en": 0, "other": 0},
+        "language_breakdown": {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0},
         "cuisine_mentions": {}, "mentioned_topics": [],
         "rating_trend": {
             "recent": {"count": 0, "avg": None}, "midterm": {"count": 0, "avg": None},
             "old": {"count": 0, "avg": None}, "trend": "insufficient_data",
         },
-        "sample_reviews_th": [], "sample_reviews_en": [],
+        "sample_reviews_th": [], "sample_reviews_en": [], "sample_reviews_ko": [],
         "derived_cuisines": [],
     }
     if not p.exists():
@@ -314,8 +322,10 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
             pass
     avg_arc = sum(arc_list) / len(arc_list) if arc_list else 0.0
 
-    lang_count = {"th": 0, "en": 0, "other": 0}
-    text_chunks_by_lang: dict[str, list[tuple[str, int, str]]] = {"th": [], "en": [], "other": []}
+    lang_count = {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0}
+    text_chunks_by_lang: dict[str, list[tuple[str, int, str]]] = {
+        "th": [], "en": [], "ko": [], "ja": [], "other": []
+    }
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
@@ -348,6 +358,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         "rating_trend": compute_rating_trend(rows),
         "sample_reviews_th": pick_samples(text_chunks_by_lang["th"]),
         "sample_reviews_en": pick_samples(text_chunks_by_lang["en"]),
+        "sample_reviews_ko": pick_samples(text_chunks_by_lang["ko"]),
         "derived_cuisines": derived,
     }
 

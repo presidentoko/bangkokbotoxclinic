@@ -37,12 +37,13 @@ export type Clinic = {
   scraped_review_count: number;
   local_guide_count: number;
   avg_author_review_count: number;
-  language_breakdown: { th: number; en: number; other: number };
+  language_breakdown: { th: number; en: number; ko: number; ja: number; other: number };
   service_mentions: Record<string, number>;
   mentioned_topics: { topic: string; count: number }[];
   rating_trend: RatingTrend;
   sample_reviews_th: SampleReview[];
   sample_reviews_en: SampleReview[];
+  sample_reviews_ko: SampleReview[];
   business_status: string;
   maps_url: string;
 };
@@ -53,7 +54,7 @@ export type MasterDb = {
   with_district: number;
   with_categories: number;
   with_reviews_scraped: number;
-  language_total: { th: number; en: number; other: number };
+  language_total: { th: number; en: number; ko: number; ja: number; other: number };
   district_counts: Record<string, number>;
   category_counts: Record<string, number>;
   clinics: Clinic[];

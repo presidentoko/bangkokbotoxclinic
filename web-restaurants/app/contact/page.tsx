@@ -45,19 +45,17 @@ export default function ContactPage() {
       </div>
 
       <div className="mt-8 bg-white border border-[var(--border)] rounded-xl p-6">
-        <h2 className="font-bold text-lg mb-2">Email</h2>
-        <p className="text-sm text-[var(--muted)] mb-3">
-          Reach us at the address below. Include the relevant restaurant name or page URL if applicable.
+        <h2 className="font-bold text-lg mb-2">Email us</h2>
+        <p className="text-sm text-[var(--muted)] mb-4">
+          Include the relevant restaurant name or page URL when applicable.
         </p>
         <a
-          href="mailto:hello@example.com"
-          className="inline-block bg-black text-white py-2.5 px-5 rounded-lg font-bold hover:bg-gray-800 text-sm"
+          href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg"}`}
+          className="inline-flex items-center gap-2 bg-black text-white py-3 px-5 rounded-lg font-bold hover:bg-gray-800 text-base"
         >
-          hello@example.com
+          <span aria-hidden>✉</span>
+          {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg"}
         </a>
-        <p className="text-xs text-[var(--muted)] mt-3">
-          Replace this address by setting <code>NEXT_PUBLIC_CONTACT_EMAIL</code> in your Vercel env vars.
-        </p>
       </div>
 
       <BreadcrumbJsonLd items={[

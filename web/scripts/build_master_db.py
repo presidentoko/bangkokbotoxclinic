@@ -89,23 +89,29 @@ def extract_district(address: str) -> str:
 # 태국어 unicode block: U+0E00-U+0E7F (Thai script).
 _THAI_RE = re.compile(r"[฀-๿]")
 _LATIN_RE = re.compile(r"[A-Za-z]")
+_KOREAN_RE = re.compile(r"[가-힣ᄀ-ᇿ]")
+_JAPANESE_RE = re.compile(r"[ぁ-ゟ゠-ヿ㐀-䷿一-龯]")
 
 
 def detect_lang(text: str) -> str:
     """간단 분류: th / en / other.
-    태국 문자 비율 > 30% → th. 라틴 문자 > 30% & 태국 < 5% → en. 그 외 other."""
+    태국/한국/일본/영어/기타 분류."""
     if not text:
         return "other"
     total = len(text)
     if total == 0:
         return "other"
-    th = len(_THAI_RE.findall(text))
-    lt = len(_LATIN_RE.findall(text))
-    th_ratio = th / total
-    lt_ratio = lt / total
-    if th_ratio > 0.3:
+    ko = len(_KOREAN_RE.findall(text)) / total
+    if ko > 0.15:
+        return "ko"
+    th = len(_THAI_RE.findall(text)) / total
+    if th > 0.3:
         return "th"
-    if lt_ratio > 0.3 and th_ratio < 0.05:
+    ja = len(_JAPANESE_RE.findall(text)) / total
+    if ja > 0.2 and ko < 0.05:
+        return "ja"
+    lt = len(_LATIN_RE.findall(text)) / total
+    if lt > 0.3 and th < 0.05 and ko < 0.05:
         return "en"
     return "other"
 
@@ -284,7 +290,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         "scraped_count": 0,
         "local_guide_count": 0,
         "avg_author_review_count": 0.0,
-        "language_breakdown": {"th": 0, "en": 0, "other": 0},
+        "language_breakdown": {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0},
         "service_mentions": {},
         "mentioned_topics": [],
         "rating_trend": {"recent": {"count": 0, "avg": None},
@@ -293,6 +299,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
                          "trend": "insufficient_data"},
         "sample_reviews_th": [],
         "sample_reviews_en": [],
+        "sample_reviews_ko": [],
         "derived_categories": [],
     }
     if not p.exists():
@@ -321,10 +328,10 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
     avg_arc = sum(arc_list) / len(arc_list) if arc_list else 0.0
 
     # 언어 분류 + 텍스트 누적
-    lang_count = {"th": 0, "en": 0, "other": 0}
+    lang_count = {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0}
     text_chunks_by_lang: dict[str, list[tuple[str, int, str]]] = {
-        "th": [], "en": [], "other": []
-    }  # (text, rating, author)
+        "th": [], "en": [], "ko": [], "ja": [], "other": []
+    }
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
@@ -361,6 +368,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         "rating_trend": compute_rating_trend(rows),
         "sample_reviews_th": pick_samples(text_chunks_by_lang["th"]),
         "sample_reviews_en": pick_samples(text_chunks_by_lang["en"]),
+        "sample_reviews_ko": pick_samples(text_chunks_by_lang["ko"]),
         "derived_categories": categories,
     }
 
