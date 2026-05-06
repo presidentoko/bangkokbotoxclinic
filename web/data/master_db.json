@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T16:27:58.748296+00:00",
-  "total_clinics": 1160,
-  "with_district": 1105,
-  "with_categories": 716,
-  "with_reviews_scraped": 832,
+  "generated_at": "2026-05-06T16:38:03.334381+00:00",
+  "total_clinics": 1161,
+  "with_district": 1106,
+  "with_categories": 718,
+  "with_reviews_scraped": 833,
   "language_total": {
     "th": 1,
-    "en": 27169,
+    "en": 27248,
     "ko": 1,
     "ja": 0,
     "other": 64
@@ -17,7 +17,7 @@
     "Bang Rak": 128,
     "Watthana": 105,
     "Huai Khwang": 77,
-    "Khlong Toei": 62,
+    "Khlong Toei": 63,
     "Khlong San": 53,
     "Sathon": 45,
     "Pom Prap Sattru Phai": 30,
@@ -32,12 +32,12 @@
     "Bang Kapi": 1
   },
   "category_counts": {
-    "facial": 426,
-    "laser": 322,
-    "botox": 218,
-    "dental": 201,
-    "filler": 166,
-    "hifu": 157,
+    "facial": 427,
+    "laser": 321,
+    "botox": 217,
+    "dental": 203,
+    "filler": 165,
+    "hifu": 156,
     "hair_transplant": 19,
     "eye": 9
   },
@@ -124,17 +124,17 @@
       "lat": 13.7352366,
       "lng": 100.5632025,
       "rating": 4.9,
-      "total_reviews": 1091,
-      "trust_score": 98.7,
+      "total_reviews": 1092,
+      "trust_score": 98.6,
       "categories": [
         "laser"
       ],
-      "scraped_review_count": 50,
-      "local_guide_count": 26,
-      "avg_author_review_count": 41.2,
+      "scraped_review_count": 60,
+      "local_guide_count": 31,
+      "avg_author_review_count": 38.1,
       "language_breakdown": {
         "th": 0,
-        "en": 45,
+        "en": 53,
         "ko": 0,
         "ja": 0,
         "other": 0
@@ -145,11 +145,11 @@
       "mentioned_topics": [
         {
           "topic": "recommend",
-          "count": 13
+          "count": 17
         },
         {
           "topic": "professional",
-          "count": 9
+          "count": 11
         },
         {
           "topic": "friendly_staff",
@@ -157,7 +157,7 @@
         },
         {
           "topic": "clean_facility",
-          "count": 5
+          "count": 6
         },
         {
           "topic": "english_speaking",
@@ -182,8 +182,8 @@
       ],
       "rating_trend": {
         "recent": {
-          "count": 50,
-          "avg": 4.82
+          "count": 60,
+          "avg": 4.85
         },
         "midterm": {
           "count": 0,
@@ -198,6 +198,11 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
+          "text": "I’ve visited WellMed 3 times now and each time they have gone above and beyond! Amazing staff and doctors- this is my go to place if required! Highly recommended.",
+          "rating": 5,
+          "author": "matthew kent"
+        },
+        {
           "text": "Great nurses and staff, quick and easy for medical certificates (in and out in 20 minutes), and a good price as well (500 baht)",
           "rating": 5,
           "author": "Ethan Wilde"
@@ -206,11 +211,6 @@
           "text": "Easy to book, clear website information, staff speaks good English, and the price is affordable. Highly recommended!",
           "rating": 5,
           "author": "Parker Pan"
-        },
-        {
-          "text": "The clinic was really prompt, clean and well organised. Pop, the nurse was really good. She gave me an iv without any pain and was really kind and well trained. She very good at her job!  All the staff was polite and efficient. Great clinic. 100 percent recommend",
-          "rating": 5,
-          "author": "Diva Singh"
         }
       ],
       "business_status": "Open",
@@ -10666,6 +10666,91 @@
       "maps_url": "https://www.google.com/maps/place/Blossom+Clinic+@stadium+One/data=!4m7!3m6!1s0x30e29f2acec5ea7f:0x997a32e1e26d7e02!8m2!3d13.7464936!4d100.5246081!16s%2Fg%2F11cm3qdpcn!19sChIJf-rFziqf4jARAn5t4uEyepk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f64a0805c99_0x5d6dbb3e3d0a39fe",
+      "place_id": "0x30e29f64a0805c99:0x5d6dbb3e3d0a39fe",
+      "name": "MedEx Neo Clinic (Asoke - Nana Main Branch)",
+      "name_lang": "en",
+      "primary_type": "Medical Center",
+      "address": "\nThe Trendy Office Building, MedEx Neo Clinic, First Floor (1A) - One Level Above the Ground Floor Soi Sukhumvit 13, Watthana 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 544 0001",
+      "website": "https://medex.co.th/",
+      "lat": 13.740217,
+      "lng": 100.557815,
+      "rating": 4.4,
+      "total_reviews": 309,
+      "trust_score": 85.9,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 20,
+      "local_guide_count": 9,
+      "avg_author_review_count": 31.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 18,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 5
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 20,
+          "avg": 4.3
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The place is clean, the staff is friendly and professional, and the service is fast.",
+          "rating": 5,
+          "author": "Shadi Alkasim"
+        },
+        {
+          "text": "Brought my near-century father for a health check.  Really appreciate the attentive and patient service.  They also went the distance to follow up on the reports over the weekend.",
+          "rating": 5,
+          "author": "Esmond Tsang"
+        },
+        {
+          "text": "I have had the pleasure or ordering a iv drip at home twice. Its fantastic. I am on a busy schedule and working often. If I am lacking energy or feel I am dehydrated I simply give them a call and 2 hours later the iv drip begins. Its particularly helpful after a few too many cocktails 🍸 …",
+          "rating": 5,
+          "author": "sambechtold"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%A1%E0%B9%87%E0%B8%94%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%99%E0%B8%B5%E0%B9%82%E0%B8%AD+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%97%E0%B8%84%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e29f64a0805c99:0x5d6dbb3e3d0a39fe!8m2!3d13.740217!4d100.557815!16s%2Fg%2F11s2q5q37m!19sChIJmVyAoGSf4jAR_jkKPT67bV0?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f7967fd3641_0x78301a4ebaa86549",
       "place_id": "0x30e29f7967fd3641:0x78301a4ebaa86549",
       "name": "Gowoonmom คลินิกเวชกรรมโกอุนโมม",
@@ -17694,6 +17779,119 @@
       "maps_url": "https://www.google.com/maps/place/Fresh+Code+Clinic/data=!4m7!3m6!1s0x30e29fb615f964e3:0x5fdcaf6d9f9cd62!8m2!3d13.7425838!4d100.5541217!16s%2Fg%2F11g30bnjcm!19sChIJ42T5Fbaf4jARYs352fbK_QU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29ee2dbca3e27_0x1af2c64f1a0c4f72",
+      "place_id": "0x30e29ee2dbca3e27:0x1af2c64f1a0c4f72",
+      "name": "BLEZ Clinic Asok Branch",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\n419 Sukhumvit Rd, แขวง คลองเตย, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 92 224 6972",
+      "website": "https://blez-clinic.com/",
+      "lat": 13.7360068,
+      "lng": 100.5621599,
+      "rating": 4.6,
+      "total_reviews": 192,
+      "trust_score": 83.4,
+      "categories": [
+        "dental",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 87,
+      "local_guide_count": 30,
+      "avg_author_review_count": 37.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 82,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "service_mentions": {
+        "facial": 1,
+        "laser": 12,
+        "dental": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 25
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 22
+        },
+        {
+          "topic": "professional",
+          "count": 16
+        },
+        {
+          "topic": "english_speaking",
+          "count": 15
+        },
+        {
+          "topic": "clean_facility",
+          "count": 8
+        },
+        {
+          "topic": "no_pain",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 4
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 2.6
+        },
+        "midterm": {
+          "count": 54,
+          "avg": 4.96
+        },
+        "old": {
+          "count": 23,
+          "avg": 4.22
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I walked in without an appointment and was seen by a doctor very quickly. The receptionist was polite and efficient. The doctor was very good and helpful. The prices are not too bad either. I would go again.",
+          "rating": 5,
+          "author": "Ethan"
+        },
+        {
+          "text": "Very competent doctors and assistance! We had a scooter accident. They took great care of my friend and helped me for any questions i got. Really friendly and professional! Thank you.",
+          "rating": 5,
+          "author": "Lucian Billeter"
+        },
+        {
+          "text": "Amazing! Loved it. I got a medical certificate. The place is clean, the staff was super professional. First I went to a different clinic and it was terrible. I had low expectations for this little clinic but it was so nice. I am so happy I found it!",
+          "rating": 5,
+          "author": "O M"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/BLEZ+Clinic+Asok+Branch/data=!4m7!3m6!1s0x30e29ee2dbca3e27:0x1af2c64f1a0c4f72!8m2!3d13.7360068!4d100.5621599!16s%2Fg%2F11c0rqdmvx!19sChIJJz7K2-Ke4jARck8MGk_G8ho?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f244054c6bb_0x7afb3629a4416b2",
       "place_id": "0x30e29f244054c6bb:0x7afb3629a4416b2",
       "name": "Radiance Skin Clinic",
@@ -19983,6 +20181,115 @@
       "maps_url": "https://www.google.com/maps/place/Spark+Dental+Clinic%F0%9F%A6%B7%F0%9F%94%A7+:+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%9B%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%81-+%28%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B9%83%E0%B8%AA+%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A7%E0%B8%B5%E0%B9%80%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C+%29+-+%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B9%8A%E0%B9%80%E0%B8%9A%E0%B9%8A+%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%B2%E0%B8%84/data=!4m7!3m6!1s0x30e29919f39a06e9:0x8a6829eda637b610!8m2!3d13.7549402!4d100.5160424!16s%2Fg%2F11sv1cy1ml!19sChIJ6Qaa8xmZ4jARELY3pu0paIo?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f5b183e6ed5_0xd8dd9271a16b51ac",
+      "place_id": "0x30e29f5b183e6ed5:0xd8dd9271a16b51ac",
+      "name": "ReDerm Clinic",
+      "name_lang": "en",
+      "primary_type": "Medical spa",
+      "address": "\nJLK Tower, 129 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 64 552 4924",
+      "website": "https://www.rederm.co/",
+      "lat": 13.7409354,
+      "lng": 100.5553311,
+      "rating": 5.0,
+      "total_reviews": 120,
+      "trust_score": 82.8,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 14,
+      "avg_author_review_count": 13.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 5
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 29
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 20
+        },
+        {
+          "topic": "professional",
+          "count": 18
+        },
+        {
+          "topic": "clean_facility",
+          "count": 8
+        },
+        {
+          "topic": "no_pain",
+          "count": 4
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "premium",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 45,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The physician was well informed and answered my queries. The process for the Oligio X and Photo Facial was professionally done. The care that everyone showed was also very comforting. No upselling whatsoever too. The space was clean and cosy.\n\nThank you to the team! Would love to come again.",
+          "rating": 5,
+          "author": "Esmeralda Putri"
+        },
+        {
+          "text": "Friendly staff and a very pleasant experience overall. No hard selling, which I really appreciated.",
+          "rating": 5,
+          "author": "G k"
+        },
+        {
+          "text": "Lovely and calm space. Very informative and caring doctor and nurses - constantly checking on me during the whole process! Will definitely be back!",
+          "rating": 5,
+          "author": "Raigo Law"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/ReDerm+Clinic/data=!4m7!3m6!1s0x30e29f5b183e6ed5:0xd8dd9271a16b51ac!8m2!3d13.7409354!4d100.5553311!16s%2Fg%2F11mdhc_lj6!19sChIJ1W4-GFuf4jARrFFroXGS3dg?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29eefde9a37d5_0x49f1dc715cad0a4f",
       "place_id": "0x30e29eefde9a37d5:0x49f1dc715cad0a4f",
       "name": "Rutnin Eye Hospital",
@@ -20229,111 +20536,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/APEX+Clinic+-+Emporium+%28%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%9E%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B9%82%E0%B8%9E%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+B1%29/data=!4m7!3m6!1s0x30e29f93835ba767:0xdc00c6a7c6146cc3!8m2!3d13.7304455!4d100.5688431!16s%2Fg%2F11k3h1czy8!19sChIJZ6dbg5Of4jARw2wUxqfGANw?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29ee4eeaff63f_0xac5595ee994a98b8",
-      "place_id": "0x30e29ee4eeaff63f:0xac5595ee994a98b8",
-      "name": "คลินิกปลูกผม Hairsmith Clinic",
-      "name_lang": "th",
-      "primary_type": "Hair transplantation clinic",
-      "address": "\n213/7 ชั้น 1 อาคารอโศกทาวเวอร์ ถนนสุขุมวิท 21 คลองเตยเหนือ วัฒนา Bangkok 10110, Thailand",
-      "district": "",
-      "phone": "+66 85 836 9994",
-      "website": "http://www.hairsmithclinic.com/",
-      "lat": 13.7452475,
-      "lng": 100.5619624,
-      "rating": 4.9,
-      "total_reviews": 216,
-      "trust_score": 82.7,
-      "categories": [
-        "facial",
-        "hair_transplant",
-        "laser"
-      ],
-      "scraped_review_count": 60,
-      "local_guide_count": 12,
-      "avg_author_review_count": 7.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 59,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "facial": 1,
-        "laser": 1,
-        "hair_transplant": 55
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 25
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 17
-        },
-        {
-          "topic": "professional",
-          "count": 12
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 11
-        },
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 27,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 33,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor and the caregiver, Khun Jom, are lovely.\nConvenient location and reasonable price.",
-          "rating": 5,
-          "author": "Rossarin Wangwiboolkij"
-        },
-        {
-          "text": "Very good experience with this clinic. They can advice to you how to treatment your hair. Dr.Prima had very high experience and she will introduce to you.",
-          "rating": 5,
-          "author": "Kiattisak Chinphan"
-        },
-        {
-          "text": "This is a very good hair transplant clinic. The service is excellent. The doctor and team are skilled and gentle, the results look natural and the hair actually grows. It's been 5 years and I haven't had any problems. I'm very satisfied and highly recommend it. It's worth every penny.",
-          "rating": 5,
-          "author": "Kawin Lertjaruwong"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9B%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9C%E0%B8%A1+Hairsmith+Clinic/data=!4m7!3m6!1s0x30e29ee4eeaff63f:0xac5595ee994a98b8!8m2!3d13.7452475!4d100.5619624!16s%2Fg%2F11f15gkmmv!19sChIJP_av7uSe4jARuJhKme6VVaw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f003af25125_0x3bf52496609ffc90",
@@ -21572,6 +21774,111 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Adora+Aesthetic+Clinic/data=!4m7!3m6!1s0x30e29fad094bc76d:0xc4edf8ac7f98ef5b!8m2!3d13.7581874!4d100.5349671!16s%2Fg%2F11t9qhqpfw!19sChIJbcdLCa2f4jARW--Yf6z47cQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ee4eeaff63f_0xac5595ee994a98b8",
+      "place_id": "0x30e29ee4eeaff63f:0xac5595ee994a98b8",
+      "name": "คลินิกปลูกผม Hairsmith Clinic",
+      "name_lang": "th",
+      "primary_type": "Hair transplantation clinic",
+      "address": "\n213/7 ชั้น 1 อาคารอโศกทาวเวอร์ ถนนสุขุมวิท 21 คลองเตยเหนือ วัฒนา Bangkok 10110, Thailand",
+      "district": "",
+      "phone": "+66 85 836 9994",
+      "website": "http://www.hairsmithclinic.com/",
+      "lat": 13.7452475,
+      "lng": 100.5619624,
+      "rating": 4.9,
+      "total_reviews": 216,
+      "trust_score": 82.3,
+      "categories": [
+        "facial",
+        "hair_transplant",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 9,
+      "avg_author_review_count": 7.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 49,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1,
+        "laser": 1,
+        "hair_transplant": 47
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 22
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 13
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "professional",
+          "count": 7
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 27,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 23,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor and the caregiver, Khun Jom, are lovely.\nConvenient location and reasonable price.",
+          "rating": 5,
+          "author": "Rossarin Wangwiboolkij"
+        },
+        {
+          "text": "Very good experience with this clinic. They can advice to you how to treatment your hair. Dr.Prima had very high experience and she will introduce to you.",
+          "rating": 5,
+          "author": "Kiattisak Chinphan"
+        },
+        {
+          "text": "This is a very good hair transplant clinic. The service is excellent. The doctor and team are skilled and gentle, the results look natural and the hair actually grows. It's been 5 years and I haven't had any problems. I'm very satisfied and highly recommend it. It's worth every penny.",
+          "rating": 5,
+          "author": "Kawin Lertjaruwong"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9B%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9C%E0%B8%A1+Hairsmith+Clinic/data=!4m7!3m6!1s0x30e29ee4eeaff63f:0xac5595ee994a98b8!8m2!3d13.7452475!4d100.5619624!16s%2Fg%2F11f15gkmmv!19sChIJP_av7uSe4jARuJhKme6VVaw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f6535da0437_0x1bdb89b5606b42ee",
@@ -24727,6 +25034,105 @@
       "maps_url": "https://www.google.com/maps/place/IDENT+Dental+Clinic/data=!4m7!3m6!1s0x30e29ec4c05ab863:0x2ee4097c48c0cdb4!8m2!3d13.7416396!4d100.5432692!16s%2Fg%2F11btvb6wsf!19sChIJY7hawMSe4jARtM3ASHwJ5C4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0xa32ea3859c0f8b7f_0xf2dd37654c91bb1b",
+      "place_id": "0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b",
+      "name": "ซูซู คลินิกเวชกรรม - Zuzu Clinic",
+      "name_lang": "th",
+      "primary_type": "Beauty Salon",
+      "address": "\n1624 New, Makkasan, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Ratchathewi",
+      "phone": "+66 92 599 4416",
+      "website": "https://www.facebook.com/zuzuclinic",
+      "lat": 13.7487931,
+      "lng": 100.5624284,
+      "rating": 4.9,
+      "total_reviews": 118,
+      "trust_score": 81.2,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 13,
+      "avg_author_review_count": 11.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 45,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1,
+        "filler": 9,
+        "facial": 1,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 15,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 31,
+          "avg": 4.94
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I recently decided to have my first procedure done thanks to Dr. Oat. He gave excellent advice and was incredibly friendly. He's the most sincere doctor, doesn't pressure you, and doesn't try to sell you any packages. If you're hesitant, I highly recommend him. He's truly amazing!",
+          "rating": 5,
+          "author": "เสี่ยวหลัน小兰"
+        },
+        {
+          "text": "A truly sincere clinic, not focused on sales...focused on genuine care. Highly recommended! The doctor is also incredibly lovely and friendly...See you again in 3 months!",
+          "rating": 5,
+          "author": "Thanatchaya Duangskaw"
+        },
+        {
+          "text": "The doctor is very lovely, and the staff at the clinic are also very nice. You won't be disappointed if you come here! 💖 …",
+          "rating": 5,
+          "author": "Kaimook Supitchaya"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B9%E0%B8%8B%E0%B8%B9+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+-+Zuzu+Clinic/data=!4m7!3m6!1s0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b!8m2!3d13.7487931!4d100.5624284!16s%2Fg%2F11t9npk6ld!19sChIJf4sPnIWjLqMRG7uRTGU33fI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29936c1ecea01_0x61ffd6ab9771ace7",
       "place_id": "0x30e29936c1ecea01:0x61ffd6ab9771ace7",
       "name": "Pornsawan Physical Rehab Clinic",
@@ -25624,6 +26030,95 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Amis+Clinic/data=!4m7!3m6!1s0x30e29f573f435a11:0x8fd8d581c3e1c842!8m2!3d13.7478515!4d100.5350511!16s%2Fg%2F11t851xv8r!19sChIJEVpDP1ef4jARQsjhw4HV2I8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fe53db7eeb1_0x8995eb9280dbd214",
+      "place_id": "0x30e29fe53db7eeb1:0x8995eb9280dbd214",
+      "name": "EU Health & Wellness - NANA ( ยู เฮลธ์ เเอนด์ เวลเนส - นานา )",
+      "name_lang": "th",
+      "primary_type": "Medical Center",
+      "address": "\nTrendy Building, Ground Floor Room, 10/3 Soi Sukhumvit 13, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 99 426 6982",
+      "website": "https://www.eu-health.org/",
+      "lat": 13.7403827,
+      "lng": 100.5578057,
+      "rating": 5.0,
+      "total_reviews": 71,
+      "trust_score": 81.0,
+      "categories": [],
+      "scraped_review_count": 66,
+      "local_guide_count": 20,
+      "avg_author_review_count": 21.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 50,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 11
+        },
+        {
+          "topic": "professional",
+          "count": 10
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 10
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "english_speaking",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 42,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 21,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I never thought a sexual health clinic could be cool and comfortable until I found this place.\nThe doctor and staff are very warm and welcoming❤️",
+          "rating": 5,
+          "author": "Rassy H"
+        },
+        {
+          "text": "The clinic is clean , well assisted , i met with Ms. Rassaya-receptionist, she very friendly and nice. Excellent service. Recommend this Clinic!",
+          "rating": 5,
+          "author": "SS 2022"
+        },
+        {
+          "text": "⭐️⭐️⭐️⭐️⭐️ 5/5\nI had an excellent experience at EU Health & Wellness – Nana. From the moment I walked in, I was impressed by the clean, modern, and welcoming environment. The staff were professional, friendly, and truly attentive to my needs. Highly recommended for both locals and expats in Bangkok!",
+          "rating": 5,
+          "author": "Peony"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/EU+Health+%26+Wellness+-+NANA+%28+%E0%B8%A2%E0%B8%B9+%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%98%E0%B9%8C+%E0%B9%80%E0%B9%80%E0%B8%AD%E0%B8%99%E0%B8%94%E0%B9%8C+%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B9%80%E0%B8%99%E0%B8%AA+-+%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2+%29/data=!4m7!3m6!1s0x30e29fe53db7eeb1:0x8995eb9280dbd214!8m2!3d13.7403827!4d100.5578057!16s%2Fg%2F11q2qz94mn!19sChIJse63PeWf4jARFNLbgJLrlYk?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fc7db50d6b7_0xb2ff6498a44edf4f",
@@ -27465,95 +27960,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Mindjourneyclinic/data=!4m7!3m6!1s0x30e29f780a29afa1:0xb24bd93aa2cb1d5e!8m2!3d13.7569243!4d100.5616742!16s%2Fg%2F11w46psfd1!19sChIJoa8pCnif4jARXh3LojrZS7I?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29fe53db7eeb1_0x8995eb9280dbd214",
-      "place_id": "0x30e29fe53db7eeb1:0x8995eb9280dbd214",
-      "name": "EU Health & Wellness - NANA ( ยู เฮลธ์ เเอนด์ เวลเนส - นานา )",
-      "name_lang": "th",
-      "primary_type": "Medical Center",
-      "address": "\nTrendy Building, Ground Floor Room, 10/3 Soi Sukhumvit 13, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 99 426 6982",
-      "website": "https://www.eu-health.org/",
-      "lat": 13.7403827,
-      "lng": 100.5578057,
-      "rating": 5.0,
-      "total_reviews": 71,
-      "trust_score": 80.5,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 15,
-      "avg_author_review_count": 14.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 34,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "professional",
-          "count": 6
-        },
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "clean_facility",
-          "count": 5
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 5
-        },
-        {
-          "topic": "english_speaking",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 42,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 3,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 5,
-          "avg": 5.0
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Big thanks to Dr.May, Día and Bewy for thier Great help and profesional attitude.",
-          "rating": 5,
-          "author": "Mo"
-        },
-        {
-          "text": "Good service, professional and helpful. The clinic is at this moment relocating so a bit hidden and not easy to find, but someone will help you point: it's the door before",
-          "rating": 5,
-          "author": "Mattia Collalti"
-        },
-        {
-          "text": "This place is so professional with TOOM being very cordial and down to earth. Even the receptionist is so nice thank you!",
-          "rating": 5,
-          "author": "Tony Kim"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/EU+Health+%26+Wellness+-+NANA+%28+%E0%B8%A2%E0%B8%B9+%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%98%E0%B9%8C+%E0%B9%80%E0%B9%80%E0%B8%AD%E0%B8%99%E0%B8%94%E0%B9%8C+%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B9%80%E0%B8%99%E0%B8%AA+-+%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2+%29/data=!4m7!3m6!1s0x30e29fe53db7eeb1:0x8995eb9280dbd214!8m2!3d13.7403827!4d100.5578057!16s%2Fg%2F11q2qz94mn!19sChIJse63PeWf4jARFNLbgJLrlYk?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f416bf95f21_0x5d4e4b64ffc0f0ad",
@@ -30041,109 +30447,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Rattinan+Clinic/data=!4m7!3m6!1s0x30e29f2cc0adc309:0xcdd5f207dc04647c!8m2!3d13.7269768!4d100.530905!16s%2Fg%2F1vyxfwdp!19sChIJCcOtwCyf4jARfGQE3Afy1c0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29ee2dbca3e27_0x1af2c64f1a0c4f72",
-      "place_id": "0x30e29ee2dbca3e27:0x1af2c64f1a0c4f72",
-      "name": "BLEZ Clinic Asok Branch",
-      "name_lang": "en",
-      "primary_type": "Medical clinic",
-      "address": "\n419 Sukhumvit Rd, แขวง คลองเตย, Watthana, Bangkok 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 92 224 6972",
-      "website": "https://blez-clinic.com/",
-      "lat": 13.7360068,
-      "lng": 100.5621599,
-      "rating": 4.6,
-      "total_reviews": 192,
-      "trust_score": 79.8,
-      "categories": [
-        "facial",
-        "laser"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 10,
-      "avg_author_review_count": 15.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 45,
-        "ko": 0,
-        "ja": 0,
-        "other": 1
-      },
-      "service_mentions": {
-        "facial": 1,
-        "laser": 10
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 14
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 7
-        },
-        {
-          "topic": "clean_facility",
-          "count": 5
-        },
-        {
-          "topic": "english_speaking",
-          "count": 4
-        },
-        {
-          "topic": "professional",
-          "count": 4
-        },
-        {
-          "topic": "no_pain",
-          "count": 4
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 2
-        },
-        {
-          "topic": "promotion",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 10,
-          "avg": 2.6
-        },
-        "midterm": {
-          "count": 40,
-          "avg": 4.95
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Very quick and good service for a medical certificate for work permit. Close to bts and asoke junction.",
-          "rating": 5,
-          "author": "Noel Ranson"
-        },
-        {
-          "text": "I walked in without an appointment and was seen by a doctor very quickly. The receptionist was polite and efficient. The doctor was very good and helpful. The prices are not too bad either. I would go again.",
-          "rating": 5,
-          "author": "Ethan"
-        },
-        {
-          "text": "I've been using this salon for hair removal for about three years. \nI was able to use it with peace of mind thanks to the careful reservation and treatment.",
-          "rating": 5,
-          "author": "Toru Arai"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/BLEZ+Clinic+Asok+Branch/data=!4m7!3m6!1s0x30e29ee2dbca3e27:0x1af2c64f1a0c4f72!8m2!3d13.7360068!4d100.5621599!16s%2Fg%2F11c0rqdmvx!19sChIJJz7K2-Ke4jARck8MGk_G8ho?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f0b6b8ba765_0x3161241fa2d4f156",
@@ -38893,6 +39196,87 @@
       "maps_url": "https://www.google.com/maps/place/Refine+Clinic/data=!4m7!3m6!1s0x30e29ed090b1f887:0x6e73b5f73aebe3e6!8m2!3d13.7375959!4d100.5471733!16s%2Fg%2F1ptw7m1w_!19sChIJh_ixkNCe4jAR5uPrOve1c24?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29edecc58b29f_0x787890d5bbe1e54b",
+      "place_id": "0x30e29edecc58b29f:0x787890d5bbe1e54b",
+      "name": "International SOS Services (Thailand) Ltd.",
+      "name_lang": "en",
+      "primary_type": "Health consultant",
+      "address": "\nTower B, 16th Fl, GPF Witthayu Towers, 93, 1 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 2 206 7755",
+      "website": "https://www.internationalsos.com/locations#Thailand",
+      "lat": 13.7376125,
+      "lng": 100.547173,
+      "rating": 5.0,
+      "total_reviews": 96,
+      "trust_score": 77.7,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 5,
+      "avg_author_review_count": 9.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 10
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 50,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Very good place for professional healthcare training. It’s easy to get here. The elevator to 16th floor is rapid.",
+          "rating": 5,
+          "author": "Anulove Sriwannawat"
+        },
+        {
+          "text": "Recommend to have INTERNATIONAL SOS App on your mobile. When they have any crisis situations, the app will send us a message alert to avoid for the safe​ty.",
+          "rating": 5,
+          "author": "Khemjira Aek-apichon"
+        },
+        {
+          "text": "Good service for health and security prevention and assistance, and also life saving.",
+          "rating": 5,
+          "author": "Vithaya Chaovalit"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/International+SOS+Services+%28Thailand%29+Ltd./data=!4m7!3m6!1s0x30e29edecc58b29f:0x787890d5bbe1e54b!8m2!3d13.7376125!4d100.547173!16s%2Fg%2F1hm4qy3vg!19sChIJn7JYzN6e4jARS-Xhu9WQeHg?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f2d323be3cd_0x4b1b74f632717b8c",
       "place_id": "0x30e29f2d323be3cd:0x4b1b74f632717b8c",
       "name": "Smile Design Dental Clinic - คลินิกทันตกรรม สไมล์ ดีไซน์ สีลม",
@@ -41727,115 +42111,6 @@
       "maps_url": "https://www.google.com/maps/place/Asok+Revize+Clinic,+Bangkok+%5BBTS+ASOK%5D+%EB%A6%AC%EB%B0%94%EC%9D%B4%EC%A6%88%ED%81%B4%EB%A6%AC%EB%8B%89/data=!4m7!3m6!1s0x30e29f4ed7a41b15:0x1b8dce38c68a55bc!8m2!3d13.7376902!4d100.5588122!16s%2Fg%2F11wb6xn971!19sChIJFRuk106f4jARvFWKxjjOjRs?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x116bbdeee23c4eb_0x45cf88056bb8984e",
-      "place_id": "0x116bbdeee23c4eb:0x45cf88056bb8984e",
-      "name": "Woori Clinic 우리 클리닉 皮肤美容诊所",
-      "name_lang": "ko",
-      "primary_type": "Skin care clinic",
-      "address": "\n212/24-27, FLOOR 4, Suk Chai Alley, Khlong Toei, Bangkok 10110, Thailand",
-      "district": "Khlong Toei",
-      "phone": "+66 98 334 4509",
-      "website": "https://wooriface.com/",
-      "lat": 13.7383532,
-      "lng": 100.5580476,
-      "rating": 4.9,
-      "total_reviews": 48,
-      "trust_score": 77.1,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "hifu",
-        "laser"
-      ],
-      "scraped_review_count": 48,
-      "local_guide_count": 14,
-      "avg_author_review_count": 10.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 43,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 8,
-        "filler": 2,
-        "hifu": 2,
-        "facial": 3,
-        "laser": 6
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 16
-        },
-        {
-          "topic": "recommend",
-          "count": 13
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 9
-        },
-        {
-          "topic": "professional",
-          "count": 5
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 8,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 9,
-          "avg": 4.78
-        },
-        "old": {
-          "count": 31,
-          "avg": 4.84
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Lara Peel feels like it really cleanses the pores.\n\nThe staff are all friendly and great.",
-          "rating": 5,
-          "author": "Hj"
-        },
-        {
-          "text": "I tried Lara Peel for the first time today, and it seems like my blemishes have faded a bit and my skin texture has improved! I was a little hesitant because I have sensitive skin, but I'm glad I went ahead with it. The manager was also super kind and nice.",
-          "rating": 5,
-          "author": "EK Choi"
-        },
-        {
-          "text": "Since the Korean director is present on Thursdays and Fridays, detailed consultations and the best treatment are possible.",
-          "rating": 5,
-          "author": "정윤선"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Woori+Clinic+%EC%9A%B0%EB%A6%AC+%ED%81%B4%EB%A6%AC%EB%8B%89+%E7%9A%AE%E8%82%A4%E7%BE%8E%E5%AE%B9%E8%AF%8A%E6%89%80/data=!4m7!3m6!1s0x116bbdeee23c4eb:0x45cf88056bb8984e!8m2!3d13.7383532!4d100.5580476!16s%2Fg%2F11v5gm6cmc!19sChIJ68Qj7t67FgERTpi4awWIz0U?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0xa4d563ef79084e81_0x368b9f40dfd43816",
       "place_id": "0xa4d563ef79084e81:0x368b9f40dfd43816",
       "name": "นาถะกายา คลินิกกายภาพบำบัด สาขาอโศก-ดินแดง",
@@ -43080,73 +43355,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Privato+Clinic+Silom/data=!4m7!3m6!1s0x30e29fd354e5bf67:0x3dfbe53c3c01e2a1!8m2!3d13.7275727!4d100.5327272!16s%2Fg%2F11pdwht60j!19sChIJZ7_lVNOf4jARoeIBPDzl-z0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29edecc58b29f_0x787890d5bbe1e54b",
-      "place_id": "0x30e29edecc58b29f:0x787890d5bbe1e54b",
-      "name": "International SOS Services (Thailand) Ltd.",
-      "name_lang": "en",
-      "primary_type": "Health consultant",
-      "address": "\nTower B, 16th Fl, GPF Witthayu Towers, 93, 1 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 2 206 7755",
-      "website": "https://www.internationalsos.com/locations#Thailand",
-      "lat": 13.7376125,
-      "lng": 100.547173,
-      "rating": 5.0,
-      "total_reviews": 96,
-      "trust_score": 76.8,
-      "categories": [],
-      "scraped_review_count": 10,
-      "local_guide_count": 1,
-      "avg_author_review_count": 3.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 8,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 10,
-          "avg": 5.0
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Very good place for professional healthcare training. It’s easy to get here. The elevator to 16th floor is rapid.",
-          "rating": 5,
-          "author": "Anulove Sriwannawat"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/International+SOS+Services+%28Thailand%29+Ltd./data=!4m7!3m6!1s0x30e29edecc58b29f:0x787890d5bbe1e54b!8m2!3d13.7376125!4d100.547173!16s%2Fg%2F1hm4qy3vg!19sChIJn7JYzN6e4jARS-Xhu9WQeHg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fc276d55d13_0xd733fc6137d1bc7",
@@ -46281,117 +46489,6 @@
       "maps_url": "https://www.google.com/maps/place/LISA+FRANCES+CLINIC/data=!4m7!3m6!1s0x30e29ed007d6dcd5:0xce0bf5cba4a84b18!8m2!3d13.7447399!4d100.5408202!16s%2Fg%2F1td7krmh!19sChIJ1dzWB9Ce4jARGEuopMv1C84?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29f52bd0fe6f9_0xa371df686285912f",
-      "place_id": "0x30e29f52bd0fe6f9:0xa371df686285912f",
-      "name": "ZENZEN CLINIC",
-      "name_lang": "en",
-      "primary_type": "Medical clinic",
-      "address": "\n10/24 อาคารเทรนดี้ ชั้น1A Soi Sukhumvit 13, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 96 223 9645",
-      "website": "https://www.facebook.com/zenzenclinic/",
-      "lat": 13.7405773,
-      "lng": 100.5577761,
-      "rating": 4.8,
-      "total_reviews": 50,
-      "trust_score": 75.9,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "laser"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 13,
-      "avg_author_review_count": 14.4,
-      "language_breakdown": {
-        "th": 0,
-        "en": 46,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 6,
-        "filler": 7,
-        "facial": 2,
-        "laser": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 8
-        },
-        {
-          "topic": "clean_facility",
-          "count": 7
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 6
-        },
-        {
-          "topic": "english_speaking",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 3.67
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 46,
-          "avg": 4.89
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Today I got lip fillers for the first time, and I'm very impressed! The doctor was lovely and gave great advice. All the staff were also lovely and friendly, and they didn't push sales in an uncomfortable way. It was a great experience!",
-          "rating": 5,
-          "author": "B Nk"
-        },
-        {
-          "text": "Today I went for a vitamin drip for my skin and Botox on my shoulders. The doctor, nurses, and staff took very good care of me. The doctor was very gentle.",
-          "rating": 5,
-          "author": "Pkm Lums"
-        },
-        {
-          "text": "The staff provided excellent service. They were lovely and friendly. They also offered good promotions. 😊 …",
-          "rating": 5,
-          "author": "Kratare Eiei"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/ZENZEN+CLINIC/data=!4m7!3m6!1s0x30e29f52bd0fe6f9:0xa371df686285912f!8m2!3d13.7405773!4d100.5577761!16s%2Fg%2F11jptphcc4!19sChIJ-eYPvVKf4jARL5GFYmjfcaM?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2994c7c1ce947_0xceee509e1e1a8289",
       "place_id": "0x30e2994c7c1ce947:0xceee509e1e1a8289",
       "name": "Warrix Health | Stadium One",
@@ -48843,54 +48940,6 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/L.A.B.X/data=!4m7!3m6!1s0x30e29f2388f6428f:0x3fe8d7cbd9ba2484!8m2!3d13.7260804!4d100.5464277!16s%2Fg%2F11x7dbz6yr!19sChIJj0L2iCOf4jARhCS62cvX6D8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f5b183e6ed5_0xd8dd9271a16b51ac",
-      "place_id": "0x30e29f5b183e6ed5:0xd8dd9271a16b51ac",
-      "name": "ReDerm Clinic",
-      "name_lang": "en",
-      "primary_type": "Medical spa",
-      "address": "\nJLK Tower, 129 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 64 552 4924",
-      "website": "https://www.rederm.co/",
-      "lat": 13.7409354,
-      "lng": 100.5553311,
-      "rating": 5.0,
-      "total_reviews": 120,
-      "trust_score": 75.0,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/ReDerm+Clinic/data=!4m7!3m6!1s0x30e29f5b183e6ed5:0xd8dd9271a16b51ac!8m2!3d13.7409354!4d100.5553311!16s%2Fg%2F11mdhc_lj6!19sChIJ1W4-GFuf4jARrFFroXGS3dg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2990e6c636b59_0x68cee3db0148f2bd",
@@ -53022,102 +53071,6 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9B%E0%B8%B4%E0%B8%A2%E0%B8%B0%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%93+%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%9F%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%9F%E0%B8%B9+%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%84%E0%B8%9B/data=!4m7!3m6!1s0x30e29163fd7d3fa9:0xa2004a57e8d98b24!8m2!3d13.7593173!4d100.5459269!16s%2Fg%2F11rv6bg145!19sChIJqT99_WOR4jARJIvZ6FdKAKI?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f64a0805c99_0x5d6dbb3e3d0a39fe",
-      "place_id": "0x30e29f64a0805c99:0x5d6dbb3e3d0a39fe",
-      "name": "MedEx Neo Clinic (Asoke - Nana Main Branch)",
-      "name_lang": "en",
-      "primary_type": "Medical Center",
-      "address": "\nThe Trendy Office Building, MedEx Neo Clinic, First Floor (1A) - One Level Above the Ground Floor Soi Sukhumvit 13, Watthana 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 2 544 0001",
-      "website": "https://medex.co.th/",
-      "lat": 13.740217,
-      "lng": 100.557815,
-      "rating": 4.4,
-      "total_reviews": 309,
-      "trust_score": 73.9,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%A1%E0%B9%87%E0%B8%94%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%99%E0%B8%B5%E0%B9%82%E0%B8%AD+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%97%E0%B8%84%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e29f64a0805c99:0x5d6dbb3e3d0a39fe!8m2!3d13.740217!4d100.557815!16s%2Fg%2F11s2q5q37m!19sChIJmVyAoGSf4jAR_jkKPT67bV0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0xa32ea3859c0f8b7f_0xf2dd37654c91bb1b",
-      "place_id": "0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b",
-      "name": "ซูซู คลินิกเวชกรรม - Zuzu Clinic",
-      "name_lang": "th",
-      "primary_type": "Beauty salon",
-      "address": "\n1624 New, Makkasan, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Ratchathewi",
-      "phone": "+66 92 599 4416",
-      "website": "https://www.facebook.com/zuzuclinic",
-      "lat": 13.7487931,
-      "lng": 100.5624284,
-      "rating": 4.9,
-      "total_reviews": 118,
-      "trust_score": 73.9,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%8B%E0%B8%B9%E0%B8%8B%E0%B8%B9+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+-+Zuzu+Clinic/data=!4m7!3m6!1s0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b!8m2!3d13.7487931!4d100.5624284!16s%2Fg%2F11t9npk6ld!19sChIJf4sPnIWjLqMRG7uRTGU33fI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fcef47daf7b_0x79329ed872d83791",
@@ -59127,14 +59080,14 @@
           "author": "andrew langstone"
         },
         {
-          "text": "😍Dr. Pat is very good. I saw the doctor for 1 month\nand then my baby came. 👼🏻 The doctor and nurses are very good. ☺️\nThey take great care of me. 🩷🩷 …",
+          "text": "Dr. Pat was professional and friendly. He is very kind and gives helpful information. The staff were also so sweet and made me comfortable during my appointment. I highly recommend Dr.Pat and his staff!",
           "rating": 5,
-          "author": "Siriwan Kaenton"
+          "author": "Rachael Sharpe"
         },
         {
-          "text": "The doctor is very skilled. He analyzes the issue and treats the problem to the point.\nThe patient flew from out of town to see the doctor to get a second opinion.\nI feel very happy that I decided to see him.",
+          "text": "Expert, professional and you can spend time for consulting as much as you need. The doctor and team are friendly and well trained.",
           "rating": 5,
-          "author": "Chatchaya Chamnanmont"
+          "author": "Tanakritt Sapchookul"
         }
       ],
       "business_status": "Open",
@@ -60636,6 +60589,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Rim+Dental+Clinic/data=!4m7!3m6!1s0x30e2996c3408f127:0x9cd84895384ceb9!8m2!3d13.7635523!4d100.4989366!16s%2Fg%2F11ddyqhh7w!19sChIJJ_EINGyZ4jARuc6EU4mEzQk?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ff2463ff933_0x23b2ad6f91824ee3",
+      "place_id": "0x30e29ff2463ff933:0x23b2ad6f91824ee3",
+      "name": "โรงพยาบาลศัลยกรรมตกแต่ง 365mc thailand",
+      "name_lang": "th",
+      "primary_type": "Surgical center",
+      "address": "\nที่อยู่ 82 ชั้น4, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 64 932 3365",
+      "website": "https://365mcthailand.com/",
+      "lat": 13.7407418,
+      "lng": 100.5512052,
+      "rating": 4.9,
+      "total_reviews": 82,
+      "trust_score": 72.0,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%A8%E0%B8%B1%E0%B8%A5%E0%B8%A2%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%95%E0%B8%81%E0%B9%81%E0%B8%95%E0%B9%88%E0%B8%87+365mc+thailand/data=!4m7!3m6!1s0x30e29ff2463ff933:0x23b2ad6f91824ee3!8m2!3d13.7407418!4d100.5512052!16s%2Fg%2F11lnpg4m07!19sChIJM_k_RvKf4jAR406CkW-tsiM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29903dca04329_0x452476f554b7f480",
@@ -66498,6 +66499,95 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%99%E0%B8%B2%E0%B8%96%E0%B8%A5%E0%B8%94%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%87%E0%B8%B2%E0%B8%A1+BTS+%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B9%80%E0%B8%97%E0%B8%A7%E0%B8%B5+-+Nadlada+Clinic+BTS+Ratchathewi/data=!4m7!3m6!1s0x30e29ecb6cc0a1bb:0xa0b8333bc7e31597!8m2!3d13.7530806!4d100.5314662!16s%2Fg%2F11c6cc5l7b!19sChIJu6HAbMue4jARlxXjxzszuKA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f835f30c483_0x5d89e85807ae8441",
+      "place_id": "0x30e29f835f30c483:0x5d89e85807ae8441",
+      "name": "Secret Medical Clinic",
+      "name_lang": "en",
+      "primary_type": "STD clinic",
+      "address": "\nSecret Medical 310 Sukhumvit Rd, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 64 934 9010",
+      "website": "http://www.secretmedicalclinic.com/",
+      "lat": 13.7371889,
+      "lng": 100.5598508,
+      "rating": 4.8,
+      "total_reviews": 20,
+      "trust_score": 70.3,
+      "categories": [],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 21.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 9,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 10,
+          "avg": 4.6
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This is a good clinic located in the heart of the city, convenient and fast, perfect for city dwellers who need to get checked out.",
+          "rating": 5,
+          "author": "ยุทธดา คละทอง"
+        },
+        {
+          "text": "Close to BTS, convenient transportation, friendly and helpful staff, clean place, reasonable prices. Will definitely come again.",
+          "rating": 5,
+          "author": "Rose Thamsuwan"
+        },
+        {
+          "text": "The lady who took care of me was superb! The room is clean, newly renovated and easy to get to!\n\nHigh recommend!",
+          "rating": 5,
+          "author": "Sidney Zabala"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Secret+Medical+Clinic/data=!4m7!3m6!1s0x30e29f835f30c483:0x5d89e85807ae8441!8m2!3d13.7371889!4d100.5598508!16s%2Fg%2F11k3tff4ly!19sChIJg8QwX4Of4jARQYSuB1joiV0?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fc0cd54d893_0x1f220987785ab439",
       "place_id": "0x30e29fc0cd54d893:0x1f220987785ab439",
       "name": "OrientGlow Clinic โอเรียนต์โกลว์ คลีนิก",
@@ -67199,103 +67289,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Dr.HORM+DENTAL+CLINIC/data=!4m7!3m6!1s0x30e299f6fa133599:0x9e1ccf2346838aea!8m2!3d13.7396006!4d100.5138893!16s%2Fg%2F11h9bjlb17!19sChIJmTUT-vaZ4jAR6oqDRiPPHJ4?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f9fb6166583_0xe5d8aa839efde4ae",
-      "place_id": "0x30e29f9fb6166583:0xe5d8aa839efde4ae",
-      "name": "Doctor Anywhere (DA Clinic)",
-      "name_lang": "en",
-      "primary_type": "Medical group",
-      "address": "\nSubdistrict, 1, Empire Tower Building, Tower 2, 21st Floor, Room, 2110 S Sathon Rd, Yan Nawa, Sathon, Bangkok 10120, Thailand",
-      "district": "Sathon",
-      "phone": "+66 2 508 8658",
-      "website": "https://www.doctoranywhere.co.th/da-clinic",
-      "lat": 13.7204678,
-      "lng": 100.5305765,
-      "rating": 4.2,
-      "total_reviews": 42,
-      "trust_score": 69.9,
-      "categories": [],
-      "scraped_review_count": 42,
-      "local_guide_count": 12,
-      "avg_author_review_count": 22.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 33,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 7
-        },
-        {
-          "topic": "professional",
-          "count": 6
-        },
-        {
-          "topic": "expensive",
-          "count": 4
-        },
-        {
-          "topic": "recommend",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "promotion",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 4,
-          "avg": 3.75
-        },
-        "midterm": {
-          "count": 20,
-          "avg": 4.1
-        },
-        "old": {
-          "count": 18,
-          "avg": 4.39
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I went for a health checkup and the service was amazing! I've never encountered such good service at any clinic before. The staff were so polite and lovely. 🫶🏻 …",
-          "rating": 5,
-          "author": "Nina Nina"
-        },
-        {
-          "text": "This is my second time using their service, and it's great.\nDrawn blood, it wasn't painful at all. They have very gentle hands.",
-          "rating": 5,
-          "author": "Patnarin Tawan"
-        },
-        {
-          "text": "The clinic is clean and the doctor is lovely. I will definitely use their services again!!!",
-          "rating": 5,
-          "author": "KHWANJIRA NEEYAKORN"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Doctor+Anywhere+%28DA+Clinic%29/data=!4m7!3m6!1s0x30e29f9fb6166583:0xe5d8aa839efde4ae!8m2!3d13.7204678!4d100.5305765!16s%2Fg%2F11jn5csgsg!19sChIJg2UWtp-f4jARruT9noOq2OU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29926a29cce47_0x512e7d33b6de481",
@@ -69357,6 +69350,56 @@
       "maps_url": "https://www.google.com/maps/place/Soul+Science+Clinic+%E0%B9%82%E0%B8%8B%E0%B8%A5+%E0%B9%84%E0%B8%8B%E0%B9%80%E0%B8%AD%E0%B8%99%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e299c0e0027a3d:0x10f885409daafb57!8m2!3d13.7338889!4d100.5268304!16s%2Fg%2F11q32x57xb!19sChIJPXoC4MCZ4jARV_uqnUCF-BA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x116bbdeee23c4eb_0x45cf88056bb8984e",
+      "place_id": "0x116bbdeee23c4eb:0x45cf88056bb8984e",
+      "name": "Woori Clinic 우리 클리닉 皮肤美容诊所",
+      "name_lang": "ko",
+      "primary_type": "Skin care clinic",
+      "address": "\n212/24-27, FLOOR 4, Suk Chai Alley, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 98 334 4509",
+      "website": "https://wooriface.com/",
+      "lat": 13.7383532,
+      "lng": 100.5580476,
+      "rating": 4.9,
+      "total_reviews": 48,
+      "trust_score": 69.2,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Woori+Clinic+%EC%9A%B0%EB%A6%AC+%ED%81%B4%EB%A6%AC%EB%8B%89+%E7%9A%AE%E8%82%A4%E7%BE%8E%E5%AE%B9%E8%AF%8A%E6%89%80/data=!4m7!3m6!1s0x116bbdeee23c4eb:0x45cf88056bb8984e!8m2!3d13.7383532!4d100.5580476!16s%2Fg%2F11v5gm6cmc!19sChIJ68Qj7t67FgERTpi4awWIz0U?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f60c122f74d_0xe5bf56df4a5d3635",
       "place_id": "0x30e29f60c122f74d:0xe5bf56df4a5d3635",
       "name": "HA HAY clinic สาขาสีลม",
@@ -71295,6 +71338,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Rajdhevee+Clinic/data=!4m7!3m6!1s0x30e29edb6c0814ab:0x5d638cb69134acc4!8m2!3d13.741782!4d100.5485162!16s%2Fg%2F1pxwrh_1r!19sChIJqxQIbNue4jARxKw0kbaMY10?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f52bd0fe6f9_0xa371df686285912f",
+      "place_id": "0x30e29f52bd0fe6f9:0xa371df686285912f",
+      "name": "ZENZEN CLINIC",
+      "name_lang": "en",
+      "primary_type": "Clinic",
+      "address": "\n10/24 อาคารเทรนดี้ ชั้น1A Soi Sukhumvit 13, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 96 223 9645",
+      "website": "https://www.facebook.com/zenzenclinic/",
+      "lat": 13.7405773,
+      "lng": 100.5577761,
+      "rating": 4.8,
+      "total_reviews": 50,
+      "trust_score": 68.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/ZENZEN+CLINIC/data=!4m7!3m6!1s0x30e29f52bd0fe6f9:0xa371df686285912f!8m2!3d13.7405773!4d100.5577761!16s%2Fg%2F11jptphcc4!19sChIJ-eYPvVKf4jARL5GFYmjfcaM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f266581b575_0xa75e369270eae5cf",
@@ -81859,54 +81950,6 @@
       "maps_url": "https://www.google.com/maps/place/Wax+It+Bare/data=!4m7!3m6!1s0x30e29ffd50c09c67:0x33fc764f910d82b0!8m2!3d13.7689982!4d100.5492712!16s%2Fg%2F11s9f9plfs!19sChIJZ5zAUP2f4jARsIINkU92_DM?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29f835f30c483_0x5d89e85807ae8441",
-      "place_id": "0x30e29f835f30c483:0x5d89e85807ae8441",
-      "name": "Secret Medical Clinic",
-      "name_lang": "en",
-      "primary_type": "STD clinic",
-      "address": "\nSecret Medical 310 Sukhumvit Rd, Khlong Toei, Bangkok 10110, Thailand",
-      "district": "Khlong Toei",
-      "phone": "+66 64 934 9010",
-      "website": "http://www.secretmedicalclinic.com/",
-      "lat": 13.7371889,
-      "lng": 100.5598508,
-      "rating": 4.8,
-      "total_reviews": 20,
-      "trust_score": 63.6,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Secret+Medical+Clinic/data=!4m7!3m6!1s0x30e29f835f30c483:0x5d89e85807ae8441!8m2!3d13.7371889!4d100.5598508!16s%2Fg%2F11k3tff4ly!19sChIJg8QwX4Of4jARQYSuB1joiV0?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29da9b307f94d_0xda7debe5ba522bdd",
       "place_id": "0x30e29da9b307f94d:0xda7debe5ba522bdd",
       "name": "Smile Gallery Dental Clinic at Vimut Hospital คลินิกทันตกรรม สไมล์แกลอรี่ แอท โรงพยาบาลวิมุต",
@@ -84316,6 +84359,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/SML+Dental+Clinic/data=!4m7!3m6!1s0x30e2993c78106feb:0xdf88b20ad537e8aa!8m2!3d13.7503577!4d100.5126086!16s%2Fg%2F1s04g8chm!19sChIJ628QeDyZ4jARqug31QqyiN8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f9fb6166583_0xe5d8aa839efde4ae",
+      "place_id": "0x30e29f9fb6166583:0xe5d8aa839efde4ae",
+      "name": "Doctor Anywhere (DA Clinic)",
+      "name_lang": "en",
+      "primary_type": "Medical group",
+      "address": "\nSubdistrict, 1, Empire Tower Building, Tower 2, 21st Floor, Room, 2110 S Sathon Rd, Yan Nawa, Sathon, Bangkok 10120, Thailand",
+      "district": "Sathon",
+      "phone": "+66 2 508 8658",
+      "website": "https://www.doctoranywhere.co.th/da-clinic",
+      "lat": 13.7204678,
+      "lng": 100.5305765,
+      "rating": 4.2,
+      "total_reviews": 42,
+      "trust_score": 61.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Doctor+Anywhere+%28DA+Clinic%29/data=!4m7!3m6!1s0x30e29f9fb6166583:0xe5d8aa839efde4ae!8m2!3d13.7204678!4d100.5305765!16s%2Fg%2F11jn5csgsg!19sChIJg2UWtp-f4jARruT9noOq2OU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29920c2e6040d_0x84781c2a12d168be",
@@ -88740,54 +88831,6 @@
       "maps_url": "https://www.google.com/maps/place/Care+Clinic/data=!4m7!3m6!1s0x30e29ea0ca1a48ef:0xc196ea6a53a2633b!8m2!3d13.778189!4d100.5467943!16s%2Fg%2F1tcyhh77!19sChIJ70gayqCe4jARO2OiU2rqlsE?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29ff614e1a2f5_0xb27bca972608787e",
-      "place_id": "0x30e29ff614e1a2f5:0xb27bca972608787e",
-      "name": "Stretch me Clinic - The Allez Nana",
-      "name_lang": "en",
-      "primary_type": "Physical therapy clinic",
-      "address": "\nชั้น 3 โซน B The Allez Nana เลขที่ 1 Soi Sukhumvit 13, Bangkok 10110, Thailand",
-      "district": "Watthana",
-      "phone": "+66 2 301 0179",
-      "website": "https://stretchme.studio/clinic/",
-      "lat": 13.7400973,
-      "lng": 100.5569005,
-      "rating": 4.8,
-      "total_reviews": 5,
-      "trust_score": 56.4,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Stretch+me+Clinic+-+The+Allez+Nana/data=!4m7!3m6!1s0x30e29ff614e1a2f5:0xb27bca972608787e!8m2!3d13.7400973!4d100.5569005!16s%2Fg%2F11tt0wbcg3!19sChIJ9aLhFPaf4jARfngIJpfKe7I?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29eba0956898b_0x6830fc2789c0c433",
       "place_id": "0x30e29eba0956898b:0x6830fc2789c0c433",
       "name": "Rewat Clinic",
@@ -88893,6 +88936,54 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%84/data=!4m7!3m6!1s0x30e2993c6b820d9f:0x2eb963df7b5affca!8m2!3d13.7510549!4d100.5116684!16s%2Fg%2F1tfc41f1!19sChIJnw2CazyZ4jARyv9ae99juS4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ff614e1a2f5_0xb27bca972608787e",
+      "place_id": "0x30e29ff614e1a2f5:0xb27bca972608787e",
+      "name": "Stretch me Clinic - The Allez Nana",
+      "name_lang": "en",
+      "primary_type": "Physical Therapy Clinic",
+      "address": "\nชั้น 3 โซน B The Allez Nana เลขที่ 1 Soi Sukhumvit 13, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 301 0179",
+      "website": "https://stretchme.studio/clinic/",
+      "lat": 13.7400973,
+      "lng": 100.5569005,
+      "rating": 4.8,
+      "total_reviews": 5,
+      "trust_score": 56.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Stretch+me+Clinic+-+The+Allez+Nana/data=!4m7!3m6!1s0x30e29ff614e1a2f5:0xb27bca972608787e!8m2!3d13.7400973!4d100.5569005!16s%2Fg%2F11tt0wbcg3!19sChIJ9aLhFPaf4jARfngIJpfKe7I?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29e42473835ef_0xe9c232cdc366ac2c",
