@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-05-06T05:30:48.296811+00:00",
-  "total_clinics": 860,
-  "with_district": 814,
-  "with_categories": 561,
-  "with_reviews_scraped": 598,
+  "generated_at": "2026-05-06T05:40:51.549863+00:00",
+  "total_clinics": 867,
+  "with_district": 821,
+  "with_categories": 565,
+  "with_reviews_scraped": 603,
   "language_total": {
     "th": 1,
-    "en": 20667,
+    "en": 20736,
     "ko": 0,
     "ja": 0,
     "other": 47
   },
   "district_counts": {
-    "Pathum Wan": 301,
-    "Phaya Thai": 135,
+    "Pathum Wan": 303,
+    "Phaya Thai": 137,
     "Bang Rak": 101,
-    "Watthana": 70,
+    "Watthana": 71,
     "Huai Khwang": 42,
-    "Khlong Toei": 36,
+    "Khlong Toei": 37,
     "Sathon": 32,
     "Khlong San": 25,
-    "Ratchathewi": 16,
+    "Ratchathewi": 17,
     "Pom Prap Sattru Phai": 14,
     "Dusit": 13,
     "Din Daeng": 9,
@@ -31,11 +31,11 @@
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 350,
-    "laser": 257,
-    "botox": 173,
-    "dental": 141,
-    "filler": 126,
+    "facial": 352,
+    "laser": 258,
+    "botox": 174,
+    "dental": 143,
+    "filler": 127,
     "hifu": 126,
     "hair_transplant": 17,
     "eye": 6
@@ -2170,11 +2170,112 @@
       "maps_url": "https://www.google.com/maps/place/The+Astell+Clinic/data=!4m7!3m6!1s0x30e29f43e6e00b8d:0x60966773f6f5a71c!8m2!3d13.7279197!4d100.5622166!16s%2Fg%2F11tck57x0s!19sChIJjQvg5kOf4jARHKf19nNnlmA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29edea2810a4f_0x22ec63e7da186646",
+      "place_id": "0x30e29edea2810a4f:0x22ec63e7da186646",
+      "name": "Thantakit Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n3rd floor​ unit​ 301 87/2 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 2 685 3444",
+      "website": "https://www.thantakit.com/",
+      "lat": 13.7394375,
+      "lng": 100.5478923,
+      "rating": 4.9,
+      "total_reviews": 876,
+      "trust_score": 90.4,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 54,
+      "local_guide_count": 10,
+      "avg_author_review_count": 16.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 47,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 30
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 17
+        },
+        {
+          "topic": "professional",
+          "count": 17
+        },
+        {
+          "topic": "recommend",
+          "count": 15
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "english_speaking",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "no_pain",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 46,
+          "avg": 4.98
+        },
+        "midterm": {
+          "count": 8,
+          "avg": 4.5
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dental clinic located inside CRC Tower, All Seasons Please. Good service, nice atmosphere and reasonable price.",
+          "rating": 5,
+          "author": "Nattapong Manothai"
+        },
+        {
+          "text": "So I just finished a cleaning and whitening session here. The dentist and his assistant were so gentle and so professional - worked with the utmost of care and checked on me all the time. Also thanks to the front desk staff for their professionalism and care. Impeccable customer service all around.",
+          "rating": 5,
+          "author": "Vernon Dodo"
+        },
+        {
+          "text": "I thought it was very good and very fast as well. But not only that they gave me feedback on how i could improve my teeth and what techniques I should do in the future while brushing and flossing. And they were very nice.",
+          "rating": 5,
+          "author": "Knox Brittain"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Thantakit+Dental+Clinic/data=!4m7!3m6!1s0x30e29edea2810a4f:0x22ec63e7da186646!8m2!3d13.7394375!4d100.5478923!16s%2Fg%2F1tg_j2d2!19sChIJTwqBot6e4jARRmYY2udj7CI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299959d58c167_0x1368a3bc79552702",
       "place_id": "0x30e299959d58c167:0x1368a3bc79552702",
       "name": "PULSE CLINIC - Asoke | Asia's Leading Lifestyle Center",
       "name_lang": "en",
-      "primary_type": "Medical Center",
+      "primary_type": "Medical centre",
       "address": "\n216B-C, Second Floor Time Square Building 246 Sukhumvit 12-14 Road, Khlong Toei, Bangkok 10500, Thailand",
       "district": "Khlong Toei",
       "phone": "+66 64 742 6528",
@@ -2182,7 +2283,7 @@
       "lat": 13.7376902,
       "lng": 100.5588122,
       "rating": 4.9,
-      "total_reviews": 712,
+      "total_reviews": 713,
       "trust_score": 90.3,
       "categories": [
         "laser"
@@ -2202,16 +2303,16 @@
       },
       "mentioned_topics": [
         {
-          "topic": "recommend",
-          "count": 15
-        },
-        {
           "topic": "friendly_staff",
           "count": 13
         },
         {
+          "topic": "recommend",
+          "count": 13
+        },
+        {
           "topic": "professional",
-          "count": 8
+          "count": 7
         },
         {
           "topic": "english_speaking",
@@ -2228,12 +2329,12 @@
       ],
       "rating_trend": {
         "recent": {
-          "count": 44,
+          "count": 45,
           "avg": 4.64
         },
         "midterm": {
-          "count": 6,
-          "avg": 4.33
+          "count": 5,
+          "avg": 4.2
         },
         "old": {
           "count": 0,
@@ -3379,6 +3480,101 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Aestima+Clinic+Sathorn/data=!4m7!3m6!1s0x30e29f9ea88b86cd:0x9e1ca2fedb3befe7!8m2!3d13.7225622!4d100.5470086!16s%2Fg%2F11nnq_k6nz!19sChIJzYaLqJ6f4jAR5-872_6iHJ4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ede1812d819_0xf005dbbe6c8b255",
+      "place_id": "0x30e29ede1812d819:0xf005dbbe6c8b255",
+      "name": "Apex Surgery Hospital",
+      "name_lang": "en",
+      "primary_type": "Surgical center",
+      "address": "\n82 Sukhumvit Rd, Khlong Toei, Bangkok 10110, Thailand",
+      "district": "Khlong Toei",
+      "phone": "+66 85 000 0855",
+      "website": "https://www.apexmedicalcenter.co.th/",
+      "lat": 13.7408099,
+      "lng": 100.5512245,
+      "rating": 4.9,
+      "total_reviews": 1158,
+      "trust_score": 89.1,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "laser"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 1,
+      "avg_author_review_count": 4.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1,
+        "filler": 2,
+        "facial": 1,
+        "laser": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I got my underarms lasered at Apex, Ploenchit branch. It felt so cool and comfortable on my skin, no pain, no burning sensation. ❤️❤️❤️❤️",
+          "rating": 5,
+          "author": "I Samsung"
+        },
+        {
+          "text": "I tried laser treatment for the first time. The clinic atmosphere was great, and the doctor talked to me throughout the procedure, making me feel very relaxed. It wasn't painful or irritating. I highly recommend it.",
+          "rating": 5,
+          "author": "Pleum plimm"
+        },
+        {
+          "text": "I visited the Ploenchit branch. The staff were lovely and gave good advice. There was a sales representative who provided recommendations, and the decision was left to me. I was very impressed with my first visit.",
+          "rating": 5,
+          "author": "yingying wiboonchon"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Apex+Surgery+Hospital/data=!4m7!3m6!1s0x30e29ede1812d819:0xf005dbbe6c8b255!8m2!3d13.7408099!4d100.5512245!16s%2Fg%2F11c52tch8c!19sChIJGdgSGN6e4jARVbLI5rtdAA8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f02d1e2e4ef_0xe9a42eb4b9a7fec0",
@@ -18188,7 +18384,7 @@
       "place_id": "0x30e2992cb4d2e869:0x61048e7cadf2b1c2",
       "name": "de mist Aesthetics",
       "name_lang": "en",
-      "primary_type": "Medical clinic",
+      "primary_type": "Clinic",
       "address": "\n2nd floor, Siam Commercial Bank Sindhorn Building, 130-132 Witthayu Rd, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
       "district": "Pathum Wan",
       "phone": "+66 95 519 0555",
@@ -44316,6 +44512,79 @@
       "maps_url": "https://www.google.com/maps/place/Central+Medic+Clinic/data=!4m7!3m6!1s0x30e29e83cd1efdff:0x9118cd8fd1563fbe!8m2!3d13.7758024!4d100.5681206!16s%2Fg%2F11rvw4zt_!19sChIJ__0ezYOe4jARvj9W0Y_NGJE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29febb1b5d31f_0x1537e4375b38cd75",
+      "place_id": "0x30e29febb1b5d31f:0x1537e4375b38cd75",
+      "name": "Akesis Life Clinic",
+      "name_lang": "en",
+      "primary_type": "Cancer treatment center",
+      "address": "\n20 / 2-7 โครงการร่วมฤดีวิลเลจ Soi Ruamrudee Community, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 65 589 6964",
+      "website": "https://akesisoncology.com/",
+      "lat": 13.7406604,
+      "lng": 100.5492196,
+      "rating": 4.8,
+      "total_reviews": 45,
+      "trust_score": 73.1,
+      "categories": [],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 4.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Loved how they combined traditional medicine with lifestyle advice. My diabetes management improved dramatically!",
+          "rating": 5,
+          "author": "王汶霏"
+        },
+        {
+          "text": "I’ve had a few health treatments, but this one was different. The EnergyCell drip is definitely worth trying if you need a natural energy boost!",
+          "rating": 5,
+          "author": "Yun zhuang"
+        },
+        {
+          "text": "I’ve done a few different wellness programs, but their NAD+ packages really stand out.",
+          "rating": 5,
+          "author": "Mou Frannie"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Akesis+Life+Clinic/data=!4m7!3m6!1s0x30e29febb1b5d31f:0x1537e4375b38cd75!8m2!3d13.7406604!4d100.5492196!16s%2Fg%2F11gxhyvrnv!19sChIJH9O1seuf4jARdc04WzfkNxU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29edef5ba6515_0x7803293d47d4fa2e",
       "place_id": "0x30e29edef5ba6515:0x7803293d47d4fa2e",
       "name": "IntellihealthPlus Clinic by StemCells21",
@@ -48861,6 +49130,75 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/ImagineHealth+Co.,+Ltd./data=!4m7!3m6!1s0x30e299d87a176d8d:0x3f6d3661051a2ef6!8m2!3d13.7286499!4d100.5103959!16s%2Fg%2F11s5zf4gdl!19sChIJjW0XetiZ4jAR9i4aBWE2bT8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f4432a2b7a3_0x80c2e0185b1cd811",
+      "place_id": "0x30e29f4432a2b7a3:0x80c2e0185b1cd811",
+      "name": "ACTIVATE",
+      "name_lang": "en",
+      "primary_type": "Wellness center",
+      "address": "\n93/1 อาคาร จีพีเอฟ วิทยุ, 105/2 ตึกA ชั้นG ลุมพินี Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "",
+      "website": "",
+      "lat": 13.7375555,
+      "lng": 100.5472137,
+      "rating": 5.0,
+      "total_reviews": 5,
+      "trust_score": 71.6,
+      "categories": [],
+      "scraped_review_count": 5,
+      "local_guide_count": 3,
+      "avg_author_review_count": 40.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor is a specialist and provides excellent care. The equipment is modern, and the prices are reasonable. It's suitable for people experiencing pain in any location. Highly recommended.",
+          "rating": 5,
+          "author": "piyapat samarnpiboonphol"
+        },
+        {
+          "text": "The doctor provided good service and the atmosphere was relaxing. The pain really went away.",
+          "rating": 5,
+          "author": "Nattapong Mapuak"
+        },
+        {
+          "text": "The clinic uses high standard products. The prices are very good. The doctors take good care of you.",
+          "rating": 5,
+          "author": "dtgfun 124"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/ACTIVATE/data=!4m7!3m6!1s0x30e29f4432a2b7a3:0x80c2e0185b1cd811!8m2!3d13.7375555!4d100.5472137!16s%2Fg%2F11rxtdgbhd!19sChIJo7eiMkSf4jAREdgcWxjgwoA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f007c0c1033_0xf10a0504b8b03b23",
@@ -56588,33 +56926,38 @@
       "maps_url": "https://www.google.com/maps/place/Medical+Clinic+2000/data=!4m7!3m6!1s0x30e29ecb1468902d:0x73e511f1a99a6079!8m2!3d13.7528154!4d100.5314907!16s%2Fg%2F1hc2j47ky!19sChIJLZBoFMue4jAReWCaqfER5XM?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29febb1b5d31f_0x1537e4375b38cd75",
-      "place_id": "0x30e29febb1b5d31f:0x1537e4375b38cd75",
-      "name": "Akesis Life Clinic",
+      "id": "0x30e29eba0956898b_0x6830fc2789c0c433",
+      "place_id": "0x30e29eba0956898b:0x6830fc2789c0c433",
+      "name": "Rewat Clinic",
       "name_lang": "en",
-      "primary_type": "Cancer treatment center",
-      "address": "\n20 / 2-7 โครงการร่วมฤดีวิลเลจ Soi Ruamrudee Community, Lumphini, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 65 589 6964",
-      "website": "https://akesisoncology.com/",
-      "lat": 13.7406604,
-      "lng": 100.5492196,
+      "primary_type": "Health",
+      "address": "\n493/13 Ratchawithi Rd, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 245 5869",
+      "website": "",
+      "lat": 13.7638363,
+      "lng": 100.5411877,
       "rating": 4.8,
-      "total_reviews": 45,
-      "trust_score": 67.8,
+      "total_reviews": 5,
+      "trust_score": 67.9,
       "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
+      "scraped_review_count": 5,
+      "local_guide_count": 2,
+      "avg_author_review_count": 56.0,
       "language_breakdown": {
         "th": 0,
-        "en": 0,
+        "en": 2,
         "ko": 0,
         "ja": 0,
         "other": 0
       },
       "service_mentions": {},
-      "mentioned_topics": [],
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
       "rating_trend": {
         "recent": {
           "count": 0,
@@ -56625,15 +56968,21 @@
           "avg": null
         },
         "old": {
-          "count": 0,
-          "avg": null
+          "count": 5,
+          "avg": 4.8
         },
         "trend": "insufficient_data"
       },
       "sample_reviews_th": [],
-      "sample_reviews_en": [],
+      "sample_reviews_en": [
+        {
+          "text": "This is a very old and excellent clinic.\nThe doctor is very skilled and experienced in treating acne. The prices are also very reasonable. There's parking right next to the clinic, which is very convenient.",
+          "rating": 5,
+          "author": "Peggy Chotika"
+        }
+      ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Akesis+Life+Clinic/data=!4m7!3m6!1s0x30e29febb1b5d31f:0x1537e4375b38cd75!8m2!3d13.7406604!4d100.5492196!16s%2Fg%2F11gxhyvrnv!19sChIJH9O1seuf4jARdc04WzfkNxU?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Rewat+Clinic/data=!4m7!3m6!1s0x30e29eba0956898b:0x6830fc2789c0c433!8m2!3d13.7638363!4d100.5411877!16s%2Fg%2F1tgf571s!19sChIJi4lWCbqe4jARM8TAiSf8MGg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f018bc5459d_0x693f825587578e02",
@@ -57632,6 +57981,56 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B8%B2%E0%B9%82%E0%B8%A5+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%B2%E0%B8%97%E0%B8%B9/data=!4m7!3m6!1s0x30e29f0061d1d6d9:0xa9d881d250d03fcd!8m2!3d13.7487712!4d100.5607111!16s%2Fg%2F11x2vpzk11!19sChIJ2dbRYQCf4jARzT_QUNKB2Kk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29c2cb67afa49_0x7759801c0ad28f8",
+      "place_id": "0x30e29c2cb67afa49:0x7759801c0ad28f8",
+      "name": "ID clinic Sukhumvit 5",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n14 Sukhumvit 5 Alley, Khlong Toei Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 61 390 7000",
+      "website": "https://www.idclinicbangkok.com/en",
+      "lat": 13.7439826,
+      "lng": 100.5547211,
+      "rating": 4.7,
+      "total_reviews": 50,
+      "trust_score": 67.4,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/ID+clinic+Sukhumvit+5/data=!4m7!3m6!1s0x30e29c2cb67afa49:0x7759801c0ad28f8!8m2!3d13.7439826!4d100.5547211!16s%2Fg%2F11b6p5f920!19sChIJSfp6tiyc4jAR-CitwAGYdQc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fb38973cb57_0x8a6002b87d4a2dde",
       "place_id": "0x30e29fb38973cb57:0x8a6002b87d4a2dde",
       "name": "เจินดี สหคลินิก (Gene Des Clinic)",
@@ -57983,6 +58382,69 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%99%E0%B9%82%E0%B8%97%E0%B8%A3%E0%B9%82%E0%B8%9E%E0%B8%A5%E0%B8%B4%E0%B8%AA+Dentropolis+Dental+Clinic/data=!4m7!3m6!1s0x30e29f8287c248b1:0x8960460c308b105a!8m2!3d13.7203229!4d100.5574377!16s%2Fg%2F11px9t6d6v!19sChIJsUjCh4Kf4jARWhCLMAxGYIk?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29eb9c1960a89_0x5458f012f6970f6c",
+      "place_id": "0x30e29eb9c1960a89:0x5458f012f6970f6c",
+      "name": "Dusit Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n22/2 Ratchaprarop Rd, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "",
+      "website": "",
+      "lat": 13.7611861,
+      "lng": 100.5423759,
+      "rating": 4.5,
+      "total_reviews": 8,
+      "trust_score": 67.2,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 8,
+      "local_guide_count": 3,
+      "avg_author_review_count": 83.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 14
+      },
+      "mentioned_topics": [
+        {
+          "topic": "affordable",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 5,
+          "avg": 4.2
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I've had dental work done by the doctor for several years now, and this year, when I return to Thailand, I'll come and have dental work done by the doctor.",
+          "rating": 5,
+          "author": "인정수"
+        }
+      ],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Dusit+Dental+Clinic/data=!4m7!3m6!1s0x30e29eb9c1960a89:0x5458f012f6970f6c!8m2!3d13.7611861!4d100.5423759!16s%2Fg%2F1tfglvlq!19sChIJiQqWwbme4jARbA-X9hLwWFQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299003470ca93_0x921b4762e30da439",
@@ -64045,6 +64507,54 @@
       "maps_url": "https://www.google.com/maps/place/Siam+Loft+Clinic/data=!4m7!3m6!1s0x30e29f93e3f823c3:0xbe82d8f8468ab5f3!8m2!3d13.7441652!4d100.5330623!16s%2Fg%2F11ynsy8pwl!19sChIJwyP445Of4jAR87WKRvjYgr4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29163fd7d3fa9_0xa2004a57e8d98b24",
+      "place_id": "0x30e29163fd7d3fa9:0xa2004a57e8d98b24",
+      "name": "คลินิกหมอปิยะวรรณ เวชศาสตร์ฟื้นฟู กายภาพบำบัด ตรวจทั่วไป",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n39 1 ซอยรัชฏภัณฑ์ Makkasan, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Ratchathewi",
+      "phone": "+66 82 949 7929",
+      "website": "http://www.facebook.com/piyawan.clinic",
+      "lat": 13.7593173,
+      "lng": 100.5459269,
+      "rating": 5.0,
+      "total_reviews": 9,
+      "trust_score": 61.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9B%E0%B8%B4%E0%B8%A2%E0%B8%B0%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%93+%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%9F%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%9F%E0%B8%B9+%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%84%E0%B8%9B/data=!4m7!3m6!1s0x30e29163fd7d3fa9:0xa2004a57e8d98b24!8m2!3d13.7593173!4d100.5459269!16s%2Fg%2F11rv6bg145!19sChIJqT99_WOR4jARJIvZ6FdKAKI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f6639276499_0xe107a2e0aeb3c443",
       "place_id": "0x30e29f6639276499:0xe107a2e0aeb3c443",
       "name": "พริบตา แทนเจอรีน สหคลินิก",
@@ -64941,72 +65451,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Global+Doctor+-+TMVC+Clinic+Bangkok/data=!4m7!3m6!1s0x30e298cfe85cb605:0xda077eb2df800077!8m2!3d13.7229896!4d100.5194018!16s%2Fg%2F1tfjsqnv!19sChIJBbZc6M-Y4jARdwCA37J-B9o?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29eb0c0dcb9d3_0x4de06924aa819882",
-      "place_id": "0x30e29eb0c0dcb9d3:0x4de06924aa819882",
-      "name": "Pornkasem Clinic @ Center One",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\nศูนย์การค้าเซ็นเตอร์วัน ห้อง 1102 Soi Loet Punya, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 2 644 7069",
-      "website": "http://www.pornkasemclinic.com/",
-      "lat": 13.764,
-      "lng": 100.539321,
-      "rating": 3.3,
-      "total_reviews": 12,
-      "trust_score": 60.3,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 12,
-      "local_guide_count": 6,
-      "avg_author_review_count": 146.7,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "long_wait",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 3.67
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 9,
-          "avg": 3.22
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The service is as good as ever. I'm impressed every time I use their service 👍🏻👍🏻 #UnionMallBranch …",
-          "rating": 5,
-          "author": "NAND SWL"
-        },
-        {
-          "text": "The doctor is truly dedicated to treating you and doesn't force you to pay a lot.",
-          "rating": 5,
-          "author": "Siddhi Dhamma"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Pornkasem+Clinic+@+Center+One/data=!4m7!3m6!1s0x30e29eb0c0dcb9d3:0x4de06924aa819882!8m2!3d13.764!4d100.539321!16s%2Fg%2F12lrrml62!19sChIJ07ncwLCe4jARgpiBqiRp4E0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29926a29cce47_0x512e7d33b6de481",
@@ -68292,6 +68736,56 @@
       ],
       "business_status": "Temporarily closed",
       "maps_url": "https://www.google.com/maps/place/Infinity+Clinic+by+Dr.+Palm/data=!4m7!3m6!1s0x30e29e9de426d92b:0x1ff9527cdea07303!8m2!3d13.7781143!4d100.5581054!16s%2Fg%2F11ddx15jhr!19sChIJK9km5J2e4jARA3Og3nxS-R8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29eb0c0dcb9d3_0x4de06924aa819882",
+      "place_id": "0x30e29eb0c0dcb9d3:0x4de06924aa819882",
+      "name": "Pornkasem Clinic @ Center One",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nศูนย์การค้าเซ็นเตอร์วัน ห้อง 1102 Soi Loet Punya, Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 644 7069",
+      "website": "http://www.pornkasemclinic.com/",
+      "lat": 13.764,
+      "lng": 100.539321,
+      "rating": 3.3,
+      "total_reviews": 12,
+      "trust_score": 46.0,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pornkasem+Clinic+@+Center+One/data=!4m7!3m6!1s0x30e29eb0c0dcb9d3:0x4de06924aa819882!8m2!3d13.764!4d100.539321!16s%2Fg%2F12lrrml62!19sChIJ07ncwLCe4jARgpiBqiRp4E0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f8b7781114f_0x5f405b936832a25c",
