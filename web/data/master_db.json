@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-05-06T22:25:42.623859+00:00",
-  "total_clinics": 1243,
-  "with_district": 1186,
-  "with_categories": 785,
-  "with_reviews_scraped": 903,
+  "generated_at": "2026-05-06T22:35:47.250124+00:00",
+  "total_clinics": 1250,
+  "with_district": 1193,
+  "with_categories": 789,
+  "with_reviews_scraped": 906,
   "language_total": {
     "th": 1,
-    "en": 30380,
+    "en": 30517,
     "ko": 1,
     "ja": 0,
     "other": 80
   },
   "district_counts": {
     "Pathum Wan": 313,
-    "Phaya Thai": 205,
+    "Phaya Thai": 207,
     "Bang Rak": 132,
-    "Watthana": 124,
-    "Huai Khwang": 87,
+    "Watthana": 127,
+    "Huai Khwang": 89,
     "Khlong Toei": 73,
     "Khlong San": 54,
     "Sathon": 48,
@@ -32,10 +32,10 @@
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 460,
-    "laser": 359,
-    "botox": 243,
-    "dental": 230,
+    "facial": 462,
+    "laser": 360,
+    "botox": 244,
+    "dental": 232,
     "filler": 197,
     "hifu": 182,
     "hair_transplant": 21,
@@ -8195,6 +8195,111 @@
       "maps_url": "https://www.google.com/maps/place/Banobagi+Clinic+Thailand/data=!4m7!3m6!1s0x30e29f0051332033:0xe1c4d081bd8ca4bd!8m2!3d13.7452567!4d100.5352681!16s%2Fg%2F11y8nylhc5!19sChIJMyAzUQCf4jARvaSMvYHQxOE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29fb3300e2ae9_0x20d98d15375e182e",
+      "place_id": "0x30e29fb3300e2ae9:0x20d98d15375e182e",
+      "name": "Unique Care Station Param 9",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n100/123 อาคารวรสมบัติ พลาซ่า Rama IX Rd, ห้วยขวาง Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 96 165 4242",
+      "website": "http://www.uniquecarestation.com/",
+      "lat": 13.7551763,
+      "lng": 100.5727521,
+      "rating": 5.0,
+      "total_reviews": 490,
+      "trust_score": 87.2,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 78,
+      "local_guide_count": 11,
+      "avg_author_review_count": 10.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 78,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 14
+        },
+        {
+          "topic": "clean_facility",
+          "count": 12
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 32,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 28,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 18,
+          "avg": 4.89
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Here for shockwave. Treating pain from office syndrome and bad posture. The physical therapist are very professional. Feeling better after every visit. Highly Recommends.",
+          "rating": 5,
+          "author": "Vichsiri"
+        },
+        {
+          "text": "I have a sore shoulder and come here the the therapy.  They recommend me for the shock wave.  I feel better for the first time. Definitely come back for more. Thank you.   K Ploy🙏. …",
+          "rating": 5,
+          "author": "Wanlapa Rungrujira"
+        },
+        {
+          "text": "Here for office syndrome. Therapists and staffs are very nice and helpful. They help to follow up and consult very well. Recommended!",
+          "rating": 5,
+          "author": "Chanthicha Kasemsuk"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Unique+Care+Station+Param+9/data=!4m7!3m6!1s0x30e29fb3300e2ae9:0x20d98d15375e182e!8m2!3d13.7551763!4d100.5727521!16s%2Fg%2F11q582gvqk!19sChIJ6SoOMLOf4jARLhheNxWN2SA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f5eb06bada1_0x3fd47d807db80e33",
       "place_id": "0x30e29f5eb06bada1:0x3fd47d807db80e33",
       "name": "APEX Beauty - Mercury Ville (เอเพ็กซ์ สาขา เมอร์คิวรี่วิลล์)",
@@ -15465,95 +15570,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Proudskin+clinic+%E0%B8%9E%E0%B8%A3%E0%B8%B2%E0%B8%A7%E0%B8%AA%E0%B8%81%E0%B8%B4%E0%B8%99%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29f223545d5eb:0x8d58ffd575ba0624!8m2!3d13.7416813!4d100.5433291!16s%2Fg%2F11vl5rq5_d!19sChIJ69VFNSKf4jARJAa6ddX_WI0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29fb3300e2ae9_0x20d98d15375e182e",
-      "place_id": "0x30e29fb3300e2ae9:0x20d98d15375e182e",
-      "name": "Unique Care Station Param 9",
-      "name_lang": "en",
-      "primary_type": "Physical therapy clinic",
-      "address": "\n100/123 อาคารวรสมบัติ พลาซ่า Rama IX Rd, ห้วยขวาง Huai Khwang, Bangkok 10310, Thailand",
-      "district": "Huai Khwang",
-      "phone": "+66 96 165 4242",
-      "website": "http://www.uniquecarestation.com/",
-      "lat": 13.7551763,
-      "lng": 100.5727521,
-      "rating": 5.0,
-      "total_reviews": 490,
-      "trust_score": 84.6,
-      "categories": [
-        "laser"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 3,
-      "avg_author_review_count": 3.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 50,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "laser": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 10
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 6
-        },
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 32,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 18,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The clinic is clean, the staff are lovely and very polite. I was extremely impressed!",
-          "rating": 5,
-          "author": "ลุงอยากเป็น youtube"
-        },
-        {
-          "text": "The staff were very lovely. The shockwave therapy was very effective in relieving the pain, but it takes time because my condition was severe. The atmosphere at the clinic was great; clean and relaxing.",
-          "rating": 5,
-          "author": "บุษรัตน์ กิ่มบางยาง"
-        },
-        {
-          "text": "The treatment at UnitCare, Rama 9 branch, was excellent. The doctor was very friendly, the service was great, and the place was very clean.",
-          "rating": 5,
-          "author": "เปิ้ล"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Unique+Care+Station+Param+9/data=!4m7!3m6!1s0x30e29fb3300e2ae9:0x20d98d15375e182e!8m2!3d13.7551763!4d100.5727521!16s%2Fg%2F11q582gvqk!19sChIJ6SoOMLOf4jARLhheNxWN2SA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299b960526a19_0xd2172f0614ca5ceb",
@@ -24753,6 +24769,56 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Gentle+Haus+Clinic+-+The+Hub+Ari/data=!4m7!3m6!1s0x30e29d002584bb5f:0x7eccdfcaa9458458!8m2!3d13.7874436!4d100.5480991!16s%2Fg%2F11w3_lmn3g!19sChIJX7uEJQCd4jARWIRFqcrfzH4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29dd8b07b96cd_0x63cb7c18081775c2",
+      "place_id": "0x30e29dd8b07b96cd:0x63cb7c18081775c2",
+      "name": "Masterdent Dental Clinic - สาขาสุทธิสาร | คลินิกทันตกรรมและจัดฟัน ขูดหินปูน อุดฟัน ถอนฟัน ฟันปลอม ฟันขาว วีเนียร์ รักษารากฟัน",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n457 Sutthisan Winitchai Rd, Ratchadaphisek, Din Daeng, Bangkok 10400, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 99 347 6777",
+      "website": "https://facebook.com/MasterDent.Sutthisan",
+      "lat": 13.7894872,
+      "lng": 100.5624232,
+      "rating": 4.9,
+      "total_reviews": 526,
+      "trust_score": 81.7,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Masterdent+Dental+Clinic+-+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%AA%E0%B8%B2%E0%B8%A3+%7C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%82%E0%B8%B9%E0%B8%94%E0%B8%AB%E0%B8%B4%E0%B8%99%E0%B8%9B%E0%B8%B9%E0%B8%99+%E0%B8%AD%E0%B8%B8%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%96%E0%B8%AD%E0%B8%99%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B8%9B%E0%B8%A5%E0%B8%AD%E0%B8%A1+%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B8%82%E0%B8%B2%E0%B8%A7+%E0%B8%A7%E0%B8%B5%E0%B9%80%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%9F%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x30e29dd8b07b96cd:0x63cb7c18081775c2!8m2!3d13.7894872!4d100.5624232!16s%2Fg%2F11g1gp2n__!19sChIJzZZ7sNid4jARwnUXCBh8y2M?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2997fa88270cb_0xb71bbd7654cbf710",
@@ -35860,6 +35926,54 @@
       "maps_url": "https://www.google.com/maps/place/Avarin+Clinic/data=!4m7!3m6!1s0x30e299a565715113:0xf797b29af2fdf553!8m2!3d13.7328588!4d100.5062191!16s%2Fg%2F11shx_93v_!19sChIJE1FxZaWZ4jARU_X98pqyl_c?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29f460687da9d_0x8a914f407228e91b",
+      "place_id": "0x30e29f460687da9d:0x8a914f407228e91b",
+      "name": "Identity Dermatology Center",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\nชั้น 2 ห้องเลขที่ Bravo Bkk 99/6-9 Chaturathit Rd, Bang Kapi, Huai Khwang, Bangkok 10310, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 96 954 5699",
+      "website": "https://identitydermatology.com/",
+      "lat": 13.7507492,
+      "lng": 100.5723185,
+      "rating": 5.0,
+      "total_reviews": 275,
+      "trust_score": 79.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Identity+Dermatology+Center/data=!4m7!3m6!1s0x30e29f460687da9d:0x8a914f407228e91b!8m2!3d13.7507492!4d100.5723185!16s%2Fg%2F11mtfgylv0!19sChIJndqHBkaf4jARG-kockBPkYo?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29b002ca58d61_0x8ea1ca83435eec5f",
       "place_id": "0x30e29b002ca58d61:0x8ea1ca83435eec5f",
       "name": "MAYA.Q CLINIC มายา.คิว คลินิก",
@@ -39718,6 +39832,83 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Sam+Sen/data=!4m7!3m6!1s0x30e29eaab671b12f:0xb502c4c4ca8424d8!8m2!3d13.77945!4d100.53003!16s%2Fg%2F11cny0g8bm!19sChIJL7Fxtqqe4jAR2CSEysTEArU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ef790b1e205_0x157611a5941bf65c",
+      "place_id": "0x30e29ef790b1e205:0x157611a5941bf65c",
+      "name": "Taka Town",
+      "name_lang": "en",
+      "primary_type": "Shopping mall",
+      "address": "\n555 ซอย เพชรบุรีตัดใหม่ 38/1 (ท้าย Soi Phetchaburi 38/1, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 88 195 0094",
+      "website": "",
+      "lat": 13.7448439,
+      "lng": 100.5726611,
+      "rating": 3.9,
+      "total_reviews": 131,
+      "trust_score": 78.2,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 40,
+      "avg_author_review_count": 77.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 22,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 46,
+          "avg": 4.24
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Smallish office building and good Japanese restaurants and definitely nice place to chill …",
+          "rating": 5,
+          "author": "Jason Tanvir"
+        },
+        {
+          "text": "Sankyu's yakiniku is always fresh and delicious. \nThere is no low-quality meat. \nYou can eat delicious Japanese-style yakiniku.",
+          "rating": 5,
+          "author": "HIROTATSU OGURI"
+        },
+        {
+          "text": "The long building has 5 floors, 5 bathrooms in the middle next to the staircase, and a restaurant and beauty salon.",
+          "rating": 5,
+          "author": "Bon xD"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Taka+Town/data=!4m7!3m6!1s0x30e29ef790b1e205:0x157611a5941bf65c!8m2!3d13.7448439!4d100.5726611!16s%2Fg%2F1q2vy26cb!19sChIJBeKxkPee4jARXPYblKURdhU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f22744830bd_0x3bf52d35c0696167",
@@ -49091,6 +49282,99 @@
       "maps_url": "https://www.google.com/maps/place/AriyA+Wellness+Center/data=!4m7!3m6!1s0x30e298b713ff212b:0x4a8db1c9f4034e47!8m2!3d13.7255828!4d100.5444902!16s%2Fg%2F11c43116ft!19sChIJKyH_E7eY4jARR04D9MmxjUo?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29e518c4f502f_0xc7dde75c9330fb71",
+      "place_id": "0x30e29e518c4f502f:0xc7dde75c9330fb71",
+      "name": "ESTELLA CLINIC THONG LO",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n916, Thonglor, 23 Thong Lo, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 2 026 7199",
+      "website": "",
+      "lat": 13.7385549,
+      "lng": 100.5843431,
+      "rating": 3.5,
+      "total_reviews": 213,
+      "trust_score": 76.1,
+      "categories": [
+        "botox",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 28,
+      "avg_author_review_count": 36.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 42,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1,
+        "facial": 1,
+        "laser": 6
+      },
+      "mentioned_topics": [
+        {
+          "topic": "long_wait",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 4.0
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 48,
+          "avg": 1.96
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "After struggling with back pain for years, I decided on breast reduction surgery at Estewella. The entire team was caring and made sure I felt comfortable throughout the process. My results are incredible! My pain has disappeared, and I love my new look.",
+          "rating": 5,
+          "author": "Ezgi Bayraklı"
+        },
+        {
+          "text": "The clinic was crowded because I arrived around 4 PM. I parked across the street in Soi 25 and walked a short distance. The staff were attentive.",
+          "rating": 5,
+          "author": "Nok Phatanaprathip"
+        },
+        {
+          "text": "Very clean and hygienic place. Great price. But vedy crowded. Hard to get an appointment.",
+          "rating": 4,
+          "author": "Sayantani Roy"
+        }
+      ],
+      "business_status": "Temporarily closed",
+      "maps_url": "https://www.google.com/maps/place/ESTELLA+CLINIC+THONG+LO/data=!4m7!3m6!1s0x30e29e518c4f502f:0xc7dde75c9330fb71!8m2!3d13.7385549!4d100.5843431!16s%2Fg%2F11bc710kts!19sChIJL1BPjFGe4jARcfswk1zn3cc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f7be86d96c3_0xf951798ae39ba1e2",
       "place_id": "0x30e29f7be86d96c3:0xf951798ae39ba1e2",
       "name": "Aesta Clinic - เอสต้า คลินิก สาขาเพลินจิต",
@@ -56336,6 +56620,87 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A3%E0%B9%8C%E0%B8%84+Smile+Works+Dental+Clinic/data=!4m7!3m6!1s0x30e29f58c59e1f2f:0xd814b8f64c475ef4!8m2!3d13.763673!4d100.5387025!16s%2Fg%2F11jgf0wj53!19sChIJLx-exVif4jAR9F5HTPa4FNg?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29dfed23c8fc1_0xca87ad04868ec001",
+      "place_id": "0x30e29dfed23c8fc1:0xca87ad04868ec001",
+      "name": "คลินิกเวชกรรมกล้วยน้ำไท สาขาพหลโยธิน",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n408/23 อาคารพหลโยธินเพลส ชั้น 3 Phahonyothin Rd, Samsen Nai, Phaya Thai, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 64 641 9097",
+      "website": "http://www.kluaynamthai.com/clinic/",
+      "lat": 13.7827127,
+      "lng": 100.5460794,
+      "rating": 5.0,
+      "total_reviews": 66,
+      "trust_score": 74.3,
+      "categories": [],
+      "scraped_review_count": 51,
+      "local_guide_count": 3,
+      "avg_author_review_count": 4.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 45,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 11
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "long_wait",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 49,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I highly recommend this clinic. I was very impressed. The clinic is clean, the staff are attentive and provide excellent service. The service is fast, and the doctor is thorough in their examination and gives great advice. 👍🏻🤟🏻 …",
+          "rating": 5,
+          "author": "Manissara BOONSIT"
+        },
+        {
+          "text": "\"This was my first time using their services, and I was very impressed. The staff were lovely and very attentive.\n\"The clinic was clean, the service was good, and the doctor explained everything in detail and it was very easy to understand.\"",
+          "rating": 5,
+          "author": "ThanadonP"
+        },
+        {
+          "text": "The clinic is clean. The nurses give excellent advice and are always smiling. The service is fast and there is no long waiting time.",
+          "rating": 5,
+          "author": "PalmmyD Pornchanok"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%84%E0%B8%97+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%AB%E0%B8%A5%E0%B9%82%E0%B8%A2%E0%B8%98%E0%B8%B4%E0%B8%99/data=!4m7!3m6!1s0x30e29dfed23c8fc1:0xca87ad04868ec001!8m2!3d13.7827127!4d100.5460794!16s%2Fg%2F11grbtwz1c!19sChIJwY880v6d4jARAcCOhgSth8o?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29b5b6a4a8559_0x649902d32f0a4b3",
@@ -77332,6 +77697,56 @@
       "maps_url": "https://www.google.com/maps/place/Eden+One+Saladaeng+Dental/data=!4m7!3m6!1s0x30e29f4099779269:0x878adc3e0f7e99c3!8m2!3d13.7258949!4d100.5392556!16s%2Fg%2F11xsj_qxr1!19sChIJaZJ3mUCf4jARw5l-Dz7cioc?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29efe51d7c06f_0x10020a891148306e",
+      "place_id": "0x30e29efe51d7c06f:0x10020a891148306e",
+      "name": "Dente Align Clinic คลินิกทันตกรรมเดนเต้ อไลน์ (Invisalign Diamond Provider)",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n29 Upper Suites Tower, Sukhumvit 39, Khlong Tan Nuea, Watthana, Bangkok 10110, Thailand",
+      "district": "Watthana",
+      "phone": "+66 64 446 6626",
+      "website": "http://www.facebook.com/dentealign",
+      "lat": 13.7350643,
+      "lng": 100.5713808,
+      "rating": 4.6,
+      "total_reviews": 76,
+      "trust_score": 68.6,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dente+Align+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%94%E0%B8%99%E0%B9%80%E0%B8%95%E0%B9%89+%E0%B8%AD%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C+%28Invisalign+Diamond+Provider%29/data=!4m7!3m6!1s0x30e29efe51d7c06f:0x10020a891148306e!8m2!3d13.7350643!4d100.5713808!16s%2Fg%2F11g9qt9x42!19sChIJb8DXUf6e4jARbjBIEYkKAhA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e298d87a50d785_0x93d9e3de9a5ed26a",
       "place_id": "0x30e298d87a50d785:0x93d9e3de9a5ed26a",
       "name": "Clinic Sukkapan",
@@ -94805,6 +95220,54 @@
       "sample_reviews_en": [],
       "business_status": "Temporarily closed",
       "maps_url": "https://www.google.com/maps/place/Dr.Khaosan+International+Clinic/data=!4m7!3m6!1s0x30e2996d52061a81:0x53a4da543fc6426a!8m2!3d13.7593502!4d100.496489!16s%2Fg%2F11c0qh09vr!19sChIJgRoGUm2Z4jARakLGP1TapFM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29db11b5f2dc1_0xf7567e3998fbfbed",
+      "place_id": "0x30e29db11b5f2dc1:0xf7567e3998fbfbed",
+      "name": "บริษัท พาธแล็บ (ประเทศไทย) จำกัด (สำนักงานใหญ่) PATHLAB Thailand (Headquarters)",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nบริษัท พาธแล็บ (ประเทศไทย) จำกัด 408/151 อาคารพหลโยธินเพลส ชั้น 36 Phahonyothin Rd, Samsen Nai, Phaya Thai, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 619 2288",
+      "website": "",
+      "lat": 13.7826861,
+      "lng": 100.546707,
+      "rating": 4.5,
+      "total_reviews": 11,
+      "trust_score": 57.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%9E%E0%B8%B2%E0%B8%98%E0%B9%81%E0%B8%A5%E0%B9%87%E0%B8%9A+%28%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B9%84%E0%B8%97%E0%B8%A2%29+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94+%28%E0%B8%AA%E0%B8%B3%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88%29+PATHLAB+Thailand+%28Headquarters%29/data=!4m7!3m6!1s0x30e29db11b5f2dc1:0xf7567e3998fbfbed!8m2!3d13.7826861!4d100.546707!16s%2Fg%2F11fszsw4_c!19sChIJwS1fG7Gd4jAR7fv7mDl-Vvc?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29d9566ae2935_0xfcc7d797a81772b0",
