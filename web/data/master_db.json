@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-06T22:55:56.806080+00:00",
-  "total_clinics": 1261,
-  "with_district": 1204,
-  "with_categories": 796,
-  "with_reviews_scraped": 911,
+  "generated_at": "2026-05-06T23:06:01.119502+00:00",
+  "total_clinics": 1267,
+  "with_district": 1210,
+  "with_categories": 801,
+  "with_reviews_scraped": 916,
   "language_total": {
     "th": 1,
-    "en": 30705,
+    "en": 30863,
     "ko": 1,
     "ja": 0,
     "other": 80
@@ -18,7 +18,7 @@
     "Watthana": 127,
     "Huai Khwang": 89,
     "Khlong Toei": 73,
-    "Khlong San": 55,
+    "Khlong San": 60,
     "Sathon": 48,
     "Pom Prap Sattru Phai": 32,
     "Phra Nakhon": 31,
@@ -26,16 +26,16 @@
     "Din Daeng": 25,
     "Ratchathewi": 20,
     "Samphanthawong": 8,
+    "Thon Buri": 6,
     "Yan Nawa": 6,
-    "Thon Buri": 5,
     "Bang Kapi": 1,
     "Chatuchak": 1
   },
   "category_counts": {
-    "facial": 463,
-    "laser": 361,
+    "facial": 465,
+    "laser": 362,
     "botox": 244,
-    "dental": 238,
+    "dental": 240,
     "filler": 197,
     "hifu": 182,
     "hair_transplant": 21,
@@ -6167,6 +6167,103 @@
       "maps_url": "https://www.google.com/maps/place/YINYANG+Wellness+-+Physiotherapy+%26+Acupuncture+%26+Chinese+Medical+Clinic+Bangkok/data=!4m7!3m6!1s0x30e29fa0663233e5:0x1f357dfaf595ffa3!8m2!3d13.7354143!4d100.5616382!16s%2Fg%2F11yghcjm41!19sChIJ5TMyZqCf4jARo_-V9fp9NR8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299294e8d2b2b_0x7453821fdd774f32",
+      "place_id": "0x30e299294e8d2b2b:0x7453821fdd774f32",
+      "name": "Puredent Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\nKrung Thon Buri Road, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 92 276 6861",
+      "website": "http://www.puredentclinic.com/",
+      "lat": 13.7213929,
+      "lng": 100.4977152,
+      "rating": 5.0,
+      "total_reviews": 780,
+      "trust_score": 88.6,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 6,
+      "avg_author_review_count": 5.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 33,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 13
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 20,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 30,
+          "avg": 4.83
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor gave excellent advice. The service here is great, and it's conveniently located.",
+          "rating": 5,
+          "author": "FXXXKIT XOXO"
+        },
+        {
+          "text": "Everything is very nice, dentists are so professional. Minnie is very cute and welcoming. Always come here.",
+          "rating": 5,
+          "author": "fanfanzinha95"
+        },
+        {
+          "text": "The doctor is lovely, the counter staff are very helpful, and they even gave me a discount! Great location.",
+          "rating": 5,
+          "author": "boonvaree sornin"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Puredent+Dental+Clinic/data=!4m7!3m6!1s0x30e299294e8d2b2b:0x7453821fdd774f32!8m2!3d13.7213929!4d100.4977152!16s%2Fg%2F1pzvsx48l!19sChIJKyuNTimZ4jARMk933R-CU3Q?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f513905bfb7_0xf87ef28b8e16aaf",
       "place_id": "0x30e29f513905bfb7:0xf87ef28b8e16aaf",
       "name": "APEX Clinic - Central Rama 9 (เอเพ็กซ์ สาขา เซ็นทรัลพระราม 9)",
@@ -11444,6 +11541,74 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/MedPark+Hospital/data=!4m7!3m6!1s0x30e29f12aaa363f1:0xcefcbb1eecaef925!8m2!3d13.7217821!4d100.5562616!16s%2Fg%2F11j580gsls!19sChIJ8WOjqhKf4jARJfmu7B67_M4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298c293370fdd_0xeff3004e6a602141",
+      "place_id": "0x30e298c293370fdd:0xeff3004e6a602141",
+      "name": "The Light House Plaza",
+      "name_lang": "en",
+      "primary_type": "Shopping mall",
+      "address": "\n8 299, 8/300 Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 2 117 1192",
+      "website": "",
+      "lat": 13.7223639,
+      "lng": 100.50856,
+      "rating": 4.0,
+      "total_reviews": 524,
+      "trust_score": 86.2,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 31,
+      "avg_author_review_count": 59.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 20,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 13,
+          "avg": 4.54
+        },
+        "midterm": {
+          "count": 23,
+          "avg": 4.39
+        },
+        "old": {
+          "count": 14,
+          "avg": 4.14
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I use this service regularly. The service and advice are always good. It's worth it and the place is clean.",
+          "rating": 5,
+          "author": "Wiev withV"
+        },
+        {
+          "text": "Walking distance to Icon Siam and not far from Asiatique night market , Top dailymart  just downstair and Amazon Cafe for nice morning coffee.",
+          "rating": 5,
+          "author": "ชุตินันท์"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/The+Light+House+Plaza/data=!4m7!3m6!1s0x30e298c293370fdd:0xeff3004e6a602141!8m2!3d13.7223639!4d100.50856!16s%2Fg%2F1pzszstl6!19sChIJ3Q83k8KY4jARQSFgak4A8-8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f4d1720ed8f_0x4ad780aff5b73300",
@@ -18673,6 +18838,87 @@
       "maps_url": "https://www.google.com/maps/place/Reva+Clinic+%E0%B8%A3%E0%B8%B5%E0%B8%A7%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e2995006b27229:0x8bee99b4e9094ca7!8m2!3d13.7463884!4d100.5239442!16s%2Fg%2F11spsz1_tv!19sChIJKXKyBlCZ4jARp0wJ6bSZ7os?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e298ea61fba079_0x508db7419ac2acd9",
+      "place_id": "0x30e298ea61fba079:0x508db7419ac2acd9",
+      "name": "Charoennakhon Dental Clinic 1",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n830 Charoen Nakhon Rd, Bang Lamphu Lang, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 93 640 3265",
+      "website": "https://www.instagram.com/charoennakorn.dentalclinic?igsh=N2RtczRwbWUxY2d6",
+      "lat": 13.7138256,
+      "lng": 100.5036389,
+      "rating": 5.0,
+      "total_reviews": 397,
+      "trust_score": 83.5,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 2,
+      "avg_author_review_count": 5.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 42,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 29
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "no_pain",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I had my first tooth extracted with Dr. Manop and I was very impressed; it didn't hurt at all.",
+          "rating": 5,
+          "author": "Peth Inlad Sena"
+        },
+        {
+          "text": "I had my dental work done by Dr. Manop and it was fantastic. He's a great worker, gives straightforward and honest advice, and is very sincere with his patients. I highly recommend getting your dental work done at his clinic in Charoen Nakhon.",
+          "rating": 5,
+          "author": "Nh oi"
+        },
+        {
+          "text": "Dr. Phisin has a very gentle touch, is incredibly kind, and absolutely lovely. Guaranteed by clients who have been coming for 10 years.",
+          "rating": 5,
+          "author": "Rujipach Jirachunhawong"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Charoennakhon+Dental+Clinic+1/data=!4m7!3m6!1s0x30e298ea61fba079:0x508db7419ac2acd9!8m2!3d13.7138256!4d100.5036389!16s%2Fg%2F1hc33dq2l!19sChIJeaD7YeqY4jAR2azCmkG3jVA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ec54b7c1451_0x44445f6c9328a019",
       "place_id": "0x30e29ec54b7c1451:0x44445f6c9328a019",
       "name": "iSKY Clinic Laser Center Chidlom",
@@ -24424,6 +24670,111 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Astrid+Anti-Aging+Studio/data=!4m7!3m6!1s0x30e29f51d4887193:0xa2392827155255c8!8m2!3d13.7450075!4d100.5410745!16s%2Fg%2F11rg74mwy8!19sChIJk3GI1FGf4jARyFVSFScoOaI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298c2f7550691_0xd009c65fb54fd6df",
+      "place_id": "0x30e298c2f7550691:0xd009c65fb54fd6df",
+      "name": "Two Portions Waxing Bangkok",
+      "name_lang": "en",
+      "primary_type": "Waxing hair removal service",
+      "address": "\n723 Suphakarn Shopping Center ชั้น P ห้อง B04, Charoen Nakhon Rd, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 84 668 1238",
+      "website": "http://www.twoportions.com/",
+      "lat": 13.7187791,
+      "lng": 100.5095177,
+      "rating": 5.0,
+      "total_reviews": 52,
+      "trust_score": 82.0,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 22,
+      "avg_author_review_count": 19.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 18
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 12
+        },
+        {
+          "topic": "professional",
+          "count": 7
+        },
+        {
+          "topic": "recommend",
+          "count": 7
+        },
+        {
+          "topic": "no_pain",
+          "count": 5
+        },
+        {
+          "topic": "promotion",
+          "count": 3
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 44,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Good, Service the staf professional and Clean open daily 09: 00 - 20:00\nNext time I Will come there again.",
+          "rating": 5,
+          "author": "Putri Aulia"
+        },
+        {
+          "text": "Highly recommend! I’ve been coming here for years. Very gentle and quiet atmosphere.",
+          "rating": 5,
+          "author": "Kimberly Roberts"
+        },
+        {
+          "text": "Best wax I've ever had. The care and attention to detail was incredible. I would go as far as saying it was painless. Hygienic and very comfortable. Worth every penny.",
+          "rating": 5,
+          "author": "Sheila Moazzami"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Two+Portions+Waxing+Bangkok/data=!4m7!3m6!1s0x30e298c2f7550691:0xd009c65fb54fd6df!8m2!3d13.7187791!4d100.5095177!16s%2Fg%2F11c1ndx0sg!19sChIJkQZV98KY4jAR39ZPtV_GCdA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f68cf015c63_0x8a7f3a057ed1aaa2",
@@ -40672,6 +41023,91 @@
       "maps_url": "https://www.google.com/maps/place/Chidlom+Dental+Clinic+%E0%B8%8A%E0%B8%B4%E0%B8%94%E0%B8%A5%E0%B8%A1+%E0%B9%80%E0%B8%94%E0%B8%99%E0%B8%97%E0%B8%B1%E0%B8%A5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%A7%E0%B8%B5%E0%B9%80%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+invisalign/data=!4m7!3m6!1s0x30e29fa08c614af3:0x422a2d2abb73770c!8m2!3d13.7470653!4d100.5441019!16s%2Fg%2F11q9tfhcf0!19sChIJ80phjKCf4jARDHdzuyotKkI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299004a755889_0xd4cef2af49175335",
+      "place_id": "0x30e299004a755889:0xd4cef2af49175335",
+      "name": "Vita Balance (Holistic Wellness Clinic)",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\n92 Charoen Rat 6 Alley, Khlong Ton Sai, Khlong San, Bangkok 10600, Thailand",
+      "district": "Khlong San",
+      "phone": "+66 65 909 4646",
+      "website": "https://www.facebook.com/profile.php?id=61574699907690",
+      "lat": 13.7251381,
+      "lng": 100.4961982,
+      "rating": 4.9,
+      "total_reviews": 27,
+      "trust_score": 78.2,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 27,
+      "local_guide_count": 12,
+      "avg_author_review_count": 39.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 23,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 25,
+          "avg": 4.92
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "An impressive sound bath experience. Not just calming, but engaging, intentional, and thoughtfully done. Beautiful location, truly impressive.",
+          "rating": 5,
+          "author": "Panitee"
+        },
+        {
+          "text": "I had a great experience Vita Balance for my facial treatment. The clinic is comfortable and very well built.",
+          "rating": 5,
+          "author": "Noon Ploypun"
+        },
+        {
+          "text": "I had a great experience Vita Balance for my facial treatment. The clinic is comfortable and very well built. Thank you Vita Balance team for your excellent service.",
+          "rating": 5,
+          "author": "Lee"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Vita+Balance+%28Holistic+Wellness+Clinic%29/data=!4m7!3m6!1s0x30e299004a755889:0xd4cef2af49175335!8m2!3d13.7251381!4d100.4961982!16s%2Fg%2F11xn9w583y!19sChIJiVh1SgCZ4jARNVMXSa_yztQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29c0dd7a5dd75_0x1556e4bed58848ad",
       "place_id": "0x30e29c0dd7a5dd75:0x1556e4bed58848ad",
       "name": "Giffarine Clinic",
@@ -43561,6 +43997,56 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/BPC+%28Sathorn%29+:+Bangkok+Physiotherapy+Center/data=!4m7!3m6!1s0x30e29fd7db9a62e7:0x8257a5e6a2dc2d2a!8m2!3d13.7236387!4d100.5378948!16s%2Fg%2F11lnhsfd86!19sChIJ52Ka29ef4jARKi3coualV4I?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e298f1d1f911fb_0xcdc94133197884d8",
+      "place_id": "0x30e298f1d1f911fb:0xcdc94133197884d8",
+      "name": "Viva Clinic BTS Wonwian Yai",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n21/4 ถนนกรุงธนบุรี แขวงคลองต้นไทร คลองต้นไทร Thon Buri, Bangkok 10600, Thailand",
+      "district": "Thon Buri",
+      "phone": "",
+      "website": "",
+      "lat": 13.7215225,
+      "lng": 100.4945719,
+      "rating": 5.0,
+      "total_reviews": 195,
+      "trust_score": 77.5,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Viva+Clinic+BTS+Wonwian+Yai/data=!4m7!3m6!1s0x30e298f1d1f911fb:0xcdc94133197884d8!8m2!3d13.7215225!4d100.4945719!16s%2Fg%2F1yh9ncfm0!19sChIJ-xH50fGY4jAR2IR4GTNByc0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f85b75d8483_0x9301b77e69c4a696",
