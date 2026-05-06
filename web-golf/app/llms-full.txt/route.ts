@@ -5,8 +5,10 @@
 import { loadMasterDb } from "@/lib/data";
 import { CUISINE_LABELS, TOPIC_LABELS } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
-const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokgolf.example";
+const BRAND = process.env.NEXT_PUBLIC_BRAND || "Bangkok Golf";
+
+export const dynamic = "force-static";
 
 export async function GET() {
   const db = await loadMasterDb();

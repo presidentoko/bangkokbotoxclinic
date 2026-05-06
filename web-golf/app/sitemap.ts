@@ -3,8 +3,10 @@ import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokgolf.example";
 const CUISINES = Object.keys(CUISINE_LABELS);
+
+export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
