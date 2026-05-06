@@ -1,0 +1,146 @@
+import { loadMasterDb, topByTrust } from "@/lib/data";
+import { RestaurantCard } from "@/components/RestaurantCard";
+import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
+import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { StatsBar } from "@/components/StatsBar";
+import { sortWithSponsored } from "@/lib/sponsored";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ร้านอาหารกรุงเทพ — รีวิวและคะแนนความน่าเชื่อถือ",
+  description: "ไดเรกทอรีร้านอาหารกรุงเทพและพัทยา จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google จริง",
+  alternates: { canonical: "/th", languages: { "th-TH": "/th", "en-US": "/" } },
+  openGraph: { locale: "th_TH" },
+};
+
+const TH_FAQS = [
+  {
+    q: "คะแนนความน่าเชื่อถือคำนวณอย่างไร?",
+    a: "0-100 รวม 4 ปัจจัย: คะแนน Google (50%), จำนวนรีวิว log-scale (40%), อัตราส่วน Local Guide (10%), ความน่าเชื่อถือเฉลี่ยของผู้รีวิว (5%)",
+  },
+  {
+    q: "ข้อมูลอัปเดตบ่อยแค่ไหน?",
+    a: "ทุก 30 นาที สแครเปอร์ทำงาน 24/7",
+  },
+  {
+    q: "ร้านที่แสดงเป็นโฆษณาหรือไม่?",
+    a: "รายชื่อทั่วไปไม่เสียค่าใช้จ่าย ช่อง Editor's Pick / Recommended / Featured ติดป้ายชัดเจน",
+  },
+];
+
+export default async function ThHomePage() {
+  const db = await loadMasterDb();
+  const top = sortWithSponsored(topByTrust(db.restaurants, 30));
+
+  const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
+  const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
+
+  const districtMap = new Map<string, number>();
+  for (const r of db.restaurants) {
+    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+  }
+  const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+
+  const cuisines = Object.entries(db.cuisine_counts);
+
+  return (
+    <>
+      <section className="border-b border-[var(--border)]">
+        <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
+          <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
+            ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
+            ร้านอาหารกรุงเทพ — ตรวจสอบจากรีวิวจริง
+          </h1>
+          <p className="text-base md:text-lg text-[var(--muted)]">
+            {db.total_restaurants.toLocaleString()} ร้าน · วิเคราะห์รีวิว Google {totalReviews.toLocaleString()} รายการ
+          </p>
+        </div>
+      </section>
+
+      <StatsBar
+        generatedAt={db.generated_at}
+        totalClinics={db.total_restaurants}
+        totalReviews={totalReviews}
+        withScraped={withScraped}
+        label="ตรวจสอบจากรีวิว"
+      />
+
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        {cuisines.length > 0 && (
+          <section className="mb-10">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามประเภทอาหาร</h2>
+            <div className="flex flex-wrap gap-2">
+              {cuisines.map(([cat, count]) => (
+                <a
+                  key={cat}
+                  href={`/c/${cat}`}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                >
+                  <span aria-hidden>{CUISINE_ICONS[cat] ?? "🍴"}</span>
+                  {CUISINE_LABELS[cat] ?? cat}
+                  <span className="text-[var(--muted)] tabular-nums">{count}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mb-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามเขต</h2>
+          <div className="flex flex-wrap gap-2">
+            {districts.map(([d, count]) => (
+              <a
+                key={d}
+                href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <AdSlot slot="th-home-mid" />
+
+        <section>
+          <h2 className="text-xl font-bold mb-4">อันดับ {Math.min(top.length, 30)} ตามคะแนน</h2>
+          <div className="grid gap-3">
+            {top.slice(0, 10).map((r, i) => (
+              <RestaurantCard key={r.id} r={r} rank={i + 1} />
+            ))}
+          </div>
+          <AffiliateInline />
+          <div className="grid gap-3 mt-3">
+            {top.slice(10).map((r, i) => (
+              <RestaurantCard key={r.id} r={r} rank={i + 11} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <h2 className="text-xl font-bold mb-4">คำถามที่พบบ่อย</h2>
+          <div className="space-y-3">
+            {TH_FAQS.map((f, i) => (
+              <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
+                <summary className="font-medium cursor-pointer flex items-center justify-between gap-3">
+                  <span>{f.q}</span>
+                  <span className="text-[var(--muted)] group-open:rotate-180 transition">⌄</span>
+                </summary>
+                <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <FaqJsonLd faqs={TH_FAQS} />
+        <ItemListJsonLd
+          name="Top Bangkok Restaurants by Trust Score (Thai)"
+          items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+        />
+      </div>
+    </>
+  );
+}

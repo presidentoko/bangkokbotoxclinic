@@ -10,7 +10,7 @@ SEARCH_TAG = os.environ.get("SEARCH_TAG", "")  # checkpoint 파일 분리 키. �
 # legacy (호환): 사용 안 함 — grid 기반
 SEARCH_QUERIES = [SEARCH_QUERY]
 
-MIN_REVIEW_COUNT = 10       # 최소 리뷰 수 (클리닉은 식당보다 적음 → 30→10)
+MIN_REVIEW_COUNT = 5        # 최소 리뷰 수 — 더 많은 long-tail 클리닉 노출 위해 10→5
 REVIEWS_PER_RATING = 10     # 별점당 최대 수집 리뷰 수 (1~5점 각각)
 MAX_RESTAURANTS = None      # 무제한 (전체 수집)
 OUTPUT_DIR = os.environ.get("CITY_OUTPUT_DIR", "output")

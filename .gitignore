@@ -97,3 +97,5 @@ wongnai/
 # ── 명시적으로 INCLUDE 할 데이터 (위 와일드카드에 잡히지 않게) ──
 !web/data/master_db.json
 !web/.env.example
+!web-restaurants/data/master_db.json
+!web-restaurants/.env.example
