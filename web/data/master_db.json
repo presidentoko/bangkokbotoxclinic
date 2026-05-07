@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-07T03:18:11.249244+00:00",
+  "generated_at": "2026-05-07T03:38:37.376007+00:00",
   "total_clinics": 1511,
   "with_district": 1446,
   "with_categories": 939,
-  "with_reviews_scraped": 1106,
+  "with_reviews_scraped": 1104,
   "language_total": {
     "th": 2,
-    "en": 36255,
+    "en": 36261,
     "ko": 1,
     "ja": 0,
     "other": 106
@@ -42,7 +42,7 @@
     "dental": 279,
     "filler": 211,
     "hifu": 195,
-    "hair_transplant": 28,
+    "hair_transplant": 27,
     "eye": 16
   },
   "clinics": [
@@ -1123,6 +1123,119 @@
       "maps_url": "https://www.google.com/maps/place/KKC+Clinic+Siam+Paragon/data=!4m7!3m6!1s0x30e29f0291f3842b:0x736e3264da6a2f84!8m2!3d13.7459408!4d100.5353514!16s%2Fg%2F11h3n36w9s!19sChIJK4TzkQKf4jARhC9q2mQybnM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x311d61f2ca70ff7b_0xd02a214d0c000c95",
+      "place_id": "0x311d61f2ca70ff7b:0xd02a214d0c000c95",
+      "name": "V Square Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nชั้น 6, ติดกับลิฟต์เบอร์ 2 โซนด้านหน้าห้างฝั่ง, สยามสแควร์วัน ห้อง SS6008, เลขที่ 388 BTS Skytrain, Khwaeng Pathum Wan, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 93 110 9000",
+      "website": "https://www.vsquareclinic.com/branch/siam-square-one/",
+      "lat": 13.74537,
+      "lng": 100.5336697,
+      "rating": 5.0,
+      "total_reviews": 1489,
+      "trust_score": 94.4,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu",
+        "laser"
+      ],
+      "scraped_review_count": 94,
+      "local_guide_count": 19,
+      "avg_author_review_count": 13.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 94,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 43,
+        "filler": 28,
+        "hifu": 21,
+        "facial": 11,
+        "laser": 21
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 28
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 19
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 14
+        },
+        {
+          "topic": "clean_facility",
+          "count": 12
+        },
+        {
+          "topic": "professional",
+          "count": 10
+        },
+        {
+          "topic": "no_pain",
+          "count": 7
+        },
+        {
+          "topic": "english_speaking",
+          "count": 3
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 60,
+          "avg": 4.77
+        },
+        "midterm": {
+          "count": 14,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 20,
+          "avg": 4.6
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I can't say enough good things about Dr Chinnawat Reanmanee . He's absolutely fantastic at what he does! I travel all the way from Singapore just to see him for Botox and lip fillers because his skill and precision are unmatched . Truly worth the trip every time !",
+          "rating": 5,
+          "author": "Urban Tress"
+        },
+        {
+          "text": "Luckily i found this excellent clinic. Not only Dr. Bas, but also other staffs are all so professional, considerate and supportive. I had great Filler and Botox treatment experiences here and did achieve my desired results.\nThe V Squared Clinic will be my first choice for skincare in the future^^",
+          "rating": 5,
+          "author": "Rae L"
+        },
+        {
+          "text": "I’d like to recommend คุณหมอเบิร์ด to all my fellow QR crew. He’s very professional and knows best in his practice. He’s my favourite when it comes to botox and filler so far. I’m very satisfied of the outcome (not too much, not too less, just perfect).",
+          "rating": 5,
+          "author": "ioneiei"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/V+Square+Clinic/data=!4m7!3m6!1s0x311d61f2ca70ff7b:0xd02a214d0c000c95!8m2!3d13.74537!4d100.5336697!16s%2Fg%2F11b6cw3ydr!19sChIJe_9wyvJhHTERlQwADE0hKtA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f8a4091591b_0xb3e205bfdfa67c4b",
       "place_id": "0x30e29f8a4091591b:0xb3e205bfdfa67c4b",
       "name": "Mersi Clinic Sukhumvit 39",
@@ -2129,111 +2242,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Cocktail+Clinic/data=!4m7!3m6!1s0x30e29f583a6cb1bd:0x3e6a3f310d32eec7!8m2!3d13.758176!4d100.5348527!16s%2Fg%2F11h540pt9v!19sChIJvbFsOlif4jARx-4yDTE_aj4?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x311d61f2ca70ff7b_0xd02a214d0c000c95",
-      "place_id": "0x311d61f2ca70ff7b:0xd02a214d0c000c95",
-      "name": "V Square Clinic",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\nชั้น 6, ติดกับลิฟต์เบอร์ 2 โซนด้านหน้าห้างฝั่ง, สยามสแควร์วัน ห้อง SS6008, เลขที่ 388 BTS Skytrain, Khwaeng Pathum Wan, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 93 110 9000",
-      "website": "https://www.vsquareclinic.com/branch/siam-square-one/",
-      "lat": 13.74537,
-      "lng": 100.5336697,
-      "rating": 5.0,
-      "total_reviews": 1489,
-      "trust_score": 92.2,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "hifu",
-        "laser"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 6,
-      "avg_author_review_count": 7.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 50,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 15,
-        "filler": 16,
-        "hifu": 10,
-        "facial": 3,
-        "laser": 21
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 11
-        },
-        {
-          "topic": "clean_facility",
-          "count": 9
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 7
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 6
-        },
-        {
-          "topic": "no_pain",
-          "count": 4
-        },
-        {
-          "topic": "professional",
-          "count": 2
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 50,
-          "avg": 4.78
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Laser hair removal for underarms is excellent! The service is great, fast, and the results are clearly visible.",
-          "rating": 5,
-          "author": "Nutnaree JITPRANEECHAI"
-        },
-        {
-          "text": "After getting Botox injections with Dr. Bas at D Clinic, Siam branch, first of all, I must say that the doctor has a very gentle touch. I see results, and every time I come back, I always return to V Square Siam.",
-          "rating": 5,
-          "author": "Alpherd"
-        },
-        {
-          "text": "I had Botox injections in my forehead, crow's feet, and jawline at the beginning of April. I also had a HIFU laser treatment on my face.\n\nDr. Bas gave me excellent advice and treatment. The treatment was painless, and the result is perfect. I highly recommend the clinic!",
-          "rating": 5,
-          "author": "Paul-Louis Weigelt"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/V+Square+Clinic/data=!4m7!3m6!1s0x311d61f2ca70ff7b:0xd02a214d0c000c95!8m2!3d13.74537!4d100.5336697!16s%2Fg%2F11b6cw3ydr!19sChIJe_9wyvJhHTERlQwADE0hKtA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fe59b4186cf_0xf8dcf7b7924458e9",
@@ -8054,109 +8062,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AD%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%B1%E0%B8%8A%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99%28IntouchMedicare+Clinic+Klongsan%29/data=!4m7!3m6!1s0x30e298e660802c31:0x9fbc99819b23204a!8m2!3d13.7270163!4d100.5029601!16s%2Fg%2F11c5t4z4pl!19sChIJMSyAYOaY4jARSiAjm4GZvJ8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2999eb6624d8b_0x8b0e65debb530195",
-      "place_id": "0x30e2999eb6624d8b:0x8b0e65debb530195",
-      "name": "Create Smile Dental Clinic",
-      "name_lang": "en",
-      "primary_type": "Dental clinic",
-      "address": "\n444, MBK Center ชั้น6 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 61 641 5999",
-      "website": "https://www.createsmiledental.com/",
-      "lat": 13.7449063,
-      "lng": 100.5298515,
-      "rating": 5.0,
-      "total_reviews": 484,
-      "trust_score": 87.9,
-      "categories": [
-        "dental",
-        "laser"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 10,
-      "avg_author_review_count": 6.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 42,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "laser": 1,
-        "dental": 29
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 16
-        },
-        {
-          "topic": "recommend",
-          "count": 13
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 10
-        },
-        {
-          "topic": "professional",
-          "count": 5
-        },
-        {
-          "topic": "no_pain",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 33,
-          "avg": 4.88
-        },
-        "midterm": {
-          "count": 17,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I recently got my teeth cleaned (tartar removed). I was a little scared, but the dentist was very gentle; I didn't feel any pain at all. The staff were lovely and spoke very politely. I'll definitely come back next time. Thank you!",
-          "rating": 5,
-          "author": "Chido"
-        },
-        {
-          "text": "After visiting other’s dentist we finally found the perfect match for us - A very pleasant, clean and sweet staff - Been there twice and both times we went out happily! <3 Big 5 stars and we recommend! <3 Hugs from Sweden in Thailand, Bangkok, MBK! <3",
-          "rating": 5,
-          "author": "Oh In Hee Luxdiamond"
-        },
-        {
-          "text": "The service was excellent, very attentive to customers. The doctor was skilled and very lovely too.",
-          "rating": 5,
-          "author": "Ransiryn Visanrojanaphat"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Create+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e2999eb6624d8b:0x8b0e65debb530195!8m2!3d13.7449063!4d100.5298515!16s%2Fg%2F11kpz63bjf!19sChIJi01itp6Z4jARlQFTu95lDos?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fa5ab1f6d5b_0xdc3d8b8a37ccb9f4",
@@ -23513,15 +23418,11 @@
       "mentioned_topics": [
         {
           "topic": "recommend",
-          "count": 14
+          "count": 10
         },
         {
           "topic": "friendly_staff",
-          "count": 12
-        },
-        {
-          "topic": "professional",
-          "count": 3
+          "count": 9
         },
         {
           "topic": "promotion",
@@ -23532,8 +23433,8 @@
           "count": 2
         },
         {
-          "topic": "genuine_brand",
-          "count": 1
+          "topic": "professional",
+          "count": 2
         },
         {
           "topic": "affordable",
@@ -27239,6 +27140,56 @@
       "maps_url": "https://www.google.com/maps/place/Bangkok+Smile+MALO+Clinic+in+Nana+Bangkok,+Thailand/data=!4m7!3m6!1s0x30e29ee7cbc72ab5:0x102d0ec0bc20f26e!8m2!3d13.7439951!4d100.5546601!16s%2Fg%2F12q4x02ps!19sChIJtSrHy-ee4jARbvIgvMAOLRA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2999eb6624d8b_0x8b0e65debb530195",
+      "place_id": "0x30e2999eb6624d8b:0x8b0e65debb530195",
+      "name": "Create Smile Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n444, MBK Center ชั้น6 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 61 641 5999",
+      "website": "https://www.createsmiledental.com/",
+      "lat": 13.7449063,
+      "lng": 100.5298515,
+      "rating": 5.0,
+      "total_reviews": 484,
+      "trust_score": 82.2,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Create+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e2999eb6624d8b:0x8b0e65debb530195!8m2!3d13.7449063!4d100.5298515!16s%2Fg%2F11kpz63bjf!19sChIJi01itp6Z4jARlQFTu95lDos?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fdce7c1e623_0x923fdd4758ed415d",
       "place_id": "0x30e29fdce7c1e623:0x923fdd4758ed415d",
       "name": "Renewme skin clinic",
@@ -29225,6 +29176,111 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/MOS+Dental+Clinic+Siam+Square/data=!4m7!3m6!1s0x30e29ed290938445:0x705e0cc121c82f64!8m2!3d13.7450819!4d100.5321433!16s%2Fg%2F11dx9fv11q!19sChIJRYSTkNKe4jARZC_IIcEMXnA?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fd999eb39c5_0x406ed2d6399eafc1",
+      "place_id": "0x30e29fd999eb39c5:0x406ed2d6399eafc1",
+      "name": "V Square Clinic เซ็นทรัลเวิลด์",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\nเลขที่ 4 , 4/1-4/2 , 4 เซ็นทรัลเวิลด์ ห้องเลขที่ D509-NEW ชั้น 5 4 Ratchadamri Rd, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 85 599 6000",
+      "website": "https://www.vsquareclinic.com/branch/Central-World/",
+      "lat": 13.7469118,
+      "lng": 100.5382775,
+      "rating": 5.0,
+      "total_reviews": 198,
+      "trust_score": 81.6,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 5,
+      "avg_author_review_count": 10.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 49,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 25,
+        "filler": 10,
+        "hifu": 7,
+        "facial": 4,
+        "laser": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 17
+        },
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "no_pain",
+          "count": 5
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 25,
+          "avg": 4.96
+        },
+        "midterm": {
+          "count": 25,
+          "avg": 4.84
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dr. Nan gave excellent advice. She addressed the problem directly and didn't recommend excessive filler injections (over the recommended amount).",
+          "rating": 5,
+          "author": "Thanaporn Chaihard"
+        },
+        {
+          "text": "I always get my Botox injections here. Dr. Rawee is great, very gentle. I love V Square!",
+          "rating": 5,
+          "author": "Paneenart Karinthong"
+        },
+        {
+          "text": "The doctor was very lovely and gave excellent advice. All the staff were wonderful. Anyone interested in facial procedures should definitely come here!",
+          "rating": 5,
+          "author": "Wanichaya Namsorn"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/data=!4m7!3m6!1s0x30e29fd999eb39c5:0x406ed2d6399eafc1!8m2!3d13.7469118!4d100.5382775!16s%2Fg%2F11ltklc8c6!19sChIJxTnrmdmf4jARwa-eOdbSbkA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fda9acae28b_0x7f885c72fc1ee8c3",
@@ -35866,11 +35922,11 @@
       ],
       "rating_trend": {
         "recent": {
-          "count": 10,
-          "avg": 4.2
+          "count": 8,
+          "avg": 4.0
         },
         "midterm": {
-          "count": 40,
+          "count": 42,
           "avg": 4.9
         },
         "old": {
@@ -36403,127 +36459,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A5%E0%B8%B4%E0%B8%9F%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C/data=!4m7!3m6!1s0x30e29d0006653d03:0x9d1eea5c72dd413a!8m2!3d13.7891029!4d100.5555099!16s%2Fg%2F11vr3_0mp_!19sChIJAz1lBgCd4jAROkHdclzqHp0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f73441858d9_0xc0ac21f092fba5cf",
-      "place_id": "0x30e29f73441858d9:0xc0ac21f092fba5cf",
-      "name": "(ไม่ใช่บลูมคลินิก-NOT BLOOM CLINIC) Blooming Clinic MBK Center - บลูมมิ่ง คลินิกเวชกรรม",
-      "name_lang": "th",
-      "primary_type": "Medical Center",
-      "address": "\n5B05 5th Fl. MBK Center, 444 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 99 592 4694",
-      "website": "https://blooming.clinic/",
-      "lat": 13.7450588,
-      "lng": 100.5303184,
-      "rating": 4.8,
-      "total_reviews": 54,
-      "trust_score": 80.3,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "hifu",
-        "laser"
-      ],
-      "scraped_review_count": 54,
-      "local_guide_count": 23,
-      "avg_author_review_count": 31.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 52,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 10,
-        "filler": 7,
-        "hifu": 3,
-        "facial": 6,
-        "laser": 8
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 21
-        },
-        {
-          "topic": "clean_facility",
-          "count": 11
-        },
-        {
-          "topic": "professional",
-          "count": 8
-        },
-        {
-          "topic": "english_speaking",
-          "count": 6
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 4
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 3
-        },
-        {
-          "topic": "expensive",
-          "count": 2
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "promotion",
-          "count": 2
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 28,
-          "avg": 4.75
-        },
-        "old": {
-          "count": 26,
-          "avg": 4.77
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I went for laser hair removal. The doctor was very meticulous; every single hair came out. There was no burning or stinging sensation after the procedure.",
-          "rating": 5,
-          "author": "Kimberly B"
-        },
-        {
-          "text": "I came to blooming clinic to treat broken capillaries on my face, thank you so much to Dr Chris and his assistant for taking care of me I was very impressed and left extremely happy! I received great care during the service and after care was explained thoroughly; super happy and grateful 🫶🏼 …",
-          "rating": 5,
-          "author": "Sarah S"
-        },
-        {
-          "text": "The doctor is meticulous and caring and the prices are very good. Highly recommend.",
-          "rating": 5,
-          "author": "L C"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%28%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%9A%E0%B8%A5%E0%B8%B9%E0%B8%A1%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81-NOT+BLOOM+CLINIC%29+Blooming+Clinic+MBK+Center+-+%E0%B8%9A%E0%B8%A5%E0%B8%B9%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B9%88%E0%B8%87+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29f73441858d9:0xc0ac21f092fba5cf!8m2!3d13.7450588!4d100.5303184!16s%2Fg%2F11qpm1n_07!19sChIJ2VgYRHOf4jARz6X7kvAhrMA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ff56a63f9f5_0xb8cdb7af2a2ab7be",
@@ -40026,6 +39961,127 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Pasook+dental+clinic+ICS+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%82+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%84%E0%B8%AD%E0%B8%8B%E0%B8%B5%E0%B9%80%E0%B8%AD%E0%B8%AA/data=!4m7!3m6!1s0x30e29921dcc33a25:0x6a8b5cbd04022908!8m2!3d13.7264499!4d100.5086785!16s%2Fg%2F11kj0vcxzg!19sChIJJTrD3CGZ4jARCCkCBL1ci2o?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f73441858d9_0xc0ac21f092fba5cf",
+      "place_id": "0x30e29f73441858d9:0xc0ac21f092fba5cf",
+      "name": "(ไม่ใช่บลูมคลินิก-NOT BLOOM CLINIC) Blooming Clinic MBK Center - บลูมมิ่ง คลินิกเวชกรรม",
+      "name_lang": "th",
+      "primary_type": "Medical Center",
+      "address": "\n5B05 5th Fl. MBK Center, 444 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 99 592 4694",
+      "website": "https://blooming.clinic/",
+      "lat": 13.7450588,
+      "lng": 100.5303184,
+      "rating": 4.8,
+      "total_reviews": 54,
+      "trust_score": 79.7,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 20,
+      "avg_author_review_count": 29.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 48,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 8,
+        "filler": 4,
+        "hifu": 3,
+        "facial": 1,
+        "laser": 6
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 16
+        },
+        {
+          "topic": "clean_facility",
+          "count": 10
+        },
+        {
+          "topic": "professional",
+          "count": 7
+        },
+        {
+          "topic": "english_speaking",
+          "count": 5
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 4
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 28,
+          "avg": 4.75
+        },
+        "old": {
+          "count": 22,
+          "avg": 4.77
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I went for laser hair removal. The doctor was very meticulous; every single hair came out. There was no burning or stinging sensation after the procedure.",
+          "rating": 5,
+          "author": "Kimberly B"
+        },
+        {
+          "text": "I came to blooming clinic to treat broken capillaries on my face, thank you so much to Dr Chris and his assistant for taking care of me I was very impressed and left extremely happy! I received great care during the service and after care was explained thoroughly; super happy and grateful 🫶🏼 …",
+          "rating": 5,
+          "author": "Sarah S"
+        },
+        {
+          "text": "The doctor is meticulous and caring and the prices are very good. Highly recommend.",
+          "rating": 5,
+          "author": "L C"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%28%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%83%E0%B8%8A%E0%B9%88%E0%B8%9A%E0%B8%A5%E0%B8%B9%E0%B8%A1%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81-NOT+BLOOM+CLINIC%29+Blooming+Clinic+MBK+Center+-+%E0%B8%9A%E0%B8%A5%E0%B8%B9%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B9%88%E0%B8%87+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29f73441858d9:0xc0ac21f092fba5cf!8m2!3d13.7450588!4d100.5303184!16s%2Fg%2F11qpm1n_07!19sChIJ2VgYRHOf4jARz6X7kvAhrMA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2996417a364b9_0xa06e620ed1dc7926",
@@ -43982,47 +44038,47 @@
         "other": 0
       },
       "service_mentions": {
-        "botox": 14,
-        "filler": 12,
-        "hifu": 16,
-        "facial": 2,
+        "botox": 12,
+        "filler": 10,
+        "hifu": 12,
+        "facial": 3,
         "laser": 17
       },
       "mentioned_topics": [
         {
           "topic": "recommend",
-          "count": 15
-        },
-        {
-          "topic": "clean_facility",
-          "count": 9
+          "count": 14
         },
         {
           "topic": "friendly_staff",
+          "count": 9
+        },
+        {
+          "topic": "clean_facility",
           "count": 8
         },
         {
           "topic": "promotion",
-          "count": 7
+          "count": 5
         },
         {
           "topic": "genuine_brand",
-          "count": 3
-        },
-        {
-          "topic": "long_wait",
-          "count": 3
-        },
-        {
-          "topic": "professional",
-          "count": 3
-        },
-        {
-          "topic": "expensive",
-          "count": 1
+          "count": 2
         },
         {
           "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
           "count": 1
         }
       ],
@@ -50400,56 +50456,6 @@
       "maps_url": "https://www.google.com/maps/place/Authentic+Clinic+BTS+Wongwien+Yai/data=!4m7!3m6!1s0x30e298ee2ea5142b:0x2497ae002a112fa!8m2!3d13.7215444!4d100.4963079!16s%2Fg%2F11b8yg4mrc!19sChIJKxSlLu6Y4jAR-hKhAuB6SQI?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29fd999eb39c5_0x406ed2d6399eafc1",
-      "place_id": "0x30e29fd999eb39c5:0x406ed2d6399eafc1",
-      "name": "V Square Clinic เซ็นทรัลเวิลด์",
-      "name_lang": "th",
-      "primary_type": "Skin care clinic",
-      "address": "\nเลขที่ 4 , 4/1-4/2 , 4 เซ็นทรัลเวิลด์ ห้องเลขที่ D509-NEW ชั้น 5 4 Ratchadamri Rd, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 85 599 6000",
-      "website": "https://www.vsquareclinic.com/branch/Central-World/",
-      "lat": 13.7469118,
-      "lng": 100.5382775,
-      "rating": 5.0,
-      "total_reviews": 198,
-      "trust_score": 77.6,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/data=!4m7!3m6!1s0x30e29fd999eb39c5:0x406ed2d6399eafc1!8m2!3d13.7469118!4d100.5382775!16s%2Fg%2F11ltklc8c6!19sChIJxTnrmdmf4jARwa-eOdbSbkA?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29fa898940f47_0x1331e00e9ee1d7c6",
       "place_id": "0x30e29fa898940f47:0x1331e00e9ee1d7c6",
       "name": "Grace Dental Clinic Huai Kwang",
@@ -51866,6 +51872,91 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Global+Doctor+Clinic/data=!4m7!3m6!1s0x30e29ee31be3a581:0xd3e66c0743ec53d9!8m2!3d13.7364299!4d100.5615516!16s%2Fg%2F1pzpw97p4!19sChIJgaXjG-Oe4jAR2VPsQwds5tM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ecdfc873da9_0x7ae3eb9aac0ecc47",
+      "place_id": "0x30e29ecdfc873da9:0x7ae3eb9aac0ecc47",
+      "name": "The Scarlett Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\nอาคารศูนย์การค้าสยามพารากอน ห้องเลขที่ 454 ชั้น 4 Rama I Rd, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 98 249 9262",
+      "website": "http://www.thescarlettclinic.com/",
+      "lat": 13.7464575,
+      "lng": 100.5355123,
+      "rating": 4.8,
+      "total_reviews": 28,
+      "trust_score": 77.3,
+      "categories": [
+        "facial",
+        "filler",
+        "laser"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 5,
+      "avg_author_review_count": 9.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "filler": 1,
+        "facial": 2,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I came here for my second CFU treatment to reduce filler lumps under my eyes, and to my surprise, there was no extra charge. …",
+          "rating": 5,
+          "author": "Chompunuch Boriboonsook"
+        },
+        {
+          "text": "I highly recommend The Scarlett Clinic. I took their MCL treatment course for acne scars and it worked wonders! My skin has improved significantly. The acne scars are shallower and my skin is noticeably smoother. The clinic is clean, the …",
+          "rating": 5,
+          "author": "Pitawad Dilokudomlerk"
+        },
+        {
+          "text": "The doctor gave excellent advice, and the staff were lovely, taking care of me like a close friend 💛 If you're hesitant, I highly recommend it! It's really good!!! …",
+          "rating": 5,
+          "author": "Jang Sitanun"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/The+Scarlett+Clinic/data=!4m7!3m6!1s0x30e29ecdfc873da9:0x7ae3eb9aac0ecc47!8m2!3d13.7464575!4d100.5355123!16s%2Fg%2F1ptx4d2h4!19sChIJqT2H_M2e4jARR8wOrJrr43o?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ed2ca6bf789_0x3107fc33d144ad9c",
@@ -59519,101 +59610,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Pavicon+Hair+Center/data=!4m7!3m6!1s0x30e299097e3d1353:0x1fb72e37217acd6a!8m2!3d13.7311202!4d100.5282805!16s%2Fg%2F11s5l_39vm!19sChIJUxM9fgmZ4jARas16ITcutx8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29ecdfc873da9_0x7ae3eb9aac0ecc47",
-      "place_id": "0x30e29ecdfc873da9:0x7ae3eb9aac0ecc47",
-      "name": "The Scarlett Clinic",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\nอาคารศูนย์การค้าสยามพารากอน ห้องเลขที่ 454 ชั้น 4 Rama I Rd, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 98 249 9262",
-      "website": "http://www.thescarlettclinic.com/",
-      "lat": 13.7464575,
-      "lng": 100.5355123,
-      "rating": 4.8,
-      "total_reviews": 28,
-      "trust_score": 75.6,
-      "categories": [
-        "facial",
-        "filler",
-        "hifu",
-        "laser"
-      ],
-      "scraped_review_count": 28,
-      "local_guide_count": 11,
-      "avg_author_review_count": 14.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 26,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "filler": 3,
-        "hifu": 2,
-        "facial": 4,
-        "laser": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 9
-        },
-        {
-          "topic": "clean_facility",
-          "count": 5
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 3
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 2,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 2,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 24,
-          "avg": 4.71
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor gave excellent advice, and the staff were lovely, taking care of me like a close friend 💛 If you're hesitant, I highly recommend it! It's really good!!! …",
-          "rating": 5,
-          "author": "Jang Sitanun"
-        },
-        {
-          "text": "The service is good, they take very good care of you, and all the doctors are skilled. I'm impressed.",
-          "rating": 5,
-          "author": "itchaya sirikong"
-        },
-        {
-          "text": "Good service and consultation about all beauty. Nice staff, Great place. Feeling comfortable!!!",
-          "rating": 5,
-          "author": "Tuang Ja"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/The+Scarlett+Clinic/data=!4m7!3m6!1s0x30e29ecdfc873da9:0x7ae3eb9aac0ecc47!8m2!3d13.7464575!4d100.5355123!16s%2Fg%2F1ptx4d2h4!19sChIJqT2H_M2e4jARR8wOrJrr43o?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29971f387d9d5_0x9221ae2c30ee15d9",
@@ -89622,111 +89618,6 @@
       "maps_url": "https://www.google.com/maps/place/Thadindaeng+Thai-Chinese+Medical+Clinic+%28Healthy+Balance+Clinic%29/data=!4m7!3m6!1s0x30e298e160089177:0x15f581de2316e8a!8m2!3d13.7315738!4d100.5012712!16s%2Fg%2F1ptx7jt34!19sChIJd5EIYOGY4jARim4x4h1YXwE?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29ecfe6be9a67_0x5f3bce1e1e4f18d0",
-      "place_id": "0x30e29ecfe6be9a67:0x5f3bce1e1e4f18d0",
-      "name": "Makalin Clinic",
-      "name_lang": "en",
-      "primary_type": "Dermatologist",
-      "address": "\nB505 ศูนย์การค้าเซ็นทรัลเวิลด์ ห้องB505/2 999/9 2 999/9 Rama I Rd, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 2 613 1536",
-      "website": "https://www.makalinconnect.com/",
-      "lat": 13.7469781,
-      "lng": 100.5398369,
-      "rating": 3.6,
-      "total_reviews": 39,
-      "trust_score": 69.3,
-      "categories": [
-        "laser"
-      ],
-      "scraped_review_count": 39,
-      "local_guide_count": 20,
-      "avg_author_review_count": 125.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 27,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "laser": 13
-      },
-      "mentioned_topics": [
-        {
-          "topic": "english_speaking",
-          "count": 11
-        },
-        {
-          "topic": "recommend",
-          "count": 8
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 2
-        },
-        {
-          "topic": "promotion",
-          "count": 2
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 4,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 9,
-          "avg": 2.89
-        },
-        "old": {
-          "count": 26,
-          "avg": 3.62
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I went for a skin brightening laser treatment at the Central World branch. There was a short wait, but it wasn't painful at all, just a warm sensation. After the treatment, my skin felt smoother and more moisturized.\nThe doctor was gentle, and the staff were lovely and friendly.☺️☺️",
-          "rating": 5,
-          "author": "Praiyawit Amponradmanee"
-        },
-        {
-          "text": "I went with a friend, and she did it first. Seeing that she didn't feel any pain, I decided to try it too.",
-          "rating": 5,
-          "author": "Brooklyn Baby"
-        },
-        {
-          "text": "At first, I thought it would be really painful, but in reality, it was gentler than I expected.",
-          "rating": 5,
-          "author": "Berry doww"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Makalin+Clinic/data=!4m7!3m6!1s0x30e29ecfe6be9a67:0x5f3bce1e1e4f18d0!8m2!3d13.7469781!4d100.5398369!16s%2Fg%2F11g_93lp5!19sChIJZ5q-5s-e4jAR0BhPHh7OO18?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29fba4a9214e3_0x38d1a0043981c26c",
       "place_id": "0x30e29fba4a9214e3:0x38d1a0043981c26c",
       "name": "Anderson Hair Center",
@@ -92162,6 +92053,91 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%93%E0%B8%A3%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A8%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B4%E0%B9%8C/data=!4m7!3m6!1s0x30e299a8d23ab7c1:0xfb9d208c08bbe4b9!8m2!3d13.7465736!4d100.5110645!16s%2Fg%2F11g_rz3z5c!19sChIJwbc60qiZ4jARueS7CIwgnfs?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29ecfe6be9a67_0x5f3bce1e1e4f18d0",
+      "place_id": "0x30e29ecfe6be9a67:0x5f3bce1e1e4f18d0",
+      "name": "Makalin Clinic",
+      "name_lang": "en",
+      "primary_type": "Dermatologist",
+      "address": "\nB505 ศูนย์การค้าเซ็นทรัลเวิลด์ ห้องB505/2 999/9 2 999/9 Rama I Rd, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 2 613 1536",
+      "website": "https://www.makalinconnect.com/",
+      "lat": 13.7469781,
+      "lng": 100.5398369,
+      "rating": 3.6,
+      "total_reviews": 39,
+      "trust_score": 68.5,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 5,
+      "avg_author_review_count": 49.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 6,
+          "avg": 3.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I went for a skin brightening laser treatment at the Central World branch. There was a short wait, but it wasn't painful at all, just a warm sensation. After the treatment, my skin felt smoother and more moisturized.\nThe doctor was gentle, and the staff were lovely and friendly.☺️☺️",
+          "rating": 5,
+          "author": "Praiyawit Amponradmanee"
+        },
+        {
+          "text": "I went with a friend, and she did it first. Seeing that she didn't feel any pain, I decided to try it too.",
+          "rating": 5,
+          "author": "Brooklyn Baby"
+        },
+        {
+          "text": "At first, I thought it would be really painful, but in reality, it was gentler than I expected.",
+          "rating": 5,
+          "author": "Berry doww"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Makalin+Clinic/data=!4m7!3m6!1s0x30e29ecfe6be9a67:0x5f3bce1e1e4f18d0!8m2!3d13.7469781!4d100.5398369!16s%2Fg%2F11g_93lp5!19sChIJZ5q-5s-e4jAR0BhPHh7OO18?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fea2bb4a815_0x20b6201fb36324b6",
       "place_id": "0x30e29fea2bb4a815:0x20b6201fb36324b6",
       "name": "Mordee",
@@ -93138,87 +93114,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%99%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%94%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1%E0%B9%80%E0%B8%AD%E0%B8%88+%28Morning+Mind+Clinic%29/data=!4m7!3m6!1s0x30e29fe0c32e2113:0xb1fcdb0e21d4c569!8m2!3d13.7294691!4d100.5360932!16s%2Fg%2F11kpk_s0jd!19sChIJEyEuw-Cf4jARacXUIQ7b_LE?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29f8110674119_0xc848ac7c8b968d98",
-      "place_id": "0x30e29f8110674119:0xc848ac7c8b968d98",
-      "name": "CHADA Clinic - Thai-crafted Aesthetics Atelier",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\n3rd Floor, Siam Square One, 388 Rama I Rd, Khwaeng Pathum Wan, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 92 111 9168",
-      "website": "https://www.chadaclinics.com/",
-      "lat": 13.7448063,
-      "lng": 100.5338646,
-      "rating": 5.0,
-      "total_reviews": 5,
-      "trust_score": 68.4,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "hair_transplant"
-      ],
-      "scraped_review_count": 5,
-      "local_guide_count": 2,
-      "avg_author_review_count": 9.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 4,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 2,
-        "filler": 3,
-        "facial": 7,
-        "hair_transplant": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "professional",
-          "count": 3
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 2
-        },
-        {
-          "topic": "recommend",
-          "count": 2
-        },
-        {
-          "topic": "clean_facility",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 4,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I had Juvelook filler injections done here. Dr. Pu provided excellent care, both in terms of price and service. It was quite painful, though. Overall, it was a great experience – perfect, professional, calm, and meticulous in her attention to detail.",
-          "rating": 5,
-          "author": "good heart"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/CHADA+Clinic+-+Thai-crafted+Aesthetics+Atelier/data=!4m7!3m6!1s0x30e29f8110674119:0xc848ac7c8b968d98!8m2!3d13.7448063!4d100.5338646!16s%2Fg%2F11msj_g33x!19sChIJGUFnEIGf4jARmI2Wi3ysSMg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2995283259d6d_0x9b4e650d5d8f954b",
@@ -111493,79 +111388,6 @@
       "maps_url": "https://www.google.com/maps/place/Petcharatclinic/data=!4m7!3m6!1s0x30e29ec15617ec47:0xe6fa8e966dee23ab!8m2!3d13.7514132!4d100.5469051!16s%2Fg%2F1tfqc7m9!19sChIJR-wXVsGe4jARqyPubZaO-uY?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29fa0c36a8823_0x94caf71fc9a73317",
-      "place_id": "0x30e29fa0c36a8823:0x94caf71fc9a73317",
-      "name": "Bangkok Interventional Clinic",
-      "name_lang": "en",
-      "primary_type": "Oriental medicine clinic",
-      "address": "\nเลขที่ 4 โซน Urban Balance ห้างสรรพสินค้าเซ็นทรัลเวิลด์ ชั้น 5 4/1-4 ซ. วิภาวดี 2 แยก 4-4 ห์ Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 93 392 3992",
-      "website": "",
-      "lat": 13.7467959,
-      "lng": 100.5398741,
-      "rating": 5.0,
-      "total_reviews": 6,
-      "trust_score": 60.1,
-      "categories": [],
-      "scraped_review_count": 6,
-      "local_guide_count": 0,
-      "avg_author_review_count": 2.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 4,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 3
-        },
-        {
-          "topic": "professional",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 6,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The clinic is clean, all the staff are exceptionally helpful, and the doctor is very skilled! 👍🏻👍🏻 …",
-          "rating": 5,
-          "author": "Nareekan Butwong"
-        },
-        {
-          "text": "The clinic is clean and meets high standards. The anesthesiologists and clinic staff are very professional.",
-          "rating": 5,
-          "author": "Tidarat Promrach"
-        },
-        {
-          "text": "The clinic is very clean! The doctor gave excellent consultations. The treatment focused on targeting the pain, and the staff were very attentive and called regularly to follow up on my condition.",
-          "rating": 5,
-          "author": "soda zz"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+Interventional+Clinic/data=!4m7!3m6!1s0x30e29fa0c36a8823:0x94caf71fc9a73317!8m2!3d13.7467959!4d100.5398741!16s%2Fg%2F11z0kr6391!19sChIJI4hqw6Cf4jARFzOnyR_3ypQ?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29fc7a36f7349_0x5c09b1443fff6609",
       "place_id": "0x30e29fc7a36f7349:0x5c09b1443fff6609",
       "name": "jairuk clinic ใจรักษ์คลินิก สาขาพญาไท",
@@ -112326,6 +112148,54 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Wax+It+Bare/data=!4m7!3m6!1s0x30e29ffd50c09c67:0x33fc764f910d82b0!8m2!3d13.7689982!4d100.5492712!16s%2Fg%2F11s9f9plfs!19sChIJZ5zAUP2f4jARsIINkU92_DM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29fa0c36a8823_0x94caf71fc9a73317",
+      "place_id": "0x30e29fa0c36a8823:0x94caf71fc9a73317",
+      "name": "Bangkok Interventional Clinic",
+      "name_lang": "en",
+      "primary_type": "Oriental medicine clinic",
+      "address": "\nเลขที่ 4 โซน Urban Balance ห้างสรรพสินค้าเซ็นทรัลเวิลด์ ชั้น 5 4/1-4 ซ. วิภาวดี 2 แยก 4-4 ห์ Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 93 392 3992",
+      "website": "",
+      "lat": 13.7467959,
+      "lng": 100.5398741,
+      "rating": 5.0,
+      "total_reviews": 6,
+      "trust_score": 59.3,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Interventional+Clinic/data=!4m7!3m6!1s0x30e29fa0c36a8823:0x94caf71fc9a73317!8m2!3d13.7467959!4d100.5398741!16s%2Fg%2F11z0kr6391!19sChIJI4hqw6Cf4jARFzOnyR_3ypQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29efda09d1745_0x6410fcc11990a3b6",
@@ -113461,6 +113331,56 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%89%E0%B8%B5%E0%B8%89%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99+qiqi+clinic/data=!4m7!3m6!1s0x30e29900162318cb:0x4e005bab29e0f443!8m2!3d13.6963383!4d100.5159552!16s%2Fg%2F11x5r_wl5m!19sChIJyxgjFgCZ4jARQ_TgKatbAE4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f8110674119_0xc848ac7c8b968d98",
+      "place_id": "0x30e29f8110674119:0xc848ac7c8b968d98",
+      "name": "CHADA Clinic - Thai-crafted Aesthetics Atelier",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n3rd Floor, Siam Square One, 388 Rama I Rd, Khwaeng Pathum Wan, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 92 111 9168",
+      "website": "https://www.chadaclinics.com/",
+      "lat": 13.7448063,
+      "lng": 100.5338646,
+      "rating": 5.0,
+      "total_reviews": 5,
+      "trust_score": 58.4,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/CHADA+Clinic+-+Thai-crafted+Aesthetics+Atelier/data=!4m7!3m6!1s0x30e29f8110674119:0xc848ac7c8b968d98!8m2!3d13.7448063!4d100.5338646!16s%2Fg%2F11msj_g33x!19sChIJGUFnEIGf4jARmI2Wi3ysSMg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fdc5d4d6409_0x1cc001db3cd7b675",
