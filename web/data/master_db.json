@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-07T04:26:53.070339+00:00",
-  "total_clinics": 1511,
-  "with_district": 1446,
-  "with_categories": 939,
-  "with_reviews_scraped": 1103,
+  "generated_at": "2026-05-07T04:32:08.837761+00:00",
+  "total_clinics": 1512,
+  "with_district": 1447,
+  "with_categories": 940,
+  "with_reviews_scraped": 1105,
   "language_total": {
     "th": 2,
-    "en": 36362,
+    "en": 36369,
     "ko": 1,
     "ja": 0,
     "other": 107
@@ -24,7 +24,7 @@
     "Din Daeng": 33,
     "Pom Prap Sattru Phai": 32,
     "Phra Nakhon": 31,
-    "Ratchathewi": 20,
+    "Ratchathewi": 21,
     "Yan Nawa": 17,
     "Bang Phlat": 10,
     "Thon Buri": 9,
@@ -38,7 +38,7 @@
   "category_counts": {
     "facial": 555,
     "laser": 404,
-    "botox": 283,
+    "botox": 284,
     "dental": 279,
     "filler": 214,
     "hifu": 197,
@@ -2755,6 +2755,88 @@
       "maps_url": "https://www.google.com/maps/place/Hua+Chiew+Hospital/data=!4m7!3m6!1s0x30e2993bacb0f1bf:0x9fc32631cf4b0efd!8m2!3d13.7500823!4d100.5154121!16s%2Fg%2F1tpb8f7t!19sChIJv_GwrDuZ4jAR_Q5LzzEmw58?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x49a0ec873c42b3b9_0x43e7c05802b285bb",
+      "place_id": "0x49a0ec873c42b3b9:0x43e7c05802b285bb",
+      "name": "Best Friend​ Clinic พญาไท",
+      "name_lang": "other",
+      "primary_type": "Skin care clinic",
+      "address": "\n69/21 Phaya Thai Rd, Khwaeng Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 81 293 2456",
+      "website": "https://www.facebook.com/profile.php?id=100095500986646",
+      "lat": 13.7550755,
+      "lng": 100.5335278,
+      "rating": 4.9,
+      "total_reviews": 1026,
+      "trust_score": 91.8,
+      "categories": [
+        "facial",
+        "filler"
+      ],
+      "scraped_review_count": 20,
+      "local_guide_count": 5,
+      "avg_author_review_count": 7.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 18,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "filler": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 7
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 20,
+          "avg": 4.85
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The service was excellent from everyone. The doctor provided a consultation before the procedure and recommended treatments suitable for me. The doctor was very gentle, spoke kindly, and was very patient and gentle. The clinic was clean.",
+          "rating": 5,
+          "author": "auntika sukying"
+        },
+        {
+          "text": "Very good service. The doctor has a very gentle hand. I like it very much. Will definitely come back. The travel is also convenient.",
+          "rating": 5,
+          "author": "ชนนิศา"
+        },
+        {
+          "text": "I come here very often. It's excellent. The clinic is cute and the doctor is very skilled.",
+          "rating": 5,
+          "author": "Tinna Satyavanija"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Best+Friend%E2%80%8B+Clinic+%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97/data=!4m7!3m6!1s0x49a0ec873c42b3b9:0x43e7c05802b285bb!8m2!3d13.7550755!4d100.5335278!16s%2Fg%2F11lcc36hfz!19sChIJubNCPIfsoEkRu4WyAljA50M?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f9bb0488815_0xfee0f1fd26bcda11",
       "place_id": "0x30e29f9bb0488815:0xfee0f1fd26bcda11",
       "name": "V Square Clinic เทอร์มินอล อโศก",
@@ -5291,96 +5373,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/APEX+Beauty+-+Mercury+Ville+%28%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%9E%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B9%80%E0%B8%A1%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%A5%E0%B9%8C%29/data=!4m7!3m6!1s0x30e29f5eb06bada1:0x3fd47d807db80e33!8m2!3d13.7434472!4d100.5441146!16s%2Fg%2F11s0x09cqn!19sChIJoa1rsF6f4jARMw64fYB91D8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x49a0ec873c42b3b9_0x43e7c05802b285bb",
-      "place_id": "0x49a0ec873c42b3b9:0x43e7c05802b285bb",
-      "name": "Best Friend​ Clinic พญาไท",
-      "name_lang": "other",
-      "primary_type": "Skin care clinic",
-      "address": "\n69/21 Phaya Thai Rd, Khwaeng Thanon Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "district": "Phaya Thai",
-      "phone": "+66 81 293 2456",
-      "website": "https://www.facebook.com/profile.php?id=100095500986646",
-      "lat": 13.7550755,
-      "lng": 100.5335278,
-      "rating": 4.9,
-      "total_reviews": 1026,
-      "trust_score": 89.3,
-      "categories": [
-        "facial",
-        "filler"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 7,
-      "avg_author_review_count": 4.7,
-      "language_breakdown": {
-        "th": 0,
-        "en": 30,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "filler": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 12
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 3
-        },
-        {
-          "topic": "recommend",
-          "count": 3
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 26,
-          "avg": 4.88
-        },
-        "old": {
-          "count": 24,
-          "avg": 5.0
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The service was excellent from everyone. The doctor provided a consultation before the procedure and recommended treatments suitable for me. The doctor was very gentle, spoke kindly, and was very patient and gentle. The clinic was clean.",
-          "rating": 5,
-          "author": "auntika sukying"
-        },
-        {
-          "text": "Very good service. The doctor has a very gentle hand. I like it very much. Will definitely come back. The travel is also convenient.",
-          "rating": 5,
-          "author": "ชนนิศา"
-        },
-        {
-          "text": "I come here very often. It's excellent. The clinic is cute and the doctor is very skilled.",
-          "rating": 5,
-          "author": "Tinna Satyavanija"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Best+Friend%E2%80%8B+Clinic+%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97/data=!4m7!3m6!1s0x49a0ec873c42b3b9:0x43e7c05802b285bb!8m2!3d13.7550755!4d100.5335278!16s%2Fg%2F11lcc36hfz!19sChIJubNCPIfsoEkRu4WyAljA50M?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f900cea3821_0x5e402053af6068a2",
@@ -52950,19 +52942,19 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "My first blood test and internal examination went very well. The doctor and assistant were incredibly lovely, making the experience stress-free and friendly. They gave excellent advice and consultations, and the clinic was very clean.",
+          "text": "Very lovely service and quick at great price. Doctor and staff were very friendly. Doctor makes you feel very comfortable and provides all the info you need 🙏🏼😊 also clean space in accessible location. …",
           "rating": 5,
-          "author": "สุธิดา คำสง่า"
+          "author": "Lyn Ocharoenchai"
         },
         {
-          "text": "I've been using their services for over a year now. The doctor is so lovely, attentive, and provides excellent information. The service is great, and they regularly check on other things for me. They always give good advice. I love Dr. Dew so much! They also always have delicious snacks for me. 👀🤍 …",
+          "text": "I feel very comfortable and safe when I talk with doctor.\n\nThe doctor have update information that I can’t find answers on the internet.\n\nPrice here is not expensive if compare with private hospital ^^",
           "rating": 5,
-          "author": "Araya Patcharabumrung"
+          "author": "Peangploy Panomrak"
         },
         {
-          "text": "The doctor is very kind. He called and gave me very good advice. Thank you very much. 🙏🙏 …",
+          "text": "Located on the 9th floor. Very friendly staff and very informative doctor. Will come again!",
           "rating": 5,
-          "author": "ลลิตา แก้วกอง"
+          "author": "Fabricio Acuna"
         }
       ],
       "business_status": "Open",
@@ -93602,6 +93594,87 @@
       "maps_url": "https://www.google.com/maps/place/Phetchaburi+Dental+Care+Clinic/data=!4m7!3m6!1s0x30e2994c8ade31d9:0x7e44a9d0e0165399!8m2!3d13.755269!4d100.5267562!16s%2Fg%2F1hc3h8bmt!19sChIJ2THeikyZ4jARmVMW4NCpRH4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299a9c1dd295b_0xf27bb3401ecaadf6",
+      "place_id": "0x30e299a9c1dd295b:0xf27bb3401ecaadf6",
+      "name": "Mr.Daniel Clinic",
+      "name_lang": "en",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\nชั้น2 เทสโก้โลตัส Rama I Rd, Bangkok 10330, Thailand",
+      "district": "",
+      "phone": "+66 94 252 5069",
+      "website": "",
+      "lat": 13.7483076,
+      "lng": 100.524514,
+      "rating": 5.0,
+      "total_reviews": 10,
+      "trust_score": 68.3,
+      "categories": [
+        "botox"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 14.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 8,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "My first G5 fat-burning treatment was amazing! My waist shrunk by an inch immediately after, and it wasn't painful at all. It's fantastic! ✨",
+          "rating": 5,
+          "author": "AREE STORY"
+        },
+        {
+          "text": "I love this clinic so much! I came in for a skin brightening treatment today and it was amazing. The doctor was so gentle. I highly recommend it! 💜 …",
+          "rating": 5,
+          "author": "Chitsupa Phadungyat"
+        },
+        {
+          "text": "I highly recommend it! The staff provides excellent service, the doctor is very lovely, and the clinic is beautiful and clean. I love it! 🤩 …",
+          "rating": 5,
+          "author": "Eing"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Mr.Daniel+Clinic/data=!4m7!3m6!1s0x30e299a9c1dd295b:0xf27bb3401ecaadf6!8m2!3d13.7483076!4d100.524514!16s%2Fg%2F11zjm1djjh!19sChIJWyndwamZ4jAR9q3KHkCze_I?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29d9566ae2935_0xfcc7d797a81772b0",
       "place_id": "0x30e29d9566ae2935:0xfcc7d797a81772b0",
       "name": "Piti clinic",
@@ -107570,6 +107643,79 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97+%E0%B8%9E%E0%B8%87%E0%B8%A8%E0%B9%8C%E0%B8%A8%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%B4%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e29eb10a16a8b5:0xaaa5977c0123cf32!8m2!3d13.7657543!4d100.5368408!16s%2Fg%2F11b6dql52j!19sChIJtagWCrGe4jARMs8jAXyXpao?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299337ec8cb29_0x7af65dd8b1567b2c",
+      "place_id": "0x30e299337ec8cb29:0x7af65dd8b1567b2c",
+      "name": "Phetchaburi Sip Medical Clinic",
+      "name_lang": "en",
+      "primary_type": "Medical Center",
+      "address": "\n330 ถนน เพชรบุรี ระหว่าง 12 Soi Phetchaburi 10, Thanon Phetchaburi, Ratchathewi, Bangkok 10400, Thailand",
+      "district": "Ratchathewi",
+      "phone": "+66 2 215 8543",
+      "website": "",
+      "lat": 13.7539686,
+      "lng": 100.5292983,
+      "rating": 3.6,
+      "total_reviews": 16,
+      "trust_score": 62.8,
+      "categories": [],
+      "scraped_review_count": 16,
+      "local_guide_count": 7,
+      "avg_author_review_count": 66.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 11,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 1.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 3.2
+        },
+        "old": {
+          "count": 9,
+          "avg": 4.33
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I stay in Bangkok so I know this place very well so I do recommend for all body which is best clinics in Bangkok",
+          "rating": 5,
+          "author": "Santose Matara"
+        },
+        {
+          "text": "I visited this doctor because of strong ear pain, and he treated me quickly and effectively. He prescribed the right medication and ear drops, and the problem was solved much faster than I expected. Very professional, kind, and reassuring. I’m really grateful. Highly recommended!",
+          "rating": 5,
+          "author": "Marko Baucal"
+        },
+        {
+          "text": "Taking a bus or taxi is more convenient, as there's no parking. It's usually closed on Saturdays, so you should call to check if it's open. Luckily, I arrived at 5:00 PM on a Saturday and saw the doctor, so he let me in. He was very kind. Thank you.",
+          "rating": 5,
+          "author": "Sid Boonchuchauy"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Phetchaburi+Sip+Medical+Clinic/data=!4m7!3m6!1s0x30e299337ec8cb29:0x7af65dd8b1567b2c!8m2!3d13.7539686!4d100.5292983!16s%2Fg%2F1hc22wrlj!19sChIJKcvIfjOZ4jARLHtWsdhd9no?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f9526d7b517_0xc6fbd004a4b35f1f",
       "place_id": "0x30e29f9526d7b517:0xc6fbd004a4b35f1f",
       "name": "Fuchsia Xclusive Clinic Phetchaburi Road",
@@ -108798,54 +108944,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/ENOCH+Clinic/data=!4m7!3m6!1s0x30e29f783cb95e8b:0xaf49150b4acb197!8m2!3d13.7367277!4d100.5439428!16s%2Fg%2F11zjq90gkv!19sChIJi165PHif4jARl7GstFCR9Ao?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e299a9c1dd295b_0xf27bb3401ecaadf6",
-      "place_id": "0x30e299a9c1dd295b:0xf27bb3401ecaadf6",
-      "name": "Mr.Daniel Clinic",
-      "name_lang": "en",
-      "primary_type": "Plastic surgery clinic",
-      "address": "\nชั้น2 เทสโก้โลตัส Rama I Rd, Bangkok 10330, Thailand",
-      "district": "",
-      "phone": "+66 94 252 5069",
-      "website": "",
-      "lat": 13.7483076,
-      "lng": 100.524514,
-      "rating": 5.0,
-      "total_reviews": 10,
-      "trust_score": 62.0,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Mr.Daniel+Clinic/data=!4m7!3m6!1s0x30e299a9c1dd295b:0xf27bb3401ecaadf6!8m2!3d13.7483076!4d100.524514!16s%2Fg%2F11zjm1djjh!19sChIJWyndwamZ4jAR9q3KHkCze_I?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x2803ebcb9cec16f9_0x51cc3be2aff08ccc",
@@ -114660,7 +114758,7 @@
       "place_id": "0x30e299cb54fff061:0x219b48087660cb07",
       "name": "ราชเทวีการแพทย์คลินิกเวชกรรม",
       "name_lang": "th",
-      "primary_type": "Community centre",
+      "primary_type": "Community center",
       "address": "\n374 188 Alley, Thanon Phetchaburi, Ratchathewi, Bangkok 10400, Thailand",
       "district": "Ratchathewi",
       "phone": "+66 2 215 0757",
