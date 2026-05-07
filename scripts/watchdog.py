@@ -37,15 +37,18 @@ VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 CHECK_INTERVAL = 10      # 초 (Tier1 업그레이드: 20→10)
 MAX_RESTARTS_PER_MIN = 5
 GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
+REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 큐 비면 graceful exit 직전에 찍는 라인
 
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
-    # 클리닉 우선 모드 (2026-05-07~): 식당(bangkok_review) + 도시별 식당 grid 다 chain에서 뺌.
-    # Bangkok 클리닉 review queue (~1,291) 다 빠진 후 사용자 결정으로 다음 단계 진입:
-    #   - Pattaya 클리닉 확장 = `pattaya_clinics_grid` Service 신규 추가 후 chain 합류
-    #   - Pattaya/Phuket 식당 = `bangkok_review`+ pattaya_grid 등 chain 복원
+    # 클리닉 자동 chain (2026-05-07~): grid → review → 다음 도시 grid → 다음 도시 review.
+    # 각 review는 review_done_check=True로 큐 비면 자연 종료 감지 → 다음 promotion.
+    # 외국인 인기 순서: Pattaya → (Phuket → Chiang Mai → Koh Samui → Krabi → Hua Hin → ...) 미래 추가.
     "bangkok_clinics_grid",
+    "bangkok_clinics_review",
+    "pattaya_clinics_grid",
+    "pattaya_clinics_review",
 ]
 
 # 로그 타임스탬프 패턴 두 종류 지원:
@@ -85,7 +88,8 @@ class Service:
     cwd: Path
     env_extra: dict[str, str]
     log_file: Path
-    grid_done_check: bool = False        # 로그에 자연 종료 마커 보면 비활성
+    grid_done_check: bool = False        # 로그에 grid 자연 종료 마커 보면 비활성
+    review_done_check: bool = False      # 로그에 review 자연 종료 마커 보면 비활성 (scraper.py 큐 빔)
 
     # 진행률 health check — PID 살아있어도 실제 작업 진척 없으면 hang 으로 판정.
     # progress_pattern: 매 성공 작업마다 로그에 찍히는 패턴.
@@ -221,6 +225,21 @@ class Service:
         except OSError:
             return False
         return any(GRID_DONE_MARKER in line for line in tail.splitlines()[-30:])
+
+    def review_naturally_done(self) -> bool:
+        """클리닉 review 워커가 큐 비워서 graceful exit 했는지. 16KB tail에 REVIEW_DONE_MARKER 보면 True."""
+        if not self.review_done_check or not self.log_file.exists():
+            return False
+        try:
+            with open(self.log_file, "rb") as f:
+                f.seek(0, os.SEEK_END)
+                size = f.tell()
+                back = min(size, 16384)
+                f.seek(size - back)
+                tail = f.read().decode("utf-8", errors="replace")
+        except OSError:
+            return False
+        return any(REVIEW_DONE_MARKER in line for line in tail.splitlines()[-50:])
 
     def restart(self) -> bool:
         # 폭주 차단
@@ -399,13 +418,25 @@ def build_services() -> list[Service]:
     ):
         (ROOT / _city / "output" / "reviews").mkdir(parents=True, exist_ok=True)
     (bk_clinics / "output" / "reviews").mkdir(parents=True, exist_ok=True)
+    # 도시별 클리닉 output 폴더 (식당 데이터와 분리). 외국인 인기 순서.
+    for _city in ("pattaya", "phuket", "chiang_mai", "koh_samui", "krabi", "hua_hin"):
+        (ROOT / _city / "clinics_output" / "reviews").mkdir(parents=True, exist_ok=True)
 
+    # Pattaya 클리닉 env — chain promotion 시 발동. grid는 2080-2081, review는 2082-2087 (default).
+    pattaya_clinics_env = {
+        "SEARCH_QUERY": "clinic",
+        "SEARCH_TAG": "en",
+        "CITY_LAT": "12.9236",
+        "CITY_LNG": "100.8825",
+        "CITY_RADIUS_M": "20000",
+        "CITY_OUTPUT_DIR": "../pattaya/clinics_output",
+    }
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
         # Bangkok grid 자연 종료 후 → review에 모든 8 포트 몰아주기 (default 6→8).
         "N_WORKERS": "8",
         "PROXY_PORT_BASE": "2080",
-        # Pattaya 클리닉 grid 시작할 땐 N_WORKERS=6 + PROXY_PORT_BASE=2082로 환원 (grid는 2080-2081).
+        # 다음 도시(Pattaya) 클리닉 grid 시작 시 자동으로 default(6+2082)로 환원.
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
         "CITY_LNG": "100.5346890",
@@ -602,6 +633,29 @@ def build_services() -> list[Service]:
             cwd=bk_clinics,
             env_extra=bangkok_clinics_env,
             log_file=LOGS / "bangkok_clinics_review.log",
+            review_done_check=True,   # 큐 비면 자연 종료 → chain promotion (Pattaya로)
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="pattaya_clinics_grid",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=pattaya_clinics_env,
+            log_file=LOGS / "pattaya_clinics_grid.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="pattaya_clinics_review",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=pattaya_clinics_env,
+            log_file=LOGS / "pattaya_clinics_review.log",
+            review_done_check=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
             progress_grace_sec=420,
@@ -757,6 +811,12 @@ def main():
                 s.disabled = True
                 s.disabled_reason = "grid 자연 종료"
                 log(f"[{s.name}] {s.disabled_reason} — 더 이상 재시작 안 함")
+                any_action = True
+                continue
+            if s.review_naturally_done():
+                s.disabled = True
+                s.disabled_reason = "review 자연 종료"
+                log(f"[{s.name}] {s.disabled_reason} — 큐 비움, 더 이상 재시작 안 함")
                 any_action = True
                 continue
             log(f"[{s.name}] 죽음 감지 → 재시작 시도")
