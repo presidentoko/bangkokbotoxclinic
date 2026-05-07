@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-07T06:28:21.988888+00:00",
+  "generated_at": "2026-05-07T06:35:37.000146+00:00",
   "total_clinics": 1513,
   "with_district": 1448,
   "with_categories": 946,
-  "with_reviews_scraped": 1122,
+  "with_reviews_scraped": 1123,
   "language_total": {
     "th": 2,
-    "en": 37147,
+    "en": 37158,
     "ko": 1,
     "ja": 0,
     "other": 110
@@ -75303,6 +75303,87 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%95%E0%B8%B8%E0%B8%A5%E0%B8%A2%E0%B8%B2+%28%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%A5%E0%B8%AA%E0%B8%B4%E0%B8%84%E0%B8%9B%E0%B8%B4%E0%B8%A2%E0%B8%B0%E0%B9%80%E0%B8%A7%E0%B8%97%29/data=!4m7!3m6!1s0x30e29f979835fbf9:0xad0518076b5c3093!8m2!3d13.7533848!4d100.5800858!16s%2Fg%2F11t7ckzlpb!19sChIJ-fs1mJef4jARkzBcawcYBa0?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299a695e18ead_0x97e93cabac508927",
+      "place_id": "0x30e299a695e18ead:0x97e93cabac508927",
+      "name": "คลาย คลินิกกายภาพบำบัด (Klein Clinic)",
+      "name_lang": "th",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n149 22 Surawong Rd, Suriya Wong, Bang Rak, Bangkok 10500, Thailand",
+      "district": "Bang Rak",
+      "phone": "+66 63 021 6693",
+      "website": "",
+      "lat": 13.7282964,
+      "lng": 100.52848,
+      "rating": 5.0,
+      "total_reviews": 12,
+      "trust_score": 72.9,
+      "categories": [],
+      "scraped_review_count": 12,
+      "local_guide_count": 5,
+      "avg_author_review_count": 6.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 11,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Last Thursday,\nHad a big course for office syndrome therapy by 2 excellent therapist . That absolutely helped relief my pains after finished two hours, thanks a lot to K Bam , the owner , and folk (K Prang) for taking of me as your best. Will revisit again this week. Cheers",
+          "rating": 5,
+          "author": "Chakarin Siridech"
+        },
+        {
+          "text": "After doing it, I felt relaxed with modern equipment that massaged down to 5 cm deep without hurting the external skin. The skilled physical therapist gave advice and explained every step in detail. It was really great!",
+          "rating": 5,
+          "author": "Benjamas Wattana"
+        },
+        {
+          "text": "Dr. Bam is lovely, gives a relaxing massage that hits the spot, uses modern equipment, and is clean. She provides excellent advice and services. I will definitely use her services again.",
+          "rating": 5,
+          "author": "จุฑามาส ชัยวิริยะวงศ์"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%28Klein+Clinic%29/data=!4m7!3m6!1s0x30e299a695e18ead:0x97e93cabac508927!8m2!3d13.7282964!4d100.52848!16s%2Fg%2F11y4_tylb8!19sChIJrY7hlaaZ4jARJ4lQrKs86Zc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29db37b43690f_0xbbd113a645fabe6a",
       "place_id": "0x30e29db37b43690f:0xbbd113a645fabe6a",
       "name": "The One Clinic รักษาสิว โรคผิวหนัง ห้วยขวาง",
@@ -101081,7 +101162,7 @@
       "place_id": "0x30e299f91041572b:0xeddd4c55fd4a64ba",
       "name": "Bemika Clinic บีมิกะคลินิกเวชกรรม",
       "name_lang": "th",
-      "primary_type": "Skin care clinic",
+      "primary_type": "",
       "address": "\n144/7 Si Lom Rd, Suriya Wong, Bang Rak, Bangkok 10500, Thailand",
       "district": "Bang Rak",
       "phone": "+66 90 957 6715",
@@ -101183,7 +101264,7 @@
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bemika+Clinic+%E0%B8%9A%E0%B8%B5%E0%B8%A1%E0%B8%B4%E0%B8%81%E0%B8%B0%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e299f91041572b:0xeddd4c55fd4a64ba!8m2!3d13.7269965!4d100.5289236!16s%2Fg%2F11j1l9db4s!19sChIJK1dBEPmZ4jARumRK_VVM3e0?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Bemika+Clinic+%E0%B8%9A%E0%B8%B5%E0%B8%A1%E0%B8%B4%E0%B8%81%E0%B8%B0%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/@13.7269965,100.5289236,17z/data=!3m1!4b1!4m7!3m6!1s0x30e299f91041572b:0xeddd4c55fd4a64ba!8m2!3d13.7269965!4d100.5289236!16s%2Fg%2F11j1l9db4s!19sChIJK1dBEPmZ4jARumRK_VVM3e0?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x9056cc088183b4b_0xbb37e5bf79089926",
@@ -108246,54 +108327,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%95+%E0%B9%84%E0%B8%95%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1/data=!4m7!3m6!1s0x30e29f7cd18eb51b:0xd63d0152046156e!8m2!3d13.7507954!4d100.5765388!16s%2Fg%2F11jt182fy9!19sChIJG7WO0Xyf4jARbhVGIBXQYw0?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e299a695e18ead_0x97e93cabac508927",
-      "place_id": "0x30e299a695e18ead:0x97e93cabac508927",
-      "name": "คลาย คลินิกกายภาพบำบัด (Klein Clinic)",
-      "name_lang": "th",
-      "primary_type": "Occupational Rehabilitation Centre",
-      "address": "\n149 22 Surawong Rd, Suriya Wong, Bang Rak, Bangkok 10500, Thailand",
-      "district": "Bang Rak",
-      "phone": "+66 63 021 6693",
-      "website": "",
-      "lat": 13.7282964,
-      "lng": 100.52848,
-      "rating": 5.0,
-      "total_reviews": 12,
-      "trust_score": 63.0,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%28Klein+Clinic%29/data=!4m7!3m6!1s0x30e299a695e18ead:0x97e93cabac508927!8m2!3d13.7282964!4d100.52848!16s%2Fg%2F11y4_tylb8!19sChIJrY7hlaaZ4jARJ4lQrKs86Zc?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29e867809c01f_0x7c485f101e2bdd51",
