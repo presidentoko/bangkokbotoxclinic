@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-05-07T01:18:09.682547+00:00",
-  "total_clinics": 1488,
-  "with_district": 1424,
-  "with_categories": 919,
-  "with_reviews_scraped": 1079,
+  "generated_at": "2026-05-07T01:28:16.175785+00:00",
+  "total_clinics": 1495,
+  "with_district": 1431,
+  "with_categories": 924,
+  "with_reviews_scraped": 1084,
   "language_total": {
     "th": 2,
-    "en": 35380,
+    "en": 35513,
     "ko": 1,
     "ja": 0,
     "other": 99
   },
   "district_counts": {
     "Pathum Wan": 313,
-    "Phaya Thai": 240,
+    "Phaya Thai": 244,
     "Huai Khwang": 169,
     "Watthana": 168,
     "Bang Rak": 132,
@@ -26,9 +26,9 @@
     "Phra Nakhon": 31,
     "Ratchathewi": 20,
     "Yan Nawa": 10,
+    "Bang Phlat": 10,
     "Thon Buri": 9,
     "Samphanthawong": 8,
-    "Bang Phlat": 7,
     "Chatuchak": 2,
     "Bangkok Noi": 2,
     "Bang Kapi": 1,
@@ -36,10 +36,10 @@
     "Bang Kho Laem": 1
   },
   "category_counts": {
-    "facial": 539,
-    "laser": 398,
-    "dental": 274,
-    "botox": 273,
+    "facial": 541,
+    "laser": 400,
+    "dental": 277,
+    "botox": 274,
     "filler": 212,
     "hifu": 194,
     "hair_transplant": 27,
@@ -28009,6 +28009,56 @@
       "maps_url": "https://www.google.com/maps/place/Lol%C4%81+cafe/data=!4m7!3m6!1s0x30e29f49b456bb8d:0xb0d98b9f13da218e!8m2!3d13.7773351!4d100.5439442!16s%2Fg%2F11kt152g0h!19sChIJjbtWtEmf4jARjiHaE5-L2bA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29bc9c6449d9d_0xb66be882578b7640",
+      "place_id": "0x30e29bc9c6449d9d:0xb66be882578b7640",
+      "name": "Dream Smile Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Orthodontist",
+      "address": "\nคลินิกทันตกรรมดรีมสไมล์, 10 Charan Sanit Wong Rd, Bang O, Bang Phlat, Bangkok 10700, Thailand",
+      "district": "Bang Phlat",
+      "phone": "+66 93 541 9799",
+      "website": "https://www.dreamsmiledental.net/",
+      "lat": 13.7914185,
+      "lng": 100.5044834,
+      "rating": 5.0,
+      "total_reviews": 445,
+      "trust_score": 81.8,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dream+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e29bc9c6449d9d:0xb66be882578b7640!8m2!3d13.7914185!4d100.5044834!16s%2Fg%2F11frt5m72w!19sChIJnZ1Exsmb4jARQHaLV4Loa7Y?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f001d31f8bd_0xa9de7efa4abcd149",
       "place_id": "0x30e29f001d31f8bd:0xa9de7efa4abcd149",
       "name": "Prism : Optical lab @ MBK Center",
@@ -29536,6 +29586,107 @@
       ],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Wild+Clinic+and+Natural+Treat+-+Silom+@theCOMMONS+Saladaeng/data=!4m7!3m6!1s0x30e29f0046a0c1ad:0x95dd636abe525e95!8m2!3d13.725904!4d100.5386862!16s%2Fg%2F11y3qxh5zw!19sChIJrcGgRgCf4jARlV5Svmpj3ZU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29938762f680b_0xccd3b5dd63901ae6",
+      "place_id": "0x30e29938762f680b:0xccd3b5dd63901ae6",
+      "name": "The Cosmo Clinic Central Pinklao",
+      "name_lang": "en",
+      "primary_type": "Dermatologist",
+      "address": "\n7, 1 Borommaratchachonnani Rd, Arun Amarin, Bangkok Noi, Bangkok 10700, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 038 2423",
+      "website": "http://www.cosmobeautyclinic.com/",
+      "lat": 13.7777604,
+      "lng": 100.476119,
+      "rating": 4.8,
+      "total_reviews": 318,
+      "trust_score": 81.4,
+      "categories": [
+        "botox",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 4,
+      "avg_author_review_count": 7.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 48,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 2,
+        "facial": 2,
+        "laser": 7
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 12
+        },
+        {
+          "topic": "recommend",
+          "count": 10
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 4.8
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The service was excellent! The staff were incredibly lovely, and the sales representative gave great recommendations. Upon arrival, we were offered water and snacks. The rooms were very cool and clean, allowing us to sleep without worry.",
+          "rating": 5,
+          "author": "รัตน์ดา กาเผือก"
+        },
+        {
+          "text": "The service was excellent, although there was a slight wait. The staff were very polite and kind, and chatted a lot. Fantastic!",
+          "rating": 5,
+          "author": "Sujeera Naruk"
+        },
+        {
+          "text": "This was my first time getting laser treatment; I found them on their Facebook page. At first, I was very scared, wondering if it would hurt, but it didn't hurt at all afterwards – it was very relaxing. The doctor and nurses were also very helpful and gave good advice. 🥰 …",
+          "rating": 5,
+          "author": "iRapa Syiw"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/The+Cosmo+Clinic+Central+Pinklao/data=!4m7!3m6!1s0x30e29938762f680b:0xccd3b5dd63901ae6!8m2!3d13.7777604!4d100.476119!16s%2Fg%2F11shv4yplf!19sChIJC2gvdjiZ4jAR5hqQY92108w?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f901c879f33_0xae267d7ffc16d973",
@@ -41367,6 +41518,91 @@
       "maps_url": "https://www.google.com/maps/place/PYONG+Rehabilitation+Clinic+%E0%B9%80%E0%B8%9B%E0%B8%B5%E0%B8%A2%E0%B8%87+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B8%9F%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%9F%E0%B8%B9%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B8%AA%E0%B8%B3%E0%B8%AB%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%A7%E0%B8%94/data=!4m7!3m6!1s0x30e29fc277c365cb:0xf3a5088981cb7dd2!8m2!3d13.7451977!4d100.5407743!16s%2Fg%2F11vbck2bbm!19sChIJy2XDd8Kf4jAR0n3LgYkIpfM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29bd9d830825d_0x91d0949043ec680c",
+      "place_id": "0x30e29bd9d830825d:0x91d0949043ec680c",
+      "name": "Kamol Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n72 ซอย จรัญสนิทวงศ์ 66/1 Charan Sanit Wong Rd, Bang Phlat, Bangkok 10700, Thailand",
+      "district": "Bang Phlat",
+      "phone": "+66 2 433 4896",
+      "website": "",
+      "lat": 13.7854961,
+      "lng": 100.4963479,
+      "rating": 5.0,
+      "total_reviews": 41,
+      "trust_score": 79.4,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 30,
+      "local_guide_count": 11,
+      "avg_author_review_count": 21.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 22,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 17
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "affordable",
+          "count": 5
+        },
+        {
+          "topic": "no_pain",
+          "count": 4
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 23,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Since I discovered this clinic, I've never gone to any other clinic. The doctor is so lovely, incredibly kind, and has the gentlest touch. I love it! ❤️",
+          "rating": 5,
+          "author": "Phanarat Rat"
+        },
+        {
+          "text": "I'd like to recommend this highly skilled and experienced dentist to everyone in Bang Lat. We had three fillings done very quickly; the dentist has a very gentle touch.",
+          "rating": 5,
+          "author": "Leely Nextgen"
+        },
+        {
+          "text": "The doctor is kind and the clinic atmosphere is warm. The procedure doesn't take long and the price is reasonable. Wisdom tooth extraction costs 2,000 baht and filling costs 500 baht.",
+          "rating": 5,
+          "author": "Thusaphorn Phuphu"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Kamol+Dental+Clinic/data=!4m7!3m6!1s0x30e29bd9d830825d:0x91d0949043ec680c!8m2!3d13.7854961!4d100.4963479!16s%2Fg%2F1tl8h4p4!19sChIJXYIw2Nmb4jARDGjsQ5CU0JE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f638af3a6c3_0x528278b91a6cb5af",
       "place_id": "0x30e29f638af3a6c3:0x528278b91a6cb5af",
       "name": "Lumpini Smile Dental Clinic",
@@ -47818,6 +48054,99 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Recover+Clinic/data=!4m7!3m6!1s0x30e2993fc95100b9:0x25e13a83b8eec523!8m2!3d13.7210936!4d100.5301667!16s%2Fg%2F11sdfwh7l1!19sChIJuQBRyT-Z4jARI8XuuIM64SU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29bdf3395979d_0xa9042b7f3ad64737",
+      "place_id": "0x30e29bdf3395979d:0xa9042b7f3ad64737",
+      "name": "Double N Dental Clinic สาขาMRTสิรินธร ทำฟัน จัดฟัน รากเทียม ฟอกสีฟัน",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n638 Charan Sanit Wong Rd, Bang Yi Khan, Bang Phlat, Bangkok 10700, Thailand",
+      "district": "Bang Phlat",
+      "phone": "+66 92 286 2868",
+      "website": "https://www.facebook.com/DoubleNDental",
+      "lat": 13.7832424,
+      "lng": 100.4927053,
+      "rating": 4.9,
+      "total_reviews": 169,
+      "trust_score": 77.9,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 3,
+      "avg_author_review_count": 3.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 38,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 10
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 5
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 16,
+          "avg": 4.88
+        },
+        "midterm": {
+          "count": 34,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I had my wisdom teeth extracted and removed here. The dentist was very gentle and quick.",
+          "rating": 5,
+          "author": "Chonlanee"
+        },
+        {
+          "text": "The doctor is very kind. The assistant called to confirm the appointment every time. The doctor has a very gentle touch, and the price is good too. Love it!!!",
+          "rating": 5,
+          "author": "Pasinee Somphot"
+        },
+        {
+          "text": "The clinic is very clean. The doctor is lovely and kind, providing detailed and easy-to-understand consultations throughout the treatment. The equipment is complete and modern.",
+          "rating": 5,
+          "author": "045 รินรดา จุลมุสิก"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Double+N+Dental+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2MRT%E0%B8%AA%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%98%E0%B8%A3+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B5%E0%B8%9F%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x30e29bdf3395979d:0xa9042b7f3ad64737!8m2!3d13.7832424!4d100.4927053!16s%2Fg%2F11n33d22zw!19sChIJnZeVM9-b4jARN0fWOn8rBKk?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29e8c6dedf845_0x36190bb397b0a85d",
@@ -101426,6 +101755,89 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%88%E0%B8%AD%E0%B8%A2+%E0%B8%AD%E0%B8%AD%E0%B8%9F+%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%94%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%88%E0%B8%B4%E0%B8%95/data=!4m7!3m6!1s0x30e29fc3eae1ce15:0x36e15de2a91ae1f1!8m2!3d13.7456489!4d100.5619522!16s%2Fg%2F11jlml9w_7!19sChIJFc7h6sOf4jAR8eEaqeJd4TY?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2992b3d99d47d_0xb758faf275905b4a",
+      "place_id": "0x30e2992b3d99d47d:0xb758faf275905b4a",
+      "name": "SparSha Wellness Clinic Central Plaza Pinklao (สปาชา เวลเนส คลินิก เซ็นทรัลพลาซา ปิ่นเกล้า ชั้น 4)",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\nเซ็นทรัลพลาซา ปิ่นเกล้า 7, 222 (ห้อง 423/1 Borommaratchachonnani Rd, Arun Amarin, Bangkok Noi, Bangkok 10700, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 884 8363",
+      "website": "https://www.doctorlifeclinic.com/",
+      "lat": 13.7849244,
+      "lng": 100.4674364,
+      "rating": 4.8,
+      "total_reviews": 22,
+      "trust_score": 64.9,
+      "categories": [
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 22,
+      "local_guide_count": 0,
+      "avg_author_review_count": 2.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 21,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 1,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 7
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 14,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 8,
+          "avg": 4.5
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "After receiving services at Spacha Wellness, I was very impressed. The staff provided excellent care, the wellness doctor gave great advice on health care, the nurses were skilled, and the prices were reasonable with high-quality products.",
+          "rating": 5,
+          "author": "Niran Kidsom"
+        },
+        {
+          "text": "After receiving services at Spacha Wellness, I was very impressed. The staff provided excellent care, the wellness doctor gave great advice on health care, the nurses were skilled, and the prices were reasonable with high-quality products.",
+          "rating": 5,
+          "author": "Naphasorn Thawisri"
+        },
+        {
+          "text": "After receiving services at Spacha Wellness, I was very impressed. The staff were very attentive and provided excellent health information. Dr. Nattapol gave excellent advice, and the prices were very reasonable.",
+          "rating": 5,
+          "author": "JT Hairry"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/SparSha+Wellness+Clinic+Central+Plaza+Pinklao+%28%E0%B8%AA%E0%B8%9B%E0%B8%B2%E0%B8%8A%E0%B8%B2+%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B9%80%E0%B8%99%E0%B8%AA+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%8B%E0%B8%B2+%E0%B8%9B%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B9%80%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%B2+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99+4%29/data=!4m7!3m6!1s0x30e2992b3d99d47d:0xb758faf275905b4a!8m2!3d13.7849244!4d100.4674364!16s%2Fg%2F11s_xrbvm9!19sChIJfdSZPSuZ4jARSluQdfL6WLc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e298d293c35d6f_0xc226126f6f86b206",
       "place_id": "0x30e298d293c35d6f:0xc226126f6f86b206",
       "name": "The Project Skin & Laser Clinic",
@@ -103753,6 +104165,54 @@
       "maps_url": "https://www.google.com/maps/place/Taksin+Hospital/data=!4m7!3m6!1s0x30e298de1103c6c1:0x84f6d07b169b5a01!8m2!3d13.7304755!4d100.5086438!16s%2Fg%2F11f088wcmd!19sChIJwcYDEd6Y4jARAVqbFnvQ9oQ?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29c042f84dd6f_0x76b309d5647d9b74",
+      "place_id": "0x30e29c042f84dd6f:0x76b309d5647d9b74",
+      "name": "Tipco Foods",
+      "name_lang": "en",
+      "primary_type": "Food manufacturer",
+      "address": "\nอาคารทิปโก้ทาวเวอร์ 118/1 Rama VI Rd, แขวง พญาไท Phaya Thai, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 2 273 6200",
+      "website": "http://www.tipco.net/",
+      "lat": 13.7877251,
+      "lng": 100.5357482,
+      "rating": 4.2,
+      "total_reviews": 65,
+      "trust_score": 63.8,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Tipco+Foods/data=!4m7!3m6!1s0x30e29c042f84dd6f:0x76b309d5647d9b74!8m2!3d13.7877251!4d100.5357482!16s%2Fg%2F1q5ccqkyp!19sChIJb92ELwSc4jARdJt9ZNUJs3Y?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e2991aa7d99e91_0x86a5af06cf44889",
       "place_id": "0x30e2991aa7d99e91:0x86a5af06cf44889",
       "name": "Public Health Center",
@@ -105721,6 +106181,67 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Bangkok+Dental+Clinic/data=!4m7!3m6!1s0x30e299689a6f0281:0xbb7169a84cedfdd5!8m2!3d13.7693526!4d100.5033207!16s%2Fg%2F1tpc5dxd!19sChIJgQJvmmiZ4jAR1f3tTKhpcbs?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29c06d91934f7_0x93901c70eb2ddf45",
+      "place_id": "0x30e29c06d91934f7:0x93901c70eb2ddf45",
+      "name": "Dry~Clinique",
+      "name_lang": "en",
+      "primary_type": "Dry cleaner",
+      "address": "\n98/2 Pradiphat Rd, Phayathai, Phaya Thai, Bangkok 10400, Thailand",
+      "district": "Phaya Thai",
+      "phone": "+66 87 454 4224",
+      "website": "http://www.dryclinique.com/",
+      "lat": 13.7917154,
+      "lng": 100.5372274,
+      "rating": 4.0,
+      "total_reviews": 9,
+      "trust_score": 62.7,
+      "categories": [],
+      "scraped_review_count": 9,
+      "local_guide_count": 3,
+      "avg_author_review_count": 187.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 4,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        },
+        {
+          "topic": "premium",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 8,
+          "avg": 4.38
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dry~Clinique/data=!4m7!3m6!1s0x30e29c06d91934f7:0x93901c70eb2ddf45!8m2!3d13.7917154!4d100.5372274!16s%2Fg%2F11g6mknmqq!19sChIJ9zQZ2Qac4jARRd8t63AckJM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ec269071139_0x17574df55654755b",
