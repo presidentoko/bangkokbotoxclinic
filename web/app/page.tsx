@@ -6,11 +6,11 @@ import { HOME_FAQS, CATEGORY_FAQS } from "@/lib/faq";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { HeroSearch } from "@/components/HeroSearch";
-import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { GUIDES } from "@/lib/guides";
 
 export const dynamic = "force-static";
 
@@ -39,7 +39,6 @@ export default async function HomePage() {
     ? [...CATEGORY_FAQS[cfg.focus], ...HOME_FAQS]
     : HOME_FAQS;
 
-  // 인기 검색 — 포커스 카테고리 + 상위 지역 조합
   const popularSearches = [
     ...(cfg.focus !== "all"
       ? districts.slice(0, 3).map(([d]) => ({
@@ -52,7 +51,6 @@ export default async function HomePage() {
         }))),
   ];
 
-  // 검색바용 가벼운 클리닉 리스트
   const searchIndex = focused.map((c) => ({
     id: c.id,
     name: c.name,
@@ -61,61 +59,132 @@ export default async function HomePage() {
     trust_score: c.trust_score,
   }));
 
+  // Recent positive reviews — social proof
+  const reviewQuotes = focused
+    .filter((c) => c.trust_score >= 75 && c.sample_reviews_en && c.sample_reviews_en.length > 0)
+    .slice(0, 3)
+    .map((c) => ({
+      clinic: c.name,
+      district: c.district,
+      rating: c.rating,
+      review: c.sample_reviews_en[0],
+      id: c.id,
+    }));
+
+  const accent = cfg.themeAccent;
+  const focusLabel = cfg.focus === "all" ? "Bangkok aesthetic" : cfg.focus;
+
   return (
     <>
-      <HeroSearch
-        clinics={searchIndex}
-        hero={cfg.hero}
-        heroSub={`${focused.length.toLocaleString()} clinics · ${totalReviews.toLocaleString()} Google reviews analyzed.`}
-        popularSearches={popularSearches}
-      />
+      {/* MEGA HERO — trust/safety voice */}
+      <section className="relative bg-gradient-to-b from-slate-50 via-white to-white overflow-hidden">
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div
+            className="absolute top-10 left-10 w-72 h-72 rounded-full mix-blend-multiply filter blur-3xl"
+            style={{ background: accent }}
+          />
+        </div>
+        <div className="relative max-w-5xl mx-auto px-4 pt-16 md:pt-20 pb-12 text-center">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6"
+            style={{ background: `${accent}15`, color: accent }}
+          >
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent }} />
+            Verified · Independent · No clinic sponsorship in rankings
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
+            Verify before<br />
+            <span style={{ color: accent }}>you inject.</span>
+          </h1>
+          <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
+            <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked by{" "}
+            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews — every single one analyzed for credibility.
+          </p>
 
-      <StatsBar
-        generatedAt={db.generated_at}
-        totalClinics={focused.length}
-        totalReviews={totalReviews}
-        withScraped={withScraped}
-        label="Verified by reviews"
-      />
+          <HeroSearch clinics={searchIndex} popularSearches={popularSearches} />
+        </div>
+      </section>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      {/* MEGA STATS BAR — accent gradient */}
+      <section
+        className="border-y border-[var(--border)] text-white"
+        style={{ background: `linear-gradient(90deg, ${accent} 0%, ${accent}dd 50%, ${accent} 100%)` }}
+      >
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-3 gap-4 text-center">
+          <Stat big={focused.length.toLocaleString()} label="Clinics verified" />
+          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Reviews analyzed" />
+          <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
+        </div>
+      </section>
+
+      <div className="max-w-5xl mx-auto px-4 py-10">
         {(() => {
           const hero = top.find((c) => sponsoredTier(c.id));
           return hero ? <SponsoredHero c={hero} /> : null;
         })()}
 
-        {/* Featured top 3 — 큰 카드 */}
-        {top.length >= 3 && (
-          <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-4">
-              Featured this week
-            </h2>
-            <div className="grid md:grid-cols-3 gap-3">
-              {top.slice(0, 3).map((c, i) => (
+        {/* MANIFESTO */}
+        <section className="mb-12 grid md:grid-cols-3 gap-4">
+          <Manifesto
+            icon="🛡️"
+            title="Real reviews only"
+            body="No paid review removals. Aggregated from public Google Maps — the most regulated review system on earth."
+            accent={accent}
+          />
+          <Manifesto
+            icon="📊"
+            title="Trust Score"
+            body="Rating + review volume + Local Guide credibility + reviewer authority. One transparent number, every clinic."
+            accent={accent}
+          />
+          <Manifesto
+            icon="💉"
+            title="Brand verification"
+            body="We track Allergan / Dysport / Botulax / Juvederm / Restylane mentions in reviews — spot fake product claims."
+            accent={accent}
+          />
+        </section>
+
+        {/* FEATURED 6 — bigger cards */}
+        {top.length >= 6 && (
+          <section className="mb-12">
+            <div className="flex items-baseline justify-between gap-4 mb-5">
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight">
+                Top 6 by Trust Score
+              </h2>
+              <a href="/best/highly-rated" className="text-sm font-medium hover:underline" style={{ color: accent }}>
+                See full ranking →
+              </a>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {top.slice(0, 6).map((c, i) => (
                 <a
                   key={c.id}
                   href={`/clinic/${c.id}`}
-                  className="group block border border-[var(--border)] rounded-xl p-5 bg-white hover:shadow-md hover:border-gray-300 transition relative"
+                  className="group block border border-[var(--border)] rounded-2xl p-5 bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
                 >
-                  <div className="text-xs font-bold tabular-nums text-[var(--muted)] mb-2">
-                    #{i + 1}
-                  </div>
-                  <h3 className="font-bold text-base group-hover:text-[var(--accent)] transition">
-                    {c.name}
-                  </h3>
-                  <p className="text-sm text-[var(--muted)] mt-0.5">{c.district}</p>
-                  <div className="flex items-baseline gap-3 mt-3">
-                    <span className="text-2xl font-bold tabular-nums" style={{
+                  <div className="flex items-start justify-between gap-2 mb-3">
+                    <div className="text-2xl font-black tabular-nums text-[var(--muted)]">#{i + 1}</div>
+                    <div className="text-3xl font-black tabular-nums" style={{
                       color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04"
                     }}>
                       {c.trust_score.toFixed(0)}
-                    </span>
-                    <span className="text-xs text-[var(--muted)] uppercase tracking-wide">Trust</span>
-                    <span className="text-xs text-[var(--muted)] ml-auto">★ {c.rating.toFixed(1)}</span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-base group-hover:opacity-90 transition leading-tight mb-1" style={{ color: "var(--fg)" }}>{c.name}</h3>
+                  <p className="text-sm text-[var(--muted)]">{c.district}</p>
+                  <div className="flex items-center gap-2 mt-3 text-xs text-[var(--muted)]">
+                    <span className="text-yellow-700 font-bold">★ {c.rating.toFixed(1)}</span>
+                    <span>·</span>
+                    <span>{c.total_reviews.toLocaleString()} reviews</span>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-1">
                     {c.categories.slice(0, 2).map((cat) => (
-                      <span key={cat} className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                      <span
+                        key={cat}
+                        className="text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium"
+                        style={{ background: `${accent}15`, color: accent }}
+                      >
                         <CategoryIcon category={cat} size={11} />
                         {CATEGORY_LABELS[cat] ?? cat}
                       </span>
@@ -127,11 +196,43 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* REAL REVIEW QUOTES */}
+        {reviewQuotes.length >= 3 && (
+          <section className="mb-12">
+            <div className="flex items-baseline justify-between gap-4 mb-5">
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight">
+                What real patients say
+              </h2>
+              <span className="text-xs text-[var(--muted)]">From verified Google reviews</span>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              {reviewQuotes.map((q, i) => (
+                <a
+                  key={i}
+                  href={`/clinic/${q.id}`}
+                  className="group block bg-white border border-[var(--border)] rounded-2xl p-5 hover:shadow-md transition"
+                >
+                  <div className="text-3xl leading-none mb-2" style={{ color: accent }}>"</div>
+                  <p className="text-sm leading-relaxed mb-4 line-clamp-4">{q.review.text}</p>
+                  <div className="border-t border-[var(--border)] pt-3 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="font-bold text-sm truncate group-hover:opacity-80 transition" style={{ color: "var(--fg)" }}>
+                        {q.clinic}
+                      </div>
+                      <div className="text-xs text-[var(--muted)] truncate">{q.district}</div>
+                    </div>
+                    <div className="text-yellow-700 font-bold text-sm shrink-0">★ {q.rating.toFixed(1)}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* By Service */}
         {categories.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-              By Service
-            </h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By Service</h2>
             <div className="flex flex-wrap gap-2">
               {categories.map(([cat, count]) => (
                 <a
@@ -163,8 +264,33 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Guides promo */}
+        {GUIDES.length > 0 && (
+          <section className="mb-12 border border-[var(--border)] rounded-2xl bg-slate-50/40 p-6 md:p-8">
+            <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+              <div>
+                <h2 className="text-xl md:text-2xl font-black tracking-tight">Editor's guides</h2>
+                <p className="text-sm text-[var(--muted)] mt-1">Pricing reality, brand verification, what packages cover.</p>
+              </div>
+              <a href="/guide" className="text-sm font-bold hover:underline" style={{ color: accent }}>All guides →</a>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-3">
+              {GUIDES.map((g) => (
+                <a
+                  key={g.slug}
+                  href={`/guide/${g.slug}`}
+                  className="block bg-white rounded-xl border border-[var(--border)] p-4 hover:shadow-md transition"
+                >
+                  <div className="font-bold text-sm leading-tight mb-1">{g.title.replace(/ \(\d{4}\)$/, "")}</div>
+                  <p className="text-xs text-[var(--muted)] line-clamp-2 leading-relaxed">{g.metaDescription}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section>
-          <h2 className="text-xl font-bold mb-4">Top {Math.min(top.length, 50)} by Trust Score</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top {Math.min(top.length, 50)} by Trust Score</h2>
           <div className="grid gap-3">
             {top.slice(0, 10).map((c, i) => (
               <ClinicCard key={c.id} clinic={c} rank={i + 1} />
@@ -185,7 +311,7 @@ export default async function HomePage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-xl font-bold mb-4">Frequently asked</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Frequently asked</h2>
           <div className="space-y-3">
             {homeFaqs.map((f, i) => (
               <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
@@ -209,5 +335,27 @@ export default async function HomePage() {
         />
       </div>
     </>
+  );
+}
+
+function Stat({ big, label }: { big: string; label: string }) {
+  return (
+    <div>
+      <div className="text-3xl md:text-5xl font-black tabular-nums leading-none">{big}</div>
+      <div className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1.5 font-bold">{label}</div>
+    </div>
+  );
+}
+
+function Manifesto({ icon, title, body, accent }: { icon: string; title: string; body: string; accent: string }) {
+  return (
+    <div
+      className="p-5 rounded-2xl border border-[var(--border)] bg-white hover:shadow-md transition"
+      style={{ borderTop: `3px solid ${accent}` }}
+    >
+      <div className="text-3xl mb-3">{icon}</div>
+      <h3 className="font-bold text-base mb-1">{title}</h3>
+      <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
+    </div>
   );
 }
