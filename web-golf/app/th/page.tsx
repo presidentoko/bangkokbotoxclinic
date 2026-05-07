@@ -1,31 +1,38 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
+import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { BEST_FOR } from "@/lib/bestFor";
+import { HeroSearch } from "@/components/HeroSearch";
+import { GUIDES_TH } from "@/lib/guides_th";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ร้านอาหารกรุงเทพ — รีวิวและคะแนนความน่าเชื่อถือ",
-  description: "ไดเรกทอรีร้านอาหารกรุงเทพและพัทยา จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google จริง",
-  alternates: { canonical: "/th", languages: { "th-TH": "/th", "en-US": "/" } },
+  title: "สนามกอล์ฟไทย — รีวิวและคะแนนความน่าเชื่อถือ",
+  description: "ไดเรกทอรีสนามกอล์ฟทั่วไทย กรุงเทพ พัทยา หัวหิน เชียงใหม่ ภูเก็ต จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google จริง",
+  alternates: { canonical: "/th", languages: { "th-TH": "/th", "ko-KR": "/ko", "en-US": "/" } },
   openGraph: { locale: "th_TH" },
 };
 
 const TH_FAQS = [
   {
     q: "คะแนนความน่าเชื่อถือคำนวณอย่างไร?",
-    a: "0-100 รวม 4 ปัจจัย: คะแนน Google (50%), จำนวนรีวิว log-scale (40%), อัตราส่วน Local Guide (10%), ความน่าเชื่อถือเฉลี่ยของผู้รีวิว (5%)",
+    a: "0-100 รวม 4 ปัจจัย: คะแนน Google (50%), จำนวนรีวิว log-scale (40%), อัตราส่วน Local Guide (10%), ความน่าเชื่อถือเฉลี่ยของผู้รีวิว (5%) อัปเดตต่อเนื่อง",
+  },
+  {
+    q: "ค่ากรีนฟีสนามกอล์ฟไทยเท่าไหร่?",
+    a: "สนามสาธารณะวันธรรมดา ฿1,500-3,000 วันหยุด ฿2,500-5,000 คันทรีคลับ ฿3,500-8,000+ ค่าแคดดี้ (~฿400) และทิป (~฿400-500) แยกต่างหาก",
   },
   {
     q: "ข้อมูลอัปเดตบ่อยแค่ไหน?",
-    a: "ทุก 30 นาที สแครเปอร์ทำงาน 24/7",
+    a: "อัปเดตต่อเนื่องจาก Google Maps สาธารณะ ตัวอย่างรีวิวที่แสดงเป็นข้อความจริงจากรีวิวเมื่อเร็วๆ นี้",
   },
   {
-    q: "ร้านที่แสดงเป็นโฆษณาหรือไม่?",
-    a: "รายชื่อทั่วไปไม่เสียค่าใช้จ่าย ช่อง Editor's Pick / Recommended / Featured ติดป้ายชัดเจน",
+    q: "สนามที่แสดงเป็นโฆษณาหรือไม่?",
+    a: "รายชื่อทั่วไปไม่เสียค่าใช้จ่าย ช่อง Editor's Pick / Recommended / Featured ติดป้ายชัดเจน เราไม่ลบหรือลดอันดับสนามที่ไม่ได้จ่าย",
   },
 ];
 
@@ -36,29 +43,42 @@ export default async function ThHomePage() {
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
   const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
 
+  const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
+
   const districtMap = new Map<string, number>();
   for (const r of db.restaurants) {
     if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
   }
   const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
 
-  const cuisines = Object.entries(db.cuisine_counts);
+  const categories = Object.entries(db.cuisine_counts).sort((a, b) => b[1] - a[1]);
+
+  const searchIndex = db.restaurants.map((r) => ({
+    id: r.id,
+    name: r.name,
+    district: r.district,
+    city_label: r.city_label,
+    rating: r.rating,
+    trust_score: r.trust_score,
+  }));
 
   return (
     <>
-      <section className="border-b border-[var(--border)]">
-        <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
-          <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
-            ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
-            ร้านอาหารกรุงเทพ — ตรวจสอบจากรีวิวจริง
-          </h1>
-          <p className="text-base md:text-lg text-[var(--muted)]">
-            {db.total_restaurants.toLocaleString()} ร้าน · วิเคราะห์รีวิว Google {totalReviews.toLocaleString()} รายการ
-          </p>
-        </div>
-      </section>
+      <div className="text-center pt-6 text-xs uppercase tracking-wider text-[var(--muted)]">
+        ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/ko" className="underline hover:text-[var(--fg)]">한국어</a>
+      </div>
+      <HeroSearch
+        restaurants={searchIndex}
+        hero="สนามกอล์ฟไทย — ตรวจสอบจากรีวิวจริง"
+        heroSub={`${db.total_restaurants.toLocaleString()} สนาม · วิเคราะห์รีวิว Google ${totalReviews.toLocaleString()} รายการ`}
+        popularSearches={[
+          { label: "กรุงเทพ", href: "/city/bangkok" },
+          { label: "พัทยา", href: "/city/chon_buri" },
+          { label: "หัวหิน", href: "/city/prachuap_khiri_khan" },
+          { label: "ภูเก็ต", href: "/city/phuket" },
+        ]}
+        lang="th"
+      />
 
       <StatsBar
         generatedAt={db.generated_at}
@@ -69,24 +89,73 @@ export default async function ThHomePage() {
       />
 
       <div className="max-w-5xl mx-auto px-4 py-8">
-        {cuisines.length > 0 && (
+        {cities.length > 1 && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามประเภทอาหาร</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามจังหวัด</h2>
             <div className="flex flex-wrap gap-2">
-              {cuisines.map(([cat, count]) => (
+              {cities.map(([city, count]) => (
                 <a
-                  key={cat}
-                  href={`/c/${cat}`}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                  key={city}
+                  href={`/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition font-medium"
                 >
-                  <span aria-hidden>{CUISINE_ICONS[cat] ?? "🍴"}</span>
-                  {CUISINE_LABELS[cat] ?? cat}
+                  {city}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
                 </a>
               ))}
             </div>
           </section>
         )}
+
+        {categories.length > 0 && (
+          <section className="mb-10">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามประเภทสนาม</h2>
+            <div className="flex flex-wrap gap-2">
+              {categories.map(([cat, count]) => (
+                <a
+                  key={cat}
+                  href={`/c/${cat}`}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                >
+                  <span aria-hidden>{CATEGORY_ICONS[cat] ?? "⛳"}</span>
+                  {CATEGORY_LABELS[cat] ?? cat}
+                  <span className="text-[var(--muted)] tabular-nums">{count}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mb-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">คู่มือภาษาไทย</h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {GUIDES_TH.map((g) => (
+              <a
+                key={g.slug}
+                href={`/th/guide/${g.slug}`}
+                className="block p-4 border border-[var(--border)] rounded-xl bg-white hover:border-[var(--accent)] hover:shadow-sm transition"
+              >
+                <div className="font-medium leading-tight">{g.title.replace(/ \(\d{4}\)$/, "")}</div>
+                <p className="text-xs text-[var(--muted)] mt-1.5 leading-relaxed line-clamp-2">{g.metaDescription.slice(0, 90)}…</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">แนะนำตามธีม</h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
+            {BEST_FOR.slice(0, 9).map((c) => (
+              <a
+                key={c.slug}
+                href={`/best/${c.slug}`}
+                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                {c.title.replace(/^Best |^Most /, "").replace(/ in Thailand$/, "")}
+              </a>
+            ))}
+          </div>
+        </section>
 
         <section className="mb-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">ตามเขต</h2>
@@ -137,7 +206,7 @@ export default async function ThHomePage() {
 
         <FaqJsonLd faqs={TH_FAQS} />
         <ItemListJsonLd
-          name="Top Bangkok Restaurants by Trust Score (Thai)"
+          name="สนามกอล์ฟไทย Top 20 ตามคะแนนความน่าเชื่อถือ"
           items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}
         />
       </div>

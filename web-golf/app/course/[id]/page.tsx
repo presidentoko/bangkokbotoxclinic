@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getRestaurantById } from "@/lib/data";
-import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
+import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
@@ -22,16 +22,16 @@ export async function generateMetadata(
   const { id } = await params;
   const db = await loadMasterDb();
   const r = getRestaurantById(db.restaurants, id);
-  if (!r) return { title: "Restaurant not found" };
-  const cuisines = r.categories.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
+  if (!r) return { title: "Course not found" };
+  const cats = r.categories.map((c) => CATEGORY_LABELS[c] ?? c).join(", ");
   return {
     title: `${r.name} — Reviews & Trust Score`,
-    description: `${r.name} in ${r.district || r.city_label || "Bangkok"}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cuisines || "Restaurant"}.`,
+    description: `${r.name} in ${r.district || r.city_label || "Thailand"}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cats || "Golf course"}.`,
     alternates: { canonical: `/course/${id}` },
   };
 }
 
-export default async function RestaurantPage(
+export default async function CoursePage(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
@@ -64,7 +64,7 @@ export default async function RestaurantPage(
   const idx = sortedTrust.indexOf(r.trust_score);
   const percentile = sortedTrust.length > 0 ? Math.round((idx / sortedTrust.length) * 100) : 100;
   const rankingLabel = r.categories.length > 0
-    ? `${CUISINE_LABELS[r.categories[0]] ?? r.categories[0]} (${r.city_label})`
+    ? `${CATEGORY_LABELS[r.categories[0]] ?? r.categories[0]} (${r.city_label})`
     : r.city_label;
 
   const similar = db.restaurants
@@ -97,6 +97,20 @@ export default async function RestaurantPage(
       {tier && (
         <div className="mb-3">
           <SponsoredBadge id={r.id} />
+        </div>
+      )}
+
+      {r.hero_image && (
+        <div className="relative w-full mb-6 rounded-2xl overflow-hidden bg-gray-100" style={{ aspectRatio: "16 / 7" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={r.hero_image}
+            alt={r.name}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute bottom-2 right-2 text-[10px] text-white bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">
+            From course&apos;s own website
+          </div>
         </div>
       )}
 
@@ -144,10 +158,10 @@ export default async function RestaurantPage(
               <a
                 key={c}
                 href={`/c/${c}`}
-                className="bg-red-50 text-red-800 px-3 py-1 rounded-full text-sm hover:bg-red-100 inline-flex items-center gap-1.5"
+                className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-sm hover:bg-emerald-100 inline-flex items-center gap-1.5"
               >
-                <span aria-hidden>{CUISINE_ICONS[c] ?? "🍴"}</span>
-                {CUISINE_LABELS[c] ?? c}
+                <span aria-hidden>{CATEGORY_ICONS[c] ?? "⛳"}</span>
+                {CATEGORY_LABELS[c] ?? c}
                 {r.cuisine_mentions[c] ? (
                   <span className="opacity-70 text-xs">· {r.cuisine_mentions[c]} mentions</span>
                 ) : null}
@@ -270,7 +284,7 @@ export default async function RestaurantPage(
           {similar.length > 0 && (
             <div className="bg-white border border-[var(--border)] rounded-xl p-4">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-                Similar restaurants
+                Similar courses
               </h3>
               <div className="space-y-2">
                 {similar.map((s) => (

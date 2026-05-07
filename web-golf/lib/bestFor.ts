@@ -1,6 +1,6 @@
-// "Best for X" — restaurant edition. Long-tail SEO + 차별화 정렬.
+// "Best for X" — golf course edition. Long-tail SEO + 차별화 정렬.
 
-import type { Restaurant } from "./types";
+import type { Course } from "./types";
 
 export type Criterion = {
   slug: string;
@@ -8,122 +8,160 @@ export type Criterion = {
   metaTitle: string;
   metaDescription: string;
   intro: string;
-  scoreFn: (r: Restaurant) => number;
-  filterFn?: (r: Restaurant) => boolean;
+  scoreFn: (r: Course) => number;
+  filterFn?: (r: Course) => boolean;
 };
 
-const topicHits = (r: Restaurant, topic: string) => {
+const topicHits = (r: Course, topic: string) => {
   const t = r.mentioned_topics.find((x) => x.topic === topic);
   return t ? t.count : 0;
 };
 
 export const BEST_FOR: Criterion[] = [
   {
-    slug: "halal",
-    title: "Best Halal Restaurants in Bangkok",
-    metaTitle: "Best Halal Restaurants in Bangkok (2026) — Verified Reviews",
+    slug: "korean-friendly",
+    title: "Best Korean-Friendly Golf Courses in Thailand",
+    metaTitle: "Korean-Friendly Golf Courses in Thailand — Verified Reviews",
     metaDescription:
-      "Bangkok halal-certified restaurants ranked by reviewer mentions of halal credentials. Verified from real Google review analysis.",
+      "Thailand golf courses with Korean-speaking caddies, Korean menus, or strong Korean tourist popularity. Verified from real Google reviews.",
     intro:
-      "Bangkok restaurants where reviewers explicitly mention halal certification or muslim-friendly options. Sorted by mention count weighted by Trust Score.",
-    scoreFn: (r) => topicHits(r, "halal_certified") * 12 + r.trust_score,
-    filterFn: (r) => topicHits(r, "halal_certified") >= 1 || r.categories.includes("halal"),
+      "Thailand golf courses where Korean reviewers dominate or where reviewers explicitly mention Korean-speaking caddies. Sorted by Korean review count and caddy mentions weighted by Trust Score.",
+    scoreFn: (r) =>
+      topicHits(r, "korean_caddy") * 12 +
+      (r.language_breakdown?.ko ?? 0) * 4 +
+      r.trust_score,
+    filterFn: (r) =>
+      topicHits(r, "korean_caddy") >= 1 || (r.language_breakdown?.ko ?? 0) >= 2,
   },
   {
-    slug: "vegetarian-friendly",
-    title: "Best Vegetarian-Friendly Restaurants in Bangkok",
-    metaTitle: "Best Vegetarian Restaurants in Bangkok — Verified Reviews",
+    slug: "english-caddy",
+    title: "Best English-Speaking Caddy Golf Courses in Thailand",
+    metaTitle: "English-Speaking Caddy Golf Courses in Thailand",
     metaDescription:
-      "Bangkok restaurants with vegetarian and vegan options most often praised in reviews.",
+      "Thailand golf courses where reviewers praise English-speaking caddies and international-friendly service.",
     intro:
-      "Bangkok restaurants where reviewers explicitly mention vegetarian or vegan friendly menus. Includes dedicated vegetarian places + omnivore restaurants with strong veg options.",
-    scoreFn: (r) => topicHits(r, "vegetarian_friendly") * 10 + r.trust_score,
-    filterFn: (r) => topicHits(r, "vegetarian_friendly") >= 1 || r.categories.includes("vegetarian"),
+      "Thailand golf courses where reviewers explicitly mention English-speaking caddies or international tourist friendly service.",
+    scoreFn: (r) =>
+      topicHits(r, "english_caddy") * 10 +
+      topicHits(r, "international") * 5 +
+      r.trust_score,
+    filterFn: (r) =>
+      topicHits(r, "english_caddy") >= 1 || topicHits(r, "international") >= 1,
+  },
+  {
+    slug: "well-maintained",
+    title: "Best Maintained Golf Courses in Thailand",
+    metaTitle: "Best Course Conditions in Thailand — Verified Reviews",
+    metaDescription:
+      "Thailand golf courses most consistently described as well-maintained with great fairway and green conditions.",
+    intro:
+      "Thailand golf courses where reviewers most often mention pristine fairway conditions, fast greens, and excellent maintenance.",
+    scoreFn: (r) => topicHits(r, "well_maintained") * 10 + r.trust_score,
+    filterFn: (r) => topicHits(r, "well_maintained") >= 1,
+  },
+  {
+    slug: "challenging",
+    title: "Most Challenging Golf Courses in Thailand",
+    metaTitle: "Challenging Golf Courses in Thailand — Tournament-Grade",
+    metaDescription:
+      "Thailand golf courses described by reviewers as challenging, championship-grade, or testing layouts for serious golfers.",
+    intro:
+      "Thailand golf courses with championship-grade or challenging layouts — for serious players who want a real test.",
+    scoreFn: (r) =>
+      topicHits(r, "challenging") * 8 +
+      topicHits(r, "championship") * 10 +
+      topicHits(r, "tournament_ready") * 8 +
+      r.trust_score,
+    filterFn: (r) =>
+      topicHits(r, "challenging") >= 1 ||
+      topicHits(r, "championship") >= 1 ||
+      topicHits(r, "tournament_ready") >= 1,
+  },
+  {
+    slug: "scenic",
+    title: "Most Scenic Golf Courses in Thailand",
+    metaTitle: "Scenic Golf Courses in Thailand — Mountain & Ocean Views",
+    metaDescription:
+      "Thailand golf courses with the most scenic views — mountain, lake, ocean. Verified from reviewer mentions.",
+    intro:
+      "Thailand golf courses where reviewers most often praise scenic views — mountains, lakes, ocean, jungle.",
+    scoreFn: (r) => topicHits(r, "scenic") * 10 + r.trust_score,
+    filterFn: (r) => topicHits(r, "scenic") >= 1,
   },
   {
     slug: "affordable",
-    title: "Most Affordable Bangkok Restaurants",
-    metaTitle: "Affordable Bangkok Restaurants — Verified Reviews",
+    title: "Most Affordable Golf Courses in Thailand",
+    metaTitle: "Affordable Golf Courses in Thailand — Best Value Green Fees",
     metaDescription:
-      "Bangkok restaurants most often described as affordable, reasonably priced, or good value in real Google reviews.",
+      "Thailand golf courses where reviewers mention affordable green fees and great value, ranked by Trust Score.",
     intro:
-      "Bangkok restaurants where reviewers most often use words like affordable, cheap, reasonable price, or good value.",
+      "Thailand golf courses where reviewers explicitly call out affordable green fees, weekday rates, or great-value packages.",
     scoreFn: (r) => topicHits(r, "affordable") * 8 + r.trust_score,
     filterFn: (r) => topicHits(r, "affordable") >= 1,
   },
   {
-    slug: "fine-dining",
-    title: "Bangkok's Top Fine Dining Restaurants",
-    metaTitle: "Bangkok Fine Dining — Top Restaurants (2026)",
+    slug: "championship",
+    title: "Championship Golf Courses in Thailand",
+    metaTitle: "Championship Golf Courses in Thailand (2026)",
     metaDescription:
-      "Bangkok fine dining restaurants and tasting menu venues, ranked by Trust Score.",
+      "Thailand championship-grade and tournament-ready golf courses — the most demanding layouts ranked by Trust Score.",
     intro:
-      "Bangkok fine dining and tasting menu restaurants — premium dining experiences ranked by Trust Score and reviewer mentions of refined cuisine.",
-    scoreFn: (r) => (r.categories.includes("fine_dining") ? 200 : 0) + topicHits(r, "michelin") * 30 + r.trust_score,
-    filterFn: (r) => r.categories.includes("fine_dining") || topicHits(r, "michelin") >= 1,
-  },
-  {
-    slug: "instagrammable",
-    title: "Most Instagrammable Bangkok Restaurants",
-    metaTitle: "Instagrammable Bangkok Restaurants — Best for Photos",
-    metaDescription:
-      "Bangkok restaurants most often described as photo-worthy, Instagrammable, or with great views.",
-    intro:
-      "Bangkok restaurants reviewers love to photograph — Instagrammable interiors, plating, rooftop views.",
+      "Thailand golf courses described as championship-grade or tournament-ready — the layouts where pros and serious amateurs play.",
     scoreFn: (r) =>
-      topicHits(r, "instagram_worthy") * 8 +
-      topicHits(r, "good_view") * 6 +
-      topicHits(r, "good_atmosphere") * 4 +
+      (r.categories.includes("country_club") ? 50 : 0) +
+      topicHits(r, "championship") * 15 +
+      topicHits(r, "tournament_ready") * 12 +
       r.trust_score,
     filterFn: (r) =>
-      topicHits(r, "instagram_worthy") >= 1 ||
-      topicHits(r, "good_view") >= 1 ||
-      r.categories.includes("fine_dining"),
+      topicHits(r, "championship") >= 1 ||
+      topicHits(r, "tournament_ready") >= 1,
   },
   {
-    slug: "korean-friendly",
-    title: "Bangkok Restaurants with Korean Menus",
-    metaTitle: "Korean-Friendly Bangkok Restaurants",
+    slug: "beginner-friendly",
+    title: "Beginner-Friendly Golf Courses in Thailand",
+    metaTitle: "Beginner-Friendly Golf Courses in Thailand",
     metaDescription:
-      "Bangkok restaurants where reviewers mention Korean menus, Korean staff, or Korean tourist popularity.",
+      "Thailand golf courses described as easy, forgiving, or great for beginners — verified from real Google reviews.",
     intro:
-      "Bangkok restaurants frequently mentioned by Korean reviewers or with Korean-language menus. Popular with Korean tourists.",
-    scoreFn: (r) => topicHits(r, "korean_friendly") * 12 + r.language_breakdown.other * 0.5 + r.trust_score,
-    filterFn: (r) => topicHits(r, "korean_friendly") >= 1 || r.categories.includes("korean"),
+      "Thailand golf courses with easy, forgiving layouts — recommended by reviewers for beginners and casual players.",
+    scoreFn: (r) =>
+      topicHits(r, "easy_course") * 8 +
+      topicHits(r, "fun_layout") * 5 +
+      r.trust_score,
+    filterFn: (r) =>
+      topicHits(r, "easy_course") >= 1 || r.categories.includes("driving_range"),
   },
   {
-    slug: "kid-friendly",
-    title: "Family & Kid Friendly Bangkok Restaurants",
-    metaTitle: "Family Friendly Bangkok Restaurants",
+    slug: "near-bangkok",
+    title: "Best Golf Courses Near Bangkok",
+    metaTitle: "Golf Courses Near Bangkok — Day Trip Friendly",
     metaDescription:
-      "Bangkok restaurants with family-friendly atmosphere and good options for kids.",
+      "Top golf courses within easy reach of Bangkok and BKK/DMK airports. Day-trip friendly courses ranked by Trust Score.",
     intro:
-      "Bangkok restaurants where reviewers explicitly mention family-friendly atmosphere, kids menu, or being good with children.",
-    scoreFn: (r) => topicHits(r, "kid_friendly") * 8 + r.trust_score,
-    filterFn: (r) => topicHits(r, "kid_friendly") >= 1,
-  },
-  {
-    slug: "great-view",
-    title: "Bangkok Restaurants with the Best Views",
-    metaTitle: "Bangkok Rooftop & View Restaurants",
-    metaDescription:
-      "Bangkok restaurants with great views — rooftop dining, skyline, river view.",
-    intro:
-      "Bangkok restaurants with skyline, rooftop, or river views — top-mentioned in reviews.",
-    scoreFn: (r) => topicHits(r, "good_view") * 10 + r.trust_score,
-    filterFn: (r) => topicHits(r, "good_view") >= 1,
+      "Top golf courses in or near Bangkok — Pathum Thani, Samut Prakan, Nonthaburi, plus Chonburi/Pattaya day-trips.",
+    scoreFn: (r) => {
+      const cityScore =
+        r.city === "bangkok" ? 30 :
+        r.city === "samut_prakan" || r.city === "nonthaburi" || r.city === "pathum_thani" ? 20 :
+        r.city === "chon_buri" ? 10 : 0;
+      return cityScore + topicHits(r, "near_airport") * 5 + r.trust_score;
+    },
+    filterFn: (r) =>
+      ["bangkok", "samut_prakan", "nonthaburi", "pathum_thani", "chon_buri"].includes(r.city),
   },
   {
     slug: "highly-recommended",
-    title: "Most Highly Recommended Bangkok Restaurants",
-    metaTitle: "Highly Recommended Bangkok Restaurants",
+    title: "Most Highly Recommended Golf Courses in Thailand",
+    metaTitle: "Most Highly Recommended Golf Courses in Thailand",
     metaDescription:
-      "Bangkok restaurants most explicitly praised as delicious, authentic, or recommend-worthy.",
+      "Thailand golf courses with the highest combined Trust Score and reviewer enthusiasm — the consensus picks.",
     intro:
-      "Bangkok restaurants where reviewers consistently say authentic, delicious, or recommend coming back.",
+      "Thailand golf courses with the strongest combination of Trust Score, reviewer praise, and overall consensus.",
     scoreFn: (r) =>
-      topicHits(r, "tasty") * 5 + topicHits(r, "authentic") * 5 + r.trust_score,
-    filterFn: (r) => topicHits(r, "tasty") >= 1 || topicHits(r, "authentic") >= 1,
+      r.trust_score * 1.2 +
+      topicHits(r, "well_maintained") * 3 +
+      topicHits(r, "good_caddy") * 3,
+    filterFn: (r) => r.trust_score >= 50,
   },
 ];
 

@@ -2,8 +2,8 @@
 import { ImageResponse } from "next/og";
 import { getSiteConfig } from "@/lib/site";
 
-export const runtime = "edge";
-export const alt = "Bangkok Clinics — Verified Reviews & Trust Scores";
+export const dynamic = "force-static";
+export const alt = "Verified Restaurant Reviews & Trust Scores";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

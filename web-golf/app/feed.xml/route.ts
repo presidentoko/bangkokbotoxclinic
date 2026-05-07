@@ -31,7 +31,7 @@ export async function GET() {
     <title>${BRAND} — Top by Trust Score</title>
     <link>${SITE}</link>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Top Bangkok and Pattaya restaurants ranked by Trust Score from real Google review analysis. Refreshed every 30 minutes.</description>
+    <description>Top Thailand golf courses ranked by Trust Score from real Google review analysis. Refreshed continuously.</description>
     <language>en-US</language>
     <lastBuildDate>${updated}</lastBuildDate>
     ${items}

@@ -1,16 +1,21 @@
 import { SearchBar } from "./SearchBar";
 import type { Restaurant } from "@/lib/types";
 
+type Lang = "en" | "ko" | "th";
+
+const POPULAR_LABEL: Record<Lang, string> = { en: "Popular:", ko: "인기:", th: "ยอดนิยม:" };
+
 export function HeroSearch({
-  restaurants, hero, heroSub, popularSearches,
+  restaurants, hero, heroSub, popularSearches, lang = "en",
 }: {
   restaurants: Pick<Restaurant, "id" | "name" | "district" | "city_label" | "rating" | "trust_score">[];
   hero: string;
   heroSub: string;
   popularSearches: { label: string; href: string }[];
+  lang?: Lang;
 }) {
   return (
-    <section className="bg-gradient-to-b from-white via-red-50/30 to-transparent border-b border-[var(--border)]">
+    <section className="bg-gradient-to-b from-white via-emerald-50/40 to-transparent border-b border-[var(--border)]">
       <div className="max-w-3xl mx-auto px-4 pt-12 pb-10 text-center">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
           {hero}
@@ -19,11 +24,11 @@ export function HeroSearch({
           {heroSub}
         </p>
         <div className="max-w-2xl mx-auto">
-          <SearchBar restaurants={restaurants} />
+          <SearchBar restaurants={restaurants} lang={lang} />
         </div>
         {popularSearches.length > 0 && (
           <div className="mt-4 flex items-center justify-center gap-2 flex-wrap text-xs">
-            <span className="text-[var(--muted)]">Popular:</span>
+            <span className="text-[var(--muted)]">{POPULAR_LABEL[lang]}</span>
             {popularSearches.map((p) => (
               <a
                 key={p.href}

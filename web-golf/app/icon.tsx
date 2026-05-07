@@ -21,7 +21,7 @@ export default function Icon() {
           borderRadius: 6,
         }}
       >
-        +
+        ⛳
       </div>
     ),
     size

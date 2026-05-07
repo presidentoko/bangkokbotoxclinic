@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
+// Cloudflare Pages — 순수 정적 export.
 const config: NextConfig = {
-  // master_db.json 큰 사이즈 대비 Edge 런타임 안 씀
+  output: "export",
+  trailingSlash: false,
+  images: { unoptimized: true },
   experimental: {
     largePageDataBytes: 4 * 1024 * 1024,
   },

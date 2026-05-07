@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCuisine } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
+import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { CUISINE_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
@@ -9,7 +9,7 @@ import { StatsBar } from "@/components/StatsBar";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
-const VALID = new Set(Object.keys(CUISINE_LABELS));
+const VALID = new Set(Object.keys(CATEGORY_LABELS));
 
 export async function generateStaticParams() {
   return Array.from(VALID).map((cuisine) => ({ cuisine }));
@@ -19,15 +19,15 @@ export async function generateMetadata(
   { params }: { params: Promise<{ cuisine: string }> }
 ): Promise<Metadata> {
   const { cuisine } = await params;
-  const label = CUISINE_LABELS[cuisine] ?? cuisine;
+  const label = CATEGORY_LABELS[cuisine] ?? cuisine;
   return {
-    title: `${label} Restaurants in Bangkok — Trust Score Ranking`,
-    description: `Best ${label} restaurants in Bangkok and Pattaya ranked by verified Google review analysis.`,
+    title: `${label}s in Thailand — Trust Score Ranking`,
+    description: `Best ${label.toLowerCase()}s across Thailand ranked by verified Google review analysis. Trust Scores, caddy quality, course conditions.`,
     alternates: { canonical: `/c/${cuisine}` },
   };
 }
 
-export default async function CuisinePage(
+export default async function CategoryPage(
   { params }: { params: Promise<{ cuisine: string }> }
 ) {
   const { cuisine } = await params;
@@ -35,21 +35,22 @@ export default async function CuisinePage(
 
   const db = await loadMasterDb();
   const filtered = sortWithSponsored(filterByCuisine(db.restaurants, cuisine));
-  const label = CUISINE_LABELS[cuisine] ?? cuisine;
-  const icon = CUISINE_ICONS[cuisine] ?? "🍴";
+  const label = CATEGORY_LABELS[cuisine] ?? cuisine;
+  const icon = CATEGORY_ICONS[cuisine] ?? "⛳";
 
-  // 도시별 group
+  // City-level breakdown
   const byCity = new Map<string, number>();
   for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
-  // 지역별 group (방콕 위주)
+  // District breakdown (Bangkok 위주)
   const byDistrict = new Map<string, number>();
   for (const r of filtered) {
     if (!r.district) continue;
     byDistrict.set(r.district, (byDistrict.get(r.district) ?? 0) + 1);
   }
   const districts = Array.from(byDistrict.entries())
-    .filter(([, n]) => n >= 3)
+    .filter(([, n]) => n >= 2)
     .sort((a, b) => b[1] - a[1]);
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
@@ -71,11 +72,31 @@ export default async function CuisinePage(
         </nav>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2 flex items-center gap-3">
           <span>{icon}</span>
-          {label} Restaurants
+          {label}s in Thailand
         </h1>
         <p className="text-[var(--muted)] mb-8">
-          {filtered.length} restaurants in Bangkok and Pattaya, ranked by Trust Score from real Google reviews.
+          {filtered.length} {label.toLowerCase()}s nationwide, ranked by Trust Score from real Google reviews.
         </p>
+
+        {cities.length > 1 && (
+          <section className="mb-8">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
+              By Region
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {cities.map(([city, n]) => (
+                <a
+                  key={city}
+                  href={`/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition font-medium"
+                >
+                  {city}
+                  <span className="text-[var(--muted)] tabular-nums">{n}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
         {districts.length > 0 && (
           <section className="mb-10">
@@ -115,14 +136,14 @@ export default async function CuisinePage(
 
           {filtered.length > 100 && (
             <p className="mt-6 text-sm text-[var(--muted)]">
-              {filtered.length - 100} more restaurants — visit district pages to explore.
+              {filtered.length - 100} more {label.toLowerCase()}s — visit region or district pages to explore.
             </p>
           )}
         </section>
 
         {(CUISINE_FAQS[cuisine] ?? []).length > 0 && (
           <section className="mt-12">
-            <h2 className="text-xl font-bold mb-4">{label} restaurants — FAQ</h2>
+            <h2 className="text-xl font-bold mb-4">{label} — FAQ</h2>
             <div className="space-y-3">
               {(CUISINE_FAQS[cuisine] ?? []).map((f, i) => (
                 <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
@@ -143,7 +164,7 @@ export default async function CuisinePage(
         ]} />
         <FaqJsonLd faqs={CUISINE_FAQS[cuisine] ?? []} />
         <ItemListJsonLd
-          name={`Top ${label} Restaurants`}
+          name={`Top ${label}s in Thailand`}
           items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}
         />
       </div>

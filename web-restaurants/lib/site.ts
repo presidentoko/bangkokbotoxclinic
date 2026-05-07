@@ -22,6 +22,6 @@ export function getSiteConfig(): SiteConfig {
     hero: "Stop searching on SNS. Find restaurants by real reviews.",
     heroSub:
       "Bangkok and Pattaya restaurants ranked from verified Google reviews. No paid influencers. No filters.",
-    themeAccent: "#dc2626",
+    themeAccent: "#ea580c",
   };
 }

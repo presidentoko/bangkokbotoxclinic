@@ -3,6 +3,7 @@ import path from "node:path";
 import type { MasterDb, Course } from "./types";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
+const PHOTOS_PATH = path.join(process.cwd(), "data", "course_photos.json");
 
 let _cache: MasterDb | null = null;
 
@@ -10,8 +11,23 @@ export async function loadMasterDb(): Promise<MasterDb> {
   if (_cache) return _cache;
   const raw = await fs.readFile(DATA_PATH, "utf-8");
   const db = JSON.parse(raw) as MasterDb;
+
+  // Merge scraped course photos (sidecar — survives master_db rebuilds)
+  let photos: Record<string, string> = {};
+  try {
+    const pRaw = await fs.readFile(PHOTOS_PATH, "utf-8");
+    photos = JSON.parse(pRaw);
+  } catch {
+    // sidecar optional
+  }
+
+  const courses = db.courses ?? db.restaurants ?? [];
+  for (const c of courses) {
+    if (photos[c.id]) c.hero_image = photos[c.id];
+  }
+
   // alias — 기존 식당 코드 import 호환
-  if (!db.restaurants) db.restaurants = db.courses;
+  if (!db.restaurants) db.restaurants = courses;
   if (db.total_restaurants === undefined) db.total_restaurants = db.total_courses;
   if (!db.cuisine_counts) db.cuisine_counts = db.category_counts;
   _cache = db;

@@ -144,7 +144,7 @@ export default async function RestaurantPage(
               <a
                 key={c}
                 href={`/c/${c}`}
-                className="bg-red-50 text-red-800 px-3 py-1 rounded-full text-sm hover:bg-red-100 inline-flex items-center gap-1.5"
+                className="bg-orange-50 text-orange-800 px-3 py-1 rounded-full text-sm hover:bg-orange-100 inline-flex items-center gap-1.5"
               >
                 <span aria-hidden>{CUISINE_ICONS[c] ?? "🍴"}</span>
                 {CUISINE_LABELS[c] ?? c}

@@ -8,6 +8,8 @@ import { BookingForm } from "@/components/BookingForm";
 import { HeroSearch } from "@/components/HeroSearch";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
+import { SponsoredHero } from "@/components/SponsoredHero";
+import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -16,7 +18,7 @@ export default async function HomePage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
-  const top = topByTrust(focused, 50);
+  const top = sortWithSponsored(topByTrust(focused, 50));
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;
@@ -77,6 +79,11 @@ export default async function HomePage() {
       />
 
       <div className="max-w-5xl mx-auto px-4 py-8">
+        {(() => {
+          const hero = top.find((c) => sponsoredTier(c.id));
+          return hero ? <SponsoredHero c={hero} /> : null;
+        })()}
+
         {/* Featured top 3 — 큰 카드 */}
         {top.length >= 3 && (
           <section className="mb-10">

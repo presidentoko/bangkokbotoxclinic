@@ -1,7 +1,7 @@
 import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
-import { SponsoredBadge, AIVerifiedBadge } from "./Badges";
+import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 
 export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
@@ -9,18 +9,21 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
   const trending = trend === "improving";
   const tier = sponsoredTier(r.id);
 
-  const ringClass =
-    tier === "editors_pick" ? "ring-2 ring-amber-300 shadow-amber-100"
-    : tier === "recommended" ? "ring-2 ring-blue-300 shadow-blue-100"
-    : "";
+  const tierStyles = tier === "editors_pick"
+    ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }
+    : tier === "recommended"
+    ? { wrapper: "shadow-lg shadow-blue-200/40 ring-2 ring-sky-300", corner: "from-sky-500 to-blue-600" }
+    : tier === "featured"
+    ? { wrapper: "shadow-lg shadow-purple-200/40 ring-2 ring-fuchsia-300", corner: "from-fuchsia-500 to-purple-600" }
+    : { wrapper: "", corner: "" };
 
   return (
     <div
-      className={`group block border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${ringClass}`}
+      className={`group block border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${tierStyles.wrapper}`}
     >
       {tier && (
-        <div className="absolute top-3 right-3 z-10">
-          <SponsoredBadge id={r.id} />
+        <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg shadow-md`}>
+          {tier === "editors_pick" ? "★ Editor's Pick" : tier === "recommended" ? "✓ Recommended" : "◆ Featured"}
         </div>
       )}
 

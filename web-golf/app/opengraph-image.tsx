@@ -28,10 +28,10 @@ export default async function OG() {
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 32, fontWeight: 800,
             }}
-          >+</div>
+          >⛳</div>
           <div style={{ fontSize: 28, fontWeight: 800, display: "flex" }}>
-            <span>bkk</span>
-            <span style={{ color: cfg.themeAccent }}>clinics</span>
+            <span>thailand</span>
+            <span style={{ color: cfg.themeAccent }}>golf</span>
           </div>
         </div>
 

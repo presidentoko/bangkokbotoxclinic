@@ -1,7 +1,9 @@
 import { loadMasterDb } from "@/lib/data";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
-const BRAND = process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
+
+export const dynamic = "force-static";
 
 function escape(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");

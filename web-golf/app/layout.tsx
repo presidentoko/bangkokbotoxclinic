@@ -4,7 +4,7 @@ import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const cfg = getSiteConfig();
 
 export const metadata: Metadata = {
@@ -19,8 +19,15 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
-  alternates: { canonical: "/" },
-  // Search Console + Bing 검증 메타. Vercel ENV 로 주입 (옵션).
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/",
+      "ko-KR": "/ko",
+      "th-TH": "/th",
+      "x-default": "/",
+    },
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
     other: process.env.NEXT_PUBLIC_BING_VERIFICATION
@@ -45,12 +52,18 @@ export default function RootLayout({
               <Logo accent={cfg.themeAccent} />
             </a>
             <nav className="text-sm flex gap-4 md:gap-5 text-[var(--muted)] items-center">
-              <a href="/c/thai" className="hover:text-black">Thai</a>
-              <a href="/c/japanese" className="hover:text-black hidden sm:inline">Japanese</a>
-              <a href="/c/italian" className="hover:text-black hidden sm:inline">Italian</a>
-              <a href="/c/cafe" className="hover:text-black hidden md:inline">Cafés</a>
-              <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
+              <a href="/c/course" className="hover:text-black">Courses</a>
+              <a href="/c/driving_range" className="hover:text-black hidden sm:inline">Driving Range</a>
+              <a href="/c/resort" className="hover:text-black hidden sm:inline">Resorts</a>
+              <a href="/best/highly-recommended" className="hover:text-black hidden md:inline">Best of</a>
+              <a href="/guide/booking-thai-golf" className="hover:text-black hidden md:inline">Guides</a>
               <a href="/about" className="hover:text-black hidden md:inline">About</a>
+              <a
+                href="/for-courses"
+                className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold hidden sm:inline-flex"
+              >
+                For clubs →
+              </a>
               <a href="/th" className="text-xs hover:text-black">TH</a>
               <a href="/ko" className="text-xs hover:text-black">KO</a>
             </nav>
@@ -59,15 +72,37 @@ export default function RootLayout({
         <main>{children}</main>
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
-            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
-              <a href="/about" className="hover:text-black">About</a>
-              <a href="/contact" className="hover:text-black">Contact</a>
-              <a href="/for-restaurants" className="hover:text-black">For Restaurants</a>
-              <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
-              <a href="/llms.txt" className="hover:text-black">llms.txt</a>
+            <div className="grid sm:grid-cols-3 gap-6 mb-6">
+              <div>
+                <div className="font-bold text-[var(--fg)] mb-2 text-xs uppercase tracking-wide">Browse</div>
+                <ul className="space-y-1.5">
+                  <li><a href="/c/course" className="hover:text-black">Golf Courses</a></li>
+                  <li><a href="/c/driving_range" className="hover:text-black">Driving Range</a></li>
+                  <li><a href="/c/resort" className="hover:text-black">Golf Resorts</a></li>
+                  <li><a href="/c/indoor" className="hover:text-black">Indoor Golf</a></li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-bold text-[var(--fg)] mb-2 text-xs uppercase tracking-wide">Best of</div>
+                <ul className="space-y-1.5">
+                  <li><a href="/best/korean-friendly" className="hover:text-black">Korean-friendly</a></li>
+                  <li><a href="/best/english-caddy" className="hover:text-black">English caddy</a></li>
+                  <li><a href="/best/well-maintained" className="hover:text-black">Best condition</a></li>
+                  <li><a href="/best/scenic" className="hover:text-black">Scenic views</a></li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-bold text-[var(--fg)] mb-2 text-xs uppercase tracking-wide">Site</div>
+                <ul className="space-y-1.5">
+                  <li><a href="/about" className="hover:text-black">About</a></li>
+                  <li><a href="/contact" className="hover:text-black">Contact</a></li>
+                  <li><a href="/for-courses" className="hover:text-black">For Golf Clubs</a></li>
+                  <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
+                </ul>
+              </div>
             </div>
-            <p className="text-xs leading-relaxed max-w-2xl">
-              Independent restaurant review aggregation. Not affiliated with any restaurant. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
+            <p className="text-xs leading-relaxed max-w-2xl border-t border-[var(--border)] pt-4">
+              Independent golf course review aggregation for Thailand. Not affiliated with any club. Data sourced from public Google Maps listings. Featured / Editor&apos;s Pick / Recommended slots are clearly labelled and never replace organic results.
             </p>
             <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand}</p>
           </div>

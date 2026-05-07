@@ -1,0 +1,32 @@
+# Cloudflare Pages cache rules — static export.
+# All HTML revalidates often (data changes); fingerprinted assets cache forever.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+# HTML — short edge cache, allow stale-while-revalidate
+/
+  Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
+
+/*.html
+  Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
+
+# Course photos — scraped, rarely change
+/course-photos/*
+  Cache-Control: public, max-age=2592000, immutable
+
+# Next.js fingerprinted assets
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# llms.txt / feed.xml — refresh hourly
+/llms.txt
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/llms-full.txt
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/feed.xml
+  Cache-Control: public, max-age=1800, s-maxage=1800
+/sitemap.xml
+  Cache-Control: public, max-age=3600, s-maxage=3600

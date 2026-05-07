@@ -27,10 +27,14 @@ export function SponsoredBadge({ id }: { id: string }) {
   const tier = sponsoredTier(id);
   if (!tier) return null;
   const cfg = SPONSORED_BADGE[tier];
+  const gradient =
+    tier === "editors_pick" ? "linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)"
+    : tier === "recommended" ? "linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #1d4ed8 100%)"
+    : "linear-gradient(135deg, #d946ef 0%, #9333ea 50%, #7e22ce 100%)";
   return (
     <span
-      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold whitespace-nowrap"
-      style={{ background: cfg.bg, color: cfg.fg }}
+      className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold whitespace-nowrap text-white shadow-md"
+      style={{ background: gradient }}
     >
       <span>{cfg.icon}</span>
       {cfg.label}

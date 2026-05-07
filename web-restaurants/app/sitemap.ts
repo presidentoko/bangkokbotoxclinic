@@ -2,9 +2,12 @@ import type { MetadataRoute } from "next";
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
+import { GUIDES } from "@/lib/guides";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
+
+export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
@@ -21,7 +24,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE}/for-restaurants`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
   ];
+
+  for (const g of GUIDES) {
+    items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+  }
 
   for (const c of cities) {
     items.push({ url: `${SITE}/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });

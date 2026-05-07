@@ -6,42 +6,42 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About — Methodology & Data Sources",
   description:
-    "How we compute Trust Score, where the data comes from, and our editorial principles. We are independent and not affiliated with any restaurant.",
+    "How we compute Trust Score, where the data comes from, and our editorial principles. Independent golf course directory for Thailand.",
   alternates: { canonical: "/about" },
 };
 
 const FAQS = [
   {
     q: "Where does this data come from?",
-    a: "All restaurant listings, ratings, reviews, and metadata are sourced from public Google Maps listings. We do not edit, hide, or selectively filter any restaurant. Data refreshes every 30 minutes.",
+    a: "All golf course listings, ratings, reviews, and metadata come from public Google Maps listings. We don't edit, hide, or selectively filter any course. Data refreshes when we add new scrape results — currently 479 courses across 47 Thai provinces with 9,996 verified Google reviews.",
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines four signals: Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority (5%). It's our derived metric.",
+    a: "Trust Score (0-100) combines: course Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority (5%). It's our derived metric, not a Google ranking.",
   },
   {
     q: "What does 'AI Verified · X% real' mean?",
-    a: "Confidence score derived from the proportion of reviewers who are Google Local Guides — a status given by Google to high-volume verified reviewers. We start at 50% baseline and add up to 50% based on Local Guide ratio. Defense against fake review concerns.",
+    a: "Confidence score from the proportion of reviewers who are Google Local Guides — Google's verified high-credibility reviewer status. We start at 50% baseline and add up to 50% based on Local Guide ratio. Defense against fake review concerns.",
   },
   {
     q: "Are listings sponsored?",
-    a: "Organic listings are never paid. We offer Featured / Editor's Pick / Recommended slots that are clearly labelled with a coloured badge. We do not delete, hide, or downrank any organic listing.",
+    a: "Organic listings are never paid. We offer Featured / Editor's Pick / Recommended slots that are clearly labelled with a coloured badge. We never delete or downrank organic listings — sponsored slots always appear ABOVE organic with explicit disclosure.",
   },
   {
-    q: "How fresh is the data?",
-    a: "Continuously. Scrapers run 24/7, master dataset rebuilds every 5 minutes, the website redeploys when data changes. New public reviews of a listed restaurant typically appear within 30 minutes.",
+    q: "Why is Korean coverage strong?",
+    a: "Thailand is a top destination for Korean golf tourism. 105+ Korean-language Google reviews are aggregated from popular courses. Our /ko homepage caters specifically to Korean golfers.",
   },
   {
     q: "What are 'mentioned topics'?",
-    a: "Phrases like 'fresh', 'spicy', 'halal', 'long wait' counted across all reviews. Help diners spot patterns a star rating misses. Fixed keyword dictionary in English and Thai.",
+    a: "Phrases like 'well-maintained', 'challenging', 'scenic', 'Korean caddy', 'expensive' counted across all reviews of a course. Helps golfers spot patterns a star rating misses. Fixed keyword dictionary in English/Thai/Korean.",
   },
   {
-    q: "How does the rating timeline work?",
-    a: "Each Google review has a relative timestamp. We bucket into recent (<3mo), midterm (3-12mo), historical (1+ year). Comparing average rating per bucket gives a quality trajectory: improving / stable / declining.",
+    q: "How accurate are green fees?",
+    a: "Green fees are NOT in the listings. Google Maps doesn't expose them. Each course page links to the club's website + booking partners (Golfsavers, Sawasdee Golf, Klook) where current rates are shown. Booking partners may earn us referral commissions which fund the site.",
   },
   {
-    q: "Why no booking?",
-    a: "Most Bangkok restaurants take walk-ins or use direct phone/LINE. We focus on accurate, current information — view on Google Maps for directions, or call directly. Restaurants with their own booking offer it via the website link on their detail page.",
+    q: "Why no booking integration?",
+    a: "Most Thai courses prefer direct phone or club-specific booking systems. We focus on accurate course intelligence (conditions, caddies, English/Korean support, value). Compare options and book directly via the club website or our affiliate partners.",
   },
 ];
 
@@ -59,27 +59,27 @@ export default async function AboutPage() {
 
       <h1 className="text-4xl font-bold tracking-tight mb-3">About {cfg.brand}</h1>
       <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
-        Independent directory of Bangkok and Pattaya restaurants. Value comes from one thing: applying consistent analysis to public Google review data so diners can compare restaurants on objective signals — not just star ratings.
+        Independent directory of Thailand golf courses. Value comes from one thing: applying consistent analysis to public Google review data so golfers can compare courses on objective signals — not just star ratings or marketing copy.
       </p>
 
       <div className="bg-white border border-[var(--border)] rounded-xl p-6 mb-10">
         <h2 className="text-lg font-bold mb-3">At a glance</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <div>
-            <div className="text-2xl font-bold tabular-nums">{db.total_restaurants.toLocaleString()}</div>
-            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Restaurants</div>
+            <div className="text-2xl font-bold tabular-nums">{db.total_courses.toLocaleString()}</div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Courses</div>
           </div>
           <div>
             <div className="text-2xl font-bold tabular-nums">{db.with_reviews_scraped.toLocaleString()}</div>
-            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Full review analysis</div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Review analysis</div>
           </div>
           <div>
-            <div className="text-2xl font-bold tabular-nums">{Object.keys(db.cuisine_counts).length}</div>
-            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Cuisines</div>
+            <div className="text-2xl font-bold tabular-nums">{Object.keys(db.city_counts).length}</div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Provinces</div>
           </div>
           <div>
-            <div className="text-2xl font-bold tabular-nums">30 min</div>
-            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Refresh cycle</div>
+            <div className="text-2xl font-bold tabular-nums">{db.language_total.ko.toLocaleString()}</div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wide">Korean reviews</div>
           </div>
         </div>
       </div>
@@ -88,19 +88,19 @@ export default async function AboutPage() {
         <h2 className="text-2xl font-bold">Editorial principles</h2>
         <Principle
           title="Transparent ranking"
-          body="Every restaurant's Trust Score breakdown is visible on its detail page. We show how the score is composed. Sponsored placements have explicit badges and never replace organic results."
+          body="Every course's Trust Score breakdown is visible on its detail page. Sponsored placements have explicit badges and never replace organic results."
         />
         <Principle
           title="No paid testimonials"
-          body="All reviews shown are excerpted from real Google Maps reviews with attribution. We do not write, edit, or commission reviews."
+          body="All reviews shown are excerpted from real Google Maps reviews with attribution. We don't write, edit, or commission reviews."
         />
         <Principle
           title="Continuous, automated"
-          body="No human curation in ranking. Scrapers, master DB, and site redeploy automatically. This removes editorial bias."
+          body="No human curation in ranking. Data refreshes, master DB rebuilds, site redeploys. This removes editorial bias."
         />
         <Principle
-          title="Diner first"
-          body="Trust Score weights are tuned for diner relevance — strong recent ratings (active operation), large review volume (statistical confidence), Local Guide reviewer credibility."
+          title="Golfer first"
+          body="Trust Score weights are tuned for golfer relevance — strong recent ratings, large review volume, Local Guide reviewer credibility, language diversity."
         />
       </section>
 

@@ -10,7 +10,7 @@ export function HeroSearch({
   popularSearches: { label: string; href: string }[];
 }) {
   return (
-    <section className="bg-gradient-to-b from-white via-red-50/30 to-transparent border-b border-[var(--border)]">
+    <section className="bg-gradient-to-b from-white via-orange-50/40 to-transparent border-b border-[var(--border)]">
       <div className="max-w-3xl mx-auto px-4 pt-12 pb-10 text-center">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
           {hero}

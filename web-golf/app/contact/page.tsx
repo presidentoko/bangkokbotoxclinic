@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Reach our team for restaurant partnerships, data corrections, press, or general questions.",
+  description: "Reach our team for golf course partnerships, data corrections, press, or general questions.",
   alternates: { canonical: "/contact" },
 };
 
@@ -23,14 +23,14 @@ export default function ContactPage() {
 
       <div className="space-y-3">
         <Reason
-          icon="🤝"
-          title="Restaurant partnership"
-          body="Editor's Pick / Recommended / Featured listings, sponsored placement — see /for-restaurants for pricing and details."
+          icon="🏌️"
+          title="Golf club partnership"
+          body="Editor's Pick / Recommended / Featured listings, sponsored placement, lead generation — see /for-courses for pricing and details."
         />
         <Reason
           icon="✏️"
           title="Data correction"
-          body="Wrong address, closed restaurant, hours outdated. Tell us the restaurant name + the issue."
+          body="Wrong address, closed course, hours outdated, missing language support. Tell us the course name + the issue."
         />
         <Reason
           icon="📰"
@@ -47,7 +47,7 @@ export default function ContactPage() {
       <div className="mt-8 bg-white border border-[var(--border)] rounded-xl p-6">
         <h2 className="font-bold text-lg mb-2">Email us</h2>
         <p className="text-sm text-[var(--muted)] mb-4">
-          Include the relevant restaurant name or page URL when applicable.
+          Include the relevant course name or page URL when applicable.
         </p>
         <a
           href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg"}`}

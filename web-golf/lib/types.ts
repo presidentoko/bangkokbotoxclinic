@@ -51,6 +51,8 @@ export type Course = {
   year_opened?: number | null;
   fee_mentions?: string[];
   booking_links?: { href: string; label: string }[];
+  // Photo scraped from course's own website (data/course_photos.json — merged in data.ts)
+  hero_image?: string | null;
 };
 
 // Backward compat — restaurant code paths import "Restaurant"

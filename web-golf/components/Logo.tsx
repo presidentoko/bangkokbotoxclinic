@@ -1,28 +1,28 @@
-// 인라인 SVG 로고 — anti-SNS 컨셉. Stop sign + SNS 모티프.
+// 인라인 SVG 로고 — Thailand Golf Guide. 깃발 + 골프공 모티프.
 
-export function Logo({ accent = "#dc2626", height = 22 }: { accent?: string; height?: number }) {
+export function Logo({ accent = "#15803d", height = 22 }: { accent?: string; height?: number }) {
   return (
     <svg
-      width={height * (110 / 22)}
+      width={height * (170 / 22)}
       height={height}
-      viewBox="0 0 110 22"
+      viewBox="0 0 170 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="SNS Stopper logo"
+      aria-label="Thailand Golf Guide logo"
     >
-      {/* Stop sign 8각형 */}
-      <polygon
-        points="11,1 17,1 21,5 21,11 17,15 11,15 7,11 7,5"
-        transform="rotate(22.5 11 8)"
-        fill={accent}
-      />
-      {/* "STOP" bar */}
-      <rect x="3.5" y="6.5" width="15" height="3" rx="0.5" fill="white" />
+      {/* Flag pole */}
+      <rect x="3.5" y="2" width="1.2" height="16" fill={accent} />
+      {/* Flag */}
+      <path d="M5 2 L14 4.5 L5 7.5 Z" fill={accent} />
+      {/* Ball on green */}
+      <circle cx="8" cy="18" r="2.2" fill="#fafafa" stroke={accent} strokeWidth="0.6" />
+      <ellipse cx="8" cy="19.6" rx="3.5" ry="0.7" fill={accent} opacity="0.18" />
+      {/* Wordmark */}
       <text
-        x="26" y="16" fontFamily="system-ui, -apple-system, sans-serif"
-        fontWeight="800" fontSize="14" fill="currentColor"
+        x="20" y="16" fontFamily="system-ui, -apple-system, sans-serif"
+        fontWeight="800" fontSize="13" fill="currentColor" letterSpacing="-0.3"
       >
-        sns<tspan fill={accent}>stopper</tspan>
+        thailand<tspan fill={accent}>golf</tspan>
       </text>
     </svg>
   );

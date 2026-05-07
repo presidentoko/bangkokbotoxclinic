@@ -7,7 +7,8 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { HeroSearch } from "@/components/HeroSearch";
 import { StatsBar } from "@/components/StatsBar";
 import { getSiteConfig } from "@/lib/site";
-import { sortWithSponsored } from "@/lib/sponsored";
+import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
+import { SponsoredHero } from "@/components/SponsoredHero";
 
 export const dynamic = "force-static";
 
@@ -61,6 +62,11 @@ export default async function HomePage() {
       />
 
       <div className="max-w-5xl mx-auto px-4 py-8">
+        {(() => {
+          const hero = top.find((r) => sponsoredTier(r.id));
+          return hero ? <SponsoredHero r={hero} /> : null;
+        })()}
+
         {top.length >= 3 && (
           <section className="mb-10">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-4">

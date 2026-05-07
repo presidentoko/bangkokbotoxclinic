@@ -29,8 +29,8 @@ export async function generateMetadata(
   ));
   const districtName = districtFromSlug(district, allDistricts) ?? district;
   return {
-    title: `Restaurants in ${districtName}`,
-    description: `Restaurants in ${districtName} with verified Google review analysis and Trust Scores.`,
+    title: `Golf Courses in ${districtName}`,
+    description: `Golf courses, driving ranges, and country clubs in ${districtName} with verified Google review analysis and Trust Scores.`,
     alternates: { canonical: `/d/${district}` },
   };
 }
@@ -56,10 +56,10 @@ export default async function DistrictPage(
         <span>{districtName}</span>
       </nav>
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-        Restaurants in {districtName}
+        Golf Courses in {districtName}
       </h1>
       <p className="text-[var(--muted)] mb-8">
-        {filtered.length} restaurants across all cuisines in {districtName}.
+        {filtered.length} courses across all types in {districtName}.
       </p>
 
       <div className="grid gap-3">
@@ -76,7 +76,7 @@ export default async function DistrictPage(
       </div>
       {filtered.length > 200 && (
         <p className="mt-6 text-sm text-[var(--muted)]">
-          Showing top 200 of {filtered.length}. Use cuisine filters to narrow.
+          Showing top 200 of {filtered.length}. Use category filters to narrow.
         </p>
       )}
 
@@ -85,7 +85,7 @@ export default async function DistrictPage(
         { name: districtName, url: `/d/${district}` },
       ]} />
       <ItemListJsonLd
-        name={`Restaurants in ${districtName}`}
+        name={`Golf Courses in ${districtName}`}
         items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}
       />
     </div>

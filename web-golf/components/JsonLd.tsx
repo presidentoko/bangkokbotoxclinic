@@ -1,8 +1,9 @@
-// Schema.org JSON-LD — Restaurant edition.
+// Schema.org JSON-LD — Golf course edition.
 
 import type { Restaurant } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thailand Golf Guide";
 
 function tag(data: object) {
   return (
@@ -17,10 +18,10 @@ export function OrgJsonLd() {
   return tag({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats",
+    name: BRAND,
     url: SITE,
     description:
-      "Independent directory of Bangkok and Pattaya restaurants with Google review analysis and Trust Scores.",
+      "Independent directory of golf courses, country clubs, driving ranges, and resorts across Thailand. Trust Scores from real Google review analysis.",
   });
 }
 
@@ -28,7 +29,7 @@ export function WebsiteJsonLd() {
   return tag({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats",
+    name: BRAND,
     url: SITE,
     potentialAction: {
       "@type": "SearchAction",
@@ -51,10 +52,22 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   });
 }
 
+// Golf course schema — Schema.org has GolfCourse + SportsActivityLocation
 export function RestaurantJsonLd({ r }: { r: Restaurant }) {
+  const isResort = r.categories.includes("resort");
+  const isCountryClub = r.categories.includes("country_club");
+  const isDrivingRange = r.categories.includes("driving_range") && !r.categories.includes("course");
+
+  // GolfCourse for actual courses; SportsActivityLocation for ranges/indoor; Resort for resorts
+  const type =
+    isResort ? ["Resort", "GolfCourse"] :
+    isCountryClub ? ["GolfCourse", "SportsActivityLocation"] :
+    isDrivingRange ? "SportsActivityLocation" :
+    "GolfCourse";
+
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
+    "@type": type,
     name: r.name,
     url: `${SITE}/course/${r.id}`,
     address: {
@@ -76,13 +89,16 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
     data.geo = { "@type": "GeoCoordinates", latitude: r.lat, longitude: r.lng };
   }
   if (r.phone) data.telephone = r.phone;
-  if (r.menu_url) data.menu = r.menu_url;
   if (r.price_level) data.priceRange = r.price_level;
+  if (r.hero_image) data.image = `${SITE}${r.hero_image}`;
   const sameAs: string[] = [];
   if (r.website) sameAs.push(r.website);
   if (r.maps_url) sameAs.push(r.maps_url);
   if (sameAs.length) data.sameAs = sameAs;
-  if (r.categories.length > 0) data.servesCuisine = r.categories;
+  // Sport / amenity
+  data.sport = "Golf";
+  if (r.holes) data.numberOfHoles = r.holes;
+  if (r.par) data.par = r.par;
   const samples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 3);
   if (samples.length > 0) {
     data.review = samples.map((rev) => ({

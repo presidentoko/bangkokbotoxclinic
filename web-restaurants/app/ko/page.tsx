@@ -64,7 +64,7 @@ export default async function KoHomePage() {
             한국어 · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
-            인스타 말고 <span className="text-red-600">진짜 후기</span>로 방콕 맛집 찾자
+            인스타 말고 <span className="text-orange-600">진짜 후기</span>로 방콕 맛집 찾자
           </h1>
           <p className="text-base md:text-lg text-[var(--muted)]">
             {db.total_restaurants.toLocaleString()}개 식당 · {totalReviews.toLocaleString()}개 Google 리뷰 분석 · 인플루언서 협찬 없음

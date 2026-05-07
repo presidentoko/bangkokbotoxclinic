@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { CUISINE_LABELS } from "@/lib/types";
+import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
-const VALID_CUISINES = new Set(Object.keys(CUISINE_LABELS));
+const VALID_CUISINES = new Set(Object.keys(CATEGORY_LABELS));
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
@@ -32,20 +32,20 @@ export async function generateMetadata(
   { params }: { params: Promise<{ cuisine: string; district: string }> }
 ): Promise<Metadata> {
   const { cuisine, district } = await params;
-  const label = CUISINE_LABELS[cuisine] ?? cuisine;
+  const label = CATEGORY_LABELS[cuisine] ?? cuisine;
   const db = await loadMasterDb();
   const allDistricts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
   ));
   const districtName = districtFromSlug(district, allDistricts) ?? district;
   return {
-    title: `${label} Restaurants in ${districtName}, Bangkok`,
-    description: `${label} restaurants in ${districtName}, Bangkok. Verified Trust Scores from real Google review analysis.`,
+    title: `${label}s in ${districtName}, Thailand`,
+    description: `${label}s in ${districtName}. Verified Trust Scores from real Google review analysis. Caddy quality and course conditions.`,
     alternates: { canonical: `/c/${cuisine}/${district}` },
   };
 }
 
-export default async function CuisineDistrictPage(
+export default async function CategoryDistrictPage(
   { params }: { params: Promise<{ cuisine: string; district: string }> }
 ) {
   const { cuisine, district } = await params;
@@ -59,7 +59,7 @@ export default async function CuisineDistrictPage(
   if (!districtName) notFound();
 
   const filtered = sortWithSponsored(filterByDistrict(filterByCuisine(db.restaurants, cuisine), districtName));
-  const label = CUISINE_LABELS[cuisine] ?? cuisine;
+  const label = CATEGORY_LABELS[cuisine] ?? cuisine;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -71,14 +71,14 @@ export default async function CuisineDistrictPage(
         <span>{districtName}</span>
       </nav>
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-        {label} Restaurants in {districtName}
+        {label}s in {districtName}
       </h1>
       <p className="text-[var(--muted)] mb-8">
-        {filtered.length} {label.toLowerCase()} restaurants in {districtName} — sorted by Trust Score.
+        {filtered.length} {label.toLowerCase()}s in {districtName} — sorted by Trust Score.
       </p>
 
       {filtered.length === 0 ? (
-        <p className="text-[var(--muted)]">No restaurants matched this filter. Try a broader category or different district.</p>
+        <p className="text-[var(--muted)]">No matches in this district yet. Try a broader category or different district.</p>
       ) : (
         <>
           <div className="grid gap-3">
@@ -102,7 +102,7 @@ export default async function CuisineDistrictPage(
         { name: districtName, url: `/c/${cuisine}/${district}` },
       ]} />
       <ItemListJsonLd
-        name={`${label} restaurants in ${districtName}`}
+        name={`${label}s in ${districtName}`}
         items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}
       />
     </div>

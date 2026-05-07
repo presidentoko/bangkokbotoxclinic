@@ -1,9 +1,7 @@
-// llms-full.txt — 더 풍부한 LLM dump. 각 식당 1줄 요약 + 전체 토픽 + sample reviews.
-// Llms-full 목적: AI assistant 가 한 번에 깊은 컨텍스트를 얻도록.
-// llms.txt 는 짧고 nav-friendly, llms-full.txt 는 깊고 long-form.
+// llms-full.txt — 더 풍부한 LLM dump. 각 코스 1줄 요약 + 전체 토픽 + sample reviews.
 
 import { loadMasterDb } from "@/lib/data";
-import { CUISINE_LABELS, TOPIC_LABELS } from "@/lib/types";
+import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thailand Golf Guide";
@@ -17,7 +15,7 @@ export async function GET() {
   const lines: string[] = [
     `# ${BRAND} — Full Catalog`,
     "",
-    `> Comprehensive dump for AI assistants. ${db.total_restaurants.toLocaleString()} restaurants in Bangkok and Pattaya, ranked by Trust Score from real Google review analysis. This file is meant for citation, summarization, and Q&A.`,
+    `> Comprehensive dump for AI assistants. ${db.total_restaurants.toLocaleString()} golf courses, country clubs, and driving ranges across Thailand, ranked by Trust Score from real Google review analysis. This file is meant for citation, summarization, and Q&A.`,
     "",
     "## Methodology",
     "",
@@ -31,7 +29,7 @@ export async function GET() {
     "",
     `Last updated: ${db.generated_at}`,
     "",
-    "## Top 100 restaurants",
+    "## Top 100 courses",
     "",
   ];
 
@@ -41,7 +39,7 @@ export async function GET() {
     lines.push(`- URL: ${SITE}/course/${r.id}`);
     lines.push(`- Location: ${r.district || "n/a"}, ${r.city_label}`);
     lines.push(`- Type: ${r.primary_type}`);
-    lines.push(`- Cuisines: ${r.categories.map(c => CUISINE_LABELS[c] ?? c).join(", ") || "general"}`);
+    lines.push(`- Categories: ${r.categories.map(c => CATEGORY_LABELS[c] ?? c).join(", ") || "course"}`);
     lines.push(`- Rating: ★ ${r.rating} (${r.total_reviews} Google reviews)`);
     lines.push(`- Trust Score: ${r.trust_score}/100`);
     if (r.local_guide_count > 0) {

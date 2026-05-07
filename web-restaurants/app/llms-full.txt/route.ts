@@ -8,6 +8,8 @@ import { CUISINE_LABELS, TOPIC_LABELS } from "@/lib/types";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
 
+export const dynamic = "force-static";
+
 export async function GET() {
   const db = await loadMasterDb();
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 100);

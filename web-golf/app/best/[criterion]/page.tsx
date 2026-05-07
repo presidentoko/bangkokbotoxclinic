@@ -47,17 +47,17 @@ export default async function BestForPage(
         <span className="mx-2">›</span>
         <span>Best</span>
         <span className="mx-2">›</span>
-        <span>{cfg.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's /, "")}</span>
+        <span>{cfg.title.replace(/^Best |^Most /, "").replace(/ in Thailand$/, "")}</span>
       </nav>
 
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{cfg.title}</h1>
       <p className="text-[var(--muted)] mb-2">{cfg.intro}</p>
       <p className="text-xs text-[var(--muted)] mb-8 italic">
-        {filtered.length} restaurants matched. Refreshed continuously from public Google reviews.
+        {filtered.length} courses matched. Refreshed continuously from public Google reviews.
       </p>
 
       {filtered.length === 0 ? (
-        <p className="text-[var(--muted)]">No restaurants matched this criterion yet.</p>
+        <p className="text-[var(--muted)]">No courses matched this criterion yet.</p>
       ) : (
         <>
           <section>
@@ -77,7 +77,7 @@ export default async function BestForPage(
 
           <section className="mt-12">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-              Other ways to find a restaurant
+              Other ways to find a course
             </h2>
             <div className="flex flex-wrap gap-2">
               {BEST_FOR.filter((x) => x.slug !== cfg.slug).map((x) => (
@@ -86,7 +86,7 @@ export default async function BestForPage(
                   href={`/best/${x.slug}`}
                   className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
-                  {x.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's /, "").replace(/Restaurants?/, "").trim()}
+                  {x.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's /, "").replace(/Courses?|Golf /g, "").trim()}
                 </a>
               ))}
             </div>

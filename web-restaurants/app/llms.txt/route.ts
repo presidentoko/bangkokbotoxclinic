@@ -2,8 +2,10 @@ import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
-const BRAND = process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
+
+export const dynamic = "force-static";
 
 export async function GET() {
   const db = await loadMasterDb();

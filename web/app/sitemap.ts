@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
+import { GUIDES } from "@/lib/guides";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokbotoxclinic.com";
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -17,7 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE}/for-clinics`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
   ];
+
+  for (const g of GUIDES) {
+    items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+  }
 
   for (const s of SERVICES) {
     items.push({
