@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-07T04:32:08.837761+00:00",
+  "generated_at": "2026-05-07T04:38:30.286063+00:00",
   "total_clinics": 1512,
   "with_district": 1447,
   "with_categories": 940,
-  "with_reviews_scraped": 1105,
+  "with_reviews_scraped": 1107,
   "language_total": {
     "th": 2,
-    "en": 36369,
+    "en": 36416,
     "ko": 1,
     "ja": 0,
-    "other": 107
+    "other": 108
   },
   "district_counts": {
     "Pathum Wan": 314,
@@ -38,10 +38,10 @@
   "category_counts": {
     "facial": 555,
     "laser": 404,
-    "botox": 284,
+    "botox": 285,
     "dental": 279,
-    "filler": 214,
-    "hifu": 197,
+    "filler": 215,
+    "hifu": 198,
     "hair_transplant": 27,
     "eye": 16
   },
@@ -9021,6 +9021,113 @@
       "maps_url": "https://www.google.com/maps/place/TPI+Tower/data=!4m7!3m6!1s0x30e29f48e3fb49cb:0xb240f55157e1e10e!8m2!3d13.7079087!4d100.5381693!16s%2Fg%2F1vvdrn94!19sChIJy0n740if4jARDuHhV1H1QLI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e298be6734536b_0x7ecf64a75f9d97cb",
+      "place_id": "0x30e298be6734536b:0x7ecf64a75f9d97cb",
+      "name": "Doctor Mek AM Clinic ในเครือโรงพยาบาล AM International Hospital",
+      "name_lang": "other",
+      "primary_type": "Skin care clinic",
+      "address": "\nโครงการ Stadium One เลขที่ 116-128 Rama I Rd, Wang Mai, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 64 445 5666",
+      "website": "https://doctormekclinic.com/",
+      "lat": 13.7471791,
+      "lng": 100.5242523,
+      "rating": 4.9,
+      "total_reviews": 571,
+      "trust_score": 87.4,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "hifu"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 8,
+      "avg_author_review_count": 12.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 50,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 3,
+        "filler": 21,
+        "hifu": 1,
+        "facial": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 17
+        },
+        {
+          "topic": "recommend",
+          "count": 17
+        },
+        {
+          "topic": "clean_facility",
+          "count": 5
+        },
+        {
+          "topic": "promotion",
+          "count": 5
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 18,
+          "avg": 4.56
+        },
+        "midterm": {
+          "count": 32,
+          "avg": 4.88
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Today was my first time at AM clinic. I met Dr. Mek in person, and he's so handsome, like a movie star! He's also incredibly kind and gave excellent advice. He's very attentive and friendly, unlike what I expected. 🥰🥰 And all the staff were smiling, cheerful, and provided excellent service. …",
+          "rating": 5,
+          "author": "Jutarat Wattanachai"
+        },
+        {
+          "text": "Dr. Mek provides excellent service / The staff are lovely. Instant results! #Come here and you'll realize you don't have to be a star to look as beautiful as one! 🤩 …",
+          "rating": 5,
+          "author": "jutamas intarat"
+        },
+        {
+          "text": "The doctor is very professional and skilled, the staff provides excellent service, and everything is beautiful – a complete package all in one place.",
+          "rating": 5,
+          "author": "Chutima Rodsawat"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Doctor+Mek+AM+Clinic+%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5+AM+International+Hospital/data=!4m7!3m6!1s0x30e298be6734536b:0x7ecf64a75f9d97cb!8m2!3d13.7471791!4d100.5242523!16s%2Fg%2F11gqq8zx4c!19sChIJa1M0Z76Y4jARy5edX6dkz34?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29faa3ba38cf7_0xfb8170b1c7a0a3a5",
       "place_id": "0x30e29faa3ba38cf7:0xfb8170b1c7a0a3a5",
       "name": "Dental Wellness Clinic",
@@ -11063,103 +11170,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/SIRIRAJ+H+SOLUTIONS/data=!4m7!3m6!1s0x30e29904148b43d7:0x8824142a95019562!8m2!3d13.7262704!4d100.5082479!16s%2Fg%2F11v192_bgp!19sChIJ10OLFASZ4jARYpUBlSoUJIg?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e299e9641b30a3_0x2358f8a45901a69f",
-      "place_id": "0x30e299e9641b30a3:0x2358f8a45901a69f",
-      "name": "BLS Surgery Center : บีแอลเอส เซอร์เจอรี เซ็นเตอร์",
-      "name_lang": "th",
-      "primary_type": "Beauty salon",
-      "address": "\nชั้น 1 ห้องE108 โครงการสเตเดี้ยมวัน 88 109 ซอยจุฬา5 Wang Mai, Pathum Wan, Bangkok 10110, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 2 460 9210",
-      "website": "https://web.facebook.com/BLSsurgery",
-      "lat": 13.7466203,
-      "lng": 100.5246729,
-      "rating": 4.9,
-      "total_reviews": 295,
-      "trust_score": 86.8,
-      "categories": [
-        "hair_transplant"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 13,
-      "avg_author_review_count": 30.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 48,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "hair_transplant": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 16
-        },
-        {
-          "topic": "recommend",
-          "count": 10
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 7
-        },
-        {
-          "topic": "professional",
-          "count": 4
-        },
-        {
-          "topic": "no_pain",
-          "count": 4
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 5,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 45,
-          "avg": 4.98
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Six months after my endoscopic eyebrow lift, my face looks so much younger and brighter! The doctor gave excellent advice, and the staff were lovely and provided great service.",
-          "rating": 5,
-          "author": "Purita Lorpun"
-        },
-        {
-          "text": "The clinic is clean, the doctor gave very detailed explanations, and all the staff are lovely.",
-          "rating": 5,
-          "author": "Design Chotika"
-        },
-        {
-          "text": "I had endoscopic eyebrow lifting done and the results are 100% positive. I'm very impressed!",
-          "rating": 5,
-          "author": "Nipaporn Ampim"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/BLS+Surgery+Center+:+%E0%B8%9A%E0%B8%B5%E0%B9%81%E0%B8%AD%E0%B8%A5%E0%B9%80%E0%B8%AD%E0%B8%AA+%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%88%E0%B8%AD%E0%B8%A3%E0%B8%B5+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e299e9641b30a3:0x2358f8a45901a69f!8m2!3d13.7466203!4d100.5246729!16s%2Fg%2F11t2stjl8c!19sChIJozAbZOmZ4jARn6YBWaT4WCM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f8a99d3f4c1_0x716b07381fdcf1c1",
@@ -18567,6 +18577,95 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%AD%E0%B9%81%E0%B8%A7%E0%B9%88%E0%B8%99+Better+Vision+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+3/data=!4m7!3m6!1s0x30e29f9e2c3d9083:0xfe77535344948e82!8m2!3d13.697527!4d100.537608!16s%2Fg%2F11gy68xxcw!19sChIJg5A9LJ6f4jARgo6URFNTd_4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e299e9641b30a3_0x2358f8a45901a69f",
+      "place_id": "0x30e299e9641b30a3:0x2358f8a45901a69f",
+      "name": "BLS Surgery Center : บีแอลเอส เซอร์เจอรี เซ็นเตอร์",
+      "name_lang": "th",
+      "primary_type": "Beauty salon",
+      "address": "\nชั้น 1 ห้องE108 โครงการสเตเดี้ยมวัน 88 109 ซอยจุฬา5 Wang Mai, Pathum Wan, Bangkok 10110, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 2 460 9210",
+      "website": "https://web.facebook.com/BLSsurgery",
+      "lat": 13.7466203,
+      "lng": 100.5246729,
+      "rating": 4.9,
+      "total_reviews": 295,
+      "trust_score": 84.4,
+      "categories": [
+        "hair_transplant"
+      ],
+      "scraped_review_count": 20,
+      "local_guide_count": 3,
+      "avg_author_review_count": 23.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 20,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "hair_transplant": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 10
+        },
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 14,
+          "avg": 4.93
+        },
+        "old": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Highly recommended this practice. After researching and reviewing with Dr. Earth, I finally made a decision to come to Thailand and have the Endobrow lift done by Dr. Earth. The practice is super clean, the staff were very nice and friendly.",
+          "rating": 5,
+          "author": "Vicky"
+        },
+        {
+          "text": "Everything was great! The staff are very nice, professional, and friendly. I felt very comfortable throughout the process, and I would definitely recommend this clinic to my friends.",
+          "rating": 5,
+          "author": "Peterpp Eldiamante"
+        },
+        {
+          "text": "The right decision by choosing BLS Surgery Centre. The doctors and staff took very good care,  everything went well. I am so happy.",
+          "rating": 5,
+          "author": "tukta te"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/BLS+Surgery+Center+:+%E0%B8%9A%E0%B8%B5%E0%B9%81%E0%B8%AD%E0%B8%A5%E0%B9%80%E0%B8%AD%E0%B8%AA+%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%88%E0%B8%AD%E0%B8%A3%E0%B8%B5+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x30e299e9641b30a3:0x2358f8a45901a69f!8m2!3d13.7466203!4d100.5246729!16s%2Fg%2F11t2stjl8c!19sChIJozAbZOmZ4jARn6YBWaT4WCM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2999c93d404f9_0x51cf2c5ebbdf4f4",
@@ -27773,56 +27872,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/At+ease+clinic+%E0%B9%81%E0%B8%AD%E0%B8%97+%E0%B8%AD%E0%B8%B5%E0%B8%8B+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29f091aa026bd:0xd3f12da5d2fb15e4!8m2!3d13.7756588!4d100.564626!16s%2Fg%2F11vz0n00tk!19sChIJvSagGgmf4jAR5BX70qUt8dM?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e298be6734536b_0x7ecf64a75f9d97cb",
-      "place_id": "0x30e298be6734536b:0x7ecf64a75f9d97cb",
-      "name": "Doctor Mek AM Clinic ในเครือโรงพยาบาล AM International Hospital",
-      "name_lang": "other",
-      "primary_type": "Skin care clinic",
-      "address": "\nโครงการ Stadium One เลขที่ 116-128 Rama I Rd, Wang Mai, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 64 445 5666",
-      "website": "https://doctormekclinic.com/",
-      "lat": 13.7471791,
-      "lng": 100.5242523,
-      "rating": 4.9,
-      "total_reviews": 571,
-      "trust_score": 82.1,
-      "categories": [
-        "facial"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Doctor+Mek+AM+Clinic+%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5+AM+International+Hospital/data=!4m7!3m6!1s0x30e298be6734536b:0x7ecf64a75f9d97cb!8m2!3d13.7471791!4d100.5242523!16s%2Fg%2F11gqq8zx4c!19sChIJa1M0Z76Y4jARy5edX6dkz34?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29911142b4de1_0xb3e1c79f5a560c1b",
@@ -59741,6 +59790,95 @@
       "maps_url": "https://www.google.com/maps/place/Pavicon+Hair+Center/data=!4m7!3m6!1s0x30e299097e3d1353:0x1fb72e37217acd6a!8m2!3d13.7311202!4d100.5282805!16s%2Fg%2F11s5l_39vm!19sChIJUxM9fgmZ4jARas16ITcutx8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2992c348e3e89_0x94c568e477aea6d4",
+      "place_id": "0x30e2992c348e3e89:0x94c568e477aea6d4",
+      "name": "Dentists' Club Clinic คลินิกทันตกรรมเดนทิสคลับ",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\nเลขที่ 12-16 ล็อค15 สวนหลวงสแควร์ ซอยจุฬาลงกรณ์ 12 Unit 12-16 Lock 15, Suanluang Square, Soi Chulalongkorn 12 แขวงวังใหม่ Wangmai subdistrict, Pathum Wan, Bangkok 10330, Thailand",
+      "district": "Pathum Wan",
+      "phone": "+66 94 663 8118",
+      "website": "https://www.dentistsclubclinic.com/",
+      "lat": 13.7429373,
+      "lng": 100.5250136,
+      "rating": 5.0,
+      "total_reviews": 39,
+      "trust_score": 75.6,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 30,
+      "local_guide_count": 5,
+      "avg_author_review_count": 38.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 25,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "service_mentions": {
+        "dental": 24
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 12
+        },
+        {
+          "topic": "recommend",
+          "count": 10
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 28,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Today I came to change my braces and get a teeth cleaning. The dentist took very good care of me, and the clinic atmosphere was great.",
+          "rating": 5,
+          "author": "Mai Patipan"
+        },
+        {
+          "text": "Japan is an amazing dentist. She’s super kind. Prices are very reasonable. Girl at the front desk was really nice and helpful. Definitely recommend.",
+          "rating": 5,
+          "author": "N. A."
+        },
+        {
+          "text": "Dentists are excellent, considerate, gentle and professional. Friendly staff. Highly recommended especially for those who are afraid of going to dentist.",
+          "rating": 5,
+          "author": "Mint Mint"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dentists%27+Club+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%94%E0%B8%99%E0%B8%97%E0%B8%B4%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B1%E0%B8%9A/data=!4m7!3m6!1s0x30e2992c348e3e89:0x94c568e477aea6d4!8m2!3d13.7429373!4d100.5250136!16s%2Fg%2F11g8kt06x2!19sChIJiT6ONCyZ4jAR1Kaud-RoxZQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29971f387d9d5_0x9221ae2c30ee15d9",
       "place_id": "0x30e29971f387d9d5:0x9221ae2c30ee15d9",
       "name": "Phenomenal Clinic",
@@ -91068,56 +91206,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B9%83%E0%B8%88/data=!4m7!3m6!1s0x30e29fd2ae7637ad:0x21a120eec1662d2c!8m2!3d13.7211337!4d100.5562983!16s%2Fg%2F11g0h8c8z_!19sChIJrTd2rtKf4jARLC1mwe4goSE?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2992c348e3e89_0x94c568e477aea6d4",
-      "place_id": "0x30e2992c348e3e89:0x94c568e477aea6d4",
-      "name": "Dentists' Club Clinic คลินิกทันตกรรมเดนทิสคลับ",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\nเลขที่ 12-16 ล็อค15 สวนหลวงสแควร์ ซอยจุฬาลงกรณ์ 12 Unit 12-16 Lock 15, Suanluang Square, Soi Chulalongkorn 12 แขวงวังใหม่ Wangmai subdistrict, Pathum Wan, Bangkok 10330, Thailand",
-      "district": "Pathum Wan",
-      "phone": "+66 94 663 8118",
-      "website": "https://www.dentistsclubclinic.com/",
-      "lat": 13.7429373,
-      "lng": 100.5250136,
-      "rating": 5.0,
-      "total_reviews": 39,
-      "trust_score": 69.1,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Dentists%27+Club+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%94%E0%B8%99%E0%B8%97%E0%B8%B4%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B1%E0%B8%9A/data=!4m7!3m6!1s0x30e2992c348e3e89:0x94c568e477aea6d4!8m2!3d13.7429373!4d100.5250136!16s%2Fg%2F11g8kt06x2!19sChIJiT6ONCyZ4jAR1Kaud-RoxZQ?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f0061d1d6d9_0xa9d881d250d03fcd",
       "place_id": "0x30e29f0061d1d6d9:0xa9d881d250d03fcd",
       "name": "คลินิกเวชกรรมเปาโล สาขารสาทู",
@@ -98228,6 +98316,54 @@
       "maps_url": "https://www.google.com/maps/place/Mandarin+Clinic/data=!4m7!3m6!1s0x30e29f09fc9f78c9:0xe4d50eb3e5ca9ee8!8m2!3d13.7222666!4d100.5100811!16s%2Fg%2F11b5wkj94n!19sChIJyXif_Amf4jAR6J7K5bMO1eQ?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0xaee35a4567ae0ca3_0xcccb5ff115896d5c",
+      "place_id": "0xaee35a4567ae0ca3:0xcccb5ff115896d5c",
+      "name": "Cloud Clinic คลาวด์คลินิก",
+      "name_lang": "th",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\n99/26-28 ชั้นที่ 3 ห้อง3A Ratchadaphisek Rd, Khwaeng Din Daeng, Khet Din Daeng, Bangkok 10400, Thailand",
+      "district": "Huai Khwang",
+      "phone": "+66 99 442 4264",
+      "website": "",
+      "lat": 13.7668563,
+      "lng": 100.5704991,
+      "rating": 4.9,
+      "total_reviews": 31,
+      "trust_score": 66.9,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Cloud+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%A7%E0%B8%94%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0xaee35a4567ae0ca3:0xcccb5ff115896d5c!8m2!3d13.7668563!4d100.5704991!16s%2Fg%2F11vywf_spg!19sChIJowyuZ0Va464RXG2JFfFfy8w?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e2991225350d05_0x242bfad04c94b704",
       "place_id": "0x30e2991225350d05:0x242bfad04c94b704",
       "name": "LIL Clinic : ลิล คลินิก (มิ้นท์ทาวเวอร์ ชั้น1) จอดรถจุฬา ซ.10",
@@ -98276,54 +98412,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/LIL+Clinic+:+%E0%B8%A5%E0%B8%B4%E0%B8%A5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28%E0%B8%A1%E0%B8%B4%E0%B9%89%E0%B8%99%E0%B8%97%E0%B9%8C%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%991%29+%E0%B8%88%E0%B8%AD%E0%B8%94%E0%B8%A3%E0%B8%96%E0%B8%88%E0%B8%B8%E0%B8%AC%E0%B8%B2+%E0%B8%8B.10/data=!4m7!3m6!1s0x30e2991225350d05:0x242bfad04c94b704!8m2!3d13.7450935!4d100.5235013!16s%2Fg%2F11yhk9c83v!19sChIJBQ01JRKZ4jARBLeUTND6KyQ?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0xaee35a4567ae0ca3_0xcccb5ff115896d5c",
-      "place_id": "0xaee35a4567ae0ca3:0xcccb5ff115896d5c",
-      "name": "Cloud Clinic คลาวด์คลินิก",
-      "name_lang": "th",
-      "primary_type": "Plastic surgery clinic",
-      "address": "\n99/26-28 ชั้นที่ 3 ห้อง3A Ratchadaphisek Rd, Khwaeng Din Daeng, Khet Din Daeng, Bangkok 10400, Thailand",
-      "district": "Huai Khwang",
-      "phone": "+66 99 442 4264",
-      "website": "",
-      "lat": 13.7668563,
-      "lng": 100.5704991,
-      "rating": 4.9,
-      "total_reviews": 31,
-      "trust_score": 66.9,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Cloud+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%A7%E0%B8%94%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0xaee35a4567ae0ca3:0xcccb5ff115896d5c!8m2!3d13.7668563!4d100.5704991!16s%2Fg%2F11vywf_spg!19sChIJowyuZ0Va464RXG2JFfFfy8w?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2998c05531141_0xbff57e9321f71bc5",
