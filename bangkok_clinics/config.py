@@ -41,13 +41,14 @@ LANGUAGE = "en"             # Google Maps UI 언어 (식당명 영어 표시)
 PROXY_HOST = "127.0.0.1"
 VPN_PORT_BASE = 2080         # nordvpn_runner 의 idx=0 포트 (rotate marker 계산용)
 
-# Grid (장소 발견) 워커 — 2 포트 (2080-2081)
-GRID_PROXY_PORT = 2080       # 첫 grid 워커 포트 (idx 0); 추가 워커는 +1, +2…
-GRID_N_WORKERS = 2
+# Grid (장소 발견) 워커 — env override 가능 (default 2 포트 2080-2081)
+GRID_PROXY_PORT = int(os.environ.get("GRID_PROXY_PORT", "2080"))
+GRID_N_WORKERS = int(os.environ.get("GRID_N_WORKERS", "2"))
 
-# Review (상세 + 리뷰 수집) 워커 — 6 포트 (2082-2087)
-PROXY_PORT_BASE = 2082
-N_WORKERS = 6
+# Review (상세 + 리뷰 수집) 워커 — env override 가능 (default 6 포트 2082-2087)
+# Bangkok grid 끝난 후엔 N_WORKERS=8 + PROXY_PORT_BASE=2080으로 모든 포트 review에 몰아줌.
+PROXY_PORT_BASE = int(os.environ.get("PROXY_PORT_BASE", "2082"))
+N_WORKERS = int(os.environ.get("N_WORKERS", "6"))
 
 # legacy
 PROXY_PORT = 2080

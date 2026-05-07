@@ -41,21 +41,11 @@ GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
-    # 외국인 인기 도시 우선 순서. 방콕 grid 끝나면 → 식당 review 재개 → Pattaya 외국인순.
+    # 클리닉 우선 모드 (2026-05-07~): 식당(bangkok_review) + 도시별 식당 grid 다 chain에서 뺌.
+    # Bangkok 클리닉 review queue (~1,291) 다 빠진 후 사용자 결정으로 다음 단계 진입:
+    #   - Pattaya 클리닉 확장 = `pattaya_clinics_grid` Service 신규 추가 후 chain 합류
+    #   - Pattaya/Phuket 식당 = `bangkok_review`+ pattaya_grid 등 chain 복원
     "bangkok_clinics_grid",
-    "bangkok_review",
-    "pattaya_grid",
-    "phuket_grid",
-    "chiang_mai_grid",
-    "koh_samui_grid",
-    "krabi_grid",
-    "hua_hin_grid",
-    "chiang_rai_grid",
-    "ayutthaya_grid",
-    "khon_kaen_grid",
-    "korat_grid",
-    "hat_yai_grid",
-    "udon_thani_grid",
 ]
 
 # 로그 타임스탬프 패턴 두 종류 지원:
@@ -412,6 +402,10 @@ def build_services() -> list[Service]:
 
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
+        # Bangkok grid 자연 종료 후 → review에 모든 8 포트 몰아주기 (default 6→8).
+        "N_WORKERS": "8",
+        "PROXY_PORT_BASE": "2080",
+        # Pattaya 클리닉 grid 시작할 땐 N_WORKERS=6 + PROXY_PORT_BASE=2082로 환원 (grid는 2080-2081).
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
         "CITY_LNG": "100.5346890",
