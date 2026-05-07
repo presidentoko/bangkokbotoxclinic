@@ -4,7 +4,7 @@ import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bkkrestaurants.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
 const cfg = getSiteConfig();
 
 export const metadata: Metadata = {
@@ -48,9 +48,15 @@ export default function RootLayout({
               <a href="/c/thai" className="hover:text-black">Thai</a>
               <a href="/c/japanese" className="hover:text-black hidden sm:inline">Japanese</a>
               <a href="/c/italian" className="hover:text-black hidden sm:inline">Italian</a>
-              <a href="/c/cafe" className="hover:text-black hidden md:inline">Cafés</a>
               <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
+              <a href="/guide" className="hover:text-black hidden md:inline">Guides</a>
               <a href="/about" className="hover:text-black hidden md:inline">About</a>
+              <a
+                href="/for-restaurants"
+                className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold hidden sm:inline-flex"
+              >
+                For owners →
+              </a>
               <a href="/th" className="text-xs hover:text-black">TH</a>
               <a href="/ko" className="text-xs hover:text-black">KO</a>
             </nav>

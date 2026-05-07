@@ -15,7 +15,7 @@ export function StatsBar({
     <div className="border-t border-b border-[var(--border)] bg-white">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap text-sm">
         <div className="flex items-center gap-5 flex-wrap">
-          <Stat label="Clinics" value={totalClinics.toLocaleString()} />
+          <Stat label="Restaurants" value={totalClinics.toLocaleString()} />
           <Stat label="Reviews analyzed" value={totalReviews.toLocaleString()} />
           <Stat label={label} value={withScraped.toLocaleString()} />
         </div>
