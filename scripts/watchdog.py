@@ -41,16 +41,17 @@ GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
-    "bangkok_clinics_grid",   # 클리닉 grid 끝나면 → 식당 review 재개
+    # 외국인 인기 도시 우선 순서. 방콕 grid 끝나면 → 식당 review 재개 → Pattaya 외국인순.
+    "bangkok_clinics_grid",
     "bangkok_review",
-    "chiang_mai_grid",
-    "phuket_grid",
-    "ayutthaya_grid",
     "pattaya_grid",
-    "hua_hin_grid",
-    "krabi_grid",
+    "phuket_grid",
+    "chiang_mai_grid",
     "koh_samui_grid",
+    "krabi_grid",
+    "hua_hin_grid",
     "chiang_rai_grid",
+    "ayutthaya_grid",
     "khon_kaen_grid",
     "korat_grid",
     "hat_yai_grid",
@@ -647,6 +648,16 @@ def build_services() -> list[Service]:
             log_file=LOGS / "telegram_monitor.log",
             # progress 패턴 없음 — telegram_monitor 는 조용히 polling 만 함.
             # PID 살아있는지만 검사.
+        ),
+        Service(
+            name="throughput_monitor",
+            cmd=["scripts/throughput_monitor.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "throughput_monitor.log",
+            progress_pattern=re.compile(r"review_rate=\d+/min"),
+            progress_stale_sec=180,   # 60s 주기라 3분 안 찍히면 죽은 것
+            progress_grace_sec=90,
         ),
     ]
 

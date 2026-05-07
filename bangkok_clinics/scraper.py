@@ -45,7 +45,7 @@ log = logging.getLogger(__name__)
 # ── VPN rotation 정책 ────────────────────────────────────────
 MAX_TASK_RETRIES = 2         # 작업 1건당 최대 재시도 횟수 (초과 시 포기)
 SLOW_THRESHOLD_SEC = 120     # 1건 처리 시간이 이 이상이면 다음 작업 전 VPN 교체
-ROTATE_TIMEOUT_SEC = 45      # vpn_runner가 새 터널을 올릴 때까지 최대 대기
+ROTATE_TIMEOUT_SEC = 90      # vpn_runner가 새 터널을 올릴 때까지 최대 대기 (45→90, NordVPN 일부 서버 boot 30s+)
 ROTATE_EVERY_TASKS = 15      # 이 주기(성공 건수)마다 워커가 정기적으로 VPN 교체
 
 
@@ -69,7 +69,7 @@ def _rotate_vpn_and_wait(vpn_idx: int, timeout: float = ROTATE_TIMEOUT_SEC) -> b
     log.info(f"  VPN rotate 요청 (idx={vpn_idx}, old={old_server})")
     deadline = time.time() + timeout
     while time.time() < deadline:
-        time.sleep(2)
+        time.sleep(1)
         try:
             data = json.loads(status_path.read_text())
             for p in data.get("ports", []):
@@ -425,19 +425,19 @@ def get_restaurant_full(
     safe_sleep(3)
     # F7nice(별점+리뷰수) 렌더링 대기
     try:
-        page.wait_for_selector("div.F7nice", timeout=12000)
+        page.wait_for_selector("div.F7nice", timeout=20000)
         # 괄호(리뷰수) 까지 로드되는지 짧게 대기 — 없는 식당도 있으므로 실패는 무시
         try:
             page.wait_for_function(
                 "() => { const el = document.querySelector('div.F7nice'); "
                 "return el && el.innerText && el.innerText.includes('('); }",
-                timeout=4000,
+                timeout=8000,
             )
         except Exception:
             pass
     except Exception:
         log.warning(f"  F7nice 미로드 → 추가 대기")
-        safe_sleep(3)
+        safe_sleep(5)
 
     current_url = page.url
     name = ""

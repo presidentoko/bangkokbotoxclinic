@@ -188,7 +188,7 @@ class Runner:
         return s
 
     # ── 포트 관리 ────────────────────────────────────────
-    def boot_port(self, p: Port, max_attempts: int = 4) -> bool:
+    def boot_port(self, p: Port, max_attempts: int = 6) -> bool:
         if p.server_ip:
             self.used_ips.discard(p.server_ip)
         for attempt in range(max_attempts):
