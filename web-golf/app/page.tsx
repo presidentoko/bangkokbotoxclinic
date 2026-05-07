@@ -5,11 +5,10 @@ import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { HeroSearch } from "@/components/HeroSearch";
-import { StatsBar } from "@/components/StatsBar";
-import { getSiteConfig } from "@/lib/site";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
+import { GUIDES } from "@/lib/guides";
 
 export const dynamic = "force-static";
 
@@ -18,13 +17,13 @@ function citySlug(label: string): string {
 }
 
 export default async function HomePage() {
-  const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
   const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
   const koCourses = db.restaurants.filter((c) => (c.language_breakdown?.ko ?? 0) > 0).length;
+  const provinces = Object.keys(db.city_counts).length;
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
 
@@ -38,9 +37,9 @@ export default async function HomePage() {
 
   const popularSearches = [
     { label: "Bangkok", href: "/city/bangkok" },
-    { label: "Pattaya / Chonburi", href: "/city/chon_buri" },
+    { label: "Pattaya", href: "/city/chon_buri" },
     { label: "Hua Hin", href: "/city/prachuap_khiri_khan" },
-    { label: "Korean-friendly", href: "/best/korean-friendly" },
+    { label: "Korean caddy", href: "/best/korean-friendly" },
   ];
 
   const searchIndex = db.restaurants.map((r) => ({
@@ -52,7 +51,14 @@ export default async function HomePage() {
     trust_score: r.trust_score,
   }));
 
-  // Korean-popular top 6 — for the dedicated KO carousel
+  // Featured 6 with photos prioritized
+  const featured6 = top
+    .slice(0, 30)
+    .filter((r) => r.hero_image)
+    .slice(0, 6);
+  const featuredFinal = featured6.length >= 6 ? featured6 : top.slice(0, 6);
+
+  // Korean-popular
   const koTop = [...db.restaurants]
     .filter((r) => (r.language_breakdown?.ko ?? 0) > 0)
     .sort((a, b) => (b.language_breakdown?.ko ?? 0) - (a.language_breakdown?.ko ?? 0))
@@ -60,43 +66,89 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSearch
-        restaurants={searchIndex}
-        hero={cfg.hero}
-        heroSub={`${db.total_restaurants.toLocaleString()} courses · ${totalReviews.toLocaleString()} Google reviews analyzed · No influencer placements.`}
-        popularSearches={popularSearches}
-      />
+      {/* MEGA HERO — insider/verified voice */}
+      <section className="relative bg-gradient-to-b from-emerald-50 via-green-50/30 to-white overflow-hidden">
+        <div className="absolute inset-0 opacity-30 pointer-events-none">
+          <div className="absolute top-10 left-10 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl" />
+          <div className="absolute top-32 right-10 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl" />
+        </div>
+        <div className="relative max-w-5xl mx-auto px-4 pt-16 md:pt-20 pb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-widest mb-6">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            Verified by real golfers · No agency markup
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
+            Thailand golf,<br />
+            <span className="text-emerald-700">ranked by golfers</span>{" "}
+            <span className="opacity-50 line-through decoration-emerald-500 decoration-4">— not agencies.</span>
+          </h1>
+          <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
+            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()}</span> courses across{" "}
+            <span className="font-bold text-[var(--fg)]">{provinces}</span> provinces. Caddy quality, course conditions, English/Korean support — extracted from <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> real Google reviews.
+          </p>
 
-      <StatsBar
-        generatedAt={db.generated_at}
-        totalClinics={db.total_restaurants}
-        totalReviews={totalReviews}
-        withScraped={withScraped}
-        label="With deep review analysis"
-      />
+          <HeroSearch
+            restaurants={searchIndex}
+            popularSearches={popularSearches}
+          />
+        </div>
+      </section>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Editor's Pick hero — first sponsored only */}
+      {/* MEGA STATS BAR */}
+      <section className="border-y border-[var(--border)] bg-gradient-to-r from-emerald-700 via-green-700 to-emerald-800 text-white">
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-4 gap-4 text-center">
+          <Stat big={db.total_restaurants.toLocaleString()} label="Courses" />
+          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Reviews analyzed" />
+          <Stat big={koCourses.toLocaleString()} label="Korean ✓" />
+          <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
+        </div>
+      </section>
+
+      <div className="max-w-5xl mx-auto px-4 py-10">
         {(() => {
           const hero = top.find((r) => sponsoredTier(r.id));
           return hero ? <SponsoredHero r={hero} /> : null;
         })()}
 
-        {/* Featured top 3 */}
-        {top.length >= 3 && (
+        {/* MANIFESTO */}
+        <section className="mb-12 grid md:grid-cols-3 gap-4">
+          <Manifesto
+            icon="🚫"
+            title="No agency markup"
+            body="Korean tour packages add 25-40% markup. We aggregate Google reviews and link to direct booking partners — pick the path that fits."
+          />
+          <Manifesto
+            icon="📊"
+            title="Trust Score"
+            body="Rating + review volume + Local Guide ratio + reviewer authority. One transparent number, refreshed continuously."
+          />
+          <Manifesto
+            icon="🇰🇷"
+            title="Korean caddy mapped"
+            body="Korean-speaking caddy mentions extracted from review text. 105+ courses with verified Korean reviewer presence."
+          />
+        </section>
+
+        {/* FEATURED 6 with photos */}
+        {featuredFinal.length >= 6 && (
           <section className="mb-12">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-4">
-              Featured this week
-            </h2>
-            <div className="grid md:grid-cols-3 gap-4">
-              {top.slice(0, 3).map((r, i) => (
+            <div className="flex items-baseline justify-between gap-4 mb-5">
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight">
+                Top 6 this week
+              </h2>
+              <a href="/best/highly-recommended" className="text-sm text-emerald-700 font-medium hover:underline">
+                See full ranking →
+              </a>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {featuredFinal.map((r, i) => (
                 <a
                   key={r.id}
                   href={`/course/${r.id}`}
-                  className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-lg hover:border-[var(--accent)] transition relative overflow-hidden"
+                  className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:border-emerald-300 hover:-translate-y-0.5 transition relative overflow-hidden"
                 >
                   {r.hero_image ? (
-                    <div className="relative h-44 overflow-hidden bg-gray-100 border-b border-[var(--border)]">
+                    <div className="relative h-40 overflow-hidden bg-gray-100">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={r.hero_image}
@@ -107,14 +159,14 @@ export default async function HomePage() {
                       <div className="absolute top-2 left-2 text-xs font-bold text-white bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full tabular-nums">
                         #{i + 1}
                       </div>
-                      <div className="absolute top-2 right-2 text-base font-bold text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full tabular-nums">
+                      <div className="absolute top-2 right-2 text-base font-black text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full tabular-nums">
                         {r.trust_score.toFixed(0)}
                       </div>
                     </div>
                   ) : (
                     <div className="px-5 pt-5 flex items-start justify-between gap-2">
-                      <div className="text-xs font-bold tabular-nums text-[var(--muted)]">#{i + 1}</div>
-                      <div className="text-2xl font-bold tabular-nums" style={{
+                      <div className="text-2xl font-black tabular-nums text-[var(--muted)]">#{i + 1}</div>
+                      <div className="text-3xl font-black tabular-nums" style={{
                         color: r.trust_score >= 75 ? "#16a34a" : r.trust_score >= 60 ? "#059669" : "#ca8a04"
                       }}>
                         {r.trust_score.toFixed(0)}
@@ -122,16 +174,16 @@ export default async function HomePage() {
                     </div>
                   )}
                   <div className="p-5">
-                    <h3 className="font-bold text-base group-hover:text-[var(--accent)] transition leading-tight">{r.name}</h3>
-                    <p className="text-sm text-[var(--muted)] mt-1">{r.district || r.city_label}</p>
+                    <h3 className="font-bold text-base group-hover:text-emerald-700 transition leading-tight mb-1">{r.name}</h3>
+                    <p className="text-sm text-[var(--muted)]">{r.district || r.city_label}</p>
                     <div className="flex items-center gap-2 mt-3 text-xs text-[var(--muted)]">
-                      <span>★ {r.rating.toFixed(1)}</span>
+                      <span className="text-yellow-700 font-bold">★ {r.rating.toFixed(1)}</span>
                       <span>·</span>
                       <span>{r.total_reviews.toLocaleString()} reviews</span>
                     </div>
                     <div className="mt-3 flex flex-wrap gap-1">
                       {r.categories.slice(0, 2).map((c) => (
-                        <span key={c} className="bg-emerald-50 text-emerald-800 text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                        <span key={c} className="bg-emerald-50 text-emerald-800 text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
                           <span aria-hidden>{CATEGORY_ICONS[c] ?? "⛳"}</span>
                           {CATEGORY_LABELS[c] ?? c}
                         </span>
@@ -144,7 +196,31 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* By Region */}
+        {/* Korean coverage callout */}
+        {koTop.length >= 3 && (
+          <section className="mb-12 border border-[var(--border)] rounded-2xl bg-gradient-to-br from-emerald-50/40 via-white to-green-50/40 p-6 md:p-8">
+            <div className="flex items-baseline justify-between gap-4 flex-wrap mb-5">
+              <div>
+                <h2 className="text-xl md:text-2xl font-black tracking-tight">🇰🇷 한국 골퍼 인기 코스</h2>
+                <p className="text-sm text-[var(--muted)] mt-1">
+                  {koCourses}개 코스에 한국어 리뷰 — 한국어 캐디 / 한국 투어그룹 인기.
+                </p>
+              </div>
+              <a href="/ko" className="text-sm font-bold hover:text-emerald-700 hover:underline">한국어 사이트 →</a>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {koTop.map((r, i) => (
+                <a key={r.id} href={`/course/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-3 hover:border-emerald-300 transition">
+                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · {(r.language_breakdown?.ko ?? 0)} KO 리뷰</div>
+                  <div className="font-medium text-sm leading-tight">{r.name}</div>
+                  <div className="text-xs text-[var(--muted)] mt-1">{r.city_label}</div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Browse by region */}
         {cities.length > 1 && (
           <section className="mb-10">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By Region</h2>
@@ -153,7 +229,7 @@ export default async function HomePage() {
                 <a
                   key={city}
                   href={`/city/${citySlug(city)}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition font-medium"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
                 >
                   {city}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
@@ -163,7 +239,7 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* By Type */}
+        {/* Browse by type */}
         {categories.length > 0 && (
           <section className="mb-10">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By Type</h2>
@@ -172,7 +248,7 @@ export default async function HomePage() {
                 <a
                   key={cat}
                   href={`/c/${cat}`}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
                 >
                   <span aria-hidden>{CATEGORY_ICONS[cat] ?? "⛳"}</span>
                   {CATEGORY_LABELS[cat] ?? cat}
@@ -191,7 +267,7 @@ export default async function HomePage() {
               <a
                 key={c.slug}
                 href={`/best/${c.slug}`}
-                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
                 {c.title.replace(/^Best |^Most /, "").replace(/ in Thailand$/, "")}
               </a>
@@ -199,26 +275,25 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Korean coverage callout */}
-        {koTop.length >= 3 && (
-          <section className="mb-12 border border-[var(--border)] rounded-2xl bg-gradient-to-br from-emerald-50/40 to-white p-6">
-            <div className="flex items-baseline justify-between gap-4 flex-wrap mb-4">
+        {/* Guides promo */}
+        {GUIDES.length > 0 && (
+          <section className="mb-12 border border-[var(--border)] rounded-2xl bg-gradient-to-br from-green-50/40 via-white to-emerald-50/40 p-6 md:p-8">
+            <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
               <div>
-                <h2 className="text-lg font-bold">한국인 골퍼 추천 코스</h2>
-                <p className="text-sm text-[var(--muted)] mt-0.5">
-                  {koCourses}개 코스에 한국어 리뷰 — 한국어 캐디·한국 투어그룹 인기.
-                </p>
+                <h2 className="text-xl md:text-2xl font-black tracking-tight">Editor's guides</h2>
+                <p className="text-sm text-[var(--muted)] mt-1">No-fluff Thailand golf guides — what locals know.</p>
               </div>
-              <a href="/ko" className="text-sm font-medium hover:text-[var(--accent)] underline-offset-4 hover:underline">
-                Full Korean view →
-              </a>
+              <a href="/guide" className="text-sm font-bold hover:text-emerald-700 hover:underline">All guides →</a>
             </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {koTop.map((r, i) => (
-                <a key={r.id} href={`/course/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-3 hover:border-[var(--accent)] transition">
-                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · {(r.language_breakdown?.ko ?? 0)} KO reviews</div>
-                  <div className="font-medium text-sm leading-tight">{r.name}</div>
-                  <div className="text-xs text-[var(--muted)] mt-1">{r.city_label}</div>
+            <div className="grid sm:grid-cols-3 gap-3">
+              {GUIDES.slice(0, 3).map((g) => (
+                <a
+                  key={g.slug}
+                  href={`/guide/${g.slug}`}
+                  className="block bg-white rounded-xl border border-[var(--border)] p-4 hover:border-emerald-300 transition"
+                >
+                  <div className="font-bold text-sm leading-tight mb-1">{g.title.replace(/ \(\d{4}\)$/, "")}</div>
+                  <p className="text-xs text-[var(--muted)] line-clamp-2 leading-relaxed">{g.metaDescription}</p>
                 </a>
               ))}
             </div>
@@ -232,7 +307,7 @@ export default async function HomePage() {
               <a
                 key={d}
                 href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
-                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
               </a>
@@ -243,7 +318,7 @@ export default async function HomePage() {
         <AdSlot slot="home-mid" />
 
         <section>
-          <h2 className="text-xl font-bold mb-4">Top {Math.min(top.length, 50)} by Trust Score</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top {Math.min(top.length, 50)} by Trust Score</h2>
           <div className="grid gap-3">
             {top.slice(0, 10).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 1} />
@@ -260,7 +335,7 @@ export default async function HomePage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-xl font-bold mb-4">Frequently asked</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Frequently asked</h2>
           <div className="space-y-3">
             {HOME_FAQS.map((f, i) => (
               <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
@@ -281,5 +356,24 @@ export default async function HomePage() {
         />
       </div>
     </>
+  );
+}
+
+function Stat({ big, label }: { big: string; label: string }) {
+  return (
+    <div>
+      <div className="text-2xl md:text-4xl font-black tabular-nums leading-none">{big}</div>
+      <div className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1.5 font-bold">{label}</div>
+    </div>
+  );
+}
+
+function Manifesto({ icon, title, body }: { icon: string; title: string; body: string }) {
+  return (
+    <div className="p-5 rounded-2xl border border-[var(--border)] bg-white hover:shadow-md hover:border-emerald-300 transition">
+      <div className="text-3xl mb-3">{icon}</div>
+      <h3 className="font-bold text-base mb-1">{title}</h3>
+      <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
+    </div>
   );
 }
