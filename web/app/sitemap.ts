@@ -9,6 +9,7 @@ const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
   const districts = Object.keys(db.district_counts);
+  const cities = Object.keys(db.city_counts ?? {});
   const updated = new Date(db.generated_at);
 
   const items: MetadataRoute.Sitemap = [
@@ -40,6 +41,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: updated,
       changeFrequency: "daily",
       priority: 0.85,
+    });
+  }
+
+  // 도시 페이지 (멀티시티 — Bangkok + Pattaya + Phuket + ...)
+  for (const cityLabel of cities) {
+    const clinic = db.clinics.find((c) => c.city_label === cityLabel);
+    const slug = clinic?.city_slug ?? cityLabel.toLowerCase().replace(/\s+/g, "-");
+    items.push({
+      url: `${SITE}/city/${slug}`,
+      lastModified: updated,
+      changeFrequency: "daily",
+      priority: 0.9,
     });
   }
 

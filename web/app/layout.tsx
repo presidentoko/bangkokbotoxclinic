@@ -22,7 +22,15 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en": "/",
+      "th": "/th",
+      "ko": "/ko",
+      "x-default": "/",
+    },
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
     other: process.env.NEXT_PUBLIC_BING_VERIFICATION

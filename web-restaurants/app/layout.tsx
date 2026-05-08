@@ -19,7 +19,15 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en": "/",
+      "th": "/th",
+      "ko": "/ko",
+      "x-default": "/",
+    },
+  },
   // Search Console + Bing 검증 메타. Vercel ENV 로 주입 (옵션).
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,

@@ -119,12 +119,87 @@ _DISTRICT_KEYS: list[tuple[str, list[str]]] = [
     ("Bang Khen", ["bang khen"]),
 ]
 
+# 다른 도시의 district / 관광지 키워드. 외국인 인기 도시 위주.
+_PATTAYA_DISTRICTS: list[tuple[str, list[str]]] = [
+    ("Naklua", ["naklua", "wong amat"]),
+    ("Central Pattaya", ["central pattaya", "pattaya central", "soi buakhao"]),
+    ("South Pattaya", ["south pattaya", "walking street"]),
+    ("Pratamnak", ["pratamnak", "pratumnak"]),
+    ("Jomtien", ["jomtien", "jomthien", "dongtan"]),
+    ("Bang Lamung", ["bang lamung", "banglamung"]),
+    ("Nong Prue", ["nong prue"]),
+    ("Huai Yai", ["huai yai", "huay yai"]),
+]
 
-def extract_district(address: str) -> str:
+_PHUKET_DISTRICTS: list[tuple[str, list[str]]] = [
+    ("Patong", ["patong"]),
+    ("Karon", ["karon"]),
+    ("Kata", ["kata noi", "kata yai", " kata "]),
+    ("Kamala", ["kamala"]),
+    ("Surin", ["surin beach", "bang tao"]),
+    ("Cherng Talay", ["cherng talay", "cherngtalay", "laguna phuket"]),
+    ("Rawai", ["rawai", "naiharn", "nai harn"]),
+    ("Chalong", ["chalong"]),
+    ("Phuket Town", ["phuket town", "muang phuket", "old town phuket"]),
+    ("Kathu", ["kathu"]),
+    ("Mai Khao", ["mai khao", "nai yang"]),
+]
+
+_CHIANG_MAI_DISTRICTS: list[tuple[str, list[str]]] = [
+    ("Old City", ["old city chiang mai", "tha phae", "ratchadamnoen"]),
+    ("Nimman", ["nimman", "nimmanhaemin", "santitham"]),
+    ("Chang Khlan", ["chang khlan", "night bazaar"]),
+    ("Hang Dong", ["hang dong"]),
+    ("Mae Rim", ["mae rim"]),
+    ("San Sai", ["san sai", "sansai"]),
+    ("Saraphi", ["saraphi"]),
+    ("Mueang Chiang Mai", ["mueang chiang mai"]),
+]
+
+_KOH_SAMUI_DISTRICTS: list[tuple[str, list[str]]] = [
+    ("Chaweng", ["chaweng"]),
+    ("Lamai", ["lamai"]),
+    ("Bophut", ["bophut", "fisherman's village"]),
+    ("Maenam", ["maenam", "mae nam"]),
+    ("Choeng Mon", ["choeng mon"]),
+    ("Nathon", ["nathon", "na thon"]),
+    ("Lipa Noi", ["lipa noi"]),
+]
+
+_KRABI_DISTRICTS: list[tuple[str, list[str]]] = [
+    ("Ao Nang", ["ao nang", "aonang"]),
+    ("Krabi Town", ["krabi town", "muang krabi"]),
+    ("Klong Muang", ["klong muang", "khlong muang"]),
+    ("Tubkaek", ["tubkaek", "tub kaek"]),
+    ("Railay", ["railay", "rai leh"]),
+]
+
+_HUA_HIN_DISTRICTS: list[tuple[str, list[str]]] = [
+    ("Hua Hin Town", ["hua hin town", "muang hua hin"]),
+    ("Khao Tao", ["khao tao"]),
+    ("Cha-am", ["cha-am", "cha am", "chaam"]),
+    ("Pranburi", ["pranburi", "pran buri"]),
+]
+
+# city_label → districts dict. extract_district 가 사용.
+_DISTRICTS_BY_CITY: dict[str, list[tuple[str, list[str]]]] = {
+    "Bangkok": _DISTRICT_KEYS,
+    "Pattaya": _PATTAYA_DISTRICTS,
+    "Phuket": _PHUKET_DISTRICTS,
+    "Chiang Mai": _CHIANG_MAI_DISTRICTS,
+    "Koh Samui": _KOH_SAMUI_DISTRICTS,
+    "Krabi": _KRABI_DISTRICTS,
+    "Hua Hin": _HUA_HIN_DISTRICTS,
+}
+
+
+def extract_district(address: str, city_label: str = "Bangkok") -> str:
+    """주소에서 도시별 district 추출. 도시 매핑 없으면 빈 문자열."""
     if not address:
         return ""
     a = address.lower()
-    for canonical, aliases in _DISTRICT_KEYS:
+    keys = _DISTRICTS_BY_CITY.get(city_label, _DISTRICT_KEYS)
+    for canonical, aliases in keys:
         for alias in aliases:
             if alias in a:
                 return canonical
@@ -455,7 +530,7 @@ def process_source(
                 total_reviews = 0
 
             address = (row.get("formatted_address") or "").strip()
-            district = extract_district(address)
+            district = extract_district(address, city_label)
             if district:
                 district_counter[district] += 1
             city_counter[city_label] += 1
