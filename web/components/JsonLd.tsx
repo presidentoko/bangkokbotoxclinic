@@ -125,3 +125,63 @@ export function ItemListJsonLd({ name, items }: {
     })),
   });
 }
+
+/**
+ * Collection page (카테고리/구/도시 페이지)의 aggregate 통계 + ItemList 포함.
+ * 카테고리/구/도시 페이지에 1개씩 추가. Google rich-result + AEO 신호.
+ */
+export function CollectionPageJsonLd({ name, description, url, items }: {
+  name: string;
+  description: string;
+  url: string;
+  items: Pick<Clinic, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label">[];
+}) {
+  const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
+  // 평균 평점 가중평균 (review count 가중)
+  const totalReviews = items.reduce((s, c) => s + (c.total_reviews || 0), 0);
+  const weightedRating = totalReviews > 0
+    ? items.reduce((s, c) => s + (c.rating || 0) * (c.total_reviews || 0), 0) / totalReviews
+    : 0;
+
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: fullUrl,
+    numberOfItems: items.length,
+    aggregateRating: items.length > 0 && totalReviews > 0 ? {
+      "@type": "AggregateRating",
+      ratingValue: Number(weightedRating.toFixed(2)),
+      reviewCount: totalReviews,
+      bestRating: 5,
+      worstRating: 1,
+      itemReviewed: { "@type": "Thing", name },
+    } : undefined,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.slice(0, 25).map((c, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "MedicalBusiness",
+          "@id": `${SITE}/clinic/${c.id}`,
+          name: c.name,
+          url: `${SITE}/clinic/${c.id}`,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: c.rating,
+            reviewCount: c.total_reviews,
+            bestRating: 5,
+          },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: c.district || c.city_label || "Bangkok",
+            addressCountry: "TH",
+          },
+        },
+      })),
+    },
+  });
+}

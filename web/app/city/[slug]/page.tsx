@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
-import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
 
@@ -18,12 +18,18 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await params;
   const db = await loadMasterDb();
-  const clinic = db.clinics.find((c) => c.city_slug === slug);
+  const list = db.clinics.filter((c) => c.city_slug === slug);
+  const clinic = list[0];
   const cityLabel = clinic?.city_label ?? slug;
+  const count = list.length;
+  const totalReviews = list.reduce((s, c) => s + c.total_reviews, 0);
+  const title = `${count} Clinics in ${cityLabel} — Verified by Reviews`;
+  const description = `${count} verified clinics in ${cityLabel}, Thailand analyzed across ${totalReviews.toLocaleString()} Google reviews. Trust Score, reviewer credibility, district options.`;
   return {
-    title: `Clinics in ${cityLabel} — Verified by Reviews`,
-    description: `All clinics in ${cityLabel}, Thailand with verified Google review analysis and Trust Scores.`,
+    title,
+    description,
     alternates: { canonical: `/city/${slug}` },
+    openGraph: { title, description, url: `/city/${slug}` },
   };
 }
 
@@ -93,9 +99,11 @@ export default async function CityPage(
         { name: "Home", url: "/" },
         { name: cityLabel, url: `/city/${slug}` },
       ]} />
-      <ItemListJsonLd
+      <CollectionPageJsonLd
         name={`Clinics in ${cityLabel}`}
-        items={filtered.slice(0, 20).map((c) => ({ name: c.name, url: `/clinic/${c.id}` }))}
+        description={`${filtered.length} verified clinics in ${cityLabel}, Thailand ranked by Trust Score.`}
+        url={`/city/${slug}`}
+        items={filtered}
       />
     </div>
   );

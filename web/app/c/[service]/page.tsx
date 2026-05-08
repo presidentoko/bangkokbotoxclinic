@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { CATEGORY_LABELS } from "@/lib/types";
-import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { CATEGORY_FAQS } from "@/lib/faq";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
@@ -150,12 +150,11 @@ export default async function ServicePage(
         { name: label, url: `/c/${service}` },
       ]} />
       <FaqJsonLd faqs={CATEGORY_FAQS[service] ?? []} />
-      <ItemListJsonLd
+      <CollectionPageJsonLd
         name={`Top ${label} Clinics in Bangkok`}
-        items={filtered.slice(0, 20).map((c) => ({
-          name: c.name,
-          url: `/clinic/${c.id}`,
-        }))}
+        description={`${filtered.length} verified ${label.toLowerCase()} clinics in Bangkok ranked by Trust Score from Google review analysis.`}
+        url={`/c/${service}`}
+        items={filtered}
       />
     </div>
     </>

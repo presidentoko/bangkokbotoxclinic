@@ -3,6 +3,8 @@ import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const cfg = getSiteConfig();
@@ -107,6 +109,8 @@ export default function RootLayout({
             <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand}</p>
           </div>
         </footer>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

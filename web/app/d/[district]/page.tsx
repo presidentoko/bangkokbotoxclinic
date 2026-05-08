@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
-import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
 
@@ -82,12 +82,11 @@ export default async function DistrictPage(
         { name: "Home", url: "/" },
         { name: districtName, url: `/d/${district}` },
       ]} />
-      <ItemListJsonLd
+      <CollectionPageJsonLd
         name={`Clinics in ${districtName}, Bangkok`}
-        items={filtered.slice(0, 20).map((c) => ({
-          name: c.name,
-          url: `/clinic/${c.id}`,
-        }))}
+        description={`${filtered.length} clinics in ${districtName} ranked by Trust Score from Google review analysis.`}
+        url={`/d/${district}`}
+        items={filtered}
       />
     </div>
   );
