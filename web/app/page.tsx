@@ -111,7 +111,7 @@ export default async function HomePage() {
             <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews — every single one analyzed for credibility.
           </p>
 
-          <HeroSearch clinics={searchIndex} popularSearches={popularSearches} />
+          <HeroSearch entities={searchIndex} hrefBase="/clinic" popularSearches={popularSearches} searchPlaceholder="Search clinic name or district..." />
         </div>
       </section>
 

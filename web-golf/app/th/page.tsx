@@ -68,7 +68,8 @@ export default async function ThHomePage() {
         ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/ko" className="underline hover:text-[var(--fg)]">한국어</a>
       </div>
       <HeroSearch
-        restaurants={searchIndex}
+        entities={searchIndex}
+        hrefBase="/course"
         hero="สนามกอล์ฟไทย — ตรวจสอบจากรีวิวจริง"
         heroSub={`${db.total_restaurants.toLocaleString()} สนาม · วิเคราะห์รีวิว Google ${totalReviews.toLocaleString()} รายการ`}
         popularSearches={[
@@ -77,7 +78,8 @@ export default async function ThHomePage() {
           { label: "หัวหิน", href: "/city/prachuap_khiri_khan" },
           { label: "ภูเก็ต", href: "/city/phuket" },
         ]}
-        lang="th"
+        popularLabel="ยอดนิยม"
+        searchLang="th"
       />
 
       <StatsBar

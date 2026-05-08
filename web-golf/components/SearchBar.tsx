@@ -1,30 +1,46 @@
+// ⚠️ AUTO-GENERATED from shared/components/SearchBar.tsx
+// DO NOT edit directly — edit shared/components/SearchBar.tsx, then run `python scripts/sync_shared.py`.
+
 "use client";
-// 클라이언트 검색 — master_db.json 의 코스 이름/지역에서 즉시 필터.
+// 클라이언트 검색 — entities (clinic / restaurant / course)에서 즉시 필터.
+// site별 차이는 props 로 흡수: hrefBase ("/clinic" | "/restaurant" | "/course"),
+// lang (en/ko/th), placeholder.
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import type { Restaurant } from "@/lib/types";
+
+export type SearchableEntity = {
+  id: string;
+  name: string;
+  district?: string;
+  city_label?: string;
+  rating: number;
+  trust_score: number;
+};
 
 type Lang = "en" | "ko" | "th";
-
-const COPY: Record<Lang, { placeholder: string; noMatches: string }> = {
-  en: { placeholder: "Search course, region, or district...", noMatches: "No matches." },
-  ko: { placeholder: "코스, 지역, 구 검색...", noMatches: "검색 결과 없음" },
-  th: { placeholder: "ค้นหาสนาม จังหวัด หรือเขต...", noMatches: "ไม่พบผลลัพธ์" },
+const COPY: Record<Lang, { defaultPlaceholder: string; noMatches: string }> = {
+  en: { defaultPlaceholder: "Search name or location...", noMatches: "No matches." },
+  ko: { defaultPlaceholder: "이름, 지역 검색...", noMatches: "검색 결과 없음" },
+  th: { defaultPlaceholder: "ค้นหาชื่อ หรือพื้นที่...", noMatches: "ไม่พบผลลัพธ์" },
 };
 
 export function SearchBar({
-  restaurants, lang = "en", placeholder,
+  entities,
+  hrefBase,
+  placeholder,
+  lang = "en",
 }: {
-  restaurants: Pick<Restaurant, "id" | "name" | "district" | "city_label" | "rating" | "trust_score">[];
-  lang?: Lang;
+  entities: SearchableEntity[];
+  hrefBase: string; // "/clinic" | "/restaurant" | "/course"
   placeholder?: string;
+  lang?: Lang;
 }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const copy = COPY[lang];
-  const ph = placeholder ?? copy.placeholder;
+  const ph = placeholder ?? copy.defaultPlaceholder;
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -37,15 +53,15 @@ export function SearchBar({
   const results = useMemo(() => {
     if (q.trim().length < 2) return [];
     const lower = q.toLowerCase();
-    return restaurants
-      .filter((r) =>
-        r.name.toLowerCase().includes(lower) ||
-        (r.district && r.district.toLowerCase().includes(lower)) ||
-        (r.city_label && r.city_label.toLowerCase().includes(lower))
+    return entities
+      .filter((e) =>
+        e.name.toLowerCase().includes(lower) ||
+        (e.district && e.district.toLowerCase().includes(lower)) ||
+        (e.city_label && e.city_label.toLowerCase().includes(lower))
       )
       .sort((a, b) => b.trust_score - a.trust_score)
       .slice(0, 10);
-  }, [q, restaurants]);
+  }, [q, entities]);
 
   return (
     <div ref={ref} className="relative">
@@ -61,7 +77,7 @@ export function SearchBar({
           {results.map((r) => (
             <li key={r.id}>
               <a
-                href={`/course/${r.id}`}
+                href={`${hrefBase}/${r.id}`}
                 className="block px-4 py-3 hover:bg-gray-50 border-b border-[var(--border)] last:border-0"
               >
                 <div className="flex items-center justify-between gap-2">

@@ -88,7 +88,8 @@ export default async function HomePage() {
           </p>
 
           <HeroSearch
-            restaurants={searchIndex}
+            entities={searchIndex}
+            hrefBase="/course"
             popularSearches={popularSearches}
           />
         </div>

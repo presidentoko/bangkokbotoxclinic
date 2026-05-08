@@ -87,7 +87,8 @@ export default async function KoHomePage() {
         한국어 · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a>
       </div>
       <HeroSearch
-        restaurants={searchIndex}
+        entities={searchIndex}
+        hrefBase="/course"
         hero="인플루언서 말고 진짜 후기로 태국 골프장 찾자"
         heroSub={`${db.total_restaurants.toLocaleString()}개 코스 · ${totalReviews.toLocaleString()}개 Google 리뷰 분석 · ${koCourses}개 코스에 한국어 리뷰`}
         popularSearches={[
@@ -96,7 +97,8 @@ export default async function KoHomePage() {
           { label: "후아힌", href: "/city/prachuap_khiri_khan" },
           { label: "한국어 캐디", href: "/best/korean-friendly" },
         ]}
-        lang="ko"
+        popularLabel="인기"
+        searchLang="ko"
       />
 
       <StatsBar

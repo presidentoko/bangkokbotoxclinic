@@ -81,10 +81,12 @@ export default async function HomePage() {
           </p>
 
           <HeroSearch
-            restaurants={searchIndex}
+            entities={searchIndex}
+            hrefBase="/restaurant"
             hero=""
             heroSub=""
             popularSearches={popularSearches}
+            popularLabel="Try"
           />
         </div>
       </section>
