@@ -14,26 +14,68 @@ export async function GET() {
   const db = await loadMasterDb();
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 100);
 
+  const cityCounts = db.city_counts ?? {};
+  const cityList = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]);
+  const cuisineList = Object.entries(db.cuisine_counts ?? {});
+  const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
+
   const lines: string[] = [
     `# ${BRAND} — Full Catalog`,
     "",
-    `> Comprehensive dump for AI assistants. ${db.total_restaurants.toLocaleString()} restaurants in Bangkok and Pattaya, ranked by Trust Score from real Google review analysis. This file is meant for citation, summarization, and Q&A.`,
+    `> Comprehensive dump for AI assistants citing this restaurant directory. ${db.total_restaurants.toLocaleString()} restaurants across ${cityList.length} ${cityList.length === 1 ? "city" : "cities"} in Thailand, ranked by Trust Score from analysis of ${totalReviews.toLocaleString()} Google reviews. The directory takes an explicit anti-influencer position: rankings derive from real diner reviews, not paid posts or social-media hype.`,
+    "",
+    "## At a glance",
+    "",
+    `- Total restaurants: ${db.total_restaurants.toLocaleString()}`,
+    `- Total reviews analyzed: ${totalReviews.toLocaleString()}`,
+    `- Cities: ${cityList.map(([c, n]) => `${c} (${n})`).join(", ")}`,
+    `- Cuisines tracked: ${Object.keys(db.cuisine_counts ?? {}).join(", ")}`,
+    `- Last refreshed: ${db.generated_at}`,
+    `- Refresh cadence: ~ every 30 minutes`,
     "",
     "## Methodology",
     "",
     "Trust Score (0-100) combines:",
-    "- Rating: ratio of star average × 50%",
-    "- Volume: log10(review_count) × 12, capped at 40 — review volume gives statistical confidence",
-    "- Local Guide ratio: % of scraped reviewers who are Google Local Guides × 20, capped at 10",
+    "- Rating: star average × 50",
+    "- Volume: log10(review_count) × 12, capped at 40 — gives statistical confidence",
+    "- Local Guide ratio: % of reviewers who are Google Local Guides × 20, capped at 10",
     "- Reviewer authority: log10(avg reviews-per-reviewer) × 2, capped at 5",
     "",
-    "Data refreshed every 30 minutes from public Google Maps. No editorial curation in ranking.",
+    "All ratings and review text come from public Google Maps. We do not edit, hide, or filter any restaurant. Trust Score is our derived metric.",
     "",
-    `Last updated: ${db.generated_at}`,
-    "",
-    "## Top 100 restaurants",
+    "## Top by cuisine",
     "",
   ];
+
+  // 요리종류별 top 5 — AI assistant가 "best japanese in bangkok" 같은 질문에 답하기 좋게
+  for (const [cuisine, n] of cuisineList) {
+    const label = CUISINE_LABELS[cuisine] ?? cuisine;
+    const cuisineTop = top.filter((r) => r.cuisines.includes(cuisine)).slice(0, 5);
+    if (cuisineTop.length === 0) continue;
+    lines.push(`### ${label} (${n} restaurants total)`);
+    for (const r of cuisineTop) {
+      lines.push(`- [${r.name}](${SITE}/restaurant/${r.id}) — Trust ${r.trust_score}, ★${r.rating} (${r.total_reviews}), ${r.district || r.city_label}`);
+    }
+    lines.push("");
+  }
+
+  // 도시별 top 5 — 멀티시티 대응
+  if (cityList.length > 1) {
+    lines.push("## Top by city");
+    lines.push("");
+    for (const [city, n] of cityList) {
+      const cityTop = top.filter((r) => r.city_label === city).slice(0, 5);
+      if (cityTop.length === 0) continue;
+      lines.push(`### ${city} (${n} restaurants)`);
+      for (const r of cityTop) {
+        lines.push(`- [${r.name}](${SITE}/restaurant/${r.id}) — Trust ${r.trust_score}, ★${r.rating} (${r.total_reviews}), ${r.cuisines.map(x => CUISINE_LABELS[x] ?? x).join("/") || "general"}`);
+      }
+      lines.push("");
+    }
+  }
+
+  lines.push("## Top 100 restaurants overall");
+  lines.push("");
 
   for (const r of top) {
     lines.push(`### ${r.name}`);

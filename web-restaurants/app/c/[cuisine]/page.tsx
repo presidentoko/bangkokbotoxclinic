@@ -20,10 +20,19 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { cuisine } = await params;
   const label = CUISINE_LABELS[cuisine] ?? cuisine;
+  const db = await loadMasterDb();
+  const list = filterByCuisine(db.restaurants, cuisine);
+  const count = list.length;
+  const totalReviews = list.reduce((s, r) => s + r.total_reviews, 0);
   return {
-    title: `${label} Restaurants in Bangkok — Trust Score Ranking`,
-    description: `Best ${label} restaurants in Bangkok and Pattaya ranked by verified Google review analysis.`,
+    title: `${count} Best ${label} Restaurants in Bangkok — Real Reviews, Not SNS Hype`,
+    description: `${count} verified ${label.toLowerCase()} restaurants in Bangkok and Pattaya analyzed across ${totalReviews.toLocaleString()} Google reviews. No paid influencer rankings — just real diner data.`,
     alternates: { canonical: `/c/${cuisine}` },
+    openGraph: {
+      title: `${count} Best ${label} Restaurants in Bangkok`,
+      description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,
+      url: `/c/${cuisine}`,
+    },
   };
 }
 

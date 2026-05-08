@@ -28,10 +28,16 @@ export async function generateMetadata(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
   ));
   const districtName = districtFromSlug(district, allDistricts) ?? district;
+  const count = db.restaurants.filter((r) => r.district === districtName).length;
   return {
-    title: `Restaurants in ${districtName}`,
-    description: `Restaurants in ${districtName} with verified Google review analysis and Trust Scores.`,
+    title: `${count} Restaurants in ${districtName} — Real Reviews, Not SNS Hype`,
+    description: `${count} restaurants in ${districtName} ranked by verified Google review analysis. Trust Score, reviewer credibility, and what diners actually mention.`,
     alternates: { canonical: `/d/${district}` },
+    openGraph: {
+      title: `Restaurants in ${districtName}`,
+      description: `${count} verified restaurants. Trust Score ranking from real reviews.`,
+      url: `/d/${district}`,
+    },
   };
 }
 

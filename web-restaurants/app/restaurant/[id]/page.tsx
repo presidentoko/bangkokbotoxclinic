@@ -24,10 +24,18 @@ export async function generateMetadata(
   const r = getRestaurantById(db.restaurants, id);
   if (!r) return { title: "Restaurant not found" };
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
+  const title = `${r.name} — Reviews & Trust Score`;
+  const description = `${r.name} in ${r.district || r.city_label || "Bangkok"}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cuisines || "Restaurant"}.`;
   return {
-    title: `${r.name} — Reviews & Trust Score`,
-    description: `${r.name} in ${r.district || r.city_label || "Bangkok"}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cuisines || "Restaurant"}.`,
+    title,
+    description,
     alternates: { canonical: `/restaurant/${id}` },
+    openGraph: {
+      title,
+      description,
+      url: `/restaurant/${id}`,
+      type: "article",
+    },
   };
 }
 
