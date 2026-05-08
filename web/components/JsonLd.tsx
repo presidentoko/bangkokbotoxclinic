@@ -3,7 +3,7 @@
 
 import type { Clinic } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
 function tag(data: object) {
   return (

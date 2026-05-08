@@ -4,7 +4,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
 export async function GET() {
   const db = await loadMasterDb();

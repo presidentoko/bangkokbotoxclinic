@@ -2,7 +2,7 @@
 
 import { loadMasterDb } from "@/lib/data";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokclinics.example";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
 function escape(s: string): string {
   return s
