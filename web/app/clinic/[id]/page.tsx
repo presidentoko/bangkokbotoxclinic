@@ -26,9 +26,18 @@ export async function generateMetadata(
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "Clinic not found" };
   const cats = c.categories.map((x) => CATEGORY_LABELS[x] ?? x).join(", ");
+  const title = `${c.name} — Reviews & Trust Score`;
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} (${c.total_reviews} reviews). Trust Score ${c.trust_score}. ${cats || "Aesthetic clinic"}.`;
   return {
-    title: `${c.name} — Reviews & Trust Score`,
-    description: `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} (${c.total_reviews} reviews). Trust Score ${c.trust_score}. ${cats || "Aesthetic clinic"}.`,
+    title,
+    description,
+    alternates: { canonical: `/clinic/${c.id}` },
+    openGraph: {
+      title,
+      description,
+      url: `/clinic/${c.id}`,
+      type: "article",
+    },
   };
 }
 

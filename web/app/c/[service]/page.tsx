@@ -21,9 +21,20 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { service } = await params;
   const label = CATEGORY_LABELS[service] ?? service;
+  const db = await loadMasterDb();
+  const count = db.clinics.filter((c) => c.categories.includes(service)).length;
+  const totalReviews = db.clinics
+    .filter((c) => c.categories.includes(service))
+    .reduce((s, c) => s + c.total_reviews, 0);
   return {
-    title: `${label} Clinics in Bangkok — Trust Score Ranking`,
-    description: `Best ${label} clinics in Bangkok ranked by verified Google review analysis. Compare trust scores, reviewer credibility, and district options.`,
+    title: `${count} Best ${label} Clinics in Bangkok — Trust Score Ranking`,
+    description: `${count} verified ${label.toLowerCase()} clinics in Bangkok analyzed across ${totalReviews.toLocaleString()} Google reviews. Compare trust scores, reviewer credibility, and district options.`,
+    alternates: { canonical: `/c/${service}` },
+    openGraph: {
+      title: `${count} Best ${label} Clinics in Bangkok`,
+      description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,
+      url: `/c/${service}`,
+    },
   };
 }
 

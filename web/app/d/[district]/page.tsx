@@ -23,9 +23,16 @@ export async function generateMetadata(
   const { district } = await params;
   const db = await loadMasterDb();
   const districtName = districtFromSlug(district, Object.keys(db.district_counts)) ?? district;
+  const count = db.district_counts[districtName] ?? 0;
   return {
-    title: `Clinics in ${districtName}, Bangkok`,
-    description: `All clinics in ${districtName}, Bangkok with verified Google review analysis and Trust Scores.`,
+    title: `${count} Clinics in ${districtName}, Bangkok — Verified by Reviews`,
+    description: `${count} clinics in ${districtName}, Bangkok ranked by verified Google review analysis. Trust Score, reviewer credibility, service mentions for each.`,
+    alternates: { canonical: `/d/${district}` },
+    openGraph: {
+      title: `Clinics in ${districtName}, Bangkok`,
+      description: `${count} verified clinics. Trust Score ranking from real reviews.`,
+      url: `/d/${district}`,
+    },
   };
 }
 
