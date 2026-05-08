@@ -85,6 +85,7 @@ export default async function KoHomePage() {
         totalClinics={focused.length}
         totalReviews={totalReviews}
         withScraped={withScraped}
+        entityLabel="클리닉"
         label="리뷰로 검증됨"
       />
 

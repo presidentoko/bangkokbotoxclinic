@@ -77,6 +77,7 @@ export default async function KoHomePage() {
         totalClinics={db.total_restaurants}
         totalReviews={totalReviews}
         withScraped={withScraped}
+        entityLabel="식당"
         label="리뷰로 검증됨"
       />
 

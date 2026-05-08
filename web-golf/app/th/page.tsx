@@ -87,6 +87,7 @@ export default async function ThHomePage() {
         totalClinics={db.total_restaurants}
         totalReviews={totalReviews}
         withScraped={withScraped}
+        entityLabel="สนาม"
         label="ตรวจสอบจากรีวิว"
       />
 

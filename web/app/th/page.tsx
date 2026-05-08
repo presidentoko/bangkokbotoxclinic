@@ -78,6 +78,7 @@ export default async function ThHomePage() {
         totalClinics={focused.length}
         totalReviews={totalReviews}
         withScraped={withScraped}
+        entityLabel="คลินิก"
         label="ตรวจสอบจากรีวิว"
       />
 

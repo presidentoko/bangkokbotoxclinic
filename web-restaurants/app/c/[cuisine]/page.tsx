@@ -62,6 +62,7 @@ export default async function CuisinePage(
         totalClinics={filtered.length}
         totalReviews={totalReviews}
         withScraped={withScraped}
+        entityLabel="Restaurants"
       />
       <div className="max-w-5xl mx-auto px-4 py-8">
         <nav className="text-sm text-[var(--muted)] mb-4">
