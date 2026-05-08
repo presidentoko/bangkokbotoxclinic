@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-05-08T21:23:47.665143+00:00",
-  "total_clinics": 2400,
-  "with_district": 1670,
-  "with_categories": 1513,
-  "with_reviews_scraped": 1785,
+  "generated_at": "2026-05-08T21:49:26.358883+00:00",
+  "total_clinics": 2417,
+  "with_district": 1673,
+  "with_categories": 1521,
+  "with_reviews_scraped": 1797,
   "language_total": {
     "th": 2,
-    "en": 58258,
+    "en": 58615,
     "ko": 1,
     "ja": 0,
-    "other": 186
+    "other": 189
   },
   "city_counts": {
-    "Bangkok": 2400
+    "Bangkok": 2417
   },
   "district_counts": {
     "Pathum Wan": 315,
@@ -28,11 +28,11 @@
     "Din Daeng": 33,
     "Pom Prap Sattru Phai": 32,
     "Phra Nakhon": 31,
-    "Chatuchak": 26,
+    "Chatuchak": 28,
     "Ratchathewi": 21,
     "Bang Na": 21,
     "Yan Nawa": 18,
-    "Nong Khaem": 15,
+    "Nong Khaem": 16,
     "Sai Mai": 14,
     "Khlong Sam Wa": 11,
     "Thon Buri": 10,
@@ -56,11 +56,11 @@
     "Don Mueang": 1
   },
   "category_counts": {
-    "facial": 808,
+    "facial": 810,
     "laser": 565,
-    "dental": 553,
-    "botox": 439,
-    "filler": 334,
+    "dental": 560,
+    "botox": 440,
+    "filler": 333,
     "hifu": 284,
     "hair_transplant": 31,
     "eye": 20
@@ -650,6 +650,85 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Villa+Market+-+K+Village/data=!4m7!3m6!1s0x30e29f08b35be46d:0xaf429f7404e07d2d!8m2!3d13.720198!4d100.5693549!16s%2Fg%2F11h03z500!19sChIJbeRbswif4jARLX3gBHSfQq8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2955051e898ef_0x9b04e35b0ef94796",
+      "place_id": "0x30e2955051e898ef:0x9b04e35b0ef94796",
+      "name": "Tanya Market",
+      "name_lang": "en",
+      "primary_type": "Fresh food market",
+      "address": "\nหมู่ 2 Phet Kasem Rd, ตำบลอ้อมใหญ่ Sam Phran District, Nakhon Pathom 73160, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 99 412 2686",
+      "website": "https://www.facebook.com/taladtanya",
+      "lat": 13.7087471,
+      "lng": 100.2686813,
+      "rating": 4.4,
+      "total_reviews": 1913,
+      "trust_score": 96.9,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 31,
+      "avg_author_review_count": 56.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 25,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 14
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 22,
+          "avg": 4.64
+        },
+        "midterm": {
+          "count": 28,
+          "avg": 4.25
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "It's a place where you can buy vegetables, fruits, and fresh food every day. There are many shops with a wide variety of goods. Parking is convenient, and the place is clean.",
+          "rating": 5,
+          "author": "นายณัฐพงศ์ วีระชุนย์"
+        },
+        {
+          "text": "This market has a very large and convenient parking lot, a 7-Eleven, and a Thai herbal shop—everything you need in one place.",
+          "rating": 5,
+          "author": "Prasit Kongsaenkam"
+        },
+        {
+          "text": "Fresh fruit, delicious food, ample parking, and most importantly, the fried chicken skin is incredibly delicious!",
+          "rating": 5,
+          "author": "ratchaporn b"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Tanya+Market/data=!4m7!3m6!1s0x30e2955051e898ef:0x9b04e35b0ef94796!8m2!3d13.7087471!4d100.2686813!16s%2Fg%2F11c5qtkc4z!19sChIJ75joUVCV4jARlkf5DlvjBJs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ef6f7a79945_0x15b0c644fc631423",
@@ -5089,6 +5168,97 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+Asoke+%7C+Asia%27s+Leading+Lifestyle+Center/data=!4m7!3m6!1s0x30e299959d58c167:0x1368a3bc79552702!8m2!3d13.7376902!4d100.5588122!16s%2Fg%2F11nnpd9k9z!19sChIJZ8FYnZWZ4jARAidVebyjaBM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2b867aaf4ed67_0x7dfadc1daeea417c",
+      "place_id": "0x30e2b867aaf4ed67:0x7dfadc1daeea417c",
+      "name": "Better tooth dental clinic คลินิกทันตกรรม ทำฟัน จัดฟัน สาขามหาชัย",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\nอาคาร 1300/386, 387 ถนนนรราชอุทิศ, Mahachai, อำเภอเมือง, Samut Sakhon 74000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 93 498 9414",
+      "website": "http://www.facebook.com/bettertoothdc",
+      "lat": 13.5537089,
+      "lng": 100.2798231,
+      "rating": 5.0,
+      "total_reviews": 1964,
+      "trust_score": 90.2,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 1,
+      "avg_author_review_count": 1.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 31,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "service_mentions": {
+        "dental": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 4.92
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The female doctor was very skilled. She extracted my wisdom tooth incredibly quickly and it was painless. She was also very encouraging.",
+          "rating": 5,
+          "author": "ชาญชัย สมแก้ว"
+        },
+        {
+          "text": "The doctor provided excellent care and advice. The staff were friendly and easy to understand.",
+          "rating": 5,
+          "author": "ทิพย์ภวัณร์ กิจหวัง"
+        },
+        {
+          "text": "The doctor is kind, gentle, and the service is excellent. The clinic is clean, comfortable, and very air-conditioned. I encourage anyone who is afraid of doctors to give it a try.",
+          "rating": 5,
+          "author": "ศรีโสภา พึ่งสาย"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Better+tooth+dental+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%A2/data=!4m7!3m6!1s0x30e2b867aaf4ed67:0x7dfadc1daeea417c!8m2!3d13.5537089!4d100.2798231!16s%2Fg%2F11fsw6zfq4!19sChIJZ-30qme44jARfEHqrh3c-n0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d5c2af45bedd5_0x7303a115a62dc367",
@@ -13487,6 +13657,97 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/SURA+Korean+BBQ_by+Korean+Chef/data=!4m7!3m6!1s0x30e29effb3b50a71:0xd689537a44928c37!8m2!3d13.7346477!4d100.5720937!16s%2Fg%2F12cpj4rwf!19sChIJcQq1s_-e4jARN4ySRHpTidY?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e28149daaa8edd_0x545bf182b44708b2",
+      "place_id": "0x30e28149daaa8edd:0x545bf182b44708b2",
+      "name": "Teeth Talk Dental Clinic สาขาฟิวเจอร์พาร์ครังสิต จัดฟัน ดัดฟัน ทำฟัน",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n94 ศูนย์การค้าฟิวเจอร์พาร์ครังสิต Phahonyothin Rd, Thanyaburi District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Chatuchak",
+      "phone": "+66 93 929 1316",
+      "website": "https://www.teethtalk-clinic.com/",
+      "lat": 13.987367,
+      "lng": 100.6185627,
+      "rating": 4.9,
+      "total_reviews": 1197,
+      "trust_score": 87.0,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 1,
+      "avg_author_review_count": 2.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 43,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "service_mentions": {
+        "dental": 9
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "long_wait",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "recommend",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 4.68
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Excellent service. The dentist was incredibly gentle. I went to have my wisdom tooth extracted and was mentally preparing myself, but the dentist said it would be done very quickly.",
+          "rating": 5,
+          "author": "Nacha Cho"
+        },
+        {
+          "text": "The doctor took excellent care of me; he was very gentle. The staff were also very kind.",
+          "rating": 5,
+          "author": "ขวัญฤทัย อภัยโส"
+        },
+        {
+          "text": "I had my teeth cleaned (tartar removed). The dentist did a great job, gave good advice, and was very kind.",
+          "rating": 5,
+          "author": "Trongsorn Chuanjuntuek"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Teeth+Talk+Dental+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9F%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%88%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%9E%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%94%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x30e28149daaa8edd:0x545bf182b44708b2!8m2!3d13.987367!4d100.6185627!16s%2Fg%2F11s2hw_htn!19sChIJ3Y6q2kmB4jARsghHtILxW1Q?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fd326d61c2f_0x22087df82018c815",
@@ -25904,93 +26165,6 @@
       "maps_url": "https://www.google.com/maps/place/APEX+Clinic+-+Samyan+Mitrtown+%28%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%9E%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B8%99%E0%B9%8C%29/data=!4m7!3m6!1s0x30e299a734c0c327:0xcf585922c9dbe048!8m2!3d13.7343773!4d100.5285243!16s%2Fg%2F11p65p3q7r!19sChIJJ8PANKeZ4jARSODbySJZWM8?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2874df32f888f_0x4854d4992cd6e53e",
-      "place_id": "0x30e2874df32f888f:0x4854d4992cd6e53e",
-      "name": "มิตรไมตรีคลินิกเวชกรรม สาขาสามโคก",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\nหมู่ที่ 4 49/27-28 Pathum Thani-Sam Khok-Sena, Sam Khok, Sam Khok District, Pathum Thani 12160, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 65 807 6264",
-      "website": "https://www.facebook.com/MMTSKK1/?locale=th_TH",
-      "lat": 14.0433585,
-      "lng": 100.5253788,
-      "rating": 4.9,
-      "total_reviews": 361,
-      "trust_score": 84.1,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 8,
-      "avg_author_review_count": 4.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 43,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 12
-        },
-        {
-          "topic": "expensive",
-          "count": 3
-        },
-        {
-          "topic": "recommend",
-          "count": 3
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 6,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 7,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 37,
-          "avg": 5.0
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The service was excellent, from the doctor and nurses to the counter staff. The place is okay.\nParking is a bit difficult because it's near a traffic light intersection.",
-          "rating": 5,
-          "author": "aunchana siewsirithaworn"
-        },
-        {
-          "text": "The treatment was excellent. The doctor gave very clear and helpful advice. The nurses also provided good advice, checked my name and surname before dispensing medication, and were very friendly.",
-          "rating": 5,
-          "author": "พัชรินทร์ เปรมอุดมกิจ"
-        },
-        {
-          "text": "Here, they ask for your full name and date of birth before dispensing medication.",
-          "rating": 5,
-          "author": "phunyanuch wajajing"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B9%84%E0%B8%A1%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B9%82%E0%B8%84%E0%B8%81/@14.0433585,100.5253788,17z/data=!3m1!4b1!4m7!3m6!1s0x30e2874df32f888f:0x4854d4992cd6e53e!8m2!3d14.0433585!4d100.5253788!16s%2Fg%2F11ggpkjyhv!19sChIJj4gv802H4jARPuXWLJnUVEg?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
       "id": "0x30e29f64a0805c99_0x5d6dbb3e3d0a39fe",
       "place_id": "0x30e29f64a0805c99:0x5d6dbb3e3d0a39fe",
       "name": "MedEx Neo Clinic (Asoke - Nana Main Branch)",
@@ -36238,6 +36412,93 @@
       "maps_url": "https://www.google.com/maps/place/Faculty+of+Medicine+Ramathibodi+Hospital,+Mahidol+University/data=!4m7!3m6!1s0x30e2994da99aa1fd:0xc4dd9b398f456bcf!8m2!3d13.7661517!4d100.5264791!16s%2Fg%2F1pt_r9s1_!19sChIJ_aGaqU2Z4jARz2tFjzmb3cQ?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e281cd552778f3_0x80757a1eb6a99ef6",
+      "place_id": "0x30e281cd552778f3:0x80757a1eb6a99ef6",
+      "name": "มิตรไมตรีคลินิกเวชกรรม สาขาคลองหนึ่ง",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nหมู่ที่ 1 38/212 ถนน พหลโยธิน Khlong Nueng, Khlong Luang District, Pathum Thani 12120, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 2 901 2884",
+      "website": "",
+      "lat": 14.0058804,
+      "lng": 100.6081887,
+      "rating": 4.9,
+      "total_reviews": 432,
+      "trust_score": 82.3,
+      "categories": [],
+      "scraped_review_count": 81,
+      "local_guide_count": 4,
+      "avg_author_review_count": 2.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 68,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 29
+        },
+        {
+          "topic": "clean_facility",
+          "count": 14
+        },
+        {
+          "topic": "recommend",
+          "count": 11
+        },
+        {
+          "topic": "long_wait",
+          "count": 3
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 15,
+          "avg": 4.73
+        },
+        "midterm": {
+          "count": 10,
+          "avg": 4.2
+        },
+        "old": {
+          "count": 56,
+          "avg": 4.98
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor and staff are very good and friendly. Sometimes the queue isn't long, so it's quick. It's a convenient three-legged clinic close to home.",
+          "rating": 5,
+          "author": "ธัญญ์รวี รุจิโรจน์จารุกุล"
+        },
+        {
+          "text": "The nurses took excellent care of me and gave me great advice throughout the stay. The service here is excellent.",
+          "rating": 5,
+          "author": "Oy Lwata"
+        },
+        {
+          "text": "The service was excellent. They provided great advice, and the nurses were lovely and spoke kindly.",
+          "rating": 5,
+          "author": "Nada Ir"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B9%84%E0%B8%A1%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B8%B6%E0%B9%88%E0%B8%87/data=!4m7!3m6!1s0x30e281cd552778f3:0x80757a1eb6a99ef6!8m2!3d14.0058804!4d100.6081887!16s%2Fg%2F11b5w9ht91!19sChIJ83gnVc2B4jAR9p6pth56dYA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x311d59445e605cd9_0x3359502196963058",
       "place_id": "0x311d59445e605cd9:0x3359502196963058",
       "name": "คลินิกทันตกรรมวอลนัท - Walnut Dental Clinic | สาขาแพรกษา (ซอยมังกร) สมุทรปราการ ทำฟัน จัดฟัน รากเทียม วีเนียร์",
@@ -36851,6 +37112,97 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Create+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e2999eb6624d8b:0x8b0e65debb530195!8m2!3d13.7449063!4d100.5298515!16s%2Fg%2F11kpz63bjf!19sChIJi01itp6Z4jARlQFTu95lDos?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e295b5a73d0abb_0x13dd9ca4e010539e",
+      "place_id": "0x30e295b5a73d0abb:0x13dd9ca4e010539e",
+      "name": "V Square Clinic เซ็นทรัล ศาลายา",
+      "name_lang": "th",
+      "primary_type": "",
+      "address": "\nศูนย์การค้าเซ็นทรัล ศาลายา ห้อง 246 ชั้น 2 เลขที่ 99/21 แขวงบางเตย Sam Phran District, Nakhon Pathom 73210, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 64 939 9000",
+      "website": "https://www.vsquareclinic.com/branch/central-salaya/",
+      "lat": 13.7871785,
+      "lng": 100.2760883,
+      "rating": 5.0,
+      "total_reviews": 370,
+      "trust_score": 82.2,
+      "categories": [
+        "botox",
+        "filler",
+        "hifu"
+      ],
+      "scraped_review_count": 57,
+      "local_guide_count": 1,
+      "avg_author_review_count": 3.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 57,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 33,
+        "filler": 12,
+        "hifu": 9
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "no_pain",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 47,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 4,
+          "avg": 4.75
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I got Botox injections with Dr. Nun. She's lovely, has a very gentle touch, and gives great advice. I highly recommend her!",
+          "rating": 5,
+          "author": "phenyada athibay"
+        },
+        {
+          "text": "I got Botox and Hifu injections with Dr. Nun at V-Square Central Salaya. I really liked it! The doctor was very friendly and gave great advice. She had a very gentle touch too. If you live near Salaya, I highly recommend it. A woman should never stop being beautiful!",
+          "rating": 5,
+          "author": "มาลาตี ทองหน้าศาล"
+        },
+        {
+          "text": "I got Botox injections with Dr. S at V Square Clinic, Central Salaya branch. I was very impressed with Dr. S's skill; she had a very gentle touch. The results were very satisfying.",
+          "rating": 5,
+          "author": "Supakan Tonpoo"
+        }
+      ],
+      "business_status": "Permanently closed",
+      "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5+%E0%B8%A8%E0%B8%B2%E0%B8%A5%E0%B8%B2%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x30e295b5a73d0abb:0x13dd9ca4e010539e!8m2!3d13.7871785!4d100.2760883!16s%2Fg%2F11kk110zjk!19sChIJuwo9p7WV4jARnlMQ4KSc3RM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fdce7c1e623_0x923fdd4758ed415d",
@@ -38111,93 +38463,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+SIRIMARA+CLINIC/data=!4m7!3m6!1s0x30e29d277a89de91:0x657a58d2a87d65ac!8m2!3d13.7890862!4d100.5544053!16s%2Fg%2F11m_ggq6bz!19sChIJkd6Jeied4jARrGV9qNJYemU?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e295b5a73d0abb_0x13dd9ca4e010539e",
-      "place_id": "0x30e295b5a73d0abb:0x13dd9ca4e010539e",
-      "name": "V Square Clinic เซ็นทรัล ศาลายา",
-      "name_lang": "th",
-      "primary_type": "",
-      "address": "\nศูนย์การค้าเซ็นทรัล ศาลายา ห้อง 246 ชั้น 2 เลขที่ 99/21 แขวงบางเตย Sam Phran District, Nakhon Pathom 73210, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 64 939 9000",
-      "website": "https://www.vsquareclinic.com/branch/central-salaya/",
-      "lat": 13.7871785,
-      "lng": 100.2760883,
-      "rating": 5.0,
-      "total_reviews": 370,
-      "trust_score": 81.9,
-      "categories": [
-        "botox",
-        "filler",
-        "hifu"
-      ],
-      "scraped_review_count": 10,
-      "local_guide_count": 0,
-      "avg_author_review_count": 3.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 7,
-        "filler": 1,
-        "hifu": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "no_pain",
-          "count": 2
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 9,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I got Botox injections with Dr. S at V Square Clinic, Central Salaya branch. I was very impressed with Dr. S's skill; she had a very gentle touch. The results were very satisfying.",
-          "rating": 5,
-          "author": "Supakan Tonpoo"
-        },
-        {
-          "text": "I had Botox injections with Dr. Jaa at the Central Salaya branch. Dr. Jaa is lovely and meticulous in injecting each point on my face to ensure the results were just right for me.",
-          "rating": 5,
-          "author": "ณัฐพร มั่งอุดม"
-        },
-        {
-          "text": "I'm impressed every time I use their services. I had Botox injections with Dr. Kate and received excellent advice, and the results were very satisfying. The staff are also lovely, attentive, and provide great advice.",
-          "rating": 5,
-          "author": "Patcharee Yanaranop"
-        }
-      ],
-      "business_status": "Permanently closed",
-      "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5+%E0%B8%A8%E0%B8%B2%E0%B8%A5%E0%B8%B2%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x30e295b5a73d0abb:0x13dd9ca4e010539e!8m2!3d13.7871785!4d100.2760883!16s%2Fg%2F11kk110zjk!19sChIJuwo9p7WV4jARnlMQ4KSc3RM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f897fef6e2b_0xed3d5b1286ba77f",
@@ -46961,56 +47226,6 @@
       "maps_url": "https://www.google.com/maps/place/Add+Friend+Dental+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%A8%E0%B8%B2%E0%B8%A5%E0%B8%B2%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x30e2930efdeaf22d:0xd97f3e22658c3c06!8m2!3d13.797702!4d100.3276208!16s%2Fg%2F11y53z7lgs!19sChIJLfLq_Q6T4jARBjyMZSI-f9k?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e281cd552778f3_0x80757a1eb6a99ef6",
-      "place_id": "0x30e281cd552778f3:0x80757a1eb6a99ef6",
-      "name": "มิตรไมตรีคลินิกเวชกรรม สาขาคลองหนึ่ง",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\nหมู่ที่ 1 38/212 ถนน พหลโยธิน Khlong Nueng, Khlong Luang District, Pathum Thani 12120, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 2 901 2884",
-      "website": "",
-      "lat": 14.0058804,
-      "lng": 100.6081887,
-      "rating": 4.9,
-      "total_reviews": 432,
-      "trust_score": 80.6,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B9%84%E0%B8%A1%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B8%B6%E0%B9%88%E0%B8%87/data=!4m7!3m6!1s0x30e281cd552778f3:0x80757a1eb6a99ef6!8m2!3d14.0058804!4d100.6081887!16s%2Fg%2F11b5w9ht91!19sChIJ83gnVc2B4jAR9p6pth56dYA?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2ebcd41c235ad_0x42fd3e8a6520e266",
       "place_id": "0x30e2ebcd41c235ad:0x42fd3e8a6520e266",
       "name": "Dr.Pang Dental Clinic คลินิกทันตกรรมหมอแป้ง",
@@ -55293,6 +55508,56 @@
       "maps_url": "https://www.google.com/maps/place/Lalit+Clinic+%E0%B8%A5%E0%B8%A5%E0%B8%B4%E0%B8%95+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29d1f2b45708b:0x7e613f389c9cf493!8m2!3d13.7793607!4d100.5732999!16s%2Fg%2F11pw7c7lc_!19sChIJi3BFKx-d4jARk_ScnDg_YX4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2874df32f888f_0x4854d4992cd6e53e",
+      "place_id": "0x30e2874df32f888f:0x4854d4992cd6e53e",
+      "name": "มิตรไมตรีคลินิกเวชกรรม สาขาสามโคก",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nหมู่ที่ 4 49/27-28 Pathum Thani-Sam Khok-Sena, Sam Khok, Sam Khok District, Pathum Thani 12160, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 65 807 6264",
+      "website": "https://www.facebook.com/MMTSKK1/?locale=th_TH",
+      "lat": 14.0433585,
+      "lng": 100.5253788,
+      "rating": 4.9,
+      "total_reviews": 361,
+      "trust_score": 79.7,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B9%84%E0%B8%A1%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B9%82%E0%B8%84%E0%B8%81/data=!4m7!3m6!1s0x30e2874df32f888f:0x4854d4992cd6e53e!8m2!3d14.0433585!4d100.5253788!16s%2Fg%2F11ggpkjyhv!19sChIJj4gv802H4jARPuXWLJnUVEg?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x311d675cd6232fb3_0x40932b8852378719",
       "place_id": "0x311d675cd6232fb3:0x40932b8852378719",
       "name": "รณภีร์คลินิก สาขาลาดกระบัง ยืน1 จมูกทรงบาร์บี้ จมูกทรงบาร์บี้อเมริกา ทรงโคเรียบาร์บี้ เสริมจมูกสวยปลายเชิด ปรึกษาฟรี",
@@ -63477,97 +63742,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B9%84%E0%B8%A1%E0%B8%95%E0%B8%A3%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%AA%E0%B8%A7%E0%B8%B2%E0%B8%A2/data=!4m7!3m6!1s0x311d7e9f2d5027e7:0x2c0cece7cd1ada30!8m2!3d13.9618956!4d100.6848654!16s%2Fg%2F11c318bvhm!19sChIJ5ydQLZ9-HTERMNoazefsDCw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e28f0ae7a50671_0x55ee51a7600902cf",
-      "place_id": "0x30e28f0ae7a50671:0x55ee51a7600902cf",
-      "name": "LEMON Dental Clinic (สาขาบางใหญ่ซิตี้) จัดฟัน ทำฟัน - เลมอน คลินิกทันตกรรม",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n61/43 ถนน หมู่บ้านบางใหญ่ซิตี้, Bangyai, Sao Thong Hin, Bang Yai District, Nonthaburi 11140, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 98 065 7711",
-      "website": "",
-      "lat": 13.8790821,
-      "lng": 100.4065621,
-      "rating": 5.0,
-      "total_reviews": 180,
-      "trust_score": 78.7,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 2,
-      "avg_author_review_count": 2.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 48,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 18
-      },
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 16
-        },
-        {
-          "topic": "clean_facility",
-          "count": 9
-        },
-        {
-          "topic": "recommend",
-          "count": 9
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 26,
-          "avg": 4.96
-        },
-        "midterm": {
-          "count": 24,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The staff, from the receptionists to the doctor and assistants, were all very polite and gave excellent advice. The tooth extraction was gentle and painless.",
-          "rating": 5,
-          "author": "พิมพ์พัดชา ตั้งจิตต์นพคุณ"
-        },
-        {
-          "text": "Excellent service, lovely staff, and the doctor provided valuable information about the treatment.",
-          "rating": 5,
-          "author": "pim socute"
-        },
-        {
-          "text": "The clinic is very clean and the staff are lovely and provide excellent service.",
-          "rating": 5,
-          "author": "Mathinee Armonchindachot"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/LEMON+Dental+Clinic+%28%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88%E0%B8%8B%E0%B8%B4%E0%B8%95%E0%B8%B5%E0%B9%89%29+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99+-+%E0%B9%80%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e28f0ae7a50671:0x55ee51a7600902cf!8m2!3d13.8790821!4d100.4065621!16s%2Fg%2F11vyk3rqhg!19sChIJcQal5wqP4jARzwIJYKdR7lU?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f2223a7c445_0xb38b309969977925",
       "place_id": "0x30e29f2223a7c445:0xb38b309969977925",
       "name": "Public Health Center 16",
@@ -64932,113 +65106,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Tooth+Tone+Dental+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%97%E0%B8%B9%E0%B8%98%E0%B9%82%E0%B8%97%E0%B8%99/data=!4m7!3m6!1s0x30e295af6219d48b:0xc594e4a92298e460!8m2!3d13.7858877!4d100.2983102!16s%2Fg%2F11s9y178kx!19sChIJi9QZYq-V4jARYOSYIqnklMU?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e281654253a16b_0x95aa1b959a0574bc",
-      "place_id": "0x30e281654253a16b:0x95aa1b959a0574bc",
-      "name": "ธรรมดาคลินิก (สาขารังสิต)",
-      "name_lang": "th",
-      "primary_type": "Beauty salon",
-      "address": "\nรังสิต บิซซิเนส พาร์ค อาคารบี ชั้น 2, 124 Phahonyothin Rd, ประชาธิปัตย์ Thanyaburi District, Pathum Thani 12130, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Chatuchak",
-      "phone": "+66 2 055 6978",
-      "website": "",
-      "lat": 13.9953501,
-      "lng": 100.6183855,
-      "rating": 5.0,
-      "total_reviews": 129,
-      "trust_score": 78.5,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "hifu",
-        "laser"
-      ],
-      "scraped_review_count": 30,
-      "local_guide_count": 3,
-      "avg_author_review_count": 3.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 30,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 6,
-        "filler": 4,
-        "hifu": 4,
-        "facial": 3,
-        "laser": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 15
-        },
-        {
-          "topic": "clean_facility",
-          "count": 13
-        },
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "long_wait",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 6,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 24,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The staff were lovely and recommended procedures that suited my face shape. The clinic was very clean. Highly recommend!",
-          "rating": 5,
-          "author": "Kaofang Kaohyun"
-        },
-        {
-          "text": "The doctor was very kind and gave excellent advice that directly addressed my concerns. They suggested solutions to my problems. The doctor and staff didn't try to push any packages, and were very polite and friendly. I had HIFU treatment today and was very impressed.",
-          "rating": 5,
-          "author": "นพณิชา ศิริพฤกษ์พงษ์"
-        },
-        {
-          "text": "The staff were very helpful and friendly. The wait time wasn't long, and they were able to resolve my concerns.",
-          "rating": 5,
-          "author": "Jariya S"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%94%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95%29/data=!4m7!3m6!1s0x30e281654253a16b:0x95aa1b959a0574bc!8m2!3d13.9953501!4d100.6183855!16s%2Fg%2F11yrdtx08r!19sChIJa6FTQmWB4jARvHQFmpUbqpU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f240df70867_0xe876dc68eaff78b6",
@@ -67561,6 +67628,105 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Taka+Town/data=!4m7!3m6!1s0x30e29ef790b1e205:0x157611a5941bf65c!8m2!3d13.7448439!4d100.5726611!16s%2Fg%2F1q2vy26cb!19sChIJBeKxkPee4jARXPYblKURdhU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e281654253a16b_0x95aa1b959a0574bc",
+      "place_id": "0x30e281654253a16b:0x95aa1b959a0574bc",
+      "name": "ธรรมดาคลินิก (สาขารังสิต)",
+      "name_lang": "th",
+      "primary_type": "Beauty salon",
+      "address": "\nรังสิต บิซซิเนส พาร์ค อาคารบี ชั้น 2, 124 Phahonyothin Rd, ประชาธิปัตย์ Thanyaburi District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Chatuchak",
+      "phone": "+66 2 055 6978",
+      "website": "",
+      "lat": 13.9953501,
+      "lng": 100.6183855,
+      "rating": 5.0,
+      "total_reviews": 129,
+      "trust_score": 78.2,
+      "categories": [
+        "botox",
+        "facial",
+        "hifu"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 4,
+      "avg_author_review_count": 4.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 48,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 2,
+        "hifu": 4,
+        "facial": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 14
+        },
+        {
+          "topic": "recommend",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 50,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The staff are lovely, attentive, polite, and give excellent advice. I'm impressed every time I come; it feels like my second home. The prices are also reasonable, and the doctors are very gentle. Amazing! I keep coming back again and again. 😍",
+          "rating": 5,
+          "author": "faisushinat"
+        },
+        {
+          "text": "The staff were very lovely and friendly. The doctor was very gentle and gave excellent advice. There were hardly any suggestions for improvement. Absolutely fantastic!",
+          "rating": 5,
+          "author": "Pitchayaravee ChinKlang"
+        },
+        {
+          "text": "Good service, helpful advice, hassle-free, fast, clean, and convenient in Rangsit.",
+          "rating": 5,
+          "author": "S. Suebsing"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%94%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95%29/data=!4m7!3m6!1s0x30e281654253a16b:0x95aa1b959a0574bc!8m2!3d13.9953501!4d100.6183855!16s%2Fg%2F11yrdtx08r!19sChIJa6FTQmWB4jARvHQFmpUbqpU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fead08def43_0x2fa835476be33f41",
@@ -71452,11 +71618,11 @@
       ],
       "rating_trend": {
         "recent": {
-          "count": 14,
+          "count": 11,
           "avg": 5.0
         },
         "midterm": {
-          "count": 36,
+          "count": 39,
           "avg": 4.97
         },
         "old": {
@@ -77013,6 +77179,58 @@
       "maps_url": "https://www.google.com/maps/place/H.+million+clinic/data=!4m7!3m6!1s0x30e29f06dcf26ba1:0xfa5be2b7582a5b5e!8m2!3d13.7590363!4d100.566335!16s%2Fg%2F11t2b_5dnv!19sChIJoWvy3Aaf4jARXlsqWLfiW_o?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e28f0ae7a50671_0x55ee51a7600902cf",
+      "place_id": "0x30e28f0ae7a50671:0x55ee51a7600902cf",
+      "name": "LEMON Dental Clinic (สาขาบางใหญ่ซิตี้) จัดฟัน ทำฟัน - เลมอน คลินิกทันตกรรม",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n61/43 ถนน หมู่บ้านบางใหญ่ซิตี้, Bangyai, Sao Thong Hin, Bang Yai District, Nonthaburi 11140, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 98 065 7711",
+      "website": "",
+      "lat": 13.8790821,
+      "lng": 100.4065621,
+      "rating": 5.0,
+      "total_reviews": 180,
+      "trust_score": 77.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/LEMON+Dental+Clinic+%28%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88%E0%B8%8B%E0%B8%B4%E0%B8%95%E0%B8%B5%E0%B9%89%29+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99+-+%E0%B9%80%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e28f0ae7a50671:0x55ee51a7600902cf!8m2!3d13.8790821!4d100.4065621!16s%2Fg%2F11vyk3rqhg!19sChIJcQal5wqP4jARzwIJYKdR7lU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x311d6348dc8cec3f_0x9cad15cc01da3a42",
       "place_id": "0x311d6348dc8cec3f:0x9cad15cc01da3a42",
       "name": "มิตรมวลชนคลินิกเวชกรรม สาขาคลองสามวา",
@@ -77201,6 +77419,89 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B8%A3%E0%B8%A3%E0%B8%A2%E0%B8%B2+%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%B4%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87/data=!4m7!3m6!1s0x30e2818d8bade597:0xa9690baa399396a7!8m2!3d13.9851941!4d100.6157774!16s%2Fg%2F11vcw7rrkj!19sChIJl-Wti42B4jARp5aTOaoLaak?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e28169a9d96171_0xbc78bb7d7d837f76",
+      "place_id": "0x30e28169a9d96171:0xbc78bb7d7d837f76",
+      "name": "คลินิกฟื้นฟูสมอง อัมพฤกษ์ อัมพาต แพทย์วสุวัฒน์",
+      "name_lang": "th",
+      "primary_type": "Medical office",
+      "address": "\n821 Phahonyothin Rd, ประชาธิปัตย์ Amphoe Thanyaburi, Pathum Thani 12310, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Chatuchak",
+      "phone": "+66 93 145 3624",
+      "website": "https://www.facebook.com/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%A7%E0%B8%AA%E0%B8%B8%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B9%8C-100274905915754/",
+      "lat": 13.9963892,
+      "lng": 100.6143008,
+      "rating": 4.9,
+      "total_reviews": 119,
+      "trust_score": 77.1,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 5,
+      "avg_author_review_count": 4.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 27,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 43,
+          "avg": 4.91
+        },
+        "old": {
+          "count": 6,
+          "avg": 4.5
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctors and nurses are very attentive to the patients. My father had a stroke and after receiving treatment, his condition has improved significantly. He is able to take care of himself because he received quality medication and treatment from Dr. Wasuwat's clinic.",
+          "rating": 5,
+          "author": "จิรสิน ปาสาบุตร"
+        },
+        {
+          "text": "Many patients confirm that the treatment is effective and have confidence in the treatment.",
+          "rating": 5,
+          "author": "Pongthep Sungvalpetch"
+        },
+        {
+          "text": "I've been using the service and it's been great. I used to be bedridden, but now I can walk. 🚶 …",
+          "rating": 5,
+          "author": "วีระพล พลาลาภ"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9F%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%9F%E0%B8%B9%E0%B8%AA%E0%B8%A1%E0%B8%AD%E0%B8%87+%E0%B8%AD%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C+%E0%B8%AD%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B2%E0%B8%95+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%A7%E0%B8%AA%E0%B8%B8%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B9%8C/data=!4m7!3m6!1s0x30e28169a9d96171:0xbc78bb7d7d837f76!8m2!3d13.9963892!4d100.6143008!16s%2Fg%2F11sqkc_qh7!19sChIJcWHZqWmB4jARdn-DfX27eLw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299df04cabefb_0xa256310cf60b68af",
@@ -82692,6 +82993,110 @@
       "maps_url": "https://www.google.com/maps/place/S+Dental+Clinic/data=!4m7!3m6!1s0x30e29f1d7287ac13:0x6fa102cc190360b6!8m2!3d13.7321516!4d100.5612406!16s%2Fg%2F11clyt3hlz!19sChIJE6yHch2f4jARtmADGcwCoW8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e295dd8fae4cf9_0x89e416dfc654dbbb",
+      "place_id": "0x30e295dd8fae4cf9:0x89e416dfc654dbbb",
+      "name": "แผนกผิวหนัง อ้อมใหญ่รวมแพทย์ - รักษาสิว หลุมสิว ฝ้า จี้ไฝ โบท็อก ฟิลเลอร์ เลเซอร์ขน",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n13/15-17 Om Yai, Sam Phran District, Nakhon Pathom 73160, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 82 454 6963",
+      "website": "https://skin.omyairuamphat.com/",
+      "lat": 13.7087911,
+      "lng": 100.2776779,
+      "rating": 5.0,
+      "total_reviews": 52,
+      "trust_score": 76.4,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "laser"
+      ],
+      "scraped_review_count": 52,
+      "local_guide_count": 10,
+      "avg_author_review_count": 9.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 48,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "service_mentions": {
+        "botox": 1,
+        "facial": 4,
+        "laser": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "premium",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 8,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 42,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor and assistant were kind and thorough. My skin has really improved. There's parking in front, but it might be full, so it's best to call and make an appointment.",
+          "rating": 5,
+          "author": "Chortip C."
+        },
+        {
+          "text": "It's Wanmai. Today I came to remove the mole on my nose. I was impressed from the moment I walked in. The clinic is on the 3rd floor. The staff welcomed me very well. The doctor is cute, has a gentle hand, is kind, and gives very sincere advice. 💖✅ …",
+          "rating": 5,
+          "author": "Infinity_"
+        },
+        {
+          "text": "Today I tried a facial treatment at Derlen Clinic, Om Yai, Sam Phran area. My face is so soft and clear.",
+          "rating": 5,
+          "author": "หมู เด้ง"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87+%E0%B8%AD%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88%E0%B8%A3%E0%B8%A7%E0%B8%A1%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+-+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%AB%E0%B8%A5%E0%B8%B8%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%9D%E0%B9%89%E0%B8%B2+%E0%B8%88%E0%B8%B5%E0%B9%89%E0%B9%84%E0%B8%9D+%E0%B9%82%E0%B8%9A%E0%B8%97%E0%B9%87%E0%B8%AD%E0%B8%81+%E0%B8%9F%E0%B8%B4%E0%B8%A5%E0%B9%80%E0%B8%A5%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B9%80%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%82%E0%B8%99/data=!4m7!3m6!1s0x30e295dd8fae4cf9:0x89e416dfc654dbbb!8m2!3d13.7087911!4d100.2776779!16s%2Fg%2F11ndy580t7!19sChIJ-Uyuj92V4jARu9tUxt8W5Ik?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f88a4241b41_0xbd38a2e5c2fbb4fc",
       "place_id": "0x30e29f88a4241b41:0xbd38a2e5c2fbb4fc",
       "name": "สุขเลิด คลินิกเวชกรรม Suklert Clinic",
@@ -83967,6 +84372,81 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Jyunka/data=!4m7!3m6!1s0x30e29f6d9baec17b:0xe89c289321c9ab5f!8m2!3d13.7317419!4d100.5687813!16s%2Fg%2F11fqxs4w5j!19sChIJe8Gum22f4jARX6vJIZMonOg?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e295dbbabe92a5_0x73a9ba22591b4dac",
+      "place_id": "0x30e295dbbabe92a5:0x73a9ba22591b4dac",
+      "name": "ไทยเซ้นส์คลินิกการแพทย์แผนไทย สามพราน",
+      "name_lang": "th",
+      "primary_type": "Doctor",
+      "address": "\n25/448 Sam Phran District, Nakhon Pathom 73160, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 34 156 369",
+      "website": "",
+      "lat": 13.7088357,
+      "lng": 100.2676138,
+      "rating": 4.9,
+      "total_reviews": 14,
+      "trust_score": 76.3,
+      "categories": [],
+      "scraped_review_count": 14,
+      "local_guide_count": 9,
+      "avg_author_review_count": 57.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 11,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 13,
+          "avg": 4.92
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I went there yesterday for back pain radiating down my leg. The doctor treated me very well. I highly recommend this clinic to anyone experiencing pain. It's located in the Honda center and has convenient parking.",
+          "rating": 5,
+          "author": "Panravee Pongjai"
+        },
+        {
+          "text": "If you looking for thai medical massage, i recommend this clinic, Thai doctor is good at trating in thai medical and gave me good advice.",
+          "rating": 5,
+          "author": "Yui Benjayui"
+        },
+        {
+          "text": "The massage was very good. Comfortable and relaxing. Located in a Honda car center.",
+          "rating": 5,
+          "author": "MM KC"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B9%80%E0%B8%8B%E0%B9%89%E0%B8%99%E0%B8%AA%E0%B9%8C%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B9%84%E0%B8%97%E0%B8%A2+%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%9E%E0%B8%A3%E0%B8%B2%E0%B8%99/data=!4m7!3m6!1s0x30e295dbbabe92a5:0x73a9ba22591b4dac!8m2!3d13.7088357!4d100.2676138!16s%2Fg%2F11g1r3bmgd!19sChIJpZK-utuV4jARrE0bWSK6qXM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e281ded0edade5_0x7c87d7775633ad68",
@@ -88597,6 +89077,97 @@
       "maps_url": "https://www.google.com/maps/place/OHO+Dental+Clinic/data=!4m7!3m6!1s0x30e2950459b0320f:0x1584937fc7cbde54!8m2!3d13.7068836!4d100.2984721!16s%2Fg%2F11vb45mbdr!19sChIJDzKwWQSV4jARVN7Lx3-ThBU?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e281d770de58e3_0x305fbc73f1d1d9a5",
+      "place_id": "0x30e281d770de58e3:0x305fbc73f1d1d9a5",
+      "name": "คลินิกเด็กหมอโอ๊ต (บ้านกลาง-ปทุมธานี)",
+      "name_lang": "th",
+      "primary_type": "Pediatric clinic",
+      "address": "\n189 7 Pruksa Ville Tiwanon-Rangsit, Ban Klang, Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 93 219 6309",
+      "website": "https://www.facebook.com/Oatkidsclinic",
+      "lat": 14.0063483,
+      "lng": 100.5521179,
+      "rating": 5.0,
+      "total_reviews": 118,
+      "trust_score": 75.5,
+      "categories": [],
+      "scraped_review_count": 50,
+      "local_guide_count": 0,
+      "avg_author_review_count": 2.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 15
+        },
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 11,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 39,
+          "avg": 4.9
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor gave excellent advice. The clinic is new, clean, and the wait time was short.",
+          "rating": 5,
+          "author": "PRAPATSORN BUNMAWAT"
+        },
+        {
+          "text": "The doctor explained everything in detail and was very attentive. The clinic was clean.",
+          "rating": 5,
+          "author": "เสาวลักษณ์"
+        },
+        {
+          "text": "The doctor was lovely and explained everything very well. The clinic was clean and the service was excellent.",
+          "rating": 5,
+          "author": "mam chonmanee"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B9%82%E0%B8%AD%E0%B9%8A%E0%B8%95+%28%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87-%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5%29/data=!4m7!3m6!1s0x30e281d770de58e3:0x305fbc73f1d1d9a5!8m2!3d14.0063483!4d100.5521179!16s%2Fg%2F11m6x0p065!19sChIJ41jecNeB4jARpdnR8XO8XzA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29c1c1ca76685_0xb6c1296c808258a9",
       "place_id": "0x30e29c1c1ca76685:0xb6c1296c808258a9",
       "name": "Prasarnmitr Hospital",
@@ -88959,115 +89530,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Asok+Montri+Dental+Clinic/data=!4m7!3m6!1s0x30e29ee521480c9f:0x118890740d8c2cc3!8m2!3d13.7418179!4d100.5621316!16s%2Fg%2F1tgzkkkb!19sChIJnwxIIeWe4jARwyyMDXSQiBE?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e281fa15644341_0xe74a216d8231dd6b",
-      "place_id": "0x30e281fa15644341:0xe74a216d8231dd6b",
-      "name": "คลินิกผิวดีเมืองเอก แพทย์เฉพาะทางผิวหนังและความงาม • Clinic Pewdee Muang Ake • คลินิกผิวหนังใกล้ฉัน",
-      "name_lang": "th",
-      "primary_type": "Dermatologist",
-      "address": "\nPhahon Yothin 87, Khu Khot, Lam Luk Ka District, Pathum Thani 12130, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 2 536 4545",
-      "website": "https://www.facebook.com/profile.php?id=100063504135518&mibextid=9R9pXO",
-      "lat": 13.968258,
-      "lng": 100.6164689,
-      "rating": 4.9,
-      "total_reviews": 53,
-      "trust_score": 75.5,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "laser"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 7,
-      "avg_author_review_count": 32.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 46,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 4,
-        "filler": 5,
-        "facial": 7,
-        "laser": 4
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 13
-        },
-        {
-          "topic": "expensive",
-          "count": 6
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 5
-        },
-        {
-          "topic": "clean_facility",
-          "count": 3
-        },
-        {
-          "topic": "professional",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 8,
-          "avg": 4.5
-        },
-        "midterm": {
-          "count": 29,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 13,
-          "avg": 4.92
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The treatment showed good results from the first two weeks. I went to another place for injections costing tens of thousands of baht and they didn't work.",
-          "rating": 5,
-          "author": "สุภาณี ก๋งอุบล"
-        },
-        {
-          "text": "I had my melasma and freckles treated at the Skin Good Clinic. I'm very satisfied with the results; the laser treatment completely removed them. Post-treatment care was also very easy. My skin looks much brighter. Thank you so much, Dr. Pichet!",
-          "rating": 5,
-          "author": "Aksaraporn Jaruraksa"
-        },
-        {
-          "text": "The doctor is kind, the treatment is effective, and the acne treatment here is amazing! The products provided by the clinic are very gentle, and the prices are reasonable. Highly recommend! 💖 …",
-          "rating": 5,
-          "author": "Dream Daranriva"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%AD%E0%B8%81+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%87%E0%B8%B2%E0%B8%A1+%E2%80%A2+Clinic+Pewdee+Muang+Ake+%E2%80%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%89%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x30e281fa15644341:0xe74a216d8231dd6b!8m2!3d13.968258!4d100.6164689!16s%2Fg%2F11sg5l_kyz!19sChIJQUNkFfqB4jARa90xgm0hSuc?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f007c6a607b_0xb0ff4d338c5883fc",
@@ -89552,19 +90014,19 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "The staff are so kind, professional, and welcoming. The doctor gave me clear advice and made me feel comfortable.\nThe clinic is super clean and modern.\nI love my results, so natural and beautiful.\nHighly recommend to anyone looking for the best beauty clinic",
+          "text": "I've had chronic acne on my chin for a long time. I consulted a doctor, who recommended Dermaglow injections to reduce recurring acne. The doctor gave me excellent advice.\nAfter completing the injections, I haven't had any breakouts on my chin. 😌",
           "rating": 5,
-          "author": "wawa channel"
+          "author": "Suphaphit Tanwatanaseree"
+        },
+        {
+          "text": "Dr. Nott is kind.\nHe explained the treatment clearly, was professional, and had a gentle touch. I barely felt the Botox injection. He was also very attentive during the skin tightening procedure.",
+          "rating": 5,
+          "author": "นพรุจ พูลเพิ่มยศ"
         },
         {
           "text": "Excellent experience at this clinic and truly feel that it deserves high praise. The doctor was incredibly attentive and professional.👍 …",
           "rating": 5,
           "author": "Jimmy Wu"
-        },
-        {
-          "text": "The doctor explained everything well and in detail. There were no salespeople trying to push courses; I spoke directly with the doctor. The clinic is new and clean. I highly recommend it.",
-          "rating": 5,
-          "author": "TaiZin VK"
         }
       ],
       "business_status": "Open",
@@ -89883,97 +90345,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B8%B9%E0%B8%98+Wondertooth+%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%B2%E0%B8%98%E0%B8%87/data=!4m7!3m6!1s0x311d5d049e714bbb:0x8c700fc845889da0!8m2!3d13.5901632!4d100.7791759!16s%2Fg%2F11x_7s2vn2!19sChIJu0txngRdHTERoJ2IRcgPcIw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e281d770de58e3_0x305fbc73f1d1d9a5",
-      "place_id": "0x30e281d770de58e3:0x305fbc73f1d1d9a5",
-      "name": "คลินิกเด็กหมอโอ๊ต (บ้านกลาง-ปทุมธานี)",
-      "name_lang": "th",
-      "primary_type": "Pediatric clinic",
-      "address": "\n189 7 Pruksa Ville Tiwanon-Rangsit, Ban Klang, Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 93 219 6309",
-      "website": "https://www.facebook.com/Oatkidsclinic",
-      "lat": 14.0063483,
-      "lng": 100.5521179,
-      "rating": 5.0,
-      "total_reviews": 118,
-      "trust_score": 75.4,
-      "categories": [],
-      "scraped_review_count": 30,
-      "local_guide_count": 0,
-      "avg_author_review_count": 1.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 28,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 9
-        },
-        {
-          "topic": "recommend",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 11,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 19,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor gave excellent advice. The clinic is new, clean, and the wait time was short.",
-          "rating": 5,
-          "author": "PRAPATSORN BUNMAWAT"
-        },
-        {
-          "text": "The doctor explained everything in detail and was very attentive. The clinic was clean.",
-          "rating": 5,
-          "author": "เสาวลักษณ์"
-        },
-        {
-          "text": "The doctor was lovely and explained everything very well. The clinic was clean and the service was excellent.",
-          "rating": 5,
-          "author": "mam chonmanee"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B9%82%E0%B8%AD%E0%B9%8A%E0%B8%95+%28%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87-%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5%29/data=!4m7!3m6!1s0x30e281d770de58e3:0x305fbc73f1d1d9a5!8m2!3d14.0063483!4d100.5521179!16s%2Fg%2F11m6x0p065!19sChIJ41jecNeB4jARpdnR8XO8XzA?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2996ee9131471_0x54a50655361510ac",
       "place_id": "0x30e2996ee9131471:0x54a50655361510ac",
       "name": "Justsita clinic จัสสิตาร์ คลินิกเวชกรรม",
@@ -90170,6 +90541,115 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Na+Clinic/data=!4m7!3m6!1s0x30e29fd72fe7a2cd:0x41f1ae48344b9d56!8m2!3d13.7434134!4d100.544032!16s%2Fg%2F11scnmgv7l!19sChIJzaLnL9ef4jARVp1LNEiu8UE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e281fa15644341_0xe74a216d8231dd6b",
+      "place_id": "0x30e281fa15644341:0xe74a216d8231dd6b",
+      "name": "คลินิกผิวดีเมืองเอก แพทย์เฉพาะทางผิวหนังและความงาม • Clinic Pewdee Muang Ake • คลินิกผิวหนังใกล้ฉัน",
+      "name_lang": "th",
+      "primary_type": "Dermatologist",
+      "address": "\nPhahon Yothin 87, Khu Khot, Lam Luk Ka District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 2 536 4545",
+      "website": "https://www.facebook.com/profile.php?id=100063504135518&mibextid=9R9pXO",
+      "lat": 13.968258,
+      "lng": 100.6164689,
+      "rating": 4.9,
+      "total_reviews": 54,
+      "trust_score": 75.4,
+      "categories": [
+        "botox",
+        "facial",
+        "filler",
+        "laser"
+      ],
+      "scraped_review_count": 53,
+      "local_guide_count": 7,
+      "avg_author_review_count": 31.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 49,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 4,
+        "filler": 5,
+        "facial": 7,
+        "laser": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 15
+        },
+        {
+          "topic": "expensive",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 9,
+          "avg": 4.56
+        },
+        "midterm": {
+          "count": 29,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 15,
+          "avg": 4.8
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I felt comfortable receiving treatment here because it's a dermatology clinic with a specialist. The doctor is kind. I'd been looking elsewhere for a long time without success. I can always choose a time that suits me. The clinic is clean and the wait time is short. 👍 …",
+          "rating": 5,
+          "author": "Mullika P"
+        },
+        {
+          "text": "I had my melasma and freckles treated at the Skin Good Clinic. I'm very satisfied with the results; the laser treatment completely removed them. Post-treatment care was also very easy. My skin looks much brighter. Thank you so much, Dr. Pichet!",
+          "rating": 5,
+          "author": "Aksaraporn Jaruraksa"
+        },
+        {
+          "text": "The doctor is kind, the treatment is effective, and the acne treatment here is amazing! The products provided by the clinic are very gentle, and the prices are reasonable. Highly recommend! 💖 …",
+          "rating": 5,
+          "author": "Dream Daranriva"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%AD%E0%B8%81+%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%87%E0%B8%B2%E0%B8%A1+%E2%80%A2+Clinic+Pewdee+Muang+Ake+%E2%80%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B9%83%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%89%E0%B8%B1%E0%B8%99/@13.968258,100.6164689,17z/data=!3m1!4b1!4m7!3m6!1s0x30e281fa15644341:0xe74a216d8231dd6b!8m2!3d13.968258!4d100.6164689!16s%2Fg%2F11sg5l_kyz!19sChIJQUNkFfqB4jARa90xgm0hSuc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e2997cb529998b_0xcfe6801e13269386",
@@ -98838,6 +99318,58 @@
       "maps_url": "https://www.google.com/maps/place/Halo+dental+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%AE%E0%B9%82%E0%B8%A5+%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B9%87%E0%B8%94+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%97%E0%B8%99%E0%B9%80%E0%B8%99%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B5%E0%B8%9F%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x30e285f0cf4f94af:0x9193141cb77c8ea7!8m2!3d13.912232!4d100.4969953!16s%2Fg%2F11kjpj464s!19sChIJr5RPz_CF4jARp458txwUk5E?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2b970a1f094c1_0xf1e61b083c3f2db6",
+      "place_id": "0x30e2b970a1f094c1:0xf1e61b083c3f2db6",
+      "name": "คลินิกทันตกรรมสารินสไมล์ Sarin Smile Dental Clinic",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n41/5-6 ถ.เจษฎาวิถี, โคกขาม, เมือง, Samut Sakhon 74000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 95 620 6755",
+      "website": "http://www.facebook.com/sarinsmiledentalclinic",
+      "lat": 13.5669828,
+      "lng": 100.3375755,
+      "rating": 4.9,
+      "total_reviews": 130,
+      "trust_score": 74.4,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C+Sarin+Smile+Dental+Clinic/data=!4m7!3m6!1s0x30e2b970a1f094c1:0xf1e61b083c3f2db6!8m2!3d13.5669828!4d100.3375755!16s%2Fg%2F11f01spqjl!19sChIJwZTwoXC54jARti0_PAgb5vE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29c015e8b1a8b_0x6114be55af46128",
       "place_id": "0x30e29c015e8b1a8b:0x6114be55af46128",
       "name": "เดนต้าสมายล์ อารีย์ Dentasmile Areesamphan 7",
@@ -99177,6 +99709,107 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/DERMADREAM+AESTHETICS/data=!4m7!3m6!1s0x30e29fcc82e13409:0x3bd850ff3929a4ed!8m2!3d13.7481074!4d100.5654989!16s%2Fg%2F11gxmv_x1g!19sChIJCTThgsyf4jAR7aQpOf9Q2Ds?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e281de84bbeaf5_0xad078e4d050bff65",
+      "place_id": "0x30e281de84bbeaf5:0xad078e4d050bff65",
+      "name": "Sawarng Dental Center คลินิกทันตแพทย์สว่าง",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n56, ซอย Rangsit-Pathum Thani 3, Tambon Prachathipat, Thanyaburi District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 2 531 3231",
+      "website": "http://www.swcdental.com/",
+      "lat": 13.986223,
+      "lng": 100.614438,
+      "rating": 4.8,
+      "total_reviews": 40,
+      "trust_score": 74.4,
+      "categories": [
+        "dental",
+        "laser"
+      ],
+      "scraped_review_count": 40,
+      "local_guide_count": 9,
+      "avg_author_review_count": 22.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 26,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1,
+        "dental": 15
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 8
+        },
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 19,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 18,
+          "avg": 4.61
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dr. Tum is really good. He's opened my eyes to the world of dental scaling.\nHe's treated me incredibly well.",
+          "rating": 5,
+          "author": "พิมลมาศ กิตติธร"
+        },
+        {
+          "text": "Dr. Sawang does an excellent job of taking care of your dental health. He also gives very good advice on how to care for your teeth.",
+          "rating": 5,
+          "author": "Bua Phathum"
+        },
+        {
+          "text": "Dr. Sasirin, DDS, deep cleaning of the tooth root, cash price 2,000 baht, very worth the price, highly recommended.",
+          "rating": 5,
+          "author": "กรกต ประทีปะเสน"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Sawarng+Dental+Center+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%87/data=!4m7!3m6!1s0x30e281de84bbeaf5:0xad078e4d050bff65!8m2!3d13.986223!4d100.614438!16s%2Fg%2F1tvyp27b!19sChIJ9eq7hN6B4jARZf8LBU2OB60?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f835f30c483_0x5d89e85807ae8441",
@@ -102899,6 +103532,93 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9D%E0%B8%B2%E0%B8%81%E0%B8%84%E0%B8%A3%E0%B8%A3%E0%B8%A0%E0%B9%8C+%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9E%E0%B8%B1%E0%B8%8A%E0%B8%A2%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%A3%E0%B8%93+%28%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9B%E0%B8%B8%E0%B8%A2%29+%E0%B8%AD%E0%B8%B1%E0%B8%A5%E0%B8%95%E0%B8%A3%E0%B8%B2%E0%B8%8B%E0%B8%B2%E0%B8%A7%E0%B8%94%E0%B9%8C+4+%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%B4+%E0%B8%AA%E0%B8%A1%E0%B8%B8%E0%B8%97%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3/data=!4m7!3m6!1s0x30e2a7a74811cced:0xde8310f46f0ca467!8m2!3d13.5902833!4d100.5966902!16s%2Fg%2F11mvrqzbm6!19sChIJ7cwRSKen4jARZ6QMb_QQg94?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e281579572a6e5_0xe5d0dcea4aa3f6f6",
+      "place_id": "0x30e281579572a6e5:0xe5d0dcea4aa3f6f6",
+      "name": "Mor Ban Uae",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\nหอพักไทยมิตร 136/18 เมือง Pathum Thani 12000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 81 741 5915",
+      "website": "https://linktr.ee/morbanuae",
+      "lat": 14.0050362,
+      "lng": 100.5574757,
+      "rating": 4.9,
+      "total_reviews": 36,
+      "trust_score": 74.0,
+      "categories": [],
+      "scraped_review_count": 36,
+      "local_guide_count": 8,
+      "avg_author_review_count": 9.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 28,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 7
+        },
+        {
+          "topic": "affordable",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "expensive",
+          "count": 5
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 9,
+          "avg": 4.89
+        },
+        "old": {
+          "count": 24,
+          "avg": 4.96
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor is lovely, attentive, and the prices are reasonable. I highly recommend her. The doctor is excellent, as are the nurses.",
+          "rating": 5,
+          "author": "Ploypatchara Ponusit"
+        },
+        {
+          "text": "The doctor gave good advice, was calm, and cute. The doctor's assistant was also cute.",
+          "rating": 5,
+          "author": "ลัดดาวัลย์ ขุนนุ้ย"
+        },
+        {
+          "text": "The doctor is cute and gives good advice. The price is not expensive. The clinic is clean.",
+          "rating": 5,
+          "author": "ธมลวรรณ ทองไพสิฐ"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Mor+Ban+Uae/data=!4m7!3m6!1s0x30e281579572a6e5:0xe5d0dcea4aa3f6f6!8m2!3d14.0050362!4d100.5574757!16s%2Fg%2F11tx5c4rgg!19sChIJ5aZylVeB4jAR9vajSurc0OU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29d520fb87625_0x33d01282a85e6d89",
       "place_id": "0x30e29d520fb87625:0x33d01282a85e6d89",
       "name": "S Haus Clinic Bangkok",
@@ -104376,7 +105096,7 @@
       "mentioned_topics": [
         {
           "topic": "recommend",
-          "count": 14
+          "count": 15
         },
         {
           "topic": "friendly_staff",
@@ -104387,15 +105107,11 @@
           "count": 5
         },
         {
-          "topic": "promotion",
-          "count": 5
-        },
-        {
           "topic": "affordable",
           "count": 3
         },
         {
-          "topic": "professional",
+          "topic": "promotion",
           "count": 3
         },
         {
@@ -104412,6 +105128,10 @@
         },
         {
           "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "professional",
           "count": 1
         }
       ],
@@ -112444,7 +113164,7 @@
       "place_id": "0x30e281d6e62a077f:0xe390e29af3fef4db",
       "name": "Trustme Physical Therapy Clinic",
       "name_lang": "en",
-      "primary_type": "Physical Therapy Clinic",
+      "primary_type": "Physiotherapy Center",
       "address": "\nติดโรงเรียนวิภารัตน์ ทรัสต์มีคลินิกกายภาพบำบัด ปทุมธานี ปั๊มบางจาก เลขที่ 106 Soi Mu Ban Benchaphon Soi 2, ตำบลกระแซง Sam Khok District, Pathum Thani 12160, Thailand",
       "city_label": "Bangkok",
       "city_slug": "bangkok",
@@ -114933,97 +115653,6 @@
       "maps_url": "https://www.google.com/maps/place/Palmyra+Wellness/data=!4m7!3m6!1s0x30e29f52273f3ecb:0xe8bfc4e55d81572c!8m2!3d13.7413962!4d100.5515532!16s%2Fg%2F11vr4c_mqk!19sChIJyz4_J1Kf4jARLFeBXeXEv-g?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e28d14364dc127_0x41f865cee12bc8c",
-      "place_id": "0x30e28d14364dc127:0x41f865cee12bc8c",
-      "name": "คีย์ รีแฮป คลินิกกายภาพบำบัด",
-      "name_lang": "th",
-      "primary_type": "Physical therapy clinic",
-      "address": "\nไทรน้อย เลขที่ 20 Baan Kluay - Sai Noi Rd, Tambon Sai Noi, Sai Noi District, Nonthaburi 11150, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 92 769 7616",
-      "website": "https://www.keyrehab-clinic.com/",
-      "lat": 13.9487553,
-      "lng": 100.3508292,
-      "rating": 5.0,
-      "total_reviews": 31,
-      "trust_score": 72.7,
-      "categories": [
-        "laser"
-      ],
-      "scraped_review_count": 31,
-      "local_guide_count": 5,
-      "avg_author_review_count": 6.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 24,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "laser": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 10
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 8
-        },
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "expensive",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 2,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 3,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 26,
-          "avg": 5.0
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Excellent service. The doctor is lovely and provides great advice. The service is superb and friendly. The price is affordable. Highly recommended.",
-          "rating": 5,
-          "author": "ณัฐพล เกตุตระกูล"
-        },
-        {
-          "text": "On Saturday, October 28th, 2023, I went to the clinic for treatment of office syndrome. The clinic provided good service and was clean. The physiotherapist gave excellent advice on treatment. The price was reasonable. I will definitely come again.",
-          "rating": 5,
-          "author": "Salinee Saeiao"
-        },
-        {
-          "text": "Excellent service! They provided great advice, the prices weren't too expensive, and the staff were very friendly. I broke my leg and received physical therapy here, and now I can walk again. I highly recommend this clinic to anyone nearby! 👍🏻👍🏻 …",
-          "rating": 5,
-          "author": "Summer Love"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%B5%E0%B8%A2%E0%B9%8C+%E0%B8%A3%E0%B8%B5%E0%B9%81%E0%B8%AE%E0%B8%9B+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e28d14364dc127:0x41f865cee12bc8c!8m2!3d13.9487553!4d100.3508292!16s%2Fg%2F11vdh681lp!19sChIJJ8FNNhSN4jARjLwS7lyGHwQ?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x311d5f3d3b2eecc9_0xa8ff86c62ac17b98",
       "place_id": "0x311d5f3d3b2eecc9:0xa8ff86c62ac17b98",
       "name": "A.D.Dental Clinic ทำฟันรากเทียม อุดฟัน รากเทียม วีเนียร์ ถอนฟันคุด รักษาราก เดือย ครอบฟัน ทำฟันราม2",
@@ -116658,6 +117287,111 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Dent+Indeed+Dental+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%94%E0%B8%99%E0%B8%97%E0%B9%8C+%E0%B8%AD%E0%B8%B4%E0%B8%99%E0%B8%94%E0%B8%B5%E0%B9%8A%E0%B8%94/data=!4m7!3m6!1s0x30e29fc78d60ac4f:0x57ce612020fbe29d!8m2!3d13.7547043!4d100.5419284!16s%2Fg%2F11sv_r0917!19sChIJT6xgjcef4jARneL7ICBhzlc?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e28f95b0a441f1_0xb3c3ef97bffaa560",
+      "place_id": "0x30e28f95b0a441f1:0xb3c3ef97bffaa560",
+      "name": "Icon smile dental clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\n22 35 หมู่ 1คลองถนน บางเเม่นาง Bang Yai District, Nonthaburi 11140, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 62 592 4644",
+      "website": "",
+      "lat": 13.8870565,
+      "lng": 100.3729919,
+      "rating": 4.8,
+      "total_reviews": 43,
+      "trust_score": 72.5,
+      "categories": [
+        "dental",
+        "laser"
+      ],
+      "scraped_review_count": 43,
+      "local_guide_count": 6,
+      "avg_author_review_count": 10.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 39,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1,
+        "dental": 22
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 13
+        },
+        {
+          "topic": "clean_facility",
+          "count": 8
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 7
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 16,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 25,
+          "avg": 4.68
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I'm really afraid of dentists. I've been to two clinics before and wasn't impressed, but the dentist here gave great advice and was very gentle. I had two teeth extracted and there was no pain or swelling at all. I will definitely come back for more services, doctor.",
+          "rating": 5,
+          "author": "kwang-saranrat Lertseeratthapas"
+        },
+        {
+          "text": "The doctor gave very good advice, had very soft hands, was very friendly, and gave me something to take home with me. He was very cute.",
+          "rating": 5,
+          "author": "Pruek Posuk"
+        },
+        {
+          "text": "The doctor is very friendly. He does a good job and the wait is not long. You can call to make an appointment.",
+          "rating": 5,
+          "author": "Kanokwan"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Icon+smile+dental+clinic/data=!4m7!3m6!1s0x30e28f95b0a441f1:0xb3c3ef97bffaa560!8m2!3d13.8870565!4d100.3729919!16s%2Fg%2F11fky_99cz!19sChIJ8UGksJWP4jARYKX6v5fvw7M?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f6613b27329_0x81ab612b38b6ca25",
@@ -126457,14 +127191,14 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "The shop owner is so lovely and friendly! She chatted with me while I was getting my eyebrows done and paid great attention to detail.\nThe only downside is the parking; it's a bit difficult to find a parking spot.",
-          "rating": 5,
-          "author": "SUPANARD POOMCHAN"
-        },
-        {
           "text": "The artist is so lovely, friendly, and understanding. I've had my lips and eyebrows tattooed there twice already. There was no swelling or side effects. It was slightly painful, as expected, but the artist gave excellent aftercare instructions. The wounds healed quickly without any pain or swelling.",
           "rating": 5,
           "author": "premchaya jauhar"
+        },
+        {
+          "text": "The shop owner is so lovely and friendly! She chatted with me while I was getting my eyebrows done and paid great attention to detail.\nThe only downside is the parking; it's a bit difficult to find a parking spot.",
+          "rating": 5,
+          "author": "SUPANARD POOMCHAN"
         },
         {
           "text": "Great service, beautiful eyebrow and lip tattoos. You can tell them what style you want, and there's no swelling.",
@@ -127535,6 +128269,58 @@
       "maps_url": "https://www.google.com/maps/place/HealthSphere+Clinic+%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%97%E0%B9%8C%E0%B8%AA%E0%B9%80%E0%B8%9F%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C+%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29db498bb4377:0xd0fe3f93b400efac!8m2!3d13.7835072!4d100.5418125!16s%2Fg%2F11lnnpk6r_!19sChIJd0O7mLSd4jARrO8AtJM__tA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0xc478759dd77d183_0x9b761b8c82021d9a",
+      "place_id": "0xc478759dd77d183:0x9b761b8c82021d9a",
+      "name": "Seoyeon Clinic ซอยอนคลินิก รักษาสิว ฝ้า หลุมสิว ปรับรูปหน้า ลดสัดส่วน",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\n61 56, Tambon Sao Thong Hin, Bang Yai District, Nonthaburi 11140, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 93 232 9289",
+      "website": "https://seoyeonclinic.com/",
+      "lat": 13.8787555,
+      "lng": 100.407123,
+      "rating": 5.0,
+      "total_reviews": 59,
+      "trust_score": 71.3,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Seoyeon+Clinic+%E0%B8%8B%E0%B8%AD%E0%B8%A2%E0%B8%AD%E0%B8%99%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%9D%E0%B9%89%E0%B8%B2+%E0%B8%AB%E0%B8%A5%E0%B8%B8%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2+%E0%B8%A5%E0%B8%94%E0%B8%AA%E0%B8%B1%E0%B8%94%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99/data=!4m7!3m6!1s0xc478759dd77d183:0x9b761b8c82021d9a!8m2!3d13.8787555!4d100.407123!16s%2Fg%2F11w94zpdy1!19sChIJg9F33VmHRwwRmh0Cgowbdps?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x311d7f924b56b8b7_0xe23b3b6c19f22431",
       "place_id": "0x311d7f924b56b8b7:0xe23b3b6c19f22431",
       "name": "SparSha Future Park Rangsit Floor 2 (สปาชา ฟิวเจอร์พาร์ค รังสิต ฝั่งอีสต์ (East) ชั้น 2)",
@@ -128393,6 +129179,93 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Phra+Mongkut+Klao+Hospital/data=!4m7!3m6!1s0x30e29eb241f8f455:0x52e49db99432eed8!8m2!3d13.76773!4d100.534366!16s%2Fg%2F120txjyt!19sChIJVfT4QbKe4jAR2O4ylLmd5FI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2816c80f0b3c9_0xa3844dff54e480bc",
+      "place_id": "0x30e2816c80f0b3c9:0xa3844dff54e480bc",
+      "name": "NICE TOOTH DENTAL CLINIC : คลินิกทันตกรรมไนซ์ทูธ",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n1 ซอย คลองหลวง 13 Khlong Nueng, Khlong Luang District, Pathum Thani 12120, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "lat": 14.0086043,
+      "lng": 100.6148274,
+      "rating": 4.8,
+      "total_reviews": 66,
+      "trust_score": 71.2,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 64,
+      "local_guide_count": 2,
+      "avg_author_review_count": 2.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 48,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 6
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 7
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 6
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 7,
+          "avg": 4.29
+        },
+        "old": {
+          "count": 57,
+          "avg": 4.86
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Nice tooth as the name of clinic. Staff are friendly and also dentists are well suggested and diagnosed with reasonable price.",
+          "rating": 5,
+          "author": "kanikkanan rodpai"
+        },
+        {
+          "text": "❤️❤️5 stars! Excellent service. The doctor gave great advice. The clinic always checked on your convenience. Excellent! 😍 …",
+          "rating": 5,
+          "author": "PORNCHITA CHAIMONGKOL"
+        },
+        {
+          "text": "The staff at the counter provided excellent service. The doctor was lovely and chatty. The assistants were very encouraging.",
+          "rating": 5,
+          "author": "Napinda Krisee"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/NICE+TOOTH+DENTAL+CLINIC+:+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%84%E0%B8%99%E0%B8%8B%E0%B9%8C%E0%B8%97%E0%B8%B9%E0%B8%98/data=!4m7!3m6!1s0x30e2816c80f0b3c9:0xa3844dff54e480bc!8m2!3d14.0086043!4d100.6148274!16s%2Fg%2F11rndrzxdf!19sChIJybPwgGyB4jARvIDkVP9NhKM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ed28ae6edc7_0xacba9abf16af5e48",
@@ -131254,101 +132127,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x311d5dd48b524ce5:0xf1b34058c9358aca!8m2!3d13.630829!4d100.7676708!16s%2Fg%2F11rfr7y3zz!19sChIJ5UxSi9RdHTERyoo1yVhAs_E?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2bf232c0ef7eb_0xee05c5474fc95f5c",
-      "place_id": "0x30e2bf232c0ef7eb:0xee05c5474fc95f5c",
-      "name": "สไมล์แคร์ คลินิคทันตกรรม",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\nJ7GV+RHQ, Khlong Maduea, Krathum Baen District, Samut Sakhon 74110, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 34 877 062",
-      "website": "",
-      "lat": 13.6270899,
-      "lng": 100.2939778,
-      "rating": 4.8,
-      "total_reviews": 39,
-      "trust_score": 70.7,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 39,
-      "local_guide_count": 4,
-      "avg_author_review_count": 6.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 36,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 13
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 10
-        },
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 4
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 7,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 16,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 16,
-          "avg": 4.44
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor is excellent and gives great advice. The staff are friendly. I highly recommend this place.",
-          "rating": 5,
-          "author": "nantaporn pinklang"
-        },
-        {
-          "text": "The clinic is clean. I went to have my tartar scraped off. The doctor had a gentle hand and it didn't hurt much. I haven't had my tartar scraped off in a long time and thought it would hurt more. I highly recommend it. 👍 …",
-          "rating": 5,
-          "author": "Hop Pee"
-        },
-        {
-          "text": "I once took my child to a clinic for a fluoride treatment. It cost 500 baht. The doctor explained everything well to my child. My child seemed a little scared, as children usually are, but didn't cry at all. I highly recommend it! 🤗👍 …",
-          "rating": 5,
-          "author": "Ko Khun"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e2bf232c0ef7eb:0xee05c5474fc95f5c!8m2!3d13.6270899!4d100.2939778!16s%2Fg%2F11d_v9n1ft!19sChIJ6_cOLCO_4jARXF_JT0fFBe4?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x311d59d0a2e012d9_0x938c147c6265f2a6",
       "place_id": "0x311d59d0a2e012d9:0x938c147c6265f2a6",
       "name": "คลินิกเวชกรรมศิครินทร์ (บางพลี)",
@@ -132107,61 +132885,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Fixme+Clinic/data=!4m7!3m6!1s0x30e29ea7da9b8709:0x78174adfc730d43f!8m2!3d13.7777442!4d100.5421295!16s%2Fg%2F11bxg2nl7b!19sChIJCYeb2qee4jARP9Qwx99KF3g?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e295dd8fae4cf9_0x89e416dfc654dbbb",
-      "place_id": "0x30e295dd8fae4cf9:0x89e416dfc654dbbb",
-      "name": "แผนกผิวหนัง อ้อมใหญ่รวมแพทย์ - รักษาสิว หลุมสิว ฝ้า จี้ไฝ โบท็อก ฟิลเลอร์ เลเซอร์ขน",
-      "name_lang": "th",
-      "primary_type": "Skin care clinic",
-      "address": "\n13/15-17 Om Yai, Sam Phran District, Nakhon Pathom 73160, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 82 454 6963",
-      "website": "https://skin.omyairuamphat.com/",
-      "lat": 13.7087911,
-      "lng": 100.2776779,
-      "rating": 5.0,
-      "total_reviews": 52,
-      "trust_score": 70.6,
-      "categories": [
-        "botox",
-        "facial",
-        "filler",
-        "laser"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%81%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87+%E0%B8%AD%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88%E0%B8%A3%E0%B8%A7%E0%B8%A1%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+-+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%AB%E0%B8%A5%E0%B8%B8%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%9D%E0%B9%89%E0%B8%B2+%E0%B8%88%E0%B8%B5%E0%B9%89%E0%B9%84%E0%B8%9D+%E0%B9%82%E0%B8%9A%E0%B8%97%E0%B9%87%E0%B8%AD%E0%B8%81+%E0%B8%9F%E0%B8%B4%E0%B8%A5%E0%B9%80%E0%B8%A5%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B9%80%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%82%E0%B8%99/data=!4m7!3m6!1s0x30e295dd8fae4cf9:0x89e416dfc654dbbb!8m2!3d13.7087911!4d100.2776779!16s%2Fg%2F11ndy580t7!19sChIJ-Uyuj92V4jARu9tUxt8W5Ik?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d7b2d5113abf3_0x8347192cd496c759",
@@ -139957,79 +140680,6 @@
       "maps_url": "https://www.google.com/maps/place/Big+Care+Dental+Clinic+%28+BCDC+%29/data=!4m7!3m6!1s0x311d7da6b36e6997:0xf06d73be55e49877!8m2!3d13.8886029!4d100.6560578!16s%2Fg%2F11clwbl73x!19sChIJl2lus6Z9HTERd5jkVb5zbfA?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2819bb0dc75df_0x29185ed3a8917a50",
-      "place_id": "0x30e2819bb0dc75df:0x29185ed3a8917a50",
-      "name": "FDC Clinic สาขาตลาดรังสิต",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n2, รังสิตอพาร์ทเม้นท์, 9/3 Soi Rangsit-Pathum Thani 7, Tambon Prachathipat, Thanyaburi District, Pathum Thani 12130, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 95 239 9296",
-      "website": "https://www.facebook.com/share/1BeNeSrW14/?mibextid=wwXIfr",
-      "lat": 13.9870119,
-      "lng": 100.6129742,
-      "rating": 5.0,
-      "total_reviews": 26,
-      "trust_score": 69.5,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 20,
-      "local_guide_count": 2,
-      "avg_author_review_count": 1.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 12,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 3
-        },
-        {
-          "topic": "promotion",
-          "count": 3
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 17,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 2,
-          "avg": 5.0
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor was very gentle. This is my second visit and I'm just as impressed as before.",
-          "rating": 5,
-          "author": "tinnakarn phansap"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/FDC+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95/data=!4m7!3m6!1s0x30e2819bb0dc75df:0x29185ed3a8917a50!8m2!3d13.9870119!4d100.6129742!16s%2Fg%2F11spt4skxj!19sChIJ33XcsJuB4jARUHqRqNNeGCk?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f1d1421a4f1_0x63f8f7c5082a83e1",
       "place_id": "0x30e29f1d1421a4f1:0x63f8f7c5082a83e1",
       "name": "หน่วยศัลยกรรมระบบปัสสาวะ โรงพยาบาลพระมงกุฎเกล้า (Urology Department of Phramongkutklao Hospital)",
@@ -141126,6 +141776,90 @@
       "maps_url": "https://www.google.com/maps/place/Innervision+by+optometrist+:%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%A7%E0%B9%88%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B8%99%E0%B9%80%E0%B8%99%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%A7%E0%B8%B4%E0%B8%8A%E0%B8%B1%E0%B9%88%E0%B8%99%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B8%A1%E0%B8%B2%E0%B8%95%E0%B8%A3+%E0%B8%9B%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B9%80%E0%B8%89%E0%B8%9E%E0%B8%B2%E0%B8%B0%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%94%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%873+%E0%B8%98%E0%B8%B1%E0%B8%8D%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5/data=!4m7!3m6!1s0x311d7dfd1faf1a53:0x56b612f00af92a00!8m2!3d13.9963945!4d100.6647625!16s%2Fg%2F11kk01llb9!19sChIJUxqvH_19HTERACr5CvAStlY?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e28159dd2bb9a5_0x10edfd0f5599b138",
+      "place_id": "0x30e28159dd2bb9a5:0x10edfd0f5599b138",
+      "name": "พรร​ณะ​วัตร​คลินิก​ Pannawat Clinic สาขา​รังสิต​",
+      "name_lang": "th",
+      "primary_type": "Skin care clinic",
+      "address": "\nตําบล ประชาธิปัตย์, 13 Sun Kankha Rangsit 15 Alley, Tambon Prachathipat, Thanyaburi District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 99 423 6236",
+      "website": "https://www.pannawat.com/",
+      "lat": 13.9877028,
+      "lng": 100.6145007,
+      "rating": 4.8,
+      "total_reviews": 16,
+      "trust_score": 69.4,
+      "categories": [
+        "botox",
+        "facial"
+      ],
+      "scraped_review_count": 16,
+      "local_guide_count": 4,
+      "avg_author_review_count": 9.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 11,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 4.2
+        },
+        "old": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "My skin has improved so much thanks to this place. After more than a month of treatment, I've already seen a change. I wanted to write a review for the doctor because my acne really did clear up.",
+          "rating": 5,
+          "author": "Sukritta Da"
+        },
+        {
+          "text": "I have dermatitis. The doctor took very good care of me. I recovered quickly. The price was not expensive at all.",
+          "rating": 5,
+          "author": "Eakkachai Vongsa"
+        },
+        {
+          "text": "The doctor was very kind, highly skilled in diagnosis, and gave excellent advice. He patiently explained everything until my anxiety subsided. Thank you very much, doctor.",
+          "rating": 5,
+          "author": "Nawaphol Srihera"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9E%E0%B8%A3%E0%B8%A3%E2%80%8B%E0%B8%93%E0%B8%B0%E2%80%8B%E0%B8%A7%E0%B8%B1%E0%B8%95%E0%B8%A3%E2%80%8B%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E2%80%8B+Pannawat+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E2%80%8B%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95%E2%80%8B/data=!4m7!3m6!1s0x30e28159dd2bb9a5:0x10edfd0f5599b138!8m2!3d13.9877028!4d100.6145007!16s%2Fg%2F11t8605389!19sChIJpbkr3VmB4jAROLGZVQ_97RA?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29dfbc1c209d7_0x4defbced8c372e0e",
       "place_id": "0x30e29dfbc1c209d7:0x4defbced8c372e0e",
       "name": "ร้านแว่น Mattaya Vision Center สาขา รพ.พญาไท 1",
@@ -141872,6 +142606,89 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Soul+Science+Clinic+%E0%B9%82%E0%B8%8B%E0%B8%A5+%E0%B9%84%E0%B8%8B%E0%B9%80%E0%B8%AD%E0%B8%99%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e299c0e0027a3d:0x10f885409daafb57!8m2!3d13.7338889!4d100.5268304!16s%2Fg%2F11q32x57xb!19sChIJPXoC4MCZ4jARV_uqnUCF-BA?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2eb529bda9761_0x9d4871eba84cb37",
+      "place_id": "0x30e2eb529bda9761:0x9d4871eba84cb37",
+      "name": "ลานยา คลินิกแพทย์แผนจีน ฝังเข็ม ครอบแก้ว สมุนไพร",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n12/138 ม.4 ท่าข้าม, Sam Phran District, Nakhon Pathom 73110, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 91 764 8787",
+      "website": "https://www.facebook.com/lanyaclinic?mibextid=ZbWKwL",
+      "lat": 13.7197537,
+      "lng": 100.2459475,
+      "rating": 5.0,
+      "total_reviews": 12,
+      "trust_score": 69.3,
+      "categories": [],
+      "scraped_review_count": 12,
+      "local_guide_count": 2,
+      "avg_author_review_count": 30.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 12,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor was very kind and asked about my symptoms in detail. The acupuncture and cupping therapy were reasonably priced. The place was clean. Parking is limited, so I recommend booking an appointment in advance for convenience.",
+          "rating": 5,
+          "author": "Nantana"
+        },
+        {
+          "text": "I have been a patient here for some years.  Excellent doctor and service.  Price is very reasonable.  The doctor is very knowledgeable and attentive...",
+          "rating": 5,
+          "author": "Christian Luna"
+        },
+        {
+          "text": "The doctor is lovely and provides detailed consultations.\nI'm not disappointed in choosing to come here.",
+          "rating": 5,
+          "author": "เกศิณี อ่อนจริง"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%B2%E0%B8%99%E0%B8%A2%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99+%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A7+%E0%B8%AA%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%9E%E0%B8%A3/data=!4m7!3m6!1s0x30e2eb529bda9761:0x9d4871eba84cb37!8m2!3d13.7197537!4d100.2459475!16s%2Fg%2F11q9fqfy8l!19sChIJYZfam1Lr4jARN8uEuh6H1Ak?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d7f8d13953d01_0x9dce9b7b62691976",
@@ -143196,6 +144013,93 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AD%E0%B8%8B%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9E%E0%B8%A5%E0%B8%B5/data=!4m7!3m6!1s0x311d5d6e0fae2297:0x56241c4b5d96aba!8m2!3d13.5962617!4d100.7416987!16s%2Fg%2F11tx6j67g7!19sChIJlyKuD25dHTERumrZtcRBYgU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2819bb0dc75df_0x29185ed3a8917a50",
+      "place_id": "0x30e2819bb0dc75df:0x29185ed3a8917a50",
+      "name": "FDC Clinic สาขาตลาดรังสิต",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n2, รังสิตอพาร์ทเม้นท์, 9/3 Soi Rangsit-Pathum Thani 7, Tambon Prachathipat, Thanyaburi District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 95 239 9296",
+      "website": "https://www.facebook.com/share/1BeNeSrW14/?mibextid=wwXIfr",
+      "lat": 13.9870119,
+      "lng": 100.6129742,
+      "rating": 5.0,
+      "total_reviews": 26,
+      "trust_score": 69.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 26,
+      "local_guide_count": 2,
+      "avg_author_review_count": 2.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 17,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "promotion",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 17,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 8,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor was very gentle. This is my second visit and I'm just as impressed as before.",
+          "rating": 5,
+          "author": "tinnakarn phansap"
+        },
+        {
+          "text": "Stopped by to use the service again. The doctor took good care of me as usual. 😀 …",
+          "rating": 5,
+          "author": "Papassorn Bangkoedkaew"
+        },
+        {
+          "text": "I really got a promotion for oral cleaning for 1000 baht. This is the first clinic that I've ever been able to get as advertised. I'm very impressed. The first time I got braces, it was really 999 baht. The service was very good. The doctor was very cute.",
+          "rating": 5,
+          "author": "ณัฏฐ์กฤตา ประสิทธิ์ผล"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/FDC+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95/data=!4m7!3m6!1s0x30e2819bb0dc75df:0x29185ed3a8917a50!8m2!3d13.9870119!4d100.6129742!16s%2Fg%2F11spt4skxj!19sChIJ33XcsJuB4jARUHqRqNNeGCk?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e291ce3d805155_0xa6148312db5d657e",
@@ -150882,87 +151786,54 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%9E%E0%B8%99%E0%B8%B1%E0%B8%AA%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+Pinus+Clinic/data=!4m7!3m6!1s0x311d7fb271496259:0x4d7445750af258f9!8m2!3d13.9931352!4d100.6583666!16s%2Fg%2F11y3dp_vx1!19sChIJWWJJcbJ_HTER-VjyCnVFdE0?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e287291c67c955_0xf68b2c7d14b8a5c3",
-      "place_id": "0x30e287291c67c955:0xf68b2c7d14b8a5c3",
-      "name": "คลินิกเวชกรรม หมอรุ่งเรือง ปทุมธานี",
+      "id": "0x30e28d14364dc127_0x41f865cee12bc8c",
+      "place_id": "0x30e28d14364dc127:0x41f865cee12bc8c",
+      "name": "คีย์ รีแฮป คลินิกกายภาพบำบัด",
       "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\nคลินิกเวชกรรมหมอรุ่งเรือง Bang Prok, Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
+      "primary_type": "Physical therapy clinic",
+      "address": "\nไทรน้อย เลขที่ 20 Baan Kluay - Sai Noi Rd, Tambon Sai Noi, Sai Noi District, Nonthaburi 11150, Thailand",
       "city_label": "Bangkok",
       "city_slug": "bangkok",
       "district": "",
-      "phone": "+66 81 149 4777",
-      "website": "",
-      "lat": 14.0133703,
-      "lng": 100.5224354,
-      "rating": 4.4,
-      "total_reviews": 27,
+      "phone": "+66 92 769 7616",
+      "website": "https://www.keyrehab-clinic.com/",
+      "lat": 13.9487553,
+      "lng": 100.3508292,
+      "rating": 5.0,
+      "total_reviews": 31,
       "trust_score": 67.9,
       "categories": [],
-      "scraped_review_count": 27,
-      "local_guide_count": 5,
-      "avg_author_review_count": 30.7,
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
       "language_breakdown": {
         "th": 0,
-        "en": 13,
+        "en": 0,
         "ko": 0,
         "ja": 0,
         "other": 0
       },
       "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "expensive",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        }
-      ],
+      "mentioned_topics": [],
       "rating_trend": {
         "recent": {
-          "count": 5,
-          "avg": 4.2
+          "count": 0,
+          "avg": null
         },
         "midterm": {
-          "count": 4,
-          "avg": 5.0
+          "count": 0,
+          "avg": null
         },
         "old": {
-          "count": 18,
-          "avg": 4.39
+          "count": 0,
+          "avg": null
         },
-        "trend": "stable"
+        "trend": "insufficient_data"
       },
       "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I had neck, shoulder, and knee pain and went to see the doctor. I got better! The doctor and everyone else were so kind. I highly recommend this place. You'll definitely feel better. It's a bit crowded, so be patient, but you'll definitely recover.",
-          "rating": 5,
-          "author": "ภรฌ์พรรณ นภากูล"
-        },
-        {
-          "text": "It's a bit crowded, but the treatment is excellent. I had a pinched nerve and after just one acupuncture session, the pain disappeared completely and I haven't had any symptoms since. The doctor is very good, and the treatment cost isn't expensive. I highly recommend it.",
-          "rating": 5,
-          "author": "หนุ่มอุบลฯ ชาแนล"
-        },
-        {
-          "text": "Very good. The doctor really treated me well. ^~^ I just went and I'm very impressed.",
-          "rating": 5,
-          "author": "theonewan"
-        }
-      ],
+      "sample_reviews_en": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5/data=!4m7!3m6!1s0x30e287291c67c955:0xf68b2c7d14b8a5c3!8m2!3d14.0133703!4d100.5224354!16s%2Fg%2F11cjg3bv4k!19sChIJVclnHCmH4jARw6W4FH0si_Y?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%B5%E0%B8%A2%E0%B9%8C+%E0%B8%A3%E0%B8%B5%E0%B9%81%E0%B8%AE%E0%B8%9B+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e28d14364dc127:0x41f865cee12bc8c!8m2!3d13.9487553!4d100.3508292!16s%2Fg%2F11vdh681lp!19sChIJJ8FNNhSN4jARjLwS7lyGHwQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x49a3ff159387474d_0x518b098f5d1371f5",
@@ -154630,58 +155501,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9E%E0%B8%B5%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%88%E0%B8%B5%E0%B8%AA%E0%B8%B4%E0%B8%99%E0%B8%AA%E0%B8%B2%E0%B8%84%E0%B8%A3%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e2cfb4893cfbb9:0xfc9a0482549f0a94!8m2!3d13.5673818!4d100.3392422!16s%2Fg%2F11rv06jz74!19sChIJufs8ibTP4jARlAqfVIIEmvw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e281de84bbeaf5_0xad078e4d050bff65",
-      "place_id": "0x30e281de84bbeaf5:0xad078e4d050bff65",
-      "name": "Sawarng Dental Center คลินิกทันตแพทย์สว่าง",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n56, ซอย Rangsit-Pathum Thani 3, Tambon Prachathipat, Thanyaburi District, Pathum Thani 12130, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 2 531 3231",
-      "website": "http://www.swcdental.com/",
-      "lat": 13.986223,
-      "lng": 100.614438,
-      "rating": 4.8,
-      "total_reviews": 40,
-      "trust_score": 67.2,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Sawarng+Dental+Center+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%AA%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%87/data=!4m7!3m6!1s0x30e281de84bbeaf5:0xad078e4d050bff65!8m2!3d13.986223!4d100.614438!16s%2Fg%2F1tvyp27b!19sChIJ9eq7hN6B4jARZf8LBU2OB60?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2a78b16d4c6f7_0xe411152077fca225",
       "place_id": "0x30e2a78b16d4c6f7:0xe411152077fca225",
       "name": "Lisa Dental clinic Bangpu",
@@ -154732,6 +155551,101 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lisa+Dental+clinic+Bangpu/data=!4m7!3m6!1s0x30e2a78b16d4c6f7:0xe411152077fca225!8m2!3d13.5414719!4d100.6194871!16s%2Fg%2F11v13xrxw_!19sChIJ98bUFoun4jARJaL8dyAVEeQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e28112bb77f09d_0x65b6d45d05477bce",
+      "place_id": "0x30e28112bb77f09d:0x65b6d45d05477bce",
+      "name": "Aimer Dental Clinic เอย์เมย์ คลินิกทันตกรรม",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n1 5 Tiwanon Rd, บ้านกลาง Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 82 535 4554",
+      "website": "",
+      "lat": 14.0042109,
+      "lng": 100.5551717,
+      "rating": 4.5,
+      "total_reviews": 36,
+      "trust_score": 67.2,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 36,
+      "local_guide_count": 3,
+      "avg_author_review_count": 8.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 33,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 10
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 4
+        },
+        {
+          "topic": "expensive",
+          "count": 3
+        },
+        {
+          "topic": "no_pain",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 15,
+          "avg": 4.27
+        },
+        "midterm": {
+          "count": 17,
+          "avg": 4.65
+        },
+        "old": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The dentist is very kind and gentle. I've had crowns, fillings, and teeth cleaning done here. The dentist checked in with me throughout the procedure. I also brought my child for fluoride treatment. :) They treat both children and adults.",
+          "rating": 5,
+          "author": "Luckanna Sangpin"
+        },
+        {
+          "text": "The dentist did a great job removing tartar; their touch was gentle and it didn't hurt at all. The counter staff were also very friendly and provided excellent service.",
+          "rating": 5,
+          "author": "Supavadee Boonkhong"
+        },
+        {
+          "text": "It's been almost a month since I had my filling done, and it's still working perfectly. My cavity was very large and deep, but they were able to fill it. Even now, I can eat crispy pork rinds and the filling hasn't come out! 🥰🥰 …",
+          "rating": 5,
+          "author": "maliwan tuitemwong"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Aimer+Dental+Clinic+%E0%B9%80%E0%B8%AD%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%A1%E0%B8%A2%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e28112bb77f09d:0x65b6d45d05477bce!8m2!3d14.0042109!4d100.5551717!16s%2Fg%2F11v58xqn3j!19sChIJnfB3uxKB4jARzntHBV3UtmU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29954c10be4c1_0x28bc19e6d9ef0966",
@@ -155287,6 +156201,58 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Right+place+residence/data=!4m7!3m6!1s0x30e29f51bd1a1f33:0xbf1f45e2afaab50b!8m2!3d13.6978821!4d100.5367508!16s%2Fg%2F11bxb9p_wq!19sChIJMx8avVGf4jARC7Wqr-JFH78?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2bf232c0ef7eb_0xee05c5474fc95f5c",
+      "place_id": "0x30e2bf232c0ef7eb:0xee05c5474fc95f5c",
+      "name": "สไมล์แคร์ คลินิคทันตกรรม",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\nJ7GV+RHQ, Khlong Maduea, Krathum Baen District, Samut Sakhon 74110, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 34 877 062",
+      "website": "",
+      "lat": 13.6270899,
+      "lng": 100.2939778,
+      "rating": 4.8,
+      "total_reviews": 39,
+      "trust_score": 67.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e2bf232c0ef7eb:0xee05c5474fc95f5c!8m2!3d13.6270899!4d100.2939778!16s%2Fg%2F11d_v9n1ft!19sChIJ6_cOLCO_4jARXF_JT0fFBe4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fcb1afb7b59_0x3cd7d87dd00c5717",
@@ -168302,77 +169268,6 @@
       "maps_url": "https://www.google.com/maps/place/MAKALIN+Clinic/data=!4m7!3m6!1s0x30e281d8cf3d0b9f:0x3446e25820d63de1!8m2!3d13.9898108!4d100.6169566!16s%2Fg%2F1pp2tk_kd!19sChIJnws9z9iB4jAR4T3WIFjiRjQ?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2812383d2cac5_0x6f17f671460bd441",
-      "place_id": "0x30e2812383d2cac5:0x6f17f671460bd441",
-      "name": "เบาเบา คลินิก (baobao clinic คลินิกความงาม)",
-      "name_lang": "th",
-      "primary_type": "Electric bicycle store",
-      "address": "\n11 9 Rangsit-Pathum Thani 3, ประชาธิปัตย์ Thanyaburi District, Pathum Thani 12130, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 61 401 3365",
-      "website": "https://www.yadeathailand.com/",
-      "lat": 13.9873405,
-      "lng": 100.6143368,
-      "rating": 5.0,
-      "total_reviews": 6,
-      "trust_score": 64.1,
-      "categories": [],
-      "scraped_review_count": 6,
-      "local_guide_count": 1,
-      "avg_author_review_count": 5.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 5,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 6,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The clinic is so beautiful and glamorous with its pink color! I drove past it recently and will definitely come back for a visit.",
-          "rating": 5,
-          "author": "Sirinapa Saetei"
-        },
-        {
-          "text": "Beautiful and affordable! Baobao Clinic offers great service, the staff are all lovely and helpful, and the doctor is incredibly skilled – truly living up to its name, Baobao Clinic! ✨🤍 I've tried it, and everyone should try it! I'll definitely be back at Baobao Clinic again! ✨🤍🙏 …",
-          "rating": 5,
-          "author": "Kamolros"
-        },
-        {
-          "text": "The staff provided excellent service, the atmosphere was great, the price was good, and the doctor was very gentle.",
-          "rating": 5,
-          "author": "khomkrit Phensri"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%9A%E0%B8%B2%E0%B9%80%E0%B8%9A%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28baobao+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%87%E0%B8%B2%E0%B8%A1%29/data=!4m7!3m6!1s0x30e2812383d2cac5:0x6f17f671460bd441!8m2!3d13.9873405!4d100.6143368!16s%2Fg%2F11lf6fd2kh!19sChIJxcrSgyOB4jARQdQLRnH2F28?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2bd2c2e563ee1_0x29d1a4257a0caac1",
       "place_id": "0x30e2bd2c2e563ee1:0x29d1a4257a0caac1",
       "name": "The Welle Clinic เดอะ เวลล์ คลินิก",
@@ -168460,6 +169355,77 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Welle+Clinic+%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0+%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%A5%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e2bd2c2e563ee1:0x29d1a4257a0caac1!8m2!3d13.6570318!4d100.4255!16s%2Fg%2F11yj8kz8n6!19sChIJ4T5WLiy94jARwaoMeiWk0Sk?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2812383d2cac5_0x6f17f671460bd441",
+      "place_id": "0x30e2812383d2cac5:0x6f17f671460bd441",
+      "name": "เบาเบา คลินิก (baobao clinic คลินิกความงาม)",
+      "name_lang": "th",
+      "primary_type": "Electric bicycle store",
+      "address": "\n11 9 Rangsit-Pathum Thani 3, ประชาธิปัตย์ Thanyaburi District, Pathum Thani 12130, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 61 401 3365",
+      "website": "https://www.yadeathailand.com/",
+      "lat": 13.9873405,
+      "lng": 100.6143368,
+      "rating": 5.0,
+      "total_reviews": 6,
+      "trust_score": 64.1,
+      "categories": [],
+      "scraped_review_count": 6,
+      "local_guide_count": 1,
+      "avg_author_review_count": 5.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The clinic is so beautiful and glamorous with its pink color! I drove past it recently and will definitely come back for a visit.",
+          "rating": 5,
+          "author": "Sirinapa Saetei"
+        },
+        {
+          "text": "Beautiful and affordable! Baobao Clinic offers great service, the staff are all lovely and helpful, and the doctor is incredibly skilled – truly living up to its name, Baobao Clinic! ✨🤍 I've tried it, and everyone should try it! I'll definitely be back at Baobao Clinic again! ✨🤍🙏 …",
+          "rating": 5,
+          "author": "Kamolros"
+        },
+        {
+          "text": "The staff provided excellent service, the atmosphere was great, the price was good, and the doctor was very gentle.",
+          "rating": 5,
+          "author": "khomkrit Phensri"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%9A%E0%B8%B2%E0%B9%80%E0%B8%9A%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%28baobao+clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%87%E0%B8%B2%E0%B8%A1%29/data=!4m7!3m6!1s0x30e2812383d2cac5:0x6f17f671460bd441!8m2!3d13.9873405!4d100.6143368!16s%2Fg%2F11lf6fd2kh!19sChIJxcrSgyOB4jARQdQLRnH2F28?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fbd3c800393_0x7e5e7ea3bfc8ffae",
@@ -169712,58 +170678,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%9C%E0%B8%A5+%28Dental+Clinic%29/data=!4m7!3m6!1s0x30e29931fbf13b1b:0xd57fc4806acd6840!8m2!3d13.7468772!4d100.5235033!16s%2Fg%2F1hm66jkwd!19sChIJGzvx-zGZ4jARQGjNaoDEf9U?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e28112bb77f09d_0x65b6d45d05477bce",
-      "place_id": "0x30e28112bb77f09d:0x65b6d45d05477bce",
-      "name": "Aimer Dental Clinic เอย์เมย์ คลินิกทันตกรรม",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n1 5 Tiwanon Rd, บ้านกลาง Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 82 535 4554",
-      "website": "",
-      "lat": 14.0042109,
-      "lng": 100.5551717,
-      "rating": 4.5,
-      "total_reviews": 36,
-      "trust_score": 63.7,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Aimer+Dental+Clinic+%E0%B9%80%E0%B8%AD%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%A1%E0%B8%A2%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e28112bb77f09d:0x65b6d45d05477bce!8m2!3d14.0042109!4d100.5551717!16s%2Fg%2F11v58xqn3j!19sChIJnfB3uxKB4jARzntHBV3UtmU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d5da85ebff6cf_0x755925b33ecc6d29",
@@ -171382,6 +172296,85 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Smith+Prive%27+Aesthetique+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B8/data=!4m7!3m6!1s0x30e29f31aaed013f:0x54bc09f9ba5496bc!8m2!3d13.7342692!4d100.5455321!16s%2Fg%2F11vjns4l0n!19sChIJPwHtqjGf4jARvJZUuvkJvFQ?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x2f0bdf3e82d5d71d_0x9e3aa6e251d411c4",
+      "place_id": "0x2f0bdf3e82d5d71d:0x9e3aa6e251d411c4",
+      "name": "คลินิกทันตกรรม ดีไลค์ | D-Like Dental Clinic",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n49/7-8 หมู่ 9 ถนน สีวาพาสวัสดิ์, Na Di, Mueang Samut Sakhon District, Samut Sakhon 74000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 81 929 4755",
+      "website": "https://dlike-dentalclinic.com/",
+      "lat": 13.5986507,
+      "lng": 100.3082542,
+      "rating": 5.0,
+      "total_reviews": 5,
+      "trust_score": 63.3,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 5,
+      "local_guide_count": 1,
+      "avg_author_review_count": 3.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The dentist was very gentle. I had four teeth extracted and two filled, and it didn't hurt at all.",
+          "rating": 5,
+          "author": "วิชชุตา บุญอิ่ม"
+        },
+        {
+          "text": "The service is very good. The doctor is cute. The doctor gave very good advice. I went to get a tooth filled.",
+          "rating": 5,
+          "author": "Apisit Nachairit"
+        },
+        {
+          "text": "The service was excellent! The dentist was lovely. I had my teeth cleaned today and the dentist was incredibly gentle. She said it would be a little painful, but it wasn't at all! 👍🏻👍🏻 …",
+          "rating": 5,
+          "author": "อธิตรา แซ่หยี"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%94%E0%B8%B5%E0%B9%84%E0%B8%A5%E0%B8%84%E0%B9%8C+%7C+D-Like+Dental+Clinic/data=!4m7!3m6!1s0x2f0bdf3e82d5d71d:0x9e3aa6e251d411c4!8m2!3d13.5986507!4d100.3082542!16s%2Fg%2F11y3sszs6z!19sChIJHdfVgj7fCy8RxBHUUeKmOp4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2bef47976bca7_0x392ab2ac7aaa25e7",
@@ -177103,6 +178096,56 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%AA%E0%B8%B1%E0%B8%95%E0%B8%A7%E0%B9%8C%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+4/data=!4m7!3m6!1s0x30e29f22b8b7651d:0xbe1389f44b0cac3b!8m2!3d13.7232968!4d100.5508557!16s%2Fg%2F1pyqtflz2!19sChIJHWW3uCKf4jARO6wMS_SJE74?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e287291c67c955_0xf68b2c7d14b8a5c3",
+      "place_id": "0x30e287291c67c955:0xf68b2c7d14b8a5c3",
+      "name": "คลินิกเวชกรรม หมอรุ่งเรือง ปทุมธานี",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nคลินิกเวชกรรมหมอรุ่งเรือง Bang Prok, Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 81 149 4777",
+      "website": "",
+      "lat": 14.0133703,
+      "lng": 100.5224354,
+      "rating": 4.4,
+      "total_reviews": 27,
+      "trust_score": 61.2,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%87+%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%B5/data=!4m7!3m6!1s0x30e287291c67c955:0xf68b2c7d14b8a5c3!8m2!3d14.0133703!4d100.5224354!16s%2Fg%2F11cjg3bv4k!19sChIJVclnHCmH4jARw6W4FH0si_Y?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29eb095fcc7fb_0xfd7a15c5354b6006",
       "place_id": "0x30e29eb095fcc7fb:0xfd7a15c5354b6006",
       "name": "Victory Dental Clinic - คลินิกทันตกรรมวิคค์ทอรี",
@@ -180759,6 +181802,56 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%84%E0%B8%97%E0%B8%A3%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2/data=!4m7!3m6!1s0x30e28f2d53f2b8db:0xd87cae25a50d9f53!8m2!3d13.9588737!4d100.3602907!16s%2Fg%2F1hm49z2hd!19sChIJ27jyUy2P4jARU58NpSWufNg?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e295f16c3bb735_0x2a2e669d4cc496d1",
+      "place_id": "0x30e295f16c3bb735:0x2a2e669d4cc496d1",
+      "name": "คลินิกเวชกรรมหนองค้างพลู1",
+      "name_lang": "th",
+      "primary_type": "Doctor",
+      "address": "\nP84M+2MC, Nong Khang Phlu, Nong Khaem, Bangkok 10160, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Nong Khaem",
+      "phone": "+66 2 810 7471",
+      "website": "",
+      "lat": 13.7050597,
+      "lng": 100.3341349,
+      "rating": 4.2,
+      "total_reviews": 6,
+      "trust_score": 59.5,
+      "categories": [],
+      "scraped_review_count": 6,
+      "local_guide_count": 2,
+      "avg_author_review_count": 5.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 1,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 6,
+          "avg": 4.17
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9E%E0%B8%A5%E0%B8%B91/data=!4m7!3m6!1s0x30e295f16c3bb735:0x2a2e669d4cc496d1!8m2!3d13.7050597!4d100.3341349!16s%2Fg%2F11clyhbc6n!19sChIJNbc7bPGV4jAR0ZbETJ1mLio?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29937852a172b_0x3646d7d532c49471",
@@ -188901,6 +189994,65 @@
       "maps_url": "https://www.google.com/maps/place/Jintana+Clinic+%28ENT%29/data=!4m7!3m6!1s0x30e2b9a232912bed:0x9e6e4b18013f5cc!8m2!3d13.5476567!4d100.2778616!16s%2Fg%2F11j9ctb8zb!19sChIJ7SuRMqK54jARzPUTgLHk5gk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e2b9b0698cbc2b_0xbd1823977fbf8f4",
+      "place_id": "0x30e2b9b0698cbc2b:0xbd1823977fbf8f4",
+      "name": "Kc clinic (เคซี คลินิก )",
+      "name_lang": "th",
+      "primary_type": "Beauty salon",
+      "address": "\n12 ห้อง B10 1, Na Di, เมือง Samut Sakhon 74000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 65 695 4669",
+      "website": "",
+      "lat": 13.5938647,
+      "lng": 100.2820006,
+      "rating": 4.0,
+      "total_reviews": 5,
+      "trust_score": 54.2,
+      "categories": [],
+      "scraped_review_count": 5,
+      "local_guide_count": 1,
+      "avg_author_review_count": 8.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 1,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 3,
+          "avg": 3.33
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Kc+clinic+%28%E0%B9%80%E0%B8%84%E0%B8%8B%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%29/data=!4m7!3m6!1s0x30e2b9b0698cbc2b:0xbd1823977fbf8f4!8m2!3d13.5938647!4d100.2820006!16s%2Fg%2F11sz5p6b0f!19sChIJK7yMabC54jAR9Pj7dzmC0Qs?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29e987b7ff7f3_0x73ed82f3b274e545",
       "place_id": "0x30e29e987b7ff7f3:0x73ed82f3b274e545",
       "name": "Bangkok Veterinary Clinic",
@@ -190128,6 +191280,61 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%84+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%A2%E0%B8%AA%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B5/data=!4m7!3m6!1s0x311d5b052d5cd7f3:0xe863e1193025d1ed!8m2!3d13.584634!4d100.7938186!16s%2Fg%2F11rlh9fdf6!19sChIJ89dcLQVbHTER7dElMBnhY-g?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e280266690c131_0xeb732b680968d0c5",
+      "place_id": "0x30e280266690c131:0xeb732b680968d0c5",
+      "name": "BB Clinic Rangsit (บีบี คลินิก รังสิต)",
+      "name_lang": "th",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\nคงอลหนึ่ง, 78 หมู่3 Soi Klong Luang 17, แขวงคลองหนึ่ง, Khlong Luang District, Pathum Thani 12120, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 2 902 4991",
+      "website": "https://www.facebook.com/BBClinicOfficial",
+      "lat": 14.0193786,
+      "lng": 100.6151571,
+      "rating": 3.8,
+      "total_reviews": 11,
+      "trust_score": 52.6,
+      "categories": [],
+      "scraped_review_count": 11,
+      "local_guide_count": 1,
+      "avg_author_review_count": 1.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 3,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 11,
+          "avg": 3.82
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/BB+Clinic+Rangsit+%28%E0%B8%9A%E0%B8%B5%E0%B8%9A%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95%29/data=!4m7!3m6!1s0x30e280266690c131:0xeb732b680968d0c5!8m2!3d14.0193786!4d100.6151571!16s%2Fg%2F12ltpvx4j!19sChIJMcGQZiaA4jARxdBoCWgrc-s?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f2cee0538e7_0xcf9d1eb6e622fd6b",
@@ -191704,56 +192911,6 @@
       "maps_url": "https://www.google.com/maps/place/sw+beaute+clinic/data=!4m7!3m6!1s0x311d7f96a0c65e85:0x83be7a8c85b8ab21!8m2!3d13.9689684!4d100.6434024!16s%2Fg%2F11pm6rc7r2!19sChIJhV7GoJZ_HTERIau4hYx6voM?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e280266690c131_0xeb732b680968d0c5",
-      "place_id": "0x30e280266690c131:0xeb732b680968d0c5",
-      "name": "BB Clinic Rangsit (บีบี คลินิก รังสิต)",
-      "name_lang": "th",
-      "primary_type": "Plastic surgery clinic",
-      "address": "\nคงอลหนึ่ง, 78 หมู่3 Soi Klong Luang 17, แขวงคลองหนึ่ง, Khlong Luang District, Pathum Thani 12120, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 2 902 4991",
-      "website": "https://www.facebook.com/BBClinicOfficial",
-      "lat": 14.0193786,
-      "lng": 100.6151571,
-      "rating": 3.8,
-      "total_reviews": 11,
-      "trust_score": 50.5,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/BB+Clinic+Rangsit+%28%E0%B8%9A%E0%B8%B5%E0%B8%9A%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95%29/data=!4m7!3m6!1s0x30e280266690c131:0xeb732b680968d0c5!8m2!3d14.0193786!4d100.6151571!16s%2Fg%2F12ltpvx4j!19sChIJMcGQZiaA4jARxdBoCWgrc-s?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e299ddaf1b6df7_0x508418f688061800",
       "place_id": "0x30e299ddaf1b6df7:0x508418f688061800",
       "name": "คลินิกเวชกรรมเอมมิตรการแพทย์",
@@ -191904,6 +193061,56 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x311d6e27b94ab735:0x427cf171d60c33ee!8m2!3d13.8556079!4d100.8581333!16s%2Fg%2F1hm4krfhy!19sChIJNbdKuSduHTER7jMM1nHxfEI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e2b904e5e66eaf_0x2f84c8c73b5c9512",
+      "place_id": "0x30e2b904e5e66eaf:0x2f84c8c73b5c9512",
+      "name": "เดอะบลิช คลินิกเวชกรรม สาขามหาชัย",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nH79Q+RHH, Na Di, Mueang Samut Sakhon District, Samut Sakhon 74000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 93 102 0999",
+      "website": "",
+      "lat": 13.5694468,
+      "lng": 100.2892441,
+      "rating": 4.2,
+      "total_reviews": 5,
+      "trust_score": 50.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%8A+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%A2/data=!4m7!3m6!1s0x30e2b904e5e66eaf:0x2f84c8c73b5c9512!8m2!3d13.5694468!4d100.2892441!16s%2Fg%2F11k4xq71w2!19sChIJr27m5QS54jAREpVcO8fIhC8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29964fdb972cb_0xbdc2f302a1b6d827",
@@ -192611,56 +193818,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%8B%E0%B8%AD%E0%B8%A2%E0%B8%82%E0%B8%99%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%884%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%88%E0%B8%AD%E0%B8%81%E0%B9%83%E0%B8%81%E0%B9%89%E0%B8%82%E0%B8%99%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B8%A1%E0%B8%B2%E0%B8%81%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B8%E0%B8%94/data=!4m7!3m6!1s0x311d6f863fabdfb9:0x7ccc3e5c2690fa02!8m2!3d13.79363!4d100.8722417!16s%2Fg%2F11k9kfl943!19sChIJud-rP4ZvHTERAvqQJlw-zHw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e2b9b0698cbc2b_0xbd1823977fbf8f4",
-      "place_id": "0x30e2b9b0698cbc2b:0xbd1823977fbf8f4",
-      "name": "Kc clinic (เคซี คลินิก )",
-      "name_lang": "th",
-      "primary_type": "Beauty salon",
-      "address": "\n12 ห้อง B10 1, Na Di, เมือง Samut Sakhon 74000, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 65 695 4669",
-      "website": "",
-      "lat": 13.5938647,
-      "lng": 100.2820006,
-      "rating": 4.0,
-      "total_reviews": 5,
-      "trust_score": 48.4,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Kc+clinic+%28%E0%B9%80%E0%B8%84%E0%B8%8B%E0%B8%B5+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%29/data=!4m7!3m6!1s0x30e2b9b0698cbc2b:0xbd1823977fbf8f4!8m2!3d13.5938647!4d100.2820006!16s%2Fg%2F11sz5p6b0f!19sChIJK7yMabC54jAR9Pj7dzmC0Qs?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x311d5fe53bce6aab_0x55f9eee4ddf3f830",
       "place_id": "0x311d5fe53bce6aab:0x55f9eee4ddf3f830",
       "name": "SmilOra Dental Clinic สาขา สำโรง",
@@ -193322,81 +194479,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29999603c3e9b:0x6957f6e23e8fc329!8m2!3d13.7382131!4d100.5092798!16s%2Fg%2F11mts5d_s2!19sChIJmz48YJmZ4jARKcOPPuL2V2k?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e2872d316115b1_0xc7cb94d99f24ac44",
-      "place_id": "0x30e2872d316115b1:0xc7cb94d99f24ac44",
-      "name": "เมืองปทุมสหคลินิก",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\n24/3 Pathum Samphan, Bang Prok, Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "",
-      "phone": "+66 2 581 6226",
-      "website": "",
-      "lat": 14.0182793,
-      "lng": 100.5338844,
-      "rating": 2.0,
-      "total_reviews": 40,
-      "trust_score": 46.4,
-      "categories": [],
-      "scraped_review_count": 40,
-      "local_guide_count": 7,
-      "avg_author_review_count": 69.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 31,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "expensive",
-          "count": 4
-        },
-        {
-          "topic": "recommend",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 1.67
-        },
-        "midterm": {
-          "count": 12,
-          "avg": 1.67
-        },
-        "old": {
-          "count": 25,
-          "avg": 2.16
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Very good. I've used the service twice now. It's really excellent. The staff are lovely and kind. ❤️❤️❤️",
-          "rating": 5,
-          "author": "Sonechka Zaspeoza"
-        },
-        {
-          "text": "Dr. Chaiyos is excellent. He explains things in a simple way and seems very kind. I took my young nephew to see him.",
-          "rating": 4,
-          "author": "Kitti Banchongrattanangam"
-        },
-        {
-          "text": "The staff here are very stern-faced, but the treatment here is good and the medicine is good. I recovered quickly.",
-          "rating": 4,
-          "author": "Somluk Noenkrang"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e2872d316115b1:0xc7cb94d99f24ac44!8m2!3d14.0182793!4d100.5338844!16s%2Fg%2F1w6gn8hk!19sChIJsRVhMS2H4jARRKwkn9mUy8c?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d7f00245cd119_0x52e5f21d49777b79",
@@ -194084,6 +195166,56 @@
       "maps_url": "https://www.google.com/maps/place/Noppavej+Medical+Clinic+%28Lum+Luk+Kha+Klong+4%29/data=!4m7!3m6!1s0x311d7c3cef88ed8d:0x7825ed4956491554!8m2!3d13.9432423!4d100.6835685!16s%2Fg%2F11b6yj67f2!19sChIJje2I7zx8HTERVBVJVkntJXg?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e28792a44d2e55_0xc2f1f0850c18db2f",
+      "place_id": "0x30e28792a44d2e55:0xc2f1f0850c18db2f",
+      "name": "So-y clinic",
+      "name_lang": "en",
+      "primary_type": "",
+      "address": "\n339, 1, Bang Duea, เมือง, Pathum Thani 12000, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "+66 82 363 6296",
+      "website": "",
+      "lat": 13.9898807,
+      "lng": 100.5111716,
+      "rating": 3.4,
+      "total_reviews": 5,
+      "trust_score": 42.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Permanently closed",
+      "maps_url": "https://www.google.com/maps/place/So-y+clinic/data=!4m7!3m6!1s0x30e28792a44d2e55:0xc2f1f0850c18db2f!8m2!3d13.9898807!4d100.5111716!16s%2Fg%2F11pgf8pmq9!19sChIJVS5NpJKH4jARL9sYDIXw8cI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ed5bd4ac469_0x45581b444c43d9f2",
       "place_id": "0x30e29ed5bd4ac469:0x45581b444c43d9f2",
       "name": "Chulalongkorn Health Center",
@@ -194355,29 +195487,29 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B9%80%E0%B8%97%E0%B8%A7%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29ed2477da6cd:0x708776c8264c22b9!8m2!3d13.7446143!4d100.5339561!16s%2Fg%2F11h2n7q6tf!19sChIJzaZ9R9Ke4jARuSJMJsh2h3A?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e28b866485ce4f_0x3ee2b98e8caf3945",
-      "place_id": "0x30e28b866485ce4f:0x3ee2b98e8caf3945",
-      "name": "Sai Noi Medical Clinic",
-      "name_lang": "en",
-      "primary_type": "Health",
-      "address": "\n17137 ซอย หมู่บ้านพฤกษา 10 ซอย 8 Sai Noi, Sai Noi District, Nonthaburi 11150, Thailand",
+      "id": "0x30e2872d316115b1_0xc7cb94d99f24ac44",
+      "place_id": "0x30e2872d316115b1:0xc7cb94d99f24ac44",
+      "name": "เมืองปทุมสหคลินิก",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n24/3 Pathum Samphan, Bang Prok, Mueang Pathum Thani District, Pathum Thani 12000, Thailand",
       "city_label": "Bangkok",
       "city_slug": "bangkok",
       "district": "",
-      "phone": "",
+      "phone": "+66 2 581 6226",
       "website": "",
-      "lat": 13.9777215,
-      "lng": 100.3136355,
-      "rating": 2.2,
-      "total_reviews": 13,
-      "trust_score": 39.0,
+      "lat": 14.0182793,
+      "lng": 100.5338844,
+      "rating": 2.0,
+      "total_reviews": 40,
+      "trust_score": 39.2,
       "categories": [],
-      "scraped_review_count": 13,
-      "local_guide_count": 2,
-      "avg_author_review_count": 1.8,
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
       "language_breakdown": {
         "th": 0,
-        "en": 6,
+        "en": 0,
         "ko": 0,
         "ja": 0,
         "other": 0
@@ -194390,19 +195522,19 @@
           "avg": null
         },
         "midterm": {
-          "count": 2,
-          "avg": 1.0
+          "count": 0,
+          "avg": null
         },
         "old": {
-          "count": 11,
-          "avg": 2.36
+          "count": 0,
+          "avg": null
         },
         "trend": "insufficient_data"
       },
       "sample_reviews_th": [],
       "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Sai+Noi+Medical+Clinic/data=!4m7!3m6!1s0x30e28b866485ce4f:0x3ee2b98e8caf3945!8m2!3d13.9777215!4d100.3136355!16s%2Fg%2F1hm50_q16!19sChIJT86FZIaL4jARRTmvjI654j4?authuser=0&hl=en&rclk=1"
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%9B%E0%B8%97%E0%B8%B8%E0%B8%A1%E0%B8%AA%E0%B8%AB%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e2872d316115b1:0xc7cb94d99f24ac44!8m2!3d14.0182793!4d100.5338844!16s%2Fg%2F1w6gn8hk!19sChIJsRVhMS2H4jARRKwkn9mUy8c?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e298fc49dea129_0x90d6c9a435daad04",
@@ -194594,6 +195726,56 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B8%B1%E0%B8%8A%E0%B8%94%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+Ratchada+clinic/data=!4m7!3m6!1s0x30e29dd59aa47f3d:0x5a7aab385b1df6f5!8m2!3d13.7784658!4d100.5768349!16s%2Fg%2F11ptr5mrx4!19sChIJPX-kmtWd4jAR9fYdWzirelo?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e28b866485ce4f_0x3ee2b98e8caf3945",
+      "place_id": "0x30e28b866485ce4f:0x3ee2b98e8caf3945",
+      "name": "Sai Noi Medical Clinic",
+      "name_lang": "en",
+      "primary_type": "Health",
+      "address": "\n17137 ซอย หมู่บ้านพฤกษา 10 ซอย 8 Sai Noi, Sai Noi District, Nonthaburi 11150, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "lat": 13.9777215,
+      "lng": 100.3136355,
+      "rating": 2.2,
+      "total_reviews": 13,
+      "trust_score": 35.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Sai+Noi+Medical+Clinic/data=!4m7!3m6!1s0x30e28b866485ce4f:0x3ee2b98e8caf3945!8m2!3d13.9777215!4d100.3136355!16s%2Fg%2F1hm50_q16!19sChIJT86FZIaL4jARRTmvjI654j4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299387e4433e9_0x56c59d347443bb2a",
@@ -194830,6 +196012,79 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Vesbang+Hair+Studio/data=!4m7!3m6!1s0x30e29f004300bcf3:0x4b49387fc5a61b13!8m2!3d13.7628536!4d100.5589047!16s%2Fg%2F11wp_n8t8r!19sChIJ87wAQwCf4jARExumxX84SUs?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e28f63d8d531f3_0xc59651595016ac25",
+      "place_id": "0x30e28f63d8d531f3:0xc59651595016ac25",
+      "name": "Cheeze dental clinic",
+      "name_lang": "en",
+      "primary_type": "Doctor",
+      "address": "\n888 Kanchanaphisek Rd, Bang Bua Thong, Bang Bua Thong District, Nonthaburi 11110, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "lat": 13.9240521,
+      "lng": 100.4115234,
+      "rating": 1.4,
+      "total_reviews": 8,
+      "trust_score": 32.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 8,
+      "local_guide_count": 2,
+      "avg_author_review_count": 14.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 7,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "long_wait",
+          "count": 4
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 1.0
+        },
+        "old": {
+          "count": 5,
+          "avg": 1.6
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Dental and orthodontic clinic open from 10:00 AM to 8:00 PM.\nNew, clean, and welcoming staff with polite language.\nLocated on the 1st floor of Tesco Lotus Bang Kruai-Sai Noi.",
+          "rating": 4,
+          "author": "Ruangthong Pinthong"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Cheeze+dental+clinic/data=!4m7!3m6!1s0x30e28f63d8d531f3:0xc59651595016ac25!8m2!3d13.9240521!4d100.4115234!16s%2Fg%2F11h_sgcnp1!19sChIJ8zHV2GOP4jARJawWUFlRlsU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299006c3e0d5f_0x25b226c853cb861b",
