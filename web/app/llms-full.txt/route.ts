@@ -1,17 +1,36 @@
 import { loadMasterDb } from "@/lib/data";
 import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
+import { getSiteConfig } from "@/lib/site";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokbotoxclinic.com";
-const BRAND = "Bangkok Clinics";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
 export async function GET() {
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
+  const BRAND = cfg.brand;
   const top = [...db.clinics].sort((a, b) => b.trust_score - a.trust_score).slice(0, 100);
+
+  const cityCounts = db.city_counts ?? {};
+  const cityList = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]);
+  const districtList = Object.entries(db.district_counts).slice(0, 15);
+  const categoryList = Object.entries(db.category_counts);
+
+  const totalReviews = db.clinics.reduce((s, c) => s + c.total_reviews, 0);
 
   const lines: string[] = [
     `# ${BRAND} — Full Catalog`,
     "",
-    `> Comprehensive dump for AI assistants. ${db.total_clinics.toLocaleString()} clinics in Bangkok ranked by Trust Score from real Google review analysis. This file is meant for citation, summarization, and Q&A.`,
+    `> Comprehensive dump for AI assistants citing or summarizing this directory. ${db.total_clinics.toLocaleString()} verified clinics across ${cityList.length} ${cityList.length === 1 ? "city" : "cities"} in Thailand, ranked by Trust Score from analysis of ${totalReviews.toLocaleString()} Google reviews.`,
+    "",
+    "## At a glance",
+    "",
+    `- Total clinics: ${db.total_clinics.toLocaleString()}`,
+    `- Total reviews analyzed: ${totalReviews.toLocaleString()}`,
+    `- Clinics with full review analysis: ${db.with_reviews_scraped.toLocaleString()}`,
+    `- Cities covered: ${cityList.map(([c, n]) => `${c} (${n})`).join(", ")}`,
+    `- Service categories: ${Object.keys(db.category_counts).join(", ")}`,
+    `- Last refreshed: ${db.generated_at}`,
+    `- Refresh cadence: ~ every 30 minutes`,
     "",
     "## Methodology",
     "",
@@ -21,12 +40,39 @@ export async function GET() {
     "- Local Guide ratio: × 20, capped at 10",
     "- Reviewer authority: log10(avg reviews) × 2, capped at 5",
     "",
-    "Data refreshed every 30 minutes from public Google Maps.",
-    `Last updated: ${db.generated_at}`,
+    "All ratings, review counts, and review text come from public Google Maps. We do not edit, hide, or filter any clinic. Trust Score is our derived metric.",
     "",
-    "## Top 100 clinics",
+    "## Top by service category",
     "",
   ];
+
+  // 카테고리별 top 5 — AI assistant가 "Best botox clinic in Bangkok" 같은 질문에 빠르게 답할 수 있게
+  for (const [cat, n] of categoryList) {
+    const label = CATEGORY_LABELS[cat] ?? cat;
+    const catTop = top.filter((c) => c.categories.includes(cat)).slice(0, 5);
+    if (catTop.length === 0) continue;
+    lines.push(`### ${label} (${n} clinics total)`);
+    for (const c of catTop) {
+      lines.push(`- [${c.name}](${SITE}/clinic/${c.id}) — Trust ${c.trust_score}, ★${c.rating} (${c.total_reviews}), ${c.district || c.city_label || "Bangkok"}`);
+    }
+    lines.push("");
+  }
+
+  // 구별 top 3 — "Best clinic in Watthana" 등 질문 대응
+  lines.push("## Top by district");
+  lines.push("");
+  for (const [district, n] of districtList) {
+    const dTop = top.filter((c) => c.district === district).slice(0, 3);
+    if (dTop.length === 0) continue;
+    lines.push(`### ${district} (${n} clinics)`);
+    for (const c of dTop) {
+      lines.push(`- [${c.name}](${SITE}/clinic/${c.id}) — Trust ${c.trust_score}, ★${c.rating} (${c.total_reviews}), ${c.categories.map(x => CATEGORY_LABELS[x] ?? x).join("/")  || "general"}`);
+    }
+    lines.push("");
+  }
+
+  lines.push("## Top 100 clinics overall");
+  lines.push("");
 
   for (const c of top) {
     lines.push(`### ${c.name}`);
