@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCuisine } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
-import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { CUISINE_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
@@ -152,9 +152,11 @@ export default async function CuisinePage(
           { name: label, url: `/c/${cuisine}` },
         ]} />
         <FaqJsonLd faqs={CUISINE_FAQS[cuisine] ?? []} />
-        <ItemListJsonLd
-          name={`Top ${label} Restaurants`}
-          items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+        <CollectionPageJsonLd
+          name={`Top ${label} Restaurants in Bangkok`}
+          description={`${filtered.length} verified ${label.toLowerCase()} restaurants ranked by Trust Score from Google review analysis.`}
+          url={`/c/${cuisine}`}
+          items={filtered}
         />
       </div>
     </>

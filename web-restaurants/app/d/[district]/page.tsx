@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
@@ -90,9 +90,11 @@ export default async function DistrictPage(
         { name: "Home", url: "/" },
         { name: districtName, url: `/d/${district}` },
       ]} />
-      <ItemListJsonLd
+      <CollectionPageJsonLd
         name={`Restaurants in ${districtName}`}
-        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+        description={`${filtered.length} restaurants in ${districtName} ranked by Trust Score from Google review analysis.`}
+        url={`/d/${district}`}
+        items={filtered}
       />
     </div>
   );

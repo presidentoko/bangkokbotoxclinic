@@ -124,3 +124,59 @@ export function ItemListJsonLd({ name, items }: {
     })),
   });
 }
+
+/** Cuisine/district/city collection page — aggregateRating + Restaurant ItemList. */
+export function CollectionPageJsonLd({ name, description, url, items }: {
+  name: string;
+  description: string;
+  url: string;
+  items: Pick<Restaurant, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label">[];
+}) {
+  const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
+  const totalReviews = items.reduce((s, r) => s + (r.total_reviews || 0), 0);
+  const weightedRating = totalReviews > 0
+    ? items.reduce((s, r) => s + (r.rating || 0) * (r.total_reviews || 0), 0) / totalReviews
+    : 0;
+
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: fullUrl,
+    numberOfItems: items.length,
+    aggregateRating: items.length > 0 && totalReviews > 0 ? {
+      "@type": "AggregateRating",
+      ratingValue: Number(weightedRating.toFixed(2)),
+      reviewCount: totalReviews,
+      bestRating: 5,
+      worstRating: 1,
+      itemReviewed: { "@type": "Thing", name },
+    } : undefined,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.slice(0, 25).map((r, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Restaurant",
+          "@id": `${SITE}/restaurant/${r.id}`,
+          name: r.name,
+          url: `${SITE}/restaurant/${r.id}`,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: r.rating,
+            reviewCount: r.total_reviews,
+            bestRating: 5,
+          },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: r.district || r.city_label || "Bangkok",
+            addressCountry: "TH",
+          },
+        },
+      })),
+    },
+  });
+}
