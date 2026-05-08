@@ -16,8 +16,54 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-CLINIC_OUT = ROOT / "bangkok_clinics" / "output"
 WEB_DATA = ROOT / "web" / "data"
+
+# 멀티시티 클리닉 데이터 소스. 도시 추가 시 여기 한 줄.
+# 외국인 인기 순서. Pattaya 클리닉 scraper 가동 후 자동으로 합쳐짐.
+SOURCES: list[dict] = [
+    {
+        "city_label": "Bangkok",
+        "city_slug": "bangkok",
+        "clinics_csv": ROOT / "bangkok_clinics" / "output" / "clinics.csv",
+        "reviews_dir": ROOT / "bangkok_clinics" / "output" / "reviews",
+    },
+    {
+        "city_label": "Pattaya",
+        "city_slug": "pattaya",
+        "clinics_csv": ROOT / "pattaya" / "clinics_output" / "clinics.csv",
+        "reviews_dir": ROOT / "pattaya" / "clinics_output" / "reviews",
+    },
+    {
+        "city_label": "Phuket",
+        "city_slug": "phuket",
+        "clinics_csv": ROOT / "phuket" / "clinics_output" / "clinics.csv",
+        "reviews_dir": ROOT / "phuket" / "clinics_output" / "reviews",
+    },
+    {
+        "city_label": "Chiang Mai",
+        "city_slug": "chiang-mai",
+        "clinics_csv": ROOT / "chiang_mai" / "clinics_output" / "clinics.csv",
+        "reviews_dir": ROOT / "chiang_mai" / "clinics_output" / "reviews",
+    },
+    {
+        "city_label": "Koh Samui",
+        "city_slug": "koh-samui",
+        "clinics_csv": ROOT / "koh_samui" / "clinics_output" / "clinics.csv",
+        "reviews_dir": ROOT / "koh_samui" / "clinics_output" / "reviews",
+    },
+    {
+        "city_label": "Krabi",
+        "city_slug": "krabi",
+        "clinics_csv": ROOT / "krabi" / "clinics_output" / "clinics.csv",
+        "reviews_dir": ROOT / "krabi" / "clinics_output" / "reviews",
+    },
+    {
+        "city_label": "Hua Hin",
+        "city_slug": "hua-hin",
+        "clinics_csv": ROOT / "hua_hin" / "clinics_output" / "clinics.csv",
+        "reviews_dir": ROOT / "hua_hin" / "clinics_output" / "reviews",
+    },
+]
 
 csv.field_size_limit(min(2**31 - 1, sys.maxsize))
 
@@ -373,23 +419,26 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
     }
 
 
-# ── 메인 ──────────────────────────────────────────────────────
-def main():
-    clinics_csv = CLINIC_OUT / "clinics.csv"
-    reviews_dir = CLINIC_OUT / "reviews"
-    if not clinics_csv.exists():
-        print(f"NOT FOUND: {clinics_csv}", file=sys.stderr)
-        sys.exit(1)
+# ── 단일 도시 처리 ────────────────────────────────────────────
+def process_source(
+    source: dict,
+    clinics: list[dict],
+    district_counter: Counter,
+    category_counter: Counter,
+    city_counter: Counter,
+    lang_total: Counter,
+) -> int:
+    """source 한 도시의 clinics.csv 읽어 clinics 리스트에 append. 처리 건수 반환.
+    csv 없으면 0 반환 (Pattaya 등 아직 scrape 안 된 도시). """
+    csv_path: Path = source["clinics_csv"]
+    reviews_dir: Path = source["reviews_dir"]
+    city_label: str = source["city_label"]
+    city_slug: str = source["city_slug"]
+    if not csv_path.exists():
+        return 0
 
-    WEB_DATA.mkdir(parents=True, exist_ok=True)
-    out_path = WEB_DATA / "master_db.json"
-
-    clinics: list[dict] = []
-    district_counter: Counter[str] = Counter()
-    category_counter: Counter[str] = Counter()
-    lang_total = Counter()
-
-    with open(clinics_csv, encoding="utf-8-sig", errors="replace", newline="") as f:
+    n = 0
+    with open(csv_path, encoding="utf-8-sig", errors="replace", newline="") as f:
         for row in csv.DictReader(f):
             place_id = (row.get("place_id") or "").strip()
             name = (row.get("name") or "").strip()
@@ -409,10 +458,10 @@ def main():
             district = extract_district(address)
             if district:
                 district_counter[district] += 1
+            city_counter[city_label] += 1
 
             review_sig = analyze_reviews(reviews_dir, place_id)
 
-            # 카테고리: primary_type + name + derived_categories 합집합
             base_cat_set = tag_categories_from_text(
                 f"{row.get('primary_type', '')} {name}"
             )
@@ -420,8 +469,8 @@ def main():
             for c in categories:
                 category_counter[c] += 1
 
-            for lang, n in review_sig["language_breakdown"].items():
-                lang_total[lang] += n
+            for lang, k in review_sig["language_breakdown"].items():
+                lang_total[lang] += k
 
             ts = trust_score(
                 rating, total_reviews,
@@ -441,7 +490,6 @@ def main():
             if lat is None:
                 lat, lng = coords_from_maps_url(row.get("maps_url", ""))
 
-            # name 의 언어로 도메인 노출 우선순위 결정 (en 우선, th 보조)
             name_lang = detect_lang(name)
 
             clinics.append({
@@ -451,6 +499,8 @@ def main():
                 "name_lang": name_lang,
                 "primary_type": row.get("primary_type", ""),
                 "address": address,
+                "city_label": city_label,
+                "city_slug": city_slug,
                 "district": district,
                 "phone": row.get("phone", ""),
                 "website": row.get("website", ""),
@@ -472,8 +522,34 @@ def main():
                 "business_status": row.get("business_status", ""),
                 "maps_url": row.get("maps_url", ""),
             })
+            n += 1
+    return n
 
-    # 정렬: trust_score 내림차순
+
+# ── 메인 ──────────────────────────────────────────────────────
+def main():
+    bangkok_csv = SOURCES[0]["clinics_csv"]
+    if not bangkok_csv.exists():
+        print(f"NOT FOUND: {bangkok_csv}", file=sys.stderr)
+        sys.exit(1)
+
+    WEB_DATA.mkdir(parents=True, exist_ok=True)
+    out_path = WEB_DATA / "master_db.json"
+
+    clinics: list[dict] = []
+    district_counter: Counter[str] = Counter()
+    category_counter: Counter[str] = Counter()
+    city_counter: Counter[str] = Counter()
+    lang_total = Counter()
+
+    per_city_counts: list[tuple[str, int]] = []
+    for source in SOURCES:
+        n = process_source(
+            source, clinics, district_counter, category_counter,
+            city_counter, lang_total,
+        )
+        per_city_counts.append((source["city_label"], n))
+
     clinics.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))
 
     payload = {
@@ -483,6 +559,7 @@ def main():
         "with_categories": sum(1 for c in clinics if c["categories"]),
         "with_reviews_scraped": sum(1 for c in clinics if c["scraped_review_count"] > 0),
         "language_total": dict(lang_total),
+        "city_counts": dict(city_counter.most_common()),
         "district_counts": dict(district_counter.most_common()),
         "category_counts": dict(category_counter.most_common()),
         "clinics": clinics,
@@ -492,6 +569,8 @@ def main():
 
     print(f"[OK] wrote {out_path}")
     print(f"  clinics: {len(clinics)}")
+    for label, n in per_city_counts:
+        print(f"    {label}: {n}")
     print(f"  with district: {payload['with_district']}")
     print(f"  with categories: {payload['with_categories']}")
     print(f"  with reviews scraped: {payload['with_reviews_scraped']}")

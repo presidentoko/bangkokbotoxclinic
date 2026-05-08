@@ -29,6 +29,16 @@ export default async function HomePage() {
   }
   const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
 
+  // 멀티시티 — focused 안에서 city별 count. 도시 1개면 섹션 숨김.
+  const cityMap = new Map<string, { slug: string; count: number }>();
+  for (const c of focused) {
+    if (!c.city_label) continue;
+    const cur = cityMap.get(c.city_label);
+    if (cur) cur.count += 1;
+    else cityMap.set(c.city_label, { slug: c.city_slug || c.city_label.toLowerCase(), count: 1 });
+  }
+  const cities = [...cityMap.entries()].sort((a, b) => b[1].count - a[1].count);
+
   const categoryMap = new Map<string, number>();
   for (const c of focused) {
     for (const cat of c.categories) categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
@@ -223,6 +233,25 @@ export default async function HomePage() {
                     </div>
                     <div className="text-yellow-700 font-bold text-sm shrink-0">★ {q.rating.toFixed(1)}</div>
                   </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* By City — 도시 2개 이상일 때만 표시 (Bangkok만 있으면 의미 없음) */}
+        {cities.length >= 2 && (
+          <section className="mb-10">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By City</h2>
+            <div className="flex flex-wrap gap-2">
+              {cities.map(([label, { slug, count }]) => (
+                <a
+                  key={label}
+                  href={`/city/${slug}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition font-medium"
+                >
+                  🏙️ {label}
+                  <span className="text-[var(--muted)] tabular-nums">{count}</span>
                 </a>
               ))}
             </div>

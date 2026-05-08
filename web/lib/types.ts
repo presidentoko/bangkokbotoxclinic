@@ -25,6 +25,8 @@ export type Clinic = {
   name_lang: "th" | "en" | "other";
   primary_type: string;
   address: string;
+  city_label: string;       // "Bangkok" | "Pattaya" | "Phuket" | ...
+  city_slug: string;        // "bangkok" | "pattaya" | "phuket" | ...
   district: string;
   phone: string;
   website: string;
@@ -55,6 +57,7 @@ export type MasterDb = {
   with_categories: number;
   with_reviews_scraped: number;
   language_total: { th: number; en: number; ko: number; ja: number; other: number };
+  city_counts: Record<string, number>;        // "Bangkok": 2054 (도시 단위)
   district_counts: Record<string, number>;
   category_counts: Record<string, number>;
   clinics: Clinic[];

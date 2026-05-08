@@ -1,0 +1,102 @@
+import { notFound } from "next/navigation";
+import { loadMasterDb } from "@/lib/data";
+import { ClinicCard } from "@/components/ClinicCard";
+import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import type { Metadata } from "next";
+
+export async function generateStaticParams() {
+  const db = await loadMasterDb();
+  return Object.keys(db.city_counts).map((label) => {
+    const clinic = db.clinics.find((c) => c.city_label === label);
+    return { slug: clinic?.city_slug ?? label.toLowerCase().replace(/\s+/g, "-") };
+  });
+}
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  const db = await loadMasterDb();
+  const clinic = db.clinics.find((c) => c.city_slug === slug);
+  const cityLabel = clinic?.city_label ?? slug;
+  return {
+    title: `Clinics in ${cityLabel} — Verified by Reviews`,
+    description: `All clinics in ${cityLabel}, Thailand with verified Google review analysis and Trust Scores.`,
+    alternates: { canonical: `/city/${slug}` },
+  };
+}
+
+export default async function CityPage(
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;
+  const db = await loadMasterDb();
+
+  const filtered = db.clinics
+    .filter((c) => c.city_slug === slug)
+    .sort((a, b) => b.trust_score - a.trust_score);
+
+  if (filtered.length === 0) notFound();
+  const cityLabel = filtered[0].city_label;
+
+  // 도시 안에서 카테고리 분포
+  const categoryMap = new Map<string, number>();
+  for (const c of filtered) {
+    for (const cat of c.categories) categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+  }
+  const topCategories = [...categoryMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <nav className="text-sm text-[var(--muted)] mb-4">
+        <a href="/" className="hover:text-[var(--fg)]">Home</a>
+        <span className="mx-2">›</span>
+        <span>{cityLabel}</span>
+      </nav>
+      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
+        Clinics in {cityLabel}
+      </h1>
+      <p className="text-[var(--muted)] mb-8">
+        {filtered.length} verified clinics across {topCategories.length} services in {cityLabel}, Thailand.
+      </p>
+
+      {topCategories.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">Popular services in {cityLabel}</h2>
+          <div className="flex flex-wrap gap-2">
+            {topCategories.map(([cat, count]) => (
+              <a
+                key={cat}
+                href={`/c/${cat}`}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                {cat}
+                <span className="text-[var(--muted)] tabular-nums">{count}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div className="grid gap-3">
+        {filtered.slice(0, 10).map((c, i) => (
+          <ClinicCard key={c.id} clinic={c} rank={i + 1} />
+        ))}
+        <AffiliateInline />
+        {filtered.slice(10, 50).map((c, i) => (
+          <ClinicCard key={c.id} clinic={c} rank={i + 11} />
+        ))}
+      </div>
+
+      <BreadcrumbJsonLd items={[
+        { name: "Home", url: "/" },
+        { name: cityLabel, url: `/city/${slug}` },
+      ]} />
+      <ItemListJsonLd
+        name={`Clinics in ${cityLabel}`}
+        items={filtered.slice(0, 20).map((c) => ({ name: c.name, url: `/clinic/${c.id}` }))}
+      />
+    </div>
+  );
+}
