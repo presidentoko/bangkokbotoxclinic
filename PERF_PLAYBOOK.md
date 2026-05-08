@@ -13,11 +13,10 @@ production 사이트 perf 측정 + 개선 사이클.
 
 ### CLI baseline (자동, 반복 가능)
 ```bash
-bash scripts/measure_lighthouse.sh
+python scripts/measure_lighthouse.py
 ```
 → 3 URL 측정, 콘솔 출력 + `lighthouse_baseline.json`에 timestamped json 저장.
-
-`jq` 필요 (Git Bash 기본 포함). 없으면: `winget install jqlang.jq`.
+Python 표준 라이브러리만 씀 (no extra install).
 
 ## 2. 목표 점수 (Phase 1 — 트래픽 시작 단계)
 
