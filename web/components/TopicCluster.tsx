@@ -1,3 +1,6 @@
+// ⚠️ AUTO-GENERATED from shared/components/TopicCluster.tsx
+// DO NOT edit directly — edit shared/components/TopicCluster.tsx, then run `python scripts/sync_shared.py`.
+
 // Mentioned topics 시각 클러스터 — 빈도에 따라 글자 크기/색상 차이.
 
 import { TOPIC_LABELS } from "@/lib/types";

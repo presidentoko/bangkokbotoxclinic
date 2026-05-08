@@ -1,3 +1,6 @@
+// ⚠️ AUTO-GENERATED from shared/lib/i18n.ts
+// DO NOT edit directly — edit shared/lib/i18n.ts, then run `python scripts/sync_shared.py`.
+
 // 다국어 지원 — EN (default) + TH.
 // 사용: const t = await loadStrings(lang); t.home.hero
 // 페이지 url 패턴: /en/* (default, 생략 가능) | /th/*

@@ -1,3 +1,6 @@
+// ⚠️ AUTO-GENERATED from shared/components/RatingChart.tsx
+// DO NOT edit directly — edit shared/components/RatingChart.tsx, then run `python scripts/sync_shared.py`.
+
 // Rating trend 시각화 — recent vs midterm vs old SVG bar chart.
 
 import type { RatingTrend } from "@/lib/types";

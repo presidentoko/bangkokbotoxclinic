@@ -1,0 +1,68 @@
+"""shared/ → 각 web 앱 sync.
+
+`shared/components/*.tsx`, `shared/lib/*.ts`를 단일 source로 두고
+각 Next.js 앱(web/, web-restaurants/, web-golf/)의 동일 경로에 복사.
+
+목적:
+- Vercel Root Directory가 web 앱 폴더로 묶여있어서 직접 path alias로 ../shared/* 못 씀
+- 그래서 shared 편집 → sync 실행 → 각 앱 안에 동일 파일이 commit됨
+- Vercel은 평소처럼 web/ 빌드 (변화 없음)
+
+워크플로우:
+1. shared/ 안의 파일 편집
+2. `python scripts/sync_shared.py` 실행
+3. 각 앱의 components/*, lib/*가 업데이트됨
+4. git commit + push
+
+각 sync된 파일은 맨 위에 warning 헤더가 박힘 — 직접 편집하지 말고 shared/ 편집하라는 신호.
+"""
+from __future__ import annotations
+
+from pathlib import Path
+
+ROOT = Path(__file__).parent.parent
+SHARED = ROOT / "shared"
+TARGETS = [ROOT / "web", ROOT / "web-restaurants", ROOT / "web-golf"]
+
+WARNING = (
+    "// ⚠️ AUTO-GENERATED from shared/{rel}\n"
+    "// DO NOT edit directly — edit shared/{rel}, then run `python scripts/sync_shared.py`.\n"
+    "\n"
+)
+
+
+def sync_file(src: Path, dst: Path, rel: str) -> None:
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    content = src.read_text(encoding="utf-8")
+    if not content.startswith("// ⚠️ AUTO-GENERATED"):
+        content = WARNING.format(rel=rel) + content
+    dst.write_text(content, encoding="utf-8")
+
+
+def main() -> int:
+    if not SHARED.exists():
+        print(f"shared/ folder missing: {SHARED}")
+        return 1
+    files = [p for p in SHARED.rglob("*") if p.is_file()]
+    if not files:
+        print("shared/ empty - nothing to sync")
+        return 0
+    print(f"{len(files)} files -> {len(TARGETS)} targets sync")
+    n_written = 0
+    for target in TARGETS:
+        if not target.exists():
+            print(f"  target missing (skip): {target.name}")
+            continue
+        for src in files:
+            rel = src.relative_to(SHARED).as_posix()
+            dst = target / rel
+            sync_file(src, dst, rel)
+            n_written += 1
+            print(f"  → {dst.relative_to(ROOT).as_posix()}")
+    print(f"done. {n_written} files written.")
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main())

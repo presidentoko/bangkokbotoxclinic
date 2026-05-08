@@ -1,3 +1,6 @@
+// ⚠️ AUTO-GENERATED from shared/components/MapEmbed.tsx
+// DO NOT edit directly — edit shared/components/MapEmbed.tsx, then run `python scripts/sync_shared.py`.
+
 // Google Maps iframe — API key 불필요, 무료. lat/lng 또는 검색어 사용.
 
 export function MapEmbed({

@@ -1,3 +1,6 @@
+// ⚠️ AUTO-GENERATED from shared/components/TrustBadge.tsx
+// DO NOT edit directly — edit shared/components/TrustBadge.tsx, then run `python scripts/sync_shared.py`.
+
 // Trust Score 시각화 — 0-100 그라데이션 바 + 숫자.
 
 export function TrustBadge({ score, size = "md" }: { score: number; size?: "sm" | "md" | "lg" }) {
