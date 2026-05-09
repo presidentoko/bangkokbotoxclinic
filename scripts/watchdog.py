@@ -42,12 +42,20 @@ REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 �
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
-    # 클리닉 자동 chain. 2026-05-09: Bangkok long-tail 포기, Pattaya로 이동.
-    # bangkok_clinics_review 의도적으로 chain에서 뺌 — 1,500개 이미 처리, 나머지 1,155
-    # 는 low-review skip + Google soft-block 다발이라 ROI 낮음. 새 도시 fresh IPs로 더 효율.
-    # 외국인 인기 순서: Pattaya → (Phuket → Chiang Mai → Koh Samui → Krabi → Hua Hin → ...) 미래 추가.
+    # 클리닉 외국인 인기 순서 chain. Pattaya 끝나면 자동으로 다음 도시 진입.
+    # Bangkok review는 빠짐 — 1,500개 이미 처리, long-tail ROI 낮음.
     "pattaya_clinics_grid",
     "pattaya_clinics_review",
+    "phuket_clinics_grid",
+    "phuket_clinics_review",
+    "chiang_mai_clinics_grid",
+    "chiang_mai_clinics_review",
+    "koh_samui_clinics_grid",
+    "koh_samui_clinics_review",
+    "krabi_clinics_grid",
+    "krabi_clinics_review",
+    "hua_hin_clinics_grid",
+    "hua_hin_clinics_review",
 ]
 
 # 로그 타임스탬프 패턴 두 종류 지원:
@@ -421,7 +429,8 @@ def build_services() -> list[Service]:
     for _city in ("pattaya", "phuket", "chiang_mai", "koh_samui", "krabi", "hua_hin"):
         (ROOT / _city / "clinics_output" / "reviews").mkdir(parents=True, exist_ok=True)
 
-    # Pattaya 클리닉 env — chain promotion 시 발동. grid는 2080-2081, review는 2082-2087 (default).
+    # 도시별 클리닉 env. 외국인 인기 순서로 chain 자동 promotion 됨.
+    # grid는 2080-2081 (default), review는 2082-2087 (default). 각 도시 grid → review 순.
     pattaya_clinics_env = {
         "SEARCH_QUERY": "clinic",
         "SEARCH_TAG": "en",
@@ -429,6 +438,46 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.8825",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../pattaya/clinics_output",
+    }
+    phuket_clinics_env = {
+        "SEARCH_QUERY": "clinic",
+        "SEARCH_TAG": "en",
+        "CITY_LAT": "7.8804",
+        "CITY_LNG": "98.3923",
+        "CITY_RADIUS_M": "20000",
+        "CITY_OUTPUT_DIR": "../phuket/clinics_output",
+    }
+    chiang_mai_clinics_env = {
+        "SEARCH_QUERY": "clinic",
+        "SEARCH_TAG": "en",
+        "CITY_LAT": "18.7883",
+        "CITY_LNG": "98.9853",
+        "CITY_RADIUS_M": "20000",
+        "CITY_OUTPUT_DIR": "../chiang_mai/clinics_output",
+    }
+    koh_samui_clinics_env = {
+        "SEARCH_QUERY": "clinic",
+        "SEARCH_TAG": "en",
+        "CITY_LAT": "9.5018",
+        "CITY_LNG": "99.9648",
+        "CITY_RADIUS_M": "15000",
+        "CITY_OUTPUT_DIR": "../koh_samui/clinics_output",
+    }
+    krabi_clinics_env = {
+        "SEARCH_QUERY": "clinic",
+        "SEARCH_TAG": "en",
+        "CITY_LAT": "8.0863",
+        "CITY_LNG": "98.9063",
+        "CITY_RADIUS_M": "15000",
+        "CITY_OUTPUT_DIR": "../krabi/clinics_output",
+    }
+    hua_hin_clinics_env = {
+        "SEARCH_QUERY": "clinic",
+        "SEARCH_TAG": "en",
+        "CITY_LAT": "12.5684",
+        "CITY_LNG": "99.9577",
+        "CITY_RADIUS_M": "12000",
+        "CITY_OUTPUT_DIR": "../hua_hin/clinics_output",
     }
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -658,6 +707,76 @@ def build_services() -> list[Service]:
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
             progress_grace_sec=420,
+        ),
+        Service(
+            name="phuket_clinics_grid",
+            cmd=["scraper_grid.py"], cwd=bk_clinics, env_extra=phuket_clinics_env,
+            log_file=LOGS / "phuket_clinics_grid.log",
+            grid_done_check=True, progress_pattern=PROG_GRID,
+            progress_stale_sec=300, progress_grace_sec=180,
+        ),
+        Service(
+            name="phuket_clinics_review",
+            cmd=["scraper.py"], cwd=bk_clinics, env_extra=phuket_clinics_env,
+            log_file=LOGS / "phuket_clinics_review.log",
+            review_done_check=True, progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600, progress_grace_sec=420,
+        ),
+        Service(
+            name="chiang_mai_clinics_grid",
+            cmd=["scraper_grid.py"], cwd=bk_clinics, env_extra=chiang_mai_clinics_env,
+            log_file=LOGS / "chiang_mai_clinics_grid.log",
+            grid_done_check=True, progress_pattern=PROG_GRID,
+            progress_stale_sec=300, progress_grace_sec=180,
+        ),
+        Service(
+            name="chiang_mai_clinics_review",
+            cmd=["scraper.py"], cwd=bk_clinics, env_extra=chiang_mai_clinics_env,
+            log_file=LOGS / "chiang_mai_clinics_review.log",
+            review_done_check=True, progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600, progress_grace_sec=420,
+        ),
+        Service(
+            name="koh_samui_clinics_grid",
+            cmd=["scraper_grid.py"], cwd=bk_clinics, env_extra=koh_samui_clinics_env,
+            log_file=LOGS / "koh_samui_clinics_grid.log",
+            grid_done_check=True, progress_pattern=PROG_GRID,
+            progress_stale_sec=300, progress_grace_sec=180,
+        ),
+        Service(
+            name="koh_samui_clinics_review",
+            cmd=["scraper.py"], cwd=bk_clinics, env_extra=koh_samui_clinics_env,
+            log_file=LOGS / "koh_samui_clinics_review.log",
+            review_done_check=True, progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600, progress_grace_sec=420,
+        ),
+        Service(
+            name="krabi_clinics_grid",
+            cmd=["scraper_grid.py"], cwd=bk_clinics, env_extra=krabi_clinics_env,
+            log_file=LOGS / "krabi_clinics_grid.log",
+            grid_done_check=True, progress_pattern=PROG_GRID,
+            progress_stale_sec=300, progress_grace_sec=180,
+        ),
+        Service(
+            name="krabi_clinics_review",
+            cmd=["scraper.py"], cwd=bk_clinics, env_extra=krabi_clinics_env,
+            log_file=LOGS / "krabi_clinics_review.log",
+            review_done_check=True, progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600, progress_grace_sec=420,
+        ),
+        Service(
+            name="hua_hin_clinics_grid",
+            cmd=["scraper_grid.py"], cwd=bk_clinics, env_extra=hua_hin_clinics_env,
+            log_file=LOGS / "hua_hin_clinics_grid.log",
+            grid_done_check=True, progress_pattern=PROG_GRID,
+            progress_stale_sec=300, progress_grace_sec=180,
+        ),
+        Service(
+            name="hua_hin_clinics_review",
+            cmd=["scraper.py"], cwd=bk_clinics, env_extra=hua_hin_clinics_env,
+            log_file=LOGS / "hua_hin_clinics_review.log",
+            review_done_check=True, progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600, progress_grace_sec=420,
         ),
         Service(
             name="master_db_builder",

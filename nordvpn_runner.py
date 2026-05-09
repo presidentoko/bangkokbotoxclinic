@@ -228,6 +228,52 @@ class Runner:
         log(f"port {p.port}: rotate (was {old})")
         self.boot_port(p)
 
+    def _cleanup_zombie_listeners(self):
+        """startup 직전에 우리가 쓸 모든 포트(2080+) 위에 listener 있는지 체크.
+        있으면 그건 이전 runner 의 child 좀비 — taskkill /F. 없으면 no-op.
+        Windows: netstat -ano + taskkill 사용. 다른 OS는 no-op."""
+        if os.name != "nt":
+            return
+        target_ports = {p.port for p in self.ports}
+        try:
+            out = subprocess.check_output(
+                ["netstat", "-ano", "-p", "TCP"],
+                stderr=subprocess.DEVNULL, text=True, timeout=10,
+            )
+        except (subprocess.SubprocessError, OSError):
+            return
+
+        zombies: dict[int, int] = {}  # port -> pid
+        for line in out.splitlines():
+            parts = line.split()
+            if len(parts) < 5 or parts[0] != "TCP":
+                continue
+            local = parts[1]
+            state = parts[3]
+            if state != "LISTENING":
+                continue
+            # local format: "0.0.0.0:2080" or "[::]:2080"
+            try:
+                port = int(local.rsplit(":", 1)[1])
+                pid = int(parts[4])
+            except ValueError:
+                continue
+            if port in target_ports:
+                zombies[port] = pid
+
+        if not zombies:
+            return
+        log(f"zombie listener 감지 → 정리: {zombies}")
+        for port, pid in zombies.items():
+            try:
+                subprocess.run(
+                    ["taskkill", "/F", "/T", "/PID", str(pid)],
+                    stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=5,
+                )
+            except (subprocess.SubprocessError, OSError):
+                pass
+        time.sleep(2)  # OS port release grace
+
     # ── signals ──────────────────────────────────────────
     def _on_usr1(self, *_):
         idx = self.rotate_ptr % len(self.ports)
@@ -258,6 +304,10 @@ class Runner:
         signal.signal(signal.SIGINT, self._on_term)
         if hasattr(signal, 'SIGTERM'):
             signal.signal(signal.SIGTERM, self._on_term)
+
+        # 좀비 listener 자동 정리 — 이전 nordvpn_runner의 child node-openvpn-socks
+        # process가 parent kill 후 살아남아 EADDRINUSE 일으키는 경우 fix.
+        self._cleanup_zombie_listeners()
 
         self.fetch_servers()
         if not self.servers:
