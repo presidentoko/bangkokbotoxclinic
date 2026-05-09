@@ -42,11 +42,10 @@ REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 �
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
-    # 클리닉 자동 chain (2026-05-07~): grid → review → 다음 도시 grid → 다음 도시 review.
-    # 각 review는 review_done_check=True로 큐 비면 자연 종료 감지 → 다음 promotion.
+    # 클리닉 자동 chain. 2026-05-09: Bangkok long-tail 포기, Pattaya로 이동.
+    # bangkok_clinics_review 의도적으로 chain에서 뺌 — 1,500개 이미 처리, 나머지 1,155
+    # 는 low-review skip + Google soft-block 다발이라 ROI 낮음. 새 도시 fresh IPs로 더 효율.
     # 외국인 인기 순서: Pattaya → (Phuket → Chiang Mai → Koh Samui → Krabi → Hua Hin → ...) 미래 추가.
-    "bangkok_clinics_grid",
-    "bangkok_clinics_review",
     "pattaya_clinics_grid",
     "pattaya_clinics_review",
 ]
