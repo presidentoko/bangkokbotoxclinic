@@ -57,7 +57,7 @@ export default async function KoHomePage() {
   const cuisines = Object.entries(db.cuisine_counts);
 
   return (
-    <>
+    <div lang="ko">
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
@@ -154,6 +154,6 @@ export default async function KoHomePage() {
           items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
         />
       </div>
-    </>
+    </div>
   );
 }

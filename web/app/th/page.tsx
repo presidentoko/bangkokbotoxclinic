@@ -58,7 +58,7 @@ export default async function ThHomePage() {
   const categories = [...categoryMap.entries()].sort((a, b) => b[1] - a[1]);
 
   return (
-    <>
+    <div lang="th">
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
@@ -160,6 +160,6 @@ export default async function ThHomePage() {
           }))}
         />
       </div>
-    </>
+    </div>
   );
 }
