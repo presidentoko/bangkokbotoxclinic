@@ -2,16 +2,43 @@
 
 import { loadMasterDb } from "@/lib/data";
 import { BookingForm } from "@/components/BookingForm";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Partner with us — Lead generation, Featured listings, Market intelligence",
   description:
-    "We send pre-qualified booking requests to your clinic. CPL, Featured placement, and weekly competitor intelligence reports for Bangkok aesthetic clinics.",
+    "We send pre-qualified booking requests to your Bangkok clinic. CPL ฿50/lead, Featured slots from ฿5,000/mo, weekly competitor intelligence. 30-day pilot, no contract.",
   alternates: { canonical: "/for-clinics" },
 };
+
+const FAQS = [
+  {
+    q: "Will sponsoring a slot affect my organic ranking?",
+    a: "No. Sponsored slots show ABOVE organic results with a clearly labelled badge — your organic Trust Score and position are computed and displayed independently. We never delete, hide, or downrank organic listings.",
+  },
+  {
+    q: "What does 'pre-qualified lead' mean?",
+    a: "Visitor lands on a clinic detail page, reads the Trust Score and reviews, then fills out a multi-step booking form (service, preferred date, time slot, name, contact). Only completed forms count as a lead — abandoned forms cost you nothing.",
+  },
+  {
+    q: "How quickly can I start?",
+    a: "Same day. We add your clinic ID to the Featured slot env var, Vercel auto-redeploys (~2 min), badge appears. CPL setup is faster: just give us a LINE OA or webhook URL to forward leads to.",
+  },
+  {
+    q: "Can I see existing data on my clinic before signing?",
+    a: "Yes — fill the form below with your clinic name and we'll send a 1-page report: your current Trust Score, district ranking, top 5 reviewer-mentioned topics, and pages where you currently rank in our top 10.",
+  },
+  {
+    q: "What if I want to cancel?",
+    a: "Cancel anytime via LINE. CPL: paused immediately, no charge for any partial month. Featured slot: prorated refund for unused days in the month. No contracts, no minimums.",
+  },
+  {
+    q: "Do you accept Korean / Thai language clinics?",
+    a: "Yes. Our front-end already serves /ko and /th locales. Korean-trained doctors and Korean-speaking staff get a separate filter (high search demand from medical tourists). Korean clinics can submit content to fast-track that placement.",
+  },
+];
 
 export default async function ForClinicsPage() {
   const cfg = getSiteConfig();
@@ -26,6 +53,24 @@ export default async function ForClinicsPage() {
         <span>For Clinics</span>
       </nav>
 
+      {/* Scarcity banner */}
+      <div
+        className="mb-8 px-4 py-3 rounded-xl border flex items-center justify-between gap-4 flex-wrap"
+        style={{ borderColor: `${cfg.themeAccent}40`, background: `${cfg.themeAccent}08` }}
+      >
+        <div className="text-sm">
+          <span className="font-bold" style={{ color: cfg.themeAccent }}>Q2 launch pricing</span>
+          <span className="text-[var(--muted)]"> · first 5 Editor&apos;s Pick slots at 50% off (฿7,500/mo first 3 months) · 2 categories already taken</span>
+        </div>
+        <a
+          href="#pilot"
+          className="text-xs font-bold px-3 py-1.5 rounded-full text-white whitespace-nowrap"
+          style={{ background: cfg.themeAccent }}
+        >
+          Claim a slot →
+        </a>
+      </div>
+
       <header className="mb-12 text-center">
         <span className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4">
           For clinic owners
@@ -35,25 +80,55 @@ export default async function ForClinicsPage() {
           <br />
           <span style={{ color: cfg.themeAccent }}>And it sends you customers.</span>
         </h1>
-        <p className="text-base md:text-lg text-[var(--muted)] max-w-2xl mx-auto text-balance">
+        <p className="text-base md:text-lg text-[var(--muted)] max-w-2xl mx-auto text-balance mb-6">
           {db.total_clinics.toLocaleString()} clinics tracked across Bangkok with {totalReviews.toLocaleString()} verified Google reviews. Patients searching &quot;Bangkok botox&quot; or &quot;Bangkok filler&quot; land here, ready to book.
         </p>
+        <a
+          href="#pilot"
+          className="inline-block px-6 py-3 rounded-full text-white font-bold shadow-sm hover:shadow-md transition"
+          style={{ background: cfg.themeAccent }}
+        >
+          See your free 1-page report →
+        </a>
       </header>
 
       {/* Stats grid */}
-      <section className="grid sm:grid-cols-3 gap-4 mb-16">
+      <section className="grid sm:grid-cols-3 gap-4 mb-12">
         <Stat n={db.total_clinics.toLocaleString()} label="Clinics indexed" />
         <Stat n={totalReviews.toLocaleString()} label="Reviews analyzed" />
         <Stat n="< 30 min" label="From scrape to live" />
       </section>
 
+      {/* Sample lead notification — show what clinic actually gets */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-2">What you actually receive</h2>
+        <p className="text-sm text-[var(--muted)] mb-4">A sample lead notification — pushed to your LINE OA or webhook within seconds of form submission.</p>
+        <div className="bg-[#0a0a0a] text-white rounded-2xl p-6 font-mono text-sm leading-relaxed shadow-md">
+          <div className="text-emerald-400 mb-2">[NEW LEAD] · bangkokbotoxclinic.com · 14:32 ICT</div>
+          <div className="space-y-1 text-gray-200">
+            <div><span className="text-gray-500">Clinic:</span>     {`<your clinic name>`}</div>
+            <div><span className="text-gray-500">Service:</span>    Botox (forehead + crow&apos;s feet)</div>
+            <div><span className="text-gray-500">Preferred:</span>  Saturday afternoon, 14:00–17:00</div>
+            <div><span className="text-gray-500">Patient:</span>    Sarah K. · 32 · Singapore</div>
+            <div><span className="text-gray-500">Budget:</span>     ฿8,000–15,000</div>
+            <div><span className="text-gray-500">Notes:</span>      &ldquo;First-time visitor. Prefers Allergan. English-speaking doctor.&rdquo;</div>
+            <div><span className="text-gray-500">Contact:</span>    LINE @sarahk_sg · arriving Bangkok Thu</div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-gray-700 text-xs text-gray-500">
+            Reply within 15 min for best conversion. SLA: lead exclusive to you for 24h.
+          </div>
+        </div>
+      </section>
+
       {/* Three offerings */}
-      <section className="space-y-8 mb-16">
+      <section className="space-y-6 mb-12">
+        <h2 className="text-2xl font-bold">Three ways to work with us</h2>
         <Offering
           tag="01 — CPL"
           title="Pre-qualified bookings, paid per lead"
-          price="From ฿50 / lead · ฿5,000 / month flat"
-          body="Patients searching for your service in Bangkok land on a clinic detail page that ranks you by Trust Score. They click the LINE button, fill a multi-step booking form, and we relay the request to your team. You only see leads that completed the form."
+          price="฿50 / lead · or ฿5,000 / month flat"
+          mostPopular
+          body="The simplest start. Lead arrives via the booking form, we relay to you instantly. Pay per result. ฿50/lead is roughly 1/40th of a typical Bangkok botox bill — you make money on the first lead even if your conversion is single-digit."
           bullets={[
             "Real Google reviews are the source of truth — high search intent",
             "Each lead includes service, preferred date, time slot, and notes",
@@ -66,13 +141,13 @@ export default async function ForClinicsPage() {
         <Offering
           tag="02 — Featured Placement"
           title="Editor's Pick & Recommended slots"
-          price="฿10,000 / month per slot · max 3 per category"
-          body="Your clinic gets a permanent ranked-first position on the relevant category page (e.g. /c/botox, /c/filler) with a clearly labelled badge. Real organic listings appear below — we never delete or downrank them. Average CTR on top slots is 3-5x baseline."
+          price="From ฿5,000 / mo · max 3 per category"
+          body="Permanent ranked-first position on the relevant category page (e.g. /c/botox, /c/filler) with a clearly labelled coloured badge. Real organic listings appear below — we never delete or downrank them. Top slots see 3-5x baseline CTR in the same district."
           bullets={[
-            "Editor's Pick badge — gold accent, top of every list",
-            "Recommended badge — blue accent, between organic positions",
-            "District-targeted: pay only for /c/botox/sukhumvit if that's your area",
-            "Transparent disclosure — preserves user trust",
+            "Editor's Pick — gold accent, top of every list (฿15,000/mo, 1 per category)",
+            "Recommended — blue accent, between organic positions (฿10,000/mo)",
+            "Featured — neutral accent, in top group (฿5,000/mo)",
+            "District targeting available — pay only for /c/botox/sukhumvit if that's your area",
           ]}
           accent="#7c3aed"
         />
@@ -81,18 +156,56 @@ export default async function ForClinicsPage() {
           tag="03 — Market Intelligence"
           title="Weekly competitor dashboard"
           price="฿8,000 / month per clinic"
-          body="See exactly where your clinic ranks vs. competitors in your district and service category. Spot which clinics dropped or gained Trust Score this week, what reviewers are saying about you and them, and which districts are gaining search volume."
+          body="See exactly where your clinic ranks vs competitors in your district and service category. Spot which clinics dropped or gained Trust Score this week, what reviewers are saying about you and them, and which districts are gaining search volume."
           bullets={[
             "Weekly delivered report (PDF + dashboard access)",
-            "Compare your reviews-mentioned topics vs. top 10 in district",
-            "Catch reputation issues — declining-quality alerts within hours",
-            "Used by clinic GMs to set quarterly OKRs",
+            "Compare your reviewer-mentioned topics vs top 10 in district",
+            "Catch reputation issues — declining-rating alerts within hours",
+            "Designed for clinic GMs to set quarterly OKRs",
           ]}
           accent="#0891b2"
         />
       </section>
 
-      <hr className="border-[var(--border)] my-12" />
+      {/* Comparison table */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-4">At a glance</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse bg-white border border-[var(--border)] rounded-xl overflow-hidden">
+            <thead className="bg-gray-50 text-left">
+              <tr>
+                <th className="px-4 py-3 font-bold">Plan</th>
+                <th className="px-4 py-3 font-bold">Cost</th>
+                <th className="px-4 py-3 font-bold">Best for</th>
+                <th className="px-4 py-3 font-bold">Time to value</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--border)]">
+              <tr>
+                <td className="px-4 py-3 font-medium">CPL</td>
+                <td className="px-4 py-3 tabular-nums">฿50/lead</td>
+                <td className="px-4 py-3 text-[var(--muted)]">Test the channel risk-free</td>
+                <td className="px-4 py-3 text-[var(--muted)]">Same day</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium">Featured</td>
+                <td className="px-4 py-3 tabular-nums">฿5–15K/mo</td>
+                <td className="px-4 py-3 text-[var(--muted)]">High-volume specialist clinics</td>
+                <td className="px-4 py-3 text-[var(--muted)]">2 min after env update</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium">Intelligence</td>
+                <td className="px-4 py-3 tabular-nums">฿8K/mo</td>
+                <td className="px-4 py-3 text-[var(--muted)]">Multi-location operators</td>
+                <td className="px-4 py-3 text-[var(--muted)]">First report within 7 days</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-[var(--muted)] mt-2">
+          Bundle CPL + Featured: 20% off Featured rate. Bundle all three: 30% off Intelligence.
+        </p>
+      </section>
 
       {/* Why us */}
       <section className="mb-16">
@@ -111,29 +224,59 @@ export default async function ForClinicsPage() {
           <Why
             icon="🇰🇷"
             title="Korean & international tourist focus"
-            body="Bangkokbotoxclinic.com is positioned for medical tourists who can't read Thai-only sites. They have higher willingness to pay and book larger packages."
+            body="bangkokbotoxclinic.com is positioned for medical tourists who can't read Thai-only sites. Higher willingness to pay and book larger packages."
           />
           <Why
             icon="⚡"
             title="Fresh data, fresh leads"
-            body="Listings refresh every 30 minutes from continuous scraping. New patient reviews on your Google profile show up here within an hour, increasing your relevance score."
+            body="Listings refresh every 30 minutes from continuous scraping. New patient reviews on your Google profile show up here within an hour, increasing your relevance."
           />
         </div>
       </section>
 
-      {/* Booking form */}
+      {/* FAQ */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-2">Get started — first 30 days free</h2>
-        <p className="text-[var(--muted)] mb-6">
-          Tell us your clinic name and service. We&apos;ll show you your current Trust Score ranking and a 30-day pilot proposal.
-        </p>
+        <h2 className="text-2xl font-bold mb-4">Frequently asked</h2>
+        <div className="space-y-3">
+          {FAQS.map((f, i) => (
+            <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
+              <summary className="font-medium cursor-pointer flex items-center justify-between gap-3">
+                <span>{f.q}</span>
+                <span className="text-[var(--muted)] group-open:rotate-180 transition">⌄</span>
+              </summary>
+              <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* Booking form */}
+      <section id="pilot" className="mb-16 scroll-mt-20">
+        <div
+          className="rounded-2xl p-1 mb-6"
+          style={{ background: `linear-gradient(135deg, ${cfg.themeAccent}, ${cfg.themeAccent}80)` }}
+        >
+          <div className="bg-white rounded-xl px-6 py-5">
+            <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: cfg.themeAccent }}>
+              30-day pilot · no payment unless we generate leads
+            </div>
+            <h2 className="text-2xl font-bold mb-2">See your clinic&apos;s 1-page report</h2>
+            <p className="text-sm text-[var(--muted)]">
+              Fill in clinic name and primary service. Within 24h we send: your current Trust Score, where you rank in your district, top 5 reviewer-mentioned topics, plus a 30-day pilot proposal.
+            </p>
+          </div>
+        </div>
         <BookingForm />
+        <p className="text-xs text-[var(--muted)] mt-4 text-center">
+          Or message us directly · LINE: <strong>@bangkokbotoxclinic</strong> · Email: <strong>partners@bangkokbotoxclinic.com</strong>
+        </p>
       </section>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "For Clinics", url: "/for-clinics" },
       ]} />
+      <FaqJsonLd faqs={FAQS} />
     </div>
   );
 }
@@ -147,11 +290,22 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
-function Offering({ tag, title, price, body, bullets, accent }: {
-  tag: string; title: string; price: string; body: string; bullets: string[]; accent: string;
+function Offering({ tag, title, price, body, bullets, accent, mostPopular }: {
+  tag: string; title: string; price: string; body: string; bullets: string[]; accent: string; mostPopular?: boolean;
 }) {
   return (
-    <div className="bg-white border border-[var(--border)] rounded-xl p-6 hover:shadow-md transition">
+    <div
+      className="bg-white border-2 rounded-xl p-6 hover:shadow-md transition relative"
+      style={{ borderColor: mostPopular ? accent : "var(--border)" }}
+    >
+      {mostPopular && (
+        <div
+          className="absolute -top-3 right-6 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full text-white"
+          style={{ background: accent }}
+        >
+          Most popular
+        </div>
+      )}
       <div className="flex items-start justify-between gap-4 mb-3 flex-wrap">
         <div>
           <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: accent }}>
