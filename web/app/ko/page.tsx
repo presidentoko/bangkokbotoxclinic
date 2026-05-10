@@ -5,6 +5,7 @@ import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { StatsBar } from "@/components/StatsBar";
+import { HeroSearch } from "@/components/HeroSearch";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
@@ -74,9 +75,24 @@ export default async function KoHomePage() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             방콕 클리닉 — <span style={{ color: cfg.themeAccent }}>진짜 후기</span>로 검증
           </h1>
-          <p className="text-base md:text-lg text-[var(--muted)]">
+          <p className="text-base md:text-lg text-[var(--muted)] mb-6">
             {focused.length.toLocaleString()}개 클리닉 · {totalReviews.toLocaleString()}개 Google 리뷰 분석
           </p>
+          <div className="max-w-2xl mx-auto">
+            <HeroSearch
+              entities={focused.map((c) => ({
+                id: c.id, name: c.name, district: c.district,
+                rating: c.rating, trust_score: c.trust_score,
+              }))}
+              hrefBase="/clinic"
+              popularSearches={categories.slice(0, 4).map(([cat]) => ({
+                label: CATEGORY_LABELS[cat] ?? cat,
+                href: `/c/${cat}`,
+              }))}
+              popularLabel="인기"
+              searchLang="ko"
+            />
+          </div>
         </div>
       </section>
 

@@ -4,6 +4,7 @@ import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
+import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
@@ -54,9 +55,24 @@ export default async function ThHomePage() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             ร้านอาหารกรุงเทพ — ตรวจสอบจากรีวิวจริง
           </h1>
-          <p className="text-base md:text-lg text-[var(--muted)]">
+          <p className="text-base md:text-lg text-[var(--muted)] mb-6">
             {db.total_restaurants.toLocaleString()} ร้าน · วิเคราะห์รีวิว Google {totalReviews.toLocaleString()} รายการ
           </p>
+          <div className="max-w-2xl mx-auto">
+            <HeroSearch
+              entities={db.restaurants.map((r) => ({
+                id: r.id, name: r.name, district: r.district,
+                city_label: r.city_label, rating: r.rating, trust_score: r.trust_score,
+              }))}
+              hrefBase="/restaurant"
+              popularSearches={cuisines.slice(0, 4).map(([cat]) => ({
+                label: CUISINE_LABELS[cat] ?? cat,
+                href: `/c/${cat}`,
+              }))}
+              popularLabel="ยอดนิยม"
+              searchLang="th"
+            />
+          </div>
         </div>
       </section>
 

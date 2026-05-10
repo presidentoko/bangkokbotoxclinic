@@ -4,6 +4,7 @@ import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
+import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
@@ -66,9 +67,24 @@ export default async function KoHomePage() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             인스타 말고 <span className="text-orange-600">진짜 후기</span>로 방콕 맛집 찾자
           </h1>
-          <p className="text-base md:text-lg text-[var(--muted)]">
+          <p className="text-base md:text-lg text-[var(--muted)] mb-6">
             {db.total_restaurants.toLocaleString()}개 식당 · {totalReviews.toLocaleString()}개 Google 리뷰 분석 · 인플루언서 협찬 없음
           </p>
+          <div className="max-w-2xl mx-auto">
+            <HeroSearch
+              entities={db.restaurants.map((r) => ({
+                id: r.id, name: r.name, district: r.district,
+                city_label: r.city_label, rating: r.rating, trust_score: r.trust_score,
+              }))}
+              hrefBase="/restaurant"
+              popularSearches={cuisines.slice(0, 4).map(([cat]) => ({
+                label: CUISINE_LABELS[cat] ?? cat,
+                href: `/c/${cat}`,
+              }))}
+              popularLabel="인기"
+              searchLang="ko"
+            />
+          </div>
         </div>
       </section>
 

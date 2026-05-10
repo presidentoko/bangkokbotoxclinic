@@ -8,6 +8,7 @@ import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { StatsBar } from "@/components/StatsBar";
+import { HeroSearch } from "@/components/HeroSearch";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { tFor } from "@/lib/i18n";
 import type { Metadata } from "next";
@@ -67,9 +68,24 @@ export default async function ThHomePage() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             คลินิกในกรุงเทพ — ตรวจสอบจากรีวิวจริง
           </h1>
-          <p className="text-base md:text-lg text-[var(--muted)] mb-2">
+          <p className="text-base md:text-lg text-[var(--muted)] mb-6">
             {focused.length.toLocaleString()} คลินิก · วิเคราะห์รีวิว Google {totalReviews.toLocaleString()} รายการ · {t.clinic.updated} ต่อเนื่อง
           </p>
+          <div className="max-w-2xl mx-auto">
+            <HeroSearch
+              entities={focused.map((c) => ({
+                id: c.id, name: c.name, district: c.district,
+                rating: c.rating, trust_score: c.trust_score,
+              }))}
+              hrefBase="/clinic"
+              popularSearches={categories.slice(0, 4).map(([cat]) => ({
+                label: CATEGORY_LABELS[cat] ?? cat,
+                href: `/c/${cat}`,
+              }))}
+              popularLabel="ยอดนิยม"
+              searchLang="th"
+            />
+          </div>
         </div>
       </section>
 

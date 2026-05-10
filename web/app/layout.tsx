@@ -95,8 +95,13 @@ export default function RootLayout({
               >
                 For clinics →
               </a>
-              <a href="/th" className="text-xs hover:text-black">TH</a>
-              <a href="/ko" className="text-xs hover:text-black">KO</a>
+              <span className="text-xs text-[var(--muted)] flex items-center gap-2">
+                <a href="/" className="hover:text-black">EN</a>
+                <span aria-hidden="true">·</span>
+                <a href="/th" className="hover:text-black">TH</a>
+                <span aria-hidden="true">·</span>
+                <a href="/ko" className="hover:text-black">KO</a>
+              </span>
             </nav>
           </div>
         </header>
