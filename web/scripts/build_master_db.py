@@ -502,9 +502,11 @@ def process_source(
     category_counter: Counter,
     city_counter: Counter,
     lang_total: Counter,
+    seen_place_ids: set[str],
 ) -> int:
     """source 한 도시의 clinics.csv 읽어 clinics 리스트에 append. 처리 건수 반환.
-    csv 없으면 0 반환 (Pattaya 등 아직 scrape 안 된 도시). """
+    csv 없으면 0 반환 (Pattaya 등 아직 scrape 안 된 도시).
+    seen_place_ids: 이미 다른 도시에서 처리한 place_id 는 skip (CSV 내 또는 도시간 중복). """
     csv_path: Path = source["clinics_csv"]
     reviews_dir: Path = source["reviews_dir"]
     city_label: str = source["city_label"]
@@ -519,6 +521,9 @@ def process_source(
             name = (row.get("name") or "").strip()
             if not place_id or not name:
                 continue
+            if place_id in seen_place_ids:
+                continue
+            seen_place_ids.add(place_id)
 
             try:
                 rating = float(row.get("rating") or 0)
@@ -616,12 +621,13 @@ def main():
     category_counter: Counter[str] = Counter()
     city_counter: Counter[str] = Counter()
     lang_total = Counter()
+    seen_place_ids: set[str] = set()
 
     per_city_counts: list[tuple[str, int]] = []
     for source in SOURCES:
         n = process_source(
             source, clinics, district_counter, category_counter,
-            city_counter, lang_total,
+            city_counter, lang_total, seen_place_ids,
         )
         per_city_counts.append((source["city_label"], n))
 

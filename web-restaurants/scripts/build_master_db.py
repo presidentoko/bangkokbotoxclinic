@@ -372,6 +372,7 @@ def main():
     cuisine_counter: Counter[str] = Counter()
     city_counter: Counter[str] = Counter()
     lang_total = Counter()
+    seen_place_ids: set[str] = set()  # place_id dedup — same Google place, multiple CSV rows
 
     for city_id, output_dir, display_name in CITIES:
         rest_csv = output_dir / "restaurants.csv"
@@ -390,6 +391,10 @@ def main():
                 # 정상 place_id 형식: "0x{hex}:0x{hex}"
                 if not re.match(r"^[0-9a-fA-Fx:_-]+$", place_id):
                     continue
+                # Dedup — 같은 Google place_id 가 같은 CSV 또는 multiple CSV 에서 중복 등장 시 첫 번째만.
+                if place_id in seen_place_ids:
+                    continue
+                seen_place_ids.add(place_id)
 
                 try:
                     rating = float(row.get("rating") or 0)
