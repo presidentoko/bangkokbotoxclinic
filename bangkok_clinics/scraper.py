@@ -882,39 +882,91 @@ def collect_reviews_for_restaurant(
 
 # ── CSV 저장 ─────────────────────────────────────────────────
 
+class _FileLock:
+    """Read-modify-write race 방지. 8 worker 동시 CSV merge 중 데이터 손실 사례 (2026-05-09)
+    이후 추가. O_EXCL atomic create 기반 — 외부 dep 없음. 60s stale lock 자동 회수."""
+
+    def __init__(self, path: Path, timeout: float = 30.0):
+        self.lock_path = path.with_suffix(path.suffix + ".lock")
+        self.timeout = timeout
+        self._held = False
+
+    def __enter__(self):
+        deadline = time.time() + self.timeout
+        while time.time() < deadline:
+            try:
+                fd = os.open(str(self.lock_path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+                os.write(fd, str(os.getpid()).encode())
+                os.close(fd)
+                self._held = True
+                return self
+            except FileExistsError:
+                # 60s 넘은 lock 은 stale 로 간주 → 회수
+                try:
+                    if time.time() - self.lock_path.stat().st_mtime > 60:
+                        try:
+                            self.lock_path.unlink()
+                        except OSError:
+                            pass
+                        continue
+                except OSError:
+                    pass
+                time.sleep(0.05)
+        # timeout — 그래도 진행 (block 보다 stale 위험을 받아들임)
+        log.warning(f"  csv lock {self.lock_path.name} {self.timeout}s timeout — 진행")
+        return self
+
+    def __exit__(self, *args):
+        if self._held:
+            try:
+                self.lock_path.unlink()
+            except OSError:
+                pass
+
+
+def _atomic_write_csv(path: Path, header: list[str], rows: list[list]):
+    """tmp → rename atomic. 부분-쓰기 상태에서 reader 가 truncated CSV 보는 거 방지."""
+    tmp = path.with_suffix(path.suffix + f".tmp.{os.getpid()}")
+    with open(tmp, "w", newline="", encoding="utf-8-sig") as f:
+        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
+        w.writerow(header)
+        for r in rows:
+            w.writerow(r)
+    os.replace(str(tmp), str(path))  # POSIX + Windows atomic
+
+
 def _merge_and_save_restaurants(
     path: Path, new_restaurants: list[Restaurant], existing_ids: set[str]
 ):
     """모든 기존 row 보존 + 신규 place_id는 교체하여 저장.
     existing_ids는 더 이상 필터 용도가 아니라 호환용 파라미터.
-    신규 collection의 place_id는 기존 row를 덮어쓴다."""
+    신규 collection의 place_id는 기존 row를 덮어쓴다.
+    Lock + atomic write — 동시 worker race 방지 (2026-05-09 데이터 손실 사고 fix)."""
     header = ["place_id", "name", "primary_type",
               "formatted_address", "plus_code", "latitude", "longitude",
               "phone", "website", "menu_url",
               "rating", "total_reviews", "price_level", "price_symbol",
               "business_status", "editorial_summary", "maps_url"]
-    new_pids = {r.place_id for r in new_restaurants}
-    preserved: list[list[str]] = []
-    if path.exists():
-        with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
-            r = csv.reader(f)
-            rows = list(r)
-            if rows and rows[0] == header:
-                preserved = [row for row in rows[1:]
-                              if row and row[0] and row[0] not in new_pids]
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow(header)
-        for row in preserved:
-            w.writerow(row)
+    with _FileLock(path):
+        new_pids = {r.place_id for r in new_restaurants}
+        preserved: list[list[str]] = []
+        if path.exists():
+            with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
+                r = csv.reader(f)
+                rows = list(r)
+                if rows and rows[0] == header:
+                    preserved = [row for row in rows[1:]
+                                  if row and row[0] and row[0] not in new_pids]
+        out_rows = list(preserved)
         for r_ in new_restaurants:
-            w.writerow([
+            out_rows.append([
                 r_.place_id, r_.name, r_.primary_type,
                 r_.formatted_address, r_.plus_code, r_.latitude, r_.longitude,
                 r_.phone, r_.website, r_.menu_url,
                 r_.rating, r_.total_reviews, r_.price_level, r_.price_symbol,
                 r_.business_status, r_.editorial_summary, r_.maps_url,
             ])
+        _atomic_write_csv(path, header, out_rows)
 
 
 def _merge_and_save_features(
@@ -922,44 +974,36 @@ def _merge_and_save_features(
 ):
     """신규 place_id의 기존 features는 제거 후 새로 씀 (그 외 기존 row 보존)"""
     header = ["place_id", "section", "feature", "present"]
-    new_pids = {x.place_id for x in new_features}
-    preserved: list[list[str]] = []
-    if path.exists():
-        with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
-            r = csv.reader(f)
-            rows = list(r)
-            if rows and rows[0] == header:
-                preserved = [row for row in rows[1:]
-                              if row and row[0] and row[0] not in new_pids]
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow(header)
-        for row in preserved:
-            w.writerow(row)
-        for x in new_features:
-            w.writerow([x.place_id, x.section, x.feature, x.present])
+    with _FileLock(path):
+        new_pids = {x.place_id for x in new_features}
+        preserved: list[list[str]] = []
+        if path.exists():
+            with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
+                r = csv.reader(f)
+                rows = list(r)
+                if rows and rows[0] == header:
+                    preserved = [row for row in rows[1:]
+                                  if row and row[0] and row[0] not in new_pids]
+        out_rows = list(preserved) + [[x.place_id, x.section, x.feature, x.present] for x in new_features]
+        _atomic_write_csv(path, header, out_rows)
 
 
 def _merge_and_save_hours(
     path: Path, new_hours: list[RestaurantHours], existing_ids: set[str]
 ):
     header = ["place_id", "day", "hours_text"]
-    new_pids = {h.place_id for h in new_hours}
-    preserved: list[list[str]] = []
-    if path.exists():
-        with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
-            r = csv.reader(f)
-            rows = list(r)
-            if rows and rows[0] == header:
-                preserved = [row for row in rows[1:]
-                              if row and row[0] and row[0] not in new_pids]
-    with open(path, "w", newline="", encoding="utf-8-sig") as f:
-        w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
-        w.writerow(header)
-        for row in preserved:
-            w.writerow(row)
-        for h in new_hours:
-            w.writerow([h.place_id, h.day, h.hours_text])
+    with _FileLock(path):
+        new_pids = {h.place_id for h in new_hours}
+        preserved: list[list[str]] = []
+        if path.exists():
+            with open(path, newline="", encoding="utf-8-sig", errors="replace") as f:
+                r = csv.reader(f)
+                rows = list(r)
+                if rows and rows[0] == header:
+                    preserved = [row for row in rows[1:]
+                                  if row and row[0] and row[0] not in new_pids]
+        out_rows = list(preserved) + [[h.place_id, h.day, h.hours_text] for h in new_hours]
+        _atomic_write_csv(path, header, out_rows)
 
 
 def save_restaurants_csv(restaurants: list[Restaurant], path: Path):

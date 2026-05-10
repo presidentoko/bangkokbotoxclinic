@@ -83,6 +83,23 @@ def main() -> int:
         return 1
 
     print("[auto_git_push] push 완료 → Vercel auto-deploy 트리거됨")
+
+    # IndexNow ping — Bing/Yandex 즉시 인덱싱 트리거. 실패해도 push 은 성공으로 간주.
+    indexnow_script = ROOT / "scripts" / "indexnow_ping.py"
+    if indexnow_script.exists():
+        # 변경된 dataset 따라 어떤 site ping 할지 결정
+        targets = []
+        if any("web/data/" in p for p in paths_changed):
+            targets.append("clinic")
+        if any("web-restaurants/data/" in p for p in paths_changed):
+            targets.append("restaurants")
+        for t in targets:
+            try:
+                r = run([sys.executable, str(indexnow_script), t], check=False)
+                print(f"[auto_git_push] IndexNow {t}: {(r.stdout or '').strip()[:200]}")
+            except Exception as e:
+                print(f"[auto_git_push] IndexNow {t} skipped: {e}")
+
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     STATE_FILE.write_text(str(cur_mtime))
     return 0
