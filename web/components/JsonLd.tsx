@@ -96,6 +96,35 @@ export function ClinicJsonLd({ c }: { c: Clinic }) {
   return tag(data);
 }
 
+/**
+ * HowTo schema — 단계별 가이드 페이지에 적합. Google rich result 가능.
+ * 자동 사용: 가이드 sections 가 "Step 1 —", "01 —", "1." 같은 enumerable 형식이면 적용.
+ * AEO: LLM이 "how to X" 질문에 우리 가이드 인용하기 쉬워짐.
+ */
+export function HowToJsonLd({ name, description, url, steps }: {
+  name: string;
+  description: string;
+  url: string;
+  steps: { name: string; text: string }[];
+}) {
+  if (steps.length < 2) return null;
+  const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    url: fullUrl,
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      url: `${fullUrl}#step-${i + 1}`,
+    })),
+  });
+}
+
 export function FaqJsonLd({ faqs }: { faqs: { q: string; a: string }[] }) {
   if (!faqs.length) return null;
   return tag({

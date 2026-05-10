@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { GUIDES, findGuide } from "@/lib/guides";
-import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
@@ -146,6 +146,19 @@ export default async function GuidePage(
         { name: g.title, url: `/guide/${g.slug}` },
       ]} />
       <FaqJsonLd faqs={g.faqs} />
+      {/* HowTo schema — 가이드 sections 의 heading이 "Step N —" 또는 숫자로 시작하면
+          step-by-step guide로 인식. 현재 verifying-clinic-before-booking이 7단계라 매치. */}
+      {g.sections.length >= 3 && /^(step|단계|01|1\.|^\d+\s*[—-])/i.test(g.sections[0].heading) && (
+        <HowToJsonLd
+          name={g.title}
+          description={g.metaDescription}
+          url={`/guide/${g.slug}`}
+          steps={g.sections.map((s) => ({
+            name: s.heading.replace(/^(step\s*\d+\s*[—-]?\s*|단계\s*\d+\s*[—-]?\s*|^\d+\.?\s*[—-]?\s*)/i, "").trim(),
+            text: s.body.length > 500 ? s.body.slice(0, 497) + "..." : s.body,
+          }))}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
