@@ -18,6 +18,24 @@ export type SampleReview = {
   author: string;
 };
 
+export type ExternalPlatform = "tripadvisor" | "whatclinic" | "trustpilot" | "facebook" | "bookimed";
+
+export type ExternalReview = {
+  url: string;
+  rating: number | null;
+  count: number;
+  last_checked: string;       // ISO timestamp
+};
+
+export type ServicePrice = {
+  service: string;            // "botox" | "filler" | ...
+  unit_label: string;         // "per area", "per unit", "per session"
+  price_min_thb: number;
+  price_max_thb: number;
+  source_url: string;
+  last_checked: string;
+};
+
 export type Clinic = {
   id: string;
   place_id: string;
@@ -47,6 +65,8 @@ export type Clinic = {
   sample_reviews_en: SampleReview[];
   sample_reviews_ko: SampleReview[];
   sample_reviews_negative?: SampleReview[];  // rating ≤ 3, B2B dashboard reply 초안용
+  external_reviews?: Partial<Record<ExternalPlatform, ExternalReview>>;
+  pricing?: ServicePrice[];
   business_status: string;
   maps_url: string;
 };

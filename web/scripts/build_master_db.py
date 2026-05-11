@@ -618,6 +618,33 @@ def process_source(
     return n
 
 
+def merge_external_data(clinics: list[dict]) -> None:
+    """data/external_reviews/{clinic_id}.json + data/pricing/{clinic_id}.json merge."""
+    ext_dir = WEB_DATA / "external_reviews"
+    price_dir = WEB_DATA / "pricing"
+    ext_n = 0
+    price_n = 0
+    for c in clinics:
+        cid = c["id"]
+        ext_file = ext_dir / f"{cid}.json"
+        if ext_file.exists():
+            try:
+                c["external_reviews"] = json.loads(ext_file.read_text(encoding="utf-8"))
+                ext_n += 1
+            except Exception as e:
+                print(f"[merge ext] {cid} err: {e}", file=sys.stderr)
+        price_file = price_dir / f"{cid}.json"
+        if price_file.exists():
+            try:
+                data = json.loads(price_file.read_text(encoding="utf-8"))
+                c["pricing"] = data if isinstance(data, list) else data.get("prices", [])
+                price_n += 1
+            except Exception as e:
+                print(f"[merge price] {cid} err: {e}", file=sys.stderr)
+    if ext_n or price_n:
+        print(f"[merge] external_reviews={ext_n}, pricing={price_n}")
+
+
 # ── 메인 ──────────────────────────────────────────────────────
 def main():
     bangkok_csv = SOURCES[0]["clinics_csv"]
@@ -642,6 +669,9 @@ def main():
             city_counter, lang_total, seen_place_ids,
         )
         per_city_counts.append((source["city_label"], n))
+
+    # External reviews + pricing 통합 (scraper가 채워두는 데이터 merge)
+    merge_external_data(clinics)
 
     clinics.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))
 

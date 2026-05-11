@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CLINIC_OUT = ROOT / "bangkok_clinics" / "output"
 BUILD_SCRIPT = ROOT / "web" / "scripts" / "build_master_db.py"
+CRISIS_SCRIPT = ROOT / "web" / "scripts" / "crisis_alert.py"
 OUT_JSON = ROOT / "web" / "data" / "master_db.json"
 VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
@@ -76,7 +77,27 @@ def run_build() -> bool:
     for line in (result.stdout or "").splitlines():
         log.info(f"  {line}")
     log.info(f"재빌드 완료 ({elapsed:.1f}s)")
+
+    # 빌드 성공 → crisis alert chain. 파트너 신규 부정 리뷰 detect → LINE/email push.
+    run_crisis_alert()
     return True
+
+
+def run_crisis_alert() -> None:
+    if not CRISIS_SCRIPT.exists():
+        log.warning(f"crisis_alert.py 없음: {CRISIS_SCRIPT} — 스킵")
+        return
+    try:
+        result = subprocess.run(
+            [str(VENV_PY), str(CRISIS_SCRIPT)],
+            capture_output=True, text=True, timeout=120, encoding="utf-8",
+        )
+        for line in (result.stdout or "").splitlines():
+            log.info(f"  crisis: {line}")
+        if result.returncode != 0:
+            log.warning(f"crisis_alert exit {result.returncode}: {(result.stderr or '')[-500:]}")
+    except Exception as e:
+        log.error(f"crisis_alert spawn 실패: {e}")
 
 
 def main():

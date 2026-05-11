@@ -1,14 +1,13 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { DashboardView } from "@/components/DashboardView";
+import { getRecentLeads, getLeadCount } from "@/lib/leadStore";
+import { getPartner } from "@/lib/partners";
 import type { Metadata } from "next";
 
-export const dynamic = "force-static";
-
-export async function generateStaticParams() {
-  const db = await (await import("@/lib/data")).loadMasterDb();
-  return db.clinics.map((c) => ({ id: c.id }));
-}
+// 대쉬보드는 private (robots disallow) + 실시간 lead 표시 필요 → dynamic 렌더링.
+// SSG 캐시 안 함. 클리닉 owner 가 직접 방문할 때마다 최신 lead 가져옴.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
@@ -44,12 +43,24 @@ export default async function ClinicDashboardPage(
     ? cityList.reduce((s, x) => s + x.rating, 0) / cityList.length
     : null;
 
+  // 실시간 lead 데이터 (Upstash 미설정 시 빈 배열, ROI는 0)
+  const [recentLeads, leadCount] = await Promise.all([
+    getRecentLeads(c.id, 10),
+    getLeadCount(c.id),
+  ]);
+  const partner = getPartner(c.id);
+  const ticketAvg = partner?.monthly_ticket_avg_thb ?? 15000;
+
   return (
     <DashboardView
       clinic={c}
       competitors={competitors}
       cityAvgRating={cityAvgRating}
       cityClinicCount={cityClinicCount}
+      recentLeads={recentLeads}
+      totalLeads={leadCount}
+      ticketAvg={ticketAvg}
+      isPartner={!!partner}
     />
   );
 }

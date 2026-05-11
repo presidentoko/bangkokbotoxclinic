@@ -245,7 +245,7 @@ export default async function ClinicPage(
             </p>
           </div>
 
-          <BookingForm clinicName={c.name} />
+          <BookingForm clinicId={c.id} clinicName={c.name} />
 
           <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">
             <a

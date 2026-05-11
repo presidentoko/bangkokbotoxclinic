@@ -20,8 +20,9 @@ const TIME_SLOTS = [
 ];
 
 export function BookingForm({
-  clinicName, defaultService,
+  clinicId, clinicName, defaultService,
 }: {
+  clinicId?: string;
   clinicName?: string;
   defaultService?: string;
 }) {
@@ -33,6 +34,7 @@ export function BookingForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
 
   const today = new Date();
@@ -48,6 +50,7 @@ export function BookingForm({
         body: JSON.stringify({
           email,
           message: notes,
+          clinicId,
           clinicName,
           service,
           context: clinicName ? "booking_clinic" : "booking_general",
@@ -55,6 +58,7 @@ export function BookingForm({
           phone,
           date: dateStr,
           timeSlot,
+          _hp: honeypot,
         }),
       });
       setStatus(res.ok ? "ok" : "error");
@@ -81,6 +85,17 @@ export function BookingForm({
 
   return (
     <div className="bg-white border border-[var(--border)] rounded-xl overflow-hidden">
+      {/* Honeypot — 봇만 채우는 invisible field */}
+      <input
+        type="text"
+        name="website_url_confirm"
+        tabIndex={-1}
+        autoComplete="off"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }}
+        aria-hidden="true"
+      />
       <div className="px-5 pt-5">
         <h3 className="font-bold text-lg">{heading}</h3>
         <p className="text-xs text-[var(--muted)] mt-1">
