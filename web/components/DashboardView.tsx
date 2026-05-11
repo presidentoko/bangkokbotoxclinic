@@ -4,6 +4,7 @@
 
 import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
+import { draftReply, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
 
 type Props = {
   clinic: Clinic;
@@ -226,6 +227,128 @@ export function DashboardView({ clinic: c, competitors, cityAvgRating, cityClini
           </Card>
         </section>
       )}
+
+      {/* AI 리뷰 응답 초안 — 부정 리뷰 대응 */}
+      {(c.sample_reviews_negative ?? []).length > 0 && (
+        <section className="mb-8">
+          <Card>
+            <div className="flex items-baseline justify-between gap-4 mb-1 flex-wrap">
+              <h2 className="text-lg font-bold">AI review reply drafts</h2>
+              <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full" style={{ background: "#7c3aed15", color: "#7c3aed" }}>
+                Premium
+              </span>
+            </div>
+            <p className="text-xs text-[var(--muted)] mb-4">
+              Negative reviews left unanswered drop your Trust Score. We auto-draft a category-matched reply for each — copy, edit, paste to Google.
+            </p>
+            <div className="space-y-4">
+              {(c.sample_reviews_negative ?? []).map((rev, i) => {
+                const { category, draft } = draftReply(rev.text, c.name, rev.author);
+                return (
+                  <div key={i} className="border border-[var(--border)] rounded-xl p-4 bg-gray-50/50">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-yellow-600 text-sm">{"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700 font-bold">
+                        {REPLY_CATEGORY_LABELS[category]}
+                      </span>
+                      <span className="text-xs text-[var(--muted)]">— {rev.author || "Google reviewer"}</span>
+                    </div>
+                    <p className="text-sm text-[var(--fg)] mb-3 italic leading-relaxed">&ldquo;{rev.text}&rdquo;</p>
+                    <div className="bg-white border border-[var(--border)] rounded-lg p-3">
+                      <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#7c3aed" }}>
+                        Reply draft
+                      </div>
+                      <p className="text-sm text-[var(--fg)] leading-relaxed whitespace-pre-wrap">{draft}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+        </section>
+      )}
+
+      {/* Competitor weakness — 같은 카테고리/구 경쟁자의 부정 리뷰 패턴 */}
+      {(() => {
+        const compWithNeg = competitors
+          .filter((x) => x.id !== c.id && (x.sample_reviews_negative ?? []).length > 0)
+          .slice(0, 3);
+        if (compWithNeg.length === 0) return null;
+        return (
+          <section className="mb-8">
+            <Card>
+              <div className="flex items-baseline justify-between gap-4 mb-1 flex-wrap">
+                <h2 className="text-lg font-bold">Competitor weaknesses</h2>
+                <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full" style={{ background: "#0891b215", color: "#0891b2" }}>
+                  Premium
+                </span>
+              </div>
+              <p className="text-xs text-[var(--muted)] mb-4">
+                Where your top competitors get bad reviews. Use as marketing positioning — emphasize where they fall short.
+              </p>
+              <div className="space-y-3">
+                {compWithNeg.map((comp) => {
+                  const neg = (comp.sample_reviews_negative ?? [])[0];
+                  if (!neg) return null;
+                  const { category } = draftReply(neg.text, comp.name, neg.author);
+                  return (
+                    <div key={comp.id} className="border border-[var(--border)] rounded-xl p-4">
+                      <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                        <span className="font-bold text-sm truncate">{comp.name}</span>
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold">
+                            {REPLY_CATEGORY_LABELS[category]}
+                          </span>
+                          <span className="text-[var(--muted)] tabular-nums">Trust {comp.trust_score}</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-[var(--muted)] italic line-clamp-3 leading-relaxed">&ldquo;{neg.text}&rdquo;</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-[var(--muted)] mt-3">
+                Want full weakness reports across all your competitors? Email partners@bangkokbotoxclinic.com.
+              </p>
+            </Card>
+          </section>
+        );
+      })()}
+
+      {/* AEO citation tracker — placeholder */}
+      <section className="mb-8">
+        <Card>
+          <div className="flex items-baseline justify-between gap-4 mb-1 flex-wrap">
+            <h2 className="text-lg font-bold">AEO citation tracker</h2>
+            <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full" style={{ background: "#f59e0b15", color: "#92400e" }}>
+              Coming soon · Premium
+            </span>
+          </div>
+          <p className="text-xs text-[var(--muted)] mb-4">
+            How often LLM answers (ChatGPT, Perplexity, Claude, Google AI Overview) cite your clinic when users ask &ldquo;Best Bangkok botox / filler / HIFU&rdquo;.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-3">
+            <div className="border border-dashed border-[var(--border)] rounded-xl p-4 text-center">
+              <div className="text-xs uppercase tracking-widest text-[var(--muted)] mb-2">Perplexity</div>
+              <div className="text-3xl font-black tabular-nums text-[var(--muted)]">—</div>
+              <div className="text-xs text-[var(--muted)] mt-1">citations this week</div>
+            </div>
+            <div className="border border-dashed border-[var(--border)] rounded-xl p-4 text-center">
+              <div className="text-xs uppercase tracking-widest text-[var(--muted)] mb-2">ChatGPT</div>
+              <div className="text-3xl font-black tabular-nums text-[var(--muted)]">—</div>
+              <div className="text-xs text-[var(--muted)] mt-1">mentions in responses</div>
+            </div>
+            <div className="border border-dashed border-[var(--border)] rounded-xl p-4 text-center">
+              <div className="text-xs uppercase tracking-widest text-[var(--muted)] mb-2">Google AI</div>
+              <div className="text-3xl font-black tabular-nums text-[var(--muted)]">—</div>
+              <div className="text-xs text-[var(--muted)] mt-1">Overview inclusions</div>
+            </div>
+          </div>
+          <p className="text-xs text-[var(--muted)] mt-4 leading-relaxed">
+            Our llms.txt + structured data already make your clinic LLM-citable. Tracker launches when traffic baseline established (~4-6 weeks after Google indexing). Premium subscribers get weekly breakdown by query intent.
+          </p>
+        </Card>
+      </section>
 
       {/* Lead inflow (placeholder until traffic + form integration) */}
       <section className="mb-8">

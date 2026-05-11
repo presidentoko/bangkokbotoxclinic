@@ -46,6 +46,7 @@ export type Clinic = {
   sample_reviews_th: SampleReview[];
   sample_reviews_en: SampleReview[];
   sample_reviews_ko: SampleReview[];
+  sample_reviews_negative?: SampleReview[];  // rating ≤ 3, B2B dashboard reply 초안용
   business_status: string;
   maps_url: string;
 };

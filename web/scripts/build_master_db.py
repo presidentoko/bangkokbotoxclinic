@@ -479,6 +479,16 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         good.sort(key=lambda x: -x[1])
         return [{"text": t, "rating": r, "author": a} for t, r, a in good[:n]]
 
+    # 부정 리뷰 샘플 — B2B dashboard 의 review-reply 초안 + competitor weakness 용.
+    # 평점 1-3, 길이 60-400자. 가장 낮은 평점 우선 (최악 먼저).
+    def pick_negative(chunks: list[tuple[str, int, str]], n: int = 3):
+        all_lang: list[tuple[str, int, str]] = []
+        for _lang, lst in text_chunks_by_lang.items():
+            all_lang.extend(lst)
+        bad = [c for c in all_lang if 60 <= len(c[0]) <= 400 and c[1] <= 3 and c[1] >= 1]
+        bad.sort(key=lambda x: (x[1], -len(x[0])))  # rating asc, length desc
+        return [{"text": t, "rating": r, "author": a} for t, r, a in bad[:n]]
+
     return {
         "scraped_count": scraped,
         "local_guide_count": lg,
@@ -490,6 +500,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         "sample_reviews_th": pick_samples(text_chunks_by_lang["th"]),
         "sample_reviews_en": pick_samples(text_chunks_by_lang["en"]),
         "sample_reviews_ko": pick_samples(text_chunks_by_lang["ko"]),
+        "sample_reviews_negative": pick_negative(text_chunks_by_lang, n=3),
         "derived_categories": categories,
     }
 
@@ -599,6 +610,7 @@ def process_source(
                 "rating_trend": review_sig["rating_trend"],
                 "sample_reviews_th": review_sig["sample_reviews_th"],
                 "sample_reviews_en": review_sig["sample_reviews_en"],
+                "sample_reviews_negative": review_sig.get("sample_reviews_negative", []),
                 "business_status": row.get("business_status", ""),
                 "maps_url": row.get("maps_url", ""),
             })

@@ -162,15 +162,15 @@ export default async function ForClinicsPage() {
         />
 
         <Offering
-          tag="03 — Market Intelligence"
-          title="Weekly competitor dashboard"
+          tag="03 — Intelligence & AI Tools"
+          title="Premium dashboard — leverage your data"
           price="฿8,000 / month per clinic"
-          body="See exactly where your clinic ranks vs competitors in your district and service category. Spot which clinics dropped or gained Trust Score this week, what reviewers are saying about you and them, and which districts are gaining search volume."
+          body="Real-time clinic dashboard with 3 features you can't get elsewhere. Not just 'see your reviews' — actionable tools that move Trust Score and convert negative reviews into recovery."
           bullets={[
-            "Weekly delivered report (PDF + dashboard access)",
-            "Compare your reviewer-mentioned topics vs top 10 in district",
-            "Catch reputation issues — declining-rating alerts within hours",
-            "Designed for clinic GMs to set quarterly OKRs",
+            "AI Review Reply Drafts — every negative review auto-categorized + reply draft (apology + remedy + LINE CTA). Copy, edit, paste to Google in 30s",
+            "Competitor Weakness Reports — extracted negative review patterns from your top 5 competitors. Marketing positioning gold",
+            "AEO Citation Tracker — count how often ChatGPT/Perplexity/Google AI cites your clinic in answers (launching Q3)",
+            "Plus: Trust Score breakdown + rating trend + topic analysis + 50 latest review samples",
           ]}
           accent="#0891b2"
         />
