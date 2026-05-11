@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-11T09:07:14.515776+00:00",
+  "generated_at": "2026-05-11T11:04:47.670282+00:00",
   "total_clinics": 2928,
   "with_district": 2015,
-  "with_categories": 1826,
-  "with_reviews_scraped": 2219,
+  "with_categories": 1825,
+  "with_reviews_scraped": 2218,
   "language_total": {
     "th": 2,
-    "en": 71914,
+    "en": 71907,
     "ko": 1,
     "ja": 0,
-    "other": 253
+    "other": 252
   },
   "city_counts": {
     "Bangkok": 2494,
@@ -64,10 +64,10 @@
     "Pratamnak": 1
   },
   "category_counts": {
-    "facial": 916,
+    "facial": 915,
     "dental": 719,
-    "laser": 645,
-    "botox": 512,
+    "laser": 646,
+    "botox": 511,
     "filler": 388,
     "hifu": 303,
     "hair_transplant": 35,
@@ -11593,6 +11593,132 @@
       "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+Nana+%7C+Asia%27s+Leading+Lifestyle+Center,+Sukhumvit+13+Bangkok+%28%E0%B8%9E%E0%B8%B1%E0%B8%A5%E0%B8%8B%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2%29/data=!4m7!3m6!1s0x30e29f30e66ca28f:0x1fb42e1d5c33d4d!8m2!3d13.7412532!4d100.557887!16s%2Fg%2F11cknf6t5j!19sChIJj6Js5jCf4jARTT3D1eFC-wE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102be55ed3ed2bb_0x641326246a1ecab6",
+      "place_id": "0x3102be55ed3ed2bb:0x641326246a1ecab6",
+      "name": "Dental Smile Pattaya - 3rd road dentists จัดฟัน พัทยา",
+      "name_lang": "other",
+      "primary_type": "Dental clinic",
+      "address": "\n313, 5 Pattaya 3rd Rd, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 86 338 8568",
+      "website": "https://www.dentalsmilepattaya.com/",
+      "lat": 12.9220061,
+      "lng": 100.8819085,
+      "rating": 4.9,
+      "total_reviews": 450,
+      "trust_score": 88.5,
+      "categories": [
+        "dental",
+        "laser"
+      ],
+      "scraped_review_count": 50,
+      "local_guide_count": 12,
+      "avg_author_review_count": 26.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 2,
+        "dental": 36
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 21
+        },
+        {
+          "topic": "professional",
+          "count": 18
+        },
+        {
+          "topic": "recommend",
+          "count": 14
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "no_pain",
+          "count": 3
+        },
+        {
+          "topic": "english_speaking",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 37,
+          "avg": 4.43
+        },
+        "midterm": {
+          "count": 13,
+          "avg": 4.69
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Very good service, the dentist Is super professional and knows how to take care and listen. Highly recommended",
+          "rating": 5,
+          "author": "Kizomba VersuS"
+        },
+        {
+          "text": "I've been coming to the Dental Smile Clinic for many years. Dr. Aoy is very competent; years ago he fitted me with a ceramic bridge for four teeth each on the front of my upper and lower teeth, and I've never had any problems since. My fillings and teeth cleaning are also painless and professional.",
+          "rating": 5,
+          "author": "Robert Windlin"
+        },
+        {
+          "text": "Very good and professional clinic, would come back for sure next time we are in Thailand. Everything is clean and is organised. 🙏🏻 …",
+          "rating": 5,
+          "author": "Aldea Adelina"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "I don't know why expats are recommending this place, they always charge the maximum fees and use very bad quality materials that won't last a couple of months. I did 3 fillings in this clinic and all of them fell within months. And I have fillings from other clinics that lasted more than 10 years.",
+          "rating": 1,
+          "author": "Nolan"
+        },
+        {
+          "text": "Been there for a cleaning and based my dentist choice from the outstanding advice. Was really disappointed by the service offered, the cleaning was done within less than 20 minutes and all the procedure was not applied to all teeth, I mean the teeth polish, the fluoride treatment & the floss was done only on the front teeth and it cost a 1200 bahts! Simply a cash machine, don’t go there!",
+          "rating": 2,
+          "author": "Jean-Christophe Cimino"
+        },
+        {
+          "text": "I am only here for 3 weeks and told them I wanted to get as much work done as possible. I have made 3 appointments and they cancelled 2  out of the 3, it looks like I will get no dental work done when I am here",
+          "rating": 2,
+          "author": "Mark Vandewater"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dental+Smile+Pattaya+-+3rd+road+dentists+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x3102be55ed3ed2bb:0x641326246a1ecab6!8m2!3d12.9220061!4d100.8819085!16s%2Fg%2F11gzphjwv!19sChIJu9I-7VW-AjERtsoeaiQmE2Q?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x310295eac147e939_0x66c9d66603741f44",
       "place_id": "0x310295eac147e939:0x66c9d66603741f44",
       "name": "Pet Buddy Animal Clinic",
@@ -17268,98 +17394,6 @@
       "sample_reviews_negative": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Tooth+Box+Dental+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%97%E0%B8%B9%E0%B8%98%E0%B8%9A%E0%B8%AD%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1+%E0%B8%8B%E0%B8%AD%E0%B8%A2+1/data=!4m7!3m6!1s0x30e29fd9a8ab8b7d:0xcbdbd059cb8450b1!8m2!3d13.7279417!4d100.5339737!16s%2Fg%2F11stpwr346!19sChIJfYurqNmf4jARsVCEy1nQ28s?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102960cdb1cd041_0xd9ab684afe8c21ac",
-      "place_id": "0x3102960cdb1cd041:0xd9ab684afe8c21ac",
-      "name": "Royal Physiotherapy Clinic",
-      "name_lang": "en",
-      "primary_type": "Physical therapy clinic",
-      "address": "\n193/424, หมู่ที่10 ถนน สาย 3 หนองปรือ บางละมุง Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "",
-      "phone": "+66 91 242 2382",
-      "website": "http://www.physiotherapistpattaya.com/",
-      "lat": 12.9219777,
-      "lng": 100.8820237,
-      "rating": 4.9,
-      "total_reviews": 177,
-      "trust_score": 87.0,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 20,
-      "avg_author_review_count": 31.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 33,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 15
-        },
-        {
-          "topic": "professional",
-          "count": 7
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 3
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 2
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 20,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 30,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "He’s very good. Helped me with exercises to relieve a very old pain. It is now far more manageable.",
-          "rating": 5,
-          "author": "Lisa"
-        },
-        {
-          "text": "Absolutely fantastic service I had a really sore back and they managed to rectify this in one session",
-          "rating": 5,
-          "author": "Nigel Floyd"
-        },
-        {
-          "text": "Been coming here for about 2 months now 3 times a week. Absolutely amazing staff. Really helped my knee after acl surgery :) highly recommend!",
-          "rating": 5,
-          "author": "Caitlin Thomas"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Royal+Physiotherapy+Clinic/data=!4m7!3m6!1s0x3102960cdb1cd041:0xd9ab684afe8c21ac!8m2!3d12.9219777!4d100.8820237!16s%2Fg%2F1ptxqyzj9!19sChIJQdAc2wyWAjERrCGM_kpoq9k?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d43ca592b0a2d_0x29b2e97f1dcd7e9",
@@ -56111,59 +56145,6 @@
       "sample_reviews_negative": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/WellMed+Bangkok+Clinic+-+Silom/data=!4m7!3m6!1s0x30e2999ef357fad5:0x6fb8c8adff31bbce!8m2!3d13.7284347!4d100.5334794!16s%2Fg%2F11ymgvkf5x!19sChIJ1fpX856Z4jARzrsx_63IuG8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102be55ed3ed2bb_0x641326246a1ecab6",
-      "place_id": "0x3102be55ed3ed2bb:0x641326246a1ecab6",
-      "name": "Dental Smile Pattaya - 3rd road dentists จัดฟัน พัทยา",
-      "name_lang": "other",
-      "primary_type": "Dental clinic",
-      "address": "\n313, 5 Pattaya 3rd Rd, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 86 338 8568",
-      "website": "https://www.dentalsmilepattaya.com/",
-      "lat": 12.9220061,
-      "lng": 100.8819085,
-      "rating": 4.9,
-      "total_reviews": 450,
-      "trust_score": 80.8,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Dental+Smile+Pattaya+-+3rd+road+dentists+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x3102be55ed3ed2bb:0x641326246a1ecab6!8m2!3d12.9220061!4d100.8819085!16s%2Fg%2F11gzphjwv!19sChIJu9I-7VW-AjERtsoeaiQmE2Q?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e287005e14a82f_0x1b20086c6e7d72fd",
@@ -106429,6 +106410,57 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Sahaphat+Ratchada+Clinic/data=!4m7!3m6!1s0x30e29c352ce0a1f3:0x40c1e599ac48f780!8m2!3d13.7786571!4d100.5733217!16s%2Fg%2F1hf00yl8n!19sChIJ86HgLDWc4jARgPdIrJnlwUA?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102960cdb1cd041_0xd9ab684afe8c21ac",
+      "place_id": "0x3102960cdb1cd041:0xd9ab684afe8c21ac",
+      "name": "Royal Physiotherapy Clinic",
+      "name_lang": "en",
+      "primary_type": "Physical therapy clinic",
+      "address": "\n193/424, หมู่ที่10 ถนน สาย 3 หนองปรือ บางละมุง Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "",
+      "phone": "+66 91 242 2382",
+      "website": "http://www.physiotherapistpattaya.com/",
+      "lat": 12.9219777,
+      "lng": 100.8820237,
+      "rating": 4.9,
+      "total_reviews": 177,
+      "trust_score": 76.0,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Royal+Physiotherapy+Clinic/data=!4m7!3m6!1s0x3102960cdb1cd041:0xd9ab684afe8c21ac!8m2!3d12.9219777!4d100.8820237!16s%2Fg%2F1ptxqyzj9!19sChIJQdAc2wyWAjERrCGM_kpoq9k?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f9e8edeab13_0x7f9134b17f225744",
@@ -166008,112 +166040,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x311d5dd48b524ce5:0xf1b34058c9358aca!8m2!3d13.630829!4d100.7676708!16s%2Fg%2F11rfr7y3zz!19sChIJ5UxSi9RdHTERyoo1yVhAs_E?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102960c1bbe9a75_0x51049f5679f8113d",
-      "place_id": "0x3102960c1bbe9a75:0x51049f5679f8113d",
-      "name": "Virinda Clinic",
-      "name_lang": "en",
-      "primary_type": "Doctor",
-      "address": "\nหมู่ที่ 9 420/139 Soi Buakhao, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Central Pattaya",
-      "phone": "+66 64 651 9053",
-      "website": "",
-      "lat": 12.927855,
-      "lng": 100.8838928,
-      "rating": 4.5,
-      "total_reviews": 35,
-      "trust_score": 70.7,
-      "categories": [
-        "botox",
-        "facial"
-      ],
-      "scraped_review_count": 35,
-      "local_guide_count": 8,
-      "avg_author_review_count": 20.7,
-      "language_breakdown": {
-        "th": 0,
-        "en": 31,
-        "ko": 0,
-        "ja": 0,
-        "other": 1
-      },
-      "service_mentions": {
-        "botox": 4,
-        "facial": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 7
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 5
-        },
-        {
-          "topic": "professional",
-          "count": 3
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 2
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 4,
-          "avg": 4.0
-        },
-        "old": {
-          "count": 28,
-          "avg": 4.54
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The doctor was very gentle. My face looks amazing, perfect in every detail. I highly recommend her! 10/10!",
-          "rating": 5,
-          "author": "Harinrat Junthong"
-        },
-        {
-          "text": "The doctor is highly skilled, has a gentle face, and the results are natural, matching the reference image.",
-          "rating": 5,
-          "author": "Parichat Keawchonlacram"
-        },
-        {
-          "text": "This place is really great. When you're doing a craft, they unpack the box right in front of you and don't pressure you into buying courses.",
-          "rating": 5,
-          "author": "Ananya"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Virinda+Clinic/data=!4m7!3m6!1s0x3102960c1bbe9a75:0x51049f5679f8113d!8m2!3d12.927855!4d100.8838928!16s%2Fg%2F11c59x6qcb!19sChIJdZq-GwyWAjERPRH4eVafBFE?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x311d7f3c8f2b2a01_0x24b4da16c818bfe0",
       "place_id": "0x311d7f3c8f2b2a01:0x24b4da16c818bfe0",
       "name": "Club dental clinic - คลองสี่",
@@ -185111,6 +185037,114 @@
       "sample_reviews_negative": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Rasita+Clinic+Huai+Khwang/data=!4m7!3m6!1s0x30e29f006a8cbd93:0x8f92c6b75ef3e16f!8m2!3d13.7784253!4d100.5730126!16s%2Fg%2F11wjr4f1vl!19sChIJk72MagCf4jARb-HzXrfGko8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102960b89b9bc19_0xd74442d6caa6ca45",
+      "place_id": "0x3102960b89b9bc19:0xd74442d6caa6ca45",
+      "name": "Yin Yang Acupuncture Clinic",
+      "name_lang": "en",
+      "primary_type": "Acupuncture clinic",
+      "address": "\n313/255 Pattaya 3rd Rd, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 85 042 5942",
+      "website": "http://www.yinyang-clinic.com/",
+      "lat": 12.9256854,
+      "lng": 100.8842097,
+      "rating": 4.1,
+      "total_reviews": 27,
+      "trust_score": 68.5,
+      "categories": [],
+      "scraped_review_count": 27,
+      "local_guide_count": 10,
+      "avg_author_review_count": 30.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 21,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "recommend",
+          "count": 4
+        },
+        {
+          "topic": "english_speaking",
+          "count": 3
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 3,
+          "avg": 3.67
+        },
+        "old": {
+          "count": 24,
+          "avg": 4.21
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Fantastic doctor had serious ligament damage from a car accident went to this clinic The doctor diagnosed me treated me after 3 treatments my leg was 100% better after being in excruciating pain for 4 months Thank you kind regards Cam.",
+          "rating": 5,
+          "author": "Jim Phillips"
+        },
+        {
+          "text": "Highly recommend! the doctor is truly a master at his craft and knows exactly how to help heal the problem",
+          "rating": 5,
+          "author": "Dan G"
+        },
+        {
+          "text": "What a therapy...and doctor...\nMy knee has a new feeling and is relaxed..from the first session..\nAnd i will come more and more and more",
+          "rating": 5,
+          "author": "Hazem al-qunsul"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "My mother's condition worsened after treatment and she could barely walk. I was very sad. Luckily, I was able to withdraw in time. The course was called \"Course\" but I didn't finish it. Other people said it was cured, but my mother's condition worsened. However, the service was good. The doctor was very polite and nice.",
+          "rating": 1,
+          "author": "Thantip Wongsa"
+        },
+        {
+          "text": "Hello, my name is David from Belgium. I went to the Yin Yang clinic with arthritic pain in my back, neck and fingers and headaches, and unfortunately, after 4 sessions there was no improvement and I did not attend the last session.",
+          "rating": 1,
+          "author": "Davood Neimi"
+        },
+        {
+          "text": "Could not locate subscapularis, was offended when i had to ask him 3 times to pin this muscle, eventually refused to for no reason, and sent a dangerous voltage through what felt like my teres muscle.",
+          "rating": 1,
+          "author": "Thomas Easom"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Yin+Yang+Acupuncture+Clinic/data=!4m7!3m6!1s0x3102960b89b9bc19:0xd74442d6caa6ca45!8m2!3d12.9256854!4d100.8842097!16s%2Fg%2F11h331bffh!19sChIJGby5iQuWAjERRcqmytZCRNc?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d672152540305_0x68677dde4a620a33",
@@ -217105,6 +217139,57 @@
       "maps_url": "https://www.google.com/maps/place/Worawit+Medical/data=!4m7!3m6!1s0x30e29916f7bc1a6b:0x71157507e521dcc4!8m2!3d13.7486605!4d100.5038417!16s%2Fg%2F1hf49p5hn!19sChIJaxq89xaZ4jARxNwh5Qd1FXE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102960c1bbe9a75_0x51049f5679f8113d",
+      "place_id": "0x3102960c1bbe9a75:0x51049f5679f8113d",
+      "name": "Virinda Clinic",
+      "name_lang": "en",
+      "primary_type": "Doctor",
+      "address": "\nหมู่ที่ 9 420/139 Soi Buakhao, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Central Pattaya",
+      "phone": "+66 64 651 9053",
+      "website": "",
+      "lat": 12.927855,
+      "lng": 100.8838928,
+      "rating": 4.5,
+      "total_reviews": 35,
+      "trust_score": 63.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Virinda+Clinic/data=!4m7!3m6!1s0x3102960c1bbe9a75:0x51049f5679f8113d!8m2!3d12.927855!4d100.8838928!16s%2Fg%2F11c59x6qcb!19sChIJdZq-GwyWAjERPRH4eVafBFE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x3102e956fefa3c8f_0xdd1a444d1a42b0ab",
       "place_id": "0x3102e956fefa3c8f:0xdd1a444d1a42b0ab",
       "name": "Romrawin Clinic - Central Festival Pattaya",
@@ -221637,110 +221722,6 @@
       "sample_reviews_negative": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Cloud9+Clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x30e29d004656e1b5:0xcbf1848ccece0536!8m2!3d13.7902785!4d100.5480867!16s%2Fg%2F11w4qf470k!19sChIJteFWRgCd4jARNgXOzoyE8cs?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310297e79fbe2b0b_0x157b17ad6e8e581b",
-      "place_id": "0x310297e79fbe2b0b:0x157b17ad6e8e581b",
-      "name": "บางละมุงการแพทย์ คลินิกเวชกรรม",
-      "name_lang": "th",
-      "primary_type": "Hospital",
-      "address": "\n247 Pattaya Tai 18 Alley, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 88 586 0532",
-      "website": "",
-      "lat": 12.9238525,
-      "lng": 100.8819034,
-      "rating": 3.7,
-      "total_reviews": 31,
-      "trust_score": 62.4,
-      "categories": [],
-      "scraped_review_count": 19,
-      "local_guide_count": 5,
-      "avg_author_review_count": 13.4,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 3
-        },
-        {
-          "topic": "recommend",
-          "count": 2
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 3.67
-        },
-        "midterm": {
-          "count": 6,
-          "avg": 3.67
-        },
-        "old": {
-          "count": 10,
-          "avg": 3.4
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I had a bladder infection and received treatment here. The service was excellent. The two doctor's assistants were friendly and polite. I didn't have to wait long for the doctor. The doctor asked detailed questions, gave good advice, spoke kindly, and gave very gentle injections.",
-          "rating": 5,
-          "author": "Khunanya Jala"
-        },
-        {
-          "text": "The doctor is kind and speaks well. The nurses provide good service. Thank you very much.",
-          "rating": 5,
-          "author": "Pu3975 Pu"
-        },
-        {
-          "text": "Previously, the staff used to speak rudely. Today, the staff seemed to have changed. They spoke kindly and were very attentive. The doctor spoke politely and asked for details to examine my symptoms. I was very impressed.",
-          "rating": 5,
-          "author": "ing_oon srwp"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "The staff were rude. I came for a health checkup. I called and was told the checkup would cost 2,000 baht. When I arrived, I had to pay separately for each disease. How am I supposed to know what diseases I have? And I wanted to be tested for everything.",
-          "rating": 1,
-          "author": "Farida Mankhong"
-        },
-        {
-          "text": "I came to get treatment for syphilis. I brought the results with me. The staff said they didn't have any medicine...",
-          "rating": 1,
-          "author": "Mark Anurak"
-        },
-        {
-          "text": "No customer support. Make me come back at 6 pm but let me wait 1.5 hour for no doktor at all. Please change staff",
-          "rating": 1,
-          "author": "Chris R"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%B8%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x310297e79fbe2b0b:0x157b17ad6e8e581b!8m2!3d12.9238525!4d100.8819034!16s%2Fg%2F1hc1gfs0g!19sChIJCyu-n-eXAjERG1iObq0XexU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e28159dd2bb9a5_0x10edfd0f5599b138",
@@ -235724,57 +235705,6 @@
       "maps_url": "https://www.google.com/maps/place/Kingkaew+Dental+Clinic/data=!4m7!3m6!1s0x311d5dd6fc349a7b:0x8af4ca6e1fbaecc5!8m2!3d13.6439224!4d100.7130599!16s%2Fg%2F11c30vx0s0!19sChIJe5o0_NZdHTERxey6H27K9Io?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102960b89b9bc19_0xd74442d6caa6ca45",
-      "place_id": "0x3102960b89b9bc19:0xd74442d6caa6ca45",
-      "name": "Yin Yang Acupuncture Clinic",
-      "name_lang": "en",
-      "primary_type": "Acupuncture clinic",
-      "address": "\n313/255 Pattaya 3rd Rd, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 85 042 5942",
-      "website": "http://www.yinyang-clinic.com/",
-      "lat": 12.9256854,
-      "lng": 100.8842097,
-      "rating": 4.1,
-      "total_reviews": 27,
-      "trust_score": 58.2,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Yin+Yang+Acupuncture+Clinic/data=!4m7!3m6!1s0x3102960b89b9bc19:0xd74442d6caa6ca45!8m2!3d12.9256854!4d100.8842097!16s%2Fg%2F11h331bffh!19sChIJGby5iQuWAjERRcqmytZCRNc?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f2baa0d02a9_0x90cf32b172dfc46c",
       "place_id": "0x30e29f2baa0d02a9:0x90cf32b172dfc46c",
       "name": "ไชยแพทย์คลีนิก-25 (Chaibhaet Clinic-25)",
@@ -241508,6 +241438,57 @@
       "sample_reviews_negative": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Dental+Art+Clinic/data=!4m7!3m6!1s0x31029608efe57cd3:0x5e989618731bfe12!8m2!3d12.9317331!4d100.8865282!16s%2Fg%2F11hbqrls25!19sChIJ03zl7wiWAjEREv4bcxiWmF4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310297e79fbe2b0b_0x157b17ad6e8e581b",
+      "place_id": "0x310297e79fbe2b0b:0x157b17ad6e8e581b",
+      "name": "บางละมุงการแพทย์ คลินิกเวชกรรม",
+      "name_lang": "th",
+      "primary_type": "Hospital",
+      "address": "\n247 Pattaya Tai 18 Alley, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 88 586 0532",
+      "website": "",
+      "lat": 12.9238525,
+      "lng": 100.8819034,
+      "rating": 3.7,
+      "total_reviews": 31,
+      "trust_score": 54.9,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A5%E0%B8%B0%E0%B8%A1%E0%B8%B8%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x310297e79fbe2b0b:0x157b17ad6e8e581b!8m2!3d12.9238525!4d100.8819034!16s%2Fg%2F1hc1gfs0g!19sChIJCyu-n-eXAjERG1iObq0XexU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x31028d9d44f65321_0xbfe5b2e01e290741",
