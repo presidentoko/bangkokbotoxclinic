@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { loadMasterDb } from "@/lib/data";
+import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES } from "@/lib/guides";
 
@@ -80,6 +80,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: updated,
       changeFrequency: "weekly",
       priority: c.trust_score >= 70 ? 0.8 : c.trust_score >= 50 ? 0.6 : 0.4,
+    });
+  }
+
+  // Doctor pages (Sprint 3) — individual specialist profiles + city/specialty filters
+  items.push({ url: `${SITE}/doctors`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
+  for (const cityLabel of cities) {
+    const slug = cityLabel.toLowerCase().replace(/\s+/g, "-");
+    items.push({
+      url: `${SITE}/doctors/c/${slug}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+    });
+  }
+  for (const s of SERVICES) {
+    items.push({
+      url: `${SITE}/doctors/s/${s}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+    });
+  }
+  for (const d of getAllDoctors(db.clinics)) {
+    items.push({
+      url: `${SITE}/doctor/${d.composite_slug}`,
+      lastModified: updated,
+      changeFrequency: "weekly",
+      priority: d.mentions >= 5 ? 0.75 : 0.55,
     });
   }
 

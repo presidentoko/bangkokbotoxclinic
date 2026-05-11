@@ -36,6 +36,16 @@ export type ServicePrice = {
   last_checked: string;
 };
 
+export type DoctorStat = {
+  name: string;
+  slug: string;               // URL-safe slug (lowercase, dash-separated)
+  mentions: number;           // 리뷰 mention 횟수
+  rating_avg: number;
+  language_count: { th: number; en: number; ko: number; ja: number; other: number };
+  primary_lang: string;       // 가장 많은 mention 언어
+  samples: { text: string; rating: number; lang: string }[];
+};
+
 export type Clinic = {
   id: string;
   place_id: string;
@@ -67,6 +77,7 @@ export type Clinic = {
   sample_reviews_negative?: SampleReview[];  // rating ≤ 3, B2B dashboard reply 초안용
   external_reviews?: Partial<Record<ExternalPlatform, ExternalReview>>;
   pricing?: ServicePrice[];
+  doctor_stats?: DoctorStat[];
   business_status: string;
   maps_url: string;
 };

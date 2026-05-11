@@ -49,3 +49,48 @@ export function specialistSubset(clinics: Clinic[], category: string,
                                   threshold = 5): Clinic[] {
   return clinics.filter((c) => (c.service_mentions[category] ?? 0) >= threshold);
 }
+
+// ── Doctor helpers ──────────────────────────────────────────
+
+import type { DoctorStat } from "./types";
+
+export type DoctorWithClinic = DoctorStat & {
+  composite_slug: string;     // URL slug — globally unique
+  clinic: Clinic;
+};
+
+/** clinic_name slugified, 짧게 자르기 — SEO friendly suffix */
+function clinicSlugForUrl(c: Clinic): string {
+  const base = slugify(c.name).slice(0, 50);
+  return base || c.id.slice(0, 16);
+}
+
+/** doctor + clinic 조합으로 globally unique slug 생성 */
+export function makeCompositeDoctorSlug(d: DoctorStat, c: Clinic): string {
+  return `${d.slug}-at-${clinicSlugForUrl(c)}`;
+}
+
+export function getAllDoctors(clinics: Clinic[]): DoctorWithClinic[] {
+  const out: DoctorWithClinic[] = [];
+  for (const c of clinics) {
+    for (const d of c.doctor_stats ?? []) {
+      out.push({
+        ...d,
+        composite_slug: makeCompositeDoctorSlug(d, c),
+        clinic: c,
+      });
+    }
+  }
+  return out;
+}
+
+export function getDoctorByCompositeSlug(clinics: Clinic[], slug: string): DoctorWithClinic | undefined {
+  for (const c of clinics) {
+    for (const d of c.doctor_stats ?? []) {
+      if (makeCompositeDoctorSlug(d, c) === slug) {
+        return { ...d, composite_slug: slug, clinic: c };
+      }
+    }
+  }
+  return undefined;
+}

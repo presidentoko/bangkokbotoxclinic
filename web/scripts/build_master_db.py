@@ -400,7 +400,72 @@ def coords_from_maps_url(url: str) -> tuple[float | None, float | None]:
 
 
 # ── 리뷰 분석 (메인 enrichment) ───────────────────────────────
-def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
+# ── Doctor mention extraction ─────────────────────────────────
+# 리뷰 텍스트에서 의사 이름 추출. EN/TH/KO 패턴.
+# 영어: "Dr. Sirikul" / "Doctor Park Min" / "Dr Bhumi"
+# 태국어: "หมอ Sirikul" / "นพ.ภูมิ" / "พญ.สิริกุล"
+# 한국어: "박 선생님" / "민준 선생님"
+DR_EN_RE = re.compile(r"\b(?:Dr\.?|Doctor)\s+([A-Z][\w'\-]+(?:\s+[A-Z][\w'\-]+){0,2})\b")
+DR_TH_RE = re.compile(r"(?:หมอ|นพ\.|พญ\.|แพทย์)\s*([ก-๛A-Za-z]+(?:\s+[ก-๛A-Za-z]+)?)")
+DR_KO_RE = re.compile(r"([가-힣]{2,4})\s*선생(?:님)?")
+
+# 흔한 false positive (영어 인사말/대명사/장소명)
+DOCTOR_BLOCKLIST = {
+    "the", "this", "that", "but", "and", "for", "with", "she", "her", "him", "his",
+    "you", "they", "their", "very", "really", "so", "all", "every", "highly",
+    "bangkok", "thailand", "korea", "japan", "asia", "clinic", "doctor", "medical",
+    "smith", "john", "jane",  # generic placeholders sometimes appearing in templates
+}
+
+
+def _normalize_doctor_name(raw: str) -> str:
+    """공백 정리, title case, max 3 단어, blocklist 필터."""
+    s = re.sub(r"\s+", " ", raw).strip().rstrip(".,;:!?")
+    if not s or len(s) > 50:
+        return ""
+    tokens = s.split()
+    if not tokens:
+        return ""
+    # blocklist 첫 token 제거
+    if tokens[0].lower() in DOCTOR_BLOCKLIST:
+        return ""
+    # English 일 때 title case
+    if all(re.fullmatch(r"[A-Za-z'\-]+", t) for t in tokens):
+        tokens = [t.capitalize() for t in tokens[:3]]
+    else:
+        tokens = tokens[:3]
+    return " ".join(tokens)
+
+
+def extract_doctors(text: str) -> list[str]:
+    """텍스트에서 의사 이름 추출 (normalized)."""
+    if not text:
+        return []
+    names = []
+    for m in DR_EN_RE.finditer(text):
+        n = _normalize_doctor_name(m.group(1))
+        if n:
+            names.append(n)
+    for m in DR_TH_RE.finditer(text):
+        n = _normalize_doctor_name(m.group(1))
+        if n:
+            names.append(n)
+    for m in DR_KO_RE.finditer(text):
+        n = _normalize_doctor_name(m.group(1))
+        if n:
+            names.append(n)
+    return names
+
+
+def doctor_slug(name: str) -> str:
+    """URL 슬러그 — ASCII transliteration 없이 lowercase + dash."""
+    s = name.lower()
+    s = re.sub(r"[^\w\s가-힣ก-๛-]", "", s)
+    s = re.sub(r"\s+", "-", s).strip("-")
+    return s[:50]
+
+
+def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> dict:
     """reviews/<pid>_reviews.csv 분석.
     리턴: scraped_count, local_guide_count, avg_author_review_count,
     language_breakdown, service_mentions, mentioned_topics, rating_trend,
@@ -421,6 +486,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         "sample_reviews_th": [],
         "sample_reviews_en": [],
         "sample_reviews_ko": [],
+        "doctor_stats": [],
         "derived_categories": [],
     }
     if not p.exists():
@@ -448,11 +514,13 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
             pass
     avg_arc = sum(arc_list) / len(arc_list) if arc_list else 0.0
 
-    # 언어 분류 + 텍스트 누적
+    # 언어 분류 + 텍스트 누적 + 의사 mention 집계
     lang_count = {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0}
     text_chunks_by_lang: dict[str, list[tuple[str, int, str]]] = {
         "th": [], "en": [], "ko": [], "ja": [], "other": []
     }
+    # doctor name → { ratings: [], lang_count: {}, sample: str }
+    doctor_data: dict[str, dict] = {}
     for r in rows:
         text = (r.get("text") or "").strip()
         if not text:
@@ -464,6 +532,19 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         except ValueError:
             rt = 0
         text_chunks_by_lang[lang].append((text, rt, r.get("author_name", "")))
+
+        # 의사 mention — 한 리뷰에 여러 의사 가능
+        mentioned = set(extract_doctors(text))
+        for doc in mentioned:
+            d = doctor_data.setdefault(doc, {
+                "ratings": [], "lang_count": {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0},
+                "samples": [],
+            })
+            d["ratings"].append(rt)
+            d["lang_count"][lang] += 1
+            # 짧고 좋은 sample 후보 (50-250자, rating ≥ 4)
+            if 50 <= len(text) <= 250 and rt >= 4 and len(d["samples"]) < 2:
+                d["samples"].append({"text": text, "rating": rt, "lang": lang})
 
     # 전체 텍스트 통합 (서비스 멘션/토픽 추출용)
     all_text = " ".join(t for chunks in text_chunks_by_lang.values()
@@ -489,6 +570,33 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         bad.sort(key=lambda x: (x[1], -len(x[0])))  # rating asc, length desc
         return [{"text": t, "rating": r, "author": a} for t, r, a in bad[:n]]
 
+    # 의사별 집계 — mention 2회 이상만 채택, top 10
+    # 클리닉 이름과 겹치는 단어는 false positive (예: "Dr.Balance Clinic" → "Balance")
+    clinic_words = set()
+    if clinic_name:
+        clinic_words = {w.lower() for w in re.findall(r"[A-Za-z]{2,}", clinic_name)}
+    doctor_stats: list[dict] = []
+    for doc_name, d in doctor_data.items():
+        if len(d["ratings"]) < 2:
+            continue  # 1회 mention 은 노이즈
+        # 클리닉 이름 단어와 매칭되면 skip
+        doc_tokens = {t.lower() for t in doc_name.split() if re.fullmatch(r"[A-Za-z]+", t)}
+        if doc_tokens and doc_tokens.issubset(clinic_words):
+            continue
+        avg = sum(d["ratings"]) / len(d["ratings"])
+        primary_lang = max(d["lang_count"].items(), key=lambda kv: kv[1])[0]
+        doctor_stats.append({
+            "name": doc_name,
+            "slug": doctor_slug(doc_name),
+            "mentions": len(d["ratings"]),
+            "rating_avg": round(avg, 2),
+            "language_count": d["lang_count"],
+            "primary_lang": primary_lang,
+            "samples": d["samples"],
+        })
+    doctor_stats.sort(key=lambda x: -x["mentions"])
+    doctor_stats = doctor_stats[:10]
+
     return {
         "scraped_count": scraped,
         "local_guide_count": lg,
@@ -501,6 +609,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
         "sample_reviews_en": pick_samples(text_chunks_by_lang["en"]),
         "sample_reviews_ko": pick_samples(text_chunks_by_lang["ko"]),
         "sample_reviews_negative": pick_negative(text_chunks_by_lang, n=3),
+        "doctor_stats": doctor_stats,
         "derived_categories": categories,
     }
 
@@ -551,7 +660,7 @@ def process_source(
                 district_counter[district] += 1
             city_counter[city_label] += 1
 
-            review_sig = analyze_reviews(reviews_dir, place_id)
+            review_sig = analyze_reviews(reviews_dir, place_id, clinic_name=name)
 
             base_cat_set = tag_categories_from_text(
                 f"{row.get('primary_type', '')} {name}"
@@ -611,6 +720,7 @@ def process_source(
                 "sample_reviews_th": review_sig["sample_reviews_th"],
                 "sample_reviews_en": review_sig["sample_reviews_en"],
                 "sample_reviews_negative": review_sig.get("sample_reviews_negative", []),
+                "doctor_stats": review_sig.get("doctor_stats", []),
                 "business_status": row.get("business_status", ""),
                 "maps_url": row.get("maps_url", ""),
             })
