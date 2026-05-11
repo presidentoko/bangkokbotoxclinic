@@ -83,13 +83,22 @@ export default async function ForClinicsPage() {
         <p className="text-base md:text-lg text-[var(--muted)] max-w-2xl mx-auto text-balance mb-6">
           {db.total_clinics.toLocaleString()} clinics tracked across Bangkok with {totalReviews.toLocaleString()} verified Google reviews. Patients searching &quot;Bangkok botox&quot; or &quot;Bangkok filler&quot; land here, ready to book.
         </p>
-        <a
-          href="#pilot"
-          className="inline-block px-6 py-3 rounded-full text-white font-bold shadow-sm hover:shadow-md transition"
-          style={{ background: cfg.themeAccent }}
-        >
-          See your free 1-page report →
-        </a>
+        <div className="flex items-center justify-center gap-3 flex-wrap">
+          <a
+            href="#pilot"
+            className="inline-block px-6 py-3 rounded-full text-white font-bold shadow-sm hover:shadow-md transition"
+            style={{ background: cfg.themeAccent }}
+          >
+            See your free 1-page report →
+          </a>
+          <a
+            href="/dashboard/demo"
+            className="inline-block px-6 py-3 rounded-full font-bold border-2 hover:shadow-sm transition"
+            style={{ borderColor: cfg.themeAccent, color: cfg.themeAccent }}
+          >
+            See live demo dashboard ↗
+          </a>
+        </div>
       </header>
 
       {/* Stats grid */}
