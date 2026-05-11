@@ -104,28 +104,69 @@ export default async function ServicePage(
         </section>
       )}
 
-      <section>
-        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
-        <div className="grid gap-3">
-          {filtered.slice(0, 10).map((c, i) => (
-            <ClinicCard key={c.id} clinic={c} rank={i + 1} />
-          ))}
-        </div>
+      {/* 도시별 섹션 분리 — Bangkok 최상단, 그 다음 외국인 인기 순서. */}
+      {(() => {
+        const cityOrder = ["Bangkok", "Pattaya", "Phuket", "Chiang Mai", "Koh Samui", "Krabi", "Hua Hin"];
+        const byCity = new Map<string, typeof filtered>();
+        for (const c of filtered) {
+          const k = c.city_label || "Bangkok";
+          if (!byCity.has(k)) byCity.set(k, []);
+          byCity.get(k)!.push(c);
+        }
+        const sortedCities = cityOrder.filter((c) => byCity.has(c))
+          .concat([...byCity.keys()].filter((c) => !cityOrder.includes(c)));
 
-        <AffiliateInline category={label} />
-
-        <div className="grid gap-3 mt-3">
-          {filtered.slice(10, 100).map((c, i) => (
-            <ClinicCard key={c.id} clinic={c} rank={i + 11} />
-          ))}
-        </div>
-
-        {filtered.length > 100 && (
-          <p className="mt-6 text-sm text-[var(--muted)]">
-            {filtered.length - 100} more clinics available — visit district pages to explore.
-          </p>
-        )}
-      </section>
+        let globalRank = 1;
+        return sortedCities.map((city, idx) => {
+          const cityList = byCity.get(city) ?? [];
+          if (cityList.length === 0) return null;
+          const citySlug = cityList[0].city_slug || city.toLowerCase().replace(/\s+/g, "-");
+          const visible = cityList.slice(0, 50);
+          const more = cityList.length - visible.length;
+          const isMain = city === "Bangkok";
+          return (
+            <section key={city} className={isMain ? "" : "mt-12 pt-8 border-t border-[var(--border)]"}>
+              <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+                <h2 className="text-2xl md:text-3xl font-black tracking-tight">
+                  {label} in {city}
+                  <span className="text-[var(--muted)] font-normal text-base ml-2">
+                    {cityList.length} clinic{cityList.length === 1 ? "" : "s"}
+                  </span>
+                </h2>
+                <a
+                  href={`/city/${citySlug}`}
+                  className="text-sm font-bold hover:underline"
+                  style={{ color: "var(--accent)" }}
+                >
+                  All {city} clinics →
+                </a>
+              </div>
+              <div className="grid gap-3">
+                {visible.slice(0, 10).map((c) => {
+                  const r = globalRank++;
+                  return <ClinicCard key={c.id} clinic={c} rank={r} />;
+                })}
+              </div>
+              {idx === 0 && <AffiliateInline category={label} />}
+              {visible.length > 10 && (
+                <div className="grid gap-3 mt-3">
+                  {visible.slice(10).map((c) => {
+                    const r = globalRank++;
+                    return <ClinicCard key={c.id} clinic={c} rank={r} />;
+                  })}
+                </div>
+              )}
+              {more > 0 && (
+                <p className="mt-4 text-sm text-[var(--muted)]">
+                  <a href={`/city/${citySlug}`} className="hover:underline" style={{ color: "var(--accent)" }}>
+                    +{more} more {label.toLowerCase()} clinic{more === 1 ? "" : "s"} in {city} →
+                  </a>
+                </p>
+              )}
+            </section>
+          );
+        });
+      })()}
 
       <div className="my-8">
         <BookingForm defaultService={service} />
