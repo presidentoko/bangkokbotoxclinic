@@ -6,7 +6,7 @@ import { loadMasterDb, getRestaurantById } from "@/lib/data";
 import { CUISINE_LABELS } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
 
-export const runtime = "edge";
+// Edge runtime 제거 — loadMasterDb 가 fs 사용 (Node only).
 export const alt = "Restaurant — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
