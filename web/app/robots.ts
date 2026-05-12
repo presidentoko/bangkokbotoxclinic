@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/dashboard/"],
+        disallow: ["/api/", "/_next/", "/dashboard/", "/onboarding/"],
       },
       // AEO crawlers — explicitly allow + slow rate to be polite
       {

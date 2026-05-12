@@ -98,12 +98,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: updated, changeFrequency: "weekly", priority: 0.8,
     });
   }
-  for (const d of getAllDoctors(db.clinics)) {
+  const allDoctors = getAllDoctors(db.clinics);
+  for (const d of allDoctors) {
     items.push({
       url: `${SITE}/doctor/${d.composite_slug}`,
       lastModified: updated,
       changeFrequency: "weekly",
       priority: d.mentions >= 5 ? 0.75 : 0.55,
+    });
+  }
+
+  // District-only doctor pages
+  const doctorDistricts = new Set<string>();
+  for (const d of allDoctors) if (d.clinic.district) doctorDistricts.add(d.clinic.district);
+  for (const dist of doctorDistricts) {
+    const slug = dist.toLowerCase().replace(/\s+/g, "-");
+    items.push({
+      url: `${SITE}/doctors/d/${slug}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.75,
+    });
+  }
+
+  // District × specialty long-tail pages (≥3 doctors per combo)
+  const combos = new Map<string, number>();
+  for (const d of allDoctors) {
+    if (!d.clinic.district) continue;
+    for (const cat of d.clinic.categories) {
+      if (!SERVICES.includes(cat)) continue;
+      const key = `${d.clinic.district}|${cat}`;
+      combos.set(key, (combos.get(key) || 0) + 1);
+    }
+  }
+  for (const [key, n] of combos) {
+    if (n < 3) continue;
+    const [dist, cat] = key.split("|");
+    const slug = dist.toLowerCase().replace(/\s+/g, "-");
+    items.push({
+      url: `${SITE}/doctors/d/${slug}/${cat}`,
+      lastModified: updated, changeFrequency: "weekly",
+      priority: n >= 10 ? 0.85 : 0.7,
     });
   }
 
