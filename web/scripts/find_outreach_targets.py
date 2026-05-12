@@ -24,7 +24,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -134,7 +133,9 @@ def main():
             if ds:
                 d = ds[0]
                 top_doc = d["name"]
-                top_doc_url = f"{SITE_BASE}/doctor/{d['slug']}-at-{re.sub(r'[^a-z0-9-]','',c['name'].lower().replace(' ','-'))[:50]}"
+                # build_master_db.py 가 미리 계산한 composite_slug 사용 — TS slugify 와 일치 보장
+                composite = d.get("composite_slug") or f"{d['slug']}-at-{c['id'][:16]}"
+                top_doc_url = f"{SITE_BASE}/doctor/{composite}"
 
             w.writerow([
                 i, c["name"], c.get("district", ""), c["trust_score"],

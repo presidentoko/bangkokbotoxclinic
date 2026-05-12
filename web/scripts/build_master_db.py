@@ -465,6 +465,21 @@ def doctor_slug(name: str) -> str:
     return s[:50]
 
 
+def slugify_match_ts(s: str) -> str:
+    """lib/data.ts 의 slugify 와 정확히 동일하게 작동.
+    TS: .toLowerCase().replace(/[^a-z0-9฀-๿]+/g, "-").replace(/^-+|-+$/g, "")
+    의사 composite_slug 만들 때 클리닉 이름 부분 — Python/TS 일관성 유지."""
+    s = s.lower()
+    s = re.sub(r"[^a-z0-9฀-๿]+", "-", s)
+    s = re.sub(r"^-+|-+$", "", s)
+    return s
+
+
+def composite_doctor_slug(doc_slug: str, clinic_name: str) -> str:
+    """`{doctor_slug}-at-{clinic_slug}` — globally unique. TS의 makeCompositeDoctorSlug 와 동일."""
+    return f"{doc_slug}-at-{slugify_match_ts(clinic_name)[:50]}"
+
+
 def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> dict:
     """reviews/<pid>_reviews.csv 분석.
     리턴: scraped_count, local_guide_count, avg_author_review_count,
@@ -585,9 +600,11 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
             continue
         avg = sum(d["ratings"]) / len(d["ratings"])
         primary_lang = max(d["lang_count"].items(), key=lambda kv: kv[1])[0]
+        ds = doctor_slug(doc_name)
         doctor_stats.append({
             "name": doc_name,
-            "slug": doctor_slug(doc_name),
+            "slug": ds,
+            "composite_slug": composite_doctor_slug(ds, clinic_name) if clinic_name else ds,
             "mentions": len(d["ratings"]),
             "rating_avg": round(avg, 2),
             "language_count": d["lang_count"],

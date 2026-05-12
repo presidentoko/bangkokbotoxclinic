@@ -65,9 +65,11 @@ function clinicSlugForUrl(c: Clinic): string {
   return base || c.id.slice(0, 16);
 }
 
-/** doctor + clinic 조합으로 globally unique slug 생성 */
+/** doctor + clinic 조합으로 globally unique slug 생성.
+ *  build_master_db.py 가 미리 계산해서 d.composite_slug 에 저장하므로 그걸 우선 사용.
+ *  fallback 으로 TS 측에서 동일 로직 재계산 (구버전 master_db 호환). */
 export function makeCompositeDoctorSlug(d: DoctorStat, c: Clinic): string {
-  return `${d.slug}-at-${clinicSlugForUrl(c)}`;
+  return d.composite_slug || `${d.slug}-at-${clinicSlugForUrl(c)}`;
 }
 
 export function getAllDoctors(clinics: Clinic[]): DoctorWithClinic[] {

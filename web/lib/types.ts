@@ -39,6 +39,7 @@ export type ServicePrice = {
 export type DoctorStat = {
   name: string;
   slug: string;               // URL-safe slug (lowercase, dash-separated)
+  composite_slug?: string;    // `${slug}-at-${clinic_slug}` — globally unique URL slug
   mentions: number;           // 리뷰 mention 횟수
   rating_avg: number;
   language_count: { th: number; en: number; ko: number; ja: number; other: number };

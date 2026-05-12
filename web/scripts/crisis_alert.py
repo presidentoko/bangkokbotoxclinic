@@ -34,6 +34,22 @@ MASTER_DB = WEB / "data" / "master_db.json"
 PARTNERS_JSON = WEB / "data" / "clinic_partners.json"
 STATE_FILE = WEB / "data" / ".crisis_state.json"
 
+
+# 로컬 실행 시 web/.env.local 자동 로딩 (Vercel env vars 와 동일한 키 사용 가능).
+def _load_dotenv(path: Path) -> None:
+    if not path.exists():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k, v = k.strip(), v.strip().strip('"').strip("'")
+        if k and v and k not in os.environ:
+            os.environ[k] = v
+
+_load_dotenv(WEB / ".env.local")
+
 RESEND_KEY = os.environ.get("RESEND_API_KEY")
 RESEND_FROM = os.environ.get("RESEND_FROM_EMAIL", "Bangkok Botox Clinic <leads@bangkokbotoxclinic.com>")
 LINE_DEFAULT_TOKEN = os.environ.get("LINE_DEFAULT_BOT_TOKEN")
