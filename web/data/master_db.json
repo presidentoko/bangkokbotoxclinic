@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-05-12T05:58:41.451271+00:00",
+  "generated_at": "2026-05-12T08:21:32.200496+00:00",
   "total_clinics": 2928,
   "with_district": 2015,
   "with_categories": 1826,
   "with_reviews_scraped": 2216,
   "language_total": {
     "th": 2,
-    "en": 71817,
+    "en": 71802,
     "ko": 1,
     "ja": 0,
-    "other": 251
+    "other": 252
   },
   "city_counts": {
     "Bangkok": 2494,
@@ -64,11 +64,11 @@
     "Pratamnak": 1
   },
   "category_counts": {
-    "facial": 915,
+    "facial": 916,
     "dental": 719,
     "laser": 646,
-    "botox": 510,
-    "filler": 389,
+    "botox": 511,
+    "filler": 388,
     "hifu": 303,
     "hair_transplant": 35,
     "eye": 24
@@ -3131,11 +3131,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -6570,11 +6570,11 @@
           ],
           "procedures": [
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             }
           ],
@@ -10925,11 +10925,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 2
             },
             {
@@ -15645,11 +15645,11 @@
           ],
           "procedures": [
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             }
           ],
@@ -16303,11 +16303,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 2
             }
           ],
@@ -29023,15 +29023,15 @@
               "review_count": 5
             },
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "dental",
               "review_count": 1
             },
             {
               "service": "hifu",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             },
             {
@@ -30494,103 +30494,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Soul+Clinic+-+%E0%B9%82%E0%B8%8B%E0%B8%A5%E0%B8%A7%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30e29e81bf8ec54f:0xa2d5d29cf913eb65!8m2!3d13.7772057!4d100.5705816!16s%2Fg%2F11f5dgpxtg!19sChIJT8WOv4Ge4jARZesT-ZzS1aI?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310297867074e24f_0x9ff756cc3590d5ca",
-      "place_id": "0x310297867074e24f:0x9ff756cc3590d5ca",
-      "name": "PULSE CLINIC - South Pattaya | Asia's Leading Lifestyle Center",
-      "name_lang": "en",
-      "primary_type": "STD testing service",
-      "address": "\n194 13 Pattaya Sai 2 Rd, Nong Prue Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 62 828 7969",
-      "website": "https://www.pulse-clinic.com/",
-      "lat": 12.9271302,
-      "lng": 100.8765756,
-      "rating": 4.9,
-      "total_reviews": 318,
-      "trust_score": 85.5,
-      "categories": [],
-      "scraped_review_count": 70,
-      "local_guide_count": 14,
-      "avg_author_review_count": 17.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 50,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "professional",
-          "count": 18
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 12
-        },
-        {
-          "topic": "recommend",
-          "count": 9
-        },
-        {
-          "topic": "clean_facility",
-          "count": 6
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 39,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 31,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Friendly staff, quick professional service, and good communication. Highly recommend",
-          "rating": 5,
-          "author": "Tony C"
-        },
-        {
-          "text": "The doctor is kind, and the staff are friendly too!\n\nThe prices are reasonable.\n\nThey don't recommend unnecessary tests.\n\nThe facilities are hygienic and clean.",
-          "rating": 5,
-          "author": "최혜은"
-        },
-        {
-          "text": "The service was excellent. The doctor and assistants were very polite and attentive throughout the entire process.",
-          "rating": 5,
-          "author": "Nida Pattaya"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+South+Pattaya+%7C+Asia%27s+Leading+Lifestyle+Center/data=!4m7!3m6!1s0x310297867074e24f:0x9ff756cc3590d5ca!8m2!3d12.9271302!4d100.8765756!16s%2Fg%2F11t4_brpvw!19sChIJT-J0cIaXAjERytWQNcxW958?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fd24041c451_0x4d351df1b62a8334",
@@ -48284,11 +48187,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -49886,15 +49789,15 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -64389,11 +64292,11 @@
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             }
           ],
@@ -68346,11 +68249,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             }
           ],
@@ -69005,15 +68908,15 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "facial",
+              "review_count": 1
+            },
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -69679,91 +69582,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Beam+dental+clinic+pattaya+%7C+%E0%B8%9A%E0%B8%B5%E0%B8%A1+%E0%B9%80%E0%B8%94%E0%B8%99%E0%B8%97%E0%B8%B1%E0%B8%A5+%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%84+%E0%B8%97%E0%B8%B3%E0%B8%9F%E0%B8%B1%E0%B8%99-%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1+900%2F%E0%B8%9B%E0%B8%B5/data=!4m7!3m6!1s0x3102bfca9d540e35:0xf5cc512209ded872!8m2!3d12.9593456!4d100.8933218!16s%2Fg%2F11twstg5xv!19sChIJNQ5Uncq_AjERctjeCSJRzPU?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102975726a43ba5_0x155fbb15c7f5af8e",
-      "place_id": "0x3102975726a43ba5:0x155fbb15c7f5af8e",
-      "name": "Labote Clinic Pattaya & Labote Spa Soap",
-      "name_lang": "en",
-      "primary_type": "Beauty salon",
-      "address": "\nPattaya Sai Song Rd, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 92 756 2847",
-      "website": "https://www.facebook.com/laboteclinic/",
-      "lat": 12.9290725,
-      "lng": 100.8800472,
-      "rating": 4.4,
-      "total_reviews": 167,
-      "trust_score": 80.9,
-      "categories": [
-        "filler"
-      ],
-      "scraped_review_count": 10,
-      "local_guide_count": 4,
-      "avg_author_review_count": 12.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 4,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "filler": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 4,
-          "avg": 4.0
-        },
-        "midterm": {
-          "count": 6,
-          "avg": 4.17
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I've been to La Beaute Clinic many times and have been very impressed. The staff provides excellent service and the clinic is very clean. I highly recommend it; it's the best clinic in Pattaya!",
-          "rating": 5,
-          "author": "Maulik Cho"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "I got lip fillers, but they all came off after 5 days. I'm so sad.",
-          "rating": 1,
-          "author": "Ghuiop"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Labote+Clinic+Pattaya+%26+Labote+Spa+Soap/data=!4m7!3m6!1s0x3102975726a43ba5:0x155fbb15c7f5af8e!8m2!3d12.9290725!4d100.8800472!16s%2Fg%2F11f5tbmczl!19sChIJpTukJleXAjERjq_1xxW7XxU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f694cfeb64d_0xd3b809000e61c015",
@@ -79823,11 +79641,11 @@
               "review_count": 6
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 3
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 3
             },
             {
@@ -83407,15 +83225,15 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "facial",
+              "review_count": 1
+            },
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -94108,6 +93926,58 @@
       "maps_url": "https://www.google.com/maps/place/39+Dental+Clinic/data=!4m7!3m6!1s0x30e29c2fdcc2e093:0xe646d4bf8a35b404!8m2!3d13.789748!4d100.5652029!16s%2Fg%2F1tdnbppm!19sChIJk-DC3C-c4jARBLQ1ir_URuY?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310297867074e24f_0x9ff756cc3590d5ca",
+      "place_id": "0x310297867074e24f:0x9ff756cc3590d5ca",
+      "name": "PULSE CLINIC - South Pattaya | Asia's Leading Lifestyle Center",
+      "name_lang": "en",
+      "primary_type": "STD testing service",
+      "address": "\n194 13 Pattaya Sai 2 Rd, Nong Prue Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 62 828 7969",
+      "website": "https://www.pulse-clinic.com/",
+      "lat": 12.9271302,
+      "lng": 100.8765756,
+      "rating": 4.9,
+      "total_reviews": 318,
+      "trust_score": 79.0,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+South+Pattaya+%7C+Asia%27s+Leading+Lifestyle+Center/data=!4m7!3m6!1s0x310297867074e24f:0x9ff756cc3590d5ca!8m2!3d12.9271302!4d100.8765756!16s%2Fg%2F11t4_brpvw!19sChIJT-J0cIaXAjERytWQNcxW958?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e289a6b9e2e141_0xce9e6610ee1597a9",
       "place_id": "0x30e289a6b9e2e141:0xce9e6610ee1597a9",
       "name": "คลินิกทำฟันกู๊ดทีธ GoodTeeth Dental Clinic ลำโพ",
@@ -99975,11 +99845,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
@@ -102124,11 +101994,11 @@
           ],
           "procedures": [
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             }
           ],
@@ -103093,14 +102963,6 @@
           ],
           "procedures": [
             {
-              "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "laser",
               "review_count": 1
             },
@@ -103110,6 +102972,14 @@
             },
             {
               "service": "facial",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
+              "review_count": 1
+            },
+            {
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -107989,11 +107859,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -111173,11 +111043,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -113112,6 +112982,81 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%84%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x30e29f6a7053abc3:0x19388dbe7c25c4b!8m2!3d13.7226817!4d100.5308121!16s%2Fg%2F11grbv5t_j!19sChIJw6tTcGqf4jARS1zC59uIkwE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310297f9d75cbd31_0x51ab19da5d499620",
+      "place_id": "0x310297f9d75cbd31:0x51ab19da5d499620",
+      "name": "คลินิกหมอน้ำ Dental Square",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n313 109-110 Pattaya 3rd Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 38 425 424",
+      "website": "",
+      "lat": 12.9250026,
+      "lng": 100.8832361,
+      "rating": 4.9,
+      "total_reviews": 125,
+      "trust_score": 77.3,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 1,
+      "avg_author_review_count": 3.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 8,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The staff are lovely, the doctor is kind and very gentle. I always fall asleep every time I come.",
+          "rating": 5,
+          "author": "กฤษฎิ์หิรัญ ทับมณี"
+        },
+        {
+          "text": "The clinic provides excellent service. It's clean, efficient, and the doctor is kind. The service is outstanding.",
+          "rating": 5,
+          "author": "Vilairat Vv"
+        },
+        {
+          "text": "The doctor provided excellent care and spoke kindly. The staff were very lovely. The clinic was clean and highly standardized.",
+          "rating": 5,
+          "author": "Poupée"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B9%89%E0%B8%B3+Dental+Square/data=!4m7!3m6!1s0x310297f9d75cbd31:0x51ab19da5d499620!8m2!3d12.9250026!4d100.8832361!16s%2Fg%2F11fn624c6_!19sChIJMb1c1_mXAjERIJZJXdoZq1E?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x3102966d0301912f_0x324c4dcc3bced03f",
       "place_id": "0x3102966d0301912f:0x324c4dcc3bced03f",
       "name": "Lifecare Laboratory (Pattaya)",
@@ -113746,11 +113691,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -118074,11 +118019,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -125619,11 +125564,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -129011,11 +128956,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -131813,11 +131758,11 @@
               "review_count": 2
             },
             {
-              "service": "hifu",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -141878,11 +141823,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -144425,11 +144370,11 @@
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
@@ -144748,11 +144693,11 @@
               "review_count": 3
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -145378,11 +145323,11 @@
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             }
           ],
@@ -152710,9 +152655,9 @@
       "sample_reviews_negative": [],
       "doctor_stats": [
         {
-          "name": "Samart",
-          "slug": "samart",
-          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart's",
+          "slug": "samarts",
+          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -152728,9 +152673,9 @@
           "experience_signals": []
         },
         {
-          "name": "Samart's",
-          "slug": "samarts",
-          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart",
+          "slug": "samart",
+          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -153462,60 +153407,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1+%28%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%A3%E0%B8%A3+%E0%B9%84%E0%B8%94%E0%B8%AD%E0%B8%B2%E0%B8%99%E0%B9%88%E0%B8%B2+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD%29/data=!4m7!3m6!1s0x3102bff9534f2071:0x53285878f60a5d3f!8m2!3d12.9473879!4d100.9017701!16s%2Fg%2F11hzxrrq4t!19sChIJcSBPU_m_AjERP10K9nhYKFM?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310297f9d75cbd31_0x51ab19da5d499620",
-      "place_id": "0x310297f9d75cbd31:0x51ab19da5d499620",
-      "name": "คลินิกหมอน้ำ Dental Square",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n313 109-110 Pattaya 3rd Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 38 425 424",
-      "website": "",
-      "lat": 12.9250026,
-      "lng": 100.8832361,
-      "rating": 4.9,
-      "total_reviews": 125,
-      "trust_score": 74.2,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B9%89%E0%B8%B3+Dental+Square/data=!4m7!3m6!1s0x310297f9d75cbd31:0x51ab19da5d499620!8m2!3d12.9250026!4d100.8832361!16s%2Fg%2F11fn624c6_!19sChIJMb1c1_mXAjERIJZJXdoZq1E?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x3102b95962375abf_0x8100bd907f16e9b9",
@@ -159225,11 +159116,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -163573,11 +163464,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -165498,11 +165389,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hair_transplant",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hair_transplant",
               "review_count": 1
             }
           ],
@@ -171466,11 +171357,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hair_transplant",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hair_transplant",
               "review_count": 1
             }
           ],
@@ -176369,11 +176260,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -176949,11 +176840,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -195543,11 +195434,11 @@
               "review_count": 2
             },
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -195846,6 +195737,58 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%9A%E0%B9%87%E0%B8%95%E0%B8%95%E0%B8%B5%E0%B9%89%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C/data=!4m7!3m6!1s0x30e29ec63692a97b:0x22a9c5591b9929ce!8m2!3d13.7537192!4d100.542048!16s%2Fg%2F1td5tls_!19sChIJe6mSNsae4jARzimZG1nFqSI?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102975726a43ba5_0x155fbb15c7f5af8e",
+      "place_id": "0x3102975726a43ba5:0x155fbb15c7f5af8e",
+      "name": "Labote Clinic Pattaya & Labote Spa Soap",
+      "name_lang": "en",
+      "primary_type": "Beauty salon",
+      "address": "\nPattaya Sai Song Rd, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 92 756 2847",
+      "website": "https://www.facebook.com/laboteclinic/",
+      "lat": 12.9290725,
+      "lng": 100.8800472,
+      "rating": 4.4,
+      "total_reviews": 167,
+      "trust_score": 70.7,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Labote+Clinic+Pattaya+%26+Labote+Spa+Soap/data=!4m7!3m6!1s0x3102975726a43ba5:0x155fbb15c7f5af8e!8m2!3d12.9290725!4d100.8800472!16s%2Fg%2F11f5tbmczl!19sChIJpTukJleXAjERjq_1xxW7XxU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fce55cc6deb_0xbe5ff1dc525b997b",
       "place_id": "0x30e29fce55cc6deb:0xbe5ff1dc525b997b",
       "name": "เซ็นทรัลเมดิก คลินิกเวชกรรม สาขาดินแดง",
@@ -196042,6 +195985,119 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3/data=!4m7!3m6!1s0x311d5dd48b524ce5:0xf1b34058c9358aca!8m2!3d13.630829!4d100.7676708!16s%2Fg%2F11rfr7y3zz!19sChIJ5UxSi9RdHTERyoo1yVhAs_E?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102960c1bbe9a75_0x51049f5679f8113d",
+      "place_id": "0x3102960c1bbe9a75:0x51049f5679f8113d",
+      "name": "Virinda Clinic",
+      "name_lang": "en",
+      "primary_type": "Doctor",
+      "address": "\nหมู่ที่ 9 420/139 Soi Buakhao, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Central Pattaya",
+      "phone": "+66 64 651 9053",
+      "website": "",
+      "lat": 12.927855,
+      "lng": 100.8838928,
+      "rating": 4.5,
+      "total_reviews": 35,
+      "trust_score": 70.7,
+      "categories": [
+        "botox",
+        "facial"
+      ],
+      "scraped_review_count": 35,
+      "local_guide_count": 8,
+      "avg_author_review_count": 20.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 31,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "service_mentions": {
+        "botox": 4,
+        "facial": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 5
+        },
+        {
+          "topic": "recommend",
+          "count": 5
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 4.0
+        },
+        "old": {
+          "count": 28,
+          "avg": 4.54
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I have used this clinic for four years now and I recommend it , the doctor can run abit late but that is Thailand (Thai time)\nThe doctor and staff are nice. …",
+          "rating": 5,
+          "author": "Gary Read"
+        },
+        {
+          "text": "I came for a memo facial treatment, and I can clearly see my skin looking brighter. The doctor was very gentle; the injection was painless and very comfortable. The service was excellent; the staff were polite and gave great advice. I will definitely come back again.",
+          "rating": 5,
+          "author": "Nintaya Busrakham"
+        },
+        {
+          "text": "That day, we planned to take my boyfriend to get forehead injections first, rather than doing it ourselves. We thought we'd sit and support him during the procedure. The doctor said the procedure wasn't too scary, and we were so excited to …",
+          "rating": 5,
+          "author": "tOr Sparkle'"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "I had an appointment at this clinic at 5 PM, but the experience was incredibly disappointing. They somehow lost my appointment, and despite waiting patiently, it was nearly 6 PM when I noticed people with later appointments (5:30 PM) being …",
+          "rating": 1,
+          "author": "Carlos Del puerto"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Virinda+Clinic/data=!4m7!3m6!1s0x3102960c1bbe9a75:0x51049f5679f8113d!8m2!3d12.927855!4d100.8838928!16s%2Fg%2F11c59x6qcb!19sChIJdZq-GwyWAjERPRH4eVafBFE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d7f3c8f2b2a01_0x24b4da16c818bfe0",
@@ -224732,11 +224788,11 @@
               "review_count": 4
             },
             {
-              "service": "hifu",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -239940,11 +239996,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -245227,9 +245283,9 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "My first nose job. It's great. I've had it for two weeks. The staff provided excellent service. I really like it.",
+          "text": "Fair, fast and professional, have used the clinic 6 times in the last 6 years. Have referred the clinic to friends a lot. Never have had or heard of any problems. The take Visa and well not charge you 3%, if you cry a a little and 100% up front.",
           "rating": 5,
-          "author": "Sourcream Sirisopha"
+          "author": "Rocky Skaggs"
         },
         {
           "text": "I had breast augmentation with the doctor at Akara Clinic, Pattaya Sai 3. It didn't hurt at all. I recovered quickly. The doctor and staff provided good service.",
@@ -245237,9 +245293,9 @@
           "author": "ไพรินทร์ ประจงรัมย์"
         },
         {
-          "text": "I was very impressed with the service. I had breast augmentation done with the doctor here, and the results are amazing; I'm not disappointed at all.",
+          "text": "My first nose job. It's great. I've had it for two weeks. The staff provided excellent service. I really like it.",
           "rating": 5,
-          "author": "เขมกร เทพริยา"
+          "author": "Sourcream Sirisopha"
         }
       ],
       "sample_reviews_negative": [],
@@ -248923,58 +248979,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Worawit+Medical/data=!4m7!3m6!1s0x30e29916f7bc1a6b:0x71157507e521dcc4!8m2!3d13.7486605!4d100.5038417!16s%2Fg%2F1hf49p5hn!19sChIJaxq89xaZ4jARxNwh5Qd1FXE?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102960c1bbe9a75_0x51049f5679f8113d",
-      "place_id": "0x3102960c1bbe9a75:0x51049f5679f8113d",
-      "name": "Virinda Clinic",
-      "name_lang": "en",
-      "primary_type": "Doctor",
-      "address": "\nหมู่ที่ 9 420/139 Soi Buakhao, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Central Pattaya",
-      "phone": "+66 64 651 9053",
-      "website": "",
-      "lat": 12.927855,
-      "lng": 100.8838928,
-      "rating": 4.5,
-      "total_reviews": 35,
-      "trust_score": 63.5,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Virinda+Clinic/data=!4m7!3m6!1s0x3102960c1bbe9a75:0x51049f5679f8113d!8m2!3d12.927855!4d100.8838928!16s%2Fg%2F11c59x6qcb!19sChIJdZq-GwyWAjERPRH4eVafBFE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x3102e956fefa3c8f_0xdd1a444d1a42b0ab",
@@ -254532,15 +254536,15 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
