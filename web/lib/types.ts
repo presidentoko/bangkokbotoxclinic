@@ -45,6 +45,9 @@ export type DoctorStat = {
   language_count: { th: number; en: number; ko: number; ja: number; other: number };
   primary_lang: string;       // 가장 많은 mention 언어
   samples: { text: string; rating: number; lang: string }[];
+  procedures?: { service: string; review_count: number }[];  // 의사가 언급된 리뷰의 시술 분포
+  experience_signals?: string[];                              // "15 years experience", "Korea trained" 등 추출 phrase
+  clinic_doctor_url?: string;                                  // 클리닉 website 의 의사 소개 페이지 URL (cross-link)
 };
 
 export type Clinic = {

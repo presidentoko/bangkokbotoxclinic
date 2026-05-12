@@ -480,6 +480,30 @@ def composite_doctor_slug(doc_slug: str, clinic_name: str) -> str:
     return f"{doc_slug}-at-{slugify_match_ts(clinic_name)[:50]}"
 
 
+# ── 의사 경력 / 트레이닝 시그널 추출 ───────────────────────
+# 의사 mention 된 리뷰에서 의사에게 attribute 할 수 있는 keyword phrase 추출.
+EXP_PATTERNS = [
+    # "15 years experience", "10+ yrs of practice"
+    re.compile(r'\b\d{1,2}\+?\s*(?:years?|yrs?)\b(?:\s*(?:of\s*)?(?:experience|practice|expertise))?', re.I),
+    # "Korea trained", "US board certified", "Harvard fellowship", "Japan residency"
+    re.compile(r'\b(?:Korea[- ]?(?:n)?|Japan(?:ese)?|Harvard|Stanford|Yale|Mayo|Hopkins|US|American|British|UK|German|French)[- ]?(?:trained|board[- ]?certified|fellowship|residency|graduate|certified)\b', re.I),
+    # generic "board certified"
+    re.compile(r'\bboard[- ]?certified\b', re.I),
+]
+
+
+def extract_experience_signals(text: str) -> set[str]:
+    """리뷰 텍스트에서 경력 시그널 phrase 추출 (대소문자 정규화, dedup)."""
+    sigs: set[str] = set()
+    for pattern in EXP_PATTERNS:
+        for m in pattern.finditer(text):
+            phrase = re.sub(r'\s+', ' ', m.group(0).strip())
+            if 4 <= len(phrase) <= 60:
+                # 정규화: lowercase + 첫 글자만 대문자 (display friendly)
+                sigs.add(phrase.lower())
+    return sigs
+
+
 def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> dict:
     """reviews/<pid>_reviews.csv 분석.
     리턴: scraped_count, local_guide_count, avg_author_review_count,
@@ -550,13 +574,24 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
 
         # 의사 mention — 한 리뷰에 여러 의사 가능
         mentioned = set(extract_doctors(text))
+        if mentioned:
+            # 같은 리뷰의 시술 + 경력 시그널을 mentioned 의사 모두에게 attribute
+            review_services = set(count_service_mentions(text).keys())
+            review_exp_sigs = extract_experience_signals(text)
+        else:
+            review_services = set()
+            review_exp_sigs = set()
         for doc in mentioned:
             d = doctor_data.setdefault(doc, {
                 "ratings": [], "lang_count": {"th": 0, "en": 0, "ko": 0, "ja": 0, "other": 0},
-                "samples": [],
+                "samples": [], "procedures": {}, "exp_signals": {},
             })
             d["ratings"].append(rt)
             d["lang_count"][lang] += 1
+            for svc in review_services:
+                d["procedures"][svc] = d["procedures"].get(svc, 0) + 1
+            for sig in review_exp_sigs:
+                d["exp_signals"][sig] = d["exp_signals"].get(sig, 0) + 1
             # 짧고 좋은 sample 후보 (50-250자, rating ≥ 4)
             if 50 <= len(text) <= 250 and rt >= 4 and len(d["samples"]) < 2:
                 d["samples"].append({"text": text, "rating": rt, "lang": lang})
@@ -601,6 +636,18 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         avg = sum(d["ratings"]) / len(d["ratings"])
         primary_lang = max(d["lang_count"].items(), key=lambda kv: kv[1])[0]
         ds = doctor_slug(doc_name)
+        # top 시술 (review_count desc, 6개)
+        procs = d.get("procedures", {})
+        top_procedures = [
+            {"service": s, "review_count": c}
+            for s, c in sorted(procs.items(), key=lambda kv: -kv[1])[:6]
+        ]
+        # 경력 시그널 (review_count ≥ 2 만 — noise filter; top 5)
+        exp = d.get("exp_signals", {})
+        exp_signals = [
+            s for s, c in sorted(exp.items(), key=lambda kv: -kv[1])
+            if c >= 2
+        ][:5]
         doctor_stats.append({
             "name": doc_name,
             "slug": ds,
@@ -610,6 +657,8 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
             "language_count": d["lang_count"],
             "primary_lang": primary_lang,
             "samples": d["samples"],
+            "procedures": top_procedures,
+            "experience_signals": exp_signals,
         })
     doctor_stats.sort(key=lambda x: -x["mentions"])
     doctor_stats = doctor_stats[:10]
@@ -746,11 +795,13 @@ def process_source(
 
 
 def merge_external_data(clinics: list[dict]) -> None:
-    """data/external_reviews/{clinic_id}.json + data/pricing/{clinic_id}.json merge."""
+    """data/external_reviews/{clinic_id}.json + data/pricing/{clinic_id}.json + data/doctor_xref/{clinic_id}.json merge."""
     ext_dir = WEB_DATA / "external_reviews"
     price_dir = WEB_DATA / "pricing"
+    xref_dir = WEB_DATA / "doctor_xref"
     ext_n = 0
     price_n = 0
+    xref_n = 0
     for c in clinics:
         cid = c["id"]
         ext_file = ext_dir / f"{cid}.json"
@@ -768,8 +819,19 @@ def merge_external_data(clinics: list[dict]) -> None:
                 price_n += 1
             except Exception as e:
                 print(f"[merge price] {cid} err: {e}", file=sys.stderr)
-    if ext_n or price_n:
-        print(f"[merge] external_reviews={ext_n}, pricing={price_n}")
+        xref_file = xref_dir / f"{cid}.json"
+        if xref_file.exists():
+            try:
+                xref = json.loads(xref_file.read_text(encoding="utf-8"))
+                if xref and c.get("doctor_stats"):
+                    for d in c["doctor_stats"]:
+                        if d["name"] in xref:
+                            d["clinic_doctor_url"] = xref[d["name"]]
+                            xref_n += 1
+            except Exception as e:
+                print(f"[merge xref] {cid} err: {e}", file=sys.stderr)
+    if ext_n or price_n or xref_n:
+        print(f"[merge] external_reviews={ext_n}, pricing={price_n}, doctor_xref={xref_n}")
 
 
 # ── 메인 ──────────────────────────────────────────────────────

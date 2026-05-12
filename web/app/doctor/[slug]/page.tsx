@@ -132,6 +132,62 @@ export default async function DoctorPage(
             </div>
           </section>
 
+          {/* Procedures performed */}
+          {(d.procedures ?? []).length > 0 && (
+            <section className="bg-white border border-[var(--border)] rounded-xl p-5">
+              <h2 className="text-lg font-bold mb-1">What Dr. {d.name} is known for</h2>
+              <p className="text-xs text-[var(--muted)] mb-4">
+                Procedures mentioned alongside Dr. {d.name} in patient reviews.
+              </p>
+              <div className="space-y-2">
+                {(() => {
+                  const procs = d.procedures!;
+                  const max = Math.max(1, ...procs.map((p) => p.review_count));
+                  return procs.map((p) => {
+                    const pct = (p.review_count / max) * 100;
+                    const label = CATEGORY_LABELS[p.service] ?? p.service;
+                    return (
+                      <div key={p.service}>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span className="font-medium">{label}</span>
+                          <span className="tabular-nums">
+                            <strong>{p.review_count}</strong> reviews
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                          <div className="h-full rounded-full bg-purple-500" style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                    );
+                  });
+                })()}
+              </div>
+            </section>
+          )}
+
+          {/* Experience signals */}
+          {(d.experience_signals ?? []).length > 0 && (
+            <section className="bg-white border border-[var(--border)] rounded-xl p-5">
+              <h2 className="text-lg font-bold mb-1">Practice background signals</h2>
+              <p className="text-xs text-[var(--muted)] mb-3">
+                Credential + training mentions extracted from patient reviews.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {(d.experience_signals ?? []).map((sig) => (
+                  <span
+                    key={sig}
+                    className="px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium capitalize"
+                  >
+                    ✓ {sig}
+                  </span>
+                ))}
+              </div>
+              <p className="text-[11px] text-[var(--muted)] mt-3 italic">
+                These phrases were mentioned by 2+ patients. Treat as patient-reported signals, not verified credentials.
+              </p>
+            </section>
+          )}
+
           {/* Patient language breakdown */}
           <section className="bg-white border border-[var(--border)] rounded-xl p-5">
             <h2 className="text-lg font-bold mb-3">Patients who named Dr. {d.name}</h2>
@@ -209,6 +265,16 @@ export default async function DoctorPage(
           <BookingForm clinicId={c.id} clinicName={c.name} />
 
           <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">
+            {d.clinic_doctor_url && (
+              <a
+                href={d.clinic_doctor_url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="block w-full bg-emerald-600 text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-emerald-700 text-sm"
+              >
+                → Official bio at {c.name.length > 20 ? c.name.slice(0, 20) + "…" : c.name}
+              </a>
+            )}
             <a
               href={`/clinic/${c.id}`}
               className="block w-full bg-black text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-gray-800 text-sm"
