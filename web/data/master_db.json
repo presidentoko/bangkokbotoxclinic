@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-05-13T18:46:00.509168+00:00",
-  "total_clinics": 3118,
-  "with_district": 2140,
-  "with_categories": 1937,
+  "generated_at": "2026-05-13T20:27:36.722927+00:00",
+  "total_clinics": 3120,
+  "with_district": 2141,
+  "with_categories": 1940,
   "with_reviews_scraped": 2415,
   "language_total": {
     "th": 2,
-    "en": 78023,
+    "en": 78152,
     "ko": 1,
     "ja": 1,
     "other": 270
   },
   "city_counts": {
     "Bangkok": 2494,
-    "Pattaya": 624
+    "Pattaya": 626
   },
   "district_counts": {
-    "Bang Lamung": 393,
+    "Bang Lamung": 394,
     "Pathum Wan": 315,
     "Phaya Thai": 258,
     "Watthana": 179,
@@ -64,14 +64,14 @@
     "Nong Prue": 1
   },
   "category_counts": {
-    "facial": 968,
+    "facial": 967,
     "dental": 774,
-    "laser": 685,
-    "botox": 544,
+    "laser": 689,
+    "botox": 543,
     "filler": 420,
     "hifu": 311,
     "hair_transplant": 35,
-    "eye": 25
+    "eye": 26
   },
   "clinics": [
     {
@@ -2129,7 +2129,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/TRSC+INTERNATIONAL+EYE+AND+VISION+CENTER/data=!4m7!3m6!1s0x30e29f258aba6d0f:0x41e5d338f0fbc4dc!8m2!3d13.727204!4d100.5409094!16s%2Fg%2F1tjs2cx1!19sChIJD226iiWf4jAR3MT78DjT5UE?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/TRSC+INTERNATIONAL+EYE+AND+VISION+CENTER/data=!4m7!3m6!1s0x30e29f258aba6d0f:0x41e5d338f0fbc4dc!8m2!3d13.727204!4d100.5409094!16s%2Fg%2F1tjs2cx1!19sChIJD226iiWf4jAR3MT78DjT5UE?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f258aba6d0f:0x41e5d338f0fbc4dc",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/laser-vision-bangkok-eye-hospital",
+        "hdmall_name": "Laser Vision Bangkok Eye Hospital",
+        "hdmall_rating": null,
+        "hdmall_package_count": 8,
+        "match_score": 0.4,
+        "match_needs_review": true,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x310295311844f539_0x8fa0b9ded1ffe1e9",
@@ -3255,6 +3267,151 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Mersi+Clinic+Sukhumvit+39/data=!4m7!3m6!1s0x30e29f8a4091591b:0xb3e205bfdfa67c4b!8m2!3d13.7427672!4d100.5738988!16s%2Fg%2F11t9pcvx2b!19sChIJG1mRQIqf4jARS3ym378F4rM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102be152b37142d_0x81a466188fa77aa6",
+      "place_id": "0x3102be152b37142d:0x81a466188fa77aa6",
+      "name": "Bangkok Hospital Pattaya",
+      "name_lang": "en",
+      "primary_type": "Hospital",
+      "address": "\n301, Sukhumvit Rd, Muang Pattaya, Amphoe Bang Lamung, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 38 259 999",
+      "website": "https://www.bangkokhospital.com/pattaya",
+      "lat": 12.9538236,
+      "lng": 100.9055511,
+      "rating": 4.1,
+      "total_reviews": 2674,
+      "trust_score": 93.8,
+      "categories": [
+        "dental",
+        "eye",
+        "laser"
+      ],
+      "scraped_review_count": 70,
+      "local_guide_count": 33,
+      "avg_author_review_count": 48.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 70,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1,
+        "dental": 14,
+        "eye": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 24
+        },
+        {
+          "topic": "recommend",
+          "count": 22
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 11
+        },
+        {
+          "topic": "clean_facility",
+          "count": 10
+        },
+        {
+          "topic": "english_speaking",
+          "count": 7
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 7
+        },
+        {
+          "topic": "promotion",
+          "count": 6
+        },
+        {
+          "topic": "long_wait",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 5
+        },
+        {
+          "topic": "expensive",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "premium",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 24,
+          "avg": 4.83
+        },
+        "midterm": {
+          "count": 39,
+          "avg": 3.44
+        },
+        "old": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "High end hospital at very expensive price.\n\nPositives\nClean\nFast\nGood service\nAll types of medical needs covered\n\nNegatives\nExpensive\nThey always try to sell you some additional service you may not need.",
+          "rating": 5,
+          "author": "J Hern"
+        },
+        {
+          "text": "Premium care, well worth the price paid. Very satisfied. Dr. Poonsak did a beautiful job with the breast augmentation. All the nurses were lovely and friendly. I would highly recommend Bangkok Hospital Pattaya to anyone considering breast augmentation. A++++++++ 5 stars Service ❤️❤️❤️❤️❤️",
+          "rating": 5,
+          "author": "Morgan A Chinon"
+        },
+        {
+          "text": "Crashed my scooter going 70km in Pattaya. Road rash from head to toe.\n\nThey took me in instantly. I had daily appointments and never had to wait more than 5 mins to be taken care of. Highly recommend this hospital.\n\n10X better then Canadian hospitals",
+          "rating": 5,
+          "author": "Nicholas Cormier"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "I regret not reading the reviews beforehand. I was there from 8:30 a.m. to 4:00 p.m. During that time, I had a 10-minute blood test and a 15-minute consultation with the doctor. The remainder of the time was spent waiting. Unfortunately, this experience reflects the negative reviews.",
+          "rating": 1,
+          "author": "Rei Ouu"
+        },
+        {
+          "text": "First time here, I was extremely disappointed. I had an appointment at 1:30 PM but had to wait over 30 minutes with no proper explanation. I was required to fast for 8–10 hours for a health check, which made the delay even more frustrating, Poor management and service.",
+          "rating": 1,
+          "author": "Mamabear"
+        },
+        {
+          "text": "Worst hospital ever. I come to see a doctor. I explain the symptoms, the doctor asks me what exams I want to do. I told her she's the doctor, not me. So she told me she can't help me if I don't know what I want. CRAZY. NEVER GO TO THIS HOSPITAL",
+          "rating": 1,
+          "author": "Erwan Blanc"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Hospital+Pattaya/@12.9538236,100.9055511,17z/data=!3m1!4b1!4m7!3m6!1s0x3102be152b37142d:0x81a466188fa77aa6!8m2!3d12.9538236!4d100.9055511!16s%2Fg%2F120n85d9!19sChIJLRQ3KxW-AjERpnqnjxhmpIE?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e28156806bd109_0xeeedb0d6e02cf3c1",
@@ -5850,125 +6007,6 @@
       "maps_url": "https://www.google.com/maps/place/THE+KLINIQUE+Surgery+Center/data=!4m7!3m6!1s0x30e29fe59b4186cf:0xf8dcf7b7924458e9!8m2!3d13.7444014!4d100.532917!16s%2Fg%2F11rr76m_bk!19sChIJz4ZBm-Wf4jAR6VhEkrf33Pg?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102be152b37142d_0x81a466188fa77aa6",
-      "place_id": "0x3102be152b37142d:0x81a466188fa77aa6",
-      "name": "Bangkok Hospital Pattaya",
-      "name_lang": "en",
-      "primary_type": "Hospital",
-      "address": "\n301, Sukhumvit Rd, Muang Pattaya, Amphoe Bang Lamung, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 38 259 999",
-      "website": "https://www.bangkokhospital.com/pattaya",
-      "lat": 12.9538236,
-      "lng": 100.9055511,
-      "rating": 4.1,
-      "total_reviews": 2667,
-      "trust_score": 92.1,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 30,
-      "local_guide_count": 12,
-      "avg_author_review_count": 33.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 30,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 6
-      },
-      "mentioned_topics": [
-        {
-          "topic": "professional",
-          "count": 9
-        },
-        {
-          "topic": "recommend",
-          "count": 8
-        },
-        {
-          "topic": "promotion",
-          "count": 6
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 5
-        },
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 4
-        },
-        {
-          "topic": "expensive",
-          "count": 3
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        },
-        {
-          "topic": "premium",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 17,
-          "avg": 4.76
-        },
-        "midterm": {
-          "count": 12,
-          "avg": 3.67
-        },
-        "old": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "High end hospital at very expensive price.\n\nPositives\nClean\nFast\nGood service\nAll types of medical needs covered\n\nNegatives\nExpensive\nThey always try to sell you some additional service you may not need.",
-          "rating": 5,
-          "author": "J Hern"
-        },
-        {
-          "text": "Premium care, well worth the price paid. Very satisfied. Dr. Poonsak did a beautiful job with the breast augmentation. All the nurses were lovely and friendly. I would highly recommend Bangkok Hospital Pattaya to anyone considering breast augmentation. A++++++++ 5 stars Service ❤️❤️❤️❤️❤️",
-          "rating": 5,
-          "author": "Morgan A Chinon"
-        },
-        {
-          "text": "Dr.Thanyarat is a Very good doctor with excellant qualification, high professionell and very friendly, with a lot of empathy.\nVery experienced in the Dentist area. …",
-          "rating": 5,
-          "author": "Peter Steinhagen"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "Great facility but Poor time management.\n\nEven with confirmed appointment have to sit and wait over an hour and a half  to finally see doctor at eye centre.\n\nReally should better schrdule and ensure suffivient doctor on duty to manage appointments on timely mannet.",
-          "rating": 3,
-          "author": "Michael Swart"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+Hospital+Pattaya/@12.9538236,100.9055511,17z/data=!3m1!4b1!4m7!3m6!1s0x3102be152b37142d:0x81a466188fa77aa6!8m2!3d12.9538236!4d100.9055511!16s%2Fg%2F120n85d9!19sChIJLRQ3KxW-AjERpnqnjxhmpIE?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
       "id": "0x30e299e36e718c7f_0x474a576d97ec47a8",
       "place_id": "0x30e299e36e718c7f:0x474a576d97ec47a8",
       "name": "The Glam Clinic",
@@ -6118,7 +6156,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -12243,7 +12281,7 @@
         "hdmall_package_count": 17,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -13132,7 +13170,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -13863,6 +13901,121 @@
       "maps_url": "https://www.google.com/maps/place/Form+Recovery+@+Asoke/data=!4m7!3m6!1s0x30e29f02d1e2e4ef:0xe9a42eb4b9a7fec0!8m2!3d13.730079!4d100.563572!16s%2Fg%2F11dxf05v8d!19sChIJ7-Ti0QKf4jARwP6nubQupOk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310296732b54f4ed_0x91fcd1a0885f638c",
+      "place_id": "0x310296732b54f4ed:0x91fcd1a0885f638c",
+      "name": "M.T. INTER MEDICAL LABORATORY CLINIC คลินิกเอ็ม ที อินเตอร์ แล็บ",
+      "name_lang": "th",
+      "primary_type": "Medical laboratory",
+      "address": "\n193 421 ที่ 10 พัทยาสาย 3 Road หนองปรือ Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 82 495 6642",
+      "website": "https://mtinterlab.co/",
+      "lat": 12.9221374,
+      "lng": 100.8820891,
+      "rating": 4.9,
+      "total_reviews": 164,
+      "trust_score": 89.1,
+      "categories": [],
+      "scraped_review_count": 40,
+      "local_guide_count": 24,
+      "avg_author_review_count": 59.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 22
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 17
+        },
+        {
+          "topic": "professional",
+          "count": 14
+        },
+        {
+          "topic": "english_speaking",
+          "count": 8
+        },
+        {
+          "topic": "clean_facility",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 7,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 32,
+          "avg": 4.88
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Great lab work done fast and easy. Went there this morning for deluxe blood test @ 2500thb and got my result in same day. The communication is excellent through Line application. Highly recommended to do your annual check-up here if you are in the area.",
+          "rating": 5,
+          "author": "Thaigerr86"
+        },
+        {
+          "text": "Very quick results, was in and out within 5mins, quick service, results on WhatsApp/email or even printed at the place! Friendly staff",
+          "rating": 5,
+          "author": "Zevspro483"
+        },
+        {
+          "text": "Outstanding Professional, Friendly Customer Service, Lighting Fast results delivered my email ans WhatsApp.\n5 🌟 Recommendation on all levels. …",
+          "rating": 5,
+          "author": "One Note"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "They do very fast analysis because they lie, don't come to this place.",
+          "rating": 1,
+          "author": "st J"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/M.T.+INTER+MEDICAL+LABORATORY+CLINIC+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1+%E0%B8%97%E0%B8%B5+%E0%B8%AD%E0%B8%B4%E0%B8%99%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C+%E0%B9%81%E0%B8%A5%E0%B9%87%E0%B8%9A/@12.9221374,100.8820891,17z/data=!3m1!4b1!4m7!3m6!1s0x310296732b54f4ed:0x91fcd1a0885f638c!8m2!3d12.9221374!4d100.8820891!16s%2Fg%2F11bxmm2qnj!19sChIJ7fRUK3OWAjERjGNfiKDR_JE?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
       "id": "0x30e29f300f20543f_0xc0f6f2647efc438d",
       "place_id": "0x30e29f300f20543f:0xc0f6f2647efc438d",
       "name": "Vincent Clinic Asok (วินเซนต์คลินิก สาขาอโศก)",
@@ -14144,7 +14297,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -14735,6 +14888,135 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/V+Square+Clinic+Emquatier/data=!4m7!3m6!1s0x30e29f26778f57a7:0x73990e5cc223256f!8m2!3d13.7316868!4d100.5687607!16s%2Fg%2F11rn219mzz!19sChIJp1ePdyaf4jARbyUjwlwOmXM?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310297867074e24f_0x9ff756cc3590d5ca",
+      "place_id": "0x310297867074e24f:0x9ff756cc3590d5ca",
+      "name": "PULSE CLINIC - South Pattaya | Asia's Leading Lifestyle Center",
+      "name_lang": "en",
+      "primary_type": "STD testing service",
+      "address": "\n194 13 Pattaya Sai 2 Rd, Nong Prue Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 62 828 7969",
+      "website": "https://www.pulse-clinic.com/",
+      "lat": 12.9271302,
+      "lng": 100.8765756,
+      "rating": 4.9,
+      "total_reviews": 320,
+      "trust_score": 88.9,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 101,
+      "local_guide_count": 34,
+      "avg_author_review_count": 34.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 91,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "professional",
+          "count": 39
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 28
+        },
+        {
+          "topic": "recommend",
+          "count": 23
+        },
+        {
+          "topic": "clean_facility",
+          "count": 11
+        },
+        {
+          "topic": "expensive",
+          "count": 6
+        },
+        {
+          "topic": "affordable",
+          "count": 5
+        },
+        {
+          "topic": "english_speaking",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 39,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 32,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 30,
+          "avg": 4.33
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "They have unbelievable service. Go out of their way to help you even when you are low on money. They also the best in terms of service and punctuality.\nBut this everyone have. Humanity, not always.\nAnd in Pulse they definitely have a lot of humanity.\nWould recommend to anyone who needs this service",
+          "rating": 5,
+          "author": "Denis Klemez"
+        },
+        {
+          "text": "This place is absolutely awesome!!  Very friendly. Excellent service. Got results to my email in 2 hours. Went back for vaccination the next day. Everything there is outstanding and professional. Everyone should get tested!!",
+          "rating": 5,
+          "author": "Tellurian Smith"
+        },
+        {
+          "text": "Absolutely excellent service at Pulse Clinic South Pattaya, the staff were incredibly friendly, respectful, and professional from the moment I walked in. They made me feel comfortable, answered all my questions clearly, and handled …",
+          "rating": 5,
+          "author": "abel abel"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "Doctor Nattanicha Wijan was unprofessional and failed to diagnose my illness correctly, I went to a different clinic and they found the exact illness pulse told me I didn't have and gave me medication in 2 hours, do not go to pulse they are bunch of fools I have no idea how doctor Nattanicha Wijan got his license",
+          "rating": 1,
+          "author": "alex veit"
+        },
+        {
+          "text": "This place is waaay overpriced. They force you to do a blood test to buy PRep which you may or maynot need then charge an exorbitant price for just one month of prep. Don’t even bother. …",
+          "rating": 1,
+          "author": "Graham “Robert Cunningham” Brown"
+        },
+        {
+          "text": "Nice place. Friendly staff but very, I mean very expensive if you compare to other clinic/lab in Pattaya! 2 to 4 time more expensive than other lab for the basic package! …",
+          "rating": 1,
+          "author": "Pierre Pete"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+South+Pattaya+%7C+Asia%27s+Leading+Lifestyle+Center/data=!4m7!3m6!1s0x310297867074e24f:0x9ff756cc3590d5ca!8m2!3d12.9271302!4d100.8765756!16s%2Fg%2F11t4_brpvw!19sChIJT-J0cIaXAjERytWQNcxW958?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x3102bdfdd82ce6cb_0x74a4d82d1a280294",
@@ -18796,7 +19078,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -21117,7 +21399,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -21856,7 +22138,7 @@
         "hdmall_package_count": 22,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -22301,87 +22583,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Seven+Days+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AA%E0%B8%B4%E0%B8%A7+%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%B4%E0%B8%96%E0%B8%B5+%E0%B8%89%E0%B8%B5%E0%B8%94%E0%B9%82%E0%B8%9A%E0%B8%97%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2+%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%B4%E0%B8%96%E0%B8%B5+%E0%B9%80%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%81%E0%B8%B3%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%82%E0%B8%99%E0%B8%96%E0%B8%B2%E0%B8%A7%E0%B8%A3+%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%B4%E0%B8%96%E0%B8%B5/data=!4m7!3m6!1s0x30e29954a46cb1d5:0xa3b9d5ee19bed613!8m2!3d13.7778711!4d100.5099487!16s%2Fg%2F11h5rd0k_b!19sChIJ1bFspFSZ4jARE9a-Ge7VuaM?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x31029470d8302545_0xda4226442c51914e",
-      "place_id": "0x31029470d8302545:0xda4226442c51914e",
-      "name": "Huay Yai Pet Hospital",
-      "name_lang": "en",
-      "primary_type": "Animal hospital",
-      "address": "\n134/15-16 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 61 296 1651",
-      "website": "",
-      "lat": 12.8592382,
-      "lng": 100.9215363,
-      "rating": 4.6,
-      "total_reviews": 182,
-      "trust_score": 87.2,
-      "categories": [],
-      "scraped_review_count": 10,
-      "local_guide_count": 6,
-      "avg_author_review_count": 104.7,
-      "language_breakdown": {
-        "th": 0,
-        "en": 7,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 6,
-          "avg": 3.5
-        },
-        "midterm": {
-          "count": 4,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I brought Pinky to see the doctor. Her condition was detected very quickly, and the doctor provided clear answers and explanations. Thank you for your timely help during Pinky's emergency situation. The price wasn't too expensive; you can inquire about the cost before treatment.",
-          "rating": 5,
-          "author": "MiMi ดรัลพรพัชร เที่ยงธรรม"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "Beware, this veterinary practice is unclean and dirty. There are four other vet clinics in the area (I called ahead) that offer the same medication for half the price. It's a rip-off; they charge double for foreigners and foreign dogs.\n\n(Note: The provided Thai text indicates a possible error in the source text.)",
-          "rating": 1,
-          "author": "name Kasemir"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Huay+Yai+Pet+Hospital/data=!4m7!3m6!1s0x31029470d8302545:0xda4226442c51914e!8m2!3d12.8592382!4d100.9215363!16s%2Fg%2F11g8cyftv5!19sChIJRSUw2HCUAjERTpFRLEQmQto?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299fca34e1367_0x153103af5f85c74a",
@@ -24000,7 +24201,7 @@
         "hdmall_package_count": 18,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -24161,13 +24362,13 @@
       "external_reviews": {
         "place_id": "0x30e29e5b7989ef8b:0xc3da9a922b9e237",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/health-checkup/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B8%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E",
-        "hdmall_name": "Bangkok Eye Hospital",
-        "hdmall_rating": null,
-        "hdmall_package_count": 4,
+        "hdmall_url": "https://hdmall.co.th/health-checkup/medconsult-bangkok-medical-clinic",
+        "hdmall_name": "MedConsult Bangkok Medical Clinic",
+        "hdmall_rating": 4.5,
+        "hdmall_package_count": 56,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -24653,7 +24854,7 @@
         "hdmall_package_count": 17,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -25278,7 +25479,7 @@
         "hdmall_package_count": 13,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -26745,9 +26946,144 @@
         "hdmall_package_count": 16,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:31Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
+    },
+    {
+      "id": "0x310295da2573016f_0x50e87bd5c985fe7e",
+      "place_id": "0x310295da2573016f:0x50e87bd5c985fe7e",
+      "name": "Jomtien Hospital",
+      "name_lang": "en",
+      "primary_type": "Hospital",
+      "address": "\n234/1 หมู่ที่ 11 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 33 125 999",
+      "website": "https://www.jomtienhospital.com/",
+      "lat": 12.9126339,
+      "lng": 100.896399,
+      "rating": 3.9,
+      "total_reviews": 677,
+      "trust_score": 86.6,
+      "categories": [
+        "dental",
+        "laser"
+      ],
+      "scraped_review_count": 60,
+      "local_guide_count": 42,
+      "avg_author_review_count": 67.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 60,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1,
+        "dental": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 16
+        },
+        {
+          "topic": "english_speaking",
+          "count": 14
+        },
+        {
+          "topic": "clean_facility",
+          "count": 9
+        },
+        {
+          "topic": "professional",
+          "count": 9
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 8
+        },
+        {
+          "topic": "long_wait",
+          "count": 7
+        },
+        {
+          "topic": "expensive",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 4
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 3
+        },
+        {
+          "topic": "promotion",
+          "count": 2
+        },
+        {
+          "topic": "premium",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 3.0
+        },
+        "midterm": {
+          "count": 27,
+          "avg": 3.59
+        },
+        "old": {
+          "count": 29,
+          "avg": 3.83
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Good very fast service 3 different doctors and a lot of tests and treament 2 different sickness parallell. Opereration and very good hospital pharmacy corrected one thing from the different doctors. All 535 e and only less than 4 hour. Happy customer",
+          "rating": 5,
+          "author": "Peter Yrjas"
+        },
+        {
+          "text": "I had a deep vein ultrasound of my leg. Oddly enough, the cost of 3600THB. It was lower than in other hospitals. Maybe it's a temporary promotion, I don't know.\nThe staff was very polite and friendly. I'm really happy with the service and the cost.",
+          "rating": 5,
+          "author": "Maks Zim"
+        },
+        {
+          "text": "Visited the Hospital this week regarding my eye/ cateract issue. Very impressed of the kindness and English skills.\nRegarding pricing, absolutely reasonable since I can compare it with recent experience with other Hospitals  ( BHP) and clinics all regarding the same issue",
+          "rating": 5,
+          "author": "Thomas Gippert"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "Diagnosis of appendicitis was made 7 hours ago. I brought the money for the surgery, and there is also insurance approval for the operation. The clinic changed the cost twice. My friend has been in pain for 7 hours, receiving no help. Staff …",
+          "rating": 1,
+          "author": "Денис Иванов"
+        },
+        {
+          "text": "Very bad experiences in this hospital! They could not organize the queue, prioritize jobs, taking care of customers are 0%. Nurses are somethings that will lead the cause of “no returning customer” They made me delay of the appointment time …",
+          "rating": 1,
+          "author": "Supeechar Sapruang"
+        },
+        {
+          "text": "I recently had a kidney transplant in Bangkok. I live in Pattaya, and my doctor and I decided that I would do it in Pattaya. Few places do it. One of them is Jomtien Hospital. I went there, bringing the paperwork and the prescription from …",
+          "rating": 1,
+          "author": "Fabio Confalonieri"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Jomtien+Hospital/data=!4m7!3m6!1s0x310295da2573016f:0x50e87bd5c985fe7e!8m2!3d12.9126339!4d100.896399!16s%2Fg%2F11bx1cn6xs!19sChIJbwFzJdqVAjERfv6FydV76FA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f97e8b103af_0xba5d85b6a9754795",
@@ -26890,7 +27226,7 @@
         "hdmall_package_count": 9,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -28656,7 +28992,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.721,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -30135,13 +30471,13 @@
       "external_reviews": {
         "place_id": "0x30e2bf9bb2a43e65:0x81453130be1a02ce",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/jessica-clinic",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/jessica-clinic",
         "hdmall_name": "Jessica Clinic",
         "hdmall_rating": null,
-        "hdmall_package_count": 7,
+        "hdmall_package_count": 6,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -30241,103 +30577,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/E3+Dental+Clinic+%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A1+%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B8%9B%E0%B8%A5%E0%B8%AD%E0%B8%A1+%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%9F%E0%B8%B1%E0%B8%99%E0%B8%84%E0%B8%B8%E0%B8%94+%E0%B8%82%E0%B8%B9%E0%B8%94%E0%B8%AB%E0%B8%B4%E0%B8%99%E0%B8%9B%E0%B8%B9%E0%B8%99+%E0%B8%96%E0%B8%AD%E0%B8%99%E0%B8%9F%E0%B8%B1%E0%B8%99+%E0%B8%AD%E0%B8%B8%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99/data=!4m7!3m6!1s0x311d819db6c18b53:0xa8eb53e43e6386b0!8m2!3d14.0590555!4d100.6423083!16s%2Fg%2F11h77zvq_9!19sChIJU4vBtp2BHTERsIZjPuRT66g?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310297867074e24f_0x9ff756cc3590d5ca",
-      "place_id": "0x310297867074e24f:0x9ff756cc3590d5ca",
-      "name": "PULSE CLINIC - South Pattaya | Asia's Leading Lifestyle Center",
-      "name_lang": "en",
-      "primary_type": "STD testing service",
-      "address": "\n194 13 Pattaya Sai 2 Rd, Nong Prue Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 62 828 7969",
-      "website": "https://www.pulse-clinic.com/",
-      "lat": 12.9271302,
-      "lng": 100.8765756,
-      "rating": 4.9,
-      "total_reviews": 320,
-      "trust_score": 86.0,
-      "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 11,
-      "avg_author_review_count": 19.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 40,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "professional",
-          "count": 16
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 10
-        },
-        {
-          "topic": "recommend",
-          "count": 10
-        },
-        {
-          "topic": "clean_facility",
-          "count": 4
-        },
-        {
-          "topic": "long_wait",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 39,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 11,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Friendly staff, quick professional service, and good communication. Highly recommend",
-          "rating": 5,
-          "author": "Tony C"
-        },
-        {
-          "text": "The doctor is kind, and the staff are friendly too!\n\nThe prices are reasonable. …",
-          "rating": 5,
-          "author": "최혜은"
-        },
-        {
-          "text": "The service was excellent. The doctor and assistants were very polite and attentive throughout the entire process.",
-          "rating": 5,
-          "author": "Nida Pattaya"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/PULSE+CLINIC+-+South+Pattaya+%7C+Asia%27s+Leading+Lifestyle+Center/data=!4m7!3m6!1s0x310297867074e24f:0x9ff756cc3590d5ca!8m2!3d12.9271302!4d100.8765756!16s%2Fg%2F11t4_brpvw!19sChIJT-J0cIaXAjERytWQNcxW958?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29960e8a1a2c5_0x69d54a9f8731a154",
@@ -31496,7 +31735,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -32278,11 +32517,11 @@
               "review_count": 5
             },
             {
-              "service": "facial",
+              "service": "dental",
               "review_count": 1
             },
             {
-              "service": "dental",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -34503,7 +34742,7 @@
         "hdmall_package_count": 10,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -37147,13 +37386,13 @@
       "external_reviews": {
         "place_id": "0x30e29f1a0ca76f99:0x14ff630c61fe5534",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/gentle-clinic",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/gentle-clinic",
         "hdmall_name": "Gentle Clinic",
         "hdmall_rating": 4.9,
-        "hdmall_package_count": 5,
+        "hdmall_package_count": 6,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:32Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -39960,7 +40199,7 @@
         "hdmall_package_count": 9,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -43464,9 +43703,9 @@
       ],
       "doctor_stats": [
         {
-          "name": "Mon",
-          "slug": "mon",
-          "composite_slug": "mon-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
+          "name": "Mint",
+          "slug": "mint",
+          "composite_slug": "mint-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
           "mentions": 3,
           "rating_avg": 5.0,
           "language_count": {
@@ -43493,9 +43732,9 @@
           "experience_signals": []
         },
         {
-          "name": "Mint",
-          "slug": "mint",
-          "composite_slug": "mint-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
+          "name": "Mon",
+          "slug": "mon",
+          "composite_slug": "mon-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
           "mentions": 3,
           "rating_avg": 5.0,
           "language_count": {
@@ -44822,7 +45061,7 @@
         "hdmall_package_count": 20,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -46127,7 +46366,7 @@
         "hdmall_package_count": 36,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -47299,7 +47538,7 @@
         "hdmall_package_count": 42,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -48015,13 +48254,13 @@
       "external_reviews": {
         "place_id": "0x30e2b9840ec60fdf:0x506b0cd969677d38",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/drpang-skin-clinic",
-        "hdmall_name": "Dr.Pang Skin Clinic",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/drpunjai-clinic",
+        "hdmall_name": "Dr.Punjai Clinic",
         "hdmall_rating": null,
-        "hdmall_package_count": 6,
+        "hdmall_package_count": 9,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:31Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -49192,7 +49431,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -50813,7 +51052,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -52638,7 +52877,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -53148,7 +53387,19 @@
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/GRACE+TCM+CLINIC+%28Acupuncture%26Chinese+Medicine%29/data=!4m7!3m6!1s0x30e29f98a487b4f9:0x95f5ab501c6221a4!8m2!3d13.7317767!4d100.5715008!16s%2Fg%2F11gs579dnf!19sChIJ-bSHpJif4jARpCFiHFCr9ZU?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/GRACE+TCM+CLINIC+%28Acupuncture%26Chinese+Medicine%29/data=!4m7!3m6!1s0x30e29f98a487b4f9:0x95f5ab501c6221a4!8m2!3d13.7317767!4d100.5715008!16s%2Fg%2F11gs579dnf!19sChIJ-bSHpJif4jARpCFiHFCr9ZU?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f98a487b4f9:0x95f5ab501c6221a4",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/grace-tcm-clinic",
+        "hdmall_name": "Grace TCM Clinic",
+        "hdmall_rating": null,
+        "hdmall_package_count": 2,
+        "match_score": 0.4,
+        "match_needs_review": true,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x3102965c90a7aaab_0xd30c05af8ff52160",
@@ -58838,7 +59089,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -59263,7 +59514,7 @@
         "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -60638,7 +60889,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -60660,12 +60911,12 @@
       "total_reviews": 52,
       "trust_score": 82.3,
       "categories": [],
-      "scraped_review_count": 50,
-      "local_guide_count": 26,
-      "avg_author_review_count": 71.2,
+      "scraped_review_count": 31,
+      "local_guide_count": 18,
+      "avg_author_review_count": 72.7,
       "language_breakdown": {
         "th": 0,
-        "en": 36,
+        "en": 25,
         "ko": 0,
         "ja": 0,
         "other": 0
@@ -60674,11 +60925,7 @@
       "mentioned_topics": [
         {
           "topic": "affordable",
-          "count": 9
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 7
+          "count": 6
         },
         {
           "topic": "recommend",
@@ -60689,19 +60936,19 @@
           "count": 4
         },
         {
+          "topic": "friendly_staff",
+          "count": 4
+        },
+        {
           "topic": "clean_facility",
           "count": 2
         },
         {
-          "topic": "expensive",
-          "count": 2
+          "topic": "long_wait",
+          "count": 1
         },
         {
           "topic": "results_satisfied",
-          "count": 2
-        },
-        {
-          "topic": "long_wait",
           "count": 1
         }
       ],
@@ -60715,27 +60962,27 @@
           "avg": 5.0
         },
         "old": {
-          "count": 42,
-          "avg": 4.71
+          "count": 23,
+          "avg": 4.48
         },
-        "trend": "stable"
+        "trend": "improving"
       },
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "Walk in for LABS. Easy. Very polite. A 20 minute trip from my condo. I expect results by 6PM. I would make this trip again. Note the hours, close at 11AM.",
+          "text": "I have used him for many years and very happy with the fast service and fast results given, and very reasonable prices.\nMakes it much easier to keep track of my own health conditions. Thank you 🙏🙏🙏 …",
           "rating": 5,
-          "author": "Traveler54"
+          "author": "TomTbone “TomTbone”"
         },
         {
-          "text": "The results came back quickly, the same day at 4:00 PM. My veins aren't great, but the guy got it right the first time. I highly recommend him! My sincere gratitude 🙏 …",
+          "text": "Excellent professional service... blood and urine tests, reasonable prices... blood test results same day afternoon via email.",
           "rating": 5,
-          "author": "ПО СЕКРЕТУ ВСЕМУ СВЕТУ"
+          "author": "Nicky"
         },
         {
-          "text": "Excellent doctor, excellent and very fast results, very clean clinic, excellent consultation, very good prices, perfect!!",
+          "text": "Excellent and fast service for a very reasonable price. I went there in the morning around 9AM and took a LONG list many tests. The friendly person just asked what I want, filled in a document to list the tests and told me the price and …",
           "rating": 5,
-          "author": "Hardy Steines"
+          "author": "heikki ylinen"
         }
       ],
       "sample_reviews_negative": [
@@ -60747,7 +60994,7 @@
       ],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Pattaya+Clinic+Laboratory/data=!4m7!3m6!1s0x3102be729a4a0609:0xb53823b6c7c6b120!8m2!3d12.969068!4d100.9013437!16s%2Fg%2F124szsddc!19sChIJCQZKmnK-AjERILHGx7YjOLU?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Pattaya+Clinic+Laboratory/@12.969068,100.9013437,17z/data=!3m1!4b1!4m7!3m6!1s0x3102be729a4a0609:0xb53823b6c7c6b120!8m2!3d12.969068!4d100.9013437!16s%2Fg%2F124szsddc!19sChIJCQZKmnK-AjERILHGx7YjOLU?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e29ee7cbc72ab5_0x102d0ec0bc20f26e",
@@ -61641,7 +61888,7 @@
         "hdmall_package_count": 36,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -64778,7 +65025,19 @@
       ],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Giant+Thai+Massage/data=!4m7!3m6!1s0x30e2997fa88270cb:0xb71bbd7654cbf710!8m2!3d13.753063!4d100.5023027!16s%2Fg%2F11x8z759q1!19sChIJy3CCqH-Z4jAREPfLVHa9G7c?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Giant+Thai+Massage/data=!4m7!3m6!1s0x30e2997fa88270cb:0xb71bbd7654cbf710!8m2!3d13.753063!4d100.5023027!16s%2Fg%2F11x8z759q1!19sChIJy3CCqH-Z4jAREPfLVHa9G7c?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e2997fa88270cb:0xb71bbd7654cbf710",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/pratunam-thai-massage",
+        "hdmall_name": "Pratunam Thai Massage",
+        "hdmall_rating": null,
+        "hdmall_package_count": 24,
+        "match_score": 0.5,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x3102bf0da7e6f3cd_0xcf0214b16f07a350",
@@ -66669,7 +66928,7 @@
         "hdmall_package_count": 16,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -66853,7 +67112,7 @@
         "hdmall_package_count": 53,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -69685,7 +69944,7 @@
         "hdmall_package_count": 29,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -70407,7 +70666,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.625,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -73920,7 +74179,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -74178,7 +74437,7 @@
         "hdmall_package_count": 23,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -77733,13 +77992,13 @@
       "external_reviews": {
         "place_id": "0x30e29f57a52b964b:0xf50d2e6b69b9f248",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/matrix-clinic",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/matrix-clinic",
         "hdmall_name": "Matrix Clinic",
         "hdmall_rating": null,
-        "hdmall_package_count": 29,
+        "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -80769,13 +81028,13 @@
       "external_reviews": {
         "place_id": "0x30e29f2d655c4ed7:0x6b3623db0a821a30",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/mediprime-clinic-(%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B9%84%E0%B8%9E%E0%B8%A3%E0%B9%8C%E0%B8%A1-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/mediprime-clinic-(%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B9%84%E0%B8%9E%E0%B8%A3%E0%B9%8C%E0%B8%A1-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
         "hdmall_name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
         "hdmall_rating": null,
-        "hdmall_package_count": 4,
+        "hdmall_package_count": 10,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -82467,7 +82726,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -84074,7 +84333,7 @@
         "hdmall_package_count": 20,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -85202,11 +85461,11 @@
               "review_count": 6
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -85485,11 +85744,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -86360,7 +86619,7 @@
         "hdmall_package_count": 46,
         "match_score": 0.714,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -86551,7 +86810,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -87213,7 +87472,19 @@
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Cloud+Physio+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e29fa0ddd762cb:0x483cc3e11f59f452!8m2!3d13.7481222!4d100.5705556!16s%2Fg%2F11ksl5n2j8!19sChIJy2LX3aCf4jARUvRZH-HDPEg?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Cloud+Physio+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94/data=!4m7!3m6!1s0x30e29fa0ddd762cb:0x483cc3e11f59f452!8m2!3d13.7481222!4d100.5705556!16s%2Fg%2F11ksl5n2j8!19sChIJy2LX3aCf4jARUvRZH-HDPEg?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29fa0ddd762cb:0x483cc3e11f59f452",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/be-well-clinic-(%E0%B8%9A%E0%B8%B5%E0%B9%80%E0%B8%A7%E0%B8%A5-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94)",
+        "hdmall_name": "Be Well Clinic (บีเวล คลินิกกายภาพบำบัด)",
+        "hdmall_rating": null,
+        "hdmall_package_count": 4,
+        "match_score": 0.436,
+        "match_needs_review": true,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e29fe05f2048ff_0x703b2c483bc2ee50",
@@ -87525,7 +87796,7 @@
         "hdmall_package_count": 16,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -87640,124 +87911,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/DCA+Dental+Clinic+Pattaya/data=!4m7!3m6!1s0x310297ed4aa09fab:0x6f103c3ec5166c28!8m2!3d12.9294964!4d100.8777649!16s%2Fg%2F11v3s06h5n!19sChIJq5-gSu2XAjERKGwWxT48EG8?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102bfcbf5345087_0xcc36eb439358cfeb",
-      "place_id": "0x3102bfcbf5345087:0xcc36eb439358cfeb",
-      "name": "CharnX clinic",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\n14, Banglamung, 2, Tambon Bang Lamung, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 65 565 6919",
-      "website": "",
-      "lat": 13.0182213,
-      "lng": 100.9313884,
-      "rating": 5.0,
-      "total_reviews": 200,
-      "trust_score": 79.9,
-      "categories": [
-        "botox",
-        "facial",
-        "filler"
-      ],
-      "scraped_review_count": 57,
-      "local_guide_count": 4,
-      "avg_author_review_count": 2.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 57,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 2,
-        "filler": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 26
-        },
-        {
-          "topic": "recommend",
-          "count": 9
-        },
-        {
-          "topic": "clean_facility",
-          "count": 7
-        },
-        {
-          "topic": "expensive",
-          "count": 2
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 2
-        },
-        {
-          "topic": "promotion",
-          "count": 2
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 14,
-          "avg": 4.71
-        },
-        "midterm": {
-          "count": 43,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The staff were lovely, the doctor was very kind and had an incredibly gentle touch – it didn't hurt at all. The clinic was clean and smelled wonderful.",
-          "rating": 5,
-          "author": "Sirinapa Konklang"
-        },
-        {
-          "text": "The staff were lovely, the doctor was very kind and had an incredibly gentle touch. The place was clean and smelled wonderful.",
-          "rating": 5,
-          "author": "Supakorn Namekhuntod"
-        },
-        {
-          "text": "I'm very impressed! I've used their services before and the staff were very friendly. The doctor was very kind and attentive.",
-          "rating": 5,
-          "author": "Jannie Piaz"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "My wife had Botox done. We scheduled an appointment with the doctor for 10 days after the procedure. The doctor promised to take a look and, if anything wasn't right right away, to make some additional injections. The appointment was on Sunday morning. We arrived, but the doctor didn't show up. We weren't happy with the results and couldn't even discuss them with the doctor.",
-          "rating": 1,
-          "author": "Dmitry Dmitriev"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/CharnX+clinic/data=!4m7!3m6!1s0x3102bfcbf5345087:0xcc36eb439358cfeb!8m2!3d13.0182213!4d100.9313884!16s%2Fg%2F11xmt_4c53!19sChIJh1A09cu_AjER689Yk0PrNsw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2814aa177d8c5_0xf5f2753cb8a2c19a",
@@ -88253,7 +88406,7 @@
         "hdmall_package_count": 14,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -89676,7 +89829,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -91024,13 +91177,13 @@
       "external_reviews": {
         "place_id": "0x30e2995f01c482cf:0x76f05033feeb7b42",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/miel-clinic-(%E0%B8%A1%E0%B8%B4%E0%B9%80%E0%B8%AD%E0%B8%A5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/miel-clinic-(%E0%B8%A1%E0%B8%B4%E0%B9%80%E0%B8%AD%E0%B8%A5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
         "hdmall_name": "Miel Clinic (มิเอลคลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 24,
+        "hdmall_package_count": 1,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -92459,13 +92612,13 @@
       "external_reviews": {
         "place_id": "0x311d7f305a7da3e3:0x85756f615a384c8e",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/drnutt-clinic-(%E0%B8%94%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%93%E0%B8%B1%E0%B8%8F%E0%B8%90%E0%B9%8C-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
-        "hdmall_name": "Dr.Nutt Clinic (ด็อกเตอร์ณัฏฐ์ คลินิก)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/drj-clinic-(%E0%B8%94%E0%B9%8A%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%88-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_name": "Dr.J Clinic (ด๊อกเตอร์เจ คลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 14,
+        "hdmall_package_count": 11,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:36:31Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -94065,7 +94218,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -95233,7 +95386,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -98013,7 +98166,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -98579,135 +98732,6 @@
       "maps_url": "https://www.google.com/maps/place/Peace+Clinic/@12.9503279,100.8990498,17z/data=!3m1!4b1!4m7!3m6!1s0x3102bf4f63cfa1f7:0xf4b3ba51587dffad!8m2!3d12.9503279!4d100.8990498!16s%2Fg%2F11n09v_ps1!19sChIJ96HPY0-_AjERrf99WFG6s_Q?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D"
     },
     {
-      "id": "0x310295da2573016f_0x50e87bd5c985fe7e",
-      "place_id": "0x310295da2573016f:0x50e87bd5c985fe7e",
-      "name": "Jomtien Hospital",
-      "name_lang": "en",
-      "primary_type": "Hospital",
-      "address": "\n234/1 หมู่ที่ 11 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 33 125 999",
-      "website": "https://www.jomtienhospital.com/",
-      "lat": 12.9126339,
-      "lng": 100.896399,
-      "rating": 3.9,
-      "total_reviews": 676,
-      "trust_score": 79.1,
-      "categories": [
-        "dental",
-        "facial",
-        "laser"
-      ],
-      "scraped_review_count": 60,
-      "local_guide_count": 12,
-      "avg_author_review_count": 11.4,
-      "language_breakdown": {
-        "th": 0,
-        "en": 49,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "facial": 2,
-        "laser": 1,
-        "dental": 4
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 11
-        },
-        {
-          "topic": "recommend",
-          "count": 11
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 7
-        },
-        {
-          "topic": "affordable",
-          "count": 5
-        },
-        {
-          "topic": "professional",
-          "count": 4
-        },
-        {
-          "topic": "long_wait",
-          "count": 3
-        },
-        {
-          "topic": "genuine_brand",
-          "count": 1
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 60,
-          "avg": 4.3
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Have been here may times. So much better than America! Would recommend to anyone. Great service, affordable pricing, trained staff and doctors. A+",
-          "rating": 5,
-          "author": "Ross Thompson"
-        },
-        {
-          "text": "The service was excellent. The staff and nurses were attentive and caring. The doctor explained everything clearly. The place was clean and organized. Overall, I was very impressed.",
-          "rating": 5,
-          "author": "อยู่ดี เนิร์สซิ่งแคร์"
-        },
-        {
-          "text": "I had a colonoscopy and gastroscopy. The doctors, nurses, and staff were very attentive. The medical equipment is modern. 👍 …",
-          "rating": 5,
-          "author": "Sinchai Wattanasatsaton"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "There were no staff members to assist patients, and the counter staff were completely inattentive. They worked extremely slowly, even though there were only a few patients. Their enthusiasm and care were appalling. This is a terrible, low-standard private hospital.",
-          "rating": 1,
-          "author": "Chaiwat Chomyong"
-        },
-        {
-          "text": "The emergency room and front-of-house service were good, but the doctor and assistants inside provided very poor service. I wasn't asking for free treatment; I had the money to pay. You're just employees; don't think you're superior. It was past 11 PM.",
-          "rating": 1,
-          "author": "ศิริชัย จอกน้อย"
-        },
-        {
-          "text": "Don't go to this hospital! I'm really angry. What kind of private hospital is this? Whether it's a routine follow-up appointment or any surgery, big or small, the service is mediocre, the hygiene isn't as good as it seems, and all they care …",
-          "rating": 1,
-          "author": "JKR2"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Jomtien+Hospital/data=!4m7!3m6!1s0x310295da2573016f:0x50e87bd5c985fe7e!8m2!3d12.9126339!4d100.896399!16s%2Fg%2F11bx1cn6xs!19sChIJbwFzJdqVAjERfv6FydV76FA?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f2c03cc1e37_0x4392974779dd351d",
       "place_id": "0x30e29f2c03cc1e37:0x4392974779dd351d",
       "name": "Like Dental Clinic",
@@ -98832,7 +98856,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -103243,7 +103267,7 @@
         "hdmall_package_count": 17,
         "match_score": 0.375,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -105850,11 +105874,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
@@ -109378,15 +109402,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 1
             },
             {
               "service": "botox",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             },
             {
@@ -109395,6 +109415,10 @@
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -109682,7 +109706,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -109839,7 +109863,7 @@
         "hdmall_package_count": 30,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -115011,11 +115035,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -115831,7 +115855,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -115972,6 +115996,113 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Varinpat+clinic/data=!4m7!3m6!1s0x3102b70e94d3b745:0x7ce3c210021c6ed9!8m2!3d13.167224!4d100.9299275!16s%2Fg%2F11kqb_8txp!19sChIJRbfTlA63AjER2W4cAhDC43w?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x31029500581d473b_0xf6817598214df96e",
+      "place_id": "0x31029500581d473b:0xf6817598214df96e",
+      "name": "Évia Clinic (อีเวีย คลินิก)",
+      "name_lang": "th",
+      "primary_type": "Esthetics service",
+      "address": "\nหมู่บ้าน eleven the tempo Pattaya 359/3 ม7 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 93 276 9955",
+      "website": "",
+      "lat": 12.93402,
+      "lng": 100.9358946,
+      "rating": 5.0,
+      "total_reviews": 91,
+      "trust_score": 77.8,
+      "categories": [
+        "botox",
+        "facial"
+      ],
+      "scraped_review_count": 77,
+      "local_guide_count": 10,
+      "avg_author_review_count": 7.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 75,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "botox": 1,
+        "facial": 12
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 30
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 18
+        },
+        {
+          "topic": "recommend",
+          "count": 15
+        },
+        {
+          "topic": "promotion",
+          "count": 11
+        },
+        {
+          "topic": "professional",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 38,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 39,
+          "avg": 4.97
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "It's v.nice treatment.....I liked the deode lesar from evia clinic....price also reasonable n service good...thank you",
+          "rating": 5,
+          "author": "Shaurya Jadeja"
+        },
+        {
+          "text": "Very impressed with the facial treatment here! Professional service, excellent results, and my skin feels amazing. Will definitely come back! ✨",
+          "rating": 5,
+          "author": "kittima thanikul"
+        },
+        {
+          "text": "The service was excellent, the environment was great, the atmosphere was wonderful, the doctor was lovely, and the staff were very friendly and chatty. Everyone was so nice!",
+          "rating": 5,
+          "author": "สุภัสสรา สายเสน"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%C3%89via+Clinic+(%E0%B8%AD%E0%B8%B5%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)/@12.93402,100.9358946,17z/data=!3m1!4b1!4m7!3m6!1s0x31029500581d473b:0xf6817598214df96e!8m2!3d12.93402!4d100.9358946!16s%2Fg%2F11ygzjgm61!19sChIJO0cdWACVAjERbvlNIZh1gfY?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e2811426627b6b_0xc0641ab18e0ef6de",
@@ -116676,7 +116807,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -117822,6 +117953,60 @@
       "maps_url": "https://www.google.com/maps/place/DVA+Clinic+%E0%B8%94%E0%B8%B5%E0%B8%A7%E0%B9%88%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%82%E0%B8%9A%E0%B8%97%E0%B9%87%E0%B8%AD%E0%B8%81+%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A2%E0%B9%84%E0%B8%AB%E0%B8%A1+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9E%E0%B8%A5%E0%B8%B5/data=!4m7!3m6!1s0x311d5f0a3373af3d:0x46a50f2eafe16!8m2!3d13.6024528!4d100.7050288!16s%2Fg%2F11fp8kc5lc!19sChIJPa9zMwpfHTERFv7q8lBqBAA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102bfcbf5345087_0xcc36eb439358cfeb",
+      "place_id": "0x3102bfcbf5345087:0xcc36eb439358cfeb",
+      "name": "CharnX clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n14, Banglamung, 2, Tambon Bang Lamung, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 65 565 6919",
+      "website": "",
+      "lat": 13.0182213,
+      "lng": 100.9313884,
+      "rating": 5.0,
+      "total_reviews": 200,
+      "trust_score": 77.6,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/CharnX+clinic/@13.0182213,100.9313884,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bfcbf5345087:0xcc36eb439358cfeb!8m2!3d13.0182213!4d100.9313884!16s%2Fg%2F11xmt_4c53?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
       "id": "0x30e29f2d323be3cd_0x4b1b74f632717b8c",
       "place_id": "0x30e29f2d323be3cd:0x4b1b74f632717b8c",
       "name": "Smile Design Dental Clinic - คลินิกทันตกรรม สไมล์ ดีไซน์ สีลม",
@@ -118691,9 +118876,104 @@
         "hdmall_package_count": 15,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
+    },
+    {
+      "id": "0x3102957fc1a9a633_0xc252df248722cfe8",
+      "place_id": "0x3102957fc1a9a633:0xc252df248722cfe8",
+      "name": "Eyeliz by Optometrist : คลินิกแว่นตาอายลิซ โดยหมอสายตา สาขาพัทยา",
+      "name_lang": "th",
+      "primary_type": "Optometrist",
+      "address": "\nWV5R+FW3, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 98 528 6999",
+      "website": "https://www.facebook.com/Eyeliz.by.Optometrist/",
+      "lat": 12.9086327,
+      "lng": 100.8921565,
+      "rating": 4.9,
+      "total_reviews": 86,
+      "trust_score": 77.6,
+      "categories": [
+        "laser"
+      ],
+      "scraped_review_count": 67,
+      "local_guide_count": 12,
+      "avg_author_review_count": 8.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 61,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 21
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 11
+        },
+        {
+          "topic": "clean_facility",
+          "count": 6
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 4.6
+        },
+        "midterm": {
+          "count": 20,
+          "avg": 4.6
+        },
+        "old": {
+          "count": 37,
+          "avg": 5.0
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The optometrist was friendly and professional. She did a thorough examination,walked me through the pricing options. If I need to buy another pair of glasses, I'll go back there.",
+          "rating": 5,
+          "author": "Barry Wright"
+        },
+        {
+          "text": "Excellent place, the doctor took the time to do the tests on my eyes. Very nice and friendly",
+          "rating": 5,
+          "author": "Ben Jamin"
+        },
+        {
+          "text": "I received excellent check-ups and advice from the doctor, and the staff provided outstanding service.",
+          "rating": 5,
+          "author": "Oppo Cgg"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "I try to contact the owner of this Shop , but staff dont give me any email adress or phone number or even Line ID… Staf say to me you have to book an appointement by email but don’t Even give me email adress…",
+          "rating": 1,
+          "author": "Steve Blot"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Eyeliz+by+Optometrist+:+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%A7%E0%B9%88%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%A5%E0%B8%B4%E0%B8%8B+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x3102957fc1a9a633:0xc252df248722cfe8!8m2!3d12.9086327!4d100.8921565!16s%2Fg%2F11sdd6wz5n!19sChIJM6apwX-VAjER6M8ihyTfUsI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e281c306829a9f_0xd10697b89bd47242",
@@ -119388,7 +119668,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -121149,13 +121429,13 @@
       "external_reviews": {
         "place_id": "0x30e29f6a7053abc3:0x19388dbe7c25c4b",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/dk-clinic-(%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%84%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/dk-clinic-(%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%84%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
         "hdmall_name": "DK Clinic (ดีเคคลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 39,
+        "hdmall_package_count": 2,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -121794,11 +122074,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -122025,7 +122305,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -122878,7 +123158,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -122994,109 +123274,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Touch+Wellness+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%9E%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%84/data=!4m7!3m6!1s0x30e2997b0b980529:0xb39cb84055491217!8m2!3d13.7281985!4d100.5375082!16s%2Fg%2F11yjx6ldxs!19sChIJKQWYC3uZ4jARFxJJVUC4nLM?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x31029500581d473b_0xf6817598214df96e",
-      "place_id": "0x31029500581d473b:0xf6817598214df96e",
-      "name": "Évia Clinic (อีเวีย คลินิก)",
-      "name_lang": "th",
-      "primary_type": "Esthetics service",
-      "address": "\nหมู่บ้าน eleven the tempo Pattaya 359/3 ม7 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 93 276 9955",
-      "website": "",
-      "lat": 12.93402,
-      "lng": 100.9358946,
-      "rating": 5.0,
-      "total_reviews": 84,
-      "trust_score": 77.2,
-      "categories": [
-        "botox",
-        "facial"
-      ],
-      "scraped_review_count": 50,
-      "local_guide_count": 6,
-      "avg_author_review_count": 7.4,
-      "language_breakdown": {
-        "th": 0,
-        "en": 49,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 1,
-        "facial": 5
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 17
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 11
-        },
-        {
-          "topic": "promotion",
-          "count": 11
-        },
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "professional",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 39,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 11,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "It's v.nice treatment.....I liked the deode lesar from evia clinic....price also reasonable n service good...thank you",
-          "rating": 5,
-          "author": "Shaurya Jadeja"
-        },
-        {
-          "text": "I liked it very much. The service staff were excellent. I really liked the atmosphere in the restaurant.",
-          "rating": 5,
-          "author": "มนสัชนก มณีนพรัตน์"
-        },
-        {
-          "text": "It's near my house, the clinic is clean, the staff provides great service, and they have amazing promotions! 😍❤️ …",
-          "rating": 5,
-          "author": "Rungtawan Bumrungkitwittaya"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%C3%89via+Clinic+%28%E0%B8%AD%E0%B8%B5%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%29/data=!4m7!3m6!1s0x31029500581d473b:0xf6817598214df96e!8m2!3d12.93402!4d100.9358946!16s%2Fg%2F11ygzjgm61!19sChIJO0cdWACVAjERbvlNIZh1gfY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299f132eaa2c5_0x1a8f1c74d5ee1fb3",
@@ -123878,7 +124055,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/ATFIRST+CLINIC/data=!4m7!3m6!1s0x30e29f3a441e7ee1:0x6c596754438b0ecc!8m2!3d13.7564798!4d100.5318088!16s%2Fg%2F11t7fb94qc!19sChIJ4X4eRDqf4jARzA6LQ1RnWWw?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/ATFIRST+CLINIC/data=!4m7!3m6!1s0x30e29f3a441e7ee1:0x6c596754438b0ecc!8m2!3d13.7564798!4d100.5318088!16s%2Fg%2F11t7fb94qc!19sChIJ4X4eRDqf4jARzA6LQ1RnWWw?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f3a441e7ee1:0x6c596754438b0ecc",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/at-first-clinic",
+        "hdmall_name": "atFirst Clinic",
+        "hdmall_rating": 5.0,
+        "hdmall_package_count": 50,
+        "match_score": 1.0,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x3102be6ca7050e71_0x1600a93877191c50",
@@ -124015,7 +124204,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/H.+million+clinic/data=!4m7!3m6!1s0x30e29f06dcf26ba1:0xfa5be2b7582a5b5e!8m2!3d13.7590363!4d100.566335!16s%2Fg%2F11t2b_5dnv!19sChIJoWvy3Aaf4jARXlsqWLfiW_o?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/H.+million+clinic/data=!4m7!3m6!1s0x30e29f06dcf26ba1:0xfa5be2b7582a5b5e!8m2!3d13.7590363!4d100.566335!16s%2Fg%2F11t2b_5dnv!19sChIJoWvy3Aaf4jARXlsqWLfiW_o?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f06dcf26ba1:0xfa5be2b7582a5b5e",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/hum-clinic",
+        "hdmall_name": "H.U.M. Clinic",
+        "hdmall_rating": null,
+        "hdmall_package_count": 14,
+        "match_score": 0.4,
+        "match_needs_review": true,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e28f0ae7a50671_0x55ee51a7600902cf",
@@ -125607,7 +125808,7 @@
         "hdmall_package_count": 13,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -126686,7 +126887,7 @@
         "hdmall_package_count": 70,
         "match_score": 0.375,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -127240,7 +127441,7 @@
         "hdmall_package_count": 41,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -132667,7 +132868,7 @@
         "hdmall_package_count": 13,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -133859,7 +134060,7 @@
         "hdmall_package_count": 4,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -134628,11 +134829,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -135125,7 +135326,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.65,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -136100,7 +136301,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Ketsarin+Physiotherapy+Clinic/data=!4m7!3m6!1s0x30e29f20de86781d:0x85b839b2a45aac26!8m2!3d13.7464509!4d100.5445346!16s%2Fg%2F11mpc2tk89!19sChIJHXiG3iCf4jARJqxapLI5uIU?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Ketsarin+Physiotherapy+Clinic/data=!4m7!3m6!1s0x30e29f20de86781d:0x85b839b2a45aac26!8m2!3d13.7464509!4d100.5445346!16s%2Fg%2F11mpc2tk89!19sChIJHXiG3iCf4jARJqxapLI5uIU?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f20de86781d:0x85b839b2a45aac26",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/ketsarin-physiotherapy-clinic",
+        "hdmall_name": "Ketsarin Physiotherapy Clinic",
+        "hdmall_rating": null,
+        "hdmall_package_count": 4,
+        "match_score": 1.0,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e298d2c9bc3593_0x85741145d19dd87",
@@ -139586,13 +139799,13 @@
       "external_reviews": {
         "place_id": "0x30e29f827411448b:0x25bf31b7611fb5aa",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/koa-clinic-(%E0%B9%82%E0%B8%84%E0%B8%AD%E0%B8%B2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/koa-clinic-(%E0%B9%82%E0%B8%84%E0%B8%AD%E0%B8%B2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
         "hdmall_name": "Koa Clinic (โคอา คลินิก)",
         "hdmall_rating": null,
-        "hdmall_package_count": 7,
+        "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -139920,7 +140133,7 @@
         "hdmall_package_count": 9,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -144097,7 +144310,7 @@
         "hdmall_package_count": 29,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -153519,7 +153732,7 @@
         "hdmall_package_count": 88,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -154258,7 +154471,19 @@
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Mabella+Clinic/data=!4m7!3m6!1s0x30e29f7bbab5acdf:0x7b4e36233ac87490!8m2!3d13.7062853!4d100.5320284!16s%2Fg%2F11nwb8zqxr!19sChIJ36y1unuf4jARkHTIOiM2Tns?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Mabella+Clinic/data=!4m7!3m6!1s0x30e29f7bbab5acdf:0x7b4e36233ac87490!8m2!3d13.7062853!4d100.5320284!16s%2Fg%2F11nwb8zqxr!19sChIJ36y1unuf4jARkHTIOiM2Tns?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f7bbab5acdf:0x7b4e36233ac87490",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/mabella-clinic",
+        "hdmall_name": "Mabella Clinic",
+        "hdmall_rating": null,
+        "hdmall_package_count": 3,
+        "match_score": 1.0,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x3102b96d75a7a955_0xd5d159a56ce8d31d",
@@ -155567,7 +155792,7 @@
         "hdmall_package_count": 9,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -156388,7 +156613,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -156990,13 +157215,13 @@
       "external_reviews": {
         "place_id": "0x30e2991b40d01af5:0x2c399a86bcde41c4",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/krever-clinic-(%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/krever-clinic-(%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%A7%E0%B8%AD%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
         "hdmall_name": "Krever Clinic (เครเวอคลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 20,
+        "hdmall_package_count": 2,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -160190,7 +160415,7 @@
         "hdmall_package_count": 22,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -162898,7 +163123,7 @@
         "hdmall_package_count": 12,
         "match_score": 0.571,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -164488,7 +164713,7 @@
         "hdmall_package_count": 12,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -164751,7 +164976,7 @@
         "hdmall_package_count": 68,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -167271,7 +167496,19 @@
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Harmony+Clinic/data=!4m7!3m6!1s0x30e29f2be8e351d7:0x88798ba7c9b9c6e2!8m2!3d13.7300275!4d100.5341607!16s%2Fg%2F11b5wkx11j!19sChIJ11Hj6Cuf4jAR4sa5yaeLeYg?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Harmony+Clinic/data=!4m7!3m6!1s0x30e29f2be8e351d7:0x88798ba7c9b9c6e2!8m2!3d13.7300275!4d100.5341607!16s%2Fg%2F11b5wkx11j!19sChIJ11Hj6Cuf4jAR4sa5yaeLeYg?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f2be8e351d7:0x88798ba7c9b9c6e2",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/harmony-life-center",
+        "hdmall_name": "Harmony Life Center",
+        "hdmall_rating": null,
+        "hdmall_package_count": 27,
+        "match_score": 0.5,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e29563e503de33_0x706b499dd1219f55",
@@ -167380,13 +167617,13 @@
       "external_reviews": {
         "place_id": "0x30e29563e503de33:0x706b499dd1219f55",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/kp-medical-wellness-clinic",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/kp-medical-wellness-clinic",
         "hdmall_name": "KP Medical Wellness Clinic",
         "hdmall_rating": null,
-        "hdmall_package_count": 24,
+        "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -168014,13 +168251,13 @@
       "external_reviews": {
         "place_id": "0xa32ea3859c0f8b7f:0xf2dd37654c91bb1b",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/dd-clinic-(%E0%B8%94%E0%B8%B5%E0%B9%81%E0%B8%AD%E0%B8%99%E0%B8%94%E0%B9%8C%E0%B8%94%E0%B8%B5%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
-        "hdmall_name": "D&amp;D Clinic (ดีแอนด์ดีคลินิกเวชกรรม)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/nicha-clinic-(%E0%B8%93%E0%B8%B4%E0%B8%8A%E0%B8%B2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_name": "Nicha Clinic (ณิชา คลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 6,
+        "hdmall_package_count": 1,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -168290,7 +168527,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -169090,7 +169327,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -170852,7 +171089,7 @@
         "hdmall_package_count": 11,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -173149,7 +173386,7 @@
         "hdmall_package_count": 72,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -173383,13 +173620,13 @@
       "external_reviews": {
         "place_id": "0x30e2b94724e8799d:0xf32f63382d7fe4a9",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/doctor-arm-clinic-(%E0%B8%94%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%A1-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/doctor-arm-clinic-(%E0%B8%94%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%A1-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
         "hdmall_name": "Doctor Arm Clinic (ด็อกเตอร์อาร์ม คลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 10,
+        "hdmall_package_count": 3,
         "match_score": 0.375,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -175079,11 +175316,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -177206,11 +177443,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hair_transplant",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hair_transplant",
               "review_count": 1
             }
           ],
@@ -178163,7 +178400,7 @@
         "hdmall_package_count": 16,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -178242,6 +178479,58 @@
       "doctor_stats": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/The+Thames+Dental+Clinic/data=!4m7!3m6!1s0x311d63fb94d67be9:0x53bf94540ac83206!8m2!3d13.8294642!4d100.6992497!16s%2Fg%2F11kxmykphp!19sChIJ6XvWlPtjHTERBjLIClSUv1M?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x31029470d8302545_0xda4226442c51914e",
+      "place_id": "0x31029470d8302545:0xda4226442c51914e",
+      "name": "Huay Yai Pet Hospital",
+      "name_lang": "en",
+      "primary_type": "",
+      "address": "\n134/15-16 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 61 296 1651",
+      "website": "",
+      "lat": 12.8592382,
+      "lng": 100.9215363,
+      "rating": 4.6,
+      "total_reviews": 182,
+      "trust_score": 73.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Huay+Yai+Pet+Hospital/@12.8592382,100.9215363,17z/data=!3m1!4b1!4m7!3m6!1s0x31029470d8302545:0xda4226442c51914e!8m2!3d12.8592382!4d100.9215363!16s%2Fg%2F11g8cyftv5!19sChIJRSUw2HCUAjERTpFRLEQmQto?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x310297975800507f_0xeb1702098ee226a5",
@@ -179198,7 +179487,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -179337,13 +179626,13 @@
       "external_reviews": {
         "place_id": "0x30e29edef5ba6515:0x7803293d47d4fa2e",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/intellihealthplus-rejuvenation-clinic-by-stemcells21",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/intellihealthplus-rejuvenation-clinic-by-stemcells21",
         "hdmall_name": "IntelliHealthPlus Rejuvenation Clinic by StemCells21",
         "hdmall_rating": null,
-        "hdmall_package_count": 2,
+        "hdmall_package_count": 6,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -183061,97 +183350,6 @@
       "maps_url": "https://www.google.com/maps/place/Rapete+Clinic/data=!4m7!3m6!1s0x30e29edcffea5a69:0xf3a936a932d5af4c!8m2!3d13.7424972!4d100.5492471!16s%2Fg%2F11byv97rlf!19sChIJaVrq_9ye4jARTK_VMqk2qfM?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102be0bfd392437_0x6c94577ccd64df9d",
-      "place_id": "0x3102be0bfd392437:0x6c94577ccd64df9d",
-      "name": "Dr.Rut-Dr.Suree Medical Clinic",
-      "name_lang": "en",
-      "primary_type": "Medical clinic",
-      "address": "\n144/44 หมู่ 5 ถ Pattaya-Na Kluea Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 95 574 0751",
-      "website": "",
-      "lat": 12.961745,
-      "lng": 100.8953736,
-      "rating": 4.7,
-      "total_reviews": 49,
-      "trust_score": 72.8,
-      "categories": [],
-      "scraped_review_count": 49,
-      "local_guide_count": 9,
-      "avg_author_review_count": 8.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 31,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 7
-        },
-        {
-          "topic": "recommend",
-          "count": 5
-        },
-        {
-          "topic": "professional",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 9,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 37,
-          "avg": 4.57
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I got a medical certificate for my driver's license here for 200 baht. The staff is very friendly.",
-          "rating": 5,
-          "author": "Алексей Суворов"
-        },
-        {
-          "text": "The doctor is excellent. She advises on how to help the child recover only when necessary. She won't prescribe any medication that isn't essential for the child's condition. My child has recovered every time he's been treated by this doctor, and the treatment costs are very reasonable.",
-          "rating": 5,
-          "author": "Benrisa Saikrajang"
-        },
-        {
-          "text": "I have been using these two doctors here for 14 years. They are very professional and compassionate.",
-          "rating": 5,
-          "author": "dongdond mo"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "The medicine is okay, but I don't like the doctor's mouth. He talks to the patient as if he's cursing.",
-          "rating": 1,
-          "author": "เทรดเดอร์ สายครัว"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Dr.Rut-Dr.Suree+Medical+Clinic/data=!4m7!3m6!1s0x3102be0bfd392437:0x6c94577ccd64df9d!8m2!3d12.961745!4d100.8953736!16s%2Fg%2F1ts3c22h!19sChIJNyQ5_Qu-AjERnd9kzXxXlGw?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f289a310035_0x6f9b89002536a197",
       "place_id": "0x30e29f289a310035:0x6f9b89002536a197",
       "name": "Daily Smile Dental Clinic",
@@ -186074,7 +186272,7 @@
         "hdmall_package_count": 31,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -186777,7 +186975,7 @@
         "hdmall_package_count": 12,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -187209,7 +187407,7 @@
         "hdmall_package_count": 26,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -187919,7 +188117,7 @@
         "hdmall_package_count": 14,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -188872,7 +189070,7 @@
         "hdmall_package_count": 26,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -189219,11 +189417,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -191102,61 +191300,9 @@
         "hdmall_package_count": 4,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
-    },
-    {
-      "id": "0x3102957fc1a9a633_0xc252df248722cfe8",
-      "place_id": "0x3102957fc1a9a633:0xc252df248722cfe8",
-      "name": "Eyeliz by Optometrist : คลินิกแว่นตาอายลิซ โดยหมอสายตา สาขาพัทยา",
-      "name_lang": "th",
-      "primary_type": "Optometrist",
-      "address": "\nWV5R+FW3, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 98 528 6999",
-      "website": "https://www.facebook.com/Eyeliz.by.Optometrist/",
-      "lat": 12.9086327,
-      "lng": 100.8921565,
-      "rating": 4.9,
-      "total_reviews": 86,
-      "trust_score": 72.2,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Eyeliz+by+Optometrist+:+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%81%E0%B8%A7%E0%B9%88%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B8%A5%E0%B8%B4%E0%B8%8B+%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/@12.9086327,100.8921565,17z/data=!3m1!4b1!4m7!3m6!1s0x3102957fc1a9a633:0xc252df248722cfe8!8m2!3d12.9086327!4d100.8921565!16s%2Fg%2F11sdd6wz5n!19sChIJM6apwX-VAjER6M8ihyTfUsI?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e29fa4e1cd1723_0x609128fd903bf784",
@@ -194331,7 +194477,7 @@
         "hdmall_package_count": 25,
         "match_score": 0.364,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -197613,13 +197759,13 @@
       "external_reviews": {
         "place_id": "0x311d5f0001554f47:0x4e9381ab11f5fec7",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/double-p-clinic",
-        "hdmall_name": "Double P Clinic",
+        "hdmall_url": "https://hdmall.co.th/beauty/p-rich-clinic",
+        "hdmall_name": "P RICH CLINIC",
         "hdmall_rating": null,
-        "hdmall_package_count": 11,
+        "hdmall_package_count": 3,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -198242,7 +198388,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -199150,7 +199296,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Newton+EM+Physio+and+Ortho+Clinic+%7C+Rama+6+%28%E0%B8%99%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%99+%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+6%29/data=!4m7!3m6!1s0x30e29da02a8e0589:0x9c9e8af68021d252!8m2!3d13.7876721!4d100.5359041!16s%2Fg%2F11tdb7w72c!19sChIJiQWOKqCd4jARUtIhgPaKnpw?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Newton+EM+Physio+and+Ortho+Clinic+%7C+Rama+6+%28%E0%B8%99%E0%B8%B4%E0%B8%A7%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%99+%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1+6%29/data=!4m7!3m6!1s0x30e29da02a8e0589:0x9c9e8af68021d252!8m2!3d13.7876721!4d100.5359041!16s%2Fg%2F11tdb7w72c!19sChIJiQWOKqCd4jARUtIhgPaKnpw?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29da02a8e0589:0x9c9e8af68021d252",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/newton-em-physiotherapy-clinic",
+        "hdmall_name": "Newton EM Physiotherapy Clinic (นิวตั้น เอ็ม คลินิกกายภาพบำบัด)",
+        "hdmall_rating": null,
+        "hdmall_package_count": 107,
+        "match_score": 0.5,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e29e8b2da3bb65_0xc14ce5adcc4768f5",
@@ -200465,9 +200623,9 @@
           "author": "Chal Sr"
         },
         {
-          "text": "The place is clean and meets high standards. I'm approaching 50 and have never had any facial procedures done before. I had problems with wrinkles on my forehead, around my eyes, and in my nasolabial folds. After just one week, the Botox …",
+          "text": "The environment was very comfortable, the service was super professional, and the whole process was very reassuring. …",
           "rating": 5,
-          "author": "pla wan"
+          "author": "Tang Mo"
         },
         {
           "text": "The service here is excellent. We went to use the MPT service for Botox injections and Vitamin Drip. The staff explained well and were friendly. Most importantly, the price is not expensive. There are promotions every month.",
@@ -200478,7 +200636,7 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Glow+plus/data=!4m7!3m6!1s0x3102bf0007083575:0xf91b2c7ea61aa29a!8m2!3d12.9576221!4d100.8923758!16s%2Fg%2F11wbvnkv2h!19sChIJdTUIBwC_AjERmqIapn4sG_k?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Glow+plus/@12.9576221,100.8923758,17z/data=!3m1!4b1!4m7!3m6!1s0x3102bf0007083575:0xf91b2c7ea61aa29a!8m2!3d12.9576221!4d100.8923758!16s%2Fg%2F11wbvnkv2h!19sChIJdTUIBwC_AjERmqIapn4sG_k?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e2a0b536fc8b29_0xb8b94f3a393759a",
@@ -202431,6 +202589,90 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Cosm%C3%A9+Clinic/data=!4m7!3m6!1s0x30e29c199937116d:0x312e3b137f13bbcd!8m2!3d13.7887119!4d100.5474655!16s%2Fg%2F11byz6rz82!19sChIJbRE3mRmc4jARzbsTfxM7LjE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310297bca6e1c17b_0xe3e1b523876b9ff5",
+      "place_id": "0x310297bca6e1c17b:0xe3e1b523876b9ff5",
+      "name": "คลินิกทันตกรรมพัทยาใต้ South Pattaya DentalClinic",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n124 52, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "",
+      "website": "",
+      "lat": 12.9231045,
+      "lng": 100.8837612,
+      "rating": 5.0,
+      "total_reviews": 6,
+      "trust_score": 71.5,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 6,
+      "local_guide_count": 3,
+      "avg_author_review_count": 12.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 4,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Thank you for really good service 🙏🏻\nI came here to root canal treatment, Doctor she was amazing, she care about all steps what she do.\nAnd very good prices, really recommend 👌🏼💚",
+          "rating": 5,
+          "author": "Q G"
+        },
+        {
+          "text": "This clinic is great! I went for a consultation about orthodontics. The staff at the counter were very helpful and provided excellent service. The dentist was very gentle, easy to talk to, and made me feel very comfortable.",
+          "rating": 5,
+          "author": "SANDISESl"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B9%83%E0%B8%95%E0%B9%89+South+Pattaya+DentalClinic/data=!4m7!3m6!1s0x310297bca6e1c17b:0xe3e1b523876b9ff5!8m2!3d12.9231045!4d100.8837612!16s%2Fg%2F11mz9sb706!19sChIJe8HhpryXAjER9Z9rhyO14eM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ef1d8f13e53_0xca3979cdc575ffac",
@@ -208485,7 +208727,7 @@
         "hdmall_package_count": 11,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -211459,7 +211701,7 @@
         "hdmall_package_count": 30,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -211912,7 +212154,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -214632,7 +214874,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A9%E0%B8%B4%E0%B8%93%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x311d5d5a446bcadd:0xe721ed009431d705!8m2!3d13.5962581!4d100.7449447!16s%2Fg%2F11v00hpprq!19sChIJ3cprRFpdHTERBdcxlADtIec?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A9%E0%B8%B4%E0%B8%93%E0%B8%B2+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/data=!4m7!3m6!1s0x311d5d5a446bcadd:0xe721ed009431d705!8m2!3d13.5962581!4d100.7449447!16s%2Fg%2F11v00hpprq!19sChIJ3cprRFpdHTERBdcxlADtIec?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x311d5d5a446bcadd:0xe721ed009431d705",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/karuna-medical-clinic-nonthaburi-(%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%93%E0%B8%B2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_name": "KARUNA MEDICAL CLINIC NONTHABURI (กรุณา คลินิกเวชกรรม)",
+        "hdmall_rating": null,
+        "hdmall_package_count": 11,
+        "match_score": 0.5,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x3102b9d01ee668ad_0x6e515d963245cc2c",
@@ -215604,7 +215858,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -217677,7 +217931,7 @@
       "categories": [],
       "scraped_review_count": 5,
       "local_guide_count": 4,
-      "avg_author_review_count": 63.4,
+      "avg_author_review_count": 63.6,
       "language_breakdown": {
         "th": 0,
         "en": 2,
@@ -220729,7 +220983,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -223537,7 +223791,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -232369,8 +232623,8 @@
           "avg": 3.67
         },
         "old": {
-          "count": 23,
-          "avg": 4.17
+          "count": 24,
+          "avg": 4.21
         },
         "trend": "insufficient_data"
       },
@@ -232382,14 +232636,14 @@
           "author": "Jim Phillips"
         },
         {
-          "text": "Highly recommend! the doctor is truly a master at his craft and knows exactly how to help heal the problem",
+          "text": "Went for the first time today. Had acupuncture then cupping. Absolutely loved the cupping. Felt like all the bad was being pulled out of me. Friendly staff who spoke great English and nice and clean little place. Bought a package and can’t wait to go back.",
           "rating": 5,
-          "author": "Dan G"
+          "author": "Jery Jeritza"
         },
         {
-          "text": "What a therapy...and doctor...\nMy knee has a new feeling and is relaxed..from the first session..\nAnd i will come more and more and more",
+          "text": "The doctor completely changed the course of my lower back problem giving me greatly increased mobility and lesser pain.  In my case, much better than surgery.",
           "rating": 5,
-          "author": "Hazem al-qunsul"
+          "author": "Valdimar Hreidarsson"
         }
       ],
       "sample_reviews_negative": [
@@ -232411,7 +232665,7 @@
       ],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Yin+Yang+Acupuncture+Clinic/@12.9256854,100.8842097,17z/data=!3m1!4b1!4m7!3m6!1s0x3102960b89b9bc19:0xd74442d6caa6ca45!8m2!3d12.9256854!4d100.8842097!16s%2Fg%2F11h331bffh!19sChIJGby5iQuWAjERRcqmytZCRNc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
+      "maps_url": "https://www.google.com/maps/place/Yin+Yang+Acupuncture+Clinic/data=!4m7!3m6!1s0x3102960b89b9bc19:0xd74442d6caa6ca45!8m2!3d12.9256854!4d100.8842097!16s%2Fg%2F11h331bffh!19sChIJGby5iQuWAjERRcqmytZCRNc?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d672152540305_0x68677dde4a620a33",
@@ -232677,7 +232931,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -233092,7 +233346,7 @@
         "hdmall_package_count": 27,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -235440,13 +235694,13 @@
       "external_reviews": {
         "place_id": "0x30e29ed2ed14dbef:0xc0a5c2c088071136",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/m-clinic",
-        "hdmall_name": "M Clinic",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/moves-d-clinic",
+        "hdmall_name": "Moves D Clinic",
         "hdmall_rating": null,
-        "hdmall_package_count": 3,
-        "match_score": 0.667,
+        "hdmall_package_count": 4,
+        "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:28Z"
       },
       "pricing": []
     },
@@ -237886,7 +238140,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.35,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -239795,7 +240049,7 @@
         "hdmall_package_count": 48,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -243121,6 +243375,58 @@
       "maps_url": "https://www.google.com/maps/place/ooca+mental+wellness+clinic+%E0%B8%AD%E0%B8%B9%E0%B8%81%E0%B9%89%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%88%E0%B8%B4%E0%B8%95/data=!4m7!3m6!1s0xa6b05de7353cb567:0x39063065166ee22e!8m2!3d13.7447652!4d100.540726!16s%2Fg%2F11nnsfn7c9!19sChIJZ7U8NeddsKYRLuJuFmUwBjk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102be0bfd392437_0x6c94577ccd64df9d",
+      "place_id": "0x3102be0bfd392437:0x6c94577ccd64df9d",
+      "name": "Dr.Rut-Dr.Suree Medical Clinic",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\n144/44 หมู่ 5 ถ Pattaya-Na Kluea Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 95 574 0751",
+      "website": "",
+      "lat": 12.961745,
+      "lng": 100.8953736,
+      "rating": 4.7,
+      "total_reviews": 50,
+      "trust_score": 67.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dr.Rut-Dr.Suree+Medical+Clinic/data=!4m7!3m6!1s0x3102be0bfd392437:0x6c94577ccd64df9d!8m2!3d12.961745!4d100.8953736!16s%2Fg%2F1ts3c22h!19sChIJNyQ5_Qu-AjERnd9kzXxXlGw?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e281dc1ce1a623_0xb00fee3dca8c5ccf",
       "place_id": "0x30e281dc1ce1a623:0xb00fee3dca8c5ccf",
       "name": "พารากอน ทันตกรรม",
@@ -243998,7 +244304,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+Medical+Lab+Phaholyothin/data=!4m7!3m6!1s0x30e29c19ad609fe5:0x9750d74e0a62ead9!8m2!3d13.7897471!4d100.5499915!16s%2Fg%2F1hf6f49jl!19sChIJ5Z9grRmc4jAR2epiCk7XUJc?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Medical+Lab+Phaholyothin/data=!4m7!3m6!1s0x30e29c19ad609fe5:0x9750d74e0a62ead9!8m2!3d13.7897471!4d100.5499915!16s%2Fg%2F1hf6f49jl!19sChIJ5Z9grRmc4jAR2epiCk7XUJc?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29c19ad609fe5:0x9750d74e0a62ead9",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/bangkok-medical-lab",
+        "hdmall_name": "Bangkok Medical Lab",
+        "hdmall_rating": 4.0,
+        "hdmall_package_count": 19,
+        "match_score": 0.667,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e29d2a02fbd66f_0x54dd7e5b82c51e38",
@@ -245454,7 +245772,19 @@
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Pain+Free+Clinic+by+Joy+of+Minds/data=!4m7!3m6!1s0x30e29f9166f49f29:0xea3fe8e3997905e0!8m2!3d13.74565!4d100.5619329!16s%2Fg%2F11yf2ysn49!19sChIJKZ_0ZpGf4jAR4AV5mePoP-o?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Pain+Free+Clinic+by+Joy+of+Minds/data=!4m7!3m6!1s0x30e29f9166f49f29:0xea3fe8e3997905e0!8m2!3d13.74565!4d100.5619329!16s%2Fg%2F11yf2ysn49!19sChIJKZ_0ZpGf4jAR4AV5mePoP-o?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f9166f49f29:0xea3fe8e3997905e0",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/joy-of-minds-by-masterwork-clinic",
+        "hdmall_name": "JOY OF MINDS CLINIC",
+        "hdmall_rating": null,
+        "hdmall_package_count": 71,
+        "match_score": 0.4,
+        "match_needs_review": true,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x311d7f5a7bc45169_0x985164582fd0de89",
@@ -246704,7 +247034,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B9%82%E0%B8%AD%E0%B8%97%E0%B8%B5+%E0%B8%A3%E0%B8%B9%E0%B8%A1+-+OT+Room+Physical+Therapy+Clinic/@13.7392359,100.5479032,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29fcf2deacf7f:0x5f73e40f41cf2ca!8m2!3d13.7392359!4d100.5479032!16s%2Fg%2F11h_d41p9f!19sChIJf8_qLc-f4jARyvIc9EA-9wU?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A2%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%9A%E0%B8%B3%E0%B8%9A%E0%B8%B1%E0%B8%94+%E0%B9%82%E0%B8%AD%E0%B8%97%E0%B8%B5+%E0%B8%A3%E0%B8%B9%E0%B8%A1+-+OT+Room+Physical+Therapy+Clinic/@13.7392359,100.5479032,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29fcf2deacf7f:0x5f73e40f41cf2ca!8m2!3d13.7392359!4d100.5479032!16s%2Fg%2F11h_d41p9f!19sChIJf8_qLc-f4jARyvIc9EA-9wU?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D",
+      "external_reviews": {
+        "place_id": "0x30e29fcf2deacf7f:0x5f73e40f41cf2ca",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/ot-room-physical-therapy-clinic",
+        "hdmall_name": "OT Room Physical Therapy Clinic",
+        "hdmall_rating": 5.0,
+        "hdmall_package_count": 4,
+        "match_score": 0.571,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e29f09fc9f78c9_0xe4d50eb3e5ca9ee8",
@@ -247677,7 +248019,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -249392,7 +249734,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Near+Me+Clinic/data=!4m7!3m6!1s0x30e29f4d03fa6cc3:0x64f8637756b1744a!8m2!3d13.7565381!4d100.5610343!16s%2Fg%2F11m6xj29gj!19sChIJw2z6A02f4jARSnSxVndj-GQ?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Near+Me+Clinic/data=!4m7!3m6!1s0x30e29f4d03fa6cc3:0x64f8637756b1744a!8m2!3d13.7565381!4d100.5610343!16s%2Fg%2F11m6xj29gj!19sChIJw2z6A02f4jARSnSxVndj-GQ?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f4d03fa6cc3:0x64f8637756b1744a",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/me-center",
+        "hdmall_name": "Me Center",
+        "hdmall_rating": 3.7,
+        "hdmall_package_count": 97,
+        "match_score": 0.5,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:28Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e29ffb484963bd_0xb3232a2aff948065",
@@ -252355,7 +252709,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -257597,7 +257951,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -258121,7 +258475,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -258232,105 +258586,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/F+REHAB+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+The+PARQ/data=!4m7!3m6!1s0x30e29f85a04db131:0xbbd2b77597a10ad!8m2!3d13.7211585!4d100.5583617!16s%2Fg%2F11nt4092tt!19sChIJMbFNoIWf4jARrRB6WXcrvQs?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102947407138263_0x1ae000db5f9013da",
-      "place_id": "0x3102947407138263:0x1ae000db5f9013da",
-      "name": "ทันตกรรม ยิ้มสบาย",
-      "name_lang": "th",
-      "primary_type": "Doctor",
-      "address": "\n8 Tesabal Road 1 Soi 1, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 33 002 180",
-      "website": "",
-      "lat": 12.8584687,
-      "lng": 100.9181279,
-      "rating": 4.6,
-      "total_reviews": 21,
-      "trust_score": 65.0,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 10,
-      "local_guide_count": 1,
-      "avg_author_review_count": 3.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 4
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "professional",
-          "count": 2
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 2
-        },
-        {
-          "topic": "recommend",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 9,
-          "avg": 4.56
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I really like it. It's fast, on time, good price, and has parking. I highly recommend it. ❤️❤️❤️",
-          "rating": 5,
-          "author": "Rosie B."
-        },
-        {
-          "text": "The service was excellent. The doctor was very kind. The shop was clean and very friendly.",
-          "rating": 5,
-          "author": "สุนิตา มีแก้ว"
-        },
-        {
-          "text": "The doctor is lovely and gentle.\nShe gave good advice.\nThe price was reasonable.\nI will definitely come back again.",
-          "rating": 5,
-          "author": "วรเชษฐ ปัญญา"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "Deceiving consumers, inquiring about prices, but salespeople always refuse to say anything, saying that they will follow the process and offer free inspections. In the end, they will charge a 500 baht inspection fee,",
-          "rating": 1,
-          "author": "黄凯"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%A2%E0%B8%B4%E0%B9%89%E0%B8%A1%E0%B8%AA%E0%B8%9A%E0%B8%B2%E0%B8%A2/data=!4m7!3m6!1s0x3102947407138263:0x1ae000db5f9013da!8m2!3d12.8584687!4d100.9181279!16s%2Fg%2F11f08msjqw!19sChIJY4ITB3SUAjER2hOQX9sA4Bo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d6f3b41c9fcb7_0x9245986ce326bbf1",
@@ -258587,11 +258842,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -260830,7 +261085,7 @@
         "hdmall_package_count": 193,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -261427,7 +261682,7 @@
         "hdmall_package_count": 12,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -264363,7 +264618,7 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Akara+Clinic/@12.9289256,100.8885181,17z/data=!3m1!4b1!4m7!3m6!1s0x31029609977e5bd9:0xd378a32010308270!8m2!3d12.9289256!4d100.8885181!16s%2Fg%2F1pzshg8zn!19sChIJ2Vt-lwmWAjERcIIwECCjeNM?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
+      "maps_url": "https://www.google.com/maps/place/Akara+Clinic/data=!4m7!3m6!1s0x31029609977e5bd9:0xd378a32010308270!8m2!3d12.9289256!4d100.8885181!16s%2Fg%2F1pzshg8zn!19sChIJ2Vt-lwmWAjERcIIwECCjeNM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e28108c7a6c497_0x6d8f40ea82157599",
@@ -266992,7 +267247,7 @@
         "hdmall_package_count": 5,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -268087,7 +268342,19 @@
       "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Doctor+Care+Clinic+%28%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%29/data=!4m7!3m6!1s0x30e29f5479888c53:0x1c80a883cdfc8809!8m2!3d13.6941712!4d100.5331216!16s%2Fg%2F1tjs2cx6!19sChIJU4yIeVSf4jARCYj8zYOogBw?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/Doctor+Care+Clinic+%28%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5%29/data=!4m7!3m6!1s0x30e29f5479888c53:0x1c80a883cdfc8809!8m2!3d13.6941712!4d100.5331216!16s%2Fg%2F1tjs2cx6!19sChIJU4yIeVSf4jARCYj8zYOogBw?authuser=0&hl=en&rclk=1",
+      "external_reviews": {
+        "place_id": "0x30e29f5479888c53:0x1c80a883cdfc8809",
+        "source": "hdmall",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/doctor-care-clinic-(%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%94%E0%B8%B9%E0%B9%81%E0%B8%A5)",
+        "hdmall_name": "Doctor Care Clinic (คลินิกเวชกรรมหมอดูแล)",
+        "hdmall_rating": null,
+        "hdmall_package_count": 11,
+        "match_score": 0.6,
+        "match_needs_review": false,
+        "scraped_at": "2026-05-13T20:12:27Z"
+      },
+      "pricing": []
     },
     {
       "id": "0x30e28fb31483bca1_0x5fab704996bcdae8",
@@ -271158,7 +271425,7 @@
         "hdmall_package_count": 15,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -271802,7 +272069,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:31Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -272682,7 +272949,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:07Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -273364,7 +273631,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:29Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -274835,7 +275102,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:25:10Z"
       },
       "pricing": []
     },
@@ -275230,7 +275497,7 @@
         "hdmall_package_count": 16,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -278252,6 +278519,60 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/PatcharaClinic/@12.976057,100.9249984,17z/data=!3m1!4b1!4m7!3m6!1s0x310295b5e18988df:0xd13d8fc5a23d33f9!8m2!3d12.976057!4d100.9249984!16s%2Fg%2F11fyx950b8!19sChIJ34iJ4bWVAjER-TM9osWPPdE?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "id": "0x3102947407138263_0x1ae000db5f9013da",
+      "place_id": "0x3102947407138263:0x1ae000db5f9013da",
+      "name": "ทันตกรรม ยิ้มสบาย",
+      "name_lang": "th",
+      "primary_type": "Doctor",
+      "address": "\n8 Tesabal Road 1 Soi 1, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 33 002 180",
+      "website": "",
+      "lat": 12.8584687,
+      "lng": 100.9181279,
+      "rating": 4.5,
+      "total_reviews": 22,
+      "trust_score": 61.1,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%A2%E0%B8%B4%E0%B9%89%E0%B8%A1%E0%B8%AA%E0%B8%9A%E0%B8%B2%E0%B8%A2/@12.8584687,100.9181279,17z/data=!3m1!4b1!4m7!3m6!1s0x3102947407138263:0x1ae000db5f9013da!8m2!3d12.8584687!4d100.9181279!16s%2Fg%2F11f08msjqw!19sChIJY4ITB3SUAjER2hOQX9sA4Bo?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e29ed00dcc36cb_0x95cd0b9f73641d7c",
@@ -281733,7 +282054,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -283346,7 +283667,7 @@
       "mentioned_topics": [
         {
           "topic": "recommend",
-          "count": 5
+          "count": 4
         },
         {
           "topic": "clean_facility",
@@ -283379,19 +283700,19 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
+          "text": "At the clinic, the doctor has a gentle hand.\nVery good service.\nI am a regular customer. I always go to this clinic and never have any problems. …",
+          "rating": 5,
+          "author": "สกาวเดือน แสนหัวช้าง"
+        },
+        {
           "text": "I've been a long-time customer, Doctor and staff, and the service is excellent. The Botox and fillers are fantastic. I highly recommend it!",
           "rating": 5,
           "author": "สงกานณ์ ลักษณะดี"
         },
         {
-          "text": "At the clinic, the doctor has a gentle hand.\nVery good service.\nI am a regular customer. I always go to this clinic and never have any problems.\nThe staff and employees give good advice about products.\nYou can be confident. I recommend it.",
+          "text": "The doctor was very gentle, I liked it a lot. The service was good and the staff were very helpful.",
           "rating": 5,
-          "author": "สกาวเดือน แสนหัวช้าง"
-        },
-        {
-          "text": "The staff gave good advice. I really like it. I highly recommend it. The doctor has a gentle hand.",
-          "rating": 5,
-          "author": "Thai Mobile"
+          "author": "สุดปราถนา นานาวัน"
         }
       ],
       "sample_reviews_negative": [
@@ -283403,7 +283724,7 @@
       ],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/VC+Exclusive+Clinic+pattaya/@12.9347461,100.8916177,17z/data=!3m1!4b1!4m7!3m6!1s0x310295cf6322314b:0x3488f7b83d914f12!8m2!3d12.9347461!4d100.8916177!16s%2Fg%2F11vs2wnv58!19sChIJSzEiY8-VAjEREk-RPbj3iDQ?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
+      "maps_url": "https://www.google.com/maps/place/VC+Exclusive+Clinic+pattaya/data=!4m7!3m6!1s0x310295cf6322314b:0x3488f7b83d914f12!8m2!3d12.9347461!4d100.8916177!16s%2Fg%2F11vs2wnv58!19sChIJSzEiY8-VAjEREk-RPbj3iDQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x31029674b3ae6535_0xe2cd45c6ee2bbeb8",
@@ -285554,60 +285875,6 @@
       "maps_url": "https://www.google.com/maps/place/Pairoj+-+Pattaya+Medical+Clinic/@12.936968,100.8845503,17z/data=!3m1!4b1!4m6!3m5!1s0x310295fd3ddda9ad:0x18050ac06901386!8m2!3d12.936968!4d100.8845503!16s%2Fg%2F1pzrrhq8c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
-      "id": "0x310297bca6e1c17b_0xe3e1b523876b9ff5",
-      "place_id": "0x310297bca6e1c17b:0xe3e1b523876b9ff5",
-      "name": "คลินิกทันตกรรมพัทยาใต้ South Pattaya DentalClinic",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n124 52, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "",
-      "website": "",
-      "lat": 12.9231045,
-      "lng": 100.8837612,
-      "rating": 5.0,
-      "total_reviews": 6,
-      "trust_score": 59.3,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B9%83%E0%B8%95%E0%B9%89+South+Pattaya+DentalClinic/data=!4m7!3m6!1s0x310297bca6e1c17b:0xe3e1b523876b9ff5!8m2!3d12.9231045!4d100.8837612!16s%2Fg%2F11mz9sb706!19sChIJe8HhpryXAjER9Z9rhyO14eM?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x3102950056cf455d_0x6c217168d893aaf4",
       "place_id": "0x3102950056cf455d:0x6c217168d893aaf4",
       "name": "Century Plus Clinic Pattaya",
@@ -287122,7 +287389,7 @@
         "hdmall_package_count": 14,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:21Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -290589,13 +290856,13 @@
       "external_reviews": {
         "place_id": "0x30e2996d52061a81:0x53a4da543fc6426a",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/drchen-surgery-hospital-international-center",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/drchen-surgery-hospital-international-center",
         "hdmall_name": "Dr.CHEN Surgery Hospital International Center",
         "hdmall_rating": null,
-        "hdmall_package_count": 13,
+        "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:36:30Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -290854,7 +291121,7 @@
         "hdmall_package_count": 20,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:26Z"
       },
       "pricing": []
     },
@@ -292354,6 +292621,10 @@
           "count": 8
         },
         {
+          "topic": "friendly_staff",
+          "count": 2
+        },
+        {
           "topic": "english_speaking",
           "count": 1
         },
@@ -292367,10 +292638,6 @@
         },
         {
           "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
           "count": 1
         }
       ],
@@ -292414,19 +292681,19 @@
           "author": "Edward Davies"
         },
         {
-          "text": "This clinic has a doctor who is incredibly rude. They just come for an examination, and you pay for it; it's not free. It's utterly awful. I recommend you avoid this clinic and go somewhere else.",
+          "text": "This clinic has a doctor who is incredibly rude. They just come for an examination, and you pay for it; it's not free. It's utterly awful. I recommend you avoid this clinic and go somewhere else. …",
           "rating": 1,
           "author": "วิรัช องค์อุมา"
         },
         {
-          "text": "We went to a clinic to have a wound cleaned for 300฿. This was the first clinic where the service from the staff was so bad.\nNot even a greeting was given. …",
-          "rating": 1,
-          "author": "wilailuk pimso"
+          "text": "B500 for supervised COVID Rapid Antigen Test for international travel. Check your certificate carefully, mistake made on Month of birth on my friend's certificate. The RAT tester is also very rough, most invasive nasal swab I have experienced.",
+          "rating": 3,
+          "author": "Greg “Bickers”"
         }
       ],
       "doctor_stats": [],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Klinik+Wechakam+Asia+Inter/@12.926901,100.8866105,17z/data=!3m1!4b1!4m7!3m6!1s0x310297b95e837e77:0x48768324b8a3fca!8m2!3d12.926901!4d100.8866105!16s%2Fg%2F11jgkz9s74!19sChIJd36DXrmXAjERyj-KSzJohwQ?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D"
+      "maps_url": "https://www.google.com/maps/place/Klinik+Wechakam+Asia+Inter/data=!4m7!3m6!1s0x310297b95e837e77:0x48768324b8a3fca!8m2!3d12.926901!4d100.8866105!16s%2Fg%2F11jgkz9s74!19sChIJd36DXrmXAjERyj-KSzJohwQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f55cd9f8eb5_0x856854feff8e7520",
@@ -292939,7 +293206,7 @@
         "hdmall_package_count": 15,
         "match_score": 0.667,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -295359,7 +295626,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -297099,7 +297366,7 @@
         "hdmall_package_count": 18,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:44:22Z"
+        "scraped_at": "2026-05-13T20:14:51Z"
       },
       "pricing": []
     },
@@ -297206,6 +297473,104 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/DiO+Clinic/data=!4m7!3m6!1s0x30e29e8732b7f73f:0x7fc52cfa883ebebc!8m2!3d13.7728128!4d100.5725968!16s%2Fg%2F11bzsfnx6s!19sChIJP_e3Moee4jARvL4-iPosxX8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102b95f7b1c42d1_0xe9a94bbdef2f5765",
+      "place_id": "0x3102b95f7b1c42d1:0xe9a94bbdef2f5765",
+      "name": "TJ Clinic - ทีเจ คลินิก",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\nSukhumvit Rd, Tambon Thung Suk La, Si Racha District, Chon Buri 20230, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "lat": 13.0786798,
+      "lng": 100.9203707,
+      "rating": 3.9,
+      "total_reviews": 14,
+      "trust_score": 53.7,
+      "categories": [
+        "filler",
+        "laser"
+      ],
+      "scraped_review_count": 14,
+      "local_guide_count": 0,
+      "avg_author_review_count": 2.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 12,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "filler": 3,
+        "laser": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "promotion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 13,
+          "avg": 3.77
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Yesterday I went for lip filler injections and skin vitamin drips. The doctor and nurses were very gentle. All the staff were lovely and friendly. I was very impressed. 🥰🥰🥰 …",
+          "rating": 5,
+          "author": "Wan Methawee"
+        },
+        {
+          "text": "I really like it. Since I started using the service, my face has changed and become much more beautiful. The doctor and staff are very lovely.",
+          "rating": 5,
+          "author": "natwara klamrat"
+        },
+        {
+          "text": "The service was very good. The doctor was very nice. The staff were lovely. The doctor had a gentle touch. The melasma injection didn't hurt at all.",
+          "rating": 5,
+          "author": "กนก"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "The receptionist looked at me with disdain. She saw that I was dressed poorly. She didn't smile and thought I didn't have money to pay. She didn't look at me. I booked a promotion and threw away my money. I won't go to this clinic again. 🙄🙄 …",
+          "rating": 1,
+          "author": "oppo Reno"
+        },
+        {
+          "text": "I went for underarm laser hair removal, and the very next day the hair grew back as stubble, just like using a razor. The person who did it was a staff member, not a doctor. 🙄 …",
+          "rating": 1,
+          "author": "กวาง"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/TJ+Clinic+-+%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%88+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x3102b95f7b1c42d1:0xe9a94bbdef2f5765!8m2!3d13.0786798!4d100.9203707!16s%2Fg%2F11hz0kj532!19sChIJ0UIce1-5AjERZVcv771Lqek?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2bc8c82dff8f1_0x61f783068be7e6b1",
@@ -297890,7 +298255,7 @@
         "hdmall_package_count": 10,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:25Z"
       },
       "pricing": []
     },
@@ -302378,13 +302743,13 @@
       "external_reviews": {
         "place_id": "0x30e29e9de426d92b:0x1ff9527cdea07303",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/infinity-clinic-by-dr-palm",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/infinity-clinic-by-dr-palm",
         "hdmall_name": "Infinity Clinic by Dr. Palm",
         "hdmall_rating": null,
-        "hdmall_package_count": 22,
+        "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:06Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -304341,7 +304706,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-13T18:13:08Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
@@ -305875,13 +306240,13 @@
       "external_reviews": {
         "place_id": "0x311d5d4175903215:0x107abb98148657ee",
         "source": "hdmall",
-        "hdmall_url": "https://hdmall.co.th/beauty/drclitoria-clinic-(%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%97%E0%B8%AD%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+        "hdmall_url": "https://hdmall.co.th/health-checkup/drclitoria-clinic-(%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%97%E0%B8%AD%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
         "hdmall_name": "Dr.Clitoria Clinic (คลิทอเรีย คลินิกเวชกรรม)",
         "hdmall_rating": null,
-        "hdmall_package_count": 3,
+        "hdmall_package_count": 1,
         "match_score": 0.375,
         "match_needs_review": true,
-        "scraped_at": "2026-05-13T18:36:30Z"
+        "scraped_at": "2026-05-13T20:12:27Z"
       },
       "pricing": []
     },
