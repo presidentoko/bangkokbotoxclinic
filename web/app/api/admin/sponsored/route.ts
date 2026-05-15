@@ -2,23 +2,18 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
 import { listSponsored, saveSponsored, type SponsoredMap } from "@/lib/sponsoredStore";
+import { isAdminAuthed } from "@/lib/adminAuth";
 
 export const dynamic = "force-dynamic";
 
-function authed(req: NextRequest): boolean {
-  const key = req.headers.get("x-admin-key");
-  const expected = process.env.ADMIN_PASSCODE;
-  return !!expected && key === expected;
-}
-
 export async function GET(req: NextRequest) {
-  if (!authed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const sponsored = await listSponsored();
   return NextResponse.json({ sponsored });
 }
 
 export async function PUT(req: NextRequest) {
-  if (!authed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json()) as Partial<SponsoredMap>;
   const next: SponsoredMap = {
     editors_pick: body.editors_pick ?? [],

@@ -1,18 +1,17 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { allPartners } from "@/lib/partners";
+import { listPartners } from "@/lib/partnerStore";
 import { getLeadCount } from "@/lib/leadStore";
+import { isAdminAuthed } from "@/lib/adminAuth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const key = req.headers.get("x-admin-key");
-  const expected = process.env.ADMIN_PASSCODE;
-  if (!expected || key !== expected) {
+  if (!isAdminAuthed(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const partners = allPartners();
+  const partners = await listPartners();
   const counts = await Promise.all(
     partners.map(async (p) => ({
       clinic_id: p.clinic_id,

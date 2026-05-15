@@ -3,18 +3,13 @@ import type { NextRequest } from "next/server";
 import { listPartners, updatePartner } from "@/lib/partnerStore";
 import { makePaymentId } from "@/lib/billing";
 import type { Payment } from "@/lib/partners";
+import { isAdminAuthed } from "@/lib/adminAuth";
 
 export const dynamic = "force-dynamic";
 
-function authed(req: NextRequest): boolean {
-  const key = req.headers.get("x-admin-key");
-  const expected = process.env.ADMIN_PASSCODE;
-  return !!expected && key === expected;
-}
-
 /** POST { clinic_id, amount_thb, paid_at, method, period_start?, period_end?, note? } → add payment */
 export async function POST(req: NextRequest) {
-  if (!authed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json()) as Partial<Payment> & { clinic_id: string };
   if (!body.clinic_id || !body.amount_thb || !body.paid_at || !body.method) {
     return NextResponse.json({ error: "clinic_id, amount_thb, paid_at, method required" }, { status: 400 });
@@ -39,7 +34,7 @@ export async function POST(req: NextRequest) {
 
 /** DELETE { clinic_id, payment_id } → remove payment */
 export async function DELETE(req: NextRequest) {
-  if (!authed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const { clinic_id, payment_id } = (await req.json()) as { clinic_id?: string; payment_id?: string };
   if (!clinic_id || !payment_id) return NextResponse.json({ error: "clinic_id and payment_id required" }, { status: 400 });
   const partners = await listPartners();
