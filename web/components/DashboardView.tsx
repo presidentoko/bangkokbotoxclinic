@@ -1,9 +1,12 @@
+"use client";
 // B2B clinic dashboard — peeyai 패턴 referenced.
 // 클리닉 owner mode. Crisis alerts top → KPI bar → AI tools → competitors → insights.
 
-import type { Clinic } from "@/lib/types";
-import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
-import { draftReply, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
+import { useState, useCallback } from "react";
+import type { Clinic, RatingTrend } from "@/lib/types";
+import { TOPIC_LABELS } from "@/lib/types";
+import { draftReplyStyled, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
+import type { ReplyStyle } from "@/lib/replyDrafts";
 import type { LeadRecord } from "@/lib/leadStore";
 
 type Props = {
@@ -27,7 +30,33 @@ export function DashboardView({
   clinic: c, competitors, cityAvgRating, cityClinicCount,
   recentLeads = [], totalLeads = 0, ticketAvg = 15000, isPartner = false, isDemo,
 }: Props) {
-  // ROI 계산
+  // ── client state ──────────────────────────────────────────
+  const [resolvedSet, setResolvedSet] = useState<Set<number>>(new Set());
+  const [styleVariants, setStyleVariants] = useState<Record<number, ReplyStyle>>({});
+  const [editTexts, setEditTexts] = useState<Record<number, string>>({});
+  const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [topicFilter, setTopicFilter] = useState<string | null>(null);
+
+  const handleCopy = useCallback(async (text: string, key: string) => {
+    try { await navigator.clipboard.writeText(text); } catch {
+      const el = document.createElement("textarea");
+      el.value = text; document.body.appendChild(el); el.select();
+      document.execCommand("copy"); document.body.removeChild(el);
+    }
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2000);
+  }, []);
+
+  const handlePrint = () => window.print();
+
+  const cycleStyle = (i: number) =>
+    setStyleVariants((p) => ({ ...p, [i]: (((p[i] ?? 0) + 1) % 3) as ReplyStyle }));
+
+  const toggleResolved = (i: number) =>
+    setResolvedSet((prev) => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; });
+
+  // ── ROI 계산
   const leadsThisMonth = recentLeads.filter((l) => {
     const ageMs = Date.now() - new Date(l.at).getTime();
     return ageMs < 30 * 24 * 3600 * 1000;
@@ -47,7 +76,31 @@ export function DashboardView({
   }[trend];
 
   const myRank = competitors.findIndex((x) => x.id === c.id) + 1;
-  const samples = [...c.sample_reviews_en, ...c.sample_reviews_th].slice(0, 3);
+  const TOPIC_KEYWORDS: Record<string, string[]> = {
+    english_speaking: ["english", "english-speaking", "english speaking"],
+    genuine_brand: ["genuine", "authentic", "original", "real"],
+    clean_facility: ["clean", "hygiene", "hygienic", "spotless"],
+    long_wait: ["wait", "waiting", "slow", "late", "delay"],
+    expensive: ["expensive", "pricey", "overpriced", "overcharged"],
+    affordable: ["affordable", "cheap", "reasonable", "price"],
+    professional: ["professional", "expert", "skilled"],
+    friendly_staff: ["friendly", "kind", "warm", "welcoming"],
+    results_satisfied: ["result", "satisfied", "happy", "great result", "love it"],
+    no_pain: ["pain", "painless", "no pain", "comfortable"],
+    recommend: ["recommend", "recommend!", "would recommend"],
+    korean_doctor: ["korean", "korea", "한국", "kmd", "korean-trained"],
+    promotion: ["promotion", "discount", "deal", "offer"],
+    premium: ["premium", "luxury", "high-end"],
+  };
+  const allSamples = [...c.sample_reviews_en, ...c.sample_reviews_th];
+  const samples = (topicFilter
+    ? allSamples.filter((s) => {
+        const kws = TOPIC_KEYWORDS[topicFilter] ?? [];
+        const low = s.text.toLowerCase();
+        return kws.some((k) => low.includes(k));
+      })
+    : allSamples
+  ).slice(0, topicFilter ? 10 : 3);
   const negatives = c.sample_reviews_negative ?? [];
 
   // Mock metrics where real data not yet available (clinic doesn't have unanswered count
@@ -76,10 +129,10 @@ export function DashboardView({
             <div className="text-base font-bold truncate max-w-md">{c.name}</div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
+            <button onClick={handlePrint} className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden">
               📊 Export weekly PDF
             </button>
-            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
+            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden">
               ⚙️ Settings
             </button>
             <button className="text-xs font-bold px-3 py-2 rounded-lg text-white" style={{ background: "#7c3aed" }}>
@@ -143,56 +196,81 @@ export function DashboardView({
                   Unanswered negative reviews drop your Trust Score. Reply within 48h with AI-drafted response.
                 </p>
               </div>
-              <button className="text-xs font-bold px-3 py-2 rounded-lg text-white" style={{ background: "#ef4444" }}>
+              <button
+                onClick={() => document.querySelectorAll<HTMLDetailsElement>(".crisis-detail").forEach(d => { d.open = true; })}
+                className="text-xs font-bold px-3 py-2 rounded-lg text-white print:hidden" style={{ background: "#ef4444" }}>
                 ✨ Generate all replies
               </button>
             </div>
             <div className="space-y-3">
               {negatives.map((rev, i) => {
-                const { category, draft } = draftReply(rev.text, c.name, rev.author);
+                const style = styleVariants[i] ?? 0;
+                const { category, draft: rawDraft } = draftReplyStyled(rev.text, c.name, rev.author, style);
+                const draft = editTexts[i] ?? rawDraft;
                 const severity = rev.rating <= 1 ? "critical" : rev.rating <= 2 ? "high" : "medium";
                 const severityColor = severity === "critical" ? "#dc2626" : severity === "high" ? "#ea580c" : "#d97706";
+                const resolved = resolvedSet.has(i);
+                const copyKey = `reply-${i}`;
+                const STYLE_LABELS: Record<number, string> = { 0: "Formal", 1: "Warm", 2: "Brief" };
                 return (
-                  <div key={i} className="bg-white border-2 rounded-xl overflow-hidden" style={{ borderColor: `${severityColor}30` }}>
+                  <div key={i} className={`bg-white border-2 rounded-xl overflow-hidden transition ${resolved ? "opacity-50" : ""}`} style={{ borderColor: `${severityColor}30` }}>
                     <div className="px-4 py-3 flex items-center justify-between gap-3 border-b border-[var(--border)] flex-wrap" style={{ background: `${severityColor}08` }}>
                       <div className="flex items-center gap-3 flex-wrap">
-                        <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white" style={{ background: severityColor }}>
-                          {severity}
-                        </span>
+                        {resolved ? (
+                          <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white bg-gray-400">resolved</span>
+                        ) : (
+                          <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white" style={{ background: severityColor }}>{severity}</span>
+                        )}
                         <span className="text-yellow-600 text-sm">{"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}</span>
                         <span className="text-xs font-bold px-2 py-1 rounded bg-amber-100 text-amber-800">{REPLY_CATEGORY_LABELS[category]}</span>
                         <span className="text-xs text-[var(--muted)]">{rev.author || "Google reviewer"} · 2-7 days ago</span>
                       </div>
-                      <span className="text-xs text-[var(--muted)]">Source: Google Maps</span>
+                      <button onClick={() => toggleResolved(i)} className="text-xs font-bold px-2 py-1 rounded border border-[var(--border)] bg-white hover:bg-gray-50">
+                        {resolved ? "↩ Unresolve" : "✓ Mark resolved"}
+                      </button>
                     </div>
                     <div className="p-4">
                       <p className="text-sm text-[var(--fg)] italic leading-relaxed mb-3">&ldquo;{rev.text}&rdquo;</p>
-                      <details className="group">
+                      <details className="crisis-detail group">
                         <summary className="cursor-pointer flex items-center justify-between gap-3 px-3 py-2 rounded-lg bg-purple-50 hover:bg-purple-100 transition select-none">
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-bold uppercase tracking-widest text-purple-700">✨ AI reply draft</span>
-                            <span className="text-xs text-purple-600">— click to view + edit</span>
+                            <span className="text-xs text-purple-600 font-medium">— {STYLE_LABELS[style]}</span>
                           </div>
-                          <span className="text-purple-600 group-open:rotate-180 transition">⌄</span>
+                          <span className="text-purple-600 group-open:rotate-180 transition-transform">⌄</span>
                         </summary>
                         <div className="mt-3 bg-white border border-purple-200 rounded-lg p-4">
-                          <p className="text-sm leading-relaxed whitespace-pre-wrap mb-3">{draft}</p>
+                          {isEditing[i] ? (
+                            <textarea
+                              className="w-full text-sm leading-relaxed border border-purple-300 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-purple-300 mb-3"
+                              rows={5}
+                              value={draft}
+                              onChange={(e) => setEditTexts((p) => ({ ...p, [i]: e.target.value }))}
+                            />
+                          ) : (
+                            <p className="text-sm leading-relaxed whitespace-pre-wrap mb-3">{draft}</p>
+                          )}
                           <div className="flex items-center gap-2 flex-wrap">
-                            <button className="text-xs font-bold px-3 py-2 rounded-lg text-white" style={{ background: "#7c3aed" }}>
-                              📋 Copy reply
+                            <button
+                              onClick={() => handleCopy(draft, copyKey)}
+                              className="text-xs font-bold px-3 py-2 rounded-lg text-white transition"
+                              style={{ background: copiedKey === copyKey ? "#10b981" : "#7c3aed" }}
+                            >
+                              {copiedKey === copyKey ? "✓ Copied!" : "📋 Copy reply"}
                             </button>
-                            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-                              ✏️ Regenerate (3 styles)
+                            <button
+                              onClick={() => { cycleStyle(i); setEditTexts((p) => { const n = { ...p }; delete n[i]; return n; }); }}
+                              className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50"
+                            >
+                              ✏️ Style: {STYLE_LABELS[style]} →
                             </button>
-                            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-                              📝 Edit
+                            <button
+                              onClick={() => setIsEditing((p) => ({ ...p, [i]: !p[i] }))}
+                              className={`text-xs font-bold px-3 py-2 rounded-lg border transition ${isEditing[i] ? "border-purple-400 bg-purple-50 text-purple-700" : "border-[var(--border)] bg-white hover:bg-gray-50"}`}
+                            >
+                              {isEditing[i] ? "✓ Done" : "📝 Edit"}
                             </button>
-                            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-                              ✓ Mark resolved
-                            </button>
-                            <span className="ml-auto text-xs text-[var(--muted)]">
-                              Time to post: ~30s
-                            </span>
+                            <span className="ml-auto text-xs text-[var(--muted)]">~30s to post</span>
                           </div>
                         </div>
                       </details>
@@ -261,44 +339,16 @@ export function DashboardView({
               </div>
             </Card>
 
-            {/* 30-day chart placeholder */}
+            {/* 30-day rating trajectory — real data */}
             <Card>
               <div className="flex items-baseline justify-between gap-4 mb-3 flex-wrap">
-                <h2 className="text-lg font-bold">30-day rating trajectory</h2>
-                <div className="flex items-center gap-1 text-xs">
-                  <Tab active>30d</Tab>
-                  <Tab>90d</Tab>
-                  <Tab>1y</Tab>
-                  <Tab>All</Tab>
-                </div>
+                <h2 className="text-lg font-bold">Rating trajectory</h2>
+                <span className="text-xs px-2 py-1 rounded-full font-bold"
+                  style={{ background: trendBadge.bg, color: trendBadge.color }}>
+                  {trendBadge.label}
+                </span>
               </div>
-              <div className="h-40 bg-gradient-to-t from-gray-50 to-transparent rounded-lg p-4 relative overflow-hidden">
-                {/* SVG sparkline mock */}
-                <svg viewBox="0 0 400 100" preserveAspectRatio="none" className="w-full h-full">
-                  <path
-                    d="M 0 60 Q 50 45 100 50 T 200 40 T 300 35 T 400 25"
-                    stroke="#10b981"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-                  <path
-                    d="M 0 60 Q 50 45 100 50 T 200 40 T 300 35 T 400 25 L 400 100 L 0 100 Z"
-                    fill="url(#grad)"
-                    opacity="0.2"
-                  />
-                  <defs>
-                    <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" />
-                      <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-              <div className="grid grid-cols-3 gap-3 mt-3 text-center text-xs">
-                <Stat tiny label="Recent 30d" value={`★${c.rating_trend.recent.avg?.toFixed(1) ?? "—"}`} count={c.rating_trend.recent.count} />
-                <Stat tiny label="3-12mo ago" value={`★${c.rating_trend.midterm.avg?.toFixed(1) ?? "—"}`} count={c.rating_trend.midterm.count} />
-                <Stat tiny label="Older" value={`★${c.rating_trend.old.avg?.toFixed(1) ?? "—"}`} count={c.rating_trend.old.count} />
-              </div>
+              <RatingTrendChart trend={c.rating_trend} />
             </Card>
           </div>
 
@@ -363,7 +413,7 @@ export function DashboardView({
                   {competitors.slice(0, 6).map((x, i) => {
                     const me = x.id === c.id;
                     const negFirst = (x.sample_reviews_negative ?? [])[0];
-                    const weakness = negFirst ? draftReply(negFirst.text, x.name, "").category : null;
+                    const weakness = negFirst ? draftReplyStyled(negFirst.text, x.name, "", 0).category : null;
                     return (
                       <tr key={x.id} className={me ? "bg-blue-50" : "hover:bg-gray-50"}>
                         <td className="py-2 text-xs tabular-nums font-bold">#{i + 1}</td>
@@ -404,19 +454,29 @@ export function DashboardView({
           {c.mentioned_topics.length > 0 && (
             <Card>
               <h2 className="text-lg font-bold mb-1">What reviewers say about you</h2>
-              <p className="text-xs text-[var(--muted)] mb-3">Topics from your last {c.scraped_review_count} reviews.</p>
+              <p className="text-xs text-[var(--muted)] mb-3">
+                Topics from your last {c.scraped_review_count} reviews.
+                {topicFilter && (
+                  <button onClick={() => setTopicFilter(null)} className="ml-2 text-blue-600 font-bold hover:underline">
+                    ✕ Clear filter
+                  </button>
+                )}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {c.mentioned_topics.slice(0, 14).map((t) => {
-                  // 부정 vs 긍정 색상 차별화
                   const isNegative = ["long_wait", "expensive"].includes(t.topic);
+                  const active = topicFilter === t.topic;
                   return (
                     <button
                       key={t.topic}
+                      onClick={() => setTopicFilter(active ? null : t.topic)}
                       className="px-3 py-1.5 rounded-full border text-sm flex items-center gap-2 hover:shadow-sm transition"
                       style={{
-                        background: isNegative ? "#fee2e2" : "#dcfce7",
-                        borderColor: isNegative ? "#fecaca" : "#bbf7d0",
+                        background: active ? (isNegative ? "#fca5a5" : "#6ee7b7") : (isNegative ? "#fee2e2" : "#dcfce7"),
+                        borderColor: active ? (isNegative ? "#ef4444" : "#10b981") : (isNegative ? "#fecaca" : "#bbf7d0"),
                         color: isNegative ? "#991b1b" : "#065f46",
+                        fontWeight: active ? 800 : undefined,
+                        outline: active ? "2px solid currentColor" : undefined,
                       }}
                     >
                       <span>{TOPIC_LABELS[t.topic] ?? t.topic}</span>
@@ -425,31 +485,48 @@ export function DashboardView({
                   );
                 })}
               </div>
-              <button className="mt-4 text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-                🔍 Filter reviews by topic
-              </button>
             </Card>
           )}
 
           {samples.length > 0 && (
             <Card>
               <div className="flex items-baseline justify-between gap-3 mb-3">
-                <h2 className="text-lg font-bold">Recent ★4-5 reviews</h2>
-                <button className="text-xs font-bold text-[var(--muted)] hover:text-[var(--fg)]">View all →</button>
+                <h2 className="text-lg font-bold">
+                  {topicFilter ? `Reviews mentioning "${TOPIC_LABELS[topicFilter] ?? topicFilter}"` : "Recent ★4-5 reviews"}
+                </h2>
+                {topicFilter && (
+                  <button onClick={() => setTopicFilter(null)} className="text-xs font-bold text-blue-600 hover:underline">✕ Clear</button>
+                )}
               </div>
-              <p className="text-xs text-[var(--muted)] mb-3">Use as social proof on your marketing.</p>
-              <div className="space-y-3">
-                {samples.map((s, i) => (
-                  <div key={i} className="p-3 bg-gray-50 rounded-lg border border-[var(--border)]">
-                    <div className="text-yellow-600 text-xs mb-1">{"★".repeat(s.rating)}</div>
-                    <p className="text-sm text-[var(--fg)] line-clamp-3 leading-relaxed mb-2">{s.text}</p>
-                    <div className="flex items-center justify-between gap-2 text-xs">
-                      <span className="text-[var(--muted)]">— {s.author || "Google reviewer"}</span>
-                      <button className="font-bold text-purple-700 hover:underline">📋 Copy as testimonial</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p className="text-xs text-[var(--muted)] mb-3">
+                {topicFilter ? `${samples.length} matching review${samples.length !== 1 ? "s" : ""} — use as social proof.` : "Use as social proof on your marketing."}
+              </p>
+              {samples.length === 0 ? (
+                <p className="text-sm text-[var(--muted)] py-4 text-center">No reviews match this topic.</p>
+              ) : (
+                <div className="space-y-3">
+                  {samples.map((s, i) => {
+                    const tKey = `testimonial-${i}`;
+                    const testimonialText = `"${s.text}" — ${s.author || "Google reviewer"} ★${s.rating}/5`;
+                    return (
+                      <div key={i} className="p-3 bg-gray-50 rounded-lg border border-[var(--border)]">
+                        <div className="text-yellow-600 text-xs mb-1">{"★".repeat(s.rating)}</div>
+                        <p className="text-sm text-[var(--fg)] line-clamp-3 leading-relaxed mb-2">{s.text}</p>
+                        <div className="flex items-center justify-between gap-2 text-xs">
+                          <span className="text-[var(--muted)]">— {s.author || "Google reviewer"}</span>
+                          <button
+                            onClick={() => handleCopy(testimonialText, tKey)}
+                            className="font-bold transition"
+                            style={{ color: copiedKey === tKey ? "#10b981" : "#7c3aed" }}
+                          >
+                            {copiedKey === tKey ? "✓ Copied!" : "📋 Copy as testimonial"}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </Card>
           )}
         </div>
@@ -705,16 +782,17 @@ function relTime(iso: string): string {
 }
 
 function LeadCard({ lead }: { lead: LeadRecord }) {
-  const isFresh = Date.now() - new Date(lead.at).getTime() < 6 * 3600_000; // 6시간 이내
+  const [contacted, setContacted] = useState(false);
+  const isFresh = Date.now() - new Date(lead.at).getTime() < 6 * 3600_000;
   return (
-    <div className="border border-[var(--border)] rounded-xl overflow-hidden bg-white">
-      <div className="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between gap-2 flex-wrap" style={{ background: isFresh ? "#ecfdf5" : "#fafafa" }}>
+    <div className={`border border-[var(--border)] rounded-xl overflow-hidden bg-white transition ${contacted ? "opacity-60" : ""}`}>
+      <div className="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between gap-2 flex-wrap" style={{ background: contacted ? "#f9fafb" : isFresh ? "#ecfdf5" : "#fafafa" }}>
         <div className="flex items-center gap-2 flex-wrap">
-          {isFresh && (
-            <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white bg-emerald-600">
-              NEW
-            </span>
-          )}
+          {contacted ? (
+            <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white bg-gray-400">contacted</span>
+          ) : isFresh ? (
+            <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white bg-emerald-600">NEW</span>
+          ) : null}
           <span className="text-sm font-bold">{lead.name || "(no name)"}</span>
           {lead.service && (
             <span className="text-xs font-bold px-2 py-1 rounded bg-blue-100 text-blue-800">{lead.service}</span>
@@ -747,10 +825,100 @@ function LeadCard({ lead }: { lead: LeadRecord }) {
             📞 Call
           </a>
         )}
-        <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-100">
-          ✓ Mark contacted
+        <button
+          onClick={() => setContacted((v) => !v)}
+          className={`text-xs font-bold px-3 py-2 rounded-lg border transition ${contacted ? "border-gray-300 bg-gray-100 text-gray-500" : "border-[var(--border)] bg-white hover:bg-gray-100"}`}
+        >
+          {contacted ? "↩ Undo contacted" : "✓ Mark contacted"}
         </button>
         <span className="ml-auto text-[10px] text-[var(--muted)] tabular-nums font-mono">{lead.id.slice(0, 10)}</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Rating trend chart — real 3-bucket data ────────────────
+
+function RatingTrendChart({ trend }: { trend: RatingTrend }) {
+  const W = 340, H = 100, PL = 28, PR = 16, PT = 18, PB = 8;
+  const cW = W - PL - PR;
+  const cH = H - PT - PB;
+
+  const buckets = [
+    { label: "1yr+",   ...trend.old },
+    { label: "3-12mo", ...trend.midterm },
+    { label: "30d",    ...trend.recent },
+  ];
+
+  const toY = (avg: number | null): number | null =>
+    avg === null ? null : PT + cH - ((avg - 1) / 4) * cH;
+
+  const pts = buckets.map((b, i) => ({
+    x: PL + (i / 2) * cW,
+    y: toY(b.avg),
+    label: b.label,
+    avg: b.avg,
+    count: b.count,
+  }));
+
+  // Build path only through valid consecutive segments
+  const segments: string[] = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i], b = pts[i + 1];
+    if (a.y !== null && b.y !== null)
+      segments.push(`M ${a.x} ${a.y} L ${b.x} ${b.y}`);
+  }
+
+  const gridRatings = [2, 3, 4, 5];
+
+  return (
+    <div>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ overflow: "visible" }}>
+        {/* Grid lines + labels */}
+        {gridRatings.map((r) => {
+          const y = toY(r)!;
+          return (
+            <g key={r}>
+              <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="#f0f0f0" strokeWidth="1" />
+              <text x={PL - 4} y={y + 3.5} fontSize="9" textAnchor="end" fill="#9ca3af">★{r}</text>
+            </g>
+          );
+        })}
+
+        {/* Connecting lines */}
+        {segments.map((d, i) => (
+          <path key={i} d={d} stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        ))}
+
+        {/* Points + labels */}
+        {pts.map((p, i) => (
+          <g key={i}>
+            {p.y !== null ? (
+              <>
+                <circle cx={p.x} cy={p.y} r="5" fill="#10b981" />
+                <text x={p.x} y={p.y - 10} fontSize="10" textAnchor="middle" fill="#111827" fontWeight="700">
+                  ★{p.avg?.toFixed(2)}
+                </text>
+              </>
+            ) : (
+              <circle cx={p.x} cy={H / 2} r="4" fill="#e5e7eb" />
+            )}
+            <text x={p.x} y={H + 2} fontSize="9" textAnchor="middle" fill="#6b7280">{p.label}</text>
+            {p.count > 0 && (
+              <text x={p.x} y={H + 13} fontSize="8" textAnchor="middle" fill="#9ca3af">{p.count} rev</text>
+            )}
+          </g>
+        ))}
+      </svg>
+      {/* Summary row */}
+      <div className="grid grid-cols-3 gap-3 mt-4 text-center text-xs border-t border-[var(--border)] pt-3">
+        {buckets.map((b, i) => (
+          <div key={i}>
+            <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">{b.label}</div>
+            <div className="text-base font-black">{b.avg != null ? `★${b.avg.toFixed(1)}` : "—"}</div>
+            <div className="text-[10px] text-[var(--muted)]">{b.count > 0 ? `${b.count} reviews` : "no data"}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
