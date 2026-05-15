@@ -1,4 +1,4 @@
-// 클리닉 카드 — 시각 + 수익 기능 통합.
+// 클리닉 카드 — rich data 시각화: highlights · specialty · trend.
 
 import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
@@ -7,10 +7,80 @@ import { CategoryIcon } from "./CategoryIcon";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 
+// 긍정 시그널 — 신뢰감 주는 topic 만 highlight chip 으로 노출.
+const POSITIVE_TOPICS: Record<string, { label: string; emoji: string }> = {
+  english_speaking:   { label: "English",     emoji: "🇬🇧" },
+  korean_doctor:      { label: "Korean Dr",   emoji: "🇰🇷" },
+  genuine_brand:      { label: "Genuine",     emoji: "🛡" },
+  clean_facility:     { label: "Clean",       emoji: "✨" },
+  professional:       { label: "Pro",         emoji: "👔" },
+  friendly_staff:     { label: "Friendly",    emoji: "😊" },
+  no_pain:            { label: "Gentle",      emoji: "🌿" },
+  affordable:         { label: "Affordable",  emoji: "💰" },
+  premium:            { label: "Premium",     emoji: "✦" },
+  results_satisfied:  { label: "Results",     emoji: "✓" },
+  recommend:          { label: "Recommended", emoji: "👍" },
+};
+
+const NEGATIVE_TOPICS: Record<string, { label: string; emoji: string }> = {
+  long_wait: { label: "Wait time", emoji: "⏱" },
+  expensive: { label: "Expensive", emoji: "💸" },
+};
+
+function ratingDelta(c: Clinic): { delta: number; arrow: string; color: string } | null {
+  const recent = c.rating_trend.recent.avg;
+  const old = c.rating_trend.old.avg;
+  if (recent === null || old === null) return null;
+  const delta = recent - old;
+  if (Math.abs(delta) < 0.1) return null;
+  return delta > 0
+    ? { delta, arrow: "↗", color: "text-green-700" }
+    : { delta, arrow: "↘", color: "text-red-600" };
+}
+
+function topServices(c: Clinic, n = 2): { service: string; count: number }[] {
+  return Object.entries(c.service_mentions)
+    .filter(([, v]) => v > 0)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([service, count]) => ({ service, count }));
+}
+
+function topDoctor(c: Clinic): { name: string; mentions: number; lang?: string } | null {
+  if (!c.doctor_stats || c.doctor_stats.length === 0) return null;
+  const top = [...c.doctor_stats].sort((a, b) => b.mentions - a.mentions)[0];
+  if (top.mentions < 3) return null;
+  return { name: top.name, mentions: top.mentions, lang: top.primary_lang };
+}
+
+function topHighlights(c: Clinic, n = 3): { topic: string; label: string; emoji: string; count: number }[] {
+  return c.mentioned_topics
+    .filter((t) => POSITIVE_TOPICS[t.topic] && t.count >= 2)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, n)
+    .map((t) => ({ topic: t.topic, ...POSITIVE_TOPICS[t.topic], count: t.count }));
+}
+
+function topWarnings(c: Clinic): { topic: string; label: string; emoji: string; count: number }[] {
+  // 부정 토픽 — count 가 높을 때만 (≥5) warning 표시
+  return c.mentioned_topics
+    .filter((t) => NEGATIVE_TOPICS[t.topic] && t.count >= 5)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 1)
+    .map((t) => ({ topic: t.topic, ...NEGATIVE_TOPICS[t.topic], count: t.count }));
+}
+
 export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: number }) {
-  const trend = clinic.rating_trend.trend;
-  const trending = trend === "improving";
   const tier = await sponsoredTier(clinic.id);
+  const trendDelta = ratingDelta(clinic);
+  const highlights = topHighlights(clinic);
+  const warnings = topWarnings(clinic);
+  const services = topServices(clinic);
+  const doctor = topDoctor(clinic);
+  const trustColor =
+    clinic.trust_score >= 80 ? "#059669" :
+    clinic.trust_score >= 65 ? "#2563eb" :
+    clinic.trust_score >= 50 ? "#d97706" : "#6b7280";
 
   const tierStyles = tier === "editors_pick"
     ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }
@@ -21,9 +91,7 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
     : { wrapper: "", corner: "" };
 
   return (
-    <div
-      className={`group block border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${tierStyles.wrapper}`}
-    >
+    <div className={`group block border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${tierStyles.wrapper}`}>
       {tier && (
         <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg shadow-md`}>
           {tier === "editors_pick" ? "★ Editor's Pick" : tier === "recommended" ? "✓ Recommended" : "◆ Featured"}
@@ -31,12 +99,11 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
       )}
 
       <a href={`/clinic/${clinic.id}`} className="block p-5 pb-3">
-        <div className="flex items-start justify-between gap-3 mb-2">
+        {/* Top row — rank, district, status, name, rating */}
+        <div className="flex items-start justify-between gap-3 mb-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-1 flex-wrap">
-              {rank !== undefined && (
-                <span className="font-bold text-[var(--fg)] tabular-nums">#{rank}</span>
-              )}
+              {rank !== undefined && <span className="font-bold text-[var(--fg)] tabular-nums">#{rank}</span>}
               {clinic.district && (
                 <span className="flex items-center gap-1">
                   <span aria-hidden>📍</span>
@@ -49,49 +116,96 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
                   Open
                 </span>
               )}
-              {trending && (
-                <span className="flex items-center gap-0.5 text-green-700 font-medium">
-                  ↗ Trending
+              {trendDelta && (
+                <span className={`flex items-center gap-0.5 font-medium ${trendDelta.color}`}>
+                  {trendDelta.arrow} {trendDelta.delta > 0 ? "+" : ""}{trendDelta.delta.toFixed(1)} <span className="text-[10px] opacity-70">30d</span>
                 </span>
               )}
             </div>
-            <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate">
-              {clinic.name}
-            </h3>
-            <p className="text-sm text-[var(--muted)] truncate mt-0.5">
-              {clinic.primary_type}
-            </p>
+            <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate">{clinic.name}</h3>
           </div>
           <div className="text-right shrink-0">
-            <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">
-              ★ {clinic.rating.toFixed(1)}
-            </div>
-            <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
-              {clinic.total_reviews.toLocaleString()} reviews
-            </div>
+            <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">★ {clinic.rating.toFixed(1)}</div>
+            <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">{clinic.total_reviews.toLocaleString()} reviews</div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-3 mt-3 flex-wrap">
-          <TrustBadge score={clinic.trust_score} size="md" />
-          <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
-            <AIVerifiedBadge clinic={clinic} size="sm" />
-            {clinic.local_guide_count > 0 && (
-              <span className="bg-purple-50 text-purple-800 px-2 py-0.5 rounded-full font-medium">
-                {clinic.local_guide_count} Local Guides
+        {/* Trust score bar — visual progress */}
+        <div className="mb-3">
+          <div className="flex items-baseline justify-between mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">Trust Score</span>
+            <div className="flex items-baseline gap-2">
+              <span className="text-lg font-black tabular-nums" style={{ color: trustColor }}>{clinic.trust_score}</span>
+              <span className="text-[10px] uppercase tracking-wider" style={{ color: trustColor }}>
+                {clinic.trust_score >= 80 ? "Excellent" : clinic.trust_score >= 65 ? "Strong" : clinic.trust_score >= 50 ? "Good" : "Fair"}
               </span>
-            )}
-            {clinic.categories.slice(0, 2).map((c) => (
-              <span key={c} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
-                <CategoryIcon category={c} size={11} />
-                {CATEGORY_LABELS[c] ?? c}
+            </div>
+          </div>
+          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-full rounded-full" style={{ width: `${Math.min(clinic.trust_score, 100)}%`, background: trustColor }} />
+          </div>
+        </div>
+
+        {/* Highlights chips */}
+        {highlights.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {highlights.map((h) => (
+              <span key={h.topic} className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full text-xs font-medium inline-flex items-center gap-1" title={`Mentioned ${h.count}× in reviews`}>
+                <span>{h.emoji}</span>
+                {h.label}
+                <span className="text-emerald-600 text-[10px] tabular-nums">×{h.count}</span>
+              </span>
+            ))}
+            {warnings.map((w) => (
+              <span key={w.topic} className="bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full text-xs font-medium inline-flex items-center gap-1" title={`Mentioned ${w.count}× — context matters`}>
+                <span>{w.emoji}</span>
+                {w.label}
               </span>
             ))}
           </div>
+        )}
+
+        {/* Specialty + doctor row */}
+        <div className="text-xs text-[var(--muted)] space-y-0.5 mb-2">
+          {services.length > 0 && (
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[var(--fg)] font-semibold">💉 Specialty:</span>
+              {services.map((s, i) => (
+                <span key={s.service} className="inline-flex items-center gap-1">
+                  <CategoryIcon category={s.service} size={11} />
+                  {CATEGORY_LABELS[s.service] ?? s.service}
+                  <span className="opacity-60 tabular-nums">({s.count})</span>
+                  {i < services.length - 1 && <span className="opacity-40">·</span>}
+                </span>
+              ))}
+            </div>
+          )}
+          {doctor && (
+            <div className="flex items-center gap-1.5">
+              <span className="text-[var(--fg)] font-semibold">👨‍⚕️ Top doctor:</span>
+              <span>{doctor.name}</span>
+              {doctor.lang && doctor.lang !== "en" && (
+                <span className="text-[10px] uppercase tracking-wider opacity-80 bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded">
+                  {doctor.lang}
+                </span>
+              )}
+              <span className="opacity-60 tabular-nums">{doctor.mentions} mentions</span>
+            </div>
+          )}
+        </div>
+
+        {/* Bottom row — AI verified, local guides */}
+        <div className="flex items-center justify-end gap-1.5 flex-wrap mt-2">
+          <AIVerifiedBadge clinic={clinic} size="sm" />
+          {clinic.local_guide_count > 0 && (
+            <span className="bg-purple-50 text-purple-800 px-2 py-0.5 rounded-full text-xs font-medium">
+              {clinic.local_guide_count} Local Guides
+            </span>
+          )}
         </div>
       </a>
 
-      {/* CTA strip — LINE 빠른 연결 + Maps */}
+      {/* CTA strip */}
       <div className="px-5 pb-4 flex gap-2">
         <a
           href={`/clinic/${clinic.id}`}

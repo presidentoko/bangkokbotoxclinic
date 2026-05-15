@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb } from "@/lib/data";
+import { loadMasterDb, isClinicLike } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
@@ -40,7 +40,7 @@ export default async function CityPage(
   const db = await loadMasterDb();
 
   const filtered = db.clinics
-    .filter((c) => c.city_slug === slug)
+    .filter((c) => c.city_slug === slug && isClinicLike(c))
     .sort((a, b) => b.trust_score - a.trust_score);
 
   if (filtered.length === 0) notFound();

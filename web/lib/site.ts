@@ -2,6 +2,7 @@
 // 같은 코드베이스 → Vercel 프로젝트별 env 만 다르게 → 5개 specialty 도메인 운영.
 
 import type { Clinic } from "./types";
+import { isClinicLike } from "./clinicFilter";
 
 export type SiteFocus =
   | "all"        // 메인 허브 (전체 클리닉)
@@ -118,9 +119,11 @@ export function getSiteConfig(): SiteConfig {
 }
 
 export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
-  if (cfg.focus === "all") return clinics;
+  // 모든 사이트에서 non-clinic 먼저 제거
+  const clinical = clinics.filter(isClinicLike);
+  if (cfg.focus === "all") return clinical;
   const focus = cfg.focus;
-  return clinics.filter((c) => {
+  return clinical.filter((c) => {
     if (c.categories.includes(focus)) return true;
     if ((c.service_mentions[focus] ?? 0) >= cfg.mentionThreshold) return true;
     return false;

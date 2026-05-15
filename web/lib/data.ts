@@ -28,12 +28,15 @@ export function unslugifyDistrict(slug: string, allDistricts: string[]): string 
   return allDistricts.find((d) => slugify(d) === target) ?? null;
 }
 
+export { isClinicLike } from "./clinicFilter";
+import { isClinicLike } from "./clinicFilter";
+
 export function filterByCategory(clinics: Clinic[], category: string): Clinic[] {
-  return clinics.filter((c) => c.categories.includes(category));
+  return clinics.filter((c) => isClinicLike(c) && c.categories.includes(category));
 }
 
 export function filterByDistrict(clinics: Clinic[], district: string): Clinic[] {
-  return clinics.filter((c) => c.district === district);
+  return clinics.filter((c) => isClinicLike(c) && c.district === district);
 }
 
 export function topByTrust(clinics: Clinic[], n: number): Clinic[] {
