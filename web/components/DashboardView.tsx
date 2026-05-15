@@ -158,7 +158,7 @@ export function DashboardView({
     promotion: ["promotion", "discount", "deal", "offer"],
     premium: ["premium", "luxury", "high-end"],
   };
-  const allSamples = [...c.sample_reviews_en, ...c.sample_reviews_th];
+  const allSamples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])];
   const samples = (topicFilter
     ? allSamples.filter((s) => {
         const kws = TOPIC_KEYWORDS[topicFilter] ?? [];

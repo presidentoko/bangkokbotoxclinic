@@ -268,6 +268,7 @@ function PartnersTab({
   onChange: () => Promise<void>;
 }) {
   const [showAdd, setShowAdd] = useState(false);
+  const [showBulk, setShowBulk] = useState(false);
   const [paymentFor, setPaymentFor] = useState<string | null>(null);
   const [historyFor, setHistoryFor] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -351,13 +352,28 @@ function PartnersTab({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <span className="text-xs text-gray-500">{partners.length} partner{partners.length !== 1 ? "s" : ""}</span>
-        <button
-          onClick={() => setShowAdd(true)}
-          className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-4 py-2 text-sm text-white font-semibold transition"
-        >
-          + Add Partner
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowBulk(true)}
+            className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg px-3 py-2 text-xs text-gray-300 transition"
+          >
+            📋 Bulk import
+          </button>
+          <button
+            onClick={() => setShowAdd(true)}
+            className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-4 py-2 text-sm text-white font-semibold transition"
+          >
+            + Add Partner
+          </button>
+        </div>
       </div>
+
+      {showBulk && (
+        <BulkImportForm
+          onClose={() => setShowBulk(false)}
+          onDone={async () => { setShowBulk(false); await onChange(); }}
+        />
+      )}
 
       {msg && <p className="text-sm text-green-400">{msg}</p>}
 
@@ -473,6 +489,197 @@ function PartnersTab({
           );
         })}
       </div>
+    </div>
+  );
+}
+
+// ─── Bulk CSV import ────────────────────────────────────────────────────────
+
+type BulkRow = {
+  clinic_id: string;
+  plan_tier?: "trial" | "pilot" | "paid";
+  contact_email?: string;
+  line_user_id?: string;
+  monthly_fee_thb?: number;
+  monthly_ticket_avg_thb?: number;
+  started_at?: string;
+  notes?: string;
+};
+
+const BULK_TEMPLATE = `clinic_id,plan_tier,contact_email,line_user_id,monthly_fee_thb,monthly_ticket_avg_thb,started_at,notes
+0x30e29ef6...:0x15b0...,paid,clinic@example.com,Uabc123,8000,15000,2026-05-15,Imported
+0x30e29ec...:0x256a...,pilot,info@another.com,,5000,12000,2026-05-15,`;
+
+function parseCSV(text: string): { rows: BulkRow[]; errors: string[] } {
+  const errors: string[] = [];
+  const lines = text.trim().split(/\r?\n/).filter((l) => l.trim() && !l.trim().startsWith("#"));
+  if (lines.length === 0) return { rows: [], errors: ["empty input"] };
+  const header = lines[0].split(",").map((h) => h.trim().toLowerCase());
+  const idxOf = (name: string) => header.indexOf(name);
+  const idIdx = idxOf("clinic_id");
+  if (idIdx === -1) {
+    errors.push("first row must include 'clinic_id' column");
+    return { rows: [], errors };
+  }
+  const rows: BulkRow[] = [];
+  for (let i = 1; i < lines.length; i++) {
+    const fields = parseCSVLine(lines[i]);
+    if (fields.length < header.length) {
+      // pad missing fields with empty strings
+      while (fields.length < header.length) fields.push("");
+    }
+    const clinic_id = fields[idIdx]?.trim();
+    if (!clinic_id) {
+      errors.push(`row ${i + 1}: missing clinic_id`);
+      continue;
+    }
+    const get = (col: string): string => {
+      const j = idxOf(col);
+      return j === -1 ? "" : (fields[j] ?? "").trim();
+    };
+    const tier = get("plan_tier").toLowerCase();
+    const row: BulkRow = {
+      clinic_id,
+      plan_tier: ["trial", "pilot", "paid"].includes(tier) ? (tier as "trial" | "pilot" | "paid") : "trial",
+      contact_email: get("contact_email") || undefined,
+      line_user_id: get("line_user_id") || undefined,
+      monthly_fee_thb: parseNum(get("monthly_fee_thb")),
+      monthly_ticket_avg_thb: parseNum(get("monthly_ticket_avg_thb")),
+      started_at: get("started_at") || undefined,
+      notes: get("notes") || undefined,
+    };
+    rows.push(row);
+  }
+  return { rows, errors };
+}
+
+function parseCSVLine(line: string): string[] {
+  const out: string[] = [];
+  let cur = "", inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { inQ = !inQ; continue; }
+    if (c === "," && !inQ) { out.push(cur); cur = ""; continue; }
+    cur += c;
+  }
+  out.push(cur);
+  return out;
+}
+
+function parseNum(s: string): number | undefined {
+  const v = s.replace(/[^0-9.-]/g, "");
+  if (!v) return undefined;
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : undefined;
+}
+
+function BulkImportForm({ onClose, onDone }: { onClose: () => void; onDone: () => Promise<void> }) {
+  const [text, setText] = useState("");
+  const [preview, setPreview] = useState<BulkRow[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [importing, setImporting] = useState(false);
+  const [result, setResult] = useState<{ imported: number; total: number; results: { clinic_id: string; ok: boolean; reason?: string }[] } | null>(null);
+
+  function doPreview() {
+    const { rows, errors } = parseCSV(text);
+    setPreview(rows);
+    setErrors(errors);
+    setResult(null);
+  }
+
+  async function doImport() {
+    setImporting(true);
+    const res = await fetch("/api/admin/partners-bulk", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rows: preview }),
+    });
+    const j = await res.json();
+    setImporting(false);
+    if (res.ok) {
+      setResult(j);
+      // 1.5초 후 자동 닫기 (성공한 경우)
+      if (j.imported === j.total) setTimeout(() => onDone(), 1500);
+    } else {
+      setErrors([j.error ?? "import failed"]);
+    }
+  }
+
+  return (
+    <div className="bg-gray-900 border border-indigo-500/40 rounded-xl p-5 space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-indigo-300">Bulk import partners from CSV</h3>
+        <button onClick={onClose} className="text-gray-500 hover:text-gray-300 text-xs">✕ Cancel</button>
+      </div>
+
+      <div className="text-xs text-gray-500 space-y-1">
+        <p>Required column: <code className="text-indigo-300">clinic_id</code>.</p>
+        <p>Optional: <code>plan_tier</code> (trial/pilot/paid), <code>contact_email</code>, <code>line_user_id</code>, <code>monthly_fee_thb</code>, <code>monthly_ticket_avg_thb</code>, <code>started_at</code>, <code>notes</code></p>
+        <button onClick={() => setText(BULK_TEMPLATE)} className="text-indigo-400 hover:underline">📋 Insert template</button>
+      </div>
+
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Paste CSV (header row required, comma-separated)..."
+        rows={8}
+        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs font-mono text-gray-100 focus:outline-none focus:border-indigo-500"
+      />
+
+      <div className="flex gap-2">
+        <button onClick={doPreview} disabled={!text.trim()} className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-300 transition disabled:opacity-40">Preview</button>
+        {preview.length > 0 && (
+          <button onClick={doImport} disabled={importing} className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-4 py-2 text-sm text-white font-semibold transition disabled:opacity-40">
+            {importing ? "Importing…" : `Import ${preview.length} partner${preview.length !== 1 ? "s" : ""}`}
+          </button>
+        )}
+      </div>
+
+      {errors.length > 0 && (
+        <div className="bg-red-950/40 border border-red-700/40 rounded-lg p-3 text-xs text-red-300 space-y-1">
+          {errors.map((e, i) => <div key={i}>⚠ {e}</div>)}
+        </div>
+      )}
+
+      {preview.length > 0 && !result && (
+        <div className="bg-gray-950 border border-gray-800 rounded-lg p-3">
+          <p className="text-xs text-gray-500 mb-2">Preview ({preview.length} rows):</p>
+          <div className="max-h-48 overflow-y-auto">
+            <table className="w-full text-xs">
+              <thead className="text-gray-600">
+                <tr>
+                  <th className="text-left p-1">clinic_id</th>
+                  <th className="text-left p-1">tier</th>
+                  <th className="text-left p-1">email</th>
+                  <th className="text-right p-1">฿/mo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {preview.slice(0, 50).map((r, i) => (
+                  <tr key={i} className="border-t border-gray-800">
+                    <td className="p-1 font-mono text-gray-400 truncate max-w-[200px]">{r.clinic_id}</td>
+                    <td className="p-1 text-gray-300">{r.plan_tier}</td>
+                    <td className="p-1 text-gray-400">{r.contact_email ?? "—"}</td>
+                    <td className="p-1 text-right text-green-400 tabular-nums">{r.monthly_fee_thb?.toLocaleString() ?? "—"}</td>
+                  </tr>
+                ))}
+                {preview.length > 50 && (
+                  <tr><td colSpan={4} className="p-1 text-gray-600 text-center">… and {preview.length - 50} more</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {result && (
+        <div className={`border rounded-lg p-3 text-xs space-y-1 ${result.imported === result.total ? "bg-green-950/40 border-green-700/40 text-green-300" : "bg-yellow-950/40 border-yellow-700/40 text-yellow-300"}`}>
+          <p className="font-semibold">✓ Imported {result.imported} of {result.total} partners</p>
+          {result.results.filter((r) => !r.ok).slice(0, 10).map((r, i) => (
+            <div key={i} className="text-gray-500">- <span className="font-mono">{r.clinic_id.slice(0, 30)}</span>: {r.reason}</div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

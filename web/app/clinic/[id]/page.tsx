@@ -52,7 +52,7 @@ export default async function ClinicPage(
 
   const tier = await sponsoredTier(c.id);
   const trend = c.rating_trend.trend;
-  const samples = [...c.sample_reviews_en, ...c.sample_reviews_th].slice(0, 4);
+  const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 4);
 
   // 동일 카테고리 내 trust score percentile (낮을수록 상위)
   const sameCategory = c.categories.length > 0
@@ -285,26 +285,31 @@ export default async function ClinicPage(
               </h3>
               <div className="space-y-2">
                 {similar.map((s) => (
-                  <a
-                    key={s.id}
-                    href={`/clinic/${s.id}`}
-                    className="block group"
-                  >
-                    <div className="font-medium text-sm group-hover:text-[var(--accent)] truncate transition">
-                      {s.name}
-                    </div>
-                    <div className="text-xs text-[var(--muted)] flex items-center gap-2">
-                      <span>{s.district}</span>
-                      <span>·</span>
-                      <span>★ {s.rating.toFixed(1)}</span>
-                      <span>·</span>
-                      <span className="font-medium" style={{
-                        color: s.trust_score >= 75 ? "#16a34a" : s.trust_score >= 60 ? "#059669" : "#ca8a04"
-                      }}>
-                        Trust {s.trust_score.toFixed(0)}
-                      </span>
-                    </div>
-                  </a>
+                  <div key={s.id} className="group flex items-start justify-between gap-2">
+                    <a href={`/clinic/${s.id}`} className="flex-1 min-w-0">
+                      <div className="font-medium text-sm group-hover:text-[var(--accent)] truncate transition">
+                        {s.name}
+                      </div>
+                      <div className="text-xs text-[var(--muted)] flex items-center gap-2 flex-wrap">
+                        <span>{s.district}</span>
+                        <span>·</span>
+                        <span>★ {s.rating.toFixed(1)}</span>
+                        <span>·</span>
+                        <span className="font-medium" style={{
+                          color: s.trust_score >= 75 ? "#16a34a" : s.trust_score >= 60 ? "#059669" : "#ca8a04"
+                        }}>
+                          Trust {s.trust_score.toFixed(0)}
+                        </span>
+                      </div>
+                    </a>
+                    <a
+                      href={`/compare/${c.id}/${s.id}`}
+                      className="shrink-0 text-[10px] uppercase tracking-widest text-[var(--muted)] hover:text-[var(--accent)] border border-[var(--border)] rounded px-2 py-0.5 hover:border-[var(--accent)] transition"
+                      title={`Compare ${c.name} vs ${s.name}`}
+                    >
+                      Compare
+                    </a>
+                  </div>
                 ))}
               </div>
             </div>

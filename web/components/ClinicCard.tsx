@@ -98,6 +98,26 @@ function topWarnings(c: Clinic): { topic: string; label: string; emoji: string; 
     .map((t) => ({ topic: t.topic, ...NEGATIVE_TOPICS[t.topic], count: t.count }));
 }
 
+// 카드용 짧은 리뷰 스니펫 — 4-5점 리뷰 중 적당한 길이 (60-140자) 뽑아 한 줄로.
+function pickSnippet(c: Clinic): string | null {
+  const all = [
+    ...(c.sample_reviews_en ?? []),
+    ...(c.sample_reviews_ko ?? []),
+    ...(c.sample_reviews_th ?? []),
+  ];
+  const good = all
+    .filter((r) => r.rating >= 4 && r.text.length >= 40 && r.text.length <= 200)
+    // 영어 우선 (대부분 유저가 영어 인터페이스 사용 가정)
+    .sort((a, b) => {
+      const lenScore = (r: typeof a) => -Math.abs(r.text.length - 110); // 110자 근처 최적
+      return lenScore(b) - lenScore(a);
+    });
+  if (good.length === 0) return null;
+  const pick = good[0];
+  const clean = pick.text.replace(/\s+/g, " ").trim();
+  return clean.length > 130 ? clean.slice(0, 127) + "..." : clean;
+}
+
 export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: number }) {
   const tier = await sponsoredTier(clinic.id);
   const trendDelta = ratingDelta(clinic);
@@ -108,6 +128,7 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
   const warnings = topWarnings(clinic);
   const services = topServices(clinic);
   const doctor = topDoctor(clinic);
+  const snippet = pickSnippet(clinic);
   const trustColor =
     clinic.trust_score >= 80 ? "#059669" :
     clinic.trust_score >= 65 ? "#2563eb" :
@@ -244,6 +265,15 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
             </div>
           )}
         </div>
+
+        {/* Review snippet — 한 줄 정성평 */}
+        {snippet && (
+          <div className="mb-3 bg-amber-50/60 border-l-2 border-amber-300 rounded-r px-3 py-2">
+            <p className="text-xs italic text-gray-700 leading-snug line-clamp-2">
+              &ldquo;{snippet}&rdquo;
+            </p>
+          </div>
+        )}
 
         {/* Language breakdown bar — international clinic indicator */}
         {lang && lang.total >= 5 && (

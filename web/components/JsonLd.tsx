@@ -2,6 +2,7 @@
 // 각 페이지 타입별로 사용 — Google 리치결과 + AEO 신호.
 
 import type { Clinic } from "@/lib/types";
+import { getSiteConfig } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
@@ -15,21 +16,22 @@ function tag(data: object) {
 }
 
 export function OrgJsonLd() {
+  const cfg = getSiteConfig();
   return tag({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Bangkok Clinics",
+    name: cfg.brand,
     url: SITE,
-    description:
-      "Independent directory of Bangkok aesthetic and medical clinics with Google review analysis and Trust Scores.",
+    description: cfg.description,
   });
 }
 
 export function WebsiteJsonLd() {
+  const cfg = getSiteConfig();
   return tag({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Bangkok Clinics",
+    name: cfg.brand,
     url: SITE,
     potentialAction: {
       "@type": "SearchAction",
@@ -84,7 +86,7 @@ export function ClinicJsonLd({ c }: { c: Clinic }) {
   }
   if (c.business_status) data.openingHours = c.business_status;
   // Sample reviews 노출 — review snippet rich result 가능
-  const samples = [...c.sample_reviews_en, ...c.sample_reviews_th].slice(0, 3);
+  const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 3);
   if (samples.length > 0) {
     data.review = samples.map((r) => ({
       "@type": "Review",

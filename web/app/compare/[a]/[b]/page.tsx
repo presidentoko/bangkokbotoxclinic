@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { CATEGORY_LABELS } from "@/lib/types";
+import { CATEGORY_LABELS, TOPIC_LABELS, type Clinic } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
-import { TrustBadge } from "@/components/TrustBadge";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { LineButton } from "@/components/LineButton";
 import type { Metadata } from "next";
@@ -12,8 +11,6 @@ export const dynamic = "force-static";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  // 빈 배열 — generateStaticParams 호출 시 빌드 타임 0개 prerender, 실제 access 시 dynamic.
-  // 어차피 dynamicParams=true 이므로 첫 access 시 ISR-like 처리.
   return [];
 }
 
@@ -41,19 +38,8 @@ export default async function ComparePage(
   const cb = getClinicById(db.clinics, b);
   if (!ca || !cb) notFound();
 
-  const rows = [
-    { label: "Trust Score", a: ca.trust_score.toFixed(1), b: cb.trust_score.toFixed(1), winner: ca.trust_score > cb.trust_score ? "a" : ca.trust_score < cb.trust_score ? "b" : "tie" },
-    { label: "Google Rating", a: `★ ${ca.rating.toFixed(1)}`, b: `★ ${cb.rating.toFixed(1)}`, winner: ca.rating > cb.rating ? "a" : ca.rating < cb.rating ? "b" : "tie" },
-    { label: "Total Reviews", a: ca.total_reviews.toLocaleString(), b: cb.total_reviews.toLocaleString(), winner: ca.total_reviews > cb.total_reviews ? "a" : ca.total_reviews < cb.total_reviews ? "b" : "tie" },
-    { label: "District", a: ca.district || "—", b: cb.district || "—" },
-    { label: "Local Guide reviews", a: ca.local_guide_count.toString(), b: cb.local_guide_count.toString(), winner: ca.local_guide_count > cb.local_guide_count ? "a" : ca.local_guide_count < cb.local_guide_count ? "b" : "tie" },
-    { label: "Quality trend", a: trendLabel(ca.rating_trend.trend), b: trendLabel(cb.rating_trend.trend) },
-    { label: "Categories", a: ca.categories.map((c) => CATEGORY_LABELS[c] ?? c).join(", ") || "—", b: cb.categories.map((c) => CATEGORY_LABELS[c] ?? c).join(", ") || "—" },
-    { label: "Business status", a: ca.business_status || "—", b: cb.business_status || "—" },
-  ];
-
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
@@ -61,47 +47,88 @@ export default async function ComparePage(
       </nav>
 
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-        {ca.name} <span className="text-[var(--muted)] font-normal">vs</span> {cb.name}
+        {ca.name} <span className="text-[var(--muted)] font-normal text-2xl">vs</span> {cb.name}
       </h1>
       <p className="text-[var(--muted)] mb-8">
-        Independent comparison from public Google review data. Updated continuously.
+        Independent side-by-side analysis from public Google review data.
       </p>
 
-      {/* Header cards */}
-      <div className="grid sm:grid-cols-2 gap-4 mb-8">
-        <ClinicHeader clinic={ca} />
-        <ClinicHeader clinic={cb} />
-      </div>
+      {/* Trust Score visual bars */}
+      <Section title="Trust Score">
+        <div className="grid grid-cols-2 gap-6">
+          <TrustVisual clinic={ca} winner={ca.trust_score > cb.trust_score} />
+          <TrustVisual clinic={cb} winner={cb.trust_score > ca.trust_score} />
+        </div>
+      </Section>
 
-      {/* Comparison table */}
-      <div className="bg-white border border-[var(--border)] rounded-xl overflow-hidden mb-8">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-[var(--border)] text-xs uppercase tracking-wide text-[var(--muted)]">
-              <th className="text-left p-3 w-1/4">Metric</th>
-              <th className="text-left p-3">{ca.name}</th>
-              <th className="text-left p-3">{cb.name}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.label} className="border-b border-[var(--border)] last:border-0">
-                <td className="p-3 text-sm text-[var(--muted)]">{r.label}</td>
-                <td className={`p-3 text-sm font-medium ${r.winner === "a" ? "text-green-700" : ""}`}>
-                  {r.a} {r.winner === "a" && <span className="ml-1 text-xs">✓</span>}
-                </td>
-                <td className={`p-3 text-sm font-medium ${r.winner === "b" ? "text-green-700" : ""}`}>
-                  {r.b} {r.winner === "b" && <span className="ml-1 text-xs">✓</span>}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Quick stats grid */}
+      <Section title="Quick stats">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+          <StatRow label="Google rating" a={`★ ${ca.rating.toFixed(1)}`} b={`★ ${cb.rating.toFixed(1)}`} winner={cmp(ca.rating, cb.rating)} />
+          <StatRow label="Total reviews" a={ca.total_reviews.toLocaleString()} b={cb.total_reviews.toLocaleString()} winner={cmp(ca.total_reviews, cb.total_reviews)} />
+          <StatRow label="District" a={ca.district || "—"} b={cb.district || "—"} />
+          <StatRow label="Quality trend" a={trendLabel(ca.rating_trend.trend)} b={trendLabel(cb.rating_trend.trend)} />
+          <StatRow label="Local Guide reviews" a={ca.local_guide_count.toString()} b={cb.local_guide_count.toString()} winner={cmp(ca.local_guide_count, cb.local_guide_count)} />
+          <StatRow label="Avg reviewer credibility" a={ca.avg_author_review_count.toFixed(0)} b={cb.avg_author_review_count.toFixed(0)} winner={cmp(ca.avg_author_review_count, cb.avg_author_review_count)} />
+          <StatRow label="Status" a={ca.business_status || "—"} b={cb.business_status || "—"} />
+          <StatRow label="Phone" a={ca.phone ? "✓ listed" : "—"} b={cb.phone ? "✓ listed" : "—"} />
+        </div>
+      </Section>
 
+      {/* Service strength comparison */}
+      <Section title="Service strength (mention count)">
+        <ServiceComparison ca={ca} cb={cb} />
+      </Section>
+
+      {/* Language breakdown */}
+      <Section title="Reviewer languages">
+        <div className="grid grid-cols-2 gap-6">
+          <LangBreakdown clinic={ca} />
+          <LangBreakdown clinic={cb} />
+        </div>
+      </Section>
+
+      {/* Top doctor comparison */}
+      {(ca.doctor_stats?.length || cb.doctor_stats?.length) && (
+        <Section title="Top mentioned doctor">
+          <div className="grid grid-cols-2 gap-6">
+            <DoctorCard clinic={ca} />
+            <DoctorCard clinic={cb} />
+          </div>
+        </Section>
+      )}
+
+      {/* Highlight topics */}
+      <Section title="What reviewers say">
+        <div className="grid grid-cols-2 gap-6">
+          <TopicList clinic={ca} />
+          <TopicList clinic={cb} />
+        </div>
+      </Section>
+
+      {/* Sample reviews */}
+      <Section title="Sample reviews">
+        <div className="grid grid-cols-2 gap-6">
+          <SampleReview clinic={ca} />
+          <SampleReview clinic={cb} />
+        </div>
+      </Section>
+
+      {/* CTAs */}
       <div className="grid sm:grid-cols-2 gap-3 mb-8">
-        <LineButton clinicName={ca.name} phone={ca.phone} size="lg" />
-        <LineButton clinicName={cb.name} phone={cb.phone} size="lg" />
+        <div>
+          <h3 className="text-sm font-semibold mb-2">{ca.name}</h3>
+          <LineButton clinicName={ca.name} phone={ca.phone} size="lg" />
+        </div>
+        <div>
+          <h3 className="text-sm font-semibold mb-2">{cb.name}</h3>
+          <LineButton clinicName={cb.name} phone={cb.phone} size="lg" />
+        </div>
+      </div>
+
+      <div className="text-xs text-[var(--muted)] border-t border-[var(--border)] pt-4 space-y-1">
+        <p>↗ This is an independent comparison — neither clinic has paid for placement here.</p>
+        <p>📊 Data sources: Google reviews (Google Maps), Trust Score = our internal algorithm weighing review credibility, recency, language diversity, and Local Guide signals.</p>
       </div>
 
       <BreadcrumbJsonLd items={[
@@ -113,31 +140,12 @@ export default async function ComparePage(
   );
 }
 
-function ClinicHeader({ clinic }: { clinic: ReturnType<typeof getClinicById> }) {
-  if (!clinic) return null;
-  return (
-    <a
-      href={`/clinic/${clinic.id}`}
-      className="block bg-white border border-[var(--border)] rounded-xl p-5 hover:shadow-md transition"
-    >
-      <h2 className="font-bold text-lg mb-1 truncate">{clinic.name}</h2>
-      <p className="text-sm text-[var(--muted)] mb-3 truncate">{clinic.primary_type} · {clinic.district}</p>
-      <div className="flex items-center justify-between gap-3 mb-2">
-        <TrustBadge score={clinic.trust_score} size="md" />
-        <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold">
-          ★ {clinic.rating.toFixed(1)}
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-1 mt-2">
-        {clinic.categories.slice(0, 3).map((c) => (
-          <span key={c} className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1">
-            <CategoryIcon category={c} size={11} />
-            {CATEGORY_LABELS[c] ?? c}
-          </span>
-        ))}
-      </div>
-    </a>
-  );
+// ─── Helpers ──────────────────────────────────────────────────────────
+
+function cmp(a: number, b: number): "a" | "b" | "tie" {
+  if (a > b) return "a";
+  if (a < b) return "b";
+  return "tie";
 }
 
 function trendLabel(t: string): string {
@@ -145,4 +153,193 @@ function trendLabel(t: string): string {
   if (t === "declining") return "↘ Declining";
   if (t === "stable") return "→ Stable";
   return "—";
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="mb-10">
+      <h2 className="text-xs uppercase tracking-widest text-[var(--muted)] font-bold mb-3">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function StatRow({ label, a, b, winner }: { label: string; a: string; b: string; winner?: "a" | "b" | "tie" }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 border-b border-[var(--border)] pb-2">
+      <span className="text-xs text-[var(--muted)] flex-1 min-w-0 truncate">{label}</span>
+      <span className={`text-sm font-medium tabular-nums ${winner === "a" ? "text-green-700" : ""}`}>{a}{winner === "a" && <span className="ml-1 text-xs">✓</span>}</span>
+      <span className="text-[var(--muted)] text-xs">vs</span>
+      <span className={`text-sm font-medium tabular-nums ${winner === "b" ? "text-green-700" : ""}`}>{b}{winner === "b" && <span className="ml-1 text-xs">✓</span>}</span>
+    </div>
+  );
+}
+
+function TrustVisual({ clinic, winner }: { clinic: Clinic; winner: boolean }) {
+  const color = clinic.trust_score >= 80 ? "#059669" : clinic.trust_score >= 65 ? "#2563eb" : "#d97706";
+  return (
+    <a href={`/clinic/${clinic.id}`} className={`block bg-white rounded-2xl p-6 border-2 transition hover:shadow-lg ${winner ? "border-green-400" : "border-[var(--border)]"}`}>
+      <div className="flex items-start justify-between mb-3">
+        <div className="min-w-0 flex-1">
+          <h3 className="font-bold text-lg truncate">{clinic.name}</h3>
+          <p className="text-xs text-[var(--muted)] truncate mt-0.5">{clinic.district || "—"} · {clinic.primary_type}</p>
+        </div>
+        {winner && <span className="text-[10px] uppercase tracking-widest font-black text-green-700 ml-2">Winner</span>}
+      </div>
+      <div className="flex items-baseline gap-3 mb-3">
+        <span className="text-5xl font-black tabular-nums" style={{ color }}>{clinic.trust_score}</span>
+        <span className="text-sm font-semibold uppercase tracking-wider" style={{ color }}>
+          {clinic.trust_score >= 80 ? "Excellent" : clinic.trust_score >= 65 ? "Strong" : "Good"}
+        </span>
+      </div>
+      <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+        <div className="h-full rounded-full transition-all" style={{ width: `${Math.min(clinic.trust_score, 100)}%`, background: color }} />
+      </div>
+      <div className="mt-3 text-xs text-[var(--muted)]">
+        Based on {clinic.scraped_review_count.toLocaleString()} analyzed reviews
+      </div>
+    </a>
+  );
+}
+
+function ServiceComparison({ ca, cb }: { ca: Clinic; cb: Clinic }) {
+  // Get union of services with mentions > 0 across both
+  const allServices = new Set<string>([
+    ...Object.keys(ca.service_mentions).filter((k) => ca.service_mentions[k] > 0),
+    ...Object.keys(cb.service_mentions).filter((k) => cb.service_mentions[k] > 0),
+  ]);
+  const sorted = [...allServices]
+    .map((s) => ({ service: s, a: ca.service_mentions[s] ?? 0, b: cb.service_mentions[s] ?? 0 }))
+    .sort((x, y) => (y.a + y.b) - (x.a + x.b))
+    .slice(0, 8);
+
+  if (sorted.length === 0) return <p className="text-sm text-[var(--muted)]">No service mentions detected in reviews.</p>;
+  const maxVal = Math.max(...sorted.map((s) => Math.max(s.a, s.b)), 1);
+
+  return (
+    <div className="space-y-3">
+      {sorted.map(({ service, a, b }) => (
+        <div key={service} className="flex items-center gap-3 text-sm">
+          <div className="w-24 shrink-0 flex items-center gap-1.5">
+            <CategoryIcon category={service} size={14} />
+            <span className="font-medium truncate">{CATEGORY_LABELS[service] ?? service}</span>
+          </div>
+          <div className="flex-1 flex items-center gap-2">
+            <span className={`tabular-nums text-xs w-10 text-right ${a >= b ? "font-bold text-green-700" : "text-[var(--muted)]"}`}>{a}</span>
+            <div className="flex-1 flex items-center gap-1">
+              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden flex justify-end">
+                <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${(a / maxVal) * 100}%` }} />
+              </div>
+              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-full bg-blue-500 rounded-full" style={{ width: `${(b / maxVal) * 100}%` }} />
+              </div>
+            </div>
+            <span className={`tabular-nums text-xs w-10 ${b >= a ? "font-bold text-blue-700" : "text-[var(--muted)]"}`}>{b}</span>
+          </div>
+        </div>
+      ))}
+      <div className="flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-[var(--muted)] mt-2">
+        <span className="flex items-center gap-1"><span className="w-2 h-2 bg-emerald-500" /> {ca.name.slice(0, 20)}</span>
+        <span className="flex items-center gap-1"><span className="w-2 h-2 bg-blue-500" /> {cb.name.slice(0, 20)}</span>
+      </div>
+    </div>
+  );
+}
+
+function LangBreakdown({ clinic }: { clinic: Clinic }) {
+  const l = clinic.language_breakdown;
+  const total = l.en + l.th + l.ko + l.ja + l.other;
+  if (total === 0) return <p className="text-sm text-[var(--muted)]">No language data.</p>;
+  const segments = [
+    { label: "EN", value: l.en, color: "#3b82f6" },
+    { label: "TH", value: l.th, color: "#ef4444" },
+    { label: "KO", value: l.ko, color: "#8b5cf6" },
+    { label: "JA", value: l.ja, color: "#10b981" },
+    { label: "Other", value: l.other, color: "#9ca3af" },
+  ].filter((s) => s.value > 0);
+
+  return (
+    <div>
+      <h4 className="text-sm font-semibold mb-2 truncate">{clinic.name}</h4>
+      <div className="h-3 rounded-full overflow-hidden flex bg-gray-100">
+        {segments.map((s) => (
+          <div key={s.label} style={{ width: `${(s.value / total) * 100}%`, background: s.color }} title={`${s.label} ${s.value}`} />
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-3 mt-2 text-xs">
+        {segments.map((s) => (
+          <span key={s.label} className="inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full" style={{ background: s.color }} />
+            <span className="text-[var(--muted)]">{s.label}</span>
+            <span className="font-bold tabular-nums">{Math.round((s.value / total) * 100)}%</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DoctorCard({ clinic }: { clinic: Clinic }) {
+  const top = clinic.doctor_stats && clinic.doctor_stats.length > 0
+    ? [...clinic.doctor_stats].sort((a, b) => b.mentions - a.mentions)[0]
+    : null;
+  return (
+    <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+      <p className="text-xs text-[var(--muted)] mb-1 truncate">{clinic.name}</p>
+      {top ? (
+        <>
+          <p className="font-bold text-base mb-1">{top.name}</p>
+          <div className="flex items-center gap-2 text-xs text-[var(--muted)] flex-wrap">
+            <span className="tabular-nums">{top.mentions} mentions</span>
+            <span>·</span>
+            <span>★ {top.rating_avg.toFixed(1)}</span>
+            {top.primary_lang && top.primary_lang !== "en" && (
+              <span className="bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider">{top.primary_lang}</span>
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="text-sm text-[var(--muted)]">No doctor-specific data.</p>
+      )}
+    </div>
+  );
+}
+
+function TopicList({ clinic }: { clinic: Clinic }) {
+  const POSITIVE = ["english_speaking", "korean_doctor", "genuine_brand", "clean_facility", "professional", "friendly_staff", "no_pain", "results_satisfied", "premium", "affordable", "recommend"];
+  const topics = clinic.mentioned_topics.filter((t) => POSITIVE.includes(t.topic)).sort((a, b) => b.count - a.count).slice(0, 6);
+  return (
+    <div>
+      <h4 className="text-sm font-semibold mb-2 truncate">{clinic.name}</h4>
+      {topics.length === 0 && <p className="text-sm text-[var(--muted)]">No specific topics detected.</p>}
+      <div className="flex flex-wrap gap-1.5">
+        {topics.map((t) => (
+          <span key={t.topic} className="bg-emerald-50 text-emerald-800 px-2 py-1 rounded-full text-xs font-medium inline-flex items-center gap-1">
+            {TOPIC_LABELS[t.topic] ?? t.topic}
+            <span className="text-emerald-600 text-[10px] tabular-nums">×{t.count}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SampleReview({ clinic }: { clinic: Clinic }) {
+  // Pick best positive review (rating 5, longest text, English preferred)
+  const all = [
+    ...(clinic.sample_reviews_en ?? []),
+    ...(clinic.sample_reviews_ko ?? []),
+    ...(clinic.sample_reviews_th ?? []),
+  ];
+  const positive = all.filter((r) => r.rating >= 4 && r.text.length > 30).sort((a, b) => b.text.length - a.text.length)[0];
+  if (!positive) return <p className="text-sm text-[var(--muted)]">No reviews available.</p>;
+  return (
+    <div>
+      <h4 className="text-sm font-semibold mb-2 truncate">{clinic.name}</h4>
+      <blockquote className="bg-amber-50 border-l-4 border-amber-300 rounded-r-lg p-3 text-sm italic text-gray-700 leading-relaxed">
+        &ldquo;{positive.text.slice(0, 200)}{positive.text.length > 200 ? "..." : ""}&rdquo;
+        <footer className="not-italic text-xs text-[var(--muted)] mt-2">— {positive.author || "Anonymous"}, {"★".repeat(positive.rating)}</footer>
+      </blockquote>
+    </div>
+  );
 }
