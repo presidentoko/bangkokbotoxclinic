@@ -143,7 +143,7 @@ export default async function HomePage() {
       <div className="max-w-5xl mx-auto px-4 py-10">
         {heroClinic ? <SponsoredHero c={heroClinic} /> : null}
 
-        {/* MANIFESTO */}
+        {/* MANIFESTO — site-aware trust signals */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
             icon="🛡️"
@@ -157,12 +157,35 @@ export default async function HomePage() {
             body="Rating + review volume + Local Guide credibility + reviewer authority. One transparent number, every clinic."
             accent={accent}
           />
-          <Manifesto
-            icon="💉"
-            title="Brand verification"
-            body="We track Allergan / Dysport / Botulax / Juvederm / Restylane mentions in reviews — spot fake product claims."
-            accent={accent}
-          />
+          {cfg.focus === "dental" ? (
+            <Manifesto
+              icon="🦷"
+              title="Specialist credentials"
+              body="We track implant brand mentions (Straumann, Nobel, Osstem) and specialist signals — implantologist vs general dentist, English/Korean-speaking, US/UK/JP-trained."
+              accent={accent}
+            />
+          ) : cfg.focus === "hifu" || cfg.focus === "laser" ? (
+            <Manifesto
+              icon="⚡"
+              title="Machine verification"
+              body="We track Ultherapy / Thermage / Ultraformer / Pico / CO2 brand mentions in reviews — spot generic-machine clinics charging brand prices."
+              accent={accent}
+            />
+          ) : cfg.focus === "facial" ? (
+            <Manifesto
+              icon="✨"
+              title="Treatment depth"
+              body="HydraFacial, LED, oxygen, chemical peel, brightening — we track which treatments each clinic actually performs (vs marketing claims)."
+              accent={accent}
+            />
+          ) : (
+            <Manifesto
+              icon="💉"
+              title="Brand verification"
+              body="We track Allergan / Dysport / Botulax / Juvederm / Restylane mentions in reviews — spot fake product claims."
+              accent={accent}
+            />
+          )}
         </section>
 
         {/* FEATURED 6 — bigger cards */}
