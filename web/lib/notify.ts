@@ -1,10 +1,18 @@
 // Lead 알림 채널 — email (Resend) + LINE Messaging API push.
 // env 미설정 시 graceful no-op.
 
+import { getSiteConfig } from "./site";
+
 const RESEND_KEY = process.env.RESEND_API_KEY;
-const RESEND_FROM = process.env.RESEND_FROM_EMAIL || "Bangkok Botox Clinic <leads@bangkokbotoxclinic.com>";
 const DEFAULT_LINE_TOKEN = process.env.LINE_DEFAULT_BOT_TOKEN;
 const FALLBACK_EMAIL = process.env.FALLBACK_LEAD_EMAIL || "chillanel22@gmail.com";
+
+/** From: 헤더 — env override 있으면 그거 우선, 없으면 siteConfig 에서 생성. */
+function fromAddress(): string {
+  if (process.env.RESEND_FROM_EMAIL) return process.env.RESEND_FROM_EMAIL;
+  const cfg = getSiteConfig();
+  return `${cfg.brand} <leads@${cfg.domain}>`;
+}
 
 export async function sendEmail(to: string, subject: string, html: string, text: string): Promise<boolean> {
   if (!RESEND_KEY) {
@@ -18,7 +26,7 @@ export async function sendEmail(to: string, subject: string, html: string, text:
         Authorization: `Bearer ${RESEND_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from: RESEND_FROM, to, subject, html, text }),
+      body: JSON.stringify({ from: fromAddress(), to, subject, html, text }),
     });
     if (!res.ok) {
       console.error("[notify.email] resend err", res.status, await res.text());
