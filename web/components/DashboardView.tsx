@@ -2,12 +2,28 @@
 // B2B clinic dashboard — peeyai 패턴 referenced.
 // 클리닉 owner mode. Crisis alerts top → KPI bar → AI tools → competitors → insights.
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import type { Clinic, RatingTrend } from "@/lib/types";
 import { TOPIC_LABELS } from "@/lib/types";
 import { draftReplyStyled, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
 import type { ReplyStyle } from "@/lib/replyDrafts";
 import type { LeadRecord } from "@/lib/leadStore";
+
+type LeadStatus = "new" | "contacted" | "booked" | "no_show" | "cancelled";
+
+const LEAD_STATUS_META: Record<LeadStatus, { label: string; color: string; bg: string }> = {
+  new:       { label: "New",       color: "#2563eb", bg: "#dbeafe" },
+  contacted: { label: "Contacted", color: "#7c3aed", bg: "#ede9fe" },
+  booked:    { label: "Booked",    color: "#059669", bg: "#d1fae5" },
+  no_show:   { label: "No-show",   color: "#dc2626", bg: "#fee2e2" },
+  cancelled: { label: "Cancelled", color: "#6b7280", bg: "#f3f4f6" },
+};
+
+function reviewHash(text: string): string {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) | 0;
+  return Math.abs(h).toString(36);
+}
 
 type Props = {
   clinic: Clinic;
@@ -19,6 +35,12 @@ type Props = {
   ticketAvg?: number;       // 평균 procedure 가격 (ROI 계산용)
   isPartner?: boolean;      // 유료 파트너 여부
   isDemo?: boolean;
+  // Redis-backed persistent state
+  leadStatusMap?: Record<string, LeadStatus>;
+  leadNotesMap?: Record<string, string>;
+  replyDoneHashes?: string[];
+  profileViewsTotal?: number;
+  profileViewsByDay?: { date: string; count: number }[];
 };
 
 // ฿2,800 = Bangkok 피부과 Facebook 광고 평균 CAC. 8,000 = 우리 monthly fee.
@@ -29,14 +51,61 @@ const LEAD_CLOSE_RATE = 0.4; // 폼 lead → 실제 procedure conversion
 export function DashboardView({
   clinic: c, competitors, cityAvgRating, cityClinicCount,
   recentLeads = [], totalLeads = 0, ticketAvg = 15000, isPartner = false, isDemo,
+  leadStatusMap: initialLeadStatus = {},
+  leadNotesMap: initialLeadNotes = {},
+  replyDoneHashes = [],
+  profileViewsTotal = 0,
+  profileViewsByDay = [],
 }: Props) {
   // ── client state ──────────────────────────────────────────
-  const [resolvedSet, setResolvedSet] = useState<Set<number>>(new Set());
   const [styleVariants, setStyleVariants] = useState<Record<number, ReplyStyle>>({});
   const [editTexts, setEditTexts] = useState<Record<number, string>>({});
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [topicFilter, setTopicFilter] = useState<string | null>(null);
+
+  // Persistent reply done set (synced with Redis)
+  const [replyDoneSet, setReplyDoneSet] = useState<Set<string>>(() => new Set(replyDoneHashes));
+  // Persistent lead status / notes
+  const [leadStatus, setLeadStatus] = useState<Record<string, LeadStatus>>(initialLeadStatus);
+  const [leadNotes, setLeadNotes] = useState<Record<string, string>>(initialLeadNotes);
+
+  const persistReplyDone = useCallback(async (hash: string, done: boolean) => {
+    setReplyDoneSet((prev) => {
+      const n = new Set(prev);
+      if (done) n.add(hash); else n.delete(hash);
+      return n;
+    });
+    try {
+      await fetch("/api/dashboard/reply-done", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clinic_id: c.id, hash, done }),
+      });
+    } catch {}
+  }, [c.id]);
+
+  const persistLeadStatus = useCallback(async (leadId: string, status: LeadStatus) => {
+    setLeadStatus((prev) => ({ ...prev, [leadId]: status }));
+    try {
+      await fetch("/api/dashboard/lead-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clinic_id: c.id, lead_id: leadId, status }),
+      });
+    } catch {}
+  }, [c.id]);
+
+  const persistLeadNote = useCallback(async (leadId: string, note: string) => {
+    setLeadNotes((prev) => ({ ...prev, [leadId]: note }));
+    try {
+      await fetch("/api/dashboard/lead-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clinic_id: c.id, lead_id: leadId, note }),
+      });
+    } catch {}
+  }, [c.id]);
 
   const handleCopy = useCallback(async (text: string, key: string) => {
     try { await navigator.clipboard.writeText(text); } catch {
@@ -52,9 +121,6 @@ export function DashboardView({
 
   const cycleStyle = (i: number) =>
     setStyleVariants((p) => ({ ...p, [i]: (((p[i] ?? 0) + 1) % 3) as ReplyStyle }));
-
-  const toggleResolved = (i: number) =>
-    setResolvedSet((prev) => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; });
 
   // ── ROI 계산
   const leadsThisMonth = recentLeads.filter((l) => {
@@ -144,13 +210,32 @@ export function DashboardView({
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Top KPI bar — money metrics 강조 */}
-        <section className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+        <section className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
           <KPI label="Trust Score" value={String(c.trust_score)} sub={`${trustDelta} vs last week`} color={trustColor} clickable />
+          <KPI label="Profile views (30d)" value={profileViewsByDay.reduce((s, d) => s + d.count, 0).toLocaleString()} sub={`${profileViewsTotal.toLocaleString()} all-time`} color="#6366f1" clickable href="#views" />
           <KPI label="Pending replies" value={String(pendingReplies)} sub={pendingReplies > 0 ? "Action needed ↓" : "All clear"} color={pendingReplies > 0 ? "#ef4444" : "#10b981"} clickable warning={pendingReplies > 0} href="#crisis" />
           <KPI label="Leads this month" value={String(leadsThisMonth)} sub={`${totalLeads.toLocaleString()} all-time`} color="#0891b2" clickable href="#leads" />
           <KPI label="Revenue attributed" value={`฿${(revenueAttributedThb / 1000).toFixed(0)}K`} sub={`${projectedCloses} projected closes`} color="#10b981" clickable href="#roi" />
           <KPI label="ROI multiplier" value={`${roiMultiplier.toFixed(1)}x`} sub={`vs ฿${(DASHBOARD_FEE_THB / 1000).toFixed(0)}K dashboard fee`} color="#7c3aed" clickable href="#roi" />
         </section>
+
+        {/* Profile views chart */}
+        {profileViewsTotal > 0 && (
+          <section id="views" className="mb-6">
+            <Card accent="#6366f1">
+              <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">👁 Profile views — last 30 days</h3>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold text-indigo-600 tabular-nums">
+                    {profileViewsByDay.reduce((s, d) => s + d.count, 0).toLocaleString()}
+                  </span>
+                  <span className="text-xs text-[var(--muted)]">unique sessions · all-time {profileViewsTotal.toLocaleString()}</span>
+                </div>
+              </div>
+              <ViewsChart data={profileViewsByDay} />
+            </Card>
+          </section>
+        )}
 
         {/* ROI breakdown — closer 섹션 */}
         <section id="roi" className="mb-6">
@@ -209,7 +294,8 @@ export function DashboardView({
                 const draft = editTexts[i] ?? rawDraft;
                 const severity = rev.rating <= 1 ? "critical" : rev.rating <= 2 ? "high" : "medium";
                 const severityColor = severity === "critical" ? "#dc2626" : severity === "high" ? "#ea580c" : "#d97706";
-                const resolved = resolvedSet.has(i);
+                const hash = reviewHash(rev.text);
+                const resolved = replyDoneSet.has(hash);
                 const copyKey = `reply-${i}`;
                 const STYLE_LABELS: Record<number, string> = { 0: "Formal", 1: "Warm", 2: "Brief" };
                 return (
@@ -225,7 +311,7 @@ export function DashboardView({
                         <span className="text-xs font-bold px-2 py-1 rounded bg-amber-100 text-amber-800">{REPLY_CATEGORY_LABELS[category]}</span>
                         <span className="text-xs text-[var(--muted)]">{rev.author || "Google reviewer"} · 2-7 days ago</span>
                       </div>
-                      <button onClick={() => toggleResolved(i)} className="text-xs font-bold px-2 py-1 rounded border border-[var(--border)] bg-white hover:bg-gray-50">
+                      <button onClick={() => persistReplyDone(hash, !resolved)} className="text-xs font-bold px-2 py-1 rounded border border-[var(--border)] bg-white hover:bg-gray-50">
                         {resolved ? "↩ Unresolve" : "✓ Mark resolved"}
                       </button>
                     </div>
@@ -610,7 +696,14 @@ export function DashboardView({
             ) : (
               <div className="space-y-3">
                 {recentLeads.map((lead) => (
-                  <LeadCard key={lead.id} lead={lead} />
+                  <LeadCard
+                    key={lead.id}
+                    lead={lead}
+                    status={leadStatus[lead.id] ?? "new"}
+                    note={leadNotes[lead.id] ?? ""}
+                    onStatusChange={(s) => persistLeadStatus(lead.id, s)}
+                    onNoteChange={(n) => persistLeadNote(lead.id, n)}
+                  />
                 ))}
               </div>
             )}
@@ -781,18 +874,34 @@ function relTime(iso: string): string {
   return `${days}d ago`;
 }
 
-function LeadCard({ lead }: { lead: LeadRecord }) {
-  const [contacted, setContacted] = useState(false);
+function LeadCard({
+  lead, status, note, onStatusChange, onNoteChange,
+}: {
+  lead: LeadRecord;
+  status: LeadStatus;
+  note: string;
+  onStatusChange: (s: LeadStatus) => void;
+  onNoteChange: (n: string) => void;
+}) {
+  const [showNote, setShowNote] = useState(!!note);
+  const [draftNote, setDraftNote] = useState(note);
   const isFresh = Date.now() - new Date(lead.at).getTime() < 6 * 3600_000;
+  const meta = LEAD_STATUS_META[status];
+  const dim = status === "no_show" || status === "cancelled";
+
   return (
-    <div className={`border border-[var(--border)] rounded-xl overflow-hidden bg-white transition ${contacted ? "opacity-60" : ""}`}>
-      <div className="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between gap-2 flex-wrap" style={{ background: contacted ? "#f9fafb" : isFresh ? "#ecfdf5" : "#fafafa" }}>
+    <div className={`border border-[var(--border)] rounded-xl overflow-hidden bg-white transition ${dim ? "opacity-60" : ""}`}>
+      <div
+        className="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between gap-2 flex-wrap"
+        style={{ background: status === "new" && isFresh ? "#ecfdf5" : "#fafafa" }}
+      >
         <div className="flex items-center gap-2 flex-wrap">
-          {contacted ? (
-            <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white bg-gray-400">contacted</span>
-          ) : isFresh ? (
-            <span className="text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full text-white bg-emerald-600">NEW</span>
-          ) : null}
+          <span
+            className="text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full"
+            style={{ color: meta.color, background: meta.bg }}
+          >
+            {meta.label}
+          </span>
           <span className="text-sm font-bold">{lead.name || "(no name)"}</span>
           {lead.service && (
             <span className="text-xs font-bold px-2 py-1 rounded bg-blue-100 text-blue-800">{lead.service}</span>
@@ -805,9 +914,22 @@ function LeadCard({ lead }: { lead: LeadRecord }) {
         {(lead.date || lead.time_slot) && (
           <LeadField label="Preferred" value={[lead.date, lead.time_slot].filter(Boolean).join(" · ")} />
         )}
-        {lead.notes && <LeadField label="Notes" value={lead.notes} />}
+        {lead.notes && <LeadField label="Customer notes" value={lead.notes} />}
         {lead.ref && lead.ref !== "direct" && (
           <LeadField label="Source" value={lead.ref.replace(/^https?:\/\//, "").slice(0, 60)} />
+        )}
+        {showNote && (
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Internal note</div>
+            <textarea
+              value={draftNote}
+              onChange={(e) => setDraftNote(e.target.value)}
+              onBlur={() => { if (draftNote !== note) onNoteChange(draftNote); }}
+              rows={2}
+              placeholder="Add internal note (saved automatically)"
+              className="w-full border border-[var(--border)] rounded-lg px-3 py-2 text-xs resize-y focus:outline-none focus:border-gray-400"
+            />
+          </div>
         )}
       </div>
       <div className="px-4 py-3 border-t border-[var(--border)] bg-gray-50 flex items-center gap-2 flex-wrap">
@@ -815,7 +937,7 @@ function LeadCard({ lead }: { lead: LeadRecord }) {
           href={`mailto:${lead.email}?subject=${encodeURIComponent(`Re: your ${lead.service || "consultation"} inquiry at ${lead.clinic_name}`)}`}
           className="text-xs font-bold px-3 py-2 rounded-lg text-white bg-emerald-600 hover:bg-emerald-700"
         >
-          📧 Reply by email
+          📧 Email
         </a>
         {lead.phone && (
           <a
@@ -825,15 +947,74 @@ function LeadCard({ lead }: { lead: LeadRecord }) {
             📞 Call
           </a>
         )}
-        <button
-          onClick={() => setContacted((v) => !v)}
-          className={`text-xs font-bold px-3 py-2 rounded-lg border transition ${contacted ? "border-gray-300 bg-gray-100 text-gray-500" : "border-[var(--border)] bg-white hover:bg-gray-100"}`}
+        <select
+          value={status}
+          onChange={(e) => onStatusChange(e.target.value as LeadStatus)}
+          className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-100 cursor-pointer"
         >
-          {contacted ? "↩ Undo contacted" : "✓ Mark contacted"}
+          {(Object.keys(LEAD_STATUS_META) as LeadStatus[]).map((s) => (
+            <option key={s} value={s}>{LEAD_STATUS_META[s].label}</option>
+          ))}
+        </select>
+        <button
+          onClick={() => setShowNote((v) => !v)}
+          className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-100"
+        >
+          {showNote ? "− Hide note" : "+ Note"}
         </button>
         <span className="ml-auto text-[10px] text-[var(--muted)] tabular-nums font-mono">{lead.id.slice(0, 10)}</span>
       </div>
     </div>
+  );
+}
+
+// ── Profile views chart — 30일 일별 막대 ───────────────────
+
+function ViewsChart({ data }: { data: { date: string; count: number }[] }) {
+  if (!data.length) return null;
+  const W = 700, H = 80, PT = 8, PB = 18, PL = 4, PR = 4;
+  const max = Math.max(...data.map((d) => d.count), 1);
+  const barW = (W - PL - PR) / data.length;
+  const chartH = H - PT - PB;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" aria-label="Daily profile views">
+      {data.map((d, i) => {
+        const h = (d.count / max) * chartH;
+        const x = PL + i * barW;
+        const y = PT + (chartH - h);
+        const isLast = i === data.length - 1;
+        return (
+          <g key={d.date}>
+            <rect
+              x={x + 1}
+              y={y}
+              width={Math.max(barW - 2, 1)}
+              height={h}
+              fill={isLast ? "#6366f1" : "#a5b4fc"}
+              rx={1.5}
+            />
+            {d.count > 0 && (
+              <title>{`${d.date}: ${d.count} view${d.count !== 1 ? "s" : ""}`}</title>
+            )}
+          </g>
+        );
+      })}
+      {/* X-axis labels — only every 5th day */}
+      {data.map((d, i) =>
+        i % 5 === 0 || i === data.length - 1 ? (
+          <text
+            key={`l-${d.date}`}
+            x={PL + i * barW + barW / 2}
+            y={H - 4}
+            fontSize="9"
+            fill="#9ca3af"
+            textAnchor="middle"
+          >
+            {d.date.slice(5)}
+          </text>
+        ) : null
+      )}
+    </svg>
   );
 }
 

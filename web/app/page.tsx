@@ -12,13 +12,17 @@ import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { GUIDES } from "@/lib/guides";
 
-export const dynamic = "force-static";
+export const revalidate = 300; // ISR — sponsored 슬롯 Redis 변경 5분 내 반영
 
 export default async function HomePage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
-  const top = sortWithSponsored(topByTrust(focused, 50));
+  const top = await sortWithSponsored(topByTrust(focused, 50));
+  // Pre-compute sponsored tiers for hero lookup (sponsoredTier is now async)
+  const heroTiers = await Promise.all(top.map((c) => sponsoredTier(c.id)));
+  const heroIdx = heroTiers.findIndex((t) => t !== null);
+  const heroClinic = heroIdx !== -1 ? top[heroIdx] : null;
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;
@@ -128,10 +132,7 @@ export default async function HomePage() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        {(() => {
-          const hero = top.find((c) => sponsoredTier(c.id));
-          return hero ? <SponsoredHero c={hero} /> : null;
-        })()}
+        {heroClinic ? <SponsoredHero c={heroClinic} /> : null}
 
         {/* MANIFESTO */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">

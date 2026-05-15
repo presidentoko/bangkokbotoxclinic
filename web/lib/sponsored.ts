@@ -1,45 +1,40 @@
-// Sponsored slots — tier 별 배지.
-// env vars:
-//   SPONSORED_EDITORS_PICK="id1,id2"  → "Editor's Pick" 노란 배지
-//   SPONSORED_RECOMMENDED="id3,id4"   → "Recommended" 파란 배지
-//   SPONSORED_FEATURED="id5,id6"      → "Featured" 일반 배지
+// Sponsored slots — Redis 우선 (admin 가 즉시 수정 가능), env var fallback.
+// React cache() 로 request 당 1회만 Redis fetch.
 
-export type SponsoredTier = "editors_pick" | "recommended" | "featured";
+import { cache } from "react";
+import { listSponsored, type SponsoredMap, type SponsoredTier } from "./sponsoredStore";
 
-const TIERS: Record<SponsoredTier, string[]> = {
-  editors_pick: parseList(process.env.SPONSORED_EDITORS_PICK),
-  recommended: parseList(process.env.SPONSORED_RECOMMENDED),
-  featured: parseList(process.env.SPONSORED_FEATURED || process.env.SPONSORED_IDS),
-};
+export type { SponsoredTier, SponsoredMap };
 
-function parseList(s: string | undefined): string[] {
-  return (s || "").split(",").map((x) => x.trim()).filter(Boolean);
-}
+const getSponsoredMap = cache(async (): Promise<SponsoredMap> => {
+  return await listSponsored();
+});
 
-export function sponsoredTier(clinicId: string): SponsoredTier | null {
-  if (TIERS.editors_pick.includes(clinicId)) return "editors_pick";
-  if (TIERS.recommended.includes(clinicId)) return "recommended";
-  if (TIERS.featured.includes(clinicId)) return "featured";
+export async function sponsoredTier(clinicId: string): Promise<SponsoredTier | null> {
+  const m = await getSponsoredMap();
+  if (m.editors_pick.includes(clinicId)) return "editors_pick";
+  if (m.recommended.includes(clinicId))  return "recommended";
+  if (m.featured.includes(clinicId))     return "featured";
   return null;
 }
 
-export function isSponsored(clinicId: string): boolean {
-  return sponsoredTier(clinicId) !== null;
+export async function isSponsored(clinicId: string): Promise<boolean> {
+  return (await sponsoredTier(clinicId)) !== null;
 }
 
 export const SPONSORED_BADGE: Record<SponsoredTier, { label: string; bg: string; fg: string; icon: string }> = {
   editors_pick: { label: "Editor's Pick", bg: "#fef3c7", fg: "#92400e", icon: "★" },
-  recommended: { label: "Recommended", bg: "#dbeafe", fg: "#1e40af", icon: "✓" },
-  featured: { label: "Featured", bg: "#f3e8ff", fg: "#6b21a8", icon: "◆" },
+  recommended:  { label: "Recommended",   bg: "#dbeafe", fg: "#1e40af", icon: "✓" },
+  featured:     { label: "Featured",      bg: "#f3e8ff", fg: "#6b21a8", icon: "◆" },
 };
 
-// 페이지 상단 노출 정렬: editors_pick → recommended → trust_score 내림차순
-export function sortWithSponsored<T extends { id: string; trust_score: number }>(items: T[]): T[] {
-  const score = (t: T) => {
-    const tier = sponsoredTier(t.id);
-    if (tier === "editors_pick") return 1_000_000;
-    if (tier === "recommended") return 500_000;
-    if (tier === "featured") return 100_000;
+/** editors_pick → recommended → featured → trust_score 내림차순. */
+export async function sortWithSponsored<T extends { id: string; trust_score: number }>(items: T[]): Promise<T[]> {
+  const m = await getSponsoredMap();
+  const score = (t: T): number => {
+    if (m.editors_pick.includes(t.id)) return 1_000_000;
+    if (m.recommended.includes(t.id))  return 500_000;
+    if (m.featured.includes(t.id))     return 100_000;
     return 0;
   };
   return [...items].sort((a, b) => {

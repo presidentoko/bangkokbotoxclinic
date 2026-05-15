@@ -7,10 +7,10 @@ import { CategoryIcon } from "./CategoryIcon";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 
-export function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: number }) {
+export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: number }) {
   const trend = clinic.rating_trend.trend;
   const trending = trend === "improving";
-  const tier = sponsoredTier(clinic.id);
+  const tier = await sponsoredTier(clinic.id);
 
   const tierStyles = tier === "editors_pick"
     ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }

@@ -29,8 +29,8 @@ export function AIVerifiedBadge({ clinic, size = "sm" }: { clinic: Clinic; size?
 }
 
 // Sponsored 배지 (tier별 색깔 다름)
-export function SponsoredBadge({ clinicId }: { clinicId: string }) {
-  const tier = sponsoredTier(clinicId);
+export async function SponsoredBadge({ clinicId }: { clinicId: string }) {
+  const tier = await sponsoredTier(clinicId);
   if (!tier) return null;
   const cfg = SPONSORED_BADGE[tier];
   const gradient =

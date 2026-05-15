@@ -5,8 +5,8 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "./CategoryIcon";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
 
-export function SponsoredHero({ c }: { c: Clinic }) {
-  const tier = sponsoredTier(c.id);
+export async function SponsoredHero({ c }: { c: Clinic }) {
+  const tier = await sponsoredTier(c.id);
   if (!tier) return null;
   const cfg = SPONSORED_BADGE[tier];
 

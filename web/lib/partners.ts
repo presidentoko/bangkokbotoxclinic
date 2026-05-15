@@ -4,14 +4,30 @@
 import fs from "node:fs";
 import path from "node:path";
 
+export type PartnerStatus = "active" | "trial" | "overdue" | "churned";
+
+export type Payment = {
+  id: string;                 // unique id (timestamp-based)
+  amount_thb: number;
+  paid_at: string;            // ISO date (YYYY-MM-DD)
+  method: "promptpay" | "bank_transfer" | "card" | "cash" | "other";
+  period_start?: string;      // billing period covered
+  period_end?: string;
+  note?: string;
+};
+
 export type ClinicPartner = {
   clinic_id: string;
   contact_email?: string;
   line_user_id?: string;
   line_bot_token?: string;
   plan_tier: "trial" | "pilot" | "paid";
+  status?: PartnerStatus;     // manually overridable; defaults computed from payments
+  monthly_fee_thb?: number;   // recurring fee (used for MRR)
   monthly_ticket_avg_thb?: number;
   started_at?: string;
+  notes?: string;             // free-form admin notes
+  payments?: Payment[];
 };
 
 type PartnerFile = {

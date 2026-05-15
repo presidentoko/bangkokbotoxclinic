@@ -11,6 +11,7 @@ import { TopicCluster } from "@/components/TopicCluster";
 import { LineButton } from "@/components/LineButton";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import { ViewBeacon } from "@/components/ViewBeacon";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -49,7 +50,7 @@ export default async function ClinicPage(
   const c = getClinicById(db.clinics, id);
   if (!c) notFound();
 
-  const tier = sponsoredTier(c.id);
+  const tier = await sponsoredTier(c.id);
   const trend = c.rating_trend.trend;
   const samples = [...c.sample_reviews_en, ...c.sample_reviews_th].slice(0, 4);
 
@@ -90,6 +91,7 @@ export default async function ClinicPage(
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <ViewBeacon clinicId={c.id} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         {c.district && (

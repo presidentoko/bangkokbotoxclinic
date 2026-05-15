@@ -48,7 +48,7 @@ export default async function KoHomePage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
-  const top = sortWithSponsored(topByTrust(focused, 30));
+  const top = await sortWithSponsored(topByTrust(focused, 30));
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;

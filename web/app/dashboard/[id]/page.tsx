@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { DashboardView } from "@/components/DashboardView";
 import { getRecentLeads, getLeadCount } from "@/lib/leadStore";
-import { getPartner } from "@/lib/partners";
+import { listPartners } from "@/lib/partnerStore";
+import {
+  getLeadStatusMap, getLeadNotesMap, getReplyDoneSet,
+  getTotalProfileViews, getProfileViewsByDay,
+} from "@/lib/dashboardStore";
 import type { Metadata } from "next";
 
 // 대쉬보드는 private (robots disallow) + 실시간 lead 표시 필요 → dynamic 렌더링.
@@ -43,12 +47,19 @@ export default async function ClinicDashboardPage(
     ? cityList.reduce((s, x) => s + x.rating, 0) / cityList.length
     : null;
 
-  // 실시간 lead 데이터 (Upstash 미설정 시 빈 배열, ROI는 0)
-  const [recentLeads, leadCount] = await Promise.all([
+  // 실시간 lead 데이터 + 상태 + 답글 완료 + 뷰 통계 (병렬 fetch)
+  // 뷰 카운트는 /clinic/[id] 공개 페이지에서 increment — 여기는 owner view 라 카운트 안 함
+  const [recentLeads, leadCount, partners, leadStatusMap, leadNotesMap, replyDoneSet, viewsTotal, viewsByDay] = await Promise.all([
     getRecentLeads(c.id, 10),
     getLeadCount(c.id),
+    listPartners(),
+    getLeadStatusMap(c.id),
+    getLeadNotesMap(c.id),
+    getReplyDoneSet(c.id),
+    getTotalProfileViews(c.id),
+    getProfileViewsByDay(c.id, 30),
   ]);
-  const partner = getPartner(c.id);
+  const partner = partners.find((p) => p.clinic_id === c.id) ?? null;
   const ticketAvg = partner?.monthly_ticket_avg_thb ?? 15000;
 
   return (
@@ -61,6 +72,11 @@ export default async function ClinicDashboardPage(
       totalLeads={leadCount}
       ticketAvg={ticketAvg}
       isPartner={!!partner}
+      leadStatusMap={leadStatusMap}
+      leadNotesMap={leadNotesMap}
+      replyDoneHashes={Array.from(replyDoneSet)}
+      profileViewsTotal={viewsTotal}
+      profileViewsByDay={viewsByDay}
     />
   );
 }

@@ -1,6 +1,8 @@
 "use client";
 import { useState, useCallback, useMemo, useEffect } from "react";
 
+// ─── Types ──────────────────────────────────────────────────────────────────
+
 type DbSummary = {
   generated_at: string;
   total_clinics: number;
@@ -8,13 +10,30 @@ type DbSummary = {
   city_counts: Record<string, number>;
 };
 
+type PartnerStatus = "active" | "trial" | "overdue" | "churned";
+type PlanTier = "trial" | "pilot" | "paid";
+
+type Payment = {
+  id: string;
+  amount_thb: number;
+  paid_at: string;
+  method: "promptpay" | "bank_transfer" | "card" | "cash" | "other";
+  period_start?: string;
+  period_end?: string;
+  note?: string;
+};
+
 type PartnerRecord = {
   clinic_id: string;
-  plan_tier: "trial" | "pilot" | "paid";
+  plan_tier: PlanTier;
+  status?: PartnerStatus;
   contact_email?: string;
   line_user_id?: string;
-  started_at?: string;
+  monthly_fee_thb?: number;
   monthly_ticket_avg_thb?: number;
+  started_at?: string;
+  notes?: string;
+  payments?: Payment[];
 };
 
 type EnrichedPartner = PartnerRecord & {
@@ -23,10 +42,10 @@ type EnrichedPartner = PartnerRecord & {
   clinic_city: string | null;
 };
 
-type SponsoredEnv = {
-  editors_pick: string;
-  recommended: string;
-  featured: string;
+type SponsoredMap = {
+  editors_pick: string[];
+  recommended: string[];
+  featured: string[];
 };
 
 type ClinicName = { id: string; name: string; city: string };
@@ -34,31 +53,91 @@ type ClinicName = { id: string; name: string; city: string };
 type Props = {
   db: DbSummary;
   partners: EnrichedPartner[];
-  sponsoredEnv: SponsoredEnv;
+  sponsored: SponsoredMap;
   clinicNames: ClinicName[];
 };
 
-const TABS = ["Data", "Partners", "Leads", "Ads"] as const;
+// ─── Constants ──────────────────────────────────────────────────────────────
+
+const TABS = ["Overview", "Partners", "Leads", "Ads"] as const;
 type Tab = (typeof TABS)[number];
 
-const TIER_COLOR: Record<string, string> = {
-  trial: "text-yellow-400",
-  pilot: "text-cyan-400",
-  paid: "text-green-400",
+const STATUS_META: Record<PartnerStatus, { label: string; color: string; bg: string }> = {
+  active:  { label: "Active",  color: "text-green-400",  bg: "bg-green-400/10 border-green-400/40" },
+  trial:   { label: "Trial",   color: "text-yellow-400", bg: "bg-yellow-400/10 border-yellow-400/40" },
+  overdue: { label: "Overdue", color: "text-orange-400", bg: "bg-orange-400/10 border-orange-400/40" },
+  churned: { label: "Churned", color: "text-gray-500",   bg: "bg-gray-500/10 border-gray-500/40" },
 };
-const TIER_BG: Record<string, string> = {
-  trial: "bg-yellow-400/10 border-yellow-400/30",
-  pilot: "bg-cyan-400/10 border-cyan-400/30",
-  paid: "bg-green-400/10 border-green-400/30",
-};
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
 
 function adminKey(): string {
   if (typeof window === "undefined") return "";
   return sessionStorage.getItem("admin_pk") ?? "";
 }
 
-export default function AdminView({ db, partners: initialPartners, sponsoredEnv, clinicNames }: Props) {
-  const [tab, setTab] = useState<Tab>("Partners");
+function lastPayment(p: PartnerRecord): Payment | null {
+  if (!p.payments || p.payments.length === 0) return null;
+  return [...p.payments].sort((a, b) => b.paid_at.localeCompare(a.paid_at))[0];
+}
+
+function computedStatus(p: PartnerRecord, now: Date = new Date()): PartnerStatus {
+  if (p.status) return p.status;
+  if (p.plan_tier === "trial") return "trial";
+  if (p.plan_tier === "pilot") return "active";
+  const last = lastPayment(p);
+  if (!last) return "overdue";
+  const days = (now.getTime() - new Date(last.paid_at).getTime()) / 86_400_000;
+  if (days <= 35) return "active";
+  if (days <= 60) return "overdue";
+  return "churned";
+}
+
+function computeMRR(partners: PartnerRecord[]): number {
+  return partners
+    .filter((p) => computedStatus(p) === "active" && p.monthly_fee_thb)
+    .reduce((s, p) => s + (p.monthly_fee_thb || 0), 0);
+}
+
+function revenueThisMonth(partners: PartnerRecord[]): number {
+  const ym = new Date().toISOString().slice(0, 7);
+  let s = 0;
+  for (const p of partners) for (const pmt of p.payments ?? []) if (pmt.paid_at.startsWith(ym)) s += pmt.amount_thb;
+  return s;
+}
+
+function countByStatus(partners: PartnerRecord[]): Record<PartnerStatus, number> {
+  const out: Record<PartnerStatus, number> = { active: 0, trial: 0, overdue: 0, churned: 0 };
+  for (const p of partners) out[computedStatus(p)]++;
+  return out;
+}
+
+async function copyToClipboard(text: string): Promise<void> {
+  try { await navigator.clipboard.writeText(text); } catch {
+    const el = document.createElement("textarea");
+    el.value = text; document.body.appendChild(el); el.select();
+    document.execCommand("copy"); document.body.removeChild(el);
+  }
+}
+
+// ─── Root ───────────────────────────────────────────────────────────────────
+
+export default function AdminView({ db, partners: initialPartners, sponsored: initialSponsored, clinicNames }: Props) {
+  const [tab, setTab] = useState<Tab>("Overview");
+  const [partners, setPartners] = useState<EnrichedPartner[]>(initialPartners);
+
+  const reloadPartners = useCallback(async () => {
+    const res = await fetch("/api/admin/partners", {
+      headers: { "x-admin-key": adminKey() },
+      cache: "no-store",
+    });
+    if (!res.ok) return;
+    const j = (await res.json()) as { partners: PartnerRecord[] };
+    setPartners(j.partners.map((p) => {
+      const c = clinicNames.find((x) => x.id === p.clinic_id);
+      return { ...p, clinic_name: c?.name ?? p.clinic_id, clinic_rating: null, clinic_city: c?.city ?? null };
+    }));
+  }, [clinicNames]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
@@ -81,21 +160,32 @@ export default function AdminView({ db, partners: initialPartners, sponsoredEnv,
         ))}
       </div>
 
-      {tab === "Data"     && <DataTab db={db} />}
-      {tab === "Partners" && <PartnersTab initialPartners={initialPartners} clinicNames={clinicNames} />}
-      {tab === "Leads"    && <LeadsTab initialPartners={initialPartners} clinicNames={clinicNames} />}
-      {tab === "Ads"      && <AdsTab sponsoredEnv={sponsoredEnv} clinicNames={clinicNames} />}
+      {tab === "Overview" && <OverviewTab db={db} partners={partners} />}
+      {tab === "Partners" && (
+        <PartnersTab
+          partners={partners}
+          clinicNames={clinicNames}
+          onChange={reloadPartners}
+        />
+      )}
+      {tab === "Leads"    && <LeadsTab partners={partners} clinicNames={clinicNames} />}
+      {tab === "Ads"      && <AdsTab initial={initialSponsored} clinicNames={clinicNames} />}
     </div>
   );
 }
 
-// ─── Data Tab ────────────────────────────────────────────────────────────────
+// ─── Overview Tab — MRR, revenue, DB freshness ──────────────────────────────
 
-function DataTab({ db }: { db: DbSummary }) {
+function OverviewTab({ db, partners }: { db: DbSummary; partners: EnrichedPartner[] }) {
+  const mrr = useMemo(() => computeMRR(partners), [partners]);
+  const revMonth = useMemo(() => revenueThisMonth(partners), [partners]);
+  const statusCount = useMemo(() => countByStatus(partners), [partners]);
+
   const age = useMemo(() => {
     const diff = Date.now() - new Date(db.generated_at).getTime();
     const h = Math.floor(diff / 3_600_000);
-    return h < 48 ? `${h}h ago` : `${Math.floor(h / 24)}d ago`;
+    if (h < 48) return { text: `${h}h ago`, stale: h > 24 };
+    return { text: `${Math.floor(h / 24)}d ago`, stale: true };
   }, [db.generated_at]);
 
   const topCities = useMemo(
@@ -105,13 +195,48 @@ function DataTab({ db }: { db: DbSummary }) {
   const coveragePct = Math.round((db.with_reviews_scraped / db.total_clinics) * 100);
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Stat label="Total clinics" value={db.total_clinics.toLocaleString()} />
-        <Stat label="Reviews scraped" value={`${db.with_reviews_scraped.toLocaleString()} (${coveragePct}%)`} />
-        <Stat label="Cities" value={Object.keys(db.city_counts).length.toString()} />
-        <Stat label="DB freshness" value={age} />
+    <div className="space-y-8">
+      {/* Revenue widgets */}
+      <div>
+        <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Revenue</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <BigStat label="MRR" value={`฿${mrr.toLocaleString()}`} hint="active paid partners" color="text-green-400" />
+          <BigStat label="This month" value={`฿${revMonth.toLocaleString()}`} hint="total paid this month" color="text-emerald-400" />
+          <BigStat label="Partners" value={partners.length.toString()} hint={`${statusCount.active} active · ${statusCount.trial} trial`} />
+          <BigStat label="Overdue" value={statusCount.overdue.toString()} hint="check Partners tab" color={statusCount.overdue > 0 ? "text-orange-400" : "text-gray-500"} />
+        </div>
       </div>
+
+      {/* Status breakdown */}
+      <div>
+        <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Partner status</h3>
+        <div className="flex gap-2 flex-wrap">
+          {(Object.keys(STATUS_META) as PartnerStatus[]).map((s) => (
+            <div key={s} className={`px-3 py-2 rounded-lg border ${STATUS_META[s].bg}`}>
+              <span className={`text-xs font-bold uppercase tracking-widest ${STATUS_META[s].color}`}>{STATUS_META[s].label}</span>
+              <span className="ml-2 text-sm font-mono text-gray-200">{statusCount[s]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Data stats */}
+      <div>
+        <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Data</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <BigStat label="Total clinics" value={db.total_clinics.toLocaleString()} />
+          <BigStat label="Reviews scraped" value={`${coveragePct}%`} hint={`${db.with_reviews_scraped.toLocaleString()} clinics`} />
+          <BigStat label="Cities" value={Object.keys(db.city_counts).length.toString()} />
+          <BigStat
+            label="DB freshness"
+            value={age.text}
+            hint={new Date(db.generated_at).toLocaleString().slice(0, 16)}
+            color={age.stale ? "text-orange-400" : "text-gray-200"}
+          />
+        </div>
+      </div>
+
+      {/* Top cities */}
       <div>
         <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-3">Top cities</h3>
         <div className="space-y-2">
@@ -133,31 +258,21 @@ function DataTab({ db }: { db: DbSummary }) {
   );
 }
 
-// ─── Partners Tab ─────────────────────────────────────────────────────────────
+// ─── Partners Tab ───────────────────────────────────────────────────────────
 
-function PartnersTab({ initialPartners, clinicNames }: { initialPartners: EnrichedPartner[]; clinicNames: ClinicName[] }) {
-  const [partners, setPartners] = useState<EnrichedPartner[]>(initialPartners);
+function PartnersTab({
+  partners, clinicNames, onChange,
+}: {
+  partners: EnrichedPartner[];
+  clinicNames: ClinicName[];
+  onChange: () => Promise<void>;
+}) {
   const [showAdd, setShowAdd] = useState(false);
-  const [editId, setEditId] = useState<string | null>(null);
+  const [paymentFor, setPaymentFor] = useState<string | null>(null);
+  const [historyFor, setHistoryFor] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
   const [copied, setCopied] = useState<string | null>(null);
-
-  const nameOf = useCallback((id: string) => {
-    return clinicNames.find((c) => c.id === id)?.name ?? id;
-  }, [clinicNames]);
-
-  async function reload() {
-    const res = await fetch("/api/admin/partners", {
-      headers: { "x-admin-key": adminKey() },
-    });
-    if (!res.ok) return;
-    const j = (await res.json()) as { partners: PartnerRecord[] };
-    setPartners(j.partners.map((p) => {
-      const c = clinicNames.find((x) => x.id === p.clinic_id);
-      return { ...p, clinic_name: c?.name ?? p.clinic_id, clinic_rating: null, clinic_city: c?.city ?? null };
-    }));
-  }
 
   async function handleAdd(data: PartnerRecord) {
     setSaving(true);
@@ -171,39 +286,63 @@ function PartnersTab({ initialPartners, clinicNames }: { initialPartners: Enrich
     if (j.ok) {
       setMsg("Partner added!");
       setShowAdd(false);
-      await reload();
+      await onChange();
     } else {
       setMsg(j.error === "already_exists" ? "Already a partner." : j.error ?? "Error");
     }
     setTimeout(() => setMsg(""), 3000);
   }
 
-  async function handleTierChange(clinic_id: string, plan_tier: "trial" | "pilot" | "paid") {
+  async function patchPartner(clinic_id: string, patch: Partial<PartnerRecord>) {
     await fetch("/api/admin/partners", {
       method: "PATCH",
       headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
-      body: JSON.stringify({ clinic_id, plan_tier }),
+      body: JSON.stringify({ clinic_id, ...patch }),
     });
-    await reload();
+    await onChange();
   }
 
-  async function handleDelete(clinic_id: string) {
-    if (!confirm(`Remove ${nameOf(clinic_id)} as partner?`)) return;
+  async function handleDelete(clinic_id: string, name: string) {
+    if (!confirm(`Remove ${name} as partner? Payment history will be lost.`)) return;
     await fetch("/api/admin/partners", {
       method: "DELETE",
       headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
       body: JSON.stringify({ clinic_id }),
     });
-    await reload();
+    await onChange();
+  }
+
+  async function recordPayment(p: Omit<Payment, "id"> & { clinic_id: string }) {
+    setSaving(true);
+    const res = await fetch("/api/admin/payments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
+      body: JSON.stringify(p),
+    });
+    setSaving(false);
+    if (res.ok) {
+      setMsg("Payment recorded.");
+      setPaymentFor(null);
+      await onChange();
+    } else {
+      setMsg("Failed to record payment");
+    }
+    setTimeout(() => setMsg(""), 3000);
+  }
+
+  async function deletePayment(clinic_id: string, payment_id: string) {
+    if (!confirm("Delete this payment record?")) return;
+    await fetch("/api/admin/payments", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
+      body: JSON.stringify({ clinic_id, payment_id }),
+    });
+    await onChange();
   }
 
   async function copyLink(clinic_id: string) {
     const url = `${window.location.origin}/dashboard/${clinic_id}`;
-    try { await navigator.clipboard.writeText(url); } catch {
-      const el = document.createElement("textarea");
-      el.value = url; document.body.appendChild(el); el.select();
-      document.execCommand("copy"); document.body.removeChild(el);
-    }
+    await copyToClipboard(url);
     setCopied(clinic_id);
     setTimeout(() => setCopied(null), 2000);
   }
@@ -237,88 +376,108 @@ function PartnersTab({ initialPartners, clinicNames }: { initialPartners: Enrich
       )}
 
       <div className="space-y-3">
-        {partners.map((p) => (
-          <div key={p.clinic_id} className={`border rounded-xl p-4 space-y-3 ${TIER_BG[p.plan_tier]}`}>
-            <div className="flex items-start justify-between gap-2 flex-wrap">
-              <div>
-                <span className="font-semibold text-gray-100">{p.clinic_name}</span>
-                {p.clinic_city && <span className="ml-2 text-xs text-gray-500">{p.clinic_city}</span>}
-                {p.clinic_rating && <span className="ml-2 text-xs text-gray-500">★ {p.clinic_rating}</span>}
-                {p.started_at && <span className="ml-2 text-xs text-gray-600">since {p.started_at}</span>}
+        {partners.map((p) => {
+          const status = computedStatus(p);
+          const meta = STATUS_META[status];
+          const last = lastPayment(p);
+          return (
+            <div key={p.clinic_id} className={`border rounded-xl p-4 space-y-3 ${meta.bg}`}>
+              {/* Header row */}
+              <div className="flex items-start justify-between gap-2 flex-wrap">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`text-[10px] font-black uppercase tracking-widest ${meta.color}`}>{meta.label}</span>
+                    <span className="font-semibold text-gray-100">{p.clinic_name}</span>
+                    {p.clinic_city && <span className="text-xs text-gray-500">{p.clinic_city}</span>}
+                  </div>
+                  <div className="flex flex-wrap gap-3 mt-1 text-xs text-gray-500">
+                    {p.started_at && <span>since {p.started_at}</span>}
+                    {p.monthly_fee_thb && <span className="text-green-400">฿{p.monthly_fee_thb.toLocaleString()}/mo</span>}
+                    {last && <span>last paid {last.paid_at} (฿{last.amount_thb.toLocaleString()})</span>}
+                    {p.contact_email && <span>✉ {p.contact_email}</span>}
+                    {p.line_user_id && <span>LINE</span>}
+                  </div>
+                </div>
+
+                <select
+                  value={p.plan_tier}
+                  onChange={(e) => patchPartner(p.clinic_id, { plan_tier: e.target.value as PlanTier })}
+                  className="bg-gray-900 border border-gray-700 rounded-lg px-2 py-1 text-xs font-mono font-semibold text-gray-300 focus:outline-none"
+                >
+                  <option value="trial">trial</option>
+                  <option value="pilot">pilot</option>
+                  <option value="paid">paid</option>
+                </select>
               </div>
-              {/* Tier selector */}
-              <select
-                value={p.plan_tier}
-                onChange={(e) => handleTierChange(p.clinic_id, e.target.value as "trial" | "pilot" | "paid")}
-                className={`bg-gray-900 border border-gray-700 rounded-lg px-2 py-1 text-xs font-mono font-semibold ${TIER_COLOR[p.plan_tier]} focus:outline-none`}
-              >
-                <option value="trial">trial</option>
-                <option value="pilot">pilot</option>
-                <option value="paid">paid ✓</option>
-              </select>
-            </div>
 
-            <div className="flex flex-wrap gap-2 text-xs text-gray-500">
-              {p.contact_email && <span>✉ {p.contact_email}</span>}
-              {p.line_user_id && <span>LINE: {p.line_user_id}</span>}
-              {p.monthly_ticket_avg_thb && <span>฿{p.monthly_ticket_avg_thb.toLocaleString()}/mo avg</span>}
-            </div>
+              {/* Action buttons */}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => copyLink(p.clinic_id)}
+                  className="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-indigo-300 transition"
+                >
+                  {copied === p.clinic_id ? "✓ Copied!" : "📋 Copy dashboard link"}
+                </button>
+                <a
+                  href={`/dashboard/${p.clinic_id}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-gray-400 transition"
+                >
+                  Open →
+                </a>
+                <button
+                  onClick={() => setPaymentFor(paymentFor === p.clinic_id ? null : p.clinic_id)}
+                  className="text-xs bg-green-900/40 hover:bg-green-900/60 border border-green-700/40 rounded-lg px-3 py-1.5 text-green-300 transition"
+                >
+                  💰 Record payment
+                </button>
+                {p.payments && p.payments.length > 0 && (
+                  <button
+                    onClick={() => setHistoryFor(historyFor === p.clinic_id ? null : p.clinic_id)}
+                    className="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-gray-400 transition"
+                  >
+                    History ({p.payments.length})
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(p.clinic_id, p.clinic_name)}
+                  className="text-xs bg-gray-900 hover:bg-red-900/30 border border-gray-700 hover:border-red-700/50 rounded-lg px-3 py-1.5 text-gray-600 hover:text-red-400 transition"
+                >
+                  Remove
+                </button>
+              </div>
 
-            <div className="flex gap-2 flex-wrap">
-              <button
-                onClick={() => copyLink(p.clinic_id)}
-                className="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-indigo-300 transition"
-              >
-                {copied === p.clinic_id ? "✓ Copied!" : "📋 Copy dashboard link"}
-              </button>
-              <a
-                href={`/dashboard/${p.clinic_id}`}
-                target="_blank"
-                rel="noopener"
-                className="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-gray-400 transition"
-              >
-                Open dashboard →
-              </a>
-              {editId === p.clinic_id ? (
-                <EditPartnerForm
+              {/* Inline forms */}
+              {paymentFor === p.clinic_id && (
+                <RecordPaymentForm
                   partner={p}
-                  onSave={async (patch) => {
-                    setSaving(true);
-                    await fetch("/api/admin/partners", {
-                      method: "PATCH",
-                      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
-                      body: JSON.stringify({ clinic_id: p.clinic_id, ...patch }),
-                    });
-                    setSaving(false);
-                    setEditId(null);
-                    await reload();
-                  }}
-                  onCancel={() => setEditId(null)}
+                  onSave={(pmt) => recordPayment({ clinic_id: p.clinic_id, ...pmt })}
+                  onCancel={() => setPaymentFor(null)}
                   saving={saving}
                 />
-              ) : (
-                <button
-                  onClick={() => setEditId(p.clinic_id)}
-                  className="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-gray-500 transition"
-                >
-                  Edit
-                </button>
               )}
-              <button
-                onClick={() => handleDelete(p.clinic_id)}
-                className="text-xs bg-gray-900 hover:bg-red-900/30 border border-gray-700 hover:border-red-700/50 rounded-lg px-3 py-1.5 text-gray-600 hover:text-red-400 transition"
-              >
-                Remove
-              </button>
+              {historyFor === p.clinic_id && p.payments && (
+                <PaymentHistory
+                  payments={p.payments}
+                  onDelete={(id) => deletePayment(p.clinic_id, id)}
+                />
+              )}
+
+              {/* Editable fields (always visible inline) */}
+              <details className="text-xs">
+                <summary className="cursor-pointer text-gray-500 hover:text-gray-300 transition">Edit contact & fee</summary>
+                <PartnerFieldsEditor partner={p} onSave={(patch) => patchPartner(p.clinic_id, patch)} />
+              </details>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
-// ─── Add Partner Form ─────────────────────────────────────────────────────────
+// ─── Partner sub-components ─────────────────────────────────────────────────
 
 function AddPartnerForm({
   clinicNames, existingIds, onSave, onCancel, saving,
@@ -331,10 +490,11 @@ function AddPartnerForm({
 }) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<ClinicName | null>(null);
-  const [tier, setTier] = useState<"trial" | "pilot" | "paid">("trial");
+  const [tier, setTier] = useState<PlanTier>("trial");
   const [email, setEmail] = useState("");
   const [line, setLine] = useState("");
   const [ticket, setTicket] = useState("");
+  const [monthlyFee, setMonthlyFee] = useState("");
 
   const filtered = useMemo(() => {
     if (!search.trim() || selected) return [];
@@ -353,14 +513,13 @@ function AddPartnerForm({
       contact_email: email || undefined,
       line_user_id: line || undefined,
       monthly_ticket_avg_thb: ticket ? parseInt(ticket, 10) : undefined,
+      monthly_fee_thb: monthlyFee ? parseInt(monthlyFee, 10) : undefined,
     });
   }
 
   return (
     <div className="bg-gray-900 border border-indigo-500/40 rounded-xl p-5 space-y-4">
       <h3 className="text-sm font-semibold text-indigo-300">Add new partner</h3>
-
-      {/* Clinic search */}
       <div className="relative">
         {selected ? (
           <div className="flex items-center justify-between bg-gray-800 rounded-lg px-4 py-2">
@@ -380,8 +539,7 @@ function AddPartnerForm({
               <div className="absolute left-0 right-0 top-full mt-1 z-10 bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden max-h-52 overflow-y-auto">
                 {filtered.map((c) => (
                   <button
-                    key={c.id}
-                    type="button"
+                    key={c.id} type="button"
                     onClick={() => setSelected(c)}
                     className="w-full text-left px-4 py-2 hover:bg-gray-800 text-sm"
                   >
@@ -397,157 +555,185 @@ function AddPartnerForm({
 
       {selected && (
         <form onSubmit={submit} className="space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-xs text-gray-500 mb-1 block">Plan tier</label>
-              <select
-                value={tier}
-                onChange={(e) => setTier(e.target.value as "trial" | "pilot" | "paid")}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-              >
+          <div className="grid grid-cols-3 gap-3">
+            <Field label="Plan tier">
+              <select value={tier} onChange={(e) => setTier(e.target.value as PlanTier)} className={SEL_CLS}>
                 <option value="trial">Trial (free)</option>
                 <option value="pilot">Pilot</option>
-                <option value="paid">Paid ✓</option>
+                <option value="paid">Paid</option>
               </select>
-            </div>
-            <div>
-              <label className="text-xs text-gray-500 mb-1 block">Avg ticket (฿/mo)</label>
-              <input
-                type="number"
-                value={ticket}
-                onChange={(e) => setTicket(e.target.value)}
-                placeholder="e.g. 15000"
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-              />
-            </div>
+            </Field>
+            <Field label="Monthly fee (฿)">
+              <input type="number" value={monthlyFee} onChange={(e) => setMonthlyFee(e.target.value)} placeholder="e.g. 8000" className={INP_CLS} />
+            </Field>
+            <Field label="Avg ticket (฿)">
+              <input type="number" value={ticket} onChange={(e) => setTicket(e.target.value)} placeholder="e.g. 15000" className={INP_CLS} />
+            </Field>
           </div>
-          <div>
-            <label className="text-xs text-gray-500 mb-1 block">Contact email (for lead notifications)</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="clinic@example.com"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-            />
-          </div>
-          <div>
-            <label className="text-xs text-gray-500 mb-1 block">LINE user ID (optional)</label>
-            <input
-              value={line}
-              onChange={(e) => setLine(e.target.value)}
-              placeholder="Uxxxxxxxx"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-            />
-          </div>
+          <Field label="Contact email (for lead notifications)">
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="clinic@example.com" className={INP_CLS} />
+          </Field>
+          <Field label="LINE user ID (optional)">
+            <input value={line} onChange={(e) => setLine(e.target.value)} placeholder="Uxxxxxxxx" className={INP_CLS} />
+          </Field>
           <div className="flex gap-2 pt-1">
-            <button
-              type="submit"
-              disabled={saving}
-              className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 rounded-lg px-4 py-2 text-sm text-white font-semibold transition"
-            >
-              {saving ? "Saving…" : "Add partner"}
-            </button>
-            <button type="button" onClick={onCancel} className="text-sm text-gray-500 hover:text-gray-300 px-4 py-2">
-              Cancel
-            </button>
+            <button type="submit" disabled={saving} className={BTN_PRIMARY}>{saving ? "Saving…" : "Add partner"}</button>
+            <button type="button" onClick={onCancel} className={BTN_GHOST}>Cancel</button>
           </div>
         </form>
       )}
 
       {!selected && (
         <div className="flex justify-end">
-          <button onClick={onCancel} className="text-sm text-gray-500 hover:text-gray-300">Cancel</button>
+          <button onClick={onCancel} className={BTN_GHOST}>Cancel</button>
         </div>
       )}
     </div>
   );
 }
 
-// ─── Edit Partner Form ────────────────────────────────────────────────────────
-
-function EditPartnerForm({
+function RecordPaymentForm({
   partner, onSave, onCancel, saving,
 }: {
   partner: EnrichedPartner;
-  onSave: (patch: Partial<PartnerRecord>) => void;
+  onSave: (p: Omit<Payment, "id">) => void;
   onCancel: () => void;
   saving: boolean;
 }) {
-  const [email, setEmail] = useState(partner.contact_email ?? "");
-  const [line, setLine] = useState(partner.line_user_id ?? "");
-  const [ticket, setTicket] = useState(partner.monthly_ticket_avg_thb?.toString() ?? "");
+  const [amount, setAmount] = useState((partner.monthly_fee_thb ?? 0).toString());
+  const [paidAt, setPaidAt] = useState(new Date().toISOString().slice(0, 10));
+  const [method, setMethod] = useState<Payment["method"]>("promptpay");
+  const [note, setNote] = useState("");
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!amount || !paidAt) return;
+    onSave({ amount_thb: parseInt(amount, 10), paid_at: paidAt, method, note: note || undefined });
+  }
 
   return (
-    <div className="w-full mt-2 bg-gray-950 border border-gray-700 rounded-xl p-4 space-y-3">
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs text-gray-500 mb-1 block">Contact email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-gray-500 mb-1 block">Avg ticket (฿)</label>
-          <input
-            type="number"
-            value={ticket}
-            onChange={(e) => setTicket(e.target.value)}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-          />
-        </div>
+    <form onSubmit={submit} className="bg-gray-950 border border-green-700/40 rounded-xl p-4 space-y-3">
+      <div className="text-xs uppercase tracking-widest text-green-400 font-semibold">Record payment</div>
+      <div className="grid grid-cols-3 gap-3">
+        <Field label="Amount (฿)">
+          <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required className={INP_CLS} />
+        </Field>
+        <Field label="Paid on">
+          <input type="date" value={paidAt} onChange={(e) => setPaidAt(e.target.value)} required className={INP_CLS} />
+        </Field>
+        <Field label="Method">
+          <select value={method} onChange={(e) => setMethod(e.target.value as Payment["method"])} className={SEL_CLS}>
+            <option value="promptpay">PromptPay</option>
+            <option value="bank_transfer">Bank transfer</option>
+            <option value="card">Card</option>
+            <option value="cash">Cash</option>
+            <option value="other">Other</option>
+          </select>
+        </Field>
       </div>
-      <div>
-        <label className="text-xs text-gray-500 mb-1 block">LINE user ID</label>
-        <input
-          value={line}
-          onChange={(e) => setLine(e.target.value)}
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-indigo-500"
-        />
-      </div>
+      <Field label="Note (optional)">
+        <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="e.g. June invoice" className={INP_CLS} />
+      </Field>
       <div className="flex gap-2">
-        <button
-          onClick={() => onSave({ contact_email: email || undefined, line_user_id: line || undefined, monthly_ticket_avg_thb: ticket ? parseInt(ticket, 10) : undefined })}
-          disabled={saving}
-          className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 rounded-lg px-3 py-1.5 text-xs text-white font-semibold transition"
-        >
-          {saving ? "…" : "Save"}
-        </button>
-        <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-300 px-3 py-1.5">Cancel</button>
+        <button type="submit" disabled={saving} className={BTN_PRIMARY}>{saving ? "…" : "Save payment"}</button>
+        <button type="button" onClick={onCancel} className={BTN_GHOST}>Cancel</button>
+      </div>
+    </form>
+  );
+}
+
+function PaymentHistory({ payments, onDelete }: { payments: Payment[]; onDelete: (id: string) => void }) {
+  const sorted = [...payments].sort((a, b) => b.paid_at.localeCompare(a.paid_at));
+  const total = payments.reduce((s, p) => s + p.amount_thb, 0);
+  return (
+    <div className="bg-gray-950 border border-gray-800 rounded-xl p-4 space-y-2">
+      <div className="text-xs uppercase tracking-widest text-gray-500 font-semibold flex justify-between">
+        <span>Payment history</span>
+        <span className="text-green-400 normal-case tracking-normal">Total ฿{total.toLocaleString()}</span>
+      </div>
+      <div className="space-y-1.5">
+        {sorted.map((p) => (
+          <div key={p.id} className="flex items-center justify-between bg-gray-900 rounded-lg px-3 py-2 text-xs">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="font-mono text-gray-400">{p.paid_at}</span>
+              <span className="text-green-400 font-bold">฿{p.amount_thb.toLocaleString()}</span>
+              <span className="text-gray-500 uppercase tracking-widest text-[10px]">{p.method.replace("_", " ")}</span>
+              {p.note && <span className="text-gray-600 italic">{p.note}</span>}
+            </div>
+            <button onClick={() => onDelete(p.id)} className="text-gray-700 hover:text-red-400 transition">✕</button>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-// ─── Leads Tab ────────────────────────────────────────────────────────────────
+function PartnerFieldsEditor({
+  partner, onSave,
+}: { partner: EnrichedPartner; onSave: (patch: Partial<PartnerRecord>) => Promise<void> }) {
+  const [email, setEmail] = useState(partner.contact_email ?? "");
+  const [line, setLine] = useState(partner.line_user_id ?? "");
+  const [monthlyFee, setMonthlyFee] = useState(partner.monthly_fee_thb?.toString() ?? "");
+  const [ticket, setTicket] = useState(partner.monthly_ticket_avg_thb?.toString() ?? "");
+  const [notes, setNotes] = useState(partner.notes ?? "");
+  const [saving, setSaving] = useState(false);
+
+  async function save() {
+    setSaving(true);
+    await onSave({
+      contact_email: email || undefined,
+      line_user_id: line || undefined,
+      monthly_fee_thb: monthlyFee ? parseInt(monthlyFee, 10) : undefined,
+      monthly_ticket_avg_thb: ticket ? parseInt(ticket, 10) : undefined,
+      notes: notes || undefined,
+    });
+    setSaving(false);
+  }
+
+  return (
+    <div className="mt-3 bg-gray-950 border border-gray-800 rounded-xl p-4 space-y-3">
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Monthly fee (฿)">
+          <input type="number" value={monthlyFee} onChange={(e) => setMonthlyFee(e.target.value)} className={INP_CLS} />
+        </Field>
+        <Field label="Avg ticket (฿)">
+          <input type="number" value={ticket} onChange={(e) => setTicket(e.target.value)} className={INP_CLS} />
+        </Field>
+      </div>
+      <Field label="Contact email"><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={INP_CLS} /></Field>
+      <Field label="LINE user ID"><input value={line} onChange={(e) => setLine(e.target.value)} className={INP_CLS} /></Field>
+      <Field label="Notes (internal)">
+        <textarea rows={2} value={notes} onChange={(e) => setNotes(e.target.value)} className={`${INP_CLS} resize-y`} />
+      </Field>
+      <button onClick={save} disabled={saving} className={BTN_PRIMARY}>{saving ? "…" : "Save"}</button>
+    </div>
+  );
+}
+
+// ─── Leads Tab ──────────────────────────────────────────────────────────────
 
 type LeadsSummary = { total: number; by_clinic: { clinic_id: string; count: number }[] };
 
-function LeadsTab({ initialPartners, clinicNames }: { initialPartners: EnrichedPartner[]; clinicNames: ClinicName[] }) {
+function LeadsTab({ partners, clinicNames }: { partners: EnrichedPartner[]; clinicNames: ClinicName[] }) {
   const [data, setData] = useState<LeadsSummary | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
   const nameOf = useCallback(
     (id: string) => {
-      const p = initialPartners.find((x) => x.clinic_id === id);
+      const p = partners.find((x) => x.clinic_id === id);
       if (p) return p.clinic_name;
       return clinicNames.find((c) => c.id === id)?.name ?? id;
     },
-    [initialPartners, clinicNames]
+    [partners, clinicNames]
   );
 
   const load = useCallback(async () => {
     setLoading(true);
     setErr("");
     try {
-      const res = await fetch("/api/admin/leads-summary", {
-        headers: { "x-admin-key": adminKey() },
-      });
-      if (!res.ok) { setErr("Unauthorized"); return; }
+      const res = await fetch("/api/admin/leads-summary", { headers: { "x-admin-key": adminKey() } });
+      if (!res.ok) { setErr("Unauthorized — re-login"); return; }
       const j = (await res.json()) as LeadsSummary;
       setData(j);
     } catch {
@@ -569,60 +755,45 @@ function LeadsTab({ initialPartners, clinicNames }: { initialPartners: EnrichedP
             {data.total.toLocaleString()} <span className="text-sm text-gray-500 font-normal">total leads</span>
           </div>
           {data.by_clinic.length === 0 && (
-            <p className="text-gray-600 text-sm">No leads yet. Leads appear once partner clinics receive bookings.</p>
+            <p className="text-gray-600 text-sm">No leads yet.</p>
           )}
           <div className="space-y-2">
-            {data.by_clinic
-              .sort((a, b) => b.count - a.count)
-              .map(({ clinic_id, count }) => (
-                <div key={clinic_id} className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-lg px-4 py-2.5">
-                  <div>
-                    <span className="text-sm text-gray-300">{nameOf(clinic_id)}</span>
-                    <span className="ml-2 text-xs text-gray-600 font-mono">{clinic_id}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg font-bold font-mono text-indigo-300">{count}</span>
-                    <a
-                      href={`/dashboard/${clinic_id}`}
-                      target="_blank"
-                      rel="noopener"
-                      className="text-xs text-gray-600 hover:text-gray-400 transition"
-                    >
-                      →
-                    </a>
-                  </div>
+            {data.by_clinic.sort((a, b) => b.count - a.count).map(({ clinic_id, count }) => (
+              <div key={clinic_id} className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-lg px-4 py-2.5">
+                <div>
+                  <span className="text-sm text-gray-300">{nameOf(clinic_id)}</span>
+                  <span className="ml-2 text-xs text-gray-600 font-mono">{clinic_id}</span>
                 </div>
-              ))}
+                <div className="flex items-center gap-3">
+                  <span className="text-lg font-bold font-mono text-indigo-300">{count}</span>
+                  <a href={`/dashboard/${clinic_id}`} target="_blank" rel="noopener" className="text-xs text-gray-600 hover:text-gray-400 transition">→</a>
+                </div>
+              </div>
+            ))}
           </div>
-          <button onClick={load} className="text-xs text-gray-600 hover:text-gray-400 transition">
-            Refresh
-          </button>
+          <button onClick={load} className="text-xs text-gray-600 hover:text-gray-400 transition">Refresh</button>
         </>
       )}
     </div>
   );
 }
 
-// ─── Ads Tab ──────────────────────────────────────────────────────────────────
+// ─── Ads Tab — Redis-backed, no env vars ────────────────────────────────────
 
 type AdTier = "editors_pick" | "recommended" | "featured";
 
-const AD_TIER_META: Record<AdTier, { env: string; label: string; color: string }> = {
-  editors_pick: { env: "SPONSORED_EDITORS_PICK", label: "Editor's Pick ★", color: "text-yellow-400" },
-  recommended:  { env: "SPONSORED_RECOMMENDED",  label: "Recommended ✓",   color: "text-cyan-400" },
-  featured:     { env: "SPONSORED_FEATURED",      label: "Featured ◆",      color: "text-purple-400" },
+const AD_TIER_META: Record<AdTier, { label: string; color: string; ring: string }> = {
+  editors_pick: { label: "Editor's Pick ★", color: "text-yellow-400", ring: "ring-yellow-500/30" },
+  recommended:  { label: "Recommended ✓",   color: "text-cyan-400",   ring: "ring-cyan-500/30" },
+  featured:     { label: "Featured ◆",      color: "text-purple-400", ring: "ring-purple-500/30" },
 };
 
-function AdsTab({ sponsoredEnv, clinicNames }: { sponsoredEnv: SponsoredEnv; clinicNames: ClinicName[] }) {
-  const initialIds: Record<AdTier, string[]> = {
-    editors_pick: parseEnvList(sponsoredEnv.editors_pick),
-    recommended:  parseEnvList(sponsoredEnv.recommended),
-    featured:     parseEnvList(sponsoredEnv.featured),
-  };
-
-  const [ids, setIds] = useState<Record<AdTier, string[]>>(initialIds);
+function AdsTab({ initial, clinicNames }: { initial: SponsoredMap; clinicNames: ClinicName[] }) {
+  const [ids, setIds] = useState<SponsoredMap>(initial);
   const [search, setSearch] = useState("");
-  const [copied, setCopied] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [savedAt, setSavedAt] = useState<string | null>(null);
+  const [dirty, setDirty] = useState(false);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return [];
@@ -631,23 +802,27 @@ function AdsTab({ sponsoredEnv, clinicNames }: { sponsoredEnv: SponsoredEnv; cli
   }, [search, clinicNames]);
 
   function addId(tier: AdTier, id: string) {
-    setIds((prev) => ({ ...prev, [tier]: [...new Set([...prev[tier], id])] }));
+    setIds((prev) => ({ ...prev, [tier]: Array.from(new Set([...prev[tier], id])) }));
     setSearch("");
+    setDirty(true);
   }
   function removeId(tier: AdTier, id: string) {
     setIds((prev) => ({ ...prev, [tier]: prev[tier].filter((x) => x !== id) }));
+    setDirty(true);
   }
 
-  async function copyEnv(tier: AdTier) {
-    const meta = AD_TIER_META[tier];
-    const text = `${meta.env}="${ids[tier].join(",")}"`;
-    try { await navigator.clipboard.writeText(text); } catch {
-      const el = document.createElement("textarea");
-      el.value = text; document.body.appendChild(el); el.select();
-      document.execCommand("copy"); document.body.removeChild(el);
+  async function save() {
+    setSaving(true);
+    const res = await fetch("/api/admin/sponsored", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
+      body: JSON.stringify(ids),
+    });
+    setSaving(false);
+    if (res.ok) {
+      setSavedAt(new Date().toLocaleTimeString());
+      setDirty(false);
     }
-    setCopied(tier);
-    setTimeout(() => setCopied(null), 2000);
   }
 
   const nameOf = useCallback(
@@ -656,7 +831,30 @@ function AdsTab({ sponsoredEnv, clinicNames }: { sponsoredEnv: SponsoredEnv; cli
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
+      {/* Sticky save bar */}
+      <div className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl px-4 py-3">
+        <div>
+          {dirty ? (
+            <span className="text-sm text-orange-400">● Unsaved changes</span>
+          ) : savedAt ? (
+            <span className="text-sm text-green-400">✓ Saved at {savedAt}</span>
+          ) : (
+            <span className="text-sm text-gray-500">Changes apply within 5 minutes to public pages.</span>
+          )}
+        </div>
+        <button
+          onClick={save}
+          disabled={!dirty || saving}
+          className={`text-sm font-semibold rounded-lg px-4 py-2 transition ${
+            dirty ? "bg-indigo-600 hover:bg-indigo-500 text-white" : "bg-gray-800 text-gray-600 cursor-not-allowed"
+          }`}
+        >
+          {saving ? "Saving…" : "Save & publish"}
+        </button>
+      </div>
+
+      {/* Search */}
       <div className="relative">
         <input
           value={search}
@@ -673,8 +871,7 @@ function AdsTab({ sponsoredEnv, clinicNames }: { sponsoredEnv: SponsoredEnv; cli
                 <div className="flex gap-2 mt-1 flex-wrap">
                   {(["editors_pick", "recommended", "featured"] as AdTier[]).map((tier) => (
                     <button
-                      key={tier}
-                      onClick={() => addId(tier, c.id)}
+                      key={tier} onClick={() => addId(tier, c.id)}
                       className={`text-xs border border-gray-700 rounded px-2 py-0.5 hover:bg-gray-700 ${AD_TIER_META[tier].color}`}
                     >
                       + {AD_TIER_META[tier].label}
@@ -687,19 +884,12 @@ function AdsTab({ sponsoredEnv, clinicNames }: { sponsoredEnv: SponsoredEnv; cli
         )}
       </div>
 
+      {/* Tier cards */}
       {(["editors_pick", "recommended", "featured"] as AdTier[]).map((tier) => {
         const meta = AD_TIER_META[tier];
         return (
-          <div key={tier} className="bg-gray-900 border border-gray-800 rounded-xl p-5 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className={`font-semibold text-sm ${meta.color}`}>{meta.label}</span>
-              <button
-                onClick={() => copyEnv(tier)}
-                className="text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg px-3 py-1.5 text-gray-400 transition"
-              >
-                {copied === tier ? "✓ Copied!" : `Copy ${meta.env}`}
-              </button>
-            </div>
+          <div key={tier} className={`bg-gray-900 border border-gray-800 rounded-xl p-5 space-y-3 ring-1 ${meta.ring}`}>
+            <span className={`font-semibold text-sm ${meta.color}`}>{meta.label}</span>
             {ids[tier].length === 0 && <p className="text-xs text-gray-600">No clinics in this slot.</p>}
             <div className="space-y-1.5">
               {ids[tier].map((id) => (
@@ -712,28 +902,35 @@ function AdsTab({ sponsoredEnv, clinicNames }: { sponsoredEnv: SponsoredEnv; cli
                 </div>
               ))}
             </div>
-            <p className="text-xs text-gray-700 font-mono break-all">{meta.env}=&quot;{ids[tier].join(",")}&quot;</p>
           </div>
         );
       })}
-      <p className="text-xs text-gray-600">
-        Copy each env var → paste into Vercel Settings → Environment Variables → Redeploy.
-      </p>
     </div>
   );
 }
 
-// ─── Shared ───────────────────────────────────────────────────────────────────
+// ─── Shared atoms ───────────────────────────────────────────────────────────
 
-function Stat({ label, value }: { label: string; value: string }) {
+const INP_CLS = "w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-indigo-500";
+const SEL_CLS = "w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-indigo-500";
+const BTN_PRIMARY = "bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 rounded-lg px-4 py-2 text-sm text-white font-semibold transition";
+const BTN_GHOST = "text-sm text-gray-500 hover:text-gray-300 px-4 py-2";
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label className="text-xs text-gray-500 mb-1 block">{label}</label>
+      {children}
+    </div>
+  );
+}
+
+function BigStat({ label, value, hint, color }: { label: string; value: string; hint?: string; color?: string }) {
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
       <div className="text-xs text-gray-500 mb-1">{label}</div>
-      <div className="text-xl font-bold text-gray-100">{value}</div>
+      <div className={`text-xl font-bold ${color ?? "text-gray-100"}`}>{value}</div>
+      {hint && <div className="text-[10px] text-gray-600 mt-1 truncate">{hint}</div>}
     </div>
   );
-}
-
-function parseEnvList(s: string): string[] {
-  return s.split(",").map((x) => x.trim()).filter(Boolean);
 }

@@ -2,7 +2,8 @@ export const dynamic = "force-dynamic";
 
 import { cookies } from "next/headers";
 import { loadMasterDb } from "@/lib/data";
-import { allPartners } from "@/lib/partners";
+import { listPartners } from "@/lib/partnerStore";
+import { listSponsored } from "@/lib/sponsoredStore";
 import AdminView from "@/components/AdminView";
 import AdminLogin from "@/components/AdminLogin";
 
@@ -24,13 +25,7 @@ export default async function AdminPage() {
   }
 
   const db = await loadMasterDb();
-  const partners = allPartners();
-
-  const sponsoredEnv = {
-    editors_pick: process.env.SPONSORED_EDITORS_PICK ?? "",
-    recommended: process.env.SPONSORED_RECOMMENDED ?? "",
-    featured: process.env.SPONSORED_FEATURED ?? "",
-  };
+  const [partners, sponsored] = await Promise.all([listPartners(), listSponsored()]);
 
   // Enrich partners with clinic name + rating from db
   const enriched = partners.map((p) => {
@@ -55,7 +50,7 @@ export default async function AdminPage() {
         city_counts: db.city_counts,
       }}
       partners={enriched}
-      sponsoredEnv={sponsoredEnv}
+      sponsored={sponsored}
       clinicNames={clinicNames}
     />
   );
