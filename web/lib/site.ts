@@ -101,15 +101,15 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
   },
   dental: {
     focus: "dental",
-    brand: "Bangkok Dental",
-    domain: "bangkokdental.com",
-    title: "Bangkok Dental Clinics — International Standards",
+    brand: "Bangkok Best Clinic",
+    domain: "bangkokbestclinic.com",
+    title: "Best Dental Clinics in Bangkok — Verified Reviews & Trust Scores",
     description:
-      "Bangkok dental clinics for tourists and expats. Implants, whitening, veneers, ortho. Trust Scores from real review analysis.",
-    hero: "Bangkok Dental Clinics",
-    heroSub: "International-standard dental specialists ranked by Trust Score.",
+      "Bangkok dental specialists ranked by Trust Score from real Google review analysis. Implants, veneers, whitening, orthodontics, all-on-4. English & Korean speaking clinics for medical tourists.",
+    hero: "Bangkok Dental — Verified by Reviews",
+    heroSub: "Top dental clinics in Bangkok and Pattaya ranked by Trust Score. Implants, veneers, ortho, whitening — from real Google review analysis.",
     themeAccent: "#10b981",
-    mentionThreshold: 3,
+    mentionThreshold: 2,
   },
 };
 
