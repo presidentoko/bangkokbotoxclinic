@@ -2,7 +2,6 @@
 
 import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
-import { TrustBadge } from "./TrustBadge";
 import { CategoryIcon } from "./CategoryIcon";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
@@ -36,6 +35,35 @@ function ratingDelta(c: Clinic): { delta: number; arrow: string; color: string }
   return delta > 0
     ? { delta, arrow: "↗", color: "text-green-700" }
     : { delta, arrow: "↘", color: "text-red-600" };
+}
+
+// 3-point sparkline 좌표 — old / midterm / recent rating averages
+function sparklinePoints(c: Clinic): { points: string; pts: { x: number; y: number; avg: number }[] } | null {
+  const buckets = [c.rating_trend.old.avg, c.rating_trend.midterm.avg, c.rating_trend.recent.avg];
+  const valid = buckets.every((v) => v !== null);
+  if (!valid) return null;
+  const W = 56, H = 18;
+  const toY = (avg: number) => H - ((avg - 1) / 4) * H;
+  const pts = buckets.map((avg, i) => ({
+    x: (i / 2) * W,
+    y: toY(avg as number),
+    avg: avg as number,
+  }));
+  return {
+    points: pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" "),
+    pts,
+  };
+}
+
+function langBar(c: Clinic): { en: number; th: number; ko: number; ja: number; other: number; total: number } | null {
+  const l = c.language_breakdown;
+  const total = l.en + l.th + l.ko + l.ja + l.other;
+  if (total < 5) return null;
+  return { ...l, total };
+}
+
+function recentReviewCount(c: Clinic): number {
+  return c.rating_trend.recent.count;
 }
 
 function topServices(c: Clinic, n = 2): { service: string; count: number }[] {
@@ -73,6 +101,9 @@ function topWarnings(c: Clinic): { topic: string; label: string; emoji: string; 
 export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: number }) {
   const tier = await sponsoredTier(clinic.id);
   const trendDelta = ratingDelta(clinic);
+  const sparkline = sparklinePoints(clinic);
+  const lang = langBar(clinic);
+  const recentReviews = recentReviewCount(clinic);
   const highlights = topHighlights(clinic);
   const warnings = topWarnings(clinic);
   const services = topServices(clinic);
@@ -127,6 +158,26 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
           <div className="text-right shrink-0">
             <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">★ {clinic.rating.toFixed(1)}</div>
             <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">{clinic.total_reviews.toLocaleString()} reviews</div>
+            {/* Rating sparkline — visual trend */}
+            {sparkline && (
+              <svg viewBox="0 0 56 18" className="w-14 h-4 mt-1" aria-label={`Rating trend ${sparkline.pts.map((p) => p.avg.toFixed(1)).join(" → ")}`}>
+                <polyline
+                  fill="none"
+                  stroke={trendDelta?.delta && trendDelta.delta > 0 ? "#16a34a" : trendDelta?.delta && trendDelta.delta < 0 ? "#dc2626" : "#9ca3af"}
+                  strokeWidth="1.5"
+                  points={sparkline.points}
+                />
+                {sparkline.pts.map((p, i) => (
+                  <circle
+                    key={i}
+                    cx={p.x}
+                    cy={p.y}
+                    r="1.5"
+                    fill={i === 2 ? (trendDelta?.delta && trendDelta.delta > 0 ? "#16a34a" : "#6b7280") : "#9ca3af"}
+                  />
+                ))}
+              </svg>
+            )}
           </div>
         </div>
 
@@ -194,8 +245,36 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
           )}
         </div>
 
-        {/* Bottom row — AI verified, local guides */}
+        {/* Language breakdown bar — international clinic indicator */}
+        {lang && lang.total >= 5 && (
+          <div className="mb-2">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Reviewers</span>
+              <div className="flex-1 h-1.5 rounded-full overflow-hidden bg-gray-100 flex">
+                {lang.en > 0 && <div style={{ width: `${(lang.en / lang.total) * 100}%`, background: "#3b82f6" }} title={`English ${lang.en}`} />}
+                {lang.th > 0 && <div style={{ width: `${(lang.th / lang.total) * 100}%`, background: "#ef4444" }} title={`Thai ${lang.th}`} />}
+                {lang.ko > 0 && <div style={{ width: `${(lang.ko / lang.total) * 100}%`, background: "#8b5cf6" }} title={`Korean ${lang.ko}`} />}
+                {lang.ja > 0 && <div style={{ width: `${(lang.ja / lang.total) * 100}%`, background: "#10b981" }} title={`Japanese ${lang.ja}`} />}
+                {lang.other > 0 && <div style={{ width: `${(lang.other / lang.total) * 100}%`, background: "#9ca3af" }} title={`Other ${lang.other}`} />}
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-[10px] text-[var(--muted)] flex-wrap">
+              {lang.en > 0 && <span className="inline-flex items-center gap-0.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" />EN {Math.round((lang.en / lang.total) * 100)}%</span>}
+              {lang.th > 0 && <span className="inline-flex items-center gap-0.5"><span className="w-1.5 h-1.5 rounded-full bg-red-500" />TH {Math.round((lang.th / lang.total) * 100)}%</span>}
+              {lang.ko > 0 && <span className="inline-flex items-center gap-0.5"><span className="w-1.5 h-1.5 rounded-full bg-violet-500" />KO {Math.round((lang.ko / lang.total) * 100)}%</span>}
+              {lang.ja > 0 && <span className="inline-flex items-center gap-0.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />JA {Math.round((lang.ja / lang.total) * 100)}%</span>}
+            </div>
+          </div>
+        )}
+
+        {/* Bottom row — recent activity, AI verified, local guides */}
         <div className="flex items-center justify-end gap-1.5 flex-wrap mt-2">
+          {recentReviews >= 5 && (
+            <span className="bg-orange-50 text-orange-800 px-2 py-0.5 rounded-full text-xs font-medium inline-flex items-center gap-1" title={`${recentReviews} reviews in the last 30 days`}>
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+              {recentReviews} new
+            </span>
+          )}
           <AIVerifiedBadge clinic={clinic} size="sm" />
           {clinic.local_guide_count > 0 && (
             <span className="bg-purple-50 text-purple-800 px-2 py-0.5 rounded-full text-xs font-medium">

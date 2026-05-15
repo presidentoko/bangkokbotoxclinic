@@ -3,7 +3,7 @@
 // 파트너 클리닉이면 클리닉 직접 라우팅, 아니면 fallback (우리 inbox).
 
 import { storeLead, rateLimitOk, makeLeadId, type LeadRecord } from "@/lib/leadStore";
-import { getPartner } from "@/lib/partners";
+import { listPartners } from "@/lib/partnerStore";
 import { sendEmail, sendLinePush, getFallbackEmail } from "@/lib/notify";
 
 export const runtime = "nodejs";
@@ -61,7 +61,10 @@ export async function POST(req: Request) {
   }
 
   // 알림 라우팅: 파트너 클리닉이면 그 클리닉으로, 아니면 fallback
-  const partner = clinicId ? getPartner(clinicId) : null;
+  // (Redis 우선, JSON 파일 fallback — partnerStore.listPartners 가 처리)
+  const partner = clinicId
+    ? (await listPartners()).find((p) => p.clinic_id === clinicId) ?? null
+    : null;
   const recipientEmail = partner?.contact_email || getFallbackEmail();
   const subject = `New lead · ${clinicName || "general"} · ${lead.service || "consultation"}`;
   const text = formatTextSummary(lead);
