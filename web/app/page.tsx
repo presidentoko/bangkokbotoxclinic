@@ -107,8 +107,17 @@ export default async function HomePage() {
             Verified · Independent · No clinic sponsorship in rankings
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
-            Verify before<br />
-            <span style={{ color: accent }}>you inject.</span>
+            {cfg.focus === "all" ? (
+              <>Verify before<br /><span style={{ color: accent }}>you book.</span></>
+            ) : cfg.focus === "botox" || cfg.focus === "filler" ? (
+              <>Verify before<br /><span style={{ color: accent }}>you inject.</span></>
+            ) : cfg.focus === "dental" ? (
+              <>Verify before<br /><span style={{ color: accent }}>you smile.</span></>
+            ) : cfg.focus === "hifu" || cfg.focus === "laser" ? (
+              <>Verify before<br /><span style={{ color: accent }}>you treat.</span></>
+            ) : (
+              <>{cfg.hero.split(" — ")[0] ?? cfg.hero}<br /><span style={{ color: accent }}>{cfg.hero.split(" — ")[1] ?? "verified."}</span></>
+            )}
           </h1>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
             <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked by{" "}
