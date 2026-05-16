@@ -856,39 +856,74 @@ function AddPartnerForm({
 
   return (
     <div className="bg-gray-900 border border-indigo-500/40 rounded-xl p-5 space-y-4">
-      <h3 className="text-sm font-semibold text-indigo-300">Add new partner</h3>
-      <div className="relative">
-        {selected ? (
-          <div className="flex items-center justify-between bg-gray-800 rounded-lg px-4 py-2">
-            <span className="text-sm text-gray-100">{selected.name} <span className="text-gray-500 text-xs">{selected.city}</span></span>
-            <button onClick={() => { setSelected(null); setSearch(""); }} className="text-gray-500 hover:text-red-400 text-xs ml-4">✕</button>
-          </div>
-        ) : (
-          <>
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search clinic by name…"
-              autoFocus
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500"
-            />
-            {filtered.length > 0 && (
-              <div className="absolute left-0 right-0 top-full mt-1 z-10 bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden max-h-52 overflow-y-auto">
-                {filtered.map((c) => (
-                  <button
-                    key={c.id} type="button"
-                    onClick={() => setSelected(c)}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-800 text-sm"
-                  >
-                    <span className="text-gray-200">{c.name}</span>
-                    <span className="ml-2 text-gray-500 text-xs">{c.city}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </>
-        )}
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-indigo-300">Add new partner</h3>
+        <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-300">✕ Close</button>
       </div>
+
+      {/* Step 1: Pick clinic */}
+      <div>
+        <label className="text-[10px] uppercase tracking-widest text-gray-500 mb-2 block">
+          Step 1 — Find the clinic {selected ? "✓" : ""}
+        </label>
+        <div className="relative">
+          {selected ? (
+            <div className="flex items-center justify-between bg-gray-800 rounded-lg px-4 py-2.5 border border-green-500/40">
+              <span className="text-sm text-gray-100 truncate">
+                <span className="text-green-400 mr-2">✓</span>
+                {selected.name}
+                <span className="text-gray-500 text-xs ml-2">{selected.city}</span>
+              </span>
+              <button type="button" onClick={() => { setSelected(null); setSearch(""); }} className="text-gray-500 hover:text-red-400 text-xs ml-2 shrink-0">Change</button>
+            </div>
+          ) : (
+            <>
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Type clinic name (e.g., Glam Clinic)..."
+                autoFocus
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-indigo-500"
+              />
+              {search.trim() && filtered.length === 0 && (
+                <p className="text-xs text-orange-400 mt-2">
+                  No clinic matches &ldquo;{search}&rdquo;.
+                  {existingIds.length > 0 && " (Maybe already a partner?)"}
+                </p>
+              )}
+              {filtered.length > 0 && (
+                <div className="absolute left-0 right-0 top-full mt-1 z-50 bg-gray-900 border-2 border-indigo-500/60 rounded-xl shadow-2xl overflow-hidden max-h-64 overflow-y-auto">
+                  <div className="text-[10px] text-gray-500 px-3 pt-2 pb-1 uppercase tracking-widest">Click a clinic to select</div>
+                  {filtered.map((c) => (
+                    <button
+                      key={c.id} type="button"
+                      onClick={() => { setSelected(c); setSearch(""); }}
+                      className="w-full text-left px-4 py-2 hover:bg-indigo-900/40 text-sm border-t border-gray-800"
+                    >
+                      <span className="text-gray-100 font-medium">{c.name}</span>
+                      <span className="ml-2 text-gray-500 text-xs">{c.city}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {!search.trim() && (
+                <p className="text-xs text-gray-600 mt-2">
+                  💡 Tip: Start typing — clinics appear as you search. Need help finding one? Check the prospect export CSV.
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Step 2 header — visible only when clinic selected */}
+      {selected && (
+        <div className="border-t border-gray-800 pt-4">
+          <label className="text-[10px] uppercase tracking-widest text-gray-500 mb-2 block">
+            Step 2 — Set partner details
+          </label>
+        </div>
+      )}
 
       {selected && (
         <form onSubmit={submit} className="space-y-3">
@@ -920,11 +955,6 @@ function AddPartnerForm({
         </form>
       )}
 
-      {!selected && (
-        <div className="flex justify-end">
-          <button onClick={onCancel} className={BTN_GHOST}>Cancel</button>
-        </div>
-      )}
     </div>
   );
 }
