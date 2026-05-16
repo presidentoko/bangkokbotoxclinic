@@ -3,7 +3,7 @@
 // Vercel Cron 이 매일 호출 → trial 시작일 + N일 도래한 파트너 찾아 발송.
 
 import type { ClinicPartner } from "./partners";
-import { sendEmail } from "./notify";
+import { sendEmail, sendLinePush } from "./notify";
 import { getSiteConfig } from "./site";
 
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
@@ -146,8 +146,10 @@ const EMAILS: Record<WelcomeDay, (p: ClinicPartner, brand: string, url: string) 
 /**
  * Send a specific welcome email and record it. Returns true if newly sent.
  * Idempotent — won't re-send if already sent for this clinic+day.
+ *
+ * Day 0: also fires LINE push to partner (if line_user_id set).
  */
-export async function sendWelcomeEmail(p: ClinicPartner, day: WelcomeDay): Promise<{ sent: boolean; reason?: string }> {
+export async function sendWelcomeEmail(p: ClinicPartner, day: WelcomeDay): Promise<{ sent: boolean; reason?: string; line_sent?: boolean }> {
   if (!p.contact_email) return { sent: false, reason: "no contact_email" };
 
   const key = `welcome:sent:${p.clinic_id}:${day}`;
@@ -158,9 +160,17 @@ export async function sendWelcomeEmail(p: ClinicPartner, day: WelcomeDay): Promi
   const url = clinicDashboardUrl(p.clinic_id);
   const tpl = EMAILS[day](p, cfg.brand, url);
   const success = await sendEmail(p.contact_email, tpl.subject, tpl.html, tpl.text);
+
+  // Day 0 — also send LINE welcome push (if friend of bot)
+  let lineSent = false;
+  if (day === 0 && p.line_user_id) {
+    const lineText = `🎉 Welcome to ${cfg.brand}!\n\nYour 30-day trial is active. New leads will arrive in this LINE chat.\n\nYour dashboard:\n${url}\n\nQuestions? Reply here anytime.`;
+    lineSent = await sendLinePush(p.line_bot_token, p.line_user_id, lineText);
+  }
+
   if (success) await redisSet(key, new Date().toISOString());
 
-  return { sent: success, reason: success ? undefined : "send failed" };
+  return { sent: success, reason: success ? undefined : "send failed", line_sent: lineSent };
 }
 
 /**
