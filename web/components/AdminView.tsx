@@ -254,6 +254,102 @@ function OverviewTab({ db, partners }: { db: DbSummary; partners: EnrichedPartne
           })}
         </div>
       </div>
+
+      {/* Sales / outreach */}
+      <ProspectExporter />
+    </div>
+  );
+}
+
+// ─── Prospect Exporter ──────────────────────────────────────────────────────
+
+function ProspectExporter() {
+  const [minTrust, setMinTrust] = useState(75);
+  const [minReviews, setMinReviews] = useState(50);
+  const [city, setCity] = useState("");
+  const [limit, setLimit] = useState(100);
+  const [downloading, setDownloading] = useState(false);
+  const [preview, setPreview] = useState<{ count: number; rows: { name: string; phone: string; district: string; trust_score: number; pitch_hook: string }[] } | null>(null);
+
+  async function fetchPreview() {
+    setDownloading(true);
+    const qs = new URLSearchParams({
+      min_trust: String(minTrust),
+      min_reviews: String(minReviews),
+      city,
+      limit: String(limit),
+      format: "json",
+    }).toString();
+    const res = await fetch(`/api/admin/prospects?${qs}`);
+    setDownloading(false);
+    if (!res.ok) return;
+    const j = await res.json();
+    setPreview(j);
+  }
+
+  function downloadCSV() {
+    const qs = new URLSearchParams({
+      min_trust: String(minTrust),
+      min_reviews: String(minReviews),
+      city,
+      limit: String(limit),
+    }).toString();
+    window.location.href = `/api/admin/prospects?${qs}`;
+  }
+
+  return (
+    <div className="bg-gray-900 border border-emerald-500/30 rounded-xl p-5 space-y-4">
+      <div>
+        <h3 className="text-sm font-bold text-emerald-300 mb-1">🎯 Prospect export (sales outreach)</h3>
+        <p className="text-xs text-gray-500">Trust-qualified clinics not yet partners. Filter, preview, download CSV for cold outreach.</p>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div>
+          <label className="text-xs text-gray-500 mb-1 block">Min Trust</label>
+          <input type="number" value={minTrust} onChange={(e) => setMinTrust(parseInt(e.target.value) || 75)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-sm text-gray-100" />
+        </div>
+        <div>
+          <label className="text-xs text-gray-500 mb-1 block">Min reviews</label>
+          <input type="number" value={minReviews} onChange={(e) => setMinReviews(parseInt(e.target.value) || 50)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-sm text-gray-100" />
+        </div>
+        <div>
+          <label className="text-xs text-gray-500 mb-1 block">City (optional)</label>
+          <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="e.g. Bangkok" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-sm text-gray-100" />
+        </div>
+        <div>
+          <label className="text-xs text-gray-500 mb-1 block">Limit</label>
+          <input type="number" value={limit} onChange={(e) => setLimit(parseInt(e.target.value) || 100)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-2 py-1.5 text-sm text-gray-100" />
+        </div>
+      </div>
+      <div className="flex gap-2">
+        <button onClick={fetchPreview} disabled={downloading} className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-300 transition">
+          {downloading ? "..." : "Preview"}
+        </button>
+        <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-500 rounded-lg px-4 py-2 text-sm text-white font-semibold transition">
+          ↓ Download CSV
+        </button>
+        <a href="/SALES_PITCH.md" target="_blank" className="text-xs text-gray-500 hover:text-gray-300 self-center ml-2">View pitch templates →</a>
+      </div>
+      {preview && (
+        <div className="bg-gray-950 border border-gray-800 rounded-lg p-3 max-h-64 overflow-y-auto">
+          <p className="text-xs text-gray-500 mb-2">{preview.count} prospects match. Top 10:</p>
+          <table className="w-full text-xs">
+            <thead className="text-gray-600">
+              <tr><th className="text-left p-1">Clinic</th><th className="text-left p-1">District</th><th className="text-right p-1">Trust</th><th className="text-left p-1">Hook</th></tr>
+            </thead>
+            <tbody>
+              {preview.rows.slice(0, 10).map((r, i) => (
+                <tr key={i} className="border-t border-gray-800">
+                  <td className="p-1 text-gray-300 truncate max-w-[140px]">{r.name}</td>
+                  <td className="p-1 text-gray-500">{r.district}</td>
+                  <td className="p-1 text-right text-emerald-400 tabular-nums">{r.trust_score}</td>
+                  <td className="p-1 text-gray-400 truncate max-w-[300px]">{r.pitch_hook}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
