@@ -118,11 +118,32 @@ export function getSiteConfig(): SiteConfig {
   return CONFIGS[focus] ?? CONFIGS.all;
 }
 
+// 치과 사이트 — 진짜 치과만 (피부과/성형외과의 dental 옵션 제외)
+const DENTAL_PRIMARY_TYPES = new Set([
+  "Dental clinic", "Dentist", "Orthodontist", "Pediatric dentist",
+  "Dental school", "Dental implants periodontist", "Dental hygienist",
+  "Oral surgeon",
+]);
+
 export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
   // 모든 사이트에서 non-clinic 먼저 제거
   const clinical = clinics.filter(isClinicLike);
   if (cfg.focus === "all") return clinical;
   const focus = cfg.focus;
+
+  // 치과 사이트는 엄격 필터: primary_type 이 치과 계열이어야 함
+  // (피부과가 치과 카테고리 1-2개 끼어있는 false positive 방지)
+  if (focus === "dental") {
+    return clinical.filter((c) => {
+      if (DENTAL_PRIMARY_TYPES.has(c.primary_type)) return true;
+      // 이름에 명시적 치과 키워드 + dental mention 5+ 도 통과
+      const hasDentalName = /\b(dental|dentist|ทันตกรรม|จัดฟัน|ฟัน)\b/i.test(c.name);
+      if (hasDentalName && (c.service_mentions.dental ?? 0) >= 5) return true;
+      return false;
+    });
+  }
+
+  // 다른 사이트 — 기존 로직
   return clinical.filter((c) => {
     if (c.categories.includes(focus)) return true;
     if ((c.service_mentions[focus] ?? 0) >= cfg.mentionThreshold) return true;
