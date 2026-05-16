@@ -1,5 +1,8 @@
+export const dynamic = "force-dynamic"; // ?as=<clinicId> 처리 위해
+
 import { loadMasterDb } from "@/lib/data";
 import { DashboardView } from "@/components/DashboardView";
+import { RoiCalculator } from "@/components/RoiCalculator";
 import { makeLeadId, type LeadRecord } from "@/lib/leadStore";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import type { Metadata } from "next";
@@ -83,13 +86,20 @@ function buildDemoViews(): { date: string; count: number }[] {
   return out;
 }
 
-export default async function DemoDashboardPage() {
+export default async function DemoDashboardPage(
+  { searchParams }: { searchParams: Promise<{ as?: string }> }
+) {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
 
-  // 데모용 클리닉 픽: 리뷰 많고 topic 풍부한 곳 (인상적으로 보임)
-  const c = focused.find((x) => x.scraped_review_count >= 50 && x.mentioned_topics.length >= 5 && x.doctor_stats && x.doctor_stats.length > 0)
+  // ?as=<clinicId> → 그 클리닉으로 데모 (영업용 맞춤 링크)
+  const { as: targetId } = await searchParams;
+  const targeted = targetId ? db.clinics.find((x) => x.id === targetId) : null;
+
+  // 데모용 클리닉 픽: targeted 있으면 그거, 없으면 리뷰 많고 topic 풍부한 곳
+  const c = targeted
+    ?? focused.find((x) => x.scraped_review_count >= 50 && x.mentioned_topics.length >= 5 && x.doctor_stats && x.doctor_stats.length > 0)
     ?? focused.find((x) => x.scraped_review_count >= 30 && x.mentioned_topics.length >= 3)
     ?? focused[0];
 
@@ -140,13 +150,19 @@ export default async function DemoDashboardPage() {
 
   return (
     <>
-      {/* DEMO BANNER */}
+      {/* DEMO BANNER — personalized when ?as=<clinicId> */}
       <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-3 px-4 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 flex-wrap text-sm">
-          <div className="flex items-center gap-2">
-            <span className="bg-white/20 backdrop-blur px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest">Preview</span>
-            <span className="font-semibold">This is what your dashboard looks like.</span>
-            <span className="text-white/80 hidden md:inline">Data shown below is realistic but fabricated for preview.</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="bg-white/20 backdrop-blur px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest">
+              {targeted ? "Your Preview" : "Preview"}
+            </span>
+            {targeted ? (
+              <span className="font-semibold">This is what <strong>{c.name}</strong>&rsquo;s dashboard would look like.</span>
+            ) : (
+              <span className="font-semibold">This is what your dashboard looks like.</span>
+            )}
+            <span className="text-white/80 hidden md:inline">{targeted ? "Real data + simulated leads." : "Realistic but fabricated data."}</span>
           </div>
           <a
             href="/onboarding/partner"
@@ -173,6 +189,22 @@ export default async function DemoDashboardPage() {
         profileViewsTotal={viewsTotal}
         profileViewsByDay={viewsByDay}
       />
+
+      {/* ROI Calculator — interactive sales tool */}
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        <RoiCalculator defaultTicket={cfg.focus === "dental" ? 35000 : 18000} />
+
+        {/* Final CTA */}
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl p-8 text-center mt-6">
+          <h2 className="text-2xl md:text-3xl font-black mb-3">Ready to activate this for your clinic?</h2>
+          <p className="text-white/90 mb-5 max-w-xl mx-auto">
+            30-day free trial. No credit card. Cancel anytime. Real leads start arriving the day you activate.
+          </p>
+          <a href="/onboarding/partner" className="inline-block bg-white text-indigo-700 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition">
+            Start free trial →
+          </a>
+        </div>
+      </div>
     </>
   );
 }

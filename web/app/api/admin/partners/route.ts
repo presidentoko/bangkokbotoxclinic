@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { listPartners, addPartner, updatePartner, removePartner } from "@/lib/partnerStore";
 import type { ClinicPartner } from "@/lib/partners";
 import { isAdminAuthed } from "@/lib/adminAuth";
+import { sendWelcomeEmail } from "@/lib/welcomeEmails";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "clinic_id and plan_tier required" }, { status: 400 });
   }
   const result = await addPartner(body);
+  // Day 0 welcome email — fire-and-forget, don't block partner creation on email
+  if (result.ok && body.contact_email) {
+    sendWelcomeEmail(body, 0).catch((e) => console.error("[welcome day0]", e));
+  }
   return NextResponse.json(result, { status: result.ok ? 201 : 409 });
 }
 

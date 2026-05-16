@@ -12,6 +12,7 @@ import { LineButton } from "@/components/LineButton";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { ViewBeacon } from "@/components/ViewBeacon";
+import { FloatingContactBar } from "@/components/FloatingContactBar";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -92,6 +93,7 @@ export default async function ClinicPage(
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <ViewBeacon clinicId={c.id} />
+      <FloatingContactBar clinicName={c.name} phone={c.phone} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         {c.district && (

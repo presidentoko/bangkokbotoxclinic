@@ -59,8 +59,40 @@ type Props = {
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
-const TABS = ["Overview", "Partners", "Leads", "Ads"] as const;
+const TABS = ["Overview", "Outreach", "Partners", "Leads", "Ads"] as const;
 type Tab = (typeof TABS)[number];
+
+type OutreachOutcome =
+  | "sent" | "read_no_reply" | "REPLIED_EN" | "HANDOFF_TO_THAI_TEAM"
+  | "MEETING_SCHEDULED" | "SIGNED"
+  | "dead_not_interested" | "dead_no_reply" | "dead_hostile" | "ghosted";
+
+type OutreachRecord = {
+  clinic_id: string;
+  clinic_name: string;
+  staff?: string;
+  channel: "LINE" | "FB_MESSENGER" | "WEBSITE_FORM" | "EMAIL" | "OTHER";
+  template: "T1" | "T2" | "T3" | "T4" | "T5";
+  outcome: OutreachOutcome;
+  sent_at: string;
+  replied_at?: string;
+  next_action?: string;
+  note?: string;
+  last_updated: string;
+};
+
+const OUTCOME_META: Record<OutreachOutcome, { label: string; color: string; bg: string }> = {
+  sent:                 { label: "Sent",           color: "text-gray-300",   bg: "bg-gray-800 border-gray-700" },
+  read_no_reply:        { label: "Read, no reply", color: "text-gray-400",   bg: "bg-gray-700 border-gray-600" },
+  REPLIED_EN:           { label: "Replied (EN)",   color: "text-blue-300",   bg: "bg-blue-900/40 border-blue-700/40" },
+  HANDOFF_TO_THAI_TEAM: { label: "→ Thai team",    color: "text-amber-300",  bg: "bg-amber-900/40 border-amber-700/40" },
+  MEETING_SCHEDULED:    { label: "Meeting set",    color: "text-purple-300", bg: "bg-purple-900/40 border-purple-700/40" },
+  SIGNED:               { label: "✓ Signed",       color: "text-green-300",  bg: "bg-green-900/50 border-green-700/50" },
+  dead_not_interested:  { label: "Declined",       color: "text-gray-500",   bg: "bg-gray-900 border-gray-800" },
+  dead_no_reply:        { label: "No reply",       color: "text-gray-600",   bg: "bg-gray-900 border-gray-800" },
+  dead_hostile:         { label: "Hostile",        color: "text-red-400",    bg: "bg-red-900/30 border-red-700/40" },
+  ghosted:              { label: "Ghosted",        color: "text-orange-300", bg: "bg-orange-900/30 border-orange-700/40" },
+};
 
 const STATUS_META: Record<PartnerStatus, { label: string; color: string; bg: string }> = {
   active:  { label: "Active",  color: "text-green-400",  bg: "bg-green-400/10 border-green-400/40" },
@@ -161,6 +193,7 @@ export default function AdminView({ db, partners: initialPartners, sponsored: in
       </div>
 
       {tab === "Overview" && <OverviewTab db={db} partners={partners} />}
+      {tab === "Outreach" && <OutreachTab clinicNames={clinicNames} />}
       {tab === "Partners" && (
         <PartnersTab
           partners={partners}
@@ -1234,6 +1267,303 @@ function BigStat({ label, value, hint, color }: { label: string; value: string; 
       <div className="text-xs text-gray-500 mb-1">{label}</div>
       <div className={`text-xl font-bold ${color ?? "text-gray-100"}`}>{value}</div>
       {hint && <div className="text-[10px] text-gray-600 mt-1 truncate">{hint}</div>}
+    </div>
+  );
+}
+
+// ─── Outreach Tab — Cold sales CRM ──────────────────────────────────────────
+
+function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
+  const [records, setRecords] = useState<OutreachRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showAdd, setShowAdd] = useState(false);
+  const [filter, setFilter] = useState<"all" | "active" | "dead" | OutreachOutcome>("active");
+  const [search, setSearch] = useState("");
+
+  async function load() {
+    setLoading(true);
+    const res = await fetch("/api/admin/outreach", { cache: "no-store" });
+    setLoading(false);
+    if (!res.ok) return;
+    const j = (await res.json()) as { records: OutreachRecord[] };
+    setRecords(j.records);
+  }
+
+  useEffect(() => { load(); }, []);
+
+  async function upsert(r: Omit<OutreachRecord, "last_updated">) {
+    await fetch("/api/admin/outreach", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(r),
+    });
+    await load();
+  }
+
+  async function remove(clinic_id: string) {
+    if (!confirm("Remove this outreach record?")) return;
+    await fetch("/api/admin/outreach", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ clinic_id }),
+    });
+    await load();
+  }
+
+  const filtered = useMemo(() => {
+    let out = records;
+    if (filter === "active") {
+      out = out.filter((r) => !["dead_not_interested", "dead_no_reply", "dead_hostile", "ghosted", "SIGNED"].includes(r.outcome));
+    } else if (filter === "dead") {
+      out = out.filter((r) => ["dead_not_interested", "dead_no_reply", "dead_hostile", "ghosted"].includes(r.outcome));
+    } else if (filter !== "all") {
+      out = out.filter((r) => r.outcome === filter);
+    }
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      out = out.filter((r) => r.clinic_name.toLowerCase().includes(q) || r.clinic_id.toLowerCase().includes(q));
+    }
+    return out;
+  }, [records, filter, search]);
+
+  const stats = useMemo(() => {
+    const total = records.length;
+    const signed = records.filter((r) => r.outcome === "SIGNED").length;
+    const replied = records.filter((r) => ["REPLIED_EN", "HANDOFF_TO_THAI_TEAM", "MEETING_SCHEDULED", "SIGNED", "dead_not_interested", "ghosted"].includes(r.outcome)).length;
+    const active = records.filter((r) => !["dead_not_interested", "dead_no_reply", "dead_hostile", "ghosted", "SIGNED"].includes(r.outcome)).length;
+    const handoff = records.filter((r) => r.outcome === "HANDOFF_TO_THAI_TEAM").length;
+    return { total, signed, replied, active, handoff };
+  }, [records]);
+
+  return (
+    <div className="space-y-5">
+      {/* Stats bar */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <BigStat label="Total contacted" value={stats.total.toString()} />
+        <BigStat label="Active pipeline" value={stats.active.toString()} hint="not dead or signed" color="text-indigo-400" />
+        <BigStat label="Replied" value={stats.replied.toString()} hint={stats.total > 0 ? `${Math.round(stats.replied / stats.total * 100)}% reply rate` : "—"} />
+        <BigStat label="Handoffs to Thai" value={stats.handoff.toString()} color="text-amber-400" />
+        <BigStat label="✓ Signed" value={stats.signed.toString()} color="text-green-400" hint={stats.total > 0 ? `${Math.round(stats.signed / stats.total * 100)}% close rate` : "—"} />
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex gap-2 items-center flex-wrap">
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search clinic name…"
+            className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-gray-100 w-48 focus:outline-none focus:border-indigo-500"
+          />
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value as "all" | "active" | "dead" | OutreachOutcome)}
+            className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-gray-100 focus:outline-none"
+          >
+            <option value="active">Active pipeline</option>
+            <option value="all">All records</option>
+            <option value="dead">Dead</option>
+            <option value="SIGNED">✓ Signed</option>
+            <option value="REPLIED_EN">Replied (EN)</option>
+            <option value="HANDOFF_TO_THAI_TEAM">Handoff → Thai</option>
+            <option value="MEETING_SCHEDULED">Meeting set</option>
+            <option value="sent">Sent (no reply yet)</option>
+          </select>
+        </div>
+        <button onClick={() => setShowAdd(true)} className="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-4 py-1.5 text-sm text-white font-semibold transition">
+          + Log outreach
+        </button>
+      </div>
+
+      {showAdd && (
+        <OutreachLogForm
+          clinicNames={clinicNames}
+          onSave={async (r) => { await upsert(r); setShowAdd(false); }}
+          onCancel={() => setShowAdd(false)}
+        />
+      )}
+
+      {loading && <p className="text-gray-500 text-sm">Loading…</p>}
+      {!loading && filtered.length === 0 && (
+        <p className="text-gray-600 text-sm py-8 text-center">No records match. Click + Log outreach to add the first one.</p>
+      )}
+
+      <div className="space-y-2">
+        {filtered.map((r) => {
+          const meta = OUTCOME_META[r.outcome];
+          return (
+            <div key={r.clinic_id} className={`border rounded-xl p-3 ${meta.bg}`}>
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${meta.color}`}>{meta.label}</span>
+                    <span className="font-semibold text-gray-100 truncate">{r.clinic_name}</span>
+                    <span className="text-[10px] text-gray-500 font-mono">{r.template}</span>
+                    <span className="text-[10px] text-gray-500">{r.channel}</span>
+                  </div>
+                  <div className="text-xs text-gray-500 flex flex-wrap gap-3">
+                    <span>Sent {r.sent_at.slice(0, 10)}</span>
+                    {r.replied_at && <span className="text-blue-300">Replied {r.replied_at.slice(0, 10)}</span>}
+                    {r.staff && <span>by {r.staff}</span>}
+                    {r.next_action && <span className="text-orange-300">Next: {r.next_action}</span>}
+                  </div>
+                  {r.note && <p className="text-xs text-gray-400 mt-1.5 italic">&ldquo;{r.note}&rdquo;</p>}
+                </div>
+                <div className="flex gap-1 items-center">
+                  <QuickStatusChange record={r} onSave={upsert} />
+                  <button onClick={() => remove(r.clinic_id)} className="text-gray-600 hover:text-red-400 text-xs ml-1 px-2">✕</button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function QuickStatusChange({ record, onSave }: { record: OutreachRecord; onSave: (r: Omit<OutreachRecord, "last_updated">) => Promise<void> }) {
+  return (
+    <select
+      value={record.outcome}
+      onChange={(e) => {
+        const next = e.target.value as OutreachOutcome;
+        const patch: Omit<OutreachRecord, "last_updated"> = {
+          ...record,
+          outcome: next,
+        };
+        if (["REPLIED_EN", "HANDOFF_TO_THAI_TEAM", "MEETING_SCHEDULED", "SIGNED"].includes(next) && !record.replied_at) {
+          patch.replied_at = new Date().toISOString();
+        }
+        onSave(patch);
+      }}
+      onClick={(e) => e.stopPropagation()}
+      className="bg-gray-950 border border-gray-700 rounded text-[10px] px-1 py-0.5 text-gray-300"
+    >
+      {(Object.keys(OUTCOME_META) as OutreachOutcome[]).map((k) => (
+        <option key={k} value={k}>{OUTCOME_META[k].label}</option>
+      ))}
+    </select>
+  );
+}
+
+function OutreachLogForm({
+  clinicNames, onSave, onCancel,
+}: {
+  clinicNames: ClinicName[];
+  onSave: (r: Omit<OutreachRecord, "last_updated">) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState<ClinicName | null>(null);
+  const [staff, setStaff] = useState("");
+  const [channel, setChannel] = useState<OutreachRecord["channel"]>("LINE");
+  const [template, setTemplate] = useState<OutreachRecord["template"]>("T1");
+  const [outcome, setOutcome] = useState<OutreachOutcome>("sent");
+  const [note, setNote] = useState("");
+  const [nextAction, setNextAction] = useState("Follow up in 3 days");
+
+  const filtered = useMemo(() => {
+    if (!search.trim() || selected) return [];
+    const q = search.toLowerCase();
+    return clinicNames.filter((c) => c.name.toLowerCase().includes(q)).slice(0, 8);
+  }, [search, selected, clinicNames]);
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!selected) return;
+    onSave({
+      clinic_id: selected.id,
+      clinic_name: selected.name,
+      staff: staff || undefined,
+      channel, template, outcome,
+      sent_at: new Date().toISOString(),
+      next_action: nextAction || undefined,
+      note: note || undefined,
+    });
+  }
+
+  return (
+    <div className="bg-gray-900 border border-indigo-500/40 rounded-xl p-5 space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-indigo-300">Log a new outreach</h3>
+        <button onClick={onCancel} className="text-xs text-gray-500 hover:text-gray-300">✕</button>
+      </div>
+
+      <div className="relative">
+        {selected ? (
+          <div className="flex items-center justify-between bg-gray-800 rounded-lg px-4 py-2">
+            <span className="text-sm text-gray-100">{selected.name} <span className="text-gray-500 text-xs">{selected.city}</span></span>
+            <button onClick={() => { setSelected(null); setSearch(""); }} className="text-gray-500 hover:text-red-400 text-xs">✕</button>
+          </div>
+        ) : (
+          <>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search clinic by name…"
+              autoFocus
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-100"
+            />
+            {filtered.length > 0 && (
+              <div className="absolute left-0 right-0 top-full mt-1 z-10 bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden max-h-52 overflow-y-auto">
+                {filtered.map((c) => (
+                  <button key={c.id} type="button" onClick={() => setSelected(c)}
+                    className="w-full text-left px-3 py-2 hover:bg-gray-800 text-sm">
+                    <span className="text-gray-200">{c.name}</span>
+                    <span className="ml-2 text-gray-500 text-xs">{c.city}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {selected && (
+        <form onSubmit={submit} className="space-y-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Field label="Channel">
+              <select value={channel} onChange={(e) => setChannel(e.target.value as OutreachRecord["channel"])} className={SEL_CLS}>
+                <option value="LINE">LINE</option>
+                <option value="FB_MESSENGER">FB Messenger</option>
+                <option value="WEBSITE_FORM">Website form</option>
+                <option value="EMAIL">Email</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </Field>
+            <Field label="Template used">
+              <select value={template} onChange={(e) => setTemplate(e.target.value as OutreachRecord["template"])} className={SEL_CLS}>
+                <option value="T1">T1 (first contact)</option>
+                <option value="T2">T2 (alt phrasing)</option>
+                <option value="T3">T3 (urgent / neg review)</option>
+                <option value="T4">T4 (follow-up)</option>
+                <option value="T5">T5 (closing)</option>
+              </select>
+            </Field>
+            <Field label="Outcome">
+              <select value={outcome} onChange={(e) => setOutcome(e.target.value as OutreachOutcome)} className={SEL_CLS}>
+                {(Object.keys(OUTCOME_META) as OutreachOutcome[]).map((k) => (
+                  <option key={k} value={k}>{OUTCOME_META[k].label}</option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Your name (optional)">
+              <input value={staff} onChange={(e) => setStaff(e.target.value)} placeholder="e.g. John" className={INP_CLS} />
+            </Field>
+          </div>
+          <Field label="Next action">
+            <input value={nextAction} onChange={(e) => setNextAction(e.target.value)} className={INP_CLS} />
+          </Field>
+          <Field label="Note (optional)">
+            <textarea rows={2} value={note} onChange={(e) => setNote(e.target.value)} className={`${INP_CLS} resize-y`} placeholder="What did they say? Any context for next time?" />
+          </Field>
+          <div className="flex gap-2">
+            <button type="submit" className={BTN_PRIMARY}>Save outreach record</button>
+            <button type="button" onClick={onCancel} className={BTN_GHOST}>Cancel</button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }
