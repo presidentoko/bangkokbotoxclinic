@@ -172,18 +172,19 @@ export default function AdminView({ db, partners: initialPartners, sponsored: in
   }, [clinicNames]);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-5xl mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-4 sm:space-y-6">
       <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-500 tracking-widest uppercase">bangkokbotoxclinic · admin</span>
-        <span className="text-xs text-gray-600">{new Date().toISOString().slice(0, 10)}</span>
+        <span className="text-[10px] sm:text-xs text-gray-500 tracking-widest uppercase">admin</span>
+        <span className="text-[10px] sm:text-xs text-gray-600">{new Date().toISOString().slice(0, 10)}</span>
       </div>
 
-      <div className="flex gap-1 border-b border-gray-800">
+      {/* Tabs — horizontal scroll on mobile if overflow */}
+      <div className="flex gap-1 border-b border-gray-800 overflow-x-auto -mx-3 px-3 sm:mx-0 sm:px-0 scrollbar-thin">
         {TABS.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`px-4 py-2 text-sm font-medium rounded-t-lg transition ${
+            className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-t-lg transition whitespace-nowrap ${
               tab === t ? "bg-gray-800 text-white" : "text-gray-500 hover:text-gray-300"
             }`}
           >

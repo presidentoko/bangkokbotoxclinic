@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
-import { Logo } from "@/components/Logo";
+import { SiteHeader } from "@/components/SiteHeader";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -67,44 +67,7 @@ export default function RootLayout({
       <body>
         <OrgJsonLd />
         <WebsiteJsonLd />
-        <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
-          <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-            <a href="/" className="flex items-center hover:opacity-80 transition">
-              <Logo accent={cfg.themeAccent} />
-            </a>
-            <nav className="text-sm flex gap-4 md:gap-5 text-[var(--muted)] items-center">
-              {cfg.focus === "all" ? (
-                <>
-                  <a href="/c/botox" className="hover:text-black">Botox</a>
-                  <a href="/c/filler" className="hover:text-black">Filler</a>
-                  <a href="/c/hifu" className="hover:text-black hidden sm:inline">HIFU</a>
-                  <a href="/c/facial" className="hover:text-black hidden sm:inline">Facial</a>
-                  <a href="/c/laser" className="hover:text-black hidden md:inline">Laser</a>
-                </>
-              ) : (
-                <>
-                  <a href="/" className="hover:text-black hidden sm:inline">Top Clinics</a>
-                  <a href={`/c/${cfg.focus}`} className="hover:text-black hidden md:inline">By Service</a>
-                </>
-              )}
-              <a href="/best/genuine-brand" className="hover:text-black hidden md:inline">Best of</a>
-              <a href="/about" className="hover:text-black hidden md:inline">About</a>
-              <a
-                href="/for-clinics"
-                className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold"
-              >
-                For clinics →
-              </a>
-              <span className="text-xs text-[var(--muted)] flex items-center gap-2">
-                <a href="/" className="hover:text-black">EN</a>
-                <span aria-hidden="true">·</span>
-                <a href="/th" className="hover:text-black">TH</a>
-                <span aria-hidden="true">·</span>
-                <a href="/ko" className="hover:text-black">KO</a>
-              </span>
-            </nav>
-          </div>
-        </header>
+        <SiteHeader focus={cfg.focus} accent={cfg.themeAccent} />
         <main>{children}</main>
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
