@@ -1,9 +1,11 @@
 """
-치과 전용 그리드 러너 — 태국 전역 13개 도시, 도시별 5개 핵심 쿼리.
+치과 전용 그리드 러너 — Bangkok 만 처리 (B 옵션, 2026-05-18 결정).
 
 워커: 2개 (포트 2080-2081)
-출력: dental_output/<city>/discovered_places.csv
-흐름: phuket_clinics_grid 일시 정지 → 전 도시 완료 → phuket 재개
+출력: dental_output/bangkok/discovered_places.csv
+흐름: Bangkok 5쿼리 완료 → dental_review_bangkok.disabled 마커 제거
+     → watchdog 가 review scraper 자동 가동 (같은 2 포트 재사용)
+     → 다른 12개 도시는 처리 안 함 (영업 시 필요하면 별도 결정)
 """
 import csv
 import os
@@ -17,21 +19,10 @@ BASE_OUT = ROOT / "dental_output"
 CHECKPOINT = BASE_OUT / "cities_done.txt"
 PHUKET_DIS = ROOT / "run" / "phuket_clinics_grid.disabled"
 
-# 외국인 치과 수요 순서
+# B 옵션: Bangkok 만. 4500+ dental clinics 면 영업 시작 충분.
+# 나머지 12개 도시는 미래 데이터 보강 시 별도 enable.
 CITIES = [
     {"name": "bangkok",    "lat": "13.7462890", "lng": "100.5346890", "radius": "30000", "en": "bangkok",    "th": "กรุงเทพ",   "ko": "방콕"},
-    {"name": "phuket",     "lat": "7.8804",     "lng": "98.3923",     "radius": "20000", "en": "phuket",     "th": "ภูเก็ต",    "ko": "푸켓"},
-    {"name": "pattaya",    "lat": "12.9236",    "lng": "100.8825",    "radius": "20000", "en": "pattaya",    "th": "พัทยา",     "ko": "파타야"},
-    {"name": "chiang_mai", "lat": "18.7883",    "lng": "98.9853",     "radius": "20000", "en": "chiang mai", "th": "เชียงใหม่", "ko": "치앙마이"},
-    {"name": "koh_samui",  "lat": "9.5018",     "lng": "99.9648",     "radius": "15000", "en": "koh samui",  "th": "เกาะสมุย",  "ko": "코사무이"},
-    {"name": "krabi",      "lat": "8.0863",     "lng": "98.9063",     "radius": "15000", "en": "krabi",      "th": "กระบี่",    "ko": "끄라비"},
-    {"name": "hua_hin",    "lat": "12.5684",    "lng": "99.9577",     "radius": "12000", "en": "hua hin",    "th": "หัวหิน",    "ko": "후아힌"},
-    {"name": "chiang_rai", "lat": "19.9105",    "lng": "99.8406",     "radius": "15000", "en": "chiang rai", "th": "เชียงราย",  "ko": "치앙라이"},
-    {"name": "ayutthaya",  "lat": "14.3532",    "lng": "100.5689",    "radius": "15000", "en": "ayutthaya",  "th": "อยุธยา",    "ko": "아유타야"},
-    {"name": "khon_kaen",  "lat": "16.4419",    "lng": "102.8359",    "radius": "15000", "en": "khon kaen",  "th": "ขอนแก่น",   "ko": "콘깬"},
-    {"name": "korat",      "lat": "14.9799",    "lng": "102.0978",    "radius": "15000", "en": "korat",      "th": "โคราช",     "ko": "코랏"},
-    {"name": "hat_yai",    "lat": "7.0084",     "lng": "100.4747",    "radius": "12000", "en": "hat yai",    "th": "หาดใหญ่",   "ko": "핫야이"},
-    {"name": "udon_thani", "lat": "17.4138",    "lng": "102.7872",    "radius": "12000", "en": "udon thani", "th": "อุดรธานี",  "ko": "우돈타니"},
 ]
 
 QUERY_TEMPLATES = [
@@ -154,7 +145,16 @@ def main():
         mark_done(city["name"])
 
     print(f"\n[dental_grid] 전체 완료 — 총 {grand_total}개 치과 (실패 {grand_fails}개)")
-    # resume_phuket()  # pause_phuket 비활성화로 불필요
+
+    # Bangkok 완료 → dental_review_bangkok 활성화 (.disabled 마커 제거)
+    review_disabled = ROOT / "run" / "dental_review_bangkok.disabled"
+    if review_disabled.exists():
+        try:
+            review_disabled.unlink()
+            print("[dental_grid] dental_review_bangkok 활성화 — watchdog 가 다음 tick 에 가동")
+        except OSError as e:
+            print(f"[dental_grid] review 마커 제거 실패: {e}")
+
     print("[dental_grid] 처리할 포인트 없음. 종료.")  # watchdog grid_done 트리거
 
 

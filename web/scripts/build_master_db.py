@@ -28,6 +28,15 @@ SOURCES: list[dict] = [
         "reviews_dir": ROOT / "bangkok_clinics" / "output" / "reviews",
     },
     {
+        # Bangkok dental-targeted scrape (dental_grid_runner + dental_review_bangkok).
+        # Same city as above — net new clinics dedupe by place_id; overlapping clinics
+        # merge fields (review data is identical from GMaps anyway).
+        "city_label": "Bangkok",
+        "city_slug": "bangkok",
+        "clinics_csv": ROOT / "dental_output" / "bangkok" / "clinics.csv",
+        "reviews_dir": ROOT / "dental_output" / "bangkok" / "reviews",
+    },
+    {
         "city_label": "Pattaya",
         "city_slug": "pattaya",
         "clinics_csv": ROOT / "pattaya" / "clinics_output" / "clinics.csv",

@@ -655,16 +655,42 @@ def build_services() -> list[Service]:
             progress_grace_sec=180,
         ),
         Service(
-            # 치과 전용 — 2워커(ports 2080-2081) × 13개 도시 × 5개 쿼리, bangkok부터.
+            # 치과 전용 grid — 2워커(ports 2080-2081) × Bangkok only (B 옵션).
             # 클리닉 grid는 default(2082-2087)이라 포트 충돌 없음.
+            # Bangkok 완료 시 dental_grid_runner 가 dental_review_bangkok.disabled 제거 → review 가동.
             name="dental_grid",
             cmd=["scripts/dental_grid_runner.py"],
             cwd=ROOT,
             env_extra={},
             log_file=LOGS / "dental_grid.log",
             progress_pattern=PROG_GRID,
-            progress_stale_sec=600,   # 10min — 100% dup 구간/쿼리 전환 buffer
-            progress_grace_sec=420,   # 7min cold start (VPN bootstrap + 첫 쿼리)
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            # Dental review scraper — bangkok_clinics/scraper.py 재사용.
+            # Input: dental_output/bangkok/discovered_places.csv (grid 가 만든)
+            # Output: dental_output/bangkok/clinics.csv + reviews/ (full review data)
+            # 처음엔 .disabled 마커로 paused → dental_grid 가 Bangkok 끝내면 마커 제거 → 활성.
+            name="dental_review_bangkok",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra={
+                "SEARCH_QUERY": "dental",  # 메타데이터 — scraper.py 사용 안 함
+                "SEARCH_TAG": "dental",
+                "CITY_LAT": "13.7462890",
+                "CITY_LNG": "100.5346890",
+                "CITY_RADIUS_M": "30000",
+                "CITY_OUTPUT_DIR": "../dental_output/bangkok",
+                # dental 은 2 워커만 (dental_grid 끝난 뒤 같은 ports 2080-2081 재사용)
+                "N_WORKERS": "2",
+                "PROXY_PORT_BASE": "2080",
+            },
+            log_file=LOGS / "dental_review_bangkok.log",
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
         ),
         Service(
             name="pattaya_review",
