@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback, useMemo, useEffect } from "react";
+import { ComposeOutreachModal } from "@/components/ComposeOutreachModal";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -303,7 +304,8 @@ function ProspectExporter() {
   const [city, setCity] = useState("");
   const [limit, setLimit] = useState(100);
   const [downloading, setDownloading] = useState(false);
-  const [preview, setPreview] = useState<{ count: number; rows: { name: string; phone: string; district: string; trust_score: number; pitch_hook: string }[] } | null>(null);
+  const [preview, setPreview] = useState<{ count: number; rows: { clinic_id: string; name: string; phone: string; district: string; trust_score: number; pitch_hook: string }[] } | null>(null);
+  const [composeFor, setComposeFor] = useState<{ id: string; name: string } | null>(null);
 
   async function fetchPreview() {
     setDownloading(true);
@@ -365,24 +367,57 @@ function ProspectExporter() {
         <a href="/SALES_PITCH.md" target="_blank" className="text-xs text-gray-500 hover:text-gray-300 self-center ml-2">View pitch templates →</a>
       </div>
       {preview && (
-        <div className="bg-gray-950 border border-gray-800 rounded-lg p-3 max-h-64 overflow-y-auto">
+        <div className="bg-gray-950 border border-gray-800 rounded-lg p-3 max-h-80 overflow-y-auto">
           <p className="text-xs text-gray-500 mb-2">{preview.count} prospects match. Top 10:</p>
           <table className="w-full text-xs">
             <thead className="text-gray-600">
-              <tr><th className="text-left p-1">Clinic</th><th className="text-left p-1">District</th><th className="text-right p-1">Trust</th><th className="text-left p-1">Hook</th></tr>
+              <tr>
+                <th className="text-left p-1">Clinic</th>
+                <th className="text-left p-1">District</th>
+                <th className="text-right p-1">Trust</th>
+                <th className="text-left p-1">Hook</th>
+                <th className="text-right p-1">Action</th>
+              </tr>
             </thead>
             <tbody>
-              {preview.rows.slice(0, 10).map((r, i) => (
-                <tr key={i} className="border-t border-gray-800">
+              {preview.rows.slice(0, 10).map((r) => (
+                <tr key={r.clinic_id} className="border-t border-gray-800">
                   <td className="p-1 text-gray-300 truncate max-w-[140px]">{r.name}</td>
                   <td className="p-1 text-gray-500">{r.district}</td>
                   <td className="p-1 text-right text-emerald-400 tabular-nums">{r.trust_score}</td>
-                  <td className="p-1 text-gray-400 truncate max-w-[300px]">{r.pitch_hook}</td>
+                  <td className="p-1 text-gray-400 truncate max-w-[280px]">{r.pitch_hook}</td>
+                  <td className="p-1 text-right whitespace-nowrap">
+                    <button
+                      onClick={() => setComposeFor({ id: r.clinic_id, name: r.name })}
+                      title="Compose outreach"
+                      className="text-[10px] px-2 py-0.5 rounded bg-indigo-600 hover:bg-indigo-500 text-white mr-1"
+                    >
+                      📩
+                    </button>
+                    <a
+                      href={`/dashboard/${r.clinic_id}`}
+                      target="_blank"
+                      rel="noopener"
+                      title="Preview clinic dashboard"
+                      className="text-[10px] px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700"
+                    >
+                      👁
+                    </a>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      )}
+
+      {composeFor && (
+        <ComposeOutreachModal
+          clinicId={composeFor.id}
+          clinicName={composeFor.name}
+          onClose={() => setComposeFor(null)}
+          onSent={() => setComposeFor(null)}
+        />
       )}
     </div>
   );
@@ -1310,6 +1345,7 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
   const [showAdd, setShowAdd] = useState(false);
   const [filter, setFilter] = useState<"all" | "active" | "dead" | OutreachOutcome>("active");
   const [search, setSearch] = useState("");
+  const [composeFor, setComposeFor] = useState<{ id: string; name: string } | null>(null);
 
   async function load() {
     setLoading(true);
@@ -1441,6 +1477,22 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
                   {r.note && <p className="text-xs text-gray-400 mt-1.5 italic">&ldquo;{r.note}&rdquo;</p>}
                 </div>
                 <div className="flex gap-1 items-center">
+                  <button
+                    onClick={() => setComposeFor({ id: r.clinic_id, name: r.clinic_name })}
+                    title="Compose new outreach"
+                    className="text-xs px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white"
+                  >
+                    📩
+                  </button>
+                  <a
+                    href={`/dashboard/${r.clinic_id}`}
+                    target="_blank"
+                    rel="noopener"
+                    title="Preview clinic dashboard"
+                    className="text-xs px-2 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700"
+                  >
+                    👁
+                  </a>
                   <QuickStatusChange record={r} onSave={upsert} />
                   <button onClick={() => remove(r.clinic_id)} className="text-gray-600 hover:text-red-400 text-xs ml-1 px-2">✕</button>
                 </div>
@@ -1449,6 +1501,15 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
           );
         })}
       </div>
+
+      {composeFor && (
+        <ComposeOutreachModal
+          clinicId={composeFor.id}
+          clinicName={composeFor.name}
+          onClose={() => setComposeFor(null)}
+          onSent={() => { setComposeFor(null); load(); }}
+        />
+      )}
     </div>
   );
 }
