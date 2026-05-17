@@ -24,13 +24,21 @@ export function ComposeOutreachModal({
   defaultStaff,
   onClose,
   onSent,
+  queuePosition,
+  queueTotal,
+  onNext,
 }: {
   clinicId: string;
   clinicName: string;
   defaultStaff?: string;
   onClose: () => void;
   onSent: () => void;
+  // Queue mode — when composing for multiple prospects in sequence.
+  queuePosition?: number;
+  queueTotal?: number;
+  onNext?: () => void;
 }) {
+  const isQueueMode = !!queueTotal && queueTotal > 1;
   const [info, setInfo] = useState<ClinicInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -101,9 +109,7 @@ export function ComposeOutreachModal({
     if (!text || !info || submitting) return;
     setSubmitting(true);
     try {
-      // 1. Copy text
       try { await navigator.clipboard.writeText(text); } catch {}
-      // 2. Create OutreachRecord
       await fetch("/api/admin/outreach", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -119,11 +125,22 @@ export function ComposeOutreachModal({
           note: `Composed via admin modal (${lang.toUpperCase()})`,
         }),
       });
-      onSent();
+      // In queue mode advance to next; otherwise close.
+      if (isQueueMode && onNext) {
+        onNext();
+        // Reset state for next clinic
+        setText("");
+        setEdited(false);
+        setCopied(false);
+        setInfo(null);
+        setLoading(true);
+      } else {
+        onSent();
+      }
     } finally {
       setSubmitting(false);
     }
-  }, [text, info, staff, channel, template, lang, submitting, onSent]);
+  }, [text, info, staff, channel, template, lang, submitting, onSent, isQueueMode, onNext]);
 
   return (
     <div
@@ -136,7 +153,14 @@ export function ComposeOutreachModal({
       >
         <div className="flex items-start justify-between gap-3 px-5 py-4 border-b border-gray-800">
           <div>
-            <h2 className="text-base font-bold text-indigo-300">📩 Compose outreach</h2>
+            <h2 className="text-base font-bold text-indigo-300 flex items-center gap-2 flex-wrap">
+              📩 Compose outreach
+              {isQueueMode && (
+                <span className="text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-purple-900/40 text-purple-300">
+                  Queue {queuePosition} / {queueTotal}
+                </span>
+              )}
+            </h2>
             <p className="text-xs text-gray-500 mt-0.5 truncate max-w-[480px]">{clinicName}</p>
           </div>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-300 text-xl leading-none">✕</button>
@@ -260,7 +284,7 @@ export function ComposeOutreachModal({
                 disabled={submitting || !text}
                 className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg px-4 py-2 text-sm text-white font-bold transition"
               >
-                {submitting ? "..." : "📋 Copy & Mark as sent"}
+                {submitting ? "..." : (isQueueMode ? "📋 Copy & Next →" : "📋 Copy & Mark as sent")}
               </button>
               <button
                 onClick={handleCopy}
@@ -277,11 +301,19 @@ export function ComposeOutreachModal({
               >
                 👁 Preview dashboard
               </a>
+              {isQueueMode && onNext && (
+                <button
+                  onClick={() => { onNext(); setText(""); setEdited(false); setInfo(null); setLoading(true); }}
+                  className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-300 transition"
+                >
+                  Skip →
+                </button>
+              )}
               <button
                 onClick={onClose}
                 className="ml-auto text-gray-500 hover:text-gray-300 text-sm px-2"
               >
-                Cancel
+                {isQueueMode ? "Quit queue" : "Cancel"}
               </button>
             </div>
           </>

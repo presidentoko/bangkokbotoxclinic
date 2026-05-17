@@ -70,6 +70,19 @@ export async function listOutreach(): Promise<OutreachRecord[]> {
 export async function upsertOutreach(rec: Omit<OutreachRecord, "last_updated">): Promise<boolean> {
   const full: OutreachRecord = { ...rec, last_updated: new Date().toISOString() };
   const r = await rcmd(["HSET", REDIS_KEY, rec.clinic_id, JSON.stringify(full)]);
+  // Webhook on positive outcomes — staff get pinged even when they're not watching admin.
+  // Set OUTREACH_WEBHOOK_URL to a Telegram bot, Slack incoming hook, or anything that
+  // accepts a JSON POST. Skipped silently if env var unset.
+  const POSITIVE: OutreachOutcome[] = ["REPLIED_EN", "MEETING_SCHEDULED", "SIGNED"];
+  if (POSITIVE.includes(rec.outcome) && process.env.OUTREACH_WEBHOOK_URL) {
+    const emoji = rec.outcome === "SIGNED" ? "🎉" : rec.outcome === "MEETING_SCHEDULED" ? "📅" : "💬";
+    const text = `${emoji} ${rec.outcome}: ${rec.clinic_name} (${rec.template}, ${rec.channel})${rec.staff ? ` — by ${rec.staff}` : ""}`;
+    fetch(process.env.OUTREACH_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, ...full }),
+    }).catch(() => {/* fire-and-forget */});
+  }
   return r !== null;
 }
 

@@ -306,6 +306,39 @@ function ProspectExporter() {
   const [downloading, setDownloading] = useState(false);
   const [preview, setPreview] = useState<{ count: number; rows: { clinic_id: string; name: string; phone: string; district: string; trust_score: number; pitch_hook: string }[] } | null>(null);
   const [composeFor, setComposeFor] = useState<{ id: string; name: string } | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [queue, setQueue] = useState<{ id: string; name: string }[]>([]);
+  const [queueIdx, setQueueIdx] = useState(0);
+
+  const visibleRows = preview?.rows.slice(0, 10) ?? [];
+  const allVisibleSelected = visibleRows.length > 0 && visibleRows.every((r) => selected.has(r.clinic_id));
+  const toggleAll = () => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (allVisibleSelected) {
+        visibleRows.forEach((r) => next.delete(r.clinic_id));
+      } else {
+        visibleRows.forEach((r) => next.add(r.clinic_id));
+      }
+      return next;
+    });
+  };
+  const toggleOne = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+  const startQueue = () => {
+    if (!preview) return;
+    const rows = preview.rows.filter((r) => selected.has(r.clinic_id)).map((r) => ({ id: r.clinic_id, name: r.name }));
+    if (rows.length === 0) return;
+    setQueue(rows);
+    setQueueIdx(0);
+  };
+  const inQueue = queue.length > 0;
+  const queueCurrent = inQueue ? queue[queueIdx] : null;
 
   async function fetchPreview() {
     setDownloading(true);
@@ -364,14 +397,29 @@ function ProspectExporter() {
         <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-500 rounded-lg px-4 py-2 text-sm text-white font-semibold transition">
           ↓ Download CSV
         </button>
-        <a href="/SALES_PITCH.md" target="_blank" className="text-xs text-gray-500 hover:text-gray-300 self-center ml-2">View pitch templates →</a>
+        <span className="text-xs text-gray-500 self-center ml-2">
+          💡 Tip: select rows + <span className="text-purple-400 font-bold">📩 Compose queue</span> to send sequentially. Templates auto-fill per clinic — no more SALES_PITCH.md copy-paste.
+        </span>
       </div>
       {preview && (
-        <div className="bg-gray-950 border border-gray-800 rounded-lg p-3 max-h-80 overflow-y-auto">
-          <p className="text-xs text-gray-500 mb-2">{preview.count} prospects match. Top 10:</p>
-          <table className="w-full text-xs">
+        <div className="bg-gray-950 border border-gray-800 rounded-lg p-3 max-h-80 overflow-x-auto">
+          <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+            <p className="text-xs text-gray-500">{preview.count} prospects match. Top 10 shown.</p>
+            {selected.size > 0 && (
+              <button
+                onClick={startQueue}
+                className="text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white rounded-lg px-3 py-1.5"
+              >
+                📩 Compose queue ({selected.size}) →
+              </button>
+            )}
+          </div>
+          <table className="w-full text-xs min-w-[640px]">
             <thead className="text-gray-600">
               <tr>
+                <th className="text-left p-1 w-6">
+                  <input type="checkbox" checked={allVisibleSelected} onChange={toggleAll} className="cursor-pointer" />
+                </th>
                 <th className="text-left p-1">Clinic</th>
                 <th className="text-left p-1">District</th>
                 <th className="text-right p-1">Trust</th>
@@ -380,8 +428,16 @@ function ProspectExporter() {
               </tr>
             </thead>
             <tbody>
-              {preview.rows.slice(0, 10).map((r) => (
-                <tr key={r.clinic_id} className="border-t border-gray-800">
+              {visibleRows.map((r) => (
+                <tr key={r.clinic_id} className={`border-t border-gray-800 ${selected.has(r.clinic_id) ? "bg-purple-950/30" : ""}`}>
+                  <td className="p-1">
+                    <input
+                      type="checkbox"
+                      checked={selected.has(r.clinic_id)}
+                      onChange={() => toggleOne(r.clinic_id)}
+                      className="cursor-pointer"
+                    />
+                  </td>
                   <td className="p-1 text-gray-300 truncate max-w-[140px]">{r.name}</td>
                   <td className="p-1 text-gray-500">{r.district}</td>
                   <td className="p-1 text-right text-emerald-400 tabular-nums">{r.trust_score}</td>
@@ -411,12 +467,36 @@ function ProspectExporter() {
         </div>
       )}
 
-      {composeFor && (
+      {/* Single compose */}
+      {composeFor && !inQueue && (
         <ComposeOutreachModal
           clinicId={composeFor.id}
           clinicName={composeFor.name}
           onClose={() => setComposeFor(null)}
           onSent={() => setComposeFor(null)}
+        />
+      )}
+
+      {/* Queue compose */}
+      {inQueue && queueCurrent && (
+        <ComposeOutreachModal
+          key={queueCurrent.id}
+          clinicId={queueCurrent.id}
+          clinicName={queueCurrent.name}
+          queuePosition={queueIdx + 1}
+          queueTotal={queue.length}
+          onNext={() => {
+            if (queueIdx + 1 >= queue.length) {
+              // Queue done
+              setQueue([]);
+              setQueueIdx(0);
+              setSelected(new Set());
+            } else {
+              setQueueIdx(queueIdx + 1);
+            }
+          }}
+          onClose={() => { setQueue([]); setQueueIdx(0); }}
+          onSent={() => { setQueue([]); setQueueIdx(0); setSelected(new Set()); }}
         />
       )}
     </div>
@@ -809,8 +889,8 @@ function BulkImportForm({ onClose, onDone }: { onClose: () => void; onDone: () =
       {preview.length > 0 && !result && (
         <div className="bg-gray-950 border border-gray-800 rounded-lg p-3">
           <p className="text-xs text-gray-500 mb-2">Preview ({preview.length} rows):</p>
-          <div className="max-h-48 overflow-y-auto">
-            <table className="w-full text-xs">
+          <div className="max-h-48 overflow-auto">
+            <table className="w-full text-xs min-w-[480px]">
               <thead className="text-gray-600">
                 <tr>
                   <th className="text-left p-1">clinic_id</th>
@@ -1445,8 +1525,8 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
             <span>📊 Template performance — which one is winning?</span>
             <span className="text-xs text-gray-500">click to expand</span>
           </summary>
-          <div className="px-4 pb-4">
-            <table className="w-full text-xs">
+          <div className="px-4 pb-4 overflow-x-auto">
+            <table className="w-full text-xs min-w-[480px]">
               <thead className="text-gray-600">
                 <tr>
                   <th className="text-left p-1.5">Template</th>
