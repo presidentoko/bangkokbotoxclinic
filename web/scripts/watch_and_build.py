@@ -16,9 +16,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CLINIC_OUT = ROOT / "bangkok_clinics" / "output"
+WEB_DATA = ROOT / "web" / "data"
+DENTAL_OUT = ROOT / "dental_output"
 BUILD_SCRIPT = ROOT / "web" / "scripts" / "build_master_db.py"
 CRISIS_SCRIPT = ROOT / "web" / "scripts" / "crisis_alert.py"
-OUT_JSON = ROOT / "web" / "data" / "master_db.json"
+OUT_JSON = WEB_DATA / "master_db.json"
 VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
 POLL_INTERVAL = 300  # 5분
@@ -31,19 +33,45 @@ log = logging.getLogger(__name__)
 
 
 def latest_input_mtime() -> float:
-    """clinics.csv + reviews/ 디렉토리 안 모든 파일의 max mtime."""
+    """Max mtime across every input the builder absorbs. Adds files mean dir
+    mtime bumps; modifications mean file mtime bumps — we check both layers
+    on the few directories that actually feed into master_db.json.
+
+    Tracked sources:
+      1. bangkok_clinics/output/clinics.csv + reviews/  — GMaps clinic data
+      2. web/data/external_reviews/ + web/data/pricing/ — HDmall enrich
+         (builder merges these per-clinic by place_id at build time)
+      3. dental_output/<city>/discovered_places.csv     — dental grid output
+         (currently only the GMaps-card data; full review enrichment is
+         a separate scraper not yet wired up)
+    """
     paths: list[Path] = []
+
+    # 1. Bangkok clinic scraper output
     csv_path = CLINIC_OUT / "clinics.csv"
     if csv_path.exists():
         paths.append(csv_path)
     reviews_dir = CLINIC_OUT / "reviews"
     if reviews_dir.exists():
-        # 디렉토리 mtime — 새 파일 추가 감지
         paths.append(reviews_dir)
-        # 안의 파일들도 확인 (수정 감지용 — 단 파일이 많으면 비용 증가)
-        # 562+ 파일 → stat 체크 충분히 빠름.
         for p in reviews_dir.glob("*.csv"):
             paths.append(p)
+
+    # 2. HDmall enrichment files — JSON dirs that build_master_db.py merges per place_id
+    for sub in ("external_reviews", "pricing", "doctor_xref"):
+        d = WEB_DATA / sub
+        if d.exists():
+            paths.append(d)
+            # File-level mtime catches in-place rewrites by the HDmall scraper
+            for p in d.glob("*.json"):
+                paths.append(p)
+
+    # 3. Dental grid output — one CSV per city
+    if DENTAL_OUT.exists():
+        paths.append(DENTAL_OUT)
+        for csv in DENTAL_OUT.glob("*/discovered_places.csv"):
+            paths.append(csv)
+
     if not paths:
         return 0.0
     return max(p.stat().st_mtime for p in paths)
