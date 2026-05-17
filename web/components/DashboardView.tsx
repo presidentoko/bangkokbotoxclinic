@@ -127,9 +127,12 @@ export function DashboardView({
     const ageMs = Date.now() - new Date(l.at).getTime();
     return ageMs < 30 * 24 * 3600 * 1000;
   }).length;
-  const projectedCloses = Math.round(leadsThisMonth * LEAD_CLOSE_RATE);
+  // 비파트너 가설 모드: 평균 10 leads/month 베이스라인 (이 클리닉 trust_score 기반 ±20% 보정)
+  const projectedLeadsBaseline = Math.round(10 * Math.max(0.6, Math.min(1.4, c.trust_score / 60)));
+  const roiLeads = isPartner ? leadsThisMonth : projectedLeadsBaseline;
+  const projectedCloses = Math.round(roiLeads * LEAD_CLOSE_RATE);
   const revenueAttributedThb = projectedCloses * ticketAvg;
-  const facebookEquivalentThb = leadsThisMonth * FACEBOOK_CAC_THB;
+  const facebookEquivalentThb = roiLeads * FACEBOOK_CAC_THB;
   const roiMultiplier = DASHBOARD_FEE_THB > 0 ? revenueAttributedThb / DASHBOARD_FEE_THB : 0;
 
   const trustColor = c.trust_score >= 75 ? "#10b981" : c.trust_score >= 50 ? "#f59e0b" : "#ef4444";
@@ -209,6 +212,52 @@ export function DashboardView({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Free-report hero banner — non-partner wedge.
+            Partners (paid) skip this; they get the data-first experience. */}
+        {!isPartner && !isDemo && (
+          <section className="mb-6">
+            <div className="rounded-2xl p-5 md:p-6 relative overflow-hidden border-2"
+                 style={{ background: "linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%)", borderColor: "#10b98140" }}>
+              <div className="flex items-start gap-4 flex-wrap md:flex-nowrap">
+                <div className="text-4xl md:text-5xl shrink-0">🎁</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-black uppercase tracking-widest mb-1" style={{ color: "#059669" }}>
+                    Free reputation report · No signup
+                  </div>
+                  <h2 className="text-xl md:text-2xl font-black tracking-tight mb-2">
+                    Your clinic's intelligence report is ready
+                  </h2>
+                  <p className="text-sm text-[var(--fg)] opacity-80 leading-relaxed mb-4">
+                    Built from public Google data. {pendingReplies > 0 ? `${pendingReplies} unanswered negative review${pendingReplies > 1 ? "s" : ""} below with AI-drafted replies.` : "All recent negative reviews handled."}
+                    {" "}You can act on everything here today — copy the AI replies, share with your team, or save the report.
+                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button
+                      onClick={() => handleCopy(typeof window !== "undefined" ? window.location.href : `/dashboard/${c.id}`, "share-url")}
+                      className="text-sm font-bold px-4 py-2 rounded-lg text-white transition"
+                      style={{ background: copiedKey === "share-url" ? "#10b981" : "#059669" }}
+                    >
+                      {copiedKey === "share-url" ? "✓ Link copied!" : "📤 Share with your team"}
+                    </button>
+                    <button
+                      onClick={handlePrint}
+                      className="text-sm font-bold px-4 py-2 rounded-lg border-2 border-[#059669] text-[#059669] bg-white hover:bg-emerald-50 transition print:hidden"
+                    >
+                      📄 Save as PDF
+                    </button>
+                    <a
+                      href="#crisis"
+                      className="text-sm font-bold px-4 py-2 rounded-lg text-[#059669] hover:underline"
+                    >
+                      ↓ Jump to action items
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Top KPI bar — money metrics 강조 */}
         <section className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
           <KPI label="Trust Score" value={String(c.trust_score)} sub={`${trustDelta} vs last week`} color={trustColor} clickable />
@@ -237,30 +286,46 @@ export function DashboardView({
           </section>
         )}
 
-        {/* ROI breakdown — closer 섹션 */}
+        {/* ROI breakdown — partner: 실제 수치 / non-partner: 가설 모드 */}
         <section id="roi" className="mb-6">
           <div className="rounded-2xl p-5 text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #059669 0%, #0891b2 100%)" }}>
             <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
               <div>
-                <div className="text-xs font-bold uppercase tracking-widest opacity-80">Monthly ROI breakdown</div>
+                <div className="text-xs font-bold uppercase tracking-widest opacity-80">
+                  {isPartner ? "Monthly ROI breakdown" : "Projected ROI · if you join lead routing"}
+                </div>
                 <h2 className="text-xl md:text-2xl font-black tracking-tight mt-1">
-                  This dashboard is paying for itself {roiMultiplier >= 1 ? `${roiMultiplier.toFixed(1)}x` : "—"} over
+                  {isPartner
+                    ? `This dashboard is paying for itself ${roiMultiplier >= 1 ? `${roiMultiplier.toFixed(1)}x` : "—"} over`
+                    : `A clinic like yours would earn ${roiMultiplier.toFixed(1)}x the service fee`}
                 </h2>
               </div>
               <div className="text-right">
-                <div className="text-xs opacity-80">Cost</div>
+                <div className="text-xs opacity-80">{isPartner ? "Cost" : "Lead service from"}</div>
                 <div className="text-2xl font-black tabular-nums">฿{DASHBOARD_FEE_THB.toLocaleString()}<span className="text-sm font-normal opacity-80">/mo</span></div>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-              <RoiCell label="Leads delivered" value={String(leadsThisMonth)} sub="form submissions" />
+              <RoiCell
+                label={isPartner ? "Leads delivered" : "Projected leads/mo"}
+                value={String(roiLeads)}
+                sub={isPartner ? "form submissions" : "based on your Trust Score"}
+              />
               <RoiCell label="Projected closes" value={String(projectedCloses)} sub={`@ ${(LEAD_CLOSE_RATE * 100).toFixed(0)}% close rate`} />
               <RoiCell label="Revenue attributed" value={`฿${revenueAttributedThb.toLocaleString()}`} sub={`@ ฿${ticketAvg.toLocaleString()}/procedure avg`} />
               <RoiCell label="Same leads via Facebook" value={`฿${facebookEquivalentThb.toLocaleString()}`} sub={`@ ฿${FACEBOOK_CAC_THB.toLocaleString()} CAC`} />
             </div>
             <div className="mt-4 pt-4 border-t border-white/20 flex items-center justify-between gap-3 flex-wrap text-xs">
-              <span className="opacity-90">Numbers update in real-time as new leads come in.</span>
-              <a href="#leads" className="font-bold underline">See lead inflow ↓</a>
+              <span className="opacity-90">
+                {isPartner
+                  ? "Numbers update in real-time as new leads come in."
+                  : "Projection only — actual leads depend on your category, location, and pricing."}
+              </span>
+              {isPartner ? (
+                <a href="#leads" className="font-bold underline">See lead inflow ↓</a>
+              ) : (
+                <a href="/for-clinics#pilot" className="font-bold underline">Want this real? Talk to us →</a>
+              )}
             </div>
           </div>
         </section>
@@ -708,36 +773,65 @@ export function DashboardView({
               </div>
             )}
 
-            <p className="text-xs text-[var(--muted)] mt-4">
-              ฿200/lead exclusivity · 24h hold · no-show refund · or ฿{DASHBOARD_FEE_THB.toLocaleString()}/month flat for unlimited leads in your category
-            </p>
+            {isPartner && (
+              <p className="text-xs text-[var(--muted)] mt-4">
+                ฿200/lead exclusivity · 24h hold · no-show refund · or ฿{DASHBOARD_FEE_THB.toLocaleString()}/month flat for unlimited leads in your category
+              </p>
+            )}
           </Card>
         </section>
 
-        {/* Upsell footer */}
+        {/* Upsell footer — partner: subscription mgmt / non-partner: service unbundle */}
         <section className="mb-6">
           <div className="rounded-2xl p-6 text-white relative overflow-hidden" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #0891b2 100%)" }}>
             <div className="relative">
-              <div className="text-xs font-bold uppercase tracking-widest opacity-80 mb-2">Upgrade to Premium</div>
+              <div className="text-xs font-bold uppercase tracking-widest opacity-80 mb-2">
+                {isPartner ? "Your subscription" : "The dashboard is free. Want us to do the work?"}
+              </div>
               <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-3">
-                Unlock 6 more tools that grow Trust Score automatically
+                {isPartner ? "Manage your services" : "Pick the services that take work off your plate"}
               </h2>
-              <ul className="grid sm:grid-cols-2 gap-2 text-sm mb-5">
-                <li>✓ AI reply drafts for all 50 recent reviews</li>
-                <li>✓ Competitor weakness full report (PDF)</li>
-                <li>✓ AEO citation tracker (Q3)</li>
-                <li>✓ Auto-schedule weekly review request emails</li>
-                <li>✓ Lead webhook + 24h exclusivity</li>
-                <li>✓ Featured slot at 50% launch discount</li>
+              {!isPartner && (
+                <p className="text-sm opacity-90 mb-5 max-w-2xl">
+                  Everything on this dashboard is yours to keep, free. These add-ons are if you want us to actually <em>do</em> the work — post replies for you, send review requests, route leads to your LINE, etc.
+                </p>
+              )}
+              <ul className="grid sm:grid-cols-2 gap-3 text-sm mb-6">
+                <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="font-bold mb-0.5">🤖 Auto-reply posting</div>
+                  <div className="text-xs opacity-85">We post AI-drafted replies to Google for you. No copy-paste.</div>
+                </li>
+                <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="font-bold mb-0.5">📨 Review request campaigns</div>
+                  <div className="text-xs opacity-85">Weekly LINE/SMS to your last 50 patients, asking for a review.</div>
+                </li>
+                <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="font-bold mb-0.5">📥 Lead routing</div>
+                  <div className="text-xs opacity-85">Booking forms → your LINE within 60 seconds. 24h exclusivity hold.</div>
+                </li>
+                <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="font-bold mb-0.5">⭐ Featured slot</div>
+                  <div className="text-xs opacity-85">Top placement in /clinic search for your category + district.</div>
+                </li>
+                <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="font-bold mb-0.5">🤖 AEO citation tracker <span className="text-xs opacity-70">(Q3)</span></div>
+                  <div className="text-xs opacity-85">Monitor LLM mentions: ChatGPT, Perplexity, Claude, Google AI.</div>
+                </li>
+                <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="font-bold mb-0.5">📞 Monthly strategy call</div>
+                  <div className="text-xs opacity-85">30-min 1-on-1 — review your numbers, plan next month.</div>
+                </li>
               </ul>
               <div className="flex items-center gap-3 flex-wrap">
                 <a href="/for-clinics#pilot" className="px-5 py-2.5 rounded-full bg-white text-purple-700 font-black hover:opacity-90 transition">
-                  Start 30-day pilot →
+                  {isPartner ? "Add a service →" : "Talk to us — pick what fits →"}
                 </a>
                 <a href="/for-clinics" className="px-5 py-2.5 rounded-full border-2 border-white text-white font-bold hover:bg-white/10 transition">
-                  See plans
+                  See pricing
                 </a>
-                <span className="text-xs opacity-80 ml-2">No payment unless we generate leads in pilot</span>
+                <span className="text-xs opacity-80 ml-2">
+                  {isPartner ? "Cancel any service anytime via LINE." : "Pay only for what you pick. No bundle lock-in."}
+                </span>
               </div>
             </div>
           </div>
