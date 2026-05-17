@@ -2,7 +2,7 @@
 // B2B clinic dashboard — peeyai 패턴 referenced.
 // 클리닉 owner mode. Crisis alerts top → KPI bar → AI tools → competitors → insights.
 
-import { useState, useCallback, useMemo, type FormEvent } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef, type FormEvent } from "react";
 import type { Clinic, RatingTrend } from "@/lib/types";
 import { TOPIC_LABELS } from "@/lib/types";
 import { draftReplyStyled, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
@@ -135,6 +135,10 @@ export function DashboardView({
   const [showSampleLead, setShowSampleLead] = useState(false);
   const [digestEmail, setDigestEmail] = useState("");
   const [digestStatus, setDigestStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
+  // AI reply drafts — keyed by `${reviewIndex}-${style}`. Auto-fetched on mount/style-change.
+  const [aiDrafts, setAiDrafts] = useState<Record<string, string>>({});
+  const [aiLoading, setAiLoading] = useState<Set<string>>(() => new Set());
+  const aiFetchedRef = useRef<Set<string>>(new Set());
 
   const submitDigestSignup = useCallback(async (e: FormEvent) => {
     e.preventDefault();
@@ -264,6 +268,43 @@ export function DashboardView({
     : allSamples
   ).slice(0, topicFilter ? 10 : 3);
   const negatives = c.sample_reviews_negative ?? [];
+
+  // Auto-fetch AI reply drafts for visible negative reviews. Dedupes via ref so
+  // toggling style back and forth doesn't re-hit the API. Server-side Redis cache
+  // (30d TTL keyed by review_hash+style) keeps real cost near zero.
+  useEffect(() => {
+    negatives.forEach((rev, i) => {
+      const style = (styleVariants[i] ?? 0) as number;
+      const key = `${i}-${style}`;
+      if (aiFetchedRef.current.has(key)) return;
+      aiFetchedRef.current.add(key);
+      setAiLoading((prev) => new Set(prev).add(key));
+      fetch("/api/dashboard/ai-reply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          review_text: rev.text,
+          clinic_name: c.name,
+          author_name: rev.author || "",
+          style,
+        }),
+      })
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data: { draft?: string } | null) => {
+          if (data?.draft) {
+            setAiDrafts((prev) => ({ ...prev, [key]: data.draft as string }));
+          }
+        })
+        .catch(() => {})
+        .finally(() => {
+          setAiLoading((prev) => {
+            const n = new Set(prev);
+            n.delete(key);
+            return n;
+          });
+        });
+    });
+  }, [negatives, styleVariants, c.name]);
 
   // pendingReplies = 미해결로 마크된 부정 리뷰 수 (replyDoneSet 반영, 라이브 업데이트)
   const pendingReplies = negatives.filter((rev) => !replyDoneSet.has(reviewHash(rev.text))).length;
@@ -502,7 +543,12 @@ export function DashboardView({
               {negatives.map((rev, i) => {
                 const style = styleVariants[i] ?? 0;
                 const { category, draft: rawDraft } = draftReplyStyled(rev.text, c.name, rev.author, style);
-                const draft = editTexts[i] ?? rawDraft;
+                const aiKey = `${i}-${style}`;
+                const aiDraft = aiDrafts[aiKey];
+                const isAiLoading = aiLoading.has(aiKey);
+                // Preference: user edit > LLM draft > template fallback
+                const draft = editTexts[i] ?? aiDraft ?? rawDraft;
+                const usingAi = !editTexts[i] && !!aiDraft;
                 const severity = rev.rating <= 1 ? "critical" : rev.rating <= 2 ? "high" : "medium";
                 const severityColor = severity === "critical" ? "#dc2626" : severity === "high" ? "#ea580c" : "#d97706";
                 const hash = reviewHash(rev.text);
@@ -530,9 +576,20 @@ export function DashboardView({
                       <p className="text-sm text-[var(--fg)] italic leading-relaxed mb-3">&ldquo;{rev.text}&rdquo;</p>
                       <details className="crisis-detail group">
                         <summary className="cursor-pointer flex items-center justify-between gap-3 px-3 py-2 rounded-lg bg-purple-50 hover:bg-purple-100 transition select-none">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-xs font-bold uppercase tracking-widest text-purple-700">✨ AI reply draft</span>
                             <span className="text-xs text-purple-600 font-medium">— {STYLE_LABELS[style]}</span>
+                            {isAiLoading && (
+                              <span className="text-xs text-purple-500 font-medium flex items-center gap-1">
+                                <span className="inline-block w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                                generating…
+                              </span>
+                            )}
+                            {usingAi && !isAiLoading && (
+                              <span className="text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">
+                                LLM
+                              </span>
+                            )}
                           </div>
                           <span className="text-purple-600 group-open:rotate-180 transition-transform">⌄</span>
                         </summary>
