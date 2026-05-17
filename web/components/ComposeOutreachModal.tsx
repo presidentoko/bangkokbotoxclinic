@@ -125,18 +125,10 @@ export function ComposeOutreachModal({
           note: `Composed via admin modal (${lang.toUpperCase()})`,
         }),
       });
-      // In queue mode advance to next; otherwise close.
-      if (isQueueMode && onNext) {
-        onNext();
-        // Reset state for next clinic
-        setText("");
-        setEdited(false);
-        setCopied(false);
-        setInfo(null);
-        setLoading(true);
-      } else {
-        onSent();
-      }
+      // Queue mode: parent uses key={clinicId} so a new clinic remounts the
+      // modal with fresh state — no manual reset needed.
+      if (isQueueMode && onNext) onNext();
+      else onSent();
     } finally {
       setSubmitting(false);
     }
@@ -303,7 +295,7 @@ export function ComposeOutreachModal({
               </a>
               {isQueueMode && onNext && (
                 <button
-                  onClick={() => { onNext(); setText(""); setEdited(false); setInfo(null); setLoading(true); }}
+                  onClick={onNext}
                   className="bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-300 transition"
                 >
                   Skip →

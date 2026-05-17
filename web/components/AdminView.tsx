@@ -1451,10 +1451,24 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
   useEffect(() => { load(); }, []);
 
   async function upsert(r: Omit<OutreachRecord, "last_updated">) {
+    // Strip enriched (read-only context from API, not part of the persisted record)
+    // if it accidentally rode along via {...record} spread in QuickStatusChange.
+    const cleaned: Omit<OutreachRecord, "last_updated"> = {
+      clinic_id: r.clinic_id,
+      clinic_name: r.clinic_name,
+      staff: r.staff,
+      channel: r.channel,
+      template: r.template,
+      outcome: r.outcome,
+      sent_at: r.sent_at,
+      replied_at: r.replied_at,
+      next_action: r.next_action,
+      note: r.note,
+    };
     await fetch("/api/admin/outreach", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(r),
+      body: JSON.stringify(cleaned),
     });
     await load();
   }
