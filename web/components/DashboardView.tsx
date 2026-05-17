@@ -43,10 +43,74 @@ type Props = {
   profileViewsByDay?: { date: string; count: number }[];
 };
 
-// ฿2,800 = Bangkok 피부과 Facebook 광고 평균 CAC. 8,000 = 우리 monthly fee.
+// ฿2,800 = Bangkok 피부과 Facebook 광고 평균 CAC.
+// 8,000 = bundle 가격 reference (모든 서비스 묶을 때).
 const FACEBOOK_CAC_THB = 2800;
 const DASHBOARD_FEE_THB = 8000;
 const LEAD_CLOSE_RATE = 0.4; // 폼 lead → 실제 procedure conversion
+
+// Unbundle 서비스 가격 — /for-clinics 페이지와 동기화 필요시 양쪽 수정.
+const PRICE_AUTO_REPLY_THB = 1500;       // 답글 자동 게시 (commodity)
+const PRICE_REVIEW_CAMPAIGN_THB = 1500;  // 리뷰 요청 LINE/SMS 자동 발송
+const PRICE_LEAD_ROUTING_THB = 5000;     // CPL ฿50/lead 또는 flat (기존 /for-clinics와 일치)
+const PRICE_FEATURED_THB = 5000;         // Featured slot from (기존)
+const PRICE_KOREAN_SEO_THB = 4500;       // Korean/EN 콘텐츠 제작
+const PRICE_STRATEGY_CALL_THB = 2000;    // 월 1회 30분 컨설팅
+
+// Review request 템플릿 — {clinic} 은 클리닉 이름으로 치환, {name}/[link]는 owner가 보낼 때 채움.
+const REVIEW_TEMPLATES: Record<"en" | "ko" | "th", { label: string; timing: string; body: string }[]> = {
+  en: [
+    {
+      label: "Initial ask",
+      timing: "Same day / next day after visit",
+      body: "Hi {name}, thanks for visiting {clinic} today! If you have 30 seconds, a quick Google review would mean a lot to our team 🙏 [link]",
+    },
+    {
+      label: "Gentle follow-up",
+      timing: "5–7 days after visit",
+      body: "Hi {name}, hope you're loving your results from {clinic}! Your Google review would help other patients find us — and we read every one of them. [link]",
+    },
+    {
+      label: "Thank-you after review",
+      timing: "After they post",
+      body: "Thank you so much for your review, {name}! 🙏 We've noted a complimentary aftercare option for your next visit. See you soon!",
+    },
+  ],
+  ko: [
+    {
+      label: "초기 요청",
+      timing: "시술 당일 또는 다음날",
+      body: "{name}님, {clinic} 방문해 주셔서 감사합니다 🙏 30초만 시간 내주시면 Google 리뷰 한 줄 부탁드려요! [link]",
+    },
+    {
+      label: "follow-up",
+      timing: "시술 5~7일 후",
+      body: "안녕하세요 {name}님, {clinic}입니다. 최근 시술 결과가 어떠셨나요? Google 리뷰 남겨주시면 다른 분들에게 큰 도움이 돼요 🙏 [link]",
+    },
+    {
+      label: "리뷰 작성 후 감사",
+      timing: "리뷰 게시 후",
+      body: "{name}님, 따뜻한 리뷰 진심으로 감사합니다 🙏 다음 방문 시 무료 애프터케어 옵션 1가지 준비해뒀어요!",
+    },
+  ],
+  th: [
+    {
+      label: "ขอรีวิวครั้งแรก",
+      timing: "วันเดียวกัน หรือวันถัดไป",
+      body: "สวัสดีค่ะคุณ{name} ขอบคุณที่ใช้บริการ {clinic} ค่ะ 🙏 รบกวนช่วยรีวิว Google สั้นๆ ได้ไหมคะ ใช้เวลาแค่ 30 วินาที [link]",
+    },
+    {
+      label: "ติดตามอย่างนุ่มนวล",
+      timing: "5–7 วันหลังบริการ",
+      body: "สวัสดีค่ะคุณ{name} ผลลัพธ์เป็นอย่างไรบ้างคะ ถ้ามีเวลาช่วยรีวิว Google ให้เราหน่อยนะคะ จะเป็นกำลังใจให้ทีมงานมากค่ะ 🙏 [link]",
+    },
+    {
+      label: "ขอบคุณหลังรีวิว",
+      timing: "หลังจากรีวิว",
+      body: "ขอบคุณมากค่ะคุณ{name}สำหรับรีวิวดีๆ 🙏 ครั้งหน้าทางเรามีบริการ aftercare ฟรี 1 อย่างให้เลือกค่ะ แล้วเจอกันใหม่นะคะ!",
+    },
+  ],
+};
 
 export function DashboardView({
   clinic: c, competitors, cityAvgRating, cityClinicCount,
@@ -63,6 +127,7 @@ export function DashboardView({
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [topicFilter, setTopicFilter] = useState<string | null>(null);
+  const [reviewLang, setReviewLang] = useState<"ko" | "en" | "th">("en");
 
   // Persistent reply done set (synced with Redis)
   const [replyDoneSet, setReplyDoneSet] = useState<Set<string>>(() => new Set(replyDoneHashes));
@@ -195,6 +260,14 @@ export function DashboardView({
             <div className="text-base font-bold truncate max-w-md">{c.name}</div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
+            <a
+              href={`/clinic/${c.id}`}
+              target="_blank"
+              rel="noopener"
+              className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden"
+            >
+              👁 View as patient
+            </a>
             <button onClick={handlePrint} className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden">
               📊 Export PDF
             </button>
@@ -641,6 +714,69 @@ export function DashboardView({
           )}
         </div>
 
+        {/* Review request templates — 클리닉이 환자한테 보내는 LINE/SMS 템플릿 */}
+        <section id="review-requests" className="mb-6">
+          <Card>
+            <div className="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
+              <div>
+                <h2 className="text-lg font-bold flex items-center gap-2">
+                  <span>📨</span> Review request templates
+                </h2>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  Copy these to your LINE / SMS broadcast. Replace <code className="bg-gray-100 px-1 rounded">{"{name}"}</code> with the patient's first name and <code className="bg-gray-100 px-1 rounded">{"[link]"}</code> with your Google review URL.
+                </p>
+              </div>
+              <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+                {([
+                  ["en", "EN"],
+                  ["ko", "한국어"],
+                  ["th", "ไทย"],
+                ] as const).map(([code, label]) => (
+                  <button
+                    key={code}
+                    onClick={() => setReviewLang(code)}
+                    className={`text-xs font-bold px-3 py-1.5 rounded transition ${
+                      reviewLang === code ? "bg-white shadow-sm text-[var(--fg)]" : "text-[var(--muted)] hover:text-[var(--fg)]"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-3 mt-4">
+              {REVIEW_TEMPLATES[reviewLang].map((tpl, idx) => {
+                const filled = tpl.body.replace(/\{clinic\}/g, c.name);
+                const copyKey = `review-tpl-${reviewLang}-${idx}`;
+                return (
+                  <div key={copyKey} className="border border-[var(--border)] rounded-lg overflow-hidden">
+                    <div className="bg-gray-50 px-3 py-2 flex items-center justify-between border-b border-[var(--border)]">
+                      <div className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                        {tpl.label} · {tpl.timing}
+                      </div>
+                      <button
+                        onClick={() => handleCopy(filled, copyKey)}
+                        className="text-xs font-bold px-3 py-1.5 rounded text-white transition"
+                        style={{ background: copiedKey === copyKey ? "#10b981" : "#7c3aed" }}
+                      >
+                        {copiedKey === copyKey ? "✓ Copied!" : "📋 Copy"}
+                      </button>
+                    </div>
+                    <div className="p-3 text-sm leading-relaxed whitespace-pre-wrap font-medium">
+                      {filled}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-xs text-[var(--muted)] mt-4 leading-relaxed">
+              💡 Want us to send these automatically to your last 50 patients each week?{" "}
+              <a href="/for-clinics" className="font-bold underline">Review request campaigns →</a>
+              {" "}฿{PRICE_REVIEW_CAMPAIGN_THB.toLocaleString()}/mo
+            </p>
+          </Card>
+        </section>
+
         {/* Lead inflow */}
         <section id="leads" className="mb-6">
           <Card>
@@ -726,27 +862,45 @@ export function DashboardView({
               )}
               <ul className="grid sm:grid-cols-2 gap-3 text-sm mb-6">
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">🤖 Auto-reply posting</div>
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                    <span className="font-bold">🤖 Auto-reply posting</span>
+                    <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_AUTO_REPLY_THB.toLocaleString()}/mo</span>
+                  </div>
                   <div className="text-xs opacity-85">We post AI-drafted replies to Google for you. No copy-paste.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">📨 Review request campaigns</div>
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                    <span className="font-bold">📨 Review request campaigns</span>
+                    <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_REVIEW_CAMPAIGN_THB.toLocaleString()}/mo</span>
+                  </div>
                   <div className="text-xs opacity-85">Weekly LINE/SMS to your last 50 patients, asking for a review.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">📥 Lead routing</div>
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                    <span className="font-bold">📥 Lead routing</span>
+                    <span className="text-xs font-black tabular-nums opacity-90">฿50/lead · or ฿{PRICE_LEAD_ROUTING_THB.toLocaleString()}/mo</span>
+                  </div>
                   <div className="text-xs opacity-85">Booking forms → your LINE within 60 seconds. 24h exclusivity hold.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">⭐ Featured slot</div>
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                    <span className="font-bold">⭐ Featured slot</span>
+                    <span className="text-xs font-black tabular-nums opacity-90">from ฿{PRICE_FEATURED_THB.toLocaleString()}/mo</span>
+                  </div>
                   <div className="text-xs opacity-85">Top placement in /clinic search for your category + district.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">🌐 Korean / EN SEO</div>
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                    <span className="font-bold">🌐 Korean / EN SEO</span>
+                    <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_KOREAN_SEO_THB.toLocaleString()}/mo</span>
+                  </div>
                   <div className="text-xs opacity-85">Localized content + reviews — capture medical tourism search.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">📞 Monthly strategy call</div>
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                    <span className="font-bold">📞 Monthly strategy call</span>
+                    <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_STRATEGY_CALL_THB.toLocaleString()}/mo</span>
+                  </div>
                   <div className="text-xs opacity-85">30-min 1-on-1 — review your numbers, plan next month.</div>
                 </li>
               </ul>
