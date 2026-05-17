@@ -655,6 +655,18 @@ def build_services() -> list[Service]:
             progress_grace_sec=180,
         ),
         Service(
+            # 치과 전용 — 2워커(ports 2080-2081) × 13개 도시 × 5개 쿼리, bangkok부터.
+            # 클리닉 grid는 default(2082-2087)이라 포트 충돌 없음.
+            name="dental_grid",
+            cmd=["scripts/dental_grid_runner.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "dental_grid.log",
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=600,   # 10min — 100% dup 구간/쿼리 전환 buffer
+            progress_grace_sec=420,   # 7min cold start (VPN bootstrap + 첫 쿼리)
+        ),
+        Service(
             name="pattaya_review",
             cmd=["scraper.py"],
             cwd=bk_reviews,
@@ -797,6 +809,16 @@ def build_services() -> list[Service]:
             progress_pattern=PROG_MDB,
             progress_stale_sec=600,
             progress_grace_sec=120,
+        ),
+        Service(
+            name="hdmall_scraper",
+            cmd=["hdmall_clinics/scraper.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "hdmall_scraper.log",
+            progress_pattern=re.compile(r"\[hdmall\]"),
+            progress_stale_sec=900,   # 15min (네트워크 fetch 느릴 때 대비)
+            progress_grace_sec=600,   # 10min cold start (Playwright launch + stage 1)
         ),
         Service(
             name="auto_push_loop",

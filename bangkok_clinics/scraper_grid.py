@@ -689,6 +689,10 @@ def _grid_worker(
     MIN_STEP = config.GRID_MIN_STEP_M
     ROTATE_EVERY = 20           # 이 워커가 처리한 포인트 수 기준 정기 교체 주기
     EMPTY_POLL_LIMIT = 5        # 빈 큐 polling을 이만큼 연속 실패하면 종료 판단
+    # 조기 종료: 연속 N cell 모두 신규=0이면 saturation 으로 보고 워크 종료.
+    # 0으로 두면 비활성. 큰 도시 dense grid (Bangkok 30km+500m) 에서 ~80~90% 데이터로
+    # 시간 단축. dental 같이 grid 중첩 많은 케이스에서 효과 큼.
+    SATURATION_ZERO_STREAK = int(os.environ.get("SATURATION_ZERO_STREAK", "500"))
 
     my_processed = 0
     my_zeros = 0
@@ -727,6 +731,8 @@ def _grid_worker(
         while True:
             # 작업 pop
             with state_lock:
+                if counters.get("saturated"):
+                    break
                 if work:
                     lat, lng, step = work.popleft()
                     counters["active"] += 1
@@ -775,6 +781,22 @@ def _grid_worker(
                     counters["processed"] += 1
                     counters["active"] -= 1
                     point_stats.append((n_total, new_count, n_dup))
+
+                    # Saturation: 연속 N cell 모두 신규=0이면 워크 종료
+                    if SATURATION_ZERO_STREAK > 0:
+                        if new_count == 0:
+                            counters["zero_streak"] = counters.get("zero_streak", 0) + 1
+                        else:
+                            counters["zero_streak"] = 0
+                        if (counters["zero_streak"] >= SATURATION_ZERO_STREAK
+                                and not counters.get("saturated")):
+                            counters["saturated"] = True
+                            work.clear()
+                            log.warning(
+                                f"[W{worker_id}] saturation: 마지막 "
+                                f"{counters['zero_streak']} cell 모두 신규=0 → 조기 종료 "
+                                f"(누적 {len(discovered)}개)"
+                            )
 
                     # 밀도 높으면 4분할 재큐잉
                     if new_count >= SUBDIVIDE_THRESHOLD and step // 2 >= MIN_STEP:
