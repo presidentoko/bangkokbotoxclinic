@@ -145,6 +145,22 @@ export async function getTotalProfileViews(clinicId: string): Promise<number> {
   return r ? parseInt(r, 10) || 0 : 0;
 }
 
+// ── Email weekly digest signups ─────────────────────────────────────────
+// Stored as LIST `email_signups` of JSON records {email, clinic_id, at}.
+// Capped at 5,000 entries via LTRIM to bound Redis usage.
+
+export type EmailSignup = { email: string; clinic_id: string; at: string };
+
+export async function addEmailSignup(email: string, clinicId: string): Promise<boolean> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return false;
+  const rec: EmailSignup = { email, clinic_id: clinicId, at: new Date().toISOString() };
+  await rpipeline([
+    ["LPUSH", "email_signups", JSON.stringify(rec)],
+    ["LTRIM", "email_signups", 0, 4999],
+  ]);
+  return true;
+}
+
 export const LEAD_STATUS_META: Record<LeadStatus, { label: string; color: string; bg: string }> = {
   new:       { label: "New",       color: "#2563eb", bg: "#dbeafe" },
   contacted: { label: "Contacted", color: "#7c3aed", bg: "#ede9fe" },

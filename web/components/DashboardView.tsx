@@ -2,7 +2,7 @@
 // B2B clinic dashboard — peeyai 패턴 referenced.
 // 클리닉 owner mode. Crisis alerts top → KPI bar → AI tools → competitors → insights.
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, type FormEvent } from "react";
 import type { Clinic, RatingTrend } from "@/lib/types";
 import { TOPIC_LABELS } from "@/lib/types";
 import { draftReplyStyled, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
@@ -56,6 +56,10 @@ const PRICE_LEAD_ROUTING_THB = 5000;     // CPL ฿50/lead 또는 flat (기존 /
 const PRICE_FEATURED_THB = 5000;         // Featured slot from (기존)
 const PRICE_KOREAN_SEO_THB = 4500;       // Korean/EN 콘텐츠 제작
 const PRICE_STRATEGY_CALL_THB = 2000;    // 월 1회 30분 컨설팅
+
+// 부정 리뷰 답글 게시 시 Trust Score 추정 delta. Google reply rate signal 기반 추정치
+// (Google이 공식 공식 미공개 — 보수적 0.3pt/답글).
+const REPLY_TRUST_DELTA = 0.3;
 
 // Review request 템플릿 — {clinic} 은 클리닉 이름으로 치환, {name}/[link]는 owner가 보낼 때 채움.
 const REVIEW_TEMPLATES: Record<"en" | "ko" | "th", { label: string; timing: string; body: string }[]> = {
@@ -128,6 +132,30 @@ export function DashboardView({
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [topicFilter, setTopicFilter] = useState<string | null>(null);
   const [reviewLang, setReviewLang] = useState<"ko" | "en" | "th">("en");
+  const [showSampleLead, setShowSampleLead] = useState(false);
+  const [digestEmail, setDigestEmail] = useState("");
+  const [digestStatus, setDigestStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
+
+  const submitDigestSignup = useCallback(async (e: FormEvent) => {
+    e.preventDefault();
+    if (digestStatus === "submitting" || digestStatus === "done") return;
+    const email = digestEmail.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      setDigestStatus("error");
+      return;
+    }
+    setDigestStatus("submitting");
+    try {
+      const res = await fetch("/api/email-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, clinic_id: c.id }),
+      });
+      setDigestStatus(res.ok ? "done" : "error");
+    } catch {
+      setDigestStatus("error");
+    }
+  }, [c.id, digestEmail, digestStatus]);
 
   // Persistent reply done set (synced with Redis)
   const [replyDoneSet, setReplyDoneSet] = useState<Set<string>>(() => new Set(replyDoneHashes));
@@ -324,7 +352,16 @@ export function DashboardView({
 
         {/* Top KPI bar — money metrics 강조 */}
         <section className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
-          <KPI label="Trust Score" value={String(c.trust_score)} sub={`${trustDelta} vs last week`} color={trustColor} clickable />
+          <KPI
+            label="Trust Score"
+            value={String(c.trust_score)}
+            sub={pendingReplies > 0
+              ? `+${(pendingReplies * REPLY_TRUST_DELTA).toFixed(1)} projected if you reply`
+              : `${trustDelta} vs last week`}
+            color={trustColor}
+            clickable
+            href={pendingReplies > 0 ? "#crisis" : undefined}
+          />
           <KPI label="Profile views (30d)" value={profileViewsByDay.reduce((s, d) => s + d.count, 0).toLocaleString()} sub={`${profileViewsTotal.toLocaleString()} all-time`} color="#6366f1" clickable href="#views" />
           <KPI label="Pending replies" value={String(pendingReplies)} sub={pendingReplies > 0 ? "Action needed ↓" : "All clear"} color={pendingReplies > 0 ? "#ef4444" : "#10b981"} clickable warning={pendingReplies > 0} href="#crisis" />
           <KPI
@@ -416,19 +453,50 @@ export function DashboardView({
                 <h2 className="text-xl font-black tracking-tight flex items-center gap-2">
                   <span className="text-red-600">🚨</span>
                   Crisis alerts
-                  <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-red-100 text-red-700">
-                    {negatives.length} need action
-                  </span>
+                  {pendingReplies > 0 ? (
+                    <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-red-100 text-red-700">
+                      {pendingReplies} need action
+                    </span>
+                  ) : (
+                    <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                      All handled ✓
+                    </span>
+                  )}
                 </h2>
                 <p className="text-xs text-[var(--muted)] mt-1">
                   Unanswered negative reviews drop your Trust Score. Reply within 48h with AI-drafted response.
                 </p>
               </div>
-              <button
-                onClick={() => document.querySelectorAll<HTMLDetailsElement>(".crisis-detail").forEach(d => { d.open = true; })}
-                className="text-xs font-bold px-3 py-2 rounded-lg text-white print:hidden" style={{ background: "#ef4444" }}>
-                ✨ Generate all replies
-              </button>
+              {pendingReplies > 0 && (
+                <button
+                  onClick={() => document.querySelectorAll<HTMLDetailsElement>(".crisis-detail").forEach(d => { d.open = true; })}
+                  className="text-xs font-bold px-3 py-2 rounded-lg text-white print:hidden" style={{ background: "#ef4444" }}>
+                  ✨ Generate all replies
+                </button>
+              )}
+            </div>
+
+            {/* Progress + projected Trust delta */}
+            <div className="mb-4 bg-white rounded-xl border border-[var(--border)] p-4">
+              <div className="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
+                <div className="text-sm font-bold">
+                  Progress: <span className="tabular-nums">{negatives.length - pendingReplies}</span> of <span className="tabular-nums">{negatives.length}</span> resolved
+                </div>
+                <div className="text-xs text-[var(--muted)]">
+                  {pendingReplies > 0
+                    ? <>Projected <strong className="text-emerald-700">Trust +{(pendingReplies * REPLY_TRUST_DELTA).toFixed(1)}</strong> when you finish remaining</>
+                    : <span className="text-emerald-700 font-bold">+{(negatives.length * REPLY_TRUST_DELTA).toFixed(1)} captured ✓</span>}
+                </div>
+              </div>
+              <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full transition-all"
+                  style={{
+                    width: `${Math.round(((negatives.length - pendingReplies) / negatives.length) * 100)}%`,
+                    background: "linear-gradient(90deg, #ef4444 0%, #10b981 100%)",
+                  }}
+                />
+              </div>
             </div>
             <div className="space-y-3">
               {negatives.map((rev, i) => {
@@ -511,13 +579,121 @@ export function DashboardView({
           </section>
         )}
 
+        {/* Quick-win checklist — real numbers, actionable per clinic state */}
+        {(() => {
+          const reviewMilestone = (Math.floor(c.total_reviews / 50) + 1) * 50;
+          const reviewsToTarget = reviewMilestone - c.total_reviews;
+          const lgRatio = c.scraped_review_count > 0 ? c.local_guide_count / c.scraped_review_count : 0;
+          const wins: { id: string; title: string; current: number; target: number; unit: string; sub: string; href?: string; done?: boolean }[] = [];
+          if (negatives.length > 0) {
+            wins.push({
+              id: "reply",
+              title: "Reply to pending negative reviews",
+              current: negatives.length - pendingReplies,
+              target: negatives.length,
+              unit: "replied",
+              sub: pendingReplies === 0
+                ? `All ${negatives.length} handled — Trust +${(negatives.length * REPLY_TRUST_DELTA).toFixed(1)} captured`
+                : `${pendingReplies} remaining · projected Trust +${(pendingReplies * REPLY_TRUST_DELTA).toFixed(1)}`,
+              href: "#crisis",
+              done: pendingReplies === 0,
+            });
+          }
+          if (c.total_reviews < 5000) {
+            wins.push({
+              id: "reviews",
+              title: `Get to ${reviewMilestone.toLocaleString()} total reviews`,
+              current: c.total_reviews,
+              target: reviewMilestone,
+              unit: "reviews",
+              sub: `${reviewsToTarget} more this month — copy our request templates ↓`,
+              href: "#review-requests",
+              done: false,
+            });
+          }
+          if (c.rating < 4.5) {
+            wins.push({
+              id: "rating",
+              title: "Improve average rating to 4.5★",
+              current: Math.round(c.rating * 10),
+              target: 45,
+              unit: "(rating × 10)",
+              sub: `Currently ★${c.rating.toFixed(1)} — every new 5★ review pulls the average up`,
+              done: false,
+            });
+          }
+          if (lgRatio < 0.10 && c.scraped_review_count >= 10) {
+            wins.push({
+              id: "lg",
+              title: "Get more Local Guide reviewers",
+              current: c.local_guide_count,
+              target: Math.max(c.local_guide_count + 5, Math.ceil(c.scraped_review_count * 0.1)),
+              unit: "Local Guides",
+              sub: `Currently ${(lgRatio * 100).toFixed(0)}% — Google weights LG reviews higher. Ask power-reviewer patients.`,
+              done: false,
+            });
+          }
+          if (wins.length === 0) return null;
+          return (
+            <section className="mb-6">
+              <Card accent="#10b981">
+                <div className="flex items-baseline justify-between gap-3 mb-1 flex-wrap">
+                  <h2 className="text-lg font-bold flex items-center gap-2">
+                    <span>🎯</span> Quick wins this month
+                    <span className="text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
+                      {wins.filter((w) => !w.done).length} open
+                    </span>
+                  </h2>
+                </div>
+                <p className="text-xs text-[var(--muted)] mb-4">
+                  Actions ranked by impact, with real numbers from your data. Click to jump to the section.
+                </p>
+                <ol className="space-y-3">
+                  {wins.map((w, i) => {
+                    const pct = Math.min(100, Math.round((w.current / w.target) * 100));
+                    return (
+                      <li key={w.id} className={`border border-[var(--border)] rounded-lg p-3 ${w.done ? "opacity-60" : ""}`}>
+                        <div className="flex items-baseline justify-between gap-3 mb-1.5 flex-wrap">
+                          <div className="text-sm font-bold flex items-center gap-2">
+                            <span className="text-xs font-black tabular-nums w-5 h-5 rounded-full inline-flex items-center justify-center bg-emerald-100 text-emerald-700">
+                              {w.done ? "✓" : i + 1}
+                            </span>
+                            {w.href ? (
+                              <a href={w.href} className="hover:underline">{w.title}</a>
+                            ) : (
+                              <span>{w.title}</span>
+                            )}
+                          </div>
+                          <div className="text-xs tabular-nums text-[var(--muted)]">
+                            <strong className="text-[var(--fg)]">{w.current.toLocaleString()}</strong> / {w.target.toLocaleString()} {w.unit}
+                          </div>
+                        </div>
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden mb-1.5">
+                          <div className="h-full bg-emerald-500 transition-all" style={{ width: `${pct}%` }} />
+                        </div>
+                        <div className="text-xs text-[var(--muted)]">{w.sub}</div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </Card>
+            </section>
+          );
+        })()}
+
         {/* Performance Overview (Trust Score breakdown + Rating trajectory) */}
         <div className="space-y-6 mb-6">
             <Card>
               <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
                 <div>
                   <h2 className="text-lg font-bold">Trust Score breakdown</h2>
-                  <p className="text-xs text-[var(--muted)]">Pull each lever to improve. Hover for tips.</p>
+                  <p className="text-xs text-[var(--muted)]">
+                    Pull each lever to improve. Hover for tips.
+                    {" "}
+                    <a href="/about/trust-score" target="_blank" rel="noopener" className="text-blue-600 hover:underline">
+                      How is this computed? →
+                    </a>
+                  </p>
                 </div>
                 <div
                   className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
@@ -570,6 +746,74 @@ export function DashboardView({
               <RatingTrendChart trend={c.rating_trend} />
             </Card>
         </div>
+
+        {/* Beat competitor #1 — challenge widget */}
+        {(() => {
+          const topComp = competitors.find((x) => x.id !== c.id && x.trust_score > c.trust_score);
+          if (!topComp) return null;
+          const ratingGap = topComp.rating - c.rating;
+          const myVolumeLever = Math.min(40, Math.round(Math.log10(Math.max(1, c.total_reviews)) * 12));
+          const compVolumeLever = Math.min(40, Math.round(Math.log10(Math.max(1, topComp.total_reviews)) * 12));
+          const reviewsNeeded = compVolumeLever > myVolumeLever
+            ? Math.ceil(Math.pow(10, compVolumeLever / 12) - c.total_reviews)
+            : 0;
+          const trustGap = topComp.trust_score - c.trust_score;
+          return (
+            <section className="mb-6">
+              <div className="rounded-2xl p-5 text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)" }}>
+                <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-widest opacity-80">🥇 Beat your #1 competitor</div>
+                    <h2 className="text-xl md:text-2xl font-black tracking-tight mt-1">
+                      {topComp.name}
+                    </h2>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs opacity-80">Trust gap</div>
+                    <div className="text-3xl font-black tabular-nums">+{trustGap}</div>
+                  </div>
+                </div>
+                <p className="text-sm opacity-90 mb-3">
+                  To surpass them, pick the faster path:
+                </p>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="bg-white/15 backdrop-blur rounded-lg p-3">
+                    <div className="text-[10px] uppercase tracking-widest opacity-80 mb-1 font-bold">Path 1 — rating</div>
+                    {ratingGap > 0 ? (
+                      <>
+                        <div className="text-xl font-black">★{topComp.rating.toFixed(1)} <span className="text-sm font-normal opacity-80">(+{ratingGap.toFixed(1)})</span></div>
+                        <div className="text-xs opacity-85 mt-1">Each new 5★ pulls your avg up. Reply to negatives to convert detractors.</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-xl font-black">★{c.rating.toFixed(1)} <span className="text-sm font-normal opacity-80">(match)</span></div>
+                        <div className="text-xs opacity-85 mt-1">Rating already matches — focus on Path 2.</div>
+                      </>
+                    )}
+                  </div>
+                  <div className="bg-white/15 backdrop-blur rounded-lg p-3">
+                    <div className="text-[10px] uppercase tracking-widest opacity-80 mb-1 font-bold">Path 2 — review volume</div>
+                    {reviewsNeeded > 0 ? (
+                      <>
+                        <div className="text-xl font-black tabular-nums">+{reviewsNeeded.toLocaleString()}</div>
+                        <div className="text-xs opacity-85 mt-1">Reviews needed to match their volume lever. Use the templates below.</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-xl font-black">match ✓</div>
+                        <div className="text-xs opacity-85 mt-1">Volume already matches — focus on Path 1.</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-4 pt-3 border-t border-white/20 flex items-center justify-between gap-3 flex-wrap text-xs">
+                  <span className="opacity-90">Updated as their data changes — track weekly.</span>
+                  <a href="#review-requests" className="font-bold underline">Get review templates ↓</a>
+                </div>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* Competitors */}
         <section className="mb-6">
@@ -810,17 +1054,54 @@ export function DashboardView({
             </div>
 
             {recentLeads.length === 0 ? (
-              <div className="bg-gray-50 border-2 border-dashed border-[var(--border)] rounded-xl p-8 text-center">
-                <div className="text-4xl mb-2 opacity-40">📭</div>
-                <p className="text-sm font-bold text-[var(--fg)]">No leads yet</p>
-                <p className="text-xs text-[var(--muted)] mt-1 max-w-md mx-auto">
-                  Your /clinic/{c.id.slice(0, 12)}… page is indexed and accepting form submissions. Leads will appear here in real-time.
-                </p>
-                <div className="mt-4 grid sm:grid-cols-3 gap-2 max-w-md mx-auto text-xs">
-                  <Stat tiny label="Page indexed" value="✓" />
-                  <Stat tiny label="Form active" value="✓" />
-                  <Stat tiny label="Notify channel" value={isPartner ? "✓" : "—"} />
+              <div className="bg-gray-50 border-2 border-dashed border-[var(--border)] rounded-xl p-6">
+                <div className="text-center">
+                  <div className="text-4xl mb-2 opacity-40">📭</div>
+                  <p className="text-sm font-bold text-[var(--fg)]">No leads yet</p>
+                  <p className="text-xs text-[var(--muted)] mt-1 max-w-md mx-auto">
+                    Your /clinic/{c.id.slice(0, 12)}… page is indexed and accepting form submissions. Leads will appear here in real-time.
+                  </p>
+                  <div className="mt-4 grid sm:grid-cols-3 gap-2 max-w-md mx-auto text-xs">
+                    <Stat tiny label="Page indexed" value="✓" />
+                    <Stat tiny label="Form active" value="✓" />
+                    <Stat tiny label="Notify channel" value={isPartner ? "✓" : "—"} />
+                  </div>
+                  <button
+                    onClick={() => setShowSampleLead((v) => !v)}
+                    className="mt-5 text-xs font-bold px-3 py-2 rounded-lg bg-white border border-[var(--border)] hover:bg-gray-50"
+                  >
+                    {showSampleLead ? "✕ Hide sample" : "👁 Preview a sample lead"}
+                  </button>
                 </div>
+                {showSampleLead && (
+                  <div className="mt-5 pt-5 border-t border-[var(--border)]">
+                    <div className="text-xs text-[var(--muted)] mb-2 text-center">
+                      🧪 <strong>This is a sample</strong> — actual leads will look like this in your dashboard.
+                    </div>
+                    <LeadCard
+                      lead={{
+                        id: "sample-001",
+                        clinic_id: c.id,
+                        clinic_name: c.name,
+                        name: "Suchada P.",
+                        email: "suchada.p@example.com",
+                        phone: "+66 81 234 5678",
+                        service: c.categories[0] || "Botox",
+                        date: new Date(Date.now() + 3 * 24 * 3600 * 1000).toISOString().slice(0, 10),
+                        time_slot: "Afternoon",
+                        notes: "First-time visit. Found you via 'best Botox Bangkok' search.",
+                        context: "/clinic/" + c.id.slice(0, 8),
+                        ua: "Mozilla/5.0",
+                        ref: "google",
+                        at: new Date(Date.now() - 1800 * 1000).toISOString(),
+                      }}
+                      status="new"
+                      note=""
+                      onStatusChange={() => {}}
+                      onNoteChange={() => {}}
+                    />
+                  </div>
+                )}
               </div>
             ) : (
               <div className="space-y-3">
@@ -844,6 +1125,52 @@ export function DashboardView({
             )}
           </Card>
         </section>
+
+        {/* Email weekly digest signup — lead capture for non-partners */}
+        {!isPartner && (
+          <section className="mb-6">
+            <Card accent="#6366f1">
+              <div className="grid md:grid-cols-[1fr_auto] gap-4 items-center">
+                <div>
+                  <h2 className="text-lg font-bold flex items-center gap-2 mb-1">
+                    <span>📧</span> Email me when this changes
+                  </h2>
+                  <p className="text-sm text-[var(--muted)] leading-relaxed">
+                    Get a weekly summary every Monday — new reviews, Trust Score moves, and competitor changes.
+                    No spam, no payment, unsubscribe anytime.
+                  </p>
+                </div>
+                {digestStatus === "done" ? (
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3 text-sm font-bold text-emerald-700">
+                    ✓ Subscribed — first digest arrives next Monday.
+                  </div>
+                ) : (
+                  <form onSubmit={submitDigestSignup} className="flex gap-2 flex-wrap">
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@clinic.com"
+                      value={digestEmail}
+                      onChange={(e) => { setDigestEmail(e.target.value); if (digestStatus === "error") setDigestStatus("idle"); }}
+                      className="px-3 py-2 rounded-lg border border-[var(--border)] text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 min-w-[200px]"
+                    />
+                    <button
+                      type="submit"
+                      disabled={digestStatus === "submitting"}
+                      className="text-sm font-bold px-4 py-2 rounded-lg text-white disabled:opacity-50"
+                      style={{ background: "#6366f1" }}
+                    >
+                      {digestStatus === "submitting" ? "..." : "Subscribe"}
+                    </button>
+                  </form>
+                )}
+              </div>
+              {digestStatus === "error" && (
+                <p className="text-xs text-red-600 mt-2">Couldn&apos;t subscribe — please check the email and try again.</p>
+              )}
+            </Card>
+          </section>
+        )}
 
         {/* Upsell footer — partner: subscription mgmt / non-partner: service unbundle */}
         <section className="mb-6">
