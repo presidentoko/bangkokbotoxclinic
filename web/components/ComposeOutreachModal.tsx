@@ -38,11 +38,22 @@ export function ComposeOutreachModal({
   const [template, setTemplate] = useState<TemplateId>("T1");
   const [lang, setLang] = useState<Lang>("en");
   const [channel, setChannel] = useState<Channel>("LINE");
-  const [staff, setStaff] = useState(defaultStaff ?? "");
+  const [staff, setStaff] = useState(() => {
+    if (defaultStaff) return defaultStaff;
+    if (typeof window === "undefined") return "";
+    return localStorage.getItem("outreach_staff_name") ?? "";
+  });
   const [text, setText] = useState("");
   const [edited, setEdited] = useState(false);
   const [copied, setCopied] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  // Persist staff name across modal opens
+  useEffect(() => {
+    if (staff && typeof window !== "undefined") {
+      localStorage.setItem("outreach_staff_name", staff);
+    }
+  }, [staff]);
 
   // Fetch clinic data on mount
   useEffect(() => {

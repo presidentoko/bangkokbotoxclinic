@@ -1339,8 +1339,20 @@ function BigStat({ label, value, hint, color }: { label: string; value: string; 
 
 // ─── Outreach Tab — Cold sales CRM ──────────────────────────────────────────
 
+type EnrichedClinicCtx = {
+  trust_score: number;
+  district: string;
+  rating: number;
+  total_reviews: number;
+  unanswered_neg_reviews: number;
+  rank_district: number;
+  district_total: number;
+};
+
+type EnrichedOutreachRecord = OutreachRecord & { enriched: EnrichedClinicCtx | null };
+
 function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
-  const [records, setRecords] = useState<OutreachRecord[]>([]);
+  const [records, setRecords] = useState<EnrichedOutreachRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
   const [filter, setFilter] = useState<"all" | "active" | "dead" | OutreachOutcome>("active");
@@ -1352,7 +1364,7 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
     const res = await fetch("/api/admin/outreach", { cache: "no-store" });
     setLoading(false);
     if (!res.ok) return;
-    const j = (await res.json()) as { records: OutreachRecord[] };
+    const j = (await res.json()) as { records: EnrichedOutreachRecord[] };
     setRecords(j.records);
   }
 
@@ -1402,6 +1414,19 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
     return { total, signed, replied, active, handoff };
   }, [records]);
 
+  const REPLY_OUTCOMES = ["REPLIED_EN", "HANDOFF_TO_THAI_TEAM", "MEETING_SCHEDULED", "SIGNED", "dead_not_interested", "ghosted"];
+  const templateStats = useMemo(() => {
+    const groups: Record<string, { sent: number; replied: number; signed: number }> = {};
+    for (const r of records) {
+      const g = groups[r.template] ?? { sent: 0, replied: 0, signed: 0 };
+      g.sent += 1;
+      if (REPLY_OUTCOMES.includes(r.outcome)) g.replied += 1;
+      if (r.outcome === "SIGNED") g.signed += 1;
+      groups[r.template] = g;
+    }
+    return groups;
+  }, [records]);
+
   return (
     <div className="space-y-5">
       {/* Stats bar */}
@@ -1412,6 +1437,55 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
         <BigStat label="Handoffs to Thai" value={stats.handoff.toString()} color="text-amber-400" />
         <BigStat label="✓ Signed" value={stats.signed.toString()} color="text-green-400" hint={stats.total > 0 ? `${Math.round(stats.signed / stats.total * 100)}% close rate` : "—"} />
       </div>
+
+      {/* Template performance — which message gets best reply / close rate */}
+      {Object.keys(templateStats).length > 0 && (
+        <details className="bg-gray-900 border border-gray-800 rounded-xl">
+          <summary className="cursor-pointer px-4 py-3 text-sm font-bold text-gray-300 hover:text-gray-100 flex items-center justify-between">
+            <span>📊 Template performance — which one is winning?</span>
+            <span className="text-xs text-gray-500">click to expand</span>
+          </summary>
+          <div className="px-4 pb-4">
+            <table className="w-full text-xs">
+              <thead className="text-gray-600">
+                <tr>
+                  <th className="text-left p-1.5">Template</th>
+                  <th className="text-right p-1.5">Sent</th>
+                  <th className="text-right p-1.5">Replied</th>
+                  <th className="text-right p-1.5">Reply rate</th>
+                  <th className="text-right p-1.5">Signed</th>
+                  <th className="text-right p-1.5">Close rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(["T1", "T2", "T3", "T4", "T5"] as const).map((id) => {
+                  const g = templateStats[id];
+                  if (!g) return null;
+                  const replyPct = g.sent > 0 ? Math.round((g.replied / g.sent) * 100) : 0;
+                  const closePct = g.sent > 0 ? Math.round((g.signed / g.sent) * 100) : 0;
+                  return (
+                    <tr key={id} className="border-t border-gray-800">
+                      <td className="p-1.5 text-gray-200 font-mono">{id}</td>
+                      <td className="p-1.5 text-right text-gray-300 tabular-nums">{g.sent}</td>
+                      <td className="p-1.5 text-right text-blue-300 tabular-nums">{g.replied}</td>
+                      <td className={`p-1.5 text-right tabular-nums font-bold ${replyPct >= 30 ? "text-emerald-400" : replyPct >= 15 ? "text-amber-300" : "text-gray-500"}`}>
+                        {g.sent > 0 ? `${replyPct}%` : "—"}
+                      </td>
+                      <td className="p-1.5 text-right text-green-300 tabular-nums">{g.signed}</td>
+                      <td className={`p-1.5 text-right tabular-nums font-bold ${closePct >= 10 ? "text-emerald-400" : closePct >= 3 ? "text-amber-300" : "text-gray-500"}`}>
+                        {g.sent > 0 ? `${closePct}%` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <p className="text-[10px] text-gray-600 mt-2">
+              Reply ≥ 30% = green, 15-30% = amber. Close ≥ 10% = green, 3-10% = amber. Use the winning template more.
+            </p>
+          </div>
+        </details>
+      )}
 
       {/* Controls */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -1467,6 +1541,23 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
                     <span className="font-semibold text-gray-100 truncate">{r.clinic_name}</span>
                     <span className="text-[10px] text-gray-500 font-mono">{r.template}</span>
                     <span className="text-[10px] text-gray-500">{r.channel}</span>
+                    {r.enriched && (
+                      <>
+                        <span className={`text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded ${r.enriched.trust_score >= 75 ? "bg-emerald-900/40 text-emerald-300" : r.enriched.trust_score >= 50 ? "bg-amber-900/40 text-amber-300" : "bg-gray-800 text-gray-500"}`}>
+                          Trust {r.enriched.trust_score}
+                        </span>
+                        {r.enriched.rank_district > 0 && (
+                          <span className="text-[10px] text-gray-500 tabular-nums">
+                            #{r.enriched.rank_district}/{r.enriched.district_total} in {r.enriched.district || "area"}
+                          </span>
+                        )}
+                        {r.enriched.unanswered_neg_reviews >= 3 && (
+                          <span className="text-[10px] font-bold tabular-nums px-1.5 py-0.5 rounded bg-red-900/40 text-red-300">
+                            🚨 {r.enriched.unanswered_neg_reviews} unanswered negs
+                          </span>
+                        )}
+                      </>
+                    )}
                   </div>
                   <div className="text-xs text-gray-500 flex flex-wrap gap-3">
                     <span>Sent {r.sent_at.slice(0, 10)}</span>
@@ -1548,12 +1639,20 @@ function OutreachLogForm({
 }) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<ClinicName | null>(null);
-  const [staff, setStaff] = useState("");
+  const [staff, setStaff] = useState(() =>
+    typeof window === "undefined" ? "" : localStorage.getItem("outreach_staff_name") ?? ""
+  );
   const [channel, setChannel] = useState<OutreachRecord["channel"]>("LINE");
   const [template, setTemplate] = useState<OutreachRecord["template"]>("T1");
   const [outcome, setOutcome] = useState<OutreachOutcome>("sent");
   const [note, setNote] = useState("");
   const [nextAction, setNextAction] = useState("Follow up in 3 days");
+
+  useEffect(() => {
+    if (staff && typeof window !== "undefined") {
+      localStorage.setItem("outreach_staff_name", staff);
+    }
+  }, [staff]);
 
   const filtered = useMemo(() => {
     if (!search.trim() || selected) return [];
