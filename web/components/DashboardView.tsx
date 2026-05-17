@@ -172,11 +172,8 @@ export function DashboardView({
   ).slice(0, topicFilter ? 10 : 3);
   const negatives = c.sample_reviews_negative ?? [];
 
-  // Mock metrics where real data not yet available (clinic doesn't have unanswered count
-  // since we don't track Google replies). These are PLAUSIBLE estimates for demo.
-  const recentReviewCount = c.rating_trend.recent.count;
-  const pendingReplies = negatives.length;
-  const repliedPct = pendingReplies > 0 ? Math.max(20, 100 - pendingReplies * 25) : 92;
+  // pendingReplies = 미해결로 마크된 부정 리뷰 수 (replyDoneSet 반영, 라이브 업데이트)
+  const pendingReplies = negatives.filter((rev) => !replyDoneSet.has(reviewHash(rev.text))).length;
   const trustDelta = trend === "improving" ? "+2.4" : trend === "declining" ? "−1.8" : "+0.3";
 
   return (
@@ -193,19 +190,13 @@ export function DashboardView({
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
           <div>
             <div className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
-              Owner mode · Last refresh {new Date().getMinutes() % 30 + 1}m ago
+              Owner mode · Refreshed daily from public Google data
             </div>
             <div className="text-base font-bold truncate max-w-md">{c.name}</div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <button onClick={handlePrint} className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden">
-              📊 Export weekly PDF
-            </button>
-            <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden">
-              ⚙️ Settings
-            </button>
-            <button className="text-xs font-bold px-3 py-2 rounded-lg text-white" style={{ background: "#7c3aed" }}>
-              ⚡ Upgrade plan
+              📊 Export PDF
             </button>
           </div>
         </div>
@@ -263,9 +254,23 @@ export function DashboardView({
           <KPI label="Trust Score" value={String(c.trust_score)} sub={`${trustDelta} vs last week`} color={trustColor} clickable />
           <KPI label="Profile views (30d)" value={profileViewsByDay.reduce((s, d) => s + d.count, 0).toLocaleString()} sub={`${profileViewsTotal.toLocaleString()} all-time`} color="#6366f1" clickable href="#views" />
           <KPI label="Pending replies" value={String(pendingReplies)} sub={pendingReplies > 0 ? "Action needed ↓" : "All clear"} color={pendingReplies > 0 ? "#ef4444" : "#10b981"} clickable warning={pendingReplies > 0} href="#crisis" />
-          <KPI label="Leads this month" value={String(leadsThisMonth)} sub={`${totalLeads.toLocaleString()} all-time`} color="#0891b2" clickable href="#leads" />
-          <KPI label="Revenue attributed" value={`฿${(revenueAttributedThb / 1000).toFixed(0)}K`} sub={`${projectedCloses} projected closes`} color="#10b981" clickable href="#roi" />
-          <KPI label="ROI multiplier" value={`${roiMultiplier.toFixed(1)}x`} sub={`vs ฿${(DASHBOARD_FEE_THB / 1000).toFixed(0)}K dashboard fee`} color="#7c3aed" clickable href="#roi" />
+          <KPI
+            label={isPartner ? "Leads this month" : "Projected leads/mo"}
+            value={String(roiLeads)}
+            sub={isPartner ? `${totalLeads.toLocaleString()} all-time` : "if you join lead routing"}
+            color="#0891b2"
+            clickable
+            href={isPartner ? "#leads" : "#roi"}
+          />
+          <KPI
+            label={isPartner ? "Revenue attributed" : "Projected revenue"}
+            value={`฿${(revenueAttributedThb / 1000).toFixed(0)}K`}
+            sub={`${projectedCloses} projected closes`}
+            color="#10b981"
+            clickable
+            href="#roi"
+          />
+          <KPI label="ROI multiplier" value={`${roiMultiplier.toFixed(1)}x`} sub={`vs ฿${(DASHBOARD_FEE_THB / 1000).toFixed(0)}K service fee`} color="#7c3aed" clickable href="#roi" />
         </section>
 
         {/* Profile views chart */}
@@ -433,10 +438,8 @@ export function DashboardView({
           </section>
         )}
 
-        {/* 2-col main grid */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-6">
-          {/* Left: Performance Overview (Trust Score breakdown + chart placeholder) */}
-          <div className="lg:col-span-2 space-y-6">
+        {/* Performance Overview (Trust Score breakdown + Rating trajectory) */}
+        <div className="space-y-6 mb-6">
             <Card>
               <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
                 <div>
@@ -480,14 +483,6 @@ export function DashboardView({
                   accent="#f59e0b"
                 />
               </div>
-              <div className="mt-5 pt-4 border-t border-[var(--border)] flex items-center justify-between gap-3 flex-wrap">
-                <div className="text-xs text-[var(--muted)]">
-                  AI Forecast: <strong className="text-[var(--fg)]">+2.1 Trust</strong> if you get 12 new positive reviews this month
-                </div>
-                <button className="text-xs font-bold px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100">
-                  📈 See full forecast
-                </button>
-              </div>
             </Card>
 
             {/* 30-day rating trajectory — real data */}
@@ -501,39 +496,6 @@ export function DashboardView({
               </div>
               <RatingTrendChart trend={c.rating_trend} />
             </Card>
-          </div>
-
-          {/* Right: Quick Actions sidebar */}
-          <div className="space-y-4">
-            <Card>
-              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
-                <span>⚡</span> Quick actions
-              </h3>
-              <div className="space-y-2">
-                <ActionRow icon="💬" label="Reply queue" count={pendingReplies} accent="#ef4444" />
-                <ActionRow icon="🔗" label="Wire LINE webhook" subtle="for leads" accent="#10b981" />
-                <ActionRow icon="📅" label="Schedule monthly audit" subtle="next: 1st" />
-                <ActionRow icon="⭐" label="Featured slot priority" subtle="—" lock />
-                <ActionRow icon="📤" label="Export reviews CSV" subtle="last 200" />
-                <ActionRow icon="📧" label="Email weekly digest" subtle="Mon 9am" />
-              </div>
-            </Card>
-
-            <Card accent="#7c3aed">
-              <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#7c3aed" }}>
-                💡 AI insight
-              </div>
-              <p className="text-sm font-bold mb-1">3 actions to add +5 Trust</p>
-              <ol className="text-xs text-[var(--muted)] space-y-1 pl-4 list-decimal">
-                <li>Reply to {pendingReplies} pending negative reviews (+1.2)</li>
-                <li>Encourage 8 patients to leave Google reviews (+2.1)</li>
-                <li>Add 3 service tags missing on Google profile (+1.7)</li>
-              </ol>
-              <button className="mt-3 text-xs font-bold px-3 py-2 rounded-lg w-full text-white" style={{ background: "#7c3aed" }}>
-                Execute action plan →
-              </button>
-            </Card>
-          </div>
         </div>
 
         {/* Competitors */}
@@ -544,9 +506,6 @@ export function DashboardView({
                 <h2 className="text-lg font-bold">Competitor analysis · 1km radius</h2>
                 <p className="text-xs text-[var(--muted)]">Same category + district. Your position highlighted.</p>
               </div>
-              <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-                🔍 View detail report
-              </button>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -589,7 +548,7 @@ export function DashboardView({
               </table>
             </div>
             <p className="text-xs text-[var(--muted)] mt-3">
-              You rank <strong>#{myRank}</strong> of {competitors.length} in {c.district || c.city_label || "your area"} · {cityClinicCount.toLocaleString()} clinics in city · Reply rate <strong>{repliedPct}% vs competitor avg 38%</strong>
+              You rank <strong>#{myRank}</strong> of {competitors.length} in {c.district || c.city_label || "your area"} · {cityClinicCount.toLocaleString()} clinics in city
             </p>
           </Card>
         </section>
@@ -681,37 +640,6 @@ export function DashboardView({
             </Card>
           )}
         </div>
-
-        {/* AEO Citation Tracker */}
-        <section className="mb-6">
-          <Card>
-            <div className="flex items-baseline justify-between gap-4 mb-1 flex-wrap">
-              <div>
-                <h2 className="text-lg font-bold flex items-center gap-2">
-                  <span>🤖</span> AEO citation tracker
-                  <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-amber-100 text-amber-800">
-                    Coming Q3 · Premium
-                  </span>
-                </h2>
-                <p className="text-xs text-[var(--muted)] mt-1">
-                  How often LLM answers (ChatGPT, Perplexity, Claude, Google AI Overview) cite your clinic. New SEO frontier.
-                </p>
-              </div>
-              <button className="text-xs font-bold px-3 py-2 rounded-lg text-white" style={{ background: "#92400e" }}>
-                🔔 Notify when ready
-              </button>
-            </div>
-            <div className="grid sm:grid-cols-4 gap-3 mt-4">
-              <AeoCard platform="Perplexity" />
-              <AeoCard platform="ChatGPT" />
-              <AeoCard platform="Google AI" />
-              <AeoCard platform="Claude" />
-            </div>
-            <p className="text-xs text-[var(--muted)] mt-4">
-              Our llms.txt + structured data already make your clinic LLM-citable. Tracker launches when traffic baseline established (~4-6 weeks after Google indexing). Premium subscribers get weekly breakdown by query intent + competitor share.
-            </p>
-          </Card>
-        </section>
 
         {/* Lead inflow */}
         <section id="leads" className="mb-6">
@@ -814,8 +742,8 @@ export function DashboardView({
                   <div className="text-xs opacity-85">Top placement in /clinic search for your category + district.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="font-bold mb-0.5">🤖 AEO citation tracker <span className="text-xs opacity-70">(Q3)</span></div>
-                  <div className="text-xs opacity-85">Monitor LLM mentions: ChatGPT, Perplexity, Claude, Google AI.</div>
+                  <div className="font-bold mb-0.5">🌐 Korean / EN SEO</div>
+                  <div className="text-xs opacity-85">Localized content + reviews — capture medical tourism search.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
                   <div className="font-bold mb-0.5">📞 Monthly strategy call</div>
@@ -897,53 +825,12 @@ function ScoreLever({ label, value, max, hint, accent }: {
   );
 }
 
-function Tab({ children, active }: { children: React.ReactNode; active?: boolean }) {
-  return (
-    <button
-      className={`px-2 py-1 rounded text-xs font-bold ${active ? "bg-gray-100 text-[var(--fg)]" : "text-[var(--muted)] hover:bg-gray-50"}`}
-    >
-      {children}
-    </button>
-  );
-}
-
 function Stat({ label, value, count, tiny }: { label: string; value: string; count?: number; tiny?: boolean }) {
   return (
     <div className={tiny ? "" : "bg-white rounded-lg p-3"}>
       <div className="text-[10px] uppercase tracking-widest text-[var(--muted)]">{label}</div>
       <div className="text-lg font-black tabular-nums">{value}</div>
       {count !== undefined && <div className="text-[10px] text-[var(--muted)]">{count} reviews</div>}
-    </div>
-  );
-}
-
-function ActionRow({ icon, label, subtle, count, accent, lock }: {
-  icon: string; label: string; subtle?: string; count?: number; accent?: string; lock?: boolean;
-}) {
-  return (
-    <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition text-left">
-      <span className="text-lg">{icon}</span>
-      <span className="flex-1 text-sm font-medium truncate flex items-center gap-2">
-        {label}
-        {lock && <span className="text-xs text-amber-600">🔒</span>}
-      </span>
-      {count !== undefined && count > 0 && (
-        <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white tabular-nums" style={{ background: accent || "var(--accent)" }}>
-          {count}
-        </span>
-      )}
-      {subtle && <span className="text-xs text-[var(--muted)]">{subtle}</span>}
-    </button>
-  );
-}
-
-function AeoCard({ platform }: { platform: string }) {
-  return (
-    <div className="border-2 border-dashed border-[var(--border)] rounded-xl p-4 text-center">
-      <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-2 font-bold">{platform}</div>
-      <div className="text-3xl font-black tabular-nums text-[var(--muted)]">—</div>
-      <div className="text-[10px] text-[var(--muted)] mt-1">citations</div>
-      <button className="mt-3 text-[10px] font-bold px-2 py-1 rounded bg-amber-50 text-amber-800">Track →</button>
     </div>
   );
 }
