@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
@@ -74,11 +75,18 @@ export default async function BestForPage(
               ))}
             </div>
             <AffiliateInline />
-            <div className="grid gap-3 mt-3">
-              {filtered.slice(10).map((c, i) => (
-                <ClinicCard key={c.id} clinic={c} rank={i + 11} />
-              ))}
-            </div>
+            {filtered.length > 10 && (
+              <div className="mt-8">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">
+                  #11 – #{filtered.length} · runner-up rankings
+                </h3>
+                <div className="grid gap-1.5">
+                  {filtered.slice(10).map((c, i) => (
+                    <ClinicCardCompact key={c.id} clinic={c} rank={i + 11} />
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
 
           <div className="my-8">

@@ -1,5 +1,6 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS, CATEGORY_FAQS } from "@/lib/faq";
@@ -361,11 +362,23 @@ export default async function HomePage() {
 
           <AffiliateInline />
 
-          <div className="grid gap-3 mt-3">
-            {top.slice(10).map((c, i) => (
-              <ClinicCard key={c.id} clinic={c} rank={i + 11} />
-            ))}
-          </div>
+          {top.length > 10 && (
+            <div className="mt-8">
+              <div className="flex items-baseline justify-between mb-3">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">
+                  #11 – #{top.length} · runner-up rankings
+                </h3>
+                <span className="text-xs text-[var(--muted)] hidden sm:inline">
+                  Same data depth, lighter view
+                </span>
+              </div>
+              <div className="grid gap-1.5">
+                {top.slice(10).map((c, i) => (
+                  <ClinicCardCompact key={c.id} clinic={c} rank={i + 11} />
+                ))}
+              </div>
+            </div>
+          )}
         </section>
 
         <section className="mt-12">

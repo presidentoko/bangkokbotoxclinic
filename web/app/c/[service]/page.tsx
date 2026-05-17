@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { CATEGORY_FAQS } from "@/lib/faq";
@@ -149,11 +150,13 @@ export default async function ServicePage(
               </div>
               {idx === 0 && <AffiliateInline category={label} />}
               {visible.length > 10 && (
-                <div className="grid gap-3 mt-3">
-                  {visible.slice(10).map((c) => {
-                    const r = globalRank++;
-                    return <ClinicCard key={c.id} clinic={c} rank={r} />;
-                  })}
+                <div className="mt-6">
+                  <div className="grid gap-1.5">
+                    {visible.slice(10).map((c) => {
+                      const r = globalRank++;
+                      return <ClinicCardCompact key={c.id} clinic={c} rank={r} />;
+                    })}
+                  </div>
                 </div>
               )}
               {more > 0 && (

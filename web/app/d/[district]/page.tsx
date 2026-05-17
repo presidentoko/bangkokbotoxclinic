@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
@@ -67,11 +68,18 @@ export default async function DistrictPage(
         ))}
       </div>
       <AffiliateInline district={districtName} />
-      <div className="grid gap-3 mt-3">
-        {filtered.slice(10, 200).map((c, i) => (
-          <ClinicCard key={c.id} clinic={c} rank={i + 11} />
-        ))}
-      </div>
+      {filtered.length > 10 && (
+        <div className="mt-8">
+          <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">
+            #11 – #{Math.min(filtered.length, 200)} · runner-up rankings
+          </h3>
+          <div className="grid gap-1.5">
+            {filtered.slice(10, 200).map((c, i) => (
+              <ClinicCardCompact key={c.id} clinic={c} rank={i + 11} />
+            ))}
+          </div>
+        </div>
+      )}
       {filtered.length > 200 && (
         <p className="mt-6 text-sm text-[var(--muted)]">
           Showing top 200 of {filtered.length}. Use service filters to narrow results.

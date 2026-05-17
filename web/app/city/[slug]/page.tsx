@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, isClinicLike } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
@@ -89,11 +90,20 @@ export default async function CityPage(
         {filtered.slice(0, 10).map((c, i) => (
           <ClinicCard key={c.id} clinic={c} rank={i + 1} />
         ))}
-        <AffiliateInline />
-        {filtered.slice(10, 50).map((c, i) => (
-          <ClinicCard key={c.id} clinic={c} rank={i + 11} />
-        ))}
       </div>
+      <AffiliateInline />
+      {filtered.length > 10 && (
+        <div className="mt-8">
+          <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">
+            #11 – #{Math.min(filtered.length, 50)} · runner-up rankings
+          </h3>
+          <div className="grid gap-1.5">
+            {filtered.slice(10, 50).map((c, i) => (
+              <ClinicCardCompact key={c.id} clinic={c} rank={i + 11} />
+            ))}
+          </div>
+        </div>
+      )}
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

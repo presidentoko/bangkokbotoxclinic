@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory, filterByDistrict } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
+import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
@@ -83,11 +84,18 @@ export default async function ServiceDistrictPage(
             ))}
           </div>
           <AffiliateInline category={label} district={districtName} />
-          <div className="grid gap-3 mt-3">
-            {filtered.slice(5).map((c, i) => (
-              <ClinicCard key={c.id} clinic={c} rank={i + 6} />
-            ))}
-          </div>
+          {filtered.length > 5 && (
+            <div className="mt-8">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">
+                #6 – #{filtered.length} · runner-up rankings
+              </h3>
+              <div className="grid gap-1.5">
+                {filtered.slice(5).map((c, i) => (
+                  <ClinicCardCompact key={c.id} clinic={c} rank={i + 6} />
+                ))}
+              </div>
+            </div>
+          )}
           <div className="my-6">
             <BookingForm defaultService={service} />
           </div>
