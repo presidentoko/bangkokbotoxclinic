@@ -37,6 +37,23 @@ SOURCES: list[dict] = [
         "reviews_dir": ROOT / "dental_output" / "bangkok" / "reviews",
     },
     {
+        # merge_handoff dental — pre-scraped GMaps dental clinics (1,484 + 1,392 reviews).
+        # Converted from merge_handoff/sources/output_dental via scripts/ingest_merge_handoff.py.
+        # place_id collisions with the live dental_output above dedupe at the master_db_builder
+        # level — net new clinics flow through.
+        "city_label": "Bangkok",
+        "city_slug": "bangkok",
+        "clinics_csv": ROOT / "merge_handoff" / "_export" / "dental" / "clinics.csv",
+        "reviews_dir": ROOT / "merge_handoff" / "_export" / "dental" / "reviews",
+    },
+    {
+        # merge_handoff hair transplant clinics (75 + 2,429 reviews).
+        "city_label": "Bangkok",
+        "city_slug": "bangkok",
+        "clinics_csv": ROOT / "merge_handoff" / "_export" / "hair" / "clinics.csv",
+        "reviews_dir": ROOT / "merge_handoff" / "_export" / "hair" / "reviews",
+    },
+    {
         "city_label": "Pattaya",
         "city_slug": "pattaya",
         "clinics_csv": ROOT / "pattaya" / "clinics_output" / "clinics.csv",
