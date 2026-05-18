@@ -166,6 +166,21 @@ def parse_photos(s: str | None) -> list[str]:
     return []
 
 
+def local_photos_for(place_id: str) -> list[str]:
+    """public/photos/{place_id}/ 에 백업된 사진이 있으면 그 path 들 반환."""
+    if not place_id:
+        return []
+    photos_dir = Path(__file__).resolve().parent.parent / "public" / "photos" / place_id
+    if not photos_dir.exists():
+        return []
+    out = []
+    for i in range(8):
+        p = photos_dir / f"{i}.jpg"
+        if p.exists() and p.stat().st_size > 1000:
+            out.append(f"/photos/{place_id}/{i}.jpg")
+    return out
+
+
 def yp_name_key(name: str) -> str:
     """YP name fuzzy match key — Thai/English 회사명 정규화."""
     s = (name or "").lower().strip()
@@ -282,7 +297,13 @@ def row_to_supplier(row: dict, is_verified: bool) -> dict | None:
 
     reviews = parse_external_reviews(row.get("reviews_json"))
     photos = parse_photos(row.get("photo_urls_json"))
-    top_photo = (row.get("top_photo_url") or "").strip() or (photos[0] if photos else None)
+    # 로컬 백업 사진이 있으면 우선 — Google CDN URL rotation 대비
+    local = local_photos_for(place_id)
+    if local:
+        photos = local
+        top_photo = local[0]
+    else:
+        top_photo = (row.get("top_photo_url") or "").strip() or (photos[0] if photos else None)
 
     # DBD enrichment
     reg_no = parse_reg_no(row.get("dbd_reg_no"))

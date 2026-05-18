@@ -18,6 +18,11 @@ scripts/dbd_bundles/
 
 # 마이그레이션 백업 — 작업 끝나면 삭제
 data/master_db.legacy.json
+data/master_db.json.bak-*
+
+# Google Maps 백업 사진 — 55MB, deploy 시점에 build 가 out/ 으로 복사.
+# git 에 넣을지는 추후 결정 (Cloudflare R2 등 별도 storage 권장).
+public/photos/
 
 # export/ — verified_final + premium_final + INTEGRATION.md 만 commit, 나머지는 너무 큼
 export/*
