@@ -25,15 +25,12 @@ CITIES = [
     {"name": "bangkok",    "lat": "13.7462890", "lng": "100.5346890", "radius": "30000", "en": "bangkok",    "th": "กรุงเทพ",   "ko": "방콕"},
 ]
 
+# Trimmed 2026-05-18: en_clinic 으로 충분한 cover (~4500 unique), th_clinic/
+# en_implant 는 80%+ 중복. ko_dental 만 추가 — 한국인 타겟 unique 클리닉
+# 식별 (한국인 의료관광 마케팅 데이터).
 QUERY_TEMPLATES = [
-    # 영어 — 지리 그리드가 도시 한정하므로 도시명 불필요
-    ("dental clinic",   "en_clinic"),
-    ("dental implant",  "en_implant"),
-    # 태국어
-    ("คลินิกทันตกรรม", "th_clinic"),
-    ("จัดฟัน",          "th_braces"),
-    # 한국어
-    ("치과",            "ko_dental"),
+    ("dental clinic", "en_clinic"),
+    ("치과",          "ko_dental"),
 ]
 
 
