@@ -12,3 +12,6 @@ next-env.d.ts
 
 # Cloudflare Wrangler local cache
 .wrangler/
+
+# DBD JS 번들 — re-downloadable via scripts/dbd_fetch_js.py
+scripts/dbd_bundles/

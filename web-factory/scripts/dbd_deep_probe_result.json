@@ -1,0 +1,322 @@
+{
+  "query": "President Bakery",
+  "result_meta": {
+    "final_url": "https://datawarehouse.dbd.go.th/company/profile/70107545000144",
+    "title": "DBD DataWarehouse+",
+    "result_page_head": "<!DOCTYPE html><html lang=\"en\" style=\"\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>DBD DataWarehouse+</title>\n<link rel=\"stylesheet\" href=\"/_nuxt/entry.BiIyGas5.css\" crossorigin=\"\">\n<link rel=\"stylesheet\" href=\"/_nuxt/index.DyWaHMoZ.css\" crossorigin=\"\">\n<link rel=\"stylesheet\" href=\"/_nuxt/LoginModal.C_iRfUDD.css\" crossorigin=\"\">\n<link rel=\"stylesheet\" href=\"/_nuxt/Loader.C1Xdqyn-.css\" crossorigin=\"\">\n<link rel=\"stylesheet\" href=\"/_nuxt/CookieConsentBanner.BuoDhDEu.css\" crossorigin=\"\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/CptXCjuL.js\">\n<link rel=\"preload\" as=\"font\" crossorigin=\"\" href=\"/fonts/Prompt-normal-400-vietnamese.woff2\">\n<link rel=\"preload\" as=\"font\" crossorigin=\"\" href=\"/fonts/Sarabun-normal-400-vietnamese.woff2\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/P7Uw7Cz9.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/Bi-5P0dl.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/BrH3ap8u.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/DZhOGgTI.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/DxyX4hzU.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/ZR6dL7HZ.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/BpjKzXFA.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/Bm1ulGHW.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/DgYx_l52.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/BiGZrQZB.js\">\n<link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"/_nuxt/CTjej_bG.js\">\n<link rel=\"preload\" as=\"fetch\" fetchpriority=\"low\" crossorigin=\"anonymous\" href=\"/_nuxt/builds/meta/5bbca982-d643-47c1-90a8-7415ac446990.json\">\n<link rel=\"prefetch\" as=\"image\" type=\"image/jpeg\" href=\"/_nuxt/bg-main.ncGxQusl.jpg\">\n<link rel=\"prefetch\" as=\"image\" type=\"image/svg+xml\" href=\"/_nuxt/logo-loading.Hm4hmD8P.svg\">\n<link rel=\"prefetch\" as=\"image\" type=\"image/png\" href=\"/_nuxt/icon-index-7-black.BqXdJ3Gt.png\">\n<meta property=\"og:title\" content=\"DBD DataWarehouse+\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://datawarehouse.dbd.go.th\">\n<meta property=\"og:image\" content=\"/img/bdw_logo_shared_link.png\">\n<meta property=\"og:site_name\" content=\"DBD DataWarehouse+\">\n<meta property=\"og:description\" content=\"บริการข้อมูลนิติบุคคลและงบการเงิน\">\n<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n<link rel=\"icon\" type=\"image/x-icon\" href=\"/img/favicon.ico\">\n<script type=\"module\" src=\"/_nuxt/CptXCjuL.js\" crossorigin=\"\"></script>\n<script id=\"unhead:payload\" type=\"application/json\">{\"title\":\"DBD DataWarehouse+\"}</script><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://datawarehouse.dbd.go.th/_nuxt/D7VJQ_DO.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://datawarehouse.dbd.go.th/_nuxt/DPfMkruS.js\"><lin"
+  },
+  "search_initiated": true,
+  "all_xhr_count": 14,
+  "signal_xhr_count": 14,
+  "requests": [
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/refresh",
+      "method": "POST",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://datawarehouse.dbd.go.th/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "accept-language": "en-US",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/commons/params",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/audit/visit",
+      "method": "POST",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": "{\"path\":\"/\",\"heartbeatMin\":30}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/cookie-consent",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-search.svg",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://datawarehouse.dbd.go.th/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "accept-language": "en-US",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/cookie-consent",
+      "method": "POST",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": "{\"consentNecessary\":true,\"consentAnalytics\":true}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/infos",
+      "method": "POST",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/juristic/searchInfo?keyword=President+Bakery",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": "{\"keyword\":\"PRESIDENTBAKERY\",\"type\":\"\",\"sortBy\":\"jpName\",\"currentPage\":1}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-print.svg",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://datawarehouse.dbd.go.th/juristic/searchInfo?keyword=President+Bakery",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "accept-language": "en-US",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-info.svg",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://datawarehouse.dbd.go.th/juristic/searchInfo?keyword=President+Bakery",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "accept-language": "en-US",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/info/7/0107545000144",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/company/profile/70107545000144",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-print.svg",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "referer": "https://datawarehouse.dbd.go.th/company/profile/70107545000144",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "accept-language": "en-US",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/committees/7/0107545000144",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/company/profile/70107545000144",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/committee-signs/7/0107545000144",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/company/profile/70107545000144",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/mergers/7/0107545000144",
+      "method": "GET",
+      "resource_type": "fetch",
+      "headers": {
+        "sec-ch-ua-platform": "\"Windows\"",
+        "authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA",
+        "referer": "https://datawarehouse.dbd.go.th/company/profile/70107545000144",
+        "accept-language": "en-US",
+        "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
+      "post_data": null
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/refresh",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"idToken\":\"eyJhbGciOiJIUzUxMiJ9.eyJlbmNLZXkiOiJBc0tvdXIzZDJUc01wMzhNbjgtZnRBOVIzSEgzVEI1U09udHJwVlVyZG1RIiwic3ViIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIiwicHJvdmlkZXIiOiJBTk9OWU1PVVMiLCJhdXRoIjpbIlJPTEVfQU5PTllNT1VTIl0sImV4cCI6MTc3OTA5MzUyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTc3OTA5MTcyNywiYW5vbklkIjoiYzU0NmYyMmUtZjNmYi00OTE3LWI5MDQtOTk1YzYxYzQ0M2JkIn0.nQ7IMm_HSGBx6hLQfD10Qi6_feQ5rBYQxYnfvRJcHmdUyV3APP45TbjDdLDXvr59Z2qbVhH7O7ek5n12qDIigA\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/commons/params",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"LckCWbTE-71uK9DUUTU6hQ\",\"iv\":\"8yYwqgrILCvRWbEF\",\"ct\":\"qhfejbWFXNUJQsm7jxBHLp_nyPBH5DPGEKnJPJ1pDe8IIR78xkQQkJMlVTQ6WglRduUkFkQdJpdTnfw3a5-Jlu6pRoYxzNDU_J_G_x7TbSnfi_ZGE9kgUN0p4u72Gz_vxHH47e_ZWQCjwC8ivSpHU3OVP89Ncr09myuWWhl4eO71UCqxHCtJS95_xt-ffGuNOk37aJ_ejaeW2lRhQ6LRv0rzA8yx6W7ZGoXNaI5LM4lbfzbhQvJnspeEbO9XlwZvXvm3RNVfn5qd71BxpFrYPaUcKk9eKxQe5tZKjwZV0k5qVA6DVqHa-NFJym9I4KBPWiMaHVqRB6PZLhFe8Z9IF83SaQ-qFUw1Cs5YkjceFSEwjikoGsDX-iXTnG9Em4esLYrI0b4IjQygVdUXxGIlX9zkEtEctQxxyLgNyBAak9kI4MTgJVlWvXm02jQlZCLIGGNL7FZgrVRLyOgHOyu30wPqYXspM2OZ7qZ8XsZMsaecGqpnZc1WcxCa_qgahM8aEZkNAU1iod6sgY1m9Y_3fX4XyMmh4GNG5P6aUfU_xjCZXU7XNYZKVxXrunShvGwAv4SL3YCxKrqQG1c9OJISlHckmuO3p34aKoKfpS4_BJiynlvrNpST9iyN3snzGYJcLIUGuIQUY98WLAzAPcNtVOe0N_yu2K0n7tzVScX_017t8GHqMJtNgzbbf4skLagjYj1E9nIRBQxreYfVahqSV5c-TwTXHjTXmBUX1Iew-gNqwyBzy20-OHJkpzK3WtjTuX8RH_JGSTu2Vv1uomohNXUZ4HyEKP8EB4vGv8M4uwFdElzy1ytiifdN9ItMHdTOpvkgHWKIGyvsPw78M6Q8se8x12QosD_qKQgzIUE3X7vUR1sW-9drFMVIdPEH0ZQk2uWsjmChGxG8mMY5VhnOf9R-QFomvxJeqpIDpUC85p9ygBGFxpmSpCOqaIkDM30doliJ1UslHeHqRlbyDSGQfAO25pMTAKiUtqV-vROh8-PBLdOF9-Q91e4kRlZchJwy9tRmhgPOMQ2x4AGtfTfel-NYQSp7LRTf-WC0yZHiBRjSGKEjWhhzAXuZRu1pHkm0Js-rKVt2h8Zd3NE05m_0LsF3rh3LelJBOtOTBTi04YNn_6fiBJ0mo_bpmHYlNqWWafrD2ZZ1dqdqCVWKYXp9FIzEE9GDSrUuMzj_fDDfsQEGTwc5fWlvttbXA0Zi286v2gjIb-TaDht-zQroIbdpNJ_fEaWv4JpvJ72H89d4O3aULCcVwR96GpIf-5JlFEY4nOUKmWisSVN_F0cc0Bg\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/audit/visit",
+      "status": 200,
+      "content_type": "",
+      "body": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/cookie-consent",
+      "status": 404,
+      "content_type": "",
+      "body": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-search.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "body": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/cookie-consent",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"IyjUSOQ1pil_DYE9d46sTQ\",\"iv\":\"nnrRpQ6al_j2iy9s\",\"ct\":\"XQFXdYwmhudEihX32By-Kjg9nBucMmzX6q4XqJ0RDNAAkIXOdpof26W1Qg3TsBZ9_Mf7-vf8EMgtVZp2XehiI2CcgZUQIx_l0pNH3bW8HEem_Uv_en6j9o-S39oRwDjXghCtUvXQpNQHzxeXO33FVFdm0fnB6mS1jOGAlTw1XwEMaYdGnBTl4_Avq1INzyl7y5px\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-print.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "body": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-info.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "body": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/infos",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"56xovHk7hS3152y4P5G22Q\",\"iv\":\"_splkVnNIrnAqleB\",\"ct\":\"Fio34ODEEcmFz3PejisOFvxxT9e513R5Kls9OoahsUIr8BlwCn_Fo9Au39D2Asa1_hfBMT32zzSQSU1lvHlCMKsgBktzSFn2xnH_mxBMg8U1gRfXtzAcVJOz5aGb0imt6HonEaqD3m4mw3z7nDUjhZhCx6SfneI0C3VbaaF7dkbZgBj4xtehhlNoKb0BoTyCgnBK0cwuIVL-ICudHipR_hsWvRWEh0ZaAO6DcGh3Ml8UplnUHdDHRJQ0zQot8sJKaQucyh0pD1kU_LYKF8-1Gw0IUNihQ96zVsFEd1-9BHYkU88hGZJmIuQhN5tJoJVJwHGkTEi_Am8c6mQUcATiA3p28-4wvMGxsBEo84IzbWwETte4gn7NMRkJJYTb_ZLSv7XmIMEq-Df-MN1kcCr3rHArlPkp2LFrAJHu5muBrSMqXQeknL9Y8eS73XRXvCUHPCOJN_Ek4fuDaG2cQl2pTDPxSecWWl59kCssR0RetIWw7ckBK-Hydm-ewz5A5M_Hjro8h1RV0vzLPKUq-JrQFN3q9Mkvrs40kPQ6Sba8QeL_3NICuy-n5l9JhNJ1BHlQ_qTI4EyvHFOifd4xD7kaqGfUI-rdZYVkcZhvwo_tVXsNwL1pKJBclhvQdpPvZ_wNAsQkwSYsAduuhbO0vF1Cby9whdbViWIQCSGh2ZZpjkZPZpFaEGL9Z4QQbs6MxwIts4KDjYeGtfwkUYE73PSlvy9cumrc5IWjjpA064jJOwM4VX4YQIF4dHAtZi-IT4bE8_IQWcUsaDAIXWQLVk9_iUGrHymfJ7-LDgmGgHr6nDcSxWj3xsEbv3YhFYTR_r2Vxc8Ji1vyCsvGA1KOzD4PcZZXvaOuCOOSGIX_g6HlZncb2ZbrWmmN7OFZSo6c5hH57g51BFFncAMeXHLs_Z45Jg18BHvz00csEBkMxFd_ZWGYvEVP7qy1gaJ_vQvAApf3zHCk5i4s-XOdxjbR59yQyiL_FmHoIxmXfIcXKtIkmpVL3p4FDxV6E_SqQbFmkJJyPrTNGncyA4fyH6ziy3v2FDtOjobbndFSEFzjwX7KBu4tk2XK05hZACdXfTszrYtSo2epkVWRaMACkjfXIZg_5D_zSMZT7n9QbNbfgC6iyKoIByCRvFt0aC3MLdZ9-I4zGIjEFJjAtgF7KR_88smG1a9PQl0g6hEPG9CEJHcXCKui2z2WCrQVcT-bgH1ivx2qYogmkIQQALPm7Qu68v9ivrdbw5z8g6ITSHB3numGm8IWdm4v_SjvtQW4hndhbrRye08FBKTpkBXZS-W3eXuXKYqswJ-eAJ_xjQPg2-r0XSlb9_xv1VfjqQIbtQQFgTtRXLg_rtKJqPRlk_kx2hR5UTrO6eTEwsuYNfklZwH1svtgb6yklrSzzMqRvZlAJrmuT_cftEqBNXYcWs-Tuq4jw32L3G7QLsVPc-HfUgeHyU_mr07tVp8XHVA9U_RoiFnrMmCJXsQrduTLAxGP1DPirdvvFvs-YlAdrhslqNXpt6u5fFwEaorYMMGYM7sm7ul1VFUEuoGvcF1dDqYBT6xnOu8b-QYyHz0ezH4WWGRpv0ft72wqQWUK3GauRILq_CYBzlqIITJHJ9FwPPO9obY8dI8bH3XqlcxdqSmAPRypKTIDbQLXkTahlDvFEvfQJsJ8stQfkMnBxJgHz8WCV5rsWCFHTYdCLSKjbr2AwhCmYWWi08kxVXUfGytWAF0bwyQJca1Ypst-iPmJfsqLMJPbcAKb90kg2PuKXuzNlIoyAgY1E42EozL_deeomBbxziK_3YxoutORJXvPfWWeqbnnwHjsnK_WSSoqZz_LLinXrnv8gGwa6TGAS5aQZQjnnIyQBv_m-muJBu-nP6ZApxv_5gShZ-_bkysv8pEgdwdPnbavbnvUJfKrpGS5egFPnH6tA1CwEFoKCtWBKg\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/info/7/0107545000144",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"ASY-pYZiM8mUP260ec88mg\",\"iv\":\"b7pmGp4YK_6VjnDA\",\"ct\":\"oqiszL2Oc5apVdS1GfmpVApLn8oz1QshWMrSrEczCrZN-nrhwz9MDx6tSJfWn7qPjzW0uB4wIjmjpjAC5LDrHP_eR146-duM0s2_GC9WZjEDRFaSytx_MWzZGFy7-4syMEk5Qmtv26S7l-S5ymN3f7XTmetJAvz595Q4xnMC7e6avNJ1H70giShJkcWgwKrylR8UnzuqBONhSsRxTJ_T3poz5_fqXSeefYAMDiyAy6cxOkSUxLn_PWBUql1WN3L62zkibh00MlF4CwapF88212ZHPVCSUCXjcr3gL-_AqcoMnE8IgRZ7wZGFVeA_X-ZPJw4dC4liQnV7klK6YfdknBFNOWRQ3F5A3g28DkPfoidC3HqV6W1zDAS-Oqz_LM9x4gzXp1cKkax6_73KyVvn7bLtI7FN-SCWPXDsQplFpHvKticaVx8Gupagio3Z2bU8kErGvz1Kx4sC48w88V2TGJp91hHhwYa5o1Ol0VWYnFiNGS0-Grttzht4SIdYBKWyOKuT8-Vqc8BHt7rk3o8-g8lUH2IH_9M7UDFu2SBOb5D_jeITHG6qP7WcMuEHOWhKONwT8UeITHYWX2dqh4KkepNhtyMOwgIL7RYXPMv2g5w5S9f0cJUO0Y2u7nH8q6Rd4f_y5QEXtH1NFkpoxNWOqhohRlylHOF8a8nU6SUWuT-9Efv_qzRLhkN1Z7tisYoov4ANibs9eAfp6cS8WXRNeph43aFOEnfxWFy07DM0-0_YpnrzLYRhIQYSzkl9Pj0wCeioe7gvISlMOoxU5_xyhiOiSyKLC_zO7NHlyU306f9KZaI6q4zN-DwBx6Yaq_qocu07owGlUpL_-w8RXNYV5Y4Dyo7XiKGdHAqEgqKbkO7FvIqhXONJt2HgU4N9lebfUoHX51YcpDTSXhQ2qeeHmTd249ZtN9r6VsvE6ZN-7Vwyl8nXuSOlRXRjbWqvgzUPI9C6FvYgDK58ufzNuEgsnChei3-UrLn4LaSIptP7s2ASTHbVkiZ6AE0y1HHee3DXcS9IaxNwhPHH9TjV8zKA-rgdQ-iJ2MvjhcUaW-fyMnuV6I-attaLroFIuzimProa1ZsKY2KzEVe0IxICJC8HOtylgTKCLwQoejxFTIBUE-o5ptvOLiwy4JqAPveAaYcqJVEDL2IQJZRkiJgzhomnrOqf7cUIa3LeBDJKyCcofWPsY-KG2krboqyGZdZhebZpPQ_wKyK4xBQvQYwZpNRB1oXflBWNvIyFxpXiwB66f10z1i-9vBKRMXZdrBJmqAgwXEPfUfyuPH1vllsB_uuusFyDutPqttmOTVSUCmznQdDRYN3MivQKlZsFrkdLWPABuXQCGo4mveFkkTaGEknivAosloVuPnACZMOc287rr6Bqp1ulHRa6CtCQFSbKP1GeU_uVMbiZNrbsiq1z1yEgt5bd9pPvGu1Wb4FLMa2gowKlKruqFRYyvh7ycc7snH1E29htCqn_fhGeo2zGMoHcsaxzLyKpVFMs9TH57SVKy4RBRMmqqRLE-SOQks7vF7f2W5cH9KHJo034Z_h-4Q775cMmIbVl4RvKPVxZAQaAv0EcU15e5LcFA4vERAC_YgzT_mpuqHpsw6_ZpSBt5icP0piKvomUOc09Vz835bj7fKkdaWQaoGkI5URz7qc4_nISw89IWCDq1wVhaT8Bzz_VnEjrghRwha5jbxcp_XH6HiKpkz50cKoutMjlmNqjSOwQGMlxtgFnV_kG9ZIm1Xg1Zna6Gcd42lAxJSvlwUPqyBgojC8Eu0aWmnyJifsitqYzkdXBkKo--s_tKhOmv6t1J4lP5fqId3hzM5SgBEheH51AIYocMaZNaFpJcZg5Re1o4HHKRHlJyY1c_cM1egTPP1vkmLTODzMDmQ1a8ltec2Zp-TqwWeeQheuySTP-FNIh1OvHyU92TCDn5y9TK4d2U7KOWqaTS9qwIZg1XGZwXmYktBM2p_b5EyqvHPmGL7imkKN6RF0JDfXV8xBneydv6XHWOPuTahCiPontoLL_3XRO1_0-bBY3A5Bv1TzgHQ2tqktuAq4J2lVxu55az7P5p-Is7LWUKNEHE-0ts2btmaGQJT5AZMLsQ1V5PH0x7qbNXZcXbpOTx89YA4JogL2kij9erfvMpWhJ19uF-ftXBk1lGZkv7ArTpS-sfgbaFG5xa9qYOJuvfRjdigtDQTz3vbZGf6JLDMlvBJlcRclomKPpE-pq2MMR6qBbXJQVJd_4Lg38EACuGx0s6hRxBb76L0wCBXuxi2iAXr6lqzI\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/img/icons/icon-print.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "body": null
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/committee-signs/7/0107545000144",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"MFQ4zfd17lp3Od7qUfhOcg\",\"iv\":\"Kwm2iqXIhYs1Dp_v\",\"ct\":\"_A015qbNggKvRBM0HbDhbnslSgEvbZp7v9VPhTGYLJj3MmO4sDBpOIQ2gB5VVm6NoI3mIiAzf3zY3RhcYEI7P0O66y_Nv9RFKSJXBAqA0QSpweqIMd99I3GpfJjfnYhtU9dQGv2NpgIrBrGD0TSjN1i_YM7aJeUTuiwGHcFs550bxjwtM4pgpxwEhweQYI3VLgNOmf6VbX50c-Lw6eBqk2VuyhF3FUMwPpzuyG7LBfPWEVw9RP2Ez8ucTg2pVT4nzbquiF31Y-HxzPp_YrLbaxpXGWEkHaIYFITfcEB1KAxIyF1QNseMY2i_oRsv2pwOKW9adtF_3wNPaQOMrjPT56o5XTG0etdQe7ySTFTo9fj_h9VtIhk2TOMmfFZ7suT02HQLd34QvQ2YWfkug6frpNlmRIcBidzFllyh4ez4ckEvc9-BCWS1E7o6p8I1hklJgqS_ue3rJsxyQ2ykm-jF2GZ1q38JS02DIOSdkS-b428fOo_m72Xp3A8ZVIxkSZaLf_78CqvnX0J8Rk4OvBA7-Fmug3uA7VBlU3mlgZYuFIKZkMBRfzOOdyzdd_FkcLRPCVoeYYv5eQSpuOt1hNv1ZET29d_rVeOQYdi-UnjvePO54a2JL6cF\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/committees/7/0107545000144",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"nQNWOpv6Uez7Zvb-mm36Rg\",\"iv\":\"vXfTPg78Mutbvxi4\",\"ct\":\"JbRMLXSUMMYYhJOKdqn2XNjoO9lNJL476OYPw3FR1mE3gRDcq_WdVIp2y9owsvoDBs92up_Hnszf5wxf0ZDY0crcpR6lO8bU4TL72wFGGmBVXK4rsAI8GegHpbHOALd63XWf_ttp07R1pRkIWDUpjRCYz6hGGygfo29wSHo1n0CtA23gGROFuqYddoQjgctShLPBGS9fwIBP7-2Oe8gjivX_RXrVALc1E80dAWL0COvR3GrEr7BpzzX16TWPcjFD5cZbpsdWn8_EqapW6fsBd8Xoej6uDwbXEtDncKFLun6w1q0Zu7biAgyazYdIR_3nVr5yOgaVC76ZIIjmgvdBtOzSU6438srerxkJbX2GB5L4yJdN5P2yiMHG6_YchQU1caxyTxsu-BwTWBx--pnpLCHyhCi1PDz_1T8AcghXJE1IrHF0YheGKmBBGccjB01BBIw2KElZWO30THkfFjHrqVY1IzGtthqAuQPsbMUGq28-r1JUddDMknv2yswitvP-OPP0-8Po5Q6QR3nCDYVqlqmeBN9pi-zkwzebtKkQmqpIFN2a0KdvaXqqmWruGjngC6PGeHWU8Yu8Loc7c2RjtMKCSzD-nRCvrNjD3EU5jbP3VQWIyFqnmHxzuWzZUIysIBeeQ9g5pEQQemQXGUZNJv3QKZJzXnBfLBTwTGAJCXkrj0B457XBmlcOADyb7gfCXXAvbxHWZ4-iGj6J4zmG1vpz2-lWVuekxCmdjExcIPII6bh_GyWszqKnZl3yijlRE9ksAWLEc2TzKE8w687GRnMm367BoGTYCw7OEAm6pSxCCP_8mqFy-7oJemM8QlaYGirKTSzeb5LExtyrLPSQDh93sdOOQkW2M3WNwfcie0F47tCd4JrvoXumOlQSo6cU9cOY0vHO8CE8sDVgsMRO3zRVh7YxbOBitsIcDfkYwI1f-2K5-BRU77dPATll__fUjZQ_WPzDvNc3N6KPn0PTnnv3Du-Tu9I9qbVahRoPlJoryYTcNRjQtOFWBVOi9VgR-7jAy-6gyY-ecgSdlLcb3A0-7zmGp4uD1Z53OuKoVWC94WTJYxQF1u5mP-CWVKEN_haQ-EJv84k3WedQ-E7bvE4SkCzQfSNO8iaiUFLq-JM2cjCX9MT8Op4Uw69y92BAZk6Z3ifT3j_K9gea4eNP5pPfs82A-L8KLIu0JEnzi90eWP9I62hV1eeJKmKmMLct4TOA2w8Swta6pNA9NeryIvkjR9sG-f5iBZWsQ0Wrz5qOxEl4fBUKhblRXKKmd7FbSfh_xCsg\"}"
+    },
+    {
+      "url": "https://datawarehouse.dbd.go.th/api/v1/company-profiles/mergers/7/0107545000144",
+      "status": 200,
+      "content_type": "application/json",
+      "body": "{\"kid\":1,\"salt\":\"ahhCR8HlQFBfKA5Z8VR6MQ\",\"iv\":\"yV9xMyWkJ-319kkk\",\"ct\":\"fENvOSrrveIeGbAKQF5pmqvGuRC-aXiXxJ9R4UjDXhpxMhwYwBSDGDdYSvIvmZj2axUnQalrQ56r3wnVJ2jCPlAHywAs_iTxveqFdzaURK8dDxaXzYvYJUvXa55nmGSTznZrLwMx26xM5sG5HIuHm1w8JyzWCoFx4aSFNsSvWQ\"}"
+    }
+  ]
+}
