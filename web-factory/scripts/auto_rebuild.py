@@ -124,8 +124,9 @@ def main() -> int:
 
     log(f"new data detected (mtime {cur} > last {last}) — start rebuild")
 
-    # 1. master_db rebuild
-    if not run(["python", str(WEB / "scripts" / "apify_to_master_db.py")], cwd=ROOT, timeout=300):
+    # 1. master_db rebuild — CSV (verified/premium) 가 source of truth.
+    # Apify 신규 input 은 future enrichment 용으로 두고 master_db 자체는 CSV 기반.
+    if not run(["python", str(WEB / "scripts" / "build_db_from_csv.py")], cwd=ROOT, timeout=300):
         log("ABORT — master_db build failed")
         return 1
 

@@ -158,10 +158,21 @@ export function SupplierJsonLd({ r }: { r: Supplier }) {
       "@type": "PostalAddress",
       streetAddress: r.address,
       addressLocality: r.district || r.city_label || "Chon Buri",
-      addressRegion: r.city_label || "Chon Buri",
+      addressRegion: r.province_en || r.city_label || "Chon Buri",
       addressCountry: "TH",
     },
   };
+  if (r.dbd?.legal_name) data.legalName = r.dbd.legal_name;
+  if (r.dbd?.reg_no) {
+    data.identifier = {
+      "@type": "PropertyValue",
+      name: "Thai Business Registration (DBD)",
+      value: r.dbd.reg_no,
+    };
+  }
+  if (r.dbd?.registered_date) {
+    data.foundingDate = r.dbd.registered_date;
+  }
   if (r.total_reviews > 0) {
     data.aggregateRating = {
       "@type": "AggregateRating",
@@ -175,9 +186,17 @@ export function SupplierJsonLd({ r }: { r: Supplier }) {
     data.geo = { "@type": "GeoCoordinates", latitude: r.lat, longitude: r.lng };
   }
   if (r.phone) data.telephone = r.phone;
-  if (r.image_url || r.hero_image) {
-    data.image = r.image_url || (r.hero_image ? `${SITE}${r.hero_image}` : undefined);
+
+  // 사진 — schema 는 배열 받음 — 갤러리 풀세트 제공
+  const imageList: string[] = [];
+  if (r.image_url) imageList.push(r.image_url);
+  if (r.hero_image && !imageList.includes(r.hero_image)) imageList.push(r.hero_image);
+  if (Array.isArray(r.photos)) {
+    for (const u of r.photos) if (u && !imageList.includes(u)) imageList.push(u);
   }
+  if (imageList.length === 1) data.image = imageList[0];
+  else if (imageList.length > 1) data.image = imageList;
+
   const sameAs: string[] = [];
   if (r.website) sameAs.push(r.website);
   if (r.maps_url) sameAs.push(r.maps_url);
@@ -185,14 +204,28 @@ export function SupplierJsonLd({ r }: { r: Supplier }) {
   if (r.categories.length > 0) {
     data.makesOffer = r.categories.map((c) => ({ "@type": "Offer", category: c }));
   }
-  const samples = [...r.sample_reviews_en, ...r.sample_reviews_th, ...r.sample_reviews_ko].slice(0, 3);
-  if (samples.length > 0) {
-    data.review = samples.map((rev) => ({
+
+  // 리뷰 — external_reviews 가 있으면 그쪽이 우선 (CSV scraped — 더 풍부),
+  // 없으면 legacy sample_reviews_* 폴백.
+  const externalReviews = Array.isArray(r.external_reviews) ? r.external_reviews.slice(0, 5) : [];
+  if (externalReviews.length > 0) {
+    data.review = externalReviews.map((rev) => ({
       "@type": "Review",
       reviewRating: { "@type": "Rating", ratingValue: rev.rating, bestRating: 5 },
-      author: { "@type": "Person", name: rev.author || "Google reviewer" },
+      author: { "@type": "Person", name: rev.reviewer || "Google reviewer" },
+      datePublished: rev.date || undefined,
       reviewBody: rev.text,
     }));
+  } else {
+    const samples = [...r.sample_reviews_en, ...r.sample_reviews_th, ...r.sample_reviews_ko].slice(0, 3);
+    if (samples.length > 0) {
+      data.review = samples.map((rev) => ({
+        "@type": "Review",
+        reviewRating: { "@type": "Rating", ratingValue: rev.rating, bestRating: 5 },
+        author: { "@type": "Person", name: rev.author || "Google reviewer" },
+        reviewBody: rev.text,
+      }));
+    }
   }
   return tag(data);
 }

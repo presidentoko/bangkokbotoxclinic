@@ -11,6 +11,31 @@ export type RatingTrend = {
 
 export type SampleReview = { text: string; rating: number; author: string };
 
+export type ExternalReview = {
+  reviewer: string;
+  rating: number;
+  date: string;
+  text: string;
+};
+
+export type DbdEnrichment = {
+  reg_no: string;            // 13-digit Thai company registration number
+  legal_name: string | null; // 정식 법인명 (Thai)
+  capital_thb: number | null;
+  registered_date: string | null; // ISO YYYY-MM-DD
+  tsic_code: string | null;
+  purpose: string | null;
+  address: string | null;
+  match_score: number;       // 0–100. 80+ 만 매칭됨.
+};
+
+export type YpEnrichment = {
+  biz_id: string;
+  sub_category: string | null;
+  description: string | null;
+  website: string | null;
+};
+
 export type Supplier = {
   id: string;
   place_id: string;
@@ -20,6 +45,7 @@ export type Supplier = {
   city: string;
   city_label: string;
   district: string;
+  province_en?: string;
   phone: string;
   website: string;
   menu_url: string;
@@ -28,6 +54,7 @@ export type Supplier = {
   rating: number;
   total_reviews: number;
   trust_score: number;
+  b2b_score?: number;        // 신 schema — trust_score 와 동일하지만 명시적.
   categories: string[];
   raw_categories: string[];
   image_url?: string;
@@ -47,11 +74,30 @@ export type Supplier = {
   maps_url: string;
   // Optional enrichment from supplier-website scraping (future).
   hero_image?: string | null;
+
+  // ── 신 schema (CSV enrichment) ─────────────────────
+  photos?: string[];                  // Google Maps 사진 URL 배열
+  external_reviews?: ExternalReview[]; // CSV reviews_json 파싱본
+  verified?: boolean;                  // DBD 법인 검증 완료 + 매치 80+
+  dbd?: DbdEnrichment | null;
+  yp?: YpEnrichment | null;
+  halal_certified?: boolean;
+  estate_name?: string | null;
+  estate_slug?: string | null;
+  years_in_business?: number | null;
+  is_consumer?: boolean;
 };
 
 export type MasterDb = {
   generated_at: string;
+  schema_version?: number;
+  source?: string;
   total_suppliers: number;
+  verified_count?: number;
+  with_dbd?: number;
+  with_photos?: number;
+  with_estate?: number;
+  halal_count?: number;
   city_counts: Record<string, number>;
   with_district: number;
   with_categories: number;
