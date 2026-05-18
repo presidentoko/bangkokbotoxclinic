@@ -31,40 +31,26 @@ PRICING_DIR.mkdir(parents=True, exist_ok=True)
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 # All HDmall brand URL prefixes (/<prefix>/<slug> = brand page).
-# Discovered 2026-05-18: HDmall has ~13 top-level medical categories;
-# we crawl the ones likely to contain clinic-type brands (excluding
-# spa-and-salon and mom-and-kid which are mostly non-clinic).
+# Note (2026-05-18): tried expanding to medical-aesthetics / physiotherapy /
+# vaccine-injection / family-planning / male-health / mental-health /
+# elderly-and-patient-care / health-checkup-program — those categories use
+# /tags/... URL pattern, not /<cat>/<slug>, so they returned 0 brands.
+# Reverted to the 4 categories with confirmed /sitemap/<cat>/brands indexes.
+# To expand HDmall coverage further, need a different scraper pattern
+# (search API or tag-page crawling) — separate effort.
 CLINIC_CATEGORIES = [
     "beauty",
     "dental-clinics",
     "health-checkup",
-    "health-checkup-program",
-    "medical-aesthetics",
-    "physiotherapy",
-    "vaccine-injection",
-    "family-planning",
-    "male-health",
-    "mental-health",
-    "elderly-and-patient-care",
     "surgeries",
 ]
 
-# Sitemap path → HDmall brand URL prefix mapping.
-# Categories with /sitemap/<slug>/brands pagination listings.
-# If a category lacks a sitemap entry HDmall just 404s on the URL and
-# crawl_directory continues — safe to over-include.
+# Sitemap path → HDmall brand URL prefix mapping
+# Only include categories that actually have /<prefix>/<slug> brand pages
 SITEMAP_CATEGORY_MAP = {
     "beauty": "beauty",
     "dental-clinics": "dental-clinics",
     "health-checkup": "health-checkup",
-    "health-checkup-program": "health-checkup-program",
-    "medical-aesthetics": "medical-aesthetics",
-    "physiotherapy": "physiotherapy",
-    "vaccine-injection": "vaccine-injection",
-    "family-planning": "family-planning",
-    "male-health": "male-health",
-    "mental-health": "mental-health",
-    "elderly-and-patient-care": "elderly-and-patient-care",
 }
 
 # Additional category pages to crawl directly (sitemap doesn't list their brands)
