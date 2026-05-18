@@ -18,34 +18,34 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "highly-recommended",
     title: "Most Highly Recommended Thai Suppliers",
-    metaTitle: "Most Highly Recommended Thai Manufacturers & Suppliers",
+    metaTitle: "Most Highly Recommended Thai Manufacturers — DBD-Verified",
     metaDescription:
-      "Top Thai manufacturers, factories, and industrial estates with the strongest combined Trust Score and reviewer enthusiasm.",
+      "Top DBD-verified Thai manufacturers. Capital, founding date, TSIC industry code — sourced directly from Thailand's official business registry.",
     intro:
-      "Thai suppliers with the strongest combination of Trust Score, review volume, and overall consensus from public Google reviews.",
-    scoreFn: (r) => r.trust_score * 1.2,
-    filterFn: (r) => r.trust_score >= 50,
+      "DBD-verified Thai B2B suppliers — cross-checked with the official Department of Business Development registry. Sorted by review strength and supplier completeness.",
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) + (r.verified ? 5 : 0),
+    filterFn: (r) => r.verified === true,
   },
   {
     slug: "industrial-estates",
     title: "Best Industrial Estates in Thailand",
     metaTitle: "Best Industrial Estates in Thailand — Pinthong, Amata, WHA",
     metaDescription:
-      "Top industrial estates across Thailand's Eastern Seaboard. Pinthong, Amata, WHA Logistics, Rojana — ranked by Trust Score.",
+      "Top industrial estates across Thailand's Eastern Seaboard. Pinthong, Amata, WHA Logistics, Rojana — ranked by tenant count and verified status.",
     intro:
-      "Major industrial estates and parks across Thailand's Eastern Seaboard manufacturing belt. The biggest, most established estates by reviewer consensus.",
-    scoreFn: (r) => r.trust_score * 1.5,
-    filterFn: (r) => r.categories.includes("industrial_estate"),
+      "Major industrial estates and parks across Thailand's Eastern Seaboard manufacturing belt. Curated estate-categorized suppliers + verified estate operators.",
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) * 1.5,
+    filterFn: (r) => r.categories.includes("industrial_estate") || !!r.estate_slug,
   },
   {
     slug: "auto-parts",
     title: "Best Auto Parts Manufacturers in Thailand",
-    metaTitle: "Best Auto Parts Manufacturers in Thailand — Tier 1 OEM",
+    metaTitle: "Best Auto Parts Manufacturers in Thailand — DBD-Verified Tier 1 OEM",
     metaDescription:
-      "Top Thai auto parts manufacturers — Aisin, AGC, Toyoda Gosei, Summit, and more. Tier 1 OEM suppliers ranked by Trust Score.",
+      "Top DBD-verified Thai auto parts manufacturers — capital, founding date, TSIC code surfaced. Tier 1 OEM suppliers serving Toyota, Honda, Isuzu plants.",
     intro:
       "Thailand is one of the world's top automotive manufacturing hubs. These are the top-rated Tier 1 and Tier 2 auto parts manufacturers — most of them inside Eastern Seaboard estates.",
-    scoreFn: (r) => r.trust_score * 1.3,
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) * 1.3 + (r.verified ? 4 : 0),
     filterFn: (r) => r.categories.includes("auto_parts"),
   },
   {
@@ -55,8 +55,8 @@ export const BEST_FOR: Criterion[] = [
     metaDescription:
       "Top warehouses for B2B sourcing and logistics across Thailand's Eastern Seaboard. Storage, fulfillment, and distribution facilities.",
     intro:
-      "Major warehouse operations in and around Thailand's industrial belt. Logistics, storage, and distribution facilities ranked by reviewer Trust Score.",
-    scoreFn: (r) => r.trust_score * 1.2,
+      "Major warehouse operations in and around Thailand's industrial belt. Logistics, storage, and distribution facilities ranked by buyer signals.",
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) * 1.2,
     filterFn: (r) => r.categories.includes("warehouse") || r.categories.includes("logistics"),
   },
   {
@@ -66,8 +66,8 @@ export const BEST_FOR: Criterion[] = [
     metaDescription:
       "Top Thai manufacturers across automotive, electronics, food, plastics, chemicals, and more. Eastern Seaboard manufacturing hub directory.",
     intro:
-      "Verified Thai manufacturers across all key sectors — automotive, electronics, food, chemicals, plastics, packaging — ranked by Trust Score.",
-    scoreFn: (r) => r.trust_score,
+      "Verified Thai manufacturers across all key sectors — automotive, electronics, food, chemicals, plastics, packaging — ranked by buyer signals.",
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) + (r.verified ? 3 : 0),
     filterFn: (r) => r.categories.includes("manufacturer"),
   },
   {
@@ -78,8 +78,8 @@ export const BEST_FOR: Criterion[] = [
       "Thai manufacturers and suppliers with public websites — verified for direct B2B contact without sourcing-agent middlemen.",
     intro:
       "Thai suppliers with their own public websites. Direct contact channel for buyers wanting to skip sourcing-agent markups.",
-    scoreFn: (r) => r.trust_score + (r.website ? 5 : 0),
-    filterFn: (r) => Boolean(r.website) && r.trust_score >= 40,
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) + (r.website ? 3 : 0),
+    filterFn: (r) => Boolean(r.website),
   },
   {
     slug: "near-laem-chabang",
@@ -91,13 +91,24 @@ export const BEST_FOR: Criterion[] = [
       "Suppliers concentrated in the Sriracha / Laem Chabang / Bowin corridor — Thailand's main container export gateway. Best logistics for export-heavy buyers.",
     scoreFn: (r) => {
       const d = (r.district || "").toLowerCase();
-      const portBoost = ["sriracha", "laem chabang", "bowin", "si racha"].some((k) => d.includes(k)) ? 25 : 0;
-      return portBoost + r.trust_score;
+      const portBoost = ["sriracha", "laem chabang", "bowin", "si racha"].some((k) => d.includes(k)) ? 10 : 0;
+      return portBoost + (r.b2b_score ?? r.trust_score);
     },
     filterFn: (r) => {
       const d = (r.district || "").toLowerCase();
       return ["sriracha", "laem chabang", "bowin", "si racha", "bang lamung"].some((k) => d.includes(k));
     },
+  },
+  {
+    slug: "dbd-verified-by-capital",
+    title: "Top DBD-Verified Suppliers by Registered Capital",
+    metaTitle: "Largest DBD-Verified Thai Suppliers by Capital",
+    metaDescription:
+      "DBD-verified Thai manufacturers ranked by registered capital — a signal of operational scale, balance-sheet depth, and government-license tier.",
+    intro:
+      "Largest DBD-verified Thai B2B suppliers by registered capital. High capital correlates with operational scale, BOI promotion eligibility, and the ability to underwrite large export contracts.",
+    scoreFn: (r) => (r.dbd?.capital_thb ?? 0),
+    filterFn: (r) => r.verified === true && !!r.dbd?.capital_thb,
   },
 ];
 

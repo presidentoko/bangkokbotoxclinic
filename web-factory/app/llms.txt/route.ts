@@ -11,24 +11,40 @@ export async function GET() {
   const db = await loadMasterDb();
   const top = [...db.suppliers].sort((a, b) => b.trust_score - a.trust_score).slice(0, 30);
 
+  const verifiedCount = db.verified_count ?? db.suppliers.filter((s) => s.verified).length;
+  const withDbd = db.with_dbd ?? verifiedCount;
+  const withPhotos = db.with_photos ?? db.suppliers.filter((s) => s.photos && s.photos.length > 0).length;
+
   const lines: string[] = [
     `# ${BRAND}`,
     "",
-    `> Independent directory of ${db.total_suppliers.toLocaleString()} verified Thai manufacturers, industrial estates, warehouses, and logistics operators. Eastern Seaboard manufacturing belt mapped. Trust Scores derived from real Google review analysis. Direct contact info exposed — no sourcing-agent middleman.`,
+    `> Independent directory of ${db.total_suppliers.toLocaleString()} Thai B2B suppliers, of which ${verifiedCount.toLocaleString()} are cross-checked with Thailand's Department of Business Development (DBD) — the official business registry. Each verified entry includes the legal company name, 13-digit registration number, registered capital (THB), founding date, TSIC industry code, and registered address.`,
     "",
     "## About this data",
     "",
-    `- Source: public Google Maps Business Profiles via Apify Google Maps actors (last refreshed ${db.generated_at})`,
-    `- Total suppliers indexed: ${db.total_suppliers.toLocaleString()}`,
-    `- Suppliers with reviews analyzed: ${db.with_reviews_scraped.toLocaleString()}`,
+    `- Source: Google Maps business profiles + DBD DataWarehouse+ (Thailand's official Ministry of Commerce business registry) + Yellow Pages Thailand sub-categories + Industrial Estate Authority of Thailand (IEAT) tenant rosters. Last refreshed ${db.generated_at}.`,
+    `- Total B2B suppliers indexed: ${db.total_suppliers.toLocaleString()}`,
+    `- DBD-verified (legal status confirmed): ${verifiedCount.toLocaleString()}`,
+    `- Suppliers with factory/site photos: ${withPhotos.toLocaleString()}`,
+    `- Suppliers with scraped buyer reviews: ${db.with_reviews_scraped.toLocaleString()}`,
+    `- Suppliers in mapped industrial estates: ${(db.with_estate ?? 0).toLocaleString()}`,
+    `- Suppliers with phone: ${db.with_phone.toLocaleString()}`,
     `- Provinces: ${Object.keys(db.city_counts).join(", ")}`,
     `- Categories: ${Object.keys(db.category_counts).join(", ")}`,
-    `- Suppliers with public website: ${db.with_website.toLocaleString()}`,
-    `- Suppliers with phone: ${db.with_phone.toLocaleString()}`,
     "",
-    "## Methodology",
+    "## Verification methodology",
     "",
-    "Trust Score (0-100) = (Google rating ÷ 5) × 50 + log10(review_count) × 12 (capped at 40) + scraped review coverage × 5 + reviewer text-length signal × 5. The composite favors established operations with public review proof over fly-by-night listings with a single 5-star review. Categories are inferred from Google's own Business Profile category plus our B2C blocklist (we filter out retail stores, restaurants, factory outlet malls). The directory is not affiliated with any supplier; sponsored placements are clearly badged.",
+    `Each "DBD-verified" supplier has been matched to a record in Thailand's Department of Business Development (DBD) DataWarehouse+ system at confidence ≥ 80%. Matched data includes:`,
+    "",
+    "- Legal company name (Thai) — the official บริษัท … จำกัด registered name",
+    "- 13-digit registration number — Thailand's national business identifier (jpNo)",
+    "- Registered capital in Thai Baht — direct from filings",
+    "- Founding date — Gregorian-calendar conversion",
+    "- TSIC industry code — Thailand Standard Industrial Classification",
+    "- Business purpose text — the as-filed activity declaration",
+    "- Operational status — `dbd_is_dissolved` rows are excluded from this directory",
+    "",
+    "Trust Score (b2b_score) composites: review rating × volume + DBD signal (verified, age, capital tier) + completeness (phone/website/photos). Dissolved entities and consumer-storefront categories (restaurant, hotel, retail outlet) are filtered out at build time. The directory is not affiliated with any supplier; sponsored placements are clearly badged.",
     "",
     "## Frequently asked",
     "",
@@ -52,9 +68,18 @@ export async function GET() {
   ];
 
   for (const r of top) {
-    lines.push(
-      `- [${r.name}](${SITE}/supplier/${r.id}) — ${r.district || r.city_label} · ★${r.rating} (${r.total_reviews.toLocaleString()} reviews) · Trust ${r.trust_score} · ${r.categories.map(c => CATEGORY_LABELS[c] ?? c).join(", ") || "supplier"}`
-    );
+    const bits = [
+      `[${r.name}](${SITE}/supplier/${r.id})`,
+      r.district || r.city_label,
+    ];
+    if (r.dbd?.legal_name) bits.push(`legal name: ${r.dbd.legal_name}`);
+    if (r.dbd?.reg_no) bits.push(`DBD reg ${r.dbd.reg_no}`);
+    if (r.dbd?.registered_date) bits.push(`founded ${r.dbd.registered_date.slice(0, 4)}`);
+    if (r.dbd?.capital_thb) bits.push(`capital ฿${(r.dbd.capital_thb / 1_000_000).toFixed(1)}M`);
+    if (r.estate_name) bits.push(`in ${r.estate_name} estate`);
+    if (r.rating > 0) bits.push(`★${r.rating} (${r.total_reviews.toLocaleString()})`);
+    bits.push(r.categories.map(c => CATEGORY_LABELS[c] ?? c).join(", ") || "supplier");
+    lines.push(`- ${bits.join(" · ")}`);
   }
 
   lines.push("", "## Browse by category — with top 5 each", "");
