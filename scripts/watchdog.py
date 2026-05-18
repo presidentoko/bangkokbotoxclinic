@@ -843,8 +843,11 @@ def build_services() -> list[Service]:
             env_extra={},
             log_file=LOGS / "hdmall_scraper.log",
             progress_pattern=re.compile(r"\[hdmall\]"),
-            progress_stale_sec=900,   # 15min (네트워크 fetch 느릴 때 대비)
-            progress_grace_sec=600,   # 10min cold start (Playwright launch + stage 1)
+            # 2026-05-18: stale/grace 늘림. Stage 1 cold start (Playwright + 전체 surgery
+            # 카탈로그 fetch) 가 길어 15min stale 내 [hdmall] 마커 못 찍고 watchdog kick
+            # 받는 crashloop 발생. external_reviews 진척이 30분간 정체된 사례.
+            progress_stale_sec=1800,  # 30min
+            progress_grace_sec=1200,  # 20min cold start
         ),
         Service(
             name="auto_push_loop",

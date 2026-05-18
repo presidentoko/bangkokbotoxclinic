@@ -279,12 +279,36 @@ _CATEGORY_KEYWORDS: dict[str, list[str]] = {
 }
 
 
-def tag_categories_from_text(text: str) -> set[str]:
+# GMaps primary_type 은 모호한 텍스트 매칭보다 정확. "Orthodontist" 같은 type 은
+# 키워드 (dental/dentist/tooth) 에 직접 매칭 안 되지만 명백히 dental.
+_PRIMARY_TYPE_TO_CATEGORY: dict[str, str] = {
+    "dental clinic": "dental",
+    "dentist": "dental",
+    "dental school": "dental",
+    "orthodontist": "dental",
+    "dental implants periodontist": "dental",
+    "pediatric dentist": "dental",
+    "cosmetic dentist": "dental",
+    "endodontist": "dental",
+    "periodontist": "dental",
+    "oral surgeon": "dental",
+    "hair transplantation clinic": "hair_transplant",
+    "hair replacement service": "hair_transplant",
+    "ophthalmologist": "eye",
+    "lasik surgeon": "eye",
+}
+
+
+def tag_categories_from_text(text: str, primary_type: str | None = None) -> set[str]:
     text_l = text.lower()
     found: set[str] = set()
     for cat, kws in _CATEGORY_KEYWORDS.items():
         if any(kw in text_l for kw in kws):
             found.add(cat)
+    if primary_type:
+        pt_l = primary_type.strip().lower()
+        if pt_l in _PRIMARY_TYPE_TO_CATEGORY:
+            found.add(_PRIMARY_TYPE_TO_CATEGORY[pt_l])
     return found
 
 
@@ -755,7 +779,8 @@ def process_source(
             review_sig = analyze_reviews(reviews_dir, place_id, clinic_name=name)
 
             base_cat_set = tag_categories_from_text(
-                f"{row.get('primary_type', '')} {name}"
+                f"{row.get('primary_type', '')} {name}",
+                primary_type=row.get('primary_type', ''),
             )
             categories = sorted(base_cat_set | set(review_sig["derived_categories"]))
             for c in categories:
