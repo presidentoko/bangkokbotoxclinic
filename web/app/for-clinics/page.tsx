@@ -277,7 +277,7 @@ export default async function ForClinicsPage() {
         </div>
         <BookingForm />
         <p className="text-xs text-[var(--muted)] mt-4 text-center">
-          Or message us directly · LINE: <strong>@bangkokbotoxclinic</strong> · Email: <strong>partners@bangkokbotoxclinic.com</strong>
+          Or message us directly · LINE: <strong>@405zhjqb</strong> · Email: <strong>partners@bangkokbotoxclinic.com</strong>
         </p>
       </section>
 

@@ -71,17 +71,35 @@ export default function RootLayout({
         <main>{children}</main>
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
-            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
-              <a href="/about" className="hover:text-black">About</a>
-              <a href="/contact" className="hover:text-black">Contact</a>
-              <a href="/for-clinics" className="hover:text-black">For Clinics</a>
-              <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
-              <a href="/llms.txt" className="hover:text-black">llms.txt</a>
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+              <div className="flex-1">
+                <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
+                  <a href="/about" className="hover:text-black">About</a>
+                  <a href="/contact" className="hover:text-black">Contact</a>
+                  <a href="/for-clinics" className="hover:text-black">For Clinics</a>
+                  <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
+                  <a href="/llms.txt" className="hover:text-black">llms.txt</a>
+                </div>
+                <p className="text-xs leading-relaxed max-w-2xl">
+                  Independent review aggregation. Not affiliated with any clinic. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
+                </p>
+              </div>
+              <a
+                href="https://line.me/R/ti/p/@405zhjqb"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 shrink-0 rounded-lg border border-[var(--border)] px-3 py-2 hover:bg-[var(--bg-soft,#f7f7f7)]"
+                aria-label="Contact us via LINE @405zhjqb"
+              >
+                <img src="/line-qr.jpg" alt="LINE QR @405zhjqb" width={72} height={72} className="rounded" />
+                <div className="text-xs leading-tight">
+                  <div className="font-semibold text-black">Contact via LINE</div>
+                  <div className="text-[var(--muted)]">@405zhjqb</div>
+                  <div className="text-[10px] text-[var(--muted)] mt-1">Scan or tap to chat</div>
+                </div>
+              </a>
             </div>
-            <p className="text-xs leading-relaxed max-w-2xl">
-              Independent review aggregation. Not affiliated with any clinic. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
-            </p>
-            <p className="text-xs mt-3">
+            <p className="text-xs">
               © {new Date().getFullYear()} {cfg.brand}
             </p>
           </div>

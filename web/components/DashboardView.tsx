@@ -1305,7 +1305,7 @@ export function DashboardView({
 
         <footer className="text-xs text-[var(--muted)] text-center py-4">
           Dashboard refreshes ~30 min after each Google review scrape. Data: bangkokbotoxclinic.com.{" "}
-          Questions: <strong>partners@bangkokbotoxclinic.com</strong> · LINE <strong>@bangkokbotoxclinic</strong>
+          Questions: <strong>partners@bangkokbotoxclinic.com</strong> · LINE <strong>@405zhjqb</strong>
         </footer>
       </div>
     </div>
