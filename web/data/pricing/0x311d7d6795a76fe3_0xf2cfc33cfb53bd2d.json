@@ -1,8 +1,8 @@
 {
   "place_id": "0x311d7d6795a76fe3:0xf2cfc33cfb53bd2d",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%82-(pasook-dental-clinic)",
-  "hdmall_name": "คลินิกทันตกรรมพาสุข (Pasook Dental Clinic)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "14124",
@@ -117,5 +117,38 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%82-(pasook-dental-clinic)",
+  "hdmall_name": "คลินิกทันตกรรมพาสุข (Pasook Dental Clinic)",
+  "prices": [
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 3465,
+      "price_max_thb": 3861,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 3
+    },
+    {
+      "service": "dental_braces",
+      "unit_label": "per session",
+      "price_min_thb": 37240,
+      "price_max_thb": 37240,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "dental_general",
+      "unit_label": "per session",
+      "price_min_thb": 588,
+      "price_max_thb": 1470,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 3
+    }
+  ]
 }

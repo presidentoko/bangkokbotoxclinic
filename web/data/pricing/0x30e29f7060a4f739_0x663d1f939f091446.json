@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29f7060a4f739:0x663d1f939f091446",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/beauty/proderma-aesthetic-clinics",
-  "hdmall_name": "ProDerma Aesthetic Clinic (โพรเดอร์มาคลินิก)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "5195",
@@ -149,5 +149,48 @@
       "category": "beauty"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/beauty/proderma-aesthetic-clinics",
+  "hdmall_name": "ProDerma Aesthetic Clinic (โพรเดอร์มาคลินิก)",
+  "prices": [
+    {
+      "service": "laser",
+      "unit_label": "per session",
+      "price_min_thb": 2910,
+      "price_max_thb": 14550,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 9
+    },
+    {
+      "service": "lipo",
+      "unit_label": "per session",
+      "price_min_thb": 9700,
+      "price_max_thb": 9700,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "skincare",
+      "unit_label": "per session",
+      "price_min_thb": 138000,
+      "price_max_thb": 138000,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "hifu",
+      "unit_label": "per session",
+      "price_min_thb": 33950,
+      "price_max_thb": 48500,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 2
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 {
   "place_id": "0x311d7e05555554cd:0x87986149922672a",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/health-checkup/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95",
-  "hdmall_name": "โรงพยาบาลแพทย์รังสิต",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "56239",
@@ -197,5 +197,18 @@
       "category": "health-checkup"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/health-checkup/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95",
+  "hdmall_name": "โรงพยาบาลแพทย์รังสิต",
+  "prices": [
+    {
+      "service": "laser",
+      "unit_label": "per session",
+      "price_min_thb": 1782,
+      "price_max_thb": 4950,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 3
+    }
+  ]
 }

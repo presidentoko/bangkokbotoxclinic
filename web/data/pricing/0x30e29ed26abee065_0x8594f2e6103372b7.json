@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29ed26abee065:0x8594f2e6103372b7",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/central-pattaya-dental-center",
-  "hdmall_name": "Central Pattaya Dental Center",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "8317",
@@ -37,5 +37,18 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/central-pattaya-dental-center",
+  "hdmall_name": "Central Pattaya Dental Center",
+  "prices": [
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 2871,
+      "price_max_thb": 8415,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 4
+    }
+  ]
 }

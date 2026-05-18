@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29f9d009f3655:0x8e6524a23bb4e04a",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/beauty/the-klinique-(%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%84%E0%B9%8C)",
-  "hdmall_name": "THE KLINIQUE (เดอะคลีนิกค์)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "57013",
@@ -141,5 +141,38 @@
       "category": "beauty"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/beauty/the-klinique-(%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%84%E0%B8%A5%E0%B8%B5%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%84%E0%B9%8C)",
+  "hdmall_name": "THE KLINIQUE (เดอะคลีนิกค์)",
+  "prices": [
+    {
+      "service": "laser",
+      "unit_label": "per session",
+      "price_min_thb": 387,
+      "price_max_thb": 2909,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 6
+    },
+    {
+      "service": "hifu",
+      "unit_label": "per session",
+      "price_min_thb": 24249,
+      "price_max_thb": 33949,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 3
+    },
+    {
+      "service": "skincare",
+      "unit_label": "per session",
+      "price_min_thb": 775,
+      "price_max_thb": 12609,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 4
+    }
+  ]
 }

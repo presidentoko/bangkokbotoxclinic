@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29fd9a8ab8b7d:0xcbdbd059cb8450b1",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/tooth-box-dental-clinic",
-  "hdmall_name": "Tooth Box Dental Clinic (คลินิกทันตกรรมทูธบอกซ์)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "9396",
@@ -141,5 +141,38 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/tooth-box-dental-clinic",
+  "hdmall_name": "Tooth Box Dental Clinic (คลินิกทันตกรรมทูธบอกซ์)",
+  "prices": [
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 2517,
+      "price_max_thb": 2772,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 2
+    },
+    {
+      "service": "dental_braces",
+      "unit_label": "per session",
+      "price_min_thb": 17640,
+      "price_max_thb": 147000,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 4
+    },
+    {
+      "service": "dental_general",
+      "unit_label": "per session",
+      "price_min_thb": 970,
+      "price_max_thb": 970,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    }
+  ]
 }

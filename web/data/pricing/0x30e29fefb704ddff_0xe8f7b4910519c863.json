@@ -1,8 +1,9 @@
 {
   "place_id": "0x30e29fefb704ddff:0xe8f7b4910519c863",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/beauty/amo-ne-clinic-(%E0%B8%AD%E0%B8%B2%E0%B9%82%E0%B8%A1%E0%B9%80%E0%B8%99%E0%B9%88%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
-  "hdmall_name": "Amo-ne Clinic (อาโมเน่คลินิกเวชกรรม)",
+  "sources": [
+    "gowabi",
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "56432",
@@ -157,5 +158,172 @@
       "category": "beauty"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/beauty/amo-ne-clinic-(%E0%B8%AD%E0%B8%B2%E0%B9%82%E0%B8%A1%E0%B9%80%E0%B8%99%E0%B9%88%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+  "hdmall_name": "Amo-ne Clinic (อาโมเน่คลินิกเวชกรรม)",
+  "prices": [
+    {
+      "service": "filler",
+      "unit_label": "per session",
+      "price_min_thb": 4790,
+      "price_max_thb": 14400,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall+gowabi",
+      "sample_count": 6
+    },
+    {
+      "service": "skincare",
+      "unit_label": "per session",
+      "price_min_thb": 1455,
+      "price_max_thb": 1455,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    }
+  ],
+  "gowabi_url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+  "gowabi_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+  "gowabi_services": [
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "MID MONTH SALE",
+      "duration": "20",
+      "original_price": "160",
+      "discounted_price": "55000",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (300 Shots) + Ultraformer (400 Shots) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "60",
+      "original_price": "160",
+      "discounted_price": "15999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (300 Shots) (Procedure by Doctor) (Exclusive only GOWABI) *Please Make a Reservation in Advance via LINE* (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "60",
+      "original_price": "130",
+      "discounted_price": "12999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Ultraformer III (400 Shots) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "30",
+      "original_price": "90",
+      "discounted_price": "8999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "บท็อกซ์ xeo.min (Germany) (100 Units) (Free IV Drip Extra White Plus (1 Time)) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "30",
+      "original_price": "150",
+      "discounted_price": "14999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Profhilo (1 Box) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "15",
+      "original_price": "150",
+      "discounted_price": "14999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Filler E.P.T.Q (Korea) (2 cc.) - Deep Under Eye / Temples / Sunken Cheeks / Nasolabial Folds / Lips / Chin (Choose 1-2 Area) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "60",
+      "original_price": "90",
+      "discounted_price": "8999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Filler Neuramis (Korea) (2 cc.) - Deep Under Eye / Temples / Sunken Cheeks / Nasolabial Folds / Lips / Chin (Choose 1-2 Areas) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "60",
+      "original_price": "80",
+      "discounted_price": "7999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Microneedling + Brightening Meso (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "45",
+      "original_price": "40",
+      "discounted_price": "19990",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (600 Shots) *Available exclusively on Gowabi* (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "60",
+      "original_price": "200",
+      "discounted_price": "19990",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (100 Shots) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "30",
+      "original_price": "70",
+      "discounted_price": "22599",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (300 Shots) (Free บท็อกซ์ Hutox (Korea) (50 Units)) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "45",
+      "original_price": "130",
+      "discounted_price": "12999",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (200 Shots) + Ultraformer (200 Shots) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "45",
+      "original_price": "106",
+      "discounted_price": "10599",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    },
+    {
+      "source_id": "amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic",
+      "clinic_name": "Amo-nè Clinic (Phetchaburi Soi 15, BTS Ratchathewi) (Amone Clinic)",
+      "service_name": "Oligio (300 Shots) + Ultraformer (600 Shots) (*Authentic Thai FDA) (Procedures Performed by Doctor)",
+      "duration": "70",
+      "original_price": "226",
+      "discounted_price": "22599",
+      "discount_pct": "0",
+      "url": "https://www.gowabi.com/en/provider/amo-ne-clinic-phetchaburi-soi-15-bts-ratchathewi-amone-clinic"
+    }
+  ]
 }

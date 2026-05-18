@@ -1,8 +1,8 @@
 {
   "place_id": "0x4cb2d2948331faa3:0xfb1a5a0111f39d8f",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/smile-one-dental-care-clinic",
-  "hdmall_name": "Smile One Dental Care Clinic",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "23462",
@@ -197,5 +197,38 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/smile-one-dental-care-clinic",
+  "hdmall_name": "Smile One Dental Care Clinic",
+  "prices": [
+    {
+      "service": "dental_general",
+      "unit_label": "per session",
+      "price_min_thb": 600,
+      "price_max_thb": 700,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 2
+    },
+    {
+      "service": "dental_braces",
+      "unit_label": "per session",
+      "price_min_thb": 1100,
+      "price_max_thb": 1100,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 3325,
+      "price_max_thb": 6000,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 3
+    }
+  ]
 }

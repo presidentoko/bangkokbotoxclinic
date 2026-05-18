@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29f2d655c4ed7:0x6b3623db0a821a30",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/health-checkup/mediprime-clinic-(%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B9%84%E0%B8%9E%E0%B8%A3%E0%B9%8C%E0%B8%A1-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
-  "hdmall_name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "47354",
@@ -85,5 +85,28 @@
       "category": "health-checkup"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/health-checkup/mediprime-clinic-(%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B9%84%E0%B8%9E%E0%B8%A3%E0%B9%8C%E0%B8%A1-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81)",
+  "hdmall_name": "MediPrime Clinic (เมดิไพร์ม คลินิก)",
+  "prices": [
+    {
+      "service": "laser",
+      "unit_label": "per session",
+      "price_min_thb": 27900,
+      "price_max_thb": 27900,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "botox",
+      "unit_label": "per session",
+      "price_min_thb": 29900,
+      "price_max_thb": 29900,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e295820563d971:0x36e26a5b099c54c0",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/good-day-dental-clinic-(%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1-%E0%B8%81%E0%B8%B9%E0%B9%8A%E0%B8%94%E0%B9%80%E0%B8%94%E0%B8%A2%E0%B9%8C-%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%82%E0%B8%A1)",
-  "hdmall_name": "Good Day Dental Clinic (คลินิกทันตกรรม กู๊ดเดย์ หนองแขม)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "51703",
@@ -173,5 +173,58 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/good-day-dental-clinic-(%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1-%E0%B8%81%E0%B8%B9%E0%B9%8A%E0%B8%94%E0%B9%80%E0%B8%94%E0%B8%A2%E0%B9%8C-%E0%B8%AB%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%82%E0%B8%A1)",
+  "hdmall_name": "Good Day Dental Clinic (คลินิกทันตกรรม กู๊ดเดย์ หนองแขม)",
+  "prices": [
+    {
+      "service": "dental_braces",
+      "unit_label": "per session",
+      "price_min_thb": 54880,
+      "price_max_thb": 126420,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 5
+    },
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 2970,
+      "price_max_thb": 6336,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 4
+    },
+    {
+      "service": "dental_general",
+      "unit_label": "per session",
+      "price_min_thb": 1176,
+      "price_max_thb": 2910,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 2
+    },
+    {
+      "service": "dental_implant",
+      "unit_label": "per session",
+      "price_min_thb": 34300,
+      "price_max_thb": 34300,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "laser",
+      "unit_label": "per session",
+      "price_min_thb": 7760,
+      "price_max_thb": 7760,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    }
+  ]
 }

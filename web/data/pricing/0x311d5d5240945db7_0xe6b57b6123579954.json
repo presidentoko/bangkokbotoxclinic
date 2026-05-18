@@ -1,8 +1,8 @@
 {
   "place_id": "0x311d5d5240945db7:0xe6b57b6123579954",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%84%E0%B8%B1%E0%B8%A1",
-  "hdmall_name": "คลินิกทันตกรรมเวลคัม",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "31379",
@@ -109,5 +109,48 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%84%E0%B8%B1%E0%B8%A1",
+  "hdmall_name": "คลินิกทันตกรรมเวลคัม",
+  "prices": [
+    {
+      "service": "dental_general",
+      "unit_label": "per session",
+      "price_min_thb": 4287,
+      "price_max_thb": 19400,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 4
+    },
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 3762,
+      "price_max_thb": 3762,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "dental_braces",
+      "unit_label": "per session",
+      "price_min_thb": 19600,
+      "price_max_thb": 19600,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "dental_implant",
+      "unit_label": "per session",
+      "price_min_thb": 46060,
+      "price_max_thb": 46060,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    }
+  ]
 }

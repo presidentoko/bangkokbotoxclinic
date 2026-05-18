@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29daddaf18e47:0xc6fd91e439be1efb",
-  "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/smile-season-dental-clinic",
-  "hdmall_name": "Smile Seasons Dental Clinic (คลินิกทันตกรรมสไมล์ซีซันส์)",
+  "sources": [
+    "hdmall"
+  ],
   "packages": [
     {
       "sku": "6044",
@@ -69,5 +69,28 @@
       "category": "dental-clinics"
     }
   ],
-  "scraped_at": "2026-05-17T10:20:26Z"
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/smile-season-dental-clinic",
+  "hdmall_name": "Smile Seasons Dental Clinic (คลินิกทันตกรรมสไมล์ซีซันส์)",
+  "prices": [
+    {
+      "service": "dental_whitening",
+      "unit_label": "per session",
+      "price_min_thb": 3465,
+      "price_max_thb": 3465,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    },
+    {
+      "service": "dental_general",
+      "unit_label": "per session",
+      "price_min_thb": 980,
+      "price_max_thb": 980,
+      "source_url": "",
+      "last_checked": "2026-05-18",
+      "source": "hdmall",
+      "sample_count": 1
+    }
+  ]
 }
