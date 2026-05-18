@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fafafa;
+  --fg: #111;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --border: #e5e7eb;
+}
+
+html {
+  /* CLS 0 위해 — 레이아웃 시프트 방지 */
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", "Noto Sans KR", sans-serif;
+  font-feature-settings: "ss01", "ss02";
+  /* 부드러운 텍스트 렌더링 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 외부 이미지 로드 깜빡임 줄이기 */
+img {
+  max-width: 100%;
+  height: auto;
+}

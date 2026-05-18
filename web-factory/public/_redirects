@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects.
+# Cycle 2: /course/[id] → /supplier/[id] (URL semantic upgrade).
+# 301 (permanent) so any indexed legacy URL preserves SEO equity.
+/course/* /supplier/:splat 301
