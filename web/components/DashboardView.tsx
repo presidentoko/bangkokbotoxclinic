@@ -322,11 +322,11 @@ export function DashboardView({
       {/* Sticky header */}
       <div className="bg-white border-b border-[var(--border)] sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
-              Owner mode · Refreshed daily from public Google data
+          <div className="min-w-0 flex-1">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[var(--muted)] truncate">
+              Owner mode · <span className="hidden sm:inline">Refreshed daily from public Google data</span><span className="sm:hidden">Daily refresh</span>
             </div>
-            <div className="text-base font-bold truncate max-w-md">{c.name}</div>
+            <div className="text-base font-bold truncate">{c.name}</div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <a
@@ -1246,42 +1246,42 @@ export function DashboardView({
               )}
               <ul className="grid sm:grid-cols-2 gap-3 text-sm mb-6">
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5 flex-wrap">
                     <span className="font-bold">🤖 Auto-reply posting</span>
                     <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_AUTO_REPLY_THB.toLocaleString()}/mo</span>
                   </div>
                   <div className="text-xs opacity-85">We post AI-drafted replies to Google for you. No copy-paste.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5 flex-wrap">
                     <span className="font-bold">📨 Review request campaigns</span>
                     <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_REVIEW_CAMPAIGN_THB.toLocaleString()}/mo</span>
                   </div>
                   <div className="text-xs opacity-85">Weekly LINE/SMS to your last 50 patients, asking for a review.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5 flex-wrap">
                     <span className="font-bold">📥 Lead routing</span>
                     <span className="text-xs font-black tabular-nums opacity-90">฿50/lead · or ฿{PRICE_LEAD_ROUTING_THB.toLocaleString()}/mo</span>
                   </div>
                   <div className="text-xs opacity-85">Booking forms → your LINE within 60 seconds. 24h exclusivity hold.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5 flex-wrap">
                     <span className="font-bold">⭐ Featured slot</span>
                     <span className="text-xs font-black tabular-nums opacity-90">from ฿{PRICE_FEATURED_THB.toLocaleString()}/mo</span>
                   </div>
                   <div className="text-xs opacity-85">Top placement in /clinic search for your category + district.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5 flex-wrap">
                     <span className="font-bold">🌐 Korean / EN SEO</span>
                     <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_KOREAN_SEO_THB.toLocaleString()}/mo</span>
                   </div>
                   <div className="text-xs opacity-85">Localized content + reviews — capture medical tourism search.</div>
                 </li>
                 <li className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                  <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                  <div className="flex items-baseline justify-between gap-2 mb-0.5 flex-wrap">
                     <span className="font-bold">📞 Monthly strategy call</span>
                     <span className="text-xs font-black tabular-nums opacity-90">฿{PRICE_STRATEGY_CALL_THB.toLocaleString()}/mo</span>
                   </div>

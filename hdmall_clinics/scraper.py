@@ -129,8 +129,19 @@ _STOPWORDS_TH = {
 }
 
 
+# Common Thai branch / location suffix patterns — strip before tokenizing so the
+# GMaps "<brand> สาขาบางนา" branch suffix doesn't dilute matches against the
+# HDmall canonical "<brand>" name.
+_RE_THAI_BRANCH = re.compile(
+    r"สาขา\s*\S+|จัดส่ง\s*\S+|\([^)]+\)|\[[^\]]+\]"
+)
+
+
 def _normalize(s: str) -> str:
     s = s.lower()
+    # Strip parenthesized / bracketed branch info + Thai สาขา-suffix BEFORE
+    # punctuation normalization, so the pattern still has its parens to match.
+    s = _RE_THAI_BRANCH.sub(" ", s)
     s = re.sub(r"[^\w\s]", " ", s, flags=re.UNICODE)
     s = re.sub(r"\s+", " ", s).strip()
     return s
@@ -146,6 +157,13 @@ def _content_tokens(s: str) -> set[str]:
 
 
 def _jaccard(a: str, b: str) -> float:
+    """Jaccard with containment escalator.
+
+    Pure token-overlap Jaccard penalizes cases where one name is the canonical
+    form and the other has extra context (branch, district, descriptor). When
+    one tokenset is a non-trivial subset of the other, that's a strong signal
+    they refer to the same brand even if the union is large.
+    """
     ta = _content_tokens(a)
     tb = _content_tokens(b)
     if not ta or not tb:
@@ -157,8 +175,19 @@ def _jaccard(a: str, b: str) -> float:
     intersection = len(ta & tb)
     if intersection == 0:
         return 0.0
-    # Require at least 1 meaningful shared token (not just 1-char tokens)
-    return intersection / len(ta | tb)
+
+    union = len(ta | tb)
+    base = intersection / union
+
+    # Containment bonus — if the smaller set is mostly a subset of the larger.
+    # Require ≥2 shared tokens to avoid spurious "Clinic" / single-name matches.
+    smaller = min(len(ta), len(tb))
+    if intersection >= 2 and intersection / smaller >= 0.8:
+        # Boost toward 1.0 by how dominant the containment is.
+        # 80% containment → +0.15, 100% containment → +0.25.
+        boost = 0.15 + 0.10 * ((intersection / smaller) - 0.8) / 0.2
+        base = min(1.0, base + boost)
+    return base
 
 
 def _district_overlap(a_districts: list[str], b_address: str) -> bool:
@@ -426,10 +455,11 @@ def match_clinics(hdmall_clinics: list[HDmallClinic], gmaps_clinics: list[dict])
         best: Optional[MatchResult] = None
         for gm in gmaps_clinics:
             score = _jaccard(hd.name, gm["name"])
-            # Bonus for district overlap
+            # District overlap bonus — location-confirmed match is a strong signal.
+            # Increased from 0.15 → 0.20 (2026-05-18) for borderline cases.
             if hd.districts and gm.get("address"):
                 if _district_overlap(hd.districts, gm["address"]):
-                    score = min(1.0, score + 0.15)
+                    score = min(1.0, score + 0.20)
             if best is None or score > best.score:
                 best = MatchResult(
                     place_id=gm["place_id"],
@@ -438,7 +468,7 @@ def match_clinics(hdmall_clinics: list[HDmallClinic], gmaps_clinics: list[dict])
                     hdmall_name=hd.name,
                     score=score,
                     method="jaccard+district",
-                    needs_review=score < 0.5,
+                    needs_review=score < 0.45,  # 0.5 → 0.45 — more matches counted "strong"
                 )
         if best and best.score >= 0.25:
             results.append(best)
@@ -673,10 +703,10 @@ def _checkpoint(hdmall_clinics: list[HDmallClinic], gmaps_clinics: list[dict]):
     )
 
     wr, wp = write_outputs(matches, hd_by_url)
-    strong = sum(1 for m in matches if m.score >= 0.5)
-    weak = sum(1 for m in matches if 0.35 <= m.score < 0.5)
+    strong = sum(1 for m in matches if m.score >= 0.45)
+    weak = sum(1 for m in matches if 0.35 <= m.score < 0.45)
     print(f"[hdmall] checkpoint: {len(hd_by_url)} fetched, {len(matches)} matched "
-          f"(strong≥0.5: {strong}, weak: {weak}), wrote {wr} reviews + {wp} pricing files")
+          f"(strong≥0.45: {strong}, weak: {weak}), wrote {wr} reviews + {wp} pricing files")
 
 
 def rematch():
