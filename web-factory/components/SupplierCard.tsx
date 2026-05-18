@@ -40,9 +40,15 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            {r.verified && (
+            {r.verified && r.dbd?.match_score !== undefined && r.dbd.match_score >= 90 && (
               <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow">
                 ✓ DBD Verified
+              </span>
+            )}
+            {r.verified && r.dbd?.match_score !== undefined && r.dbd.match_score >= 80 && r.dbd.match_score < 90 && (
+              <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/95 text-white text-[10px] font-bold uppercase tracking-wider shadow"
+                    title={`Likely match (${r.dbd.match_score.toFixed(0)}%)`}>
+                ≈ DBD-listed
               </span>
             )}
           </div>

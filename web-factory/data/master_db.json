@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T15:17:11.442633+00:00",
+  "generated_at": "2026-05-18T15:37:03.234090+00:00",
   "schema_version": 2,
   "source": "thaisupplyhub_premium_final.csv + verified_final.csv",
   "total_suppliers": 3305,
@@ -190,22 +190,22 @@
   },
   "category_counts": {
     "manufacturer": 2554,
-    "warehouse": 178,
+    "auto_parts": 271,
+    "warehouse": 181,
+    "food_mfg": 180,
     "corporate_office": 157,
-    "auto_parts": 154,
-    "food_mfg": 117,
-    "plastic": 92,
-    "textile": 86,
-    "steel": 81,
-    "electronics": 75,
-    "chemical": 74,
+    "logistics": 156,
+    "plastic": 146,
+    "steel": 141,
+    "textile": 102,
+    "chemical": 95,
+    "electronics": 89,
+    "rubber": 83,
+    "exporter": 78,
     "equipment": 72,
-    "rubber": 54,
-    "logistics": 43,
-    "machining": 41,
-    "machinery": 23,
-    "exporter": 21,
-    "packaging": 7
+    "machinery": 64,
+    "packaging": 55,
+    "machining": 53
   },
   "primary_type_counts": {
     "Manufacturer": 1403,
@@ -1685,7 +1685,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -3907,7 +3908,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -5551,7 +5553,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -13018,7 +13021,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -32202,7 +32206,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -32354,7 +32359,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Auto body parts supplier"
@@ -36257,7 +36263,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -37559,7 +37566,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Auto body parts supplier"
@@ -56940,7 +56948,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -68992,7 +69001,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Auto body parts supplier"
@@ -70747,7 +70757,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [
         "Gravel plant"
@@ -84013,7 +84024,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -84593,7 +84605,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [
         "Auto body parts supplier"
@@ -85462,7 +85475,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -102949,7 +102963,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [
         "Packaging company"
@@ -114348,7 +114364,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -116623,7 +116641,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "steel",
+        "exporter"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -127441,7 +127462,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber"
       ],
       "raw_categories": [
         "Weaving mill"
@@ -133472,7 +133494,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [
         "Packaging supply store"
@@ -137725,7 +137748,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [
         "Mechanical plant"
@@ -148089,7 +148113,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [
         "Solar photovoltaic power plant"
@@ -149708,7 +149733,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber"
       ],
       "raw_categories": [
         "Agricultural production"
@@ -151132,7 +151158,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [
         "Wholesaler"
@@ -151724,7 +151751,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [
         "Manufacturer"
@@ -161010,7 +161038,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics",
+        "machinery"
       ],
       "raw_categories": [
         "Construction company"
@@ -163364,7 +163394,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -163587,7 +163618,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -163661,7 +163693,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -163735,7 +163768,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -164031,7 +164065,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -164105,7 +164140,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -164179,7 +164215,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -164327,7 +164364,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -164549,7 +164587,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -164623,7 +164662,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -165069,7 +165109,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -165218,7 +165259,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -165366,7 +165408,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -165962,7 +166005,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -166184,7 +166228,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -166703,7 +166748,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -167997,7 +168043,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -169187,7 +169234,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -169562,7 +169610,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -169636,7 +169686,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -170261,7 +170312,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -170781,7 +170833,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -171226,7 +171279,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -172265,7 +172319,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "rubber",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -173330,7 +173387,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -173627,7 +173685,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -173701,7 +173760,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -173850,7 +173910,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -174520,7 +174581,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -175114,7 +175176,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -175635,7 +175698,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -176231,7 +176295,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -176380,7 +176445,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -176678,7 +176744,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -176902,7 +176970,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -178099,7 +178168,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "plastic",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -178619,7 +178691,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -178813,7 +178886,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -178903,7 +178977,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -178977,7 +179052,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -179648,7 +179724,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -180913,7 +180990,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -182619,7 +182697,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -182717,7 +182797,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -182823,7 +182904,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -182991,7 +183073,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -183336,7 +183419,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -184122,7 +184206,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -184208,7 +184293,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -184399,7 +184485,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -184749,7 +184836,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -185012,7 +185100,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -185393,7 +185483,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -185679,7 +185770,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -185799,7 +185891,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186012,7 +186105,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186141,7 +186235,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186249,7 +186344,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186416,7 +186512,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186588,7 +186686,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186761,7 +186860,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -186963,7 +187063,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -187226,7 +187327,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -187382,7 +187484,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -187726,7 +187829,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -188019,7 +188124,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -188166,7 +188272,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -188253,7 +188360,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -188411,7 +188519,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -188787,7 +188896,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -188957,7 +189067,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -189075,7 +189186,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -189680,7 +189792,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -189845,7 +189958,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -190098,7 +190212,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -190196,7 +190311,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -190335,7 +190451,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -190503,7 +190620,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -190709,7 +190827,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -191558,7 +191677,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -191641,7 +191761,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -191823,7 +191944,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -192027,7 +192149,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -192112,7 +192236,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -192214,7 +192339,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -192439,7 +192565,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -192613,7 +192740,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -192780,7 +192908,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -193183,7 +193312,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -193267,7 +193397,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -193347,7 +193478,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -193516,7 +193649,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -193600,7 +193734,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -194101,7 +194236,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -194200,7 +194336,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -194324,7 +194461,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -194656,7 +194794,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -195072,7 +195211,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -195415,7 +195555,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [
         "Packaging company"
@@ -195500,7 +195642,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -195583,7 +195727,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -195666,7 +195812,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -195744,7 +195892,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -195885,7 +196034,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -196057,7 +196207,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -196471,7 +196622,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -196569,7 +196721,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -196693,7 +196846,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -196857,7 +197011,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -197407,7 +197562,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -197526,7 +197682,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -198435,7 +198592,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -198519,7 +198677,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -198597,7 +198756,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -198675,7 +198835,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "chemical",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -198978,7 +199141,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -199069,7 +199233,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -199149,7 +199314,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -199240,7 +199406,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -199561,7 +199728,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -199646,7 +199814,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -200033,7 +200202,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -200143,7 +200313,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -200477,7 +200648,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "warehouse"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -200651,7 +200823,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -200749,7 +200922,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -200896,7 +201070,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -201027,7 +201202,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -201402,7 +201578,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -201501,7 +201679,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -201586,7 +201766,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -201849,7 +202030,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -201948,7 +202130,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -202244,7 +202427,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -202391,7 +202575,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -202477,7 +202663,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -202793,7 +202980,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -203333,7 +203521,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -203523,7 +203712,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -204228,7 +204419,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -204323,7 +204515,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -204784,7 +204977,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -205258,7 +205453,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -205342,7 +205538,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -205433,7 +205630,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -205892,7 +206090,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -205991,7 +206191,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -206380,7 +206581,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207010,7 +207213,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207280,7 +207485,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207360,7 +207566,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207539,7 +207746,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207714,7 +207922,11 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "plastic",
+        "electronics",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207792,7 +208004,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -207957,7 +208170,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -208044,7 +208258,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -208127,7 +208342,11 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "plastic",
+        "electronics",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -208371,7 +208590,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -208609,7 +208829,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -208844,7 +209065,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209037,7 +209259,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209324,7 +209547,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209423,7 +209647,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209532,7 +209758,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209618,7 +209845,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209715,7 +209943,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -209908,7 +210137,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -210094,7 +210324,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -210345,7 +210576,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -210652,7 +210884,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -211004,7 +211237,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -211265,7 +211500,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -211367,7 +211604,12 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "steel",
+        "chemical",
+        "machining",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -211605,7 +211847,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -212155,7 +212398,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -212240,7 +212484,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -212608,7 +212854,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -213093,7 +213340,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -213197,7 +213445,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -213280,7 +213530,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -213441,7 +213692,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -213617,7 +213869,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -213695,7 +213948,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -214051,7 +214305,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -214283,7 +214538,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -214448,7 +214704,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215071,7 +215328,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215156,7 +215414,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215247,7 +215506,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215325,7 +215585,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215429,7 +215690,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215523,7 +215785,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215601,7 +215864,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215909,7 +216173,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -215993,7 +216258,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -216095,7 +216361,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -216681,7 +216948,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -216846,7 +217114,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -216932,7 +217201,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -217182,7 +217452,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile",
+        "food_mfg",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -217273,7 +217546,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -217370,7 +217644,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -217647,7 +217923,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -217746,7 +218023,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -217831,7 +218109,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218001,7 +218281,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218206,7 +218487,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218316,7 +218598,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218400,7 +218683,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218494,7 +218778,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218579,7 +218864,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218721,7 +219007,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -218806,7 +219093,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219055,7 +219344,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219133,7 +219423,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219211,7 +219502,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219495,7 +219787,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219586,7 +219879,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219751,7 +220045,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219829,7 +220124,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -219907,7 +220203,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220009,7 +220306,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220094,7 +220392,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220266,7 +220565,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220533,7 +220833,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220715,7 +221016,11 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "plastic",
+        "steel",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220797,7 +221102,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -220888,7 +221195,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -221083,7 +221391,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -221230,7 +221539,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -221586,7 +221896,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -221677,7 +221988,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -221782,7 +222094,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -221873,7 +222186,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222015,7 +222329,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222115,7 +222431,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222280,7 +222597,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222379,7 +222698,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222477,7 +222797,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222609,7 +222930,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222687,7 +223009,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222785,7 +223109,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -222884,7 +223210,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -223153,7 +223480,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -223423,7 +223751,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -223596,7 +223926,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -223769,7 +224101,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224028,7 +224361,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224148,7 +224482,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "rubber",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224229,7 +224566,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224364,7 +224703,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224507,7 +224847,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224718,7 +225059,12 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "plastic",
+        "rubber",
+        "machinery",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224809,7 +225155,12 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "plastic",
+        "rubber",
+        "machinery",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -224889,7 +225240,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -225061,7 +225413,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -225230,7 +225583,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -225812,7 +226166,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226062,7 +226417,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226173,7 +226529,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226352,7 +226709,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226482,7 +226840,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226580,7 +226939,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226661,7 +227021,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226826,7 +227187,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -226906,7 +227269,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -227125,7 +227489,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -227415,7 +227780,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -227493,7 +227859,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [
         "Mechanical plant"
@@ -227919,7 +228286,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -228728,7 +229096,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -228937,7 +229306,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -229109,7 +229479,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -229297,7 +229668,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -229404,7 +229776,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -229569,7 +229942,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -229933,7 +230308,11 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "steel",
+        "electronics",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230015,7 +230394,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230260,7 +230641,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230391,7 +230773,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230564,7 +230947,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230650,7 +231036,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230728,7 +231115,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230893,7 +231281,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -230980,7 +231369,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -231071,7 +231462,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -231227,7 +231619,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -231305,7 +231698,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -231639,7 +232033,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232089,7 +232484,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232360,7 +232756,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232493,7 +232890,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232578,7 +232976,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232659,7 +233059,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232737,7 +233139,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -232908,7 +233312,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -233191,7 +233596,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -233608,7 +234014,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -233890,7 +234297,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -233975,7 +234383,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -234077,7 +234486,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -234314,7 +234724,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -234571,7 +234982,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -234708,7 +235120,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -234881,7 +235294,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -235151,7 +235566,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -235236,7 +235652,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -235566,7 +235983,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -235682,7 +236100,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -235894,7 +236313,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -235974,7 +236394,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -236129,7 +236550,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -236336,7 +236758,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "electronics",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -236430,7 +236854,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -236558,7 +236983,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -236645,7 +237071,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "electronics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -237023,7 +237451,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -237200,7 +237629,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -237359,7 +237789,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -237469,7 +237900,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -237850,7 +238282,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -238100,7 +238533,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -238498,7 +238933,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -239331,7 +239767,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -239518,7 +239955,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -239603,7 +240041,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -239771,7 +240210,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -240124,7 +240564,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -240413,7 +240854,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -240590,7 +241032,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -240908,7 +241351,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -240993,7 +241438,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -241095,7 +241541,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -241267,7 +241714,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -241428,7 +241876,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -242016,7 +242465,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "packaging",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -242331,7 +242783,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -242418,7 +242871,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -242502,7 +242956,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -242753,7 +243209,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -242918,7 +243375,10 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg",
+        "chemical",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -243173,7 +243633,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -243328,7 +243790,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -244014,7 +244477,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -244530,7 +244994,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -244625,7 +245090,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -244703,7 +245169,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -244927,7 +245394,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -245024,7 +245492,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -245198,7 +245667,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "warehouse"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -245296,7 +245766,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "warehouse"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -245438,7 +245909,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -245523,7 +245995,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246096,7 +246569,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246357,7 +246832,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246455,7 +246931,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246627,7 +247104,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246725,7 +247203,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246809,7 +247288,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -246900,7 +247380,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247013,7 +247494,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247133,7 +247616,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247214,7 +247698,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247305,7 +247790,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247451,7 +247938,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247617,7 +248106,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247708,7 +248198,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -247963,7 +248454,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -248147,7 +248639,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -248309,7 +248802,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -248426,7 +248920,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -248717,7 +249213,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -248919,7 +249416,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -249194,7 +249692,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -249382,7 +249881,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -249463,7 +249963,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -249584,7 +250086,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -250302,7 +250806,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -250389,7 +250894,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -250495,7 +251001,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -250593,7 +251100,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -250845,7 +251353,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -251213,7 +251722,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -251300,7 +251810,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -251576,7 +252087,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -251777,7 +252289,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -251871,7 +252384,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -251970,7 +252484,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252051,7 +252566,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252216,7 +252732,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252314,7 +252832,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252510,7 +253029,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252681,7 +253202,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252903,7 +253425,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -252988,7 +253511,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -253594,7 +254118,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -253737,7 +254262,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -253857,7 +254383,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -253940,7 +254467,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -254094,7 +254622,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -254384,7 +254913,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -254609,7 +255140,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -254733,7 +255265,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -254819,7 +255353,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -254910,7 +255445,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255006,7 +255542,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255091,7 +255628,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255200,7 +255738,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255340,7 +255880,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255449,7 +255991,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255527,7 +256070,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255629,7 +256173,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255707,7 +256252,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255803,7 +256350,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -255894,7 +256443,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -256230,7 +256781,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -256379,7 +256931,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -256487,7 +257040,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -256680,7 +257234,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -256765,7 +257320,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -256865,7 +257421,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -257033,7 +257590,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -257264,7 +257822,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -257384,7 +257943,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -257480,7 +258040,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -257775,7 +258336,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -258373,7 +258935,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -258542,7 +259105,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -258715,7 +259280,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -258814,7 +259380,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -258981,7 +259549,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -259160,7 +259729,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -259301,7 +259871,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -259384,7 +259955,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -259550,7 +260122,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -259635,7 +260208,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -259828,7 +260403,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -260447,7 +261023,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -260618,7 +261195,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -260779,7 +261357,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -260887,7 +261466,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -261022,7 +261602,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -261178,7 +261759,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -261343,7 +261926,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -261514,7 +262098,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -261613,7 +262199,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -261784,7 +262371,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -262182,7 +262771,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -262353,7 +262943,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -262550,7 +263141,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -262645,7 +263237,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -262729,7 +263322,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -262842,7 +263436,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -263099,7 +263694,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -263380,7 +263976,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -263463,7 +264060,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -263991,7 +264589,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -264205,7 +264804,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -264314,7 +264914,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -264465,7 +265066,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -264551,7 +265153,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -264642,7 +265245,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -264889,7 +265493,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265106,7 +265711,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265230,7 +265836,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265343,7 +265950,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265426,7 +266034,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265504,7 +266113,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machining"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265709,7 +266319,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -265896,7 +266507,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -266162,7 +266774,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -266333,7 +266946,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -266887,7 +267501,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -267139,7 +267754,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "machinery"
       ],
       "raw_categories": [
         "Mechanical plant"
@@ -267225,7 +267841,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [
         "Packaging company"
@@ -267402,7 +268020,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -267500,7 +268119,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -267591,7 +268211,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -267673,7 +268294,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -268024,7 +268646,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -268284,7 +268907,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -268456,7 +269080,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -268604,7 +269229,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -268885,7 +269511,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -269355,7 +269983,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -269441,7 +270070,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -269684,7 +270314,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -269877,7 +270509,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -269974,7 +270607,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts",
+        "rubber"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270054,7 +270689,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270137,7 +270773,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "chemical"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270304,7 +270941,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "food_mfg"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270388,7 +271026,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270479,7 +271118,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270566,7 +271206,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "packaging",
+        "plastic"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270724,7 +271366,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "logistics"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270807,7 +271450,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "auto_parts"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -270898,7 +271542,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -271227,7 +271872,9 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "textile",
+        "exporter"
       ],
       "raw_categories": [],
       "mentioned_topics": [],
@@ -271337,7 +271984,8 @@
         "other": 0
       },
       "categories": [
-        "manufacturer"
+        "manufacturer",
+        "steel"
       ],
       "raw_categories": [],
       "mentioned_topics": [],

@@ -69,6 +69,14 @@ function whatsAppLink(phone: string, name: string): string | null {
   return `https://wa.me/${intl}?text=${msg}`;
 }
 
+// match_score >= 90 = "Verified" (강), 80-89 = "Likely match" (약). <80 = 신뢰 시그널 없음.
+function dbdConfidence(score: number | null | undefined): "verified" | "likely" | null {
+  if (typeof score !== "number") return null;
+  if (score >= 90) return "verified";
+  if (score >= 80) return "likely";
+  return null;
+}
+
 function lineLink(phone: string): string | null {
   // LINE 은 phone 만으로는 안 됨 — 검색용 deeplink
   if (!phone) return null;
@@ -93,6 +101,7 @@ export default async function SupplierPage(
   const founded = r.dbd?.registered_date ? r.dbd.registered_date.slice(0, 4) : null;
   const years = r.years_in_business || (founded ? new Date().getFullYear() - parseInt(founded) : null);
   const tsic = r.dbd?.tsic_code;
+  const confidence = dbdConfidence(r.dbd?.match_score);
 
   // Similar — same estate first, then same TSIC, then same category
   const similar = (() => {
@@ -146,9 +155,15 @@ export default async function SupplierPage(
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-6 md:p-8">
-              {r.verified && (
+              {confidence === "verified" && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider mb-3 shadow">
                   <span aria-hidden>✓</span> DBD Verified Supplier
+                </span>
+              )}
+              {confidence === "likely" && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/95 text-white text-xs font-bold uppercase tracking-wider mb-3 shadow"
+                      title={`DBD-listed; name matched at ${r.dbd?.match_score?.toFixed(0)}% — likely but not fully confirmed.`}>
+                  <span aria-hidden>≈</span> DBD-listed · Likely match
                 </span>
               )}
               <h1 className="text-2xl md:text-4xl font-bold text-white tracking-tight">{r.name}</h1>
@@ -163,9 +178,15 @@ export default async function SupplierPage(
           </div>
         ) : (
           <div className="rounded-2xl border border-[var(--border)] p-8 bg-stone-50">
-            {r.verified && (
+            {confidence === "verified" && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider mb-3">
                 <span aria-hidden>✓</span> DBD Verified
+              </span>
+            )}
+            {confidence === "likely" && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold uppercase tracking-wider mb-3"
+                    title={`Likely match (${r.dbd?.match_score?.toFixed(0)}% name confidence)`}>
+                <span aria-hidden>≈</span> DBD-listed
               </span>
             )}
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{r.name}</h1>
@@ -269,13 +290,22 @@ export default async function SupplierPage(
 
             {/* Business profile — DBD details */}
             {r.dbd && (
-              <section className="bg-stone-50 border border-stone-200 rounded-2xl p-6">
+              <section className={`border rounded-2xl p-6 ${confidence === "verified" ? "bg-emerald-50/40 border-emerald-200" : "bg-amber-50/40 border-amber-200"}`}>
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-emerald-600 text-white text-base">✓</span>
-                  <h2 className="text-xl font-bold text-stone-900">Verified business profile</h2>
+                  <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-white text-base ${confidence === "verified" ? "bg-emerald-600" : "bg-amber-500"}`}>
+                    {confidence === "verified" ? "✓" : "≈"}
+                  </span>
+                  <h2 className="text-xl font-bold text-stone-900">
+                    {confidence === "verified" ? "Verified business profile" : "DBD-listed business profile"}
+                  </h2>
                 </div>
                 <p className="text-sm text-stone-600 mb-4 leading-relaxed">
-                  Cross-checked with Thailand&apos;s Department of Business Development (DBD) — the official business registry.
+                  {confidence === "verified" ? (
+                    <>Cross-checked with Thailand&apos;s Department of Business Development (DBD) — the official business registry.</>
+                  ) : (
+                    <>This Google Maps listing was matched to a DBD registry entry at {r.dbd.match_score?.toFixed(0)}% name confidence.
+                       Capital and legal name shown below are from the matched DBD record — please verify the legal identity directly with the supplier before contracting.</>
+                  )}
                 </p>
                 <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
                   {r.dbd.legal_name && (

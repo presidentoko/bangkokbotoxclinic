@@ -30,6 +30,25 @@ OUT = WEB / "data" / "master_db.json"
 VERIFIED_CSV = EXPORT / "thaisupplyhub_verified_final.csv"
 PREMIUM_CSV  = EXPORT / "thaisupplyhub_premium_final.csv"
 
+# Yellow Pages 카테고리별 파일 → 내부 카테고리 slug 매핑.
+# 이 파일들은 name 만 가지고 있어서 name fuzzy match 로 master_db enrichment 만 수행.
+YP_CATEGORY_FILES = {
+    "yp_Automobile_Manufacturers.csv":           "auto_parts",
+    "yp_Chemical_Manufacturers.csv":             "chemical",
+    "yp_Electrical_and_Electronic_Products.csv": "electronics",
+    "yp_Electronic_Components_Manufacturers.csv":"electronics",
+    "yp_Food_and_Food_Products_Manufacturers.csv":"food_mfg",
+    "yp_Freight_Forwarder.csv":                  "logistics",
+    "yp_Logistic_Services.csv":                  "logistics",
+    "yp_Metal_Manufacturers.csv":                "steel",
+    "yp_Packing_Materials.csv":                  "packaging",
+    "yp_Plastic_Products.csv":                   "plastic",
+    "yp_Plastic_and_Plastic_Products_Manufacturers.csv": "plastic",
+    "yp_Rubber_and_Rubber_Products.csv":         "rubber",
+    "yp_Steel_and_Steel_Products.csv":           "steel",
+    "yp_Warehouses.csv":                         "warehouse",
+}
+
 
 # Google Maps category → 내부 카테고리 slug 매핑
 _CAT_MAP = [
@@ -145,6 +164,73 @@ def parse_photos(s: str | None) -> list[str]:
     if isinstance(raw, list):
         return [u for u in raw if isinstance(u, str) and u.startswith("http")]
     return []
+
+
+def yp_name_key(name: str) -> str:
+    """YP name fuzzy match key — Thai/English 회사명 정규화."""
+    s = (name or "").lower().strip()
+    # 흔한 prefix/suffix 제거
+    for prefix in ("บริษัท ", "บจก. ", "บจก.", "บมจ. ", "บมจ.", "หจก. ", "หจก."):
+        if s.startswith(prefix.lower()):
+            s = s[len(prefix):]
+    for suf in ("co., ltd.", "co.,ltd.", "co.ltd.", "co ltd", "company limited",
+                "co., ltd", "co.", "ltd.", "ltd", "pcl", "plc", "limited",
+                "inc.", "inc", "corporation", "company", "จำกัด (มหาชน)", "จำกัด(มหาชน)", "จำกัด"):
+        while s.endswith(suf):
+            s = s[: -len(suf)].rstrip(" ,.()&")
+    s = re.sub(r"[^a-zA-Z0-9ก-๙]", "", s)
+    return s
+
+
+# DBD purpose 텍스트 (Thai 위주) → 카테고리 매핑 키워드.
+_PURPOSE_KEYWORDS: list[tuple[list[str], str]] = [
+    (["ชิ้นส่วนรถยนต์", "ยานยนต์", "auto part", "automotive", "รถยนต์"], "auto_parts"),
+    (["บรรจุภัณฑ์", "packaging", "กระสอบ", "ถุง", "carton", "บรรจุ"], "packaging"),
+    (["พลาสติก", "plastic", "polymer", "polypropylene", "polyethylene", "โพลี"], "plastic"),
+    (["เหล็ก", "steel", "iron", "โลหะ", "metal", "alumin"], "steel"),
+    (["ยาง", "rubber"], "rubber"),
+    (["สิ่งทอ", "เสื้อผ้า", "textile", "garment", "fabric", "apparel"], "textile"),
+    (["อาหาร", "เครื่องดื่ม", "food", "beverage", "bakery", "เบเกอรี่"], "food_mfg"),
+    (["เคมี", "chemical", "เคมีภัณฑ์"], "chemical"),
+    (["อิเล็กทรอนิกส์", "electronic", "semiconductor", "อิเล็กโทรนิคส์"], "electronics"),
+    (["เครื่องจักร", "machinery"], "machinery"),
+    (["machining", "fabrication", "กลึง", "แมชชีน"], "machining"),
+    (["คลังสินค้า", "warehouse", "storage", "โกดัง"], "warehouse"),
+    (["โลจิสติกส์", "ขนส่ง", "logistics", "freight", "forward", "shipping", "logistic"], "logistics"),
+    (["industrial estate", "นิคมอุตสาหกรรม"], "industrial_estate"),
+    (["export", "ส่งออก", "exporter"], "exporter"),
+]
+
+
+def categories_from_purpose(purpose: str) -> list[str]:
+    if not purpose:
+        return []
+    p = purpose.lower()
+    out: list[str] = []
+    for kws, slug in _PURPOSE_KEYWORDS:
+        for kw in kws:
+            if kw in p:
+                out.append(slug); break
+    return out
+
+
+def load_yp_category_map(export_dir: Path) -> dict[str, list[str]]:
+    """{normalized_name: [yp_category_slug...]}. 한 회사가 여러 YP 카테고리에 있을 수 있음."""
+    out: dict[str, list[str]] = {}
+    for fname, slug in YP_CATEGORY_FILES.items():
+        path = export_dir / fname
+        if not path.exists():
+            continue
+        with open(path, encoding="utf-8-sig") as f:
+            for r in csv.DictReader(f):
+                k = yp_name_key(r.get("name", ""))
+                if not k or len(k) < 3:
+                    continue
+                if k not in out:
+                    out[k] = []
+                if slug not in out[k]:
+                    out[k].append(slug)
+    return out
 
 
 def derive_district(address: str, city: str) -> str:
@@ -359,6 +445,45 @@ def main() -> None:
             if sup is None:
                 continue
             suppliers.append(sup)
+
+    # === 카테고리 enrichment ===
+    # 1) DBD purpose 텍스트 키워드 매칭 — 압도적으로 가장 강한 시그널.
+    purpose_enriched = 0
+    for s in suppliers:
+        if any(c != "manufacturer" for c in s["categories"]):
+            continue
+        purpose = (s.get("dbd") or {}).get("purpose") or ""
+        if not purpose:
+            continue
+        cats_new = categories_from_purpose(purpose)
+        if cats_new:
+            for c in cats_new:
+                if c not in s["categories"]:
+                    s["categories"].append(c)
+            purpose_enriched += 1
+    print(f"\nDBD-purpose enriched suppliers: {purpose_enriched:,}")
+
+    # 2) YP 카테고리별 파일 name fuzzy match — 보조 시그널 (hit rate 낮음)
+    yp_map = load_yp_category_map(EXPORT)
+    yp_enriched = 0
+    for s in suppliers:
+        if any(c != "manufacturer" for c in s["categories"]):
+            continue
+        candidates = [s["name"]]
+        if s.get("dbd") and s["dbd"].get("legal_name"):
+            candidates.append(s["dbd"]["legal_name"])
+        for cand in candidates:
+            k = yp_name_key(cand)
+            if not k:
+                continue
+            cats = yp_map.get(k)
+            if cats:
+                for c in cats:
+                    if c not in s["categories"]:
+                        s["categories"].append(c)
+                yp_enriched += 1
+                break
+    print(f"YP-name enriched suppliers: {yp_enriched:,}")
 
     # === stats ===
     city_counts = Counter(s["city_label"] for s in suppliers if s["city_label"])
