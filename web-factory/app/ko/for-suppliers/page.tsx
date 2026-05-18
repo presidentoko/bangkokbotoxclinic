@@ -43,13 +43,13 @@ export default async function KoForSuppliersPage() {
           <span style={{ color: cfg.themeAccent }}>가장 먼저 보는 디렉토리.</span>
         </h1>
         <p className="text-base md:text-lg text-[var(--muted)] max-w-2xl mx-auto text-balance leading-relaxed">
-          {db.total_suppliers.toLocaleString()}곳 공급사, {totalReviews.toLocaleString()}개 Google 리뷰 분석. 소싱 에이전트 마진을 빼고 직접 거래하려는 한국 SME가 들어오는 채널입니다.
+          {db.total_suppliers.toLocaleString()}곳 B2B 공급사, 그 중 {(db.verified_count ?? 849).toLocaleString()}곳은 태국 상무부(DBD) 법인 등기로 검증. 소싱 에이전트 마진을 빼고 직접 거래하려는 한국 SME가 들어오는 채널입니다.
         </p>
       </header>
 
       <section className="grid sm:grid-cols-3 gap-4 mb-16">
-        <Stat n={db.total_suppliers.toLocaleString()} label="공급사 인덱스" />
-        <Stat n={db.with_website.toLocaleString()} label="웹사이트 직접 공개" />
+        <Stat n={(db.verified_count ?? 849).toLocaleString()} label="DBD 등기 검증" />
+        <Stat n={db.total_suppliers.toLocaleString()} label="B2B 공급사" />
         <Stat n="< 30분" label="데이터 갱신" />
       </section>
 
@@ -122,9 +122,9 @@ export default async function KoForSuppliersPage() {
             body="'태국 OEM 공장', '동부해안 자동차 부품 제조사', 특정 산단 이름으로 검색해 들어옵니다. 1-4주 안에 RFQ를 보낼 단계의 buyer."
           />
           <Why
-            icon="📊"
-            title="진짜 Google 데이터"
-            body="신뢰도는 공개 Google 리뷰에서 계산 — 유료 후기 아닙니다. buyer 신뢰가 직접 컨택으로 이어집니다."
+            icon="🏛"
+            title="DBD 등기 검증 노출"
+            body="이 디렉토리에 입점하면 한국 buyer가 정식 법인명·등록자본금·설립일·TSIC 산업코드까지 같이 봅니다. 알리바바의 '뱃지' 신뢰보다 강한 정부 등기소 기반 시그널 — 신생 마켓플레이스 노이즈 사이에서 차별화."
           />
           <Why
             icon="🇰🇷"

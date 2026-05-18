@@ -25,12 +25,16 @@ const FAQS = [
     a: "Apify의 Google Maps actor 두 개(crawler-google-places, google-maps-extractor)가 태국 비즈니스 프로필을 수집합니다. 일반 'factory' 검색은 노이즈가 심해서 — 이름이 'Latex Factory'인 매트리스 매장, 이름에 'Toys Factory'가 들어간 장난감 가게, 'factory outlet'이라는 쇼핑몰까지 같이 나옵니다. 우리는 B2C 카테고리 블록리스트로 1차 필터하고, B2B 카테고리(Manufacturer, Auto parts manufacturer, Industrial real estate agency, Warehouse, Logistics service)만 남깁니다.",
   },
   {
-    q: "신뢰도 점수(Trust Score) 가중치 근거는?",
-    a: "공식: (Google 평점 / 5) × 50 + log10(리뷰 수) × 15 (최대 50). 평점 50% + 볼륨 50%. 평점만 5점이고 리뷰 3개인 신생 업체보다, 평점 4.2에 리뷰 200개 있는 입주 10년차가 위로 정렬됩니다. 리뷰 양은 로그 스케일이라 200개와 2,000개의 차이는 크지 않게 처리 — 거대 OEM이 점수를 독점하지 않도록.",
+    q: "DBD-verified 라벨은 어떻게 만들어졌나요?",
+    a: "태국 상무부(Department of Business Development) DataWarehouse+ 시스템 — 한국의 등기부등본/공정거래위 데이터에 해당 — 을 자동 크롤링해서 회사명 매칭 신뢰도 80%+ 인 849곳에 DBD-verified 라벨을 붙였습니다. 매치 결과로 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금(THB), 설립일, TSIC 산업분류 코드, 사업목적 텍스트, 등록주소까지 확보. 매칭 신뢰도 90%+는 진한 'DBD Verified', 80-89%는 'Likely match' 톤다운 표시로 구분합니다. 폐업(dissolved) 처리된 법인은 디렉토리에서 자동 제외됩니다.",
   },
   {
-    q: "왜 동부해안만 압도적으로 많아요?",
-    a: "1차 데이터셋(957건 raw → 650건 supply)이 그 지역 위주였습니다. 한국 buyer 관점에서도 사실 이게 자연스러운 결과 — 태국 자동차·전자·화학 제조의 80% 이상이 Chon Buri/Rayong/Chachoengsao 3개 도(都)에 몰려있습니다. 후속 데이터에서 Bangkok 외곽(Pathum Thani/Samut Prakan), Ayutthaya, Saraburi 산단 데이터도 추가될 예정.",
+    q: "신뢰도 점수 (b2b score) 가중치 근거는?",
+    a: "Google 평점·리뷰 볼륨 + DBD 시그널(검증여부·설립연도·자본금 티어) + 데이터 완성도(전화·웹사이트·사진) 합산. 평점만 5점이고 리뷰 3개인 신생 업체보다, 평점 4.2 / 리뷰 200개 / DBD 검증 / 자본금 1억바트+ / 10년차 OEM이 위로 정렬됩니다. 단일 지표 독점 방지 — 거대 OEM 한 곳이 점수를 휩쓸지 않도록 비율 조정.",
+  },
+  {
+    q: "왜 동부해안과 방콕에 압도적으로 많아요?",
+    a: "데이터셋이 그 지역 위주라서 — 한국 buyer 관점에서도 자연스러운 분포. 태국 자동차·전자·화학 제조의 80% 이상이 Chon Buri/Rayong/Samut Prakan/Pathum Thani 산업벨트에 몰려있습니다. Bangkok(842) → Chon Buri(621) → Samut Prakan(394) → Pathum Thani(366) → Samut Sakhon(347) — 이 5개 도(都)가 전체의 70%+. WHA, Amata, Pinthong, Rojana 등 주요 산단도 모두 이 벨트.",
   },
   {
     q: "한국어 가이드는 따로 있나요?",

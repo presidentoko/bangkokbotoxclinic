@@ -10,9 +10,9 @@ import { HeroSearch } from "@/components/HeroSearch";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "태국 공급사 디렉토리 — 에이전트 마진 빼고 공장 직거래",
+  title: "태국 공급사 디렉토리 — DBD 등기 검증 + 에이전트 마진 빼고 공장 직거래",
   description:
-    "태국 동부해안(Eastern Seaboard) 제조사·산업단지·창고 650곳. Pinthong, Amata, WHA, Rojana 입주 일본계·한국계 OEM 직접 연락처. 소싱 에이전트 15-30% 마진 빼고 시작하세요.",
+    "태국 상무부(DBD) 법인 등기 검증된 제조사 849곳 + B2B 공급사 3,300곳. 정식 법인명·등록자본금·설립연도·TSIC 산업코드 공개. Pinthong, Amata, WHA, Rojana 입주 일본계·한국계 OEM 직접 연락처. 소싱 에이전트 15-30% 마진 빼고 시작하세요.",
   alternates: {
     canonical: "/ko",
     languages: {
@@ -27,8 +27,12 @@ export const metadata: Metadata = {
 
 const KO_FAQS = [
   {
-    q: "신뢰도 점수(Trust Score)는 어떻게 계산되나요?",
-    a: "0-100 점수입니다. Google 평점(50%) + 리뷰 수의 로그 스케일(50%)을 합산. 평점만 높고 리뷰 5개인 신생 업체와, 평점 4.2에 리뷰 200개인 입주 10년차 OEM을 같은 선상에서 비교하지 않기 위해 볼륨을 가중합니다. Google 자체 순위가 아닌 자체 메트릭이며, 데이터 갱신마다 재계산됩니다.",
+    q: "DBD 검증 (DBD-verified) 이 뭔가요?",
+    a: "태국 상무부(Department of Business Development, DBD)는 모든 법인의 정식 등기를 관리하는 한국의 등기소+공정위 같은 기관입니다. DBD-verified 라벨이 붙은 공급사 849곳은 DataWarehouse+ 시스템에서 회사명 매칭 신뢰도 80%+로 검증된 곳으로, 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금, 설립일, TSIC 산업분류 코드, 사업목적 텍스트까지 표시됩니다. 알리바바 등 글로벌 마켓플레이스와의 가장 큰 차이는 — 알리바바는 '뱃지를 믿어라' 모델이지만 여기는 등기소 데이터 자체를 보여줍니다. 매칭 신뢰도 90%+는 'DBD Verified' 진한 라벨, 80-89%는 'DBD-listed · Likely match' 톤다운 라벨로 구분합니다.",
+  },
+  {
+    q: "신뢰도 점수(b2b score)는 어떻게 계산되나요?",
+    a: "Google 평점·리뷰 볼륨 + DBD 시그널(검증여부, 설립연도, 자본금 티어) + 데이터 완성도(전화·웹사이트·사진) 합산. 평점만 높고 리뷰 5개인 신생 업체와, 평점 4.2에 리뷰 200개인 입주 10년차 + 자본금 5억 바트 OEM을 같은 선상에서 비교하지 않기 위해 다축 가중합니다. 데이터 갱신마다 재계산됩니다.",
   },
   {
     q: "태국 공장에 직접 연락하면 정말 에이전트보다 싼가요?",
@@ -62,6 +66,10 @@ export default async function KoHomePage() {
 
   const totalReviews = db.suppliers.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = db.suppliers.filter((r) => r.website).length;
+  const withPhone = db.suppliers.filter((r) => r.phone).length;
+  const verifiedCount = db.verified_count ?? db.suppliers.filter((s) => s.verified).length;
+  const withPhotos = db.with_photos ?? db.suppliers.filter((s) => s.photos && s.photos.length > 0).length;
+  const withEstate = db.with_estate ?? db.suppliers.filter((s) => s.estate_name).length;
 
   const searchIndex = db.suppliers.map((r) => ({
     id: r.id,
@@ -99,14 +107,14 @@ export default async function KoHomePage() {
         <div className="relative max-w-5xl mx-auto px-4 pt-12 pb-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-widest mb-5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            태국 동부해안 공급사 직거래 디렉토리
+            태국 상무부(DBD) 등기 검증 · 공장 직거래 디렉토리
           </div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-5 text-balance">
-            에이전트 마진 빼고,<br />
-            <span className="text-emerald-700">태국 공장에 직접 연락하자.</span>
+            정식 등기 검증된,<br />
+            <span className="text-emerald-700">태국 공장 {verifiedCount}곳.</span>
           </h1>
           <p className="text-base md:text-lg text-[var(--muted)] mb-7 max-w-2xl mx-auto text-balance">
-            <b>{db.total_suppliers.toLocaleString()}곳</b> 공급사 · <b>{withWebsite.toLocaleString()}곳</b>은 자체 웹사이트 공개 · 자동차 부품 73곳, 산업단지 8곳, 창고 55곳, 물류 14곳. 소싱 에이전트가 깔고 가는 15-30% 마크업 빼고 직접 RFQ 보낼 수 있는 곳들만 추렸습니다.
+            <b>{verifiedCount.toLocaleString()}곳</b>은 태국 <b>상무부(DBD) 법인 등기</b>로 검증 — 정식 법인명·등록번호·등록자본금·설립일·TSIC 산업코드 공개. 추가 <b>{(db.total_suppliers - verifiedCount).toLocaleString()}곳</b>은 매칭 진행 중 B2B 공급사. 소싱 에이전트 15-30% 마크업 빼고 직접 RFQ.
           </p>
           <HeroSearch
             entities={searchIndex}
@@ -124,11 +132,11 @@ export default async function KoHomePage() {
       </section>
 
       <section className="border-y border-[var(--border)] bg-gradient-to-r from-emerald-700 via-green-700 to-emerald-800 text-white">
-        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-4 gap-4 text-center">
-          <Stat big={db.total_suppliers.toLocaleString()} label="공급사" />
-          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="리뷰 분석" />
-          <Stat big={withWebsite.toLocaleString()} label="웹사이트 공개" />
-          <Stat big={Object.keys(db.category_counts).length.toString()} label="카테고리" />
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <Stat big={verifiedCount.toLocaleString()} label="DBD 등기 검증" />
+          <Stat big={db.total_suppliers.toLocaleString()} label="B2B 공급사" />
+          <Stat big={withPhotos.toLocaleString()} label="공장 사진 보유" />
+          <Stat big={withPhone.toLocaleString()} label="전화 직거래" />
         </div>
       </section>
 

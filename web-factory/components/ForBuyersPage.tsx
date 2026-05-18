@@ -48,7 +48,7 @@ export async function ForBuyersPage({ locale }: { locale: Locale }) {
 
       <section className="grid sm:grid-cols-4 gap-3 mb-10">
         <Stat n={db.total_suppliers.toLocaleString()} label={t.statSuppliers} />
-        <Stat n={db.with_website.toLocaleString()} label={t.statWebsite} />
+        <Stat n={(db.verified_count ?? db.suppliers.filter((s) => s.verified).length).toLocaleString()} label={t.statWebsite} />
         <Stat n={String(provinceCount)} label={t.statProvinces} />
         <Stat n="< 24h" label={t.statSla} />
       </section>
