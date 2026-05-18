@@ -66,7 +66,7 @@ export default function RootLayout({
                   <li><a href="/c/manufacturer" className="hover:text-black">Manufacturers</a></li>
                   <li><a href="/c/auto_parts" className="hover:text-black">Auto Parts</a></li>
                   <li><a href="/c/warehouse" className="hover:text-black">Warehouses</a></li>
-                  <li><a href="/c/industrial_estate" className="hover:text-black">Industrial Estates</a></li>
+                  <li><a href="/estate" className="hover:text-black">Industrial Estates</a></li>
                   <li><a href="/c/logistics" className="hover:text-black">Logistics</a></li>
                   <li><a href="/c/food_mfg" className="hover:text-black">Food Manufacturers</a></li>
                 </ul>
@@ -86,8 +86,8 @@ export default function RootLayout({
                 <ul className="space-y-1.5">
                   <li><a href="/guide" className="hover:text-black">Buyer Guides</a></li>
                   <li><a href="/blog" className="hover:text-black">Blog</a></li>
-                  <li><a href="/best/highly-recommended" className="hover:text-black">Best of</a></li>
-                  <li><a href="/best/industrial-estates" className="hover:text-black">Top Estates</a></li>
+                  <li><a href="/best/highly-recommended" className="hover:text-black">DBD-Verified Suppliers</a></li>
+                  <li><a href="/best/dbd-verified-by-capital" className="hover:text-black">Largest by Capital</a></li>
                   <li><a href="/best/auto-parts" className="hover:text-black">Top Auto Parts</a></li>
                 </ul>
               </div>

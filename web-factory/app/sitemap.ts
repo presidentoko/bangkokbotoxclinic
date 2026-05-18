@@ -81,6 +81,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
 
+  // Industrial estate index + 페이지별 — DBD-verified 차별화 surface
+  items.push({ url: `${SITE}/estate`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+  const estateSlugs = new Set<string>();
+  for (const s of db.suppliers) if (s.estate_slug) estateSlugs.add(s.estate_slug);
+  for (const slug of estateSlugs) {
+    items.push({ url: `${SITE}/estate/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+  }
+
   // 디스트릭트별 — supplier 5+ 있는 (cat × district) 만 (page.tsx 와 일치)
   const catDistrictCounts = new Map<string, number>();
   for (const s of db.suppliers) {
@@ -101,14 +109,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/c/${cat}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
   }
 
-  // Supplier 페이지 — trust >= 55 만 (supplier/[id] generateStaticParams 와 일치)
+  // Supplier 페이지 — verified 우선 (priority 0.85), 그 외 모든 supplier 포함 (page 가 다 생성됨).
+  // 신 b2b_score 스케일(~0~18)이라 legacy 50/70 임계값은 무의미. verified 여부 + score 비율로 결정.
   for (const r of db.suppliers) {
-    if (r.trust_score < 55) continue;
+    const score = r.b2b_score ?? r.trust_score;
     items.push({
       url: `${SITE}/supplier/${r.id}`,
       lastModified: updated,
       changeFrequency: "weekly",
-      priority: r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.5,
+      priority: r.verified ? 0.85 : (score >= 8 ? 0.65 : 0.5),
     });
   }
 
