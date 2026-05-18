@@ -37,8 +37,14 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               src={photo}
               alt={r.name}
               loading="lazy"
+              referrerPolicy="no-referrer"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
+            {r.verified && (
+              <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow">
+                ✓ DBD Verified
+              </span>
+            )}
           </div>
         )}
 
@@ -81,6 +87,15 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               <p className="text-sm text-[var(--muted)] truncate mt-0.5">
                 {r.primary_type}
               </p>
+              {(r.dbd?.capital_thb || r.years_in_business || r.dbd?.registered_date) && (
+                <p className="text-xs text-stone-600 truncate mt-1 flex items-center gap-2 flex-wrap">
+                  {r.dbd?.registered_date && <span>📅 Est. {r.dbd.registered_date.slice(0, 4)}</span>}
+                  {r.years_in_business ? <span>· {r.years_in_business}y</span> : null}
+                  {r.dbd?.capital_thb ? (
+                    <span>· 💰 ฿{r.dbd.capital_thb >= 1_000_000 ? `${(r.dbd.capital_thb / 1_000_000).toFixed(1)}M` : `${(r.dbd.capital_thb / 1000).toFixed(0)}K`}</span>
+                  ) : null}
+                </p>
+              )}
             </div>
             <div className="text-right shrink-0">
               <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">

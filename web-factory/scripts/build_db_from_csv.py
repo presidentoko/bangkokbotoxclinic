@@ -225,8 +225,11 @@ def row_to_supplier(row: dict, is_verified: bool) -> dict | None:
         }
 
     years = parse_int(row.get("years_in_business"))
-    estate_name = (row.get("estate_name") or "").strip() or None
-    estate_slug = (row.get("estate_slug") or "").strip() or None
+    estate_name_raw = (row.get("estate_name") or "").strip()
+    estate_slug_raw = (row.get("estate_slug") or "").strip()
+    # "unknown_en" / "unknown" 같은 sentinel 은 estate 없는 걸로
+    estate_name = estate_name_raw if estate_name_raw and not estate_name_raw.lower().startswith("unknown") else None
+    estate_slug = estate_slug_raw if estate_slug_raw and not estate_slug_raw.lower().startswith("unknown") else None
     halal = parse_bool(row.get("is_halal_certified"))
 
     # sample_reviews_* — 언어별 분류

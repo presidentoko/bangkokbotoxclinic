@@ -37,6 +37,9 @@ export default async function HomePage() {
   const withWebsite = db.suppliers.filter((r) => r.website).length;
   const withPhone = db.suppliers.filter((r) => r.phone).length;
   const provinces = Object.keys(db.city_counts).length;
+  const verifiedCount = db.verified_count ?? db.suppliers.filter((r) => r.verified).length;
+  const withDbd = db.with_dbd ?? db.suppliers.filter((r) => r.dbd).length;
+  const withPhotos = db.with_photos ?? db.suppliers.filter((r) => r.photos && r.photos.length > 0).length;
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
 
@@ -64,12 +67,13 @@ export default async function HomePage() {
     trust_score: r.trust_score,
   }));
 
-  // Featured 6 — top by trust score (사진 있으면 우선)
-  const featured6 = top
-    .slice(0, 30)
-    .filter((r) => r.hero_image)
+  // Featured 6 — DBD-verified + 사진 보유 우선. fallback 으로 top trust.
+  const featuredVerified = [...db.suppliers]
+    .filter((r) => r.verified && r.hero_image)
+    .sort((a, b) => (b.b2b_score ?? b.trust_score) - (a.b2b_score ?? a.trust_score))
     .slice(0, 6);
-  const featuredFinal = featured6.length >= 6 ? featured6 : top.slice(0, 6);
+  const featuredFinal = featuredVerified.length >= 6 ? featuredVerified
+    : top.slice(0, 30).filter((r) => r.hero_image).slice(0, 6).concat(top).slice(0, 6);
 
   // Industrial estates spotlight (단가 최고 segment)
   const estatesTop = [...db.suppliers]
@@ -96,8 +100,9 @@ export default async function HomePage() {
             <span className="opacity-50 line-through decoration-emerald-500 decoration-4">— not agents.</span>
           </h1>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
-            <span className="font-bold text-[var(--fg)]">{db.total_suppliers.toLocaleString()}</span> suppliers across{" "}
-            <span className="font-bold text-[var(--fg)]">{provinces}</span> provinces — Eastern Seaboard heart of Thai manufacturing. Manufacturers, auto-parts, warehouses, industrial estates — extracted from <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews.
+            <span className="font-bold text-emerald-800">{verifiedCount.toLocaleString()}</span> manufacturers cross-checked with Thailand&apos;s official business registry (DBD). Plus{" "}
+            <span className="font-bold text-[var(--fg)]">{db.total_suppliers.toLocaleString()}</span> B2B suppliers across{" "}
+            <span className="font-bold text-[var(--fg)]">{provinces}</span> provinces — capital, registered date, TSIC code, photos, real Google reviews.
           </p>
 
           <HeroSearch
@@ -110,11 +115,11 @@ export default async function HomePage() {
 
       {/* MEGA STATS BAR */}
       <section className="border-y border-[var(--border)] bg-gradient-to-r from-emerald-700 via-green-700 to-emerald-800 text-white">
-        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-4 gap-4 text-center">
-          <Stat big={db.total_suppliers.toLocaleString()} label="Suppliers" />
-          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Reviews analyzed" />
-          <Stat big={withWebsite.toLocaleString()} label="With website" />
-          <Stat big={withPhone.toLocaleString()} label="With phone" />
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <Stat big={verifiedCount.toLocaleString()} label="DBD-verified" />
+          <Stat big={db.total_suppliers.toLocaleString()} label="B2B suppliers" />
+          <Stat big={withPhotos.toLocaleString()} label="With factory photos" />
+          <Stat big={withPhone.toLocaleString()} label="With direct phone" />
         </div>
       </section>
 
@@ -132,9 +137,9 @@ export default async function HomePage() {
             body="Sourcing agents add 15-30% markup and gatekeep direct contact. We surface the supplier's own phone and website — pick the path that fits."
           />
           <Manifesto
-            icon="📊"
-            title="Trust Score"
-            body="Rating × review volume. One transparent number. Top of the list = real, established operations with public proof."
+            icon="🏛"
+            title="DBD-verified"
+            body={`${verifiedCount.toLocaleString()} suppliers cross-checked with the Department of Business Development. We surface the legal name, registration number, registered capital, founding date, and TSIC industry code on every verified page.`}
           />
           <Manifesto
             icon="🏭"
