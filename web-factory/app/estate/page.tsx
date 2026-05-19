@@ -1,5 +1,6 @@
 import { loadMasterDb } from "@/lib/data";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
+import { photoUrl } from "@/lib/photoUrl";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -63,7 +64,7 @@ export default async function EstateIndexPage() {
             {e.photo && (
               <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={e.photo} alt={e.name} loading="lazy" referrerPolicy="no-referrer"
+                <img src={photoUrl(e.photo)} alt={e.name} loading="lazy" referrerPolicy="no-referrer"
                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
                   <div className="text-white font-bold text-lg leading-tight">{e.name}</div>

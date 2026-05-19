@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { photoUrl } from "@/lib/photoUrl";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -113,7 +114,7 @@ export default async function EstatePage(
               {s.hero_image && (
                 <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s.hero_image} alt={s.name} loading="lazy" referrerPolicy="no-referrer"
+                  <img src={photoUrl(s.hero_image)} alt={s.name} loading="lazy" referrerPolicy="no-referrer"
                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
                   {s.verified && (
                     <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider">

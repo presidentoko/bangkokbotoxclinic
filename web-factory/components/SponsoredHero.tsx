@@ -4,6 +4,7 @@
 import type { Supplier } from "@/lib/types";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
+import { photoUrl } from "@/lib/photoUrl";
 
 export function SponsoredHero({ r }: { r: Supplier }) {
   const tier = sponsoredTier(r.id);
@@ -54,8 +55,9 @@ export function SponsoredHero({ r }: { r: Supplier }) {
               <div className="md:col-span-2 relative h-56 md:h-auto bg-gray-100 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={r.hero_image}
+                  src={photoUrl(r.hero_image)}
                   alt={r.name}
+                  referrerPolicy="no-referrer"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/10 md:to-white/30" />

@@ -4,6 +4,7 @@ import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { verifiedTier, VERIFIED_BADGE } from "@/lib/verified";
+import { photoUrl } from "@/lib/photoUrl";
 
 export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
   const tier = sponsoredTier(r.id);
@@ -34,7 +35,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
           <div className="relative h-40 bg-gray-100 overflow-hidden border-b border-[var(--border)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={photo}
+              src={photoUrl(photo)}
               alt={r.name}
               loading="lazy"
               referrerPolicy="no-referrer"

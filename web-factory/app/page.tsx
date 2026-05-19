@@ -9,6 +9,7 @@ import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
 import { POSTS } from "@/lib/posts";
+import { photoUrl } from "@/lib/photoUrl";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -170,9 +171,10 @@ export default async function HomePage() {
                     <div className="relative h-40 overflow-hidden bg-gray-100">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={r.hero_image}
+                        src={photoUrl(r.hero_image)}
                         alt={r.name}
                         loading="lazy"
+                        referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-2 left-2 text-xs font-bold text-white bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full tabular-nums">

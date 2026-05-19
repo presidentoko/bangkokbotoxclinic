@@ -2,6 +2,7 @@
 // 풍부한 Schema 노출로 Rich Results / AEO answer extraction 최대화.
 
 import type { Supplier } from "@/lib/types";
+import { photoUrl } from "@/lib/photoUrl";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thai Supply Hub";
@@ -187,12 +188,16 @@ export function SupplierJsonLd({ r }: { r: Supplier }) {
   }
   if (r.phone) data.telephone = r.phone;
 
-  // 사진 — schema 는 배열 받음 — 갤러리 풀세트 제공
+  // 사진 — schema 는 배열 받음 — 갤러리 풀세트 제공 (R2 prefix 자동 적용)
   const imageList: string[] = [];
-  if (r.image_url) imageList.push(r.image_url);
-  if (r.hero_image && !imageList.includes(r.hero_image)) imageList.push(r.hero_image);
+  const pushImage = (p: string | null | undefined) => {
+    const u = photoUrl(p);
+    if (u && !imageList.includes(u)) imageList.push(u);
+  };
+  pushImage(r.image_url);
+  pushImage(r.hero_image);
   if (Array.isArray(r.photos)) {
-    for (const u of r.photos) if (u && !imageList.includes(u)) imageList.push(u);
+    for (const u of r.photos) pushImage(u);
   }
   if (imageList.length === 1) data.image = imageList[0];
   else if (imageList.length > 1) data.image = imageList;

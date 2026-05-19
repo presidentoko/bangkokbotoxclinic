@@ -7,6 +7,7 @@ import { sponsoredTier } from "@/lib/sponsored";
 import { SponsoredBadge } from "@/components/Badges";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { RfqForm } from "@/components/RfqForm";
+import { photoUrl } from "@/lib/photoUrl";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -42,7 +43,7 @@ export async function generateMetadata(
       title: `${r.name}${r.verified ? " — Verified Thai Supplier" : ""}`,
       description: desc.slice(0, 200),
       type: "website",
-      images: r.hero_image ? [{ url: r.hero_image }] : undefined,
+      images: r.hero_image ? [{ url: photoUrl(r.hero_image) }] : undefined,
     },
     robots: { index: true, follow: true },
   };
@@ -147,7 +148,7 @@ export default async function SupplierPage(
           <div className="relative w-full rounded-2xl overflow-hidden bg-stone-200 shadow-sm" style={{ aspectRatio: "16/7" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={photos[0]}
+              src={photoUrl(photos[0])}
               alt={r.name}
               loading="eager"
               fetchPriority="high"
@@ -253,10 +254,10 @@ export default async function SupplierPage(
           <h2 className="text-xl font-bold mb-3 text-stone-900">Photos</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {photos.slice(0, 8).map((url, i) => (
-              <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+              <a key={i} href={photoUrl(url)} target="_blank" rel="noopener noreferrer"
                  className="relative block rounded-xl overflow-hidden bg-stone-100 group" style={{ aspectRatio: "4/3" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={url} alt={`${r.name} — photo ${i + 1}`} loading="lazy" referrerPolicy="no-referrer"
+                <img src={photoUrl(url)} alt={`${r.name} — photo ${i + 1}`} loading="lazy" referrerPolicy="no-referrer"
                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </a>
             ))}
