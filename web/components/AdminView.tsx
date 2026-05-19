@@ -349,7 +349,9 @@ function ProspectExporter() {
       limit: String(limit),
       format: "json",
     }).toString();
-    const res = await fetch(`/api/admin/prospects?${qs}`);
+    const res = await fetch(`/api/admin/prospects?${qs}`, {
+      headers: { "x-admin-key": adminKey() },
+    });
     setDownloading(false);
     if (!res.ok) return;
     const j = await res.json();
@@ -836,7 +838,7 @@ function BulkImportForm({ onClose, onDone }: { onClose: () => void; onDone: () =
     setImporting(true);
     const res = await fetch("/api/admin/partners-bulk", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
       body: JSON.stringify({ rows: preview }),
     });
     const j = await res.json();
@@ -1441,7 +1443,10 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
 
   async function load() {
     setLoading(true);
-    const res = await fetch("/api/admin/outreach", { cache: "no-store" });
+    const res = await fetch("/api/admin/outreach", {
+      cache: "no-store",
+      headers: { "x-admin-key": adminKey() },
+    });
     setLoading(false);
     if (!res.ok) return;
     const j = (await res.json()) as { records: EnrichedOutreachRecord[] };
@@ -1467,7 +1472,7 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
     };
     await fetch("/api/admin/outreach", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
       body: JSON.stringify(cleaned),
     });
     await load();
@@ -1477,7 +1482,7 @@ function OutreachTab({ clinicNames }: { clinicNames: ClinicName[] }) {
     if (!confirm("Remove this outreach record?")) return;
     await fetch("/api/admin/outreach", {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
       body: JSON.stringify({ clinic_id }),
     });
     await load();

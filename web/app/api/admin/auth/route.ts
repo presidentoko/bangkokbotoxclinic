@@ -12,10 +12,13 @@ export async function POST(req: NextRequest) {
 
   const res = NextResponse.json({ ok: true });
   const value = Buffer.from(expectedPass).toString("base64");
+  // path: "/" so the cookie is sent on /api/admin/* requests too, not just /admin/*.
+  // The earlier value of "/admin" scoped the cookie to /admin pages only — every
+  // mutation hitting /api/admin/<route> returned 401 because the cookie was absent.
   res.cookies.set("admin_session", value, {
     httpOnly: true,
     sameSite: "lax",
-    path: "/admin",
+    path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
     secure: process.env.NODE_ENV === "production",
   });

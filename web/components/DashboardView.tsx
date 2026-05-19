@@ -9,6 +9,12 @@ import { draftReplyStyled, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
 import type { ReplyStyle } from "@/lib/replyDrafts";
 import type { LeadRecord } from "@/lib/leadStore";
 
+// Derive site domain from NEXT_PUBLIC_SITE_URL (inlined at build time). The default
+// matches the botox site so the dental deploy must set NEXT_PUBLIC_SITE_URL.
+const SITE_DOMAIN = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com")
+  .replace(/^https?:\/\/(www\.)?/, "")
+  .replace(/\/$/, "");
+
 type LeadStatus = "new" | "contacted" | "booked" | "no_show" | "cancelled";
 
 const LEAD_STATUS_META: Record<LeadStatus, { label: string; color: string; bg: string }> = {
@@ -319,8 +325,10 @@ export function DashboardView({
         </div>
       )}
 
-      {/* Sticky header */}
-      <div className="bg-white border-b border-[var(--border)] sticky top-0 z-10">
+      {/* Sticky header — sits below the global SiteHeader (which is sticky top-0 z-30).
+          Without the top-14 offset the two stuck headers overlap at the same y=0 line
+          and their text bleeds into each other. */}
+      <div className="bg-white border-b border-[var(--border)] sticky top-14 z-10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
           <div className="min-w-0 flex-1">
             <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[var(--muted)] truncate">
@@ -1304,8 +1312,8 @@ export function DashboardView({
         </section>
 
         <footer className="text-xs text-[var(--muted)] text-center py-4">
-          Dashboard refreshes ~30 min after each Google review scrape. Data: bangkokbotoxclinic.com.{" "}
-          Questions: <strong>partners@bangkokbotoxclinic.com</strong> · LINE <strong>@405zhjqb</strong>
+          Dashboard refreshes ~30 min after each Google review scrape. Data: {SITE_DOMAIN}.{" "}
+          Questions: <strong>partners@{SITE_DOMAIN}</strong> · LINE <strong>@405zhjqb</strong>
         </footer>
       </div>
     </div>

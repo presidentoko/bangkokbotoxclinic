@@ -6,6 +6,10 @@ import { LineButton } from "@/components/LineButton";
 import { BookingForm } from "@/components/BookingForm";
 import type { Metadata } from "next";
 
+// JSON-LD must use the deployed origin, not the botox-site default — otherwise the
+// dental deploy emits aesthetic-site URLs to Google.
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+
 export async function generateStaticParams() {
   const db = await loadMasterDb();
   return getAllDoctors(db.clinics).map((d) => ({ slug: d.composite_slug }));
@@ -324,7 +328,7 @@ export default async function DoctorPage(
             "@type": "MedicalBusiness",
             name: c.name,
             address: c.address || undefined,
-            url: `https://www.bangkokbotoxclinic.com/clinic/${c.id}`,
+            url: `${SITE}/clinic/${c.id}`,
           },
           medicalSpecialty: c.categories.map((cat) => CATEGORY_LABELS[cat] ?? cat),
           aggregateRating: d.mentions >= 3 ? {
@@ -335,7 +339,7 @@ export default async function DoctorPage(
           knowsLanguage: Object.entries(d.language_count)
             .filter(([k, v]) => v > 0 && k !== "other")
             .map(([k]) => ({ th: "Thai", en: "English", ko: "Korean", ja: "Japanese" }[k as "th" | "en" | "ko" | "ja"] || k)),
-          url: `https://www.bangkokbotoxclinic.com/doctor/${d.composite_slug}`,
+          url: `${SITE}/doctor/${d.composite_slug}`,
         }) }}
       />
       <BreadcrumbJsonLd items={[

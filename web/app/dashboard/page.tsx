@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { loadMasterDb } from "@/lib/data";
 import { SearchBar } from "@/components/SearchBar";
+import { getSiteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Find your free clinic intelligence report",
@@ -11,6 +12,8 @@ export const metadata: Metadata = {
 
 export default async function DashboardIndexPage() {
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
+  const partnerEmail = `partners@${cfg.domain}`;
   const entities = db.clinics.map((c) => ({
     id: c.id,
     name: c.name,
@@ -86,7 +89,7 @@ export default async function DashboardIndexPage() {
 
       <p className="text-xs text-[var(--muted)] mt-8 text-center">
         Can't find your clinic? Email{" "}
-        <strong>partners@bangkokbotoxclinic.com</strong> — we'll generate a report within 24h.
+        <strong>{partnerEmail}</strong> — we'll generate a report within 24h.
       </p>
     </div>
   );

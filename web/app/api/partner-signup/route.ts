@@ -9,6 +9,9 @@ import { loadMasterDb, getClinicById } from "@/lib/data";
 
 export const runtime = "nodejs";
 
+// Dashboard URL must reflect the deployed site (botox vs dental), not a hardcode.
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
   try {
@@ -78,7 +81,7 @@ export async function POST(req: Request) {
     }, null, 2),
     ``,
     `2. Push commit → Vercel redeploys → partner routing active`,
-    `3. Reply to partner: dashboard URL = https://www.bangkokbotoxclinic.com/dashboard/${clinic.id}`,
+    `3. Reply to partner: dashboard URL = ${SITE}/dashboard/${clinic.id}`,
   ].filter(Boolean).join("\n");
 
   const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:24px;">
@@ -107,7 +110,7 @@ ${notes ? `<p><strong>Notes:</strong><br>${escapeHtml(notes).replace(/\n/g, "<br
   started_at: new Date().toISOString().slice(0, 10),
 }, null, 2)}</pre>
 <p><strong>Dashboard URL:</strong><br>
-<a href="https://www.bangkokbotoxclinic.com/dashboard/${clinic.id}">https://www.bangkokbotoxclinic.com/dashboard/${clinic.id}</a></p>
+<a href="${SITE}/dashboard/${clinic.id}">${SITE}/dashboard/${clinic.id}</a></p>
 </div></body></html>`;
 
   await sendEmail(adminEmail, subject, html, text);
