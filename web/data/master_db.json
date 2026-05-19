@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-05-19T19:20:02.137717+00:00",
-  "total_clinics": 4614,
-  "with_district": 2341,
-  "with_categories": 3034,
-  "with_reviews_scraped": 2657,
+  "generated_at": "2026-05-19T19:30:24.303048+00:00",
+  "total_clinics": 4615,
+  "with_district": 2342,
+  "with_categories": 3035,
+  "with_reviews_scraped": 2659,
   "language_total": {
     "th": 2,
-    "en": 90327,
+    "en": 90379,
     "ko": 1,
     "ja": 1,
     "other": 293
   },
   "city_counts": {
-    "Bangkok": 3965,
+    "Bangkok": 3966,
     "Pattaya": 649
   },
   "district_counts": {
@@ -20,7 +20,7 @@
     "Pathum Wan": 344,
     "Phaya Thai": 282,
     "Watthana": 221,
-    "Huai Khwang": 185,
+    "Huai Khwang": 186,
     "Bang Rak": 167,
     "Khlong Toei": 107,
     "Khlong San": 70,
@@ -68,7 +68,7 @@
     "Nong Prue": 1
   },
   "category_counts": {
-    "dental": 1707,
+    "dental": 1708,
     "facial": 1081,
     "laser": 762,
     "botox": 585,
@@ -1540,11 +1540,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -9244,11 +9244,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -14435,11 +14435,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 2
             },
             {
@@ -20992,11 +20992,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 2
             }
           ],
@@ -36330,15 +36330,15 @@
               "review_count": 5
             },
             {
-              "service": "dental",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "dental",
               "review_count": 1
             },
             {
@@ -41734,9 +41734,9 @@
       ],
       "doctor_stats": [
         {
-          "name": "Mint",
-          "slug": "mint",
-          "composite_slug": "mint-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
+          "name": "Mon",
+          "slug": "mon",
+          "composite_slug": "mon-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
           "mentions": 5,
           "rating_avg": 5.0,
           "language_count": {
@@ -41763,9 +41763,9 @@
           "experience_signals": []
         },
         {
-          "name": "Mon",
-          "slug": "mon",
-          "composite_slug": "mon-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
+          "name": "Mint",
+          "slug": "mint",
+          "composite_slug": "mint-at-vetazoo-animal-and-exotic-pet-hospital-โรงพยาบาลสั",
           "mentions": 5,
           "rating_avg": 5.0,
           "language_count": {
@@ -43086,11 +43086,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -44120,11 +44120,11 @@
               "review_count": 4
             },
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "botox",
               "review_count": 2
             },
             {
@@ -59232,11 +59232,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -59426,11 +59426,11 @@
               "review_count": 2
             },
             {
-              "service": "dental",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "dental",
               "review_count": 1
             },
             {
@@ -61931,11 +61931,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -75109,7 +75109,7 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
@@ -75117,7 +75117,7 @@
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -84002,15 +84002,15 @@
           ],
           "procedures": [
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "facial",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -95369,11 +95369,11 @@
               "review_count": 6
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 3
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 3
             },
             {
@@ -118464,11 +118464,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
@@ -122324,19 +122324,19 @@
           ],
           "procedures": [
             {
-              "service": "laser",
-              "review_count": 1
-            },
-            {
               "service": "filler",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -127681,11 +127681,11 @@
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -136279,11 +136279,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -139049,11 +139049,11 @@
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -149248,11 +149248,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -152800,19 +152800,19 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 4
-            },
-            {
               "service": "filler",
               "review_count": 4
             },
             {
-              "service": "hifu",
-              "review_count": 2
+              "service": "botox",
+              "review_count": 4
             },
             {
               "service": "laser",
+              "review_count": 2
+            },
+            {
+              "service": "hifu",
               "review_count": 2
             }
           ],
@@ -153241,11 +153241,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -167655,11 +167655,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -170991,11 +170991,11 @@
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -177112,11 +177112,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -180401,9 +180401,9 @@
       "sample_reviews_negative": [],
       "doctor_stats": [
         {
-          "name": "Samart",
-          "slug": "samart",
-          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart's",
+          "slug": "samarts",
+          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -180419,9 +180419,9 @@
           "experience_signals": []
         },
         {
-          "name": "Samart's",
-          "slug": "samarts",
-          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart",
+          "slug": "samart",
+          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -182702,7 +182702,7 @@
           "samples": [],
           "procedures": [
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -182710,7 +182710,7 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
@@ -187252,11 +187252,11 @@
           ],
           "procedures": [
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
@@ -189566,11 +189566,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -192708,11 +192708,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -201821,11 +201821,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "hair_transplant",
               "review_count": 1
             },
             {
-              "service": "hair_transplant",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -207120,11 +207120,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -210530,6 +210530,87 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/MasterWork+Clinic/data=!4m7!3m6!1s0x30e29f9232ced9c5:0x8a387275d7aca1e1!8m2!3d13.745416!4d100.5622568!16s%2Fg%2F11fj_z0rwm!19sChIJxdnOMpKf4jAR4aGs13VyOIo?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29f71ac72f265_0xb4cad256ffe00208",
+      "place_id": "0x30e29f71ac72f265:0xb4cad256ffe00208",
+      "name": "RKL Dental Clinic",
+      "name_lang": "en",
+      "primary_type": "Dental clinic",
+      "address": "\nQG4J+FM8, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Phaya Thai",
+      "phone": "+66 96 962 3658",
+      "website": "https://www.facebook.com/profile.php?id=100058300140475&mibextid=ZbWKwL",
+      "lat": 13.7561517,
+      "lng": 100.5316894,
+      "rating": 5.0,
+      "total_reviews": 11,
+      "trust_score": 72.2,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 11,
+      "local_guide_count": 4,
+      "avg_author_review_count": 15.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 11,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 9,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "From BTS Phaya Thai Station, Exit 1, walk past Phaya Thai Plaza Building, turn right into the alley, Ideo Condo Clinic, the second house from the entrance of the alley.",
+          "rating": 5,
+          "author": "Chalinrat Sirikomolsilp"
+        },
+        {
+          "text": "I got an orange cat after having my wisdom tooth extracted; it helped heal my heart. The vet was very skilled and kind, so there's nothing to be afraid of.",
+          "rating": 5,
+          "author": "peachesplumm K."
+        },
+        {
+          "text": "The atmosphere is shady and close to BTS Phaya Thai. Walk in about 100 meters. The doctor takes good care of you. The staff is lovely and friendly.",
+          "rating": 5,
+          "author": "Perayudh C"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/RKL+Dental+Clinic/@13.7561517,100.5316894,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f71ac72f265:0xb4cad256ffe00208!8m2!3d13.7561517!4d100.5316894!16s%2Fg%2F11mvmtxzcq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x3102d3ffffffffff_0x9f7aa1de66f97dcf",
@@ -230137,6 +230218,143 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/CG+Tooth+to+Face+Dental+Clinic/data=!4m7!3m6!1s0x311d7b2d5113abf3:0x8347192cd496c759!8m2!3d13.9349257!4d100.7384968!16s%2Fg%2F11fvv_kxxs!19sChIJ86sTUS17HTERWceW1CwZR4M?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29d6ef6623109_0x40509b040e3e969a",
+      "place_id": "0x30e29d6ef6623109:0x40509b040e3e969a",
+      "name": "Buddy Smile Dental Clinic - สาขาสุทธิสาร ห้วยขวาง",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n265, 267 ถ. สุทธิสารวินิจฉัย Ratchadaphisek, Din Daeng, Bangkok 10400, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Huai Khwang",
+      "phone": "+66 93 963 5559",
+      "website": "https://www.facebook.com/buddysmile.dental/",
+      "lat": 13.7830371,
+      "lng": 100.5672484,
+      "rating": 4.9,
+      "total_reviews": 44,
+      "trust_score": 70.6,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 44,
+      "local_guide_count": 2,
+      "avg_author_review_count": 3.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 41,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 10
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 11
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 11
+        },
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "professional",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 29,
+          "avg": 4.93
+        },
+        "old": {
+          "count": 10,
+          "avg": 4.6
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The doctor was lovely, kind, and gentle, constantly asking if I was okay ✨✨ 10/10. The staff were also very nice 10/10.",
+          "rating": 5,
+          "author": "Methasit Butkhut"
+        },
+        {
+          "text": "The doctor is kind and speaks nicely, the staff are lovely. I had braces done and my teeth are beautifully aligned. The doctor gave excellent advice. I have follow-up calls every 6 months for check-ups and retainer appointments.",
+          "rating": 5,
+          "author": "Methawee Chaiyakam"
+        },
+        {
+          "text": "The staff provided excellent service. They were polite, friendly, and gave very professional advice. I had my braces done by a female dentist who was very approachable. My teeth are beautifully aligned after the treatment. If I have the opportunity, I will definitely come back for teeth cleaning.",
+          "rating": 5,
+          "author": "Strong Woman"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "The counter staff were very unpleasant. They spoke rudely, sometimes chatting amongst themselves and not paying attention to patients. They were sometimes rude on the phone. The clinic itself is good, but some of the staff lack service mind and manners. Paying for their services isn't cheap, and experiencing unprofessional service makes it a waste of money.",
+          "rating": 1,
+          "author": "irs m"
+        }
+      ],
+      "doctor_stats": [
+        {
+          "name": "Boss",
+          "slug": "boss",
+          "composite_slug": "boss-at-buddy-smile-dental-clinic-สาขาสุทธิสาร-ห้วยขวาง",
+          "mentions": 4,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 4,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [
+            {
+              "text": "I highly recommend this clinic for orthodontic treatment. The doctor is incredibly kind and friendly. Dr. Boss is a very nice and kind person. I highly recommend him!",
+              "rating": 5,
+              "lang": "en"
+            },
+            {
+              "text": "The doctor is so kind and caring. Dr. Boss has been taking care of my teeth since I was in university until now that I've graduated and am working. 🥺💕 …",
+              "rating": 5,
+              "lang": "en"
+            }
+          ],
+          "procedures": [],
+          "experience_signals": []
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Buddy+Smile+Dental+Clinic+-+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B8%B4%E0%B8%AA%E0%B8%B2%E0%B8%A3+%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B8%82%E0%B8%A7%E0%B8%B2%E0%B8%87/data=!4m7!3m6!1s0x30e29d6ef6623109:0x40509b040e3e969a!8m2!3d13.7830371!4d100.5672484!16s%2Fg%2F11rrqf7157!19sChIJCTFi9m6d4jARmpY-DgSbUEA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e295990618633b_0xd2e96a6333a4cef1",
@@ -261595,11 +261813,11 @@
               "review_count": 4
             },
             {
-              "service": "hifu",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -278068,11 +278286,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -293761,60 +293979,6 @@
       "pricing": []
     },
     {
-      "id": "0x30e29f71ac72f265_0xb4cad256ffe00208",
-      "place_id": "0x30e29f71ac72f265:0xb4cad256ffe00208",
-      "name": "RKL Dental Clinic",
-      "name_lang": "en",
-      "primary_type": "Dental clinic",
-      "address": "\nQG4J+FM8, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Phaya Thai",
-      "phone": "+66 96 962 3658",
-      "website": "https://www.facebook.com/profile.php?id=100058300140475&mibextid=ZbWKwL",
-      "lat": 13.7561517,
-      "lng": 100.5316894,
-      "rating": 5.0,
-      "total_reviews": 11,
-      "trust_score": 62.5,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/RKL+Dental+Clinic/data=!4m7!3m6!1s0x30e29f71ac72f265:0xb4cad256ffe00208!8m2!3d13.7561517!4d100.5316894!16s%2Fg%2F11mvmtxzcq!19sChIJZfJyrHGf4jARCALg_1bSyrQ?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x310297fe11249ce9_0x5f87830d011d4cf5",
       "place_id": "0x310297fe11249ce9:0x5f87830d011d4cf5",
       "name": "Penphak Beauty Care",
@@ -294756,11 +294920,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -305163,13 +305327,7 @@
           "author": "สุดารัตน์ สาขะสิงห์"
         }
       ],
-      "sample_reviews_negative": [
-        {
-          "text": "I had braces with Dr. Pete two years ago, but my tooth root died. Now I need root canal treatment. It's incredibly painful, I can't eat properly, and my teeth aren't aligned. If I could go back, I wouldn't get braces. My life is so …",
-          "rating": 1,
-          "author": "T"
-        }
-      ],
+      "sample_reviews_negative": [],
       "doctor_stats": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/SM+Dental+Siam+Square+%28%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C%E0%B9%80%E0%B8%A1%E0%B9%82%E0%B8%A5%E0%B8%94%E0%B8%B5%E0%B9%89+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B9%81%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B9%8C%29/data=!4m7!3m6!1s0x30e29f9021196753:0x2299f9a413357e0a!8m2!3d13.7448851!4d100.5330152!16s%2Fg%2F11fl44x4nm!19sChIJU2cZIZCf4jARCn41E6T5mSI?authuser=0&hl=en&rclk=1"
@@ -345217,7 +345375,7 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -345225,7 +345383,7 @@
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "botox",
               "review_count": 1
             },
             {
