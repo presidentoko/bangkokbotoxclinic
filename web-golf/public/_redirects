@@ -1,0 +1,8 @@
+# Cloudflare Pages routes. Anything not matched falls through to default.
+#
+# Verification scanners (Agoda, Naver) explicitly request the .html URL and
+# may not follow 308 redirects. Rewrite (200) to serve the file directly at
+# both the .html and extensionless paths.
+
+/AgodaPartnerVerification.html  /AgodaPartnerVerification  200
+/naver7bd667c53fcc93f5d0ba3a8f1d9bbaae.html  /naver7bd667c53fcc93f5d0ba3a8f1d9bbaae  200
