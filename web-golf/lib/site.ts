@@ -16,10 +16,10 @@ export function getSiteConfig(): SiteConfig {
     domain,
     title: `${brand} — Verified Course Reviews & Trust Scores`,
     description:
-      "479 golf courses across Bangkok, Chonburi, Pattaya, Hua Hin, Phuket, Chiang Mai ranked by Trust Score from real Google reviews. Caddy quality, course conditions, English/Korean support — verified.",
+      "600+ golf courses across Bangkok, Chonburi, Pattaya, Hua Hin, Phuket, Chiang Mai ranked by Trust Score from real Google reviews. Caddy quality, course conditions, English/Korean support — verified.",
     hero: "Thailand Golf Guide — verified by real golfers",
     heroSub:
-      "479 courses nationwide. Real Google reviews analyzed. Compare conditions, caddies, and value before you book.",
+      "600+ courses nationwide. Real Google reviews analyzed. Compare conditions, caddies, and value before you book.",
     themeAccent: "#15803d",
   };
 }
