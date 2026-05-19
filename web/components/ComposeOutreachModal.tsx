@@ -8,6 +8,11 @@
 //   → 클립보드 복사 + /api/admin/outreach POST 로 record 생성 → 모달 닫기.
 
 import { useState, useEffect, useMemo, useCallback } from "react";
+
+function adminKey(): string {
+  if (typeof window === "undefined") return "";
+  return sessionStorage.getItem("admin_pk") ?? "";
+}
 import {
   TEMPLATE_METADATA,
   renderTemplate,
@@ -68,7 +73,9 @@ export function ComposeOutreachModal({
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetch(`/api/admin/clinic-info?clinic_id=${encodeURIComponent(clinicId)}`)
+    fetch(`/api/admin/clinic-info?clinic_id=${encodeURIComponent(clinicId)}`, {
+      headers: { "x-admin-key": adminKey() },
+    })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((data: ClinicInfo) => {
         if (!cancelled) {
@@ -112,7 +119,7 @@ export function ComposeOutreachModal({
       try { await navigator.clipboard.writeText(text); } catch {}
       await fetch("/api/admin/outreach", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
         body: JSON.stringify({
           clinic_id: info.clinic_id,
           clinic_name: info.name,
