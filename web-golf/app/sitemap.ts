@@ -13,13 +13,20 @@ const CUISINES = Object.keys(CUISINE_LABELS);
 
 export const dynamic = "force-static";
 
+// Strict sitemap: drop sub-second precision from lastmod (some validators —
+// Naver included — reject ISO timestamps with fractional seconds).
+function isoNoMs(d: Date | string): string {
+  const dt = typeof d === "string" ? new Date(d) : d;
+  return dt.toISOString().replace(/\.\d+Z$/, "Z");
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
   const districts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
   ));
   const cities = Object.keys(db.city_counts).map((k) => k.toLowerCase().replace(/\s+/g, "_"));
-  const updated = new Date(db.generated_at);
+  const updated = isoNoMs(db.generated_at);
 
   const items: MetadataRoute.Sitemap = [
     { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
@@ -37,25 +44,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const p of POSTS) {
     items.push({
       url: `${SITE}/blog/${p.slug}`,
-      lastModified: new Date(p.updated ?? p.published),
+      lastModified: isoNoMs(p.updated ?? p.published),
       changeFrequency: "monthly",
       priority: 0.8,
     });
   }
 
   for (const g of GUIDES) {
-    items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+    items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
   // Community-content roundups (Naver / Pantip aggregators)
   items.push({ url: `${SITE}/guide/korean-golfer-blogs`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   items.push({ url: `${SITE}/guide/pantip-golf-threads`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
   items.push({ url: `${SITE}/ko/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   for (const g of GUIDES_KO) {
-    items.push({ url: `${SITE}/ko/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+    items.push({ url: `${SITE}/ko/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
   items.push({ url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   for (const g of GUIDES_TH) {
-    items.push({ url: `${SITE}/th/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+    items.push({ url: `${SITE}/th/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
 
   for (const c of cities) {
