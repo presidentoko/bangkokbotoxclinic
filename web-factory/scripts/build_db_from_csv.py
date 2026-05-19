@@ -467,6 +467,30 @@ def main() -> None:
                 continue
             suppliers.append(sup)
 
+    # === 추가 DBD 매칭 머지 (overnight rematch 결과) ===
+    rematch_path = WEB / "data" / "dbd" / "rematch_candidates.json"
+    if rematch_path.exists():
+        cands = json.loads(rematch_path.read_text(encoding="utf-8"))
+        by_id = {s["id"]: s for s in suppliers}
+        rematch_merged = 0
+        for c in cands:
+            sup = by_id.get(c["supplier_id"])
+            if not sup or sup.get("verified"):
+                continue
+            sup["verified"] = True
+            sup["dbd"] = {
+                "reg_no": c.get("dbd_jpNo"),
+                "legal_name": c.get("dbd_name"),
+                "capital_thb": c.get("dbd_capAmt"),
+                "registered_date": None,
+                "tsic_code": None,
+                "purpose": None,
+                "address": c.get("dbd_address"),
+                "match_score": float(c["score"]),
+            }
+            rematch_merged += 1
+        print(f"\nrematch candidates merged: {rematch_merged}")
+
     # === 카테고리 enrichment ===
     # 1) DBD purpose 텍스트 키워드 매칭 — 압도적으로 가장 강한 시그널.
     purpose_enriched = 0

@@ -1,0 +1,80 @@
+[
+  {
+    "supplier_id": "ChIJGzNuHg6n4jARtq0tsSOqNew",
+    "supplier_name": "Thai Delmar Co., Ltd.",
+    "supplier_city": "Samut Prakan",
+    "supplier_district": "Bang Bo District",
+    "variants_tried": [
+      "THAIDELMAR"
+    ],
+    "score": 90,
+    "reasons": [
+      "name_exact",
+      "addr_tokens(3)"
+    ],
+    "dbd_jpNo": "0105532113571",
+    "dbd_jpType": "5",
+    "dbd_name": "ไทยเดลมาร์ จำกัด",
+    "dbd_capAmt": 72000000,
+    "dbd_address": "88/8 นิคมอุตสาหกรรมเอเซีย (สุวรรณภูมิ)  หมู่ที่ 4 ซอยเอเซียอเวนิว 2"
+  },
+  {
+    "supplier_id": "ChIJ_aIDl3F_4jAROwHBC2trOmM",
+    "supplier_name": "Sivax(Thailand)Ltd.",
+    "supplier_city": "Pathum Thani",
+    "supplier_district": "Khlong Luang District",
+    "variants_tried": [
+      "SIVAX"
+    ],
+    "score": 90,
+    "reasons": [
+      "name_exact",
+      "addr_tokens(3)"
+    ],
+    "dbd_jpNo": "0135543003691",
+    "dbd_jpType": "5",
+    "dbd_name": "ซีแวกซ์ (ประเทศไทย) จำกัด",
+    "dbd_capAmt": 20000000,
+    "dbd_address": "83/45 หมู่ที่ 19 นิคมอุตสาหกรรมนวนคร ถนนพหลโยธิน "
+  },
+  {
+    "supplier_id": "ChIJC1aERm2B4jAR9yhIzFPa7vk",
+    "supplier_name": "CHIN POON ELECTRONICS (THAILAND) PUBLIC COMPANY LIMITED",
+    "supplier_city": "Pathum Thani",
+    "supplier_district": "Mueang Pathum Thani District",
+    "variants_tried": [
+      "CHINPOONELECTRONICS"
+    ],
+    "score": 90,
+    "reasons": [
+      "name_exact",
+      "addr_tokens(3)"
+    ],
+    "dbd_jpNo": "0107536000561",
+    "dbd_jpType": "7",
+    "dbd_name": "ชินพูน อิเลคโทรนิคส์ (ประเทศไทย) จำกัด (มหาชน)",
+    "dbd_capAmt": 1539287249,
+    "dbd_address": " 152 หมู่ที่ 5 สวนอุตสาหกรรมบางกะดี ถนน ติวานนท์"
+  },
+  {
+    "supplier_id": "ChIJSzJvd3WH4jAR2OErKUlZyu4",
+    "supplier_name": "Pathum Recycle Co., Ltd.",
+    "supplier_city": "Pathum Thani",
+    "supplier_district": "Lat Lum Kaeo District",
+    "variants_tried": [
+      "PATHUMRECYCLE"
+    ],
+    "score": 91,
+    "reasons": [
+      "name_exact",
+      "addr_tokens(1)",
+      "district",
+      "city"
+    ],
+    "dbd_jpNo": "0135537003898",
+    "dbd_jpType": "5",
+    "dbd_name": "ปทุมรีไซเคิล จำกัด",
+    "dbd_capAmt": 210000000,
+    "dbd_address": "40 หมู่ที่ 5 ถนนปทุมธานี-ลาดหลุมแก้ว "
+  }
+]
