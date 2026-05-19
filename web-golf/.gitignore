@@ -5,3 +5,9 @@ out/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# Big source CSVs (270MB+) — runtime data lives in data/ (master_db.json + community_*.json)
+export/
+
+# Claude Code session state
+.claude/

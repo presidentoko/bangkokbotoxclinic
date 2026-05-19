@@ -23,6 +23,9 @@ export default async function HomePage() {
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
   const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
   const koCourses = db.restaurants.filter((c) => (c.language_breakdown?.ko ?? 0) > 0).length;
+  const koFriendlyCount = db.restaurants.filter((c) => c.is_korean_friendly).length;
+  const withVideos = db.restaurants.filter((c) => c.videos && c.videos.length > 0).length;
+  const withPhotos = db.restaurants.filter((c) => (c.photos && c.photos.length > 0) || c.hero_image || c.top_photo_url).length;
   const provinces = Object.keys(db.city_counts).length;
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
@@ -51,17 +54,17 @@ export default async function HomePage() {
     trust_score: r.trust_score,
   }));
 
-  // Featured 6 with photos prioritized
+  // Featured 6 with photos prioritized (hero_image OR top_photo_url)
   const featured6 = top
     .slice(0, 30)
-    .filter((r) => r.hero_image)
+    .filter((r) => r.hero_image || r.top_photo_url)
     .slice(0, 6);
   const featuredFinal = featured6.length >= 6 ? featured6 : top.slice(0, 6);
 
-  // Korean-popular
+  // Korean-popular — prefer Korean-friendly flagged, sort by korean_score
   const koTop = [...db.restaurants]
-    .filter((r) => (r.language_breakdown?.ko ?? 0) > 0)
-    .sort((a, b) => (b.language_breakdown?.ko ?? 0) - (a.language_breakdown?.ko ?? 0))
+    .filter((r) => r.is_korean_friendly)
+    .sort((a, b) => (b.korean_score ?? 0) - (a.korean_score ?? 0))
     .slice(0, 6);
 
   return (
@@ -100,7 +103,7 @@ export default async function HomePage() {
         <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-4 gap-4 text-center">
           <Stat big={db.total_restaurants.toLocaleString()} label="Courses" />
           <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Reviews analyzed" />
-          <Stat big={koCourses.toLocaleString()} label="Korean ✓" />
+          <Stat big={koFriendlyCount.toLocaleString()} label="🇰🇷 Korean-friendly" />
           <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
         </div>
       </section>
@@ -110,6 +113,26 @@ export default async function HomePage() {
           const hero = top.find((r) => sponsoredTier(r.id));
           return hero ? <SponsoredHero r={hero} /> : null;
         })()}
+
+        {/* DATA TRANSPARENCY BAND */}
+        <section className="mb-12 bg-white border border-[var(--border)] rounded-2xl p-5 md:p-7">
+          <div className="text-xs uppercase tracking-widest text-emerald-700 font-bold mb-3">
+            How this directory is built
+          </div>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 text-sm">
+            <DataPoint big="1,316" label="Places analyzed" hint="from public Google Maps directory" />
+            <DataPoint big={withPhotos.toLocaleString()} label="With photos" hint="Google Maps + course websites" />
+            <DataPoint big={withVideos.toString()} label="YouTube reviews matched" hint="via course-name fuzzy match" />
+            <DataPoint big="201" label="Naver blog posts" hint="Korean blogger field reports" />
+            <DataPoint big="152" label="Pantip threads" hint="Thai community forum discussions" />
+            <DataPoint big={koFriendlyCount.toString()} label="🇰🇷 Korean-verified" hint="topic + caddy + blog signal OR" />
+            <DataPoint big={withScraped.toLocaleString()} label="Deep-analyzed" hint="Apify review text NLP extraction" />
+            <DataPoint big={provinces.toString()} label="Provinces" hint="across Thailand" />
+          </div>
+          <p className="text-xs text-[var(--muted)] leading-relaxed mt-4 max-w-3xl">
+            Trust Score and Korean-friendly flags are computed automatically from the signals above — no editorial curation, no paid placements in the organic ranking. <a href="/methodology" className="underline hover:text-[var(--fg)] font-medium">Full methodology →</a> · <a href="/llms-full.txt" className="underline hover:text-[var(--fg)]">LLM-readable data</a>
+          </p>
+        </section>
 
         {/* MANIFESTO */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
@@ -148,11 +171,11 @@ export default async function HomePage() {
                   href={`/course/${r.id}`}
                   className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:border-emerald-300 hover:-translate-y-0.5 transition relative overflow-hidden"
                 >
-                  {r.hero_image ? (
+                  {(r.hero_image || r.top_photo_url) ? (
                     <div className="relative h-40 overflow-hidden bg-gray-100">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={r.hero_image}
+                        src={r.hero_image || r.top_photo_url}
                         alt={r.name}
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -204,7 +227,7 @@ export default async function HomePage() {
               <div>
                 <h2 className="text-xl md:text-2xl font-black tracking-tight">🇰🇷 한국 골퍼 인기 코스</h2>
                 <p className="text-sm text-[var(--muted)] mt-1">
-                  {koCourses}개 코스에 한국어 리뷰 — 한국어 캐디 / 한국 투어그룹 인기.
+                  {koFriendlyCount}개 코스 한국 친화 검증 · {koCourses}개에 한국어 리뷰. 한국어 캐디 / 한국 투어그룹 인기.
                 </p>
               </div>
               <a href="/ko" className="text-sm font-bold hover:text-emerald-700 hover:underline">한국어 사이트 →</a>
@@ -212,7 +235,10 @@ export default async function HomePage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {koTop.map((r, i) => (
                 <a key={r.id} href={`/course/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-3 hover:border-emerald-300 transition">
-                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · {(r.language_breakdown?.ko ?? 0)} KO 리뷰</div>
+                  <div className="text-xs text-[var(--muted)] mb-1">
+                    #{i + 1} · ko score {(r.korean_score ?? 0).toFixed(0)}
+                    {(r.language_breakdown?.ko ?? 0) > 0 ? ` · ${r.language_breakdown.ko} KO 리뷰` : ""}
+                  </div>
                   <div className="font-medium text-sm leading-tight">{r.name}</div>
                   <div className="text-xs text-[var(--muted)] mt-1">{r.city_label}</div>
                 </a>
@@ -375,6 +401,16 @@ function Manifesto({ icon, title, body }: { icon: string; title: string; body: s
       <div className="text-3xl mb-3">{icon}</div>
       <h3 className="font-bold text-base mb-1">{title}</h3>
       <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function DataPoint({ big, label, hint }: { big: string; label: string; hint: string }) {
+  return (
+    <div>
+      <div className="text-2xl md:text-3xl font-black tabular-nums text-[var(--fg)] leading-none">{big}</div>
+      <div className="text-xs font-semibold text-[var(--fg)] mt-1.5">{label}</div>
+      <div className="text-[11px] text-[var(--muted)] leading-snug mt-0.5">{hint}</div>
     </div>
   );
 }

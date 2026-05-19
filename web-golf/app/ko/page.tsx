@@ -75,11 +75,12 @@ export default async function KoHomePage() {
 
   const categories = Object.entries(db.cuisine_counts).sort((a, b) => b[1] - a[1]);
 
-  // KO 인기 코스
+  // KO 인기 코스 — 검증된 한국 친화 코스만, korean_score 정렬
   const koTop = [...db.restaurants]
-    .filter((r) => (r.language_breakdown?.ko ?? 0) > 0)
-    .sort((a, b) => (b.language_breakdown?.ko ?? 0) - (a.language_breakdown?.ko ?? 0))
+    .filter((r) => r.is_korean_friendly)
+    .sort((a, b) => (b.korean_score ?? 0) - (a.korean_score ?? 0))
     .slice(0, 20);
+  const koFriendlyCount = db.restaurants.filter((r) => r.is_korean_friendly).length;
 
   return (
     <>
@@ -111,11 +112,18 @@ export default async function KoHomePage() {
       />
 
       <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Korean popular courses — featured */}
+        {/* Korean-verified courses — featured */}
         {koTop.length >= 6 && (
           <section className="mb-10">
-            <h2 className="text-xl font-bold mb-4">🇰🇷 한국 골퍼 인기 코스 Top 10</h2>
-            <p className="text-sm text-[var(--muted)] mb-4">한국어 리뷰가 많은 코스 — 한국 투어그룹이 자주 찾는 코스입니다.</p>
+            <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+              <h2 className="text-xl font-bold">🇰🇷 한국 친화 검증 코스 Top 10</h2>
+              <a href="/ko/best/korean-friendly" className="text-sm font-bold hover:text-emerald-700 hover:underline">
+                {koFriendlyCount}개 전체 보기 →
+              </a>
+            </div>
+            <p className="text-sm text-[var(--muted)] mb-4">
+              구글 리뷰 · 캐디 멘션 · 네이버 블로그 시그널로 자동 검증한 한국 친화 코스. 광고·큐레이션 0.
+            </p>
             <div className="grid gap-3">
               {koTop.slice(0, 10).map((r, i) => (
                 <RestaurantCard key={r.id} r={r} rank={i + 1} />

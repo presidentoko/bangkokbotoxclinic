@@ -23,15 +23,16 @@ export const BEST_FOR: Criterion[] = [
     title: "Best Korean-Friendly Golf Courses in Thailand",
     metaTitle: "Korean-Friendly Golf Courses in Thailand — Verified Reviews",
     metaDescription:
-      "Thailand golf courses with Korean-speaking caddies, Korean menus, or strong Korean tourist popularity. Verified from real Google reviews.",
+      "Thailand golf courses with Korean-speaking caddies, Korean menus, or strong Korean tourist popularity. Verified from real Google reviews and Korean blog mentions.",
     intro:
-      "Thailand golf courses where Korean reviewers dominate or where reviewers explicitly mention Korean-speaking caddies. Sorted by Korean review count and caddy mentions weighted by Trust Score.",
+      "Thailand golf courses where Korean reviewers dominate, where reviewers explicitly mention Korean-speaking caddies, or that are featured on Korean Naver blogs.",
     scoreFn: (r) =>
-      topicHits(r, "korean_caddy") * 12 +
-      (r.language_breakdown?.ko ?? 0) * 4 +
-      r.trust_score,
-    filterFn: (r) =>
-      topicHits(r, "korean_caddy") >= 1 || (r.language_breakdown?.ko ?? 0) >= 2,
+      // korean_score is the auto-computed composite (topic + keywords + ko vol + blogs)
+      (r.korean_score ?? 0) * 2 +
+      (r.is_korean_friendly ? 25 : 0) +
+      (r.golf_score ?? 0) * 0.5 +
+      r.trust_score * 0.5,
+    filterFn: (r) => r.is_korean_friendly === true,
   },
   {
     slug: "english-caddy",

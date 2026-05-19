@@ -12,6 +12,12 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/api/", "/_next/"],
       },
+      // Naver / Daum — Korean SEO. Explicit allow + no crawl delay so they
+      // pick up new pages quickly. Yeti is Naver's primary crawler.
+      {
+        userAgent: ["Yeti", "NaverBot", "Daum", "Daumoa"],
+        allow: "/",
+      },
       // AEO crawlers — explicitly allow + slow rate to be polite
       {
         userAgent: ["GPTBot", "ChatGPT-User", "OAI-SearchBot",

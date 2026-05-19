@@ -23,9 +23,15 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[2]
 WEB_DATA = ROOT / "web-golf" / "data"
 
-# Apify 다운로드는 Desktop 또는 Downloads — glob 으로 모든 파일 자동 picked up.
 HOME = Path.home()
-APIFY_SEARCH_DIRS = [HOME / "Desktop", HOME / "Downloads"]
+APIFY_SEARCH_DIRS = [
+    HOME / "Desktop",
+    HOME / "Downloads",
+    HOME / "Desktop" / "골프" / "이름만",
+    HOME / "Desktop" / "골프" / "리뷰도",
+    HOME / "Downloads" / "골프" / "이름만",
+    HOME / "Downloads" / "골프" / "리뷰도",
+]
 
 
 def find_files(pattern: str) -> list[Path]:
@@ -384,6 +390,21 @@ def main():
     print(f"  by category: {dict(category_counter.most_common())}")
     print(f"  with reviews: {payload['with_reviews_scraped']}")
     print(f"  language total: {dict(lang_total)}")
+
+    # Re-apply CSV enrichment + Korean auto-labeling so the bot's rebuild
+    # doesn't wipe out the merged signals. Idempotent — safe to run every cycle.
+    print("\n[post] re-applying CSV enrichment + korean labeling …")
+    import subprocess
+    scripts_dir = Path(__file__).resolve().parent
+    for script in ("merge_master_csv.py", "auto_label_korean_friendly.py"):
+        script_path = scripts_dir / script
+        if not script_path.exists():
+            print(f"  skip — {script} not found")
+            continue
+        try:
+            subprocess.run([sys.executable, str(script_path)], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"  [warn] {script} failed: {e}")
 
 
 if __name__ == "__main__":

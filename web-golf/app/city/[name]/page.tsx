@@ -2,9 +2,12 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
-import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, ItemListJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
+import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
+import { getCityContent } from "@/lib/cityContent";
+import { BEST_FOR } from "@/lib/bestFor";
 import type { Metadata } from "next";
 
 function citySlug(label: string): string {
@@ -55,10 +58,22 @@ export default async function CityPage(
   const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]);
 
   const koCount = filtered.filter((c) => (c.language_breakdown?.ko ?? 0) > 0).length;
+  const koreanFriendly = filtered.filter((c) => c.is_korean_friendly).length;
   const avgTrust =
     filtered.length > 0
       ? Math.round(filtered.reduce((s, c) => s + c.trust_score, 0) / filtered.length)
       : 0;
+  const content = getCityContent(name, display);
+
+  // Cross-link best-of curations that have ≥3 matches in this city
+  const bestForCity = BEST_FOR
+    .map((b) => {
+      const matches = filtered.filter((r) => !b.filterFn || b.filterFn(r));
+      return { cfg: b, count: matches.length };
+    })
+    .filter((x) => x.count >= 3)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 6);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -70,11 +85,14 @@ export default async function CityPage(
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
         {display} Golf Courses
       </h1>
-      <p className="text-[var(--muted)] mb-6">
+      <p className="text-[var(--muted)] mb-4">
         {filtered.length} courses in {display}, ranked by Trust Score from real Google reviews.
       </p>
+      <p className="text-base leading-relaxed text-[var(--fg)] mb-6 max-w-3xl">
+        {content.intro}
+      </p>
 
-      <div className="grid grid-cols-3 gap-3 mb-8 text-center">
+      <div className="grid grid-cols-4 gap-3 mb-8 text-center">
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
           <div className="text-2xl font-bold tabular-nums">{filtered.length}</div>
           <div className="text-xs text-[var(--muted)]">Courses</div>
@@ -85,7 +103,11 @@ export default async function CityPage(
         </div>
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
           <div className="text-2xl font-bold tabular-nums">{koCount}</div>
-          <div className="text-xs text-[var(--muted)]">Korean ✓</div>
+          <div className="text-xs text-[var(--muted)]">Korean reviews</div>
+        </div>
+        <div className="rounded-xl border border-[var(--border)] bg-white p-3">
+          <div className="text-2xl font-bold tabular-nums">{koreanFriendly}</div>
+          <div className="text-xs text-[var(--muted)]">🇰🇷 caddy verified</div>
         </div>
       </div>
 
@@ -125,6 +147,32 @@ export default async function CityPage(
         </section>
       )}
 
+      {bestForCity.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
+            Best {display} courses by criterion
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {bestForCity.map(({ cfg, count }) => (
+              <a
+                key={cfg.slug}
+                href={`/best/${cfg.slug}`}
+                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:bg-emerald-50 transition"
+              >
+                <div className="font-medium">
+                  {cfg.title.replace(/^Best |^Most /, "").replace(/ in Thailand$/, "")}
+                </div>
+                <div className="text-xs text-[var(--muted)] mt-0.5">
+                  {count} {display} courses match · view ranking
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <TravelStackAffiliate city={name} cityLabel={display} context="city" />
+
       <AdSlot slot="city-mid" />
 
       <section>
@@ -136,6 +184,23 @@ export default async function CityPage(
         </div>
       </section>
 
+      {content.faqs.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold mb-4">Frequently asked — {display} golf</h2>
+          <div className="space-y-3">
+            {content.faqs.map((f, i) => (
+              <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
+                <summary className="font-medium cursor-pointer flex items-center justify-between gap-3">
+                  <span>{f.q}</span>
+                  <span className="text-[var(--muted)] group-open:rotate-180 transition">⌄</span>
+                </summary>
+                <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed whitespace-pre-line">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: display, url: `/city/${name}` },
@@ -144,6 +209,7 @@ export default async function CityPage(
         name={`Top ${display} golf courses`}
         items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}
       />
+      <FaqJsonLd faqs={content.faqs} />
     </div>
   );
 }

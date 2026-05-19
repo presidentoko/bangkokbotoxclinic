@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import { GUIDES, findGuide } from "@/lib/guides";
 import { findGuideKo } from "@/lib/guides_ko";
 import { findGuideTh } from "@/lib/guides_th";
-import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import type { Metadata } from "next";
@@ -111,6 +112,7 @@ export default async function GuidePage(
       </div>
 
       <AffiliateInline />
+      <TravelStackAffiliate city={g.city_slugs?.[0] || "bangkok"} context="guide" />
 
       {g.faqs.length > 0 && (
         <section className="mt-12">
@@ -169,6 +171,20 @@ export default async function GuidePage(
         { name: g.title, url: `/guide/${g.slug}` },
       ]} />
       <FaqJsonLd faqs={g.faqs} />
+      {g.slug === "booking-thai-golf" && (
+        <HowToJsonLd
+          name="How to Book Golf in Thailand"
+          description="Step-by-step process for booking a tee time in Thailand — from choosing a channel through tipping the caddy."
+          totalTime="PT15M"
+          steps={[
+            { name: "Pick your booking channel", text: "Choose between direct (course website / phone — cheapest, no English help), agency (Golfsavers / Sawasdee — full bundle), hotel concierge (best for first trip), or Klook (one-off rounds at popular tourist courses)." },
+            { name: "Book lead time", text: "Weekend tee times at popular Bangkok-area courses: 1-2 weeks ahead. Weekday at the same courses: 1-3 days. Off-season (May-Sept): often same-day. Hua Hin and Pattaya weekends fill around Korean and Japanese tour cycles." },
+            { name: "Understand what's included", text: "Green fee covers the round and course access. Caddy fee (~฿400), caddy tip (฿400-600), cart (฿700-1,000 if not walking), and club rental (฿700-2,500) are all extra. Visitor surcharges of 10-30% on weekends are common at country clubs." },
+            { name: "Arrive 60-90 minutes early", text: "Allow time for locker, range balls, breakfast. Dress code: collared shirt, no denim, soft spikes only. Bring cash for caddy fee and tip (caddy is cash; green fee is usually card-accepted)." },
+            { name: "Tip the caddy at round end", text: "Standard ฿400-500 at public courses, ฿500-800 at premium country clubs. Korean-speaking caddies typically receive ฿600-1,000 due to Korean tour-group tipping culture. Pay caddy fee at the clubhouse on arrival; tip in cash directly to the caddy after the round." },
+          ]}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}

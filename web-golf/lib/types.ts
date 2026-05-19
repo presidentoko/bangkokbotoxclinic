@@ -11,6 +11,32 @@ export type RatingTrend = {
 
 export type SampleReview = { text: string; rating: number; author: string };
 
+export type ScrapedReview = {
+  reviewer?: string;
+  rating?: number | null;
+  date?: string;
+  text?: string;
+};
+
+export type VideoRef = {
+  video_id: string;
+  title?: string;
+  channel?: string;
+  duration?: string;
+  view_count?: string;
+  published?: string;
+  url?: string;
+};
+
+export type KoreanBlogRef = {
+  url: string;
+  title?: string;
+  snippet?: string | null;
+  date?: string | null;
+  blogger?: string;
+  body_excerpt?: string | null;
+};
+
 export type Course = {
   id: string;
   place_id: string;
@@ -53,6 +79,28 @@ export type Course = {
   booking_links?: { href: string; label: string }[];
   // Photo scraped from course's own website (data/course_photos.json — merged in data.ts)
   hero_image?: string | null;
+
+  // ── CSV enrichment (merge_master_csv.py) ─────────────────
+  golf_score?: number;
+  korean_score?: number;
+  is_golf_filtered?: boolean;
+  is_korean_friendly?: boolean;
+  is_english_friendly?: boolean;
+  data_sources?: string[];
+  top_photo_url?: string;
+  photos?: string[];
+  videos?: VideoRef[];
+  korean_blogs?: KoreanBlogRef[];
+  scraped_reviews?: ScrapedReview[];
+  top_review_text?: string;
+  green_fee_mentions?: string;
+  website_title?: string;
+  website_meta_description?: string;
+  website_email?: string;
+  website_facebook?: string;
+  website_instagram?: string;
+  website_line_id?: string;
+  website_phone_secondary?: string;
 };
 
 // Backward compat — restaurant code paths import "Restaurant"

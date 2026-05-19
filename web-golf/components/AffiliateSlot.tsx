@@ -6,7 +6,7 @@ export function AffiliateInline({ category, district }: {
   category?: string;
   district?: string;
 }) {
-  const query = [category, district, "Bangkok golf"].filter(Boolean).join(" ");
+  const query = [category, district, "Thailand"].filter(Boolean).join(" ");
   const golfsavers = golfsaversSearch(query);
   const sawasdee = sawasdeeSearch(query);
   const klook = klookSearchLink(query);

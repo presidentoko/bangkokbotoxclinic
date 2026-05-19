@@ -30,12 +30,23 @@ export const metadata: Metadata = {
       "x-default": "/",
     },
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
-    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
-      ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
-      : undefined,
-  },
+  verification: (() => {
+    const other: Record<string, string[]> = {};
+    if (process.env.NEXT_PUBLIC_BING_VERIFICATION) {
+      other["msvalidate.01"] = [process.env.NEXT_PUBLIC_BING_VERIFICATION];
+    }
+    if (process.env.NEXT_PUBLIC_NAVER_VERIFICATION) {
+      other["naver-site-verification"] = [process.env.NEXT_PUBLIC_NAVER_VERIFICATION];
+    }
+    // Agoda partner verification is injected as a raw <meta /> (no content attr)
+    // directly in the body — React 19 auto-hoists to <head>. Metadata API
+    // strips empty-content meta so we can't use it here.
+    return {
+      google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+      yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
+      other: Object.keys(other).length > 0 ? other : undefined,
+    };
+  })(),
 };
 
 export default function RootLayout({
@@ -46,6 +57,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* Agoda partner verification — React 19 hoists this to <head> with
+            no content attribute, matching Agoda's expected meta exactly. */}
+        <meta name="agd-partner-manual-verification" />
         <OrgJsonLd />
         <WebsiteJsonLd />
         <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
@@ -59,6 +73,7 @@ export default function RootLayout({
               <a href="/c/resort" className="hover:text-black hidden sm:inline">Resorts</a>
               <a href="/best/highly-recommended" className="hover:text-black hidden md:inline">Best of</a>
               <a href="/guide/booking-thai-golf" className="hover:text-black hidden md:inline">Guides</a>
+              <a href="/blog" className="hover:text-black hidden md:inline">Blog</a>
               <a href="/about" className="hover:text-black hidden md:inline">About</a>
               <a
                 href="/for-courses"
@@ -96,6 +111,9 @@ export default function RootLayout({
               <div>
                 <div className="font-bold text-[var(--fg)] mb-2 text-xs uppercase tracking-wide">Site</div>
                 <ul className="space-y-1.5">
+                  <li><a href="/blog" className="hover:text-black">Blog</a></li>
+                  <li><a href="/guide/booking-thai-golf" className="hover:text-black">Booking Guide</a></li>
+                  <li><a href="/methodology" className="hover:text-black">Methodology</a></li>
                   <li><a href="/about" className="hover:text-black">About</a></li>
                   <li><a href="/contact" className="hover:text-black">Contact</a></li>
                   <li><a href="/for-courses" className="hover:text-black">For Golf Clubs</a></li>

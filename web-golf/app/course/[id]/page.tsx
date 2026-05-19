@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getRestaurantById } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
-import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, RestaurantJsonLd, CourseVideosJsonLd } from "@/components/JsonLd";
+import { buildComparePairs } from "@/lib/comparePairs";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
 import { RatingChart } from "@/components/RatingChart";
@@ -9,11 +10,38 @@ import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
   return db.restaurants.map((r) => ({ id: r.id }));
+}
+
+// Detect if a string is "mostly Latin" — used to decide whether top_review_text
+// (often Thai/Korean for top reviews) is safe to use as English meta description.
+function isMostlyLatin(s: string): boolean {
+  if (!s) return false;
+  const letters = s.match(/[A-Za-z฀-๿가-힣]/g);
+  if (!letters || letters.length < 30) return false;
+  const latin = (s.match(/[A-Za-z]/g) || []).length;
+  return latin / letters.length >= 0.7;
+}
+
+// Pick an English-first review excerpt: prefer sample_reviews_en, then scan
+// scraped_reviews for one that's mostly Latin script, else fall back to generic.
+function englishExcerpt(r: import("@/lib/types").Course): string | null {
+  if (r.sample_reviews_en && r.sample_reviews_en.length > 0) {
+    const t = r.sample_reviews_en[0].text;
+    if (t && t.length >= 40) return t;
+  }
+  if (r.scraped_reviews) {
+    for (const sr of r.scraped_reviews) {
+      if (sr.text && isMostlyLatin(sr.text)) return sr.text;
+    }
+  }
+  if (r.top_review_text && isMostlyLatin(r.top_review_text)) return r.top_review_text;
+  return null;
 }
 
 export async function generateMetadata(
@@ -24,10 +52,32 @@ export async function generateMetadata(
   const r = getRestaurantById(db.restaurants, id);
   if (!r) return { title: "Course not found" };
   const cats = r.categories.map((c) => CATEGORY_LABELS[c] ?? c).join(", ");
+  const where = r.district || r.city_label || "Thailand";
+  const englishReview = englishExcerpt(r);
+  const generic = `${r.name} in ${where}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cats || "Golf course"}.`;
+  const description = englishReview
+    ? `${englishReview.slice(0, 140).trim()}${englishReview.length > 140 ? "…" : ""} · ★${r.rating} · ${where}`
+    : generic;
+
+  // Stub courses (no image, no reviews, no topics) — noindex to avoid thin pages
+  const isStub =
+    !r.hero_image && !r.top_photo_url && !(r.photos && r.photos.length) &&
+    !(r.sample_reviews_en?.length) && !(r.sample_reviews_th?.length) &&
+    !(r.sample_reviews_ko?.length) && !(r.scraped_reviews?.length) &&
+    !(r.mentioned_topics?.length);
+
+  // og:image is auto-supplied by app/course/[id]/opengraph-image.tsx — we only
+  // set title/description here so og:image stays the dynamic per-course PNG.
   return {
     title: `${r.name} — Reviews & Trust Score`,
-    description: `${r.name} in ${r.district || r.city_label || "Thailand"}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cats || "Golf course"}.`,
+    description,
     alternates: { canonical: `/course/${id}` },
+    robots: isStub ? { index: false, follow: true } : undefined,
+    openGraph: {
+      title: `${r.name} - Thailand Golf Guide`,
+      description,
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -41,7 +91,17 @@ export default async function CoursePage(
 
   const tier = sponsoredTier(r.id);
   const trend = r.rating_trend.trend;
-  const samples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 4);
+  const curatedSamples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 4);
+  const samples = curatedSamples.length > 0
+    ? curatedSamples
+    : (r.scraped_reviews ?? [])
+        .filter((s) => s.text)
+        .slice(0, 4)
+        .map((s) => ({
+          text: s.text || "",
+          rating: s.rating ?? 0,
+          author: s.reviewer || "Google reviewer",
+        }));
 
   // Trust breakdown
   const ratingPart = (r.rating / 5) * 50;
@@ -73,6 +133,10 @@ export default async function CoursePage(
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 4);
 
+  // Compare-page entries involving this course (if any pre-generated)
+  const allPairs = buildComparePairs(db.restaurants);
+  const compareLinks = allPairs.filter((p) => p.aId === r.id || p.bId === r.id);
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -100,16 +164,16 @@ export default async function CoursePage(
         </div>
       )}
 
-      {r.hero_image && (
+      {(r.hero_image || r.top_photo_url) && (
         <div className="relative w-full mb-6 rounded-2xl overflow-hidden bg-gray-100" style={{ aspectRatio: "16 / 7" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={r.hero_image}
+            src={r.hero_image || r.top_photo_url}
             alt={r.name}
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute bottom-2 right-2 text-[10px] text-white bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">
-            From course&apos;s own website
+            {r.hero_image ? "From course's own website" : "From Google Maps"}
           </div>
         </div>
       )}
@@ -148,6 +212,24 @@ export default async function CoursePage(
           <AIVerifiedBadge r={r} size="md" />
           {percentile <= 25 && (
             <RelativeRanking percentile={percentile} label={rankingLabel} />
+          )}
+          {r.is_korean_friendly && (
+            <span
+              className="bg-rose-50 text-rose-800 px-3 py-1 rounded-full text-sm font-medium"
+              title={`Korean signal score: ${r.korean_score?.toFixed(0) ?? "—"} (review topic + 한국 mentions + ko reviewers + Naver blogs)`}
+            >
+              🇰🇷 Korean-friendly{(r.language_breakdown?.ko ?? 0) > 0 ? ` · ${r.language_breakdown.ko} KO reviews` : ""}
+            </span>
+          )}
+          {r.holes && (
+            <span className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-sm">
+              {r.holes} holes{r.par ? ` · Par ${r.par}` : ""}
+            </span>
+          )}
+          {r.green_fee_mentions && (
+            <span className="bg-amber-50 text-amber-900 px-3 py-1 rounded-full text-sm">
+              💰 {r.green_fee_mentions.length > 40 ? r.green_fee_mentions.slice(0, 40) + "…" : r.green_fee_mentions}
+            </span>
           )}
           <Freshness generatedAt={db.generated_at} mode="detail" />
         </div>
@@ -193,6 +275,84 @@ export default async function CoursePage(
 
           <MapEmbed lat={r.lat} lng={r.lng} name={r.name} height={320} />
 
+          {r.photos && r.photos.length > 1 && (
+            <section>
+              <h2 className="text-lg font-bold mb-3">Photos ({r.photos.length})</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {r.photos.slice(0, 9).map((src, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`${r.name} photo ${i + 1}`}
+                    loading="lazy"
+                    className="w-full aspect-[4/3] object-cover rounded-lg bg-gray-100"
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {r.videos && r.videos.length > 0 && (
+            <section>
+              <h2 className="text-lg font-bold mb-3">YouTube reviews</h2>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {r.videos.slice(0, 4).map((v) => (
+                  <a
+                    key={v.video_id}
+                    href={v.url || `https://www.youtube.com/watch?v=${v.video_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-white border border-[var(--border)] rounded-lg overflow-hidden hover:border-black transition"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`https://i.ytimg.com/vi/${v.video_id}/hqdefault.jpg`}
+                      alt={v.title || "YouTube video"}
+                      loading="lazy"
+                      className="w-full aspect-video object-cover bg-gray-100"
+                    />
+                    <div className="p-3">
+                      <div className="text-sm font-medium line-clamp-2">{v.title || v.video_id}</div>
+                      <div className="text-xs text-[var(--muted)] mt-1 flex gap-2">
+                        {v.channel && <span>{v.channel}</span>}
+                        {v.duration && <span>· {v.duration}</span>}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {r.korean_blogs && r.korean_blogs.length > 0 && (
+            <section>
+              <h2 className="text-lg font-bold mb-3">한국 블로그 후기</h2>
+              <div className="space-y-3">
+                {r.korean_blogs.slice(0, 5).map((b, i) => (
+                  <a
+                    key={i}
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-white border border-[var(--border)] rounded-lg p-4 hover:border-black transition"
+                  >
+                    <div className="font-medium text-sm">{b.title || b.url}</div>
+                    {b.body_excerpt && (
+                      <p className="text-xs text-[var(--muted)] mt-2 leading-relaxed line-clamp-3">
+                        {b.body_excerpt}
+                      </p>
+                    )}
+                    <div className="text-[11px] text-[var(--muted)] mt-2 flex gap-2">
+                      {b.blogger && <span>blog.naver.com/{b.blogger}</span>}
+                      {b.date && <span>· {b.date}</span>}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
           {samples.length > 0 && (
             <section>
               <h2 className="text-lg font-bold mb-3">Real review excerpts</h2>
@@ -220,7 +380,7 @@ export default async function CoursePage(
             </div>
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
               <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Phone</div>
-              <div className="text-sm">{r.phone || "—"}</div>
+              <div className="text-sm">{r.phone || r.website_phone_secondary || "—"}</div>
               {r.website && (
                 <>
                   <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Website</div>
@@ -233,6 +393,40 @@ export default async function CoursePage(
                     {r.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
                   </a>
                 </>
+              )}
+              {(r.website_email || r.website_facebook || r.website_instagram || r.website_line_id) && (
+                <div className="mt-3 pt-3 border-t border-[var(--border)] space-y-1.5 text-sm">
+                  {r.website_email && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[var(--muted)] text-xs">Email</span>
+                      <a href={`mailto:${r.website_email}`} className="text-[var(--accent)] hover:underline truncate">
+                        {r.website_email}
+                      </a>
+                    </div>
+                  )}
+                  {r.website_facebook && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[var(--muted)] text-xs">FB</span>
+                      <a href={r.website_facebook} target="_blank" rel="noopener noreferrer nofollow" className="text-[var(--accent)] hover:underline truncate">
+                        Facebook
+                      </a>
+                    </div>
+                  )}
+                  {r.website_instagram && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[var(--muted)] text-xs">IG</span>
+                      <a href={r.website_instagram} target="_blank" rel="noopener noreferrer nofollow" className="text-[var(--accent)] hover:underline truncate">
+                        Instagram
+                      </a>
+                    </div>
+                  )}
+                  {r.website_line_id && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[var(--muted)] text-xs">LINE</span>
+                      <span className="text-sm">{r.website_line_id}</span>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </section>
@@ -279,7 +473,52 @@ export default async function CoursePage(
           </div>
 
           <AffiliateInline category={r.categories[0]} district={r.district} />
+          <TravelStackAffiliate city={(r.city || "bangkok").toLowerCase().replace(/\s+/g, "_")} cityLabel={r.city_label || r.city} context="course" />
           <AdSlot slot="restaurant-sidebar" />
+
+          {/* Claim listing — backlink magnet + lead funnel into /for-courses */}
+          <div className="bg-emerald-50/50 border border-emerald-200 rounded-xl p-4">
+            <div className="text-xs font-semibold uppercase tracking-wide text-emerald-800 mb-1.5">
+              Course operators
+            </div>
+            <div className="text-sm leading-snug mb-2">
+              Manage <span className="font-medium">{r.name}</span>? Claim this listing — free correction + featured options.
+            </div>
+            <a
+              href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg"}?subject=${encodeURIComponent(`Claim listing: ${r.name} (${r.id})`)}&body=${encodeURIComponent(`Hi — I represent ${r.name} and would like to claim our listing on Thailand Golf Guide.\n\nCourse URL: https://thailandgolfguide.com/course/${r.id}\nMy role:\nPhone:\n\nPlease let me know next steps.`)}`}
+              className="block text-center w-full bg-emerald-700 text-white text-xs font-bold py-2 px-3 rounded-md hover:bg-emerald-800 transition"
+            >
+              Claim this listing →
+            </a>
+            <div className="text-[11px] text-emerald-800 mt-2 leading-tight">
+              Or grab the <a href={`/embed/${r.id}`} target="_blank" rel="noopener" className="underline font-medium">Trust Score badge</a> for your site.
+            </div>
+          </div>
+
+          {compareLinks.length > 0 && (
+            <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
+                Compare with
+              </h3>
+              <div className="space-y-2">
+                {compareLinks.slice(0, 4).map((p) => {
+                  const otherId = p.aId === r.id ? p.bId : p.aId;
+                  const other = getRestaurantById(db.restaurants, otherId);
+                  if (!other) return null;
+                  return (
+                    <a
+                      key={p.slug}
+                      href={`/compare/${p.slug}`}
+                      className="block text-sm hover:text-[var(--accent)] transition group"
+                    >
+                      <span className="text-[var(--muted)]">vs</span>{" "}
+                      <span className="font-medium group-hover:underline">{other.name}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {similar.length > 0 && (
             <div className="bg-white border border-[var(--border)] rounded-xl p-4">
@@ -311,7 +550,42 @@ export default async function CoursePage(
         </aside>
       </div>
 
+      {/* Sticky mobile action bar — visible only on mobile, fixed bottom */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-sm border-t border-[var(--border)] px-3 py-2 flex gap-2 shadow-[0_-4px_12px_-4px_rgba(0,0,0,0.08)]">
+        <a
+          href={r.maps_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 bg-black text-white text-sm font-bold text-center py-3 rounded-lg active:scale-[0.98] transition"
+        >
+          📍 Maps
+        </a>
+        {r.phone && (
+          <a
+            href={`tel:${r.phone.replace(/[^+\d]/g, "")}`}
+            className="flex-1 bg-emerald-600 text-white text-sm font-bold text-center py-3 rounded-lg active:scale-[0.98] transition"
+            aria-label={`Call ${r.phone}`}
+          >
+            📞 Call
+          </a>
+        )}
+        {r.website && (
+          <a
+            href={r.website}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 bg-white border-2 border-black text-sm font-bold text-center py-3 rounded-lg active:scale-[0.98] transition"
+            aria-label="Course website"
+          >
+            🌐 Book
+          </a>
+        )}
+      </div>
+      {/* Mobile bottom spacer so sticky CTA doesn't cover footer/content */}
+      <div className="md:hidden h-16" aria-hidden />
+
       <RestaurantJsonLd r={r} />
+      <CourseVideosJsonLd r={r} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: r.city_label, url: `/city/${r.city}` },

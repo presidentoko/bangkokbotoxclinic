@@ -43,6 +43,35 @@ export default function GuideIndexPage() {
         ))}
       </div>
 
+      <h2 className="text-2xl font-bold tracking-tight mt-16 mb-4">Community roundups</h2>
+      <p className="text-sm text-[var(--muted)] mb-6 max-w-2xl">
+        Aggregated discussions from Naver (Korean) and Pantip (Thai) — real golfer voices outside the editorial.
+      </p>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <a
+          href="/guide/korean-golfer-blogs"
+          className="group block p-6 border border-[var(--border)] rounded-2xl bg-white hover:border-[var(--accent)] hover:shadow-md transition"
+        >
+          <h3 className="text-lg font-bold leading-tight group-hover:text-[var(--accent)] transition">
+            🇰🇷 한국 골퍼들의 태국 골프 후기 모음
+          </h3>
+          <p className="text-sm text-[var(--muted)] mt-2 leading-relaxed">
+            지역별 한국 네이버 블로그 후기 200+편 큐레이션 — 방콕·파타야·후아힌·푸켓·치앙마이.
+          </p>
+        </a>
+        <a
+          href="/guide/pantip-golf-threads"
+          className="group block p-6 border border-[var(--border)] rounded-2xl bg-white hover:border-[var(--accent)] hover:shadow-md transition"
+        >
+          <h3 className="text-lg font-bold leading-tight group-hover:text-[var(--accent)] transition">
+            🇹🇭 Pantip Golf Threads
+          </h3>
+          <p className="text-sm text-[var(--muted)] mt-2 leading-relaxed">
+            Curated Pantip discussions — local Thai and expat golfer conversations across 150+ threads.
+          </p>
+        </a>
+      </div>
+
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Guides", url: "/guide" },

@@ -8,7 +8,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
   const trend = r.rating_trend.trend;
   const trending = trend === "improving";
   const tier = sponsoredTier(r.id);
-  const photo = r.hero_image;
+  const photo = r.hero_image || r.top_photo_url || null;
 
   const tierStyles = tier === "editors_pick"
     ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }
