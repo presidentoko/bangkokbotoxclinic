@@ -140,6 +140,20 @@ def main() -> int:
         log("ABORT — out/ not produced")
         return 1
 
+    # 2b. RSC 디버그 파일 제거 — Next 16 가 페이지마다 __next.* 6+ 개 생성하는데
+    #     Cloudflare Pages 의 20K 파일 한도를 쉽게 넘김. 정적 export 라 안 필요.
+    rsc_files = 0
+    for p in list(out_dir.rglob("__next*")):
+        try:
+            if p.is_file():
+                p.unlink(); rsc_files += 1
+            elif p.is_dir():
+                import shutil
+                shutil.rmtree(p, ignore_errors=True); rsc_files += 1
+        except OSError:
+            pass
+    log(f"removed {rsc_files} RSC debug files/dirs")
+
     # 3. wrangler deploy
     if not run(
         ["npx", "wrangler", "pages", "deploy", "out/",
