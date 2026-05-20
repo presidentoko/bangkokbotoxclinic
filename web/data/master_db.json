@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-20T16:53:59.550703+00:00",
+  "generated_at": "2026-05-20T17:23:00.039467+00:00",
   "total_clinics": 4629,
   "with_district": 2356,
-  "with_categories": 3054,
-  "with_reviews_scraped": 2700,
+  "with_categories": 3055,
+  "with_reviews_scraped": 2702,
   "language_total": {
     "th": 2,
-    "en": 91026,
+    "en": 91159,
     "ko": 1,
     "ja": 1,
     "other": 303
@@ -68,9 +68,9 @@
     "Nong Prue": 1
   },
   "category_counts": {
-    "dental": 1724,
-    "facial": 1083,
-    "laser": 764,
+    "dental": 1725,
+    "facial": 1084,
+    "laser": 765,
     "botox": 586,
     "filler": 461,
     "hifu": 330,
@@ -3475,7 +3475,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -4023,7 +4023,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -4716,11 +4716,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -7185,6 +7185,155 @@
       ]
     },
     {
+      "id": "0x30e29d37406fa97b_0xd42099134874e922",
+      "place_id": "0x30e29d37406fa97b:0xd42099134874e922",
+      "name": "Bangkok New Smile Dental Clinic (Ratchadapisek) - คลินิกทันตกรรมบางกอก นิว สไมล์ สาขารัชดาภิเษก",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\nชั้น 4, Well Aesthetic & Wellness Center Ratchadaphisek Rd, Khwaeng Chan Kasem, Khet Chatuchak, Bangkok 10900, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Huai Khwang",
+      "phone": "+66 2 126 0025",
+      "website": "http://www.bangkoknewsmile.com/",
+      "lat": 13.806349,
+      "lng": 100.5753299,
+      "rating": 5.0,
+      "total_reviews": 715,
+      "trust_score": 92.4,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 110,
+      "local_guide_count": 32,
+      "avg_author_review_count": 14.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 109,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 49
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 41
+        },
+        {
+          "topic": "recommend",
+          "count": 30
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 25
+        },
+        {
+          "topic": "professional",
+          "count": 21
+        },
+        {
+          "topic": "english_speaking",
+          "count": 9
+        },
+        {
+          "topic": "affordable",
+          "count": 6
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 5
+        },
+        {
+          "topic": "promotion",
+          "count": 3
+        },
+        {
+          "topic": "genuine_brand",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 64,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 22,
+          "avg": 4.95
+        },
+        "old": {
+          "count": 24,
+          "avg": 4.92
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The best dentist!!! I came here for a filling and everything went so smooth. I came with my baby as I didn’t have anybody to take care of him, but I didn’t need to worry at all because the team took great care of him! 🙏🏼🙏🏼🙏🏼🙏🏼😍 …",
+          "rating": 5,
+          "author": "Lena Helfinger"
+        },
+        {
+          "text": "Very professional foreigner friendly clinic. The staff’s English is very good. I’ve been coming here for about 4 years to get general teeth cleanings and new retainers for my teeth. They have all the most advanced equipment and the most friendly dentists.",
+          "rating": 5,
+          "author": "Chris Johnston"
+        },
+        {
+          "text": "I did my retainer there and it was ready after 3 hours👌 great service and really nice staff and the doctor was super nice. …",
+          "rating": 5,
+          "author": "Hadil Omar"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "I’m a little disappointed. The dentist really should have done a consultation with me when I and I could have shown them what I wanted the end outcome to be.\n\nBefore shaping and polishing it was brighter white, now my teeth just look fairly natural and straighter, I wanted super white, super even/straight.\n\nThe white I chose at the beginning was ok the first session but wasn’t the end result.",
+          "rating": 3,
+          "author": "Blake B"
+        }
+      ],
+      "doctor_stats": [
+        {
+          "name": "Arisa",
+          "slug": "arisa",
+          "composite_slug": "arisa-at-bangkok-new-smile-dental-clinic-ratchadapisek-คลิน",
+          "mentions": 2,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 2,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [
+            {
+              "text": "Highly recommended. Having a great experience with Doctor Arisa since 2017 at Ladprao branch. …",
+              "rating": 5,
+              "lang": "en"
+            }
+          ],
+          "procedures": [
+            {
+              "service": "dental",
+              "review_count": 1
+            }
+          ],
+          "experience_signals": []
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+New+Smile+Dental+Clinic+%28Ratchadapisek%29+-+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%AD%E0%B8%81+%E0%B8%99%E0%B8%B4%E0%B8%A7+%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%8A%E0%B8%94%E0%B8%B2%E0%B8%A0%E0%B8%B4%E0%B9%80%E0%B8%A9%E0%B8%81/data=!4m7!3m6!1s0x30e29d37406fa97b:0xd42099134874e922!8m2!3d13.806349!4d100.5753299!16s%2Fg%2F11jzr2gb0l!19sChIJe6lvQDed4jARIul0SBOZINQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29ee677aa7f5b_0xf8a8de865c2e8a77",
       "place_id": "0x30e29ee677aa7f5b:0xf8a8de865c2e8a77",
       "name": "Bumrungrad International Hospital",
@@ -7748,7 +7897,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -8053,7 +8202,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -10611,7 +10760,7 @@
         "hdmall_package_count": 26,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -14590,11 +14739,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 2
             },
             {
@@ -14989,7 +15138,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -16051,7 +16200,7 @@
         "hdmall_package_count": 15,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -18338,7 +18487,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -19708,7 +19857,7 @@
         "hdmall_package_count": 28,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -21282,11 +21431,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 2
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 2
             }
           ],
@@ -24351,7 +24500,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -25201,7 +25350,7 @@
         "hdmall_package_count": 22,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -26717,11 +26866,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -27114,7 +27263,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.367,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -27435,7 +27584,7 @@
         "hdmall_package_count": 18,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -27622,7 +27771,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -27785,7 +27934,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -30782,7 +30931,7 @@
         "hdmall_package_count": 16,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -30927,7 +31076,7 @@
         "hdmall_package_count": 9,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -32363,7 +32512,7 @@
         "hdmall_package_count": 58,
         "match_score": 0.45,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -32726,7 +32875,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -33153,7 +33302,7 @@
         "hdmall_package_count": 14,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -34507,7 +34656,7 @@
         "hdmall_package_count": 6,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -34753,7 +34902,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -36160,7 +36309,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -36839,15 +36988,15 @@
               "review_count": 5
             },
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "hifu",
               "review_count": 1
             },
             {
               "service": "dental",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             },
             {
@@ -38935,7 +39084,7 @@
         "hdmall_package_count": 10,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -41464,7 +41613,7 @@
         "hdmall_package_count": 9,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -41787,7 +41936,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -43595,11 +43744,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -44308,7 +44457,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -47813,60 +47962,6 @@
       "maps_url": "https://www.google.com/maps/place/Mediva+Clinic+%28Ploenchit%29+%E0%B9%80%E0%B8%A1%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%88%E0%B8%B4%E0%B8%95/data=!4m7!3m6!1s0x30e29fd6d4e39d49:0x6cbec7b6ba1ed23b!8m2!3d13.7424135!4d100.5486074!16s%2Fg%2F11vjqlqwvt!19sChIJSZ3j1Naf4jARO9IeurbHvmw?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29d37406fa97b_0xd42099134874e922",
-      "place_id": "0x30e29d37406fa97b:0xd42099134874e922",
-      "name": "Bangkok New Smile Dental Clinic (Ratchadapisek) - คลินิกทันตกรรมบางกอก นิว สไมล์ สาขารัชดาภิเษก",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\nชั้น 4, Well Aesthetic & Wellness Center Ratchadaphisek Rd, Khwaeng Chan Kasem, Khet Chatuchak, Bangkok 10900, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Huai Khwang",
-      "phone": "+66 2 126 0025",
-      "website": "http://www.bangkoknewsmile.com/",
-      "lat": 13.806349,
-      "lng": 100.5753299,
-      "rating": 5.0,
-      "total_reviews": 715,
-      "trust_score": 84.3,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+New+Smile+Dental+Clinic+(Ratchadapisek)+-+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%AD%E0%B8%81+%E0%B8%99%E0%B8%B4%E0%B8%A7+%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%8A%E0%B8%94%E0%B8%B2%E0%B8%A0%E0%B8%B4%E0%B9%80%E0%B8%A9%E0%B8%81/@13.806349,100.5753299,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29d37406fa97b:0xd42099134874e922!8m2!3d13.806349!4d100.5753299!16s%2Fg%2F11jzr2gb0l!19sChIJe6lvQDed4jARIul0SBOZINQ?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
       "id": "0x30e29962ca4cfee5_0xe56889af42398f7a",
       "place_id": "0x30e29962ca4cfee5:0xe56889af42398f7a",
       "name": "Lady Care Masterpiece Hospital",
@@ -49676,7 +49771,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -49865,7 +49960,7 @@
         "hdmall_package_count": 36,
         "match_score": 0.367,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -51555,7 +51650,7 @@
         "hdmall_package_count": 20,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -52012,7 +52107,7 @@
         "hdmall_package_count": 25,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -52368,7 +52463,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -55665,7 +55760,7 @@
         "hdmall_package_count": 9,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -56170,7 +56265,7 @@
         "hdmall_package_count": 5,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -58747,7 +58842,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -60054,11 +60149,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "dental",
               "review_count": 1
             },
             {
-              "service": "dental",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -60963,7 +61058,7 @@
         "hdmall_package_count": 39,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -61074,7 +61169,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -61821,7 +61916,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -62090,7 +62185,7 @@
         "hdmall_package_count": 13,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -62555,11 +62650,11 @@
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -66039,11 +66134,11 @@
               "review_count": 3
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -68202,7 +68297,7 @@
         "hdmall_package_count": 55,
         "match_score": 0.65,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -71681,7 +71776,7 @@
         "hdmall_package_count": 36,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -74434,7 +74529,7 @@
         "hdmall_package_count": 14,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -75260,7 +75355,7 @@
         "hdmall_package_count": 24,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -75741,11 +75836,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -77553,7 +77648,7 @@
         "hdmall_package_count": 16,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -77737,7 +77832,7 @@
         "hdmall_package_count": 53,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -81006,7 +81101,7 @@
         "hdmall_package_count": 29,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -81728,7 +81823,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -83642,7 +83737,7 @@
         "hdmall_package_count": 11,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -84126,11 +84221,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -84630,15 +84725,15 @@
           ],
           "procedures": [
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "hifu",
               "review_count": 1
             },
             {
               "service": "botox",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             }
           ],
@@ -85170,7 +85265,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -85285,7 +85380,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -86665,7 +86760,7 @@
         "hdmall_package_count": 21,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -88584,7 +88679,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -90899,11 +90994,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -92956,7 +93051,7 @@
         "hdmall_package_count": 14,
         "match_score": 0.85,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -93806,7 +93901,7 @@
         "hdmall_package_count": 5,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -93921,7 +94016,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -95564,7 +95659,7 @@
         "hdmall_package_count": 20,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -96643,7 +96738,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -96793,11 +96888,11 @@
               "review_count": 6
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -97868,7 +97963,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.964,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -98059,7 +98154,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -99214,7 +99309,7 @@
         "hdmall_package_count": 16,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -99754,7 +99849,7 @@
         "hdmall_package_count": 14,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -100304,15 +100399,15 @@
           "samples": [],
           "procedures": [
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "hifu",
               "review_count": 1
             },
             {
               "service": "botox",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             }
           ],
@@ -102256,7 +102351,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -106006,7 +106101,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -106227,7 +106322,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -111387,7 +111482,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -115557,7 +115652,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -116006,7 +116101,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -119267,11 +119362,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
@@ -123181,7 +123276,15 @@
           ],
           "procedures": [
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "laser",
               "review_count": 1
             },
             {
@@ -123190,14 +123293,6 @@
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
-              "review_count": 1
-            },
-            {
-              "service": "laser",
               "review_count": 1
             }
           ],
@@ -123485,7 +123580,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.45,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -123802,7 +123897,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.583,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -125137,7 +125232,7 @@
         "hdmall_package_count": 19,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -126415,11 +126510,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -128016,7 +128111,7 @@
         "hdmall_package_count": 20,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -128262,7 +128357,7 @@
         "hdmall_package_count": 39,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -128538,11 +128633,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -129409,7 +129504,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -132954,7 +133049,7 @@
         "hdmall_package_count": 15,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -133953,7 +134048,7 @@
         "hdmall_package_count": 19,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -134786,11 +134881,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -136436,7 +136531,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -137136,11 +137231,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -137367,7 +137462,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -138406,7 +138501,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -139484,7 +139579,7 @@
         "hdmall_package_count": 50,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -139991,15 +140086,15 @@
           "samples": [],
           "procedures": [
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "filler",
               "review_count": 1
             },
             {
               "service": "botox",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             }
           ],
@@ -141175,7 +141270,7 @@
         "hdmall_package_count": 13,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -142173,7 +142268,7 @@
         "hdmall_package_count": 70,
         "match_score": 0.679,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -142781,7 +142876,7 @@
         "hdmall_package_count": 41,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -145871,7 +145966,7 @@
         "hdmall_package_count": 35,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -149199,7 +149294,7 @@
         "hdmall_package_count": 4,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -150194,11 +150289,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -150691,7 +150786,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.7,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -151512,7 +151607,7 @@
         "hdmall_package_count": 4,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -152912,7 +153007,7 @@
         "hdmall_package_count": 25,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -154107,11 +154202,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -155888,7 +155983,7 @@
         "hdmall_package_count": 9,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -158676,7 +158771,7 @@
         "hdmall_package_count": 16,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -162707,7 +162802,7 @@
         "hdmall_package_count": 8,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -163861,7 +163956,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -168245,7 +168340,7 @@
         "hdmall_package_count": 18,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -168628,11 +168723,11 @@
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -170564,7 +170659,7 @@
         "hdmall_package_count": 88,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -171345,7 +171440,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -173126,7 +173221,7 @@
         "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -173660,7 +173755,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -174268,7 +174363,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -178084,11 +178179,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -178943,7 +179038,7 @@
         "hdmall_package_count": 97,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -181274,7 +181369,7 @@
         "hdmall_package_count": 48,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -181365,9 +181460,9 @@
       "sample_reviews_negative": [],
       "doctor_stats": [
         {
-          "name": "Samart",
-          "slug": "samart",
-          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart's",
+          "slug": "samarts",
+          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -181383,9 +181478,9 @@
           "experience_signals": []
         },
         {
-          "name": "Samart's",
-          "slug": "samarts",
-          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart",
+          "slug": "samart",
+          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -182652,7 +182747,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -182915,7 +183010,7 @@
         "hdmall_package_count": 68,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -183670,11 +183765,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -185005,7 +185100,7 @@
         "hdmall_package_count": 22,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -185747,7 +185842,7 @@
         "hdmall_package_count": 27,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -185864,7 +185959,7 @@
         "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -186805,7 +186900,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.817,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -188216,11 +188311,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -188901,11 +188996,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -189581,7 +189676,7 @@
         "hdmall_package_count": 11,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -190169,7 +190264,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -190530,11 +190625,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -191258,7 +191353,7 @@
         "hdmall_package_count": 13,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -191627,7 +191722,7 @@
         "hdmall_package_count": 72,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -192338,7 +192433,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -193672,11 +193767,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -194491,7 +194586,7 @@
         "hdmall_package_count": 36,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -198311,7 +198406,7 @@
         "hdmall_package_count": 30,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -198456,7 +198551,7 @@
         "hdmall_package_count": 6,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -202888,11 +202983,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hair_transplant",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hair_transplant",
               "review_count": 1
             }
           ],
@@ -204009,7 +204104,7 @@
         "hdmall_package_count": 2,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -205262,14 +205357,14 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "I went when the foundation was about to close, but the staff continued to provide service; the service was excellent.",
-          "rating": 5,
-          "author": "Jaoae Narak"
-        },
-        {
           "text": "If you're transgenders and need help in Pattaya, ask them. They also provide essential info on hiv and condoms, etc.",
           "rating": 5,
           "author": "Prapapoom Eiamsom"
+        },
+        {
+          "text": "I went when the foundation was about to close, but the staff continued to provide service; the service was excellent.",
+          "rating": 5,
+          "author": "Jaoae Narak"
         }
       ],
       "sample_reviews_negative": [],
@@ -205571,7 +205666,7 @@
         "hdmall_package_count": 31,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -206274,7 +206369,7 @@
         "hdmall_package_count": 12,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -206805,7 +206900,7 @@
         "hdmall_package_count": 26,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -208339,11 +208434,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -208584,7 +208679,7 @@
         "hdmall_package_count": 26,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -210405,7 +210500,7 @@
         "hdmall_package_count": 37,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -210948,7 +211043,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -211087,7 +211182,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -211153,7 +211248,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -211321,7 +211416,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -217693,7 +217788,7 @@
         "hdmall_package_count": 23,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -218316,7 +218411,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -229320,7 +229415,7 @@
         "hdmall_package_count": 11,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -229597,11 +229692,11 @@
               "review_count": 2
             },
             {
-              "service": "hifu",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -231321,14 +231416,14 @@
           "author": "nk nk"
         },
         {
+          "text": "The clinic is clean, the doctor provides good service and is knowledgeable...the price is fair. I will continue to use their services.",
+          "rating": 5,
+          "author": "Anan mma"
+        },
+        {
           "text": "The doctor knows her business. No empty needles. All hit the mark. Electric and heat lamp included for excellent price of $400b. I know a good acupuncturist when i find one because used many over the years. Highly recommended. English speaking",
           "rating": 5,
           "author": "LAHFSI"
-        },
-        {
-          "text": "Acupuncture and cupping are very good. The clinic is very clean. Dr. Ann is friendly.",
-          "rating": 5,
-          "author": "Naris Tippayaratsoontorn"
         }
       ],
       "sample_reviews_negative": [],
@@ -232138,7 +232233,7 @@
         "hdmall_package_count": 22,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -232584,7 +232679,7 @@
         "hdmall_package_count": 30,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -232995,7 +233090,7 @@
         "hdmall_package_count": 18,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -236398,7 +236493,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -240328,6 +240423,91 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%87%E0%B8%9F%E0%B8%B2%E0%B8%87-%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%97/data=!4m7!3m6!1s0x311d7f001aca6de5:0xd903f5401e809947!8m2!3d14.003942!4d100.6291789!16s%2Fg%2F11m5hhpk97!19sChIJ5W3KGgB_HTERR5mAHkD1A9k?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x31028c9486959d55_0x3ff99f219852fe04",
+      "place_id": "0x31028c9486959d55:0x3ff99f219852fe04",
+      "name": "เทียนซิน คลินิกการแพทย์แผนจีน",
+      "name_lang": "th",
+      "primary_type": "Chinese medicine clinic",
+      "address": "\n49/54 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 86 920 1728",
+      "website": "",
+      "lat": 12.9540286,
+      "lng": 100.9278364,
+      "rating": 5.0,
+      "total_reviews": 18,
+      "trust_score": 69.8,
+      "categories": [],
+      "scraped_review_count": 18,
+      "local_guide_count": 3,
+      "avg_author_review_count": 5.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 17,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 8
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 4,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 11,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I came to this clinic with severe pain in my shoulder but after treatments my shoulder has become much much better. I highly recommend this clinic and the prices are reasonable.",
+          "rating": 5,
+          "author": "Geir Gea"
+        },
+        {
+          "text": "This was my first acupuncture session. The doctor gave excellent advice, which I really appreciated. The consultation was free, and the service fee was very affordable. I was initially worried it would be expensive, but it wasn't at all.",
+          "rating": 5,
+          "author": "Oilly Sirirat"
+        },
+        {
+          "text": "The doctor gave excellent advice. My first acupuncture and cupping session was painless.",
+          "rating": 5,
+          "author": "Manatsanan Panthong"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%8B%E0%B8%B4%E0%B8%99+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99/data=!4m7!3m6!1s0x31028c9486959d55:0x3ff99f219852fe04!8m2!3d12.9540286!4d100.9278364!16s%2Fg%2F11cs1ktlvt!19sChIJVZ2VhpSMAjERBP5SmCGf-T8?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e281543ee3ba75_0x6e84cb497eac1ab2",
       "place_id": "0x30e281543ee3ba75:0x6e84cb497eac1ab2",
       "name": "Bunika Clinic",
@@ -241592,7 +241772,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -245373,7 +245553,7 @@
         "hdmall_package_count": 22,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -247445,7 +247625,7 @@
         "hdmall_package_count": 32,
         "match_score": 0.617,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -247686,150 +247866,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/HA+HAY+clinic+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AA%E0%B8%B5%E0%B8%A5%E0%B8%A1/data=!4m7!3m6!1s0x30e29f60c122f74d:0xe5bf56df4a5d3635!8m2!3d13.7284432!4d100.5362337!16s%2Fg%2F11w_hv7gdk!19sChIJTfciwWCf4jARNTZdSt9Wv-U?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29935153a6daf_0x45010a40a1b2dae1",
-      "place_id": "0x30e29935153a6daf:0x45010a40a1b2dae1",
-      "name": "คลินิก ทันตแพทย์ บุญชู",
-      "name_lang": "th",
-      "primary_type": "Dental clinic",
-      "address": "\n52, 2-3 Soi Phetchaburi 5, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Phaya Thai",
-      "phone": "+66 83 133 3100",
-      "website": "",
-      "lat": 13.7550753,
-      "lng": 100.528633,
-      "rating": 4.2,
-      "total_reviews": 34,
-      "trust_score": 69.2,
-      "categories": [
-        "dental"
-      ],
-      "scraped_review_count": 34,
-      "local_guide_count": 11,
-      "avg_author_review_count": 15.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 25,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "dental": 22
-      },
-      "mentioned_topics": [
-        {
-          "topic": "clean_facility",
-          "count": 10
-        },
-        {
-          "topic": "recommend",
-          "count": 6
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 5
-        },
-        {
-          "topic": "english_speaking",
-          "count": 3
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        },
-        {
-          "topic": "no_pain",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 5,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 29,
-          "avg": 4.07
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The teeth cleaning was excellent, especially if you have social security insurance; they rarely charge extra. Clinics near my house always charge an extra 200 baht. The female doctor was very attentive. I recommend calling to book an appointment beforehand.",
-          "rating": 5,
-          "author": "SuperyingSuperhappy"
-        },
-        {
-          "text": "The female doctor did a great job scraping away tartar and gave me detailed advice on how to brush my teeth.",
-          "rating": 5,
-          "author": "J B"
-        },
-        {
-          "text": "The clinic is very clean. It was my first time there. The doctor's procedure was painless and very attentive to patients. I highly recommend this clinic to anyone planning to have their wisdom teeth extracted.",
-          "rating": 5,
-          "author": "Apinya. Pilaarpis"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "Dr. Boonchu does a great job. I've been coming for treatment regularly, even from far away. However, I haven't been here in a while and didn't know I needed to book an appointment. Please train your counter staff on their speaking style and tone of voice; otherwise, you might lose all your customers. Thank you.",
-          "rating": 1,
-          "author": "Praew"
-        },
-        {
-          "text": "Came in 30 mins before they close. All i want is to ask if they do a procedure i need for the following day or not so I can find a different clinic. But she keeps pushing me away. SO RUDE!!!",
-          "rating": 1,
-          "author": "Jonathan Buhat (Tan)"
-        },
-        {
-          "text": "I went to get my teeth cleaned (tartar removed), and they did a terrible job. The side of my mouth is torn.",
-          "rating": 1,
-          "author": "ศราวุธ พุทธรักษ์"
-        }
-      ],
-      "doctor_stats": [
-        {
-          "name": "Boonchu",
-          "slug": "boonchu",
-          "composite_slug": "boonchu-at-คลินิก-ทันตแพทย์-บุญชู",
-          "mentions": 3,
-          "rating_avg": 3.67,
-          "language_count": {
-            "th": 0,
-            "en": 3,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [],
-          "procedures": [],
-          "experience_signals": []
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+%E0%B8%9A%E0%B8%B8%E0%B8%8D%E0%B8%8A%E0%B8%B9/data=!4m7!3m6!1s0x30e29935153a6daf:0x45010a40a1b2dae1!8m2!3d13.7550753!4d100.528633!16s%2Fg%2F1vn4kd78!19sChIJr206FTWZ4jAR4dqyoUAKAUU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f027ff95dcb_0x3787d7f8189d2ebd",
@@ -248764,6 +248800,14 @@
           "count": 5
         },
         {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "professional",
+          "count": 3
+        },
+        {
           "topic": "friendly_staff",
           "count": 3
         },
@@ -248776,15 +248820,7 @@
           "count": 2
         },
         {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
           "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "professional",
           "count": 2
         },
         {
@@ -248810,14 +248846,19 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "Today I came for tartar removal. The dentist was very thorough, cleaning every nook and cranny. They provided excellent advice and recommendations on aftercare. The assistant was lovely, and all the reception staff were kind and polite. I will definitely be back for more services.",
-          "rating": 5,
-          "author": "横田モンティラ"
-        },
-        {
           "text": "I went in to get crown on my front tooth and had an amazing experience at Smile Dental Clinic! Dr. Raviporn Madarasmi did a really great job on giving me recommendations and communicating with me and at the end she did a really good job and I am so happy with the results. I highly recommend!! 😀 …",
           "rating": 5,
           "author": "Kamel Ayouni"
+        },
+        {
+          "text": "The nurse was very helpful and provided excellent information.\nThe doctor was polite and very caring, and spoke English as well.\nI was so scared during my dental treatment that my hands were shaking. The nurse …",
+          "rating": 5,
+          "author": "Arm Natchapon"
+        },
+        {
+          "text": "Today I came for tartar removal. The dentist was very thorough, cleaning every nook and cranny. They provided excellent advice and recommendations on aftercare. The assistant was lovely, and all the reception staff were kind and polite. I will definitely be back for more services.",
+          "rating": 5,
+          "author": "横田モンティラ"
         }
       ],
       "sample_reviews_negative": [
@@ -248827,7 +248868,7 @@
           "author": "Wayne Ho"
         },
         {
-          "text": "I tried to get an x-ray, the nurse are really unprofessional, when they put the back cover forthe X-ray photo taking, it almost choked me to death. The price for 1 small slide is 250baht, which I thought it was ok, but then they charge …",
+          "text": "I tried to get an x-ray, the nurse are really unprofessional, when they put the back cover forthe X-ray photo taking, it almost choked me to death. The price for 1 small slide is 250baht, which I thought it was ok, but then they charge another 100 baht for \"sterile fee\" kidding me?? Also the X-ray wasn't exactly good. (Token by those unprofessional nurse)",
           "rating": 2,
           "author": "De Xiang Chris Li"
         },
@@ -250250,6 +250291,119 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Dr.+Pratheep+Clinic+%28MD.+OB-Gyn%29/data=!4m7!3m6!1s0x310295fd2798edc5:0x6bd1894558fd9f03!8m2!3d12.9404277!4d100.9028699!16s%2Fg%2F1hm4xr8zq!19sChIJxe2YJ_2VAjERA5_9WEWJ0Ws?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29eca66c24e73_0xe100aa3fb22630ba",
+      "place_id": "0x30e29eca66c24e73:0xe100aa3fb22630ba",
+      "name": "VitalSleep and Wellness รักษานอนกรน",
+      "name_lang": "th",
+      "primary_type": "Medical centre",
+      "address": "\n128/364 ชั้น 33 อาคารพญาไทพลาซ่า Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Phaya Thai",
+      "phone": "+66 2 109 9998",
+      "website": "http://www.vitalsleepclinic.com/",
+      "lat": 13.7564458,
+      "lng": 100.5320615,
+      "rating": 4.3,
+      "total_reviews": 44,
+      "trust_score": 69.0,
+      "categories": [
+        "dental",
+        "facial",
+        "laser"
+      ],
+      "scraped_review_count": 44,
+      "local_guide_count": 9,
+      "avg_author_review_count": 12.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 27,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "facial": 2,
+        "laser": 2,
+        "dental": 5
+      },
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 3
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        },
+        {
+          "topic": "results_satisfied",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 4.0
+        },
+        "old": {
+          "count": 40,
+          "avg": 4.35
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I brought my mother to consult about her snoring. The doctor made a dental device to treat snoring. My mother loved it so much she no longer needed a CPAP machine.",
+          "rating": 5,
+          "author": "ปฏิมากร อินทะโส"
+        },
+        {
+          "text": "The doctor, who specializes in treating snoring, gave very accurate and helpful advice. It helped us identify the root cause of our problem, leading to effective treatment.",
+          "rating": 5,
+          "author": "Piano Janita"
+        },
+        {
+          "text": "Sleeping therapy at the clinic is very convenient. They come to your home for the test, so you don't need to stay at the clinic. You can also get the results online. 👍🏻 …",
+          "rating": 5,
+          "author": "Nana Resin"
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "I had an appointment with the doctor at 1:30 PM, but someone called and told me to come at 10:45 AM. When I arrived, they said the doctor hadn't arrived yet and told me to come back at 1:30 PM. The staff didn't even talk to the patient about the appointment.",
+          "rating": 1,
+          "author": "Tonnam ok Nateejarurat"
+        },
+        {
+          "text": "Fake clinic they advertised on their website sleep test 5900 bht when you go for booking increase price up to 8800 bht time wasting clinic don’t go for this",
+          "rating": 1,
+          "author": "Prashan Subasinghe"
+        },
+        {
+          "text": "Total scam, \"doctor\" didn't even look at me and prescribed the wrong machine at 55,000 baht. No refund.",
+          "rating": 1,
+          "author": "Erik Wallace"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/VitalSleep+and+Wellness+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%99/data=!4m7!3m6!1s0x30e29eca66c24e73:0xe100aa3fb22630ba!8m2!3d13.7564458!4d100.5320615!16s%2Fg%2F11bbrnjyxv!19sChIJc07CZsqe4jARujAmsj-qAOE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2bf4883b6aec7_0xd4102e720e5bb29a",
@@ -253106,6 +253260,99 @@
       "maps_url": "https://www.google.com/maps/place/Trin+Wellness+Clinic/data=!4m7!3m6!1s0x30e29f018bc5459d:0x693f825587578e02!8m2!3d13.7588887!4d100.5679035!16s%2Fg%2F11kj4187x4!19sChIJnUXFiwGf4jARAo5Xh1WCP2k?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310295f74a15e0f5_0xace5185adefa6455",
+      "place_id": "0x310295f74a15e0f5:0xace5185adefa6455",
+      "name": "คลินิกเวชกรรม พรประภานิมิตร 22 การแพทย์",
+      "name_lang": "th",
+      "primary_type": "Medical clinic",
+      "address": "\n19/24 หมู่7 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 92 596 4614",
+      "website": "http://www.pattaya.com/",
+      "lat": 12.9279498,
+      "lng": 100.9366071,
+      "rating": 5.0,
+      "total_reviews": 18,
+      "trust_score": 68.6,
+      "categories": [],
+      "scraped_review_count": 17,
+      "local_guide_count": 2,
+      "avg_author_review_count": 3.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 16,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 6
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 3
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "professional",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 9,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 6,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I visited the clinic today. The doctor provided very thorough consultation and examination. The nurses provided excellent service. I highly recommend this clinic.",
+          "rating": 5,
+          "author": "กันยารัตน์ รอดสืบชาติ"
+        },
+        {
+          "text": "The nurse was gentle, kind, and lovely. I was also very impressed with the fish tank.",
+          "rating": 5,
+          "author": "Angela Widger"
+        },
+        {
+          "text": "The service was excellent. I was impressed from the moment I walked in. The reception staff were very good, the doctor spoke kindly, and the doctor who gave the injection was very gentle – it didn't hurt at all. I highly recommend this place.",
+          "rating": 5,
+          "author": "ภาสกร เมืองวงษ์"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%9E%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%A0%E0%B8%B2%E0%B8%99%E0%B8%B4%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3+22+%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x310295f74a15e0f5:0xace5185adefa6455!8m2!3d12.9279498!4d100.9366071!16s%2Fg%2F11krhpy4c1!19sChIJ9eAVSveVAjERVWT63loY5aw?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e2937093c1b20b_0x504d5d5a2f03b254",
       "place_id": "0x30e2937093c1b20b:0x504d5d5a2f03b254",
       "name": "Ora Smile Dental Clinic",
@@ -254046,7 +254293,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -254409,7 +254656,7 @@
         "hdmall_package_count": 27,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -254916,99 +255163,6 @@
       "maps_url": "https://www.google.com/maps/place/Clartiers+Clinic/data=!4m7!3m6!1s0x30e29f1f70be2ff3:0x94521a4f5c063610!8m2!3d13.7689141!4d100.5401566!16s%2Fg%2F11yrwvqtnh!19sChIJ8y--cB-f4jAREDYGXE8aUpQ?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x310295f74a15e0f5_0xace5185adefa6455",
-      "place_id": "0x310295f74a15e0f5:0xace5185adefa6455",
-      "name": "คลินิกเวชกรรม พรประภานิมิตร 22 การแพทย์",
-      "name_lang": "th",
-      "primary_type": "Medical clinic",
-      "address": "\n19/24 หมู่7 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 92 596 4614",
-      "website": "http://www.pattaya.com/",
-      "lat": 12.9279498,
-      "lng": 100.9366071,
-      "rating": 5.0,
-      "total_reviews": 17,
-      "trust_score": 68.4,
-      "categories": [],
-      "scraped_review_count": 16,
-      "local_guide_count": 2,
-      "avg_author_review_count": 3.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 15,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 5
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 3
-        },
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 8,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 6,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 2,
-          "avg": 5.0
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "🌟🌟🌟🌟🌟\nPornprapanimit 22 Medical Clinic provides professional care for everyday health needs, from wound treatment to minor procedures. …",
-          "rating": 5,
-          "author": "Sky Core"
-        },
-        {
-          "text": "I highly recommend this place for anyone who's feeling unwell. The treatment is excellent. I only needed one injection, went home to rest, and I recovered completely.\nThe advice and service are great, and the prices aren't too high.",
-          "rating": 5,
-          "author": "Kritsana Sae-lao"
-        },
-        {
-          "text": "The welcome and treatment were excellent, the recommendations were great, and the staff were very polite. Even though we arrived after work and hadn't changed our clothes yet, they didn't mind at all.",
-          "rating": 5,
-          "author": "Jilly Xeez"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1+%E0%B8%9E%E0%B8%A3%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%A0%E0%B8%B2%E0%B8%99%E0%B8%B4%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3+22+%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C/data=!4m7!3m6!1s0x310295f74a15e0f5:0xace5185adefa6455!8m2!3d12.9279498!4d100.9366071!16s%2Fg%2F11krhpy4c1!19sChIJ9eAVSveVAjERVWT63loY5aw?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f287f115a67_0xbc3120651a948d43",
       "place_id": "0x30e29f287f115a67:0xbc3120651a948d43",
       "name": "REP IVF Clinic",
@@ -255243,14 +255397,14 @@
           "author": "Marcus T"
         },
         {
+          "text": "Really high quality work and staff .. had several treatments over the last few years 👍🏻 …",
+          "rating": 5,
+          "author": "Eric Matson"
+        },
+        {
           "text": "Very modern and professional office that is conveniently located in the heart of SiLom. Very friendly and courteous English-speaking staff and dentist.  Easy to secure appointment without delay.  Reasonable prices for excellent dental services.  Definitely recommend without hesitation.",
           "rating": 5,
           "author": "Keith Winemiller"
-        },
-        {
-          "text": "I've been having an Invisalign dental treatment and everything has gone perfectly since the beginning. I would recommend this dentist, especially with the doctor that has been treating me.",
-          "rating": 5,
-          "author": "Pol Comaposada Vilar"
         }
       ],
       "sample_reviews_negative": [],
@@ -257103,7 +257257,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -258323,7 +258477,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -259495,6 +259649,82 @@
       "maps_url": "https://www.google.com/maps/place/Addlife+Pain+Center/data=!4m7!3m6!1s0x30e29f0f9aa9a2b3:0xb0021ef8400e0f95!8m2!3d13.7252218!4d100.5442904!16s%2Fg%2F11p15myly8!19sChIJs6Kpmg-f4jARlQ8OQPgeArA?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x31029609c737322d_0xadc5e1dc95615c68",
+      "place_id": "0x31029609c737322d:0xadc5e1dc95615c68",
+      "name": "ไท่คังคลินิก ฝังเข็ม ยาจีน",
+      "name_lang": "th",
+      "primary_type": "Alternative medicine practitioner",
+      "address": "\nปาก Chaloem Phrakiat 21 Alley, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 97 001 0515",
+      "website": "http://www.facebook.com/TaiKangClinic",
+      "lat": 12.9306096,
+      "lng": 100.8894853,
+      "rating": 4.9,
+      "total_reviews": 8,
+      "trust_score": 68.1,
+      "categories": [],
+      "scraped_review_count": 8,
+      "local_guide_count": 2,
+      "avg_author_review_count": 43.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "clean_facility",
+          "count": 1
+        },
+        {
+          "topic": "friendly_staff",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 7,
+          "avg": 4.86
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Good service, electric acupuncture + cupping to relieve pain and stiffness. Very friendly price.",
+          "rating": 5,
+          "author": "Non Kung"
+        },
+        {
+          "text": "Dr. Namtan is lovely, gives good advice, and the price is reasonable. I described my symptoms and she immediately started treating them. The place is clean and tidy. I definitely won't go anywhere else; I highly recommend her!",
+          "rating": 5,
+          "author": "Natawan Hogel"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%97%E0%B9%88%E0%B8%84%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%A2%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99/data=!4m7!3m6!1s0x31029609c737322d:0xadc5e1dc95615c68!8m2!3d12.9306096!4d100.8894853!16s%2Fg%2F11c1t6n9vx!19sChIJLTI3xwmWAjERaFxhldzhxa0?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x310295dbb1341bc1_0xe400d27afd558653",
       "place_id": "0x310295dbb1341bc1:0xe400d27afd558653",
       "name": "เดอะเกท คลินิก สาขาพัทยา The Gate Clinic Pattaya",
@@ -259575,82 +259805,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B9%80%E0%B8%81%E0%B8%97+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2+The+Gate+Clinic+Pattaya/data=!4m7!3m6!1s0x310295dbb1341bc1:0xe400d27afd558653!8m2!3d12.9163926!4d100.8947558!16s%2Fg%2F11nsv6jhj6!19sChIJwRs0sduVAjERU4ZV_XrSAOQ?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x31029609c737322d_0xadc5e1dc95615c68",
-      "place_id": "0x31029609c737322d:0xadc5e1dc95615c68",
-      "name": "ไท่คังคลินิก ฝังเข็ม ยาจีน",
-      "name_lang": "th",
-      "primary_type": "Alternative medicine practitioner",
-      "address": "\nปาก Chaloem Phrakiat 21 Alley, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 97 001 0515",
-      "website": "http://www.facebook.com/TaiKangClinic",
-      "lat": 12.9306096,
-      "lng": 100.8894853,
-      "rating": 4.9,
-      "total_reviews": 8,
-      "trust_score": 68.1,
-      "categories": [],
-      "scraped_review_count": 8,
-      "local_guide_count": 2,
-      "avg_author_review_count": 43.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 5,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 2
-        },
-        {
-          "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "friendly_staff",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 7,
-          "avg": 4.86
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Good service, electric acupuncture + cupping to relieve pain and stiffness. Very friendly price.",
-          "rating": 5,
-          "author": "Non Kung"
-        },
-        {
-          "text": "Dr. Namtan is lovely, gives good advice, and the price is reasonable. I described my symptoms and she immediately started treating them. The place is clean and tidy. I definitely won't go anywhere else; I highly recommend her!",
-          "rating": 5,
-          "author": "Natawan Hogel"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%97%E0%B9%88%E0%B8%84%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1+%E0%B8%A2%E0%B8%B2%E0%B8%88%E0%B8%B5%E0%B8%99/data=!4m7!3m6!1s0x31029609c737322d:0xadc5e1dc95615c68!8m2!3d12.9306096!4d100.8894853!16s%2Fg%2F11c1t6n9vx!19sChIJLTI3xwmWAjERaFxhldzhxa0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d7e05555554cd_0x87986149922672a",
@@ -263330,12 +263484,12 @@
       ],
       "rating_trend": {
         "recent": {
-          "count": 3,
+          "count": 2,
           "avg": 5.0
         },
         "midterm": {
-          "count": 0,
-          "avg": null
+          "count": 1,
+          "avg": 5.0
         },
         "old": {
           "count": 5,
@@ -263346,6 +263500,11 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
+          "text": "The doctor and nurses gave excellent advice, were very kind, and provided great care. If you're looking for a good acupuncture clinic, I highly recommend this place.",
+          "rating": 5,
+          "author": "Piangamporn Preechaphongchana"
+        },
+        {
           "text": "The doctor was kind, gave good advice, and I felt much better after the procedure.",
           "rating": 5,
           "author": "Kwang Kavinnat Honyam"
@@ -263354,11 +263513,6 @@
           "text": "The doctor was very gentle and could communicate in Chinese. My pain has improved a lot after the acupuncture, and I'm continuing treatment now. 👍👍 …",
           "rating": 5,
           "author": "林志儀"
-        },
-        {
-          "text": "She is a patient and warm-hearted female TCM doctor. Her physical discomfort improved after acupuncture treatment. (The TCM doctor can speak Chinese.)",
-          "rating": 5,
-          "author": "Daishan Ma"
         }
       ],
       "sample_reviews_negative": [],
@@ -265990,7 +266144,7 @@
         "hdmall_package_count": 9,
         "match_score": 0.85,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -266054,7 +266208,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -267469,7 +267623,7 @@
         "hdmall_package_count": 71,
         "match_score": 0.65,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -268574,7 +268728,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.821,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -269432,6 +269586,97 @@
         "scraped_at": "2026-05-18T00:50:09Z"
       },
       "pricing": []
+    },
+    {
+      "id": "0x30e29935153a6daf_0x45010a40a1b2dae1",
+      "place_id": "0x30e29935153a6daf:0x45010a40a1b2dae1",
+      "name": "คลินิก ทันตแพทย์ บุญชู",
+      "name_lang": "th",
+      "primary_type": "Dental clinic",
+      "address": "\n52, 2-3 Soi Phetchaburi 5, Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Phaya Thai",
+      "phone": "+66 83 133 3100",
+      "website": "",
+      "lat": 13.7550753,
+      "lng": 100.528633,
+      "rating": 4.2,
+      "total_reviews": 34,
+      "trust_score": 66.8,
+      "categories": [
+        "dental"
+      ],
+      "scraped_review_count": 10,
+      "local_guide_count": 2,
+      "avg_author_review_count": 16.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 8,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {
+        "dental": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "clean_facility",
+          "count": 3
+        },
+        {
+          "topic": "recommend",
+          "count": 2
+        },
+        {
+          "topic": "no_pain",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 5,
+          "avg": 3.4
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The teeth cleaning was excellent, especially if you have social security insurance; they rarely charge extra. Clinics near my house always charge an extra 200 baht. The female doctor was very attentive. I recommend calling to book an appointment beforehand.",
+          "rating": 5,
+          "author": "SuperyingSuperhappy"
+        },
+        {
+          "text": "The female doctor did a great job scraping away tartar and gave me detailed advice on how to brush my teeth.",
+          "rating": 5,
+          "author": "J B"
+        },
+        {
+          "text": "I had a dental implant done by the doctor. It was much more convenient. The doctor did a good job.",
+          "rating": 5,
+          "author": "Dolphin_Dah K."
+        }
+      ],
+      "sample_reviews_negative": [
+        {
+          "text": "Dr. Boonchu does a great job. I've been coming for treatment regularly, even from far away. However, I haven't been here in a while and didn't know I needed to book an appointment. Please train your counter staff on their speaking style and tone of voice; otherwise, you might lose all your customers. Thank you.",
+          "rating": 1,
+          "author": "Praew"
+        }
+      ],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C+%E0%B8%9A%E0%B8%B8%E0%B8%8D%E0%B8%8A%E0%B8%B9/data=!4m7!3m6!1s0x30e29935153a6daf:0x45010a40a1b2dae1!8m2!3d13.7550753!4d100.528633!16s%2Fg%2F1vn4kd78!19sChIJr206FTWZ4jAR4dqyoUAKAUU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f3fc1378859_0x3fe1e902dc47f08",
@@ -273054,11 +273299,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -273854,7 +274099,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -278935,78 +279180,6 @@
       "maps_url": "https://www.google.com/maps/place/S%26V+Herbal+Clinic+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B9%84%E0%B8%97%E0%B8%A2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B8%8A%E0%B8%B4%E0%B8%94%E0%B8%A5%E0%B8%A1/data=!4m7!3m6!1s0x30e29f06910d5de1:0xa8a3a14ca5a9fa80!8m2!3d13.7440739!4d100.5443544!16s%2Fg%2F11vw_5w4jt!19sChIJ4V0NkQaf4jARgPqppUyho6g?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x310297c3663de319_0x982e704583e3fddf",
-      "place_id": "0x310297c3663de319:0x982e704583e3fddf",
-      "name": "จุฬาเภสัชกร, Chula pharmacy",
-      "name_lang": "th",
-      "primary_type": "Pharmacy",
-      "address": "\nSip Chet, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 33 033 716",
-      "website": "https://lin.ee/g1V19qh",
-      "lat": 12.9240986,
-      "lng": 100.8759338,
-      "rating": 5.0,
-      "total_reviews": 5,
-      "trust_score": 65.3,
-      "categories": [],
-      "scraped_review_count": 5,
-      "local_guide_count": 1,
-      "avg_author_review_count": 28.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 4,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "recommend",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 5,
-          "avg": 5.0
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The consultation was good. The ointment that was sold worked. The staff has medical knowledge.",
-          "rating": 5,
-          "author": "Stefan Plachetta"
-        },
-        {
-          "text": "The pharmacist is always available to dispense medication and provide good advice.",
-          "rating": 5,
-          "author": "vijarn sappakitpinyo"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%88%E0%B8%B8%E0%B8%AC%E0%B8%B2%E0%B9%80%E0%B8%A0%E0%B8%AA%E0%B8%B1%E0%B8%8A%E0%B8%81%E0%B8%A3,+Chula+pharmacy/@12.9240986,100.8759338,17z/data=!3m1!4b1!4m6!3m5!1s0x310297c3663de319:0x982e704583e3fddf!8m2!3d12.9240986!4d100.8759338!16s%2Fg%2F11h2g6rnvt?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
       "id": "0x310295e087a1fb9f_0x399d86319997e4db",
       "place_id": "0x310295e087a1fb9f:0x399d86319997e4db",
       "name": "Apichartclinic อภิชาติคลินิกสาขาพัทยา",
@@ -279560,7 +279733,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -280113,58 +280286,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%97%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B8%A5%E0%B8%AA%E0%B9%84%E0%B8%A1%E0%B8%A5%E0%B9%8C+%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%873+%E0%B8%A5%E0%B8%B3%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%81%E0%B8%B2-Triple+Smile+Dental+Clinic/data=!4m7!3m6!1s0x311d7df83b6e5abb:0xb53924597ac89eb5!8m2!3d13.955227!4d100.6649645!16s%2Fg%2F11xz4tt4sx!19sChIJu1puO_h9HTERtZ7IelkkObU?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x31028c9486959d55_0x3ff99f219852fe04",
-      "place_id": "0x31028c9486959d55:0x3ff99f219852fe04",
-      "name": "เทียนซิน คลินิกการแพทย์แผนจีน",
-      "name_lang": "th",
-      "primary_type": "Chinese medicine clinic",
-      "address": "\n49/54 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city_label": "Pattaya",
-      "city_slug": "pattaya",
-      "district": "Bang Lamung",
-      "phone": "+66 86 920 1728",
-      "website": "",
-      "lat": 12.9540286,
-      "lng": 100.9278364,
-      "rating": 5.0,
-      "total_reviews": 18,
-      "trust_score": 65.1,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%8B%E0%B8%B4%E0%B8%99+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%88%E0%B8%B5%E0%B8%99/@12.9540286,100.9278364,17z/data=!3m1!4b1!4m7!3m6!1s0x31028c9486959d55:0x3ff99f219852fe04!8m2!3d12.9540286!4d100.9278364!16s%2Fg%2F11cs1ktlvt!19sChIJVZ2VhpSMAjERBP5SmCGf-T8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
       "id": "0x30e29f747edc3841_0xc8782ba67b2e38cb",
       "place_id": "0x30e29f747edc3841:0xc8782ba67b2e38cb",
       "name": "CHILDDERM CLINIC​ ชิลด์เดิร์มคลินิกเฉพาะทางเด็ก​ ผิวหนัง​ ความงาม",
@@ -280526,7 +280647,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -280893,11 +281014,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -281446,7 +281567,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -282688,7 +282809,7 @@
         "hdmall_package_count": 9,
         "match_score": 0.533,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -283476,7 +283597,7 @@
         "hdmall_package_count": 193,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -284143,7 +284264,7 @@
         "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -284216,14 +284337,14 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "Visited to try to see a doctor, but he’s only in on Fridays. Helpful staff directed me to another\nnearby clinic",
-          "rating": 5,
-          "author": "Cheryl King"
-        },
-        {
           "text": "I have been to both the Doctor and Dentist,both very knowledgeable and well trained. Very good english,clean office and friendly staff! Didnt even feel the injections from the Dentist.A small out of the way Gem!",
           "rating": 5,
           "author": "JD Shemp"
+        },
+        {
+          "text": "Visited to try to see a doctor, but he’s only in on Fridays. Helpful staff directed me to another\nnearby clinic",
+          "rating": 5,
+          "author": "Cheryl King"
         }
       ],
       "sample_reviews_negative": [],
@@ -284391,7 +284512,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.429,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -287355,11 +287476,11 @@
       "service_mentions": {},
       "mentioned_topics": [
         {
-          "topic": "professional",
-          "count": 1
+          "topic": "recommend",
+          "count": 2
         },
         {
-          "topic": "recommend",
+          "topic": "professional",
           "count": 1
         }
       ],
@@ -287381,9 +287502,9 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "Fair, fast and professional, have used the clinic 6 times in the last 6 years. Have referred the clinic to friends a lot. Never have had or heard of any problems. The take Visa and well not charge you 3%, if you cry a a little and 100% up front.",
+          "text": "My first nose job. It's great. I've had it for two weeks. The staff provided excellent service. I really like it.",
           "rating": 5,
-          "author": "Rocky Skaggs"
+          "author": "Sourcream Sirisopha"
         },
         {
           "text": "I had breast augmentation with the doctor at Akara Clinic, Pattaya Sai 3. It didn't hurt at all. I recovered quickly. The doctor and staff provided good service.",
@@ -287391,9 +287512,9 @@
           "author": "ไพรินทร์ ประจงรัมย์"
         },
         {
-          "text": "My first nose job. It's great. I've had it for two weeks. The staff provided excellent service. I really like it.",
+          "text": "I was very impressed with the service. I had breast augmentation done with the doctor here, and the results are amazing; I'm not disappointed at all.",
           "rating": 5,
-          "author": "Sourcream Sirisopha"
+          "author": "เขมกร เทพริยา"
         }
       ],
       "sample_reviews_negative": [],
@@ -287519,9 +287640,9 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "Really good service and an amazing facial. Staff are super friendly and really helpful throughout :) will definitely recommend everyone to come here.",
+          "text": "The staff provided excellent service, the doctor was gentle and gave great advice. I was so impressed that I've been back several times already.",
           "rating": 5,
-          "author": "Aryan Thor"
+          "author": "Naywika Sirijud"
         },
         {
           "text": "The doctor is skilled and the staff provides excellent service. The price is not high.",
@@ -287529,9 +287650,9 @@
           "author": "พูดต่อต้านทุจจริต B"
         },
         {
-          "text": "The staff provided excellent service, the doctor was gentle and gave great advice. I was so impressed that I've been back several times already.",
+          "text": "Really good service and an amazing facial. Staff are super friendly and really helpful throughout :) will definitely recommend everyone to come here.",
           "rating": 5,
-          "author": "Naywika Sirijud"
+          "author": "Aryan Thor"
         }
       ],
       "sample_reviews_negative": [],
@@ -290054,7 +290175,7 @@
         "hdmall_package_count": 5,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -291474,7 +291595,7 @@
         "hdmall_package_count": 11,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -293292,7 +293413,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -294392,7 +294513,7 @@
         "hdmall_package_count": 15,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -294913,7 +295034,7 @@
         "hdmall_package_count": 30,
         "match_score": 0.85,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -295190,7 +295311,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -295540,58 +295661,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Joyous+clinic+%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%872/data=!4m7!3m6!1s0x311d7f00234fcdaf:0xaa47a14424281f81!8m2!3d13.9965758!4d100.6567698!16s%2Fg%2F11xs2y379h!19sChIJr81PIwB_HTERgR8oJEShR6o?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29eca66c24e73_0xe100aa3fb22630ba",
-      "place_id": "0x30e29eca66c24e73:0xe100aa3fb22630ba",
-      "name": "VitalSleep and Wellness รักษานอนกรน",
-      "name_lang": "th",
-      "primary_type": "Medical Center",
-      "address": "\n128/364 ชั้น 33 อาคารพญาไทพลาซ่า Thung Phaya Thai, Ratchathewi, Bangkok 10400, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Phaya Thai",
-      "phone": "+66 2 109 9998",
-      "website": "http://www.vitalsleepclinic.com/",
-      "lat": 13.7564458,
-      "lng": 100.5320615,
-      "rating": 4.3,
-      "total_reviews": 44,
-      "trust_score": 62.7,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/VitalSleep+and+Wellness+%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%99/data=!4m7!3m6!1s0x30e29eca66c24e73:0xe100aa3fb22630ba!8m2!3d13.7564458!4d100.5320615!16s%2Fg%2F11bbrnjyxv!19sChIJc07CZsqe4jARujAmsj-qAOE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299689a6f0281_0xbb7169a84cedfdd5",
@@ -296898,7 +296967,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -297894,11 +297963,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -298944,7 +299013,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -306425,7 +306494,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -308867,7 +308936,7 @@
       "place_id": "0x31029560e5ca30b9:0xcbd1add3bd2783d5",
       "name": "Mariiya Clinic มาริยาคลินิก",
       "name_lang": "th",
-      "primary_type": "Beauty Salon",
+      "primary_type": "Beauty salon",
       "address": "\nCentral Pattaya Rd, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
       "city_label": "Pattaya",
       "city_slug": "pattaya",
@@ -312187,7 +312256,7 @@
         "hdmall_package_count": 14,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -314373,7 +314442,7 @@
         "hdmall_package_count": 3,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -315775,7 +315844,7 @@
         "hdmall_package_count": 24,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -316111,7 +316180,7 @@
         "hdmall_package_count": 10,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -317323,7 +317392,7 @@
         "hdmall_package_count": 11,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -318091,7 +318160,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -320653,7 +320722,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.375,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -321883,7 +321952,7 @@
         "hdmall_package_count": 11,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -322913,7 +322982,7 @@
         "hdmall_package_count": 9,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -324216,7 +324285,7 @@
         "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -325057,7 +325126,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -326885,7 +326954,7 @@
         "hdmall_package_count": 1,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -329493,7 +329562,7 @@
         "hdmall_package_count": 6,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -332986,11 +333055,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -333168,7 +333237,7 @@
         "hdmall_package_count": 28,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -334465,7 +334534,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.65,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -335323,6 +335392,58 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B8%8A%E0%B8%99%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%81%E0%B8%A5%E0%B8%B7%E0%B8%AD/data=!4m7!3m6!1s0x3102bfea3a7bea87:0xbb21bdddbc5206ce!8m2!3d12.9734018!4d100.9067052!16s%2Fg%2F11s58d3hpk!19sChIJh-p7Ouq_AjERzgZSvN29Ibs?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310297c3663de319_0x982e704583e3fddf",
+      "place_id": "0x310297c3663de319:0x982e704583e3fddf",
+      "name": "จุฬาเภสัชกร, Chula pharmacy",
+      "name_lang": "th",
+      "primary_type": "Pharmacy",
+      "address": "\nSip Chet, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city_label": "Pattaya",
+      "city_slug": "pattaya",
+      "district": "Bang Lamung",
+      "phone": "+66 33 033 716",
+      "website": "https://lin.ee/g1V19qh",
+      "lat": 12.9240986,
+      "lng": 100.8759338,
+      "rating": 5.0,
+      "total_reviews": 5,
+      "trust_score": 58.4,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%88%E0%B8%B8%E0%B8%AC%E0%B8%B2%E0%B9%80%E0%B8%A0%E0%B8%AA%E0%B8%B1%E0%B8%8A%E0%B8%81%E0%B8%A3,+Chula+pharmacy/data=!4m7!3m6!1s0x310297c3663de319:0x982e704583e3fddf!8m2!3d12.9240986!4d100.8759338!16s%2Fg%2F11h2g6rnvt!19sChIJGeM9ZsOXAjER3_3jg0VwLpg?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29fdc5d4d6409_0x1cc001db3cd7b675",
@@ -336888,7 +337009,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -337093,7 +337214,7 @@
         "hdmall_package_count": 20,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -339625,7 +339746,7 @@
         "hdmall_package_count": 19,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -340797,7 +340918,7 @@
         "hdmall_package_count": 18,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -341938,7 +342059,7 @@
         "hdmall_package_count": 13,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -342598,7 +342719,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -342826,7 +342947,7 @@
         "hdmall_package_count": 35,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -346793,7 +346914,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.583,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -348146,7 +348267,7 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -348154,11 +348275,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -351169,7 +351290,7 @@
         "hdmall_package_count": 16,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -353989,7 +354110,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.65,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -356159,7 +356280,7 @@
         "hdmall_package_count": 6,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -356441,7 +356562,7 @@
         "hdmall_package_count": 8,
         "match_score": 0.917,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -357905,7 +358026,7 @@
         "hdmall_package_count": 1,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -359201,7 +359322,7 @@
         "hdmall_package_count": 4,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -362576,7 +362697,7 @@
         "hdmall_package_count": 3,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -362927,7 +363048,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.4,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -363227,7 +363348,7 @@
         "hdmall_package_count": 2,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -364263,7 +364384,7 @@
         "hdmall_package_count": 16,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -365225,7 +365346,7 @@
         "hdmall_package_count": 17,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -369060,7 +369181,7 @@
         "hdmall_package_count": 18,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -370868,7 +370989,7 @@
         "hdmall_package_count": 6,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -372216,7 +372337,7 @@
         "hdmall_package_count": 5,
         "match_score": 0.364,
         "match_needs_review": true,
-        "scraped_at": "2026-05-20T16:51:31Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -374173,7 +374294,7 @@
         "hdmall_package_count": 10,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:29Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
@@ -375811,7 +375932,7 @@
         "hdmall_package_count": 10,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -376039,7 +376160,7 @@
         "hdmall_package_count": 7,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -376321,7 +376442,7 @@
         "hdmall_package_count": 21,
         "match_score": 0.75,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -379453,7 +379574,7 @@
       "place_id": "0x3102b934365c9381:0xd67945eb377f4e27",
       "name": "Inner Clinic",
       "name_lang": "en",
-      "primary_type": "Wellness Centre",
+      "primary_type": "Wellness center",
       "address": "\n323 3 Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
       "city_label": "Pattaya",
       "city_slug": "pattaya",
@@ -379480,7 +379601,7 @@
       "mentioned_topics": [
         {
           "topic": "recommend",
-          "count": 3
+          "count": 5
         },
         {
           "topic": "clean_facility",
@@ -379513,11 +379634,6 @@
           "text": "Inner Clinic: Today I had a non-blood-based body checkup with immediate results. Highly recommended, especially for those who dislike pain.",
           "rating": 5,
           "author": "Lon kentone"
-        },
-        {
-          "text": "I had Colon Hydrotherapy combined with IV Drip and I feel so much better.\n\nNormally, I have a bowel movement every day, but after the colon cleanse, I …",
-          "rating": 5,
-          "author": "Kantaporn Tiwawatpakorn"
         }
       ],
       "sample_reviews_negative": [],
@@ -384743,7 +384859,7 @@
         "hdmall_package_count": 7,
         "match_score": 0.6,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -386922,7 +387038,7 @@
         "hdmall_package_count": 22,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -387738,7 +387854,7 @@
         "hdmall_package_count": 28,
         "match_score": 0.583,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -388710,7 +388826,7 @@
         "hdmall_package_count": 12,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:38Z"
       },
       "pricing": []
     },
@@ -388851,7 +388967,7 @@
         "hdmall_package_count": 69,
         "match_score": 1.0,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:37Z"
       },
       "pricing": []
     },
@@ -393500,7 +393616,7 @@
         "hdmall_package_count": 4,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:32Z"
+        "scraped_at": "2026-05-20T17:18:39Z"
       },
       "pricing": []
     },
@@ -394612,7 +394728,7 @@
         "hdmall_package_count": 23,
         "match_score": 0.5,
         "match_needs_review": false,
-        "scraped_at": "2026-05-20T16:51:30Z"
+        "scraped_at": "2026-05-20T17:18:36Z"
       },
       "pricing": []
     },
