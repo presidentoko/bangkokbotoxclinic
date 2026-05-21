@@ -43,9 +43,12 @@ REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 �
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
     # 클리닉 외국인 인기 순서 chain. Pattaya 끝나면 자동으로 다음 도시 진입.
-    # Bangkok review는 빠짐 — 1,500개 이미 처리, long-tail ROI 낮음.
+    # 2026-05-21 update: 영업이 방콕 우선이라 Pattaya 다음 Bangkok 재실행 추가.
+    # Bangkok grid는 새 클리닉 discovery (Fiona 등 누락분 보강), review는 신규/기존 보강.
     "pattaya_clinics_grid",
     "pattaya_clinics_review",
+    "bangkok_clinics_grid",
+    "bangkok_clinics_review",
     "phuket_clinics_grid",
     "phuket_clinics_review",
     "chiang_mai_clinics_grid",

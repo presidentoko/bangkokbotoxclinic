@@ -70,10 +70,11 @@ def main() -> int:
         print(f"CACHE NOT FOUND: {CACHE}", file=sys.stderr)
         return 1
 
-    # Master_db brand names
+    # Master_db brand names — precompute token sets once (avoid O(N*M) re-tokenizing)
     db = json.loads(MASTER_DB.read_text(encoding="utf-8"))
     db_names = [c.get("name", "") for c in db["clinics"] if c.get("name")]
-    matched_pids = {f.stem for f in PRICING_DIR.glob("*.json")}  # 이미 매칭된 cid set
+    db_tokens = [content_tokens(n) for n in db_names]
+    matched_pids = {f.stem for f in PRICING_DIR.glob("*.json")}
 
     # Parse HDmall HTML cache
     brands: dict[str, dict] = {}  # name → first occurrence info
@@ -101,14 +102,22 @@ def main() -> int:
     print(f"HDmall HTMLs scanned: {sum(1 for _ in CACHE.glob('clinic_*.html'))}")
     print(f"Unique brands extracted: {len(brands)}")
 
-    # Find matches via fuzzy
+    # Find matches via fuzzy (precomputed tokens)
     unmatched = []
     THRESHOLD = 0.5
     for brand_name, info in brands.items():
-        # Score against all master_db names
+        ta = content_tokens(brand_name)
+        if not ta:
+            unmatched.append({"brand_name": brand_name, "best_score": 0.0, **info})
+            continue
         best_score = 0.0
-        for db_name in db_names:
-            s = jaccard(brand_name, db_name)
+        for tb in db_tokens:
+            if not tb:
+                continue
+            inter = len(ta & tb)
+            if inter == 0:
+                continue
+            s = inter / len(ta | tb)
             if s > best_score:
                 best_score = s
                 if best_score >= 0.85:
