@@ -151,18 +151,18 @@ export default async function HomePage() {
 
           <HeroSearch entities={searchIndex} hrefBase="/clinic" popularSearches={popularSearches} searchPlaceholder="Search clinic name or district..." />
 
-          {/* Dual CTA — 상위 결정 유도 */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          {/* Dual CTA — 모바일 stacked, 데스크탑 horizontal */}
+          <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 max-w-sm sm:max-w-none mx-auto">
             <a
               href="#top6"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-white text-sm font-bold shadow-md hover:shadow-lg hover:scale-105 transition-transform"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-white text-sm font-bold shadow-md hover:shadow-lg active:scale-95 sm:hover:scale-105 transition-transform"
               style={{ background: accent }}
             >
               See top 6 by Trust Score <span aria-hidden>↓</span>
             </a>
             <a
               href="#booking"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-[var(--border)] text-[var(--fg)] text-sm font-bold hover:border-black transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white border border-[var(--border)] text-[var(--fg)] text-sm font-bold hover:border-black transition-colors"
             >
               Get matched (free)
             </a>

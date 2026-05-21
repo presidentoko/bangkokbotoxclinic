@@ -109,12 +109,13 @@ export function AdPlaceholder({
     );
   }
   // Placeholder — 운영자가 광고 자리 시각화하기 위해 보이는 박스
+  // 모바일에서 광고 자리가 너무 크면 fold 차지 → 모바일 작게
   const size =
     variant === "banner"
-      ? "h-24 md:h-32"
+      ? "h-16 md:h-32"
       : variant === "square"
-      ? "h-48 md:h-56"
-      : "h-20";
+      ? "h-32 md:h-56"
+      : "h-14 md:h-20";
   return (
     <div
       aria-label="Sponsored slot"

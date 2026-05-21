@@ -41,9 +41,9 @@ export function HiddenGem({
         <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: accent }} />
 
         <div className="grid md:grid-cols-2 gap-0">
-          {/* Photo half */}
+          {/* Photo half — 모바일 16:9, 데스크탑 fill */}
           <div
-            className="relative aspect-[4/3] md:aspect-auto md:min-h-[280px] overflow-hidden"
+            className="relative aspect-[16/9] md:aspect-auto md:min-h-[280px] overflow-hidden"
             style={photo ? undefined : { background: `linear-gradient(135deg, ${accent}22, ${accent}08)` }}
           >
             {photo ? (

@@ -107,9 +107,9 @@ export function SpinDiscover({
           )}
 
           {phase === "spinning" && (
-            <div className="bg-white rounded-xl border border-[var(--border)] p-6 shadow-sm">
+            <div className="bg-white rounded-xl border border-[var(--border)] p-5 md:p-6 shadow-sm">
               <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold mb-1">spinning...</div>
-              <div className="text-lg md:text-xl font-bold truncate transition-all" style={{ color: accent }}>
+              <div className="text-base md:text-xl font-bold truncate transition-all" style={{ color: accent }} title={tickerName}>
                 {tickerName || "—"}
               </div>
               <div className="mt-3 h-1 rounded-full overflow-hidden bg-gray-100">
@@ -121,21 +121,21 @@ export function SpinDiscover({
           {phase === "revealed" && current && (
             <a
               href={`/clinic/${current.id}`}
-              className="block bg-white rounded-xl border-2 p-5 shadow-md hover:shadow-xl transition-shadow group"
+              className="block bg-white rounded-xl border-2 p-4 md:p-5 shadow-md hover:shadow-xl transition-shadow group"
               style={{ borderColor: accent }}
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3 md:gap-4">
                 {current.photo ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={current.photo}
                     alt={current.name}
                     loading="lazy"
-                    className="w-20 h-20 rounded-lg object-cover shrink-0"
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover shrink-0"
                   />
                 ) : (
                   <div
-                    className="w-20 h-20 rounded-lg shrink-0 flex items-center justify-center text-3xl"
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-lg shrink-0 flex items-center justify-center text-2xl md:text-3xl"
                     style={{ background: `${accent}20` }}
                   >
                     🏥
@@ -145,15 +145,15 @@ export function SpinDiscover({
                   <div className="text-[10px] uppercase tracking-widest font-bold" style={{ color: accent }}>
                     ✨ Picked just now
                   </div>
-                  <h3 className="font-bold text-lg leading-tight mt-1 mb-1 group-hover:opacity-80 transition">
+                  <h3 className="font-bold text-base md:text-lg leading-tight mt-1 mb-1 group-hover:opacity-80 transition line-clamp-2">
                     {current.name}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--muted)]">
-                    <span>📍 {current.district}</span>
+                  <div className="flex flex-wrap items-center gap-1 md:gap-2 text-[11px] md:text-xs text-[var(--muted)]">
+                    <span>📍 {current.district || "—"}</span>
                     <span>·</span>
-                    <span className="text-yellow-700 font-bold">★ {current.rating.toFixed(1)}</span>
+                    <span className="text-yellow-700 font-bold whitespace-nowrap">★ {current.rating.toFixed(1)}</span>
                     <span>·</span>
-                    <span>{current.total_reviews.toLocaleString()} reviews</span>
+                    <span className="whitespace-nowrap">{current.total_reviews.toLocaleString()} reviews</span>
                   </div>
                   <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold"
                        style={{

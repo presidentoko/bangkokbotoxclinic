@@ -126,12 +126,12 @@ export default async function BestForPage(
                           </div>
                         </div>
                         <div className="p-2 md:p-3">
-                          <h3 className="font-bold text-xs md:text-sm leading-tight line-clamp-2 min-h-[2lh]">{c.name}</h3>
-                          <div className="mt-1 flex items-center gap-1.5 text-[10px] md:text-xs text-[var(--muted)]">
-                            <span>★ {c.rating.toFixed(1)}</span>
-                            <span>·</span>
-                            <span className="font-bold" style={{ color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}>
-                              {c.trust_score.toFixed(0)}
+                          <h3 className="font-bold text-[11px] md:text-sm leading-tight line-clamp-2">{c.name}</h3>
+                          <div className="mt-1 flex flex-wrap items-center gap-1 text-[9px] md:text-xs text-[var(--muted)]">
+                            <span className="whitespace-nowrap">★ {c.rating.toFixed(1)}</span>
+                            <span className="hidden sm:inline">·</span>
+                            <span className="font-bold whitespace-nowrap" style={{ color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}>
+                              Trust {c.trust_score.toFixed(0)}
                             </span>
                           </div>
                         </div>
