@@ -7,6 +7,7 @@ import { HOME_FAQS, CATEGORY_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdPlaceholder } from "@/components/AffiliateSlot";
 import { loadPhotos } from "@/lib/photos";
 import { SpinDiscover } from "@/components/SpinDiscover";
+import { HiddenGem } from "@/components/HiddenGem";
 import { BookingForm } from "@/components/BookingForm";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -30,6 +31,12 @@ export default async function HomePage() {
   // Top 50 사진 미리 로드 (server-side, 캐시됨) — Top 6 카드 + SpinDiscover 풀
   const topPhotos = await Promise.all(top.slice(0, 50).map((c) => loadPhotos(c.id)));
   const top6Photos = topPhotos.slice(0, 6);
+
+  // Hidden Gem: high-trust + low-volume — 매일 deterministic 선택
+  const gemCandidates = focused.filter((c) => c.trust_score >= 70 && c.total_reviews >= 30 && c.total_reviews <= 250);
+  const gemSeed = Math.floor((Date.now() / 86400000));
+  const gemPick = gemCandidates.length > 0 ? gemCandidates[gemSeed % gemCandidates.length] : null;
+  const gemPhoto = gemPick ? await loadPhotos(gemPick.id) : null;
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;
@@ -426,6 +433,11 @@ export default async function HomePage() {
             </div>
           </section>
         ); })()}
+
+        {/* Hidden Gem — 매일 다른 underrated 클리닉 spotlight */}
+        {gemPick && (
+          <HiddenGem pool={[gemPick]} accent={accent} photo={gemPhoto?.photos[0]} />
+        )}
 
         {/* GAME WIDGET — random clinic reveal. Increases session time. */}
         {top.length >= 10 && (
