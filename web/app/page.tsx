@@ -8,6 +8,7 @@ import { AffiliateInline, AdPlaceholder } from "@/components/AffiliateSlot";
 import { loadPhotos } from "@/lib/photos";
 import { SpinDiscover } from "@/components/SpinDiscover";
 import { HiddenGem } from "@/components/HiddenGem";
+import { SourcesStrip } from "@/components/SourcesStrip";
 import { BookingForm } from "@/components/BookingForm";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -181,6 +182,9 @@ export default async function HomePage() {
           <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
         </div>
       </section>
+
+      {/* Multi-source visualization — clearly communicate aggregation site */}
+      <SourcesStrip focus={cfg.focus} accent={accent} />
 
       <div className="max-w-5xl mx-auto px-4 py-10">
         {heroClinic ? <SponsoredHero c={heroClinic} /> : null}
