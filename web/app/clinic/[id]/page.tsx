@@ -15,6 +15,7 @@ import { LineButton } from "@/components/LineButton";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AdPlaceholder } from "@/components/AffiliateSlot";
+import { ClaimBanner } from "@/components/ClaimBanner";
 import { ViewBeacon } from "@/components/ViewBeacon";
 import { FloatingContactBar } from "@/components/FloatingContactBar";
 import type { Metadata } from "next";
@@ -128,6 +129,9 @@ export default async function ClinicPage(
           <SponsoredBadge clinicId={c.id} />
         </div>
       )}
+
+      {/* Unclaimed listing — inbound owner lead funnel (stub clinics only) */}
+      {c._stub && <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />}
 
       {/* Header */}
       <header className="mb-8">

@@ -9,7 +9,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function PartnerOnboardingPage() {
+export default async function PartnerOnboardingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ clinic?: string }>;
+}) {
+  const params = await searchParams;
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
@@ -19,17 +24,21 @@ export default async function PartnerOnboardingPage() {
   const clinicCount = focused.length;
   const cities = new Set(focused.map((c) => c.city_label)).size;
 
-  // 자동완성용 — top trust clinic 만 제공
+  // 자동완성용 — top trust clinic + ?clinic=<id> 로 들어온 stub 도 포함
   const clinics = focused
-    .filter((c) => c.trust_score >= 60)
+    .filter((c) => c.trust_score >= 60 || c.id === params.clinic)
     .map((c) => ({
       id: c.id,
       name: c.name,
-      district: c.district,
-      city: c.city_label,
+      district: c.district || "",
+      city: c.city_label || "Bangkok",
       trust: c.trust_score,
     }))
     .sort((a, b) => b.trust - a.trust);
+
+  const preselect = params.clinic
+    ? clinics.find((c) => c.id === params.clinic) ?? null
+    : null;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -107,7 +116,7 @@ export default async function PartnerOnboardingPage() {
       {/* Form */}
       <section id="signup" className="mb-10">
         <h2 className="text-2xl font-bold tracking-tight mb-4">Start your 30-day pilot</h2>
-        <PartnerSignupForm clinics={clinics} />
+        <PartnerSignupForm clinics={clinics} preselect={preselect} />
       </section>
 
       {/* FAQ */}

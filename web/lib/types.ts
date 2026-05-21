@@ -84,6 +84,10 @@ export type Clinic = {
   doctor_stats?: DoctorStat[];
   business_status: string;
   maps_url: string;
+  // Stub clinics — extra_clinics.json에서 머지된 placeholder (영업/인바운드 claim 대상).
+  // watchdog Bangkok grid이 풍부화하면 자동 dedup.
+  _stub?: boolean;
+  _source?: "hdmall" | "discovered_places" | string;
 };
 
 export type MasterDb = {

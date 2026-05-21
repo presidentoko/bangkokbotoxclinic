@@ -5,9 +5,9 @@ import { useMemo, useState } from "react";
 
 type ClinicHit = { id: string; name: string; district: string; city: string; trust: number };
 
-export function PartnerSignupForm({ clinics }: { clinics: ClinicHit[] }) {
-  const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState<ClinicHit | null>(null);
+export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]; preselect?: ClinicHit | null }) {
+  const [search, setSearch] = useState(preselect?.name ?? "");
+  const [selected, setSelected] = useState<ClinicHit | null>(preselect ?? null);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [lineUserId, setLineUserId] = useState("");
