@@ -12,11 +12,15 @@ export type Guide = {
   faqs: Faq[];
   related?: string[];
   updated: string;
+  // 어떤 사이트(focus)에서 보여줄지. 없으면 모든 사이트에 노출(general).
+  // 사이트별 mismatched 가이드 노출 방지 (dental에 botox 가이드 X).
+  focusTags?: ("botox" | "filler" | "hifu" | "facial" | "laser" | "dental" | "hair")[];
 };
 
 export const GUIDES: Guide[] = [
   {
     slug: "bangkok-botox-guide",
+    focusTags: ["botox", "filler"],
     title: "Bangkok Botox Guide — What You'll Pay & How to Pick (2026)",
     metaTitle: "Bangkok Botox Guide 2026 — Pricing, Brands, Best Clinics",
     metaDescription:
@@ -77,6 +81,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "bangkok-filler-guide",
+    focusTags: ["filler", "botox"],
     title: "Bangkok Filler Guide — HA, Juvederm, Restylane (2026)",
     metaTitle: "Bangkok Dermal Fillers 2026 — Pricing, Brands, Best Clinics",
     metaDescription:
@@ -170,10 +175,10 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "trust-score-explained",
-    title: "Our Trust Score, Explained — How We Rank 2,000+ Bangkok Clinics",
-    metaTitle: "Trust Score Explained — How Bangkok Clinics Are Ranked",
+    title: "Our Trust Score, Explained — How Clinics Are Ranked",
+    metaTitle: "Trust Score Explained — How Clinics Are Ranked",
     metaDescription:
-      "We rank 2,000+ Bangkok clinics by a Trust Score derived from Google review analysis: rating, volume, Local Guide credibility, reviewer authority. Full methodology.",
+      "We rank clinics by a Trust Score derived from Google review analysis: rating, volume, Local Guide credibility, reviewer authority. Full methodology.",
     updated: "2026-05-09",
     intro:
       "A clinic's star rating tells you almost nothing on its own. A 4.9 with 12 reviews is far less reliable than a 4.5 with 800 reviews. Our Trust Score combines four signals to surface clinics with both quality and statistical credibility — so you don't have to manually triangulate yourself.",
@@ -312,4 +317,14 @@ export const GUIDES: Guide[] = [
 
 export function findGuide(slug: string): Guide | null {
   return GUIDES.find((g) => g.slug === slug) ?? null;
+}
+
+/** 사이트 focus에 맞는 가이드만 반환. focusTags 없는 guide는 general → 모든 사이트.
+ *  특정 focusTags 가진 guide는 매칭되는 사이트에서만 노출. */
+export function guidesForFocus(focus: string): Guide[] {
+  return GUIDES.filter((g) => {
+    if (!g.focusTags || g.focusTags.length === 0) return true; // general
+    if (focus === "all") return true;
+    return (g.focusTags as readonly string[]).includes(focus);
+  });
 }

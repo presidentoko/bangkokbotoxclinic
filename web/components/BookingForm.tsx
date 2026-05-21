@@ -3,7 +3,11 @@
 
 import { useState } from "react";
 
-const SERVICES = [
+type ServiceOpt = { id: string; label: string; emoji: string };
+
+// Focus 별 서비스 목록 — Dental 사이트에 implants/veneers가 없거나
+// Hair 사이트에 botox만 보이는 mismatch 방지.
+const ALL_SERVICES: ServiceOpt[] = [
   { id: "botox", label: "Botox", emoji: "💉" },
   { id: "filler", label: "Filler", emoji: "💧" },
   { id: "hifu", label: "HIFU / Ulthera", emoji: "⚡" },
@@ -11,6 +15,34 @@ const SERVICES = [
   { id: "laser", label: "Laser", emoji: "✨" },
   { id: "consult", label: "General consultation", emoji: "💬" },
 ];
+
+const DENTAL_SERVICES: ServiceOpt[] = [
+  { id: "dental_implant", label: "Dental implant", emoji: "🦷" },
+  { id: "veneers", label: "Veneers", emoji: "✨" },
+  { id: "whitening", label: "Whitening", emoji: "🌟" },
+  { id: "orthodontics", label: "Orthodontics / Braces", emoji: "😬" },
+  { id: "all_on_4", label: "All-on-4", emoji: "🦷" },
+  { id: "consult", label: "General consultation", emoji: "💬" },
+];
+
+const HAIR_SERVICES: ServiceOpt[] = [
+  { id: "fue", label: "FUE Transplant", emoji: "💇" },
+  { id: "dhi", label: "DHI Transplant", emoji: "💇‍♂️" },
+  { id: "smp", label: "Scalp Micropigmentation", emoji: "🎨" },
+  { id: "beard_transplant", label: "Beard / Eyebrow", emoji: "🧔" },
+  { id: "scalp_care", label: "Scalp / PRP / Mesotherapy", emoji: "💧" },
+  { id: "consult", label: "General consultation", emoji: "💬" },
+];
+
+function servicesForFocus(): ServiceOpt[] {
+  // NEXT_PUBLIC_SITE_FOCUS는 client에서도 접근 가능 (빌드시 inline).
+  const focus = process.env.NEXT_PUBLIC_SITE_FOCUS;
+  if (focus === "dental") return DENTAL_SERVICES;
+  if (focus === "hair") return HAIR_SERVICES;
+  return ALL_SERVICES;
+}
+
+const SERVICES = servicesForFocus();
 
 const TIME_SLOTS = [
   "Morning (9–12)",
@@ -35,6 +67,7 @@ export function BookingForm({
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [honeypot, setHoneypot] = useState("");
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
 
   const today = new Date();
@@ -101,6 +134,15 @@ export function BookingForm({
         <p className="text-xs text-[var(--muted)] mt-1">
           Free, no obligation. We confirm within 24h.
         </p>
+        {/* Data-handling disclosure — visible upfront, before user fills anything */}
+        <div className="mt-3 text-[11px] leading-relaxed text-[var(--muted)] bg-slate-50 border border-[var(--border)] rounded-lg p-3">
+          <strong className="text-[var(--fg)]">Where this goes:</strong>{" "}
+          {clinicName
+            ? <>We forward your details to <strong className="text-[var(--fg)]">{clinicName}</strong> so a staff member can confirm time, pricing, and brand availability — and to our internal admin for follow-up if they don&apos;t respond within 24h.</>
+            : <>We forward your details to the clinic(s) best matching your request, and to our internal admin so we can follow up if there&apos;s no response within 24h.</>}
+          {" "}We don&apos;t sell or rent your data. See{" "}
+          <a href="/privacy" target="_blank" rel="noreferrer" className="underline text-[var(--fg)] hover:opacity-70">privacy policy</a>.
+        </div>
         {/* Progress dots */}
         <div className="flex items-center gap-2 mt-4">
           {steps.map((s, i) => (
@@ -267,6 +309,23 @@ export function BookingForm({
               {clinicName && <Row label="Clinic" value={clinicName} />}
               {notes && <Row label="Notes" value={notes} />}
             </div>
+
+            {/* Consent — required before submit */}
+            <label className="flex items-start gap-2 cursor-pointer select-none p-3 border border-[var(--border)] rounded-lg hover:bg-gray-50 transition">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                className="mt-0.5 h-4 w-4 accent-black shrink-0"
+              />
+              <span className="text-xs leading-relaxed text-[var(--fg)]">
+                I agree to share my contact details with{" "}
+                {clinicName ? <strong>{clinicName}</strong> : "the matching clinic"}{" "}
+                and the site admin for the purpose of confirming this booking, in line with the{" "}
+                <a href="/privacy" target="_blank" rel="noreferrer" className="underline">privacy policy</a>.
+              </span>
+            </label>
+
             <div className="flex gap-2 pt-2">
               <button
                 type="button"
@@ -278,8 +337,9 @@ export function BookingForm({
               <button
                 type="button"
                 onClick={submit}
-                disabled={status === "submitting"}
-                className="flex-1 px-4 py-2.5 rounded-lg bg-black text-white text-sm font-bold hover:bg-gray-800 disabled:opacity-40"
+                disabled={status === "submitting" || !consent}
+                className="flex-1 px-4 py-2.5 rounded-lg bg-black text-white text-sm font-bold hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed"
+                title={!consent ? "Please tick consent above" : undefined}
               >
                 {status === "submitting" ? "Sending..." : "Confirm request"}
               </button>

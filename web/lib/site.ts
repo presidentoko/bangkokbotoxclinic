@@ -11,7 +11,8 @@ export type SiteFocus =
   | "hifu"
   | "facial"
   | "laser"
-  | "dental";
+  | "dental"
+  | "hair";
 
 export type SiteConfig = {
   focus: SiteFocus;
@@ -111,6 +112,18 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     themeAccent: "#10b981",
     mentionThreshold: 2,
   },
+  hair: {
+    focus: "hair",
+    brand: "Thai Hair & Scalp Clinic",
+    domain: "thaifacialclinic.com",
+    title: "Best Hair Transplant Clinics in Thailand — FUE, SMP, Scalp Care",
+    description:
+      "Thailand hair transplant, scalp micropigmentation (SMP), and scalp care specialists ranked by Trust Score. FUE/DHI, beard restoration, eyebrow transplant, scar coverage. Bookimed-verified medical tourism options for English, Korean, Chinese and Arabic-speaking patients.",
+    hero: "Hair Transplant & Scalp Specialists in Thailand",
+    heroSub: "FUE, DHI, SMP, scar coverage — top hair restoration clinics in Bangkok, Phuket, and Chiang Mai ranked by Trust Score from real reviews.",
+    themeAccent: "#b45309",
+    mentionThreshold: 2,
+  },
 };
 
 export function getSiteConfig(): SiteConfig {
@@ -139,6 +152,19 @@ export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
       // 이름에 명시적 치과 키워드 + dental mention 5+ 도 통과
       const hasDentalName = /\b(dental|dentist|ทันตกรรม|จัดฟัน|ฟัน)\b/i.test(c.name);
       if (hasDentalName && (c.service_mentions.dental ?? 0) >= 5) return true;
+      return false;
+    });
+  }
+
+  // 헤어 사이트도 엄격 필터: hair_transplant 카테고리 OR 이름에 명시적 hair/transplant
+  // 시그널. 일반 피부과의 우연한 mention 1-2회는 배제 (false positive 방지).
+  if (focus === "hair") {
+    return clinical.filter((c) => {
+      if (c.categories.includes("hair_transplant")) return true;
+      const hasHairName = /\b(hair|transplant|trichology|FUE|DHI|SMP|micropigment|모발|ปลูกผม|ผม)\b/i.test(c.name);
+      if (hasHairName) return true;
+      // 일반 클리닉이라도 hair_transplant mention 3+ 면 통과
+      if ((c.service_mentions.hair_transplant ?? 0) >= 3) return true;
       return false;
     });
   }

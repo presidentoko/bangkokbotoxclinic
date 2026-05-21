@@ -12,7 +12,14 @@ let _cache: MasterDb | null = null;
 export async function loadMasterDb(): Promise<MasterDb> {
   if (_cache) return _cache;
   const raw = await fs.readFile(DATA_PATH, "utf-8");
-  _cache = JSON.parse(raw) as MasterDb;
+  const parsed = JSON.parse(raw) as MasterDb;
+  // Defensive clamp: trust_score 산술합이 100을 넘는 케이스가 과거 데이터에 있음.
+  // FAQ/methodology가 0-100 표기하므로 display 전에 캡.
+  for (const c of parsed.clinics) {
+    if (c.trust_score > 100) c.trust_score = 100;
+    if (c.trust_score < 0) c.trust_score = 0;
+  }
+  _cache = parsed;
   return _cache;
 }
 
@@ -41,6 +48,28 @@ export function filterByDistrict(clinics: Clinic[], district: string): Clinic[] 
 
 export function topByTrust(clinics: Clinic[], n: number): Clinic[] {
   return [...clinics].sort((a, b) => b.trust_score - a.trust_score).slice(0, n);
+}
+
+/** Focus-aware 랭킹 — focus 사이트(botox/dental/hair 등)에서
+ *  '진짜 특화' 신호 (해당 카테고리 명시 + 충분한 service mentions) 가 강한 클리닉을 상위로.
+ *  대형 일반 클리닉이 1-2 mention만 가지고 #1 차지하는 케이스 방지.
+ *
+ *  Score = trust_score + min(20, mentions * 2) + (categories.includes(focus) ? 5 : 0)
+ *  → 최대 +25 보너스. trust_score 차이 25 이내면 specialty가 앞.
+ */
+export function topByFocusRelevance(
+  clinics: Clinic[],
+  focus: string,
+  n: number,
+): Clinic[] {
+  if (focus === "all" || !focus) return topByTrust(clinics, n);
+  function score(c: Clinic): number {
+    const mentions = c.service_mentions[focus] ?? 0;
+    const mentionBonus = Math.min(20, mentions * 2);
+    const categoryBonus = c.categories.includes(focus) ? 5 : 0;
+    return c.trust_score + mentionBonus + categoryBonus;
+  }
+  return [...clinics].sort((a, b) => score(b) - score(a)).slice(0, n);
 }
 
 export function getClinicById(clinics: Clinic[], id: string): Clinic | undefined {

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 
-type SiteFocus = "all" | "botox" | "filler" | "hifu" | "facial" | "laser" | "dental";
+type SiteFocus = "all" | "botox" | "filler" | "hifu" | "facial" | "laser" | "dental" | "hair";
 
 type Lang = "en" | "ko" | "th";
 

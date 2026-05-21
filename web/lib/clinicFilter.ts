@@ -35,6 +35,7 @@ const NAME_BLOCKLIST_PATTERNS: RegExp[] = [
 const NAME_ALLOWLIST_PATTERNS: RegExp[] = [
   /\bclinic\b/i, /\bdental\b/i, /\bmedical\b/i, /\baesthetic\b/i,
   /\bdermatology\b/i, /\bplastic\b/i, /\bsurgery\b/i, /\bhospital\b/i,
+  /\b(hair transplant|trichology|FUE|DHI|SMP|scalp micropigment)\b/i,
 ];
 
 export function isClinicLike(c: Clinic): boolean {

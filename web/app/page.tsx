@@ -1,4 +1,4 @@
-import { loadMasterDb, topByTrust } from "@/lib/data";
+import { loadMasterDb, topByFocusRelevance } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
@@ -11,15 +11,15 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
-import { GUIDES } from "@/lib/guides";
+import { guidesForFocus } from "@/lib/guides";
 
-export const revalidate = 300; // ISR — sponsored 슬롯 Redis 변경 5분 내 반영
+export const revalidate = 1800; // ISR 30분 — sponsored 슬롯 변경은 admin API 의 revalidatePath() 로 즉시 반영. 백그라운드 자동 갱신은 30분 (Hobby ISR Writes 한도 절약)
 
 export default async function HomePage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
-  const top = await sortWithSponsored(topByTrust(focused, 50));
+  const top = await sortWithSponsored(topByFocusRelevance(focused, cfg.focus, 50));
   // Pre-compute sponsored tiers for hero lookup (sponsoredTier is now async)
   const heroTiers = await Promise.all(top.map((c) => sponsoredTier(c.id)));
   const heroIdx = heroTiers.findIndex((t) => t !== null);
@@ -28,9 +28,20 @@ export default async function HomePage() {
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;
 
+  // District 섹션은 dominant city 한정 — Pattaya/Phuket district가 Bangkok과 섞이면
+  // 외국인이 "Bangkok"으로 검색 후 150km 떨어진 클리닉 예약하는 사고 방지.
+  // 다른 도시는 아래 "By City" 섹션에서 별도 진입.
+  const cityCounts = new Map<string, number>();
+  for (const c of focused) {
+    if (c.city_label) cityCounts.set(c.city_label, (cityCounts.get(c.city_label) ?? 0) + 1);
+  }
+  const dominantCity = [...cityCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
   const districtMap = new Map<string, number>();
   for (const c of focused) {
-    if (c.district) districtMap.set(c.district, (districtMap.get(c.district) ?? 0) + 1);
+    if (!c.district) continue;
+    // dominantCity가 있으면 그 도시만; city_label 없는 행은 안전하게 포함
+    if (dominantCity && c.city_label && c.city_label !== dominantCity) continue;
+    districtMap.set(c.district, (districtMap.get(c.district) ?? 0) + 1);
   }
   const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
 
@@ -207,12 +218,18 @@ export default async function HomePage() {
                   href={`/clinic/${c.id}`}
                   className="group block border border-[var(--border)] rounded-2xl p-5 bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
                 >
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <div className="text-2xl font-black tabular-nums text-[var(--muted)]">#{i + 1}</div>
-                    <div className="text-3xl font-black tabular-nums" style={{
-                      color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04"
-                    }}>
-                      {c.trust_score.toFixed(0)}
+                  <div className="flex items-end justify-between gap-2 mb-3">
+                    <div>
+                      <div className="text-2xl font-black tabular-nums text-[var(--muted)] leading-none">#{i + 1}</div>
+                      <div className="text-[9px] uppercase tracking-widest text-[var(--muted)] font-bold mt-1">Rank</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-black tabular-nums leading-none" style={{
+                        color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04"
+                      }}>
+                        {c.trust_score.toFixed(0)}
+                      </div>
+                      <div className="text-[9px] uppercase tracking-widest text-[var(--muted)] font-bold mt-1">Trust Score</div>
                     </div>
                   </div>
                   <h3 className="font-bold text-base group-hover:opacity-90 transition leading-tight mb-1" style={{ color: "var(--fg)" }}>{c.name}</h3>
@@ -313,7 +330,9 @@ export default async function HomePage() {
         )}
 
         <section className="mb-10">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By District</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
+            By District{dominantCity ? ` · ${dominantCity}` : ""}
+          </h2>
           <div className="flex flex-wrap gap-2">
             {districts.map(([d, count]) => (
               <a
@@ -327,8 +346,8 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Guides promo */}
-        {GUIDES.length > 0 && (
+        {/* Guides promo — focus 맞는 가이드만 (dental 사이트에 botox 가이드 X). */}
+        {(() => { const focusGuides = guidesForFocus(cfg.focus); return focusGuides.length > 0 && (
           <section className="mb-12 border border-[var(--border)] rounded-2xl bg-slate-50/40 p-6 md:p-8">
             <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
               <div>
@@ -338,7 +357,7 @@ export default async function HomePage() {
               <a href="/guide" className="text-sm font-bold hover:underline" style={{ color: accent }}>All guides →</a>
             </div>
             <div className="grid sm:grid-cols-3 gap-3">
-              {GUIDES.map((g) => (
+              {focusGuides.map((g) => (
                 <a
                   key={g.slug}
                   href={`/guide/${g.slug}`}
@@ -350,7 +369,7 @@ export default async function HomePage() {
               ))}
             </div>
           </section>
-        )}
+        ); })()}
 
         <section>
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top {Math.min(top.length, 50)} by Trust Score</h2>

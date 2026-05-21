@@ -25,12 +25,15 @@ export async function generateMetadata(
   const db = await loadMasterDb();
   const districtName = districtFromSlug(district, Object.keys(db.district_counts)) ?? district;
   const count = db.district_counts[districtName] ?? 0;
+  // 실제 도시 lookup — Pattaya/Phuket district가 Bangkok으로 잘못 표기되는 것 방지.
+  const sample = db.clinics.find((c) => c.district === districtName && c.city_label);
+  const cityLabel = sample?.city_label ?? "Bangkok";
   return {
-    title: `${count} Clinics in ${districtName}, Bangkok — Verified by Reviews`,
-    description: `${count} clinics in ${districtName}, Bangkok ranked by verified Google review analysis. Trust Score, reviewer credibility, service mentions for each.`,
+    title: `${count} Clinics in ${districtName}, ${cityLabel} — Verified by Reviews`,
+    description: `${count} clinics in ${districtName}, ${cityLabel} ranked by verified Google review analysis. Trust Score, reviewer credibility, service mentions for each.`,
     alternates: { canonical: `/d/${district}` },
     openGraph: {
-      title: `Clinics in ${districtName}, Bangkok`,
+      title: `Clinics in ${districtName}, ${cityLabel}`,
       description: `${count} verified clinics. Trust Score ranking from real reviews.`,
       url: `/d/${district}`,
     },
@@ -47,19 +50,22 @@ export default async function DistrictPage(
 
   const filtered = filterByDistrict(db.clinics, districtName)
     .sort((a, b) => b.trust_score - a.trust_score);
+  const cityLabel = filtered.find((c) => c.city_label)?.city_label ?? "Bangkok";
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
+        <span>{cityLabel}</span>
+        <span className="mx-2">›</span>
         <span>{districtName}</span>
       </nav>
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
-        Clinics in {districtName}
+        Clinics in {districtName}, {cityLabel}
       </h1>
       <p className="text-[var(--muted)] mb-8">
-        {filtered.length} clinics across all categories in {districtName}, Bangkok.
+        {filtered.length} clinics across all categories in {districtName}, {cityLabel}.
       </p>
 
       <div className="grid gap-3">

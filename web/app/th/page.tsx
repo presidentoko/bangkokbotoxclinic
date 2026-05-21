@@ -1,6 +1,6 @@
 // Thai 홈 — 동일 데이터, Thai chrome.
 
-import { loadMasterDb, topByTrust } from "@/lib/data";
+import { loadMasterDb, topByFocusRelevance } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -41,7 +41,7 @@ export default async function ThHomePage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
-  const top = topByTrust(focused, 30);
+  const top = topByFocusRelevance(focused, cfg.focus, 30);
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;

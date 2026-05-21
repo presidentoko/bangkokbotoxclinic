@@ -91,6 +91,36 @@ SOURCES: list[dict] = [
     },
 ]
 
+# hair_v2 — from hair-project (thaihairguide_master.csv) → merge_handoff/_export/hair_v2_<city>.
+# 569 Google-place_id hair-related clinics across 15 cities (FUE/DHI/SMP/Bookimed enriched).
+# Ingested via scripts/convert_hair_project_to_handoff.py + scripts/ingest_hair_v2.py.
+# place_id collisions with existing SOURCES dedupe at master_db level → enriches existing rows.
+_HAIR_V2_CITIES: list[tuple[str, str, str]] = [
+    # (city_label, city_slug, source_slug)
+    ("Bangkok", "bangkok", "bangkok"),
+    ("Pattaya", "pattaya", "pattaya"),
+    ("Phuket", "phuket", "phuket"),
+    ("Chiang Mai", "chiang-mai", "chiang_mai"),
+    ("Chiang Rai", "chiang-rai", "chiang_rai"),
+    ("Koh Samui", "koh-samui", "koh_samui"),
+    ("Krabi", "krabi", "krabi"),
+    ("Hua Hin", "hua-hin", "hua_hin"),
+    ("Khon Kaen", "khon-kaen", "khon_kaen"),
+    ("Korat", "korat", "korat"),
+    ("Hat Yai", "hat-yai", "hat_yai"),
+    ("Udon Thani", "udon-thani", "udon_thani"),
+    ("Nakhon Si Thammarat", "nakhon-si-thammarat", "nakhon_si_thammarat"),
+    ("Surat Thani", "surat-thani", "surat_thani"),
+    ("Rayong", "rayong", "rayong"),
+]
+for _label, _slug, _src in _HAIR_V2_CITIES:
+    SOURCES.append({
+        "city_label": _label,
+        "city_slug": _slug,
+        "clinics_csv": ROOT / "merge_handoff" / "_export" / f"hair_v2_{_src}" / "clinics.csv",
+        "reviews_dir": ROOT / "merge_handoff" / "_export" / f"hair_v2_{_src}" / "reviews",
+    })
+
 csv.field_size_limit(min(2**31 - 1, sys.maxsize))
 
 
@@ -433,7 +463,8 @@ def trust_score(rating: float, total_reviews: int,
     lg_part = min(10, lg_ratio * 20)  # 0-10
     # 리뷰어 평균 리뷰수 100+ 면 추가 신뢰
     authority_part = min(5, math.log10(max(1, avg_author_review_count)) * 2)
-    return round(rating_part + volume_part + lg_part + authority_part, 1)
+    # 0-100 캡 (rating 50 + volume 40 + lg 10 + authority 5 = 최대 105 산술합)
+    return round(min(100.0, rating_part + volume_part + lg_part + authority_part), 1)
 
 
 # ── 좌표 fallback ─────────────────────────────────────────────

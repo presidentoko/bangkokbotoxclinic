@@ -1,4 +1,4 @@
-"""auto_git_push 10분 주기 루프 — watchdog 가 관리."""
+"""auto_git_push 1시간 주기 루프 — watchdog 가 관리."""
 from __future__ import annotations
 
 import logging
@@ -12,7 +12,11 @@ ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "web" / "scripts" / "auto_git_push.py"
 VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
-INTERVAL = 1800  # 30분 (Vercel Hobby 한도 100 deploy/24h 고려)
+# Vercel Hobby 한도: 100 deploy / 24h, 모든 프로젝트 합산.
+# 보톡스 + 덴탈 두 프로젝트가 같은 repo의 push에 각각 auto-deploy → push 1번 = 2 deploy.
+# 30분 주기 = push 48/24h = 96 deploy (한도 임박, 수동 deploy 0 여유)
+# 60분 주기 = push 24/24h = 48 deploy (한도 ½, 수동 50+ 여유)
+INTERVAL = 3600  # 60분
 
 logging.basicConfig(
     level=logging.INFO,

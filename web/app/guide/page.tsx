@@ -1,17 +1,20 @@
-import { GUIDES } from "@/lib/guides";
+import { guidesForFocus } from "@/lib/guides";
+import { getSiteConfig } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bangkok Aesthetic Clinic Guides — Pricing, Brands, Tips",
+  title: "Clinic Guides — Pricing, Brands, Tips",
   description:
-    "Practical guides for Bangkok aesthetic clinic visits — botox, filler, Korean medical tourism. Independent, not clinic-sponsored.",
+    "Practical guides for clinic visits — pricing, brand verification, what packages cover. Independent, not clinic-sponsored.",
   alternates: { canonical: "/guide" },
 };
 
 export const dynamic = "force-static";
 
 export default function GuideIndexPage() {
+  const cfg = getSiteConfig();
+  const guides = guidesForFocus(cfg.focus);
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -20,13 +23,13 @@ export default function GuideIndexPage() {
         <span>Guides</span>
       </nav>
 
-      <h1 className="text-4xl font-bold tracking-tight mb-3">Aesthetic Clinic Guides</h1>
+      <h1 className="text-4xl font-bold tracking-tight mb-3">Clinic Guides</h1>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-10 max-w-2xl">
-        No-fluff guides on Bangkok aesthetic clinics. Pricing reality, how to spot fake products, what packages cover. Independent of any clinic.
+        No-fluff guides on clinic visits. Pricing reality, how to spot fake products, what packages cover. Independent of any clinic.
       </p>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        {GUIDES.map((g) => (
+        {guides.map((g) => (
           <a
             key={g.slug}
             href={`/guide/${g.slug}`}

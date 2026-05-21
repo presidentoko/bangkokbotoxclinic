@@ -1,4 +1,4 @@
-import { loadMasterDb, topByTrust } from "@/lib/data";
+import { loadMasterDb, topByFocusRelevance } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
@@ -49,7 +49,7 @@ export default async function KoHomePage() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
-  const top = await sortWithSponsored(topByTrust(focused, 30));
+  const top = await sortWithSponsored(topByFocusRelevance(focused, cfg.focus, 30));
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;

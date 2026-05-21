@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
+import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
+import { loadPhotos } from "@/lib/photos";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ClinicJsonLd } from "@/components/JsonLd";
 import { BookingForm } from "@/components/BookingForm";
@@ -54,6 +57,14 @@ export default async function ClinicPage(
   const tier = await sponsoredTier(c.id);
   const trend = c.rating_trend.trend;
   const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 4);
+
+  // Pricing — hdmall package 데이터(있는 경우)
+  const pricing = await loadPricing(c.id);
+  const pricingTop = pricing ? summarisePackages(pricing, 6) : [];
+  const priceRange = pricing ? priceRangeTHB(pricing) : null;
+
+  // Photos — hair-project 스크랩 (헤어 사이트) / Places API (추후)
+  const photos = await loadPhotos(c.id);
 
   // 동일 카테고리 내 trust score percentile (낮을수록 상위)
   const sameCategory = c.categories.length > 0
@@ -153,6 +164,12 @@ export default async function ClinicPage(
             <RelativeRanking percentile={percentile} label={rankingLabel} />
           )}
           <Freshness generatedAt={db.generated_at} mode="detail" />
+          {priceRange && (
+            <span className="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+              ฿{priceRange.min.toLocaleString()}–{priceRange.max.toLocaleString()}
+              <span className="opacity-70 text-xs ml-1">· {pricing?.packages.length} packages</span>
+            </span>
+          )}
         </div>
 
         {c.categories.length > 0 && (
@@ -187,6 +204,10 @@ export default async function ClinicPage(
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Main column */}
         <div className="lg:col-span-2 space-y-6">
+          {photos && photos.photos.length > 0 && (
+            <PhotoGallery photos={photos.photos} clinicName={c.name} />
+          )}
+
           <TrustDonut score={c.trust_score} breakdown={breakdown} />
 
           <RatingChart trend={c.rating_trend} />
@@ -196,6 +217,63 @@ export default async function ClinicPage(
           )}
 
           <MapEmbed lat={c.lat} lng={c.lng} name={c.name} height={320} />
+
+          {pricing && pricingTop.length > 0 && (
+            <section className="bg-white border border-[var(--border)] rounded-xl p-5">
+              <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+                <h2 className="text-lg font-bold">Sample pricing</h2>
+                <span className="text-[11px] text-[var(--muted)]">
+                  via HDmall · {pricing.packages.length} packages total
+                </span>
+              </div>
+              <ul className="divide-y divide-[var(--border)]">
+                {pricingTop.map((pk) => {
+                  const url = pk.url_slug ? `https://hdmall.co.th/${pk.url_slug}` : pricing.hdmall_url;
+                  const discounted = pk.original_price && pk.original_price > pk.current_price;
+                  return (
+                    <li key={pk.sku} className="py-2.5 flex items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        {url ? (
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer nofollow sponsored"
+                            className="text-sm leading-snug hover:underline line-clamp-2"
+                          >
+                            {pk.name}
+                          </a>
+                        ) : (
+                          <span className="text-sm leading-snug line-clamp-2">{pk.name}</span>
+                        )}
+                      </div>
+                      <div className="text-right shrink-0">
+                        <div className="text-sm font-bold tabular-nums">฿{pk.current_price.toLocaleString()}</div>
+                        {discounted && (
+                          <div className="text-[10px] text-[var(--muted)] line-through tabular-nums">
+                            ฿{pk.original_price!.toLocaleString()}
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              {pricing.hdmall_url && (
+                <a
+                  href={pricing.hdmall_url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow sponsored"
+                  className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[var(--accent)] hover:underline"
+                >
+                  See all packages on HDmall →
+                </a>
+              )}
+              <p className="mt-3 text-[11px] text-[var(--muted)] leading-relaxed">
+                Prices are package list prices from HDmall. Actual cost may vary based on consultation
+                — confirm with the clinic before booking. Prices in THB.
+              </p>
+            </section>
+          )}
 
           {samples.length > 0 && (
             <section>
@@ -258,7 +336,7 @@ export default async function ClinicPage(
               rel="noopener noreferrer"
               className="block w-full bg-black text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-gray-800 text-sm"
             >
-              View on Google Maps
+              View photos & info on Google Maps
             </a>
             {c.phone && (
               <a
