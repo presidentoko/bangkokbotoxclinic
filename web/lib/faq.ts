@@ -75,6 +75,40 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
       q: "Why is Bangkok popular for dental work?",
       a: "Bangkok has English-speaking dental clinics with international standards at 50–70% lower cost than Western countries. Implants ฿35,000–80,000 per tooth (vs $3,000–6,000 in US). Teeth whitening ฿4,000–12,000.",
     },
+    {
+      q: "How long does dental implant treatment take in Bangkok?",
+      a: "Typical timeline: Day 1 consultation + extraction; 3–6 month osseointegration period (you fly home); Day 1 of return trip crown placement. Same-day immediate-load implants are offered by some Bangkok clinics for ฿15,000–25,000 surcharge but require strong jawbone density. All-on-4 full-arch usually finishes in 5–7 day single trip.",
+    },
+    {
+      q: "Which implant brands do Bangkok dentists use?",
+      a: "Premium clinics use Straumann (Switzerland) and Nobel Biocare (Sweden) — most established, ฿55,000–80,000 per tooth fully restored. Mid-tier Osstem (Korea) and Astra (Sweden) ฿35,000–55,000. Avoid generic / unbranded implants priced under ฿30,000 — long-term failure rates are 2–3× higher.",
+    },
+    {
+      q: "Is Bangkok dental tourism safe for major procedures?",
+      a: "For routine treatments (whitening, fillings, crowns, implants) — yes, when you pick a Trust Score 75+ clinic. For complex full-mouth reconstruction or aesthetic dentistry, allow extra consultation visits before flying. Insurance: most travel policies cover urgent dental emergencies but not elective procedures — get pre-authorization in writing.",
+    },
+    {
+      q: "Can I get veneers done in Bangkok?",
+      a: "Bangkok offers porcelain veneers ฿12,000–30,000 per tooth, composite ฿4,000–8,000. Full smile makeover (8 upper veneers) typically ฿100,000–240,000 vs $15,000–25,000 in US/UK. Same-day E.max veneers (CAD/CAM milled in-clinic) available at premium clinics — single visit completion possible.",
+    },
+  ],
+  hair: [
+    {
+      q: "How much does FUE hair transplant cost in Thailand?",
+      a: "Bangkok FUE: ฿65,000–150,000 for 2000 grafts (per-graft basis ฿35–80). DHI (Choi pen technique): ฿85,000–200,000 for 2000 grafts. Beard restoration: ฿50,000–120,000. Eyebrow: ฿35,000–80,000. Compare: Korea ฿200,000–400,000, US/UK $8,000–25,000 for same procedure.",
+    },
+    {
+      q: "Is SMP (scalp micropigmentation) available in Bangkok?",
+      a: "Yes — Bangkok SMP specialists charge ฿15,000–50,000 per session for full scalp coverage, typically 2–3 sessions for complete result. Look for clinics using genuine Scalp Aesthetics or Folliclum pigments. Cheaper alternatives use generic tattoo ink that fades to blue/green within 18 months.",
+    },
+    {
+      q: "How long should I stay in Bangkok for hair transplant?",
+      a: "Minimum 4–5 days: Day 1 arrival + consultation, Day 2 procedure (6–9 hours), Day 3–4 recovery and post-op check, Day 5 fly home. Some patients stay 7+ days for additional rest. Results visible 6–9 months post-procedure; full result at 12 months. No second visit required for most cases.",
+    },
+    {
+      q: "Which Bangkok hair clinics specialize in Korean / Western patients?",
+      a: "Bookimed-verified medical tourism clinics offer Korean/English translators and pre-negotiated package pricing including hotel + transfer. Bangkok clinics in Sukhumvit, Thong Lor, and Asok district tend to handle the highest volume of international hair transplant patients.",
+    },
   ],
 };
 
