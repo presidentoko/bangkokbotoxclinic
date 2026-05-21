@@ -102,12 +102,17 @@ export function BookingForm({
 
   if (status === "ok") {
     return (
-      <div className="bg-white border border-green-300 rounded-xl p-6 text-center">
-        <div className="text-4xl mb-2">✓</div>
-        <h3 className="font-bold text-lg mb-1">Request received</h3>
-        <p className="text-sm text-[var(--muted)] max-w-md mx-auto">
-          We&apos;ll contact you within 24 hours with confirmed times and pricing.
-          {clinicName ? ` ${clinicName} will be notified of your request.` : ""}
+      <div className="bg-gradient-to-br from-green-50 via-white to-emerald-50 border-2 border-green-300 rounded-xl p-8 text-center shadow-lg">
+        <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-green-500 text-white flex items-center justify-center text-3xl font-black shadow-md">
+          ✓
+        </div>
+        <h3 className="font-black text-xl mb-2">Request received</h3>
+        <p className="text-sm text-[var(--muted)] max-w-md mx-auto leading-relaxed">
+          We&apos;ll contact you within <strong className="text-[var(--fg)]">24 hours</strong> with confirmed times and pricing.
+          {clinicName ? <> <strong className="text-[var(--fg)]">{clinicName}</strong> will be notified of your request.</> : ""}
+        </p>
+        <p className="text-[11px] text-[var(--muted)] mt-4 opacity-80">
+          Watch your inbox · Mark our messages as not-spam to keep replies fast
         </p>
       </div>
     );
@@ -143,22 +148,31 @@ export function BookingForm({
           {" "}We don&apos;t sell or rent your data. See{" "}
           <a href="/privacy" target="_blank" rel="noreferrer" className="underline text-[var(--fg)] hover:opacity-70">privacy policy</a>.
         </div>
-        {/* Progress dots */}
-        <div className="flex items-center gap-2 mt-4">
-          {steps.map((s, i) => (
-            <div key={s} className="flex items-center gap-2 flex-1">
-              <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition ${
-                  i <= step ? "bg-black text-white" : "bg-gray-100 text-gray-400"
-                }`}
-              >
-                {i + 1}
+        {/* Progress — 큰 step indicator + 현재 step label */}
+        <div className="mt-4">
+          <div className="flex items-center gap-1.5">
+            {steps.map((s, i) => (
+              <div key={s} className="flex items-center gap-1.5 flex-1">
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all ${
+                    i < step
+                      ? "bg-green-500 text-white shadow-sm"
+                      : i === step
+                      ? "bg-black text-white ring-4 ring-black/15 scale-105"
+                      : "bg-gray-100 text-gray-400"
+                  }`}
+                >
+                  {i < step ? "✓" : i + 1}
+                </div>
+                {i < steps.length - 1 && (
+                  <div className={`flex-1 h-1 rounded-full transition-colors ${i < step ? "bg-green-500" : "bg-gray-200"}`} />
+                )}
               </div>
-              {i < steps.length - 1 && (
-                <div className={`flex-1 h-0.5 ${i < step ? "bg-black" : "bg-gray-200"}`} />
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="mt-2 text-[11px] uppercase tracking-widest text-[var(--muted)] font-bold">
+            Step {step + 1} of {steps.length} · <span className="text-[var(--fg)]">{steps[step]}</span>
+          </div>
         </div>
       </div>
 

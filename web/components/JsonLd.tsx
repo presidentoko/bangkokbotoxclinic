@@ -54,7 +54,11 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   });
 }
 
-export function ClinicJsonLd({ c }: { c: Clinic }) {
+export function ClinicJsonLd({ c, photos, priceRange }: {
+  c: Clinic;
+  photos?: { large: string }[];
+  priceRange?: { min: number; max: number };
+}) {
   // MedicalBusiness 가 적합 — 미용/시술 클리닉이면 BeautySalon 도 가능하지만 의료 레지스트리상 MedicalBusiness 가 안전.
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -85,6 +89,28 @@ export function ClinicJsonLd({ c }: { c: Clinic }) {
     data.sameAs = data.sameAs ? [...(data.sameAs as string[]), c.maps_url] : [c.maps_url];
   }
   if (c.business_status) data.openingHours = c.business_status;
+  // Photos — Google rich result image carousel + AEO 시각 정보
+  if (photos && photos.length > 0) {
+    data.image = photos.slice(0, 6).map((p) => p.large);
+  }
+  // Pricing 범위 — Google price-range rich snippet
+  if (priceRange) {
+    data.priceRange = `฿${priceRange.min}–฿${priceRange.max}`;
+  }
+  // Categories를 medicalSpecialty로 (Botox/Dental/HIFU 등은 schema 표준 specialty 아니지만 의미적 매핑)
+  const specialtyMap: Record<string, string> = {
+    dental: "Dentistry",
+    hair_transplant: "DermatologicSurgery",
+    botox: "PlasticSurgery",
+    filler: "PlasticSurgery",
+    hifu: "Dermatology",
+    facial: "Dermatology",
+    laser: "Dermatology",
+  };
+  const specialties = c.categories.map((cat) => specialtyMap[cat]).filter(Boolean);
+  if (specialties.length > 0) {
+    data.medicalSpecialty = Array.from(new Set(specialties));
+  }
   // Sample reviews 노출 — review snippet rich result 가능
   const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 3);
   if (samples.length > 0) {

@@ -79,3 +79,52 @@ export function AdSlot({ slot }: { slot: string }) {
     />
   );
 }
+
+/** 광고 placeholder — AdSense 환경변수 없을 때도 시각적으로 자리 표시.
+ *  실제 광고/sponsored 클리닉 들어갈 위치를 사이트에서 미리 reserve.
+ *  운영자가 위치/사이즈/문구 변경 없이 광고 코드만 wiring 하면 됨.
+ *  variant: banner(가로 thin), square(정사각), inline(중간 텍스트)
+ */
+export function AdPlaceholder({
+  variant = "banner",
+  label = "Sponsored",
+  hint,
+}: {
+  variant?: "banner" | "square" | "inline";
+  label?: string;
+  hint?: string;
+}) {
+  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  if (client) {
+    // 실제 AdSense — placeholder 대신 진짜 광고 렌더
+    return (
+      <ins
+        className="adsbygoogle block my-4"
+        style={{ display: "block" }}
+        data-ad-client={client}
+        data-ad-slot="auto"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    );
+  }
+  // Placeholder — 운영자가 광고 자리 시각화하기 위해 보이는 박스
+  const size =
+    variant === "banner"
+      ? "h-24 md:h-32"
+      : variant === "square"
+      ? "h-48 md:h-56"
+      : "h-20";
+  return (
+    <div
+      aria-label="Sponsored slot"
+      className={`relative my-6 ${size} border-2 border-dashed border-[var(--border)] rounded-xl bg-gradient-to-br from-slate-50 via-white to-slate-50 flex flex-col items-center justify-center gap-1 text-center px-4`}
+    >
+      <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">
+        {label}
+      </span>
+      {hint && <span className="text-xs text-[var(--muted)]">{hint}</span>}
+      <span className="text-[10px] text-[var(--muted)] opacity-60">Reserved for sponsored partner</span>
+    </div>
+  );
+}

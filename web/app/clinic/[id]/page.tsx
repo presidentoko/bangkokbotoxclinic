@@ -14,6 +14,7 @@ import { TopicCluster } from "@/components/TopicCluster";
 import { LineButton } from "@/components/LineButton";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import { AdPlaceholder } from "@/components/AffiliateSlot";
 import { ViewBeacon } from "@/components/ViewBeacon";
 import { FloatingContactBar } from "@/components/FloatingContactBar";
 import type { Metadata } from "next";
@@ -320,12 +321,22 @@ export default async function ClinicPage(
 
         {/* Sticky sidebar */}
         <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
-          <div className="bg-white border border-[var(--border)] rounded-xl p-4">
+          {/* Hero CTA — 가장 prominent. accent gradient + 강한 contrast */}
+          <div
+            className="rounded-xl p-4 text-white shadow-lg"
+            style={{ background: `linear-gradient(135deg, var(--accent), var(--accent))` }}
+          >
+            <div className="text-[10px] uppercase tracking-widest font-bold opacity-90 mb-2">
+              Book consultation
+            </div>
             <LineButton clinicName={c.name} phone={c.phone} size="lg" />
-            <p className="text-[11px] text-[var(--muted)] mt-2 text-center">
-              Free, no obligation. We confirm your slot within 24h.
+            <p className="text-[11px] mt-2 text-center opacity-90">
+              Free · We confirm your slot within 24h
             </p>
           </div>
+
+          {/* Sidebar ad slot — sticky 안에서 같이 스크롤되며 노출 길게 */}
+          <AdPlaceholder variant="square" label="Sponsored" hint="Sidebar ad" />
 
           <BookingForm clinicId={c.id} clinicName={c.name} />
 
@@ -357,6 +368,9 @@ export default async function ClinicPage(
               </a>
             )}
           </div>
+
+          {/* Below-similar ad slot — 2nd ad position in sidebar */}
+          <AdPlaceholder variant="square" label="Sponsored" hint="Below-fold sidebar" />
 
           {similar.length > 0 && (
             <div className="bg-white border border-[var(--border)] rounded-xl p-4">
@@ -397,7 +411,7 @@ export default async function ClinicPage(
         </aside>
       </div>
 
-      <ClinicJsonLd c={c} />
+      <ClinicJsonLd c={c} photos={photos?.photos} priceRange={priceRange ?? undefined} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         ...(c.district ? [{ name: c.district, url: `/d/${c.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),

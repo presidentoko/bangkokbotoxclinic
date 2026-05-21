@@ -4,7 +4,8 @@ import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS, CATEGORY_FAQS } from "@/lib/faq";
-import { AffiliateInline } from "@/components/AffiliateSlot";
+import { AffiliateInline, AdPlaceholder } from "@/components/AffiliateSlot";
+import { loadPhotos } from "@/lib/photos";
 import { BookingForm } from "@/components/BookingForm";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -24,6 +25,9 @@ export default async function HomePage() {
   const heroTiers = await Promise.all(top.map((c) => sponsoredTier(c.id)));
   const heroIdx = heroTiers.findIndex((t) => t !== null);
   const heroClinic = heroIdx !== -1 ? top[heroIdx] : null;
+
+  // Top 6 사진 미리 로드 (server-side, 캐시됨) — placeholder fallback 가능
+  const top6Photos = await Promise.all(top.slice(0, 6).map((c) => loadPhotos(c.id)));
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;
@@ -137,6 +141,23 @@ export default async function HomePage() {
           </p>
 
           <HeroSearch entities={searchIndex} hrefBase="/clinic" popularSearches={popularSearches} searchPlaceholder="Search clinic name or district..." />
+
+          {/* Dual CTA — 상위 결정 유도 */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="#top6"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-white text-sm font-bold shadow-md hover:shadow-lg hover:scale-105 transition-transform"
+              style={{ background: accent }}
+            >
+              See top 6 by Trust Score <span aria-hidden>↓</span>
+            </a>
+            <a
+              href="#booking"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-[var(--border)] text-[var(--fg)] text-sm font-bold hover:border-black transition-colors"
+            >
+              Get matched (free)
+            </a>
+          </div>
         </div>
       </section>
 
@@ -154,6 +175,9 @@ export default async function HomePage() {
 
       <div className="max-w-5xl mx-auto px-4 py-10">
         {heroClinic ? <SponsoredHero c={heroClinic} /> : null}
+
+        {/* Ad slot — hero 직하 leaderboard */}
+        <AdPlaceholder variant="banner" label="Sponsored" hint="Top placement for premium clinics & partners" />
 
         {/* MANIFESTO — site-aware trust signals */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
@@ -200,9 +224,9 @@ export default async function HomePage() {
           )}
         </section>
 
-        {/* FEATURED 6 — bigger cards */}
+        {/* FEATURED 6 — bigger cards with photos */}
         {top.length >= 6 && (
-          <section className="mb-12">
+          <section className="mb-12 scroll-mt-20" id="top6">
             <div className="flex items-baseline justify-between gap-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">
                 Top 6 by Trust Score
@@ -212,50 +236,78 @@ export default async function HomePage() {
               </a>
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {top.slice(0, 6).map((c, i) => (
-                <a
-                  key={c.id}
-                  href={`/clinic/${c.id}`}
-                  className="group block border border-[var(--border)] rounded-2xl p-5 bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
-                >
-                  <div className="flex items-end justify-between gap-2 mb-3">
-                    <div>
-                      <div className="text-2xl font-black tabular-nums text-[var(--muted)] leading-none">#{i + 1}</div>
-                      <div className="text-[9px] uppercase tracking-widest text-[var(--muted)] font-bold mt-1">Rank</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-black tabular-nums leading-none" style={{
-                        color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04"
-                      }}>
-                        {c.trust_score.toFixed(0)}
+              {top.slice(0, 6).map((c, i) => {
+                const photo = top6Photos[i]?.photos[0];
+                return (
+                  <a
+                    key={c.id}
+                    href={`/clinic/${c.id}`}
+                    className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
+                  >
+                    {/* Photo header — 있을 때만 (없으면 gradient fallback) */}
+                    <div
+                      className="relative h-32 w-full overflow-hidden"
+                      style={
+                        photo
+                          ? undefined
+                          : { background: `linear-gradient(135deg, ${accent}25, ${accent}10)` }
+                      }
+                    >
+                      {photo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={photo.thumb}
+                          alt={`${c.name} exterior`}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-5xl opacity-30">
+                          <CategoryIcon category={c.categories[0] ?? "facial"} size={48} />
+                        </div>
+                      )}
+                      {/* Rank badge — top-left over photo */}
+                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-white text-xs font-black tabular-nums">
+                        #{i + 1}
                       </div>
-                      <div className="text-[9px] uppercase tracking-widest text-[var(--muted)] font-bold mt-1">Trust Score</div>
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-base group-hover:opacity-90 transition leading-tight mb-1" style={{ color: "var(--fg)" }}>{c.name}</h3>
-                  <p className="text-sm text-[var(--muted)]">{c.district}</p>
-                  <div className="flex items-center gap-2 mt-3 text-xs text-[var(--muted)]">
-                    <span className="text-yellow-700 font-bold">★ {c.rating.toFixed(1)}</span>
-                    <span>·</span>
-                    <span>{c.total_reviews.toLocaleString()} reviews</span>
-                  </div>
-                  <div className="mt-3 flex flex-wrap gap-1">
-                    {c.categories.slice(0, 2).map((cat) => (
-                      <span
-                        key={cat}
-                        className="text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium"
-                        style={{ background: `${accent}15`, color: accent }}
+                      {/* Trust Score badge — top-right over photo */}
+                      <div
+                        className="absolute top-2 right-2 px-2 py-0.5 rounded-md text-white text-xs font-black tabular-nums"
+                        style={{ background: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}
                       >
-                        <CategoryIcon category={cat} size={11} />
-                        {CATEGORY_LABELS[cat] ?? cat}
-                      </span>
-                    ))}
-                  </div>
-                </a>
-              ))}
+                        {c.trust_score.toFixed(0)} <span className="opacity-80 font-normal">Trust</span>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-bold text-base group-hover:opacity-90 transition leading-tight mb-1" style={{ color: "var(--fg)" }}>{c.name}</h3>
+                      <p className="text-sm text-[var(--muted)]">📍 {c.district}</p>
+                      <div className="flex items-center gap-2 mt-3 text-xs text-[var(--muted)]">
+                        <span className="text-yellow-700 font-bold">★ {c.rating.toFixed(1)}</span>
+                        <span>·</span>
+                        <span>{c.total_reviews.toLocaleString()} reviews</span>
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        {c.categories.slice(0, 2).map((cat) => (
+                          <span
+                            key={cat}
+                            className="text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium"
+                            style={{ background: `${accent}15`, color: accent }}
+                          >
+                            <CategoryIcon category={cat} size={11} />
+                            {CATEGORY_LABELS[cat] ?? cat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </section>
         )}
+
+        {/* Ad slot — Top 6 직하, 가장 viewing 많은 자리 */}
+        <AdPlaceholder variant="banner" label="Sponsored" hint="Mid-content placement · ~70% scroll depth" />
 
         {/* REAL REVIEW QUOTES */}
         {reviewQuotes.length >= 3 && (
@@ -400,7 +452,10 @@ export default async function HomePage() {
           )}
         </section>
 
-        <section className="mt-12">
+        {/* Ad slot — booking 직전 */}
+        <AdPlaceholder variant="banner" label="Sponsored" hint="Bottom placement before booking" />
+
+        <section className="mt-12 scroll-mt-20" id="booking">
           <BookingForm />
         </section>
 
