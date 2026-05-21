@@ -6,6 +6,7 @@ import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS, CATEGORY_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdPlaceholder } from "@/components/AffiliateSlot";
 import { loadPhotos } from "@/lib/photos";
+import { SpinDiscover } from "@/components/SpinDiscover";
 import { BookingForm } from "@/components/BookingForm";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -26,8 +27,9 @@ export default async function HomePage() {
   const heroIdx = heroTiers.findIndex((t) => t !== null);
   const heroClinic = heroIdx !== -1 ? top[heroIdx] : null;
 
-  // Top 6 사진 미리 로드 (server-side, 캐시됨) — placeholder fallback 가능
-  const top6Photos = await Promise.all(top.slice(0, 6).map((c) => loadPhotos(c.id)));
+  // Top 50 사진 미리 로드 (server-side, 캐시됨) — Top 6 카드 + SpinDiscover 풀
+  const topPhotos = await Promise.all(top.slice(0, 50).map((c) => loadPhotos(c.id)));
+  const top6Photos = topPhotos.slice(0, 6);
 
   const totalReviews = focused.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = focused.filter((c) => c.scraped_review_count > 0).length;
@@ -424,6 +426,22 @@ export default async function HomePage() {
             </div>
           </section>
         ); })()}
+
+        {/* GAME WIDGET — random clinic reveal. Increases session time. */}
+        {top.length >= 10 && (
+          <SpinDiscover
+            accent={accent}
+            pool={top.slice(0, 50).map((c, i) => ({
+              id: c.id,
+              name: c.name,
+              district: c.district,
+              rating: c.rating,
+              trust_score: c.trust_score,
+              total_reviews: c.total_reviews,
+              photo: topPhotos[i]?.photos[0]?.thumb,
+            }))}
+          />
+        )}
 
         <section>
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top {Math.min(top.length, 50)} by Trust Score</h2>
