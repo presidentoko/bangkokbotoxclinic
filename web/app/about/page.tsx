@@ -15,7 +15,11 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "Where does this data come from?",
-    a: "All clinic listings, ratings, reviews, and metadata are sourced from public Google Maps listings. We do not edit, hide, or selectively filter any clinic. Data is refreshed continuously and pages rebuild every 30 minutes.",
+    a: "Multi-source aggregation: Google Maps (primary listings + reviews), HDmall (package pricing + Thai consumer reviews), Wongnai (Thai local reviews), Bookimed (medical-tourism verified clinics), Pantip and Reddit threads (community sentiment), Naver blogs (Korean visitor experiences). Each clinic detail page shows which platforms contributed data. Cross-platform aggregation makes single-source fake reviews ineffective.",
+  },
+  {
+    q: "Why use multiple platforms instead of just Google?",
+    a: "A 4.9 on Google with 12 reviews is statistically weak. A 4.6 on Google + 4.7 on Wongnai + 4.5 on HDmall across 800+ reviews is much stronger evidence. Cross-platform agreement also catches review-bombing — fake review attacks usually only hit one platform.",
   },
   {
     q: "How is the Trust Score calculated?",

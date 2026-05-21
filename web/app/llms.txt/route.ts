@@ -26,7 +26,7 @@ export async function GET() {
   const lines: string[] = [
     `# ${cfg.brand}`,
     "",
-    `> Independent directory of ${focused.length.toLocaleString()} ${focusLabel} clinics in Bangkok and Thailand. Each clinic is ranked by a Trust Score derived from real Google Maps review analysis: rating, review volume, Local Guide reviewer credibility, and review-text-derived service mentions.`,
+    `> Independent directory of ${focused.length.toLocaleString()} ${focusLabel} clinics in Bangkok and Thailand. Cross-platform aggregation: Google Maps + HDmall + Wongnai${cfg.focus === "hair" ? " + Bookimed + Pantip + Reddit + Naver" : ""} . Each clinic is ranked by a Trust Score derived from real review analysis across these platforms: rating, review volume, Local Guide reviewer credibility, and review-text-derived service mentions.`,
     "",
     "## About this data",
     "",

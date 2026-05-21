@@ -137,7 +137,7 @@ export default async function HomePage() {
           </h1>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
             <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked by{" "}
-            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews — every single one analyzed for credibility.
+            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} — every single one analyzed for credibility.
           </p>
 
           <HeroSearch entities={searchIndex} hrefBase="/clinic" popularSearches={popularSearches} searchPlaceholder="Search clinic name or district..." />
@@ -168,7 +168,7 @@ export default async function HomePage() {
       >
         <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-3 gap-4 text-center">
           <Stat big={focused.length.toLocaleString()} label="Clinics verified" />
-          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Reviews analyzed" />
+          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Cross-source reviews" />
           <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
         </div>
       </section>
@@ -183,8 +183,10 @@ export default async function HomePage() {
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
             icon="🛡️"
-            title="Real reviews only"
-            body="No paid review removals. Aggregated from public Google Maps — the most regulated review system on earth."
+            title="Multi-source verified"
+            body={cfg.focus === "hair"
+              ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — we cross-reference 7+ platforms so a single fake-review wave can't lift any clinic's rank."
+              : "Google Maps + HDmall + Wongnai + partner platforms — we cross-reference multiple sources so a single fake-review wave can't lift any clinic's rank."}
             accent={accent}
           />
           <Manifesto
