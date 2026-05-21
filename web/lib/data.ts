@@ -6,6 +6,7 @@ import path from "node:path";
 import type { Clinic, MasterDb } from "./types";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
+const EXTRA_PATH = path.join(process.cwd(), "data", "extra_clinics.json");
 
 let _cache: MasterDb | null = null;
 
@@ -19,6 +20,27 @@ export async function loadMasterDb(): Promise<MasterDb> {
     if (c.trust_score > 100) c.trust_score = 100;
     if (c.trust_score < 0) c.trust_score = 0;
   }
+
+  // 추가 stub 클리닉 (outreach import 결과) 머지. master_db에 이미 있으면 skip
+  // → watchdog Bangkok grid가 풍부화하면 stub 자동 무시됨.
+  try {
+    const extraRaw = await fs.readFile(EXTRA_PATH, "utf-8");
+    const extra = JSON.parse(extraRaw) as { clinics: Clinic[] };
+    const existing = new Set(parsed.clinics.map((c) => c.place_id));
+    let added = 0;
+    for (const c of extra.clinics ?? []) {
+      if (!existing.has(c.place_id)) {
+        parsed.clinics.push(c);
+        added++;
+      }
+    }
+    if (added > 0) {
+      parsed.total_clinics = parsed.clinics.length;
+    }
+  } catch {
+    // 파일 없거나 잘못된 형식 → 조용히 무시
+  }
+
   _cache = parsed;
   return _cache;
 }
