@@ -108,6 +108,31 @@ export default async function KoBlogPostPage(
                 </ul>
               );
             }
+            if (b.type === "table") {
+              const tbl = b.content as { header: string[]; rows: string[][] };
+              return (
+                <div key={i} className="overflow-x-auto -mx-4 sm:mx-0">
+                  <table className="min-w-full text-sm border border-[var(--border)] rounded-lg my-3">
+                    <thead className="bg-emerald-50">
+                      <tr>
+                        {tbl.header.map((h, j) => (
+                          <th key={j} className="px-3 py-2 text-left font-semibold border-b border-[var(--border)]" dangerouslySetInnerHTML={{ __html: inlineMd(h) }} />
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tbl.rows.map((row, ri) => (
+                        <tr key={ri} className={ri % 2 ? "bg-gray-50" : ""}>
+                          {row.map((cell, ci) => (
+                            <td key={ci} className="px-3 py-2 border-b border-[var(--border)]" dangerouslySetInnerHTML={{ __html: inlineMd(cell) }} />
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            }
             return (
               <p key={i} className="leading-relaxed" dangerouslySetInnerHTML={{ __html: inlineMd(b.content as string) }} />
             );
