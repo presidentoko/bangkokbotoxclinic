@@ -2065,6 +2065,9 @@ function AccessTab({ clinicNames }: { clinicNames: ClinicName[] }) {
         <p className="text-xs text-gray-500">
           클리닉 이름으로 검색 → 시크릿 URL 발급 → LINE/email 로 송부. URL 없는 사람은 dashboard 접근 불가.
         </p>
+        <p className="text-[11px] text-indigo-400/80 pt-1">
+          💡 직원은 [👁 Open as staff] 버튼으로 토큰 발급 없이도 바로 dashboard 열람 가능 (admin 쿠키 = 마스터 액세스).
+        </p>
       </div>
 
       {/* Search box */}
@@ -2100,12 +2103,23 @@ function AccessTab({ clinicNames }: { clinicNames: ClinicName[] }) {
               <div className="text-base font-bold text-white">{selected.name}</div>
               <div className="text-xs text-gray-500">{selected.id}</div>
             </div>
-            <button
-              onClick={() => { setSelected(null); setToken(null); }}
-              className="text-xs text-gray-500 hover:text-gray-300"
-            >
-              ✕ 닫기
-            </button>
+            <div className="flex items-center gap-2">
+              <a
+                href={`/dashboard/${selected.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded border border-gray-700"
+                title="admin 세션으로 토큰 없이 dashboard 열기 (직원 전용)"
+              >
+                👁 Open as staff
+              </a>
+              <button
+                onClick={() => { setSelected(null); setToken(null); }}
+                className="text-xs text-gray-500 hover:text-gray-300"
+              >
+                ✕ 닫기
+              </button>
+            </div>
           </div>
 
           {loading ? (

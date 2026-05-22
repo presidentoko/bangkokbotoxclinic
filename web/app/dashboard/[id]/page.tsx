@@ -9,7 +9,19 @@ import {
 } from "@/lib/dashboardStore";
 import { verifyAccess } from "@/lib/dashboardAccessStore";
 import { getSiteConfig } from "@/lib/site";
+import { cookies } from "next/headers";
 import type { Metadata } from "next";
+
+// admin 쿠키 = 직원용 마스터 액세스. /admin 로그인된 운영자는 모든 dashboard 통과.
+// 별도 staff 키 필요 없음 — admin 한 번 로그인 → 모든 클리닉 페이지 열람 가능.
+async function isStaff(): Promise<boolean> {
+  const expected = process.env.ADMIN_PASSCODE;
+  if (!expected) return false;
+  const c = (await cookies()).get("admin_session")?.value ?? "";
+  if (!c) return false;
+  try { return Buffer.from(c, "base64").toString("utf-8") === expected; }
+  catch { return false; }
+}
 
 // 대쉬보드는 private (robots disallow) + 실시간 lead 표시 필요 → dynamic 렌더링.
 // SSG 캐시 안 함. 클리닉 owner 가 직접 방문할 때마다 최신 lead 가져옴.
@@ -39,9 +51,10 @@ export default async function ClinicDashboardPage(
   const c = getClinicById(db.clinics, id);
   if (!c) notFound();
 
-  // Gate: 시크릿 토큰 검증. admin 에서 발급한 ?k=TOKEN URL 만 통과.
-  // 토큰 없거나 틀리면 "접근 요청" 페이지로 fallback.
-  const accessOk = k ? await verifyAccess(id, k) : false;
+  // Gate: 직원 (admin 쿠키) OR 클리닉 owner (?k=TOKEN) 만 통과.
+  // 직원은 /admin 한번 로그인 후 모든 dashboard 자동 접근.
+  const staff = await isStaff();
+  const accessOk = staff || (k ? await verifyAccess(id, k) : false);
   if (!accessOk) {
     const cfg = getSiteConfig();
     const partnerEmail = `partners@${cfg.domain}`;
@@ -73,6 +86,9 @@ export default async function ClinicDashboardPage(
         </a>
         <p className="text-xs text-[var(--muted)] mt-6">
           Already have the link? Make sure it includes <code>?k=...</code> at the end.
+        </p>
+        <p className="text-[10px] text-[var(--muted)]/70 mt-2">
+          (Internal staff: sign in at <code>/admin</code> to access without a token.)
         </p>
       </div>
     );
