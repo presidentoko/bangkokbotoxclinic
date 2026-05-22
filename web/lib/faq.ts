@@ -109,6 +109,26 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
       q: "Which Bangkok hair clinics specialize in Korean / Western patients?",
       a: "Bookimed-verified medical tourism clinics offer Korean/English translators and pre-negotiated package pricing including hotel + transfer. Bangkok clinics in Sukhumvit, Thong Lor, and Asok district tend to handle the highest volume of international hair transplant patients.",
     },
+    {
+      q: "Are there men-only clinics in Bangkok?",
+      a: "Yes — HE Clinic for Men, Men's Health Clinic Bangkok, Homme Clinic, Crimson Men's Art, Slate Clinic for Men, and Alpha Men Clinic operate as men-only or men-priority practices. They cover male anti-aging, TRT (testosterone replacement), hair restoration, body grooming laser, and male-pattern skin care in private settings. Most cluster in Sukhumvit, Thong Lor, and Phloen Chit for international and expat foot traffic.",
+    },
+    {
+      q: "How much does TRT (testosterone replacement therapy) cost in Bangkok?",
+      a: "Initial hormone panel + consultation: ฿3,500–8,000. Monthly TRT injection protocol: ฿4,500–12,000 depending on testosterone cypionate/enanthate brand. Pellet implants (3–6 month sustained release): ฿35,000–80,000 per insertion. Compare to US: ~$200–500/month plus ~$300 consultation. BDMS Wellness, VitalLife (Bumrungrad), and Addlife Anti-Aging Center are the most cited centers for legitimate TRT in Bangkok.",
+    },
+    {
+      q: "What men's anti-aging and wellness treatments are most popular in Bangkok?",
+      a: "Top treatments by demand: (1) IV nutrient drip (NAD+/glutathione, ฿2,500–8,000/session), (2) testosterone/hormone panels + TRT, (3) HIFU and microneedling RF for jawline tightening (฿8,000–30,000/session), (4) hair restoration (FUE/DHI/PRP), (5) male body laser hair removal (฿2,000–6,000/area), (6) male-pattern acne/scar laser. VitalLife (Bumrungrad), BDMS Wellness, and Vector Men Medical are among the most reviewed men's wellness centers.",
+    },
+    {
+      q: "What's the difference between a men's clinic, a hair clinic, and a regular aesthetic clinic?",
+      a: "Men's clinics offer privacy (no women's salon environment), male-focused service menu (TRT, beard transplant, body grooming, male skin), and male-trained practitioners. Hair clinics specialize in scalp/follicle work (FUE, DHI, SMP, PRP) but may serve both genders. Regular aesthetic clinics cover all genders with broader services (filler, botox, laser, facial). Many male patients prefer dedicated men's clinics for the privacy and curated service menu, especially for TRT and body grooming.",
+    },
+    {
+      q: "Where can I get male body hair removal (laser/IPL) in Bangkok?",
+      a: "Most men's clinics and aesthetic chains (Wuttisak, Nitipon, Apex, Romrawin) offer male body laser packages. Chest/back: ฿3,500–8,000/session, full arm: ฿2,500–5,000, full leg: ฿4,500–9,000. Diode laser is most effective for darker, thicker male body hair. Permanent reduction typically takes 6–10 sessions spaced 4–6 weeks apart. Some clinics offer men-only laser bays for privacy.",
+    },
   ],
 };
 

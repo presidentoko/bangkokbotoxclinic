@@ -107,6 +107,41 @@ export const BEST_FOR: Criterion[] = [
     scoreFn: (c) => topicHits(c, "recommend") * 10 + c.trust_score,
     filterFn: (c) => topicHits(c, "recommend") >= 1,
   },
+  // ─── Men's & Hair 사이트 전용 큐레이션 (long-tail SEO + AEO) ─────────────
+  {
+    slug: "mens-clinic",
+    title: "Best Men-Only & Men's Wellness Clinics in Bangkok",
+    metaTitle: "Best Men's Clinics in Bangkok — TRT, Anti-aging, Grooming",
+    metaDescription:
+      "Bangkok men-only and men's wellness clinics for TRT, hair restoration, anti-aging, and male-pattern grooming. Verified Trust Score ranking from real Google reviews.",
+    intro:
+      "Bangkok clinics that explicitly serve male patients — men-only practices (HE Clinic for Men, Homme, Crimson Men's Art), male wellness centers (VitalLife, BDMS Wellness, Addlife), and male-grooming aesthetic clinics. Ranked by Trust Score.",
+    scoreFn: (c) => {
+      const nameHit = /\b(men's|mens|men only|gentlemen|HE Clinic|Homme|barbershop|남성)\b/i.test(c.name) ? 1 : 0;
+      return nameHit * 30 + c.trust_score;
+    },
+    filterFn: (c) =>
+      /\b(men's|mens|men only|gentlemen|HE Clinic|Homme|barbershop|남성|ผู้ชาย|บุรุษ)\b/i.test(c.name) ||
+      (c.service_mentions?.mens_wellness ?? 0) >= 2,
+  },
+  {
+    slug: "hair-transplant",
+    title: "Best Hair Transplant Clinics in Bangkok — FUE, DHI, SMP",
+    metaTitle: "Best Bangkok Hair Transplant Clinics (2026) — FUE/DHI/SMP",
+    metaDescription:
+      "Bangkok hair transplant specialists ranked by Trust Score. FUE, DHI (Choi pen), SMP, beard/eyebrow restoration. Bookimed-verified medical tourism for Korean, English, Chinese and Arabic-speaking patients.",
+    intro:
+      "Bangkok clinics specializing in hair restoration — FUE, DHI Choi-pen, scalp micropigmentation (SMP), beard/eyebrow transplant. Includes DHT Clinic (世界모발이식학회장), Absolute Hair, Million Hair, and Bookimed-verified centers for medical tourism. Ranked by Trust Score.",
+    scoreFn: (c) => {
+      const catHit = c.categories.includes("hair_transplant") ? 1 : 0;
+      const nameHit = /\b(hair|transplant|FUE|DHI|SMP|trichology|모발|ปลูกผม)\b/i.test(c.name) ? 1 : 0;
+      return catHit * 40 + nameHit * 20 + c.trust_score;
+    },
+    filterFn: (c) =>
+      c.categories.includes("hair_transplant") ||
+      /\b(hair|transplant|FUE|DHI|SMP|trichology|모발|ปลูกผม|ผม)\b/i.test(c.name) ||
+      (c.service_mentions?.hair_transplant ?? 0) >= 3,
+  },
 ];
 
 export function findBestFor(slug: string): Criterion | null {

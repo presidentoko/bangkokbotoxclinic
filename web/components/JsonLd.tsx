@@ -15,6 +15,24 @@ function tag(data: object) {
   );
 }
 
+// focus 별 knowsAbout — Google/AI 가 사이트 주제 빠르게 파악. AEO 핵심 신호.
+const KNOWS_ABOUT_BY_FOCUS: Record<string, string[]> = {
+  all: ["Aesthetic clinics in Bangkok", "Medical tourism Thailand", "Clinic reviews"],
+  botox: ["Botox", "Botulinum toxin", "Allergan", "Dysport", "Botulax", "Xeomin", "Wrinkle treatment", "Anti-aging injection"],
+  filler: ["Dermal filler", "Hyaluronic acid filler", "Juvederm", "Restylane", "Belotero", "Lip filler", "Cheek filler", "Jawline filler"],
+  hifu: ["HIFU", "Ultherapy", "Thermage", "Ultraformer", "Skin lifting", "Non-surgical face lift"],
+  facial: ["HydraFacial", "Facial treatment", "LED light therapy", "Chemical peel", "Skin brightening"],
+  laser: ["Pico laser", "CO2 laser", "IPL", "Laser hair removal", "Acne scar laser", "Skin pigmentation laser"],
+  dental: ["Dental implants", "Dental veneers", "Teeth whitening", "Orthodontics", "Invisalign", "All-on-4", "Dental crowns", "Cosmetic dentistry"],
+  hair: [
+    "Hair transplant", "FUE hair transplant", "DHI hair transplant", "Scalp micropigmentation", "SMP",
+    "Beard restoration", "Eyebrow transplant", "Hair loss treatment", "PRP for hair",
+    "Men's clinic", "Men-only clinic", "TRT", "Testosterone replacement therapy",
+    "Men's anti-aging", "Hormone wellness", "Male grooming", "Body hair laser removal",
+    "Men's wellness", "Medical tourism Thailand",
+  ],
+};
+
 export function OrgJsonLd() {
   const cfg = getSiteConfig();
   return tag({
@@ -23,6 +41,8 @@ export function OrgJsonLd() {
     name: cfg.brand,
     url: SITE,
     description: cfg.description,
+    areaServed: { "@type": "City", name: "Bangkok" },
+    knowsAbout: KNOWS_ABOUT_BY_FOCUS[cfg.focus] ?? KNOWS_ABOUT_BY_FOCUS.all,
   });
 }
 
@@ -33,6 +53,8 @@ export function WebsiteJsonLd() {
     "@type": "WebSite",
     name: cfg.brand,
     url: SITE,
+    description: cfg.description,
+    inLanguage: ["en", "th", "ko"],
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE}/?q={search_term_string}`,

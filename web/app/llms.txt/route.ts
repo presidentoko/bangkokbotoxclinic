@@ -18,7 +18,7 @@ export async function GET() {
   const focusLabel = cfg.focus === "all"
     ? "aesthetic and medical"
     : cfg.focus === "hair"
-    ? "hair transplant / scalp"
+    ? "men's clinic and hair transplant (hair restoration, SMP, scalp care, men's anti-aging, TRT/hormone wellness, male grooming)"
     : cfg.focus === "dental"
     ? "dental"
     : cfg.focus;
