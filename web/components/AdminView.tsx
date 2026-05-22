@@ -72,7 +72,7 @@ type Props = {
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
-const TABS = ["Overview", "Outreach", "Review", "Partners", "Leads", "Ads"] as const;
+const TABS = ["Overview", "Outreach", "Review", "Access", "Partners", "Leads", "Ads"] as const;
 type Tab = (typeof TABS)[number];
 
 type OutreachOutcome =
@@ -209,6 +209,7 @@ export default function AdminView({ db, partners: initialPartners, sponsored: in
       {tab === "Overview" && <OverviewTab db={db} partners={partners} />}
       {tab === "Outreach" && <OutreachTab clinicNames={clinicNames} />}
       {tab === "Review"   && <ReviewTab stubs={stubClinics} />}
+      {tab === "Access"   && <AccessTab clinicNames={clinicNames} />}
       {tab === "Partners" && (
         <PartnersTab
           partners={partners}
@@ -1969,6 +1970,232 @@ function ReviewTab({ stubs }: { stubs: StubClinic[] }) {
 
       <div className="text-[10px] text-gray-600 pt-2 border-t border-gray-900">
         Confidence 산정: token 일치율(40%) + clinic 키워드(25%) + rating(20%) + 리뷰 볼륨(15%). 0.6 미만은 needs_review.
+      </div>
+    </div>
+  );
+}
+
+// ─── Access Tab ────────────────────────────────────────────────────────────
+// 클리닉 owner 에게 발급할 dashboard 시크릿 URL 관리. 영업 단계에서 LINE/email 에 붙여 보냄.
+
+function AccessTab({ clinicNames }: { clinicNames: ClinicName[] }) {
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState<{ id: string; name: string } | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState<"url" | "msg" | null>(null);
+
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return clinicNames
+      .filter((c) => c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q))
+      .slice(0, 12);
+  }, [clinicNames, query]);
+
+  async function loadToken(id: string) {
+    setLoading(true);
+    setToken(null);
+    const res = await fetch(`/api/admin/dashboard-access?clinic_id=${encodeURIComponent(id)}`, {
+      cache: "no-store",
+      headers: { "x-admin-key": adminKey() },
+    });
+    setLoading(false);
+    if (!res.ok) return;
+    const j = (await res.json()) as { token: string | null };
+    setToken(j.token);
+  }
+
+  async function generate() {
+    if (!selected) return;
+    if (token && !confirm("기존 토큰을 무효화하고 새로 발급합니다. 클리닉에 이미 보낸 링크는 작동하지 않습니다. 계속할까요?")) return;
+    setLoading(true);
+    const res = await fetch("/api/admin/dashboard-access", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
+      body: JSON.stringify({ clinic_id: selected.id }),
+    });
+    setLoading(false);
+    if (!res.ok) { alert("토큰 발급 실패"); return; }
+    const j = (await res.json()) as { token: string };
+    setToken(j.token);
+  }
+
+  async function revoke() {
+    if (!selected || !token) return;
+    if (!confirm("이 클리닉의 dashboard 접근을 차단합니다. 계속할까요?")) return;
+    setLoading(true);
+    const res = await fetch("/api/admin/dashboard-access", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", "x-admin-key": adminKey() },
+      body: JSON.stringify({ clinic_id: selected.id }),
+    });
+    setLoading(false);
+    if (!res.ok) { alert("토큰 무효화 실패"); return; }
+    setToken(null);
+  }
+
+  function selectClinic(c: { id: string; name: string }) {
+    setSelected(c);
+    setQuery("");
+    loadToken(c.id);
+  }
+
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const dashUrl = selected && token ? `${origin}/dashboard/${selected.id}?k=${token}` : "";
+
+  const lineMessage = selected && token
+    ? `Hi ${selected.name}!\n\nWe built a free private dashboard for your clinic:\n${dashUrl}\n\nInside you'll find:\n· Your Trust Score breakdown\n· AI-drafted replies for negative reviews\n· Competitor ranking in your district\n· Real customer leads from our directory\n\nThe link is private — please don't share. Reach out anytime!`
+    : "";
+
+  async function copy(value: string, which: "url" | "msg") {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(which);
+      setTimeout(() => setCopied((c) => (c === which ? null : c)), 1600);
+    } catch {
+      alert("복사 실패 — 수동으로 선택 후 복사하세요");
+    }
+  }
+
+  return (
+    <div className="space-y-5">
+      <div className="space-y-1">
+        <h3 className="text-sm font-medium text-gray-200">Dashboard access 발급</h3>
+        <p className="text-xs text-gray-500">
+          클리닉 이름으로 검색 → 시크릿 URL 발급 → LINE/email 로 송부. URL 없는 사람은 dashboard 접근 불가.
+        </p>
+      </div>
+
+      {/* Search box */}
+      <div className="relative">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="클리닉 이름 검색 (예: Aquila, Fiona, V Square...)"
+          className="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder:text-gray-600 focus:outline-none focus:border-gray-600"
+        />
+        {matches.length > 0 && (
+          <div className="absolute z-10 left-0 right-0 mt-1 bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-h-72 overflow-y-auto">
+            {matches.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => selectClinic(c)}
+                className="w-full text-left px-3 py-2 text-xs hover:bg-gray-800 text-gray-200 border-b border-gray-800 last:border-0"
+              >
+                <div className="font-medium">{c.name}</div>
+                <div className="text-gray-500 text-[10px]">{c.id}</div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Selected clinic + actions */}
+      {selected && (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 space-y-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="text-base font-bold text-white">{selected.name}</div>
+              <div className="text-xs text-gray-500">{selected.id}</div>
+            </div>
+            <button
+              onClick={() => { setSelected(null); setToken(null); }}
+              className="text-xs text-gray-500 hover:text-gray-300"
+            >
+              ✕ 닫기
+            </button>
+          </div>
+
+          {loading ? (
+            <div className="text-xs text-gray-500 italic py-4">불러오는 중...</div>
+          ) : token ? (
+            <>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="inline-block w-2 h-2 rounded-full bg-green-400"></span>
+                <span className="text-green-400 font-medium">Active</span>
+                <span className="text-gray-500">— URL 발급됨</span>
+              </div>
+
+              <div>
+                <label className="text-xs text-gray-400 mb-1 block">Dashboard URL (클리닉에 전달)</label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={dashUrl}
+                    onFocus={(e) => e.currentTarget.select()}
+                    className="flex-1 bg-gray-950 border border-gray-800 rounded px-2 py-2 text-[11px] font-mono text-gray-300"
+                  />
+                  <button
+                    onClick={() => copy(dashUrl, "url")}
+                    className="px-3 py-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white rounded font-medium whitespace-nowrap"
+                  >
+                    {copied === "url" ? "✓ 복사됨" : "URL 복사"}
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs text-gray-400 mb-1 block">LINE/이메일 메시지 템플릿</label>
+                <textarea
+                  readOnly
+                  rows={9}
+                  value={lineMessage}
+                  onFocus={(e) => e.currentTarget.select()}
+                  className="w-full bg-gray-950 border border-gray-800 rounded px-2 py-2 text-[11px] text-gray-300 font-mono"
+                />
+                <button
+                  onClick={() => copy(lineMessage, "msg")}
+                  className="mt-2 px-3 py-1.5 text-xs bg-gray-800 hover:bg-gray-700 text-gray-200 rounded"
+                >
+                  {copied === "msg" ? "✓ 복사됨" : "메시지 전체 복사"}
+                </button>
+              </div>
+
+              <div className="flex gap-2 pt-2 border-t border-gray-800">
+                <button
+                  onClick={generate}
+                  className="text-xs px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded"
+                >
+                  ↻ 토큰 재발급
+                </button>
+                <button
+                  onClick={revoke}
+                  className="text-xs px-3 py-1.5 bg-red-900/40 hover:bg-red-900/60 border border-red-800 text-red-300 rounded"
+                >
+                  🚫 접근 차단
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="inline-block w-2 h-2 rounded-full bg-gray-600"></span>
+                <span className="text-gray-400">미발급</span>
+              </div>
+              <button
+                onClick={generate}
+                className="w-full px-4 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg"
+              >
+                + Dashboard 액세스 발급
+              </button>
+            </>
+          )}
+        </div>
+      )}
+
+      {!selected && (
+        <div className="text-xs text-gray-600 italic py-8 text-center border border-dashed border-gray-800 rounded-xl">
+          위에서 클리닉을 검색하세요.
+        </div>
+      )}
+
+      <div className="text-[10px] text-gray-600 pt-2 border-t border-gray-900 leading-relaxed">
+        · 토큰은 Upstash Redis 에 저장. 1 클리닉당 1 토큰. 재발급하면 이전 URL 즉시 무효화.<br />
+        · URL 받은 사람은 모두 dashboard 전체(leads 포함) 확인 가능 → 신뢰할 수 있는 컨택에만 전달.<br />
+        · 토큰 노출이 의심되면 [접근 차단] 클릭 후 새로 발급.
       </div>
     </div>
   );

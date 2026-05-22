@@ -7,6 +7,8 @@ import {
   getLeadStatusMap, getLeadNotesMap, getReplyDoneSet,
   getTotalProfileViews, getProfileViewsByDay,
 } from "@/lib/dashboardStore";
+import { verifyAccess } from "@/lib/dashboardAccessStore";
+import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 // 대쉬보드는 private (robots disallow) + 실시간 lead 표시 필요 → dynamic 렌더링.
@@ -26,12 +28,55 @@ export async function generateMetadata(
 }
 
 export default async function ClinicDashboardPage(
-  { params }: { params: Promise<{ id: string }> }
+  { params, searchParams }: {
+    params: Promise<{ id: string }>;
+    searchParams: Promise<{ k?: string }>;
+  }
 ) {
   const { id } = await params;
+  const { k } = await searchParams;
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, id);
   if (!c) notFound();
+
+  // Gate: 시크릿 토큰 검증. admin 에서 발급한 ?k=TOKEN URL 만 통과.
+  // 토큰 없거나 틀리면 "접근 요청" 페이지로 fallback.
+  const accessOk = k ? await verifyAccess(id, k) : false;
+  if (!accessOk) {
+    const cfg = getSiteConfig();
+    const partnerEmail = `partners@${cfg.domain}`;
+    return (
+      <div className="max-w-xl mx-auto px-4 py-20">
+        <div className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: "var(--accent)" }}>
+          🔒 Private Dashboard
+        </div>
+        <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-3">
+          {c.name} — access required
+        </h1>
+        <p className="text-base text-[var(--muted)] leading-relaxed mb-6">
+          This dashboard is private. To view it you need the secure link issued by our team. If you are the owner of <strong className="text-[var(--fg)]">{c.name}</strong> and have not received a link, please request access.
+        </p>
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-sm">
+          <div className="font-bold mb-1">What is inside</div>
+          <ul className="space-y-1 opacity-90">
+            <li>· Trust Score breakdown for your clinic</li>
+            <li>· AI-drafted replies for unanswered negative reviews</li>
+            <li>· Competitor ranking in your district</li>
+            <li>· Real-time customer leads from this site</li>
+          </ul>
+        </div>
+        <a
+          href={`mailto:${partnerEmail}?subject=${encodeURIComponent(`Dashboard access request — ${c.name}`)}&body=${encodeURIComponent(`Hi,\n\nI am the owner of ${c.name} and would like the secure dashboard link.\n\nClinic ID: ${c.id}\nMaps: ${c.maps_url || ""}\n\nThank you.`)}`}
+          className="inline-block bg-[var(--accent)] text-white font-bold px-5 py-3 rounded-xl"
+        >
+          Email {partnerEmail} to request access →
+        </a>
+        <p className="text-xs text-[var(--muted)] mt-6">
+          Already have the link? Make sure it includes <code>?k=...</code> at the end.
+        </p>
+      </div>
+    );
+  }
 
   const sameDistrict = c.district
     ? db.clinics.filter((x) => x.district === c.district)
