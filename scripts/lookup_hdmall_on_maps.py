@@ -41,9 +41,21 @@ COORDS_RE = re.compile(r"!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)")
 PLACE_NAME_RE = re.compile(r"/place/([^/@]+)")
 # Reject obvious "search results page" titles
 REJECT_NAMES = {"ผลลัพธ์", "Results", "Search results", "검색 결과"}
-# Bangkok 대략 bounding box (중앙 + 외곽 포함)
-BKK_LAT = (13.5, 14.0)
-BKK_LNG = (100.3, 100.9)
+# Greater Bangkok bbox — Nonthaburi, Pathum Thani, Samut Prakan 외곽 분원까지 포함
+# (기존 13.5-14.0 / 100.3-100.9 는 방콕시 좁은 영역만 잡아 외곽 분원이 빠지는 문제)
+BKK_LAT = (13.3, 14.2)
+BKK_LNG = (100.1, 101.0)
+# Clinic name 필터 — 검색 결과가 명백히 비의료(스파/식당 등)이면 reject
+CLINIC_NAME_BLOCK_RE = re.compile(
+    r"\b(spa|massage|salon|cafe|restaurant|hotel|condo|apartment|fitness|gym|"
+    r"car\s*wash|barbershop|laundry|coffee|bakery)\b", re.I
+)
+# Clinic-positive 키워드 — 적어도 하나는 이름에 있어야 통과
+CLINIC_NAME_ALLOW_RE = re.compile(
+    r"\b(clinic|dental|dentist|medical|aesthetic|aesthetique|derm|skin|hair|eye|"
+    r"laser|hospital|plastic|surgery|surgeon|anti.aging|wellness|center|centre|"
+    r"คลินิก|ทันตกรรม|เวชกรรม|ศูนย์|โรงพยาบาล|ปลูกผม|ผิว|จัดฟัน)\b", re.I
+)
 
 _log_lock = Lock()
 
@@ -86,9 +98,54 @@ def is_likely_match(brand_name: str, place_name: str) -> bool:
     inter = len(ta & tb)
     if inter == 0:
         return False
-    # 최소 1개 substantial token 공유 + 작은 셋 기준으로 60% 이상 contained
+    # 최소 1개 substantial token 공유 + 작은 셋 기준으로 30% 이상 contained
+    # (40% → 30% 완화: 약어/긴 이름 매칭율 향상, false positive는 별도 검증으로 차단)
     smaller = min(len(ta), len(tb))
-    return inter / smaller >= 0.4
+    return inter / smaller >= 0.3
+
+
+def match_confidence(brand_name: str, place_name: str, rating_str: str, reviews_str: str) -> float:
+    """0-1 매칭 신뢰도. import 단계에서 stub 의 _match_confidence 로 저장.
+    낮은 confidence 는 admin '신규 stub 검토' 탭에서 우선 검수."""
+    score = 0.0
+
+    # Token 일치 강도 (0~0.4)
+    ta = _tokens(brand_name)
+    tb = _tokens(place_name)
+    if ta and tb:
+        smaller = min(len(ta), len(tb))
+        if smaller > 0:
+            overlap = len(ta & tb) / smaller
+            score += min(0.4, overlap * 0.4)
+
+    # 이름이 clinic-positive 키워드 포함 (0.25)
+    if CLINIC_NAME_ALLOW_RE.search(place_name):
+        score += 0.25
+    # 이름이 명시적 block 키워드면 페널티
+    if CLINIC_NAME_BLOCK_RE.search(place_name):
+        score -= 0.4
+
+    # Rating signal (0~0.2) — 4.0+ 이면 만점
+    try:
+        r = float(rating_str)
+        if r >= 4.0:
+            score += 0.2
+        elif r >= 3.5:
+            score += 0.1
+    except (ValueError, TypeError):
+        pass
+
+    # Review volume signal (0~0.15) — 20+ 면 만점, log scale
+    try:
+        rv = int(reviews_str.replace(",", "")) if reviews_str else 0
+        if rv >= 20:
+            score += 0.15
+        elif rv >= 5:
+            score += 0.07
+    except (ValueError, TypeError):
+        pass
+
+    return round(max(0.0, min(1.0, score)), 2)
 
 
 def load_already_done() -> set[str]:
@@ -121,9 +178,8 @@ def dismiss_consent(page) -> None:
             pass
 
 
-def lookup_one(page, brand_name: str) -> dict | None:
-    """반환: {place_id, cid, name, rating, reviews, lat, lng, district, maps_url} 또는 None"""
-    query = f"{brand_name} Bangkok"
+def _try_single_query(page, brand_name: str, query: str) -> dict | None:
+    """단일 쿼리 시도. 매칭 + Bangkok bbox 통과시 dict, 아니면 None."""
     url = f"https://www.google.com/maps/search/{query.replace(' ', '+')}"
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=45000)
@@ -131,6 +187,25 @@ def lookup_one(page, brand_name: str) -> dict | None:
     except PWTimeout:
         return None
     dismiss_consent(page)
+    return _extract_result(page, brand_name)
+
+
+def lookup_one(page, brand_name: str) -> dict | None:
+    """반환: {place_id, name, rating, reviews, lat, lng, maps_url, match_confidence} 또는 None.
+
+    Variant retry: 첫 시도 "brand Bangkok" 실패 시 brand 단독으로 한 번 더.
+    (Bangkok 명시가 외곽 분원 / 일반명 brand 매칭을 막는 경우 보완.)"""
+    for query in (f"{brand_name} Bangkok", brand_name):
+        res = _try_single_query(page, brand_name, query)
+        if res:
+            return res
+        # 다음 variant 시도 전 짧은 휴식
+        time.sleep(random.uniform(1.0, 2.0))
+    return None
+
+
+def _extract_result(page, brand_name: str) -> dict | None:
+    """현재 page 가 /place/ URL 이면 추출 + 검증. None = reject."""
 
     # 검색 결과가 단일 매칭이면 자동으로 place page로 redirect됨.
     # 여러 결과면 첫 번째 클릭.
@@ -204,6 +279,13 @@ def lookup_one(page, brand_name: str) -> dict | None:
     except Exception:
         pass
 
+    # 자동 거부: 명시 block 키워드 매칭 (spa/salon/cafe 등) → false positive 차단
+    if CLINIC_NAME_BLOCK_RE.search(name or place_name_from_url):
+        log(f"  skip — block keyword in name ({name or place_name_from_url}): {brand_name}", lvl="DEBUG")
+        return None
+
+    confidence = match_confidence(brand_name, name or place_name_from_url, rating, reviews)
+
     return {
         "brand_name": brand_name,
         "place_id": cid_hex,
@@ -213,6 +295,7 @@ def lookup_one(page, brand_name: str) -> dict | None:
         "lat": lat or "",
         "lng": lng or "",
         "maps_url": cur_url,
+        "match_confidence": confidence,
     }
 
 
@@ -238,12 +321,13 @@ def worker(worker_id: int, brands: list[str], already_done: set[str], existing_p
                         log(f"[W{worker_id}] DUP {brand[:45]:45} → place_id 이미 master_db에 있음")
                         continue
                     n_found += 1
-                    log(f"[W{worker_id}] OK  {brand[:45]:45} → {res['found_name'][:35]} ({res['rating']}/{res['reviews']})")
+                    conf = res.get("match_confidence", 0.0)
+                    log(f"[W{worker_id}] OK  {brand[:45]:45} → {res['found_name'][:35]} ({res['rating']}/{res['reviews']}) conf={conf}")
                     # 안전 append (lock + flush)
                     with _log_lock:
                         write_header = not OUTPUT_CSV.exists()
                         with OUTPUT_CSV.open("a", encoding="utf-8", newline="") as f:
-                            w = csv.DictWriter(f, fieldnames=["brand_name", "place_id", "found_name", "rating", "reviews", "lat", "lng", "maps_url"])
+                            w = csv.DictWriter(f, fieldnames=["brand_name", "place_id", "found_name", "rating", "reviews", "lat", "lng", "maps_url", "match_confidence"])
                             if write_header:
                                 w.writeheader()
                             w.writerow(res)

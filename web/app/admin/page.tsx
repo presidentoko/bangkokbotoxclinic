@@ -41,6 +41,21 @@ export default async function AdminPage() {
   // Clinic name map for ads tab search
   const clinicNames = db.clinics.map((c) => ({ id: c.id, name: c.name, city: c.city_label }));
 
+  // Stub clinics — lookup 으로 자동 발견된 신규 (extra_clinics.json 출처).
+  // ReviewTab 에서 confidence 낮은 순으로 검토 가능. Watchdog grid 가 풍부화하면 _stub 자동 해제.
+  const stubClinics = db.clinics
+    .filter((c) => c._stub)
+    .map((c) => ({
+      id: c.id,
+      name: c.name,
+      rating: c.rating,
+      total_reviews: c.total_reviews,
+      maps_url: c.maps_url,
+      _match_confidence: c._match_confidence,
+      _needs_review: c._needs_review,
+      _source: c._source,
+    }));
+
   return (
     <AdminView
       db={{
@@ -52,6 +67,7 @@ export default async function AdminPage() {
       partners={enriched}
       sponsored={sponsored}
       clinicNames={clinicNames}
+      stubClinics={stubClinics}
     />
   );
 }

@@ -51,16 +51,28 @@ type SponsoredMap = {
 
 type ClinicName = { id: string; name: string; city: string };
 
+type StubClinic = {
+  id: string;
+  name: string;
+  rating: number;
+  total_reviews: number;
+  maps_url: string;
+  _match_confidence?: number;
+  _needs_review?: boolean;
+  _source?: string;
+};
+
 type Props = {
   db: DbSummary;
   partners: EnrichedPartner[];
   sponsored: SponsoredMap;
   clinicNames: ClinicName[];
+  stubClinics: StubClinic[];
 };
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
-const TABS = ["Overview", "Outreach", "Partners", "Leads", "Ads"] as const;
+const TABS = ["Overview", "Outreach", "Review", "Partners", "Leads", "Ads"] as const;
 type Tab = (typeof TABS)[number];
 
 type OutreachOutcome =
@@ -155,7 +167,7 @@ async function copyToClipboard(text: string): Promise<void> {
 
 // ─── Root ───────────────────────────────────────────────────────────────────
 
-export default function AdminView({ db, partners: initialPartners, sponsored: initialSponsored, clinicNames }: Props) {
+export default function AdminView({ db, partners: initialPartners, sponsored: initialSponsored, clinicNames, stubClinics }: Props) {
   const [tab, setTab] = useState<Tab>("Overview");
   const [partners, setPartners] = useState<EnrichedPartner[]>(initialPartners);
 
@@ -196,6 +208,7 @@ export default function AdminView({ db, partners: initialPartners, sponsored: in
 
       {tab === "Overview" && <OverviewTab db={db} partners={partners} />}
       {tab === "Outreach" && <OutreachTab clinicNames={clinicNames} />}
+      {tab === "Review"   && <ReviewTab stubs={stubClinics} />}
       {tab === "Partners" && (
         <PartnersTab
           partners={partners}
@@ -1854,6 +1867,109 @@ function OutreachLogForm({
           </div>
         </form>
       )}
+    </div>
+  );
+}
+
+// ─── Review Tab — 신규 stub 검토 (lookup 매칭 신뢰도 낮은 것 확인) ──────────
+function ReviewTab({ stubs }: { stubs: StubClinic[] }) {
+  const [filter, setFilter] = useState<"all" | "needs_review" | "low_conf">("needs_review");
+
+  const filtered = useMemo(() => {
+    let list = stubs;
+    if (filter === "needs_review") list = stubs.filter((s) => s._needs_review);
+    else if (filter === "low_conf") list = stubs.filter((s) => (s._match_confidence ?? 1) < 0.5);
+    // confidence ascending — 낮은 것 먼저 검토
+    return [...list].sort((a, b) => (a._match_confidence ?? 1) - (b._match_confidence ?? 1));
+  }, [stubs, filter]);
+
+  const counts = useMemo(() => ({
+    all: stubs.length,
+    needs_review: stubs.filter((s) => s._needs_review).length,
+    low_conf: stubs.filter((s) => (s._match_confidence ?? 1) < 0.5).length,
+  }), [stubs]);
+
+  return (
+    <div className="space-y-4">
+      <div className="space-y-1">
+        <h3 className="text-sm font-medium text-gray-200">신규 stub 검토</h3>
+        <p className="text-xs text-gray-500">
+          Lookup 으로 자동 발견된 클리닉들. confidence 낮은 순. <span className="text-yellow-400">⚠</span> 마크는 GMaps 링크 열어서 진짜 그 클리닉 맞는지 직접 확인 권장.
+        </p>
+      </div>
+
+      <div className="flex gap-1 text-xs">
+        {(["needs_review", "low_conf", "all"] as const).map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`px-3 py-1 rounded border transition-colors ${
+              filter === f
+                ? "bg-gray-700 border-gray-600 text-white"
+                : "bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-200"
+            }`}
+          >
+            {f === "needs_review" && `⚠ Needs review (${counts.needs_review})`}
+            {f === "low_conf" && `Low confidence <0.5 (${counts.low_conf})`}
+            {f === "all" && `All stubs (${counts.all})`}
+          </button>
+        ))}
+      </div>
+
+      {filtered.length === 0 ? (
+        <div className="text-xs text-gray-500 italic py-8 text-center">검토 필요한 stub 없음.</div>
+      ) : (
+        <div className="overflow-x-auto -mx-3 sm:mx-0">
+          <table className="w-full text-xs min-w-[640px]">
+            <thead className="text-gray-500 text-left">
+              <tr className="border-b border-gray-800">
+                <th className="p-2 font-normal">Name</th>
+                <th className="p-2 font-normal text-right">Rating</th>
+                <th className="p-2 font-normal text-right">Reviews</th>
+                <th className="p-2 font-normal text-right">Confidence</th>
+                <th className="p-2 font-normal">Source</th>
+                <th className="p-2 font-normal">GMaps</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-300">
+              {filtered.map((s) => {
+                const conf = s._match_confidence ?? 1;
+                const confColor = conf < 0.4 ? "text-red-400" : conf < 0.6 ? "text-orange-400" : conf < 0.8 ? "text-yellow-400" : "text-green-400";
+                return (
+                  <tr key={s.id} className="border-b border-gray-900 hover:bg-gray-900/40">
+                    <td className="p-2">
+                      {s._needs_review && <span className="text-yellow-400 mr-1">⚠</span>}
+                      {s.name}
+                    </td>
+                    <td className="p-2 text-right tabular-nums">{s.rating || "—"}</td>
+                    <td className="p-2 text-right tabular-nums">{s.total_reviews || "—"}</td>
+                    <td className={`p-2 text-right tabular-nums font-medium ${confColor}`}>
+                      {conf.toFixed(2)}
+                    </td>
+                    <td className="p-2 text-gray-500">{s._source ?? "—"}</td>
+                    <td className="p-2">
+                      {s.maps_url ? (
+                        <a
+                          href={s.maps_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:text-blue-300 underline"
+                        >
+                          Open ↗
+                        </a>
+                      ) : "—"}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <div className="text-[10px] text-gray-600 pt-2 border-t border-gray-900">
+        Confidence 산정: token 일치율(40%) + clinic 키워드(25%) + rating(20%) + 리뷰 볼륨(15%). 0.6 미만은 needs_review.
+      </div>
     </div>
   );
 }

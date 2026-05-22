@@ -114,13 +114,13 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
   },
   hair: {
     focus: "hair",
-    brand: "Thai Hair & Scalp Clinic",
+    brand: "Bangkok Men's & Hair Clinic",
     domain: "thaifacialclinic.com",
-    title: "Best Hair Transplant Clinics in Thailand — FUE, SMP, Scalp Care",
+    title: "Best Men's & Hair Clinics in Bangkok — Hair Transplant, Wellness, Anti-Aging",
     description:
-      "Thailand hair transplant, scalp micropigmentation (SMP), and scalp care specialists ranked by Trust Score. FUE/DHI, beard restoration, eyebrow transplant, scar coverage. Bookimed-verified medical tourism options for English, Korean, Chinese and Arabic-speaking patients.",
-    hero: "Hair Transplant & Scalp Specialists in Thailand",
-    heroSub: "FUE, DHI, SMP, scar coverage — top hair restoration clinics in Bangkok, Phuket, and Chiang Mai ranked by Trust Score from real reviews.",
+      "Bangkok men's health and hair clinics ranked by Trust Score. Hair transplant (FUE/DHI), SMP, scalp care, men's anti-aging, hormone & wellness, men-only aesthetics. English, Korean, Chinese and Arabic-speaking medical tourism options across Bangkok, Phuket, and Chiang Mai.",
+    hero: "Men's & Hair Specialists in Bangkok",
+    heroSub: "Hair transplant, SMP, men's anti-aging, hormone wellness and men-only aesthetics — top clinics across Bangkok ranked by Trust Score from real reviews.",
     themeAccent: "#b45309",
     mentionThreshold: 2,
   },
@@ -156,15 +156,17 @@ export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
     });
   }
 
-  // 헤어 사이트도 엄격 필터: hair_transplant 카테고리 OR 이름에 명시적 hair/transplant
-  // 시그널. 일반 피부과의 우연한 mention 1-2회는 배제 (false positive 방지).
+  // 남성/헤어 사이트 필터: hair_transplant 카테고리 + 이름의 hair/transplant 시그널 +
+  // 명시적 men's clinic 시그널 (남성 전용 키워드만, women's wellness 등 false positive 배제).
   if (focus === "hair") {
     return clinical.filter((c) => {
       if (c.categories.includes("hair_transplant")) return true;
       const hasHairName = /\b(hair|transplant|trichology|FUE|DHI|SMP|micropigment|모발|ปลูกผม|ผม)\b/i.test(c.name);
       if (hasHairName) return true;
-      // 일반 클리닉이라도 hair_transplant mention 3+ 면 통과
       if ((c.service_mentions.hair_transplant ?? 0) >= 3) return true;
+      // Men's clinic 시그널 — 남성 전용 명시 키워드만 (성별 모호한 wellness/grooming 제외)
+      const hasMensName = /\b(men's|mens(?!truation)|men only|gentlemen|HE Clinic|Homme|barbershop medical|남성|ผู้ชาย|บุรุษ)\b/i.test(c.name);
+      if (hasMensName) return true;
       return false;
     });
   }

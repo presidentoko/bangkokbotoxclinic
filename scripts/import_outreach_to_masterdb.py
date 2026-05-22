@@ -28,8 +28,15 @@ EXTRA_FILE = ROOT / "web" / "data" / "extra_clinics.json"  # 영구 stubs — ma
 HDMALL_CSV = ROOT / "outreach_hdmall_discovered.csv"
 MISSED_CSV = ROOT / "outreach_missed_clinics.csv"
 
-NAME_BLOCK_RE = re.compile(r"\b(spa|massage|salon|cafe|restaurant|barbershop|car\s*wash)\b", re.I)
-NAME_ALLOW_RE = re.compile(r"\b(clinic|dental|dentist|medical|aesthetic|dermatology|plastic|surgery|hospital|ปลูกผม|คลินิก|ทันตกรรม|เวชกรรม|ศูนย์)\b", re.I)
+NAME_BLOCK_RE = re.compile(
+    r"\b(spa|massage|salon|cafe|restaurant|barbershop|car\s*wash|"
+    r"hotel|condo|apartment|fitness|gym|laundry|coffee|bakery)\b", re.I
+)
+NAME_ALLOW_RE = re.compile(
+    r"\b(clinic|dental|dentist|medical|aesthetic|aesthetique|derm|skin|hair|"
+    r"eye|laser|plastic|surgery|surgeon|hospital|wellness|anti.aging|"
+    r"ปลูกผม|คลินิก|ทันตกรรม|เวชกรรม|ศูนย์|โรงพยาบาล|ผิว|จัดฟัน)\b", re.I
+)
 
 
 def trust_score(rating: float, total_reviews: int) -> float:
@@ -69,7 +76,7 @@ def name_passes_filter(name: str) -> bool:
     return False
 
 
-def make_stub(place_id: str, name: str, rating: float, reviews: int, lat: float | None, lng: float | None, maps_url: str) -> dict:
+def make_stub(place_id: str, name: str, rating: float, reviews: int, lat: float | None, lng: float | None, maps_url: str, match_confidence: float = 1.0) -> dict:
     return {
         "id": place_id,
         "place_id": place_id,
@@ -106,6 +113,8 @@ def make_stub(place_id: str, name: str, rating: float, reviews: int, lat: float 
         "business_status": "Open",
         "maps_url": maps_url,
         "_stub": True,  # marker — 추후 watchdog가 갱신 시 덮어씀
+        "_match_confidence": match_confidence,  # 0~1. lookup 매칭 신뢰도. admin 검토용
+        "_needs_review": match_confidence < 0.6,  # 0.6 미만은 사람이 확인 필요
     }
 
 
@@ -147,7 +156,8 @@ def main() -> int:
                 lng = safe_float(row.get("lng", "")) or None
                 rating = safe_float(row.get("rating", ""))
                 reviews = safe_int(row.get("reviews", ""))
-                stub = make_stub(pid, name, rating, reviews, lat, lng, row.get("maps_url", ""))
+                confidence = safe_float(row.get("match_confidence", "")) or 0.5  # 누락된 (구) row 는 중립
+                stub = make_stub(pid, name, rating, reviews, lat, lng, row.get("maps_url", ""), match_confidence=confidence)
                 stub["_source"] = "hdmall"
                 new_clinics.append(stub)
                 existing_pids.add(pid)

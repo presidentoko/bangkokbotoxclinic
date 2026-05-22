@@ -88,6 +88,8 @@ export type Clinic = {
   // watchdog Bangkok grid이 풍부화하면 자동 dedup.
   _stub?: boolean;
   _source?: "hdmall" | "discovered_places" | string;
+  _match_confidence?: number;  // 0~1. lookup→stub 변환 시 신뢰도. admin 검토용
+  _needs_review?: boolean;     // confidence<0.6 → 사람 검토 필요
 };
 
 export type MasterDb = {
