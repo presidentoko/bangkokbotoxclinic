@@ -7,6 +7,7 @@ import { GUIDES } from "@/lib/guides";
 import { GUIDES_KO } from "@/lib/guides_ko";
 import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS } from "@/lib/posts";
+import { POSTS_KO } from "@/lib/posts_ko";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -59,6 +60,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   items.push({ url: `${SITE}/ko/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   for (const g of GUIDES_KO) {
     items.push({ url: `${SITE}/ko/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
+  }
+  // Korean blog — Naver SEO long-tail capture
+  items.push({ url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+  for (const p of POSTS_KO) {
+    items.push({
+      url: `${SITE}/ko/blog/${p.slug}`,
+      lastModified: isoNoMs(p.updated ?? p.published),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
   }
   items.push({ url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   for (const g of GUIDES_TH) {

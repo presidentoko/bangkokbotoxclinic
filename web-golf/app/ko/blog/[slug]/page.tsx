@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
-import { POSTS, findPost, renderBody, inlineMd } from "@/lib/posts";
+import { POSTS_KO, findPostKo } from "@/lib/posts_ko";
+import { renderBody, inlineMd } from "@/lib/posts";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
@@ -9,31 +12,35 @@ const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thailand Golf Guide";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return POSTS.map((p) => ({ slug: p.slug }));
+  return POSTS_KO.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params;
-  const p = findPost(slug);
-  if (!p) return { title: "Post not found" };
+  const p = findPostKo(slug);
+  if (!p) return { title: "글을 찾을 수 없습니다" };
   return {
     title: p.metaTitle,
     description: p.metaDescription,
-    alternates: { canonical: `/blog/${slug}` },
+    alternates: {
+      canonical: `/ko/blog/${slug}`,
+      languages: { "en-US": `/blog/${slug}`, "ko-KR": `/ko/blog/${slug}` },
+    },
     openGraph: {
       title: p.metaTitle,
       description: p.metaDescription,
       type: "article",
-      url: `${SITE}/blog/${slug}`,
+      url: `${SITE}/ko/blog/${slug}`,
       publishedTime: p.published,
       modifiedTime: p.updated ?? p.published,
+      locale: "ko_KR",
     },
   };
 }
 
-function articleJsonLd(p: ReturnType<typeof findPost> & object) {
+function articleJsonLd(p: NonNullable<ReturnType<typeof findPostKo>>) {
   return (
     <script
       type="application/ld+json"
@@ -52,8 +59,8 @@ function articleJsonLd(p: ReturnType<typeof findPost> & object) {
             url: SITE,
             logo: { "@type": "ImageObject", url: `${SITE}/icon` },
           },
-          mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/blog/${p.slug}` },
-          inLanguage: /[가-힣]/.test(p.title) ? "ko" : "en",
+          mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/ko/blog/${p.slug}` },
+          inLanguage: "ko",
           articleSection: p.category,
         }),
       }}
@@ -61,11 +68,11 @@ function articleJsonLd(p: ReturnType<typeof findPost> & object) {
   );
 }
 
-export default async function BlogPostPage(
+export default async function KoBlogPostPage(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const p = findPost(slug);
+  const p = findPostKo(slug);
   if (!p) notFound();
 
   const blocks = renderBody(p.body);
@@ -73,9 +80,9 @@ export default async function BlogPostPage(
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <nav className="text-sm text-[var(--muted)] mb-4">
-        <a href="/" className="hover:text-[var(--fg)]">Home</a>
+        <a href="/ko" className="hover:text-[var(--fg)]">홈</a>
         <span className="mx-2">›</span>
-        <a href="/blog" className="hover:text-[var(--fg)]">Blog</a>
+        <a href="/ko/blog" className="hover:text-[var(--fg)]">블로그</a>
         <span className="mx-2">›</span>
         <span className="text-emerald-700">{p.category}</span>
       </nav>
@@ -90,6 +97,9 @@ export default async function BlogPostPage(
           </h1>
           <div className="text-sm text-[var(--muted)]">
             <time dateTime={p.published}>{p.published}</time>
+            {p.updated && p.updated !== p.published && (
+              <> · 업데이트 <time dateTime={p.updated}>{p.updated}</time></>
+            )}
           </div>
         </header>
 
@@ -147,19 +157,22 @@ export default async function BlogPostPage(
         </div>
       </article>
 
+      <AffiliateInline />
+      <TravelStackAffiliate city="bangkok" context="guide" />
+
       {p.related && p.related.length > 0 && (
         <section className="mt-12 pt-8 border-t border-[var(--border)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-            Related posts
+            관련 글
           </h2>
           <div className="grid sm:grid-cols-2 gap-3">
             {p.related.map((relSlug) => {
-              const rel = findPost(relSlug);
+              const rel = findPostKo(relSlug);
               if (!rel) return null;
               return (
                 <a
                   key={relSlug}
-                  href={`/blog/${relSlug}`}
+                  href={`/ko/blog/${relSlug}`}
                   className="block p-4 bg-white border border-[var(--border)] rounded-xl hover:border-emerald-400 transition"
                 >
                   <div className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-1">
@@ -175,9 +188,9 @@ export default async function BlogPostPage(
       )}
 
       <BreadcrumbJsonLd items={[
-        { name: "Home", url: "/" },
-        { name: "Blog", url: "/blog" },
-        { name: p.title, url: `/blog/${slug}` },
+        { name: "홈", url: "/ko" },
+        { name: "블로그", url: "/ko/blog" },
+        { name: p.title, url: `/ko/blog/${slug}` },
       ]} />
       {articleJsonLd(p)}
     </div>

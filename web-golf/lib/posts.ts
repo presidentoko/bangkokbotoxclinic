@@ -28,18 +28,37 @@ export function findPost(slug: string): Post | null {
   return POSTS.find((p) => p.slug === slug) ?? null;
 }
 
-// 단순 markdown → block 변환 (h2 + 단락 + 리스트만 지원).
-export function renderBody(body: string): { type: "h2" | "p" | "ul"; content: string | string[] }[] {
-  const blocks: { type: "h2" | "p" | "ul"; content: string | string[] }[] = [];
+// 단순 markdown → block 변환 (h2 + 단락 + 리스트 + 표).
+export type Block =
+  | { type: "h2"; content: string }
+  | { type: "p"; content: string }
+  | { type: "ul"; content: string[] }
+  | { type: "table"; content: { header: string[]; rows: string[][] } };
+
+function parseTableRow(line: string): string[] {
+  return line.replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+}
+
+function isTableSeparator(line: string): boolean {
+  return /^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$/.test(line);
+}
+
+export function renderBody(body: string): Block[] {
+  const blocks: Block[] = [];
   const lines = body.split("\n");
   let buf: string[] = [];
-  let mode: "p" | "ul" | null = null;
+  let mode: "p" | "ul" | "table" | null = null;
+  let tableHeader: string[] | null = null;
 
   const flush = () => {
-    if (buf.length === 0) return;
+    if (buf.length === 0 && mode !== "table") { mode = null; return; }
     if (mode === "ul") blocks.push({ type: "ul", content: buf });
     else if (mode === "p") blocks.push({ type: "p", content: buf.join(" ") });
+    else if (mode === "table" && tableHeader) {
+      blocks.push({ type: "table", content: { header: tableHeader, rows: buf.map(parseTableRow) } });
+    }
     buf = [];
+    tableHeader = null;
     mode = null;
   };
 
@@ -55,6 +74,21 @@ export function renderBody(body: string): { type: "h2" | "p" | "ul"; content: st
       if (mode !== "ul") flush();
       mode = "ul";
       buf.push(t.slice(2));
+      continue;
+    }
+    // Table: a line starting and ending with | (and not a list item)
+    if (t.startsWith("|") && t.endsWith("|") && t.length > 2) {
+      // Separator row — confirms previous row was the header
+      if (isTableSeparator(t)) {
+        if (mode === "table" && buf.length === 1) {
+          tableHeader = parseTableRow(buf[0]);
+          buf = [];
+        }
+        continue;
+      }
+      if (mode !== "table") flush();
+      mode = "table";
+      buf.push(t);
       continue;
     }
     if (mode !== "p") flush();
