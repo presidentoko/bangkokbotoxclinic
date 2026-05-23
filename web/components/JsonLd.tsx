@@ -188,6 +188,29 @@ export function FaqJsonLd({ faqs }: { faqs: { q: string; a: string }[] }) {
   });
 }
 
+/**
+ * Speakable schema — Google Assistant 등 음성 검색이 페이지의 어느 부분을 읽을지 알림.
+ * AEO: 음성으로 "방콕 X 클리닉" 물으면 우리 페이지의 요약 섹션이 답변됨.
+ * cssSelector 가 가리키는 요소가 음성 친화 텍스트여야 함 (짧고 자체 완결).
+ */
+export function SpeakableJsonLd({ url, selectors }: {
+  url: string;
+  selectors?: string[];
+}) {
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    url: url.startsWith("http") ? url : `${SITE}${url}`,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: selectors ?? [
+        '[aria-label="Clinic summary"] p',     // WikiSummaryCard 본문
+        'h1',                                    // 페이지 타이틀
+      ],
+    },
+  });
+}
+
 export function ItemListJsonLd({ name, items }: {
   name: string;
   items: { name: string; url: string }[];

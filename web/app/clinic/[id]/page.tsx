@@ -4,7 +4,7 @@ import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { CATEGORY_LABELS } from "@/lib/types";
-import { BreadcrumbJsonLd, ClinicJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, ClinicJsonLd, FaqJsonLd, SpeakableJsonLd } from "@/components/JsonLd";
 import { buildClinicFaqs } from "@/lib/clinic-faq";
 import { BookingForm } from "@/components/BookingForm";
 import { TrustDonut } from "@/components/TrustBadge";
@@ -22,6 +22,7 @@ import { FloatingContactBar } from "@/components/FloatingContactBar";
 import { WikiSummaryCard } from "@/components/WikiSummaryCard";
 import { PantipMentions } from "@/components/PantipMentions";
 import { FaqSection } from "@/components/FaqSection";
+import { RelatedExplore } from "@/components/RelatedExplore";
 import { loadWikiSummary } from "@/lib/wiki";
 import type { Metadata } from "next";
 
@@ -55,12 +56,21 @@ export async function generateMetadata(
   return {
     title,
     description,
-    alternates: { canonical: `/clinic/${c.id}` },
+    alternates: {
+      canonical: `/clinic/${c.id}`,
+      // hreflang — Google에게 같은 클리닉의 TH/EN 양국어 변형 알림
+      languages: {
+        "en-US": `/clinic/${c.id}`,
+        "th-TH": `/th/clinic/${c.id}`,
+        "x-default": `/clinic/${c.id}`,
+      },
+    },
     openGraph: {
       title,
       description,
       url: `/clinic/${c.id}`,
       type: "article",
+      locale: "en_US",
     },
   };
 }
@@ -333,6 +343,9 @@ export default async function ClinicPage(
           {/* AEO: FAQ 가시 섹션 + JSON-LD 짝꿍 (페이지 끝 JsonLd) */}
           <FaqSection faqs={faqs} />
 
+          {/* SEO: 카테고리/지역 long-tail 자동 내부 백링크 */}
+          <RelatedExplore clinic={c} />
+
           <section className="grid sm:grid-cols-2 gap-3">
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
               <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Address</div>
@@ -458,6 +471,8 @@ export default async function ClinicPage(
       ]} />
       {/* AEO: FAQ schema — Google PAA / LLM 인용 친화 */}
       <FaqJsonLd faqs={faqs} />
+      {/* AEO: Speakable — 음성검색 (Google Assistant 등) 응답 elig */}
+      <SpeakableJsonLd url={`/clinic/${c.id}`} />
     </div>
   );
 }
