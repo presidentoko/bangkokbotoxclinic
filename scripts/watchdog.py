@@ -879,6 +879,49 @@ def build_services() -> list[Service]:
             progress_stale_sec=180,   # 60s 주기라 3분 안 찍히면 죽은 것
             progress_grace_sec=90,
         ),
+        Service(
+            # Pantip 클리닉 리뷰/언급 수집기. master_db 의 2933 eligible clinics 를
+            # 검색 → 토픽 본문/댓글 추출 → 클리닉명 매칭 → 정확도 스코어 부여.
+            # 결과: pantip/output/threads/, pantip/output/clinics/, pantip/state/progress.json
+            # 자체 재시작 안전 (progress.json 으로 resume).
+            name="pantip_scraper",
+            cmd=["scraper.py"],
+            cwd=ROOT / "pantip",
+            env_extra={},
+            log_file=LOGS / "pantip_scraper.log",
+            # 클리닉당 ~30s 처리 — 진행 시그널: '[<clinic_id>] <name>' 라인
+            progress_pattern=re.compile(r"\[0x[0-9a-f]+_0x[0-9a-f]+\] "),
+            progress_stale_sec=600,    # 10분 안 찍히면 죽은 것 (대형 토픽 처리 + retry 고려)
+            progress_grace_sec=180,
+        ),
+        Service(
+            # Health monitor — 무인 운영 중 시스템 상태 5분 주기로 체크/로깅.
+            # pantip 진행률, 디스크, 핵심 PID, heartbeat 신선도.
+            # logs/health.log + pantip/state/health_status.json
+            name="health_monitor",
+            cmd=["scripts/health_monitor.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "health_monitor.log",
+            progress_pattern=re.compile(r"\[(OK|WARN|CRIT)"),
+            progress_stale_sec=900,    # 5분 주기 → 15분 안 찍히면 죽은 것
+            progress_grace_sec=120,
+        ),
+        Service(
+            # Wiki summary generator — Gemini 2.5 Flash 무료 tier 로 양국어 요약 생성.
+            # 클리닉당 ~4초 (API call + throttle). 1450 calls/day → 5095 clinics ≈ 4일.
+            # 한도 도달 시 UTC 자정까지 자동 sleep. progress.json 으로 resume-safe.
+            # 끝난 후엔 daemon 모드 (1h sleep) 로 새 클리닉 추가 시 처리.
+            name="wiki_summary_gen",
+            cmd=["wiki_generator/summary_generator.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "wiki_summary_gen.log",
+            # 진행 시그널: "[<i>/<total>] <name>" 라인. ~4-8 초마다 한 줄.
+            progress_pattern=re.compile(r"\[\d+/\d+\]\s+"),
+            progress_stale_sec=1200,   # 20분 안 찍히면 죽은 것 (rate limit 백오프 + 일일 한도 sleep 고려)
+            progress_grace_sec=120,
+        ),
     ]
 
 

@@ -4,7 +4,8 @@ import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { CATEGORY_LABELS } from "@/lib/types";
-import { BreadcrumbJsonLd, ClinicJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, ClinicJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { buildClinicFaqs } from "@/lib/clinic-faq";
 import { BookingForm } from "@/components/BookingForm";
 import { TrustDonut } from "@/components/TrustBadge";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -18,11 +19,27 @@ import { AdPlaceholder } from "@/components/AffiliateSlot";
 import { ClaimBanner } from "@/components/ClaimBanner";
 import { ViewBeacon } from "@/components/ViewBeacon";
 import { FloatingContactBar } from "@/components/FloatingContactBar";
+import { WikiSummaryCard } from "@/components/WikiSummaryCard";
+import { PantipMentions } from "@/components/PantipMentions";
+import { FaqSection } from "@/components/FaqSection";
+import { loadWikiSummary } from "@/lib/wiki";
 import type { Metadata } from "next";
+
+// 서버 비용 극단 최소화: top 100 클리닉만 pre-build.
+// 나머지는 첫 방문 시 on-demand 생성 → 7일 캐시 (트래픽 적은 페이지는 거의 재생성 안 됨).
+// Vercel Hobby: build minutes 절감 + serverless function 호출 절감.
+export const revalidate = 604800;      // 7일 (트래픽 많은 페이지만 자주 갱신)
+export const dynamicParams = true;     // 미빌드 페이지도 on-demand 허용
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  return db.clinics.map((c) => ({ id: c.id }));
+  // 우선순위: trust_score × log(1+total_reviews) — 신뢰도+인기 가중
+  const ranked = [...db.clinics].sort((a, b) => {
+    const sa = (a.trust_score || 0) * Math.log(1 + (a.total_reviews || 0));
+    const sb = (b.trust_score || 0) * Math.log(1 + (b.total_reviews || 0));
+    return sb - sa;
+  });
+  return ranked.slice(0, 100).map((c) => ({ id: c.id }));
 }
 
 export async function generateMetadata(
@@ -102,6 +119,11 @@ export default async function ClinicPage(
     )
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 4);
+
+  // Wiki summary (LLM 생성, 미존재 시 null — graceful degrade)
+  const wikiSummary = await loadWikiSummary(c.id);
+  // AEO: 자동 FAQ — Google PAA 대응 + LLM 인용
+  const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -206,12 +228,22 @@ export default async function ClinicPage(
         )}
       </header>
 
+      {/* Wiki AI summary — 양국어, AEO/LLM 인용 친화. header 직하 prominent. */}
+      {wikiSummary && (
+        <div className="mb-6">
+          <WikiSummaryCard summary={wikiSummary} />
+        </div>
+      )}
+
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Main column */}
         <div className="lg:col-span-2 space-y-6">
           {photos && photos.photos.length > 0 && (
             <PhotoGallery photos={photos.photos} clinicName={c.name} />
           )}
+
+          {/* Pantip — 태국 최대 커뮤니티 토픽 인용 + 외부 backlink */}
+          <PantipMentions clinic={c} />
 
           <TrustDonut score={c.trust_score} breakdown={breakdown} />
 
@@ -297,6 +329,9 @@ export default async function ClinicPage(
               </div>
             </section>
           )}
+
+          {/* AEO: FAQ 가시 섹션 + JSON-LD 짝꿍 (페이지 끝 JsonLd) */}
+          <FaqSection faqs={faqs} />
 
           <section className="grid sm:grid-cols-2 gap-3">
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
@@ -421,6 +456,8 @@ export default async function ClinicPage(
         ...(c.district ? [{ name: c.district, url: `/d/${c.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
         { name: c.name, url: `/clinic/${c.id}` },
       ]} />
+      {/* AEO: FAQ schema — Google PAA / LLM 인용 친화 */}
+      <FaqJsonLd faqs={faqs} />
     </div>
   );
 }

@@ -10,9 +10,17 @@ import type { Metadata } from "next";
 // dental deploy emits aesthetic-site URLs to Google.
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
+// 비용 절감: top 30 doctor만 pre-build, 나머지 on-demand + 7일 캐시.
+export const revalidate = 604800;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  return getAllDoctors(db.clinics).map((d) => ({ slug: d.composite_slug }));
+  const docs = getAllDoctors(db.clinics);
+  const ranked = [...docs].sort((a, b) =>
+    (b.mentions || 0) - (a.mentions || 0)
+  );
+  return ranked.slice(0, 30).map((d) => ({ slug: d.composite_slug! }));
 }
 
 export async function generateMetadata(

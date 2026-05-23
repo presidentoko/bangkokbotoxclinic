@@ -5,10 +5,26 @@ Vercel 은 GitHub push 받으면 auto-deploy.
 """
 from __future__ import annotations
 
+import os
+import re
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+
+
+def _parse_shortstat(out: str) -> tuple[int, int]:
+    """git diff --shortstat 출력에서 (insertions, deletions) 추출.
+    예: " 1 file changed, 168 insertions(+), 168 deletions(-)" """
+    ins = 0
+    dels = 0
+    m_i = re.search(r"(\d+)\s+insertions?\(\+\)", out)
+    m_d = re.search(r"(\d+)\s+deletions?\(-\)", out)
+    if m_i:
+        ins = int(m_i.group(1))
+    if m_d:
+        dels = int(m_d.group(1))
+    return ins, dels
 
 ROOT = Path(__file__).resolve().parents[2]
 MASTER_DBS = [
@@ -46,18 +62,36 @@ def main() -> int:
         print(f"[auto_git_push] master_db 변경 없음 (mtime {cur_mtime:.0f}) — 스킵")
         return 0
 
-    # 변경된 path 만 add
+    # 변경된 path 만 add. Smart skip: 의미있는 변경만 push (Vercel deploy 절약).
+    # Trivial 변경 정의: generated_at timestamp 만 다르고 clinic 데이터는 동일.
+    # 측정: git diff --shortstat 의 insertions+deletions 합. 임계치 미만이면 skip.
+    SMART_SKIP_LINES = int(os.getenv("AUTO_PUSH_MIN_DELTA_LINES", "500"))
     paths_changed: list[str] = []
+    skipped_trivial: list[tuple[str, int, int]] = []
     for p in MASTER_DBS:
         if not p.exists():
             continue
         rel = p.relative_to(ROOT).as_posix()
         status = run(["git", "status", "--porcelain", rel], check=False)
-        if status.stdout.strip():
-            paths_changed.append(rel)
+        if not status.stdout.strip():
+            continue
+        # 변경량 측정 — staged 아니라도 working tree 와 HEAD 비교
+        diff = run(["git", "diff", "--shortstat", "HEAD", "--", rel], check=False)
+        ins, dels = _parse_shortstat(diff.stdout)
+        if ins + dels < SMART_SKIP_LINES:
+            skipped_trivial.append((rel, ins, dels))
+            continue
+        paths_changed.append(rel)
+
+    if skipped_trivial:
+        for rel, ins, dels in skipped_trivial:
+            print(f"[auto_git_push] skip trivial: {rel} (+{ins}/-{dels} < {SMART_SKIP_LINES})")
+        # state 갱신해서 다음 사이클에 같은 mtime 재검사 안 하게
+        STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        STATE_FILE.write_text(str(cur_mtime))
 
     if not paths_changed:
-        print(f"[auto_git_push] mtime 만 변경 (콘텐츠 동일) — state 갱신")
+        print(f"[auto_git_push] 변경 없음 또는 모두 trivial — push 안 함")
         STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
         STATE_FILE.write_text(str(cur_mtime))
         return 0

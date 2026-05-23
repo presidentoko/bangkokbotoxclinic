@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
@@ -55,6 +55,20 @@ export const metadata: Metadata = {
       ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
       : undefined,
   },
+};
+
+// Mobile-first 명시. Next.js default 도 자동 viewport 추가하지만 themeColor /
+// interactiveWidget / colorScheme 까지 한 번에 잡으려고 explicit export.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,          // 접근성: 사용자 zoom 허용 (시각장애 / 노안)
+  userScalable: true,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)",  color: "#0a0a0a" },
+  ],
+  colorScheme: "light",
 };
 
 export default function RootLayout({

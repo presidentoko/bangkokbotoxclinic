@@ -37,12 +37,12 @@ export function PhotoGallery({
   return (
     <>
       <section>
-        <div className="grid grid-cols-4 grid-rows-2 gap-1.5 rounded-xl overflow-hidden">
-          {/* Hero — left 2x2 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-[auto] md:grid-rows-2 gap-1.5 rounded-xl overflow-hidden">
+          {/* Hero — 모바일: 전체 폭(2 cols), 데스크탑: 좌측 2x2 */}
           <button
             type="button"
             onClick={() => setOpenIdx(0)}
-            className="col-span-2 row-span-2 relative bg-gray-100 aspect-[4/3] group cursor-zoom-in overflow-hidden"
+            className="col-span-2 md:col-span-2 md:row-span-2 relative bg-gray-100 aspect-[4/3] group cursor-zoom-in overflow-hidden"
             aria-label={`Open photo 1 of ${clinicName}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

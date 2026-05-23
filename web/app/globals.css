@@ -8,9 +8,46 @@
   --border: #e5e7eb;
 }
 
+html {
+  /* 모바일 가로 스크롤 차단 — 어떤 자식이 viewport 초과해도 페이지가 옆으로 안 밀림 */
+  overflow-x: hidden;
+  /* iOS Safari 텍스트 자동확대 방지 (가로↔세로 회전 시 폰트 점프 차단) */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
   font-feature-settings: "ss01", "ss02";
+  /* 모바일: 가로 스크롤 차단 보강 */
+  overflow-x: hidden;
+  /* 부드러운 스크롤 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 모바일: 터치 타깃 보장 — 작은 링크/버튼도 최소 44px 누름 영역 (WCAG/iOS HIG) */
+@media (max-width: 640px) {
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    /* 시각적 크기는 그대로, 터치 영역만 확장 */
+    min-height: 44px;
+    /* 인라인 텍스트 링크는 제외하고 싶으면 별도 .link-text 클래스 사용 */
+  }
+  /* 단, 인라인 텍스트 안의 a 태그는 예외 (문장 흐름 깨지면 안 됨) */
+  p a, li a, span > a, .prose a {
+    min-height: auto;
+  }
+}
+
+/* 모바일: 이미지 자동 max-width 보장 — 절대 viewport 초과 안 함 */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 태국어 줄간격 보강 (글자 위/아래 모음 표기 잘림 방지) */
+:lang(th), [lang="th"] {
+  line-height: 1.6;
+  word-break: keep-all;
 }

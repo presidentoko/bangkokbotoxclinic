@@ -11,9 +11,16 @@ import { sponsoredTier } from "@/lib/sponsored";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
 
+// 비용 최소화: top 100 식당만 pre-build, 나머지 on-demand + 7일 캐시.
+export const revalidate = 604800;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  return db.restaurants.map((r) => ({ id: r.id }));
+  const ranked = [...db.restaurants].sort((a, b) =>
+    (b.total_reviews || 0) - (a.total_reviews || 0)
+  );
+  return ranked.slice(0, 100).map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(

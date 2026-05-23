@@ -72,6 +72,12 @@ def latest_input_mtime() -> float:
         for csv in DENTAL_OUT.glob("*/discovered_places.csv"):
             paths.append(csv)
 
+    # 4. Pantip mention 인덱스 — pantip/output/clinics/<id>.json 추가/변경되면 rebuild.
+    #    build_master_db.merge_pantip_data 가 이 디렉토리를 읽어 master_db.json 에 머지함.
+    pantip_clinics_dir = ROOT / "pantip" / "output" / "clinics"
+    if pantip_clinics_dir.exists():
+        paths.append(pantip_clinics_dir)
+
     if not paths:
         return 0.0
     return max(p.stat().st_mtime for p in paths)

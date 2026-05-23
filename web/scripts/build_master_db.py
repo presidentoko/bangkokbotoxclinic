@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
 import re
 import sys
 from collections import Counter
@@ -876,6 +877,86 @@ def process_source(
     return n
 
 
+def merge_pantip_data(clinics: list[dict]) -> None:
+    """pantip/output/clinics/{clinic_id}.json 의 mention 데이터를 각 clinic record 에 머지.
+
+    추가하는 필드: `pantip` (없으면 미존재).
+    Schema:
+      pantip: {
+        fetched_at: ISO8601,
+        candidates_total: int,       # 검색에 잡힌 총 토픽 수 (mention 여부 무관)
+        mention_count: int,           # 실제 클리닉명이 본문/제목에 나온 토픽 수
+        branch_specific_count: int,   # 풀네임(브랜드+지점) 매칭 토픽 수 (영업 자료 신뢰도↑)
+        score_distribution: {1: N, 2: N, 3: N, 4: N},
+        top_mentions: [               # 최대 5개, score 내림차순
+          {topic_id, url, title, score, branch_specific, op_mentioned,
+           title_mentioned, comment_count_with_mention, sample_snippet}
+        ],
+      }
+
+    풀 thread 본문/댓글은 pantip/output/threads/<tid>.json 에 그대로 보관됨
+    (master_db.json 비대화 방지). 위키 페이지는 top_mentions[].topic_id 로 lazy-load.
+    """
+    pantip_dir = ROOT / "pantip" / "output" / "clinics"
+    if not pantip_dir.exists():
+        return
+    merged_n = 0
+    for c in clinics:
+        cid = c["id"]
+        f = pantip_dir / f"{cid}.json"
+        if not f.exists():
+            continue
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"[merge pantip] {cid} err: {e}", file=sys.stderr)
+            continue
+        mentions = d.get("mentions") or []
+        # score distribution
+        score_dist: dict[int, int] = {}
+        branch_n = 0
+        for m in mentions:
+            sc = m.get("relevance_score", 0)
+            score_dist[sc] = score_dist.get(sc, 0) + 1
+            if m.get("branch_specific"):
+                branch_n += 1
+        # top mentions (score 내림차순, branch_specific 가산점)
+        ranked = sorted(
+            mentions,
+            key=lambda m: (
+                m.get("relevance_score", 0),
+                1 if m.get("branch_specific") else 0,
+                len(m.get("matched_tokens") or []),
+            ),
+            reverse=True,
+        )
+        top: list[dict] = []
+        for m in ranked[:5]:
+            snippets = m.get("sample_snippets") or []
+            top.append({
+                "topic_id": m.get("topic_id"),
+                "url": f"https://pantip.com/topic/{m.get('topic_id')}",
+                "title": m.get("title", ""),
+                "score": m.get("relevance_score", 0),
+                "branch_specific": bool(m.get("branch_specific")),
+                "op_mentioned": bool(m.get("op_mentioned")),
+                "title_mentioned": bool(m.get("title_mentioned")),
+                "comment_count_with_mention": int(m.get("comment_count_with_mention", 0) or 0),
+                "sample_snippet": snippets[0] if snippets else "",
+            })
+        c["pantip"] = {
+            "fetched_at": d.get("updated_at", ""),
+            "candidates_total": int(d.get("candidates_total", 0) or 0),
+            "mention_count": len(mentions),
+            "branch_specific_count": branch_n,
+            "score_distribution": score_dist,
+            "top_mentions": top,
+        }
+        merged_n += 1
+    if merged_n:
+        print(f"[merge] pantip: {merged_n} clinics enriched")
+
+
 def merge_external_data(clinics: list[dict]) -> None:
     """data/external_reviews/{clinic_id}.json + data/pricing/{clinic_id}.json + data/doctor_xref/{clinic_id}.json merge."""
     ext_dir = WEB_DATA / "external_reviews"
@@ -943,6 +1024,8 @@ def main():
 
     # External reviews + pricing 통합 (scraper가 채워두는 데이터 merge)
     merge_external_data(clinics)
+    # Pantip mention 통합 (pantip/output/clinics/<id>.json 머지)
+    merge_pantip_data(clinics)
 
     clinics.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))
 
@@ -952,14 +1035,17 @@ def main():
         "with_district": sum(1 for c in clinics if c["district"]),
         "with_categories": sum(1 for c in clinics if c["categories"]),
         "with_reviews_scraped": sum(1 for c in clinics if c["scraped_review_count"] > 0),
+        "with_pantip_mentions": sum(1 for c in clinics if c.get("pantip", {}).get("mention_count", 0) > 0),
         "language_total": dict(lang_total),
         "city_counts": dict(city_counter.most_common()),
         "district_counts": dict(district_counter.most_common()),
         "category_counts": dict(category_counter.most_common()),
         "clinics": clinics,
     }
-    with open(out_path, "w", encoding="utf-8") as f:
+    tmp_path = out_path.with_suffix(out_path.suffix + ".tmp")
+    with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
+    os.replace(tmp_path, out_path)
 
     print(f"[OK] wrote {out_path}")
     print(f"  clinics: {len(clinics)}")

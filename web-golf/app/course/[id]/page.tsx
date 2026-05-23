@@ -13,9 +13,16 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import type { Metadata } from "next";
 
+// 비용 최소화: top 80 골프장만 pre-build, 나머지 on-demand + 7일 캐시.
+export const revalidate = 604800;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  return db.restaurants.map((r) => ({ id: r.id }));
+  const ranked = [...db.restaurants].sort((a, b) =>
+    (b.total_reviews || 0) - (a.total_reviews || 0)
+  );
+  return ranked.slice(0, 80).map((r) => ({ id: r.id }));
 }
 
 // Detect if a string is "mostly Latin" — used to decide whether top_review_text

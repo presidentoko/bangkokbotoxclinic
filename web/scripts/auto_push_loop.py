@@ -13,10 +13,11 @@ SCRIPT = ROOT / "web" / "scripts" / "auto_git_push.py"
 VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
 # Vercel Hobby 한도: 100 deploy / 24h, 모든 프로젝트 합산.
-# 보톡스 + 덴탈 두 프로젝트가 같은 repo의 push에 각각 auto-deploy → push 1번 = 2 deploy.
-# 30분 주기 = push 48/24h = 96 deploy (한도 임박, 수동 deploy 0 여유)
-# 60분 주기 = push 24/24h = 48 deploy (한도 ½, 수동 50+ 여유)
-INTERVAL = 3600  # 60분
+# 같은 repo에 연결된 프로젝트: botox + dental + restaurants = 3개
+# (web-restaurants/auto_push_loop 은 redundant 라 disabled — 이 루프가 두 master_db
+#  다 push 함. auto_git_push.py 가 MASTER_DBS 리스트에 둘 다 포함)
+# 6h 주기 = push 4/24h × 3 프로젝트 = 12 deploy/day (한도 1/8, 수동 deploy 80+ 여유)
+INTERVAL = 21600  # 6시간
 
 logging.basicConfig(
     level=logging.INFO,
