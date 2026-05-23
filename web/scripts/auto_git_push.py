@@ -31,6 +31,11 @@ MASTER_DBS = [
     ROOT / "web" / "data" / "master_db.json",
     ROOT / "web-restaurants" / "data" / "master_db.json",
 ]
+# 자동 commit 디렉토리 — wiki_generator 가 점진적으로 생성한 LLM 요약 파일들.
+# 신규/변경 .json 파일만 add (각 클리닉 1 파일, 누적되며 SEO 풍부화).
+AUTO_DIRS = [
+    ROOT / "web" / "data" / "wiki_summaries",
+]
 STATE_FILE = ROOT / "run" / "auto_git_push.state"
 
 
@@ -100,6 +105,24 @@ def main() -> int:
 
     for path in paths_changed:
         run(["git", "add", path])
+
+    # AUTO_DIRS — wiki_summaries 같이 점진적으로 생성되는 디렉토리.
+    # 신규/변경 파일 있으면 같이 commit (별도 push trigger 안 하고 piggyback).
+    auto_dir_files = 0
+    for d in AUTO_DIRS:
+        if not d.exists():
+            continue
+        rel = d.relative_to(ROOT).as_posix()
+        status = run(["git", "status", "--porcelain", rel], check=False)
+        if not status.stdout.strip():
+            continue
+        run(["git", "add", rel])
+        # 카운트 (얼마나 새로 들어왔는지 로그용)
+        new_files = sum(1 for line in status.stdout.splitlines() if line.startswith("??") or line.strip().startswith("A"))
+        modified_files = sum(1 for line in status.stdout.splitlines() if line.strip().startswith("M"))
+        auto_dir_files += new_files + modified_files
+        if new_files or modified_files:
+            print(f"[auto_git_push] +{rel}: {new_files} new, {modified_files} modified")
 
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = f"chore(data): auto-update master_db @ {ts} ({len(paths_changed)} dataset)"
