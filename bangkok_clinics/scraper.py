@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import re
 import sys
 import tempfile
@@ -230,9 +231,26 @@ _SOCKS_ERR_PATTERNS = (
     "ERR_CONNECTION_TIMED_OUT",
 )
 
+# 터널이 죽어도 HTTP 응답은 200 으로 떨어지는 경우가 있어 (Chrome 이 보여주는
+# "Google Maps can't reach the internet" 페이지). h1 텍스트가 이 패턴이면
+# 죽은 터널로 취급해 즉시 rotate.
+_DEAD_TUNNEL_PAGE_MARKERS = (
+    "can't reach the internet",
+    "can’t reach the internet",  # smart apostrophe variant
+    "can't reach this page",
+    "no internet",
+)
+
 
 def is_socks_dead_error(msg: str) -> bool:
     return any(p in msg for p in _SOCKS_ERR_PATTERNS)
+
+
+def is_dead_tunnel_page_name(name: str) -> bool:
+    if not name:
+        return False
+    low = name.lower()
+    return any(m in low for m in _DEAD_TUNNEL_PAGE_MARKERS)
 
 
 class SocksDeadError(Exception):
@@ -445,6 +463,8 @@ def get_restaurant_full(
         name = page.locator("h1").first.inner_text(timeout=5000).strip()
     except Exception:
         pass
+    if is_dead_tunnel_page_name(name):
+        raise SocksDeadError(f"dead tunnel page detected: {name[:80]!r}")
     if not name or name == "Results":
         return None, [], []
 

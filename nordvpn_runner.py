@@ -40,6 +40,8 @@ NORDAPI_UDP = "https://api.nordvpn.com/v1/servers?limit=10000&filters[servers_te
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/130.0.0.0"
 HEALTH_URL = "http://httpbin.org/ip"
 REFRESH_INTERVAL = 900  # 15분마다 리스트 재조회
+TUNNEL_UP_TIMEOUT = 15  # tunnel up 대기. 정상 노드는 4-8s 안에 뜸; 안 뜨면 죽은 노드라 다음 시도로
+FAILED_HOST_COOLDOWN = 300  # tunnel 실패한 호스트를 이 초만큼 pick 풀에서 제외
 
 _log_lock = threading.Lock()
 def log(msg: str):
@@ -134,6 +136,8 @@ class Runner:
         self.ports: list[Port] = [Port(i, base_port + i, auth_file) for i in range(n_ports)]
         self.servers: list[dict] = []   # {host, ip, port, proto}
         self.used_ips: set[str] = set()
+        # host -> 이 timestamp 까지 pick 제외. tunnel/health 실패한 노드는 잠시 쉬게.
+        self.failed_until: dict[str, float] = {}
         self._stop = False
         self.rotate_ptr = 0
         self.last_refresh = 0.0
@@ -174,18 +178,36 @@ class Runner:
             log(f"  fetch 전부 실패 — 기존 {len(self.servers)} 서버 유지")
 
     def pick_server(self) -> dict | None:
-        """used_ips 피해서 하나 뽑기. 풀 소진 시 used 리셋."""
+        """used_ips + 실패 cooldown 피해서 하나 뽑기. 풀 소진 시 used 리셋."""
         if not self.servers:
             return None
+        now = time.time()
+        # 만료된 cooldown 정리
+        if self.failed_until:
+            self.failed_until = {h: t for h, t in self.failed_until.items() if t > now}
         for s in self.servers:
-            if s["ip"] not in self.used_ips:
-                self.used_ips.add(s["ip"])
-                return s
-        log("모든 IP used. used set 리셋")
+            if s["ip"] in self.used_ips:
+                continue
+            if self.failed_until.get(s["host"], 0) > now:
+                continue
+            self.used_ips.add(s["ip"])
+            return s
+        # 모두 used — cooldown 은 그대로 두고 used 만 리셋
+        log("모든 IP used. used set 리셋 (cooldown 유지)")
         self.used_ips.clear()
+        for s in self.servers:
+            if self.failed_until.get(s["host"], 0) > now:
+                continue
+            self.used_ips.add(s["ip"])
+            return s
+        # cooldown 까지 전부 차면 어쩔 수 없이 cooldown 도 무시
+        log("cooldown 풀까지 소진 → cooldown 무시하고 pick")
         s = self.servers[0]
         self.used_ips.add(s["ip"])
         return s
+
+    def _mark_failed(self, host: str):
+        self.failed_until[host] = time.time() + FAILED_HOST_COOLDOWN
 
     # ── 포트 관리 ────────────────────────────────────────
     def boot_port(self, p: Port, max_attempts: int = 6) -> bool:
@@ -197,7 +219,7 @@ class Runner:
                 return False
             p.start(s["host"], s["ip"], s["port"], s["proto"])
             # tunnel up 대기 (node-openvpn-socks 로그에 "tunnel up")
-            deadline = time.time() + 25
+            deadline = time.time() + TUNNEL_UP_TIMEOUT
             ok = False
             while time.time() < deadline:
                 if not p.is_alive():
@@ -212,13 +234,15 @@ class Runner:
                 except Exception: pass
                 time.sleep(1)
             if not ok:
-                log(f"port {p.port}: tunnel 실패 (host={s['host']})")
+                log(f"port {p.port}: tunnel 실패 (host={s['host']}) — {FAILED_HOST_COOLDOWN}s cooldown")
+                self._mark_failed(s["host"])
                 p.stop(); continue
             exit_ip = p.check_health()
             if exit_ip:
                 log(f"port {p.port}: READY exit={exit_ip} via {s['host']}")
                 return True
-            log(f"port {p.port}: health check 실패 (host={s['host']})")
+            log(f"port {p.port}: health check 실패 (host={s['host']}) — {FAILED_HOST_COOLDOWN}s cooldown")
+            self._mark_failed(s["host"])
             p.stop()
         return False
 

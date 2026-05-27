@@ -230,9 +230,26 @@ _SOCKS_ERR_PATTERNS = (
     "ERR_CONNECTION_TIMED_OUT",
 )
 
+# 터널이 죽어도 HTTP 응답은 200 으로 떨어지는 경우가 있어 (Chrome 이 보여주는
+# "Google Maps can't reach the internet" 페이지). h1 텍스트가 이 패턴이면
+# 죽은 터널로 취급해 즉시 rotate.
+_DEAD_TUNNEL_PAGE_MARKERS = (
+    "can't reach the internet",
+    "can’t reach the internet",  # smart apostrophe variant
+    "can't reach this page",
+    "no internet",
+)
+
 
 def is_socks_dead_error(msg: str) -> bool:
     return any(p in msg for p in _SOCKS_ERR_PATTERNS)
+
+
+def is_dead_tunnel_page_name(name: str) -> bool:
+    if not name:
+        return False
+    low = name.lower()
+    return any(m in low for m in _DEAD_TUNNEL_PAGE_MARKERS)
 
 
 class SocksDeadError(Exception):
@@ -438,6 +455,8 @@ def get_restaurant_full(
         name = page.locator("h1").first.inner_text(timeout=5000).strip()
     except Exception:
         pass
+    if is_dead_tunnel_page_name(name):
+        raise SocksDeadError(f"dead tunnel page detected: {name[:80]!r}")
     if not name or name == "Results":
         return None, [], []
 
@@ -546,6 +565,18 @@ def get_restaurant_full(
                 pass
     except Exception:
         pass
+
+    # Non-clinic skip (식당/카페/호텔 등 — 큐에 잘못 들어온 비-의료 entry 제외)
+    NON_CLINIC_TOKENS = (
+        "restaurant", "cafe", "coffee", "bar", "pub", "hotel", "resort",
+        "bakery", "noodle", "ice cream", "food", "diner", "buffet",
+        "salon", "barber", "spa", "massage", "nail", "tattoo",
+        "gym", "fitness", "yoga", "pharmacy"
+    )
+    pt_lower = primary_type.lower()
+    if any(tok in pt_lower for tok in NON_CLINIC_TOKENS):
+        log.info(f"  건너뜀 (비-의료 type={primary_type}): {name}")
+        return None, [], []
 
     # business status (Open / Temporarily/Permanently closed)
     business_status = ""
