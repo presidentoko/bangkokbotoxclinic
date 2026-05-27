@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { addEmailSignup } from "@/lib/dashboardStore";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,14 @@ export async function POST(req: NextRequest) {
   }
   if (!clinicId) {
     return NextResponse.json({ error: "clinic_id required" }, { status: 400 });
+  }
+  // 같은 IP 가 10분에 5번까지만. 폼 friction 최소화 위해 Upstash 실패시 fail-OPEN.
+  const ip = (req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown")
+    .split(",")[0].trim();
+  if (ip !== "unknown" && !(await checkRateLimit({
+    key: `email-signup:${ip}`, limit: 5, windowSec: 600, failOpenOnError: true,
+  }))) {
+    return NextResponse.json({ error: "rate limit" }, { status: 429 });
   }
   const ok = await addEmailSignup(email, clinicId);
   return NextResponse.json({ ok }, { status: ok ? 200 : 500 });

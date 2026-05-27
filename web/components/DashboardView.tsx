@@ -8,28 +8,29 @@ import { TOPIC_LABELS } from "@/lib/types";
 import { draftReplyStyled, REPLY_CATEGORY_LABELS } from "@/lib/replyDrafts";
 import type { ReplyStyle } from "@/lib/replyDrafts";
 import type { LeadRecord } from "@/lib/leadStore";
+import Avatar from "@/components/Avatar";
+import ActionAlert from "@/components/ActionAlert";
+import { LEAD_STATUS_META, reviewHash, relTime, type LeadStatus } from "@/lib/dashboardHelpers";
+import { Card, KPI, ScoreLever, Stat, RoiCell, LeadField } from "@/components/dashboard/parts";
+import { ViewsChart, RatingTrendChart } from "@/components/dashboard/charts";
+import { PlatformReputationCard } from "@/components/dashboard/PlatformReputationCard";
+import { PricingIntelCard } from "@/components/dashboard/PricingIntelCard";
+import { PaymentCTABanner } from "@/components/dashboard/PaymentCTABanner";
+import { OnboardingChecklist } from "@/components/dashboard/OnboardingChecklist";
+import { HotLeadsRail } from "@/components/dashboard/HotLeadsRail";
+import { WeeklyDigestPreview } from "@/components/dashboard/WeeklyDigestPreview";
+import { CommandPalette } from "@/components/dashboard/CommandPalette";
+import { PartnerTestimonials } from "@/components/dashboard/PartnerTestimonials";
+import { OnboardingTour } from "@/components/dashboard/OnboardingTour";
+import { NotificationCenter } from "@/components/dashboard/NotificationCenter";
+import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import { OnboardingProgressBar } from "@/components/dashboard/OnboardingProgressBar";
 
 // Derive site domain from NEXT_PUBLIC_SITE_URL (inlined at build time). The default
 // matches the botox site so the dental deploy must set NEXT_PUBLIC_SITE_URL.
 const SITE_DOMAIN = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com")
   .replace(/^https?:\/\/(www\.)?/, "")
   .replace(/\/$/, "");
-
-type LeadStatus = "new" | "contacted" | "booked" | "no_show" | "cancelled";
-
-const LEAD_STATUS_META: Record<LeadStatus, { label: string; color: string; bg: string }> = {
-  new:       { label: "New",       color: "#2563eb", bg: "#dbeafe" },
-  contacted: { label: "Contacted", color: "#7c3aed", bg: "#ede9fe" },
-  booked:    { label: "Booked",    color: "#059669", bg: "#d1fae5" },
-  no_show:   { label: "No-show",   color: "#dc2626", bg: "#fee2e2" },
-  cancelled: { label: "Cancelled", color: "#6b7280", bg: "#f3f4f6" },
-};
-
-function reviewHash(text: string): string {
-  let h = 0;
-  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) | 0;
-  return Math.abs(h).toString(36);
-}
 
 type Props = {
   clinic: Clinic;
@@ -47,6 +48,9 @@ type Props = {
   replyDoneHashes?: string[];
   profileViewsTotal?: number;
   profileViewsByDay?: { date: string; count: number }[];
+  // Owner mode 에서 dashboard API 호출 시 x-dashboard-token 헤더로 전달.
+  // Staff (admin 쿠키) 모드면 null — admin 쿠키가 자동 전송됨.
+  accessToken?: string | null;
 };
 
 // ฿2,800 = Bangkok 피부과 Facebook 광고 평균 CAC.
@@ -130,7 +134,15 @@ export function DashboardView({
   replyDoneHashes = [],
   profileViewsTotal = 0,
   profileViewsByDay = [],
+  accessToken = null,
 }: Props) {
+  // Dashboard API 인증 헤더 — owner 모드면 ?k= 토큰을 헤더로 전달, staff 모드면 빈 객체
+  // (admin_session 쿠키가 자동 동봉).
+  const dashHeaders = (): Record<string, string> => {
+    const h: Record<string, string> = { "Content-Type": "application/json" };
+    if (accessToken) h["x-dashboard-token"] = accessToken;
+    return h;
+  };
   // ── client state ──────────────────────────────────────────
   const [styleVariants, setStyleVariants] = useState<Record<number, ReplyStyle>>({});
   const [editTexts, setEditTexts] = useState<Record<number, string>>({});
@@ -158,7 +170,7 @@ export function DashboardView({
     try {
       const res = await fetch("/api/email-signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: dashHeaders(),
         body: JSON.stringify({ email, clinic_id: c.id }),
       });
       setDigestStatus(res.ok ? "done" : "error");
@@ -182,7 +194,7 @@ export function DashboardView({
     try {
       await fetch("/api/dashboard/reply-done", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: dashHeaders(),
         body: JSON.stringify({ clinic_id: c.id, hash, done }),
       });
     } catch {}
@@ -193,7 +205,7 @@ export function DashboardView({
     try {
       await fetch("/api/dashboard/lead-status", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: dashHeaders(),
         body: JSON.stringify({ clinic_id: c.id, lead_id: leadId, status }),
       });
     } catch {}
@@ -204,7 +216,7 @@ export function DashboardView({
     try {
       await fetch("/api/dashboard/lead-status", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: dashHeaders(),
         body: JSON.stringify({ clinic_id: c.id, lead_id: leadId, note }),
       });
     } catch {}
@@ -287,8 +299,9 @@ export function DashboardView({
       setAiLoading((prev) => new Set(prev).add(key));
       fetch("/api/dashboard/ai-reply", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: dashHeaders(),
         body: JSON.stringify({
+          clinic_id: c.id,
           review_text: rev.text,
           clinic_name: c.name,
           author_name: rev.author || "",
@@ -348,11 +361,52 @@ export function DashboardView({
             <button onClick={handlePrint} className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50 print:hidden">
               📊 Export PDF
             </button>
+            <NotificationCenter clinicId={c.id} />
+            <CommandPalette
+              clinicId={c.id}
+              shareUrl={typeof window !== "undefined" ? window.location.href : `/dashboard/${c.id}`}
+            />
           </div>
         </div>
       </div>
 
+      <DashboardSidebar />
+      <OnboardingProgressBar />
+
+      {/* Payment CTA — first thing partner sees (hidden if already paying) */}
+      <div data-tour="cta">
+        <PaymentCTABanner
+          clinicName={c.name}
+          isPartner={isPartner}
+          recentLeadsCount={recentLeads.length}
+        />
+      </div>
+
+      {/* First-visit interactive tour (auto-disabled for partners) */}
+      <OnboardingTour disabled={isPartner || isDemo} />
+
       <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Sticky "action needed" — hidden when nothing to act on */}
+        <ActionAlert
+          newLeads={recentLeads.filter((l) => (leadStatus[l.id] ?? "new") === "new").length}
+          pendingReplies={pendingReplies}
+        />
+
+        {/* Hot leads with countdown — drives immediate action */}
+        <div data-tour="leads">
+          <HotLeadsRail leads={recentLeads} statuses={leadStatus} />
+        </div>
+
+        {/* Onboarding checklist — auto-hides when all done */}
+        <div data-tour="checklist">
+        <OnboardingChecklist
+          hasLeads={recentLeads.length > 0}
+          hasRepliedToReview={replyDoneSet.size > 0}
+          hasContactedLead={Object.values(leadStatus).some((s) => s !== "new")}
+          isPartner={isPartner}
+          pendingReplies={pendingReplies}
+        />
+        </div>
         {/* Free-report hero banner — non-partner wedge.
             Partners (paid) skip this; they get the data-first experience. */}
         {!isPartner && !isDemo && (
@@ -937,8 +991,8 @@ export function DashboardView({
 
         {/* Multi-platform reputation + Pricing intelligence — Sprint 2 */}
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
-          <PlatformReputationCard clinic={c} />
-          <PricingIntelCard clinic={c} competitors={competitors} />
+          <PlatformReputationCard clinic={c} isDemo={isDemo} />
+          <PricingIntelCard clinic={c} competitors={competitors} isDemo={isDemo} />
         </div>
 
         {/* Topics + Sample reviews 2-col */}
@@ -1191,6 +1245,18 @@ export function DashboardView({
           </Card>
         </section>
 
+        {/* Partner testimonials — social proof for conversion (only non-partners see it) */}
+        <PartnerTestimonials isPartner={isPartner} />
+
+        {/* Weekly digest preview — recurring-value proof */}
+        <WeeklyDigestPreview
+          clinic={c}
+          competitors={competitors}
+          newLeads={recentLeads.filter((l) => (leadStatus[l.id] ?? "new") === "new").length}
+          pendingReplies={pendingReplies}
+          isPartner={isPartner}
+        />
+
         {/* Email weekly digest signup — lead capture for non-partners */}
         {!isPartner && (
           <section className="mb-6">
@@ -1322,85 +1388,6 @@ export function DashboardView({
 
 // ── small components ───────────────────────────────────────
 
-function Card({ children, accent }: { children: React.ReactNode; accent?: string }) {
-  return (
-    <div className="bg-white rounded-xl p-5 shadow-sm" style={{ borderTop: accent ? `3px solid ${accent}` : undefined, border: accent ? `1px solid ${accent}30` : "1px solid var(--border)" }}>
-      {children}
-    </div>
-  );
-}
-
-function KPI({ label, value, sub, color, clickable, warning, href, lock }: {
-  label: string; value: string; sub: string; color: string;
-  clickable?: boolean; warning?: boolean; href?: string; lock?: boolean;
-}) {
-  const inner = (
-    <div
-      className={`bg-white rounded-xl p-4 border transition ${clickable ? "hover:shadow-md cursor-pointer" : ""}`}
-      style={{ borderColor: warning ? `${color}80` : "var(--border)", borderWidth: warning ? 2 : 1 }}
-    >
-      <div className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] mb-1 flex items-center gap-1">
-        <span className="truncate">{label}</span>
-        {lock && <span className="text-amber-600">🔒</span>}
-      </div>
-      <div className="text-2xl md:text-3xl font-black tabular-nums" style={{ color }}>{value}</div>
-      <div className="text-[10px] text-[var(--muted)] mt-1 truncate">{sub}</div>
-    </div>
-  );
-  return href ? <a href={href} className="block">{inner}</a> : inner;
-}
-
-function ScoreLever({ label, value, max, hint, accent }: {
-  label: string; value: number; max: number; hint: string; accent: string;
-}) {
-  const pct = max > 0 ? (value / max) * 100 : 0;
-  return (
-    <div>
-      <div className="flex justify-between items-baseline mb-1">
-        <span className="text-sm font-medium">{label}</span>
-        <span className="text-sm tabular-nums">
-          <span className="font-bold">{value}</span>
-          <span className="text-[var(--muted)]">/{max}</span>
-        </span>
-      </div>
-      <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: accent }} />
-      </div>
-      <div className="text-xs text-[var(--muted)] mt-1">{hint}</div>
-    </div>
-  );
-}
-
-function Stat({ label, value, count, tiny }: { label: string; value: string; count?: number; tiny?: boolean }) {
-  return (
-    <div className={tiny ? "" : "bg-white rounded-lg p-3"}>
-      <div className="text-[10px] uppercase tracking-widest text-[var(--muted)]">{label}</div>
-      <div className="text-lg font-black tabular-nums">{value}</div>
-      {count !== undefined && <div className="text-[10px] text-[var(--muted)]">{count} reviews</div>}
-    </div>
-  );
-}
-
-function RoiCell({ label, value, sub }: { label: string; value: string; sub: string }) {
-  return (
-    <div className="bg-white/15 backdrop-blur rounded-lg p-3">
-      <div className="text-[10px] uppercase tracking-widest opacity-80 mb-1 font-bold">{label}</div>
-      <div className="text-xl md:text-2xl font-black tabular-nums">{value}</div>
-      <div className="text-[10px] opacity-80 mt-1 truncate">{sub}</div>
-    </div>
-  );
-}
-
-function relTime(iso: string): string {
-  const ms = Date.now() - new Date(iso).getTime();
-  const mins = Math.round(ms / 60_000);
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.round(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  const days = Math.round(hrs / 24);
-  return `${days}d ago`;
-}
-
 function LeadCard({
   lead, status, note, onStatusChange, onNoteChange,
 }: {
@@ -1423,6 +1410,7 @@ function LeadCard({
         style={{ background: status === "new" && isFresh ? "#ecfdf5" : "#fafafa" }}
       >
         <div className="flex items-center gap-2 flex-wrap">
+          <Avatar name={lead.name || lead.email} email={lead.email} size={32} />
           <span
             className="text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full"
             style={{ color: meta.color, background: meta.bg }}
@@ -1490,355 +1478,6 @@ function LeadCard({
           {showNote ? "− Hide note" : "+ Note"}
         </button>
         <span className="ml-auto text-[10px] text-[var(--muted)] tabular-nums font-mono">{lead.id.slice(0, 10)}</span>
-      </div>
-    </div>
-  );
-}
-
-// ── Profile views chart — 30일 일별 막대 ───────────────────
-
-function ViewsChart({ data }: { data: { date: string; count: number }[] }) {
-  if (!data.length) return null;
-  const W = 700, H = 80, PT = 8, PB = 18, PL = 4, PR = 4;
-  const max = Math.max(...data.map((d) => d.count), 1);
-  const barW = (W - PL - PR) / data.length;
-  const chartH = H - PT - PB;
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" aria-label="Daily profile views">
-      {data.map((d, i) => {
-        const h = (d.count / max) * chartH;
-        const x = PL + i * barW;
-        const y = PT + (chartH - h);
-        const isLast = i === data.length - 1;
-        return (
-          <g key={d.date}>
-            <rect
-              x={x + 1}
-              y={y}
-              width={Math.max(barW - 2, 1)}
-              height={h}
-              fill={isLast ? "#6366f1" : "#a5b4fc"}
-              rx={1.5}
-            />
-            {d.count > 0 && (
-              <title>{`${d.date}: ${d.count} view${d.count !== 1 ? "s" : ""}`}</title>
-            )}
-          </g>
-        );
-      })}
-      {/* X-axis labels — only every 5th day */}
-      {data.map((d, i) =>
-        i % 5 === 0 || i === data.length - 1 ? (
-          <text
-            key={`l-${d.date}`}
-            x={PL + i * barW + barW / 2}
-            y={H - 4}
-            fontSize="9"
-            fill="#9ca3af"
-            textAnchor="middle"
-          >
-            {d.date.slice(5)}
-          </text>
-        ) : null
-      )}
-    </svg>
-  );
-}
-
-// ── Rating trend chart — real 3-bucket data ────────────────
-
-function RatingTrendChart({ trend }: { trend: RatingTrend }) {
-  const W = 340, H = 100, PL = 28, PR = 16, PT = 18, PB = 8;
-  const cW = W - PL - PR;
-  const cH = H - PT - PB;
-
-  const buckets = [
-    { label: "1yr+",   ...trend.old },
-    { label: "3-12mo", ...trend.midterm },
-    { label: "30d",    ...trend.recent },
-  ];
-
-  const toY = (avg: number | null): number | null =>
-    avg === null ? null : PT + cH - ((avg - 1) / 4) * cH;
-
-  const pts = buckets.map((b, i) => ({
-    x: PL + (i / 2) * cW,
-    y: toY(b.avg),
-    label: b.label,
-    avg: b.avg,
-    count: b.count,
-  }));
-
-  // Build path only through valid consecutive segments
-  const segments: string[] = [];
-  for (let i = 0; i < pts.length - 1; i++) {
-    const a = pts[i], b = pts[i + 1];
-    if (a.y !== null && b.y !== null)
-      segments.push(`M ${a.x} ${a.y} L ${b.x} ${b.y}`);
-  }
-
-  const gridRatings = [2, 3, 4, 5];
-
-  return (
-    <div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ overflow: "visible" }}>
-        {/* Grid lines + labels */}
-        {gridRatings.map((r) => {
-          const y = toY(r)!;
-          return (
-            <g key={r}>
-              <line x1={PL} y1={y} x2={W - PR} y2={y} stroke="#f0f0f0" strokeWidth="1" />
-              <text x={PL - 4} y={y + 3.5} fontSize="9" textAnchor="end" fill="#9ca3af">★{r}</text>
-            </g>
-          );
-        })}
-
-        {/* Connecting lines */}
-        {segments.map((d, i) => (
-          <path key={i} d={d} stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        ))}
-
-        {/* Points + labels */}
-        {pts.map((p, i) => (
-          <g key={i}>
-            {p.y !== null ? (
-              <>
-                <circle cx={p.x} cy={p.y} r="5" fill="#10b981" />
-                <text x={p.x} y={p.y - 10} fontSize="10" textAnchor="middle" fill="#111827" fontWeight="700">
-                  ★{p.avg?.toFixed(2)}
-                </text>
-              </>
-            ) : (
-              <circle cx={p.x} cy={H / 2} r="4" fill="#e5e7eb" />
-            )}
-            <text x={p.x} y={H + 2} fontSize="9" textAnchor="middle" fill="#6b7280">{p.label}</text>
-            {p.count > 0 && (
-              <text x={p.x} y={H + 13} fontSize="8" textAnchor="middle" fill="#9ca3af">{p.count} rev</text>
-            )}
-          </g>
-        ))}
-      </svg>
-      {/* Summary row */}
-      <div className="grid grid-cols-3 gap-3 mt-4 text-center text-xs border-t border-[var(--border)] pt-3">
-        {buckets.map((b, i) => (
-          <div key={i}>
-            <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">{b.label}</div>
-            <div className="text-base font-black">{b.avg != null ? `★${b.avg.toFixed(1)}` : "—"}</div>
-            <div className="text-[10px] text-[var(--muted)]">{b.count > 0 ? `${b.count} reviews` : "no data"}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function LeadField({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex gap-3">
-      <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold min-w-[70px] pt-0.5">{label}</span>
-      <span className="flex-1 break-words">{value}</span>
-    </div>
-  );
-}
-
-// ── Sprint 2.1: Multi-platform reputation ──────────────────
-
-const PLATFORM_META: Record<string, { label: string; color: string; emoji: string }> = {
-  google:      { label: "Google",      color: "#4285f4", emoji: "🅖" },
-  tripadvisor: { label: "TripAdvisor", color: "#00aa6c", emoji: "🦉" },
-  whatclinic:  { label: "WhatClinic",  color: "#1a9d6f", emoji: "🩺" },
-  trustpilot:  { label: "Trustpilot",  color: "#00b67a", emoji: "★" },
-  facebook:    { label: "Facebook",    color: "#1877f2", emoji: "f" },
-  bookimed:    { label: "Bookimed",    color: "#5b6ee1", emoji: "✈" },
-};
-
-function PlatformReputationCard({ clinic: c }: { clinic: Clinic }) {
-  const ext = c.external_reviews ?? {};
-  type Row = { key: string; label: string; color: string; emoji: string; rating: number | null; count: number; url?: string; tracked: boolean };
-  const rows: Row[] = [
-    { key: "google", ...PLATFORM_META.google, rating: c.rating, count: c.total_reviews, url: c.maps_url, tracked: true },
-    ...(["tripadvisor", "whatclinic", "trustpilot", "facebook", "bookimed"] as const).map((k) => {
-      const e = ext[k];
-      return {
-        key: k, ...PLATFORM_META[k],
-        rating: e?.rating ?? null,
-        count: e?.count ?? 0,
-        url: e?.url,
-        tracked: !!e,
-      };
-    }),
-  ];
-  const totalReviews = rows.reduce((s, r) => s + r.count, 0);
-  const trackedCount = rows.filter((r) => r.tracked).length;
-  const maxCount = Math.max(1, ...rows.map((r) => r.count));
-
-  return (
-    <Card>
-      <div className="flex items-baseline justify-between gap-3 mb-1 flex-wrap">
-        <h2 className="text-lg font-bold flex items-center gap-2">
-          <span>🌐</span> Multi-platform reputation
-        </h2>
-        <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-blue-100 text-blue-800">
-          {trackedCount}/6 tracked
-        </span>
-      </div>
-      <p className="text-xs text-[var(--muted)] mb-3">
-        Your total review footprint across all platforms patients use.
-      </p>
-      <div className="text-3xl md:text-4xl font-black tabular-nums mb-1">
-        {totalReviews.toLocaleString()}
-        <span className="text-sm font-normal text-[var(--muted)] ml-2">total reviews</span>
-      </div>
-      <div className="space-y-2 mt-4">
-        {rows.map((r) => (
-          <div key={r.key} className="flex items-center gap-3">
-            <span className="w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style={{ background: r.color }}>
-              {r.emoji}
-            </span>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-baseline justify-between gap-2 text-sm">
-                <span className="font-medium truncate">{r.label}</span>
-                <span className="tabular-nums whitespace-nowrap">
-                  {r.tracked ? (
-                    <>
-                      {r.rating !== null && <span className="text-yellow-700 mr-2">★{r.rating.toFixed(1)}</span>}
-                      <strong>{r.count.toLocaleString()}</strong>
-                    </>
-                  ) : (
-                    <span className="text-[var(--muted)] text-xs">— not tracked</span>
-                  )}
-                </span>
-              </div>
-              <div className="h-1.5 rounded-full bg-gray-100 mt-1 overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all"
-                  style={{ width: `${(r.count / maxCount) * 100}%`, background: r.tracked ? r.color : "#e5e5e5" }}
-                />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between gap-2 flex-wrap">
-        <span className="text-xs text-[var(--muted)]">
-          Auto-aggregated weekly. New platforms added quarterly.
-        </span>
-        <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-          + Connect platform
-        </button>
-      </div>
-    </Card>
-  );
-}
-
-// ── Sprint 2.2: Pricing intelligence ───────────────────────
-
-const SERVICE_LABELS: Record<string, string> = {
-  botox: "Botox", filler: "Filler", hifu: "HIFU", facial: "Facial",
-  laser: "Laser", dental: "Dental", hair_transplant: "Hair transplant", eye: "Eye / LASIK",
-};
-
-function PricingIntelCard({ clinic: c, competitors }: { clinic: Clinic; competitors: Clinic[] }) {
-  const myPricing = c.pricing ?? [];
-  const allPricing = [c, ...competitors].flatMap((x) => x.pricing ?? []);
-  const services = Array.from(new Set([
-    ...myPricing.map((p) => p.service),
-    ...c.categories.slice(0, 4),
-  ]));
-
-  // service 별 시장 median 계산
-  const serviceStats = services.map((svc) => {
-    const mine = myPricing.find((p) => p.service === svc);
-    const market = allPricing.filter((p) => p.service === svc);
-    const marketMid = market.length
-      ? market.map((p) => (p.price_min_thb + p.price_max_thb) / 2).sort((a, b) => a - b)
-      : [];
-    const median = marketMid.length ? marketMid[Math.floor(marketMid.length / 2)] : null;
-    const myMid = mine ? (mine.price_min_thb + mine.price_max_thb) / 2 : null;
-    const deltaPct = (myMid !== null && median !== null && median > 0) ? Math.round(((myMid - median) / median) * 100) : null;
-    return { svc, mine, median, myMid, deltaPct, sampleSize: market.length };
-  });
-
-  const trackedCount = serviceStats.filter((s) => s.mine !== undefined).length;
-
-  return (
-    <Card>
-      <div className="flex items-baseline justify-between gap-3 mb-1 flex-wrap">
-        <h2 className="text-lg font-bold flex items-center gap-2">
-          <span>💰</span> Pricing intelligence
-        </h2>
-        <span className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-amber-100 text-amber-800">
-          {trackedCount > 0 ? `${trackedCount} tracked` : "Auto-scrape pending"}
-        </span>
-      </div>
-      <p className="text-xs text-[var(--muted)] mb-3">
-        Your published prices vs district median. Updated weekly from public clinic websites.
-      </p>
-      <div className="space-y-3 mt-4">
-        {serviceStats.length === 0 ? (
-          <div className="bg-gray-50 border-2 border-dashed border-[var(--border)] rounded-xl p-6 text-center">
-            <p className="text-sm font-bold">No price data yet</p>
-            <p className="text-xs text-[var(--muted)] mt-1">
-              We auto-scrape your website weekly. Add prices to your site or upload manually to populate.
-            </p>
-          </div>
-        ) : serviceStats.map((s) => (
-          <PriceLevel key={s.svc} stat={s} />
-        ))}
-      </div>
-      <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between gap-2 flex-wrap">
-        <span className="text-xs text-[var(--muted)]">
-          Source: public clinic websites. We never share your prices with competitors.
-        </span>
-        <button className="text-xs font-bold px-3 py-2 rounded-lg border border-[var(--border)] bg-white hover:bg-gray-50">
-          📊 Full price report
-        </button>
-      </div>
-    </Card>
-  );
-}
-
-function PriceLevel({ stat }: {
-  stat: { svc: string; mine: { price_min_thb: number; price_max_thb: number } | undefined;
-          median: number | null; myMid: number | null; deltaPct: number | null; sampleSize: number };
-}) {
-  const { svc, mine, median, deltaPct, sampleSize } = stat;
-  const label = SERVICE_LABELS[svc] ?? svc;
-  const status: "high" | "low" | "fair" | "unknown" =
-    deltaPct === null ? "unknown" : deltaPct > 20 ? "high" : deltaPct < -15 ? "low" : "fair";
-  const statusMeta = {
-    high:    { color: "#dc2626", bg: "#fee2e2", note: "above market — may lose price-sensitive leads" },
-    low:     { color: "#0891b2", bg: "#cffafe", note: "below market — leaving money on table" },
-    fair:    { color: "#16a34a", bg: "#dcfce7", note: "competitive — within ±15% of median" },
-    unknown: { color: "#737373", bg: "#f5f5f5", note: "no price published yet" },
-  }[status];
-
-  return (
-    <div className="border border-[var(--border)] rounded-lg p-3" style={{ background: statusMeta.bg + "30" }}>
-      <div className="flex items-baseline justify-between gap-2 mb-1">
-        <span className="font-bold text-sm">{label}</span>
-        {deltaPct !== null && (
-          <span className="text-xs font-bold tabular-nums" style={{ color: statusMeta.color }}>
-            {deltaPct > 0 ? "+" : ""}{deltaPct}% vs market
-          </span>
-        )}
-      </div>
-      <div className="flex items-center gap-3 text-xs">
-        <div className="flex-1">
-          <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">Your price</div>
-          <div className="tabular-nums font-bold">
-            {mine ? `฿${mine.price_min_thb.toLocaleString()}–${mine.price_max_thb.toLocaleString()}` : <span className="text-[var(--muted)] font-normal">not on website</span>}
-          </div>
-        </div>
-        <div className="flex-1 text-right">
-          <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">District median</div>
-          <div className="tabular-nums font-bold">
-            {median !== null ? `฿${Math.round(median).toLocaleString()}` : <span className="text-[var(--muted)] font-normal">collecting (n={sampleSize})</span>}
-          </div>
-        </div>
-      </div>
-      <div className="text-[11px] mt-2" style={{ color: statusMeta.color }}>
-        {statusMeta.note}
       </div>
     </div>
   );

@@ -10,13 +10,16 @@ import { processWelcomeQueue } from "@/lib/welcomeEmails";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  // Vercel Cron 인증 — env CRON_SECRET 과 일치하는 Bearer 토큰만 허용
+  // Vercel Cron 인증 — env CRON_SECRET 과 일치하는 Bearer 토큰만 허용.
+  // fail-closed: CRON_SECRET 미설정이면 503 (이전엔 인증 스킵하던 버그).
   const auth = req.headers.get("authorization");
   const expected = process.env.CRON_SECRET;
-  if (expected) {
-    if (auth !== `Bearer ${expected}`) {
-      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    }
+  if (!expected) {
+    console.error("[cron.welcome] CRON_SECRET not configured — refusing");
+    return NextResponse.json({ error: "cron not configured" }, { status: 503 });
+  }
+  if (auth !== `Bearer ${expected}`) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
   const partners = await listPartners();

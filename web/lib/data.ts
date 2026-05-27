@@ -23,16 +23,21 @@ export async function loadMasterDb(): Promise<MasterDb> {
 
   // 추가 stub 클리닉 (outreach import 결과) 머지. master_db에 이미 있으면 skip
   // → watchdog Bangkok grid가 풍부화하면 stub 자동 무시됨.
+  // extra_clinics 의 id 는 Google place_id 원본 (`0xA:0xB`) 형식.
+  // master_db 컨벤션 (`0xA_0xB`) 으로 정규화 — Windows 파일명에 `:` 불가 +
+  // URL 에서 `:` 가 reserved 라 라우팅 곤란.
   try {
     const extraRaw = await fs.readFile(EXTRA_PATH, "utf-8");
     const extra = JSON.parse(extraRaw) as { clinics: Clinic[] };
     const existing = new Set(parsed.clinics.map((c) => c.place_id));
     let added = 0;
     for (const c of extra.clinics ?? []) {
-      if (!existing.has(c.place_id)) {
-        parsed.clinics.push(c);
-        added++;
-      }
+      if (existing.has(c.place_id)) continue;
+      parsed.clinics.push({
+        ...c,
+        id: (c.id ?? "").replace(/:/g, "_"),
+      });
+      added++;
     }
     if (added > 0) {
       parsed.total_clinics = parsed.clinics.length;

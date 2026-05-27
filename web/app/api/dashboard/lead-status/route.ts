@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { setLeadStatus, setLeadNote, type LeadStatus } from "@/lib/dashboardStore";
+import { isDashboardAuthed } from "@/lib/adminAuth";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,9 @@ export async function POST(req: NextRequest) {
 
   if (!clinic_id || !lead_id) {
     return NextResponse.json({ error: "clinic_id and lead_id required" }, { status: 400 });
+  }
+  if (!(await isDashboardAuthed(req, clinic_id))) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
   if (status !== undefined) {

@@ -2,6 +2,8 @@
 // env 설정 안되어 있으면 graceful no-op. dashboard 는 빈 배열 반환.
 // 무료 tier 10K commands/day. lead 1건당 ~3 commands (lpush + expire + counter).
 
+import { checkRateLimit } from "./rateLimit";
+
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -105,12 +107,8 @@ export async function getLeadCount(clinicId: string): Promise<number> {
 }
 
 // Simple per-IP rate limit. 한 IP가 10분에 5건 이상이면 차단.
+// Lead 는 form 제출이라 사용자 입장 friction 최소화 — Upstash 호출 자체가 실패하면
+// fail-OPEN (정상 사용자가 막히는 케이스를 더 싫어함).
 export async function rateLimitOk(ip: string): Promise<boolean> {
-  if (!UPSTASH_URL || !UPSTASH_TOKEN) return true; // fail-open if no storage
-  const key = `rl:lead:${ip}`;
-  const count = (await upstash(["INCR", key])) as number | null;
-  if (count === 1) {
-    await upstash(["EXPIRE", key, 600]); // 10분
-  }
-  return typeof count === "number" ? count <= 5 : true;
+  return checkRateLimit({ key: `lead:${ip}`, limit: 5, windowSec: 600, failOpenOnError: true });
 }

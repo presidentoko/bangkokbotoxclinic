@@ -8,20 +8,9 @@ import {
   getTotalProfileViews, getProfileViewsByDay,
 } from "@/lib/dashboardStore";
 import { verifyAccess } from "@/lib/dashboardAccessStore";
+import { isAdminAuthedFromCookies } from "@/lib/adminAuth";
 import { getSiteConfig } from "@/lib/site";
-import { cookies } from "next/headers";
 import type { Metadata } from "next";
-
-// admin 쿠키 = 직원용 마스터 액세스. /admin 로그인된 운영자는 모든 dashboard 통과.
-// 별도 staff 키 필요 없음 — admin 한 번 로그인 → 모든 클리닉 페이지 열람 가능.
-async function isStaff(): Promise<boolean> {
-  const expected = process.env.ADMIN_PASSCODE;
-  if (!expected) return false;
-  const c = (await cookies()).get("admin_session")?.value ?? "";
-  if (!c) return false;
-  try { return Buffer.from(c, "base64").toString("utf-8") === expected; }
-  catch { return false; }
-}
 
 // 대쉬보드는 private (robots disallow) + 실시간 lead 표시 필요 → dynamic 렌더링.
 // SSG 캐시 안 함. 클리닉 owner 가 직접 방문할 때마다 최신 lead 가져옴.
@@ -53,7 +42,7 @@ export default async function ClinicDashboardPage(
 
   // Gate: 직원 (admin 쿠키) OR 클리닉 owner (?k=TOKEN) 만 통과.
   // 직원은 /admin 한번 로그인 후 모든 dashboard 자동 접근.
-  const staff = await isStaff();
+  const staff = await isAdminAuthedFromCookies();
   const accessOk = staff || (k ? await verifyAccess(id, k) : false);
   if (!accessOk) {
     const cfg = getSiteConfig();
@@ -138,6 +127,7 @@ export default async function ClinicDashboardPage(
       replyDoneHashes={Array.from(replyDoneSet)}
       profileViewsTotal={viewsTotal}
       profileViewsByDay={viewsByDay}
+      accessToken={staff ? null : (k ?? null)}
     />
   );
 }

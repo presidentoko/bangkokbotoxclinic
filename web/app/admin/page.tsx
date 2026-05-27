@@ -1,26 +1,14 @@
 export const dynamic = "force-dynamic";
 
-import { cookies } from "next/headers";
 import { loadMasterDb } from "@/lib/data";
 import { listPartners } from "@/lib/partnerStore";
 import { listSponsored } from "@/lib/sponsoredStore";
 import AdminView from "@/components/AdminView";
 import AdminLogin from "@/components/AdminLogin";
-
-async function isAuthed(): Promise<boolean> {
-  const jar = await cookies();
-  const val = jar.get("admin_session")?.value ?? "";
-  const expected = process.env.ADMIN_PASSCODE;
-  if (!expected || !val) return false;
-  try {
-    return Buffer.from(val, "base64").toString("utf-8") === expected;
-  } catch {
-    return false;
-  }
-}
+import { isAdminAuthedFromCookies } from "@/lib/adminAuth";
 
 export default async function AdminPage() {
-  if (!(await isAuthed())) {
+  if (!(await isAdminAuthedFromCookies())) {
     return <AdminLogin />;
   }
 

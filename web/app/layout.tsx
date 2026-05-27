@@ -3,8 +3,18 @@ import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ToastProvider } from "@/components/Toast";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import SisterSites from "@/components/SisterSites";
+import { CurrencyProvider } from "@/components/CurrencyConverter";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+// Hydration-after 위젯들 — initial HTML 에서 제외. components/LazyWidgets.tsx 참고.
+import {
+  PersonalizationQuiz, SocialProofToasts, LiveChatBubble, CookieConsent,
+  MobileBottomNav, DealsAlert, ExitIntentPopup, WhatsAppCTA,
+  AccessibilityToolbar, ScrollToTopButton, ReadingProgressBar,
+} from "@/components/LazyWidgets";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 const cfg = getSiteConfig();
@@ -81,14 +91,21 @@ export default function RootLayout({
       <body>
         <OrgJsonLd />
         <WebsiteJsonLd />
-        <SiteHeader focus={cfg.focus} accent={cfg.themeAccent} />
-        <main>{children}</main>
+        <ToastProvider>
+          <CurrencyProvider>
+          <SiteHeader focus={cfg.focus} accent={cfg.themeAccent} />
+          <main className="pb-20 sm:pb-0">{children}</main>
+        <SisterSites focus={cfg.focus} />
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
+            <div className="mb-8">
+              <NewsletterSignup focus={cfg.focus} />
+            </div>
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
               <div className="flex-1">
                 <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
                   <a href="/about" className="hover:text-black">About</a>
+                  <a href="/insights" className="hover:text-black">Market Insights</a>
                   <a href="/contact" className="hover:text-black">Contact</a>
                   <a href="/for-clinics" className="hover:text-black">For Clinics</a>
                   <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
@@ -118,6 +135,19 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+        <PersonalizationQuiz />
+        <SocialProofToasts />
+        <LiveChatBubble />
+        <WhatsAppCTA />
+        <MobileBottomNav />
+        <DealsAlert />
+        <ExitIntentPopup />
+        <AccessibilityToolbar />
+        <ScrollToTopButton />
+        <ReadingProgressBar />
+        <CookieConsent />
+        </CurrencyProvider>
+        </ToastProvider>
         <Analytics />
         <SpeedInsights />
       </body>

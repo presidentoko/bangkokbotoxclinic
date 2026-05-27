@@ -16,6 +16,22 @@ import { SponsoredHero } from "@/components/SponsoredHero";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { guidesForFocus } from "@/lib/guides";
+import WhyUs from "@/components/WhyUs";
+import AfterSubmitFlow from "@/components/AfterSubmitFlow";
+import CityRow from "@/components/CityRow";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import TestimonialMarquee from "@/components/TestimonialMarquee";
+import CuratedCollections from "@/components/CuratedCollections";
+import ClinicLeaderboard from "@/components/ClinicLeaderboard";
+import RecentBookingsTicker from "@/components/RecentBookingsTicker";
+import PartnerLogosWall from "@/components/PartnerLogosWall";
+import PatientCommunityCount from "@/components/PatientCommunityCount";
+// Below-fold + heavy interactive 위젯들 — client only lazy hydrate.
+// LazyWidgets.tsx 가 client component module 이라 ssr:false 사용 가능.
+import {
+  LiveTicker, ClinicSpinWheel, TrustScoreGame, CostCalculator,
+  DownloadableGuide, MemberPerksStrip, ScrollReveal,
+} from "@/components/LazyWidgets";
 
 export const revalidate = 1800; // ISR 30분 — sponsored 슬롯 변경은 admin API 의 revalidatePath() 로 즉시 반영. 백그라운드 자동 갱신은 30분 (Hobby ISR Writes 한도 절약)
 
@@ -125,12 +141,15 @@ export default async function HomePage() {
           />
         </div>
         <div className="relative max-w-5xl mx-auto px-4 pt-16 md:pt-20 pb-12 text-center">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6"
-            style={{ background: `${accent}15`, color: accent }}
-          >
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent }} />
-            Verified · Independent · No clinic sponsorship in rankings
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest"
+              style={{ background: `${accent}15`, color: accent }}
+            >
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent }} />
+              Verified · Independent · No sponsorship in rankings
+            </div>
+            <LiveTicker focus={cfg.focus} accent={accent} />
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
             {cfg.focus === "all" ? (
@@ -168,6 +187,24 @@ export default async function HomePage() {
               Get matched (free)
             </a>
           </div>
+
+          {/* Visitors-from strip — medical-tourism signal */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-xs text-[var(--muted)]">
+            <span className="font-semibold uppercase tracking-wider text-[10px]">Visitors from</span>
+            <span className="text-base">🇰🇷</span>
+            <span className="text-base">🇸🇦</span>
+            <span className="text-base">🇦🇪</span>
+            <span className="text-base">🇸🇬</span>
+            <span className="text-base">🇲🇾</span>
+            <span className="text-base">🇭🇰</span>
+            <span className="text-base">🇺🇸</span>
+            <span className="text-base">🇬🇧</span>
+            <span className="text-base">🇦🇺</span>
+            <span className="text-base">🇨🇳</span>
+            <span className="text-base">🇯🇵</span>
+            <span className="text-base">🇩🇪</span>
+            <span className="font-bold text-[var(--fg)] ml-1">+18 countries</span>
+          </div>
         </div>
       </section>
 
@@ -186,8 +223,16 @@ export default async function HomePage() {
       {/* Multi-source visualization — clearly communicate aggregation site */}
       <SourcesStrip focus={cfg.focus} accent={accent} />
 
+      {/* Press coverage strip */}
+      <PartnerLogosWall />
+
+      {/* Why us vs them — focus-aware differentiation */}
+      <ScrollReveal className="max-w-5xl mx-auto px-4 pt-10">
+        <WhyUs focus={cfg.focus} />
+      </ScrollReveal>
+
       <div className="max-w-5xl mx-auto px-4 py-10">
-        {heroClinic ? <SponsoredHero c={heroClinic} /> : null}
+        {heroClinic ? <SponsoredHero c={heroClinic} /> : top[0] ? <SpotlightCard c={top[0]} accent={accent} /> : null}
 
         {/* Ad slot — hero 직하 leaderboard */}
         <AdPlaceholder variant="banner" label="Sponsored" hint="Top placement for premium clinics & partners" />
@@ -396,6 +441,37 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* Netflix-style city rows — only shown when 2+ cities exist (single-city focus doesn't need it). */}
+        {(() => {
+          const cityClinics = new Map<string, typeof focused>();
+          for (const c of focused) {
+            if (!c.city_label) continue;
+            const cur = cityClinics.get(c.city_label) ?? [];
+            cur.push(c);
+            cityClinics.set(c.city_label, cur);
+          }
+          const topCities = [...cityClinics.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 3);
+          if (topCities.length < 2) return null;
+          return (
+            <div className="mb-12 space-y-10">
+              {topCities.map(([city, clinics]) => (
+                <CityRow
+                  key={city}
+                  city={city}
+                  total={clinics.length}
+                  seeAllHref={`/city/${(clinics[0]?.city_slug ?? city).toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  {clinics.slice(0, 12).map((c, idx) => (
+                    <div key={c.id} className="w-[280px] shrink-0 snap-start sm:w-[320px]">
+                      <ClinicCardCompact clinic={c} rank={idx + 1} />
+                    </div>
+                  ))}
+                </CityRow>
+              ))}
+            </div>
+          );
+        })()}
+
         <section className="mb-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
             By District{dominantCity ? ` · ${dominantCity}` : ""}
@@ -488,11 +564,65 @@ export default async function HomePage() {
           )}
         </section>
 
+        {/* Cost calculator — focus-specific (botox/dental/filler only render) */}
+        <ScrollReveal className="my-10">
+          <CostCalculator focus={cfg.focus} />
+        </ScrollReveal>
+
+        {/* Recent bookings social proof */}
+        <div className="mb-6">
+          <RecentBookingsTicker />
+        </div>
+
+        {/* Patient community count */}
+        <div className="mb-8">
+          <PatientCommunityCount />
+        </div>
+
+        {/* Top 10 leaderboard — gamified, drives return visits */}
+        <ScrollReveal className="mb-10" direction="scale">
+          <ClinicLeaderboard clinics={focused} />
+        </ScrollReveal>
+
+        {/* Downloadable buyer's guide — lead magnet */}
+        <div className="mb-10">
+          <DownloadableGuide focus={cfg.focus} />
+        </div>
+
+        {/* Free membership perks strip */}
+        <div className="mb-10">
+          <MemberPerksStrip />
+        </div>
+
+        {/* Curated focus-aware collections */}
+        <ScrollReveal>
+          <CuratedCollections clinics={focused} focus={cfg.focus} />
+        </ScrollReveal>
+
+        {/* Interactive games — keep users clicking */}
+        <div className="grid lg:grid-cols-2 gap-6 my-12">
+          <ScrollReveal direction="left">
+            <ClinicSpinWheel clinics={focused} />
+          </ScrollReveal>
+          <ScrollReveal direction="right" delay={120}>
+            <TrustScoreGame clinics={focused} />
+          </ScrollReveal>
+        </div>
+
+        {/* Patient-voice marquee — final persuasion before booking */}
+        <ScrollReveal direction="scale">
+          <TestimonialMarquee clinics={top} />
+        </ScrollReveal>
+
         {/* Ad slot — booking 직전 */}
         <AdPlaceholder variant="banner" label="Sponsored" hint="Bottom placement before booking" />
 
         <section className="mt-12 scroll-mt-20" id="booking">
           <BookingForm />
+        </section>
+
+        <section className="mt-10">
+          <AfterSubmitFlow />
         </section>
 
         <section className="mt-12">

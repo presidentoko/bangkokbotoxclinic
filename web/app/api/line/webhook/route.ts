@@ -33,13 +33,16 @@ export async function POST(req: NextRequest) {
   const rawBody = await req.text();
   const signature = req.headers.get("x-line-signature");
 
-  // Signature verification — 프로덕션에선 반드시 활성화
-  // LINE_CHANNEL_SECRET 안 설정되어 있으면 verify 스킵 (개발/테스트용)
-  if (channelSecret) {
-    if (!verifySignature(rawBody, signature, channelSecret)) {
-      console.warn("[line.webhook] signature mismatch");
-      return NextResponse.json({ error: "bad signature" }, { status: 401 });
-    }
+  // Signature verification — fail-closed. LINE_CHANNEL_SECRET 안 설정되어 있으면
+  // verify 자체가 불가하므로 503 반환 (이전엔 verify 스킵하던 fail-open 버그).
+  // 로컬 개발 환경에서 webhook 테스트할 일이 있으면 env 에 dummy secret 라도 넣어야 함.
+  if (!channelSecret) {
+    console.error("[line.webhook] LINE_CHANNEL_SECRET not configured — refusing requests");
+    return NextResponse.json({ error: "webhook not configured" }, { status: 503 });
+  }
+  if (!verifySignature(rawBody, signature, channelSecret)) {
+    console.warn("[line.webhook] signature mismatch");
+    return NextResponse.json({ error: "bad signature" }, { status: 401 });
   }
 
   let payload: { events?: LineEvent[] };
