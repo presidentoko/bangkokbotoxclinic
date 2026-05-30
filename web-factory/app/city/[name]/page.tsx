@@ -4,6 +4,7 @@ import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { findGuide } from "@/lib/guides";
+import { districtSlug } from "@/lib/districts";
 
 // 도시 → 가장 관련 깊은 가이드.
 const CITY_TO_GUIDE: Record<string, string> = {
@@ -209,7 +210,7 @@ export default async function CityPage(
             {districts.map(([d, n]) => (
               <a
                 key={d}
-                href={`/d/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/d/${districtSlug(d)}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
                 📍 {d} <span className="text-[var(--muted)]">{n}</span>
