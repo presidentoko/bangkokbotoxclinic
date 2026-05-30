@@ -26,9 +26,16 @@ export const metadata: Metadata = {
   // 모든 페이지가 canonical="/" 로 새어나가는 사고가 남.
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
-    other: process.env.NEXT_PUBLIC_BING_VERIFICATION
-      ? { "msvalidate.01": [process.env.NEXT_PUBLIC_BING_VERIFICATION] }
-      : undefined,
+    other: (() => {
+      const other: Record<string, string[]> = {};
+      if (process.env.NEXT_PUBLIC_BING_VERIFICATION) {
+        other["msvalidate.01"] = [process.env.NEXT_PUBLIC_BING_VERIFICATION];
+      }
+      if (process.env.NEXT_PUBLIC_NAVER_VERIFICATION) {
+        other["naver-site-verification"] = [process.env.NEXT_PUBLIC_NAVER_VERIFICATION];
+      }
+      return Object.keys(other).length > 0 ? other : undefined;
+    })(),
   },
 };
 
@@ -77,7 +84,7 @@ export default function RootLayout({
                   <li><a href="/city/chon_buri" className="hover:text-black">Chon Buri</a></li>
                   <li><a href="/city/rayong" className="hover:text-black">Rayong</a></li>
                   <li><a href="/city/bangkok" className="hover:text-black">Bangkok</a></li>
-                  <li><a href="/city/phra_nakhon_si_ayutthaya" className="hover:text-black">Ayutthaya</a></li>
+                  <li><a href="/city/ayutthaya" className="hover:text-black">Ayutthaya</a></li>
                   <li><a href="/city/pathum_thani" className="hover:text-black">Pathum Thani</a></li>
                 </ul>
               </div>
@@ -104,6 +111,24 @@ export default function RootLayout({
                     <a href="/th" className="text-xs hover:text-black">ภาษาไทย</a>
                   </li>
                 </ul>
+              </div>
+            </div>
+            <div className="border-t border-[var(--border)] pt-6 mb-4">
+              <div className="text-xs uppercase tracking-wide font-bold text-[var(--fg)] mb-3">From our family</div>
+              <div className="grid sm:grid-cols-3 gap-3 text-xs">
+                <a href="https://thaisupplyhub.com" className="block p-3 rounded-lg border border-[var(--border)] bg-white hover:border-black transition">
+                  <div className="font-bold text-[var(--fg)]">🏭 Thai Supply Hub</div>
+                  <div className="mt-1 leading-snug">Verified Thai OEM/ODM suppliers — B2B sourcing directory.</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-wide opacity-60">You are here</div>
+                </a>
+                <a href="https://thailandgolfguide.com" target="_blank" rel="noopener" className="block p-3 rounded-lg border border-[var(--border)] bg-white hover:border-black transition">
+                  <div className="font-bold text-[var(--fg)]">⛳ Thailand Golf Guide</div>
+                  <div className="mt-1 leading-snug">Independent reviews of Thai golf courses — booking, caddy, package deals.</div>
+                </a>
+                <a href="https://verifiedthai.com" target="_blank" rel="noopener" className="block p-3 rounded-lg border border-[var(--border)] bg-white hover:border-black transition">
+                  <div className="font-bold text-[var(--fg)]">✅ Verified Thai</div>
+                  <div className="mt-1 leading-snug">Yoga · spa · muay thai · diving · cooking · coworking · wellness directory.</div>
+                </a>
               </div>
             </div>
             <p className="text-xs leading-relaxed max-w-2xl border-t border-[var(--border)] pt-4">

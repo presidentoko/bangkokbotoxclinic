@@ -5,13 +5,14 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { districtSlug } from "@/lib/districts";
 import type { Metadata } from "next";
 
 const VALID_CUISINES = new Set(Object.keys(CATEGORY_LABELS));
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
-  return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
+  return all.find((d) => districtSlug(d) === target) ?? null;
 }
 
 export const dynamicParams = false;
@@ -22,7 +23,7 @@ export async function generateStaticParams() {
   const counts = new Map<string, number>();
   for (const s of db.suppliers) {
     if (!s.district) continue;
-    const dSlug = s.district.toLowerCase().replace(/\s+/g, "-");
+    const dSlug = districtSlug(s.district);
     for (const cat of s.categories) {
       if (!VALID_CUISINES.has(cat)) continue;
       const key = `${cat}|${dSlug}`;
@@ -51,7 +52,7 @@ export async function generateMetadata(
   const matchCount = db.suppliers.filter((s) =>
     s.categories.includes(cuisine) &&
     s.district &&
-    s.district.toLowerCase().replace(/\s+/g, "-") === district
+    districtSlug(s.district) === district
   ).length;
   return {
     title: `${label} in ${districtName}, Thailand — Verified Suppliers`,

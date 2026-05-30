@@ -45,6 +45,7 @@ export type Supplier = {
   city: string;
   city_label: string;
   district: string;
+  district_slug?: string;     // canonical ASCII slug (set at load by lib/districts).
   province_en?: string;
   phone: string;
   website: string;

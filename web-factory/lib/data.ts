@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { MasterDb, Supplier } from "./types";
+import { normalizeDistrict } from "./districts";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 const PHOTOS_PATH = path.join(process.cwd(), "data", "supplier_photos.json");
@@ -22,7 +23,27 @@ export async function loadMasterDb(): Promise<MasterDb> {
   }
   for (const s of db.suppliers) {
     if (photos[s.id]) s.hero_image = photos[s.id];
+
+    // Canonicalize district + correct mis-filed city.
+    const canon = normalizeDistrict(s.city, s.district);
+    if (canon) {
+      s.district = canon.name;
+      s.district_slug = canon.slug;
+      s.city = canon.citySlug;
+    } else {
+      s.district = "";
+      s.district_slug = undefined;
+    }
   }
+
+  // Rebuild district_counts from canonical values (key: `${citySlug}/${name}`).
+  const counts: Record<string, number> = {};
+  for (const s of db.suppliers) {
+    if (!s.district) continue;
+    const key = `${s.city}/${s.district}`;
+    counts[key] = (counts[key] ?? 0) + 1;
+  }
+  db.district_counts = counts;
 
   _cache = db;
   return _cache;
