@@ -5,11 +5,12 @@ import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { districtSlug } from "@/lib/districts";
 import type { Metadata } from "next";
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
-  return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
+  return all.find((d) => districtSlug(d) === target) ?? null;
 }
 
 export const dynamicParams = false;
@@ -19,7 +20,7 @@ export async function generateStaticParams() {
   const districts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
   ));
-  return districts.map((d) => ({ district: d.toLowerCase().replace(/\s+/g, "-") }));
+  return districts.map((d) => ({ district: districtSlug(d) }));
 }
 
 export async function generateMetadata(
@@ -31,10 +32,14 @@ export async function generateMetadata(
     Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
   ));
   const districtName = districtFromSlug(district, allDistricts) ?? district;
+  const filtered = filterByDistrict(db.suppliers, districtName);
+  const citySlug = filtered[0]?.city ?? "";
+  const thin = filtered.length < 5;
   return {
     title: `Suppliers in ${districtName} — Verified B2B Directory`,
     description: `Manufacturers, warehouses, and industrial operators in ${districtName} with Trust Scores from real Google reviews.`,
-    alternates: { canonical: `/d/${district}` },
+    alternates: { canonical: thin && citySlug ? `/city/${citySlug}` : `/d/${district}` },
+    robots: thin ? { index: false, follow: true } : { index: true, follow: true },
   };
 }
 
