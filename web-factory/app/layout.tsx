@@ -97,6 +97,7 @@ export default function RootLayout({
                   <li><a href="/about" className="hover:text-black">About</a></li>
                   <li><a href="/contact" className="hover:text-black">Contact</a></li>
                   <li><a href="/for-suppliers" className="hover:text-black">For Suppliers</a></li>
+                  <li><a href="/trust-score" className="hover:text-black">Trust Score Methodology</a></li>
                   <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
                   <li className="pt-1.5 mt-1.5 border-t border-[var(--border)]/60">
                     <a href="/" className="text-xs hover:text-black mr-2">EN</a>
