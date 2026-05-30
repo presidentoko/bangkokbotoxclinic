@@ -7,6 +7,7 @@ import { GUIDES_KO } from "@/lib/guides_ko";
 import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS } from "@/lib/posts";
 import { POSTS_KO } from "@/lib/posts_ko";
+import { districtSlug } from "@/lib/districts";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const CATEGORIES = Object.keys(CATEGORY_LABELS);
@@ -15,9 +16,6 @@ export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
-  const districts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
-  ));
   const cities = Object.keys(db.city_counts).map((k) => k.toLowerCase().replace(/\s+/g, "_"));
   const updated = new Date(db.generated_at);
 
@@ -93,15 +91,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const catDistrictCounts = new Map<string, number>();
   for (const s of db.suppliers) {
     if (!s.district) continue;
-    const dSlug = s.district.toLowerCase().replace(/\s+/g, "-");
+    const dSlug = districtSlug(s.district);
     for (const cat of s.categories) {
       const key = `${cat}|${dSlug}`;
       catDistrictCounts.set(key, (catDistrictCounts.get(key) ?? 0) + 1);
     }
   }
-  for (const d of districts) {
-    const slug = d.toLowerCase().replace(/\s+/g, "-");
-    items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
+  // District pages — only those with >= 5 suppliers (thin pages are noindex + omitted).
+  for (const [key, n] of Object.entries(db.district_counts)) {
+    if (n < 5) continue;
+    const name = key.split("/")[1];
+    if (!name) continue;
+    items.push({
+      url: `${SITE}/d/${districtSlug(name)}`,
+      lastModified: updated,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    });
   }
   for (const [pair, n] of catDistrictCounts) {
     if (n < 7) continue;
