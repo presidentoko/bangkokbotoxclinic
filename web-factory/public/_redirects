@@ -2,3 +2,67 @@
 # Cycle 2: /course/[id] → /supplier/[id] (URL semantic upgrade).
 # 301 (permanent) so any indexed legacy URL preserves SEO equity.
 /course/* /supplier/:splat 301
+
+# Naver site verification — .html 확장자 그대로 200 서빙 (CF Pages 기본 .html→clean URL 308 차단).
+/naver39869b866ac1065d080e0cc87a2220ce.html /naver39869b866ac1065d080e0cc87a2220ce.html 200
+
+# BEGIN district-redirects (generated)
+/d/อำเภอเมือง /d/mueang-samut-prakan-district 301
+/d/muang-district /d/chon-buri-district 301
+/d/amphur-muangsamutsakorn /d/mueang-samut-sakhon-district 301
+/d/muang /d/mueang-samut-sakhon-district 301
+/d/pathumthani /d/mueang-pathum-thani-district 301
+/d/muangchon-buri /d/chon-buri-district 301
+/d/banglamung /d/bang-lamung-district 301
+/d/sriracha /d/si-racha-district 301
+/d/อำเภอ-เมืองสมุทรปราการ /d/mueang-samut-prakan-district 301
+/d/klongluang /d/khlong-luang-district 301
+/d/เมือง /d/chon-buri-district 301
+/d/preaksa /d/mueang-samut-prakan-district 301
+/d/city /d/chon-buri-district 301
+/d/panthong /d/phan-thong-district 301
+/d/amphoe /d/chon-buri-district 301
+/d/pattaya /d/bang-lamung-district 301
+/d/phanthong /d/phan-thong-district 301
+/d/bang-plee /d/bang-phli-district 301
+/d/bang-sao-thong /d/bang-sao-thong-district 301
+/d/sri-racha /d/si-racha-district 301
+/d/พานทอง /d/phan-thong-district 301
+/d/amphur-panthong /d/phan-thong-district 301
+/d/ampur-muang /d/mueang-samut-prakan-district 301
+/d/bangsaotong /d/bang-sao-thong-district 301
+/d/อเมือง /d/mueang-samut-sakhon-district 301
+/d/krathumban /d/krathum-baen-district 301
+/d/phanat-nikhom /d/phanat-nikhom-district 301
+/d/phantong /d/phan-thong-district 301
+/d/krathum-baen /d/krathum-baen-district 301
+/d/pantong-district /d/phan-thong-district 301
+/d/phra-pradaeng /d/phra-pradaeng-district 301
+/d/mueang-samut-prakan /d/mueang-samut-prakan-district 301
+/d/chonburi /d/chon-buri-district 301
+/d/srira /d/si-racha-district 301
+/d/khlong-toei /d/khlong-toei-district 301
+/d/tphanthong-aphanthong /d/phan-thong-district 301
+/d/muangchonburi /d/chon-buri-district 301
+/d/dusit /d/dusit-district 301
+/d/banbueng /d/ban-bueng-district 301
+/d/ko-chan /d/ko-chan-district 301
+/d/bangsaothong /d/bang-sao-thong-district 301
+/d/mueang-samut-sakhon /d/mueang-samut-sakhon-district 301
+/d/sai-mai /d/sai-mai-district 301
+/d/bang-phli /d/bang-phli-district 301
+/d/panusnikom /d/phanat-nikhom-district 301
+/d/mueng-samut-sakhon /d/mueang-samut-sakhon-district 301
+/d/อำเภอ-เมือง /d/mueang-pathum-thani-district 301
+/d/samutsakorn /d/mueang-samut-sakhon-district 301
+/d/อำเภอเมืองศรีราชา /d/chon-buri-district 301
+/d/sattahip /d/sattahip-district 301
+/d/bangplee-district /d/bang-phli-district 301
+/d/sadao /d/sadao-district 301
+/d/mueng /d/mueang-samut-sakhon-district 301
+/d/phra-samut-chedi /d/phra-samut-chedi-district 301
+/d/bang-kruai /d/bang-kruai-district 301
+/d/tungsukla-sriracha /d/si-racha-district 301
+/d/don-mueang /d/don-mueang-district 301
+/d/mueang /d/mueang-samut-sakhon-district 301
+# END district-redirects (generated)
