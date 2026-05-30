@@ -94,6 +94,9 @@ const ALIAS_TO_NAME: Record<string, string> = {
   // Chon Buri (central / Muang)
   chonburi: "Chon Buri District",
   city: "Chon Buri District",
+  muangchonburi: "Chon Buri District",
+  // Phan Thong (mangled)
+  tphanthongaphanthong: "Phan Thong District",
   // Phanat Nikhom
   panusnikom: "Phanat Nikhom District",
   // Mueang Samut Sakhon
@@ -167,9 +170,12 @@ export function normalizeDistrict(rawCity: string, rawDistrict: string | null | 
   }
 
   // 4. Plausible unknown -> keep as its own thin canonical (will be noindexed downstream).
+  //    Only for ASCII names — unmatched Thai-only values would yield non-ASCII slugs, so
+  //    they are dropped (they are always count-1 thin entries anyway).
   if (looksPlausible(raw)) {
     const name = /district$/i.test(raw) ? titleCase(raw) : `${titleCase(raw)} District`;
-    return { name, slug: districtSlug(name), citySlug: rawCity };
+    const slug = districtSlug(name);
+    if (/^[a-z0-9-]+$/.test(slug)) return { name, slug, citySlug: rawCity };
   }
 
   // 5. Otherwise drop.
