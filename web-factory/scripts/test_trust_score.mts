@@ -63,4 +63,16 @@ const a = computeTrustScore(mk({ trust_score: 0, b2b_score: 0, rating: 4.5, tota
 const b = computeTrustScore(mk({ trust_score: 18, b2b_score: 18, rating: 4.5, total_reviews: 100 }), 2026);
 assert.equal(a.overall, b.overall, "overall independent of b2b_score");
 
+// 10. A2 aggregation: overall averages ONLY applicable signals.
+// Reviews-only supplier -> overall == reviews score (not dragged down by 4 missing signals).
+assert.equal(computeTrustScore(mk({ total_reviews: 100, rating: 4.5 }), 2026).overall, 95, "reviews-only -> 95 (A2)");
+// No data at all -> 0.
+assert.equal(computeTrustScore(mk({}), 2026).overall, 0, "no data -> 0");
+// Reviews(95, applicable) + verified(25, applicable) -> avg(95,25)=60.
+assert.equal(computeTrustScore(mk({ total_reviews: 100, rating: 4.5, verified: true }), 2026).overall, 60, "reviews+1verif -> 60");
+// `applicable` flags reflect data presence.
+const flags = computeTrustScore(mk({ total_reviews: 100, rating: 4.5 }), 2026);
+assert.equal(flags.subs.find((s) => s.key === "reviews")!.applicable, true, "reviews applicable");
+assert.equal(flags.subs.find((s) => s.key === "capital")!.applicable, false, "capital not applicable");
+
 console.log("test_trust_score: OK");
