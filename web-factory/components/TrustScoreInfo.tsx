@@ -16,9 +16,9 @@ export function TrustScoreInfo({ subs }: { subs: TrustSub[] }) {
         className="absolute z-20 left-0 top-6 w-60 p-3 rounded-lg border border-[var(--border)] bg-white shadow-lg text-xs text-[var(--fg)]"
         role="group"
       >
-        <div className="font-bold mb-1.5">Trust Score = average of 5 signals</div>
+        <div className="font-bold mb-1.5">Trust Score = average of available signals</div>
         <ul className="space-y-1">
-          {subs.map((s) => (
+          {subs.filter((s) => s.applicable).map((s) => (
             <li key={s.key} className="flex items-center justify-between gap-2">
               <span className="text-[var(--muted)]">{s.label}</span>
               <span className="tabular-nums font-medium">{Math.round(s.score)}</span>

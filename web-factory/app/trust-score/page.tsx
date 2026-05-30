@@ -46,10 +46,11 @@ export default function TrustScorePage() {
       </nav>
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">How the Trust Score works</h1>
       <p className="text-[var(--muted)] leading-relaxed mb-8">
-        Every supplier gets a <strong>Trust Score from 0 to 100</strong> — the average of five
-        independent signals. It is computed automatically from public data (Google Maps and
-        Thailand&apos;s Department of Business Development). It is not a paid rating and cannot be
-        bought. Tiers: <strong>Excellent</strong> 75+, <strong>Strong</strong> 60+,
+        Every supplier gets a <strong>Trust Score from 0 to 100</strong> — the average of the
+        signals below for which we have data. (A supplier is never penalized for a signal we
+        simply haven&apos;t collected.) It is computed automatically from public data (Google Maps
+        and Thailand&apos;s Department of Business Development). It is not a paid rating and cannot
+        be bought. Tiers: <strong>Excellent</strong> 75+, <strong>Strong</strong> 60+,
         {" "}<strong>Fair</strong> 40+, <strong>Limited</strong> below 40.
       </p>
 
