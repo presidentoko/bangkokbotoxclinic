@@ -5,11 +5,13 @@ import type { Supplier } from "@/lib/types";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
 import { photoUrl } from "@/lib/photoUrl";
+import { computeTrustScore } from "@/lib/trustScore";
 
 export function SponsoredHero({ r }: { r: Supplier }) {
   const tier = sponsoredTier(r.id);
   if (!tier) return null;
   const cfg = SPONSORED_BADGE[tier];
+  const trustOverall = computeTrustScore(r).overall;
 
   // Tier 별 배경 / 강조 / 그림자
   const styles = {
@@ -82,9 +84,9 @@ export function SponsoredHero({ r }: { r: Supplier }) {
               <div className="flex items-baseline gap-4 mb-5">
                 <div>
                   <div className="text-3xl font-bold tabular-nums" style={{
-                    color: r.trust_score >= 75 ? "#16a34a" : r.trust_score >= 60 ? "#059669" : "#ca8a04"
+                    color: trustOverall >= 75 ? "#16a34a" : trustOverall >= 60 ? "#059669" : "#ca8a04"
                   }}>
-                    {r.trust_score.toFixed(0)}
+                    {trustOverall}
                   </div>
                   <div className="text-[10px] uppercase text-[var(--muted)] tracking-wider">Trust</div>
                 </div>

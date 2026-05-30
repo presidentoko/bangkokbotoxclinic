@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { MasterDb, Supplier } from "./types";
+import { computeTrustScore } from "./trustScore";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 const PHOTOS_PATH = path.join(process.cwd(), "data", "supplier_photos.json");
@@ -45,7 +46,9 @@ export function filterByCity(suppliers: Supplier[], city: string): Supplier[] {
 }
 
 export function topByTrust(suppliers: Supplier[], n: number): Supplier[] {
-  return [...suppliers].sort((a, b) => b.trust_score - a.trust_score).slice(0, n);
+  return [...suppliers]
+    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall)
+    .slice(0, n);
 }
 
 export function getSupplierById(suppliers: Supplier[], id: string): Supplier | undefined {

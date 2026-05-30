@@ -10,6 +10,7 @@ import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
 import { POSTS } from "@/lib/posts";
 import { photoUrl } from "@/lib/photoUrl";
+import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -65,13 +66,13 @@ export default async function HomePage() {
     district: r.district,
     city_label: r.city_label,
     rating: r.rating,
-    trust_score: r.trust_score,
+    trust_score: computeTrustScore(r).overall,
   }));
 
   // Featured 6 — DBD-verified + 사진 보유 우선. fallback 으로 top trust.
   const featuredVerified = [...db.suppliers]
     .filter((r) => r.verified && r.hero_image)
-    .sort((a, b) => (b.b2b_score ?? b.trust_score) - (a.b2b_score ?? a.trust_score))
+    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall)
     .slice(0, 6);
   const featuredFinal = featuredVerified.length >= 6 ? featuredVerified
     : top.slice(0, 30).filter((r) => r.hero_image).slice(0, 6).concat(top).slice(0, 6);
@@ -79,7 +80,7 @@ export default async function HomePage() {
   // Industrial estates spotlight (단가 최고 segment)
   const estatesTop = [...db.suppliers]
     .filter((r) => r.categories.includes("industrial_estate"))
-    .sort((a, b) => b.trust_score - a.trust_score)
+    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall)
     .slice(0, 6);
 
   return (
@@ -181,16 +182,16 @@ export default async function HomePage() {
                         #{i + 1}
                       </div>
                       <div className="absolute top-2 right-2 text-base font-black text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full tabular-nums">
-                        {r.trust_score.toFixed(0)}
+                        {computeTrustScore(r).overall}
                       </div>
                     </div>
                   ) : (
                     <div className="px-5 pt-5 flex items-start justify-between gap-2">
                       <div className="text-2xl font-black tabular-nums text-[var(--muted)]">#{i + 1}</div>
                       <div className="text-3xl font-black tabular-nums" style={{
-                        color: r.trust_score >= 75 ? "#16a34a" : r.trust_score >= 60 ? "#059669" : "#ca8a04"
+                        color: computeTrustScore(r).overall >= 75 ? "#16a34a" : computeTrustScore(r).overall >= 60 ? "#059669" : "#ca8a04"
                       }}>
-                        {r.trust_score.toFixed(0)}
+                        {computeTrustScore(r).overall}
                       </div>
                     </div>
                   )}
@@ -232,7 +233,7 @@ export default async function HomePage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {estatesTop.map((r, i) => (
                 <a key={r.id} href={`/supplier/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-3 hover:border-emerald-300 transition">
-                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · Trust {r.trust_score.toFixed(0)}</div>
+                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · Trust {computeTrustScore(r).overall}</div>
                   <div className="font-medium text-sm leading-tight">{r.name}</div>
                   <div className="text-xs text-[var(--muted)] mt-1">{r.district || r.city_label}</div>
                 </a>

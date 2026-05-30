@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/compon
 import { findGuideKo } from "@/lib/guides_ko";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
+import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
 
 function citySlug(label: string): string {
@@ -112,7 +113,7 @@ export default async function KoCityPage(
   const withWebsite = filtered.filter((r) => r.website).length;
   const avgTrust =
     filtered.length > 0
-      ? Math.round(filtered.reduce((s, c) => s + c.trust_score, 0) / filtered.length)
+      ? Math.round(filtered.reduce((s, c) => s + computeTrustScore(c).overall, 0) / filtered.length)
       : 0;
 
   const guide = note?.guide ? findGuideKo(note.guide) : null;

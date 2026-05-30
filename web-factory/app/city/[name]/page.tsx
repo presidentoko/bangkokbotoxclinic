@@ -4,6 +4,7 @@ import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { findGuide } from "@/lib/guides";
+import { computeTrustScore } from "@/lib/trustScore";
 
 // 도시 → 가장 관련 깊은 가이드.
 const CITY_TO_GUIDE: Record<string, string> = {
@@ -120,7 +121,7 @@ export default async function CityPage(
   const withWebsite = filtered.filter((r) => r.website).length;
   const avgTrust =
     filtered.length > 0
-      ? Math.round(filtered.reduce((s, c) => s + c.trust_score, 0) / filtered.length)
+      ? Math.round(filtered.reduce((s, c) => s + computeTrustScore(c).overall, 0) / filtered.length)
       : 0;
 
   return (
