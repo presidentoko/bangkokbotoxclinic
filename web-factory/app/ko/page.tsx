@@ -7,6 +7,7 @@ import { sortWithSponsored } from "@/lib/sponsored";
 import { BEST_FOR } from "@/lib/bestFor";
 import { POSTS_KO } from "@/lib/posts_ko";
 import { HeroSearch } from "@/components/HeroSearch";
+import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -77,7 +78,7 @@ export default async function KoHomePage() {
     district: r.district,
     city_label: r.city_label,
     rating: r.rating,
-    trust_score: r.trust_score,
+    trust_score: computeTrustScore(r).overall,
   }));
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
@@ -89,12 +90,12 @@ export default async function KoHomePage() {
   // 산단 톱 (한국 입주 검토용)
   const estatesTop = [...db.suppliers]
     .filter((r) => r.categories.includes("industrial_estate"))
-    .sort((a, b) => b.trust_score - a.trust_score);
+    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall);
 
   // 자동차 부품 톱 (Tier 1 OEM 일본계)
   const autoPartsTop = [...db.suppliers]
     .filter((r) => r.categories.includes("auto_parts"))
-    .sort((a, b) => b.trust_score - a.trust_score)
+    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall)
     .slice(0, 10);
 
   return (
@@ -156,7 +157,7 @@ export default async function KoHomePage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {estatesTop.map((r, i) => (
                 <a key={r.id} href={`/supplier/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-4 hover:border-emerald-300 hover:shadow-md transition">
-                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · 신뢰도 {r.trust_score.toFixed(0)}</div>
+                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · 신뢰도 {computeTrustScore(r).overall}</div>
                   <div className="font-bold text-sm leading-tight mb-1">{r.name}</div>
                   <div className="text-xs text-[var(--muted)]">{r.district || r.city_label}</div>
                   {r.website && (

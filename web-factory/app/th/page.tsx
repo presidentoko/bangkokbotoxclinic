@@ -6,6 +6,7 @@ import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { BEST_FOR } from "@/lib/bestFor";
 import { HeroSearch } from "@/components/HeroSearch";
+import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -64,7 +65,7 @@ export default async function ThHomePage() {
     district: r.district,
     city_label: r.city_label,
     rating: r.rating,
-    trust_score: r.trust_score,
+    trust_score: computeTrustScore(r).overall,
   }));
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
@@ -72,7 +73,7 @@ export default async function ThHomePage() {
 
   const estatesTop = [...db.suppliers]
     .filter((r) => r.categories.includes("industrial_estate"))
-    .sort((a, b) => b.trust_score - a.trust_score);
+    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall);
 
   return (
     <>
@@ -132,7 +133,7 @@ export default async function ThHomePage() {
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {estatesTop.map((r, i) => (
                 <a key={r.id} href={`/supplier/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-4 hover:border-emerald-300 hover:shadow-md transition">
-                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · Trust {r.trust_score.toFixed(0)}</div>
+                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · Trust {computeTrustScore(r).overall}</div>
                   <div className="font-bold text-sm leading-tight mb-1">{r.name}</div>
                   <div className="text-xs text-[var(--muted)]">{r.district || r.city_label}</div>
                 </a>

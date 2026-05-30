@@ -4,6 +4,9 @@
 //   SPONSORED_RECOMMENDED="id3,id4"   → "Recommended" 파란 배지
 //   SPONSORED_FEATURED="id5,id6"      → "Featured" 일반 배지
 
+import type { Supplier } from "./types";
+import { computeTrustScore } from "./trustScore";
+
 export type SponsoredTier = "editors_pick" | "recommended" | "featured";
 
 const TIERS: Record<SponsoredTier, string[]> = {
@@ -33,9 +36,11 @@ export const SPONSORED_BADGE: Record<SponsoredTier, { label: string; bg: string;
   featured: { label: "Featured", bg: "#f3e8ff", fg: "#6b21a8", icon: "◆" },
 };
 
-// 페이지 상단 노출 정렬: editors_pick → recommended → trust_score 내림차순
-export function sortWithSponsored<T extends { id: string; trust_score: number }>(items: T[]): T[] {
-  const score = (t: T) => {
+// 페이지 상단 노출 정렬: editors_pick → recommended → featured → Trust Score(composite) 내림차순.
+export function sortWithSponsored(items: Supplier[]): Supplier[] {
+  const overall = new Map<string, number>();
+  for (const t of items) overall.set(t.id, computeTrustScore(t).overall);
+  const slot = (t: Supplier) => {
     const tier = sponsoredTier(t.id);
     if (tier === "editors_pick") return 1_000_000;
     if (tier === "recommended") return 500_000;
@@ -43,9 +48,9 @@ export function sortWithSponsored<T extends { id: string; trust_score: number }>
     return 0;
   };
   return [...items].sort((a, b) => {
-    const sa = score(a);
-    const sb = score(b);
+    const sa = slot(a);
+    const sb = slot(b);
     if (sa !== sb) return sb - sa;
-    return b.trust_score - a.trust_score;
+    return (overall.get(b.id) ?? 0) - (overall.get(a.id) ?? 0);
   });
 }
