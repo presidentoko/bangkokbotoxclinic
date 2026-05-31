@@ -7,6 +7,7 @@ import { verifiedTier, VERIFIED_BADGE } from "@/lib/verified";
 import { photoUrl } from "@/lib/photoUrl";
 import { computeTrustScore } from "@/lib/trustScore";
 import { TrustScoreInfo } from "./TrustScoreInfo";
+import { ShortlistButton } from "./ShortlistButton";
 
 export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
   const tier = sponsoredTier(r.id);
@@ -175,6 +176,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
             🌐
           </a>
         )}
+        <ShortlistButton id={r.id} name={r.name} cityLabel={r.city_label} variant="icon" />
       </div>
     </div>
   );

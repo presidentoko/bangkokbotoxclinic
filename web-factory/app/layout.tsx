@@ -4,6 +4,7 @@ import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 import { HeaderNav } from "@/components/HeaderNav";
+import { ShortlistTray } from "@/components/ShortlistTray";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const cfg = getSiteConfig();
@@ -98,6 +99,7 @@ export default function RootLayout({
                   <li><a href="/about" className="hover:text-black">About</a></li>
                   <li><a href="/contact" className="hover:text-black">Contact</a></li>
                   <li><a href="/for-suppliers" className="hover:text-black">For Suppliers</a></li>
+                  <li><a href="/quote" className="hover:text-black">Bulk Quote Request</a></li>
                   <li><a href="/trust-score" className="hover:text-black">Trust Score Methodology</a></li>
                   <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
                   <li className="pt-1.5 mt-1.5 border-t border-[var(--border)]/60">
@@ -114,6 +116,7 @@ export default function RootLayout({
             <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand}</p>
           </div>
         </footer>
+        <ShortlistTray />
       </body>
     </html>
   );
