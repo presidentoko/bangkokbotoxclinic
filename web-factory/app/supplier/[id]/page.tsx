@@ -24,15 +24,13 @@ import { ShortlistButton } from "@/components/ShortlistButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import type { Metadata } from "next";
 
-// Static export 호환: dynamicParams=false 필수, top 100 supplier만 prebuild.
+// Static export 호환: dynamicParams=false 필수. 모든 supplier 를 prebuild —
+// 그래야 즐겨찾기/비교/검색에서 어떤 supplier 로 가도 404 가 안 난다.
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  const ranked = [...db.suppliers].sort((a, b) =>
-    (b.total_reviews || 0) - (a.total_reviews || 0)
-  );
-  return ranked.slice(0, 100).map((r) => ({ id: r.id }));
+  return db.suppliers.map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(
