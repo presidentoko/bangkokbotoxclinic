@@ -1,30 +1,129 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #fafafa;
-  --fg: #111;
-  --muted: #6b7280;
+  /* B2B trust palette — black + gold + red accent, warm stone neutrals */
+  --bg: #fafaf7;
+  --fg: #1c1917;
+  --muted: #57534e;
+  --border: #e7e5e4;
+  --paper: #ffffff;
+  --paper-warm: #fafaf7;
+
+  /* Trust signal colors */
+  --gold: #b45309;          /* amber-700 — primary verification accent */
+  --gold-light: #fbbf24;    /* amber-400 — highlights */
+  --gold-bg: #fef3c7;       /* amber-100 — soft bg */
+  --gold-deep: #78350f;     /* amber-900 — deep text */
+  --red: #b91c1c;           /* red-700 — premium/featured */
+  --red-bg: #fef2f2;
+
+  /* Compat with legacy emerald usage — keep as secondary accent */
   --accent: #0f766e;
-  --border: #e5e7eb;
+  --accent-soft: #d1fae5;
+
+  /* Trust score scale */
+  --score-strong: #b45309;
+  --score-mid: #057857;
+  --score-weak: #57534e;
 }
 
 html {
-  /* CLS 0 위해 — 레이아웃 시프트 방지 */
   text-size-adjust: 100%;
 }
 
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", "Noto Sans KR", sans-serif;
-  font-feature-settings: "ss01", "ss02";
-  /* 부드러운 텍스트 렌더링 */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", "Noto Sans KR", sans-serif;
+  font-feature-settings: "ss01", "ss02", "cv11", "tnum";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 외부 이미지 로드 깜빡임 줄이기 */
+.font-display {
+  font-family: "Crimson Pro", "Source Serif Pro", Georgia, "Times New Roman", "Noto Serif KR", "Noto Serif Thai", serif;
+  font-feature-settings: "lnum", "tnum";
+  letter-spacing: -0.01em;
+}
+
+.font-mono-data {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-feature-settings: "ss02", "zero", "tnum";
+}
+
 img {
   max-width: 100%;
   height: auto;
 }
+
+/* Gold-bordered certificate frame */
+.cert-frame {
+  border: 2px solid var(--gold);
+  background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+  box-shadow:
+    0 0 0 1px rgba(180,83,9,0.15),
+    0 8px 24px -8px rgba(180,83,9,0.25);
+}
+.cert-frame-dark {
+  border: 2px solid var(--gold);
+  background:
+    radial-gradient(ellipse at top, rgba(180,83,9,0.18), transparent 60%),
+    linear-gradient(180deg, #1c1917 0%, #0c0a09 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(251,191,36,0.2),
+    0 12px 40px -10px rgba(0,0,0,0.5);
+}
+
+/* Decorative corner ornaments */
+.gold-ribbon {
+  position: relative;
+}
+.gold-ribbon::before,
+.gold-ribbon::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--gold-light);
+  pointer-events: none;
+}
+.gold-ribbon::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.gold-ribbon::after  { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+/* Official DBD stamp look */
+.dbd-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+  color: #fef3c7;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 1px 0 rgba(251,191,36,0.4),
+    0 2px 6px rgba(180,83,9,0.35);
+  border: 1px solid #78350f;
+}
+.dbd-stamp-likely {
+  background: linear-gradient(135deg, #78716c 0%, #57534e 100%);
+  border-color: #44403c;
+}
+
+/* Counter pop on mount */
+@keyframes counter-pop {
+  0%   { transform: scale(0.88); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1);     opacity: 1; }
+}
+.counter-pop { animation: counter-pop 0.6s ease-out forwards; }
+
+/* Donut gauge stroke draw-in */
+@keyframes gauge-draw {
+  from { stroke-dashoffset: var(--full); }
+  to   { stroke-dashoffset: var(--target); }
+}
+.gauge-draw { animation: gauge-draw 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
