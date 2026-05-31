@@ -12,7 +12,10 @@ import { loadMasterDb, getClinicById } from "@/lib/data";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
 // 동일 클리닉 set 으로 pre-build (top 100 ISR 정책 share)
-export { revalidate, dynamicParams } from "../../../clinic/[id]/page";
+// route segment config 는 직접 선언 — Turbopack 이 `export { ... } from` 재export 를
+// route config 로 인식하지 못해 빌드 실패하므로 부모와 동일 값으로 명시.
+export const revalidate = 604800;
+export const dynamicParams = true;
 export const generateStaticParams = parentGSP;
 
 export async function generateMetadata(
