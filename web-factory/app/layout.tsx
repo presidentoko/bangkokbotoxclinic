@@ -100,6 +100,7 @@ export default function RootLayout({
                   <li><a href="/contact" className="hover:text-black">Contact</a></li>
                   <li><a href="/for-suppliers" className="hover:text-black">For Suppliers</a></li>
                   <li><a href="/quote" className="hover:text-black">Bulk Quote Request</a></li>
+                  <li><a href="/compare" className="hover:text-black">Compare Suppliers</a></li>
                   <li><a href="/trust-score" className="hover:text-black">Trust Score Methodology</a></li>
                   <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
                   <li className="pt-1.5 mt-1.5 border-t border-[var(--border)]/60">
