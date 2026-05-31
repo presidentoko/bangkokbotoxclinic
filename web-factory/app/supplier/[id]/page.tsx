@@ -18,6 +18,8 @@ import { computeTrustScore } from "@/lib/trustScore";
 import { CapitalHistogram } from "@/components/CapitalHistogram";
 import { PeerCompare } from "@/components/PeerCompare";
 import { industryStatsByTsic, relScore } from "@/lib/industryStats";
+import { relatedSuppliers } from "@/lib/related";
+import { SupplierCard } from "@/components/SupplierCard";
 import type { Metadata } from "next";
 
 // Static export 호환: dynamicParams=false 필수, top 100 supplier만 prebuild.
@@ -97,6 +99,9 @@ export default async function SupplierPage(
   const years = r.years_in_business || (foundedYear ? new Date().getFullYear() - foundedYear : null);
   const tsic = r.dbd?.tsic_code || null;
   const confidence = dbdConfidence(r.dbd?.match_score);
+
+  // Related suppliers (same industry / nearby region) — server-rendered, no client JS.
+  const related = relatedSuppliers(db, r);
 
   // ── Industry comparison (radar) ──────────────────────────────
   const stats = industryStatsByTsic(db);
@@ -617,6 +622,17 @@ export default async function SupplierPage(
             </a>
           </div>
         </section>
+
+        {related.length > 0 && (
+          <section className="mb-12">
+            <SectionHeading kicker="Similar companies" title="Related suppliers" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {related.map((s) => (
+                <SupplierCard key={s.id} r={s} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
 
       <SupplierJsonLd r={r} />
