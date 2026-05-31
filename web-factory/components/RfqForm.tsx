@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import { RFQ_I18N, type Locale } from "@/lib/buyersI18n";
+import { formatSuppliersLine, type ShortlistItem } from "@/lib/shortlist";
 
 const ENDPOINT = process.env.NEXT_PUBLIC_RFQ_ENDPOINT || "";
 const FALLBACK_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chillanel22@gmail.com";
@@ -59,10 +60,13 @@ const VOLUME_LABEL: Record<Locale, Record<string, string>> = {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function RfqForm({ locale = "en" }: { locale?: Locale }) {
+export function RfqForm({ locale = "en", suppliers }: { locale?: Locale; suppliers?: ShortlistItem[] }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const t = RFQ_I18N[locale];
+  const bulk = suppliers && suppliers.length > 0;
+  const suppliersLine = bulk ? formatSuppliersLine(suppliers!) : "";
+  const subject = bulk ? `Bulk RFQ — ${suppliers!.length} suppliers` : `RFQ — Thai Supply Hub (${locale})`;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -73,6 +77,7 @@ export function RfqForm({ locale = "en" }: { locale?: Locale }) {
     if (!ENDPOINT) {
       const body = [
         `Locale: ${locale}`,
+        ...(bulk ? [`Suppliers (${suppliers!.length}): ${suppliersLine}`, ``] : []),
         `Name: ${fd.get("name")}`,
         `Company: ${fd.get("company")}`,
         `Email: ${fd.get("email")}`,
@@ -83,7 +88,7 @@ export function RfqForm({ locale = "en" }: { locale?: Locale }) {
         `Message:`,
         `${fd.get("message")}`,
       ].join("\n");
-      window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent("RFQ — Thai Supply Hub")}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setStatus("success");
       return;
     }
@@ -123,7 +128,23 @@ export function RfqForm({ locale = "en" }: { locale?: Locale }) {
   return (
     <form onSubmit={onSubmit} className="space-y-4 bg-white border border-[var(--border)] rounded-2xl p-6 md:p-8 shadow-sm">
       <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
-      <input type="hidden" name="_subject" value={`RFQ — Thai Supply Hub (${locale})`} />
+      <input type="hidden" name="_subject" value={subject} />
+      {bulk && <input type="hidden" name="suppliers" value={suppliersLine} />}
+
+      {bulk && (
+        <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-4">
+          <div className="text-xs font-bold uppercase tracking-wide text-emerald-900 mb-2">
+            Requesting quotes from {suppliers!.length} supplier{suppliers!.length > 1 ? "s" : ""}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {suppliers!.map((s) => (
+              <span key={s.id} className="inline-flex items-center px-2 py-0.5 rounded-full bg-white border border-emerald-300 text-xs font-medium text-emerald-900">
+                {s.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid sm:grid-cols-2 gap-4">
         <Field label={t.name} name="name" required placeholder={t.placeholderName} />

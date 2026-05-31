@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, filterByCategory, filterByDistrict } from "@/lib/data";
+import { loadMasterDb, filterByCategory } from "@/lib/data";
+import { districtsForBuild, districtBySlug, suppliersInDistrict } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -9,32 +10,25 @@ import type { Metadata } from "next";
 
 const VALID_CUISINES = new Set(Object.keys(CATEGORY_LABELS));
 
-function districtFromSlug(slug: string, all: string[]): string | null {
-  const target = slug.toLowerCase();
-  return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
-}
-
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const db = await (await import("@/lib/data")).loadMasterDb();
-  // (category × district) 조합 중 supplier 5+ 있는 것만 prerender — thin content + 빌드 한도 절감.
-  const counts = new Map<string, number>();
-  for (const s of db.suppliers) {
-    if (!s.district) continue;
-    const dSlug = s.district.toLowerCase().replace(/\s+/g, "-");
-    for (const cat of s.categories) {
-      if (!VALID_CUISINES.has(cat)) continue;
-      const key = `${cat}|${dSlug}`;
-      counts.set(key, (counts.get(key) ?? 0) + 1);
+  const db = await loadMasterDb();
+  // (canonical district × category) 조합 중 supplier 7+ 있는 것만 prerender — thin content + 빌드 한도 절감.
+  const params: { cuisine: string; district: string }[] = [];
+  for (const g of districtsForBuild(db)) {
+    const counts = new Map<string, number>();
+    for (const s of suppliersInDistrict(db, g.slug)) {
+      for (const cat of s.categories) {
+        if (!VALID_CUISINES.has(cat)) continue;
+        counts.set(cat, (counts.get(cat) ?? 0) + 1);
+      }
+    }
+    for (const [cuisine, n] of counts) {
+      if (n >= 7) params.push({ cuisine, district: g.slug });
     }
   }
-  return Array.from(counts.entries())
-    .filter(([, n]) => n >= 7)
-    .map(([key]) => {
-      const [cuisine, district] = key.split("|");
-      return { cuisine, district };
-    });
+  return params;
 }
 
 export async function generateMetadata(
@@ -43,16 +37,12 @@ export async function generateMetadata(
   const { cuisine, district } = await params;
   const label = CATEGORY_LABELS[cuisine] ?? cuisine;
   const db = await loadMasterDb();
-  const allDistricts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1])
-  ));
-  const districtName = districtFromSlug(district, allDistricts) ?? district;
+  const group = districtBySlug(db, district);
+  const districtName = group?.display ?? district;
   // thin content (1건 이하) cross-product 은 noindex — quality signal 보호.
-  const matchCount = db.suppliers.filter((s) =>
-    s.categories.includes(cuisine) &&
-    s.district &&
-    s.district.toLowerCase().replace(/\s+/g, "-") === district
-  ).length;
+  const matchCount = group
+    ? suppliersInDistrict(db, district).filter((s) => s.categories.includes(cuisine)).length
+    : 0;
   return {
     title: `${label} in ${districtName}, Thailand — Verified Suppliers`,
     description: `${label} suppliers in ${districtName}. Trust Scores from real Google review analysis. Direct contact info — no sourcing-agent middleman.`,
@@ -68,13 +58,11 @@ export default async function CategoryDistrictPage(
   if (!VALID_CUISINES.has(cuisine)) notFound();
 
   const db = await loadMasterDb();
-  const allDistricts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1])
-  ));
-  const districtName = districtFromSlug(district, allDistricts);
-  if (!districtName) notFound();
+  const group = districtBySlug(db, district);
+  if (!group) notFound();
+  const districtName = group.display;
 
-  const filtered = sortWithSponsored(filterByDistrict(filterByCategory(db.suppliers, cuisine), districtName));
+  const filtered = sortWithSponsored(filterByCategory(suppliersInDistrict(db, district), cuisine));
   const label = CATEGORY_LABELS[cuisine] ?? cuisine;
 
   return (

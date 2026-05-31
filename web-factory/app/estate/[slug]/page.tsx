@@ -3,6 +3,7 @@ import { loadMasterDb } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { photoUrl } from "@/lib/photoUrl";
+import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -63,10 +64,10 @@ export default async function EstatePage(
   for (const t of tenants) if (t.city_label) cities.set(t.city_label, (cities.get(t.city_label) ?? 0) + 1);
   const topCity = Array.from(cities.entries()).sort((a, b) => b[1] - a[1])[0];
 
-  // 정렬 — verified 우선, b2b_score 차순
+  // 정렬 — verified 우선, Trust Score(composite) 차순
   const sorted = [...tenants].sort((a, b) => {
     if ((b.verified ? 1 : 0) !== (a.verified ? 1 : 0)) return (b.verified ? 1 : 0) - (a.verified ? 1 : 0);
-    return (b.b2b_score ?? b.trust_score) - (a.b2b_score ?? a.trust_score);
+    return computeTrustScore(b).overall - computeTrustScore(a).overall;
   });
 
   return (

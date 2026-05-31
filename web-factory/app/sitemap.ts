@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { loadMasterDb } from "@/lib/data";
+import { districtsForBuild, suppliersInDistrict } from "@/lib/districts";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
@@ -15,9 +16,6 @@ export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
-  const districts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
-  ));
   const cities = Object.keys(db.city_counts).map((k) => k.toLowerCase().replace(/\s+/g, "_"));
   const updated = new Date(db.generated_at);
 
@@ -26,6 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/ko`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE}/trust-score`, lastModified: updated, changeFrequency: "monthly", priority: 0.55 },
     { url: `${SITE}/ko/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.55 },
     { url: `${SITE}/th/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.55 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
@@ -40,6 +39,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
     { url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE}/community`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${SITE}/community/pantip`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
+    { url: `${SITE}/community/naver`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
+    { url: `${SITE}/community/youtube`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
+    { url: `${SITE}/community/cafe`, lastModified: updated, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${SITE}/community/reddit`, lastModified: updated, changeFrequency: "weekly", priority: 0.5 },
   ];
 
   for (const p of POSTS) {
@@ -89,24 +94,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/estate/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }
 
-  // 디스트릭트별 — supplier 5+ 있는 (cat × district) 만 (page.tsx 와 일치)
-  const catDistrictCounts = new Map<string, number>();
-  for (const s of db.suppliers) {
-    if (!s.district) continue;
-    const dSlug = s.district.toLowerCase().replace(/\s+/g, "-");
-    for (const cat of s.categories) {
-      const key = `${cat}|${dSlug}`;
-      catDistrictCounts.set(key, (catDistrictCounts.get(key) ?? 0) + 1);
+  // 디스트릭트 — canonical (Mueang/Muang 등 병합, supplier 5+ 만). page.tsx 와 동일 소스.
+  for (const g of districtsForBuild(db)) {
+    items.push({ url: `${SITE}/d/${g.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
+    // (canonical district × category) 중 supplier 7+ 만 — page.tsx generateStaticParams 와 일치.
+    const catCounts = new Map<string, number>();
+    for (const s of suppliersInDistrict(db, g.slug)) {
+      for (const cat of s.categories) {
+        if (!CATEGORY_LABELS[cat]) continue; // route only prerenders known categories
+        catCounts.set(cat, (catCounts.get(cat) ?? 0) + 1);
+      }
     }
-  }
-  for (const d of districts) {
-    const slug = d.toLowerCase().replace(/\s+/g, "-");
-    items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
-  }
-  for (const [pair, n] of catDistrictCounts) {
-    if (n < 7) continue;
-    const [cat, slug] = pair.split("|");
-    items.push({ url: `${SITE}/c/${cat}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
+    for (const [cat, n] of catCounts) {
+      if (n < 7) continue;
+      items.push({ url: `${SITE}/c/${cat}/${g.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
+    }
   }
 
   // Supplier 페이지 — verified 우선 (priority 0.85), 그 외 모든 supplier 포함 (page 가 다 생성됨).

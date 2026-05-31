@@ -37,11 +37,15 @@ WATCH_DIRS = [
     HOME / "Downloads" / "공단" / "공단" / "이름만",
     HOME / "Downloads" / "공단" / "공단" / "리뷰",
     HOME / "Desktop" / "공단" / "공단",
+    WEB / "export",  # community scraper CSVs (Pantip/Naver/YouTube)
 ]
 
 PATTERNS = ["dataset_crawler-google-places_*.json",
             "dataset_google-maps-extractor_*.json",
-            "dataset_Google-Maps-Reviews-Scraper_*.json"]
+            "dataset_Google-Maps-Reviews-Scraper_*.json",
+            "factory_pantip_threads.csv",
+            "factory_naver_blogs.csv",
+            "factory_youtube_videos.csv"]
 
 
 def log(msg: str) -> None:
@@ -129,6 +133,15 @@ def main() -> int:
     if not run(["python", str(WEB / "scripts" / "build_db_from_csv.py")], cwd=ROOT, timeout=300):
         log("ABORT — master_db build failed")
         return 1
+
+    # 1b. community datasets rebuild — Pantip/Naver/YouTube CSV → JSON.
+    # Cheap (<10s) and idempotent; safe to run every cycle.
+    if not run(["python", str(WEB / "scripts" / "build_community_data.py")], cwd=WEB, timeout=120):
+        log("WARN — community build failed (continuing)")
+
+    # 1c. regenerate canonical-district 301s in public/_redirects (data-derived).
+    if not run(["npx", "tsx", "scripts/gen_redirects.mts"], cwd=WEB, timeout=120):
+        log("WARN — gen_redirects failed (continuing with stale _redirects)")
 
     # 2. next build
     if not run(["npx", "next", "build"], cwd=WEB, timeout=900):

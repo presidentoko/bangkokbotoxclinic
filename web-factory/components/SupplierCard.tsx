@@ -5,12 +5,17 @@ import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { verifiedTier, VERIFIED_BADGE } from "@/lib/verified";
 import { photoUrl } from "@/lib/photoUrl";
+import { computeTrustScore } from "@/lib/trustScore";
+import { TrustScoreInfo } from "./TrustScoreInfo";
+import { ShortlistButton } from "./ShortlistButton";
+import { FavoriteButton } from "./FavoriteButton";
 
 export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
   const tier = sponsoredTier(r.id);
   const verified = verifiedTier(r.id);
   const verifiedConf = verified ? VERIFIED_BADGE[verified] : null;
   const photo = r.hero_image;
+  const trust = computeTrustScore(r);
 
   const tierStyles = tier === "editors_pick"
     ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }
@@ -22,7 +27,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
 
   return (
     <div
-      className={`group block border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${tierStyles.wrapper}`}
+      className={`group flex flex-col h-full border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${tierStyles.wrapper}`}
     >
       {tier && (
         <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg shadow-md`}>
@@ -55,7 +60,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
           </div>
         )}
 
-        <div className="p-5 pb-3">
+        <div className="p-5 pb-2">
           <div className="flex items-start justify-between gap-3 mb-2">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-1 flex-wrap">
@@ -78,13 +83,13 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                   </span>
                 )}
               </div>
-              <h3 className="font-semibold text-base group-hover:text-emerald-700 transition truncate flex items-center gap-1.5">
-                {r.name}
+              <h3 className="font-semibold text-base group-hover:text-emerald-700 transition flex items-start gap-1.5">
+                <span className="line-clamp-2">{r.name}</span>
                 {verifiedConf && (
                   <span
                     title={verifiedConf.description}
                     aria-label={verifiedConf.label}
-                    className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold tabular-nums shrink-0"
+                    className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold tabular-nums shrink-0 mt-0.5"
                     style={{ background: verifiedConf.bg, color: verifiedConf.fg }}
                   >
                     {verifiedConf.icon} {verifiedConf.shortLabel}
@@ -113,23 +118,28 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               </div>
             </div>
           </div>
-
-          <div className="flex items-center justify-between gap-3 mt-3 flex-wrap">
-            <TrustBadge score={r.trust_score} size="md" />
-            <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
-              <AIVerifiedBadge r={r} size="sm" />
-              {r.categories.slice(0, 3).map((c) => (
-                <span key={c} className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
-                  <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
-                  {CATEGORY_LABELS[c] ?? c}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </a>
 
-      <div className="px-5 pb-4 flex gap-2">
+      {/* Trust + categories — OUTSIDE the anchor so the tooltip <details> is valid */}
+      <div className="px-5 pb-3 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-1.5">
+          <TrustBadge score={trust.overall} size="md" />
+          <TrustScoreInfo subs={trust.subs} />
+          <FavoriteButton id={r.id} name={r.name} cityLabel={r.city_label || ""} variant="icon" />
+        </div>
+        <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
+          <AIVerifiedBadge r={r} size="sm" />
+          {r.categories.slice(0, 3).map((c) => (
+            <span key={c} className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
+              <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
+              {CATEGORY_LABELS[c] ?? c}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="px-5 pb-4 flex gap-2 mt-auto">
         <a
           href={`/supplier/${r.id}`}
           className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
@@ -168,6 +178,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
             🌐
           </a>
         )}
+        <ShortlistButton id={r.id} name={r.name} cityLabel={r.city_label} variant="icon" />
       </div>
     </div>
   );
