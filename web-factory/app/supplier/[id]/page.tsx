@@ -20,6 +20,7 @@ import { PeerCompare } from "@/components/PeerCompare";
 import { industryStatsByTsic, relScore } from "@/lib/industryStats";
 import { relatedSuppliers } from "@/lib/related";
 import { SupplierCard } from "@/components/SupplierCard";
+import { ShortlistButton } from "@/components/ShortlistButton";
 import type { Metadata } from "next";
 
 // Static export 호환: dynamicParams=false 필수, top 100 supplier만 prebuild.
@@ -534,6 +535,10 @@ export default async function SupplierPage(
                 <p className="text-sm text-amber-900/85 mt-1">
                   Tell us what you need — we&apos;ll forward to the supplier and copy you on the response. No middleman fees.
                 </p>
+                <div className="mt-3 flex items-center gap-3 flex-wrap">
+                  <ShortlistButton id={r.id} name={r.name} cityLabel={r.city_label} variant="full" />
+                  <span className="text-xs text-amber-900/70">Comparing several? Add them and request one quote from your shortlist.</span>
+                </div>
               </div>
               <RfqForm locale="en" />
             </section>
