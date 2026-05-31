@@ -8,6 +8,7 @@ import { photoUrl } from "@/lib/photoUrl";
 import { computeTrustScore } from "@/lib/trustScore";
 import { TrustScoreInfo } from "./TrustScoreInfo";
 import { ShortlistButton } from "./ShortlistButton";
+import { FavoriteButton } from "./FavoriteButton";
 
 export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
   const tier = sponsoredTier(r.id);
@@ -125,6 +126,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
         <div className="flex items-center gap-1.5">
           <TrustBadge score={trust.overall} size="md" />
           <TrustScoreInfo subs={trust.subs} />
+          <FavoriteButton id={r.id} name={r.name} cityLabel={r.city_label || ""} variant="icon" />
         </div>
         <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
           <AIVerifiedBadge r={r} size="sm" />
