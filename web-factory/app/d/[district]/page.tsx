@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, filterByDistrict } from "@/lib/data";
+import { loadMasterDb } from "@/lib/data";
+import { districtsForBuild, districtBySlug, suppliersInDistrict } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -7,19 +8,11 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
-function districtFromSlug(slug: string, all: string[]): string | null {
-  const target = slug.toLowerCase();
-  return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
-}
-
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const db = await (await import("@/lib/data")).loadMasterDb();
-  const districts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
-  ));
-  return districts.map((d) => ({ district: d.toLowerCase().replace(/\s+/g, "-") }));
+  const db = await loadMasterDb();
+  return districtsForBuild(db).map((g) => ({ district: g.slug }));
 }
 
 export async function generateMetadata(
@@ -27,10 +20,8 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { district } = await params;
   const db = await loadMasterDb();
-  const allDistricts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
-  ));
-  const districtName = districtFromSlug(district, allDistricts) ?? district;
+  const group = districtBySlug(db, district);
+  const districtName = group?.display ?? district;
   return {
     title: `Suppliers in ${districtName} — Verified B2B Directory`,
     description: `Manufacturers, warehouses, and industrial operators in ${districtName} with Trust Scores from real Google reviews.`,
@@ -43,13 +34,11 @@ export default async function DistrictPage(
 ) {
   const { district } = await params;
   const db = await loadMasterDb();
-  const allDistricts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1]).filter(Boolean)
-  ));
-  const districtName = districtFromSlug(district, allDistricts);
-  if (!districtName) notFound();
+  const group = districtBySlug(db, district);
+  if (!group) notFound();
+  const districtName = group.display;
 
-  const filtered = sortWithSponsored(filterByDistrict(db.suppliers, districtName));
+  const filtered = sortWithSponsored(suppliersInDistrict(db, district));
 
   // Category facets within district
   const catMap = new Map<string, number>();
@@ -57,7 +46,8 @@ export default async function DistrictPage(
     for (const c of r.categories) catMap.set(c, (catMap.get(c) ?? 0) + 1);
   }
   const cats = [...catMap.entries()].filter(([, n]) => n >= 1).sort((a, b) => b[1] - a[1]);
-  const cityLabel = filtered[0]?.city_label;
+  const cityLabel = group.cityLabel;
+  const citySlug = group.citySlug;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -66,7 +56,7 @@ export default async function DistrictPage(
         {cityLabel && (
           <>
             <span className="mx-2">›</span>
-            <a href={`/city/${(filtered[0]?.city ?? "").toLowerCase()}`} className="hover:text-[var(--fg)]">{cityLabel}</a>
+            <a href={`/city/${citySlug}`} className="hover:text-[var(--fg)]">{cityLabel}</a>
           </>
         )}
         <span className="mx-2">›</span>
@@ -118,7 +108,7 @@ export default async function DistrictPage(
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
-        ...(cityLabel ? [{ name: cityLabel, url: `/city/${(filtered[0]?.city ?? "").toLowerCase()}` }] : []),
+        ...(cityLabel ? [{ name: cityLabel, url: `/city/${citySlug}` }] : []),
         { name: districtName, url: `/d/${district}` },
       ]} />
       <ItemListJsonLd
