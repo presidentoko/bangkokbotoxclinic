@@ -1,4 +1,5 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
+import { districtsForBuild } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -45,11 +46,8 @@ export default async function HomePage() {
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
 
-  const districtMap = new Map<string, number>();
-  for (const r of db.suppliers) {
-    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
-  }
-  const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+  // Canonical districts (Mueang/Muang 등 병합, supplier 5+ 만), busiest 12.
+  const districts = districtsForBuild(db).slice(0, 12);
 
   const categories = Object.entries(db.category_counts).sort((a, b) => b[1] - a[1]);
 
@@ -326,13 +324,13 @@ export default async function HomePage() {
           <section className="mb-10">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By District</h2>
             <div className="flex flex-wrap gap-2">
-              {districts.map(([d, count]) => (
+              {districts.map((g) => (
                 <a
-                  key={d}
-                  href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                  key={g.slug}
+                  href={`/d/${g.slug}`}
                   className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
                 >
-                  📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
+                  📍 {g.display} <span className="text-[var(--muted)] tabular-nums">{g.count}</span>
                 </a>
               ))}
             </div>

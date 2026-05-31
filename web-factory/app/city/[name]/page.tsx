@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
+import { districtsForCity } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -113,10 +114,8 @@ export default async function CityPage(
   }
   const categories = [...catMap.entries()].sort((a, b) => b[1] - a[1]);
 
-  // Districts in this city
-  const districtMap = new Map<string, number>();
-  for (const r of filtered) if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
-  const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]);
+  // Canonical districts in this city (Mueang/Muang 등 병합, supplier 5+ 만).
+  const districts = districtsForCity(db, name);
 
   const withWebsite = filtered.filter((r) => r.website).length;
   const avgTrust =
@@ -207,13 +206,13 @@ export default async function CityPage(
         <section className="mb-8">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By District</h2>
           <div className="flex flex-wrap gap-2">
-            {districts.map(([d, n]) => (
+            {districts.map((g) => (
               <a
-                key={d}
-                href={`/d/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                key={g.slug}
+                href={`/d/${g.slug}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
-                📍 {d} <span className="text-[var(--muted)]">{n}</span>
+                📍 {g.display} <span className="text-[var(--muted)]">{g.count}</span>
               </a>
             ))}
           </div>
