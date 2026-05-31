@@ -1,0 +1,38 @@
+# Explicit ignore — needed for --archive=tgz mode (auto-exclusion bypassed)
+node_modules
+.next
+.vercel
+.git
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+
+# Backup files (combined 28-45MB)
+data/master_db.json.bak-*
+data/*.bak
+data/*.bak-*
+
+# Big per-clinic data dirs (moved out — see /tmp/web-data-backup)
+data/photos/
+data/pricing/
+data/wiki_summaries/
+data/external_reviews/
+data/doctor_xref/
+
+# Scraper / dev scripts not needed at runtime
+data/.crisis_state.json
+outreach_targets.csv
+outreach_*.csv
+
+# Python build scripts
+scripts/__pycache__/
+scripts/*.py
+scripts/*.pyc
+
+# README / dev docs
+README.md
+*.md
