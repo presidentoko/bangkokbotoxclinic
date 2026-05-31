@@ -24,6 +24,12 @@ export function ShortlistTray() {
             Clear
           </button>
           <a
+            href="/compare"
+            className="py-2 px-3 rounded-lg text-xs font-bold border border-[var(--border)] bg-white hover:border-black transition"
+          >
+            Compare
+          </a>
+          <a
             href="/quote"
             className="py-2 px-4 rounded-lg text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition"
           >
