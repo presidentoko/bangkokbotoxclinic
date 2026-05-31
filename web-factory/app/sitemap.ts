@@ -39,6 +39,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
     { url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE}/community`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${SITE}/community/pantip`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
+    { url: `${SITE}/community/naver`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
+    { url: `${SITE}/community/youtube`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
+    { url: `${SITE}/community/cafe`, lastModified: updated, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${SITE}/community/reddit`, lastModified: updated, changeFrequency: "weekly", priority: 0.5 },
   ];
 
   for (const p of POSTS) {

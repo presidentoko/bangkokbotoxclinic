@@ -14,6 +14,7 @@ const NAV = [
   { en: "Blog",               ko: "블로그",          th: "บล็อก",            href: "/blog",           hrefKo: "/blog",              hrefTh: "/blog" },
   { en: "For Buyers",         ko: "바이어용",        th: "สำหรับผู้ซื้อ",     href: "/for-buyers",     hrefKo: "/for-buyers",        hrefTh: "/for-buyers" },
   { en: "Best of",            ko: "테마별 추천",     th: "Best of",          href: "/best/highly-recommended", hrefKo: "/best/highly-recommended", hrefTh: "/best/highly-recommended" },
+  { en: "Community",          ko: "커뮤니티",        th: "คอมมูนิตี้",        href: "/community",      hrefKo: "/community",         hrefTh: "/community" },
   { en: "About",              ko: "소개",            th: "เกี่ยวกับ",        href: "/about",          hrefKo: "/ko/about",          hrefTh: "/th/about" },
 ];
 
