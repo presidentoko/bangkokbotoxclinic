@@ -44,6 +44,21 @@ def is_socks_dead_error(msg: str) -> bool:
     return any(sig.lower() in lower for sig in _DEAD_SIGNALS)
 
 
+def is_waf_challenge(html: str) -> bool:
+    """Return True if *html* is an Aliyun WAF JS-challenge interstitial rather than
+    the real page. The challenge page is small (~17KB) and carries the acw_sc__v2
+    reload script / aliyunwaf script; real Konvy pages are 100KB+ and lack these.
+    """
+    if not html:
+        return True
+    low = html.lower()
+    # (a) acw_sc__v2 JS-reload interstitial (~17KB) and (b) escalated slider-CAPTCHA
+    # "Verification" page (aliyun_waf_aa/bb meta, --aliyun-slide). Neither is the real page.
+    if "aliyun_waf_aa" in low or "aliyun-slide" in low or "<title>verification</title>" in low:
+        return True
+    return len(html) < 50000 and ("acw_sc__v2" in low or "aliyunwaf" in low)
+
+
 # ---------------------------------------------------------------------------
 # Playwright browser wrapper
 # ---------------------------------------------------------------------------
@@ -130,22 +145,56 @@ class KonvyBrowser:
         """
         assert self._page is not None, "KonvyBrowser must be used as a context manager"
         self._page.goto(url, wait_until="domcontentloaded", timeout=timeout_ms)
+        # Aliyun WAF serves a JS-challenge interstitial that reloads ITSELF into the
+        # real page. Don't reload it ourselves (that races the WAF's own reload and
+        # breaks content()). Just poll content() defensively until the challenge clears.
+        for _ in range(8):
+            self._page.wait_for_timeout(1500)
+            html = self._safe_content()
+            if html and not is_waf_challenge(html):
+                break
         for _ in range(scroll):
-            self._page.mouse.wheel(0, 4000)
+            try:
+                self._page.mouse.wheel(0, 4000)
+            except Exception:
+                pass
             self._page.wait_for_timeout(1500)
         self._page.wait_for_timeout(settle_ms)
-        return self._page.content()
+        return self._safe_content()
+
+    def _safe_content(self) -> str:
+        """page.content() but tolerant of mid-navigation races (returns '' on failure)."""
+        for _ in range(5):
+            try:
+                return self._page.content()
+            except Exception:
+                self._page.wait_for_timeout(800)
+        return ""
 
     def fetch_json(self, url: str, referer: str = "") -> str:
-        """Fetch *url* with the page's WAF cookies via ``page.request.get``.
+        """Fetch *url* from inside the page via ``fetch()`` so it carries the
+        browser's resolved WAF cookies/JS context (page.request bypasses those and
+        gets re-challenged). Retries once through a reload if a WAF page comes back.
 
         Args:
             url: AJAX endpoint URL (e.g. the reviews endpoint).
-            referer: Optional Referer header (use the product page URL).
+            referer: Optional product page URL; navigated to first so cookies are set.
         """
         assert self._page is not None, "KonvyBrowser must be used as a context manager"
-        headers: dict[str, str] = {"X-Requested-With": "XMLHttpRequest"}
-        if referer:
-            headers["Referer"] = referer
-        r = self._page.request.get(url, headers=headers)
-        return r.text()
+        js = """async (u) => {
+            const r = await fetch(u, {headers: {'X-Requested-With': 'XMLHttpRequest'}, credentials: 'include'});
+            return await r.text();
+        }"""
+        for _ in range(2):
+            txt = self._page.evaluate(js, url)
+            # Valid review payload is JSON; a WAF/HTML interstitial starts with '<'.
+            if txt and not txt.lstrip().startswith("<"):
+                return txt
+            self._page.wait_for_timeout(1500)
+            if referer:
+                try:
+                    self._page.goto(referer, wait_until="domcontentloaded", timeout=45000)
+                    self._page.wait_for_timeout(1500)
+                except Exception:
+                    pass
+        return txt
