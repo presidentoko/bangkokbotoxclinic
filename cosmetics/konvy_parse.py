@@ -4,7 +4,7 @@ import json
 import re
 import time
 from bs4 import BeautifulSoup
-from cosmetics.models import Product
+from cosmetics.models import KonvyReview, Product
 
 _PRODUCT_URL_RE = re.compile(r"^https://www\.konvy\.com/[\w%.-]+/[\w%.-]+-\d+\.html$")
 _EXCLUDE = ("/brand/", "/list/", "list.php", "team", "cart", "static")
@@ -83,6 +83,63 @@ def _find_ldjson_product(soup: BeautifulSoup) -> dict:
             if isinstance(item, dict) and item.get("@type") == "Product":
                 return item
     return {}
+
+
+def parse_reviews(raw: str) -> list[KonvyReview]:
+    """Konvy ajax_comment JSON 응답 → KonvyReview 리스트.
+
+    JSON shape: {"comments": [...]} or bare list.
+    Each comment: id, score (1-5 rating), content (body), user.username (author),
+    create_time (timestamp), like (helpful_count).
+    """
+    # Strip BOM if present
+    raw = raw.lstrip("﻿").strip()
+    if not raw:
+        return []
+    try:
+        data = json.loads(raw)
+    except (json.JSONDecodeError, ValueError):
+        return []
+
+    # Accept dict with "comments" key, or bare list
+    if isinstance(data, dict):
+        comments = data.get("comments", [])
+    elif isinstance(data, list):
+        comments = data
+    else:
+        return []
+
+    reviews: list[KonvyReview] = []
+    for c in comments:
+        if not isinstance(c, dict):
+            continue
+        body: str = (c.get("content") or "").strip()
+        if not body:
+            continue  # skip empty reviews
+
+        review_id: str = str(c.get("id", ""))
+        rating: float = _safe_float(c.get("score", 0))
+        helpful_count: int = _safe_int(c.get("like", 0))
+        timestamp: str = str(c.get("create_time") or "")
+
+        # Author: prefer user.username (nested dict); fall back to user_id str
+        user_obj = c.get("user")
+        if isinstance(user_obj, dict):
+            author = str(user_obj.get("username") or "").strip()
+        else:
+            author = ""
+        if not author:
+            author = str(c.get("user_id") or "")
+
+        reviews.append(KonvyReview(
+            review_id=review_id,
+            rating=rating,
+            body=body,
+            author=author,
+            timestamp=timestamp,
+            helpful_count=helpful_count,
+        ))
+    return reviews
 
 
 def parse_product(html: str, url: str) -> Product:

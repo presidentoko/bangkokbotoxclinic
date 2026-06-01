@@ -46,3 +46,23 @@ def test_parse_product_extracts_ingredients(fixture_text):
 def test_split_inci_helper():
     assert konvy_parse.split_inci("Water, Niacinamide,  , Salicylic Acid\nGlycerin") == \
         ["Water", "Niacinamide", "Salicylic Acid", "Glycerin"]
+
+
+from cosmetics.models import KonvyReview
+
+
+def test_parse_reviews_from_json(fixture_text):
+    raw = fixture_text("reviews_sample.json")
+    reviews = konvy_parse.parse_reviews(raw)
+    assert len(reviews) >= 1
+    r = reviews[0]
+    assert isinstance(r, KonvyReview)
+    assert 1 <= r.rating <= 5
+    assert r.body                      # non-empty review text
+    assert r.review_id
+
+
+def test_parse_reviews_handles_bom_and_garbage():
+    # BOM-prefixed + non-JSON should not crash
+    assert konvy_parse.parse_reviews("﻿not json") == []
+    assert konvy_parse.parse_reviews("") == []
