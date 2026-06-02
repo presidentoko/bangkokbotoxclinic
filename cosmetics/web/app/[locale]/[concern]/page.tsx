@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import {
   CONCERNS,
   getRanking,
@@ -12,6 +13,7 @@ import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
+import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -50,6 +52,18 @@ export function generateStaticParams() {
   );
 }
 
+// Rank badge colors for podium cards
+const PODIUM_COLORS = [
+  { badge: "bg-teal-600 text-white", border: "border-teal-200", ring: "ring-teal-100" },
+  { badge: "bg-emerald-500 text-white", border: "border-emerald-200", ring: "ring-emerald-50" },
+  { badge: "bg-emerald-400 text-white", border: "border-emerald-200", ring: "ring-emerald-50" },
+];
+
+function productDisplayName(brand: string, name: string): string {
+  if (name.toLowerCase().startsWith(brand.toLowerCase())) return name;
+  return `${brand} ${name}`;
+}
+
 export default async function ConcernHub({
   params,
 }: {
@@ -80,6 +94,7 @@ export default async function ConcernHub({
   });
 
   const top = rows.slice(0, 20);
+  const podium = rows.slice(0, 3);
   const products = getRanking(concern)
     .slice(0, 20)
     .map((e) => getProduct(e.product_id)!);
@@ -98,20 +113,96 @@ export default async function ConcernHub({
       ? `${concernLabel(locale, concern)} : ผลิตภัณฑ์ที่ดีที่สุดจัดอันดับด้วยส่วนผสม + รีวิวจริง`
       : `Best products for ${concernLabel(locale, concern)} — ranked by ingredients + real reviews`;
 
-  const intro = `${title}. ${
+  const intro =
     locale === "th"
       ? "อันดับคำนวณจากคะแนนส่วนผสม 45% รีวิว 45% ความคุ้มค่า 10%"
-      : "Ranked by 45% ingredient science, 45% aggregated reviews, 10% value."
-  }`;
+      : "Ranked by 45% ingredient science, 45% aggregated reviews, 10% value.";
+
+  const fullIntro = `${title}. ${intro}`;
 
   return (
-    <article className="space-y-4">
-      <h1 className="text-2xl font-bold">{title}</h1>
-      <p className="text-gray-700">{intro}</p>
-      <p className="text-xs text-gray-400">
-        {t(locale, "updated")}: {generatedAt()?.slice(0, 10)}
-      </p>
-      <ComparisonTable rows={top} locale={locale} labels={labels} />
+    <article className="space-y-8">
+      {/* Editorial page header */}
+      <header className="space-y-3">
+        <h1 className="font-serif-display text-3xl sm:text-4xl font-semibold leading-tight text-[#1a1a1a]">
+          {title}
+        </h1>
+        <p className="text-lg text-neutral-700 max-w-prose leading-relaxed">
+          {intro}
+        </p>
+        <p className="text-xs text-neutral-400">
+          {t(locale, "updated")}: {generatedAt()?.slice(0, 10)}
+        </p>
+      </header>
+
+      {/* Top-3 Podium cards */}
+      {podium.length > 0 && (
+        <section>
+          <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-3">
+            {locale === "th" ? "อันดับต้น 3" : "Top 3"}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {podium.map((r, i) => {
+              const c = PODIUM_COLORS[i];
+              return (
+                <div
+                  key={r.id}
+                  className={`relative rounded-xl border ${c.border} bg-white ring-2 ${c.ring} p-4 flex flex-col gap-2 shadow-sm`}
+                >
+                  {/* Rank badge */}
+                  <span
+                    className={`absolute -top-3 -left-2 inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold shadow ${c.badge}`}
+                  >
+                    {i + 1}
+                  </span>
+                  {/* Product name */}
+                  <Link
+                    href={`/${locale}/product/${r.slug}`}
+                    className="text-teal-700 hover:text-teal-900 font-medium leading-snug pt-1 hover:underline underline-offset-2"
+                  >
+                    {productDisplayName(r.brand, r.name)}
+                  </Link>
+                  {/* Score pill */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span
+                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${scoreColor(r.score)} ${
+                        r.score >= 85
+                          ? "bg-emerald-50"
+                          : r.score >= 70
+                            ? "bg-teal-50"
+                            : "bg-neutral-100"
+                      }`}
+                    >
+                      {(Math.round(r.score * 10) / 10).toFixed(1)}
+                    </span>
+                    <span className="text-xs text-neutral-500">
+                      ฿{Math.round(r.price).toLocaleString("en-US")}
+                    </span>
+                  </div>
+                  {/* Key ingredient */}
+                  {r.keyIngredient !== "—" && (
+                    <p className="text-xs text-neutral-500 mt-auto">
+                      <span className="font-medium text-neutral-600">
+                        {labels.key_ingredient}:
+                      </span>{" "}
+                      {r.keyIngredient}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Full comparison table */}
+      <section>
+        <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-3">
+          {locale === "th" ? "ตารางเปรียบเทียบทั้งหมด" : "Full comparison table"}
+        </h2>
+        <ComparisonTable rows={top} locale={locale} labels={labels} />
+      </section>
+
       <JsonLd
         data={itemListLd(
           `https://bangkokfillers.com/${locale}/${concern}`,
@@ -120,7 +211,7 @@ export default async function ConcernHub({
             `https://bangkokfillers.com/${locale}/product/${productSlug(p)}`
         )}
       />
-      <JsonLd data={faqLd([{ q: title, a: intro }])} />
+      <JsonLd data={faqLd([{ q: title, a: fullIntro }])} />
     </article>
   );
 }
