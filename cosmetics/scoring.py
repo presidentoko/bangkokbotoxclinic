@@ -18,3 +18,32 @@ def ingredient_score(analysis: list[dict], concern: str) -> float:
         flags.update(a.get("safety_flags", []))
     penalty = _FLAG_PENALTY * len(flags)
     return max(0.0, min(100.0, _BASE + reward - penalty))
+
+BAYES_C = 30  # confidence constant: reviews needed to outweigh the prior
+
+def review_score(rating: float, count: int, prior_mean: float = 4.2,
+                 best: float = 5.0) -> float:
+    """Bayesian-adjusted 0-100. Few reviews shrink toward prior_mean; 0 count -> 0."""
+    if not count or rating <= 0:
+        return 0.0
+    adj = (BAYES_C * prior_mean + count * rating) / (BAYES_C + count)
+    return max(0.0, min(100.0, adj / best * 100.0))
+
+def value_score(price_per_ml: float, median_per_ml: float) -> float:
+    """0-100; at/above 2x median -> 0, at/below ~0 -> 100, median -> 50."""
+    if not price_per_ml or not median_per_ml or price_per_ml <= 0:
+        return 50.0
+    ratio = price_per_ml / median_per_ml          # 1.0 == median
+    return max(0.0, min(100.0, (2.0 - ratio) * 50.0))
+
+def total_score(ingredient: float, review: float, value: float) -> float:
+    return (WEIGHTS["ingredient"] * ingredient
+            + WEIGHTS["review"] * review
+            + WEIGHTS["value"] * value)
+
+def rank_products(products: list[dict], concern: str) -> list[dict]:
+    """Sort by total_score[concern] desc, sold_count desc tiebreak."""
+    return sorted(products,
+                  key=lambda p: (p.get("total_score", {}).get(concern, 0.0),
+                                 p.get("sold_count", 0)),
+                  reverse=True)
