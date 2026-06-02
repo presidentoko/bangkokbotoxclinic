@@ -86,9 +86,9 @@ export default async function Home({
               <Link
                 key={c}
                 href={`/${locale}/${c}`}
-                className="group rounded-xl border border-neutral-200 bg-white p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="group rounded-xl border border-neutral-200 bg-white p-6 sm:p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
               >
-                <div className="font-serif-display text-xl font-semibold text-[#1a1a1a] group-hover:text-teal-600 transition-colors">
+                <div className="font-serif-display text-xl font-semibold text-[#1a1a1a] group-hover:text-teal-600 transition-colors break-words">
                   {concernLabel(locale, c)}
                 </div>
                 <div className="mt-2 text-sm font-medium text-neutral-600">

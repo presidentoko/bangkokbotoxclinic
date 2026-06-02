@@ -5,7 +5,48 @@ export function Header({ locale }: { locale: Locale }) {
   const other = locale === "th" ? "en" : "th";
   return (
     <header className="sticky top-0 z-50 border-b border-neutral-200 bg-[#faf9f7]/90 backdrop-blur-sm">
-      <nav className="mx-auto max-w-5xl flex items-center gap-5 px-4 py-3 text-sm">
+      {/* ── Row 1: wordmark + locale toggle ── */}
+      <div className="mx-auto max-w-5xl flex items-center justify-between px-4 pt-3 pb-1 sm:hidden">
+        <Link
+          href={`/${locale}`}
+          className="font-serif-display text-lg font-semibold text-[#1a1a1a] hover:text-teal-600 transition-colors"
+        >
+          {t(locale, "site_name")}
+        </Link>
+        <Link
+          href={`/${other}`}
+          className="uppercase text-xs font-medium px-2.5 py-1 rounded-full border border-neutral-300 text-neutral-500 hover:border-teal-600 hover:text-teal-600 transition-colors"
+        >
+          {other}
+        </Link>
+      </div>
+
+      {/* ── Row 2 (mobile): horizontally-scrollable concern + methodology chips ── */}
+      <div className="sm:hidden overflow-x-auto scrollbar-none px-4 pb-2.5">
+        <div className="flex items-center gap-2 w-max">
+          <Link
+            href={`/${locale}/acne`}
+            className="whitespace-nowrap text-sm text-neutral-600 hover:text-teal-600 transition-colors px-3 py-1 rounded-full border border-neutral-200 bg-white hover:border-teal-300"
+          >
+            {concernLabel(locale, "acne")}
+          </Link>
+          <Link
+            href={`/${locale}/whitening`}
+            className="whitespace-nowrap text-sm text-neutral-600 hover:text-teal-600 transition-colors px-3 py-1 rounded-full border border-neutral-200 bg-white hover:border-teal-300"
+          >
+            {concernLabel(locale, "whitening")}
+          </Link>
+          <Link
+            href={`/${locale}/methodology`}
+            className="whitespace-nowrap text-sm text-neutral-600 hover:text-teal-600 transition-colors px-3 py-1 rounded-full border border-neutral-200 bg-white hover:border-teal-300"
+          >
+            {t(locale, "methodology")}
+          </Link>
+        </div>
+      </div>
+
+      {/* ── Desktop: single-row nav ── */}
+      <nav className="hidden sm:flex mx-auto max-w-5xl items-center gap-5 px-4 py-3 text-sm">
         <Link
           href={`/${locale}`}
           className="font-serif-display text-lg font-semibold text-[#1a1a1a] hover:text-teal-600 transition-colors mr-2"
