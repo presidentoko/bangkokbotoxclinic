@@ -22,12 +22,12 @@ type Key = "score" | "price" | "reviews";
 function RankBadge({ n }: { n: number }) {
   const top3 =
     n === 1
-      ? "bg-teal-600 text-white font-bold"
+      ? "bg-rose-500 text-white font-bold"
       : n === 2
         ? "bg-emerald-500 text-white font-bold"
         : n === 3
           ? "bg-emerald-400 text-white font-bold"
-          : "bg-neutral-200 text-neutral-600";
+          : "bg-rose-50 text-[#8a7a76]";
   return (
     <span
       className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs leading-none shrink-0 ${top3}`}
@@ -43,8 +43,8 @@ function ScorePill({ score }: { score: number }) {
     score >= 85
       ? "bg-emerald-50"
       : score >= 70
-        ? "bg-teal-50"
-        : "bg-neutral-100";
+        ? "bg-amber-50"
+        : "bg-rose-50";
   return (
     <span
       className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${color} ${bg}`}
@@ -55,9 +55,9 @@ function ScorePill({ score }: { score: number }) {
 }
 
 function SortIndicator({ active, dir }: { active: boolean; dir: "asc" | "desc" }) {
-  if (!active) return <span className="ml-0.5 text-neutral-300">⇅</span>;
+  if (!active) return <span className="ml-0.5 text-rose-200">⇅</span>;
   return (
-    <span className="ml-0.5 text-teal-600">{dir === "desc" ? "▼" : "▲"}</span>
+    <span className="ml-0.5 text-rose-500">{dir === "desc" ? "▼" : "▲"}</span>
   );
 }
 
@@ -98,7 +98,7 @@ export function ComparisonTable({
     <th
       onClick={() => handleSort(k)}
       className={`cursor-pointer px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide select-none whitespace-nowrap ${
-        sort === k ? "text-teal-700" : "text-neutral-500 hover:text-neutral-700"
+        sort === k ? "text-rose-600" : "text-[#8a7a76] hover:text-[#2b2222]"
       }`}
     >
       {children}
@@ -107,7 +107,7 @@ export function ComparisonTable({
   );
 
   const ThPlain = ({ children }: { children: React.ReactNode }) => (
-    <th className="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-neutral-500 whitespace-nowrap">
+    <th className="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-[#8a7a76] whitespace-nowrap">
       {children}
     </th>
   );
@@ -124,8 +124,8 @@ export function ComparisonTable({
               onClick={() => handleSort(key)}
               className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
                 active
-                  ? "bg-teal-600 text-white border-teal-600"
-                  : "bg-white text-neutral-600 border-neutral-300 hover:border-teal-400"
+                  ? "bg-rose-500 text-white border-rose-500"
+                  : "bg-white text-[#8a7a76] border-[#efe1db] hover:border-rose-300"
               }`}
             >
               {labelTh}/{labelEn}
@@ -140,10 +140,10 @@ export function ComparisonTable({
       </div>
 
       {/* ── Desktop table — hidden on small screens ── */}
-      <div className="hidden sm:block overflow-x-auto rounded-lg border border-neutral-200 shadow-sm">
+      <div className="hidden sm:block overflow-x-auto rounded-2xl border border-[#efe1db] shadow-sm shadow-rose-100">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-neutral-50 border-b border-neutral-200 sticky top-0 z-10">
+            <tr className="bg-rose-50/60 border-b border-[#efe1db] sticky top-0 z-10">
               <ThPlain>{labels.rank}</ThPlain>
               <ThPlain>{labels.product}</ThPlain>
               <ThSortable k="score">{labels.score}</ThSortable>
@@ -156,8 +156,8 @@ export function ComparisonTable({
             {sorted.map((r, i) => (
               <tr
                 key={r.id}
-                className={`border-b border-neutral-200 transition-colors hover:bg-teal-50/40 ${
-                  i % 2 === 0 ? "bg-white" : "bg-neutral-50"
+                className={`border-b border-[#efe1db] transition-colors hover:bg-rose-50/40 ${
+                  i % 2 === 0 ? "bg-white" : "bg-rose-50/20"
                 }`}
               >
                 <td className="px-3 py-2.5">
@@ -166,7 +166,7 @@ export function ComparisonTable({
                 <td className="px-3 py-2.5 max-w-[240px]">
                   <Link
                     href={`/${locale}/product/${r.slug}`}
-                    className="text-teal-700 hover:text-teal-900 hover:underline underline-offset-2 font-medium leading-snug"
+                    className="text-rose-600 hover:text-rose-800 hover:underline underline-offset-2 font-medium leading-snug"
                   >
                     {productDisplayName(r.brand, r.name)}
                   </Link>
@@ -174,13 +174,13 @@ export function ComparisonTable({
                 <td className="px-3 py-2.5">
                   <ScorePill score={r.score} />
                 </td>
-                <td className="px-3 py-2.5 text-neutral-600 text-xs">
+                <td className="px-3 py-2.5 text-[#8a7a76] text-xs">
                   {r.keyIngredient}
                 </td>
-                <td className="px-3 py-2.5 text-neutral-700 whitespace-nowrap">
+                <td className="px-3 py-2.5 text-[#2b2222] whitespace-nowrap">
                   ฿{Math.round(r.price).toLocaleString("en-US")}
                 </td>
-                <td className="px-3 py-2.5 text-neutral-600 whitespace-nowrap">
+                <td className="px-3 py-2.5 text-[#8a7a76] whitespace-nowrap">
                   {r.rating ? `${r.rating}★ (${r.reviews})` : "—"}
                 </td>
               </tr>
@@ -198,7 +198,7 @@ export function ComparisonTable({
             <Link
               key={r.id}
               href={`/${locale}/product/${r.slug}`}
-              className="block rounded-xl border border-neutral-200 bg-white shadow-sm active:bg-teal-50/30 transition-colors"
+              className="block rounded-2xl border border-[#efe1db] bg-white shadow-sm shadow-rose-100 active:bg-rose-50/30 transition-colors"
             >
               <div className="flex items-center gap-3 p-3 min-h-[72px]">
                 {/* Rank badge */}
@@ -208,7 +208,7 @@ export function ComparisonTable({
 
                 {/* Thumbnail */}
                 {r.image ? (
-                  <div className="relative shrink-0 w-14 h-14 rounded-lg overflow-hidden bg-neutral-100 border border-neutral-100">
+                  <div className="relative shrink-0 w-14 h-14 rounded-xl overflow-hidden bg-rose-50 border border-[#efe1db]">
                     <Image
                       src={r.image}
                       alt={productDisplayName(r.brand, r.name)}
@@ -218,30 +218,30 @@ export function ComparisonTable({
                     />
                   </div>
                 ) : (
-                  <div className="shrink-0 w-14 h-14 rounded-lg bg-neutral-100" />
+                  <div className="shrink-0 w-14 h-14 rounded-xl bg-rose-50" />
                 )}
 
                 {/* Main content */}
                 <div className="flex-1 min-w-0">
                   <p
-                    className={`text-sm font-medium leading-snug text-teal-700 ${
+                    className={`text-sm font-medium leading-snug text-rose-600 ${
                       isTop3 ? "font-semibold" : ""
                     } line-clamp-2`}
                   >
                     {productDisplayName(r.brand, r.name)}
                   </p>
                   {r.keyIngredient !== "—" && (
-                    <p className="text-xs text-neutral-400 mt-0.5 truncate">
+                    <p className="text-xs text-[#8a7a76] mt-0.5 truncate">
                       {r.keyIngredient}
                     </p>
                   )}
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
                     <ScorePill score={r.score} />
-                    <span className="text-sm font-bold text-neutral-700">
+                    <span className="text-sm font-bold text-[#2b2222]">
                       ฿{Math.round(r.price).toLocaleString("en-US")}
                     </span>
                     {r.rating ? (
-                      <span className="text-xs text-neutral-400">
+                      <span className="text-xs text-[#8a7a76]">
                         {r.rating}★ ({r.reviews})
                       </span>
                     ) : null}
@@ -249,7 +249,7 @@ export function ComparisonTable({
                 </div>
 
                 {/* Buy affordance */}
-                <div className="shrink-0 text-teal-400 text-lg leading-none pl-1">▸</div>
+                <div className="shrink-0 text-rose-300 text-lg leading-none pl-1">▸</div>
               </div>
             </Link>
           );

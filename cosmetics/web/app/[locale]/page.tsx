@@ -69,10 +69,10 @@ export default async function Home({
     <div className="space-y-14">
       {/* Hero */}
       <section className="pt-6 pb-2 space-y-4">
-        <h1 className="font-serif-display text-4xl sm:text-5xl font-semibold text-[#1a1a1a] leading-tight max-w-2xl">
+        <h1 className="font-serif-display text-4xl sm:text-5xl font-semibold text-[#2b2222] leading-tight max-w-2xl">
           {t(locale, "site_name")}
         </h1>
-        <p className="text-xl text-neutral-500 max-w-xl leading-relaxed">
+        <p className="text-xl text-[#8a7a76] max-w-xl leading-relaxed">
           {t(locale, "tagline")}
         </p>
       </section>
@@ -86,9 +86,9 @@ export default async function Home({
               <Link
                 key={c}
                 href={`/${locale}/${c}`}
-                className="group rounded-xl border border-neutral-200 bg-white p-6 sm:p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+                className="group rounded-2xl border border-[#efe1db] bg-white p-6 sm:p-7 hover:shadow-md hover:shadow-rose-100 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
               >
-                <div className="font-serif-display text-xl font-semibold text-[#1a1a1a] group-hover:text-teal-600 transition-colors break-words">
+                <div className="font-serif-display text-xl font-semibold text-[#2b2222] group-hover:text-rose-500 transition-colors break-words">
                   {concernLabel(locale, c)}
                 </div>
                 <div className="mt-2 text-sm font-medium text-neutral-600">
@@ -104,8 +104,8 @@ export default async function Home({
       </section>
 
       {/* Trust strip */}
-      <section className="border-t border-neutral-200 pt-10 space-y-5">
-        <p className="text-xs uppercase tracking-widest text-neutral-400 font-medium">
+      <section className="border-t border-[#efe1db] pt-10 space-y-5">
+        <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-medium">
           {isTh ? "วิธีที่เราจัดอันดับ" : "How we rank"}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -123,7 +123,7 @@ export default async function Home({
         <div>
           <Link
             href={`/${locale}/methodology`}
-            className="text-sm text-teal-600 hover:text-teal-700 transition-colors underline underline-offset-2"
+            className="text-sm text-rose-500 hover:text-rose-600 transition-colors underline underline-offset-2"
           >
             {t(locale, "methodology")} &rarr;
           </Link>

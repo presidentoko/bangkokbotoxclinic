@@ -3,7 +3,7 @@ import { type Locale } from "@/lib/i18n";
 import type { Product } from "@/lib/types";
 
 /**
- * variant="inline"  — prominent teal button used inside the verdict card (desktop+)
+ * variant="inline"  — prominent blush rose button used inside the verdict card (desktop+)
  * variant="sticky"  — full-width, used inside the mobile sticky buy bar (already styled by parent)
  */
 export function AffiliateButton({
@@ -37,7 +37,7 @@ export function AffiliateButton({
       href={affiliateUrl(p)}
       target="_blank"
       rel="sponsored noopener"
-      className="inline-flex items-center gap-2 rounded-xl bg-teal-600 hover:bg-teal-700 active:bg-teal-800 px-6 py-3 text-white font-semibold text-base shadow-sm transition-colors"
+      className="inline-flex items-center gap-2 rounded-2xl bg-rose-500 hover:bg-rose-600 active:bg-rose-700 px-6 py-3 text-white font-semibold text-base shadow-sm transition-colors"
     >
       {label}
     </a>

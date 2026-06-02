@@ -81,11 +81,11 @@ export default async function IngredientPage({
       <p className="text-base text-neutral-700 leading-relaxed">{mech}</p>
 
       {/* ── Typical concentration stat ── */}
-      <div className="not-prose flex items-center gap-3 rounded-xl border border-neutral-100 bg-white px-4 sm:px-5 py-4 shadow-sm w-fit max-w-full">
-        <span className="text-xs uppercase tracking-widest text-neutral-400">
+      <div className="not-prose flex items-center gap-3 rounded-2xl border border-[#efe1db] bg-white px-4 sm:px-5 py-4 shadow-sm shadow-rose-100 w-fit max-w-full">
+        <span className="text-xs uppercase tracking-widest text-[#c9a86a]">
           {locale === "th" ? "ความเข้มข้นทั่วไป" : "Typical concentration"}
         </span>
-        <span className="font-semibold text-teal-700 text-lg">{ing.typical_pct}</span>
+        <span className="font-semibold text-rose-500 text-lg">{ing.typical_pct}</span>
       </div>
 
       {/* ── Products with this ingredient ── */}
@@ -100,7 +100,7 @@ export default async function IngredientPage({
               <Link
                 key={p.product_id}
                 href={`/${locale}/product/${productSlug(p)}`}
-                className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs text-teal-700 font-medium hover:bg-teal-50 hover:border-teal-300 transition-colors shadow-sm max-w-full break-words"
+                className="inline-flex items-center rounded-full border border-[#efe1db] bg-white px-3 py-1 text-xs text-rose-600 font-medium hover:bg-rose-50 hover:border-rose-300 transition-colors shadow-sm max-w-full break-words"
               >
                 {p.brand} {p.name}
               </Link>

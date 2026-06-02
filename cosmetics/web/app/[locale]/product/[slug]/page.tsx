@@ -62,10 +62,10 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
   const pct = Math.min(100, Math.max(0, Math.round(value)));
   return (
     <div className="flex items-center gap-3">
-      <span className="w-24 shrink-0 text-sm text-neutral-500">{label}</span>
-      <div className="flex-1 h-2.5 rounded-full bg-neutral-100 overflow-hidden">
+      <span className="w-24 shrink-0 text-sm text-[#8a7a76]">{label}</span>
+      <div className="flex-1 h-2.5 rounded-full bg-rose-50 overflow-hidden">
         <div
-          className="h-full rounded-full bg-teal-500"
+          className="h-full rounded-full bg-rose-400"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -108,7 +108,7 @@ export default async function ProductPage({
             VERDICT CARD
             Single column on phone, side-by-side on sm+
         ══════════════════════════════════════ */}
-        <div className="rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
+        <div className="rounded-2xl border border-[#efe1db] bg-white shadow-sm shadow-rose-100 overflow-hidden">
           {/* Image + info */}
           <div className="flex flex-col sm:flex-row gap-0 sm:gap-6 items-stretch sm:items-start p-5 sm:p-6">
             {/* Product image */}
@@ -129,7 +129,7 @@ export default async function ProductPage({
             {/* Name + score + verdict */}
             <div className="flex-1 space-y-3">
               {/* Brand eyebrow */}
-              <p className="text-xs font-semibold uppercase tracking-widest text-teal-600">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#c9a86a]">
                 {p.brand}
               </p>
 
@@ -161,7 +161,7 @@ export default async function ProductPage({
                     <span className="text-sm text-neutral-400 line-through">
                       ฿{Math.round(p.list_price_thb).toLocaleString()}
                     </span>
-                    <span className="rounded-full bg-teal-50 border border-teal-200 px-2.5 py-0.5 text-xs font-semibold text-teal-700">
+                    <span className="rounded-full bg-rose-50 border border-[#efe1db] px-2.5 py-0.5 text-xs font-semibold text-rose-600">
                       -{p.discount_pct}%
                     </span>
                   </>
@@ -172,14 +172,14 @@ export default async function ProductPage({
 
           {/* Mobile-only: price strip inside card (above sticky bar summary) */}
           {hasDiscount && (
-            <div className="sm:hidden flex items-center gap-3 border-t border-neutral-100 px-5 py-3">
-              <span className="text-base font-bold text-neutral-800">
+            <div className="sm:hidden flex items-center gap-3 border-t border-[#efe1db] px-5 py-3">
+              <span className="text-base font-bold text-[#2b2222]">
                 ฿{Math.round(p.price_thb).toLocaleString()}
               </span>
-              <span className="text-sm text-neutral-400 line-through">
+              <span className="text-sm text-[#8a7a76] line-through">
                 ฿{Math.round(p.list_price_thb).toLocaleString()}
               </span>
-              <span className="rounded-full bg-teal-50 border border-teal-200 px-2.5 py-0.5 text-xs font-semibold text-teal-700">
+              <span className="rounded-full bg-rose-50 border border-[#efe1db] px-2.5 py-0.5 text-xs font-semibold text-rose-600">
                 -{p.discount_pct}%
               </span>
             </div>
@@ -193,7 +193,7 @@ export default async function ProductPage({
           <h2 className="font-serif-display text-lg font-semibold text-neutral-800">
             {locale === "th" ? "รายละเอียดคะแนน" : "Score Breakdown"}
           </h2>
-          <div className="rounded-xl border border-neutral-100 bg-white px-5 py-4 space-y-4 shadow-sm">
+          <div className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 space-y-4 shadow-sm shadow-rose-100">
             <ScoreBar
               label={locale === "th" ? "ส่วนผสม" : "Ingredients"}
               value={ingredientScore}
@@ -246,7 +246,7 @@ export default async function ProductPage({
               {posKws.slice(0, 6).map((kw) => (
                 <span
                   key={kw}
-                  className="rounded-full bg-teal-50 border border-teal-200 px-3 py-1 text-xs text-teal-700 font-medium"
+                  className="rounded-full bg-rose-50 border border-[#efe1db] px-3 py-1 text-xs text-rose-600 font-medium"
                 >
                   {kw}
                 </span>
@@ -267,7 +267,7 @@ export default async function ProductPage({
             {(p.review_summary?.samples ?? []).slice(0, 3).map((r, i) => (
               <blockquote
                 key={i}
-                className="rounded-xl border border-neutral-100 bg-white px-5 py-4 shadow-sm"
+                className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 shadow-sm shadow-rose-100"
               >
                 <p className="text-sm text-neutral-700 leading-relaxed">
                   &ldquo;{r.body}&rdquo;
@@ -289,7 +289,7 @@ export default async function ProductPage({
           STICKY BOTTOM BUY BAR — MOBILE ONLY
           fixed bottom-0, hidden on sm+
       ══════════════════════════════════════ */}
-      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-teal-600 shadow-[0_-2px_12px_rgba(0,0,0,0.12)]">
+      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]">
         <div className="flex items-center justify-center px-4 py-3.5 min-h-[56px]">
           <AffiliateButton p={p} locale={locale} variant="sticky" />
         </div>

@@ -10,21 +10,21 @@ export function Footer({ locale }: { locale: Locale }) {
       : "Some links are affiliate links";
 
   return (
-    <footer className="border-t border-neutral-200 mt-12">
+    <footer className="border-t border-[#efe1db] mt-12">
       <div className="mx-auto max-w-5xl px-4 py-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
-            <p className="font-serif-display font-semibold text-[#1a1a1a]">
+            <p className="font-serif-display font-semibold text-[#2b2222]">
               BangkokFillers
             </p>
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-[#8a7a76]">
               {t(locale, "tagline")}
             </p>
           </div>
-          <div className="flex flex-col gap-1 text-sm text-neutral-500 sm:items-end">
+          <div className="flex flex-col gap-1 text-sm text-[#8a7a76] sm:items-end">
             <Link
               href={`/${locale}/methodology`}
-              className="text-teal-600 hover:text-teal-700 transition-colors"
+              className="text-rose-500 hover:text-rose-600 transition-colors"
             >
               {t(locale, "methodology")}
             </Link>

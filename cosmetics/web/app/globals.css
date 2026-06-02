@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f7;
-  --foreground: #1a1a1a;
+  --background: #fbf4f1;
+  --foreground: #2b2222;
   --font-serif: var(--font-lora);
 }
 
@@ -51,11 +51,11 @@ h3 {
 }
 
 .prose a {
-  color: #0d9488; /* teal-600 */
+  color: #e0607e; /* rose-500/blush */
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .prose a:hover {
-  color: #0f766e; /* teal-700 */
+  color: #c84d6a; /* rose-600/blush dark */
 }

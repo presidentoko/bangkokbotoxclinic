@@ -13,7 +13,7 @@ export function IngredientDecoder({ analysis, concern, locale }:
       {analysis.map((a) => (
         <div
           key={a.inci}
-          className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-xs shadow-sm"
+          className="inline-flex items-center gap-1.5 rounded-full border border-[#efe1db] bg-white px-3 py-1 text-xs shadow-sm"
         >
           <span className="font-medium text-neutral-800">{a.inci}</span>
           {a.concern_efficacy[concern] > 0 && (

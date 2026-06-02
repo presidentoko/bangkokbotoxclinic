@@ -48,7 +48,7 @@ export default async function LocaleLayout({
       lang={loc}
       className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-[#faf9f7] text-[#1a1a1a] antialiased">
+      <body className="min-h-full flex flex-col bg-[#fbf4f1] text-[#2b2222] antialiased">
         <Header locale={loc} />
         <main className="mx-auto w-full max-w-5xl px-4 py-8 flex-1">{children}</main>
         <Footer locale={loc} />

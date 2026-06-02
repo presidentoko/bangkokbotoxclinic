@@ -54,7 +54,7 @@ export function generateStaticParams() {
 
 // Rank badge colors for podium cards
 const PODIUM_COLORS = [
-  { badge: "bg-teal-600 text-white", border: "border-teal-200", ring: "ring-teal-100" },
+  { badge: "bg-rose-500 text-white", border: "border-[#efe1db]", ring: "ring-rose-100" },
   { badge: "bg-emerald-500 text-white", border: "border-emerald-200", ring: "ring-emerald-50" },
   { badge: "bg-emerald-400 text-white", border: "border-emerald-200", ring: "ring-emerald-50" },
 ];
@@ -159,7 +159,7 @@ export default async function ConcernHub({
                   {/* Product name */}
                   <Link
                     href={`/${locale}/product/${r.slug}`}
-                    className="text-teal-700 hover:text-teal-900 font-medium leading-snug pt-1 hover:underline underline-offset-2"
+                    className="text-rose-600 hover:text-rose-800 font-medium leading-snug pt-1 hover:underline underline-offset-2"
                   >
                     {productDisplayName(r.brand, r.name)}
                   </Link>
@@ -170,8 +170,8 @@ export default async function ConcernHub({
                         r.score >= 85
                           ? "bg-emerald-50"
                           : r.score >= 70
-                            ? "bg-teal-50"
-                            : "bg-neutral-100"
+                            ? "bg-amber-50"
+                            : "bg-rose-50"
                       }`}
                     >
                       {(Math.round(r.score * 10) / 10).toFixed(1)}
