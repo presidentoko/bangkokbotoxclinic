@@ -45,34 +45,76 @@ export default async function Methodology({
   const locale = localeRaw as Locale;
   const th = locale === "th";
 
+  const weights = [
+    {
+      pct: 45,
+      label: th ? "ส่วนผสม" : "Ingredients",
+      desc: th
+        ? "ให้น้ำหนักตามหลักฐานของสารออกฤทธิ์ต่อปัญหานั้น หักคะแนนสารที่ควรระวัง"
+        : "Evidence-weighted actives for the concern, minus caution-flag penalties.",
+      color: "bg-teal-500",
+    },
+    {
+      pct: 45,
+      label: th ? "รีวิว" : "Reviews",
+      desc: th
+        ? "ค่าเฉลี่ยแบบเบย์ (ปรับตามจำนวนรีวิว)"
+        : "Bayesian average adjusted by review count.",
+      color: "bg-teal-400",
+    },
+    {
+      pct: 10,
+      label: th ? "ความคุ้มค่า" : "Value",
+      desc: th
+        ? "ราคาต่อมล. เทียบค่ามัธยฐาน"
+        : "Price-per-ml vs the median.",
+      color: "bg-teal-300",
+    },
+  ];
+
   return (
-    <article className="space-y-3 prose">
-      <h1 className="text-2xl font-bold">
-        {th ? "วิธีให้คะแนน" : "How we score"}
-      </h1>
-      <p>
-        {th
-          ? "คะแนนรวม = ส่วนผสม 45% + รีวิว 45% + ความคุ้มค่า 10%"
-          : "Total = 45% ingredient science + 45% aggregated reviews + 10% value."}
-      </p>
-      <ul className="list-disc pl-5 text-sm">
-        <li>
+    <article className="prose max-w-2xl space-y-8">
+      {/* ── Header ── */}
+      <header className="border-b border-neutral-100 pb-6">
+        <h1 className="font-serif-display text-3xl font-semibold text-neutral-900">
+          {th ? "วิธีให้คะแนน" : "How We Score"}
+        </h1>
+        <p className="mt-2 text-base text-neutral-600 leading-relaxed">
           {th
-            ? "คะแนนส่วนผสม: ให้น้ำหนักตามหลักฐานของสารออกฤทธิ์ต่อปัญหานั้น หักคะแนนสารที่ควรระวัง"
-            : "Ingredient: evidence-weighted actives for the concern, minus caution-flag penalties."}
-        </li>
-        <li>
-          {th
-            ? "คะแนนรีวิว: ค่าเฉลี่ยแบบเบย์ (ปรับตามจำนวนรีวิว)"
-            : "Review: Bayesian average adjusted by review count."}
-        </li>
-        <li>
-          {th
-            ? "ความคุ้มค่า: ราคาต่อมล. เทียบค่ามัธยฐาน"
-            : "Value: price-per-ml vs the median."}
-        </li>
-      </ul>
-      <p className="text-xs text-gray-400">
+            ? "คะแนนรวมคำนวณจาก 3 ปัจจัยหลัก เพื่อให้ได้ผลิตภัณฑ์ที่ดีที่สุดสำหรับปัญหาผิวของคุณ"
+            : "The total score is calculated from three independent factors to find the best product for your skin concern."}
+        </p>
+      </header>
+
+      {/* ── Formula: 3 labeled rows ── */}
+      <section className="not-prose space-y-3">
+        <h2 className="font-serif-display text-xl font-semibold text-neutral-800 mb-4">
+          {th ? "สูตรคะแนนรวม" : "Score Formula"}
+        </h2>
+        {weights.map((w) => (
+          <div
+            key={w.label}
+            className="flex items-start gap-4 rounded-xl border border-neutral-100 bg-white px-5 py-4 shadow-sm"
+          >
+            {/* Weight badge */}
+            <div className="shrink-0 flex flex-col items-center justify-center w-14 h-14 rounded-full border-2 border-teal-200 bg-teal-50">
+              <span className="text-xl font-bold text-teal-700 leading-none">{w.pct}</span>
+              <span className="text-[10px] text-teal-500 font-medium">%</span>
+            </div>
+            {/* Label + bar + desc */}
+            <div className="flex-1 space-y-1.5">
+              <p className="font-semibold text-neutral-800">{w.label}</p>
+              <div className="h-1.5 w-full rounded-full bg-neutral-100 overflow-hidden">
+                <div className={`h-full rounded-full ${w.color}`} style={{ width: `${w.pct}%` }} />
+              </div>
+              <p className="text-sm text-neutral-500">{w.desc}</p>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* ── Freshness note ── */}
+      <p className="not-prose text-xs text-neutral-400">
         {th ? "อัปเดต" : "Updated"}: {generatedAt()?.slice(0, 10)}.{" "}
         {th ? "ข้อมูลรีวิวจาก Konvy" : "Review data from Konvy."}
       </p>
