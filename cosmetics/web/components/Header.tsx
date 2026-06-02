@@ -1,15 +1,41 @@
 import Link from "next/link";
 import { t, concernLabel, type Locale } from "@/lib/i18n";
+
 export function Header({ locale }: { locale: Locale }) {
   const other = locale === "th" ? "en" : "th";
   return (
-    <header className="border-b">
-      <nav className="mx-auto max-w-5xl flex items-center gap-4 p-4 text-sm">
-        <Link href={`/${locale}`} className="font-bold">{t(locale, "site_name")}</Link>
-        <Link href={`/${locale}/acne`}>{concernLabel(locale, "acne")}</Link>
-        <Link href={`/${locale}/whitening`}>{concernLabel(locale, "whitening")}</Link>
-        <Link href={`/${locale}/methodology`} className="ml-auto">{t(locale, "methodology")}</Link>
-        <Link href={`/${other}`} className="uppercase">{other}</Link>
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-[#faf9f7]/90 backdrop-blur-sm">
+      <nav className="mx-auto max-w-5xl flex items-center gap-5 px-4 py-3 text-sm">
+        <Link
+          href={`/${locale}`}
+          className="font-serif-display text-lg font-semibold text-[#1a1a1a] hover:text-teal-600 transition-colors mr-2"
+        >
+          {t(locale, "site_name")}
+        </Link>
+        <Link
+          href={`/${locale}/acne`}
+          className="text-neutral-600 hover:text-teal-600 transition-colors"
+        >
+          {concernLabel(locale, "acne")}
+        </Link>
+        <Link
+          href={`/${locale}/whitening`}
+          className="text-neutral-600 hover:text-teal-600 transition-colors"
+        >
+          {concernLabel(locale, "whitening")}
+        </Link>
+        <Link
+          href={`/${locale}/methodology`}
+          className="ml-auto text-neutral-600 hover:text-teal-600 transition-colors"
+        >
+          {t(locale, "methodology")}
+        </Link>
+        <Link
+          href={`/${other}`}
+          className="uppercase text-xs font-medium px-2.5 py-1 rounded-full border border-neutral-300 text-neutral-500 hover:border-teal-600 hover:text-teal-600 transition-colors"
+        >
+          {other}
+        </Link>
       </nav>
     </header>
   );

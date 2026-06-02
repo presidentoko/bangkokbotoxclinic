@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "../globals.css";
 import { LOCALES, type Locale } from "@/lib/i18n";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +13,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -39,11 +46,12 @@ export default async function LocaleLayout({
   return (
     <html
       lang={loc}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[#faf9f7] text-[#1a1a1a] antialiased">
         <Header locale={loc} />
-        <main className="mx-auto max-w-5xl p-4">{children}</main>
+        <main className="mx-auto w-full max-w-5xl px-4 py-8 flex-1">{children}</main>
+        <Footer locale={loc} />
       </body>
     </html>
   );
