@@ -90,6 +90,7 @@ export default async function ConcernHub({
       price: p.price_thb,
       rating: p.konvy_rating,
       reviews: p.konvy_review_count,
+      image: p.image_url,
     };
   });
 
@@ -121,13 +122,13 @@ export default async function ConcernHub({
   const fullIntro = `${title}. ${intro}`;
 
   return (
-    <article className="space-y-8">
+    <article className="space-y-6 sm:space-y-8">
       {/* Editorial page header */}
-      <header className="space-y-3">
-        <h1 className="font-serif-display text-3xl sm:text-4xl font-semibold leading-tight text-[#1a1a1a]">
+      <header className="space-y-2 sm:space-y-3">
+        <h1 className="font-serif-display text-2xl sm:text-4xl font-semibold leading-tight text-[#1a1a1a]">
           {title}
         </h1>
-        <p className="text-lg text-neutral-700 max-w-prose leading-relaxed">
+        <p className="text-base sm:text-lg text-neutral-700 max-w-prose leading-relaxed">
           {intro}
         </p>
         <p className="text-xs text-neutral-400">

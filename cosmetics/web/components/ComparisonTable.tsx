@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { scoreColor } from "@/lib/format";
 
 type Row = {
@@ -14,8 +15,9 @@ type Row = {
   price: number;
   rating: number;
   reviews: number;
+  image: string;
 };
-type Key = "score" | "price" | "rating" | "reviews";
+type Key = "score" | "price" | "reviews";
 
 function RankBadge({ n }: { n: number }) {
   const top3 =
@@ -28,7 +30,7 @@ function RankBadge({ n }: { n: number }) {
           : "bg-neutral-200 text-neutral-600";
   return (
     <span
-      className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs leading-none ${top3}`}
+      className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs leading-none shrink-0 ${top3}`}
     >
       {n}
     </span>
@@ -85,6 +87,13 @@ export function ComparisonTable({
     setSort(k);
   }
 
+  // Mobile sort chip labels: Thai / English toggle via locale labels
+  const sortChips: { key: Key; labelTh: string; labelEn: string }[] = [
+    { key: "score", labelTh: "คะแนน", labelEn: "Score" },
+    { key: "price", labelTh: "ราคา", labelEn: "Price" },
+    { key: "reviews", labelTh: "รีวิว", labelEn: "Reviews" },
+  ];
+
   const ThSortable = ({ k, children }: { k: Key; children: React.ReactNode }) => (
     <th
       onClick={() => handleSort(k)}
@@ -105,7 +114,32 @@ export function ComparisonTable({
 
   return (
     <>
-      {/* Desktop table — hidden on small screens */}
+      {/* ── Mobile sort chips — hidden on sm+ ── */}
+      <div className="sm:hidden flex gap-2 mb-3 flex-wrap">
+        {sortChips.map(({ key, labelTh, labelEn }) => {
+          const active = sort === key;
+          return (
+            <button
+              key={key}
+              onClick={() => handleSort(key)}
+              className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+                active
+                  ? "bg-teal-600 text-white border-teal-600"
+                  : "bg-white text-neutral-600 border-neutral-300 hover:border-teal-400"
+              }`}
+            >
+              {labelTh}/{labelEn}
+              {active && (
+                <span className="ml-1 text-xs opacity-80">
+                  {sortDir(key) === "desc" ? "▼" : "▲"}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── Desktop table — hidden on small screens ── */}
       <div className="hidden sm:block overflow-x-auto rounded-lg border border-neutral-200 shadow-sm">
         <table className="w-full text-sm border-collapse">
           <thead>
@@ -115,7 +149,7 @@ export function ComparisonTable({
               <ThSortable k="score">{labels.score}</ThSortable>
               <ThPlain>{labels.key_ingredient}</ThPlain>
               <ThSortable k="price">{labels.price}</ThSortable>
-              <ThSortable k="rating">{labels.rating}</ThSortable>
+              <ThSortable k="reviews">{labels.rating}</ThSortable>
             </tr>
           </thead>
           <tbody>
@@ -155,46 +189,71 @@ export function ComparisonTable({
         </table>
       </div>
 
-      {/* Mobile cards — shown only below sm breakpoint */}
+      {/* ── Mobile card feed — shown only below sm breakpoint ── */}
       <div className="sm:hidden space-y-3">
-        {sorted.map((r, i) => (
-          <div
-            key={r.id}
-            className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"
-          >
-            <div className="flex items-start gap-3 mb-2">
-              <RankBadge n={i + 1} />
-              <Link
-                href={`/${locale}/product/${r.slug}`}
-                className="flex-1 text-teal-700 hover:text-teal-900 font-medium leading-snug"
-              >
-                {productDisplayName(r.brand, r.name)}
-              </Link>
-              <ScorePill score={r.score} />
-            </div>
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-500 mt-1">
-              {r.keyIngredient !== "—" && (
-                <span>
-                  <span className="font-medium text-neutral-700">
-                    {labels.key_ingredient}:
-                  </span>{" "}
-                  {r.keyIngredient}
-                </span>
-              )}
-              <span>
-                <span className="font-medium text-neutral-700">
-                  {labels.price}:
-                </span>{" "}
-                ฿{Math.round(r.price).toLocaleString("en-US")}
-              </span>
-              {r.rating ? (
-                <span>
-                  {r.rating}★ ({r.reviews})
-                </span>
-              ) : null}
-            </div>
-          </div>
-        ))}
+        {sorted.map((r, i) => {
+          const rank = i + 1;
+          const isTop3 = rank <= 3;
+          return (
+            <Link
+              key={r.id}
+              href={`/${locale}/product/${r.slug}`}
+              className="block rounded-xl border border-neutral-200 bg-white shadow-sm active:bg-teal-50/30 transition-colors"
+            >
+              <div className="flex items-center gap-3 p-3 min-h-[72px]">
+                {/* Rank badge */}
+                <div className="shrink-0">
+                  <RankBadge n={rank} />
+                </div>
+
+                {/* Thumbnail */}
+                {r.image ? (
+                  <div className="relative shrink-0 w-14 h-14 rounded-lg overflow-hidden bg-neutral-100 border border-neutral-100">
+                    <Image
+                      src={r.image}
+                      alt={productDisplayName(r.brand, r.name)}
+                      fill
+                      sizes="56px"
+                      className="object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className="shrink-0 w-14 h-14 rounded-lg bg-neutral-100" />
+                )}
+
+                {/* Main content */}
+                <div className="flex-1 min-w-0">
+                  <p
+                    className={`text-sm font-medium leading-snug text-teal-700 ${
+                      isTop3 ? "font-semibold" : ""
+                    } line-clamp-2`}
+                  >
+                    {productDisplayName(r.brand, r.name)}
+                  </p>
+                  {r.keyIngredient !== "—" && (
+                    <p className="text-xs text-neutral-400 mt-0.5 truncate">
+                      {r.keyIngredient}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-2 mt-1 flex-wrap">
+                    <ScorePill score={r.score} />
+                    <span className="text-sm font-bold text-neutral-700">
+                      ฿{Math.round(r.price).toLocaleString("en-US")}
+                    </span>
+                    {r.rating ? (
+                      <span className="text-xs text-neutral-400">
+                        {r.rating}★ ({r.reviews})
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
+
+                {/* Buy affordance */}
+                <div className="shrink-0 text-teal-400 text-lg leading-none pl-1">▸</div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </>
   );
