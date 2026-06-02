@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { allProducts, getProduct, productSlug, productIdFromSlug } from "@/lib/data";
 import { LOCALES, t, type Locale } from "@/lib/i18n";
@@ -6,17 +7,49 @@ import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
 
+const BASE = "https://bangkokfillers.com";
+
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) =>
     allProducts().map((p) => ({ locale, slug: productSlug(p) }))
   );
 }
 
-function fallbackSummary(p: { brand: string; name: string; total_score?: Record<string, number>; konvy_review_count: number }, locale: Locale, concern: string) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale: localeRaw, slug } = await params;
+  const locale = localeRaw as Locale;
+  const p = getProduct(productIdFromSlug(slug));
+  if (!p) return {};
+  const title =
+    locale === "th"
+      ? `${p.name} — รีวิว ส่วนผสม คะแนน`
+      : `${p.name} — Reviews, Ingredients & Score`;
+  const description =
+    locale === "th"
+      ? `${p.name} ได้คะแนนจากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ ดูรายละเอียดส่วนผสมและเปรียบเทียบราคา`
+      : `${p.name} scored from ingredient analysis and ${p.konvy_review_count} reviews. See ingredients and compare prices.`;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE}/${locale}/product/${slug}`,
+      languages: {
+        th: `${BASE}/th/product/${slug}`,
+        en: `${BASE}/en/product/${slug}`,
+      },
+    },
+  };
+}
+
+function fallbackSummary(p: { name: string; total_score?: Record<string, number>; konvy_review_count: number }, locale: Locale, concern: string) {
   const sc = (p.total_score?.[concern] ?? 0).toFixed(0);
   return locale === "th"
-    ? `${p.brand} ${p.name} ได้คะแนนรวม ${sc}/100 จากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ`
-    : `${p.brand} ${p.name} scores ${sc}/100 from its ingredients and ${p.konvy_review_count} reviews.`;
+    ? `${p.name} ได้คะแนนรวม ${sc}/100 จากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ`
+    : `${p.name} scores ${sc}/100 from its ingredients and ${p.konvy_review_count} reviews.`;
 }
 
 export default async function ProductPage({
@@ -41,9 +74,7 @@ export default async function ProductPage({
 
   return (
     <article className="space-y-4">
-      <h1 className="text-xl font-bold">
-        {p.brand} {p.name}
-      </h1>
+      <h1 className="text-xl font-bold">{p.name}</h1>
       <p className="text-lg">
         {(p.total_score?.[concern] ?? 0).toFixed(0)}/100 · {summary}
       </p>

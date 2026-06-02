@@ -1,6 +1,37 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { t, concernLabel, type Locale } from "@/lib/i18n";
 import { getRanking } from "@/lib/data";
+
+const BASE = "https://bangkokfillers.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const loc = locale as Locale;
+  const title =
+    loc === "th"
+      ? { absolute: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์" }
+      : { absolute: "BangkokFillers — Trust data, not influencers" };
+  const description =
+    loc === "th"
+      ? "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ"
+      : "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.";
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE}/${loc}`,
+      languages: {
+        th: `${BASE}/th`,
+        en: `${BASE}/en`,
+      },
+    },
+  };
+}
 
 export default async function Home({
   params,

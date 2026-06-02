@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   CONCERNS,
@@ -11,6 +12,37 @@ import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
+
+const BASE = "https://bangkokfillers.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; concern: string }>;
+}): Promise<Metadata> {
+  const { locale: localeRaw, concern } = await params;
+  const locale = localeRaw as Locale;
+  const label = concernLabel(locale, concern);
+  const title =
+    locale === "th"
+      ? `${label} : ผลิตภัณฑ์ที่ดีที่สุดจัดอันดับด้วยส่วนผสม + รีวิวจริง`
+      : `Best products for ${label} — ranked by ingredients + real reviews`;
+  const description =
+    locale === "th"
+      ? `อันดับ ${label} คำนวณจากคะแนนส่วนผสม 45% รีวิว 45% ความคุ้มค่า 10%`
+      : `Top ${label} products ranked by 45% ingredient science, 45% aggregated reviews, 10% value.`;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE}/${locale}/${concern}`,
+      languages: {
+        th: `${BASE}/th/${concern}`,
+        en: `${BASE}/en/${concern}`,
+      },
+    },
+  };
+}
 
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) =>

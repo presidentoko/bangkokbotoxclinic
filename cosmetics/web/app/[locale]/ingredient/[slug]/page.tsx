@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   allIngredients,
@@ -11,10 +12,43 @@ import { ingredientLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
 
+const BASE = "https://bangkokfillers.com";
+
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) =>
     allIngredients().map(([inci]) => ({ locale, slug: ingredientSlug(inci) }))
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale: localeRaw, slug } = await params;
+  const locale = localeRaw as Locale;
+  const ing = getIngredient(slug);
+  if (!ing) return {};
+  const name = locale === "th" ? ing.th_name : ing.en_name;
+  const title =
+    locale === "th"
+      ? `${name} คืออะไร — ส่วนผสมสกินแคร์`
+      : `${name} — What is it? Skincare Ingredient`;
+  const description =
+    locale === "th"
+      ? `${name} (${ing.inci}) คืออะไร ทำงานอย่างไร และพบในผลิตภัณฑ์ใดบ้าง`
+      : `${name} (${ing.inci}) — what it is, how it works, and which products contain it.`;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE}/${locale}/ingredient/${slug}`,
+      languages: {
+        th: `${BASE}/th/ingredient/${slug}`,
+        en: `${BASE}/en/ingredient/${slug}`,
+      },
+    },
+  };
 }
 
 export default async function IngredientPage({

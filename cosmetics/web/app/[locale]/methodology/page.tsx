@@ -1,8 +1,39 @@
+import type { Metadata } from "next";
 import { LOCALES, type Locale } from "@/lib/i18n";
 import { generatedAt } from "@/lib/data";
 
+const BASE = "https://bangkokfillers.com";
+
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const loc = locale as Locale;
+  const title =
+    loc === "th"
+      ? "วิธีให้คะแนน — เกณฑ์คัดเลือกผลิตภัณฑ์"
+      : "How We Score — Our Ranking Methodology";
+  const description =
+    loc === "th"
+      ? "คะแนนรวม = ส่วนผสม 45% + รีวิว 45% + ความคุ้มค่า 10% อธิบายเกณฑ์การจัดอันดับผลิตภัณฑ์สกินแคร์"
+      : "Total score = 45% ingredient science + 45% aggregated reviews + 10% value. How BangkokFillers ranks skincare.";
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE}/${loc}/methodology`,
+      languages: {
+        th: `${BASE}/th/methodology`,
+        en: `${BASE}/en/methodology`,
+      },
+    },
+  };
 }
 
 export default async function Methodology({
