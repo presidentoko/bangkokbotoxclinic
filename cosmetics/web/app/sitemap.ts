@@ -12,13 +12,13 @@ function entry(
   priority: number,
   changeFrequency: Freq = "weekly"
 ): MetadataRoute.Sitemap[number] {
-  // hreflang alternates: every path is locale-prefixed, swap locale segment
+  const segments = path.replace(BASE + "/", "").split("/");
   const languages: Record<string, string> = {};
   for (const l of LOCALES) {
-    // replace first path segment (the locale) with l
-    const segments = path.replace(BASE + "/", "").split("/");
     languages[l] = `${BASE}/${l}/${segments.slice(1).join("/")}`;
   }
+  // x-default points to /th (primary market)
+  languages["x-default"] = languages["th"] ?? path;
   return { url: path, lastModified: NOW, changeFrequency, priority, alternates: { languages } };
 }
 
