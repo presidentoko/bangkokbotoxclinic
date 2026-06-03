@@ -3,7 +3,7 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from engine.models import Clinic, Review
+from engine.models import Clinic
 
 
 def _to_float(value: str) -> float:
