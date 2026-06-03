@@ -131,6 +131,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "korean-medical-tourism",
+    focusTags: ["botox", "filler", "hifu", "facial", "laser", "hair"],
     title: "Korean Medical Tourism in Bangkok — What Tour Packages Cover",
     metaTitle: "Bangkok Medical Tourism Korean — Packages, Pricing 2026",
     metaDescription:

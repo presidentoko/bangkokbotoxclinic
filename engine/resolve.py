@@ -10,7 +10,7 @@ def _merge_into(base: Clinic, other: Clinic) -> None:
         base.name = other.name
         base.total_reviews = other.total_reviews
         base.rating = other.rating
-        base.address = other.address or base.address
+        base.address = max(base.address, other.address, key=len) or other.address
         base.phone = other.phone or base.phone
         base.website = other.website or base.website
     base.reviews.extend(other.reviews)
