@@ -142,8 +142,26 @@ def parse_reviews(raw: str) -> list[KonvyReview]:
     return reviews
 
 
+# size/volume at end of a product name: "15ml", "30 ml", "50g", "60 tablets", "1 set"...
+_VOL_RE = re.compile(
+    r"(\d+(?:\.\d+)?)\s?"
+    r"(ml|ML|cc|g|G|kg|l|L|มล\.?|กรัม|ก\.|ชิ้น|แคปซูล|เม็ด|ซอง|หลอด|ขวด|แผ่น|"
+    r"tablets?|capsules?|caps?|pcs?|sheets?|pairs?|set)\b",
+    re.IGNORECASE,
+)
+
+
+def extract_volume(name: str) -> str:
+    """제품명 끝의 용량 표기 추출 ('...Serum 30ml' → '30ml'). 못 찾으면 ''."""
+    matches = list(_VOL_RE.finditer(name or ""))
+    if not matches:
+        return ""
+    m = matches[-1]  # 보통 마지막에 옴
+    return f"{m.group(1)}{m.group(2)}"
+
+
 def parse_product(html: str, url: str) -> Product:
-    """제품 상세 페이지 HTML + URL → Product 도메인 객체."""
+    """제품 상세 페이지 HTML + URL → Product 도메인 객체 (가능한 모든 필드 추출)."""
     soup = BeautifulSoup(html, "lxml")
     ld = _find_ldjson_product(soup)
 
@@ -158,23 +176,50 @@ def parse_product(html: str, url: str) -> Product:
 
     image_raw = ld.get("image")
     if isinstance(image_raw, list):
-        image_url: str = image_raw[0] if image_raw else ""
+        images: list[str] = [str(i) for i in image_raw if i]
+    elif image_raw:
+        images = [str(image_raw)]
     else:
-        image_url = image_raw or ""
+        images = []
+    image_url: str = images[0] if images else ""
 
-    sku: str = ld.get("sku") or ""
+    sku: str = str(ld.get("sku") or "")
+    gtin8: str = str(ld.get("gtin8") or "")
+    description: str = (ld.get("description") or "").strip()
 
     offers = ld.get("offers") or {}
     price_thb: float = _safe_float(offers.get("price", 0))
 
     ar = ld.get("aggregateRating") or {}
     konvy_rating: float = _safe_float(ar.get("ratingValue", 0))
+    konvy_rating_best: float = _safe_float(ar.get("bestRating", 5)) or 5.0
     konvy_review_count: int = _safe_int(ar.get("reviewCount", 0))
 
-    # --- ingredients from HTML ---
+    # --- ingredients from HTML (anchors already split per-ingredient) ---
     ing_anchors = soup.select("#ingredient_data_main a.ingredientFont")
     ingredients: list[str] = [a.get_text(strip=True) for a in ing_anchors if a.get_text(strip=True)]
     ingredients_raw: str = ", ".join(ingredients)
+
+    # --- sold count ("สั่งแล้ว"): span.pro_dotteh_Bought ---
+    sold_count = 0
+    sold_el = soup.select_one(".pro_dotteh_Bought")
+    if sold_el:
+        sold_count = _safe_int(re.sub(r"[^\d]", "", sold_el.get_text()))
+
+    # --- original price + discount: <span style="...line-through...">฿1690</span> ... -25% ---
+    list_price_thb = 0.0
+    discount_pct = 0
+    strike = soup.find("span", style=lambda s: bool(s) and "line-through" in s)
+    if strike:
+        list_price_thb = _safe_float(re.sub(r"[^\d.]", "", strike.get_text()) or 0)
+        # discount % usually in the sibling text right after the strike price
+        tail = strike.find_next(string=re.compile(r"-?\d+\s*%"))
+        if tail:
+            mdisc = re.search(r"(\d+)\s*%", tail)
+            if mdisc:
+                discount_pct = _safe_int(mdisc.group(1))
+    if not discount_pct and list_price_thb and price_thb and list_price_thb > price_thb:
+        discount_pct = int(round((list_price_thb - price_thb) / list_price_thb * 100))
 
     return Product(
         product_id=_product_id_from_url(url) or sku,
@@ -182,10 +227,20 @@ def parse_product(html: str, url: str) -> Product:
         name=name,
         brand=brand,
         price_thb=price_thb,
+        list_price_thb=list_price_thb,
+        discount_pct=discount_pct,
+        volume=extract_volume(name),
         image_url=image_url,
+        images=images,
+        sku=sku,
+        gtin8=gtin8,
+        description=description,
         ingredients_raw=ingredients_raw,
         ingredients=ingredients,
+        ingredient_count=len(ingredients),
         konvy_rating=konvy_rating,
+        konvy_rating_best=konvy_rating_best,
         konvy_review_count=konvy_review_count,
+        sold_count=sold_count,
         fetched_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     )
