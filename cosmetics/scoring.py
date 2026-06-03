@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 WEIGHTS = {"ingredient": 0.45, "review": 0.45, "value": 0.10}
-CONCERNS = ("acne", "whitening")
+CONCERNS = ("acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive")
 
 # ingredient_score tuning
 _EFFICACY_CAP = 6          # sum of efficacy beyond this saturates to full marks

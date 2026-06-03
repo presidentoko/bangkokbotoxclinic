@@ -10,7 +10,7 @@ REVIEWS = {"1":[{"rating":5,"body":"สิวยุบ","helpful_count":2}], "2"
 
 def test_build_db_scores_and_ranks():
     db = b.build_db(PRODUCTS, REVIEWS)
-    assert set(db["rankings"]) == {"acne","whitening"}
+    assert {"acne","whitening"}.issubset(set(db["rankings"]))
     p1 = db["products"]["1"]
     assert "ingredient_score" in p1 and "acne" in p1["ingredient_score"]
     assert 0 <= p1["total_score"]["acne"] <= 100
