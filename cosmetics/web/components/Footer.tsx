@@ -4,14 +4,12 @@ import { generatedAt } from "@/lib/data";
 
 export function Footer({ locale }: { locale: Locale }) {
   const date = generatedAt();
-  const affiliateNote =
-    locale === "th"
-      ? "บางลิงก์เป็นลิงก์พันธมิตร"
-      : "Some links are affiliate links";
+  const isTh = locale === "th";
 
   return (
     <footer className="border-t border-[#efe1db] mt-12">
-      <div className="mx-auto max-w-5xl px-4 py-8">
+      <div className="mx-auto max-w-5xl px-4 py-8 space-y-6">
+        {/* Main row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
             <p className="font-serif-display font-semibold text-[#2b2222]">
@@ -28,11 +26,24 @@ export function Footer({ locale }: { locale: Locale }) {
             >
               {t(locale, "methodology")}
             </Link>
-            <p>{affiliateNote}</p>
-            <p>
-              {t(locale, "updated")}: {date}
-            </p>
+            <p>{isTh ? "บางลิงก์เป็นลิงก์พันธมิตร" : "Some links are affiliate links"}</p>
+            <p>{t(locale, "updated")}: {date}</p>
           </div>
+        </div>
+
+        {/* Advertising contact */}
+        <div className="rounded-2xl border border-[#efe1db] bg-white px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <p className="text-sm text-neutral-600">
+            {isTh
+              ? "สนใจลงโฆษณาหรือความร่วมมือทางธุรกิจ?"
+              : "Interested in advertising or business partnerships?"}
+          </p>
+          <a
+            href="mailto:UMMA@XX.GG"
+            className="text-sm font-semibold text-rose-500 hover:text-rose-600 transition-colors whitespace-nowrap"
+          >
+            UMMA@XX.GG →
+          </a>
         </div>
       </div>
     </footer>
