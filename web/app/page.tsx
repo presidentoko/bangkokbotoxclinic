@@ -22,14 +22,10 @@ import CityRow from "@/components/CityRow";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import TestimonialMarquee from "@/components/TestimonialMarquee";
 import CuratedCollections from "@/components/CuratedCollections";
-import ClinicLeaderboard from "@/components/ClinicLeaderboard";
-import RecentBookingsTicker from "@/components/RecentBookingsTicker";
-import PartnerLogosWall from "@/components/PartnerLogosWall";
 import PatientCommunityCount from "@/components/PatientCommunityCount";
 // Below-fold + heavy interactive 위젯들 — client only lazy hydrate.
 // LazyWidgets.tsx 가 client component module 이라 ssr:false 사용 가능.
 import {
-  LiveTicker, ClinicSpinWheel, TrustScoreGame, CostCalculator,
   DownloadableGuide, MemberPerksStrip, ScrollReveal,
 } from "@/components/LazyWidgets";
 
@@ -149,7 +145,6 @@ export default async function HomePage() {
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent }} />
               Verified · Independent · No sponsorship in rankings
             </div>
-            <LiveTicker focus={cfg.focus} accent={accent} />
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
             {cfg.focus === "all" ? (
@@ -223,9 +218,6 @@ export default async function HomePage() {
       {/* Multi-source visualization — clearly communicate aggregation site */}
       <SourcesStrip focus={cfg.focus} accent={accent} />
 
-      {/* Press coverage strip */}
-      <PartnerLogosWall />
-
       {/* Why us vs them — focus-aware differentiation */}
       <ScrollReveal className="max-w-5xl mx-auto px-4 pt-10">
         <WhyUs focus={cfg.focus} />
@@ -283,6 +275,50 @@ export default async function HomePage() {
             />
           )}
         </section>
+
+        {/* Dental: Browse by procedure */}
+        {cfg.focus === "dental" && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold mb-4">Browse by procedure</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {[
+                { label: "🦷 Implants",     href: "/implants/bangkok" },
+                { label: "💎 Veneers",      href: "/veneers/bangkok" },
+                { label: "✨ Whitening",    href: "/whitening/bangkok" },
+                { label: "📐 Orthodontics", href: "/orthodontics/bangkok" },
+                { label: "🩺 Root Canal",   href: "/root-canal/bangkok" },
+              ].map((p) => (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  className="border border-[var(--border)] rounded-xl p-3 text-center text-sm font-medium hover:bg-emerald-50 hover:border-emerald-300 transition"
+                >
+                  {p.label}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Dental: Why Bangkok stat strip */}
+        {cfg.focus === "dental" && (
+          <section className="mb-10 bg-emerald-50 rounded-xl p-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="text-3xl font-bold text-emerald-700">1,608+</p>
+                <p className="text-sm text-[var(--muted)] mt-1">dental clinics in Thailand</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-emerald-700">50–70%</p>
+                <p className="text-sm text-[var(--muted)] mt-1">cheaper than US & UK</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-emerald-700">English</p>
+                <p className="text-sm text-[var(--muted)] mt-1">speaking staff at top clinics</p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* FEATURED 6 — bigger cards with photos */}
         {top.length >= 6 && (
@@ -564,25 +600,33 @@ export default async function HomePage() {
           )}
         </section>
 
-        {/* Cost calculator — focus-specific (botox/dental/filler only render) */}
-        <ScrollReveal className="my-10">
-          <CostCalculator focus={cfg.focus} />
-        </ScrollReveal>
-
-        {/* Recent bookings social proof */}
-        <div className="mb-6">
-          <RecentBookingsTicker />
-        </div>
+        {/* Dental: Guide links */}
+        {cfg.focus === "dental" && (
+          <section className="mt-10">
+            <h2 className="text-xl font-bold mb-4">Dental guides</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: "Implants Cost Guide",  href: "/guide/dental-implants-bangkok-cost", desc: "Brands, timeline, what to pay" },
+                { title: "Veneers Price Guide",  href: "/guide/veneers-bangkok-price",        desc: "Porcelain, E.max, composite" },
+                { title: "Whitening Guide",      href: "/guide/teeth-whitening-bangkok",      desc: "Zoom vs take-home trays" },
+              ].map((g) => (
+                <a
+                  key={g.href}
+                  href={g.href}
+                  className="border border-[var(--border)] rounded-xl p-4 hover:bg-gray-50 transition"
+                >
+                  <p className="font-semibold text-sm">{g.title}</p>
+                  <p className="text-xs text-[var(--muted)] mt-1">{g.desc}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Patient community count */}
         <div className="mb-8">
           <PatientCommunityCount />
         </div>
-
-        {/* Top 10 leaderboard — gamified, drives return visits */}
-        <ScrollReveal className="mb-10" direction="scale">
-          <ClinicLeaderboard clinics={focused} />
-        </ScrollReveal>
 
         {/* Downloadable buyer's guide — lead magnet */}
         <div className="mb-10">
@@ -598,16 +642,6 @@ export default async function HomePage() {
         <ScrollReveal>
           <CuratedCollections clinics={focused} focus={cfg.focus} />
         </ScrollReveal>
-
-        {/* Interactive games — keep users clicking */}
-        <div className="grid lg:grid-cols-2 gap-6 my-12">
-          <ScrollReveal direction="left">
-            <ClinicSpinWheel clinics={focused} />
-          </ScrollReveal>
-          <ScrollReveal direction="right" delay={120}>
-            <TrustScoreGame clinics={focused} />
-          </ScrollReveal>
-        </div>
 
         {/* Patient-voice marquee — final persuasion before booking */}
         <ScrollReveal direction="scale">
