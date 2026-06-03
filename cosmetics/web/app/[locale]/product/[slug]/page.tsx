@@ -17,6 +17,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
 import { ExpandableText } from "@/components/ExpandableText";
+import { ShareCard } from "@/components/ShareCard";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
@@ -853,6 +854,25 @@ export default async function ProductPage({
             MODULE 6 — CHEAPER ALTERNATIVES
         ══════════════════════════════════════ */}
         <CheaperAlternativesModule p={p} concern={concern} locale={locale} />
+
+        {/* ══════════════════════════════════════
+            MODULE 7 — SHARE CARD
+        ══════════════════════════════════════ */}
+        <ShareCard
+          name={p.name}
+          brand={p.brand}
+          imageUrl={p.image_url}
+          score={totalScore}
+          rating={p.konvy_rating}
+          reviewCount={p.konvy_review_count}
+          soldCount={p.sold_count ?? 0}
+          priceTHB={p.price_thb}
+          listPriceTHB={p.list_price_thb ?? 0}
+          discountPct={p.discount_pct ?? 0}
+          llmSummary={p.llm_summary?.[locale] ?? ""}
+          locale={locale}
+          pageUrl={pageUrl}
+        />
 
         <JsonLd data={productLd(p, pageUrl)} />
       </article>
