@@ -3,7 +3,7 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from engine.models import Clinic
+from engine.models import Clinic, Review
 
 
 def _to_float(value: str) -> float:
@@ -47,3 +47,23 @@ def load_clinics_csv(path: Path, city: str) -> list[Clinic]:
                 )
             )
     return clinics
+
+
+def load_reviews(reviews_dir: Path, place_id: str) -> list[Review]:
+    """Load reviews/<place_id>_reviews.csv. Returns [] if the file is absent."""
+    path = reviews_dir / f"{place_id}_reviews.csv"
+    if not path.exists():
+        return []
+    out: list[Review] = []
+    with open(path, encoding="utf-8-sig", newline="") as fh:
+        for row in csv.DictReader(fh):
+            out.append(
+                Review(
+                    author=(row.get("author_name") or "").strip(),
+                    rating=_to_float(row.get("rating")),
+                    text=(row.get("text") or "").strip(),
+                    source="google",
+                    spent_amount=(row.get("spent_amount") or "").strip(),
+                )
+            )
+    return out
