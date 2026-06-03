@@ -9,12 +9,14 @@ import {
   productIdFromSlug,
   similarProducts,
   keyIngredients,
+  cheaperAlternatives,
 } from "@/lib/data";
 import { LOCALES, t, type Locale } from "@/lib/i18n";
 import { productLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
+import { ExpandableText } from "@/components/ExpandableText";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
@@ -64,6 +66,29 @@ function fallbackSummary(
   return locale === "th"
     ? `${p.name} ได้คะแนนรวม ${sc}/100 จากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ`
     : `${p.name} scores ${sc}/100 from its ingredients and ${p.konvy_review_count} reviews.`;
+}
+
+/* ─────────────────────────────────────────
+   MODULE 0 — About this product (description)
+───────────────────────────────────────── */
+function DescriptionModule({
+  p,
+  locale,
+}: {
+  p: { description?: string };
+  locale: Locale;
+}) {
+  if (!p.description) return null;
+  return (
+    <section className="space-y-3">
+      <h2 className="font-serif-display text-lg font-semibold text-neutral-800">
+        {locale === "th" ? "เกี่ยวกับสินค้านี้" : "About this product"}
+      </h2>
+      <div className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 shadow-sm shadow-rose-100">
+        <ExpandableText text={p.description} locale={locale} lines={4} />
+      </div>
+    </section>
+  );
 }
 
 function ScoreBar({ label, value }: { label: string; value: number }) {
@@ -544,6 +569,86 @@ function SimilarProductsModule({
 }
 
 /* ─────────────────────────────────────────
+   MODULE 6 — Cheaper alternatives
+───────────────────────────────────────── */
+function CheaperAlternativesModule({
+  p,
+  concern,
+  locale,
+}: {
+  p: Parameters<typeof cheaperAlternatives>[0];
+  concern: string;
+  locale: Locale;
+}) {
+  const alts = cheaperAlternatives(p, concern, 4);
+  if (alts.length === 0) return null;
+
+  return (
+    <section className="space-y-4">
+      <h2 className="font-serif-display text-lg font-semibold text-neutral-800">
+        {locale === "th" ? "ตัวเลือกที่ถูกกว่า" : "Cheaper alternatives"}
+      </h2>
+
+      <div className="flex gap-3 overflow-x-auto pb-2 sm:grid sm:grid-cols-4 sm:overflow-visible snap-x snap-mandatory sm:snap-none">
+        {alts.map((q) => {
+          const qSlug = productSlug(q);
+          const qScore = Math.round(q.total_score?.[concern] ?? 0);
+          const savings = Math.round(p.price_thb - q.price_thb);
+          return (
+            <Link
+              key={q.product_id}
+              href={`/${locale}/product/${qSlug}`}
+              className="flex-shrink-0 snap-start w-40 sm:w-auto flex flex-col rounded-2xl border border-[#efe1db] bg-white overflow-hidden shadow-sm shadow-rose-100 hover:border-rose-300 hover:shadow-rose-200 transition-all"
+            >
+              {/* Thumbnail */}
+              <div className="relative aspect-square bg-neutral-50 flex items-center justify-center">
+                {q.image_url ? (
+                  <Image
+                    src={q.image_url}
+                    alt={q.name}
+                    width={120}
+                    height={120}
+                    className="object-contain w-full h-full p-2"
+                  />
+                ) : (
+                  <span className="text-neutral-300 text-3xl">✦</span>
+                )}
+                {/* Score pill */}
+                <span
+                  className={`absolute top-2 right-2 rounded-full px-2 py-0.5 text-[10px] font-bold border bg-white shadow-sm ${scoreColor(qScore)}`}
+                >
+                  {qScore}
+                </span>
+              </div>
+
+              {/* Info */}
+              <div className="px-3 py-2.5 flex-1">
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-[#c9a86a] truncate">
+                  {q.brand}
+                </p>
+                <p className="text-xs text-[#2b2222] leading-snug mt-0.5 line-clamp-2">
+                  {q.name}
+                </p>
+                <div className="mt-1.5 flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs font-bold text-[#2b2222]">
+                    ฿{Math.round(q.price_thb).toLocaleString()}
+                  </span>
+                  {savings > 0 && (
+                    <span className="rounded-full bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+                      -{savings.toLocaleString()}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────
    PAGE
 ───────────────────────────────────────── */
 export default async function ProductPage({
@@ -568,6 +673,7 @@ export default async function ProductPage({
   const totalScore = Math.round(p.total_score?.[concern] ?? 0);
   const ingredientScore = Math.round(p.ingredient_score?.[concern] ?? 0);
   const hasDiscount = p.discount_pct > 0;
+  const description = typeof p.description === "string" ? p.description.trim() : "";
 
   return (
     <>
@@ -680,6 +786,11 @@ export default async function ProductPage({
         </section>
 
         {/* ══════════════════════════════════════
+            MODULE 0 — ABOUT THIS PRODUCT
+        ══════════════════════════════════════ */}
+        {description && <DescriptionModule p={{ description }} locale={locale} />}
+
+        {/* ══════════════════════════════════════
             MODULE 4 — DUAL-VERIFIED BADGE
             (Shown near the top, after score breakdown,
              as a trust signal before the deep content)
@@ -737,6 +848,11 @@ export default async function ProductPage({
           locale={locale}
           slug={slug}
         />
+
+        {/* ══════════════════════════════════════
+            MODULE 6 — CHEAPER ALTERNATIVES
+        ══════════════════════════════════════ */}
+        <CheaperAlternativesModule p={p} concern={concern} locale={locale} />
 
         <JsonLd data={productLd(p, pageUrl)} />
       </article>
