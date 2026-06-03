@@ -1,0 +1,270 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { t, concernLabel, type Locale } from "@/lib/i18n";
+import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
+import { ProductStrip } from "@/components/ProductStrip";
+import { JsonLd } from "@/components/JsonLd";
+import { orgLd } from "@/lib/schema";
+
+const BASE = "https://bangkokfillers.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const loc = locale as Locale;
+  const title =
+    loc === "th"
+      ? { absolute: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์" }
+      : { absolute: "BangkokFillers — Trust data, not influencers" };
+  const description =
+    loc === "th"
+      ? "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ"
+      : "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.";
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE}/${loc}`,
+      languages: {
+        th: `${BASE}/th`,
+        en: `${BASE}/en`,
+      },
+    },
+  };
+}
+
+const TRUST_POINTS = [
+  {
+    key: "ingredient",
+    th: "ส่วนผสม",
+    en: "Ingredients",
+    descTh: "วิเคราะห์ส่วนผสมจากฐานข้อมูลวิทยาศาสตร์",
+    descEn: "Analysed against peer-reviewed ingredient databases",
+  },
+  {
+    key: "review",
+    th: "รีวิว",
+    en: "Reviews",
+    descTh: "รวบรวมคะแนนรีวิวจริงจากผู้ใช้จริง",
+    descEn: "Aggregated from real verified purchaser reviews",
+  },
+  {
+    key: "value",
+    th: "ความคุ้มค่า",
+    en: "Value",
+    descTh: "เปรียบเทียบราคาต่อมล./กรัม",
+    descEn: "Price-per-ml/g comparison across brands",
+  },
+] as const;
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = (await params).locale as Locale;
+  const isTh = locale === "th";
+
+  // Data for discovery strips
+  const trending = bestSellersAllConcerns(10);
+  const acnePicks = topPicks("acne", 8);
+  const whiteningPicks = topPicks("whitening", 8);
+  const antiagingPicks = topPicks("antiaging", 8);
+  const deals = hotDeals(30, 10);
+  const loved = mostLoved("acne", 8);
+  const stats = siteStats();
+
+  const fmtNum = (n: number) =>
+    n >= 1_000_000
+      ? `${(n / 1_000_000).toFixed(1)}M`
+      : n >= 1_000
+        ? `${Math.round(n / 1_000)}K`
+        : String(n);
+
+  return (
+    <div className="space-y-14">
+      {/* Hero */}
+      <section className="pt-6 pb-2 space-y-5">
+        <h1 className="font-serif-display text-4xl sm:text-5xl font-semibold text-[#2b2222] leading-tight max-w-2xl">
+          {t(locale, "site_name")}
+        </h1>
+        <p className="text-xl text-[#8a7a76] max-w-xl leading-relaxed">
+          {t(locale, "tagline")}
+        </p>
+
+        {/* Stats bar — social proof */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          {[
+            {
+              value: fmtNum(stats.products),
+              label: isTh ? "ผลิตภัณฑ์" : "products analysed",
+            },
+            {
+              value: fmtNum(stats.reviews),
+              label: isTh ? "รีวิวที่รวบรวม" : "reviews aggregated",
+            },
+            {
+              value: fmtNum(stats.sold),
+              label: isTh ? "ยอดสั่งซื้อรวม" : "total units sold",
+            },
+          ].map(({ value, label }) => (
+            <div key={label} className="flex items-baseline gap-1.5">
+              <span className="font-serif-display text-2xl font-black text-rose-500 tabular-nums">
+                {value}
+              </span>
+              <span className="text-xs text-neutral-500">{label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Concern cards */}
+      <section className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {CONCERNS.map((c) => {
+            const count = getRanking(c).length;
+            return (
+              <Link
+                key={c}
+                href={`/${locale}/${c}`}
+                className="group rounded-2xl border border-[#efe1db] bg-white p-6 sm:p-7 hover:shadow-md hover:shadow-rose-100 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+              >
+                <div className="font-serif-display text-xl font-semibold text-[#2b2222] group-hover:text-rose-500 transition-colors break-words">
+                  {concernLabel(locale, c)}
+                </div>
+                <div className="mt-2 text-sm font-medium text-neutral-600">
+                  {count} {t(locale, "product")}
+                </div>
+                <div className="mt-1 text-xs text-neutral-400 uppercase tracking-wide">
+                  {isTh ? "จัดอันดับตามข้อมูล" : "data-ranked"}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Trending strip */}
+      {trending.length > 0 && (
+        <ProductStrip
+          title={t(locale, "trending")}
+          eyebrow={isTh ? "ฮิตตอนนี้" : "Hot right now"}
+          products={trending}
+          locale={locale}
+          proof="sold"
+        />
+      )}
+
+      {/* Our Picks — Acne */}
+      {acnePicks.length > 0 && (
+        <ProductStrip
+          title={
+            isTh
+              ? `${t(locale, "our_picks")} · ${concernLabel(locale, "acne")}`
+              : `${t(locale, "our_picks")} · ${concernLabel(locale, "acne")}`
+          }
+          eyebrow={isTh ? "บรรณาธิการแนะนำ" : "Editor's picks"}
+          subtitle={
+            isTh
+              ? "คัดโดยคะแนนส่วนผสม + รีวิวจริง"
+              : "Selected by ingredient score + real reviews"
+          }
+          products={acnePicks}
+          locale={locale}
+          concern="acne"
+          proof="score"
+        />
+      )}
+
+      {/* Our Picks — Whitening */}
+      {whiteningPicks.length > 0 && (
+        <ProductStrip
+          title={
+            isTh
+              ? `${t(locale, "our_picks")} · ${concernLabel(locale, "whitening")}`
+              : `${t(locale, "our_picks")} · ${concernLabel(locale, "whitening")}`
+          }
+          eyebrow={isTh ? "บรรณาธิการแนะนำ" : "Editor's picks"}
+          subtitle={
+            isTh
+              ? "คัดโดยคะแนนส่วนผสม + รีวิวจริง"
+              : "Selected by ingredient score + real reviews"
+          }
+          products={whiteningPicks}
+          locale={locale}
+          concern="whitening"
+          proof="score"
+        />
+      )}
+
+      {/* Hot deals */}
+      {deals.length > 0 && (
+        <ProductStrip
+          title={isTh ? "ดีลร้อน — ลดราคาหนักมาก" : "Hot deals — biggest discounts"}
+          eyebrow={isTh ? "ราคาถูก" : "Price drop"}
+          subtitle={isTh ? "ลด 30% ขึ้นไป จัดอันดับตามส่วนลด" : "30%+ off, ranked by discount"}
+          products={deals}
+          locale={locale}
+          proof="sold"
+        />
+      )}
+
+      {/* Antiaging */}
+      {antiagingPicks.length > 0 && (
+        <ProductStrip
+          title={isTh ? `${t(locale, "our_picks")} · ${concernLabel(locale, "antiaging")}` : `${t(locale, "our_picks")} · ${concernLabel(locale, "antiaging")}`}
+          eyebrow={isTh ? "ต่อต้านริ้วรอย" : "Anti-aging"}
+          subtitle={isTh ? "เรตินอล วิตามินซี คอลลาเจน — คะแนนสูงสุด" : "Retinol, Vitamin C, Collagen — top scored"}
+          products={antiagingPicks}
+          locale={locale}
+          concern="antiaging"
+          proof="score"
+        />
+      )}
+
+      {/* Most loved */}
+      {loved.length > 0 && (
+        <ProductStrip
+          title={t(locale, "most_loved")}
+          eyebrow={isTh ? "รีวิวเยอะสุด" : "Most reviewed"}
+          subtitle={isTh ? "รีวิวมากที่สุด เรตติ้งสูงสุด" : "Highest review count and rating"}
+          products={loved}
+          locale={locale}
+          concern="acne"
+          proof="loved"
+        />
+      )}
+
+      {/* Trust strip */}
+      <section className="border-t border-[#efe1db] pt-10 space-y-5">
+        <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-medium">
+          {isTh ? "วิธีที่เราจัดอันดับ" : "How we rank"}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {TRUST_POINTS.map((p) => (
+            <div key={p.key} className="space-y-1">
+              <div className="font-serif-display text-base font-semibold text-[#1a1a1a]">
+                {isTh ? p.th : p.en}
+              </div>
+              <div className="text-sm text-neutral-500 leading-snug">
+                {isTh ? p.descTh : p.descEn}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <Link
+            href={`/${locale}/methodology`}
+            className="text-sm text-rose-500 hover:text-rose-600 transition-colors underline underline-offset-2"
+          >
+            {t(locale, "methodology")} &rarr;
+          </Link>
+        </div>
+      </section>
+      <JsonLd data={orgLd("https://bangkokfillers.com")} />
+    </div>
+  );
+}
