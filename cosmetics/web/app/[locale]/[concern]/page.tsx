@@ -6,6 +6,7 @@ import {
   getRanking,
   getProduct,
   productSlug,
+  allProducts,
   generatedAt,
   topPicks,
   bestSellers,
@@ -17,6 +18,8 @@ import { itemListLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
+import { IngredientGuide } from "@/components/IngredientGuide";
+import { ProductFilter } from "@/components/ProductFilter";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
@@ -145,6 +148,9 @@ export default async function ConcernHub({
         </p>
       </header>
 
+      {/* ── 성분 가이드 ── */}
+      <IngredientGuide concern={concern} locale={locale} />
+
       {/* Our Picks strip */}
       {picks.length > 0 && (
         <ProductStrip
@@ -255,6 +261,16 @@ export default async function ConcernHub({
           </div>
         </section>
       )}
+
+      {/* ── แนะนำสำหรับคุณ / Find your match ── */}
+      <ProductFilter
+        products={allProducts().filter((p) => {
+          const seeds = p.concern_seeds;
+          return Array.isArray(seeds) ? seeds.includes(concern) : String(seeds).split("|").includes(concern);
+        })}
+        concern={concern}
+        locale={locale}
+      />
 
       {/* Full comparison table */}
       <section>

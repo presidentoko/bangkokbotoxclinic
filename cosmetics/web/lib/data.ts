@@ -173,6 +173,43 @@ export function bestSellersAllConcerns(limit = 8): Product[] {
 }
 
 /**
+ * Top ingredients for a concern from the ingredient DB, sorted by efficacy desc.
+ * Returns entries with efficacy >= minEfficacy, enriched with product count.
+ */
+export function topIngredientsForConcern(
+  concern: string,
+  limit = 6,
+  minEfficacy = 2
+): {
+  inci: string;
+  th_name: string;
+  en_name: string;
+  mechanism_th: string;
+  mechanism_en: string;
+  efficacy: number;
+  slug: string;
+  productCount: number;
+}[] {
+  const products = allProducts();
+  return Object.entries(ingDb)
+    .filter(([, e]) => (e.concern_efficacy[concern] ?? 0) >= minEfficacy)
+    .sort(([, a], [, b]) => (b.concern_efficacy[concern] ?? 0) - (a.concern_efficacy[concern] ?? 0))
+    .slice(0, limit)
+    .map(([inci, e]) => ({
+      inci,
+      th_name: e.th_name,
+      en_name: e.en_name,
+      mechanism_th: e.mechanism_th,
+      mechanism_en: e.mechanism_en,
+      efficacy: e.concern_efficacy[concern] ?? 0,
+      slug: ingredientSlug(inci),
+      productCount: products.filter((p) =>
+        p.ingredient_analysis.some((a) => a.inci === inci)
+      ).length,
+    }));
+}
+
+/**
  * Returns key ingredient explainer entries for `p` in the given concern,
  * filtered to those with concern_efficacy[concern] > 0, enriched from the
  * ingredient DB. Sorted by efficacy desc, capped to `limit`.
