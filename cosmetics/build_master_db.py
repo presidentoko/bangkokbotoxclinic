@@ -47,7 +47,16 @@ def build_db(products: list[dict], reviews_by_id: dict) -> dict:
 
     rankings = {}
     for c in scoring.CONCERNS:
-        pool = [pp for pp in out_products.values() if c in pp.get("concern_seeds", [])] or list(out_products.values())
+        def _in_seeds(pp: dict, concern: str = c) -> bool:
+            cs = pp.get("concern_seeds", "")
+            if isinstance(cs, list):
+                return concern in cs
+            # str: may be a single concern or "|"-joined list
+            return concern in cs.split("|")
+        pool = [
+            pp for pp in out_products.values()
+            if _in_seeds(pp) or pp["ingredient_score"][c] > scoring._BASE
+        ] or list(out_products.values())
         ranked = scoring.rank_products(pool, c)
         rankings[c] = [{"product_id": pp["product_id"], "total_score": pp["total_score"][c]} for pp in ranked]
     return {"generated_at": None, "products": out_products, "rankings": rankings}
