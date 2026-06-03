@@ -7,12 +7,16 @@ import {
   getProduct,
   productSlug,
   generatedAt,
+  topPicks,
+  bestSellers,
+  mostLoved,
   type Concern,
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
+import { ProductStrip } from "@/components/ProductStrip";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
@@ -100,6 +104,11 @@ export default async function ConcernHub({
     .slice(0, 20)
     .map((e) => getProduct(e.product_id)!);
 
+  // Discovery strip data
+  const picks = topPicks(concern, 8);
+  const sellers = bestSellers(concern, 8);
+  const loved = mostLoved(concern, 8);
+
   const labels = {
     rank: t(locale, "rank"),
     product: t(locale, "product"),
@@ -122,7 +131,7 @@ export default async function ConcernHub({
   const fullIntro = `${title}. ${intro}`;
 
   return (
-    <article className="space-y-6 sm:space-y-8">
+    <article className="space-y-6 sm:space-y-10">
       {/* Editorial page header */}
       <header className="space-y-2 sm:space-y-3">
         <h1 className="font-serif-display text-2xl sm:text-4xl font-semibold leading-tight text-[#1a1a1a]">
@@ -135,6 +144,57 @@ export default async function ConcernHub({
           {t(locale, "updated")}: {generatedAt()?.slice(0, 10)}
         </p>
       </header>
+
+      {/* Our Picks strip */}
+      {picks.length > 0 && (
+        <ProductStrip
+          title={t(locale, "our_picks")}
+          eyebrow={locale === "th" ? "บรรณาธิการแนะนำ" : "Editor's picks"}
+          subtitle={
+            locale === "th"
+              ? "คัดโดยคะแนนส่วนผสม + รีวิวจริง"
+              : "Top-scored by ingredient science + real reviews"
+          }
+          products={picks}
+          locale={locale}
+          concern={concern}
+          proof="score"
+        />
+      )}
+
+      {/* Bestsellers strip */}
+      {sellers.length > 0 && (
+        <ProductStrip
+          title={t(locale, "bestsellers")}
+          eyebrow={locale === "th" ? "ขายดี" : "Hot sellers"}
+          subtitle={
+            locale === "th"
+              ? "สินค้าที่มียอดขายสูงสุด"
+              : "Most purchased in this category"
+          }
+          products={sellers}
+          locale={locale}
+          concern={concern}
+          proof="sold"
+        />
+      )}
+
+      {/* Most Loved strip */}
+      {loved.length > 0 && (
+        <ProductStrip
+          title={t(locale, "most_loved")}
+          eyebrow={locale === "th" ? "คนรัก" : "Fan favourites"}
+          subtitle={
+            locale === "th"
+              ? "รีวิวมากที่สุด เรตติ้งดีที่สุด"
+              : "Most reviewed & highest rated"
+          }
+          products={loved}
+          locale={locale}
+          concern={concern}
+          proof="loved"
+        />
+      )}
 
       {/* Top-3 Podium cards */}
       {podium.length > 0 && (

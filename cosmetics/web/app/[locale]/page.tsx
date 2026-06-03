@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { t, concernLabel, type Locale } from "@/lib/i18n";
-import { getRanking } from "@/lib/data";
+import { getRanking, bestSellersAllConcerns, topPicks } from "@/lib/data";
+import { ProductStrip } from "@/components/ProductStrip";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -65,6 +66,11 @@ export default async function Home({
   const locale = (await params).locale as Locale;
   const isTh = locale === "th";
 
+  // Data for discovery strips
+  const trending = bestSellersAllConcerns(10);
+  const acnePicks = topPicks("acne", 8);
+  const whiteningPicks = topPicks("whitening", 8);
+
   return (
     <div className="space-y-14">
       {/* Hero */}
@@ -102,6 +108,59 @@ export default async function Home({
           })}
         </div>
       </section>
+
+      {/* Trending strip */}
+      {trending.length > 0 && (
+        <ProductStrip
+          title={t(locale, "trending")}
+          eyebrow={isTh ? "ฮิตตอนนี้" : "Hot right now"}
+          products={trending}
+          locale={locale}
+          proof="sold"
+        />
+      )}
+
+      {/* Our Picks — Acne */}
+      {acnePicks.length > 0 && (
+        <ProductStrip
+          title={
+            isTh
+              ? `${t(locale, "our_picks")} · ${concernLabel(locale, "acne")}`
+              : `${t(locale, "our_picks")} · ${concernLabel(locale, "acne")}`
+          }
+          eyebrow={isTh ? "บรรณาธิการแนะนำ" : "Editor's picks"}
+          subtitle={
+            isTh
+              ? "คัดโดยคะแนนส่วนผสม + รีวิวจริง"
+              : "Selected by ingredient score + real reviews"
+          }
+          products={acnePicks}
+          locale={locale}
+          concern="acne"
+          proof="score"
+        />
+      )}
+
+      {/* Our Picks — Whitening */}
+      {whiteningPicks.length > 0 && (
+        <ProductStrip
+          title={
+            isTh
+              ? `${t(locale, "our_picks")} · ${concernLabel(locale, "whitening")}`
+              : `${t(locale, "our_picks")} · ${concernLabel(locale, "whitening")}`
+          }
+          eyebrow={isTh ? "บรรณาธิการแนะนำ" : "Editor's picks"}
+          subtitle={
+            isTh
+              ? "คัดโดยคะแนนส่วนผสม + รีวิวจริง"
+              : "Selected by ingredient score + real reviews"
+          }
+          products={whiteningPicks}
+          locale={locale}
+          concern="whitening"
+          proof="score"
+        />
+      )}
 
       {/* Trust strip */}
       <section className="border-t border-[#efe1db] pt-10 space-y-5">
