@@ -12,7 +12,7 @@ import {
   cheaperAlternatives,
 } from "@/lib/data";
 import { LOCALES, t, type Locale } from "@/lib/i18n";
-import { productLd } from "@/lib/schema";
+import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
@@ -888,6 +888,11 @@ export default async function ProductPage({
         />
 
         <JsonLd data={productLd(p, pageUrl)} />
+        <JsonLd data={breadcrumbLd([
+          { name: "BangkokFillers", url: `https://bangkokfillers.com/${locale}` },
+          { name: concern.charAt(0).toUpperCase() + concern.slice(1), url: `https://bangkokfillers.com/${locale}/${concern}` },
+          { name: p.name, url: pageUrl },
+        ])} />
       </article>
 
       {/* ══════════════════════════════════════

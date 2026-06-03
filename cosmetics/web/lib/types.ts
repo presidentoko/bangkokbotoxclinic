@@ -5,7 +5,7 @@ export interface PantipData { mention_count: number; thread_count: number; snipp
 export interface Product {
   product_id: string; url: string; name: string; brand: string;
   price_thb: number; list_price_thb: number; discount_pct: number; volume: string;
-  image_url: string; description: string; gtin8: string;
+  image_url: string; images?: string[]; description: string; gtin8?: string; sku?: string;
   ingredients: string | string[]; ingredient_analysis: IngredientAnalysis[];
   ingredient_score: Record<string, number>; review_score: number;
   value_score: number; total_score: Record<string, number>;

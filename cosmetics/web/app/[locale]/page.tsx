@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { t, concernLabel, type Locale } from "@/lib/i18n";
-import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks } from "@/lib/data";
+import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
+import { JsonLd } from "@/components/JsonLd";
+import { orgLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -70,17 +72,53 @@ export default async function Home({
   const trending = bestSellersAllConcerns(10);
   const acnePicks = topPicks("acne", 8);
   const whiteningPicks = topPicks("whitening", 8);
+  const antiagingPicks = topPicks("antiaging", 8);
+  const deals = hotDeals(30, 10);
+  const loved = mostLoved("acne", 8);
+  const stats = siteStats();
+
+  const fmtNum = (n: number) =>
+    n >= 1_000_000
+      ? `${(n / 1_000_000).toFixed(1)}M`
+      : n >= 1_000
+        ? `${Math.round(n / 1_000)}K`
+        : String(n);
 
   return (
     <div className="space-y-14">
       {/* Hero */}
-      <section className="pt-6 pb-2 space-y-4">
+      <section className="pt-6 pb-2 space-y-5">
         <h1 className="font-serif-display text-4xl sm:text-5xl font-semibold text-[#2b2222] leading-tight max-w-2xl">
           {t(locale, "site_name")}
         </h1>
         <p className="text-xl text-[#8a7a76] max-w-xl leading-relaxed">
           {t(locale, "tagline")}
         </p>
+
+        {/* Stats bar — social proof */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          {[
+            {
+              value: fmtNum(stats.products),
+              label: isTh ? "ผลิตภัณฑ์" : "products analysed",
+            },
+            {
+              value: fmtNum(stats.reviews),
+              label: isTh ? "รีวิวที่รวบรวม" : "reviews aggregated",
+            },
+            {
+              value: fmtNum(stats.sold),
+              label: isTh ? "ยอดสั่งซื้อรวม" : "total units sold",
+            },
+          ].map(({ value, label }) => (
+            <div key={label} className="flex items-baseline gap-1.5">
+              <span className="font-serif-display text-2xl font-black text-rose-500 tabular-nums">
+                {value}
+              </span>
+              <span className="text-xs text-neutral-500">{label}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Concern cards */}
@@ -162,6 +200,44 @@ export default async function Home({
         />
       )}
 
+      {/* Hot deals */}
+      {deals.length > 0 && (
+        <ProductStrip
+          title={isTh ? "ดีลร้อน — ลดราคาหนักมาก" : "Hot deals — biggest discounts"}
+          eyebrow={isTh ? "ราคาถูก" : "Price drop"}
+          subtitle={isTh ? "ลด 30% ขึ้นไป จัดอันดับตามส่วนลด" : "30%+ off, ranked by discount"}
+          products={deals}
+          locale={locale}
+          proof="sold"
+        />
+      )}
+
+      {/* Antiaging */}
+      {antiagingPicks.length > 0 && (
+        <ProductStrip
+          title={isTh ? `${t(locale, "our_picks")} · ${concernLabel(locale, "antiaging")}` : `${t(locale, "our_picks")} · ${concernLabel(locale, "antiaging")}`}
+          eyebrow={isTh ? "ต่อต้านริ้วรอย" : "Anti-aging"}
+          subtitle={isTh ? "เรตินอล วิตามินซี คอลลาเจน — คะแนนสูงสุด" : "Retinol, Vitamin C, Collagen — top scored"}
+          products={antiagingPicks}
+          locale={locale}
+          concern="antiaging"
+          proof="score"
+        />
+      )}
+
+      {/* Most loved */}
+      {loved.length > 0 && (
+        <ProductStrip
+          title={t(locale, "most_loved")}
+          eyebrow={isTh ? "รีวิวเยอะสุด" : "Most reviewed"}
+          subtitle={isTh ? "รีวิวมากที่สุด เรตติ้งสูงสุด" : "Highest review count and rating"}
+          products={loved}
+          locale={locale}
+          concern="acne"
+          proof="loved"
+        />
+      )}
+
       {/* Trust strip */}
       <section className="border-t border-[#efe1db] pt-10 space-y-5">
         <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-medium">
@@ -188,6 +264,7 @@ export default async function Home({
           </Link>
         </div>
       </section>
+      <JsonLd data={orgLd("https://bangkokfillers.com")} />
     </div>
   );
 }

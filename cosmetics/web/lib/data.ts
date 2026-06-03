@@ -162,6 +162,29 @@ export function mostLoved(concern: string, limit = 8): Product[] {
 }
 
 /**
+ * Products with discount_pct >= minDiscount, sorted by discount_pct desc.
+ * For a "hot deals" strip on the homepage.
+ */
+export function hotDeals(minDiscount = 30, limit = 10): Product[] {
+  return allProducts()
+    .filter((p) => (p.discount_pct ?? 0) >= minDiscount && p.price_thb > 0)
+    .sort((a, b) => (b.discount_pct ?? 0) - (a.discount_pct ?? 0))
+    .slice(0, limit);
+}
+
+/**
+ * Site-wide aggregate stats for homepage trust signals.
+ */
+export function siteStats(): { products: number; reviews: number; sold: number } {
+  const products = allProducts();
+  return {
+    products: products.length,
+    reviews: products.reduce((s, p) => s + (Number(p.konvy_review_count) || 0), 0),
+    sold: products.reduce((s, p) => s + (Number(p.sold_count) || 0), 0),
+  };
+}
+
+/**
  * Across ALL products, sorted by sold_count descending.
  * For the homepage trending strip. Capped to `limit`.
  */

@@ -14,7 +14,7 @@ import {
   type Concern,
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
-import { itemListLd, faqLd } from "@/lib/schema";
+import { itemListLd, concernFaqLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
@@ -288,7 +288,16 @@ export default async function ConcernHub({
             `https://bangkokfillers.com/${locale}/product/${productSlug(p)}`
         )}
       />
-      <JsonLd data={faqLd([{ q: title, a: fullIntro }])} />
+      <JsonLd data={concernFaqLd(
+        concern,
+        locale,
+        rows[0]?.name ?? "",
+        Math.round(rows[0]?.score ?? 0)
+      )} />
+      <JsonLd data={breadcrumbLd([
+        { name: "BangkokFillers", url: `https://bangkokfillers.com/${locale}` },
+        { name: concernLabel(locale, concern), url: `https://bangkokfillers.com/${locale}/${concern}` },
+      ])} />
     </article>
   );
 }
