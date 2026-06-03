@@ -77,8 +77,8 @@ def run_node_build(project_root: Path, out_file: Path) -> int:
     try:
         data = json.loads(out_file.read_text(encoding="utf-8"))
         return data.get("total", 0)
-    except (json.JSONDecodeError, OSError):
-        return 0
+    except (json.JSONDecodeError, OSError) as e:
+        raise RuntimeError(f"node build output unreadable: {e}") from e
 
 
 def main() -> int:
@@ -87,7 +87,7 @@ def main() -> int:
         csv_rows = validate_source_csv(SOURCE_CSV)
     except (FileNotFoundError, ValueError) as e:
         log(f"source CSV invalid — 종료: {e}")
-        return 0
+        return 1
 
     log(f"source CSV OK: {csv_rows} rows")
 
@@ -99,6 +99,10 @@ def main() -> int:
         return 1
 
     log(f"build 완료: {clinic_count} clinics → {CLINICS_JSON}")
+
+    if clinic_count == 0:
+        log("build returned 0 clinics — 중단 (빈 데이터 배포 방지)")
+        return 1
 
     # 3. Fetch latest origin/main
     git(["fetch", "origin", "main"], REPO, check=False)
