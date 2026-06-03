@@ -93,6 +93,85 @@ export function similarProducts(p: Product, concern: string, limit = 4): Product
   return result.slice(0, limit);
 }
 
+// ---------------------------------------------------------------------------
+// Internal helper: test whether a product belongs to a concern pool.
+// concern_seeds may be a string ("|"-joined or single), or a string[].
+// ---------------------------------------------------------------------------
+function productHasConcern(p: Product, concern: string): boolean {
+  const seeds = p.concern_seeds;
+  if (Array.isArray(seeds)) {
+    return seeds.includes(concern);
+  }
+  // string — could be "|"-joined or a bare value
+  return seeds.split("|").map((s) => s.trim()).includes(concern);
+}
+
+// ---------------------------------------------------------------------------
+// Curation helpers — power discovery strips (Our Picks / Bestsellers / Most Loved)
+// ---------------------------------------------------------------------------
+
+/**
+ * Top-scored products for a concern: the highest total_score[concern] products
+ * (top of getRanking(concern) resolved to Product objects). Capped to `limit`.
+ */
+export function topPicks(concern: string, limit = 8): Product[] {
+  return getRanking(concern)
+    .slice(0, limit)
+    .map((r) => getProduct(r.product_id))
+    .filter((p): p is Product => p !== undefined);
+}
+
+/**
+ * Products in the concern pool sorted by sold_count descending.
+ * Concern pool = products whose concern_seeds includes the concern.
+ * Falls back to all products if the pool is empty.
+ * Capped to `limit`.
+ */
+export function bestSellers(concern: string, limit = 8): Product[] {
+  let pool = allProducts().filter((p) => productHasConcern(p, concern));
+  if (pool.length === 0) pool = allProducts();
+  return pool
+    .slice()
+    .sort((a, b) => b.sold_count - a.sold_count)
+    .slice(0, limit);
+}
+
+/**
+ * Products in the concern pool with konvy_review_count >= 20, sorted by
+ * konvy_review_count desc then konvy_rating desc.
+ * If fewer than `limit` meet the threshold, fills with next highest review_count.
+ * Capped to `limit`.
+ */
+export function mostLoved(concern: string, limit = 8): Product[] {
+  let pool = allProducts().filter((p) => productHasConcern(p, concern));
+  if (pool.length === 0) pool = allProducts();
+
+  const sorted = pool.slice().sort((a, b) => {
+    if (b.konvy_review_count !== a.konvy_review_count)
+      return b.konvy_review_count - a.konvy_review_count;
+    return b.konvy_rating - a.konvy_rating;
+  });
+
+  const qualified = sorted.filter((p) => p.konvy_review_count >= 20);
+  if (qualified.length >= limit) return qualified.slice(0, limit);
+
+  // Fill shortfall from the rest of the sorted pool (already ordered by review_count desc)
+  const qualifiedIds = new Set(qualified.map((p) => p.product_id));
+  const fill = sorted.filter((p) => !qualifiedIds.has(p.product_id));
+  return [...qualified, ...fill].slice(0, limit);
+}
+
+/**
+ * Across ALL products, sorted by sold_count descending.
+ * For the homepage trending strip. Capped to `limit`.
+ */
+export function bestSellersAllConcerns(limit = 8): Product[] {
+  return allProducts()
+    .slice()
+    .sort((a, b) => b.sold_count - a.sold_count)
+    .slice(0, limit);
+}
+
 /**
  * Returns key ingredient explainer entries for `p` in the given concern,
  * filtered to those with concern_efficacy[concern] > 0, enriched from the
