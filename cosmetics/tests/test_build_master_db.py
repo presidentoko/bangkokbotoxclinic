@@ -22,3 +22,14 @@ def test_build_db_volume_parsed_for_value():
     db = b.build_db(PRODUCTS, REVIEWS)
     # value uses price per ml; both 30ml so cheaper (300) beats pricier on value
     assert db["products"]["1"]["value_score"] >= db["products"]["2"]["value_score"]
+
+def test_build_db_includes_youtube_and_watsons():
+    youtube = {"1": {"source": "youtube", "video_count": 2, "comment_count": 5,
+                     "snippets": [{"text": "ดีมาก", "author": "U", "like_count": 3,
+                                   "video_id": "v1", "published_at": "2025-01-01T00:00:00Z"}]}}
+    watsons = {"1": {"source": "watsons", "review_count": 3, "snippets": [
+                     {"text": "Good product", "rating": 4.5, "author": "W"}]}}
+    db = b.build_db(PRODUCTS, REVIEWS, youtube_by_id=youtube, watsons_by_id=watsons)
+    p1 = db["products"]["1"]
+    assert p1.get("youtube", {}).get("video_count") == 2
+    assert p1.get("watsons", {}).get("review_count") == 3
