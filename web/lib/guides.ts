@@ -654,6 +654,169 @@ export const GUIDES: Guide[] = [
     ],
     related: ["bangkok-botox-guide", "masseter-botox-bangkok-jaw-slimming"],
   },
+  {
+    slug: "fue-hair-transplant-bangkok-cost",
+    focusTags: ["hair"],
+    title: "FUE Hair Transplant in Bangkok — Cost, Clinics & What to Expect (2026)",
+    metaTitle: "FUE Hair Transplant Bangkok Cost 2026 — Price, Grafts & Results",
+    metaDescription:
+      "FUE hair transplant in Bangkok costs ฿65,000–150,000 for 2,000 grafts. How to pick a clinic, what to expect during recovery, and how Bangkok compares to Korea and Turkey.",
+    updated: "2026-06-03",
+    intro:
+      "Bangkok is one of Asia's top destinations for FUE hair transplants — 40–60% cheaper than Korea or Singapore, with internationally-trained surgeons and English-speaking clinics in Sukhumvit. This guide covers what you'll pay, how to plan your trip, and what separates a great result from a disappointing one.",
+    sections: [
+      {
+        heading: "FUE hair transplant costs in Bangkok (2026)",
+        body:
+          "Pricing is per-graft in Bangkok. Standard FUE: ฿35–80/graft. A typical 2,000-graft session (mild to moderate hair loss): ฿70,000–160,000. " +
+          "Premium clinics (experienced surgeons, better tech, English support): ฿80–100/graft = ฿160,000–200,000 for 2,000 grafts. " +
+          "DHI (Choi pen technique): ฿85,000–200,000 for 2,000 grafts — higher precision but same graft count. " +
+          "Beard restoration: ฿50,000–120,000. Eyebrow: ฿35,000–80,000. " +
+          "Compare: Korea ฿200,000–400,000 for 2,000 grafts. Turkey $2,000–4,000 (฿70,000–140,000) but quality variance is high. Bangkok offers Korean-level quality at closer to Turkey pricing.",
+      },
+      {
+        heading: "How many grafts do you need?",
+        body:
+          "Norwood scale is the standard measure. NW2–3 (mild recession): 1,000–2,000 grafts. NW3–4 (moderate thinning): 2,000–3,500 grafts. NW4–5 (significant loss): 3,500–5,000 grafts. NW6–7 (advanced): 5,000+ grafts, often 2 sessions. " +
+          "The donor area (back of head) limits total available grafts — typically 6,000–8,000 lifetime. A good Bangkok surgeon will assess your donor density before quoting a price. Beware clinics that quote without a proper consultation. " +
+          "Graft vs hair: each graft contains 1–4 hairs. Your hair count after transplant will be higher than the graft count — about 2–2.5x on average.",
+      },
+      {
+        heading: "Planning your Bangkok trip",
+        body:
+          "Minimum 4–5 days: Day 1 arrival + consultation (free at most clinics). Day 2 procedure (6–9 hours). Days 3–4 recovery, washing, post-op check. Day 5 fly home. " +
+          "Some patients stay 7 days for extra rest. The procedure itself is done under local anaesthetic — you're awake, mildly sedated, watching a movie. " +
+          "Recovery timeline: 10–14 days for redness/scabs to clear. 2–4 weeks: shock loss begins (transplanted hairs fall out — this is normal). 6–9 months: new growth visible. 12–18 months: full result. " +
+          "Most Bangkok clinics provide post-op kits, include follow-up video consultations, and have staff who speak English, Korean, and Arabic.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does FUE hair transplant cost in Bangkok?",
+        a: "฿35–80 per graft. A standard 2,000-graft session costs ฿70,000–160,000. DHI technique: ฿85,000–200,000 for 2,000 grafts. Compare: Korea ฿200,000–400,000 for the same procedure.",
+      },
+      {
+        q: "How long do I need to stay in Bangkok for a hair transplant?",
+        a: "Minimum 4–5 days: Day 1 consultation, Day 2 procedure, Days 3–4 recovery and post-op check, Day 5 fly home. Most patients stay 5–7 days. No second trip required for FUE.",
+      },
+      {
+        q: "When will I see results after Bangkok FUE?",
+        a: "New growth starts at 3–4 months, becomes noticeable at 6–9 months, full result at 12–18 months. Shock loss (transplanted hairs falling out) at 2–4 weeks is normal and expected — don't panic.",
+      },
+      {
+        q: "Is Bangkok safe for hair transplants?",
+        a: "Yes, at licensed clinics. Thailand's medical council requires all transplant procedures to be performed by registered doctors. Trust Score 70+ clinics on this site have been verified through reviewer credibility analysis. Ask to see the surgeon's medical registration before booking.",
+      },
+    ],
+    related: ["dhi-vs-fue-bangkok", "smp-scalp-micropigmentation-bangkok"],
+  },
+  {
+    slug: "dhi-vs-fue-bangkok",
+    focusTags: ["hair"],
+    title: "DHI vs FUE Hair Transplant in Bangkok — Which Is Better? (2026)",
+    metaTitle: "DHI vs FUE Bangkok 2026 — Difference, Cost & Which to Choose",
+    metaDescription:
+      "DHI vs FUE hair transplant in Bangkok: DHI costs ฿20,000–40,000 more but offers denser results. Which technique suits your hair loss and budget?",
+    updated: "2026-06-03",
+    intro:
+      "DHI (Direct Hair Implantation) and FUE (Follicular Unit Extraction) are the two main hair transplant techniques offered in Bangkok. Both extract grafts individually from the donor area — the difference is in how they're implanted. Understanding which suits your case can save you money and get you a better result.",
+    sections: [
+      {
+        heading: "The core difference: implantation method",
+        body:
+          "FUE: grafts are extracted, then the surgeon creates recipient site incisions (channels) first, then implants grafts into the channels. Two-step process. Allows very precise angle control. Slightly longer outside-body time for grafts. " +
+          "DHI (Choi pen): grafts are loaded into a pen-like device and implanted directly without pre-made channels — extraction and implantation in one motion. " +
+          "In practice, DHI tends to produce slightly higher density in the implanted area because channels are made and filled simultaneously, reducing the window of graft exposure to air. The difference is modest — an experienced FUE surgeon achieves comparable density. " +
+          "DHI is particularly favoured for: hairline work (very precise angle/direction control), and patients who want to keep existing hair in the recipient area (no pre-made channels means less disruption).",
+      },
+      {
+        heading: "Cost comparison in Bangkok",
+        body:
+          "FUE: ฿35–80/graft = ฿70,000–160,000 for 2,000 grafts at standard clinics. " +
+          "DHI: ฿45–100/graft = ฿90,000–200,000 for 2,000 grafts. Choi pens are consumables — the extra cost is real. " +
+          "The premium for DHI is ฿20,000–40,000 for a typical session. Worth it for hairline refinement or density-sensitive areas. Overkill for large coverage areas where cost-per-graft is the priority. " +
+          "Some Bangkok clinics offer hybrid FUE+DHI: FUE for large areas (cheaper), DHI for hairline (more precise). This is a good middle-ground — ask about it.",
+      },
+      {
+        heading: "Which technique should you choose?",
+        body:
+          "Choose FUE if: you need large coverage (3,000+ grafts), budget is a priority, your surgeon has strong FUE experience, or you're doing beard/eyebrow restoration. " +
+          "Choose DHI if: you're refining a hairline, have existing hair in the recipient zone you want to preserve, or your clinic's DHI specialist has significantly more DHI cases than FUE. " +
+          "What matters most: the surgeon's experience and graft survival rate, NOT the technique name. A skilled FUE surgeon outperforms an inexperienced DHI clinic every time. Ask to see before/after photos of at least 10 cases with your Norwood level.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Is DHI better than FUE for hair transplant?",
+        a: "Not categorically. DHI offers marginal density advantages and better precision for hairline work. For large coverage areas, experienced FUE delivers comparable results at lower cost. The surgeon's skill matters more than the technique.",
+      },
+      {
+        q: "How much more does DHI cost vs FUE in Bangkok?",
+        a: "DHI typically costs ฿20,000–40,000 more per session due to Choi pen consumables. FUE: ฿70,000–160,000 for 2,000 grafts. DHI: ฿90,000–200,000 for the same graft count.",
+      },
+      {
+        q: "Can I get a hybrid FUE + DHI in Bangkok?",
+        a: "Yes — several Bangkok clinics offer hybrid sessions: FUE for the crown/mid-scalp (large area, cost-efficient) and DHI for the hairline (precision). This is a popular option for patients wanting both coverage and a natural hairline.",
+      },
+    ],
+    related: ["fue-hair-transplant-bangkok-cost", "smp-scalp-micropigmentation-bangkok"],
+  },
+  {
+    slug: "smp-scalp-micropigmentation-bangkok",
+    focusTags: ["hair"],
+    title: "SMP (Scalp Micropigmentation) in Bangkok — Cost, Sessions & Results (2026)",
+    metaTitle: "SMP Bangkok 2026 — Scalp Micropigmentation Cost & Best Clinics",
+    metaDescription:
+      "SMP in Bangkok costs ฿15,000–50,000 per session. The non-surgical alternative to hair transplants — how it works, how many sessions needed, and what to look for in a Bangkok SMP specialist.",
+    updated: "2026-06-03",
+    intro:
+      "Scalp Micropigmentation (SMP) is a non-surgical procedure that replicates the look of a shaved head or adds density to thinning hair using micro-pigment deposits. Bangkok has a growing number of SMP specialists at prices 40–60% below the UK or Australia. This guide covers costs, sessions, and how to avoid the most common SMP pitfalls.",
+    sections: [
+      {
+        heading: "SMP costs in Bangkok (2026)",
+        body:
+          "SMP pricing depends on the coverage area and number of sessions. Full scalp (grade 1–2 shaved look): ฿40,000–100,000 total across 2–3 sessions. " +
+          "Per-session pricing: ฿15,000–50,000/session depending on area and clinic tier. Most full-scalp SMP requires 2–3 sessions spaced 2–4 weeks apart. " +
+          "Hairline only (density addition to existing hair): ฿15,000–30,000/session, usually 1–2 sessions. " +
+          "Scar camouflage (FUE/FUT scars): ฿12,000–25,000/session. " +
+          "Compare: UK/Australia ฿80,000–200,000+ for full scalp. Bangkok is significantly more affordable with comparable quality at certified clinics.",
+      },
+      {
+        heading: "What SMP can and cannot do",
+        body:
+          "SMP CAN: create the illusion of a closely-shaved head on a bald scalp; add the appearance of density to thinning hair; camouflage FUE/FUT transplant scars; define a hairline on a shaved head. " +
+          "SMP CANNOT: create actual hair or growth; work well on hair longer than grade 1–2 (the dots become visible); permanently solve hair loss progression (you may need touch-ups as hair continues to thin). " +
+          "Ideal candidates: men with Norwood 5–7 who want coverage without surgery; men post-FUE wanting to camouflage donor scars; men with diffuse thinning wanting more density appearance without surgery.",
+      },
+      {
+        heading: "What to look for in a Bangkok SMP artist",
+        body:
+          "Pigment quality is the #1 long-term concern: cheap pigments turn blue or green within 1–3 years. Ask specifically whether they use Scalp Aesthetics, Folicule, or equivalent specialist SMP pigments — not tattoo ink. " +
+          "Needle technique: SMP requires a specific stippling technique (dots, not lines). Ask to see a portfolio of healed results — fresh SMP always looks sharp, healed SMP reveals the real quality. " +
+          "Skin tone matching: darker skin types require different pigment selection. Show your artist reference photos from clients with similar complexion. " +
+          "Sessions: reputable Bangkok SMP artists never promise completion in one session — it takes 2–3 to build depth and ensure even coverage.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does SMP cost in Bangkok?",
+        a: "Full scalp SMP: ฿40,000–100,000 total (2–3 sessions at ฿15,000–50,000/session). Hairline density addition: ฿15,000–30,000 per session. Scar camouflage: ฿12,000–25,000 per session. Compare: UK/Australia ฿80,000–200,000+ for full scalp.",
+      },
+      {
+        q: "How many SMP sessions do I need?",
+        a: "Full scalp: 2–3 sessions spaced 2–4 weeks apart. Hairline touch-up or density: 1–2 sessions. Each session builds on the last — never judge the result after session 1.",
+      },
+      {
+        q: "Does SMP look natural?",
+        a: "Yes, when done by a specialist with good pigments. The key is matching dot size to your natural follicle size and using pigments that don't discolour. Avoid artists who use standard tattoo ink — it turns blue/green within 2–3 years.",
+      },
+      {
+        q: "How long does SMP last?",
+        a: "3–5 years before a touch-up is needed. Fading is gradual and predictable. Sun exposure accelerates fading — SPF on the scalp helps longevity. Most Bangkok SMP clients return for a refresh session at 3–4 years.",
+      },
+    ],
+    related: ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
+  },
 ];
 
 export function findGuide(slug: string): Guide | null {
