@@ -192,7 +192,7 @@ export default async function DemoDashboardPage(
 
       {/* ROI Calculator — interactive sales tool */}
       <div className="max-w-7xl mx-auto px-4 pb-12">
-        <RoiCalculator defaultTicket={cfg.focus === "dental" ? 35000 : 18000} />
+        <RoiCalculator />
 
         {/* Final CTA */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl p-8 text-center mt-6">
