@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { t, concernLabel, type Locale } from "@/lib/i18n";
-import { getRanking, bestSellersAllConcerns, topPicks } from "@/lib/data";
+import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 
 const BASE = "https://bangkokfillers.com";
@@ -85,8 +85,8 @@ export default async function Home({
 
       {/* Concern cards */}
       <section className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {(["acne", "whitening"] as const).map((c) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {CONCERNS.map((c) => {
             const count = getRanking(c).length;
             return (
               <Link

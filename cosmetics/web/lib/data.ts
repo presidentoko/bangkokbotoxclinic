@@ -6,7 +6,7 @@ import { slugify } from "./format";
 const db = master as unknown as MasterDb;
 const ingDb = ingredientDb as unknown as Record<string, IngredientEntry>;
 
-export const CONCERNS = ["acne", "whitening"] as const;
+export const CONCERNS = ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"] as const;
 export type Concern = (typeof CONCERNS)[number];
 
 export const generatedAt = () => db.generated_at;
