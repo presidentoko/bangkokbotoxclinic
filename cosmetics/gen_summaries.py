@@ -37,14 +37,28 @@ def product_summary(prod: dict, client, cache: dict) -> dict:
 
 def main() -> int:
     from cosmetics.build_master_db import MASTER_DB
+    from cosmetics import config
+    # Cache lives in a SEPARATE file so a master_db rebuild (e.g. merging more Pantip
+    # data) never wipes it — subsequent gen runs are then ~free (cache hits only).
+    cache_path = config.STATE_DIR / "summary_cache.json"
     db = json.loads(MASTER_DB.read_text(encoding="utf-8"))
-    cache = db.get("_summary_cache", {})
+    try:
+        cache = json.loads(cache_path.read_text(encoding="utf-8")) if cache_path.exists() else {}
+    except Exception:
+        cache = {}
     client = AnthropicClient()
+    new = 0
     for prod in db["products"].values():
+        before = len(cache)
         prod["llm_summary"] = product_summary(prod, client, cache)
-    db["_summary_cache"] = cache
+        new += int(len(cache) > before)
+        if new and new % 25 == 0 and len(cache) != before:
+            cache_path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")  # checkpoint
+    config.STATE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+    db.pop("_summary_cache", None)  # keep master_db lean
     MASTER_DB.write_text(json.dumps(db, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"summaries: {len(db['products'])} products")
+    print(f"summaries: {len(db['products'])} products, {new} new API generations")
     return 0
 
 if __name__ == "__main__":
