@@ -2,6 +2,10 @@ export interface IngredientAnalysis { inci: string; role: string; concern_effica
 export interface ReviewSummary { count: number; avg: number; pos_count: number; neg_count: number; pos_keywords: string[]; neg_keywords: string[]; samples: { rating: number; body: string; author?: string; helpful_count?: number }[]; }
 export interface PantipSnippet { text: string; topic_id: string; author?: string; }
 export interface PantipData { mention_count: number; thread_count: number; snippets: PantipSnippet[]; }
+export interface YoutubeSnippet { text: string; author?: string; like_count?: number; video_id: string; published_at?: string; }
+export interface YoutubeData { video_count: number; comment_count: number; snippets: YoutubeSnippet[]; }
+export interface WatsonsSnippet { text: string; author?: string; rating?: number; date?: string; source_url?: string; }
+export interface WatsonsData { review_count: number; matched_name?: string; similarity?: number; snippets: WatsonsSnippet[]; }
 export interface Product {
   product_id: string; url: string; name: string; brand: string;
   price_thb: number; list_price_thb: number; discount_pct: number; volume: string;
@@ -13,6 +17,8 @@ export interface Product {
   konvy_rating: number; konvy_review_count: number; sold_count: number;
   llm_summary?: { th: string; en: string };
   pantip?: PantipData;
+  youtube?: YoutubeData;
+  watsons?: WatsonsData;
 }
 export interface RankingEntry { product_id: string; total_score: number; }
 export interface MasterDb { generated_at: string; products: Record<string, Product>; rankings: Record<string, RankingEntry[]>; }
