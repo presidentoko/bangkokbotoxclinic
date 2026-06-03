@@ -324,6 +324,30 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* Hair: Browse by treatment */}
+        {cfg.focus === "hair" && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold mb-4">Browse by treatment</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {[
+                { label: "💇 FUE Transplant",  href: "/c/hair_transplant" },
+                { label: "🔬 DHI Transplant",  href: "/c/hair_transplant" },
+                { label: "🎨 SMP",             href: "/c/hair_transplant" },
+                { label: "💉 PRP Therapy",     href: "/c/hair_transplant" },
+                { label: "💪 Men's Clinic",    href: "/c/hair_transplant" },
+              ].map((p) => (
+                <a
+                  key={p.label}
+                  href={p.href}
+                  className="border border-[var(--border)] rounded-xl p-3 text-center text-sm font-medium hover:bg-amber-50 hover:border-amber-300 transition"
+                >
+                  {p.label}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Dental: Why Bangkok stat strip */}
         {cfg.focus === "dental" && (
           <section className="mb-10 bg-emerald-50 rounded-xl p-5">
@@ -359,6 +383,26 @@ export default async function HomePage() {
               <div>
                 <p className="text-3xl font-bold text-purple-700">Genuine</p>
                 <p className="text-sm text-[var(--muted)] mt-1">Allergan & Dysport verified</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Hair: Why Bangkok stat strip */}
+        {cfg.focus === "hair" && (
+          <section className="mb-10 bg-amber-50 rounded-xl p-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="text-3xl font-bold text-amber-700">฿65K–150K</p>
+                <p className="text-sm text-[var(--muted)] mt-1">FUE transplant (2,000 grafts)</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-amber-700">40–60%</p>
+                <p className="text-sm text-[var(--muted)] mt-1">cheaper than Korea & Singapore</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-amber-700">4–5 days</p>
+                <p className="text-sm text-[var(--muted)] mt-1">typical trip duration</p>
               </div>
             </div>
           </section>
@@ -676,6 +720,29 @@ export default async function HomePage() {
                 { title: "Jaw Slimming Guide",   href: "/guide/masseter-botox-bangkok-jaw-slimming", desc: "V-line results, units, cost" },
                 { title: "HIFU Bangkok Guide",   href: "/guide/hifu-ultherapy-bangkok-cost",         desc: "Ultherapy vs Korean machines" },
                 { title: "Forehead Botox Guide", href: "/guide/botox-forehead-bangkok",              desc: "Areas, units, natural results" },
+              ].map((g) => (
+                <a
+                  key={g.href}
+                  href={g.href}
+                  className="border border-[var(--border)] rounded-xl p-4 hover:bg-gray-50 transition"
+                >
+                  <p className="font-semibold text-sm">{g.title}</p>
+                  <p className="text-xs text-[var(--muted)] mt-1">{g.desc}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Hair: Guide links */}
+        {cfg.focus === "hair" && (
+          <section className="mt-10">
+            <h2 className="text-xl font-bold mb-4">Hair transplant guides</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: "FUE Cost Guide",     href: "/guide/fue-hair-transplant-bangkok-cost", desc: "Grafts, pricing, trip planning" },
+                { title: "DHI vs FUE Guide",   href: "/guide/dhi-vs-fue-bangkok",               desc: "Which technique suits you" },
+                { title: "SMP Bangkok Guide",  href: "/guide/smp-scalp-micropigmentation-bangkok", desc: "Non-surgical option, cost & sessions" },
               ].map((g) => (
                 <a
                   key={g.href}
