@@ -1,5 +1,7 @@
 export interface IngredientAnalysis { inci: string; role: string; concern_efficacy: Record<string, number>; safety_flags: string[]; }
 export interface ReviewSummary { count: number; avg: number; pos_count: number; neg_count: number; pos_keywords: string[]; neg_keywords: string[]; samples: { rating: number; body: string; author?: string; helpful_count?: number }[]; }
+export interface PantipSnippet { text: string; topic_id: string; author?: string; }
+export interface PantipData { mention_count: number; thread_count: number; snippets: PantipSnippet[]; }
 export interface Product {
   product_id: string; url: string; name: string; brand: string;
   price_thb: number; list_price_thb: number; discount_pct: number; volume: string;
@@ -10,6 +12,7 @@ export interface Product {
   review_summary: ReviewSummary; concern_seeds: string | string[];
   konvy_rating: number; konvy_review_count: number; sold_count: number;
   llm_summary?: { th: string; en: string };
+  pantip?: PantipData;
 }
 export interface RankingEntry { product_id: string; total_score: number; }
 export interface MasterDb { generated_at: string; products: Record<string, Product>; rankings: Record<string, RankingEntry[]>; }

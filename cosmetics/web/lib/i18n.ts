@@ -12,6 +12,10 @@ const STRINGS: Record<string, Record<Locale, string>> = {
   ingredients: { th: "ส่วนผสม", en: "Ingredients" }, updated: { th: "อัปเดต", en: "Updated" },
   based_on: { th: "อ้างอิงจากรีวิว", en: "Based on reviews" },
   contains: { th: "ผลิตภัณฑ์ที่มีส่วนผสมนี้", en: "Products with this ingredient" },
+  // Pantip multi-source
+  pantip_says: { th: "ชาวพันทิปว่า", en: "What Pantip says" },
+  sources_line: { th: "รีวิวจาก", en: "Reviews from" },
+  mentions: { th: "การพูดถึง", en: "mentions" },
   // Discovery strips
   our_picks: { th: "พิคของเรา", en: "Our picks" },
   bestsellers: { th: "ขายดีที่สุด", en: "Bestsellers" },

@@ -38,11 +38,14 @@ def build_db(products: list[dict], reviews_by_id: dict) -> dict:
         for c in scoring.CONCERNS:
             ing[c] = scoring.ingredient_score(analysis, c)
             tot[c] = scoring.total_score(ing[c], rev, val)
+        pantip = _load_pantip(p["product_id"])
         rec = dict(p)
         rec.pop("_ppml", None)
         rec.update({"ingredient_analysis": analysis, "ingredient_score": ing,
                     "review_score": rev, "value_score": val,
                     "total_score": tot, "review_summary": rsum})
+        if pantip is not None:
+            rec["pantip"] = pantip
         out_products[p["product_id"]] = rec
 
     rankings = {}
@@ -72,6 +75,28 @@ def _load_reviews() -> dict:
             except Exception:
                 out[pid] = []
     return out
+
+
+def _load_pantip(product_id: str) -> "dict | None":
+    """Load and compact pantip review data for a product, or return None."""
+    rdir = config.REVIEWS_DIR
+    f = rdir / f"{product_id}_pantip.json"
+    if not f.exists():
+        return None
+    try:
+        raw = json.loads(f.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    snippets = raw.get("snippets", [])[:4]
+    compact_snippets = [
+        {k: s[k] for k in ("text", "topic_id", "author") if k in s}
+        for s in snippets
+    ]
+    return {
+        "mention_count": raw.get("mention_count", 0),
+        "thread_count": raw.get("thread_count", 0),
+        "snippets": compact_snippets,
+    }
 
 def main() -> int:
     products = [json.loads(f.read_text(encoding="utf-8"))

@@ -192,6 +192,85 @@ function ReviewModule({
 }
 
 /* ─────────────────────────────────────────
+   MODULE 1b — What Pantip says
+───────────────────────────────────────── */
+function PantipModule({
+  p,
+  locale,
+}: {
+  p: {
+    pantip?: {
+      mention_count: number;
+      thread_count: number;
+      snippets: { text: string; topic_id: string; author?: string }[];
+    };
+  };
+  locale: Locale;
+}) {
+  if (!p.pantip || p.pantip.mention_count <= 0) return null;
+  const { mention_count, thread_count, snippets } = p.pantip;
+
+  return (
+    <section className="space-y-4">
+      {/* Section heading */}
+      <h2 className="font-serif-display text-lg font-semibold text-neutral-800">
+        {t(locale, "pantip_says")}
+      </h2>
+
+      {/* Stats row */}
+      <div className="flex items-center gap-4 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3">
+        <div className="flex flex-col items-center">
+          <span className="text-2xl font-black tabular-nums text-amber-700 leading-none">
+            {mention_count}
+          </span>
+          <span className="text-[10px] text-amber-600 mt-0.5 uppercase tracking-wide">
+            {t(locale, "mentions")}
+          </span>
+        </div>
+        <div className="w-px h-8 bg-amber-200" aria-hidden="true" />
+        <div className="flex flex-col items-center">
+          <span className="text-2xl font-black tabular-nums text-amber-700 leading-none">
+            {thread_count}
+          </span>
+          <span className="text-[10px] text-amber-600 mt-0.5 uppercase tracking-wide">
+            {locale === "th" ? "กระทู้" : "threads"}
+          </span>
+        </div>
+        <div className="flex-1" />
+        <span className="text-xs text-amber-500 font-medium">Pantip.com</span>
+      </div>
+
+      {/* Snippet cards */}
+      {snippets.length > 0 && (
+        <div className="space-y-3">
+          {snippets.slice(0, 4).map((s, i) => (
+            <a
+              key={i}
+              href={`https://pantip.com/topic/${s.topic_id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border border-[#f5e6d3] bg-[#fffaf5] px-5 py-4 shadow-sm hover:border-amber-300 hover:bg-amber-50 transition-colors group"
+            >
+              <p className="text-sm text-neutral-700 leading-relaxed line-clamp-3">
+                &ldquo;{s.text.trim()}&rdquo;
+              </p>
+              <footer className="mt-2 flex items-center gap-2 text-xs text-neutral-400">
+                {s.author && (
+                  <span className="text-[#b08050]">{s.author}</span>
+                )}
+                <span className="ml-auto text-amber-500 group-hover:text-amber-600 transition-colors">
+                  {locale === "th" ? "อ่านต่อ →" : "Read thread →"}
+                </span>
+              </footer>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────
    MODULE 2 — Key ingredients, explained
 ───────────────────────────────────────── */
 function KeyIngredientsModule({
@@ -611,6 +690,19 @@ export default async function ProductPage({
             MODULE 1 — WHAT REAL USERS SAY
         ══════════════════════════════════════ */}
         <ReviewModule p={p} locale={locale} />
+
+        {/* ── Multi-source line (shown when both Konvy and Pantip data exist) ── */}
+        {p.pantip && p.pantip.mention_count > 0 && (
+          <p className="text-xs text-[#8a7a76] flex items-center gap-1.5">
+            <span className="inline-block w-2 h-2 rounded-full bg-rose-300" aria-hidden="true" />
+            {t(locale, "sources_line")} Konvy + Pantip
+          </p>
+        )}
+
+        {/* ══════════════════════════════════════
+            MODULE 1b — WHAT PANTIP SAYS
+        ══════════════════════════════════════ */}
+        <PantipModule p={p} locale={locale} />
 
         {/* ══════════════════════════════════════
             MODULE 2 — KEY INGREDIENTS, EXPLAINED
