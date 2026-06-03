@@ -22,12 +22,35 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bangkokfillers.com"),
   title: {
     default: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
     template: "%s | BangkokFillers",
   },
   description:
     "จัดอันดับผลิตภัณฑ์ดูแลผิวด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
+  openGraph: {
+    type: "website",
+    siteName: "BangkokFillers",
+    locale: "th_TH",
+    alternateLocale: ["en_US"],
+    title: {
+      default: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
+      template: "%s | BangkokFillers",
+    },
+    description:
+      "จัดอันดับผลิตภัณฑ์ดูแลผิวด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
+    url: "https://bangkokfillers.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: {
+      default: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
+      template: "%s | BangkokFillers",
+    },
+    description:
+      "จัดอันดับผลิตภัณฑ์ดูแลผิวด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
+  },
 };
 
 export function generateStaticParams() {
