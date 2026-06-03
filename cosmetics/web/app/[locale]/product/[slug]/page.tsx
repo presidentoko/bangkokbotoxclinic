@@ -37,12 +37,25 @@ export async function generateMetadata({
   const locale = localeRaw as Locale;
   const p = getProduct(productIdFromSlug(slug));
   if (!p) return {};
+  const concern =
+    Array.isArray(p.concern_seeds)
+      ? p.concern_seeds[0]
+      : String(p.concern_seeds || "").split("|")[0] || "acne";
+  const totalScoreMeta = Math.round(p.total_score?.[concern] ?? 0);
   const title =
     locale === "th"
-      ? `${p.name} — รีวิว ส่วนผสม คะแนน`
-      : `${p.name} — Reviews, Ingredients & Score`;
-  const description =
+      ? `${p.name} — รีวิว ส่วนผสม คะแนน ${totalScoreMeta}/100`
+      : `${p.name} — Score ${totalScoreMeta}/100, Reviews & Ingredients`;
+  // Use Konvy product description as meta description when available (richer keyword signal)
+  const rawDesc = typeof p.description === "string" ? p.description.trim() : "";
+  const descBase = rawDesc.slice(0, 140) || (
     locale === "th"
+      ? `${p.name} ได้คะแนนจากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ ดูรายละเอียดส่วนผสมและเปรียบเทียบราคา`
+      : `${p.name} scored from ingredient analysis and ${p.konvy_review_count} reviews. See ingredients and compare prices.`
+  );
+  const description = rawDesc
+    ? descBase
+    : locale === "th"
       ? `${p.name} ได้คะแนนจากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ ดูรายละเอียดส่วนผสมและเปรียบเทียบราคา`
       : `${p.name} scored from ingredient analysis and ${p.konvy_review_count} reviews. See ingredients and compare prices.`;
   return {

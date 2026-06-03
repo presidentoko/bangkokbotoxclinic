@@ -4,6 +4,8 @@ import "../globals.css";
 import { LOCALES, type Locale } from "@/lib/i18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,6 +77,8 @@ export default async function LocaleLayout({
         <Header locale={loc} />
         <main className="mx-auto w-full max-w-5xl px-4 py-8 flex-1">{children}</main>
         <Footer locale={loc} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
