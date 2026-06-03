@@ -492,6 +492,168 @@ export const GUIDES: Guide[] = [
     ],
     related: ["veneers-bangkok-price", "dental-implants-bangkok-cost"],
   },
+  {
+    slug: "masseter-botox-bangkok-jaw-slimming",
+    focusTags: ["botox"],
+    title: "Masseter Botox in Bangkok — Jaw Slimming Cost & What to Expect (2026)",
+    metaTitle: "Masseter Botox Bangkok 2026 — Jaw Slimming Price & Results",
+    metaDescription:
+      "Masseter botox (jaw slimming) in Bangkok costs ฿3,500–8,000. How many units needed, how long it lasts, and which clinics specialise in Korean-style V-line results.",
+    updated: "2026-06-03",
+    intro:
+      "Masseter botox — injecting botulinum toxin into the jaw muscle — is the fastest-growing aesthetic treatment among Korean and international visitors in Bangkok. It slims the lower face, softens a square jaw, and requires zero downtime. Bangkok clinics perform thousands of these per month at 40–60% of Singapore or Seoul prices.",
+    sections: [
+      {
+        heading: "What masseter botox costs in Bangkok",
+        body:
+          "Price depends on dosage (units) and brand. Typical: ฿3,500–5,000 for 25 units/side (Botulax, Dysport); ฿5,500–8,000 for genuine Allergan at the same dose. Most clinics charge per unit (฿80–250/unit) rather than per area. " +
+          "Maintenance sessions: the muscle gradually returns; most patients retreat every 4–6 months. Many Bangkok clinics offer a 3-session package at 15–20% discount. " +
+          "Budget alert: prices under ฿2,500 typically indicate heavily diluted product or unverified brand — ask to see the vial.",
+      },
+      {
+        heading: "Units needed and dosage guide",
+        body:
+          "25–35 units per side is standard for first-time masseter reduction. Patients with very strong hypertrophic masseter muscles (teeth-grinders, heavy jaw clenchers) may need 40–50 units/side for visible results. " +
+          "V-line candidates: 30 units/side is the most common Bangkok protocol. Results visible at 4–6 weeks as muscle atrophies; full effect at 8–12 weeks. " +
+          "Don't judge result at 2 weeks — many patients return too early and top up unnecessarily. Trust the timeline.",
+      },
+      {
+        heading: "How to pick a Bangkok masseter specialist",
+        body:
+          "Look for a clinic where the injector regularly treats Korean and Japanese clients — they have the highest volume and strictest aesthetic standards for V-line results. " +
+          "Reviewers mentioning 'natural V-line', 'not overdone', or '사각턱' (Korean: square jaw) are strong signals of a specialised injector. " +
+          "Avoid clinics where the treatment takes under 10 minutes for a first-time patient — proper assessment of your masseter size should take at least 5–10 minutes. " +
+          "Trust Score 70+ on this site indicates clinics with strong reviewer credibility.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much is masseter botox in Bangkok?",
+        a: "฿3,500–8,000 for a standard treatment (25–35 units/side). Allergan/Botox-original at the premium end; Botulax/Dysport at the value end. Both produce comparable jaw-slimming results at correct dosage.",
+      },
+      {
+        q: "How many sessions before I see jaw slimming results?",
+        a: "One session is enough for most patients. Results are visible at 4–6 weeks, full effect at 8–12 weeks. The jaw muscle physically atrophies (shrinks) — this takes time. Most patients retreat every 4–6 months to maintain the effect.",
+      },
+      {
+        q: "Is masseter botox safe?",
+        a: "Yes, at qualified clinics. The masseter is a non-critical muscle — reducing it doesn't affect chewing for most patients (some notice minor change with very chewy foods in the first month). Serious complications are rare and reversible since botox wears off.",
+      },
+      {
+        q: "Can I combine masseter botox with filler on the same day?",
+        a: "Yes — many Bangkok clinics do botox + chin filler on the same visit for a complete V-line effect. The combination is well-tolerated. Some practitioners prefer to assess the botox result first (at 8 weeks) before adding chin projection.",
+      },
+    ],
+    related: ["bangkok-botox-guide", "botox-forehead-bangkok"],
+  },
+  {
+    slug: "hifu-ultherapy-bangkok-cost",
+    focusTags: ["hifu", "botox"],
+    title: "HIFU & Ultherapy in Bangkok — Cost, Machines & What Actually Works (2026)",
+    metaTitle: "HIFU Bangkok Cost 2026 — Ultherapy vs Thermage vs Korean Machines",
+    metaDescription:
+      "HIFU in Bangkok: Ultherapy ฿25,000–80,000, Korean machines ฿8,000–18,000. How to tell the difference, which works, and what reviewers actually say.",
+    updated: "2026-06-03",
+    intro:
+      "Bangkok is flooded with HIFU options — from authentic Ultherapy (Merz, Switzerland) to affordable Korean machines. The price range is ฿8,000–80,000+ for what is marketed as 'the same treatment'. It's not. This guide explains the real differences, what to ask before booking, and what Bangkok reviewers report as actual results.",
+    sections: [
+      {
+        heading: "The machine hierarchy — what you're actually paying for",
+        body:
+          "Ultherapy (Merz, Switzerland): ฿25,000–80,000/session depending on face zones and shot count. Gold standard. Published clinical evidence. Every session is authenticated via software — Merz can verify shots were used. Lasts 12–18 months. " +
+          "Thermage (Solta): radiofrequency, not ultrasound. ฿20,000–60,000. Better for surface skin quality vs deep SMAS lifting. Longer-lasting than HIFU for some patients (18–24 months). " +
+          "Ultraformer III (Korea): ฿10,000–25,000. Strong alternative to Ultherapy at lower cost; widely used in Korean aesthetics. Good clinical data. " +
+          "Generic Korean machines (Doublo, Sygmalift, etc.): ฿8,000–18,000. Variable quality. Some clinics reuse cartridges (reducing shots and safety). Ask specifically: how many shots are you including, and are cartridges new?",
+      },
+      {
+        heading: "What HIFU actually does (and what it can't)",
+        body:
+          "HIFU delivers focused ultrasound energy to the SMAS layer (the deep connective tissue layer that surgeons tighten in facelifts). It stimulates collagen remodeling over 3–6 months. " +
+          "Realistic expectations: mild-to-moderate skin tightening and lifting of jowls, brow, and neck. NOT a facelift substitute. Best results on patients 35–55 with mild-to-moderate laxity. Older or very lax skin shows less improvement. " +
+          "Pain level: Ultherapy is uncomfortable (2–7/10 pain scale). Korean machines are generally less intense, less painful, and less effective. Bangkok clinics use topical numbing cream; some offer oral sedation for high-shot-count Ultherapy.",
+      },
+      {
+        heading: "Red flags when booking HIFU in Bangkok",
+        body:
+          "Price under ฿10,000 for 'Ultherapy': not genuine. Real Ultherapy cartridges cost more than this at wholesale. " +
+          "No shot count disclosed: a legitimate clinic tells you exactly how many shots (lines × points, e.g. 300 lines for full face) before you book. Vague 'full face' packages without shot count indicate recycled cartridges. " +
+          "Reviewers mentioning 'no pain, no results': often indicates very low energy settings — some clinics dial down intensity to prevent complaints, at the cost of efficacy. " +
+          "Trust Score 70+ clinics on this site with reviewer mentions of specific machines are the safe baseline.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does HIFU cost in Bangkok?",
+        a: "Genuine Ultherapy: ฿25,000–80,000 depending on face zones and shot count. Ultraformer III (Korean): ฿10,000–25,000. Generic Korean machines: ฿8,000–18,000. Thermage: ฿20,000–60,000. Never pay Ultherapy prices for an unnamed machine.",
+      },
+      {
+        q: "Is Ultherapy better than Korean HIFU machines?",
+        a: "Ultherapy has the most published clinical evidence and is the only machine with real-time imaging to target the SMAS layer precisely. Korean machines (Ultraformer, Doublo) are more affordable and effective but have less long-term data. For first-time HIFU, Ultraformer III is a solid value choice.",
+      },
+      {
+        q: "How long does HIFU last in Bangkok's heat/humidity?",
+        a: "Heat and humidity don't affect HIFU longevity. Results last 12–18 months (Ultherapy) or 9–12 months (Korean machines). Collagen remodeling takes 3–6 months to peak — don't judge the result too early.",
+      },
+    ],
+    related: ["bangkok-botox-guide", "masseter-botox-bangkok-jaw-slimming"],
+  },
+  {
+    slug: "botox-forehead-bangkok",
+    focusTags: ["botox"],
+    title: "Forehead Botox in Bangkok — Areas, Units, Price & Results (2026)",
+    metaTitle: "Forehead Botox Bangkok 2026 — Units, Cost & Area Guide",
+    metaDescription:
+      "Forehead botox in Bangkok costs ฿2,000–5,000 per area. Forehead lines, frown lines, crow's feet, brow lift — units needed and prices for each area explained.",
+    updated: "2026-06-03",
+    intro:
+      "Upper-face botox — covering forehead lines, frown lines (glabella), crow's feet, and brow position — is the most common aesthetic treatment in Bangkok. Getting the right dose in the right areas makes the difference between 'natural and refreshed' and 'frozen'. This guide explains units, pricing by area, and what Bangkok's best results actually look like.",
+    sections: [
+      {
+        heading: "Bangkok botox pricing by area (2026)",
+        body:
+          "Forehead lines (horizontal): 10–20 units. ฿1,500–4,500 (Botulax/Dysport); ฿3,000–7,000 (Allergan). Smooths horizontal lines without immobilising the brow. " +
+          "Frown lines / glabella (11s): 15–25 units. ฿2,000–5,000. The most common complaint area — vertical lines between the brows. Highest satisfaction scores in reviews. " +
+          "Crow's feet (eyes): 8–15 units/side. ฿1,500–4,000. Often bundled with forehead/glabella for a full upper-face package. " +
+          "Brow lift (chemical): 2–6 units, strategic placement. ฿800–2,000 add-on. Lifts the lateral brow 1–3mm by relaxing the depressor muscles. " +
+          "Full upper-face package (forehead + glabella + crow's feet): ฿6,000–15,000 depending on brand. The most common Bangkok package for medical tourists.",
+      },
+      {
+        heading: "First-timer guide: what to expect",
+        body:
+          "Consultation (free at most clinics): injector assesses muscle strength, discusses desired outcome (frozen vs natural movement). First-timers often start conservatively — you can always add more, you can't take it away. " +
+          "The procedure: 5–20 minutes depending on areas. Tiny needles, mild discomfort. No downtime. Avoid lying flat or intense exercise for 4 hours post-treatment. " +
+          "Onset: 3–7 days for first effect; peak at 10–14 days. Don't judge at day 3. " +
+          "Top-up window: if effect is uneven or too weak at day 14, most Bangkok clinics offer a free top-up within 2–4 weeks.",
+      },
+      {
+        heading: "How to get natural-looking results",
+        body:
+          "Choose an injector who asks about your brow-raising habits and facial expressions — good injectors customise placement to maintain some movement. " +
+          "Tell them explicitly: 'I want natural movement, not frozen'. The dose is the main lever — under-treating slightly on the first session and evaluating at 2 weeks is safer than overdoing it. " +
+          "Red flags: injector who doesn't ask about your expressions, promises 'completely wrinkle-free' with no caveats, or won't tell you the brand and units used. " +
+          "Review reading tip: look for reviewers who mention specific areas and durations — 'forehead still moves a bit at 8 weeks' is more useful than a star rating.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does forehead botox cost in Bangkok?",
+        a: "Per area: ฿1,500–5,000 for forehead lines, ฿2,000–5,500 for frown lines (glabella), ฿1,500–4,000 for crow's feet. Full upper-face package (all three): ฿6,000–15,000 depending on brand. Allergan is most expensive; Botulax/Dysport are value alternatives.",
+      },
+      {
+        q: "How many units for forehead botox?",
+        a: "Forehead: 10–20 units. Frown lines (glabella): 15–25 units. Crow's feet: 8–15 units/side. Total upper face: 35–65 units depending on muscle strength and desired effect.",
+      },
+      {
+        q: "Will forehead botox look natural?",
+        a: "Yes, when dosed conservatively by an experienced injector. A good result means reduced wrinkles but preserved ability to raise your eyebrows and show expression. Frozen results come from too many units or wrong placement — ask for 'baby botox' or 'natural movement' explicitly.",
+      },
+      {
+        q: "How long does forehead botox last in Bangkok?",
+        a: "3–4 months is standard. First-timers sometimes see shorter duration as muscles are strong; with regular treatments, muscle weakens and duration extends to 4–5 months. The heat and humidity of Bangkok do not affect longevity.",
+      },
+    ],
+    related: ["bangkok-botox-guide", "masseter-botox-bangkok-jaw-slimming"],
+  },
 ];
 
 export function findGuide(slug: string): Guide | null {
