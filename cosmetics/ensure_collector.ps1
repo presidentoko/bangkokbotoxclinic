@@ -36,4 +36,13 @@ if (-not (Running 'run_forever')) {
     -RedirectStandardOutput (Join-Path $state 'forever.stdout') `
     -RedirectStandardError  (Join-Path $state 'forever.stderr')
 }
+
+# 3) Auto-deploy loop — watches product count, rebuilds master_db + pushes to git.
+if (-not (Running 'auto_deploy')) {
+  $env:PYTHONUTF8 = '1'; $env:PYTHONIOENCODING = 'utf-8'
+  Start-Process -FilePath $py -ArgumentList '-m','cosmetics.auto_deploy' `
+    -WorkingDirectory $wt -WindowStyle Hidden `
+    -RedirectStandardOutput (Join-Path $state 'auto_deploy.log') `
+    -RedirectStandardError  (Join-Path $state 'auto_deploy.err')
+}
 exit 0
