@@ -131,6 +131,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "korean-medical-tourism",
+    focusTags: ["botox", "filler", "hifu", "facial", "laser", "hair"],
     title: "Korean Medical Tourism in Bangkok — What Tour Packages Cover",
     metaTitle: "Bangkok Medical Tourism Korean — Packages, Pricing 2026",
     metaDescription:
@@ -312,6 +313,184 @@ export const GUIDES: Guide[] = [
       },
     ],
     related: ["trust-score-explained", "bangkok-botox-guide", "bangkok-filler-guide"],
+  },
+  // ── Dental guides ──────────────────────────────────────────────────────────
+  {
+    slug: "dental-implants-bangkok-cost",
+    focusTags: ["dental"],
+    title: "Dental Implants in Bangkok — Cost, Brands & What to Expect (2026)",
+    metaTitle: "Dental Implants Bangkok Cost 2026 — Brands, Clinics & Timeline",
+    metaDescription:
+      "Dental implant costs in Bangkok 2026: Straumann ฿55,000–80,000, Osstem ฿35,000–55,000. How to pick a clinic, which brands to insist on, and the full treatment timeline for medical tourists.",
+    updated: "2026-06-03",
+    intro:
+      "Bangkok is one of the world's most popular destinations for dental implants — 50–70% cheaper than the US or UK, with clinics that hold international accreditations and use the same Swiss or Korean implant brands as Western practices. This guide covers what you'll pay, which brands matter, and how to plan your trip.",
+    sections: [
+      {
+        heading: "What dental implants cost in Bangkok (2026)",
+        body:
+          "A single-tooth implant fully restored (titanium post + abutment + crown) ranges from ฿35,000 to ฿80,000 depending on the implant brand. " +
+          "Premium tier — Straumann (Switzerland) and Nobel Biocare (Sweden): ฿55,000–80,000. Most established, 10-year clinical data, preferred for anterior (visible) teeth. " +
+          "Mid tier — Osstem (Korea) and Astra Tech (Sweden): ฿35,000–55,000. Strong evidence base, widely used in Asia. Excellent value for posterior molars. " +
+          "Budget tier — generic/unbranded: under ฿30,000. Avoid. Long-term failure rates 2–3× higher with unknown implant systems. " +
+          "All-on-4 (full arch implant bridge): ฿250,000–500,000 per arch. Compare: US $20,000–35,000 per arch.",
+      },
+      {
+        heading: "Treatment timeline for medical tourists",
+        body:
+          "Trip 1 (3–5 days): consultation, CBCT scan, extraction if needed, implant placement. You return home for osseointegration. " +
+          "Osseointegration period: 3–6 months (bone bonds to titanium — you are home, no clinic visits needed). " +
+          "Trip 2 (2–3 days): abutment placement, crown fitting, bite adjustment. Most patients complete this in a single follow-up visit. " +
+          "Immediate-load option: some Bangkok clinics offer same-week crown loading (฿15,000–25,000 surcharge) for patients with strong bone density — avoids a second trip. Ask your clinic to review your CBCT scan before deciding. " +
+          "All-on-4 can often be completed in a single 5–7 day trip with provisional teeth on day 1.",
+      },
+      {
+        heading: "How to verify a dental clinic in Bangkok",
+        body:
+          "Check the Thai Dental Council (ทันตแพทยสภา) registration — ask the clinic for their license number. " +
+          "International accreditations to look for: JCI (Joint Commission International), ISO 9001, BDMS group membership. " +
+          "Implant brand verification: ask to see the sealed implant packaging before surgery. Genuine Straumann packaging has a QR code and batch number. " +
+          "Trust Score 75+ on this site indicates strong reviewer credibility across Google Maps and medical tourism platforms. " +
+          "English-speaking staff: most clinics in Sukhumvit, Silom, and Asok are accustomed to international patients. Video consultation available at top clinics before you fly.",
+      },
+      {
+        heading: "Bangkok vs Korea vs Turkey for implants",
+        body:
+          "Bangkok: ฿35,000–80,000 per tooth. Strong English-language support, familiar Western-style clinics, tourism infrastructure. No language barrier at top clinics. " +
+          "Korea (Seoul): ฿60,000–120,000 per tooth. Excellent technology, stronger for Korean-speaking patients, more complex logistics for English-only visitors. " +
+          "Turkey (Istanbul): ฿25,000–55,000 per tooth. Price competitive but more variance in quality; English-support patchy outside main tourist clinics. " +
+          "Bangkok advantage: proximity for SEA and Australian patients, no visa hassle for most nationalities, strong tourism infrastructure, and 1,600+ dental clinics to choose from with real English reviews on Google Maps.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does a dental implant cost in Bangkok?",
+        a: "Single-tooth implant (post + abutment + crown): ฿35,000–80,000 depending on brand. Straumann/Nobel Biocare (premium Swiss/Swedish): ฿55,000–80,000. Osstem/Astra (mid-range Korean/Swedish): ฿35,000–55,000. All-on-4 full arch: ฿250,000–500,000 per arch.",
+      },
+      {
+        q: "How many trips do I need for dental implants in Bangkok?",
+        a: "Typically two trips: Trip 1 (implant placement, 3–5 days) + 3–6 months healing at home + Trip 2 (crown fitting, 2–3 days). Some clinics offer same-week immediate-load implants for an extra ฿15,000–25,000, skipping the second trip if your bone density qualifies.",
+      },
+      {
+        q: "Which implant brand should I insist on?",
+        a: "Straumann (Switzerland) and Nobel Biocare (Sweden) are the gold standard — most peer-reviewed data, best osseointegration rates, recognized globally if you need future work done. Osstem (Korea) and Astra Tech are strong mid-tier alternatives. Always ask to see the sealed implant box before surgery.",
+      },
+      {
+        q: "Is it safe to get dental implants in Thailand?",
+        a: "Yes, at accredited clinics. Look for: Thai Dental Council registration, JCI/ISO accreditation, Trust Score 75+, and reviewers specifically mentioning the implant brand. Thailand has no shortage of internationally-trained implantologists — many completed post-graduate training in the US, Europe, or Korea.",
+      },
+    ],
+    related: ["veneers-bangkok-price", "verifying-clinic-before-booking"],
+  },
+  {
+    slug: "veneers-bangkok-price",
+    focusTags: ["dental"],
+    title: "Veneers in Bangkok — Price, E.max vs Composite & Best Clinics (2026)",
+    metaTitle: "Veneers Bangkok Price 2026 — Porcelain, E.max, Composite Guide",
+    metaDescription:
+      "Bangkok veneer prices 2026: porcelain ฿12,000–30,000 per tooth, composite ฿4,000–8,000. E.max CAD/CAM same-day option. How to choose material and clinic for a smile makeover.",
+    updated: "2026-06-03",
+    intro:
+      "A full smile makeover with 8 upper veneers costs ฿100,000–240,000 in Bangkok — versus $15,000–25,000 in the US or UK for comparable porcelain work. Bangkok's leading cosmetic dentists train internationally and use the same E.max or Lava materials as Western practices. Here's what to know before you book.",
+    sections: [
+      {
+        heading: "Veneer types and Bangkok pricing",
+        body:
+          "Porcelain veneers (lab-fabricated): ฿12,000–30,000 per tooth. Most natural-looking; requires 2 visits minimum (preparation + bonding). Lifespan 10–20 years. " +
+          "E.max veneers (CAD/CAM ceramic): ฿15,000–35,000 per tooth. Milled in-clinic from a single ceramic block; stronger and more stain-resistant than traditional porcelain. Many Bangkok clinics offer same-day single-visit E.max using in-house CEREC or similar mills. " +
+          "Composite resin veneers: ฿4,000–8,000 per tooth. Applied chairside, no lab wait. More affordable but less durable (5–7 years) and more susceptible to staining. Best for younger patients or temporary smile improvement. " +
+          "Lumineers (no-prep veneers): ฿18,000–35,000 per tooth. Ultra-thin (0.2mm); minimal tooth reduction. Not suitable for all cases — your dentist will advise after digital smile design.",
+      },
+      {
+        heading: "Digital smile design and what to expect",
+        body:
+          "Top Bangkok cosmetic dentistry clinics use Digital Smile Design (DSD) — a software preview showing your final smile before any tooth is touched. Ask if your clinic offers DSD; it's standard at most upper-tier practices and included in the consultation. " +
+          "Typical timeline for porcelain veneers (2-trip scenario): Trip 1 (3–5 days) — consultation, DSD, tooth preparation, temporaries placed. You fly home with temporaries. Trip 2 (2–3 days) — porcelain veneers bonded. " +
+          "Same-day option (E.max): preparation and bonding in a single visit at clinics with in-house CAD/CAM mills. Suitable if you have limited time. Slightly less control over shade customisation vs a dedicated lab.",
+      },
+      {
+        heading: "What to ask at consultation",
+        body:
+          "Do you use a local or overseas lab? (Local Thai labs are fine; some premium clinics use European labs for exact shade matching.) " +
+          "What material do you recommend for my case? (Your bite, enamel thickness, and shade goals affect the decision.) " +
+          "Can I see before/after photos of similar cases? (Every reputable cosmetic dentist maintains a portfolio.) " +
+          "What is the warranty? (Reputable clinics cover bonding failure and manufacturing defects — typically 1–5 years in writing.)",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much do veneers cost in Bangkok?",
+        a: "Porcelain veneers: ฿12,000–30,000 per tooth. E.max (CAD/CAM ceramic): ฿15,000–35,000 per tooth. Composite resin: ฿4,000–8,000 per tooth. A full 8-upper-tooth smile makeover in porcelain typically costs ฿100,000–240,000.",
+      },
+      {
+        q: "Can I get veneers done in one trip to Bangkok?",
+        a: "Yes, if the clinic has an in-house CAD/CAM mill (E.max same-day). Porcelain lab-fabricated veneers normally require two trips (prep + bonding). Some clinics work with fast local labs to complete in 5–7 days within a single visit.",
+      },
+      {
+        q: "How long do Bangkok veneers last?",
+        a: "Porcelain and E.max: 10–20 years with good care. Composite resin: 5–7 years. Longevity depends on biting habits, teeth grinding (bruxism — mention this at consultation), and maintenance. Most Bangkok clinics offer a 1–5 year structural warranty.",
+      },
+      {
+        q: "Is a consultation free?",
+        a: "Most Bangkok cosmetic dentistry clinics offer a free initial consultation, including digital X-rays and a basic smile assessment. Digital Smile Design (DSD) preview may be included or charged separately (฿1,000–3,000). Confirm before booking.",
+      },
+    ],
+    related: ["dental-implants-bangkok-cost", "teeth-whitening-bangkok"],
+  },
+  {
+    slug: "teeth-whitening-bangkok",
+    focusTags: ["dental"],
+    title: "Teeth Whitening in Bangkok — In-Clinic vs Take-Home, Price & Safety (2026)",
+    metaTitle: "Teeth Whitening Bangkok 2026 — Cost, Types & Best Clinics",
+    metaDescription:
+      "Teeth whitening in Bangkok costs ฿4,000–12,000 for in-clinic. Zoom, laser, LED options compared. Take-home trays from ฿2,000. Which is safest and most effective for tourists?",
+    updated: "2026-06-03",
+    intro:
+      "Professional teeth whitening in Bangkok costs a fraction of what clinics charge in the US, Australia, or UK — typically ฿4,000–12,000 for a full in-clinic session. With over 1,600 dental clinics in the city, the challenge is knowing which whitening method is right for your teeth and how to avoid over-bleaching. This guide explains your options.",
+    sections: [
+      {
+        heading: "In-clinic whitening options and prices",
+        body:
+          "Zoom Whitening (Philips): the most widely available system in Bangkok. 45-minute chair session with 25–35% hydrogen peroxide gel and blue LED activation. ฿6,000–12,000. Results: 3–8 shades lighter. " +
+          "Laser whitening (Diode/CO2 activated): ฿5,000–10,000. Similar results to Zoom; the 'laser' activates the bleaching agent. Marketing term only — results are equivalent to LED-activated systems. " +
+          "Opalesence Boost: chairside 40% hydrogen peroxide, no light activation needed. ฿5,000–9,000. Good for patients with light sensitivity to LED lamps. " +
+          "One-visit composite bonding + whitening combos: popular for patients who want both shape correction and whitening in a single session.",
+      },
+      {
+        heading: "Take-home whitening trays",
+        body:
+          "Custom tray + 2-week supply of 10–16% carbamide peroxide gel: ฿2,000–4,500. Custom trays ensure even bleaching without gum irritation from ill-fitting generic trays. " +
+          "Most Bangkok dentists recommend take-home trays as the gold standard for long-term maintenance — in-clinic session for initial shade lift, take-home for top-ups. " +
+          "Over-the-counter strips (Crest, Colgate) are available in Thai pharmacies for ฿200–800 but have lower peroxide concentrations and less even coverage.",
+      },
+      {
+        heading: "What affects the result (and what to avoid)",
+        body:
+          "Whitening only works on natural enamel — crowns, veneers, and composite fillings will not change colour. If you have restorations, discuss shade matching with your dentist before whitening. " +
+          "Sensitivity is common for 24–72 hours post-session. Clinics use desensitising gel (fluoride or potassium nitrate) immediately after to reduce this. Avoid very hot/cold food for 48 hours. " +
+          "Contraindications: active cavities or gum disease, pregnancy, severe enamel erosion. Your dentist should screen for these before proceeding. " +
+          "Result duration: 1–3 years with maintenance. Coffee, tea, red wine, and cigarettes accelerate staining. Monthly take-home touch-ups extend the result significantly.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does teeth whitening cost in Bangkok?",
+        a: "In-clinic (Zoom, laser, LED): ฿4,000–12,000 for a full session. Take-home custom trays + gel: ฿2,000–4,500. Package deals combining both: ฿6,000–14,000 at most clinics.",
+      },
+      {
+        q: "Is Zoom whitening available in Bangkok?",
+        a: "Yes — Zoom (Philips) is the most widely available professional whitening system in Bangkok. Available at most mid-to-upper-tier dental clinics. A 45-minute in-clinic session typically lightens by 3–8 shades.",
+      },
+      {
+        q: "Is teeth whitening safe in Bangkok?",
+        a: "Yes, at licensed dental clinics. A qualified dentist screens for cavities and gum issues before whitening — this is standard protocol at reputable clinics. Risks are minor (temporary sensitivity) and well-managed with desensitising gel. Avoid unlicensed whitening bars or beauty salons offering 'whitening' — they cannot legally apply clinical-strength hydrogen peroxide.",
+      },
+      {
+        q: "How long does whitening last?",
+        a: "In-clinic result lasts 1–3 years with maintenance. Take-home touch-up trays every 6–12 months extend the result. Coffee, tea, red wine, and cigarettes are the main causes of restaining. Most Bangkok dentists include a take-home kit with in-clinic sessions for this reason.",
+      },
+    ],
+    related: ["veneers-bangkok-price", "dental-implants-bangkok-cost"],
   },
 ];
 

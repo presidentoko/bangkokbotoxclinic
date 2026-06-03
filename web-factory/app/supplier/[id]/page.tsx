@@ -14,21 +14,23 @@ import { IndustryRadar } from "@/components/IndustryRadar";
 import { MedalWall } from "@/components/MedalWall";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { OverallScore } from "@/components/OverallScore";
+import { computeTrustScore } from "@/lib/trustScore";
 import { CapitalHistogram } from "@/components/CapitalHistogram";
 import { PeerCompare } from "@/components/PeerCompare";
 import { industryStatsByTsic, relScore } from "@/lib/industryStats";
+import { relatedSuppliers } from "@/lib/related";
+import { SupplierCard } from "@/components/SupplierCard";
+import { ShortlistButton } from "@/components/ShortlistButton";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import type { Metadata } from "next";
 
-// 비용 최소화: top 100 supplier만 pre-build, 나머지 on-demand + 7일 캐시.
-export const revalidate = 604800;
-export const dynamicParams = true;
+// Static export 호환: dynamicParams=false 필수. 모든 supplier 를 prebuild —
+// 그래야 즐겨찾기/비교/검색에서 어떤 supplier 로 가도 404 가 안 난다.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  const ranked = [...db.suppliers].sort((a, b) =>
-    (b.total_reviews || 0) - (a.total_reviews || 0)
-  );
-  return ranked.slice(0, 100).map((r) => ({ id: r.id }));
+  return db.suppliers.map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(
@@ -98,6 +100,9 @@ export default async function SupplierPage(
   const tsic = r.dbd?.tsic_code || null;
   const confidence = dbdConfidence(r.dbd?.match_score);
 
+  // Related suppliers (same industry / nearby region) — server-rendered, no client JS.
+  const related = relatedSuppliers(db, r);
+
   // ── Industry comparison (radar) ──────────────────────────────
   const stats = industryStatsByTsic(db);
   const peer = tsic ? stats.get(tsic) : undefined;
@@ -109,27 +114,15 @@ export default async function SupplierPage(
     { label: "Photos",   supplier: relScore(r.photos?.length || 0, peer.avgPhotos),      industry: 50 },
   ] : null;
 
-  // ── 5 trust gauges ───────────────────────────────────────────
-  // Capital tier score: 0-100 scale based on log capital
-  const capScore = (() => {
-    const cap = r.dbd?.capital_thb || 0;
-    if (cap <= 0) return 0;
-    // 100K → 0, 100M → 80, 1B+ → 100
-    return Math.min(100, Math.max(0, (Math.log10(cap) - 5) * 25));
-  })();
-  const longevityScore = years ? Math.min(100, years * 4) : 0;
-  const reviewScore = (() => {
-    const n = r.total_reviews || 0;
-    return Math.min(100, (Math.log10(Math.max(1, n))) * 25 + (r.rating || 0) * 10);
-  })();
-  const verifyCount = [
-    r.verified ? 1 : 0,
-    r.halal_certified ? 1 : 0,
-    r.estate_name ? 1 : 0,
-    r.dbd?.tsic_code ? 1 : 0,
-  ].reduce((a, b) => a + b, 0);
-  const verifyScore = (verifyCount / 4) * 100;
-  const photoScore = Math.min(100, (r.photos?.length || 0) * 12.5);
+  // ── 5 trust sub-scores (single source of truth — same as cards + sorting) ──
+  const trust = computeTrustScore(r);
+  const subBy = (k: string) => trust.subs.find((s) => s.key === k)!.score;
+  const capScore = subBy("capital");
+  const longevityScore = subBy("longevity");
+  const reviewScore = subBy("reviews");
+  const photoScore = subBy("photos");
+  const verifyScore = subBy("verifications");
+  const verifyCount = Math.round(verifyScore / 25); // 0..4, for the "{n}/4" display
 
   const gauges = [
     {
@@ -322,7 +315,7 @@ export default async function SupplierPage(
         <section className="mb-8">
           <SectionHeading kicker="Composite score" title="Trust Index" />
           <OverallScore
-            overall={Math.round((capScore + longevityScore + reviewScore + verifyScore + photoScore) / 5)}
+            overall={trust.overall}
             caption="TRUST INDEX"
             subs={[
               { label: "Capital",       score: capScore,      color: "#b45309" },
@@ -541,6 +534,11 @@ export default async function SupplierPage(
                 <p className="text-sm text-amber-900/85 mt-1">
                   Tell us what you need — we&apos;ll forward to the supplier and copy you on the response. No middleman fees.
                 </p>
+                <div className="mt-3 flex items-center gap-3 flex-wrap">
+                  <ShortlistButton id={r.id} name={r.name} cityLabel={r.city_label} variant="full" />
+                  <FavoriteButton id={r.id} name={r.name} cityLabel={r.city_label || ""} variant="full" />
+                  <span className="text-xs text-amber-900/70">Comparing several? Add them and request one quote from your shortlist.</span>
+                </div>
               </div>
               <RfqForm locale="en" />
             </section>
@@ -629,6 +627,17 @@ export default async function SupplierPage(
             </a>
           </div>
         </section>
+
+        {related.length > 0 && (
+          <section className="mb-12">
+            <SectionHeading kicker="Similar companies" title="Related suppliers" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {related.map((s) => (
+                <SupplierCard key={s.id} r={s} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
 
       <SupplierJsonLd r={r} />

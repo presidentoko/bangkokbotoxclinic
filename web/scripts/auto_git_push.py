@@ -36,6 +36,14 @@ MASTER_DBS = [
 AUTO_DIRS = [
     ROOT / "web" / "data" / "wiki_summaries",
 ]
+# 소스 디렉토리 — 신규 컴포넌트/라우트/lib 가 커밋 안 돼 main 빌드가 깨지는 사고
+# (import 만 커밋되고 파일은 untracked → Vercel 'Module not found') 재발 방지용.
+# 데이터 push 에 piggyback 하여 함께 commit (별도 push trigger 안 함).
+SOURCE_DIRS = [
+    ROOT / "web" / "app",
+    ROOT / "web" / "components",
+    ROOT / "web" / "lib",
+]
 STATE_FILE = ROOT / "run" / "auto_git_push.state"
 
 
@@ -123,6 +131,23 @@ def main() -> int:
         auto_dir_files += new_files + modified_files
         if new_files or modified_files:
             print(f"[auto_git_push] +{rel}: {new_files} new, {modified_files} modified")
+
+    # SOURCE_DIRS — 신규/변경 소스파일(컴포넌트·라우트·lib)을 같이 commit.
+    # 이게 빠지면 import 만 푸시되고 파일은 untracked → main 빌드 'Module not found' 로 깨짐.
+    source_files = 0
+    for d in SOURCE_DIRS:
+        if not d.exists():
+            continue
+        rel = d.relative_to(ROOT).as_posix()
+        status = run(["git", "status", "--porcelain", rel], check=False)
+        if not status.stdout.strip():
+            continue
+        run(["git", "add", rel])
+        n = len([ln for ln in status.stdout.splitlines() if ln.strip()])
+        source_files += n
+        print(f"[auto_git_push] +source {rel}: {n} files")
+    if source_files:
+        print(f"[auto_git_push] 소스 {source_files}개 동반 커밋 (빌드 깨짐 방지)")
 
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = f"chore(data): auto-update master_db @ {ts} ({len(paths_changed)} dataset)"

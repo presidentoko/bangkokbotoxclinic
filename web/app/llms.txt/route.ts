@@ -75,6 +75,31 @@ export async function GET() {
     );
   }
 
+  // Dental-site 전용: 절차별 가이드 링크
+  if (cfg.focus === "dental") {
+    lines.push("", "## Dental procedures covered", "");
+    const dentalProcedures = [
+      { slug: "dental-implants-bangkok-cost", label: "Dental Implants (cost, brands, timeline)" },
+      { slug: "veneers-bangkok-price",        label: "Veneers (porcelain, E.max, composite pricing)" },
+      { slug: "teeth-whitening-bangkok",      label: "Teeth Whitening (Zoom, laser, take-home trays)" },
+    ];
+    for (const p of dentalProcedures) {
+      lines.push(`- [${p.label}](${SITE}/guide/${p.slug})`);
+    }
+    lines.push("", "## Dental price benchmarks (2026)", "");
+    lines.push(
+      "- Single dental implant (Straumann/Nobel): ฿55,000–80,000",
+      "- Single dental implant (Osstem/Astra): ฿35,000–55,000",
+      "- All-on-4 full arch: ฿250,000–500,000",
+      "- Porcelain veneers: ฿12,000–30,000 per tooth",
+      "- E.max CAD/CAM veneers: ฿15,000–35,000 per tooth",
+      "- Composite veneers: ฿4,000–8,000 per tooth",
+      "- Zoom / LED whitening (in-clinic): ฿4,000–12,000",
+      "- Custom take-home whitening trays: ฿2,000–4,500",
+      "- All prices in Thai Baht. Exchange rate ~35 THB/USD as of mid-2026.",
+    );
+  }
+
   lines.push("", "## Browse by service", "");
   for (const [cat, n] of Object.entries(db.category_counts)) {
     lines.push(`- [${cat}](${SITE}/c/${cat}) — ${n} clinics`);

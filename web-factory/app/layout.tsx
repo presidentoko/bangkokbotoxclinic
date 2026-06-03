@@ -4,6 +4,7 @@ import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 import { HeaderNav } from "@/components/HeaderNav";
+import { ShortlistTray } from "@/components/ShortlistTray";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const cfg = getSiteConfig();
@@ -86,6 +87,7 @@ export default function RootLayout({
                 <ul className="space-y-1.5">
                   <li><a href="/guide" className="hover:text-black">Buyer Guides</a></li>
                   <li><a href="/blog" className="hover:text-black">Blog</a></li>
+                  <li><a href="/community" className="hover:text-black">Community</a></li>
                   <li><a href="/best/highly-recommended" className="hover:text-black">DBD-Verified Suppliers</a></li>
                   <li><a href="/best/dbd-verified-by-capital" className="hover:text-black">Largest by Capital</a></li>
                   <li><a href="/best/auto-parts" className="hover:text-black">Top Auto Parts</a></li>
@@ -97,6 +99,10 @@ export default function RootLayout({
                   <li><a href="/about" className="hover:text-black">About</a></li>
                   <li><a href="/contact" className="hover:text-black">Contact</a></li>
                   <li><a href="/for-suppliers" className="hover:text-black">For Suppliers</a></li>
+                  <li><a href="/quote" className="hover:text-black">Bulk Quote Request</a></li>
+                  <li><a href="/compare" className="hover:text-black">Compare Suppliers</a></li>
+                  <li><a href="/favorites" className="hover:text-black">Saved Suppliers</a></li>
+                  <li><a href="/trust-score" className="hover:text-black">Trust Score Methodology</a></li>
                   <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
                   <li className="pt-1.5 mt-1.5 border-t border-[var(--border)]/60">
                     <a href="/" className="text-xs hover:text-black mr-2">EN</a>
@@ -112,6 +118,7 @@ export default function RootLayout({
             <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand}</p>
           </div>
         </footer>
+        <ShortlistTray />
       </body>
     </html>
   );

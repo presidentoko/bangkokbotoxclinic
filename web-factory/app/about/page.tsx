@@ -70,6 +70,27 @@ export default async function AboutPage() {
         Independent directory of Thai manufacturers, industrial estates, warehouses, and logistics operators. The point: apply consistent analysis to public Google data so B2B buyers can compare suppliers on objective signals — not on which sourcing agent has the loudest sales pitch.
       </p>
 
+      <section className="bg-white border border-[var(--border)] rounded-xl p-6 mb-10">
+        <div className="flex flex-col sm:flex-row gap-6 items-start">
+          <img
+            src="/founder.jpg"
+            alt="Shin Yunmin — Founder"
+            className="w-32 h-32 rounded-full object-cover border border-[var(--border)] shrink-0"
+            loading="lazy"
+          />
+          <div>
+            <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Founder</div>
+            <h2 className="text-xl font-bold mb-2">Shin Yunmin (신윤민)</h2>
+            <p className="text-sm text-[var(--muted)] leading-relaxed mb-3">
+              Data architect, 12+ years. Korean founder based in Bangkok, building products for the Thai market.
+            </p>
+            <p className="text-sm leading-relaxed">
+              <strong>Why I built this:</strong> Sourcing agents on Instagram and LinkedIn post the same five photoshopped factory photos and call themselves "verified suppliers." Most of them are middlemen who never set foot in the plant. So I cross-checked Google Maps Business Profiles against Thailand's official DBD company registry — capital, founding date, TSIC industry code, all matched against the government registrar. <strong>849 DBD-verified manufacturers + 3,300+ B2B suppliers</strong> in one searchable directory. Talk to the factory directly. Skip the influencer-sourcing-agent layer.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <div className="bg-white border border-[var(--border)] rounded-xl p-6 mb-10">
         <h2 className="text-lg font-bold mb-3">At a glance</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
