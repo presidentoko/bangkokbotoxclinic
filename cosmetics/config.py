@@ -39,8 +39,9 @@ SEARCH_KEYWORDS = {
 # 추가 폭(breadth)용 카테고리 허브도 시드에 포함 (113=스킨케어 일반).
 CATEGORY_SEEDS = {"acne": ["113"]}
 
-def search_listing_urls() -> "list[tuple[str, str]]":
-    """(listing_url, concern) 전체 — 키워드 검색 + 카테고리 허브."""
+def listing_seed_bases() -> "list[tuple[str, str]]":
+    """(listing_url, concern) 시드 '베이스'(page 미포함) — 키워드 검색 + 카테고리 허브.
+    discover()가 베이스마다 paged_url로 ?page=N을 돌며 천장(=한 페이지 32개)을 넘긴다."""
     pairs: "list[tuple[str, str]]" = []
     for concern, kws in SEARCH_KEYWORDS.items():
         for kw in kws:
@@ -50,8 +51,31 @@ def search_listing_urls() -> "list[tuple[str, str]]":
             pairs.append((f"https://www.konvy.com/mall/list.php?param={cat}-0-0-0&from=category", concern))
     return pairs
 
+
+def paged_url(base: str, page: int) -> str:
+    """Konvy 목록 페이지네이션: page<=1은 베이스 그대로, 그 외엔 ?page=N/&page=N 부착.
+    (관측된 형태: /list/skincare/?page=2 ... ?page=201)"""
+    if page <= 1:
+        return base
+    sep = "&" if "?" in base else "?"
+    return f"{base}{sep}page={page}"
+
+
+def search_listing_urls(pages: "int | None" = None) -> "list[tuple[str, str]]":
+    """(listing_url, concern) 전체 — 각 베이스를 1..pages 페이지로 확장."""
+    n = DISCOVER_PAGES_PER_SEED if pages is None else pages
+    out: "list[tuple[str, str]]" = []
+    for base, concern in listing_seed_bases():
+        for p in range(1, n + 1):
+            out.append((paged_url(base, p), concern))
+    return out
+
 # 디스커버리 캐시 TTL (초). 멀티데이 패스마다 재탐색하지 않도록.
 DISCOVER_TTL_SEC = int(os.getenv("COSMETICS_DISCOVER_TTL", "43200"))  # 12h
+
+# 시드당 페이지네이션 깊이(보수적). 한 페이지=상품 ~32개. 베이스 41개 × 이 값이
+# 디스커버리당 listing fetch 수의 상한. discover()는 '새 URL 0개' 페이지에서 조기 종료.
+DISCOVER_PAGES_PER_SEED = int(os.getenv("COSMETICS_DISCOVER_PAGES", "8"))
 
 # ── 매너 딜레이 (초) ──
 DELAY_LIST_SEC = float(os.getenv("COSMETICS_DELAY_LIST", "2.0"))
