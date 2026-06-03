@@ -18,6 +18,8 @@ import { AffiliateButton } from "@/components/AffiliateButton";
 import { IngredientDecoder } from "@/components/IngredientDecoder";
 import { ExpandableText } from "@/components/ExpandableText";
 import { ShareCard } from "@/components/ShareCard";
+import { YoutubeModule } from "@/components/YoutubeModule";
+import { WatsonsModule } from "@/components/WatsonsModule";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
@@ -828,6 +830,16 @@ export default async function ProductPage({
             MODULE 1b — WHAT PANTIP SAYS
         ══════════════════════════════════════ */}
         <PantipModule p={p} locale={locale} />
+
+        {/* ══════════════════════════════════════
+            MODULE 1c — YOUTUBE COMMENTS
+        ══════════════════════════════════════ */}
+        {p.youtube && <YoutubeModule data={p.youtube} locale={locale} />}
+
+        {/* ══════════════════════════════════════
+            MODULE 1d — WATSONS REVIEWS
+        ══════════════════════════════════════ */}
+        {p.watsons && <WatsonsModule data={p.watsons} locale={locale} />}
 
         {/* ══════════════════════════════════════
             MODULE 2 — KEY INGREDIENTS, EXPLAINED

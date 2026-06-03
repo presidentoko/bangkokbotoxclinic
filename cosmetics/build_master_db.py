@@ -12,7 +12,9 @@ def _ml(volume: str) -> float:
     m = _VOL.search(volume or "")
     return float(m.group(1)) if m else 0.0
 
-def build_db(products: list[dict], reviews_by_id: dict) -> dict:
+def build_db(products: list[dict], reviews_by_id: dict,
+             youtube_by_id: dict | None = None,
+             watsons_by_id: dict | None = None) -> dict:
     db = ingredients.load_db()
     # prior mean rating across products that have ratings
     rated = [p["konvy_rating"] for p in products if p.get("konvy_rating")]
@@ -46,6 +48,12 @@ def build_db(products: list[dict], reviews_by_id: dict) -> dict:
                     "total_score": tot, "review_summary": rsum})
         if pantip is not None:
             rec["pantip"] = pantip
+        yt = (youtube_by_id or {}).get(p["product_id"])
+        if yt and yt.get("video_count", 0) > 0:
+            rec["youtube"] = yt
+        wt = (watsons_by_id or {}).get(p["product_id"])
+        if wt and wt.get("review_count", 0) > 0:
+            rec["watsons"] = wt
         out_products[p["product_id"]] = rec
 
     rankings = {}
@@ -63,6 +71,28 @@ def build_db(products: list[dict], reviews_by_id: dict) -> dict:
         ranked = scoring.rank_products(pool, c)
         rankings[c] = [{"product_id": pp["product_id"], "total_score": pp["total_score"][c]} for pp in ranked]
     return {"generated_at": None, "products": out_products, "rankings": rankings}
+
+def _load_youtube() -> dict:
+    out = {}
+    if config.REVIEWS_DIR.exists():
+        for f in config.REVIEWS_DIR.glob("*_youtube.json"):
+            pid = f.name.split("_youtube")[0]
+            try:
+                out[pid] = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return out
+
+def _load_watsons() -> dict:
+    out = {}
+    if config.REVIEWS_DIR.exists():
+        for f in config.REVIEWS_DIR.glob("*_watsons.json"):
+            pid = f.name.split("_watsons")[0]
+            try:
+                out[pid] = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return out
 
 def _load_reviews() -> dict:
     out = {}
@@ -101,7 +131,7 @@ def _load_pantip(product_id: str) -> "dict | None":
 def main() -> int:
     products = [json.loads(f.read_text(encoding="utf-8"))
                 for f in sorted((config.OUTPUT_DIR / "products").glob("*.json"))]
-    db = build_db(products, _load_reviews())
+    db = build_db(products, _load_reviews(), _load_youtube(), _load_watsons())
     db["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     MASTER_DB.parent.mkdir(parents=True, exist_ok=True)
     MASTER_DB.write_text(json.dumps(db, ensure_ascii=False, indent=2), encoding="utf-8")
