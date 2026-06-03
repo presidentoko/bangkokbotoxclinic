@@ -300,6 +300,30 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* Botox: Browse by treatment */}
+        {cfg.focus === "botox" && (
+          <section className="mb-10">
+            <h2 className="text-xl font-bold mb-4">Browse by treatment</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {[
+                { label: "💉 Botox",      href: "/c/botox" },
+                { label: "💧 Filler",     href: "/c/filler" },
+                { label: "⚡ HIFU",       href: "/c/hifu" },
+                { label: "✨ Laser",      href: "/c/laser" },
+                { label: "🌸 Facial",     href: "/c/facial" },
+              ].map((p) => (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  className="border border-[var(--border)] rounded-xl p-3 text-center text-sm font-medium hover:bg-purple-50 hover:border-purple-300 transition"
+                >
+                  {p.label}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Dental: Why Bangkok stat strip */}
         {cfg.focus === "dental" && (
           <section className="mb-10 bg-emerald-50 rounded-xl p-5">
@@ -315,6 +339,26 @@ export default async function HomePage() {
               <div>
                 <p className="text-3xl font-bold text-emerald-700">English</p>
                 <p className="text-sm text-[var(--muted)] mt-1">speaking staff at top clinics</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Botox: Why Bangkok stat strip */}
+        {cfg.focus === "botox" && (
+          <section className="mb-10 bg-purple-50 rounded-xl p-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="text-3xl font-bold text-purple-700">2,000+</p>
+                <p className="text-sm text-[var(--muted)] mt-1">aesthetic clinics in Bangkok</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-purple-700">50–70%</p>
+                <p className="text-sm text-[var(--muted)] mt-1">cheaper than Singapore & Korea</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-purple-700">Genuine</p>
+                <p className="text-sm text-[var(--muted)] mt-1">Allergan & Dysport verified</p>
               </div>
             </div>
           </section>
@@ -609,6 +653,29 @@ export default async function HomePage() {
                 { title: "Implants Cost Guide",  href: "/guide/dental-implants-bangkok-cost", desc: "Brands, timeline, what to pay" },
                 { title: "Veneers Price Guide",  href: "/guide/veneers-bangkok-price",        desc: "Porcelain, E.max, composite" },
                 { title: "Whitening Guide",      href: "/guide/teeth-whitening-bangkok",      desc: "Zoom vs take-home trays" },
+              ].map((g) => (
+                <a
+                  key={g.href}
+                  href={g.href}
+                  className="border border-[var(--border)] rounded-xl p-4 hover:bg-gray-50 transition"
+                >
+                  <p className="font-semibold text-sm">{g.title}</p>
+                  <p className="text-xs text-[var(--muted)] mt-1">{g.desc}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Botox: Guide links */}
+        {cfg.focus === "botox" && (
+          <section className="mt-10">
+            <h2 className="text-xl font-bold mb-4">Botox guides</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: "Jaw Slimming Guide",   href: "/guide/masseter-botox-bangkok-jaw-slimming", desc: "V-line results, units, cost" },
+                { title: "HIFU Bangkok Guide",   href: "/guide/hifu-ultherapy-bangkok-cost",         desc: "Ultherapy vs Korean machines" },
+                { title: "Forehead Botox Guide", href: "/guide/botox-forehead-bangkok",              desc: "Areas, units, natural results" },
               ].map((g) => (
                 <a
                   key={g.href}
