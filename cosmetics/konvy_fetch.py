@@ -132,7 +132,7 @@ class KonvyBrowser:
         url: str,
         scroll: int = 0,
         settle_ms: int = 4000,
-        timeout_ms: int = 45000,
+        timeout_ms: int = 30000,
     ) -> str:
         """Navigate to *url*, optionally scroll to trigger lazy-loads, return full HTML.
 
@@ -171,22 +171,39 @@ class KonvyBrowser:
                 self._page.wait_for_timeout(800)
         return ""
 
-    def fetch_json(self, url: str, referer: str = "") -> str:
+    def fetch_json(self, url: str, referer: str = "", fetch_timeout_ms: int = 20000) -> str:
         """Fetch *url* from inside the page via ``fetch()`` so it carries the
         browser's resolved WAF cookies/JS context (page.request bypasses those and
         gets re-challenged). Retries once through a reload if a WAF page comes back.
 
+        The in-page ``fetch`` is bounded by an AbortController timeout: ``page.evaluate``
+        itself has NO timeout, so without this a tunnel that dies mid-fetch hangs the
+        whole crawler forever. On abort/timeout we treat reviews as best-effort and
+        return '' (the product still gets its ld+json rating/review-count).
+
         Args:
             url: AJAX endpoint URL (e.g. the reviews endpoint).
             referer: Optional product page URL; navigated to first so cookies are set.
+            fetch_timeout_ms: Hard ceiling for the in-page fetch before it aborts.
         """
         assert self._page is not None, "KonvyBrowser must be used as a context manager"
-        js = """async (u) => {
-            const r = await fetch(u, {headers: {'X-Requested-With': 'XMLHttpRequest'}, credentials: 'include'});
-            return await r.text();
+        js = """async ([u, timeoutMs]) => {
+            const ctrl = new AbortController();
+            const t = setTimeout(() => ctrl.abort(), timeoutMs);
+            try {
+                const r = await fetch(u, {headers: {'X-Requested-With': 'XMLHttpRequest'},
+                                          credentials: 'include', signal: ctrl.signal});
+                return await r.text();
+            } finally { clearTimeout(t); }
         }"""
         for _ in range(2):
-            txt = self._page.evaluate(js, url)
+            try:
+                txt = self._page.evaluate(js, [url, fetch_timeout_ms])
+            except Exception as e:
+                # AbortError (timeout) or a dead-tunnel error: don't hang, give up on reviews.
+                if is_socks_dead_error(str(e)):
+                    raise
+                return ""
             # Valid review payload is JSON; a WAF/HTML interstitial starts with '<'.
             if txt and not txt.lstrip().startswith("<"):
                 return txt

@@ -27,6 +27,34 @@ def _port_open(port: int, host: str | None = None) -> bool:
 def ports_alive(ports: list[int]) -> set[int]:
     return {p for p in ports if _port_open(p)}
 
+def port_healthy(port: int, url: str = "https://www.konvy.com/", timeout: int = 20) -> bool:
+    """Real connectivity gate, not just port-open: route an actual GET through the
+    SOCKS5 tunnel and require HTTP 200. The NordVPN exits flap (port stays LISTENING
+    while the upstream is dead → ERR_SOCKS_CONNECTION_FAILED on browser launch), so a
+    socket connect check is insufficient. Uses curl (already on PATH); any failure → dead.
+    """
+    try:
+        r = subprocess.run(
+            ["curl", "-x", f"socks5h://{config.PROXY_HOST}:{port}",
+             "--max-time", str(timeout), "-s", "-o", os.devnull,
+             "-w", "%{http_code}", url],
+            capture_output=True, text=True, timeout=timeout + 8,
+        )
+        return r.stdout.strip() == "200"
+    except Exception:
+        return False
+
+def pick_healthy_port(ports: list[int], start_idx: int = 0) -> "int | None":
+    """Return the first port (cycling from *start_idx*) that passes port_healthy,
+    or None if all are currently dead. Lets the crawler skip a flapping tunnel
+    instead of burning a 30s browser launch on a dead one."""
+    n = len(ports)
+    for i in range(n):
+        p = ports[(start_idx + i) % n]
+        if port_healthy(p):
+            return p
+    return None
+
 def dedicated_ports() -> list[int]:
     return [config.PROXY_PORT_BASE + i for i in range(config.N_TUNNELS)]
 
