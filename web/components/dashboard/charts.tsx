@@ -109,10 +109,6 @@ export function RatingTrendChart({ trend }: { trend: RatingTrend }) {
             ) : (
               <circle cx={p.x} cy={H / 2} r="4" fill="#e5e7eb" />
             )}
-            <text x={p.x} y={H + 2} fontSize="9" textAnchor="middle" fill="#6b7280">{p.label}</text>
-            {p.count > 0 && (
-              <text x={p.x} y={H + 13} fontSize="8" textAnchor="middle" fill="#9ca3af">{p.count} rev</text>
-            )}
           </g>
         ))}
       </svg>
