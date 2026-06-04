@@ -102,7 +102,7 @@ export default function PersonalizationQuiz() {
   const trigger = !open && (
     <button
       onClick={() => { setOpen(true); setStep(0); setDone(false); setAnswers(["", "", ""]); }}
-      className="hidden sm:inline-flex fixed bottom-6 right-6 z-30 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-5 py-3 text-sm font-black shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition print:hidden"
+      className="hidden sm:inline-flex fixed bottom-24 right-6 z-30 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-5 py-3 text-sm font-black shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition print:hidden"
     >
       <span className="mr-1">🎯</span> {done ? "Update preferences" : "Find your clinic"}
     </button>
