@@ -11,6 +11,8 @@ import {
   topPicks,
   bestSellers,
   mostLoved,
+  getFilter,
+  CONCERN_FILTER_SLUGS,
   type Concern,
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
@@ -147,6 +149,25 @@ export default async function ConcernHub({
           {t(locale, "updated")}: {generatedAt()?.slice(0, 10)}
         </p>
       </header>
+
+      {/* Filter chips — links to SEO sub-pages */}
+      {(CONCERN_FILTER_SLUGS[concern] ?? []).length > 0 && (
+        <div className="flex flex-wrap gap-2 -mt-2">
+          {(CONCERN_FILTER_SLUGS[concern] ?? []).map((slug) => {
+            const fc = getFilter(slug);
+            if (!fc) return null;
+            return (
+              <Link
+                key={slug}
+                href={`/${locale}/${concern}/${slug}`}
+                className="text-xs px-3 py-1.5 rounded-full border border-[#efe1db] bg-white text-[#8a7a76] hover:text-rose-500 hover:border-rose-300 transition-colors"
+              >
+                {fc.emoji} {locale === "th" ? fc.th : fc.en}
+              </Link>
+            );
+          })}
+        </div>
+      )}
 
       {/* ── 성분 가이드 ── */}
       <IngredientGuide concern={concern} locale={locale} />

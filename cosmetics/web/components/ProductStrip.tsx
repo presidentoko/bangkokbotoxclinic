@@ -48,10 +48,7 @@ function ProofBadge({
   }
 
   if (proof === "sold") {
-    const label =
-      locale === "th"
-        ? `${formatNumber(product.sold_count)} ${t(locale, "sold")}`
-        : `${formatNumber(product.sold_count)} ${t(locale, "sold")}`;
+    const label = `${formatNumber(product.sold_count)} ${t(locale, "sold")}`;
     return (
       <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700">
         🔥 {label}

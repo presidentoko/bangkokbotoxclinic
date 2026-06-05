@@ -111,3 +111,43 @@ export function orgLd(siteUrl: string) {
   return { "@context": "https://schema.org", "@type": "Organization", name: "BangkokFillers",
     url: siteUrl };
 }
+
+export function brandFaqLd(brand: string, locale: Locale, topProductName: string, topConcern: string) {
+  const isTh = locale === "th";
+  const qas: { q: string; a: string }[] = isTh ? [
+    {
+      q: `${brand} ตัวไหนดีที่สุดในไทย`,
+      a: `${topProductName} ได้รับคะแนนสูงสุดจากผลิตภัณฑ์ ${brand} ในไทย คำนวณจากส่วนผสม 45% รีวิวจริง 45% และความคุ้มค่า 10%`,
+    },
+    {
+      q: `${brand} ขายที่ไหนในไทย`,
+      a: `${brand} วางขายที่ Konvy, Watsons Thailand, Boots Thailand และ iHerb — BangkokFillers รวบรวมราคาและรีวิวจากทุกช่องทาง`,
+    },
+    {
+      q: `${brand} ดีจริงไหม`,
+      a: `BangkokFillers วิเคราะห์ผลิตภัณฑ์ ${brand} โดยดูจากส่วนผสมออกฤทธิ์ที่มีหลักฐานวิทยาศาสตร์ รีวิวจากผู้ซื้อจริง และคุ้มค่าต่อมล — ไม่ใช่การตลาด`,
+    },
+    {
+      q: `${brand} เหมาะกับปัญหาผิวอะไร`,
+      a: `ดูหน้า ${brand} เพื่อดูผลิตภัณฑ์แยกตามหมวดสิว ฝ้า ริ้วรอย รูขุมขน และผิวแพ้ง่าย`,
+    },
+  ] : [
+    {
+      q: `What is the best ${brand} product in Thailand?`,
+      a: `${topProductName} scores highest among ${brand} products in Thailand, based on 45% ingredient science, 45% real reviews, and 10% value-per-ml.`,
+    },
+    {
+      q: `Where to buy ${brand} in Thailand?`,
+      a: `${brand} is available at Konvy, Watsons Thailand, Boots Thailand, and iHerb. BangkokFillers aggregates pricing and reviews across all channels.`,
+    },
+    {
+      q: `Is ${brand} worth buying?`,
+      a: `BangkokFillers analyses every ${brand} product by active ingredient evidence, real purchaser reviews, and price-per-ml — not marketing claims.`,
+    },
+    {
+      q: `Which ${brand} products are best for ${topConcern}?`,
+      a: `See the ${brand} brand page on BangkokFillers for products filtered by acne, brightening, anti-aging, pores, oil control, and sensitive skin.`,
+    },
+  ];
+  return faqLd(qas);
+}

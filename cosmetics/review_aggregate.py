@@ -13,7 +13,8 @@ _TOKEN = re.compile(r"[A-Za-z฀-๿]{3,}")
 def _keywords(reviews, top_k):
     c = Counter()
     for r in reviews:
-        for tok in _TOKEN.findall((r.get("body") or "").lower()):
+        text = r.get("body") or r.get("text") or ""
+        for tok in _TOKEN.findall(text.lower()):
             if tok not in _STOP:
                 c[tok] += 1
     return [w for w, _ in c.most_common(top_k)]

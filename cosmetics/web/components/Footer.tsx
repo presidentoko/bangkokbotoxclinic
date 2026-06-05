@@ -39,10 +39,10 @@ export function Footer({ locale }: { locale: Locale }) {
               : "Interested in advertising or business partnerships?"}
           </p>
           <a
-            href="mailto:UMMA@XX.GG"
+            href="mailto:umma@xx.gg"
             className="text-sm font-semibold text-rose-500 hover:text-rose-600 transition-colors whitespace-nowrap"
           >
-            UMMA@XX.GG →
+            umma@xx.gg →
           </a>
         </div>
       </div>

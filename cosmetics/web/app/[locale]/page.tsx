@@ -15,14 +15,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const loc = locale as Locale;
-  const title =
-    loc === "th"
-      ? { absolute: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์" }
-      : { absolute: "BangkokFillers — Trust data, not influencers" };
-  const description =
-    loc === "th"
-      ? "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ"
-      : "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.";
+  const TITLES: Record<string, string> = {
+    th: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
+    en: "BangkokFillers — Trust data, not influencers",
+    ko: "방콕 화장품 추천 — 태국 여행 스킨케어 순위 | BangkokFillers",
+    ja: "バンコク旅行コスメおすすめ — タイスキンケアランキング | BangkokFillers",
+    ar: "أفضل مستحضرات تجميل تايلاند للسياح | BangkokFillers",
+  };
+  const DESCS: Record<string, string> = {
+    th: "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
+    en: "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.",
+    ko: "방콕 여행에서 사야 할 태국 스킨케어 추천 — 1,739개 제품을 성분 데이터와 실제 리뷰로 순위 매긴 완벽 가이드",
+    ja: "バンコク旅行で買うべきタイスキンケア完全ガイド — 1,739製品を成分データと実際のレビューでランキング",
+    ar: "أفضل منتجات العناية بالبشرة التايلاندية للسياح في بانكوك — 1,739 منتجاً مصنّفاً بالبيانات والمراجعات الحقيقية",
+  };
+  const title = { absolute: TITLES[loc] ?? TITLES["en"] };
+  const description = DESCS[loc] ?? DESCS["en"];
   return {
     title,
     description,
@@ -119,6 +127,33 @@ export default async function Home({
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Quiz CTA */}
+      <section>
+        <Link
+          href={`/${locale}/quiz`}
+          className="flex items-center justify-between gap-4 rounded-3xl overflow-hidden px-6 py-5 transition-all hover:shadow-md hover:shadow-rose-100 hover:-translate-y-0.5"
+          style={{
+            background: "linear-gradient(135deg, #fff0f3 0%, #fce4ec 50%, #fff8f0 100%)",
+            border: "1.5px solid #f0d9d5",
+          }}
+        >
+          <div className="space-y-0.5">
+            <p className="text-[10px] uppercase tracking-widest text-[#c9a86a] font-bold">
+              {isTh ? "แบบทดสอบ 3 ข้อ" : "3-question quiz"}
+            </p>
+            <p className="font-serif-display text-lg font-semibold text-[#2b2222]">
+              {isTh ? "หาสกินแคร์ที่ใช่สำหรับคุณ 🌸" : "Find your perfect skincare 🌸"}
+            </p>
+            <p className="text-xs text-neutral-500">
+              {isTh ? "แชร์ผลลัพธ์กับเพื่อนได้เลย" : "Get personalised picks · shareable results"}
+            </p>
+          </div>
+          <div className="flex-shrink-0 bg-rose-500 text-white rounded-2xl px-4 py-2.5 font-semibold text-sm shadow-sm shadow-rose-200 whitespace-nowrap">
+            {isTh ? "เริ่มเลย →" : "Start →"}
+          </div>
+        </Link>
       </section>
 
       {/* Concern cards */}

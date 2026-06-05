@@ -11,7 +11,7 @@ import {
   keyIngredients,
   cheaperAlternatives,
 } from "@/lib/data";
-import { LOCALES, t, type Locale } from "@/lib/i18n";
+import { LOCALES, t, toBaseLocale, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
@@ -684,7 +684,8 @@ export default async function ProductPage({
       ? p.concern_seeds[0]
       : String(p.concern_seeds).split("|")[0]) || "acne";
 
-  const summary = p.llm_summary?.[locale] || fallbackSummary(p, locale, concern);
+  const baseLoc = toBaseLocale(locale);
+  const summary = p.llm_summary?.[baseLoc] || fallbackSummary(p, baseLoc, concern);
   const pageUrl = `https://bangkokfillers.com/${locale}/product/${slug}`;
   const totalScore = Math.round(p.total_score?.[concern] ?? 0);
   const ingredientScore = Math.round(p.ingredient_score?.[concern] ?? 0);
@@ -861,7 +862,7 @@ export default async function ProductPage({
           <IngredientDecoder
             analysis={p.ingredient_analysis}
             concern={concern}
-            locale={locale}
+            locale={baseLoc}
           />
         </section>
 
@@ -894,7 +895,7 @@ export default async function ProductPage({
           priceTHB={p.price_thb}
           listPriceTHB={p.list_price_thb ?? 0}
           discountPct={p.discount_pct ?? 0}
-          llmSummary={p.llm_summary?.[locale] ?? ""}
+          llmSummary={p.llm_summary?.[baseLoc] ?? ""}
           locale={locale}
           pageUrl={pageUrl}
         />
