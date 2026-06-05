@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "s2.konvy.com" },
       { protocol: "https", hostname: "s1.konvy.com" },
+      { protocol: "https", hostname: "cdn.thebeautrium.com" },
     ],
     // Free plan: cap device sizes to avoid excessive optimization variants.
     // We only need small thumbnails (card strips) + one medium (product hero).

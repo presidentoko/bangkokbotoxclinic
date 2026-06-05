@@ -24,9 +24,24 @@ import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
 
+// Statically generate only high-value product pages:
+// - All Konvy/Watsons/Boots/iHerb sourced products (have ingredient data)
+// - Beautrium products with at least 1 review (meaningful SEO content)
+// - All products ranking in top 30 of any concern
+// Beautrium-only products with 0 reviews render on-demand (dynamicParams = true default)
 export function generateStaticParams() {
+  const topIds = new Set<string>();
+  for (const concern of ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"]) {
+    getRanking(concern).slice(0, 30).forEach((r) => topIds.add(r.product_id));
+  }
+  const prioritized = allProducts().filter(
+    (p) =>
+      p.source !== "beautrium" ||            // all non-Beautrium products
+      (p.beautrium_review_count ?? 0) > 0 || // Beautrium with reviews
+      topIds.has(p.product_id)               // top-ranked any concern
+  );
   return LOCALES.flatMap((locale) =>
-    allProducts().map((p) => ({ locale, slug: productSlug(p) }))
+    prioritized.map((p) => ({ locale, slug: productSlug(p) }))
   );
 }
 

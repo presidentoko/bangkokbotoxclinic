@@ -4,7 +4,7 @@ import { t, concernLabel, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
-import { orgLd } from "@/lib/schema";
+import { orgLd, websiteLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -25,9 +25,9 @@ export async function generateMetadata({
   const DESCS: Record<string, string> = {
     th: "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
     en: "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.",
-    ko: "방콕 여행에서 사야 할 태국 스킨케어 추천 — 1,739개 제품을 성분 데이터와 실제 리뷰로 순위 매긴 완벽 가이드",
-    ja: "バンコク旅行で買うべきタイスキンケア完全ガイド — 1,739製品を成分データと実際のレビューでランキング",
-    ar: "أفضل منتجات العناية بالبشرة التايلاندية للسياح في بانكوك — 1,739 منتجاً مصنّفاً بالبيانات والمراجعات الحقيقية",
+    ko: "방콕 여행에서 사야 할 태국 스킨케어 추천 — 4,000개 이상 제품을 성분 데이터와 실제 리뷰로 순위 매긴 완벽 가이드",
+    ja: "バンコク旅行で買うべきタイスキンケア完全ガイド — 4,000以上の製品を成分データと実際のレビューでランキング",
+    ar: "أفضل منتجات العناية بالبشرة التايلاندية للسياح في بانكوك — أكثر من 4,000 منتج مصنّف بالبيانات والمراجعات الحقيقية",
   };
   const title = { absolute: TITLES[loc] ?? TITLES["en"] };
   const description = DESCS[loc] ?? DESCS["en"];
@@ -300,6 +300,7 @@ export default async function Home({
         </div>
       </section>
       <JsonLd data={orgLd("https://bangkokfillers.com")} />
+      <JsonLd data={websiteLd("https://bangkokfillers.com", locale)} />
     </div>
   );
 }

@@ -25,7 +25,8 @@ export function productLd(p: Product, pageUrl: string) {
   }
   ld.review = (p.review_summary?.samples ?? []).slice(0, 3).map((r) => ({ "@type": "Review",
     reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
-    author: { "@type": "Person", name: r.author || "Konvy user" }, reviewBody: r.body }));
+    author: { "@type": "Person", name: r.author || "Verified buyer" },
+    reviewBody: (r as any).body || (r as any).text || "" }));
   return ld;
 }
 
@@ -110,6 +111,18 @@ export function faqLd(qas: { q: string; a: string }[]) {
 export function orgLd(siteUrl: string) {
   return { "@context": "https://schema.org", "@type": "Organization", name: "BangkokFillers",
     url: siteUrl };
+}
+
+export function websiteLd(siteUrl: string, locale: string) {
+  return {
+    "@context": "https://schema.org", "@type": "WebSite",
+    name: "BangkokFillers", url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/${locale}/search?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
+  };
 }
 
 export function brandFaqLd(brand: string, locale: Locale, topProductName: string, topConcern: string) {
