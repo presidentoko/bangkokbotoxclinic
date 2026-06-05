@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import {
   allProducts,
   getProduct,
+  getRanking,
   productSlug,
   productIdFromSlug,
   similarProducts,
