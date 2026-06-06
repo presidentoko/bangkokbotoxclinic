@@ -32,7 +32,7 @@ export default function StickyMobileCTA({
   if (!visible) return null;
 
   return (
-    <div className="sm:hidden fixed bottom-14 inset-x-0 z-30 px-2 print:hidden toast-fade-up"
+    <div className="sm:hidden fixed bottom-0 inset-x-0 z-30 px-2 print:hidden toast-fade-up"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="mx-auto max-w-md rounded-2xl bg-white border-2 border-emerald-300 shadow-2xl p-2.5 flex items-center gap-2">
         <div className="flex-1 min-w-0 pl-1">

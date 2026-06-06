@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/Toast";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import SisterSites from "@/components/SisterSites";
 import { CurrencyProvider } from "@/components/CurrencyConverter";
+import { NavSpacer } from "@/components/NavSpacer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // Hydration-after 위젯들 — initial HTML 에서 제외. components/LazyWidgets.tsx 참고.
@@ -94,7 +95,8 @@ export default function RootLayout({
         <ToastProvider>
           <CurrencyProvider>
           <SiteHeader focus={cfg.focus} accent={cfg.themeAccent} />
-          <main className="pb-20 sm:pb-0">{children}</main>
+          <main>{children}</main>
+          <NavSpacer />
         <SisterSites focus={cfg.focus} />
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
