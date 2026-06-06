@@ -41,12 +41,10 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: url,
-      languages: {
-        th: `${BASE}/th/brand/${brandSlugParam}`,
-        en: `${BASE}/en/brand/${brandSlugParam}`,
-      },
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/brand/${brandSlugParam}`])),
     },
     openGraph: { title, description, url },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

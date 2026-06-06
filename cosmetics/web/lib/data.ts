@@ -14,7 +14,7 @@ export const allProducts = (): Product[] => Object.values(db.products);
 export const getProduct = (id: string): Product | undefined => db.products[id];
 export const getRanking = (concern: string): RankingEntry[] => db.rankings[concern] ?? [];
 export const productSlug = (p: Product) => `${slugify(p.brand)}-${p.product_id}`;
-export const productIdFromSlug = (slug: string) => slug.split("-").pop()!;
+export const productIdFromSlug = (slug: string) => slug.split("-").pop() ?? "";
 
 export const allIngredients = (): [string, IngredientEntry][] => Object.entries(ingDb);
 export const ingredientSlug = (inci: string) => slugify(inci);

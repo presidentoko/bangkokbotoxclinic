@@ -52,8 +52,9 @@ function hasIngredient(p: Product, set: Set<string>) {
 function filterProducts(products: Product[], f: FilterState, concern: string): Product[] {
   const [minP, maxP] = BUDGET_RANGES[f.budget];
   return products.filter((p) => {
-    // budget
-    if (p.price_thb < minP || p.price_thb > maxP) return false;
+    // budget — use ?? 0 guard; upper boundary is inclusive (mid ends at 700, high starts at 700+)
+    const price = p.price_thb ?? 0;
+    if (price < minP || (maxP !== Infinity && price > maxP)) return false;
     // skin type
     if (f.skinType === "sensitive") {
       // exclude products with multiple harsh flags

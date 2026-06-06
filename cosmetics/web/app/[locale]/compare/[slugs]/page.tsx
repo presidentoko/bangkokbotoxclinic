@@ -74,6 +74,11 @@ export async function generateMetadata({
       canonical: `${BASE}/${loc}/compare/${slugs}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/compare/${slugs}`])),
     },
+    openGraph: {
+      title, description, url: `${BASE}/${loc}/compare/${slugs}`,
+      images: pA.image_url ? [{ url: pA.image_url, alt: `${pA.name} vs ${pB.name}` }] : [],
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

@@ -19,7 +19,7 @@ export async function kvHgetall(key: string): Promise<Record<string, string>> {
   try {
     const res = await fetch(`${BASE}/hgetall/${encodeURIComponent(key)}`, {
       headers: headers(),
-      cache: "no-store",
+      next: { revalidate: 300 }, // 5 min cache — avoids KV call on every ISR revalidation
     });
     const json = await res.json();
     return (json.result as Record<string, string>) ?? {};
@@ -51,7 +51,7 @@ export async function kvGet(key: string): Promise<string | null> {
   try {
     const res = await fetch(`${BASE}/get/${encodeURIComponent(key)}`, {
       headers: headers(),
-      cache: "no-store",
+      next: { revalidate: 300 },
     });
     const json = await res.json();
     return (json.result as string) ?? null;
