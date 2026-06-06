@@ -115,5 +115,47 @@ export function buildClinicFaqs(clinic: ClinicWithPantip): Faq[] {
     }
   }
 
+  // Q: Procedure cost via HDmall packages (if price data available)
+  const hdmallPackages = (clinic as Clinic & { hdmall_packages?: { current_price: number }[] }).hdmall_packages;
+  const hdmallPriceRange = formatPriceRange(hdmallPackages);
+  if (hdmallPriceRange) {
+    faqs.push({
+      q: `How much does ${categoryWords(clinic.categories)} cost at ${name}?`,
+      a: `${name} lists packages from ${hdmallPriceRange} on HDmall. Prices vary by treatment type and session count. Contact the clinic directly for a personalised quote.`,
+    });
+  }
+
+  // Q: Implant-specific (dental sites)
+  if (clinic.categories.includes("dental")) {
+    const dentalMentions = clinic.service_mentions["dental"] ?? 0;
+    const implantMentions = clinic.service_mentions["implants"] ?? 0;
+    faqs.push({
+      q: `Does ${name} offer dental implants?`,
+      a: dentalMentions >= 5
+        ? `Yes — ${name} has ${dentalMentions} patient reviews mentioning dental procedures${implantMentions ? `, including ${implantMentions} mentions of implants` : ""}. Book a free consultation to discuss your case.`
+        : `${name} is a dental clinic in ${loc}. Contact them directly to ask about implant availability and pricing.`,
+    });
+  }
+
+  // Q: Botox brand (botox/filler sites)
+  if (clinic.categories.includes("botox") || clinic.categories.includes("filler")) {
+    faqs.push({
+      q: `What Botox or filler brands does ${name} use?`,
+      a: `Brand information for ${name} is not confirmed on this site. Ask the clinic directly — reputable clinics are transparent about their brands (Allergan, Dysport, Juvederm, Restylane, etc.) and will show you the sealed product before injection.`,
+    });
+  }
+
+  // Q: Korean-speaking staff (if Korean reviews or language signals present)
+  const hasKoreanReviews =
+    (clinic.sample_reviews_ko?.length ?? 0) > 0 ||
+    (clinic.language_breakdown?.ko ?? 0) > 0 ||
+    clinic.mentioned_topics.some((t) => /korean|한국/i.test(t.topic));
+  if (hasKoreanReviews) {
+    faqs.push({
+      q: `Does ${name} have Korean-speaking staff?`,
+      a: `${name} appears in searches by Korean medical tourists and has patient mentions in Korean. Contact the clinic directly to confirm Korean-language consultation availability.`,
+    });
+  }
+
   return faqs;
 }
