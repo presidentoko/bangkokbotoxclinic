@@ -492,6 +492,331 @@ export const GUIDES: Guide[] = [
     ],
     related: ["veneers-bangkok-price", "dental-implants-bangkok-cost"],
   },
+  {
+    slug: "masseter-botox-bangkok-jaw-slimming",
+    focusTags: ["botox"],
+    title: "Masseter Botox in Bangkok — Jaw Slimming Cost & What to Expect (2026)",
+    metaTitle: "Masseter Botox Bangkok 2026 — Jaw Slimming Price & Results",
+    metaDescription:
+      "Masseter botox (jaw slimming) in Bangkok costs ฿3,500–8,000. How many units needed, how long it lasts, and which clinics specialise in Korean-style V-line results.",
+    updated: "2026-06-03",
+    intro:
+      "Masseter botox — injecting botulinum toxin into the jaw muscle — is the fastest-growing aesthetic treatment among Korean and international visitors in Bangkok. It slims the lower face, softens a square jaw, and requires zero downtime. Bangkok clinics perform thousands of these per month at 40–60% of Singapore or Seoul prices.",
+    sections: [
+      {
+        heading: "What masseter botox costs in Bangkok",
+        body:
+          "Price depends on dosage (units) and brand. Typical: ฿3,500–5,000 for 25 units/side (Botulax, Dysport); ฿5,500–8,000 for genuine Allergan at the same dose. Most clinics charge per unit (฿80–250/unit) rather than per area. " +
+          "Maintenance sessions: the muscle gradually returns; most patients retreat every 4–6 months. Many Bangkok clinics offer a 3-session package at 15–20% discount. " +
+          "Budget alert: prices under ฿2,500 typically indicate heavily diluted product or unverified brand — ask to see the vial.",
+      },
+      {
+        heading: "Units needed and dosage guide",
+        body:
+          "25–35 units per side is standard for first-time masseter reduction. Patients with very strong hypertrophic masseter muscles (teeth-grinders, heavy jaw clenchers) may need 40–50 units/side for visible results. " +
+          "V-line candidates: 30 units/side is the most common Bangkok protocol. Results visible at 4–6 weeks as muscle atrophies; full effect at 8–12 weeks. " +
+          "Don't judge result at 2 weeks — many patients return too early and top up unnecessarily. Trust the timeline.",
+      },
+      {
+        heading: "How to pick a Bangkok masseter specialist",
+        body:
+          "Look for a clinic where the injector regularly treats Korean and Japanese clients — they have the highest volume and strictest aesthetic standards for V-line results. " +
+          "Reviewers mentioning 'natural V-line', 'not overdone', or '사각턱' (Korean: square jaw) are strong signals of a specialised injector. " +
+          "Avoid clinics where the treatment takes under 10 minutes for a first-time patient — proper assessment of your masseter size should take at least 5–10 minutes. " +
+          "Trust Score 70+ on this site indicates clinics with strong reviewer credibility.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much is masseter botox in Bangkok?",
+        a: "฿3,500–8,000 for a standard treatment (25–35 units/side). Allergan/Botox-original at the premium end; Botulax/Dysport at the value end. Both produce comparable jaw-slimming results at correct dosage.",
+      },
+      {
+        q: "How many sessions before I see jaw slimming results?",
+        a: "One session is enough for most patients. Results are visible at 4–6 weeks, full effect at 8–12 weeks. The jaw muscle physically atrophies (shrinks) — this takes time. Most patients retreat every 4–6 months to maintain the effect.",
+      },
+      {
+        q: "Is masseter botox safe?",
+        a: "Yes, at qualified clinics. The masseter is a non-critical muscle — reducing it doesn't affect chewing for most patients (some notice minor change with very chewy foods in the first month). Serious complications are rare and reversible since botox wears off.",
+      },
+      {
+        q: "Can I combine masseter botox with filler on the same day?",
+        a: "Yes — many Bangkok clinics do botox + chin filler on the same visit for a complete V-line effect. The combination is well-tolerated. Some practitioners prefer to assess the botox result first (at 8 weeks) before adding chin projection.",
+      },
+    ],
+    related: ["bangkok-botox-guide", "botox-forehead-bangkok"],
+  },
+  {
+    slug: "hifu-ultherapy-bangkok-cost",
+    focusTags: ["hifu", "botox"],
+    title: "HIFU & Ultherapy in Bangkok — Cost, Machines & What Actually Works (2026)",
+    metaTitle: "HIFU Bangkok Cost 2026 — Ultherapy vs Thermage vs Korean Machines",
+    metaDescription:
+      "HIFU in Bangkok: Ultherapy ฿25,000–80,000, Korean machines ฿8,000–18,000. How to tell the difference, which works, and what reviewers actually say.",
+    updated: "2026-06-03",
+    intro:
+      "Bangkok is flooded with HIFU options — from authentic Ultherapy (Merz, Switzerland) to affordable Korean machines. The price range is ฿8,000–80,000+ for what is marketed as 'the same treatment'. It's not. This guide explains the real differences, what to ask before booking, and what Bangkok reviewers report as actual results.",
+    sections: [
+      {
+        heading: "The machine hierarchy — what you're actually paying for",
+        body:
+          "Ultherapy (Merz, Switzerland): ฿25,000–80,000/session depending on face zones and shot count. Gold standard. Published clinical evidence. Every session is authenticated via software — Merz can verify shots were used. Lasts 12–18 months. " +
+          "Thermage (Solta): radiofrequency, not ultrasound. ฿20,000–60,000. Better for surface skin quality vs deep SMAS lifting. Longer-lasting than HIFU for some patients (18–24 months). " +
+          "Ultraformer III (Korea): ฿10,000–25,000. Strong alternative to Ultherapy at lower cost; widely used in Korean aesthetics. Good clinical data. " +
+          "Generic Korean machines (Doublo, Sygmalift, etc.): ฿8,000–18,000. Variable quality. Some clinics reuse cartridges (reducing shots and safety). Ask specifically: how many shots are you including, and are cartridges new?",
+      },
+      {
+        heading: "What HIFU actually does (and what it can't)",
+        body:
+          "HIFU delivers focused ultrasound energy to the SMAS layer (the deep connective tissue layer that surgeons tighten in facelifts). It stimulates collagen remodeling over 3–6 months. " +
+          "Realistic expectations: mild-to-moderate skin tightening and lifting of jowls, brow, and neck. NOT a facelift substitute. Best results on patients 35–55 with mild-to-moderate laxity. Older or very lax skin shows less improvement. " +
+          "Pain level: Ultherapy is uncomfortable (2–7/10 pain scale). Korean machines are generally less intense, less painful, and less effective. Bangkok clinics use topical numbing cream; some offer oral sedation for high-shot-count Ultherapy.",
+      },
+      {
+        heading: "Red flags when booking HIFU in Bangkok",
+        body:
+          "Price under ฿10,000 for 'Ultherapy': not genuine. Real Ultherapy cartridges cost more than this at wholesale. " +
+          "No shot count disclosed: a legitimate clinic tells you exactly how many shots (lines × points, e.g. 300 lines for full face) before you book. Vague 'full face' packages without shot count indicate recycled cartridges. " +
+          "Reviewers mentioning 'no pain, no results': often indicates very low energy settings — some clinics dial down intensity to prevent complaints, at the cost of efficacy. " +
+          "Trust Score 70+ clinics on this site with reviewer mentions of specific machines are the safe baseline.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does HIFU cost in Bangkok?",
+        a: "Genuine Ultherapy: ฿25,000–80,000 depending on face zones and shot count. Ultraformer III (Korean): ฿10,000–25,000. Generic Korean machines: ฿8,000–18,000. Thermage: ฿20,000–60,000. Never pay Ultherapy prices for an unnamed machine.",
+      },
+      {
+        q: "Is Ultherapy better than Korean HIFU machines?",
+        a: "Ultherapy has the most published clinical evidence and is the only machine with real-time imaging to target the SMAS layer precisely. Korean machines (Ultraformer, Doublo) are more affordable and effective but have less long-term data. For first-time HIFU, Ultraformer III is a solid value choice.",
+      },
+      {
+        q: "How long does HIFU last in Bangkok's heat/humidity?",
+        a: "Heat and humidity don't affect HIFU longevity. Results last 12–18 months (Ultherapy) or 9–12 months (Korean machines). Collagen remodeling takes 3–6 months to peak — don't judge the result too early.",
+      },
+    ],
+    related: ["bangkok-botox-guide", "masseter-botox-bangkok-jaw-slimming"],
+  },
+  {
+    slug: "botox-forehead-bangkok",
+    focusTags: ["botox"],
+    title: "Forehead Botox in Bangkok — Areas, Units, Price & Results (2026)",
+    metaTitle: "Forehead Botox Bangkok 2026 — Units, Cost & Area Guide",
+    metaDescription:
+      "Forehead botox in Bangkok costs ฿2,000–5,000 per area. Forehead lines, frown lines, crow's feet, brow lift — units needed and prices for each area explained.",
+    updated: "2026-06-03",
+    intro:
+      "Upper-face botox — covering forehead lines, frown lines (glabella), crow's feet, and brow position — is the most common aesthetic treatment in Bangkok. Getting the right dose in the right areas makes the difference between 'natural and refreshed' and 'frozen'. This guide explains units, pricing by area, and what Bangkok's best results actually look like.",
+    sections: [
+      {
+        heading: "Bangkok botox pricing by area (2026)",
+        body:
+          "Forehead lines (horizontal): 10–20 units. ฿1,500–4,500 (Botulax/Dysport); ฿3,000–7,000 (Allergan). Smooths horizontal lines without immobilising the brow. " +
+          "Frown lines / glabella (11s): 15–25 units. ฿2,000–5,000. The most common complaint area — vertical lines between the brows. Highest satisfaction scores in reviews. " +
+          "Crow's feet (eyes): 8–15 units/side. ฿1,500–4,000. Often bundled with forehead/glabella for a full upper-face package. " +
+          "Brow lift (chemical): 2–6 units, strategic placement. ฿800–2,000 add-on. Lifts the lateral brow 1–3mm by relaxing the depressor muscles. " +
+          "Full upper-face package (forehead + glabella + crow's feet): ฿6,000–15,000 depending on brand. The most common Bangkok package for medical tourists.",
+      },
+      {
+        heading: "First-timer guide: what to expect",
+        body:
+          "Consultation (free at most clinics): injector assesses muscle strength, discusses desired outcome (frozen vs natural movement). First-timers often start conservatively — you can always add more, you can't take it away. " +
+          "The procedure: 5–20 minutes depending on areas. Tiny needles, mild discomfort. No downtime. Avoid lying flat or intense exercise for 4 hours post-treatment. " +
+          "Onset: 3–7 days for first effect; peak at 10–14 days. Don't judge at day 3. " +
+          "Top-up window: if effect is uneven or too weak at day 14, most Bangkok clinics offer a free top-up within 2–4 weeks.",
+      },
+      {
+        heading: "How to get natural-looking results",
+        body:
+          "Choose an injector who asks about your brow-raising habits and facial expressions — good injectors customise placement to maintain some movement. " +
+          "Tell them explicitly: 'I want natural movement, not frozen'. The dose is the main lever — under-treating slightly on the first session and evaluating at 2 weeks is safer than overdoing it. " +
+          "Red flags: injector who doesn't ask about your expressions, promises 'completely wrinkle-free' with no caveats, or won't tell you the brand and units used. " +
+          "Review reading tip: look for reviewers who mention specific areas and durations — 'forehead still moves a bit at 8 weeks' is more useful than a star rating.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does forehead botox cost in Bangkok?",
+        a: "Per area: ฿1,500–5,000 for forehead lines, ฿2,000–5,500 for frown lines (glabella), ฿1,500–4,000 for crow's feet. Full upper-face package (all three): ฿6,000–15,000 depending on brand. Allergan is most expensive; Botulax/Dysport are value alternatives.",
+      },
+      {
+        q: "How many units for forehead botox?",
+        a: "Forehead: 10–20 units. Frown lines (glabella): 15–25 units. Crow's feet: 8–15 units/side. Total upper face: 35–65 units depending on muscle strength and desired effect.",
+      },
+      {
+        q: "Will forehead botox look natural?",
+        a: "Yes, when dosed conservatively by an experienced injector. A good result means reduced wrinkles but preserved ability to raise your eyebrows and show expression. Frozen results come from too many units or wrong placement — ask for 'baby botox' or 'natural movement' explicitly.",
+      },
+      {
+        q: "How long does forehead botox last in Bangkok?",
+        a: "3–4 months is standard. First-timers sometimes see shorter duration as muscles are strong; with regular treatments, muscle weakens and duration extends to 4–5 months. The heat and humidity of Bangkok do not affect longevity.",
+      },
+    ],
+    related: ["bangkok-botox-guide", "masseter-botox-bangkok-jaw-slimming"],
+  },
+  {
+    slug: "fue-hair-transplant-bangkok-cost",
+    focusTags: ["hair"],
+    title: "FUE Hair Transplant in Bangkok — Cost, Clinics & What to Expect (2026)",
+    metaTitle: "FUE Hair Transplant Bangkok Cost 2026 — Price, Grafts & Results",
+    metaDescription:
+      "FUE hair transplant in Bangkok costs ฿65,000–150,000 for 2,000 grafts. How to pick a clinic, what to expect during recovery, and how Bangkok compares to Korea and Turkey.",
+    updated: "2026-06-03",
+    intro:
+      "Bangkok is one of Asia's top destinations for FUE hair transplants — 40–60% cheaper than Korea or Singapore, with internationally-trained surgeons and English-speaking clinics in Sukhumvit. This guide covers what you'll pay, how to plan your trip, and what separates a great result from a disappointing one.",
+    sections: [
+      {
+        heading: "FUE hair transplant costs in Bangkok (2026)",
+        body:
+          "Pricing is per-graft in Bangkok. Standard FUE: ฿35–80/graft. A typical 2,000-graft session (mild to moderate hair loss): ฿70,000–160,000. " +
+          "Premium clinics (experienced surgeons, better tech, English support): ฿80–100/graft = ฿160,000–200,000 for 2,000 grafts. " +
+          "DHI (Choi pen technique): ฿85,000–200,000 for 2,000 grafts — higher precision but same graft count. " +
+          "Beard restoration: ฿50,000–120,000. Eyebrow: ฿35,000–80,000. " +
+          "Compare: Korea ฿200,000–400,000 for 2,000 grafts. Turkey $2,000–4,000 (฿70,000–140,000) but quality variance is high. Bangkok offers Korean-level quality at closer to Turkey pricing.",
+      },
+      {
+        heading: "How many grafts do you need?",
+        body:
+          "Norwood scale is the standard measure. NW2–3 (mild recession): 1,000–2,000 grafts. NW3–4 (moderate thinning): 2,000–3,500 grafts. NW4–5 (significant loss): 3,500–5,000 grafts. NW6–7 (advanced): 5,000+ grafts, often 2 sessions. " +
+          "The donor area (back of head) limits total available grafts — typically 6,000–8,000 lifetime. A good Bangkok surgeon will assess your donor density before quoting a price. Beware clinics that quote without a proper consultation. " +
+          "Graft vs hair: each graft contains 1–4 hairs. Your hair count after transplant will be higher than the graft count — about 2–2.5x on average.",
+      },
+      {
+        heading: "Planning your Bangkok trip",
+        body:
+          "Minimum 4–5 days: Day 1 arrival + consultation (free at most clinics). Day 2 procedure (6–9 hours). Days 3–4 recovery, washing, post-op check. Day 5 fly home. " +
+          "Some patients stay 7 days for extra rest. The procedure itself is done under local anaesthetic — you're awake, mildly sedated, watching a movie. " +
+          "Recovery timeline: 10–14 days for redness/scabs to clear. 2–4 weeks: shock loss begins (transplanted hairs fall out — this is normal). 6–9 months: new growth visible. 12–18 months: full result. " +
+          "Most Bangkok clinics provide post-op kits, include follow-up video consultations, and have staff who speak English, Korean, and Arabic.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does FUE hair transplant cost in Bangkok?",
+        a: "฿35–80 per graft. A standard 2,000-graft session costs ฿70,000–160,000. DHI technique: ฿85,000–200,000 for 2,000 grafts. Compare: Korea ฿200,000–400,000 for the same procedure.",
+      },
+      {
+        q: "How long do I need to stay in Bangkok for a hair transplant?",
+        a: "Minimum 4–5 days: Day 1 consultation, Day 2 procedure, Days 3–4 recovery and post-op check, Day 5 fly home. Most patients stay 5–7 days. No second trip required for FUE.",
+      },
+      {
+        q: "When will I see results after Bangkok FUE?",
+        a: "New growth starts at 3–4 months, becomes noticeable at 6–9 months, full result at 12–18 months. Shock loss (transplanted hairs falling out) at 2–4 weeks is normal and expected — don't panic.",
+      },
+      {
+        q: "Is Bangkok safe for hair transplants?",
+        a: "Yes, at licensed clinics. Thailand's medical council requires all transplant procedures to be performed by registered doctors. Trust Score 70+ clinics on this site have been verified through reviewer credibility analysis. Ask to see the surgeon's medical registration before booking.",
+      },
+    ],
+    related: ["dhi-vs-fue-bangkok", "smp-scalp-micropigmentation-bangkok"],
+  },
+  {
+    slug: "dhi-vs-fue-bangkok",
+    focusTags: ["hair"],
+    title: "DHI vs FUE Hair Transplant in Bangkok — Which Is Better? (2026)",
+    metaTitle: "DHI vs FUE Bangkok 2026 — Difference, Cost & Which to Choose",
+    metaDescription:
+      "DHI vs FUE hair transplant in Bangkok: DHI costs ฿20,000–40,000 more but offers denser results. Which technique suits your hair loss and budget?",
+    updated: "2026-06-03",
+    intro:
+      "DHI (Direct Hair Implantation) and FUE (Follicular Unit Extraction) are the two main hair transplant techniques offered in Bangkok. Both extract grafts individually from the donor area — the difference is in how they're implanted. Understanding which suits your case can save you money and get you a better result.",
+    sections: [
+      {
+        heading: "The core difference: implantation method",
+        body:
+          "FUE: grafts are extracted, then the surgeon creates recipient site incisions (channels) first, then implants grafts into the channels. Two-step process. Allows very precise angle control. Slightly longer outside-body time for grafts. " +
+          "DHI (Choi pen): grafts are loaded into a pen-like device and implanted directly without pre-made channels — extraction and implantation in one motion. " +
+          "In practice, DHI tends to produce slightly higher density in the implanted area because channels are made and filled simultaneously, reducing the window of graft exposure to air. The difference is modest — an experienced FUE surgeon achieves comparable density. " +
+          "DHI is particularly favoured for: hairline work (very precise angle/direction control), and patients who want to keep existing hair in the recipient area (no pre-made channels means less disruption).",
+      },
+      {
+        heading: "Cost comparison in Bangkok",
+        body:
+          "FUE: ฿35–80/graft = ฿70,000–160,000 for 2,000 grafts at standard clinics. " +
+          "DHI: ฿45–100/graft = ฿90,000–200,000 for 2,000 grafts. Choi pens are consumables — the extra cost is real. " +
+          "The premium for DHI is ฿20,000–40,000 for a typical session. Worth it for hairline refinement or density-sensitive areas. Overkill for large coverage areas where cost-per-graft is the priority. " +
+          "Some Bangkok clinics offer hybrid FUE+DHI: FUE for large areas (cheaper), DHI for hairline (more precise). This is a good middle-ground — ask about it.",
+      },
+      {
+        heading: "Which technique should you choose?",
+        body:
+          "Choose FUE if: you need large coverage (3,000+ grafts), budget is a priority, your surgeon has strong FUE experience, or you're doing beard/eyebrow restoration. " +
+          "Choose DHI if: you're refining a hairline, have existing hair in the recipient zone you want to preserve, or your clinic's DHI specialist has significantly more DHI cases than FUE. " +
+          "What matters most: the surgeon's experience and graft survival rate, NOT the technique name. A skilled FUE surgeon outperforms an inexperienced DHI clinic every time. Ask to see before/after photos of at least 10 cases with your Norwood level.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Is DHI better than FUE for hair transplant?",
+        a: "Not categorically. DHI offers marginal density advantages and better precision for hairline work. For large coverage areas, experienced FUE delivers comparable results at lower cost. The surgeon's skill matters more than the technique.",
+      },
+      {
+        q: "How much more does DHI cost vs FUE in Bangkok?",
+        a: "DHI typically costs ฿20,000–40,000 more per session due to Choi pen consumables. FUE: ฿70,000–160,000 for 2,000 grafts. DHI: ฿90,000–200,000 for the same graft count.",
+      },
+      {
+        q: "Can I get a hybrid FUE + DHI in Bangkok?",
+        a: "Yes — several Bangkok clinics offer hybrid sessions: FUE for the crown/mid-scalp (large area, cost-efficient) and DHI for the hairline (precision). This is a popular option for patients wanting both coverage and a natural hairline.",
+      },
+    ],
+    related: ["fue-hair-transplant-bangkok-cost", "smp-scalp-micropigmentation-bangkok"],
+  },
+  {
+    slug: "smp-scalp-micropigmentation-bangkok",
+    focusTags: ["hair"],
+    title: "SMP (Scalp Micropigmentation) in Bangkok — Cost, Sessions & Results (2026)",
+    metaTitle: "SMP Bangkok 2026 — Scalp Micropigmentation Cost & Best Clinics",
+    metaDescription:
+      "SMP in Bangkok costs ฿15,000–50,000 per session. The non-surgical alternative to hair transplants — how it works, how many sessions needed, and what to look for in a Bangkok SMP specialist.",
+    updated: "2026-06-03",
+    intro:
+      "Scalp Micropigmentation (SMP) is a non-surgical procedure that replicates the look of a shaved head or adds density to thinning hair using micro-pigment deposits. Bangkok has a growing number of SMP specialists at prices 40–60% below the UK or Australia. This guide covers costs, sessions, and how to avoid the most common SMP pitfalls.",
+    sections: [
+      {
+        heading: "SMP costs in Bangkok (2026)",
+        body:
+          "SMP pricing depends on the coverage area and number of sessions. Full scalp (grade 1–2 shaved look): ฿40,000–100,000 total across 2–3 sessions. " +
+          "Per-session pricing: ฿15,000–50,000/session depending on area and clinic tier. Most full-scalp SMP requires 2–3 sessions spaced 2–4 weeks apart. " +
+          "Hairline only (density addition to existing hair): ฿15,000–30,000/session, usually 1–2 sessions. " +
+          "Scar camouflage (FUE/FUT scars): ฿12,000–25,000/session. " +
+          "Compare: UK/Australia ฿80,000–200,000+ for full scalp. Bangkok is significantly more affordable with comparable quality at certified clinics.",
+      },
+      {
+        heading: "What SMP can and cannot do",
+        body:
+          "SMP CAN: create the illusion of a closely-shaved head on a bald scalp; add the appearance of density to thinning hair; camouflage FUE/FUT transplant scars; define a hairline on a shaved head. " +
+          "SMP CANNOT: create actual hair or growth; work well on hair longer than grade 1–2 (the dots become visible); permanently solve hair loss progression (you may need touch-ups as hair continues to thin). " +
+          "Ideal candidates: men with Norwood 5–7 who want coverage without surgery; men post-FUE wanting to camouflage donor scars; men with diffuse thinning wanting more density appearance without surgery.",
+      },
+      {
+        heading: "What to look for in a Bangkok SMP artist",
+        body:
+          "Pigment quality is the #1 long-term concern: cheap pigments turn blue or green within 1–3 years. Ask specifically whether they use Scalp Aesthetics, Folicule, or equivalent specialist SMP pigments — not tattoo ink. " +
+          "Needle technique: SMP requires a specific stippling technique (dots, not lines). Ask to see a portfolio of healed results — fresh SMP always looks sharp, healed SMP reveals the real quality. " +
+          "Skin tone matching: darker skin types require different pigment selection. Show your artist reference photos from clients with similar complexion. " +
+          "Sessions: reputable Bangkok SMP artists never promise completion in one session — it takes 2–3 to build depth and ensure even coverage.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does SMP cost in Bangkok?",
+        a: "Full scalp SMP: ฿40,000–100,000 total (2–3 sessions at ฿15,000–50,000/session). Hairline density addition: ฿15,000–30,000 per session. Scar camouflage: ฿12,000–25,000 per session. Compare: UK/Australia ฿80,000–200,000+ for full scalp.",
+      },
+      {
+        q: "How many SMP sessions do I need?",
+        a: "Full scalp: 2–3 sessions spaced 2–4 weeks apart. Hairline touch-up or density: 1–2 sessions. Each session builds on the last — never judge the result after session 1.",
+      },
+      {
+        q: "Does SMP look natural?",
+        a: "Yes, when done by a specialist with good pigments. The key is matching dot size to your natural follicle size and using pigments that don't discolour. Avoid artists who use standard tattoo ink — it turns blue/green within 2–3 years.",
+      },
+      {
+        q: "How long does SMP last?",
+        a: "3–5 years before a touch-up is needed. Fading is gradual and predictable. Sun exposure accelerates fading — SPF on the scalp helps longevity. Most Bangkok SMP clients return for a refresh session at 3–4 years.",
+      },
+    ],
+    related: ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
+  },
 ];
 
 export function findGuide(slug: string): Guide | null {

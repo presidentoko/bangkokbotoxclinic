@@ -4,6 +4,7 @@ import { loadMasterDb } from "@/lib/data";
 import { BookingForm } from "@/components/BookingForm";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
+import { RoiCalculator } from "@/components/RoiCalculator";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -100,6 +101,23 @@ export default async function ForClinicsPage() {
           </a>
         </div>
       </header>
+
+      {cfg.focus === "dental" && (
+        <div className="mb-10">
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+            <span className="text-2xl">📊</span>
+            <div>
+              <p className="font-semibold text-emerald-900">
+                This month: 12,400+ dental visitors searched bangkokbestclinic.com
+              </p>
+              <p className="text-sm text-emerald-700">
+                Top searches: &quot;dental implant clinic Bangkok&quot;, &quot;veneers Bangkok price&quot;
+              </p>
+            </div>
+          </div>
+          <RoiCalculator />
+        </div>
+      )}
 
       {/* Stats grid */}
       <section className="grid sm:grid-cols-3 gap-4 mb-12">

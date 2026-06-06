@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 251 250 246;          /* cream */
+  --bg-elev: 255 254 250;
+  --fg: 15 22 38;             /* navy-900 */
+  --muted: 102 96 80;          /* warm gray */
+  --border: 216 209 191;
+  --accent: 40 52 76;          /* navy-700 */
+  --gold: 220 170 74;
+}
+html.dark {
+  --bg: 10 9 5;
+  --bg-elev: 26 23 19;
+  --fg: 244 241 232;
+  --muted: 168 158 138;
+  --border: 51 46 35;
+  --accent: 220 170 74;
+  --gold: 220 170 74;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, "Noto Sans KR", "Noto Sans Thai", sans-serif;
+  @apply antialiased;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+  letter-spacing: -0.01em;
+}
+
+/* Display / hero typography */
+h1, h2, h3, .font-display {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-feature-settings: "ss01", "ss03";
+}
+
+.glass {
+  background: rgb(var(--bg-elev) / 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgb(var(--border) / 0.6);
+}
+.card {
+  background: rgb(var(--bg-elev));
+  border: 1px solid rgb(var(--border));
+  border-radius: 1rem;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.card-hover:hover {
+  border-color: rgb(var(--accent));
+  box-shadow: 0 20px 60px -20px rgba(15,22,38,0.18), 0 8px 24px -8px rgba(15,22,38,0.12);
+  transform: translateY(-2px);
+}
+.muted { color: rgb(var(--muted)); }
+
+/* Gold ribbon — used for verified partner / premium chips */
+.gold-ribbon {
+  background: linear-gradient(135deg, #dcaa4a 0%, #c98f2c 50%, #a87122 100%);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+/* Trust score chip color ramp */
+.trust-chip {
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold tabular-nums;
+}
+.trust-chip[data-tier="high"] { @apply bg-mint-50 text-mint-700 ring-1 ring-mint-200; }
+.trust-chip[data-tier="mid"]  { @apply bg-gold-50 text-gold-700 ring-1 ring-gold-200; }
+.trust-chip[data-tier="low"]  { background: rgb(193 74 61 / .1); color: #9b3328; }
+
+/* Prominent source badge */
+.src-badge {
+  @apply inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold;
+  background: rgb(var(--bg-elev));
+  border: 1px solid rgb(var(--border));
+}
+.src-badge[data-source="reddit"]   { color: #d97706; border-color: rgb(217 119 6 / .25); }
+.src-badge[data-source="naver"]    { color: #047857; border-color: rgb(4 120 87 / .25); }
+.src-badge[data-source="maps"]     { color: #1e3a8a; border-color: rgb(30 58 138 / .25); }
+.src-badge[data-source="photos"]   { color: #6d28d9; border-color: rgb(109 40 217 / .25); }
+.src-badge[data-source="videos"]   { color: #b91c1c; border-color: rgb(185 28 28 / .25); }
+.src-badge[data-source="bookimed"] { color: #28344c; border-color: rgb(40 52 76 / .35); }
+.src-badge[data-source="website"]  { @apply text-ink-700 dark:text-ink-300; }
+
+/* Hero blobs (softer) */
+.blob {
+  position: absolute; border-radius: 9999px; filter: blur(80px);
+  opacity: 0.35; pointer-events: none;
+  animation: blob 14s ease-in-out infinite;
+}
+
+/* Subtle paper-texture grid bg */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(var(--border) / .35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--border) / .35) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000 50%, transparent 100%);
+}
+
+/* Marquee track for testimonials / press strip */
+.marquee-track {
+  display: flex; gap: 2rem;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+/* Shimmer skeleton */
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgb(var(--border)/.4), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Premium dark CTA button */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition;
+  background: rgb(var(--fg));
+  color: rgb(var(--bg));
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -8px rgba(15,22,38,0.3); }
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white transition;
+  background: linear-gradient(135deg, #dcaa4a 0%, #c98f2c 100%);
+  box-shadow: 0 8px 20px -6px rgba(201,143,44,0.4);
+}
+.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -6px rgba(201,143,44,0.5); }
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition border;
+  border-color: rgb(var(--border));
+  color: rgb(var(--fg));
+}
+.btn-ghost:hover { background: rgb(var(--bg-elev)); border-color: rgb(var(--accent)); }
+
+/* Eyebrow label */
+.eyebrow {
+  @apply inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em];
+  color: rgb(var(--accent));
+}
+
+/* Scroll-triggered fade-up (apply class .reveal to elements) */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.in-view { opacity: 1; transform: translateY(0); }

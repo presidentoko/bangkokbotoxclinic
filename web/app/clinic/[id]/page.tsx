@@ -24,6 +24,10 @@ import { PantipMentions } from "@/components/PantipMentions";
 import { FaqSection } from "@/components/FaqSection";
 import { RelatedExplore } from "@/components/RelatedExplore";
 import { loadWikiSummary } from "@/lib/wiki";
+import { StickyClinicBar } from "@/components/StickyClinicBar";
+import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
+import { ClinicCtaCard } from "@/components/ClinicCtaCard";
+import { extractPriceEstimates } from "@/lib/priceEstimates";
 import type { Metadata } from "next";
 
 // 서버 비용 극단 최소화: top 100 클리닉만 pre-build.
@@ -92,6 +96,9 @@ export default async function ClinicPage(
   const pricingTop = pricing ? summarisePackages(pricing, 6) : [];
   const priceRange = pricing ? priceRangeTHB(pricing) : null;
 
+  const allReviews = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])];
+  const priceEstimates = extractPriceEstimates(allReviews);
+
   // Photos — hair-project 스크랩 (헤어 사이트) / Places API (추후)
   const photos = await loadPhotos(c.id);
 
@@ -138,6 +145,11 @@ export default async function ClinicPage(
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <ViewBeacon clinicId={c.id} />
+      <StickyClinicBar
+        clinicName={c.name}
+        phone={c.phone || undefined}
+        lineId={null}
+      />
       <FloatingContactBar clinicName={c.name} phone={c.phone} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
@@ -373,6 +385,16 @@ export default async function ClinicPage(
 
         {/* Sticky sidebar */}
         <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
+          <ClinicPriceBlock
+            estimates={priceEstimates}
+            hdmallMin={priceRange?.min ?? null}
+            hdmallMax={priceRange?.max ?? null}
+          />
+          <ClinicCtaCard
+            clinicName={c.name}
+            phone={c.phone || undefined}
+            lineId={null}
+          />
           {/* Hero CTA — 가장 prominent. accent gradient + 강한 contrast */}
           <div
             className="rounded-xl p-4 text-white shadow-lg"

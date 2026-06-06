@@ -385,7 +385,7 @@ export function DashboardView({
       {/* First-visit interactive tour (auto-disabled for partners) */}
       <OnboardingTour disabled={isPartner || isDemo} />
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 xl:pl-52 py-6">
         {/* Sticky "action needed" — hidden when nothing to act on */}
         <ActionAlert
           newLeads={recentLeads.filter((l) => (leadStatus[l.id] ?? "new") === "new").length}
