@@ -20,6 +20,7 @@ export const WhatsAppCTA = dynamic(() => import("./WhatsAppCTA"), { ssr: false }
 export const AccessibilityToolbar = dynamic(() => import("./AccessibilityToolbar"), { ssr: false });
 export const ScrollToTopButton = dynamic(() => import("./ScrollToTopButton"), { ssr: false });
 export const ReadingProgressBar = dynamic(() => import("./ReadingProgressBar"), { ssr: false });
+export const NavSpacer = dynamic(() => import("./NavSpacer").then((m) => m.NavSpacer), { ssr: false });
 
 // ── Home (below-fold + heavy interactive) ────────────────────
 export const LiveTicker = dynamic(() => import("./LiveTicker"), { ssr: false });

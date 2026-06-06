@@ -7,14 +7,13 @@ import { ToastProvider } from "@/components/Toast";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import SisterSites from "@/components/SisterSites";
 import { CurrencyProvider } from "@/components/CurrencyConverter";
-import { NavSpacer } from "@/components/NavSpacer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // Hydration-after 위젯들 — initial HTML 에서 제외. components/LazyWidgets.tsx 참고.
 import {
   PersonalizationQuiz, SocialProofToasts, LiveChatBubble, CookieConsent,
   MobileBottomNav, DealsAlert, ExitIntentPopup, WhatsAppCTA,
-  AccessibilityToolbar, ScrollToTopButton, ReadingProgressBar,
+  AccessibilityToolbar, ScrollToTopButton, ReadingProgressBar, NavSpacer,
 } from "@/components/LazyWidgets";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
