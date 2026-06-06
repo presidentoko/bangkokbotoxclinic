@@ -762,7 +762,7 @@ export default async function ProductPage({
               </div>
 
               {/* One-line verdict */}
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
+              <p className="product-summary text-sm sm:text-base text-neutral-600 leading-relaxed">
                 {summary}
               </p>
 
@@ -920,6 +920,15 @@ export default async function ProductPage({
           pageUrl={pageUrl}
         />
 
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".product-summary"],
+          },
+          "url": pageUrl,
+        }} />
         <JsonLd data={productLd(p, pageUrl)} />
         <JsonLd data={breadcrumbLd([
           { name: "BangkokFillers", url: `https://bangkokfillers.com/${locale}` },

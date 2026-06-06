@@ -104,6 +104,22 @@ export default async function ConcernHub({
     };
   });
 
+  // AEO: direct-answer paragraph for AI search engines
+  const totalReviews = getRanking(concern)
+    .slice(0, 20)
+    .reduce((sum, e) => {
+      const p = getProduct(e.product_id);
+      return sum + (p?.konvy_review_count ?? 0);
+    }, 0);
+  const topProduct = rows[0];
+  const rankingCount = rows.length;
+  const directAnswer =
+    locale === "ko" && topProduct
+      ? `태국에서 ${concernLabel(locale, concern)} 최고 제품 TOP ${rankingCount}를 성분 데이터와 실제 리뷰로 분석했습니다. 1위는 ${topProduct.brand} ${topProduct.name}입니다.`
+      : locale === "en" && topProduct
+        ? `We ranked ${rankingCount} Thai skincare products for ${concernLabel(locale, concern)} by ingredient efficacy and ${totalReviews.toLocaleString()} verified reviews. Top pick: ${topProduct.brand} ${topProduct.name}.`
+        : null;
+
   const top = rows.slice(0, 20);
   const podium = rows.slice(0, 3);
   const products = getRanking(concern)
@@ -146,6 +162,11 @@ export default async function ConcernHub({
         <h1 className="font-serif-display text-2xl sm:text-4xl font-semibold leading-tight text-[#1a1a1a]">
           {title}
         </h1>
+        {directAnswer && (
+          <p className="text-sm text-neutral-600 max-w-prose">
+            {directAnswer}
+          </p>
+        )}
         <p className="text-base sm:text-lg text-neutral-700 max-w-prose leading-relaxed">
           {intro}
         </p>

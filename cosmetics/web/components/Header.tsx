@@ -1,9 +1,37 @@
 import Link from "next/link";
-import { t, concernLabelShort, type Locale } from "@/lib/i18n";
+import { t, concernLabelShort, LOCALES, type Locale } from "@/lib/i18n";
 import { CONCERNS } from "@/lib/data";
 
+const LOCALE_CODES: Record<Locale, string> = {
+  th: "TH", en: "EN", ko: "KO", ja: "JA", ar: "AR",
+};
+
+function LocaleToggle({ locale }: { locale: Locale }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {LOCALES.map((l) =>
+        l === locale ? (
+          <span
+            key={l}
+            className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-rose-500 text-white"
+          >
+            {LOCALE_CODES[l]}
+          </span>
+        ) : (
+          <Link
+            key={l}
+            href={`/${l}`}
+            className="text-[10px] font-medium px-1.5 py-0.5 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
+          >
+            {LOCALE_CODES[l]}
+          </Link>
+        )
+      )}
+    </div>
+  );
+}
+
 export function Header({ locale }: { locale: Locale }) {
-  const other = locale === "th" ? "en" : "th";
   const isTh = locale === "th";
   return (
     <header className="sticky top-0 z-50 border-b border-[#efe1db] bg-[#fbf4f1]/90 backdrop-blur-sm">
@@ -17,6 +45,15 @@ export function Header({ locale }: { locale: Locale }) {
         </Link>
         <div className="flex items-center gap-1.5">
           <Link
+            href={`/${locale}/search`}
+            className="flex items-center justify-center w-7 h-7 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
+            aria-label="Search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </Link>
+          <Link
             href={`/${locale}/quiz`}
             className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors"
           >
@@ -28,12 +65,7 @@ export function Header({ locale }: { locale: Locale }) {
           >
             {isTh ? "โฆษณา" : "Ads"}
           </Link>
-          <Link
-            href={`/${other}`}
-            className="uppercase text-xs font-medium px-2.5 py-1 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
-          >
-            {other}
-          </Link>
+          <LocaleToggle locale={locale} />
         </div>
       </div>
 
@@ -87,6 +119,16 @@ export function Header({ locale }: { locale: Locale }) {
         ))}
         <div className="ml-auto flex items-center gap-1 shrink-0">
           <Link
+            href={`/${locale}/search`}
+            className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50 whitespace-nowrap"
+            aria-label="Search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <span className="text-sm">{isTh ? "ค้นหา" : "Search"}</span>
+          </Link>
+          <Link
             href={`/${locale}/quiz`}
             className="text-xs font-semibold px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors whitespace-nowrap"
           >
@@ -110,12 +152,7 @@ export function Header({ locale }: { locale: Locale }) {
           >
             {isTh ? "โฆษณา" : "Advertise"}
           </Link>
-          <Link
-            href={`/${other}`}
-            className="uppercase text-xs font-medium px-2.5 py-1 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
-          >
-            {other}
-          </Link>
+          <LocaleToggle locale={locale} />
         </div>
       </nav>
     </header>
