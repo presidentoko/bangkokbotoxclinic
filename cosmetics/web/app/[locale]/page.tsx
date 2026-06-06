@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { t, concernLabel, type Locale } from "@/lib/i18n";
+import { t, concernLabel, LOCALES, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
@@ -36,10 +36,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${loc}`,
-      languages: {
-        th: `${BASE}/th`,
-        en: `${BASE}/en`,
-      },
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
     },
   };
 }
