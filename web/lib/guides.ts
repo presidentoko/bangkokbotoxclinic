@@ -817,6 +817,83 @@ export const GUIDES: Guide[] = [
     ],
     related: ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
   },
+  // ── Dental implant cost + botox price guides ───────────────────────────────
+  {
+    slug: "dental-implant-cost-thailand",
+    focusTags: ["dental"],
+    title: "Dental Implant Cost in Thailand (2026)",
+    metaTitle: "Dental Implant Cost in Thailand 2026 — Prices, Clinics & Guide",
+    metaDescription:
+      "Dental implant costs in Thailand: single implant ฿30,000–฿80,000, all-on-4 from ฿200,000. Compare Bangkok vs Pattaya vs Phuket. Verified clinic data updated 2026.",
+    updated: "2026-06-01",
+    intro:
+      "Thailand is one of Asia's leading dental tourism destinations, offering implant treatments at 50–70% below UK and US prices with internationally-accredited clinics.",
+    sections: [
+      {
+        heading: "Dental Implant Prices in Thailand by City",
+        body: "Bangkok clinics: single implant ฿35,000–฿80,000 (Nobel Biocare, Straumann) or ฿30,000–฿50,000 (Korean/Chinese brands). Pattaya: ฿30,000–฿60,000. Phuket: ฿35,000–฿75,000. All-on-4 in Bangkok averages ฿200,000–฿450,000 per arch. Prices include implant, abutment, and crown unless stated.",
+      },
+      {
+        heading: "Thailand vs US, UK, and Korea",
+        body: "Single implant in the US: $3,000–$6,000 (฿110,000–฿220,000). UK: £2,500–£4,500. South Korea: ₩1,500,000–฿3,000,000 (฿40,000–฿85,000). Thailand is comparable to Korea in price while offering English-speaking staff and direct flights from major hubs.",
+      },
+      {
+        heading: "What to Check Before Booking",
+        body: "Verify the clinic's accreditation (JCI or ISO 9001). Ask which implant brand they use (Nobel Biocare and Straumann are internationally recognized). Confirm the quote includes all components: implant body, abutment, crown, and follow-up. Most reputable Bangkok clinics offer a 5–10 year warranty on the implant and 1 year on the crown.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does a dental implant cost in Thailand?",
+        a: "A single dental implant in Thailand costs ฿30,000–฿80,000 including the implant, abutment, and crown. Premium brands (Nobel Biocare, Straumann) cost more. All-on-4 starts from ฿200,000 per arch. This is 50–70% cheaper than equivalent treatment in the US or UK.",
+      },
+      {
+        q: "Is it safe to get dental implants in Thailand?",
+        a: "Thailand has internationally accredited dental hospitals and specialist implantology clinics, particularly in Bangkok. Key safety indicators: JCI or ISO accreditation, doctor trained abroad (US, Germany, Australia), and a verifiable patient review history. Our Trust Score factors in review credibility and volume.",
+      },
+      {
+        q: "How long does the dental implant process take in Thailand?",
+        a: "A standard single implant takes 3–6 months total: implant placement (day 1), osseointegration healing (3–5 months), then crown fitting. For medical tourists, some clinics offer 'immediate loading' or 'teeth in a day' protocols that compress the timeline, though these suit only specific cases.",
+      },
+    ],
+    related: ["botox-price-bangkok-2026"],
+  },
+  {
+    slug: "botox-price-bangkok-2026",
+    focusTags: ["botox"],
+    title: "Botox Price in Bangkok 2026 — Clinics & Costs",
+    metaTitle: "Botox Price Bangkok 2026 — Per Unit, Per Area, Best Clinics",
+    metaDescription:
+      "Botox prices in Bangkok: ฿150–฿400/unit, ฿3,000–฿12,000 per area. Allergan vs Korean brands. Top clinics by Trust Score. Updated June 2026.",
+    updated: "2026-06-01",
+    intro:
+      "Bangkok is Southeast Asia's top destination for aesthetic medicine, with hundreds of clinics offering Botox at prices significantly below Western markets.",
+    sections: [
+      {
+        heading: "Botox Pricing in Bangkok — Per Unit vs Per Area",
+        body: "Most Bangkok clinics price Botox in one of two ways: per unit (฿150–฿400/unit) or per area (฿3,000–฿8,000/area). A standard forehead treatment uses 15–25 units; crow's feet 10–15 units per side. Budget clinics use Korean brands (Botulax, Nabota) at ฿150–฿200/unit. Premium clinics use Allergan Botox or Dysport at ฿300–฿450/unit.",
+      },
+      {
+        heading: "Which Brand: Allergan vs Korean Botox",
+        body: "Allergan (Botox) and Dysport are FDA/EMA-approved and have the longest safety records. Korean brands (Botulax, Hutox, Nabota, Innotox) are approved in Korea and popular in Asia — they are generally safe but have shorter track records. The choice affects price and expected duration (3–4 months for premium brands, 2–3 months for some Korean brands).",
+      },
+      {
+        heading: "What to Look for in a Bangkok Botox Clinic",
+        body: "Always confirm the injector is a licensed doctor or nurse practitioner — not a technician. Ask to see the product box and lot number before injection (confirms the brand). Reputable clinics display their doctor licenses and product certifications. Trust Score on this site tracks review credibility, staff quality mentions, and negative signals.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does Botox cost in Bangkok?",
+        a: "Botox in Bangkok costs ฿150–฿400 per unit depending on brand (Allergan, Dysport, Korean brands). Per-area pricing: ฿3,000–฿8,000 per area. Full forehead + frown lines + crow's feet typically costs ฿8,000–฿20,000 total. Premium clinics charge more but use internationally recognized brands.",
+      },
+      {
+        q: "Is Botox safe in Thailand?",
+        a: "Botox is widely and safely administered in Thailand by licensed doctors. Ensure the clinic shows you the sealed product vial before injection to confirm the brand. Complications are rare but more likely from unlicensed practitioners — choose clinics with verified doctor credentials and high review volumes.",
+      },
+    ],
+    related: ["dental-implant-cost-thailand"],
+  },
 ];
 
 export function findGuide(slug: string): Guide | null {
