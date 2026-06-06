@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import type { Locale } from "@/lib/i18n";
+import { LOCALES, type Locale } from "@/lib/i18n";
 import { QuizClient } from "@/components/QuizClient";
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
   params,
