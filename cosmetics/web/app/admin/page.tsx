@@ -1,4 +1,6 @@
-import { requireAuth, logout, setFeatured, clearFeatured, saveBanner } from "./actions";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { logout, setFeatured, clearFeatured, saveBanner } from "./actions";
 import { getFeaturedMap, getBanner, kvAvailable } from "@/lib/adminData";
 import { CONCERNS, allProducts, getProduct, productSlug, siteStats } from "@/lib/data";
 import { concernLabel } from "@/lib/i18n";
@@ -8,7 +10,9 @@ export const metadata = { title: "Admin — BangkokFillers", robots: "noindex" }
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
-  await requireAuth();
+  const jar = await cookies();
+  const expected = process.env.ADMIN_PASSWORD;
+  if (!expected || jar.get("admin_s")?.value !== expected) redirect("/admin/login");
 
   const featured = await getFeaturedMap();
   const banner = await getBanner();
