@@ -2,10 +2,12 @@
 // Partner signup form — clinic search + contact info → POST /api/partner-signup.
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type ClinicHit = { id: string; name: string; district: string; city: string; trust: number };
 
 export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]; preselect?: ClinicHit | null }) {
+  const router = useRouter();
   const [search, setSearch] = useState(preselect?.name ?? "");
   const [selected, setSelected] = useState<ClinicHit | null>(preselect ?? null);
   const [contactName, setContactName] = useState("");
@@ -45,7 +47,11 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
         }),
       });
       if (res.ok) {
-        setStatus("ok");
+        const params = new URLSearchParams();
+        if (contactEmail) params.set("email", contactEmail);
+        if (selected?.name) params.set("clinic", selected.name);
+        router.push(`/onboarding/success?${params.toString()}`);
+        return;
       } else {
         const t = await res.text();
         setErrMsg(t || "Submission failed.");
@@ -55,25 +61,6 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
       setErrMsg(String(e));
       setStatus("error");
     }
-  }
-
-  if (status === "ok") {
-    return (
-      <div className="bg-white border-2 border-emerald-300 rounded-xl p-8 text-center">
-        <div className="text-5xl mb-3">✓</div>
-        <h2 className="text-xl font-bold mb-2">Pilot request received</h2>
-        <p className="text-sm text-[var(--muted)] max-w-md mx-auto leading-relaxed">
-          We&apos;ll contact you at <strong>{contactEmail}</strong> within 24 hours to confirm
-          dashboard access + LINE bot wiring. {selected && (
-            <> Your dashboard will be at{" "}
-              <a href={`/dashboard/${selected.id}`} className="text-blue-600 underline">
-                /dashboard/{selected.id.slice(0, 16)}…
-              </a>
-            </>
-          )}
-        </p>
-      </div>
-    );
   }
 
   return (
