@@ -17,7 +17,7 @@ import {
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, concernFaqLd, breadcrumbLd } from "@/lib/schema";
-import { FEATURED_PRODUCTS } from "@/lib/featured";
+import { getFeaturedMap } from "@/lib/adminData";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
@@ -26,6 +26,7 @@ import { ProductFilter } from "@/components/ProductFilter";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
+export const revalidate = 300; // 5 min — picks up KV changes without full rebuild
 
 export async function generateMetadata({
   params,
@@ -113,7 +114,8 @@ export default async function ConcernHub({
   const picks = topPicks(concern, 8);
   const sellers = bestSellers(concern, 8);
   const loved = mostLoved(concern, 8);
-  const featuredId = FEATURED_PRODUCTS[concern];
+  const featuredMap = await getFeaturedMap();
+  const featuredId = featuredMap[concern];
   const featuredProduct = featuredId ? getProduct(featuredId) : null;
 
   const labels = {
