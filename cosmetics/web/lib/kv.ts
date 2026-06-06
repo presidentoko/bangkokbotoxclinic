@@ -1,70 +1,75 @@
-// Thin wrapper around Vercel KV REST API — no package needed.
-// Set up: Vercel dashboard → Storage → KV → Create → Connect to project.
-// Required env vars (auto-set by Vercel after connection):
-//   KV_REST_API_URL, KV_REST_API_TOKEN
+// Redis client using REDIS_URL env var (set automatically by Vercel Redis integration).
+import { createClient } from "redis";
 
-const BASE = process.env.KV_REST_API_URL;
-const TOKEN = process.env.KV_REST_API_TOKEN;
+type RedisClient = ReturnType<typeof createClient>;
+let _client: RedisClient | null = null;
+let _connecting = false;
 
-function headers() {
-  return { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" };
+async function getClient(): Promise<RedisClient | null> {
+  if (!process.env.REDIS_URL) return null;
+  if (_client?.isReady) return _client;
+  if (_connecting) {
+    await new Promise((r) => setTimeout(r, 200));
+    return _client?.isReady ? _client : null;
+  }
+  _connecting = true;
+  try {
+    const c = createClient({ url: process.env.REDIS_URL });
+    c.on("error", () => {});
+    await c.connect();
+    _client = c;
+  } catch {
+    _client = null;
+  } finally {
+    _connecting = false;
+  }
+  return _client?.isReady ? _client : null;
 }
 
 export function kvAvailable() {
-  return !!(BASE && TOKEN);
+  return !!process.env.REDIS_URL;
 }
 
 export async function kvHgetall(key: string): Promise<Record<string, string>> {
-  if (!kvAvailable()) return {};
+  const r = await getClient();
+  if (!r) return {};
   try {
-    const res = await fetch(`${BASE}/hgetall/${encodeURIComponent(key)}`, {
-      headers: headers(),
-      next: { revalidate: 300 }, // 5 min cache — avoids KV call on every ISR revalidation
-    });
-    const json = await res.json();
-    return (json.result as Record<string, string>) ?? {};
+    return (await r.hGetAll(key)) ?? {};
   } catch {
     return {};
   }
 }
 
 export async function kvHset(key: string, field: string, value: string) {
-  if (!kvAvailable()) return;
-  await fetch(BASE!, {
-    method: "POST",
-    headers: headers(),
-    body: JSON.stringify(["hset", key, field, value]),
-  });
+  const r = await getClient();
+  if (!r) return;
+  try {
+    await r.hSet(key, field, value);
+  } catch {}
 }
 
 export async function kvHdel(key: string, field: string) {
-  if (!kvAvailable()) return;
-  await fetch(BASE!, {
-    method: "POST",
-    headers: headers(),
-    body: JSON.stringify(["hdel", key, field]),
-  });
+  const r = await getClient();
+  if (!r) return;
+  try {
+    await r.hDel(key, field);
+  } catch {}
 }
 
 export async function kvGet(key: string): Promise<string | null> {
-  if (!kvAvailable()) return null;
+  const r = await getClient();
+  if (!r) return null;
   try {
-    const res = await fetch(`${BASE}/get/${encodeURIComponent(key)}`, {
-      headers: headers(),
-      next: { revalidate: 300 },
-    });
-    const json = await res.json();
-    return (json.result as string) ?? null;
+    return await r.get(key);
   } catch {
     return null;
   }
 }
 
 export async function kvSet(key: string, value: string) {
-  if (!kvAvailable()) return;
-  await fetch(BASE!, {
-    method: "POST",
-    headers: headers(),
-    body: JSON.stringify(["set", key, value]),
-  });
+  const r = await getClient();
+  if (!r) return;
+  try {
+    await r.set(key, value);
+  } catch {}
 }
