@@ -18,7 +18,7 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
   const [ticket, setTicket] = useState(15000);
   const [notes, setNotes] = useState("");
   const [hp, setHp] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
   const [errMsg, setErrMsg] = useState("");
 
   const matches = useMemo(() => {
