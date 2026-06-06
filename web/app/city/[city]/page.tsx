@@ -10,18 +10,18 @@ export async function generateStaticParams() {
   const db = await loadMasterDb();
   return Object.keys(db.city_counts).map((label) => {
     const clinic = db.clinics.find((c) => c.city_label === label);
-    return { slug: clinic?.city_slug ?? label.toLowerCase().replace(/\s+/g, "-") };
+    return { city: clinic?.city_slug ?? label.toLowerCase().replace(/\s+/g, "-") };
   });
 }
 
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<{ city: string }> }
 ): Promise<Metadata> {
-  const { slug } = await params;
+  const { city } = await params;
   const db = await loadMasterDb();
-  const list = db.clinics.filter((c) => c.city_slug === slug);
+  const list = db.clinics.filter((c) => c.city_slug === city);
   const clinic = list[0];
-  const cityLabel = clinic?.city_label ?? slug;
+  const cityLabel = clinic?.city_label ?? city;
   const count = list.length;
   const totalReviews = list.reduce((s, c) => s + c.total_reviews, 0);
   const title = `${count} Clinics in ${cityLabel} — Verified by Reviews`;
@@ -29,19 +29,19 @@ export async function generateMetadata(
   return {
     title,
     description,
-    alternates: { canonical: `/city/${slug}` },
-    openGraph: { title, description, url: `/city/${slug}` },
+    alternates: { canonical: `/city/${city}` },
+    openGraph: { title, description, url: `/city/${city}` },
   };
 }
 
 export default async function CityPage(
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<{ city: string }> }
 ) {
-  const { slug } = await params;
+  const { city } = await params;
   const db = await loadMasterDb();
 
   const filtered = db.clinics
-    .filter((c) => c.city_slug === slug && isClinicLike(c))
+    .filter((c) => c.city_slug === city && isClinicLike(c))
     .sort((a, b) => b.trust_score - a.trust_score);
 
   if (filtered.length === 0) notFound();
@@ -107,12 +107,12 @@ export default async function CityPage(
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
-        { name: cityLabel, url: `/city/${slug}` },
+        { name: cityLabel, url: `/city/${city}` },
       ]} />
       <CollectionPageJsonLd
         name={`Clinics in ${cityLabel}`}
         description={`${filtered.length} verified clinics in ${cityLabel}, Thailand ranked by Trust Score.`}
-        url={`/city/${slug}`}
+        url={`/city/${city}`}
         items={filtered}
       />
     </div>
