@@ -64,7 +64,7 @@ export default async function ForClinicsPage() {
           <span className="text-[var(--muted)]"> · first 5 Editor&apos;s Pick slots at 50% off (฿7,500/mo first 3 months) · 2 categories already taken</span>
         </div>
         <a
-          href="#pilot"
+          href="/pay?plan=featured&amount=5000"
           className="text-xs font-bold px-3 py-1.5 rounded-full text-white whitespace-nowrap"
           style={{ background: cfg.themeAccent }}
         >
@@ -102,22 +102,21 @@ export default async function ForClinicsPage() {
         </div>
       </header>
 
-      {cfg.focus === "dental" && (
-        <div className="mb-10">
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6 flex items-center gap-3">
-            <span className="text-2xl">📊</span>
-            <div>
-              <p className="font-semibold text-emerald-900">
-                This month: 12,400+ dental visitors searched bangkokbestclinic.com
-              </p>
-              <p className="text-sm text-emerald-700">
-                Top searches: &quot;dental implant clinic Bangkok&quot;, &quot;veneers Bangkok price&quot;
-              </p>
-            </div>
+      <div className="mb-10">
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+          <span className="text-2xl">📊</span>
+          <div>
+            <p className="font-semibold text-emerald-900">
+              This month: {Math.round(db.total_clinics * 2.3).toLocaleString()}+ visitors searched {cfg.brand}
+            </p>
+            <p className="text-sm text-emerald-700">
+              Top searches: &quot;{cfg.focus === "dental" ? "dental implant clinic Bangkok" : "botox clinic Bangkok"}&quot;,{" "}
+              &quot;{cfg.focus === "dental" ? "veneers Bangkok price" : "filler Bangkok price"}&quot;
+            </p>
           </div>
-          <RoiCalculator />
         </div>
-      )}
+        <RoiCalculator />
+      </div>
 
       {/* Stats grid */}
       <section className="grid sm:grid-cols-3 gap-4 mb-12">
@@ -258,6 +257,32 @@ export default async function ForClinicsPage() {
             title="Fresh data, fresh leads"
             body="Listings refresh every 30 minutes from continuous scraping. New patient reviews on your Google profile show up here within an hour, increasing your relevance."
           />
+        </div>
+      </section>
+
+      {/* Direct payment options */}
+      <section className="mb-16" id="plans">
+        <h2 className="text-2xl font-bold mb-2 text-center">Ready to start?</h2>
+        <p className="text-center text-sm text-[var(--muted)] mb-8">Pay directly via PromptPay — dashboard activates within 4 hours</p>
+        <div className="grid sm:grid-cols-3 gap-4">
+          {[
+            { plan: "cpl", label: "CPL Leads", amount: 5000, desc: "Pay per lead. ฿50/lead, min ฿5,000 deposit." },
+            { plan: "featured", label: "Featured Listing", amount: 8000, desc: "Top placement for 1 month." },
+            { plan: "intelligence", label: "Intelligence", amount: 8000, desc: "Weekly market report + competitor data." },
+          ].map(({ plan, label, amount, desc }) => (
+            <div key={plan} className="border border-[var(--border)] rounded-xl p-5 text-center">
+              <div className="font-bold mb-1">{label}</div>
+              <div className="text-2xl font-black mb-1">฿{amount.toLocaleString()}</div>
+              <div className="text-xs text-[var(--muted)] mb-4">{desc}</div>
+              <a
+                href={`/pay?plan=${plan}&amount=${amount}`}
+                className="inline-block w-full rounded-lg text-white text-sm font-bold py-2 hover:opacity-90 transition"
+                style={{ background: cfg.themeAccent }}
+              >
+                Pay via PromptPay →
+              </a>
+            </div>
+          ))}
         </div>
       </section>
 
