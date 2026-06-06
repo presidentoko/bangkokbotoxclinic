@@ -107,6 +107,7 @@ export default async function ForClinicsPage() {
           <span className="text-2xl">📊</span>
           <div>
             <p className="font-semibold text-emerald-900">
+              {/* 2.3x = estimated avg monthly visits per indexed clinic, based on Q2 site traffic */}
               This month: {Math.round(db.total_clinics * 2.3).toLocaleString()}+ visitors searched {cfg.brand}
             </p>
             <p className="text-sm text-emerald-700">
