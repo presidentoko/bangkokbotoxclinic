@@ -289,7 +289,8 @@ export default async function MediaKit({
           href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(isTh ? "สอบถามโฆษณา BangkokFillers" : "Advertising inquiry — BangkokFillers")}`}
           className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-2xl px-8 py-4 transition-colors shadow-sm shadow-rose-200"
         >
-          {CONTACT_EMAIL}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          {isTh ? `อีเมลหาเราที่ ${CONTACT_EMAIL}` : `Email us at ${CONTACT_EMAIL}`}
         </a>
         <p className="text-xs text-neutral-400 pt-2">
           {isTh ? "หรือดูข้อมูลเพิ่มเติมที่ " : "Or explore: "}
