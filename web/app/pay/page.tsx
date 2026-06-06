@@ -12,14 +12,25 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+const ALLOWED_AMOUNTS = new Set([5000, 8000, 15000]);
+const PLAN_LABELS: Record<string, string> = {
+  cpl: "CPL Leads — ฿50/lead",
+  featured: "Featured Listing",
+  intelligence: "Market Intelligence",
+  pilot: "30-Day Pilot",
+};
+
 export default async function PayPage({
   searchParams,
 }: {
-  searchParams: Promise<{ amount?: string; for?: string; ref?: string; id?: string }>;
+  searchParams: Promise<{ amount?: string; for?: string; ref?: string; id?: string; plan?: string }>;
 }) {
   const params = await searchParams;
   const cfg = getSiteConfig();
-  const amount = Math.max(0, Math.min(1_000_000, Number(params.amount) || 0));
+  const rawAmount = Number(params.amount) || 0;
+  const amount = ALLOWED_AMOUNTS.has(rawAmount) ? rawAmount : 0;
+  const plan = params.plan || "";
+  const planLabel = PLAN_LABELS[plan] || plan;
   const partnerName = params.for || "";
   const reference = params.ref || "";
   const clinicId = params.id || "";
@@ -27,11 +38,12 @@ export default async function PayPage({
   if (!amount) {
     return (
       <div className="max-w-md mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold mb-3">Payment link incomplete</h1>
+        <h1 className="text-2xl font-bold mb-3">Payment link invalid</h1>
         <p className="text-sm text-[var(--muted)] mb-6">
-          This link is missing the amount. Please request a fresh payment link from {cfg.brand}.
+          This link has an invalid or missing amount. Allowed amounts: ฿5,000 · ฿8,000 · ฿15,000.
+          Please request a fresh payment link from {cfg.brand}.
         </p>
-        <a href="/contact" className="inline-block rounded-lg bg-emerald-600 text-white px-5 py-2.5 font-bold">Contact us</a>
+        <a href="/for-clinics#plans" className="inline-block rounded-lg bg-emerald-600 text-white px-5 py-2.5 font-bold">View plans</a>
       </div>
     );
   }
@@ -41,6 +53,11 @@ export default async function PayPage({
       <div className="text-center mb-6">
         <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)]">{cfg.brand}</div>
         <h1 className="text-3xl font-bold mt-1">Complete your payment</h1>
+        {planLabel && (
+          <div className="inline-block mt-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold">
+            {planLabel}
+          </div>
+        )}
         <p className="text-sm text-[var(--muted)] mt-2">
           Direct Thai bank transfer · No card needed · Dashboard activates within 4 business hours
         </p>
@@ -49,7 +66,7 @@ export default async function PayPage({
       <PromptPayQR
         amountTHB={amount}
         partnerName={partnerName}
-        reference={reference}
+        reference={reference || plan}
         clinicId={clinicId}
       />
 
