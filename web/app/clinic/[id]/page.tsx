@@ -7,10 +7,7 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ClinicJsonLd, FaqJsonLd, SpeakableJsonLd } from "@/components/JsonLd";
 import { buildClinicFaqs } from "@/lib/clinic-faq";
 import { BookingForm } from "@/components/BookingForm";
-import { TrustDonut } from "@/components/TrustBadge";
 import { CategoryIcon } from "@/components/CategoryIcon";
-import { MapEmbed } from "@/components/MapEmbed";
-import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { LineButton } from "@/components/LineButton";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
@@ -19,8 +16,6 @@ import { AdPlaceholder } from "@/components/AffiliateSlot";
 import { ClaimBanner } from "@/components/ClaimBanner";
 import { ViewBeacon } from "@/components/ViewBeacon";
 import { FloatingContactBar } from "@/components/FloatingContactBar";
-import { WikiSummaryCard } from "@/components/WikiSummaryCard";
-import { PantipMentions } from "@/components/PantipMentions";
 import { FaqSection } from "@/components/FaqSection";
 import { RelatedExplore } from "@/components/RelatedExplore";
 import { loadWikiSummary } from "@/lib/wiki";
@@ -29,6 +24,29 @@ import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
+
+// Below-fold components — lazy loaded into separate chunks for faster initial bundle
+const TrustDonut = dynamic(
+  () => import("@/components/TrustBadge").then((m) => m.TrustDonut),
+  { ssr: true }
+);
+const MapEmbed = dynamic(
+  () => import("@/components/MapEmbed").then((m) => m.MapEmbed),
+  { ssr: true }
+);
+const RatingChart = dynamic(
+  () => import("@/components/RatingChart").then((m) => m.RatingChart),
+  { ssr: true }
+);
+const WikiSummaryCard = dynamic(
+  () => import("@/components/WikiSummaryCard").then((m) => m.WikiSummaryCard),
+  { ssr: true }
+);
+const PantipMentions = dynamic(
+  () => import("@/components/PantipMentions").then((m) => m.PantipMentions),
+  { ssr: true }
+);
 
 // 서버 비용 극단 최소화: top 100 클리닉만 pre-build.
 // 나머지는 첫 방문 시 on-demand 생성 → 7일 캐시 (트래픽 적은 페이지는 거의 재생성 안 됨).
