@@ -31,11 +31,20 @@ export const metadata: Metadata = {
     siteName: cfg.brand,
     locale: "en_US",
     url: SITE,
+    images: [
+      {
+        url: `${SITE}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: cfg.title,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: cfg.title,
     description: cfg.description,
+    images: [`${SITE}/opengraph-image`],
   },
   // robots: max-snippet/max-image/max-video=full → Google rich snippet
   // (긴 description, 큰 이미지 미리보기 → SERP CTR ↑)
