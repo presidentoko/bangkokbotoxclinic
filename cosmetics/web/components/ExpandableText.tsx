@@ -11,7 +11,8 @@ export function ExpandableText({
   lines?: number;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const clampClass = expanded ? "" : `line-clamp-${lines}`;
+  const CLAMP: Record<number, string> = { 2: "line-clamp-2", 3: "line-clamp-3", 4: "line-clamp-4", 5: "line-clamp-5", 6: "line-clamp-6" };
+  const clampClass = expanded ? "" : (CLAMP[lines] ?? "line-clamp-4");
   return (
     <div>
       <p

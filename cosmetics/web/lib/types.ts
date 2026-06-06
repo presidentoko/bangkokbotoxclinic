@@ -15,6 +15,7 @@ export interface Product {
   value_score: number; total_score: Record<string, number>;
   review_summary: ReviewSummary; concern_seeds: string | string[];
   konvy_rating: number; konvy_review_count: number; sold_count: number;
+  source?: string; beautrium_rating?: number; beautrium_review_count?: number;
   llm_summary?: { th: string; en: string };
   pantip?: PantipData;
   youtube?: YoutubeData;

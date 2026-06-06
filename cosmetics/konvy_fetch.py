@@ -60,6 +60,60 @@ def is_waf_challenge(html: str) -> bool:
 
 
 # ---------------------------------------------------------------------------
+# Stealth JS injected into every page context to avoid bot detection (Akamai etc.)
+# ---------------------------------------------------------------------------
+
+_STEALTH_JS = """
+(() => {
+  // 1. Remove webdriver flag — most critical for Akamai
+  Object.defineProperty(navigator, 'webdriver', {get: () => undefined, configurable: true});
+
+  // 2. Non-empty plugins list (headless has 0 plugins)
+  const _plugins = [
+    {name:'Chrome PDF Plugin',   filename:'internal-pdf-viewer', description:'Portable Document Format', length:1},
+    {name:'Chrome PDF Viewer',   filename:'mhjfbmdgcfjbbpaeojofohoefgiehjai', description:'', length:1},
+    {name:'Native Client',       filename:'internal-nacl-plugin', description:'', length:2},
+  ];
+  Object.defineProperty(navigator, 'plugins', {
+    get: () => Object.assign(_plugins, {__proto__: PluginArray.prototype}),
+    configurable: true,
+  });
+
+  // 3. languages including Thai
+  Object.defineProperty(navigator, 'languages', {
+    get: () => ['th-TH', 'th', 'en-US', 'en'], configurable: true,
+  });
+
+  // 4. window.chrome presence (headless lacks it)
+  if (!window.chrome) {
+    window.chrome = {
+      app: {isInstalled: false, InstallState: {DISABLED:'d',INSTALLED:'i',NOT_INSTALLED:'n'}, RunningState: {CANNOT_RUN:'c',READY_TO_RUN:'r',RUNNING:'running'}},
+      runtime: {
+        OnInstalledReason: {CHROME_UPDATE:'chrome_update',INSTALL:'install',SHARED_MODULE_UPDATE:'shared_module_update',UPDATE:'update'},
+        OnRestartRequiredReason: {APP_UPDATE:'app_update',OS_UPDATE:'os_update',PERIODIC:'periodic'},
+        PlatformArch: {ARM:'arm',X86_32:'x86-32',X86_64:'x86-64'},
+        PlatformOs: {ANDROID:'android',CROS:'cros',LINUX:'linux',MAC:'mac',OPENBSD:'openbsd',WIN:'win'},
+        RequestUpdateCheckStatus: {NO_UPDATE:'no_update',THROTTLED:'throttled',UPDATE_AVAILABLE:'update_available'},
+      },
+    };
+  }
+
+  // 5. Permissions API — headless returns 'denied' for notifications
+  const _origQuery = window.navigator.permissions && window.navigator.permissions.query;
+  if (_origQuery) {
+    window.navigator.permissions.query = (p) =>
+      p.name === 'notifications'
+        ? Promise.resolve({state: Notification.permission === 'default' ? 'prompt' : Notification.permission})
+        : _origQuery.call(navigator.permissions, p);
+  }
+
+  // 6. Consistent screen dimensions
+  Object.defineProperty(screen, 'availWidth',  {get: () => 1366, configurable: true});
+  Object.defineProperty(screen, 'availHeight', {get: () => 728,  configurable: true});
+})();
+"""
+
+# ---------------------------------------------------------------------------
 # Playwright browser wrapper
 # ---------------------------------------------------------------------------
 
@@ -74,7 +128,7 @@ class KonvyBrowser:
             json_text = browser.fetch_json(reviews_url(95356), referer=product_url)
     """
 
-    def __init__(self, port: int) -> None:
+    def __init__(self, port: int | None) -> None:
         self.port = port
         self._pw = None
         self._browser = None
@@ -91,12 +145,27 @@ class KonvyBrowser:
         self._pw = sync_playwright().start()
         self._browser = self._pw.chromium.launch(
             headless=True,
-            proxy={"server": f"socks5://{config.PROXY_HOST}:{self.port}"},
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-infobars",
+                "--no-first-run",
+                "--no-service-autorun",
+                "--password-store=basic",
+            ],
+            **( {"proxy": {"server": f"socks5://{config.PROXY_HOST}:{self.port}"}} if self.port else {} ),
         )
         self._context = self._browser.new_context(
             locale="th-TH",
             user_agent=config.USER_AGENT,
+            viewport={"width": 1366, "height": 768},
+            extra_http_headers={
+                "Accept-Language": "th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7",
+                "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": '"Windows"',
+            },
         )
+        self._context.add_init_script(_STEALTH_JS)
         self._page = self._context.new_page()
         return self
 

@@ -48,10 +48,7 @@ function ProofBadge({
   }
 
   if (proof === "sold") {
-    const label =
-      locale === "th"
-        ? `${formatNumber(product.sold_count)} ${t(locale, "sold")}`
-        : `${formatNumber(product.sold_count)} ${t(locale, "sold")}`;
+    const label = `${formatNumber(product.sold_count)} ${t(locale, "sold")}`;
     return (
       <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700">
         🔥 {label}
@@ -160,20 +157,26 @@ export function ProductStrip({
         )}
       </div>
 
-      {/* Horizontal scroll row */}
-      <div
-        className="flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {products.map((p) => (
-          <ProductCard
-            key={p.product_id}
-            product={p}
-            locale={locale}
-            concern={concern}
-            proof={proof}
-          />
-        ))}
+      {/* Horizontal scroll row with right-fade scroll hint */}
+      <div className="relative">
+        <div
+          className="flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory -mx-4 px-4"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {products.map((p) => (
+            <ProductCard
+              key={p.product_id}
+              product={p}
+              locale={locale}
+              concern={concern}
+              proof={proof}
+            />
+          ))}
+          {/* Spacer so last card doesn't sit flush at edge */}
+          <div className="w-4 shrink-0" aria-hidden />
+        </div>
+        {/* Fade hint — signals more content to the right */}
+        <div className="pointer-events-none absolute right-0 top-0 bottom-3 w-10 bg-gradient-to-l from-[#fbf4f1] to-transparent" />
       </div>
     </section>
   );

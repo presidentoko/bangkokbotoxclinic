@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { t, concernLabel, type Locale } from "@/lib/i18n";
+import { t, concernLabel, LOCALES, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
-import { orgLd } from "@/lib/schema";
+import { orgLd, websiteLd, faqLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -15,23 +15,28 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const loc = locale as Locale;
-  const title =
-    loc === "th"
-      ? { absolute: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์" }
-      : { absolute: "BangkokFillers — Trust data, not influencers" };
-  const description =
-    loc === "th"
-      ? "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ"
-      : "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.";
+  const TITLES: Record<string, string> = {
+    th: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
+    en: "BangkokFillers — Trust data, not influencers",
+    ko: "방콕 화장품 추천 — 태국 여행 스킨케어 순위 | BangkokFillers",
+    ja: "バンコク旅行コスメおすすめ — タイスキンケアランキング | BangkokFillers",
+    ar: "أفضل مستحضرات تجميل تايلاند للسياح | BangkokFillers",
+  };
+  const DESCS: Record<string, string> = {
+    th: "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
+    en: "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.",
+    ko: "방콕 여행에서 사야 할 태국 스킨케어 추천 — 4,000개 이상 제품을 성분 데이터와 실제 리뷰로 순위 매긴 완벽 가이드",
+    ja: "バンコク旅行で買うべきタイスキンケア完全ガイド — 4,000以上の製品を成分データと実際のレビューでランキング",
+    ar: "أفضل منتجات العناية بالبشرة التايلاندية للسياح في بانكوك — أكثر من 4,000 منتج مصنّف بالبيانات والمراجعات الحقيقية",
+  };
+  const title = { absolute: TITLES[loc] ?? TITLES["en"] };
+  const description = DESCS[loc] ?? DESCS["en"];
   return {
     title,
     description,
     alternates: {
       canonical: `${BASE}/${loc}`,
-      languages: {
-        th: `${BASE}/th`,
-        en: `${BASE}/en`,
-      },
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
     },
   };
 }
@@ -119,6 +124,33 @@ export default async function Home({
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Quiz CTA */}
+      <section>
+        <Link
+          href={`/${locale}/quiz`}
+          className="flex items-center justify-between gap-4 rounded-3xl overflow-hidden px-6 py-5 transition-all hover:shadow-md hover:shadow-rose-100 hover:-translate-y-0.5"
+          style={{
+            background: "linear-gradient(135deg, #fff0f3 0%, #fce4ec 50%, #fff8f0 100%)",
+            border: "1.5px solid #f0d9d5",
+          }}
+        >
+          <div className="space-y-0.5">
+            <p className="text-[10px] uppercase tracking-widest text-[#c9a86a] font-bold">
+              {isTh ? "แบบทดสอบ 3 ข้อ" : "3-question quiz"}
+            </p>
+            <p className="font-serif-display text-lg font-semibold text-[#2b2222]">
+              {isTh ? "หาสกินแคร์ที่ใช่สำหรับคุณ 🌸" : "Find your perfect skincare 🌸"}
+            </p>
+            <p className="text-xs text-neutral-500">
+              {isTh ? "แชร์ผลลัพธ์กับเพื่อนได้เลย" : "Get personalised picks · shareable results"}
+            </p>
+          </div>
+          <div className="flex-shrink-0 bg-rose-500 text-white rounded-2xl px-4 py-2.5 font-semibold text-sm shadow-sm shadow-rose-200 whitespace-nowrap">
+            {isTh ? "เริ่มเลย →" : "Start →"}
+          </div>
+        </Link>
       </section>
 
       {/* Concern cards */}
@@ -265,6 +297,20 @@ export default async function Home({
         </div>
       </section>
       <JsonLd data={orgLd("https://bangkokfillers.com")} />
+      <JsonLd data={websiteLd("https://bangkokfillers.com", locale)} />
+      <JsonLd data={faqLd(isTh ? [
+        { q: "BangkokFillers จัดอันดับผลิตภัณฑ์อย่างไร", a: "คะแนนมาจาก 3 มิติ: ส่วนผสมออกฤทธิ์ 45% (อ้างอิงฐานข้อมูลวิทยาศาสตร์), รีวิวจากผู้ซื้อจริง 45% (รวบรวมจาก Konvy, Watsons, Boots, iHerb), และความคุ้มค่าต่อมล/กรัม 10%" },
+        { q: "ข้อมูลราคาอัปเดตบ่อยแค่ไหน", a: "ราคาและสต็อกอัปเดตอัตโนมัติทุกวันจากแหล่งขายออนไลน์ชั้นนำในไทย" },
+        { q: "ผลิตภัณฑ์ไทยสำหรับสิวที่ดีที่สุดคืออะไร", a: "ดูหน้าจัดอันดับสิว — อันดับ 1 คำนวณจากส่วนผสม เช่น Salicylic Acid, Niacinamide และรีวิวจากผู้ใช้จริงกว่าหมื่นรีวิว" },
+        { q: "สามารถเปรียบเทียบผลิตภัณฑ์ได้ไหม", a: "ได้ — ใช้ฟีเจอร์ Compare เปรียบเทียบส่วนผสม ราคา และคะแนนรีวิวแบบเคียงข้างกันได้สูงสุด 3 รายการ" },
+        { q: "ข้อมูลส่วนผสมมาจากไหน", a: "วิเคราะห์จากฐานข้อมูลส่วนผสมที่ผ่านการตรวจสอบทางวิทยาศาสตร์ ครอบคลุมประสิทธิภาพและความปลอดภัยของส่วนผสมแต่ละตัว" },
+      ] : [
+        { q: "How does BangkokFillers rank products?", a: "Scores are built from 3 dimensions: Active ingredients 45% (peer-reviewed evidence database), Real buyer reviews 45% (aggregated from Konvy, Watsons, Boots, iHerb), and Value-per-ml/g 10%." },
+        { q: "How often is pricing data updated?", a: "Prices and stock are updated automatically every day from leading Thai online retailers." },
+        { q: "What is the best Thai skincare product for acne?", a: "See the acne ranking page — #1 is calculated from actives like Salicylic Acid and Niacinamide combined with tens of thousands of real user reviews." },
+        { q: "Can I compare products side by side?", a: "Yes — use the Compare feature to compare ingredients, pricing, and review scores for up to 3 products at once." },
+        { q: "Where does the ingredient data come from?", a: "Analysed against a peer-reviewed ingredient efficacy and safety database covering the mechanism and evidence level of each active." },
+      ])} />
     </div>
   );
 }

@@ -166,7 +166,7 @@ export function ComparisonTable({
                 <td className="px-3 py-2.5 max-w-[240px]">
                   <Link
                     href={`/${locale}/product/${r.slug}`}
-                    className="text-rose-600 hover:text-rose-800 hover:underline underline-offset-2 font-medium leading-snug"
+                    className="text-rose-600 hover:text-rose-800 hover:underline underline-offset-2 font-medium leading-snug line-clamp-2 block"
                   >
                     {productDisplayName(r.brand, r.name)}
                   </Link>

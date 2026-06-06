@@ -5,13 +5,14 @@ import { notFound } from "next/navigation";
 import {
   allProducts,
   getProduct,
+  getRanking,
   productSlug,
   productIdFromSlug,
   similarProducts,
   keyIngredients,
   cheaperAlternatives,
 } from "@/lib/data";
-import { LOCALES, t, type Locale } from "@/lib/i18n";
+import { LOCALES, t, toBaseLocale, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
@@ -24,9 +25,24 @@ import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
 
+// Statically generate only high-value product pages:
+// - All Konvy/Watsons/Boots/iHerb sourced products (have ingredient data)
+// - Beautrium products with at least 1 review (meaningful SEO content)
+// - All products ranking in top 30 of any concern
+// Beautrium-only products with 0 reviews render on-demand (dynamicParams = true default)
 export function generateStaticParams() {
+  const topIds = new Set<string>();
+  for (const concern of ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"]) {
+    getRanking(concern).slice(0, 30).forEach((r) => topIds.add(r.product_id));
+  }
+  const prioritized = allProducts().filter(
+    (p) =>
+      p.source !== "beautrium" ||            // all non-Beautrium products
+      (p.beautrium_review_count ?? 0) > 0 || // Beautrium with reviews
+      topIds.has(p.product_id)               // top-ranked any concern
+  );
   return LOCALES.flatMap((locale) =>
-    allProducts().map((p) => ({ locale, slug: productSlug(p) }))
+    prioritized.map((p) => ({ locale, slug: productSlug(p) }))
   );
 }
 
@@ -65,11 +81,15 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${locale}/product/${slug}`,
-      languages: {
-        th: `${BASE}/th/product/${slug}`,
-        en: `${BASE}/en/product/${slug}`,
-      },
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/product/${slug}`])),
     },
+    openGraph: {
+      title,
+      description,
+      url: `${BASE}/${locale}/product/${slug}`,
+      images: p.image_url ? [{ url: p.image_url, width: 800, height: 800, alt: p.name }] : [],
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -684,7 +704,8 @@ export default async function ProductPage({
       ? p.concern_seeds[0]
       : String(p.concern_seeds).split("|")[0]) || "acne";
 
-  const summary = p.llm_summary?.[locale] || fallbackSummary(p, locale, concern);
+  const baseLoc = toBaseLocale(locale);
+  const summary = p.llm_summary?.[baseLoc] || fallbackSummary(p, baseLoc, concern);
   const pageUrl = `https://bangkokfillers.com/${locale}/product/${slug}`;
   const totalScore = Math.round(p.total_score?.[concern] ?? 0);
   const ingredientScore = Math.round(p.ingredient_score?.[concern] ?? 0);
@@ -861,7 +882,7 @@ export default async function ProductPage({
           <IngredientDecoder
             analysis={p.ingredient_analysis}
             concern={concern}
-            locale={locale}
+            locale={baseLoc}
           />
         </section>
 
@@ -894,7 +915,7 @@ export default async function ProductPage({
           priceTHB={p.price_thb}
           listPriceTHB={p.list_price_thb ?? 0}
           discountPct={p.discount_pct ?? 0}
-          llmSummary={p.llm_summary?.[locale] ?? ""}
+          llmSummary={p.llm_summary?.[baseLoc] ?? ""}
           locale={locale}
           pageUrl={pageUrl}
         />
@@ -911,7 +932,8 @@ export default async function ProductPage({
           STICKY BOTTOM BUY BAR — MOBILE ONLY
           fixed bottom-0, hidden on sm+
       ══════════════════════════════════════ */}
-      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]">
+      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
         <div className="flex items-center justify-center px-4 py-3.5 min-h-[56px]">
           <AffiliateButton p={p} locale={locale} variant="sticky" />
         </div>

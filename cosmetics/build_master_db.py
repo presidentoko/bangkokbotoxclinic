@@ -101,7 +101,14 @@ def _load_reviews() -> dict:
         for f in rdir.glob("*_konvy.json"):
             pid = f.name.split("_")[0]
             try:
-                out[pid] = json.loads(f.read_text(encoding="utf-8"))
+                data = json.loads(f.read_text(encoding="utf-8-sig"))
+                if isinstance(data, dict):
+                    # new format: {source, product_name, review_count, snippets, fetched_at}
+                    out[pid] = data.get("snippets") or []
+                elif isinstance(data, list):
+                    out[pid] = data
+                else:
+                    out[pid] = []
             except Exception:
                 out[pid] = []
     return out

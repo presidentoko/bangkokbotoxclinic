@@ -16,7 +16,7 @@ export function IngredientDecoder({ analysis, concern, locale }:
           className="inline-flex items-center gap-1.5 rounded-full border border-[#efe1db] bg-white px-3 py-1 text-xs shadow-sm"
         >
           <span className="font-medium text-neutral-800">{a.inci}</span>
-          {a.concern_efficacy[concern] > 0 && (
+          {(a.concern_efficacy?.[concern] ?? 0) > 0 && (
             <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200">
               ★{a.concern_efficacy[concern]}
             </span>

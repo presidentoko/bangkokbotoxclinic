@@ -26,6 +26,12 @@ export function Footer({ locale }: { locale: Locale }) {
             >
               {t(locale, "methodology")}
             </Link>
+            <Link
+              href={`/${locale}/media-kit`}
+              className="text-[#c9a86a] hover:text-amber-600 transition-colors font-medium"
+            >
+              {isTh ? "โฆษณากับเรา" : "Advertise with us"}
+            </Link>
             <p>{isTh ? "บางลิงก์เป็นลิงก์พันธมิตร" : "Some links are affiliate links"}</p>
             <p>{t(locale, "updated")}: {date}</p>
           </div>
@@ -39,10 +45,10 @@ export function Footer({ locale }: { locale: Locale }) {
               : "Interested in advertising or business partnerships?"}
           </p>
           <a
-            href="mailto:UMMA@XX.GG"
+            href="mailto:umma@xx.gg"
             className="text-sm font-semibold text-rose-500 hover:text-rose-600 transition-colors whitespace-nowrap"
           >
-            UMMA@XX.GG →
+            umma@xx.gg →
           </a>
         </div>
       </div>

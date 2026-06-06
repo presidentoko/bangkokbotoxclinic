@@ -14,10 +14,60 @@ export const allProducts = (): Product[] => Object.values(db.products);
 export const getProduct = (id: string): Product | undefined => db.products[id];
 export const getRanking = (concern: string): RankingEntry[] => db.rankings[concern] ?? [];
 export const productSlug = (p: Product) => `${slugify(p.brand)}-${p.product_id}`;
-export const productIdFromSlug = (slug: string) => slug.split("-").pop()!;
+export const productIdFromSlug = (slug: string) => slug.split("-").pop() ?? "";
 
 export const allIngredients = (): [string, IngredientEntry][] => Object.entries(ingDb);
 export const ingredientSlug = (inci: string) => slugify(inci);
+
+export const brandSlug = (brand: string) => slugify(brand);
+export const brandFromSlug = (slug: string): string | undefined =>
+  allBrands().find((b) => slugify(b) === slug);
+
+export function allBrands(): string[] {
+  const counts: Record<string, number> = {};
+  for (const p of allProducts()) {
+    counts[p.brand] = (counts[p.brand] ?? 0) + 1;
+  }
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([b]) => b);
+}
+
+export function brandProducts(brand: string): Product[] {
+  return allProducts()
+    .filter((p) => p.brand === brand)
+    .sort((a, b) => {
+      const aMax = Math.max(...Object.values(a.total_score));
+      const bMax = Math.max(...Object.values(b.total_score));
+      return bMax - aMax;
+    });
+}
+
+export function brandStats(brand: string): {
+  count: number;
+  avgScore: number;
+  minPrice: number;
+  maxPrice: number;
+  concerns: string[];
+} {
+  const products = brandProducts(brand);
+  if (!products.length) return { count: 0, avgScore: 0, minPrice: 0, maxPrice: 0, concerns: [] };
+  const prices = products.filter((p) => p.price_thb > 0).map((p) => p.price_thb);
+  const allScores = products.flatMap((p) => Object.values(p.total_score));
+  const concernSet = new Set<string>();
+  for (const p of products) {
+    const seeds = p.concern_seeds;
+    const arr = Array.isArray(seeds) ? seeds : String(seeds).split("|").map((s) => s.trim());
+    for (const c of arr) if (c) concernSet.add(c);
+  }
+  return {
+    count: products.length,
+    avgScore: allScores.length ? allScores.reduce((s, v) => s + v, 0) / allScores.length : 0,
+    minPrice: prices.length ? Math.min(...prices) : 0,
+    maxPrice: prices.length ? Math.max(...prices) : 0,
+    concerns: [...concernSet].filter((c) => CONCERNS.includes(c as Concern)),
+  };
+}
 export function getIngredient(slug: string): (IngredientEntry & { inci: string }) | undefined {
   for (const [inci, e] of Object.entries(ingDb)) {
     if (slugify(inci) === slug) return { inci, ...e };
@@ -269,4 +319,77 @@ export function keyIngredients(
     .filter((x): x is NonNullable<typeof x> => x !== null)
     .sort((a, b) => b.efficacy - a.efficacy)
     .slice(0, limit);
+}
+
+// ---------------------------------------------------------------------------
+// Filter pages — SEO-optimised sub-pages per concern
+// ---------------------------------------------------------------------------
+
+function ingrText(p: Product): string {
+  if (Array.isArray(p.ingredients)) return p.ingredients.join(" ").toLowerCase();
+  return String(p.ingredients ?? "").toLowerCase();
+}
+
+function hasIngredientFn(keywords: string[]) {
+  return (p: Product) =>
+    keywords.some(
+      (k) =>
+        p.ingredient_analysis.some((a) => a.inci.toLowerCase().includes(k.toLowerCase())) ||
+        ingrText(p).includes(k.toLowerCase())
+    );
+}
+
+function isFragranceFree(p: Product): boolean {
+  const flags = ["parfum", "fragrance"];
+  const ia = p.ingredient_analysis;
+  const raw = ingrText(p);
+  if (!ia.length && !raw) return false;
+  return !flags.some(
+    (f) => ia.some((a) => a.inci.toLowerCase().includes(f)) || raw.includes(f)
+  );
+}
+
+export interface FilterConfig {
+  slug: string;
+  th: string;
+  en: string;
+  emoji: string;
+  apply: (p: Product) => boolean;
+}
+
+export const FILTER_CONFIGS: FilterConfig[] = [
+  { slug: "under-300",      th: "ราคา ฿300 ลงมา",    en: "Under ฿300",           emoji: "💰", apply: (p) => p.price_thb > 0 && p.price_thb < 300 },
+  { slug: "under-500",      th: "ราคา ฿500 ลงมา",    en: "Under ฿500",           emoji: "💰", apply: (p) => p.price_thb > 0 && p.price_thb < 500 },
+  { slug: "under-1000",     th: "ราคา ฿1,000 ลงมา",  en: "Under ฿1,000",         emoji: "💰", apply: (p) => p.price_thb > 0 && p.price_thb < 1000 },
+  { slug: "fragrance-free", th: "ไม่มีน้ำหอม",       en: "Fragrance-free",       emoji: "🌿", apply: isFragranceFree },
+  { slug: "niacinamide",    th: "มีไนอาซินาไมด์",    en: "With Niacinamide",     emoji: "✨", apply: hasIngredientFn(["niacinamide"]) },
+  { slug: "salicylic-acid", th: "มีซาลิไซลิกแอซิด", en: "With Salicylic Acid",  emoji: "🔬", apply: hasIngredientFn(["salicylic acid", "salicylate"]) },
+  { slug: "vitamin-c",      th: "มีวิตามินซี",        en: "With Vitamin C",       emoji: "🍊", apply: hasIngredientFn(["ascorbic acid", "ascorbyl", "vitamin c"]) },
+  { slug: "retinol",        th: "มีเรตินอล",         en: "With Retinol",         emoji: "⚡", apply: hasIngredientFn(["retinol", "retinyl", "retinal"]) },
+  { slug: "hyaluronic-acid",th: "มีไฮยาลูโรนิก",    en: "With Hyaluronic Acid", emoji: "💧", apply: hasIngredientFn(["hyaluronic acid", "hyaluronate"]) },
+  { slug: "serum",          th: "เซรั่ม",            en: "Serum",                emoji: "🧴", apply: (p) => /serum/i.test(p.name) },
+  { slug: "moisturizer",    th: "ครีม/มอยส์เจอไรเซอร์", en: "Cream / Moisturizer", emoji: "🫙", apply: (p) => /(moisturi[sz]|cream|lotion|gel cream)/i.test(p.name) },
+  { slug: "toner",          th: "โทนเนอร์",          en: "Toner / Essence",      emoji: "💦", apply: (p) => /toner|essence|mist/i.test(p.name) },
+];
+
+export const CONCERN_FILTER_SLUGS: Record<string, string[]> = {
+  acne:       ["under-300", "under-500", "fragrance-free", "niacinamide", "salicylic-acid", "serum"],
+  whitening:  ["under-300", "under-500", "fragrance-free", "vitamin-c", "niacinamide", "serum"],
+  antiaging:  ["under-500", "under-1000", "retinol", "vitamin-c", "hyaluronic-acid", "serum", "moisturizer"],
+  pores:      ["under-300", "under-500", "niacinamide", "salicylic-acid", "serum"],
+  oilcontrol: ["under-300", "under-500", "niacinamide", "salicylic-acid", "toner"],
+  sensitive:  ["under-300", "under-500", "fragrance-free", "hyaluronic-acid", "moisturizer"],
+};
+
+export function getFilter(slug: string): FilterConfig | undefined {
+  return FILTER_CONFIGS.find((f) => f.slug === slug);
+}
+
+export function filterRanking(concern: string, filterSlug: string): Product[] {
+  const config = getFilter(filterSlug);
+  if (!config) return [];
+  return getRanking(concern)
+    .map((e) => getProduct(e.product_id))
+    .filter((p): p is Product => p != null)
+    .filter(config.apply);
 }

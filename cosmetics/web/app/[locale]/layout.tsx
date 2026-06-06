@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "../globals.css";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, type Locale, isRTL } from "@/lib/i18n";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getBanner } from "@/lib/adminData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +23,14 @@ const lora = Lora({
   subsets: ["latin"],
   style: ["normal", "italic"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#fbf4f1",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bangkokfillers.com"),
@@ -59,6 +68,8 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
+export const revalidate = 300;
+
 export default async function LocaleLayout({
   children,
   params,
@@ -68,12 +79,19 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   const loc = locale as Locale;
+  const banner = await getBanner();
   return (
     <html
       lang={loc}
+      dir={isRTL(loc) ? "rtl" : "ltr"}
       className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-[#fbf4f1] text-[#2b2222] antialiased">
+        {banner?.active && banner.text && (
+          <div className="bg-rose-500 text-white text-xs font-medium text-center py-2 px-4">
+            {banner.text}
+          </div>
+        )}
         <Header locale={loc} />
         <main className="mx-auto w-full max-w-5xl px-4 py-8 flex-1">{children}</main>
         <Footer locale={loc} />

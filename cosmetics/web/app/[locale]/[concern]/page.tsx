@@ -11,10 +11,13 @@ import {
   topPicks,
   bestSellers,
   mostLoved,
+  getFilter,
+  CONCERN_FILTER_SLUGS,
   type Concern,
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, concernFaqLd, breadcrumbLd } from "@/lib/schema";
+import { getFeaturedMap } from "@/lib/adminData";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
@@ -23,6 +26,7 @@ import { ProductFilter } from "@/components/ProductFilter";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
+export const revalidate = 300; // 5 min — picks up KV changes without full rebuild
 
 export async function generateMetadata({
   params,
@@ -45,10 +49,9 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${locale}/${concern}`,
-      languages: {
-        th: `${BASE}/th/${concern}`,
-        en: `${BASE}/en/${concern}`,
-      },
+      languages: Object.fromEntries(
+        LOCALES.map((l) => [l, `${BASE}/${l}/${concern}`])
+      ),
     },
   };
 }
@@ -111,6 +114,9 @@ export default async function ConcernHub({
   const picks = topPicks(concern, 8);
   const sellers = bestSellers(concern, 8);
   const loved = mostLoved(concern, 8);
+  const featuredMap = await getFeaturedMap();
+  const featuredId = featuredMap[concern];
+  const featuredProduct = featuredId ? getProduct(featuredId) : null;
 
   const labels = {
     rank: t(locale, "rank"),
@@ -147,6 +153,58 @@ export default async function ConcernHub({
           {t(locale, "updated")}: {generatedAt()?.slice(0, 10)}
         </p>
       </header>
+
+      {/* Filter chips — links to SEO sub-pages */}
+      {(CONCERN_FILTER_SLUGS[concern] ?? []).length > 0 && (
+        <div className="flex flex-wrap gap-2 -mt-2">
+          {(CONCERN_FILTER_SLUGS[concern] ?? []).map((slug) => {
+            const fc = getFilter(slug);
+            if (!fc) return null;
+            return (
+              <Link
+                key={slug}
+                href={`/${locale}/${concern}/${slug}`}
+                className="text-xs px-3 py-1.5 rounded-full border border-[#efe1db] bg-white text-[#8a7a76] hover:text-rose-500 hover:border-rose-300 transition-colors"
+              >
+                {fc.emoji} {locale === "th" ? fc.th : fc.en}
+              </Link>
+            );
+          })}
+        </div>
+      )}
+
+      {/* ── Sponsored slot — clearly labelled, rankings not affected ── */}
+      {featuredProduct && (
+        <section className="rounded-2xl border-2 border-[#c9a86a]/40 bg-[#fffbf5] p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            {featuredProduct.image_url && (
+              <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden border border-[#efe1db] bg-white">
+                <img src={featuredProduct.image_url} alt={featuredProduct.name} className="w-full h-full object-contain p-1" />
+              </div>
+            )}
+            <div className="min-w-0">
+              <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-[#c9a86a] mb-0.5">
+                {locale === "th" ? "ผู้สนับสนุน" : "Sponsored"}
+              </span>
+              <Link
+                href={`/${locale}/product/${productSlug(featuredProduct)}`}
+                className="block font-semibold text-sm text-[#2b2222] hover:text-rose-500 transition-colors truncate"
+              >
+                {featuredProduct.brand} {featuredProduct.name}
+              </Link>
+              <p className="text-xs text-neutral-500 mt-0.5">฿{Math.round(featuredProduct.price_thb).toLocaleString("en-US")}</p>
+            </div>
+          </div>
+          <Link
+            href={featuredProduct.url}
+            target="_blank"
+            rel="sponsored noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-1.5 bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold rounded-xl px-4 py-2.5 transition-colors"
+          >
+            {locale === "th" ? "ดูสินค้า" : "View"} →
+          </Link>
+        </section>
+      )}
 
       {/* ── 성분 가이드 ── */}
       <IngredientGuide concern={concern} locale={locale} />

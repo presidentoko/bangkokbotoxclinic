@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { LOCALES, concernLabel, type Locale } from "@/lib/i18n";
+import { LOCALES, concernLabel, toBaseLocale, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking } from "@/lib/data";
 
 export const alt = "BangkokFillers — Ranked by ingredients + real reviews";
@@ -20,16 +20,18 @@ export default async function Image({
   const { locale: localeRaw, concern } = await params;
   const locale = localeRaw as Locale;
 
-  const label = concernLabel(locale, concern);
+  // Satori can't render Arabic/CJK fonts — use base locale (th or en)
+  const baseLoc = toBaseLocale(locale);
+  const label = concernLabel(baseLoc, concern);
   const productCount = getRanking(concern).length;
 
   const subtitle =
-    locale === "th"
+    baseLoc === "th"
       ? "จัดอันดับด้วยส่วนผสม + รีวิวจริง"
       : "Ranked by ingredients + real reviews";
 
   const countLine =
-    locale === "th"
+    baseLoc === "th"
       ? `${productCount} ผลิตภัณฑ์`
       : `${productCount} products`;
 
