@@ -1,11 +1,12 @@
 // Redis client using REDIS_URL env var (set automatically by Vercel Redis integration).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 import { createClient } from "redis";
 
-type RedisClient = ReturnType<typeof createClient>;
-let _client: RedisClient | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _client: any = null;
 let _connecting = false;
 
-async function getClient(): Promise<RedisClient | null> {
+async function getClient(): Promise<any | null> {
   if (!process.env.REDIS_URL) return null;
   if (_client?.isReady) return _client;
   if (_connecting) {
