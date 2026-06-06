@@ -19,6 +19,7 @@ const PLAN_LABELS: Record<string, string> = {
   intelligence: "Market Intelligence",
   pilot: "30-Day Pilot",
 };
+const ALLOWED_PLANS = new Set(Object.keys(PLAN_LABELS));
 
 export default async function PayPage({
   searchParams,
@@ -29,8 +30,9 @@ export default async function PayPage({
   const cfg = getSiteConfig();
   const rawAmount = Number(params.amount) || 0;
   const amount = ALLOWED_AMOUNTS.has(rawAmount) ? rawAmount : 0;
-  const plan = params.plan || "";
-  const planLabel = PLAN_LABELS[plan] || plan;
+  const rawPlan = params.plan || "";
+  const plan = ALLOWED_PLANS.has(rawPlan) ? rawPlan : "";
+  const planLabel = PLAN_LABELS[plan] || "";
   const partnerName = params.for || "";
   const reference = params.ref || "";
   const clinicId = params.id || "";
@@ -40,7 +42,8 @@ export default async function PayPage({
       <div className="max-w-md mx-auto px-4 py-16 text-center">
         <h1 className="text-2xl font-bold mb-3">Payment link invalid</h1>
         <p className="text-sm text-[var(--muted)] mb-6">
-          This link has an invalid or missing amount. Allowed amounts: ฿5,000 · ฿8,000 · ฿15,000.
+          This link has an invalid or missing amount. Allowed amounts:{" "}
+          {Array.from(ALLOWED_AMOUNTS).sort((a, b) => a - b).map((a) => `฿${a.toLocaleString()}`).join(" · ")}.
           Please request a fresh payment link from {cfg.brand}.
         </p>
         <a href="/for-clinics#plans" className="inline-block rounded-lg bg-emerald-600 text-white px-5 py-2.5 font-bold">View plans</a>
