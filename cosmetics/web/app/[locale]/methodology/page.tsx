@@ -113,7 +113,7 @@ export default async function Methodology({
       {/* ── Freshness note ── */}
       <p className="not-prose text-xs text-neutral-400">
         {th ? "อัปเดต" : "Updated"}: {generatedAt()?.slice(0, 10)}.{" "}
-        {th ? "ข้อมูลรีวิวจาก Konvy" : "Review data from Konvy."}
+        {th ? "ข้อมูลรีวิวจาก Konvy, Watsons, Boots และ iHerb" : "Review data from Konvy, Watsons, Boots and iHerb."}
       </p>
     </article>
   );
