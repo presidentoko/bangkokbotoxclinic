@@ -39,20 +39,20 @@ export function Header({ locale }: { locale: Locale }) {
               <Link
                 key={c}
                 href={`/${locale}/${c}`}
-                className="whitespace-nowrap text-sm text-[#8a7a76] hover:text-rose-500 transition-colors px-3 py-2 rounded-full border border-[#efe1db] bg-white hover:border-rose-300 min-h-[36px] flex items-center"
+                className="whitespace-nowrap text-sm text-[#8a7a76] hover:text-rose-500 transition-colors px-3 py-2 rounded-full border border-[#efe1db] bg-white hover:border-rose-300 min-h-[44px] flex items-center"
               >
                 {concernLabelShort(locale, c)}
               </Link>
             ))}
             <Link
               href={`/${locale}/brand`}
-              className="whitespace-nowrap text-sm text-[#8a7a76] hover:text-rose-500 transition-colors px-3 py-2 rounded-full border border-[#efe1db] bg-white hover:border-rose-300 min-h-[36px] flex items-center"
+              className="whitespace-nowrap text-sm text-[#8a7a76] hover:text-rose-500 transition-colors px-3 py-2 rounded-full border border-[#efe1db] bg-white hover:border-rose-300 min-h-[44px] flex items-center"
             >
               {isTh ? "แบรนด์" : "Brands"}
             </Link>
             <Link
               href={`/${locale}/methodology`}
-              className="whitespace-nowrap text-sm text-[#8a7a76] hover:text-rose-500 transition-colors px-3 py-2 rounded-full border border-[#efe1db] bg-white hover:border-rose-300 min-h-[36px] flex items-center"
+              className="whitespace-nowrap text-sm text-[#8a7a76] hover:text-rose-500 transition-colors px-3 py-2 rounded-full border border-[#efe1db] bg-white hover:border-rose-300 min-h-[44px] flex items-center"
             >
               {t(locale, "methodology")}
             </Link>

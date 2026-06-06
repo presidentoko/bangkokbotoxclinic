@@ -4,7 +4,7 @@ import { t, concernLabel, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
-import { orgLd, websiteLd } from "@/lib/schema";
+import { orgLd, websiteLd, faqLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -301,6 +301,19 @@ export default async function Home({
       </section>
       <JsonLd data={orgLd("https://bangkokfillers.com")} />
       <JsonLd data={websiteLd("https://bangkokfillers.com", locale)} />
+      <JsonLd data={faqLd(isTh ? [
+        { q: "BangkokFillers จัดอันดับผลิตภัณฑ์อย่างไร", a: "คะแนนมาจาก 3 มิติ: ส่วนผสมออกฤทธิ์ 45% (อ้างอิงฐานข้อมูลวิทยาศาสตร์), รีวิวจากผู้ซื้อจริง 45% (รวบรวมจาก Konvy, Watsons, Boots, iHerb), และความคุ้มค่าต่อมล/กรัม 10%" },
+        { q: "ข้อมูลราคาอัปเดตบ่อยแค่ไหน", a: "ราคาและสต็อกอัปเดตอัตโนมัติทุกวันจากแหล่งขายออนไลน์ชั้นนำในไทย" },
+        { q: "ผลิตภัณฑ์ไทยสำหรับสิวที่ดีที่สุดคืออะไร", a: "ดูหน้าจัดอันดับสิว — อันดับ 1 คำนวณจากส่วนผสม เช่น Salicylic Acid, Niacinamide และรีวิวจากผู้ใช้จริงกว่าหมื่นรีวิว" },
+        { q: "สามารถเปรียบเทียบผลิตภัณฑ์ได้ไหม", a: "ได้ — ใช้ฟีเจอร์ Compare เปรียบเทียบส่วนผสม ราคา และคะแนนรีวิวแบบเคียงข้างกันได้สูงสุด 3 รายการ" },
+        { q: "ข้อมูลส่วนผสมมาจากไหน", a: "วิเคราะห์จากฐานข้อมูลส่วนผสมที่ผ่านการตรวจสอบทางวิทยาศาสตร์ ครอบคลุมประสิทธิภาพและความปลอดภัยของส่วนผสมแต่ละตัว" },
+      ] : [
+        { q: "How does BangkokFillers rank products?", a: "Scores are built from 3 dimensions: Active ingredients 45% (peer-reviewed evidence database), Real buyer reviews 45% (aggregated from Konvy, Watsons, Boots, iHerb), and Value-per-ml/g 10%." },
+        { q: "How often is pricing data updated?", a: "Prices and stock are updated automatically every day from leading Thai online retailers." },
+        { q: "What is the best Thai skincare product for acne?", a: "See the acne ranking page — #1 is calculated from actives like Salicylic Acid and Niacinamide combined with tens of thousands of real user reviews." },
+        { q: "Can I compare products side by side?", a: "Yes — use the Compare feature to compare ingredients, pricing, and review scores for up to 3 products at once." },
+        { q: "Where does the ingredient data come from?", a: "Analysed against a peer-reviewed ingredient efficacy and safety database covering the mechanism and evidence level of each active." },
+      ])} />
     </div>
   );
 }
