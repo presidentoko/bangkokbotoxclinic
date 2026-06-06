@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LOCALES, type Locale } from "@/lib/i18n";
-import { siteStats, allBrands, allIngredients } from "@/lib/data";
+import { siteStats, allBrands, allIngredients, generatedAt } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/schema";
 
@@ -187,7 +187,7 @@ export default async function MediaKit({
           ))}
         </div>
         <p className="text-xs text-neutral-400">
-          {isTh ? "ข้อมูล ณ " : "Data as of "}{new Date().toISOString().slice(0, 10)}
+          {isTh ? "ข้อมูล ณ " : "Data as of "}{generatedAt()?.slice(0, 10)}
           {" · "}
           {isTh ? "ไม่รับสปอนเซอร์เพื่อเปลี่ยนอันดับ" : "Rankings are never paid — editorial independence is non-negotiable."}
         </p>

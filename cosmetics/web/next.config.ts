@@ -13,8 +13,8 @@ const nextConfig: NextConfig = {
     // We only need small thumbnails (card strips) + one medium (product hero).
     deviceSizes: [640, 1080],
     imageSizes: [72, 120, 200],
-    // Keep originals cached for 7 days to reduce re-optimization calls.
-    minimumCacheTTL: 604800,
+    // Keep originals cached 30 days — reduces Vercel image optimization quota consumption.
+    minimumCacheTTL: 2592000,
   },
 };
 

@@ -17,6 +17,7 @@ import {
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, concernFaqLd, breadcrumbLd } from "@/lib/schema";
+import { FEATURED_PRODUCTS } from "@/lib/featured";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
@@ -112,6 +113,8 @@ export default async function ConcernHub({
   const picks = topPicks(concern, 8);
   const sellers = bestSellers(concern, 8);
   const loved = mostLoved(concern, 8);
+  const featuredId = FEATURED_PRODUCTS[concern];
+  const featuredProduct = featuredId ? getProduct(featuredId) : null;
 
   const labels = {
     rank: t(locale, "rank"),
@@ -166,6 +169,39 @@ export default async function ConcernHub({
             );
           })}
         </div>
+      )}
+
+      {/* ── Sponsored slot — clearly labelled, rankings not affected ── */}
+      {featuredProduct && (
+        <section className="rounded-2xl border-2 border-[#c9a86a]/40 bg-[#fffbf5] p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            {featuredProduct.image_url && (
+              <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden border border-[#efe1db] bg-white">
+                <img src={featuredProduct.image_url} alt={featuredProduct.name} className="w-full h-full object-contain p-1" />
+              </div>
+            )}
+            <div className="min-w-0">
+              <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-[#c9a86a] mb-0.5">
+                {locale === "th" ? "ผู้สนับสนุน" : "Sponsored"}
+              </span>
+              <Link
+                href={`/${locale}/product/${productSlug(featuredProduct)}`}
+                className="block font-semibold text-sm text-[#2b2222] hover:text-rose-500 transition-colors truncate"
+              >
+                {featuredProduct.brand} {featuredProduct.name}
+              </Link>
+              <p className="text-xs text-neutral-500 mt-0.5">฿{Math.round(featuredProduct.price_thb).toLocaleString("en-US")}</p>
+            </div>
+          </div>
+          <Link
+            href={featuredProduct.url}
+            target="_blank"
+            rel="sponsored noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-1.5 bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold rounded-xl px-4 py-2.5 transition-colors"
+          >
+            {locale === "th" ? "ดูสินค้า" : "View"} →
+          </Link>
+        </section>
       )}
 
       {/* ── 성분 가이드 ── */}

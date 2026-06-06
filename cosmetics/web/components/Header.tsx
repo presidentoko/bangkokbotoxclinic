@@ -23,6 +23,12 @@ export function Header({ locale }: { locale: Locale }) {
             {isTh ? "ทดสอบ 🌸" : "Quiz 🌸"}
           </Link>
           <Link
+            href={`/${locale}/media-kit`}
+            className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border border-[#c9a86a]/50 text-[#c9a86a] hover:bg-[#c9a86a]/10 transition-colors"
+          >
+            {isTh ? "โฆษณา" : "Ads"}
+          </Link>
+          <Link
             href={`/${other}`}
             className="uppercase text-xs font-medium px-2.5 py-1 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
           >
@@ -97,6 +103,12 @@ export function Header({ locale }: { locale: Locale }) {
             className="text-[#8a7a76] hover:text-rose-500 transition-colors whitespace-nowrap pl-1"
           >
             {t(locale, "methodology")}
+          </Link>
+          <Link
+            href={`/${locale}/media-kit`}
+            className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-[#c9a86a]/50 text-[#c9a86a] hover:bg-[#c9a86a]/10 transition-colors whitespace-nowrap"
+          >
+            {isTh ? "โฆษณา" : "Advertise"}
           </Link>
           <Link
             href={`/${other}`}

@@ -23,10 +23,13 @@ export function productLd(p: Product, pageUrl: string) {
     ld.aggregateRating = { "@type": "AggregateRating", ratingValue: p.konvy_rating,
       reviewCount: p.konvy_review_count, bestRating: 5, worstRating: 1 };
   }
-  ld.review = (p.review_summary?.samples ?? []).slice(0, 3).map((r) => ({ "@type": "Review",
-    reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
-    author: { "@type": "Person", name: r.author || "Verified buyer" },
-    reviewBody: (r as any).body || (r as any).text || "" }));
+  ld.review = (p.review_summary?.samples ?? []).slice(0, 3).map((r) => {
+    const rr = r as typeof r & { body?: string; text?: string };
+    return { "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: r.rating ?? 0, bestRating: 5 },
+      author: { "@type": "Person", name: r.author || "Verified buyer" },
+      reviewBody: rr.body || rr.text || "" };
+  });
   return ld;
 }
 
