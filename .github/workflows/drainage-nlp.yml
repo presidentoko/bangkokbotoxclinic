@@ -24,12 +24,28 @@ jobs:
       - name: Run NLP
         run: python scripts/drainage_nlp.py
 
-      - name: Commit if changed
+      - name: Check for changes
+        id: diff
+        run: git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git diff --quiet || (
-            git add web-golf/data/master_db.json &&
-            git commit -m "data: drainage scores update [skip ci]" &&
-            git push
-          )
+          git add web-golf/data/master_db.json
+          git commit -m "data: drainage scores update [skip ci]"
+          git push
+
+      - name: Install Vercel CLI
+        if: steps.diff.outputs.changed == 'true'
+        run: npm install -g vercel@latest
+
+      - name: Redeploy to Vercel
+        if: steps.diff.outputs.changed == 'true'
+        working-directory: web-golf
+        run: vercel --prod --yes --archive=tgz
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
