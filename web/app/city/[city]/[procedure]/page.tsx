@@ -3,6 +3,7 @@ import { loadMasterDb } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { applySiteFilter, getSiteConfig } from "@/lib/site";
+import { findGuide } from "@/lib/guides";
 import type { Metadata } from "next";
 
 const CITIES: Record<string, { label: string; citySlug: string }> = {
@@ -12,6 +13,19 @@ const CITIES: Record<string, { label: string; citySlug: string }> = {
   "chiang-mai": { label: "Chiang Mai", citySlug: "chiang_mai" },
   "koh-samui":  { label: "Koh Samui", citySlug: "koh_samui" },
   "hua-hin":    { label: "Hua Hin",   citySlug: "hua_hin" },
+};
+
+const PROCEDURE_GUIDES: Record<string, string[]> = {
+  implants:    ["dental-implants-bangkok-cost", "dental-implant-cost-thailand"],
+  veneers:     ["veneers-bangkok-price"],
+  whitening:   ["teeth-whitening-bangkok"],
+  botox:       ["bangkok-botox-guide", "botox-price-bangkok-2026"],
+  filler:      ["bangkok-filler-guide"],
+  hifu:        ["hifu-ultherapy-bangkok-cost"],
+  hair:        ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
+  rhinoplasty: [],
+  braces:      [],
+  eyes:        [],
 };
 
 const PROCEDURES: Record<string, { label: string; category: string; desc: string; faqs: { q: string; a: string }[] }> = {
@@ -132,6 +146,10 @@ export default async function ProcedureCityPage(
   const procInfo = PROCEDURES[procedure];
   if (!cityInfo || !procInfo) notFound();
 
+  const relatedGuides = (PROCEDURE_GUIDES[procedure] ?? [])
+    .map((slug) => findGuide(slug))
+    .filter(Boolean) as NonNullable<ReturnType<typeof findGuide>>[];
+
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
@@ -210,6 +228,26 @@ export default async function ProcedureCityPage(
                 </summary>
                 <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{faq.a}</p>
               </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {relatedGuides.length > 0 && (
+        <section className="mb-10 p-5 bg-white border border-[var(--border)] rounded-xl">
+          <h2 className="text-base font-semibold mb-3">
+            {procInfo.label} guides
+          </h2>
+          <div className="space-y-2">
+            {relatedGuides.map((g) => (
+              <a
+                key={g.slug}
+                href={`/guide/${g.slug}`}
+                className="flex items-start gap-2 text-sm text-[var(--accent)] hover:underline"
+              >
+                <span className="text-[var(--muted)] text-xs mt-0.5">📖</span>
+                {g.title}
+              </a>
             ))}
           </div>
         </section>
