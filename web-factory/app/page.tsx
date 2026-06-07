@@ -10,6 +10,7 @@ import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
 import { POSTS } from "@/lib/posts";
+import { GUIDES } from "@/lib/guides";
 import { photoUrl } from "@/lib/photoUrl";
 import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
@@ -301,6 +302,25 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        {/* Buyer Guides */}
+        <section className="mb-10">
+          <div className="flex items-baseline justify-between gap-4 mb-3">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">Buyer Guides</h2>
+            <a href="/guide" className="text-xs text-emerald-700 font-medium hover:underline">All {GUIDES.length} guides →</a>
+          </div>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
+            {GUIDES.slice(0, 6).map((g) => (
+              <a
+                key={g.slug}
+                href={`/guide/${g.slug}`}
+                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+              >
+                {g.title.replace(/ — .*$/, "").replace(/ \(\d{4}\)$/, "")}
+              </a>
+            ))}
+          </div>
+        </section>
 
         {/* Best of */}
         {BEST_FOR.length > 0 && (

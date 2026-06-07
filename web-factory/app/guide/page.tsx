@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     languages: {
       "en-US": "/guide",
       "ko-KR": "/ko/guide",
+      "th-TH": "/th/guide",
       "x-default": "/guide",
     },
   },
@@ -54,6 +55,17 @@ export default function GuideIndex() {
             </div>
           </a>
         ))}
+      </div>
+
+      <div className="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">Curated lists</div>
+          <div className="font-bold text-amber-900">14 ranked supplier lists</div>
+          <p className="text-xs text-amber-800 mt-0.5">By sector, estate, export status — ranked by Trust Score.</p>
+        </div>
+        <a href="/best" className="shrink-0 px-4 py-2 bg-amber-600 text-white text-sm font-bold rounded-lg hover:bg-amber-700 transition">
+          Browse all lists →
+        </a>
       </div>
 
       <BreadcrumbJsonLd items={[
