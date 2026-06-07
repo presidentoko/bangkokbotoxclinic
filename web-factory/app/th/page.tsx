@@ -6,6 +6,7 @@ import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES_TH } from "@/lib/guides_th";
+import { POSTS_TH } from "@/lib/posts_th";
 import { HeroSearch } from "@/components/HeroSearch";
 import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
@@ -174,6 +175,27 @@ export default async function ThHomePage() {
                   <span aria-hidden>{CATEGORY_ICONS[cat] ?? "🏭"}</span>
                   {CATEGORY_LABELS[cat] ?? cat}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {POSTS_TH.length > 0 && (
+          <section className="mb-10">
+            <div className="flex items-baseline justify-between gap-4 mb-3">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">บล็อก</h2>
+              <a href="/th/blog" className="text-xs text-emerald-700 font-medium hover:underline">ทั้งหมด {POSTS_TH.length} บทความ →</a>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {POSTS_TH.slice(0, 4).map((p) => (
+                <a
+                  key={p.slug}
+                  href={`/th/blog/${p.slug}`}
+                  className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                >
+                  <div className="text-xs text-[var(--muted)] mb-1">{p.category}</div>
+                  <div className="font-medium leading-snug">{p.title.replace(/ — .*$/, "")}</div>
                 </a>
               ))}
             </div>

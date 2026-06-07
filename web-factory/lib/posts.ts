@@ -486,6 +486,226 @@ For high-skill manufacturing (precision machining, EMS), Chon Buri's proximity t
 Browse suppliers by estate at [/best/industrial-estates](/best/industrial-estates) or by category — [auto parts](/c/auto_parts), [electronics](/c/electronics), [warehouses](/c/warehouse).`,
     related: ["eastern-seaboard-by-the-numbers", "map-ta-phut-at-a-glance"],
   },
+  {
+    slug: "chiang-mai-manufacturing-hub",
+    title: "Chiang Mai as a Manufacturing Hub — Food OEM, Coffee, and Herbs",
+    metaTitle: "Chiang Mai Manufacturing — Food OEM, Coffee, Herbal Products",
+    metaDescription:
+      "Why northern Thailand's Chiang Mai is a distinct sourcing destination for food OEM, specialty coffee, herbal extracts, and wellness products — separate from the Eastern Seaboard.",
+    category: "Industry",
+    published: "2026-06-07",
+    body: `Most foreign buyers default to Chon Buri or Bangkok when sourcing from Thailand. Chiang Mai is a different story — and for specific product categories, it's the right call.
+
+## What Chiang Mai Actually Makes
+
+Northern Thailand has built a distinct manufacturing identity around:
+
+- **Specialty coffee** — Arabica from Doi Chang, Doi Inthanon highlands. Chiang Mai has ~30 roasters, 15+ exporters, and growing contract roasting capacity
+- **Herbal extracts** — Turmeric, lemongrass, galangal, butterfly pea flower. Most Thai herbal supplement OEM is concentrated here
+- **Wellness and spa products** — Oils, balms, massage products. Thai herbal tradition + export capability
+- **Food OEM / HACCP factories** — Chiang Mai Industrial Estate (NICEA) hosts 50+ tenants, several with BRC/IFS certification
+- **Handicrafts and packaging** — Lower-cost decorative packaging with local artisan networks
+
+## Chiang Mai Industrial Estate (NICEA)
+
+The Chiang Mai Industrial Estate, operated by IEAT, is 10km from the airport. Tenants span food processing, packaging, light manufacturing. Rent: ฿120-200/sqm/month — significantly cheaper than Eastern Seaboard.
+
+Chiang Mai's air cargo connection (Chiang Mai International Airport) makes it viable for premium/perishable products where airfreight margins work.
+
+## Comparison with Eastern Seaboard
+
+| Factor | Eastern Seaboard | Chiang Mai |
+|--------|-----------------|------------|
+| Port access | Laem Chabang (excellent) | Air only (Chiang Mai Airport) |
+| Industrial scale | Very large | Smaller, artisanal |
+| Labor cost | ฿11-15k/month | ฿9-12k/month |
+| Category fit | Auto, electronics, chemicals | Food OEM, herbal, wellness |
+| BOI incentives | Zone 1-2 | Zone 3 (higher incentive) |
+
+Zone 3 BOI status means Chiang Mai-based factories can qualify for longer corporate tax exemptions (up to 8 years) — a meaningful advantage for new investment.
+
+## Who Should Source from Chiang Mai
+
+- Brands importing **specialty coffee** for private label
+- Supplement brands needing **certified herbal extraction**
+- Wellness / spa brands wanting **authentic Thai formulations**
+- Food brands targeting **premium Thai-origin ingredients** with clean-label certification
+
+Browse [food manufacturers](/c/food_mfg) in our directory or read the [Thai food manufacturer guide](/guide/thai-food-manufacturer-haccp-export) for certification requirements.`,
+    related: ["eastern-seaboard-by-the-numbers", "thai-factory-moq-guide"],
+  },
+  {
+    slug: "thai-rubber-latex-industry",
+    title: "Thailand Rubber and Latex — The World's #1 Producer",
+    metaTitle: "Thailand Rubber Sourcing — Natural Latex, Products, Key Suppliers",
+    metaDescription:
+      "Thailand produces ~35% of the world's natural rubber. Where it's grown, what products are made from it, and how to source rubber components and latex goods directly.",
+    category: "Industry",
+    published: "2026-06-07",
+    body: `Thailand is the world's largest natural rubber producer — around 4.5 million tonnes per year, roughly 35% of global supply. If you're sourcing rubber-based products, Thailand should be your first stop.
+
+## Where Rubber Comes From in Thailand
+
+The rubber belt runs through the south: Surat Thani, Nakhon Si Thammarat, Songkhla, Trang, and Phatthalung. Most raw latex originates here before being shipped north to processing facilities.
+
+Key processing hubs:
+- **Songkhla / Hat Yai** — largest rubber processing and export center
+- **Surat Thani** — sheet rubber and concentrated latex
+- **Chon Buri / Rayong** — where rubber raw material meets industrial manufacturing
+
+## What's Made from Thai Rubber
+
+**Industrial products:**
+- Automotive seals, gaskets, belts, hoses — huge supply base near Eastern Seaboard
+- Conveyor belts, industrial rollers
+- Vibration dampers for machinery
+
+**Consumer products:**
+- Medical gloves, examination gloves (HACCP / EN374 certified)
+- Foam mattresses and pillows — Dunlop and Talalay processes
+- Condoms, catheters (medical grade, ISO 13485)
+
+**Specialty latex:**
+- Foam rubber for furniture (furniture OEM Thailand is significant)
+- Balloons, dipped goods
+
+## Pricing Structure
+
+Natural rubber price tracks the SICOM benchmark (Singapore Commodity Exchange). In 2024-2025:
+- RSS3 (Ribbed Smoked Sheet Grade 3): ~$1.50-1.80/kg
+- Concentrated latex (60% DRC): ~$1.20-1.60/kg
+- Finished medical gloves: $0.04-0.08/glove (depends on grade/thickness)
+
+Rubber product FOB pricing includes 20-40% conversion margin above raw material cost.
+
+## How to Source Rubber Products
+
+For **components** (seals, gaskets, mounts): Contact manufacturers in Chon Buri / Rayong directly — many are Tier 2 auto suppliers who also accept custom orders.
+
+For **consumer goods** (gloves, mattresses): Look for factories with ISO 9001 + product-specific certification (EN374 for chemical protective gloves, EN ISO 10651 for medical).
+
+For **raw latex**: Source through rubber cooperatives (สหกรณ์ยาง) in southern Thailand or large exporters in Hat Yai.
+
+Browse [rubber product suppliers](/c/rubber) in our directory or see the [Thai rubber products sourcing guide](/guide/thai-rubber-products-sourcing-guide).`,
+    related: ["eastern-seaboard-by-the-numbers", "chon-buri-vs-rayong-manufacturing"],
+  },
+  {
+    slug: "thai-packaging-oem-options",
+    title: "Thai Packaging OEM — Flexible, Rigid, and Sustainable Options",
+    metaTitle: "Thailand Packaging Manufacturers — Flexible, Rigid, Eco Options 2026",
+    metaDescription:
+      "Thailand's packaging industry: who makes flexible pouches, rigid containers, glass, corrugated boxes, and sustainable packaging — and how to source directly.",
+    category: "Sourcing",
+    published: "2026-06-07",
+    body: `Thailand has a mature, export-grade packaging manufacturing base. Whether you need flexible pouches for food products, rigid plastic containers, or sustainable alternatives, the supply base is here.
+
+## Packaging Categories and Where They're Made
+
+**Flexible packaging (pouches, films, laminates)**
+- Concentrated in Samut Prakan, Chon Buri, and Pathum Thani
+- Major capability: stand-up pouches (SUP), retort pouches, vacuum bags
+- Certifications common: FDA-compliant, food-safe inks, HACCP facility
+- MOQ: typically 10,000-50,000 units per SKU
+
+**Rigid plastic (PET, HDPE, PP bottles and containers)**
+- Scattered across industrial estates — Amata, WHA, Rojana
+- Blow molding and injection molding both available
+- Lead time: 3-6 weeks for standard runs; 8-12 weeks for new tooling
+- Tooling cost: $2,000-15,000 depending on mold complexity
+
+**Glass packaging**
+- Smaller supply base — primarily located in Saraburi and Nakhon Pathom
+- Thai Glass Industries (TGI) and Allied Glass dominate volume
+- Better for premium products (spirits, sauces, cosmetics)
+
+**Corrugated / carton boxes**
+- Multiple large converters: Thai KI, Siam Corrugated Box, DS Smith Thailand
+- E-flute, B-flute, heavy-duty export cartons all available
+- Fast lead time: 7-14 days for standard orders
+
+**Sustainable packaging (growing)**
+- Bagasse, PLA, compostable films available from specialist converters
+- Cost premium: 25-60% over conventional
+- Thailand is early-stage on biodegradable infrastructure — compostable claims require end-market verification
+
+## What to Look for in a Thai Packaging Supplier
+
+- **DBD-registered** — verifiable legal entity, registered capital signal
+- **ISO 9001 or BRC/IFS** for food-contact packaging
+- **Printing capability** in-house vs. outsourced (affects lead time and quality control)
+- **Export track record** — ask for active export client references (EU, US, Japan markets)
+
+## MOQ and Sampling
+
+Most flexible packaging suppliers require a minimum print run due to plate/cylinder costs. Expect:
+- Gravure printing: MOQ 10,000-30,000 units (cylinder cost: $800-2,500)
+- Digital printing: no plate cost, MOQ as low as 500 units, but higher unit price
+
+Sample lead time: 2-4 weeks for stock materials; 4-8 weeks for custom structures.
+
+Browse [packaging manufacturers](/c/packaging) in the directory or read the [Thai packaging guide](/guide/thai-packaging-manufacturer-guide).`,
+    related: ["thai-factory-moq-guide", "chiang-mai-manufacturing-hub"],
+  },
+  {
+    slug: "laem-chabang-port-logistics-guide",
+    title: "Laem Chabang Port — How Exports Actually Leave Thailand",
+    metaTitle: "Laem Chabang Port Guide — Thailand Container Export Process",
+    metaDescription:
+      "How Laem Chabang port works for international buyers: terminal layout, shipping lines, transit times to Korea/Japan/EU, and what to know before your first shipment.",
+    category: "Sourcing",
+    published: "2026-06-07",
+    body: `Laem Chabang is the gateway for most Thai manufacturing exports. If you're sourcing from Thailand, your containers almost certainly leave from here. Here's how it actually works.
+
+## Port Basics
+
+Laem Chabang Port (LCBP) sits in Si Racha district, Chon Buri — about 100km southeast of Bangkok. It's Thailand's largest container port by volume (~8 million TEU/year) and one of Southeast Asia's top 10.
+
+Three main terminals:
+- **Terminal A** — oldest, handled by LCMT (Laem Chabang Container Terminal)
+- **Terminal B** — expanded in 2010s, higher throughput
+- **Terminal C** — ongoing phase-3 expansion (2025-2028), adding 3.5M TEU capacity
+
+Most industrial estate suppliers in Chon Buri and Rayong are within 20-60km of the port entrance.
+
+## Key Shipping Lines and Services
+
+Major carriers calling Laem Chabang:
+
+| Carrier | Main Services |
+|---------|--------------|
+| Evergreen | Intra-Asia, Europe |
+| COSCO / OOCL | Asia, North America, Europe |
+| Maersk / MSC | Global coverage |
+| ONE (Ocean Network Express) | Japan, Korea, global |
+| Yang Ming | Intra-Asia, transpacific |
+
+Frequency: multiple sailings per week to Korea, Japan, China. Weekly to Europe (transit ~25-30 days via Suez).
+
+## Transit Times from Laem Chabang
+
+| Destination | Transit Time |
+|-------------|-------------|
+| Busan (Korea) | 4-6 days |
+| Yokohama / Osaka (Japan) | 4-7 days |
+| Shanghai / Ningbo | 3-5 days |
+| Rotterdam (Europe) | 25-30 days |
+| Los Angeles (US West) | 18-22 days |
+
+## What Slows Shipments Down
+
+Common delays buyers should budget for:
+- **Cut-off missed** — containers must arrive at gate 24-48h before vessel departure
+- **Document errors** — incorrect HS code, wrong Incoterm, missing C/O
+- **Customs exam** — random X-ray or physical inspection adds 1-3 days
+- **Port congestion** — rare but happens during peak season (Oct-Dec)
+
+## Working with Freight Forwarders
+
+Most Thai exporters use a freight forwarder (ตัวแทนขนส่ง) to handle booking, documentation, and port coordination. Fees: $100-300 per FCL. For first-time importers, using an experienced forwarder with Laem Chabang experience is strongly recommended.
+
+Browse [logistics and 3PL suppliers](/c/logistics) in our directory or [warehouse operators near Laem Chabang](/c/warehouse) for bonded storage options.`,
+    related: ["eastern-seaboard-by-the-numbers", "chon-buri-vs-rayong-manufacturing"],
+  },
 ];
 
 // 합본 export. published desc — 신규 자동 글이 위로 오게.

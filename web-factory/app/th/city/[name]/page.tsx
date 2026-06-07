@@ -14,6 +14,7 @@ function citySlug(label: string): string {
 const TH_CITY_VALID = new Set([
   "chon_buri", "rayong", "pathum_thani", "samut_sakhon",
   "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla",
+  "si_racha", "map_ta_phut", "chiang_mai",
 ]);
 
 export const dynamicParams = false;
@@ -34,6 +35,9 @@ const CITY_NOTES_TH: Record<string, string> = {
   bangkok: "สำนักงานใหญ่ + R&D + corporate office. การผลิตจริงอยู่นอกเมือง.",
   phra_nakhon_si_ayutthaya: "Rojana Hi-Tech + Honda รถยนต์ + Sony / Sharp อิเล็กทรอนิกส์.",
   songkhla: "ภาคใต้ — ยางพารา + อาหารทะเล + อาหารฮาลาล.",
+  si_racha: "ติดท่าเรือแหลมฉบัง — นิคม Pinthong, ชิ้นส่วนยานยนต์ Tier 1/2, คลังสินค้าโลจิสติกส์.",
+  map_ta_phut: "คลัสเตอร์ปิโตรเคมีใหญ่ที่สุดในเอเชียตะวันออกเฉียงใต้ — PTT, IRPC, PTTGC, SCG Chemicals.",
+  chiang_mai: "ศูนย์กลางภาคเหนือ — อาหาร OEM, กาแฟสเปเชียลตี้, สารสกัดสมุนไพร, นิคมอุตสาหกรรม NICEA.",
 };
 
 export async function generateMetadata(

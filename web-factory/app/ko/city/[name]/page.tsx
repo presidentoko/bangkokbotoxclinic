@@ -65,6 +65,24 @@ const CITY_NOTES_KO: Record<string, { hook: string; long: string; guide?: string
     hook: "Rojana Prachinburi + 304 Industrial Park.",
     long: "Prachin Buri (쁘라찐부리)는 Rojana Prachinburi + 304 Industrial Park 거점. 동부해안 임금 회피 + 방콕 인접 (1.5-2시간) 으로 한국 SME 진출 검토 영역.",
   },
+  si_racha: {
+    hook: "Laem Chabang 컨테이너 항만 바로 인접 — 수출 제조·물류 황금지대.",
+    long: "Si Racha (씨라차)는 Laem Chabang 항만 게이트에서 15-25km. Pinthong Industrial Estate 3개 단지 본단. Denso, Toyoda Gosei, Sumitomo Electric 등 자동차 부품 Tier 1/2 + 대형 물류창고 집중. 컨테이너 리드타임 최단 거점.",
+    guide: "korea-sme-amata-wha-comparison",
+  },
+  map_ta_phut: {
+    hook: "동남아 최대 석유화학 클러스터 — PTT·IRPC·PTTGC·SCG Chemicals.",
+    long: "Map Ta Phut (맵따풋)은 Rayong 내 Map Ta Phut 산단 특구. 파이프라인 연결 석유화학 통합단지. PTT Global Chemical, IRPC, PTTGC, SCG Chemicals 집중. 한국 화학사 협력사·원료 탐색 시 필수 거점.",
+    guide: "korea-sme-amata-wha-comparison",
+  },
+  chiang_mai: {
+    hook: "북부 거점 — 식품 OEM·커피·허브 추출물·웰니스 제품.",
+    long: "Chiang Mai (치앙마이)는 태국 북부 산업 허브. Chiang Mai Industrial Estate (NICEA) 보유. 스페셜티 커피 (Doi Chang·Doi Inthanon 아라비카), 허브 추출물, 웰니스 OEM 집중. 동부해안 대비 임금 저렴, BOI Zone 3 혜택.",
+  },
+  pattaya: {
+    hook: "동부해안 남단 — 자동차 부품·물류·관광 인접 서비스.",
+    long: "Pattaya (파타야) 인근은 동부해안 제조 벨트 남단. 자동차 부품 Tier 2/3 + 물류·창고. 관광 인프라 덕분에 출장 편의성 높음.",
+  },
 };
 
 export async function generateMetadata(

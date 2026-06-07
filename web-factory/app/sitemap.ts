@@ -8,6 +8,7 @@ import { GUIDES_KO } from "@/lib/guides_ko";
 import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS } from "@/lib/posts";
 import { POSTS_KO } from "@/lib/posts_ko";
+import { POSTS_TH } from "@/lib/posts_th";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const CATEGORIES = Object.keys(CATEGORY_LABELS);
@@ -39,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
     { url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE}/th/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/community`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 },
     { url: `${SITE}/community/pantip`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
     { url: `${SITE}/community/naver`, lastModified: updated, changeFrequency: "weekly", priority: 0.55 },
@@ -53,6 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const p of POSTS_KO) {
     items.push({ url: `${SITE}/ko/blog/${p.slug}`, lastModified: new Date(p.updated ?? p.published), changeFrequency: "monthly", priority: 0.78 });
   }
+  for (const p of POSTS_TH) {
+    items.push({ url: `${SITE}/th/blog/${p.slug}`, lastModified: new Date(p.updated ?? p.published), changeFrequency: "monthly", priority: 0.78 });
+  }
 
   for (const g of GUIDES) {
     items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.9 });
@@ -64,7 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/th/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
 
-  const TH_CITY_CORE = new Set(["chon_buri", "rayong", "pathum_thani", "samut_sakhon", "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla"]);
+  const TH_CITY_CORE = new Set(["chon_buri", "rayong", "pathum_thani", "samut_sakhon", "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla", "si_racha", "map_ta_phut", "chiang_mai"]);
   for (const c of cities) {
     items.push({ url: `${SITE}/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
     items.push({ url: `${SITE}/ko/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.8 });
