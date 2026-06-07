@@ -95,6 +95,44 @@ export async function ForBuyersPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
+      <section className="mb-8">
+        <h2 className="text-lg font-bold mb-4 text-center">
+          {locale === "ko" ? "유용한 자료" : locale === "th" ? "แหล่งข้อมูลที่มีประโยชน์" : "Helpful resources"}
+        </h2>
+        <div className="grid sm:grid-cols-3 gap-3">
+          <a href={locale === "ko" ? "/ko/guide" : locale === "th" ? "/th/guide" : "/guide"}
+             className="block p-4 bg-white border border-[var(--border)] rounded-xl hover:border-emerald-400 transition text-center">
+            <div className="text-2xl mb-1">📖</div>
+            <div className="font-bold text-sm">
+              {locale === "ko" ? "한국어 가이드" : locale === "th" ? "คู่มือผู้ซื้อ" : "Buyer Guides"}
+            </div>
+            <p className="text-xs text-[var(--muted)] mt-1">
+              {locale === "ko" ? "산단·OEM·BOI 심층 가이드" : locale === "th" ? "คู่มือการจัดซื้อเชิงลึก" : "Deep-dive sourcing guides"}
+            </p>
+          </a>
+          <a href="/best"
+             className="block p-4 bg-white border border-[var(--border)] rounded-xl hover:border-emerald-400 transition text-center">
+            <div className="text-2xl mb-1">🏆</div>
+            <div className="font-bold text-sm">
+              {locale === "ko" ? "추천 공급사 목록" : locale === "th" ? "รายการแนะนำ" : "Curated Lists"}
+            </div>
+            <p className="text-xs text-[var(--muted)] mt-1">
+              {locale === "ko" ? "신뢰도 순위별 14개 목록" : locale === "th" ? "รายการตามหัวข้อ 14 รายการ" : "14 ranked lists by sector"}
+            </p>
+          </a>
+          <a href="/best/highly-recommended"
+             className="block p-4 bg-white border border-[var(--border)] rounded-xl hover:border-emerald-400 transition text-center">
+            <div className="text-2xl mb-1">⭐</div>
+            <div className="font-bold text-sm">
+              {locale === "ko" ? "신뢰도 Top 50" : locale === "th" ? "Top 50 ที่แนะนำ" : "Top 50 Suppliers"}
+            </div>
+            <p className="text-xs text-[var(--muted)] mt-1">
+              {locale === "ko" ? "DBD 검증 + 구글 리뷰 순위" : locale === "th" ? "จัดอันดับโดย Trust Score" : "DBD-verified, ranked by Trust Score"}
+            </p>
+          </a>
+        </div>
+      </section>
+
       <BreadcrumbJsonLd items={[
         { name: homeLabel, url: homeHref },
         { name: t.breadcrumb, url: locale === "en" ? "/for-buyers" : `/${locale}/for-buyers` },

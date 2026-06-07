@@ -57,6 +57,11 @@ export default function KoBlogIndex() {
         ))}
       </div>
 
+      <div className="mt-8 pt-8 border-t border-[var(--border)] flex items-center justify-between gap-4 flex-wrap">
+        <p className="text-sm text-[var(--muted)]">심층 가이드도 읽어보세요 —</p>
+        <a href="/ko/guide" className="text-sm font-bold text-emerald-700 hover:underline">한국어 가이드 전체 보기 →</a>
+      </div>
+
       <BreadcrumbJsonLd items={[
         { name: "홈", url: "/ko" },
         { name: "블로그", url: "/ko/blog" },
