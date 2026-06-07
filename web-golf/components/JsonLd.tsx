@@ -139,6 +139,17 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
       reviewBody: rev.text,
     });
   }
+  if (r.sample_reviews_ko) {
+    for (const rev of r.sample_reviews_ko.slice(0, 2)) {
+      reviews.push({
+        "@type": "Review",
+        reviewRating: { "@type": "Rating", ratingValue: rev.rating, bestRating: 5 },
+        author: { "@type": "Person", name: rev.author || "Google 리뷰어" },
+        reviewBody: rev.text,
+        inLanguage: "ko",
+      });
+    }
+  }
   if (reviews.length === 0 && r.scraped_reviews) {
     for (const sr of r.scraped_reviews.slice(0, 3)) {
       if (!sr.text) continue;

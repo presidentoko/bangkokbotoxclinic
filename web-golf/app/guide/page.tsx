@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Practical guides to golfing in Thailand: booking, green fees, caddy tipping, Korean tour scene, dress code, regional comparison.",
   alternates: {
     canonical: "/guide",
-    languages: { "en-US": "/guide", "ko-KR": "/ko/guide", "th-TH": "/th/guide" },
+    languages: { "x-default": "/guide", "en-US": "/guide", "ko-KR": "/ko/guide", "th-TH": "/th/guide" },
   },
 };
 

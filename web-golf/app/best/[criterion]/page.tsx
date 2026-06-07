@@ -23,6 +23,7 @@ export async function generateMetadata(
     alternates: {
       canonical: `/best/${cfg.slug}`,
       languages: {
+        "x-default": `/best/${cfg.slug}`,
         "en-US": `/best/${cfg.slug}`,
         ...(cfg.slug === "korean-friendly" ? { "ko-KR": "/ko/best/korean-friendly" } : {}),
       },

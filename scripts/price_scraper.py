@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 import requests
 from bs4 import BeautifulSoup
-from rapidfuzz import process, fuzz
+from rapidfuzz import process, fuzz, utils as rfutils
 
 HEADERS = {
     "User-Agent": (
@@ -20,15 +20,21 @@ HEADERS = {
 
 # Golfdigg 지역별 페이지 목록 (SSR 가격 포함)
 GOLFDIGG_AREA_PAGES = [
-    {"area": "Bangkok",    "url": "https://golfdigg.com/en/bangkok/golf-courses"},
-    {"area": "Pattaya",    "url": "https://golfdigg.com/en/pattaya/golf-courses"},
-    {"area": "Phuket",     "url": "https://golfdigg.com/en/phuket/golf-courses"},
-    {"area": "Hua Hin",    "url": "https://golfdigg.com/en/hua-hin/golf-courses"},
-    {"area": "Chiang Mai", "url": "https://golfdigg.com/en/chiangmai/golf-courses"},
-    {"area": "Chiang Rai", "url": "https://golfdigg.com/en/chiang-rai/golf-courses"},
-    {"area": "Khao Yai",   "url": "https://golfdigg.com/en/khao-yai/golf-courses"},
-    {"area": "Rayong",     "url": "https://golfdigg.com/en/rayong/golf-courses"},
-    {"area": "Samui",      "url": "https://golfdigg.com/en/koh-samui/golf-courses"},
+    {"area": "Bangkok",         "url": "https://golfdigg.com/en/bangkok/golf-courses"},
+    {"area": "Pattaya",         "url": "https://golfdigg.com/en/pattaya/golf-courses"},
+    {"area": "Chon Buri",       "url": "https://golfdigg.com/en/chon-buri/golf-courses"},
+    {"area": "Phuket",          "url": "https://golfdigg.com/en/phuket/golf-courses"},
+    {"area": "Krabi",           "url": "https://golfdigg.com/en/krabi/golf-courses"},
+    {"area": "Hua Hin",         "url": "https://golfdigg.com/en/hua-hin/golf-courses"},
+    {"area": "Cha Am",          "url": "https://golfdigg.com/en/cha-am/golf-courses"},
+    {"area": "Chiang Mai",      "url": "https://golfdigg.com/en/chiangmai/golf-courses"},
+    {"area": "Chiang Rai",      "url": "https://golfdigg.com/en/chiang-rai/golf-courses"},
+    {"area": "Khao Yai",        "url": "https://golfdigg.com/en/khao-yai/golf-courses"},
+    {"area": "Nakhon Ratchasima", "url": "https://golfdigg.com/en/nakhon-ratchasima/golf-courses"},
+    {"area": "Rayong",          "url": "https://golfdigg.com/en/rayong/golf-courses"},
+    {"area": "Samui",           "url": "https://golfdigg.com/en/koh-samui/golf-courses"},
+    {"area": "Ayutthaya",       "url": "https://golfdigg.com/en/ayutthaya/golf-courses"},
+    {"area": "Kanchanaburi",    "url": "https://golfdigg.com/en/kanchanaburi/golf-courses"},
 ]
 
 SOURCE_AGENCY = "Golfdigg"
@@ -60,7 +66,7 @@ def parse_baht(text: str) -> int | None:
     return val if val >= 100 else None  # 100 미만은 파싱 오류로 간주
 
 
-def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict) -> list[dict]:
+def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unmatched: list) -> list[dict]:
     """Golfdigg 지역 페이지에서 코스 카드 파싱.
 
     Golfdigg는 CSS Module 클래스를 사용:
@@ -116,13 +122,15 @@ def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict) -> l
         href = f"{GOLFDIGG_BASE}/{slug}"
 
         # 코스명 fuzzy match — 짧은 일반 이름(예: "Golf") 오매칭 방지
-        top = process.extract(name_text, master_names, scorer=fuzz.token_sort_ratio, limit=5)
+        top = process.extract(name_text, master_names, scorer=fuzz.token_sort_ratio,
+                              processor=rfutils.default_process, limit=5)
         match = next(
             (m for m in top if m[1] >= MATCH_THRESHOLD and len(m[0]) >= MIN_MATCH_LEN),
             None,
         )
         if not match:
             print(f"  NO MATCH ({area}): '{name_text}'")
+            unmatched.append({"area": area, "name": name_text, "price_text": price_text})
             continue
 
         course_id = name_to_id.get(match[0], "")
@@ -162,11 +170,12 @@ def main():
 
     all_results: list[dict] = []
     seen_ids: set[str] = set()
+    unmatched: list[dict] = []
 
     for page in GOLFDIGG_AREA_PAGES:
         print(f"\nScraping {page['area']}...")
         try:
-            scraped = scrape_area_page(page, master_names, name_to_id)
+            scraped = scrape_area_page(page, master_names, name_to_id, unmatched)
             for entry in scraped:
                 if entry["course_id"] not in seen_ids:
                     all_results.append(entry)
@@ -179,7 +188,14 @@ def main():
         json.dumps(all_results, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+    unmatched_path = Path(__file__).parent.parent / "web-golf" / "data" / "unmatched_prices.json"
+    unmatched_path.write_text(
+        json.dumps(unmatched, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
     print(f"\nDone: {len(all_results)} courses saved → {out_path}")
+    print(f"Unmatched: {len(unmatched)} → {unmatched_path}")
 
 
 if __name__ == "__main__":

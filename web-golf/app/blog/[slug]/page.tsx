@@ -25,6 +25,7 @@ export async function generateMetadata(
     alternates: {
       canonical: `/blog/${slug}`,
       languages: {
+        "x-default": `/blog/${slug}`,
         "en-US": `/blog/${slug}`,
         ...(findPostKo(slug) ? { "ko-KR": `/ko/blog/${slug}` } : {}),
       },
