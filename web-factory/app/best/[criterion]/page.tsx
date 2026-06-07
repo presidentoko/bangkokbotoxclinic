@@ -6,7 +6,17 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { findGuide } from "@/lib/guides";
+import { findPost } from "@/lib/posts";
 import type { Metadata } from "next";
+
+const CRITERION_TO_POST: Record<string, string> = {
+  "boi-eligible": "thailand-boi-explained",
+  "industrial-estates": "eastern-seaboard-by-the-numbers",
+  "near-laem-chabang": "eastern-seaboard-by-the-numbers",
+  "auto-parts": "chon-buri-vs-rayong-manufacturing",
+  "manufacturers": "sourcing-agent-markup-real-cost",
+  "highly-recommended": "verified-supplier-what-we-check",
+};
 
 const CRITERION_TO_GUIDE: Record<string, string> = {
   "highly-recommended": "sourcing-thai-suppliers-direct",
@@ -111,6 +121,28 @@ export default async function BestForPage(
                     <p className="text-sm text-[var(--muted)] line-clamp-2">{guide.metaDescription}</p>
                   </div>
                   <span className="text-emerald-700 group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
+                </div>
+              </a>
+            );
+          })()}
+
+          {(() => {
+            const postSlug = CRITERION_TO_POST[criterion];
+            const post = postSlug ? findPost(postSlug) : null;
+            if (!post) return null;
+            return (
+              <a
+                href={`/blog/${post.slug}`}
+                className="block mt-6 p-4 bg-stone-50 border border-stone-200 rounded-xl hover:border-stone-400 hover:shadow-sm transition group"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="text-lg shrink-0">📝</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-bold uppercase tracking-widest text-stone-500 mb-0.5">Blog post</div>
+                    <div className="font-bold text-sm leading-snug mb-1 group-hover:text-emerald-700 transition">{post.title}</div>
+                    <p className="text-xs text-[var(--muted)] line-clamp-1">{post.metaDescription}</p>
+                  </div>
+                  <span className="text-stone-400 shrink-0 self-center">→</span>
                 </div>
               </a>
             );
