@@ -212,9 +212,9 @@ export default async function SupplierPage(
     {
       key: "iso",
       label: "ISO 9001",
-      sub: r.iso_scope ?? (topicCount("iso_certified") >= 2 ? "Mentioned in buyer reviews" : ""),
+      sub: r.iso_scope || (topicCount("iso_certified") >= 2 ? "Mentioned in buyer reviews" : ""),
       icon: "ⓘ",
-      active: r.iso_scope != null || topicCount("iso_certified") >= 2,
+      active: !!r.iso_scope || topicCount("iso_certified") >= 2,
       hint: "ISO 9001 quality management system certification.",
     },
     {
@@ -480,14 +480,6 @@ export default async function SupplierPage(
                         : r.estate_name}
                     </Detail>
                   )}
-                  {r.export_markets && r.export_markets.length > 0 && (
-                    <Detail label="Export markets">
-                      {r.export_markets.join(" · ")}
-                    </Detail>
-                  )}
-                  {r.employee_range && (
-                    <Detail label="Employees">{r.employee_range}</Detail>
-                  )}
                 </dl>
                 {r.dbd.purpose && (
                   <div className="mt-5 pt-5 border-t border-amber-200">
@@ -508,6 +500,21 @@ export default async function SupplierPage(
               <section className="bg-white border border-stone-200 rounded-2xl p-6">
                 <h2 className="text-xl font-bold mb-3 text-stone-900 font-display">About</h2>
                 <p className="text-sm leading-relaxed text-stone-700">{r.yp.description}</p>
+              </section>
+            )}
+
+            {/* Export & headcount — shown regardless of DBD match */}
+            {(r.export_markets && r.export_markets.length > 0 || r.employee_range) && (
+              <section className="bg-white border border-stone-200 rounded-2xl p-6">
+                <h2 className="text-xl font-bold mb-4 text-stone-900 font-display">Company details</h2>
+                <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+                  {r.export_markets && r.export_markets.length > 0 && (
+                    <Detail label="Export markets">{r.export_markets.join(" · ")}</Detail>
+                  )}
+                  {r.employee_range && (
+                    <Detail label="Employees">{r.employee_range}</Detail>
+                  )}
+                </dl>
               </section>
             )}
 

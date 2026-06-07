@@ -26,7 +26,7 @@ export function BuyerSignals({ topics, totalReviews }: Props) {
   const warnings = active.filter((t) => WARNING_TOPICS.has(t.topic));
 
   return (
-    <section>
+    <div>
       <div className="mb-3">
         <div className="text-[10px] uppercase tracking-widest font-bold text-amber-700 mb-1">From buyers</div>
         <h2 className="text-xl md:text-2xl font-bold text-stone-900 font-display">
@@ -60,6 +60,6 @@ export function BuyerSignals({ topics, totalReviews }: Props) {
           </span>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
