@@ -1,0 +1,35 @@
+name: Drainage NLP
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  nlp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install rapidfuzz
+
+      - name: Run NLP
+        run: python scripts/drainage_nlp.py
+
+      - name: Commit if changed
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git diff --quiet || (
+            git add web-golf/data/master_db.json &&
+            git commit -m "data: drainage scores update [skip ci]" &&
+            git push
+          )
