@@ -46,11 +46,9 @@ export function SearchResults({ locale, q }: SearchResultsProps) {
       ? `พบ ${results.length} ผลิตภัณฑ์`
       : locale === "ko"
         ? `${results.length}개 제품 발견`
-        : locale === "ja"
-          ? `${results.length}件の製品が見つかりました`
-          : locale === "ar"
-            ? `تم العثور على ${results.length} منتج`
-            : `${results.length} product${results.length !== 1 ? "s" : ""} found`;
+        : locale === "ar"
+          ? `تم العثور على ${results.length} منتج`
+          : `${results.length} product${results.length !== 1 ? "s" : ""} found`;
 
   if (results.length === 0) {
     const noResultLabel =
@@ -58,11 +56,9 @@ export function SearchResults({ locale, q }: SearchResultsProps) {
         ? `ไม่พบผลิตภัณฑ์สำหรับ "${q}"`
         : locale === "ko"
           ? `"${q}"에 대한 결과가 없습니다`
-          : locale === "ja"
-            ? `"${q}" の結果が見つかりませんでした`
-            : locale === "ar"
-              ? `لا توجد نتائج لـ "${q}"`
-              : `No results found for "${q}"`;
+          : locale === "ar"
+            ? `لا توجد نتائج لـ "${q}"`
+            : `No results found for "${q}"`;
     return (
       <p className="text-sm text-neutral-500 mt-4">{noResultLabel}</p>
     );

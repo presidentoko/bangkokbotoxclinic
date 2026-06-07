@@ -26,11 +26,9 @@ export function SearchBox({
       ? "ค้นหาสินค้า แบรนด์ หรือส่วนผสม…"
       : locale === "ko"
         ? "제품, 브랜드, 성분 검색…"
-        : locale === "ja"
-          ? "製品・ブランド・成分を検索…"
-          : locale === "ar"
-            ? "ابحث عن منتج أو علامة تجارية أو مكوّن…"
-            : "Search products, brands, or ingredients…";
+        : locale === "ar"
+          ? "ابحث عن منتج أو علامة تجارية أو مكوّن…"
+          : "Search products, brands, or ingredients…";
 
   return (
     <form onSubmit={handleSubmit} className="relative w-full" role="search">
@@ -66,7 +64,7 @@ export function SearchBox({
         type="submit"
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-rose-500 px-4 py-1.5 text-xs font-semibold text-white hover:bg-rose-600 transition-colors"
       >
-        {locale === "th" ? "ค้นหา" : locale === "ko" ? "검색" : locale === "ja" ? "検索" : locale === "ar" ? "بحث" : "Search"}
+        {locale === "th" ? "ค้นหา" : locale === "ko" ? "검색" : locale === "ar" ? "بحث" : "Search"}
       </button>
     </form>
   );

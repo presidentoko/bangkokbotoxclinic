@@ -24,22 +24,18 @@ export async function generateMetadata({
       ? "ค้นหาสินค้า — BangkokFillers"
       : locale === "ko"
         ? "제품 검색 — BangkokFillers"
-        : locale === "ja"
-          ? "製品を検索 — BangkokFillers"
-          : locale === "ar"
-            ? "البحث عن المنتجات — BangkokFillers"
-            : "Search Products — BangkokFillers";
+        : locale === "ar"
+          ? "البحث عن المنتجات — BangkokFillers"
+          : "Search Products — BangkokFillers";
 
   const description =
     locale === "th"
       ? "ค้นหาสินค้าสกินแคร์ไทย แบรนด์ หรือส่วนผสมที่คุณสนใจ"
       : locale === "ko"
         ? "태국 스킨케어 제품, 브랜드, 성분을 검색하세요"
-        : locale === "ja"
-          ? "タイのスキンケア製品・ブランド・成分を検索"
-          : locale === "ar"
-            ? "ابحث عن منتجات العناية بالبشرة التايلاندية، العلامات التجارية، أو المكونات"
-            : "Search Thai skincare products, brands, or ingredients";
+        : locale === "ar"
+          ? "ابحث عن منتجات العناية بالبشرة التايلاندية، العلامات التجارية، أو المكونات"
+          : "Search Thai skincare products, brands, or ingredients";
 
   return {
     title,
@@ -67,22 +63,18 @@ export default async function SearchPage({
       ? "ค้นหาสินค้า"
       : locale === "ko"
         ? "제품 검색"
-        : locale === "ja"
-          ? "製品を検索"
-          : locale === "ar"
-            ? "البحث عن المنتجات"
-            : "Search Products";
+        : locale === "ar"
+          ? "البحث عن المنتجات"
+          : "Search Products";
 
   const emptyPrompt =
     locale === "th"
       ? "พิมพ์ชื่อสินค้า แบรนด์ หรือส่วนผสมเพื่อเริ่มค้นหา"
       : locale === "ko"
         ? "제품명, 브랜드 또는 성분을 입력하여 검색을 시작하세요"
-        : locale === "ja"
-          ? "製品名、ブランド、または成分を入力して検索を開始します"
-          : locale === "ar"
-            ? "أدخل اسم المنتج أو العلامة التجارية أو المكوّن للبدء"
-            : "Type a product name, brand, or ingredient to start searching";
+        : locale === "ar"
+          ? "أدخل اسم المنتج أو العلامة التجارية أو المكوّن للبدء"
+          : "Type a product name, brand, or ingredient to start searching";
 
   return (
     <div className="space-y-6">

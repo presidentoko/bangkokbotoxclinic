@@ -3,7 +3,7 @@ import { t, concernLabelShort, LOCALES, type Locale } from "@/lib/i18n";
 import { CONCERNS } from "@/lib/data";
 
 const LOCALE_CODES: Record<Locale, string> = {
-  th: "TH", en: "EN", ko: "KO", ja: "JA", ar: "AR",
+  th: "TH", en: "EN", ko: "KO", ar: "AR",
 };
 
 function LocaleToggle({ locale }: { locale: Locale }) {
