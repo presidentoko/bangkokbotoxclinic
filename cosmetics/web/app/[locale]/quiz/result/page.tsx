@@ -5,6 +5,7 @@ import { concernLabel } from "@/lib/i18n";
 import { CONCERNS, productSlug, type Concern } from "@/lib/data";
 import { quizRecommendations } from "@/lib/quiz";
 import { QuizResultCard } from "@/components/QuizResultCard";
+import { QuizLeadCapture } from "@/components/QuizLeadCapture";
 import { JsonLd } from "@/components/JsonLd";
 import {
   SKIN_LABELS,
@@ -144,6 +145,15 @@ export default async function QuizResultPage({
         budget={budget}
         locale={loc}
         resultUrl={resultUrl}
+      />
+
+      <QuizLeadCapture
+        skin={skin}
+        concern={concern}
+        budget={budget}
+        locale={locale}
+        labelTh="รับดีล"
+        labelEn="Get deals"
       />
 
       {/* AEO paragraph — indexed by AI search */}

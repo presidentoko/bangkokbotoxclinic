@@ -6,6 +6,7 @@ import { CONCERNS, allProducts, getProduct, productSlug, siteStats } from "@/lib
 import { concernLabel } from "@/lib/i18n";
 import Link from "next/link";
 import { getLinkHealth } from "@/lib/link-health";
+import { kvGet } from "@/lib/kv";
 
 export const metadata = { title: "Admin — BangkokFillers", robots: "noindex" };
 export const dynamic = "force-dynamic";
@@ -24,6 +25,9 @@ export default async function AdminPage() {
     .filter((p) => linkHealth[p.product_id] && !linkHealth[p.product_id].ok)
     .slice(0, 50);
   const lastChecked = Object.values(linkHealth)[0]?.checkedAt ?? null;
+  const leadsRaw = await kvGet("leads");
+  const leads: { email: string; skin: string; concern: string; budget: string; ts: string }[] =
+    leadsRaw ? JSON.parse(leadsRaw as string) : [];
 
   return (
     <div className="min-h-screen bg-[#fbf4f1]">
@@ -188,6 +192,22 @@ export default async function AdminPage() {
                     {p.url.slice(0, 40)}…
                   </a>
                 </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        {/* Email Leads */}
+        <section className="mt-10">
+          <h2 className="text-lg font-semibold mb-1">
+            Email Leads <span className="text-sm font-normal text-gray-500">({leads.length} total)</span>
+          </h2>
+          {leads.length === 0 ? (
+            <p className="text-sm text-gray-500">No leads yet</p>
+          ) : (
+            <ul className="text-sm space-y-1 max-h-48 overflow-y-auto border rounded p-2 font-mono">
+              {[...leads].reverse().map((l, i) => (
+                <li key={i}>{l.email} · {l.concern} · {l.skin} · {new Date(l.ts).toLocaleDateString("th-TH")}</li>
               ))}
             </ul>
           )}
