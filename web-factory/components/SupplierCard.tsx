@@ -44,6 +44,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               alt={r.name}
               loading="lazy"
               referrerPolicy="no-referrer"
+              sizes="(max-width: 640px) 100vw, 900px"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {r.verified && r.dbd?.match_score !== undefined && r.dbd.match_score >= 90 && (

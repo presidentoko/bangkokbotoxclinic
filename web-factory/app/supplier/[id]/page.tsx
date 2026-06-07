@@ -427,6 +427,7 @@ export default async function SupplierPage(
                    className="relative block rounded-xl overflow-hidden bg-stone-100 group" style={{ aspectRatio: "4/3" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={photoUrl(url)} alt={`${r.name} — photo ${i + 1}`} loading="lazy" referrerPolicy="no-referrer"
+                       sizes="(max-width: 768px) 50vw, 256px"
                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </a>
               ))}

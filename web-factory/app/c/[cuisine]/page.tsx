@@ -212,7 +212,7 @@ export default async function CategoryPage(
       )}
 
       <section>
-        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
+        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 40)}</h2>
         <div className="grid gap-3">
           {filtered.slice(0, 10).map((r, i) => (
             <SupplierCard key={r.id} r={r} rank={i + 1} />
@@ -223,14 +223,14 @@ export default async function CategoryPage(
         <AdSlot slot="category-mid" />
 
         <div className="grid gap-3 mt-3">
-          {filtered.slice(10, 100).map((r, i) => (
+          {filtered.slice(10, 40).map((r, i) => (
             <SupplierCard key={r.id} r={r} rank={i + 11} />
           ))}
         </div>
 
-        {filtered.length > 100 && (
+        {filtered.length > 40 && (
           <p className="mt-6 text-sm text-[var(--muted)]">
-            {filtered.length - 100} more {label.toLowerCase()} suppliers — narrow by region or district above.
+            {filtered.length - 40} more {label.toLowerCase()} suppliers — narrow by region or district above.
           </p>
         )}
       </section>
