@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { POSTS, findPost, renderBody, inlineMd } from "@/lib/posts";
+import { findPostKo } from "@/lib/posts_ko";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
@@ -21,7 +22,13 @@ export async function generateMetadata(
   return {
     title: p.metaTitle,
     description: p.metaDescription,
-    alternates: { canonical: `/blog/${slug}` },
+    alternates: {
+      canonical: `/blog/${slug}`,
+      languages: {
+        "en-US": `/blog/${slug}`,
+        ...(findPostKo(slug) ? { "ko-KR": `/ko/blog/${slug}` } : {}),
+      },
+    },
     openGraph: {
       title: p.metaTitle,
       description: p.metaDescription,

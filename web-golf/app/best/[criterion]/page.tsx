@@ -20,7 +20,13 @@ export async function generateMetadata(
   return {
     title: cfg.metaTitle,
     description: cfg.metaDescription,
-    alternates: { canonical: `/best/${cfg.slug}` },
+    alternates: {
+      canonical: `/best/${cfg.slug}`,
+      languages: {
+        "en-US": `/best/${cfg.slug}`,
+        ...(cfg.slug === "korean-friendly" ? { "ko-KR": "/ko/best/korean-friendly" } : {}),
+      },
+    },
   };
 }
 
