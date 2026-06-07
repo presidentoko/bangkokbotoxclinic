@@ -5,6 +5,7 @@ import { getFeaturedMap, getBanner, kvAvailable } from "@/lib/adminData";
 import { CONCERNS, allProducts, getProduct, productSlug, siteStats } from "@/lib/data";
 import { concernLabel } from "@/lib/i18n";
 import Link from "next/link";
+import { getLinkHealth } from "@/lib/link-health";
 
 export const metadata = { title: "Admin — BangkokFillers", robots: "noindex" };
 export const dynamic = "force-dynamic";
@@ -18,6 +19,11 @@ export default async function AdminPage() {
   const banner = await getBanner();
   const stats = siteStats();
   const kvOk = kvAvailable();
+  const linkHealth = await getLinkHealth();
+  const deadLinks = allProducts()
+    .filter((p) => linkHealth[p.product_id] && !linkHealth[p.product_id].ok)
+    .slice(0, 50);
+  const lastChecked = Object.values(linkHealth)[0]?.checkedAt ?? null;
 
   return (
     <div className="min-h-screen bg-[#fbf4f1]">
@@ -159,6 +165,32 @@ export default async function AdminPage() {
               );
             })}
           </div>
+        </section>
+
+        {/* Dead affiliate links */}
+        <section className="mt-10">
+          <h2 className="text-lg font-semibold mb-1">
+            Dead Affiliate Links{" "}
+            <span className="text-sm font-normal text-gray-500">
+              ({deadLinks.length} dead
+              {lastChecked ? ` · checked ${new Date(lastChecked).toLocaleDateString("th-TH")}` : " · never checked"})
+            </span>
+          </h2>
+          {deadLinks.length === 0 ? (
+            <p className="text-sm text-gray-500">All links OK {lastChecked ? "✓" : "(run cron first)"}</p>
+          ) : (
+            <ul className="text-sm space-y-1 max-h-64 overflow-y-auto border rounded p-2">
+              {deadLinks.map((p) => (
+                <li key={p.product_id} className="flex gap-2 items-center">
+                  <span className="text-red-600 font-mono">{linkHealth[p.product_id].status ?? "ERR"}</span>
+                  <span className="truncate">{p.name}</span>
+                  <a href={p.url} target="_blank" rel="noopener" className="text-blue-500 underline text-xs shrink-0">
+                    {p.url.slice(0, 40)}…
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         {/* Product search helper */}
