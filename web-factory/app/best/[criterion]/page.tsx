@@ -5,7 +5,22 @@ import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/compon
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { findGuide } from "@/lib/guides";
 import type { Metadata } from "next";
+
+const CRITERION_TO_GUIDE: Record<string, string> = {
+  "highly-recommended": "sourcing-thai-suppliers-direct",
+  "industrial-estates": "eastern-seaboard-industrial-estates-compared",
+  "auto-parts": "thai-auto-parts-tier1-tier2",
+  "warehouses": "laem-chabang-warehouse-logistics",
+  "manufacturers": "sourcing-thai-suppliers-direct",
+  "near-laem-chabang": "laem-chabang-warehouse-logistics",
+  "dbd-verified-by-capital": "eastern-seaboard-industrial-estates-compared",
+  "food-manufacturers": "thai-food-manufacturer-haccp-export",
+  "electronics-manufacturers": "thai-electronics-manufacturer-hdd-ems",
+  "export-ready": "thai-logistics-3pl-customs-guide",
+  "boi-eligible": "eastern-seaboard-industrial-estates-compared",
+};
 
 export const dynamicParams = false;
 
@@ -47,7 +62,7 @@ export default async function BestForPage(
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
-        <span>Best</span>
+        <a href="/best" className="hover:text-[var(--fg)]">Best of</a>
         <span className="mx-2">›</span>
         <span>{cfg.title.replace(/^Best |^Top |^Most /, "").replace(/ in Thailand$/, "")}</span>
       </nav>
@@ -77,6 +92,30 @@ export default async function BestForPage(
             </div>
           </section>
 
+          {(() => {
+            const guideSlug = CRITERION_TO_GUIDE[criterion];
+            const guide = guideSlug ? findGuide(guideSlug) : null;
+            if (!guide) return null;
+            return (
+              <a
+                href={`/guide/${guide.slug}`}
+                className="block mt-10 p-5 bg-emerald-50/40 border border-emerald-200 rounded-xl hover:border-emerald-400 hover:shadow-md transition group"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="text-2xl shrink-0">📖</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-1">Buyer guide</div>
+                    <h2 className="font-bold text-lg leading-snug mb-1 group-hover:text-emerald-700 transition">
+                      {guide.title}
+                    </h2>
+                    <p className="text-sm text-[var(--muted)] line-clamp-2">{guide.metaDescription}</p>
+                  </div>
+                  <span className="text-emerald-700 group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
+                </div>
+              </a>
+            );
+          })()}
+
           <section className="mt-12">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
               Other ways to find a supplier
@@ -104,6 +143,7 @@ export default async function BestForPage(
       />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
+        { name: "Best of", url: "/best" },
         { name: cfg.title, url: `/best/${cfg.slug}` },
       ]} />
       <ItemListJsonLd

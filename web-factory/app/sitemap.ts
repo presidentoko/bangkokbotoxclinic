@@ -82,6 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/th/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
 
+  items.push({ url: `${SITE}/best`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
   for (const c of BEST_FOR) {
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }

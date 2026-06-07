@@ -87,10 +87,10 @@ export default function RootLayout({
                 <ul className="space-y-1.5">
                   <li><a href="/guide" className="hover:text-black">Buyer Guides</a></li>
                   <li><a href="/blog" className="hover:text-black">Blog</a></li>
+                  <li><a href="/best" className="hover:text-black">Best of — All Lists</a></li>
                   <li><a href="/community" className="hover:text-black">Community</a></li>
-                  <li><a href="/best/highly-recommended" className="hover:text-black">DBD-Verified Suppliers</a></li>
-                  <li><a href="/best/dbd-verified-by-capital" className="hover:text-black">Largest by Capital</a></li>
-                  <li><a href="/best/auto-parts" className="hover:text-black">Top Auto Parts</a></li>
+                  <li><a href="/best/boi-eligible" className="hover:text-black">BOI-Eligible Factories</a></li>
+                  <li><a href="/best/export-ready" className="hover:text-black">Export-Ready Suppliers</a></li>
                 </ul>
               </div>
               <div>

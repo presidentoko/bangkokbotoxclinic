@@ -318,6 +318,115 @@ Korean SMEs sourcing from Thailand are an outsized share of our /ko traffic. Int
 If that's you, [start on the homepage](/) or jump to a category — [manufacturers](/c/manufacturer), [auto parts](/c/auto_parts), [warehouses](/c/warehouse).`,
     related: ["sourcing-agent-markup-real-cost", "trust-score-explained", "verified-supplier-what-we-check"],
   },
+  {
+    slug: "thailand-boi-explained",
+    title: "Thailand BOI Explained — What the Tax Holiday Actually Gets You",
+    metaTitle: "Thailand BOI Incentives Explained — Tax Holiday for Manufacturers",
+    metaDescription:
+      "Board of Investment (BOI) promotion explained: what the tax holiday covers, which industries qualify, how to apply, and why location inside an industrial estate matters.",
+    category: "Industry",
+    published: "2026-06-07",
+    body: `Thailand's Board of Investment (BOI) is the primary mechanism for attracting foreign manufacturers. If you're setting up production in Thailand, understanding BOI isn't optional.
+
+## What BOI promotion means
+
+A promoted company gets:
+- **0% corporate income tax** for 3-8 years (activity-dependent)
+- **Import duty exemption** on machinery and raw materials used in export production
+- **Work permit and land ownership** facilitation for foreign staff
+- **Customs fast-track** processing at Laem Chabang and Map Ta Phut
+
+The tax holiday alone can save tens of millions of baht for a manufacturing setup — the math depends on capex scale.
+
+## Which industries qualify
+
+BOI groups activities into merit-based categories. High-eligibility sectors for foreign buyers:
+
+| Industry | Typical holiday |
+|---|---|
+| Electronics / EMS | 5-8 years |
+| Automotive parts (Tier 1) | 5-8 years |
+| Food processing (export-focused) | 3-5 years |
+| Chemical / specialty polymer | 3-5 years |
+| Logistics / cold chain | 3 years |
+| Bio-based / green energy | 5-8+ years |
+
+## Why industrial estate location matters
+
+BOI promotes activities in specific zones. Being inside an IEAT-designated estate — Amata, WHA, Pinthong, Rojana — can:
+- Unlock higher promotion merit (additional tax years)
+- Simplify customs (One-Stop Service on-site)
+- Give access to ready-built factory shells (faster setup)
+
+Industrial estate tenants already account for a large share of Thailand's BOI-promoted companies.
+
+## How to apply
+
+1. Submit promotion application to BOI (boi.go.th) — best done via a Thai legal firm
+2. BOI reviews and issues promotion certificate (typically 3-6 months)
+3. Set up Thai entity, register with Revenue Department
+4. Begin operations under promotion framework
+
+Foreign majority ownership (up to 100%) is allowed for BOI-promoted manufacturers.
+
+## Suppliers in BOI-eligible industries
+
+Browse [BOI-eligible manufacturers](/best/boi-eligible) in our directory — filtered by estate location and industry heuristic.`,
+    related: ["eastern-seaboard-by-the-numbers", "verified-supplier-what-we-check"],
+  },
+  {
+    slug: "thai-factory-moq-guide",
+    title: "MOQ in Thailand — How to Negotiate Minimum Order Quantities",
+    metaTitle: "MOQ Negotiation at Thai Factories — Buyer's Guide",
+    metaDescription:
+      "What MOQs look like at Thai manufacturers, how they differ by factory type, and four tactics that actually work to lower minimums.",
+    category: "Sourcing",
+    published: "2026-06-07",
+    body: `Minimum order quantity is the first friction point for most international buyers contacting Thai factories. Here's how MOQs actually work in the Thai manufacturing context.
+
+## MOQ norms by factory type
+
+**Large industrial-estate manufacturers (100+ employees)**
+- Established OEM with long-term clients
+- MOQ is usually a floor they set once and rarely move
+- Range: 500-2,000 units per run for plastics/auto parts; 1MT+ for chemicals
+- Best move: commit to annual volume contract, not spot orders
+
+**Mid-size B2B manufacturers (20-100 employees)**
+- More flexible, especially if you come with a spec sheet and realistic timeline
+- Range: 200-500 units for parts; 200kg-1MT for specialty chemicals
+- Best move: offer a reference sample order with a written intent letter for follow-on volume
+
+**Small specialist factories / cottage-industrial**
+- MOQs negotiable, but quality control is the risk
+- Range: 50-200 units depending on product complexity
+- Best move: arrange a 3rd-party QC inspection before first shipment
+
+## Four tactics that actually work
+
+**1. Break the order into phases**
+Instead of "I want 100 units" (which triggers MOQ rejection), say "I want 100 units for an evaluation run, then 500/month from quarter 2." Factories prioritize buyers with volume roadmaps.
+
+**2. Share tooling cost**
+If your product requires a mold or jig, offer to pay tooling cost upfront in exchange for lower MOQ on the first run. Many Thai factories will accept this — it de-risks the setup for them.
+
+**3. Use a consignment test**
+Some factories will run a small first order at spot (above normal) pricing, with a contract price locked for subsequent runs. Not all do, but it's worth asking.
+
+**4. Reference a local agent or estate contact**
+Cold emails from unknown overseas buyers get ignored. An intro from a Thai industrial estate's tenant-service team, a supplier from the same estate who knows you, or a local agent adds credibility that can move the MOQ conversation forward.
+
+## What doesn't work
+
+- Pointing at competitor pricing to force the MOQ down. Thai factories will just pass.
+- "We'll get to volume later" without showing specifics. Vague promises don't move factories.
+- Trying to negotiate over email with no phone call. Call first, email to confirm terms.
+
+## Where to start
+
+Find manufacturers with direct contact info at [/best/manufacturers](/best/manufacturers) or filter by category — [auto parts](/c/auto_parts), [packaging](/c/packaging), [food OEM](/c/food_mfg). Call the number listed, ask for the export sales team.`,
+    related: ["sourcing-agent-markup-real-cost", "why-this-directory-exists"],
+  },
 ];
 
 // 합본 export. published desc — 신규 자동 글이 위로 오게.
