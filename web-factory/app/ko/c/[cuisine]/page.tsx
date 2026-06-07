@@ -89,6 +89,21 @@ export default async function KoCategoryPage(
           <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
             {withWebsite.toLocaleString()}곳 웹사이트 공개
           </span>
+          {(() => {
+            const CAT_TO_BEST: Record<string, string> = {
+              manufacturer: "manufacturers", auto_parts: "auto-parts",
+              industrial_estate: "industrial-estates", warehouse: "warehouses",
+              food_mfg: "food-manufacturers", electronics: "electronics-manufacturers",
+            };
+            const bestSlug = CAT_TO_BEST[cuisine];
+            if (!bestSlug) return null;
+            return (
+              <a href={`/best/${bestSlug}`}
+                 className="bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-full font-medium hover:bg-amber-100 transition">
+                🏆 순위 목록 →
+              </a>
+            );
+          })()}
         </div>
       </header>
 
