@@ -86,6 +86,15 @@ export type Supplier = {
   estate_slug?: string | null;
   years_in_business?: number | null;
   is_consumer?: boolean;
+
+  // ── Future enrichment fields (populated by BOI scraper / manual CSV) ──
+  boi_promoted?: boolean | null;
+  boi_activity?: string | null;      // e.g. "Electronic components manufacturing"
+  employee_range?: string | null;    // e.g. "200–500", "500+"
+  export_markets?: string[] | null;  // e.g. ["Japan", "Germany", "USA"]
+  iso_scope?: string | null;         // e.g. "ISO 9001:2015"
+  iatf_certified?: boolean | null;
+  haccp_certified?: boolean | null;
 };
 
 export type MasterDb = {
