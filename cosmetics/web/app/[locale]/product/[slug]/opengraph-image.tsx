@@ -1,18 +1,12 @@
 import { ImageResponse } from "next/og";
 import type { Locale } from "@/lib/i18n";
-import { LOCALES } from "@/lib/i18n";
-import { getProduct, productIdFromSlug, allProducts, productSlug } from "@/lib/data";
+import { getProduct, productIdFromSlug } from "@/lib/data";
 
 export const runtime = "edge";
 export const alt = "BangkokFillers — Product Score Card";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export async function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
-    allProducts().map((p) => ({ locale, slug: productSlug(p) }))
-  );
-}
 
 function scoreColor(s: number): string {
   if (s >= 85) return "#16a34a";

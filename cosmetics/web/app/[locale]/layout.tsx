@@ -33,7 +33,7 @@ export const viewport: Viewport = {
   themeColor: "#fbf4f1",
 };
 
-export const metadata: Metadata = {
+const BASE_METADATA: Metadata = {
   metadataBase: new URL("https://bangkokfillers.com"),
   title: {
     default: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
@@ -77,9 +77,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const noindexSet = await getNoindexLocales();
   if (noindexSet.has(locale)) {
-    return { robots: { index: false, follow: false } };
+    return { ...BASE_METADATA, robots: { index: false, follow: false } };
   }
-  return {};
+  return BASE_METADATA;
 }
 
 export const revalidate = 300;
