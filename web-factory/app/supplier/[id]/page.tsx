@@ -22,6 +22,7 @@ import { relatedSuppliers } from "@/lib/related";
 import { SupplierCard } from "@/components/SupplierCard";
 import { ShortlistButton } from "@/components/ShortlistButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { BuyerSignals } from "@/components/BuyerSignals";
 import type { Metadata } from "next";
 
 // Static export 호환: dynamicParams=false 필수. 모든 supplier 를 prebuild —
@@ -335,6 +336,13 @@ export default async function SupplierPage(
           <TrustGauges gauges={gauges} />
         </section>
 
+        {/* Buyer signals — mentioned_topics NLP badges */}
+        {r.mentioned_topics.length > 0 && (
+          <section className="mb-8">
+            <BuyerSignals topics={r.mentioned_topics} totalReviews={r.total_reviews} />
+          </section>
+        )}
+
         {/* Categories chips */}
         {r.categories.length > 0 && (
           <section className="mb-8">
@@ -471,6 +479,14 @@ export default async function SupplierPage(
                         ? <a href={`/estate/${r.estate_slug}`} className="text-amber-800 font-bold hover:underline">{r.estate_name}</a>
                         : r.estate_name}
                     </Detail>
+                  )}
+                  {r.export_markets && r.export_markets.length > 0 && (
+                    <Detail label="Export markets">
+                      {r.export_markets.join(" · ")}
+                    </Detail>
+                  )}
+                  {r.employee_range && (
+                    <Detail label="Employees">{r.employee_range}</Detail>
                   )}
                 </dl>
                 {r.dbd.purpose && (
