@@ -909,3 +909,21 @@ export function guidesForFocus(focus: string): Guide[] {
     return (g.focusTags as readonly string[]).includes(focus);
   });
 }
+
+/** focusTag("botox", "dental" 등) → 연결할 시술×도시 procedure 키 목록.
+ *  /city/[city]/[procedure] 페이지에서 쓰는 키와 동일해야 함. */
+export const FOCUS_TO_PROCEDURES: Record<string, string[]> = {
+  botox:  ["botox"],
+  filler: ["filler"],
+  hifu:   ["hifu"],
+  dental: ["implants", "veneers", "whitening"],
+  hair:   ["hair"],
+  facial: [],
+  laser:  [],
+};
+
+/** 가이드 focusTags 기준으로 연결 가능한 procedure 키 반환. */
+export function proceduresForGuide(guide: Guide): string[] {
+  if (!guide.focusTags) return [];
+  return [...new Set(guide.focusTags.flatMap((t) => FOCUS_TO_PROCEDURES[t] ?? []))];
+}
