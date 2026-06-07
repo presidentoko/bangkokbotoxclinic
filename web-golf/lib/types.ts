@@ -101,6 +101,11 @@ export type Course = {
   website_instagram?: string;
   website_line_id?: string;
   website_phone_secondary?: string;
+
+  // ── Drainage & condition scores (drainage_nlp.py) ─────────
+  drainage_score?: number;          // 0–100, 높을수록 배수 양호
+  drainage_keywords?: string[];     // 발견된 키워드 목록
+  drainage_mentions?: number;       // 부정 키워드 발견 횟수
 };
 
 // Backward compat — restaurant code paths import "Restaurant"
@@ -183,4 +188,42 @@ export const TOPIC_LABELS: Record<string, string> = {
   wedding_venue: "Events / Weddings",
   near_airport: "Near airport",
   long_drive: "Far from city",
+};
+
+export type PriceSlot = {
+  greenfee: number;
+  caddy: number;
+  cart: number;
+};
+
+export type PriceEntry = {
+  course_id: string;
+  scraped_at: string;
+  source_agency: string;
+  source_url: string;
+  weekday: {
+    morning?: PriceSlot;
+    twilight?: PriceSlot;
+  };
+  weekend: {
+    morning?: PriceSlot;
+    twilight?: PriceSlot;
+  };
+  notes?: string;
+};
+
+export type TeeSlot = {
+  course_id: string;
+  course_name: string;
+  date: string;          // "YYYY-MM-DD"
+  time: string;          // "HH:MM"
+  agency: string;
+  booking_url: string;
+  total_baht: number;
+  available: boolean;
+};
+
+export type TeeTimesJson = {
+  updated_at: string;
+  slots: TeeSlot[];
 };
