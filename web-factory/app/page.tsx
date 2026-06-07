@@ -307,13 +307,13 @@ export default async function HomePage() {
           <section className="mb-10">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">Best of</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
-              {BEST_FOR.slice(0, 9).map((c) => (
+              {BEST_FOR.map((c) => (
                 <a
                   key={c.slug}
                   href={`/best/${c.slug}`}
                   className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
                 >
-                  {c.title.replace(/^Best |^Most /, "").replace(/ in Thailand$/, "")}
+                  {c.title.replace(/^Best |^Top |^Most /, "").replace(/ in Thailand$/, "")}
                 </a>
               ))}
             </div>
