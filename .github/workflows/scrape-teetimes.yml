@@ -2,7 +2,7 @@ name: Scrape Tee Times
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '15 1 * * *'   # 매일 새벽 1:15 UTC (방콕 08:15)
   workflow_dispatch:
 
 jobs:
@@ -18,9 +18,12 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests beautifulsoup4 rapidfuzz
+        run: pip install requests beautifulsoup4 rapidfuzz lxml
 
-      - name: Run scraper
+      - name: Run price scraper (refresh prices)
+        run: python scripts/price_scraper.py
+
+      - name: Run tee scraper (generate slots from prices)
         run: python scripts/tee_scraper.py
 
       - name: Check for changes
@@ -32,8 +35,8 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add web-golf/public/tee_times.json
-          git commit -m "data: tee_times update [skip ci]"
+          git add web-golf/data/price_matrix.json web-golf/public/tee_times.json
+          git commit -m "data: tee_times + prices update [skip ci]"
           git push
 
       - name: Install Vercel CLI

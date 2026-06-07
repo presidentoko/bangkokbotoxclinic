@@ -55,6 +55,16 @@ export default async function EstateIndexPage() {
           oriented manufacturers — typically with tax incentives, customs facilities, and pre-vetted infrastructure. We&apos;ve
           mapped the tenants we&apos;ve identified in each estate, with DBD-verified business records where available.
         </p>
+        <div className="flex flex-wrap gap-3 mt-4">
+          <a href="/guide/eastern-seaboard-industrial-estates-compared"
+             className="inline-flex items-center gap-1.5 text-sm text-emerald-700 font-semibold hover:underline">
+            📖 Estate comparison guide →
+          </a>
+          <a href="/best/industrial-estates"
+             className="inline-flex items-center gap-1.5 text-sm text-amber-700 font-semibold hover:underline">
+            🏆 Ranked estate list →
+          </a>
+        </div>
       </header>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getRestaurantById } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
-import { BreadcrumbJsonLd, RestaurantJsonLd, CourseVideosJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, RestaurantJsonLd, CourseVideosJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { buildComparePairs } from "@/lib/comparePairs";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
@@ -240,6 +240,16 @@ export default async function CoursePage(
             </span>
           )}
           <Freshness generatedAt={db.generated_at} mode="detail" />
+          {r.golf_score && (
+            <span className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm" title="Golf difficulty score — lower is more forgiving">
+              ⛳ Golf Score {r.golf_score.toFixed(1)}
+            </span>
+          )}
+          {(r.language_breakdown?.ja ?? 0) >= 5 && (
+            <span className="bg-red-50 text-red-800 px-3 py-1 rounded-full text-sm" title={`Japanese reviewers: ${r.language_breakdown?.ja}`}>
+              🇯🇵 Japanese-popular
+            </span>
+          )}
         </div>
 
         {r.categories.length > 0 && (
@@ -418,6 +428,24 @@ export default async function CoursePage(
             </section>
           )}
 
+          {r.sample_reviews_ko && r.sample_reviews_ko.length > 0 && (
+            <section>
+              <h2 className="text-lg font-bold mb-3">한국어 리뷰</h2>
+              <div className="space-y-3">
+                {r.sample_reviews_ko.slice(0, 4).map((rev, i) => (
+                  <blockquote key={i} className="border-l-4 border-rose-400 bg-rose-50/40 px-4 py-3 rounded-r">
+                    <p className="text-sm leading-relaxed">{rev.text}</p>
+                    <footer className="mt-2 text-xs text-[var(--muted)] flex items-center gap-2">
+                      <span className="font-medium">{rev.author || "Google 리뷰어"}</span>
+                      <span>·</span>
+                      <span className="text-yellow-700">★ {rev.rating}</span>
+                    </footer>
+                  </blockquote>
+                ))}
+              </div>
+            </section>
+          )}
+
           <AdSlot slot="restaurant-detail-mid" />
 
           <section className="grid sm:grid-cols-2 gap-3">
@@ -470,7 +498,9 @@ export default async function CoursePage(
                   {r.website_line_id && (
                     <div className="flex items-center gap-2">
                       <span className="text-[var(--muted)] text-xs">LINE</span>
-                      <span className="text-sm">{r.website_line_id}</span>
+                      <a href={`https://line.me/ti/p/~${r.website_line_id}`} target="_blank" rel="noopener noreferrer nofollow" className="text-[var(--accent)] hover:underline text-sm">
+                        @{r.website_line_id}
+                      </a>
                     </div>
                   )}
                 </div>
@@ -627,6 +657,17 @@ export default async function CoursePage(
             🌐 Book
           </a>
         )}
+        {r.website_line_id && (
+          <a
+            href={`https://line.me/ti/p/~${r.website_line_id}`}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="flex-1 bg-[#06C755] text-white text-sm font-bold text-center py-3 rounded-lg active:scale-[0.98] transition"
+            aria-label="LINE"
+          >
+            LINE
+          </a>
+        )}
       </div>
       {/* Mobile bottom spacer so sticky CTA doesn't cover footer/content */}
       <div className="md:hidden h-16" aria-hidden />
@@ -638,6 +679,12 @@ export default async function CoursePage(
         { name: r.city_label, url: `/city/${r.city}` },
         ...(r.district ? [{ name: r.district, url: `/d/${r.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
         { name: r.name, url: `/course/${r.id}` },
+      ]} />
+      <FaqJsonLd faqs={[
+        { q: `${r.name} 그린피가 얼마예요?`, a: r.green_fee_mentions ? `최근 리뷰 기준: ${r.green_fee_mentions}. 그린피는 시즌·요일·예약 방식에 따라 변동됩니다. 최신 요금은 코스에 직접 문의하세요.` : `${r.name}의 그린피는 시즌·요일에 따라 변동됩니다. 최신 요금은 코스에 직접 문의하거나 가격비교 페이지를 확인하세요.` },
+        { q: `${r.name}에 캐디가 있나요?`, a: "대부분의 태국 골프장은 캐디 동반이 필수입니다. 캐디피는 약 ฿400이며, 라운드 후 팁 ฿400~600을 현금으로 드리는 게 관례입니다." },
+        { q: `${r.name} 예약 방법은?`, a: "공식 웹사이트·전화 직접 예약 또는 GolfAsian·ThailandGolfCentre 같은 골프 에이전시를 통해 예약할 수 있습니다. 에이전시 예약 시 픽업·장비 렌탈 패키지가 편리합니다." },
+        { q: `${r.name} 드레스코드가 있나요?`, a: "대부분의 태국 골프장은 칼라 있는 셔츠(폴로)와 슬랙스 또는 골프 반바지를 요구합니다. 청바지·민소매·슬리퍼는 일반적으로 금지됩니다." },
       ]} />
     </div>
   );

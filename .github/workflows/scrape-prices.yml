@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install requests beautifulsoup4 rapidfuzz playwright && python -m playwright install chromium
+        run: pip install requests beautifulsoup4 rapidfuzz
 
       - name: Run scraper
         run: python scripts/price_scraper.py

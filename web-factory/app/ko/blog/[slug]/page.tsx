@@ -140,6 +140,31 @@ export default async function KoBlogPostPage(
         </div>
       </article>
 
+      {/* 소싱 CTA */}
+      <section className="mt-12 bg-emerald-50 border border-emerald-200 rounded-2xl p-6 md:p-8">
+        <h2 className="text-xl font-bold text-emerald-900 mb-2">태국 공장 직접 찾아볼까요?</h2>
+        <p className="text-sm text-emerald-800 mb-5">
+          DBD 등기 검증 B2B 공급사 3,300곳+ — 직접 전화·웹사이트, 에이전트 마진 없음. 등록자본금·설립연도·TSIC 코드 공개.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <a href="/c/manufacturer" className="px-4 py-2 bg-emerald-700 text-white text-sm font-bold rounded-lg hover:bg-emerald-800 transition">
+            제조사 →
+          </a>
+          <a href="/c/auto_parts" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            자동차 부품
+          </a>
+          <a href="/c/industrial_estate" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            산업단지
+          </a>
+          <a href="/best/boi-eligible" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            BOI 승인 공장
+          </a>
+          <a href="/ko/guide" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            한국어 가이드 →
+          </a>
+        </div>
+      </section>
+
       {p.related && p.related.length > 0 && (
         <section className="mt-12 pt-8 border-t border-[var(--border)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
