@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CONCERNS, allProducts, productSlug, allIngredients, ingredientSlug, allBrands, brandSlug, getRanking, getProduct, CONCERN_FILTER_SLUGS } from "@/lib/data";
 import { LOCALES } from "@/lib/i18n";
+import { SALE_EVENTS } from "@/lib/sale";
 
 const BASE = "https://bangkokfillers.com";
 const NOW = new Date();
@@ -55,6 +56,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Brand index
     out.push(entry(`${BASE}/${locale}/brand`, 0.8, "weekly"));
+
+    // Sale event pages
+    for (const ev of SALE_EVENTS) {
+      out.push(entry(`${BASE}/${locale}/sale/${ev.slug}`, 0.8, "daily"));
+    }
 
     // Quiz
     out.push(entry(`${BASE}/${locale}/quiz`, 0.7, "monthly"));
