@@ -88,6 +88,12 @@ function articleJsonLd(g: ReturnType<typeof findGuideKo> & object) {
   );
 }
 
+const GUIDE_TO_BEST_KO: Record<string, { slug: string; label: string }> = {
+  "korea-sme-amata-wha-comparison": { slug: "industrial-estates", label: "산업단지 공급사 순위" },
+  "korea-sme-thai-oem-process": { slug: "highly-recommended", label: "추천 공급사 Top 50" },
+  "korea-sme-thailand-boi-guide": { slug: "boi-eligible", label: "BOI 승인 공장 목록" },
+};
+
 export default async function GuidePageKo(
   { params }: { params: Promise<{ slug: string }> }
 ) {
@@ -97,6 +103,7 @@ export default async function GuidePageKo(
 
   const db = await loadMasterDb();
   const topSuppliers = topByTrust(db.suppliers, 6);
+  const bestFor = GUIDE_TO_BEST_KO[slug];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -149,6 +156,20 @@ export default async function GuidePageKo(
           </section>
         )}
       </article>
+
+      {bestFor && (
+        <section className="mt-12 bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">큐레이션 목록</div>
+            <div className="font-bold text-amber-900">{bestFor.label}</div>
+            <p className="text-xs text-amber-800 mt-0.5">신뢰도 점수 순위 — DBD 검증, Google 리뷰 기반.</p>
+          </div>
+          <a href={`/best/${bestFor.slug}`}
+             className="shrink-0 px-4 py-2 bg-amber-600 text-white text-sm font-bold rounded-lg hover:bg-amber-700 transition">
+            목록 보기 →
+          </a>
+        </section>
+      )}
 
       <section className="mt-16 bg-emerald-50/40 border border-emerald-100 rounded-2xl p-6 md:p-8">
         <h2 className="text-xl font-bold mb-4">신뢰도 Top 공급사</h2>
