@@ -6,3 +6,12 @@ export function affiliateUrl(p: Pick<Product, "url">): string {
   if (!p.url) return "https://www.konvy.com/";
   return WRAP ? WRAP + encodeURIComponent(p.url) : p.url;
 }
+
+import { getLinkHealth } from "./link-health";
+
+export async function isLinkAlive(product_id: string): Promise<boolean> {
+  const health = await getLinkHealth();
+  const entry = health[product_id];
+  if (!entry) return true; // not yet checked → optimistically show
+  return entry.ok;
+}

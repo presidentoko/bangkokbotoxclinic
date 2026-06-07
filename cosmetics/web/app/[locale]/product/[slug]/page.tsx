@@ -22,6 +22,7 @@ import { ShareCard } from "@/components/ShareCard";
 import { YoutubeModule } from "@/components/YoutubeModule";
 import { WatsonsModule } from "@/components/WatsonsModule";
 import { scoreColor } from "@/lib/format";
+import { isLinkAlive } from "@/lib/affiliate";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -698,6 +699,8 @@ export default async function ProductPage({
   const p = getProduct(productIdFromSlug(slug));
   if (!p) notFound();
 
+  const linkAlive = await isLinkAlive(p.product_id);
+
   // Handle concern_seeds being a string, "|"-delimited string, or array
   const concern =
     (Array.isArray(p.concern_seeds)
@@ -768,7 +771,7 @@ export default async function ProductPage({
 
               {/* Price row — inline on desktop, replaces sticky bar */}
               <div className="hidden sm:flex flex-wrap items-center gap-3 pt-2">
-                <AffiliateButton p={p} locale={locale} variant="inline" />
+                {linkAlive && <AffiliateButton p={p} locale={locale} variant="inline" />}
                 {hasDiscount && (
                   <>
                     <span className="text-sm text-neutral-400 line-through">
@@ -944,7 +947,7 @@ export default async function ProductPage({
       <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
         <div className="flex items-center justify-center px-4 py-3.5 min-h-[56px]">
-          <AffiliateButton p={p} locale={locale} variant="sticky" />
+          {linkAlive && <AffiliateButton p={p} locale={locale} variant="sticky" />}
         </div>
       </div>
     </>
