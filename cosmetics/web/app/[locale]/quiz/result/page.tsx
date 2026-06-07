@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { concernLabel } from "@/lib/i18n";
-import { CONCERNS, productSlug, type Concern } from "@/lib/data";
+import { CONCERNS, productSlug, getProduct, type Concern } from "@/lib/data";
 import { quizRecommendations } from "@/lib/quiz";
+import { getActiveByType } from "@/lib/ads";
+import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { QuizResultCard } from "@/components/QuizResultCard";
 import { QuizLeadCapture } from "@/components/QuizLeadCapture";
 import { JsonLd } from "@/components/JsonLd";
@@ -84,6 +86,8 @@ export default async function QuizResultPage({
 
   const products = quizRecommendations({ skin, concern, budget });
   const entries = products.map((p) => ({ product: p, href: `/${locale}/product/${productSlug(p)}` }));
+  const [quizSlot] = await getActiveByType("quiz_result");
+  const quizSponsorProduct = quizSlot ? getProduct(quizSlot.productId) : null;
   const resultUrl = `${BASE}/${locale}/quiz/result?skin=${skin}&concern=${concern}&budget=${budget}`;
 
   const skinLbl = isTh ? SKIN_LABELS[skin].th : SKIN_LABELS[skin].en;
@@ -146,6 +150,35 @@ export default async function QuizResultPage({
         locale={loc}
         resultUrl={resultUrl}
       />
+
+      {/* Sponsored: Quiz Result Placement */}
+      {quizSponsorProduct && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <SponsoredBadge locale={loc} />
+            <span className="text-sm font-medium text-amber-800">
+              {loc === "th" ? "สปอนเซอร์แนะนำ" : "Sponsored pick"}
+            </span>
+          </div>
+          <div className="flex gap-3 items-center">
+            <img
+              src={quizSponsorProduct.image_url}
+              alt={quizSponsorProduct.name}
+              className="w-16 h-16 object-contain rounded-lg bg-white"
+            />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold line-clamp-2">{quizSponsorProduct.name}</p>
+              <p className="text-rose-600 font-semibold">฿{quizSponsorProduct.price_thb}</p>
+            </div>
+            <a
+              href={`/${loc}/product/${productSlug(quizSponsorProduct)}`}
+              className="shrink-0 rounded-lg bg-rose-600 px-3 py-1.5 text-sm text-white font-medium"
+            >
+              {loc === "th" ? "ดูเลย" : "View"}
+            </a>
+          </div>
+        </div>
+      )}
 
       <QuizLeadCapture
         skin={skin}
