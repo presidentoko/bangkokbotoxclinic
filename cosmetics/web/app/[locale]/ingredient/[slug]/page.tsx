@@ -62,10 +62,12 @@ export default async function IngredientPage({
   const ing = getIngredient(slug);
   if (!ing) notFound();
 
-  const name = locale === "th" ? ing.th_name : ing.en_name;
-  const mech = locale === "th" ? ing.mechanism_th : ing.mechanism_en;
+  const isTh = locale === "th";
+  const name = isTh ? ing.th_name : ing.en_name;
+  const mech = isTh ? ing.mechanism_th : ing.mechanism_en;
   const prods = productsWithIngredient(ing.inci);
   const url = `https://bangkokfillers.com/${locale}/ingredient/${slug}`;
+  const concernKeys = Object.keys(ing.concern_efficacy ?? {});
 
   return (
     <article className="prose space-y-8 max-w-3xl overflow-hidden">
@@ -79,6 +81,34 @@ export default async function IngredientPage({
 
       {/* ── Mechanism lead ── */}
       <p className="text-base text-neutral-700 leading-relaxed">{mech}</p>
+
+      {/* AEO paragraph — indexed by AI search engines */}
+      <div className="not-prose mt-6 mb-8 rounded-xl bg-rose-50 border border-rose-100 p-5 text-sm text-rose-900 max-w-2xl">
+        <p className="font-medium mb-2">
+          {isTh
+            ? `${ing.th_name} คืออะไร?`
+            : `What is ${ing.en_name}?`}
+        </p>
+        <p className="leading-relaxed">
+          {isTh
+            ? (ing.mechanism_th ?? ing.mechanism_en ?? "")
+            : (ing.mechanism_en ?? "")}
+        </p>
+        {concernKeys.length > 0 && (
+          <p className="mt-3 leading-relaxed">
+            {isTh
+              ? `เหมาะสำหรับ: ${concernKeys.join(", ")} — พบได้ในผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูลของเรา`
+              : `Best for: ${concernKeys.join(", ")} — found in ${prods.length} products in our database`}
+          </p>
+        )}
+        {ing.typical_pct && (
+          <p className="mt-2 text-xs text-rose-600">
+            {isTh
+              ? `ความเข้มข้นที่แนะนำ: ${ing.typical_pct}`
+              : `Typical effective concentration: ${ing.typical_pct}`}
+          </p>
+        )}
+      </div>
 
       {/* ── Typical concentration stat ── */}
       <div className="not-prose flex items-center gap-3 rounded-2xl border border-[#efe1db] bg-white px-4 sm:px-5 py-4 shadow-sm shadow-rose-100 w-fit max-w-full">
