@@ -17,6 +17,9 @@ const CITY_TO_GUIDE: Record<string, string> = {
   ayutthaya: "eastern-seaboard-industrial-estates-compared",
   bangkok: "sourcing-thai-suppliers-direct",
   songkhla: "thai-rubber-products-sourcing-guide",
+  nonthaburi: "sourcing-thai-suppliers-direct",
+  chachoengsao: "eastern-seaboard-industrial-estates-compared",
+  nakhon_ratchasima: "sourcing-thai-suppliers-direct",
 };
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -66,6 +69,26 @@ const CITY_NOTES: Record<string, { hook: string; long: string }> = {
   songkhla: {
     hook: "남부 — 천연고무·해산물·할랄 가공식품.",
     long: "Songkhla (송클라)는 Hat Yai 도시권. 태국 1위 천연고무 cluster + 해산물·할랄 가공식품 OEM 거점.",
+  },
+  nonthaburi: {
+    hook: "방콕 북서 위성도시 — 의약품·화장품·식품 OEM 클러스터.",
+    long: "Nonthaburi (논타부리)는 방콕 서북쪽 접경 위성도시. Bangkhen, Pak Kret 일대에 의약품·화장품·가공식품 OEM 공장이 집중. 방콕 도심 접근성을 유지하면서도 Pathum Thani 산단 벨트와 연결되는 위치.",
+  },
+  chachoengsao: {
+    hook: "방콕 동쪽 관문 — Eastern Seaboard 물류 허브·산업단지.",
+    long: "Chachoengsao (차청사오)는 방콕에서 동쪽으로 80km — Eastern Seaboard 진입 관문. Amata Nakhon Industrial Estate (Chon Buri 경계 인근), WHA Industrial Estate Chachoengsao 등 주요 산단 위치. 자동차 부품·전자·물류 창고 집중.",
+  },
+  nakhon_ratchasima: {
+    hook: "동북부 최대 도시 — 자동차·전자·농식품 OEM.",
+    long: "Nakhon Ratchasima (나콘랏차시마·코랏)는 태국 동북부 최대 산업도시. Suranaree Industrial Estate, Nakhon Ratchasima Industrial Estate 위치. Honda, Mitsubishi 협력사 + 농식품 가공업체 분포.",
+  },
+  khon_kaen: {
+    hook: "동북부 허브 — 농업·식품 가공·물류 거점.",
+    long: "Khon Kaen (콘깬)은 태국 동북부 (이산) 경제 허브. 농식품 가공 (전분·설탕·가금류), 자동차 부품 일부, 물류 창고 위치. Khon Kaen Special Economic Zone 지정으로 외국인 투자 유치 중.",
+  },
+  chiang_rai: {
+    hook: "북부 — GMS 무역 관문·농식품 OEM.",
+    long: "Chiang Rai (치앙라이)는 태국 최북단 도시. 미얀마·라오스·중국 클릉난강 무역 통로 GMS (Greater Mekong Subregion) 관문. 커피·차·과일 농식품 OEM + 내륙 물류 창고 집중.",
   },
 };
 

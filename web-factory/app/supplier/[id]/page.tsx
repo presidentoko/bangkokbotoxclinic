@@ -648,9 +648,35 @@ export default async function SupplierPage(
                 📍 Suppliers in {r.city_label}
               </a>
             )}
+            {(() => {
+              const CAT_TO_BEST: Record<string, string> = {
+                food_mfg: "food-manufacturers",
+                electronics: "electronics-manufacturers",
+                auto_parts: "auto-parts",
+                warehouse: "warehouses",
+                manufacturer: "manufacturers",
+                industrial_estate: "industrial-estates",
+              };
+              const bestSlug = r.categories.map((c) => CAT_TO_BEST[c]).find(Boolean);
+              if (bestSlug) {
+                return (
+                  <a href={`/best/${bestSlug}`}
+                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-amber-300 rounded-full text-sm hover:border-amber-600 font-bold text-amber-900">
+                    🏆 Ranked list
+                  </a>
+                );
+              }
+              return null;
+            })()}
+            {r.boi_candidate && (
+              <a href="/best/boi-eligible"
+                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-stone-300 rounded-full text-sm hover:border-stone-900 font-bold">
+                ⭐ BOI-eligible factories
+              </a>
+            )}
             <a href="/best/highly-recommended"
                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-stone-300 rounded-full text-sm hover:border-stone-900 font-bold">
-              ⭐ Top verified suppliers
+              ✓ Top verified suppliers
             </a>
           </div>
         </section>

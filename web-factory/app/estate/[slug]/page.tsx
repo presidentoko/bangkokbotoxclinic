@@ -75,7 +75,9 @@ export default async function EstatePage(
       <nav className="text-sm text-[var(--muted)] mb-4" aria-label="Breadcrumb">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
-        <span className="text-[var(--fg)] font-medium">{name} Industrial Estate</span>
+        <a href="/estate" className="hover:text-[var(--fg)]">Industrial Estates</a>
+        <span className="mx-2">›</span>
+        <span className="text-[var(--fg)] font-medium">{name}</span>
       </nav>
 
       <header className="mb-8">
@@ -163,6 +165,7 @@ export default async function EstatePage(
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
+        { name: "Industrial Estates", url: "/estate" },
         { name: `${name} Industrial Estate`, url: `/estate/${slug}` },
       ]} />
       <ItemListJsonLd
