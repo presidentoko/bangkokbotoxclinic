@@ -1600,6 +1600,63 @@ Corporate office 컨택 = **신규 거래 트기 / 전략 파트너십 / 기술 
 전체 corporate office 리스트는 [Bangkok 도시 페이지](/ko/city/bangkok) 또는 [corporate office 카테고리](/ko/c/corporate_office) 참고.`,
     related: ["korean-sme-thai-entry-pattern", "tier1-japanese-oem-thailand-overview"],
   },
+  {
+    slug: "thailand-ev-manufacturing-shift",
+    title: "태국 EV 전환 — 한국 부품사가 알아야 할 5가지",
+    metaTitle: "태국 EV 전환 — BYD, 현대, LG 그리고 한국 부품사 기회",
+    metaDescription:
+      "태국이 내연기관 생산기지에서 EV 조립 허브로 전환 중. BYD·AION·Foxconn 입주, 현대·기아 현지 생산, 배터리 팩 공급망 재편 — 한국 부품 SME의 기회와 현실.",
+    category: "Industry",
+    published: "2026-06-07",
+    body: `태국 정부는 2030년까지 자동차 생산의 30%를 EV로 전환하겠다는 목표를 발표했다. 숫자만 보면 '먼 얘기'처럼 들리지만, 공장 착공 속도는 이미 2026년을 달리고 있다.
+
+## 1. 누가 공장을 짓고 있나
+
+**BYD**: Rayong 라용 WHA Eastern Seaboard 산단에 연산 15만 대 규모 조립공장. 2024년 착공, 2025년 말 가동. 태국·ASEAN 내수 + 수출 겸용.
+
+**AION (GAC)**: 라용에 조립공장 착공. 연산 5만 대 규모.
+
+**Foxconn + PTT**: MIH 플랫폼 기반 EV 조립 합작 — Eastern Seaboard.
+
+**현대자동차**: 기존 태국 딜러망 활용. 아직 현지 조립은 없지만 ASEAN 수출 기지 검토 중.
+
+**LG에너지솔루션 / 삼성SDI**: 라용 Map Ta Phut 인근 — 셀 공급은 한국·폴란드 공장이지만 **배터리 팩 조립**은 태국 현지화 논의 진행.
+
+## 2. 부품 공급망 재편의 핵심 — Tier 2/3
+
+BYD가 태국에서 조립하면 기존 Toyota/Honda 라인을 보던 일본계 Tier 1 부품사가 수혜를 보는 게 아니다. BYD는 **직접 조달** 또는 **중국계 Tier 1**을 먼저 당긴다.
+
+한국 SME 기회가 있는 레이어: **Tier 2/3 범용 부품** — 금속 프레스, 사출 성형, 배선 하네스, 냉각 시스템 하우징, 인버터 케이스, 충전 커넥터 하우징.
+
+이 카테고리는 BYD가 "현지 조달" 요구 시 **ISO 9001 + IATF 16949**를 보유한 태국 현지 공급사로 routing되는데, 한국 SME가 **태국 현지법인** 또는 **OEM 파트너** 방식으로 참여할 수 있다.
+
+## 3. 배터리 팩 vs 배터리 셀
+
+셀 공급은 단기적으로 한국·중국 공장이 지배. 태국에서 현실적인 기회는 **팩 조립 + BMS (Battery Management System)** — 셀을 모듈·팩으로 묶는 공정이다.
+
+LG엔솔·삼성SDI는 이미 태국 현지 파트너 탐색 중. EV 팩 조립은 **자동차 배선 하네스 경험**이 있는 업체가 가장 빠르게 전환 가능하다.
+
+## 4. 태국 정부 BOI 인센티브 — EV 전용
+
+BOI는 EV 관련 투자에 최대 **8년 법인세 면제** + 기계류 수입관세 면제를 제공. 해당 카테고리:
+- EV 완성차 조립 (A1)
+- 배터리 팩·모듈 조립
+- 모터·인버터·컨트롤러
+- 충전 인프라 제조
+
+한국 SME가 태국에 **제조 법인**을 세우고 EV 부품을 생산하면 BOI 신청 자격이 된다. [BOI 승인 공장 목록](/best/boi-eligible) 참고.
+
+## 5. 리스크와 현실
+
+**일본계 Tier 1의 반격**: Toyota·Honda 내연기관 감산 → 일본계 Tier 1이 EV 부품으로 전환 시도. 한국 SME보다 기존 관계망이 강함.
+
+**중국계 부품사 직진입**: BYD 공장 주변으로 CITIC, Sunwoda, CATL 등 중국계 부품사가 태국 법인 설립 중. 가격 경쟁력 우위.
+
+**현실적 결론**: 태국 EV 전환은 기회이지만 **'내연기관 → EV 자동 전환'은 아니다**. 신규 고객(BYD, AION)에 적합한 **새 부품**을 개발하거나, 기존 태국 법인의 생산 라인을 EV 부품 방향으로 확장하는 전략이 현실적.
+
+관련 공급사: [자동차 부품](/c/auto_parts) · [제조사](/c/manufacturer) · [BOI 승인 공장](/best/boi-eligible)`,
+    related: ["korean-sme-thai-entry-pattern", "amata-vs-wha-quick-take"],
+  },
 ];
 
 export const POSTS_KO: Post[] = [...POSTS_KO_MANUAL, ...POSTS_AUTO_KO].sort(
