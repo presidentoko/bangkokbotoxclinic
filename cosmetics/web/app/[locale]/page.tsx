@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { t, concernLabel, LOCALES, type Locale } from "@/lib/i18n";
-import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved } from "@/lib/data";
+import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved, getProduct, productSlug } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
+import { getActiveByType } from "@/lib/ads";
+import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { orgLd, websiteLd, faqLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
@@ -75,6 +77,8 @@ export default async function Home({
 
   // Data for discovery strips
   const trending = bestSellersAllConcerns(10);
+  const [featuredSlot] = await getActiveByType("homepage_featured");
+  const featuredProduct = featuredSlot ? getProduct(featuredSlot.productId) : null;
   const acnePicks = topPicks("acne", 8);
   const whiteningPicks = topPicks("whitening", 8);
   const antiagingPicks = topPicks("antiaging", 8);
@@ -178,6 +182,30 @@ export default async function Home({
           })}
         </div>
       </section>
+
+      {/* Sponsored: Homepage Featured */}
+      {featuredProduct && (
+        <section className="rounded-xl border-2 border-amber-200 bg-amber-50 p-4">
+          <div className="flex gap-4 items-center">
+            <img
+              src={featuredProduct.image_url}
+              alt={featuredProduct.name}
+              className="w-20 h-20 object-contain rounded-lg shrink-0 bg-white"
+            />
+            <div className="flex-1 min-w-0">
+              <SponsoredBadge locale={locale} className="mb-1" />
+              <p className="font-semibold text-sm line-clamp-2">{featuredProduct.name}</p>
+              <p className="text-rose-600 font-semibold text-sm">฿{featuredProduct.price_thb}</p>
+            </div>
+            <a
+              href={`/${locale}/product/${productSlug(featuredProduct)}`}
+              className="shrink-0 rounded-lg bg-rose-600 px-3 py-1.5 text-sm text-white font-medium"
+            >
+              {locale === "th" ? "ดูเลย" : "View"}
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* Trending strip */}
       {trending.length > 0 && (
