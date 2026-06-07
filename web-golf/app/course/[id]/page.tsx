@@ -9,6 +9,7 @@ import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import { drainageStatus, STATUS_EMOJI, STATUS_LABEL } from "@/lib/weather";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import type { Metadata } from "next";
@@ -272,6 +273,17 @@ export default async function CoursePage(
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
+          {/* Drainage badge */}
+          {r.drainage_score !== undefined && (
+            <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm">
+              <span>{STATUS_EMOJI[drainageStatus(r.drainage_score, 0)]}</span>
+              <span className="font-medium">배수 점수 {r.drainage_score}</span>
+              <a href="/conditions" className="text-xs text-emerald-700 hover:underline ml-1">
+                전체 현황 →
+              </a>
+            </div>
+          )}
+
           <TrustDonut score={r.trust_score} breakdown={breakdown} />
 
           <RatingChart trend={r.rating_trend} />
