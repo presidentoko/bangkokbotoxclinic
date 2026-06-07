@@ -377,6 +377,23 @@ export default async function ConcernHub({
         { name: "BangkokFillers", url: `https://bangkokfillers.com/${locale}` },
         { name: concernLabel(locale, concern), url: `https://bangkokfillers.com/${locale}/${concern}` },
       ])} />
+
+      {/* Budget filter links — cross-link to /budget/* pages */}
+      <div className="mt-8 flex flex-wrap gap-2">
+        {[
+          { slug: "under-300",  th: "งบ 300",  en: "Under ฿300"  },
+          { slug: "under-500",  th: "งบ 500",  en: "Under ฿500"  },
+          { slug: "under-1000", th: "งบ 1000", en: "Under ฿1000" },
+        ].map((b) => (
+          <a
+            key={b.slug}
+            href={`/${locale}/budget/${b.slug}`}
+            className="rounded-full border px-3 py-1 text-sm text-gray-600 hover:bg-gray-100"
+          >
+            {locale === "th" ? b.th : b.en}
+          </a>
+        ))}
+      </div>
     </article>
   );
 }
