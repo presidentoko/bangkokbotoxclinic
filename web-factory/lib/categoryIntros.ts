@@ -8,6 +8,7 @@ export type CategoryIntro = {
   metaDescription: string;
   intro: string;        // h1 아래 문단 (1-3 문장)
   longContext?: string; // 페이지 하단 보조 카피 (있으면 더 좋음, AEO bonus)
+  bestForSlug?: string; // /best/[slug] 로 연결되는 ranked list
 };
 
 export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
@@ -20,6 +21,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thailand's manufacturing base is the largest in ASEAN by output. The directory below ranks verified Thai manufacturers by Trust Score derived from real Google reviews — surfacing established operations with public proof, not agency-promoted listings.",
     longContext:
       "Manufacturer listings here come from public Google Business Profiles filtered against a B2C category blocklist (retail stores, restaurants, factory outlet malls are excluded). Each listing shows direct contact (phone + website where available) so buyers can skip sourcing-agent markups when contracts allow.",
+    bestForSlug: "manufacturers",
   },
   auto_parts: {
     title: "Auto Parts Manufacturers in Thailand",
@@ -30,6 +32,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thailand is the world's 10th-largest automotive producer and ASEAN's automotive hub. Toyota, Honda, Mitsubishi, Isuzu, Mazda, Nissan all operate full plants here — and the Tier 1 / Tier 2 supplier ecosystem clusters tightly around them on the Eastern Seaboard.",
     longContext:
       "Listings include Tier 1 OEM suppliers (typically OEM-only sales) and Tier 2/3 component manufacturers (more accessible to aftermarket buyers). Use the city filter to focus on Chon Buri / Rayong (Eastern Seaboard plants) or Pathum Thani / Ayutthaya (older clusters around Bangkok).",
+    bestForSlug: "auto-parts",
   },
   industrial_estate: {
     title: "Industrial Estates in Thailand",
@@ -40,6 +43,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thailand's industrial estates concentrate manufacturing tenants, infrastructure, and customs incentives in defined zones. The four major operators — Pinthong, Amata, WHA (post-Hemaraj merger), and Rojana — anchor most flagship estates along the Eastern Seaboard.",
     longContext:
       "Each estate operator has a distinct profile: Pinthong is closest to Sriracha port (best for export-heavy tenants); Amata owns infrastructure and offers the highest occupancy rates; WHA is largest by total leased area after the Hemaraj acquisition; Rojana spreads across Eastern Seaboard plus Ayutthaya and Prachinburi.",
+    bestForSlug: "industrial-estates",
   },
   warehouse: {
     title: "Warehouses in Thailand",
@@ -50,6 +54,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Warehouse supply concentrates around Thailand's two major export gateways — Laem Chabang (containers) and Suvarnabhumi (air cargo). Listings prioritize ready-built facilities operated by major 3PL providers and industrial estate tenants.",
     longContext:
       "Eastern Seaboard warehouse rents typically run THB 150-280/sqm/month for standard ready-built. Premium temperature-controlled and bonded warehouses run higher. Most listings show direct phone for facility tour scheduling.",
+    bestForSlug: "warehouses",
   },
   logistics: {
     title: "Logistics Providers in Thailand",
@@ -74,6 +79,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai food manufacturers — frozen seafood, poultry, processed food, packaged snacks. HACCP / FSSC 22000 / GMP certifications standard.",
     intro:
       "Thailand is one of the world's top processed food exporters. Major Thai food manufacturers operate to HACCP, GMP, and FSSC 22000 standards by default — and many run halal-certified parallel lines for ASEAN/Middle East markets.",
+    bestForSlug: "food-manufacturers",
   },
   electronics: {
     title: "Electronics Manufacturers in Thailand",
@@ -82,6 +88,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai electronics manufacturers and EMS providers. Hard drives, PCBs, automotive electronics — Pathum Thani and Bang Pa-In clusters.",
     intro:
       "Thailand is the world's #2 hard disk drive manufacturer and a major EMS contract manufacturing hub. Listings span HDD assembly, PCB fabrication, automotive electronics, and consumer electronics OEM.",
+    bestForSlug: "electronics-manufacturers",
   },
   chemical: {
     title: "Chemical Manufacturers in Thailand",

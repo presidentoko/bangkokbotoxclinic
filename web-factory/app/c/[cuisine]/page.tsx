@@ -115,6 +115,12 @@ export default async function CategoryPage(
           <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
             {withWebsite.toLocaleString()} with direct website
           </span>
+          {intro?.bestForSlug && (
+            <a href={`/best/${intro.bestForSlug}`}
+               className="bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-full font-medium hover:bg-amber-100 transition">
+              🏆 See ranked list →
+            </a>
+          )}
         </div>
       </header>
 
