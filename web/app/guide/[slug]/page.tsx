@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { GUIDES, findGuide } from "@/lib/guides";
+import { GUIDES, findGuide, proceduresForGuide } from "@/lib/guides";
 import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
@@ -45,6 +45,20 @@ export default async function GuidePage(
   const focused = applySiteFilter(db.clinics, cfg);
   const featured = topByTrust(focused, 3);
   const related = (g.related ?? []).map((s) => findGuide(s)).filter(Boolean);
+
+  const PROC_LABELS: Record<string, string> = {
+    implants:  "Dental Implants",
+    veneers:   "Dental Veneers",
+    whitening: "Teeth Whitening",
+    botox:     "Botox",
+    filler:    "Dermal Fillers",
+    hifu:      "HIFU Skin Lifting",
+    hair:      "Hair Transplant",
+  };
+  const procedureLinks = proceduresForGuide(g).map((proc) => ({
+    href: `/city/bangkok/${proc}`,
+    label: `${PROC_LABELS[proc] ?? proc} clinics in Bangkok`,
+  }));
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -139,6 +153,24 @@ export default async function GuidePage(
           </div>
         </section>
       )}
+
+          {procedureLinks.length > 0 && (
+            <section className="mt-8 p-5 bg-[var(--surface)] border border-[var(--border)] rounded-xl">
+              <h2 className="text-base font-semibold mb-3">Browse clinics</h2>
+              <div className="space-y-2">
+                {procedureLinks.map((pl) => (
+                  <a
+                    key={pl.href}
+                    href={pl.href}
+                    className="flex items-center gap-2 text-sm text-[var(--accent)] hover:underline"
+                  >
+                    <span className="text-[var(--muted)] text-xs">→</span>
+                    {pl.label}
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
