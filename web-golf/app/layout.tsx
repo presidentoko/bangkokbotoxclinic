@@ -3,6 +3,7 @@ import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
+import { MobileMenuButton } from "@/components/MobileNav";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -68,24 +69,24 @@ export default function RootLayout({
               <Logo accent={cfg.themeAccent} />
             </a>
             <nav className="text-sm flex gap-4 md:gap-5 text-[var(--muted)] items-center">
-              <a href="/c/course" className="hover:text-black">Courses</a>
-              <a href="/c/driving_range" className="hover:text-black hidden sm:inline">Driving Range</a>
-              <a href="/c/resort" className="hover:text-black hidden sm:inline">Resorts</a>
+              <a href="/c/course" className="hover:text-black hidden sm:inline">Courses</a>
+              <a href="/c/driving_range" className="hover:text-black hidden md:inline">Driving Range</a>
+              <a href="/c/resort" className="hover:text-black hidden md:inline">Resorts</a>
               <a href="/best/highly-recommended" className="hover:text-black hidden md:inline">Best of</a>
-              <a href="/guide/booking-thai-golf" className="hover:text-black hidden md:inline">Guides</a>
-              <a href="/blog" className="hover:text-black hidden md:inline">Blog</a>
-              <a href="/price-compare" className="hover:text-black hidden md:inline">Price Compare</a>
-              <a href="/tee-times" className="hover:text-black hidden md:inline">Tee Times</a>
-              <a href="/conditions" className="hover:text-black hidden md:inline">Conditions</a>
-              <a href="/about" className="hover:text-black hidden md:inline">About</a>
+              <a href="/guide/booking-thai-golf" className="hover:text-black hidden lg:inline">Guides</a>
+              <a href="/blog" className="hover:text-black hidden lg:inline">Blog</a>
+              <a href="/price-compare" className="hover:text-black hidden lg:inline">Price Compare</a>
+              <a href="/tee-times" className="hover:text-black hidden lg:inline">Tee Times</a>
+              <a href="/conditions" className="hover:text-black hidden lg:inline">Conditions</a>
               <a
                 href="/for-courses"
                 className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold hidden sm:inline-flex"
               >
                 For clubs →
               </a>
-              <a href="/th" className="text-xs hover:text-black">TH</a>
-              <a href="/ko" className="text-xs hover:text-black">KO</a>
+              <a href="/th" className="text-xs hover:text-black hidden sm:inline">TH</a>
+              <a href="/ko" className="text-xs hover:text-black hidden sm:inline">KO</a>
+              <MobileMenuButton />
             </nav>
           </div>
         </header>

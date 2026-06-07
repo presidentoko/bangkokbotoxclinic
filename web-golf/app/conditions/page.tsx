@@ -1,7 +1,7 @@
 // web-golf/app/conditions/page.tsx
 import { loadMasterDb } from "@/lib/data";
 import { fetchRainfall, drainageStatus, STATUS_EMOJI, STATUS_LABEL } from "@/lib/weather";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -111,6 +111,12 @@ export default async function ConditionsPage() {
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Conditions", url: "/conditions" },
+      ]} />
+      <FaqJsonLd faqs={[
+        { q: "우기에도 태국 골프장에서 라운딩이 가능한가요?", a: "가능합니다. 하지만 배수 시설에 따라 차이가 큽니다. 배수 점수 70 이상 코스는 집중호우 후에도 24~48시간 내 정상 운영되는 경우가 많습니다. 이 페이지의 신호등을 참고해 라운딩 전 확인하세요." },
+        { q: "배수 점수는 어떻게 계산되나요?", a: "구글 리뷰 텍스트에서 '물 고임', 'waterlogged', '배수 안', '침수', 'น้ำท่วม' 등 배수 관련 키워드를 자동 추출하여 점수화합니다. 부정 키워드가 많을수록 점수가 낮고, 'drains well', '배수 좋' 등 긍정 키워드는 점수를 높입니다." },
+        { q: "빨간 신호(위험)인 코스는 라운딩이 불가능한가요?", a: "필수적으로 불가능한 것은 아니지만, 최근 7일 강수량 60mm 초과 또는 배수 점수 40 미만인 경우 침수·비정상 코스 상태 가능성이 높습니다. 예약 전 코스에 직접 확인을 권장합니다." },
+        { q: "날씨 데이터는 얼마나 자주 업데이트되나요?", a: "OpenWeatherMap API 기반으로 1시간마다 갱신됩니다. 배수 점수는 구글 리뷰 분석 기준으로 매일 새벽 3시(방콕 시간)에 업데이트됩니다." },
       ]} />
     </div>
   );

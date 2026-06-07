@@ -1,7 +1,7 @@
 // web-golf/app/tee-times/page.tsx
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import type { TeeTimesJson, TeeSlot } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -160,6 +160,12 @@ export default async function TeeTimesPage() {
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Tee Times", url: "/tee-times" },
+      ]} />
+      <FaqJsonLd faqs={[
+        { q: "방콕 골프장 주말 모닝 티타임은 얼마나 빨리 마감되나요?", a: "Alpine Golf Club, Thai Country Club, Riverdale 등 인기 코스는 1~2주 전에 마감됩니다. 이 페이지는 30분마다 에이전시 잔여 슬롯을 스캔해 실시간 현황을 보여줍니다." },
+        { q: "모닝 티타임 시간대는 언제인가요?", a: "오전 6:00~10:00 슬롯을 모닝으로 분류합니다. 특히 06:00~08:00 early bird 슬롯이 가장 빠르게 마감됩니다." },
+        { q: "티타임 예약 시 총 비용은 얼마인가요?", a: "표시된 총액은 그린피+캐디피+카트비를 합산한 금액입니다. 현장에서 캐디 팁(฿400~600)이 별도로 발생합니다. 클럽 렌탈은 포함되지 않습니다." },
+        { q: "에이전시 예약과 코스 직접 예약 중 어느 것이 저렴한가요?", a: "그린피 단가는 코스 직접 예약이 가장 저렴합니다. 단 에이전시 패키지는 교통, 캐디, 카트를 번들로 제공해 첫 방문자에게 편의성이 높습니다. ThailandGolfCentre, GolfAsian이 태국 전문 주요 에이전시입니다." },
       ]} />
     </div>
   );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
@@ -173,12 +174,13 @@ export default async function HomePage() {
                 >
                   {(r.hero_image || r.top_photo_url) ? (
                     <div className="relative h-40 overflow-hidden bg-gray-100">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={r.hero_image || r.top_photo_url}
+                      <Image
+                        src={(r.hero_image || r.top_photo_url)!}
                         alt={r.name}
-                        loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading={i === 0 ? "eager" : "lazy"}
                       />
                       <div className="absolute top-2 left-2 text-xs font-bold text-white bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full tabular-nums">
                         #{i + 1}

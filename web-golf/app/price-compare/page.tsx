@@ -1,7 +1,7 @@
 // web-golf/app/price-compare/page.tsx
 import { loadMasterDb, getCourseById } from "@/lib/data";
 import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -116,6 +116,12 @@ export default async function PriceComparePage() {
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Price Compare", url: "/price-compare" },
+      ]} />
+      <FaqJsonLd faqs={[
+        { q: "Thailand golf green fee에 무엇이 포함되나요?", a: "그린피는 라운드(18홀)와 코스 이용만 포함합니다. 캐디피(약 ฿400), 캐디 팁(฿400~600), 카트비(฿700~1,000), 클럽 렌탈비(฿700~2,500)는 별도입니다. 이 페이지의 '찐 총액'은 그린피+캐디+카트를 모두 합산한 실질 비용입니다." },
+        { q: "주중과 주말 그린피 차이가 얼마나 나나요?", a: "방콕 인기 코스 기준 주말 요금이 주중 대비 30~60% 높습니다. Alpine Golf Club, Thai Country Club 등 컨트리클럽은 주말에 방문자 할증 10~30%가 추가되기도 합니다." },
+        { q: "가장 저렴하게 태국 골프를 예약하는 방법은?", a: "직접 예약(코스 공식 웹사이트 또는 전화)이 그린피 기준 가장 저렴합니다. 다만 교통·장비 없이 개별 해결해야 합니다. 패키지 편의를 원하면 GolfAsian, ThailandGolfCentre 같은 전문 에이전시가 합리적입니다." },
+        { q: "캐디피는 얼마인가요?", a: "캐디피는 대부분 코스에서 라운드 시작 전 클럽하우스에서 지불하며 ฿400 내외입니다. 라운드 종료 후 캐디에게 직접 팁 ฿400~600을 현금으로 드리는 게 관례입니다." },
       ]} />
     </div>
   );
