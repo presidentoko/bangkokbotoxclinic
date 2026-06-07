@@ -18,6 +18,8 @@ import {
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, concernFaqLd, breadcrumbLd } from "@/lib/schema";
 import { getFeaturedMap } from "@/lib/adminData";
+import { getActiveByType } from "@/lib/ads";
+import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { JsonLd } from "@/components/JsonLd";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
@@ -133,6 +135,11 @@ export default async function ConcernHub({
   const featuredMap = await getFeaturedMap();
   const featuredId = featuredMap[concern];
   const featuredProduct = featuredId ? getProduct(featuredId) : null;
+
+  const [takeoverSlot] = await getActiveByType("category_takeover", concern);
+  const [editorsPickSlot] = await getActiveByType("editors_pick", concern);
+  const takeoverProduct = takeoverSlot ? getProduct(takeoverSlot.productId) : null;
+  const editorsPickProduct = editorsPickSlot ? getProduct(editorsPickSlot.productId) : null;
 
   const labels = {
     rank: t(locale, "rank"),
@@ -281,6 +288,28 @@ export default async function ConcernHub({
         />
       )}
 
+      {/* Sponsored: Editor's Pick */}
+      {editorsPickProduct && (
+        <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 flex gap-4 items-center">
+          <img
+            src={editorsPickProduct.image_url}
+            alt={editorsPickProduct.name}
+            className="w-16 h-16 object-contain rounded-lg shrink-0 bg-white"
+          />
+          <div className="flex-1 min-w-0">
+            <SponsoredBadge locale={locale} className="mb-1" />
+            <p className="text-sm font-semibold line-clamp-2">{editorsPickProduct.name}</p>
+            <p className="text-rose-600 font-semibold text-sm">฿{editorsPickProduct.price_thb}</p>
+          </div>
+          <a
+            href={`/${locale}/product/${productSlug(editorsPickProduct)}`}
+            className="shrink-0 rounded-lg bg-rose-600 px-3 py-1.5 text-sm text-white font-medium"
+          >
+            {locale === "th" ? "ดูเลย" : "View"}
+          </a>
+        </section>
+      )}
+
       {/* Top-3 Podium cards */}
       {podium.length > 0 && (
         <section>
@@ -350,6 +379,28 @@ export default async function ConcernHub({
         concern={concern}
         locale={locale}
       />
+
+      {/* Sponsored: Category Takeover */}
+      {takeoverProduct && (
+        <section className="rounded-xl border-2 border-amber-300 bg-amber-50 p-4 flex gap-4 items-center">
+          <img
+            src={takeoverProduct.image_url}
+            alt={takeoverProduct.name}
+            className="w-16 h-16 object-contain rounded-lg shrink-0 bg-white"
+          />
+          <div className="flex-1 min-w-0">
+            <SponsoredBadge locale={locale} className="mb-1" />
+            <p className="font-semibold text-sm line-clamp-2">{takeoverProduct.name}</p>
+            <p className="text-rose-600 font-semibold text-sm">฿{takeoverProduct.price_thb}</p>
+          </div>
+          <a
+            href={`/${locale}/product/${productSlug(takeoverProduct)}`}
+            className="shrink-0 rounded-lg bg-rose-600 px-3 py-1.5 text-sm text-white font-medium"
+          >
+            {locale === "th" ? "ดูเลย" : "View"}
+          </a>
+        </section>
+      )}
 
       {/* Full comparison table */}
       <section>
