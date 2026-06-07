@@ -1,6 +1,4 @@
 // "Best for X" — supplier directory edition. Long-tail SEO + 차별화 정렬.
-// 리뷰 텍스트 기반 토픽 분석은 비활성 (Apify export에 review text 없음).
-// 카테고리 + 위치 + trust_score 기반으로만 선정.
 
 import type { Supplier } from "./types";
 
@@ -109,6 +107,90 @@ export const BEST_FOR: Criterion[] = [
       "Largest DBD-verified Thai B2B suppliers by registered capital. High capital correlates with operational scale, BOI promotion eligibility, and the ability to underwrite large export contracts.",
     scoreFn: (r) => (r.dbd?.capital_thb ?? 0),
     filterFn: (r) => r.verified === true && !!r.dbd?.capital_thb,
+  },
+  {
+    slug: "competitive-price",
+    title: "Most Competitively Priced Thai Suppliers",
+    metaTitle: "Competitively Priced Thai Suppliers — Buyer-Verified Pricing",
+    metaDescription:
+      "Thai manufacturers flagged by buyers as competitively priced. Sourced from real Google review sentiment — no marketing claims.",
+    intro:
+      "Suppliers where buyers explicitly mention competitive pricing in their reviews. Ranked by pricing signal strength — useful when margin or MOQ is your primary filter.",
+    scoreFn: (r) => {
+      const t = r.mentioned_topics?.find((x) => x.topic === "competitive_price");
+      return (t?.count ?? 0) * 5 + (r.b2b_score ?? r.trust_score);
+    },
+    filterFn: (r) =>
+      (r.mentioned_topics?.find((x) => x.topic === "competitive_price")?.count ?? 0) >= 1,
+  },
+  {
+    slug: "on-time-delivery",
+    title: "Thai Suppliers with Best On-Time Delivery",
+    metaTitle: "Best On-Time Delivery Thai Manufacturers — Buyer-Verified",
+    metaDescription:
+      "Thai suppliers consistently praised for on-time delivery in buyer reviews. Critical signal for JIT supply chains and export deadlines.",
+    intro:
+      "Suppliers repeatedly praised for on-time delivery in buyer reviews. Key signal for buyers building JIT supply chains or working with tight shipping windows.",
+    scoreFn: (r) => {
+      const on = r.mentioned_topics?.find((x) => x.topic === "on_time")?.count ?? 0;
+      const del = r.mentioned_topics?.find((x) => x.topic === "delayed")?.count ?? 0;
+      return (on - del) * 6 + (r.b2b_score ?? r.trust_score);
+    },
+    filterFn: (r) =>
+      (r.mentioned_topics?.find((x) => x.topic === "on_time")?.count ?? 0) >= 1,
+  },
+  {
+    slug: "food-manufacturers",
+    title: "Top Food Manufacturers in Thailand",
+    metaTitle: "Top Thai Food Manufacturers — Export, OEM, HACCP",
+    metaDescription:
+      "Thailand's top food manufacturers — ready-to-eat, frozen, condiments, snacks. OEM / private label for export markets. Ranked by buyer trust signals.",
+    intro:
+      "Thailand is Southeast Asia's largest food exporter. These are the top-rated food manufacturers — covering frozen food, condiments, snacks, and specialty processing — ranked by buyer trust signals and certification mentions.",
+    scoreFn: (r) => {
+      const foodScore = (r.mentioned_topics?.find((x) => x.topic === "food_safety")?.count ?? 0) * 4;
+      return foodScore + (r.b2b_score ?? r.trust_score) + (r.verified ? 3 : 0);
+    },
+    filterFn: (r) => r.categories.includes("food_mfg"),
+  },
+  {
+    slug: "electronics-manufacturers",
+    title: "Top Electronics Manufacturers in Thailand",
+    metaTitle: "Top Thai Electronics Manufacturers — PCB, EMS, Components",
+    metaDescription:
+      "Thailand's top electronics manufacturers — PCB assembly, EMS, semiconductors, components. Eastern Seaboard cluster. Ranked by buyer trust score.",
+    intro:
+      "Thailand ranks among Asia's top electronics manufacturing hubs. These are the highest-trust electronics manufacturers — covering PCB, EMS, components, and related services — concentrated in Chon Buri, Pathum Thani, and Samut Prakan.",
+    scoreFn: (r) => (r.b2b_score ?? r.trust_score) * 1.4 + (r.verified ? 4 : 0),
+    filterFn: (r) => r.categories.includes("electronics"),
+  },
+  {
+    slug: "export-ready",
+    title: "Export-Ready Thai Suppliers",
+    metaTitle: "Export-Ready Thai Manufacturers — International B2B",
+    metaDescription:
+      "Thai suppliers flagged by buyers as export-capable — international shipping experience, English support, and documented export processes.",
+    intro:
+      "Suppliers explicitly mentioned as export-ready by buyers. Includes companies with international shipping experience, English-speaking sales contacts, and the documentation processes required for overseas buyers.",
+    scoreFn: (r) => {
+      const exp = r.mentioned_topics?.find((x) => x.topic === "export_ready")?.count ?? 0;
+      return exp * 6 + (r.b2b_score ?? r.trust_score) + (r.categories.includes("exporter") ? 5 : 0);
+    },
+    filterFn: (r) =>
+      (r.mentioned_topics?.find((x) => x.topic === "export_ready")?.count ?? 0) >= 1 ||
+      r.categories.includes("exporter"),
+  },
+  {
+    slug: "boi-eligible",
+    title: "BOI-Eligible Thai Manufacturers",
+    metaTitle: "BOI-Eligible Thai Manufacturers — Tax Incentives & Export Zones",
+    metaDescription:
+      "Thai manufacturers in BOI-promoted industries — electronics, automotive, food processing, chemicals. Located in industrial estates with tax incentive access.",
+    intro:
+      "Manufacturers operating in industries commonly promoted by Thailand's Board of Investment (BOI) — electronics, automotive parts, food processing, chemicals, and plastics. Many are inside industrial estates that offer BOI tax incentives and export facilitation.",
+    scoreFn: (r) =>
+      (r.boi_candidate ? 8 : 0) + (r.estate_slug ? 6 : 0) + (r.b2b_score ?? r.trust_score) + (r.verified ? 3 : 0),
+    filterFn: (r) => r.boi_candidate === true || !!r.estate_slug,
   },
 ];
 

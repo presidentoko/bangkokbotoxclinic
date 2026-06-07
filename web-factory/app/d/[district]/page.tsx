@@ -48,6 +48,17 @@ export default async function DistrictPage(
   const cats = [...catMap.entries()].filter(([, n]) => n >= 1).sort((a, b) => b[1] - a[1]);
   const cityLabel = group.cityLabel;
   const citySlug = group.citySlug;
+  const verifiedCount = filtered.filter((r) => r.verified).length;
+
+  // Estate breakdown for this district
+  const estateMap = new Map<string, { slug: string; count: number }>();
+  for (const r of filtered) {
+    if (r.estate_name && r.estate_slug) {
+      const e = estateMap.get(r.estate_name) ?? { slug: r.estate_slug, count: 0 };
+      e.count++;
+      estateMap.set(r.estate_name, e);
+    }
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -65,9 +76,39 @@ export default async function DistrictPage(
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
         Suppliers in {districtName}
       </h1>
-      <p className="text-[var(--muted)] mb-8">
-        {filtered.length.toLocaleString()} verified suppliers in {districtName}{cityLabel ? `, ${cityLabel}` : ""} — ranked by Trust Score.
-      </p>
+      <div className="flex flex-wrap gap-2 mb-6 text-xs">
+        <span className="bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-medium tabular-nums">
+          {filtered.length.toLocaleString()} suppliers
+        </span>
+        {verifiedCount > 0 && (
+          <span className="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+            ✓ {verifiedCount.toLocaleString()} DBD-verified
+          </span>
+        )}
+        {cityLabel && (
+          <a href={`/city/${citySlug}`} className="bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-medium hover:bg-stone-200 transition">
+            📍 {cityLabel}
+          </a>
+        )}
+      </div>
+
+      {estateMap.size > 0 && (
+        <section className="mb-8 border border-emerald-200 rounded-2xl bg-emerald-50/30 p-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-emerald-800 mb-3">
+            🏘 Industrial Estates
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {Array.from(estateMap.entries())
+              .sort((a, b) => b[1].count - a[1].count)
+              .map(([name, { slug, count }]) => (
+                <a key={slug} href={`/estate/${slug}`}
+                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300 bg-white text-sm hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-800 transition font-medium">
+                  {name} <span className="text-emerald-600 tabular-nums">{count}</span>
+                </a>
+              ))}
+          </div>
+        </section>
+      )}
 
       {cats.length > 0 && (
         <section className="mb-8">

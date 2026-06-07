@@ -132,10 +132,19 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
 
       {/* Trust + categories — OUTSIDE the anchor so the tooltip <details> is valid */}
       <div className="px-5 pb-3 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 flex-wrap">
           <TrustBadge score={trust.overall} size="md" />
           <TrustScoreInfo subs={trust.subs} />
           <FavoriteButton id={r.id} name={r.name} cityLabel={r.city_label || ""} variant="icon" />
+          {r.language_breakdown?.ko && r.language_breakdown.ko > 0 && (
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200" title="Has Korean reviews">KO</span>
+          )}
+          {r.language_breakdown?.ja && r.language_breakdown.ja > 0 && (
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-50 text-red-700 border border-red-200" title="Has Japanese reviews">JA</span>
+          )}
+          {r.language_breakdown?.en && r.language_breakdown.en >= 3 && (
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-stone-50 text-stone-600 border border-stone-200" title={`${r.language_breakdown.en} English reviews`}>EN</span>
+          )}
         </div>
         <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
           <AIVerifiedBadge r={r} size="sm" />
@@ -149,9 +158,11 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
       </div>
 
       {(() => {
-        const snippet = r.external_reviews?.find(
-          (rev) => rev.text && rev.text !== "nan" && rev.text.length > 15
-        );
+        const reviews = r.external_reviews ?? [];
+        const isLatin = (t: string) => /[a-zA-Z]/.test(t) && !/[฀-๿]/.test(t);
+        const snippet =
+          reviews.find((rev) => rev.text && rev.text !== "nan" && rev.text.length > 15 && isLatin(rev.text)) ??
+          reviews.find((rev) => rev.text && rev.text !== "nan" && rev.text.length > 15);
         if (!snippet) return null;
         const text = snippet.text!.slice(0, 90) + (snippet.text!.length > 90 ? "…" : "");
         return (
