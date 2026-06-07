@@ -147,6 +147,16 @@ export default async function DistrictPage(
         </p>
       )}
 
+      <div className="mt-10 flex flex-wrap gap-3 text-sm">
+        {citySlug && cityLabel && (
+          <a href={`/city/${citySlug}`} className="text-emerald-700 font-semibold hover:underline">
+            All {cityLabel} suppliers →
+          </a>
+        )}
+        <a href="/best" className="text-amber-700 font-semibold hover:underline">🏆 Curated lists →</a>
+        <a href="/guide" className="text-stone-600 hover:underline">Buyer guides →</a>
+      </div>
+
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         ...(cityLabel ? [{ name: cityLabel, url: `/city/${citySlug}` }] : []),

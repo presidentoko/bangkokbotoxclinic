@@ -58,6 +58,11 @@ export default function BlogIndex() {
         ))}
       </div>
 
+      <div className="mt-8 pt-8 border-t border-[var(--border)] flex items-center justify-between gap-4 flex-wrap">
+        <p className="text-sm text-[var(--muted)]">Looking for deep-dive sourcing guides?</p>
+        <a href="/guide" className="text-sm font-bold text-emerald-700 hover:underline">Browse buyer guides →</a>
+      </div>
+
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Blog", url: "/blog" },
