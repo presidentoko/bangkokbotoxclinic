@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { loadClinics } from "@/lib/data";
 import { SITE, SUPPORTED_LANGS } from "@/lib/i18n";
 import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
 import ClinicCard from "@/components/ClinicCard";
+import { findGuide, PROC_TO_GUIDES } from "@/lib/guides";
 
 export const dynamic = "force-static";
 
@@ -54,6 +56,10 @@ export default async function ProcedurePage({
   // Sort by trust desc
   const sorted = [...list].sort((a, b) => b.trust_score - a.trust_score);
 
+  const relatedGuides = (PROC_TO_GUIDES[procedure] ?? [])
+    .map((slug) => findGuide(slug))
+    .filter((g): g is NonNullable<typeof g> => g !== undefined);
+
   return (
     <div className="mx-auto max-w-6xl px-4 pb-20">
       <Header lang={lang} />
@@ -85,6 +91,20 @@ export default async function ProcedurePage({
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {sorted.map((c) => <ClinicCard key={c.id} c={c} lang={lang} />)}
           </div>
+        )}
+
+        {relatedGuides.length > 0 && (
+          <section>
+            <h2 className="font-display text-2xl font-bold tracking-tighter-display mb-4">{proc.name} guides</h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {relatedGuides.map((g) => (
+                <Link key={g.slug} href={`/${lang}/guide/${g.slug}/`} className="card card-hover p-4">
+                  <div className="font-display text-base font-bold leading-tight">📖 {g.title}</div>
+                  <div className="mt-1 text-xs muted line-clamp-2">{g.intro}</div>
+                </Link>
+              ))}
+            </div>
+          </section>
         )}
       </main>
     </div>

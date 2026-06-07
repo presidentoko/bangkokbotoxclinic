@@ -55,6 +55,7 @@ import StickyMobileCTA from "@/components/StickyMobileCTA";
 import CollapsibleSection from "@/components/CollapsibleSection";
 import WikiSummaryCard from "@/components/WikiSummaryCard";
 import { loadWikiSummary } from "@/lib/wiki";
+import { guidesForProcedures } from "@/lib/guides";
 
 export const dynamic = "force-static";
 
@@ -105,6 +106,7 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
   const wiki = loadWikiSummary(c.id);
 
   const trend = trendFor(c);
+  const relatedGuides = guidesForProcedures(c.procedures);
   const sourcePie = [
     { value: c.source_badges.google_reviews, color: "#3b82f6", label: "Google" },
     { value: c.source_badges.photos, color: "#8b5cf6", label: "Photos" },
@@ -428,6 +430,21 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
               <ShareToFriend clinicName={c.name} url={`${SITE.origin}/${lang}/clinic/${c.slug}/`} />
             </CollapsibleSection>
           </div>
+
+          {/* Related guides — internal SEO linking */}
+          {relatedGuides.length > 0 && (
+            <section className="mt-12">
+              <h2 className="font-display text-2xl font-bold tracking-tighter-display mb-4">Related guides</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {relatedGuides.map((g) => (
+                  <Link key={g.slug} href={`/${lang}/guide/${g.slug}/`} className="card card-hover p-4">
+                    <div className="font-display text-base font-bold leading-tight">📖 {g.title}</div>
+                    <div className="mt-1 text-xs muted line-clamp-2">{g.intro}</div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Booking form — primary conversion point */}
           <section id="booking" className="mt-16 scroll-mt-20">

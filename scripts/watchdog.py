@@ -666,6 +666,7 @@ def build_services() -> list[Service]:
             cwd=ROOT,
             env_extra={},
             log_file=LOGS / "dental_grid.log",
+            grid_done_check=True,
             progress_pattern=PROG_GRID,
             progress_stale_sec=600,
             progress_grace_sec=420,

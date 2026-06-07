@@ -88,3 +88,59 @@ export const GUIDES: GuideTopic[] = [
 export function findGuide(slug: string): GuideTopic | undefined {
   return GUIDES.find((g) => g.slug === slug);
 }
+
+export const PROC_TO_GUIDES: Record<string, string[]> = {
+  fue:          ["fue-reviews", "bangkok-hair-clinic-guide", "thailand-vs-turkey", "thailand-vs-korea"],
+  dhi:          ["dhi-reviews", "bangkok-hair-clinic-guide", "thailand-vs-turkey", "thailand-vs-korea"],
+  fut:          ["scar-revision-cover", "bangkok-hair-clinic-guide"],
+  smp:          ["smp-scalp-tattoo", "scar-revision-cover"],
+  prp:          ["head-spa-scalp-treatment", "hair-loss-women"],
+  "stem-cell":  ["hair-loss-women"],
+  eyebrow:      ["hair-loss-women"],
+  beard:        [],
+  "scalp-care": ["head-spa-scalp-treatment"],
+};
+
+export const GUIDE_TO_PROCS: Record<string, string[]> = {
+  "fue-reviews":               ["fue"],
+  "dhi-reviews":               ["dhi"],
+  "smp-scalp-tattoo":          ["smp"],
+  "bangkok-hair-clinic-guide": ["fue", "dhi"],
+  "korean-friendly-clinics":   ["fue", "dhi"],
+  "scar-revision-cover":       ["smp", "fue"],
+  "hair-loss-women":           ["prp", "fue"],
+  "thailand-vs-turkey":        ["fue", "dhi"],
+  "thailand-vs-korea":         ["fue", "dhi"],
+  "head-spa-scalp-treatment":  ["scalp-care", "prp"],
+};
+
+const PROC_LABEL_MAP: Record<string, string> = {
+  fue: "FUE Hair Transplant", dhi: "DHI Hair Transplant", fut: "FUT Hair Transplant",
+  smp: "SMP / Scalp Micropigmentation", prp: "PRP Treatment",
+  "stem-cell": "Stem Cell Therapy", eyebrow: "Eyebrow Transplant",
+  beard: "Beard Transplant", "scalp-care": "Scalp Care",
+};
+
+export function procLabel(key: string): string {
+  return PROC_LABEL_MAP[key] ?? key;
+}
+
+export function guidesForProcedures(procs: string[]): GuideTopic[] {
+  const slugs = [...new Set(
+    procs.flatMap((p) => {
+      const lp = p.toLowerCase();
+      const key =
+        lp.includes("fue") ? "fue" :
+        lp.includes("dhi") ? "dhi" :
+        lp.includes("fut") ? "fut" :
+        lp.includes("smp") || lp.includes("scalp micropig") ? "smp" :
+        lp.includes("prp") ? "prp" :
+        lp.includes("stem") ? "stem-cell" :
+        lp.includes("eyebrow") ? "eyebrow" :
+        lp.includes("beard") ? "beard" :
+        lp.includes("scalp") || lp.includes("head spa") ? "scalp-care" : null;
+      return key ? (PROC_TO_GUIDES[key] ?? []) : [];
+    })
+  )];
+  return slugs.map(findGuide).filter((g): g is GuideTopic => g !== undefined).slice(0, 4);
+}

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import fs from "node:fs";
 import path from "node:path";
-import { findGuide, GUIDES, type GuideTopic } from "@/lib/guides";
+import { findGuide, GUIDES, GUIDE_TO_PROCS, procLabel, type GuideTopic } from "@/lib/guides";
 import { SITE, SUPPORTED_LANGS } from "@/lib/i18n";
 import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
@@ -168,6 +168,20 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: La
 
         {totalSources === 0 && (
           <p className="text-center text-sm muted py-20">No community posts matched this topic yet — check back as we expand coverage.</p>
+        )}
+
+        {/* Browse clinics by procedure */}
+        {(GUIDE_TO_PROCS[g.slug] ?? []).length > 0 && (
+          <section>
+            <h2 className="font-display text-2xl font-bold tracking-tighter-display mb-4">Browse clinics</h2>
+            <div className="flex flex-wrap gap-3">
+              {(GUIDE_TO_PROCS[g.slug] ?? []).map((proc) => (
+                <Link key={proc} href={`/${lang}/c/${proc}/`} className="card card-hover inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold">
+                  {procLabel(proc)} clinics in Thailand →
+                </Link>
+              ))}
+            </div>
+          </section>
         )}
 
         {/* Related guides */}
