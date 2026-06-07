@@ -34,7 +34,9 @@ export function ClaimBanner({
           </div>
         </div>
         <a
-          href={`/onboarding/partner?clinic=${encodeURIComponent(clinicId)}`}
+          href={`https://bangkoktopclinic.com/?ref=clinic&id=${encodeURIComponent(clinicId)}`}
+          target="_blank"
+          rel="noopener"
           className="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3 md:py-2.5 rounded-full text-white text-sm font-bold shadow-sm hover:shadow-md md:hover:-translate-y-0.5 transition-all whitespace-nowrap w-full md:w-auto"
           style={{ background: accent }}
         >

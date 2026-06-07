@@ -431,6 +431,25 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
             </CollapsibleSection>
           </div>
 
+          {/* Owner lead funnel → bangkoktopclinic.com */}
+          <aside className="mt-12 rounded-xl border-2 border-navy-200 bg-gradient-to-r from-navy-50 to-white p-5 dark:from-navy-950/40 dark:to-transparent dark:border-navy-800">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex-1">
+                <div className="text-[10px] font-black uppercase tracking-widest text-navy-500 dark:text-navy-400 mb-1">Clinic owner?</div>
+                <p className="font-bold text-base leading-snug">Is <span className="underline underline-offset-2 decoration-gold-400">{c.name}</span> your clinic?</p>
+                <p className="text-sm muted mt-1">Get a free Trust Score dashboard, review alerts &amp; qualified patient leads via LINE.</p>
+              </div>
+              <a
+                href={`https://bangkoktopclinic.com/?ref=hair&id=${encodeURIComponent(c.id)}`}
+                target="_blank"
+                rel="noopener"
+                className="shrink-0 btn-primary whitespace-nowrap"
+              >
+                Claim free dashboard →
+              </a>
+            </div>
+          </aside>
+
           {/* Related guides — internal SEO linking */}
           {relatedGuides.length > 0 && (
             <section className="mt-12">

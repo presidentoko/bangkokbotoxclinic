@@ -192,8 +192,8 @@ export default async function ClinicPage(
         </div>
       )}
 
-      {/* Unclaimed listing — inbound owner lead funnel (stub clinics only) */}
-      {c._stub && <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />}
+      {/* Owner lead funnel — all clinic pages */}
+      <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />
 
       {/* Header */}
       <header className="mb-8">
