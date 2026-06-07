@@ -107,7 +107,7 @@ export default async function HomePage() {
 
           <HeroSearch
             entities={searchIndex}
-            hrefBase="/course"
+            hrefBase="/supplier"
             popularSearches={popularSearches}
           />
         </div>

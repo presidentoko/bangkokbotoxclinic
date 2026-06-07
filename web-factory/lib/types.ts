@@ -95,6 +95,8 @@ export type Supplier = {
   iso_scope?: string | null;         // e.g. "ISO 9001:2015"
   iatf_certified?: boolean | null;
   haccp_certified?: boolean | null;
+  boi_candidate?: boolean;
+  boi_candidate_reasons?: string[];
 };
 
 export type MasterDb = {
