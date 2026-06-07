@@ -305,7 +305,10 @@ export default async function HomePage() {
         {/* Best of */}
         {BEST_FOR.length > 0 && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">Best of</h2>
+            <div className="flex items-baseline justify-between gap-4 mb-3">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">Best of</h2>
+              <a href="/best" className="text-xs text-emerald-700 font-medium hover:underline">All {BEST_FOR.length} lists →</a>
+            </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
               {BEST_FOR.map((c) => (
                 <a

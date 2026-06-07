@@ -147,6 +147,31 @@ export default async function BlogPostPage(
         </div>
       </article>
 
+      {/* Sourcing CTA */}
+      <section className="mt-12 bg-emerald-50 border border-emerald-200 rounded-2xl p-6 md:p-8">
+        <h2 className="text-xl font-bold text-emerald-900 mb-2">Ready to source from Thailand?</h2>
+        <p className="text-sm text-emerald-800 mb-5">
+          Browse {(3305).toLocaleString()}+ verified B2B suppliers — direct phone and website, no sourcing-agent markup. DBD-verified with registered capital, founding date, and TSIC codes.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <a href="/c/manufacturer" className="px-4 py-2 bg-emerald-700 text-white text-sm font-bold rounded-lg hover:bg-emerald-800 transition">
+            Manufacturers →
+          </a>
+          <a href="/c/auto_parts" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            Auto Parts
+          </a>
+          <a href="/c/food_mfg" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            Food OEM
+          </a>
+          <a href="/best/boi-eligible" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            BOI-eligible
+          </a>
+          <a href="/best" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            All curated lists →
+          </a>
+        </div>
+      </section>
+
       {p.related && p.related.length > 0 && (
         <section className="mt-12 pt-8 border-t border-[var(--border)]">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
