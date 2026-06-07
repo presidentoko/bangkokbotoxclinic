@@ -5,6 +5,7 @@ import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { BEST_FOR } from "@/lib/bestFor";
+import { GUIDES_TH } from "@/lib/guides_th";
 import { HeroSearch } from "@/components/HeroSearch";
 import { computeTrustScore } from "@/lib/trustScore";
 import type { Metadata } from "next";
@@ -179,10 +180,33 @@ export default async function ThHomePage() {
           </section>
         )}
 
+        {GUIDES_TH.length > 0 && (
+          <section className="mb-10">
+            <div className="flex items-baseline justify-between gap-4 mb-3">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">คู่มือผู้ซื้อ</h2>
+              <a href="/th/guide" className="text-xs text-emerald-700 font-medium hover:underline">ทั้งหมด {GUIDES_TH.length} บทความ →</a>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
+              {GUIDES_TH.map((g) => (
+                <a
+                  key={g.slug}
+                  href={`/th/guide/${g.slug}`}
+                  className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                >
+                  {g.title.replace(/ — .*$/, "").replace(/ \(\d{4}\)$/, "")}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="mb-10">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">หัวข้อยอดนิยม</h2>
+          <div className="flex items-baseline justify-between gap-4 mb-3">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">หัวข้อยอดนิยม</h2>
+            <a href="/best" className="text-xs text-emerald-700 font-medium hover:underline">ทั้งหมด {BEST_FOR.length} รายการ →</a>
+          </div>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
-            {BEST_FOR.slice(0, 9).map((c) => (
+            {BEST_FOR.map((c) => (
               <a
                 key={c.slug}
                 href={`/best/${c.slug}`}
