@@ -42,6 +42,7 @@ export function QuizResultCard({ entries, skin, concern, budget, locale, resultU
     : `${SKIN_LABELS[skin].emoji} ${skinLbl} · ${concernMeta?.emoji} ${concernLbl} · ${budgetLbl}\n${title}\n${resultUrl}`;
 
   const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(resultUrl)}`;
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 
   async function handleShare() {
     if (typeof navigator === "undefined") return;
@@ -165,7 +166,7 @@ export function QuizResultCard({ entries, skin, concern, budget, locale, resultU
         <p className="text-xs text-neutral-400 text-center">
           {isTh ? "แชร์ผลลัพธ์ของคุณ" : "Share your results"}
         </p>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <button
             onClick={handleShare}
             className="flex items-center justify-center gap-2 rounded-2xl bg-rose-500 hover:bg-rose-600 active:scale-[0.98] transition-all px-4 py-3 text-white font-semibold text-sm shadow-sm shadow-rose-200"
@@ -183,6 +184,14 @@ export function QuizResultCard({ entries, skin, concern, budget, locale, resultU
             className="flex items-center justify-center gap-2 rounded-2xl bg-[#00B900] hover:bg-[#009900] active:scale-[0.98] transition-all px-4 py-3 text-white font-semibold text-sm"
           >
             <span>💬</span><span>LINE</span>
+          </a>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] hover:bg-[#1ebe5d] active:scale-[0.98] transition-all px-4 py-3 text-white font-semibold text-sm"
+          >
+            <span>💬</span><span>WhatsApp</span>
           </a>
         </div>
         <Link
