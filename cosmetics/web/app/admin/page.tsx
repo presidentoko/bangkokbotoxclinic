@@ -61,6 +61,14 @@ export default async function AdminPage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-8 space-y-8">
+        {/* Ad slot management */}
+        <Link
+          href="/admin/ads"
+          className="inline-block rounded-lg bg-amber-100 border border-amber-200 px-4 py-2 text-sm font-medium text-amber-800 hover:bg-amber-200"
+        >
+          Manage Ad Slots →
+        </Link>
+
         {/* KV setup warning */}
         {!kvOk && (
           <div className="rounded-2xl border-2 border-amber-300 bg-amber-50 p-4 space-y-2">
