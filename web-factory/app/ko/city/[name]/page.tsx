@@ -208,6 +208,11 @@ export default async function KoCityPage(
         </section>
       )}
 
+      <div className="mt-10 flex flex-wrap gap-3 text-sm">
+        <a href="/best" className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 transition">🏆 큐레이션 목록 →</a>
+        <a href="/ko/guide" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">한국어 가이드 →</a>
+      </div>
+
       <CollectionPageJsonLd
         name={`${display} 태국 공급사 디렉토리`}
         description={note?.hook ?? `${display} 검증된 공급사: 제조사 · 창고 · 산단.`}

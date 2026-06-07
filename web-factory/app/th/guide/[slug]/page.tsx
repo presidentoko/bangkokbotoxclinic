@@ -88,6 +88,12 @@ function articleJsonLd(g: ReturnType<typeof findGuideTh> & object) {
   );
 }
 
+const GUIDE_TO_BEST_TH: Record<string, { slug: string; label: string }> = {
+  "sme-thai-supplier-sourcing": { slug: "highly-recommended", label: "ผู้จัดจำหน่าย Top 50 แนะนำ" },
+  "thai-industrial-estate-guide-domestic": { slug: "industrial-estates", label: "อันดับนิคมอุตสาหกรรม" },
+  "thai-food-oem-brand-guide": { slug: "food-manufacturers", label: "ผู้ผลิตอาหาร OEM" },
+};
+
 export default async function GuidePageTh(
   { params }: { params: Promise<{ slug: string }> }
 ) {
@@ -97,6 +103,7 @@ export default async function GuidePageTh(
 
   const db = await loadMasterDb();
   const topSuppliers = topByTrust(db.suppliers, 6);
+  const bestFor = GUIDE_TO_BEST_TH[slug];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -149,6 +156,20 @@ export default async function GuidePageTh(
           </section>
         )}
       </article>
+
+      {bestFor && (
+        <section className="mt-12 bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">รายการคัดสรร</div>
+            <div className="font-bold text-amber-900">{bestFor.label}</div>
+            <p className="text-xs text-amber-800 mt-0.5">จัดอันดับตามคะแนนความน่าเชื่อถือ — DBD ตรวจสอบ, Google รีวิว.</p>
+          </div>
+          <a href={`/best/${bestFor.slug}`}
+             className="shrink-0 px-4 py-2 bg-amber-600 text-white text-sm font-bold rounded-lg hover:bg-amber-700 transition">
+            ดูรายการ →
+          </a>
+        </section>
+      )}
 
       <section className="mt-16 bg-emerald-50/40 border border-emerald-100 rounded-2xl p-6 md:p-8">
         <h2 className="text-xl font-bold mb-4">ผู้จัดจำหน่ายความน่าเชื่อถือสูงสุด</h2>

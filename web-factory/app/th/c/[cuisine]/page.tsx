@@ -4,6 +4,8 @@ import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { CATEGORY_INTROS_TH } from "@/lib/categoryIntros_th";
+import { CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
+import { findGuideTh } from "@/lib/guides_th";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
@@ -58,6 +60,19 @@ export default async function ThCategoryPage(
   for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
+  const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
+  const withWebsite = filtered.filter((r) => r.website).length;
+
+  const guideSlug = CATEGORY_TO_GUIDE[cuisine];
+  const thGuide = guideSlug ? findGuideTh(guideSlug) : null;
+
+  const CAT_TO_BEST: Record<string, string> = {
+    manufacturer: "manufacturers", auto_parts: "auto-parts",
+    industrial_estate: "industrial-estates", warehouse: "warehouses",
+    food_mfg: "food-manufacturers",
+  };
+  const bestSlug = CAT_TO_BEST[cuisine];
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -74,7 +89,41 @@ export default async function ThCategoryPage(
         <p className="text-[var(--muted)] leading-relaxed mb-4 text-balance">
           {intro?.intro ?? `ไดเรกทอรีผู้ผลิต ${label.toLowerCase()} ที่ตรวจสอบแล้ว ${filtered.length.toLocaleString()} ราย.`}
         </p>
+        <div className="flex flex-wrap gap-2 text-xs">
+          <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+            {filtered.length.toLocaleString()} ราย
+          </span>
+          <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+            {totalReviews.toLocaleString()} รีวิว
+          </span>
+          <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+            {withWebsite.toLocaleString()} มีเว็บไซต์
+          </span>
+          {bestSlug && (
+            <a href={`/best/${bestSlug}`}
+               className="bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-full font-medium hover:bg-amber-100 transition">
+              🏆 ดูอันดับ →
+            </a>
+          )}
+        </div>
       </header>
+
+      {thGuide && (
+        <a
+          href={`/th/guide/${thGuide.slug}`}
+          className="block mb-8 p-5 bg-emerald-50/40 border border-emerald-200 rounded-xl hover:border-emerald-400 hover:shadow-md transition group"
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-2xl shrink-0">📖</div>
+            <div className="flex-1 min-w-0">
+              <div className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-1">คู่มือผู้ซื้อ</div>
+              <h2 className="font-bold text-lg leading-snug mb-1 group-hover:text-emerald-700 transition">{thGuide.title}</h2>
+              <p className="text-sm text-[var(--muted)] line-clamp-2">{thGuide.metaDescription}</p>
+            </div>
+            <span className="text-emerald-700 group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
+          </div>
+        </a>
+      )}
 
       {cities.length > 1 && (
         <section className="mb-8">

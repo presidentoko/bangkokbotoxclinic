@@ -163,6 +163,12 @@ export default async function EstatePage(
         </p>
       </section>
 
+      <div className="mt-10 flex flex-wrap gap-3 text-sm">
+        <a href="/guide/eastern-seaboard-industrial-estates-compared" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">📖 Estate comparison guide →</a>
+        <a href="/best/industrial-estates" className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 transition">🏆 Ranked estate list →</a>
+        <a href="/estate" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">All estates →</a>
+      </div>
+
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Industrial Estates", url: "/estate" },

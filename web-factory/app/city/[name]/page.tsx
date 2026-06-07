@@ -323,6 +323,11 @@ export default async function CityPage(
         </section>
       )}
 
+      <div className="mt-10 flex flex-wrap gap-3 text-sm">
+        <a href="/best" className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 transition">🏆 Curated lists →</a>
+        <a href="/guide" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">Buyer guides →</a>
+      </div>
+
       <CollectionPageJsonLd
         name={`${display} Suppliers Directory`}
         description={note?.hook ?? `Verified Thai suppliers in ${display}: manufacturers, warehouses, industrial estates.`}

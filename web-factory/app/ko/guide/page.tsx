@@ -57,6 +57,17 @@ export default function GuideIndexKo() {
         ))}
       </div>
 
+      <div className="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">큐레이션 목록</div>
+          <div className="font-bold text-amber-900">14개 공급사 순위 목록</div>
+          <p className="text-xs text-amber-800 mt-0.5">업종·산단·수출 여부별 — 신뢰도 점수 순위.</p>
+        </div>
+        <a href="/best" className="shrink-0 px-4 py-2 bg-amber-600 text-white text-sm font-bold rounded-lg hover:bg-amber-700 transition">
+          전체 목록 보기 →
+        </a>
+      </div>
+
       <BreadcrumbJsonLd items={[
         { name: "홈", url: "/ko" },
         { name: "가이드", url: "/ko/guide" },

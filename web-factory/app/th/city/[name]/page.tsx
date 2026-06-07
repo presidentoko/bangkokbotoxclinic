@@ -122,6 +122,11 @@ export default async function ThCityPage(
         </div>
       </section>
 
+      <div className="mt-10 flex flex-wrap gap-3 text-sm">
+        <a href="/best" className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 transition">🏆 รายการอันดับ →</a>
+        <a href="/th/guide" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">คู่มือผู้ซื้อ →</a>
+      </div>
+
       <CollectionPageJsonLd
         name={`ซัพพลายเออร์ ${display}`}
         description={note ?? `ผู้ผลิตและซัพพลายเออร์ใน${display}`}

@@ -169,6 +169,9 @@ export default async function BlogPostPage(
           <a href="/best" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
             All curated lists →
           </a>
+          <a href="/guide" className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 text-sm font-bold rounded-lg hover:bg-emerald-100 transition">
+            Buyer guides →
+          </a>
         </div>
       </section>
 
