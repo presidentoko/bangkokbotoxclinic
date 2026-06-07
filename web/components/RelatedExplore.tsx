@@ -3,6 +3,16 @@
 // AEO: LLM이 사이트 전체 topical authority 파악 용이.
 import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
+import { findGuide } from "@/lib/guides";
+
+// 클리닉 카테고리 → 관련 가이드 슬러그 목록. 가이드 당 최대 2개 노출.
+const CAT_TO_GUIDES: Record<string, string[]> = {
+  botox:  ["bangkok-botox-guide", "botox-price-bangkok-2026"],
+  filler: ["bangkok-filler-guide"],
+  hifu:   ["hifu-ultherapy-bangkok-cost"],
+  dental: ["dental-implants-bangkok-cost", "veneers-bangkok-price", "teeth-whitening-bangkok"],
+  hair:   ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
+};
 
 export function RelatedExplore({ clinic, lang = "en" }: {
   clinic: Clinic;
@@ -47,8 +57,20 @@ export function RelatedExplore({ clinic, lang = "en" }: {
     label: isTH ? `คลินิกใน ${clinic.city_label}` : `Clinics in ${clinic.city_label}`,
   };
 
-  // 비교 페이지 (with top trust clinics in same category)
-  // — similar clinics 컴포넌트가 이미 /compare/X/Y 링크 만들어줌
+  // 관련 가이드 — 클리닉 카테고리 기반, 중복 제거, 최대 3개
+  const guideLinks: { href: string; title: string }[] = [];
+  const seenSlugs = new Set<string>();
+  for (const cat of clinic.categories) {
+    for (const slug of CAT_TO_GUIDES[cat] ?? []) {
+      if (seenSlugs.has(slug)) continue;
+      const g = findGuide(slug);
+      if (!g) continue;
+      seenSlugs.add(slug);
+      guideLinks.push({ href: `/guide/${slug}`, title: g.title });
+      if (guideLinks.length >= 3) break;
+    }
+    if (guideLinks.length >= 3) break;
+  }
 
   return (
     <section
@@ -88,6 +110,26 @@ export function RelatedExplore({ clinic, lang = "en" }: {
           {cityLink.label}
         </a>
       </div>
+
+      {guideLinks.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-[var(--border)]">
+          <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-2">
+            {isTH ? "คู่มือที่เกี่ยวข้อง" : "Related guides"}
+          </div>
+          <div className="space-y-1.5">
+            {guideLinks.map((g) => (
+              <a
+                key={g.href}
+                href={g.href}
+                className="text-sm text-[var(--accent)] hover:underline flex items-center gap-1.5"
+              >
+                <span aria-hidden className="text-[var(--muted)] text-xs">📖</span>
+                {g.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
