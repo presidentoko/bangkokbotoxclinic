@@ -116,6 +116,8 @@ export default async function SupplierPage(
 
   // ── 5 trust sub-scores (single source of truth — same as cards + sorting) ──
   const trust = computeTrustScore(r);
+  const topicCount = (key: string) =>
+    r.mentioned_topics.find((t) => t.topic === key)?.count ?? 0;
   const subBy = (k: string) => trust.subs.find((s) => s.key === k)!.score;
   const capScore = subBy("capital");
   const longevityScore = subBy("longevity");
@@ -209,34 +211,34 @@ export default async function SupplierPage(
     {
       key: "iso",
       label: "ISO 9001",
-      sub: "",
+      sub: r.iso_scope ?? (topicCount("iso_certified") >= 2 ? "Mentioned in buyer reviews" : ""),
       icon: "ⓘ",
-      active: false,
-      hint: "ISO 9001 quality management — not yet in our data.",
+      active: r.iso_scope != null || topicCount("iso_certified") >= 2,
+      hint: "ISO 9001 quality management system certification.",
     },
     {
       key: "iatf",
       label: "IATF 16949",
-      sub: "",
+      sub: r.iatf_certified ? "Automotive quality standard" : "",
       icon: "🚗",
-      active: false,
-      hint: "Automotive Tier-1 standard — not yet in our data.",
+      active: r.iatf_certified === true,
+      hint: "Automotive Tier-1 standard — required by Toyota, Honda, Ford supply chains.",
     },
     {
       key: "haccp",
       label: "HACCP",
-      sub: "",
+      sub: r.haccp_certified === true || topicCount("food_safety") >= 2 ? "Food safety certified" : "",
       icon: "🥫",
-      active: false,
-      hint: "Food safety — not yet in our data.",
+      active: r.haccp_certified === true || topicCount("food_safety") >= 2,
+      hint: "Hazard Analysis Critical Control Points — food safety standard.",
     },
     {
       key: "boi",
       label: "BOI Promoted",
-      sub: "",
+      sub: r.boi_activity ?? (r.boi_promoted ? "BOI-promoted company" : ""),
       icon: "🇹🇭",
-      active: false,
-      hint: "Board of Investment promoted — not yet in our data.",
+      active: r.boi_promoted === true,
+      hint: "Board of Investment promoted — tax incentives and import duty exemptions.",
     },
   ];
 
