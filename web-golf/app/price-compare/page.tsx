@@ -71,9 +71,10 @@ export default async function PriceComparePage() {
             </thead>
             <tbody>
               {hasPrices.map((row, i) => {
+                const slot = row.weekend_morning_slot ?? row.weekday_morning_slot;
+                const total = row.weekend_morning_total ?? row.weekday_morning_total;
+                if (!slot || total === null) return null;
                 const course = getCourseById(db.restaurants, row.course_id);
-                const slot = row.weekend_morning_slot ?? row.weekday_morning_slot!;
-                const total = row.weekend_morning_total ?? row.weekday_morning_total!;
                 return (
                   <tr key={row.course_id} className="border-t border-[var(--border)] hover:bg-emerald-50/30 transition">
                     <td className="px-4 py-3 text-[var(--muted)] tabular-nums">{i + 1}</td>
