@@ -88,7 +88,6 @@ export async function generateMetadata({
       title,
       description,
       url: `${BASE}/${locale}/product/${slug}`,
-      images: p.image_url ? [{ url: p.image_url, width: 800, height: 800, alt: p.name }] : [],
     },
     twitter: { card: "summary_large_image", title, description },
   };
