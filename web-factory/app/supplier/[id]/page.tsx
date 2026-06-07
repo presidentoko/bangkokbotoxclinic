@@ -678,6 +678,30 @@ export default async function SupplierPage(
                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-stone-300 rounded-full text-sm hover:border-stone-900 font-bold">
               ✓ Top verified suppliers
             </a>
+            {(() => {
+              const CAT_TO_GUIDE: Record<string, string> = {
+                auto_parts: "thai-auto-parts-tier1-tier2",
+                food_mfg: "thai-food-manufacturer-haccp-export",
+                electronics: "thai-electronics-manufacturer-hdd-ems",
+                warehouse: "laem-chabang-warehouse-logistics",
+                industrial_estate: "eastern-seaboard-industrial-estates-compared",
+                logistics: "thai-logistics-3pl-customs-guide",
+                chemical: "thai-chemical-manufacturer-guide",
+                rubber: "thai-rubber-products-sourcing-guide",
+                textile: "thai-textile-apparel-oem-guide",
+                packaging: "thai-packaging-manufacturer-guide",
+                steel: "thai-steel-metal-fabrication-guide",
+                machining: "thai-precision-machining-guide",
+              };
+              const guideSlug = r.categories.map((c) => CAT_TO_GUIDE[c]).find(Boolean);
+              if (!guideSlug) return null;
+              return (
+                <a href={`/guide/${guideSlug}`}
+                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-emerald-300 rounded-full text-sm hover:border-emerald-600 font-bold text-emerald-900">
+                  📖 Sourcing guide
+                </a>
+              );
+            })()}
           </div>
         </section>
 
