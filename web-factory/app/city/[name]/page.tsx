@@ -118,10 +118,21 @@ export default async function CityPage(
   const districts = districtsForCity(db, name);
 
   const withWebsite = filtered.filter((r) => r.website).length;
+  const verifiedCount = filtered.filter((r) => r.verified).length;
   const avgTrust =
     filtered.length > 0
       ? Math.round(filtered.reduce((s, c) => s + computeTrustScore(c).overall, 0) / filtered.length)
       : 0;
+
+  // Estate breakdown for this city
+  const estateMap = new Map<string, { slug: string; count: number }>();
+  for (const r of filtered) {
+    if (r.estate_name && r.estate_slug) {
+      const e = estateMap.get(r.estate_name) ?? { slug: r.estate_slug, count: 0 };
+      e.count++;
+      estateMap.set(r.estate_name, e);
+    }
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -142,20 +153,47 @@ export default async function CityPage(
         {filtered.length.toLocaleString()} verified suppliers in {display}, ranked by Trust Score from public Google reviews.
       </p>
 
-      <div className="grid grid-cols-3 gap-3 mb-8 text-center">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 text-center">
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
           <div className="text-2xl font-bold tabular-nums">{filtered.length.toLocaleString()}</div>
           <div className="text-xs text-[var(--muted)]">Suppliers</div>
         </div>
+        {verifiedCount > 0 && (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+            <div className="text-2xl font-bold tabular-nums text-emerald-700">✓ {verifiedCount.toLocaleString()}</div>
+            <div className="text-xs text-emerald-700">DBD-verified</div>
+          </div>
+        )}
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
           <div className="text-2xl font-bold tabular-nums">{avgTrust}</div>
-          <div className="text-xs text-[var(--muted)]">Avg Trust</div>
+          <div className="text-xs text-[var(--muted)]">Avg Trust Score</div>
         </div>
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
           <div className="text-2xl font-bold tabular-nums">{withWebsite.toLocaleString()}</div>
           <div className="text-xs text-[var(--muted)]">With website</div>
         </div>
       </div>
+
+      {estateMap.size > 0 && (
+        <section className="mb-8 border border-emerald-200 rounded-2xl bg-emerald-50/30 p-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-emerald-800 mb-3">
+            🏘 Industrial Estates in {display}
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {Array.from(estateMap.entries())
+              .sort((a, b) => b[1].count - a[1].count)
+              .map(([name, { slug, count }]) => (
+                <a
+                  key={slug}
+                  href={`/estate/${slug}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300 bg-white text-sm hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-800 transition font-medium"
+                >
+                  {name} <span className="text-emerald-600 tabular-nums">{count}</span>
+                </a>
+              ))}
+          </div>
+        </section>
+      )}
 
       {(() => {
         const guideSlug = CITY_TO_GUIDE[name];
