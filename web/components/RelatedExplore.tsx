@@ -52,9 +52,10 @@ export function RelatedExplore({ clinic, lang = "en" }: {
   } : null;
 
   // 도시 페이지
+  const cityLabel = clinic.city_label || "Bangkok";
   const cityLink = {
     href: `${prefix}/city/${citySlug}`,
-    label: isTH ? `คลินิกใน ${clinic.city_label}` : `Clinics in ${clinic.city_label}`,
+    label: isTH ? `คลินิกใน ${cityLabel}` : `Clinics in ${cityLabel}`,
   };
 
   // 관련 가이드 — 클리닉 카테고리 기반, 중복 제거, 최대 3개
