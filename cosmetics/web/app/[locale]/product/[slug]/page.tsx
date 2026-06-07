@@ -736,7 +736,7 @@ export default async function ProductPage({
                   height={200}
                   className="rounded-xl border border-neutral-100 object-contain bg-neutral-50"
                   style={{ width: 200, height: 200 }}
-                  loading="eager"
+                  priority
                 />
               </div>
             )}
