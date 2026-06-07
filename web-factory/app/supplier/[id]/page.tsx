@@ -236,10 +236,12 @@ export default async function SupplierPage(
     {
       key: "boi",
       label: "BOI Promoted",
-      sub: r.boi_activity ?? (r.boi_promoted ? "BOI-promoted company" : ""),
+      sub: r.boi_activity ?? (r.boi_promoted ? "BOI-promoted company" : r.boi_candidate ? "Industry eligible for BOI promotion" : ""),
       icon: "🇹🇭",
       active: r.boi_promoted === true,
-      hint: "Board of Investment promoted — tax incentives and import duty exemptions.",
+      hint: r.boi_candidate && !r.boi_promoted
+        ? "Board of Investment — this industry is commonly BOI-promoted. Awaiting official verification."
+        : "Board of Investment promoted — tax incentives and import duty exemptions.",
     },
   ];
 

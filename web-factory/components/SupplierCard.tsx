@@ -108,6 +108,15 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                   ) : null}
                 </p>
               )}
+              {r.estate_name && r.estate_slug && (
+                <a
+                  href={`/estate/${r.estate_slug}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full hover:bg-emerald-100 transition"
+                >
+                  🏘 {r.estate_name}
+                </a>
+              )}
             </div>
             <div className="text-right shrink-0">
               <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">
@@ -138,6 +147,21 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
           ))}
         </div>
       </div>
+
+      {(() => {
+        const snippet = r.external_reviews?.find(
+          (rev) => rev.text && rev.text !== "nan" && rev.text.length > 15
+        );
+        if (!snippet) return null;
+        const text = snippet.text!.slice(0, 90) + (snippet.text!.length > 90 ? "…" : "");
+        return (
+          <div className="px-5 pb-2">
+            <p className="text-xs text-stone-500 italic leading-snug line-clamp-2">
+              &ldquo;{text}&rdquo;
+            </p>
+          </div>
+        );
+      })()}
 
       <div className="px-5 pb-4 flex gap-2 mt-auto">
         <a
