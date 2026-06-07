@@ -3,8 +3,10 @@ import { cookies } from "next/headers";
 import { getAdSlots, saveAdSlots, makeAdId, AdSlot } from "@/lib/ads";
 
 async function authorized() {
+  const pw = process.env.ADMIN_PASSWORD;
+  if (!pw) return false;
   const jar = await cookies();
-  return jar.get("admin_s")?.value === process.env.ADMIN_PASSWORD;
+  return jar.get("admin_s")?.value === pw;
 }
 
 // GET /api/admin/ads — list all slots
@@ -27,6 +29,7 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   if (!(await authorized())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const id = new URL(req.url).searchParams.get("id");
+  if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
   const slots = await getAdSlots();
   await saveAdSlots(slots.filter((s) => s.id !== id));
   return NextResponse.json({ ok: true });
@@ -36,6 +39,7 @@ export async function DELETE(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   if (!(await authorized())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const id = new URL(req.url).searchParams.get("id");
+  if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
   const { active } = await req.json();
   const slots = await getAdSlots();
   await saveAdSlots(slots.map((s) => s.id === id ? { ...s, active } : s));
