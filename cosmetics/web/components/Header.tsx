@@ -94,6 +94,18 @@ export function Header({ locale }: { locale: Locale }) {
             >
               {t(locale, "methodology")}
             </Link>
+            <Link
+              href={`/${locale}/sale/7-7`}
+              className="whitespace-nowrap text-sm font-semibold text-rose-500 hover:text-rose-600 transition-colors px-3 py-2 rounded-full border border-rose-200 bg-rose-50 hover:bg-rose-100 min-h-[44px] flex items-center"
+            >
+              🔥 {isTh ? "ดีล 7.7" : "7.7 Sale"}
+            </Link>
+            <Link
+              href={`/${locale}/budget/under-500`}
+              className="whitespace-nowrap text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors px-3 py-2 rounded-full border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 min-h-[44px] flex items-center"
+            >
+              💰 {isTh ? "งบ 500" : "Under ฿500"}
+            </Link>
           </div>
         </div>
         {/* Scroll hint fade */}
@@ -118,6 +130,18 @@ export function Header({ locale }: { locale: Locale }) {
           </Link>
         ))}
         <div className="ml-auto flex items-center gap-1 shrink-0">
+          <Link
+            href={`/${locale}/sale/7-7`}
+            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors whitespace-nowrap"
+          >
+            🔥 {isTh ? "ดีล 7.7" : "7.7 Sale"}
+          </Link>
+          <Link
+            href={`/${locale}/budget/under-500`}
+            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 hover:bg-emerald-100 transition-colors whitespace-nowrap"
+          >
+            💰 {isTh ? "งบ 500" : "Under ฿500"}
+          </Link>
           <Link
             href={`/${locale}/search`}
             className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50 whitespace-nowrap"
