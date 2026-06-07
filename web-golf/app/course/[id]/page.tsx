@@ -273,16 +273,44 @@ export default async function CoursePage(
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          {/* Drainage badge */}
-          {r.drainage_score !== undefined && (
-            <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm">
-              <span>{STATUS_EMOJI[drainageStatus(r.drainage_score, 0)]}</span>
-              <span className="font-medium">배수 점수 {r.drainage_score}</span>
-              <a href="/conditions" className="text-xs text-emerald-700 hover:underline ml-1">
-                전체 현황 →
-              </a>
-            </div>
-          )}
+          {/* Drainage card */}
+          {r.drainage_score !== undefined && (() => {
+            const status = drainageStatus(r.drainage_score, 0);
+            const palette: Record<typeof status, string> = {
+              safe:    "bg-emerald-50 border-emerald-200",
+              caution: "bg-yellow-50 border-yellow-200",
+              danger:  "bg-red-50 border-red-200",
+            };
+            return (
+              <div className={`p-4 rounded-xl border ${palette[status]}`}>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl leading-none">{STATUS_EMOJI[status]}</span>
+                    <div>
+                      <div className="font-bold text-sm">{STATUS_LABEL[status]}</div>
+                      <div className="text-xs text-[var(--muted)] mt-0.5">
+                        배수 점수 <span className="font-semibold text-[var(--fg)]">{r.drainage_score}</span>/100
+                        {r.drainage_mentions ? ` · 리뷰 ${r.drainage_mentions}건 분석` : " · 리뷰 분석 기반"}
+                      </div>
+                    </div>
+                  </div>
+                  <a href="/conditions" className="text-xs text-emerald-700 hover:underline shrink-0 mt-0.5">
+                    방콕 전체 현황 →
+                  </a>
+                </div>
+                {r.drainage_keywords && r.drainage_keywords.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    <span className="text-[10px] text-[var(--muted)] mr-1 self-center">리뷰 키워드:</span>
+                    {r.drainage_keywords.slice(0, 6).map((kw) => (
+                      <span key={kw} className="text-[10px] px-2 py-0.5 rounded-full bg-white border border-gray-200 text-[var(--muted)]">
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           <TrustDonut score={r.trust_score} breakdown={breakdown} />
 
