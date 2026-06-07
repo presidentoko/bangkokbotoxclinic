@@ -62,6 +62,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       out.push(entry(`${BASE}/${locale}/sale/${ev.slug}`, 0.8, "daily"));
     }
 
+    // Budget pages
+    for (const range of ["under-300", "under-500", "under-1000"]) {
+      out.push(entry(`${BASE}/${locale}/budget/${range}`, 0.7, "weekly"));
+    }
+
+    // Dupe pages — one per brand
+    for (const b of allBrands()) {
+      out.push(entry(`${BASE}/${locale}/dupe/${encodeURIComponent(b)}`, 0.7, "weekly"));
+    }
+
     // Quiz
     out.push(entry(`${BASE}/${locale}/quiz`, 0.7, "monthly"));
 
