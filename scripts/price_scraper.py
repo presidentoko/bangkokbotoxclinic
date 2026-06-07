@@ -39,7 +39,7 @@ GOLFDIGG_AREA_PAGES = [
 
 SOURCE_AGENCY = "Golfdigg"
 GOLFDIGG_BASE  = "https://golfdigg.com/en/courses"
-MATCH_THRESHOLD   = 85
+MATCH_THRESHOLD   = 82
 MIN_MATCH_LEN     = 8   # 매칭된 이름이 너무 짧으면 오매칭으로 간주
 CADDY_DEFAULT     = 400
 CART_DEFAULT      = 800
@@ -102,6 +102,8 @@ def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unma
         name_text = name_el.get_text(strip=True) if name_el else ""
         if not name_text or len(name_text) < 4:
             continue
+        # "Blue Canyon Country Club (Canyon Course)" → "Blue Canyon Country Club" 형식 처리
+        name_clean = re.sub(r"\s*\([^)]+\)\s*$", "", name_text).strip() or name_text
 
         # 가격: h5 (첫 번째) 또는 "฿" 포함 텍스트
         price_el = card.find("h5")
@@ -122,7 +124,7 @@ def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unma
         href = f"{GOLFDIGG_BASE}/{slug}"
 
         # 코스명 fuzzy match — 짧은 일반 이름(예: "Golf") 오매칭 방지
-        top = process.extract(name_text, master_names, scorer=fuzz.token_sort_ratio,
+        top = process.extract(name_clean, master_names, scorer=fuzz.token_sort_ratio,
                               processor=rfutils.default_process, limit=5)
         match = next(
             (m for m in top if m[1] >= MATCH_THRESHOLD and len(m[0]) >= MIN_MATCH_LEN),
