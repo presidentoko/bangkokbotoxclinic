@@ -3,9 +3,12 @@ import { allProducts } from "@/lib/data";
 import { checkAndSaveLinkHealth } from "@/lib/link-health";
 
 export const runtime = "nodejs";
-export const maxDuration = 300;
+export const maxDuration = 600;
 
 export async function GET(req: NextRequest) {
+  if (!process.env.CRON_SECRET) {
+    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+  }
   const auth = req.headers.get("authorization");
   if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -26,7 +26,7 @@ export async function checkAndSaveLinkHealth(
       batch.map(async (p) => {
         if (!p.url) { results[p.product_id] = { ok: false, status: null, checkedAt: new Date().toISOString() }; return; }
         try {
-          const res = await fetch(p.url, { method: "HEAD", redirect: "follow", signal: AbortSignal.timeout(6000) });
+          const res = await fetch(p.url, { method: "HEAD", redirect: "follow", signal: AbortSignal.timeout(3000) });
           results[p.product_id] = { ok: res.ok, status: res.status, checkedAt: new Date().toISOString() };
         } catch {
           results[p.product_id] = { ok: false, status: null, checkedAt: new Date().toISOString() };
