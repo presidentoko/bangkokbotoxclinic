@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getBanner } from "@/lib/adminData";
+import { getNoindexLocales } from "@/lib/indexing";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,6 +67,19 @@ export const metadata: Metadata = {
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const noindexSet = await getNoindexLocales();
+  if (noindexSet.has(locale)) {
+    return { robots: { index: false, follow: false } };
+  }
+  return {};
 }
 
 export const revalidate = 300;

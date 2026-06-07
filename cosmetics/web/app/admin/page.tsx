@@ -7,9 +7,18 @@ import { concernLabel } from "@/lib/i18n";
 import Link from "next/link";
 import { getLinkHealth } from "@/lib/link-health";
 import { kvGet } from "@/lib/kv";
+import { getNoindexLocales, setNoindexLocales } from "@/lib/indexing";
 
 export const metadata = { title: "Admin — BangkokFillers", robots: "noindex" };
 export const dynamic = "force-dynamic";
+
+async function saveNoindexLocales(formData: FormData) {
+  "use server";
+  const value = (formData.get("noindex_locales") as string) ?? "";
+  const { setNoindexLocales } = await import("@/lib/indexing");
+  const locales = value.split(",").map((s) => s.trim()).filter(Boolean);
+  await setNoindexLocales(locales);
+}
 
 export default async function AdminPage() {
   const jar = await cookies();
@@ -28,6 +37,8 @@ export default async function AdminPage() {
   const leadsRaw = await kvGet("leads");
   const leads: { email: string; skin: string; concern: string; budget: string; ts: string }[] =
     leadsRaw ? JSON.parse(leadsRaw as string) : [];
+  const noindexSet = await getNoindexLocales();
+  const currentNoindex = Array.from(noindexSet).join(", ");
 
   return (
     <div className="min-h-screen bg-[#fbf4f1]">
@@ -211,6 +222,25 @@ export default async function AdminPage() {
               ))}
             </ul>
           )}
+        </section>
+
+        {/* Locale Noindex */}
+        <section className="mt-10">
+          <h2 className="text-lg font-semibold mb-1">Locale Noindex</h2>
+          <p className="text-sm text-gray-500 mb-2">
+            Comma-separated locales to noindex (e.g. <code>ar, ko</code>). Empty = all indexed.
+          </p>
+          <form action={saveNoindexLocales} className="flex gap-2">
+            <input
+              name="noindex_locales"
+              defaultValue={currentNoindex}
+              placeholder="ar, ko"
+              className="flex-1 rounded-lg border px-3 py-1.5 text-sm font-mono"
+            />
+            <button type="submit" className="rounded-lg bg-gray-800 text-white px-4 py-1.5 text-sm">
+              Save
+            </button>
+          </form>
         </section>
 
         {/* Product search helper */}
