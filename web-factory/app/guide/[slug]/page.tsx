@@ -86,6 +86,23 @@ function articleJsonLd(g: ReturnType<typeof findGuide> & object) {
   );
 }
 
+const GUIDE_TO_BEST: Record<string, { slug: string; label: string }> = {
+  "sourcing-thai-suppliers-direct": { slug: "highly-recommended", label: "Top 50 Recommended Suppliers" },
+  "eastern-seaboard-industrial-estates-compared": { slug: "industrial-estates", label: "Industrial Estate Suppliers" },
+  "thai-auto-parts-tier1-tier2": { slug: "auto-parts", label: "Auto Parts Ranked List" },
+  "laem-chabang-warehouse-logistics": { slug: "warehouses", label: "Warehouse & 3PL Ranked List" },
+  "thai-food-manufacturer-haccp-export": { slug: "food-manufacturers", label: "Food Manufacturer Ranked List" },
+  "thai-electronics-manufacturer-hdd-ems": { slug: "electronics-manufacturers", label: "Electronics Manufacturer Ranked List" },
+  "thai-logistics-3pl-customs-guide": { slug: "export-ready", label: "Export-Ready Suppliers" },
+  "map-ta-phut-petrochemical-cluster": { slug: "industrial-estates", label: "Industrial Estate Suppliers" },
+  "thai-packaging-manufacturer-guide": { slug: "manufacturers", label: "Manufacturer Ranked List" },
+  "thai-precision-machining-guide": { slug: "manufacturers", label: "Manufacturer Ranked List" },
+  "thai-steel-metal-fabrication-guide": { slug: "manufacturers", label: "Manufacturer Ranked List" },
+  "thai-chemical-manufacturer-guide": { slug: "manufacturers", label: "Manufacturer Ranked List" },
+  "thai-rubber-products-sourcing-guide": { slug: "manufacturers", label: "Manufacturer Ranked List" },
+  "thai-textile-apparel-oem-guide": { slug: "manufacturers", label: "Manufacturer Ranked List" },
+};
+
 export default async function GuidePage(
   { params }: { params: Promise<{ slug: string }> }
 ) {
@@ -95,6 +112,7 @@ export default async function GuidePage(
 
   const db = await loadMasterDb();
   const topSuppliers = topByTrust(db.suppliers, 6);
+  const bestFor = GUIDE_TO_BEST[slug];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -112,12 +130,21 @@ export default async function GuidePage(
             {g.title}
           </h1>
           <p className="text-lg text-[var(--muted)] leading-relaxed text-balance">{g.intro}</p>
-          <div className="mt-4 text-xs text-[var(--muted)] flex items-center gap-2">
+          <div className="mt-4 text-xs text-[var(--muted)] flex items-center gap-2 flex-wrap">
             <time dateTime={g.updated}>Updated {g.updated}</time>
             <span>·</span>
             <span>{g.sections.length} sections</span>
             <span>·</span>
             <span>{g.faqs.length} FAQs</span>
+            {bestFor && (
+              <>
+                <span>·</span>
+                <a href={`/best/${bestFor.slug}`}
+                   className="text-amber-700 font-semibold hover:underline">
+                  🏆 {bestFor.label} →
+                </a>
+              </>
+            )}
           </div>
         </header>
 
@@ -147,6 +174,20 @@ export default async function GuidePage(
           </section>
         )}
       </article>
+
+      {bestFor && (
+        <section className="mt-12 bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1">Curated list</div>
+            <div className="font-bold text-amber-900">{bestFor.label}</div>
+            <p className="text-xs text-amber-800 mt-0.5">Ranked by Trust Score — DBD-verified, Google-reviewed.</p>
+          </div>
+          <a href={`/best/${bestFor.slug}`}
+             className="shrink-0 px-4 py-2 bg-amber-600 text-white text-sm font-bold rounded-lg hover:bg-amber-700 transition">
+            Browse ranked list →
+          </a>
+        </section>
+      )}
 
       <section className="mt-16 bg-emerald-50/40 border border-emerald-100 rounded-2xl p-6 md:p-8">
         <h2 className="text-xl font-bold mb-4">Top suppliers right now</h2>

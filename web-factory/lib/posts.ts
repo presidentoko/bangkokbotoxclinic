@@ -427,6 +427,65 @@ Cold emails from unknown overseas buyers get ignored. An intro from a Thai indus
 Find manufacturers with direct contact info at [/best/manufacturers](/best/manufacturers) or filter by category — [auto parts](/c/auto_parts), [packaging](/c/packaging), [food OEM](/c/food_mfg). Call the number listed, ask for the export sales team.`,
     related: ["sourcing-agent-markup-real-cost", "why-this-directory-exists"],
   },
+  {
+    slug: "chon-buri-vs-rayong-manufacturing",
+    title: "Chon Buri vs Rayong — Which Province for Your Thai Factory?",
+    metaTitle: "Chon Buri vs Rayong Manufacturing — Which Province Wins?",
+    metaDescription:
+      "Concrete comparison: port distance, land costs, industrial estate mix, labor pool, and sector fit. Which province makes more sense for your supply chain?",
+    category: "Industry",
+    published: "2026-06-07",
+    body: `Both Chon Buri and Rayong sit on Thailand's Eastern Seaboard — 90 minutes from Bangkok, one port between them. But the two provinces serve different supply chains, and the choice matters more than most foreign buyers realize.
+
+## Port Access
+
+Laem Chabang container port straddles the border but falls administratively in Chon Buri (Si Racha district). Factories in **Chon Buri** — Pinthong, Bowin, Si Racha — sit within 20-30 minutes truck. Factories in **Rayong** (Amata City Rayong, WHA Eastern Seaboard, Map Ta Phut) face 40-75 minutes depending on traffic and route.
+
+For high-frequency container movements, the Chon Buri proximity delta matters. For bulk chemical or petrochemical shipments, Map Ta Phut's dedicated pier in Rayong wins outright.
+
+## Industrial Estate Tenant Mix
+
+**Chon Buri dominates automotive**: Toyota Chachoengsao feeds Pinthong, Honda's Prachinburi plant feeds WHA, but the Tier 1/2 supplier ecosystem — seats, wiring harnesses, pressed parts, rubber — concentrates in Chon Buri estates.
+
+**Rayong is Map Ta Phut + EV transition**: PTT, IRPC, and ~100 petrochemical plants cluster at Map Ta Phut industrial port. Simultaneously, Rayong is where Thailand's EV battery assembly push is landing — BYD's factory, AION, Foxconn.
+
+## Land and Lease Costs
+
+Ready-built factories (RBF):
+
+| Province | RBF rate (฿/sqm/month) | Land lease |
+|----------|------------------------|------------|
+| Chon Buri | 220-320 | Higher (near port) |
+| Rayong | 200-290 | Slightly lower inland |
+
+Map Ta Phut industrial zone commands a premium for chemical-grade infrastructure (hazmat handling, dedicated pipelines). Rayong inland estates — WHA ESIE 3, Hemaraj Chonburi 8 — are more competitive on price.
+
+## Labor Pool and Cost
+
+Chon Buri's tighter labor market means slightly higher wages for assembly line workers (฿12,000-15,000/month) compared to Rayong's mixed pool (฿11,000-14,000/month). Both provinces have large migrant worker populations from Myanmar, Laos, Cambodia.
+
+For high-skill manufacturing (precision machining, EMS), Chon Buri's proximity to Bangna-Trad corridor gives better access to engineers commuting from Bangkok.
+
+## Sector Fit
+
+| Your sector | Better province |
+|-------------|----------------|
+| Automotive Tier 1/2 | Chon Buri |
+| Petrochemical / specialty chemicals | Rayong (Map Ta Phut) |
+| EV assembly / battery | Rayong (emerging) |
+| Electronics, HDD, EMS | Chon Buri (WHA, Pinthong) |
+| Packaging, plastics | Either — cost drives the call |
+| Food manufacturing | Chon Buri or Nakhon Ratchasima |
+| Logistics / 3PL | Chon Buri (port proximity) |
+
+## The Short Answer
+
+**Choose Chon Buri** if you're in automotive supply chain, electronics, or need fast container turnaround.
+**Choose Rayong** if you're in petrochemicals, bulk chemicals, or targeting Thailand's EV manufacturing cluster.
+
+Browse suppliers by estate at [/best/industrial-estates](/best/industrial-estates) or by category — [auto parts](/c/auto_parts), [electronics](/c/electronics), [warehouses](/c/warehouse).`,
+    related: ["eastern-seaboard-by-the-numbers", "map-ta-phut-at-a-glance"],
+  },
 ];
 
 // 합본 export. published desc — 신규 자동 글이 위로 오게.
