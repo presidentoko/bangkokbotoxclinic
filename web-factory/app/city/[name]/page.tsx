@@ -10,6 +10,9 @@ import { computeTrustScore } from "@/lib/trustScore";
 // 도시 → 가장 관련 깊은 가이드.
 const CITY_TO_GUIDE: Record<string, string> = {
   chon_buri: "eastern-seaboard-industrial-estates-compared",
+  chonburi: "eastern-seaboard-industrial-estates-compared",
+  si_racha: "laem-chabang-warehouse-logistics",
+  map_ta_phut: "map-ta-phut-petrochemical-cluster",
   rayong: "map-ta-phut-petrochemical-cluster",
   pathum_thani: "thai-electronics-manufacturer-hdd-ems",
   samut_sakhon: "thai-food-manufacturer-haccp-export",
@@ -20,6 +23,8 @@ const CITY_TO_GUIDE: Record<string, string> = {
   nonthaburi: "sourcing-thai-suppliers-direct",
   chachoengsao: "eastern-seaboard-industrial-estates-compared",
   nakhon_ratchasima: "sourcing-thai-suppliers-direct",
+  chiang_mai: "sourcing-thai-suppliers-direct",
+  pattaya: "laem-chabang-warehouse-logistics",
 };
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -89,6 +94,26 @@ const CITY_NOTES: Record<string, { hook: string; long: string }> = {
   chiang_rai: {
     hook: "북부 — GMS 무역 관문·농식품 OEM.",
     long: "Chiang Rai (치앙라이)는 태국 최북단 도시. 미얀마·라오스·중국 클릉난강 무역 통로 GMS (Greater Mekong Subregion) 관문. 커피·차·과일 농식품 OEM + 내륙 물류 창고 집중.",
+  },
+  si_racha: {
+    hook: "Laem Chabang 항구 최인접 — 자동차 Tier 2/3 + 수출 물류 허브.",
+    long: "Si Racha (시라차)는 Laem Chabang 컨테이너 항구에서 차로 20-30분 거리. Pinthong Industrial Estate 1-5 등 주요 수출 산단이 집중되어 있어 자동차 Tier 2/3 부품·패키징·플라스틱 OEM의 물류 거점으로 이상적.",
+  },
+  chonburi: {
+    hook: "Eastern Seaboard 핵심 — 산업단지 밀집 지역.",
+    long: "Chonburi (촌부리)는 Chon Buri 주 광역 행정구역. Amata City Chonburi, Pinthong, WHA Chonburi 등 주요 산단 밀집. 자동차 부품·전자·플라스틱·패키징 OEM의 핵심 거점.",
+  },
+  map_ta_phut: {
+    hook: "동남아 최대 석유화학 집적지 — PTT·IRPC·PTTGC 본단.",
+    long: "Map Ta Phut (맵타풋)는 Rayong 내 특수 산업 구역. PTT, IRPC, PTTGC, SCG Chemicals 등 태국 대형 석유화학기업 본단. 전용 항구 + 파이프라인 인프라 보유. 화학·플라스틱 원재료 조달 최적지.",
+  },
+  pattaya: {
+    hook: "Eastern Seaboard 남단 — 자동차·제조·물류 복합 거점.",
+    long: "Pattaya (파타야)는 관광도시 이미지와 달리 제조 인프라 보유. Eastern Seaboard 남단에 위치해 Chon Buri·Rayong 산단과 근접. 자동차 부품·물류·서비스 기업 분포.",
+  },
+  chiang_mai: {
+    hook: "북부 경제 허브 — 농식품 OEM·공예·소규모 제조.",
+    long: "Chiang Mai (치앙마이)는 태국 북부 최대 도시. 농식품 (커피·허브·건강식품) OEM, 전통 공예 (래커·세라믹·섬유), 소규모 정밀 제조 클러스터. Chiang Mai Industrial Estate 위치.",
   },
 };
 
