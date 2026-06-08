@@ -1,0 +1,14 @@
+name: PetBKK Daily Rebuild
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 02:00 UTC = 09:00 Bangkok (ICT = UTC+7)
+  workflow_dispatch:        # allow manual trigger
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel rebuild
+        run: |
+          curl -X POST "${{ secrets.VERCEL_PETBKK_DEPLOY_HOOK }}"
