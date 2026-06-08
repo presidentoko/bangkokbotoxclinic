@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 import type { Locale } from "@/lib/i18n";
 import { getProduct, productIdFromSlug } from "@/lib/data";
 
-export const runtime = "edge";
 export const alt = "BangkokFillers — Product Score Card";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
