@@ -1,15 +1,8 @@
 import type { Hospital, HospitalFilters } from './types'
-
-let rawData: Hospital[] = []
-try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  rawData = require('../data/hospitals.json') as Hospital[]
-} catch {
-  rawData = []
-}
+import rawData from '../data/hospitals.json'
 
 export function loadHospitals(): Hospital[] {
-  return rawData
+  return rawData as Hospital[]
 }
 
 export function getHospitalBySlug(slug: string): Hospital | null {

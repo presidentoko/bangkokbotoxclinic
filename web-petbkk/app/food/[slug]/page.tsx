@@ -4,6 +4,8 @@ import GradeBar from '@/components/GradeBar'
 import IngredientList from '@/components/IngredientList'
 import type { Metadata } from 'next'
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return loadFoods().map(f => ({ slug: f.id }))
 }

@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation'
 import { getHospitalBySlug, loadHospitals } from '@/lib/hospitals'
 import type { Metadata } from 'next'
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return loadHospitals().map(h => ({ slug: h.id }))
 }
