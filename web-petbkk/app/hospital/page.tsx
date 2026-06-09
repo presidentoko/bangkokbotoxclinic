@@ -44,9 +44,16 @@ function HospitalContent() {
   const toggle = (key: keyof typeof filters) =>
     setFilters(f => ({ ...f, [key]: !f[key] }))
 
+  const FILTER_CHIPS = [
+    { key: 'is_24h' as const,       label: '⏰ 24 ชั่วโมง', activeClass: 'bg-red-500 text-white border-red-500' },
+    { key: 'has_emergency' as const, label: '🚨 ฉุกเฉิน',    activeClass: 'bg-orange-500 text-white border-orange-500' },
+    { key: 'has_surgery' as const,   label: '🔪 ผ่าตัด',     activeClass: 'bg-blue-500 text-white border-blue-500' },
+  ]
+
   return (
     <main>
-      <h1 className="text-2xl font-bold mb-4">โรงพยาบาลสัตว์ในกรุงเทพ</h1>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">🏥 โรงพยาบาลสัตว์</h1>
+      <p className="text-sm text-gray-400 mb-6">ค้นหาโรงพยาบาลสัตว์เลี้ยงใกล้คุณในกรุงเทพและปริมณฑล</p>
 
       <input
         type="text"
@@ -55,6 +62,15 @@ function HospitalContent() {
         placeholder="ค้นหาชื่อโรงพยาบาล หรือที่อยู่..."
         className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-400 mb-4"
       />
+
+      <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 mb-4 flex items-center gap-3">
+        <NearMeButton
+          active={userLoc != null}
+          onLocation={(lat, lng) => { setUserLoc({ lat, lng }); setView('list') }}
+          onClear={() => setUserLoc(null)}
+        />
+        <p className="text-sm text-gray-500">ค้นหาโรงพยาบาลใกล้ที่ตั้งของคุณ</p>
+      </div>
 
       <div className="flex gap-2 mb-4 flex-wrap">
         {(['map', 'list'] as const).map(v => (
@@ -65,27 +81,24 @@ function HospitalContent() {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 mb-6">
-        {[
-          { key: 'is_24h' as const,        label: '⏰ 24 ชั่วโมง' },
-          { key: 'has_emergency' as const,  label: '🚨 ฉุกเฉิน' },
-          { key: 'has_surgery' as const,    label: '🔪 ผ่าตัด' },
-        ].map(f => (
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        {FILTER_CHIPS.map(f => (
           <button key={f.key} onClick={() => toggle(f.key)}
-            className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${filters[f.key] ? 'bg-blue-500 text-white border-blue-500' : 'bg-white hover:bg-blue-50'}`}>
+            className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${filters[f.key] ? f.activeClass : 'bg-white hover:bg-blue-50'}`}>
             {f.label}
           </button>
         ))}
-        <NearMeButton
-          active={userLoc != null}
-          onLocation={(lat, lng) => { setUserLoc({ lat, lng }); setView('list') }}
-          onClear={() => setUserLoc(null)}
-        />
         <span className="text-sm text-gray-400 self-center">{hospitalsWithDist.length} แห่ง</span>
       </div>
 
       {view === 'map' ? (
         <HospitalMap hospitals={hospitalsWithDist.map(x => x.h)} />
+      ) : hospitalsWithDist.length === 0 ? (
+        <div className="py-16 text-center">
+          <p className="text-4xl mb-3">🏥</p>
+          <p className="text-gray-400 font-medium">ไม่พบโรงพยาบาลที่ตรงกับเงื่อนไข</p>
+          <p className="text-sm text-gray-300 mt-1">ลองปรับตัวกรองหรือค้นหาด้วยคำอื่น</p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {hospitalsWithDist.map(({ h, distKm }) => (
