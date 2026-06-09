@@ -1,4 +1,5 @@
 export type Grade = 'green' | 'yellow' | 'red' | 'black'
+export type FoodGrade = 'A' | 'B' | 'C' | 'D' | 'F'
 export type Animal = 'dog' | 'cat'
 export type LifeStage = 'puppy' | 'adult' | 'senior'
 
