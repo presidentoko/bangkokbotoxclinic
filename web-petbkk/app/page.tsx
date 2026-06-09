@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation'
 import SearchBar from '@/components/SearchBar'
 import PetProfileSetup from '@/components/PetProfileSetup'
+import PersonalizedFoodRecs from '@/components/PersonalizedFoodRecs'
 
 const FOOD_CHIPS = [
   { label: 'Royal Canin', href: '/food?q=royal+canin' },
@@ -27,6 +28,8 @@ export default function HomePage() {
       </p>
 
       <PetProfileSetup />
+
+      <PersonalizedFoodRecs />
 
       <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
         <SearchBar
