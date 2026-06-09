@@ -4,6 +4,7 @@ import GradeBar from '@/components/GradeBar'
 import IngredientGroups from '@/components/IngredientGroups'
 import SimilarFoods from '@/components/SimilarFoods'
 import ShareCard from '@/components/ShareCard'
+import TrackRecentFood from '@/components/TrackRecentFood'
 import type { Metadata } from 'next'
 import type { FoodGrade } from '@/lib/types'
 
@@ -44,6 +45,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <main className="max-w-2xl mx-auto">
+      <TrackRecentFood foodId={food.id} />
       <a href="/food" className="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">
         ← กลับ
       </a>
