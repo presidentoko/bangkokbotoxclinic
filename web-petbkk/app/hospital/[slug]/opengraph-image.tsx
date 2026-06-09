@@ -183,7 +183,7 @@ export default async function og({ params }: { params: Promise<{ slug: string }>
             fontWeight: 600,
           }}
         >
-          Google Rating
+          คะแนน Google
         </div>
 
         <div
