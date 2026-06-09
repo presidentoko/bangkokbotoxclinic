@@ -118,6 +118,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="max-w-5xl mx-auto px-4 py-8 pb-28">
           {children}
         </div>
+        <footer className="max-w-5xl mx-auto px-4 py-6 text-center text-xs text-gray-400 border-t border-gray-100 mt-4">
+          <p className="mb-2">
+            <a href="/contact" className="hover:text-orange-500 transition-colors">ติดต่อเรา</a>
+            <span className="mx-2">·</span>
+            <a href="/adopt" className="hover:text-green-600 transition-colors text-green-500 font-medium">รับเลี้ยงแทนการซื้อ</a>
+            <span className="mx-2">·</span>
+            <a href="/food" className="hover:text-orange-500 transition-colors">ตรวจสอบอาหาร</a>
+            <span className="mx-2">·</span>
+            <a href="/hospital" className="hover:text-orange-500 transition-colors">หาโรงพยาบาลสัตว์</a>
+          </p>
+          <p>© {new Date().getFullYear()} ThailandPetHub — ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำทางสัตวแพทย์</p>
+        </footer>
         <InstallPrompt />
         <CompareTray />
         <script dangerouslySetInnerHTML={{ __html: `
