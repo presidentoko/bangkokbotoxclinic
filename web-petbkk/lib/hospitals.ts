@@ -26,16 +26,9 @@ export function filterHospitals(filters: HospitalFilters = {}): Hospital[] {
 }
 
 export function getNearbyHospitals(hospital: Hospital, count = 3): Array<{ hospital: Hospital; distKm: number }> {
-  function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
-    const R = 6371
-    const dLat = (lat2 - lat1) * Math.PI / 180
-    const dLng = (lng2 - lng1) * Math.PI / 180
-    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-  }
   return loadHospitals()
     .filter(h => h.id !== hospital.id)
-    .map(h => ({ hospital: h, distKm: haversine(hospital.lat, hospital.lng, h.lat, h.lng) }))
+    .map(h => ({ hospital: h, distKm: haversineKm(hospital.lat, hospital.lng, h.lat, h.lng) }))
     .sort((a, b) => a.distKm - b.distKm)
     .slice(0, count)
 }
