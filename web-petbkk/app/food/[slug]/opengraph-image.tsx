@@ -1,12 +1,12 @@
 import { ImageResponse } from 'next/og'
-import { getFoodBySlug, loadFoods, getFoodGrade } from '@/lib/petfood'
+import { getFoodBySlug, loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
 import type { FoodGrade } from '@/lib/types'
 
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export function generateStaticParams() {
-  return loadFoods().map(f => ({ slug: f.id }))
+  return loadFoods().map(f => ({ slug: foodSlug(f) }))
 }
 
 const GRADE_BG: Record<FoodGrade, string> = {

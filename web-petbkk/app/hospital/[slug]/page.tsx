@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getHospitalBySlug, loadHospitals } from '@/lib/hospitals'
+import { getHospitalBySlug, loadHospitals, hospitalSlug } from '@/lib/hospitals'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import type { Metadata } from 'next'
@@ -8,7 +8,7 @@ import type { Hospital } from '@/lib/types'
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return loadHospitals().map(h => ({ slug: h.id }))
+  return loadHospitals().map(h => ({ slug: hospitalSlug(h) }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

@@ -1,6 +1,7 @@
 import type { PetFood } from '@/lib/types'
 import type { FoodGrade } from '@/lib/types'
 import { getFoodGrade } from '@/lib/grading'
+import { foodSlug } from '@/lib/petfood'
 
 const GRADE_COLOR: Record<FoodGrade, string> = {
   A: 'text-green-600',
@@ -26,7 +27,7 @@ export default function SimilarFoods({ foods }: Props) {
           return (
             <a
               key={f.id}
-              href={`/food/${f.id}`}
+              href={`/food/${foodSlug(f)}`}
               className="flex-shrink-0 w-44 bg-white border rounded-xl p-3 hover:border-orange-300 transition-colors"
             >
               <p className="text-xs text-gray-400 mb-0.5">{f.brand}</p>

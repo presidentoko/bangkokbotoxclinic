@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import type { Hospital } from '@/lib/types'
+import { hospitalSlug } from '@/lib/hospitals'
 import 'leaflet/dist/leaflet.css'
 
 export default function HospitalMap({ hospitals }: { hospitals: Hospital[] }) {
@@ -42,7 +43,7 @@ export default function HospitalMap({ hospitals }: { hospitals: Hospital[] }) {
             `<b>${h.name_th}</b><br>` +
             (h.is_24h ? '⏰ เปิด 24 ชั่วโมง<br>' : '') +
             (h.google_rating ? `⭐ ${h.google_rating}<br>` : '') +
-            `<a href="/hospital/${h.id}" style="color:#f97316">ดูรายละเอียด →</a>`
+            `<a href="/hospital/${hospitalSlug(h)}" style="color:#f97316">ดูรายละเอียด →</a>`
           )
           .addTo(map)
       })

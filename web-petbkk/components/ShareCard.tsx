@@ -140,8 +140,10 @@ export default function ShareCard({ food }: Props) {
     } catch {}
   }
 
-  const lineShareUrl = () =>
-    `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`
+  const lineShareUrl = () => {
+    const href = typeof window !== 'undefined' ? window.location.href : ''
+    return `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(href)}`
+  }
 
   return (
     <>

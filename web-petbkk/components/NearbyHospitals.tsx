@@ -1,5 +1,5 @@
 import type { Hospital } from '@/lib/types'
-import { getNearbyHospitals } from '@/lib/hospitals'
+import { getNearbyHospitals, hospitalSlug } from '@/lib/hospitals'
 
 function getRatingColor(rating: number | null): string {
   if (rating == null) return '#6b7280'
@@ -26,7 +26,7 @@ export default function NearbyHospitals({ hospital }: Props) {
           return (
             <a
               key={h.id}
-              href={`/hospital/${h.id}`}
+              href={`/hospital/${hospitalSlug(h)}`}
               className="flex-shrink-0 w-48 bg-white border rounded-xl p-3 hover:border-blue-300 transition-colors"
             >
               {/* Name */}

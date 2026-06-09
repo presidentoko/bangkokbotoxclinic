@@ -1,5 +1,6 @@
 import type { Hospital, HospitalFilters } from './types'
 import rawData from '../data/hospitals.json'
+import { toSlug } from './slugify'
 
 export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371
@@ -13,8 +14,16 @@ export function loadHospitals(): Hospital[] {
   return rawData as Hospital[]
 }
 
+export function hospitalSlug(h: Hospital): string {
+  const fromId = toSlug(h.id)
+  if (fromId.length > 5) return fromId
+  const fromName = toSlug(h.name_en)
+  if (fromName.length > 5) return fromName
+  return toSlug(h.google_place_id)
+}
+
 export function getHospitalBySlug(slug: string): Hospital | null {
-  return loadHospitals().find(h => h.id === slug) ?? null
+  return loadHospitals().find(h => hospitalSlug(h) === slug) ?? null
 }
 
 export function filterHospitals(filters: HospitalFilters = {}): Hospital[] {

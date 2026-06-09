@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods } from '@/lib/petfood'
+import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods, foodSlug } from '@/lib/petfood'
 import GradeBar from '@/components/GradeBar'
 import IngredientGroups from '@/components/IngredientGroups'
 import SimilarFoods from '@/components/SimilarFoods'
@@ -11,7 +11,7 @@ import type { FoodGrade, PetFood } from '@/lib/types'
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return loadFoods().map(f => ({ slug: f.id }))
+  return loadFoods().map(f => ({ slug: foodSlug(f) }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

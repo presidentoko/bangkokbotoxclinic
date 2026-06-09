@@ -1,11 +1,11 @@
 import { ImageResponse } from 'next/og'
-import { getHospitalBySlug, loadHospitals } from '@/lib/hospitals'
+import { getHospitalBySlug, loadHospitals, hospitalSlug } from '@/lib/hospitals'
 
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export function generateStaticParams() {
-  return loadHospitals().map(h => ({ slug: h.id }))
+  return loadHospitals().map(h => ({ slug: hospitalSlug(h) }))
 }
 
 function getRatingColor(rating: number | null): string {

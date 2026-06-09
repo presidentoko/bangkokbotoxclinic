@@ -1,12 +1,19 @@
 import type { PetFood, FoodFilters, FoodGrade } from './types'
 import rawData from '../data/petfood.json'
+import { toSlug } from './slugify'
 
 export function loadFoods(): PetFood[] {
   return rawData as PetFood[]
 }
 
+export function foodSlug(food: PetFood): string {
+  const s = toSlug(food.id)
+  if (s.length > 3) return s
+  return toSlug(`${food.brand}-${food.name_en}`)
+}
+
 export function getFoodBySlug(slug: string): PetFood | null {
-  return loadFoods().find(f => f.id === slug) ?? null
+  return loadFoods().find(f => foodSlug(f) === slug) ?? null
 }
 
 export function filterFoods(filters: FoodFilters = {}): PetFood[] {

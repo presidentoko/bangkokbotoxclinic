@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { loadFoods } from '@/lib/petfood'
+import { loadFoods, foodSlug } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
 import GradeBar from '@/components/GradeBar'
 import Link from 'next/link'
@@ -37,7 +37,7 @@ export default function BestFoodsPage() {
           </h2>
           <div className="space-y-3">
             {aFoods.map(({ f }) => (
-              <Link key={f.id} href={`/food/${f.id}`}
+              <Link key={f.id} href={`/food/${foodSlug(f)}`}
                 className="flex items-center gap-4 bg-white rounded-xl border p-4 hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-black text-lg flex-shrink-0">A</div>
                 <div className="flex-1 min-w-0">
@@ -63,7 +63,7 @@ export default function BestFoodsPage() {
           </h2>
           <div className="space-y-3">
             {bFoods.map(({ f }) => (
-              <Link key={f.id} href={`/food/${f.id}`}
+              <Link key={f.id} href={`/food/${foodSlug(f)}`}
                 className="flex items-center gap-4 bg-white rounded-xl border p-4 hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 rounded-full bg-lime-500 flex items-center justify-center text-white font-black text-lg flex-shrink-0">B</div>
                 <div className="flex-1 min-w-0">

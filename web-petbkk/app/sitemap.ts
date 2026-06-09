@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
-import { loadFoods } from '@/lib/petfood'
-import { loadHospitals } from '@/lib/hospitals'
+import { loadFoods, foodSlug } from '@/lib/petfood'
+import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
 
 const BASE = 'https://www.thailandpethub.com'
 
@@ -33,13 +33,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const foodPages: MetadataRoute.Sitemap = foods.map(f => ({
-    url: `${BASE}/food/${f.id}`,
+    url: `${BASE}/food/${foodSlug(f)}`,
     priority: 0.7,
     changeFrequency: 'weekly',
   }))
 
   const hospitalPages: MetadataRoute.Sitemap = hospitals.map(h => ({
-    url: `${BASE}/hospital/${h.id}`,
+    url: `${BASE}/hospital/${hospitalSlug(h)}`,
     priority: 0.7,
     changeFrequency: 'weekly',
   }))

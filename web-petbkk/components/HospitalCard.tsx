@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import SaveHospitalButton from '@/components/SaveHospitalButton'
 import type { Hospital } from '@/lib/types'
+import { hospitalSlug } from '@/lib/hospitals'
 
 function ratingColor(rating: number | null): string {
   if (rating == null) return 'bg-gray-200 text-gray-500'
@@ -19,7 +20,7 @@ interface Props {
 export default function HospitalCard({ hospital: h, distanceKm }: Props) {
   return (
     <Link
-      href={`/hospital/${h.id}`}
+      href={`/hospital/${hospitalSlug(h)}`}
       className="block bg-white rounded-2xl shadow-sm hover:shadow-md border border-gray-100 hover:border-orange-200 transition-all p-4 group"
     >
       {/* Top row: rating circle + name/address + save button */}
