@@ -42,13 +42,15 @@ export default function HomePage() {
   const router = useRouter()
 
   return (
-    <main className="flex flex-col items-center py-10 px-4">
+    <main className="flex flex-col items-center pt-4 pb-10 px-4">
       {/* Hero */}
-      <div className="mb-2 text-4xl">🐾</div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-1 text-center">PetBKK</h1>
-      <p className="text-gray-400 text-sm mb-8 text-center">
-        ตรวจสอบอาหาร · หาโรงพยาบาล · ดูแลสัตว์เลี้ยงครบจบที่นี่
-      </p>
+      <div className="w-full max-w-2xl text-center mb-8">
+        <div className="text-6xl mb-4">🐾</div>
+        <h1 className="text-3xl font-black text-gray-900 mb-2">PetBKK</h1>
+        <p className="text-gray-500 text-base">
+          ตรวจสอบอาหาร · หาโรงพยาบาล · ดูแลสัตว์เลี้ยงครบจบที่นี่
+        </p>
+      </div>
 
       {/* Pet profile */}
       <PetProfileSetup />
@@ -57,7 +59,7 @@ export default function HomePage() {
       <PersonalizedFoodRecs />
 
       {/* Search bars */}
-      <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+      <div className="w-full max-w-2xl space-y-3 mb-6">
         <SearchBar
           icon="🐾"
           placeholder="ค้นหาอาหารสัตว์เลี้ยง..."
@@ -93,36 +95,37 @@ export default function HomePage() {
       </div>
 
       {/* Stats strip */}
-      <div className="w-full max-w-2xl grid grid-cols-3 gap-3 mb-10">
+      <div className="w-full max-w-2xl grid grid-cols-3 gap-4 mb-10">
         {STATS.map(s => (
-          <div key={s.label} className="bg-white rounded-xl border px-3 py-4 text-center">
-            <p className="text-xl font-black text-orange-600">{s.num}</p>
-            <p className="text-xs text-gray-400 mt-0.5 leading-tight">{s.label}</p>
+          <div key={s.label} className="bg-white rounded-2xl border border-orange-100 px-3 py-5 text-center shadow-sm">
+            <p className="text-2xl font-black text-orange-600">{s.num}</p>
+            <p className="text-xs text-gray-400 mt-1 leading-tight">{s.label}</p>
           </div>
         ))}
       </div>
 
       {/* Tools discovery grid */}
       <div className="w-full max-w-2xl">
-        <h2 className="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wide">เครื่องมือทั้งหมด</h2>
+        <h2 className="text-base font-bold text-gray-800 mb-4">🛠️ เครื่องมือสำหรับเจ้าของน้อง</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {TOOLS.map(tool => (
             <a key={tool.href} href={tool.href}
-              className="bg-white rounded-xl border p-4 hover:shadow-md hover:border-orange-200 transition-all group">
-              <p className="text-2xl mb-2">{tool.icon}</p>
-              <p className="font-semibold text-sm text-gray-900 group-hover:text-orange-600 transition-colors">{tool.title}</p>
-              <p className="text-xs text-gray-400 mt-0.5 leading-snug">{tool.desc}</p>
+              className="bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-md hover:border-orange-200 hover:-translate-y-0.5 transition-all group">
+              <p className="text-3xl mb-2.5">{tool.icon}</p>
+              <p className="font-bold text-sm text-gray-900 group-hover:text-orange-600 transition-colors leading-tight">{tool.title}</p>
+              <p className="text-xs text-gray-400 mt-1 leading-snug">{tool.desc}</p>
             </a>
           ))}
         </div>
       </div>
 
       {/* Adoption CTA */}
-      <div className="w-full max-w-2xl mt-8 bg-green-50 border border-green-100 rounded-2xl p-5 text-center">
-        <p className="font-bold text-gray-900 mb-1">อย่าซื้อ — ให้รับเลี้ยงแทน 🐾</p>
-        <p className="text-sm text-gray-500 mb-3">สัตว์จรจัดในไทยกว่า 5 ล้านตัวรอบ้านใหม่</p>
+      <div className="w-full max-w-2xl mt-8 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6 text-center">
+        <p className="text-3xl mb-2">🐾</p>
+        <p className="font-black text-xl text-gray-900 mb-1">อย่าซื้อ — ให้รับเลี้ยงแทน</p>
+        <p className="text-sm text-gray-500 mb-4">สัตว์จรจัดในไทยกว่า 5 ล้านตัวรอบ้านใหม่</p>
         <a href="/adopt"
-          className="inline-block px-5 py-2 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors text-sm">
+          className="inline-block px-6 py-2.5 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors text-sm shadow-sm">
           ดูรายชื่อองค์กรรับเลี้ยง →
         </a>
       </div>
