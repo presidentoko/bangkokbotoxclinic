@@ -1,17 +1,25 @@
 'use client'
 import { useState, useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { filterFoods } from '@/lib/petfood'
 import type { Animal, LifeStage } from '@/lib/types'
 import FoodCard from '@/components/FoodCard'
 
 export default function FoodPage() {
-  const [animal, setAnimal] = useState<Animal | undefined>()
-  const [lifeStage, setLifeStage] = useState<LifeStage | undefined>()
+  const params = useSearchParams()
+
+  const [query, setQuery]         = useState(params.get('q') ?? '')
+  const [animal, setAnimal]       = useState<Animal | undefined>(
+    (params.get('animal') as Animal) ?? undefined
+  )
+  const [lifeStage, setLifeStage] = useState<LifeStage | undefined>(
+    (params.get('life_stage') as LifeStage) ?? undefined
+  )
   const [sort, setSort] = useState<'score' | 'price'>('score')
 
   const foods = useMemo(
-    () => filterFoods({ animal, life_stage: lifeStage, sort }),
-    [animal, lifeStage, sort]
+    () => filterFoods({ animal, life_stage: lifeStage, query, sort }),
+    [animal, lifeStage, query, sort]
   )
 
   const toggle = <T,>(val: T, current: T | undefined, set: (v: T | undefined) => void) =>
@@ -24,7 +32,15 @@ export default function FoodPage() {
 
   return (
     <main>
-      <h1 className="text-2xl font-bold mb-6">ตรวจสอบอาหารสัตว์เลี้ยง</h1>
+      <h1 className="text-2xl font-bold mb-4">ตรวจสอบอาหารสัตว์เลี้ยง</h1>
+
+      <input
+        type="text"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        placeholder="ค้นหาชื่อสินค้า หรือแบรนด์..."
+        className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400 mb-4"
+      />
 
       <div className="flex flex-wrap gap-2 mb-6">
         <button className={chipCls(animal === 'dog')} onClick={() => toggle('dog' as Animal, animal, setAnimal)}>
