@@ -3,6 +3,7 @@ import { getHospitalBySlug, loadHospitals } from '@/lib/hospitals'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import type { Metadata } from 'next'
+import type { Hospital } from '@/lib/types'
 
 export const dynamicParams = false
 
@@ -35,6 +36,41 @@ function StarRating({ rating }: { rating: number }) {
     <span className="text-sm text-gray-600">
       {'★'.repeat(full)}{hasHalf ? '½' : ''}{'☆'.repeat(5 - full - (hasHalf ? 1 : 0))}
     </span>
+  )
+}
+
+function LocalBusinessJsonLd({ h }: { h: Hospital }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'VeterinaryCare',
+    name: h.name_th,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: h.address,
+      addressCountry: 'TH',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: h.lat,
+      longitude: h.lng,
+    },
+    telephone: h.phone || undefined,
+    openingHours: h.is_24h ? 'Mo-Su 00:00-24:00' : undefined,
+    ...(h.google_rating != null ? {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: h.google_rating,
+        reviewCount: h.google_review_count ?? 1,
+        bestRating: 5,
+        worstRating: 1,
+      }
+    } : {}),
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
   )
 }
 
@@ -161,6 +197,8 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />
+
+      <LocalBusinessJsonLd h={h} />
     </main>
   )
 }

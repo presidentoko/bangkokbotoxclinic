@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'เตรียมพร้อมรับสัตว์เลี้ยงใหม่ — PetBKK',
-  description: 'เช็คลิสต์ครบถ้วนสำหรับการรับสุนัขหรือแมวมาเลี้ยงครั้งแรก',
+  title: 'คู่มือเลี้ยงน้องใหม่ — เช็คลิสต์ 20 ข้อสำหรับเจ้าของมือใหม่',
+  description: 'เช็คลิสต์ครบ 20 ข้อสำหรับผู้เลี้ยงสัตว์มือใหม่ ตั้งแต่อุปกรณ์จำเป็น อาหาร วัคซีน และการไปหาสัตวแพทย์',
+  openGraph: {
+    title: 'เช็คลิสต์ 20 ข้อ — คู่มือเลี้ยงน้องใหม่สำหรับมือใหม่',
+    description: 'อุปกรณ์จำเป็น อาหาร วัคซีน และทุกสิ่งที่ต้องรู้ก่อนเลี้ยงสัตว์เลี้ยงครั้งแรก',
+    url: 'https://www.thailandpethub.com/newpet',
+    type: 'website',
+  },
 }
 
 interface CheckItem { label: string; detail: string }
