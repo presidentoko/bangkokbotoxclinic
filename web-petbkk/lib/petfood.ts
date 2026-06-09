@@ -48,16 +48,16 @@ export function getFoodGrade(food: PetFood): FoodGrade | null {
   if (red_count === 1) return 'B'
   const greenRatio = green_count / total
   if (greenRatio >= 0.7) return 'A'
+  if (yellow_count > green_count) return 'C'
   return 'B'
 }
 
 export function getSimilarFoods(food: PetFood, count = 3): PetFood[] {
   return loadFoods()
     .filter(f => f.id !== food.id && f.animal === food.animal && f.life_stage === food.life_stage)
-    .sort((a, b) => {
-      const totalA = Math.max(1, a.green_count + a.yellow_count + a.red_count + a.black_count)
-      const totalB = Math.max(1, b.green_count + b.yellow_count + b.red_count + b.black_count)
-      return (b.green_count / totalB) - (a.green_count / totalA)
-    })
+    .sort((a, b) =>
+      b.green_count - a.green_count ||
+      (a.red_count + a.black_count) - (b.red_count + b.black_count)
+    )
     .slice(0, count)
 }
