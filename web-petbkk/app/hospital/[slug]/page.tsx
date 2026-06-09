@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getHospitalBySlug, loadHospitals } from '@/lib/hospitals'
 import NearbyHospitals from '@/components/NearbyHospitals'
+import HospitalShareButtons from '@/components/HospitalShareButtons'
 import type { Metadata } from 'next'
 
 export const dynamicParams = false
@@ -155,6 +156,8 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           </a>
         )}
       </div>
+
+      <HospitalShareButtons />
 
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />
