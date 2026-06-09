@@ -31,7 +31,7 @@ export default function PetProfileSetup() {
   const [lifeStage, setLifeStage] = useState<LifeStage>('adult')
   const [name, setName]         = useState('')
 
-  if (!ready) return null
+  if (!ready) return <div className="w-full max-w-2xl h-20 mb-4" />
 
   if (profile && !editing) {
     const emoji = profile.species === 'dog' ? '🐕' : '🐈'
