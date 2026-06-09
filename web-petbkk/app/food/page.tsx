@@ -8,13 +8,14 @@ import FoodCard from '@/components/FoodCard'
 function FoodContent() {
   const params = useSearchParams()
 
+  const validateAnimal = (v: string | null): Animal | undefined =>
+    v === 'dog' || v === 'cat' ? v : undefined
+  const validateLifeStage = (v: string | null): LifeStage | undefined =>
+    v === 'puppy' || v === 'adult' || v === 'senior' ? v : undefined
+
   const [query, setQuery]         = useState(params.get('q') ?? '')
-  const [animal, setAnimal]       = useState<Animal | undefined>(
-    (params.get('animal') as Animal) ?? undefined
-  )
-  const [lifeStage, setLifeStage] = useState<LifeStage | undefined>(
-    (params.get('life_stage') as LifeStage) ?? undefined
-  )
+  const [animal, setAnimal]       = useState<Animal | undefined>(validateAnimal(params.get('animal')))
+  const [lifeStage, setLifeStage] = useState<LifeStage | undefined>(validateLifeStage(params.get('life_stage')))
   const [sort, setSort] = useState<'score' | 'price'>('score')
 
   useEffect(() => {
@@ -28,6 +29,8 @@ function FoodContent() {
     } catch {
       // ignore
     }
+  // run only on mount; params is intentionally excluded because we want to
+  // apply the saved profile once (at page load), not re-apply on every filter change.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
