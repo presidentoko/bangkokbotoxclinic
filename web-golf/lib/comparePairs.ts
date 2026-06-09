@@ -6,13 +6,16 @@ import type { Course } from "./types";
 
 const CITIES_FOR_PAIRS = [
   "bangkok",
-  "chon_buri",            // Pattaya
-  "prachuap_khiri_khan",  // Hua Hin
+  "chon_buri",              // Pattaya
+  "prachuap_khiri_khan",    // Hua Hin
   "phuket",
   "chiang_mai",
+  "chiang_rai",
+  "rayong",
+  "nakhon_ratchasima",      // Korat
 ];
 
-const TOP_N_PER_CITY = 4;  // C(4,2) = 6 pairs × 5 cities = 30 pairs
+const TOP_N_PER_CITY = 6;  // C(6,2) = 15 pairs × 8 cities ≈ 115 pairs
 
 export type ComparePair = {
   slug: string;

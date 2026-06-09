@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getRestaurantById } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
-import { BreadcrumbJsonLd, RestaurantJsonLd, CourseVideosJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, RestaurantJsonLd, CourseVideosJsonLd, FaqJsonLd, CoursePriceJsonLd } from "@/components/JsonLd";
 import { buildComparePairs } from "@/lib/comparePairs";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
@@ -12,6 +12,7 @@ import { sponsoredTier } from "@/lib/sponsored";
 import { drainageStatus, STATUS_EMOJI, STATUS_LABEL } from "@/lib/weather";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
+import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
 import type { Metadata } from "next";
 
 // 비용 최소화: top 80 골프장만 pre-build, 나머지 on-demand + 7일 캐시.
@@ -145,6 +146,11 @@ export default async function CoursePage(
   const allPairs = buildComparePairs(db.restaurants);
   const compareLinks = allPairs.filter((p) => p.aId === r.id || p.bId === r.id);
 
+  // Price data from Golfdigg scraper
+  const priceMatrix = await loadPriceMatrix();
+  const priceRows = toPriceRows(priceMatrix);
+  const priceRow = priceRows.find((p) => p.course_id === r.id) ?? null;
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -178,6 +184,8 @@ export default async function CoursePage(
           <img
             src={r.hero_image || r.top_photo_url}
             alt={r.name}
+            loading="eager"
+            fetchPriority="high"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute bottom-2 right-2 text-[10px] text-white bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">
@@ -510,6 +518,50 @@ export default async function CoursePage(
         </div>
 
         <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
+          {priceRow && (
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+              <div className="text-xs font-semibold uppercase tracking-wide text-emerald-800 mb-3">
+                Green Fee (Golfdigg)
+              </div>
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                {priceRow.weekday_morning_slot && (
+                  <div className="bg-white rounded-lg p-2.5 text-center border border-emerald-100">
+                    <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide mb-1">평일</div>
+                    <div className="text-lg font-bold text-emerald-900">
+                      ฿{priceRow.weekday_morning_slot.greenfee.toLocaleString()}
+                    </div>
+                    <div className="text-[10px] text-[var(--muted)] mt-0.5">그린피</div>
+                    <div className="text-[11px] text-emerald-700 mt-1 font-medium">
+                      All-in ฿{priceRow.weekday_morning_total!.toLocaleString()}
+                    </div>
+                  </div>
+                )}
+                {priceRow.weekend_morning_slot && (
+                  <div className="bg-white rounded-lg p-2.5 text-center border border-emerald-100">
+                    <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide mb-1">주말</div>
+                    <div className="text-lg font-bold text-emerald-900">
+                      ฿{priceRow.weekend_morning_slot.greenfee.toLocaleString()}
+                    </div>
+                    <div className="text-[10px] text-[var(--muted)] mt-0.5">그린피</div>
+                    <div className="text-[11px] text-emerald-700 mt-1 font-medium">
+                      All-in ฿{priceRow.weekend_morning_total!.toLocaleString()}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="text-[10px] text-[var(--muted)] mb-3">
+                캐디 ฿{priceRow.weekday_morning_slot?.caddy ?? 400} + 카트 ฿{priceRow.weekday_morning_slot?.cart ?? 800} 포함
+              </div>
+              <a
+                href={priceRow.source_url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="block w-full bg-emerald-700 text-white py-2.5 px-4 rounded-lg font-bold text-center hover:bg-emerald-800 text-sm transition"
+              >
+                Golfdigg에서 예약 →
+              </a>
+            </div>
+          )}
           <div className="bg-white border border-[var(--border)] rounded-xl p-4 space-y-2">
             <a
               href={r.maps_url}
@@ -673,6 +725,7 @@ export default async function CoursePage(
       <div className="md:hidden h-16" aria-hidden />
 
       <RestaurantJsonLd r={r} />
+      {priceRow && <CoursePriceJsonLd r={r} priceRow={priceRow} />}
       <CourseVideosJsonLd r={r} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

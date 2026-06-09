@@ -34,27 +34,28 @@ def transform_row(row: dict) -> dict | None:
     name = row.get("name", "").strip()
     if not name:
         return None
-    lat = _float_or_none(row.get("lat", ""))
-    lng = _float_or_none(row.get("lng", ""))
+    lat = _float_or_none(row.get("first_seen_lat", ""))
+    lng = _float_or_none(row.get("first_seen_lng", ""))
     if lat is None or lng is None or lat == 0 or lng == 0:
         return None
 
-    hours = row.get("opening_hours", "")
+    raw_text = row.get("raw_card_text", "").lower()
     is_24h = (
         "24" in name
-        or "ตลอด 24" in hours
-        or "open 24" in hours.lower()
-        or "24 hours" in hours.lower()
+        or "ตลอด 24" in raw_text
+        or "open 24" in raw_text
+        or "24 hours" in raw_text
+        or "24ชม" in raw_text
     )
 
     return {
         "id": slugify(name),
         "name_th": name,
         "name_en": name,
-        "address": row.get("address", ""),
+        "address": row.get("address_hint", ""),
         "lat": lat,
         "lng": lng,
-        "phone": row.get("phone", ""),
+        "phone": "",
         "is_24h": is_24h,
         "has_emergency": "ฉุกเฉิน" in name or "emergency" in name.lower(),
         "has_surgery": True,
@@ -66,7 +67,7 @@ def transform_row(row: dict) -> dict | None:
         "google_rating": _float_or_none(row.get("rating", "")),
         "google_review_count": _int_or_none(row.get("review_count", "")),
         "google_place_id": row.get("place_id", ""),
-        "updated_at": row.get("scraped_at", ""),
+        "updated_at": "",
     }
 
 
@@ -78,7 +79,7 @@ def main():
     hospitals: list[dict] = []
     seen: set[str] = set()
 
-    with open(INPUT, encoding="utf-8", newline="") as f:
+    with open(INPUT, encoding="utf-8-sig", newline="") as f:
         for row in csv.DictReader(f):
             h = transform_row(row)
             if h and h["id"] not in seen:

@@ -26,7 +26,7 @@ export default function SisterSites({ focus }: { focus: SiteFocus }) {
         <div className="text-[10px] font-black uppercase tracking-widest text-[var(--muted)] text-center mb-3">
           Our sister sites · Thai Facial Clinic Group
         </div>
-        <div className={`grid gap-3 sm:grid-cols-${live.length}`}>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {live.map((s) => (
             <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer me"
               className="flex items-center gap-3 rounded-xl border bg-white p-4 hover:border-black transition"
@@ -39,6 +39,15 @@ export default function SisterSites({ focus }: { focus: SiteFocus }) {
               <span className="text-[var(--muted)]">→</span>
             </a>
           ))}
+          <a href="https://www.bangkoktopclinic.com/?ref=sister" target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border p-4 hover:border-black transition"
+            style={{ borderColor: "var(--border)", background: "linear-gradient(105deg,#f0f9ff,#fff)" }}>
+            <span className="text-2xl shrink-0">🏥</span>
+            <div className="min-w-0 flex-1">
+              <div className="font-bold text-sm">BangkokTopClinic</div>
+              <div className="text-xs text-[var(--muted)]">Clinic owner? Free dashboard →</div>
+            </div>
+          </a>
         </div>
       </div>
     </section>

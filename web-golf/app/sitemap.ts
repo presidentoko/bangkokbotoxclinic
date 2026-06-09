@@ -7,10 +7,13 @@ import { GUIDES } from "@/lib/guides";
 import { GUIDES_KO } from "@/lib/guides_ko";
 import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS } from "@/lib/posts";
-import { POSTS_KO } from "@/lib/posts_ko";
+import { POSTS_KO, findPostKo } from "@/lib/posts_ko";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
+
+const SLUGS_KO = new Set(GUIDES_KO.map((g) => g.slug));
+const SLUGS_TH = new Set(GUIDES_TH.map((g) => g.slug));
 
 export const dynamic = "force-static";
 
@@ -30,9 +33,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const updated = isoNoMs(db.generated_at);
 
   const items: MetadataRoute.Sitemap = [
-    { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
-    { url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
-    { url: `${SITE}/ko`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
+    {
+      url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0,
+      alternates: { languages: { "x-default": SITE, "en-US": SITE, "ko-KR": `${SITE}/ko`, "th-TH": `${SITE}/th` } },
+    },
+    {
+      url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.9,
+      alternates: { languages: { "x-default": SITE, "en-US": SITE, "ko-KR": `${SITE}/ko`, "th-TH": `${SITE}/th` } },
+    },
+    {
+      url: `${SITE}/ko`, lastModified: updated, changeFrequency: "daily", priority: 0.9,
+      alternates: { languages: { "x-default": SITE, "en-US": SITE, "ko-KR": `${SITE}/ko`, "th-TH": `${SITE}/th` } },
+    },
     { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE}/for-courses`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
@@ -41,42 +53,110 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/price-compare`, lastModified: updated, changeFrequency: "daily", priority: 0.85 },
     { url: `${SITE}/tee-times`, lastModified: updated, changeFrequency: "hourly", priority: 0.9 },
     { url: `${SITE}/conditions`, lastModified: updated, changeFrequency: "hourly", priority: 0.85 },
-    { url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${SITE}/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
+    {
+      url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+      alternates: { languages: { "x-default": `${SITE}/guide`, "en-US": `${SITE}/guide`, "ko-KR": `${SITE}/ko/guide`, "th-TH": `${SITE}/th/guide` } },
+    },
+    {
+      url: `${SITE}/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85,
+      alternates: { languages: { "x-default": `${SITE}/blog`, "en-US": `${SITE}/blog`, "ko-KR": `${SITE}/ko/blog` } },
+    },
   ];
 
   for (const p of POSTS) {
+    const koPost = findPostKo(p.slug);
     items.push({
       url: `${SITE}/blog/${p.slug}`,
       lastModified: isoNoMs(p.updated ?? p.published),
       changeFrequency: "monthly",
       priority: 0.8,
+      alternates: {
+        languages: {
+          "x-default": `${SITE}/blog/${p.slug}`,
+          "en-US": `${SITE}/blog/${p.slug}`,
+          ...(koPost ? { "ko-KR": `${SITE}/ko/blog/${p.slug}` } : {}),
+        },
+      },
     });
   }
 
   for (const g of GUIDES) {
-    items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
+    items.push({
+      url: `${SITE}/guide/${g.slug}`,
+      lastModified: isoNoMs(g.updated),
+      changeFrequency: "monthly",
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "x-default": `${SITE}/guide/${g.slug}`,
+          "en-US": `${SITE}/guide/${g.slug}`,
+          ...(SLUGS_KO.has(g.slug) ? { "ko-KR": `${SITE}/ko/guide/${g.slug}` } : {}),
+          ...(SLUGS_TH.has(g.slug) ? { "th-TH": `${SITE}/th/guide/${g.slug}` } : {}),
+        },
+      },
+    });
   }
   // Community-content roundups (Naver / Pantip aggregators)
   items.push({ url: `${SITE}/guide/korean-golfer-blogs`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   items.push({ url: `${SITE}/guide/pantip-golf-threads`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
-  items.push({ url: `${SITE}/ko/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+  items.push({
+    url: `${SITE}/ko/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+    alternates: { languages: { "x-default": `${SITE}/guide`, "en-US": `${SITE}/guide`, "ko-KR": `${SITE}/ko/guide`, "th-TH": `${SITE}/th/guide` } },
+  });
   for (const g of GUIDES_KO) {
-    items.push({ url: `${SITE}/ko/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
+    items.push({
+      url: `${SITE}/ko/guide/${g.slug}`,
+      lastModified: isoNoMs(g.updated),
+      changeFrequency: "monthly",
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "x-default": `${SITE}/guide/${g.slug}`,
+          "en-US": `${SITE}/guide/${g.slug}`,
+          "ko-KR": `${SITE}/ko/guide/${g.slug}`,
+          ...(SLUGS_TH.has(g.slug) ? { "th-TH": `${SITE}/th/guide/${g.slug}` } : {}),
+        },
+      },
+    });
   }
   // Korean blog — Naver SEO long-tail capture
-  items.push({ url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
+  items.push({
+    url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85,
+    alternates: { languages: { "x-default": `${SITE}/blog`, "en-US": `${SITE}/blog`, "ko-KR": `${SITE}/ko/blog` } },
+  });
   for (const p of POSTS_KO) {
     items.push({
       url: `${SITE}/ko/blog/${p.slug}`,
       lastModified: isoNoMs(p.updated ?? p.published),
       changeFrequency: "monthly",
       priority: 0.8,
+      alternates: {
+        languages: {
+          "x-default": `${SITE}/ko/blog/${p.slug}`,
+          "ko-KR": `${SITE}/ko/blog/${p.slug}`,
+        },
+      },
     });
   }
-  items.push({ url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+  items.push({
+    url: `${SITE}/th/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+    alternates: { languages: { "x-default": `${SITE}/guide`, "en-US": `${SITE}/guide`, "ko-KR": `${SITE}/ko/guide`, "th-TH": `${SITE}/th/guide` } },
+  });
   for (const g of GUIDES_TH) {
-    items.push({ url: `${SITE}/th/guide/${g.slug}`, lastModified: isoNoMs(g.updated), changeFrequency: "monthly", priority: 0.85 });
+    items.push({
+      url: `${SITE}/th/guide/${g.slug}`,
+      lastModified: isoNoMs(g.updated),
+      changeFrequency: "monthly",
+      priority: 0.85,
+      alternates: {
+        languages: {
+          "x-default": `${SITE}/guide/${g.slug}`,
+          "en-US": `${SITE}/guide/${g.slug}`,
+          ...(SLUGS_KO.has(g.slug) ? { "ko-KR": `${SITE}/ko/guide/${g.slug}` } : {}),
+          "th-TH": `${SITE}/th/guide/${g.slug}`,
+        },
+      },
+    });
   }
 
   for (const c of cities) {
@@ -91,7 +171,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
   // Korean-localized best curation (Naver SEO)
-  items.push({ url: `${SITE}/ko/best/korean-friendly`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
+  items.push({
+    url: `${SITE}/ko/best/korean-friendly`, lastModified: updated, changeFrequency: "weekly", priority: 0.9,
+    alternates: { languages: { "x-default": `${SITE}/best/korean-friendly`, "en-US": `${SITE}/best/korean-friendly`, "ko-KR": `${SITE}/ko/best/korean-friendly` } },
+  });
 
   // Course head-to-head comparison pages — long-tail commercial intent
   for (const pair of buildComparePairs(db.restaurants)) {

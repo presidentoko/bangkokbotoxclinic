@@ -117,7 +117,7 @@ export default function RootLayout({
                   <a href="/about" className="hover:text-black">About</a>
                   <a href="/insights" className="hover:text-black">Market Insights</a>
                   <a href="/contact" className="hover:text-black">Contact</a>
-                  <a href="/for-clinics" className="hover:text-black">For Clinics</a>
+                  <a href="https://www.bangkoktopclinic.com/?ref=footer" target="_blank" rel="noopener" className="hover:text-black">For Clinics</a>
                   <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
                   <a href="/llms.txt" className="hover:text-black">llms.txt</a>
                 </div>
