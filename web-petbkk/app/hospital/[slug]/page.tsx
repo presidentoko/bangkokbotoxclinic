@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import { getHospitalBySlug, loadHospitals, hospitalSlug } from '@/lib/hospitals'
+import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
+import PantipReviews from '@/components/PantipReviews'
 import type { Metadata } from 'next'
 import type { Hospital } from '@/lib/types'
 
@@ -153,6 +155,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
   const ratingColor = getRatingColor(h.google_rating)
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${h.lat},${h.lng}`
+  const pantipReview = getHospitalReviews(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
     : null
@@ -266,6 +269,9 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       </div>
 
       <HospitalShareButtons />
+
+      {/* Pantip reviews */}
+      {pantipReview && <PantipReviews review={pantipReview} />}
 
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />

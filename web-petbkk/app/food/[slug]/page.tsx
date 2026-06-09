@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation'
 import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods, foodSlug } from '@/lib/petfood'
+import { getFoodReviews } from '@/lib/petreviews'
 import GradeBar from '@/components/GradeBar'
 import IngredientGroups from '@/components/IngredientGroups'
 import SimilarFoods from '@/components/SimilarFoods'
 import ShareCard from '@/components/ShareCard'
 import TrackRecentFood from '@/components/TrackRecentFood'
+import PantipReviews from '@/components/PantipReviews'
 import type { Metadata } from 'next'
 import type { FoodGrade, PetFood } from '@/lib/types'
 
@@ -124,6 +126,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
   const gradeCfg = grade ? GRADE_CONFIG[grade] : null
   const similar = getSimilarFoods(food)
   const total = food.green_count + food.yellow_count + food.red_count + food.black_count
+  const pantipReview = getFoodReviews(food.id)
 
   return (
     <main className="max-w-2xl mx-auto">
@@ -211,6 +214,9 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           <IngredientGroups ingredients={food.ingredients} />
         </section>
       )}
+
+      {/* Pantip reviews */}
+      {pantipReview && <PantipReviews review={pantipReview} />}
 
       {/* Similar foods */}
       {similar.length > 0 && (
