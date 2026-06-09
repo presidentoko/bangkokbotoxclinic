@@ -1,5 +1,7 @@
+'use client'
 import Link from 'next/link'
 import type { Hospital } from '@/lib/types'
+import SaveHospitalButton from '@/components/SaveHospitalButton'
 
 interface Props {
   hospital: Hospital
@@ -10,10 +12,13 @@ export default function HospitalCard({ hospital, distanceKm }: Props) {
   return (
     <Link href={`/hospital/${hospital.id}`} className="block bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="font-semibold text-gray-900 text-sm leading-snug">{hospital.name_th}</h3>
-        {hospital.is_24h && (
-          <span className="shrink-0 px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-medium">24 ชม.</span>
-        )}
+        <h3 className="font-semibold text-gray-900 text-sm leading-snug flex-1">{hospital.name_th}</h3>
+        <div className="flex items-center gap-1 flex-shrink-0">
+          {hospital.is_24h && (
+            <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-medium">24 ชม.</span>
+          )}
+          <SaveHospitalButton hospitalId={hospital.id} size="sm" />
+        </div>
       </div>
       <p className="text-xs text-gray-400 mb-3 line-clamp-1">{hospital.address}</p>
       <div className="flex items-center gap-3 text-xs text-gray-500">
