@@ -25,11 +25,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const GRADE_CONFIG: Record<FoodGrade, { color: string; bgCls: string; label: string }> = {
-  A: { color: '#16a34a', bgCls: 'bg-green-500',  label: '우수' },
-  B: { color: '#65a30d', bgCls: 'bg-lime-500',   label: '양호' },
-  C: { color: '#ca8a04', bgCls: 'bg-yellow-500', label: '보통' },
-  D: { color: '#ea580c', bgCls: 'bg-orange-500', label: '주의' },
-  F: { color: '#dc2626', bgCls: 'bg-red-500',    label: '위험' },
+  A: { color: '#16a34a', bgCls: 'bg-green-500',  label: 'ดีเยี่ยม' },
+  B: { color: '#65a30d', bgCls: 'bg-lime-500',   label: 'ดี' },
+  C: { color: '#ca8a04', bgCls: 'bg-yellow-500', label: 'ปานกลาง' },
+  D: { color: '#ea580c', bgCls: 'bg-orange-500', label: 'ระวัง' },
+  F: { color: '#dc2626', bgCls: 'bg-red-500',    label: 'อันตราย' },
 }
 
 export default async function FoodDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -66,11 +66,11 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           <div>
             {grade && gradeCfg ? (
               <>
-                <p className="font-bold text-lg" style={{ color: gradeCfg.color }}>등급 {grade} · {gradeCfg.label}</p>
-                <p className="text-sm text-gray-500">성분 {total}개 중 우수 {food.green_count}개</p>
+                <p className="font-bold text-lg" style={{ color: gradeCfg.color }}>เกรด {grade} · {gradeCfg.label}</p>
+                <p className="text-sm text-gray-500">ส่วนประกอบ {total} รายการ · ดีเยี่ยม {food.green_count} รายการ</p>
               </>
             ) : (
-              <p className="text-sm text-gray-400">성분 분석 데이터 없음</p>
+              <p className="text-sm text-gray-400">ยังไม่มีข้อมูลส่วนประกอบ</p>
             )}
           </div>
         </div>
