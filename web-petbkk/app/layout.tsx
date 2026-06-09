@@ -32,6 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 { href: '/cost',        label: 'ค่าใช้จ่าย' },
                 { href: '/age',         label: 'คำนวณอายุ' },
                 { href: '/vaccine',     label: '💉 วัคซีน' },
+                { href: '/toxic',       label: '⚠️ อาหารต้องห้าม' },
+                { href: '/newpet',      label: '🆕 เลี้ยงใหม่' },
                 { href: '/ingredients', label: 'ส่วนผสม' },
                 { href: '/saved',       label: '❤️ บันทึก' },
               ].map(l => (
