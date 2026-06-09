@@ -1,8 +1,11 @@
 import { notFound } from 'next/navigation'
-import { getFoodBySlug, loadFoods } from '@/lib/petfood'
+import { getFoodBySlug, loadFoods, getFoodGrade, getSimilarFoods } from '@/lib/petfood'
 import GradeBar from '@/components/GradeBar'
-import IngredientList from '@/components/IngredientList'
+import IngredientGroups from '@/components/IngredientGroups'
+import SimilarFoods from '@/components/SimilarFoods'
+import ShareCard from '@/components/ShareCard'
 import type { Metadata } from 'next'
+import type { FoodGrade } from '@/lib/types'
 
 export const dynamicParams = false
 
@@ -13,7 +16,20 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const food = getFoodBySlug(slug)
-  return { title: food ? `${food.brand} ${food.name_en} — PetBKK` : 'ไม่พบสินค้า' }
+  if (!food) return { title: 'ไม่พบสินค้า' }
+  const grade = getFoodGrade(food)
+  return {
+    title: `${food.brand} ${food.name_en} ${grade ? `— เกรด ${grade}` : ''} | PetBKK`,
+    description: `ตรวจสอบส่วนประกอบ ${food.name_th || food.name_en} พร้อมเกรดคุณภาพ`,
+  }
+}
+
+const GRADE_CONFIG: Record<FoodGrade, { color: string; bgCls: string; label: string }> = {
+  A: { color: '#16a34a', bgCls: 'bg-green-500',  label: '우수' },
+  B: { color: '#65a30d', bgCls: 'bg-lime-500',   label: '양호' },
+  C: { color: '#ca8a04', bgCls: 'bg-yellow-500', label: '보통' },
+  D: { color: '#ea580c', bgCls: 'bg-orange-500', label: '주의' },
+  F: { color: '#dc2626', bgCls: 'bg-red-500',    label: '위험' },
 }
 
 export default async function FoodDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -21,15 +37,44 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
   const food = getFoodBySlug(slug)
   if (!food) notFound()
 
+  const grade = getFoodGrade(food)
+  const gradeCfg = grade ? GRADE_CONFIG[grade] : null
+  const similar = getSimilarFoods(food)
+  const total = food.green_count + food.yellow_count + food.red_count + food.black_count
+
   return (
     <main className="max-w-2xl mx-auto">
       <a href="/food" className="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">
         ← กลับ
       </a>
-      <p className="text-sm text-gray-500 mb-1">{food.brand}</p>
-      <h1 className="text-2xl font-bold mb-4">{food.name_th || food.name_en}</h1>
 
-      <div className="mb-6">
+      {/* 등급 히어로 */}
+      <div className="bg-white rounded-2xl border p-6 mb-4">
+        <p className="text-sm text-gray-500 mb-1">{food.brand}</p>
+        <h1 className="text-2xl font-bold mb-4">{food.name_th || food.name_en}</h1>
+
+        <div className="flex items-center gap-5 mb-4">
+          {grade && gradeCfg ? (
+            <div className={`w-16 h-16 rounded-full ${gradeCfg.bgCls} flex items-center justify-center text-white text-3xl font-black flex-shrink-0`}>
+              {grade}
+            </div>
+          ) : (
+            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 text-sm flex-shrink-0">
+              ?
+            </div>
+          )}
+          <div>
+            {grade && gradeCfg ? (
+              <>
+                <p className="font-bold text-lg" style={{ color: gradeCfg.color }}>등급 {grade} · {gradeCfg.label}</p>
+                <p className="text-sm text-gray-500">성분 {total}개 중 우수 {food.green_count}개</p>
+              </>
+            ) : (
+              <p className="text-sm text-gray-400">성분 분석 데이터 없음</p>
+            )}
+          </div>
+        </div>
+
         <GradeBar
           green={food.green_count}
           yellow={food.yellow_count}
@@ -37,9 +82,14 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           black={food.black_count}
           size="lg"
         />
+
+        <div className="mt-4">
+          <ShareCard food={food} />
+        </div>
       </div>
 
-      <section className="mb-6 bg-white border rounded-xl p-4">
+      {/* 영양 분석 */}
+      <section className="mb-4 bg-white border rounded-xl p-4">
         <h2 className="font-semibold mb-3">คุณค่าทางโภชนาการ</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -63,11 +113,22 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </p>
       </section>
 
-      <section className="mb-8">
-        <h2 className="font-semibold mb-3">ส่วนประกอบ ({food.ingredients.length} รายการ)</h2>
-        <IngredientList ingredients={food.ingredients} />
-      </section>
+      {/* 성분 신호등 */}
+      {food.ingredients.length > 0 && (
+        <section className="mb-4">
+          <h2 className="font-semibold mb-3">ส่วนประกอบ ({food.ingredients.length} รายการ)</h2>
+          <IngredientGroups ingredients={food.ingredients} />
+        </section>
+      )}
 
+      {/* 비슷한 사료 */}
+      {similar.length > 0 && (
+        <div className="mb-4">
+          <SimilarFoods foods={similar} />
+        </div>
+      )}
+
+      {/* 구매 버튼 */}
       {food.buy_url && (
         <a
           href={food.buy_url}
