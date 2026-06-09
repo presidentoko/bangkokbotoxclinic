@@ -1,5 +1,5 @@
 'use client'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import type { PetFood } from '@/lib/types'
 import type { FoodGrade } from '@/lib/types'
 import { getFoodGrade } from '@/lib/grading'
@@ -42,6 +42,7 @@ interface Props {
 
 export default function ShareCard({ food }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [copied, setCopied] = useState(false)
   const grade = getFoodGrade(food)
   const cfg = grade ? GRADE_CFG[grade] : DEFAULT_CFG
 
@@ -123,7 +124,7 @@ export default function ShareCard({ food }: Props) {
     // URL
     ctx.fillStyle = '#9ca3af'
     ctx.font = '13px sans-serif'
-    ctx.fillText('petbkk.com', cx, 548)
+    ctx.fillText('ThailandPetHub.com', cx, 548)
     ctx.textAlign = 'left'
   }
 
@@ -139,15 +140,42 @@ export default function ShareCard({ food }: Props) {
     document.body.removeChild(a)
   }
 
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {}
+  }
+
+  const lineShareUrl = () =>
+    `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`
+
   return (
     <>
       <canvas ref={canvasRef} className="hidden" />
-      <button
-        onClick={download}
-        className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors text-sm"
-      >
-        📸 บันทึกการ์ดผล
-      </button>
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={download}
+          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-xl transition-colors text-sm"
+        >
+          📸 บันทึกการ์ด
+        </button>
+        <a
+          href={lineShareUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-[#06C755] hover:bg-[#05b34b] text-white font-semibold px-4 py-2 rounded-xl transition-colors text-sm"
+        >
+          LINE แชร์
+        </a>
+        <button
+          onClick={copyLink}
+          className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-semibold px-4 py-2 rounded-xl transition-colors text-sm"
+        >
+          {copied ? '✓ คัดลอกแล้ว' : '🔗 คัดลอกลิงก์'}
+        </button>
+      </div>
     </>
   )
 }
