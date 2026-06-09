@@ -8,7 +8,7 @@ import type { SiteConfig } from "./site";
 export type ReportData = {
   clinic: Clinic;
   trustPercentile: number;   // 1–100 (higher = better). e.g. 92 → "Top 8%"
-  districtRank: number;      // 1-based rank in district by trust_score
+  districtRank: number;      // 1-based rank in district by trust_score. 0 = no district data (check districtTotal === 0)
   districtTotal: number;     // total clinics in same district (same focus filter)
   districtService: string;   // human label e.g. "botox" | "dental"
   negativeCount: number;     // sample_reviews_negative.length
@@ -24,7 +24,7 @@ export function buildReportData(
   baseUrl: string,
 ): ReportData {
   const cityPeers = allClinics.filter(
-    (c) => c.city_label === clinic.city_label && c.trust_score > 0,
+    (c) => c.city_label === clinic.city_label,
   );
   const sorted = [...cityPeers].sort((a, b) => b.trust_score - a.trust_score);
   const rank = sorted.findIndex((c) => c.id === clinic.id);
@@ -47,7 +47,7 @@ export function buildReportData(
     (a, b) => b.trust_score - a.trust_score,
   );
   const districtRankIdx = districtSorted.findIndex((c) => c.id === clinic.id);
-  const districtRank = districtRankIdx === -1 ? 1 : districtRankIdx + 1;
+  const districtRank = districtRankIdx === -1 ? 0 : districtRankIdx + 1;
   const districtTotal = districtPeers.length;
 
   const lb = clinic.language_breakdown ?? { th: 0, en: 0, ko: 0, ja: 0, other: 0 };
