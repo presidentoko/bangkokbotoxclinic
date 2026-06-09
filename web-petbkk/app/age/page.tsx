@@ -49,8 +49,8 @@ export default function AgePage() {
 
   return (
     <main className="max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2">อายุสัตว์เลี้ยง → อายุมนุษย์</h1>
-      <p className="text-sm text-gray-400 mb-8">คำนวณอายุน้องเป็นปีมนุษย์ แล้วแชร์ให้เพื่อน 🐾</p>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">🎂 คำนวณอายุน้อง</h1>
+      <p className="text-sm text-gray-400 mb-6">อายุน้องเทียบเท่ามนุษย์กี่ปี?</p>
 
       <div className="bg-white rounded-2xl border p-6 mb-6 space-y-6">
         {/* Species */}
@@ -109,12 +109,15 @@ export default function AgePage() {
 
       {/* Result */}
       {age > 0 && (
-        <div className="bg-orange-50 border-2 border-orange-200 rounded-2xl p-8 text-center mb-6">
-          <p className="text-sm text-gray-500 mb-2">
-            {name || petLabel} {petEmoji} อายุ {age} ปี เทียบได้กับมนุษย์
+        <div className="mb-6">
+          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 text-center mb-4">
+            <p className="text-sm text-gray-500 mb-1">เทียบเท่าอายุมนุษย์</p>
+            <p className="text-5xl font-black text-orange-600 mb-1">{humanAge}</p>
+            <p className="text-sm text-gray-500">ปี</p>
+          </div>
+          <p className="text-center text-sm text-gray-500">
+            {name || petLabel} {petEmoji} อายุ {age} ปี — {stage}
           </p>
-          <p className="text-6xl font-black text-orange-600 mb-2">{humanAge} ปี</p>
-          <p className="text-lg font-semibold text-gray-700">{stage}</p>
         </div>
       )}
 

@@ -58,25 +58,25 @@ const SECTIONS: Section[] = [
 export default function NewPetPage() {
   return (
     <main className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2">เช็คลิสต์รับสัตว์เลี้ยงใหม่ 🐾</h1>
-      <p className="text-sm text-gray-400 mb-8">
-        สำหรับเจ้าของมือใหม่ที่เพิ่งรับหรือกำลังจะรับสุนัข/แมวมาเลี้ยง
-      </p>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">🆕 คู่มือเลี้ยงน้องใหม่</h1>
+      <p className="text-sm text-gray-400 mb-6">เช็คลิสต์ 20 ข้อสำหรับเจ้าของน้องมือใหม่</p>
 
       <div className="space-y-8">
         {SECTIONS.map(section => (
           <section key={section.title}>
-            <h2 className="flex items-center gap-2 text-lg font-bold mb-4">
+            <h2 className="text-base font-black text-gray-900 mb-3 mt-6 flex items-center gap-2">
               <span>{section.icon}</span>
               <span>{section.title}</span>
             </h2>
             <div className="space-y-3">
               {section.items.map(item => (
-                <div key={item.label} className="bg-white rounded-xl border p-4 flex items-start gap-3">
-                  <span className="text-orange-400 mt-0.5 flex-shrink-0">□</span>
-                  <div>
-                    <p className="font-semibold text-sm text-gray-900">{item.label}</p>
-                    <p className="text-xs text-gray-500 mt-0.5">{item.detail}</p>
+                <div key={item.label} className="bg-white rounded-xl border p-4">
+                  <div className="flex items-start gap-3 py-2.5">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full border-2 border-orange-300 bg-orange-50 mt-0.5"></span>
+                    <div>
+                      <p className="font-semibold text-sm text-gray-900 leading-relaxed">{item.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{item.detail}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -86,15 +86,15 @@ export default function NewPetPage() {
       </div>
 
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <a href="/food" className="text-center bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+        <a href="/food" className="text-center bg-white border rounded-xl p-4 hover:shadow-md hover:-translate-y-0.5 transition-all">
           <p className="text-2xl mb-1">🍖</p>
           <p className="font-semibold text-sm">ตรวจสอบอาหาร</p>
         </a>
-        <a href="/hospital" className="text-center bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+        <a href="/hospital" className="text-center bg-white border rounded-xl p-4 hover:shadow-md hover:-translate-y-0.5 transition-all">
           <p className="text-2xl mb-1">🏥</p>
           <p className="font-semibold text-sm">หาโรงพยาบาลสัตว์</p>
         </a>
-        <a href="/vaccine" className="text-center bg-white border rounded-xl p-4 hover:shadow-md transition-shadow">
+        <a href="/vaccine" className="text-center bg-white border rounded-xl p-4 hover:shadow-md hover:-translate-y-0.5 transition-all">
           <p className="text-2xl mb-1">💉</p>
           <p className="font-semibold text-sm">ตารางวัคซีน</p>
         </a>
