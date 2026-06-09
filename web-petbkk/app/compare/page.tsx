@@ -37,8 +37,12 @@ function CompareContent() {
   if (foods.length === 0) {
     return (
       <main className="max-w-3xl mx-auto text-center py-20">
-        <p className="text-gray-400 mb-4">ยังไม่มีรายการที่เลือก</p>
-        <a href="/food" className="text-orange-500 hover:underline">← กลับไปเลือกอาหาร</a>
+        <p className="text-4xl mb-4">⚖️</p>
+        <p className="text-gray-500 mb-2 font-medium">ยังไม่มีรายการที่เลือก</p>
+        <p className="text-sm text-gray-400 mb-6">ไปที่หน้าอาหาร แล้วกดปุ่ม <span className="font-bold text-orange-500">+</span> บนการ์ดอาหารที่ต้องการเปรียบเทียบ</p>
+        <a href="/food" className="inline-block px-6 py-2.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors">
+          ไปเลือกอาหาร →
+        </a>
       </main>
     )
   }
@@ -106,5 +110,9 @@ function CompareContent() {
 }
 
 export default function ComparePage() {
-  return <Suspense><CompareContent /></Suspense>
+  return (
+    <Suspense fallback={<div className="py-20 text-center text-gray-400">กำลังโหลด...</div>}>
+      <CompareContent />
+    </Suspense>
+  )
 }

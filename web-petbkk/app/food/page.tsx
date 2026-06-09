@@ -105,7 +105,7 @@ function FoodContent() {
 
 export default function FoodPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<div className="py-20 text-center text-gray-400">กำลังโหลด...</div>}>
       <FoodContent />
     </Suspense>
   )

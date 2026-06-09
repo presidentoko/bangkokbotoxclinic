@@ -50,7 +50,6 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         ← กลับ
       </a>
 
-      {/* 등급 히어로 */}
       <div className="bg-white rounded-2xl border p-6 mb-4">
         <p className="text-sm text-gray-500 mb-1">{food.brand}</p>
         <h1 className="text-2xl font-bold mb-4">{food.name_th || food.name_en}</h1>
@@ -90,7 +89,6 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </div>
       </div>
 
-      {/* 영양 분석 */}
       <section className="mb-4 bg-white border rounded-xl p-4">
         <h2 className="font-semibold mb-3">คุณค่าทางโภชนาการ</h2>
         <div className="overflow-x-auto">
@@ -115,7 +113,6 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </p>
       </section>
 
-      {/* 성분 신호등 */}
       {food.ingredients.length > 0 && (
         <section className="mb-4">
           <h2 className="font-semibold mb-3">ส่วนประกอบ ({food.ingredients.length} รายการ)</h2>
@@ -123,14 +120,12 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </section>
       )}
 
-      {/* 비슷한 사료 */}
       {similar.length > 0 && (
         <div className="mb-4">
           <SimilarFoods foods={similar} />
         </div>
       )}
 
-      {/* 구매 버튼 */}
       {food.buy_url && (
         <a
           href={food.buy_url}
