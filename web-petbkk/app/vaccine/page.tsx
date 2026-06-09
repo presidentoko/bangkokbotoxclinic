@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 
 type Species = 'dog' | 'cat'
 
@@ -60,11 +60,18 @@ function fmtDate(d: Date): string {
   return d.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
-const STATUS_STYLES = {
-  'done':      { chip: 'bg-gray-100 text-gray-500',   icon: '✓', label: 'ฉีดแล้ว' },
-  'overdue':   { chip: 'bg-red-100 text-red-700',     icon: '!', label: 'เลยกำหนด' },
-  'due-soon':  { chip: 'bg-orange-100 text-orange-700', icon: '⚡', label: 'ใกล้ถึง' },
-  'upcoming':  { chip: 'bg-blue-50 text-blue-600',    icon: '○', label: 'กำลังมา' },
+const STATUS_CARD_CLASS: Record<ScheduleItem['status'], string> = {
+  'done':     'bg-gray-50 border-gray-200 opacity-75',
+  'overdue':  'bg-red-50 border-red-200',
+  'due-soon': 'bg-orange-50 border-orange-200',
+  'upcoming': 'bg-blue-50 border-blue-100',
+}
+
+const STATUS_BADGES: Record<ScheduleItem['status'], React.JSX.Element> = {
+  'done':     <span className="px-2 py-0.5 bg-gray-200 text-gray-500 rounded-full text-[11px] font-medium">✓ ฉีดแล้ว</span>,
+  'overdue':  <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[11px] font-medium">⚠️ เกินกำหนด</span>,
+  'due-soon': <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-[11px] font-medium">🔔 ใกล้ถึงกำหนด</span>,
+  'upcoming': <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-[11px] font-medium">📅 กำหนดการ</span>,
 }
 
 const chipCls = (active: boolean) =>
@@ -91,8 +98,8 @@ export default function VaccinePage() {
 
   return (
     <main className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2">ตารางวัคซีนสัตว์เลี้ยง</h1>
-      <p className="text-sm text-gray-400 mb-8">ใส่วันเกิดน้อง แล้วเราจะบอกว่าต้องฉีดอะไรบ้าง</p>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">💉 ตารางวัคซีน</h1>
+      <p className="text-sm text-gray-400 mb-6">คำนวณตารางวัคซีนจากวันเกิดของน้อง</p>
 
       <div className="bg-white rounded-2xl border p-6 mb-6 space-y-5">
         {/* Species */}
@@ -129,23 +136,20 @@ export default function VaccinePage() {
           )}
 
           <div className="space-y-3">
-            {schedule.map((item, i) => {
-              const s = STATUS_STYLES[item.status]
-              return (
-                <div key={i} className={`bg-white rounded-xl border p-4 ${item.status === 'overdue' ? 'border-red-300' : item.status === 'due-soon' ? 'border-orange-300' : ''}`}>
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <p className="font-semibold text-sm text-gray-900">{item.name}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{item.note}</p>
-                      <p className="text-xs text-gray-500 mt-1">{fmtDate(item.dueDate)}</p>
+            {schedule.map((item, i) => (
+              <div key={i} className={`rounded-xl border p-4 ${STATUS_CARD_CLASS[item.status]}`}>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <p className="font-semibold text-sm text-gray-900">{item.name}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{item.note}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs text-gray-500">{fmtDate(item.dueDate)}</p>
+                      {STATUS_BADGES[item.status]}
                     </div>
-                    <span className={`flex-shrink-0 text-xs px-2.5 py-1 rounded-full font-medium ${s.chip}`}>
-                      {s.icon} {s.label}
-                    </span>
                   </div>
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
 
           <div className="mt-6 bg-orange-50 border border-orange-100 rounded-2xl p-5 text-center">
