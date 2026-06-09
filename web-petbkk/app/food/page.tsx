@@ -7,6 +7,14 @@ import type { Animal, LifeStage, PetProfile, PetFood } from '@/lib/types'
 import FoodCard from '@/components/FoodCard'
 import RecentFoods from '@/components/RecentFoods'
 
+const GRADE_ACTIVE_CLS: Record<string, string> = {
+  A: 'bg-green-500  text-white border-green-500',
+  B: 'bg-lime-500   text-white border-lime-500',
+  C: 'bg-yellow-500 text-white border-yellow-500',
+  D: 'bg-orange-500 text-white border-orange-500',
+  F: 'bg-red-500    text-white border-red-500',
+}
+
 function FoodContent() {
   const params = useSearchParams()
 
@@ -56,9 +64,18 @@ function FoodContent() {
       active ? 'bg-orange-500 text-white border-orange-500' : 'bg-white hover:bg-orange-50'
     }`
 
+  const gradeChipCls = (g: string) => {
+    const active = grade === g
+    return `px-3 py-1.5 rounded-full border text-sm font-semibold transition-colors cursor-pointer ${
+      active ? GRADE_ACTIVE_CLS[g] : 'bg-white hover:bg-gray-50'
+    }`
+  }
+
   return (
     <main>
-      <h1 className="text-2xl font-bold mb-4">ตรวจสอบอาหารสัตว์เลี้ยง</h1>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">🍖 ตรวจสอบอาหารสัตว์เลี้ยง</h1>
+      <p className="text-sm text-gray-400 mb-6">ตรวจสอบเกรดและส่วนประกอบ เพื่อสุขภาพที่ดีของน้อง</p>
+
       <div className="flex items-center justify-between mb-3">
         <a href="/food/best" className="text-sm text-orange-600 hover:underline font-medium">
           ⭐ ดูอาหารเกรด A/B →
@@ -74,15 +91,44 @@ function FoodContent() {
       />
 
       <div className="flex flex-wrap gap-2 mb-6">
-        <button className={chipCls(animal === 'dog')} onClick={() => toggle('dog' as Animal, animal, setAnimal)}>🐕 สุนัข</button>
-        <button className={chipCls(animal === 'cat')} onClick={() => toggle('cat' as Animal, animal, setAnimal)}>🐈 แมว</button>
-        <button className={chipCls(lifeStage === 'puppy')} onClick={() => toggle('puppy' as LifeStage, lifeStage, setLifeStage)}>ลูก</button>
-        <button className={chipCls(lifeStage === 'adult')} onClick={() => toggle('adult' as LifeStage, lifeStage, setLifeStage)}>ผู้ใหญ่</button>
+        {/* Animal chips */}
+        <button
+          className={`px-3 py-1.5 rounded-full border text-sm transition-colors cursor-pointer ${
+            animal === 'dog' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white hover:bg-orange-50'
+          }`}
+          onClick={() => toggle('dog' as Animal, animal, setAnimal)}
+        >
+          🐕 สุนัข
+        </button>
+        <button
+          className={`px-3 py-1.5 rounded-full border text-sm transition-colors cursor-pointer ${
+            animal === 'cat' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white hover:bg-orange-50'
+          }`}
+          onClick={() => toggle('cat' as Animal, animal, setAnimal)}
+        >
+          🐈 แมว
+        </button>
+
+        {/* Life stage chips */}
+        <button className={chipCls(lifeStage === 'puppy')}  onClick={() => toggle('puppy'  as LifeStage, lifeStage, setLifeStage)}>ลูก</button>
+        <button className={chipCls(lifeStage === 'adult')}  onClick={() => toggle('adult'  as LifeStage, lifeStage, setLifeStage)}>ผู้ใหญ่</button>
         <button className={chipCls(lifeStage === 'senior')} onClick={() => toggle('senior' as LifeStage, lifeStage, setLifeStage)}>สูงวัย</button>
-        <button className={chipCls(sort === 'price')} onClick={() => setSort(sort === 'price' ? 'score' : 'price')}>💰 ราคาต่ำสุด</button>
-        {['A','B','C','D','F'].map(g => (
-          <button key={g}
-            className={chipCls(grade === g)}
+
+        {/* Sort chip */}
+        <button
+          className={`px-3 py-1.5 rounded-full border text-sm transition-colors cursor-pointer ${
+            sort === 'price' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white hover:bg-orange-50'
+          }`}
+          onClick={() => setSort(sort === 'price' ? 'score' : 'price')}
+        >
+          💰 ราคาต่ำสุด
+        </button>
+
+        {/* Grade chips — color-coded */}
+        {['A', 'B', 'C', 'D', 'F'].map(g => (
+          <button
+            key={g}
+            className={gradeChipCls(g)}
             onClick={() => setGrade(grade === g ? undefined : g)}
           >
             เกรด {g}
@@ -92,13 +138,18 @@ function FoodContent() {
 
       <RecentFoods />
 
-      {foods.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {foods.map(food => <FoodCard key={food.id} food={food} />)}
-        </div>
-      ) : (
-        <p className="text-center text-gray-500 py-16">ไม่พบข้อมูล</p>
-      )}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {foods.length > 0
+          ? foods.map(food => <FoodCard key={food.id} food={food} />)
+          : (
+            <div className="col-span-full py-16 text-center">
+              <p className="text-4xl mb-3">🔍</p>
+              <p className="text-gray-400">ไม่พบอาหารที่ตรงกับเงื่อนไข</p>
+              <p className="text-sm text-gray-300 mt-1">ลองเปลี่ยนตัวกรองหรือคำค้นหา</p>
+            </div>
+          )
+        }
+      </div>
     </main>
   )
 }

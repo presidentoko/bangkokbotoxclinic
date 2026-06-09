@@ -46,10 +46,17 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
   return (
     <main className="max-w-2xl mx-auto">
       <TrackRecentFood foodId={food.id} />
-      <a href="/food" className="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">
-        ← กลับ
+
+      {/* Back link */}
+      <a
+        href="/food"
+        className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-600 mb-6 transition-colors group"
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
+        กลับ
       </a>
 
+      {/* Header card */}
       <div className="bg-white rounded-2xl border p-6 mb-4">
         <p className="text-sm text-gray-500 mb-1">{food.brand}</p>
         <h1 className="text-2xl font-bold mb-4">{food.name_th || food.name_en}</h1>
@@ -84,13 +91,15 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           size="lg"
         />
 
-        <div className="mt-4">
+        {/* Share section */}
+        <div className="mt-4 bg-gray-50 rounded-2xl p-4 border border-gray-100">
           <ShareCard food={food} />
         </div>
       </div>
 
+      {/* Nutrition section */}
       <section className="mb-4 bg-white border rounded-xl p-4">
-        <h2 className="font-semibold mb-3">คุณค่าทางโภชนาการ</h2>
+        <h2 className="text-base font-bold text-gray-900 mb-3">คุณค่าทางโภชนาการ</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -113,25 +122,28 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
         </p>
       </section>
 
+      {/* Ingredients section */}
       {food.ingredients.length > 0 && (
         <section className="mb-4">
-          <h2 className="font-semibold mb-3">ส่วนประกอบ ({food.ingredients.length} รายการ)</h2>
+          <h2 className="text-base font-bold text-gray-900 mb-3">ส่วนประกอบ ({food.ingredients.length} รายการ)</h2>
           <IngredientGroups ingredients={food.ingredients} />
         </section>
       )}
 
+      {/* Similar foods */}
       {similar.length > 0 && (
         <div className="mb-4">
           <SimilarFoods foods={similar} />
         </div>
       )}
 
+      {/* Buy button */}
       {food.buy_url && (
         <a
           href={food.buy_url}
           target="_blank"
           rel="noopener noreferrer sponsored"
-          className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-colors text-lg"
+          className="w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 px-6 rounded-2xl transition-colors shadow-sm text-base block"
         >
           🛒 ซื้อราคาถูกสุด
         </a>
