@@ -40,10 +40,10 @@ export default function ContactPage() {
       <div className="bg-orange-50 border border-orange-100 rounded-2xl p-6 text-center mb-6">
         <p className="text-sm text-gray-500 mb-3">ส่งอีเมลหาเราได้เลย</p>
         <a
-          href="mailto:chillanel22@gmail.com"
+          href="mailto:umma@xx.gg"
           className="inline-block text-lg font-bold text-orange-600 hover:text-orange-700 transition-colors"
         >
-          chillanel22@gmail.com
+          umma@xx.gg
         </a>
         <p className="text-xs text-gray-400 mt-3">ตอบกลับภายใน 1–2 วันทำการ</p>
       </div>
