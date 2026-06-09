@@ -2,7 +2,8 @@
 import { Suspense, useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { filterFoods } from '@/lib/petfood'
-import type { Animal, LifeStage, PetProfile } from '@/lib/types'
+import { getFoodGrade } from '@/lib/grading'
+import type { Animal, LifeStage, PetProfile, PetFood } from '@/lib/types'
 import FoodCard from '@/components/FoodCard'
 
 function FoodContent() {
@@ -17,6 +18,7 @@ function FoodContent() {
   const [animal, setAnimal]       = useState<Animal | undefined>(validateAnimal(params.get('animal')))
   const [lifeStage, setLifeStage] = useState<LifeStage | undefined>(validateLifeStage(params.get('life_stage')))
   const [sort, setSort] = useState<'score' | 'price'>('score')
+  const [grade, setGrade] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     if (params.get('animal') || params.get('life_stage')) return
@@ -34,10 +36,16 @@ function FoodContent() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const foods = useMemo(
-    () => filterFoods({ animal, life_stage: lifeStage, query, sort }),
-    [animal, lifeStage, query, sort]
-  )
+  const foods = useMemo(() => {
+    let result: PetFood[] = filterFoods({ animal, life_stage: lifeStage, query, sort })
+    if (grade) {
+      result = result.filter(f => {
+        const g = getFoodGrade(f)
+        return g === grade
+      })
+    }
+    return result
+  }, [animal, lifeStage, query, sort, grade])
 
   const toggle = <T,>(val: T, current: T | undefined, set: (v: T | undefined) => void) =>
     set(current === val ? undefined : val)
@@ -50,6 +58,11 @@ function FoodContent() {
   return (
     <main>
       <h1 className="text-2xl font-bold mb-4">ตรวจสอบอาหารสัตว์เลี้ยง</h1>
+      <div className="flex items-center justify-between mb-3">
+        <a href="/food/best" className="text-sm text-orange-600 hover:underline font-medium">
+          ⭐ ดูอาหารเกรด A/B →
+        </a>
+      </div>
 
       <input
         type="text"
@@ -66,6 +79,14 @@ function FoodContent() {
         <button className={chipCls(lifeStage === 'adult')} onClick={() => toggle('adult' as LifeStage, lifeStage, setLifeStage)}>ผู้ใหญ่</button>
         <button className={chipCls(lifeStage === 'senior')} onClick={() => toggle('senior' as LifeStage, lifeStage, setLifeStage)}>สูงวัย</button>
         <button className={chipCls(sort === 'price')} onClick={() => setSort(sort === 'price' ? 'score' : 'price')}>💰 ราคาต่ำสุด</button>
+        {['A','B','C','D','F'].map(g => (
+          <button key={g}
+            className={chipCls(grade === g)}
+            onClick={() => setGrade(grade === g ? undefined : g)}
+          >
+            เกรด {g}
+          </button>
+        ))}
       </div>
 
       {foods.length > 0 ? (
