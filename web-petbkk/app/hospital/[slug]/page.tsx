@@ -246,6 +246,21 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
         )}
       </div>
 
+      {/* Embedded map */}
+      {h.lat && h.lng && (
+        <div className="mb-4 rounded-xl overflow-hidden border">
+          <iframe
+            title={`แผนที่ ${h.name_th}`}
+            src={`https://maps.google.com/maps?q=${h.lat},${h.lng}&z=16&output=embed`}
+            width="100%"
+            height="260"
+            style={{ border: 0, display: 'block' }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      )}
+
       {/* Action buttons */}
       <div className="flex gap-3 mb-6">
         <a
