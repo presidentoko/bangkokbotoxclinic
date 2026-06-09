@@ -1,6 +1,13 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import CompareTray from '@/components/CompareTray'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#f97316',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.thailandpethub.com'),
@@ -9,7 +16,10 @@ export const metadata: Metadata = {
     template: '%s | ThailandPetHub',
   },
   description: 'ตรวจสอบส่วนประกอบอาหารสัตว์เลี้ยง เกรด A-F ค้นหาโรงพยาบาลสัตว์ 24 ชั่วโมงใกล้คุณ เครื่องมือครบครันสำหรับเจ้าของสัตว์เลี้ยง ฟรี 100%',
-  keywords: ['อาหารสัตว์เลี้ยง', 'โรงพยาบาลสัตว์', 'สุนัข', 'แมว', 'ตรวจสอบอาหารสัตว์', 'โรงพยาบาลสัตว์ 24 ชั่วโมง', 'ไทย'],
+  keywords: ['อาหารสัตว์เลี้ยง', 'โรงพยาบาลสัตว์', 'สุนัข', 'แมว', 'ตรวจสอบอาหารสัตว์', 'โรงพยาบาลสัตว์ 24 ชั่วโมง', 'ไทย', 'pet food Thailand', 'vet Bangkok'],
+  alternates: {
+    canonical: 'https://www.thailandpethub.com',
+  },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
@@ -23,12 +33,41 @@ export const metadata: Metadata = {
     title: 'PetBKK — ดูแลสัตว์เลี้ยงครบจบที่นี่',
     description: 'ตรวจสอบอาหาร หาโรงพยาบาล เครื่องมือครบสำหรับเจ้าของสัตว์เลี้ยง ฟรี 100%',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+function WebSiteJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'ThailandPetHub',
+    url: 'https://www.thailandpethub.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://www.thailandpethub.com/food?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
       <body className="bg-[#FFF8F0] text-gray-900 antialiased">
+        <WebSiteJsonLd />
         <header className="bg-white/95 backdrop-blur-sm border-b border-orange-100 px-4 py-3 sticky top-0 z-40 shadow-sm">
           <div className="max-w-5xl mx-auto">
             {/* Brand + primary nav */}

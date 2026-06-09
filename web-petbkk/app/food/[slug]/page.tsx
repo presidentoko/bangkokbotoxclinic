@@ -19,10 +19,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const food = getFoodBySlug(slug)
   if (!food) return { title: 'ไม่พบสินค้า' }
   const grade = getFoodGrade(food)
+  const name = food.name_th || food.name_en
   return {
     title: `${food.brand} ${food.name_en} ${grade ? `— เกรด ${grade}` : ''} | PetBKK`,
-    description: `ตรวจสอบส่วนประกอบ ${food.name_th || food.name_en} พร้อมเกรดคุณภาพ`,
+    description: `ตรวจสอบส่วนประกอบ ${name} พร้อมเกรดคุณภาพ เปรียบเทียบโปรตีน ไขมัน และส่วนประกอบแต่ละชนิด`,
+    alternates: {
+      canonical: `https://www.thailandpethub.com/food/${slug}`,
+    },
+    openGraph: {
+      title: `${food.brand} ${name}${grade ? ` — เกรด ${grade}` : ''}`,
+      description: `ตรวจสอบส่วนประกอบ ${name} พร้อมเกรดคุณภาพ`,
+      url: `https://www.thailandpethub.com/food/${slug}`,
+      type: 'website',
+    },
   }
+}
+
+function BreadcrumbJsonLd({ name }: { name: string }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'อาหารสัตว์เลี้ยง', item: 'https://www.thailandpethub.com/food' },
+      { '@type': 'ListItem', position: 3, name },
+    ],
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
 const GRADE_CONFIG: Record<FoodGrade, { color: string; bgCls: string; label: string }> = {
@@ -148,6 +171,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           🛒 ซื้อราคาถูกสุด
         </a>
       )}
+      <BreadcrumbJsonLd name={food.name_th || food.name_en} />
     </main>
   )
 }

@@ -16,8 +16,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const h = getHospitalBySlug(slug)
   if (!h) return { title: 'ไม่พบข้อมูล' }
   const ratingStr = h.google_rating != null ? `⭐${h.google_rating.toFixed(1)}` : ''
+  const is24hStr = h.is_24h ? ' เปิด 24 ชั่วโมง' : ''
   return {
     title: `${h.name_th}${ratingStr ? ` — ${ratingStr}` : ''} — ThailandPetHub`,
+    description: `${h.name_th}${is24hStr} — ที่อยู่ ${h.address} ดูเส้นทาง Google Maps พร้อมรีวิวจากเจ้าของสัตว์เลี้ยง`,
+    alternates: {
+      canonical: `https://www.thailandpethub.com/hospital/${slug}`,
+    },
+    openGraph: {
+      title: `${h.name_th}${ratingStr ? ` ${ratingStr}` : ''}`,
+      description: `${h.name_th}${is24hStr} — ${h.address}`,
+      url: `https://www.thailandpethub.com/hospital/${slug}`,
+      type: 'website',
+    },
   }
 }
 
@@ -37,6 +48,19 @@ function StarRating({ rating }: { rating: number }) {
       {'★'.repeat(full)}{hasHalf ? '½' : ''}{'☆'.repeat(5 - full - (hasHalf ? 1 : 0))}
     </span>
   )
+}
+
+function BreadcrumbJsonLd({ name }: { name: string }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'โรงพยาบาลสัตว์', item: 'https://www.thailandpethub.com/hospital' },
+      { '@type': 'ListItem', position: 3, name },
+    ],
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
 function LocalBusinessJsonLd({ h }: { h: Hospital }) {
@@ -198,6 +222,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />
 
+      <BreadcrumbJsonLd name={h.name_th} />
       <LocalBusinessJsonLd h={h} />
     </main>
   )
