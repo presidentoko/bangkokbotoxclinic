@@ -1,6 +1,6 @@
 import type { PetFood } from '@/lib/types'
 import type { FoodGrade } from '@/lib/types'
-import { getFoodGrade } from '@/lib/petfood'
+import { getFoodGrade } from '@/lib/grading'
 
 const GRADE_COLOR: Record<FoodGrade, string> = {
   A: 'text-green-600',
@@ -19,7 +19,7 @@ export default function SimilarFoods({ foods }: Props) {
 
   return (
     <section>
-      <h2 className="font-semibold mb-3">비슷한 사료</h2>
+      <h2 className="font-semibold mb-3">อาหารที่คล้ายกัน</h2>
       <div className="flex gap-3 overflow-x-auto pb-2">
         {foods.map(f => {
           const grade = getFoodGrade(f)
@@ -36,7 +36,7 @@ export default function SimilarFoods({ foods }: Props) {
               {grade ? (
                 <span className={`text-lg font-bold ${GRADE_COLOR[grade]}`}>{grade}</span>
               ) : (
-                <span className="text-sm text-gray-400">분석 중</span>
+                <span className="text-sm text-gray-400">กำลังวิเคราะห์</span>
               )}
             </a>
           )

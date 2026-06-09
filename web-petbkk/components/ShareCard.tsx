@@ -2,17 +2,17 @@
 import { useRef } from 'react'
 import type { PetFood } from '@/lib/types'
 import type { FoodGrade } from '@/lib/types'
-import { getFoodGrade } from '@/lib/petfood'
+import { getFoodGrade } from '@/lib/grading'
 
 const GRADE_CFG: Record<FoodGrade, { bg1: string; bg2: string; color: string; label: string }> = {
-  A: { bg1: '#f0fdf4', bg2: '#dcfce7', color: '#16a34a', label: '우수' },
-  B: { bg1: '#f7fee7', bg2: '#ecfccb', color: '#65a30d', label: '양호' },
-  C: { bg1: '#fefce8', bg2: '#fef9c3', color: '#ca8a04', label: '보통' },
-  D: { bg1: '#fff7ed', bg2: '#ffedd5', color: '#ea580c', label: '주의' },
-  F: { bg1: '#fef2f2', bg2: '#fee2e2', color: '#dc2626', label: '위험' },
+  A: { bg1: '#f0fdf4', bg2: '#dcfce7', color: '#16a34a', label: 'ดีเยี่ยม' },
+  B: { bg1: '#f7fee7', bg2: '#ecfccb', color: '#65a30d', label: 'ดี' },
+  C: { bg1: '#fefce8', bg2: '#fef9c3', color: '#ca8a04', label: 'ปานกลาง' },
+  D: { bg1: '#fff7ed', bg2: '#ffedd5', color: '#ea580c', label: 'ระวัง' },
+  F: { bg1: '#fef2f2', bg2: '#fee2e2', color: '#dc2626', label: 'อันตราย' },
 }
 
-const DEFAULT_CFG = { bg1: '#f9fafb', bg2: '#f3f4f6', color: '#6b7280', label: '분석 중' }
+const DEFAULT_CFG = { bg1: '#f9fafb', bg2: '#f3f4f6', color: '#6b7280', label: 'กำลังวิเคราะห์' }
 
 function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number, maxLines = 2) {
   const chars = text.split('')
@@ -90,7 +90,7 @@ export default function ShareCard({ food }: Props) {
     // 등급 레이블
     ctx.fillStyle = cfg.color
     ctx.font = 'bold 17px sans-serif'
-    ctx.fillText(`등급 ${grade ?? '?'} · ${cfg.label}`, cx, cy + 82)
+    ctx.fillText(`เกรด ${grade ?? '?'} · ${cfg.label}`, cx, cy + 82)
 
     // 성분 도트 (최대 20개)
     const total = food.green_count + food.yellow_count + food.red_count + food.black_count
@@ -112,13 +112,13 @@ export default function ShareCard({ food }: Props) {
       })
       ctx.fillStyle = '#374151'
       ctx.font = '14px sans-serif'
-      ctx.fillText(`성분 ${total}개${total > 20 ? ' (상위 20개)' : ''}`, cx, 438)
+      ctx.fillText(`ส่วนประกอบ ${total}รายการ${total > 20 ? ' (20 อันดับแรก)' : ''}`, cx, 438)
     }
 
     // 영양 정보
     ctx.fillStyle = '#374151'
     ctx.font = '15px sans-serif'
-    ctx.fillText(`단백질 ${food.protein_dm}%  ·  AAFCO ${food.aafco_meets ? '✅' : '❌'}`, cx, 472)
+    ctx.fillText(`โปรตีน ${food.protein_dm}%  ·  AAFCO ${food.aafco_meets ? 'ผ่าน' : 'ไม่ผ่าน'}`, cx, 472)
 
     // URL
     ctx.fillStyle = '#9ca3af'
@@ -146,7 +146,7 @@ export default function ShareCard({ food }: Props) {
         onClick={download}
         className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors text-sm"
       >
-        📸 성적표 카드 저장
+        📸 บันทึกการ์ดผล
       </button>
     </>
   )

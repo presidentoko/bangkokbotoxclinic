@@ -3,10 +3,10 @@ import { useState } from 'react'
 import type { Ingredient } from '@/lib/types'
 
 const GRADE_CONFIG = {
-  black:  { emoji: '⚫', label: '사용금지 성분', textCls: 'text-white',     bgCls: 'bg-gray-800',   borderCls: 'border-gray-700', pillCls: 'bg-gray-700 text-white border-gray-600' },
-  red:    { emoji: '🔴', label: '위험 성분',    textCls: 'text-red-700',    bgCls: 'bg-red-50',     borderCls: 'border-red-200',  pillCls: 'bg-white text-red-700 border-red-300' },
-  yellow: { emoji: '🟡', label: '주의 성분',    textCls: 'text-yellow-700', bgCls: 'bg-yellow-50',  borderCls: 'border-yellow-200', pillCls: 'bg-white text-yellow-700 border-yellow-300' },
-  green:  { emoji: '🟢', label: '우수 성분',    textCls: 'text-green-700',  bgCls: 'bg-green-50',   borderCls: 'border-green-200', pillCls: 'bg-white text-green-700 border-green-300' },
+  black:  { emoji: '⚫', label: 'ส่วนประกอบต้องห้าม', textCls: 'text-white',     bgCls: 'bg-gray-800',   borderCls: 'border-gray-700', pillCls: 'bg-gray-700 text-white border-gray-600' },
+  red:    { emoji: '🔴', label: 'ส่วนประกอบอันตราย',    textCls: 'text-red-700',    bgCls: 'bg-red-50',     borderCls: 'border-red-200',  pillCls: 'bg-white text-red-700 border-red-300' },
+  yellow: { emoji: '🟡', label: 'ส่วนประกอบระวัง',    textCls: 'text-yellow-700', bgCls: 'bg-yellow-50',  borderCls: 'border-yellow-200', pillCls: 'bg-white text-yellow-700 border-yellow-300' },
+  green:  { emoji: '🟢', label: 'ส่วนประกอบดี',    textCls: 'text-green-700',  bgCls: 'bg-green-50',   borderCls: 'border-green-200', pillCls: 'bg-white text-green-700 border-green-300' },
 } as const
 
 type GradeKey = keyof typeof GRADE_CONFIG
@@ -62,7 +62,7 @@ export default function IngredientGroups({ ingredients }: Props) {
     <div className="space-y-3">
       {groups.black.length > 0 && (
         <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 text-sm font-medium text-white">
-          ⚠️ 사용 금지 성분이 포함되어 있습니다
+          ⚠️ มีส่วนประกอบที่ต้องห้าม
         </div>
       )}
       {(['black', 'red', 'yellow', 'green'] as const).map(grade =>
