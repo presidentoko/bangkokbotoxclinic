@@ -38,7 +38,7 @@ export default function NearMeButton({ onLocation, active, onClear }: Props) {
       <button
         onClick={handleClick}
         disabled={loading}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm transition-colors disabled:opacity-50 ${
+        className={`flex items-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full border text-sm transition-colors disabled:opacity-50 ${
           active
             ? 'bg-green-500 text-white border-green-500'
             : 'bg-white hover:bg-green-50 hover:border-green-300'

@@ -60,7 +60,7 @@ function HospitalContent() {
         value={query}
         onChange={e => setQuery(e.target.value)}
         placeholder="ค้นหาชื่อโรงพยาบาล หรือที่อยู่..."
-        className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-base outline-none focus:ring-2 focus:ring-blue-400 mb-4"
       />
 
       <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 mb-4 flex items-center gap-3">

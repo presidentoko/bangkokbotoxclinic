@@ -34,11 +34,11 @@ export default function SearchBar({ placeholder, icon, onSearch, accentColor = '
         onChange={e => setValue(e.target.value)}
         onKeyDown={handleKey}
         placeholder={placeholder}
-        className="flex-1 outline-none text-gray-800 placeholder-gray-400 bg-transparent text-sm"
+        className="flex-1 outline-none text-gray-800 placeholder-gray-400 bg-transparent text-base"
       />
       <button
         onClick={submit}
-        className={`${btn} text-white text-xs font-semibold px-3 py-1.5 rounded-xl transition-colors`}
+        className={`${btn} text-white text-xs font-semibold px-3 py-3 rounded-xl transition-colors min-h-[44px]`}
       >
         ค้นหา
       </button>

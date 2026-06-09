@@ -61,7 +61,7 @@ function CompareContent() {
       <h1 className="text-2xl font-black text-gray-900 mb-1">⚖️ เปรียบเทียบอาหาร</h1>
       <p className="text-sm text-gray-400 mb-6">เปรียบเทียบโภชนาการสูงสุด 3 ชนิด</p>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto -mx-4 px-4">
         <table className="w-full min-w-[400px]">
           <thead>
             <tr className="bg-orange-50 text-orange-800 font-bold">

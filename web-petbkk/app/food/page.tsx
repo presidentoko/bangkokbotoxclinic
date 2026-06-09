@@ -87,7 +87,7 @@ function FoodContent() {
         value={query}
         onChange={e => setQuery(e.target.value)}
         placeholder="ค้นหาชื่อสินค้า หรือแบรนด์..."
-        className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400 mb-4"
+        className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-base outline-none focus:ring-2 focus:ring-orange-400 mb-4"
       />
 
       <div className="flex flex-wrap gap-2 mb-6">
