@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { Suspense, useState, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { filterHospitals } from '@/lib/hospitals'
 import HospitalCard from '@/components/HospitalCard'
@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 
 const HospitalMap = dynamic(() => import('@/components/HospitalMap'), { ssr: false })
 
-export default function HospitalPage() {
+function HospitalContent() {
   const params = useSearchParams()
   const filterParam = params.get('filter') ?? ''
 
@@ -90,5 +90,13 @@ export default function HospitalPage() {
         </div>
       )}
     </main>
+  )
+}
+
+export default function HospitalPage() {
+  return (
+    <Suspense>
+      <HospitalContent />
+    </Suspense>
   )
 }

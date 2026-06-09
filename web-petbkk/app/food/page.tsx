@@ -1,11 +1,11 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { Suspense, useState, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { filterFoods } from '@/lib/petfood'
 import type { Animal, LifeStage } from '@/lib/types'
 import FoodCard from '@/components/FoodCard'
 
-export default function FoodPage() {
+function FoodContent() {
   const params = useSearchParams()
 
   const [query, setQuery]         = useState(params.get('q') ?? '')
@@ -71,5 +71,13 @@ export default function FoodPage() {
         <p className="text-center text-gray-500 py-16">ไม่พบข้อมูล</p>
       )}
     </main>
+  )
+}
+
+export default function FoodPage() {
+  return (
+    <Suspense>
+      <FoodContent />
+    </Suspense>
   )
 }
