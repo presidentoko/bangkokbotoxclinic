@@ -1,14 +1,6 @@
 import type { Hospital } from '@/lib/types'
 import { getNearbyHospitals } from '@/lib/hospitals'
 
-function haversine(lat1: number, lng1: number, lat2: number, lng2: number): number {
-  const R = 6371
-  const dLat = (lat2 - lat1) * Math.PI / 180
-  const dLng = (lng2 - lng1) * Math.PI / 180
-  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-}
-
 function getRatingColor(rating: number | null): string {
   if (rating == null) return '#6b7280'
   if (rating >= 4.5) return '#16a34a'
@@ -29,8 +21,7 @@ export default function NearbyHospitals({ hospital }: Props) {
     <section>
       <h2 className="font-semibold mb-3">โรงพยาบาลใกล้เคียง</h2>
       <div className="flex gap-3 overflow-x-auto pb-2">
-        {nearby.map(h => {
-          const dist = haversine(hospital.lat, hospital.lng, h.lat, h.lng)
+        {nearby.map(({ hospital: h, distKm }) => {
           const ratingColor = getRatingColor(h.google_rating)
           return (
             <a
@@ -56,11 +47,11 @@ export default function NearbyHospitals({ hospital }: Props) {
                   {/* 24h badge */}
                   {h.is_24h && (
                     <span className="block text-xs px-1.5 py-0.5 bg-red-100 text-red-700 rounded-full w-fit mb-1">
-                      24h
+                      24 ชม.
                     </span>
                   )}
                   {/* Distance */}
-                  <p className="text-xs text-gray-400">{dist.toFixed(1)} km</p>
+                  <p className="text-xs text-gray-400">{distKm.toFixed(1)} km</p>
                 </div>
               </div>
             </a>
