@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getHospitalBySlug, loadHospitals } from '@/lib/hospitals'
+import NearbyHospitals from '@/components/NearbyHospitals'
 import type { Metadata } from 'next'
 
 export const dynamicParams = false
@@ -11,15 +12,28 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const h = getHospitalBySlug(slug)
-  return { title: h ? `${h.name_th} — PetBKK` : 'ไม่พบข้อมูล' }
+  if (!h) return { title: 'ไม่พบข้อมูล' }
+  const ratingStr = h.google_rating != null ? `⭐${h.google_rating.toFixed(1)}` : ''
+  return {
+    title: `${h.name_th}${ratingStr ? ` — ${ratingStr}` : ''} — ThailandPetHub`,
+  }
 }
 
-function priceRow(label: string, value: number | null) {
+function getRatingColor(rating: number | null): string {
+  if (rating == null) return '#6b7280'
+  if (rating >= 4.5) return '#16a34a'
+  if (rating >= 4.0) return '#65a30d'
+  if (rating >= 3.5) return '#ca8a04'
+  return '#6b7280'
+}
+
+function StarRating({ rating }: { rating: number }) {
+  const full = Math.floor(rating)
+  const hasHalf = rating - full >= 0.5
   return (
-    <tr key={label}>
-      <td className="py-2 text-gray-600">{label}</td>
-      <td className="py-2">{value != null ? <span className="font-medium">฿{value.toLocaleString()}</span> : <span className="text-gray-400">ไม่ระบุ</span>}</td>
-    </tr>
+    <span className="text-sm text-gray-600">
+      {'★'.repeat(full)}{hasHalf ? '½' : ''}{'☆'.repeat(5 - full - (hasHalf ? 1 : 0))}
+    </span>
   )
 }
 
@@ -28,7 +42,13 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   const h = getHospitalBySlug(slug)
   if (!h) notFound()
 
+  const ratingColor = getRatingColor(h.google_rating)
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${h.lat},${h.lng}`
+  const reviewUrl = h.google_place_id
+    ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
+    : null
+
+  const showEnName = h.name_en && h.name_en !== h.name_th
 
   return (
     <main className="max-w-2xl mx-auto">
@@ -36,55 +56,108 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
         ← กลับ
       </a>
 
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <h1 className="text-2xl font-bold">{h.name_th}</h1>
-        {h.is_24h && (
-          <span className="shrink-0 px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-            24 ชม.
-          </span>
-        )}
+      <h1 className="text-2xl font-bold mb-1">{h.name_th}</h1>
+      {showEnName && (
+        <p className="text-sm text-gray-500 mb-4">{h.name_en}</p>
+      )}
+
+      {/* Hero card */}
+      <div className="bg-white rounded-xl border p-6 mb-4 flex items-start gap-5">
+        {/* Rating circle */}
+        <div
+          className="flex-shrink-0 w-[72px] h-[72px] rounded-full flex items-center justify-center text-white font-black text-2xl"
+          style={{ backgroundColor: ratingColor }}
+        >
+          {h.google_rating != null ? h.google_rating.toFixed(1) : 'N/A'}
+        </div>
+
+        {/* Right side */}
+        <div className="flex-1 min-w-0">
+          {h.google_rating != null ? (
+            <>
+              <div className="flex items-center gap-2 mb-1">
+                <StarRating rating={h.google_rating} />
+                <span className="text-sm font-semibold" style={{ color: ratingColor }}>
+                  {h.google_rating.toFixed(1)}
+                </span>
+              </div>
+              {h.google_review_count != null && (
+                <p className="text-sm text-gray-500 mb-3">
+                  {h.google_review_count.toLocaleString()} รีวิว
+                </p>
+              )}
+            </>
+          ) : (
+            <p className="text-sm text-gray-400 mb-3">ยังไม่มีคะแนน Google</p>
+          )}
+
+          <div className="flex flex-wrap gap-2">
+            {h.is_24h && (
+              <span className="px-2.5 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                24 ชม.
+              </span>
+            )}
+            {h.has_surgery && (
+              <span className="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                ผ่าตัด
+              </span>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="bg-white border rounded-xl p-4 mb-4 space-y-2 text-sm">
-        <p>📍 {h.address}</p>
-        {h.phone && <p>📞 {h.phone}</p>}
-        {h.google_rating != null && (
-          <p>⭐ {h.google_rating.toFixed(1)} ({h.google_review_count?.toLocaleString()} รีวิว)</p>
-        )}
-      </div>
-
-      <section className="bg-white border rounded-xl p-4 mb-6">
-        <h2 className="font-semibold mb-3">ราคาโดยประมาณ</h2>
-        <table className="w-full text-sm">
-          <tbody>
-            {priceRow('ค่าตรวจพื้นฐาน', h.price_consult)}
-            {priceRow('ค่าฉุกเฉินเพิ่มเติม', h.price_emergency_surcharge)}
-            {priceRow('ทำหมัน (ตัวผู้)', h.price_neuter_male)}
-            {priceRow('ทำหมัน (ตัวเมีย)', h.price_neuter_female)}
-            {priceRow('วัคซีนรวม', h.price_vaccine)}
-          </tbody>
-        </table>
-        <p className="mt-3 text-xs text-gray-400">* ราคาอาจเปลี่ยนแปลงได้ ควรโทรสอบถามก่อนเข้ารับบริการ</p>
-      </section>
-
-      <div className="flex gap-3">
-        {h.phone && (
-          <a
-            href={`tel:${h.phone}`}
-            className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors"
-          >
-            📞 โทรเลย
-          </a>
-        )}
+      {/* Info card */}
+      <div className="bg-white rounded-xl border p-4 mb-4 space-y-3 text-sm">
+        <div className="flex items-start gap-2">
+          <span className="mt-0.5 text-gray-400">📍</span>
+          <span className="text-gray-700">{h.address}</span>
+        </div>
         <a
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 text-center bg-white hover:bg-gray-50 border-2 font-bold py-3 rounded-xl transition-colors"
+          className="flex items-center gap-2 text-blue-600 hover:underline"
+        >
+          <span>🗺️</span>
+          <span>ดูเส้นทางใน Google Maps</span>
+        </a>
+        {reviewUrl && (
+          <a
+            href={reviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-blue-600 hover:underline"
+          >
+            <span>⭐</span>
+            <span>อ่านรีวิวใน Google</span>
+          </a>
+        )}
+      </div>
+
+      {/* Action buttons */}
+      <div className="flex gap-3 mb-6">
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors"
         >
           🗺️ นำทาง
         </a>
+        {reviewUrl && (
+          <a
+            href={reviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-center bg-white hover:bg-gray-50 border-2 border-gray-200 font-bold py-3 rounded-xl transition-colors"
+          >
+            ⭐ รีวิว Google
+          </a>
+        )}
       </div>
+
+      {/* Nearby hospitals */}
+      <NearbyHospitals hospital={h} />
     </main>
   )
 }
