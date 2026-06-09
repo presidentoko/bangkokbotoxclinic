@@ -16,7 +16,7 @@ export default function CompareTray() {
   if (ids.length === 0) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg px-4 py-3 z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg px-4 py-3 z-50" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom, 0px))' }}>
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
         <p className="text-sm text-gray-600 font-medium">
           เปรียบเทียบ: <span className="text-orange-600 font-bold">{ids.length}</span>/3 รายการ
