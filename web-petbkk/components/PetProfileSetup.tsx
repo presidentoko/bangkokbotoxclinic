@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { usePetProfile } from '@/hooks/usePetProfile'
 import type { PetProfile } from '@/lib/types'
+import PetProfileCard from './PetProfileCard'
 
 type Species = PetProfile['species']
 type LifeStage = PetProfile['lifeStage']
@@ -27,6 +28,7 @@ const chipCls = (active: boolean) =>
 export default function PetProfileSetup() {
   const { profile, ready, saveProfile, clearProfile } = usePetProfile()
   const [editing, setEditing]   = useState(false)
+  const [showCard, setShowCard] = useState(false)
   const [species, setSpecies]   = useState<Species>('dog')
   const [lifeStage, setLifeStage] = useState<LifeStage>('adult')
   const [name, setName]         = useState('')
@@ -36,29 +38,38 @@ export default function PetProfileSetup() {
   if (profile && !editing) {
     const emoji = profile.species === 'dog' ? '🐕' : '🐈'
     return (
-      <div className="w-full max-w-2xl mb-8 bg-white border border-orange-100 rounded-2xl px-5 py-4 flex items-center justify-between gap-3">
-        <p className="font-semibold text-gray-800">
-          สวัสดี {profile.name}! 🐾 {emoji}
-        </p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => {
-              setSpecies(profile.species)
-              setLifeStage(profile.lifeStage)
-              setName(profile.name)
-              setEditing(true)
-            }}
-            className="text-xs text-gray-400 hover:text-orange-500 transition-colors"
-          >
-            แก้ไข
-          </button>
-          <button
-            onClick={clearProfile}
-            className="text-xs text-gray-400 hover:text-red-500 transition-colors"
-          >
-            ลบ
-          </button>
+      <div className="w-full max-w-2xl mb-8 bg-white border border-orange-100 rounded-2xl px-5 py-4">
+        <div className="flex items-center justify-between gap-3">
+          <p className="font-semibold text-gray-800">
+            สวัสดี {profile.name}! 🐾 {emoji}
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                setSpecies(profile.species)
+                setLifeStage(profile.lifeStage)
+                setName(profile.name)
+                setEditing(true)
+              }}
+              className="text-xs text-gray-400 hover:text-orange-500 transition-colors"
+            >
+              แก้ไข
+            </button>
+            <button
+              onClick={clearProfile}
+              className="text-xs text-gray-400 hover:text-red-500 transition-colors"
+            >
+              ลบ
+            </button>
+          </div>
         </div>
+        <button
+          onClick={() => setShowCard(s => !s)}
+          className="mt-3 w-full text-center text-sm font-bold text-orange-600 bg-orange-50 hover:bg-orange-100 py-2 rounded-xl transition-colors"
+        >
+          {showCard ? '▲ ซ่อนบัตรน้อง' : '📸 สร้างบัตรน้องแชร์ LINE'}
+        </button>
+        {showCard && <PetProfileCard profile={profile} />}
       </div>
     )
   }
