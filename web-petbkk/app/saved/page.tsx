@@ -26,16 +26,24 @@ export default function SavedPage() {
 
   return (
     <main>
-      <h1 className="text-2xl font-bold mb-6">โรงพยาบาลที่บันทึกไว้ ❤️</h1>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">❤️ โรงพยาบาลที่บันทึก</h1>
+      <p className="text-sm text-gray-400 mb-6">โรงพยาบาลที่คุณบันทึกไว้</p>
       {hospitals.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-gray-400 mb-4">ยังไม่มีโรงพยาบาลที่บันทึก</p>
-          <a href="/hospital" className="text-orange-500 hover:underline">← ค้นหาโรงพยาบาล</a>
+        <div className="py-20 text-center">
+          <p className="text-5xl mb-4">❤️</p>
+          <p className="text-gray-500 font-medium mb-1">ยังไม่มีโรงพยาบาลที่บันทึก</p>
+          <p className="text-sm text-gray-400 mb-6">กดไอคอนหัวใจ ❤️ บนการ์ดโรงพยาบาลเพื่อบันทึก</p>
+          <a href="/hospital" className="inline-block px-6 py-2.5 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-colors text-sm">
+            ค้นหาโรงพยาบาล →
+          </a>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {hospitals.map(h => <HospitalCard key={h.id} hospital={h} />)}
-        </div>
+        <>
+          <p className="text-sm text-gray-400 mb-4">{hospitals.length} โรงพยาบาลที่บันทึก</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {hospitals.map(h => <HospitalCard key={h.id} hospital={h} />)}
+          </div>
+        </>
       )}
     </main>
   )
