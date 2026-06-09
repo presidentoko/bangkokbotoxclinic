@@ -6,7 +6,7 @@ import SimilarFoods from '@/components/SimilarFoods'
 import ShareCard from '@/components/ShareCard'
 import TrackRecentFood from '@/components/TrackRecentFood'
 import type { Metadata } from 'next'
-import type { FoodGrade } from '@/lib/types'
+import type { FoodGrade, PetFood } from '@/lib/types'
 
 export const dynamicParams = false
 
@@ -46,6 +46,65 @@ function BreadcrumbJsonLd({ name }: { name: string }) {
     ],
   }
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+}
+
+function FoodFaqJsonLd({ food, grade }: { food: PetFood; grade: FoodGrade | null }) {
+  const name = food.name_th || food.name_en
+  const animalTh = food.animal === 'dog' ? 'สุนัข' : 'แมว'
+  const stageTh: Record<string, string> = { puppy: 'ลูก', adult: 'ผู้ใหญ่', senior: 'สูงวัย' }
+  const topIngredients = food.ingredients.slice(0, 5).map(i => i.name).join(', ')
+
+  const gradeReasons: Partial<Record<FoodGrade, string>> = {
+    A: `ส่วนประกอบคุณภาพสูง ${food.green_count} รายการ ไม่มีสารที่เป็นอันตราย เหมาะเป็นอาหารหลัก`,
+    B: `ส่วนประกอบดี ${food.green_count} รายการ มีส่วนที่ควรระวัง ${food.yellow_count} รายการ คุณภาพดี`,
+    C: `มีส่วนประกอบดี ${food.green_count} ระวัง ${food.yellow_count} และไม่ดี ${food.red_count} รายการ ควรพิจารณาทางเลือกอื่น`,
+    D: `มีส่วนประกอบที่ไม่ดี ${food.red_count} และอันตราย ${food.black_count} รายการ ไม่แนะนำเป็นอาหารหลัก`,
+    F: `มีส่วนประกอบที่เป็นอันตราย ${food.black_count} รายการ ไม่แนะนำ`,
+  }
+
+  const faqs = [
+    {
+      q: `${name} มีส่วนผสมอะไรบ้าง?`,
+      a: food.ingredients.length > 0
+        ? `ส่วนผสมหลักของ ${name} ได้แก่ ${topIngredients}${food.ingredients.length > 5 ? ` และอีก ${food.ingredients.length - 5} รายการ` : ''}`
+        : `ยังไม่มีข้อมูลส่วนผสมโดยละเอียด กรุณาตรวจสอบที่ฉลากผลิตภัณฑ์`,
+    },
+    {
+      q: `${name} ได้เกรด ${grade ?? '?'} เพราะอะไร?`,
+      a: grade && gradeReasons[grade] ? gradeReasons[grade]! : `ยังไม่มีข้อมูลส่วนประกอบเพียงพอสำหรับการให้เกรด`,
+    },
+    {
+      q: `${name} เหมาะสำหรับ${animalTh}วัยอะไร?`,
+      a: `${name} ออกแบบมาสำหรับ${animalTh}วัย${stageTh[food.life_stage] ?? food.life_stage}${food.aafco_meets ? ' และผ่านมาตรฐาน AAFCO' : ''}`,
+    },
+  ]
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <section className="mb-4 bg-white border rounded-xl p-4">
+        <h2 className="text-base font-bold text-gray-900 mb-3">คำถามที่พบบ่อย</h2>
+        <div className="space-y-3 divide-y divide-gray-100">
+          {faqs.map((f, i) => (
+            <div key={i} className={i > 0 ? 'pt-3' : ''}>
+              <p className="font-semibold text-sm text-gray-800 mb-1">{f.q}</p>
+              <p className="text-sm text-gray-600 leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  )
 }
 
 const GRADE_CONFIG: Record<FoodGrade, { color: string; bgCls: string; label: string }> = {
@@ -159,6 +218,8 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           <SimilarFoods foods={similar} />
         </div>
       )}
+
+      <FoodFaqJsonLd food={food} grade={grade} />
 
       {/* Buy button */}
       {food.buy_url && (

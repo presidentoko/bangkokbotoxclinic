@@ -50,6 +50,54 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
+function HospitalFaqJsonLd({ h }: { h: Hospital }) {
+  const faqs = [
+    {
+      q: `${h.name_th} เปิดทำการกี่โมง?`,
+      a: h.is_24h
+        ? `${h.name_th} เปิดให้บริการ 24 ชั่วโมง ทุกวัน`
+        : `กรุณาโทรสอบถามเวลาเปิด-ปิดโดยตรง${h.phone ? ` ที่เบอร์ ${h.phone}` : ''}`,
+    },
+    {
+      q: `${h.name_th} อยู่ที่ไหน?`,
+      a: `${h.name_th} ตั้งอยู่ที่ ${h.address}`,
+    },
+    {
+      q: `${h.name_th} ราคาค่าตรวจเท่าไหร่?`,
+      a: h.price_consult != null
+        ? `ค่าตรวจเริ่มต้นประมาณ ${h.price_consult.toLocaleString()} บาท${h.price_emergency_surcharge != null ? ` ค่าบริการนอกเวลา ${h.price_emergency_surcharge.toLocaleString()} บาท` : ''}`
+        : `กรุณาโทรสอบถามราคา${h.phone ? ` ที่เบอร์ ${h.phone}` : 'โดยตรง'}`,
+    },
+  ]
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <section className="mt-6 bg-white border rounded-xl p-4">
+        <h2 className="text-base font-bold text-gray-900 mb-3">คำถามที่พบบ่อย</h2>
+        <div className="space-y-3 divide-y divide-gray-100">
+          {faqs.map((f, i) => (
+            <div key={i} className={i > 0 ? 'pt-3' : ''}>
+              <p className="font-semibold text-sm text-gray-800 mb-1">{f.q}</p>
+              <p className="text-sm text-gray-600 leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  )
+}
+
 function BreadcrumbJsonLd({ name }: { name: string }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -221,6 +269,8 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />
+
+      <HospitalFaqJsonLd h={h} />
 
       <BreadcrumbJsonLd name={h.name_th} />
       <LocalBusinessJsonLd h={h} />
