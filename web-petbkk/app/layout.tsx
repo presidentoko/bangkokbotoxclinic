@@ -20,8 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/saved"    className="hover:text-orange-600">❤️</a>
               <a href="/compare"  className="hover:text-orange-600">เปรียบเทียบ</a>
               <a href="/adopt"    className="hover:text-orange-600 text-green-600 font-medium">รับเลี้ยง</a>
-              <a href="/cost"     className="hover:text-orange-600">ค่าใช้จ่าย</a>
-              <a href="/tips"     className="hover:text-orange-600">เคล็ดลับ</a>
+              <a href="/cost"        className="hover:text-orange-600">ค่าใช้จ่าย</a>
+              <a href="/ingredients" className="hover:text-orange-600">ส่วนผสม</a>
+              <a href="/emergency"   className="hover:text-red-600 text-red-500 font-medium">🚨 ฉุกเฉิน</a>
+              <a href="/tips"        className="hover:text-orange-600">เคล็ดลับ</a>
             </nav>
           </div>
         </header>
