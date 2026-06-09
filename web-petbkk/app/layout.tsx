@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import CompareTray from '@/components/CompareTray'
+import InstallPrompt from '@/components/InstallPrompt'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -42,6 +43,19 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'PetBKK',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    icon: '/icon.svg',
+    apple: '/icon.svg',
   },
 }
 
@@ -104,7 +118,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="max-w-5xl mx-auto px-4 py-8 pb-28">
           {children}
         </div>
+        <InstallPrompt />
         <CompareTray />
+        <script dangerouslySetInnerHTML={{ __html: `
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').catch(function() {});
+    });
+  }
+` }} />
       </body>
     </html>
   )
