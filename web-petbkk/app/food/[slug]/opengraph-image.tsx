@@ -9,89 +9,88 @@ export function generateStaticParams() {
   return loadFoods().map(f => ({ slug: f.id }))
 }
 
-const GRADE_CFG: Record<FoodGrade, { bg: string; color: string }> = {
-  A: { bg: '#f0fdf4', color: '#16a34a' },
-  B: { bg: '#f7fee7', color: '#65a30d' },
-  C: { bg: '#fefce8', color: '#ca8a04' },
-  D: { bg: '#fff7ed', color: '#ea580c' },
-  F: { bg: '#fef2f2', color: '#dc2626' },
+const GRADE_BG: Record<FoodGrade, string> = {
+  A: '#16a34a',
+  B: '#65a30d',
+  C: '#ca8a04',
+  D: '#ea580c',
+  F: '#dc2626',
 }
 
-export default async function og({ params }: { params: Promise<{ slug: string }> }) {
+export default async function OgImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const food = getFoodBySlug(slug)
-  if (!food) return new ImageResponse(
-    <div style={{ background: '#fff', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>
-      ไม่พบสินค้า
-    </div>,
-    { ...size }
-  )
+
+  if (!food) {
+    return new ImageResponse(
+      <div style={{
+        width: '100%', height: '100%',
+        background: '#f97316',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: 'sans-serif',
+      }}>
+        <div style={{ color: 'white', fontSize: 48, fontWeight: 900, display: 'flex' }}>🐾 PetBKK</div>
+      </div>,
+      { width: 1200, height: 630 }
+    )
+  }
 
   const grade = getFoodGrade(food)
-  const cfg = grade ? GRADE_CFG[grade] : { bg: '#f9fafb', color: '#6b7280' }
-  const total = food.green_count + food.yellow_count + food.red_count + food.black_count
-  const greenDots = Math.min(food.green_count, 8)
-  const yellowDots = Math.min(food.yellow_count, 4)
-  const redDots = Math.min(food.red_count, 4)
-  const statsText = (total > 0 ? `ส่วนประกอบ ${total} รายการ  ·  ` : '') +
-    `โปรตีน ${food.protein_dm}%  ·  AAFCO ${food.aafco_meets ? 'ผ่าน' : 'ไม่ผ่าน'}`
+  const gradeBg = grade ? GRADE_BG[grade] : '#6b7280'
 
   return new ImageResponse(
-    <div
-      style={{
-        width: '100%', height: '100%',
-        backgroundColor: cfg.bg,
-        display: 'flex', flexDirection: 'column',
-        justifyContent: 'center', padding: '64px',
-        fontFamily: 'sans-serif', position: 'relative',
-      }}
-    >
-      {/* header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '28px' }}>
-        <span style={{ fontSize: 40, color: '#ea580c', fontWeight: 700 }}>PetBKK</span>
-        {grade && (
-          <div style={{
-            width: 80, height: 80, borderRadius: '50%',
-            backgroundColor: cfg.color,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'white', fontSize: 42, fontWeight: 900,
-          }}>
-            {grade}
-          </div>
-        )}
-      </div>
-
-      {/* brand + name */}
-      <div style={{ fontSize: 20, color: '#6b7280', marginBottom: '8px' }}>{food.brand}</div>
-      <div style={{ fontSize: 38, fontWeight: 700, color: '#111827', marginBottom: '24px', lineHeight: 1.2, maxWidth: '900px' }}>
-        {food.name_th || food.name_en}
-      </div>
-
-      {/* ingredient dots */}
-      {total > 0 && (
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-          {Array(greenDots).fill(0).map((_, i) => (
-            <div key={`g${i}`} style={{ width: 18, height: 18, borderRadius: '50%', backgroundColor: '#16a34a' }} />
-          ))}
-          {Array(yellowDots).fill(0).map((_, i) => (
-            <div key={`y${i}`} style={{ width: 18, height: 18, borderRadius: '50%', backgroundColor: '#ca8a04' }} />
-          ))}
-          {Array(redDots).fill(0).map((_, i) => (
-            <div key={`r${i}`} style={{ width: 18, height: 18, borderRadius: '50%', backgroundColor: '#dc2626' }} />
-          ))}
+    <div style={{
+      width: '100%', height: '100%',
+      background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)',
+      display: 'flex', flexDirection: 'row', alignItems: 'center',
+      padding: '60px', gap: '60px', fontFamily: 'sans-serif',
+    }}>
+      {/* Grade circle */}
+      <div style={{
+        width: 200, height: 200, borderRadius: '50%',
+        background: gradeBg, display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+        boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+      }}>
+        <div style={{
+          color: 'white', fontSize: 100, fontWeight: 900, lineHeight: 1, display: 'flex',
+        }}>
+          {grade ?? '?'}
         </div>
-      )}
-
-      {/* stats */}
-      <div style={{ display: 'flex', fontSize: 22, color: '#374151' }}>
-        <span>{statsText}</span>
       </div>
 
-      {/* url */}
-      <div style={{ position: 'absolute', bottom: 40, right: 64, fontSize: 18, color: '#9ca3af' }}>
-        petbkk.com
+      {/* Text */}
+      <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: 16 }}>
+        <div style={{
+          fontSize: 22, color: '#9a3412', fontWeight: 700,
+          textTransform: 'uppercase', letterSpacing: 2, display: 'flex',
+        }}>
+          {food.brand}
+        </div>
+        <div style={{
+          fontSize: 44, fontWeight: 900, color: '#1c1917', lineHeight: 1.2, display: 'flex',
+        }}>
+          {food.name_th || food.name_en}
+        </div>
+        <div style={{ display: 'flex', gap: 24, marginTop: 8 }}>
+          {food.price_per_kg > 0 && (
+            <div style={{ fontSize: 28, color: '#78716c', display: 'flex' }}>
+              ฿{food.price_per_kg.toFixed(0)}/กก.
+            </div>
+          )}
+          {food.protein_pct > 0 && (
+            <div style={{ fontSize: 28, color: '#78716c', display: 'flex' }}>
+              {food.protein_pct}% โปรตีน
+            </div>
+          )}
+        </div>
+        <div style={{
+          fontSize: 24, color: '#f97316', fontWeight: 700, marginTop: 8, display: 'flex',
+        }}>
+          ThailandPetHub.com — ตรวจสอบอาหารสัตว์เลี้ยงฟรี
+        </div>
       </div>
     </div>,
-    { ...size }
+    { width: 1200, height: 630 }
   )
 }
