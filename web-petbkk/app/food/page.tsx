@@ -1,8 +1,8 @@
 'use client'
-import { Suspense, useState, useMemo } from 'react'
+import { Suspense, useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { filterFoods } from '@/lib/petfood'
-import type { Animal, LifeStage } from '@/lib/types'
+import type { Animal, LifeStage, PetProfile } from '@/lib/types'
 import FoodCard from '@/components/FoodCard'
 
 function FoodContent() {
@@ -16,6 +16,20 @@ function FoodContent() {
     (params.get('life_stage') as LifeStage) ?? undefined
   )
   const [sort, setSort] = useState<'score' | 'price'>('score')
+
+  useEffect(() => {
+    if (params.get('animal') || params.get('life_stage')) return
+    try {
+      const raw = localStorage.getItem('petProfile')
+      if (!raw) return
+      const p = JSON.parse(raw) as PetProfile
+      if (!params.get('animal'))     setAnimal(p.species)
+      if (!params.get('life_stage')) setLifeStage(p.lifeStage)
+    } catch {
+      // ignore
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const foods = useMemo(
     () => filterFoods({ animal, life_stage: lifeStage, query, sort }),
@@ -43,24 +57,12 @@ function FoodContent() {
       />
 
       <div className="flex flex-wrap gap-2 mb-6">
-        <button className={chipCls(animal === 'dog')} onClick={() => toggle('dog' as Animal, animal, setAnimal)}>
-          🐕 สุนัข
-        </button>
-        <button className={chipCls(animal === 'cat')} onClick={() => toggle('cat' as Animal, animal, setAnimal)}>
-          🐈 แมว
-        </button>
-        <button className={chipCls(lifeStage === 'puppy')} onClick={() => toggle('puppy' as LifeStage, lifeStage, setLifeStage)}>
-          ลูก
-        </button>
-        <button className={chipCls(lifeStage === 'adult')} onClick={() => toggle('adult' as LifeStage, lifeStage, setLifeStage)}>
-          ผู้ใหญ่
-        </button>
-        <button className={chipCls(lifeStage === 'senior')} onClick={() => toggle('senior' as LifeStage, lifeStage, setLifeStage)}>
-          สูงวัย
-        </button>
-        <button className={chipCls(sort === 'price')} onClick={() => setSort(sort === 'price' ? 'score' : 'price')}>
-          💰 ราคาต่ำสุด
-        </button>
+        <button className={chipCls(animal === 'dog')} onClick={() => toggle('dog' as Animal, animal, setAnimal)}>🐕 สุนัข</button>
+        <button className={chipCls(animal === 'cat')} onClick={() => toggle('cat' as Animal, animal, setAnimal)}>🐈 แมว</button>
+        <button className={chipCls(lifeStage === 'puppy')} onClick={() => toggle('puppy' as LifeStage, lifeStage, setLifeStage)}>ลูก</button>
+        <button className={chipCls(lifeStage === 'adult')} onClick={() => toggle('adult' as LifeStage, lifeStage, setLifeStage)}>ผู้ใหญ่</button>
+        <button className={chipCls(lifeStage === 'senior')} onClick={() => toggle('senior' as LifeStage, lifeStage, setLifeStage)}>สูงวัย</button>
+        <button className={chipCls(sort === 'price')} onClick={() => setSort(sort === 'price' ? 'score' : 'price')}>💰 ราคาต่ำสุด</button>
       </div>
 
       {foods.length > 0 ? (

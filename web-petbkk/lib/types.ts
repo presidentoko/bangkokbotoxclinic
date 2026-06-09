@@ -70,3 +70,9 @@ export interface HospitalFilters {
   has_emergency?: boolean
   has_surgery?: boolean
 }
+
+export interface PetProfile {
+  species: 'dog' | 'cat'
+  lifeStage: 'puppy' | 'adult' | 'senior'
+  name: string
+}
