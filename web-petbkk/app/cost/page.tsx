@@ -32,8 +32,8 @@ export default function CostPage() {
 
   return (
     <main className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2">คำนวณค่าใช้จ่ายสัตว์เลี้ยง</h1>
-      <p className="text-sm text-gray-400 mb-8">ประมาณการค่าใช้จ่ายรายเดือนและระยะยาว</p>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">💰 ประมาณค่าใช้จ่าย</h1>
+      <p className="text-sm text-gray-400 mb-6">คำนวณค่าใช้จ่ายต่อเดือนและระยะยาวสำหรับสัตว์เลี้ยงของคุณ</p>
 
       {/* Inputs */}
       <div className="bg-white rounded-2xl border p-6 mb-6 space-y-6">
@@ -81,31 +81,33 @@ export default function CostPage() {
         </div>
       </div>
 
+      {/* Monthly total — prominent display */}
+      <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 text-center mb-6">
+        <p className="text-sm text-gray-500 mb-1">ค่าใช้จ่ายต่อเดือน (ประมาณ)</p>
+        <p className="text-4xl font-black text-orange-600">฿{fmt(result.monthly.total)}</p>
+      </div>
+
       {/* Monthly breakdown */}
-      <div className="bg-white rounded-2xl border p-6 mb-4">
-        <h2 className="font-bold text-gray-900 mb-4">ค่าใช้จ่ายรายเดือน</h2>
+      <div className="bg-white rounded-2xl border shadow-sm p-6 mb-4">
+        <h2 className="font-black text-gray-900 mb-4">รายละเอียดค่าใช้จ่ายรายเดือน</h2>
         <div className="space-y-3">
           {[
-            { label: 'อาหาร',      value: result.monthly.food },
-            { label: 'สัตวแพทย์', value: result.monthly.vet },
+            { label: 'อาหาร',           value: result.monthly.food },
+            { label: 'สัตวแพทย์',      value: result.monthly.vet },
             { label: 'ดูแลขน/อาบน้ำ', value: result.monthly.grooming },
             { label: 'อุปกรณ์/ของเล่น', value: result.monthly.accessories },
           ].map(row => (
-            <div key={row.label} className="flex justify-between text-sm">
+            <div key={row.label} className="flex justify-between items-center text-sm py-1 border-b border-gray-50 last:border-0">
               <span className="text-gray-600">{row.label}</span>
-              <span className="font-medium">฿{fmt(row.value)}</span>
+              <span className="font-semibold text-gray-800">฿{fmt(row.value)}</span>
             </div>
           ))}
-          <div className="border-t pt-3 flex justify-between font-bold">
-            <span>รวมต่อเดือน</span>
-            <span className="text-orange-600 text-lg">฿{fmt(result.monthly.total)}</span>
-          </div>
         </div>
       </div>
 
       {/* One-time costs */}
-      <div className="bg-white rounded-2xl border p-6 mb-4">
-        <h2 className="font-bold text-gray-900 mb-4">ค่าใช้จ่ายแรกรับ (ครั้งเดียว)</h2>
+      <div className="bg-white rounded-2xl border shadow-sm p-6 mb-4">
+        <h2 className="font-black text-gray-900 mb-4">ค่าใช้จ่ายแรกรับ (ครั้งเดียว)</h2>
         <div className="space-y-3">
           {[
             { label: 'วัคซีน',          value: result.oneTime.vaccines },
@@ -113,9 +115,9 @@ export default function CostPage() {
             { label: 'ไมโครชิป',        value: result.oneTime.microchip },
             { label: 'ชุดเริ่มต้น (ที่นอน ชาม สายจูง)', value: result.oneTime.startupKit },
           ].map(row => (
-            <div key={row.label} className="flex justify-between text-sm">
+            <div key={row.label} className="flex justify-between items-center text-sm py-1 border-b border-gray-50 last:border-0">
               <span className="text-gray-600">{row.label}</span>
-              <span className="font-medium">฿{fmt(row.value)}</span>
+              <span className="font-semibold text-gray-800">฿{fmt(row.value)}</span>
             </div>
           ))}
           <div className="border-t pt-3 flex justify-between font-bold">
