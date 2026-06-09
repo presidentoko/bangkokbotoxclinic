@@ -77,6 +77,25 @@ const LEVELS: Level[] = [
 export default function EmergencyPage() {
   return (
     <main className="max-w-3xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': LEVELS.flatMap(level =>
+              level.signals.map(s => ({
+                '@type': 'Question',
+                'name': s.symptom,
+                'acceptedAnswer': {
+                  '@type': 'Answer',
+                  'text': `${s.why} (ระดับ: ${level.title})`,
+                },
+              }))
+            ),
+          }),
+        }}
+      />
       <div className="flex items-center gap-3 mb-2">
         <span className="text-3xl">🚨</span>
         <h1 className="text-2xl font-bold">คู่มือฉุกเฉินสัตว์เลี้ยง</h1>

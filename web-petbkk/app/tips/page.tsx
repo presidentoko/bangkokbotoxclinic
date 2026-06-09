@@ -100,6 +100,25 @@ const CATEGORIES: Category[] = [
 export default function TipsPage() {
   return (
     <main className="max-w-3xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': CATEGORIES.flatMap(cat =>
+              cat.items.map(item => ({
+                '@type': 'Question',
+                'name': item.q,
+                'acceptedAnswer': {
+                  '@type': 'Answer',
+                  'text': item.a,
+                },
+              }))
+            ),
+          }),
+        }}
+      />
       <h1 className="text-2xl font-bold mb-2">เคล็ดลับดูแลสัตว์เลี้ยง</h1>
       <p className="text-sm text-gray-400 mb-8">คำถามที่พบบ่อยเกี่ยวกับการดูแลสุนัขและแมว</p>
 
