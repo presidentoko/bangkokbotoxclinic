@@ -57,8 +57,8 @@ export function RatingChart({ trend }: { trend: RatingTrend }) {
         {buckets.map((b) => {
           const pct = b.data.avg !== null ? (b.data.avg / max) * 100 : 0;
           return (
-            <div key={b.label} className="flex items-center gap-3 text-sm">
-              <span className="w-28 text-xs text-[var(--muted)] shrink-0">{b.label}</span>
+            <div key={b.label} className="flex items-center gap-2 sm:gap-3 text-sm">
+              <span className="w-20 sm:w-28 text-xs text-[var(--muted)] shrink-0 leading-tight">{b.label}</span>
               <div className="flex-1 h-7 bg-gray-50 rounded-md overflow-hidden relative">
                 {b.data.avg !== null && (
                   <div
@@ -74,7 +74,7 @@ export function RatingChart({ trend }: { trend: RatingTrend }) {
                   </span>
                 )}
               </div>
-              <span className="w-16 text-xs text-[var(--muted)] tabular-nums text-right shrink-0">
+              <span className="w-10 sm:w-16 text-xs text-[var(--muted)] tabular-nums text-right shrink-0">
                 {b.data.count} review{b.data.count === 1 ? "" : "s"}
               </span>
             </div>

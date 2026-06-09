@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
@@ -9,6 +9,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const cfg = getSiteConfig();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ffffff",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

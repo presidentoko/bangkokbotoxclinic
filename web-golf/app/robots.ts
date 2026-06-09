@@ -26,7 +26,11 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 5,
       },
     ],
-    sitemap: `${SITE}/sitemap.xml`,
+    sitemap: [
+      `${SITE}/sitemap.xml`,
+      `${SITE}/image-sitemap.xml`,
+      `${SITE}/video-sitemap.xml`,
+    ],
     host: SITE,
   };
 }

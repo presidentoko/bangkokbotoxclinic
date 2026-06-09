@@ -22,7 +22,9 @@ export function MobileMenuButton() {
     <>
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Open menu"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        aria-controls="mobile-nav"
         className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
       >
         <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${open ? "rotate-45 translate-y-2" : ""}`} />
@@ -36,7 +38,7 @@ export function MobileMenuButton() {
             className="fixed inset-0 z-40 bg-black/30"
             onClick={() => setOpen(false)}
           />
-          <div className="fixed top-14 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-lg md:hidden">
+          <div id="mobile-nav" className="fixed top-14 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-lg md:hidden">
             <nav className="flex flex-col divide-y divide-gray-100">
               {NAV.map((item) => (
                 <a

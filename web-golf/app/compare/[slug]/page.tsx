@@ -76,6 +76,14 @@ export default async function ComparePage(
       q: `Trust Scores and ratings — what's the actual difference?`,
       a: `Trust Score (0-100) combines Google rating + review volume (log-scaled) + reviewer authority. It's our composite metric — see /methodology for the exact formula. A 92 Trust Score with 1,500 reviews is more dependable than a 95 with 30 reviews, even though the second course has the higher star rating.`,
     },
+    {
+      q: `What is the green fee at ${a.name} vs ${b.name}?`,
+      a: `Green fees vary by day of week, season, and booking channel. As a rough guide, ${pair.cityLabel} courses typically range ฿1,500–4,500 (weekday morning, all-in with caddy and cart). Peak season (Nov–Feb) and weekends add 20–40%. Book direct through the course website for the lowest rate, or use Golfsavers / Klook for convenience. Check the individual course pages for current Golfdigg pricing where available.`,
+    },
+    {
+      q: `Which is a better choice during Thailand's rainy season (June–October)?`,
+      a: `Both ${a.name} and ${b.name} operate year-round. During the rainy season, morning tee times (07:00–11:00) are typically clear — rain concentrates in the afternoon. Courses with higher drainage scores handle heavy rain better. Check our real-time drainage conditions page at /conditions for current status before booking.`,
+    },
   ];
 
   return (
@@ -108,7 +116,8 @@ export default async function ComparePage(
 
       {/* Metric-by-metric comparison table */}
       <section className="mb-8 bg-white border border-[var(--border)] rounded-xl overflow-hidden">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[480px]">
           <thead className="bg-gray-50">
             <tr className="border-b border-[var(--border)]">
               <th className="text-left text-xs uppercase tracking-wide text-[var(--muted)] px-4 py-3 w-1/4">Metric</th>
@@ -134,6 +143,7 @@ export default async function ComparePage(
             <Row label="Website" a={a.website ? new URL(a.website).hostname.replace(/^www\./, "") : "—"} b={b.website ? new URL(b.website).hostname.replace(/^www\./, "") : "—"} />
           </tbody>
         </table>
+        </div>
       </section>
 
       <TravelStackAffiliate city={pair.city} cityLabel={pair.cityLabel} context="city" />

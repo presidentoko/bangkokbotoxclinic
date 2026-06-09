@@ -1,6 +1,7 @@
 // Schema.org JSON-LD — Golf course edition.
 
 import type { Restaurant, VideoRef } from "@/lib/types";
+import type { PriceRow } from "@/lib/priceMatrix";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thailand Golf Guide";
@@ -238,6 +239,40 @@ export function FaqJsonLd({ faqs }: { faqs: { q: string; a: string }[] }) {
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
+  });
+}
+
+export function CoursePriceJsonLd({ r, priceRow }: { r: Restaurant; priceRow: PriceRow }) {
+  const offers = [];
+  if (priceRow.weekday_morning_slot && priceRow.weekday_morning_total) {
+    offers.push({
+      "@type": "Offer",
+      name: "Weekday Morning (Green Fee + Caddy + Cart)",
+      price: priceRow.weekday_morning_total,
+      priceCurrency: "THB",
+      availability: "https://schema.org/InStock",
+      url: priceRow.source_url,
+      seller: { "@type": "Organization", name: priceRow.source_agency },
+    });
+  }
+  if (priceRow.weekend_morning_slot && priceRow.weekend_morning_total) {
+    offers.push({
+      "@type": "Offer",
+      name: "Weekend Morning (Green Fee + Caddy + Cart)",
+      price: priceRow.weekend_morning_total,
+      priceCurrency: "THB",
+      availability: "https://schema.org/InStock",
+      url: priceRow.source_url,
+      seller: { "@type": "Organization", name: priceRow.source_agency },
+    });
+  }
+  if (offers.length === 0) return null;
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "GolfCourse",
+    name: r.name,
+    url: `${SITE}/course/${r.id}`,
+    offers,
   });
 }
 
