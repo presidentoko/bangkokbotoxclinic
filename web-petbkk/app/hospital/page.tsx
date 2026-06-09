@@ -98,5 +98,9 @@ function HospitalContent() {
 }
 
 export default function HospitalPage() {
-  return <Suspense><HospitalContent /></Suspense>
+  return (
+    <Suspense fallback={<div className="py-20 text-center text-gray-400">กำลังโหลด...</div>}>
+      <HospitalContent />
+    </Suspense>
+  )
 }

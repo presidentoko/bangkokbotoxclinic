@@ -12,6 +12,7 @@ export default function NearMeButton({ onLocation, active, onClear }: Props) {
   const [error, setError]     = useState<string | null>(null)
 
   function handleClick() {
+    setError(null)
     if (active) { onClear(); return }
     if (!navigator.geolocation) {
       setError('เบราว์เซอร์ไม่รองรับ GPS')
