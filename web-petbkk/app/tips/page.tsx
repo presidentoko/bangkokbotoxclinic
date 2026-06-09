@@ -125,18 +125,18 @@ export default function TipsPage() {
       <div className="space-y-10">
         {CATEGORIES.map(cat => (
           <section key={cat.title}>
-            <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-black text-gray-900 mb-4 pb-2 border-b border-orange-100 flex items-center gap-2">
               <span>{cat.icon}</span>
               <span>{cat.title}</span>
             </h2>
             <div className="space-y-3">
               {cat.items.map(qa => (
                 <details key={qa.q} className="bg-white rounded-xl border overflow-hidden group">
-                  <summary className="px-5 py-4 cursor-pointer font-medium text-gray-800 list-none flex items-center justify-between hover:bg-orange-50 transition-colors">
+                  <summary className="flex items-center justify-between cursor-pointer list-none py-4 px-5 font-semibold text-gray-900 hover:text-orange-600 transition-colors group">
                     <span>{qa.q}</span>
-                    <span className="text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-3">▾</span>
+                    <span className="text-gray-400 group-open:rotate-180 transition-transform text-lg select-none flex-shrink-0 ml-3">▼</span>
                   </summary>
-                  <div className="px-5 pb-4 pt-1 text-sm text-gray-600 leading-relaxed border-t">
+                  <div className="px-5 pt-0 pb-4 text-gray-600 text-sm leading-relaxed border-t">
                     {qa.a}
                   </div>
                 </details>
