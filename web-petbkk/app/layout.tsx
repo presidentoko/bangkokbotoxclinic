@@ -12,11 +12,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="th">
       <body className="bg-orange-50 text-gray-900 antialiased">
-        <header className="bg-white border-b px-4 py-3 sticky top-0 z-40">
+        <header className="bg-white border-b border-gray-100 px-4 py-3 sticky top-0 z-40">
           <div className="max-w-5xl mx-auto">
             {/* Brand + primary nav */}
             <div className="flex items-center gap-4 mb-2">
-              <a href="/" className="font-bold text-lg text-orange-600 flex-shrink-0">🐾 PetBKK</a>
+              <a href="/" className="font-black text-xl text-orange-600 flex-shrink-0">🐾 PetBKK</a>
               <nav className="flex gap-3 text-sm overflow-x-auto scrollbar-none">
                 <a href="/food"     className="whitespace-nowrap hover:text-orange-600">อาหาร</a>
                 <a href="/hospital" className="whitespace-nowrap hover:text-orange-600">โรงพยาบาล</a>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 { href: '/saved',       label: '❤️ บันทึก' },
               ].map(l => (
                 <a key={l.href} href={l.href}
-                  className="whitespace-nowrap px-2.5 py-1 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors flex-shrink-0">
+                  className="whitespace-nowrap px-2.5 py-1 bg-gray-100 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors flex-shrink-0">
                   {l.label}
                 </a>
               ))}
