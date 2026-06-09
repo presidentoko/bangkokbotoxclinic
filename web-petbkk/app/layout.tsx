@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
-      <body className="bg-orange-50 text-gray-900 antialiased">
-        <header className="bg-white border-b border-gray-100 px-4 py-3 sticky top-0 z-40">
+      <body className="bg-[#FFF8F0] text-gray-900 antialiased">
+        <header className="bg-white/95 backdrop-blur-sm border-b border-orange-100 px-4 py-3 sticky top-0 z-40 shadow-sm">
           <div className="max-w-5xl mx-auto">
             {/* Brand + primary nav */}
             <div className="flex items-center gap-4 mb-2">
-              <a href="/" className="font-black text-xl text-orange-600 flex-shrink-0">🐾 PetBKK</a>
+              <a href="/" className="font-black text-xl text-orange-500 flex-shrink-0 tracking-tight">🐾 PetBKK</a>
               <nav className="flex gap-3 text-sm overflow-x-auto scrollbar-none">
                 <a href="/food"     className="whitespace-nowrap hover:text-orange-600">อาหาร</a>
                 <a href="/hospital" className="whitespace-nowrap hover:text-orange-600">โรงพยาบาล</a>
