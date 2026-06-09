@@ -14,21 +14,26 @@ const GRADE_CFG: Record<FoodGrade, { bg1: string; bg2: string; color: string; la
 
 const DEFAULT_CFG = { bg1: '#f9fafb', bg2: '#f3f4f6', color: '#6b7280', label: '분석 중' }
 
-function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
+function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number, maxLines = 2) {
   const chars = text.split('')
   let line = ''
   let currentY = y
+  let linesDrawn = 0
   for (const char of chars) {
+    if (linesDrawn >= maxLines) break
     const testLine = line + char
     if (ctx.measureText(testLine).width > maxWidth && line) {
       ctx.fillText(line, x, currentY)
       line = char
       currentY += lineHeight
+      linesDrawn++
     } else {
       line = testLine
     }
   }
-  ctx.fillText(line, x, currentY)
+  if (linesDrawn < maxLines) {
+    ctx.fillText(line, x, currentY)
+  }
 }
 
 interface Props {
@@ -107,7 +112,7 @@ export default function ShareCard({ food }: Props) {
       })
       ctx.fillStyle = '#374151'
       ctx.font = '14px sans-serif'
-      ctx.fillText(`성분 ${total}개`, cx, 438)
+      ctx.fillText(`성분 ${total}개${total > 20 ? ' (상위 20개)' : ''}`, cx, 438)
     }
 
     // 영양 정보
@@ -129,7 +134,9 @@ export default function ShareCard({ food }: Props) {
     const a = document.createElement('a')
     a.href = canvas.toDataURL('image/png')
     a.download = `petbkk-${food.id}-grade-${grade ?? 'unknown'}.png`
+    document.body.appendChild(a)
     a.click()
+    document.body.removeChild(a)
   }
 
   return (
