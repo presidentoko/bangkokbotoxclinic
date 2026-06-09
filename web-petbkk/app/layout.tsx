@@ -31,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 { href: '/compare',     label: 'เปรียบเทียบ' },
                 { href: '/cost',        label: 'ค่าใช้จ่าย' },
                 { href: '/age',         label: 'คำนวณอายุ' },
+                { href: '/vaccine',     label: '💉 วัคซีน' },
                 { href: '/ingredients', label: 'ส่วนผสม' },
                 { href: '/saved',       label: '❤️ บันทึก' },
               ].map(l => (
