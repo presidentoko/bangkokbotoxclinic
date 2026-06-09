@@ -136,12 +136,13 @@ export default async function og({ params }: { params: Promise<{ slug: string }>
         <div
           style={{
             display: 'flex',
-            fontSize: 18,
-            color: '#9ca3af',
+            fontSize: 20,
+            color: '#f97316',
+            fontWeight: 700,
             marginTop: 'auto',
           }}
         >
-          ThailandPetHub.com
+          ThailandPetHub.com — หาโรงพยาบาลสัตว์ฟรี
         </div>
       </div>
 
