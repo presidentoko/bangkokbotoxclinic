@@ -4,8 +4,25 @@ import CompareTray from '@/components/CompareTray'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.thailandpethub.com'),
-  title: 'PetBKK — ตรวจสอบอาหารและโรงพยาบาลสัตว์เลี้ยงในกรุงเทพ',
-  description: 'ตรวจสอบส่วนประกอบอาหารสัตว์เลี้ยงและค้นหาโรงพยาบาลสัตว์ 24 ชั่วโมงในกรุงเทพมหานคร',
+  title: {
+    default: 'PetBKK — ตรวจสอบอาหารและโรงพยาบาลสัตว์เลี้ยงในไทย',
+    template: '%s | ThailandPetHub',
+  },
+  description: 'ตรวจสอบส่วนประกอบอาหารสัตว์เลี้ยง เกรด A-F ค้นหาโรงพยาบาลสัตว์ 24 ชั่วโมงใกล้คุณ เครื่องมือครบครันสำหรับเจ้าของสัตว์เลี้ยง ฟรี 100%',
+  keywords: ['อาหารสัตว์เลี้ยง', 'โรงพยาบาลสัตว์', 'สุนัข', 'แมว', 'ตรวจสอบอาหารสัตว์', 'โรงพยาบาลสัตว์ 24 ชั่วโมง', 'ไทย'],
+  openGraph: {
+    type: 'website',
+    locale: 'th_TH',
+    url: 'https://www.thailandpethub.com',
+    siteName: 'ThailandPetHub',
+    title: 'PetBKK — ตรวจสอบอาหารและโรงพยาบาลสัตว์เลี้ยง',
+    description: 'ตรวจสอบส่วนประกอบอาหารสัตว์เลี้ยง เกรด A-F ค้นหาโรงพยาบาลสัตว์ใกล้คุณ ฟรี 100%',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PetBKK — ดูแลสัตว์เลี้ยงครบจบที่นี่',
+    description: 'ตรวจสอบอาหาร หาโรงพยาบาล เครื่องมือครบสำหรับเจ้าของสัตว์เลี้ยง ฟรี 100%',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

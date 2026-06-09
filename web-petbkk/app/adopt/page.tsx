@@ -2,8 +2,14 @@ import type { Metadata } from 'next'
 import shelters from '@/data/shelters.json'
 
 export const metadata: Metadata = {
-  title: 'รับเลี้ยงสัตว์ — PetBKK',
-  description: 'หาบ้านให้น้องหมาน้องแมวที่ต้องการความรัก อย่าซื้อ ให้รับเลี้ยง',
+  title: 'รับเลี้ยงสัตว์จรจัด — ไม่ต้องซื้อ ให้รับเลี้ยงแทน',
+  description: 'สัตว์จรจัดในไทยกว่า 5 ล้านตัวรอบ้านใหม่ ดูรายชื่อองค์กรรับเลี้ยงสัตว์ที่เชื่อถือได้ฟรี ไม่มีค่าใช้จ่าย',
+  openGraph: {
+    title: 'รับเลี้ยงสัตว์จรจัด — อย่าซื้อ ให้รับเลี้ยงแทน',
+    description: 'สัตว์จรจัดในไทยกว่า 5 ล้านตัวรอบ้านใหม่ ดูรายชื่อองค์กรรับเลี้ยงสัตว์ 6 แห่งในไทย',
+    url: 'https://www.thailandpethub.com/adopt',
+    type: 'website',
+  },
 }
 
 interface Shelter {
