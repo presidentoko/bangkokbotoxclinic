@@ -102,21 +102,30 @@ const GROUPS: Group[] = [
 export default function IngredientsPage() {
   return (
     <main className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2">ส่วนประกอบที่ควรหลีกเลี่ยงในอาหารสัตว์เลี้ยง</h1>
-      <p className="text-sm text-gray-400 mb-8">
-        ข้อมูลอ้างอิงจากมาตรฐาน AAFCO, EFSA และงานวิจัยด้านโภชนาการสัตว์
-      </p>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">🔬 ส่วนผสมอันตราย</h1>
+      <p className="text-sm text-gray-400 mb-6">รู้จักส่วนผสมที่ควรหลีกเลี่ยงในอาหารสัตว์เลี้ยง</p>
 
       <div className="space-y-8">
         {GROUPS.map(group => (
           <section key={group.grade}>
-            <div className="flex items-center gap-3 mb-4">
-              <span className={`w-4 h-4 rounded-full flex-shrink-0 ${group.bgColor}`} />
-              <h2 className={`font-bold text-base ${group.color}`}>{group.label}</h2>
-            </div>
+            {group.grade === 'black' ? (
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xl">⛔</span>
+                <h2 className="text-lg font-black text-gray-900">หลีกเลี่ยงอย่างเคร่งครัด</h2>
+                <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-bold">อันตรายมาก</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xl">⚠️</span>
+                <h2 className="text-lg font-black text-gray-900">ควรระวัง</h2>
+                <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">จำกัดปริมาณ</span>
+              </div>
+            )}
             <div className="space-y-3">
               {group.items.map(item => (
-                <div key={item.name} className="bg-white rounded-xl border p-4">
+                <div key={item.name} className={`bg-white rounded-xl border p-4 border-l-4 ${
+                  group.grade === 'black' ? 'border-l-red-500' : 'border-l-orange-400'
+                }`}>
                   <div className="flex items-start justify-between gap-3 mb-1">
                     <p className="font-semibold text-gray-900 text-sm">{item.name}</p>
                     <span className={`flex-shrink-0 text-xs px-2 py-0.5 rounded-full font-medium ${
@@ -137,7 +146,11 @@ export default function IngredientsPage() {
       </div>
 
       <div className="mt-10 bg-green-50 border border-green-100 rounded-2xl p-6">
-        <h2 className="font-bold text-gray-900 mb-4">ส่วนประกอบที่ดี — หมายสีเขียว ✅</h2>
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-xl">✅</span>
+          <h2 className="text-lg font-black text-gray-900">ส่วนผสมที่ดี</h2>
+          <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-xs font-bold">แนะนำ</span>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700">
           {[
             { name: 'Chicken / Beef / Fish (ระบุชนิดชัดเจน)', desc: 'เนื้อสัตว์จริง คุณภาพดี' },
@@ -147,7 +160,7 @@ export default function IngredientsPage() {
             { name: 'Blueberry / Cranberry', desc: 'แอนตี้ออกซิแดนท์ธรรมชาติ' },
             { name: 'Probiotics (Lactobacillus)', desc: 'ดีต่อลำไส้และระบบภูมิคุ้มกัน' },
           ].map(item => (
-            <div key={item.name} className="flex items-start gap-2">
+            <div key={item.name} className="bg-white rounded-xl border border-l-4 border-l-green-500 p-3 flex items-start gap-2">
               <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>
               <div>
                 <p className="font-medium text-sm">{item.name}</p>

@@ -41,10 +41,10 @@ const FOODS: ToxicFood[] = [
     symptoms: 'ดื่มน้ำมาก เดินเซ ไตวาย', why: 'โซเดียมเกินทำให้เซลล์ขาดน้ำ โดยเฉพาะสมองและไต' },
 ]
 
-const SEV: Record<string, { bg: string; text: string; label: string }> = {
-  deadly:  { bg: 'bg-gray-900', text: 'text-white',     label: 'อันตรายถึงชีวิต' },
-  serious: { bg: 'bg-red-100',  text: 'text-red-700',   label: 'อันตรายสูง' },
-  mild:    { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'ระวัง' },
+const SEV: Record<string, { cls: string; label: string }> = {
+  deadly:  { cls: 'bg-red-600 text-white px-2.5 py-0.5 rounded-full text-xs font-bold',         label: 'อันตรายถึงชีวิต' },
+  serious: { cls: 'bg-orange-500 text-white px-2.5 py-0.5 rounded-full text-xs font-bold',      label: 'อันตรายสูง' },
+  mild:    { cls: 'bg-yellow-500 text-white px-2.5 py-0.5 rounded-full text-xs font-bold',      label: 'ระวัง' },
 }
 
 export default function ToxicPage() {
@@ -70,13 +70,11 @@ export default function ToxicPage() {
         }}
       />
 
-      <h1 className="text-2xl font-bold mb-2">อาหารที่ห้ามให้สุนัขและแมวกิน</h1>
-      <p className="text-sm text-gray-400 mb-2">
-        อาหารเหล่านี้อาจดูไม่อันตรายสำหรับมนุษย์ แต่เป็นพิษต่อสัตว์เลี้ยง
-      </p>
+      <h1 className="text-2xl font-black text-gray-900 mb-1">⚠️ อาหารต้องห้าม</h1>
+      <p className="text-sm text-gray-400 mb-2">12 อาหารที่เป็นพิษต่อสุนัขและแมว</p>
       <div className="flex gap-2 mb-8">
         {Object.entries(SEV).map(([k, v]) => (
-          <span key={k} className={`text-xs px-2.5 py-1 rounded-full font-medium ${v.bg} ${v.text}`}>{v.label}</span>
+          <span key={k} className={v.cls}>{v.label}</span>
         ))}
       </div>
 
@@ -84,21 +82,21 @@ export default function ToxicPage() {
         {FOODS.map(food => {
           const sev = SEV[food.severity]
           return (
-            <div key={food.name} className="bg-white rounded-xl border p-4">
+            <div key={food.name} className="bg-white rounded-xl border p-4 hover:shadow-md transition-all">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div>
-                  <p className="font-bold text-gray-900">{food.nameTh}</p>
+                  <p className="font-black text-lg text-gray-900">{food.nameTh}</p>
                   <p className="text-xs text-gray-400">{food.name}</p>
                 </div>
                 <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${sev.bg} ${sev.text}`}>
-                    {sev.label}
+                  <span className={sev.cls}>{sev.label}</span>
+                  <span className={
+                    food.toxicFor === 'dog'  ? 'bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs' :
+                    food.toxicFor === 'cat'  ? 'bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs' :
+                                               'bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs'
+                  }>
+                    {food.toxicFor === 'dog' ? '🐕 สุนัข' : food.toxicFor === 'cat' ? '🐈 แมว' : '🐾 ทั้งคู่'}
                   </span>
-                  {food.toxicFor !== 'both' && (
-                    <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full">
-                      {food.toxicFor === 'dog' ? '🐕 สุนัขเท่านั้น' : '🐈 แมวเท่านั้น'}
-                    </span>
-                  )}
                 </div>
               </div>
               <p className="text-xs text-gray-500 mb-1"><span className="font-medium">สาเหตุ:</span> {food.why}</p>
