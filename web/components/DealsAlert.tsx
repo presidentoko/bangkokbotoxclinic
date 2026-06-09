@@ -33,6 +33,7 @@ export default function DealsAlert() {
 
   useEffect(() => {
     setMounted(true);
+    if (window.location.pathname.startsWith("/dashboard") || window.location.pathname.startsWith("/admin")) return;
     const ts = localStorage.getItem(KEY);
     if (ts) {
       const hoursAgo = (Date.now() - Number(ts)) / 3600_000;

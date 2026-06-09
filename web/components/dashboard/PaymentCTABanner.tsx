@@ -58,7 +58,7 @@ export function PaymentCTABanner({
             href="/for-clinics#pricing"
             className="rounded-xl bg-white text-emerald-800 px-4 py-2 text-sm font-black shadow hover:bg-emerald-50 whitespace-nowrap"
           >
-            Start 14-day free trial →
+            Start 30-day free trial →
           </a>
           <button
             onClick={() => {

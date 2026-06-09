@@ -342,7 +342,7 @@ export function DashboardView({
           Without the top-14 offset the two stuck headers overlap at the same y=0 line
           and their text bleeds into each other. */}
       <div className="bg-white border-b border-[var(--border)] sticky top-14 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
+        <div className="max-w-7xl mx-auto px-4 xl:pl-52 py-3 flex items-center justify-between gap-3 flex-wrap">
           <div className="min-w-0 flex-1">
             <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[var(--muted)] truncate">
               Owner mode · <span className="hidden sm:inline">Refreshed daily from public Google data</span><span className="sm:hidden">Daily refresh</span>

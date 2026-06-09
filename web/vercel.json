@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "next build",
   "framework": "nextjs",
+  "ignoreCommand": "[ -z \"$(git diff HEAD^ HEAD -- web/)\" ] && exit 1; exit 0",
   "regions": ["sin1"],
   "crons": [
     {

@@ -41,7 +41,7 @@ export default function PartnerOnboardingForm() {
       <div className="rounded-2xl border-2 border-emerald-300 bg-emerald-50 p-6 text-center">
         <div className="text-4xl mb-2">✓</div>
         <h3 className="text-xl font-black mb-1">We&apos;ll be in touch within 24h</h3>
-        <p className="text-sm text-[rgb(var(--muted))]">Our partner team reviews every application. If approved, we&apos;ll send you a 14-day free trial link.</p>
+        <p className="text-sm text-[rgb(var(--muted))]">Our partner team reviews every application. If approved, we&apos;ll send you a 30-day free trial link.</p>
       </div>
     );
   }
@@ -51,7 +51,7 @@ export default function PartnerOnboardingForm() {
       <div className="mb-4">
         <div className="text-xs font-black uppercase tracking-widest text-emerald-700">For clinic owners</div>
         <h3 className="text-xl sm:text-2xl font-black tracking-tight mt-1">Become a verified partner</h3>
-        <p className="text-sm text-[rgb(var(--muted))] mt-1">14-day free trial · cancel anytime · no setup fee.</p>
+        <p className="text-sm text-[rgb(var(--muted))] mt-1">30-day free trial · cancel anytime · no setup fee.</p>
       </div>
       <form onSubmit={submit} className="grid sm:grid-cols-2 gap-3">
         <input required placeholder="Clinic name *" value={f.clinic} onChange={(e) => setF({ ...f, clinic: e.target.value })}
