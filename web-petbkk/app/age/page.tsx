@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo } from 'react'
+import AgeShareCard from '@/components/AgeShareCard'
 
 type Species = 'dog' | 'cat'
 type Size    = 'small' | 'medium' | 'large'
@@ -118,6 +119,12 @@ export default function AgePage() {
           <p className="text-center text-sm text-gray-500">
             {name || petLabel} {petEmoji} อายุ {age} ปี — {stage}
           </p>
+          <AgeShareCard
+            petAge={age}
+            humanAge={humanAge}
+            species={species}
+            petName={name || undefined}
+          />
         </div>
       )}
 
