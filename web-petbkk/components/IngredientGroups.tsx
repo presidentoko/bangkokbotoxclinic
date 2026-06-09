@@ -21,7 +21,7 @@ function Group({ grade, items }: { grade: GradeKey; items: Ingredient[] }) {
       <div className="flex items-center gap-2 mb-2">
         <span>{cfg.emoji}</span>
         <span className={`text-sm font-semibold ${cfg.textCls}`}>
-          {cfg.label} ({items.length}개)
+          {cfg.label} ({items.length} รายการ)
         </span>
       </div>
       <div className="flex flex-wrap gap-1.5">
@@ -39,7 +39,7 @@ function Group({ grade, items }: { grade: GradeKey; items: Ingredient[] }) {
           onClick={() => setExpanded(e => !e)}
           className={`mt-2 text-xs underline ${cfg.textCls}`}
         >
-          {expanded ? '접기' : `+ ${items.length - 5}개 더보기`}
+          {expanded ? 'ย่อลง' : `+ ดูเพิ่ม ${items.length - 5} รายการ`}
         </button>
       )}
     </div>

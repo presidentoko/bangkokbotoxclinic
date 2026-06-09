@@ -53,30 +53,25 @@ export default function ShareCard({ food }: Props) {
     canvas.width = W
     canvas.height = H
 
-    // 배경 그라데이션
     const grad = ctx.createLinearGradient(0, 0, 0, H)
     grad.addColorStop(0, cfg.bg1)
     grad.addColorStop(1, cfg.bg2)
     ctx.fillStyle = grad
     ctx.fillRect(0, 0, W, H)
 
-    // PetBKK 로고 (좌상단)
     ctx.fillStyle = '#ea580c'
     ctx.font = 'bold 22px sans-serif'
     ctx.textAlign = 'left'
     ctx.fillText('🐾 PetBKK', 36, 52)
 
-    // 브랜드
     ctx.fillStyle = '#6b7280'
     ctx.font = '16px sans-serif'
     ctx.fillText(food.brand, 36, 110)
 
-    // 사료 이름 (줄바꿈 처리)
     ctx.fillStyle = '#111827'
     ctx.font = 'bold 22px sans-serif'
     wrapText(ctx, food.name_th || food.name_en, 36, 148, W - 72, 32)
 
-    // 등급 원
     const cx = W / 2, cy = 295, r = 58
     ctx.beginPath()
     ctx.arc(cx, cy, r, 0, Math.PI * 2)
@@ -88,12 +83,10 @@ export default function ShareCard({ food }: Props) {
     ctx.textAlign = 'center'
     ctx.fillText(grade ?? '?', cx, cy + 19)
 
-    // 등급 레이블
     ctx.fillStyle = cfg.color
     ctx.font = 'bold 17px sans-serif'
     ctx.fillText(`เกรด ${grade ?? '?'} · ${cfg.label}`, cx, cy + 82)
 
-    // 성분 도트 (최대 20개)
     const total = food.green_count + food.yellow_count + food.red_count + food.black_count
     const dots = [
       ...Array(food.green_count).fill('#16a34a'),
@@ -116,7 +109,6 @@ export default function ShareCard({ food }: Props) {
       ctx.fillText(`ส่วนประกอบ ${total}รายการ${total > 20 ? ' (20 อันดับแรก)' : ''}`, cx, 438)
     }
 
-    // 영양 정보
     ctx.fillStyle = '#374151'
     ctx.font = '15px sans-serif'
     ctx.fillText(`โปรตีน ${food.protein_dm}%  ·  AAFCO ${food.aafco_meets ? 'ผ่าน' : 'ไม่ผ่าน'}`, cx, 472)
