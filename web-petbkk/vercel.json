@@ -1,6 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "next build",
-  "framework": "nextjs",
-  "ignoreCommand": "git diff HEAD^ HEAD --quiet -- web-petbkk/ data/petfood.json data/hospitals.json data/petreviews.json"
+  "framework": "nextjs"
 }
