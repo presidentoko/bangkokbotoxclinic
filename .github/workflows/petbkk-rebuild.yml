@@ -11,4 +11,9 @@ jobs:
     steps:
       - name: Trigger Vercel rebuild
         run: |
-          curl -X POST "${{ secrets.VERCEL_PETBKK_DEPLOY_HOOK }}"
+          HOOK="${{ secrets.VERCEL_PETBKK_DEPLOY_HOOK }}"
+          if [ -z "$HOOK" ]; then
+            echo "VERCEL_PETBKK_DEPLOY_HOOK secret not set — skipping"
+            exit 0
+          fi
+          curl -X POST "$HOOK"
