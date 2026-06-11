@@ -1,7 +1,7 @@
 # Bangkok Clinics & Dental Network — Repo Guide
 
 이 레포는 **스크래퍼 + 웹사이트 모노레포**입니다.
-운영 사이트: bangkokbotoxclinic.com · thaidentalclinic.com · thaifacialclinic.com
+운영 사이트: bangkokbotoxclinic.com · bangkokbestclinic.com · thaifacialclinic.com
 
 ---
 
@@ -9,7 +9,7 @@
 
 - **petbkk (thailandpethub.com)** 는 이 레포와 **완전히 별개 프로젝트** — Vercel 팀도 다름 (`umma-5829s-projects`). 이 레포에서 절대 건드리지 말 것.
 - Vercel 배포 프로젝트 2개가 같은 `web/` 폴더 공유:
-  - `dental` → thaidentalclinic.com (project.json: `web/.vercel/project.json`)
+  - `dental` → bangkokbestclinic.com (project.json: `web/.vercel/project.json`)
   - `bangkokbotoxclinic` → bangkokbotoxclinic.com (root `.vercel/project.json`)
   - 둘 다 team: `chillanel22-6095s-projects`
 
