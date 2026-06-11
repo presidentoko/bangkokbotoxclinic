@@ -29,6 +29,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
+_WNOW = 0x08000000  # CREATE_NO_WINDOW — 모든 subprocess 호출에 적용해 cmd 창 깜빡임 방지
+
 ROOT = Path(__file__).parent.parent
 RUN = ROOT / "run"
 LOGS = ROOT / "logs"
@@ -194,6 +196,7 @@ class Service:
             subprocess.run(
                 ["taskkill", "/F", "/T", "/PID", str(pid)],
                 stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=15,
+                creationflags=_WNOW,
             )
         except (subprocess.SubprocessError, OSError):
             pass
@@ -203,6 +206,7 @@ class Service:
                 ["wmic", "process", "where", f"ProcessId={pid}",
                  "get", "ParentProcessId", "/format:list"],
                 stderr=subprocess.DEVNULL, text=True, timeout=10,
+                creationflags=_WNOW,
             )
             for line in out.splitlines():
                 line = line.strip()
@@ -212,6 +216,7 @@ class Service:
                         subprocess.run(
                             ["taskkill", "/F", "/T", "/PID", str(parent)],
                             stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=10,
+                            creationflags=_WNOW,
                         )
                     break
         except (subprocess.SubprocessError, OSError, ValueError):
@@ -272,10 +277,12 @@ class Service:
         # CREATE_NO_WINDOW: console 안 띄우는 백그라운드 (cmd 깜빡임 방지)
         # CREATE_NEW_PROCESS_GROUP: ctrl+c 등 부모 시그널 격리
         # CREATE_BREAKAWAY_FROM_JOB: schtasks/conhost 의 job 객체에서 분리되어 부모 죽어도 생존
+        # BELOW_NORMAL_PRIORITY_CLASS: CPU 100% 지속시 OS가 자동 양보 → thermal shutdown 방지
         CREATE_NO_WINDOW = 0x08000000
         CREATE_NEW_PROCESS_GROUP = 0x00000200
         CREATE_BREAKAWAY_FROM_JOB = 0x01000000
-        creationflags = CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP | CREATE_BREAKAWAY_FROM_JOB
+        BELOW_NORMAL_PRIORITY_CLASS = 0x00004000
+        creationflags = CREATE_NO_WINDOW | CREATE_NEW_PROCESS_GROUP | CREATE_BREAKAWAY_FROM_JOB | BELOW_NORMAL_PRIORITY_CLASS
 
         proc = subprocess.Popen(
             [str(VENV_PY)] + self.cmd,
@@ -309,6 +316,7 @@ class Service:
                      f"ParentProcessId={launcher_pid} and Name='python.exe'",
                      "get", "ProcessId", "/format:list"],
                     stderr=subprocess.DEVNULL, text=True, timeout=5,
+                    creationflags=_WNOW,
                 )
                 for line in out.splitlines():
                     line = line.strip()
@@ -331,6 +339,7 @@ def _pid_alive(pid: int) -> bool:
         out = subprocess.check_output(
             ["tasklist", "/FI", f"PID eq {pid}", "/NH"],
             stderr=subprocess.DEVNULL, text=True, timeout=10,
+            creationflags=_WNOW,
         )
     except (subprocess.SubprocessError, OSError):
         return False

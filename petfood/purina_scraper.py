@@ -92,11 +92,11 @@ def _parse_product_page(page: Page, url: str, animal: str) -> dict | None:
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=30000)
         time.sleep(3)
-        body = page.inner_text("body")
+        body = page.inner_text("body") or ""
 
         title = ""
         try:
-            title = page.inner_text("h1").strip()
+            title = (page.inner_text("h1") or "").strip()
         except Exception:
             pass
         if not title:
@@ -119,8 +119,11 @@ def _parse_product_page(page: Page, url: str, animal: str) -> dict | None:
                 break
 
         def _pct(pattern: str) -> float:
-            m = re.search(pattern + r"[^\d]*(\d+(?:\.\d+)?)\s*%", body, re.IGNORECASE)
-            return float(m.group(1)) if m else 0.0
+            try:
+                m = re.search(pattern + r"[^\d]*(\d+(?:\.\d+)?)\s*%", body, re.IGNORECASE)
+                return float(m.group(1)) if m else 0.0
+            except (TypeError, ValueError):
+                return 0.0
 
         protein = _pct(r"โปรตีน|[Pp]rotein|Crude [Pp]rotein")
         fat = _pct(r"ไขมัน|[Ff]at|Crude [Ff]at")

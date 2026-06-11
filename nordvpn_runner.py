@@ -35,6 +35,8 @@ OVPN_CLI = OVPN_DIR / "dist" / "cli.js"
 # NordVPN template: 기본 .ovpn 아무거나 (verify-x509-name 은 JS 구현이 무시함)
 OVPN_TEMPLATE = BASE / "nordvpn" / "template.ovpn"
 
+_WIN_NO_WINDOW: dict = {"creationflags": 0x08000000} if os.name == "nt" else {}
+
 NORDAPI_TCP = "https://api.nordvpn.com/v1/servers?limit=10000&filters[servers_technologies][identifier]=openvpn_tcp"
 NORDAPI_UDP = "https://api.nordvpn.com/v1/servers?limit=10000&filters[servers_technologies][identifier]=openvpn_udp"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/130.0.0.0"
@@ -89,6 +91,8 @@ class Port:
         kwargs = dict(cwd=str(OVPN_DIR), stdout=logf, stderr=subprocess.STDOUT)
         if hasattr(os, 'setsid'):
             kwargs['start_new_session'] = True
+        if os.name == 'nt':
+            kwargs['creationflags'] = 0x08000000
         self.proc = subprocess.Popen(cmd, **kwargs)
         log(f"port {self.port}: spawn {host} ({ip}:{srv_port}/{proto}) pid={self.proc.pid}")
 
@@ -119,6 +123,7 @@ class Port:
                 ["curl", "--socks5", f"127.0.0.1:{self.port}",
                  "--max-time", str(timeout), "-sf", HEALTH_URL],
                 capture_output=True, text=True, timeout=timeout + 2,
+                **_WIN_NO_WINDOW,
             )
             if r.returncode == 0:
                 self.exit_ip = json.loads(r.stdout).get("origin", "").split(",")[0].strip()
@@ -263,6 +268,7 @@ class Runner:
             out = subprocess.check_output(
                 ["netstat", "-ano", "-p", "TCP"],
                 stderr=subprocess.DEVNULL, text=True, timeout=10,
+                creationflags=0x08000000,
             )
         except (subprocess.SubprocessError, OSError):
             return
@@ -293,6 +299,7 @@ class Runner:
                 subprocess.run(
                     ["taskkill", "/F", "/T", "/PID", str(pid)],
                     stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=5,
+                    creationflags=0x08000000,
                 )
             except (subprocess.SubprocessError, OSError):
                 pass

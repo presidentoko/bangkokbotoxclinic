@@ -1,0 +1,75 @@
+{
+  "search": {
+    "status": 200,
+    "topic_id_count": 10,
+    "topic_id_sample": [
+      "42200087",
+      "42306114",
+      "42317619",
+      "42325725",
+      "42820608"
+    ],
+    "card_selector_hits": {
+      "div.search-result": 0,
+      "li.search-result": 0,
+      "div.result-item": 0,
+      "div.post-item": 0,
+      "article": 0,
+      "div.topic-list": 0,
+      ".search-list-item": 0
+    },
+    "has_next_data": true,
+    "next_data_len": 30203,
+    "inline_json_samples": [
+      "{\"props\":{\"isServer\":true,\"initialState\":{\"global\":{\"baseUrl\":\"pantip.com\",\"cookies\":{\"pantip_visitc\":\"tffuykwHWVbzA5sU1\",\"pst\":\"\",\"wspt\":\"\"}},\"login\":{\"isLoggedIn\":false,\"token\":\"\",\"member\":{\"memberI"
+    ],
+    "html_len": 98073
+  },
+  "thread": {
+    "status": 200,
+    "url": "https://pantip.com/topic/42200087",
+    "selector_hits": {
+      "div.main-post": 1,
+      "div.display-post-wrapper": 3,
+      "article.post": 0,
+      "div.post-message": 0,
+      ".message": 0,
+      ".post-content": 0,
+      "div.display-post-story-block": 0,
+      ".display-post-message": 0
+    },
+    "has_loading_placeholder": true,
+    "api_refs": [],
+    "html_len": 130576
+  },
+  "thread_api_probes": {
+    "https://pantip.com/forum/topic/render_comments?tid=42200087": {
+      "status": 200,
+      "bytes": 3865,
+      "content_type": "text/html",
+      "looks_json": false,
+      "sample": "﻿{\"count\":1,\"check_pinit\":\"false\",\"paging\":{\"page\":1,\"limit\":100,\"limit_reply\":5,\"limit_hybrid_reply\":500,\"defalut\":3,\"topic_id\":42200087,\"param\":\"\",\"type\":\"\",\"st\":\"\",\"ed\":{\"min\":2,\"max\":1,\"total\":0},"
+    },
+    "https://pantip.com/api/forum_service/v1/topic/42200087": {
+      "status": 404,
+      "bytes": 19754,
+      "content_type": "text/html",
+      "looks_json": false,
+      "sample": "<!DOCTYPE HTML>\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"th\" lang=\"th\">\r\n\t<head>\r\n\t\t<link rel=\"icon\" href=\"/fav-icon.ico\" type=\"image/x-icon\" />\r\n\t\t<link rel=\"apple-touch-icon\" href=\"//pt"
+    },
+    "https://pantip.com/forum/topic/render/42200087": {
+      "status": 200,
+      "bytes": 134357,
+      "content_type": "text/html; charset=utf-8",
+      "looks_json": false,
+      "sample": "<!DOCTYPE html><html lang=\"th\"><head><link rel=\"icon\" href=\"https://pantip.com/fav-icon.ico\" type=\"image/x-icon\"/><link rel=\"apple-touch-icon\" href=\"//ptcdn.info/images/apple-touch-icon.png\"/><meta ch"
+    },
+    "https://api.pantip.com/forum/topic/42200087": {
+      "status": 503,
+      "bytes": 3688,
+      "content_type": "text/html; charset=utf-8",
+      "looks_json": false,
+      "sample": "\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"th\" lang=\"th\">\n<head>\n\t<meta http-equiv=\"Content-Type\" content=\"text/html\" charset=\"UTF-8\" />\n\t<meta http-equiv=\"Cache-Control\" content=\"no-cache,"
+    }
+  }
+}

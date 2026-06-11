@@ -1,0 +1,56 @@
+function addBacklinks() {
+	var customStyles = document.createElement("link");
+		customStyles.type = "text/css";
+		customStyles.rel = "stylesheet";
+		customStyles.href = "//app.hd.co.th/assets/css/brand-dir.css";
+		document.head.appendChild(customStyles);
+
+	let brandContainer;
+
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+		brandContainer = document.querySelector("section.layout-brand__container.js-list-packages");
+	} else {
+		brandContainer = document.querySelector(".layout-brand__section-list");
+	}
+
+	let backlinkParent = document.createElement("div");
+		backlinkParent.className = "backlink-parent";
+
+	let backlinkInner = document.createElement("div");
+		backlinkInner.className = "backlink-inner layout-brand__section";
+
+	let backlinkHeader = document.createElement("h3");
+		backlinkHeader.className = "layout-brand__section-title";
+		backlinkHeader.textContent = "พาร์ทเนอร์แนะนำ";
+
+	let brandArr = [
+		["Bangkok Anti-Aging Center","https://static.hdmall.co.th/system/brands/logo/1327/original/Bangkok_Anti-Aging_Center.jpeg","https://hdmall.co.th/bangkok-anti-aging-center"],
+		["N-Health","https://static.hdmall.co.th/system/brands/logo/2/original/n-health-%28%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%97%E0%B9%8C%29.png","https://hdmall.co.th/n-health-%28เอ็นเฮลท์%29"],
+		["Gangnam Clinic","https://static.hdmall.co.th/system/brands/logo/1209/original/Gangnam_Clinic.jpg","https://hdmall.co.th/gangnam-clinic"],
+		["โรงพยาบาลพญาไท 2","https://static.hdmall.co.th/system/brands/logo/746/original/โรงพยาบาลพญาไท-2.png","https://hdmall.co.th/โรงพยาบาลพญาไท-2"],
+		["โรงพยาบาลนวเวช","https://static.hdmall.co.th/system/brands/logo/2135/original/โรงพยาบาลนวเวช.jpg","https://hdmall.co.th/โรงพยาบาลนวเวช"],
+		["โรงพยาบาลนครธน","https://static.hdmall.co.th/system/brands/logo/1077/original/โรงพยาบาลนครธน.jpg","https://hdmall.co.th/โรงพยาบาลนครธน"],
+	];
+
+	brandArr = brandArr
+		.map(value => ({ value, sort: Math.random() }))
+		.sort((a, b) => a.sort - b.sort)
+		.map(({ value }) => value);
+
+	for(let i = 0; i < brandArr.length; i++) {
+		let backlink = document.createElement("a");
+			backlink.href = brandArr[i][2];
+			// backlink.setAttribute("onclick","ga('send','event','Partner Backlink','Click','"+ brandArr[i][0] +"')");
+			backlink.onclick = function() {
+			  ga('send','event','Partner Backlink','Click', brandArr[i][0]);
+			  gtag('event','Partner Backlink',{'Action': 'Click - ' + brandArr[i][0], 'event_label': decodeURI(location.pathname)});
+			};
+			backlink.innerHTML = "<img src=\"" + brandArr[i][1] + "\">";
+
+		backlinkInner.appendChild(backlink);
+	}
+	backlinkParent.prepend(backlinkHeader, backlinkInner);
+	brandContainer.prepend(backlinkParent);
+}
+
+addBacklinks();

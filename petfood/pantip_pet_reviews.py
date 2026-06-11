@@ -115,93 +115,91 @@ def _search_entity(client, queries: list[str], signals: list[str]) -> list[dict]
     threads: list[dict] = []
 
     for query in queries:
-        for page in range(1, MAX_SEARCH_PAGES + 1):
+        try:
+            hits = search(client, query, MAX_SEARCH_PAGES)
+        except Exception as e:
+            log.debug(f"  search '{query}': {e}")
+            continue
+
+        for hit in hits:
+            tid = str(hit.topic_id)
+            if tid in seen_tids:
+                continue
+            seen_tids.add(tid)
+
+            # Quick relevance check from title/snippet
+            combined = (hit.title + " " + hit.snippet).lower()
+            if not any(s.lower() in combined for s in signals):
+                continue
+
             try:
-                hits = search(client, query, page=page)
-                if not hits:
-                    break
-                for hit in hits:
-                    tid = str(hit.topic_id)
-                    if tid in seen_tids:
-                        continue
-                    seen_tids.add(tid)
+                thread = fetch_thread_full(client, tid)
+                if thread is None:
+                    continue
+                full_text = thread.op_body + " " + " ".join(c.body for c in thread.comments[:20])
+                if not any(s.lower() in full_text.lower() for s in signals):
+                    continue
 
-                    # Quick relevance check from title/snippet
-                    combined = (hit.title + " " + hit.snippet).lower()
-                    if not any(s.lower() in combined for s in signals):
-                        continue
+                sent = _sentiment(full_text)
+                snippet = _extract_snippet(full_text, signals[0])
+                threads.append({
+                    "tid": tid,
+                    "title": hit.title,
+                    "url": f"https://pantip.com/topic/{tid}",
+                    "replies": hit.reply_count,
+                    "snippet": snippet,
+                    "sentiment": sent,
+                })
+                log.info(f"    ✓ [{tid}] {hit.title[:50]} ({sent})")
 
-                    # Fetch full thread for snippet extraction
-                    try:
-                        thread = fetch_thread_full(client, tid)
-                        full_text = thread.body + " " + " ".join(c.body for c in thread.comments[:20])
-                        if not any(s.lower() in full_text.lower() for s in signals):
-                            continue
-
-                        snippet = _extract_snippet(full_text, signals[0])
-                        threads.append({
-                            "tid": tid,
-                            "title": hit.title,
-                            "url": f"https://pantip.com/topic/{tid}",
-                            "replies": hit.reply_count,
-                            "snippet": snippet,
-                            "sentiment": _sentiment(full_text),
-                        })
-                        log.info(f"    ✓ [{tid}] {hit.title[:50]} ({_sentiment(full_text)})")
-
-                        if len(threads) >= MAX_THREADS_PER_ENTITY:
-                            return threads
-                        time.sleep(DELAY_SEC)
-                    except Exception as e:
-                        log.debug(f"    thread fetch {tid}: {e}")
+                if len(threads) >= MAX_THREADS_PER_ENTITY:
+                    return threads
+                time.sleep(DELAY_SEC)
             except Exception as e:
-                log.debug(f"  search '{query}' page {page}: {e}")
-                break
-            time.sleep(DELAY_SEC)
+                log.debug(f"    thread fetch {tid}: {e}")
 
     return threads
 
 
+def _make_review_entry(threads: list[dict]) -> dict:
+    pos = [t["snippet"] for t in threads if t["sentiment"] == "positive"][:3]
+    neg = [t["snippet"] for t in threads if t["sentiment"] == "negative"][:2]
+    return {
+        "mention_count": len(threads),
+        "positive_count": sum(1 for t in threads if t["sentiment"] == "positive"),
+        "negative_count": sum(1 for t in threads if t["sentiment"] == "negative"),
+        "positive_snippets": pos,
+        "negative_snippets": neg,
+        "threads": threads[:5],
+        "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    }
+
+
 def _process_foods(client, foods: list[dict]) -> dict:
     results: dict = {}
-    # Group by brand to avoid re-searching same brand 59 times
-    # First do per-brand broad search, then narrow per product
-    brands_done: set[str] = set()
 
-    for i, food in enumerate(foods, 1):
+    # Group by brand — search once per brand, share results across all products
+    from collections import defaultdict
+    by_brand: dict[str, list[dict]] = defaultdict(list)
+    for food in foods:
+        by_brand[food.get("brand", "")].append(food)
+
+    brand_threads: dict[str, list[dict]] = {}
+    for brand, brand_foods in by_brand.items():
+        log.info(f"=== Brand: {brand} ({len(brand_foods)} products) ===")
+        brand_signals = [brand]
+        brand_queries = [brand, f"{brand} อาหารสัตว์เลี้ยง"]
+        threads = _search_entity(client, brand_queries, brand_signals)
+        brand_threads[brand] = threads
+        log.info(f"  brand '{brand}': {len(threads)} threads")
+
+    # Assign brand-level threads to each product (shared)
+    for food in foods:
         food_id = food["id"]
         brand = food.get("brand", "")
-        name_en = food.get("name_en", "")
-        name_th = food.get("name_th", "") or name_en
-
-        log.info(f"[{i}/{len(foods)}] {brand} | {name_en[:40]}")
-
-        # Build search signals
-        signals = [brand]
-        m = re.search(r"\(([A-Z][A-Z0-9 ]+)\)", name_en)
-        if m:
-            signals.append(m.group(1))
-        if name_th and name_th != name_en:
-            signals.append(name_th[:20])
-
-        queries = _build_queries(name_en, name_th, brand)
-        threads = _search_entity(client, queries, signals)
-
+        threads = brand_threads.get(brand, [])
         if threads:
-            pos = [t["snippet"] for t in threads if t["sentiment"] == "positive"][:3]
-            neg = [t["snippet"] for t in threads if t["sentiment"] == "negative"][:2]
-            results[food_id] = {
-                "mention_count": len(threads),
-                "positive_count": sum(1 for t in threads if t["sentiment"] == "positive"),
-                "negative_count": sum(1 for t in threads if t["sentiment"] == "negative"),
-                "positive_snippets": pos,
-                "negative_snippets": neg,
-                "threads": threads[:5],
-                "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            }
-            log.info(f"  → {len(threads)} threads (pos:{len(pos)} neg:{len(neg)})")
-        else:
-            log.info("  → no mentions found")
+            results[food_id] = _make_review_entry(threads)
 
     return results
 

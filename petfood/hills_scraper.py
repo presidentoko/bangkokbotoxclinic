@@ -16,7 +16,7 @@ from petfood.parse_ingredients import parse_ingredients, calc_dry_matter, meets_
 
 ROOT = Path(__file__).parent.parent
 OUTPUT = ROOT / "data" / "petfood.json"
-BASE_URL = "https://www.hillspet.co.th"
+BASE_URL = "https://www.hillspet.com"
 
 CATEGORY_URLS = [
     (f"{BASE_URL}/dog-food", "dog"),

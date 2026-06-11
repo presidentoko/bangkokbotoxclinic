@@ -1,0 +1,6 @@
+(function () {
+  "use strict";
+  const jibImg = document.querySelector(".layout-brand__search--image");
+  if (!jibImg) return;
+  jibImg.src = "https://app.hd.co.th/assets/gif/jibbbbb.gif";
+})();
