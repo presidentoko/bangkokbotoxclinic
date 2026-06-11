@@ -1,6 +1,6 @@
-// Admin session: random opaque token stored in Upstash, NOT the passcode itself.
-// Cookie leak no longer = passcode disclosure.
-// Upstash 미구성 시 (로컬 dev) in-memory fallback. 프로세스 재시작 시 세션 사라짐.
+// Admin session: random opaque token stored in Upstash when available.
+// Upstash 미구성 시 → HMAC-SHA256 서명 기반 stateless 토큰 (serverless 재시작에도 유효).
+// Cookie leak 시 passcode 복원 불가 (두 방식 모두).
 
 import { checkRateLimit } from "./rateLimit";
 
@@ -18,8 +18,35 @@ async function upstash(cmd: (string | number)[]): Promise<unknown> {
   return data.result ?? null;
 }
 
-function makeToken(len = 32): string {
-  // crypto.randomUUID twice + slice = ~64 hex chars without hyphens; trim to len.
+// HMAC-SHA256 stateless fallback — works across serverless instances, no Redis needed.
+// Token format: "<nonce>.<hmac_hex>"  where hmac = HMAC(nonce, ADMIN_PASSCODE)
+async function hmacSign(nonce: string): Promise<string> {
+  const secret = process.env.ADMIN_PASSCODE ?? "";
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(nonce));
+  return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function hmacVerify(token: string): Promise<boolean> {
+  const dot = token.lastIndexOf(".");
+  if (dot < 0) return false;
+  const nonce = token.slice(0, dot);
+  const provided = token.slice(dot + 1);
+  const expected = await hmacSign(nonce);
+  // Constant-time compare to prevent timing attacks.
+  if (expected.length !== provided.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) diff |= expected.charCodeAt(i) ^ provided.charCodeAt(i);
+  return diff === 0;
+}
+
+function makeNonce(len = 32): string {
   const a = (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36)).replace(/-/g, "");
   const b = (globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36)).replace(/-/g, "");
   return (a + b).slice(0, len);
@@ -28,19 +55,15 @@ function makeToken(len = 32): string {
 const KEY = (token: string) => `admin:session:${token}`;
 const TTL_SEC = 60 * 60 * 24 * 7; // 7 days
 
-// In-memory session fallback (dev only). globalThis 에 붙여서 Next.js HMR 시 리셋 방지.
-// Rate limit 은 별도 lib/rateLimit.ts 에서 처리.
-const g = globalThis as unknown as { __adminAuthSessions?: Map<string, number> };
-const stores = { sessions: g.__adminAuthSessions ?? (g.__adminAuthSessions = new Map()) };
-
 export async function createAdminSession(): Promise<string> {
-  const token = makeToken(32);
+  const nonce = makeNonce(32);
   if (HAS_UPSTASH) {
-    await upstash(["SETEX", KEY(token), TTL_SEC, "1"]);
-  } else {
-    stores.sessions.set(token, Date.now() + TTL_SEC * 1000);
+    await upstash(["SETEX", KEY(nonce), TTL_SEC, "1"]);
+    return nonce;
   }
-  return token;
+  // Stateless: embed HMAC signature so any serverless instance can verify.
+  const sig = await hmacSign(nonce);
+  return `${nonce}.${sig}`;
 }
 
 export async function verifyAdminSession(token: string | undefined): Promise<boolean> {
@@ -49,22 +72,15 @@ export async function verifyAdminSession(token: string | undefined): Promise<boo
     const r = await upstash(["GET", KEY(token)]);
     return r === "1";
   }
-  const exp = stores.sessions.get(token);
-  if (!exp) return false;
-  if (exp < Date.now()) {
-    stores.sessions.delete(token);
-    return false;
-  }
-  return true;
+  return hmacVerify(token);
 }
 
 export async function revokeAdminSession(token: string | undefined): Promise<void> {
   if (!token) return;
   if (HAS_UPSTASH) {
     await upstash(["DEL", KEY(token)]);
-  } else {
-    stores.sessions.delete(token);
   }
+  // Stateless tokens cannot be revoked — expiry is enforced by cookie maxAge.
 }
 
 /**

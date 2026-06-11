@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { createAdminSession, adminLoginRateLimitOk } from "@/lib/adminSession";
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (!(await adminLoginRateLimitOk(ip))) {
+    return NextResponse.json({ ok: false }, { status: 429 });
+  }
+
   const { username, passcode } = (await req.json()) as { username?: string; passcode?: string };
   const expectedUser = process.env.ADMIN_USERNAME;
   const expectedPass = process.env.ADMIN_PASSCODE;
@@ -10,12 +16,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
+  const token = await createAdminSession();
   const res = NextResponse.json({ ok: true });
-  const value = Buffer.from(expectedPass).toString("base64");
-  // path: "/" so the cookie is sent on /api/admin/* requests too, not just /admin/*.
-  // The earlier value of "/admin" scoped the cookie to /admin pages only — every
-  // mutation hitting /api/admin/<route> returned 401 because the cookie was absent.
-  res.cookies.set("admin_session", value, {
+  res.cookies.set("admin_session", token, {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
