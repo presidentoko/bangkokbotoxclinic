@@ -26,6 +26,11 @@ def build_db(products: list[dict], reviews_by_id: dict,
     _all_ppml = [p["_ppml"] for p in products if p["_ppml"]]
     med_ppml = statistics.median(_all_ppml) if _all_ppml else 0.0
 
+    # Ingredient score above this threshold auto-promotes a product into the concern's
+    # seed pool even if not explicitly tagged by the scraper. Keeps the ranking pool
+    # honest: products with no meaningful actives for a concern stay out.
+    AUTO_SEED_THRESHOLD = 30
+
     out_products = {}
     for p in products:
         ing_list = p.get("ingredients", [])
@@ -56,18 +61,38 @@ def build_db(products: list[dict], reviews_by_id: dict,
             rec["watsons"] = wt
         out_products[p["product_id"]] = rec
 
+    # Auto-enrich concern_seeds: products with ingredient_score >= AUTO_SEED_THRESHOLD
+    # for a concern get that concern added to their seeds. Expands thin pools like
+    # antiaging (217→more) and oilcontrol (29→more) without manual re-tagging.
+    # Only applies when ingredient_analysis is present (score > BASE implies real actives).
+    auto_tagged_counts: dict[str, int] = {c: 0 for c in scoring.CONCERNS}
+    for pp in out_products.values():
+        seeds = pp.get("concern_seeds", "")
+        if isinstance(seeds, list):
+            current = set(seeds)
+        else:
+            current = set(s.strip() for s in seeds.split("|") if s.strip())
+        enriched = False
+        for c in scoring.CONCERNS:
+            if c not in current and pp["ingredient_score"].get(c, 0) >= AUTO_SEED_THRESHOLD:
+                current.add(c)
+                auto_tagged_counts[c] += 1
+                enriched = True
+        if enriched:
+            pp["concern_seeds"] = list(current)
+    for c, n in auto_tagged_counts.items():
+        if n:
+            print(f"  auto-tagged {n} products → {c}")
+
+    def _in_seeds(pp: dict, concern: str) -> bool:
+        cs = pp.get("concern_seeds", "")
+        if isinstance(cs, list):
+            return concern in cs
+        return concern in cs.split("|")
+
     rankings = {}
     for c in scoring.CONCERNS:
-        def _in_seeds(pp: dict, concern: str = c) -> bool:
-            cs = pp.get("concern_seeds", "")
-            if isinstance(cs, list):
-                return concern in cs
-            # str: may be a single concern or "|"-joined list
-            return concern in cs.split("|")
-        pool = [
-            pp for pp in out_products.values()
-            if _in_seeds(pp) or pp["ingredient_score"][c] > scoring._BASE
-        ] or list(out_products.values())
+        pool = [pp for pp in out_products.values() if _in_seeds(pp, c)] or list(out_products.values())
         ranked = scoring.rank_products(pool, c)
         rankings[c] = [{"product_id": pp["product_id"], "total_score": pp["total_score"][c]} for pp in ranked]
     return {"generated_at": None, "products": out_products, "rankings": rankings}
