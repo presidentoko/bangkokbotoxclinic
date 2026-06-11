@@ -141,6 +141,15 @@ function isBadName(name) {
   return BAD_NAME_PATTERNS.some((re) => re.test(n));
 }
 
+// For Bookimed-only entries (no Google place_id), require hair keywords in name or procedures.
+// Bookimed category alone is unreliable — wellness clinics get miscategorized as "Hair Transplant".
+const HAIR_KEYWORDS = /hair|transplant|ผม|โกร|hair loss|fue|fut|prp|hairline|scalp|ศีรษะล้าน|ปลูกผม/i;
+function isHairRelevantStrict(r) {
+  if (!r.place_id.startsWith("bm_")) return true; // Google Maps data — trust existing flag
+  const text = `${r.name} ${r.procedures || ""}`;
+  return HAIR_KEYWORDS.test(text);
+}
+
 function normalizeCity(city, address) {
   const c = String(city || "").trim();
   if (c && c.toLowerCase() !== "nan" && c.toLowerCase() !== "null") return c;
@@ -226,6 +235,7 @@ const clinics = rows
         ar: r.is_arabic_friendly === "True",
       },
       is_hair_relevant: r.is_hair_relevant === "True",
+      _hair_strict: isHairRelevantStrict(r),
       // Source counts (badge data)
       source_badges: {
         google_reviews: num(r.reviews_scraped_count) || 0,
@@ -241,7 +251,8 @@ const clinics = rows
       is_partner: false,
     };
   })
-  .filter((c) => c.is_hair_relevant) // ship only hair-relevant in v1
+  .filter((c) => c.is_hair_relevant && c._hair_strict)
+  .map(({ _hair_strict, ...c }) => c)
   .sort((a, b) => b.trust_score - a.trust_score);
 
 // Mark top 3 as partners for demo (B2B monetization slot)
