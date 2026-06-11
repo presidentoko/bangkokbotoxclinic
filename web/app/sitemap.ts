@@ -56,7 +56,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const d of districts) {
+  // District pages — only include districts with enough clinics to have real content
+  for (const [d, count] of Object.entries(db.district_counts)) {
+    if ((count as number) < 5) continue; // skip near-empty districts
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({
       url: `${SITE}/d/${slug}`,
@@ -65,6 +67,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     });
     for (const s of SERVICES) {
+      // Only include service×district combos with real content
+      const comboCount = db.clinics.filter(
+        (c) => (c.district || "").toLowerCase().replace(/\s+/g, "-") === slug &&
+               (c.categories || []).includes(s)
+      ).length;
+      if (comboCount < 3) continue;
       items.push({
         url: `${SITE}/c/${s}/${slug}`,
         lastModified: updated,
@@ -74,12 +82,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
+  // Clinic pages — only index clinics with enough quality signals
   for (const c of db.clinics) {
+    if (c.trust_score < 40) continue; // skip low-quality listings
     items.push({
       url: `${SITE}/clinic/${c.id}`,
       lastModified: updated,
       changeFrequency: "weekly",
-      priority: c.trust_score >= 70 ? 0.8 : c.trust_score >= 50 ? 0.6 : 0.4,
+      priority: c.trust_score >= 70 ? 0.8 : c.trust_score >= 50 ? 0.6 : 0.45,
     });
   }
 

@@ -1,12 +1,6 @@
-// ⚠️ AUTO-GENERATED from shared/components/SearchBar.tsx
-// DO NOT edit directly — edit shared/components/SearchBar.tsx, then run `python scripts/sync_shared.py`.
-
 "use client";
-// 클라이언트 검색 — entities (clinic / restaurant / course)에서 즉시 필터.
-// site별 차이는 props 로 흡수: hrefBase ("/clinic" | "/restaurant" | "/course"),
-// lang (en/ko/th), placeholder.
-
 import { useState, useMemo, useEffect, useRef } from "react";
+import Fuse from "fuse.js";
 
 export type SearchableEntity = {
   id: string;
@@ -50,18 +44,30 @@ export function SearchBar({
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
+  const fuse = useMemo(
+    () =>
+      new Fuse(entities, {
+        keys: [
+          { name: "name", weight: 4 },
+          { name: "district", weight: 2 },
+          { name: "city_label", weight: 1.5 },
+        ],
+        threshold: 0.35,
+        includeScore: true,
+        ignoreLocation: true,
+        minMatchCharLength: 2,
+      }),
+    [entities]
+  );
+
   const results = useMemo(() => {
     if (q.trim().length < 2) return [];
-    const lower = q.toLowerCase();
-    return entities
-      .filter((e) =>
-        e.name.toLowerCase().includes(lower) ||
-        (e.district && e.district.toLowerCase().includes(lower)) ||
-        (e.city_label && e.city_label.toLowerCase().includes(lower))
-      )
-      .sort((a, b) => b.trust_score - a.trust_score)
-      .slice(0, 10);
-  }, [q, entities]);
+    return fuse
+      .search(q)
+      .slice(0, 10)
+      .sort((a, b) => (b.item.trust_score - a.item.trust_score))
+      .map((r) => r.item);
+  }, [q, fuse]);
 
   return (
     <div ref={ref} className="relative">

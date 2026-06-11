@@ -48,21 +48,19 @@ const PantipMentions = dynamic(
   { ssr: true }
 );
 
-// 서버 비용 극단 최소화: top 100 클리닉만 pre-build.
-// 나머지는 첫 방문 시 on-demand 생성 → 7일 캐시 (트래픽 적은 페이지는 거의 재생성 안 됨).
-// Vercel Hobby: build minutes 절감 + serverless function 호출 절감.
-export const revalidate = 604800;      // 7일 (트래픽 많은 페이지만 자주 갱신)
-export const dynamicParams = true;     // 미빌드 페이지도 on-demand 허용
+// top 500 클리닉 pre-build — Google 크롤 시 cold start 없애서 인덱싱 개선.
+// 나머지는 첫 방문 시 on-demand 생성 → 7일 캐시.
+export const revalidate = 604800;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  // 우선순위: trust_score × log(1+total_reviews) — 신뢰도+인기 가중
   const ranked = [...db.clinics].sort((a, b) => {
     const sa = (a.trust_score || 0) * Math.log(1 + (a.total_reviews || 0));
     const sb = (b.trust_score || 0) * Math.log(1 + (b.total_reviews || 0));
     return sb - sa;
   });
-  return ranked.slice(0, 100).map((c) => ({ id: c.id }));
+  return ranked.slice(0, 500).map((c) => ({ id: c.id }));
 }
 
 export async function generateMetadata(
