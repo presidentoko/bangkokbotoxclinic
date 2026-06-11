@@ -160,9 +160,33 @@ def _load_pantip(product_id: str) -> "dict | None":
         "snippets": compact_snippets,
     }
 
+def _load_ingredient_patches() -> dict[str, list[str]]:
+    patch_file = config.STATE_DIR / "ingredient_patches.json"
+    if patch_file.exists():
+        try:
+            return json.loads(patch_file.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+
 def main() -> int:
     products = [json.loads(f.read_text(encoding="utf-8"))
                 for f in sorted((config.OUTPUT_DIR / "products").glob("*.json"))]
+    # Apply ingredient backfill patches (products.csv is patched separately; merge here)
+    patches = _load_ingredient_patches()
+    if patches:
+        patched = 0
+        for p in products:
+            pid = str(p.get("product_id", ""))
+            if pid in patches and not p.get("ingredients"):
+                ings = patches[pid]
+                if ings:  # skip empty-list entries (confirmed no ingredients)
+                    p["ingredients"] = "|".join(ings)
+                    p["ingredient_count"] = len(ings)
+                    patched += 1
+        if patched:
+            print(f"Applied ingredient patches: {patched} products updated")
     db = build_db(products, _load_reviews(), _load_youtube(), _load_watsons())
     db["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     MASTER_DB.parent.mkdir(parents=True, exist_ok=True)
