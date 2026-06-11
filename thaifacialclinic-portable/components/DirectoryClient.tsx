@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import Fuse from "fuse.js";
 import type { Clinic, Lang } from "@/lib/types";
 import { t } from "@/lib/i18n";
 import ClinicCard from "./ClinicCard";
@@ -10,8 +11,24 @@ import { isPaidPartner } from "@/lib/partnerCheck";
 
 type SortKey = "trust" | "reviews" | "rating";
 
+const fuseIndex = (clinics: Clinic[]) =>
+  new Fuse(clinics, {
+    keys: [
+      { name: "name", weight: 3 },
+      { name: "city", weight: 2 },
+      { name: "procedures", weight: 2 },
+      { name: "category", weight: 1 },
+      { name: "address", weight: 0.5 },
+    ],
+    threshold: 0.35,
+    includeScore: true,
+    ignoreLocation: true,
+    minMatchCharLength: 2,
+  });
+
 export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; lang: Lang }) {
   const [query, setQuery] = useState("");
+  const fuse = useMemo(() => fuseIndex(clinics), [clinics]);
   const [filterViral, setFilterViral] = useState(true);
   const [sortKey, setSortKey] = useState<SortKey>("trust");
   const [procFilter, setProcFilter] = useState<string>("");
@@ -36,19 +53,34 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
   const suspectedCount = useMemo(() => clinics.filter((c) => c.is_suspected_viral).length, [clinics]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const list = clinics.filter((c) => {
+    const q = query.trim();
+    // Pre-filter by city/proc/viral before fuzzy search
+    const pool = clinics.filter((c) => {
       if (filterViral && c.is_suspected_viral) return false;
       if (procFilter && !c.procedures.includes(procFilter)) return false;
       if (cityFilter && c.city !== cityFilter) return false;
-      if (!q) return true;
-      return (
-        c.name.toLowerCase().includes(q) ||
-        (c.city || "").toLowerCase().includes(q) ||
-        (c.category || "").toLowerCase().includes(q) ||
-        c.procedures.some((p) => p.toLowerCase().includes(q))
-      );
+      return true;
     });
+    let list: Clinic[];
+    if (!q) {
+      list = pool;
+    } else {
+      // Fuzzy search over filtered pool
+      const poolFuse = new Fuse(pool, {
+        keys: [
+          { name: "name", weight: 3 },
+          { name: "city", weight: 2 },
+          { name: "procedures", weight: 2 },
+          { name: "category", weight: 1 },
+          { name: "address", weight: 0.5 },
+        ],
+        threshold: 0.35,
+        includeScore: true,
+        ignoreLocation: true,
+        minMatchCharLength: 2,
+      });
+      list = poolFuse.search(q).map((r) => r.item);
+    }
     list.sort((a, b) => {
       const aP = isPaidPartner(a), bP = isPaidPartner(b);
       if (aP !== bP) return aP ? -1 : 1;

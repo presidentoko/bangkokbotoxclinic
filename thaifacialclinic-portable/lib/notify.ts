@@ -9,6 +9,9 @@
 // are caught + logged, never crash the lead route.
 
 import type { LeadRecord } from "./leadStore";
+import { sendEmail } from "./sendEmail";
+
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "happyfacethai@gmail.com";
 
 function formatLead(lead: LeadRecord): string {
   const lines = [
@@ -55,6 +58,13 @@ async function notifyTelegram(text: string): Promise<void> {
   }
 }
 
+async function notifyEmailLead(lead: LeadRecord): Promise<void> {
+  const lines = formatLead(lead).split("\n");
+  const subject = lines[0];
+  const html = `<pre style="font-family:monospace;font-size:14px;line-height:1.6">${lines.join("<br>")}</pre>`;
+  await sendEmail({ to: NOTIFY_EMAIL, subject, html });
+}
+
 /** Fire all configured channels in parallel. Returns immediately; channels run async. */
 export function notifyNewLead(lead: LeadRecord): void {
   const text = formatLead(lead);
@@ -62,6 +72,7 @@ export function notifyNewLead(lead: LeadRecord): void {
   Promise.allSettled([
     notifyDiscord(text),
     notifyTelegram(text),
+    notifyEmailLead(lead),
   ]);
 }
 
