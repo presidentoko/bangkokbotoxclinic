@@ -163,12 +163,14 @@ function productHasConcern(p: Product, concern: string): boolean {
 /**
  * Top-scored products for a concern: the highest total_score[concern] products
  * (top of getRanking(concern) resolved to Product objects). Capped to `limit`.
+ * Only includes products whose concern_seeds actually matches the concern,
+ * preventing misclassified pipeline entries from surfacing in the picks strip.
  */
 export function topPicks(concern: string, limit = 8): Product[] {
   return getRanking(concern)
-    .slice(0, limit)
     .map((r) => getProduct(r.product_id))
-    .filter((p): p is Product => p !== undefined);
+    .filter((p): p is Product => p !== undefined && productHasConcern(p, concern))
+    .slice(0, limit);
 }
 
 /**

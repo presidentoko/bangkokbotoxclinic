@@ -6,7 +6,7 @@ import { productSlug } from "@/lib/data";
 import { scoreColor, score1, baht } from "@/lib/format";
 import { t } from "@/lib/i18n";
 
-export type ProofMode = "score" | "sold" | "loved";
+export type ProofMode = "score" | "sold" | "loved" | "discount";
 
 interface ProductStripProps {
   title: string;
@@ -20,6 +20,12 @@ interface ProductStripProps {
 
 function formatNumber(n: number): string {
   return Math.round(n).toLocaleString("en-US");
+}
+
+function nameWithoutBrand(brand: string, name: string): string {
+  const prefix = brand.toLowerCase() + " ";
+  if (name.toLowerCase().startsWith(prefix)) return name.slice(brand.length).trim();
+  return name;
 }
 
 function ProofBadge({
@@ -66,6 +72,16 @@ function ProofBadge({
     );
   }
 
+  if (proof === "discount") {
+    const pct = product.discount_pct ?? 0;
+    if (pct <= 0) return null;
+    return (
+      <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-600">
+        -{pct}% off
+      </span>
+    );
+  }
+
   return null;
 }
 
@@ -108,9 +124,9 @@ function ProductCard({
         {product.brand}
       </p>
 
-      {/* Product name */}
+      {/* Product name — brand already shown in eyebrow, strip prefix to avoid repetition */}
       <p className="font-serif-display text-xs font-semibold text-[#2b2222] leading-snug line-clamp-2 group-hover:text-rose-500 transition-colors">
-        {product.name}
+        {nameWithoutBrand(product.brand, product.name)}
       </p>
 
       {/* Proof badge */}

@@ -131,7 +131,7 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
   const pct = Math.min(100, Math.max(0, Math.round(value)));
   return (
     <div className="flex items-center gap-3">
-      <span className="w-24 shrink-0 text-sm text-[#8a7a76]">{label}</span>
+      <span className="w-32 shrink-0 text-sm text-[#8a7a76]">{label}</span>
       <div className="flex-1 h-2.5 rounded-full bg-rose-50 overflow-hidden">
         <div
           className="h-full rounded-full bg-rose-400"
@@ -810,17 +810,22 @@ export default async function ProductPage({
           </h2>
           <div className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 space-y-4 shadow-sm shadow-rose-100">
             <ScoreBar
-              label={locale === "th" ? "ส่วนผสม" : "Ingredients"}
+              label={locale === "th" ? "ส่วนผสม · 45%" : "Ingredients · 45%"}
               value={ingredientScore}
             />
             <ScoreBar
-              label={locale === "th" ? "รีวิว" : "Reviews"}
+              label={locale === "th" ? "รีวิว · 45%" : "Reviews · 45%"}
               value={p.review_score ?? 0}
             />
             <ScoreBar
-              label={locale === "th" ? "ความคุ้มค่า" : "Value"}
+              label={locale === "th" ? "คุ้มค่า · 10%" : "Value · 10%"}
               value={p.value_score ?? 0}
             />
+            <p className="text-xs text-neutral-400 pt-1">
+              {locale === "th"
+                ? "คะแนนรวม = ส่วนผสม×45% + รีวิว×45% + คุ้มค่า×10%"
+                : "Total score = Ingredients×45% + Reviews×45% + Value×10%"}
+            </p>
           </div>
         </section>
 

@@ -268,7 +268,7 @@ export default async function Home({
           subtitle={isTh ? "ลด 30% ขึ้นไป จัดอันดับตามส่วนลด" : "30%+ off, ranked by discount"}
           products={deals}
           locale={locale}
-          proof="sold"
+          proof="discount"
         />
       )}
 
