@@ -45,6 +45,16 @@ REFRESH_INTERVAL = 900  # 15분마다 리스트 재조회
 TUNNEL_UP_TIMEOUT = 15  # tunnel up 대기. 정상 노드는 4-8s 안에 뜸; 안 뜨면 죽은 노드라 다음 시도로
 FAILED_HOST_COOLDOWN = 300  # tunnel 실패한 호스트를 이 초만큼 pick 풀에서 제외
 
+# 태국에서 잘 연결되는 아시아 서버 우선. hostname 앞 2자리 국가코드 기준.
+# 이 목록에 없는 서버(US/DE/CA/UK 등)는 풀백으로만 사용.
+_PREFER_CC = {"sg", "jp", "hk", "tw", "kr", "au", "my", "vn", "ph", "th", "id"}
+
+def _country_code(host: str) -> str:
+    """sg629.nordvpn.com → 'sg'"""
+    import re
+    m = re.match(r"^([a-z]{2})\d", host)
+    return m.group(1) if m else ""
+
 _log_lock = threading.Lock()
 def log(msg: str):
     with _log_lock:
@@ -175,10 +185,13 @@ class Runner:
             log(f"  {p}: {added} 신규 (중복 IP dedup 후)")
         if merged:
             random.shuffle(merged)
-            self.servers = merged
+            # 아시아 서버를 앞으로 (태국에서 연결 성공률 높음)
+            preferred = [s for s in merged if _country_code(s["host"]) in _PREFER_CC]
+            fallback  = [s for s in merged if _country_code(s["host"]) not in _PREFER_CC]
+            self.servers = preferred + fallback
             self.used_ips.clear()
             self.last_refresh = time.time()
-            log(f"총 {len(self.servers)} 서버 확보 (shuffled)")
+            log(f"총 {len(self.servers)} 서버 확보 (아시아 {len(preferred)}개 우선)")
         else:
             log(f"  fetch 전부 실패 — 기존 {len(self.servers)} 서버 유지")
 
