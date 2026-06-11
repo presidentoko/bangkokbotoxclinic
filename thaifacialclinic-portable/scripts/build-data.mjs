@@ -27,6 +27,18 @@ if (!fs.existsSync(SOURCE_CSV)) {
   process.exit(0);
 }
 
+// Opt-out blocklist — clinics that requested removal
+const OPT_OUT_FILE = path.join(process.cwd(), "..", "data", "opt_out.json");
+const optOutSet = new Set();
+if (fs.existsSync(OPT_OUT_FILE)) {
+  const { blocked } = JSON.parse(fs.readFileSync(OPT_OUT_FILE, "utf-8"));
+  for (const { id, slug } of blocked) {
+    if (id) optOutSet.add(id.toLowerCase());
+    if (slug) optOutSet.add(slug.toLowerCase());
+  }
+  console.log(`[build-data] opt-out list: ${optOutSet.size} entries`);
+}
+
 const { parse } = await import("csv-parse/sync");
 const raw = fs.readFileSync(SOURCE_CSV, "utf-8").replace(/^﻿/, "");
 const rows = parse(raw, { columns: true, skip_empty_lines: true });
@@ -150,6 +162,8 @@ function normalizeCity(city, address) {
 const clinics = rows
   .filter((r) => r.name && r.place_id)
   .filter((r) => !isBadName(r.name))
+  .filter((r) => !optOutSet.has(String(r.place_id || "").toLowerCase()) &&
+                 !optOutSet.has(String(r.bookimed_slug || "").toLowerCase()))
   .map((r, i) => {
     const reviews = safeJson(r.reviews_json, []);
     const photos = safeJson(r.photo_urls_json, []);

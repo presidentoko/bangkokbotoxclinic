@@ -9,6 +9,20 @@ from engine.procedures import tag_procedures
 from engine.resolve import dedupe_clinics
 
 
+def _load_opt_out(repo_root: Path) -> set[str]:
+    p = repo_root / "data" / "opt_out.json"
+    if not p.exists():
+        return set()
+    data = json.loads(p.read_text(encoding="utf-8"))
+    ids: set[str] = set()
+    for entry in data.get("blocked", []):
+        for field in ("id", "slug", "name"):
+            v = entry.get(field, "")
+            if v:
+                ids.add(v.lower())
+    return ids
+
+
 def build_canonical(sources: list[tuple[Path, str]], out_path: Path) -> int:
     """Load every (output_dir, city), dedupe, tag, write canonical.json.
 
@@ -25,7 +39,22 @@ def build_canonical(sources: list[tuple[Path, str]], out_path: Path) -> int:
             clinic.reviews = load_reviews(reviews_dir, clinic.place_id)
             all_clinics.append(clinic)
 
+    repo_root = out_path.resolve().parents[1]
+    opt_out = _load_opt_out(repo_root)
     deduped = dedupe_clinics(all_clinics)
+    if opt_out:
+        before = len(deduped)
+        deduped = [
+            c for c in deduped
+            if not any(v in opt_out for v in (
+                (c.place_id or "").lower(),
+                (c.slug or "").lower(),
+                (c.name or "").lower(),
+            ))
+        ]
+        removed = before - len(deduped)
+        if removed:
+            print(f"[canonical] opt-out removed {removed} clinic(s)")
     for clinic in deduped:
         clinic.procedures = tag_procedures(clinic)
 
