@@ -40,10 +40,10 @@ _WIN_NO_WINDOW: dict = {"creationflags": 0x08000000} if os.name == "nt" else {}
 NORDAPI_TCP = "https://api.nordvpn.com/v1/servers?limit=10000&filters[servers_technologies][identifier]=openvpn_tcp"
 NORDAPI_UDP = "https://api.nordvpn.com/v1/servers?limit=10000&filters[servers_technologies][identifier]=openvpn_udp"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/130.0.0.0"
-HEALTH_URL = "http://httpbin.org/ip"
+HEALTH_URL = "https://api.ipify.org?format=json"  # httpbin.org 불안정 → ipify로 교체
 REFRESH_INTERVAL = 900  # 15분마다 리스트 재조회
 TUNNEL_UP_TIMEOUT = 15  # tunnel up 대기. 정상 노드는 4-8s 안에 뜸; 안 뜨면 죽은 노드라 다음 시도로
-FAILED_HOST_COOLDOWN = 300  # tunnel 실패한 호스트를 이 초만큼 pick 풀에서 제외
+FAILED_HOST_COOLDOWN = 120  # 300→120s: 풀 고갈 방지 (서버 빠르게 재시도)
 
 # 태국에서 잘 연결되는 아시아 서버 우선. hostname 앞 2자리 국가코드 기준.
 # 이 목록에 없는 서버(US/DE/CA/UK 등)는 풀백으로만 사용.
@@ -136,7 +136,8 @@ class Port:
                 **_WIN_NO_WINDOW,
             )
             if r.returncode == 0:
-                self.exit_ip = json.loads(r.stdout).get("origin", "").split(",")[0].strip()
+                j = json.loads(r.stdout)
+                self.exit_ip = (j.get("ip") or j.get("origin", "")).split(",")[0].strip()
                 return self.exit_ip
         except Exception:
             pass

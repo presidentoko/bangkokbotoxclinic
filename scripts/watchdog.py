@@ -516,7 +516,7 @@ def build_services() -> list[Service]:
         Service(
             name="nordvpn_runner",
             cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
-                 "--auth", "nordvpn/auth.txt", "--proto", "both"],
+                 "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
             log_file=LOGS / "nordvpn_runner.log",
