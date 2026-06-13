@@ -4,6 +4,8 @@ import { listPartners, addPartner } from "@/lib/partnerStore";
 import type { ClinicPartner } from "@/lib/partners";
 import { isAdminAuthed } from "@/lib/adminAuth";
 
+export const maxDuration = 30;
+
 export const dynamic = "force-dynamic";
 
 type BulkRow = {

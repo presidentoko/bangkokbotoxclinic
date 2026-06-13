@@ -4,6 +4,8 @@ import { listPartners } from "@/lib/partnerStore";
 import { getLeadCount } from "@/lib/leadStore";
 import { isAdminAuthed } from "@/lib/adminAuth";
 
+export const maxDuration = 30;
+
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {

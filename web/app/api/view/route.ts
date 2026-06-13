@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { incrementProfileView } from "@/lib/dashboardStore";
 import { checkRateLimit } from "@/lib/rateLimit";
 
-export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
   try {

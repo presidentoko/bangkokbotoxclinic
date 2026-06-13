@@ -7,6 +7,7 @@ import { listPartners } from "@/lib/partnerStore";
 import { sendEmail, sendLinePush, getFallbackEmail } from "@/lib/notify";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
 const LEGACY_WEBHOOK = process.env.LEAD_WEBHOOK_URL;
 

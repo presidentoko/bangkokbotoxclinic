@@ -6,6 +6,8 @@ import { loadMasterDb } from "@/lib/data";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import type { Clinic } from "@/lib/types";
 
+export const maxDuration = 30;
+
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {

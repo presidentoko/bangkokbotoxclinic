@@ -7,6 +7,8 @@ import type { NextRequest } from "next/server";
 import { listPartners } from "@/lib/partnerStore";
 import { processWelcomeQueue } from "@/lib/welcomeEmails";
 
+export const maxDuration = 60;
+
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
