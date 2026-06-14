@@ -126,7 +126,7 @@ def main():
             "CITY_RADIUS_M":    city["radius"],
             "CITY_OUTPUT_DIR":  str(out_dir),
             "GRID_N_WORKERS":   "2",
-            "GRID_PROXY_PORT":  "2080",
+            "GRID_PROXY_PORT":  "2092",  # review scraper(2080-2091)와 포트 분리
             "PYTHONIOENCODING": "utf-8",
         }
 
