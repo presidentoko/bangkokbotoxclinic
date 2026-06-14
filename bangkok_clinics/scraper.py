@@ -329,9 +329,9 @@ def search_restaurants(page: Page, query: str) -> list[str]:
         if is_socks_dead_error(str(e)):
             raise SocksDeadError(str(e))
         raise
-    safe_sleep(4)
+    safe_sleep(2.5)
     dismiss_popups(page)
-    scroll_all_panels(page, times=10, delay=1.5)
+    scroll_all_panels(page, times=7, delay=1.2)
 
     links = page.locator('a[href*="/maps/place/"]')
     hrefs = []
@@ -402,7 +402,7 @@ def _extract_about_features(page: Page, place_id: str) -> list[RestaurantFeature
         if about_tab.count() == 0:
             return features
         about_tab.first.click()
-        safe_sleep(3)
+        safe_sleep(2.0)
         scroll_all_panels(page, times=3, delay=1.0)
 
         sections = page.locator('div.iP2t7d')
@@ -440,7 +440,7 @@ def get_restaurant_full(
 ) -> tuple[Restaurant | None, list[RestaurantFeature], list[RestaurantHours]]:
     if not goto_with_retry(page, add_hl_en(maps_url), retries=3, delay=3.0):
         return None, [], []
-    safe_sleep(3)
+    safe_sleep(2.0)
     # F7nice(별점+리뷰수) 렌더링 대기
     try:
         page.wait_for_selector("div.F7nice", timeout=20000)
@@ -455,7 +455,7 @@ def get_restaurant_full(
             pass
     except Exception:
         log.warning(f"  F7nice 미로드 → 추가 대기")
-        safe_sleep(5)
+        safe_sleep(3.0)
 
     current_url = page.url
     name = ""
@@ -852,14 +852,14 @@ def collect_reviews_for_restaurant(
         if is_socks_dead_error(str(e)):
             raise SocksDeadError(str(e))
         raise
-    safe_sleep(4)
+    safe_sleep(2.5)
 
     review_tab = page.locator('button[role="tab"]:has-text("Reviews")')
     if review_tab.count() == 0:
         log.warning(f"  Reviews 탭 없음: {restaurant.name}")
         return [], []
     review_tab.first.click()
-    safe_sleep(3)
+    safe_sleep(2.0)
 
     all_reviews: list[ReviewItem] = []
     all_metas: list[ReviewMeta] = []
@@ -1187,110 +1187,125 @@ def worker(
         pg.set_default_timeout(15000)
         return ctx, pg
 
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(
-            headless=not is_visible,
-            slow_mo=config.SLOW_MO,
-            proxy={"server": proxy_url},
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--disable-features=IsolateOrigins,site-per-process",
-            ],
-        )
-        context, page = _build_context(browser)
-        pending_rotate = False  # 직전 작업이 느렸으면 True → 다음 작업 전 rotate
-        task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
-
-        while True:
-            try:
-                task = task_queue.get(timeout=2)
-            except Empty:
-                # producer 가 새 작업을 넣을 수 있으니 즉시 종료하지 않고 계속 대기.
-                # None sentinel 받을 때만 종료.
-                continue
-            if task is None:
-                break
-
-            # (idx, href) 또는 (idx, href, retries)
-            if len(task) == 2:
-                idx, href = task
-                retries = 0
-            else:
-                idx, href, retries = task
-
-            # 직전 작업이 느렸거나 정기 교체 주기 도달 시 먼저 VPN 교체
-            periodic = (task_success_count > 0
-                        and task_success_count % ROTATE_EVERY_TASKS == 0)
-            if pending_rotate or periodic:
-                reason = "느린 작업" if pending_rotate else f"{ROTATE_EVERY_TASKS}건 정기"
-                log.info(f"[W{worker_id}] VPN 교체: {reason}")
-                pending_rotate = False
-                _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
-                try: context.close()
-                except Exception: pass
-                context, page = _build_context(browser)
-
-            t0 = time.time()
-            try:
-                log.info(f"[W{worker_id}] #{idx} 시작 (try {retries+1})")
-                rest, feats, hours = get_restaurant_full(page, href)
-                if not rest:
-                    elapsed = time.time() - t0
-                    log.info(f"[W{worker_id}] #{idx} 스킵 ({elapsed:.0f}s)")
-                    if elapsed > SLOW_THRESHOLD_SEC:
-                        pending_rotate = True
-                    result_queue.put(("skip", None))
-                    continue
-                reviews, metas = collect_reviews_for_restaurant(page, rest)
-                elapsed = time.time() - t0
-                log.info(f"[W{worker_id}] #{idx} 완료: {rest.name[:40]}... "
-                         f"({len(reviews)} 리뷰, {elapsed:.0f}s)")
-                if elapsed > SLOW_THRESHOLD_SEC:
-                    log.info(f"[W{worker_id}] 느림({elapsed:.0f}s) → 다음 작업 전 VPN 교체")
-                    pending_rotate = True
-                task_success_count += 1
-                result_queue.put(("ok", (rest, feats, hours, reviews, metas)))
-            except Exception as e:
-                elapsed = time.time() - t0
-                log.warning(f"[W{worker_id}] #{idx} 실패 ({elapsed:.0f}s): {e}")
-                # 즉시 VPN rotate + 브라우저 context 재생성
-                _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
-                try: context.close()
-                except Exception: pass
-                try:
-                    context, page = _build_context(browser)
-                except Exception as e2:
-                    log.warning(f"[W{worker_id}] context rebuild 실패, browser 재시작: {e2}")
-                    try: browser.close()
-                    except Exception: pass
-                    try:
-                        browser = pw.chromium.launch(
-                            headless=not is_visible,
-                            slow_mo=config.SLOW_MO,
-                            proxy={"server": proxy_url},
-                            args=[
-                                "--disable-blink-features=AutomationControlled",
-                                "--disable-features=IsolateOrigins,site-per-process",
-                            ],
-                        )
-                        context, page = _build_context(browser)
-                        log.info(f"[W{worker_id}] browser 재시작 성공")
-                    except Exception as e3:
-                        log.error(f"[W{worker_id}] browser 재시작 실패: {e3}")
-                        result_queue.put(("error", str(e)))
-                        break  # 이 워커는 종료 — 남은 작업은 다른 워커가 처리
-                # 재시도 (큐에 되돌려 아무 워커나 집게)
-                if retries + 1 < MAX_TASK_RETRIES:
-                    task_queue.put((idx, href, retries + 1))
-                    log.info(f"[W{worker_id}] #{idx} 재큐잉 (try {retries+2})")
-                else:
-                    log.warning(f"[W{worker_id}] #{idx} 재시도 소진 → 포기")
-                    result_queue.put(("error", str(e)))
-
+    _worker_done = False  # sentinel(None) 받으면 True → 외부 루프 탈출
+    while not _worker_done:
         try:
-            browser.close()
-        except Exception:
-            pass
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch(
+                    headless=not is_visible,
+                    slow_mo=config.SLOW_MO,
+                    proxy={"server": proxy_url},
+                    args=[
+                        "--disable-blink-features=AutomationControlled",
+                        "--disable-features=IsolateOrigins,site-per-process",
+                    ],
+                )
+                context, page = _build_context(browser)
+                pending_rotate = False  # 직전 작업이 느렸으면 True → 다음 작업 전 rotate
+                task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
+
+                while True:
+                    try:
+                        task = task_queue.get(timeout=2)
+                    except Empty:
+                        # producer 가 새 작업을 넣을 수 있으니 즉시 종료하지 않고 계속 대기.
+                        # None sentinel 받을 때만 종료.
+                        continue
+                    if task is None:
+                        _worker_done = True
+                        break
+
+                    # (idx, href) 또는 (idx, href, retries)
+                    if len(task) == 2:
+                        idx, href = task
+                        retries = 0
+                    else:
+                        idx, href, retries = task
+
+                    # 직전 작업이 느렸거나 정기 교체 주기 도달 시 먼저 VPN 교체
+                    periodic = (task_success_count > 0
+                                and task_success_count % ROTATE_EVERY_TASKS == 0)
+                    if pending_rotate or periodic:
+                        reason = "느린 작업" if pending_rotate else f"{ROTATE_EVERY_TASKS}건 정기"
+                        log.info(f"[W{worker_id}] VPN 교체: {reason}")
+                        pending_rotate = False
+                        _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
+                        try: context.close()
+                        except Exception: pass
+                        context, page = _build_context(browser)
+
+                    t0 = time.time()
+                    try:
+                        log.info(f"[W{worker_id}] #{idx} 시작 (try {retries+1})")
+                        rest, feats, hours = get_restaurant_full(page, href)
+                        if not rest:
+                            elapsed = time.time() - t0
+                            log.info(f"[W{worker_id}] #{idx} 스킵 ({elapsed:.0f}s)")
+                            if elapsed > SLOW_THRESHOLD_SEC:
+                                pending_rotate = True
+                            result_queue.put(("skip", href))
+                            continue
+                        reviews, metas = collect_reviews_for_restaurant(page, rest)
+                        elapsed = time.time() - t0
+                        log.info(f"[W{worker_id}] #{idx} 완료: {rest.name[:40]}... "
+                                 f"({len(reviews)} 리뷰, {elapsed:.0f}s)")
+                        if elapsed > SLOW_THRESHOLD_SEC:
+                            log.info(f"[W{worker_id}] 느림({elapsed:.0f}s) → 다음 작업 전 VPN 교체")
+                            pending_rotate = True
+                        task_success_count += 1
+                        result_queue.put(("ok", (rest, feats, hours, reviews, metas)))
+                    except Exception as e:
+                        elapsed = time.time() - t0
+                        log.warning(f"[W{worker_id}] #{idx} 실패 ({elapsed:.0f}s): {e}")
+                        # 즉시 VPN rotate + 브라우저 context 재생성
+                        _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
+                        try: context.close()
+                        except Exception: pass
+                        try:
+                            context, page = _build_context(browser)
+                        except Exception as e2:
+                            log.warning(f"[W{worker_id}] context rebuild 실패, browser 재시작: {e2}")
+                            try: browser.close()
+                            except Exception: pass
+                            try:
+                                browser = pw.chromium.launch(
+                                    headless=not is_visible,
+                                    slow_mo=config.SLOW_MO,
+                                    proxy={"server": proxy_url},
+                                    args=[
+                                        "--disable-blink-features=AutomationControlled",
+                                        "--disable-features=IsolateOrigins,site-per-process",
+                                    ],
+                                )
+                                context, page = _build_context(browser)
+                                log.info(f"[W{worker_id}] browser 재시작 성공")
+                            except Exception as e3:
+                                log.error(f"[W{worker_id}] browser 재시작 실패: {e3}")
+                                result_queue.put(("error", str(e)))
+                                break  # inner loop 탈출 → outer except가 없으면 pw 재시작
+                        # 재시도 (큐에 되돌려 아무 워커나 집게)
+                        if retries + 1 < MAX_TASK_RETRIES:
+                            task_queue.put((idx, href, retries + 1))
+                            log.info(f"[W{worker_id}] #{idx} 재큐잉 (try {retries+2})")
+                        else:
+                            log.warning(f"[W{worker_id}] #{idx} 재시도 소진 → 포기")
+                            result_queue.put(("error", str(e)))
+
+                try:
+                    browser.close()
+                except Exception:
+                    pass
+        except BaseException as e:
+            # Playwright Node.js 서버 EPIPE 크래시 등 → 워커 자체 재시작
+            # SystemExit/KeyboardInterrupt 포함하여 잡아야 함 (Node.js crash → sys.exit 경로)
+            if isinstance(e, KeyboardInterrupt):
+                break
+            log.warning(f"[W{worker_id}] Playwright 충돌 ({e.__class__.__name__}: {e}) → 5초 후 재시작")
+            try:
+                _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
+            except Exception:
+                pass
+            time.sleep(5)
     log.info(f"[W{worker_id}] 종료")
 
 
@@ -1393,11 +1408,20 @@ def main():
                     existing_ids.add(pid)  # 리뷰 적어서 비어있는 건 정상
     log.info(f"기존 완료: {len(existing_ids)} | 부분수집 재시도: {partial_cnt} | 완전실패 재시도: {failed_cnt}")
 
+    # 이전 세션에서 스킵된 href 로드 (재시작 시 큐 롤백 방지)
+    skipped_file = out_dir / "skipped_hrefs.txt"
+    skipped_hrefs: set[str] = set()
+    if skipped_file.exists():
+        try:
+            skipped_hrefs = {l.strip() for l in skipped_file.read_text(encoding="utf-8").splitlines() if l.strip()}
+        except Exception:
+            pass
+
     # 필터링된 후보만 큐에 넣기
     filtered_hrefs = []
     for href in unique_hrefs:
         pid = extract_place_id_from_url(href)
-        if pid not in existing_ids:
+        if pid not in existing_ids and href not in skipped_hrefs:
             filtered_hrefs.append(href)
 
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
@@ -1427,6 +1451,9 @@ def main():
                 added = 0
                 for href, _rc in _read_discovered():
                     if href in enqueued_hrefs:
+                        continue
+                    if href in skipped_hrefs:
+                        enqueued_hrefs.add(href)  # 스킵 목록에 있으면 큐에 안 넣음
                         continue
                     pid = extract_place_id_from_url(href)
                     if pid in existing_ids:
@@ -1487,6 +1514,13 @@ def main():
 
         if status == "skip":
             skip_count += 1
+            if payload:  # href
+                skipped_hrefs.add(payload)
+                try:
+                    with open(skipped_file, "a", encoding="utf-8") as _sf:
+                        _sf.write(payload + "\n")
+                except Exception:
+                    pass
             continue
         if status != "ok" or not payload:
             continue
