@@ -7,7 +7,9 @@ const config: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 86400, // 24h — clinic photos don't change often
+    minimumCacheTTL: 604800, // 7일 — clinic photos rarely change, reduces re-optimization count
+    deviceSizes: [640, 750, 1080, 1920], // trim default 8 sizes → 4 (mobile-first site)
+    imageSizes: [64, 128, 256],
     remotePatterns: [
       // Google Maps place photos (Street View / Places API)
       { protocol: "https", hostname: "**.googleusercontent.com" },
@@ -16,6 +18,7 @@ const config: NextConfig = {
     ],
   },
   compress: true,
+  poweredByHeader: false,
 };
 
 export default config;
