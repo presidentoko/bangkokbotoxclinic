@@ -22,7 +22,11 @@ PHUKET_DIS = ROOT / "run" / "phuket_clinics_grid.disabled"
 # B 옵션: Bangkok 만. 4500+ dental clinics 면 영업 시작 충분.
 # 나머지 12개 도시는 미래 데이터 보강 시 별도 enable.
 CITIES = [
-    {"name": "bangkok",    "lat": "13.7462890", "lng": "100.5346890", "radius": "30000", "en": "bangkok",    "th": "กรุงเทพ",   "ko": "방콕"},
+    {"name": "bangkok",     "lat": "13.7462890", "lng": "100.5346890", "radius": "30000", "en": "bangkok",     "th": "กรุงเทพ",   "ko": "방콕"},
+    {"name": "pattaya",     "lat": "12.9236",    "lng": "100.8825",    "radius": "20000", "en": "pattaya",     "th": "พัทยา",      "ko": "파타야"},
+    {"name": "chiang_mai",  "lat": "18.7883",    "lng": "98.9853",     "radius": "20000", "en": "chiang_mai",  "th": "เชียงใหม่", "ko": "치앙마이"},
+    {"name": "phuket",      "lat": "7.8804",     "lng": "98.3923",     "radius": "20000", "en": "phuket",      "th": "ภูเก็ต",    "ko": "푸켓"},
+    {"name": "koh_samui",   "lat": "9.5018",     "lng": "99.9648",     "radius": "15000", "en": "koh_samui",   "th": "เกาะสมุย", "ko": "꼬사무이"},
 ]
 
 # Trimmed 2026-05-18: en_clinic 으로 충분한 cover (~4500 unique), th_clinic/
