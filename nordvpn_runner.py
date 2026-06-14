@@ -46,7 +46,7 @@ TUNNEL_UP_TIMEOUT = 15  # tunnel up 대기. 정상 노드는 4-8s 안에 뜸; �
 FAILED_HOST_COOLDOWN = 45  # 120→45s: 죽은 서버 빠르게 스킵
 
 # 태국에서 잘 연결되는 아시아 서버 우선. hostname 앞 2자리 국가코드 기준.
-# 이 목록에 없는 서버(US/DE/CA/UK 등)는 풀백으로만 사용.
+# 이 목록에 없는 서버(US/JP/CA/AU 등)는 풀백으로만 사용.
 _PREFER_CC = {"kr", "th", "de", "nl", "gb", "fr", "hk", "tw", "my", "vn", "ph", "id"}
 # sg/jp/au 제거(반복 실패), EU(de/nl/gb/fr) 추가(안정적)
 
