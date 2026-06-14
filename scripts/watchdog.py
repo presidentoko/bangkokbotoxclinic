@@ -493,10 +493,9 @@ def build_services() -> list[Service]:
     }
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
-        # Bangkok grid 자연 종료 후 → review에 모든 8 포트 몰아주기 (default 6→8).
-        "N_WORKERS": "12",
+        # review 10 workers(2080-2089), dental 2090-2091 분리
+        "N_WORKERS": "10",
         "PROXY_PORT_BASE": "2080",
-        # 다음 도시(Pattaya) 클리닉 grid 시작 시 자동으로 default(6+2082)로 환원.
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
         "CITY_LNG": "100.5346890",
@@ -515,7 +514,7 @@ def build_services() -> list[Service]:
     return [
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "14", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "12", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
@@ -695,9 +694,9 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "100.5346890",
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../dental_output/bangkok",
-                # dental 은 2 워커 전용 포트 2092-2093 (review scraper 2080-2091과 분리)
+                # dental 전용 포트 2090-2091 (review 2080-2089와 분리)
                 "N_WORKERS": "2",
-                "PROXY_PORT_BASE": "2092",
+                "PROXY_PORT_BASE": "2090",
             },
             log_file=LOGS / "dental_review_bangkok.log",
             review_done_check=True,
