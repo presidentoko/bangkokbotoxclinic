@@ -43,11 +43,12 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/130.0.0.0"
 HEALTH_URL = "https://api.ipify.org?format=json"  # httpbin.org 불안정 → ipify로 교체
 REFRESH_INTERVAL = 900  # 15분마다 리스트 재조회
 TUNNEL_UP_TIMEOUT = 15  # tunnel up 대기. 정상 노드는 4-8s 안에 뜸; 안 뜨면 죽은 노드라 다음 시도로
-FAILED_HOST_COOLDOWN = 120  # 300→120s: 풀 고갈 방지 (서버 빠르게 재시도)
+FAILED_HOST_COOLDOWN = 45  # 120→45s: 죽은 서버 빠르게 스킵
 
 # 태국에서 잘 연결되는 아시아 서버 우선. hostname 앞 2자리 국가코드 기준.
 # 이 목록에 없는 서버(US/DE/CA/UK 등)는 풀백으로만 사용.
-_PREFER_CC = {"sg", "jp", "hk", "tw", "kr", "au", "my", "vn", "ph", "th", "id"}
+_PREFER_CC = {"kr", "th", "de", "nl", "gb", "fr", "hk", "tw", "my", "vn", "ph", "id"}
+# sg/jp/au 제거(반복 실패), EU(de/nl/gb/fr) 추가(안정적)
 
 def _country_code(host: str) -> str:
     """sg629.nordvpn.com → 'sg'"""
