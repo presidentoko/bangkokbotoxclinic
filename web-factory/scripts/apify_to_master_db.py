@@ -163,12 +163,11 @@ EXCLUDE_CATEGORIES = {
     "mattress store", "toy store", "jewelry store",
     "lighting store", "hardware store", "department store",
     "grocery store", "clothing store", "shoe store",
-    "furniture store", "bicycle store", "sportwear store",
+    "furniture store", "bicycle store", "sportwear store", "sportswear store",
     "gas station", "petrol station",
     "tourist attraction", "atm", "bank",
     "used auto parts store", "auto parts store",
     "car repair and maintenance service", "car wash",
-    # 추가: 비B2B 업종
     "plant nursery", "wholesale plant nursery", "garden center",
     "lodging", "hotel", "motel", "resort", "hostel",
     "apartment complex", "apartment building", "condominium complex",
@@ -183,6 +182,12 @@ EXCLUDE_CATEGORIES = {
     "car rental agency", "travel agency",
     "event venue", "banquet hall", "golf course",
     "swimming pool", "gym", "fitness center",
+    "warehouse store", "wholesale store",
+    "family restaurant", "food court", "bakery", "dessert shop",
+    "real estate agency", "real estate developer",
+    "jewelry manufacturer",
+    "fashion accessories store", "fashion designer",
+    "electronics company",
 }
 
 INDUSTRIAL_ESTATE_NAME_SIGNALS = (
@@ -243,6 +248,30 @@ def tag_supply_categories(raw_cats: list[str], category_name: str, title: str) -
     return found
 
 
+HARD_EXCLUDE_NAME = (
+    "factory outlet", "brand outlet", "outlet store", "outlet center",
+    "outlet mall", "outlet village",
+    "experience shop", "experience center", "flagship store",
+    "pantip", "central world", "central festival", "central plaza",
+    "terminal 21", "robinson", "big c", "lotus", "makro",
+    "index living", "the mall", "homepro", "home pro", "global house",
+    "self store", "u store", "istoreich",
+    "adidas", "nike", "samsung experience", "apple store",
+    "jewelry outlet", "jewellery outlet",
+)
+
+SOFT_EXCLUDE_NAME = (
+    "outlet", "b-quik",
+    "condo", "condominium", "apartment", "residence", "village",
+    "school", "hospital", "temple", "church", "mosque",
+    "resort", "hotel", "golf",
+    "shopping mall", "department store", "supermarket",
+    "spa", "salon", "massage",
+)
+
+KEEP_OVERRIDE_KWS = ("industrial estate", "industrial park", "manufacturing")
+
+
 def is_supply(p: dict) -> bool:
     cats = p.get("categories") or []
     category_name = p.get("categoryName") or ""
@@ -257,19 +286,13 @@ def is_supply(p: dict) -> bool:
     if cat_l and all(c in EXCLUDE_CATEGORIES for c in cat_l):
         return False
 
-    # 이름에 소비자 아웃렛/리테일 신호 있으면 탈락
     title_l = title.lower()
-    EXCLUDE_NAME_SIGNALS = (
-        "outlet", "global house", "b-quik", "home pro", "homepro",
-        "index living", "the mall", "big c", "lotus", "makro",
-        "condo", "condominium", "apartment", "residence", "village",
-        "school", "hospital", "temple", "church", "mosque",
-        "resort", "hotel", "golf",
-    )
-    if any(sig in title_l for sig in EXCLUDE_NAME_SIGNALS):
-        # 단, 이름에 industrial/estate/factory 명확히 있으면 유지
-        KEEP_OVERRIDE = ("industrial estate", "industrial park", "factory", "manufacturing")
-        if not any(k in title_l for k in KEEP_OVERRIDE):
+
+    if any(sig in title_l for sig in HARD_EXCLUDE_NAME):
+        return False
+
+    if any(sig in title_l for sig in SOFT_EXCLUDE_NAME):
+        if not any(k in title_l for k in KEEP_OVERRIDE_KWS):
             return False
 
     is_real_estate = cn_l in _REAL_ESTATE_CATEGORIES or any(c in _REAL_ESTATE_CATEGORIES for c in cat_l)
@@ -497,16 +520,33 @@ def main():
             "business_status": "",
         })
 
-    # 5. 기존 master_db.json 과 머지 (place_id 기준, 신규 데이터 우선)
+    # 5. 기존 master_db.json 과 머지 (place_id 기준, 신규 데이터 우선) + 기존 항목도 재필터
     if out_path.exists():
         try:
             with open(out_path, "r", encoding="utf-8") as f:
                 existing = json.load(f)
             existing_suppliers = existing.get("suppliers", existing) if isinstance(existing, dict) else existing
             new_ids = {s["id"] for s in suppliers}
-            kept = [s for s in existing_suppliers if s.get("id") and s["id"] not in new_ids]
+
+            def _clean_existing(s: dict) -> bool:
+                if not s.get("id") or s["id"] in new_ids:
+                    return False
+                name_l = (s.get("name") or "").lower()
+                pt_l = (s.get("primary_type") or "").lower()
+                if pt_l in EXCLUDE_CATEGORIES:
+                    return False
+                if any(sig in name_l for sig in HARD_EXCLUDE_NAME):
+                    return False
+                for sig in SOFT_EXCLUDE_NAME:
+                    if sig in name_l:
+                        if not any(k in name_l for k in KEEP_OVERRIDE_KWS):
+                            return False
+                return True
+
+            kept = [s for s in existing_suppliers if _clean_existing(s)]
+            removed = len(existing_suppliers) - len(new_ids & {s.get("id") for s in existing_suppliers}) - len(kept)
             suppliers = suppliers + kept
-            print(f"Merged with existing: +{len(kept)} kept from old DB → total {len(suppliers)}")
+            print(f"Merged with existing: +{len(kept)} kept (filtered {removed} bad) → total {len(suppliers)}")
         except Exception as e:
             print(f"Warning: could not merge existing DB: {e}")
 
