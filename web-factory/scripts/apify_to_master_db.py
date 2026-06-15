@@ -168,6 +168,21 @@ EXCLUDE_CATEGORIES = {
     "tourist attraction", "atm", "bank",
     "used auto parts store", "auto parts store",
     "car repair and maintenance service", "car wash",
+    # 추가: 비B2B 업종
+    "plant nursery", "wholesale plant nursery", "garden center",
+    "lodging", "hotel", "motel", "resort", "hostel",
+    "apartment complex", "apartment building", "condominium complex",
+    "self-storage facility", "electronics store",
+    "auto repair shop", "tire shop", "car dealer",
+    "wholesale market", "market", "flea market",
+    "laundry service", "dry cleaning service",
+    "health spa", "massage therapist", "spa",
+    "pharmacy", "drug store", "hospital", "clinic",
+    "school", "university", "kindergarten",
+    "temple", "church", "mosque",
+    "car rental agency", "travel agency",
+    "event venue", "banquet hall", "golf course",
+    "swimming pool", "gym", "fitness center",
 }
 
 INDUSTRIAL_ESTATE_NAME_SIGNALS = (
@@ -236,16 +251,32 @@ def is_supply(p: dict) -> bool:
     cat_l = [(c or "").lower() for c in cats]
     cn_l = category_name.lower()
 
+    # primary_type 이 명시적 제외 목록이면 즉시 탈락
     if cn_l in EXCLUDE_CATEGORIES:
         return False
     if cat_l and all(c in EXCLUDE_CATEGORIES for c in cat_l):
         return False
 
+    # 이름에 소비자 아웃렛/리테일 신호 있으면 탈락
+    title_l = title.lower()
+    EXCLUDE_NAME_SIGNALS = (
+        "outlet", "global house", "b-quik", "home pro", "homepro",
+        "index living", "the mall", "big c", "lotus", "makro",
+        "condo", "condominium", "apartment", "residence", "village",
+        "school", "hospital", "temple", "church", "mosque",
+        "resort", "hotel", "golf",
+    )
+    if any(sig in title_l for sig in EXCLUDE_NAME_SIGNALS):
+        # 단, 이름에 industrial/estate/factory 명확히 있으면 유지
+        KEEP_OVERRIDE = ("industrial estate", "industrial park", "factory", "manufacturing")
+        if not any(k in title_l for k in KEEP_OVERRIDE):
+            return False
+
     is_real_estate = cn_l in _REAL_ESTATE_CATEGORIES or any(c in _REAL_ESTATE_CATEGORIES for c in cat_l)
     if is_real_estate and not has_estate_signal(title):
         return False
 
-    haystack = f"{' '.join(cat_l)} {cn_l} {title.lower()}"
+    haystack = f"{' '.join(cat_l)} {cn_l} {title_l}"
     return any(k in haystack for k in SUPPLY_KEYWORDS)
 
 
