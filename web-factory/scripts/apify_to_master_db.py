@@ -497,7 +497,20 @@ def main():
             "business_status": "",
         })
 
-    # 5. 정렬 (trust_score DESC, total_reviews DESC)
+    # 5. 기존 master_db.json 과 머지 (place_id 기준, 신규 데이터 우선)
+    if out_path.exists():
+        try:
+            with open(out_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            existing_suppliers = existing.get("suppliers", existing) if isinstance(existing, dict) else existing
+            new_ids = {s["id"] for s in suppliers}
+            kept = [s for s in existing_suppliers if s.get("id") and s["id"] not in new_ids]
+            suppliers = suppliers + kept
+            print(f"Merged with existing: +{len(kept)} kept from old DB → total {len(suppliers)}")
+        except Exception as e:
+            print(f"Warning: could not merge existing DB: {e}")
+
+    # 6. 정렬 (trust_score DESC, total_reviews DESC)
     suppliers.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))
 
     payload = {
