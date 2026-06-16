@@ -49,7 +49,7 @@ export default function RootLayout({
       <body>
         <OrgJsonLd />
         <WebsiteJsonLd />
-        <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
+        <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 shadow-sm">
           <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
             <a href="/" className="flex items-center hover:opacity-80 transition">
               <Logo accent={cfg.themeAccent} />
