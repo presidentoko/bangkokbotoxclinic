@@ -70,7 +70,7 @@ export default function DealsAlert() {
           </div>
         </div>
         <div className="flex gap-2">
-          <a href="#booking" onClick={dismiss}
+          <a href="https://line.me/R/ti/p/@405zhjqb" target="_blank" rel="noopener noreferrer" onClick={dismiss}
             className="flex-1 rounded-lg bg-amber-700 text-white text-xs font-black px-3 py-2 text-center hover:bg-amber-800">
             Claim — free
           </a>
