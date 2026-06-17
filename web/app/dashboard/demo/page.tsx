@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic"; // ?as=<clinicId> 처리 위해
 import { loadMasterDb } from "@/lib/data";
 import { DashboardView } from "@/components/DashboardView";
 import { RoiCalculator } from "@/components/RoiCalculator";
+import { DemoFeatureSpotlight } from "@/components/DemoFeatureSpotlight";
 import { makeLeadId, type LeadRecord } from "@/lib/leadStore";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import type { Metadata } from "next";
@@ -150,6 +151,9 @@ export default async function DemoDashboardPage(
 
   return (
     <>
+      {/* Feature spotlight — above-the-fold value prop */}
+      <DemoFeatureSpotlight clinic={c} competitors={competitors} leads={recentLeads} />
+
       {/* DEMO BANNER — personalized when ?as=<clinicId> */}
       <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-3 px-4 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 flex-wrap text-sm">
