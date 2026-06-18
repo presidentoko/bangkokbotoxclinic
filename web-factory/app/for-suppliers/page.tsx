@@ -1,9 +1,10 @@
 import { loadMasterDb } from "@/lib/data";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
+import { SupplierVerifiedCTA } from "@/components/SupplierVerifiedCTA";
 import type { Metadata } from "next";
 
-const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg";
+const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "inquiry@thaisupplyhub.com";
 
 export const metadata: Metadata = {
   title: "For Suppliers — Featured Listings & Lead Generation",
@@ -154,17 +155,28 @@ export default async function ForSuppliersPage() {
         </div>
       </section>
 
-      <section className="mb-16 bg-white border border-[var(--border)] rounded-xl p-6 text-center">
-        <h2 className="text-2xl font-bold mb-2">Ready to start?</h2>
-        <p className="text-[var(--muted)] mb-4">
-          Email us with your company name and target tier. We&apos;ll respond within one business day with a 30-day pilot proposal.
-        </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Featured listing inquiry — supplier")}`}
-          className="inline-block bg-black text-white py-3 px-6 rounded-lg font-bold hover:bg-gray-800"
-        >
-          ✉ {CONTACT_EMAIL}
-        </a>
+      <section className="mb-16 space-y-6">
+        <h2 className="text-2xl font-bold">Ready to start?</h2>
+
+        <SupplierVerifiedCTA />
+
+        <div className="bg-white border border-[var(--border)] rounded-xl p-6">
+          <h3 className="font-bold text-lg mb-2">Other tiers — contact us</h3>
+          <p className="text-[var(--muted)] text-sm mb-4">
+            For Editor&apos;s Pick, International Buyer Channel, or Lead Generation, email with your company name and target tier. Response within one business day.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Featured listing inquiry — supplier")}`}
+              className="inline-flex items-center gap-2 bg-black text-white py-2.5 px-5 rounded-lg font-bold hover:bg-gray-800"
+            >
+              ✉ {CONTACT_EMAIL}
+            </a>
+          </div>
+          <p className="text-xs text-[var(--muted)] mt-3">
+            If the email link doesn&apos;t open, copy the address above manually.
+          </p>
+        </div>
       </section>
 
       <BreadcrumbJsonLd items={[
