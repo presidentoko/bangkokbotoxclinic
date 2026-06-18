@@ -66,7 +66,7 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
   },
   packaging: {
     title: "Packaging Manufacturers Thailand",
-    metaTitle: "Packaging Manufacturers Thailand — Carton, Plastic, Flexible Film | ThaiSupplyHub",
+    metaTitle: "Packaging Manufacturers Thailand — B2B Directory",
     metaDescription:
       "Packaging manufacturers in Thailand across carton, plastic, flexible film, food-grade, and industrial formats. Verified B2B directory with direct contact.",
     intro:
@@ -102,14 +102,13 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
   },
   plastic: {
     title: "Plastic Injection Molding Thailand",
-    metaTitle: "Plastic Injection Molding Thailand — 200+ Verified Suppliers | ThaiSupplyHub",
+    metaTitle: "Plastic Injection Molding Thailand — Verified Suppliers",
     metaDescription:
       "Plastic injection molding suppliers in Thailand — automotive, packaging, consumer goods. Verified by DBD registry. Eastern Seaboard cluster with direct contact, no agent markup.",
     intro:
       "Plastic injection molding is Thailand's largest plastic process by volume, dominated by Eastern Seaboard operators supplying Toyota, Honda, and major packaging OEMs. All listings show direct phone and website where available — no sourcing-agent intermediary.",
     longContext:
       "Thailand's plastic injection molding sector includes Tier 1 automotive mold shops (precision tolerances for dashboard and lighting parts), packaging-grade molders (caps, bottles, containers), and general industrial molders. Most cluster in Chon Buri and Rayong, within 30 km of major assembly plants.",
-    bestForSlug: "plastic-manufacturers",
   },
   steel: {
     title: "Steel & Metal Fabricators in Thailand",
