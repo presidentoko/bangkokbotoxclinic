@@ -110,6 +110,31 @@ export default async function Methodology({
         ))}
       </section>
 
+      {/* ── Formula equation ── */}
+      <section className="not-prose space-y-3">
+        <h2 className="font-serif-display text-xl font-semibold text-neutral-800 mb-2">
+          {th ? "สมการคำนวณ" : "The Formula"}
+        </h2>
+        <div className="rounded-2xl border border-[#efe1db] bg-white px-5 py-4 shadow-sm shadow-rose-100 space-y-3">
+          <p className="font-mono text-sm text-neutral-700 leading-relaxed">
+            {th
+              ? "คะแนนรวม = (ส่วนผสม × 0.45) + (รีวิว × 0.45) + (ความคุ้มค่า × 0.10)"
+              : "total = (ingredient × 0.45) + (review × 0.45) + (value × 0.10)"}
+          </p>
+          <div className="border-t border-[#efe1db] pt-3">
+            <p className="text-xs text-neutral-500 mb-1">
+              {th ? "ตัวอย่าง:" : "Example:"}
+            </p>
+            <p className="font-mono text-sm text-neutral-600 leading-relaxed">
+              (25 × 0.45) + (98 × 0.45) + (95 × 0.10) = 11.25 + 44.10 + 9.50 = 64.85 → 65
+            </p>
+            <p className="text-xs text-neutral-400 mt-1">
+              {th ? "ปัดเป็นจำนวนเต็ม" : "Rounded to the nearest integer"}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Freshness note ── */}
       <p className="not-prose text-xs text-neutral-400">
         {th ? "อัปเดต" : "Updated"}: {generatedAt()?.slice(0, 10)}.{" "}
