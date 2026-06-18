@@ -43,6 +43,15 @@ export async function generateMetadata({
   };
 }
 
+const CONCERN_CONFIG: Record<string, { emoji: string; color: string; bg: string }> = {
+  acne:       { emoji: "🔴", color: "text-rose-500",  bg: "bg-rose-50" },
+  whitening:  { emoji: "✨", color: "text-amber-500", bg: "bg-amber-50" },
+  antiaging:  { emoji: "⏳", color: "text-purple-500",bg: "bg-purple-50" },
+  pores:      { emoji: "🔬", color: "text-teal-500",  bg: "bg-teal-50" },
+  oilcontrol: { emoji: "💧", color: "text-sky-500",   bg: "bg-sky-50" },
+  sensitive:  { emoji: "🌿", color: "text-green-500", bg: "bg-green-50" },
+};
+
 const TRUST_POINTS = [
   {
     key: "ingredient",
@@ -103,6 +112,11 @@ export default async function Home({
         <p className="text-xl text-[#8a7a76] max-w-xl leading-relaxed">
           {t(locale, "tagline")}
         </p>
+        {isTh && (
+          <p className="text-sm text-neutral-400 max-w-xl">
+            ⚠️ เราคือเว็บรีวิว<strong>ผลิตภัณฑ์สกินแคร์</strong> — ไม่ใช่คลินิกฉีดฟิลเลอร์
+          </p>
+        )}
 
         {/* Stats bar — social proof */}
         <div className="flex flex-wrap gap-x-6 gap-y-2">
@@ -126,6 +140,28 @@ export default async function Home({
               </span>
               <span className="text-xs text-neutral-500">{label}</span>
             </div>
+          ))}
+        </div>
+
+        {/* Popular ingredient quick links */}
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <span className="text-xs text-neutral-400">
+            {isTh ? "ค้นหาส่วนผสม:" : "Ingredients:"}
+          </span>
+          {[
+            { label: "Niacinamide", slug: "niacinamide" },
+            { label: "Salicylic Acid", slug: "salicylic-acid" },
+            { label: "Retinol", slug: "retinol" },
+            { label: "Hyaluronic Acid", slug: "hyaluronic-acid" },
+            { label: "Vitamin C", slug: "ascorbic-acid" },
+          ].map(({ label, slug }) => (
+            <Link
+              key={slug}
+              href={`/${locale}/ingredient/${slug}`}
+              className="rounded-full border border-[#efe1db] bg-white px-3 py-1 text-xs text-rose-600 font-medium hover:bg-rose-50 hover:border-rose-300 transition-colors shadow-sm"
+            >
+              {label}
+            </Link>
           ))}
         </div>
       </section>
@@ -159,23 +195,24 @@ export default async function Home({
 
       {/* Concern cards */}
       <section className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           {CONCERNS.map((c) => {
             const count = getRanking(c).length;
+            const cfg = CONCERN_CONFIG[c] ?? { emoji: "●", color: "text-rose-500", bg: "bg-rose-50" };
             return (
               <Link
                 key={c}
                 href={`/${locale}/${c}`}
-                className="group rounded-2xl border border-[#efe1db] bg-white p-6 sm:p-7 hover:shadow-md hover:shadow-rose-100 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+                className="group rounded-2xl border border-[#efe1db] bg-white p-4 sm:p-6 hover:shadow-md hover:shadow-rose-100 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
               >
-                <div className="font-serif-display text-xl font-semibold text-[#2b2222] group-hover:text-rose-500 transition-colors break-words">
+                <div className={`w-10 h-10 rounded-xl ${cfg.bg} flex items-center justify-center text-xl mb-3`}>
+                  {cfg.emoji}
+                </div>
+                <div className="font-serif-display text-base sm:text-lg font-semibold text-[#2b2222] group-hover:text-rose-500 transition-colors break-words leading-snug">
                   {concernLabel(locale, c)}
                 </div>
-                <div className="mt-2 text-sm font-medium text-neutral-600">
-                  {count} {t(locale, "product")}
-                </div>
-                <div className="mt-1 text-xs text-neutral-400 uppercase tracking-wide">
-                  {isTh ? "จัดอันดับตามข้อมูล" : "data-ranked"}
+                <div className={`mt-1.5 text-xs font-semibold ${cfg.color}`}>
+                  {count.toLocaleString()} {t(locale, "product")}
                 </div>
               </Link>
             );
