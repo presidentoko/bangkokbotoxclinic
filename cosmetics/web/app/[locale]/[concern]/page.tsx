@@ -30,6 +30,63 @@ import { scoreColor } from "@/lib/format";
 const BASE = "https://bangkokfillers.com";
 export const revalidate = 300; // 5 min — picks up KV changes without full rebuild
 
+type GuideEntry = {
+  causeTh: string; causeEn: string;
+  ingredientsTh: string[]; ingredientsEn: string[];
+  howTh: string; howEn: string;
+};
+
+const CONCERN_GUIDE: Record<string, GuideEntry> = {
+  acne: {
+    causeTh: "ต่อมไขมันทำงานมากเกิน + แบคทีเรีย P. acnes + รูขุมขนอุดตันจากเซลล์ผิวเก่า",
+    causeEn: "Excess sebum, P. acnes bacteria, and clogged pores from dead skin cells.",
+    ingredientsTh: ["Salicylic Acid (BHA) — ล้างรูขุมขนลึก", "Niacinamide — ลดการอักเสบ ควบคุมไขมัน", "Benzoyl Peroxide — ฆ่าแบคทีเรีย", "Azelaic Acid — ลดรอยแดงหลังสิว"],
+    ingredientsEn: ["Salicylic Acid (BHA) — deep pore cleansing", "Niacinamide — reduces inflammation & sebum", "Benzoyl Peroxide — kills acne bacteria", "Azelaic Acid — fades post-acne marks"],
+    howTh: "เลือกผลิตภัณฑ์ที่มี BHA (Salicylic Acid) ≥ 0.5% หลีกเลี่ยงส่วนผสมที่อุดตันรูขุมขน (Comedogenic) เช่น coconut oil และน้ำมันหอมระเหยหนัก",
+    howEn: "Look for BHA (Salicylic Acid) ≥ 0.5%. Avoid comedogenic ingredients like coconut oil and heavy fragrance oils.",
+  },
+  whitening: {
+    causeTh: "รังสี UV กระตุ้นเมลานิน + ฮอร์โมน (ฝ้า) + รอยดำหลังการอักเสบ (PIH)",
+    causeEn: "UV-stimulated melanin, hormonal melasma, and post-inflammatory hyperpigmentation (PIH).",
+    ingredientsTh: ["Vitamin C (Ascorbic Acid) — ยับยั้งเอนไซม์สร้างเมลานิน", "Niacinamide — ลดการส่งผ่านเมลานิน", "Alpha Arbutin — เบาะแสฝ้าจางลง", "Tranexamic Acid — ฝ้าฮอร์โมน"],
+    ingredientsEn: ["Vitamin C (Ascorbic Acid) — inhibits melanin enzyme", "Niacinamide — blocks melanin transfer", "Alpha Arbutin — fades dark spots", "Tranexamic Acid — hormonal melasma"],
+    howTh: "ต้องใช้ร่วมกับครีมกันแดด SPF 30+ ทุกเช้า ไม่เช่นนั้นส่วนผสมไวท์เทนนิ่งจะสูญเปล่า เลือก Vitamin C ในบรรจุภัณฑ์ทึบแสงเพื่อป้องกันออกซิเดชัน",
+    howEn: "Always pair with SPF 30+ sunscreen every morning — without it, brightening actives are wasted. Choose Vitamin C in opaque airtight packaging to prevent oxidation.",
+  },
+  antiaging: {
+    causeTh: "คอลลาเจนลดลงตามอายุ + ความเสียหายจาก UV + อนุมูลอิสระ",
+    causeEn: "Collagen breakdown with age, UV damage, free radicals, and repeated facial movements.",
+    ingredientsTh: ["Retinol — กระตุ้นคอลลาเจน เร่งเซลล์ผิวใหม่", "Peptides — สัญญาณสร้างคอลลาเจน", "Vitamin C — antioxidant ป้องกัน UV damage", "Hyaluronic Acid — เติมความชุ่มชื้น ลดริ้วรอยจากความแห้ง"],
+    ingredientsEn: ["Retinol — boosts collagen & cell turnover", "Peptides — collagen signalling", "Vitamin C — antioxidant, UV damage defence", "Hyaluronic Acid — moisture-plumps fine lines"],
+    howTh: "เริ่ม retinol ที่ความเข้มข้นต่ำ (0.025–0.05%) ใช้ตอนกลางคืน ใช้ SPF กลางวันเสมอ เพิ่มความเข้มข้นทีละน้อยเพื่อลด purging",
+    howEn: "Start retinol at low concentration (0.025–0.05%), use at night only. Always wear SPF during the day. Increase strength gradually to minimise purging.",
+  },
+  pores: {
+    causeTh: "ต่อมไขมันทำงานมาก + พันธุกรรม + อายุทำให้คอลลาเจนรอบรูขุมขนลดลง + UV damage",
+    causeEn: "Overactive sebaceous glands, genetics, age-related collagen loss around pores, and UV damage.",
+    ingredientsTh: ["Niacinamide — ลดการมองเห็นรูขุมขน ควบคุมไขมัน", "Salicylic Acid — ล้างสิ่งอุดตันในรูขุมขน", "Retinol — เพิ่มคอลลาเจนรอบรูขุมขน", "Clay (Kaolin/Bentonite) — ดูดซับไขมัน"],
+    ingredientsEn: ["Niacinamide — minimises pore appearance, controls sebum", "Salicylic Acid — dissolves pore blockages", "Retinol — rebuilds collagen around pores", "Clay (Kaolin/Bentonite) — absorbs excess oil"],
+    howTh: "ไม่มีส่วนผสมใดปิดรูขุมขนถาวรได้ แต่ niacinamide + BHA ช่วยให้รูขุมขนดูเล็กลงได้จริง หลีกเลี่ยงการบีบสิวที่ทำให้รูขุมขนขยาย",
+    howEn: "No ingredient can permanently close pores, but niacinamide + BHA genuinely minimise their appearance. Avoid squeezing blackheads which stretch pore walls.",
+  },
+  oilcontrol: {
+    causeTh: "ต่อมไขมัน sebaceous ทำงานมากเกิน เพิ่มขึ้นในอากาศร้อนชื้นและฮอร์โมน",
+    causeEn: "Overactive sebaceous glands, exacerbated by Bangkok heat, humidity, and hormonal fluctuations.",
+    ingredientsTh: ["Niacinamide — ลด sebum production ได้จริงในทางวิทยาศาสตร์", "Salicylic Acid (BHA) — ล้างรูขุมขน ลดมัน", "Zinc PCA — ควบคุมไขมัน ลดอักเสบ", "Hyaluronic Acid (light) — ให้ความชุ่มชื้นโดยไม่เพิ่มความมัน"],
+    ingredientsEn: ["Niacinamide — clinically reduces sebum production", "Salicylic Acid (BHA) — cleanses pores, cuts oiliness", "Zinc PCA — controls oil & inflammation", "Hyaluronic Acid (light) — hydrates without greasiness"],
+    howTh: "เลือก texture เบา (gel/fluid/water-based) หลีกเลี่ยง heavy cream และผลิตภัณฑ์ที่ใช้น้ำมันเป็นฐาน มอยเจอร์ไรเซอร์จำเป็นแม้ผิวมัน — ผิวขาดน้ำทำให้มันมากขึ้น",
+    howEn: "Choose lightweight textures (gel/fluid/water-based). Avoid heavy creams and oil-based formulas. Moisturiser is still essential for oily skin — dehydration makes oil production worse.",
+  },
+  sensitive: {
+    causeTh: "ผนังกั้นผิวบกพร่อง ทำให้สารระคายเคืองเข้าง่าย และน้ำระเหยออกเร็ว (TEWL)",
+    causeEn: "Impaired skin barrier allows irritants in and moisture out (TEWL — transepidermal water loss).",
+    ingredientsTh: ["Centella Asiatica — ซ่อมแซม barrier ลดการอักเสบ", "Ceramides — เติมเต็ม barrier ที่บกพร่อง", "Hyaluronic Acid — ดึงความชุ่มชื้น ไม่ระคายเคือง", "Panthenol (Pro-Vitamin B5) — สมานแผล ลดรอยแดง"],
+    ingredientsEn: ["Centella Asiatica — repairs barrier, reduces redness", "Ceramides — replenishes impaired skin barrier", "Hyaluronic Acid — attracts moisture without irritation", "Panthenol (Pro-Vitamin B5) — soothes and heals"],
+    howTh: "เลือกผลิตภัณฑ์ที่ปราศจาก fragrance และ alcohol ทดสอบที่ข้อมือก่อนทาหน้า เพิ่มผลิตภัณฑ์ใหม่ทีละ 1 ชิ้น เพื่อระบุตัวที่แพ้ได้",
+    howEn: "Choose fragrance-free, alcohol-free formulas. Patch test on your wrist before full application. Introduce new products one at a time to identify triggers.",
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -38,14 +95,16 @@ export async function generateMetadata({
   const { locale: localeRaw, concern } = await params;
   const locale = localeRaw as Locale;
   const label = concernLabel(locale, concern);
+  const count = getRanking(concern as Concern).length;
+  const year = 2025;
   const title =
     locale === "th"
-      ? `${label} : ผลิตภัณฑ์ที่ดีที่สุดจัดอันดับด้วยส่วนผสม + รีวิวจริง`
-      : `Best products for ${label} — ranked by ingredients + real reviews`;
+      ? `${label} : ${count} ผลิตภัณฑ์ที่ดีที่สุด จัดอันดับด้วยส่วนผสม + รีวิวจริง ${year}`
+      : `Best ${label} Products (${count} ranked) — Ingredients + Real Reviews ${year}`;
   const description =
     locale === "th"
-      ? `อันดับ ${label} คำนวณจากคะแนนส่วนผสม 45% รีวิว 45% ความคุ้มค่า 10%`
-      : `Top ${label} products ranked by 45% ingredient science, 45% aggregated reviews, 10% value.`;
+      ? `เปรียบเทียบ ${count} ผลิตภัณฑ์${label} คำนวณจากคะแนนส่วนผสม 45% รีวิวจริง 45% ความคุ้มค่า 10% อัปเดต ${year}`
+      : `Compare ${count} ${label} products ranked by 45% ingredient science, 45% aggregated reviews, 10% value. Updated ${year}.`;
   return {
     title,
     description,
@@ -181,6 +240,47 @@ export default async function ConcernHub({
           {t(locale, "updated")}: {generatedAt()?.slice(0, 10)}
         </p>
       </header>
+
+      {/* Concern guide — cause / key ingredients / how to pick */}
+      {CONCERN_GUIDE[concern] && (() => {
+        const g = CONCERN_GUIDE[concern];
+        const isTh = locale === "th";
+        return (
+          <section className="rounded-2xl border border-[#efe1db] bg-[#fdfaf9] p-5 sm:p-6 space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="space-y-1.5">
+                <p className="text-[10px] uppercase tracking-widest text-[#c9a86a] font-bold">
+                  {isTh ? "สาเหตุ" : "Why it happens"}
+                </p>
+                <p className="text-sm text-neutral-700 leading-relaxed">
+                  {isTh ? g.causeTh : g.causeEn}
+                </p>
+              </div>
+              <div className="space-y-1.5">
+                <p className="text-[10px] uppercase tracking-widest text-[#c9a86a] font-bold">
+                  {isTh ? "ส่วนผสมสำคัญ" : "Key ingredients"}
+                </p>
+                <ul className="space-y-1">
+                  {(isTh ? g.ingredientsTh : g.ingredientsEn).map((item) => (
+                    <li key={item} className="text-sm text-neutral-700 flex gap-1.5">
+                      <span className="text-rose-400 mt-0.5 shrink-0">✦</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="space-y-1.5">
+                <p className="text-[10px] uppercase tracking-widest text-[#c9a86a] font-bold">
+                  {isTh ? "วิธีเลือก" : "How to pick"}
+                </p>
+                <p className="text-sm text-neutral-700 leading-relaxed">
+                  {isTh ? g.howTh : g.howEn}
+                </p>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Filter chips — links to SEO sub-pages */}
       {(CONCERN_FILTER_SLUGS[concern] ?? []).length > 0 && (

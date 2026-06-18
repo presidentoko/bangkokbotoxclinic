@@ -112,12 +112,6 @@ export default async function Home({
         <p className="text-xl text-[#8a7a76] max-w-xl leading-relaxed">
           {t(locale, "tagline")}
         </p>
-        {isTh && (
-          <p className="text-sm text-neutral-400 max-w-xl">
-            ⚠️ เราคือเว็บรีวิว<strong>ผลิตภัณฑ์สกินแคร์</strong> — ไม่ใช่คลินิกฉีดฟิลเลอร์
-          </p>
-        )}
-
         {/* Stats bar — social proof */}
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           {[

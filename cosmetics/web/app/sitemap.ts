@@ -4,6 +4,10 @@ import {
   allProducts,
   productSlug,
   CONCERN_FILTER_SLUGS,
+  allIngredients,
+  ingredientSlug,
+  allBrands,
+  brandSlug,
 } from "@/lib/data";
 import { LOCALES } from "@/lib/i18n";
 import { SALE_EVENTS } from "@/lib/sale";
@@ -73,20 +77,30 @@ function coreEntries(): MetadataRoute.Sitemap {
   return out;
 }
 
-// Sitemap 1: top 300 products by konvy_review_count (TH only)
-function topProductEntries(): MetadataRoute.Sitemap {
-  const products = allProducts()
+// Sitemap 1: all products with reviews, sorted by review count
+function productEntries(): MetadataRoute.Sitemap {
+  return allProducts()
     .filter((p) => p.konvy_review_count > 0)
     .sort((a, b) => b.konvy_review_count - a.konvy_review_count)
-    .slice(0, 300);
+    .map((p) => entry(`${BASE}/th/product/${productSlug(p)}`, 0.8, "weekly"));
+}
 
-  return products.map((p) =>
-    entry(`${BASE}/th/product/${productSlug(p)}`, 0.8, "weekly")
+// Sitemap 2: ingredient pages
+function ingredientEntries(): MetadataRoute.Sitemap {
+  return allIngredients().map(([inci]) =>
+    entry(`${BASE}/th/ingredient/${ingredientSlug(inci)}`, 0.7, "monthly")
+  );
+}
+
+// Sitemap 3: brand pages
+function brandEntries(): MetadataRoute.Sitemap {
+  return allBrands().map((brand) =>
+    entry(`${BASE}/th/brand/${brandSlug(brand)}`, 0.7, "weekly")
   );
 }
 
 export function generateSitemaps() {
-  return [{ id: "0" }, { id: "1" }];
+  return [{ id: "0" }, { id: "1" }, { id: "2" }, { id: "3" }];
 }
 
 export default async function sitemap(props: {
@@ -94,6 +108,8 @@ export default async function sitemap(props: {
 }): Promise<MetadataRoute.Sitemap> {
   const id = await props.id;
   if (id === "0") return coreEntries();
-  if (id === "1") return topProductEntries();
+  if (id === "1") return productEntries();
+  if (id === "2") return ingredientEntries();
+  if (id === "3") return brandEntries();
   return [];
 }
