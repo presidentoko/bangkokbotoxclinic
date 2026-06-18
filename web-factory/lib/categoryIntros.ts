@@ -65,12 +65,14 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Logistics providers serving Thailand's manufacturing belt range from international 3PL giants to specialized Eastern Seaboard operators. Listings here focus on operators with public Google Business profiles and verified operational reviews.",
   },
   packaging: {
-    title: "Packaging Manufacturers in Thailand",
-    metaTitle: "Packaging Manufacturers in Thailand — Carton, Plastic, Flexible",
+    title: "Packaging Manufacturers Thailand",
+    metaTitle: "Packaging Manufacturers Thailand — Carton, Plastic, Flexible Film | ThaiSupplyHub",
     metaDescription:
-      "Thai packaging manufacturers across cartons, plastic, flexible, food-grade, and industrial packaging. Eastern Seaboard + Pathum Thani cluster.",
+      "Packaging manufacturers in Thailand across carton, plastic, flexible film, food-grade, and industrial formats. Verified B2B directory with direct contact.",
     intro:
-      "Thai packaging manufacturers serve the country's massive food, automotive, and electronics export sectors. Listings include carton printers, plastic packaging molders, flexible packaging converters, and industrial packaging specialists.",
+      "Packaging manufacturers in Thailand supply the country's food export, automotive, and electronics sectors. Listings span carton printers, plastic injection and blow molders, flexible film converters, and food-grade packaging specialists.",
+    longContext:
+      "Most packaging manufacturers cluster around Pathum Thani (proximity to food and pharma factories) and Chon Buri / Samut Sakhon (industrial estates). Food-grade packaging operators commonly hold HACCP or GMP certification. Direct contact details shown where available.",
   },
   food_mfg: {
     title: "Food Manufacturers in Thailand",
@@ -99,12 +101,15 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thailand's chemical industry centers on the Map Ta Phut Industrial Complex in Rayong — Southeast Asia's largest petrochemical cluster. PTT, IRPC, PTTGC, and SCG Chemicals operate integrated complexes here, surrounded by downstream specialty chemical operators.",
   },
   plastic: {
-    title: "Plastic Fabrication Companies in Thailand",
-    metaTitle: "Plastic Fabrication Companies in Thailand — Injection Molding, Sheet",
+    title: "Plastic Injection Molding Thailand",
+    metaTitle: "Plastic Injection Molding Thailand — 200+ Verified Suppliers | ThaiSupplyHub",
     metaDescription:
-      "Thai plastic fabricators across injection molding, blow molding, sheet, and custom plastic. Eastern Seaboard cluster supplying automotive and packaging.",
+      "Plastic injection molding suppliers in Thailand — automotive, packaging, consumer goods. Verified by DBD registry. Eastern Seaboard cluster with direct contact, no agent markup.",
     intro:
-      "Plastic fabrication in Thailand serves automotive, packaging, and consumer goods sectors. Most operators cluster on the Eastern Seaboard near OEM customers, with a secondary cluster around Pathum Thani.",
+      "Plastic injection molding is Thailand's largest plastic process by volume, dominated by Eastern Seaboard operators supplying Toyota, Honda, and major packaging OEMs. All listings show direct phone and website where available — no sourcing-agent intermediary.",
+    longContext:
+      "Thailand's plastic injection molding sector includes Tier 1 automotive mold shops (precision tolerances for dashboard and lighting parts), packaging-grade molders (caps, bottles, containers), and general industrial molders. Most cluster in Chon Buri and Rayong, within 30 km of major assembly plants.",
+    bestForSlug: "plastic-manufacturers",
   },
   steel: {
     title: "Steel & Metal Fabricators in Thailand",

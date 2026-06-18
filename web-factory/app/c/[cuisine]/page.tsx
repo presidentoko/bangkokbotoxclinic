@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
-import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { CUISINE_FAQS } from "@/lib/faq";
 import { CATEGORY_INTROS, CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
 import { findGuide } from "@/lib/guides";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -70,6 +70,18 @@ export default async function CategoryPage(
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = filtered.filter((r) => r.website).length;
   const verifiedCount = filtered.filter((r) => r.verified).length;
+
+  // 필터 컴포넌트용 데이터 (이미 카테고리 필터 적용된 상태)
+  const filterableSuppliers: FilterableSupplier[] = filtered.map((s) => ({
+    id: s.id,
+    name: s.name,
+    city_label: s.city_label,
+    district: s.district ?? null,
+    categories: s.categories,
+    dbd: !!s.dbd,
+    trust_score: s.trust_score ?? 0,
+  }));
+  const cityOptions = Array.from(new Set(filtered.map((s) => s.city_label).filter(Boolean))).sort();
 
   // For industrial_estate: group by estate
   const byEstate = new Map<string, { slug: string; count: number }>();
@@ -211,28 +223,17 @@ export default async function CategoryPage(
         </section>
       )}
 
+      <AdSlot slot="category-mid" />
+
       <section>
-        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 40)}</h2>
-        <div className="grid gap-3">
-          {filtered.slice(0, 10).map((r, i) => (
-            <SupplierCard key={r.id} r={r} rank={i + 1} />
-          ))}
-        </div>
-
-        <AffiliateInline category={label} />
-        <AdSlot slot="category-mid" />
-
-        <div className="grid gap-3 mt-3">
-          {filtered.slice(10, 40).map((r, i) => (
-            <SupplierCard key={r.id} r={r} rank={i + 11} />
-          ))}
-        </div>
-
-        {filtered.length > 40 && (
-          <p className="mt-6 text-sm text-[var(--muted)]">
-            {filtered.length - 40} more {label.toLowerCase()} suppliers — narrow by region or district above.
-          </p>
-        )}
+        <h2 className="text-xl font-bold mb-4">Top {label} by Trust Score</h2>
+        <SupplierListWithFilter
+          suppliers={filterableSuppliers}
+          categoryOptions={[]}
+          cityOptions={cityOptions}
+          totalSuppliers={filtered.length}
+          viewAllHref={`/c/${cuisine}`}
+        />
       </section>
 
       {intro?.longContext && (
