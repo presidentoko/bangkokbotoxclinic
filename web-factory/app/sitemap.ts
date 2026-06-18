@@ -117,15 +117,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Supplier 페이지 — verified 우선 (priority 0.85), 그 외 모든 supplier 포함 (page 가 다 생성됨).
-  // 신 b2b_score 스케일(~0~18)이라 legacy 50/70 임계값은 무의미. verified 여부 + score 비율로 결정.
+  // Supplier pages — quality-gated: include only suppliers with at least one
+  // contact/trust signal. Thin pages (no phone, no website, unverified, score<8)
+  // are still built (static export) but excluded from sitemap to protect crawl budget.
   for (const r of db.suppliers) {
-    const score = r.b2b_score ?? r.trust_score;
+    const score = r.b2b_score ?? r.trust_score ?? 0;
+    const hasSignal = r.verified || r.website || r.phone || score >= 8;
+    if (!hasSignal) continue;
     items.push({
       url: `${SITE}/supplier/${r.id}`,
       lastModified: updated,
       changeFrequency: "weekly",
-      priority: r.verified ? 0.85 : (score >= 8 ? 0.65 : 0.5),
+      priority: r.verified ? 0.85 : (score >= 8 ? 0.65 : 0.55),
     });
   }
 
