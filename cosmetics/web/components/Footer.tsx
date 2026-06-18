@@ -44,12 +44,12 @@ export function Footer({ locale }: { locale: Locale }) {
               ? "สนใจลงโฆษณาหรือความร่วมมือทางธุรกิจ?"
               : "Interested in advertising or business partnerships?"}
           </p>
-          <a
-            href="mailto:chillanel22@gmail.com"
+          <Link
+            href={`/${locale}/contact`}
             className="text-sm font-semibold text-rose-500 hover:text-rose-600 transition-colors whitespace-nowrap"
           >
-            chillanel22@gmail.com →
-          </a>
+            {isTh ? "문의하기 →" : "Get in touch →"}
+          </Link>
         </div>
       </div>
     </footer>

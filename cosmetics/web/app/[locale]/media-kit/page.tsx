@@ -6,7 +6,6 @@ import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
-const CONTACT_EMAIL = "chillanel22@gmail.com";
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -137,11 +136,11 @@ export default async function MediaKit({
   ];
 
   const faqData = isTh ? [
-    { q: "โฆษณากับ BangkokFillers ราคาเท่าไหร่", a: "ราคาขึ้นอยู่กับ placement และระยะเวลา — ติดต่อ chillanel22@gmail.com เพื่อรับ proposal" },
+    { q: "โฆษณากับ BangkokFillers ราคาเท่าไหร่", a: "ราคาขึ้นอยู่กับ placement และระยะเวลา — กรอกแบบฟอร์มที่หน้าติดต่อเราเพื่อรับ proposal" },
     { q: "BangkokFillers รับสินค้าฟรีแลกรีวิวไหม", a: "ไม่ — อันดับทุกตัวคำนวณจากข้อมูลเท่านั้น ไม่มีการจ่ายเงินเพื่อขึ้นอันดับ ความน่าเชื่อถือคือสิ่งที่เราปกป้อง" },
     { q: "ผู้ชมเป็นใคร", a: "ผู้หญิงไทยที่ค้นหาข้อมูลก่อนซื้อสกินแคร์ — กลุ่มที่ตัดสินใจด้วยข้อมูล ไม่ใช่ influencer" },
   ] : [
-    { q: "How much does advertising with BangkokFillers cost?", a: "Pricing depends on placement and duration — email chillanel22@gmail.com for a proposal." },
+    { q: "How much does advertising with BangkokFillers cost?", a: "Pricing depends on placement and duration — fill in the contact form for a proposal." },
     { q: "Does BangkokFillers accept products in exchange for rankings?", a: "No — all rankings are calculated from data only. Paid rankings don't exist here. Our credibility is our product." },
     { q: "Who is the audience?", a: "Thai women who research before buying skincare — high-intent buyers, not passive scrollers." },
   ];
@@ -161,12 +160,12 @@ export default async function MediaKit({
             ? "BangkokFillers เป็นแหล่งข้อมูลสกินแคร์ไทยที่อ้างอิงได้ — ไม่ใช่ influencer ไม่ใช่โฆษณาแฝง"
             : "BangkokFillers is Thailand's citable skincare reference — not influencers, not hidden ads."}
         </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
+        <Link
+          href={`/${locale}/contact`}
           className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-2xl px-6 py-3 transition-colors shadow-sm shadow-rose-200 text-sm"
         >
           {isTh ? "ติดต่อเราตอนนี้ →" : "Contact us now →"}
-        </a>
+        </Link>
       </header>
 
       {/* Site stats */}
@@ -285,13 +284,12 @@ export default async function MediaKit({
             ? "ติดต่อมาพร้อมชื่อแบรนด์และ objective — เราจะส่ง proposal ให้ภายใน 48 ชั่วโมง"
             : "Get in touch with your brand name and objective — we'll send a proposal within 48 hours."}
         </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(isTh ? "สอบถามโฆษณา BangkokFillers" : "Advertising inquiry — BangkokFillers")}`}
+        <Link
+          href={`/${locale}/contact`}
           className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-2xl px-8 py-4 transition-colors shadow-sm shadow-rose-200"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          {isTh ? `อีเมลหาเราที่ ${CONTACT_EMAIL}` : `Email us at ${CONTACT_EMAIL}`}
-        </a>
+          {isTh ? "กรอกแบบฟอร์มติดต่อเรา →" : "Fill in our contact form →"}
+        </Link>
         <p className="text-xs text-neutral-400 pt-2">
           {isTh ? "หรือดูข้อมูลเพิ่มเติมที่ " : "Or explore: "}
           <Link href={`/${locale}/methodology`} className="text-rose-400 hover:underline">

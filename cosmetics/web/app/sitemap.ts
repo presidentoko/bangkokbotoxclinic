@@ -58,6 +58,7 @@ function coreEntries(): MetadataRoute.Sitemap {
   out.push(entry(`${BASE}/th/brand`, 0.8, "weekly"));
   out.push(entry(`${BASE}/th/methodology`, 0.6, "monthly"));
   out.push(entry(`${BASE}/th/media-kit`, 0.5, "monthly"));
+  out.push(entry(`${BASE}/th/contact`, 0.6, "monthly"));
 
   // Sale events
   for (const ev of SALE_EVENTS) {
