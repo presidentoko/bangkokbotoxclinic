@@ -16,7 +16,7 @@ describe("i18n", () => {
 
 describe("affiliate", () => {
   it("wraps the product url and is absolute", () => {
-    const u = affiliateUrl({ url: "https://www.konvy.com/x-1.html" } as any);
+    const u = affiliateUrl({ url: "https://www.konvy.com/x-1.html", product_id: "test-123" });
     expect(u.startsWith("http")).toBe(true);
     expect(u).toContain("konvy.com");
   });
