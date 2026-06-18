@@ -3,7 +3,7 @@ import { t, LOCALES, concernLabel } from "../i18n";
 import { affiliateUrl } from "../affiliate";
 
 describe("i18n", () => {
-  it("has th + en", () => { expect(LOCALES).toEqual(["th", "en"]); });
+  it("has th + en + ko + ar", () => { expect(LOCALES).toEqual(["th", "en", "ko", "ar"]); });
   it("translates a key per locale", () => {
     expect(t("th", "buy_now")).not.toBe(t("en", "buy_now"));
     expect(t("en", "buy_now").toLowerCase()).toContain("buy");
