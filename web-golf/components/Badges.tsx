@@ -3,22 +3,18 @@
 import type { Restaurant } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
 
-// AI Verified — Local Guide 비율 기반 "real review" 신뢰도.
+// Trust badge — Trust Score + verified review count.
 export function AIVerifiedBadge({ r, size = "sm" }: { r: Restaurant; size?: "sm" | "md" }) {
   if (r.scraped_review_count < 5) return null;
-  const lg = r.local_guide_count;
-  const total = r.scraped_review_count;
-  const lgRatio = total > 0 ? lg / total : 0;
-  const verifiedRate = Math.round(50 + lgRatio * 50);
   const cls = size === "md" ? "px-3 py-1 text-sm" : "px-2 py-0.5 text-xs";
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-semibold whitespace-nowrap ${cls}`}
       style={{ background: "#ecfeff", color: "#155e75" }}
-      title={`${lg} of ${total} scraped reviews are by Google Local Guides — high credibility reviewers.`}
+      title={`Trust Score is derived from ${r.scraped_review_count.toLocaleString()} verified Google reviews including ${r.local_guide_count} by Local Guides.`}
     >
       <span aria-hidden>✓</span>
-      AI Verified · {verifiedRate}% real
+      Trust Score {r.trust_score} · {r.total_reviews.toLocaleString()} reviews
     </span>
   );
 }

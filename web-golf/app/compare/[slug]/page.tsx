@@ -7,7 +7,7 @@ import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import { AdSlot } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();

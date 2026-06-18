@@ -7,7 +7,7 @@ import { MobileMenuButton } from "@/components/MobileNav";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 const cfg = getSiteConfig();
 
 export const viewport: Viewport = {

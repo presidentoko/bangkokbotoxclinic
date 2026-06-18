@@ -101,7 +101,7 @@ export default async function HomePage() {
 
       {/* MEGA STATS BAR */}
       <section className="border-y border-[var(--border)] bg-gradient-to-r from-emerald-700 via-green-700 to-emerald-800 text-white">
-        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-4 gap-4 text-center">
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <Stat big={db.total_restaurants.toLocaleString()} label="Courses" />
           <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Reviews analyzed" />
           <Stat big={koFriendlyCount.toLocaleString()} label="🇰🇷 Korean-friendly" />
@@ -392,7 +392,7 @@ function Stat({ big, label }: { big: string; label: string }) {
   return (
     <div>
       <div className="text-2xl md:text-4xl font-black tabular-nums leading-none">{big}</div>
-      <div className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1.5 font-bold">{label}</div>
+      <div className="text-xs uppercase tracking-widest opacity-90 mt-1.5 font-bold">{label}</div>
     </div>
   );
 }
@@ -412,7 +412,7 @@ function DataPoint({ big, label, hint }: { big: string; label: string; hint: str
     <div>
       <div className="text-2xl md:text-3xl font-black tabular-nums text-[var(--fg)] leading-none">{big}</div>
       <div className="text-xs font-semibold text-[var(--fg)] mt-1.5">{label}</div>
-      <div className="text-[11px] text-[var(--muted)] leading-snug mt-0.5">{hint}</div>
+      <div className="text-xs text-[var(--muted)] leading-snug mt-0.5">{hint}</div>
     </div>
   );
 }

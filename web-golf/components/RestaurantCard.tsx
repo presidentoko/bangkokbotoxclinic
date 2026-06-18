@@ -24,7 +24,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
     >
       {tier && (
         <>
-          <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg shadow-md`}>
+          <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg shadow-md`}>
             {tier === "editors_pick" ? "★ Editor's Pick" : tier === "recommended" ? "✓ Recommended" : "◆ Featured"}
           </div>
         </>

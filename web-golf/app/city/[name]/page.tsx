@@ -10,6 +10,8 @@ import { getCityContent } from "@/lib/cityContent";
 import { BEST_FOR } from "@/lib/bestFor";
 import type { Metadata } from "next";
 
+export const dynamic = "force-static";
+
 function citySlug(label: string): string {
   return label.toLowerCase().replace(/\s+/g, "_");
 }
@@ -92,7 +94,7 @@ export default async function CityPage(
         {content.intro}
       </p>
 
-      <div className="grid grid-cols-4 gap-3 mb-8 text-center">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 text-center">
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
           <div className="text-2xl font-bold tabular-nums">{filtered.length}</div>
           <div className="text-xs text-[var(--muted)]">Courses</div>

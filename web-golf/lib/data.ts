@@ -30,6 +30,33 @@ export async function loadMasterDb(): Promise<MasterDb> {
   if (!db.restaurants) db.restaurants = courses;
   if (db.total_restaurants === undefined) db.total_restaurants = db.total_courses;
   if (!db.cuisine_counts) db.cuisine_counts = db.category_counts;
+
+  // Normalize raw city display names to canonical English title-case.
+  // Handles: ALL-CAPS duplicates ("CHIANG MAI"), raw Thai script ("นครพนม").
+  const CITY_NORM: Record<string, string> = {
+    "CHIANG MAI": "Chiang Mai",
+    "นครพนม": "Nakhon Phanom",
+    "HUA HIN": "Hua Hin",
+    "PHUKET": "Phuket",
+    "BANGKOK": "Bangkok",
+    "PATTAYA": "Pattaya",
+    "CHON BURI": "Chon Buri",
+  };
+  const normCity = (s: string) => CITY_NORM[s] ?? s;
+
+  // Normalize city_counts keys (merge counts for dupes that share a canonical name)
+  const normCityCounts: Record<string, number> = {};
+  for (const [k, v] of Object.entries(db.city_counts)) {
+    const canon = normCity(k);
+    normCityCounts[canon] = (normCityCounts[canon] ?? 0) + (v as number);
+  }
+  db.city_counts = normCityCounts;
+
+  // Normalize city_label on each course
+  for (const c of courses) {
+    if (CITY_NORM[c.city_label]) c.city_label = CITY_NORM[c.city_label];
+  }
+
   _cache = db;
   return _cache;
 }

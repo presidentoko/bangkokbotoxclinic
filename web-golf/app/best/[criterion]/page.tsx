@@ -7,6 +7,8 @@ import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
+export const revalidate = 604800; // 7 days — course data refreshes weekly
+
 export async function generateStaticParams() {
   return BEST_FOR.map((c) => ({ criterion: c.slug }));
 }

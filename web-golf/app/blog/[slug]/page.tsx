@@ -4,7 +4,7 @@ import { findPostKo } from "@/lib/posts_ko";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thailand Golf Guide";
 
 export const dynamicParams = false;

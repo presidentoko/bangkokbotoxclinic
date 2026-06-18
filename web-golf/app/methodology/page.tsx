@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 
 export const metadata: Metadata = {
   title: "Methodology — How Trust Score & Korean-friendly Are Computed",

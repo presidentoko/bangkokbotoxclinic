@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 
 export const metadata: Metadata = {
   title: "한국 골퍼들의 태국 골프 후기 모음 — 네이버 블로그 큐레이션",

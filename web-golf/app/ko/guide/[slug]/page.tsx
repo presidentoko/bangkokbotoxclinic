@@ -6,7 +6,7 @@ import { loadMasterDb, topByTrust } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 
 export async function generateStaticParams() {
   return GUIDES_KO.map((g) => ({ slug: g.slug }));

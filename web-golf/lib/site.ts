@@ -10,7 +10,7 @@ export type SiteConfig = {
 
 export function getSiteConfig(): SiteConfig {
   const brand = process.env.NEXT_PUBLIC_BRAND || "Thailand Golf Guide";
-  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
   return {
     brand,
     domain,

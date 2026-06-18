@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 
 export const metadata: Metadata = {
   title: "한국어 캐디 있는 태국 골프장 — 검증된 86개 코스 (2026)",

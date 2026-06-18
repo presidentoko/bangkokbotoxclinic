@@ -1,6 +1,8 @@
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Contact",
   description: "Reach our team for golf course partnerships, data corrections, press, or general questions.",

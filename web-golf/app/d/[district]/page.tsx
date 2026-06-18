@@ -6,6 +6,8 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
+export const revalidate = 604800; // 7 days
+
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
   return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;

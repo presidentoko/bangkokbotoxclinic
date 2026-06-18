@@ -9,7 +9,7 @@ import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS } from "@/lib/posts";
 import { POSTS_KO, findPostKo } from "@/lib/posts_ko";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thailandgolfguide.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
 
 const SLUGS_KO = new Set(GUIDES_KO.map((g) => g.slug));
