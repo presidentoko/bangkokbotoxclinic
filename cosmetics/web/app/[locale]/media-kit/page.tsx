@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
-const CONTACT_EMAIL = "umma@xx.gg";
+const CONTACT_EMAIL = "chillanel22@gmail.com";
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -137,11 +137,11 @@ export default async function MediaKit({
   ];
 
   const faqData = isTh ? [
-    { q: "โฆษณากับ BangkokFillers ราคาเท่าไหร่", a: "ราคาขึ้นอยู่กับ placement และระยะเวลา — ติดต่อ umma@xx.gg เพื่อรับ proposal" },
+    { q: "โฆษณากับ BangkokFillers ราคาเท่าไหร่", a: "ราคาขึ้นอยู่กับ placement และระยะเวลา — ติดต่อ chillanel22@gmail.com เพื่อรับ proposal" },
     { q: "BangkokFillers รับสินค้าฟรีแลกรีวิวไหม", a: "ไม่ — อันดับทุกตัวคำนวณจากข้อมูลเท่านั้น ไม่มีการจ่ายเงินเพื่อขึ้นอันดับ ความน่าเชื่อถือคือสิ่งที่เราปกป้อง" },
     { q: "ผู้ชมเป็นใคร", a: "ผู้หญิงไทยที่ค้นหาข้อมูลก่อนซื้อสกินแคร์ — กลุ่มที่ตัดสินใจด้วยข้อมูล ไม่ใช่ influencer" },
   ] : [
-    { q: "How much does advertising with BangkokFillers cost?", a: "Pricing depends on placement and duration — email umma@xx.gg for a proposal." },
+    { q: "How much does advertising with BangkokFillers cost?", a: "Pricing depends on placement and duration — email chillanel22@gmail.com for a proposal." },
     { q: "Does BangkokFillers accept products in exchange for rankings?", a: "No — all rankings are calculated from data only. Paid rankings don't exist here. Our credibility is our product." },
     { q: "Who is the audience?", a: "Thai women who research before buying skincare — high-intent buyers, not passive scrollers." },
   ];
