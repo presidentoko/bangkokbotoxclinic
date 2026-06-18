@@ -3,7 +3,7 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
-const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg";
+import { RfqForm } from "@/components/RfqForm";
 
 export const metadata: Metadata = {
   title: "สำหรับซัพพลายเออร์ — ลงประกาศพิเศษและรับลีด",
@@ -52,12 +52,10 @@ export default async function ThForSuppliersPage() {
         <Offering tag="04 — รับลีด (CPL)" title="คำถามจากผู้ซื้อที่ผ่านการคัดเลือก" price="฿2,500 / ลีด หรือ ฿30,000 / เดือน" body="คำถามที่ตรงกับโปรไฟล์ของคุณ พร้อมข้อมูลติดต่อ ปริมาณ และเป้าหมายผลิตภัณฑ์" accent="#16a34a" />
       </section>
 
-      <section className="mb-16 bg-white border border-[var(--border)] rounded-xl p-6 text-center">
-        <h2 className="text-2xl font-bold mb-2">เริ่มต้น</h2>
-        <p className="text-[var(--muted)] mb-4">ส่งอีเมลพร้อมชื่อบริษัทและระดับที่ต้องการ — ตอบกลับภายใน 1 วันทำการ</p>
-        <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("คำถามเกี่ยวกับการลงประกาศ — ซัพพลายเออร์")}`} className="inline-block bg-black text-white py-3 px-6 rounded-lg font-bold hover:bg-gray-800">
-          ✉ {CONTACT_EMAIL}
-        </a>
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-4">เริ่มต้น</h2>
+        <p className="text-[var(--muted)] text-sm mb-6">กรอกแบบฟอร์มพร้อมชื่อบริษัทและระดับที่ต้องการ — ตอบกลับภายใน 1 วันทำการ</p>
+        <RfqForm locale="th" />
       </section>
 
       <BreadcrumbJsonLd items={[

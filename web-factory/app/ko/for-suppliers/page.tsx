@@ -3,7 +3,7 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
-const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg";
+import { RfqForm } from "@/components/RfqForm";
 
 export const metadata: Metadata = {
   title: "공급사 등록 및 노출 — 한국 buyer 채널",
@@ -139,17 +139,12 @@ export default async function KoForSuppliersPage() {
         </div>
       </section>
 
-      <section className="mb-16 bg-white border border-[var(--border)] rounded-xl p-6 text-center">
-        <h2 className="text-2xl font-bold mb-2">시작하기</h2>
-        <p className="text-[var(--muted)] mb-4">
-          회사명과 원하는 티어를 메일로 보내주세요. 영업일 1일 안에 30일 파일럿 제안서를 회신합니다.
+      <section className="mb-16">
+        <h2 className="text-2xl font-bold mb-4">시작하기</h2>
+        <p className="text-[var(--muted)] text-sm mb-6">
+          회사명과 원하는 티어를 폼으로 보내주세요. 영업일 1일 안에 답변합니다.
         </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("공급사 등록 문의 — 태국")}`}
-          className="inline-block bg-black text-white py-3 px-6 rounded-lg font-bold hover:bg-gray-800"
-        >
-          ✉ {CONTACT_EMAIL}
-        </a>
+        <RfqForm locale="ko" />
       </section>
 
       <BreadcrumbJsonLd items={[

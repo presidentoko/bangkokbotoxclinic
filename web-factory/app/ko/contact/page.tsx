@@ -1,4 +1,5 @@
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { RfqForm } from "@/components/RfqForm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function KoContactPage() {
-  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg";
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -28,45 +28,17 @@ export default function KoContactPage() {
 
       <h1 className="text-4xl font-bold tracking-tight mb-3">문의</h1>
       <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
-        파트너십·데이터 정정·보도·기타 문의를 메일로 보내주세요. 영업일 1일 이내 답변합니다(한국어 OK).
+        파트너십·데이터 정정·보도·기타 문의는 아래 폼으로 보내주세요. 영업일 1일 이내 답변합니다 (한국어 OK).
       </p>
 
-      <div className="space-y-3">
-        <Reason
-          icon="🏭"
-          title="공급사 파트너십"
-          body="Editor's Pick / Recommended / Featured 슬롯, 한국어 채널 우선 노출, 리드 제공 — 자세한 내용은 /ko/for-suppliers."
-        />
-        <Reason
-          icon="✏️"
-          title="데이터 정정"
-          body="잘못된 주소·폐쇄된 공장·시간 정보 오래됨·카테고리 오분류. 공급사 이름과 어떤 점이 잘못됐는지 알려주세요."
-        />
-        <Reason
-          icon="📰"
-          title="보도 / 미디어"
-          body="산업 데이터, 방법론 질문, 인터뷰 요청."
-        />
-        <Reason
-          icon="❓"
-          title="기타"
-          body="모든 메일 직접 읽습니다."
-        />
+      <div className="space-y-3 mb-8">
+        <Reason icon="🏭" title="공급사 파트너십" body="Editor's Pick / Recommended / Featured 슬롯, 한국어 채널 우선 노출, 리드 제공 — 자세한 내용은 /ko/for-suppliers." />
+        <Reason icon="✏️" title="데이터 정정" body="잘못된 주소·폐쇄된 공장·시간 정보 오래됨·카테고리 오분류. 공급사 이름과 어떤 점이 잘못됐는지 알려주세요." />
+        <Reason icon="📰" title="보도 / 미디어" body="산업 데이터, 방법론 질문, 인터뷰 요청." />
+        <Reason icon="❓" title="기타" body="모든 메시지 직접 읽습니다." />
       </div>
 
-      <div className="mt-8 bg-white border border-[var(--border)] rounded-xl p-6">
-        <h2 className="font-bold text-lg mb-2">메일</h2>
-        <p className="text-sm text-[var(--muted)] mb-4">
-          공급사 이름이나 페이지 URL을 메일에 같이 적어주시면 빠릅니다.
-        </p>
-        <a
-          href={`mailto:${email}`}
-          className="inline-flex items-center gap-2 bg-black text-white py-3 px-5 rounded-lg font-bold hover:bg-gray-800 text-base"
-        >
-          <span aria-hidden>✉</span>
-          {email}
-        </a>
-      </div>
+      <RfqForm locale="ko" />
 
       <BreadcrumbJsonLd items={[
         { name: "홈", url: "/ko" },

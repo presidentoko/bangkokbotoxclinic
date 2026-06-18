@@ -8,7 +8,6 @@ import { RFQ_I18N, type Locale } from "@/lib/buyersI18n";
 import { formatSuppliersLine, type ShortlistItem } from "@/lib/shortlist";
 
 const ENDPOINT = process.env.NEXT_PUBLIC_RFQ_ENDPOINT || "/api/inquiry";
-const FALLBACK_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chillanel22@gmail.com";
 
 const CATEGORY_KEYS = [
   "manufacturer", "auto_parts", "electronics", "food_mfg", "packaging",
@@ -74,27 +73,6 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
     const fd = new FormData(form);
     fd.set("_locale", locale);
 
-    if (!ENDPOINT) {
-      const body = [
-        `Locale: ${locale}`,
-        ...(supplierName ? [`Supplier: ${supplierName}`, ``] : []),
-        ...(bulk ? [`Suppliers (${suppliers!.length}): ${suppliersLine}`, ``] : []),
-        `Name: ${fd.get("name")}`,
-        `Company: ${fd.get("company")}`,
-        `Email: ${fd.get("email")}`,
-        `Phone: ${fd.get("phone")}`,
-        `Country: ${fd.get("country")}`,
-        `Category: ${fd.get("category")}`,
-        `Volume: ${fd.get("volume")}`,
-        ``,
-        `Message:`,
-        `${fd.get("message")}`,
-      ].join("\n");
-      window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      setStatus("success");
-      return;
-    }
-
     setStatus("submitting");
     setErrorMsg("");
     try {
@@ -117,9 +95,7 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
       <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-6 text-center">
         <div className="text-3xl mb-2">✓</div>
         <h3 className="font-bold text-lg mb-1 text-emerald-900">{t.successTitle}</h3>
-        <p className="text-sm text-emerald-800">
-          {t.successBody} <a href={`mailto:${FALLBACK_EMAIL}`} className="underline font-semibold">{FALLBACK_EMAIL}</a>.
-        </p>
+        <p className="text-sm text-emerald-800">{t.successBody}</p>
       </div>
     );
   }
@@ -189,7 +165,7 @@ export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }:
 
       {status === "error" && (
         <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
-          {t.errorPrefix} ({errorMsg}). {t.emailDirect} <a href={`mailto:${FALLBACK_EMAIL}`} className="underline">{FALLBACK_EMAIL}</a>.
+          {t.errorPrefix} ({errorMsg}). Please try again.
         </div>
       )}
 
