@@ -85,11 +85,12 @@ export default function AeoSchema({ c, lang }: { c: Clinic; lang: Lang }) {
         : undefined,
     review: fmtReviews(c),
     priceRange: c.bookimed_price_from || undefined,
-    medicalSpecialty: "Dermatology",
-    knowsAbout: c.procedures.length ? c.procedures : ["Hair Transplant"],
-    availableService: c.procedures.map((p) => ({
+    medicalSpecialty: ["Plastic Surgery", "Dermatology"],
+    knowsAbout: c.procedures.length ? c.procedures : ["Hair Transplant", "FUE", "DHI"],
+    availableService: (c.procedures.length ? c.procedures : ["Hair Transplant", "FUE", "DHI"]).map((p) => ({
       "@type": "MedicalProcedure",
       name: p,
+      procedureType: "https://schema.org/SurgicalProcedure",
     })),
   };
 

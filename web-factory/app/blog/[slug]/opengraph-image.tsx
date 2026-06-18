@@ -3,14 +3,16 @@ import { findPost, POSTS } from "@/lib/posts";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "Thailand B2B Blog — ThaiSupplyHub";
 
-export async function generateImageMetadata() {
-  return POSTS.map((p) => ({ id: p.slug, alt: p.title }));
+export function generateStaticParams() {
+  return POSTS.map((p) => ({ slug: p.slug }));
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const p = findPost(params.slug);
-  const title = p?.title ?? params.slug;
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = findPost(slug);
+  const title = p?.title ?? slug;
   const category = p?.category ?? "Sourcing";
 
   return new ImageResponse(
@@ -108,7 +110,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ fontSize: 80 }}>✍️</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, letterSpacing: 2, textAlign: "center" }}>
-            INDUSTRY{"\n"}INSIGHT
+            INDUSTRY INSIGHT
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             Thailand B2B

@@ -31,14 +31,14 @@ def run_once():
     try:
         result = subprocess.run(
             [str(VENV_PY), str(SCRIPT)],
-            capture_output=True, text=True, timeout=180, encoding="utf-8",
+            capture_output=True, text=True, timeout=600, encoding="utf-8",
         )
         for line in (result.stdout or "").splitlines():
             log.info(f"  {line}")
         if result.returncode != 0:
             log.warning(f"exit {result.returncode}: {result.stderr[-500:]}")
     except subprocess.TimeoutExpired:
-        log.warning("타임아웃 (180s)")
+        log.warning("타임아웃 (600s)")
     except Exception as e:
         log.error(f"spawn 실패: {e}")
 

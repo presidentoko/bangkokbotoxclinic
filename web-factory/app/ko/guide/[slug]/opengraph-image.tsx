@@ -3,14 +3,16 @@ import { findGuideKo, GUIDES_KO } from "@/lib/guides_ko";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "태국 소싱 가이드 — ThaiSupplyHub";
 
-export async function generateImageMetadata() {
-  return GUIDES_KO.map((g) => ({ id: g.slug, alt: g.title }));
+export function generateStaticParams() {
+  return GUIDES_KO.map((g) => ({ slug: g.slug }));
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const g = findGuideKo(params.slug);
-  const title = g?.title ?? params.slug;
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const g = findGuideKo(slug);
+  const title = g?.title ?? slug;
   const sections = g?.sections.length ?? 0;
   const faqs = g?.faqs.length ?? 0;
 
@@ -109,7 +111,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ fontSize: 80 }}>📖</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, letterSpacing: 1, textAlign: "center" }}>
-            태국 B2B{"\n"}소싱 가이드
+            태국 B2B 소싱 가이드
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             한국어 가이드

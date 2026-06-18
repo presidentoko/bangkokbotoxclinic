@@ -568,7 +568,11 @@ export default async function SupplierPage(
                   <span className="text-xs text-amber-900/70">Comparing several? Add them and request one quote from your shortlist.</span>
                 </div>
               </div>
-              <RfqForm locale="en" />
+              <RfqForm
+                locale="en"
+                supplierName={r.name}
+                supplierUrl={`https://thaisupplyhub.com/supplier/${r.id}`}
+              />
             </section>
           </div>
 

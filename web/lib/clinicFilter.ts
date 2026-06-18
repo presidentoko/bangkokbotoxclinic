@@ -12,18 +12,31 @@ const NON_CLINIC_TYPES = new Set([
   "Beauty salon", "Beauty Salon", "Hair salon", "Nail salon", "Eyelash salon",
   "Eyebrow bar", "Beauty products wholesaler", "Beauty therapy college",
   "Health and beauty shop",
+  // Physical therapy — not aesthetic; excluded from botox/filler/facial feeds
+  "Physiotherapist", "Physical therapist", "Massage therapist",
+  "Occupational therapist", "Acupuncturist", "Chiropractor",
+  "Traditional medicine practitioner",
   // Pet care
   "Animal hospital", "Veterinarian", "Pet supply store",
-  // Retail / shopping
+  // Retail / shopping / food — strongest non-medical signals
   "Shopping mall", "Shopping Centre", "Department store",
-  "Fresh food market", "Supermarket", "Convenience store", "Grocery store",
+  "Fresh food market", "Fruit market", "Produce market",
+  "Market", "Wholesale market", "Night market",
+  "Supermarket", "Convenience store", "Grocery store",
+  "Food court", "Food market",
   "Cannabis store", "Cannabis dispensary",
   "Pharmacy", "Drug store",
   "Retail space rental agency",
-  // Non-medical services
-  "Restaurant", "Cafe", "Hotel",
+  // Food & drink
+  "Restaurant", "Fast food restaurant", "Korean restaurant", "Japanese restaurant",
+  "Thai restaurant", "Chinese restaurant",
+  "Cafe", "Coffee shop", "Bakery", "Bar", "Pub",
+  // Accommodation / services
+  "Hotel", "Guest house", "Resort", "Hostel",
   "School", "University", "Office",
   "Bank", "ATM", "Gas station", "Parking",
+  // Fitness (unless explicitly medical)
+  "Gym", "Fitness center", "Yoga studio", "Muay Thai gym",
 ]);
 
 // 이름에 명백한 비-클리닉 시그널

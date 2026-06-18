@@ -30,15 +30,23 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const { lang } = await params;
   const url = `${SITE.origin}/${lang}/`;
   return {
-    title: `${SITE.name} — Verified Thai Hair Clinics`,
-    description: SITE.tagline[lang],
+    title: lang === "en"
+      ? "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026"
+      : `${SITE.name} — Verified Thai Hair Clinics`,
+    description: lang === "en"
+      ? "Compare Bangkok hair transplant clinics by Trust Score from 134 verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis. Free consultation."
+      : SITE.tagline[lang],
     alternates: {
       canonical: url,
       languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/`])),
     },
     openGraph: {
-      title: `${SITE.name} — Verified Thai Hair Clinics`,
-      description: SITE.tagline[lang],
+      title: lang === "en"
+        ? "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026"
+        : `${SITE.name} — Verified Thai Hair Clinics`,
+      description: lang === "en"
+        ? "Compare Bangkok hair transplant clinics by Trust Score from 134 verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis."
+        : SITE.tagline[lang],
       url,
       images: [{ url: `${SITE.origin}/og-default.png`, width: 1200, height: 630 }],
     },

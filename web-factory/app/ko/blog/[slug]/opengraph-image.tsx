@@ -3,14 +3,16 @@ import { findPostKo, POSTS_KO } from "@/lib/posts_ko";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "태국 B2B 블로그 — ThaiSupplyHub";
 
-export async function generateImageMetadata() {
-  return POSTS_KO.map((p) => ({ id: p.slug, alt: p.title }));
+export function generateStaticParams() {
+  return POSTS_KO.map((p) => ({ slug: p.slug }));
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const p = findPostKo(params.slug);
-  const title = p?.title ?? params.slug;
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = findPostKo(slug);
+  const title = p?.title ?? slug;
   const category = p?.category ?? "소싱";
 
   return new ImageResponse(
@@ -107,7 +109,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ fontSize: 80 }}>✍️</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, textAlign: "center" }}>
-            태국 B2B{"\n"}전문 칼럼
+            태국 B2B 전문 칼럼
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             한국어 블로그

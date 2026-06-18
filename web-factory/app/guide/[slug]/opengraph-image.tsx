@@ -3,14 +3,16 @@ import { findGuide, GUIDES } from "@/lib/guides";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "Thailand B2B Buyer Guide — ThaiSupplyHub";
 
-export async function generateImageMetadata() {
-  return GUIDES.map((g) => ({ id: g.slug, alt: g.title }));
+export function generateStaticParams() {
+  return GUIDES.map((g) => ({ slug: g.slug }));
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const g = findGuide(params.slug);
-  const title = g?.title ?? params.slug;
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const g = findGuide(slug);
+  const title = g?.title ?? slug;
   const sections = g?.sections.length ?? 0;
   const faqs = g?.faqs.length ?? 0;
 
@@ -104,7 +106,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ fontSize: 80 }}>📖</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, letterSpacing: 2, textAlign: "center" }}>
-            SOURCING{"\n"}GUIDE
+            SOURCING GUIDE
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             Thailand B2B

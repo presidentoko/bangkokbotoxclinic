@@ -62,8 +62,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const g = findGuide(topic);
   if (!g) return {};
   return {
-    title: g.title,
-    description: g.intro.slice(0, 160),
+    title: g.metaTitle ?? g.title,
+    description: g.metaDescription ?? g.intro.slice(0, 160),
     alternates: { canonical: `${SITE.origin}/${lang}/guide/${g.slug}/` },
   };
 }
@@ -166,7 +166,35 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: La
           </section>
         )}
 
-        {totalSources === 0 && (
+        {/* Editorial article sections */}
+        {g.sections && g.sections.length > 0 && (
+          <article className="space-y-8">
+            <h2 className="font-display text-2xl font-bold tracking-tighter-display">In-depth guide</h2>
+            {g.sections.map((s) => (
+              <section key={s.heading}>
+                <h3 className="font-display text-lg font-bold mb-2">{s.heading}</h3>
+                <p className="text-sm leading-relaxed muted">{s.body}</p>
+              </section>
+            ))}
+          </article>
+        )}
+
+        {/* FAQ section */}
+        {g.faqs && g.faqs.length > 0 && (
+          <section>
+            <h2 className="font-display text-2xl font-bold tracking-tighter-display mb-4">Frequently asked</h2>
+            <div className="space-y-3">
+              {g.faqs.map((f, i) => (
+                <details key={i} className="rounded-xl border p-4" style={{ borderColor: "rgb(var(--border))" }}>
+                  <summary className="font-semibold cursor-pointer">{f.q}</summary>
+                  <p className="mt-2 text-sm leading-relaxed muted">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {totalSources === 0 && !g.sections && (
           <p className="text-center text-sm muted py-20">No community posts matched this topic yet — check back as we expand coverage.</p>
         )}
 
@@ -211,13 +239,27 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: La
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": g.title,
-            "description": g.intro,
+            "headline": g.metaTitle ?? g.title,
+            "description": g.metaDescription ?? g.intro,
             "author": { "@type": "Organization", "name": SITE.name },
             "publisher": { "@type": "Organization", "name": SITE.name },
             "mainEntityOfPage": `${SITE.origin}/${lang}/guide/${g.slug}/`,
           })
         }} />
+        {/* FAQ JSON-LD */}
+        {g.faqs && g.faqs.length > 0 && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": g.faqs.map((f) => ({
+                "@type": "Question",
+                "name": f.q,
+                "acceptedAnswer": { "@type": "Answer", "text": f.a },
+              })),
+            })
+          }} />
+        )}
       </main>
     </div>
   );

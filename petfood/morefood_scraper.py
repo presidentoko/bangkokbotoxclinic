@@ -151,6 +151,30 @@ BRANDS: list[dict] = [
         "product_re": r"instinctpetfood\.com/products/[a-z0-9-]{6,}$",
         "ignore_ssl": False,
     },
+    {
+        "key": "smartheart",
+        "brand": "SmartHeart",
+        "animal": "dog",
+        "locale": "th-TH",
+        "category_urls": [
+            "https://smartheart.co.th/dog-food/",
+            "https://smartheart.co.th/cat-food/",
+        ],
+        "product_re": r"smartheart\.co\.th/(?:product|dog-food|cat-food)/[a-z0-9-]{4,}/?$",
+        "ignore_ssl": False,
+    },
+    {
+        "key": "iams",
+        "brand": "Iams",
+        "animal": "dog",
+        "locale": "en-US",
+        "category_urls": [
+            "https://www.iams.com/dog-food",
+            "https://www.iams.com/cat-food",
+        ],
+        "product_re": r"iams\.com/(?:dog|cat)-food/[a-z0-9-]{6,}$",
+        "ignore_ssl": False,
+    },
 ]
 
 BRAND_MAP = {b["key"]: b for b in BRANDS}

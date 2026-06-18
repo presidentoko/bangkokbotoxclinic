@@ -7,7 +7,7 @@ import { useState } from "react";
 import { RFQ_I18N, type Locale } from "@/lib/buyersI18n";
 import { formatSuppliersLine, type ShortlistItem } from "@/lib/shortlist";
 
-const ENDPOINT = process.env.NEXT_PUBLIC_RFQ_ENDPOINT || "";
+const ENDPOINT = process.env.NEXT_PUBLIC_RFQ_ENDPOINT || "/api/inquiry";
 const FALLBACK_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chillanel22@gmail.com";
 
 const CATEGORY_KEYS = [
@@ -60,7 +60,7 @@ const VOLUME_LABEL: Record<Locale, Record<string, string>> = {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function RfqForm({ locale = "en", suppliers }: { locale?: Locale; suppliers?: ShortlistItem[] }) {
+export function RfqForm({ locale = "en", suppliers, supplierName, supplierUrl }: { locale?: Locale; suppliers?: ShortlistItem[]; supplierName?: string; supplierUrl?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const t = RFQ_I18N[locale];
@@ -77,10 +77,12 @@ export function RfqForm({ locale = "en", suppliers }: { locale?: Locale; supplie
     if (!ENDPOINT) {
       const body = [
         `Locale: ${locale}`,
+        ...(supplierName ? [`Supplier: ${supplierName}`, ``] : []),
         ...(bulk ? [`Suppliers (${suppliers!.length}): ${suppliersLine}`, ``] : []),
         `Name: ${fd.get("name")}`,
         `Company: ${fd.get("company")}`,
         `Email: ${fd.get("email")}`,
+        `Phone: ${fd.get("phone")}`,
         `Country: ${fd.get("country")}`,
         `Category: ${fd.get("category")}`,
         `Volume: ${fd.get("volume")}`,
@@ -129,6 +131,8 @@ export function RfqForm({ locale = "en", suppliers }: { locale?: Locale; supplie
     <form onSubmit={onSubmit} className="space-y-4 bg-white border border-[var(--border)] rounded-2xl p-6 md:p-8 shadow-sm">
       <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
       <input type="hidden" name="_subject" value={subject} />
+      {supplierName && <input type="hidden" name="_supplier_name" value={supplierName} />}
+      {supplierUrl && <input type="hidden" name="_supplier_url" value={supplierUrl} />}
       {bulk && <input type="hidden" name="suppliers" value={suppliersLine} />}
 
       {bulk && (
@@ -153,6 +157,9 @@ export function RfqForm({ locale = "en", suppliers }: { locale?: Locale; supplie
 
       <div className="grid sm:grid-cols-2 gap-4">
         <Field label={t.email} name="email" type="email" required placeholder={t.placeholderEmail} />
+        <Field label="Phone" name="phone" type="tel" placeholder="+1 555 000 0000" />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
         <Field label={t.country} name="country" required placeholder={t.placeholderCountry} />
       </div>
 

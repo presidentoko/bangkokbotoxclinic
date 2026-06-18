@@ -1,3 +1,5 @@
+"use client";
+
 import type { Supplier } from "@/lib/types";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";

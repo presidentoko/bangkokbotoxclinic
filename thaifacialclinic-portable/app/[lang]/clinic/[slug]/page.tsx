@@ -21,26 +21,16 @@ import VirtualConsultBadge from "@/components/VirtualConsultBadge";
 import FreshScoreBadge from "@/components/FreshScoreBadge";
 import TrustScoreExplainer from "@/components/TrustScoreExplainer";
 import LiveAvailabilityCalendar from "@/components/LiveAvailabilityCalendar";
-import AppointmentTimeline from "@/components/AppointmentTimeline";
-import PriceTrendChart from "@/components/PriceTrendChart";
-import CountrySavings from "@/components/CountrySavings";
-import TravelPackageWidget from "@/components/TravelPackageWidget";
 import FullCostBreakdown from "@/components/FullCostBreakdown";
 import IntlPatientServices from "@/components/IntlPatientServices";
-import InfluencerVisits from "@/components/InfluencerVisits";
-import PatientStoriesCarousel from "@/components/PatientStoriesCarousel";
 import TestimonialSubmitForm from "@/components/TestimonialSubmitForm";
-import PriceMatchPromise from "@/components/PriceMatchPromise";
 import QnaCommunity from "@/components/QnaCommunity";
-import PreOpChecklist from "@/components/PreOpChecklist";
-import PostOpRecovery from "@/components/PostOpRecovery";
 import VisaInfoBar from "@/components/VisaInfoBar";
 import ShareToFriend from "@/components/ShareToFriend";
 import GroupDiscount from "@/components/GroupDiscount";
 import PriceLockGuarantee from "@/components/PriceLockGuarantee";
 import MultiCityCompare from "@/components/MultiCityCompare";
 import WaitingRoomTour from "@/components/WaitingRoomTour";
-import InsuranceCoverageCheck from "@/components/InsuranceCoverageCheck";
 import AlternativeProcedures from "@/components/AlternativeProcedures";
 import AwardsShowcase from "@/components/AwardsShowcase";
 import AgeGroupResults from "@/components/AgeGroupResults";
@@ -104,6 +94,12 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
   if (!c) notFound();
   const bundle = loadClinics();
   const wiki = loadWikiSummary(c.id);
+
+  // Nearby clinics — same city, top trust_score, excluding self
+  const nearbyClinics = bundle.clinics
+    .filter((other) => other.slug !== c.slug && other.city === c.city)
+    .sort((a, b) => b.trust_score - a.trust_score)
+    .slice(0, 6);
 
   const trend = trendFor(c);
   const relatedGuides = guidesForProcedures(c.procedures);
@@ -382,19 +378,41 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
           {/* Collapsible sections — mobile-friendly. Default-open: pricing + timeline */}
           <div className="mt-10 space-y-3">
             <CollapsibleSection title="Your procedure, day by day" emoji="⏰" defaultOpen>
-              <AppointmentTimeline focus="hair" />
-              <PreOpChecklist focus="hair" />
-              <PostOpRecovery focus="hair" />
+              <div className="space-y-3 text-sm">
+                <div className="rounded-xl border p-4" style={{ borderColor: "rgb(var(--border))" }}>
+                  <p className="font-semibold mb-2">What to expect at {c.name}</p>
+                  <ul className="space-y-1.5 muted">
+                    <li>• <strong>Day 1:</strong> Consultation, scalp assessment, hairline design</li>
+                    <li>• <strong>Day 2–3:</strong> Procedure day — typically 6–9 hours for FUE/DHI</li>
+                    <li>• <strong>Days 3–10:</strong> Initial healing, avoid touching grafts</li>
+                    <li>• <strong>Months 3–4:</strong> Shock loss phase — grafts shed, then regrow</li>
+                    <li>• <strong>Month 12+:</strong> Full density visible</li>
+                  </ul>
+                </div>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <Link href={`/${lang}/guide/fue-reviews/`} className="rounded-lg border px-3 py-1.5 font-semibold hover:bg-[rgb(var(--bg-elev))]" style={{ borderColor: "rgb(var(--border))" }}>
+                    FUE patient reviews →
+                  </Link>
+                  <Link href={`/${lang}/guide/dhi-reviews/`} className="rounded-lg border px-3 py-1.5 font-semibold hover:bg-[rgb(var(--bg-elev))]" style={{ borderColor: "rgb(var(--border))" }}>
+                    DHI patient reviews →
+                  </Link>
+                  <Link href={`/${lang}/guide/bangkok-hair-clinic-guide/`} className="rounded-lg border px-3 py-1.5 font-semibold hover:bg-[rgb(var(--bg-elev))]" style={{ borderColor: "rgb(var(--border))" }}>
+                    Bangkok clinic guide →
+                  </Link>
+                </div>
+              </div>
             </CollapsibleSection>
 
             <CollapsibleSection title="Pricing & cost transparency" emoji="💰" defaultOpen>
-              <PriceTrendChart focus="hair" />
-              <CountrySavings focus="hair" />
-              <MultiCityCompare focus="hair" />
-              <TravelPackageWidget />
               <FullCostBreakdown procedureTHB={Number((c.bookimed_price_from || "").replace(/[^\d]/g, "")) || 150_000} />
-              <PriceMatchPromise />
-              <PriceLockGuarantee />
+              <div className="mt-4 flex flex-wrap gap-2 text-xs">
+                <Link href={`/${lang}/guide/thailand-vs-turkey/`} className="rounded-lg border px-3 py-1.5 font-semibold hover:bg-[rgb(var(--bg-elev))]" style={{ borderColor: "rgb(var(--border))" }}>
+                  Thailand vs Turkey cost →
+                </Link>
+                <Link href={`/${lang}/guide/thailand-vs-korea/`} className="rounded-lg border px-3 py-1.5 font-semibold hover:bg-[rgb(var(--bg-elev))]" style={{ borderColor: "rgb(var(--border))" }}>
+                  Thailand vs Korea cost →
+                </Link>
+              </div>
             </CollapsibleSection>
 
             <CollapsibleSection title="Trust, safety & certifications" emoji="🛡️">
@@ -410,14 +428,10 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
               <AgeGroupResults focus="hair" />
               <SeasonalBestTime focus="hair" />
               <AvailabilityHeatmap clinicId={c.id} />
-              <InsuranceCoverageCheck />
             </CollapsibleSection>
 
             <CollapsibleSection title="Community & social proof" emoji="💬">
-              <PatientStoriesCarousel focus="hair" />
               <TestimonialSubmitForm clinicName={c.name} />
-              <InfluencerVisits focus="hair" />
-              <WaitingRoomTour />
               <QnaCommunity focus="hair" />
               <AlternativeProcedures focus="hair" />
             </CollapsibleSection>
@@ -462,6 +476,42 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
                   </Link>
                 ))}
               </div>
+            </section>
+          )}
+
+          {/* Nearby clinics — internal linking for crawl coverage */}
+          {nearbyClinics.length > 0 && (
+            <section className="mt-12">
+              <h2 className="font-display text-2xl font-bold tracking-tighter-display mb-4">
+                More hair transplant clinics in {c.city}
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {nearbyClinics.map((n) => (
+                  <Link
+                    key={n.slug}
+                    href={`/${lang}/clinic/${n.slug}/`}
+                    className="card card-hover flex items-center gap-4 p-4"
+                  >
+                    {n.top_photo_url && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={n.top_photo_url} alt={n.name} className="h-14 w-14 rounded-xl object-cover shrink-0" referrerPolicy="no-referrer" />
+                    )}
+                    <div className="min-w-0">
+                      <div className="font-bold text-sm leading-tight truncate">{n.name}</div>
+                      <div className="text-xs muted mt-0.5">{n.city}{n.city !== c.city ? "" : ""}</div>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs font-bold" style={{ color: n.trust_score >= 70 ? "#16a34a" : n.trust_score >= 50 ? "#d97706" : "#6b7280" }}>
+                          Trust {n.trust_score}
+                        </span>
+                        {n.rating && <span className="text-xs muted">★ {n.rating.toFixed(1)}</span>}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <Link href={`/${lang}/`} className="mt-4 inline-flex text-sm font-semibold" style={{ color: "rgb(var(--accent))" }}>
+                See all {c.city} clinics →
+              </Link>
             </section>
           )}
 

@@ -466,6 +466,8 @@ def build_services() -> list[Service]:
         "CITY_LNG": "98.9853",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../chiang_mai/clinics_output",
+        "GRID_PROXY_PORT": "2080",
+        "GRID_N_WORKERS": "4",
     }
     koh_samui_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -474,6 +476,8 @@ def build_services() -> list[Service]:
         "CITY_LNG": "99.9648",
         "CITY_RADIUS_M": "15000",
         "CITY_OUTPUT_DIR": "../koh_samui/clinics_output",
+        "GRID_PROXY_PORT": "2084",
+        "GRID_N_WORKERS": "4",
     }
     krabi_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -482,6 +486,8 @@ def build_services() -> list[Service]:
         "CITY_LNG": "98.9063",
         "CITY_RADIUS_M": "15000",
         "CITY_OUTPUT_DIR": "../krabi/clinics_output",
+        "GRID_PROXY_PORT": "2084",
+        "GRID_N_WORKERS": "4",
     }
     hua_hin_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -490,6 +496,8 @@ def build_services() -> list[Service]:
         "CITY_LNG": "99.9577",
         "CITY_RADIUS_M": "12000",
         "CITY_OUTPUT_DIR": "../hua_hin/clinics_output",
+        "GRID_PROXY_PORT": "2088",
+        "GRID_N_WORKERS": "4",
     }
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -945,6 +953,8 @@ def _promote_next_in_chain(services: list[Service]) -> bool:
             continue
         if not (prev.disabled and "자연 종료" in prev.disabled_reason):
             continue
+        if nxt.disabled and "자연 종료" in nxt.disabled_reason:
+            continue  # next already done — don't re-enable
         if not nxt.is_paused():
             continue
         try:

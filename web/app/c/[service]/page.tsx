@@ -9,6 +9,7 @@ import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
+import { GUIDES } from "@/lib/guides";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -62,6 +63,7 @@ export default async function ServicePage(
 
   const totalReviews = filtered.reduce((s, c) => s + c.total_reviews, 0);
   const withScraped = filtered.filter((c) => c.scraped_review_count > 0).length;
+  const guide = GUIDES.find((g) => g.focusTags?.includes(service as "botox" | "filler" | "hifu" | "facial" | "laser" | "dental" | "hair"));
 
   return (
     <>
@@ -187,6 +189,37 @@ export default async function ServicePage(
             ))}
           </div>
         </section>
+      )}
+
+      {guide && (
+        <article className="mt-16 prose prose-sm max-w-none">
+          <h2 className="text-2xl font-bold tracking-tight mb-3 not-prose">{guide.title}</h2>
+          <p className="text-[var(--muted)] mb-8 not-prose">{guide.intro}</p>
+          <div className="space-y-8 not-prose">
+            {guide.sections.map((s) => (
+              <section key={s.heading}>
+                <h3 className="text-lg font-bold mb-2">{s.heading}</h3>
+                <p className="text-sm text-[var(--muted)] leading-relaxed">{s.body}</p>
+              </section>
+            ))}
+          </div>
+          {guide.faqs.length > 0 && (
+            <div className="mt-10 not-prose">
+              <h3 className="text-lg font-bold mb-4">{label} — More questions answered</h3>
+              <div className="space-y-3">
+                {guide.faqs.map((f, i) => (
+                  <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4">
+                    <summary className="font-medium cursor-pointer">{f.q}</summary>
+                    <p className="mt-2 text-sm text-[var(--muted)]">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          )}
+          <p className="mt-6 text-xs text-[var(--muted)] not-prose">
+            Last updated: {guide.updated} · <a href={`/guide/${guide.slug}`} className="hover:underline" style={{ color: "var(--accent)" }}>Read full guide →</a>
+          </p>
+        </article>
       )}
 
       <BreadcrumbJsonLd items={[

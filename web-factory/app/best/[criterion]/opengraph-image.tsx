@@ -3,14 +3,16 @@ import { findBestFor, BEST_FOR } from "@/lib/bestFor";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "Best Thai Suppliers — curated list";
 
-export async function generateImageMetadata() {
-  return BEST_FOR.map((c) => ({ id: c.slug, alt: c.title }));
+export function generateStaticParams() {
+  return BEST_FOR.map((c) => ({ criterion: c.slug }));
 }
 
-export default function Image({ params }: { params: { criterion: string } }) {
-  const c = findBestFor(params.criterion);
-  const title = c?.title ?? params.criterion;
+export default async function Image({ params }: { params: Promise<{ criterion: string }> }) {
+  const { criterion } = await params;
+  const c = findBestFor(criterion);
+  const title = c?.title ?? criterion;
 
   return new ImageResponse(
     (
@@ -95,7 +97,7 @@ export default function Image({ params }: { params: { criterion: string } }) {
         >
           <div style={{ fontSize: 80 }}>🏆</div>
           <div style={{ color: "#fef3c7", fontSize: 18, fontWeight: 700, letterSpacing: 2, textAlign: "center" }}>
-            TOP RANKED{"\n"}SUPPLIERS
+            TOP RANKED SUPPLIERS
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             Thailand B2B

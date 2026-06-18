@@ -73,6 +73,30 @@ SHOPIFY_BRANDS = [
         "base": "https://www.stellaandchewys.com",
         "animal_default": "dog",
     },
+    {
+        "key": "victor",
+        "brand": "Victor",
+        "base": "https://www.victordogfood.com",
+        "animal_default": "dog",
+    },
+    {
+        "key": "fromm",
+        "brand": "Fromm",
+        "base": "https://www.frommfamily.com",
+        "animal_default": "dog",
+    },
+    {
+        "key": "orijen",
+        "brand": "Orijen",
+        "base": "https://www.orijen.ca",
+        "animal_default": "dog",
+    },
+    {
+        "key": "sportmix",
+        "brand": "Sportmix",
+        "base": "https://www.sportmixpetfood.com",
+        "animal_default": "dog",
+    },
 ]
 
 HEADERS = {

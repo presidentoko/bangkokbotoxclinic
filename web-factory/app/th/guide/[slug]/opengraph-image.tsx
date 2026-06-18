@@ -3,14 +3,16 @@ import { findGuideTh, GUIDES_TH } from "@/lib/guides_th";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "คู่มือผู้ซื้อ B2B ไทย — ThaiSupplyHub";
 
-export async function generateImageMetadata() {
-  return GUIDES_TH.map((g) => ({ id: g.slug, alt: g.title }));
+export function generateStaticParams() {
+  return GUIDES_TH.map((g) => ({ slug: g.slug }));
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const g = findGuideTh(params.slug);
-  const title = g?.title ?? params.slug;
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const g = findGuideTh(slug);
+  const title = g?.title ?? slug;
   const sections = g?.sections.length ?? 0;
   const faqs = g?.faqs.length ?? 0;
 
@@ -108,7 +110,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ fontSize: 80 }}>📖</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, textAlign: "center" }}>
-            คู่มือ B2B{"\n"}ไทย
+            คู่มือ B2B ไทย
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             thaisupplyhub

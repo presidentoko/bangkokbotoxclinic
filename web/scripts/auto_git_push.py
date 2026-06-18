@@ -161,8 +161,28 @@ def main() -> int:
 
     push = run(["git", "push", "origin", "main"], check=False)
     if push.returncode != 0:
-        print(f"[auto_git_push] push 실패: {push.stderr.strip()[:300]}", file=sys.stderr)
-        return 1
+        stderr = push.stderr.strip()
+        if any(k in stderr for k in ("non-fast-forward", "fetch first", "[rejected]")):
+            print("[auto_git_push] push 거부(diverge) → fetch+merge 후 재시도")
+            run(["git", "fetch", "origin"], check=False)
+            dirty = run(["git", "diff", "--name-only"], check=False)
+            stashed = False
+            if dirty.stdout.strip():
+                s = run(["git", "stash", "push", "-m", "auto-merge-stash"], check=False)
+                stashed = s.returncode == 0
+            merge = run(["git", "merge", "origin/main", "-X", "ours", "--no-edit"], check=False)
+            if stashed:
+                run(["git", "stash", "pop"], check=False)
+            if merge.returncode != 0:
+                print(f"[auto_git_push] merge 실패: {merge.stderr.strip()[:200]}", file=sys.stderr)
+                return 1
+            push = run(["git", "push", "origin", "main"], check=False)
+            if push.returncode != 0:
+                print(f"[auto_git_push] 재시도 push 실패: {push.stderr.strip()[:300]}", file=sys.stderr)
+                return 1
+        else:
+            print(f"[auto_git_push] push 실패: {stderr[:300]}", file=sys.stderr)
+            return 1
 
     print("[auto_git_push] push 완료 → Vercel auto-deploy 트리거됨")
 

@@ -3,14 +3,16 @@ import { findPostTh, POSTS_TH } from "@/lib/posts_th";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "บล็อก B2B ไทย — ThaiSupplyHub";
 
-export async function generateImageMetadata() {
-  return POSTS_TH.map((p) => ({ id: p.slug, alt: p.title }));
+export function generateStaticParams() {
+  return POSTS_TH.map((p) => ({ slug: p.slug }));
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const p = findPostTh(params.slug);
-  const title = p?.title ?? params.slug;
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = findPostTh(slug);
+  const title = p?.title ?? slug;
   const category = p?.category ?? "ซัพพลายเออร์";
 
   return new ImageResponse(
@@ -107,7 +109,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ fontSize: 80 }}>✍️</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, textAlign: "center" }}>
-            บทความ B2B{"\n"}ภาษาไทย
+            บทความ B2B ภาษาไทย
           </div>
           <div style={{ color: "white", fontSize: 22, fontWeight: 800, textAlign: "center", marginTop: 8 }}>
             thaisupplyhub

@@ -4,13 +4,17 @@
 순서:
   1. Hills TH 스크래핑
   2. Purina TH 스크래핑
-  3. Shopee 가격 (VPN 병렬)
-  4. web-petbkk/data/petfood.json 업데이트
+  3. Shopify 브랜드 (Open Farm, Ziwi, Stella, Merrick, Instinct, Victor, Fromm, Orijen…)
+  4. morefood 브랜드 (Me-O, Sheba, Taste of Wild, Farmina, SmartHeart, Iams…)
+  5. Shopify ingredient backfill (성분 없는 항목 재추출)
+  6. Shopee 가격 (VPN 병렬)
+  7. web-petbkk/data/petfood.json 업데이트
 
 Run:
     python -m petfood.run_all_scrapers
     python -m petfood.run_all_scrapers --skip-brands   # 브랜드 스킵, 가격만
-    python -m petfood.run_all_scrapers --skip-shopee   # 가격 스킵, 브랜드만
+    python -m petfood.run_all_scrapers --skip-shopee   # 가격 스킵
+    python -m petfood.run_all_scrapers --enrich-only   # 성분 보강만
     python -m petfood.run_all_scrapers --no-vpn        # VPN 없이 (가격 단일 스레드)
 """
 from __future__ import annotations
@@ -52,6 +56,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-brands", action="store_true")
     parser.add_argument("--skip-shopee", action="store_true")
+    parser.add_argument("--skip-enrich", action="store_true")
+    parser.add_argument("--enrich-only", action="store_true")
     parser.add_argument("--no-vpn", action="store_true")
     parser.add_argument("--workers", type=int, default=10)
     parser.add_argument("--base-port", type=int, default=2080)
@@ -59,9 +65,20 @@ def main():
 
     ok = True
 
+    if args.enrich_only:
+        ok &= _run("petfood.shopify_enrich")
+        _sync_web()
+        print("\n✅ Enrich-only run complete")
+        return
+
     if not args.skip_brands:
         ok &= _run("petfood.hills_scraper")
         ok &= _run("petfood.purina_scraper")
+        ok &= _run("petfood.shopify_scraper")
+        ok &= _run("petfood.morefood_scraper")
+
+    if not args.skip_enrich:
+        ok &= _run("petfood.shopify_enrich")
 
     if not args.skip_shopee:
         shopee_args = [f"--workers={args.workers}", f"--base-port={args.base_port}"]

@@ -1,18 +1,18 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { districtsForBuild } from "@/lib/districts";
-import { SupplierCard } from "@/components/SupplierCard";
-import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
+import { CATEGORY_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS } from "@/lib/faq";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AffiliateSlot";
 import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
 import { POSTS } from "@/lib/posts";
 import { GUIDES } from "@/lib/guides";
-import { photoUrl } from "@/lib/photoUrl";
 import { computeTrustScore } from "@/lib/trustScore";
+import { SectorCard } from "@/components/SectorCard";
+import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -33,24 +33,38 @@ function citySlug(label: string): string {
   return label.toLowerCase().replace(/\s+/g, "_");
 }
 
+const FEATURED_CATEGORIES: { key: string; icon: string; label: string }[] = [
+  { key: "manufacturer",       icon: "🏭", label: "Manufacturers" },
+  { key: "auto_parts",         icon: "🚗", label: "Auto Parts" },
+  { key: "warehouse",          icon: "📦", label: "Warehouses" },
+  { key: "industrial_estate",  icon: "🏘️", label: "Industrial Estates" },
+  { key: "logistics",          icon: "🚚", label: "Logistics" },
+  { key: "food_mfg",           icon: "🥫", label: "Food Manufacturers" },
+];
+
+function topCityForCategory(suppliers: Awaited<ReturnType<typeof loadMasterDb>>["suppliers"], cat: string): string {
+  const counts: Record<string, number> = {};
+  for (const s of suppliers) {
+    if (s.categories.includes(cat) && s.city_label) {
+      counts[s.city_label] = (counts[s.city_label] ?? 0) + 1;
+    }
+  }
+  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "Thailand";
+}
+
 export default async function HomePage() {
   const db = await loadMasterDb();
   const top = sortWithSponsored(topByTrust(db.suppliers, 50));
 
-  const totalReviews = db.suppliers.reduce((s, r) => s + r.total_reviews, 0);
-  const withWebsite = db.suppliers.filter((r) => r.website).length;
   const withPhone = db.suppliers.filter((r) => r.phone).length;
   const provinces = Object.keys(db.city_counts).length;
   const verifiedCount = db.verified_count ?? db.suppliers.filter((r) => r.verified).length;
-  const withDbd = db.with_dbd ?? db.suppliers.filter((r) => r.dbd).length;
   const withPhotos = db.with_photos ?? db.suppliers.filter((r) => r.photos && r.photos.length > 0).length;
 
   const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
 
   // Canonical districts (Mueang/Muang 등 병합, supplier 5+ 만), busiest 12.
   const districts = districtsForBuild(db).slice(0, 12);
-
-  const categories = Object.entries(db.category_counts).sort((a, b) => b[1] - a[1]);
 
   const popularSearches = [
     { label: "Chon Buri", href: "/city/chon_buri" },
@@ -68,19 +82,34 @@ export default async function HomePage() {
     trust_score: computeTrustScore(r).overall,
   }));
 
-  // Featured 6 — DBD-verified + 사진 보유 우선. fallback 으로 top trust.
-  const featuredVerified = [...db.suppliers]
-    .filter((r) => r.verified && r.hero_image)
-    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall)
-    .slice(0, 6);
-  const featuredFinal = featuredVerified.length >= 6 ? featuredVerified
-    : top.slice(0, 30).filter((r) => r.hero_image).slice(0, 6).concat(top).slice(0, 6);
+  // 섹터 카드 데이터 (빌드 타임)
+  const sectorData = FEATURED_CATEGORIES
+    .filter(({ key }) => (db.category_counts[key] ?? 0) > 0)
+    .map(({ key, icon, label }) => ({
+      key,
+      icon,
+      label,
+      supplierCount: db.category_counts[key] ?? 0,
+      dbdCount: db.suppliers.filter((s) => s.categories.includes(key) && s.dbd).length,
+      topCity: topCityForCategory(db.suppliers, key),
+      href: `/c/${key}`,
+    }));
 
-  // Industrial estates spotlight (단가 최고 segment)
-  const estatesTop = [...db.suppliers]
-    .filter((r) => r.categories.includes("industrial_estate"))
-    .sort((a, b) => computeTrustScore(b).overall - computeTrustScore(a).overall)
-    .slice(0, 6);
+  // 필터 컴포넌트용 데이터 (trust score 내림차순)
+  const filterableSuppliers: FilterableSupplier[] = db.suppliers
+    .map((s) => ({
+      id: s.id,
+      name: s.name,
+      city_label: s.city_label,
+      district: s.district ?? null,
+      categories: s.categories,
+      dbd: !!s.dbd,
+      trust_score: computeTrustScore(s).overall,
+    }))
+    .sort((a, b) => b.trust_score - a.trust_score);
+
+  const categoryOptions = Object.keys(db.category_counts).sort();
+  const cityOptions = Object.keys(db.city_counts).sort();
 
   return (
     <>
@@ -149,97 +178,23 @@ export default async function HomePage() {
           />
         </section>
 
-        {/* FEATURED 6 */}
-        {featuredFinal.length >= 6 && (
-          <section className="mb-12">
-            <div className="flex items-baseline justify-between gap-4 mb-5">
-              <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-                Top 6 this week
-              </h2>
-              <a href="/best/highly-recommended" className="text-sm text-emerald-700 font-medium hover:underline">
-                See full ranking →
-              </a>
-            </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {featuredFinal.map((r, i) => (
-                <a
-                  key={r.id}
-                  href={`/supplier/${r.id}`}
-                  className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:border-emerald-300 hover:-translate-y-0.5 transition relative overflow-hidden"
-                >
-                  {r.hero_image ? (
-                    <div className="relative h-40 overflow-hidden bg-gray-100">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={photoUrl(r.hero_image)}
-                        alt={r.name}
-                        loading="lazy"
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-2 left-2 text-xs font-bold text-white bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full tabular-nums">
-                        #{i + 1}
-                      </div>
-                      <div className="absolute top-2 right-2 text-base font-black text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full tabular-nums">
-                        {computeTrustScore(r).overall}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="px-5 pt-5 flex items-start justify-between gap-2">
-                      <div className="text-2xl font-black tabular-nums text-[var(--muted)]">#{i + 1}</div>
-                      <div className="text-3xl font-black tabular-nums" style={{
-                        color: computeTrustScore(r).overall >= 75 ? "#16a34a" : computeTrustScore(r).overall >= 60 ? "#059669" : "#ca8a04"
-                      }}>
-                        {computeTrustScore(r).overall}
-                      </div>
-                    </div>
-                  )}
-                  <div className="p-5">
-                    <h3 className="font-bold text-base group-hover:text-emerald-700 transition leading-tight mb-1">{r.name}</h3>
-                    <p className="text-sm text-[var(--muted)]">{r.district || r.city_label}</p>
-                    <div className="flex items-center gap-2 mt-3 text-xs text-[var(--muted)]">
-                      <span className="text-yellow-700 font-bold">★ {r.rating.toFixed(1)}</span>
-                      <span>·</span>
-                      <span>{r.total_reviews.toLocaleString()} reviews</span>
-                    </div>
-                    <div className="mt-3 flex flex-wrap gap-1">
-                      {r.categories.slice(0, 2).map((c) => (
-                        <span key={c} className="bg-emerald-50 text-emerald-800 text-xs px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
-                          <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
-                          {CATEGORY_LABELS[c] ?? c}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Industrial estates spotlight */}
-        {estatesTop.length >= 3 && (
-          <section className="mb-12 border border-[var(--border)] rounded-2xl bg-gradient-to-br from-emerald-50/40 via-white to-green-50/40 p-6 md:p-8">
-            <div className="flex items-baseline justify-between gap-4 flex-wrap mb-5">
-              <div>
-                <h2 className="text-xl md:text-2xl font-black tracking-tight">🏘️ Industrial Estates</h2>
-                <p className="text-sm text-[var(--muted)] mt-1">
-                  Premium-tier B2B real estate. Pinthong, Amata, WHA, Rojana — Eastern Seaboard major estates mapped.
-                </p>
-              </div>
-              <a href="/c/industrial_estate" className="text-sm font-bold hover:text-emerald-700 hover:underline">All estates →</a>
-            </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {estatesTop.map((r, i) => (
-                <a key={r.id} href={`/supplier/${r.id}`} className="block bg-white rounded-xl border border-[var(--border)] p-3 hover:border-emerald-300 transition">
-                  <div className="text-xs text-[var(--muted)] mb-1">#{i + 1} · Trust {computeTrustScore(r).overall}</div>
-                  <div className="font-medium text-sm leading-tight">{r.name}</div>
-                  <div className="text-xs text-[var(--muted)] mt-1">{r.district || r.city_label}</div>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* SECTOR CARDS */}
+        <section className="mb-10">
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Find by industry</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {sectorData.map((s) => (
+              <SectorCard
+                key={s.key}
+                icon={s.icon}
+                label={s.label}
+                href={s.href}
+                supplierCount={s.supplierCount}
+                dbdCount={s.dbdCount}
+                topCity={s.topCity}
+              />
+            ))}
+          </div>
+        </section>
 
         {/* Browse by region */}
         {cities.length > 1 && (
@@ -253,26 +208,6 @@ export default async function HomePage() {
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
                 >
                   {city}
-                  <span className="text-[var(--muted)] tabular-nums">{count}</span>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Browse by type */}
-        {categories.length > 0 && (
-          <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By Type</h2>
-            <div className="flex flex-wrap gap-2">
-              {categories.map(([cat, count]) => (
-                <a
-                  key={cat}
-                  href={`/c/${cat}`}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
-                >
-                  <span aria-hidden>{CATEGORY_ICONS[cat] ?? "🏭"}</span>
-                  {CATEGORY_LABELS[cat] ?? cat}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
                 </a>
               ))}
@@ -362,21 +297,15 @@ export default async function HomePage() {
 
         <AdSlot slot="home-mid" />
 
-        <section>
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top {Math.min(top.length, 50)} by Trust Score</h2>
-          <div className="grid gap-3">
-            {top.slice(0, 10).map((r, i) => (
-              <SupplierCard key={r.id} r={r} rank={i + 1} />
-            ))}
-          </div>
-
-          <AffiliateInline />
-
-          <div className="grid gap-3 mt-3">
-            {top.slice(10).map((r, i) => (
-              <SupplierCard key={r.id} r={r} rank={i + 11} />
-            ))}
-          </div>
+        {/* FILTERED LIST */}
+        <section className="mb-12">
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top suppliers by trust score</h2>
+          <SupplierListWithFilter
+            suppliers={filterableSuppliers}
+            categoryOptions={categoryOptions}
+            cityOptions={cityOptions}
+            totalSuppliers={db.total_suppliers}
+          />
         </section>
 
         <section className="mt-12">

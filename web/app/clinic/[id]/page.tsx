@@ -144,7 +144,7 @@ export default async function ClinicPage(
     { label: "Authority", value: authPart, max: 5, color: "#0891b2" },
   ];
 
-  // Similar clinics
+  // Similar clinics (sidebar — loose match: district OR category)
   const similar = db.clinics
     .filter((other) =>
       other.id !== c.id &&
@@ -152,6 +152,28 @@ export default async function ClinicPage(
     )
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 4);
+
+  // Nearby clinics (main column — strict: same district AND same primary category, fallback to loose)
+  const primaryCat = c.categories[0];
+  const strictNearby = primaryCat && c.district
+    ? db.clinics
+        .filter((other) =>
+          other.id !== c.id &&
+          other.district === c.district &&
+          other.categories.includes(primaryCat)
+        )
+        .sort((a, b) => b.trust_score - a.trust_score)
+        .slice(0, 6)
+    : [];
+  const nearbyClinics = strictNearby.length >= 3
+    ? strictNearby
+    : db.clinics
+        .filter((other) =>
+          other.id !== c.id &&
+          (other.district === c.district || c.categories.some((cat) => other.categories.includes(cat)))
+        )
+        .sort((a, b) => b.trust_score - a.trust_score)
+        .slice(0, 6);
 
   // Wiki summary (LLM 생성, 미존재 시 null — graceful degrade)
   const wikiSummary = await loadWikiSummary(c.id);
@@ -373,6 +395,59 @@ export default async function ClinicPage(
 
           {/* SEO: 카테고리/지역 long-tail 자동 내부 백링크 */}
           <RelatedExplore clinic={c} />
+
+          {/* STEP 4: 인접 클리닉 cross-link — 같은 구 + 같은 카테고리, 6개 카드 */}
+          {nearbyClinics.length > 0 && (
+            <section className="bg-white border border-[var(--border)] rounded-xl p-5">
+              <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+                <h2 className="text-lg font-bold">
+                  {primaryCat && c.district
+                    ? `More ${CATEGORY_LABELS[primaryCat] ?? primaryCat} clinics in ${c.district}`
+                    : c.district
+                    ? `More clinics in ${c.district}`
+                    : "Similar clinics"}
+                </h2>
+                {primaryCat && c.district && (
+                  <a
+                    href={`/c/${primaryCat}/${c.district.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="text-xs text-[var(--accent)] hover:underline font-medium"
+                  >
+                    See all →
+                  </a>
+                )}
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {nearbyClinics.map((s) => (
+                  <a
+                    key={s.id}
+                    href={`/clinic/${s.id}`}
+                    className="group flex flex-col gap-1 p-3 rounded-lg border border-[var(--border)] hover:border-[var(--accent)] transition"
+                  >
+                    <div className="font-medium text-sm group-hover:text-[var(--accent)] transition line-clamp-2 leading-snug">
+                      {s.name}
+                    </div>
+                    <div className="text-xs text-[var(--muted)] flex items-center gap-2 flex-wrap">
+                      {s.district && <span>{s.district}</span>}
+                      <span>★ {s.rating.toFixed(1)}</span>
+                      <span
+                        className="font-medium"
+                        style={{
+                          color:
+                            s.trust_score >= 75
+                              ? "#16a34a"
+                              : s.trust_score >= 60
+                              ? "#059669"
+                              : "#ca8a04",
+                        }}
+                      >
+                        Trust {s.trust_score.toFixed(0)}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
 
           <section className="grid sm:grid-cols-2 gap-3">
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
