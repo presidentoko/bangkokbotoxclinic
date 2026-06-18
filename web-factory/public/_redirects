@@ -119,3 +119,8 @@
 /d/mueang /d/mueang-samut-sakhon 301
 /c/:cat/mueang /c/:cat/mueang-samut-sakhon 301
 # <<< district-canonical <<<
+
+# Catch-all for supplier IDs removed from master_db — 301 to homepage.
+# Cloudflare Pages serves static files BEFORE checking this file,
+# so valid /supplier/[id] pages are never redirected.
+/supplier/* / 301
