@@ -3,8 +3,6 @@ import {
   CONCERNS,
   allProducts,
   productSlug,
-  getRanking,
-  getProduct,
   CONCERN_FILTER_SLUGS,
 } from "@/lib/data";
 import { LOCALES } from "@/lib/i18n";
