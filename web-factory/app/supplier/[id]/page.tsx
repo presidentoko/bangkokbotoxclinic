@@ -31,7 +31,22 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  return db.suppliers.map((r) => ({ id: r.id }));
+  // CF Pages 20k file limit — only build pages with at least one trust signal.
+  // Thin pages are caught by public/_redirects → 301 to homepage.
+  // CF Pages 20k file limit. Each page generates ~8 files (RSC payloads).
+  // Take top 1500 suppliers by trust score — ~12k files, safely under limit.
+  return db.suppliers
+    .filter((r) => {
+      const score = r.b2b_score ?? r.trust_score ?? 0;
+      return r.verified || r.website || r.phone || score >= 8;
+    })
+    .sort((a, b) => {
+      const sa = a.b2b_score ?? a.trust_score ?? 0;
+      const sb = b.b2b_score ?? b.trust_score ?? 0;
+      return sb - sa;
+    })
+    .slice(0, 1300)
+    .map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(
