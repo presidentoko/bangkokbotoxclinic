@@ -4,7 +4,7 @@
 // After payment, email proof to NEXT_PUBLIC_CONTACT_EMAIL with company name + DBD reg no.
 // - Set NEXT_PUBLIC_STRIPE_VERIFIED_LINK to your Stripe Payment Link URL (create at dashboard.stripe.com/payment-links)
 // - Set NEXT_PUBLIC_LINE_OA_URL to your LINE OA URL (e.g. https://line.me/R/ti/p/@yourID)
-// - Put your PromptPay QR PNG at public/promptpay-verified.png
+// - Replace public/promptpay-verified.svg with your actual PromptPay QR
 
 const STRIPE_LINK = process.env.NEXT_PUBLIC_STRIPE_VERIFIED_LINK || "";
 const LINE_OA = process.env.NEXT_PUBLIC_LINE_OA_URL || "";
@@ -29,7 +29,7 @@ export function SupplierVerifiedCTA() {
             Pay via PromptPay
           </p>
           <img
-            src="/promptpay-verified.png"
+            src="/promptpay-verified.svg"
             alt="PromptPay QR — ฿5,000 Verified Badge"
             className="w-40 h-40 mx-auto rounded-xl border border-[var(--border)] object-contain"
             onError={(e) => {
