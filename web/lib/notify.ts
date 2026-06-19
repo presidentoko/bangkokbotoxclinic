@@ -5,7 +5,7 @@ import { getSiteConfig } from "./site";
 
 const RESEND_KEY = process.env.RESEND_API_KEY;
 const DEFAULT_LINE_TOKEN = process.env.LINE_DEFAULT_BOT_TOKEN;
-const FALLBACK_EMAIL = process.env.FALLBACK_LEAD_EMAIL || "chillanel22@gmail.com";
+const FALLBACK_EMAIL = process.env.FALLBACK_LEAD_EMAIL ?? "";
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL;
@@ -30,6 +30,7 @@ export async function sendEmail(to: string, subject: string, html: string, text:
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ from: fromAddress(), to, subject, html, text }),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
       console.error("[notify.email] resend err", res.status, await res.text());
@@ -59,6 +60,7 @@ export async function sendLinePush(token: string | undefined, userId: string, te
         to: userId,
         messages: [{ type: "text", text: text.slice(0, 4900) }],
       }),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
       console.error("[notify.line] err", res.status, await res.text());
@@ -104,8 +106,8 @@ export async function notifyPaymentClaim(claim: PaymentClaim): Promise<void> {
   const delivered = results.some((r) => r.status === "fulfilled" && r.value === true);
 
   // 두 채널 모두 미설정/실패 → 이메일 폴백 (claim 유실 방지).
-  if (!delivered) {
-    await sendEmail(getFallbackEmail(), `Payment claim: ${claim.clinic_name}`,
+  if (!delivered && FALLBACK_EMAIL) {
+    await sendEmail(FALLBACK_EMAIL, `Payment claim: ${claim.clinic_name}`,
       `<pre>${text}</pre>`, text);
   }
 }
@@ -120,6 +122,7 @@ export async function sendTelegram(text: string): Promise<boolean> {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text }),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
       console.error("[notify.telegram] err", res.status, await res.text());
@@ -142,6 +145,7 @@ async function sendDiscord(text: string): Promise<boolean> {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ content: text }),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
       console.error("[notify.discord] err", res.status, await res.text());

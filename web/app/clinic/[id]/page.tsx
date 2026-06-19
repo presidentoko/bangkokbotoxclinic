@@ -10,7 +10,7 @@ import { BookingForm } from "@/components/BookingForm";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { TopicCluster } from "@/components/TopicCluster";
 import { LineButton } from "@/components/LineButton";
-import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
+import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking, VerifiedPartnerBadge } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AdPlaceholder } from "@/components/AffiliateSlot";
 import { ClaimBanner } from "@/components/ClaimBanner";
@@ -246,6 +246,7 @@ export default async function ClinicPage(
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 items-center">
+          {tier && <VerifiedPartnerBadge clinicId={c.id} />}
           <AIVerifiedBadge clinic={c} size="md" />
           {percentile <= 25 && (
             <RelativeRanking percentile={percentile} label={rankingLabel} />

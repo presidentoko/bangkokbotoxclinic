@@ -175,6 +175,16 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
               )}
             </div>
             <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate">{clinic.name}</h3>
+            {tier && (
+              <div className="mt-1">
+                <span
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-white whitespace-nowrap shadow-sm"
+                  style={{ background: "linear-gradient(135deg, #059669 0%, #10b981 100%)" }}
+                >
+                  🏅 Verified Partner
+                </span>
+              </div>
+            )}
           </div>
           <div className="text-right shrink-0">
             <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">★ {clinic.rating.toFixed(1)}</div>
@@ -316,12 +326,24 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
 
       {/* CTA strip */}
       <div className="px-5 pb-4 flex gap-2">
-        <a
-          href={`/clinic/${clinic.id}`}
-          className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
-        >
-          View details →
-        </a>
+        {tier && clinic.website ? (
+          <a
+            href={clinic.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-center py-2 px-3 rounded-lg text-white text-xs font-bold transition"
+            style={{ background: "linear-gradient(135deg, #059669 0%, #10b981 100%)" }}
+          >
+            Book Consultation →
+          </a>
+        ) : (
+          <a
+            href={`/clinic/${clinic.id}`}
+            className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
+          >
+            View details →
+          </a>
+        )}
         <a
           href={clinic.maps_url}
           target="_blank"

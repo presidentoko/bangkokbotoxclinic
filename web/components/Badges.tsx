@@ -48,6 +48,20 @@ export async function SponsoredBadge({ clinicId }: { clinicId: string }) {
   );
 }
 
+// Verified Partner badge — sponsored tier 가 있는 클리닉에 표시.
+export async function VerifiedPartnerBadge({ clinicId }: { clinicId: string }) {
+  const tier = await sponsoredTier(clinicId);
+  if (!tier) return null;
+  return (
+    <span
+      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-white whitespace-nowrap shadow-sm"
+      style={{ background: "linear-gradient(135deg, #059669 0%, #10b981 100%)" }}
+    >
+      🏅 Verified Partner
+    </span>
+  );
+}
+
 // Freshness — master_db.generated_at 으로부터 상대 시간.
 export function Freshness({ generatedAt, mode = "card" }: {
   generatedAt: string;

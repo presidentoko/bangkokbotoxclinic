@@ -16,10 +16,10 @@ export async function GET(req: NextRequest) {
   if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const url = new URL(req.url);
-  const minTrust = parseInt(url.searchParams.get("min_trust") ?? "75", 10);
-  const minReviews = parseInt(url.searchParams.get("min_reviews") ?? "50", 10);
+  const minTrust = Math.max(0, parseInt(url.searchParams.get("min_trust") ?? "75", 10) || 75);
+  const minReviews = Math.max(0, parseInt(url.searchParams.get("min_reviews") ?? "50", 10) || 50);
   const city = url.searchParams.get("city") ?? "";
-  const limit = Math.min(parseInt(url.searchParams.get("limit") ?? "200", 10), 500);
+  const limit = Math.min(Math.max(1, parseInt(url.searchParams.get("limit") ?? "200", 10) || 200), 500);
 
   const cfg = getSiteConfig();
   const db = await loadMasterDb();

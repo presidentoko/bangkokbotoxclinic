@@ -40,6 +40,10 @@ It shows your Trust Score (${c.trust_score}/100), rank #${r.districtRank > 0 ? r
 
 No signup needed — open it on your phone.
 
+💬 Also, get daily Trust Score briefings on Telegram:
+Search @OWNERCLINIC_BOT → /start → enter your clinic name.
+Free. 30 seconds to set up.
+
 If useful, we offer a paid service to do this work for you.
 But the report is free either way.`;
 
@@ -78,6 +82,10 @@ What partner clinics receive:
 • International patient funnel (English, Korean, Arabic interface)
 • Lead inquiries forwarded directly to your LINE or email
 • Monthly performance snapshot
+
+💬 Bonus: Daily Telegram briefings
+Search @OWNERCLINIC_BOT on Telegram → /start → enter your clinic name.
+Every morning at 8am: Trust Score update, new reviews, AI reply drafts. Free.
 
 We'd be happy to walk your team through the live dashboard.
 Please let us know if you have any questions.
