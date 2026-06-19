@@ -35,11 +35,12 @@ function entry(
 
   const languages: Record<string, string> = {};
   for (const l of LOCALES) {
-    languages[l] = slug ? `${BASE}/${l}/${slug}` : `${BASE}/${l}`;
+    const raw = slug ? `${BASE}/${l}/${slug}` : `${BASE}/${l}`;
+    languages[l] = encodeURI(raw);
   }
   languages["x-default"] = languages["th"];
 
-  return { url: path, lastModified: NOW, changeFrequency, priority, alternates: { languages } };
+  return { url: encodeURI(path), lastModified: NOW, changeFrequency, priority, alternates: { languages } };
 }
 
 // Sitemap 0: core pages — TH only

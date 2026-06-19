@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { districtsForCity } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
@@ -38,7 +39,15 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  return Object.keys(db.city_counts).map((label) => ({ name: citySlug(label) }));
+  const seen = new Set<string>();
+  return Object.keys(db.city_counts)
+    .map((label) => citySlugFromDisplay(label))
+    .filter((slug) => {
+      if (!slug || seen.has(slug)) return false;
+      seen.add(slug);
+      return true;
+    })
+    .map((slug) => ({ name: slug }));
 }
 
 // City context — 한국 buyer 가 알 만한 핵심 facts (AEO).

@@ -9,6 +9,7 @@ import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS } from "@/lib/posts";
 import { POSTS_KO } from "@/lib/posts_ko";
 import { POSTS_TH } from "@/lib/posts_th";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const CATEGORIES = Object.keys(CATEGORY_LABELS);
@@ -17,7 +18,14 @@ export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
-  const cities = Object.keys(db.city_counts).map((k) => k.toLowerCase().replace(/\s+/g, "_"));
+  const seenCities = new Set<string>();
+  const cities = Object.keys(db.city_counts)
+    .map((k) => citySlugFromDisplay(k))
+    .filter((slug) => {
+      if (!slug || seenCities.has(slug)) return false;
+      seenCities.add(slug);
+      return true;
+    });
   const updated = new Date(db.generated_at);
 
   const items: MetadataRoute.Sitemap = [

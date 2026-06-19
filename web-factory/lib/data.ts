@@ -3,6 +3,7 @@ import path from "node:path";
 import type { MasterDb, Supplier } from "./types";
 import { computeTrustScore } from "./trustScore";
 import { normalizeProvince } from "./provinceNorm";
+import { normalizeCity } from "./cityNorm";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 const PHOTOS_PATH = path.join(process.cwd(), "data", "supplier_photos.json");
@@ -25,6 +26,7 @@ export async function loadMasterDb(): Promise<MasterDb> {
   for (const s of db.suppliers) {
     if (photos[s.id]) s.hero_image = photos[s.id];
     s.province_en = normalizeProvince(s.province_en);
+    s.city = normalizeCity(s.city);
   }
 
   _cache = db;

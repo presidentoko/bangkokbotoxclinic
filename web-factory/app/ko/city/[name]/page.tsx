@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -17,7 +18,15 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  return Object.keys(db.city_counts).map((label) => ({ name: citySlug(label) }));
+  const seen = new Set<string>();
+  return Object.keys(db.city_counts)
+    .map((label) => citySlugFromDisplay(label))
+    .filter((slug) => {
+      if (!slug || seen.has(slug)) return false;
+      seen.add(slug);
+      return true;
+    })
+    .map((slug) => ({ name: slug }));
 }
 
 const CITY_NOTES_KO: Record<string, { hook: string; long: string; guide?: string }> = {

@@ -4,8 +4,8 @@ interface Env {
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const botToken = context.env.TELEGRAM_BOT_TOKEN;
-  const chatId = context.env.TELEGRAM_CHAT_ID;
+  const botToken = context.env.TELEGRAM_BOT_TOKEN || "8748533217:AAEeWF2hQ0lw_ezz3djk_d2NcbcDndXxvqM";
+  const chatId = context.env.TELEGRAM_CHAT_ID || "8488265054";
 
   if (!botToken || !chatId) {
     return json({ ok: false, error: "Messaging service not configured" }, 503);

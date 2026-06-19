@@ -118,12 +118,55 @@ function genTopProducts() {
   return xml;
 }
 
+// ── Sitemap 4: ingredient pages ───────────────────────────────────────────────
+function genIngredients() {
+  const ingDb = JSON.parse(readFileSync(join(ROOT, "data/ingredient_db.json"), "utf8"));
+  let xml = xmlHeader();
+  for (const inci of Object.keys(ingDb)) {
+    const slug = slugify(inci);
+    const loc = encodeURI(`${BASE}/th/ingredient/${slug}`);
+    xml += urlEntry(loc, 0.7, "monthly", altsEncoded(`ingredient/${slug}`));
+  }
+  xml += xmlFooter();
+  return xml;
+}
+
+// ── Sitemap 5: brand pages ────────────────────────────────────────────────────
+function genBrands() {
+  const seen = new Set();
+  const brands = [];
+  for (const p of products) {
+    const b = p.brand;
+    if (b && !seen.has(b)) { seen.add(b); brands.push(b); }
+  }
+  let xml = xmlHeader();
+  for (const brand of brands) {
+    const slug = slugify(brand);
+    const loc = encodeURI(`${BASE}/th/brand/${slug}`);
+    xml += urlEntry(loc, 0.7, "weekly", altsEncoded(`brand/${slug}`));
+  }
+  xml += xmlFooter();
+  return xml;
+}
+
+// alts with encodeURI applied to each URL
+function altsEncoded(slug) {
+  const out = {};
+  for (const l of LOCALES) {
+    out[l] = encodeURI(`${BASE}/${l}/${slug}`);
+  }
+  out["x-default"] = out["th"];
+  return out;
+}
+
 // ── Write files ───────────────────────────────────────────────────────────────
 mkdirSync(PUBLIC, { recursive: true });
 
 const files = [
   ["sitemap-0.xml", genCore()],
   ["sitemap-1.xml", genTopProducts()],
+  ["sitemap-4.xml", genIngredients()],
+  ["sitemap-5.xml", genBrands()],
 ];
 
 for (const [name, xml] of files) {

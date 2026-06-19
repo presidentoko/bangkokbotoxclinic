@@ -120,6 +120,14 @@
 /c/:cat/mueang /c/:cat/mueang-samut-sakhon 301
 # <<< district-canonical <<<
 
+# Canonical city URL redirects (duplicate slugs from raw data inconsistency)
+/city/chonburi /city/chon_buri 301
+/city/srisaket /city/si_sa_ket 301
+/city/suphanburi /city/suphan_buri 301
+/ko/city/chonburi /ko/city/chon_buri 301
+/ko/city/srisaket /ko/city/si_sa_ket 301
+/ko/city/suphanburi /ko/city/suphan_buri 301
+
 # Catch-all for supplier IDs removed from master_db — 301 to homepage.
 # Cloudflare Pages serves static files BEFORE checking this file,
 # so valid /supplier/[id] pages are never redirected.

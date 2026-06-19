@@ -9,6 +9,8 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: [
       `${base}/sitemap-0.xml`,
       `${base}/sitemap-1.xml`,
+      `${base}/sitemap-4.xml`,
+      `${base}/sitemap-5.xml`,
     ],
     host: base,
   };

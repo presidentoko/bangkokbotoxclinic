@@ -887,6 +887,13 @@ def build_services() -> list[Service]:
             # PID 살아있는지만 검사.
         ),
         Service(
+            name="clinic_bot",
+            cmd=["clinic_bot.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "clinic_bot.log",
+        ),
+        Service(
             name="throughput_monitor",
             cmd=["scripts/throughput_monitor.py"],
             cwd=ROOT,
