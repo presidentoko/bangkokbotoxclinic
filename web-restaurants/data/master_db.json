@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T02:55:49.468737+00:00",
+  "generated_at": "2026-06-19T11:22:27.129053+00:00",
   "total_restaurants": 3269,
   "city_counts": {
     "bangkok": 2915,
@@ -7,13 +7,13 @@
   },
   "with_district": 2332,
   "with_cuisines": 2702,
-  "with_reviews_scraped": 2811,
+  "with_reviews_scraped": 2808,
   "language_total": {
     "th": 2,
-    "en": 142903,
+    "en": 142820,
     "ko": 0,
     "ja": 4,
-    "other": 476
+    "other": 477
   },
   "district_counts": {
     "bangkok/Pathum Wan": 282,
@@ -50,14 +50,14 @@
     "western": 1091,
     "thai": 1067,
     "bar_pub": 667,
-    "vietnamese": 542,
+    "vietnamese": 541,
     "seafood": 502,
     "japanese": 452,
     "italian": 352,
     "cafe": 340,
-    "breakfast": 293,
+    "breakfast": 291,
     "dessert": 267,
-    "street_food": 186,
+    "street_food": 185,
     "chinese": 172,
     "fusion": 143,
     "indian": 130,
@@ -65431,6 +65431,104 @@
       "maps_url": "https://www.google.com/maps/place/Khao+Soi+Lam+Duan/@13.7905175,100.5451176,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29d013d6153d1:0x979da11095831a5!8m2!3d13.7905175!4d100.5451176!16s%2Fg%2F11twh1673r!19sChIJ0VNhPQGd4jARpTFYCRHaeQk?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x3102973a532ca72b_0xd47133bc11d82ad6",
+      "place_id": "0x3102973a532ca72b:0xd47133bc11d82ad6",
+      "name": "Flame Pattaya",
+      "primary_type": "Steak house",
+      "address": "\n312, 54 Soi Lengkee, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 33 000 759",
+      "website": "https://www.facebook.com/FlameBistroPattaya",
+      "menu_url": "https://flamepattaya.com/menu-pdf/",
+      "lat": 12.9283353,
+      "lng": 100.8857578,
+      "rating": 4.6,
+      "total_reviews": 378,
+      "trust_score": 90.8,
+      "cuisines": [
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 35,
+      "avg_author_review_count": 84.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 34,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "cuisine_mentions": {
+        "chinese": 1,
+        "italian": 1,
+        "vietnamese": 1,
+        "cafe": 1,
+        "dessert": 1,
+        "western": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 8
+        },
+        {
+          "topic": "spicy",
+          "count": 2
+        },
+        {
+          "topic": "fresh",
+          "count": 1
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 23,
+          "avg": 4.52
+        },
+        "midterm": {
+          "count": 27,
+          "avg": 4.44
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Had a great meal everyone at our table really the variety. From amazing steaks to authentic Thai dishes. The new addition of chicken is superb. Delicious and tasty with service that comes from a well run restaurant. Definitely be back again",
+          "rating": 5,
+          "author": "John Centofanti"
+        },
+        {
+          "text": "Absolutely amazing experience. Staff were incredible. Would defo recommend the piri piri chicken and t bone steak",
+          "rating": 5,
+          "author": "Kash"
+        },
+        {
+          "text": "Perfectly cooked Sunday Roast with immaculate ambiance & delicious dessert of Lava Cake with vanilla ice cream",
+          "rating": 5,
+          "author": "Amin Gilani"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Flame+Pattaya/data=!4m7!3m6!1s0x3102973a532ca72b:0xd47133bc11d82ad6!8m2!3d12.9283353!4d100.8857578!16s%2Fg%2F11tn68y5xg!19sChIJK6csUzqXAjER1irYEbwzcdQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x3102972fec86eaad_0x86328c9bc36b25d2",
       "place_id": "0x3102972fec86eaad:0x86328c9bc36b25d2",
       "name": "Portanova Pizza & Cucina",
@@ -67389,95 +67487,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Ant+Cave/data=!4m7!3m6!1s0x30e29f150456c9eb:0xb2b51b75bbb21173!8m2!3d13.7262809!4d100.5474884!16s%2Fg%2F11y8spm7sv!19sChIJ68lWBBWf4jARcxGyu3UbtbI?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102973a532ca72b_0xd47133bc11d82ad6",
-      "place_id": "0x3102973a532ca72b:0xd47133bc11d82ad6",
-      "name": "Flame Pattaya",
-      "primary_type": "Steak house",
-      "address": "\n312, 54 Soi Lengkee, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 33 000 759",
-      "website": "https://www.facebook.com/FlameBistroPattaya",
-      "menu_url": "https://flamepattaya.com/menu-pdf/",
-      "lat": 12.9283353,
-      "lng": 100.8857578,
-      "rating": 4.6,
-      "total_reviews": 363,
-      "trust_score": 90.6,
-      "cuisines": [],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 50,
-      "local_guide_count": 37,
-      "avg_author_review_count": 85.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 34,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "chinese": 1,
-        "italian": 1,
-        "cafe": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 4
-        },
-        {
-          "topic": "fresh",
-          "count": 1
-        },
-        {
-          "topic": "fast_service",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 21,
-          "avg": 4.57
-        },
-        "midterm": {
-          "count": 29,
-          "avg": 4.14
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "An excellent standard of service and food.\nnice and clean restaurant and friendly staff.",
-          "rating": 5,
-          "author": "paul birkenhead"
-        },
-        {
-          "text": "Actually, accident was happen but staff deal with the accident and discounted fee so I wanna say thank you",
-          "rating": 5,
-          "author": "とら"
-        },
-        {
-          "text": "Fantastic experience what are the best steaks I have ever eaten not only here in Thailand but anywhere",
-          "rating": 5,
-          "author": "Yesitis Dakid"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Flame+Pattaya/data=!4m7!3m6!1s0x3102973a532ca72b:0xd47133bc11d82ad6!8m2!3d12.9283353!4d100.8857578!16s%2Fg%2F11tn68y5xg!19sChIJK6csUzqXAjER1irYEbwzcdQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299a66df2be1d_0xc987591806cfae87",
@@ -103136,85 +103145,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Sri+Kamin/data=!4m7!3m6!1s0x30e2992c2b5e3d93:0x3a37a19213698eec!8m2!3d13.7433737!4d100.52444!16s%2Fg%2F11byz4xxp0!19sChIJkz1eKyyZ4jAR7I5pE5KhNzo?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30e29ffc8fea5d71_0x71f2b5091a382ecc",
-      "place_id": "0x30e29ffc8fea5d71:0x71f2b5091a382ecc",
-      "name": "American BBQ & Grill",
-      "primary_type": "Steak house",
-      "address": "\n312, 58 Soi Lengkee, ตำบล หนองปรือ, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 98 510 9433",
-      "website": "http://www.americanbbqandgrill.com/",
-      "menu_url": "",
-      "lat": 12.9284233,
-      "lng": 100.8856308,
-      "rating": 4.6,
-      "total_reviews": 198,
-      "trust_score": 87.8,
-      "cuisines": [
-        "breakfast",
-        "western"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 10,
-      "local_guide_count": 8,
-      "avg_author_review_count": 137.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "western": 2,
-        "breakfast": 3
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 10,
-          "avg": 4.2
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Go there for the 99 bhat breakfast with is super good, includes tea or coffee, and bread buffet, if you have the coffee option , then free refills .",
-          "rating": 5,
-          "author": "Alex Smith"
-        },
-        {
-          "text": "Hi this is a very organised  resturant  super clean many interesting  meals there is a very good entry  point breakfast  for 99 baht I also like the Salmon breakfast it's very nice  For dinner i like the Pork chop its probably  the best …",
-          "rating": 5,
-          "author": "Joseph Tabone"
-        },
-        {
-          "text": "I agree top place for me in Pattaya. Of the three steak houses in row there (american BBQ, Flame and Australian) this is the best and best priced. …",
-          "rating": 5,
-          "author": "william henry"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/American+BBQ+%26+Grill/data=!4m7!3m6!1s0x30e29ffc8fea5d71:0x71f2b5091a382ecc!8m2!3d12.9284233!4d100.8856308!16s%2Fg%2F11ltt986jv!19sChIJcV3qj_yf4jARzC44Ggm18nE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f577141cc53_0xbadd8d22e3895b76",
@@ -149719,97 +149649,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A1%E0%B8%B2%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%AA+%E0%B8%AD%E0%B8%B5%E0%B8%97%E0%B9%80%E0%B8%97%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%A3%E0%B8%B5%E0%B9%88+%E0%B9%81%E0%B8%AD%E0%B8%99%E0%B8%94%E0%B9%8C+%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C+%28ManaRos+Eatery+%26+Bar%29/data=!4m7!3m6!1s0x30e29b555d43bd4d:0xee614dd457248096!8m2!3d13.7871985!4d100.5179751!16s%2Fg%2F11y2cqnkjy!19sChIJTb1DXVWb4jARloAkV9RNYe4?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310297927a8c65fb_0x3e05683795e2a758",
-      "place_id": "0x310297927a8c65fb:0x3e05683795e2a758",
-      "name": "The Nest Sports Bar & Restaurant",
-      "primary_type": "",
-      "address": "\n33/126 LK Metro Aly, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 38 196 528",
-      "website": "http://www.robinsnestpattaya.com/",
-      "menu_url": "",
-      "lat": 12.9294384,
-      "lng": 100.8840796,
-      "rating": 4.4,
-      "total_reviews": 161,
-      "trust_score": 84.6,
-      "cuisines": [
-        "bar_pub",
-        "breakfast",
-        "western"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 50,
-      "local_guide_count": 39,
-      "avg_author_review_count": 115.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 36,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "cafe": 1,
-        "bar_pub": 2,
-        "western": 2,
-        "fusion": 1,
-        "breakfast": 3
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 5
-        },
-        {
-          "topic": "spicy",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "fresh",
-          "count": 1
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "small_portion",
-          "count": 1
-        },
-        {
-          "topic": "dirty",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/The+Nest+Sports+Bar+%26+Restaurant/data=!4m10!3m9!1s0x310297927a8c65fb:0x3e05683795e2a758!5m2!4m1!1i2!8m2!3d12.9294384!4d100.8840796!16s%2Fg%2F11spdysz8n!19sChIJ-2WMepKXAjERWKfilTdoBT4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29eb614e63359_0x8d978898fddc02a0",
@@ -221375,106 +221214,6 @@
       "maps_url": "https://www.google.com/maps/place/KinKung+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%AD%E0%B8%993/@13.6640549,100.3830975,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd18611e688d:0x5ca2f9ebc9e57ce8!8m2!3d13.6640549!4d100.3830975!16s%2Fg%2F11pv08r5gr?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
-      "id": "0x30e29ecb65c0eb0b_0x1fc5ef1511372018",
-      "place_id": "0x30e29ecb65c0eb0b:0x1fc5ef1511372018",
-      "name": "Chai 4 Noodle and Wonton",
-      "primary_type": "Restaurant",
-      "address": "\nThanon Phetchaburi, Ratchathewi, Bangkok 10400, Thailand",
-      "city": "bangkok",
-      "city_label": "Bangkok",
-      "district": "Ratchathewi",
-      "phone": "+66 93 213 8557",
-      "website": "",
-      "menu_url": "",
-      "lat": 13.7523708,
-      "lng": 100.5314511,
-      "rating": 4.6,
-      "total_reviews": 43,
-      "trust_score": 80.3,
-      "cuisines": [
-        "street_food",
-        "vietnamese"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 43,
-      "local_guide_count": 36,
-      "avg_author_review_count": 212.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 37,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "street_food": 6,
-        "vietnamese": 2,
-        "fusion": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 20
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
-          "topic": "fresh",
-          "count": 2
-        },
-        {
-          "topic": "spicy",
-          "count": 1
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 4,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 8,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 31,
-          "avg": 4.39
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "My wife and I were walking back from Phaya Thai BTS station. We were hungry and we hadn’t had dinner.\n\nStumbled upon this humble shop selling wan tan mee and it’s one that caught us off guard.\n\nIt’s a wonderful late night meal with great flavours. We will definitely come back to this place.",
-          "rating": 5,
-          "author": "Dylan Tang"
-        },
-        {
-          "text": "Very nice pork noodle. They have 2 type soup and dried. I had went to this place twice. The owner can speak english 👍",
-          "rating": 5,
-          "author": "Cindy Owen"
-        },
-        {
-          "text": "60baht for each bowl. Noodles is exactly the same as Malaysia/Singapore wanton noodles but slightly on the sweeter side. Adding some fish sauce helps neutralize the taste.",
-          "rating": 5,
-          "author": "Stephanie Wong"
-        }
-      ],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Chai+4+Noodle+and+Wonton/@13.7523708,100.5314511,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29ecb65c0eb0b:0x1fc5ef1511372018!8m2!3d13.7523708!4d100.5314511!16s%2Fg%2F11qsftwwq4!19sChIJC-vAZcue4jARGCA3ERXvxR8?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
       "id": "0x30e299d144a0dce3_0x9ac73c41faa65cd4",
       "place_id": "0x30e299d144a0dce3:0x9ac73c41faa65cd4",
       "name": "ธงก๋วยเตี๋ยวหมู อาหารตามสั่ง",
@@ -263161,6 +262900,60 @@
       "maps_url": "https://www.google.com/maps/place/Hippie+Camp+Tha+Kham-Rama+2/@13.628522,100.44909,17z/data=!3m1!4b1!4m7!3m6!1s0x30e2a3bde97d6707:0x536f6066d7fda2ee!8m2!3d13.628522!4d100.44909!16s%2Fg%2F11s_xwthkm!19sChIJB2d96b2j4jAR7qL912Zgb1M?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x3102960eb6849fb1_0x43d20cc277fcffe3",
+      "place_id": "0x3102960eb6849fb1:0x43d20cc277fcffe3",
+      "name": "Harry’s Hotel Bar & Restaurant",
+      "primary_type": "",
+      "address": "\n33/47-49 หมู่ที่ 10 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 38 429 683",
+      "website": "https://www.harryspattaya.com/",
+      "menu_url": "",
+      "lat": 12.9292867,
+      "lng": 100.8843201,
+      "rating": 4.2,
+      "total_reviews": 836,
+      "trust_score": 77.1,
+      "cuisines": [
+        "bar_pub"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Harry%E2%80%99s+Hotel+Bar+%26+Restaurant/data=!4m10!3m9!1s0x3102960eb6849fb1:0x43d20cc277fcffe3!5m2!4m1!1i2!8m2!3d12.9292867!4d100.8843201!16s%2Fg%2F11c1rsnw4p!19sChIJsZ-Etg6WAjER4__8d8IM0kM?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299a740f35711_0xcb1cf01542032e87",
       "place_id": "0x30e299a740f35711:0xcb1cf01542032e87",
       "name": "Rakang Pochana Seafoods",
@@ -263688,60 +263481,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Meng+Kway+Chap/data=!4m7!3m6!1s0x30e29f1763e6b00d:0x2e552003400033f5!8m2!3d13.7217731!4d100.5560558!16s%2Fg%2F11f0w_3yc2!19sChIJDbDmYxef4jAR9TMAQAMgVS4?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102960eb6849fb1_0x43d20cc277fcffe3",
-      "place_id": "0x3102960eb6849fb1:0x43d20cc277fcffe3",
-      "name": "Harry’s Hotel Bar & Restaurant",
-      "primary_type": "",
-      "address": "\n33/47-49 หมู่ที่ 10 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 38 429 683",
-      "website": "https://www.harryspattaya.com/",
-      "menu_url": "",
-      "lat": 12.9292867,
-      "lng": 100.8843201,
-      "rating": 4.2,
-      "total_reviews": 825,
-      "trust_score": 77.0,
-      "cuisines": [
-        "bar_pub"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Harry%E2%80%99s+Hotel+Bar+%26+Restaurant/data=!4m10!3m9!1s0x3102960eb6849fb1:0x43d20cc277fcffe3!5m2!4m1!1i2!8m2!3d12.9292867!4d100.8843201!16s%2Fg%2F11c1rsnw4p!19sChIJsZ-Etg6WAjER4__8d8IM0kM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x31029608eec2b309_0xfc797e8ce3afe274",
@@ -284397,6 +284136,60 @@
       "maps_url": "https://www.google.com/maps/place/Thai+Basil+Restaurant+%28Halal%29/data=!4m7!3m6!1s0x310297b290000a4d:0x2331024193e5c4f6!8m2!3d12.9279949!4d100.877935!16s%2Fg%2F11vy13qfcg!19sChIJTQoAkLKXAjER9sTlk0ECMSM?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e29ffc8fea5d71_0x71f2b5091a382ecc",
+      "place_id": "0x30e29ffc8fea5d71:0x71f2b5091a382ecc",
+      "name": "American BBQ & Grill",
+      "primary_type": "Steak house",
+      "address": "\n312, 58 Soi Lengkee, ตำบล หนองปรือ, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 98 510 9433",
+      "website": "http://www.americanbbqandgrill.com/",
+      "menu_url": "",
+      "lat": 12.9284233,
+      "lng": 100.8856308,
+      "rating": 4.6,
+      "total_reviews": 215,
+      "trust_score": 74.0,
+      "cuisines": [
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/American+BBQ+%26+Grill/data=!4m7!3m6!1s0x30e29ffc8fea5d71:0x71f2b5091a382ecc!8m2!3d12.9284233!4d100.8856308!16s%2Fg%2F11ltt986jv!19sChIJcV3qj_yf4jARzC44Ggm18nE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x310297007bc1053b_0x3a0947d9659e72f3",
       "place_id": "0x310297007bc1053b:0x3a0947d9659e72f3",
       "name": "Chabi Chabi Ramen House",
@@ -301214,6 +301007,60 @@
       "maps_url": "https://www.google.com/maps/place/MK+Restaurants+Happy+Avenue/data=!4m7!3m6!1s0x311d620f906fca77:0xd820c5ec31b1eff8!8m2!3d13.7884085!4d100.6288547!16s%2Fg%2F1yfh_j49h!19sChIJd8pvkA9iHTER-O-xMezFINg?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310297927a8c65fb_0x3e05683795e2a758",
+      "place_id": "0x310297927a8c65fb:0x3e05683795e2a758",
+      "name": "The Nest Sports Bar & Restaurant",
+      "primary_type": "",
+      "address": "\n33/126 LK Metro Aly, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 38 196 528",
+      "website": "http://www.robinsnestpattaya.com/",
+      "menu_url": "",
+      "lat": 12.9294384,
+      "lng": 100.8840796,
+      "rating": 4.3,
+      "total_reviews": 173,
+      "trust_score": 69.9,
+      "cuisines": [
+        "bar_pub"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/The+Nest+Sports+Bar+%26+Restaurant/data=!4m10!3m9!1s0x310297927a8c65fb:0x3e05683795e2a758!5m2!4m1!1i2!8m2!3d12.9294384!4d100.8840796!16s%2Fg%2F11spdysz8n!19sChIJ-2WMepKXAjERWKfilTdoBT4?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x3102979b1df05b7f_0x8fe2e385710210d5",
       "place_id": "0x3102979b1df05b7f:0x8fe2e385710210d5",
       "name": "Andhra Restaurant 2 South Pattaya",
@@ -310038,6 +309885,58 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B9%89%E0%B8%99%E0%B9%80%E0%B8%95%E0%B8%A2/data=!4m7!3m6!1s0x30e29b8e92895f4b:0x22cd8703e6f2db72!8m2!3d13.8106136!4d100.5219431!16s%2Fg%2F1s047_m_4!19sChIJS1-Jko6b4jARctvy5gOHzSI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29ecb65c0eb0b_0x1fc5ef1511372018",
+      "place_id": "0x30e29ecb65c0eb0b:0x1fc5ef1511372018",
+      "name": "Chai 4 Noodle and Wonton",
+      "primary_type": "",
+      "address": "\nThanon Phetchaburi, Ratchathewi, Bangkok 10400, Thailand",
+      "city": "bangkok",
+      "city_label": "Bangkok",
+      "district": "Ratchathewi",
+      "phone": "+66 93 213 8557",
+      "website": "",
+      "menu_url": "",
+      "lat": 13.7523708,
+      "lng": 100.5314511,
+      "rating": 4.6,
+      "total_reviews": 44,
+      "trust_score": 65.7,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Chai+4+Noodle+and+Wonton/@13.7523708,100.5314511,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ecb65c0eb0b:0x1fc5ef1511372018!8m2!3d13.7523708!4d100.5314511!16s%2Fg%2F11qsftwwq4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x30e29f3a80f45ca1_0x80fee659dce9ec47",
