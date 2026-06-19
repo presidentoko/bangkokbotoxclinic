@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Page Not Found — Thai Supply Hub",
-  robots: { index: false, follow: true },
+  robots: { index: false },
 };
 
 export default function NotFound() {
@@ -11,7 +11,7 @@ export default function NotFound() {
       <div className="text-5xl font-bold mb-4 text-[var(--muted)]">404</div>
       <h1 className="text-2xl font-bold mb-3">Page not found</h1>
       <p className="text-[var(--muted)] mb-8">
-        The page you're looking for may have moved or been removed from our directory.
+        This supplier listing may have moved or been removed from our directory.
       </p>
       <div className="flex flex-wrap gap-3 justify-center">
         <a href="/" className="px-5 py-2.5 rounded-lg bg-emerald-700 text-white font-bold hover:bg-emerald-800">
