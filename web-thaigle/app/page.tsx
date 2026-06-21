@@ -21,23 +21,32 @@ export default async function HomePage() {
 
   const cities = Object.entries(db.city_counts);
 
-  const districtMap = new Map<string, number>();
+  const districtMap = new Map<string, { count: number; city: string }>();
   for (const r of db.restaurants) {
-    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+    if (r.district) {
+      const prev = districtMap.get(r.district);
+      if (!prev) {
+        districtMap.set(r.district, { count: 1, city: r.city });
+      } else {
+        districtMap.set(r.district, { count: prev.count + 1, city: prev.city });
+      }
+    }
   }
-  const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+  const districts = [...districtMap.entries()]
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 12);
 
   const cuisines = Object.entries(db.cuisine_counts);
 
   const popularSearches = [
-    { label: "🌶️ Thai", href: "/c/thai" },
-    { label: "🍜 Noodles", href: "/c/noodles" },
-    { label: "🍱 Japanese", href: "/c/japanese" },
-    { label: "☕ Cafés", href: "/c/cafe" },
+    { label: "🌶️ Thai", href: "/restaurants/cuisine/thai" },
+    { label: "🍜 Noodles", href: "/restaurants/cuisine/noodles" },
+    { label: "🍱 Japanese", href: "/restaurants/cuisine/japanese" },
+    { label: "☕ Cafés", href: "/restaurants/cuisine/cafe" },
   ];
 
   const searchIndex = db.restaurants.map((r) => ({
-    id: r.id,
+    id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }),
     name: r.name,
     district: r.district,
     city_label: r.city_label,
@@ -84,7 +93,7 @@ export default async function HomePage() {
 
           <HeroSearch
             entities={searchIndex}
-            hrefBase="/restaurant"
+            hrefBase=""
             hero=""
             heroSub=""
             popularSearches={popularSearches}
@@ -221,7 +230,7 @@ export default async function HomePage() {
               {cuisines.map(([cat, count]) => (
                 <a
                   key={cat}
-                  href={`/c/${cat}`}
+                  href={`/restaurants/cuisine/${cat}`}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition font-medium"
                 >
                   <span aria-hidden>{CUISINE_ICONS[cat] ?? "🍴"}</span>
@@ -240,7 +249,7 @@ export default async function HomePage() {
               {cities.map(([city, count]) => (
                 <a
                   key={city}
-                  href={`/city/${city}`}
+                  href={`/restaurants/${city}`}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition font-medium"
                 >
                   {city.charAt(0).toUpperCase() + city.slice(1)}
@@ -254,10 +263,10 @@ export default async function HomePage() {
         <section className="mb-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By District</h2>
           <div className="flex flex-wrap gap-2">
-            {districts.map(([d, count]) => (
+            {districts.map(([d, { count, city }]) => (
               <a
                 key={d}
-                href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                href={`/restaurants/${city}/${d.toLowerCase().replace(/\s+/g, "-")}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>

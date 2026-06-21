@@ -1,20 +1,17 @@
-// Dynamic OG image — restaurant 별 unique 소셜 카드.
-// SNS Stopper 브랜드 + anti-influencer voice 그대로.
-
 import { ImageResponse } from "next/og";
-import { loadMasterDb, getRestaurantById } from "@/lib/data";
+import { loadMasterDb } from "@/lib/data";
+import { getSlugMap, getRestaurantBySlug } from "@/lib/restaurants";
 import { CUISINE_LABELS } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
 
-// Edge runtime 제거 — loadMasterDb 가 fs 사용 (Node only).
 export const alt = "Restaurant — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function RestaurantOG({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const db = await loadMasterDb();
-  const r = getRestaurantById(db.restaurants, id);
+export default async function RestaurantOG({ params }: { params: Promise<{ city: string; district: string; slug: string }> }) {
+  const { city, district, slug } = await params;
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
+  const r = getRestaurantBySlug(db.restaurants, slugMap, city, district, slug);
   const cfg = getSiteConfig();
 
   if (!r) {
@@ -48,7 +45,7 @@ export default async function RestaurantOG({ params }: { params: Promise<{ id: s
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        {/* Header — anti-SNS pill + brand */}
+        {/* Header */}
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div
             style={{
@@ -66,7 +63,7 @@ export default async function RestaurantOG({ params }: { params: Promise<{ id: s
           </div>
         </div>
 
-        {/* Main — restaurant name */}
+        {/* Main */}
         <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginTop: "60px", flex: 1 }}>
           <div
             style={{
@@ -85,9 +82,8 @@ export default async function RestaurantOG({ params }: { params: Promise<{ id: s
           )}
         </div>
 
-        {/* Footer — rating + trust */}
+        {/* Footer */}
         <div style={{ display: "flex", gap: "40px", alignItems: "center", marginTop: "auto" }}>
-          {/* Rating */}
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
             <div style={{ fontSize: 48, fontWeight: 800, color: "#0a0a0a", display: "flex", alignItems: "baseline", gap: "8px" }}>
               <span style={{ color: "#f59e0b" }}>★</span>
@@ -101,7 +97,6 @@ export default async function RestaurantOG({ params }: { params: Promise<{ id: s
             </div>
           </div>
 
-          {/* Trust Score */}
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
             <div style={{ fontSize: 48, fontWeight: 800, color: trustColor }}>
               {trust}
@@ -112,7 +107,6 @@ export default async function RestaurantOG({ params }: { params: Promise<{ id: s
             </div>
           </div>
 
-          {/* Tagline pill */}
           <div
             style={{
               marginLeft: "auto",
