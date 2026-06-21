@@ -1,4 +1,5 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
+import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -12,7 +13,7 @@ import { GUIDES } from "@/lib/guides";
 export const dynamic = "force-static";
 
 export default async function HomePage() {
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
@@ -300,7 +301,7 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-3">
             {top.slice(0, 10).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 1} />
+              <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
             ))}
           </div>
 
@@ -308,7 +309,7 @@ export default async function HomePage() {
 
           <div className="grid gap-3 mt-3">
             {top.slice(10).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 11} />
+              <RestaurantCard key={r.id} r={r} rank={i + 11} slugMap={slugMap} />
             ))}
           </div>
         </section>

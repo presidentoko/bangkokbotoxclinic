@@ -3,8 +3,13 @@ import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import type { SlugMap } from "@/lib/restaurants";
+import { restaurantUrl } from "@/lib/restaurants";
 
-export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
+export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: number; slugMap?: SlugMap }) {
+  const href = slugMap
+    ? restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })
+    : `/restaurant/${r.id}`;
   const trend = r.rating_trend.trend;
   const trending = trend === "improving";
   const tier = sponsoredTier(r.id);
@@ -27,7 +32,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         </div>
       )}
 
-      <a href={`/restaurant/${r.id}`} className="block p-5 pb-3">
+      <a href={href} className="block p-5 pb-3">
         <div className="flex items-start justify-between gap-3 mb-2">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-1 flex-wrap">
@@ -91,7 +96,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
 
       <div className="px-5 pb-4 flex gap-2">
         <a
-          href={`/restaurant/${r.id}`}
+          href={href}
           className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
         >
           View details →

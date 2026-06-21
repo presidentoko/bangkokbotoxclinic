@@ -51,12 +51,15 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   });
 }
 
-export function RestaurantJsonLd({ r }: { r: Restaurant }) {
+export function RestaurantJsonLd({ r, url }: { r: Restaurant; url?: string }) {
+  const resolvedUrl = url
+    ? (url.startsWith("http") ? url : `${SITE}${url}`)
+    : `${SITE}/restaurant/${r.id}`;
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     name: r.name,
-    url: `${SITE}/restaurant/${r.id}`,
+    url: resolvedUrl,
     address: {
       "@type": "PostalAddress",
       streetAddress: r.address,
