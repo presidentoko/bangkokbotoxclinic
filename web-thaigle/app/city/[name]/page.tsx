@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -28,7 +29,7 @@ export default async function CityPage(
   { params }: { params: Promise<{ name: string }> }
 ) {
   const { name } = await params;
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   if (!(name in db.city_counts)) notFound();
   const filtered = sortWithSponsored(filterByCity(db.restaurants, name));
   const display = filtered[0]?.city_label ?? (name.charAt(0).toUpperCase() + name.slice(1));
@@ -101,7 +102,7 @@ export default async function CityPage(
         <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
         <div className="grid gap-3">
           {filtered.slice(0, 100).map((r, i) => (
-            <RestaurantCard key={r.id} r={r} rank={i + 1} />
+            <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
           ))}
         </div>
       </section>
@@ -112,7 +113,7 @@ export default async function CityPage(
       ]} />
       <ItemListJsonLd
         name={`Top ${display} restaurants`}
-        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }) }))}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, getRestaurantBySlug, getTop500Params, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
@@ -17,7 +17,7 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const [db, slugMap] = await Promise.all([
-    (await import("@/lib/data")).loadMasterDb(),
+    loadMasterDb(),
     getSlugMap(),
   ]);
   return getTop500Params(db.restaurants, slugMap);

@@ -6,10 +6,8 @@ import { sponsoredTier } from "@/lib/sponsored";
 import type { SlugMap } from "@/lib/restaurants";
 import { restaurantUrl } from "@/lib/restaurants";
 
-export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: number; slugMap?: SlugMap }) {
-  const href = slugMap
-    ? restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })
-    : `/restaurant/${r.id}`;
+export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: number; slugMap: SlugMap }) {
+  const href = restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id });
   const trend = r.rating_trend.trend;
   const trending = trend === "improving";
   const tier = sponsoredTier(r.id);

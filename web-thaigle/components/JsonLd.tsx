@@ -1,6 +1,8 @@
 // Schema.org JSON-LD — Restaurant edition.
 
 import type { Restaurant } from "@/lib/types";
+import type { SlugMap } from "@/lib/restaurants";
+import { restaurantUrl } from "@/lib/restaurants";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
 
@@ -51,10 +53,8 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   });
 }
 
-export function RestaurantJsonLd({ r, url }: { r: Restaurant; url?: string }) {
-  const resolvedUrl = url
-    ? (url.startsWith("http") ? url : `${SITE}${url}`)
-    : `${SITE}/restaurant/${r.id}`;
+export function RestaurantJsonLd({ r, url }: { r: Restaurant; url: string }) {
+  const resolvedUrl = url.startsWith("http") ? url : `${SITE}${url}`;
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -129,11 +129,12 @@ export function ItemListJsonLd({ name, items }: {
 }
 
 /** Cuisine/district/city collection page — aggregateRating + Restaurant ItemList. */
-export function CollectionPageJsonLd({ name, description, url, items }: {
+export function CollectionPageJsonLd({ name, description, url, items, slugMap }: {
   name: string;
   description: string;
   url: string;
-  items: Pick<Restaurant, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label">[];
+  items: Pick<Restaurant, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label" | "city">[];
+  slugMap?: SlugMap;
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
   const totalReviews = items.reduce((s, r) => s + (r.total_reviews || 0), 0);
@@ -159,27 +160,35 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,
-      itemListElement: items.slice(0, 25).map((r, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        item: {
-          "@type": "Restaurant",
-          "@id": `${SITE}/restaurant/${r.id}`,
-          name: r.name,
-          url: `${SITE}/restaurant/${r.id}`,
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: r.rating,
-            reviewCount: r.total_reviews,
-            bestRating: 5,
+      itemListElement: items.slice(0, 25).map((r, i) => {
+        const entry = slugMap?.[r.id];
+        const rUrl = entry
+          ? `${SITE}${restaurantUrl(entry)}`
+          : entry === undefined && slugMap
+            ? `${SITE}${restaurantUrl({ city: r.city, district: r.district || "other", slug: r.id })}`
+            : `${SITE}/restaurant/${r.id}`;
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Restaurant",
+            "@id": rUrl,
+            name: r.name,
+            url: rUrl,
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: r.rating,
+              reviewCount: r.total_reviews,
+              bestRating: 5,
+            },
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: r.district || r.city_label || "Bangkok",
+              addressCountry: "TH",
+            },
           },
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: r.district || r.city_label || "Bangkok",
-            addressCountry: "TH",
-          },
-        },
-      })),
+        };
+      }),
     },
   });
 }

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
+import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
@@ -45,7 +46,7 @@ export default async function DistrictPage(
   { params }: { params: Promise<{ district: string }> }
 ) {
   const { district } = await params;
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const allDistricts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
   ));
@@ -70,14 +71,14 @@ export default async function DistrictPage(
 
       <div className="grid gap-3">
         {filtered.slice(0, 10).map((r, i) => (
-          <RestaurantCard key={r.id} r={r} rank={i + 1} />
+          <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
         ))}
       </div>
       <AffiliateInline district={districtName} />
       <AdSlot slot="district-mid" />
       <div className="grid gap-3 mt-3">
         {filtered.slice(10, 200).map((r, i) => (
-          <RestaurantCard key={r.id} r={r} rank={i + 11} />
+          <RestaurantCard key={r.id} r={r} rank={i + 11} slugMap={slugMap} />
         ))}
       </div>
       {filtered.length > 200 && (
@@ -95,6 +96,7 @@ export default async function DistrictPage(
         description={`${filtered.length} restaurants in ${districtName} ranked by Trust Score from Google review analysis.`}
         url={`/d/${district}`}
         items={filtered}
+        slugMap={slugMap}
       />
     </div>
   );

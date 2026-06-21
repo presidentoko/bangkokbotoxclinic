@@ -1,5 +1,5 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
-import { getSlugMap } from "@/lib/restaurants";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -52,6 +52,7 @@ export default async function HomePage() {
     .map((r) => ({
       restaurant: r.name,
       district: r.district || r.city_label,
+      city: r.city,
       rating: r.rating,
       review: r.sample_reviews_en[0],
       id: r.id,
@@ -105,7 +106,7 @@ export default async function HomePage() {
         {/* SPONSORED HERO if any */}
         {(() => {
           const hero = top.find((r) => sponsoredTier(r.id));
-          return hero ? <SponsoredHero r={hero} /> : null;
+          return hero ? <SponsoredHero r={hero} slugMap={slugMap} /> : null;
         })()}
 
         {/* MANIFESTO — why this exists */}
@@ -142,7 +143,7 @@ export default async function HomePage() {
               {top.slice(0, 6).map((r, i) => (
                 <a
                   key={r.id}
-                  href={`/restaurant/${r.id}`}
+                  href={restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })}
                   className="group block border border-[var(--border)] rounded-2xl p-5 bg-white hover:shadow-xl hover:border-orange-300 hover:-translate-y-0.5 transition relative overflow-hidden"
                 >
                   <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -190,7 +191,7 @@ export default async function HomePage() {
               {reviewQuotes.slice(0, 3).map((q, i) => (
                 <a
                   key={i}
-                  href={`/restaurant/${q.id}`}
+                  href={restaurantUrl(slugMap[q.id] ?? { city: q.city, district: "other", slug: q.id })}
                   className="group block bg-white border border-[var(--border)] rounded-2xl p-5 hover:shadow-md hover:border-orange-300 transition"
                 >
                   <div className="text-orange-500 text-3xl leading-none mb-2">"</div>
@@ -332,7 +333,7 @@ export default async function HomePage() {
         <FaqJsonLd faqs={HOME_FAQS} />
         <ItemListJsonLd
           name="Top Bangkok Restaurants by Trust Score"
-          items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+          items={top.slice(0, 20).map((r) => ({ name: r.name, url: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }) }))}
         />
       </div>
     </>

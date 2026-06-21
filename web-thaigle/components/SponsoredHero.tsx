@@ -3,8 +3,10 @@
 import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
+import type { SlugMap } from "@/lib/restaurants";
+import { restaurantUrl } from "@/lib/restaurants";
 
-export function SponsoredHero({ r }: { r: Restaurant }) {
+export function SponsoredHero({ r, slugMap }: { r: Restaurant; slugMap?: SlugMap }) {
   const tier = sponsoredTier(r.id);
   if (!tier) return null;
   const cfg = SPONSORED_BADGE[tier];
@@ -87,7 +89,9 @@ export function SponsoredHero({ r }: { r: Restaurant }) {
 
             <div className="flex gap-2 flex-wrap">
               <a
-                href={`/restaurant/${r.id}`}
+                href={slugMap
+                  ? restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })
+                  : `/restaurant/${r.id}`}
                 className={`inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-white text-sm font-bold ${styles.badgeBg} hover:opacity-90 transition shadow-md`}
               >
                 View details

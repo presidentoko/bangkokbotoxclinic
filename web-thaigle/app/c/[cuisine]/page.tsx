@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCuisine } from "@/lib/data";
+import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -42,7 +43,7 @@ export default async function CuisinePage(
   const { cuisine } = await params;
   if (!VALID.has(cuisine)) notFound();
 
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const filtered = sortWithSponsored(filterByCuisine(db.restaurants, cuisine));
   const label = CUISINE_LABELS[cuisine] ?? cuisine;
   const icon = CUISINE_ICONS[cuisine] ?? "🍴";
@@ -110,7 +111,7 @@ export default async function CuisinePage(
           <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
           <div className="grid gap-3">
             {filtered.slice(0, 10).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 1} />
+              <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
             ))}
           </div>
 
@@ -119,7 +120,7 @@ export default async function CuisinePage(
 
           <div className="grid gap-3 mt-3">
             {filtered.slice(10, 100).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 11} />
+              <RestaurantCard key={r.id} r={r} rank={i + 11} slugMap={slugMap} />
             ))}
           </div>
 
@@ -157,6 +158,7 @@ export default async function CuisinePage(
           description={`${filtered.length} verified ${label.toLowerCase()} restaurants ranked by Trust Score from Google review analysis.`}
           url={`/c/${cuisine}`}
           items={filtered}
+          slugMap={slugMap}
         />
       </div>
     </>

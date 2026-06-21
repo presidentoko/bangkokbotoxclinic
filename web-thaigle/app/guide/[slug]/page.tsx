@@ -3,6 +3,7 @@ import { GUIDES, findGuide } from "@/lib/guides";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
+import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import type { Metadata } from "next";
 
@@ -39,7 +40,7 @@ export default async function GuidePage(
   const g = findGuide(slug);
   if (!g) notFound();
 
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const featured = topByTrust(db.restaurants, 6);
   const related = (g.related ?? []).map((s) => findGuide(s)).filter(Boolean);
 
@@ -113,7 +114,7 @@ export default async function GuidePage(
           </p>
           <div className="grid gap-3">
             {featured.slice(0, 3).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 1} />
+              <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
             ))}
           </div>
         </section>

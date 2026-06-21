@@ -312,7 +312,7 @@ export default async function RestaurantPage(
         </aside>
       </div>
 
-      <RestaurantJsonLd r={r} />
+      <RestaurantJsonLd r={r} url={`/restaurant/${r.id}`} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: r.city_label, url: `/city/${r.city}` },

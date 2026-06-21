@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -51,7 +52,7 @@ export default async function CuisineDistrictPage(
   const { cuisine, district } = await params;
   if (!VALID_CUISINES.has(cuisine)) notFound();
 
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const allDistricts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
   ));
@@ -83,14 +84,14 @@ export default async function CuisineDistrictPage(
         <>
           <div className="grid gap-3">
             {filtered.slice(0, 5).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 1} />
+              <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
             ))}
           </div>
           <AffiliateInline category={label} district={districtName} />
           <AdSlot slot="cuisine-district-mid" />
           <div className="grid gap-3 mt-3">
             {filtered.slice(5).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 6} />
+              <RestaurantCard key={r.id} r={r} rank={i + 6} slugMap={slugMap} />
             ))}
           </div>
         </>
@@ -103,7 +104,7 @@ export default async function CuisineDistrictPage(
       ]} />
       <ItemListJsonLd
         name={`${label} restaurants in ${districtName}`}
-        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }) }))}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
@@ -31,7 +32,7 @@ export default async function BestForPage(
   const cfg = findBestFor(criterion);
   if (!cfg) notFound();
 
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const filtered = sortWithSponsored(
     db.restaurants
       .filter((r) => !cfg.filterFn || cfg.filterFn(r))
@@ -63,14 +64,14 @@ export default async function BestForPage(
           <section>
             <div className="grid gap-3">
               {filtered.slice(0, 10).map((r, i) => (
-                <RestaurantCard key={r.id} r={r} rank={i + 1} />
+                <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
               ))}
             </div>
             <AffiliateInline />
             <AdSlot slot="best-for-mid" />
             <div className="grid gap-3 mt-3">
               {filtered.slice(10).map((r, i) => (
-                <RestaurantCard key={r.id} r={r} rank={i + 11} />
+                <RestaurantCard key={r.id} r={r} rank={i + 11} slugMap={slugMap} />
               ))}
             </div>
           </section>
@@ -100,7 +101,7 @@ export default async function BestForPage(
       ]} />
       <ItemListJsonLd
         name={cfg.title}
-        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+        items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }) }))}
       />
     </div>
   );

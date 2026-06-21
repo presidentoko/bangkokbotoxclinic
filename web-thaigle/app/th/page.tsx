@@ -1,4 +1,5 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -31,7 +32,7 @@ const TH_FAQS = [
 ];
 
 export default async function ThHomePage() {
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 30));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
@@ -126,13 +127,13 @@ export default async function ThHomePage() {
           <h2 className="text-xl font-bold mb-4">อันดับ {Math.min(top.length, 30)} ตามคะแนน</h2>
           <div className="grid gap-3">
             {top.slice(0, 10).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 1} />
+              <RestaurantCard key={r.id} r={r} rank={i + 1} slugMap={slugMap} />
             ))}
           </div>
           <AffiliateInline />
           <div className="grid gap-3 mt-3">
             {top.slice(10).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 11} />
+              <RestaurantCard key={r.id} r={r} rank={i + 11} slugMap={slugMap} />
             ))}
           </div>
         </section>
@@ -155,7 +156,7 @@ export default async function ThHomePage() {
         <FaqJsonLd faqs={TH_FAQS} />
         <ItemListJsonLd
           name="Top Bangkok Restaurants by Trust Score (Thai)"
-          items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/restaurant/${r.id}` }))}
+          items={top.slice(0, 20).map((r) => ({ name: r.name, url: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }) }))}
         />
       </div>
     </div>
