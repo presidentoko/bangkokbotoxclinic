@@ -76,6 +76,8 @@ export default function RootLayout({
                 <a href="/restaurants/cuisine/japanese" className="hover:text-black hidden sm:inline">Japanese</a>
                 <a href="/restaurants/cuisine/italian" className="hover:text-black hidden sm:inline">Italian</a>
                 <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
+                <a href="/clinics" className="hover:text-black hidden md:inline">Clinics</a>
+                <a href="/dental" className="hover:text-black hidden md:inline">Dental</a>
                 <a href="/guide" className="hover:text-black hidden md:inline">Guides</a>
                 <a href="/about" className="hover:text-black hidden md:inline">About</a>
                 <a

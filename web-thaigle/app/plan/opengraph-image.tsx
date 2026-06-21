@@ -10,9 +10,10 @@ export const contentType = "image/png";
 export default async function PlanOG({
   searchParams,
 }: {
-  searchParams: Promise<{ d?: string }>;
+  searchParams: Promise<{ d?: string }> | { d?: string };
 }) {
-  const { d } = await searchParams;
+  const resolved = searchParams instanceof Promise ? await searchParams : (searchParams ?? {});
+  const { d } = resolved;
   const plan = d ? decodePlan(d) : null;
   const cfg = getSiteConfig();
 
@@ -47,9 +48,10 @@ export default async function PlanOG({
             textTransform: "uppercase",
             letterSpacing: 2,
             marginBottom: 16,
+            display: "flex",
           }}
         >
-          {cfg.brand} — 방콕 여행 플래너
+          {cfg.brand} — Bangkok Travel Planner
         </div>
         <div
           style={{
@@ -58,11 +60,12 @@ export default async function PlanOG({
             color: "#0a0a0a",
             lineHeight: 1.1,
             marginBottom: 32,
+            display: "flex",
           }}
         >
-          {plan?.title ?? "내 방콕 트립"}
+          {plan?.title ?? "My Bangkok Trip"}
         </div>
-        {counts.length > 0 && (
+        {counts.length > 0 ? (
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             {counts.map((c) => (
               <div
@@ -84,6 +87,8 @@ export default async function PlanOG({
               </div>
             ))}
           </div>
+        ) : (
+          <div style={{ display: "flex" }} />
         )}
         <div
           style={{
@@ -91,6 +96,7 @@ export default async function PlanOG({
             fontSize: 20,
             color: "#737373",
             fontWeight: 600,
+            display: "flex",
           }}
         >
           thaigle.com
