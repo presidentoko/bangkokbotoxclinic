@@ -5,6 +5,7 @@ import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import type { SlugMap } from "@/lib/restaurants";
 import { restaurantUrl } from "@/lib/restaurants";
+import { AddToPlannerButton } from "@/components/AddToPlannerButton";
 
 export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: number; slugMap: SlugMap }) {
   const href = restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id });
@@ -92,7 +93,15 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
         </div>
       </a>
 
-      <div className="px-5 pb-4 flex gap-2">
+      <div className="px-5 pb-4 flex gap-2 flex-wrap">
+        <AddToPlannerButton item={{
+          type: "restaurant",
+          id: r.id,
+          name: r.name,
+          district: r.district,
+          rating: r.rating,
+          city: r.city,
+        }} />
         <a
           href={href}
           className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
