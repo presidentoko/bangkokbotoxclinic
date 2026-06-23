@@ -2,10 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-
 export async function POST(req: NextRequest) {
+  const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
   if (!BOT_TOKEN || !CHAT_ID) {
     return NextResponse.json({ ok: false, error: "not configured" }, { status: 503 });
   }
