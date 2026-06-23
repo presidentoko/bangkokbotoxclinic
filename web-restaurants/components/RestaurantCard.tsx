@@ -3,6 +3,7 @@ import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import { CommunityButtons } from "./CommunityButtons";
 
 export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
   const trend = r.rating_trend.trend;
@@ -10,19 +11,19 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
   const tier = sponsoredTier(r.id);
 
   const tierStyles = tier === "editors_pick"
-    ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }
+    ? { wrapper: "ring-2 ring-amber-300 shadow-lg shadow-amber-100", corner: "from-amber-400 to-yellow-600" }
     : tier === "recommended"
-    ? { wrapper: "shadow-lg shadow-blue-200/40 ring-2 ring-sky-300", corner: "from-sky-500 to-blue-600" }
+    ? { wrapper: "ring-2 ring-sky-300 shadow-lg shadow-sky-100", corner: "from-sky-500 to-blue-600" }
     : tier === "featured"
-    ? { wrapper: "shadow-lg shadow-purple-200/40 ring-2 ring-fuchsia-300", corner: "from-fuchsia-500 to-purple-600" }
+    ? { wrapper: "ring-2 ring-fuchsia-300 shadow-lg shadow-fuchsia-100", corner: "from-fuchsia-500 to-purple-600" }
     : { wrapper: "", corner: "" };
 
   return (
     <div
-      className={`group block border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-gray-300 transition relative overflow-hidden ${tierStyles.wrapper}`}
+      className={`group border border-[var(--border)] rounded-3xl bg-[var(--card)] hover:shadow-md hover:border-[var(--accent)] transition relative overflow-hidden ${tierStyles.wrapper}`}
     >
       {tier && (
-        <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg shadow-md`}>
+        <div className={`absolute top-0 right-0 z-10 bg-gradient-to-r ${tierStyles.corner} text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-2xl shadow-md`}>
           {tier === "editors_pick" ? "★ Editor's Pick" : tier === "recommended" ? "✓ Recommended" : "◆ Featured"}
         </div>
       )}
@@ -66,7 +67,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
             </p>
           </div>
           <div className="text-right shrink-0">
-            <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">
+            <div className="bg-[var(--accent-light)] text-[var(--accent)] px-2.5 py-1 rounded-xl text-sm font-bold whitespace-nowrap">
               ★ {r.rating.toFixed(1)}
             </div>
             <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
@@ -80,7 +81,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
           <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
             <AIVerifiedBadge r={r} size="sm" />
             {r.cuisines.slice(0, 3).map((c) => (
-              <span key={c} className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
+              <span key={c} className="bg-[var(--accent-light)] text-[var(--accent)] px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
                 <span aria-hidden>{CUISINE_ICONS[c] ?? "🍴"}</span>
                 {CUISINE_LABELS[c] ?? c}
               </span>
@@ -89,18 +90,18 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         </div>
       </a>
 
-      <div className="px-5 pb-4 flex gap-2">
+      <div className="px-5 pb-3 flex gap-2">
         <a
           href={`/restaurant/${r.id}`}
-          className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
+          className="flex-1 text-center py-2 px-3 rounded-xl bg-[var(--fg)] text-white text-xs font-bold hover:opacity-80 transition"
         >
-          View details →
+          자세히 보기 →
         </a>
         <a
           href={r.maps_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="py-2 px-3 rounded-lg bg-white border border-[var(--border)] text-xs font-bold hover:border-black transition flex items-center"
+          className="py-2 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center"
           title="View on Google Maps"
           aria-label="View on Google Maps"
         >
@@ -109,7 +110,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         {r.phone && (
           <a
             href={`tel:${r.phone.replace(/[^+\d]/g, "")}`}
-            className="py-2 px-3 rounded-lg bg-white border border-[var(--border)] text-xs font-bold hover:border-black transition flex items-center"
+            className="py-2 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center"
             title={`Call ${r.phone}`}
             aria-label="Call restaurant"
           >
@@ -121,13 +122,17 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
             href={r.menu_url}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="py-2 px-3 rounded-lg bg-white border border-[var(--border)] text-xs font-bold hover:border-black transition flex items-center"
+            className="py-2 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center"
             title="Menu"
             aria-label="Menu"
           >
             📋
           </a>
         )}
+      </div>
+
+      <div className="px-5 pb-4">
+        <CommunityButtons restaurantId={r.id} />
       </div>
     </div>
   );
