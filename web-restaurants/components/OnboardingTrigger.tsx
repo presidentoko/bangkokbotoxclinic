@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { OnboardingFlow, type UserPrefs } from "./OnboardingFlow";
+import { OnboardingFlow } from "./OnboardingFlow";
 
 export function OnboardingTrigger({ children }: { children: React.ReactNode }) {
   const [showOnboarding, setShowOnboarding] = useState(false);

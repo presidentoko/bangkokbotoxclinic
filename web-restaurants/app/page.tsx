@@ -244,7 +244,7 @@ export default async function HomePage() {
                 <a
                   key={cat}
                   href={`/c/${cat}`}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition font-medium"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-[var(--card)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition font-medium"
                 >
                   <span aria-hidden>{CUISINE_ICONS[cat] ?? "🍴"}</span>
                   {CUISINE_LABELS[cat] ?? cat}
@@ -263,7 +263,7 @@ export default async function HomePage() {
                 <a
                   key={city}
                   href={`/city/${city}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition font-medium"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-[var(--card)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition font-medium"
                 >
                   {city.charAt(0).toUpperCase() + city.slice(1)}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
@@ -280,7 +280,7 @@ export default async function HomePage() {
               <a
                 key={d}
                 href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
-                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
+                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-[var(--card)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
               </a>
@@ -341,7 +341,7 @@ export default async function HomePage() {
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Frequently asked</h2>
           <div className="space-y-3">
             {HOME_FAQS.map((f, i) => (
-              <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
+              <details key={i} className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 group">
                 <summary className="font-medium cursor-pointer flex items-center justify-between gap-3">
                   <span>{f.q}</span>
                   <span className="text-[var(--muted)] group-open:rotate-180 transition">⌄</span>
