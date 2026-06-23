@@ -3,6 +3,7 @@
 
 import type { Clinic } from "@/lib/types";
 import type { SiteFocus } from "@/lib/site";
+import { formatTrustScore } from "@/lib/utils";
 
 type Collection = {
   key: string;
@@ -113,7 +114,7 @@ export default function CuratedCollections({ clinics, focus = "all" }: { clinics
                       <div className="text-xs text-[var(--muted)]">{c.district || c.city_label} · ★ {(c.rating ?? 0).toFixed(1)} · {c.total_reviews ?? 0} reviews</div>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="text-xl font-black tabular-nums">{c.trust_score.toFixed(0)}</div>
+                      <div className="text-xl font-black tabular-nums">{formatTrustScore(c.trust_score)}</div>
                       <div className="text-[9px] font-bold uppercase tracking-wider text-[var(--muted)]">Trust</div>
                     </div>
                   </a>

@@ -1,121 +1,58 @@
 "use client";
-// GDPR/CCPA-style cookie consent. Bottom-fixed banner. localStorage persist.
-// Categories: necessary (always on) · analytics · ads. Accept-all + reject-all + customize.
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-const KEY = "cookie_consent_v1";
-
-type Consent = { analytics: boolean; ads: boolean; ts: number };
-
-function load(): Consent | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch { return null; }
-}
-
-function save(c: Consent) {
-  localStorage.setItem(KEY, JSON.stringify(c));
-  window.dispatchEvent(new CustomEvent("cookie:consent", { detail: c }));
-}
+const COOKIE_KEY = "cookie_consent";
 
 export default function CookieConsent() {
-  const [shown, setShown] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const [opts, setOpts] = useState({ analytics: true, ads: false });
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const existing = load();
-    if (!existing) setShown(true);
+    try {
+      if (!localStorage.getItem(COOKIE_KEY)) setVisible(true);
+    } catch {
+      // localStorage unavailable — don't show
+    }
   }, []);
 
-  if (!shown) return null;
+  function accept() {
+    try { localStorage.setItem(COOKIE_KEY, "accepted"); } catch {}
+    setVisible(false);
+  }
 
-  function acceptAll() {
-    save({ analytics: true, ads: true, ts: Date.now() });
-    setShown(false);
+  function decline() {
+    try { localStorage.setItem(COOKIE_KEY, "declined"); } catch {}
+    setVisible(false);
   }
-  function rejectAll() {
-    save({ analytics: false, ads: false, ts: Date.now() });
-    setShown(false);
-  }
-  function saveCustom() {
-    save({ ...opts, ts: Date.now() });
-    setShown(false);
-  }
+
+  if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 p-3 sm:p-4 print:hidden toast-fade-up">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl border-2 border-slate-200 overflow-hidden">
-        {!expanded ? (
-          <div className="p-4 sm:p-5">
-            <div className="flex items-start gap-3 mb-3">
-              <span className="text-2xl shrink-0">🍪</span>
-              <p className="text-sm leading-relaxed flex-1">
-                We use cookies to keep the site working, learn how people use it, and (with your OK) show useful ads.
-                {" "}
-                <a href="/privacy" className="underline font-bold">Privacy</a>
-                {" · "}
-                <button onClick={() => setExpanded(true)} className="underline font-bold">Customize</button>
-              </p>
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              <button onClick={acceptAll}
-                className="rounded-lg bg-slate-900 text-white px-4 py-2 text-sm font-bold hover:bg-black">
-                Accept all
-              </button>
-              <button onClick={rejectAll}
-                className="rounded-lg bg-white border border-slate-300 px-4 py-2 text-sm font-bold hover:bg-slate-50">
-                Necessary only
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="p-5">
-            <div className="flex items-baseline justify-between mb-3 gap-3">
-              <h3 className="font-black text-base">Cookie preferences</h3>
-              <button onClick={() => setExpanded(false)} className="text-xs text-[var(--muted)] hover:underline">← Back</button>
-            </div>
-            <ul className="space-y-3">
-              <li className="rounded-lg border bg-slate-50 p-3" style={{ borderColor: "var(--border)" }}>
-                <div className="flex items-center justify-between gap-2">
-                  <div>
-                    <div className="font-bold text-sm">Necessary</div>
-                    <div className="text-xs text-[var(--muted)]">Required for the site to work (session, security).</div>
-                  </div>
-                  <span className="text-xs font-bold text-slate-600">Always on</span>
-                </div>
-              </li>
-              <li className="rounded-lg border bg-white p-3" style={{ borderColor: "var(--border)" }}>
-                <label className="flex items-center justify-between gap-2 cursor-pointer">
-                  <div>
-                    <div className="font-bold text-sm">Analytics</div>
-                    <div className="text-xs text-[var(--muted)]">Anonymized usage stats so we can fix what&apos;s slow or broken.</div>
-                  </div>
-                  <input type="checkbox" checked={opts.analytics} onChange={(e) => setOpts({ ...opts, analytics: e.target.checked })}
-                    className="h-5 w-5 accent-emerald-600" />
-                </label>
-              </li>
-              <li className="rounded-lg border bg-white p-3" style={{ borderColor: "var(--border)" }}>
-                <label className="flex items-center justify-between gap-2 cursor-pointer">
-                  <div>
-                    <div className="font-bold text-sm">Ads</div>
-                    <div className="text-xs text-[var(--muted)]">Show personalized ads (Google AdSense). Off by default.</div>
-                  </div>
-                  <input type="checkbox" checked={opts.ads} onChange={(e) => setOpts({ ...opts, ads: e.target.checked })}
-                    className="h-5 w-5 accent-emerald-600" />
-                </label>
-              </li>
-            </ul>
-            <button onClick={saveCustom}
-              className="mt-4 w-full rounded-lg bg-slate-900 text-white px-4 py-2 text-sm font-bold hover:bg-black">
-              Save preferences
-            </button>
-          </div>
-        )}
+    <div
+      role="dialog"
+      aria-label="Cookie consent"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-xl"
+    >
+      <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
+        <p className="text-xs text-gray-600 flex-1 leading-relaxed">
+          We use essential cookies for site function and Vercel Analytics for aggregate traffic counts (no
+          personal data, no ad trackers).{" "}
+          <a href="/privacy" className="underline hover:text-black">Privacy Policy</a>
+        </p>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={decline}
+            className="px-4 py-2 rounded-lg border border-gray-300 text-xs font-medium text-gray-700 hover:bg-gray-50 transition"
+          >
+            Decline optional
+          </button>
+          <button
+            onClick={accept}
+            className="px-4 py-2 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
+          >
+            Accept
+          </button>
+        </div>
       </div>
     </div>
   );

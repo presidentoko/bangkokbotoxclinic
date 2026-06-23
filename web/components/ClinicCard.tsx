@@ -5,6 +5,7 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "./CategoryIcon";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
+import { formatTrustScore } from "@/lib/utils";
 
 // 긍정 시그널 — 신뢰감 주는 topic 만 highlight chip 으로 노출.
 const POSITIVE_TOPICS: Record<string, { label: string; emoji: string }> = {
@@ -217,7 +218,7 @@ export async function ClinicCard({ clinic, rank }: { clinic: Clinic; rank?: numb
           <div className="flex items-baseline justify-between mb-1">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">Trust Score</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-lg font-black tabular-nums" style={{ color: trustColor }}>{clinic.trust_score}</span>
+              <span className="text-lg font-black tabular-nums" style={{ color: trustColor }}>{formatTrustScore(clinic.trust_score)}</span>
               <span className="text-[10px] uppercase tracking-wider" style={{ color: trustColor }}>
                 {clinic.trust_score >= 80 ? "Excellent" : clinic.trust_score >= 65 ? "Strong" : clinic.trust_score >= 50 ? "Good" : "Fair"}
               </span>

@@ -9,10 +9,10 @@ export function AIVerifiedBadge({ clinic, size = "sm" }: { clinic: Clinic; size?
   if (clinic.scraped_review_count < 5) return null;
   const lg = clinic.local_guide_count;
   const total = clinic.scraped_review_count;
-  // 보정: LG 외에도 평균 리뷰어 review count > 30 인 사람들도 verified 카운트
-  // 단순화: 50% baseline + LG ratio * 50%.
   const lgRatio = total > 0 ? lg / total : 0;
   const verifiedRate = Math.round(50 + lgRatio * 50);
+  // Low estimates hidden from cards — only shown in detail view alongside methodology link
+  if (verifiedRate < 65) return null;
   const cls = size === "md"
     ? "px-3 py-1 text-sm"
     : "px-2 py-0.5 text-xs";
@@ -20,10 +20,10 @@ export function AIVerifiedBadge({ clinic, size = "sm" }: { clinic: Clinic; size?
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-semibold whitespace-nowrap ${cls}`}
       style={{ background: "#ecfeff", color: "#155e75" }}
-      title={`${lg} of ${total} scraped reviews are by Google Local Guides — high credibility reviewers.`}
+      title="Automated estimate based on public review patterns (Local Guide ratio). Not a finding of wrongdoing. See /methodology."
     >
       <span aria-hidden>✓</span>
-      AI Verified · {verifiedRate}% real
+      Authenticity est. ~{verifiedRate}%
     </span>
   );
 }

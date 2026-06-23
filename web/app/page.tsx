@@ -15,7 +15,9 @@ import { CategoryIcon } from "@/components/CategoryIcon";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { formatTrustScore } from "@/lib/utils";
 import { guidesForFocus } from "@/lib/guides";
+import { ClinicPhoto } from "@/components/ClinicPhoto";
 import WhyUs from "@/components/WhyUs";
 import AfterSubmitFlow from "@/components/AfterSubmitFlow";
 import CityRow from "@/components/CityRow";
@@ -160,8 +162,9 @@ export default async function HomePage() {
             )}
           </h1>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
-            <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked by{" "}
-            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} — every single one analyzed for credibility.
+            <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked across{" "}
+            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} —{" "}
+            <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> deep-analyzed for credibility.
           </p>
 
           <HeroSearch entities={searchIndex} hrefBase="/clinic" popularSearches={popularSearches} searchPlaceholder="Search clinic name or district..." />
@@ -438,12 +441,11 @@ export default async function HomePage() {
                       }
                     >
                       {photo ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
+                        <ClinicPhoto
                           src={photo.thumb}
                           alt={`${c.name} exterior`}
-                          loading="lazy"
                           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          placeholderIcon="🏥"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-5xl opacity-30">
@@ -452,14 +454,14 @@ export default async function HomePage() {
                       )}
                       {/* Rank badge — top-left over photo */}
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-white text-xs font-black tabular-nums">
-                        #{i + 1}
+                        Rank #{i + 1}
                       </div>
                       {/* Trust Score badge — top-right over photo */}
                       <div
                         className="absolute top-2 right-2 px-2 py-0.5 rounded-md text-white text-xs font-black tabular-nums"
                         style={{ background: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}
                       >
-                        {c.trust_score.toFixed(0)} <span className="opacity-80 font-normal">Trust</span>
+                        <span className="opacity-80 font-normal">Trust</span> {formatTrustScore(c.trust_score)}
                       </div>
                     </div>
                     <div className="p-5">

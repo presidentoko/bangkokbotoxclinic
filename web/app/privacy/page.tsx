@@ -3,12 +3,15 @@ import { getSiteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description:
-    "How we handle data submitted through booking and contact forms. What we collect, why, who receives it, and how to request deletion.",
+  description: "How we collect, use, and protect your data. Your rights under PDPA and applicable law.",
   alternates: { canonical: "/privacy" },
 };
 
 export const dynamic = "force-static";
+
+const BUILD_DATE = "2026-06-23";
+const ENTITY_NAME = "[ENTITY_NAME]";
+const CONTACT_EMAIL = "[CONTACT_EMAIL]";
 
 export default function PrivacyPage() {
   const cfg = getSiteConfig();
@@ -21,97 +24,119 @@ export default function PrivacyPage() {
       </nav>
 
       <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3">Privacy Policy</h1>
-      <p className="text-sm text-[var(--muted)] mb-8">Last updated: 2026-05-21</p>
+      <p className="text-sm text-[var(--muted)] mb-8">Last updated: {BUILD_DATE}</p>
 
       <div className="prose prose-sm max-w-none space-y-6 text-[var(--fg)]">
         <section>
-          <h2 className="text-xl font-bold mb-2">What we collect from forms</h2>
+          <h2 className="text-xl font-bold mb-2">1. Who we are</h2>
           <p className="text-sm leading-relaxed">
-            When you submit a booking or contact form on {cfg.brand}, we collect:
-          </p>
-          <ul className="list-disc pl-5 text-sm space-y-1 mt-2">
-            <li><strong>Name</strong> and <strong>email address</strong> — required, so the clinic can confirm and follow up.</li>
-            <li><strong>Phone / LINE / WhatsApp</strong> — optional, for faster scheduling.</li>
-            <li><strong>Service, preferred date, time slot, notes</strong> — to help the clinic prepare.</li>
-            <li><strong>Clinic ID</strong> (when submitted from a clinic page) — so we know which clinic to forward to.</li>
-          </ul>
-          <p className="text-sm leading-relaxed mt-2">
-            We do <strong>not</strong> collect government IDs, payment cards, or medical history through these forms.
+            {ENTITY_NAME}, operating {cfg.brand}. Contact: {CONTACT_EMAIL}.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-2">Who receives it</h2>
-          <p className="text-sm leading-relaxed">
-            Your submission is forwarded to two places:
-          </p>
-          <ul className="list-disc pl-5 text-sm space-y-1 mt-2">
+          <h2 className="text-xl font-bold mb-2">2. Data we process</h2>
+          <ul className="list-disc pl-5 text-sm space-y-2 mt-2">
             <li>
-              <strong>The clinic you selected</strong> (if you submitted from a clinic page) — so a staff member can
-              confirm time, brand availability, and pricing.
+              <strong>(a) Publicly available business information and public reviews</strong> — aggregated from
+              public sources (Google Maps). This may include reviewer display names as they appear publicly.
             </li>
             <li>
-              <strong>Our internal admin</strong> — so we can follow up if the clinic doesn&apos;t respond within
-              24 hours and improve our recommendations.
+              <strong>(b) Visitor data</strong> — analytics (aggregate page-view counts via Vercel Analytics),
+              device and usage data, and minimal first-party cookies for site preferences.
+            </li>
+            <li>
+              <strong>(c) Data you submit</strong> — name, email, phone number, and message content when you use
+              booking or contact forms. Also correction requests and correspondence.
             </li>
           </ul>
-          <p className="text-sm leading-relaxed mt-2">
-            We do <strong>not</strong> sell or rent your data to third parties. We do not run ad-network retargeting
-            on the data you submit through forms.
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold mb-2">3. Purpose &amp; lawful basis</h2>
+          <p className="text-sm leading-relaxed">
+            We operate an information directory in the legitimate interest of public access to information.
+            We process contact form data to forward enquiries to clinics as you request. We seek consent for
+            any non-essential cookies or marketing communications.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-2">How long we keep it</h2>
+          <h2 className="text-xl font-bold mb-2">4. Cookies</h2>
           <p className="text-sm leading-relaxed">
-            Form submissions are retained for up to <strong>18 months</strong> for follow-up, analytics, and dispute
-            resolution. After that they are deleted automatically. You can request earlier deletion at any time (see
-            below).
+            We use minimal first-party cookies for session authentication (admin only) and site preferences.
+            Vercel Analytics is used for aggregate traffic measurement only — it does not identify individual
+            visitors or track behaviour across sites. We do not run cross-site advertising trackers.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-2">Cookies & analytics</h2>
+          <h2 className="text-xl font-bold mb-2">5. Sharing</h2>
           <p className="text-sm leading-relaxed">
-            We use minimal first-party cookies for site preferences and an authenticated admin session. We use Vercel
-            Analytics for aggregate page-view counts — these do not identify individual visitors. We do not run
-            cross-site behavioural advertising trackers.
+            We do <strong>not</strong> sell or rent personal data. When you submit a booking enquiry, your
+            contact details are forwarded to the clinic you selected and to our admin for follow-up.
+            Infrastructure service providers (Vercel for hosting, Upstash for session storage) process data
+            on our behalf under data processing agreements.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-2">Your rights</h2>
+          <h2 className="text-xl font-bold mb-2">6. Retention</h2>
           <p className="text-sm leading-relaxed">
-            You can ask us to:
+            Form submission data is retained for up to 18 months for follow-up and dispute resolution, then
+            deleted. Aggregate analytics data is retained indefinitely as it contains no personal data.
           </p>
-          <ul className="list-disc pl-5 text-sm space-y-1 mt-2">
-            <li>See what data we have about you.</li>
-            <li>Correct anything inaccurate.</li>
-            <li>Delete your submission(s) entirely.</li>
-            <li>Stop forwarding to clinics on future submissions.</li>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold mb-2">7. Your rights (PDPA)</h2>
+          <p className="text-sm leading-relaxed mb-2">
+            Under applicable law (including Thailand&apos;s PDPA where relevant), you have the right to:
+          </p>
+          <ul className="list-disc pl-5 text-sm space-y-1">
+            <li>Access the personal data we hold about you.</li>
+            <li>Rectification of inaccurate data.</li>
+            <li>Erasure (&quot;right to be forgotten&quot;).</li>
+            <li>Object to processing based on legitimate interest.</li>
+            <li>Withdraw consent at any time.</li>
+            <li>Lodge a complaint with the relevant supervisory authority.</li>
           </ul>
           <p className="text-sm leading-relaxed mt-2">
-            Email <a href="/contact" className="underline">us through the contact page</a> with your name and the
-            email you used. We respond within 7 days.
+            To exercise these rights, email <strong>{CONTACT_EMAIL}</strong> with your name and the email
+            address you used. We respond within 7 business days.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-2">Security</h2>
+          <h2 className="text-xl font-bold mb-2">8. Reviewer &amp; business data requests</h2>
           <p className="text-sm leading-relaxed">
-            Submissions are transmitted over HTTPS, stored in encrypted form, and only accessible to authenticated
-            admin staff. We hash any session tokens. We do not store payment card details — payment happens directly
-            between you and the clinic.
+            If you appear in aggregated content on this site (as a reviewer display name or as a listed business)
+            and wish to request correction or removal, contact {CONTACT_EMAIL} or use our{" "}
+            <a href="/corrections" className="underline">Corrections page</a>. We will review promptly.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold mb-2">Changes to this policy</h2>
+          <h2 className="text-xl font-bold mb-2">9. Security</h2>
           <p className="text-sm leading-relaxed">
-            We may update this policy when we add new features. Material changes will be flagged on the booking
-            form. The &quot;Last updated&quot; date above tracks the most recent revision.
+            All data is transmitted over HTTPS. Access to stored form submissions is restricted to authenticated
+            admin staff. We do not store payment card details.
           </p>
         </section>
+
+        <section>
+          <h2 className="text-xl font-bold mb-2">10. Updates</h2>
+          <p className="text-sm leading-relaxed">
+            We may update this policy when we add new features or as legal requirements change. The &quot;Last
+            updated&quot; date above tracks the most recent revision. Continued use after a change constitutes
+            acceptance of the updated policy.
+          </p>
+        </section>
+
+        <p className="text-xs text-[var(--muted)] pt-4 border-t border-[var(--border)]">
+          ENTITY_NAME and CONTACT_EMAIL placeholders must be confirmed by qualified counsel before
+          relying on this document.
+        </p>
       </div>
     </div>
   );

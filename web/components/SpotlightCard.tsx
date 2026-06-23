@@ -5,6 +5,7 @@ import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "./CategoryIcon";
 import { loadPhotos } from "@/lib/photos";
+import { formatTrustScore } from "@/lib/utils";
 
 export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; accent?: string }) {
   const photoSet = await loadPhotos(c.id);
@@ -56,7 +57,7 @@ export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; acce
               <div className="text-2xl font-black tabular-nums" style={{
                 color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04",
               }}>
-                {c.trust_score.toFixed(0)}
+                {formatTrustScore(c.trust_score)}
               </div>
               <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">Trust</div>
             </div>

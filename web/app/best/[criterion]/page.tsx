@@ -22,10 +22,14 @@ export async function generateMetadata(
   const { criterion } = await params;
   const cfg = findBestFor(criterion);
   if (!cfg) return { title: "Not found" };
+  const db2 = await loadMasterDb();
+  const count2 = db2.clinics.filter((c) => !cfg.filterFn || cfg.filterFn(c)).length;
+  const robots = count2 < 5 ? { index: false, follow: true } : undefined;
   return {
     title: cfg.metaTitle,
     description: cfg.metaDescription,
     alternates: { canonical: `/best/${cfg.slug}` },
+    ...(robots && { robots }),
   };
 }
 

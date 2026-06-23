@@ -3,6 +3,7 @@
 // Server component — 클라이언트 JS 0.
 
 import type { Clinic } from "@/lib/types";
+import { formatTrustScore } from "@/lib/utils";
 
 function dayOfYearSeed(): number {
   const now = new Date();
@@ -83,7 +84,7 @@ export function HiddenGem({
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
                  style={{ background: `${accent}15`, color: accent }}>
-              <span className="text-lg font-black tabular-nums">{pick.trust_score.toFixed(0)}</span>
+              <span className="text-lg font-black tabular-nums">{formatTrustScore(pick.trust_score)}</span>
               <span className="text-[10px] uppercase tracking-widest font-bold">Trust Score</span>
             </div>
 

@@ -4,6 +4,7 @@
 // 머무는 시간 ↑ + serendipity discovery. 모든 사용자 다른 결과.
 
 import { useState, useEffect, useRef } from "react";
+import { formatTrustScore } from "@/lib/utils";
 
 type Mini = {
   id: string;
@@ -160,7 +161,7 @@ export function SpinDiscover({
                          background: current.trust_score >= 75 ? "#dcfce7" : current.trust_score >= 60 ? "#fef9c3" : "#fee2e2",
                          color: current.trust_score >= 75 ? "#15803d" : current.trust_score >= 60 ? "#a16207" : "#b91c1c"
                        }}>
-                    Trust {current.trust_score.toFixed(0)}
+                    Trust {formatTrustScore(current.trust_score)}
                   </div>
                 </div>
               </div>

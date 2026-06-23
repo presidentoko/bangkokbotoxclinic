@@ -113,7 +113,7 @@ export default function RootLayout({
             </div>
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
               <div className="flex-1">
-                <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
+                <div className="flex flex-wrap gap-x-8 gap-y-3 mb-3">
                   <a href="/about" className="hover:text-black">About</a>
                   <a href="/insights" className="hover:text-black">Market Insights</a>
                   <a href="/contact" className="hover:text-black">Contact</a>
@@ -121,8 +121,16 @@ export default function RootLayout({
                   <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
                   <a href="/llms.txt" className="hover:text-black">llms.txt</a>
                 </div>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 text-xs">
+                  <span className="font-semibold text-[var(--fg)]">Legal:</span>
+                  <a href="/terms" className="hover:text-black">Terms</a>
+                  <a href="/privacy" className="hover:text-black">Privacy</a>
+                  <a href="/disclaimer" className="hover:text-black">Disclaimer</a>
+                  <a href="/methodology" className="hover:text-black">Methodology</a>
+                  <a href="/corrections" className="hover:text-black">Corrections</a>
+                </div>
                 <p className="text-xs leading-relaxed max-w-2xl">
-                  Independent review aggregation. Not affiliated with any clinic. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
+                  Independent review aggregation. Not affiliated with any clinic. Rankings, Trust Scores, and authenticity estimates are automated opinion based on public data — not statements of fact. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
                 </p>
               </div>
               <a
@@ -140,9 +148,10 @@ export default function RootLayout({
                 </div>
               </a>
             </div>
-            <p className="text-xs">
-              © {new Date().getFullYear()} {cfg.brand}
-            </p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-[var(--muted)]">
+              <p>© {new Date().getFullYear()} {cfg.brand} · Independent directory, not affiliated with any clinic.</p>
+              <p className="opacity-70">Review data aggregated from publicly available sources including Google Maps. Rankings and scores are automated opinions, not statements of fact.</p>
+            </div>
           </div>
         </footer>
         <PersonalizationQuiz />

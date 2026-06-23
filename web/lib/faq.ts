@@ -139,7 +139,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines: clinic rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority via average reviewer review count (5%). It's our derived metric — not a Google ranking. Anchored on Google Maps with cross-validation from HDmall, Wongnai and other platforms. We update it every 30 minutes.",
+    a: "Trust Score (0-100) combines: clinic rating (~45% weight), review volume on logarithmic scale (~35%), Local Guide reviewer ratio (~15%), and rating consistency over time (~5%). Weights sum to 100%. It's an automated opinion metric — not a Google ranking and not a verified finding about any clinic. Anchored on Google Maps with cross-validation from HDmall, Wongnai and other platforms. We update it every 30 minutes. See /methodology for full details.",
   },
   {
     q: "Are these clinic listings sponsored?",

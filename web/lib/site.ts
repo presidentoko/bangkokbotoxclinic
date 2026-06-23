@@ -25,6 +25,8 @@ export type SiteConfig = {
   themeAccent: string;    // CSS color
   // 클리닉 필터: focus 카테고리 mention >= threshold OR primary_type 매칭
   mentionThreshold: number;
+  // city_label 허용 목록 (설정 시 해당 도시만 포함, null/빈값은 통과)
+  allowedCities?: string[];
 };
 
 const CONFIGS: Record<SiteFocus, SiteConfig> = {
@@ -51,6 +53,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "Top botox clinics in Bangkok, ranked by Trust Score from review analysis. Genuine Allergan, Dysport, Botulax, Xeomin tracked.",
     themeAccent: "#7c3aed",
     mentionThreshold: 3,
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
   },
   filler: {
     focus: "filler",
@@ -63,6 +66,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "HA, Juvederm, Restylane and Belotero specialists ranked by review-verified Trust Score.",
     themeAccent: "#ec4899",
     mentionThreshold: 3,
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
   },
   hifu: {
     focus: "hifu",
@@ -75,6 +79,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "Verified Ultherapy, Thermage, Ultraformer providers ranked by Trust Score.",
     themeAccent: "#06b6d4",
     mentionThreshold: 2,
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
   },
   facial: {
     focus: "facial",
@@ -87,6 +92,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "HydraFacial, LED, oxygen and chemical peel specialists ranked by Trust Score.",
     themeAccent: "#0ea5e9",
     mentionThreshold: 3,
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
   },
   laser: {
     focus: "laser",
@@ -99,6 +105,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "Pico, CO2 fractional, IPL and hair-removal laser experts ranked by Trust Score.",
     themeAccent: "#f59e0b",
     mentionThreshold: 3,
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
   },
   dental: {
     focus: "dental",
@@ -111,6 +118,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "Top dental clinics in Bangkok and Pattaya ranked by Trust Score. Implants, veneers, ortho, whitening — from real Google review analysis.",
     themeAccent: "#10b981",
     mentionThreshold: 2,
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Pattaya", "Chonburi"],
   },
   hair: {
     focus: "hair",
@@ -140,8 +148,15 @@ const DENTAL_PRIMARY_TYPES = new Set([
 
 export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
   // 모든 사이트에서 non-clinic 먼저 제거
-  const clinical = clinics.filter(isClinicLike);
+  let clinical = clinics.filter(isClinicLike);
   if (cfg.focus === "all") return clinical;
+
+  // 도시 필터 — city_label 없는 클리닉은 통과 (데이터 미비 방어)
+  if (cfg.allowedCities && cfg.allowedCities.length > 0) {
+    const citySet = new Set(cfg.allowedCities.map((c) => c.toLowerCase()));
+    clinical = clinical.filter((c) => !c.city_label || citySet.has(c.city_label.toLowerCase()));
+  }
+
   const focus = cfg.focus;
 
   // 치과 사이트는 엄격 필터: primary_type 이 치과 계열이어야 함

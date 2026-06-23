@@ -4,6 +4,7 @@ import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "./CategoryIcon";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
+import { formatTrustScore } from "@/lib/utils";
 
 export async function SponsoredHero({ c }: { c: Clinic }) {
   const tier = await sponsoredTier(c.id);
@@ -64,7 +65,7 @@ export async function SponsoredHero({ c }: { c: Clinic }) {
                 <div className="text-3xl font-bold tabular-nums" style={{
                   color: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04"
                 }}>
-                  {c.trust_score.toFixed(0)}
+                  {formatTrustScore(c.trust_score)}
                 </div>
                 <div className="text-[10px] uppercase text-[var(--muted)] tracking-wider">Trust</div>
               </div>

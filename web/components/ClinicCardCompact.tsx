@@ -3,6 +3,7 @@
 
 import type { Clinic } from "@/lib/types";
 import { sponsoredTier } from "@/lib/sponsored";
+import { formatTrustScore } from "@/lib/utils";
 
 const POSITIVE_TOPICS: Record<string, { label: string; emoji: string }> = {
   english_speaking:   { label: "English",     emoji: "🇬🇧" },
@@ -87,7 +88,7 @@ export async function ClinicCardCompact({ clinic, rank }: { clinic: Clinic; rank
         </div>
         <div className="text-right pl-3 border-l border-[var(--border)]">
           <div className="text-base font-black tabular-nums leading-none" style={{ color: trustColor }}>
-            {clinic.trust_score}
+            {formatTrustScore(clinic.trust_score)}
           </div>
           <div className="text-[10px] text-[var(--muted)] uppercase tracking-widest mt-0.5">Trust</div>
         </div>

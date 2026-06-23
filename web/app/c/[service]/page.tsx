@@ -28,10 +28,13 @@ export async function generateMetadata(
   const totalReviews = db.clinics
     .filter((c) => c.categories.includes(service))
     .reduce((s, c) => s + c.total_reviews, 0);
+  // thin content — fewer than 5 clinics → noindex to avoid thin SEO pages
+  const robots = count < 5 ? { index: false, follow: true } : undefined;
   return {
     title: `${count} Best ${label} Clinics in Bangkok — Trust Score Ranking`,
     description: `${count} verified ${label.toLowerCase()} clinics in Bangkok analyzed across ${totalReviews.toLocaleString()} Google reviews. Compare trust scores, reviewer credibility, and district options.`,
     alternates: { canonical: `/c/${service}` },
+    ...(robots && { robots }),
     openGraph: {
       title: `${count} Best ${label} Clinics in Bangkok`,
       description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,
