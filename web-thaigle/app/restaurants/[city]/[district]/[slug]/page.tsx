@@ -10,6 +10,7 @@ import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { ReportButton } from "@/components/ReportButton";
 import type { Metadata } from "next";
 
 export const revalidate = 86400;
@@ -145,6 +146,9 @@ export default async function RestaurantPage(
           </div>
         )}
         <MapEmbed lat={r.lat} lng={r.lng} name={r.name} />
+        <div className="mt-4">
+          <ReportButton venueName={r.name} venueUrl={`${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}${restaurantUrl(slugMap[r.id] ?? { city, district, slug })}`} />
+        </div>
       </div>
     </>
   );

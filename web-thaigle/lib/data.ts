@@ -36,8 +36,18 @@ export function filterByCity(restaurants: Restaurant[], city: string): Restauran
   return restaurants.filter((r) => r.city === city);
 }
 
+const NON_FOOD_TYPES = [
+  "shopping mall", "shopping centre", "department store", "supermarket",
+  "tourist attraction", "amusement park", "trampoline park",
+];
+
+export function isFood(r: Restaurant): boolean {
+  const cat = (r.primary_type || "").toLowerCase();
+  return !NON_FOOD_TYPES.some((t) => cat.includes(t));
+}
+
 export function topByTrust(restaurants: Restaurant[], n: number): Restaurant[] {
-  return [...restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, n);
+  return [...restaurants].filter(isFood).sort((a, b) => b.trust_score - a.trust_score).slice(0, n);
 }
 
 export function getRestaurantById(restaurants: Restaurant[], id: string): Restaurant | undefined {

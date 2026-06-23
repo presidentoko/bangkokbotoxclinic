@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
@@ -9,11 +10,51 @@ import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
+import { NICHES, loadNicheDb } from "@/lib/niches";
+import type { NicheSlug } from "@/lib/niches";
 
 export const dynamic = "force-static";
 
+const OG_TITLE = "Thaigle — Bangkok Activities & Restaurants Ranked by Real Reviews";
+
+export const metadata: Metadata = {
+  title: OG_TITLE,
+  description:
+    "Bangkok's most trusted activity and restaurant directory. Muay Thai gyms, spas, yoga studios, cooking classes ranked by real Google reviews — no influencer picks, no paid placements.",
+  alternates: {
+    canonical: "https://www.thaigle.com/",
+    languages: {
+      en: "/",
+      th: "/th",
+      ko: "/ko",
+      ja: "/ja",
+      ru: "/ru",
+      ar: "/ar",
+      "x-default": "/",
+    },
+  },
+  openGraph: {
+    title: OG_TITLE,
+    description:
+      "Bangkok activity venues + restaurants ranked by real Google reviews. Muay Thai, spas, yoga, cooking classes — no paid rankings.",
+    url: "https://www.thaigle.com/",
+  },
+  twitter: {
+    title: OG_TITLE,
+    description:
+      "Bangkok activity venues + restaurants ranked by real Google reviews. No influencer picks, no paid placements.",
+  },
+};
+
 export default async function HomePage() {
-  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
+  const [db, slugMap, nicheCounts] = await Promise.all([
+    loadMasterDb(),
+    getSlugMap(),
+    Promise.all(NICHES.map(async (n) => {
+      const nd = await loadNicheDb(n.slug as NicheSlug);
+      return { slug: n.slug, label: n.label, icon: n.icon, total: nd.total };
+    })),
+  ]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
@@ -80,14 +121,18 @@ export default async function HomePage() {
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
             No influencer · No paid review
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-4 text-balance">
             Stop searching{" "}
             <span className="line-through decoration-orange-500 decoration-4 opacity-60">on SNS.</span>
             <br />
-            Eat what <span className="text-orange-600">locals</span> rate.
+            Do what <span className="text-orange-600">locals</span> actually do.
           </h1>
+          <p className="text-base md:text-lg font-semibold text-[var(--muted)] mb-2 max-w-2xl mx-auto text-balance tracking-wide uppercase">
+            Bangkok activities &amp; restaurants — ranked by real Google reviews
+          </p>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
-            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()}</span> restaurants ranked by{" "}
+            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()}</span> restaurants &amp;{" "}
+            activities ranked by{" "}
             <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews — every single one analyzed for credibility.
           </p>
 
@@ -104,10 +149,11 @@ export default async function HomePage() {
 
       {/* MEGA STATS BAR — visual numbers */}
       <section className="border-y border-[var(--border)] bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 text-white">
-        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-3 gap-4 text-center">
+        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <Stat big={db.total_restaurants.toLocaleString()} label="Restaurants" />
           <Stat big={`${(totalReviews / 1_000_000).toFixed(1)}M`} label="Reviews analyzed" />
           <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
+          <Stat big={nicheCounts.reduce((s, n) => s + n.total, 0).toLocaleString()} label="Activity venues" />
         </div>
       </section>
 
@@ -270,6 +316,42 @@ export default async function HomePage() {
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ACTIVITIES PROMO */}
+        <section className="mb-12">
+          <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+            <div>
+              <h2 className="text-xl md:text-2xl font-black tracking-tight">Activities in Bangkok</h2>
+              <p className="text-sm text-[var(--muted)] mt-1">Muay Thai · Spa · Yoga · Cooking · Diving — ranked by real reviews</p>
+            </div>
+            <a href="/activities" className="text-sm font-bold hover:text-orange-600 hover:underline">All activities →</a>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {nicheCounts.slice(0, 4).map((n) => (
+              <a
+                key={n.slug}
+                href={`/activities/${n.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-2xl p-4 hover:border-orange-300 hover:shadow-md transition text-center"
+              >
+                <div className="text-3xl mb-2">{n.icon}</div>
+                <div className="font-bold text-sm group-hover:text-orange-600 transition leading-tight">{n.label}</div>
+                <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">{n.total.toLocaleString()} venues</div>
+              </a>
+            ))}
+          </div>
+          <div className="grid grid-cols-3 gap-3 mt-3">
+            {nicheCounts.slice(4).map((n) => (
+              <a
+                key={n.slug}
+                href={`/activities/${n.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-xl p-3 hover:border-orange-300 hover:shadow-md transition text-center"
+              >
+                <div className="text-2xl mb-1">{n.icon}</div>
+                <div className="font-bold text-xs group-hover:text-orange-600 transition">{n.label}</div>
               </a>
             ))}
           </div>

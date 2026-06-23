@@ -17,7 +17,7 @@ const FAQS = [
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines four signals: Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority (5%). It's our derived metric.",
+    a: "Trust Score (0-100) is built from four components: Google star rating (max 50 pts), review volume on a log scale (max 40 pts), Local Guide reviewer ratio (max 10 pts), and reviewer authority (max 5 pts). Raw total is capped at 100.",
   },
   {
     q: "What does 'AI Verified · X% real' mean?",

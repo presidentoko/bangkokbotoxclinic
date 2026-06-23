@@ -5,9 +5,11 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { loadNicheDb, topNichePlaces, buildKlookIndex, NICHES } from "@/lib/niches";
+import type { NicheSlug } from "@/lib/niches";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export async function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
@@ -43,6 +45,11 @@ export default async function GuidePage(
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const featured = topByTrust(db.restaurants, 6);
   const related = (g.related ?? []).map((s) => findGuide(s)).filter(Boolean);
+
+  // Load niche places if this guide is linked to an activity niche
+  const nicheInfo = g.nicheSlug ? NICHES.find(n => n.slug === g.nicheSlug) : null;
+  const nichePlaces = g.nicheSlug ? await loadNicheDb(g.nicheSlug as NicheSlug).then(db => topNichePlaces(db.places, 5)) : [];
+  const nicheKlook = nichePlaces.length > 0 ? await buildKlookIndex(nichePlaces.map(p => p.id)) : new Map();
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -106,7 +113,63 @@ export default async function GuidePage(
         </section>
       )}
 
-      {featured.length > 0 && (
+      {/* Show niche places for activity guides, restaurants otherwise */}
+      {nicheInfo && nichePlaces.length > 0 ? (
+        <section className="mt-12">
+          <h2 className="text-xl font-bold mb-2">
+            Top-rated {nicheInfo.label} in Bangkok
+          </h2>
+          <p className="text-sm text-[var(--muted)] mb-4">
+            Ranked by Trust Score from real Google reviews.
+          </p>
+          <div className="space-y-3">
+            {nichePlaces.map((p, i) => {
+              const klook = nicheKlook.get(p.id);
+              return (
+                <a
+                  key={p.id}
+                  href={`/activities/${g.nicheSlug}/${p.slug}`}
+                  className="group flex items-center gap-4 bg-white border border-[var(--border)] rounded-xl p-4 hover:border-orange-300 hover:shadow-md transition"
+                >
+                  {p.top_photo_url && (
+                    <img
+                      src={p.top_photo_url}
+                      alt={p.name}
+                      className="w-16 h-16 rounded-lg object-cover shrink-0"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-xs font-black text-[var(--muted)] tabular-nums">#{i + 1}</span>
+                      <span
+                        className="text-xs font-black px-1.5 py-0.5 rounded-full text-white"
+                        style={{ background: p.trust_score >= 75 ? "#16a34a" : p.trust_score >= 60 ? "#059669" : "#ca8a04" }}
+                      >
+                        {p.trust_score}
+                      </span>
+                    </div>
+                    <div className="font-bold text-sm group-hover:text-orange-600 transition truncate">{p.name}</div>
+                    <div className="text-xs text-[var(--muted)] truncate">{p.address ? p.address.split(",").slice(-3, -1).join(",").trim() : p.city}</div>
+                    {p.rating && <div className="text-xs text-yellow-700 font-bold mt-0.5">★{p.rating.toFixed(1)} · {(p.review_count ?? 0).toLocaleString()} reviews</div>}
+                  </div>
+                  {klook?.products?.[0] && (
+                    <span className="shrink-0 text-xs bg-orange-500 text-white px-3 py-1.5 rounded-full font-bold">
+                      Book →
+                    </span>
+                  )}
+                </a>
+              );
+            })}
+          </div>
+          <a
+            href={`/activities/${g.nicheSlug}`}
+            className="mt-4 block text-center text-sm font-bold text-orange-600 hover:underline"
+          >
+            See all {nicheInfo.label} →
+          </a>
+        </section>
+      ) : featured.length > 0 ? (
         <section className="mt-12">
           <h2 className="text-xl font-bold mb-4">Top-rated restaurants right now</h2>
           <p className="text-sm text-[var(--muted)] mb-4">
@@ -118,7 +181,7 @@ export default async function GuidePage(
             ))}
           </div>
         </section>
-      )}
+      ) : null}
 
       {related.length > 0 && (
         <section className="mt-12 border-t border-[var(--border)] pt-8">

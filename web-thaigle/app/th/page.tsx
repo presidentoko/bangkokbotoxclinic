@@ -7,12 +7,14 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { NICHES, loadNicheDb } from "@/lib/niches";
+import type { NicheSlug } from "@/lib/niches";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "ร้านอาหารกรุงเทพ — รีวิวและคะแนนความน่าเชื่อถือ",
   description: "ไดเรกทอรีร้านอาหารกรุงเทพและพัทยา จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google จริง",
-  alternates: { canonical: "/th", languages: { "th-TH": "/th", "en-US": "/" } },
+  alternates: { canonical: "/th", languages: { "th": "/th", "en": "/", "ko": "/ko", "ja": "/ja", "ru": "/ru", "ar": "/ar", "x-default": "/" } },
   openGraph: { locale: "th_TH" },
 };
 
@@ -32,7 +34,12 @@ const TH_FAQS = [
 ];
 
 export default async function ThHomePage() {
-  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
+  const [db, slugMap, nicheResults] = await Promise.all([
+    loadMasterDb(),
+    getSlugMap(),
+    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ slug: n.slug, icon: n.icon, label: n.label, total: d.total })).catch(() => ({ slug: n.slug, icon: n.icon, label: n.label, total: 0 })))),
+  ]);
+  const nicheCounts = nicheResults;
   const top = sortWithSponsored(topByTrust(db.restaurants, 30));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
@@ -51,7 +58,7 @@ export default async function ThHomePage() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
-            ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a>
+            ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/ko" className="underline hover:text-[var(--fg)]">한국어</a> · <a href="/ja" className="underline hover:text-[var(--fg)]">日本語</a> · <a href="/ru" className="underline hover:text-[var(--fg)]">RU</a> · <a href="/ar" className="underline hover:text-[var(--fg)]">AR</a>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             ร้านอาหารกรุงเทพ — ตรวจสอบจากรีวิวจริง
@@ -116,6 +123,27 @@ export default async function ThHomePage() {
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* กิจกรรมในกรุงเทพ */}
+        <section className="mb-10">
+          <div className="flex items-baseline justify-between gap-4 mb-3 flex-wrap">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">กิจกรรมในกรุงเทพ</h2>
+            <a href="/activities" className="text-xs text-[var(--muted)] hover:text-black">ดูทั้งหมด →</a>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {nicheCounts.map((n) => (
+              <a
+                key={n.slug}
+                href={`/activities/${n.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-2xl p-4 hover:border-orange-300 hover:shadow-md transition text-center"
+              >
+                <div className="text-3xl mb-2">{n.icon}</div>
+                <div className="font-bold text-sm group-hover:text-orange-600 transition leading-tight">{n.label}</div>
+                <div className="text-xs text-[var(--muted)] mt-1">{n.total.toLocaleString()} แห่ง</div>
               </a>
             ))}
           </div>

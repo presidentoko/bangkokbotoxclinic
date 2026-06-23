@@ -1,5 +1,11 @@
 // Editor's Pick / Recommended / Featured 대형 hero — 홈/카테고리 상단.
 
+function normalizePriceSymbol(s: string): string {
+  if (!s) return "";
+  const n = (s.match(/[฿$£€₩¥]/g) ?? []).length || (s.trim().length > 0 ? 1 : 0);
+  return n > 0 ? "฿".repeat(Math.min(n, 4)) : "";
+}
+
 import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
@@ -58,7 +64,7 @@ export function SponsoredHero({ r, slugMap }: { r: Restaurant; slugMap?: SlugMap
             <p className="text-sm text-[var(--muted)] mb-4">
               {r.district || r.city_label}
               {r.primary_type && <> · {r.primary_type}</>}
-              {r.price_symbol && <> · {r.price_symbol}</>}
+              {normalizePriceSymbol(r.price_symbol) && <> · {normalizePriceSymbol(r.price_symbol)}</>}
             </p>
 
             <div className="flex items-baseline gap-4 mb-5">
@@ -66,7 +72,7 @@ export function SponsoredHero({ r, slugMap }: { r: Restaurant; slugMap?: SlugMap
                 <div className="text-3xl font-bold tabular-nums" style={{
                   color: r.trust_score >= 75 ? "#16a34a" : r.trust_score >= 60 ? "#059669" : "#ca8a04"
                 }}>
-                  {r.trust_score.toFixed(0)}
+                  {Math.min(100, r.trust_score).toFixed(0)}
                 </div>
                 <div className="text-[10px] uppercase text-[var(--muted)] tracking-wider">Trust</div>
               </div>

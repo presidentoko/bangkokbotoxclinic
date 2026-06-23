@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
-
 export const dynamic = "force-static";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -10,17 +10,28 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
       },
-      // AEO crawlers — explicitly allow + slow rate to be polite
       {
-        userAgent: ["GPTBot", "ChatGPT-User", "OAI-SearchBot",
-                    "PerplexityBot", "ClaudeBot", "Claude-Web", "Google-Extended"],
+        userAgent: "GPTBot",
         allow: "/",
-        crawlDelay: 5,
+      },
+      {
+        userAgent: "Claude-Web",
+        allow: "/",
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+      },
+      {
+        userAgent: "anthropic-ai",
+        allow: "/",
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
       },
     ],
     sitemap: `${SITE}/sitemap.xml`,
-    host: SITE,
   };
 }

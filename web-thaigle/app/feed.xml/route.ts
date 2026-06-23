@@ -1,7 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
-const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
 
 export const dynamic = "force-static";
 

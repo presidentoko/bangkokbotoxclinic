@@ -56,7 +56,7 @@ export const CUISINE_FAQS: Record<string, Faq[]> = {
 export const HOME_FAQS: Faq[] = [
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines: restaurant Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority via average reviewer review count (5%). It's our derived metric — not a Google ranking. We update it every 30 minutes from public Google Maps data.",
+    a: "Trust Score (0-100) is built from four components: Google star rating (max 50 pts), review volume on a log scale (max 40 pts), Local Guide reviewer ratio (max 10 pts), and reviewer authority (max 5 pts). Raw score is capped at 100. Updated every 30 minutes from public Google Maps data — not a Google ranking.",
   },
   {
     q: "Are these listings sponsored?",

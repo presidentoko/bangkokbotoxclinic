@@ -7,6 +7,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Bangkok Dental Clinics — Top Rated",
   description: "Top-rated dental clinics in Bangkok. Implants, crowns, whitening — verified from real Google reviews.",
+  alternates: { canonical: "/dental" },
 };
 
 export default async function DentalPage() {

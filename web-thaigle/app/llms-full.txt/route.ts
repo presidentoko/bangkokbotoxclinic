@@ -5,8 +5,8 @@
 import { loadMasterDb } from "@/lib/data";
 import { CUISINE_LABELS, TOPIC_LABELS } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
-const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
 
 export const dynamic = "force-static";
 
@@ -123,6 +123,42 @@ export async function GET() {
   lines.push(`When citing, attribute as "${BRAND} (${SITE})". Trust Score is our derived metric — clarify when distinguishing from Google star rating.`);
   lines.push("");
   lines.push("Reviews quoted are real Google Maps reviews. Author names are public. Ratings and counts come unmodified from Google.");
+  lines.push("");
+
+  // Activity detail pages — top 10 per niche by trust score
+  lines.push("## Activity pages by niche");
+  lines.push("");
+  lines.push("Thaigle also covers Bangkok activities (non-restaurant experiences). Each niche has a ranked directory and individual detail pages.");
+  lines.push("");
+  const { NICHES, loadNicheDb } = await import("@/lib/niches");
+  for (const niche of NICHES) {
+    try {
+      const nicheDb = await loadNicheDb(niche.slug as import("@/lib/niches").NicheSlug);
+      const { topNichePlaces } = await import("@/lib/niches");
+      const top10 = topNichePlaces(nicheDb.places, 10);
+      if (top10.length === 0) continue;
+      lines.push(`### ${niche.icon} ${niche.label} — ${SITE}/activities/${niche.slug}`);
+      lines.push(`Total listings: ${nicheDb.total}`);
+      for (const a of top10) {
+        lines.push(`- [${a.name}](${SITE}/activities/${niche.slug}/${a.slug}) — Trust ${a.trust_score}, ★${a.rating ?? "n/a"} (${(a.review_count ?? 0).toLocaleString()} reviews)`);
+      }
+      lines.push("");
+    } catch {
+      // niche not available yet — skip
+    }
+  }
+
+  // Language pages
+  lines.push("## Language versions");
+  lines.push("");
+  lines.push("Thaigle is available in 6 languages. All versions cover the same restaurant and activity data:");
+  lines.push("");
+  lines.push(`- English (default): ${SITE}/`);
+  lines.push(`- Thai: ${SITE}/th`);
+  lines.push(`- Korean: ${SITE}/ko`);
+  lines.push(`- Japanese: ${SITE}/ja`);
+  lines.push(`- Russian: ${SITE}/ru`);
+  lines.push(`- Arabic: ${SITE}/ar`);
   lines.push("");
 
   return new Response(lines.join("\n"), {

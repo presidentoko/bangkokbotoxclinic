@@ -7,6 +7,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Bangkok Clinics — Aesthetic & Beauty",
   description: "Top-rated aesthetic clinics in Bangkok ranked by Google reviews. Botox, fillers, facials — verified ratings.",
+  alternates: { canonical: "/clinics" },
 };
 
 export default async function ClinicsPage() {

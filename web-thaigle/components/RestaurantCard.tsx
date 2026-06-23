@@ -7,6 +7,12 @@ import type { SlugMap } from "@/lib/restaurants";
 import { restaurantUrl } from "@/lib/restaurants";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
 
+function normalizePriceSymbol(s: string): string {
+  if (!s) return "";
+  const n = (s.match(/[฿$£€₩¥]/g) ?? []).length || (s.trim().length > 0 ? 1 : 0);
+  return n > 0 ? "฿".repeat(Math.min(n, 4)) : "";
+}
+
 export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: number; slugMap: SlugMap }) {
   const href = restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id });
   const trend = r.rating_trend.trend;
@@ -58,8 +64,8 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
                   ↗ Trending
                 </span>
               )}
-              {r.price_symbol && (
-                <span className="text-[var(--muted)]">{r.price_symbol}</span>
+              {normalizePriceSymbol(r.price_symbol) && (
+                <span className="text-[var(--muted)]">{normalizePriceSymbol(r.price_symbol)}</span>
               )}
             </div>
             <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate">
@@ -101,6 +107,7 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
           district: r.district,
           rating: r.rating,
           city: r.city,
+          trust_score: r.trust_score,
         }} />
         <a
           href={href}

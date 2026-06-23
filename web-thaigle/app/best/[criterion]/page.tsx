@@ -5,6 +5,7 @@ import { RestaurantCard } from "@/components/RestaurantCard";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
+import { isFood } from "@/lib/data";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
 
@@ -35,7 +36,7 @@ export default async function BestForPage(
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const filtered = sortWithSponsored(
     db.restaurants
-      .filter((r) => !cfg.filterFn || cfg.filterFn(r))
+      .filter((r) => isFood(r) && (!cfg.filterFn || cfg.filterFn(r)))
       .map((r) => ({ ...r, _score: cfg.scoreFn(r) }))
       .sort((a, b) => b._score - a._score)
       .slice(0, 50)

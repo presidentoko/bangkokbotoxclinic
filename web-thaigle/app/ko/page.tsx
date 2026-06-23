@@ -7,6 +7,8 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { NICHES, loadNicheDb } from "@/lib/niches";
+import type { NicheSlug } from "@/lib/niches";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,9 +17,19 @@ export const metadata: Metadata = {
     "방콕과 파타야의 맛집 디렉토리. 인플루언서 광고 아닌 실제 Google 리뷰 분석으로 신뢰도 점수 매김. 한식, 일식, 태국요리, 이탈리안, 할랄까지.",
   alternates: {
     canonical: "/ko",
-    languages: { "ko-KR": "/ko", "th-TH": "/th", "en-US": "/" },
+    languages: { "ko": "/ko", "th": "/th", "en": "/", "ja": "/ja", "ru": "/ru", "ar": "/ar", "x-default": "/" },
   },
   openGraph: { locale: "ko_KR" },
+};
+
+const KO_NICHE_LABELS: Record<string, string> = {
+  "muay-thai": "무에타이",
+  "spa": "스파·마사지",
+  "wellness": "웰니스",
+  "yoga-pilates": "요가·필라테스",
+  "cooking": "쿠킹클래스",
+  "coworking": "코워킹",
+  "diving": "다이빙",
 };
 
 const KO_FAQS = [
@@ -44,7 +56,12 @@ const KO_FAQS = [
 ];
 
 export default async function KoHomePage() {
-  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
+  const [db, slugMap, nicheResults] = await Promise.all([
+    loadMasterDb(),
+    getSlugMap(),
+    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ slug: n.slug, icon: n.icon, label: n.label, total: d.total })).catch(() => ({ slug: n.slug, icon: n.icon, label: n.label, total: 0 })))),
+  ]);
+  const nicheCounts = nicheResults;
   const top = sortWithSponsored(topByTrust(db.restaurants, 30));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
@@ -130,6 +147,30 @@ export default async function KoHomePage() {
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
               </a>
             ))}
+          </div>
+        </section>
+
+        {/* 액티비티 섹션 */}
+        <section className="mb-10">
+          <div className="flex items-baseline justify-between gap-4 mb-3 flex-wrap">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">방콕 액티비티</h2>
+            <a href="/activities" className="text-xs text-[var(--muted)] hover:text-black">전체 보기 →</a>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {nicheCounts.map((n) => (
+              <a
+                key={n.slug}
+                href={`/activities/${n.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-2xl p-4 hover:border-orange-300 hover:shadow-md transition text-center"
+              >
+                <div className="text-3xl mb-2">{n.icon}</div>
+                <div className="font-bold text-sm group-hover:text-orange-600 transition leading-tight">{KO_NICHE_LABELS[n.slug as string] ?? n.label}</div>
+                <div className="text-xs text-[var(--muted)] mt-1">{n.total.toLocaleString()}개</div>
+              </a>
+            ))}
+          </div>
+          <div className="mt-3 p-4 rounded-xl bg-purple-50 border border-purple-100 text-sm text-purple-800">
+            🇰🇷 한국어 사용 가능한 시설을 찾으시나요? 각 카테고리 페이지에서 <strong>한국어</strong> 배지를 확인하세요.
           </div>
         </section>
 

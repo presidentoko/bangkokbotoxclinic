@@ -17,8 +17,12 @@ export async function getSlugMap(): Promise<SlugMap> {
   return _slugMap;
 }
 
+export function slugifySegment(s: string): string {
+  return s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+}
+
 export function restaurantUrl(entry: SlugEntry): string {
-  return `/restaurants/${entry.city}/${entry.district}/${entry.slug}`;
+  return `/restaurants/${entry.city}/${slugifySegment(entry.district)}/${entry.slug}`;
 }
 
 export function getRestaurantBySlug(
@@ -28,8 +32,9 @@ export function getRestaurantBySlug(
   district: string,
   slug: string
 ): Restaurant | undefined {
+  const dSlug = slugifySegment(district);
   const id = Object.entries(slugMap).find(
-    ([, v]) => v.city === city && v.district === district && v.slug === slug
+    ([, v]) => v.city === city && slugifySegment(v.district) === dSlug && v.slug === slug
   )?.[0];
   if (!id) return undefined;
   return restaurants.find((r) => r.id === id);
@@ -49,5 +54,6 @@ export function getTop500Params(
     .map((r) => r.id);
   return top500ids
     .map((id) => slugMap[id])
-    .filter((e): e is SlugEntry => !!e);
+    .filter((e): e is SlugEntry => !!e)
+    .map((e) => ({ ...e, district: slugifySegment(e.district) }));
 }

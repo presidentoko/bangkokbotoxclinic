@@ -7,6 +7,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PlannerProvider } from "@/components/PlannerContext";
 import { PlannerBar } from "@/components/PlannerBar";
+import { StickyBottomNav } from "@/components/StickyBottomNav";
+import { TikTokGuard } from "@/components/TikTokGuard";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const cfg = getSiteConfig();
@@ -43,6 +46,9 @@ export const metadata: Metadata = {
       "en": "/",
       "th": "/th",
       "ko": "/ko",
+      "ja": "/ja",
+      "ru": "/ru",
+      "ar": "/ar",
       "x-default": "/",
     },
   },
@@ -64,6 +70,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <PlannerProvider>
+          <TikTokGuard />
           <OrgJsonLd />
           <WebsiteJsonLd />
           <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
@@ -76,12 +83,14 @@ export default function RootLayout({
                 <a href="/restaurants/cuisine/japanese" className="hover:text-black hidden sm:inline">Japanese</a>
                 <a href="/restaurants/cuisine/italian" className="hover:text-black hidden sm:inline">Italian</a>
                 <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
+                <a href="/activities" className="hover:text-black hidden md:inline">Activities</a>
+                <a href="/day-plan" className="hover:text-black hidden md:inline">Day Plan</a>
                 <a href="/clinics" className="hover:text-black hidden md:inline">Clinics</a>
                 <a href="/dental" className="hover:text-black hidden md:inline">Dental</a>
                 <a href="/guide" className="hover:text-black hidden md:inline">Guides</a>
                 <a href="/about" className="hover:text-black hidden md:inline">About</a>
                 <a
-                  href="/for-restaurants"
+                  href="/for-venues"
                   className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold hidden sm:inline-flex"
                 >
                   For owners →
@@ -92,27 +101,37 @@ export default function RootLayout({
                   <a href="/th" className="hover:text-black">TH</a>
                   <span aria-hidden="true">·</span>
                   <a href="/ko" className="hover:text-black">KO</a>
+                  <span aria-hidden="true">·</span>
+                  <a href="/ja" className="hover:text-black">JA</a>
+                  <span aria-hidden="true">·</span>
+                  <a href="/ru" className="hover:text-black">RU</a>
+                  <span aria-hidden="true">·</span>
+                  <a href="/ar" className="hover:text-black">AR</a>
                 </span>
               </nav>
             </div>
           </header>
-          <main>{children}</main>
+          <main className="pb-16 md:pb-0">{children}</main>
           <PlannerBar />
+          <StickyBottomNav />
           <footer className="border-t border-[var(--border)] mt-16 bg-white">
             <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
               <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
                 <a href="/about" className="hover:text-black">About</a>
                 <a href="/contact" className="hover:text-black">Contact</a>
-                <a href="/for-restaurants" className="hover:text-black">For Restaurants</a>
+                <a href="/for-venues" className="hover:text-black">For Venues</a>
+                <a href="/terms" className="hover:text-black">Terms</a>
+                <a href="/privacy" className="hover:text-black">Privacy</a>
+                <a href="/takedown" className="hover:text-black">Corrections</a>
                 <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
-                <a href="/llms.txt" className="hover:text-black">llms.txt</a>
               </div>
               <p className="text-xs leading-relaxed max-w-2xl">
-                Independent restaurant review aggregation. Not affiliated with any restaurant. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
+                Independent Bangkok activity &amp; restaurant directory. Not affiliated with any venue. All data sourced from public Google Maps listings. Trust Scores are computed automatically — no payment changes organic rankings. Affiliate links clearly labelled.
               </p>
-              <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand}</p>
+              <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand} · <a href="/privacy" className="underline hover:text-black">Privacy Policy</a></p>
             </div>
           </footer>
+          <CookieConsent />
           <Analytics />
           <SpeedInsights />
         </PlannerProvider>

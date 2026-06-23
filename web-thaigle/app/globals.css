@@ -6,6 +6,23 @@
   --muted: #6b7280;
   --accent: #2563eb;
   --border: #e5e7eb;
+
+  /* Receipt / verification page tokens */
+  --receipt-feed-bg: #FAECE7;
+  --receipt-feed-text: #712B13;
+  --receipt-data-bg: #E1F5EE;
+  --receipt-data-text: #04342C;
+  --score: #0F6E56;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --receipt-feed-bg: #3D1A12;
+    --receipt-feed-text: #F5C4B5;
+    --receipt-data-bg: #0A2A1F;
+    --receipt-data-text: #A3E8D0;
+    --score: #34C98A;
+  }
 }
 
 body {

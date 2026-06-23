@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Plan, PlanItem, PlanItemType } from "@/lib/planner";
+import type { Plan, PlanItem, PlanItemType, SlotKey } from "@/lib/planner";
 import { EMPTY_PLAN } from "@/lib/planner";
 
 const LS_KEY = "thaigle_plan";
@@ -10,6 +10,7 @@ type PlannerCtx = {
   plan: Plan;
   add: (item: PlanItem) => void;
   remove: (id: string, type: PlanItemType) => void;
+  assignSlot: (id: string, type: PlanItemType, slot: SlotKey | null) => void;
   clear: () => void;
   setTitle: (t: string) => void;
   has: (id: string, type: PlanItemType) => boolean;
@@ -41,6 +42,20 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
     save({ ...plan, items: plan.items.filter((i) => !(i.id === id && i.type === type)) });
   }
 
+  function assignSlot(id: string, type: PlanItemType, slot: SlotKey | null) {
+    save({
+      ...plan,
+      items: plan.items.map((i) => {
+        // Clear the target slot if another item already occupies it
+        if (slot && i.slot === slot && !(i.id === id && i.type === type)) {
+          return { ...i, slot: undefined };
+        }
+        if (i.id === id && i.type === type) return { ...i, slot: slot ?? undefined };
+        return i;
+      }),
+    });
+  }
+
   function clear() {
     save(EMPTY_PLAN);
   }
@@ -54,7 +69,7 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <Ctx.Provider value={{ plan, add, remove, clear, setTitle, has }}>
+    <Ctx.Provider value={{ plan, add, remove, assignSlot, clear, setTitle, has }}>
       {children}
     </Ctx.Provider>
   );
