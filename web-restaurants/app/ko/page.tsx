@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "방콕과 파타야의 맛집 디렉토리. 인플루언서 광고 아닌 실제 Google 리뷰 분석으로 신뢰도 점수 매김. 한식, 일식, 태국요리, 이탈리안, 할랄까지.",
   alternates: {
     canonical: "/ko",
-    languages: { "ko-KR": "/ko", "th-TH": "/th", "en-US": "/" },
+    languages: { "en": "/", "th": "/th", "ko": "/ko", "x-default": "/" },
   },
   openGraph: { locale: "ko_KR" },
 };

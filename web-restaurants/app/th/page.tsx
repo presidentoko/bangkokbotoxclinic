@@ -11,7 +11,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "ร้านอาหารกรุงเทพ — รีวิวและคะแนนความน่าเชื่อถือ",
   description: "ไดเรกทอรีร้านอาหารกรุงเทพและพัทยา จัดอันดับด้วยคะแนนความน่าเชื่อถือจากรีวิว Google จริง",
-  alternates: { canonical: "/th", languages: { "th-TH": "/th", "en-US": "/" } },
+  alternates: {
+    canonical: "/th",
+    languages: { "en": "/", "th": "/th", "ko": "/ko", "x-default": "/" },
+  },
   openGraph: { locale: "th_TH" },
 };
 
