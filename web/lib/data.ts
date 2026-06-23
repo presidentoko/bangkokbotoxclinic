@@ -14,11 +14,11 @@ export async function loadMasterDb(): Promise<MasterDb> {
   if (_cache) return _cache;
   const raw = await fs.readFile(DATA_PATH, "utf-8");
   const parsed = JSON.parse(raw) as MasterDb;
-  // Defensive clamp: trust_score 산술합이 100을 넘는 케이스가 과거 데이터에 있음.
-  // FAQ/methodology가 0-100 표기하므로 display 전에 캡.
+  const DEFAULT_TREND = { recent: { count: 0, avg: null }, midterm: { count: 0, avg: null }, old: { count: 0, avg: null }, trend: "insufficient_data" as const };
   for (const c of parsed.clinics) {
     if (c.trust_score > 100) c.trust_score = 100;
     if (c.trust_score < 0) c.trust_score = 0;
+    if (!c.rating_trend) c.rating_trend = DEFAULT_TREND;
   }
 
   // 추가 stub 클리닉 (outreach import 결과) 머지. master_db에 이미 있으면 skip

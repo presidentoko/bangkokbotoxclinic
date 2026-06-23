@@ -252,14 +252,6 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
     description,
     url: fullUrl,
     numberOfItems: items.length,
-    aggregateRating: items.length > 0 && totalReviews > 0 ? {
-      "@type": "AggregateRating",
-      ratingValue: Number(weightedRating.toFixed(2)),
-      reviewCount: totalReviews,
-      bestRating: 5,
-      worstRating: 1,
-      itemReviewed: { "@type": "Thing", name },
-    } : undefined,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,

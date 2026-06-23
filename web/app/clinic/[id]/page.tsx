@@ -104,7 +104,7 @@ export default async function ClinicPage(
   if (!c) notFound();
 
   const tier = await sponsoredTier(c.id);
-  const trend = c.rating_trend.trend;
+  const trend = c.rating_trend?.trend ?? "insufficient_data";
   const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 4);
 
   // Pricing — hdmall package 데이터(있는 경우)
