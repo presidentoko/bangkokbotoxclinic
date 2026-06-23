@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     const rateLimitKey = `ratelimit:vote:${ip}:${restaurantId}`;
     const already = await getRedis().get(rateLimitKey);
     if (already) return NextResponse.json({ ok: false, error: "already voted" }, { status: 429 });
-    await getRedis().set(rateLimitKey, 1);
+    await getRedis().set(rateLimitKey, 1, { ex: 86400 });
     await getRedis().incr(`vote:${restaurantId}:${value}`);
     const [up, down] = await Promise.all([
       getRedis().get<number>(`vote:${restaurantId}:up`),

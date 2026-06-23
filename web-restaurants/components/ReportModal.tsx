@@ -23,13 +23,16 @@ export function ReportModal({
   async function submit() {
     if (!category) return;
     setLoading(true);
-    await fetch("/api/community", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "report", restaurantId, category, text }),
-    });
-    setSent(true);
-    setLoading(false);
+    try {
+      const res = await fetch("/api/community", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "report", restaurantId, category, text }),
+      });
+      if (res.ok) setSent(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

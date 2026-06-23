@@ -4,6 +4,8 @@ import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
+import { BottomNav } from "@/components/BottomNav";
+import { LangSwitcher } from "@/components/LangSwitcher";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -88,17 +90,12 @@ export default function RootLayout({
               >
                 For owners →
               </a>
-              <span className="text-xs text-[var(--muted)] flex items-center gap-2">
-                <a href="/" className="hover:text-[var(--fg)]">EN</a>
-                <span aria-hidden="true">·</span>
-                <a href="/th" className="hover:text-[var(--fg)]">TH</a>
-                <span aria-hidden="true">·</span>
-                <a href="/ko" className="hover:text-[var(--fg)]">KO</a>
-              </span>
+              <LangSwitcher />
             </nav>
           </div>
         </header>
-        <main>{children}</main>
+        <main className="pb-14 sm:pb-0">{children}</main>
+        <BottomNav />
         <footer className="border-t border-[var(--border)] mt-16 bg-[var(--card)]">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
             <p className="font-serif-display text-xl text-[var(--fg)] mb-1">

@@ -43,11 +43,22 @@ export function CommunityButtons({
     setVoted(true);
     if (value === "up") setUp((v) => v + 1);
     else setDown((v) => v + 1);
-    await fetch("/api/community", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "vote", restaurantId, value }),
-    });
+    try {
+      const res = await fetch("/api/community", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "vote", restaurantId, value }),
+      });
+      if (!res.ok) {
+        setVoted(false);
+        if (value === "up") setUp((v) => v - 1);
+        else setDown((v) => v - 1);
+      }
+    } catch {
+      setVoted(false);
+      if (value === "up") setUp((v) => v - 1);
+      else setDown((v) => v - 1);
+    }
   }
 
   return (
@@ -89,7 +100,7 @@ export function CommunityButtons({
           }`}
           title="실제랑 달라요"
         >
-          👎
+          👎 {voted && <span>반영됨</span>}
         </button>
 
         <button
