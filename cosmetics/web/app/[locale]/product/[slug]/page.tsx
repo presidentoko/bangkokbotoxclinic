@@ -24,6 +24,8 @@ import { WatsonsModule } from "@/components/WatsonsModule";
 import { scoreColor } from "@/lib/format";
 import { isLinkAlive } from "@/lib/affiliate";
 
+export const revalidate = 86400;
+
 const BASE = "https://bangkokfillers.com";
 
 // Statically generate only high-value product pages:

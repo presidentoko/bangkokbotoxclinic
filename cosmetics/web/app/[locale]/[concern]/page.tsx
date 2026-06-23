@@ -28,7 +28,7 @@ import { ProductFilter } from "@/components/ProductFilter";
 import { scoreColor } from "@/lib/format";
 
 const BASE = "https://bangkokfillers.com";
-export const revalidate = 300; // 5 min — picks up KV changes without full rebuild
+export const revalidate = 3600;
 
 type GuideEntry = {
   causeTh: string; causeEn: string;

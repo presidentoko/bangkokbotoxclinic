@@ -5,7 +5,7 @@ import { productSlug } from "@/lib/data";
 import { SALE_EVENTS, getSaleEvent, getSaleRanking } from "@/lib/sale";
 import { JsonLd } from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 

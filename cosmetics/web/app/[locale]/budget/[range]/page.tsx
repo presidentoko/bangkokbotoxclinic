@@ -4,7 +4,7 @@ import { LOCALES, type Locale } from "@/lib/i18n";
 import { allProducts, productSlug } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = false;
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 

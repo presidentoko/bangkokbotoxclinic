@@ -13,7 +13,7 @@ import {
 } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 
-export const revalidate = 300;
+export const revalidate = false;
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 
