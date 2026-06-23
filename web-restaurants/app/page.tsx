@@ -8,6 +8,10 @@ import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
+import { ExposeStat } from "@/components/ExposeStat";
+import { ResetPrefsButton } from "@/components/ResetPrefsButton";
+import { OnboardingTrigger } from "@/components/OnboardingTrigger";
+import { PersonalizedSection } from "@/components/PersonalizedSection";
 
 export const dynamic = "force-static";
 
@@ -29,10 +33,10 @@ export default async function HomePage() {
   const cuisines = Object.entries(db.cuisine_counts);
 
   const popularSearches = [
-    { label: "🌶️ Thai", href: "/c/thai" },
+    { label: "☕ Café hype", href: "/famous-vs-good/bangkok-cafes" },
+    { label: "📍 Thonglor", href: "/d/thonglor" },
     { label: "🍜 Noodles", href: "/c/noodles" },
-    { label: "🍱 Japanese", href: "/c/japanese" },
-    { label: "☕ Cafés", href: "/c/cafe" },
+    { label: "⭐ Best ranked", href: "/best/highly-recommended" },
   ];
 
   const searchIndex = db.restaurants.map((r) => ({
@@ -58,71 +62,91 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* MEGA HERO — anti-SNS manifesto */}
-      <section className="relative bg-gradient-to-b from-orange-50 via-amber-50/40 to-white overflow-hidden">
-        <div className="absolute inset-0 opacity-30 pointer-events-none">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl" />
-          <div className="absolute top-32 right-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl" />
-        </div>
-        <div className="relative max-w-5xl mx-auto px-4 pt-16 md:pt-20 pb-12 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold uppercase tracking-widest mb-6">
-            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-            No influencer · No paid review
+      {/* HERO */}
+      <section className="bg-[var(--bg)] border-b border-[var(--border)]">
+        <div className="max-w-3xl mx-auto px-4 pt-16 md:pt-24 pb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--card)] text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-8">
+            <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
+            {totalReviews.toLocaleString()}개 실제 리뷰 기반
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
-            Stop searching{" "}
-            <span className="line-through decoration-orange-500 decoration-4 opacity-60">on SNS.</span>
-            <br />
-            Eat what <span className="text-orange-600">locals</span> rate.
+          <h1 className="font-serif-display text-5xl md:text-7xl text-[var(--fg)] leading-tight mb-6">
+            방콕 맛집,<br />
+            인플루언서 말고<br />
+            <span className="text-[var(--accent)]">데이터로</span> 찾으세요.
           </h1>
-          <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
-            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()}</span> restaurants ranked by{" "}
-            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> Google reviews — every single one analyzed for credibility.
+          <p className="text-base text-[var(--muted)] mb-10 max-w-xl mx-auto">
+            광고비 한 푼 없는 Trust Score로{" "}
+            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()}곳</span>{" "}
+            랭킹. 인플루언서 피드 말고 130만 명의 실제 후기.
           </p>
-
-          <HeroSearch
-            entities={searchIndex}
-            hrefBase="/restaurant"
-            hero=""
-            heroSub=""
-            popularSearches={popularSearches}
-            popularLabel="Try"
-          />
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <ResetPrefsButton />
+            <a
+              href="#top-list"
+              className="px-8 py-3.5 rounded-2xl border-2 border-[var(--border)] text-[var(--fg)] font-bold text-base hover:border-[var(--accent)] transition"
+            >
+              전체 랭킹 보기
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* MEGA STATS BAR — visual numbers */}
-      <section className="border-y border-[var(--border)] bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 text-white">
-        <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-3 gap-4 text-center">
-          <Stat big={db.total_restaurants.toLocaleString()} label="Restaurants" />
-          <Stat big={`${(totalReviews / 1_000_000).toFixed(1)}M`} label="Reviews analyzed" />
-          <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
+      {/* STATS BAR */}
+      <section className="border-b border-[var(--border)] bg-[var(--card)]">
+        <div className="max-w-5xl mx-auto px-4 py-5 grid grid-cols-3 gap-4 text-center">
+          <Stat big={db.total_restaurants.toLocaleString()} label="맛집 추적 중" />
+          <Stat big={`${(totalReviews / 1_000_000).toFixed(1)}M`} label="리뷰 교차검증" />
+          <Stat big={withScraped.toLocaleString()} label="심층 분석 완료" />
         </div>
       </section>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
+        {/* ONBOARDING TRIGGER + PERSONALIZED SECTION */}
+        <OnboardingTrigger>
+          <PersonalizedSection
+            restaurants={db.restaurants.map((r) => ({
+              id: r.id,
+              name: r.name,
+              district: r.district,
+              city_label: r.city_label,
+              rating: r.rating,
+              trust_score: r.trust_score,
+              cuisines: r.cuisines,
+            }))}
+          />
+        </OnboardingTrigger>
+
+        {/* COMMUNITY ACTIVITY */}
+        <section className="mb-12 bg-[var(--card)] border border-[var(--border)] rounded-3xl p-6">
+          <h2 className="font-serif-display text-xl text-[var(--fg)] mb-1">🔥 요즘 핫한 신고</h2>
+          <p className="text-xs text-[var(--muted)] mb-4">커뮤니티가 과대광고 의심 중인 곳들</p>
+          <p className="text-sm text-[var(--muted)]">
+            아직 신고 데이터가 쌓이는 중이에요. 카드에서 🚩 눌러서 참여해주세요!
+          </p>
+        </section>
+
         {/* SPONSORED HERO if any */}
         {(() => {
           const hero = top.find((r) => sponsoredTier(r.id));
           return hero ? <SponsoredHero r={hero} /> : null;
         })()}
 
-        {/* MANIFESTO — why this exists */}
+        {/* MANIFESTO — movement pillars */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
-            icon="🚫"
-            title="No influencer spam"
-            body="Real reviewers, not paid posts. We aggregate Google reviews — the most regulated review system on earth."
+            icon="—"
+            title="Your feed is a paid ad."
+            body="Every 'hidden gem' a foodie posts is either sponsored or algorithm-boosted. We don't guess. We count: 1.3M Google reviews, zero paid placements in our rankings."
           />
           <Manifesto
-            icon="📊"
-            title="Trust Score"
-            body="Rating + volume + reviewer credibility (Local Guide ratio) + reviewer authority. One number, fully transparent."
+            icon="—"
+            title="We're counting receipts."
+            body="Trust Score = rating weight + review volume + Local Guide reviewer ratio + authority. Every number visible. No editorial override. Ever."
           />
           <Manifesto
-            icon="🔄"
-            title="Live data"
-            body="Every 30 minutes, fresh from public Google Maps. No editorial intervention. No deletions."
+            icon="—"
+            title="No one bought our opinion."
+            body="Scrapers, not humans. Rankings rebuild every 30 minutes from public Google data. Nothing is deleted. Nothing is boosted. No filter."
           />
         </section>
 
@@ -131,7 +155,7 @@ export default async function HomePage() {
           <section className="mb-12">
             <div className="flex items-baseline justify-between gap-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-                Featured this week
+                What the data actually says
               </h2>
               <a href="/best/highly-recommended" className="text-sm text-[var(--accent)] font-medium hover:underline">
                 See full ranking →
@@ -292,7 +316,7 @@ export default async function HomePage() {
         <AdSlot slot="home-mid" />
 
         {/* TOP 50 LIST */}
-        <section>
+        <section id="top-list">
           <div className="flex items-baseline justify-between gap-4 mb-5">
             <h2 className="text-2xl md:text-3xl font-black tracking-tight">
               Top {Math.min(top.length, 50)} by Trust Score
@@ -341,17 +365,17 @@ export default async function HomePage() {
 function Stat({ big, label }: { big: string; label: string }) {
   return (
     <div>
-      <div className="text-3xl md:text-5xl font-black tabular-nums leading-none">{big}</div>
-      <div className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 mt-1.5 font-bold">{label}</div>
+      <div className="font-serif-display text-3xl md:text-4xl text-[var(--accent)] leading-none">{big}</div>
+      <div className="text-[10px] md:text-xs uppercase tracking-widest text-[var(--muted)] mt-1.5 font-bold">{label}</div>
     </div>
   );
 }
 
-function Manifesto({ icon, title, body }: { icon: string; title: string; body: string }) {
+function Manifesto({ icon: _icon, title, body }: { icon: string; title: string; body: string }) {
   return (
-    <div className="p-5 rounded-2xl border border-[var(--border)] bg-white hover:shadow-md hover:border-orange-300 transition">
-      <div className="text-3xl mb-3">{icon}</div>
-      <h3 className="font-bold text-base mb-1">{title}</h3>
+    <div className="p-6 rounded-3xl border border-[var(--border)] bg-[var(--card)] hover:border-[var(--accent)] transition group">
+      <div className="w-8 h-0.5 bg-[var(--accent)] mb-5" />
+      <h3 className="font-serif-display text-lg text-[var(--fg)] mb-2 group-hover:text-[var(--accent)] transition">{title}</h3>
       <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
     </div>
   );
