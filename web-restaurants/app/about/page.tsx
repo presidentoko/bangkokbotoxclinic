@@ -4,9 +4,9 @@ import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About — Methodology & Data Sources",
+  title: "About — No Filter. Just Numbers.",
   description:
-    "How we compute Trust Score, where the data comes from, and our editorial principles. We are independent and not affiliated with any restaurant.",
+    "Your feed is a paid ad. We ended it with data. How SNS Stopper computes Trust Score from 1.3M real Google reviews — no editorial intervention, no paid placements, no influencer tie-ins.",
   alternates: { canonical: "/about" },
 };
 
@@ -57,9 +57,18 @@ export default async function AboutPage() {
         <span>About</span>
       </nav>
 
-      <h1 className="text-4xl font-bold tracking-tight mb-3">About {cfg.brand}</h1>
-      <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
-        Independent directory of Bangkok and Pattaya restaurants. Value comes from one thing: applying consistent analysis to public Google review data so diners can compare restaurants on objective signals — not just star ratings.
+      <div className="mb-3">
+        <p className="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-2">No filter. Just numbers.</p>
+        <h1 className="text-4xl font-black tracking-tight leading-tight">
+          Your feed is a paid ad<br />pretending to be a friend's opinion.
+        </h1>
+      </div>
+      <p className="text-base text-[var(--muted)] mb-4 leading-relaxed">
+        We're here to end it. No influencers. No filters. Just{" "}
+        <strong className="text-[var(--fg)]">1.3 million people who had nothing to gain</strong> — real Google reviewers, counted, weighted, and cross-checked by algorithm, not by us.
+      </p>
+      <p className="text-sm text-[var(--muted)] mb-8 leading-relaxed">
+        {cfg.brand} is an independent data analysis tool. We rank Bangkok and Pattaya restaurants by Trust Score — a composite derived from public Google Maps review data. No human curation. No editorial override. No sponsored results that look organic.
       </p>
 
       <div className="bg-white border border-[var(--border)] rounded-xl p-6 mb-10">
@@ -85,22 +94,22 @@ export default async function AboutPage() {
       </div>
 
       <section className="space-y-3 mb-12">
-        <h2 className="text-2xl font-bold">Editorial principles</h2>
+        <h2 className="text-2xl font-black">How we end the lie</h2>
         <Principle
-          title="Transparent ranking"
-          body="Every restaurant's Trust Score breakdown is visible on its detail page. We show how the score is composed. Sponsored placements have explicit badges and never replace organic results."
+          title="Every number is visible."
+          body="Trust Score breakdown shown on every restaurant page. You can see exactly how it's calculated — no black box, no editorial override, no hidden weights."
         />
         <Principle
-          title="No paid testimonials"
-          body="All reviews shown are excerpted from real Google Maps reviews with attribution. We do not write, edit, or commission reviews."
+          title="We don't write reviews."
+          body="All review excerpts come from real Google Maps users, with attribution. We analyze; we don't editorialize. Numbers only."
         />
         <Principle
-          title="Continuous, automated"
-          body="No human curation in ranking. Scrapers, master DB, and site redeploy automatically. This removes editorial bias."
+          title="The algorithm ranks. Humans don't."
+          body="Rankings rebuild every 30 minutes from raw scraped data. No human touches the order. No deletion, no suppression, no favor."
         />
         <Principle
-          title="Diner first"
-          body="Trust Score weights are tuned for diner relevance — strong recent ratings (active operation), large review volume (statistical confidence), Local Guide reviewer credibility."
+          title="Sponsored slots are labeled. Always."
+          body="Some restaurants buy Featured / Editor's Pick visibility. These are badged and never displace organic rankings. The lie we're fighting is hidden sponsorship — we won't do that."
         />
       </section>
 
@@ -117,11 +126,47 @@ export default async function AboutPage() {
         ))}
       </section>
 
+      {/* 법적 보호 섹션 */}
+      <section className="mt-12 border-t border-[var(--border)] pt-10">
+        <h2 className="text-xl font-bold mb-4">법적 고지 / Legal Notice</h2>
+        <div className="space-y-3 text-sm text-[var(--muted)] leading-relaxed">
+          <LegalBlock
+            title="데이터 출처"
+            body="본 사이트의 모든 평점, 리뷰 수, 리뷰 텍스트는 Google Maps의 공개 데이터를 자동 수집하여 표시합니다. SNS Stopper는 어떠한 리뷰 내용도 직접 작성하거나 편집하지 않습니다."
+          />
+          <LegalBlock
+            title="Trust Score는 수학적 지표입니다"
+            body="Trust Score는 공개 데이터를 알고리즘으로 계산한 파생 수치입니다. 특정 식당에 대한 의견 표명이나 명예훼손적 진술이 아닌, 통계적 데이터 분석 결과입니다. 대한민국 정보통신망법 및 형법상 명예훼손 조항의 적용 대상이 아닙니다."
+          />
+          <LegalBlock
+            title="원본 저작자 귀속"
+            body="인용된 리뷰는 Google Maps 원본 작성자에게 귀속됩니다. 본 사이트는 해당 내용의 창작자가 아닌 공개 정보의 집계자(aggregator)입니다."
+          />
+          <LegalBlock
+            title="정정 요청 절차"
+            body="데이터 오류(폐업, 주소 변경 등) 또는 본인과 관련된 정보 수정을 요청하시려면 Contact 페이지를 이용해 주세요. 합리적인 정정 요청은 영업일 기준 3일 이내 처리합니다."
+          />
+          <LegalBlock
+            title="면책 조항"
+            body="본 사이트는 정보 제공 목적으로 운영됩니다. 데이터는 정기적으로 갱신되지만 실시간 정확성을 보장하지 않습니다. 본 정보를 기반으로 한 방문 결과에 대해 SNS Stopper는 책임을 지지 않습니다."
+          />
+        </div>
+      </section>
+
       <FaqJsonLd faqs={FAQS} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "About", url: "/about" },
       ]} />
+    </div>
+  );
+}
+
+function LegalBlock({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="bg-white border border-[var(--border)] rounded-lg p-4">
+      <h3 className="font-semibold text-[var(--fg)] mb-1 text-sm">{title}</h3>
+      <p className="text-xs text-[var(--muted)] leading-relaxed">{body}</p>
     </div>
   );
 }
