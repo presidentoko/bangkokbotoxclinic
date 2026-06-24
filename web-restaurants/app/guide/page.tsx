@@ -3,10 +3,22 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bangkok Food Guides — Where Locals Actually Eat",
+  title: "Bangkok Food Guides 2026 — Where Locals Actually Eat",
   description:
-    "Practical Bangkok food guides — Thai districts, Korean food, rooftop dining. No tourist traps, no influencer placements.",
+    "Practical Bangkok food guides — Thai street food, rooftop dining, hidden gems, date night restaurants. No tourist traps, no influencer placements. Verified from real Google review data.",
   alternates: { canonical: "/guide" },
+  openGraph: {
+    title: "Bangkok Food Guides 2026",
+    description: "No-fluff guides for eating in Bangkok — verified from real review data, not influencer lists.",
+    url: "/guide",
+    type: "website",
+    siteName: "SNS Stopper",
+  },
+  twitter: {
+    card: "summary",
+    title: "Bangkok Food Guides 2026 — Where Locals Actually Eat",
+    description: "Practical Bangkok food guides verified from 1.2M+ real Google reviews.",
+  },
 };
 
 export const dynamic = "force-static";

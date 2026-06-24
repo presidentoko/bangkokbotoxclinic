@@ -21,6 +21,18 @@ export async function generateMetadata(
     title: cfg.metaTitle,
     description: cfg.metaDescription,
     alternates: { canonical: `/best/${cfg.slug}` },
+    openGraph: {
+      title: cfg.metaTitle,
+      description: cfg.metaDescription,
+      url: `/best/${cfg.slug}`,
+      type: "website",
+      siteName: "SNS Stopper",
+    },
+    twitter: {
+      card: "summary",
+      title: cfg.metaTitle,
+      description: cfg.metaDescription,
+    },
   };
 }
 

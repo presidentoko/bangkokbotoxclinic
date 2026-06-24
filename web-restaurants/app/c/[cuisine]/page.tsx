@@ -32,6 +32,12 @@ export async function generateMetadata(
       title: `${count} Best ${label} Restaurants in Bangkok`,
       description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,
       url: `/c/${cuisine}`,
+      siteName: "SNS Stopper",
+    },
+    twitter: {
+      card: "summary",
+      title: `${count} Best ${label} Restaurants in Bangkok`,
+      description: `Ranked by Trust Score from ${totalReviews.toLocaleString()} real Google reviews. No influencer bias.`,
     },
   };
 }
