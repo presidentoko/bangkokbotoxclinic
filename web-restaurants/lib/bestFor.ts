@@ -257,6 +257,52 @@ export const BEST_FOR: Criterion[] = [
   },
 ];
 
+  {
+    slug: "michelin",
+    title: "Michelin-Starred & Recommended Bangkok Restaurants",
+    metaTitle: "Michelin Restaurants in Bangkok (2026) — Starred & Bib Gourmand",
+    metaDescription:
+      "Bangkok Michelin-starred and Michelin Bib Gourmand restaurants ranked by Trust Score from real Google reviews — independent verification.",
+    intro:
+      "Bangkok restaurants with Michelin recognition — starred or Bib Gourmand — verified independently from real Google review data. Cross-check the prestige with actual diner experience.",
+    scoreFn: (r) =>
+      topicHits(r, "michelin") * 30 +
+      r.trust_score * 2,
+    filterFn: (r) => topicHits(r, "michelin") >= 1,
+  },
+  {
+    slug: "pet-friendly",
+    title: "Pet-Friendly Restaurants in Bangkok",
+    metaTitle: "Pet-Friendly Bangkok Restaurants (2026) — Dogs Welcome",
+    metaDescription:
+      "Bangkok restaurants where dogs and pets are welcome — verified from real Google reviews. Perfect for expats and pet owners.",
+    intro:
+      "Bangkok restaurants and cafés where reviewers mention bringing dogs or pets. Outdoor seating and pet water bowls are common features.",
+    scoreFn: (r) =>
+      topicHits(r, "pet_friendly") * 15 +
+      topicHits(r, "outdoor_seating") * 5 +
+      r.trust_score,
+    filterFn: (r) => topicHits(r, "pet_friendly") >= 1,
+  },
+  {
+    slug: "views",
+    title: "Bangkok Restaurants with the Best Views (River, Skyline, Rooftop)",
+    metaTitle: "Best View Restaurants in Bangkok 2026 — River, Skyline & Rooftop",
+    metaDescription:
+      "Bangkok restaurants with the most impressive views — Chao Phraya river, city skyline, and rooftop — ranked by reviewer mentions.",
+    intro:
+      "Bangkok restaurants where 'view' is a consistent reviewer theme — river views, city skylines, or rooftop panoramas. Ranked by view-related review mentions weighted by Trust Score.",
+    scoreFn: (r) =>
+      topicHits(r, "good_view") * 12 +
+      topicHits(r, "rooftop") * 15 +
+      topicHits(r, "river_view") * 10 +
+      r.trust_score,
+    filterFn: (r) =>
+      topicHits(r, "good_view") >= 1 ||
+      topicHits(r, "rooftop") >= 1,
+  },
+];
+
 export function findBestFor(slug: string): Criterion | null {
   return BEST_FOR.find((c) => c.slug === slug) ?? null;
 }
