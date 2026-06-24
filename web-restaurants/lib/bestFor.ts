@@ -255,8 +255,6 @@ export const BEST_FOR: Criterion[] = [
       r.trust_score,
     filterFn: (r) => topicHits(r, "rooftop") >= 1 || topicHits(r, "good_view") >= 3,
   },
-];
-
   {
     slug: "michelin",
     title: "Michelin-Starred & Recommended Bangkok Restaurants",
