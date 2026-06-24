@@ -74,6 +74,10 @@ export function middleware(req: NextRequest) {
     if (cookieLocale) {
       return NextResponse.redirect(new URL(`/${cookieLocale}`, req.url), 302);
     }
+    // User explicitly chose English — respect it, skip Accept-Language redirect
+    if (req.cookies.get(COOKIE)?.value === "en") {
+      return NextResponse.next();
+    }
     const acceptLocale = getLocaleFromAcceptLanguage(req);
     if (acceptLocale) {
       // First-time visitor auto-detect — set cookie and redirect

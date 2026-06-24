@@ -2,10 +2,10 @@
 import { useState } from "react";
 
 const PURPOSES = [
-  { value: "ad", label: "📢 광고 / 협찬 문의" },
-  { value: "correction", label: "✏️ 데이터 오류 수정" },
-  { value: "press", label: "📰 미디어 / 취재" },
-  { value: "other", label: "❓ 기타" },
+  { value: "ad", label: "📢 Ad / Sponsorship" },
+  { value: "correction", label: "✏️ Data Correction" },
+  { value: "press", label: "📰 Media / Press" },
+  { value: "other", label: "❓ Other" },
 ];
 
 export function ContactForm() {
@@ -35,9 +35,9 @@ export function ContactForm() {
     return (
       <div className="bg-[var(--accent-light)] border border-[var(--accent)] rounded-2xl p-8 text-center">
         <div className="text-4xl mb-3">✅</div>
-        <p className="font-bold text-[var(--fg)] text-lg">문의가 접수됐어요!</p>
+        <p className="font-bold text-[var(--fg)] text-lg">Message sent!</p>
         <p className="text-sm text-[var(--muted)] mt-2">
-          연락처를 남겨주셨다면 빠르게 회신할게요.
+          Leave your contact info and we&apos;ll get back to you fast.
         </p>
       </div>
     );
@@ -48,7 +48,7 @@ export function ContactForm() {
       {/* Purpose */}
       <div>
         <label className="block text-sm font-semibold text-[var(--fg)] mb-2">
-          문의 유형 <span className="text-[var(--accent)]">*</span>
+          Inquiry type <span className="text-[var(--accent)]">*</span>
         </label>
         <div className="grid grid-cols-2 gap-2">
           {PURPOSES.map((p) => (
@@ -71,13 +71,13 @@ export function ContactForm() {
       {/* Name */}
       <div>
         <label className="block text-sm font-semibold text-[var(--fg)] mb-1.5">
-          이름 / 회사명
+          Name / Company
         </label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="홍길동 / SNS Inc."
+          placeholder="John / Acme Inc."
           className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[var(--accent)]"
         />
       </div>
@@ -85,14 +85,14 @@ export function ContactForm() {
       {/* Contact */}
       <div>
         <label className="block text-sm font-semibold text-[var(--fg)] mb-1.5">
-          연락처 <span className="text-[var(--accent)]">*</span>
-          <span className="text-[var(--muted)] font-normal ml-1">(이메일 / 텔레그램 / 카톡ID)</span>
+          Your contact <span className="text-[var(--accent)]">*</span>
+          <span className="text-[var(--muted)] font-normal ml-1">(email / Telegram / LINE)</span>
         </label>
         <input
           type="text"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          placeholder="your@email.com  또는  @telegram_id"
+          placeholder="your@email.com  or  @telegram_id"
           required
           className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[var(--accent)]"
         />
@@ -101,20 +101,20 @@ export function ContactForm() {
       {/* Message */}
       <div>
         <label className="block text-sm font-semibold text-[var(--fg)] mb-1.5">
-          내용 <span className="text-[var(--accent)]">*</span>
+          Message <span className="text-[var(--accent)]">*</span>
         </label>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
           rows={5}
-          placeholder="문의 내용을 자유롭게 적어주세요."
+          placeholder="Tell us what you need."
           className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[var(--accent)] resize-none"
         />
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-red-500">전송 실패. 잠시 후 다시 시도해주세요.</p>
+        <p className="text-sm text-red-500">Failed to send. Please try again.</p>
       )}
 
       <button
@@ -122,11 +122,11 @@ export function ContactForm() {
         disabled={!purpose || !contact.trim() || !message.trim() || status === "sending"}
         className="w-full py-3 rounded-xl bg-[var(--accent)] text-white font-bold text-sm disabled:opacity-40 transition hover:opacity-90"
       >
-        {status === "sending" ? "전송 중..." : "문의 보내기 →"}
+        {status === "sending" ? "Sending..." : "Send message →"}
       </button>
 
       <p className="text-xs text-[var(--muted)] text-center">
-        연락처를 남겨주시면 직접 답변드릴게요.
+        Include your contact so we can reply directly.
       </p>
     </form>
   );
