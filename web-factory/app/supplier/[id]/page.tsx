@@ -304,17 +304,26 @@ export default async function SupplierPage(
       />
       {/* Breadcrumb */}
       <div className="max-w-6xl mx-auto px-4 pt-6">
-        <nav className="text-sm text-stone-500 font-mono-data" aria-label="Breadcrumb">
-          <a href="/" className="hover:text-stone-900">Home</a>
-          <span className="mx-2">›</span>
-          {r.city_label && (
-            <>
-              <a href={`/city/${r.city}`} className="hover:text-stone-900">{r.city_label}</a>
-              <span className="mx-2">›</span>
-            </>
-          )}
-          <span className="text-stone-900 font-bold uppercase">{r.name}</span>
-        </nav>
+        <div className="flex items-center justify-between gap-3">
+          <nav className="text-sm text-stone-500 font-mono-data min-w-0" aria-label="Breadcrumb">
+            <a href="/" className="hover:text-stone-900">Home</a>
+            <span className="mx-2">›</span>
+            {r.city_label && (
+              <>
+                <a href={`/city/${r.city}`} className="hover:text-stone-900">{r.city_label}</a>
+                <span className="mx-2">›</span>
+              </>
+            )}
+            <span className="text-stone-900 font-bold uppercase truncate">{r.name}</span>
+          </nav>
+          <div className="shrink-0">
+            <ShareButton
+              url={`/supplier/${r.id}`}
+              title={`${r.name}${r.city_label ? ` — ${r.city_label}` : ""} · Thai Supplier`}
+              variant="compact"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 mt-4">

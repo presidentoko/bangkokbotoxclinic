@@ -183,6 +183,39 @@ export default async function HomePage() {
         {/* RECENTLY VIEWED — client-side, shows only if user has history */}
         <RecentlyViewed />
 
+        {/* HOW IT WORKS — for first-time buyers */}
+        <section className="mb-12 bg-white border border-[var(--border)] rounded-2xl p-6 md:p-8">
+          <h2 className="text-2xl font-black tracking-tight mb-6 text-center">How buyers use this</h2>
+          <div className="grid md:grid-cols-3 gap-6 text-center">
+            <HowStep
+              step="1"
+              icon="🔍"
+              title="Search or browse"
+              body="Search by name, filter by industry, city, or district. Every supplier is ranked by Trust Score — no sponsored rankings at the top."
+            />
+            <HowStep
+              step="2"
+              icon="✓"
+              title="Verify before you contact"
+              body="Each page shows DBD registration, founding date, registered capital, TSIC code, and real Google reviews — all in one place."
+            />
+            <HowStep
+              step="3"
+              icon="📞"
+              title="Contact direct"
+              body="Call, WhatsApp, visit the website, or request a bulk quote from your shortlist. No agent in the middle, no commission fee."
+            />
+          </div>
+          <div className="mt-6 text-center">
+            <a
+              href="/for-buyers"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-emerald-600 text-emerald-700 text-sm font-bold hover:bg-emerald-50 transition"
+            >
+              Full sourcing guide for buyers →
+            </a>
+          </div>
+        </section>
+
         {/* SECTOR CARDS */}
         <section className="mb-10">
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Find by industry</h2>
@@ -357,6 +390,23 @@ function Manifesto({ icon, title, body }: { icon: string; title: string; body: s
     <div className="p-5 rounded-2xl border border-[var(--border)] bg-white hover:shadow-md hover:border-emerald-300 transition">
       <div className="text-3xl mb-3">{icon}</div>
       <h3 className="font-bold text-base mb-1">{title}</h3>
+      <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function HowStep({ step, icon, title, body }: { step: string; icon: string; title: string; body: string }) {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="relative mb-4">
+        <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-2xl">
+          {icon}
+        </div>
+        <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-black flex items-center justify-center">
+          {step}
+        </div>
+      </div>
+      <h3 className="font-bold text-base mb-2">{title}</h3>
       <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
     </div>
   );
