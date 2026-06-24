@@ -40,39 +40,30 @@ export function CompareClient() {
   const [index, setIndex] = useState<CompareIndex | null>(null);
   const [failed, setFailed] = useState(false);
 
-  // Hydrate shortlist from URL ?ids= param (shared comparison link)
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const idsParam = params.get("ids");
-    if (!idsParam) return;
-    const ids = idsParam.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 8);
-    if (ids.length === 0) return;
-
-    fetch("/compare-index.json")
-      .then((r) => r.json())
-      .then((idx: CompareIndex) => {
-        for (const id of ids) {
-          const entry = idx[id];
-          if (entry) addToShortlist({ id, name: entry.name, cityLabel: entry.cityLabel ?? "" });
-        }
-        // Clean the URL without reload
-        const clean = window.location.pathname;
-        window.history.replaceState({}, "", clean);
-      })
-      .catch(() => {});
-  // Only run once on mount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  // Single fetch: load index + optionally hydrate from ?ids= param
   useEffect(() => {
     let on = true;
     fetch("/compare-index.json")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then((d) => on && setIndex(d))
+      .then((idx: CompareIndex) => {
+        if (!on) return;
+        // Hydrate shortlist from URL ?ids= param (shared comparison link)
+        const params = new URLSearchParams(window.location.search);
+        const idsParam = params.get("ids");
+        if (idsParam) {
+          const ids = idsParam.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 8);
+          for (const id of ids) {
+            const entry = idx[id];
+            if (entry) addToShortlist({ id, name: entry.name, cityLabel: entry.cityLabel ?? "" });
+          }
+          window.history.replaceState({}, "", window.location.pathname);
+        }
+        setIndex(idx);
+      })
       .catch(() => on && setFailed(true));
-    return () => {
-      on = false;
-    };
+    return () => { on = false; };
+  // Only run once on mount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!mounted || (index === null && !failed)) {
@@ -115,6 +106,17 @@ export function CompareClient() {
 
   const { copy, copied } = useCopyShareLink(rows.map((r) => r.id));
 
+  const emailHref = (() => {
+    const shareUrl = `${typeof window !== "undefined" ? window.location.origin : "https://thaisupplyhub.com"}/compare?ids=${rows.map((r) => r.id).join(",")}`;
+    const subject = encodeURIComponent(`Thai Supplier Comparison — ${rows.map((r) => r.name).join(" vs ")}`);
+    const body = encodeURIComponent(
+      `Hi,\n\nI compared these Thai suppliers on Thai Supply Hub:\n\n` +
+      rows.map((r) => `• ${r.name} (${r.cityLabel || "Thailand"})\n  Trust Score: ${r.trust.overall} · Rating: ★ ${r.rating.toFixed(1)} · ${r.reviews.toLocaleString()} reviews`).join("\n") +
+      `\n\nFull comparison: ${shareUrl}\n\nBest`
+    );
+    return `mailto:?subject=${subject}&body=${body}`;
+  })();
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
@@ -131,6 +133,12 @@ export function CompareClient() {
           >
             {copied ? "✓ Link copied!" : "🔗 Share comparison"}
           </button>
+          <a
+            href={emailHref}
+            className="py-1.5 px-3 rounded-lg text-xs font-bold border border-[var(--border)] bg-white hover:border-stone-600 transition"
+          >
+            ✉ Email to team
+          </a>
           <a href="/quote" className="py-1.5 px-3 rounded-lg text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition">
             Request one quote →
           </a>
