@@ -22,6 +22,13 @@ html.dark {
 }
 
 html { scroll-behavior: smooth; }
+
+/* Prevent sticky header (h-16 = 64px) from covering anchor-scrolled sections */
+section[id],
+div[id="directory"],
+div[id="how-it-works"] {
+  scroll-margin-top: 5rem; /* 80px — header (64px) + comfortable gap */
+}
 body {
   background: rgb(var(--bg));
   color: rgb(var(--fg));
