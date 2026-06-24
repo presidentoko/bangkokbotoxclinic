@@ -25,13 +25,15 @@ export function RecentlyViewedStrip({ locale }: RecentlyViewedStripProps) {
             key={product.productId}
             className="relative flex-shrink-0 snap-start w-40"
           >
-            {/* Remove button */}
+            {/* Remove button — min 44px tap target via padding, visually small */}
             <button
               onClick={() => removeItem(product.productId)}
               aria-label="Remove"
-              className="absolute top-1.5 right-1.5 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-white/90 border border-[#efe1db] text-[#8a7a76] hover:border-rose-300 hover:text-rose-500 text-xs leading-none shadow-sm transition-colors"
+              className="absolute -top-2 -right-2 z-10 p-2.5 group"
             >
-              ×
+              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white/90 border border-[#efe1db] text-[#8a7a76] group-hover:border-rose-300 group-hover:text-rose-500 text-xs leading-none shadow-sm transition-colors">
+                ×
+              </span>
             </button>
 
             <Link

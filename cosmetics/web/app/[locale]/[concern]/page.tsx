@@ -97,15 +97,31 @@ export async function generateMetadata({
   const locale = localeRaw as Locale;
   const label = concernLabel(locale, concern);
   const count = getRanking(concern as Concern).length;
-  const year = 2025;
+  const year = new Date().getFullYear();
+  const KO_CONCERN: Record<string, string> = {
+    acne: "여드름", whitening: "미백/브라이트닝", antiaging: "안티에이징",
+    pores: "모공", oilcontrol: "지성 피부", sensitive: "민감성 피부",
+  };
+  const AR_CONCERN: Record<string, string> = {
+    acne: "حب الشباب", whitening: "التبييض", antiaging: "مكافحة الشيخوخة",
+    pores: "المسام", oilcontrol: "التحكم بالدهون", sensitive: "البشرة الحساسة",
+  };
   const title =
     locale === "th"
-      ? `${label} : ${count} ผลิตภัณฑ์ที่ดีที่สุด จัดอันดับด้วยส่วนผสม + รีวิวจริง ${year}`
-      : `Best ${label} Products (${count} ranked) — Ingredients + Real Reviews ${year}`;
+      ? `สกินแคร์${label}ที่ดีที่สุดในไทย ${year} — ${count} ผลิตภัณฑ์ จัดอันดับจริง`
+      : locale === "ko"
+        ? `태국 ${KO_CONCERN[concern] ?? label} 스킨케어 추천 ${year} — ${count}개 제품 성분+리뷰 순위`
+        : locale === "ar"
+          ? `أفضل منتجات ${AR_CONCERN[concern] ?? label} في تايلاند ${year} — ${count} منتجاً مصنّفاً`
+          : `Best Thai ${label} Skincare ${year} — ${count} Products Ranked by Science`;
   const description =
     locale === "th"
-      ? `เปรียบเทียบ ${count} ผลิตภัณฑ์${label} คำนวณจากคะแนนส่วนผสม 45% รีวิวจริง 45% ความคุ้มค่า 10% อัปเดต ${year}`
-      : `Compare ${count} ${label} products ranked by 45% ingredient science, 45% aggregated reviews, 10% value. Updated ${year}.`;
+      ? `เปรียบเทียบ ${count} ผลิตภัณฑ์แก้ปัญหา${label} วิเคราะห์จากส่วนผสมจริง รีวิวจาก Konvy + Watsons + iHerb กว่า 10,000 รีวิว อัปเดต ${year}`
+      : locale === "ko"
+        ? `방콕 여행 쇼핑리스트: ${KO_CONCERN[concern] ?? label} 스킨케어 ${count}개 제품을 성분 데이터와 실제 구매자 리뷰 10,000+개로 순위 매긴 완벽 가이드`
+        : locale === "ar"
+          ? `${count} منتجاً لـ${AR_CONCERN[concern] ?? label} في تايلاند مصنّفة حسب فاعلية المكونات ومراجعات حقيقية من Konvy و Watsons و iHerb`
+          : `${count} Thai skincare products for ${label} — ranked by ingredient efficacy (45%), verified buyer reviews from Konvy, Watsons & iHerb (45%), and value (10%). Updated ${year}.`;
   return {
     title,
     description,
@@ -115,6 +131,8 @@ export async function generateMetadata({
         LOCALES.map((l) => [l, `${BASE}/${l}/${concern}`])
       ),
     },
+    openGraph: { title, description, url: `${BASE}/${locale}/${concern}` },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
