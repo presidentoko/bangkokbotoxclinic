@@ -22,10 +22,26 @@ export async function generateMetadata(
   const ca = getClinicById(db.clinics, a);
   const cb = getClinicById(db.clinics, b);
   if (!ca || !cb) return { title: "Compare clinics" };
+  const winner = ca.trust_score > cb.trust_score ? ca.name : ca.trust_score < cb.trust_score ? cb.name : null;
+  const title = `${ca.name} vs ${cb.name} — Which Bangkok Clinic Wins?`;
+  const description = winner
+    ? `${ca.name} (Trust ${ca.trust_score.toFixed(0)}) vs ${cb.name} (Trust ${cb.trust_score.toFixed(0)}). ${winner} leads in Trust Score. Independent review analysis.`
+    : `${ca.name} vs ${cb.name} — Trust ${ca.trust_score.toFixed(0)} vs ${cb.trust_score.toFixed(0)}. Tied! Side-by-side review analysis to help you decide.`;
   return {
-    title: `${ca.name} vs ${cb.name} — Bangkok Clinic Comparison`,
-    description: `Side-by-side comparison of ${ca.name} (Trust ${ca.trust_score}) vs ${cb.name} (Trust ${cb.trust_score}). Reviews, ratings, services, district, and more.`,
+    title,
+    description,
     alternates: { canonical: `/compare/${a}/${b}` },
+    openGraph: {
+      title,
+      description,
+      url: `/compare/${a}/${b}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
   };
 }
 

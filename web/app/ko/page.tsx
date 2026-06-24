@@ -141,6 +141,29 @@ export default async function KoHomePage() {
           </div>
         </section>
 
+        {top.length >= 4 && (
+          <section className="mb-10">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-4">1:1 비교하기</h2>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {([[top[0], top[1]], [top[2], top[3]]] as [typeof top[0], typeof top[0]][]).map(([x, y]) => x && y ? (
+                <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`}
+                  className="group flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition">
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <div className="text-xs font-medium truncate">{x.name}</div>
+                    <div className="text-[10px] font-bold text-[var(--muted)]">vs</div>
+                    <div className="text-xs font-medium truncate">{y.name}</div>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <div className="text-[10px] text-[var(--muted)]">신뢰도</div>
+                    <div className="text-xs font-bold">{x.trust_score.toFixed(0)} vs {y.trust_score.toFixed(0)}</div>
+                  </div>
+                  <span className="text-lg text-[var(--muted)] group-hover:text-[var(--accent)] transition">⚖️</span>
+                </a>
+              ) : null)}
+            </div>
+          </section>
+        )}
+
         <section>
           <h2 className="text-xl font-bold mb-4">신뢰도 Top {Math.min(top.length, 30)}</h2>
           <div className="grid gap-3">

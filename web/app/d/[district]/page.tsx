@@ -4,6 +4,7 @@ import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
+import { BookingForm } from "@/components/BookingForm";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import type { Metadata } from "next";
@@ -132,6 +133,10 @@ export default async function DistrictPage(
           Showing top 200 of {filtered.length}. Use service filters above to narrow results.
         </p>
       )}
+
+      <div className="my-8">
+        <BookingForm />
+      </div>
 
       {nearbyDistricts.length > 0 && (
         <section className="mt-10 pt-8 border-t border-[var(--border)]">

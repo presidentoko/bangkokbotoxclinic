@@ -4,6 +4,7 @@ import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
+import { BookingForm } from "@/components/BookingForm";
 import { CATEGORY_LABELS } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -126,6 +127,9 @@ export default async function CityPage(
         ))}
       </div>
       <AffiliateInline />
+      <div className="my-6">
+        <BookingForm />
+      </div>
       {filtered.length > 10 && (
         <div className="mt-8">
           <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">
