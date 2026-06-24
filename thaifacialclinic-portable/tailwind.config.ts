@@ -45,9 +45,9 @@ const config: Config = {
       },
       fontFamily: {
         // Serif display for premium feel (headlines)
-        display: ["Fraunces", "ui-serif", "Georgia", "serif"],
+        display: ["var(--font-fraunces)", "ui-serif", "Georgia", "serif"],
         // Sans body — Plus Jakarta Sans (modern, premium SaaS look)
-        sans: ["Plus Jakarta Sans", "Inter", "ui-sans-serif", "system-ui", "Noto Sans KR", "Noto Sans Thai", "sans-serif"],
+        sans: ["var(--font-jakarta)", "Inter", "ui-sans-serif", "system-ui", "Noto Sans KR", "Noto Sans Thai", "sans-serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       letterSpacing: {
