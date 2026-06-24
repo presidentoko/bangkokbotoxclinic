@@ -23,6 +23,10 @@ import { SupplierCard } from "@/components/SupplierCard";
 import { ShortlistButton } from "@/components/ShortlistButton";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { BuyerSignals } from "@/components/BuyerSignals";
+import { ShareButton } from "@/components/ShareButton";
+import { ViewTracker } from "@/components/ViewTracker";
+import { RecentlyViewed } from "@/components/RecentlyViewed";
+import { CopySupplierInfo } from "@/components/CopySupplierInfo";
 import type { Metadata } from "next";
 
 // Static export 호환: dynamicParams=false 필수. 모든 supplier 를 prebuild —
@@ -290,6 +294,14 @@ export default async function SupplierPage(
 
   return (
     <article className="bg-stone-50">
+      {/* Track this page view for "Recently viewed" feature */}
+      <ViewTracker
+        id={r.id}
+        name={r.name}
+        cityLabel={r.city_label}
+        trustScore={trust.overall}
+        categories={r.categories}
+      />
       {/* Breadcrumb */}
       <div className="max-w-6xl mx-auto px-4 pt-6">
         <nav className="text-sm text-stone-500 font-mono-data" aria-label="Breadcrumb">
@@ -582,6 +594,12 @@ export default async function SupplierPage(
                   <FavoriteButton id={r.id} name={r.name} cityLabel={r.city_label || ""} variant="full" />
                   <span className="text-xs text-amber-900/70">Comparing several? Add them and request one quote from your shortlist.</span>
                 </div>
+                <div className="mt-4 pt-4 border-t border-amber-200">
+                  <ShareButton
+                    url={`/supplier/${r.id}`}
+                    title={`${r.name}${r.city_label ? ` — ${r.city_label}` : ""} · Thai Supplier`}
+                  />
+                </div>
               </div>
               <RfqForm
                 locale="en"
@@ -620,7 +638,20 @@ export default async function SupplierPage(
               )}
             </div>
 
+            <CopySupplierInfo
+              name={r.name}
+              cityLabel={r.city_label}
+              district={r.district}
+              phone={r.phone}
+              website={r.website}
+              trustScore={trust.overall}
+              supplierId={r.id}
+              verified={!!r.dbd}
+            />
+
             <AdSlot slot="supplier-sidebar" />
+
+            <RecentlyViewed excludeId={r.id} layout="col" maxItems={5} />
 
             {similar.length > 0 && (
               <div className="bg-white border border-stone-200 rounded-2xl p-5">

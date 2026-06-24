@@ -13,6 +13,8 @@ import { GUIDES } from "@/lib/guides";
 import { computeTrustScore } from "@/lib/trustScore";
 import { SectorCard } from "@/components/SectorCard";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
+import { RecentlyViewed } from "@/components/RecentlyViewed";
+import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -178,6 +180,9 @@ export default async function HomePage() {
           />
         </section>
 
+        {/* RECENTLY VIEWED — client-side, shows only if user has history */}
+        <RecentlyViewed />
+
         {/* SECTOR CARDS */}
         <section className="mb-10">
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Find by industry</h2>
@@ -296,6 +301,11 @@ export default async function HomePage() {
         )}
 
         <AdSlot slot="home-mid" />
+
+        {/* SUPPLIER ALERT SIGNUP */}
+        <div className="mb-10">
+          <SupplierAlertSignup />
+        </div>
 
         {/* FILTERED LIST */}
         <section className="mb-12">

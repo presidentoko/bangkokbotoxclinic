@@ -29,6 +29,7 @@ const CITY_TO_GUIDE: Record<string, string> = {
 };
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
+import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import type { Metadata } from "next";
 
 function citySlug(label: string): string {
@@ -315,6 +316,10 @@ export default async function CityPage(
       )}
 
       <AdSlot slot="city-mid" />
+
+      <div className="mb-8">
+        <SupplierAlertSignup city={display} />
+      </div>
 
       <section>
         <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>

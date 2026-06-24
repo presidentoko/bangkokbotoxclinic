@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { removeFromShortlist, clearShortlist } from "@/lib/shortlist";
+import { removeFromShortlist, clearShortlist, addToShortlist } from "@/lib/shortlist";
 import { useShortlist } from "./useShortlist";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import type { CompareEntry, CompareIndex } from "@/lib/compare";
@@ -13,10 +13,56 @@ const VERIF_LABEL: Record<keyof CompareEntry["verifications"], string> = {
   tsic: "TSIC code",
 };
 
+function useCopyShareLink(ids: string[]) {
+  const [copied, setCopied] = useState(false);
+  function copy() {
+    if (ids.length === 0) return;
+    const url = `${window.location.origin}/compare?ids=${ids.join(",")}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {
+      const el = document.createElement("textarea");
+      el.value = url;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+  return { copy, copied };
+}
+
 export function CompareClient() {
   const { items, mounted } = useShortlist();
   const [index, setIndex] = useState<CompareIndex | null>(null);
   const [failed, setFailed] = useState(false);
+
+  // Hydrate shortlist from URL ?ids= param (shared comparison link)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const idsParam = params.get("ids");
+    if (!idsParam) return;
+    const ids = idsParam.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 8);
+    if (ids.length === 0) return;
+
+    fetch("/compare-index.json")
+      .then((r) => r.json())
+      .then((idx: CompareIndex) => {
+        for (const id of ids) {
+          const entry = idx[id];
+          if (entry) addToShortlist({ id, name: entry.name, cityLabel: entry.cityLabel ?? "" });
+        }
+        // Clean the URL without reload
+        const clean = window.location.pathname;
+        window.history.replaceState({}, "", clean);
+      })
+      .catch(() => {});
+  // Only run once on mount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let on = true;
@@ -67,11 +113,24 @@ export function CompareClient() {
   const maxReviews = Math.max(...rows.map((r) => r.reviews));
   const best = "font-bold text-emerald-800";
 
+  const { copy, copied } = useCopyShareLink(rows.map((r) => r.id));
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <p className="text-sm text-[var(--muted)]">Comparing {rows.length} supplier{rows.length > 1 ? "s" : ""}.</p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={copy}
+            className={`py-1.5 px-3 rounded-lg text-xs font-bold border transition ${
+              copied
+                ? "bg-emerald-50 border-emerald-400 text-emerald-800"
+                : "border-[var(--border)] bg-white hover:border-emerald-600 hover:text-emerald-700"
+            }`}
+          >
+            {copied ? "✓ Link copied!" : "🔗 Share comparison"}
+          </button>
           <a href="/quote" className="py-1.5 px-3 rounded-lg text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition">
             Request one quote →
           </a>
