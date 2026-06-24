@@ -4,6 +4,7 @@ import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
+import { CATEGORY_LABELS } from "@/lib/types";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -26,10 +27,12 @@ export async function generateMetadata(
   const totalReviews = list.reduce((s, c) => s + c.total_reviews, 0);
   const title = `${count} Clinics in ${cityLabel} — Verified by Reviews`;
   const description = `${count} verified clinics in ${cityLabel}, Thailand analyzed across ${totalReviews.toLocaleString()} Google reviews. Trust Score, reviewer credibility, district options.`;
+  const robots = count < 5 ? { index: false, follow: true } : undefined;
   return {
     title,
     description,
     alternates: { canonical: `/city/${city}` },
+    ...(robots && { robots }),
     openGraph: { title, description, url: `/city/${city}` },
   };
 }
@@ -54,6 +57,19 @@ export default async function CityPage(
   }
   const topCategories = [...categoryMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
 
+  // 지역별 분포 (3개 이상 클리닉 있는 district만)
+  const districtMap = new Map<string, { count: number; slug: string }>();
+  for (const c of filtered) {
+    if (!c.district) continue;
+    const slug = c.district.toLowerCase().replace(/\s+/g, "-");
+    const prev = districtMap.get(c.district) ?? { count: 0, slug };
+    districtMap.set(c.district, { count: prev.count + 1, slug });
+  }
+  const topDistricts = [...districtMap.entries()]
+    .filter(([, v]) => v.count >= 3)
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 12);
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -69,17 +85,35 @@ export default async function CityPage(
       </p>
 
       {topCategories.length > 0 && (
-        <section className="mb-8">
+        <section className="mb-6">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">Popular services in {cityLabel}</h2>
           <div className="flex flex-wrap gap-2">
-            {topCategories.map(([cat, count]) => (
+            {topCategories.map(([cat, n]) => (
               <a
                 key={cat}
                 href={`/c/${cat}`}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
-                {cat}
-                <span className="text-[var(--muted)] tabular-nums">{count}</span>
+                {CATEGORY_LABELS[cat] ?? cat}
+                <span className="text-[var(--muted)] tabular-nums">{n}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {topDistricts.length > 0 && (
+        <section className="mb-8 p-4 rounded-xl border border-[var(--border)] bg-white">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">Browse by district</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {topDistricts.map(([district, { count: n, slug }]) => (
+              <a
+                key={district}
+                href={`/d/${slug}`}
+                className="flex items-center justify-between px-3 py-2 rounded-lg border border-[var(--border)] text-sm bg-[var(--bg)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                <span className="truncate">📍 {district}</span>
+                <span className="ml-2 shrink-0 tabular-nums text-xs text-[var(--muted)]">{n}</span>
               </a>
             ))}
           </div>

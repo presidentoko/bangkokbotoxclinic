@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-24T11:57:09.888994+00:00",
+  "generated_at": "2026-06-24T13:41:38.434231+00:00",
   "total_clinics": 4239,
   "with_district": 2889,
   "with_categories": 3078,
-  "with_reviews_scraped": 4074,
+  "with_reviews_scraped": 4070,
   "with_pantip_mentions": 22,
   "language_total": {
     "th": 6,
-    "en": 160023,
+    "en": 159980,
     "ko": 1,
     "ja": 0,
     "other": 600
@@ -85,8 +85,8 @@
     "dental": 1559,
     "facial": 1276,
     "laser": 1118,
-    "botox": 752,
-    "filler": 597,
+    "botox": 751,
+    "filler": 596,
     "hifu": 469,
     "hair_transplant": 54,
     "eye": 49
@@ -8047,11 +8047,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -9865,11 +9865,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -11402,11 +11402,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -16078,29 +16078,6 @@
           "experience_signals": []
         },
         {
-          "name": "Pisuttinee Suwan",
-          "slug": "pisuttinee-suwan",
-          "composite_slug": "pisuttinee-suwan-at-dental-world-chiang-mai-คลินิกทำฟันเชียงใหม่",
-          "mentions": 2,
-          "rating_avg": 5.0,
-          "language_count": {
-            "th": 0,
-            "en": 2,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [],
-          "procedures": [
-            {
-              "service": "dental",
-              "review_count": 2
-            }
-          ],
-          "experience_signals": []
-        },
-        {
           "name": "Jirawit Inthayat",
           "slug": "jirawit-inthayat",
           "composite_slug": "jirawit-inthayat-at-dental-world-chiang-mai-คลินิกทำฟันเชียงใหม่",
@@ -16123,6 +16100,29 @@
             {
               "service": "laser",
               "review_count": 1
+            }
+          ],
+          "experience_signals": []
+        },
+        {
+          "name": "Pisuttinee Suwan",
+          "slug": "pisuttinee-suwan",
+          "composite_slug": "pisuttinee-suwan-at-dental-world-chiang-mai-คลินิกทำฟันเชียงใหม่",
+          "mentions": 2,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 2,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [],
+          "procedures": [
+            {
+              "service": "dental",
+              "review_count": 2
             }
           ],
           "experience_signals": []
@@ -30871,11 +30871,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -30942,19 +30942,19 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
-              "service": "filler",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
+              "review_count": 1
+            },
+            {
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -38912,11 +38912,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             }
           ],
@@ -41540,11 +41540,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 2
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 2
             }
           ],
@@ -46795,11 +46795,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -48223,9 +48223,9 @@
       ],
       "doctor_stats": [
         {
-          "name": "Manapat Thaveeprungsiporn",
-          "slug": "manapat-thaveeprungsiporn",
-          "composite_slug": "manapat-thaveeprungsiporn-at-bfc-dental-bangna",
+          "name": "Jacky",
+          "slug": "jacky",
+          "composite_slug": "jacky-at-bfc-dental-bangna",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -48246,9 +48246,9 @@
           "experience_signals": []
         },
         {
-          "name": "Jacky",
-          "slug": "jacky",
-          "composite_slug": "jacky-at-bfc-dental-bangna",
+          "name": "Manapat Thaveeprungsiporn",
+          "slug": "manapat-thaveeprungsiporn",
+          "composite_slug": "manapat-thaveeprungsiporn-at-bfc-dental-bangna",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -65507,11 +65507,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -69115,11 +69115,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 3
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 3
             },
             {
@@ -69238,11 +69238,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -72451,11 +72451,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -73006,11 +73006,11 @@
               "review_count": 1
             },
             {
-              "service": "dental",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "dental",
               "review_count": 1
             },
             {
@@ -75887,11 +75887,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -93782,15 +93782,15 @@
           ],
           "procedures": [
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             },
             {
@@ -93832,15 +93832,15 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -99586,11 +99586,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -101695,11 +101695,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -103053,11 +103053,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -103086,15 +103086,15 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -107896,11 +107896,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "dental",
               "review_count": 1
             },
             {
-              "service": "dental",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -111659,15 +111659,15 @@
               "review_count": 1
             },
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -112999,11 +112999,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -113539,11 +113539,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -117071,11 +117071,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -117468,11 +117468,11 @@
               "review_count": 3
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -127143,15 +127143,15 @@
               "review_count": 2
             },
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -127586,11 +127586,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 2
             },
             {
@@ -135168,11 +135168,11 @@
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -135920,15 +135920,15 @@
               "review_count": 3
             },
             {
+              "service": "laser",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "laser",
               "review_count": 1
             },
             {
@@ -142282,11 +142282,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -142315,15 +142315,15 @@
           ],
           "procedures": [
             {
-              "service": "filler",
-              "review_count": 1
-            },
-            {
               "service": "laser",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -153011,15 +153011,15 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -154697,44 +154697,15 @@
           ],
           "procedures": [
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "facial",
-              "review_count": 1
-            }
-          ],
-          "experience_signals": []
-        },
-        {
-          "name": "Fai",
-          "slug": "fai",
-          "composite_slug": "fai-at-ekkalin",
-          "mentions": 2,
-          "rating_avg": 5.0,
-          "language_count": {
-            "th": 0,
-            "en": 2,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [
-            {
-              "text": "I had Ultraformer & Oligio treatment with Dr. Fai and it was amazing! She's lovely and kind, constantly asking if I was okay. I highly recommend her! I love this place; it's exactly what I needed.",
-              "rating": 5,
-              "lang": "en"
-            }
-          ],
-          "procedures": [
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -154764,6 +154735,35 @@
           "procedures": [
             {
               "service": "botox",
+              "review_count": 1
+            }
+          ],
+          "experience_signals": []
+        },
+        {
+          "name": "Fai",
+          "slug": "fai",
+          "composite_slug": "fai-at-ekkalin",
+          "mentions": 2,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 2,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [
+            {
+              "text": "I had Ultraformer & Oligio treatment with Dr. Fai and it was amazing! She's lovely and kind, constantly asking if I was okay. I highly recommend her! I love this place; it's exactly what I needed.",
+              "rating": 5,
+              "lang": "en"
+            }
+          ],
+          "procedures": [
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -159195,11 +159195,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -159241,11 +159241,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -160023,11 +160023,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -168093,11 +168093,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -168487,11 +168487,11 @@
               "review_count": 6
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 3
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 3
             },
             {
@@ -169230,11 +169230,11 @@
               "review_count": 6
             },
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -170109,19 +170109,19 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
-              "review_count": 1
-            },
-            {
               "service": "laser",
               "review_count": 1
             },
             {
+              "service": "botox",
+              "review_count": 1
+            },
+            {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -171439,11 +171439,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -174523,15 +174523,15 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -184373,11 +184373,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "dental",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "dental",
               "review_count": 1
             }
           ],
@@ -194451,11 +194451,11 @@
               "review_count": 3
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -195350,11 +195350,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
@@ -202621,15 +202621,15 @@
           ],
           "procedures": [
             {
+              "service": "facial",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "facial",
               "review_count": 1
             }
           ],
@@ -208709,11 +208709,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -211578,11 +211578,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -216384,11 +216384,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -217619,15 +217619,15 @@
           ],
           "procedures": [
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -218397,11 +218397,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -219752,11 +219752,11 @@
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -226863,15 +226863,15 @@
               "review_count": 2
             },
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -227212,11 +227212,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -229004,11 +229004,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -231084,11 +231084,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -234759,11 +234759,11 @@
               "review_count": 3
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 2
             },
             {
@@ -251379,11 +251379,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -251770,15 +251770,15 @@
           "samples": [],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -257313,11 +257313,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -258286,11 +258286,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -261718,11 +261718,11 @@
               "review_count": 4
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -275634,9 +275634,9 @@
       "sample_reviews_negative": [],
       "doctor_stats": [
         {
-          "name": "Samart's",
-          "slug": "samarts",
-          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart",
+          "slug": "samart",
+          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -275652,9 +275652,9 @@
           "experience_signals": []
         },
         {
-          "name": "Samart",
-          "slug": "samart",
-          "composite_slug": "samart-at-คลินิก-แพทย์สามารถ",
+          "name": "Samart's",
+          "slug": "samarts",
+          "composite_slug": "samarts-at-คลินิก-แพทย์สามารถ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -277982,11 +277982,11 @@
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -280861,11 +280861,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -288525,11 +288525,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -294879,9 +294879,9 @@
       ],
       "doctor_stats": [
         {
-          "name": "Orawan's",
-          "slug": "orawans",
-          "composite_slug": "orawans-at-dr-orawan-medical-center",
+          "name": "Orawan Clinic",
+          "slug": "orawan-clinic",
+          "composite_slug": "orawan-clinic-at-dr-orawan-medical-center",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -294897,9 +294897,9 @@
           "experience_signals": []
         },
         {
-          "name": "Orawan Clinic",
-          "slug": "orawan-clinic",
-          "composite_slug": "orawan-clinic-at-dr-orawan-medical-center",
+          "name": "Orawan's",
+          "slug": "orawans",
+          "composite_slug": "orawans-at-dr-orawan-medical-center",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -298877,15 +298877,15 @@
           "samples": [],
           "procedures": [
             {
+              "service": "laser",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "laser",
               "review_count": 1
             },
             {
@@ -307046,11 +307046,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -309517,6 +309517,29 @@
       ],
       "doctor_stats": [
         {
+          "name": "Orn",
+          "slug": "orn",
+          "composite_slug": "orn-at-cosdent-สาขา-สยาม",
+          "mentions": 2,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 2,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [],
+          "procedures": [
+            {
+              "service": "dental",
+              "review_count": 1
+            }
+          ],
+          "experience_signals": []
+        },
+        {
           "name": "Fon",
           "slug": "fon",
           "composite_slug": "fon-at-cosdent-สาขา-สยาม",
@@ -309538,29 +309561,6 @@
             }
           ],
           "procedures": [],
-          "experience_signals": []
-        },
-        {
-          "name": "Orn",
-          "slug": "orn",
-          "composite_slug": "orn-at-cosdent-สาขา-สยาม",
-          "mentions": 2,
-          "rating_avg": 5.0,
-          "language_count": {
-            "th": 0,
-            "en": 2,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [],
-          "procedures": [
-            {
-              "service": "dental",
-              "review_count": 1
-            }
-          ],
           "experience_signals": []
         },
         {
@@ -310128,105 +310128,6 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Clinic+HD/data=!4m7!3m6!1s0x311d5913d1a0cb09:0xe1d681810240fbca!8m2!3d13.5609818!4d100.6927271!16s%2Fg%2F11hz9l2xd0!19sChIJCcug0RNZHTERyvtAAoGB1uE?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x30fdab003016951f_0x9b86946b755f53b7",
-      "place_id": "0x30fdab003016951f:0x9b86946b755f53b7",
-      "name": "Bangkok Hua Hin Clinic : Market Village",
-      "name_lang": "en",
-      "primary_type": "Medical clinic",
-      "address": "\n231 1, Hua Hin, Hua Hin District, Prachuap Khiri Khan 77110, Thailand",
-      "city_label": "Hua Hin",
-      "city_slug": "hua-hin",
-      "district": "",
-      "phone": "+66 32 616 816",
-      "website": "https://www.bangkokhospitalhuahin.com/",
-      "lat": 12.5573652,
-      "lng": 99.9607037,
-      "rating": 4.7,
-      "total_reviews": 14,
-      "trust_score": 73.7,
-      "categories": [],
-      "scraped_review_count": 14,
-      "local_guide_count": 7,
-      "avg_author_review_count": 30.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 4
-        },
-        {
-          "topic": "recommend",
-          "count": 3
-        },
-        {
-          "topic": "clean_facility",
-          "count": 2
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 7,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 7,
-          "avg": 4.43
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The service here is great for wellness and vitamins supplements. Dr Sawanya is highly recommended for those who need to be young and health forever 🥰 …",
-          "rating": 5,
-          "author": "Panita JP."
-        },
-        {
-          "text": "Everyone is always helpful and nice. I use Bangkok hospital as my primary hospital here and the clinic is convenient for smaller trips and vaccines.",
-          "rating": 5,
-          "author": "Sam"
-        },
-        {
-          "text": "The service was very fast, finished in 3 minutes. No waiting in line. The flu vaccine was inexpensive. Everyone was polite and smiling.",
-          "rating": 5,
-          "author": "Thanatchaya P"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "Tourist trap with highly inflated prices. only unknowledged tourist would go here where the prices are 10 times higher then in the surroundings. here they prey on expats and tourists with completely unjustified exorbitant overpricing",
-          "rating": 1,
-          "author": "Strgg ctrl"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bangkok+Hua+Hin+Clinic+:+Market+Village/data=!4m7!3m6!1s0x30fdab003016951f:0x9b86946b755f53b7!8m2!3d12.5573652!4d99.9607037!16s%2Fg%2F11lz446dlp!19sChIJH5UWMACr_TARt1NfdWuUhps?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30da3b1fcf9d5761_0x1d39c10c1cac7668",
@@ -312985,6 +312886,64 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Boonhugsa+Acupuncture+Clinic+%E0%B8%9A%E0%B8%B8%E0%B8%93%E0%B8%AE%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%9D%E0%B8%B1%E0%B8%87%E0%B9%80%E0%B8%82%E0%B9%87%E0%B8%A1/data=!4m7!3m6!1s0x30da21d9ac89b687:0xefb777f8a0e2ffbd!8m2!3d18.8700918!4d99.1279915!16s%2Fg%2F11qvgrm2bv!19sChIJh7aJrNkh2jARvf_ioPh3t-8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30e29c186962ee51_0xb47bcaa8d74a5300",
+      "place_id": "0x30e29c186962ee51:0xb47bcaa8d74a5300",
+      "name": "Dr Man Luckdara Clinic",
+      "name_lang": "en",
+      "primary_type": "Plastic surgery clinic",
+      "address": "\n30 Sutthisan Winitchai Rd, Samsen Nai, Phaya Thai, Bangkok 10400, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Phaya Thai",
+      "phone": "+66 97 001 0621",
+      "website": "https://en-gb.facebook.com/pg/%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%93%E0%B9%8C%E0%B8%94%E0%B8%B2%E0%B8%A3%E0%B8%B2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81-596753863761011/posts/?ref=page_internal",
+      "lat": 13.7891234,
+      "lng": 100.5509338,
+      "rating": 5.0,
+      "total_reviews": 7,
+      "trust_score": 73.6,
+      "categories": [],
+      "scraped_review_count": 5,
+      "local_guide_count": 3,
+      "avg_author_review_count": 51.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 2,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I had a nose augmentation with Dr. Man. My nose structure was crooked and uneven. At first, I thought the result wouldn't look good, but it turned out much better! Since then, I've been getting great deals in my career.",
+          "rating": 5,
+          "author": "Puncharas Trirojpattana"
+        }
+      ],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dr+Man+Luckdara+Clinic/data=!4m7!3m6!1s0x30e29c186962ee51:0xb47bcaa8d74a5300!8m2!3d13.7891234!4d100.5509338!16s%2Fg%2F11hbjls4cm!19sChIJUe5iaRic4jARAFNK16jKe7Q?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30da3ab49ed7dde7_0xb7fc4e4227c47617",
@@ -317426,11 +317385,11 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -329776,11 +329735,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -332504,113 +332463,6 @@
       "maps_url": "https://www.google.com/maps/place/Beatrice+Clinic+%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%97%E0%B8%A3%E0%B8%B5%E0%B8%8B+%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81/data=!4m7!3m6!1s0x30da3b5a54c43e0d:0x20acc7cc304ca8d9!8m2!3d18.8279732!4d99.0126387!16s%2Fg%2F11sw382x_4!19sChIJDT7EVFo72jAR2ahMMMzHrCA?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e299ffe8cf2ba3_0x745e69ac9f8fb180",
-      "place_id": "0x30e299ffe8cf2ba3:0x745e69ac9f8fb180",
-      "name": "ADDLIFE MRI and CT Center",
-      "name_lang": "en",
-      "primary_type": "X-ray lab",
-      "address": "\nLife Center: Q House Lumpini Building First Floor, Room 102-104, 1 South, S Sathon Rd, Tungmahamek, Sathon, Bangkok 10120, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Sathon",
-      "phone": "+66 2 677 7077",
-      "website": "https://www.addlife-checkup.org/mri-ct-center",
-      "lat": 13.7252218,
-      "lng": 100.5442904,
-      "rating": 4.4,
-      "total_reviews": 18,
-      "trust_score": 72.6,
-      "categories": [],
-      "scraped_review_count": 18,
-      "local_guide_count": 11,
-      "avg_author_review_count": 55.5,
-      "language_breakdown": {
-        "th": 0,
-        "en": 17,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "friendly_staff",
-          "count": 10
-        },
-        {
-          "topic": "clean_facility",
-          "count": 7
-        },
-        {
-          "topic": "affordable",
-          "count": 7
-        },
-        {
-          "topic": "professional",
-          "count": 5
-        },
-        {
-          "topic": "english_speaking",
-          "count": 4
-        },
-        {
-          "topic": "recommend",
-          "count": 4
-        },
-        {
-          "topic": "long_wait",
-          "count": 3
-        },
-        {
-          "topic": "results_satisfied",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 2,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 15,
-          "avg": 4.33
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I am travelling in Thailand and decided to use Addlife for some mri testing.  All I can say is what a professional group.  The office is clean and modern and the doctor, to the nurses, to the technicians were all very professional.  Everything went incredibly smoothly.  Highly recommend",
-          "rating": 5,
-          "author": "Richard Thomas"
-        },
-        {
-          "text": "Great experience at Addlife MRI & CT Centre. The staff were helpful and the MRI was done smoothly. Best part—it’s very cost effective without compromising quality.",
-          "rating": 5,
-          "author": "Rifatul Haque"
-        },
-        {
-          "text": "Clean, fast, and nice.\nGood place to get a check up.\n\nCentrally located and a friendly staff!",
-          "rating": 5,
-          "author": "Ravi"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "After the first appointment, I would have given them 5 stars. But the followup was a joke. …",
-          "rating": 1,
-          "author": "PB"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/ADDLIFE+MRI+and+CT+Center/data=!4m7!3m6!1s0x30e299ffe8cf2ba3:0x745e69ac9f8fb180!8m2!3d13.7252218!4d100.5442904!16s%2Fg%2F11jly99bcb!19sChIJoyvP6P-Z4jARgLGPn6xpXnQ?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2a31c9faf50bb_0x72986f67988426b5",
       "place_id": "0x30e2a31c9faf50bb:0x72986f67988426b5",
       "name": "ดีเอส คลีนิคทันตกรรม พระราม 2 ซอย 43(DS DENTAL CLINIC Rama II Soi 43)",
@@ -335257,11 +335109,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -345485,64 +345337,6 @@
       "maps_url": "https://www.google.com/maps/place/Stretch+me+Clinic+-+Ploenchit/data=!4m7!3m6!1s0x30e29f53687c6d97:0x67fabfc37e7152d8!8m2!3d13.7423438!4d100.5469786!16s%2Fg%2F11tswsr3mw!19sChIJl218aFOf4jAR2FJxfsO_-mc?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29c186962ee51_0xb47bcaa8d74a5300",
-      "place_id": "0x30e29c186962ee51:0xb47bcaa8d74a5300",
-      "name": "Dr Man Luckdara Clinic",
-      "name_lang": "en",
-      "primary_type": "Plastic surgery clinic",
-      "address": "\n30 Sutthisan Winitchai Rd, Samsen Nai, Phaya Thai, Bangkok 10400, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Phaya Thai",
-      "phone": "+66 97 001 0621",
-      "website": "https://en-gb.facebook.com/pg/%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%93%E0%B9%8C%E0%B8%94%E0%B8%B2%E0%B8%A3%E0%B8%B2-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81-596753863761011/posts/?ref=page_internal",
-      "lat": 13.7891234,
-      "lng": 100.5509338,
-      "rating": 5.0,
-      "total_reviews": 7,
-      "trust_score": 71.8,
-      "categories": [],
-      "scraped_review_count": 7,
-      "local_guide_count": 3,
-      "avg_author_review_count": 36.7,
-      "language_breakdown": {
-        "th": 0,
-        "en": 2,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 7,
-          "avg": 5.0
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I had a nose augmentation with Dr. Man. My nose structure was crooked and uneven. At first, I thought the result wouldn't look good, but it turned out much better! Since then, I've been getting great deals in my career.",
-          "rating": 5,
-          "author": "Puncharas Trirojpattana"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Dr+Man+Luckdara+Clinic/data=!4m7!3m6!1s0x30e29c186962ee51:0xb47bcaa8d74a5300!8m2!3d13.7891234!4d100.5509338!16s%2Fg%2F11hbjls4cm!19sChIJUe5iaRic4jARAFNK16jKe7Q?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x3054f155bff5588f_0xba8f783d8b89553b",
       "place_id": "0x3054f155bff5588f:0xba8f783d8b89553b",
       "name": "เค-วันอพาร์ทเม้นท์",
@@ -347972,11 +347766,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             }
           ],
@@ -360398,15 +360192,15 @@
           ],
           "procedures": [
             {
-              "service": "botox",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -371740,24 +371534,6 @@
       "sample_reviews_negative": [],
       "doctor_stats": [
         {
-          "name": "Noppachai",
-          "slug": "noppachai",
-          "composite_slug": "noppachai-at-younify-clinic-ยูนิฟายน์-คลินิกเวชกรรม",
-          "mentions": 3,
-          "rating_avg": 5.0,
-          "language_count": {
-            "th": 0,
-            "en": 3,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [],
-          "procedures": [],
-          "experience_signals": []
-        },
-        {
           "name": "Noppachai Siranart",
           "slug": "noppachai-siranart",
           "composite_slug": "noppachai-siranart-at-younify-clinic-ยูนิฟายน์-คลินิกเวชกรรม",
@@ -371778,6 +371554,24 @@
               "lang": "en"
             }
           ],
+          "procedures": [],
+          "experience_signals": []
+        },
+        {
+          "name": "Noppachai",
+          "slug": "noppachai",
+          "composite_slug": "noppachai-at-younify-clinic-ยูนิฟายน์-คลินิกเวชกรรม",
+          "mentions": 3,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 3,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [],
           "procedures": [],
           "experience_signals": []
         }
@@ -371996,11 +371790,11 @@
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -396491,81 +396285,6 @@
       "maps_url": "https://www.google.com/maps/place/wide+smile+dental+clinic/data=!4m7!3m6!1s0x30e2a79e40dd2427:0x9f911247a58e0520!8m2!3d13.5667642!4d100.6092156!16s%2Fg%2F11gybcz3k6!19sChIJJyTdQJ6n4jARIAWOpUcSkZ8?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30fdabad48c56263_0xd0efc70a5c411d55",
-      "place_id": "0x30fdabad48c56263:0xd0efc70a5c411d55",
-      "name": "Hua Hin Veterinary Clinic",
-      "name_lang": "en",
-      "primary_type": "Veterinary care",
-      "address": "\n72 4 Naebkehardt Rd, Hua Hin, Hua Hin District, Prachuap Khiri Khan 77110, Thailand",
-      "city_label": "Hua Hin",
-      "city_slug": "hua-hin",
-      "district": "",
-      "phone": "+66 32 530 213",
-      "website": "",
-      "lat": 12.5728732,
-      "lng": 99.9568732,
-      "rating": 4.4,
-      "total_reviews": 9,
-      "trust_score": 68.6,
-      "categories": [],
-      "scraped_review_count": 9,
-      "local_guide_count": 4,
-      "avg_author_review_count": 134.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 6,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [
-        {
-          "topic": "expensive",
-          "count": 3
-        },
-        {
-          "topic": "english_speaking",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "professional",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 8,
-          "avg": 4.38
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "good doctor. maybe 20+yrs as a vetinarian.\n\ntook our cat for exam and shots. explained everything and follow up treatment.\n\nenglish was good. not expensive",
-          "rating": 5,
-          "author": "william henry"
-        }
-      ],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Hua+Hin+Veterinary+Clinic/data=!4m7!3m6!1s0x30fdabad48c56263:0xd0efc70a5c411d55!8m2!3d12.5728732!4d99.9568732!16s%2Fg%2F1trc2dl1!19sChIJY2LFSK2r_TARVR1BXArH79A?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2a216e7c71683_0x4615ba8e67d41c62",
       "place_id": "0x30e2a216e7c71683:0x4615ba8e67d41c62",
       "name": "คลินิกฟันขาว (ชาญชัยคลินิกทันตกรรม)",
@@ -404566,19 +404285,19 @@
           ],
           "procedures": [
             {
-              "service": "filler",
-              "review_count": 1
-            },
-            {
               "service": "facial",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "filler",
               "review_count": 1
             },
             {
               "service": "hifu",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -410406,15 +410125,15 @@
           "samples": [],
           "procedures": [
             {
+              "service": "laser",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "laser",
               "review_count": 1
             }
           ],
@@ -421273,11 +420992,11 @@
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             }
           ],
@@ -428644,11 +428363,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             }
           ],
@@ -429537,11 +429256,11 @@
           ],
           "procedures": [
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
@@ -447745,15 +447464,15 @@
           ],
           "procedures": [
             {
+              "service": "hifu",
+              "review_count": 1
+            },
+            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
-              "review_count": 1
-            },
-            {
-              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -454865,96 +454584,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%AD%E0%B8%A7%E0%B8%B2%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81+%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88+%28AvaClinic+Chiangmai%29/data=!4m7!3m6!1s0x30da2fe182cd2693:0x751cce2d74873890!8m2!3d18.7680215!4d99.0311982!16s%2Fg%2F11rcyc_34m!19sChIJkybNguEv2jARkDiHdC3OHHU?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30fdab6a3e023563_0xfc60a1958bbd7fbc",
-      "place_id": "0x30fdab6a3e023563:0xfc60a1958bbd7fbc",
-      "name": "Ve Clinic",
-      "name_lang": "en",
-      "primary_type": "Skin care clinic",
-      "address": "\n26/1ซอยหัวหิน 68 ตำบลหัวหิน, Bangkok, Hua Hin District, Prachuap Khiri Khan 77110, Thailand",
-      "city_label": "Hua Hin",
-      "city_slug": "hua-hin",
-      "district": "",
-      "phone": "+66 95 285 9115",
-      "website": "",
-      "lat": 12.5760535,
-      "lng": 99.9533844,
-      "rating": 4.6,
-      "total_reviews": 10,
-      "trust_score": 61.6,
-      "categories": [
-        "botox",
-        "facial",
-        "filler"
-      ],
-      "scraped_review_count": 10,
-      "local_guide_count": 1,
-      "avg_author_review_count": 6.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 10,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {
-        "botox": 2,
-        "filler": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "recommend",
-          "count": 3
-        },
-        {
-          "topic": "promotion",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 1.0
-        },
-        "old": {
-          "count": 9,
-          "avg": 5.0
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "I just got the injection today. The service was good and the doctor was kind. The doctor had a gentle touch. It didn't hurt as much as I thought it would. The shape is beautiful even though I just got the injection. 💖✨ …",
-          "rating": 5,
-          "author": "Yongs NPSW"
-        },
-        {
-          "text": "The doctor did a great job; the shape is very natural, exactly what I like. I recommend this place for those who don't like the Mazda-style lip shape. 💘💘💘 …",
-          "rating": 5,
-          "author": "Paweethida Mydream"
-        },
-        {
-          "text": "I recommend this place. The doctor can give you the shape you like, and they have a very gentle touch.",
-          "rating": 5,
-          "author": "ปิยนุช เปรี้ยว"
-        }
-      ],
-      "sample_reviews_negative": [
-        {
-          "text": "I inquired about Botox promotions, but the admin responded briefly and curtly, as if they didn't want to sell anything. I saw good reviews and wanted to try this clinic, but after hearing the admin's response, I've changed my mind.",
-          "rating": 1,
-          "author": "Katai L"
-        }
-      ],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Ve+Clinic/data=!4m7!3m6!1s0x30fdab6a3e023563:0xfc60a1958bbd7fbc!8m2!3d12.5760535!4d99.9533844!16s%2Fg%2F11x5v4zz3f!19sChIJYzUCPmqr_TARvH-9i5WhYPw?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x311d67b15ec6deff_0x3ff03542b72e6a86",
       "place_id": "0x311d67b15ec6deff:0x3ff03542b72e6a86",
       "name": "แทนใจรักษ์สัตว์คลินิก",
@@ -458493,6 +458122,58 @@
       "maps_url": "https://www.google.com/maps/place/Saijai+Medical+Clinic/data=!4m7!3m6!1s0x30e2856c36c82fed:0x17e3ff8b58620a95!8m2!3d13.9142756!4d100.4967632!16s%2Fg%2F11l5pz8q7j!19sChIJ7S_INmyF4jARlQpiWIv_4xc?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30fdab003016951f_0x9b86946b755f53b7",
+      "place_id": "0x30fdab003016951f:0x9b86946b755f53b7",
+      "name": "Bangkok Hua Hin Clinic : Market Village",
+      "name_lang": "en",
+      "primary_type": "Medical clinic",
+      "address": "\n231 1, Hua Hin, Hua Hin District, Prachuap Khiri Khan 77110, Thailand",
+      "city_label": "Hua Hin",
+      "city_slug": "hua-hin",
+      "district": "",
+      "phone": "+66 32 616 816",
+      "website": "https://www.bangkokhospitalhuahin.com/",
+      "lat": 12.5573652,
+      "lng": 99.9607037,
+      "rating": 4.7,
+      "total_reviews": 14,
+      "trust_score": 60.8,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bangkok+Hua+Hin+Clinic+:+Market+Village/data=!4m7!3m6!1s0x30fdab003016951f:0x9b86946b755f53b7!8m2!3d12.5573652!4d99.9607037!16s%2Fg%2F11lz446dlp!19sChIJH5UWMACr_TARt1NfdWuUhps?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30da31ee405aa217_0xa94ffa634a3985c2",
       "place_id": "0x30da31ee405aa217:0xa94ffa634a3985c2",
       "name": "คลินิกเด็กหมอปุ้ม-หมอกฤช",
@@ -461268,58 +460949,6 @@
       "maps_url": "https://www.google.com/maps/place/Dent-Mate+Co.,LTD./data=!4m7!3m6!1s0x30e299aa6de7991b:0x17559c426d4a4fb6!8m2!3d13.7442078!4d100.4807641!16s%2Fg%2F1tlw6j2_!19sChIJG5nnbaqZ4jARtk9KbUKcVRc?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x30e29e801561fcd9_0x4efca74f321af700",
-      "place_id": "0x30e29e801561fcd9:0x4efca74f321af700",
-      "name": "Arista Clinic Ratchada",
-      "name_lang": "en",
-      "primary_type": "Beauty salon",
-      "address": "\n167 4 Ratchadaphisek Rd, Ratchadaphisek, Din Daeng, Bangkok 10400, Thailand",
-      "city_label": "Bangkok",
-      "city_slug": "bangkok",
-      "district": "Huai Khwang",
-      "phone": "+66 81 859 4900",
-      "website": "https://www.facebook.com/share/1DJtu8DBij/",
-      "lat": 13.7773292,
-      "lng": 100.5732874,
-      "rating": 5.0,
-      "total_reviews": 7,
-      "trust_score": 60.1,
-      "categories": [],
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "service_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "sample_reviews_negative": [],
-      "doctor_stats": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Arista+Clinic+Ratchada/data=!4m7!3m6!1s0x30e29e801561fcd9:0x4efca74f321af700!8m2!3d13.7773292!4d100.5732874!16s%2Fg%2F11j2y_3zp4!19sChIJ2fxhFYCe4jARAPcaMk-n_E4?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2b94e5da50a29_0xa833b3d386823a1e",
       "place_id": "0x30e2b94e5da50a29:0xa833b3d386823a1e",
       "name": "The EIGHT Dental Clinic",
@@ -461394,6 +461023,58 @@
           "sample_count": 9
         }
       ]
+    },
+    {
+      "id": "0x30e29e801561fcd9_0x4efca74f321af700",
+      "place_id": "0x30e29e801561fcd9:0x4efca74f321af700",
+      "name": "Arista Clinic Ratchada",
+      "name_lang": "en",
+      "primary_type": "Beauty salon",
+      "address": "\n167 4 Ratchadaphisek Rd, Ratchadaphisek, Din Daeng, Bangkok 10400, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Huai Khwang",
+      "phone": "+66 81 859 4900",
+      "website": "https://www.facebook.com/share/1DJtu8DBij/",
+      "lat": 13.7773292,
+      "lng": 100.5732874,
+      "rating": 5.0,
+      "total_reviews": 7,
+      "trust_score": 60.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Arista+Clinic+Ratchada/data=!4m7!3m6!1s0x30e29e801561fcd9:0x4efca74f321af700!8m2!3d13.7773292!4d100.5732874!16s%2Fg%2F11j2y_3zp4!19sChIJ2fxhFYCe4jARAPcaMk-n_E4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30da3a96a5cb68ff_0x6e4c805ff9c364ea",
@@ -464940,6 +464621,58 @@
       "maps_url": "https://www.google.com/maps/place/SFS+CLINIC/data=!4m7!3m6!1s0x3054f1b3c902cff1:0x7a3c7a479d45ba3f!8m2!3d9.5353489!4d100.0476153!16s%2Fg%2F11g18zl251!19sChIJ8c8CybPxVDARP7pFnUd6PHo?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x30e299ffe8cf2ba3_0x745e69ac9f8fb180",
+      "place_id": "0x30e299ffe8cf2ba3:0x745e69ac9f8fb180",
+      "name": "ADDLIFE MRI and CT Center",
+      "name_lang": "en",
+      "primary_type": "X-ray lab",
+      "address": "\nLife Center: Q House Lumpini Building First Floor, Room 102-104, 1 South, S Sathon Rd, Tungmahamek, Sathon, Bangkok 10120, Thailand",
+      "city_label": "Bangkok",
+      "city_slug": "bangkok",
+      "district": "Sathon",
+      "phone": "+66 2 677 7077",
+      "website": "https://www.addlife-checkup.org/mri-ct-center",
+      "lat": 13.7252218,
+      "lng": 100.5442904,
+      "rating": 4.4,
+      "total_reviews": 18,
+      "trust_score": 59.1,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/ADDLIFE+MRI+and+CT+Center/data=!4m7!3m6!1s0x30e299ffe8cf2ba3:0x745e69ac9f8fb180!8m2!3d13.7252218!4d100.5442904!16s%2Fg%2F11jly99bcb!19sChIJoyvP6P-Z4jARgLGPn6xpXnQ?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29efda09d1745_0x6410fcc11990a3b6",
       "place_id": "0x30e29efda09d1745:0x6410fcc11990a3b6",
       "name": "Rainaparieclinic",
@@ -468181,6 +467914,60 @@
       "doctor_stats": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%B4%E0%B9%89%E0%B8%A7%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%9E%E0%B8%A3%E0%B8%B2%E0%B8%99+%E0%B8%AD%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88+%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%9B%E0%B8%90%E0%B8%A1+by+Kawalin/data=!4m7!3m6!1s0x30e2c14df0f6f507:0x17c700aebe520be!8m2!3d13.7148418!4d100.2528686!16s%2Fg%2F11g2sd1m06!19sChIJB_X28E3B4jARviDl6wpwfAE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30fdab6a3e023563_0xfc60a1958bbd7fbc",
+      "place_id": "0x30fdab6a3e023563:0xfc60a1958bbd7fbc",
+      "name": "Ve Clinic",
+      "name_lang": "en",
+      "primary_type": "Skin care clinic",
+      "address": "\n26/1ซอยหัวหิน 68 ตำบลหัวหิน, Bangkok, Hua Hin District, Prachuap Khiri Khan 77110, Thailand",
+      "city_label": "Hua Hin",
+      "city_slug": "hua-hin",
+      "district": "",
+      "phone": "+66 95 285 9115",
+      "website": "",
+      "lat": 12.5760535,
+      "lng": 99.9533844,
+      "rating": 4.6,
+      "total_reviews": 10,
+      "trust_score": 58.0,
+      "categories": [
+        "facial"
+      ],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Ve+Clinic/data=!4m7!3m6!1s0x30fdab6a3e023563:0xfc60a1958bbd7fbc!8m2!3d12.5760535!4d99.9533844!16s%2Fg%2F11x5v4zz3f!19sChIJYzUCPmqr_TARvH-9i5WhYPw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2984158f1ea23_0xf7ac49e1b5a6e651",
@@ -472840,6 +472627,58 @@
       "doctor_stats": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/LPD+Clinic+Cosmetic+Surgery+%26+Dental+Care/data=!4m7!3m6!1s0x30e29dc81123dbad:0x6ca9de3bbf894c7f!8m2!3d13.7999929!4d100.5848967!16s%2Fg%2F11bw_618m7!19sChIJrdsjEcid4jARf0yJvzveqWw?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x30fdabad48c56263_0xd0efc70a5c411d55",
+      "place_id": "0x30fdabad48c56263:0xd0efc70a5c411d55",
+      "name": "Hua Hin Veterinary Clinic",
+      "name_lang": "en",
+      "primary_type": "Veterinary care",
+      "address": "\n72 4 Naebkehardt Rd, Hua Hin, Hua Hin District, Prachuap Khiri Khan 77110, Thailand",
+      "city_label": "Hua Hin",
+      "city_slug": "hua-hin",
+      "district": "",
+      "phone": "+66 32 530 213",
+      "website": "",
+      "lat": 12.5728732,
+      "lng": 99.9568732,
+      "rating": 4.4,
+      "total_reviews": 9,
+      "trust_score": 55.5,
+      "categories": [],
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "service_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "sample_reviews_negative": [],
+      "doctor_stats": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Hua+Hin+Veterinary+Clinic/data=!4m7!3m6!1s0x30fdabad48c56263:0xd0efc70a5c411d55!8m2!3d12.5728732!4d99.9568732!16s%2Fg%2F1trc2dl1!19sChIJY2LFSK2r_TARVR1BXArH79A?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29dbe04687d49_0xaabd9ea991600a1c",

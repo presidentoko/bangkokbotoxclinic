@@ -4,6 +4,8 @@ import { ClinicCard } from "@/components/ClinicCard";
 import { ClinicCardCompact } from "@/components/ClinicCardCompact";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
+import { CATEGORY_LABELS } from "@/lib/types";
+import { CategoryIcon } from "@/components/CategoryIcon";
 import type { Metadata } from "next";
 
 function districtFromSlug(slug: string, all: string[]): string | null {
@@ -28,10 +30,12 @@ export async function generateMetadata(
   // 실제 도시 lookup — Pattaya/Phuket district가 Bangkok으로 잘못 표기되는 것 방지.
   const sample = db.clinics.find((c) => c.district === districtName && c.city_label);
   const cityLabel = sample?.city_label ?? "Bangkok";
+  const robots = count < 5 ? { index: false, follow: true } : undefined;
   return {
     title: `${count} Clinics in ${districtName}, ${cityLabel} — Verified by Reviews`,
     description: `${count} clinics in ${districtName}, ${cityLabel} ranked by verified Google review analysis. Trust Score, reviewer credibility, service mentions for each.`,
     alternates: { canonical: `/d/${district}` },
+    ...(robots && { robots }),
     openGraph: {
       title: `Clinics in ${districtName}, ${cityLabel}`,
       description: `${count} verified clinics. Trust Score ranking from real reviews.`,
@@ -52,6 +56,24 @@ export default async function DistrictPage(
     .sort((a, b) => b.trust_score - a.trust_score);
   const cityLabel = filtered.find((c) => c.city_label)?.city_label ?? "Bangkok";
 
+  // 카테고리 분포 (3개 이상 클리닉만)
+  const categoryMap = new Map<string, number>();
+  for (const c of filtered) {
+    for (const cat of c.categories) categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+  }
+  const topCats = [...categoryMap.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]);
+
+  // 인근 지역: 같은 도시에서 클리닉 수 기준 상위 8개 (현재 district 제외)
+  const citySlug = filtered[0]?.city_slug;
+  const nearbyDistricts = Object.entries(db.district_counts)
+    .filter(([d]) => {
+      if (d === districtName) return false;
+      const sample = db.clinics.find((c) => c.district === d);
+      return citySlug ? sample?.city_slug === citySlug : (sample?.city_label ?? "Bangkok") === cityLabel;
+    })
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8);
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -64,9 +86,28 @@ export default async function DistrictPage(
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
         Clinics in {districtName}, {cityLabel}
       </h1>
-      <p className="text-[var(--muted)] mb-8">
+      <p className="text-[var(--muted)] mb-6">
         {filtered.length} clinics across all categories in {districtName}, {cityLabel}.
       </p>
+
+      {topCats.length > 0 && (
+        <section className="mb-6">
+          <div className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-2">Filter by service</div>
+          <div className="flex flex-wrap gap-2">
+            {topCats.map(([cat, n]) => (
+              <a
+                key={cat}
+                href={`/c/${cat}/${districtName.toLowerCase().replace(/\s+/g, "-")}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                <CategoryIcon category={cat} size={13} />
+                {CATEGORY_LABELS[cat] ?? cat}
+                <span className="text-[var(--muted)] tabular-nums text-xs">{n}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="grid gap-3">
         {filtered.slice(0, 10).map((c, i) => (
@@ -88,8 +129,28 @@ export default async function DistrictPage(
       )}
       {filtered.length > 200 && (
         <p className="mt-6 text-sm text-[var(--muted)]">
-          Showing top 200 of {filtered.length}. Use service filters to narrow results.
+          Showing top 200 of {filtered.length}. Use service filters above to narrow results.
         </p>
+      )}
+
+      {nearbyDistricts.length > 0 && (
+        <section className="mt-10 pt-8 border-t border-[var(--border)]">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">
+            Other districts in {cityLabel}
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {nearbyDistricts.map(([d, n]) => (
+              <a
+                key={d}
+                href={`/d/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+              >
+                📍 {d}
+                <span className="text-[var(--muted)] tabular-nums text-xs">{n}</span>
+              </a>
+            ))}
+          </div>
+        </section>
       )}
 
       <BreadcrumbJsonLd items={[

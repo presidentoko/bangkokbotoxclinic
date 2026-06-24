@@ -567,6 +567,32 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* Quick compare CTA — top 4 clinics paired up */}
+        {focused.length >= 4 && (() => {
+          const top = focused.slice(0, 4);
+          return (
+            <section className="mb-10">
+              <div className="flex items-baseline justify-between gap-4 mb-4">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">Compare top clinics</h2>
+                <span className="text-xs text-[var(--muted)]">Side-by-side Trust Score analysis</span>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {([[top[0], top[1]], [top[2], top[3]]] as [typeof top[0], typeof top[0]][]).map(([x, y]) => x && y ? (
+                  <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`}
+                    className="group flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition">
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="text-xs font-medium truncate">{x.name}</div>
+                      <div className="text-[10px] font-bold text-[var(--muted)]">vs</div>
+                      <div className="text-xs font-medium truncate">{y.name}</div>
+                    </div>
+                    <span className="text-lg text-[var(--muted)] group-hover:text-[var(--accent)] transition shrink-0">⚖️</span>
+                  </a>
+                ) : null)}
+              </div>
+            </section>
+          );
+        })()}
+
         {/* Netflix-style city rows — only shown when 2+ cities exist (single-city focus doesn't need it). */}
         {(() => {
           const cityClinics = new Map<string, typeof focused>();

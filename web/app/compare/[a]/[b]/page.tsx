@@ -38,6 +38,19 @@ export default async function ComparePage(
   const cb = getClinicById(db.clinics, b);
   if (!ca || !cb) notFound();
 
+  // "More comparisons" — 같은 카테고리 상위 클리닉 중 현재 두 클리닉 제외한 페어링
+  const sharedCats = ca.categories.filter((c) => cb.categories.includes(c));
+  const pool = db.clinics
+    .filter((c) => c.id !== ca.id && c.id !== cb.id && sharedCats.some((cat) => c.categories.includes(cat)))
+    .sort((x, y) => y.trust_score - x.trust_score)
+    .slice(0, 6);
+  // 페어링: (ca vs pool[0]), (cb vs pool[1]), (pool[0] vs pool[2]), (pool[1] vs pool[3])
+  const morePairs: { x: typeof ca; y: typeof ca }[] = [];
+  if (pool[0]) morePairs.push({ x: ca, y: pool[0] });
+  if (pool[1]) morePairs.push({ x: cb, y: pool[1] });
+  if (pool[0] && pool[2]) morePairs.push({ x: pool[0], y: pool[2] });
+  if (pool[1] && pool[3]) morePairs.push({ x: pool[1], y: pool[3] });
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
@@ -130,6 +143,34 @@ export default async function ComparePage(
         <p>↗ This is an independent comparison — neither clinic has paid for placement here.</p>
         <p>📊 Data sources: Google reviews (Google Maps), Trust Score = our internal algorithm weighing review credibility, recency, language diversity, and Local Guide signals.</p>
       </div>
+
+      {morePairs.length > 0 && (
+        <section className="mt-10 pt-8 border-t border-[var(--border)]">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-4">More comparisons to explore</h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {morePairs.map(({ x, y }) => (
+              <a
+                key={`${x.id}-${y.id}`}
+                href={`/compare/${x.id}/${y.id}`}
+                className="group flex items-start gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition"
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-bold bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded">Trust {x.trust_score.toFixed(0)}</span>
+                    <span className="text-xs text-[var(--muted)] font-medium truncate">{x.name}</span>
+                  </div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] mb-1 text-center">vs</div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded">Trust {y.trust_score.toFixed(0)}</span>
+                    <span className="text-xs text-[var(--muted)] font-medium truncate">{y.name}</span>
+                  </div>
+                </div>
+                <span className="text-[var(--muted)] group-hover:text-[var(--accent)] transition shrink-0 text-lg">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

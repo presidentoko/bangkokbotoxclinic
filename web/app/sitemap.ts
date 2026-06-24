@@ -104,5 +104,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   void districts; // reserved for future district-only sitemap
 
+  // Compare pages — top clinics per service, paired (1vs2, 2vs3, 3vs4) → 3 pairs × N services = ~24 compare URLs
+  for (const s of SERVICES) {
+    const pool = db.clinics
+      .filter((c) => (c.categories ?? []).includes(s))
+      .sort((a, b) => b.trust_score - a.trust_score)
+      .slice(0, 5);
+    for (let i = 0; i < pool.length - 1; i++) {
+      items.push({
+        url: `${SITE}/compare/${pool[i].id}/${pool[i + 1].id}`,
+        lastModified: updated,
+        changeFrequency: "weekly" as const,
+        priority: 0.72,
+      });
+    }
+  }
+
   return items;
 }

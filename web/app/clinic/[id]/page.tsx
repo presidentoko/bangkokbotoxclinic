@@ -23,6 +23,7 @@ import { StickyClinicBar } from "@/components/StickyClinicBar";
 import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
+import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -177,6 +178,38 @@ export default async function ClinicPage(
 
   // Wiki summary (LLM 생성, 미존재 시 null — graceful degrade)
   const wikiSummary = await loadWikiSummary(c.id);
+
+  // 크로스사이트 컨텍스트 CTA: 현재 사이트 포커스와 다른 카테고리가 있을 때 표시
+  const siteFocus = getSiteConfig().focus;
+  const CROSS_SITE_MAP: Partial<Record<string, { url: string; emoji: string; label: string; cta: string }>> = {
+    dental: { url: "https://www.bangkokbestclinic.com/", emoji: "🦷", label: "Bangkok Best Clinic", cta: "Top dental implants & veneers →" },
+    hair_transplant: { url: "https://thaifacialclinic.com/", emoji: "💇", label: "Thai Facial Clinic", cta: "Hair transplant specialists →" },
+    botox: { url: "https://www.bangkokbotoxclinic.com/", emoji: "💉", label: "Bangkok Botox Clinic", cta: "Top botox & filler clinics →" },
+  };
+  // 현재 사이트가 커버 안 하는 카테고리 중 첫 번째 cross-site 추천
+  const FOCUS_CATS: Record<string, string[]> = {
+    botox: ["botox", "filler", "hifu", "facial", "laser"],
+    dental: ["dental"],
+    hair: ["hair_transplant"],
+  };
+  const myCats = FOCUS_CATS[siteFocus] ?? [];
+  const crossCat = c.categories.find((cat) => !myCats.includes(cat) && CROSS_SITE_MAP[cat]);
+  const crossSite = crossCat ? CROSS_SITE_MAP[crossCat] : null;
+  // 현재 포커스가 없는 추천: botox 사이트 → 덴탈/헤어 둘 다 있으면 하나씩
+  const suggestOtherSites = siteFocus !== "all" && !crossSite
+    ? (["dental", "hair_transplant"] as const)
+        .filter((cat) => !myCats.includes(cat))
+        .map((cat) => CROSS_SITE_MAP[cat])
+        .filter(Boolean)
+        .slice(0, 1)
+    : [];
+  // "Compare vs #1" — 같은 primary 카테고리 최상위 클리닉 (자신이 #1이면 #2)
+  const comparePeer = primaryCat
+    ? db.clinics
+        .filter((other) => other.id !== c.id && other.categories.includes(primaryCat))
+        .sort((a, b) => b.trust_score - a.trust_score)[0]
+    : null;
+
   // AEO: 자동 FAQ — Google PAA 대응 + LLM 인용
   const faqs = buildClinicFaqs(c as Parameters<typeof buildClinicFaqs>[0]);
 
@@ -396,6 +429,43 @@ export default async function ClinicPage(
 
           {/* SEO: 카테고리/지역 long-tail 자동 내부 백링크 */}
           <RelatedExplore clinic={c} />
+
+          {/* Compare CTA — 같은 카테고리 최상위 클리닉과 비교 */}
+          {comparePeer && (
+            <a href={`/compare/${c.id}/${comparePeer.id}`}
+              className="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition group">
+              <span className="text-2xl shrink-0">⚖️</span>
+              <div className="min-w-0 flex-1">
+                <div className="text-xs text-[var(--muted)] uppercase tracking-wide mb-0.5">Side-by-side comparison</div>
+                <div className="font-semibold text-sm group-hover:text-[var(--accent)] transition truncate">
+                  {c.name} vs {comparePeer.name}
+                </div>
+                <div className="text-xs text-[var(--muted)]">Trust Score · Reviews · Doctors · Languages</div>
+              </div>
+              <span className="text-[var(--muted)] group-hover:text-[var(--accent)] transition shrink-0">→</span>
+            </a>
+          )}
+
+          {/* 크로스사이트 컨텍스트 CTA — 현재 클리닉 카테고리 기반 자매 사이트 추천 */}
+          {(crossSite ?? suggestOtherSites[0]) && (() => {
+            const site = (crossSite ?? suggestOtherSites[0])!;
+            return (
+              <a
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer me"
+                className="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-gradient-to-r from-[var(--bg)] to-white hover:border-[var(--accent)] transition group"
+              >
+                <span className="text-2xl shrink-0">{site.emoji}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs text-[var(--muted)] uppercase tracking-wide mb-0.5">Also from Thai Facial Clinic Group</div>
+                  <div className="font-semibold text-sm group-hover:text-[var(--accent)] transition">{site.cta}</div>
+                  <div className="text-xs text-[var(--muted)]">{site.label}</div>
+                </div>
+                <span className="text-[var(--muted)] group-hover:text-[var(--accent)] transition shrink-0">→</span>
+              </a>
+            );
+          })()}
 
           {/* STEP 4: 인접 클리닉 cross-link — 같은 구 + 같은 카테고리, 6개 카드 */}
           {nearbyClinics.length > 0 && (

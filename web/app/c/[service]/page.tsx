@@ -180,6 +180,41 @@ export default async function ServicePage(
         <BookingForm defaultService={service} />
       </div>
 
+      {filtered.length >= 2 && (() => {
+        const top = filtered.slice(0, 5);
+        const pairs: [typeof top[0], typeof top[0]][] = [];
+        if (top[0] && top[1]) pairs.push([top[0], top[1]]);
+        if (top[2] && top[3]) pairs.push([top[2], top[3]]);
+        if (top[1] && top[4]) pairs.push([top[1], top[4]]);
+        if (pairs.length === 0) return null;
+        return (
+          <section className="mt-10 mb-10">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-4">
+              Popular comparisons
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {pairs.map(([x, y]) => (
+                <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`}
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition">
+                  <div className="flex-1 min-w-0 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold bg-blue-50 text-blue-600 rounded px-1.5 py-0.5 shrink-0">#{filtered.indexOf(x) + 1}</span>
+                      <span className="text-xs font-medium truncate">{x.name}</span>
+                    </div>
+                    <div className="text-[10px] font-bold text-[var(--muted)] ml-1">vs</div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold bg-purple-50 text-purple-600 rounded px-1.5 py-0.5 shrink-0">#{filtered.indexOf(y) + 1}</span>
+                      <span className="text-xs font-medium truncate">{y.name}</span>
+                    </div>
+                  </div>
+                  <span className="text-[var(--muted)] group-hover:text-[var(--accent)] shrink-0 transition">⚖️</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
       {(CATEGORY_FAQS[service] ?? []).length > 0 && (
         <section className="mt-12">
           <h2 className="text-xl font-bold mb-4">{label} in Bangkok — FAQ</h2>

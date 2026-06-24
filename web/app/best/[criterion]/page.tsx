@@ -171,6 +171,23 @@ export default async function BestForPage(
             <BookingForm />
           </div>
 
+          {filtered.length >= 2 && (
+            <section className="mb-10">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">Head-to-head comparison</h2>
+              <a href={`/compare/${filtered[0].id}/${filtered[1].id}`}
+                className="flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition group">
+                <span className="text-2xl shrink-0">⚖️</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs text-[var(--muted)] mb-1">Compare #1 vs #2 — side-by-side Trust Score analysis</div>
+                  <div className="font-semibold text-sm group-hover:text-[var(--accent)] transition truncate">
+                    {filtered[0].name} vs {filtered[1].name}
+                  </div>
+                </div>
+                <span className="text-[var(--muted)] group-hover:text-[var(--accent)] transition shrink-0">→</span>
+              </a>
+            </section>
+          )}
+
           <section className="mt-12">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
               Other ways to find a clinic
