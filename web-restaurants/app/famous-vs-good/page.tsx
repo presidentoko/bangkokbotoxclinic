@@ -11,6 +11,18 @@ export const metadata: Metadata = {
   description:
     "We cross-referenced Bangkok's most Instagram-hyped cafés and restaurants with real Google review Trust Scores. Some hold up. Many don't. The data decides.",
   alternates: { canonical: "/famous-vs-good" },
+  openGraph: {
+    title: "Instagram Famous vs Actually Good — Bangkok Restaurants",
+    description: "Bangkok's most-hyped places cross-checked against real Google review Trust Scores. Who actually deserves the hype?",
+    url: "/famous-vs-good",
+    type: "website",
+    siteName: "SNS Stopper",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bangkok: Instagram Famous vs Actually Good",
+    description: "We checked Bangkok's most hyped restaurants against real Google review data. Some hold up. Many don't.",
+  },
 };
 
 export default async function FamousVsGoodIndexPage() {
