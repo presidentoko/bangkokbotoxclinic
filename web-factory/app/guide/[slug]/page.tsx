@@ -3,6 +3,7 @@ import { GUIDES, findGuide, extractHowToSteps } from "@/lib/guides";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { SupplierCard } from "@/components/SupplierCard";
+import { ShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
@@ -130,6 +131,9 @@ export default async function GuidePage(
             {g.title}
           </h1>
           <p className="text-lg text-[var(--muted)] leading-relaxed text-balance">{g.intro}</p>
+          <div className="mt-5">
+            <ShareButton url={`/guide/${slug}`} title={`${g.title} — Thai Supply Hub Buyer Guide`} variant="compact" />
+          </div>
           <div className="mt-4 text-xs text-[var(--muted)] flex items-center gap-2 flex-wrap">
             <time dateTime={g.updated}>Updated {g.updated}</time>
             <span>·</span>

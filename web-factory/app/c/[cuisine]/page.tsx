@@ -8,6 +8,7 @@ import { findGuide } from "@/lib/guides";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
+import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -224,6 +225,10 @@ export default async function CategoryPage(
       )}
 
       <AdSlot slot="category-mid" />
+
+      <div className="mb-8">
+        <SupplierAlertSignup category={label} />
+      </div>
 
       <section>
         <h2 className="text-xl font-bold mb-4">Top {label} by Trust Score</h2>

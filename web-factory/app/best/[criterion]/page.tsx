@@ -7,6 +7,8 @@ import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { findGuide } from "@/lib/guides";
 import { findPost } from "@/lib/posts";
+import { ShareButton } from "@/components/ShareButton";
+import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import type { Metadata } from "next";
 
 const CRITERION_TO_POST: Record<string, string> = {
@@ -77,7 +79,16 @@ export default async function BestForPage(
         <span>{cfg.title.replace(/^Best |^Top |^Most /, "").replace(/ in Thailand$/, "")}</span>
       </nav>
 
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{cfg.title}</h1>
+      <div className="flex items-start justify-between gap-4 mb-3">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{cfg.title}</h1>
+        <div className="shrink-0 mt-1">
+          <ShareButton
+            url={`/best/${criterion}`}
+            title={`${cfg.title} — Thailand Supplier Rankings`}
+            variant="compact"
+          />
+        </div>
+      </div>
       <p className="text-[var(--muted)] mb-2 leading-relaxed text-balance">{cfg.intro}</p>
       <p className="text-xs text-[var(--muted)] mb-8 italic">
         {filtered.length} suppliers matched. Refreshed continuously from public Google reviews.
@@ -95,6 +106,9 @@ export default async function BestForPage(
             </div>
             <AffiliateInline />
             <AdSlot slot="best-for-mid" />
+            <div className="my-6">
+              <SupplierAlertSignup category={cfg.title.replace(/^Best |^Top |^Most /, "").replace(/ in Thailand$/, "")} compact />
+            </div>
             <div className="grid gap-3 mt-3">
               {filtered.slice(10).map((r, i) => (
                 <SupplierCard key={r.id} r={r} rank={i + 11} />
