@@ -8,6 +8,7 @@ import { getActiveByType } from "@/lib/ads";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { orgLd, websiteLd, faqLd } from "@/lib/schema";
 import { HomeSearchBar } from "@/components/HomeSearchBar";
+import { RecentlyViewedStrip } from "@/components/RecentlyViewedStrip";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -352,6 +353,14 @@ export default async function Home({
           proof="loved"
         />
       )}
+
+      {/* Recently viewed */}
+      <section className="space-y-3">
+        <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-medium">
+          {isTh ? "ดูล่าสุด" : "Recently viewed"}
+        </p>
+        <RecentlyViewedStrip locale={locale} />
+      </section>
 
       {/* Trust strip */}
       <section className="border-t border-[#efe1db] pt-10 space-y-5">

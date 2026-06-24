@@ -23,6 +23,8 @@ import { YoutubeModule } from "@/components/YoutubeModule";
 import { WatsonsModule } from "@/components/WatsonsModule";
 import { scoreColor } from "@/lib/format";
 import { isLinkAlive } from "@/lib/affiliate";
+import { ViewTracker } from "@/components/ViewTracker";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export const revalidate = 86400;
 
@@ -755,6 +757,18 @@ export default async function ProductPage({
                 {p.name}
               </h1>
 
+              {/* Favorite button */}
+              <FavoriteButton
+                productId={p.product_id}
+                slug={slug}
+                name={p.name}
+                brand={p.brand}
+                imageUrl={p.image_url}
+                score={totalScore}
+                priceTHB={p.price_thb}
+                locale={locale}
+              />
+
               {/* Big score badge */}
               <div className="flex items-baseline gap-2">
                 <span
@@ -944,6 +958,16 @@ export default async function ProductPage({
           { name: concern.charAt(0).toUpperCase() + concern.slice(1), url: `https://bangkokfillers.com/${locale}/${concern}` },
           { name: p.name, url: pageUrl },
         ])} />
+
+        <ViewTracker
+          productId={p.product_id}
+          slug={slug}
+          name={p.name}
+          brand={p.brand}
+          imageUrl={p.image_url}
+          score={totalScore}
+          priceTHB={p.price_thb}
+        />
       </article>
 
       {/* ══════════════════════════════════════
