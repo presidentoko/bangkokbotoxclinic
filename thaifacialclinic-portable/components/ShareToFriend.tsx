@@ -12,7 +12,7 @@ export default function ShareToFriend({
   url: string;
 }) {
   const [copied, setCopied] = useState(false);
-  const text = `Check out ${clinicName} on bkkclinics — verified across 5+ public sources.`;
+  const text = `Check out ${clinicName} on Thai Facial Clinic — verified across 6 independent sources.`;
 
   async function copy() {
     try {

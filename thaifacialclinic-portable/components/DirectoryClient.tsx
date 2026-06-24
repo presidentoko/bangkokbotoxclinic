@@ -28,7 +28,6 @@ const fuseIndex = (clinics: Clinic[]) =>
 
 export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; lang: Lang }) {
   const [query, setQuery] = useState("");
-  const fuse = useMemo(() => fuseIndex(clinics), [clinics]);
   const [filterViral, setFilterViral] = useState(true);
   const [sortKey, setSortKey] = useState<SortKey>("trust");
   const [procFilter, setProcFilter] = useState<string>("");
@@ -52,35 +51,22 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
 
   const suspectedCount = useMemo(() => clinics.filter((c) => c.is_suspected_viral).length, [clinics]);
 
+  // Filtered pool (city/proc/viral filters only — no search, no sort)
+  const pool = useMemo(() => clinics.filter((c) => {
+    if (filterViral && c.is_suspected_viral) return false;
+    if (procFilter && !c.procedures.includes(procFilter)) return false;
+    if (cityFilter && c.city !== cityFilter) return false;
+    return true;
+  }), [clinics, filterViral, procFilter, cityFilter]);
+
+  // Fuse index on pool — rebuilds only when pool changes (not on query/sort changes)
+  const poolFuse = useMemo(() => fuseIndex(pool), [pool]);
+
   const filtered = useMemo(() => {
     const q = query.trim();
-    // Pre-filter by city/proc/viral before fuzzy search
-    const pool = clinics.filter((c) => {
-      if (filterViral && c.is_suspected_viral) return false;
-      if (procFilter && !c.procedures.includes(procFilter)) return false;
-      if (cityFilter && c.city !== cityFilter) return false;
-      return true;
-    });
-    let list: Clinic[];
-    if (!q) {
-      list = pool;
-    } else {
-      // Fuzzy search over filtered pool
-      const poolFuse = new Fuse(pool, {
-        keys: [
-          { name: "name", weight: 3 },
-          { name: "city", weight: 2 },
-          { name: "procedures", weight: 2 },
-          { name: "category", weight: 1 },
-          { name: "address", weight: 0.5 },
-        ],
-        threshold: 0.35,
-        includeScore: true,
-        ignoreLocation: true,
-        minMatchCharLength: 2,
-      });
-      list = poolFuse.search(q).map((r) => r.item);
-    }
+    const list: Clinic[] = q
+      ? poolFuse.search(q).map((r) => r.item)
+      : [...pool];
     list.sort((a, b) => {
       const aP = isPaidPartner(a), bP = isPaidPartner(b);
       if (aP !== bP) return aP ? -1 : 1;
@@ -89,7 +75,7 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
       return b.trust_score - a.trust_score;
     });
     return list;
-  }, [clinics, query, filterViral, sortKey, procFilter, cityFilter]);
+  }, [pool, poolFuse, query, sortKey]);
 
   // Spotlight = first result (partner or top trust)
   const spotlight = filtered[0];
