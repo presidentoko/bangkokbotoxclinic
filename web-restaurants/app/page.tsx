@@ -348,7 +348,7 @@ export default async function HomePage() {
               <a href="/guide" className="text-sm font-bold hover:text-orange-600 hover:underline">All guides →</a>
             </div>
             <div className="grid sm:grid-cols-3 gap-3">
-              {GUIDES.map((g) => (
+              {GUIDES.slice(0, 6).map((g) => (
                 <a
                   key={g.slug}
                   href={`/guide/${g.slug}`}
