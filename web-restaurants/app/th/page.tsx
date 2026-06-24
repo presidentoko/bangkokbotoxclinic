@@ -141,6 +141,26 @@ export default async function ThHomePage() {
           </div>
         </section>
 
+        {/* SNS Check promo */}
+        <section className="mt-10 mb-10">
+          <a
+            href="/famous-vs-good"
+            className="group block bg-orange-50 border-2 border-orange-200 rounded-2xl p-6 hover:border-orange-400 hover:shadow-md transition"
+          >
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-orange-600 mb-2">เช็ค SNS ↗</div>
+                <h2 className="text-xl font-black tracking-tight mb-2">ดังบน Instagram vs อร่อยจริง</h2>
+                <p className="text-sm text-[var(--muted)] leading-relaxed max-w-xl">
+                  เราตรวจสอบร้านที่ดังบน Instagram ในกรุงเทพฯ กับคะแนนความน่าเชื่อถือจากรีวิว Google จริงๆ
+                  ดังไม่ได้แปลว่าอร่อยเสมอไป
+                </p>
+              </div>
+              <span className="text-3xl group-hover:scale-110 transition-transform">📊</span>
+            </div>
+          </a>
+        </section>
+
         <section className="mt-12 mb-10">
           <h2 className="text-xl font-bold mb-4">หมวดหมู่ร้านอาหาร</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">

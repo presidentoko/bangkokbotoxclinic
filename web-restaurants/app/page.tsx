@@ -117,6 +117,28 @@ export default async function HomePage() {
           />
         </OnboardingTrigger>
 
+        {/* SNS CHECK PROMO */}
+        <section className="mb-12">
+          <a
+            href="/famous-vs-good"
+            className="group block bg-orange-50 border-2 border-orange-200 rounded-2xl p-6 hover:border-orange-400 hover:shadow-md transition"
+          >
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-orange-600 mb-2">New: SNS Check ↗</div>
+                <h2 className="text-xl font-black tracking-tight mb-2 text-[var(--fg)]">
+                  Instagram Famous vs Actually Good
+                </h2>
+                <p className="text-sm text-[var(--muted)] leading-relaxed max-w-xl">
+                  We cross-referenced Bangkok's most Instagrammed spots with real Google review Trust Scores.
+                  Some deserve the hype. Many don't. See the data.
+                </p>
+              </div>
+              <span className="text-3xl group-hover:scale-110 transition-transform">📊</span>
+            </div>
+          </a>
+        </section>
+
         {/* COMMUNITY ACTIVITY */}
         <section className="mb-12 bg-[var(--card)] border border-[var(--border)] rounded-3xl p-6">
           <h2 className="font-serif-display text-xl text-[var(--fg)] mb-1">🔥 Community SNS flags</h2>

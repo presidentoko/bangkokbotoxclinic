@@ -150,6 +150,26 @@ export default async function KoHomePage() {
           </div>
         </section>
 
+        {/* SNS 체크 프로모 */}
+        <section className="mt-10 mb-10">
+          <a
+            href="/famous-vs-good"
+            className="group block bg-orange-50 border-2 border-orange-200 rounded-2xl p-6 hover:border-orange-400 hover:shadow-md transition"
+          >
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-orange-600 mb-2">SNS 체크 ↗</div>
+                <h2 className="text-xl font-black tracking-tight mb-2">인스타 유명 vs 실제로 맛있는 곳</h2>
+                <p className="text-sm text-[var(--muted)] leading-relaxed max-w-xl">
+                  방콕에서 인스타에 많이 뜨는 카페·식당들을 실제 Google 리뷰 신뢰도 점수와 교차검증했어요.
+                  인스타 팔로워 많다고 맛있는 게 아닐 수 있습니다.
+                </p>
+              </div>
+              <span className="text-3xl group-hover:scale-110 transition-transform">📊</span>
+            </div>
+          </a>
+        </section>
+
         {/* 카테고리 탐색 */}
         <section className="mt-12 mb-10">
           <h2 className="text-xl font-bold mb-4">방콕 맛집 카테고리</h2>
