@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { EmailSignup } from "@/components/EmailSignup";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -86,6 +87,10 @@ export default async function BestForPage(
               ))}
             </div>
           </section>
+
+          <div className="mt-10">
+            <EmailSignup variant="inline" />
+          </div>
 
           <section className="mt-12">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
