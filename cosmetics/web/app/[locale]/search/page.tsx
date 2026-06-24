@@ -85,7 +85,7 @@ export default async function SearchPage({
             </p>
             <p className="text-sm font-semibold text-[#2b2222] truncate">{pickedProduct.name}</p>
             <p className="text-xs text-rose-600 mt-0.5">
-              {isTh ? "แตะ "เทียบกับนี้" บนสินค้าอื่นเพื่อเปรียบเทียบ" : "Tap "vs this" on another product to compare"}
+              {isTh ? "แตะ เทียบกับนี้ บนสินค้าอื่นเพื่อเปรียบเทียบ" : 'Tap "vs this" on another product to compare'}
             </p>
           </div>
           <Link
