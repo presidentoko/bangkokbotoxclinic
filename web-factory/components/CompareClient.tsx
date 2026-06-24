@@ -107,7 +107,7 @@ export function CompareClient() {
   const { copy, copied } = useCopyShareLink(rows.map((r) => r.id));
 
   const emailHref = (() => {
-    const shareUrl = `${typeof window !== "undefined" ? window.location.origin : "https://thaisupplyhub.com"}/compare?ids=${rows.map((r) => r.id).join(",")}`;
+    const shareUrl = `https://thaisupplyhub.com/compare?ids=${rows.map((r) => r.id).join(",")}`;
     const subject = encodeURIComponent(`Thai Supplier Comparison — ${rows.map((r) => r.name).join(" vs ")}`);
     const body = encodeURIComponent(
       `Hi,\n\nI compared these Thai suppliers on Thai Supply Hub:\n\n` +

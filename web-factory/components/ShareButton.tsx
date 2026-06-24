@@ -9,17 +9,15 @@ interface Props {
   variant?: "full" | "compact";
 }
 
+const SITE = "https://thaisupplyhub.com";
+
 export function ShareButton({ url, title, variant = "full" }: Props) {
   const [copied, setCopied] = useState(false);
 
-  const abs = typeof window !== "undefined"
-    ? (url.startsWith("http") ? url : `${window.location.origin}${url}`)
-    : url;
+  const abs = url.startsWith("http") ? url : `${SITE}${url}`;
 
   function copyLink() {
-    const target = typeof window !== "undefined"
-      ? (url.startsWith("http") ? url : `${window.location.origin}${url}`)
-      : url;
+    const target = abs;
     navigator.clipboard.writeText(target).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
