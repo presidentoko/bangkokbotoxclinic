@@ -4,6 +4,7 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { BEST_FOR } from "@/lib/bestFor";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
@@ -145,6 +146,21 @@ export default async function GuidePage(
           </div>
         </section>
       )}
+
+      <section className="mt-12 border-t border-[var(--border)] pt-8">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-4">Browse by category</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {BEST_FOR.slice(0, 6).map((b) => (
+            <a
+              key={b.slug}
+              href={`/best/${b.slug}`}
+              className="text-sm px-3 py-2 border border-[var(--border)] rounded-lg bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition truncate"
+            >
+              {b.title.replace(/^(Best Bangkok |Bangkok's Top |Most |Bangkok )/i, "")}
+            </a>
+          ))}
+        </div>
+      </section>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
