@@ -6,6 +6,7 @@ import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 import { BottomNav } from "@/components/BottomNav";
 import { LangSwitcher } from "@/components/LangSwitcher";
+import { ClientFooter } from "@/components/ClientFooter";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -96,31 +97,7 @@ export default function RootLayout({
         </header>
         <main className="pb-14 sm:pb-0">{children}</main>
         <BottomNav />
-        <footer className="border-t border-[var(--border)] mt-16 bg-[var(--card)]">
-          <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
-            <p className="font-serif-display text-xl text-[var(--fg)] mb-1">
-              No filter. Just numbers.
-            </p>
-            <p className="text-xs text-[var(--muted)] mb-5 max-w-xl">
-              Your feed is a paid ad pretending to be a friend's opinion. We ended it with data.{" "}
-              <a href="/famous-vs-good" className="text-[var(--accent)] hover:underline font-medium">
-                See the SNS lie detector →
-              </a>
-            </p>
-            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
-              <a href="/famous-vs-good" className="hover:text-[var(--fg)] font-medium">SNS Check</a>
-              <a href="/about" className="hover:text-[var(--fg)]">About</a>
-              <a href="/contact" className="hover:text-[var(--fg)]">Contact</a>
-              <a href="/for-restaurants" className="hover:text-[var(--fg)]">For Restaurants</a>
-              <a href="/sitemap.xml" className="hover:text-[var(--fg)]">Sitemap</a>
-              <a href="/llms.txt" className="hover:text-[var(--fg)]">llms.txt</a>
-            </div>
-            <p className="text-xs leading-relaxed max-w-2xl">
-              Independent restaurant data analysis. Not affiliated with any restaurant. Rankings derived from public Google Maps review data — no human curation, no editorial intervention. Sponsored slots are clearly labelled and never displace organic results.
-            </p>
-            <p className="text-xs mt-3">© {new Date().getFullYear()} {cfg.brand} · No filter. Just numbers.</p>
-          </div>
-        </footer>
+        <ClientFooter brand={cfg.brand} year={new Date().getFullYear()} />
         <Analytics />
         <SpeedInsights />
       </body>

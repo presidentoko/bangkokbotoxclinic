@@ -1,15 +1,18 @@
 "use client";
 import { usePathname } from "next/navigation";
+import { useLocale } from "@/hooks/useLocale";
+import { strings, tr } from "@/lib/strings";
 
 const ITEMS = [
-  { href: "/", icon: "🏠", label: "홈" },
-  { href: "/famous-vs-good", icon: "📊", label: "SNS체크" },
-  { href: "/c/thai", icon: "🍜", label: "탐색" },
-  { href: "/guide", icon: "📖", label: "가이드" },
+  { href: "/",               key: "home"     as const, icon: "🏠" },
+  { href: "/famous-vs-good", key: "snsCheck" as const, icon: "📊" },
+  { href: "/c/thai",         key: "explore"  as const, icon: "🍜" },
+  { href: "/guide",          key: "guide"    as const, icon: "📖" },
 ];
 
 export function BottomNav() {
   const path = usePathname();
+  const locale = useLocale();
 
   function isActive(href: string) {
     if (href === "/") return path === "/" || path === "/ko" || path === "/th";
@@ -24,13 +27,11 @@ export function BottomNav() {
             key={item.href}
             href={item.href}
             className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition ${
-              isActive(item.href)
-                ? "text-[var(--accent)]"
-                : "text-[var(--muted)]"
+              isActive(item.href) ? "text-[var(--accent)]" : "text-[var(--muted)]"
             }`}
           >
             <span className="text-xl leading-none">{item.icon}</span>
-            <span className="text-[10px] font-medium">{item.label}</span>
+            <span className="text-[10px] font-medium">{tr(strings.bottomNav[item.key], locale)}</span>
           </a>
         ))}
       </div>
