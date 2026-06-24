@@ -27,6 +27,7 @@ import { ShareButton } from "@/components/ShareButton";
 import { ViewTracker } from "@/components/ViewTracker";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { CopySupplierInfo } from "@/components/CopySupplierInfo";
+import { SupplierActionBar } from "@/components/SupplierActionBar";
 import type { Metadata } from "next";
 
 // Static export 호환: dynamicParams=false 필수. 모든 supplier 를 prebuild —
@@ -294,6 +295,15 @@ export default async function SupplierPage(
 
   return (
     <article className="bg-stone-50">
+      {/* Sticky top action bar — appears after scrolling past hero */}
+      <SupplierActionBar
+        id={r.id}
+        name={r.name}
+        cityLabel={r.city_label}
+        phone={r.phone}
+        mapsUrl={r.maps_url}
+        website={r.website}
+      />
       {/* Track this page view for "Recently viewed" feature */}
       <ViewTracker
         id={r.id}
