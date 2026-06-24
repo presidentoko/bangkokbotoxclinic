@@ -12,6 +12,7 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
 import { loadIgSeed } from "@/lib/famous-vs-good";
 import { ShareButton, WhatsAppShare } from "@/components/ShareButton";
+import { EmailSignup } from "@/components/EmailSignup";
 
 export const dynamic = "force-static";
 
@@ -365,6 +366,7 @@ export default async function RestaurantPage(
             )}
           </div>
 
+          <EmailSignup variant="inline" />
           <AffiliateInline category={r.cuisines[0]} district={r.district} />
           <AdSlot slot="restaurant-sidebar" />
 

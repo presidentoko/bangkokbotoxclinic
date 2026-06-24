@@ -13,6 +13,7 @@ import { ResetPrefsButton } from "@/components/ResetPrefsButton";
 import { OnboardingTrigger } from "@/components/OnboardingTrigger";
 import { PersonalizedSection } from "@/components/PersonalizedSection";
 import { BEST_FOR } from "@/lib/bestFor";
+import { EmailSignup } from "@/components/EmailSignup";
 
 export const dynamic = "force-static";
 
@@ -361,6 +362,10 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        <div className="mb-12">
+          <EmailSignup variant="inline" />
+        </div>
 
         <AdSlot slot="home-mid" />
 
