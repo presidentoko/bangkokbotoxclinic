@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { POSTS, findPost, renderBody, inlineMd } from "@/lib/posts";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
@@ -88,8 +89,15 @@ export default async function BlogPostPage(
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-balance leading-[1.1]">
             {p.title}
           </h1>
-          <div className="text-sm text-[var(--muted)]">
-            <time dateTime={p.published}>{p.published}</time>
+          <div className="flex items-center justify-between gap-4 flex-wrap mt-3">
+            <div className="text-sm text-[var(--muted)]">
+              <time dateTime={p.published}>{p.published}</time>
+            </div>
+            <ShareButton
+              url={`/blog/${slug}`}
+              title={`${p.title} — Thai Supply Hub`}
+              variant="compact"
+            />
           </div>
         </header>
 
