@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { loadClinics, getClinicBySlug } from "@/lib/data";
 import { SITE, SUPPORTED_LANGS, t } from "@/lib/i18n";
@@ -135,13 +136,15 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
             {/* Big photo with overlay */}
             <div className="relative aspect-[21/9] w-full bg-navy-900">
               {c.top_photo_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={c.top_photo_url}
                   alt={c.name}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
                   loading="eager"
+                  priority
                   referrerPolicy="no-referrer"
+                  sizes="100vw"
                 />
               ) : (
                 <div className="h-full w-full bg-gradient-to-br from-navy-800 to-navy-950" />

@@ -1,6 +1,7 @@
 import type { Lang, Clinic } from "@/lib/types";
 import { SITE } from "@/lib/i18n";
 import Link from "next/link";
+import Image from "next/image";
 import LiveTicker from "./LiveTicker";
 
 const SUB: Record<Lang, string> = {
@@ -110,25 +111,41 @@ export default function Hero({
           <div className="relative aspect-[5/6] w-full">
             {/* Large back card */}
             {photos[0] && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={photos[0].top_photo_url || ""} alt={photos[0].name}
+              <Image
+                src={photos[0].top_photo_url || ""}
+                alt={photos[0].name}
+                width={600}
+                height={480}
                 className="absolute right-4 top-0 h-[60%] w-[70%] rounded-2xl object-cover shadow-premium-lg ring-1 ring-white/10"
-                referrerPolicy="no-referrer" loading="eager" />
+                referrerPolicy="no-referrer"
+                loading="eager"
+                priority
+              />
             )}
             {/* Front mid card */}
             {photos[1] && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={photos[1].top_photo_url || ""} alt={photos[1].name}
+              <Image
+                src={photos[1].top_photo_url || ""}
+                alt={photos[1].name}
+                width={400}
+                height={360}
                 className="absolute left-0 top-[35%] h-[45%] w-[55%] rounded-2xl object-cover shadow-premium-lg ring-1 ring-white/10 animate-float"
                 style={{ animationDelay: "-2s" }}
-                referrerPolicy="no-referrer" loading="eager" />
+                referrerPolicy="no-referrer"
+                loading="eager"
+              />
             )}
             {/* Small thumb */}
             {photos[2] && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={photos[2].top_photo_url || ""} alt={photos[2].name}
+              <Image
+                src={photos[2].top_photo_url || ""}
+                alt={photos[2].name}
+                width={320}
+                height={240}
                 className="absolute bottom-0 right-0 h-[30%] w-[40%] rounded-2xl object-cover shadow-premium ring-1 ring-white/10"
-                referrerPolicy="no-referrer" loading="eager" />
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
             )}
 
             {/* Floating stat card */}
@@ -158,9 +175,16 @@ export default function Hero({
         {/* Mobile photo strip */}
         <div className="-mx-2 flex gap-2 overflow-x-auto pb-2 lg:hidden">
           {photos.map((p, i) => p.top_photo_url && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={i} src={p.top_photo_url} alt={p.name} loading="lazy" referrerPolicy="no-referrer"
-              className="h-24 w-32 shrink-0 rounded-xl object-cover ring-1 ring-white/10" />
+            <Image
+              key={i}
+              src={p.top_photo_url}
+              alt={p.name}
+              width={128}
+              height={96}
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              className="h-24 w-32 shrink-0 rounded-xl object-cover ring-1 ring-white/10"
+            />
           ))}
         </div>
       </div>

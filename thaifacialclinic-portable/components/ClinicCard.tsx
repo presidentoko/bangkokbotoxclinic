@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import type { Clinic, Lang } from "@/lib/types";
 import TrustScoreRing from "./TrustScoreRing";
 import { showAffiliateLink, isPaidPartner } from "@/lib/partnerCheck";
@@ -17,13 +18,14 @@ export default function ClinicCard({ c, lang }: { c: Clinic; lang: Lang }) {
       {/* Photo area */}
       <Link href={`/${lang}/clinic/${c.slug}/`} className="relative block aspect-[16/10] w-full overflow-hidden bg-navy-900">
         {c.top_photo_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={c.top_photo_url}
             alt={c.name}
+            fill
             loading="lazy"
             referrerPolicy="no-referrer"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="grid h-full w-full place-items-center bg-gradient-to-br from-navy-800 to-navy-950">
