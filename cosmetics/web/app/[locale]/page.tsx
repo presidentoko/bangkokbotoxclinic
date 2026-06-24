@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { getActiveByType } from "@/lib/ads";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { orgLd, websiteLd, faqLd } from "@/lib/schema";
+import { HomeSearchBar } from "@/components/HomeSearchBar";
 
 const BASE = "https://bangkokfillers.com";
 
@@ -148,6 +149,8 @@ export default async function Home({
             { label: "Retinol", slug: "retinol" },
             { label: "Hyaluronic Acid", slug: "hyaluronic-acid" },
             { label: "Vitamin C", slug: "ascorbic-acid" },
+            { label: "Ceramide", slug: "ceramide-np" },
+            { label: "AHA", slug: "glycolic-acid" },
           ].map(({ label, slug }) => (
             <Link
               key={slug}
@@ -159,6 +162,9 @@ export default async function Home({
           ))}
         </div>
       </section>
+
+      {/* Search bar */}
+      <HomeSearchBar locale={locale} />
 
       {/* Quiz CTA */}
       <section>
@@ -205,14 +211,32 @@ export default async function Home({
                 <div className="font-serif-display text-base sm:text-lg font-semibold text-[#2b2222] group-hover:text-rose-500 transition-colors break-words leading-snug">
                   {concernLabel(locale, c)}
                 </div>
-                <div className={`mt-1.5 text-xs font-semibold ${cfg.color}`}>
-                  {count.toLocaleString()} {t(locale, "product")}
+                <div className="mt-1.5 flex items-center gap-1.5">
+                  <span className={`text-xs font-bold tabular-nums ${cfg.color}`}>{count.toLocaleString()}</span>
+                  <span className="text-[10px] text-neutral-400">{t(locale, "product")}</span>
                 </div>
               </Link>
             );
           })}
         </div>
       </section>
+
+      {/* Compare quick-entry */}
+      <Link
+        href={`/${locale}/search`}
+        className="flex items-center gap-3 rounded-2xl border border-[#efe1db] bg-white px-4 py-3.5 hover:border-rose-300 hover:shadow-sm hover:shadow-rose-100 transition-all group"
+      >
+        <span className="text-2xl" aria-hidden="true">⚖️</span>
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-[#2b2222] group-hover:text-rose-600 transition-colors">
+            {isTh ? "เปรียบเทียบสินค้า" : "Compare products side by side"}
+          </p>
+          <p className="text-xs text-[#8a7a76]">
+            {isTh ? "ค้นหาแล้วกด Compare เพื่อเปรียบเทียบ" : "Search, then tap Compare on any product"}
+          </p>
+        </div>
+        <span className="text-[#8a7a76] group-hover:text-rose-500 transition-colors">→</span>
+      </Link>
 
       {/* Sponsored: Homepage Featured */}
       {featuredProduct && (
