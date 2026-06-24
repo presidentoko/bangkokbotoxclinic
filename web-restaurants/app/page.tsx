@@ -34,10 +34,10 @@ export default async function HomePage() {
   const cuisines = Object.entries(db.cuisine_counts);
 
   const popularSearches = [
-    { label: "☕ Café hype", href: "/famous-vs-good/bangkok-cafes" },
-    { label: "📍 Thonglor", href: "/d/thonglor" },
-    { label: "🍜 Noodles", href: "/c/noodles" },
-    { label: "⭐ Best ranked", href: "/best/highly-recommended" },
+    { label: "☕ Café hype check", href: "/famous-vs-good/bangkok-cafes" },
+    { label: "🍜 Street food", href: "/best/street-food" },
+    { label: "💑 Date night", href: "/best/date-night" },
+    { label: "💎 Hidden gems", href: "/best/hidden-gems" },
   ];
 
   const searchIndex = db.restaurants.map((r) => ({
@@ -318,9 +318,12 @@ export default async function HomePage() {
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">Best of Bangkok</h2>
               <p className="text-sm text-[var(--muted)] mt-1">Curated lists ranked by Trust Score, not follower count.</p>
             </div>
+            <a href="/best/highly-recommended" className="text-sm text-[var(--accent)] hover:underline font-medium">
+              See all →
+            </a>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {BEST_FOR.slice(0, 8).map((b) => (
+            {BEST_FOR.slice(0, 12).map((b) => (
               <a
                 key={b.slug}
                 href={`/best/${b.slug}`}
