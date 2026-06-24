@@ -28,6 +28,13 @@ export async function generateMetadata(
       description: g.metaDescription,
       publishedTime: g.updated,
       modifiedTime: g.updated,
+      siteName: "SNS Stopper",
+      url: `/guide/${slug}`,
+    },
+    twitter: {
+      card: "summary",
+      title: g.metaTitle,
+      description: g.metaDescription,
     },
   };
 }
