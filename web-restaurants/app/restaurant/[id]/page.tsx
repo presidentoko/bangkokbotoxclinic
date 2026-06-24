@@ -10,17 +10,14 @@ import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/c
 import { sponsoredTier } from "@/lib/sponsored";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
+import { loadIgSeed } from "@/lib/famous-vs-good";
+import { ShareButton, WhatsAppShare } from "@/components/ShareButton";
 
-// 비용 최소화: top 100 식당만 pre-build, 나머지 on-demand + 7일 캐시.
-export const revalidate = 604800;
-export const dynamicParams = true;
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  const ranked = [...db.restaurants].sort((a, b) =>
-    (b.total_reviews || 0) - (a.total_reviews || 0)
-  );
-  return ranked.slice(0, 100).map((r) => ({ id: r.id }));
+  return db.restaurants.map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(
@@ -31,17 +28,23 @@ export async function generateMetadata(
   const r = getRestaurantById(db.restaurants, id);
   if (!r) return { title: "Restaurant not found" };
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
-  const title = `${r.name} — Reviews & Trust Score`;
-  const description = `${r.name} in ${r.district || r.city_label || "Bangkok"}: ★${r.rating} (${r.total_reviews} reviews). Trust Score ${r.trust_score}. ${cuisines || "Restaurant"}.`;
+  const title = `${r.name} — Trust Score ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)} (${r.total_reviews.toLocaleString()} reviews)`;
+  const description = `${r.name} in ${r.district || r.city_label || "Bangkok"} — Trust Score ${r.trust_score.toFixed(0)}/100 from ${r.total_reviews.toLocaleString()} verified Google reviews. ${cuisines ? `Serves ${cuisines}.` : ""} No influencer bias, just real data.`;
   return {
     title,
     description,
     alternates: { canonical: `/restaurant/${id}` },
     openGraph: {
-      title,
+      title: `${r.name} — Trust Score ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)}`,
       description,
       url: `/restaurant/${id}`,
       type: "article",
+      siteName: "SNS Stopper",
+    },
+    twitter: {
+      card: "summary",
+      title: `${r.name} · Trust ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)}`,
+      description,
     },
   };
 }
@@ -87,6 +90,10 @@ export default async function RestaurantPage(
       (other.district === r.district || r.cuisines.some((c) => other.cuisines.includes(c))))
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 4);
+
+  // Check if restaurant appears in famous-vs-good seed
+  const igSeeds = await loadIgSeed();
+  const seedMatch = igSeeds.find((s) => s.place_id === r.place_id);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -151,6 +158,8 @@ export default async function RestaurantPage(
             <RelativeRanking percentile={percentile} label={rankingLabel} />
           )}
           <Freshness generatedAt={db.generated_at} mode="detail" />
+          <ShareButton name={r.name} rating={r.rating} trustScore={r.trust_score} url={`/restaurant/${r.id}`} />
+          <WhatsAppShare name={r.name} url={`/restaurant/${r.id}`} />
         </div>
 
         {r.cuisines.length > 0 && (
@@ -185,6 +194,83 @@ export default async function RestaurantPage(
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <TrustDonut score={r.trust_score} breakdown={breakdown} />
+
+          {/* MOVE 3 — Feed says vs Data says */}
+          {seedMatch && seedMatch.ig_signal ? (
+            <div className="border border-[var(--border)] rounded-2xl overflow-hidden">
+              <div className="grid sm:grid-cols-[1fr_auto_1fr]">
+                <div className="p-4 space-y-2">
+                  <div className="text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)]">
+                    What the feed says
+                  </div>
+                  <div className="flex items-center gap-2 bg-pink-50 text-pink-800 px-2.5 py-2 rounded-xl text-sm font-medium">
+                    <span aria-hidden>📸</span>
+                    {seedMatch.ig_signal}
+                  </div>
+                  {seedMatch.tag_count !== null && (
+                    <p className="text-xs text-[var(--muted)] pl-1">
+                      {seedMatch.tag_count.toLocaleString()} tagged posts
+                    </p>
+                  )}
+                </div>
+                <div className="hidden sm:flex flex-col items-center justify-center px-2 py-4">
+                  <div className="w-px flex-1 bg-[var(--border)]" />
+                  <span className="my-2 text-xs font-bold px-2 py-1 rounded-full border border-orange-400 text-orange-600">vs</span>
+                  <div className="w-px flex-1 bg-[var(--border)]" />
+                </div>
+                <div className="p-4 space-y-2 border-t sm:border-t-0 border-[var(--border)]">
+                  <div className="text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)]">
+                    What the data says
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span
+                      className="text-3xl font-black tabular-nums leading-none"
+                      style={{ color: r.trust_score >= 85 ? "#16a34a" : r.trust_score >= 75 ? "#ca8a04" : r.trust_score >= 60 ? "#ea580c" : "#dc2626" }}
+                    >
+                      {Math.round(r.trust_score)}
+                    </span>
+                    <span className="text-xs text-[var(--muted)] font-medium">Trust Score</span>
+                  </div>
+                  <div className="space-y-0.5 text-xs text-[var(--muted)]">
+                    <p><span className="font-semibold text-[var(--fg)]">{r.total_reviews.toLocaleString()}</span> Google reviews</p>
+                    <p>★ <span className="font-semibold text-[var(--fg)]">{r.rating.toFixed(1)}</span> avg rating</p>
+                    {r.scraped_review_count > 0 && (
+                      <p><span className="font-semibold text-[var(--fg)]">{Math.round((r.local_guide_count / r.scraped_review_count) * 100)}%</span> Local Guide reviewers</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="px-4 py-3 border-t border-[var(--border)] bg-[var(--bg)] text-xs text-[var(--muted)]">
+                No filter. Just numbers. —{" "}
+                <a href={`/famous-vs-good/${seedMatch.category}`} className="text-orange-600 font-semibold hover:underline">
+                  See this venue in the full ranking →
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="border border-[var(--border)] rounded-2xl p-4 space-y-3">
+              <div className="text-[10px] font-semibold uppercase tracking-widest text-[var(--muted)]">
+                What the reviews actually say
+              </div>
+              <div className="grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <div className="text-2xl font-black tabular-nums" style={{ color: r.trust_score >= 75 ? "#16a34a" : "#ca8a04" }}>
+                    {Math.round(r.trust_score)}
+                  </div>
+                  <div className="text-xs text-[var(--muted)] mt-0.5">Trust Score</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-black tabular-nums">{r.rating.toFixed(1)}</div>
+                  <div className="text-xs text-[var(--muted)] mt-0.5">Avg rating</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-black tabular-nums">{r.total_reviews >= 1000 ? `${(r.total_reviews / 1000).toFixed(1)}k` : r.total_reviews}</div>
+                  <div className="text-xs text-[var(--muted)] mt-0.5">Reviews</div>
+                </div>
+              </div>
+              <p className="text-xs text-[var(--muted)]">Derived from public Google Maps data. No editorial intervention.</p>
+            </div>
+          )}
 
           <RatingChart trend={r.rating_trend} />
 
@@ -307,6 +393,17 @@ export default async function RestaurantPage(
                   </a>
                 ))}
               </div>
+            </div>
+          )}
+          {seedMatch && (
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
+              <p className="text-xs font-semibold text-orange-800 mb-1">In the SNS ranking</p>
+              <a
+                href={`/famous-vs-good/${seedMatch.category}`}
+                className="block text-center text-xs font-bold bg-[#ea580c] text-white px-3 py-2 rounded-lg hover:opacity-90 transition"
+              >
+                See feed vs data →
+              </a>
             </div>
           )}
         </aside>

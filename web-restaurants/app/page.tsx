@@ -12,6 +12,7 @@ import { ExposeStat } from "@/components/ExposeStat";
 import { ResetPrefsButton } from "@/components/ResetPrefsButton";
 import { OnboardingTrigger } from "@/components/OnboardingTrigger";
 import { PersonalizedSection } from "@/components/PersonalizedSection";
+import { BEST_FOR } from "@/lib/bestFor";
 
 export const dynamic = "force-static";
 
@@ -67,17 +68,17 @@ export default async function HomePage() {
         <div className="max-w-3xl mx-auto px-4 pt-16 md:pt-24 pb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--card)] text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-8">
             <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-            {totalReviews.toLocaleString()}개 실제 리뷰 기반
+            {totalReviews.toLocaleString()}+ real reviews analyzed
           </div>
           <h1 className="font-serif-display text-5xl md:text-7xl text-[var(--fg)] leading-tight mb-6">
-            방콕 맛집,<br />
-            인플루언서 말고<br />
-            <span className="text-[var(--accent)]">데이터로</span> 찾으세요.
+            Bangkok Restaurants.<br />
+            Skip the Influencer Feed.<br />
+            <span className="text-[var(--accent)]">Find Them With Data.</span>
           </h1>
           <p className="text-base text-[var(--muted)] mb-10 max-w-xl mx-auto">
-            광고비 한 푼 없는 Trust Score로{" "}
-            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()}곳</span>{" "}
-            랭킹. 인플루언서 피드 말고 130만 명의 실제 후기.
+            Trust Score ranks{" "}
+            <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()} restaurants</span>{" "}
+            by real Google reviews — zero paid placements, zero influencer bias.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <ResetPrefsButton />
@@ -85,7 +86,7 @@ export default async function HomePage() {
               href="#top-list"
               className="px-8 py-3.5 rounded-2xl border-2 border-[var(--border)] text-[var(--fg)] font-bold text-base hover:border-[var(--accent)] transition"
             >
-              전체 랭킹 보기
+              See full ranking →
             </a>
           </div>
         </div>
@@ -94,9 +95,9 @@ export default async function HomePage() {
       {/* STATS BAR */}
       <section className="border-b border-[var(--border)] bg-[var(--card)]">
         <div className="max-w-5xl mx-auto px-4 py-5 grid grid-cols-3 gap-4 text-center">
-          <Stat big={db.total_restaurants.toLocaleString()} label="맛집 추적 중" />
-          <Stat big={`${(totalReviews / 1_000_000).toFixed(1)}M`} label="리뷰 교차검증" />
-          <Stat big={withScraped.toLocaleString()} label="심층 분석 완료" />
+          <Stat big={db.total_restaurants.toLocaleString()} label="Restaurants tracked" />
+          <Stat big={`${(totalReviews / 1_000_000).toFixed(1)}M`} label="Reviews cross-checked" />
+          <Stat big={withScraped.toLocaleString()} label="Deep analysis done" />
         </div>
       </section>
 
@@ -118,10 +119,10 @@ export default async function HomePage() {
 
         {/* COMMUNITY ACTIVITY */}
         <section className="mb-12 bg-[var(--card)] border border-[var(--border)] rounded-3xl p-6">
-          <h2 className="font-serif-display text-xl text-[var(--fg)] mb-1">🔥 요즘 핫한 신고</h2>
-          <p className="text-xs text-[var(--muted)] mb-4">커뮤니티가 과대광고 의심 중인 곳들</p>
+          <h2 className="font-serif-display text-xl text-[var(--fg)] mb-1">🔥 Community SNS flags</h2>
+          <p className="text-xs text-[var(--muted)] mb-4">Places the community suspects of overhype</p>
           <p className="text-sm text-[var(--muted)]">
-            아직 신고 데이터가 쌓이는 중이에요. 카드에서 🚩 눌러서 참여해주세요!
+            Flag data is accumulating. Hit 🚩 on any restaurant card to report suspected SNS inflation.
           </p>
         </section>
 
@@ -283,6 +284,29 @@ export default async function HomePage() {
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-[var(--card)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* BEST OF BANGKOK — discovery grid */}
+        <section className="mb-12">
+          <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight">Best of Bangkok</h2>
+              <p className="text-sm text-[var(--muted)] mt-1">Curated lists ranked by Trust Score, not follower count.</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {BEST_FOR.slice(0, 8).map((b) => (
+              <a
+                key={b.slug}
+                href={`/best/${b.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-xl p-4 hover:border-[var(--accent)] hover:shadow-md transition"
+              >
+                <div className="font-semibold text-sm leading-tight group-hover:text-[var(--accent)] transition line-clamp-2">
+                  {b.title.replace(/^(Best Bangkok |Bangkok's Top |Most |Bangkok )/i, "")}
+                </div>
               </a>
             ))}
           </div>

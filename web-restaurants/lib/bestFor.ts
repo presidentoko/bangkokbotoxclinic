@@ -125,6 +125,136 @@ export const BEST_FOR: Criterion[] = [
       topicHits(r, "tasty") * 5 + topicHits(r, "authentic") * 5 + r.trust_score,
     filterFn: (r) => topicHits(r, "tasty") >= 1 || topicHits(r, "authentic") >= 1,
   },
+  {
+    slug: "date-night",
+    title: "Best Bangkok Restaurants for a Date Night",
+    metaTitle: "Best Date Night Restaurants in Bangkok (2026)",
+    metaDescription:
+      "Romantic Bangkok restaurants for couples — candlelit dinners, great ambience, and verified quality from real Google reviews.",
+    intro:
+      "Bangkok restaurants reviewers describe as romantic, great for couples, or perfect for a special occasion. Ranked by ambience mentions and Trust Score.",
+    scoreFn: (r) =>
+      topicHits(r, "romantic") * 12 +
+      topicHits(r, "good_atmosphere") * 6 +
+      topicHits(r, "good_view") * 5 +
+      r.trust_score,
+    filterFn: (r) =>
+      topicHits(r, "romantic") >= 1 ||
+      topicHits(r, "good_atmosphere") >= 2 ||
+      r.cuisines.includes("fine_dining"),
+  },
+  {
+    slug: "outdoor-seating",
+    title: "Bangkok Restaurants with Outdoor Seating",
+    metaTitle: "Best Bangkok Restaurants with Outdoor Seating (2026)",
+    metaDescription:
+      "Bangkok restaurants with verified outdoor seating, garden areas, or alfresco dining. Ranked by reviewer mentions.",
+    intro:
+      "Bangkok restaurants with outdoor seating — garden terraces, rooftop decks, or alfresco areas. Reviewers mention outdoor experience most.",
+    scoreFn: (r) =>
+      topicHits(r, "outdoor_seating") * 12 +
+      topicHits(r, "good_view") * 4 +
+      r.trust_score,
+    filterFn: (r) => topicHits(r, "outdoor_seating") >= 1,
+  },
+  {
+    slug: "quick-lunch",
+    title: "Best Quick Lunch Spots in Bangkok",
+    metaTitle: "Best Quick Lunch Restaurants in Bangkok (2026)",
+    metaDescription:
+      "Bangkok restaurants for a fast, quality lunch — quick service praised in reviews. Great for workers and tourists.",
+    intro:
+      "Bangkok restaurants reviewers praise for fast service and quick lunch — ideal for business lunches and midday breaks.",
+    scoreFn: (r) =>
+      topicHits(r, "fast_service") * 10 +
+      topicHits(r, "affordable") * 4 +
+      r.trust_score,
+    filterFn: (r) => topicHits(r, "fast_service") >= 1,
+  },
+  {
+    slug: "late-night",
+    title: "Best Late Night Restaurants in Bangkok",
+    metaTitle: "Best Late Night Food in Bangkok (2026) — Open Late",
+    metaDescription:
+      "Bangkok restaurants open late, verified from real reviews. From street-food-style to upscale late-night dining.",
+    intro:
+      "Bangkok restaurants open after 10pm — verified by reviewer mentions of late hours, night crowd, or after-midnight dining.",
+    scoreFn: (r) =>
+      topicHits(r, "open_late") * 15 +
+      r.trust_score,
+    filterFn: (r) => topicHits(r, "open_late") >= 1,
+  },
+  {
+    slug: "hidden-gems",
+    title: "Bangkok Hidden Gem Restaurants",
+    metaTitle: "Bangkok Hidden Gem Restaurants — High Trust, Lower Profile",
+    metaDescription:
+      "Bangkok restaurants with high Trust Scores but fewer reviews — the real hidden gems not yet overrun by influencers.",
+    intro:
+      "High Trust Score restaurants with fewer than 500 reviews — the authentic spots influencers haven't discovered yet. Ranked by Trust Score.",
+    scoreFn: (r) => r.trust_score * 2 - (r.total_reviews / 100),
+    filterFn: (r) => r.trust_score >= 70 && r.total_reviews < 500 && r.total_reviews >= 30,
+  },
+  {
+    slug: "authentic-thai",
+    title: "Most Authentic Thai Restaurants in Bangkok",
+    metaTitle: "Most Authentic Thai Restaurants in Bangkok (2026)",
+    metaDescription:
+      "Bangkok Thai restaurants rated highest for authenticity in real Google reviews — not tourist traps.",
+    intro:
+      "Bangkok Thai restaurants where reviewers specifically praise authenticity and traditional recipes. Not the tourist-trap versions.",
+    scoreFn: (r) =>
+      topicHits(r, "authentic") * 10 +
+      (r.cuisines.includes("thai") ? 50 : 0) +
+      r.trust_score,
+    filterFn: (r) => r.cuisines.includes("thai") && topicHits(r, "authentic") >= 1,
+  },
+  {
+    slug: "best-coffee",
+    title: "Best Coffee Shops and Cafés in Bangkok",
+    metaTitle: "Best Cafés and Coffee Shops in Bangkok (2026)",
+    metaDescription:
+      "Bangkok cafés ranked by Trust Score — specialty coffee, matcha, and great ambience verified from real Google reviews.",
+    intro:
+      "Bangkok's top cafés and coffee shops ranked by Trust Score. Where reviewers consistently praise the coffee, ambience, and value.",
+    scoreFn: (r) =>
+      (r.cuisines.includes("cafe") ? 100 : 0) +
+      topicHits(r, "good_coffee") * 10 +
+      topicHits(r, "good_atmosphere") * 5 +
+      r.trust_score,
+    filterFn: (r) => r.cuisines.includes("cafe") || topicHits(r, "good_coffee") >= 2,
+  },
+  {
+    slug: "street-food",
+    title: "Best Street Food in Bangkok",
+    metaTitle: "Best Street Food Restaurants in Bangkok (2026)",
+    metaDescription:
+      "Bangkok street food ranked by real Google reviews — the best local spots from Yaowarat to Ari.",
+    intro:
+      "Bangkok street food and casual local eateries with the highest Trust Scores — where the real Bangkok eats.",
+    scoreFn: (r) =>
+      (r.cuisines.includes("street_food") ? 100 : 0) +
+      topicHits(r, "local_favorite") * 8 +
+      topicHits(r, "affordable") * 5 +
+      r.trust_score,
+    filterFn: (r) =>
+      r.cuisines.includes("street_food") ||
+      (topicHits(r, "local_favorite") >= 2 && r.trust_score >= 60),
+  },
+  {
+    slug: "rooftop",
+    title: "Best Rooftop Restaurants and Bars in Bangkok",
+    metaTitle: "Best Rooftop Restaurants in Bangkok (2026) — Skyline Views",
+    metaDescription:
+      "Bangkok rooftop restaurants with skyline views — verified quality and views from real Google reviews.",
+    intro:
+      "Bangkok rooftop restaurants and sky bars with the best views — verified from reviewers who specifically mention rooftop, skyline, or city views.",
+    scoreFn: (r) =>
+      topicHits(r, "rooftop") * 20 +
+      topicHits(r, "good_view") * 10 +
+      r.trust_score,
+    filterFn: (r) => topicHits(r, "rooftop") >= 1 || topicHits(r, "good_view") >= 3,
+  },
 ];
 
 export function findBestFor(slug: string): Criterion | null {
