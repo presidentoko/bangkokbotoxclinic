@@ -27,6 +27,8 @@ export async function generateMetadata(
   const description = winner
     ? `${ca.name} (Trust ${ca.trust_score.toFixed(0)}) vs ${cb.name} (Trust ${cb.trust_score.toFixed(0)}). ${winner} leads in Trust Score. Independent review analysis.`
     : `${ca.name} vs ${cb.name} — Trust ${ca.trust_score.toFixed(0)} vs ${cb.trust_score.toFixed(0)}. Tied! Side-by-side review analysis to help you decide.`;
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
+  const ogImage = `${SITE}/api/og?type=compare&a=${encodeURIComponent(ca.name.slice(0, 40))}&b=${encodeURIComponent(cb.name.slice(0, 40))}&ta=${Math.round(ca.trust_score)}&tb=${Math.round(cb.trust_score)}`;
   return {
     title,
     description,
@@ -36,11 +38,13 @@ export async function generateMetadata(
       description,
       url: `/compare/${a}/${b}`,
       type: "article",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${ca.name} vs ${cb.name}` }],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [ogImage],
     },
   };
 }

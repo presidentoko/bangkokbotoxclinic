@@ -39,7 +39,14 @@ export async function generateMetadata(
       title: `${count} Best ${label} Clinics in Bangkok`,
       description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,
       url: `/c/${service}`,
+      images: [{
+        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com"}/api/og?title=${encodeURIComponent(`${count} Best ${label} Clinics in Bangkok`)}&sub=${encodeURIComponent(`${totalReviews.toLocaleString()} Google reviews analyzed · Trust Score ranking`)}&count=${count}`,
+        width: 1200,
+        height: 630,
+        alt: `${label} Clinics Bangkok`,
+      }],
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 
