@@ -1,4 +1,5 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
+import { BEST_FOR } from "@/lib/bestFor";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -136,6 +137,23 @@ export default async function ThHomePage() {
           <div className="grid gap-3 mt-3">
             {top.slice(10).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 11} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12 mb-10">
+          <h2 className="text-xl font-bold mb-4">หมวดหมู่ร้านอาหาร</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {BEST_FOR.slice(0, 8).map((b) => (
+              <a
+                key={b.slug}
+                href={`/best/${b.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-xl p-4 hover:border-[var(--accent)] hover:shadow-md transition"
+              >
+                <div className="font-semibold text-sm leading-tight group-hover:text-[var(--accent)] transition line-clamp-2">
+                  {b.title.replace(/Best Bangkok |Bangkok's Top |Most |Bangkok /gi, "").trim()}
+                </div>
+              </a>
             ))}
           </div>
         </section>
