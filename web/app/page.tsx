@@ -87,7 +87,20 @@ export default async function HomePage() {
   for (const c of focused) {
     for (const cat of c.categories) categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
   }
-  const categories = [...categoryMap.entries()].sort((a, b) => b[1] - a[1]);
+  // 사이트 focus와 무관한 카테고리 제거 (예: 치과 사이트에 보톡스/레이저, 보톡스 사이트에 치과/헤어)
+  const FOCUS_ALLOWED_CATS: Partial<Record<string, Set<string>>> = {
+    dental: new Set(["dental"]),
+    hair:   new Set(["hair_transplant"]),
+    botox:  new Set(["botox", "filler", "hifu", "facial", "laser"]),
+    filler: new Set(["botox", "filler", "hifu", "facial", "laser"]),
+    hifu:   new Set(["botox", "filler", "hifu", "facial", "laser"]),
+    facial: new Set(["botox", "filler", "hifu", "facial", "laser"]),
+    laser:  new Set(["botox", "filler", "hifu", "facial", "laser"]),
+  };
+  const allowedCats = FOCUS_ALLOWED_CATS[cfg.focus];
+  const categories = [...categoryMap.entries()]
+    .filter(([cat]) => !allowedCats || allowedCats.has(cat))
+    .sort((a, b) => b[1] - a[1]);
 
   const homeFaqs = cfg.focus !== "all" && CATEGORY_FAQS[cfg.focus]
     ? [...CATEGORY_FAQS[cfg.focus], ...HOME_FAQS]
@@ -547,8 +560,8 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* By Service */}
-        {categories.length > 0 && (
+        {/* By Service — 카테고리 2개 이상일 때만 (dental/hair 단일 focus 사이트는 섹션 숨김) */}
+        {categories.length > 1 && (
           <section className="mb-10">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By Service</h2>
             <div className="flex flex-wrap gap-2">

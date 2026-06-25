@@ -10,9 +10,21 @@ import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { GUIDES } from "@/lib/guides";
+import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
+
+// focus별 허용 서비스 — 다른 사이트 서비스 페이지 노출 방지
+const FOCUS_VALID: Partial<Record<string, Set<string>>> = {
+  dental: new Set(["dental"]),
+  hair:   new Set(["hair_transplant"]),
+  botox:  new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  filler: new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  hifu:   new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  facial: new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  laser:  new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+};
 
 export async function generateStaticParams() {
   return Array.from(VALID).map((service) => ({ service }));
@@ -55,6 +67,10 @@ export default async function ServicePage(
 ) {
   const { service } = await params;
   if (!VALID.has(service)) notFound();
+
+  const cfg = getSiteConfig();
+  const focusValid = FOCUS_VALID[cfg.focus];
+  if (focusValid && !focusValid.has(service)) notFound();
 
   const db = await loadMasterDb();
   const filtered = filterByCategory(db.clinics, service)
