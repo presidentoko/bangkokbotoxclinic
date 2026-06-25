@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
@@ -11,8 +12,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // Hydration-after 위젯들 — initial HTML 에서 제외. components/LazyWidgets.tsx 참고.
 import {
-  PersonalizationQuiz, SocialProofToasts, LiveChatBubble, CookieConsent,
-  MobileBottomNav, DealsAlert, ExitIntentPopup, WhatsAppCTA,
+  LiveChatBubble, CookieConsent,
+  MobileBottomNav, WhatsAppCTA,
   AccessibilityToolbar, ScrollToTopButton, ReadingProgressBar, NavSpacer,
 } from "@/components/LazyWidgets";
 
@@ -98,6 +99,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">{`
+              window.dataLayer=window.dataLayer||[];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js',new Date());
+              gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');
+            `}</Script>
+          </>
+        )}
         <OrgJsonLd />
         <WebsiteJsonLd />
         <ToastProvider>
@@ -154,13 +166,9 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
-        <PersonalizationQuiz />
-        <SocialProofToasts />
         <LiveChatBubble />
         <WhatsAppCTA />
         <MobileBottomNav />
-        <DealsAlert />
-        <ExitIntentPopup />
         <AccessibilityToolbar />
         <ScrollToTopButton />
         <ReadingProgressBar />

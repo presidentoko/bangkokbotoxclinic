@@ -444,27 +444,15 @@ export default async function HomePage() {
                     href={`/clinic/${c.id}`}
                     className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
                   >
-                    {/* Photo header — 있을 때만 (없으면 gradient fallback) */}
-                    <div
-                      className="relative h-32 w-full overflow-hidden"
-                      style={
-                        photo
-                          ? undefined
-                          : { background: `linear-gradient(135deg, ${accent}25, ${accent}10)` }
-                      }
-                    >
-                      {photo ? (
-                        <ClinicPhoto
+                    {/* Photo header — 실제 사진 있을 때만 표시 */}
+                    {photo ? (
+                    <div className="relative h-32 w-full overflow-hidden">
+                      <ClinicPhoto
                           src={photo.thumb}
                           alt={`${c.name} exterior`}
                           className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           placeholderIcon="🏥"
                         />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-5xl opacity-30">
-                          <CategoryIcon category={c.categories[0] ?? "facial"} size={48} />
-                        </div>
-                      )}
                       {/* Rank badge — top-left over photo */}
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-white text-xs font-black tabular-nums">
                         Rank #{i + 1}
@@ -477,6 +465,14 @@ export default async function HomePage() {
                         <span className="opacity-80 font-normal">Trust</span> {formatTrustScore(c.trust_score)}
                       </div>
                     </div>
+                    ) : (
+                    <div className="flex items-center justify-between px-3 pt-3">
+                      <span className="px-2 py-0.5 rounded-md bg-black/10 text-[var(--fg)] text-xs font-black tabular-nums">Rank #{i + 1}</span>
+                      <span className="px-2 py-0.5 rounded-md text-white text-xs font-black tabular-nums" style={{ background: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}>
+                        <span className="opacity-80 font-normal">Trust</span> {formatTrustScore(c.trust_score)}
+                      </span>
+                    </div>
+                    )}
                     <div className="p-5">
                       <h3 className="font-bold text-base group-hover:opacity-90 transition leading-tight mb-1" style={{ color: "var(--fg)" }}>{c.name}</h3>
                       <p className="text-sm text-[var(--muted)]">📍 {c.district}</p>

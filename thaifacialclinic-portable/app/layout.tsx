@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/i18n";
@@ -20,13 +21,9 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 import { ToastProvider } from "@/components/Toast";
 import { CurrencyProvider } from "@/components/CurrencyConverter";
-import PersonalizationQuiz from "@/components/PersonalizationQuiz";
-import SocialProofToasts from "@/components/SocialProofToasts";
 import LiveChatBubble from "@/components/LiveChatBubble";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import MobileBottomNav from "@/components/MobileBottomNav";
-import DealsAlert from "@/components/DealsAlert";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
 import AccessibilityToolbar from "@/components/AccessibilityToolbar";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
@@ -58,17 +55,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${fraunces.variable} ${plusJakarta.variable}`}>
       <body>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-RV4GRV07P7" strategy="afterInteractive" />
+        <Script id="ga-init" strategy="afterInteractive">{`
+          window.dataLayer=window.dataLayer||[];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js',new Date());
+          gtag('config','G-RV4GRV07P7');
+        `}</Script>
         <ToastProvider>
           <CurrencyProvider>
             <CompareProvider><div className="pb-20 sm:pb-0">{children}</div></CompareProvider>
             <SisterSites />
-            <PersonalizationQuiz />
-            <SocialProofToasts />
             <LiveChatBubble />
             <WhatsAppCTA />
             <MobileBottomNav />
-            <DealsAlert />
-            <ExitIntentPopup />
             <AccessibilityToolbar />
             <ScrollToTopButton />
             <ReadingProgressBar />
