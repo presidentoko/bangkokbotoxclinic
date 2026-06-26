@@ -5,10 +5,21 @@ import { getItemsByCategory, formatPriceTHB } from '@/lib/data'
 
 interface Props { params: Promise<{ locale: string }> }
 
+const BASE = 'https://www.chicpreowned.com'
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'common' })
-  return { title: t('page_title_watches') }
+  return {
+    title: t('page_title_watches'),
+    alternates: {
+      canonical: `${BASE}/${locale}/watches`,
+      languages: {
+        en: `${BASE}/en/watches`,
+        th: `${BASE}/th/watches`,
+      },
+    },
+  }
 }
 
 export default async function WatchesPage({ params }: Props) {

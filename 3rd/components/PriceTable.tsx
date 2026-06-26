@@ -1,6 +1,8 @@
 import { Item, Condition, formatPriceTHB, getPriceVsRetail } from '@/lib/data'
 
 interface ConditionLabels {
+  condition: string
+  priceRange: string
   excellent: string
   very_good: string
   good: string
@@ -26,8 +28,8 @@ export function PriceTable({ item, labels }: { item: Item; labels: ConditionLabe
       <table className="w-full text-sm border-collapse">
         <thead>
           <tr className="bg-gray-50 text-left">
-            <th className="p-3 border border-gray-200 font-semibold">Condition</th>
-            <th className="p-3 border border-gray-200 font-semibold">Price Range</th>
+            <th className="p-3 border border-gray-200 font-semibold">{labels.condition}</th>
+            <th className="p-3 border border-gray-200 font-semibold">{labels.priceRange}</th>
             <th className="p-3 border border-gray-200 font-semibold">
               {labels.vsRetail.replace('{retail}', formatPriceTHB(item.retail_price_thb))}
             </th>

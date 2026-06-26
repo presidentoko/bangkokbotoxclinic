@@ -171,9 +171,13 @@ def run():
     print('items_db.json updated')
 
     subprocess.run(['git', 'add', str(DB_PATH)], check=True)
-    subprocess.run(['git', 'commit', '-m', f'chore(data): chic price update {datetime.now():%Y-%m-%d}'], check=True)
-    subprocess.run(['git', 'push'], check=True)
-    print('Pushed.')
+    result = subprocess.run(['git', 'diff', '--cached', '--quiet'])
+    if result.returncode != 0:  # staged changes exist
+        subprocess.run(['git', 'commit', '-m', f'chore(data): chic price update {datetime.now():%Y-%m-%d}'], check=True)
+        subprocess.run(['git', 'push'], check=True)
+        print('Pushed.')
+    else:
+        print('No changes to commit.')
 
 
 if __name__ == '__main__':

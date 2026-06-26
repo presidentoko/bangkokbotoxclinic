@@ -139,6 +139,8 @@ export default async function ModelPage({ params }: Props) {
       <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense top]</div>
 
       <PriceTable item={item} labels={{
+        condition: tCommon('condition_label'),
+        priceRange: tCommon('price_range_label'),
         excellent: tCommon('condition_excellent'),
         very_good: tCommon('condition_very_good'),
         good: tCommon('condition_good'),

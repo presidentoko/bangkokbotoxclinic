@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { getItemsByBrand, getAllBrands, formatPriceTHB } from '@/lib/data'
 
+const BASE = 'https://www.chicpreowned.com'
+
 interface Props { params: Promise<{ locale: string; brand: string }> }
 
 export function generateStaticParams() {
@@ -19,6 +21,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t('page_title_brand', { brand: items[0].brand }),
     description: t('page_meta_brand', { brand: items[0].brand, count: items.length }),
+    alternates: {
+      canonical: `${BASE}/${locale}/${brand}`,
+      languages: {
+        en: `${BASE}/en/${brand}`,
+        th: `${BASE}/th/${brand}`,
+      },
+    },
   }
 }
 

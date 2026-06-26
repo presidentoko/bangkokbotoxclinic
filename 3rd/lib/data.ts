@@ -32,7 +32,7 @@ export interface BrandSummary {
   brand: string
   slug: string
   count: number
-  category: Category
+  categories: Category[]
 }
 
 const items = (db as { items: Item[] }).items
@@ -58,8 +58,11 @@ export function getAllBrands(): BrandSummary[] {
     const existing = map.get(slug)
     if (existing) {
       existing.count++
+      if (!existing.categories.includes(item.category)) {
+        existing.categories.push(item.category)
+      }
     } else {
-      map.set(slug, { brand: item.brand, slug, count: 1, category: item.category })
+      map.set(slug, { brand: item.brand, slug, count: 1, categories: [item.category] })
     }
   }
   return Array.from(map.values())

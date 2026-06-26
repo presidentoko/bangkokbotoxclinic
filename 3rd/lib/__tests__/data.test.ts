@@ -96,5 +96,7 @@ describe('getAllBrands', () => {
   it('counts Chanel models correctly', () => {
     const chanel = getAllBrands().find(b => b.slug === 'chanel')
     expect(chanel?.count).toBeGreaterThanOrEqual(2)
+    expect(chanel?.categories).toContain('handbags')
+    expect(chanel?.categories).toContain('clothing')
   })
 })

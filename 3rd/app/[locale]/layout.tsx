@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n'
+import { LocaleSwitcher } from '@/components/LocaleSwitcher'
 import '../globals.css'
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'] })
@@ -27,7 +28,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!routing.locales.includes(locale as 'en' | 'th')) notFound()
   const messages = await getMessages()
   const t = await getTranslations({ locale, namespace: 'common' })
-  const otherLocale = locale === 'en' ? 'th' : 'en'
 
   return (
     <html lang={locale}>
@@ -42,12 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <a href={`/${locale}/handbags`} className="hover:text-gray-900">{t('nav_handbags')}</a>
                 <a href={`/${locale}/watches`} className="hover:text-gray-900">{t('nav_watches')}</a>
                 <a href={`/${locale}/clothing`} className="hover:text-gray-900">{t('nav_clothing')}</a>
-                <a
-                  href={`/${otherLocale}`}
-                  className="ml-2 px-2 py-1 border border-gray-300 rounded text-xs hover:bg-gray-50"
-                >
-                  {otherLocale === 'th' ? 'ภาษาไทย' : 'English'}
-                </a>
+                <LocaleSwitcher locale={locale} />
               </nav>
             </div>
           </header>

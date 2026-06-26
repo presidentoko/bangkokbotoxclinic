@@ -15,9 +15,9 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'common' })
   const allBrands = getAllBrands()
-  const handbagBrands = allBrands.filter(b => b.category === 'handbags')
-  const watchBrands   = allBrands.filter(b => b.category === 'watches')
-  const clothingBrands = allBrands.filter(b => b.category === 'clothing')
+  const handbagBrands = allBrands.filter(b => b.categories.includes('handbags'))
+  const watchBrands   = allBrands.filter(b => b.categories.includes('watches'))
+  const clothingBrands = allBrands.filter(b => b.categories.includes('clothing'))
 
   return (
     <>
