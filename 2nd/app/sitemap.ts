@@ -10,8 +10,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${BASE}/watches`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/watches`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/brands`,   lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
