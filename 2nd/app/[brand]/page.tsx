@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getItemsByBrand, getAllBrands, formatPrice } from '@/lib/data'
+import { getItemsByBrand, getAllBrands } from '@/lib/data'
+import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
@@ -59,47 +60,25 @@ export default async function BrandPage({ params }: Props) {
         Pre-owned {brandName} prices by condition. All prices from authenticated listings, updated weekly.
       </p>
       <p className="text-[#6B6052] mb-8">Pre-owned price guide for {items.length} {brandName} model{items.length !== 1 ? 's' : ''}.</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {items.map(item => {
-          const vg = item.price_ranges.very_good
-          const savingsPct =
-            vg && item.retail_price_usd > 0
-              ? Math.round(
-                  ((item.retail_price_usd - (vg.min + vg.max) / 2) /
-                    item.retail_price_usd) *
-                    100,
-                )
-              : null
-          return (
-            <Link
-              key={item.id}
-              href={`/${item.slug}`}
-              className="group relative overflow-hidden block border border-[#E8E2D9] bg-white hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
-            >
-              <div className="h-0.5 bg-[#E8E2D9] group-hover:bg-[#B8954A] transition-colors duration-300" />
-              <div className="p-6">
-                <p className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A] mb-1">{item.brand}</p>
-                <h3 className="font-serif text-2xl text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-                  {item.model}
-                </h3>
-                {vg ? (
-                  <div>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-xl font-medium text-[#1A1A1A]">{formatPrice(vg.min)}</span>
-                      <span className="text-sm text-[#9C8B7A]">– {formatPrice(vg.max)}</span>
-                    </div>
-                    {savingsPct !== null && savingsPct > 0 && (
-                      <p className="text-xs text-[#4A7A35]">Save up to {savingsPct}% off retail</p>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-[#9C8B7A]">Price on request</p>
-                )}
-              </div>
-            </Link>
-          )
-        })}
-      </div>
+      {(() => {
+        const itemsWithSavings = items.filter(i => i.price_ranges.very_good && i.retail_price_usd > 0)
+        if (!itemsWithSavings.length) return null
+        const avgSav = Math.round(
+          itemsWithSavings.reduce((sum, i) => {
+            const vg = i.price_ranges.very_good!
+            const avg = (vg.min + vg.max) / 2
+            return sum + ((i.retail_price_usd - avg) / i.retail_price_usd * 100)
+          }, 0) / itemsWithSavings.length
+        )
+        if (avgSav <= 0) return null
+        return (
+          <div className="flex items-center gap-3 mb-6 p-4 bg-[#F5F0E8] border-l-2 border-[#B8954A]">
+            <span className="text-2xl font-bold text-[#4A7A35]">{avgSav}%</span>
+            <span className="text-sm text-[#6B6052]">average savings vs retail across all {brandName} models</span>
+          </div>
+        )
+      })()}
+      <SortableItemGrid items={items} />
     </>
   )
 }

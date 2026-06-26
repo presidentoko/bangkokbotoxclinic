@@ -48,6 +48,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase">
                 <a href={`/${locale}/handbags`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_handbags')}</a>
                 <a href={`/${locale}/watches`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_watches')}</a>
+                <a href={`/${locale}/brands`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'คู่มือมูลค่า' : 'Value Guide'}</a>
                 <a href={`/${locale}/clothing`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_clothing')}</a>
                 <a href={`/${locale}/contact`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a>
                 <LocaleSwitcher locale={locale} />
