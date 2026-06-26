@@ -54,6 +54,15 @@ export default async function HomePage({ params }: Props) {
 
   const totalItems = allItems.length
 
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'ChicPreowned.com',
+    url: 'https://www.chicpreowned.com',
+    description: 'Pre-owned luxury price guide for Thailand market — Chanel, Louis Vuitton, Hermès in Thai Baht',
+    sameAs: ['https://twitter.com/chicpreowned'],
+  }
+
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -74,6 +83,10 @@ export default async function HomePage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
 
       {/* Dark hero */}
