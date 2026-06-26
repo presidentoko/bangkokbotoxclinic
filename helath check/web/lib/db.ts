@@ -1,4 +1,5 @@
 import mysql from "mysql2/promise";
+import { cache } from "react";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -14,7 +15,7 @@ function getPool(): mysql.Pool {
       user:            process.env.DB_USER || "root",
       password:        process.env.DB_PASS || "",
       database:        "bkkcheckup",
-      connectionLimit: 10,
+      connectionLimit: 3,
       charset:         "utf8mb4",
       ssl:             isRemote ? { rejectUnauthorized: false } : undefined,
     });
@@ -176,30 +177,42 @@ export async function getHospitals(): Promise<HospitalSummary[]> {
   return rows as HospitalSummary[];
 }
 
-export async function getHospital(slug: string): Promise<HospitalDetail | null> {
+export const getHospital = cache(async function getHospital(slug: string): Promise<HospitalDetail | null> {
   const pool = getPool();
-  const [hosp] = await pool.query<mysql.RowDataPacket[]>(
-    `SELECT
-       h.id, h.name, h.name_th, h.slug, h.area, h.jci, h.checkup_url, h.lat, h.lng,
-       r.rating, r.review_count,
-       COUNT(p.id) AS package_count,
-       MIN(p.price) AS min_price
-     FROM hospitals h
-     LEFT JOIN checkup_packages p ON p.hospital_id = h.id
-     LEFT JOIN (
-       SELECT hospital_id, rating, review_count
-       FROM hospital_reviews
-       WHERE id IN (SELECT MAX(id) FROM hospital_reviews GROUP BY hospital_id)
-     ) r ON r.hospital_id = h.id
-     WHERE h.slug = ?
-     GROUP BY h.id`,
-    [slug],
-  );
-  if (!hosp.length) return null;
-
-  const packages = await getPackagesForHospital((hosp[0] as { id: number }).id);
-  return { ...(hosp[0] as HospitalSummary), packages } as HospitalDetail;
-}
+  // Single query: hospital info + packages via JOIN to avoid multiple connections
+  const [[hospRows], [pkgRows]] = await Promise.all([
+    pool.query<mysql.RowDataPacket[]>(
+      `SELECT h.id, h.name, h.name_th, h.slug, h.area, h.jci, h.checkup_url, h.lat, h.lng,
+         rv.rating, rv.review_count,
+         (SELECT COUNT(*) FROM checkup_packages WHERE hospital_id = h.id) AS package_count,
+         (SELECT MIN(price) FROM checkup_packages WHERE hospital_id = h.id) AS min_price
+       FROM hospitals h
+       LEFT JOIN (
+         SELECT hospital_id, rating, review_count FROM hospital_reviews
+         WHERE id IN (SELECT MAX(id) FROM hospital_reviews GROUP BY hospital_id)
+       ) rv ON rv.hospital_id = h.id
+       WHERE h.slug = ?`,
+      [slug],
+    ),
+    pool.query<mysql.RowDataPacket[]>(
+      `SELECT
+         h.name AS hospital_name, h.slug AS hospital_slug, h.area, h.jci,
+         h.checkup_url, NULL AS rating, NULL AS review_count,
+         p.id AS package_id, p.name AS package_name, p.category,
+         p.price, p.currency,
+         p.has_blood, p.has_xray, p.has_ultrasound, p.has_ct, p.has_mri,
+         p.has_ecg, p.has_treadmill, p.has_cancer_marker,
+         p.has_doctor_consult, p.has_interpreter, p.results_days, p.source_url
+       FROM checkup_packages p
+       JOIN hospitals h ON h.id = p.hospital_id
+       WHERE h.slug = ?
+       ORDER BY p.category, p.price ASC`,
+      [slug],
+    ),
+  ]);
+  if (!hospRows.length) return null;
+  return { ...(hospRows[0] as HospitalSummary), packages: pkgRows as PackageRow[] } as HospitalDetail;
+});
 
 async function getPackagesForHospital(hospitalId: number): Promise<PackageRow[]> {
   const pool = getPool();

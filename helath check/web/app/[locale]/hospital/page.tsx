@@ -3,7 +3,8 @@ import Link from "next/link";
 import { type Locale, t } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

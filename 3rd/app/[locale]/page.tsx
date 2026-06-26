@@ -76,22 +76,33 @@ export default async function HomePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      {/* Hero */}
-      <div className="mb-16 pt-4">
-        <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-4">
-          {locale === 'th' ? 'อัปเดตราคาทุกสัปดาห์' : 'Weekly Updated Price Guide'}
-        </p>
-        <h1 className="font-serif text-5xl sm:text-6xl text-[#1A1A1A] leading-tight mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
-          {t('hero_h1')}
-        </h1>
-        <p className="text-[#6B6052] text-lg max-w-xl leading-relaxed">
-          {t('hero_subtext')}
-        </p>
-        <div className="flex flex-wrap gap-6 mt-8 text-sm text-[#9C8B7A]">
-          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_updated')}</span>
-          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_models', { count: totalItems })}</span>
-          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_prices')}</span>
+      {/* Dark hero */}
+      <div className="-mx-6 -mt-10 mb-20 bg-[#1A1A1A] px-6 py-20 sm:py-28">
+        <div className="max-w-3xl">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#B8954A] mb-6">
+            {locale === 'th' ? 'อัปเดตราคาทุกสัปดาห์' : 'Weekly Updated Price Guide'}
+          </p>
+          <h1 className="font-serif leading-none mb-8" style={{ fontFamily: 'var(--font-playfair)', fontSize: 'clamp(2.5rem, 7vw, 5rem)', color: '#FFFFFF' }}>
+            {t('hero_h1')}
+          </h1>
+          <p style={{ color: '#9C8B7A' }} className="text-lg max-w-lg leading-relaxed mb-10">
+            {t('hero_subtext')}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a href={`/${locale}/handbags`} className="inline-block px-8 py-3.5 bg-[#B8954A] text-white text-sm tracking-[0.15em] uppercase hover:bg-[#A07B38] transition-all duration-200">
+              {t('nav_handbags')}
+            </a>
+            <a href={`/${locale}/watches`} className="inline-block px-8 py-3.5 border border-[#6B6052] text-[#9C8B7A] text-sm tracking-[0.15em] uppercase hover:border-[#B8954A] hover:text-[#B8954A] transition-all duration-200">
+              {t('nav_watches')}
+            </a>
+          </div>
         </div>
+      </div>
+      {/* Trust row */}
+      <div className="flex flex-wrap gap-6 mb-12 text-sm text-[#9C8B7A]">
+        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_updated')}</span>
+        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_models', { count: totalItems })}</span>
+        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_prices')}</span>
       </div>
 
       <section className="mb-12">

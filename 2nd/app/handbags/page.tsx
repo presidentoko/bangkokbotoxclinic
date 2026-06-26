@@ -53,20 +53,28 @@ export default function HandbagsPage() {
             : null
           return (
             <Link key={item.id} href={`/${item.slug}`}
-              className="group block p-6 bg-white border border-[#E8E2D9] rounded-sm hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
+              className="group relative overflow-hidden block border border-[#E8E2D9] bg-white hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
             >
-              <p className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A] mb-2">{item.brand}</p>
-              <h3 className="font-serif text-xl text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>
-                {item.model}
-              </h3>
-              {vg && (
-                <div className="flex items-baseline gap-3">
-                  <span className="text-lg font-medium text-[#1A1A1A]">{formatPrice(vg.min)} – {formatPrice(vg.max)}</span>
-                  {savingsPct !== null && savingsPct > 0 && (
-                    <span className="text-xs px-2 py-0.5 bg-[#F5F0E8] text-[#8C7355] rounded-full">save {savingsPct}%</span>
-                  )}
-                </div>
-              )}
+              <div className="h-0.5 bg-[#E8E2D9] group-hover:bg-[#B8954A] transition-colors duration-300" />
+              <div className="p-6">
+                <p className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A] mb-1">{item.brand}</p>
+                <h3 className="font-serif text-2xl text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+                  {item.model}
+                </h3>
+                {vg ? (
+                  <div>
+                    <div className="flex items-baseline gap-1 mb-1">
+                      <span className="text-xl font-medium text-[#1A1A1A]">{formatPrice(vg.min)}</span>
+                      <span className="text-sm text-[#9C8B7A]">– {formatPrice(vg.max)}</span>
+                    </div>
+                    {savingsPct !== null && savingsPct > 0 && (
+                      <p className="text-xs text-[#4A7A35]">Save up to {savingsPct}% off retail</p>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-sm text-[#9C8B7A]">Price on request</p>
+                )}
+              </div>
             </Link>
           )
         })}

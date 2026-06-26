@@ -39,22 +39,34 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      {/* Hero */}
-      <div className="mb-16 pt-4">
-        <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-4">Weekly Updated Price Guide</p>
-        <h1 className="font-serif text-5xl sm:text-6xl text-[#1A1A1A] leading-tight mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
-          The Real Price of<br/>Pre-Owned Luxury
-        </h1>
-        <p className="text-[#6B6052] text-lg max-w-xl leading-relaxed">
-          Authentic second-hand prices for Chanel, Louis Vuitton, Rolex and more —
-          tracked weekly from real listings so you always know fair market value.
-        </p>
-        {/* Trust row */}
-        <div className="flex flex-wrap gap-6 mt-8 text-sm text-[#9C8B7A]">
-          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />Updated weekly</span>
-          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{totalItems}+ models tracked</span>
-          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />Verified listings only</span>
+      {/* Dark hero */}
+      <div className="-mx-6 -mt-10 mb-20 bg-[#1A1A1A] px-6 py-20 sm:py-28">
+        <div className="max-w-3xl">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#B8954A] mb-6">Weekly Updated Price Guide</p>
+          <h1 className="font-serif leading-none mb-8" style={{ fontFamily: 'var(--font-playfair)', fontSize: 'clamp(2.5rem, 7vw, 5rem)', color: '#FFFFFF' }}>
+            The Real Price<br />
+            <span style={{ fontStyle: 'italic', color: '#E8D9C0' }}>of Pre-Owned</span><br />
+            Luxury
+          </h1>
+          <p style={{ color: '#9C8B7A' }} className="text-lg max-w-lg leading-relaxed mb-10">
+            Authentic second-hand prices for Chanel, Louis Vuitton, Rolex and more —
+            tracked weekly from real listings.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a href="/handbags" className="inline-block px-8 py-3.5 bg-[#B8954A] text-white text-sm tracking-[0.15em] uppercase hover:bg-[#A07B38] transition-all duration-200">
+              Handbags
+            </a>
+            <a href="/watches" className="inline-block px-8 py-3.5 border border-[#6B6052] text-[#9C8B7A] text-sm tracking-[0.15em] uppercase hover:border-[#B8954A] hover:text-[#B8954A] transition-all duration-200">
+              Watches
+            </a>
+          </div>
         </div>
+      </div>
+      {/* Trust row */}
+      <div className="flex flex-wrap gap-6 mb-12 text-sm text-[#9C8B7A]">
+        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />Updated weekly</span>
+        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{totalItems}+ models tracked</span>
+        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />Verified listings only</span>
       </div>
 
       {/* Handbags */}

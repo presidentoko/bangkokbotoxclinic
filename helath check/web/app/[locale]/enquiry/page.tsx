@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, t } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n";
+import { ContactForm } from "@/app/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Book a Health Check-Up in Bangkok — Enquiry",
-  description: "Get personalised help booking a health check-up at a Bangkok hospital. We connect you with the right package for your needs.",
+  description: "Get personalised help booking a health check-up at a Bangkok hospital. Send us your requirements and we'll find the best package.",
 };
 
 export default async function EnquiryPage({
@@ -13,7 +14,6 @@ export default async function EnquiryPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const loc = locale as Locale;
   const lineUrl = process.env.LINE_OA_URL || "https://line.me/R/ti/p/@bangkokcheckup";
 
   return (
@@ -23,37 +23,54 @@ export default async function EnquiryPage({
         {" › "}Enquiry
       </nav>
 
-      <h1 className="text-2xl font-bold text-slate-900 mb-2">Book a Health Check-Up</h1>
-      <p className="text-slate-500 mb-8">{t(loc, "enquiry_desc")}</p>
+      <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+        Book a Health Check-Up
+      </h1>
+      <p className="text-slate-500 mb-8 text-sm">
+        Tell us your requirements and we&apos;ll find the best package. No obligation — we reply within a few hours.
+      </p>
 
-      {/* LINE CTA */}
-      <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-6 text-center">
-        <p className="font-semibold text-slate-800 mb-1">Message us on LINE</p>
-        <p className="text-sm text-slate-500 mb-4">Fastest response — reply within a few hours</p>
-        <a
-          href={lineUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-green-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-green-600 transition-colors"
-        >
+      {/* Contact form */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 mb-6 shadow-sm">
+        <ContactForm
+          type="enquiry"
+          placeholder="E.g. I'm looking for an executive health check-up for a 45-year-old male. Prefer Sukhumvit area, mid-March. Budget around ฿20,000."
+          fields={["name", "email", "message"]}
+        />
+      </div>
+
+      {/* LINE alternative */}
+      <div className="bg-green-50 border border-green-200 rounded-2xl p-5 text-center mb-6">
+        <p className="font-semibold text-slate-800 mb-1 text-sm">Prefer LINE?</p>
+        <p className="text-xs text-slate-500 mb-3">Fastest response for same-day questions</p>
+        <a href={lineUrl} target="_blank" rel="noopener noreferrer"
+          className="inline-block bg-green-500 text-white font-bold px-5 py-2.5 rounded-xl hover:bg-green-600 transition-colors text-sm">
           Open LINE chat →
         </a>
       </div>
 
-      {/* What to include */}
-      <div className="bg-white border border-slate-200 rounded-xl p-6">
-        <h2 className="font-semibold text-slate-800 mb-3">What to tell us</h2>
-        <ul className="text-sm text-slate-600 space-y-2">
-          <li>✓ Which package type you&apos;re interested in (executive, comprehensive, etc.)</li>
-          <li>✓ Preferred hospital or area in Bangkok</li>
-          <li>✓ Nationality and language preference</li>
-          <li>✓ Preferred dates</li>
-          <li>✓ Any specific health concerns</li>
+      {/* What to include tips */}
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+        <h2 className="font-semibold text-slate-800 mb-3 text-sm">What to include</h2>
+        <ul className="text-sm text-slate-600 space-y-1.5">
+          {[
+            "Which package type (executive, comprehensive, cancer screening, etc.)",
+            "Preferred hospital or area in Bangkok",
+            "Nationality and language preference",
+            "Preferred dates",
+            "Any specific health concerns or family history",
+            "Your budget range",
+          ].map((item) => (
+            <li key={item} className="flex items-start gap-2">
+              <span className="text-blue-500 shrink-0 mt-0.5">▸</span>
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
 
       <p className="mt-6 text-xs text-slate-400 text-center">
-        We earn a referral commission from partner hospitals. This does not affect which hospitals we recommend — all rankings on this site are price-sorted only.
+        We may earn a referral commission from partner hospitals. This does not affect which hospitals we recommend — all comparison rankings are price-sorted only.
       </p>
     </div>
   );
