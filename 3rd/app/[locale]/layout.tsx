@@ -21,6 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     metadataBase: new URL('https://www.chicpreowned.com'),
     title: t('page_title_home'),
     description: t('page_meta_home'),
+    manifest: '/manifest.webmanifest',
+    twitter: {
+      card: 'summary_large_image',
+      site: '@chicpreowned',
+    },
   }
 }
 

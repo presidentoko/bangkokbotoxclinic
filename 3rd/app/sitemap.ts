@@ -3,6 +3,7 @@ import { getAllItems, getAllBrands } from '@/lib/data'
 
 const BASE = 'https://www.chicpreowned.com'
 const LOCALES = ['en', 'th'] as const
+const TODAY = new Date().toISOString().split('T')[0]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const items = getAllItems()
@@ -10,18 +11,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
 
   // Root + locale homepages
-  entries.push({ url: BASE, lastModified: new Date(), priority: 1.0 })
+  entries.push({ url: BASE, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 })
   for (const locale of LOCALES) {
-    entries.push({ url: `${BASE}/${locale}`, lastModified: new Date(), priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/handbags`, lastModified: new Date(), priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/watches`, lastModified: new Date(), priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/clothing`, lastModified: new Date(), priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}`, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 })
+    entries.push({ url: `${BASE}/${locale}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/watches`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/clothing`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
   }
 
   // Brand pages
   for (const brand of brands) {
     for (const locale of LOCALES) {
-      entries.push({ url: `${BASE}/${locale}/${brand.slug}`, lastModified: new Date(), priority: 0.7 })
+      entries.push({ url: `${BASE}/${locale}/${brand.slug}`, lastModified: TODAY, changeFrequency: 'weekly' as const, priority: 0.7 })
     }
   }
 
@@ -30,7 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const locale of LOCALES) {
       entries.push({
         url: `${BASE}/${locale}/${item.slug}`,
-        lastModified: new Date(item.last_updated),
+        lastModified: TODAY,
+        changeFrequency: 'weekly' as const,
         priority: 0.9,
       })
     }

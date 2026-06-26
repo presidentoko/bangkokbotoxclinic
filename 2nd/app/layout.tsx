@@ -8,9 +8,14 @@ export const metadata: Metadata = {
   title: 'Second Luxury Items — Pre-Owned Luxury Price Guide',
   description: 'Find the real price of pre-owned Chanel, Louis Vuitton, Rolex and more. Compare second-hand luxury prices updated weekly.',
   metadataBase: new URL('https://www.secondluxuryitems.com'),
+  manifest: '/manifest.webmanifest',
   openGraph: {
     siteName: 'SecondLuxuryItems.com',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@secondluxury',
   },
   alternates: {
     canonical: 'https://www.secondluxuryitems.com',
@@ -26,9 +31,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/" className="font-semibold text-lg tracking-tight">
               Second Luxury Items
             </a>
-            <nav className="flex gap-6 text-sm text-gray-600">
+            <nav className="flex gap-6 text-sm text-gray-600 items-center">
               <a href="/handbags" className="hover:text-gray-900">Handbags</a>
               <a href="/watches" className="hover:text-gray-900">Watches</a>
+              <form action="/search" method="get" className="hidden sm:flex items-center">
+                <input
+                  name="q"
+                  placeholder="Search..."
+                  className="border border-gray-200 rounded px-3 py-1.5 text-sm w-36 focus:outline-none focus:border-gray-400"
+                />
+              </form>
             </nav>
           </div>
         </header>
