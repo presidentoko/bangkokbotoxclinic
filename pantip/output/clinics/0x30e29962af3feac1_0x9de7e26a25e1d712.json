@@ -1,0 +1,61 @@
+{
+  "clinic_id": "0x30e29962af3feac1_0x9de7e26a25e1d712",
+  "name": "BLS hair center (ศูนย์ปลูกผม บีแอลเอส)",
+  "city_label": "Bangkok",
+  "categories": [
+    "facial",
+    "hair_transplant"
+  ],
+  "buckets": [
+    "hair",
+    "cosmetic"
+  ],
+  "queries_used": [
+    "BLS hair center",
+    "BLS hair",
+    "ศูนย์ปลูกผม บีแอลเอส"
+  ],
+  "tokens_used": [
+    "BLS hair center",
+    "BLShaircenter",
+    "ศูนย์ปลูกผม บีแอลเอส",
+    "ศูนย์ปลูกผมบีแอลเอส"
+  ],
+  "candidates_total": 2,
+  "mentions": [
+    {
+      "topic_id": "42793805",
+      "title": "BLS Hair Center นครปฐม ไปอย่างไร (นั้งรถตู้)",
+      "relevance_score": 3,
+      "matched_tokens": [
+        "BLS hair center"
+      ],
+      "op_mentioned": true,
+      "title_mentioned": true,
+      "comment_count_with_mention": 0,
+      "sample_snippets": [
+        "[title] ...BLS Hair Center นครปฐม ไปอย่างไร (นั้งรถตู้)...",
+        "[op] ...คือบางเราอยู่ที่บางเลน แล้วเราอยากไปคลินิก BLS Hair Center นครปฐม เราอยากรู้ว่ายั้งรถตู้สายไหนไปลงที่ไหนบ้าง แนะนำที่..."
+      ],
+      "branch_specific": false,
+      "fetched_at": "2026-06-19T11:02:57Z"
+    },
+    {
+      "topic_id": "42426322",
+      "title": "BLS Hair Center คลินิกนี้ปลูกผมราคาเท่าไหร่คับมีใครพอทราบไหม???",
+      "relevance_score": 1,
+      "matched_tokens": [
+        "BLS hair center"
+      ],
+      "op_mentioned": false,
+      "title_mentioned": true,
+      "comment_count_with_mention": 0,
+      "sample_snippets": [
+        "[title] ...BLS Hair Center คลินิกนี้ปลูกผมราคาเท่าไหร่คับมีใครพอทราบไหม???..."
+      ],
+      "branch_specific": false,
+      "fetched_at": "2026-06-19T11:03:00Z"
+    }
+  ],
+  "updated_at": "2026-06-19T12:25:25Z"
+}

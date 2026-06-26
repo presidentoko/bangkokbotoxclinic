@@ -1,0 +1,34 @@
+import { NextRequest, NextResponse } from "next/server";
+
+// Click-tracking endpoint for affiliate outlinks.
+// Logs the click and redirects to the destination URL.
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const pkgId = searchParams.get("pkg") ?? "";
+  const dest = searchParams.get("url") ?? "";
+
+  if (!dest) {
+    return NextResponse.json({ error: "Missing url" }, { status: 400 });
+  }
+
+  // Validate that url starts with https:// to prevent open redirect abuse
+  let parsed: URL;
+  try {
+    parsed = new URL(dest);
+    if (parsed.protocol !== "https:") throw new Error("non-https");
+  } catch {
+    return NextResponse.json({ error: "Invalid url" }, { status: 400 });
+  }
+
+  // Log to console (replace with DB insert or analytics if needed)
+  console.log(`[track] pkg=${pkgId} → ${parsed.href} ip=${request.headers.get("x-forwarded-for") ?? "unknown"}`);
+
+  // Redirect with affiliate params if configured
+  const affiliateBase = process.env.AFFILIATE_BASE_URL;
+  let finalUrl = parsed.href;
+  if (affiliateBase && !finalUrl.startsWith(affiliateBase)) {
+    // For non-affiliate URLs (hospital direct), just redirect
+  }
+
+  return NextResponse.redirect(finalUrl, { status: 302 });
+}

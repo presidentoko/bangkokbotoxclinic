@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: 'ส่วนผสมอันตรายในอาหารสัตว์เลี้ยง — BHA BHT Ethoxyquin',
@@ -106,8 +107,40 @@ const GROUPS: Group[] = [
 ]
 
 export default function IngredientsPage() {
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'ส่วนผสมอันตรายในอาหารสัตว์เลี้ยง — BHA BHT Ethoxyquin',
+    description: 'รายชื่อส่วนผสมอันตรายในอาหารสัตว์เลี้ยงที่ควรหลีกเลี่ยง พร้อมอธิบายผลเสียต่อสุขภาพ',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: GROUPS.flatMap((g, gi) =>
+        g.items.map((item, i) => ({
+          '@type': 'ListItem',
+          position: gi * 10 + i + 1,
+          name: item.name,
+          description: item.why,
+        }))
+      ),
+    },
+  }
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: GROUPS.flatMap(g =>
+      g.items.map(item => ({
+        '@type': 'Question',
+        name: `${item.name} อันตรายต่อสัตว์เลี้ยงอย่างไร?`,
+        acceptedAnswer: { '@type': 'Answer', text: item.why },
+      }))
+    ),
+  }
+
   return (
     <main className="max-w-3xl mx-auto">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <h1 className="text-2xl font-black text-gray-900 mb-1">🔬 ส่วนผสมอันตราย</h1>
       <p className="text-sm text-gray-400 mb-6">รู้จักส่วนผสมที่ควรหลีกเลี่ยงในอาหารสัตว์เลี้ยง</p>
 
@@ -182,6 +215,8 @@ export default function IngredientsPage() {
           ตรวจสอบอาหารของน้อง →
         </a>
       </div>
+
+      <RelatedGuides current="ingredients" />
     </main>
   )
 }

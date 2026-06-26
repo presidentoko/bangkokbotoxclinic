@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: '12 อาหารที่เป็นพิษต่อสุนัขและแมว — อย่าให้กินเด็ดขาด',
@@ -119,6 +120,8 @@ export default function ToxicPage() {
           🚨 หาโรงพยาบาลฉุกเฉิน →
         </a>
       </div>
+
+      <RelatedGuides current="toxic" />
     </main>
   )
 }

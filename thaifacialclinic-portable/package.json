@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
+    "vercel-build": "node scripts/build-data.mjs && next build",
     "prebuild": "node scripts/build-data.mjs",
     "build": "next build",
     "dev": "next dev",

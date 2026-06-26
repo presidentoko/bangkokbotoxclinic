@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "photos": "node scripts/download-photos.mjs",
+    "districts": "node scripts/enrich-districts.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",

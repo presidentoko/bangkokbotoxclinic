@@ -45,7 +45,7 @@ export default async function OG() {
         </div>
 
         <div style={{ display: "flex", gap: "24px", marginTop: "auto", color: "#737373", fontSize: 22 }}>
-          <span>★ Trust Scores</span>
+          <span>Trust Scores</span>
           <span>·</span>
           <span>Real Google Reviews</span>
           <span>·</span>

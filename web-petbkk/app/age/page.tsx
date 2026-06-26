@@ -2,6 +2,49 @@
 import { useState, useMemo } from 'react'
 import AgeShareCard from '@/components/AgeShareCard'
 
+function AgeSchemaLd() {
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'เครื่องคำนวณอายุสัตว์เลี้ยง — Thai Pet Age Calculator',
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Any',
+      url: 'https://www.thailandpethub.com/age',
+      description: 'คำนวณอายุสุนัขและแมวเทียบกับอายุมนุษย์ รองรับสุนัขพันธุ์เล็ก กลาง ใหญ่ และแมวทุกสายพันธุ์ ฟรี 100%',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'THB' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'อายุสุนัข 1 ปี เทียบกับมนุษย์กี่ปี?',
+          acceptedAnswer: { '@type': 'Answer', text: 'สุนัขอายุ 1 ปี เทียบได้กับมนุษย์ประมาณ 15 ปี เพราะสุนัขพัฒนาเร็วมากในช่วงปีแรก ภายใน 1 ปีพวกเขาเจริญเติบโตจนเป็นผู้ใหญ่ที่สมบูรณ์แล้ว' },
+        },
+        {
+          '@type': 'Question',
+          name: 'อายุแมว 1 ปี เทียบกับมนุษย์กี่ปี?',
+          acceptedAnswer: { '@type': 'Answer', text: 'แมวอายุ 1 ปี เทียบได้กับมนุษย์ประมาณ 15 ปี เช่นเดียวกับสุนัข แมวพัฒนาเร็วมากในช่วงขวบปีแรก' },
+        },
+        {
+          '@type': 'Question',
+          name: 'ทำไมสุนัขพันธุ์ใหญ่อายุสั้นกว่าพันธุ์เล็ก?',
+          acceptedAnswer: { '@type': 'Answer', text: 'สุนัขพันธุ์ใหญ่มีอัตราการเมตาบอลิซึมสูงกว่า ร่างกายทำงานหนักกว่า และมีความเสี่ยงต่อปัญหาข้อต่อและหัวใจมากกว่า ทำให้อายุขัยเฉลี่ยสั้นกว่าสุนัขพันธุ์เล็ก' },
+        },
+      ],
+    },
+  ]
+  return (
+    <>
+      {schema.map((s, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
+      ))}
+    </>
+  )
+}
+
 type Species = 'dog' | 'cat'
 type Size    = 'small' | 'medium' | 'large'
 
@@ -50,6 +93,7 @@ export default function AgePage() {
 
   return (
     <main className="max-w-xl mx-auto">
+      <AgeSchemaLd />
       <h1 className="text-2xl font-black text-gray-900 mb-1">🎂 คำนวณอายุน้อง</h1>
       <p className="text-sm text-gray-400 mb-6">อายุน้องเทียบเท่ามนุษย์กี่ปี?</p>
 

@@ -26,11 +26,15 @@ export function SearchBar({
   hrefBase,
   placeholder,
   lang = "en",
+  noMatchesText,
+  resultsHeader,
 }: {
   entities: SearchableEntity[];
   hrefBase: string; // "/clinic" | "/restaurant" | "/course"
   placeholder?: string;
   lang?: Lang;
+  noMatchesText?: string;
+  resultsHeader?: string;
 }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
@@ -38,6 +42,7 @@ export function SearchBar({
 
   const copy = COPY[lang];
   const ph = placeholder ?? copy.defaultPlaceholder;
+  const noMatch = noMatchesText ?? copy.noMatches;
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -71,6 +76,11 @@ export function SearchBar({
       />
       {open && results.length > 0 && (
         <ul className="absolute top-full left-0 right-0 mt-1 bg-white border border-[var(--border)] rounded-xl shadow-lg overflow-hidden z-20 max-h-96 overflow-y-auto">
+          {resultsHeader && (
+            <li className="px-4 py-2 text-xs font-semibold text-[var(--muted)] bg-gray-50 border-b border-[var(--border)] uppercase tracking-wide">
+              {resultsHeader}
+            </li>
+          )}
           {results.map((r) => (
             <li key={r.id}>
               <a
@@ -95,7 +105,7 @@ export function SearchBar({
       )}
       {open && q.trim().length >= 2 && results.length === 0 && (
         <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[var(--border)] rounded-xl shadow-lg px-4 py-3 text-sm text-[var(--muted)] z-20">
-          {copy.noMatches}
+          {noMatch}
         </div>
       )}
     </div>

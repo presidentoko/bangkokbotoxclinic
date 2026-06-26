@@ -566,16 +566,14 @@ def get_restaurant_full(
     except Exception:
         pass
 
-    # Non-clinic skip (식당/카페/호텔 등 — 큐에 잘못 들어온 비-의료 entry 제외)
-    NON_CLINIC_TOKENS = (
-        "restaurant", "cafe", "coffee", "bar", "pub", "hotel", "resort",
-        "bakery", "noodle", "ice cream", "food", "diner", "buffet",
-        "salon", "barber", "spa", "massage", "nail", "tattoo",
-        "gym", "fitness", "yoga", "pharmacy"
+    # Non-restaurant skip (병원/클리닉 등 식당 검색에 잘못 들어온 entry 제외)
+    NON_FOOD_TOKENS = (
+        "hospital", "clinic", "dentist", "doctor", "pharmacy",
+        "real estate", "law office", "bank", "atm",
     )
     pt_lower = primary_type.lower()
-    if any(tok in pt_lower for tok in NON_CLINIC_TOKENS):
-        log.info(f"  건너뜀 (비-의료 type={primary_type}): {name}")
+    if any(tok in pt_lower for tok in NON_FOOD_TOKENS):
+        log.info(f"  건너뜀 (비-식당 type={primary_type}): {name}")
         return None, [], []
 
     # business status (Open / Temporarily/Permanently closed)

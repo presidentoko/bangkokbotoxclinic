@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useMemo } from 'react'
+import VaccineReminderButton from '@/components/VaccineReminderButton'
 
 type Species = 'dog' | 'cat'
 
@@ -157,6 +158,7 @@ export default function VaccinePage() {
             <a href="/hospital" className="inline-block px-5 py-2.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors text-sm">
               ค้นหาโรงพยาบาลใกล้บ้าน →
             </a>
+            <VaccineReminderButton items={schedule} />
           </div>
         </>
       )}

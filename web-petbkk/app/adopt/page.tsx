@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import shelters from '@/data/shelters.json'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: 'รับเลี้ยงสัตว์จรจัด — ไม่ต้องซื้อ ให้รับเลี้ยงแทน',
@@ -31,9 +32,61 @@ const TYPE_LABEL: Record<Shelter['type'], { label: string; emoji: string }> = {
   shelter: { label: 'สถานพักพิง', emoji: '🏠' },
 }
 
+function ShelterJsonLd() {
+  const shelterList = shelters as Shelter[]
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'องค์กรช่วยเหลือสัตว์เลี้ยงในไทย',
+    description: 'รายชื่อองค์กรรับเลี้ยงสัตว์เลี้ยงและกลุ่มช่วยเหลือสัตว์จรจัดในประเทศไทย',
+    itemListElement: shelterList.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Organization',
+        name: s.name_th,
+        alternateName: s.name_en,
+        description: s.description,
+        telephone: s.phone || undefined,
+        url: s.website || s.facebook || undefined,
+        areaServed: s.province,
+      },
+    })),
+  }
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'การรับเลี้ยงสัตว์จากองค์กรเสียค่าใช้จ่ายไหม?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ส่วนใหญ่ไม่เสียค่าใช้จ่ายในการรับเลี้ยง แต่อาจมีค่าวัคซีน ค่าทำหมัน หรือค่าบริจาคสนับสนุนองค์กร ขึ้นอยู่กับแต่ละแห่ง ควรสอบถามโดยตรงก่อนรับเลี้ยง',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'ก่อนรับเลี้ยงสัตว์จากองค์กรต้องเตรียมอะไรบ้าง?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'เตรียมพื้นที่ที่ปลอดภัยในบ้าน ของใช้พื้นฐาน (ที่นอน ชาม) หาสัตวแพทย์ประจำตัวล่วงหน้า วางแผนค่าใช้จ่ายรายเดือน และให้เวลาน้องปรับตัว 2-4 สัปดาห์',
+        },
+      },
+    ],
+  }
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
+    </>
+  )
+}
+
 export default function AdoptPage() {
   return (
     <main className="max-w-3xl mx-auto">
+      <ShelterJsonLd />
       {/* Hero */}
       <div className="text-center mb-10">
         <div className="text-6xl mb-4">🐾</div>
@@ -137,6 +190,8 @@ export default function AdoptPage() {
       </div>
 
       <p className="text-xs text-gray-400 text-center">* ค่าใช้จ่ายแรกรับ เช่น ค่าวัคซีน ค่าหมัน อาจมีหรือไม่มีขึ้นอยู่กับแต่ละองค์กร</p>
+
+      <RelatedGuides current="hospital" count={4} />
     </main>
   )
 }

@@ -15,6 +15,8 @@ export function HeroSearch({
   popularLabel = "Popular",
   searchPlaceholder,
   searchLang = "en",
+  noMatchesText,
+  resultsHeader,
 }: {
   entities: SearchableEntity[];
   hrefBase: string;
@@ -24,6 +26,8 @@ export function HeroSearch({
   popularLabel?: string;
   searchPlaceholder?: string;
   searchLang?: "en" | "ko" | "th";
+  noMatchesText?: string;
+  resultsHeader?: string;
 }) {
   const hasTitle = !!hero;
   const popularPills = popularSearches.length > 0 && (
@@ -49,6 +53,8 @@ export function HeroSearch({
           hrefBase={hrefBase}
           placeholder={searchPlaceholder}
           lang={searchLang}
+          noMatchesText={noMatchesText}
+          resultsHeader={resultsHeader}
         />
         {popularPills}
       </div>
@@ -68,6 +74,8 @@ export function HeroSearch({
             hrefBase={hrefBase}
             placeholder={searchPlaceholder}
             lang={searchLang}
+            noMatchesText={noMatchesText}
+            resultsHeader={resultsHeader}
           />
         </div>
         {popularPills}

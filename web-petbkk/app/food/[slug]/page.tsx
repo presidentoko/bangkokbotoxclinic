@@ -37,6 +37,40 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+function FoodProductJsonLd({ food, grade, slug }: { food: PetFood; grade: FoodGrade | null; slug: string }) {
+  const gradeScore: Partial<Record<FoodGrade, number>> = { A: 5, B: 4, C: 3, D: 2, F: 1 }
+  const ratingValue = grade ? gradeScore[grade] ?? 3 : 3
+  const animalTh = food.animal === 'dog' ? 'สุนัข' : 'แมว'
+  const stageTh: Record<string, string> = { puppy: 'ลูก', adult: 'ผู้ใหญ่', senior: 'สูงวัย' }
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `${food.brand} ${food.name_en}`,
+    description: `อาหาร${animalTh}วัย${stageTh[food.life_stage] ?? food.life_stage} ${food.name_th || food.name_en} วิเคราะห์ส่วนประกอบโดย ThailandPetHub`,
+    brand: { '@type': 'Brand', name: food.brand },
+    url: `https://www.thailandpethub.com/food/${slug}`,
+    ...(food.price_thb > 0 && {
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'THB',
+        price: food.price_thb.toString(),
+        availability: 'https://schema.org/InStock',
+      },
+    }),
+    ...(grade && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue,
+        bestRating: 5,
+        worstRating: 1,
+        reviewCount: 1,
+        ratingExplanation: `เกรด ${grade} จากการวิเคราะห์ส่วนประกอบ`,
+      },
+    }),
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+}
+
 function BreadcrumbJsonLd({ name }: { name: string }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -130,6 +164,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <main className="max-w-2xl mx-auto">
+      <FoodProductJsonLd food={food} grade={grade} slug={slug} />
       <TrackRecentFood foodId={food.id} />
 
       {/* Back link */}

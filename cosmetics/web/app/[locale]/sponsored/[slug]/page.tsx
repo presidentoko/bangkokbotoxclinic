@@ -5,7 +5,7 @@ import { affiliateUrl } from "@/lib/affiliate";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { JsonLd } from "@/components/JsonLd";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   // Empty — pages are generated on-demand via ISR

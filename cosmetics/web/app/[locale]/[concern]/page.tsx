@@ -29,7 +29,7 @@ import { scoreColor } from "@/lib/format";
 import { CopyButton } from "@/components/CopyButton";
 
 const BASE = "https://bangkokfillers.com";
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 type GuideEntry = {
   causeTh: string; causeEn: string;

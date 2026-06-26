@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import CompareTray from '@/components/CompareTray'
 import InstallPrompt from '@/components/InstallPrompt'
+import NewsletterForm from '@/components/NewsletterForm'
+import NotificationWatcher from '@/components/NotificationWatcher'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -92,20 +94,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <a href="/hospital" className="whitespace-nowrap hover:text-orange-600">โรงพยาบาล</a>
                 <a href="/adopt"    className="whitespace-nowrap hover:text-orange-600 text-green-600 font-medium">รับเลี้ยง</a>
                 <a href="/tips"     className="whitespace-nowrap hover:text-orange-600">เคล็ดลับ</a>
+                <a href="/guides"   className="whitespace-nowrap hover:text-orange-600 font-medium text-orange-500">📚 คู่มือทั้งหมด</a>
                 <a href="/emergency" className="whitespace-nowrap text-red-500 font-medium hover:text-red-600">🚨 ฉุกเฉิน</a>
               </nav>
             </div>
             {/* Tools strip */}
             <nav className="flex gap-2 overflow-x-auto scrollbar-none text-xs text-gray-500 pb-0.5">
               {[
-                { href: '/compare',     label: 'เปรียบเทียบ' },
-                { href: '/cost',        label: 'ค่าใช้จ่าย' },
-                { href: '/age',         label: 'คำนวณอายุ' },
-                { href: '/vaccine',     label: '💉 วัคซีน' },
-                { href: '/toxic',       label: '⚠️ อาหารต้องห้าม' },
-                { href: '/newpet',      label: '🆕 เลี้ยงใหม่' },
-                { href: '/ingredients', label: 'ส่วนผสม' },
-                { href: '/saved',       label: '❤️ บันทึก' },
+                { href: '/compare',         label: 'เปรียบเทียบ' },
+                { href: '/cost',            label: 'ค่าใช้จ่าย' },
+                { href: '/age',             label: 'คำนวณอายุ' },
+                { href: '/vaccine',         label: '💉 วัคซีน' },
+                { href: '/hospital/surgery',label: '🔪 ทำหมัน/ผ่าตัด' },
+                { href: '/food/senior',     label: '👴 Senior' },
+                { href: '/food/budget',     label: '💰 ประหยัด' },
+                { href: '/dental',          label: '🦷 ดูแลฟัน' },
+                { href: '/deworming',       label: '🪱 ถ่ายพยาธิ' },
+                { href: '/flea',            label: '🦟 หมัด/เห็บ' },
+                { href: '/grooming',        label: '🪮 Grooming' },
+                { href: '/food/puppy',      label: '🐶 Puppy' },
+                { href: '/toxic',           label: '⚠️ อาหารต้องห้าม' },
+                { href: '/checklist',       label: '✅ เช็คลิสต์' },
+                { href: '/newpet',          label: '🆕 เลี้ยงใหม่' },
+                { href: '/training',        label: '🎓 ฝึกสุนัข' },
+                { href: '/insurance',       label: '🛡️ ประกัน' },
+                { href: '/microchip',       label: '📡 ไมโครชิป' },
+                { href: '/first-aid',       label: '🩹 ปฐมพยาบาล' },
+                { href: '/potty-training',  label: '🚽 ฝึกฉี่ถูกที่' },
+                { href: '/weight',          label: '⚖️ น้ำหนัก' },
+                { href: '/cat-behavior',    label: '🐱 พฤติกรรมแมว' },
+                { href: '/neutering',       label: '✂️ ทำหมัน' },
+                { href: '/heartworm',       label: '🦟 พยาธิหัวใจ' },
+                { href: '/allergy',         label: '🤧 แพ้อาหาร' },
+                { href: '/travel',          label: '✈️ เดินทาง' },
+                { href: '/anxiety',         label: '😰 แยกไม่ได้' },
+                { href: '/heatstroke',      label: '☀️ ลมแดด' },
+                { href: '/dog-behavior',    label: '🐕 พฤติกรรมสุนัข' },
+                { href: '/breeds',          label: '🐾 สายพันธุ์' },
+                { href: '/kidney-disease',  label: '🫘 โรคไต' },
+                { href: '/raw-food',        label: '🥩 Raw Food' },
+                { href: '/symptoms',         label: '🩺 ตรวจอาการ' },
+                { href: '/breed-quiz',       label: '🐾 ค้นหาสายพันธุ์' },
+                { href: '/diarrhea',         label: '💩 ท้องเสีย' },
+                { href: '/not-eating',       label: '🍽️ ไม่กินอาหาร' },
+                { href: '/ingredients',      label: 'ส่วนผสม' },
+                { href: '/saved',            label: '❤️ บันทึก' },
               ].map(l => (
                 <a key={l.href} href={l.href}
                   className="whitespace-nowrap px-2.5 py-1 bg-gray-100 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors flex-shrink-0">
@@ -118,7 +151,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="max-w-5xl mx-auto px-4 py-8 pb-28">
           {children}
         </div>
-        <footer className="max-w-5xl mx-auto px-4 py-6 text-center text-xs text-gray-400 border-t border-gray-100 mt-4">
+        <footer className="max-w-5xl mx-auto px-4 py-8 text-center text-xs text-gray-400 border-t border-gray-100 mt-4">
+          {/* Newsletter */}
+          <div className="mb-5">
+            <p className="font-semibold text-gray-600 text-sm mb-1">รับข้อมูลดูแลสัตว์เลี้ยงใหม่ๆ</p>
+            <p className="text-xs text-gray-400 mb-3">ทิปส์ อาหารแนะนำ และข่าวสาร — ส่งให้ฟรี</p>
+            <NewsletterForm />
+          </div>
           <p className="mb-2">
             <a href="/contact" className="hover:text-orange-500 transition-colors">ติดต่อเรา</a>
             <span className="mx-2">·</span>
@@ -130,6 +169,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </p>
           <p>© {new Date().getFullYear()} ThailandPetHub — ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำทางสัตวแพทย์</p>
         </footer>
+        <NotificationWatcher />
         <InstallPrompt />
         <CompareTray />
         <script dangerouslySetInnerHTML={{ __html: `

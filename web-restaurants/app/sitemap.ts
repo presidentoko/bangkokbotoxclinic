@@ -3,6 +3,7 @@ import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
+import { loadAllSlugs } from "@/lib/famous-vs-good";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -29,6 +30,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const g of GUIDES) {
     items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
+  }
+
+  // famous-vs-good index
+  items.push({ url: `${SITE}/famous-vs-good`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
+  // famous-vs-good slugs
+  const fvgSlugs = await loadAllSlugs();
+  for (const slug of fvgSlugs) {
+    items.push({ url: `${SITE}/famous-vs-good/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 });
   }
 
   for (const c of cities) {

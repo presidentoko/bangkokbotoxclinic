@@ -3,6 +3,49 @@ import { useState, useMemo } from 'react'
 import { calculateCost } from '@/lib/cost'
 import type { Species, PetSize } from '@/lib/cost'
 
+function CostSchemaLd() {
+  const schemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'เครื่องคำนวณค่าใช้จ่ายสัตว์เลี้ยง',
+      applicationCategory: 'FinanceApplication',
+      operatingSystem: 'Any',
+      url: 'https://www.thailandpethub.com/cost',
+      description: 'คำนวณค่าใช้จ่ายรายเดือนและตลอดชีพในการเลี้ยงสุนัขและแมวในประเทศไทย ครอบคลุมค่าอาหาร สัตวแพทย์ ของเล่น และค่าดูแลทั่วไป',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'THB' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'ค่าใช้จ่ายในการเลี้ยงสุนัขต่อเดือนเท่าไหร่?',
+          acceptedAnswer: { '@type': 'Answer', text: 'ค่าใช้จ่ายในการเลี้ยงสุนัขต่อเดือนในประเทศไทยประมาณ 2,000-8,000 บาท ขึ้นอยู่กับขนาดสุนัข ค่าอาหาร ค่าสัตวแพทย์ และค่าอุปกรณ์ต่างๆ สุนัขขนาดเล็กมีค่าใช้จ่ายน้อยกว่าพันธุ์ใหญ่' },
+        },
+        {
+          '@type': 'Question',
+          name: 'ค่าใช้จ่ายในการเลี้ยงแมวต่อเดือนเท่าไหร่?',
+          acceptedAnswer: { '@type': 'Answer', text: 'แมวมีค่าใช้จ่ายต่อเดือนประมาณ 1,500-5,000 บาท ครอบคลุมค่าอาหาร ทรายแมว วัคซีนประจำปี และค่าสัตวแพทย์ แมวมักมีค่าใช้จ่ายน้อยกว่าสุนัขเนื่องจากดูแลตัวเองได้บางส่วน' },
+        },
+        {
+          '@type': 'Question',
+          name: 'ค่าใช้จ่ายตลอดชีพในการเลี้ยงสัตว์เลี้ยงเท่าไหร่?',
+          acceptedAnswer: { '@type': 'Answer', text: 'ค่าใช้จ่ายตลอดชีพในการเลี้ยงสุนัขประมาณ 200,000-800,000 บาท แมวประมาณ 150,000-500,000 บาท ขึ้นอยู่กับอายุขัย ค่าสัตวแพทย์ฉุกเฉิน และค่าดูแลในช่วงสูงวัย' },
+        },
+      ],
+    },
+  ]
+  return (
+    <>
+      {schemas.map((s, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
+      ))}
+    </>
+  )
+}
+
 const SIZE_LABELS: Record<PetSize, string> = {
   small:  'เล็ก (< 10 กก.)',
   medium: 'กลาง (10–25 กก.)',
@@ -32,6 +75,7 @@ export default function CostPage() {
 
   return (
     <main className="max-w-2xl mx-auto">
+      <CostSchemaLd />
       <h1 className="text-2xl font-black text-gray-900 mb-1">💰 ประมาณค่าใช้จ่าย</h1>
       <p className="text-sm text-gray-400 mb-6">คำนวณค่าใช้จ่ายต่อเดือนและระยะยาวสำหรับสัตว์เลี้ยงของคุณ</p>
 

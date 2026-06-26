@@ -1,6 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
+import { loadAllSlugs, loadIgSeed, loadFamousVsGoodCollection } from "@/lib/famous-vs-good";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
@@ -11,10 +12,26 @@ export async function GET() {
   const db = await loadMasterDb();
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 30);
 
+  // Compute ExposeStat — same numbers as homepage (LAW 2: identical across text/JSON-LD/llms.txt)
+  const igSeeds = await loadIgSeed();
+  const bangkokCafeSeeds = igSeeds.filter((s) => s.category === "bangkok-cafes");
+  const exposeN = bangkokCafeSeeds.length;
+  let exposeM = 0;
+  let exposeThreshold = 75;
+  if (exposeN > 0) {
+    const { entries, thresholds } = await loadFamousVsGoodCollection("bangkok-cafes");
+    exposeThreshold = Math.round(thresholds.bigGapThreshold);
+    exposeM = entries.filter(
+      (e) => e.restaurant !== null && e.restaurant.trust_score < thresholds.bigGapThreshold
+    ).length;
+  }
+
   const lines: string[] = [
     `# ${BRAND}`,
     "",
     `> Independent directory of ${db.total_restaurants.toLocaleString()} restaurants across Bangkok and Pattaya. Ranked by Trust Score from real Google review analysis.`,
+    "",
+    `> SNS Lie Detector: Of ${exposeN} Bangkok venues tracked as social-media hyped, ${exposeM} score below ${exposeThreshold} on verified Google review data (Trust Score). Real numbers, not editorial opinion.`,
     "",
     "## About this data",
     "",
@@ -62,6 +79,15 @@ export async function GET() {
   lines.push("", "## Curated lists", "");
   for (const c of BEST_FOR) {
     lines.push(`- [${c.title}](${SITE}/best/${c.slug})`);
+  }
+
+  // Get fvg slugs
+  const fvgSlugs = await loadAllSlugs();
+  lines.push("", "## Instagram Famous vs Actually Good", "");
+  lines.push(`- [Index page](${SITE}/famous-vs-good) — Cross-references Bangkok's most Instagram-hyped venues against verified Google review Trust Scores`);
+  for (const slug of fvgSlugs) {
+    const label = slug.replace(/-/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase());
+    lines.push(`- [${label}](${SITE}/famous-vs-good/${slug})`);
   }
 
   lines.push(

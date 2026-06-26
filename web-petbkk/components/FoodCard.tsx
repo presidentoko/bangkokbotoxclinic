@@ -5,6 +5,7 @@ import type { PetFood } from '@/lib/types'
 import { getFoodGrade } from '@/lib/grading'
 import { getCompareIds, toggleCompare } from '@/lib/compare'
 import { foodSlug } from '@/lib/petfood'
+import SaveFoodButton from './SaveFoodButton'
 
 const GRADE_STYLES: Record<string, { bg: string; text: string; border: string; labelBg: string }> = {
   A: { bg: 'bg-green-50',  text: 'text-green-700',  border: 'border-green-500',  labelBg: 'bg-green-100' },
@@ -90,6 +91,11 @@ export default function FoodCard({ food }: { food: PetFood }) {
             <p className="text-sm font-semibold text-gray-900 leading-tight line-clamp-2 group-hover:text-orange-600 transition-colors">
               {food.name_th || food.name_en}
             </p>
+          </div>
+
+          {/* Save button */}
+          <div className="flex-shrink-0 -mt-1 -mr-1">
+            <SaveFoodButton foodId={food.id} />
           </div>
         </div>
 

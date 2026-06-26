@@ -125,8 +125,8 @@ def main():
             "CITY_LNG":         city["lng"],
             "CITY_RADIUS_M":    city["radius"],
             "CITY_OUTPUT_DIR":  str(out_dir),
-            "GRID_N_WORKERS":   "2",
-            "GRID_PROXY_PORT":  "2090",  # review(2080-2089)와 분리, dental 전용
+            "GRID_N_WORKERS":   "4",
+            "GRID_PROXY_PORT":  "2090",  # review(2080-2089)와 분리, dental 전용 (2090-2093)
             "PYTHONIOENCODING": "utf-8",
         }
 
@@ -145,16 +145,16 @@ def main():
         print(f"[dental_grid] {city['name']}: {unique}개 발견 (실패 {fails}개)")
         mark_done(city["name"])
 
-    print(f"\n[dental_grid] 전체 완료 — 총 {grand_total}개 치과 (실패 {grand_fails}개)")
+        # 도시별 review 스크래퍼 활성화 (.disabled 마커 제거)
+        review_disabled = ROOT / "run" / f"dental_review_{city['name']}.disabled"
+        if review_disabled.exists():
+            try:
+                review_disabled.unlink()
+                print(f"[dental_grid] dental_review_{city['name']} 활성화 — watchdog 가 다음 tick 에 가동")
+            except OSError as e:
+                print(f"[dental_grid] review 마커 제거 실패: {e}")
 
-    # Bangkok 완료 → dental_review_bangkok 활성화 (.disabled 마커 제거)
-    review_disabled = ROOT / "run" / "dental_review_bangkok.disabled"
-    if review_disabled.exists():
-        try:
-            review_disabled.unlink()
-            print("[dental_grid] dental_review_bangkok 활성화 — watchdog 가 다음 tick 에 가동")
-        except OSError as e:
-            print(f"[dental_grid] review 마커 제거 실패: {e}")
+    print(f"\n[dental_grid] 전체 완료 — 총 {grand_total}개 치과 (실패 {grand_fails}개)")
 
     print("[dental_grid] 처리할 포인트 없음. 종료.")  # watchdog grid_done 트리거
 

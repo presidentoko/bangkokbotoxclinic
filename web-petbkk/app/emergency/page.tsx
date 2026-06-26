@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: 'คู่มือฉุกเฉินสัตว์เลี้ยง — อาการไหนต้องไปหาหมอทันที',
@@ -170,6 +171,8 @@ export default function EmergencyPage() {
       <p className="text-xs text-gray-400 text-center mt-6">
         * ข้อมูลนี้ไม่ใช่คำแนะนำทางการแพทย์ กรุณาปรึกษาสัตวแพทย์ในกรณีฉุกเฉิน
       </p>
+
+      <RelatedGuides current="emergency" />
     </main>
   )
 }

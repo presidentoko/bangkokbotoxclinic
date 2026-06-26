@@ -1,0 +1,62 @@
+{
+  "clinic_id": "0x30e281bc2687f333_0x3f0fe4ac55aa78b6",
+  "name": "LABX Clinic สาขาฟิวเจอร์พาร์ค รังสิต Future Park Rangsit FL.1",
+  "city_label": "Bangkok",
+  "categories": [
+    "botox",
+    "facial",
+    "hifu",
+    "laser"
+  ],
+  "buckets": [
+    "cosmetic"
+  ],
+  "queries_used": [
+    "LABX Clinic สาขาฟิวเจอร์พาร์ค รังสิต Future Park Rangsit FL.1",
+    "LABX Clinic"
+  ],
+  "tokens_used": [
+    "LABX Clinic สาขาฟิวเจอร์พาร์ค รังสิต Future Park Rangsit FL.1",
+    "LABXClinicสาขาฟิวเจอร์พาร์ครังสิตFutureParkRangsitFL.1",
+    "LABX Clinic",
+    "LABXClinic"
+  ],
+  "candidates_total": 2,
+  "mentions": [
+    {
+      "topic_id": "43836814",
+      "title": "ควรไปคลินิกไหนดีคะ ระหว่างTHE KLINIQUEกับLabx clinic",
+      "relevance_score": 3,
+      "matched_tokens": [
+        "LABX Clinic"
+      ],
+      "op_mentioned": true,
+      "title_mentioned": true,
+      "comment_count_with_mention": 0,
+      "sample_snippets": [
+        "[title] ...ควรไปคลินิกไหนดีคะ ระหว่างTHE KLINIQUEกับLabx clinic...",
+        "[op] ...ปถามเรื่องราคาเลเซอร์ขนรักแร้ THE KLINIQUE =890฿ ได้12ครั้ง labx clinic =2990฿ ได้4ครั้ง มีใครแนะนำได้บ้างไหมคะว่าควรไปทำคลิกนิคไหนดี หรือแนะนำคลินิคอื่นมาให้ก็ได้นะคะ ขอบคุณค่ะ (เค..."
+      ],
+      "branch_specific": false,
+      "fetched_at": "2026-06-19T10:48:56Z"
+    },
+    {
+      "topic_id": "43161372",
+      "title": "[CR] อภิมหารีวิว: เลเซอร์กำจัดขน 5 คลินิก",
+      "relevance_score": 2,
+      "matched_tokens": [
+        "LABX Clinic"
+      ],
+      "op_mentioned": true,
+      "title_mentioned": false,
+      "comment_count_with_mention": 1,
+      "sample_snippets": [
+        "[op] ...ินค้า: Gangnam Clinic, L'Clinic, The Klinique, Apex Clinic, LabX Clinic คะแนน: CR - Consumer Review : กระทู้รีวิวนี้เป็นกระทู้ CR โดยที่เจ้าของกระทู้ - จ่ายเงินซื้อเอง หรือได้รับจาก...",
+        "[c#2] ...LabX Clinic เลเซอร์ประเภท: Primelase 4 พลังงาน (Yag, Alex, Short pulse/Long pulse Diode) ราคา: โปรทดลองทำรักแร้ 490 บาท แ..."
+      ],
+      "branch_specific": false,
+      "fetched_at": "2026-06-19T11:00:46Z"
+    }
+  ],
+  "updated_at": "2026-06-19T12:24:31Z"
+}

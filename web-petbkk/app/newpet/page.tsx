@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: 'คู่มือเลี้ยงน้องใหม่ — เช็คลิสต์ 20 ข้อสำหรับเจ้าของมือใหม่',
@@ -62,8 +63,23 @@ const SECTIONS: Section[] = [
 ]
 
 export default function NewPetPage() {
+  const howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'คู่มือเลี้ยงน้องใหม่ 20 ขั้นตอน',
+    description: 'เช็คลิสต์ครบ 20 ข้อสำหรับผู้เลี้ยงสัตว์มือใหม่ ตั้งแต่อุปกรณ์จำเป็น อาหาร วัคซีน และการไปหาสัตวแพทย์',
+    step: SECTIONS.flatMap(s =>
+      s.items.map(item => ({
+        '@type': 'HowToStep',
+        name: item.label,
+        text: item.detail,
+      }))
+    ),
+  }
+
   return (
     <main className="max-w-3xl mx-auto">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <h1 className="text-2xl font-black text-gray-900 mb-1">🆕 คู่มือเลี้ยงน้องใหม่</h1>
       <p className="text-sm text-gray-400 mb-6">เช็คลิสต์ 20 ข้อสำหรับเจ้าของน้องมือใหม่</p>
 
@@ -105,6 +121,8 @@ export default function NewPetPage() {
           <p className="font-semibold text-sm">ตารางวัคซีน</p>
         </a>
       </div>
+
+      <RelatedGuides current="newpet" />
     </main>
   )
 }

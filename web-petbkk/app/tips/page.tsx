@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
   title: 'เคล็ดลับดูแลสัตว์เลี้ยง 15 ข้อ — อาหาร วัคซีน สุขภาพ',
@@ -158,6 +159,8 @@ export default function TipsPage() {
           ค้นหาโรงพยาบาลสัตว์ใกล้ฉัน →
         </a>
       </div>
+
+      <RelatedGuides current="tips" />
     </main>
   )
 }

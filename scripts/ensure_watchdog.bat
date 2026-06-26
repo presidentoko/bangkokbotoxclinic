@@ -4,7 +4,7 @@ REM watchdog.py writes its own PID to run/watchdog.pid on startup.
 REM This bat checks if it's alive; if not, relaunches.
 
 setlocal EnableDelayedExpansion
-set ROOT=C:\Users\yn\Desktop\deliverable\deliverable
+set ROOT=C:\Users\yn\Desktop\Work\0_main\deliverable\deliverable
 set VENVPY=%ROOT%\.venv\Scripts\python.exe
 set PIDFILE=%ROOT%\run\watchdog.pid
 set LOGFILE=%ROOT%\logs\watchdog.log

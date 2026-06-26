@@ -121,83 +121,85 @@ export function Header({ locale }: { locale: Locale }) {
         <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#fbf4f1]/95 to-transparent pointer-events-none" />
       </div>
 
-      {/* ── Desktop: single-row nav with scrollable concern chips ── */}
-      <nav className="hidden sm:flex mx-auto max-w-5xl items-center gap-1 px-4 py-2.5 text-sm overflow-x-auto scrollbar-none">
+      {/* ── Desktop: 3-part layout — logo fixed | concerns scroll | actions fixed ── */}
+      <div className="hidden sm:flex mx-auto max-w-5xl items-center px-4 py-2.5 gap-2">
+        {/* Logo — fixed left */}
         <Link
           href={`/${locale}`}
-          className="font-serif-display text-lg font-semibold text-[#2b2222] hover:text-rose-500 transition-colors mr-3 shrink-0"
+          className="font-serif-display text-lg font-semibold text-[#2b2222] hover:text-rose-500 transition-colors shrink-0 mr-1"
         >
           {t(locale, "site_name")}
         </Link>
-        {CONCERNS.map((c) => (
-          <Link
-            key={c}
-            href={`/${locale}/${c}`}
-            className="whitespace-nowrap text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50 shrink-0"
-          >
-            {concernLabelShort(locale, c)}
-          </Link>
-        ))}
-        <div className="ml-auto flex items-center gap-1 shrink-0">
-          <Link
-            href={`/${locale}/sale/7-7`}
-            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors whitespace-nowrap"
-          >
-            🔥 {isTh ? "ดีล 7.7" : "7.7 Sale"}
-          </Link>
-          <Link
-            href={`/${locale}/budget/under-500`}
-            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 hover:bg-emerald-100 transition-colors whitespace-nowrap"
-          >
-            💰 {isTh ? "งบ 500" : "Under ฿500"}
-          </Link>
+
+        {/* Concern chips + secondary nav — scrollable middle */}
+        <nav className="flex-1 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-1 w-max text-sm">
+            {CONCERNS.map((c) => (
+              <Link
+                key={c}
+                href={`/${locale}/${c}`}
+                className="whitespace-nowrap text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50"
+              >
+                {concernLabelShort(locale, c)}
+              </Link>
+            ))}
+            <Link
+              href={`/${locale}/brand`}
+              className="whitespace-nowrap text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50"
+            >
+              {isTh ? "แบรนด์" : "Brands"}
+            </Link>
+            <Link
+              href={`/${locale}/sale/7-7`}
+              className="whitespace-nowrap text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors"
+            >
+              🔥 {isTh ? "ดีล 7.7" : "7.7 Sale"}
+            </Link>
+            <Link
+              href={`/${locale}/budget/under-500`}
+              className="whitespace-nowrap text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 hover:bg-emerald-100 transition-colors"
+            >
+              💰 {isTh ? "งบ 500" : "Under ฿500"}
+            </Link>
+          </div>
+        </nav>
+
+        {/* Actions + locale — always visible fixed right */}
+        <div className="flex items-center gap-1 shrink-0">
           <Link
             href={`/${locale}/search`}
-            className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50 whitespace-nowrap"
+            className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2 py-1 rounded-full hover:bg-rose-50"
             aria-label="Search"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <span className="text-sm">{isTh ? "ค้นหา" : "Search"}</span>
           </Link>
           <Link
             href={`/${locale}/favorites`}
-            className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50 whitespace-nowrap"
+            className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2 py-1 rounded-full hover:bg-rose-50"
             aria-label="Saved"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
-            <span className="text-sm">{isTh ? "บันทึก" : "Saved"}</span>
           </Link>
           <Link
             href={`/${locale}/quiz`}
-            className="text-xs font-semibold px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors whitespace-nowrap"
+            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors whitespace-nowrap"
           >
             {isTh ? "ทดสอบ 🌸" : "Quiz 🌸"}
           </Link>
           <Link
-            href={`/${locale}/brand`}
-            className="text-[#8a7a76] hover:text-rose-500 transition-colors px-2.5 py-1 rounded-full hover:bg-rose-50 whitespace-nowrap"
-          >
-            {isTh ? "แบรนด์" : "Brands"}
-          </Link>
-          <Link
-            href={`/${locale}/methodology`}
-            className="text-[#8a7a76] hover:text-rose-500 transition-colors whitespace-nowrap pl-1"
-          >
-            {t(locale, "methodology")}
-          </Link>
-          <Link
             href={`/${locale}/media-kit`}
-            className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-[#c9a86a]/50 text-[#c9a86a] hover:bg-[#c9a86a]/10 transition-colors whitespace-nowrap"
+            className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border border-[#c9a86a]/50 text-[#c9a86a] hover:bg-[#c9a86a]/10 transition-colors whitespace-nowrap"
           >
-            {isTh ? "โฆษณา" : "Advertise"}
+            {isTh ? "โฆษณา" : "Ads"}
           </Link>
+          <div className="w-px h-4 bg-[#efe1db] mx-0.5" />
           <LocaleToggle locale={locale} />
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

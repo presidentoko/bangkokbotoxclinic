@@ -42,8 +42,8 @@ GRID_PROXY_PORT = 2080       # 포트 1개
 GRID_N_WORKERS = 1
 
 # Review (상세 + 리뷰 수집) 워커
-PROXY_PORT_BASE = 2081       # 2081..2087
-N_WORKERS = 7
+PROXY_PORT_BASE = 2081       # 2081..2085
+N_WORKERS = 5
 
 # legacy
 PROXY_PORT = 2080

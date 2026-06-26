@@ -3,12 +3,15 @@ import { useRouter } from 'next/navigation'
 import SearchBar from '@/components/SearchBar'
 import PetProfileSetup from '@/components/PetProfileSetup'
 import PersonalizedFoodRecs from '@/components/PersonalizedFoodRecs'
+import PopularFoods from '@/components/PopularFoods'
 
 const FOOD_CHIPS = [
   { label: 'Royal Canin', href: '/food?q=royal+canin' },
-  { label: '🐕 ลูกสุนัข', href: '/food?animal=dog&life_stage=puppy' },
+  { label: '🐶 Puppy/Kitten', href: '/food/puppy' },
   { label: '🐈 แมว', href: '/food?animal=cat' },
   { label: '⭐ เกรด A', href: '/food/best' },
+  { label: '👴 Senior', href: '/food/senior' },
+  { label: '💰 ประหยัด', href: '/food/budget' },
 ]
 
 const HOSPITAL_CHIPS = [
@@ -34,8 +37,44 @@ const TOOLS = [
   { href: '/toxic',       icon: '⚠️', title: 'อาหารต้องห้าม',      desc: '12 อาหารอันตราย' },
   { href: '/emergency',   icon: '🚨', title: 'ฉุกเฉิน',            desc: 'คู่มือเร่งด่วน' },
   { href: '/ingredients', icon: '🔬', title: 'ส่วนผสมอันตราย',     desc: 'BHA, BHT + อื่นๆ' },
-  { href: '/tips',        icon: '📚', title: 'เคล็ดลับ',           desc: '15 คำถามยอดนิยม' },
-  { href: '/newpet',      icon: '🆕', title: 'เลี้ยงน้องใหม่',      desc: 'เช็คลิสต์ 20 ข้อ' },
+  { href: '/tips',          icon: '📚', title: 'เคล็ดลับ',           desc: '15 คำถามยอดนิยม' },
+  { href: '/newpet',        icon: '🆕', title: 'เลี้ยงน้องใหม่',     desc: 'เช็คลิสต์ 20 ข้อ' },
+  { href: '/dental',        icon: '🦷', title: 'ดูแลฟัน',            desc: 'แปรง/สเกลฟัน' },
+  { href: '/deworming',     icon: '🪱', title: 'ถ่ายพยาธิ',          desc: 'ตารางและวิธีการ' },
+  { href: '/checklist',     icon: '✅', title: 'เช็คลิสต์รายสัปดาห์',desc: 'ติดตามการดูแลน้อง' },
+  { href: '/hospital/surgery', icon: '🔪', title: 'ผ่าตัด/ทำหมัน',   desc: 'โรงพยาบาลที่มีห้องผ่าตัด' },
+  { href: '/flea',             icon: '🦟', title: 'กำจัดหมัด/เห็บ',  desc: 'ยา วิธีกำจัด ป้องกัน' },
+  { href: '/grooming',         icon: '🪮', title: 'ดูแลขน/Grooming', desc: 'อาบน้ำ แปรงขน ตัดเล็บ' },
+  { href: '/food/puppy',       icon: '🐶', title: 'อาหาร Puppy',      desc: 'ลูกสุนัข/ลูกแมว' },
+  { href: '/training',         icon: '🎓', title: 'ฝึกสุนัข',         desc: 'คำสั่งพื้นฐาน positive' },
+  { href: '/microchip',        icon: '📡', title: 'ไมโครชิป',          desc: 'ขั้นตอนและราคา' },
+  { href: '/insurance',        icon: '🛡️', title: 'ประกันสัตว์เลี้ยง', desc: 'เปรียบเทียบแผน' },
+  { href: '/first-aid',        icon: '🩹', title: 'ปฐมพยาบาล',          desc: 'ก่อนพาไปหาหมอ' },
+  { href: '/potty-training',   icon: '🚽', title: 'ฝึกฉี่ถูกที่',        desc: 'สุนัขและแมว' },
+  { href: '/weight',           icon: '⚖️', title: 'ประเมินน้ำหนัก',      desc: 'BCS 1-9 เช็คอ้วนผอม' },
+  { href: '/cat-behavior',     icon: '🐱', title: 'พฤติกรรมแมว',          desc: 'ทำไมแมวถึง...' },
+  { href: '/neutering',        icon: '✂️', title: 'ทำหมัน',               desc: 'ประโยชน์ ราคา ดูแลหลัง' },
+  { href: '/heartworm',        icon: '🦟', title: 'พยาธิหัวใจ',            desc: 'ป้องกัน ยาที่ใช้ อาการ' },
+  { href: '/allergy',          icon: '🤧', title: 'แพ้อาหาร',              desc: 'อาการ + elimination diet' },
+  { href: '/travel',           icon: '✈️', title: 'เดินทางกับน้อง',         desc: 'สายการบิน เอกสาร' },
+  { href: '/anxiety',          icon: '😰', title: 'แยกเจ้าของไม่ได้',        desc: 'separation anxiety' },
+  { href: '/kidney-disease',   icon: '🫘', title: 'โรคไต CKD',               desc: 'อาการ อาหาร ดูแลที่บ้าน' },
+  { href: '/raw-food',         icon: '🥩', title: 'อาหาร Raw/BARF',           desc: 'ข้อดี เสี่ยง วิธีทำ' },
+  { href: '/heatstroke',       icon: '☀️', title: 'โรคลมแดด',                desc: 'ฉุกเฉิน ปฐมพยาบาล' },
+  { href: '/dog-behavior',     icon: '🐕', title: 'พฤติกรรมสุนัข',           desc: 'เห่า กัด ขุด ภาษากาย' },
+  { href: '/breeds',           icon: '🐾', title: 'สายพันธุ์ยอดนิยม',        desc: '12 สายพันธุ์ในไทย' },
+  { href: '/supplements',      icon: '💊', title: 'อาหารเสริม',               desc: 'โอเมก้า 3 กลูโคซามีน โพรไบโอติก' },
+  { href: '/guides',           icon: '📚', title: 'คู่มือทั้งหมด',            desc: 'รวมทุกเรื่องที่ต้องรู้' },
+  { href: '/symptoms',         icon: '🩺', title: 'ตรวจอาการ',               desc: 'น้องป่วย ต้องพาหมอไหม?' },
+  { href: '/breed-quiz',       icon: '🐾', title: 'ค้นหาสายพันธุ์',          desc: 'แบบทดสอบ 4 คำถาม' },
+  { href: '/my-pet',           icon: '📋', title: 'โปรไฟล์น้อง',             desc: 'ติดตามวัคซีน ถ่ายพยาธิ' },
+  { href: '/diarrhea',         icon: '💩', title: 'ท้องเสีย',                desc: 'ดูแลที่บ้านหรือต้องพาหมอ' },
+  { href: '/not-eating',       icon: '🍽️', title: 'ไม่กินอาหาร',            desc: 'สาเหตุและวิธีแก้' },
+  { href: '/food-quiz',        icon: '🍖', title: 'แบบทดสอบอาหาร',           desc: 'อาหารไหนเหมาะกับน้อง?' },
+  { href: '/vomiting',         icon: '🤢', title: 'อาเจียน',                 desc: 'ดูสีที่อาเจียน รู้สาเหตุ' },
+  { href: '/urinary',          icon: '🚽', title: 'ทางเดินปัสสาวะ',          desc: 'FLUTD แมวปัสสาวะลำบาก' },
+  { href: '/obesity',          icon: '⚖️', title: 'น้องอ้วน',               desc: 'BCS ตรวจด้วยมือ + ลดน้ำหนัก' },
+  { href: '/skin',             icon: '🐾', title: 'โรคผิวหนัง',              desc: 'คัน ขนร่วง ผิวแดง' },
 ]
 
 export default function HomePage() {
@@ -109,6 +148,9 @@ export default function HomePage() {
         <PetProfileSetup />
         <PersonalizedFoodRecs />
       </div>
+
+      {/* ── POPULAR FOODS ───────────────────────────────────────────── */}
+      <PopularFoods />
 
       {/* ── TOOLS GRID ──────────────────────────────────────────────── */}
       <div className="max-w-2xl mx-auto px-4 mb-8">

@@ -42,13 +42,14 @@ NORDAPI_UDP = "https://api.nordvpn.com/v1/servers?limit=10000&filters[servers_te
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/130.0.0.0"
 HEALTH_URL = "https://api.ipify.org?format=json"  # httpbin.org 불안정 → ipify로 교체
 REFRESH_INTERVAL = 900  # 15분마다 리스트 재조회
-TUNNEL_UP_TIMEOUT = 15  # tunnel up 대기. 정상 노드는 4-8s 안에 뜸; 안 뜨면 죽은 노드라 다음 시도로
-FAILED_HOST_COOLDOWN = 45  # 120→45s: 죽은 서버 빠르게 스킵
+TUNNEL_UP_TIMEOUT = 15  # 정상 노드는 4-8s 안에 뜸; 15s→실패로 간주 (45→15→10→15)
+FAILED_HOST_COOLDOWN = 15  # 45→15s: rotate 90s 안에 5+ 서버 시도 가능
+SOCKS_HEALTH_INTERVAL = 300  # 5분마다 살아있는 포트도 SOCKS 실제 동작 확인
 
-# 태국에서 잘 연결되는 아시아 서버 우선. hostname 앞 2자리 국가코드 기준.
-# 이 목록에 없는 서버(US/JP/CA/AU 등)는 풀백으로만 사용.
-_PREFER_CC = {"kr", "th", "de", "nl", "gb", "fr", "hk", "tw", "my", "vn", "ph", "id"}
-# sg/jp/au 제거(반복 실패), EU(de/nl/gb/fr) 추가(안정적)
+# 태국에서 잘 연결되는 서버 우선. hostname 앞 2자리 국가코드 기준.
+# 실측 성공률(2026-06): tw=24%, th=23%, fr=22%, vn=21%, de=20%, hk=20%, nl=19%
+# 제거: sg/jp/au(반복 실패), gb=12%/my=13%(낮은 성공률)
+_PREFER_CC = {"tw", "th", "fr", "vn", "de", "hk", "nl", "kr", "id", "ph"}
 
 def _country_code(host: str) -> str:
     """sg629.nordvpn.com → 'sg'"""
@@ -230,7 +231,7 @@ class Runner:
         self.failed_until[host] = time.time() + FAILED_HOST_COOLDOWN
 
     # ── 포트 관리 ────────────────────────────────────────
-    def boot_port(self, p: Port, max_attempts: int = 6) -> bool:
+    def boot_port(self, p: Port, max_attempts: int = 10) -> bool:
         if p.server_ip:
             self.used_ips.discard(p.server_ip)
         for attempt in range(max_attempts):
@@ -367,6 +368,8 @@ class Runner:
         self._write_status()
 
         last_health = 0.0
+        last_socks_check = 0.0
+        last_zombie_clean = 0.0
         while not self._stop:
             # 파일 트리거 rotate
             for i, p in enumerate(self.ports):
@@ -384,11 +387,26 @@ class Runner:
                     self._write_status()
 
             now = time.time()
-            if now - last_health > 30:
+            # 5분마다 좀비 listener 정리 (죽은 node 프로세스가 포트 점유하는 경우)
+            if now - last_zombie_clean > 300:
+                last_zombie_clean = now
+                self._cleanup_zombie_listeners()
+
+            if now - last_health > 15:
                 last_health = now
                 for p in self.ports:
                     if not p.is_alive():
                         log(f"port {p.port}: process died → respawn")
+                        self.boot_port(p)
+                        self._write_status()
+
+            # 프로세스는 살아있지만 SOCKS 터널이 죽은 경우 감지
+            if now - last_socks_check > SOCKS_HEALTH_INTERVAL:
+                last_socks_check = now
+                for p in self.ports:
+                    if p.is_alive() and not p.check_health(timeout=5.0):
+                        log(f"port {p.port}: SOCKS dead (process alive) → rotate")
+                        self._mark_failed(p.server_host)
                         self.boot_port(p)
                         self._write_status()
 

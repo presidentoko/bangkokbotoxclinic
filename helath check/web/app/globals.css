@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root {
+  --blue-brand: #1d6fa4;
+  --bg-main: #f8fafc;
+  --text-main: #0f172a;
+}
+
+@theme inline {
+  --color-brand: var(--blue-brand);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}

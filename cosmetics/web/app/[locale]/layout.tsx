@@ -82,7 +82,7 @@ export async function generateMetadata({
   return BASE_METADATA;
 }
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default async function LocaleLayout({
   children,
