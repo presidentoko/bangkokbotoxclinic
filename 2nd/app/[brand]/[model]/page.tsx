@@ -209,14 +209,14 @@ export default async function ModelPage({ params }: Props) {
       </div>
 
       {/* AdSense slot — top */}
-      <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense top]</div>
+      <div className="my-6" />
 
       <PriceTable item={item} />
 
       <AffiliateCTA item={item} />
 
       {/* AdSense slot — middle */}
-      <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense middle]</div>
+      <div className="my-6" />
 
       <section className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions</h2>
@@ -231,7 +231,7 @@ export default async function ModelPage({ params }: Props) {
       </section>
 
       {/* AdSense slot — bottom */}
-      <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense bottom]</div>
+      <div className="my-6" />
 
       {relatedItems.length > 0 && (
         <section className="mt-10">
