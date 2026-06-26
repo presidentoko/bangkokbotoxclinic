@@ -5,6 +5,8 @@ import { getItemBySlug, getItemsByBrand, getAllItems, formatPrice, Item } from '
 import { PriceTable } from '@/components/PriceTable'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
 import { ShareButton } from '@/components/ShareButton'
+import { RecentlyViewed } from '@/components/RecentlyViewed'
+import { TrackPageView } from '@/components/TrackPageView'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
@@ -87,6 +89,10 @@ export default async function ModelPage({ params }: Props) {
   const faqs = getFAQs(item)
 
   const vg = item.price_ranges.very_good
+  const savingsPct = vg
+    ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
+    : null
+  const avgPrice = vg ? Math.round((vg.min + vg.max) / 2) : null
   const priceHint = vg ? ` Current prices: ${formatPrice(vg.min)}–${formatPrice(vg.max)}.` : ''
   const metaDescription = `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`
   const pageUrl = `${BASE}/${item.slug}`
@@ -139,6 +145,12 @@ export default async function ModelPage({ params }: Props) {
 
   return (
     <>
+      <TrackPageView
+        slug={item.slug}
+        brand={item.brand}
+        model={item.model}
+        priceText={vg ? `${formatPrice(vg.min)}–${formatPrice(vg.max)}` : 'See prices'}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -170,9 +182,30 @@ export default async function ModelPage({ params }: Props) {
         />
       </div>
 
-      <p className="text-gray-600 mb-6">
-        Current pre-owned market prices for the {item.model} by condition. Retail: {formatPrice(item.retail_price_usd)}.
-      </p>
+      <div className="flex flex-wrap gap-3 my-4">
+        {savingsPct && savingsPct > 0 && (
+          <div className="bg-green-50 border border-green-200 rounded-lg px-4 py-2.5 flex items-center gap-2">
+            <span className="text-green-700 font-bold text-xl">~{savingsPct}%</span>
+            <span className="text-green-600 text-sm">below retail</span>
+          </div>
+        )}
+        {savingsPct && savingsPct < 0 && (
+          <div className="bg-orange-50 border border-orange-200 rounded-lg px-4 py-2.5 flex items-center gap-2">
+            <span className="text-orange-700 font-bold text-xl">+{Math.abs(savingsPct)}%</span>
+            <span className="text-orange-600 text-sm">above retail</span>
+          </div>
+        )}
+        {avgPrice && (
+          <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
+            <span className="text-gray-500 text-xs">Avg market price</span>
+            <p className="font-bold text-gray-900">{formatPrice(avgPrice)}</p>
+          </div>
+        )}
+        <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
+          <span className="text-gray-500 text-xs">Retail</span>
+          <p className="font-bold text-gray-900">{formatPrice(item.retail_price_usd)}</p>
+        </div>
+      </div>
 
       {/* AdSense slot — top */}
       <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense top]</div>
@@ -223,6 +256,8 @@ export default async function ModelPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      <RecentlyViewed currentSlug={item.slug} />
 
       {/* Mobile sticky share + buy bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 flex gap-2 sm:hidden z-50">
