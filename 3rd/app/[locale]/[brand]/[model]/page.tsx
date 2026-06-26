@@ -260,6 +260,19 @@ export default async function ModelPage({ params }: Props) {
                                        (locale === 'th' ? '↑ ตลาดแข็ง' : '↑ Premium Demand')}
                   </div>
                 )}
+                {savingsPct !== null && (
+                  <p className="text-xs text-[#9C8B7A] mt-2 italic">
+                    {locale === 'th'
+                      ? (savingsPct >= 40 ? '↓ ซัพพลายสูง — เวลาเหมาะสมในการซื้อ'
+                        : savingsPct >= 20 ? '→ ตลาดคงที่ — ราคาสมเหตุสมผล'
+                        : savingsPct >= 5  ? '↑ ดีมานด์สูง — ตรวจสภาพสินค้าให้ดี'
+                        : '↑ ดีมานด์สูงมาก — ของหายาก ราคาสูง')
+                      : (savingsPct >= 40 ? '↓ High supply — favorable time to buy'
+                        : savingsPct >= 20 ? '→ Stable market — fair listings available'
+                        : savingsPct >= 5  ? '↑ Strong demand — verify condition carefully'
+                        : '↑ High demand — limited supply, prices elevated')}
+                  </p>
+                )}
                 {/* Savings bar */}
                 {savingsPct !== null && savingsPct > 0 && savingsPct < 100 && (
                   <div className="mt-4 mb-6">
@@ -301,6 +314,25 @@ export default async function ModelPage({ params }: Props) {
           </div>
         )
       })()}
+
+      <div className="my-4 flex items-center justify-between p-4 bg-[#F5F0E8] border border-[#E8E2D9]">
+        <div>
+          <p className="text-sm font-medium text-[#1A1A1A]">
+            {locale === 'th' ? 'ต้องการแจ้งเตือนราคา?' : 'Want price alerts?'}
+          </p>
+          <p className="text-xs text-[#6B6052] mt-0.5">
+            {locale === 'th' ? 'ติดตามอัปเดตราคาทุกสัปดาห์' : 'Follow us for weekly price updates'}
+          </p>
+        </div>
+        <a
+          href="https://twitter.com/intent/follow?screen_name=chicpreowned"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 ml-4 px-4 py-2 bg-[#1A1A1A] text-white text-xs tracking-wide hover:bg-[#333] transition-colors"
+        >
+          {locale === 'th' ? 'ติดตาม' : 'Follow Updates'}
+        </a>
+      </div>
 
       {/* AdSense slot — top */}
       <div className="my-6" />

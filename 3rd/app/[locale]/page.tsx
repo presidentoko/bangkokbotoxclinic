@@ -233,6 +233,35 @@ export default async function HomePage({ params }: Props) {
           })}
         </div>
       </section>
+
+      <section className="mb-8 mt-4">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+          <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">
+            {locale === 'th' ? 'ราคาของเรามาจากไหน' : 'How Our Prices Work'}
+          </span>
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+        </div>
+        <div className="grid sm:grid-cols-3 gap-6">
+          {(locale === 'th' ? [
+            { n: '01', title: 'ราคาจริงจากตลาด', desc: 'ดึงข้อมูลราคาทุกสัปดาห์จาก Vestiaire Collective, C2C Thailand และแพลตฟอร์มขายต่อชั้นนำ' },
+            { n: '02', title: 'แยกตามสภาพสินค้า', desc: 'ราคาแยกตามเกรดสภาพ — ดีมาก, ดีเยี่ยม, ดี ให้คุณเปรียบเทียบได้อย่างตรงไปตรงมา' },
+            { n: '03', title: 'ฟรี ไม่มีผลประโยชน์', desc: 'ไม่มีสัญญา affiliate ที่กระทบข้อมูล เราแค่ติดตามราคาตลาดจริง' },
+          ] : [
+            { n: '01', title: 'Real Listings', desc: 'Prices tracked weekly from Vestiaire Collective, eBay, and major Thai resale platforms.' },
+            { n: '02', title: 'Condition-Matched', desc: 'Prices separated by condition so you compare like-for-like — Very Good, Excellent, Good.' },
+            { n: '03', title: 'Free & Independent', desc: 'No affiliate deals affecting our data. We just track what the Thai market is actually paying.' },
+          ]).map(s => (
+            <div key={s.n} className="flex gap-4">
+              <span className="font-serif text-2xl text-[#E8E2D9] shrink-0" style={{ fontFamily: 'var(--font-playfair)' }}>{s.n}</span>
+              <div>
+                <p className="font-medium text-[#1A1A1A] text-sm mb-1">{s.title}</p>
+                <p className="text-xs text-[#6B6052] leading-relaxed">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </>
   )
 }
