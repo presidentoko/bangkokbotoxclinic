@@ -1,6 +1,15 @@
 import { getAllBrands, getAllItems, getItemsByBrand, Item } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SecondLuxuryItems.com',
+  url: 'https://www.secondluxuryitems.com',
+  description: 'Pre-owned luxury price guide for Chanel, Louis Vuitton, Rolex and more',
+  sameAs: ['https://twitter.com/secondluxury'],
+}
+
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -37,6 +46,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
 
       {/* Dark hero */}

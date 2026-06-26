@@ -91,10 +91,6 @@ export default async function ModelPage({ params }: Props) {
   const faqs = getFAQs(item)
 
   const vg = item.price_ranges.very_good
-  const savingsPct = vg && item.retail_price_usd > 0
-    ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
-    : null
-  const avgPrice = vg ? Math.round((vg.min + vg.max) / 2) : null
   const priceHint = vg ? ` Current prices: ${formatPrice(vg.min)}–${formatPrice(vg.max)}.` : ''
   const metaDescription = `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`
   const pageUrl = `${BASE}/${item.slug}`
@@ -185,30 +181,72 @@ export default async function ModelPage({ params }: Props) {
         />
       </div>
 
-      <div className="flex flex-wrap gap-3 my-4">
-        {savingsPct && savingsPct > 0 && (
-          <div className="bg-[#F0F5EC] border border-[#C5D9B7] rounded-lg px-4 py-2.5 flex items-center gap-2">
-            <span className="text-[#4A7A35] font-bold text-xl">~{savingsPct}%</span>
-            <span className="text-[#4A7A35] text-sm">below retail</span>
+      {/* Price Hero */}
+      {(() => {
+        const vg = item.price_ranges.very_good
+        const savingsPct = vg && item.retail_price_usd > 0
+          ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
+          : null
+        const vestiaire = `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`
+        const ebay = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(item.brand + ' ' + item.model)}`
+
+        return (
+          <div className="my-8 p-6 bg-[#1A1A1A] text-white">
+            <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">
+              Current Market Price — Very Good Condition
+            </p>
+            {vg ? (
+              <>
+                <div className="flex items-baseline gap-3 mb-2">
+                  <span className="text-4xl font-light">{formatPrice(vg.min)}</span>
+                  <span className="text-xl text-[#9C8B7A]">– {formatPrice(vg.max)}</span>
+                </div>
+                {savingsPct !== null && savingsPct > 0 && (
+                  <p className="text-[#6EBF8B] text-sm mb-1">
+                    ~{savingsPct}% below retail ({formatPrice(item.retail_price_usd)} new)
+                  </p>
+                )}
+                {/* Savings bar */}
+                {savingsPct !== null && savingsPct > 0 && savingsPct < 100 && (
+                  <div className="mt-4 mb-6">
+                    <div className="flex justify-between text-xs text-[#6B6052] mb-1">
+                      <span>Pre-owned avg</span>
+                      <span>Retail</span>
+                    </div>
+                    <div className="h-2 bg-[#333] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-[#B8954A] rounded-full"
+                        style={{ width: `${Math.max(5, 100 - savingsPct)}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+                {/* CTA buttons */}
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <a
+                    href={vestiaire}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#B8954A] text-white text-sm tracking-wide hover:bg-[#A07B38] transition-colors"
+                  >
+                    Shop on Vestiaire →
+                  </a>
+                  <a
+                    href={ebay}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-[#444] text-[#9C8B7A] text-sm tracking-wide hover:border-[#B8954A] hover:text-[#B8954A] transition-colors"
+                  >
+                    Search eBay
+                  </a>
+                </div>
+              </>
+            ) : (
+              <p className="text-[#9C8B7A]">Price data not available for this model yet.</p>
+            )}
           </div>
-        )}
-        {savingsPct && savingsPct < 0 && (
-          <div className="bg-[#FDF0EA] border border-[#E8C5A5] rounded-lg px-4 py-2.5 flex items-center gap-2">
-            <span className="text-[#C25B2B] font-bold text-xl">+{Math.abs(savingsPct)}%</span>
-            <span className="text-[#C25B2B] text-sm">above retail</span>
-          </div>
-        )}
-        {avgPrice && (
-          <div className="bg-[#F5F0E8] border border-[#E8E2D9] rounded-lg px-4 py-2.5">
-            <span className="text-[#9C8B7A] text-xs">Avg market price</span>
-            <p className="font-bold text-[#1A1A1A]">{formatPrice(avgPrice)}</p>
-          </div>
-        )}
-        <div className="bg-[#F5F0E8] border border-[#E8E2D9] rounded-lg px-4 py-2.5">
-          <span className="text-[#9C8B7A] text-xs">Retail</span>
-          <p className="font-bold text-[#1A1A1A]">{formatPrice(item.retail_price_usd)}</p>
-        </div>
-      </div>
+        )
+      })()}
 
       {/* AdSense slot — top */}
       <div className="my-6" />
