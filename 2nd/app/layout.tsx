@@ -34,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="flex gap-6 text-sm text-gray-600 items-center">
               <a href="/handbags" className="hover:text-gray-900">Handbags</a>
               <a href="/watches" className="hover:text-gray-900">Watches</a>
+              <a href="/contact" className="hover:text-gray-900">Contact</a>
               <form action="/search" method="get" className="hidden sm:flex items-center">
                 <input
                   name="q"

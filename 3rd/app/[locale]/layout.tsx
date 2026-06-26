@@ -48,6 +48,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <a href={`/${locale}/handbags`} className="hover:text-gray-900">{t('nav_handbags')}</a>
                 <a href={`/${locale}/watches`} className="hover:text-gray-900">{t('nav_watches')}</a>
                 <a href={`/${locale}/clothing`} className="hover:text-gray-900">{t('nav_clothing')}</a>
+                <a href={`/${locale}/contact`} className="hover:text-gray-900">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a>
                 <LocaleSwitcher locale={locale} />
               </nav>
             </div>
