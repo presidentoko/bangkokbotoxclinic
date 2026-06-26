@@ -87,6 +87,7 @@ export default async function ModelPage({ params }: Props) {
   const item = getItemBySlug(brand, model)
   if (!item) notFound()
 
+  const YEAR = new Date().getFullYear()
   const faqs = getFAQs(item)
 
   const vg = item.price_ranges.very_good
@@ -165,14 +166,15 @@ export default async function ModelPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <p className="text-sm text-gray-400 mb-2">
-        <Link href="/">Home</Link> ›{' '}
-        <Link href={`/${brand}`}>{item.brand}</Link> ›{' '}
+      <p className="text-sm text-[#9C8B7A] mb-2">
+        <Link href="/" className="hover:text-[#1A1A1A] transition-colors">Home</Link> ›{' '}
+        <Link href={`/${brand}`} className="hover:text-[#1A1A1A] transition-colors">{item.brand}</Link> ›{' '}
         {item.model}
       </p>
 
-      <h1 className="text-3xl font-bold mb-2">
-        Used {item.brand} {item.model} Price Guide (2026)
+      <h1 className="font-serif text-4xl sm:text-5xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
+        Used {item.brand} {item.model}
+        <span className="block text-2xl text-[#9C8B7A] mt-1 font-normal">Price Guide {YEAR}</span>
       </h1>
 
       <div className="mb-4">
@@ -185,26 +187,26 @@ export default async function ModelPage({ params }: Props) {
 
       <div className="flex flex-wrap gap-3 my-4">
         {savingsPct && savingsPct > 0 && (
-          <div className="bg-green-50 border border-green-200 rounded-lg px-4 py-2.5 flex items-center gap-2">
-            <span className="text-green-700 font-bold text-xl">~{savingsPct}%</span>
-            <span className="text-green-600 text-sm">below retail</span>
+          <div className="bg-[#F0F5EC] border border-[#C5D9B7] rounded-lg px-4 py-2.5 flex items-center gap-2">
+            <span className="text-[#4A7A35] font-bold text-xl">~{savingsPct}%</span>
+            <span className="text-[#4A7A35] text-sm">below retail</span>
           </div>
         )}
         {savingsPct && savingsPct < 0 && (
-          <div className="bg-orange-50 border border-orange-200 rounded-lg px-4 py-2.5 flex items-center gap-2">
-            <span className="text-orange-700 font-bold text-xl">+{Math.abs(savingsPct)}%</span>
-            <span className="text-orange-600 text-sm">above retail</span>
+          <div className="bg-[#FDF0EA] border border-[#E8C5A5] rounded-lg px-4 py-2.5 flex items-center gap-2">
+            <span className="text-[#C25B2B] font-bold text-xl">+{Math.abs(savingsPct)}%</span>
+            <span className="text-[#C25B2B] text-sm">above retail</span>
           </div>
         )}
         {avgPrice && (
-          <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
-            <span className="text-gray-500 text-xs">Avg market price</span>
-            <p className="font-bold text-gray-900">{formatPrice(avgPrice)}</p>
+          <div className="bg-[#F5F0E8] border border-[#E8E2D9] rounded-lg px-4 py-2.5">
+            <span className="text-[#9C8B7A] text-xs">Avg market price</span>
+            <p className="font-bold text-[#1A1A1A]">{formatPrice(avgPrice)}</p>
           </div>
         )}
-        <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
-          <span className="text-gray-500 text-xs">Retail</span>
-          <p className="font-bold text-gray-900">{formatPrice(item.retail_price_usd)}</p>
+        <div className="bg-[#F5F0E8] border border-[#E8E2D9] rounded-lg px-4 py-2.5">
+          <span className="text-[#9C8B7A] text-xs">Retail</span>
+          <p className="font-bold text-[#1A1A1A]">{formatPrice(item.retail_price_usd)}</p>
         </div>
       </div>
 
@@ -219,12 +221,12 @@ export default async function ModelPage({ params }: Props) {
       <div className="my-6" />
 
       <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions</h2>
+        <h2 className="font-serif text-2xl text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>Frequently Asked Questions</h2>
         <dl className="space-y-6">
           {faqs.map((faq, i) => (
             <div key={i}>
-              <dt className="font-medium text-gray-900">{faq.q}</dt>
-              <dd className="mt-1 text-gray-600">{faq.a}</dd>
+              <dt className="font-medium text-[#1A1A1A]">{faq.q}</dt>
+              <dd className="mt-1 text-[#6B6052]">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -235,7 +237,7 @@ export default async function ModelPage({ params }: Props) {
 
       {relatedItems.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-xl font-semibold mb-4">More from {item.brand}</h2>
+          <h2 className="font-serif text-2xl text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>More from {item.brand}</h2>
           <div className="grid grid-cols-2 gap-4">
             {relatedItems.map(related => {
               const relVg = related.price_ranges.very_good
@@ -243,11 +245,11 @@ export default async function ModelPage({ params }: Props) {
                 <Link
                   key={related.id}
                   href={`/${related.slug}`}
-                  className="border border-gray-200 rounded-lg p-4 hover:border-gray-400 transition-colors"
+                  className="group block p-5 border border-[#E8E2D9] rounded-sm bg-white hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
                 >
-                  <p className="font-medium text-sm">{related.model}</p>
+                  <p className="font-serif text-base text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors" style={{ fontFamily: 'var(--font-playfair)' }}>{related.model}</p>
                   {relVg && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-[#9C8B7A] mt-1">
                       {formatPrice(relVg.min)} – {formatPrice(relVg.max)}
                     </p>
                   )}
@@ -261,12 +263,12 @@ export default async function ModelPage({ params }: Props) {
       <RecentlyViewed currentSlug={item.slug} />
 
       {/* Mobile sticky share + buy bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 flex gap-2 sm:hidden z-50">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8E2D9] p-3 flex gap-2 sm:hidden z-50">
         <a
           href={item.affiliate_links.vestiaire}
           target="_blank"
           rel="noopener noreferrer sponsored"
-          className="flex-1 bg-black text-white text-sm font-medium rounded py-2.5 text-center"
+          className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center hover:bg-[#8C7355] transition-colors"
         >
           Browse Listings
         </a>

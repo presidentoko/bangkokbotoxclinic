@@ -49,18 +49,20 @@ export default async function BrandPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <p className="text-sm text-gray-400 mb-2">
-        <Link href="/">Home</Link> › {brandName}
+      <p className="text-sm text-[#9C8B7A] mb-2">
+        <Link href="/" className="hover:text-[#1A1A1A] transition-colors">Home</Link> › {brandName}
       </p>
-      <h1 className="text-3xl font-bold mb-2">Used {brandName} Prices</h1>
-      <p className="text-gray-600 mb-2">
+      <h1 className="font-serif text-4xl text-[#1A1A1A] mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>
+        Used {brandName} Prices
+      </h1>
+      <p className="text-[#6B6052] mb-2">
         Pre-owned {brandName} prices by condition. All prices from authenticated listings, updated weekly.
       </p>
-      <p className="text-gray-600 mb-8">Pre-owned price guide for {items.length} {brandName} model{items.length !== 1 ? 's' : ''}.</p>
-      <div className="divide-y divide-gray-100">
+      <p className="text-[#6B6052] mb-8">Pre-owned price guide for {items.length} {brandName} model{items.length !== 1 ? 's' : ''}.</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {items.map(item => {
           const vg = item.price_ranges.very_good
-          const savings =
+          const savingsPct =
             vg && item.retail_price_usd > 0
               ? Math.round(
                   ((item.retail_price_usd - (vg.min + vg.max) / 2) /
@@ -72,21 +74,20 @@ export default async function BrandPage({ params }: Props) {
             <Link
               key={item.id}
               href={`/${item.slug}`}
-              className="flex items-center justify-between py-4 hover:bg-gray-50 -mx-2 px-2 rounded"
+              className="group block p-6 bg-white border border-[#E8E2D9] rounded-sm hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
             >
-              <span className="font-medium">{item.model}</span>
-              <div className="flex items-center gap-3 text-sm">
-                {savings !== null && (
-                  <span
-                    className={savings > 0 ? 'text-green-600 font-medium' : 'text-orange-500 font-medium'}
-                  >
-                    {savings > 0 ? `Save ~${savings}%` : `~${Math.abs(savings)}% above retail`}
-                  </span>
-                )}
-                <span className="text-gray-500">
-                  {vg ? `${formatPrice(vg.min)} – ${formatPrice(vg.max)}` : 'See guide'}
-                </span>
-              </div>
+              <p className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A] mb-2">{item.brand}</p>
+              <h3 className="font-serif text-xl text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>
+                {item.model}
+              </h3>
+              {vg && (
+                <div className="flex items-baseline gap-3">
+                  <span className="text-lg font-medium text-[#1A1A1A]">{formatPrice(vg.min)} – {formatPrice(vg.max)}</span>
+                  {savingsPct !== null && savingsPct > 0 && (
+                    <span className="text-xs px-2 py-0.5 bg-[#F5F0E8] text-[#8C7355] rounded-full">save {savingsPct}%</span>
+                  )}
+                </div>
+              )}
             </Link>
           )
         })}

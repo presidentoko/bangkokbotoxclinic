@@ -1,4 +1,4 @@
-import { Item, Condition, PriceRange, formatPrice, getPriceVsRetail } from '@/lib/data'
+import { Item, Condition, formatPrice, getPriceVsRetail } from '@/lib/data'
 
 const CONDITIONS: { key: Condition; label: string }[] = [
   { key: 'excellent', label: 'Excellent' },
@@ -8,13 +8,13 @@ const CONDITIONS: { key: Condition; label: string }[] = [
 
 export function PriceTable({ item }: { item: Item }) {
   return (
-    <div className="overflow-x-auto my-6">
+    <div className="overflow-x-auto my-6 rounded-sm">
       <table className="w-full text-sm border-collapse">
         <thead>
-          <tr className="bg-gray-50 text-left">
-            <th className="p-3 border border-gray-200 font-semibold">Condition</th>
-            <th className="p-3 border border-gray-200 font-semibold">Price Range</th>
-            <th className="p-3 border border-gray-200 font-semibold">vs Retail ({formatPrice(item.retail_price_usd)})</th>
+          <tr className="bg-[#F5F0E8] text-left">
+            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">Condition</th>
+            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">Price Range</th>
+            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">vs Retail ({formatPrice(item.retail_price_usd)})</th>
           </tr>
         </thead>
         <tbody>
@@ -24,12 +24,12 @@ export function PriceTable({ item }: { item: Item }) {
             const diff = getPriceVsRetail(range, item.retail_price_usd)
             const isAboveRetail = diff.startsWith('+')
             return (
-              <tr key={key} className="hover:bg-gray-50">
-                <td className="p-3 border border-gray-200 font-medium">{label}</td>
-                <td className="p-3 border border-gray-200">
+              <tr key={key} className="hover:bg-[#FAFAF9]">
+                <td className="p-3 border border-[#E8E2D9] font-medium text-[#1A1A1A]">{label}</td>
+                <td className="p-3 border border-[#E8E2D9] text-[#1A1A1A]">
                   {formatPrice(range.min)} – {formatPrice(range.max)}
                 </td>
-                <td className={`p-3 border border-gray-200 font-medium ${isAboveRetail ? 'text-orange-600' : 'text-green-700'}`}>
+                <td className={`p-3 border border-[#E8E2D9] font-medium ${isAboveRetail ? 'text-[#C25B2B]' : 'text-[#B8954A]'}`}>
                   {diff}
                 </td>
               </tr>
@@ -37,7 +37,7 @@ export function PriceTable({ item }: { item: Item }) {
           })}
         </tbody>
       </table>
-      <p className="text-xs text-gray-400 mt-2">
+      <p className="text-xs text-[#9C8B7A] mt-2">
         Based on {item.price_samples.length} listings · Last updated: {item.last_updated} · Prices vary by seller and provenance
       </p>
     </div>
