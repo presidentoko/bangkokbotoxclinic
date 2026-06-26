@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getItemsByBrand, getAllBrands, formatPrice } from '@/lib/data'
 
+const BASE = 'https://www.secondluxuryitems.com'
+
 interface Props { params: Promise<{ brand: string }> }
 
 export async function generateStaticParams() {
@@ -17,6 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Used ${brandName} Prices — Pre-Owned Price Guide | SecondLuxuryItems`,
     description: `Current second-hand prices for ${brandName}. Compare ${items.length} models with price ranges by condition.`,
+    alternates: { canonical: `${BASE}/${brand}` },
   }
 }
 
@@ -26,8 +29,26 @@ export default async function BrandPage({ params }: Props) {
   if (!items.length) notFound()
   const brandName = items[0].brand
 
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Used ${brandName} Price Guide`,
+    url: `${BASE}/${brand}`,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${BASE}/${item.slug}`,
+      name: `Used ${item.brand} ${item.model}`,
+    })),
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       <p className="text-sm text-gray-400 mb-2">
         <Link href="/">Home</Link> › {brandName}
       </p>
