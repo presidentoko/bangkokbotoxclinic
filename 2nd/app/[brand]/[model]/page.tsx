@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function getFAQs(item: Item) {
   const name = `${item.brand} ${item.model}`
   const vg = item.price_ranges.very_good
-  const savingsPct = vg
+  const savingsPct = vg && item.retail_price_usd > 0
     ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
     : null
 
@@ -89,7 +89,7 @@ export default async function ModelPage({ params }: Props) {
   const faqs = getFAQs(item)
 
   const vg = item.price_ranges.very_good
-  const savingsPct = vg
+  const savingsPct = vg && item.retail_price_usd > 0
     ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
     : null
   const avgPrice = vg ? Math.round((vg.min + vg.max) / 2) : null

@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function getFAQs(item: Item, t: (key: string, values?: Record<string, string | number>) => string) {
   const vg = item.price_ranges.very_good
-  const savingsPct = vg
+  const savingsPct = vg && item.retail_price_thb > 0
     ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
     : null
   const pct = savingsPct && savingsPct > 0 ? `${savingsPct}%` : '20%'
@@ -174,7 +174,7 @@ export default async function ModelPage({ params }: Props) {
   // Share data
   const pageUrl = `${BASE}/${locale}/${item.slug}`
   const vg = item.price_ranges.very_good
-  const savingsPct = vg
+  const savingsPct = vg && item.retail_price_thb > 0
     ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
     : null
   const avgPrice = vg ? Math.round((vg.min + vg.max) / 2) : null

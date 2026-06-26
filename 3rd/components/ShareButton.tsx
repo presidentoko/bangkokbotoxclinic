@@ -32,7 +32,7 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`
 
   return (
-    <div className="flex flex-row gap-2 mb-6">
+    <div className="flex flex-wrap gap-2 mb-6">
       <button
         onClick={handleShare}
         className="border border-gray-300 text-gray-700 text-sm rounded px-3 py-1.5 hover:bg-gray-50 transition-colors"
