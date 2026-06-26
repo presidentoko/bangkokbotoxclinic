@@ -1,31 +1,46 @@
 #!/usr/bin/env python3
 """
-Weekly scraper: Vestiaire Collective search -> items_db.json price update.
+Weekly scraper: Vestiaire Collective search API -> items_db.json price update.
+Calls the internal search API directly (no browser needed).
 Run from repo root: python 2nd/scraper/price_sampler.py
 """
 import json
-import re
 import time
 import random
 import subprocess
+import uuid
 from datetime import datetime
 from pathlib import Path
+
 import requests
-from bs4 import BeautifulSoup
 
 DB_PATH = Path(__file__).parent.parent / 'data' / 'items_db.json'
-
 INTERVAL_HOURS = 168  # weekly
 
-USER_AGENTS = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-]
+SEARCH_API = 'https://search.vestiairecollective.com/v1/product/search'
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Referer': 'https://us.vestiairecollective.com/',
+    'Origin': 'https://us.vestiairecollective.com',
+    'x-usecase': 'plpStandard',
+}
+
+# Vestiaire condition IDs -> our normalized values
+CONDITION_MAP = {
+    1: 'excellent',  # Never worn
+    2: 'excellent',  # Excellent condition
+    3: 'very_good',  # Very good condition
+    4: 'good',       # Good condition
+    5: 'good',       # Fair condition
+}
 
 
-def normalize_condition(raw: str) -> str:
-    raw = raw.lower()
+def normalize_condition(raw) -> str:
+    if isinstance(raw, dict):
+        return CONDITION_MAP.get(raw.get('id', 0), 'good')
+    raw = str(raw).lower()
     if any(k in raw for k in ('excellent', 'like new', 'never worn', 'mint', 'pristine')):
         return 'excellent'
     if any(k in raw for k in ('very good', 'great', 'near mint')):
@@ -50,48 +65,43 @@ def trim_samples(samples: list[dict], keep: int = 30) -> list[dict]:
 
 
 def fetch_vestiaire_prices(query: str) -> list[dict]:
-    url = f"https://www.vestiairecollective.com/search/?q={query.replace(' ', '+')}"
-    headers = {
-        'User-Agent': random.choice(USER_AGENTS),
-        'Accept': 'text/html,application/xhtml+xml',
-        'Accept-Language': 'en-US,en;q=0.9',
+    payload = {
+        'pagination': {'offset': 0, 'limit': 30},
+        'fields': [
+            'name', 'description', 'brand', 'model', 'country', 'price', 'discount',
+            'link', 'sold', 'likes', 'editorPicks', 'shouldBeGone', 'seller',
+            'directShipping', 'local', 'pictures', 'colors', 'size', 'stock',
+            'universeId', 'createdAt', 'dutyFree', 'condition',
+        ],
+        'facets': {'fields': ['condition'], 'stats': ['price']},
+        'q': query,
+        'sortBy': 'relevance',
+        'filters': {},
+        'locale': {'country': 'US', 'currency': 'USD', 'language': 'us'},
     }
-    try:
-        resp = requests.get(url, headers=headers, timeout=20)
-        resp.raise_for_status()
-    except requests.RequestException as e:
-        print(f'  [warn] request failed: {e}')
-        return []
-
-    match = re.search(
-        r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
-        resp.text, re.DOTALL
-    )
-    if not match:
-        print('  [warn] __NEXT_DATA__ not found')
-        return []
-
-    try:
-        data = json.loads(match.group(1))
-        products = (
-            data.get('props', {})
-                .get('pageProps', {})
-                .get('products', {})
-                .get('items', [])
-        )
-    except (json.JSONDecodeError, AttributeError):
-        return []
-
+    headers = {
+        **HEADERS,
+        'x-deviceid': str(uuid.uuid4()),
+        'x-search-session-id': str(uuid.uuid4()),
+    }
     today = datetime.now().strftime('%Y-%m-%d')
+    try:
+        resp = requests.post(SEARCH_API, headers=headers, json=payload, timeout=20)
+        resp.raise_for_status()
+        items = resp.json().get('items', [])
+    except Exception as e:
+        print(f'  [warn] {e}')
+        return []
+
     results = []
-    for p in products[:30]:
+    for p in items:
         price_data = p.get('price', {})
         cents = price_data.get('cents') or price_data.get('amount')
         if not cents:
             continue
         results.append({
             'price': round(cents / 100, 2),
-            'condition': normalize_condition(p.get('condition', '')),
+            'condition': normalize_condition(p.get('condition', {})),
             'platform': 'vestiaire',
             'date': today,
         })
@@ -115,7 +125,7 @@ def run():
             item['price_ranges'] = recalculate_ranges(item['price_samples'])
             item['last_updated'] = datetime.now().strftime('%Y-%m-%d')
 
-        time.sleep(random.uniform(3, 8))
+        time.sleep(random.uniform(2, 5))
 
     with open(DB_PATH, 'w') as f:
         json.dump(db, f, indent=2, ensure_ascii=False)
@@ -128,8 +138,6 @@ def run():
 
 
 if __name__ == '__main__':
-    # Loop with weekly sleep so watchdog can keep the process alive
-    # at a 168h (7-day) cadence without restarting it immediately.
     while True:
         print(f'[price_sampler] run start {datetime.now():%Y-%m-%d %H:%M:%S}')
         run()

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getItemBySlug, getAllItems, formatPrice, Item } from '@/lib/data'
+import { getItemBySlug, getItemsByBrand, getAllItems, formatPrice, Item } from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
+import { ShareButton } from '@/components/ShareButton'
+
+const BASE = 'https://www.secondluxuryitems.com'
 
 interface Props { params: Promise<{ brand: string; model: string }> }
 
@@ -20,9 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!item) return {}
   const vg = item.price_ranges.very_good
   const priceHint = vg ? ` Current prices: ${formatPrice(vg.min)}–${formatPrice(vg.max)}.` : ''
+  const description = `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`
   return {
     title: `Used ${item.brand} ${item.model} Price Guide (2026)`,
-    description: `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`,
+    description,
+    openGraph: {
+      title: `Used ${item.brand} ${item.model} Price (2026)`,
+      description,
+      type: 'website',
+      url: `${BASE}/${item.slug}`,
+    },
   }
 }
 
@@ -76,6 +86,16 @@ export default async function ModelPage({ params }: Props) {
 
   const faqs = getFAQs(item)
 
+  const vg = item.price_ranges.very_good
+  const priceHint = vg ? ` Current prices: ${formatPrice(vg.min)}–${formatPrice(vg.max)}.` : ''
+  const metaDescription = `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`
+  const pageUrl = `${BASE}/${item.slug}`
+
+  // Compute price bounds across all conditions for Product schema
+  const allRanges = Object.values(item.price_ranges).filter((r): r is { min: number; max: number } => !!r)
+  const lowPrice = allRanges.length > 0 ? Math.min(...allRanges.map(r => r.min)) : 0
+  const highPrice = allRanges.length > 0 ? Math.max(...allRanges.map(r => r.max)) : 0
+
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -86,11 +106,50 @@ export default async function ModelPage({ params }: Props) {
     })),
   }
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `Used ${item.brand} ${item.model}`,
+    brand: { '@type': 'Brand', name: item.brand },
+    category: item.category,
+    description: `Pre-owned ${item.brand} ${item.model} — current second-hand market prices`,
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      lowPrice,
+      highPrice,
+      offerCount: item.price_samples.length,
+      availability: 'https://schema.org/InStock',
+      url: pageUrl,
+    },
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
+      { '@type': 'ListItem', position: 2, name: item.brand, item: `${BASE}/${brand}` },
+      { '@type': 'ListItem', position: 3, name: item.model, item: pageUrl },
+    ],
+  }
+
+  // Related items from same brand, excluding current model
+  const relatedItems = getItemsByBrand(brand).filter(i => i.slug !== item.slug)
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <p className="text-sm text-gray-400 mb-2">
@@ -102,6 +161,15 @@ export default async function ModelPage({ params }: Props) {
       <h1 className="text-3xl font-bold mb-2">
         Used {item.brand} {item.model} Price Guide (2026)
       </h1>
+
+      <div className="mb-4">
+        <ShareButton
+          title={`Used ${item.brand} ${item.model} Price Guide (2026)`}
+          text={metaDescription}
+          url={pageUrl}
+        />
+      </div>
+
       <p className="text-gray-600 mb-6">
         Current pre-owned market prices for the {item.model} by condition. Retail: {formatPrice(item.retail_price_usd)}.
       </p>
@@ -130,6 +198,48 @@ export default async function ModelPage({ params }: Props) {
 
       {/* AdSense slot — bottom */}
       <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense bottom]</div>
+
+      {relatedItems.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold mb-4">More from {item.brand}</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {relatedItems.map(related => {
+              const relVg = related.price_ranges.very_good
+              return (
+                <Link
+                  key={related.id}
+                  href={`/${related.slug}`}
+                  className="border border-gray-200 rounded-lg p-4 hover:border-gray-400 transition-colors"
+                >
+                  <p className="font-medium text-sm">{related.model}</p>
+                  {relVg && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      {formatPrice(relVg.min)} – {formatPrice(relVg.max)}
+                    </p>
+                  )}
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Mobile sticky share + buy bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 flex gap-2 sm:hidden z-50">
+        <a
+          href={item.affiliate_links.vestiaire}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          className="flex-1 bg-black text-white text-sm font-medium rounded py-2.5 text-center"
+        >
+          Browse Listings
+        </a>
+        <ShareButton
+          title={`Used ${item.brand} ${item.model} Price Guide (2026)`}
+          text={metaDescription}
+          url={pageUrl}
+        />
+      </div>
     </>
   )
 }

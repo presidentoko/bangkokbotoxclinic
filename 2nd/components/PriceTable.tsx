@@ -38,7 +38,7 @@ export function PriceTable({ item }: { item: Item }) {
         </tbody>
       </table>
       <p className="text-xs text-gray-400 mt-2">
-        Last updated: {item.last_updated} · Prices vary by seller and provenance
+        Based on {item.price_samples.length} listings · Last updated: {item.last_updated} · Prices vary by seller and provenance
       </p>
     </div>
   )

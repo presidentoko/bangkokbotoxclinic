@@ -1,12 +1,29 @@
 import { getAllBrands } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'SecondLuxuryItems.com',
+  url: 'https://www.secondluxuryitems.com',
+  description: 'Real pre-owned luxury prices updated weekly',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://www.secondluxuryitems.com/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 export default function HomePage() {
   const handbagBrands = getAllBrands().filter(b => b.category === 'handbags')
   const watchBrands   = getAllBrands().filter(b => b.category === 'watches')
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       <div className="mb-12">
         <h1 className="text-3xl font-bold mb-3">Pre-Owned Luxury Price Guide</h1>
         <p className="text-gray-600 text-lg">
