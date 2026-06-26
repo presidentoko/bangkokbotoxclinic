@@ -14,9 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   entries.push({ url: BASE, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 })
   for (const locale of LOCALES) {
     entries.push({ url: `${BASE}/${locale}`, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 })
-    entries.push({ url: `${BASE}/${locale}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/watches`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/clothing`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/watches`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/clothing`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/brands`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
   }
 
   // Brand pages
