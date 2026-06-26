@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'common' })
   return {
+    metadataBase: new URL('https://www.chicpreowned.com'),
     title: t('page_title_home'),
     description: t('page_meta_home'),
   }
@@ -46,7 +47,7 @@ export default async function LocaleLayout({ children, params }: Props) {
               </nav>
             </div>
           </header>
-          <main className="max-w-4xl mx-auto px-4 py-8">
+          <main className="max-w-4xl mx-auto px-4 py-8 pb-20 sm:pb-0">
             {children}
           </main>
           <footer className="border-t border-gray-100 mt-16">

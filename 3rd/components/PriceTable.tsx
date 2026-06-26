@@ -16,7 +16,7 @@ const CONDITIONS: { key: Condition }[] = [
   { key: 'good' },
 ]
 
-export function PriceTable({ item, labels }: { item: Item; labels: ConditionLabels }) {
+export function PriceTable({ item, labels, sampleCount }: { item: Item; labels: ConditionLabels; sampleCount?: number }) {
   const condLabel = (key: Condition) => ({
     excellent: labels.excellent,
     very_good: labels.very_good,
@@ -55,7 +55,10 @@ export function PriceTable({ item, labels }: { item: Item; labels: ConditionLabe
           })}
         </tbody>
       </table>
-      <p className="text-xs text-gray-400 mt-2">{labels.lastUpdated.replace('{date}', item.last_updated)}</p>
+      <p className="text-xs text-gray-400 mt-2">
+        {sampleCount ? `Based on ${sampleCount} listings · ` : ''}
+        {labels.lastUpdated.replace('{date}', item.last_updated)}
+      </p>
     </div>
   )
 }

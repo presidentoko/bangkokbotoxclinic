@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Weekly scraper: Carousell Thailand + C2C.in.th → items_db.json (THB prices).
+Weekly scraper: Vestiaire Collective (USD) → THB → items_db.json
+Exchange rate from frankfurter.app (free, no key); falls back to 35.0.
 Run from repo root: python 3rd/scraper/price_sampler.py
 """
 import json
@@ -12,40 +13,53 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    raise ImportError('Run: pip install beautifulsoup4')
 
 DB_PATH = Path(__file__).parent.parent / 'data' / 'items_db.json'
-INTERVAL_HOURS = 168  # weekly
+INTERVAL_HOURS = 168
 
-# --- FILL IN AFTER RUNNING discover_carousell.py (Step 1) ---
-# Replace with actual endpoint discovered via Playwright
-CAROUSELL_API_URL = 'https://api.carousell.com/flow/2.0/listings/'
-
-CAROUSELL_HEADERS = {
+SEARCH_API = 'https://search.vestiairecollective.com/v1/product/search'
+HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+    'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Referer': 'https://th.carousell.com/',
-    'Origin': 'https://th.carousell.com',
+    'Referer': 'https://us.vestiairecollective.com/',
+    'Origin': 'https://us.vestiairecollective.com',
+    'x-usecase': 'plpStandard',
 }
 
-C2C_BASE = 'https://www.c2c.in.th'
+CONDITION_MAP = {
+    1: 'excellent',
+    2: 'excellent',
+    3: 'very_good',
+    4: 'good',
+    5: 'good',
+}
 
 
-def normalize_condition(raw: str) -> str:
+def get_usd_to_thb() -> float:
+    try:
+        r = requests.get('https://api.frankfurter.app/latest?from=USD&to=THB', timeout=10)
+        rate = r.json()['rates']['THB']
+        print(f'  USD→THB rate: {rate:.2f}')
+        return rate
+    except Exception as e:
+        print(f'  [warn] exchange rate fetch failed ({e}), using 35.0')
+        return 35.0
+
+
+def normalize_condition(raw) -> str:
+    if isinstance(raw, dict):
+        return CONDITION_MAP.get(raw.get('id', 0), 'good')
     raw = str(raw).lower()
-    # Thai condition strings
-    if any(k in raw for k in ('ดีมาก', 'like new', 'never', 'mint', 'excellent', 'brand new')):
+    if any(k in raw for k in ('excellent', 'like new', 'never worn', 'mint', 'pristine')):
         return 'excellent'
-    if any(k in raw for k in ('สภาพดี', 'very good', 'great', 'near mint')):
+    if any(k in raw for k in ('very good', 'great', 'near mint')):
         return 'very_good'
     return 'good'
 
 
-def recalculate_ranges(samples: list[dict]) -> dict:
-    by_cond: dict[str, list[float]] = {}
+def recalculate_ranges(samples: list) -> dict:
+    by_cond: dict = {}
     for s in samples:
         by_cond.setdefault(s['condition'], []).append(s['price'])
     return {
@@ -55,107 +69,64 @@ def recalculate_ranges(samples: list[dict]) -> dict:
     }
 
 
-def trim_samples(samples: list[dict], keep: int = 30) -> list[dict]:
+def trim_samples(samples: list, keep: int = 30) -> list:
     return sorted(samples, key=lambda s: s['date'])[-keep:]
 
 
-def fetch_carousell_prices(query: str) -> list[dict]:
-    """
-    Fetch prices from Carousell Thailand.
-    UPDATE this function after running discover_carousell.py to use
-    the actual API endpoint and payload structure.
-    """
-    params = {
-        'query': query,
-        'count': 20,
-        'countryCode': 'TH',
+def fetch_prices(query: str, rate: float) -> list:
+    payload = {
+        'pagination': {'offset': 0, 'limit': 30},
+        'fields': ['name', 'price', 'condition', 'brand', 'model'],
+        'facets': {'fields': ['condition'], 'stats': ['price']},
+        'q': query,
+        'sortBy': 'relevance',
+        'filters': {},
+        'locale': {'country': 'US', 'currency': 'USD', 'language': 'us'},
     }
-    headers = {**CAROUSELL_HEADERS, 'x-request-id': str(uuid.uuid4())}
-    today = datetime.now().strftime('%Y-%m-%d')
-    try:
-        resp = requests.get(CAROUSELL_API_URL, headers=headers, params=params, timeout=20)
-        resp.raise_for_status()
-        data = resp.json()
-        # Adjust key path based on actual API response structure from Step 1
-        listings = data.get('data', {}).get('results', []) or data.get('listings', []) or data.get('items', [])
-    except Exception as e:
-        print(f'  [carousell warn] {e}')
-        return []
-
-    results = []
-    today = datetime.now().strftime('%Y-%m-%d')
-    for listing in listings[:20]:
-        price_raw = listing.get('price', {})
-        price_thb = None
-        if isinstance(price_raw, dict):
-            price_thb = price_raw.get('amount') or price_raw.get('value') or price_raw.get('cents')
-            if price_thb and price_thb > 10000:  # cents vs units heuristic
-                price_thb = price_thb / 100
-        elif isinstance(price_raw, (int, float)):
-            price_thb = price_raw
-        if not price_thb or price_thb < 100:
-            continue
-        condition_raw = listing.get('condition', '') or listing.get('status', '')
-        results.append({
-            'price': round(float(price_thb), 0),
-            'condition': normalize_condition(condition_raw),
-            'platform': 'carousell_th',
-            'date': today,
-        })
-    return results
-
-
-def fetch_c2c_prices(query: str) -> list[dict]:
-    url = f'{C2C_BASE}/search'
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml',
+        **HEADERS,
+        'x-deviceid': str(uuid.uuid4()),
+        'x-search-session-id': str(uuid.uuid4()),
     }
     today = datetime.now().strftime('%Y-%m-%d')
     try:
-        resp = requests.get(url, params={'keyword': query}, headers=headers, timeout=20)
+        resp = requests.post(SEARCH_API, headers=headers, json=payload, timeout=20)
         resp.raise_for_status()
-        soup = BeautifulSoup(resp.text, 'html.parser')
+        items = resp.json().get('items', [])
     except Exception as e:
-        print(f'  [c2c warn] {e}')
+        print(f'  [warn] {e}')
         return []
 
     results = []
-    # C2C.in.th product cards — inspect actual HTML and update selectors if different
-    for card in soup.select('.product-item, .item-card, [class*="product"], [class*="listing"]')[:15]:
-        price_el = card.select_one('[class*="price"], .price, [itemprop="price"]')
-        if not price_el:
+    for p in items:
+        price_data = p.get('price', {})
+        cents = price_data.get('cents') or price_data.get('amount')
+        if not cents:
             continue
-        price_text = price_el.get_text(strip=True).replace(',', '').replace('฿', '').replace('บาท', '').strip()
-        try:
-            price_thb = float(''.join(c for c in price_text if c.isdigit() or c == '.'))
-        except ValueError:
+        usd = cents / 100
+        thb = round(usd * rate / 500) * 500  # round to nearest 500 THB
+        if thb <= 0:
             continue
-        if price_thb < 100:
-            continue
-        condition_el = card.select_one('[class*="condition"], [class*="status"]')
-        condition_raw = condition_el.get_text(strip=True) if condition_el else ''
         results.append({
-            'price': round(price_thb, 0),
-            'condition': normalize_condition(condition_raw),
-            'platform': 'c2c_th',
+            'price': thb,
+            'condition': normalize_condition(p.get('condition', {})),
+            'platform': 'vestiaire',
             'date': today,
         })
     return results
 
 
 def run():
+    rate = get_usd_to_thb()
+
     with open(DB_PATH) as f:
         db = json.load(f)
 
     for item in db['items']:
-        query = f'{item["brand"]} {item["model"]}'
+        query = f"{item['brand']} {item['model']}"
         print(f'Fetching: {query}')
-
-        carousell_samples = fetch_carousell_prices(query)
-        c2c_samples = fetch_c2c_prices(query)
-        new_samples = carousell_samples + c2c_samples
-        print(f'  Carousell: {len(carousell_samples)}, C2C: {len(c2c_samples)}')
+        new_samples = fetch_prices(query, rate)
+        print(f'  Got {len(new_samples)} samples')
 
         if new_samples:
             item['price_samples'] = trim_samples(
@@ -171,13 +142,22 @@ def run():
     print('items_db.json updated')
 
     subprocess.run(['git', 'add', str(DB_PATH)], check=True)
-    result = subprocess.run(['git', 'diff', '--cached', '--quiet'])
-    if result.returncode != 0:  # staged changes exist
-        subprocess.run(['git', 'commit', '-m', f'chore(data): chic price update {datetime.now():%Y-%m-%d}'], check=True)
-        subprocess.run(['git', 'push'], check=True)
-        print('Pushed.')
-    else:
+    staged = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
+    if staged.returncode == 0:
         print('No changes to commit.')
+        return
+
+    subprocess.run(
+        ['git', 'commit', '-m', f'chore(data): chic price update {datetime.now():%Y-%m-%d}'],
+        check=True,
+    )
+    subprocess.run(['git', 'stash'], check=True)
+    try:
+        subprocess.run(['git', 'pull', '--rebase'], check=True)
+    finally:
+        subprocess.run(['git', 'stash', 'pop'], capture_output=True)
+    subprocess.run(['git', 'push'], check=True)
+    print('Pushed.')
 
 
 if __name__ == '__main__':

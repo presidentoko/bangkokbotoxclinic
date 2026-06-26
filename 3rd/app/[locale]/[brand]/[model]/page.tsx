@@ -2,9 +2,18 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
-import { getItemBySlug, getAllItems, formatPriceTHB, getPriceVsRetail, Item } from '@/lib/data'
+import {
+  getItemBySlug,
+  getAllItems,
+  formatPriceTHB,
+  getPriceVsRetail,
+  getItemsByBrand,
+  Item,
+  PriceRange,
+} from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
+import { ShareButton } from '@/components/ShareButton'
 
 const BASE = 'https://www.chicpreowned.com'
 const YEAR = 2026
@@ -26,20 +35,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'common' })
   const vg = item.price_ranges.very_good
   const otherLocale = locale === 'en' ? 'th' : 'en'
+  const title = t('page_title_model', { brand: item.brand, model: item.model, year: YEAR })
+  const description = t('page_meta_model', {
+    brand: item.brand,
+    model: item.model,
+    min: vg ? formatPriceTHB(vg.min) : '฿–',
+    max: vg ? formatPriceTHB(vg.max) : '฿–',
+  })
   return {
-    title: t('page_title_model', { brand: item.brand, model: item.model, year: YEAR }),
-    description: t('page_meta_model', {
-      brand: item.brand,
-      model: item.model,
-      min: vg ? formatPriceTHB(vg.min) : '฿–',
-      max: vg ? formatPriceTHB(vg.max) : '฿–',
-    }),
+    title,
+    description,
     alternates: {
       canonical: `${BASE}/${locale}/${item.slug}`,
       languages: {
         [locale]: `${BASE}/${locale}/${item.slug}`,
         [otherLocale]: `${BASE}/${otherLocale}/${item.slug}`,
       },
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: `${BASE}/${locale}/${item.slug}`,
     },
   }
 }
@@ -105,6 +122,7 @@ export default async function ModelPage({ params }: Props) {
 
   const faqs = getFAQs(item, tFaq)
 
+  // FAQ schema
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -115,11 +133,63 @@ export default async function ModelPage({ params }: Props) {
     })),
   }
 
+  // Product + AggregateOffer schema
+  const allPrices = Object.values(item.price_ranges).filter(Boolean) as PriceRange[]
+  const lowPrice = allPrices.length ? Math.min(...allPrices.map(r => r.min)) : 0
+  const highPrice = allPrices.length ? Math.max(...allPrices.map(r => r.max)) : 0
+
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `Used ${item.brand} ${item.model}`,
+    brand: { '@type': 'Brand', name: item.brand },
+    description: `Pre-owned ${item.brand} ${item.model} — second-hand prices in Thailand`,
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'THB',
+      lowPrice,
+      highPrice,
+      offerCount: item.price_samples.length,
+      availability: 'https://schema.org/InStock',
+      url: `${BASE}/${locale}/${item.slug}`,
+    },
+  }
+
+  // BreadcrumbList schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE}/${locale}` },
+      { '@type': 'ListItem', position: 2, name: item.brand, item: `${BASE}/${locale}/${brand}` },
+      { '@type': 'ListItem', position: 3, name: item.model, item: `${BASE}/${locale}/${item.slug}` },
+    ],
+  }
+
+  // Related items from same brand
+  const relatedItems = getItemsByBrand(brand).filter(i => i.id !== item.id)
+
+  // Share data
+  const pageUrl = `${BASE}/${locale}/${item.slug}`
+  const vg = item.price_ranges.very_good
+  const shareTitle = `Used ${item.brand} ${item.model} — Price in Thailand`
+  const shareText = vg
+    ? `Pre-owned ${item.brand} ${item.model}: ${formatPriceTHB(vg.min)}–${formatPriceTHB(vg.max)} on Carousell TH`
+    : `Pre-owned ${item.brand} ${item.model} prices in Thailand`
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <p className="text-sm text-gray-400 mb-2">
@@ -131,6 +201,9 @@ export default async function ModelPage({ params }: Props) {
       <h1 className="text-3xl font-bold mb-2">
         {tCommon('page_title_model', { brand: item.brand, model: item.model, year: YEAR })}
       </h1>
+
+      <ShareButton title={shareTitle} text={shareText} url={pageUrl} />
+
       <p className="text-gray-600 mb-6">
         {tCommon('retail_label')}: {formatPriceTHB(item.retail_price_thb)}
       </p>
@@ -138,15 +211,19 @@ export default async function ModelPage({ params }: Props) {
       {/* AdSense slot — top */}
       <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense top]</div>
 
-      <PriceTable item={item} labels={{
-        condition: tCommon('condition_label'),
-        priceRange: tCommon('price_range_label'),
-        excellent: tCommon('condition_excellent'),
-        very_good: tCommon('condition_very_good'),
-        good: tCommon('condition_good'),
-        vsRetail: tCommon('vs_retail', { retail: formatPriceTHB(item.retail_price_thb) }),
-        lastUpdated: tCommon('last_updated', { date: item.last_updated }),
-      }} />
+      <PriceTable
+        item={item}
+        sampleCount={item.price_samples.length}
+        labels={{
+          condition: tCommon('condition_label'),
+          priceRange: tCommon('price_range_label'),
+          excellent: tCommon('condition_excellent'),
+          very_good: tCommon('condition_very_good'),
+          good: tCommon('condition_good'),
+          vsRetail: tCommon('vs_retail', { retail: formatPriceTHB(item.retail_price_thb) }),
+          lastUpdated: tCommon('last_updated', { date: item.last_updated }),
+        }}
+      />
 
       <AffiliateCTA item={item} ctaLabel={tCommon('cta_carousell')} />
 
@@ -165,8 +242,46 @@ export default async function ModelPage({ params }: Props) {
         </dl>
       </section>
 
+      {/* Related items from same brand */}
+      {relatedItems.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">More from {item.brand}</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {relatedItems.map(ri => {
+              const rvg = ri.price_ranges.very_good
+              return (
+                <a
+                  key={ri.id}
+                  href={`/${locale}/${ri.slug}`}
+                  className="border border-gray-200 rounded p-3 hover:bg-gray-50 transition-colors"
+                >
+                  <p className="font-medium text-sm">{ri.model}</p>
+                  {rvg && (
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {formatPriceTHB(rvg.min)} – {formatPriceTHB(rvg.max)}
+                    </p>
+                  )}
+                </a>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
       {/* AdSense slot — bottom */}
       <div className="my-6 bg-gray-50 rounded p-4 text-center text-xs text-gray-300">[AdSense bottom]</div>
+
+      {/* Mobile sticky CTA bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 flex gap-2 sm:hidden z-50">
+        <a
+          href={item.affiliate_links.carousell}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          className="flex-1 bg-black text-white text-sm font-medium rounded py-2.5 text-center"
+        >
+          {tCommon('cta_carousell')}
+        </a>
+      </div>
     </>
   )
 }
