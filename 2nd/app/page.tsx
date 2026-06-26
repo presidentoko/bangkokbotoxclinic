@@ -183,6 +183,30 @@ export default function HomePage() {
           })}
         </div>
       </section>
+
+      {/* How it works - trust section */}
+      <section className="mb-8 mt-4">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+          <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">How Our Prices Work</span>
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+        </div>
+        <div className="grid sm:grid-cols-3 gap-6">
+          {[
+            { n: '01', title: 'Real Listings', desc: 'Prices scraped weekly from Vestiaire Collective, eBay, and other major resale platforms.' },
+            { n: '02', title: 'Condition-Matched', desc: 'Prices separated by condition grade — Very Good, Excellent, and Good — so you compare like-for-like.' },
+            { n: '03', title: 'Free & Independent', desc: 'No affiliate deals affecting our data. We just track what the market is actually paying.' },
+          ].map(s => (
+            <div key={s.n} className="flex gap-4">
+              <span className="font-serif text-2xl text-[#E8E2D9] shrink-0" style={{ fontFamily: 'var(--font-playfair)' }}>{s.n}</span>
+              <div>
+                <p className="font-medium text-[#1A1A1A] text-sm mb-1">{s.title}</p>
+                <p className="text-xs text-[#6B6052] leading-relaxed">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </>
   )
 }
