@@ -38,6 +38,8 @@ VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
 CHECK_INTERVAL = 10      # 초 (Tier1 업그레이드: 20→10)
 MAX_RESTARTS_PER_MIN = 5
+CHROME_SOFT_LIMIT = 80   # 이 이상이면 chrome_heavy 서비스 재시작 보류
+CHROME_HARD_LIMIT = 120  # 이 이상이면 chrome 전체 강제 kill
 GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
 REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 큐 비면 graceful exit 직전에 찍는 라인
 
@@ -110,6 +112,9 @@ class Service:
     progress_pattern: re.Pattern | None = None
     progress_stale_sec: int = 300
     progress_grace_sec: int = 300
+
+    # chrome_heavy=True인 서비스는 chrome 과부하 시 재시작 보류 (리뷰 스크래퍼 등 브라우저 多사용)
+    chrome_heavy: bool = False
 
     restarts: list[float] = field(default_factory=list)
     disabled: bool = False
@@ -333,6 +338,29 @@ class Service:
         return launcher_pid
 
 
+def _chrome_count() -> int:
+    """현재 실행 중인 chrome-headless-shell 프로세스 수."""
+    try:
+        out = subprocess.check_output(
+            ["tasklist", "/FI", "IMAGENAME eq chrome-headless-shell.exe", "/NH"],
+            stderr=subprocess.DEVNULL, text=True, timeout=10, creationflags=_WNOW,
+        )
+        return sum(1 for ln in out.splitlines() if "chrome-headless-shell" in ln.lower())
+    except (subprocess.SubprocessError, OSError):
+        return 0
+
+
+def _kill_all_chrome():
+    """chrome-headless-shell 전체 강제 종료 (좀비 포함)."""
+    try:
+        subprocess.run(
+            ["taskkill", "/F", "/IM", "chrome-headless-shell.exe"],
+            stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=15, creationflags=_WNOW,
+        )
+    except (subprocess.SubprocessError, OSError):
+        pass
+
+
 def _pid_alive(pid: int) -> bool:
     """Windows tasklist 기반 PID 체크."""
     try:
@@ -502,7 +530,7 @@ def build_services() -> list[Service]:
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
         # review 10 workers(2080-2089), dental 2090-2091 분리
-        "N_WORKERS": "10",
+        "N_WORKERS": "6",
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
@@ -522,7 +550,7 @@ def build_services() -> list[Service]:
     return [
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "12", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "16", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
@@ -537,6 +565,7 @@ def build_services() -> list[Service]:
             cwd=bk_reviews,
             env_extra=bangkok_env,
             log_file=LOGS / "bangkok_review.log",
+            chrome_heavy=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,   # 10분 (느린 작업 / VPN 회전 고려)
             progress_grace_sec=420,   # 7분 (cold start: 워커 부팅 + 첫 작업)
@@ -702,11 +731,80 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "100.5346890",
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../dental_output/bangkok",
-                # dental 전용 포트 2090-2091 (review 2080-2089와 분리)
-                "N_WORKERS": "2",
+                # dental 전용 포트 2090-2095 (review 2080-2089와 분리)
+                "N_WORKERS": "4",
                 "PROXY_PORT_BASE": "2090",
             },
             log_file=LOGS / "dental_review_bangkok.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="dental_review_pattaya",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra={
+                "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
+                "CITY_LAT": "12.9236", "CITY_LNG": "100.8825", "CITY_RADIUS_M": "20000",
+                "CITY_OUTPUT_DIR": "../dental_output/pattaya",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+            },
+            log_file=LOGS / "dental_review_pattaya.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="dental_review_chiang_mai",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra={
+                "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
+                "CITY_LAT": "18.7883", "CITY_LNG": "98.9853", "CITY_RADIUS_M": "20000",
+                "CITY_OUTPUT_DIR": "../dental_output/chiang_mai",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+            },
+            log_file=LOGS / "dental_review_chiang_mai.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="dental_review_phuket",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra={
+                "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
+                "CITY_LAT": "7.8804", "CITY_LNG": "98.3923", "CITY_RADIUS_M": "20000",
+                "CITY_OUTPUT_DIR": "../dental_output/phuket",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+            },
+            log_file=LOGS / "dental_review_phuket.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="dental_review_koh_samui",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra={
+                "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
+                "CITY_LAT": "9.5018", "CITY_LNG": "99.9648", "CITY_RADIUS_M": "15000",
+                "CITY_OUTPUT_DIR": "../dental_output/koh_samui",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+            },
+            log_file=LOGS / "dental_review_koh_samui.log",
+            chrome_heavy=True,
             review_done_check=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
@@ -718,6 +816,7 @@ def build_services() -> list[Service]:
             cwd=bk_reviews,
             env_extra=pattaya_env,
             log_file=LOGS / "pattaya_review.log",
+            chrome_heavy=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
             progress_grace_sec=420,
@@ -739,6 +838,7 @@ def build_services() -> list[Service]:
             cwd=bk_clinics,
             env_extra=bangkok_clinics_env,
             log_file=LOGS / "bangkok_clinics_review.log",
+            chrome_heavy=True,
             review_done_check=True,   # 큐 비면 자연 종료 → chain promotion (Pattaya로)
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
@@ -761,6 +861,7 @@ def build_services() -> list[Service]:
             cwd=bk_clinics,
             env_extra=pattaya_clinics_env,
             log_file=LOGS / "pattaya_clinics_review.log",
+            chrome_heavy=True,
             review_done_check=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
@@ -777,7 +878,7 @@ def build_services() -> list[Service]:
             name="phuket_clinics_review",
             cmd=["scraper.py"], cwd=bk_clinics, env_extra=phuket_clinics_env,
             log_file=LOGS / "phuket_clinics_review.log",
-            review_done_check=True, progress_pattern=PROG_REVIEW,
+            chrome_heavy=True, review_done_check=True, progress_pattern=PROG_REVIEW,
             progress_stale_sec=600, progress_grace_sec=420,
         ),
         Service(
@@ -791,7 +892,7 @@ def build_services() -> list[Service]:
             name="chiang_mai_clinics_review",
             cmd=["scraper.py"], cwd=bk_clinics, env_extra=chiang_mai_clinics_env,
             log_file=LOGS / "chiang_mai_clinics_review.log",
-            review_done_check=True, progress_pattern=PROG_REVIEW,
+            chrome_heavy=True, review_done_check=True, progress_pattern=PROG_REVIEW,
             progress_stale_sec=600, progress_grace_sec=420,
         ),
         Service(
@@ -805,7 +906,7 @@ def build_services() -> list[Service]:
             name="koh_samui_clinics_review",
             cmd=["scraper.py"], cwd=bk_clinics, env_extra=koh_samui_clinics_env,
             log_file=LOGS / "koh_samui_clinics_review.log",
-            review_done_check=True, progress_pattern=PROG_REVIEW,
+            chrome_heavy=True, review_done_check=True, progress_pattern=PROG_REVIEW,
             progress_stale_sec=600, progress_grace_sec=420,
         ),
         Service(
@@ -819,7 +920,7 @@ def build_services() -> list[Service]:
             name="krabi_clinics_review",
             cmd=["scraper.py"], cwd=bk_clinics, env_extra=krabi_clinics_env,
             log_file=LOGS / "krabi_clinics_review.log",
-            review_done_check=True, progress_pattern=PROG_REVIEW,
+            chrome_heavy=True, review_done_check=True, progress_pattern=PROG_REVIEW,
             progress_stale_sec=600, progress_grace_sec=420,
         ),
         Service(
@@ -833,7 +934,7 @@ def build_services() -> list[Service]:
             name="hua_hin_clinics_review",
             cmd=["scraper.py"], cwd=bk_clinics, env_extra=hua_hin_clinics_env,
             log_file=LOGS / "hua_hin_clinics_review.log",
-            review_done_check=True, progress_pattern=PROG_REVIEW,
+            chrome_heavy=True, review_done_check=True, progress_pattern=PROG_REVIEW,
             progress_stale_sec=600, progress_grace_sec=420,
         ),
         Service(
@@ -946,6 +1047,34 @@ def build_services() -> list[Service]:
             progress_stale_sec=1200,   # 20분 안 찍히면 죽은 것 (rate limit 백오프 + 일일 한도 sleep 고려)
             progress_grace_sec=120,
         ),
+        Service(
+            # web-thaigle 데이터 갱신기 — data.zip 변경 감지 → by-niche JSON 추출 → vercel --prod 배포.
+            # 5분 주기 폴링. data.zip 이 바뀔 때만 배포 트리거.
+            # progress 시그널: "[watcher] ✓ no change" 또는 "[refresh] ✓ Deployed"
+            name="thaigle_refresher",
+            cmd=["scripts/refresh_thaigle.py", "--watch", "--interval", "300"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "thaigle_refresher.log",
+            progress_pattern=re.compile(r"\[watcher\]"),
+            progress_stale_sec=900,   # 15분 안 찍히면 죽은 것 (5분 간격 × 3 = 여유)
+            progress_grace_sec=120,
+        ),
+        Service(
+            # secondluxuryitems.com 주간 가격 샘플러 — Vestiaire Collective 검색 →
+            # 2nd/data/items_db.json price_samples/price_ranges 갱신 → git push.
+            # 스크립트 내부에서 168h(7일) sleep 루프 → 프로세스 상시 생존, watchdog은 PID만 감시.
+            # interval_hours: 168 (weekly)
+            name="price_sampler",
+            cmd=["2nd/scraper/price_sampler.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "price_sampler.log",
+            # 진행 시그널: "[price_sampler] run start ..."
+            progress_pattern=re.compile(r"\[price_sampler\]"),
+            progress_stale_sec=604800,  # 7일 (168h) — 한 사이클 안에 찍혀야 함
+            progress_grace_sec=300,
+        ),
     ]
 
 
@@ -974,18 +1103,47 @@ def _promote_next_in_chain(services: list[Service]) -> bool:
 
 
 def _already_running() -> bool:
-    """이미 다른 watchdog 프로세스가 살아있으면 True (중복 실행 방지)."""
+    """이미 다른 watchdog 프로세스가 살아있으면 True (중복 실행 방지).
+
+    PID 파일 체크(기존) + tasklist 프로세스명 직접 검색(추가)으로 이중 검증.
+    두 watchdog이 동시에 뜰 때의 레이스 컨디션을 완전히 막진 못하지만,
+    PID 파일 없이도 이미 실행 중인 watchdog을 감지해 중복을 크게 줄인다.
+    """
     self_pid = os.getpid()
+
+    # 1차: PID 파일 기반 체크 (기존 로직)
     pid_file = RUN / "watchdog.pid"
-    if not pid_file.exists():
-        return False
+    if pid_file.exists():
+        try:
+            prev = int(pid_file.read_text().strip())
+            if prev != self_pid and _pid_alive(prev):
+                return True
+        except (ValueError, OSError):
+            pass
+
+    # 2차: tasklist에서 watchdog.py 실행 중인 python 프로세스 직접 검색
+    # PID 파일 없이 동시에 뜨는 경우 대비
     try:
-        prev = int(pid_file.read_text().strip())
-    except (ValueError, OSError):
-        return False
-    if prev == self_pid:
-        return False
-    return _pid_alive(prev)
+        out = subprocess.check_output(
+            ["wmic", "process", "where",
+             "Name='python.exe'",
+             "get", "ProcessId,CommandLine", "/format:list"],
+            stderr=subprocess.DEVNULL, text=True, timeout=10,
+            creationflags=_WNOW,
+        )
+        for block in out.split("\n\n"):
+            if "watchdog.py" not in block:
+                continue
+            m = re.search(r"ProcessId=(\d+)", block)
+            if not m:
+                continue
+            other_pid = int(m.group(1))
+            if other_pid != self_pid:
+                return True
+    except (subprocess.SubprocessError, OSError):
+        pass
+
+    return False
 
 
 def _write_self_pid():
@@ -1028,6 +1186,8 @@ def main():
 
     HEARTBEAT_EVERY = 30 * 60  # 30분
     last_heartbeat = time.time()
+    last_chrome_check = 0.0
+    CHROME_CHECK_INTERVAL = 30  # 30초마다 chrome 수 체크
 
     while True:
         time.sleep(CHECK_INTERVAL)
@@ -1035,6 +1195,19 @@ def main():
             log("stop_watchdog 마커 감지 → 종료")
             stop_marker.unlink()
             return 0
+
+        # ── chrome 과부하 가드 ──────────────────────────────────
+        now = time.time()
+        chrome_n = 0
+        if now - last_chrome_check >= CHROME_CHECK_INTERVAL:
+            last_chrome_check = now
+            chrome_n = _chrome_count()
+            if chrome_n > CHROME_HARD_LIMIT:
+                log(f"[ram-guard] chrome {chrome_n}개 > {CHROME_HARD_LIMIT} → 전체 kill")
+                _kill_all_chrome()
+                chrome_n = 0
+            elif chrome_n > CHROME_SOFT_LIMIT:
+                log(f"[ram-guard] chrome {chrome_n}개 > {CHROME_SOFT_LIMIT} — chrome_heavy 재시작 보류")
 
         any_action = False
         for s in services:
@@ -1059,6 +1232,9 @@ def main():
                 s.disabled_reason = "review 자연 종료"
                 log(f"[{s.name}] {s.disabled_reason} — 큐 비움, 더 이상 재시작 안 함")
                 any_action = True
+                continue
+            # chrome 과부하면 브라우저 많이 쓰는 서비스 재시작 보류
+            if s.chrome_heavy and chrome_n > CHROME_SOFT_LIMIT:
                 continue
             log(f"[{s.name}] 죽음 감지 → 재시작 시도")
             s.restart()
