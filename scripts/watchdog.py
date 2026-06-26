@@ -1075,6 +1075,19 @@ def build_services() -> list[Service]:
             progress_stale_sec=604800,  # 7일 (168h) — 한 사이클 안에 찍혀야 함
             progress_grace_sec=300,
         ),
+        Service(
+            # chicpreowned.com 주간 가격 샘플러 — Vestiaire USD → THB 환율 변환 →
+            # 3rd/data/items_db.json price_samples/price_ranges 갱신 → git push.
+            # 스크립트 내부에서 168h(7일) sleep 루프.
+            name="price_sampler_chic",
+            cmd=["3rd/scraper/price_sampler.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "price_sampler_chic.log",
+            progress_pattern=re.compile(r"\[price_sampler_chic\]"),
+            progress_stale_sec=604800,  # 7일
+            progress_grace_sec=300,
+        ),
     ]
 
 
