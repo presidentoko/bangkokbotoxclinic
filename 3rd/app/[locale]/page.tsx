@@ -52,8 +52,7 @@ export default async function HomePage({ params }: Props) {
   const watchBrands    = allBrands.filter(b => b.categories.includes('watches'))
   const clothingBrands = allBrands.filter(b => b.categories.includes('clothing'))
 
-  const totalItems  = allItems.length
-  const totalBrands = allBrands.length
+  const totalItems = allItems.length
 
   const websiteSchema = {
     '@context': 'https://schema.org',
@@ -76,33 +75,31 @@ export default async function HomePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
+
       {/* Hero */}
-      <div className="mb-10 pb-10 border-b border-gray-100">
-        <h1 className="text-4xl font-bold mb-3 tracking-tight">{t('hero_h1')}</h1>
-        <p className="text-gray-600 text-lg max-w-2xl">{t('hero_subtext')}</p>
-
-        {/* Trust badges */}
-        <div className="flex flex-wrap gap-3 mt-6">
-          <span className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-700 text-sm font-medium px-3 py-1.5 rounded-full">
-            <span className="text-green-600">✓</span> {t('trust_updated')}
-          </span>
-          <span className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-700 text-sm font-medium px-3 py-1.5 rounded-full">
-            <span className="text-green-600">✓</span> {t('trust_models', { count: totalItems })}
-          </span>
-          <span className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-700 text-sm font-medium px-3 py-1.5 rounded-full">
-            <span className="text-green-600">✓</span> {t('trust_prices')}
-          </span>
-        </div>
-
-        <p className="text-sm text-gray-400 mt-4">
-          {t('tracking_stats', { items: totalItems, brands: totalBrands })}
+      <div className="mb-16 pt-4">
+        <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-4">
+          {locale === 'th' ? 'อัปเดตราคาทุกสัปดาห์' : 'Weekly Updated Price Guide'}
         </p>
+        <h1 className="font-serif text-5xl sm:text-6xl text-[#1A1A1A] leading-tight mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
+          {t('hero_h1')}
+        </h1>
+        <p className="text-[#6B6052] text-lg max-w-xl leading-relaxed">
+          {t('hero_subtext')}
+        </p>
+        <div className="flex flex-wrap gap-6 mt-8 text-sm text-[#9C8B7A]">
+          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_updated')}</span>
+          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_models', { count: totalItems })}</span>
+          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_prices')}</span>
+        </div>
       </div>
 
       <section className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">
-          <a href={`/${locale}/handbags`} className="hover:underline">{t('nav_handbags')}</a>
-        </h2>
+        <div className="flex items-center gap-4 mb-10">
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+          <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">{t('nav_handbags')}</span>
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {handbagBrands.map(b => {
             const pct = brandSavingsMap.get(b.slug)
@@ -120,9 +117,11 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">
-          <a href={`/${locale}/watches`} className="hover:underline">{t('nav_watches')}</a>
-        </h2>
+        <div className="flex items-center gap-4 mb-10">
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+          <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">{t('nav_watches')}</span>
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {watchBrands.map(b => {
             const pct = brandSavingsMap.get(b.slug)
@@ -140,9 +139,11 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">
-          <a href={`/${locale}/clothing`} className="hover:underline">{t('nav_clothing')}</a>
-        </h2>
+        <div className="flex items-center gap-4 mb-10">
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+          <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">{t('nav_clothing')}</span>
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {clothingBrands.map(b => {
             const pct = brandSavingsMap.get(b.slug)

@@ -204,40 +204,43 @@ export default async function ModelPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <p className="text-sm text-gray-400 mb-2">
+      <p className="text-sm text-[#9C8B7A] mb-2">
         <Link href={`/${locale}`}>{tCommon('home')}</Link> ›{' '}
         <Link href={`/${locale}/${brand}`}>{item.brand}</Link> ›{' '}
         {item.model}
       </p>
 
-      <h1 className="text-3xl font-bold mb-2">
+      <h1 className="font-serif text-4xl sm:text-5xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
         {tCommon('page_title_model', { brand: item.brand, model: item.model, year: YEAR })}
+        <span className="block text-xl text-[#9C8B7A] mt-1 font-sans font-normal" style={{ fontFamily: 'var(--font-inter, sans-serif)' }}>
+          {locale === 'th' ? 'ราคาตลาดมือสอง' : 'Pre-Owned Market Price'}
+        </span>
       </h1>
 
       <ShareButton title={shareTitle} text={shareText} url={pageUrl} />
 
       <div className="flex flex-wrap gap-3 my-4">
         {savingsPct && savingsPct > 0 && (
-          <div className="bg-green-50 border border-green-200 rounded-lg px-4 py-2.5 flex items-center gap-2">
-            <span className="text-green-700 font-bold text-xl">~{savingsPct}%</span>
-            <span className="text-green-600 text-sm">{locale === 'th' ? 'ต่ำกว่าราคาปกติ' : 'below retail'}</span>
+          <div className="bg-[#F0F5EC] border border-[#C5D9B7] rounded-lg px-4 py-2.5 flex items-center gap-2">
+            <span className="text-[#4A7A35] font-bold text-xl">~{savingsPct}%</span>
+            <span className="text-[#4A7A35] text-sm">{locale === 'th' ? 'ต่ำกว่าราคาปกติ' : 'below retail'}</span>
           </div>
         )}
         {savingsPct && savingsPct < 0 && (
-          <div className="bg-orange-50 border border-orange-200 rounded-lg px-4 py-2.5 flex items-center gap-2">
-            <span className="text-orange-700 font-bold text-xl">+{Math.abs(savingsPct)}%</span>
-            <span className="text-orange-600 text-sm">{locale === 'th' ? 'สูงกว่าราคาปกติ' : 'above retail'}</span>
+          <div className="bg-[#FDF5EC] border border-[#E8C99A] rounded-lg px-4 py-2.5 flex items-center gap-2">
+            <span className="text-[#8C5A1A] font-bold text-xl">+{Math.abs(savingsPct)}%</span>
+            <span className="text-[#8C5A1A] text-sm">{locale === 'th' ? 'สูงกว่าราคาปกติ' : 'above retail'}</span>
           </div>
         )}
         {avgPrice && (
-          <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
-            <span className="text-gray-500 text-xs">{locale === 'th' ? 'ราคาตลาดเฉลี่ย' : 'Avg market price'}</span>
-            <p className="font-bold text-gray-900">{formatPriceTHB(avgPrice)}</p>
+          <div className="bg-white border border-[#E8E2D9] rounded-lg px-4 py-2.5">
+            <span className="text-[#9C8B7A] text-xs">{locale === 'th' ? 'ราคาตลาดเฉลี่ย' : 'Avg market price'}</span>
+            <p className="font-bold text-[#1A1A1A]">{formatPriceTHB(avgPrice)}</p>
           </div>
         )}
-        <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5">
-          <span className="text-gray-500 text-xs">{locale === 'th' ? 'ราคาปกติ' : 'Retail'}</span>
-          <p className="font-bold text-gray-900">{formatPriceTHB(item.retail_price_thb)}</p>
+        <div className="bg-white border border-[#E8E2D9] rounded-lg px-4 py-2.5">
+          <span className="text-[#9C8B7A] text-xs">{locale === 'th' ? 'ราคาปกติ' : 'Retail'}</span>
+          <p className="font-bold text-[#1A1A1A]">{formatPriceTHB(item.retail_price_thb)}</p>
         </div>
       </div>
 
@@ -264,12 +267,12 @@ export default async function ModelPage({ params }: Props) {
       <div className="my-6" />
 
       <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">FAQ</h2>
+        <h2 className="text-xl font-semibold mb-4 text-[#1A1A1A]">FAQ</h2>
         <dl className="space-y-6">
           {faqs.map((faq, i) => (
             <div key={i}>
-              <dt className="font-medium text-gray-900">{faq.q}</dt>
-              <dd className="mt-1 text-gray-600">{faq.a}</dd>
+              <dt className="font-medium text-[#1A1A1A]">{faq.q}</dt>
+              <dd className="mt-1 text-[#6B6052]">{faq.a}</dd>
             </div>
           ))}
         </dl>
@@ -278,19 +281,24 @@ export default async function ModelPage({ params }: Props) {
       {/* Related items from same brand */}
       {relatedItems.length > 0 && (
         <section className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">More from {item.brand}</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <h2 className="font-serif text-xl text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
+            {locale === 'th' ? `จาก ${item.brand}` : `More from ${item.brand}`}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {relatedItems.map(ri => {
               const rvg = ri.price_ranges.very_good
               return (
                 <a
                   key={ri.id}
                   href={`/${locale}/${ri.slug}`}
-                  className="border border-gray-200 rounded p-3 hover:bg-gray-50 transition-colors"
+                  className="group block p-6 bg-white border border-[#E8E2D9] rounded-sm hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
                 >
-                  <p className="font-medium text-sm">{ri.model}</p>
+                  <p className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A] mb-2">{ri.brand}</p>
+                  <h3 className="font-serif text-xl text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>
+                    {ri.model}
+                  </h3>
                   {rvg && (
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="text-sm text-[#6B6052]">
                       {formatPriceTHB(rvg.min)} – {formatPriceTHB(rvg.max)}
                     </p>
                   )}
@@ -307,12 +315,12 @@ export default async function ModelPage({ params }: Props) {
       <RecentlyViewed currentSlug={item.slug} locale={locale} />
 
       {/* Mobile sticky CTA bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 flex gap-2 sm:hidden z-50">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8E2D9] p-3 flex gap-2 sm:hidden z-50">
         <a
           href={item.affiliate_links.carousell}
           target="_blank"
           rel="noopener noreferrer sponsored"
-          className="flex-1 bg-black text-white text-sm font-medium rounded py-2.5 text-center"
+          className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center"
         >
           {tCommon('cta_carousell')}
         </a>

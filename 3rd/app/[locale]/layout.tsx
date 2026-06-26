@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -7,7 +7,8 @@ import { routing } from '@/i18n'
 import { LocaleSwitcher } from '@/components/LocaleSwitcher'
 import '../globals.css'
 
-const inter = Inter({ subsets: ['latin', 'latin-ext'] })
+const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' })
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 interface Props {
   children: React.ReactNode
@@ -37,27 +38,27 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body className={`${inter.className} bg-white text-gray-900`}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#FAFAF9] text-[#1A1A1A]`}>
         <NextIntlClientProvider messages={messages}>
-          <header className="border-b border-gray-100">
-            <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-              <a href={`/${locale}`} className="font-semibold text-lg tracking-tight">
+          <header className="bg-[#FAFAF9] border-b border-[#E8E2D9]">
+            <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+              <a href={`/${locale}`} className="font-serif text-xl tracking-wider text-[#1A1A1A]" style={{ fontFamily: 'var(--font-playfair)' }}>
                 {t('site_name')}
               </a>
-              <nav className="flex gap-4 text-sm text-gray-600 items-center">
-                <a href={`/${locale}/handbags`} className="hover:text-gray-900">{t('nav_handbags')}</a>
-                <a href={`/${locale}/watches`} className="hover:text-gray-900">{t('nav_watches')}</a>
-                <a href={`/${locale}/clothing`} className="hover:text-gray-900">{t('nav_clothing')}</a>
-                <a href={`/${locale}/contact`} className="hover:text-gray-900">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a>
+              <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase">
+                <a href={`/${locale}/handbags`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_handbags')}</a>
+                <a href={`/${locale}/watches`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_watches')}</a>
+                <a href={`/${locale}/clothing`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_clothing')}</a>
+                <a href={`/${locale}/contact`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a>
                 <LocaleSwitcher locale={locale} />
               </nav>
             </div>
           </header>
-          <main className="max-w-4xl mx-auto px-4 py-8 pb-20 sm:pb-0">
+          <main className="max-w-5xl mx-auto px-6 py-10 pb-24 sm:pb-10">
             {children}
           </main>
-          <footer className="border-t border-gray-100 mt-16">
-            <div className="max-w-4xl mx-auto px-4 py-6 text-sm text-gray-400">
+          <footer className="border-t border-[#E8E2D9] mt-16">
+            <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-[#9C8B7A]">
               <p>{t('footer_disclaimer')}</p>
               <p className="mt-1">{t('footer_copyright', { year: new Date().getFullYear() })}</p>
             </div>

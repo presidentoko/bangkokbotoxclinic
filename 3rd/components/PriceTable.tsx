@@ -27,10 +27,10 @@ export function PriceTable({ item, labels, sampleCount }: { item: Item; labels: 
     <div className="overflow-x-auto my-6">
       <table className="w-full text-sm border-collapse">
         <thead>
-          <tr className="bg-gray-50 text-left">
-            <th className="p-3 border border-gray-200 font-semibold">{labels.condition}</th>
-            <th className="p-3 border border-gray-200 font-semibold">{labels.priceRange}</th>
-            <th className="p-3 border border-gray-200 font-semibold">
+          <tr className="bg-[#F5F0E8] text-left">
+            <th className="p-3 border border-[#E8E2D9] font-semibold">{labels.condition}</th>
+            <th className="p-3 border border-[#E8E2D9] font-semibold">{labels.priceRange}</th>
+            <th className="p-3 border border-[#E8E2D9] font-semibold">
               {labels.vsRetail.replace('{retail}', formatPriceTHB(item.retail_price_thb))}
             </th>
           </tr>
@@ -42,12 +42,12 @@ export function PriceTable({ item, labels, sampleCount }: { item: Item; labels: 
             const diff = getPriceVsRetail(range, item.retail_price_thb)
             const isAboveRetail = diff.startsWith('+')
             return (
-              <tr key={key} className="hover:bg-gray-50">
-                <td className="p-3 border border-gray-200 font-medium">{condLabel(key)}</td>
-                <td className="p-3 border border-gray-200">
+              <tr key={key} className="hover:bg-[#FAFAF9]">
+                <td className="p-3 border border-[#E8E2D9] font-medium">{condLabel(key)}</td>
+                <td className="p-3 border border-[#E8E2D9]">
                   {formatPriceTHB(range.min)} – {formatPriceTHB(range.max)}
                 </td>
-                <td className={`p-3 border border-gray-200 font-medium ${isAboveRetail ? 'text-orange-600' : 'text-green-700'}`}>
+                <td className={`p-3 border border-[#E8E2D9] font-medium ${isAboveRetail ? 'text-[#C25B2B]' : 'text-[#4A7A35]'}`}>
                   {diff}
                 </td>
               </tr>
@@ -55,7 +55,7 @@ export function PriceTable({ item, labels, sampleCount }: { item: Item; labels: 
           })}
         </tbody>
       </table>
-      <p className="text-xs text-gray-400 mt-2">
+      <p className="text-xs text-[#9C8B7A] mt-2">
         {sampleCount ? `Based on ${sampleCount} listings · ` : ''}
         {labels.lastUpdated.replace('{date}', item.last_updated)}
       </p>
