@@ -294,4 +294,132 @@ export default async function ComparePage({
                   <th className="text-center px-2 py-3 font-semibold" title="Cancer Markers">🧬</th>
                   <th className="text-center px-2 py-3 font-semibold" title="Doctor">👨‍⚕️</th>
                   <th className="text-center px-2 py-3 font-semibold" title="Interpreter">🌐</th>
-                  <th className=
+                  <th className="text-center px-2 py-3 font-semibold min-w-[60px]">
+                    <SortLink locale={loc} category={activeCat} sortKey="results_days" current={activeSort}>Days</SortLink>
+                  </th>
+                  <th className="text-center px-3 py-3 font-semibold">Book</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, i) => {
+                  const price = row.price ? `฿${parseFloat(row.price).toLocaleString()}` : "—";
+                  const bookUrl = row.source_url || row.checkup_url || "#";
+                  return (
+                    <tr key={row.package_id} className={`border-t border-slate-100 hover:bg-blue-50/40 transition-colors ${i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}`}>
+                      <td className="px-4 py-3">
+                        <Link href={`/${loc}/hospital/${row.hospital_slug}`} className="font-semibold text-slate-800 hover:text-blue-700">{row.hospital_name}</Link>
+                        <div className="flex items-center gap-1 mt-0.5">
+                          {row.jci === 1 && <JciBadge />}
+                          {row.rating && <span className="text-xs text-amber-500 font-semibold">★ {parseFloat(row.rating).toFixed(1)}</span>}
+                          {row.review_count ? <span className="text-slate-400 text-xs">({row.review_count.toLocaleString()})</span> : null}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 text-slate-500 whitespace-nowrap text-xs">{row.area ?? "—"}</td>
+                      <td className="px-3 py-3">
+                        <Link href={`/${loc}/checkup/${row.category ?? activeCat}/${row.hospital_slug}`} className="text-slate-700 hover:text-blue-600">{row.package_name}</Link>
+                      </td>
+                      <td className="px-3 py-3 text-right font-bold text-slate-900 whitespace-nowrap">{price}</td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_blood} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_xray} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_ultrasound} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_ct} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_mri} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_cancer_marker} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_doctor_consult} /></td>
+                      <td className="px-2 py-3 text-center"><Flag val={row.has_interpreter} /></td>
+                      <td className="px-2 py-3 text-center text-slate-600 text-xs">{row.results_days != null ? `${row.results_days}d` : "—"}</td>
+                      <td className="px-3 py-3 text-center">
+                        <a href={`/api/track?pkg=${row.package_id}&url=${encodeURIComponent(bookUrl)}`} target="_blank" rel="noopener noreferrer"
+                          className="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                          {t(loc, "book_now")}
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      {/* Legend */}
+      <p className="text-xs text-slate-400 mb-8">
+        ✓ Included · ✗ Not included · ? Not specified &nbsp;·&nbsp; JCI = Joint Commission International accreditation &nbsp;·&nbsp; Prices in Thai Baht (฿), informational only.
+      </p>
+
+      {/* AEO summary for crawlers */}
+      {rows.length > 0 && (
+        <section className="bg-white rounded-xl border border-slate-100 p-5 md:p-6 mb-8">
+          <h2 className="text-base font-bold text-slate-800 mb-2">
+            {catLabel(loc, activeCat)} Health Check-Up in Bangkok — Summary
+          </h2>
+          <p className="text-slate-600 text-sm">{aeoSummary}</p>
+          <p className="text-slate-400 text-xs mt-3">
+            Data scraped directly from hospital websites. Updated weekly. No paid placement. Last updated: {new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" })}.
+          </p>
+        </section>
+      )}
+
+      {/* FAQ */}
+      {faqs.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-lg font-bold text-slate-800 mb-4">Frequently Asked Questions</h2>
+          <div className="space-y-3">
+            {faqs.map((faq, i) => (
+              <details key={i} className="bg-white border border-slate-200 rounded-xl px-5 py-4 group open:shadow-sm">
+                <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-3">
+                  <span>{faq.q}</span>
+                  <span className="text-slate-400 group-open:rotate-180 transition-transform text-xs shrink-0">▼</span>
+                </summary>
+                <p className="mt-3 text-slate-600 text-sm leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Browse by hospital */}
+      <section className="border-t border-slate-100 pt-6">
+        <h2 className="text-sm font-semibold text-slate-600 mb-3">Browse by hospital</h2>
+        <div className="flex flex-wrap gap-2">
+          {[...new Set(rows.map((r) => r.hospital_slug))].map((slug) => {
+            const name = rows.find((r) => r.hospital_slug === slug)?.hospital_name ?? slug;
+            return (
+              <Link key={slug} href={`/${loc}/hospital/${slug}`}
+                className="text-sm text-blue-600 hover:underline bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full transition-colors">
+                {name}
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Schema: ItemList */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org", "@type": "ItemList",
+        name: `${catLabel("en", activeCat)} Health Check-Up Bangkok`,
+        numberOfItems: rows.length,
+        itemListElement: rows.map((r, i) => ({
+          "@type": "ListItem", position: i + 1,
+          item: {
+            "@type": "Product", name: r.package_name,
+            offers: { "@type": "Offer", price: r.price ?? "0", priceCurrency: "THB", availability: "https://schema.org/InStock",
+              seller: { "@type": "MedicalOrganization", name: r.hospital_name } },
+          },
+        })),
+      }) }} />
+
+      {/* Schema: FAQ */}
+      {faqs.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org", "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question", name: faq.q,
+            acceptedAnswer: { "@type": "Answer", text: faq.a },
+          })),
+        }) }} />
+      )}
+    </div>
+  );
+}

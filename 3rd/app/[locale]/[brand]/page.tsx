@@ -49,12 +49,22 @@ export default async function BrandPage({ params }: Props) {
         {items.map(item => {
           const vg = item.price_ranges.very_good
           const [, model] = item.slug.split('/')
+          const savingsPct = item.retail_price_thb && vg
+            ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
+            : null
           return (
             <Link key={item.id} href={`/${locale}/${brand}/${model}`}
               className="flex items-center justify-between py-4 hover:bg-gray-50 -mx-2 px-2 rounded">
               <span className="font-medium">{item.model}</span>
-              <span className="text-sm text-gray-500">
-                {vg ? `${formatPriceTHB(vg.min)} – ${formatPriceTHB(vg.max)}` : t('see_guide')}
+              <span className="flex items-center gap-2 text-sm">
+                {savingsPct !== null && savingsPct > 0 && (
+                  <span className="bg-green-50 text-green-700 text-xs font-medium px-2 py-0.5 rounded-full">
+                    {t('savings_badge', { pct: savingsPct })}
+                  </span>
+                )}
+                <span className="text-gray-500">
+                  {vg ? `${formatPriceTHB(vg.min)} – ${formatPriceTHB(vg.max)}` : t('see_guide')}
+                </span>
               </span>
             </Link>
           )

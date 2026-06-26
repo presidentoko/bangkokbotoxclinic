@@ -5,16 +5,19 @@ import { getStatsForHome, getPackagesByCategory, type PackageRow } from "@/lib/d
 
 export const revalidate = 86400;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+const BASE = "https://www.bangkoktopclinic.com";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const loc = locale as Locale;
   return {
-    title: `${t(loc, "site_name")} — Compare Bangkok Health Check-Up Prices`,
-    description: t(loc, "tagline"),
+    title: `${t(loc, "site_name")} — Compare Bangkok Hospital Health Check-Up Prices`,
+    description: "Compare real health check-up prices from Bangkok's top hospitals. JCI-accredited hospitals, 15+ hospitals, 140+ packages. No ads, no sponsored listings.",
+    openGraph: {
+      title: "Compare Bangkok Health Check-Up Prices — Real Prices, No Ads",
+      description: "Real prices scraped from hospital websites. Executive, comprehensive, cancer screening & more.",
+      url: `${BASE}/${locale}`,
+    },
   };
 }
 
@@ -24,21 +27,19 @@ const CAT_ICONS: Record<string, string> = {
 };
 
 const CAT_DESC: Record<string, string> = {
-  comprehensive: "Full body screening",
-  executive: "Premium all-inclusive",
-  cancer: "Tumour marker tests",
-  cardiac: "Heart & vascular focus",
-  women: "Women-specific panels",
-  men: "Men-specific panels",
-  basic: "Essential blood panel",
-  age: "Age-tailored programs",
+  comprehensive: "Full body screening", executive: "Premium all-inclusive",
+  cancer: "Tumour marker tests", cardiac: "Heart & vascular",
+  women: "Women-specific panels", men: "Men-specific panels",
+  basic: "Essential blood panel", age: "Age-tailored programs",
 };
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+function Flag({ val }: { val: number | null }) {
+  if (val === 1) return <span className="text-emerald-500 font-bold text-xs">✓</span>;
+  if (val === 0) return <span className="text-slate-300 text-xs">✗</span>;
+  return <span className="text-slate-300 text-xs">—</span>;
+}
+
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const loc = locale as Locale;
   const base = `/${locale}`;
@@ -50,135 +51,199 @@ export default async function HomePage({
       getStatsForHome(),
       getPackagesByCategory("executive", "price"),
     ]);
-  } catch {
-    // DB not connected yet — show empty state
-  }
+  } catch { /* DB not connected yet */ }
 
-  const previewRows = executiveRows.slice(0, 5);
+  const cheapest = executiveRows.filter((r) => r.price)[0];
+  const previewRows = executiveRows.slice(0, 6);
 
   return (
     <div>
-      {/* Hero */}
-      <section className="bg-gradient-to-b from-blue-700 to-blue-600 text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-            Compare Bangkok<br className="hidden md:block" /> Health Check-Up Prices
-          </h1>
-          <p className="text-blue-100 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Real prices scraped directly from hospital websites. JCI-accredited hospitals. No ads, no sponsored rankings.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href={`${base}/compare?category=executive`}
-              className="bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors"
-            >
-              Compare Executive Packages
-            </Link>
-            <Link
-              href={`${base}/compare`}
-              className="border-2 border-white/50 text-white font-semibold px-6 py-3 rounded-xl hover:border-white hover:bg-white/10 transition-colors"
-            >
-              {t(loc, "all_categories")}
-            </Link>
+      {/* ── Hero ── */}
+      <section className="bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500 text-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-24">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 bg-blue-500/40 rounded-full px-3 py-1 text-xs font-semibold text-blue-100 mb-4">
+              ✓ No ads · No sponsored rankings · Real prices only
+            </div>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+              Compare Bangkok<br className="hidden sm:block" /> Health Check-Up Prices
+            </h1>
+            <p className="text-blue-100 text-lg mb-2 max-w-xl">
+              Real prices scraped directly from hospital websites.
+              {cheapest?.price && (
+                <> Executive packages from <strong className="text-white">฿{parseFloat(cheapest.price).toLocaleString()}</strong>.</>
+              )}
+            </p>
+            {stats.hospitalCount > 0 && (
+              <p className="text-blue-200 text-sm mb-8">
+                {stats.hospitalCount} hospitals · {stats.packageCount} packages · {stats.jciCount} JCI-accredited
+              </p>
+            )}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href={`${base}/compare?category=executive`}
+                className="bg-white text-blue-700 font-bold px-6 py-3.5 rounded-xl hover:bg-blue-50 transition-colors text-center shadow-lg">
+                Compare Executive Packages →
+              </Link>
+              <Link href={`${base}/compare`}
+                className="border-2 border-white/50 text-white font-semibold px-6 py-3.5 rounded-xl hover:border-white hover:bg-white/10 transition-colors text-center">
+                All categories
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Trust stats */}
-      {(stats.jciCount > 0 || stats.hospitalCount > 0) && (
+      {/* ── Trust bar ── */}
+      {stats.hospitalCount > 0 && (
         <section className="bg-white border-b border-slate-100">
-          <div className="mx-auto max-w-6xl px-4 py-6 flex flex-wrap justify-center gap-8 text-center">
-            <div>
-              <p className="text-3xl font-bold text-blue-700">{stats.hospitalCount}</p>
-              <p className="text-sm text-slate-500 mt-0.5">Hospitals</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-blue-700">{stats.packageCount}</p>
-              <p className="text-sm text-slate-500 mt-0.5">Packages analysed</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-blue-700">{stats.jciCount}</p>
-              <p className="text-sm text-slate-500 mt-0.5">JCI-accredited</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-blue-700">0</p>
-              <p className="text-sm text-slate-500 mt-0.5">Paid placements</p>
-            </div>
+          <div className="mx-auto max-w-6xl px-4 py-4 flex flex-wrap justify-center gap-6 md:gap-10 text-center">
+            {[
+              { val: stats.hospitalCount, label: "Hospitals" },
+              { val: stats.packageCount, label: "Packages" },
+              { val: stats.jciCount, label: "JCI-accredited" },
+              { val: "0", label: "Paid placements" },
+            ].map(({ val, label }) => (
+              <div key={label}>
+                <p className="text-2xl md:text-3xl font-bold text-blue-700">{val}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{label}</p>
+              </div>
+            ))}
           </div>
         </section>
       )}
 
-      {/* Category cards */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
+      {/* ── Category cards ── */}
+      <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
         <h2 className="text-xl font-bold text-slate-800 mb-6">Browse by check-up type</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
           {CATEGORIES.map((cat) => (
-            <Link
-              key={cat}
-              href={`${base}/compare?category=${cat}`}
-              className="bg-white rounded-xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all group"
-            >
-              <div className="text-3xl mb-2">{CAT_ICONS[cat]}</div>
-              <p className="font-semibold text-slate-800 group-hover:text-blue-700">{catLabel(loc, cat)}</p>
+            <Link key={cat} href={`${base}/compare?category=${cat}`}
+              className="bg-white rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:shadow-md transition-all group active:scale-95">
+              <div className="text-2xl mb-2">{CAT_ICONS[cat]}</div>
+              <p className="font-semibold text-slate-800 group-hover:text-blue-700 text-sm leading-snug">{catLabel(loc, cat)}</p>
               <p className="text-xs text-slate-400 mt-1">{CAT_DESC[cat]}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Executive preview table */}
+      {/* ── Executive price preview table ── */}
       {previewRows.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pb-12">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-slate-800">Executive packages — price preview</h2>
-            <Link href={`${base}/compare?category=executive`} className="text-sm text-blue-600 hover:underline">
+            <h2 className="text-xl font-bold text-slate-800">Executive packages — top picks</h2>
+            <Link href={`${base}/compare?category=executive`} className="text-sm text-blue-600 hover:underline font-medium">
               Full comparison →
             </Link>
           </div>
-          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+
+          {/* Mobile cards */}
+          <div className="block md:hidden space-y-3">
+            {previewRows.slice(0, 4).map((row) => (
+              <Link key={row.package_id} href={`${base}/compare?category=executive`}
+                className="block bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-200 transition-colors">
+                <div className="flex justify-between items-start gap-2">
+                  <div>
+                    <p className="font-semibold text-slate-800 text-sm">{row.hospital_name}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{row.package_name}</p>
+                  </div>
+                  <p className="font-bold text-blue-700 whitespace-nowrap text-sm">
+                    {row.price ? `฿${parseFloat(row.price).toLocaleString()}` : "—"}
+                  </p>
+                </div>
+                <div className="flex gap-3 mt-2 text-xs text-slate-500">
+                  {row.jci === 1 && <span className="text-blue-600 font-semibold">JCI</span>}
+                  {row.has_mri === 1 && <span>MRI ✓</span>}
+                  {row.has_cancer_marker === 1 && <span>Cancer ✓</span>}
+                  {row.has_interpreter === 1 && <span>Interpreter ✓</span>}
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-slate-100 text-slate-600 text-left">
-                  <th className="px-4 py-2.5 font-semibold">Hospital</th>
-                  <th className="px-3 py-2.5 font-semibold">Package</th>
-                  <th className="px-3 py-2.5 font-semibold text-right">Price (THB)</th>
-                  <th className="px-3 py-2.5 font-semibold text-center">MRI</th>
-                  <th className="px-3 py-2.5 font-semibold text-center">Cancer</th>
+                <tr className="bg-slate-50 text-slate-600 text-left border-b border-slate-200">
+                  <th className="px-4 py-3 font-semibold">Hospital</th>
+                  <th className="px-3 py-3 font-semibold">Package</th>
+                  <th className="px-3 py-3 font-semibold text-right">Price (THB)</th>
+                  <th className="px-3 py-3 font-semibold text-center">MRI</th>
+                  <th className="px-3 py-3 font-semibold text-center">Cancer</th>
+                  <th className="px-3 py-3 font-semibold text-center">Interpreter</th>
                 </tr>
               </thead>
               <tbody>
                 {previewRows.map((row, i) => (
-                  <tr key={row.package_id} className={`border-t border-slate-100 ${i % 2 === 0 ? "" : "bg-slate-50/50"}`}>
-                    <td className="px-4 py-3 font-medium text-slate-800">{row.hospital_name}</td>
-                    <td className="px-3 py-3 text-slate-600">{row.package_name}</td>
+                  <tr key={row.package_id} className={`border-t border-slate-100 hover:bg-blue-50/30 transition-colors ${i % 2 ? "bg-slate-50/40" : "bg-white"}`}>
+                    <td className="px-4 py-3">
+                      <span className="font-medium text-slate-800">{row.hospital_name}</span>
+                      {row.jci === 1 && <span className="ml-1.5 bg-blue-100 text-blue-800 text-[10px] font-bold px-1 py-0.5 rounded uppercase">JCI</span>}
+                      {row.rating && <span className="ml-2 text-amber-500 text-xs">★{parseFloat(row.rating).toFixed(1)}</span>}
+                    </td>
+                    <td className="px-3 py-3 text-slate-600 text-xs">{row.package_name}</td>
                     <td className="px-3 py-3 text-right font-bold text-slate-900">
                       {row.price ? `฿${parseFloat(row.price).toLocaleString()}` : "—"}
                     </td>
-                    <td className="px-3 py-3 text-center">
-                      {row.has_mri === 1 ? "✓" : row.has_mri === 0 ? "✗" : "?"}
-                    </td>
-                    <td className="px-3 py-3 text-center">
-                      {row.has_cancer_marker === 1 ? "✓" : row.has_cancer_marker === 0 ? "✗" : "?"}
-                    </td>
+                    <td className="px-3 py-3 text-center"><Flag val={row.has_mri} /></td>
+                    <td className="px-3 py-3 text-center"><Flag val={row.has_cancer_marker} /></td>
+                    <td className="px-3 py-3 text-center"><Flag val={row.has_interpreter} /></td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-slate-400 mt-2">Sorted by price. ✓ included · ✗ not included · ? not specified.</p>
+          <div className="mt-3 flex justify-center">
+            <Link href={`${base}/compare?category=executive`}
+              className="bg-blue-600 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm">
+              See all {executiveRows.length} executive packages →
+            </Link>
+          </div>
         </section>
       )}
 
-      {/* Why this site */}
+      {/* ── Why this site ── */}
       <section className="bg-white border-t border-slate-100">
-        <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-          <h2 className="text-xl font-bold text-slate-800 mb-3">Real prices. No ads.</h2>
-          <p className="text-slate-500 max-w-xl mx-auto">
-            Every price is scraped weekly from the hospital&apos;s own website — not from aggregators or ad networks.
-            Hospitals can&apos;t pay for a higher ranking. The table sorts by price and nothing else.
-          </p>
+        <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
+          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8 text-center">Why use BangkokCheckup?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { icon: "🔍", title: "Real prices only", desc: "Every price is scraped from the hospital's own website — not aggregators or ad networks." },
+              { icon: "🏆", title: "No paid rankings", desc: "Packages sort by price. Hospitals can't pay for higher placement. Ever." },
+              { icon: "🌏", title: "Multiple languages", desc: "Compare in English, Chinese, Japanese, Thai, and Arabic." },
+            ].map((item) => (
+              <div key={item.title} className="text-center p-4">
+                <div className="text-3xl mb-3">{item.icon}</div>
+                <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* ── Bottom CTA ── */}
+      <section className="bg-blue-700 text-white">
+        <div className="mx-auto max-w-4xl px-4 py-10 text-center">
+          <h2 className="text-xl font-bold mb-2">Not sure which package is right for you?</h2>
+          <p className="text-blue-200 text-sm mb-5">Tell us your requirements and we'll find the best match.</p>
+          <Link href={`${base}/enquiry`}
+            className="bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors inline-block">
+            Get personalised advice →
+          </Link>
+        </div>
+      </section>
+
+      {/* Schema: WebSite */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "BangkokCheckup",
+        url: BASE,
+        description: "Compare health check-up prices at Bangkok hospitals. Real prices, no ads.",
+        potentialAction: { "@type": "SearchAction", target: `${BASE}/en/compare?category={search_term_string}`, "query-input": "required name=search_term_string" },
+      }) }} />
     </div>
   );
 }
