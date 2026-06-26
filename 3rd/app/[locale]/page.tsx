@@ -5,10 +5,23 @@ import { BrandCard } from '@/components/BrandCard'
 
 interface Props { params: Promise<{ locale: string }> }
 
+const BASE = 'https://www.chicpreowned.com'
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'common' })
-  return { title: t('page_title_home'), description: t('page_meta_home') }
+  const otherLocale = locale === 'en' ? 'th' : 'en'
+  return {
+    title: t('page_title_home'),
+    description: t('page_meta_home'),
+    alternates: {
+      canonical: `${BASE}/${locale}`,
+      languages: {
+        [locale]: `${BASE}/${locale}`,
+        [otherLocale]: `${BASE}/${otherLocale}`,
+      },
+    },
+  }
 }
 
 export default async function HomePage({ params }: Props) {
@@ -42,8 +55,27 @@ export default async function HomePage({ params }: Props) {
   const totalItems  = allItems.length
   const totalBrands = allBrands.length
 
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: locale === 'th' ? 'ChicPreowned — ราคาของแบรนด์เนมมือสองในไทย' : 'ChicPreowned — Pre-Owned Luxury Price Guide Thailand',
+    url: `${BASE}/${locale}`,
+    description: locale === 'th'
+      ? 'เช็คราคาของแบรนด์เนม Chanel, Louis Vuitton, Rolex มือสองในไทย อัปเดตทุกสัปดาห์'
+      : 'Real pre-owned luxury prices in Thailand — Chanel, LV, Rolex and more. Updated weekly.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${BASE}/${locale}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       {/* Hero */}
       <div className="mb-10 pb-10 border-b border-gray-100">
         <h1 className="text-4xl font-bold mb-3 tracking-tight">{t('hero_h1')}</h1>
