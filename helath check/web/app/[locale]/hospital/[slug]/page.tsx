@@ -228,6 +228,17 @@ export default async function HospitalPage({
         </div>
       </div>
 
+      {/* BreadcrumbList */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "BangkokCheckup", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: "Hospitals", item: `${BASE}/${locale}/hospital` },
+          { "@type": "ListItem", position: 3, name: hospital.name, item: `${BASE}/${locale}/hospital/${hospital.slug}` },
+        ],
+      }) }} />
+
       {/* Schema.org */}
       <script
         type="application/ld+json"

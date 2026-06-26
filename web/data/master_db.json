@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T13:08:00.644737+00:00",
+  "generated_at": "2026-06-26T13:37:23.452952+00:00",
   "total_clinics": 4672,
   "with_district": 3186,
   "with_categories": 3489,
@@ -9081,11 +9081,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -17508,29 +17508,6 @@
           "experience_signals": []
         },
         {
-          "name": "Pisuttinee Suwan",
-          "slug": "pisuttinee-suwan",
-          "composite_slug": "pisuttinee-suwan-at-dental-world-chiang-mai-คลินิกทำฟันเชียงใหม่",
-          "mentions": 2,
-          "rating_avg": 5.0,
-          "language_count": {
-            "th": 0,
-            "en": 2,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [],
-          "procedures": [
-            {
-              "service": "dental",
-              "review_count": 2
-            }
-          ],
-          "experience_signals": []
-        },
-        {
           "name": "Jirawit Inthayat",
           "slug": "jirawit-inthayat",
           "composite_slug": "jirawit-inthayat-at-dental-world-chiang-mai-คลินิกทำฟันเชียงใหม่",
@@ -17553,6 +17530,29 @@
             {
               "service": "laser",
               "review_count": 1
+            }
+          ],
+          "experience_signals": []
+        },
+        {
+          "name": "Pisuttinee Suwan",
+          "slug": "pisuttinee-suwan",
+          "composite_slug": "pisuttinee-suwan-at-dental-world-chiang-mai-คลินิกทำฟันเชียงใหม่",
+          "mentions": 2,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 2,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [],
+          "procedures": [
+            {
+              "service": "dental",
+              "review_count": 2
             }
           ],
           "experience_signals": []
@@ -29038,11 +29038,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -29777,6 +29777,35 @@
       "sample_reviews_negative": [],
       "doctor_stats": [
         {
+          "name": "Oi",
+          "slug": "oi",
+          "composite_slug": "oi-at-คลินิกทันตกรรมเดนทัลดี-กระทุ่มแบน",
+          "mentions": 2,
+          "rating_avg": 5.0,
+          "language_count": {
+            "th": 0,
+            "en": 2,
+            "ko": 0,
+            "ja": 0,
+            "other": 0
+          },
+          "primary_lang": "en",
+          "samples": [
+            {
+              "text": "I'm getting my braces done here again. Dr. Oi is lovely and gave great advice, and Dr. Somboon is very kind.",
+              "rating": 5,
+              "lang": "en"
+            },
+            {
+              "text": "Dr. Oi gave great advice, had a gentle touch, and was very kind. 💕 …",
+              "rating": 5,
+              "lang": "en"
+            }
+          ],
+          "procedures": [],
+          "experience_signals": []
+        },
+        {
           "name": "Somboon",
           "slug": "somboon",
           "composite_slug": "somboon-at-คลินิกทันตกรรมเดนทัลดี-กระทุ่มแบน",
@@ -29808,35 +29837,6 @@
               "review_count": 1
             }
           ],
-          "experience_signals": []
-        },
-        {
-          "name": "Oi",
-          "slug": "oi",
-          "composite_slug": "oi-at-คลินิกทันตกรรมเดนทัลดี-กระทุ่มแบน",
-          "mentions": 2,
-          "rating_avg": 5.0,
-          "language_count": {
-            "th": 0,
-            "en": 2,
-            "ko": 0,
-            "ja": 0,
-            "other": 0
-          },
-          "primary_lang": "en",
-          "samples": [
-            {
-              "text": "I'm getting my braces done here again. Dr. Oi is lovely and gave great advice, and Dr. Somboon is very kind.",
-              "rating": 5,
-              "lang": "en"
-            },
-            {
-              "text": "Dr. Oi gave great advice, had a gentle touch, and was very kind. 💕 …",
-              "rating": 5,
-              "lang": "en"
-            }
-          ],
-          "procedures": [],
           "experience_signals": []
         }
       ],
@@ -33375,11 +33375,11 @@
               "review_count": 2
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -33446,10 +33446,6 @@
           ],
           "procedures": [
             {
-              "service": "facial",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
@@ -33459,6 +33455,10 @@
             },
             {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -41760,11 +41760,11 @@
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             }
           ],
@@ -44519,11 +44519,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 2
             }
           ],
@@ -47661,11 +47661,11 @@
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -69632,11 +69632,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -73682,11 +73682,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 3
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 3
             },
             {
@@ -77051,11 +77051,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -99685,19 +99685,19 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "filler",
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "hifu",
               "review_count": 1
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -99731,15 +99731,15 @@
           ],
           "procedures": [
             {
-              "service": "facial",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -105592,11 +105592,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -109230,11 +109230,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -109263,11 +109263,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -118253,11 +118253,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -120222,11 +120222,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -124067,11 +124067,11 @@
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -133018,11 +133018,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -134756,11 +134756,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -135195,11 +135195,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 2
             },
             {
@@ -143199,11 +143199,11 @@
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -150598,15 +150598,15 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
-              "review_count": 1
-            },
-            {
               "service": "laser",
               "review_count": 1
             },
             {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -162239,11 +162239,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -168954,11 +168954,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -169000,11 +169000,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -169782,11 +169782,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -178928,11 +178928,11 @@
               "review_count": 6
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 3
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 3
             },
             {
@@ -180643,11 +180643,15 @@
           ],
           "procedures": [
             {
-              "service": "botox",
+              "service": "laser",
               "review_count": 1
             },
             {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "botox",
               "review_count": 1
             },
             {
@@ -180656,10 +180660,6 @@
             },
             {
               "service": "facial",
-              "review_count": 1
-            },
-            {
-              "service": "laser",
               "review_count": 1
             }
           ],
@@ -182178,11 +182178,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -185480,11 +185480,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -206932,11 +206932,11 @@
               "review_count": 3
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -207831,11 +207831,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             },
             {
@@ -216012,15 +216012,15 @@
           ],
           "procedures": [
             {
-              "service": "facial",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "filler",
+              "review_count": 1
+            },
+            {
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -216505,9 +216505,9 @@
           "experience_signals": []
         },
         {
-          "name": "Akkaphong Nitising",
-          "slug": "akkaphong-nitising",
-          "composite_slug": "akkaphong-nitising-at-a-spine-clinicเฉพาะทางกระดูกคอ-กระดูกหลัง-และเนื้อ",
+          "name": "Akkaphong",
+          "slug": "akkaphong",
+          "composite_slug": "akkaphong-at-a-spine-clinicเฉพาะทางกระดูกคอ-กระดูกหลัง-และเนื้อ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -216523,9 +216523,9 @@
           "experience_signals": []
         },
         {
-          "name": "Akkaphong",
-          "slug": "akkaphong",
-          "composite_slug": "akkaphong-at-a-spine-clinicเฉพาะทางกระดูกคอ-กระดูกหลัง-และเนื้อ",
+          "name": "Akkaphong Nitising",
+          "slug": "akkaphong-nitising",
+          "composite_slug": "akkaphong-nitising-at-a-spine-clinicเฉพาะทางกระดูกคอ-กระดูกหลัง-และเนื้อ",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -223078,11 +223078,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -232417,11 +232417,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -233191,11 +233191,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -234546,11 +234546,11 @@
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -241608,11 +241608,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -244000,11 +244000,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -246183,11 +246183,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -250361,11 +250361,11 @@
               "review_count": 3
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 2
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 2
             },
             {
@@ -268386,11 +268386,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -268777,15 +268777,15 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
-              "review_count": 1
-            },
-            {
               "service": "botox",
               "review_count": 1
             },
             {
               "service": "laser",
+              "review_count": 1
+            },
+            {
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -275397,11 +275397,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             },
             {
@@ -297316,11 +297316,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -300570,11 +300570,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -315329,9 +315329,9 @@
       ],
       "doctor_stats": [
         {
-          "name": "Orawan Clinic",
-          "slug": "orawan-clinic",
-          "composite_slug": "orawan-clinic-at-dr-orawan-medical-center",
+          "name": "Orawan's",
+          "slug": "orawans",
+          "composite_slug": "orawans-at-dr-orawan-medical-center",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -315347,9 +315347,9 @@
           "experience_signals": []
         },
         {
-          "name": "Orawan's",
-          "slug": "orawans",
-          "composite_slug": "orawans-at-dr-orawan-medical-center",
+          "name": "Orawan Clinic",
+          "slug": "orawan-clinic",
+          "composite_slug": "orawan-clinic-at-dr-orawan-medical-center",
           "mentions": 2,
           "rating_avg": 5.0,
           "language_count": {
@@ -319918,11 +319918,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "hair_transplant",
               "review_count": 1
             },
             {
-              "service": "hair_transplant",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -328097,11 +328097,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -338976,11 +338976,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -350315,11 +350315,11 @@
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -352199,11 +352199,11 @@
           ],
           "procedures": [
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -371852,11 +371852,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 2
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 2
             }
           ],
@@ -385702,11 +385702,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -398457,11 +398457,11 @@
               "review_count": 2
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -423894,11 +423894,11 @@
               "review_count": 4
             },
             {
-              "service": "hifu",
+              "service": "laser",
               "review_count": 1
             },
             {
-              "service": "laser",
+              "service": "hifu",
               "review_count": 1
             }
           ],
@@ -434734,11 +434734,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -453889,11 +453889,11 @@
               "review_count": 1
             },
             {
-              "service": "facial",
+              "service": "botox",
               "review_count": 1
             },
             {
-              "service": "botox",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -462201,11 +462201,11 @@
           "samples": [],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             }
           ],
@@ -463094,11 +463094,11 @@
           ],
           "procedures": [
             {
-              "service": "facial",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "facial",
               "review_count": 1
             },
             {
@@ -472758,7 +472758,7 @@
         "other": 0
       },
       "service_mentions": {
-        "dental": 10
+        "dental": 7
       },
       "mentioned_topics": [
         {
@@ -472775,10 +472775,6 @@
         },
         {
           "topic": "clean_facility",
-          "count": 1
-        },
-        {
-          "topic": "professional",
           "count": 1
         }
       ],
@@ -472800,25 +472796,31 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "The doctor was very gentle, it didn't hurt at all, he gave great advice, and the price was very affordable.",
+          "text": "Super good and nice dentist. I had minor problem and other dentist couldn’t explain me well. But this dentist, he gave me very precise explanation, and choice of treatment I needed in English. I can definitely recommend.",
           "rating": 5,
-          "author": "Chuleeporn Jarat"
+          "author": "Kazoo Santo"
+        },
+        {
+          "text": "This is a highly recommended clinic.\nThe doctor is kind and gives excellent advice. They explain the orthodontic treatment in detail, and the doctor has over 30 years of experience. If any of my …",
+          "rating": 5,
+          "author": "Mira"
         },
         {
           "text": "My first experience with orthodontics was that the patient didn't always show up for appointments, but the doctor was able to solve the problems consistently. It's better to consult with this doctor; the service is excellent, the doctor is gentle, and the prices are reasonable.",
           "rating": 5,
           "author": "เสาวลักษณ์ เถื่อนสุข"
-        },
-        {
-          "text": "The doctor was very kind and able to control the treatment timeline. The orthodontic treatment went exactly according to the plan. I'm very happy.",
-          "rating": 5,
-          "author": "pinmanas pinkaew"
         }
       ],
-      "sample_reviews_negative": [],
+      "sample_reviews_negative": [
+        {
+          "text": "Went there on the 31st of December, to fix 2 broken front teeth because of a fall, charged me 4000baht for 2 teeth and on the  3rd of January, one of the front teeth that he fix, already had the filling falling off. (Did not even bite into …",
+          "rating": 1,
+          "author": "Adeline Tan"
+        }
+      ],
       "doctor_stats": [],
       "business_status": "Temporarily closed",
-      "maps_url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%AD/@13.7080539,100.6009273,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29f2db941e02f:0x3ad874041f9c4c5c!8m2!3d13.7080539!4d100.6009273!16s%2Fg%2F11qvcd9gdz?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyMy4wIKXMDSoASAFQAw%3D%3D"
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%82%E0%B8%AD/data=!4m7!3m6!1s0x30e29f2db941e02f:0x3ad874041f9c4c5c!8m2!3d13.7080539!4d100.6009273!16s%2Fg%2F11qvcd9gdz!19sChIJL-BBuS2f4jARXEycHwR02Do?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30da3ab024791b73_0x6f2c0f8937ee54d1",
@@ -484629,11 +484631,11 @@
               "review_count": 1
             },
             {
-              "service": "hifu",
+              "service": "filler",
               "review_count": 1
             },
             {
-              "service": "filler",
+              "service": "hifu",
               "review_count": 1
             }
           ],

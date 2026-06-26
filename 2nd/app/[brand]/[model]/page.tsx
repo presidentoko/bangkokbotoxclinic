@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getItemBySlug, getItemsByBrand, getAllItems, formatPrice, Item } from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
+import { ConditionGuide } from '@/components/ConditionGuide'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
 import { ShareButton } from '@/components/ShareButton'
 import { RecentlyViewed } from '@/components/RecentlyViewed'
@@ -206,6 +207,21 @@ export default async function ModelPage({ params }: Props) {
                     ~{savingsPct}% below retail ({formatPrice(item.retail_price_usd)} new)
                   </p>
                 )}
+                {savingsPct !== null && (
+                  <div className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full text-xs font-medium"
+                    style={
+                      savingsPct >= 40 ? { background: '#1A2E1A', color: '#6EBF8B', border: '1px solid #2D4A2D' } :
+                      savingsPct >= 20 ? { background: '#1A2412', color: '#9CB87A', border: '1px solid #2A3A1A' } :
+                      savingsPct >= 5  ? { background: '#2A2218', color: '#C8A97E', border: '1px solid #3A3020' } :
+                                        { background: '#2A1818', color: '#C88878', border: '1px solid #3A2020' }
+                    }
+                  >
+                    {savingsPct >= 40 ? '🔥 Exceptional Deal' :
+                     savingsPct >= 20 ? '✓ Good Value' :
+                     savingsPct >= 5  ? '◎ Fair Market Price' :
+                                       '↑ Premium Demand'}
+                  </div>
+                )}
                 {/* Savings bar */}
                 {savingsPct !== null && savingsPct > 0 && savingsPct < 100 && (
                   <div className="mt-4 mb-6">
@@ -252,6 +268,7 @@ export default async function ModelPage({ params }: Props) {
       <div className="my-6" />
 
       <PriceTable item={item} />
+      <ConditionGuide />
 
       <AffiliateCTA item={item} />
 

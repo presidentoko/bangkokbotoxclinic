@@ -1,4 +1,4 @@
-import { getAllBrands, getAllItems, getItemsByBrand, Item } from '@/lib/data'
+import { getAllBrands, getAllItems, getItemsByBrand, formatPrice, Item } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
 const organizationSchema = {
@@ -41,6 +41,18 @@ export default function HomePage() {
   const watchBrands   = brands.filter(b => b.category === 'watches')
   const totalItems    = allItems.length
 
+  const topDeals = allItems
+    .filter(i => i.price_ranges.very_good && i.retail_price_usd > 0)
+    .map(i => {
+      const vg = i.price_ranges.very_good!
+      const avg = (vg.min + vg.max) / 2
+      const pct = Math.round(((i.retail_price_usd - avg) / i.retail_price_usd) * 100)
+      return { ...i, savingsPct: pct }
+    })
+    .filter(i => i.savingsPct > 5)
+    .sort((a, b) => b.savingsPct - a.savingsPct)
+    .slice(0, 6)
+
   return (
     <>
       <script
@@ -81,6 +93,42 @@ export default function HomePage() {
         <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{totalItems}+ models tracked</span>
         <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />Verified listings only</span>
       </div>
+
+      {/* Best Deals */}
+      {topDeals.length > 0 && (
+        <section className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="flex-1 h-px bg-[#E8E2D9]" />
+            <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">Best Savings This Week</span>
+            <div className="flex-1 h-px bg-[#E8E2D9]" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {topDeals.map(item => {
+              const vg = item.price_ranges.very_good!
+              return (
+                <a key={item.id} href={`/${item.slug}`}
+                  className="group relative overflow-hidden block border border-[#E8E2D9] bg-white hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
+                >
+                  <div className="h-0.5 bg-[#B8954A]" />
+                  <div className="p-5">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <p className="text-xs tracking-[0.1em] uppercase text-[#9C8B7A] mb-0.5">{item.brand}</p>
+                        <h3 className="font-serif text-base text-[#1A1A1A] leading-snug group-hover:text-[#8C7355] transition-colors" style={{ fontFamily: 'var(--font-playfair)' }}>
+                          {item.model}
+                        </h3>
+                      </div>
+                      <span className="shrink-0 ml-2 text-lg font-bold text-[#4A7A35]">-{item.savingsPct}%</span>
+                    </div>
+                    <p className="text-sm font-medium text-[#1A1A1A]">{formatPrice(vg.min)}–{formatPrice(vg.max)}</p>
+                    <p className="text-xs text-[#9C8B7A] mt-0.5 line-through">{formatPrice(item.retail_price_usd)} retail</p>
+                  </div>
+                </a>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Handbags */}
       <section className="mb-16">

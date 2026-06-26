@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, t, catLabel, CATEGORIES } from "@/lib/i18n";
-import { getStatsForHome, getPackagesByCategory, type PackageRow } from "@/lib/db";
+import { getStatsForHome, getPackagesByCategory, getCategories, type PackageRow, type CategoryCount } from "@/lib/db";
 
 export const revalidate = 86400;
 
@@ -46,12 +46,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   let stats = { jciCount: 0, packageCount: 0, hospitalCount: 0 };
   let executiveRows: PackageRow[] = [];
+  let catCounts: CategoryCount[] = [];
   try {
-    [stats, executiveRows] = await Promise.all([
+    [stats, executiveRows, catCounts] = await Promise.all([
       getStatsForHome(),
       getPackagesByCategory("executive", "price"),
+      getCategories(),
     ]);
   } catch { /* DB not connected yet */ }
+  const catCountMap = Object.fromEntries(catCounts.map((c) => [c.category, c.count]));
 
   const cheapest = executiveRows.filter((r) => r.price)[0];
   const previewRows = executiveRows.slice(0, 6);
@@ -122,8 +125,49 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="text-2xl mb-2">{CAT_ICONS[cat]}</div>
               <p className="font-semibold text-slate-800 group-hover:text-blue-700 text-sm leading-snug">{catLabel(loc, cat)}</p>
               <p className="text-xs text-slate-400 mt-1">{CAT_DESC[cat]}</p>
+              {catCountMap[cat] > 0 && (
+                <p className="text-xs text-blue-600 font-semibold mt-2">{catCountMap[cat]} packages →</p>
+              )}
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section className="bg-gradient-to-br from-slate-50 to-blue-50/30 border-t border-b border-slate-100">
+        <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
+          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-10 text-center">How BangkokCheckup works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "1",
+                icon: "🔍",
+                title: "Browse real prices",
+                desc: "Our scrapers pull prices directly from hospital websites weekly. No mark-ups, no \"call for price\", no ads.",
+              },
+              {
+                step: "2",
+                icon: "⚖️",
+                title: "Compare what's included",
+                desc: "Use filters to see which packages include MRI, cancer markers, interpreter service, or CT scan — side by side.",
+              },
+              {
+                step: "3",
+                icon: "📋",
+                title: "Book direct or get advice",
+                desc: "Book directly on the hospital's website (no middleman fee) or send us your requirements for a personalised recommendation.",
+              },
+            ].map((item) => (
+              <div key={item.step} className="flex flex-col items-center text-center relative">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4 shadow-sm">
+                  {item.step}
+                </div>
+                <div className="text-3xl mb-3">{item.icon}</div>
+                <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -7916,9 +7916,6 @@
 "0x30e28299ff1149af:0x2929331072f42f58","Payments","NFC mobile payments","1"
 "0x30e28299ff1149af:0x2929331072f42f58","Parking","Free parking lot","1"
 "0x30e28299ff1149af:0x2929331072f42f58","Parking","Paid parking lot","1"
-"0x311d65a8fbfde89b:0x4f18bb31f7824958","Amenities","Toilet","1"
-"0x311d65a8fbfde89b:0x4f18bb31f7824958","Planning","Appointments recommended","1"
-"0x311d65a8fbfde89b:0x4f18bb31f7824958","Payments","NFC mobile payments","1"
 "0x311d649ab4c2da75:0xf4eee7cbe62bc66b","Amenities","Toilet","1"
 "0x311d649ab4c2da75:0xf4eee7cbe62bc66b","Planning","Appointments recommended","1"
 "0x30e2bf2eee296bd5:0xc7a3e412bfdb24","Amenities","Toilet","1"
@@ -8644,9 +8641,6 @@
 "0x311d7f011d0153af:0xd9bfecf3027a3310","Payments","NFC mobile payments","1"
 "0x311d7d49ce36cf93:0x65e0b216803b7fc5","Amenities","Restroom","1"
 "0x311d7d49ce36cf93:0x65e0b216803b7fc5","Planning","Appointments recommended","1"
-"0x30e29f2db941e02f:0x3ad874041f9c4c5c","From the business","Identifies as women-owned","1"
-"0x30e29f2db941e02f:0x3ad874041f9c4c5c","Amenities","Gender-neutral restroom","1"
-"0x30e29f2db941e02f:0x3ad874041f9c4c5c","Planning","Appointment required","1"
 "0x311d60a805ab2af9:0xabf612be9dee2d51","Amenities","Restroom","1"
 "0x311d60a805ab2af9:0xabf612be9dee2d51","Planning","Appointments recommended","1"
 "0x311d7da189e79a6d:0xe66c6df9bae2612a","Amenities","Restroom","1"
@@ -8730,32 +8724,47 @@
 "0x311d7b83beb6b519:0xdcc5f100ca7fc334","Amenities","Toilet","1"
 "0x311d7b83beb6b519:0xdcc5f100ca7fc334","Planning","Appointments recommended","1"
 "0x311d7b83beb6b519:0xdcc5f100ca7fc334","Payments","NFC mobile payments","1"
-"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","Credit cards",1
-"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","Debit cards",1
-"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","NFC mobile payments",1
-"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","Credit cards",1
-"0x30e29acbf9887045:0x1afaaf648d7a1c04","Parking","Free multi-storey car park",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Service options","On-site services",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Amenities","Toilet",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Planning","Appointment required",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Planning","Appointments recommended",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Payments","Credit cards",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Payments","Debit cards",1
-"0x30e28371eb5c2c77:0x11f967c314752e78","Payments","NFC mobile payments",1
-"0x311d5b2a50ef13bf:0x675e4dc29cd6f955","Amenities","Toilet",1
-"0x311d5b2a50ef13bf:0x675e4dc29cd6f955","Planning","Appointments recommended",1
-"0x30e282678e174063:0x639d4239e2ef40c0","Amenities","Toilet",1
-"0x30e282678e174063:0x639d4239e2ef40c0","Planning","Appointments recommended",1
-"0x30e282678e174063:0x639d4239e2ef40c0","Payments","Credit cards",1
-"0x30e282678e174063:0x639d4239e2ef40c0","Payments","Debit cards",1
-"0x30e282678e174063:0x639d4239e2ef40c0","Payments","NFC mobile payments",1
-"0x311d7dd283f688e3:0x504cdcbb592c54dc","Accessibility","Wheelchair-accessible toilet",1
-"0x311d7dd283f688e3:0x504cdcbb592c54dc","Amenities","Toilet",1
-"0x311d7dd283f688e3:0x504cdcbb592c54dc","Planning","Appointments recommended",1
-"0x311d7dd283f688e3:0x504cdcbb592c54dc","Payments","NFC mobile payments",1
-"0x30e28423247ea2d9:0x8cd4e89024e2d7d","Amenities","Toilet",1
-"0x30e28423247ea2d9:0x8cd4e89024e2d7d","Planning","Appointments recommended",1
-"0x30e2824e358157ff:0x5359936fe5b29ff2","Amenities","Toilet",1
-"0x30e2824e358157ff:0x5359936fe5b29ff2","Planning","Appointments recommended",1
-"0x30e2941ed662063f:0x1f531c7dba9111af","Accessibility","Wheelchair-accessible car park",1
-"0x30e2941ed662063f:0x1f531c7dba9111af","Accessibility","Wheelchair-accessible entrance",1
+"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","Credit cards","1"
+"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","Debit cards","1"
+"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","NFC mobile payments","1"
+"0x30e29acbf9887045:0x1afaaf648d7a1c04","Payments","Credit cards","1"
+"0x30e29acbf9887045:0x1afaaf648d7a1c04","Parking","Free multi-storey car park","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Service options","On-site services","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Amenities","Toilet","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Planning","Appointment required","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Planning","Appointments recommended","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Payments","Credit cards","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Payments","Debit cards","1"
+"0x30e28371eb5c2c77:0x11f967c314752e78","Payments","NFC mobile payments","1"
+"0x311d5b2a50ef13bf:0x675e4dc29cd6f955","Amenities","Toilet","1"
+"0x311d5b2a50ef13bf:0x675e4dc29cd6f955","Planning","Appointments recommended","1"
+"0x30e282678e174063:0x639d4239e2ef40c0","Amenities","Toilet","1"
+"0x30e282678e174063:0x639d4239e2ef40c0","Planning","Appointments recommended","1"
+"0x30e282678e174063:0x639d4239e2ef40c0","Payments","Credit cards","1"
+"0x30e282678e174063:0x639d4239e2ef40c0","Payments","Debit cards","1"
+"0x30e282678e174063:0x639d4239e2ef40c0","Payments","NFC mobile payments","1"
+"0x311d7dd283f688e3:0x504cdcbb592c54dc","Accessibility","Wheelchair-accessible toilet","1"
+"0x311d7dd283f688e3:0x504cdcbb592c54dc","Amenities","Toilet","1"
+"0x311d7dd283f688e3:0x504cdcbb592c54dc","Planning","Appointments recommended","1"
+"0x311d7dd283f688e3:0x504cdcbb592c54dc","Payments","NFC mobile payments","1"
+"0x30e28423247ea2d9:0x8cd4e89024e2d7d","Amenities","Toilet","1"
+"0x30e28423247ea2d9:0x8cd4e89024e2d7d","Planning","Appointments recommended","1"
+"0x30e2824e358157ff:0x5359936fe5b29ff2","Amenities","Toilet","1"
+"0x30e2824e358157ff:0x5359936fe5b29ff2","Planning","Appointments recommended","1"
+"0x30e2941ed662063f:0x1f531c7dba9111af","Accessibility","Wheelchair-accessible car park","1"
+"0x30e2941ed662063f:0x1f531c7dba9111af","Accessibility","Wheelchair-accessible entrance","1"
+"0x30e29f2db941e02f:0x3ad874041f9c4c5c","From the business","Identifies as women-owned",1
+"0x30e29f2db941e02f:0x3ad874041f9c4c5c","Amenities","Gender-neutral toilets",1
+"0x30e29f2db941e02f:0x3ad874041f9c4c5c","Planning","Appointment required",1
+"0x311d65a8fbfde89b:0x4f18bb31f7824958","Amenities","Toilet",1
+"0x311d65a8fbfde89b:0x4f18bb31f7824958","Planning","Appointments recommended",1
+"0x311d65a8fbfde89b:0x4f18bb31f7824958","Payments","NFC mobile payments",1
+"0x311d5d4e507551b7:0x2cf23769d1a0388a","Amenities","Toilet",1
+"0x311d5d4e507551b7:0x2cf23769d1a0388a","Planning","Appointments recommended",1
+"0x311d5d4e507551b7:0x2cf23769d1a0388a","Payments","NFC mobile payments",1
+"0x30e2950f4d365431:0x41796b43ba20cffc","Accessibility","Wheelchair-accessible car park",1
+"0x30e2950f4d365431:0x41796b43ba20cffc","Amenities","Toilet",1
+"0x30e2950f4d365431:0x41796b43ba20cffc","Planning","Appointments recommended",1
+"0x30e2950f4d365431:0x41796b43ba20cffc","Payments","Credit cards",1
+"0x30e2950f4d365431:0x41796b43ba20cffc","Payments","Debit cards",1
+"0x30e2950f4d365431:0x41796b43ba20cffc","Payments","NFC mobile payments",1

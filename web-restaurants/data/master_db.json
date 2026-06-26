@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-06-26T13:07:12.574215+00:00",
-  "total_restaurants": 3295,
+  "generated_at": "2026-06-26T13:39:11.145356+00:00",
+  "total_restaurants": 3298,
   "city_counts": {
     "bangkok": 2916,
-    "pattaya": 379
+    "pattaya": 382
   },
   "with_district": 2333,
-  "with_cuisines": 2725,
-  "with_reviews_scraped": 2834,
+  "with_cuisines": 2727,
+  "with_reviews_scraped": 2836,
   "language_total": {
     "th": 2,
-    "en": 144213,
+    "en": 144326,
     "ko": 0,
     "ja": 4,
     "other": 477
@@ -53,20 +53,20 @@
     "vietnamese": 548,
     "seafood": 507,
     "japanese": 453,
-    "italian": 356,
+    "italian": 357,
     "cafe": 347,
     "breakfast": 298,
     "dessert": 269,
     "street_food": 185,
     "chinese": 172,
     "fusion": 143,
-    "indian": 130,
-    "fine_dining": 116,
+    "indian": 131,
+    "fine_dining": 117,
     "korean": 110,
     "halal": 103,
     "buffet": 76,
     "bakery": 39,
-    "vegetarian": 34
+    "vegetarian": 35
   },
   "restaurants": [
     {
@@ -41215,6 +41215,111 @@
       "maps_url": "https://www.google.com/maps/place/Amorretto+cafe%26bistro/@13.7011679,100.6737541,17z/data=!3m1!4b1!4m7!3m6!1s0x311d610001b1fba9:0x9434b8fa5f207869!8m2!3d13.7011679!4d100.6737541!16s%2Fg%2F11wht_q_cs!19sChIJqfuxAQBhHTERaXggX_q4NJQ?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x310297043e340fa7_0x3997a5b71d6837d9",
+      "place_id": "0x310297043e340fa7:0x3997a5b71d6837d9",
+      "name": "Mahadev Pure Vegetarian & Vegan indian Restaurant Pattaya",
+      "primary_type": "Indian restaurant",
+      "address": "\n205, 27-28 Thanon Second, Pattaya City, Amphoe Bang Lamung, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 95 529 9130",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9275559,
+      "lng": 100.8773216,
+      "rating": 4.8,
+      "total_reviews": 449,
+      "trust_score": 93.2,
+      "cuisines": [
+        "indian",
+        "vegetarian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 97,
+      "local_guide_count": 49,
+      "avg_author_review_count": 51.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 79,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "italian": 1,
+        "indian": 2,
+        "vegetarian": 8,
+        "breakfast": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 25
+        },
+        {
+          "topic": "authentic",
+          "count": 15
+        },
+        {
+          "topic": "fresh",
+          "count": 10
+        },
+        {
+          "topic": "affordable",
+          "count": 8
+        },
+        {
+          "topic": "spicy",
+          "count": 7
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 21,
+          "avg": 4.71
+        },
+        "midterm": {
+          "count": 49,
+          "avg": 4.84
+        },
+        "old": {
+          "count": 27,
+          "avg": 4.93
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Great experience eating here, the owner himself takes interest and gave good suggestions. Location is good too. If you are craving for Gujarati food, this is the place to go in Pattaya. Had some fresh Fafdaa. All the dishes were served fresh and hot. Reasonable prices.",
+          "rating": 5,
+          "author": "Pritul Sanghavi"
+        },
+        {
+          "text": "This vegetarian restaurant truly exceeded my expectations! From the moment I entered, I was met with a chic and modern interior, exuding a warm and welcoming atmosphere. The staff was attentive and knowledgeable about the menu, gladly …",
+          "rating": 5,
+          "author": "Keyur Vyas"
+        },
+        {
+          "text": "A good pure veg restaurant in pattaya. It's difficult to find good pure veg restaurant. I am glad we found it. Tried dal fry and jeera rice. Total bill was 250 baht. Loved the smokey taste of tadka in daal. Definitely recommended.",
+          "rating": 5,
+          "author": "Abhishek kumar singh"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Mahadev+Pure+Vegetarian+%26+Vegan+indian+Restaurant+Pattaya/data=!4m7!3m6!1s0x310297043e340fa7:0x3997a5b71d6837d9!8m2!3d12.9275559!4d100.8773216!16s%2Fg%2F11v0qwbf38!19sChIJpw80PgSXAjER2TdoHbellzk?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fb74a2527b9_0x1d25639b829888a5",
       "place_id": "0x30e29fb74a2527b9:0x1d25639b829888a5",
       "name": "Puy Roti Lady",
@@ -64180,6 +64285,103 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lucky+Panda+-+American+Chinese+Eats+%28Sathorn%29/data=!4m7!3m6!1s0x30e29fe5d3ab88ed:0x525cfeb9e052e952!8m2!3d13.7229095!4d100.5311925!16s%2Fg%2F11vdvw_9ny!19sChIJ7Yir0-Wf4jARUulS4Ln-XFI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310295d8d8bccd1f_0x5d6078f577edccee",
+      "place_id": "0x310295d8d8bccd1f:0x5d6078f577edccee",
+      "name": "August",
+      "primary_type": "Restaurant",
+      "address": "\n11/26 หมู่ที่ 4 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 94 443 1911",
+      "website": "https://www.august-restaurant.com/",
+      "menu_url": "",
+      "lat": 12.9204528,
+      "lng": 100.9604841,
+      "rating": 4.7,
+      "total_reviews": 339,
+      "trust_score": 91.0,
+      "cuisines": [
+        "fine_dining",
+        "italian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 36,
+      "avg_author_review_count": 63.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 34,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "italian": 8,
+        "seafood": 1,
+        "fine_dining": 3,
+        "western": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 13
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 18,
+          "avg": 4.78
+        },
+        "midterm": {
+          "count": 31,
+          "avg": 4.84
+        },
+        "old": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Good restaurant, I love it. Just a recommendation which should be brought to attention:\n\nThere is a little bit of a mosquito issue, which I believe can be resolved. Every-time we visit we need to get our self sprayed with anti mosquito spray and still get a couple of bites.",
+          "rating": 5,
+          "author": "Daniel Benz"
+        },
+        {
+          "text": "The team at August knocked it out of the park again, entrees of the Alaskan King Crab curry soup and corn with crab, followed by lamb cutlets and the Snow Fish, just superb in every way, wine was on point well done team, winner in every aspect",
+          "rating": 5,
+          "author": "Adam Dwyer"
+        },
+        {
+          "text": "Very good food good service and the house red wine was outstanding I eat there often and prices are reasonable",
+          "rating": 5,
+          "author": "Fh He"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/August/data=!4m7!3m6!1s0x310295d8d8bccd1f:0x5d6078f577edccee!8m2!3d12.9204528!4d100.9604841!16s%2Fg%2F11fd6m06jk!19sChIJH8282NiVAjER7sztd_V4YF0?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29df3f4b4b7df_0xb6703c4a09c98bbf",
@@ -172856,7 +173058,7 @@
         "other": 0
       },
       "cuisine_mentions": {
-        "western": 33
+        "western": 34
       },
       "mentioned_topics": [
         {
@@ -265913,6 +266115,58 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Cafe+Pitini/data=!4m7!3m6!1s0x31029608eec2b309:0xfc797e8ce3afe274!8m2!3d12.9316841!4d100.8865008!16s%2Fg%2F11b7jf77ht!19sChIJCbPC7giWAjERdOKv44x-efw?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102952846df5407_0x81c6488d2292b9ac",
+      "place_id": "0x3102952846df5407:0x81c6488d2292b9ac",
+      "name": "KOBB & CO.",
+      "primary_type": "Restaurant",
+      "address": "\n108, T, Pong, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 92 262 5652",
+      "website": "http://www.kobbandco.com/",
+      "menu_url": "https://grab.onelink.me/2695613898?pid=inappsharing&c=3-C4ABRX4DPGBZRN&is_retargeting=true&af_dp=grab%3A%2F%2Fopen%3FscreenType%3DGRABFOOD%26sourceID%3DA4pcqCZkS4%26merchantIDs%3D3-C4ABRX4DPGBZRN&af_force_deeplink=true&af_web_dp=https%3A%2F%2Fwww.grab.com%2Fdownload",
+      "lat": 12.9175625,
+      "lng": 100.9754665,
+      "rating": 4.7,
+      "total_reviews": 319,
+      "trust_score": 77.0,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/KOBB+%26+CO./data=!4m7!3m6!1s0x3102952846df5407:0x81c6488d2292b9ac!8m2!3d12.9175625!4d100.9754665!16s%2Fg%2F11trf0b5h2!19sChIJB1TfRiiVAjERrLmSIo1IxoE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f001c78a9ab_0x3ac5f25169b2071e",

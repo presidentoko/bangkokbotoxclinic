@@ -12,6 +12,7 @@ import {
   PriceRange,
 } from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
+import { ConditionGuide } from '@/components/ConditionGuide'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
 import { ShareButton } from '@/components/ShareButton'
 import { RecentlyViewed } from '@/components/RecentlyViewed'
@@ -244,6 +245,21 @@ export default async function ModelPage({ params }: Props) {
                     {savingsLabel(savingsPct)} ({formatPriceTHB(item.retail_price_thb)} {locale === 'th' ? 'ราคาใหม่' : 'new'})
                   </p>
                 )}
+                {savingsPct !== null && (
+                  <div className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full text-xs font-medium"
+                    style={
+                      savingsPct >= 40 ? { background: '#1A2E1A', color: '#6EBF8B', border: '1px solid #2D4A2D' } :
+                      savingsPct >= 20 ? { background: '#1A2412', color: '#9CB87A', border: '1px solid #2A3A1A' } :
+                      savingsPct >= 5  ? { background: '#2A2218', color: '#C8A97E', border: '1px solid #3A3020' } :
+                                        { background: '#2A1818', color: '#C88878', border: '1px solid #3A2020' }
+                    }
+                  >
+                    {savingsPct >= 40 ? (locale === 'th' ? '🔥 ดีลสุดคุ้ม' : '🔥 Exceptional Deal') :
+                     savingsPct >= 20 ? (locale === 'th' ? '✓ ราคาดี' : '✓ Good Value') :
+                     savingsPct >= 5  ? (locale === 'th' ? '◎ ราคาตลาด' : '◎ Fair Market Price') :
+                                       (locale === 'th' ? '↑ ตลาดแข็ง' : '↑ Premium Demand')}
+                  </div>
+                )}
                 {/* Savings bar */}
                 {savingsPct !== null && savingsPct > 0 && savingsPct < 100 && (
                   <div className="mt-4 mb-6">
@@ -302,6 +318,7 @@ export default async function ModelPage({ params }: Props) {
           lastUpdated: tCommon('last_updated', { date: item.last_updated }),
         }}
       />
+      <ConditionGuide locale={locale} />
 
       <AffiliateCTA item={item} ctaLabel={tCommon('cta_carousell')} />
 
