@@ -161,6 +161,16 @@ export default async function CityPage({
         <p>A basic health check-up in {cityName} takes 1–2 hours. Comprehensive or executive packages with ultrasound, CT, and specialist consultations typically take 3–5 hours. Results are usually available within 1–3 business days, with some hospitals offering same-day results.</p>
       </div>
 
+      {/* Breadcrumb JSON-LD */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "BangkokCheckup", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: `Health Check-Up in ${cityName}`, item: `${BASE}/${locale}/city/${city}` },
+        ],
+      }) }} />
+
       {/* FAQ JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",

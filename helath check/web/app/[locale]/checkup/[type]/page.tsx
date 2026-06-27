@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, catLabel, CATEGORIES } from "@/lib/i18n";
+import { type Locale, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
 import { getPackagesByCategory, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
@@ -9,6 +9,8 @@ export const revalidate = 3600;
 export function generateStaticParams() {
   return CATEGORIES.map((type) => ({ type }));
 }
+
+const BASE = "https://www.bangkoktopclinic.com";
 
 export async function generateMetadata({
   params,
@@ -20,6 +22,10 @@ export async function generateMetadata({
   return {
     title: `${label} Health Check-Up in Thailand — Compare Prices (2026)`,
     description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from 235+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
+    alternates: {
+      canonical: `${BASE}/en/checkup/${type}`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/checkup/${type}`])),
+    },
   };
 }
 
@@ -126,6 +132,42 @@ export default async function CheckupTypePage({
             );
           })}
         </div>
+      )}
+
+      {/* BreadcrumbList */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "BangkokCheckup", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: "Compare", item: `${BASE}/${locale}/compare` },
+          { "@type": "ListItem", position: 3, name: catLabel(loc, type), item: `${BASE}/${locale}/checkup/${type}` },
+        ],
+      }) }} />
+
+      {/* ItemList */}
+      {rows.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: `${catLabel("en", type)} Health Check-Up Packages in Thailand`,
+          numberOfItems: rows.length,
+          itemListElement: rows.slice(0, 20).map((r, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Product",
+              name: r.package_name,
+              offers: {
+                "@type": "Offer",
+                price: r.price ?? "0",
+                priceCurrency: "THB",
+                availability: "https://schema.org/InStock",
+                seller: { "@type": "MedicalOrganization", name: r.hospital_name },
+              },
+            },
+          })),
+        }) }} />
       )}
     </div>
   );
