@@ -1,4 +1,4 @@
-import { Item, Condition, formatPriceTHB, getPriceVsRetail } from '@/lib/data'
+import { Item, Condition, formatPriceTHB, getAvgPrice, getPriceVsRetail } from '@/lib/data'
 
 interface ConditionLabels {
   condition: string
@@ -45,7 +45,7 @@ export function PriceTable({ item, labels, sampleCount }: { item: Item; labels: 
               <tr key={key} className="hover:bg-[#FAFAF9]">
                 <td className="p-3 border border-[#E8E2D9] font-medium">{condLabel(key)}</td>
                 <td className="p-3 border border-[#E8E2D9]">
-                  {formatPriceTHB(range.min)} – {formatPriceTHB(range.max)}
+                  {formatPriceTHB(getAvgPrice(range))}
                 </td>
                 <td className={`p-3 border border-[#E8E2D9] font-medium ${isAboveRetail ? 'text-[#C25B2B]' : 'text-[#4A7A35]'}`}>
                   {diff}

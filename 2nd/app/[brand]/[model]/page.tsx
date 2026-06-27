@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getItemBySlug, getItemsByBrand, getAllItems, formatPrice, Item } from '@/lib/data'
+import { getItemBySlug, getItemsByBrand, getAllItems, formatPrice, getAvgPrice, Item } from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
 import { ConditionGuide } from '@/components/ConditionGuide'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = getItemBySlug(brand, model)
   if (!item) return {}
   const vg = item.price_ranges.very_good
-  const priceHint = vg ? ` Current prices: ${formatPrice(vg.min)}–${formatPrice(vg.max)}.` : ''
+  const priceHint = vg ? ` Avg. price: ${formatPrice(getAvgPrice(vg))}.` : ''
   const description = `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`
   return {
     title: `Used ${item.brand} ${item.model} Price Guide (2026)`,
@@ -58,7 +58,7 @@ function getFAQs(item: Item) {
       {
         q: `How much does a pre-owned ${name} cost?`,
         a: vg
-          ? `In Very Good condition, a pre-owned ${name} typically costs between ${formatPrice(vg.min)} and ${formatPrice(vg.max)}. Prices vary by exact condition, hardware finish, and color — rarer colorways can command a premium.`
+          ? `In Very Good condition, a pre-owned ${name} typically costs around ${formatPrice(getAvgPrice(vg))} on average. Prices vary by exact condition, hardware finish, and color — rarer colorways can command a premium.`
           : `Price data for the ${item.model} is currently being compiled. Check platforms like Vestiaire Collective and The RealReal for live listings.`,
       },
       {
@@ -100,7 +100,7 @@ function getFAQs(item: Item) {
     {
       q: `How much does a used ${name} cost?`,
       a: vg
-        ? `A used ${name} in Very Good condition typically costs between ${formatPrice(vg.min)} and ${formatPrice(vg.max)}. Complete sets with box and papers are at the higher end; watch-only examples are at the lower end.`
+        ? `A used ${name} in Very Good condition typically costs around ${formatPrice(getAvgPrice(vg))} on average. Complete sets with box and papers are at the higher end; watch-only examples are at the lower end.`
         : `Price data for the ${item.model} is currently being compiled. Check Chrono24 or Bob's Watches for current live listings.`,
     },
     {
@@ -114,7 +114,7 @@ function getFAQs(item: Item) {
     {
       q: `What is the ${name} retail price?`,
       a: item.retail_price_usd > 0
-        ? `The current retail price for the ${name} is ${formatPrice(item.retail_price_usd)} USD from authorized dealers. Pre-owned examples${vg ? ` typically trade between ${formatPrice(vg.min)} and ${formatPrice(vg.max)} in Very Good condition` : ' can offer significant savings over retail'}.`
+        ? `The current retail price for the ${name} is ${formatPrice(item.retail_price_usd)} USD from authorized dealers. Pre-owned examples${vg ? ` typically average ${formatPrice(getAvgPrice(vg))} in Very Good condition` : ' can offer significant savings over retail'}.`
         : `Retail pricing for the ${name} varies by configuration and region. Contact an authorized ${item.brand} dealer for current pricing.`,
     },
     {
@@ -137,7 +137,7 @@ export default async function ModelPage({ params }: Props) {
   const faqs = getFAQs(item)
 
   const vg = item.price_ranges.very_good
-  const priceHint = vg ? ` Current prices: ${formatPrice(vg.min)}–${formatPrice(vg.max)}.` : ''
+  const priceHint = vg ? ` Avg. price: ${formatPrice(getAvgPrice(vg))}.` : ''
   const metaDescription = `How much does a second hand ${item.brand} ${item.model} cost?${priceHint} Updated ${item.last_updated}.`
   const pageUrl = `${BASE}/${item.slug}`
 
@@ -208,7 +208,7 @@ export default async function ModelPage({ params }: Props) {
         slug={item.slug}
         brand={item.brand}
         model={item.model}
-        priceText={vg ? `${formatPrice(vg.min)}–${formatPrice(vg.max)}` : 'See prices'}
+        priceText={vg ? `Avg. ${formatPrice(getAvgPrice(vg))}` : 'See prices'}
       />
       <script
         type="application/ld+json"
@@ -263,8 +263,8 @@ export default async function ModelPage({ params }: Props) {
             {vg ? (
               <>
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-4xl font-light">{formatPrice(vg.min)}</span>
-                  <span className="text-xl text-[#9C8B7A]">– {formatPrice(vg.max)}</span>
+                  <span className="text-4xl font-light">{formatPrice(getAvgPrice(vg))}</span>
+                  <span className="text-sm text-[#9C8B7A]">avg.</span>
                 </div>
                 {savingsPct !== null && savingsPct > 0 && (
                   <p className="text-[#6EBF8B] text-sm mb-1">
@@ -396,7 +396,7 @@ export default async function ModelPage({ params }: Props) {
                   <p className="font-serif text-base text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors" style={{ fontFamily: 'var(--font-playfair)' }}>{related.model}</p>
                   {relVg && (
                     <p className="text-xs text-[#9C8B7A] mt-1">
-                      {formatPrice(relVg.min)} – {formatPrice(relVg.max)}
+                      Avg. {formatPrice(getAvgPrice(relVg))}
                     </p>
                   )}
                 </Link>

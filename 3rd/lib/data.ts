@@ -81,6 +81,10 @@ export function formatPriceTHB(price: number): string {
   return '฿' + new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(price)
 }
 
+export function getAvgPrice(range: { min: number; max: number }): number {
+  return Math.round((range.min + range.max) / 2)
+}
+
 export function getPriceVsRetail(range: PriceRange, retail: number): string {
   if (retail === 0) return 'N/A'
   const midpoint = (range.min + range.max) / 2

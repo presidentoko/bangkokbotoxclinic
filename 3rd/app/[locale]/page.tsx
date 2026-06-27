@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { getAllBrands, getAllItems, toBrandSlug, formatPriceTHB } from '@/lib/data'
+import { getAllBrands, getAllItems, toBrandSlug, formatPriceTHB, getAvgPrice } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
 interface Props { params: Promise<{ locale: string }> }
@@ -158,7 +158,7 @@ export default async function HomePage({ params }: Props) {
                       </div>
                       <span className="shrink-0 ml-2 text-lg font-bold text-[#4A7A35]">-{item.savingsPct}%</span>
                     </div>
-                    <p className="text-sm font-medium text-[#1A1A1A]">{formatPriceTHB(vg.min)}–{formatPriceTHB(vg.max)}</p>
+                    <p className="text-sm font-medium text-[#1A1A1A]">{formatPriceTHB(getAvgPrice(vg))}</p>
                     <p className="text-xs text-[#9C8B7A] mt-0.5 line-through">{formatPriceTHB(item.retail_price_thb)} {locale === 'th' ? 'ราคาใหม่' : 'retail'}</p>
                   </div>
                 </a>

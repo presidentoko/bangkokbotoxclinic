@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { getItemBySlug, formatPrice } from '@/lib/data'
+import { getItemBySlug, formatPrice, getAvgPrice } from '@/lib/data'
 
 export const runtime = 'nodejs'
 export const alt = 'Pre-owned luxury price guide'
@@ -11,7 +11,7 @@ export default async function Image({ params }: { params: Promise<{ brand: strin
   const item = getItemBySlug(brand, model)
 
   const vg = item?.price_ranges.very_good
-  const priceText = vg ? `${formatPrice(vg.min)} – ${formatPrice(vg.max)}` : 'See price guide'
+  const priceText = vg ? `Avg. ${formatPrice(getAvgPrice(vg))}` : 'See price guide'
   const savingsPct = vg && item?.retail_price_usd && item.retail_price_usd > 0
     ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
     : null

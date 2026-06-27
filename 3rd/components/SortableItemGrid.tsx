@@ -1,7 +1,7 @@
 'use client'
 import { useState, useMemo } from 'react'
 import type { Item } from '@/lib/data'
-import { formatPriceTHB } from '@/lib/data'
+import { formatPriceTHB, getAvgPrice } from '@/lib/data'
 
 type SortKey = 'savings' | 'price_low' | 'price_high' | 'name'
 
@@ -86,10 +86,10 @@ export function SortableItemGrid({ items, locale }: { items: Item[]; locale: str
                 </h3>
                 {vg ? (
                   <div>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-xl font-medium text-[#1A1A1A]">{formatPriceTHB(vg.min)}</span>
-                      <span className="text-sm text-[#9C8B7A]">– {formatPriceTHB(vg.max)}</span>
-                    </div>
+                    <p className="text-xs text-[#9C8B7A] mb-0.5">
+                      {locale === 'th' ? 'สภาพดีมาก' : 'Very Good'}
+                    </p>
+                    <p className="text-xl font-medium text-[#1A1A1A] mb-1">{formatPriceTHB(getAvgPrice(vg))}</p>
                     {savingsPct !== null && savingsPct > 0 && (
                       <p className="text-xs text-[#4A7A35]">
                         {locale === 'th' ? `ประหยัด ${savingsPct}%` : `Save up to ${savingsPct}%`}

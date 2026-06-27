@@ -1,4 +1,4 @@
-import { getAllBrands, getAllItems, getItemsByBrand, formatPrice, Item } from '@/lib/data'
+import { getAllBrands, getAllItems, getItemsByBrand, formatPrice, getAvgPrice, Item } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
 const organizationSchema = {
@@ -120,7 +120,7 @@ export default function HomePage() {
                       </div>
                       <span className="shrink-0 ml-2 text-lg font-bold text-[#4A7A35]">-{item.savingsPct}%</span>
                     </div>
-                    <p className="text-sm font-medium text-[#1A1A1A]">{formatPrice(vg.min)}–{formatPrice(vg.max)}</p>
+                    <p className="text-sm font-medium text-[#1A1A1A]">Avg. {formatPrice(getAvgPrice(vg))}</p>
                     <p className="text-xs text-[#9C8B7A] mt-0.5 line-through">{formatPrice(item.retail_price_usd)} retail</p>
                   </div>
                 </a>

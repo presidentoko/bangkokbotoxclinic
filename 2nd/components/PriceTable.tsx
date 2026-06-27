@@ -1,4 +1,4 @@
-import { Item, Condition, formatPrice, getPriceVsRetail } from '@/lib/data'
+import { Item, Condition, formatPrice, getAvgPrice, getPriceVsRetail } from '@/lib/data'
 
 const CONDITIONS: { key: Condition; label: string }[] = [
   { key: 'excellent', label: 'Excellent' },
@@ -13,8 +13,8 @@ export function PriceTable({ item }: { item: Item }) {
         <thead>
           <tr className="bg-[#F5F0E8] text-left">
             <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">Condition</th>
-            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">Price Range</th>
-            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">vs Retail ({formatPrice(item.retail_price_usd)})</th>
+            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">Avg. Price</th>
+            <th className="p-3 border border-[#E8E2D9] font-semibold text-[#1A1A1A]">vs. Retail ({formatPrice(item.retail_price_usd)})</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@ export function PriceTable({ item }: { item: Item }) {
               <tr key={key} className="hover:bg-[#FAFAF9]">
                 <td className="p-3 border border-[#E8E2D9] font-medium text-[#1A1A1A]">{label}</td>
                 <td className="p-3 border border-[#E8E2D9] text-[#1A1A1A]">
-                  {formatPrice(range.min)} – {formatPrice(range.max)}
+                  {formatPrice(getAvgPrice(range))}
                 </td>
                 <td className={`p-3 border border-[#E8E2D9] font-medium ${isAboveRetail ? 'text-[#C25B2B]' : 'text-[#B8954A]'}`}>
                   {diff}

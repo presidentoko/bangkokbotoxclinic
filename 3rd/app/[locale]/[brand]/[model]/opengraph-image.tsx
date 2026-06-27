@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { getItemBySlug, formatPriceTHB } from '@/lib/data'
+import { getItemBySlug, formatPriceTHB, getAvgPrice } from '@/lib/data'
 
 export const runtime = 'nodejs'
 export const alt = 'ราคา pre-owned luxury ในไทย'
@@ -11,7 +11,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
   const item = getItemBySlug(brand, model)
 
   const vg = item?.price_ranges.very_good
-  const priceText = vg ? `${formatPriceTHB(vg.min)} – ${formatPriceTHB(vg.max)}` : 'ดูราคาในหน้า'
+  const priceText = vg ? formatPriceTHB(getAvgPrice(vg)) : 'ดูราคาในหน้า'
   const title = item ? `${item.brand} ${item.model}` : 'Pre-Owned Luxury'
   const isTH = locale === 'th'
 

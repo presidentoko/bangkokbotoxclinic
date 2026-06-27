@@ -6,6 +6,7 @@ import {
   getItemBySlug,
   getAllItems,
   formatPriceTHB,
+  getAvgPrice,
   getPriceVsRetail,
   getItemsByBrand,
   Item,
@@ -346,7 +347,7 @@ export default async function ModelPage({ params }: Props) {
   }
   const shareTitle = `Used ${item.brand} ${item.model} — Price in Thailand`
   const shareText = vg
-    ? `Pre-owned ${item.brand} ${item.model}: ${formatPriceTHB(vg.min)}–${formatPriceTHB(vg.max)} on Carousell TH`
+    ? `Pre-owned ${item.brand} ${item.model}: avg ${formatPriceTHB(getAvgPrice(vg))} on Carousell TH`
     : `Pre-owned ${item.brand} ${item.model} prices in Thailand`
 
   return (
@@ -355,7 +356,7 @@ export default async function ModelPage({ params }: Props) {
         slug={item.slug}
         brand={item.brand}
         model={item.model}
-        priceText={vg ? `${formatPriceTHB(vg.min)}–${formatPriceTHB(vg.max)}` : '–'}
+        priceText={vg ? formatPriceTHB(getAvgPrice(vg)) : '–'}
       />
       <script
         type="application/ld+json"
@@ -410,8 +411,7 @@ export default async function ModelPage({ params }: Props) {
             {vg ? (
               <>
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-4xl font-light">{formatPriceTHB(vg.min)}</span>
-                  <span className="text-xl text-[#9C8B7A]">– {formatPriceTHB(vg.max)}</span>
+                  <span className="text-4xl font-light">{formatPriceTHB(getAvgPrice(vg))}</span>
                 </div>
                 {savingsPct !== null && savingsPct > 0 && (
                   <p className="text-[#6EBF8B] text-sm mb-1">
@@ -563,7 +563,7 @@ export default async function ModelPage({ params }: Props) {
                   </h3>
                   {rvg && (
                     <p className="text-sm text-[#6B6052]">
-                      {formatPriceTHB(rvg.min)} – {formatPriceTHB(rvg.max)}
+                      {formatPriceTHB(getAvgPrice(rvg))}
                     </p>
                   )}
                 </a>

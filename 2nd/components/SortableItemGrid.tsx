@@ -2,7 +2,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import type { Item } from '@/lib/data'
-import { formatPrice } from '@/lib/data'
+import { formatPrice, getAvgPrice } from '@/lib/data'
 
 type SortKey = 'savings' | 'price_low' | 'price_high' | 'name'
 
@@ -88,8 +88,8 @@ export function SortableItemGrid({ items }: { items: Item[] }) {
                 {vg ? (
                   <div>
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-xl font-medium text-[#1A1A1A]">{formatPrice(vg.min)}</span>
-                      <span className="text-sm text-[#9C8B7A]">– {formatPrice(vg.max)}</span>
+                      <span className="text-xs text-[#9C8B7A] mr-1">Very Good</span>
+                      <span className="text-xl font-medium text-[#1A1A1A]">{formatPrice(getAvgPrice(vg))}</span>
                     </div>
                     {savingsPct !== null && savingsPct > 0 && (
                       <p className="text-xs text-[#4A7A35]">Save up to {savingsPct}% off retail</p>

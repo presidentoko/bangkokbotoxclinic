@@ -1,4 +1,4 @@
-import { getAllItems, formatPrice } from '@/lib/data'
+import { getAllItems, formatPrice, getAvgPrice } from '@/lib/data'
 import { NextResponse } from 'next/server'
 
 export function GET() {
@@ -22,7 +22,7 @@ export function GET() {
     '## Price Data',
     ...items.map(item => {
       const vg = item.price_ranges.very_good
-      const price = vg ? `${formatPrice(vg.min)}–${formatPrice(vg.max)}` : 'see page'
+      const price = vg ? `avg ${formatPrice(getAvgPrice(vg))}` : 'see page'
       const retail = item.retail_price_usd > 0 ? ` (retail: ${formatPrice(item.retail_price_usd)})` : ''
       return `- Used ${item.brand} ${item.model}: Very Good condition ${price}${retail}`
     }),
