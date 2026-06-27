@@ -71,6 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/trends/thai-luxury-market-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/guides/bangkok-luxury-shopping-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
   }
 
   // Brand pages
