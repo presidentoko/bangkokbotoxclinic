@@ -12,6 +12,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 },
     { url: `${BASE}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/watches`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/shoes`,    lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/jewelry`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/belts`,    lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/scarves`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/small-leather-goods`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/brands`,   lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
   ]
 

@@ -60,19 +60,14 @@ def recalculate_ranges(samples: list[dict]) -> dict:
     }
 
 
-def trim_samples(samples: list[dict], keep: int = 30) -> list[dict]:
+def trim_samples(samples: list[dict], keep: int = 90) -> list[dict]:
     return sorted(samples, key=lambda s: s['date'])[-keep:]
 
 
-def fetch_vestiaire_prices(query: str) -> list[dict]:
+def fetch_vestiaire_page(query: str, offset: int, today: str) -> list[dict]:
     payload = {
-        'pagination': {'offset': 0, 'limit': 30},
-        'fields': [
-            'name', 'description', 'brand', 'model', 'country', 'price', 'discount',
-            'link', 'sold', 'likes', 'editorPicks', 'shouldBeGone', 'seller',
-            'directShipping', 'local', 'pictures', 'colors', 'size', 'stock',
-            'universeId', 'createdAt', 'dutyFree', 'condition',
-        ],
+        'pagination': {'offset': offset, 'limit': 30},
+        'fields': ['name', 'price', 'pictures', 'condition', 'brand', 'model'],
         'facets': {'fields': ['condition'], 'stats': ['price']},
         'q': query,
         'sortBy': 'relevance',
@@ -84,13 +79,12 @@ def fetch_vestiaire_prices(query: str) -> list[dict]:
         'x-deviceid': str(uuid.uuid4()),
         'x-search-session-id': str(uuid.uuid4()),
     }
-    today = datetime.now().strftime('%Y-%m-%d')
     try:
         resp = requests.post(SEARCH_API, headers=headers, json=payload, timeout=20)
         resp.raise_for_status()
         items = resp.json().get('items', [])
     except Exception as e:
-        print(f'  [warn] {e}')
+        print(f'  [warn page offset={offset}] {e}')
         return []
 
     results = []
@@ -104,7 +98,20 @@ def fetch_vestiaire_prices(query: str) -> list[dict]:
             'condition': normalize_condition(p.get('condition', {})),
             'platform': 'vestiaire',
             'date': today,
+            'image_path': (p.get('pictures') or [''])[0],
         })
+    return results
+
+
+def fetch_vestiaire_prices(query: str) -> list[dict]:
+    today = datetime.now().strftime('%Y-%m-%d')
+    results = []
+    for offset in [0, 30, 60]:
+        page = fetch_vestiaire_page(query, offset, today)
+        results.extend(page)
+        if len(page) < 30:
+            break
+        time.sleep(random.uniform(1, 2))
     return results
 
 

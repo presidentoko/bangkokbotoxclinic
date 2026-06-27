@@ -32,9 +32,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/" className="font-serif text-xl tracking-wider text-[#1A1A1A]" style={{ fontFamily: 'var(--font-playfair)' }}>
               Second Luxury Items
             </a>
-            <nav className="flex gap-8 text-sm text-[#6B6052] items-center tracking-wide uppercase">
+            <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase">
               <a href="/handbags" className="hover:text-[#1A1A1A] transition-colors">Handbags</a>
               <a href="/watches" className="hover:text-[#1A1A1A] transition-colors">Watches</a>
+              <a href="/shoes" className="hover:text-[#1A1A1A] transition-colors">Shoes</a>
+              <a href="/jewelry" className="hover:text-[#1A1A1A] transition-colors">Jewelry</a>
+              <a href="/belts" className="hover:text-[#1A1A1A] transition-colors">Belts</a>
+              <a href="/scarves" className="hover:text-[#1A1A1A] transition-colors">Scarves</a>
               <a href="/brands" className="hover:text-[#1A1A1A] transition-colors">Value Guide</a>
               <a href="/contact" className="hover:text-[#1A1A1A] transition-colors">Contact</a>
               <form action="/search" method="get" className="hidden sm:flex items-center">

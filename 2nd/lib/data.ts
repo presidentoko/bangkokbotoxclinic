@@ -1,7 +1,7 @@
 import db from '@/data/items_db.json'
 
 export type Condition = 'excellent' | 'very_good' | 'good'
-export type Category = 'handbags' | 'watches'
+export type Category = 'handbags' | 'watches' | 'shoes' | 'jewelry' | 'belts' | 'scarves' | 'small-leather-goods'
 
 export interface PriceRange {
   min: number
