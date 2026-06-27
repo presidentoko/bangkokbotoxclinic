@@ -2,15 +2,16 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Second Luxury Items — Pre-Owned Price Guide',
+    name: 'SecondLuxuryItems — Pre-Owned Luxury Price Guide',
     short_name: 'SecondLuxury',
-    description: 'Real pre-owned luxury prices updated weekly',
+    description: 'Real-time price guide for pre-owned luxury handbags, watches, and accessories.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#000000',
+    background_color: '#FAFAF9',
+    theme_color: '#B8954A',
     icons: [
-      { src: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+      { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
   }
 }

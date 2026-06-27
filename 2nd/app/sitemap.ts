@@ -43,6 +43,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/guides/how-to-authenticate-cartier`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/guides/most-iconic-bags-to-buy-used`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/guides/best-pre-owned-watches-for-beginners`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/guides/best-bags-for-travel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/guides/best-bags-for-work`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
   ]
 

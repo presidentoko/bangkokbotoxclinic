@@ -32,6 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-lv`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-omega`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/luxury-gift-guide`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/guides/best-bags-for-travel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/guides/best-bags-for-work`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/trends/quiet-luxury-2025`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
   }
 
