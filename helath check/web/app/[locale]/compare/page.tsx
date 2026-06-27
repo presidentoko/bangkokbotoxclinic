@@ -5,6 +5,7 @@ import { type Locale, LOCALES, t, catLabel, CATEGORIES } from "@/lib/i18n";
 import { getPackagesByCategory, getAllPackages, type PackageRow } from "@/lib/db";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
+import { RecentlyViewedBar } from "@/app/components/RecentlyViewed";
 
 export const revalidate = 3600;
 
@@ -25,12 +26,12 @@ export async function generateMetadata({
   const languages: Record<string, string> = {};
   for (const l of LOCALES) languages[l] = `${BASE}/${l}/compare?category=${cat}`;
   return {
-    title: `${label} Health Check-Up Bangkok — Price Comparison`,
-    description: `Compare ${label.toLowerCase()} health check-up packages at Bangkok hospitals. Real prices, JCI hospitals, MRI/CT/cancer marker inclusion. Updated weekly.`,
+    title: `${label} Health Check-Up Thailand — Price Comparison Bangkok, Phuket, Chiang Mai`,
+    description: `Compare ${label.toLowerCase()} health check-up packages across Thailand hospitals — Bangkok, Phuket, Chiang Mai and more. Real prices, JCI hospitals, MRI/CT/cancer marker inclusion. Updated weekly.`,
     alternates: { canonical: `${BASE}/${locale}/compare?category=${cat}`, languages },
     openGraph: {
-      title: `${label} Health Check-Up Bangkok — Compare Prices`,
-      description: `Find the best ${label.toLowerCase()} health check-up in Bangkok. Compare real prices side-by-side.`,
+      title: `${label} Health Check-Up Thailand — Compare Prices`,
+      description: `Find the best ${label.toLowerCase()} health check-up in Thailand. Compare real prices across Bangkok, Phuket, Chiang Mai hospitals.`,
       url: `${BASE}/${locale}/compare?category=${cat}`,
     },
   };
@@ -203,6 +204,7 @@ export default async function ComparePage({
         </div>
       )}
 
+      <RecentlyViewedBar locale={locale} />
       {/* Filtered card grid with search */}
       {!dbError && rows.length === 0 ? (
         <p className="text-slate-400 text-center py-16">No packages found for this category yet.</p>

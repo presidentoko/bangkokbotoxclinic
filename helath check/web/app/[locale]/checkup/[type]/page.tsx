@@ -18,8 +18,8 @@ export async function generateMetadata({
   const { locale, type } = await params;
   const label = catLabel(locale as Locale, type);
   return {
-    title: `${label} Health Check-Up Bangkok — Compare Prices`,
-    description: `Compare ${label.toLowerCase()} health check-up packages across Bangkok hospitals. Real prices, JCI-accredited, MRI/CT included.`,
+    title: `${label} Health Check-Up in Thailand — Compare Prices (2026)`,
+    description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from 235+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
   };
 }
 

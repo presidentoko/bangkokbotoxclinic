@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { type Locale, catLabel } from "@/lib/i18n";
-import { getHospital, getAllHospitalSlugs, type PackageRow } from "@/lib/db";
+import { type Locale, catLabel, LOCALES } from "@/lib/i18n";
+import { getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
+import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
+import { ReportButton } from "@/app/components/ReportButton";
+import { HospitalTracker } from "@/app/components/HospitalTracker";
 
 export const revalidate = 3600;
 export const dynamic = "force-dynamic";
@@ -24,6 +27,10 @@ export async function generateMetadata({
     return {
       title: `${hospital.name} Health Check-Up Packages & Prices — ${cityLabel}`,
       description: `Compare all health check-up packages at ${hospital.name}, ${cityLabel}, Thailand.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
+      alternates: {
+        canonical: `${BASE}/en/hospital/${slug}`,
+        languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital/${slug}`])),
+      },
       openGraph: {
         title: `${hospital.name} — ${cityLabel} Health Check-Up Packages`,
         description: `Real prices for ${hospital.name} health check-up packages in ${cityLabel}. ${hospital.jci ? "JCI accredited hospital." : ""}`,
@@ -41,7 +48,7 @@ function Flag({ val }: { val: number | null }) {
   return <span className="text-amber-400">?</span>;
 }
 
-function PackageCard({ pkg, locale }: { pkg: PackageRow; locale: string }) {
+function PackageCard({ pkg, locale, history }: { pkg: PackageRow; locale: string; history?: number[] }) {
   const price = pkg.price ? `฿${parseFloat(pkg.price).toLocaleString()}` : "Price on request";
   const bookUrl = pkg.source_url || pkg.checkup_url || "#";
   const features = [
@@ -68,6 +75,9 @@ function PackageCard({ pkg, locale }: { pkg: PackageRow; locale: string }) {
         </div>
         <div className="text-right shrink-0">
           <p className="font-bold text-xl text-blue-700 whitespace-nowrap">{price}</p>
+          {history && history.length >= 2 && (
+            <div className="mt-1 flex justify-end"><Sparkline prices={history} /></div>
+          )}
           {pkg.results_days != null && (
             <p className="text-xs text-slate-400 mt-0.5">Results in {pkg.results_days}d</p>
           )}
@@ -113,8 +123,16 @@ export default async function HospitalPage({
   const { locale, slug } = await params;
 
   let hospital = null;
+  let reviews: ReviewRow[] = [];
+  let priceHistory: Record<number, number[]> = {};
   try {
     hospital = await getHospital(slug);
+    if (hospital) {
+      [reviews, priceHistory] = await Promise.all([
+        getHospitalReviews(slug, 5),
+        getPriceHistoryBatch(hospital.packages.map((p) => p.package_id)),
+      ]);
+    }
   } catch {
     // DB not ready
   }
@@ -132,6 +150,7 @@ export default async function HospitalPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
+      <HospitalTracker hospital={{ slug: hospital.slug, name: hospital.name, city: hospital.city, minPrice: hospital.min_price ? parseFloat(hospital.min_price) : null }} />
       {/* Breadcrumb */}
       <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2 flex-wrap">
         <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
@@ -180,11 +199,44 @@ export default async function HospitalPage({
               </p>
             )}
           </div>
-          <div className="shrink-0">
+          <div className="shrink-0 flex flex-col items-end gap-3">
             <ShareButtons title={shareTitle} url={shareUrl} />
+            <ReportButton pageUrl={shareUrl} hospitalName={hospital.name} />
           </div>
         </div>
       </div>
+
+      {/* Hospital description + details */}
+      {(hospital.description || hospital.founded_year || hospital.bed_count || hospital.specialties || hospital.email || hospital.website) && (
+        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
+          {hospital.description && (
+            <p className="text-slate-700 leading-relaxed mb-4">{hospital.description}</p>
+          )}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+            {hospital.founded_year && (
+              <div><span className="text-slate-400">Founded</span><br /><span className="font-semibold text-slate-800">{hospital.founded_year}</span></div>
+            )}
+            {hospital.bed_count && (
+              <div><span className="text-slate-400">Beds</span><br /><span className="font-semibold text-slate-800">{hospital.bed_count.toLocaleString()}</span></div>
+            )}
+            {hospital.accreditations && (
+              <div><span className="text-slate-400">Accreditations</span><br /><span className="font-semibold text-slate-800">{hospital.accreditations}</span></div>
+            )}
+            {hospital.website && (
+              <div><span className="text-slate-400">Website</span><br /><a href={hospital.website} target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline truncate block">{hospital.website.replace(/^https?:\/\//, "")}</a></div>
+            )}
+            {hospital.email && (
+              <div><span className="text-slate-400">Email</span><br /><a href={`mailto:${hospital.email}`} className="font-semibold text-blue-600 hover:underline">{hospital.email}</a></div>
+            )}
+          </div>
+          {hospital.specialties && (
+            <div className="mt-4 pt-4 border-t border-slate-100">
+              <span className="text-slate-400 text-sm">Specialties: </span>
+              <span className="text-slate-700 text-sm">{hospital.specialties}</span>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Packages grouped by category */}
       {Object.entries(grouped).map(([cat, pkgs]) => (
@@ -195,7 +247,7 @@ export default async function HospitalPage({
           </h2>
           <div className="space-y-4">
             {pkgs.map((pkg) => (
-              <PackageCard key={pkg.package_id} pkg={pkg} locale={locale} />
+              <PackageCard key={pkg.package_id} pkg={pkg} locale={locale} history={priceHistory[pkg.package_id]} />
             ))}
         </div>
         </section>
@@ -207,6 +259,40 @@ export default async function HospitalPage({
           <p className="text-sm">Check back soon — we update weekly.</p>
         </div>
       )}
+
+      {/* Reviews */}
+      {reviews.length > 0 && (
+        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
+          <h2 className="text-lg font-bold text-slate-800 mb-4">Patient Reviews</h2>
+          <div className="space-y-4">
+            {reviews.map((r) => (
+              <div key={r.id} className="border-b border-slate-100 last:border-0 pb-4 last:pb-0">
+                <div className="flex items-center gap-2 mb-1">
+                  {r.rating && (
+                    <span className="text-amber-400 text-sm">{"★".repeat(Math.round(r.rating))}{"☆".repeat(5 - Math.round(r.rating))}</span>
+                  )}
+                  <span className="text-sm font-semibold text-slate-700">{r.author_name ?? "Patient"}</span>
+                  {r.review_date && <span className="text-xs text-slate-400">{r.review_date.slice(0, 10)}</span>}
+                  {r.source && <span className="text-xs text-slate-300">via {r.source}</span>}
+                </div>
+                <p className="text-sm text-slate-600 leading-relaxed">{r.review_text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Compare CTA */}
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8">
+        <p className="text-sm font-semibold text-slate-700 mb-1">Compare with another hospital</p>
+        <p className="text-xs text-slate-400 mb-3">Side-by-side package comparison — prices, inclusions, JCI status.</p>
+        <Link
+          href={`/${locale}/compare-hospitals?a=${hospital.slug}&b=bumrungrad-international-hospital`}
+          className="text-sm text-blue-600 hover:underline"
+        >
+          Compare {hospital.name} vs Bumrungrad →
+        </Link>
+      </div>
 
       {/* Map placeholder if coords exist */}
       {hospital.lat && hospital.lng && (
@@ -241,6 +327,22 @@ export default async function HospitalPage({
         </div>
       </div>
 
+      {/* Individual reviews schema */}
+      {reviews.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Hospital",
+          name: hospital.name,
+          review: reviews.map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: r.author_name ?? "Patient" },
+            datePublished: r.review_date?.slice(0, 10),
+            reviewRating: r.rating ? { "@type": "Rating", ratingValue: r.rating, bestRating: 5 } : undefined,
+            reviewBody: r.review_text,
+          })),
+        }) }} />
+      )}
+
       {/* BreadcrumbList */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
@@ -270,6 +372,12 @@ export default async function HospitalPage({
             ...(hospital.lat && hospital.lng ? { geo: { "@type": "GeoCoordinates", latitude: hospital.lat, longitude: hospital.lng } } : {}),
             ...(hospital.rating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(hospital.rating), bestRating: 5, reviewCount: hospital.review_count ?? 1 } } : {}),
             ...(hospital.jci ? { accreditedBy: { "@type": "Organization", name: "Joint Commission International (JCI)" } } : {}),
+            ...(hospital.description ? { description: hospital.description } : {}),
+            ...(hospital.website ? { url: hospital.website } : {}),
+            ...(hospital.email ? { email: hospital.email } : {}),
+            ...(hospital.founded_year ? { foundingDate: String(hospital.founded_year) } : {}),
+            ...(hospital.bed_count ? { numberOfBeds: { "@type": "QuantitativeValue", value: hospital.bed_count } } : {}),
+            ...(hospital.specialties ? { medicalSpecialty: hospital.specialties } : {}),
             hasOfferCatalog: {
               "@type": "OfferCatalog",
               name: `Health Check-Up Packages at ${hospital.name}`,

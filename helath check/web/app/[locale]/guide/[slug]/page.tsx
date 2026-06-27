@@ -436,6 +436,279 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/hospital/samitivej", label: "Samitivej Hospital packages" },
     ],
   },
+  "senior-health-checkup-thailand": {
+    title: "Senior Health Check-Up in Thailand — Tests, Hospitals & Costs (2026)",
+    description: "Complete guide to health check-ups for seniors (60+) in Thailand. Which tests you need, best hospitals for elderly patients, prices, and how to prepare.",
+    intro: "Thailand's private hospitals offer outstanding senior health screening programmes designed for patients aged 60 and above. These packages go beyond standard check-ups with age-appropriate tests including bone density, cognitive screening, prostate health, colorectal screening, and specialist consultations. Prices are 40–60% lower than comparable programmes in Western countries.",
+    sections: [
+      {
+        heading: "What tests should seniors get in a health check-up?",
+        content: "Senior health check-up packages in Thailand typically include age-specific tests beyond the standard adult screen:",
+        list: [
+          "Standard blood panel: CBC, lipids, liver/kidney function, blood glucose, HbA1c, thyroid (TSH)",
+          "Bone density (DEXA scan): osteoporosis screening for men 70+, women 65+ (or earlier with risk factors)",
+          "Colorectal cancer screening: faecal occult blood test (FOBT) or colonoscopy referral for 50+",
+          "Prostate health (men): PSA (prostate-specific antigen) from age 50; from 45 with family history",
+          "Mammogram (women 40–70): annual or biennial depending on risk; breast ultrasound as alternative",
+          "Cognitive screening: mini-mental state exam (MMSE) or MoCA for patients 65+",
+          "Ophthalmology: intraocular pressure (glaucoma), visual acuity",
+          "Hearing test: pure-tone audiometry from age 60",
+          "ECG + echocardiogram: atrial fibrillation risk increases significantly after 65",
+          "Chest X-ray: lung cancer risk screening, especially for ex-smokers",
+        ],
+      },
+      {
+        heading: "Best hospitals for senior health check-ups in Thailand",
+        content: "These hospitals have dedicated geriatric health programmes and senior-friendly facilities:",
+        list: [
+          "Bumrungrad International (Bangkok) — dedicated Seniors' Health Check programme, geriatric specialist on team, wheelchair access throughout",
+          "Bangkok Hospital BDMS — Senior CheckUp packages explicitly designed for 60+, teleconsultation available",
+          "Samitivej Sukhumvit — Women's senior programme (women 50+), comprehensive executive range",
+          "Vejthani Hospital — competitive senior package pricing, JCI accredited",
+          "Chiang Mai Ram Hospital — Northern Thailand's best senior check-up programme, less crowded than Bangkok",
+          "Bangkok Hospital Phuket — good option for senior medical tourists combining holiday and check-up",
+        ],
+      },
+      {
+        heading: "Cost of senior health check-ups in Thailand",
+        content: "Senior check-up packages cost more than standard packages due to additional tests, but remain significantly cheaper than Western equivalents:",
+        list: [
+          "Basic senior package (60+, standard + ECG + FOBT + PSA/Pap): ฿5,000 – ฿10,000",
+          "Comprehensive senior (adds ultrasound, mammogram/breast ultrasound, bone density): ฿12,000 – ฿25,000",
+          "Executive senior (adds cancer markers, cognitive screening, specialist consult): ฿25,000 – ฿60,000",
+          "Premium senior with MRI brain: ฿40,000 – ฿90,000",
+          "Comparison: equivalent US programme costs USD 3,000–8,000; UK private: GBP 2,000–5,000",
+        ],
+      },
+      {
+        heading: "How to prepare for a senior health check-up in Thailand",
+        content: "Senior patients should take additional preparation steps for the best results:",
+        list: [
+          "Fasting: 10–12 hours recommended (more strict than younger adults for accurate glucose readings)",
+          "Medications: do NOT stop blood thinners, blood pressure, or heart medications without consulting your doctor — inform the hospital",
+          "Water: stay well-hydrated, especially for kidney function tests",
+          "Mobility: all major hospitals have wheelchair access, golf carts, and porter assistance",
+          "Companion: it is advisable to bring a companion for assistance and to remember the doctor's advice",
+          "Previous results: bring your last 2–3 years of check-up results for trend comparison",
+          "Hearing aids: bring and wear them for the consultation",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "At what age should I get a senior health check-up?", a: "Most hospitals classify 'senior' packages for patients 60+. However, some tests — like colonoscopy screening, mammogram, and PSA — are recommended from age 40–50. If you are 50+, use the senior package to ensure age-appropriate tests are included." },
+      { q: "How long does a senior health check-up take in Thailand?", a: "A senior package typically takes 5–7 hours including specialist consultation. Some hospitals offer two half-day sessions. Book early morning appointments as most packages require fasting." },
+      { q: "Can I get a senior health check-up in Thailand if I take daily medications?", a: "Yes. Inform the hospital at booking and on the day. For most medications (blood pressure, heart, thyroid), continue as normal and take with a small sip of water. Specific tests (FOBT, PSA) may have separate preparation requirements." },
+      { q: "Does health insurance cover senior check-ups in Thailand?", a: "It depends on your policy. Major international insurers (Bupa Global, Cigna, Allianz Care) often cover annual health check-ups as a benefit. Thai LTR visa holders with Thai health insurance should check their policy schedule for wellness benefits." },
+    ],
+    relatedLinks: [
+      { href: "/en/compare?category=senior", label: "Compare senior health packages →" },
+      { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
+      { href: "/en/compare?category=cardiac", label: "Compare cardiac packages →" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
+    ],
+  },
+  "health-checkup-expats-thailand": {
+    title: "Health Check-Up for Expats in Thailand — Where, What & How Much (2026)",
+    description: "Guide to annual health check-ups for expats living in Thailand. Which tests you need, best hospitals, insurance, prices, and how to set up regular health screening.",
+    intro: "Thailand is home to over 400,000 long-term foreign residents. Regular health check-ups are essential for expats who may not be registered with a local GP or may have limited access to subsidised healthcare. Thailand's private hospitals make this easy — comprehensive annual check-ups with English-speaking doctors, modern equipment, and results in 1–2 days.",
+    sections: [
+      {
+        heading: "Which health tests do expats need annually?",
+        content: "The recommended annual health screening for expats in Thailand varies by age and risk profile, but these tests are universally recommended:",
+        list: [
+          "Complete blood count (CBC): anaemia, infection markers — annually",
+          "Fasting blood glucose + HbA1c: diabetes screening — annually (especially in Thailand with its high-sugar cuisine)",
+          "Lipid panel: cholesterol, LDL, HDL, triglycerides — annually from age 35",
+          "Liver function tests: AST, ALT, ALP, GGT — annually (alcohol consumption and fatty liver are common expat health issues)",
+          "Kidney function: creatinine, BUN, eGFR — annually",
+          "Thyroid function (TSH): thyroid disease is common but often undiagnosed — annually",
+          "Hepatitis B & C: test if not vaccinated or haven't tested recently — once, or more if high-risk",
+          "HIV: recommended annually for sexually active adults",
+          "Blood pressure + BMI: at every check-up",
+          "Chest X-ray: every 1–2 years for smokers; TB exposure if travelling rural Thailand",
+        ],
+      },
+      {
+        heading: "Best hospitals for expats in Thailand",
+        content: "These hospitals are most popular with the expat community due to language access, continuity of care, and international insurance acceptance:",
+        list: [
+          "Bangkok: Bumrungrad International, Samitivej, BNH Hospital, Vejthani — all with large expat patient bases and English-speaking GPs",
+          "Chiang Mai: Chiang Mai Ram, Bangkok Hospital CM — strong expat communities, GP and check-up services",
+          "Phuket: Bangkok Hospital Phuket, Phuket International Hospital — popular with long-stay expats and retirees",
+          "Pattaya: Bangkok Pattaya Hospital — large Russian, European, and US expat population served",
+          "Hua Hin: Bangkok Hospital Hua Hin — growing retiree community, good continuity-of-care",
+          "Koh Samui: Samui International Hospital, Bangkok Hospital Samui — expat-friendly, English throughout",
+        ],
+      },
+      {
+        heading: "Health insurance for expats in Thailand",
+        content: "Having health insurance in Thailand simplifies billing and ensures access to the best hospitals. Key points for expats:",
+        list: [
+          "International health insurance (IPMI): Cigna, Allianz Care, AXA Global Health, Bupa Global — all cover health check-ups at Thai private hospitals",
+          "Thai insurance (AIA, Muang Thai, Prudential): some packages include health check-up benefits — check your policy",
+          "OPD vs IPD: most Thai insurance policies are IPD (in-patient) only — health check-ups are outpatient, so may not be covered",
+          "LTR visa (Long-Term Resident): Thai government requires health insurance with minimum ฿100,000 OPD and ฿1M IPD coverage",
+          "Cashless billing: major Bangkok hospitals have direct billing agreements with most international insurers",
+          "If uninsured: pay out-of-pocket — very affordable compared to home countries",
+        ],
+      },
+      {
+        heading: "Setting up regular health screening as an expat in Thailand",
+        content: "Tips for establishing a sustainable annual check-up routine as a Thailand expat:",
+        list: [
+          "Choose a hospital: select one near your home or with online booking and patient portal for continuity",
+          "Schedule annually: set a fixed date — many expats use their birthday month or visa renewal month",
+          "Build your medical history: keep digital copies of all results — hospitals offer PDF downloads on request",
+          "Register as a long-term patient: hospitals like Bumrungrad and Samitivej have 'patient membership' schemes for better rates",
+          "Bring results home: if you travel back to your home country, bring your results to share with your home GP",
+          "Check-up during 'off-season': avoid peak tourist months (Dec–Feb) when hospitals are busiest",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How much does an annual health check-up cost for expats in Thailand?", a: "A comprehensive annual check-up for expats typically costs ฿5,000–฿15,000 at a reputable private hospital. This covers all essential blood tests, chest X-ray, ECG, ultrasound, and physician consultation. Executive packages with cancer markers cost ฿15,000–฿40,000." },
+      { q: "Do I need health insurance to get a check-up in Thailand?", a: "No — anyone can pay out-of-pocket at Thai private hospitals. Health check-up packages are typically outpatient services that many insurance policies don't cover anyway. Check your policy, but be prepared to pay directly if OPD isn't covered." },
+      { q: "Can I get my prescription medications reviewed during a health check-up?", a: "Yes. Ask for a physician consultation to be included in your package. The doctor can review your current medications, check for interactions with Thai versions (generic brands), and issue Thai prescriptions if needed." },
+      { q: "How do I get my health check-up results in English in Thailand?", a: "All major private hospitals provide results in English as standard for international patients. Some hospitals also offer online patient portals where you can download PDF results. Always ask for an English summary letter for your home GP." },
+    ],
+    relatedLinks: [
+      { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages →" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/guide/what-is-included-checkup", label: "What is included in a health check-up?" },
+    ],
+  },
+  "chiang-mai-health-checkup": {
+    title: "Health Check-Up in Chiang Mai — Hospitals, Prices & Guide (2026)",
+    description: "Complete guide to health check-up packages in Chiang Mai, Thailand. Compare prices at Chiang Mai Ram, Lanna, Bangkok Hospital Chiang Mai and more. From ฿1,800.",
+    intro: "Chiang Mai is Northern Thailand's leading medical hub, with a growing cluster of international-standard private hospitals serving both expats and medical tourists. Health check-up packages here typically cost 20–40% less than Bangkok equivalents, with shorter waiting times and excellent English-language service.",
+    sections: [
+      {
+        heading: "Health check-up prices in Chiang Mai",
+        content: "Prices at Chiang Mai's private hospitals are competitive and transparent. Here is what to expect across package tiers:",
+        list: [
+          "Basic package (CBC, blood glucose, cholesterol, urine): ฿1,800 – ฿4,500",
+          "Standard package (adds chest X-ray, ultrasound, ECG, thyroid): ฿4,500 – ฿12,000",
+          "Executive package (adds cancer markers, specialist consult): ฿12,000 – ฿35,000",
+          "Women's health package (adds Pap smear, mammogram): ฿5,000 – ฿18,000",
+          "Cancer screening package (tumour markers, imaging): ฿8,000 – ฿30,000",
+        ],
+      },
+      {
+        heading: "Best hospitals for health check-ups in Chiang Mai",
+        content: "Chiang Mai has several high-quality private hospitals with dedicated health screening departments for international patients:",
+        list: [
+          "Chiang Mai Ram Hospital — the largest private hospital in Northern Thailand, comprehensive executive programmes, English staff",
+          "Bangkok Hospital Chiang Mai (BDMS) — part of Thailand's largest hospital group, full range of packages, international patient centre",
+          "Lanna Hospital — long-established private hospital, competitive pricing, strong expat community reputation",
+          "Rajavej Chiang Mai Hospital — central location, mid-range pricing, good standard packages",
+          "Nakornping Hospital — government hospital, lower prices for basic check-ups, longer waiting times",
+          "McCormick Hospital — mission hospital with good value packages, friendly to budget travellers",
+        ],
+      },
+      {
+        heading: "How to book a health check-up in Chiang Mai",
+        content: "Most Chiang Mai hospitals allow online and walk-in bookings. Here is what to expect:",
+        list: [
+          "Chiang Mai Ram and Bangkok Hospital CM: book 2–7 days in advance for executive packages",
+          "Lanna and Rajavej: walk-in friendly, but advance booking recommended for mornings",
+          "Fasting required: 8–12 hours before your appointment for blood tests",
+          "Bring: passport, list of medications, any previous results for comparison",
+          "Results: same-day for most blood tests; 1–3 days for imaging reports",
+          "English-language results booklets available at all major hospitals",
+        ],
+      },
+      {
+        heading: "Chiang Mai vs Bangkok: which is better for a health check-up?",
+        content: "Both cities offer excellent health screening. Here is how they compare for medical tourists:",
+        list: [
+          "Price: Chiang Mai 20–40% cheaper than Bangkok for equivalent packages",
+          "Waiting times: shorter at Chiang Mai hospitals — no need to book weeks ahead",
+          "Quality: Bangkok's JCI hospitals (Bumrungrad, Samitivej) are marginally higher tier, but Chiang Mai Ram meets international standards",
+          "Convenience: if you are already visiting Chiang Mai as a tourist, it is ideal to schedule your check-up there",
+          "Language: English excellent at all major Chiang Mai private hospitals",
+          "Getting there: Chiang Mai Airport (CNX) has direct flights from 30+ international destinations",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Which hospital is best for health check-ups in Chiang Mai?", a: "Chiang Mai Ram Hospital and Bangkok Hospital Chiang Mai are the top choices for international patients. Both have English-speaking staff, modern equipment, and comprehensive executive packages from ฿12,000." },
+      { q: "How much is a basic health check-up in Chiang Mai?", a: "A basic health check-up (CBC, blood glucose, cholesterol, urinalysis) starts from ฿1,800 at mid-range hospitals. A comprehensive standard package with chest X-ray and ultrasound typically costs ฿4,500–฿8,000." },
+      { q: "Is Chiang Mai cheaper than Bangkok for health check-ups?", a: "Yes, typically 20–40% cheaper. An executive package that costs ฿30,000 at Bumrungrad Bangkok may cost ฿18,000–฿22,000 at Chiang Mai Ram or Bangkok Hospital Chiang Mai." },
+      { q: "Do Chiang Mai hospitals offer English-language results?", a: "Yes. All major private hospitals in Chiang Mai (Chiang Mai Ram, Bangkok Hospital CM, Lanna) provide results in English with a consultation from an English-speaking physician." },
+    ],
+    relatedLinks: [
+      { href: "/en/city/chiang-mai", label: "All health check-up packages in Chiang Mai →" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/guide/what-is-included-checkup", label: "What is included in a health check-up?" },
+    ],
+  },
+  "phuket-health-checkup": {
+    title: "Health Check-Up in Phuket — Hospitals, Prices & Guide (2026)",
+    description: "Guide to health check-up packages in Phuket, Thailand. Compare prices at Bangkok Hospital Phuket, Siriroj, Mission Hospital and more. Packages from ฿1,900.",
+    intro: "Phuket is Thailand's premier island destination and a growing medical tourism hub. The island has several modern private hospitals catering to international tourists and expats, with health screening packages available year-round. Combining a beach holiday with a health check-up is increasingly popular — Phuket's hospitals are well-equipped for this.",
+    sections: [
+      {
+        heading: "Health check-up prices in Phuket",
+        content: "Phuket's private hospitals offer competitive pricing for health screening across all tiers:",
+        list: [
+          "Basic package (CBC, blood glucose, cholesterol, urinalysis): ฿1,900 – ฿5,000",
+          "Standard package (adds chest X-ray, abdominal ultrasound, ECG): ฿5,000 – ฿15,000",
+          "Executive package (adds cancer markers, full specialist consultation): ฿15,000 – ฿40,000",
+          "Women's health (Pap smear, breast ultrasound or mammogram): ฿5,500 – ฿20,000",
+          "Cancer screening add-on: ฿8,000 – ฿28,000",
+        ],
+      },
+      {
+        heading: "Best hospitals for health check-ups in Phuket",
+        content: "Phuket has a well-developed private hospital sector with strong international patient services:",
+        list: [
+          "Bangkok Hospital Phuket (BDMS) — largest private hospital in southern Thailand, most comprehensive package range, dedicated health check-up centre",
+          "Phuket International Hospital (PIH) — long-established international hospital, competitive pricing, 3 locations in Phuket",
+          "Siriroj Hospital (Thalang) — new modern facility north of Patong, good value executive packages",
+          "Mission Hospital Phuket — central location in Phuket Town, mid-range packages, friendly to long-stay visitors",
+          "Vachira Phuket Hospital — government hospital, very low prices for basic check-ups, primarily serves locals",
+          "Dibuk Hospital — compact private hospital near Patong, convenient for tourists in the Patong/Kata area",
+        ],
+      },
+      {
+        heading: "Planning your Phuket health check-up",
+        content: "Tips for combining a Phuket visit with a health check-up:",
+        list: [
+          "Best time to book: early in your trip — you get your results before you leave",
+          "Book in advance: Bangkok Hospital Phuket executive packages fill up 3–5 days ahead in peak season (Dec–Mar)",
+          "Location: Patong area is most convenient for most tourists; Phuket Town has the most hospital options",
+          "Fasting: schedule an early morning appointment to minimise fasting disruption during your holiday",
+          "Results: most blood results same-day; ask for PDF copy to share with your home doctor",
+          "Cost vs Bangkok: comparable for basic/standard; executive packages can be 10–20% pricier due to island logistics",
+        ],
+      },
+      {
+        heading: "What to expect at a Phuket hospital",
+        content: "Phuket's private hospitals are well-prepared for international patients:",
+        list: [
+          "Language: English at all major hospitals; Bangkok Hospital Phuket has staff speaking Chinese, Russian, German",
+          "Payment: all major credit/debit cards, USD, EUR, and THB accepted",
+          "Insurance: Bangkok Hospital Phuket and PIH accept major international insurers (AXA, Allianz, Cigna, Bupa)",
+          "Dress code: light comfortable clothing; bring a light layer as Thai hospitals are air-conditioned",
+          "Transport: all major hospitals provide shuttle services from major Phuket hotels on request",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Which hospital is best for health check-ups in Phuket?", a: "Bangkok Hospital Phuket (BDMS) is the most comprehensive option with the widest range of packages. Phuket International Hospital is a good value alternative. Both have English-speaking staff and international patient centres." },
+      { q: "How much is a health check-up in Phuket?", a: "Basic packages start from ฿1,900. Standard packages with X-ray and ultrasound cost ฿5,000–฿12,000. Executive packages range from ฿15,000–฿40,000. Use the compare tool above to see current prices." },
+      { q: "Can I get a health check-up while on holiday in Phuket?", a: "Yes — this is increasingly common. Schedule an early morning appointment (most check-ups start 7–8am) on day 2 or 3 of your trip. Basic results are ready same-day and you can continue your holiday as normal." },
+      { q: "Is Phuket or Bangkok better for a health check-up?", a: "Bangkok offers more hospitals and the JCI-accredited flagships (Bumrungrad, Samitivej). But if you are already visiting Phuket, Bangkok Hospital Phuket offers excellent quality at competitive prices without needing a separate trip to Bangkok." },
+    ],
+    relatedLinks: [
+      { href: "/en/city/phuket", label: "All health check-up packages in Phuket →" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening guide" },
+    ],
+  },
   "cardiac-health-checkup-bangkok": {
     title: "Cardiac Health Check-Up in Bangkok — Tests, Costs & Best Hospitals (2026)",
     description: "Complete guide to cardiac screening packages in Bangkok. ECG, stress test, echocardiogram, coronary CT — what's included and which hospitals offer the best value.",
@@ -504,6 +777,727 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/hospital/bumrungrad", label: "Bumrungrad cardiac packages" },
     ],
   },
+  "pattaya-health-checkup": {
+    title: "Health Check-Up in Pattaya — Hospitals, Prices & Guide (2026)",
+    description: "Guide to health check-up packages in Pattaya, Thailand. Compare prices at Bangkok Pattaya Hospital, Pattaya International and more. Packages from ฿1,990.",
+    intro: "Pattaya is one of Thailand's most visited cities and has a mature private hospital sector serving a large expat community and medical tourists. Several international-standard hospitals offer health screening packages at prices well below Bangkok, with English-speaking staff and direct insurance billing.",
+    sections: [
+      {
+        heading: "Health check-up prices in Pattaya",
+        content: "Pattaya hospitals offer competitive pricing across all screening tiers:",
+        list: [
+          "Basic package (CBC, blood glucose, cholesterol, urinalysis): ฿1,990 – ฿4,500",
+          "Standard package (adds chest X-ray, ultrasound, ECG): ฿4,500 – ฿12,000",
+          "Executive package (adds cancer markers, specialist consult): ฿12,000 – ฿35,000",
+          "Women's health package (adds Pap smear, breast ultrasound): ฿6,000 – ฿18,000",
+          "Senior package (60+, adds bone density, PSA/ovarian markers): ฿9,000 – ฿25,000",
+        ],
+      },
+      {
+        heading: "Best hospitals for health check-ups in Pattaya",
+        content: "Pattaya has several modern private hospitals with dedicated health screening programmes:",
+        list: [
+          "Bangkok Pattaya Hospital (BDMS) — largest hospital in the Eastern Seaboard, most comprehensive packages, JCI certified",
+          "Pattaya International Hospital — popular with European expats, English service, competitive mid-range packages",
+          "Phyathai Sriracha Hospital — JCI accredited, slightly south of Pattaya, excellent executive range",
+          "Bangkok Hospital Chonburi — BDMS group, modern facility, good for day-trip check-ups from Pattaya",
+          "Chonburi Hospital — government hospital, very low prices for basic check-ups, longer waiting times",
+        ],
+      },
+      {
+        heading: "What to expect at a Pattaya hospital",
+        content: "Pattaya hospitals are well-adapted to serve international patients:",
+        list: [
+          "Languages: English at all private hospitals; Bangkok Pattaya Hospital also has Russian, German, and Scandinavian-speaking staff",
+          "Location: most hospitals are on Sukhumvit Road (Highway 3) — 15–30 minutes from central Pattaya",
+          "Timing: book early morning (7–8am) to minimise fasting time during your day",
+          "Insurance: Bangkok Pattaya Hospital accepts most major international insurers",
+          "Results: same-day for blood tests; 1–2 days for imaging and specialist reports",
+          "Follow-up: most Pattaya hospitals offer teleconsultation for international patients",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Which hospital is best for health check-ups in Pattaya?", a: "Bangkok Pattaya Hospital (BDMS) is the most comprehensive option and best for executive packages. For mid-range packages, Pattaya International Hospital offers good value with English-speaking staff." },
+      { q: "How much is a health check-up in Pattaya?", a: "Basic check-ups start from ฿1,990. A comprehensive standard package with X-ray and ultrasound costs ฿4,500–฿9,000. Executive packages with cancer markers and specialist consultation run ฿12,000–฿35,000." },
+      { q: "Is Pattaya cheaper than Bangkok for health check-ups?", a: "Yes, typically 15–30% cheaper than equivalent packages at Bangkok's premium hospitals. Bangkok Pattaya Hospital (BDMS) charges similar to Bangkok mid-tier hospitals." },
+    ],
+    relatedLinks: [
+      { href: "/en/city/pattaya", label: "All health check-up packages in Pattaya →" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/guide/senior-health-checkup-thailand", label: "Senior health check-up guide" },
+    ],
+  },
+  "hua-hin-health-checkup": {
+    title: "Health Check-Up in Hua Hin — Hospitals, Prices & Guide (2026)",
+    description: "Guide to health check-up packages in Hua Hin, Thailand. Compare Bangkok Hospital Hua Hin, San Paulo Hospital and more. Expat-friendly packages from ฿2,000.",
+    intro: "Hua Hin is Thailand's most popular expat retirement destination, with a growing cluster of quality private hospitals. The city's medical facilities have expanded significantly in recent years to serve a large international community. Health check-ups here offer Bangkok-quality care at better prices with a relaxed beach-town atmosphere.",
+    sections: [
+      {
+        heading: "Health check-up prices in Hua Hin",
+        content: "Hua Hin's private hospitals offer competitive pricing with a focus on expat patients:",
+        list: [
+          "Basic package: ฿2,000 – ฿5,000",
+          "Standard package (adds chest X-ray, ultrasound, ECG, thyroid): ฿5,000 – ฿13,000",
+          "Executive package (adds cancer markers, specialist consult): ฿13,000 – ฿38,000",
+          "Women's health (adds Pap smear, mammogram or breast ultrasound): ฿6,000 – ฿18,000",
+          "Heart health package (ECG, echocardiogram, cardiac markers): ฿8,000 – ฿25,000",
+        ],
+      },
+      {
+        heading: "Best hospitals for health check-ups in Hua Hin",
+        content: "Hua Hin has a small but well-equipped private hospital sector:",
+        list: [
+          "Bangkok Hospital Hua Hin (BDMS) — part of Thailand's largest hospital group, full executive range, English-speaking staff",
+          "San Paulo Hospital Hua Hin — central location, good value mid-range packages, popular with European expats",
+          "Hua Hin Hospital — government hospital, very affordable basic check-ups but limited English",
+          "Vichaivej Hospital Hua Hin — mid-range private hospital, good standard and executive packages",
+        ],
+      },
+      {
+        heading: "Hua Hin as a health check-up destination for retirees",
+        content: "Hua Hin is particularly well-suited for expat retirees who want regular health monitoring:",
+        list: [
+          "Continuity of care: Bangkok Hospital Hua Hin has a GP service and long-term patient records",
+          "Annual check-up routine: many expats use their birthday or Thai new year (April) as their annual check-up trigger",
+          "Medical tourism package deals: some Hua Hin resorts offer health check-up + accommodation packages",
+          "Proximity to Bangkok: 200km south of Bangkok — easy access to major Bangkok hospitals if specialist referral needed",
+          "Senior packages: Bangkok Hospital Hua Hin and San Paulo both have dedicated 60+ packages with bone density and cognitive screening",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Which hospital is best for health check-ups in Hua Hin?", a: "Bangkok Hospital Hua Hin is the most comprehensive option with the widest package range. For budget-conscious patients, San Paulo Hospital offers good value standard packages." },
+      { q: "Is Hua Hin good for expat health check-ups?", a: "Yes — Hua Hin is one of the best cities outside Bangkok for expat health care. Bangkok Hospital Hua Hin offers continuity of care, GP services, and comprehensive annual health screening packages specifically designed for long-term residents." },
+      { q: "How far is Hua Hin from Bangkok for medical trips?", a: "Hua Hin is approximately 200km south of Bangkok — a 3-hour drive or 4-hour minibus journey. Many expats combine their Bangkok visit with a Hua Hin health check-up, or use Hua Hin hospitals exclusively for their annual screening." },
+    ],
+    relatedLinks: [
+      { href: "/en/city/hua-hin", label: "All health check-up packages in Hua Hin →" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/guide/senior-health-checkup-thailand", label: "Senior health check-up guide" },
+    ],
+  },
+  "khon-kaen-health-checkup": {
+    title: "Khon Kaen Health Check-Up Guide — Northeast Thailand (2026)",
+    description: "Get a health check-up in Khon Kaen: best hospitals, prices, packages, and tips for medical tourists visiting Isan's capital.",
+    intro: "Khon Kaen is Northeast Thailand's medical and educational hub, home to Khon Kaen University Hospital and several BDMS-network private hospitals. For medical tourists from Laos, Myanmar, and domestic visitors, it offers quality health screenings at prices 20–40% lower than Bangkok.",
+    sections: [
+      { heading: "Health check-up costs in Khon Kaen", content: "Prices at private hospitals in Khon Kaen range from ฿1,500 for basic screens to ฿30,000 for full executive packages. Public hospital options (Khon Kaen University Hospital, Srinagarind Hospital) offer high quality at government pricing.", list: ["Basic: ฿1,500 – ฿4,500", "Standard: ฿4,000 – ฿9,000", "Executive: ฿9,000 – ฿25,000", "Senior (60+): ฿13,000 – ฿22,000"] },
+      { heading: "Best hospitals in Khon Kaen for health check-ups", content: "Bangkok Hospital Khon Kaen is the top private option with English-language services and Lao interpretation. Khon Kaen Ram Hospital offers comparable quality with slightly lower prices. For budget screening, Khon Kaen University Hospital's Srinagarind Hospital is internationally respected.", list: ["Bangkok Hospital Khon Kaen – full English services", "Khon Kaen Ram Hospital – competitive pricing", "KKU Srinagarind Hospital – academic excellence"] },
+      { heading: "Getting to Khon Kaen", content: "Khon Kaen Airport has daily flights from Bangkok (55 min). The city is also accessible by bus (7–8 hrs) or the Nong Khai express train (9 hrs). Most hospitals offer pick-up services from the airport." },
+    ],
+    faqs: [
+      { q: "Do Khon Kaen hospitals speak English?", a: "Bangkok Hospital Khon Kaen has English-speaking staff available daily. Other private hospitals have at least one English coordinator on duty. University hospitals have lower English proficiency but can arrange interpreters." },
+      { q: "Can I combine a Khon Kaen health check-up with a trip to the Mekong?", a: "Yes. Khon Kaen is within 2 hours of Nong Khai (Mekong riverside), making it easy to combine a morning check-up with an afternoon excursion across to Vientiane, Laos." },
+    ],
+    relatedLinks: [{ href: "/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" }, { href: "/city/khon-kaen", label: "Compare packages in Khon Kaen" }],
+  },
+  "udon-thani-health-checkup": {
+    title: "Udon Thani Health Check-Up Guide — Northern Isan (2026)",
+    description: "Health check-up in Udon Thani: hospitals, prices, and tips for expats, retirees, and medical tourists visiting Northern Isan.",
+    intro: "Udon Thani is home to a large expat retiree community and sits close to the Laos border, making it a convenient health check-up destination for both foreign residents and cross-border visitors from Vientiane. The city has several well-equipped private hospitals at affordable prices.",
+    sections: [
+      { heading: "Health check-up costs in Udon Thani", content: "Private hospital check-up packages in Udon Thani range from ฿1,800 to ฿28,000. Bangkok Hospital Udon Thani is the premium option with English services; AEK Udon International and Ram Udon offer lower-priced alternatives.", list: ["Basic: ฿1,800 – ฿4,000", "Standard: ฿4,500 – ฿9,000", "Executive: ฿10,000 – ฿22,000", "Senior: ฿14,000 – ฿25,000"] },
+      { heading: "Best hospitals in Udon Thani", content: "Bangkok Hospital Udon Thani has the strongest English-language capability and digital result delivery. For budget-conscious visitors, Udon Thani Ram Hospital offers standard packages starting from ฿2,500 with same-day results.", list: ["Bangkok Hospital Udon Thani – expat-friendly, English staff", "Udon Thani Ram Hospital – affordable, same-day results", "AEK Udon International – popular with Lao cross-border patients"] },
+    ],
+    faqs: [
+      { q: "Is Udon Thani convenient for Laos visitors to get a health check-up?", a: "Yes. Udon Thani is only 55 km from the Nong Khai–Vientiane Friendship Bridge. Many Lao residents cross the border for medical care, and Bangkok Hospital Udon Thani has Lao-speaking coordinators." },
+      { q: "How long does a check-up take in Udon Thani?", a: "Basic packages take 2–3 hours. Standard and executive packages typically take half a day (4–6 hours) and results are ready within 24 hours." },
+    ],
+    relatedLinks: [{ href: "/guide/senior-health-checkup-thailand", label: "Senior health check-up guide" }, { href: "/city/udon-thani", label: "Compare packages in Udon Thani" }],
+  },
+  "korat-health-checkup": {
+    title: "Korat (Nakhon Ratchasima) Health Check-Up Guide (2026)",
+    description: "Health check-ups in Korat, Northeast Thailand's largest city: hospitals, packages, prices, and practical tips.",
+    intro: "Korat (Nakhon Ratchasima) is Thailand's second-largest city by area and the economic gateway to the Northeast. With several well-equipped private hospitals and significantly lower prices than Bangkok, it's an attractive option for residents of the surrounding region and those coming from Khao Yai.",
+    sections: [
+      { heading: "Health check-up prices in Korat", content: "Packages range from ฿1,500 (basic) to ฿30,000 (full executive with cardiac workup). Bangkok Hospital Ratchasima is the premium option; Maharaj Nakhon Ratchasima (government) offers affordable university-affiliated care.", list: ["Basic: ฿1,500 – ฿4,000", "Standard: ฿4,000 – ฿9,000", "Executive: ฿9,000 – ฿26,000", "Senior: ฿13,000 – ฿22,000"] },
+      { heading: "Top hospitals in Korat", content: "Bangkok Hospital Ratchasima is the flagship private hospital serving corporate clients and expats in Korat's industrial zones. It offers check-up packages tailored to factory workers including occupational health assessments.", list: ["Bangkok Hospital Ratchasima – JCI-standard private care", "Korat Ram Hospital – established private hospital", "Maharaj Nakhon Ratchasima – affordable university hospital"] },
+    ],
+    faqs: [
+      { q: "Can I get an English-language health check-up in Korat?", a: "Bangkok Hospital Ratchasima has English-speaking staff and provides results in English. Other private hospitals have limited English but can arrange interpreters on request." },
+      { q: "Is Korat worth visiting for a health check-up over Bangkok?", a: "If you're staying in Korat or visiting Khao Yai National Park, absolutely. Prices are 20–30% lower than Bangkok and wait times are shorter. The journey from Bangkok is only 2.5 hours by road." },
+    ],
+    relatedLinks: [{ href: "/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" }, { href: "/city/korat", label: "Compare packages in Korat" }],
+  },
+  "hat-yai-health-checkup": {
+    title: "Hat Yai Health Check-Up Guide — Southern Thailand (2026)",
+    description: "Health check-up in Hat Yai: best hospitals, prices, and tips for Malaysian and Singaporean medical tourists visiting Southern Thailand.",
+    intro: "Hat Yai is Southern Thailand's largest city and a major medical tourism hub driven by Malaysian and Singaporean cross-border visitors seeking lower-cost private hospital care. Thai private hospitals in Hat Yai offer prices 30–60% below comparable Malaysian private hospitals, with English and Malay staff available.",
+    sections: [
+      { heading: "Why Malaysian visitors choose Hat Yai for health check-ups", content: "The Padang Besar or Sadao border crossings make Hat Yai easily accessible from Northern Malaysia. Bangkok Hospital Hat Yai actively targets Malaysian patients with Malay-language staff, MyCC payment acceptance, and hotel partnerships.", list: ["30–60% savings vs Malaysian private hospitals", "Malay-speaking staff at major hospitals", "JCI-level standards at Bangkok Hospital Hat Yai", "Same-day results for most packages"] },
+      { heading: "Health check-up costs in Hat Yai", content: "Prices range from ฿1,800 for a basic panel to ฿35,000 for a full executive package. Bangkok Hospital Hat Yai is the premium option; Hatyai Hospital and Hat Yai Ram offer more affordable alternatives.", list: ["Basic: ฿1,800 – ฿5,000", "Standard: ฿5,000 – ฿12,000", "Executive: ฿12,000 – ฿32,000", "Senior: ฿15,000 – ฿30,000"] },
+    ],
+    faqs: [
+      { q: "Do Hat Yai hospitals accept Malaysian ringgit?", a: "Most Hat Yai hospitals accept credit cards and some have arrangements for MYR acceptance or currency exchange on-site. Bangkok Hospital Hat Yai is most experienced with Malaysian patients." },
+      { q: "What's the best way to travel from Penang to Hat Yai for a health check-up?", a: "The train from Butterworth (Penang) to Hat Yai takes about 4 hours. Buses run from Penang and KL directly to Hat Yai. Several tour operators offer Hat Yai medical tourism day trips with transport included." },
+    ],
+    relatedLinks: [{ href: "/guide/health-checkup-expats-thailand", label: "Guide for expats in Thailand" }, { href: "/city/hat-yai", label: "Compare packages in Hat Yai" }],
+  },
+  "koh-samui-health-checkup": {
+    title: "Koh Samui Health Check-Up Guide — Thailand Island (2026)",
+    description: "Health check-up on Koh Samui: hospitals, packages, prices, and practical tips for island residents, tourists, and expats.",
+    intro: "Koh Samui has two international-grade private hospitals — Samui International Hospital (SIH) and Bangkok Hospital Samui — both offering health check-up packages for tourists, expats, and island residents. Getting a check-up on Samui eliminates the need to travel to the mainland for routine screening.",
+    sections: [
+      { heading: "Health check-up costs on Koh Samui", content: "Prices on Samui are 10–20% higher than equivalent packages in Chiang Mai or Bangkok due to island operating costs. However, they remain far below Western pricing. Basic packages start at ฿2,500.", list: ["Basic: ฿2,500 – ฿6,000", "Standard: ฿6,000 – ฿14,000", "Executive: ฿14,000 – ฿32,000", "Senior: ฿15,000 – ฿28,000", "Heart screening: ฿18,000 – ฿30,000"] },
+      { heading: "Samui International Hospital vs Bangkok Hospital Samui", content: "SIH (established 1996) is larger with 60 beds and offers hyperbaric oxygen therapy unavailable elsewhere on the island. Bangkok Hospital Samui (opened 2008) leverages the BDMS network for air ambulance transfer and specialist referrals to Bangkok. Both offer English and multilingual services.", list: ["SIH: larger facility, hyperbaric chamber, longer track record", "BH Samui: BDMS network, air ambulance, digital health records"] },
+    ],
+    faqs: [
+      { q: "Can I get a health check-up during a holiday on Koh Samui?", a: "Yes. Both hospitals offer same-day appointments and half-day package completion. An executive check-up starts at 7 AM and results are ready by early afternoon, leaving the rest of the day free." },
+      { q: "What if something serious is found during a Koh Samui check-up?", a: "Bangkok Hospital Samui has a direct air ambulance to Bangkok Hospital (BH Samui). SIH can also arrange medical evacuation. Both hospitals have telehealth connections to specialists in Bangkok for immediate consultation." },
+    ],
+    relatedLinks: [{ href: "/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" }, { href: "/city/ko-samui", label: "Compare packages on Koh Samui" }],
+  },
+  "krabi-health-checkup": {
+    title: "Krabi Health Check-Up Guide — Andaman Coast (2026)",
+    description: "Health check-ups in Krabi: available hospitals, packages, prices, and tips for tourists and expats on the Andaman coast.",
+    intro: "Krabi is a smaller hospital market than Phuket, but offers basic to standard health check-up services at its private hospitals. For comprehensive executive packages, Phuket (90 min by road) remains the recommended destination. Krabi is suitable for basic and standard annual health screening for island residents.",
+    sections: [
+      { heading: "Health check-up options in Krabi", content: "Krabi has two main private hospitals: Krabi Nakharin International Hospital and Krabi Hospital (government). For executive packages or specialist referrals, most expats travel to Phuket or use Bangkok Hospital Krabi for coordination.", list: ["Basic packages: ฿1,800 – ฿4,500", "Standard packages: ฿4,500 – ฿9,000", "Executive (Phuket recommended): ฿10,000 – ฿30,000"] },
+      { heading: "When to go to Phuket instead", content: "If you need cardiac stress testing (treadmill), advanced imaging (CT/MRI), specialist consultations, or comprehensive cancer screening, Bangkok Hospital Phuket or Phuket International Hospital is strongly recommended. The 90-minute drive is worthwhile for the superior facilities." },
+    ],
+    faqs: [
+      { q: "Is there a JCI-accredited hospital in Krabi?", a: "No. The nearest JCI-accredited hospital is Bangkok Hospital Phuket (about 90 minutes by road or 45 minutes by speedboat to Phuket Town)." },
+      { q: "Can English-speaking tourists get health check-ups in Krabi?", a: "Yes. Krabi Nakharin International Hospital has English-speaking staff and caters to Krabi's large tourist population. Results are available in English within 24 hours." },
+    ],
+    relatedLinks: [{ href: "/guide/phuket-health-checkup", label: "Phuket health check-up guide" }, { href: "/city/krabi", label: "Compare packages in Krabi" }],
+  },
+  "diabetes-screening-thailand": {
+    title: "Diabetes & Blood Sugar Screening in Thailand — Complete Guide (2026)",
+    description: "Compare diabetes screening packages at Thai hospitals: HbA1c, OGTT, fasting glucose tests. Prices from ฿3,500. Bangkok, Phuket, Chiang Mai.",
+    intro: "Thailand has one of Asia's highest rates of type 2 diabetes, with an estimated 4.8 million adults living with the condition. Early screening is critical — prediabetes is reversible, but undetected T2DM leads to kidney failure, neuropathy, and cardiovascular disease. Thai hospitals offer comprehensive metabolic screening at a fraction of Western costs.",
+    sections: [
+      { heading: "What's included in a Thai diabetes screening package?", content: "A comprehensive diabetes panel at a Thai hospital typically includes:", list: ["Fasting plasma glucose (FPG)", "HbA1c (3-month blood sugar average)", "2-hour oral glucose tolerance test (OGTT)", "Fasting insulin + HOMA-IR (insulin resistance score)", "Lipid panel (LDL/HDL/triglycerides)", "Kidney function: creatinine, eGFR, microalbumin", "Liver enzymes (fatty liver is common with T2DM)", "Urine albumin-to-creatinine ratio (ACR)"] },
+      { heading: "How much does diabetes screening cost in Thailand?", content: "Standalone diabetes screening packages cost ฿3,500–฿9,000 depending on the hospital and tests included. Many patients combine diabetes screening with an annual health check-up package for better value.", list: ["Basic (FPG + HbA1c only): ฿800 – ฿2,000", "Comprehensive metabolic panel: ฿3,500 – ฿6,500", "Full diabetes + kidney + liver screen: ฿6,000 – ฿9,000"] },
+      { heading: "Best hospitals for diabetes screening in Thailand", content: "All JCI-accredited hospitals offer ISO 15189-certified labs, meaning your results are internationally standardised. Bumrungrad's endocrinology department is Thailand's largest; Ramathibodi (Mahidol) is the academic standard.", list: ["Bumrungrad International – largest endocrinology team", "Ramathibodi Hospital – research-grade academic lab", "Bangkok Hospital – BDMS network, all cities", "Chiang Mai Ram – Northern Thailand's best endocrinology"] },
+    ],
+    faqs: [
+      { q: "What's the difference between fasting glucose and HbA1c?", a: "Fasting glucose (FPG) shows your blood sugar at one point in time. HbA1c reflects your average blood sugar over the past 3 months. Both are needed for a complete diabetes assessment — a normal FPG with a high HbA1c can reveal undiagnosed diabetes." },
+      { q: "Do I need to fast before a diabetes screening in Thailand?", a: "Yes, for a complete panel you need 8–12 hours of fasting (water only). The 2-hour OGTT also requires fasting. Schedule your appointment for early morning to make fasting convenient." },
+    ],
+    relatedLinks: [{ href: "/checkup/diabetes", label: "Compare diabetes screening packages" }, { href: "/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" }],
+  },
+  "heart-screening-thailand": {
+    title: "Heart & Cardiac Screening in Thailand — Complete Guide (2026)",
+    description: "Cardiac health check-ups in Thailand: ECG, echocardiogram, treadmill stress test, and full cardiac screening packages. Compare prices from ฿8,000.",
+    intro: "Cardiovascular disease is the leading cause of death in Thailand and globally. A comprehensive cardiac screening can detect coronary artery disease, arrhythmias, and heart failure risk years before symptoms appear. Thai hospitals offer world-class cardiac screening — JCI-accredited facilities at 20–50% of US or European costs.",
+    sections: [
+      { heading: "What's included in a Thai cardiac screening package?", content: "A full cardiac health check-up at a Thai hospital typically includes:", list: ["12-lead ECG (resting electrocardiogram)", "Echocardiogram (2D echo — ultrasound of the heart)", "Exercise stress test (treadmill/EST)", "Lipid panel: LDL, HDL, total cholesterol, triglycerides", "High-sensitivity CRP (hsCRP — inflammation marker)", "NT-proBNP (heart failure marker)", "HbA1c and fasting glucose", "Chest X-ray", "Cardiologist consultation with written report"] },
+      { heading: "Cardiac screening prices in Thailand", content: "Basic ECG-only packages start at ฿800; comprehensive cardiac programmes with echo and treadmill cost ฿12,000–฿45,000.", list: ["ECG only: ฿800 – ฿1,500", "ECG + echo: ฿5,000 – ฿12,000", "Full cardiac (echo + treadmill + labs): ฿12,000 – ฿35,000", "Advanced (+ calcium score CT): ฿25,000 – ฿55,000"] },
+      { heading: "Best cardiac hospitals in Thailand", content: "Bangkok Hospital's Heart Centre is Thailand's largest cardiac programme. Samitivej Sukhumvit has the shortest wait times for elective cardiac checks. In Chiang Mai, Chiang Mai Ram Hospital runs the region's most advanced cardiac catheterisation lab.", list: ["Bangkok Hospital Heart Centre – Thailand's largest", "Vejthani Hospital – orthopaedic + cardiac combo packages", "Chiang Mai Ram – Northern Thailand cardiac leader", "Bangkok Pattaya Hospital – Eastern Seaboard's best"] },
+    ],
+    faqs: [
+      { q: "Who should get a cardiac screening in Thailand?", a: "Anyone over 40, with a family history of heart disease, hypertension, diabetes, high cholesterol, obesity, or a history of smoking should consider an annual cardiac screening. Younger patients with multiple risk factors should start at 35." },
+      { q: "Is a treadmill stress test safe?", a: "Yes, when performed under a cardiologist's supervision with emergency equipment available, a treadmill stress test is very safe. Thai hospitals follow ACC/AHA protocols and halt the test immediately if any concerning signs appear." },
+    ],
+    relatedLinks: [{ href: "/checkup/heart", label: "Compare heart screening packages" }, { href: "/checkup/cardiac", label: "Compare cardiac packages" }, { href: "/guide/senior-health-checkup-thailand", label: "Senior check-up guide" }],
+  },
+
+  "medical-visa-thailand": {
+    title: "Medical Visa for Thailand — Complete Guide (2026)",
+    description: "How to get a medical visa to visit Thailand for a health check-up or treatment. Requirements, documents, costs, and step-by-step process from the Thai embassy.",
+    intro: "Thailand issues a Medical Treatment Visa (Non-Immigrant O-A or Non-Immigrant MED) for foreigners who wish to enter for medical purposes. For a standard health check-up that completes within 30 days, most tourists use a Tourist Visa or Visa Exemption — no medical visa required. A dedicated medical visa is relevant for longer treatment, surgery, or extended hospital stays.",
+    sections: [
+      {
+        heading: "Do I need a medical visa for a health check-up in Thailand?",
+        content: "For most medical tourists visiting Thailand for a health check-up, no special visa is needed:",
+        list: [
+          "Tourist Visa or Visa Exemption: covers stays up to 30 days (or 60 days for many nationalities) — sufficient for most health check-ups",
+          "Visa exemption: 93 nationalities can enter Thailand visa-free for 30–60 days — this covers virtually all medical check-up visits",
+          "Non-Immigrant O-A (Medical): required only for stays exceeding 60 days, surgery, or in-patient hospital care",
+          "SMART Visa for medical: a new category for medical tourism hub investors — not applicable for individual check-ups",
+        ],
+      },
+      {
+        heading: "Who needs a Medical Visa (Non-Immigrant MED)?",
+        content: "You should apply for a formal medical visa if your visit involves:",
+        list: [
+          "Treatment or recovery requiring more than 60 days in Thailand",
+          "Major surgery with extended hospitalisation",
+          "Repeated treatment cycles (e.g. chemotherapy, dialysis)",
+          "Accompanying a patient for an extended stay",
+          "Your home country requires proof of medical visa for insurance reimbursement",
+        ],
+      },
+      {
+        heading: "Medical visa requirements and documents",
+        content: "To apply for a Thai Medical Treatment Visa (Non-Immigrant O-A Medical), you typically need:",
+        list: [
+          "Valid passport (minimum 6 months validity beyond intended stay)",
+          "Medical letter from a Thai hospital confirming treatment plan and estimated duration",
+          "Letter from your treating doctor in your home country (if relevant)",
+          "Proof of funds: bank statement showing sufficient funds for treatment and stay",
+          "Application form from the Thai Embassy or Consulate",
+          "Passport-size photos (typically 2)",
+          "Visa fee: varies by country, typically USD 80–200 (single entry) or USD 200–500 (multiple entry)",
+          "Medical insurance: some embassies require proof of insurance with THB 40,000 OPD/THB 400,000 IPD minimums",
+        ],
+      },
+      {
+        heading: "Step-by-step: applying for a Thai medical visa",
+        content: "Follow these steps to obtain a Thai medical visa from your home country:",
+        list: [
+          "Step 1: Contact your chosen Thai hospital and request an official invitation/confirmation letter for the visa application",
+          "Step 2: Download the Non-Immigrant Visa application form from the Thai Embassy or Consulate website in your country",
+          "Step 3: Gather all required documents: passport, photos, medical letter, bank statement, insurance proof",
+          "Step 4: Submit in person at the Thai Embassy or Consulate, or via authorised visa agent (processing: 3–5 business days)",
+          "Step 5: Upon arrival in Thailand, present your medical visa at immigration — you will be admitted for 90 days",
+          "Step 6: For extended stays, your hospital can assist with a 90-day extension at the Immigration Bureau (THB 1,900 fee)",
+        ],
+      },
+      {
+        heading: "Health check-up visits: visa exemption is sufficient",
+        content: "The vast majority of medical tourists visiting Thailand for a health check-up do not need a medical visa. Key facts:",
+        list: [
+          "EU citizens: visa-free entry up to 30 days (60 days with a Tourist Visa)",
+          "US citizens: visa-free entry up to 60 days (from June 2024 update)",
+          "UK citizens: visa-free entry up to 30 days",
+          "Australian citizens: visa-free entry up to 60 days",
+          "Japanese citizens: visa-free entry up to 30 days",
+          "All health check-up packages at Thai hospitals complete within 1–5 days",
+          "If you need more time to recover from any minor procedure, Tourist Visa (60 days) is sufficient",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I get a health check-up in Thailand on a tourist visa?", a: "Yes — and this is what the vast majority of medical tourists do. Thailand's visa exemption policy allows most nationalities to enter for 30–60 days without a visa, which is more than enough for any health check-up package (which typically takes 1 day)." },
+      { q: "Does Thailand have a special medical tourist visa?", a: "Thailand has a Non-Immigrant MED visa and the SMART Visa (medical category) for healthcare investors, but there is no special 'medical tourist visa' for short-stay check-up visitors. Regular visa exemption or a Tourist Visa covers all standard health screening visits." },
+      { q: "Will my travel insurance cover a health check-up in Thailand?", a: "Most travel insurance policies do not cover elective health check-ups — these are considered routine preventive care. However, if any condition is discovered during the check-up and requires treatment, that may be covered as a medical emergency. Check your policy's wording carefully." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/guide/health-insurance-thailand", label: "Health insurance in Thailand" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+    ],
+  },
+
+  "health-insurance-thailand": {
+    title: "Health Insurance in Thailand for Medical Tourists & Expats (2026)",
+    description: "Which insurance plans cover health check-ups in Thailand? AXA, Cigna, BUPA international plans compared. Does your policy pay for Thai hospital care?",
+    intro: "Health insurance for Thailand falls into three categories: international health insurance (covers everything worldwide including Thailand), travel insurance (covers emergencies only), and domestic Thai health insurance (for residents). Understanding which type you have — and what it covers — determines how much you'll pay out of pocket for a health check-up.",
+    sections: [
+      {
+        heading: "Does travel insurance cover health check-ups in Thailand?",
+        content: "Standard travel insurance does NOT cover elective health check-ups in Thailand. Key distinctions:",
+        list: [
+          "Travel insurance: covers medical emergencies and accidents — not preventive or elective care",
+          "Routine health screening: classified as preventive care — excluded from virtually all travel insurance policies",
+          "Emergency treatment: if a serious condition is found during your check-up (e.g. acute cardiac event), emergency treatment MAY be covered",
+          "Pre-existing conditions: most travel insurance excludes treatment of known pre-existing conditions",
+          "Bottom line: expect to pay for your health check-up out-of-pocket and claim only if an emergency arises",
+        ],
+      },
+      {
+        heading: "International health insurance plans that cover Thai hospitals",
+        content: "If you hold an international health insurance plan, health check-ups may be partially or fully covered. Major providers with good Thailand coverage:",
+        list: [
+          "AXA — Global Health Elite: comprehensive outpatient coverage including check-ups, good direct billing at Bumrungrad, Samitivej",
+          "Cigna Global Health: strong Southeast Asia network, preventive care add-ons available",
+          "BUPA International: good Bangkok network, routine check-up coverage available on premium plans",
+          "Now Health International: strong direct billing network at JCI hospitals in Bangkok",
+          "Pacific Cross: popular with expats in Thailand, covers health check-ups as routine OPD",
+          "Allianz Care: international corporate plans with check-up coverage",
+        ],
+      },
+      {
+        heading: "Direct billing at Thai hospitals",
+        content: "Many major Thai hospitals have direct billing agreements with international insurers, meaning you don't pay upfront:",
+        list: [
+          "Bumrungrad International: direct billing with 500+ insurance companies worldwide",
+          "Bangkok Hospital (BDMS): direct billing with AXA, Cigna, Allianz, BUPA and 200+ others",
+          "Samitivej Hospital: cashless billing available for most international plans",
+          "Vejthani Hospital: good direct billing network, competitive with major Bangkok hospitals",
+          "Process: present your insurance card at admissions, hospital bills insurer directly",
+          "Always pre-authorise: call your insurer before your appointment to confirm coverage and avoid out-of-pocket surprises",
+        ],
+      },
+      {
+        heading: "How much does a health check-up cost without insurance in Thailand?",
+        content: "Paying out-of-pocket in Thailand is significantly cheaper than in most Western countries, even without insurance:",
+        list: [
+          "Basic package: ฿2,000 – ฿6,000 (~USD 55–165) — cheaper than a GP appointment in the US or UK",
+          "Comprehensive package: ฿6,000 – ฿20,000 (~USD 165–555)",
+          "Executive with cancer markers: ฿15,000 – ฿40,000 (~USD 415–1,110)",
+          "Executive with MRI: ฿25,000 – ฿80,000 (~USD 695–2,220)",
+          "JCI hospital premium: 20–50% higher than non-JCI equivalents",
+          "Comparison: a comprehensive executive check-up at Bumrungrad for ฿40,000 would cost USD 2,000–4,000 in the US",
+        ],
+      },
+      {
+        heading: "Thai domestic health insurance for residents",
+        content: "Expats residing in Thailand can purchase domestic health insurance. Key options:",
+        list: [
+          "OPD (outpatient) plans: cover routine visits and some check-ups — premiums from ฿5,000/year",
+          "IPD (inpatient) plans: cover hospitalisation — premiums from ฿15,000/year",
+          "AIA, Muang Thai Life, Krungthai-AXA: main domestic insurers offering expat-friendly plans",
+          "Government Universal Coverage Scheme (UC): for Thai nationals and long-term residents with work permits only",
+          "Key tip: buy domestic insurance before getting your health check-up, as results showing pre-existing conditions may affect future insurability",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Which insurance covers health check-ups at Bumrungrad Hospital Bangkok?", a: "Bumrungrad has direct billing agreements with over 500 insurance companies. AXA, Cigna, BUPA International, Allianz, and Now Health are among the most commonly used. Call Bumrungrad's insurance coordination desk (+66 2 667 2121) before your visit to confirm your coverage and set up direct billing." },
+      { q: "Can I claim a Thai health check-up on my home country insurance?", a: "Possibly, if you have an international health insurance plan with outpatient preventive care coverage. Standard health insurance in the US, UK, or EU typically does not reimburse overseas preventive check-ups. Submit itemised receipts and a hospital report to your insurer for reimbursement consideration." },
+      { q: "Do I need insurance to visit a hospital in Thailand?", a: "No — Thai private hospitals accept self-paying patients without insurance. You pay at discharge for outpatient services. Credit cards are universally accepted at Bangkok's international hospitals. A deposit may be required for longer inpatient stays." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/medical-visa-thailand", label: "Medical visa guide" },
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+    ],
+  },
+
+  "how-to-prepare-health-checkup-thailand": {
+    title: "How to Prepare for a Health Check-Up in Thailand (2026)",
+    description: "What to eat, what to bring, how long to fast — complete preparation guide for getting a health check-up at a Thai hospital. Avoid common mistakes.",
+    intro: "Proper preparation for your health check-up ensures accurate test results and a smooth experience. Most Thai hospitals provide preparation instructions at booking, but knowing what to expect — and what common mistakes to avoid — will make a significant difference to your results.",
+    sections: [
+      {
+        heading: "How long should I fast before a health check-up in Thailand?",
+        content: "Fasting is required for accurate blood glucose and cholesterol readings. Thai hospitals typically specify:",
+        list: [
+          "Standard fasting: 8–12 hours before your appointment — no food, only plain water allowed",
+          "Most hospitals recommend: last meal the night before, appointment the following morning",
+          "Water: drink water freely — dehydration makes blood draws harder and affects kidney markers",
+          "Coffee, tea, juice: NOT allowed — even black coffee affects blood glucose and liver enzymes",
+          "Chewing gum: avoid — can stimulate digestive enzymes and affect results",
+          "Medications: take essential medications (blood pressure, heart) with a small sip of water — check with your doctor",
+          "If you are diabetic: follow your diabetologist's specific fasting guidance; standard fasting rules may not apply",
+        ],
+      },
+      {
+        heading: "What to bring to your health check-up appointment",
+        content: "Bring the following documents and items to your appointment:",
+        list: [
+          "Passport: required for international patient registration at all Thai private hospitals",
+          "Insurance card: if you have international health insurance with direct billing",
+          "List of current medications: name, dosage, frequency — both brand name and generic if possible",
+          "Previous health check-up results: especially useful for comparison of trending values (cholesterol, HbA1c)",
+          "Glasses or contact lenses: removed for eye exams if included in your package",
+          "Comfortable clothing: loose-fitting for ECG, blood pressure cuff, ultrasound access",
+          "Underwear (for women): you may be asked to change into a hospital gown for imaging",
+          "Any specialist referral letters: if your GP requested specific tests",
+        ],
+      },
+      {
+        heading: "What to avoid before your health check-up",
+        content: "Activities and substances that can affect your test results:",
+        list: [
+          "Alcohol: avoid for at least 48 hours before — raises liver enzymes (AST/ALT/GGT), triglycerides, and uric acid",
+          "Strenuous exercise: avoid 24 hours before — raises CK (creatine kinase), AST, and LDH falsely",
+          "High-fat meals: avoid 48 hours before — affects cholesterol and triglyceride readings",
+          "Protein supplements: avoid 24 hours before — can raise creatinine and affect kidney function markers",
+          "Sexual activity (for men): abstain 24–72 hours before if PSA (prostate) test is included",
+          "Menstruation (for women): inform the hospital — Pap smear may need to be rescheduled if heavy flow",
+          "Iron supplements: avoid 24 hours before — affects serum iron and ferritin levels",
+        ],
+      },
+      {
+        heading: "Understanding your health check-up results",
+        content: "Most Thai hospitals provide results with normal range references and an explanatory physician consultation. Key things to know:",
+        list: [
+          "Normal ranges: printed alongside each result — flag any value outside the range for discussion",
+          "Physician consultation: included in most packages — ask specific questions, don't rush",
+          "Digital copies: request a PDF download — most hospitals offer this via patient portal or email",
+          "English results: standard at all major private hospitals — ask if only Thai provided",
+          "Trending: most value comes from comparing year-on-year results — keep a digital record",
+          "Follow-up referrals: if any abnormal results require specialist follow-up, the doctor will advise",
+          "Second opinion: for any concerning result, all Thai international hospitals offer specialist referrals",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I drink coffee before a Thai health check-up?", a: "No — you should not drink coffee (even black) before fasting blood tests. Caffeine affects blood glucose levels and can raise liver enzyme readings. Drink plain water only during your fasting period." },
+      { q: "How early should I arrive for my health check-up in Thailand?", a: "Arrive 15–30 minutes before your appointment to complete registration paperwork. For walk-in morning appointments at busy hospitals like Bumrungrad, arrive by 7:00–7:30 AM to minimise waiting. Most comprehensive packages take 3–5 hours to complete." },
+      { q: "What happens if my results show something abnormal?", a: "The physician consultation at the end of your check-up will flag any abnormal results and advise next steps. For minor abnormalities (slightly elevated cholesterol, borderline blood sugar), lifestyle advice is provided. For more serious findings, you will be referred to the appropriate specialist on the same day in most cases." },
+      { q: "Can I eat after the blood draw?", a: "Yes — once your blood has been drawn (typically the first step), you can eat normally. Hospitals usually have a cafeteria or bring you light snacks. Eat before the physician consultation if you feel faint or lightheaded." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in each package?" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages" },
+    ],
+  },
+
+  "best-hospitals-japanese-tourists": {
+    title: "Best Hospitals for Japanese Tourists in Thailand (2026)",
+    description: "Japanese-speaking health check-ups in Bangkok, Phuket and Chiang Mai. Which Thai hospitals have Japanese coordinators, Japanese-language consent forms, and Japanese interpreters?",
+    intro: "Japan sends over 200,000 medical tourists to Thailand annually, making Japanese nationals the second-largest group of medical tourists in the country after ASEAN neighbours. Major Bangkok hospitals have dedicated Japanese patient departments (日本語窓口) with coordinators, translated documentation, and in some cases Japanese-qualified physicians. Here is what to know.",
+    sections: [
+      {
+        heading: "Which Bangkok hospitals have Japanese-speaking staff?",
+        content: "These hospitals have established Japanese patient services with confirmed Japanese-speaking coordinators:",
+        list: [
+          "Bumrungrad International Hospital — Japan Desk (日本語窓口) on the 1st floor, Japanese coordinators Mon–Sat, Japanese-language consent forms and results summaries",
+          "Bangkok Hospital Silom (BDMS) — Japanese Medical Service team, Japanese-language package materials, Japanese coordinator available weekdays",
+          "Samitivej Sukhumvit Hospital — Japanese language services, translated result summaries, popular with Japanese business community",
+          "BNH Hospital (British–Nippon Hospital Foundation) — historically the most Japanese-friendly hospital in Bangkok, co-founded with Japanese partners, strong Japanese community connection",
+          "Vejthani Hospital — Japanese coordinator, competitive executive packages popular with Japanese medical tourists",
+          "Praram 9 Hospital — Japanese coordinator on-site, mid-tier pricing suitable for Japanese corporate groups",
+        ],
+      },
+      {
+        heading: "Japanese health check-up packages in Thailand",
+        content: "Japanese medical tourists typically seek Japanese-style ningen dock (人間ドック) equivalent packages. Thai hospitals offer comparable programmes:",
+        list: [
+          "Standard Ningen Dock equivalent: blood panel, chest X-ray, abdominal ultrasound, ECG, gastroscopy (upper GI) — ฿8,000–฿20,000",
+          "Comprehensive (with cancer markers): adds tumour markers AFP, CEA, CA 19-9, PSA/CA-125 — ฿15,000–฿35,000",
+          "Cardiac add-on: coronary CT (64-slice or 256-slice), echocardiogram — ฿12,000–฿45,000",
+          "Gastroscopy: H. pylori testing, upper GI scope — ฿4,000–฿12,000 as add-on (popular with Japanese guests)",
+          "Full-body MRI: increasingly popular Japanese preference — ฿20,000–฿60,000",
+          "Price comparison: equivalent programmes in Japan cost ¥100,000–¥400,000 vs ฿15,000–฿50,000 in Thailand",
+        ],
+      },
+      {
+        heading: "What Japanese tourists should know before their check-up in Thailand",
+        content: "Practical considerations for Japanese medical tourists visiting Thai hospitals:",
+        list: [
+          "Fasting: Thai hospitals follow the same 8–12 hour fast as Japan — skip breakfast the night before",
+          "Gastroscopy preference: Japanese patients often request gastroscopy (stomach camera) — confirm availability when booking, as it requires sedation",
+          "H. pylori: common concern for Japanese patients — request H. pylori breath test or biopsy during gastroscopy",
+          "Results in Japanese: Bumrungrad and BNH offer results summaries in Japanese; most hospitals provide English + Japanese on request",
+          "Credit cards: major Japanese credit cards (JCB, AMEX, Visa) accepted at all Bangkok international hospitals",
+          "Payment: Japanese patients note that payment is at discharge for OPD — no upfront payment unlike some Japanese clinics",
+          "Airport transfer: many hospitals offer free pick-up for Japanese patients booking executive packages — inquire in advance",
+        ],
+      },
+      {
+        heading: "Phuket and Chiang Mai hospitals for Japanese tourists",
+        content: "Outside Bangkok, these hospitals offer Japanese-language services:",
+        list: [
+          "Bangkok Hospital Phuket: Japanese coordinator, Japanese patient materials, popular with Japanese resort holidaymakers combining beach stay with health check",
+          "Samitivej Phuket (Mission Hospital network): Japanese services available, convenient for Patong Beach area",
+          "Chiang Mai Ram Hospital: Japanese coordinator on request, comprehensive packages, popular with Japanese trekkers and art market visitors",
+          "Bangkok Hospital Chiang Mai: BDMS chain, Japanese patient support, coordinated with Bangkok Hospital's main Japanese team",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it cheaper to get a health check-up in Thailand or Japan?", a: "Significantly cheaper in Thailand. A ningen dock (人間ドック) health check-up in Japan typically costs ¥100,000–¥400,000 (฿24,000–฿95,000). An equivalent comprehensive package at a Bangkok international hospital costs ฿15,000–฿40,000 — typically 50–70% less, with similar or shorter waiting times and English results." },
+      { q: "Can I get a gastroscopy (胃カメラ) in Thailand?", a: "Yes — gastroscopy is widely available at Bangkok international hospitals and is a popular add-on for Japanese medical tourists. Most hospitals use the same Olympus scopes as Japanese clinics. Sedated (comfort) scopes are available for an additional fee. Results and images are provided digitally." },
+      { q: "Which hospital in Bangkok is best known for Japanese patients?", a: "BNH Hospital has the longest history of Japanese patient care — it was co-founded with Japanese involvement and maintains strong ties with the Tokyo Medical University alumni network. Bumrungrad International has the largest dedicated Japan Desk with daily Japanese-speaking coordinators and the widest range of Japanese-language materials." },
+    ],
+    relatedLinks: [
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in a Thai health check-up?" },
+      { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare guide" },
+    ],
+  },
+
+  "best-hospitals-arabic-speakers": {
+    title: "Best Hospitals for Arabic-Speaking Patients in Thailand (2026)",
+    description: "Arabic health check-ups in Bangkok. Hospitals with Arabic-speaking staff, halal food, prayer facilities, and Arabic-language patient materials — for Gulf, Middle East, and North African visitors.",
+    intro: "The Gulf Cooperation Council (GCC) countries and the broader Arab world send tens of thousands of medical tourists to Thailand each year, particularly from Saudi Arabia, UAE, Kuwait, Qatar, and Egypt. Bangkok's top international hospitals have invested significantly in Arabic-language services, Halal dining, and prayer facilities to accommodate Muslim medical tourists. This guide covers your options.",
+    sections: [
+      {
+        heading: "Which Bangkok hospitals have Arabic-speaking staff?",
+        content: "These hospitals have confirmed Arabic-speaking coordinators and Gulf-friendly services:",
+        list: [
+          "Bumrungrad International Hospital — Arabic Language Services team, Arabic website and patient materials, Halal food available via hospital kitchen, Qibla markers in patient rooms",
+          "Bangkok Hospital — Arabic coordinators at Bangkok Hospital Phuket and Bangkok Hospital Silom, popular with Saudi and Kuwaiti patients",
+          "Vejthani Hospital — Arabic-speaking coordinator, competitive executive packages, growing reputation in Gulf markets",
+          "Samitivej Hospital — Arabic language support at Sukhumvit branch, experienced with GCC visitors",
+          "Praram 9 Hospital — Arabic interpreter available, competitive pricing for groups",
+        ],
+      },
+      {
+        heading: "Halal food and Islamic facilities at Thai hospitals",
+        content: "Muslim medical tourists have specific dietary and religious requirements. Thai hospitals have adapted:",
+        list: [
+          "Bumrungrad International: fully Halal kitchen with separate Halal preparation area, Qibla markers in all patient rooms, Muslim prayer room on premises",
+          "Bangkok Hospital Phuket: Halal food available on request, prayer room available",
+          "Vejthani Hospital: Halal-certified meal options, prayer space available",
+          "Ramadan: hospitals can accommodate pre-dawn (suhoor) and after-sunset (iftar) meal schedules — notify admissions in advance",
+          "Prayer times: Bangkok prayer times (Dhuhur ~12:30, Asr ~15:45, Maghrib ~18:00 in winter) — appointments can be structured around prayer times on request",
+          "Women's care: female doctor and female ultrasound technician available on request at all major hospitals",
+        ],
+      },
+      {
+        heading: "Health check-up packages popular with Arabic-speaking patients",
+        content: "GCC visitors to Thailand typically seek comprehensive executive check-ups with cancer markers and advanced imaging. Recommended packages:",
+        list: [
+          "Executive + Cancer Marker: full blood panel, tumour markers, chest X-ray, abdominal ultrasound, ECG — ฿15,000–฿35,000",
+          "Executive + Full Cardiac: adds coronary CT (64-slice), echocardiogram, stress test — ฿25,000–฿65,000",
+          "Whole-body MRI screen: popular with high-net-worth Gulf patients — ฿30,000–฿80,000 at flagship hospitals",
+          "Executive + Colonoscopy: colorectal cancer is among the top concerns for Arab males over 50 — ฿20,000–฿45,000",
+          "Women's executive + Gynaecology: Pap smear, breast ultrasound, pelvic scan, female physician consultation — ฿15,000–฿40,000",
+          "Price comparison: similar packages in private Dubai hospitals cost AED 3,000–15,000 vs ฿15,000–฿65,000 in Bangkok",
+        ],
+      },
+      {
+        heading: "Practical information for Arabic-speaking medical tourists in Bangkok",
+        content: "Key practical facts for GCC and Arab visitors planning a health check-up in Bangkok:",
+        list: [
+          "Visa: Saudi, UAE, Kuwait, Qatar, Bahrain, and Oman nationals: visa-free entry to Thailand for 30 days (2024 reciprocal agreement)",
+          "Flight: Bangkok (BKK / Suvarnabhumi) direct from Dubai (~6h), Riyadh (~7h), Kuwait (~7h), Cairo (~9h)",
+          "Currency: Thai Baht (THB) — exchange is available 24/7 at Suvarnabhumi airport; rate is better at city exchange booths",
+          "Arabic restaurants: Sukhumvit Soi 3 (Arab Street) has Lebanese, Yemeni, and Egyptian restaurants near many international hospitals",
+          "Hotel proximity: hospitals recommend staying at hotels within 15 minutes — Bumrungrad is close to Asoke BTS, easy for Nana area hotels",
+          "Communication: all hospitals have Arabic-speaking staff available during business hours — WhatsApp contact often provided for Gulf patients",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Halal food available at Bangkok hospitals?", a: "Yes — Bumrungrad International has a dedicated Halal kitchen with fully Halal-certified meals for inpatients. Vejthani and Bangkok Hospital also offer Halal meal options on request. For day-surgery outpatient check-ups, the stay is typically too short to need hospital meals, but the hospital cafeterias at major Bangkok international hospitals include Halal options." },
+      { q: "Can I see a female doctor for my check-up in Thailand?", a: "Yes — all major Bangkok international hospitals can arrange a female physician for the health check-up consultation upon request. Female ultrasound technicians are also available. Make this request when booking your appointment." },
+      { q: "Do Thai hospitals have Arabic signage and Arabic patient materials?", a: "Bumrungrad International provides the most comprehensive Arabic patient experience — Arabic signage, website, consent forms, and result summaries in Arabic. Most other hospitals rely on Arabic-speaking coordinators rather than translated written materials, so verbal communication is covered even if written materials may primarily be in English." },
+    ],
+    relatedLinks: [
+      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/medical-visa-thailand", label: "Medical visa guide" },
+      { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
+    ],
+  },
+
+  "rayong-health-checkup": {
+    title: "Rayong Health Check-Up Guide (2026)",
+    description: "Health check-up hospitals in Rayong, Thailand. Bangkok Hospital Rayong, Camillian, and more. Prices from ฿1,500.",
+    intro: "Rayong is an industrial province on the Eastern Seaboard, 180km east of Bangkok, known for the Map Ta Phut petrochemical complex and beautiful beaches along the Gulf of Thailand. Bangkok Hospital Rayong leads the city's private healthcare market, serving both the industrial workforce and tourists passing through to Ko Samet.",
+    sections: [
+      {
+        heading: "Health check-up prices in Rayong",
+        content: "Prices in Rayong are typically 20–35% lower than Bangkok equivalents:",
+        list: [
+          "Basic package (blood, urine, X-ray): ฿1,500 – ฿2,500",
+          "Standard package (adds ECG, ultrasound, thyroid): ฿3,800 – ฿6,000",
+          "Executive package A: ฿8,500 – ฿12,000",
+          "Executive package B (with CT/imaging): ฿18,000 – ฿28,000",
+          "Women's health package: ฿7,500 – ฿9,000",
+          "Senior package (60+): ฿13,000 – ฿18,000",
+        ],
+      },
+      {
+        heading: "Best hospitals for health check-ups in Rayong",
+        content: "Rayong has several hospitals serving its industrial and tourist population:",
+        list: [
+          "Bangkok Hospital Rayong — top tier, interpreter service, full range of packages, GPS: 12.683°N 101.280°E",
+          "Phyathai Rayong Hospital — BDMS affiliate, mid-tier, good standard and executive packages",
+          "Camillian Hospital Rayong — Catholic mission hospital, affordable, strong reputation for basic to standard checks",
+          "Rayong Hospital — government hospital, lowest prices, longer wait times",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it worth getting a health check-up in Rayong vs Bangkok?", a: "If you are already based in Rayong (working in the industrial zone, visiting Ko Samet, or passing through the Eastern Seaboard), Bangkok Hospital Rayong offers Bangkok-quality care at 20–30% lower prices with no travel time. For very comprehensive packages with MRI or specialist follow-up, Bangkok remains preferable." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/city/rayong", label: "Compare Rayong packages" },
+    ],
+  },
+
+  "surat-thani-health-checkup": {
+    title: "Surat Thani Health Check-Up Guide (2026)",
+    description: "Health check-up hospitals in Surat Thani. Bangkok Hospital Surat Thani and other options. Prices from ฿1,300.",
+    intro: "Surat Thani is the main gateway city to Koh Samui, Koh Phangan, and Koh Tao in southern Thailand. Bangkok Hospital Surat Thani provides the highest standard of care in the province, and many travellers en route to the Gulf coast islands combine a health check-up in Surat Thani with their island visit.",
+    sections: [
+      {
+        heading: "Health check-up prices in Surat Thani",
+        content: "Prices are competitive — 25–40% below Bangkok rates:",
+        list: [
+          "Basic package: ฿1,300 – ฿1,900",
+          "Standard package: ฿3,500 – ฿5,500",
+          "Executive package A: ฿7,500 – ฿11,000",
+          "Executive package B (with imaging): ฿15,000 – ฿25,000",
+          "Women's health: ฿7,000 – ฿8,500",
+          "Senior package (60+): ฿12,000 – ฿16,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Surat Thani for health check-ups",
+        content: "Main hospital options:",
+        list: [
+          "Bangkok Hospital Surat Thani — BDMS flagship in the province, English-speaking staff, interpreter",
+          "Taksin Hospital — mid-tier private, popular with local professionals, women's health packages",
+          "Surat Thani Hospital — government hospital, most affordable, longer waiting",
+          "Kasemrad Surat Thani — private, competitive pricing, standard packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I get a health check-up in Surat Thani before catching the ferry to Koh Samui?", a: "Yes — Bangkok Hospital Surat Thani offers morning packages (arrive 7:30 AM, complete by noon) leaving the afternoon free for the ferry to Koh Samui (1.5 hours to Donsak Pier, then ferry). Book basic or standard packages; executive packages require longer." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/koh-samui-health-checkup", label: "Koh Samui health check-up guide" },
+      { href: "/en/city/surat-thani", label: "Compare Surat Thani packages" },
+    ],
+  },
+
+  "phitsanulok-health-checkup": {
+    title: "Phitsanulok Health Check-Up Guide (2026)",
+    description: "Health check-up hospitals in Phitsanulok, northern Thailand. Bangkok Hospital Phitsanulok and other options. Prices from ฿1,400.",
+    intro: "Phitsanulok is a major provincial capital in Lower Northern Thailand, home to the famous Phra Buddha Chinnarat shrine and an important transport hub between Bangkok and Chiang Mai. Bangkok Hospital Phitsanulok is the leading private hospital in the province, serving patients from neighbouring provinces including Phrae, Nan, and Uttaradit.",
+    sections: [
+      {
+        heading: "Health check-up prices in Phitsanulok",
+        content: "Phitsanulok offers excellent value — 25–40% below Bangkok prices:",
+        list: [
+          "Basic package: ฿1,400 – ฿2,000",
+          "Standard package: ฿3,500 – ฿5,500",
+          "Executive package A: ฿7,500 – ฿11,500",
+          "Executive package B (with CT): ฿15,000 – ฿22,000",
+          "Women's health: ฿7,500 – ฿8,500",
+          "Senior package (60+): ฿12,000 – ฿16,000",
+          "Comprehensive full-body: ฿22,000 – ฿28,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Phitsanulok for health check-ups",
+        content: "Options in Phitsanulok:",
+        list: [
+          "Bangkok Hospital Phitsanulok — top private hospital in the province, English available, full range",
+          "Buddhachinaraj Hospital — large government teaching hospital, very affordable, public patients",
+          "Phitsanulok Ram Hospital — established private, mid-tier, good standard packages",
+          "Phitsanulok Hospital — government, lowest prices, long waiting times",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Phitsanulok worth visiting specifically for a health check-up?", a: "Not typically from Bangkok — the 5-hour bus or 4-hour train journey makes it less practical than Chiang Mai or Phuket as a dedicated medical tourism destination. However, if you are already visiting Phitsanulok (Sukhothai Historical Park, Phra Buddha Chinnarat), Bangkok Hospital Phitsanulok offers quality care at 30%+ savings." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/chiang-mai-health-checkup", label: "Chiang Mai health check-up guide" },
+      { href: "/en/city/phitsanulok", label: "Compare Phitsanulok packages" },
+    ],
+  },
+
+  "trang-health-checkup": {
+    title: "Trang Health Check-Up Guide (2026)",
+    description: "Health check-up hospitals in Trang, southern Thailand. Bangkok Hospital Trang and other options. Prices from ฿1,300.",
+    intro: "Trang is a laid-back provincial capital in the Andaman coast region, famous for dim sum breakfast culture, pristine offshore islands, and the Trang Vegetarian Festival. Bangkok Hospital Trang leads the private healthcare market in the province, serving locals and the increasing number of visitors exploring the quieter Andaman alternatives to Krabi and Phuket.",
+    sections: [
+      {
+        heading: "Health check-up prices in Trang",
+        content: "Trang is very affordable — 30–45% below Bangkok rates:",
+        list: [
+          "Basic package: ฿1,300 – ฿2,000",
+          "Standard package: ฿3,500 – ฿5,000",
+          "Executive package A: ฿7,500 – ฿10,500",
+          "Executive package B (with CT): ฿14,000 – ฿21,000",
+          "Women's health: ฿7,000 – ฿8,000",
+          "Senior package (60+): ฿12,000 – ฿14,500",
+        ],
+      },
+      {
+        heading: "Best hospitals in Trang for health check-ups",
+        content: "Main options in Trang:",
+        list: [
+          "Bangkok Hospital Trang — BDMS flagship in Trang, highest standard, English available",
+          "Trang Hospital — government hospital, cheapest, longer wait times",
+          "Wattanaphet Hospital — established private, mid-tier, reliable for standard packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Should I get a health check-up in Trang or Krabi?", a: "Both cities have Bangkok Hospital branches of similar standard. Krabi has slightly more international medical tourism infrastructure and a larger English-speaking patient population. Trang is more local and quieter — better if you are already visiting Trang's islands (Ko Muk, Ko Kradan) rather than going to Krabi." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/krabi-health-checkup", label: "Krabi health check-up guide" },
+      { href: "/en/guide/phuket-health-checkup", label: "Phuket health check-up guide" },
+    ],
+  },
 };
 
 export function generateStaticParams() {
@@ -553,7 +1547,9 @@ export default async function GuidePage({
       <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2 flex-wrap">
         <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
         <span>›</span>
-        <span className="text-slate-600">Guide</span>
+        <Link href={`/${locale}/guide`} className="hover:text-blue-600">Guides</Link>
+        <span>›</span>
+        <span className="text-slate-600 truncate max-w-xs">{guide.title}</span>
       </nav>
 
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
@@ -647,6 +1643,15 @@ export default async function GuidePage({
         </div>
       )}
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: "Guides", item: `${BASE}/${locale}/guide` },
+          { "@type": "ListItem", position: 3, name: guide.title, item: `${BASE}/${locale}/guide/${slug}` },
+        ],
+      }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Article",

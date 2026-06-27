@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale } from "@/lib/i18n";
+import { type Locale, LOCALES } from "@/lib/i18n";
 import { getPackagesByCity } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
@@ -26,23 +26,33 @@ const CITY_SLUGS: Record<string, string> = {
   "nakhon-si-thammarat": "Nakhon Si Thammarat",
   "lampang": "Lampang",
   "nakhon-pathom": "Nakhon Pathom",
+  "rayong": "Rayong",
+  "surat-thani": "Surat Thani",
+  "phitsanulok": "Phitsanulok",
+  "trang": "Trang",
 };
 
 export async function generateStaticParams() {
   return Object.keys(CITY_SLUGS).map((city) => ({ city }));
 }
 
+const BASE = "https://www.bangkoktopclinic.com";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string; city: string }>;
 }): Promise<Metadata> {
-  const { city } = await params;
+  const { city, locale } = await params;
   const cityName = CITY_SLUGS[city] || city;
   return {
     title: `Health Check-Up Packages in ${cityName} — Compare Prices`,
     description: `Compare health check-up packages at hospitals in ${cityName}, Thailand. Real prices, all hospitals, all package types. Find the best value health screening in ${cityName}.`,
     keywords: [`health checkup ${cityName}`, `health screening ${cityName}`, `hospital ${cityName} health package`, `ตรวจสุขภาพ${cityName}`],
+    alternates: {
+      canonical: `${BASE}/en/city/${city}`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/city/${city}`])),
+    },
   };
 }
 
@@ -136,7 +146,43 @@ export default async function CityPage({
           <li><strong>Standard packages (฿3,000–฿8,000)</strong>: Adds chest X-ray, liver/kidney function, thyroid — best for most adults 30–50.</li>
           <li><strong>Executive packages (฿8,000+)</strong>: Includes ultrasound, ECG, cancer markers, specialist review — recommended for 50+ or high-risk individuals.</li>
         </ul>
+
+        <h3>Frequently Asked Questions</h3>
+        <h4>How much does a health check-up cost in {cityName}?</h4>
+        <p>Health check-up packages in {cityName} start from ฿{minPrice > 0 ? minPrice.toLocaleString() : "1,200"} for a basic blood panel and go up to ฿{maxPrice > 0 ? maxPrice.toLocaleString() : "50,000+"} for a premium executive package. The average mid-range comprehensive check-up costs ฿5,000–฿15,000.</p>
+
+        <h4>Which hospitals in {cityName} offer health check-up packages?</h4>
+        <p>There are {hospitals} hospitals in {cityName} offering health screening packages. Use the filters above to compare by price, package type, and inclusions such as X-ray, ultrasound, ECG, and cancer markers.</p>
+
+        <h4>Do {cityName} hospitals offer English service for health check-ups?</h4>
+        <p>Most private hospitals in {cityName} have English-speaking staff for health check-up appointments. International hospitals and those accredited by JCI also offer interpreter services in multiple languages.</p>
+
+        <h4>How long does a health check-up take in {cityName}?</h4>
+        <p>A basic health check-up in {cityName} takes 1–2 hours. Comprehensive or executive packages with ultrasound, CT, and specialist consultations typically take 3–5 hours. Results are usually available within 1–3 business days, with some hospitals offering same-day results.</p>
       </div>
+
+      {/* FAQ JSON-LD */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: `How much does a health check-up cost in ${cityName}?`,
+            acceptedAnswer: { "@type": "Answer", text: `Health check-up packages in ${cityName} start from ฿${minPrice > 0 ? minPrice.toLocaleString() : "1,200"} for a basic blood panel and go up to ฿${maxPrice > 0 ? maxPrice.toLocaleString() : "50,000+"} for a premium executive package with MRI and cancer screening.` },
+          },
+          {
+            "@type": "Question",
+            name: `Which hospitals in ${cityName} offer health check-up packages?`,
+            acceptedAnswer: { "@type": "Answer", text: `There are ${hospitals} hospitals in ${cityName} offering ${rows.length} health screening packages across all tiers — basic, standard, executive, women's, men's, cancer, and cardiac.` },
+          },
+          {
+            "@type": "Question",
+            name: `Do ${cityName} hospitals offer health check-ups in English?`,
+            acceptedAnswer: { "@type": "Answer", text: `Most private hospitals in ${cityName} have English-speaking staff for health check-up appointments. JCI-accredited hospitals offer the most comprehensive international patient services.` },
+          },
+        ],
+      }) }} />
     </div>
   );
 }

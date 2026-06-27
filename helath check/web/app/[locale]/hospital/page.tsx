@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, t } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
+import { HospitalSearch } from "@/app/components/HospitalSearch";
 
 export const revalidate = 3600;
-export const dynamic = "force-dynamic";
+
+const BASE = "https://www.bangkoktopclinic.com";
 
 export async function generateMetadata({
   params,
@@ -12,10 +14,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   return {
-    title: "Bangkok Health Check-Up Hospitals — All Hospitals",
-    description: "Compare all Bangkok hospitals offering health check-up packages. JCI-accredited, mid-tier, and provincial hospitals with real prices.",
+    title: "Health Check-Up Hospitals in Thailand — Bangkok, Phuket, Chiang Mai",
+    description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 15 more cities. Real prices, JCI-accredited hospitals listed.",
   };
 }
+
+const CITY_CITY: Record<string, string> = {
+  Bangkok: "🏙️", "Chiang Mai": "🌸", Phuket: "🏝️", Pattaya: "🌊",
+  "Hua Hin": "🏖️", "Ko Samui": "🌴", Krabi: "⛰️", "Chiang Rai": "🍵",
+  "Hat Yai": "🦜", "Khon Kaen": "🌾", "Koh Chang": "🐘",
+  "Udon Thani": "🏯", Korat: "🦁", Ayutthaya: "🛕",
+  Rayong: "🏭", "Surat Thani": "🍜", Phitsanulok: "⚔️", Trang: "🦞",
+};
 
 export default async function HospitalsPage({
   params,
@@ -32,41 +42,145 @@ export default async function HospitalsPage({
     // DB not ready
   }
 
+  // Group by city
+  const grouped: Record<string, HospitalSummary[]> = {};
+  for (const h of hospitals) {
+    const city = h.city || "Bangkok";
+    if (!grouped[city]) grouped[city] = [];
+    grouped[city].push(h);
+  }
+  const cityOrder = ["Bangkok", "Chiang Mai", "Phuket", "Pattaya", "Hua Hin", "Ko Samui",
+    "Krabi", "Chiang Rai", "Hat Yai", "Khon Kaen", "Koh Chang", "Udon Thani",
+    "Korat", "Ayutthaya", "Chon Buri", "Nakhon Si Thammarat", "Lampang", "Nakhon Pathom",
+    "Rayong", "Surat Thani", "Phitsanulok", "Trang"];
+  const sortedCities = [
+    ...cityOrder.filter((c) => grouped[c]),
+    ...Object.keys(grouped).filter((c) => !cityOrder.includes(c)),
+  ];
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="text-2xl font-bold text-slate-900 mb-2">Bangkok Health Check-Up Hospitals</h1>
-      <p className="text-slate-500 mb-8">All hospitals in our database, sorted by tier</p>
+      <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2">
+        <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
+        <span>›</span>
+        <span className="text-slate-600">All Hospitals</span>
+      </nav>
+
+      <h1 className="text-2xl font-bold text-slate-900 mb-1">Health Check-Up Hospitals in Thailand</h1>
+      <p className="text-slate-500 mb-6">{hospitals.length} hospitals across {sortedCities.length} cities — sorted by tier and rating</p>
+
+      {/* JCI highlights */}
+      {(() => {
+        const jci = hospitals.filter((h) => h.jci === 1).slice(0, 6);
+        if (!jci.length) return null;
+        return (
+          <div className="mb-10">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded uppercase">JCI</span>
+              <h2 className="text-base font-bold text-slate-800">Internationally accredited hospitals</h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              {jci.map((h) => (
+                <Link key={h.slug} href={`/${locale}/hospital/${h.slug}`}
+                  className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-center hover:border-blue-400 hover:bg-blue-100 transition-all group">
+                  <p className="text-[11px] font-bold text-slate-800 group-hover:text-blue-800 leading-snug mb-1">{h.name.replace("Hospital", "").replace("International", "Intl").trim()}</p>
+                  {h.min_price && <p className="text-[10px] text-blue-600 font-semibold">฿{parseFloat(h.min_price).toLocaleString()}</p>}
+                </Link>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Quick longtail links */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {[
+          { href: `/${locale}/for/jci-accredited-health-checkup-bangkok`, label: "JCI hospitals only" },
+          { href: `/${locale}/for/executive-health-checkup-bangkok`, label: "Executive packages" },
+          { href: `/${locale}/for/budget-health-checkup-bangkok`, label: "Under ฿3,000" },
+          { href: `/${locale}/for/cancer-screening-bangkok`, label: "Cancer screening" },
+          { href: `/${locale}/for/womens-health-checkup-bangkok`, label: "Women's health" },
+        ].map(({ href, label }) => (
+          <Link key={href} href={href}
+            className="text-xs border border-slate-200 rounded-full px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-700 bg-white transition-colors">
+            {label}
+          </Link>
+        ))}
+      </div>
+
+      <HospitalSearch hospitals={hospitals} locale={locale} />
 
       {hospitals.length === 0 ? (
-        <p className="text-slate-400">No hospitals yet. Run <code className="bg-slate-100 px-1 rounded">python seed_hospitals.py && python fetch.py && python extract.py</code>.</p>
+        <p className="text-slate-400">No hospitals yet.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {hospitals.map((h) => (
-            <Link
-              key={h.slug}
-              href={`/${locale}/hospital/${h.slug}`}
-              className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <h2 className="font-semibold text-slate-800 leading-snug">{h.name}</h2>
-                {h.jci === 1 && (
-                  <span className="ml-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">JCI</span>
-                )}
+        <div className="space-y-10">
+          {sortedCities.map((city) => (
+            <section key={city}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-slate-800">
+                  {CITY_CITY[city] || "🏥"} {city}
+                  <span className="text-sm font-normal text-slate-400 ml-2">({grouped[city].length})</span>
+                </h2>
+                <Link href={`/${locale}/city/${city.toLowerCase().replace(/ /g, '-')}`}
+                  className="text-sm text-blue-600 hover:underline">
+                  Compare {city} packages →
+                </Link>
               </div>
-              {h.area && <p className="text-sm text-slate-500 mb-2">📍 {h.area}</p>}
-              <div className="flex items-center gap-3 text-sm">
-                {h.rating && <span className="text-amber-500 font-semibold">★ {parseFloat(h.rating).toFixed(1)}</span>}
-                {h.package_count > 0 && (
-                  <span className="text-slate-400">{h.package_count} packages</span>
-                )}
-                {h.min_price && (
-                  <span className="text-slate-600 font-medium">from ฿{parseFloat(h.min_price).toLocaleString()}</span>
-                )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {grouped[city].map((h) => (
+                  <Link
+                    key={h.slug}
+                    href={`/${locale}/hospital/${h.slug}`}
+                    className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="font-semibold text-slate-800 leading-snug text-sm">{h.name}</h3>
+                      {h.jci === 1 && (
+                        <span className="ml-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">JCI</span>
+                      )}
+                    </div>
+                    {h.area && h.area !== city && (
+                      <p className="text-xs text-slate-400 mb-2">📍 {h.area}</p>
+                    )}
+                    <div className="flex items-center gap-3 text-sm">
+                      {h.rating && <span className="text-amber-500 font-semibold">★ {parseFloat(h.rating).toFixed(1)}</span>}
+                      {h.review_count != null && h.review_count > 0 && (
+                        <span className="text-slate-400 text-xs">{h.review_count.toLocaleString()} reviews</span>
+                      )}
+                    </div>
+                    {(h.package_count > 0 || h.min_price) && (
+                      <div className="flex gap-3 mt-2">
+                        {h.package_count > 0 && <span className="text-slate-400 text-xs">{h.package_count} packages</span>}
+                        {h.min_price && (
+                          <span className="text-blue-700 font-semibold text-xs">from ฿{parseFloat(h.min_price).toLocaleString()}</span>
+                        )}
+                      </div>
+                    )}
+                  </Link>
+                ))}
               </div>
-            </Link>
+            </section>
           ))}
         </div>
       )}
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Health Check-Up Hospitals in Thailand",
+        description: "Compare health check-up packages across Thailand hospitals",
+        numberOfItems: hospitals.length,
+        itemListElement: hospitals.slice(0, 50).map((h, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Hospital",
+            name: h.name,
+            url: `${BASE}/${locale}/hospital/${h.slug}`,
+            ...(h.rating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(h.rating), bestRating: 5, reviewCount: h.review_count ?? 1 } } : {}),
+          },
+        })),
+      }) }} />
     </div>
   );
 }

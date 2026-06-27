@@ -7,10 +7,13 @@ import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
+  // Pre-render top 30 hospitals × top 6 categories = 180 combos per locale
+  // Remaining pages generated on-demand via ISR fallback
+  const TOP_CATEGORIES = ["comprehensive", "executive", "standard", "cancer", "cardiac", "women"];
   try {
-    const slugs = await getAllHospitalSlugs();
+    const slugs = (await getAllHospitalSlugs()).slice(0, 30);
     const params: { type: string; hospital: string }[] = [];
-    for (const type of CATEGORIES) {
+    for (const type of TOP_CATEGORIES) {
       for (const hospital of slugs) {
         params.push({ type, hospital });
       }

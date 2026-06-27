@@ -4,6 +4,7 @@ import "../globals.css";
 import { LOCALES, type Locale, isRTL, t, OG_LOCALE } from "@/lib/i18n";
 import Link from "next/link";
 import { MobileMenuButton } from "@/app/components/MobileNav";
+import { WhatsAppCTA } from "@/app/components/WhatsAppCTA";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -41,7 +42,7 @@ function NavBar({ locale }: { locale: Locale }) {
   const navItems = [
     { href: `${base}/compare`, label: t(locale, "nav_compare") },
     { href: `${base}/hospital`, label: t(locale, "nav_hospitals") },
-    { href: `${base}/guide/bangkok-health-checkup`, label: t(locale, "nav_guide") },
+    { href: `${base}/guide`, label: t(locale, "nav_guide") },
     { href: `${base}/enquiry`, label: t(locale, "nav_enquiry") },
   ];
   return (
@@ -62,10 +63,10 @@ function NavBar({ locale }: { locale: Locale }) {
 
         {/* Language switcher (desktop) */}
         <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-400 ml-auto">
-          {(["en", "zh", "ja", "th"] as Locale[]).map((l) => (
+          {([["en","EN"],["zh","中"],["ja","JP"],["th","TH"],["ko","한"],["ar","عر"]] as [Locale,string][]).map(([l, label]) => (
             <Link key={l} href={`/${l}/compare`}
               className={`px-1.5 py-0.5 rounded hover:text-blue-600 transition-colors ${l === locale ? "text-blue-600 font-semibold" : ""}`}>
-              {l === "en" ? "EN" : l === "zh" ? "中" : l === "ja" ? "JP" : "TH"}
+              {label}
             </Link>
           ))}
         </div>
@@ -97,11 +98,9 @@ function Footer({ locale }: { locale: Locale }) {
         <div>
           <p className="font-semibold text-slate-800 mb-2">{t(locale, "site_name")}</p>
           <p className="text-xs leading-relaxed">{t(locale, "tagline")}</p>
-          <div className="flex gap-3 mt-4 text-xs">
-            {(["en", "zh", "ja", "th", "ar"] as Locale[]).map((l) => (
-              <Link key={l} href={`/${l}`} className="hover:text-blue-600">
-                {l === "en" ? "EN" : l === "zh" ? "中文" : l === "ja" ? "日本語" : l === "th" ? "ไทย" : "عر"}
-              </Link>
+          <div className="flex flex-wrap gap-3 mt-4 text-xs">
+            {([["en","EN"],["zh","中文"],["ja","日本語"],["th","ไทย"],["ko","한국어"],["ar","عربي"]] as [Locale,string][]).map(([l, label]) => (
+              <Link key={l} href={`/${l}`} className="hover:text-blue-600">{label}</Link>
             ))}
           </div>
         </div>
@@ -120,13 +119,16 @@ function Footer({ locale }: { locale: Locale }) {
           <Link href={`${base}/hospital/bnh`} className="block hover:text-blue-600 py-0.5 text-xs">BNH Hospital</Link>
         </div>
         <div>
-          <p className="font-semibold text-slate-800 mb-2">Info</p>
-          <Link href={`${base}/guide/bangkok-health-checkup`} className="block hover:text-blue-600 py-0.5 text-xs">Bangkok guide</Link>
-          <Link href={`${base}/guide/cancer-screening-bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Cancer screening</Link>
-          <Link href={`${base}/guide/womens-health-checkup-bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Women&apos;s health</Link>
-          <Link href={`${base}/guide/cardiac-health-checkup-bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Cardiac screening</Link>
+          <p className="font-semibold text-slate-800 mb-2">Cities</p>
+          <Link href={`${base}/city/bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Bangkok</Link>
+          <Link href={`${base}/city/chiang-mai`} className="block hover:text-blue-600 py-0.5 text-xs">Chiang Mai</Link>
+          <Link href={`${base}/city/phuket`} className="block hover:text-blue-600 py-0.5 text-xs">Phuket</Link>
+          <Link href={`${base}/city/pattaya`} className="block hover:text-blue-600 py-0.5 text-xs">Pattaya</Link>
+          <Link href={`${base}/city/hua-hin`} className="block hover:text-blue-600 py-0.5 text-xs">Hua Hin</Link>
+          <Link href={`${base}/city/ko-samui`} className="block hover:text-blue-600 py-0.5 text-xs">Ko Samui</Link>
+          <Link href={`${base}/guide`} className="block hover:text-blue-600 py-0.5 mt-2 text-xs font-medium">All guides →</Link>
+          <Link href={`${base}/saved`} className="block hover:text-blue-600 py-0.5 text-xs">★ Saved packages</Link>
           <Link href={`${base}/enquiry`} className="block hover:text-blue-600 py-0.5 text-xs">Book / Enquire</Link>
-          <Link href={`${base}/for-clinics`} className="block hover:text-blue-600 py-0.5 text-xs">For hospitals</Link>
         </div>
       </div>
       <div className="border-t border-slate-100 py-4 text-center text-xs text-slate-400">
@@ -162,6 +164,7 @@ export default async function LocaleLayout({
             Get help
           </Link>
         </div>
+        <WhatsAppCTA />
         <Footer locale={loc} />
       </body>
     </html>

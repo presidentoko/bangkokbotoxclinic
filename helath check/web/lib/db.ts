@@ -77,6 +77,12 @@ export type HospitalDetail = HospitalSummary & {
   address: string | null;
   phone: string | null;
   website: string | null;
+  description: string | null;
+  founded_year: number | null;
+  bed_count: number | null;
+  specialties: string | null;
+  accreditations: string | null;
+  email: string | null;
   packages: PackageRow[];
 };
 
@@ -156,7 +162,7 @@ export async function getHospitals(): Promise<HospitalSummary[]> {
   const pool = getPool();
   const [rows] = await pool.query<mysql.RowDataPacket[]>(
     `SELECT
-       h.id, h.name, h.slug, h.area, h.jci, h.checkup_url,
+       h.id, h.name, h.slug, h.area, h.city, h.jci, h.checkup_url,
        h.rating, h.review_count,
        COUNT(p.id) AS package_count,
        MIN(p.price) AS min_price
@@ -174,7 +180,8 @@ export const getHospital = cache(async function getHospital(slug: string): Promi
   const [[hospRows], [pkgRows]] = await Promise.all([
     pool.query<mysql.RowDataPacket[]>(
       `SELECT h.id, h.name, h.name_th, h.slug, h.area, h.city, h.jci, h.checkup_url, h.lat, h.lng,
-         h.address, h.phone, h.website,
+         h.address, h.phone, h.website, h.description, h.founded_year, h.bed_count,
+         h.specialties, h.accreditations, h.email,
          h.rating, h.review_count,
          (SELECT COUNT(*) FROM checkup_packages WHERE hospital_id = h.id) AS package_count,
          (SELECT MIN(price) FROM checkup_packages WHERE hospital_id = h.id) AS min_price
@@ -218,7 +225,8 @@ export async function getPackagesByCity(city: string, sort = "price"): Promise<P
      FROM checkup_packages p
      JOIN hospitals h ON h.id = p.hospital_id
      WHERE h.city = ?
-     ORDER BY ${orderBy}`,
+     ORDER BY ${orderBy}
+     LIMIT 600`,
     [city],
   );
   return rows as PackageRow[];
@@ -281,6 +289,28 @@ export async function getPackage(
   return rows.length ? (rows[0] as PackageRow) : null;
 }
 
+export async function getPriceHistoryBatch(
+  packageIds: number[],
+): Promise<Record<number, number[]>> {
+  if (!packageIds.length) return {};
+  const pool = getPool();
+  const placeholders = packageIds.map(() => "?").join(",");
+  const [rows] = await pool.query<mysql.RowDataPacket[]>(
+    `SELECT package_id, price FROM package_price_snapshots
+     WHERE package_id IN (${placeholders})
+     ORDER BY snapshot_date ASC`,
+    packageIds,
+  );
+  const result: Record<number, number[]> = {};
+  for (const r of rows as { package_id: number; price: string | null }[]) {
+    if (!r.price) continue;
+    const p = parseFloat(r.price);
+    if (!result[r.package_id]) result[r.package_id] = [];
+    result[r.package_id].push(p);
+  }
+  return result;
+}
+
 export async function getPriceHistory(packageId: number): Promise<SnapshotRow[]> {
   const pool = getPool();
   const [rows] = await pool.query<mysql.RowDataPacket[]>(
@@ -291,6 +321,35 @@ export async function getPriceHistory(packageId: number): Promise<SnapshotRow[]>
     [packageId],
   );
   return rows as SnapshotRow[];
+}
+
+export type ReviewRow = {
+  id: number;
+  author_name: string | null;
+  rating: number | null;
+  review_text: string | null;
+  review_date: string | null;
+  source: string | null;
+};
+
+export async function getHospitalReviews(slug: string, limit = 5): Promise<ReviewRow[]> {
+  const pool = getPool();
+  const [rows] = await pool.query<mysql.RowDataPacket[]>(
+    `SELECT r.id, r.author_name, r.rating, r.review_text, r.review_date, r.source
+     FROM hospital_reviews r
+     JOIN hospitals h ON h.id = r.hospital_id
+     WHERE h.slug = ? AND r.review_text IS NOT NULL AND r.review_text != ''
+     ORDER BY r.rating DESC, r.review_date DESC
+     LIMIT ?`,
+    [slug, limit],
+  );
+  return rows as ReviewRow[];
+}
+
+export async function getHospitalsForCompare(slugs: string[]): Promise<HospitalDetail[]> {
+  if (!slugs.length) return [];
+  const results = await Promise.all(slugs.map((s) => getHospital(s)));
+  return results.filter(Boolean) as HospitalDetail[];
 }
 
 export async function getAllHospitalSlugs(): Promise<string[]> {

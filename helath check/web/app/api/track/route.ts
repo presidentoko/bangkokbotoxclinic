@@ -23,12 +23,12 @@ export async function GET(request: NextRequest) {
   // Log to console (replace with DB insert or analytics if needed)
   console.log(`[track] pkg=${pkgId} → ${parsed.href} ip=${request.headers.get("x-forwarded-for") ?? "unknown"}`);
 
-  // Redirect with affiliate params if configured
-  const affiliateBase = process.env.AFFILIATE_BASE_URL;
-  let finalUrl = parsed.href;
-  if (affiliateBase && !finalUrl.startsWith(affiliateBase)) {
-    // For non-affiliate URLs (hospital direct), just redirect
-  }
+  // Append UTM tracking so we can measure outbound conversion
+  const source = searchParams.get("src") ?? "bangkoktopclinic";
+  parsed.searchParams.set("utm_source", source);
+  parsed.searchParams.set("utm_medium", "referral");
+  parsed.searchParams.set("utm_campaign", "healthcheck");
+  if (pkgId) parsed.searchParams.set("utm_content", `pkg_${pkgId}`);
 
-  return NextResponse.redirect(finalUrl, { status: 302 });
+  return NextResponse.redirect(parsed.href, { status: 302 });
 }

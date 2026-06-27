@@ -11,11 +11,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const loc = locale as Locale;
   return {
-    title: `${t(loc, "site_name")} — Compare Bangkok Hospital Health Check-Up Prices`,
-    description: "Compare real health check-up prices from Bangkok's top hospitals. JCI-accredited hospitals, 15+ hospitals, 140+ packages. No ads, no sponsored listings.",
+    title: `${t(loc, "site_name")} — Compare Health Check-Up Prices in Thailand`,
+    description: "Compare real health check-up prices from 235+ hospitals across 18 cities in Thailand. Bangkok, Chiang Mai, Phuket, Pattaya and more. No ads, no sponsored listings.",
     openGraph: {
-      title: "Compare Bangkok Health Check-Up Prices — Real Prices, No Ads",
-      description: "Real prices scraped from hospital websites. Executive, comprehensive, cancer screening & more.",
+      title: "Compare Health Check-Up Prices in Thailand — Real Prices, No Ads",
+      description: "Real prices from 235 hospitals across Bangkok, Chiang Mai, Phuket and 15 more Thai cities. Executive, cancer, cardiac, women's screening and more.",
       url: `${BASE}/${locale}`,
     },
   };
@@ -299,6 +299,56 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
+      {/* ── City guides ── */}
+      <section className="mx-auto max-w-6xl px-4 pb-10">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-slate-800">Guides by city &amp; topic</h2>
+          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All guides →</Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { slug: "chiang-mai-health-checkup", title: "Chiang Mai Health Check-Up", emoji: "🌸", desc: "20–40% cheaper than Bangkok. Best hospitals & prices." },
+            { slug: "phuket-health-checkup", title: "Phuket Health Check-Up", emoji: "🏝️", desc: "Combine your island holiday with a health screen." },
+            { slug: "pattaya-health-checkup", title: "Pattaya Health Check-Up", emoji: "🌊", desc: "Best hospitals and packages in Pattaya." },
+            { slug: "cancer-screening-bangkok", title: "Cancer Screening Guide", emoji: "🎗️", desc: "Which tumour markers, imaging, and screening to get." },
+            { slug: "senior-health-checkup-thailand", title: "Senior Health Check-Up (60+)", emoji: "👴", desc: "Bone density, cognitive screening, cancer markers." },
+            { slug: "health-checkup-expats-thailand", title: "Expat Health Check-Up Guide", emoji: "🌍", desc: "Annual screening, insurance, and best hospitals for expats." },
+          ].map(({ slug, title, emoji, desc }) => (
+            <Link key={slug} href={`${base}/guide/${slug}`}
+              className="group flex gap-4 bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all">
+              <span className="text-2xl shrink-0">{emoji}</span>
+              <div>
+                <p className="font-semibold text-slate-800 group-hover:text-blue-700 text-sm leading-snug mb-1">{title}</p>
+                <p className="text-xs text-slate-500">{desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Who is this for ── */}
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <h2 className="text-xl font-bold text-slate-800 mb-5">Find the right package for you</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {[
+            { href: `${base}/for/jci-accredited-health-checkup-bangkok`, icon: "🏆", label: "JCI-Accredited Hospitals" },
+            { href: `${base}/for/health-checkup-expats-bangkok`, icon: "🌍", label: "Expats in Bangkok" },
+            { href: `${base}/for/japanese-health-checkup-bangkok`, icon: "🗾", label: "Japanese Tourists" },
+            { href: `${base}/for/arabic-health-checkup-bangkok`, icon: "🌙", label: "Arabic Speakers" },
+            { href: `${base}/for/cancer-screening-bangkok`, icon: "🎗️", label: "Cancer Screening" },
+            { href: `${base}/for/womens-health-checkup-bangkok`, icon: "♀️", label: "Women's Health" },
+            { href: `${base}/for/budget-health-checkup-bangkok`, icon: "💰", label: "Budget Under ฿3k" },
+            { href: `${base}/for/executive-health-checkup-bangkok`, icon: "💼", label: "Executive Packages" },
+          ].map((item) => (
+            <Link key={item.href} href={item.href}
+              className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all group flex items-center gap-3">
+              <span className="text-xl shrink-0">{item.icon}</span>
+              <span className="text-xs font-semibold text-slate-700 group-hover:text-blue-700 leading-snug">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* ── Why this site ── */}
       <section className="bg-white border-t border-slate-100">
         <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
@@ -339,6 +389,44 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         url: BASE,
         description: "Compare health check-up prices at Bangkok hospitals. Real prices, no ads.",
         potentialAction: { "@type": "SearchAction", target: `${BASE}/en/compare?category={search_term_string}`, "query-input": "required name=search_term_string" },
+      }) }} />
+
+      {/* Schema: FAQPage */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much does a health check-up cost in Bangkok?",
+            acceptedAnswer: { "@type": "Answer", text: "Health check-up prices in Bangkok range from ฿2,000 for a basic blood panel to ฿80,000+ for a full executive package with MRI at a JCI hospital. A mid-range comprehensive package covering blood tests, ultrasound, chest X-ray and ECG typically costs ฿6,000–฿20,000. Prices at Bumrungrad and Samitivej are 20–40% higher than smaller private hospitals." }
+          },
+          {
+            "@type": "Question",
+            name: "Which Bangkok hospitals are JCI accredited?",
+            acceptedAnswer: { "@type": "Answer", text: "JCI-accredited hospitals in Bangkok include Bumrungrad International Hospital, Bangkok Hospital (BDMS), Samitivej Hospital, BNH Hospital, Vejthani Hospital, Saint Louis Hospital, and Phyathai 2 Hospital. JCI accreditation is the international gold standard for hospital quality, awarded by the Joint Commission International (USA)." }
+          },
+          {
+            "@type": "Question",
+            name: "What is included in a Thai health check-up?",
+            acceptedAnswer: { "@type": "Answer", text: "A standard Thai health check-up typically includes complete blood count (CBC), fasting blood glucose, lipid panel (cholesterol), liver function tests, kidney function tests, thyroid function (TSH), Hepatitis B, chest X-ray, abdominal ultrasound, ECG (electrocardiogram), urinalysis, blood pressure, BMI measurement, and a physician consultation." }
+          },
+          {
+            "@type": "Question",
+            name: "How long does a health check-up take in Thailand?",
+            acceptedAnswer: { "@type": "Answer", text: "Most comprehensive health check-up packages at Thai private hospitals take 3–5 hours to complete. Basic packages (blood tests + X-ray only) can complete in 1–2 hours. Same-day results are available for most blood tests. Imaging reports (MRI, CT scan) may take an additional 1–2 hours for the radiologist's report." }
+          },
+          {
+            "@type": "Question",
+            name: "Is a health check-up in Thailand cheaper than in my home country?",
+            acceptedAnswer: { "@type": "Answer", text: "Yes, significantly. An executive health check-up at a JCI hospital in Bangkok costs ฿15,000–฿40,000 (USD 415–1,100). An equivalent package in the USA costs USD 2,000–5,000, in the UK £500–2,000, in Australia AUD 800–3,000, and in the UAE AED 3,000–10,000. The savings are 50–80% even when including flights and accommodation." }
+          },
+          {
+            "@type": "Question",
+            name: "Do I need to fast before a health check-up in Thailand?",
+            acceptedAnswer: { "@type": "Answer", text: "Yes — you should fast for 8–12 hours before your health check-up to ensure accurate blood glucose, cholesterol, and liver enzyme readings. Drink water freely during the fasting period. Schedule your appointment for the morning and skip breakfast the night before. Coffee, juice, and other beverages (except plain water) should also be avoided." }
+          },
+        ],
       }) }} />
     </div>
   );

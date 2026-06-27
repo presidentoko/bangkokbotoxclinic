@@ -1,5 +1,6 @@
 "use client";
-import { useState, useDeferredValue, useMemo, useCallback } from "react";
+import { useState, useDeferredValue, useMemo, useCallback, useRef, useEffect, useId } from "react";
+import { SaveButton } from "./SaveButton";
 
 const PAGE_SIZE = 36;
 import Link from "next/link";
@@ -126,10 +127,37 @@ function PackageCard({ row, loc, cheapest }: { row: PackageRow; loc: Locale; che
           Details
         </Link>
       </div>
-      <div className="px-5 pb-4">
-        <CompareCheckbox row={row} />
+      <div className="px-5 pb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <CompareCheckbox row={row} />
+          <SaveButton packageId={row.package_id} />
+        </div>
+        <ReportLink packageId={row.package_id} hospitalName={row.hospital_name} />
       </div>
     </div>
+  );
+}
+
+function ReportLink({ packageId, hospitalName }: { packageId: number; hospitalName: string }) {
+  const [sent, setSent] = useState(false);
+  async function report() {
+    if (sent) return;
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "correction",
+        name: "User report",
+        message: `Wrong data reported\nHospital: ${hospitalName}\nPackage ID: ${packageId}`,
+        url: typeof window !== "undefined" ? window.location.href : "",
+      }),
+    });
+    setSent(true);
+  }
+  return (
+    <button onClick={report} className={`text-xs transition-colors ${sent ? "text-green-500" : "text-slate-300 hover:text-red-400"}`} title="Report wrong data">
+      {sent ? "✓ Reported" : "⚑ Report"}
+    </button>
   );
 }
 
@@ -145,18 +173,26 @@ const FEATURES = [
 
 type FeatureKey = (typeof FEATURES)[number]["key"];
 
-const CITIES = ["Bangkok", "Chiang Mai", "Phuket", "Pattaya", "Hua Hin", "Ko Samui", "Krabi", "Chiang Rai", "Hat Yai", "Khon Kaen", "Koh Chang", "Udon Thani", "Korat", "Ayutthaya", "Chon Buri", "Nakhon Si Thammarat", "Lampang", "Nakhon Pathom"] as const;
+const CITIES = ["Bangkok", "Chiang Mai", "Phuket", "Pattaya", "Hua Hin", "Ko Samui", "Krabi", "Chiang Rai", "Hat Yai", "Khon Kaen", "Koh Chang", "Udon Thani", "Korat", "Ayutthaya", "Chon Buri", "Nakhon Si Thammarat", "Lampang", "Nakhon Pathom", "Rayong", "Surat Thani", "Phitsanulok", "Trang"] as const;
 type City = (typeof CITIES)[number];
 
 const CATEGORIES = [
-  { key: "basic",        label: "Basic",       emoji: "🩺" },
-  { key: "standard",     label: "Standard",    emoji: "📋" },
-  { key: "executive",    label: "Executive",   emoji: "💼" },
-  { key: "women",        label: "Women",       emoji: "👩" },
-  { key: "cancer",       label: "Cancer",      emoji: "🎗️" },
-  { key: "heart",        label: "Heart",       emoji: "❤️" },
-  { key: "men",          label: "Men",         emoji: "👨" },
-  { key: "senior",       label: "Senior",      emoji: "🏥" },
+  { key: "basic",         label: "Basic",          emoji: "🩺" },
+  { key: "standard",      label: "Standard",       emoji: "📋" },
+  { key: "executive",     label: "Executive",      emoji: "💼" },
+  { key: "comprehensive", label: "Comprehensive",  emoji: "🔬" },
+  { key: "women",         label: "Women",          emoji: "👩" },
+  { key: "cancer",        label: "Cancer",         emoji: "🎗️" },
+  { key: "heart",         label: "Heart",          emoji: "❤️" },
+  { key: "cardiac",       label: "Cardiac",        emoji: "🫀" },
+  { key: "men",           label: "Men",            emoji: "👨" },
+  { key: "senior",        label: "Senior (60+)",   emoji: "👴" },
+  { key: "diabetes",      label: "Diabetes",       emoji: "🩸" },
+  { key: "eye",           label: "Eye Exam",       emoji: "👁️" },
+  { key: "liver",         label: "Liver",          emoji: "🫁" },
+  { key: "kidney",        label: "Kidney",         emoji: "💧" },
+  { key: "brain",         label: "Brain MRI",      emoji: "🧠" },
+  { key: "dental",        label: "Dental",         emoji: "🦷" },
 ] as const;
 
 const PRICE_RANGES = [
@@ -179,6 +215,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
   const [activeCity, setActiveCity] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activePriceKey, setActivePriceKey] = useState<PriceKey | null>(null);
+  const [sortKey, setSortKey] = useState<"price" | "price_desc" | "rating" | "name">("price");
   const [page, setPage] = useState(1);
   const deferred = useDeferredValue(query);
 
@@ -230,13 +267,17 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
         result = result.filter((r) => (r[feat as keyof PackageRow] as number) === 1);
       }
     }
-    // Priced packages first, then "contact for price" at bottom
+    // Sort
     return [...result].sort((a, b) => {
       if (a.price && !b.price) return -1;
       if (!a.price && b.price) return 1;
+      if (sortKey === "price") return parseFloat(a.price ?? "9999999") - parseFloat(b.price ?? "9999999");
+      if (sortKey === "price_desc") return parseFloat(b.price ?? "0") - parseFloat(a.price ?? "0");
+      if (sortKey === "rating") return parseFloat(b.rating ?? "0") - parseFloat(a.rating ?? "0");
+      if (sortKey === "name") return a.hospital_name.localeCompare(b.hospital_name);
       return 0;
     });
-  }, [rows, deferred, activeFeatures, activeCity, activeCategory, activePriceKey]);
+  }, [rows, deferred, activeFeatures, activeCity, activeCategory, activePriceKey, sortKey]);
 
   const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
   const hasMore = filtered.length > page * PAGE_SIZE;
@@ -354,13 +395,25 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
         </div>
       </div>
 
-      {/* Results count */}
-      <p className="text-sm text-slate-500 mb-4">
-        {hasFilters
-          ? <>Showing <strong className="text-slate-800">{Math.min(visible.length, filtered.length)}</strong> of <strong className="text-slate-800">{filtered.length}</strong> matching packages</>
-          : <>Showing <strong className="text-slate-800">{visible.length}</strong> of <strong className="text-slate-800">{rows.length}</strong> packages across <strong className="text-slate-800">{new Set(rows.map(r => r.hospital_slug)).size}</strong> hospitals</>
-        }
-      </p>
+      {/* Results count + sort */}
+      <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
+        <p className="text-sm text-slate-500">
+          {hasFilters
+            ? <><strong className="text-slate-800">{filtered.length}</strong> matching packages</>
+            : <><strong className="text-slate-800">{rows.length}</strong> packages · <strong className="text-slate-800">{new Set(rows.map(r => r.hospital_slug)).size}</strong> hospitals</>
+          }
+        </p>
+        <select
+          value={sortKey}
+          onChange={(e) => { setSortKey(e.target.value as typeof sortKey); resetPage(); }}
+          className="text-xs border border-slate-200 rounded-lg px-2 py-1.5 text-slate-600 bg-white focus:outline-none focus:ring-1 focus:ring-blue-300 cursor-pointer"
+        >
+          <option value="price">Price: Low → High</option>
+          <option value="price_desc">Price: High → Low</option>
+          <option value="rating">Best rated</option>
+          <option value="name">Hospital A → Z</option>
+        </select>
+      </div>
 
       {/* No results */}
       {filtered.length === 0 && (
