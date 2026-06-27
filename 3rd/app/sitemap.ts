@@ -35,6 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/guides/best-bags-for-travel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/best-bags-for-work`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/trends/quiet-luxury-2025`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/brands/dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/brands/bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/brands/prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/dior-vs-chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/bottega-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages

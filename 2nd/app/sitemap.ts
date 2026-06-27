@@ -45,6 +45,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/guides/best-pre-owned-watches-for-beginners`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/guides/best-bags-for-travel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/guides/best-bags-for-work`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/brands/dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/dior-vs-chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/bottega-veneta-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/celine-vs-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
   ]
 
