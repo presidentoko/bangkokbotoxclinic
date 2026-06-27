@@ -64,7 +64,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-function getFAQs(item: Item, t: (key: string, values?: Record<string, string | number>) => string) {
+function getFAQs(item: Item, locale: string) {
+  const isTh = locale === 'th'
   const vg = item.price_ranges.very_good
   const savingsPct = vg && item.retail_price_thb > 0
     ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
@@ -72,45 +73,195 @@ function getFAQs(item: Item, t: (key: string, values?: Record<string, string | n
   const pct = savingsPct && savingsPct > 0 ? `${savingsPct}%` : '20%'
 
   if (item.category === 'handbags') {
-    return [
-      {
-        q: t('handbag_worth_it_q', { model: item.model }),
-        a: savingsPct && savingsPct > 0
-          ? t('handbag_worth_it_a_savings', { brand: item.brand, model: item.model, pct })
-          : t('handbag_worth_it_a_premium', { model: item.model }),
-      },
-      { q: t('handbag_condition_q'), a: t('handbag_condition_a') },
-      {
-        q: t('handbag_where_q', { brand: item.brand }),
-        a: t('handbag_where_a'),
-      },
-    ]
+    if (!isTh) {
+      return [
+        {
+          q: `Is buying a pre-owned ${item.model} worth it in Thailand?`,
+          a: savingsPct && savingsPct > 0
+            ? `Yes — pre-owned ${item.brand} ${item.model} bags in Thailand typically sell ${pct} below retail, making them an excellent value for luxury shoppers.`
+            : `Pre-owned ${item.model} bags offer access to a luxury icon. Even at near-retail prices, the secondary market gives you immediate availability without waitlists.`,
+        },
+        {
+          q: `How much does a used ${item.model} cost in Thailand?`,
+          a: vg
+            ? `A used ${item.model} in Very Good condition typically costs between ${formatPriceTHB(vg.min)} and ${formatPriceTHB(vg.max)} on the Thai secondary market. Prices vary by colour, hardware, and condition.`
+            : `Prices for a used ${item.model} vary depending on condition, colourway, and hardware finish. Check Carousell TH and C2C.in.th for current listings.`,
+        },
+        {
+          q: 'Which condition should I buy?',
+          a: 'Very Good condition offers the best value — bags show only light signs of use and retain full structural integrity. Excellent condition commands a 10–20% premium and is ideal if you plan to resell. Good condition suits everyday use but may show visible wear.',
+        },
+        {
+          q: `How do I authenticate a pre-owned ${item.brand} bag?`,
+          a: `Authenticate a pre-owned ${item.brand} bag by checking the serial number stamp, stitching consistency, hardware weight and engraving, and lining quality. For high-value pieces, use a professional authentication service such as Real Authentication or Entrupy.`,
+        },
+        {
+          q: `Does the ${item.model} hold its value?`,
+          a: savingsPct !== null && savingsPct < 15
+            ? `Yes — the ${item.model} holds its value exceptionally well. Pre-owned prices remain close to retail, reflecting strong demand in the global luxury market.`
+            : `The ${item.model} retains value better than most fashion items. Classic colourways in neutral tones depreciate the least over time.`,
+        },
+        {
+          q: `Where is the best place to buy a used ${item.model} in Thailand?`,
+          a: `The top platforms for buying a used ${item.model} in Thailand are Carousell TH (largest selection), Facebook Marketplace TH (direct seller deals), and C2C.in.th (authenticated listings). Always request original receipts and authentication cards.`,
+        },
+        {
+          q: "What's the difference between Excellent, Very Good, and Good condition?",
+          a: 'Excellent: minimal use, near-new appearance, may include original packaging. Very Good: light wear on corners or handles, no major scuffs or stains. Good: visible signs of use including scuffs, scratches, or fading — still fully functional but shows its age.',
+        },
+      ]
+    } else {
+      return [
+        {
+          q: `คุ้มค่าไหมที่จะซื้อ${item.model}มือสอง?`,
+          a: savingsPct && savingsPct > 0
+            ? `คุ้มมาก — กระเป๋า ${item.brand} ${item.model} มือสองในไทยราคาต่ำกว่าของใหม่ถึง ${pct} เหมาะสำหรับผู้ที่ต้องการของ luxury ในราคาที่เข้าถึงได้`
+            : `กระเป๋า ${item.model} มือสองช่วยให้คุณเข้าถึงของ luxury ได้โดยไม่ต้องรอคิว แม้ราคาใกล้เคียงของใหม่ก็ยังคุ้มค่าในแง่ความพร้อมจำหน่าย`,
+        },
+        {
+          q: `กระเป๋า${item.model}มือสองราคาเท่าไหร่?`,
+          a: vg
+            ? `กระเป๋า ${item.model} สภาพดีมากในไทยราคาอยู่ที่ประมาณ ${formatPriceTHB(vg.min)} ถึง ${formatPriceTHB(vg.max)} ราคาขึ้นอยู่กับสี อุปกรณ์โลหะ และสภาพสินค้า`
+            : `ราคากระเป๋า ${item.model} มือสองขึ้นอยู่กับสภาพ สี และอุปกรณ์โลหะ ดูราคาปัจจุบันได้ที่ Carousell TH และ C2C.in.th`,
+        },
+        {
+          q: 'ควรเลือกซื้อสภาพไหนดี?',
+          a: 'สภาพ Very Good ให้ความคุ้มค่าที่ดีที่สุด — กระเป๋าแทบไม่มีรอยการใช้งานและยังคงสภาพดี สภาพ Excellent เหมาะหากต้องการขายต่อ แต่ราคาสูงกว่า 10–20% ส่วนสภาพ Good เหมาะสำหรับใช้งานประจำวัน',
+        },
+        {
+          q: `จะตรวจสอบความแท้ของกระเป๋า${item.brand}ได้อย่างไร?`,
+          a: `ตรวจสอบหมายเลขซีเรียล การเย็บที่สม่ำเสมอ น้ำหนักและการแกะสลักของโลหะ และคุณภาพของผ้าบุภายใน สำหรับของมูลค่าสูงควรใช้บริการตรวจสอบความแท้จากผู้เชี่ยวชาญ`,
+        },
+        {
+          q: `${item.model}รักษามูลค่าได้ดีไหม?`,
+          a: savingsPct !== null && savingsPct < 15
+            ? `ดีมาก — ${item.model} รักษามูลค่าได้ดีเยี่ยม ราคามือสองยังคงใกล้เคียงราคาใหม่ สะท้อนถึงดีมานด์ที่แข็งแกร่ง`
+            : `${item.model} รักษามูลค่าได้ดีกว่าสินค้าแฟชั่นทั่วไป สีคลาสสิกโทนนิวทรัลราคาลดลงน้อยที่สุด`,
+        },
+        {
+          q: `ซื้อกระเป๋า${item.model}มือสองที่ไหนดีในไทย?`,
+          a: `แพลตฟอร์มที่ดีที่สุดในการซื้อกระเป๋า ${item.model} มือสองในไทยคือ Carousell TH (ตัวเลือกมากที่สุด) Facebook Marketplace TH (ซื้อตรงจากผู้ขาย) และ C2C.in.th (รายการที่ผ่านการรับรอง) ขอใบเสร็จต้นฉบับและบัตรรับรองทุกครั้ง`,
+        },
+        {
+          q: 'สภาพ Excellent, Very Good และ Good แตกต่างกันอย่างไร?',
+          a: 'Excellent: ใช้น้อยมาก ใกล้เคียงของใหม่ อาจมีกล่องและอุปกรณ์ครบ Very Good: มีรอยการใช้งานเล็กน้อยที่มุมหรือหูหิ้ว ไม่มีรอยขีดหรือคราบ Good: มีรอยการใช้งานให้เห็น เช่น รอยขีด รอยถลอก หรือสีซีด แต่ยังใช้งานได้ปกติ',
+        },
+      ]
+    }
   }
+
   if (item.category === 'watches') {
     const isAboveRetail = vg && (vg.min + vg.max) / 2 > item.retail_price_thb
+    if (!isTh) {
+      return [
+        {
+          q: `Does a pre-owned ${item.model} hold its value?`,
+          a: isAboveRetail
+            ? `Exceptionally well — the ${item.model} commands prices above retail on the secondary market, reflecting strong collector demand and limited supply.`
+            : `Yes — the ${item.brand} ${item.model} holds its value better than most luxury watches. Stainless steel models on original bracelet depreciate the least.`,
+        },
+        {
+          q: `How much does a used ${item.model} cost in Thailand?`,
+          a: vg
+            ? `A used ${item.model} in Very Good condition typically sells for ${formatPriceTHB(vg.min)} to ${formatPriceTHB(vg.max)} on the Thai pre-owned market. Prices vary by reference number, bracelet type, and whether the watch comes with box and papers.`
+            : `Used ${item.model} prices vary by reference number, condition, and accessories. Check current listings on Carousell TH and C2C.in.th.`,
+        },
+        {
+          q: `What should I check when buying a used ${item.model}?`,
+          a: `When buying a used ${item.model}, verify the serial and reference numbers match the papers, inspect the case for deep scratches, check crown and pusher function, and confirm the movement runs accurately. A pre-purchase service by a certified watchmaker is recommended for high-value pieces.`,
+        },
+        {
+          q: `Is buying a pre-owned ${item.model} risky?`,
+          a: `Risk is manageable if you buy from a reputable seller. Key safeguards: request the original box and papers, verify authenticity with a certified watchmaker, and use escrow or platform buyer protection. Avoid cash-only transactions without documentation.`,
+        },
+        {
+          q: `What is the ${item.model} retail price in Thailand?`,
+          a: item.retail_price_thb > 0
+            ? `The official retail price of the ${item.brand} ${item.model} in Thailand is ${formatPriceTHB(item.retail_price_thb)}. Pre-owned prices ${isAboveRetail ? 'exceed' : 'are typically below'} this figure.`
+            : `Official retail pricing for the ${item.model} in Thailand varies by reference and configuration. Contact an authorised ${item.brand} dealer for current pricing.`,
+        },
+        {
+          q: 'Box and papers vs no box — how much price difference?',
+          a: 'Full set (original box, papers/warranty card, and all accessories) commands a 10–20% premium over no-papers watches of the same reference and condition. For highly collectible references, the premium can exceed 25%.',
+        },
+        {
+          q: `What's the best time to buy a pre-owned ${item.brand} watch?`,
+          a: `The best time to buy is when new model releases are announced — sellers often list pre-owned pieces ahead of upgrades, increasing supply. Post-holiday periods (February, August) also see higher inventory on Thai resale platforms.`,
+        },
+      ]
+    } else {
+      return [
+        {
+          q: `${item.model}มือสองรักษามูลค่าได้ดีไหม?`,
+          a: isAboveRetail
+            ? `ดีมาก — ${item.model} ราคามือสองสูงกว่าราคาขายปลีก สะท้อนถึงความต้องการของนักสะสมและซัพพลายที่จำกัด`
+            : `ใช่ — ${item.brand} ${item.model} รักษามูลค่าได้ดีกว่านาฬิกา luxury ส่วนใหญ่ รุ่นสเตนเลสบนสายดั้งเดิมราคาลดน้อยที่สุด`,
+        },
+        {
+          q: `นาฬิกา${item.model}มือสองในไทยราคาเท่าไหร่?`,
+          a: vg
+            ? `นาฬิกา ${item.model} สภาพดีมากในไทยราคาอยู่ที่ ${formatPriceTHB(vg.min)} ถึง ${formatPriceTHB(vg.max)} ราคาขึ้นอยู่กับรหัสรุ่น ประเภทสาย และครบชุดหรือไม่`
+            : `ราคา ${item.model} มือสองขึ้นอยู่กับรหัสรุ่น สภาพ และอุปกรณ์ประกอบ ดูราคาปัจจุบันได้ที่ Carousell TH และ C2C.in.th`,
+        },
+        {
+          q: `ซื้อนาฬิกา${item.model}มือสองควรดูอะไร?`,
+          a: `ตรวจสอบหมายเลขซีเรียลและรหัสรุ่นให้ตรงกับเอกสาร ตรวจตัวเรือนว่ามีรอยขีดลึกหรือไม่ ทดสอบการทำงานของ crown และปุ่มกด และตรวจสอบความแม่นยำของเครื่อง สำหรับชิ้นมูลค่าสูงควรให้ช่างนาฬิกาที่ได้รับการรับรองตรวจสอบก่อนซื้อ`,
+        },
+        {
+          q: 'ซื้อนาฬิกามือสองมีความเสี่ยงไหม?',
+          a: `ความเสี่ยงจัดการได้หากซื้อจากผู้ขายที่น่าเชื่อถือ วิธีป้องกัน: ขอกล่องและเอกสารต้นฉบับ ยืนยันความแท้กับช่างนาฬิกาที่ได้รับการรับรอง และใช้ระบบ escrow หรือการคุ้มครองผู้ซื้อของแพลตฟอร์ม หลีกเลี่ยงการจ่ายเงินสดโดยไม่มีเอกสาร`,
+        },
+        {
+          q: `${item.model}ราคาขายปลีกในไทยเท่าไหร่?`,
+          a: item.retail_price_thb > 0
+            ? `ราคาขายปลีกอย่างเป็นทางการของ ${item.brand} ${item.model} ในไทยอยู่ที่ ${formatPriceTHB(item.retail_price_thb)} ราคามือสอง${isAboveRetail ? 'สูงกว่า' : 'ต่ำกว่า'}ราคานี้`
+            : `ราคาขายปลีก ${item.model} ในไทยขึ้นอยู่กับรหัสและตัวเลือก ติดต่อตัวแทนจำหน่าย ${item.brand} อย่างเป็นทางการเพื่อดูราคาปัจจุบัน`,
+        },
+        {
+          q: 'มี box และ papers กับไม่มีราคาต่างกันเท่าไหร่?',
+          a: 'ชุดครบ (กล่องต้นฉบับ บัตรรับประกัน และอุปกรณ์ครบ) ราคาสูงกว่าแบบไม่มีเอกสาร 10–20% สำหรับรุ่นที่นักสะสมต้องการมากส่วนต่างอาจสูงกว่า 25%',
+        },
+        {
+          q: `ช่วงไหนดีที่สุดในการซื้อนาฬิกา${item.brand}มือสอง?`,
+          a: `ช่วงเวลาที่ดีที่สุดคือเมื่อมีการประกาศรุ่นใหม่ — ผู้ขายมักนำของเก่าออกขายก่อนอัพเกรด ทำให้ซัพพลายเพิ่มขึ้น ช่วงหลังเทศกาล (กุมภาพันธ์ สิงหาคม) ยังมีสินค้าในตลาดมือสองไทยมากกว่าปกติ`,
+        },
+      ]
+    }
+  }
+
+  // Default for clothing
+  if (!isTh) {
     return [
       {
-        q: t('watch_value_q', { model: item.model }),
-        a: isAboveRetail
-          ? t('watch_value_a_premium', { model: item.model })
-          : t('watch_value_a_normal', { brand: item.brand }),
+        q: `Is buying a pre-owned ${item.model} worth it in Thailand?`,
+        a: savingsPct && savingsPct > 0
+          ? `Yes — pre-owned ${item.brand} ${item.model} in Thailand typically sells ${pct} below retail.`
+          : `Pre-owned ${item.model} gives you access to a coveted ${item.brand} piece at more accessible prices.`,
       },
-      { q: t('watch_check_q', { model: item.model }), a: t('watch_check_a') },
-      { q: t('watch_risk_q', { model: item.model }), a: t('watch_risk_a') },
+      {
+        q: `How do I authenticate a pre-owned ${item.brand} piece?`,
+        a: `Check the label stitching, font consistency on tags, and fabric quality. For high-value pieces, use a professional authentication service.`,
+      },
+      {
+        q: `Where is the best place to buy pre-owned ${item.brand} in Thailand?`,
+        a: `Carousell TH, Facebook Marketplace TH, and C2C.in.th are the top platforms for pre-owned ${item.brand} in Thailand.`,
+      },
     ]
   }
   return [
     {
-      q: t('clothing_worth_it_q', { model: item.model }),
-      a: t('clothing_worth_it_a', { brand: item.brand, model: item.model, pct }),
+      q: `คุ้มค่าไหมที่จะซื้อ${item.model}มือสอง?`,
+      a: savingsPct && savingsPct > 0
+        ? `คุ้มมาก — ${item.brand} ${item.model} มือสองในไทยราคาต่ำกว่าของใหม่ถึง ${pct}`
+        : `${item.model} มือสองช่วยให้คุณเข้าถึง ${item.brand} ได้ในราคาที่เข้าถึงได้มากขึ้น`,
     },
     {
-      q: t('clothing_auth_q', { brand: item.brand }),
-      a: t('clothing_auth_a'),
+      q: `จะตรวจสอบความแท้ของ${item.brand}ได้อย่างไร?`,
+      a: `ตรวจสอบการเย็บป้าย ความสม่ำเสมอของฟอนต์ และคุณภาพผ้า สำหรับของมูลค่าสูงควรใช้บริการตรวจสอบความแท้จากผู้เชี่ยวชาญ`,
     },
     {
-      q: t('clothing_where_q', { brand: item.brand }),
-      a: t('clothing_where_a'),
+      q: `ซื้อ${item.brand}มือสองที่ไหนดีในไทย?`,
+      a: `Carousell TH Facebook Marketplace TH และ C2C.in.th เป็นแพลตฟอร์มที่ดีที่สุดสำหรับสินค้า ${item.brand} มือสองในไทย`,
     },
   ]
 }
@@ -121,9 +272,8 @@ export default async function ModelPage({ params }: Props) {
   if (!item) notFound()
 
   const tCommon = await getTranslations({ locale, namespace: 'common' })
-  const tFaq = await getTranslations({ locale, namespace: 'faq' })
 
-  const faqs = getFAQs(item, tFaq)
+  const faqs = getFAQs(item, locale)
 
   // FAQ schema
   const faqSchema = {
@@ -175,6 +325,25 @@ export default async function ModelPage({ params }: Props) {
   // Share data
   const pageUrl = `${BASE}/${locale}/${item.slug}`
   const vg = item.price_ranges.very_good
+  const metaDescription = tCommon('page_meta_model', {
+    brand: item.brand,
+    model: item.model,
+    min: vg ? formatPriceTHB(vg.min) : '฿–',
+    max: vg ? formatPriceTHB(vg.max) : '฿–',
+  })
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: locale === 'th'
+      ? `${item.brand} ${item.model} มือสอง ราคา (${YEAR})`
+      : `Used ${item.brand} ${item.model} Price Guide in Thailand (${YEAR})`,
+    description: metaDescription,
+    url: pageUrl,
+    dateModified: item.last_updated || new Date().toISOString().split('T')[0],
+    author: { '@type': 'Organization', name: 'chicpreowned.com' },
+    publisher: { '@type': 'Organization', name: 'chicpreowned.com', url: 'https://www.chicpreowned.com' },
+    inLanguage: locale === 'th' ? 'th-TH' : 'en-US',
+  }
   const shareTitle = `Used ${item.brand} ${item.model} — Price in Thailand`
   const shareText = vg
     ? `Pre-owned ${item.brand} ${item.model}: ${formatPriceTHB(vg.min)}–${formatPriceTHB(vg.max)} on Carousell TH`
@@ -199,6 +368,10 @@ export default async function ModelPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
       <p className="text-sm text-[#9C8B7A] mb-2">

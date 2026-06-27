@@ -12,7 +12,10 @@ export default async function Image({ params }: { params: Promise<{ brand: strin
 
   const vg = item?.price_ranges.very_good
   const priceText = vg ? `${formatPrice(vg.min)} – ${formatPrice(vg.max)}` : 'See price guide'
-  const title = item ? `Used ${item.brand} ${item.model}` : 'Pre-Owned Luxury'
+  const savingsPct = vg && item?.retail_price_usd && item.retail_price_usd > 0
+    ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
+    : null
+  const categoryLabel = item?.category === 'handbags' ? 'HANDBAG PRICE GUIDE' : 'WATCH PRICE GUIDE'
 
   return new ImageResponse(
     (
@@ -23,44 +26,63 @@ export default async function Image({ params }: { params: Promise<{ brand: strin
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '60px 72px',
+          padding: '56px 72px',
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ color: '#ffffff', fontSize: '20px', fontWeight: 600, letterSpacing: '-0.5px' }}>
-            SecondLuxuryItems.com
+        {/* Top row: site name + savings badge */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px' }}>
+          <div style={{ color: '#888888', fontSize: '17px', letterSpacing: '3px' }}>
+            SECONDLUXURYITEMS.COM
           </div>
-          <div style={{ color: '#555', fontSize: '20px' }}>·</div>
-          <div style={{ color: '#888', fontSize: '18px' }}>Pre-Owned Price Guide</div>
+          {savingsPct !== null && savingsPct > 0 && (
+            <div style={{
+              background: '#B8954A',
+              color: '#ffffff',
+              fontSize: '26px',
+              fontWeight: 700,
+              padding: '10px 24px',
+              letterSpacing: '-0.5px',
+            }}>
+              SAVE {savingsPct}%
+            </div>
+          )}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ color: '#888', fontSize: '22px', fontWeight: 500 }}>
-            {item?.category === 'handbags' ? '👜 Handbag' : '⌚ Watch'} · Very Good Condition
+        {/* Divider */}
+        <div style={{ width: '100%', height: '1px', background: '#222222', marginBottom: '44px' }} />
+
+        {/* Main content */}
+        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+          {/* Brand */}
+          <div style={{ color: '#B8954A', fontSize: '20px', fontWeight: 600, letterSpacing: '4px', marginBottom: '10px' }}>
+            {item?.brand?.toUpperCase() ?? ''}
           </div>
-          <div style={{ color: '#ffffff', fontSize: '58px', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-1.5px' }}>
-            {title}
+          {/* Model */}
+          <div style={{ color: '#ffffff', fontSize: '62px', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-1px', marginBottom: '28px' }}>
+            {item?.model ?? 'Pre-Owned Luxury'}
           </div>
-          <div style={{ color: '#e0e0e0', fontSize: '38px', fontWeight: 500 }}>
-            {priceText}
+          {/* Price range */}
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '18px', marginBottom: '18px' }}>
+            <div style={{ color: '#B8954A', fontSize: '42px', fontWeight: 600 }}>
+              {priceText}
+            </div>
+            <div style={{ color: '#555555', fontSize: '22px' }}>
+              Very Good
+            </div>
+          </div>
+          {/* Category label */}
+          <div style={{ color: '#444444', fontSize: '14px', letterSpacing: '4px' }}>
+            {categoryLabel}
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ color: '#555', fontSize: '18px' }}>Updated weekly from live listings</div>
-          <div style={{ flex: 1 }} />
-          <div style={{
-            background: '#ffffff',
-            color: '#000000',
-            fontSize: '18px',
-            fontWeight: 600,
-            padding: '12px 24px',
-            borderRadius: '8px',
-          }}>
-            See full price guide →
-          </div>
+        {/* Divider */}
+        <div style={{ width: '100%', height: '1px', background: '#222222', marginBottom: '24px' }} />
+
+        {/* Bottom row */}
+        <div style={{ color: '#555555', fontSize: '15px', letterSpacing: '2px' }}>
+          secondluxuryitems.com · Updated Weekly · 76+ Models
         </div>
       </div>
     ),

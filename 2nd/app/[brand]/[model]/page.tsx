@@ -52,33 +52,78 @@ function getFAQs(item: Item) {
       {
         q: `Is buying a used ${name} worth it?`,
         a: savingsPct && savingsPct > 0
-          ? `Yes — a pre-owned ${item.model} typically costs around ${savingsPct}% less than retail while maintaining strong resale value. ${item.brand} bags are well known for holding their value.`
-          : `The ${item.model} often sells above retail on the secondary market due to high demand. Buying pre-owned can offer immediate availability without waitlists.`,
+          ? `Yes — a pre-owned ${item.model} typically costs around ${savingsPct}% less than retail while maintaining strong resale value. ${item.brand} bags are well known for holding their value, making pre-owned an excellent way to own this piece.`
+          : `The ${item.model} often sells at or above retail on the secondary market due to high demand. Buying pre-owned can offer immediate availability without waitlists, though pricing is competitive.`,
+      },
+      {
+        q: `How much does a pre-owned ${name} cost?`,
+        a: vg
+          ? `In Very Good condition, a pre-owned ${name} typically costs between ${formatPrice(vg.min)} and ${formatPrice(vg.max)}. Prices vary by exact condition, hardware finish, and color — rarer colorways can command a premium.`
+          : `Price data for the ${item.model} is currently being compiled. Check platforms like Vestiaire Collective and The RealReal for live listings.`,
       },
       {
         q: 'Which condition should I buy?',
-        a: '"Very Good" is the sweet spot — significant savings over "Excellent" while still looking great. Only go "Good" if you plan heavy everyday use.',
+        a: '"Very Good" is the sweet spot for most buyers — significant savings over "Excellent" while still looking great for everyday use. Choose "Excellent" if you want near-pristine leather and hardware. Only go "Good" if you plan heavy everyday use and prioritize price over aesthetics.',
       },
       {
         q: `How do I authenticate a pre-owned ${item.brand} bag?`,
-        a: `Buy from reputable platforms like Vestiaire Collective or The RealReal that authenticate every item. Check serial numbers, hardware quality, and stitching consistency. For high-value pieces, consider a third-party authenticator.`,
+        a: `Buy from reputable platforms like Vestiaire Collective or The RealReal that authenticate every item before listing. Check serial numbers, hardware quality, stitching consistency, and date codes. For high-value pieces over $2,000, consider a third-party authenticator like Entrupy or Real Authentication.`,
+      },
+      {
+        q: `Does the ${name} hold its value?`,
+        a: savingsPct !== null && savingsPct < 0
+          ? `The ${name} currently sells above its retail price of ${formatPrice(item.retail_price_usd)} on the secondary market — a sign of exceptionally strong demand. It is considered one of ${item.brand}'s strongest value-holding pieces.`
+          : savingsPct !== null && savingsPct > 0
+          ? `The ${name} retails at ${formatPrice(item.retail_price_usd)} new, and pre-owned examples typically sell for around ${savingsPct}% less. ${item.brand} bags retain value well compared to most luxury brands, making this a strong choice for resale or long-term ownership.`
+          : `${item.brand} bags are among the best value-holders in the luxury handbag market. The ${item.model} in particular maintains strong secondary market demand.`,
+      },
+      {
+        q: `Where is the best place to buy a used ${name}?`,
+        a: `Vestiaire Collective and The RealReal both authenticate items and offer buyer protection — ideal for first-time pre-owned buyers. eBay has the largest selection and often the lowest prices, but requires more due diligence. For rare colorways, dedicated ${item.brand} resellers may have better inventory.`,
+      },
+      {
+        q: `What's the difference between ${item.model} conditions?`,
+        a: `Excellent: minimal signs of wear, near-new leather and hardware — closest to new. Very Good: light surface wear, small scratches on hardware, leather in great shape — ideal balance of price and quality. Good: visible wear on corners or handles, noticeable hardware patina — best for heavy everyday use where minor cosmetic imperfections are acceptable.`,
       },
     ]
   }
+
   return [
     {
       q: `Does a pre-owned ${name} hold its value?`,
-      a: savingsPct && savingsPct < 0
-        ? `The ${item.model} consistently sells above retail on the secondary market. It is one of the strongest value-holding timepieces available.`
-        : `${item.brand} watches are among the strongest value-holders in the pre-owned market, making the ${item.model} a sound purchase.`,
+      a: savingsPct !== null && savingsPct < 0
+        ? `The ${name} consistently sells above its retail price of ${formatPrice(item.retail_price_usd)} on the secondary market. It is one of the strongest value-holding timepieces available and can be considered an investment-grade purchase.`
+        : savingsPct !== null && savingsPct > 0
+        ? `The ${name} retails at ${formatPrice(item.retail_price_usd)} new and pre-owned examples typically sell for around ${savingsPct}% less. ${item.brand} watches are among the strongest value-holders in the pre-owned watch market.`
+        : `${item.brand} watches are among the strongest value-holders in the pre-owned market, making the ${item.model} a sound purchase from both a use and investment perspective.`,
     },
     {
-      q: `What should I check when buying a used ${item.model}?`,
-      a: 'Verify the serial number, look for a full set (box and papers), inspect the case and bracelet for wear, and confirm service history. Always buy from authenticated platforms.',
+      q: `How much does a used ${name} cost?`,
+      a: vg
+        ? `A used ${name} in Very Good condition typically costs between ${formatPrice(vg.min)} and ${formatPrice(vg.max)}. Complete sets with box and papers are at the higher end; watch-only examples are at the lower end.`
+        : `Price data for the ${item.model} is currently being compiled. Check Chrono24 or Bob's Watches for current live listings.`,
     },
     {
-      q: `Is buying a pre-owned ${item.model} risky?`,
-      a: 'Not when buying from reputable platforms. Vestiaire Collective and The RealReal authenticate all timepieces before listing. Avoid private sales without independent expert verification.',
+      q: `What should I check when buying a used ${name}?`,
+      a: `Verify the serial number matches the papers and case back. Look for a full set (original box, warranty card, and papers) — this can add 10–15% to value. Inspect the case and bracelet for deep scratches, dents, or over-polishing. Ask for recent service history. Always buy from authenticated platforms or have an independent watchmaker inspect it first.`,
+    },
+    {
+      q: `Is buying a pre-owned ${name} risky?`,
+      a: `Not when buying from reputable platforms. Vestiaire Collective, Chrono24, and Bob's Watches authenticate all timepieces before listing and offer buyer guarantees. The main risks in private sales — counterfeits and undisclosed damage — are largely eliminated by established platforms. Avoid unverified private sales without independent expert verification.`,
+    },
+    {
+      q: `What is the ${name} retail price?`,
+      a: item.retail_price_usd > 0
+        ? `The current retail price for the ${name} is ${formatPrice(item.retail_price_usd)} USD from authorized dealers. Pre-owned examples${vg ? ` typically trade between ${formatPrice(vg.min)} and ${formatPrice(vg.max)} in Very Good condition` : ' can offer significant savings over retail'}.`
+        : `Retail pricing for the ${name} varies by configuration and region. Contact an authorized ${item.brand} dealer for current pricing.`,
+    },
+    {
+      q: `Box and papers vs no box and papers — how much price difference?`,
+      a: `For the ${name}, a complete set with original box, warranty card, and papers typically commands a 10–15% premium over watch-only examples. For highly collectable references, this gap can be wider. If resale value is important to you, prioritize buying a full set.`,
+    },
+    {
+      q: `What's the best time to buy a pre-owned ${item.brand} watch?`,
+      a: `Unlike consumer electronics, pre-owned luxury watches don't follow strong seasonal price patterns. The best time to buy is when you find the right condition at the right price. Market prices do shift with new model releases and exchange rate changes. Set price alerts on Chrono24 and check listings regularly rather than waiting for a specific season.`,
     },
   ]
 }
@@ -139,6 +184,21 @@ export default async function ModelPage({ params }: Props) {
     ],
   }
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `Used ${item.brand} ${item.model} Price Guide (${YEAR})`,
+    description: metaDescription,
+    url: pageUrl,
+    dateModified: item.last_updated || new Date().toISOString().split('T')[0],
+    author: { '@type': 'Organization', name: 'SecondLuxuryItems.com' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SecondLuxuryItems.com',
+      url: BASE,
+    },
+  }
+
   // Related items from same brand, excluding current model
   const relatedItems = getItemsByBrand(brand).filter(i => i.slug !== item.slug)
 
@@ -161,6 +221,10 @@ export default async function ModelPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
       <p className="text-sm text-[#9C8B7A] mb-2">
@@ -347,7 +411,7 @@ export default async function ModelPage({ params }: Props) {
       {/* Mobile sticky share + buy bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8E2D9] p-3 flex gap-2 sm:hidden z-50">
         <a
-          href={item.affiliate_links.vestiaire}
+          href={item.affiliate_links?.vestiaire || `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`}
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center hover:bg-[#8C7355] transition-colors"
