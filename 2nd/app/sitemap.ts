@@ -72,6 +72,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/cartier-vs-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/compare/rolex-vs-audemars-piguet`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/compare/saint-laurent-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/audemars-piguet`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/fendi`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/chanel-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/hermes-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
