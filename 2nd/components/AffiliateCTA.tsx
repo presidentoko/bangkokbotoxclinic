@@ -1,10 +1,13 @@
 import { Item } from '@/lib/data'
 
 export function AffiliateCTA({ item }: { item: Item }) {
-  const vestiaireUrl = item.affiliate_links?.vestiaire ||
-    `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`
-  const realrealUrl = item.affiliate_links?.therealreal ||
-    `https://www.therealreal.com/search?query=${encodeURIComponent(item.brand + ' ' + item.model)}`
+  const vestiaireUrl = item.affiliate_links?.vestiaire
+    ? item.affiliate_links.vestiaire + '?utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide'
+    : `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}&utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide`
+
+  const realrealUrl = item.affiliate_links?.therealreal
+    ? item.affiliate_links.therealreal + '?utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide'
+    : `https://www.therealreal.com/search?query=${encodeURIComponent(item.brand + ' ' + item.model)}&utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide`
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 my-8">

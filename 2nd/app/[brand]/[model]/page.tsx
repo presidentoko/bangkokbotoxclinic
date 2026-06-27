@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getItemBySlug, getItemsByBrand, getAllItems, formatPrice, getAvgPrice, Item } from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
+import { PriceHistory } from '@/components/PriceHistory'
 import { ConditionGuide } from '@/components/ConditionGuide'
 import { AffiliateCTA } from '@/components/AffiliateCTA'
 import { ShareButton } from '@/components/ShareButton'
@@ -252,7 +253,7 @@ export default async function ModelPage({ params }: Props) {
         const savingsPct = vg && item.retail_price_usd > 0
           ? Math.round(((item.retail_price_usd - (vg.min + vg.max) / 2) / item.retail_price_usd) * 100)
           : null
-        const vestiaire = `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`
+        const vestiaire = `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}&utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide`
         const ebay = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(item.brand + ' ' + item.model)}`
 
         return (
@@ -359,6 +360,7 @@ export default async function ModelPage({ params }: Props) {
       <div className="my-6" />
 
       <PriceTable item={item} />
+      <PriceHistory samples={item.price_samples} />
       <ConditionGuide />
 
       <AffiliateCTA item={item} />
@@ -411,7 +413,7 @@ export default async function ModelPage({ params }: Props) {
       {/* Mobile sticky share + buy bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8E2D9] p-3 flex gap-2 sm:hidden z-50">
         <a
-          href={item.affiliate_links?.vestiaire || `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`}
+          href={item.affiliate_links?.vestiaire ? item.affiliate_links.vestiaire + '?utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide' : `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}&utm_source=secondluxuryitems.com&utm_medium=referral&utm_campaign=price-guide`}
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center hover:bg-[#8C7355] transition-colors"

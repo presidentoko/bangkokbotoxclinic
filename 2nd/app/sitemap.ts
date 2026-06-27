@@ -22,6 +22,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/under-1000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/under-2000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/guides/first-luxury-bag`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/guides/how-to-authenticate-chanel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/guides/how-to-authenticate-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/guides/luxury-condition-guide`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/guides/lv-speedy-size-guide`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/compare/chanel-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/compare/chanel-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/compare/rolex-vs-omega`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
   ]
 

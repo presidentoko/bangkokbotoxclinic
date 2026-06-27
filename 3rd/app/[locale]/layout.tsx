@@ -5,6 +5,9 @@ import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n'
 import { LocaleSwitcher } from '@/components/LocaleSwitcher'
+import { SiteSearch } from '@/components/SiteSearch'
+import { EmailCapture } from '@/components/EmailCapture'
+import { getAllItems } from '@/lib/data'
 import '../globals.css'
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' })
@@ -35,17 +38,19 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!routing.locales.includes(locale as 'en' | 'th')) notFound()
   const messages = await getMessages()
   const t = await getTranslations({ locale, namespace: 'common' })
+  const items = getAllItems()
 
   return (
     <html lang={locale}>
       <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#FAFAF9] text-[#1A1A1A]`}>
         <NextIntlClientProvider messages={messages}>
           <header className="bg-[#FAFAF9] border-b border-[#E8E2D9]">
-            <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
-              <a href={`/${locale}`} className="font-serif text-xl tracking-wider text-[#1A1A1A]" style={{ fontFamily: 'var(--font-playfair)' }}>
+            <div className="max-w-5xl mx-auto px-6 py-5 flex items-center gap-4 justify-between">
+              <a href={`/${locale}`} className="font-serif text-xl tracking-wider text-[#1A1A1A] shrink-0" style={{ fontFamily: 'var(--font-playfair)' }}>
                 {t('site_name')}
               </a>
-              <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase">
+              <SiteSearch items={items} locale={locale} />
+              <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase shrink-0">
                 <a href={`/${locale}/handbags`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_handbags')}</a>
                 <a href={`/${locale}/watches`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_watches')}</a>
                 <a href={`/${locale}/brands`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'แบรนด์' : 'Brands'}</a>
@@ -59,6 +64,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <main className="max-w-5xl mx-auto px-6 py-10 pb-24 sm:pb-10">
             {children}
           </main>
+          <EmailCapture locale={locale} />
           <footer className="border-t border-[#E8E2D9] mt-16">
             <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-[#9C8B7A]">
               <p>{t('footer_disclaimer')}</p>
