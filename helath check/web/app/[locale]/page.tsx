@@ -247,6 +247,31 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </section>
       )}
 
+      {/* ── Guides section ── */}
+      <section className="mx-auto max-w-6xl px-4 pb-10 md:pb-14">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-slate-800">Health check-up guides</h2>
+          <Link href={`${base}/guide/bangkok-health-checkup`} className="text-sm text-blue-600 hover:underline font-medium">All guides →</Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { slug: "bangkok-health-checkup", icon: "📋", title: "Bangkok Health Check-Up Guide", desc: "Costs, best hospitals, what to bring, how to book — complete 2026 guide." },
+            { slug: "cancer-screening-bangkok", icon: "🎗️", title: "Cancer Screening in Bangkok", desc: "Tumour markers, imaging options, prices — who should get screened and when." },
+            { slug: "womens-health-checkup-bangkok", icon: "♀️", title: "Women's Health Check-Up", desc: "Pap smear, mammogram, HPV, hormonal panel — full guide for women." },
+            { slug: "cardiac-health-checkup-bangkok", icon: "❤️", title: "Cardiac Health Check-Up", desc: "ECG, stress test, coronary CTA — heart screening packages explained." },
+            { slug: "jci-hospitals-bangkok", icon: "🏆", title: "JCI-Accredited Hospitals", desc: "All JCI hospitals in Bangkok, what the accreditation means, and prices." },
+            { slug: "what-is-included-checkup", icon: "🔬", title: "What's Included in Each Package?", desc: "Basic vs comprehensive vs executive — every test explained by tier." },
+          ].map((g) => (
+            <Link key={g.slug} href={`${base}/guide/${g.slug}`}
+              className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
+              <div className="text-2xl mb-3">{g.icon}</div>
+              <h3 className="font-bold text-slate-800 group-hover:text-blue-700 text-sm mb-1.5 leading-snug">{g.title}</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">{g.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* ── Why this site ── */}
       <section className="bg-white border-t border-slate-100">
         <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">

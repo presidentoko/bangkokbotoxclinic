@@ -121,10 +121,12 @@ function Footer({ locale }: { locale: Locale }) {
         </div>
         <div>
           <p className="font-semibold text-slate-800 mb-2">Info</p>
-          <Link href={`${base}/guide/bangkok-health-checkup`} className="block hover:text-blue-600 py-0.5">Bangkok guide</Link>
-          <Link href={`${base}/guide/jci-hospitals-bangkok`} className="block hover:text-blue-600 py-0.5">JCI hospitals</Link>
-          <Link href={`${base}/enquiry`} className="block hover:text-blue-600 py-0.5">Book / Enquire</Link>
-          <Link href={`${base}/for-clinics`} className="block hover:text-blue-600 py-0.5">For hospitals</Link>
+          <Link href={`${base}/guide/bangkok-health-checkup`} className="block hover:text-blue-600 py-0.5 text-xs">Bangkok guide</Link>
+          <Link href={`${base}/guide/cancer-screening-bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Cancer screening</Link>
+          <Link href={`${base}/guide/womens-health-checkup-bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Women&apos;s health</Link>
+          <Link href={`${base}/guide/cardiac-health-checkup-bangkok`} className="block hover:text-blue-600 py-0.5 text-xs">Cardiac screening</Link>
+          <Link href={`${base}/enquiry`} className="block hover:text-blue-600 py-0.5 text-xs">Book / Enquire</Link>
+          <Link href={`${base}/for-clinics`} className="block hover:text-blue-600 py-0.5 text-xs">For hospitals</Link>
         </div>
       </div>
       <div className="border-t border-slate-100 py-4 text-center text-xs text-slate-400">
@@ -148,7 +150,18 @@ export default async function LocaleLayout({
     <html lang={loc} dir={isRTL(loc) ? "rtl" : "ltr"} className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased font-[var(--font-inter)]">
         <NavBar locale={loc} />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-14 md:pb-0">{children}</main>
+        {/* Mobile sticky bottom CTA — hidden on md+ (compare drawer uses its own sticky bar) */}
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-slate-200 px-4 py-2.5 flex gap-2 shadow-lg">
+          <Link href={`/${loc}/compare`}
+            className="flex-1 bg-blue-600 text-white text-sm font-bold py-2.5 rounded-xl text-center hover:bg-blue-700 transition-colors">
+            Compare packages
+          </Link>
+          <Link href={`/${loc}/enquiry`}
+            className="flex-none border border-blue-200 text-blue-700 text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-blue-50 transition-colors">
+            Get help
+          </Link>
+        </div>
         <Footer locale={loc} />
       </body>
     </html>

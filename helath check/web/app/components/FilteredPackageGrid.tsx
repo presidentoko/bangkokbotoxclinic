@@ -3,6 +3,7 @@ import { useState, useDeferredValue, useMemo } from "react";
 import Link from "next/link";
 import type { PackageRow } from "@/lib/db";
 import type { Locale } from "@/lib/i18n";
+import { CompareProvider, CompareCheckbox, CompareDrawer } from "./CompareDrawer";
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
@@ -108,7 +109,7 @@ function PackageCard({ row, loc, cheapest }: { row: PackageRow; loc: Locale; che
         )}
       </div>
 
-      <div className="px-5 pb-5 pt-2 flex items-center gap-2.5">
+      <div className="px-5 pb-4 pt-2 flex items-center gap-2.5">
         <a href={`/api/track?pkg=${row.package_id}&url=${encodeURIComponent(bookUrl)}`}
           target="_blank" rel="noopener noreferrer"
           className="flex-1 bg-blue-600 text-white text-sm font-bold py-3 rounded-xl text-center hover:bg-blue-700 active:scale-95 transition-all">
@@ -118,6 +119,9 @@ function PackageCard({ row, loc, cheapest }: { row: PackageRow; loc: Locale; che
           className="text-sm text-blue-600 border border-blue-100 px-3 py-3 rounded-xl hover:bg-blue-50 transition-colors font-medium">
           Details
         </Link>
+      </div>
+      <div className="px-5 pb-4">
+        <CompareCheckbox row={row} />
       </div>
     </div>
   );
@@ -177,6 +181,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
   const hasFilters = query.trim() || activeFeatures.size > 0;
 
   return (
+    <CompareProvider>
     <div>
       {/* Search + filter bar */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 mb-5 space-y-3">
@@ -244,6 +249,10 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
           <PackageCard key={row.package_id} row={row} loc={loc} cheapest={cheapest} />
         ))}
       </div>
+
+      {/* Compare drawer */}
+      <CompareDrawer />
     </div>
+    </CompareProvider>
   );
 }

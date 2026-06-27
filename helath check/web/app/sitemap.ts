@@ -37,8 +37,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     }
     // Guides
-    for (const guideSlug of ["bangkok-health-checkup", "jci-hospitals-bangkok", "what-is-included-checkup"]) {
-      entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+    for (const guideSlug of [
+      "bangkok-health-checkup",
+      "jci-hospitals-bangkok",
+      "what-is-included-checkup",
+      "cancer-screening-bangkok",
+      "womens-health-checkup-bangkok",
+      "cardiac-health-checkup-bangkok",
+    ]) {
+      entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
   }
 
