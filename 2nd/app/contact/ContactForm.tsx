@@ -35,6 +35,16 @@ export function ContactForm() {
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
       <div>
+        <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">Topic</label>
+        <select id="type" name="type" className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-900 bg-white">
+          <option value="question">Price question</option>
+          <option value="wrong_data">Wrong / outdated price data</option>
+          <option value="ad">Ad / sponsored content inquiry</option>
+          <option value="collaboration">Collaboration / partnership</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
         <input
           id="name"

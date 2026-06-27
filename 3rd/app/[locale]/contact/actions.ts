@@ -5,6 +5,7 @@ export async function sendContactMessage(formData: FormData) {
   const email = (formData.get('email') as string || '').trim()
   const message = (formData.get('message') as string || '').trim()
   const locale = (formData.get('locale') as string || 'en').trim()
+  const type = (formData.get('type') as string || 'question').trim()
 
   if (!name || !message) return { ok: false, error: locale === 'th' ? 'กรุณากรอกชื่อและข้อความ' : 'Name and message are required.' }
 
@@ -12,7 +13,9 @@ export async function sendContactMessage(formData: FormData) {
   const CHAT_ID = process.env.TELEGRAM_CHAT_ID
   if (!BOT_TOKEN || !CHAT_ID) return { ok: false, error: 'Server config error.' }
 
-  const text = `📩 *ChicPreowned.com Contact* (${locale.toUpperCase()})\n\n*Name:* ${name}\n*Email:* ${email || '–'}\n*Message:* ${message}`
+  const typeEmoji: Record<string, string> = { wrong_data: '⚠️', ad: '💰', collaboration: '🤝', question: '❓', other: '📝' }
+  const emoji = typeEmoji[type] || '📩'
+  const text = `${emoji} *ChicPreowned.com* [${type.replace('_', ' ').toUpperCase()}] (${locale.toUpperCase()})\n\n*Name:* ${name}\n*Email:* ${email || '–'}\n*Message:* ${message}`
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {

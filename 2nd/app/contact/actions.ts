@@ -4,6 +4,7 @@ export async function sendContactMessage(formData: FormData) {
   const name = (formData.get('name') as string || '').trim()
   const email = (formData.get('email') as string || '').trim()
   const message = (formData.get('message') as string || '').trim()
+  const type = (formData.get('type') as string || 'question').trim()
 
   if (!name || !message) return { ok: false, error: 'Name and message are required.' }
 
@@ -11,7 +12,9 @@ export async function sendContactMessage(formData: FormData) {
   const CHAT_ID = process.env.TELEGRAM_CHAT_ID
   if (!BOT_TOKEN || !CHAT_ID) return { ok: false, error: 'Server config error.' }
 
-  const text = `📩 *SecondLuxuryItems.com Contact*\n\n*Name:* ${name}\n*Email:* ${email || '–'}\n*Message:* ${message}`
+  const typeEmoji: Record<string, string> = { wrong_data: '⚠️', ad: '💰', collaboration: '🤝', question: '❓', other: '📝' }
+  const emoji = typeEmoji[type] || '📩'
+  const text = `${emoji} *SecondLuxuryItems.com* [${type.replace('_', ' ').toUpperCase()}]\n\n*Name:* ${name}\n*Email:* ${email || '–'}\n*Message:* ${message}`
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
