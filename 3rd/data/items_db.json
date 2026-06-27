@@ -1937,12 +1937,6 @@
           "date": "2026-06-27"
         },
         {
-          "price": 971000,
-          "condition": "very_good",
-          "platform": "vestiaire",
-          "date": "2026-06-27"
-        },
-        {
           "price": 537500,
           "condition": "very_good",
           "platform": "vestiaire",
@@ -1950,6 +1944,12 @@
         },
         {
           "price": 533500,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 971000,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -2045,13 +2045,13 @@
           "date": "2026-06-27"
         },
         {
-          "price": 892500,
+          "price": 454000,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
         },
         {
-          "price": 454000,
+          "price": 892500,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -2295,6 +2295,12 @@
           "condition": "excellent",
           "platform": "vestiaire",
           "date": "2026-06-26"
+        },
+        {
+          "price": 9110000,
+          "condition": "excellent",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
         },
         {
           "price": 9110000,
@@ -2581,12 +2587,6 @@
           "date": "2026-06-27"
         },
         {
-          "price": 165500,
-          "condition": "very_good",
-          "platform": "vestiaire",
-          "date": "2026-06-27"
-        },
-        {
           "price": 244000,
           "condition": "good",
           "platform": "vestiaire",
@@ -2594,6 +2594,12 @@
         },
         {
           "price": 150000,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 165500,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -2611,14 +2617,14 @@
           "date": "2026-06-27"
         },
         {
-          "price": 145000,
-          "condition": "very_good",
+          "price": 365500,
+          "condition": "good",
           "platform": "vestiaire",
           "date": "2026-06-27"
         },
         {
-          "price": 365500,
-          "condition": "good",
+          "price": 145000,
+          "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
         },
@@ -2629,13 +2635,13 @@
           "date": "2026-06-27"
         },
         {
-          "price": 139500,
+          "price": 121500,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
         },
         {
-          "price": 121500,
+          "price": 139500,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -2653,6 +2659,12 @@
           "date": "2026-06-27"
         },
         {
+          "price": 6000,
+          "condition": "excellent",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
           "price": 192000,
           "condition": "very_good",
           "platform": "vestiaire",
@@ -2665,19 +2677,7 @@
           "date": "2026-06-27"
         },
         {
-          "price": 6000,
-          "condition": "excellent",
-          "platform": "vestiaire",
-          "date": "2026-06-27"
-        },
-        {
           "price": 166500,
-          "condition": "very_good",
-          "platform": "vestiaire",
-          "date": "2026-06-27"
-        },
-        {
-          "price": 103500,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -2690,6 +2690,12 @@
         },
         {
           "price": 113500,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 103500,
           "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -3259,14 +3265,14 @@
           "date": "2026-06-27"
         },
         {
-          "price": 10500,
-          "condition": "good",
+          "price": 12500,
+          "condition": "very_good",
           "platform": "vestiaire",
           "date": "2026-06-27"
         },
         {
-          "price": 12500,
-          "condition": "very_good",
+          "price": 10500,
+          "condition": "good",
           "platform": "vestiaire",
           "date": "2026-06-27"
         },
@@ -3337,7 +3343,7 @@
           "date": "2026-06-27"
         },
         {
-          "price": 24500,
+          "price": 17500,
           "condition": "excellent",
           "platform": "vestiaire",
           "date": "2026-06-27"
@@ -15064,10 +15070,6 @@
       "slug": "cartier/santos-medium",
       "retail_price_thb": 250000,
       "price_ranges": {
-        "good": {
-          "min": 180000,
-          "max": 387000
-        },
         "very_good": {
           "min": 133500,
           "max": 544500
@@ -15075,9 +15077,79 @@
         "excellent": {
           "min": 44500,
           "max": 499000
+        },
+        "good": {
+          "min": 180000,
+          "max": 387000
         }
       },
       "price_samples": [
+        {
+          "price": 544500,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 186000,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 499000,
+          "condition": "excellent",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 212000,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 370500,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 204500,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 289000,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 390000,
+          "condition": "excellent",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 162000,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 44500,
+          "condition": "excellent",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
+        {
+          "price": 144000,
+          "condition": "very_good",
+          "platform": "vestiaire",
+          "date": "2026-06-27"
+        },
         {
           "price": 180000,
           "condition": "good",
