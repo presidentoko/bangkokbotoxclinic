@@ -168,6 +168,17 @@ export default function ValueGuidePage() {
           ))}
         </div>
       </section>
+
+      <nav className="mt-10 pt-6 border-t border-[#E8E2D9]">
+        <p className="text-xs uppercase tracking-wider text-[#9C8B7A] mb-3">Compare Categories</p>
+        <div className="flex flex-wrap gap-3">
+          <Link href="/handbags" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">All Handbags →</Link>
+          <Link href="/watches" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">All Watches →</Link>
+          <Link href="/chanel" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Chanel Prices →</Link>
+          <Link href="/louis-vuitton" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Louis Vuitton Prices →</Link>
+          <Link href="/guides/luxury-condition-guide" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Condition Guide →</Link>
+        </div>
+      </nav>
     </>
   )
 }

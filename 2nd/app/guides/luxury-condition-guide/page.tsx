@@ -251,6 +251,16 @@ export default function LuxuryConditionGuidePage() {
           ))}
         </div>
       </section>
+
+      <nav className="mt-10 pt-6 border-t border-[#E8E2D9]">
+        <p className="text-xs uppercase tracking-wider text-[#9C8B7A] mb-3">Related Guides</p>
+        <div className="flex flex-wrap gap-3">
+          <Link href="/value-guide" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Value Guide →</Link>
+          <Link href="/under-500" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Under $500 →</Link>
+          <Link href="/under-1000" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Under $1,000 →</Link>
+          <Link href="/guides/how-to-authenticate-chanel" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Authentication Guide →</Link>
+        </div>
+      </nav>
     </article>
   )
 }

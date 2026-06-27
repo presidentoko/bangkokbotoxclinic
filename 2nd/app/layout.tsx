@@ -14,12 +14,17 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.secondluxuryitems.com'),
   manifest: '/manifest.webmanifest',
   openGraph: {
-    siteName: 'SecondLuxuryItems.com',
+    siteName: 'SecondLuxuryItems',
     type: 'website',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     site: '@secondluxury',
+    creator: '@secondluxury',
+  },
+  other: {
+    'pinterest-rich-pin': 'true',
   },
   alternates: {
     canonical: 'https://www.secondluxuryitems.com',
