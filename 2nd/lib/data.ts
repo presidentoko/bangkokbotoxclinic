@@ -24,7 +24,7 @@ export interface Item {
   retail_price_usd: number
   price_ranges: Partial<Record<Condition, PriceRange>>
   price_samples: PriceSample[]
-  affiliate_links: { vestiaire: string; therealreal: string }
+  affiliate_links?: { vestiaire?: string; therealreal?: string }
   last_updated: string
 }
 

@@ -408,7 +408,7 @@ export default async function ModelPage({ params }: Props) {
       {/* Mobile sticky CTA bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8E2D9] p-3 flex gap-2 sm:hidden z-50">
         <a
-          href={item.affiliate_links.carousell}
+          href={item.affiliate_links?.carousell || `https://www.carousell.co.th/search/${encodeURIComponent(item.brand + ' ' + item.model)}/`}
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="flex-1 bg-[#1A1A1A] text-white text-sm font-medium rounded py-2.5 text-center"

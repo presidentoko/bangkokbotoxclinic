@@ -1,13 +1,16 @@
 import { Item } from '@/lib/data'
 
 export function AffiliateCTA({ item, ctaLabel }: { item: Item; ctaLabel: string }) {
+  const url = item.affiliate_links?.carousell ||
+    `https://www.carousell.co.th/search/${encodeURIComponent(item.brand + ' ' + item.model)}/`
+
   return (
     <div className="my-8">
       <a
-        href={item.affiliate_links.carousell}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block w-full bg-black text-white text-center py-3 px-6 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+        className="block w-full bg-[#1A1A1A] text-white text-center py-3 px-6 text-sm tracking-wide hover:bg-[#8C7355] transition-colors"
       >
         {ctaLabel}
       </a>

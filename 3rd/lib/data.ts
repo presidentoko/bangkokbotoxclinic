@@ -24,7 +24,7 @@ export interface Item {
   retail_price_thb: number
   price_ranges: Partial<Record<Condition, PriceRange>>
   price_samples: PriceSample[]
-  affiliate_links: { carousell: string }
+  affiliate_links?: { carousell?: string }
   last_updated: string
 }
 
