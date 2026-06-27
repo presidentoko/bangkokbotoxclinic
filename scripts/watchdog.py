@@ -1020,6 +1020,16 @@ def build_services() -> list[Service]:
             progress_grace_sec=180,
         ),
         Service(
+            name="ram_manager",
+            cmd=["scripts/ram_manager.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "ram_manager.log",
+            progress_pattern=re.compile(r"\[RAM\]|\[20\d\d-"),
+            progress_stale_sec=180,
+            progress_grace_sec=30,
+        ),
+        Service(
             # Health monitor — 무인 운영 중 시스템 상태 5분 주기로 체크/로깅.
             # pantip 진행률, 디스크, 핵심 PID, heartbeat 신선도.
             # logs/health.log + pantip/state/health_status.json

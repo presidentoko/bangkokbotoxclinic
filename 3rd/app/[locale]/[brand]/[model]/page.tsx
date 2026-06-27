@@ -321,7 +321,11 @@ export default async function ModelPage({ params }: Props) {
     ],
   }
 
-  // Related items from same brand
+  const similarItems = getAllItems()
+    .filter(i => i.category === item.category && i.id !== item.id)
+    .filter(i => !!(i.price_ranges.very_good ?? i.price_ranges.excellent ?? i.price_ranges.good))
+    .slice(0, 4)
+
   const relatedItems = getItemsByBrand(brand).filter(i => i.id !== item.id)
 
   // Share data
@@ -526,6 +530,32 @@ export default async function ModelPage({ params }: Props) {
       />
       <PriceHistory samples={item.price_samples} locale={locale} />
       <ConditionGuide locale={locale} />
+
+      {similarItems.length > 0 && (
+        <section className="mt-10 mb-4">
+          <h2 className="font-serif text-xl text-[#1A1A1A] mb-5" style={{ fontFamily: 'var(--font-playfair)' }}>
+            {locale === 'th' ? 'รายการที่คล้ายกัน' : 'Similar Items'}
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {similarItems.map(si => {
+              const sr = si.price_ranges.very_good ?? si.price_ranges.excellent ?? si.price_ranges.good
+              return (
+                <a key={si.id} href={`/${locale}/${si.slug}`}
+                  className="group block p-4 border border-[#E8E2D9] hover:border-[#B8954A] transition-all duration-200"
+                >
+                  <p className="text-xs tracking-[0.1em] uppercase text-[#9C8B7A] mb-1">{si.brand}</p>
+                  <h3 className="font-serif text-sm text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors leading-snug mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>
+                    {si.model}
+                  </h3>
+                  {sr && (
+                    <p className="text-xs font-medium text-[#1A1A1A]">{formatPriceTHB(getAvgPrice(sr))}</p>
+                  )}
+                </a>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       <AffiliateCTA item={item} ctaLabel={tCommon('cta_carousell')} />
 

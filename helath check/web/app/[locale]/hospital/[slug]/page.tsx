@@ -20,12 +20,13 @@ export async function generateMetadata({
     const hospital = await getHospital(slug);
     if (!hospital) return {};
     const minPrice = hospital.min_price ? ` Packages from ฿${parseFloat(hospital.min_price).toLocaleString()}.` : "";
+    const cityLabel = hospital.city || "Bangkok";
     return {
-      title: `${hospital.name} Health Check-Up Packages & Prices — Bangkok`,
-      description: `Compare all health check-up packages at ${hospital.name}, Bangkok.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
+      title: `${hospital.name} Health Check-Up Packages & Prices — ${cityLabel}`,
+      description: `Compare all health check-up packages at ${hospital.name}, ${cityLabel}, Thailand.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
       openGraph: {
-        title: `${hospital.name} — Bangkok Health Check-Up Packages`,
-        description: `Real prices for ${hospital.name} health check-up packages. ${hospital.jci ? "JCI accredited hospital." : ""}`,
+        title: `${hospital.name} — ${cityLabel} Health Check-Up Packages`,
+        description: `Real prices for ${hospital.name} health check-up packages in ${cityLabel}. ${hospital.jci ? "JCI accredited hospital." : ""}`,
         url: `${BASE}/${locale}/hospital/${slug}`,
       },
     };
@@ -146,7 +147,19 @@ export default async function HospitalPage({
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">{hospital.name}</h1>
             {hospital.name_th && <p className="text-slate-500 text-sm mt-0.5">{hospital.name_th}</p>}
-            {hospital.area && <p className="text-slate-500 mt-1.5">📍 {hospital.area}, Bangkok</p>}
+            {(hospital.city || hospital.area) && (
+              <p className="text-slate-500 mt-1.5">
+                📍 {hospital.area && hospital.city && hospital.area !== hospital.city ? `${hospital.area}, ` : ""}{hospital.city || "Bangkok"}
+              </p>
+            )}
+            {hospital.address && (
+              <p className="text-slate-500 text-sm mt-0.5">🏠 {hospital.address}</p>
+            )}
+            {hospital.phone && (
+              <p className="text-slate-500 text-sm mt-0.5">
+                📞 <a href={`tel:${hospital.phone}`} className="hover:text-blue-600">{hospital.phone}</a>
+              </p>
+            )}
             <div className="flex flex-wrap items-center gap-3 mt-3">
               {hospital.jci === 1 && (
                 <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-lg uppercase">
@@ -245,9 +258,15 @@ export default async function HospitalPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "MedicalOrganization",
+            "@type": "Hospital",
             name: hospital.name,
-            ...(hospital.area ? { address: { "@type": "PostalAddress", addressLocality: hospital.area, addressRegion: "Bangkok", addressCountry: "TH" } } : {}),
+            ...(hospital.address ? {
+              address: { "@type": "PostalAddress", streetAddress: hospital.address, addressLocality: hospital.city || hospital.area || "Bangkok", addressCountry: "TH" }
+            } : hospital.area ? {
+              address: { "@type": "PostalAddress", addressLocality: hospital.area, addressRegion: hospital.city || "Bangkok", addressCountry: "TH" }
+            } : {}),
+            ...(hospital.phone ? { telephone: hospital.phone } : {}),
+            ...(hospital.checkup_url ? { url: hospital.checkup_url } : {}),
             ...(hospital.lat && hospital.lng ? { geo: { "@type": "GeoCoordinates", latitude: hospital.lat, longitude: hospital.lng } } : {}),
             ...(hospital.rating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(hospital.rating), bestRating: 5, reviewCount: hospital.review_count ?? 1 } } : {}),
             ...(hospital.jci ? { accreditedBy: { "@type": "Organization", name: "Joint Commission International (JCI)" } } : {}),

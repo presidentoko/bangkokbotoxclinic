@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/under-60000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/guides/first-luxury-bag`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/market-overview`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/jewelry`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/belts`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/scarves`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
@@ -41,6 +42,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/compare/dior-vs-chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/compare/bottega-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/brands/celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/brands/hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/brands/gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/brands/louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/guides/luxury-bags-as-investments`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/guides/where-to-sell-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/guides/how-to-spot-fake-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/hermes-vs-bottega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages

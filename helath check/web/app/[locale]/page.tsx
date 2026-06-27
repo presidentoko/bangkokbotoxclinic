@@ -3,7 +3,7 @@ import Link from "next/link";
 import { type Locale, t, catLabel, CATEGORIES } from "@/lib/i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, type PackageRow, type CategoryCount } from "@/lib/db";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 const BASE = "https://www.bangkoktopclinic.com";
 
@@ -128,6 +128,33 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {catCountMap[cat] > 0 && (
                 <p className="text-xs text-blue-600 font-semibold mt-2">{catCountMap[cat]} packages →</p>
               )}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Browse by city ── */}
+      <section className="mx-auto max-w-6xl px-4 pb-10">
+        <h2 className="text-xl font-bold text-slate-800 mb-5">Browse health check-ups by city</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          {[
+            { city: "bangkok", label: "Bangkok", emoji: "🏙️" },
+            { city: "chiang-mai", label: "Chiang Mai", emoji: "🌸" },
+            { city: "phuket", label: "Phuket", emoji: "🏝️" },
+            { city: "pattaya", label: "Pattaya", emoji: "🌊" },
+            { city: "hua-hin", label: "Hua Hin", emoji: "🏖️" },
+            { city: "ko-samui", label: "Ko Samui", emoji: "🌴" },
+            { city: "krabi", label: "Krabi", emoji: "⛰️" },
+            { city: "chiang-rai", label: "Chiang Rai", emoji: "🍵" },
+            { city: "hat-yai", label: "Hat Yai", emoji: "🦜" },
+            { city: "khon-kaen", label: "Khon Kaen", emoji: "🌾" },
+            { city: "udon-thani", label: "Udon Thani", emoji: "🏯" },
+            { city: "korat", label: "Korat", emoji: "🦁" },
+          ].map(({ city, label, emoji }) => (
+            <Link key={city} href={`${base}/city/${city}`}
+              className="bg-white border border-slate-200 rounded-xl p-3 text-center hover:border-blue-300 hover:shadow-sm transition-all group active:scale-95">
+              <div className="text-2xl mb-1">{emoji}</div>
+              <p className="text-xs font-semibold text-slate-700 group-hover:text-blue-700 leading-snug">{label}</p>
             </Link>
           ))}
         </div>

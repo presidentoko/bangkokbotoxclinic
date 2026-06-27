@@ -123,12 +123,32 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
       </div>
-      {/* Trust row */}
       <div className="flex flex-wrap gap-6 mb-12 text-sm text-[#9C8B7A]">
         <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_updated')}</span>
         <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_models', { count: totalItems })}</span>
         <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />{t('trust_prices')}</span>
       </div>
+
+      <section className="mb-14">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {(locale === 'th' ? [
+            { stat: `${totalItems}+`, label: 'รายการที่ติดตาม' },
+            { stat: `${allBrands.length}+`, label: 'แบรนด์' },
+            { stat: 'ราคาจริง', label: 'ตลาดในไทย' },
+            { stat: 'ทุกสัปดาห์', label: 'อัปเดตราคา' },
+          ] : [
+            { stat: `${totalItems}+`, label: 'Items Tracked' },
+            { stat: `${allBrands.length}+`, label: 'Brands' },
+            { stat: 'Real Thai', label: 'Prices' },
+            { stat: 'Weekly', label: 'Updates' },
+          ]).map((s, i) => (
+            <div key={i} className="border border-[#B8954A] p-5">
+              <p className="font-serif text-2xl text-[#B8954A] mb-1" style={{ fontFamily: 'var(--font-playfair)' }}>{s.stat}</p>
+              <p className="text-xs text-[#8C7355] tracking-[0.1em] uppercase">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Best Deals */}
       {topDeals.length > 0 && (

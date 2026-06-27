@@ -54,6 +54,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/bottega-veneta-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/compare/celine-vs-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/market-overview`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/brands/hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/brands/louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/guides/luxury-bags-as-investments`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/guides/where-to-sell-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/guides/how-to-spot-fake-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/lv-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/hermes-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({

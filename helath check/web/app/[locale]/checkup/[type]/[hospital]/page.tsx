@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { type Locale, catLabel, CATEGORIES } from "@/lib/i18n";
 import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow } from "@/lib/db";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   try {

@@ -40,6 +40,9 @@ export default function HomePage() {
   const handbagBrands = brands.filter(b => b.category === 'handbags')
   const watchBrands   = brands.filter(b => b.category === 'watches')
   const totalItems    = allItems.length
+  const brandsCount   = new Set(allItems.map(i => i.brand)).size
+  const itemsWithPrices = allItems.filter(i => Object.keys(i.price_ranges).length > 0).length
+  const avgSavings    = avgSavingsPct(allItems)
 
   const topDeals = allItems
     .filter(i => i.price_ranges.very_good && i.retail_price_usd > 0)
@@ -94,7 +97,22 @@ export default function HomePage() {
         <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#B8954A] inline-block" />Verified listings only</span>
       </div>
 
-      {/* Best Deals */}
+      <section className="mb-16">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { label: 'Items Tracked', value: `${totalItems}+` },
+            { label: 'Brands Covered', value: `${brandsCount}+` },
+            { label: 'With Price Data', value: `${itemsWithPrices}` },
+            { label: 'Avg Savings', value: avgSavings !== null ? `${avgSavings}%` : 'N/A' },
+          ].map(s => (
+            <div key={s.label} className="border border-[#B8954A] p-5 text-center">
+              <p className="text-3xl font-light text-[#1A1A1A] mb-1">{s.value}</p>
+              <p className="text-xs tracking-[0.1em] uppercase text-[#8C7355]">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {topDeals.length > 0 && (
         <section className="mb-16">
           <div className="flex items-center gap-4 mb-8">

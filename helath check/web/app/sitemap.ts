@@ -1,6 +1,12 @@
 import type { MetadataRoute } from "next";
 import { LOCALES, CATEGORIES } from "@/lib/i18n";
 
+const CITY_SLUGS = [
+  "bangkok", "chiang-mai", "phuket", "pattaya", "hua-hin", "ko-samui",
+  "krabi", "chiang-rai", "hat-yai", "khon-kaen", "koh-chang", "udon-thani",
+  "korat", "ayutthaya", "chon-buri", "nakhon-si-thammarat", "lampang", "nakhon-pathom",
+];
+
 const BASE = "https://www.bangkoktopclinic.com";
 
 async function getHospitalSlugs(): Promise<string[]> {
@@ -28,6 +34,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push({ url: `${BASE}/${locale}/hospital`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
     for (const slug of slugs) {
       entries.push({ url: `${BASE}/${locale}/hospital/${slug}`, lastModified: now, changeFrequency: "weekly", priority: 0.8 });
+    }
+    // City pages
+    for (const city of CITY_SLUGS) {
+      entries.push({ url: `${BASE}/${locale}/city/${city}`, lastModified: now, changeFrequency: "weekly", priority: 0.85 });
     }
     // Longtail
     for (const cat of CATEGORIES) {

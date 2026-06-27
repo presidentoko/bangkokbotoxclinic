@@ -6,7 +6,7 @@ import { getPackagesByCategory, getAllPackages, type PackageRow } from "@/lib/db
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

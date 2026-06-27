@@ -374,6 +374,33 @@ export default async function ModelPage({ params }: Props) {
       {/* AdSense slot — middle */}
       <div className="my-6" />
 
+      {(() => {
+        const similar = getAllItems()
+          .filter(i => i.category === item.category && i.id !== item.id)
+          .filter(i => Object.keys(i.price_ranges).length > 0)
+          .slice(0, 4)
+        if (!similar.length) return null
+        return (
+          <section className="mt-10 mb-10">
+            <h2 className="font-serif text-2xl text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>Similar Items</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {similar.map(s => {
+                const simVg = s.price_ranges.very_good
+                return (
+                  <Link key={s.id} href={`/${s.slug}`} className="group block p-5 border border-[#E8E2D9] bg-white hover:border-[#B8954A] hover:shadow-md transition-all duration-200">
+                    <p className="text-xs tracking-[0.1em] uppercase text-[#9C8B7A] mb-0.5">{s.brand}</p>
+                    <p className="font-serif text-base text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors" style={{ fontFamily: 'var(--font-playfair)' }}>{s.model}</p>
+                    {simVg && (
+                      <p className="text-xs text-[#9C8B7A] mt-1">Avg. {formatPrice(getAvgPrice(simVg))}</p>
+                    )}
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )
+      })()}
+
       <section className="mt-8">
         <h2 className="font-serif text-2xl text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>Frequently Asked Questions</h2>
         <dl className="space-y-6">

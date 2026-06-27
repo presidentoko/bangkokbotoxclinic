@@ -4,7 +4,7 @@ import { type Locale, catLabel, CATEGORIES } from "@/lib/i18n";
 import { getPackagesByCategory, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return CATEGORIES.map((type) => ({ type }));

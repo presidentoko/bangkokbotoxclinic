@@ -1,5 +1,7 @@
 "use client";
-import { useState, useDeferredValue, useMemo } from "react";
+import { useState, useDeferredValue, useMemo, useCallback } from "react";
+
+const PAGE_SIZE = 36;
 import Link from "next/link";
 import type { PackageRow } from "@/lib/db";
 import type { Locale } from "@/lib/i18n";
@@ -33,7 +35,11 @@ function StarRating({ rating, count }: { rating: string | null; count: number | 
 }
 
 function PriceTag({ price, cheapest }: { price: string | null; cheapest: number }) {
-  if (!price) return <span className="text-slate-400 text-sm">POA</span>;
+  if (!price) return (
+    <div className="text-right">
+      <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-lg whitespace-nowrap">Contact for price</span>
+    </div>
+  );
   const p = parseFloat(price);
   const diff = Math.round(((p - cheapest) / cheapest) * 100);
   return (
@@ -139,18 +145,75 @@ const FEATURES = [
 
 type FeatureKey = (typeof FEATURES)[number]["key"];
 
+const CITIES = ["Bangkok", "Chiang Mai", "Phuket", "Pattaya", "Hua Hin", "Ko Samui", "Krabi", "Chiang Rai", "Hat Yai", "Khon Kaen", "Koh Chang", "Udon Thani", "Korat", "Ayutthaya", "Chon Buri", "Nakhon Si Thammarat", "Lampang", "Nakhon Pathom"] as const;
+type City = (typeof CITIES)[number];
+
+const CATEGORIES = [
+  { key: "basic",        label: "Basic",       emoji: "🩺" },
+  { key: "standard",     label: "Standard",    emoji: "📋" },
+  { key: "executive",    label: "Executive",   emoji: "💼" },
+  { key: "women",        label: "Women",       emoji: "👩" },
+  { key: "cancer",       label: "Cancer",      emoji: "🎗️" },
+  { key: "heart",        label: "Heart",       emoji: "❤️" },
+  { key: "men",          label: "Men",         emoji: "👨" },
+  { key: "senior",       label: "Senior",      emoji: "🏥" },
+] as const;
+
+const PRICE_RANGES = [
+  { key: "u3k",   label: "Under ฿3k",   min: 0,     max: 3000  },
+  { key: "3to8k", label: "฿3k – ฿8k",   min: 3000,  max: 8000  },
+  { key: "8to20k",label: "฿8k – ฿20k",  min: 8000,  max: 20000 },
+  { key: "o20k",  label: "฿20k+",       min: 20000, max: Infinity },
+] as const;
+type PriceKey = (typeof PRICE_RANGES)[number]["key"];
+
+function getCity(r: PackageRow): string {
+  return r.city ?? (r.area === "Chiang Mai" ? "Chiang Mai" : r.area === "Phuket" ? "Phuket" : "Bangkok");
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Locale }) {
   const [query, setQuery] = useState("");
   const [activeFeatures, setActiveFeatures] = useState<Set<FeatureKey>>(new Set());
+  const [activeCity, setActiveCity] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activePriceKey, setActivePriceKey] = useState<PriceKey | null>(null);
+  const [page, setPage] = useState(1);
   const deferred = useDeferredValue(query);
+
+  const resetPage = useCallback(() => setPage(1), []);
 
   const prices = useMemo(() => rows.map((r) => parseFloat(r.price ?? "0")).filter(Boolean), [rows]);
   const cheapest = prices.length ? Math.min(...prices) : 0;
 
+  const cityCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    CITIES.forEach((c) => (counts[c] = 0));
+    rows.forEach((r) => {
+      const c = getCity(r);
+      if (c in counts) counts[c]++;
+    });
+    return counts;
+  }, [rows]);
+
   const filtered = useMemo(() => {
     let result = rows;
+    if (activeCity) {
+      result = result.filter((r) => getCity(r) === activeCity);
+    }
+    if (activeCategory) {
+      result = result.filter((r) => r.category === activeCategory);
+    }
+    if (activePriceKey) {
+      const range = PRICE_RANGES.find((p) => p.key === activePriceKey);
+      if (range) {
+        result = result.filter((r) => {
+          const p = parseFloat(r.price ?? "0");
+          return p >= range.min && p < range.max;
+        });
+      }
+    }
     if (deferred.trim()) {
       const q = deferred.toLowerCase();
       result = result.filter(
@@ -167,8 +230,16 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
         result = result.filter((r) => (r[feat as keyof PackageRow] as number) === 1);
       }
     }
-    return result;
-  }, [rows, deferred, activeFeatures]);
+    // Priced packages first, then "contact for price" at bottom
+    return [...result].sort((a, b) => {
+      if (a.price && !b.price) return -1;
+      if (!a.price && b.price) return 1;
+      return 0;
+    });
+  }, [rows, deferred, activeFeatures, activeCity, activeCategory, activePriceKey]);
+
+  const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
+  const hasMore = filtered.length > page * PAGE_SIZE;
 
   function toggleFeature(key: FeatureKey) {
     setActiveFeatures((prev) => {
@@ -176,15 +247,72 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
       if (next.has(key)) next.delete(key); else next.add(key);
       return next;
     });
+    resetPage();
   }
 
-  const hasFilters = query.trim() || activeFeatures.size > 0;
+  const hasFilters = query.trim() || activeFeatures.size > 0 || activeCity !== null || activeCategory !== null || activePriceKey !== null;
 
   return (
     <CompareProvider>
     <div>
       {/* Search + filter bar */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 mb-5 space-y-3">
+        {/* City tabs – horizontally scrollable */}
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
+          <button
+            onClick={() => { setActiveCity(null); resetPage(); }}
+            className={`flex-shrink-0 text-sm px-4 py-2 rounded-xl font-semibold transition-colors border ${
+              activeCity === null
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-slate-600 border-slate-200 hover:border-blue-300"
+            }`}>
+            All cities
+          </button>
+          {CITIES.filter((city) => (cityCounts[city] ?? 0) > 0).map((city) => (
+            <button key={city}
+              onClick={() => { setActiveCity(city); resetPage(); }}
+              className={`flex-shrink-0 text-sm px-4 py-2 rounded-xl font-semibold transition-colors border ${
+                activeCity === city
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-slate-600 border-slate-200 hover:border-blue-300"
+              }`}>
+              {city} <span className="text-[11px] opacity-70">({cityCounts[city]})</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Category filter */}
+        <div className="flex flex-wrap gap-1.5 items-center">
+          <span className="text-xs text-slate-500 font-medium">Type:</span>
+          {CATEGORIES.map((c) => (
+            <button key={c.key}
+              onClick={() => { setActiveCategory(activeCategory === c.key ? null : c.key); resetPage(); }}
+              className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors border ${
+                activeCategory === c.key
+                  ? "bg-violet-600 text-white border-violet-600"
+                  : "bg-white text-slate-600 border-slate-200 hover:border-violet-300 hover:text-violet-700"
+              }`}>
+              {c.emoji} {c.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Price range filter */}
+        <div className="flex flex-wrap gap-1.5 items-center">
+          <span className="text-xs text-slate-500 font-medium">Budget:</span>
+          {PRICE_RANGES.map((p) => (
+            <button key={p.key}
+              onClick={() => { setActivePriceKey(activePriceKey === p.key ? null : p.key); resetPage(); }}
+              className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors border ${
+                activePriceKey === p.key
+                  ? "bg-amber-500 text-white border-amber-500"
+                  : "bg-white text-slate-600 border-slate-200 hover:border-amber-400 hover:text-amber-700"
+              }`}>
+              {p.label}
+            </button>
+          ))}
+        </div>
+
         {/* Search input */}
         <div className="relative">
           <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">🔍</span>
@@ -218,7 +346,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
             );
           })}
           {hasFilters && (
-            <button onClick={() => { setQuery(""); setActiveFeatures(new Set()); }}
+            <button onClick={() => { setQuery(""); setActiveFeatures(new Set()); setActiveCity(null); setActiveCategory(null); setActivePriceKey(null); }}
               className="text-xs text-slate-400 hover:text-red-500 transition-colors ml-auto underline underline-offset-2">
               Clear all
             </button>
@@ -227,11 +355,12 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
       </div>
 
       {/* Results count */}
-      {hasFilters && (
-        <p className="text-sm text-slate-500 mb-4">
-          Showing <strong className="text-slate-800">{filtered.length}</strong> of {rows.length} packages
-        </p>
-      )}
+      <p className="text-sm text-slate-500 mb-4">
+        {hasFilters
+          ? <>Showing <strong className="text-slate-800">{Math.min(visible.length, filtered.length)}</strong> of <strong className="text-slate-800">{filtered.length}</strong> matching packages</>
+          : <>Showing <strong className="text-slate-800">{visible.length}</strong> of <strong className="text-slate-800">{rows.length}</strong> packages across <strong className="text-slate-800">{new Set(rows.map(r => r.hospital_slug)).size}</strong> hospitals</>
+        }
+      </p>
 
       {/* No results */}
       {filtered.length === 0 && (
@@ -245,10 +374,21 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
 
       {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
-        {filtered.map((row) => (
+        {visible.map((row) => (
           <PackageCard key={row.package_id} row={row} loc={loc} cheapest={cheapest} />
         ))}
       </div>
+
+      {/* Load more */}
+      {hasMore && (
+        <div className="text-center py-6">
+          <button
+            onClick={() => setPage(p => p + 1)}
+            className="px-8 py-3 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-700 hover:border-blue-300 hover:text-blue-700 transition-colors shadow-sm">
+            Load more packages ({filtered.length - visible.length} remaining)
+          </button>
+        </div>
+      )}
 
       {/* Compare drawer */}
       <CompareDrawer />

@@ -34,7 +34,7 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 function NavBar({ locale }: { locale: Locale }) {
   const base = `/${locale}`;
