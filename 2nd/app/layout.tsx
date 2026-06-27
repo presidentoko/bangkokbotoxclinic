@@ -39,7 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/jewelry" className="hover:text-[#1A1A1A] transition-colors">Jewelry</a>
               <a href="/belts" className="hover:text-[#1A1A1A] transition-colors">Belts</a>
               <a href="/scarves" className="hover:text-[#1A1A1A] transition-colors">Scarves</a>
-              <a href="/brands" className="hover:text-[#1A1A1A] transition-colors">Value Guide</a>
+              <a href="/value-guide" className="hover:text-[#1A1A1A] transition-colors">Value Guide</a>
+              <a href="/brands" className="hover:text-[#1A1A1A] transition-colors">Brands</a>
               <a href="/contact" className="hover:text-[#1A1A1A] transition-colors">Contact</a>
               <form action="/search" method="get" className="hidden sm:flex items-center">
                 <input name="q" placeholder="Search..." className="border-0 border-b border-[#E8E2D9] bg-transparent text-sm px-2 py-1 w-28 focus:outline-none focus:border-[#B8954A] text-[#1A1A1A]" />

@@ -18,6 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/scarves`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/small-leather-goods`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/brands`,   lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE}/under-500`,  lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/under-1000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/under-2000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/guides/first-luxury-bag`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({

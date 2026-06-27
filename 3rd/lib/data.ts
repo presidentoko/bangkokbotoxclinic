@@ -91,3 +91,11 @@ export function getPriceVsRetail(range: PriceRange, retail: number): string {
   const pct = Math.round(((midpoint - retail) / retail) * 100)
   return pct > 0 ? `+${pct}%` : `${pct}%`
 }
+
+export function getItemsUnderBudget(maxThb: number): Item[] {
+  return items.filter(i => {
+    const vg = i.price_ranges?.very_good
+    if (!vg) return false
+    return getAvgPrice(vg) <= maxThb
+  })
+}
