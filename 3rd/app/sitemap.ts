@@ -18,6 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/watches`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/clothing`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/brands`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/shoes`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/jewelry`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/belts`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/scarves`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/small-leather-goods`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
   }
 
   // Brand pages
