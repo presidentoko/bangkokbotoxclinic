@@ -350,6 +350,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             { slug: "health-checkup-japan-vs-thailand", title: "Japan vs Thailand (Ningen Dock)", emoji: "🇯🇵", desc: "人間ドック equivalent packages at 50–70% below Japanese prices." },
             { slug: "health-checkup-malaysia-vs-thailand", title: "Malaysia vs Thailand (Hat Yai)", emoji: "🇲🇾", desc: "Hat Yai serves 100k+ Malaysian visitors/year. 40–60% cheaper." },
             { slug: "thailand-vs-singapore-health-checkup", title: "Singapore vs Thailand", emoji: "🇸🇬", desc: "Save 50–70% vs Singapore private hospitals. Same JCI quality." },
+            { slug: "health-checkup-canada-vs-thailand", title: "Canada vs Thailand — Beat the Wait", emoji: "🍁", desc: "Canada's wait times: 4.5 months. Bangkok: same day. 70–85% cheaper." },
             { slug: "understanding-health-checkup-results", title: "Understanding Your Results", emoji: "📊", desc: "Normal ranges for blood glucose, cholesterol, cancer markers — explained." },
           ].map(({ slug, title, emoji, desc }) => (
             <Link key={slug} href={`${base}/guide/${slug}`}

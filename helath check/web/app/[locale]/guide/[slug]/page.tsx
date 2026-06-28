@@ -2012,6 +2012,75 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages in Bangkok" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/health-checkup-canada-vs-thailand", label: "Canada vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-canada-vs-thailand": {
+    title: "Health Check-Up: Canada vs Thailand (2026) — Bangkok for Canadians",
+    description: "Compare health check-up costs and wait times between Canada and Bangkok, Thailand. Canada's free healthcare comes with months of waiting — Bangkok JCI hospitals deliver results the same day at 70–85% lower out-of-pocket cost.",
+    intro: "Canada has universal public healthcare, but elective screening tests and specialist consultations can have wait times of weeks to months — sometimes over a year for non-emergency procedures. Private pay options are limited or illegal in some provinces. Bangkok's JCI-accredited hospitals offer the same-day executive health check-up experience that most Canadians simply cannot access through their public system, at 70–85% of the private cost equivalent in the US or UK private sector.",
+    sections: [
+      {
+        heading: "Wait times: Canada vs Bangkok",
+        content: "The core reason Canadians seek health screening in Thailand is not primarily cost — it is speed and access:",
+        list: [
+          "MRI scan wait — Canada public: median 71 days (some provinces 6–18 months) | Bangkok: 24–48 hours",
+          "Specialist consultation — Canada: 4.5 months median (Fraser Institute 2024) | Bangkok: same day or next day",
+          "Colonoscopy — Canada: 6–18 months for non-urgent | Bangkok: 2–3 days",
+          "Comprehensive blood panel results — Canada public: 5–10 business days | Bangkok private: 4–6 hours same visit",
+          "Executive full-body check-up — Canada: not available through public system; US private out-of-pocket CAD 3,000–8,000 | Bangkok: ฿8,000–฿25,000 (CAD 320–1,000)",
+          "Whole-body cancer screening (CT + cancer markers + PET option): Canada: not typically covered, US private CAD 5,000–20,000 | Bangkok ฿20,000–฿60,000 (CAD 790–2,380)",
+        ],
+      },
+      {
+        heading: "Cost comparison: Canada private pay vs Bangkok",
+        content: "When Canadians pay privately (specialists, private clinics, US cross-border), Bangkok compares favourably:",
+        list: [
+          "Standard blood panel (CBC, lipids, thyroid, HbA1c, liver) — Canada private pay: CAD 200–600 | Bangkok: ฿2,000–฿4,500 (CAD 79–178) | Saving 60–70%",
+          "ECG — Canada private: CAD 100–250 | Bangkok: ฿500–฿1,500 (CAD 20–60) | Saving 75–80%",
+          "Ultrasound (liver, kidney, thyroid) — Canada private: CAD 200–500 | Bangkok: ฿2,000–฿4,000 (CAD 79–159) | Saving 60–70%",
+          "Comprehensive executive check-up — Canada: not publicly available; US private pay cross-border: CAD 2,500–7,000 | Bangkok: ฿8,000–฿25,000 (CAD 320–990) | Saving 70–85%",
+          "Cancer tumour markers (AFP, CEA, CA19-9, PSA, CA125) — Canada: 3–6 month wait through specialist referral | Bangkok same-day add-on: ฿3,000–฿6,000 (CAD 120–240)",
+          "Total trip budget (flight YVR–BKK: CAD 800–1,500 return, accommodation: CAD 50–150/night, executive check-up: CAD 320–990): CAD 1,470–3,140 all-in vs equivalent US private pay CAD 3,500–8,000",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for Canadians",
+        content: "Most Canadians attending Bangkok hospitals choose English-fluent JCI-accredited institutions:",
+        list: [
+          "Bumrungrad International — most established for North American patients, North American-trained doctors, English fully throughout",
+          "Samitivej Sukhumvit — strong executive check-up programme, efficient half-day format, strong North American patient track record",
+          "Bangkok Hospital — large BDMS network, international patient centres at multiple locations, good for specialist follow-up",
+          "Vejthani Hospital — competitive pricing, fewer North American patients but full JCI accreditation and interpreter service",
+          "BNH Hospital — boutique feel, less crowded, central location, strong reputation among long-stay expats",
+        ],
+      },
+      {
+        heading: "Practical logistics for Canadians visiting Bangkok",
+        content: "Planning tips for Canadian visitors combining health check-up with Thailand travel:",
+        list: [
+          "Visa: Canadians can enter Thailand visa-free for 30 days; extendable to 60 days total at local immigration",
+          "Flight time: Toronto (YYZ) ~19h; Vancouver (YVR) ~15–17h direct on Thai Airways or Air Canada via Tokyo",
+          "Best arrival strategy: arrive evening, rest overnight, complete check-up 7:00–8:00 AM the next morning when fasting is easiest",
+          "Results timing: all results and doctor consultation typically complete by noon–2:00 PM same day",
+          "Records: request complete digital copies of all results; Bangkok hospitals provide PDF reports compatible with Canadian EHR systems",
+          "Travel insurance: OHIP and provincial plans do not cover non-emergency elective screening abroad; purchase travel insurance before departure",
+          "Credit cards: Visa and Mastercard accepted at all major Bangkok hospitals; some charge 2–3% foreign transaction fee",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Will my Canadian provincial insurance cover a health check-up in Bangkok?", a: "No — OHIP, MSP (BC), AHCIP (Alberta), and other provincial plans cover emergency care abroad with limited reimbursement, but do not cover elective preventive health check-ups abroad. You pay out-of-pocket in Bangkok and keep the receipt. Most Canadians find the Bangkok out-of-pocket cost significantly lower than any private-pay alternative in Canada or the US." },
+      { q: "Are Bangkok health check-up results accepted by my Canadian doctor?", a: "Yes — Bangkok's major hospitals (Bumrungrad, Samitivej, Bangkok Hospital) provide complete results in English with standard international reference ranges. Canadian GPs and specialists accept these reports directly. Request a full digital copy including all raw laboratory values, imaging CDs (MRI/CT), and the doctor's interpretation letter." },
+      { q: "Is Bangkok a good destination for a 'health holiday' as a Canadian?", a: "Very popular — combining a Bangkok health check-up (morning) with leisure (afternoon onwards) is a well-established 'medical tourism' itinerary. Many Canadians time this with an existing Thailand holiday. January–March is peak season (book hospitals 2–4 weeks in advance). May–September is off-peak with shorter waits but hot/rainy weather." },
+      { q: "What is included in a Bangkok executive check-up equivalent to a Canadian 'executive physical'?", a: "Bangkok executive packages (฿8,000–฿25,000 / CAD 320–990) typically include: complete blood count, full metabolic panel, lipid profile, thyroid (TSH/T3/T4), HbA1c (diabetes), liver enzymes, kidney function, PSA (men) / CA125 (women), chest X-ray, 12-lead ECG, abdominal + pelvic ultrasound, body composition analysis, and doctor consultation. Cancer markers are add-ons or included at the premium tier. This covers or exceeds what Canadian private executive physical clinics provide at 3–5× the cost." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/guide/health-checkup-cost-australia-vs-thailand", label: "Australia vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-usa-vs-thailand", label: "USA vs Thailand comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
     ],
   },
 

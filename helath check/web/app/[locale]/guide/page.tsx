@@ -256,6 +256,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-canada-vs-thailand",
+    title: "Canada vs Thailand Health Check-Up (2026) — Beating the Wait List",
+    description: "Canada's public system means months of waiting for MRI, specialist, or comprehensive screening. Bangkok: same-day results at 70–85% lower cost.",
+    emoji: "🍁",
+    category: "Practical Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",

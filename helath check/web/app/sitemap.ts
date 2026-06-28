@@ -137,6 +137,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "colonoscopy-cost-bangkok",
       "gastroscopy-cost-bangkok",
       "best-hospitals-chinese-speakers",
+      "health-checkup-canada-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
