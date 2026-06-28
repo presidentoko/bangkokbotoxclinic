@@ -613,6 +613,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "diabetes-management-bangkok",
+    title: "Diabetes & High Blood Sugar Bangkok — Diagnosis, Medication & Management (2026)",
+    description: "HbA1c ฿400–฿800. Metformin generic ฿60–฿300/month. Empagliflozin (Jardiance) ฿1,650–฿3,000/month. Insulin Lantus ฿600–฿1,200/vial. What high glucose means + what to do next.",
+    emoji: "🩺",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
