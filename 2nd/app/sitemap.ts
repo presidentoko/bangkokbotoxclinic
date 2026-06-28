@@ -169,6 +169,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/bottega-veneta-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/chanel-19-vs-classic-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${BASE}/guides/how-to-authenticate-fendi`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/compare/lv-speedy-vs-neverfull`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
