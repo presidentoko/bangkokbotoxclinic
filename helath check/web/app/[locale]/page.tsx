@@ -347,10 +347,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {[
             { slug: "chiang-mai-health-checkup", title: "Chiang Mai Health Check-Up", emoji: "🌸", desc: "20–40% cheaper than Bangkok. Best hospitals & prices." },
             { slug: "phuket-health-checkup", title: "Phuket Health Check-Up", emoji: "🏝️", desc: "Combine your island holiday with a health screen." },
-            { slug: "pattaya-health-checkup", title: "Pattaya Health Check-Up", emoji: "🌊", desc: "Best hospitals and packages in Pattaya." },
             { slug: "cancer-screening-bangkok", title: "Cancer Screening Guide", emoji: "🎗️", desc: "Which tumour markers, imaging, and screening to get." },
             { slug: "senior-health-checkup-thailand", title: "Senior Health Check-Up (60+)", emoji: "👴", desc: "Bone density, cognitive screening, cancer markers." },
-            { slug: "health-checkup-expats-thailand", title: "Expat Health Check-Up Guide", emoji: "🌍", desc: "Annual screening, insurance, and best hospitals for expats." },
+            { slug: "health-checkup-usa-vs-thailand", title: "USA vs Thailand — How Much You Save", emoji: "🇺🇸", desc: "Bangkok packages cost 75–90% less than US out-of-pocket prices." },
+            { slug: "understanding-health-checkup-results", title: "Understanding Your Results", emoji: "📊", desc: "Normal ranges for blood glucose, cholesterol, cancer markers — explained." },
           ].map(({ slug, title, emoji, desc }) => (
             <Link key={slug} href={`${base}/guide/${slug}`}
               className="group flex gap-4 bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all">
