@@ -235,6 +235,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-uk-vs-thailand",
+    title: "UK vs Thailand Health Check-Up Cost (2026)",
+    description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",
+    emoji: "🇬🇧",
+    category: "Practical Guides",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",

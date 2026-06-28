@@ -1422,6 +1422,49 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-uk-vs-thailand": {
+    title: "UK vs Thailand Health Check-Up Cost (2026) — NHS vs Private Bangkok",
+    description: "NHS health checks vs Bangkok private hospital packages. Private health check-ups in Bangkok cost 60–80% less than UK private clinics. What you can get and what you save.",
+    intro: "The UK's NHS offers a free 'NHS Health Check' for adults aged 40–74 every 5 years, covering basic cardiovascular risk (blood pressure, cholesterol, blood glucose). This is far less comprehensive than private Bangkok hospital packages. UK private health check-ups (Bupa Health Clinics, Nuffield Health, BMI Healthcare) cost £300–2,500 — 60–80% more than equivalent packages at Bangkok's JCI-accredited hospitals.",
+    sections: [
+      {
+        heading: "Price comparison: UK private clinics vs Bangkok",
+        content: "Cost comparison for equivalent health screening (GBP at roughly 0.022 to THB):",
+        list: [
+          "Standard annual check-up (blood + ECG + X-ray) — Bangkok: ฿5,500–฿9,000 (£120–200) vs UK Bupa/Nuffield: £350–600",
+          "Executive health check-up — Bangkok: ฿10,000–฿25,000 (£220–550) vs UK: £800–2,500",
+          "Comprehensive with ultrasound + cancer markers — Bangkok: ฿18,000–฿45,000 (£395–990) vs UK: £1,500–4,000",
+          "MRI brain — Bangkok: ฿8,000–฿18,000 (£175–395) vs UK private: £500–1,200",
+          "Colonoscopy — Bangkok: ฿7,000–฿15,000 (£155–330) vs UK private: £1,500–3,000 (NHS: 2–4 year wait for non-urgent)",
+          "Women's executive (mammogram + smear + blood) — Bangkok: ฿9,000–฿18,000 (£195–395) vs UK: £600–1,500",
+          "Average savings: 65–75% less in Bangkok vs UK private",
+        ],
+      },
+      {
+        heading: "What Bangkok hospitals offer that UK private clinics don't",
+        content: "Advantages of Bangkok for UK patients:",
+        list: [
+          "Same-day results for most blood tests and imaging — UK private clinics take 3–10 days",
+          "Gastroscopy and colonoscopy available in a single visit — UK requires separate specialist referrals",
+          "Full-body MRI available without 12-month GP referral wait time (even UK private)",
+          "Cancer marker panels (PSA, CA125, AFP, CEA, CA19-9) as part of an executive package — UK private charges separately",
+          "English-speaking doctors at all major Bangkok JCI hospitals — no language barrier",
+          "On-site radiologist interpretation within 2–4 hours — UK private often outsources",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it worth flying to Bangkok from the UK for a health check-up?", a: "For a comprehensive executive package (worth £1,500–2,500 at UK private rates), you save £1,000–2,000 after accounting for a return flight (£350–600) and 2–3 nights hotel (£100–200). The total cost in Bangkok for the same scope is typically £500–800 all-in vs £1,500+ in the UK. Annual travellers, expats, or those who want a Thai holiday at the same time find this most compelling." },
+      { q: "Do UK GPs and specialists accept Bangkok hospital results?", a: "Yes — Bangkok's major hospitals issue results in English with standard international reference ranges. The report format from Bumrungrad, Samitivej, and Bangkok Hospital is identical in structure to UK private clinic reports. Always request the full laboratory printout (not just the doctor summary) and bring a copy to your GP." },
+      { q: "Does BUPA or AXA UK cover health check-ups in Bangkok?", a: "BUPA UK plans typically do not cover routine health check-ups overseas — only emergency or acute care. Some executive BUPA international plans include overseas preventive screening, but standard UK domestic plans do not. AXA Health has similar restrictions. Check your policy for 'health screening' or 'well-person check' clauses." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-insurance-thailand", label: "Health insurance for Thailand" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages in Bangkok" },
+      { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare" },
+    ],
+  },
+
   "health-checkup-cost-australia-vs-thailand": {
     title: "Health Check-Up Cost: Australia vs Thailand (2026) — How Much You Save",
     description: "Compare health check-up prices between Australia and Thailand. Bangkok hospitals offer executive packages at 60–80% below Australian private hospital rates — same JCI quality.",
