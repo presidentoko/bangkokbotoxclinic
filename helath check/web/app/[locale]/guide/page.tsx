@@ -375,6 +375,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "sti-hiv-test-bangkok",
+    title: "STI & HIV Test Bangkok — Confidential Testing Prices & Clinics (2026)",
+    description: "HIV test Bangkok: 4th-gen Ag/Ab ฿800–฿1,800, RNA PCR ฿2,000–฿4,000. Full STI panel ฿3,000–฿8,000. Same-day results. No referral. Thai Red Cross, PULSE Clinic, BNH, Bumrungrad.",
+    emoji: "🔴",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

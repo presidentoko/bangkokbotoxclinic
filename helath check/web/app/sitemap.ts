@@ -159,6 +159,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "hepatitis-test-bangkok",
       "bangkok-hospital-health-checkup",
       "fertility-test-bangkok",
+      "sti-hiv-test-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
