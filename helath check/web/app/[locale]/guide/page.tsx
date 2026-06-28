@@ -213,6 +213,27 @@ const GUIDES = [
     emoji: "🌙",
     category: "By Nationality",
   },
+  {
+    slug: "blood-test-price-bangkok",
+    title: "Blood Test Price in Bangkok (2026 Guide)",
+    description: "How much does a blood test cost in Bangkok? CBC, lipid panel, liver function, cancer markers — all prices compared.",
+    emoji: "🩸",
+    category: "Practical Guides",
+  },
+  {
+    slug: "mri-scan-cost-bangkok",
+    title: "MRI Scan Cost in Bangkok (2026 Guide)",
+    description: "Brain MRI, spine MRI, cardiac MRI prices at Bangkok private hospitals. 40–70% cheaper than US/UK rates.",
+    emoji: "🧲",
+    category: "Practical Guides",
+  },
+  {
+    slug: "chon-buri-health-checkup",
+    title: "Chon Buri Health Check-Up Guide (2026)",
+    description: "Bangkok Pattaya Hospital and Sriracha options. Serves the Eastern Seaboard expat and industrial community.",
+    emoji: "🏭",
+    category: "City Guides",
+  },
 ];
 
 const CATEGORIES = ["City Guides", "Hospital Guides", "Understanding Your Check-Up", "Specialist Screening", "By Age & Lifestyle", "Practical Guides", "By Nationality"];

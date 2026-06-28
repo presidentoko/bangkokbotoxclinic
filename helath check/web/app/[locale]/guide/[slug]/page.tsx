@@ -1499,6 +1499,164 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/phuket-health-checkup", label: "Phuket health check-up guide" },
     ],
   },
+
+  "blood-test-price-bangkok": {
+    title: "Blood Test Price in Bangkok — 2026 Cost Guide",
+    description: "How much does a blood test cost in Bangkok? Complete guide to blood test packages at Thai private hospitals — CBC, lipid panel, liver function, diabetes screening and more.",
+    intro: "Blood tests are the foundation of every health check-up in Thailand. Bangkok's private hospitals offer individual blood tests and full blood panel packages at prices 60–80% lower than equivalent tests in the US, UK, or Australia — with same-day results at most hospitals.",
+    sections: [
+      {
+        heading: "How much does a blood test cost in Bangkok?",
+        content: "Individual blood test prices at Bangkok private hospitals:",
+        list: [
+          "Complete Blood Count (CBC): ฿180 – ฿450",
+          "Fasting blood glucose: ฿120 – ฿280",
+          "Lipid panel (total cholesterol, HDL, LDL, triglycerides): ฿350 – ฿700",
+          "Liver function tests (ALT, AST, ALP, bilirubin): ฿350 – ฿650",
+          "Kidney function (creatinine, BUN, eGFR): ฿280 – ฿550",
+          "Thyroid function (TSH + T3 + T4): ฿450 – ฿900",
+          "HbA1c (3-month blood sugar average): ฿350 – ฿650",
+          "Hepatitis B surface antigen (HBsAg): ฿280 – ฿500",
+          "PSA (prostate, men 40+): ฿450 – ฿900",
+          "Full hormone panel (testosterone/estrogen/FSH/LH): ฿1,200 – ฿2,500",
+        ],
+      },
+      {
+        heading: "Blood test package pricing",
+        content: "Bundling blood tests into a package is always cheaper than individual tests:",
+        list: [
+          "Basic blood panel (CBC + glucose + lipids + liver + kidney): ฿900 – ฿2,200",
+          "Standard blood panel (adds thyroid, Hep B/C, uric acid, iron): ฿1,800 – ฿4,500",
+          "Comprehensive blood panel (adds cancer markers, hormones, vitamins): ฿5,000 – ฿12,000",
+          "Cancer marker panel (AFP, CEA, CA-125, CA 19-9, PSA): ฿2,500 – ฿6,000 separately",
+          "STD/STI panel (HIV, syphilis, gonorrhoea, chlamydia): ฿1,200 – ฿3,500",
+        ],
+      },
+      {
+        heading: "Where to get a blood test in Bangkok",
+        content: "Options for blood tests without a full health check-up package:",
+        list: [
+          "Walk-in blood draw: available at most Bangkok private hospitals, no appointment needed, start from ฿300 for a single test",
+          "Government hospitals (Siriraj, Ramathibodi): cheapest (฿80–฿150/test), but expect 2–4 hour waits",
+          "Private lab chains (Samitivej Lab, Medtech): competitive pricing, multiple locations, results by LINE app",
+          "Health check-up package: most cost-effective if you need 5+ tests — saves 30–50% vs individual pricing",
+        ],
+      },
+      {
+        heading: "How to prepare for a blood test in Bangkok",
+        content: "Standard preparation requirements:",
+        list: [
+          "Fasting: 8–12 hours before blood draw for glucose, lipid, and comprehensive panels",
+          "Water is fine — stay hydrated; avoid black coffee before the draw",
+          "Do NOT fast for CBC-only, thyroid, or specific cancer marker panels (check with the lab)",
+          "Morning appointments are easiest — arrive 7–8am, test done before breakfast",
+          "Results: most routine tests ready within 4–6 hours; comprehensive panels often same-day or next morning",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I get a blood test in Bangkok without a doctor's referral?", a: "Yes — Bangkok private hospitals allow walk-in blood tests without a referral. You can go directly to the laboratory department, specify which tests you want, pay at the counter, and have blood drawn. A doctor consultation to review results costs ฿300–฿800 extra but is optional." },
+      { q: "How long does a blood test take in Bangkok?", a: "The blood draw itself takes 5–10 minutes. Results for routine blood tests (CBC, glucose, lipids) are typically ready in 2–4 hours at Bangkok private hospitals. Thyroid, Hepatitis, and cancer marker results take 4–6 hours. Vitamin D and B12 may require overnight processing." },
+      { q: "What blood tests should I get as a foreigner in Bangkok?", a: "For a first health screen in Bangkok, the most useful blood tests for foreigners are: CBC (general health), blood glucose (diabetes risk), lipid panel (heart risk), liver function (especially if you drink alcohol), kidney function, thyroid (TSH), and Hepatitis B surface antigen. Total cost: ฿1,500–฿3,000 as a package." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up?" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/compare?category=basic", label: "Compare basic packages" },
+    ],
+  },
+
+  "mri-scan-cost-bangkok": {
+    title: "MRI Scan Cost in Bangkok — 2026 Price Guide",
+    description: "How much does an MRI scan cost in Bangkok? Compare MRI prices at JCI hospitals vs private hospitals. Brain MRI, full body MRI, cardiac MRI — all prices compared.",
+    intro: "Bangkok's private hospitals offer MRI scans at 40–70% below US or European prices, with same-day results and English-speaking radiologists at all major facilities. MRI is available standalone or as part of an executive health check-up package.",
+    sections: [
+      {
+        heading: "MRI scan prices in Bangkok (2026)",
+        content: "Approximate MRI prices at Bangkok private hospitals:",
+        list: [
+          "Brain MRI (without contrast): ฿8,000 – ฿18,000",
+          "Brain MRI (with contrast/gadolinium): ฿12,000 – ฿24,000",
+          "Spine MRI (cervical/thoracic/lumbar): ฿10,000 – ฿22,000 per region",
+          "Knee/shoulder/hip MRI: ฿8,500 – ฿16,000",
+          "Abdominal MRI (liver, pancreas, kidneys): ฿14,000 – ฿28,000",
+          "Cardiac MRI (heart function & structure): ฿22,000 – ฿45,000",
+          "MRI whole body (1.5T basic): ฿35,000 – ฿60,000",
+          "MRI whole body (3T advanced): ฿55,000 – ฿90,000",
+        ],
+      },
+      {
+        heading: "Executive health check-ups with MRI",
+        content: "The most cost-effective way to get an MRI in Bangkok is as part of an executive package:",
+        list: [
+          "Many hospitals bundle MRI brain + full blood panel + doctor consultation for ฿25,000–฿55,000",
+          "MRI packages at Bumrungrad, Bangkok Hospital, Vejthani include radiologist interpretation and same-day results",
+          "Executive packages with MRI often include CT scan, cancer markers, and specialist follow-up",
+          "Compare executive packages with MRI using the filter on our compare page",
+        ],
+      },
+      {
+        heading: "Best hospitals for MRI in Bangkok",
+        content: "Hospitals with 3T (high-resolution) MRI scanners and fast results:",
+        list: [
+          "Bumrungrad International — multiple 3T scanners, fastest result turnaround (2–3 hours), most experience with complex cases",
+          "Bangkok Hospital — 3T Philips Ingenia, excellent cardiac and neuro MRI protocols",
+          "Vejthani Hospital — 3T GE, competitive pricing, quiet machine environment",
+          "Samitivej Sukhumvit — 1.5T and 3T, best value for brain and spine MRI",
+          "BNH Hospital — 3T, specialist team, good for MRI alongside Japanese/European protocol check-ups",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do I need a doctor's referral for an MRI in Bangkok?", a: "At most Bangkok private hospitals, you can request an MRI directly without a referral — especially if you are a medical tourist. However, the hospital may require a brief consultation with an on-site doctor (฿300–฿800) to confirm the clinical indication before ordering the MRI. JCI hospitals require clinical documentation." },
+      { q: "How long does an MRI take in Bangkok?", a: "The scan itself takes 20–60 minutes depending on body part. Brain or spine MRI: 20–40 min. Cardiac MRI: 45–60 min. MRI with contrast: add 15 minutes. Results from the radiologist are usually ready within 2–4 hours at Bangkok private hospitals." },
+      { q: "Is MRI in Bangkok safe and hygienic?", a: "Yes — Bangkok's JCI-accredited hospitals use modern MRI scanners (mostly GE and Philips 3T machines) maintained to international standards. Staff are trained to international protocols for contrast agent safety, patient positioning, and infection control." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive health check-up guide" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
+  "chon-buri-health-checkup": {
+    title: "Chon Buri Health Check-Up Guide — Bangkok Pattaya Hospital (2026)",
+    description: "Health check-up hospitals in Chon Buri province — including Bangkok Pattaya Hospital, Phyathai Sriracha, and others. Near Pattaya and Sriracha.",
+    intro: "Chon Buri is a major industrial province east of Bangkok, home to Pattaya beach resort, Sriracha industrial estates, and a large expat community. The province has some of Thailand's best regional hospitals, particularly Bangkok Pattaya Hospital which serves the international community from across the Eastern Seaboard.",
+    sections: [
+      {
+        heading: "Health check-up prices in Chon Buri",
+        content: "Chon Buri prices are 15–25% lower than Bangkok:",
+        list: [
+          "Basic package: ฿1,500 – ฿3,000",
+          "Standard package: ฿3,800 – ฿7,500",
+          "Executive package A: ฿8,000 – ฿15,000",
+          "Executive package B (with MRI/CT): ฿18,000 – ฿35,000",
+          "Women's health: ฿5,500 – ฿12,000",
+          "Senior/cardiac package: ฿12,000 – ฿28,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Chon Buri for health check-ups",
+        content: "Main hospitals serving the Chon Buri / Pattaya area:",
+        list: [
+          "Bangkok Pattaya Hospital — largest in the area, full specialist centre, widest package range, strong international patient unit",
+          "Phyathai Sriracha Hospital — excellent standard and executive packages, serves Sriracha industrial zone",
+          "Pattaya Memorial Hospital — competitive mid-tier packages, central Pattaya location",
+          "Bangkok Hospital Pattaya (second branch) — BDMS, very high standard, specialist care",
+          "Sawang Fa Hospital — more affordable, good for basic and standard packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it better to get a health check-up in Pattaya or Bangkok?", a: "For basic to comprehensive packages, Chon Buri / Pattaya offers equivalent care at 15–25% lower prices, with no commute. Bangkok is preferable for very specialised packages (cardiac MRI, complex cancer screening) where subspecialty expertise is needed. Bangkok Pattaya Hospital handles 95% of what Bumrungrad can do, at lower cost." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/pattaya-health-checkup", label: "Pattaya health check-up guide" },
+      { href: "/en/city/chon-buri", label: "Compare Chon Buri packages" },
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+    ],
+  },
 };
 
 export function generateStaticParams() {
