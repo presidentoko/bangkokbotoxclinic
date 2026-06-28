@@ -122,6 +122,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "nakhon-pathom-health-checkup",
       "best-hospitals-korean-tourists",
       "thailand-vs-singapore-health-checkup",
+      "health-checkup-cost-australia-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

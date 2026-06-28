@@ -1422,6 +1422,49 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-cost-australia-vs-thailand": {
+    title: "Health Check-Up Cost: Australia vs Thailand (2026) — How Much You Save",
+    description: "Compare health check-up prices between Australia and Thailand. Bangkok hospitals offer executive packages at 60–80% below Australian private hospital rates — same JCI quality.",
+    intro: "Australia's public health system (Medicare) does not cover comprehensive health check-ups beyond basic GP assessments. Private health check-up packages at Australian private hospitals and specialist centres cost AUD 800–4,000+. The same scope at a Bangkok JCI-accredited hospital costs AUD 280–1,200 — saving 60–80%. Many Australians now combine a Thai holiday with a health check-up.",
+    sections: [
+      {
+        heading: "Price comparison: Australia vs Bangkok",
+        content: "Executive health check-up price comparison (AUD at roughly 0.038 to THB):",
+        list: [
+          "Comprehensive blood panel (40+ tests) — Bangkok: ฿3,500–฿6,000 (AUD 130–230) vs Australia: AUD 450–900",
+          "Standard annual check-up (blood + X-ray + ECG + ultrasound) — Bangkok: ฿5,000–฿9,000 (AUD 190–340) vs Australia: AUD 600–1,200",
+          "Executive package — Bangkok: ฿9,000–฿25,000 (AUD 340–950) vs Australia: AUD 1,500–3,500",
+          "MRI brain — Bangkok: ฿8,000–฿18,000 (AUD 300–685) vs Australia: AUD 500–1,500 (Medicare gap, private)",
+          "Gastroscopy — Bangkok: ฿4,500–฿9,000 (AUD 170–340) vs Australia: AUD 700–2,500 (private, no Medicare rebate for screening)",
+          "Cancer screening panel — Bangkok: ฿5,000–฿15,000 (AUD 190–570) vs Australia: AUD 800–2,800",
+          "Savings: 60–80% less for the same scope, at JCI-accredited hospitals",
+        ],
+      },
+      {
+        heading: "Is Bangkok hospital quality comparable to Australia?",
+        content: "Quality comparison points:",
+        list: [
+          "JCI accreditation: Bangkok has 9 JCI-accredited hospitals vs Australia's 0 (Australia uses ACHS, not JCI, but JCI is the international benchmark)",
+          "IMTJ Medical Travel Awards: Bangkok's hospitals consistently rank in the top 5 Asian hospitals globally",
+          "Technology: Bumrungrad, Bangkok Hospital, and Samitivej all use GE/Philips 3T MRI scanners, the same as top Australian hospitals",
+          "Wait times: Australia's public system has 2–12 month waits for imaging and specialist referrals; Bangkok private hospitals: 1–3 days",
+          "Language: All major Bangkok hospitals have English-speaking staff. Bumrungrad has staff from 70+ countries",
+          "Post-visit follow-up: Bangkok hospitals email and telehealth-follow-up at no extra charge",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Should I get a health check-up in Thailand or Australia?", a: "If you're paying privately in Australia, Thailand is significantly cheaper (60–80%) for the same or better scope. If Medicare or your private health insurer covers your check-up in Australia, the cost difference may not justify travel. For complex screening (cancer markers, MRI, full executive), the Thailand saving is usually AUD 1,000–3,000 per trip, making it worthwhile for an annual or biennial check-up." },
+      { q: "Are Bangkok hospital results accepted by Australian doctors?", a: "Yes — Bangkok's major hospitals issue results in English with recognised laboratory reference ranges. Bumrungrad, Bangkok Hospital, and Samitivej all issue official reports that Australian GPs and specialists accept without translation. Ask for a copy of all raw lab results (not just the summary) for your GP back home." },
+      { q: "Do Australian private health insurers cover health check-ups in Bangkok?", a: "Most Australian private health insurers do not cover overseas preventive health check-ups. Some international travel insurance plans have limited emergency medical coverage. For planned health screening, you pay out-of-pocket in Bangkok — the out-of-pocket cost in Bangkok is typically less than the Australian out-of-pocket (gap payment) for the same procedure with private insurance." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages in Bangkok" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
   "best-hospitals-korean-tourists": {
     title: "Best Hospitals for Korean Tourists in Bangkok (2026) — 한국어 가이드",
     description: "Korean-speaking staff, Korean-language menus, and Korean-preferred health check-up packages in Bangkok. Bumrungrad, Samitivej, Vejthani — which is best for Koreans?",

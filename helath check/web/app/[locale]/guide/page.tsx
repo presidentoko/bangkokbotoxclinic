@@ -228,6 +228,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-cost-australia-vs-thailand",
+    title: "Australia vs Thailand Health Check-Up Cost (2026)",
+    description: "Bangkok hospitals are 60–80% cheaper than Australian private clinics for the same JCI-accredited quality. How much Australians save.",
+    emoji: "🦘",
+    category: "Practical Guides",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",
