@@ -18,6 +18,7 @@ const SEGMENT_META: Record<string, { icon: string; title: string; subtitle: stri
   "comprehensive-health-checkup-bangkok":     { icon: "🔬", title: "Comprehensive Health Check-Up Bangkok", subtitle: "Full body screen · Blood · Ultrasound · X-ray · ECG" },
   "senior-health-checkup-bangkok":            { icon: "🧓", title: "Senior Health Check-Up Bangkok", subtitle: "Bone density · Cardiac · Cognitive · Cancer markers · 60+" },
   "diabetes-screening-bangkok":               { icon: "🩸", title: "Diabetes Screening Bangkok", subtitle: "HbA1c · Fasting glucose · Insulin · Same-day results" },
+  "korean-health-checkup-bangkok":            { icon: "🇰🇷", title: "Korean Health Check-Up Bangkok", subtitle: "한국어 상담 · 건강검진 · JCI hospitals · 50–75% cheaper than Seoul" },
 };
 
 export default async function Image({

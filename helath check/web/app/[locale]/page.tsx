@@ -370,6 +370,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             { href: `${base}/for/health-checkup-expats-bangkok`, icon: "🌍", label: "Expats in Bangkok" },
             { href: `${base}/for/japanese-health-checkup-bangkok`, icon: "🗾", label: "Japanese Tourists" },
             { href: `${base}/for/arabic-health-checkup-bangkok`, icon: "🌙", label: "Arabic Speakers" },
+            { href: `${base}/for/korean-health-checkup-bangkok`, icon: "🇰🇷", label: "Korean / 한국어" },
             { href: `${base}/for/cancer-screening-bangkok`, icon: "🎗️", label: "Cancer Screening" },
             { href: `${base}/for/womens-health-checkup-bangkok`, icon: "♀️", label: "Women's Health" },
             { href: `${base}/for/budget-health-checkup-bangkok`, icon: "💰", label: "Budget Under ฿3k" },

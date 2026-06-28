@@ -62,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "comprehensive-health-checkup-bangkok",
       "senior-health-checkup-bangkok",
       "diabetes-screening-bangkok",
+      "korean-health-checkup-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/for/${seg}`, lastModified: now, changeFrequency: "weekly", priority: 0.85 });
     }
@@ -119,6 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "koh-chang-health-checkup",
       "lampang-health-checkup",
       "nakhon-pathom-health-checkup",
+      "best-hospitals-korean-tourists",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

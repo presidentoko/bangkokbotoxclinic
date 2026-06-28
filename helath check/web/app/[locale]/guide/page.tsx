@@ -214,6 +214,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "best-hospitals-korean-tourists",
+    title: "Best Hospitals for Korean Tourists in Bangkok (2026)",
+    description: "한국어 가이드. Korean coordinators, 건강검진-style packages, gastroscopy, cancer markers in Bangkok.",
+    emoji: "🇰🇷",
+    category: "By Nationality",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",

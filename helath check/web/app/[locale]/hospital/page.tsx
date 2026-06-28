@@ -108,6 +108,7 @@ export default async function HospitalsPage({
           { href: `/${locale}/for/womens-health-checkup-bangkok`, label: "Women's health" },
           { href: `/${locale}/for/japanese-health-checkup-bangkok`, label: "🇯🇵 Japanese" },
           { href: `/${locale}/for/arabic-health-checkup-bangkok`, label: "🌙 Arabic" },
+          { href: `/${locale}/for/korean-health-checkup-bangkok`, label: "🇰🇷 Korean" },
           { href: `/${locale}/for/health-checkup-expats-bangkok`, label: "🌍 Expats" },
         ].map(({ href, label }) => (
           <Link key={href} href={href}

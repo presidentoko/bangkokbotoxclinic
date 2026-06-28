@@ -66,6 +66,18 @@ const SEGMENTS: Record<string, {
       { q: "Do Bangkok hospitals accept Saudi Aramco or DAMAN insurance?", a: "Some Bangkok hospitals accept specific GCC insurance plans, but this varies. Bumrungrad and Bangkok Hospital have the broadest international insurance acceptance. Contact the hospital's international patient office directly to verify your specific insurance plan." },
     ],
   },
+  "korean-health-checkup-bangkok": {
+    title: "방콕 건강검진 한국어 가이드 — Korean Health Check-Up Bangkok 2026",
+    h1: "Korean Health Check-Up in Bangkok (한국어 서비스)",
+    description: "Bangkok hospitals with Korean-speaking staff for health check-ups. 한국어 상담 가능. Bumrungrad, Samitivej, Vejthani — compare packages for Korean tourists.",
+    filter: (p) => p.jci === 1 || p.has_interpreter === 1,
+    intro: "방콕은 한국 의료관광객이 가장 많이 찾는 해외 의료관광 목적지입니다. 범롱랏(Bumrungrad), 사미티벳(Samitivej), 벳타니(Vejthani) 병원은 모두 한국어 코디네이터를 두고 있으며, 한국식 건강검진 패키지를 제공합니다. 비용은 서울 강남 사립병원 대비 50–75% 저렴합니다. Bangkok is Thailand's leading medical tourism destination for Korean visitors — major hospitals have Korean-speaking staff and packages adapted to Korean 건강검진 standards.",
+    faqs: [
+      { q: "방콕 어느 병원에 한국어 통역이 있나요? (Which Bangkok hospitals have Korean interpreters?)", a: "범롱랏 국제병원(Bumrungrad International)에 한국어 통역 및 코디네이터가 40명 이상 있습니다. 사미티벳 수쿰빗(Samitivej Sukhumvit)에 한국건강센터(Korean Health Centre)가 있으며, 벳타니(Vejthani Hospital)에도 한국어 간호사가 있습니다. Bumrungrad International has 40+ Korean-speaking staff. Samitivej Sukhumvit has a dedicated Korean Health Centre. Vejthani Hospital has Korean-speaking nurses." },
+      { q: "How much is a 건강검진 (health checkup) in Bangkok vs Seoul?", a: "A comprehensive 건강검진-equivalent package in Bangkok costs ฿8,000–฿18,000 (approximately 300,000–700,000원). An equivalent package at a Seoul private hospital or specialized checkup centre would cost 500,000–2,500,000원. Bangkok offers the same JCI-accredited quality at 50–75% below Seoul prices." },
+      { q: "Do Korean insurance plans work at Bangkok hospitals?", a: "Korean national health insurance (건강보험) generally does not cover overseas treatment. However, some Korean travel insurance (해외여행보험) and international health insurance plans may reimburse medical costs in Thailand. Bumrungrad and Bangkok Hospital accept major international insurance for direct billing. Keep all receipts and official medical certificates for reimbursement claims." },
+    ],
+  },
   "cancer-screening-bangkok": {
     title: "Cancer Screening Packages Bangkok — Compare Prices 2026",
     h1: "Cancer Screening Health Check-Up in Bangkok",

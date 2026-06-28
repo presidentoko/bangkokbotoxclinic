@@ -1357,6 +1357,59 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "best-hospitals-korean-tourists": {
+    title: "Best Hospitals for Korean Tourists in Bangkok (2026) — 한국어 가이드",
+    description: "Korean-speaking staff, Korean-language menus, and Korean-preferred health check-up packages in Bangkok. Bumrungrad, Samitivej, Vejthani — which is best for Koreans?",
+    intro: "Korea is the largest single source of medical tourists to Thailand. Bangkok's top hospitals — especially Bumrungrad International, Samitivej, and Vejthani — have developed dedicated Korean patient programmes with Korean-speaking nurses and coordinators, Korean-language printed materials, and package formats adapted to Korean health screening preferences (similar to Korean 건강검진). Health check-up costs are 50–75% below Seoul private clinic prices.",
+    sections: [
+      {
+        heading: "Korean health check-up packages in Bangkok",
+        content: "Bangkok hospitals that cater to Korean patients offer packages adapted to Korean 건강검진 standards:",
+        list: [
+          "Standard 건강검진 equivalent (CBC, metabolic panel, urinalysis, X-ray, ECG, ultrasound): ฿6,500 – ฿12,000",
+          "Comprehensive (cancer markers: AFP, CEA, PSA/CA125 + endoscopy option): ฿15,000 – ฿35,000",
+          "Executive premium (MRI brain + full panel + specialist): ฿30,000 – ฿70,000",
+          "Gastroscopy add-on (stomach camera, popular with Koreans): ฿4,500 – ฿9,000",
+          "Colonoscopy add-on: ฿7,000 – ฿15,000",
+          "Helicobacter pylori test (high prevalence in Korea): ฿800 – ฿2,000",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for Korean patients",
+        content: "Top-rated hospitals for Korean medical tourists:",
+        list: [
+          "Bumrungrad International — largest Korean patient department in Thailand, Korean coordinators, Korean-language app, 40+ Korean staff",
+          "Samitivej Sukhumvit — dedicated Korean Health Centre with 한국어 상담 (Korean consultation) service",
+          "Vejthani Hospital — the hospital most Koreans choose for value, 15–25% cheaper than Bumrungrad, Korean nurses on staff",
+          "BNH Hospital — smaller, boutique feel, Korean coordinator, good for private comprehensive packages",
+          "Bangkok Hospital — BDMS network, Korean International Patient Centre, good for cancer screening",
+        ],
+      },
+      {
+        heading: "Practical tips for Korean tourists",
+        content: "Things to know before you go:",
+        list: [
+          "Book via the hospital's Korean international patient desk in advance — Bumrungrad has a Korean-language phone line",
+          "Fasting (금식) for 10–12 hours is required; most hospitals recommend arriving 7:00–8:00 AM",
+          "Results in Korean are available at Bumrungrad and Samitivej within 24 hours",
+          "Thai tourist visa: no special medical visa is needed for a health check-up trip under 30 days",
+          "Translation of Thai medical records to Korean is available through the international patient office",
+          "AXA, Samsung Fire & Marine, and DB Insurance Korea have direct billing agreements with Thai JCI hospitals",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "방콕에서 건강검진 비용은 얼마인가요? (How much does a health check-up cost in Bangkok?)", a: "방콕 종합건강검진 패키지는 ฿6,500(약 25만원)부터 시작하며, MRI포함 프리미엄 패키지는 ฿70,000(약 270만원)까지입니다. 서울 강남 사립병원 대비 50–75% 저렴합니다. 범롱랏(Bumrungrad), 사미티벳(Samitivej), 벳타니(Vejthani) 병원이 한국인에게 가장 인기 있습니다." },
+      { q: "Do Bangkok hospitals have Korean-speaking staff?", a: "Yes — Bumrungrad International has 40+ Korean-speaking staff including nurses, coordinators, and doctors. Samitivej Sukhumvit has a dedicated Korean Health Centre. Vejthani Hospital has Korean-speaking nurses. You can communicate entirely in Korean at these facilities from booking through results." },
+      { q: "What health checks are Koreans most likely to add?", a: "Koreans commonly add gastroscopy (위내시경, ฿4,500–฿9,000) and colonoscopy (대장내시경, ฿7,000–฿15,000) which have high uptake in Korea. H. pylori testing is also popular (high prevalence in Korean adults). Cancer markers including AFP, CEA, CA19-9, and PSA/CA125 are commonly requested." },
+    ],
+    relatedLinks: [
+      { href: "/en/for/japanese-health-checkup-bangkok", label: "Japanese health check-up packages" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+    ],
+  },
+
   "rayong-health-checkup": {
     title: "Rayong Health Check-Up Guide (2026)",
     description: "Health check-up hospitals in Rayong, Thailand. Bangkok Hospital Rayong, Camillian, and more. Prices from ฿1,500.",
