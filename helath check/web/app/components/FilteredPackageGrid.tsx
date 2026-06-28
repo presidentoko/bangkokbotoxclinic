@@ -52,7 +52,13 @@ function PriceTag({ price, cheapest }: { price: string | null; cheapest: number 
   );
 }
 
-function PackageCard({ row, loc, cheapest }: { row: PackageRow; loc: Locale; cheapest: number }) {
+function valueScore(r: PackageRow): number {
+  if (!r.price || parseFloat(r.price) === 0) return 0;
+  const inclusions = [r.has_blood, r.has_xray, r.has_ultrasound, r.has_ct, r.has_mri, r.has_ecg, r.has_treadmill, r.has_cancer_marker, r.has_doctor_consult, r.has_interpreter].filter(v => v === 1).length;
+  return inclusions / (parseFloat(r.price) / 1000);
+}
+
+function PackageCard({ row, loc, cheapest, topValueScore }: { row: PackageRow; loc: Locale; cheapest: number; topValueScore: number }) {
   const bookUrl = row.source_url || row.checkup_url || "#";
   const inclusions = [
     { label: "MRI", val: row.has_mri },
@@ -67,8 +73,15 @@ function PackageCard({ row, loc, cheapest }: { row: PackageRow; loc: Locale; che
   const included = inclusions.filter((i) => i.val === 1);
   const excluded = inclusions.filter((i) => i.val === 0);
 
+  const isTopValue = topValueScore > 0 && valueScore(row) >= topValueScore * 0.9;
+
   return (
     <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all group flex flex-col">
+      {isTopValue && (
+        <div className="bg-amber-400 text-white text-[10px] font-bold px-3 py-1 text-center tracking-wide uppercase">
+          ⭐ Best Value Pick
+        </div>
+      )}
       <div className="px-5 pt-5 pb-3 border-b border-slate-100">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
@@ -167,6 +180,9 @@ const FEATURES = [
   { key: "has_mri", label: "MRI" },
   { key: "has_cancer_marker", label: "Cancer markers" },
   { key: "has_ct", label: "CT scan" },
+  { key: "has_ultrasound", label: "Ultrasound" },
+  { key: "has_ecg", label: "ECG" },
+  { key: "has_doctor_consult", label: "Doctor consult" },
   { key: "has_interpreter", label: "Interpreter" },
   { key: "jci", label: "JCI only" },
 ] as const;
@@ -215,7 +231,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
   const [activeCity, setActiveCity] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activePriceKey, setActivePriceKey] = useState<PriceKey | null>(null);
-  const [sortKey, setSortKey] = useState<"price" | "price_desc" | "rating" | "name">("price");
+  const [sortKey, setSortKey] = useState<"price" | "price_desc" | "rating" | "name" | "value">("price");
   const [page, setPage] = useState(1);
   const deferred = useDeferredValue(query);
 
@@ -223,6 +239,10 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
 
   const prices = useMemo(() => rows.map((r) => parseFloat(r.price ?? "0")).filter(Boolean), [rows]);
   const cheapest = prices.length ? Math.min(...prices) : 0;
+  const topValueScore = useMemo(() => {
+    const scores = rows.map(valueScore).filter(s => s > 0);
+    return scores.length ? Math.max(...scores) : 0;
+  }, [rows]);
 
   const cityCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -275,6 +295,15 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
       if (sortKey === "price_desc") return parseFloat(b.price ?? "0") - parseFloat(a.price ?? "0");
       if (sortKey === "rating") return parseFloat(b.rating ?? "0") - parseFloat(a.rating ?? "0");
       if (sortKey === "name") return a.hospital_name.localeCompare(b.hospital_name);
+      if (sortKey === "value") {
+        const score = (r: PackageRow) => {
+          if (!r.price || parseFloat(r.price) === 0) return 0;
+          const inclusions = [r.has_blood, r.has_xray, r.has_ultrasound, r.has_ct, r.has_mri, r.has_ecg, r.has_treadmill, r.has_cancer_marker, r.has_doctor_consult, r.has_interpreter].filter(v => v === 1).length;
+          const ratingBonus = parseFloat(r.rating ?? "0") * 0.5;
+          return (inclusions + ratingBonus) / (parseFloat(r.price) / 1000);
+        };
+        return score(b) - score(a);
+      }
       return 0;
     });
   }, [rows, deferred, activeFeatures, activeCity, activeCategory, activePriceKey, sortKey]);
@@ -410,6 +439,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
         >
           <option value="price">Price: Low → High</option>
           <option value="price_desc">Price: High → Low</option>
+          <option value="value">Best Value (inclusions / price)</option>
           <option value="rating">Best rated</option>
           <option value="name">Hospital A → Z</option>
         </select>
@@ -428,7 +458,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
       {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
         {visible.map((row) => (
-          <PackageCard key={row.package_id} row={row} loc={loc} cheapest={cheapest} />
+          <PackageCard key={row.package_id} row={row} loc={loc} cheapest={cheapest} topValueScore={topValueScore} />
         ))}
       </div>
 
