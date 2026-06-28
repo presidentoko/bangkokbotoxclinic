@@ -105,6 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/guides/hermes-birkin-vs-kelly`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${BASE}/compare/ap-vs-patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/lv-neverfull-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${BASE}/trends/resale-value-drops-to-avoid`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
