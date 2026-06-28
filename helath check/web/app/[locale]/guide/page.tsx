@@ -256,6 +256,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "mens-health-checkup-bangkok",
+    title: "Men's Health Check-Up in Bangkok (2026)",
+    description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",
+    emoji: "♂️",
+    category: "Specialist Screening",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",

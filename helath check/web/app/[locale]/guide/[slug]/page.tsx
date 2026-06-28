@@ -1422,6 +1422,65 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "mens-health-checkup-bangkok": {
+    title: "Men's Health Check-Up in Bangkok (2026) — Packages, Prices & Best Hospitals",
+    description: "Complete guide to men's health check-up packages in Bangkok. PSA prostate test, testosterone, cardiac risk, liver, kidney — what's included and where to go.",
+    intro: "Men's health check-up packages in Bangkok are tailored to male-specific screening needs: prostate health (PSA test), testosterone, erectile function markers, cardiovascular risk (which is higher in men), testicular ultrasound, and liver function (men have higher alcohol-related liver disease rates). Packages range from ฿3,500 for a focused men's panel to ฿25,000 for a comprehensive executive men's check-up.",
+    sections: [
+      {
+        heading: "What is included in a men's health check-up?",
+        content: "Men's health packages in Bangkok typically cover:",
+        list: [
+          "PSA (prostate-specific antigen) — screens for prostate issues, recommended for men 40+",
+          "Total and free testosterone — hormonal assessment including total T, free T, LH, FSH",
+          "Lipid panel — LDL, HDL, triglycerides (men have higher cardiovascular risk)",
+          "Liver function (ALT, AST, GGT) — relevant for alcohol intake and metabolic health",
+          "Blood glucose + HbA1c — metabolic risk assessment",
+          "Renal function (creatinine, BUN, uric acid for gout)",
+          "Testicular ultrasound — available as add-on at most Bangkok hospitals",
+          "Abdominal ultrasound — prostate, liver, kidneys",
+          "ECG (electrocardiogram) — cardiac rhythm and baseline",
+          "Chest X-ray — lung and cardiac shadow",
+          "Blood pressure and BMI assessment",
+        ],
+      },
+      {
+        heading: "Men's health check-up prices in Bangkok",
+        content: "Package tiers for men:",
+        list: [
+          "Men's basic (PSA + testosterone + metabolic panel): ฿3,500 – ฿6,000",
+          "Men's standard (+ ultrasound + ECG + chest X-ray): ฿6,000 – ฿12,000",
+          "Men's executive (+ cardiac assessment + cancer markers + specialist): ฿12,000 – ฿28,000",
+          "Premium cardiac men's (+ stress ECG + coronary CTA): ฿25,000 – ฿55,000",
+          "Erectile dysfunction workup (testosterone + vascular + psychological): ฿8,000 – ฿18,000 add-on",
+          "PSA test standalone: ฿300 – ฿800 (add to any package)",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for men's health check-ups",
+        content: "Top hospitals for male-focused health screening:",
+        list: [
+          "Bumrungrad International — dedicated Men's Health Centre, widest prostate and urology specialist access",
+          "Bangkok Hospital — strong urology department, erectile and hormonal medicine specialist on-site",
+          "Samitivej Sukhumvit — men's executive packages include testosterone and cardiac risk, strong Sukhumvit location",
+          "Vejthani Hospital — competitive men's packages at 15–20% below Bumrungrad, same JCI standard",
+          "BNH Hospital — boutique feel, discreet, popular with expats for testosterone and hormonal assessment",
+          "Praram 9 Hospital — BDMS, central location, competitive executive men's packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "At what age should men start getting a health check-up in Bangkok?", a: "Men in their 20s should get a baseline blood panel every 2–3 years (blood pressure, cholesterol, blood glucose). From 35–40, an annual executive check-up is recommended to detect early cardiac risk and hormonal changes. PSA screening for prostate cancer is recommended from age 40 for high-risk groups and 45–50 for average risk." },
+      { q: "Can I get a testosterone level test at Bangkok hospitals?", a: "Yes — all major Bangkok private hospitals offer a full male hormonal panel (total testosterone, free testosterone, LH, FSH, SHBG, prolactin). Walk-in blood tests are accepted at most hospitals; morning appointments give the most accurate testosterone readings (levels peak 7–10 AM). Same-day results available." },
+      { q: "Is colonoscopy recommended as part of a men's check-up?", a: "Colonoscopy is recommended from age 45–50 for average-risk men, or earlier if there's a family history of colorectal cancer. Bangkok hospitals offer colonoscopy as an add-on to executive check-ups. The procedure costs ฿7,000–฿15,000 under sedation, compared to USD 1,500–3,500 in the US without insurance. Colonoscopy requires a separate bowel prep appointment the day before." },
+    ],
+    relatedLinks: [
+      { href: "/en/compare?category=men", label: "Compare men's packages" },
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening guide" },
+      { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health guide" },
+    ],
+  },
+
   "health-checkup-usa-vs-thailand": {
     title: "USA vs Thailand Health Check-Up Prices (2026) — How Much Americans Save",
     description: "Health check-up packages in Bangkok cost 70–90% less than US private clinics. JCI-accredited hospitals with English staff, same-day results. How much Americans save.",
