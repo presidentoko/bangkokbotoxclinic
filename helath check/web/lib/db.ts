@@ -360,6 +360,56 @@ export async function getAllHospitalSlugs(): Promise<string[]> {
   return (rows as { slug: string }[]).map((r) => r.slug);
 }
 
+export type PriceTrendRow = {
+  hospital_name: string;
+  hospital_slug: string;
+  package_id: number;
+  package_name: string;
+  category: string | null;
+  latest_price: number;
+  prev_price: number;
+  change_pct: number;
+};
+
+export async function getRecentPriceChanges(limit = 20): Promise<PriceTrendRow[]> {
+  const pool = getPool();
+  const [rows] = await pool.query<mysql.RowDataPacket[]>(
+    `SELECT
+       h.name AS hospital_name, h.slug AS hospital_slug,
+       p.id AS package_id, p.name AS package_name, p.category,
+       s2.price AS latest_price, s1.price AS prev_price,
+       ROUND(((s2.price - s1.price) / s1.price) * 100, 1) AS change_pct
+     FROM package_price_snapshots s2
+     JOIN package_price_snapshots s1 ON s1.package_id = s2.package_id
+       AND s1.snapshot_date = (
+         SELECT MAX(snapshot_date) FROM package_price_snapshots
+         WHERE package_id = s2.package_id AND snapshot_date < s2.snapshot_date
+       )
+     JOIN checkup_packages p ON p.id = s2.package_id
+     JOIN hospitals h ON h.id = p.hospital_id
+     WHERE s2.snapshot_date = (SELECT MAX(snapshot_date) FROM package_price_snapshots)
+       AND s1.price IS NOT NULL AND s2.price IS NOT NULL
+       AND s1.price != s2.price
+     ORDER BY ABS(change_pct) DESC
+     LIMIT ?`,
+    [limit],
+  );
+  return rows as PriceTrendRow[];
+}
+
+export async function logClick(packageId: number, dest: string, ip: string): Promise<void> {
+  try {
+    const pool = getPool();
+    await pool.query(
+      `INSERT IGNORE INTO package_clicks (package_id, dest_url, clicked_at, ip_hash)
+       VALUES (?, ?, NOW(), MD5(?))`,
+      [packageId, dest.substring(0, 500), ip],
+    );
+  } catch {
+    // ignore if table doesn't exist yet
+  }
+}
+
 export async function getStatsForHome(): Promise<{
   jciCount: number;
   packageCount: number;

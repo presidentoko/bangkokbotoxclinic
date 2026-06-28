@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { logClick } from "@/lib/db";
 
 // Click-tracking endpoint for affiliate outlinks.
 // Logs the click and redirects to the destination URL.
@@ -20,15 +21,18 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid url" }, { status: 400 });
   }
 
-  // Log to console (replace with DB insert or analytics if needed)
-  console.log(`[track] pkg=${pkgId} → ${parsed.href} ip=${request.headers.get("x-forwarded-for") ?? "unknown"}`);
-
   // Append UTM tracking so we can measure outbound conversion
   const source = searchParams.get("src") ?? "bangkoktopclinic";
   parsed.searchParams.set("utm_source", source);
   parsed.searchParams.set("utm_medium", "referral");
   parsed.searchParams.set("utm_campaign", "healthcheck");
   if (pkgId) parsed.searchParams.set("utm_content", `pkg_${pkgId}`);
+
+  // Log to DB (fire-and-forget, non-blocking)
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+  if (pkgId) {
+    logClick(parseInt(pkgId, 10), parsed.href, ip).catch(() => {});
+  }
 
   return NextResponse.redirect(parsed.href, { status: 302 });
 }

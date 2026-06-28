@@ -127,6 +127,7 @@ function Footer({ locale }: { locale: Locale }) {
           <Link href={`${base}/city/hua-hin`} className="block hover:text-blue-600 py-0.5 text-xs">Hua Hin</Link>
           <Link href={`${base}/city/ko-samui`} className="block hover:text-blue-600 py-0.5 text-xs">Ko Samui</Link>
           <Link href={`${base}/guide`} className="block hover:text-blue-600 py-0.5 mt-2 text-xs font-medium">All guides →</Link>
+          <Link href={`${base}/trends`} className="block hover:text-blue-600 py-0.5 text-xs">📊 Price trends</Link>
           <Link href={`${base}/saved`} className="block hover:text-blue-600 py-0.5 text-xs">★ Saved packages</Link>
           <Link href={`${base}/enquiry`} className="block hover:text-blue-600 py-0.5 text-xs">Book / Enquire</Link>
         </div>
