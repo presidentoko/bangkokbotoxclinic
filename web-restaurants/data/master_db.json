@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-06-28T03:26:29.519585+00:00",
-  "total_restaurants": 3468,
+  "generated_at": "2026-06-28T10:34:59.096152+00:00",
+  "total_restaurants": 3474,
   "city_counts": {
     "bangkok": 2916,
-    "pattaya": 552
+    "pattaya": 558
   },
-  "with_district": 2344,
-  "with_cuisines": 2883,
-  "with_reviews_scraped": 3000,
+  "with_district": 2345,
+  "with_cuisines": 2888,
+  "with_reviews_scraped": 3007,
   "language_total": {
     "th": 2,
-    "en": 153058,
+    "en": 153368,
     "ko": 0,
     "ja": 4,
-    "other": 490
+    "other": 491
   },
   "district_counts": {
     "bangkok/Pathum Wan": 283,
@@ -41,30 +41,30 @@
     "bangkok/Thon Buri": 25,
     "bangkok/Bang Phlat": 20,
     "bangkok/Wang Thonglang": 16,
+    "pattaya/South Pattaya": 13,
     "bangkok/Lak Si": 12,
-    "pattaya/South Pattaya": 12,
     "pattaya/Central Pattaya": 9,
     "pattaya/Pattaya Beach": 2,
     "pattaya/North Pattaya": 1
   },
   "cuisine_counts": {
-    "western": 1171,
-    "thai": 1159,
+    "western": 1172,
+    "thai": 1162,
     "bar_pub": 718,
     "vietnamese": 583,
     "seafood": 561,
     "japanese": 459,
-    "italian": 388,
-    "cafe": 379,
-    "breakfast": 320,
+    "italian": 389,
+    "cafe": 381,
+    "breakfast": 321,
     "dessert": 283,
     "street_food": 188,
     "chinese": 174,
-    "indian": 145,
+    "indian": 147,
     "fusion": 143,
     "fine_dining": 123,
     "korean": 112,
-    "halal": 104,
+    "halal": 105,
     "buffet": 76,
     "bakery": 41,
     "vegetarian": 37
@@ -158655,6 +158655,118 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%8A%E0%B8%AD%E0%B8%87%E0%B8%AD%E0%B8%B6%E0%B8%A2%E0%B8%97%E0%B8%B1%E0%B8%A1%E0%B8%94%E0%B8%B2/@13.8186669,100.5922918,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29d004ac9ffd1:0xf588fcdf343b2c97!8m2!3d13.8186669!4d100.5922918!16s%2Fg%2F11yd_pk74p!19sChIJ0f_JSgCd4jARlyw7NN_8iPU?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x3102971afd44eae3_0x2fab68071eb1d71a",
+      "place_id": "0x3102971afd44eae3:0x2fab68071eb1d71a",
+      "name": "DD COFFEE & RESTAURANT",
+      "primary_type": "Restaurant",
+      "address": "\nVVRF+Q9, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8919375,
+      "lng": 100.8734375,
+      "rating": 4.5,
+      "total_reviews": 142,
+      "trust_score": 84.7,
+      "cuisines": [
+        "breakfast",
+        "cafe",
+        "thai",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 84,
+      "local_guide_count": 56,
+      "avg_author_review_count": 88.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 73,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 10,
+        "vietnamese": 1,
+        "cafe": 4,
+        "western": 6,
+        "breakfast": 8
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 28
+        },
+        {
+          "topic": "affordable",
+          "count": 5
+        },
+        {
+          "topic": "expensive",
+          "count": 4
+        },
+        {
+          "topic": "fresh",
+          "count": 2
+        },
+        {
+          "topic": "good_portion",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        },
+        {
+          "topic": "good_view",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 8,
+          "avg": 4.88
+        },
+        "midterm": {
+          "count": 27,
+          "avg": 4.37
+        },
+        "old": {
+          "count": 49,
+          "avg": 4.33
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "One of my favorite go-to places for brunch. Large portions and daily specials make this well worth it! Try the Stir Fried Basil pork or chicken special, you won't be disappointed.",
+          "rating": 5,
+          "author": "Derrick Scott"
+        },
+        {
+          "text": "Staff was professional, polite and efficient. Both the inside, air-conditioned area, as well as the outside area are comfortably furnished with tables well spaced\n\nThe Thai food was excellent all round. The pork chop was tasty but very small and overcooked.\n\nWill return for the comfort and Thai food",
+          "rating": 5,
+          "author": "Mark Kalisch"
+        },
+        {
+          "text": "There is a variety of dishes available.\nI had my late lunch and breakfast here.\n\nThe service is very nice and good. 👍🙏🏾\n\nI loves the small, Cozy ambiance of this restaurant. Easy going music and the airconditioning is on a good level.\n\nA small place where you can sit inside or just outside, lovely.",
+          "rating": 5,
+          "author": "Narin Mathoera"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/DD+COFFEE+%26+RESTAURANT/data=!4m7!3m6!1s0x3102971afd44eae3:0x2fab68071eb1d71a!8m2!3d12.8919375!4d100.8734375!16s%2Fg%2F11sjz41l8q!19sChIJ4-pE_RqXAjERGtexHgdoqy8?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29914debd3fad_0x64a6f9f6f9ce48c2",
       "place_id": "0x30e29914debd3fad:0x64a6f9f6f9ce48c2",
       "name": "Ban Phanfa",
@@ -162660,6 +162772,99 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Praya+Bar/data=!4m7!3m6!1s0x30e299f3ef3bf5cd:0xcf29b03f28682c0e!8m2!3d13.7400746!4d100.5222768!16s%2Fg%2F11qptrm34k!19sChIJzfU77_OZ4jARDixoKD-wKc8?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102c75adeb8f94f_0x42398012ffc617c8",
+      "place_id": "0x3102c75adeb8f94f:0x42398012ffc617c8",
+      "name": "JM Fishing Restaurant",
+      "primary_type": "Restaurant",
+      "address": "\n152 6, Tambon Bueng, Si Racha District, Chon Buri 20230, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 83 110 3535",
+      "website": "https://www.facebook.com/jmfishing.sriracha",
+      "menu_url": "",
+      "lat": 13.044725,
+      "lng": 100.990171,
+      "rating": 4.5,
+      "total_reviews": 126,
+      "trust_score": 84.5,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 38,
+      "avg_author_review_count": 138.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 27
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "fresh",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "kid_friendly",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 4.0
+        },
+        "midterm": {
+          "count": 6,
+          "avg": 4.67
+        },
+        "old": {
+          "count": 43,
+          "avg": 4.63
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Absolutely spectacular setting! The outdoor dining area is breathtaking—pure nature immersion. Great food, friendly service, and unbeatable ambiance. Five stars!\" ❤️",
+          "rating": 5,
+          "author": "Zusanee Embiado"
+        },
+        {
+          "text": "Great fishing park and a great restaurant.friendly staff.well worth a visit to fish in the 2 lakes available.and has some very big fish in one of the lakes",
+          "rating": 5,
+          "author": "trevor lewis"
+        },
+        {
+          "text": "Nice friendly place for relaxed fishing. Plenty of small fish and several bigger ones hiding in the main lake.",
+          "rating": 5,
+          "author": "Perfect Homes"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/JM+Fishing+Restaurant/data=!4m7!3m6!1s0x3102c75adeb8f94f:0x42398012ffc617c8!8m2!3d13.044725!4d100.990171!16s%2Fg%2F11c2gq15_h!19sChIJT_m43lrHAjERyBfG_xKAOUI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x310295e356b23223_0xd5faf29b4ac08d2a",
@@ -231538,6 +231743,118 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%95%E0%B8%B3%E0%B9%81%E0%B8%95%E0%B8%81+%E0%B8%9A%E0%B8%A3%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%8A%E0%B8%99%E0%B8%99%E0%B8%B5+%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B8%95%E0%B8%B3+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%84%E0%B8%97%E0%B8%A2+%E0%B9%81%E0%B8%81%E0%B8%87%E0%B8%AA%E0%B9%89%E0%B8%A1%E0%B9%83%E0%B8%95%E0%B9%89+%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%B5%E0%B9%89%E0%B8%A2%E0%B8%87+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%81%E0%B8%A5%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%99%E0%B8%A1%E0%B8%B2%E0%B8%81/@13.7807395,100.4132695,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29715751f3ecb:0x42cc0bf5c3467c56!8m2!3d13.7807395!4d100.4132695!16s%2Fg%2F11vpt6288s?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x3102930079564993_0x8722f692e28ca2ce",
+      "place_id": "0x3102930079564993:0x8722f692e28ca2ce",
+      "name": "ไลหลา โรตี ชาชัก อาหาร เครื่องดื่ม",
+      "primary_type": "Thai restaurant",
+      "address": "\nRWC8+8MV บ้าน, Sukhumvit Rd, Tambon Na Chom Thian, Sattahip District, Chon Buri 20250, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 65 754 2382",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8208705,
+      "lng": 100.9166713,
+      "rating": 4.6,
+      "total_reviews": 53,
+      "trust_score": 80.5,
+      "cuisines": [
+        "halal",
+        "indian",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 38,
+      "avg_author_review_count": 84.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "cuisine_mentions": {
+        "thai": 4,
+        "indian": 4,
+        "vietnamese": 1,
+        "seafood": 1,
+        "halal": 9,
+        "breakfast": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 34
+        },
+        {
+          "topic": "halal_certified",
+          "count": 9
+        },
+        {
+          "topic": "fresh",
+          "count": 6
+        },
+        {
+          "topic": "spicy",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "authentic",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "good_portion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 4.83
+        },
+        "midterm": {
+          "count": 19,
+          "avg": 4.58
+        },
+        "old": {
+          "count": 25,
+          "avg": 4.52
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Nice Halal restaurant. There are many food options. There are khao gaeng, Tam Sang (made to order), chicken rice and noodle but my favorite is Nasi Briyani aka Khao Mok Gai. Very delicious.",
+          "rating": 5,
+          "author": "SW Ng"
+        },
+        {
+          "text": "Great taste from the south of Thailand! Variety of menu and original milk Thai tea.",
+          "rating": 5,
+          "author": "Amm Amm"
+        },
+        {
+          "text": "mainly southern thai food. khai mook gai very good. the rest of the stuff looks nice also and my wife likes it. nice cheap thai food",
+          "rating": 5,
+          "author": "col"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%A5%E0%B8%AB%E0%B8%A5%E0%B8%B2+%E0%B9%82%E0%B8%A3%E0%B8%95%E0%B8%B5+%E0%B8%8A%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%81+%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3+%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%94%E0%B8%B7%E0%B9%88%E0%B8%A1/data=!4m7!3m6!1s0x3102930079564993:0x8722f692e28ca2ce!8m2!3d12.8208705!4d100.9166713!16s%2Fg%2F11m5jky3yz!19sChIJk0lWeQCTAjERzqKM4pL2Ioc?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f29964cea15_0xc4187b23642a635b",
       "place_id": "0x30e29f29964cea15:0xc4187b23642a635b",
       "name": "sushimai ซูชิมั้ย ศรีบำเพ็ญ",
@@ -246549,6 +246866,108 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%8A%E0%B8%B2%E0%B8%A2%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%A5%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B0+%E0%B8%81%E0%B8%97%E0%B8%A1/data=!4m7!3m6!1s0x30e29e06c185194b:0x515182cb05056f5a!8m2!3d13.7730321!4d100.6127319!16s%2Fg%2F11ckr63xcm!19sChIJSxmFwQae4jARWm8FBcuCUVE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310297961cf15e8b_0x95e1d55670be2063",
+      "place_id": "0x310297961cf15e8b:0x95e1d55670be2063",
+      "name": "Spice Route Kitchen - Indian Restaurant",
+      "primary_type": "Indian restaurant",
+      "address": "\nopposite Atlantic condo resort, Jomtien Second Rd, Pattaya City, Amphoe Bang Lamung, Chon Buri 20150",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "South Pattaya",
+      "phone": "092 247 6137",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8868588,
+      "lng": 100.8825045,
+      "rating": 4.9,
+      "total_reviews": 67,
+      "trust_score": 79.6,
+      "cuisines": [
+        "indian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 64,
+      "local_guide_count": 20,
+      "avg_author_review_count": 16.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 52,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "indian": 21,
+        "halal": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 19
+        },
+        {
+          "topic": "authentic",
+          "count": 14
+        },
+        {
+          "topic": "fresh",
+          "count": 3
+        },
+        {
+          "topic": "spicy",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "halal_certified",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 31,
+          "avg": 4.84
+        },
+        "midterm": {
+          "count": 33,
+          "avg": 4.85
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The food tasted great and looked exactly like the pictures. It's delicious and clean Indian food, which is very rare for Indian restaurants. 👏👏👍🏻👍🏻",
+          "rating": 5,
+          "author": "ศุภมงคล เรืองเจริญรัตน"
+        },
+        {
+          "text": "I tried the chicken biryani and it was absolutely delicious. The rice was fragrant and full of flavor, and the chicken was very tender and well-seasoned.\nYou can really taste the authentic Indian spices in every bite.\nHighly recommended if you love Indian food!",
+          "rating": 5,
+          "author": "Ks Oogood"
+        },
+        {
+          "text": "We order home  for lunch , Excellent! Indian food that I never have before , It tasted great and wasn't too spicy , love all we order today , the owner is nice kind and give a lots of food 🥰thank you very much 🙏",
+          "rating": 5,
+          "author": "May Private"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Spice+Route+Kitchen+-+Indian+Restaurant/data=!4m7!3m6!1s0x310297961cf15e8b:0x95e1d55670be2063!8m2!3d12.8868588!4d100.8825045!16s%2Fg%2F11ym3s2fy9!19sChIJi17xHJaXAjERYyC-cFbV4ZU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fe9384757d9_0x13f5b00f6c9f2394",
       "place_id": "0x30e29fe9384757d9:0x13f5b00f6c9f2394",
       "name": "ร้าน อ.เจริญชัยไก่ตอน ดินแดง",
@@ -250896,6 +251315,96 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/FOWLMOUTH+theCOMMONS+Saladaeng/data=!4m7!3m6!1s0x30e29f909e7ab197:0xa58ab6d788651cc8!8m2!3d13.7259708!4d100.5386259!16s%2Fg%2F11j7vfrnjz!19sChIJl7F6npCf4jARyBxliNe2iqU?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102bfd6527c1227_0xc133fec7ec03a13",
+      "place_id": "0x3102bfd6527c1227:0xc133fec7ec03a13",
+      "name": "กูโรตีชาชัก โรงโป๊ะ",
+      "primary_type": "Restaurant",
+      "address": "\n5 หมู่ 1 Bang Lamung 21 Alley, Tambon Bang Lamung, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 83 440 6665",
+      "website": "https://www.facebook.com/GuuRotiTeaRongPo",
+      "menu_url": "",
+      "lat": 13.0217005,
+      "lng": 100.9320427,
+      "rating": 4.4,
+      "total_reviews": 63,
+      "trust_score": 79.3,
+      "cuisines": [
+        "italian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 63,
+      "local_guide_count": 33,
+      "avg_author_review_count": 72.9,
+      "language_breakdown": {
+        "th": 0,
+        "en": 46,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "italian": 2,
+        "vietnamese": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 30
+        },
+        {
+          "topic": "spicy",
+          "count": 4
+        },
+        {
+          "topic": "fresh",
+          "count": 1
+        },
+        {
+          "topic": "fast_service",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 18,
+          "avg": 4.0
+        },
+        "old": {
+          "count": 43,
+          "avg": 4.49
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Specialized in roti and drinks. Relaxing place to dine in. We came at the right time so no one here. Friendly and fast service. Recommended to check them out. We're really satisfied!",
+          "rating": 5,
+          "author": "Aom Hildebrand"
+        },
+        {
+          "text": "I eat here regularly. I usually order delivery or call to order and pick it up myself at the store. The cheese roti is the best.",
+          "rating": 5,
+          "author": "Kanruthai Kch"
+        },
+        {
+          "text": "Convenient parking, clean and bright shop, good service, and a huge variety of roti to choose from. One visit probably won't be enough!",
+          "rating": 5,
+          "author": "Sangdee Studio"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%81%E0%B8%B9%E0%B9%82%E0%B8%A3%E0%B8%95%E0%B8%B5%E0%B8%8A%E0%B8%B2%E0%B8%8A%E0%B8%B1%E0%B8%81+%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%82%E0%B8%9B%E0%B9%8A%E0%B8%B0/data=!4m7!3m6!1s0x3102bfd6527c1227:0xc133fec7ec03a13!8m2!3d13.0217005!4d100.9320427!16s%2Fg%2F11hshl4k07!19sChIJJxJ8Uta_AjEREzrAfuw_Eww?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d61e6f5014f11_0x7f81f5fe1aa9dab",
@@ -289849,6 +290358,102 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%AE%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%8A%E0%B9%89/data=!4m7!3m6!1s0x30e2996b9f9947a7:0xe9dbfc264077e89b!8m2!3d13.7611157!4d100.5034022!16s%2Fg%2F11gcxzty5p!19sChIJp0eZn2uZ4jARm-h3QCb82-k?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310297aebf0d5e9f_0x5c34c5eadb73c1af",
+      "place_id": "0x310297aebf0d5e9f:0x5c34c5eadb73c1af",
+      "name": "Oasis Russian Restaurant",
+      "primary_type": "Russian restaurant",
+      "address": "\npark night market, A 6-1 Pattaya park night market, Pattaya City, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 92 482 8718",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.909955,
+      "lng": 100.864031,
+      "rating": 4.8,
+      "total_reviews": 31,
+      "trust_score": 76.1,
+      "cuisines": [
+        "cafe",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 31,
+      "local_guide_count": 11,
+      "avg_author_review_count": 33.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 27,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 2,
+        "vietnamese": 1,
+        "cafe": 5
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 26
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 5
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 12,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 19,
+          "avg": 4.74
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Guys, if you want delicious Russian food, come here! We tried it in different places, found this place on the map, and came all the way from Jamaica to try it. Oh my god... it's so delicious 😍 We've never tried okroshka like this in Pattaya. Our Mega is delicious, just like home.",
+          "rating": 5,
+          "author": "Marina Reutina"
+        },
+        {
+          "text": "Thanks to Elena for the wonderful food and atmosphere! I'm so glad I found such a place❤️",
+          "rating": 5,
+          "author": "Owl Skald"
+        },
+        {
+          "text": "Russian food is simply amazing, okroshka, pelmeni and salo are generally top notch 👍🔥the portions are large.",
+          "rating": 5,
+          "author": "Имя Фамилия"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Oasis+Russian+Restaurant/data=!4m7!3m6!1s0x310297aebf0d5e9f:0x5c34c5eadb73c1af!8m2!3d12.909955!4d100.864031!16s%2Fg%2F11ypbbf1mn!19sChIJn14Nv66XAjERr8Fz2-rFNFw?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e2990003878989_0x9195797036ff600b",
       "place_id": "0x30e2990003878989:0x9195797036ff600b",
       "name": "Yuen Kee Dumpling 袁记云饺",
@@ -316253,6 +316858,95 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A2%E0%B9%88%E0%B8%B2/data=!4m7!3m6!1s0x30e2a30a2133e425:0xa883477abff5bdfe!8m2!3d13.6297462!4d100.4876387!16s%2Fg%2F11v6_klhc4!19sChIJJeQzIQqj4jAR_r31v3pHg6g?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310293b9d10e9567_0x9bcb3f08f87929bd",
+      "place_id": "0x310293b9d10e9567:0x9bcb3f08f87929bd",
+      "name": "เจ๊จินต้มเลือดหมู บ้านอำเภอ",
+      "primary_type": "Restaurant",
+      "address": "\nRW98+RF4, Na Chom Thian, Sattahip District, Chon Buri 20250, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 62 812 5515",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8195005,
+      "lng": 100.9162168,
+      "rating": 3.5,
+      "total_reviews": 71,
+      "trust_score": 71.3,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 39,
+      "avg_author_review_count": 116.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 26,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 1,
+        "vietnamese": 1,
+        "breakfast": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 13
+        },
+        {
+          "topic": "expensive",
+          "count": 3
+        },
+        {
+          "topic": "fresh",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 1.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 2.4
+        },
+        "old": {
+          "count": 44,
+          "avg": 3.7
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "It's delicious, I wasn't disappointed at all. The pork blood soup is very fragrant.",
+          "rating": 5,
+          "author": "เอก ธนาทิพย์"
+        },
+        {
+          "text": "The shop is spacious. The wait for the noodles was a bit long. They were delicious.",
+          "rating": 4,
+          "author": "Aphi Peenang"
+        },
+        {
+          "text": "This old-style pork blood soup shop serves fragrant pork bone broth with tender, fall-off-the-bone pork intestines. It doesn't include Chinese celery. The portion is decent, 70 baht per bowl (rice not included). There's ample parking behind the building.",
+          "rating": 4,
+          "author": "Khoe Soulfly"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%88%E0%B9%8A%E0%B8%88%E0%B8%B4%E0%B8%99%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%94%E0%B8%AB%E0%B8%A1%E0%B8%B9+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD/data=!4m7!3m6!1s0x310293b9d10e9567:0x9bcb3f08f87929bd!8m2!3d12.8195005!4d100.9162168!16s%2Fg%2F11ddx5tm9t!19sChIJZ5UO0bmTAjERvSl5-Ag_y5s?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29face1386cf5_0x9afcb6269406e8f7",
       "place_id": "0x30e29face1386cf5:0x9afcb6269406e8f7",
       "name": "อลังการซูชิ เซ็นทรัล พระราม 3",
@@ -329856,58 +330550,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Tee+Yentafo/data=!4m7!3m6!1s0x30e29f46f41fefe5:0x11ff0864564c5090!8m2!3d13.7071657!4d100.5439252!16s%2Fg%2F1pyd3mwpg!19sChIJ5e8f9Eaf4jARkFBMVmQI_xE?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310297aebf0d5e9f_0x5c34c5eadb73c1af",
-      "place_id": "0x310297aebf0d5e9f:0x5c34c5eadb73c1af",
-      "name": "Oasis Russian Restaurant",
-      "primary_type": "Russian restaurant",
-      "address": "\npark night market, A 6-1 Pattaya park night market, Pattaya City, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 92 482 8718",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.909955,
-      "lng": 100.864031,
-      "rating": 4.8,
-      "total_reviews": 31,
-      "trust_score": 65.9,
-      "cuisines": [],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Oasis+Russian+Restaurant/data=!4m7!3m6!1s0x310297aebf0d5e9f:0x5c34c5eadb73c1af!8m2!3d12.909955!4d100.864031!16s%2Fg%2F11ypbbf1mn!19sChIJn14Nv66XAjERr8Fz2-rFNFw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299079c6585d1_0xd6ce82b3f941ddee",
