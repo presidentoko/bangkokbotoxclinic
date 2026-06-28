@@ -112,6 +112,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/brands/van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/gucci-dionysus-vs-marmont`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/compare/lv-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/trends/quiet-luxury-watch-brands-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
