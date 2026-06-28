@@ -67,6 +67,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Diabetes screening: ${BASE}/en/guide/diabetes-screening-thailand
 - MRI scan cost Bangkok: ${BASE}/en/guide/mri-scan-cost-bangkok
 - CT scan cost Bangkok: ${BASE}/en/guide/ct-scan-cost-bangkok
+- Mammogram cost Bangkok: ${BASE}/en/guide/mammogram-cost-bangkok
 - Blood test prices: ${BASE}/en/guide/blood-test-price-bangkok
 - Executive health checkup: ${BASE}/en/guide/executive-health-checkup-bangkok
 

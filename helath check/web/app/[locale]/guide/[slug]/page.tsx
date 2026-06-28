@@ -433,10 +433,75 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/compare?category=women", label: "Compare women's health packages →" },
       { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
+      { href: "/en/guide/mammogram-cost-bangkok", label: "Mammogram cost Bangkok guide" },
       { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
-      { href: "/en/hospital/samitivej", label: "Samitivej Hospital packages" },
     ],
   },
+
+  "mammogram-cost-bangkok": {
+    title: "Mammogram Cost in Bangkok — 2026 Price Guide",
+    description: "How much does a mammogram cost in Bangkok? Digital mammography and 3D tomosynthesis prices at JCI hospitals. From ฿1,200 for a standalone mammogram.",
+    intro: "A mammogram in Bangkok costs 50–75% less than in the US, UK, or Australia — with same-day results and English-speaking radiologists at all private hospitals. Bangkok's top hospitals use digital mammography and 3D tomosynthesis (Hologic) for the highest resolution breast imaging. Mammography is available standalone or as part of women's health check-up packages.",
+    sections: [
+      {
+        heading: "Mammogram prices in Bangkok (2026)",
+        content: "Standalone and package mammogram prices at Bangkok private hospitals:",
+        list: [
+          "Digital mammogram (2D): ฿1,200 – ฿2,800 (US equivalent: $200–$500)",
+          "3D mammography (tomosynthesis): ฿2,500 – ฿5,500 (US equivalent: $350–$600)",
+          "Mammogram + breast ultrasound combo: ฿3,500 – ฿7,500",
+          "Women's health package (pap smear + mammogram + pelvic ultrasound): ฿5,000 – ฿15,000",
+          "Mammogram + bone density (DEXA): ฿5,000 – ฿10,000",
+          "Breast MRI (problem-solving, not routine screening): ฿12,000 – ฿25,000",
+        ],
+      },
+      {
+        heading: "2D vs 3D mammogram — which to choose?",
+        content: "Understanding the difference helps you pick the right mammogram for your needs:",
+        list: [
+          "2D digital mammogram: standard breast cancer screening; involves two X-ray images per breast (CC and MLO views); takes 20–30 minutes; recommended as first-line screening for most women",
+          "3D mammography (tomosynthesis): takes multiple X-ray slices through the breast (like a CT scan for breast tissue); 30–50% better at detecting cancer in dense breasts; reduces false positives by 30–40%; Hologic 3D systems at Bumrungrad, Samitivej, and Bangkok Hospital",
+          "Who should get 3D: women with dense breast tissue (BIRADS C or D), those with prior abnormal results, first-time screening in their 40s",
+          "Both types: no special preparation needed, same-day results at major Bangkok hospitals",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for mammograms",
+        content: "Top hospitals for breast imaging in Bangkok:",
+        list: [
+          "Samitivej Hospital Sukhumvit — dedicated Women's Centre; Hologic 3D mammography; on-site breast specialist; most popular for women's health in Bangkok",
+          "Bumrungrad International — full women's health programme; 3D tomosynthesis; Breast Centre with same-day specialist consultation",
+          "Bangkok Hospital — Women's Wellness Centre; 3D mammography; competitive pricing for packages",
+          "BNH Hospital — popular with European and Japanese expat women; friendly environment; 2D digital mammography",
+          "Vejthani Hospital — most competitive pricing among JCI hospitals; 2D digital mammography; women's packages from ฿3,500",
+        ],
+      },
+      {
+        heading: "When to get a mammogram — age and risk",
+        content: "Age guidelines for mammogram screening:",
+        list: [
+          "Age 40–44: many guidelines recommend optional annual mammogram if personal risk factors exist",
+          "Age 45–54: ACS recommends annual mammogram; most Thai private hospital guidelines align with this",
+          "Age 55+: biennial (every 2 years) mammogram recommended by most guidelines; some prefer annual",
+          "Family history: if a first-degree relative had breast cancer, start screening 10 years before her diagnosis age (minimum age 25–30)",
+          "Dense breast tissue: annual screening recommended; 3D mammography preferred over 2D",
+          "If you have never had a mammogram: book now regardless of age 40+ — many Bangkok hospitals have no waiting list for women's health packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How much does a mammogram cost in Bangkok vs the US?", a: "A standard 2D digital mammogram in Bangkok costs ฿1,200–฿2,800 (approximately US$33–$77), compared to US$100–$250 in the US without insurance. A 3D mammogram (tomosynthesis) costs ฿2,500–฿5,500 (US$69–$150) in Bangkok vs US$250–$400 in the US. Even including flights, Bangkok is significantly cheaper for comprehensive women's health packages." },
+      { q: "Do I need a referral for a mammogram in Bangkok?", a: "No referral is required at Bangkok private hospitals. Walk in to the women's health centre or call the hospital's international desk to book directly. Most hospitals offer same-day appointments for routine mammography. If you're combining with other women's health tests (pap smear, pelvic ultrasound), book a women's health package to save time and money." },
+      { q: "Are mammogram results available the same day in Bangkok?", a: "Yes — at all major Bangkok private hospitals, mammogram results (radiologist report in English) are available within 2–4 hours. 3D mammogram reports may take slightly longer (up to 24 hours for complex cases). Samitivej, Bumrungrad, and Bangkok Hospital all offer same-day consultation with a breast specialist to review results immediately." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/womens-health-checkup-bangkok", label: "Women's health check-up Bangkok" },
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
+      { href: "/en/guide/ct-scan-cost-bangkok", label: "CT scan cost Bangkok" },
+      { href: "/en/compare?category=women", label: "Compare women's health packages" },
+    ],
+  },
+
   "senior-health-checkup-thailand": {
     title: "Senior Health Check-Up in Thailand — Tests, Hospitals & Costs (2026)",
     description: "Complete guide to health check-ups for seniors (60+) in Thailand. Which tests you need, best hospitals for elderly patients, prices, and how to prepare.",
