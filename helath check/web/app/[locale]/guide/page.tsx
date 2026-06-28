@@ -277,6 +277,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-russia-vs-thailand",
+    title: "Медицинское обследование: Россия vs Таиланд 2026 — для россиян",
+    description: "Чекап в Бангкоке: JCI-больницы, результаты в тот же день, в 3–5 раз дешевле московских частных клиник. Пхукет, Паттайя, Бангкок.",
+    emoji: "🇷🇺",
+    category: "Practical Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",

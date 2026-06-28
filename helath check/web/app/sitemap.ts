@@ -140,6 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-canada-vs-thailand",
       "health-checkup-germany-vs-thailand",
       "health-checkup-france-vs-thailand",
+      "health-checkup-russia-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
