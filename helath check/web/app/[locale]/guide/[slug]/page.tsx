@@ -549,9 +549,71 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/gastroscopy-cost-bangkok", label: "Gastroscopy (stomach camera) in Bangkok" },
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
+      { href: "/en/guide/gout-treatment-bangkok", label: "Gout & uric acid treatment Bangkok" },
       { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean health check-up guide" },
       { href: "/en/guide/health-checkup-south-korea-vs-thailand", label: "Korea vs Thailand health check-up" },
       { href: "/en/guide/health-checkup-japan-vs-thailand", label: "Japan vs Thailand — Ningen Dock" },
+    ],
+  },
+
+  "gout-treatment-bangkok": {
+    title: "Gout & High Uric Acid Bangkok — Test, Treatment & Medication Costs (2026)",
+    description: "Uric acid test ฿200–฿400. Allopurinol generic ฿1–฿5/tablet, colchicine ฿5–฿15, febuxostat ฿10–฿30. Rheumatologist consultation ฿1,500–฿3,000. What to do when Bangkok check-up finds high uric acid.",
+    intro: "Gout is the most painful of the common inflammatory joint conditions — and one of the most frequently detected metabolic abnormalities at Bangkok health check-ups. High uric acid (hyperuricaemia) is found in 15–20% of executive check-up patients. Bangkok is an excellent city to address a gout or hyperuricaemia finding: rheumatologists are available same-day at major hospitals, generic urate-lowering medications are dramatically cheap, and the full diagnostic and management pathway can be completed in a single visit. This guide covers what high uric acid means, when gout is diagnosed, and what treatment costs look like in Bangkok.",
+    sections: [
+      {
+        heading: "Gout and uric acid tests in Bangkok — prices (2026)",
+        content: "Diagnostic tests for gout and hyperuricaemia at Bangkok private hospitals:",
+        list: [
+          "Serum uric acid blood test: ฿200–฿400 — the primary gout screening test; included in most executive check-up packages",
+          "24-hour urine uric acid (uric acid excretion rate): ฿400–฿800 — determines whether overproduction or underexcretion is the cause; important for treatment choice",
+          "Joint aspiration (synovial fluid analysis for uric acid crystals): gold standard for gout diagnosis when joint is swollen; ฿2,000–฿4,000 including lab analysis",
+          "X-ray of affected joint (hands, feet): ฿600–฿1,500 — looks for tophus deposits, joint damage in chronic gout",
+          "Renal function panel (creatinine + eGFR): essential alongside uric acid — gout and kidney disease are closely linked; ฿600–฿1,500",
+          "Rheumatologist consultation: ฿1,500–฿3,000 at Bumrungrad, Samitivej, or Bangkok Hospital — same-day booking available",
+        ],
+      },
+      {
+        heading: "Gout medication prices in Bangkok (2026)",
+        content: "Urate-lowering therapy and gout management medication costs at Bangkok pharmacies and hospital pharmacies:",
+        list: [
+          "Allopurinol 100mg / 300mg (xanthine oxidase inhibitor — first-line urate-lowering therapy): ฿1–฿5 per tablet; ฿30–฿150/month for maintenance dose; widely available at all Bangkok pharmacies",
+          "Allopurinol 300mg (most common therapeutic dose): 30 tablets ฿50–฿150 — dramatically cheaper than in Western countries (equivalent to $1.50–$4.00/month vs $30–$60 in the US)",
+          "Febuxostat 40mg / 80mg (Adenuric — newer xanthine oxidase inhibitor; preferred for patients with kidney disease, or allopurinol intolerance): ฿10–฿30 per tablet = ฿300–฿900/month",
+          "Colchicine 0.5mg / 1mg (acute gout attack treatment AND prophylaxis during initiation of ULT): ฿5–฿15 per tablet; ฿150–฿450/month for prophylaxis; generic available",
+          "NSAIDs (naproxen, indomethacin, diclofenac — for acute gout attacks): ฿3–฿15 per tablet; generally dispensed for 5–7 day acute course",
+          "Prednisolone (oral steroid for acute gout when NSAID contraindicated — e.g., kidney disease): ฿2–฿8 per tablet",
+          "Benzbromarone (uricosuric agent for underexcretors — not widely available outside Asia; available in Bangkok): ฿10–฿25 per tablet; effective for underexcretors who don't respond to allopurinol",
+          "Probenecid (alternative uricosuric): ฿3–฿8 per tablet",
+          "Total medication cost for gout management in Bangkok: ฿100–฿600/month depending on drug; equivalent medications cost $50–$300/month in the US or UK",
+        ],
+      },
+      {
+        heading: "Understanding your uric acid result and gout management",
+        content: "How to interpret uric acid results and what gout management looks like:",
+        list: [
+          "Uric acid normal range: men <7.0 mg/dL (416 μmol/L); women <6.0 mg/dL (356 μmol/L) — Bangkok labs may flag this at slightly different thresholds",
+          "Hyperuricaemia: serum uric acid ≥7.0 mg/dL (men) or ≥6.0 mg/dL (women) without gout attacks — monitor, lifestyle change, consider ULT if recurrent or very high",
+          "Gout attack (podagra): severe sudden pain + redness + swelling typically of big toe (MTP joint) but also ankle, knee, wrist; serum uric acid is actually often normal during an acute attack",
+          "Target uric acid on treatment: <6.0 mg/dL (360 μmol/L) for most patients; <5.0 mg/dL (300 μmol/L) for patients with tophi (visible urate deposits under skin)",
+          "Lifestyle: reduce purines (organ meats, shellfish, anchovies, red meat, alcohol especially beer and spirits); increase water intake; avoid fructose-sweetened drinks",
+          "Bangkok diet consideration: Thai food is generally lower in gout-triggering foods than Western diet, though seafood is abundant; the main risk for Bangkok visitors is alcohol consumption",
+          "Start allopurinol NOT during an acute attack: start allopurinol only after 2–4 weeks of acute inflammation resolved; starting during an attack prolongs the episode",
+          "Buying 3-month supply in Bangkok: allopurinol 300mg × 90 tablets costs ฿150–฿450 in Bangkok; take home to continue maintenance — most doctors worldwide will continue a Bangkok-started allopurinol prescription",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "My Bangkok check-up shows high uric acid but I've never had a gout attack — do I need treatment?", a: "Asymptomatic hyperuricaemia (high uric acid with no gout attacks) does not necessarily require medication. Guidelines vary: ACC/AHA and ACR 2020 recommend treating only if uric acid is persistently very high (>9–10 mg/dL) with kidney disease, or after a gout attack. For mild-moderate asymptomatic hyperuricaemia (7–9 mg/dL), lifestyle changes (reduce alcohol, red meat, shellfish; increase water) are first-line. However, chronic hyperuricaemia damages kidneys over time — discuss with a Bangkok rheumatologist (฿1,500–฿3,000) if uric acid is ≥9 mg/dL or if you have kidney disease, hypertension, or cardiovascular risk factors." },
+      { q: "I'm having a gout attack in Bangkok — what should I do?", a: "A gout attack is extremely painful but not dangerous. Options in Bangkok: (1) Any pharmacy can dispense colchicine (฿5–฿15/tablet) — take 1mg immediately then 0.5mg 1 hour later; this is first-line if you have no kidney disease. (2) NSAIDs (naproxen, diclofenac) are effective — ask the pharmacist, available over-counter. (3) If kidney disease or unable to take NSAIDs: prednisolone 30mg/day for 5 days (doctor prescription needed). (4) If severe or unclear diagnosis: go to Bangkok Hospital, Bumrungrad, or Samitivej emergency/outpatient — a rheumatologist can do joint aspiration to confirm gout crystals and prescribe steroid injection. An acute attack typically resolves in 7–14 days with treatment." },
+      { q: "Can I buy gout medication in Bangkok without a prescription?", a: "Colchicine and most NSAIDs (naproxen, diclofenac) are available over-the-counter at Bangkok pharmacies for acute gout management. Allopurinol (the main long-term urate-lowering drug) is classified as a prescription medication in Thailand — however, many Bangkok pharmacies will supply allopurinol to patients who present a uric acid test result showing hyperuricaemia. For proper management including dose selection, renal function check, and treatment monitoring, a rheumatologist consultation (฿1,500–฿3,000 same-day) is strongly recommended before starting allopurinol — the starting dose must be low (50–100mg) and titrated slowly to avoid precipitating an acute attack." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/kidney-function-test-bangkok", label: "Kidney function test Bangkok" },
+      { href: "/en/guide/blood-test-price-bangkok", label: "All blood test prices Bangkok" },
+      { href: "/en/guide/high-cholesterol-treatment-bangkok", label: "High cholesterol treatment Bangkok" },
+      { href: "/en/guide/abnormal-results-bangkok-what-to-do", label: "Abnormal results — what to do" },
+      { href: "/en/guide/health-checkup-by-age-bangkok", label: "Health check-up by age" },
     ],
   },
 
