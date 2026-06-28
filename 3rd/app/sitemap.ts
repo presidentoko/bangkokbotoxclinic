@@ -96,6 +96,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/compare/dior-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/brands/bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/chanel-classic-vs-boy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/brands/van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages
