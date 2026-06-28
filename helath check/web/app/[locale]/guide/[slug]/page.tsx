@@ -3602,8 +3602,68 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
       { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
+      { href: "/en/guide/health-checkup-nigeria-vs-thailand", label: "Nigeria vs Thailand comparison" },
       { href: "/en/guide/health-checkup-australia-vs-thailand", label: "Australia vs Thailand comparison" },
       { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-nigeria-vs-thailand": {
+    title: "Health Check-Up: Nigeria vs Thailand 2026 — Bangkok for Nigerians",
+    description: "Nigerian private hospital executive check-up: ₦500,000–₦3,000,000. Bangkok JCI: ฿8,000–฿25,000 ($200–$650) — 30–60% cheaper. English-speaking. No visa required. What Nigerians save.",
+    intro: "Nigeria's private healthcare sector has seen substantial growth, but high-quality comprehensive health screening in Lagos, Abuja, or Port Harcourt still comes at a significant cost — particularly for executive check-ups with advanced imaging, endoscopy, and cancer markers. Bangkok, Thailand's medical tourism capital, serves thousands of African patients annually with JCI-accredited hospitals, English-speaking staff, and same-day results at 30–60% below Nigerian private hospital prices. Nigeria is one of the fastest-growing sources of international medical tourists in Asia.",
+    sections: [
+      {
+        heading: "Nigeria vs Bangkok — price comparison (2026)",
+        content: "Health check-up prices at major Nigerian private hospitals (Lagos: Eko Hospital, Lagos Island General, Reddington, Evercare) vs Bangkok JCI hospitals (exchange rate: ₦1 = approx 0.0006 USD at 2026 rates; ฿1 = approx 0.027 USD):",
+        list: [
+          "Executive health check-up (20–30 tests: CBC, metabolic, ECG, X-ray, ultrasound, cancer markers): Nigeria private ₦300,000–₦1,500,000 ($185–$930); Bangkok ฿8,000–฿20,000 ($215–$540) — Bangkok 30–50% cheaper at current exchange rates",
+          "Gastroscopy: Nigeria private ₦200,000–₦600,000 ($125–$370); Bangkok ฿4,500–฿9,000 ($120–$243) — comparable to cheaper in Bangkok + sedation included",
+          "Colonoscopy: Nigeria private ₦250,000–₦700,000 ($155–$430); Bangkok ฿8,000–฿18,000 ($215–$486) — comparable",
+          "MRI (brain or abdomen): Nigeria private ₦150,000–₦700,000 ($95–$430); Bangkok ฿5,000–฿15,000 ($135–$405) — comparable price, Bangkok has shorter waits and newer equipment",
+          "Mammogram: Nigeria private ₦30,000–₦150,000 ($20–$93); Bangkok ฿1,500–฿3,000 ($40–$80) — similar",
+          "PSA (prostate): Nigeria private ₦15,000–₦50,000 ($10–$30); Bangkok ฿600–฿1,200 ($16–$32) — similar",
+          "Abdominal ultrasound: Nigeria private ₦20,000–₦100,000 ($12–$60); Bangkok ฿1,500–฿3,000 ($40–$80) — Bangkok slightly more expensive as standalone, included in packages",
+          "Key consideration: Nigeria's exchange rate has weakened significantly; dollar-denominated medical tourism to Bangkok becomes more attractive as Naira weakens",
+        ],
+      },
+      {
+        heading: "NHIA, HMO gaps, and Nigerian healthcare access",
+        content: "Nigerian health insurance structure and why Nigerians consider Bangkok:",
+        list: [
+          "NHIA (National Health Insurance Authority — formerly NHIS): government scheme for civil servants; coverage very limited; most private check-ups not covered",
+          "HMO plans (Hygeia, AXA Mansard, Leadway Health, Avon HMO): growing, but executive check-up packages rarely fully covered; endoscopy and advanced imaging require pre-authorization which can take weeks",
+          "Major Nigerian private hospitals (Evercare Lagos, Eko Hospital, Reddington, Lagoon Hospital, LASUTH Private Wing): good quality but equipment less advanced than Bangkok JCI hospitals; specialist availability varies",
+          "Medical tourism demand from Nigeria: Nigerians already travel to India, UK, and Thailand for specialist care; Bangkok is popular for oncology follow-up, complex diagnostics, and executive screening",
+          "Bangkok advantage for Nigerians: world-class diagnostic equipment (3T MRI, PET-CT, robotic endoscopy), English-first environment, same-day comprehensive results — what would take multiple appointments and weeks in Nigeria is done in one 4-hour visit",
+        ],
+      },
+      {
+        heading: "Practical guide for Nigerian patients in Bangkok",
+        content: "Logistics and practical information for Nigerians traveling to Bangkok for health check-ups:",
+        list: [
+          "Visa: Nigerian passport requires a visa for Thailand — apply for Thai tourist visa (TR) from the Royal Thai Embassy in Abuja or Lagos Consulate; typically ฿2,000 (≈$55 equivalent) for a single-entry 60-day visa; processing 3–5 business days",
+          "Alternatively: e-Visa is available for Nigeria at evisa.thaigov.go.th — single entry $35, processed online in 3–5 working days",
+          "Flight: Lagos (LOS) → Bangkok (BKK/Suvarnabhumi): no direct flight; connections via Addis Ababa (ET), Dubai (EK), Doha (QR), Istanbul (TK), Cairo (MS); total journey 15–20 hours",
+          "Budget flight options: Ethiopian Airlines (via Addis Ababa) is often the most competitive on this route; book 4–8 weeks in advance",
+          "Hospital booking: book via Bumrungrad's website or international coordinator (+66 2-667-2000); specify English-language service; no referral needed",
+          "Day of check-up: arrive fasting (8–12 hours) at 7:00–8:00 AM; standard executive package 4–5 hours; results emailed same afternoon in English",
+          "Payment: Visa/Mastercard accepted at all Bangkok hospitals; consider carrying USD cash as backup for hospital payment",
+          "Combining with tourism: Chatuchak Weekend Market, Khao San Road, Khaosan and Sukhumvit are popular areas; easy taxi network; Bangkok is well-mapped on Google Maps",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Bangkok cheaper than Lagos for a comprehensive health check-up?", a: "At 2026 exchange rates (approximately ₦1,600–₦1,700 per USD, ฿36–37 per USD), Bangkok executive check-up packages (฿12,000–฿25,000 = $320–$680) compare favourably to Nigerian private hospital executive packages (₦500,000–₦1,500,000 = $300–$930). For the highest-end packages with endoscopy, imaging, and cancer markers, Bangkok is typically 30–50% cheaper. As the Naira weakens, the dollar-value comparison improves further in Bangkok's favour. Flight cost ($800–$1,500 round-trip Nigeria–Bangkok) must be factored in — the value is strongest for comprehensive packages." },
+      { q: "Do Bangkok hospitals have experience with Nigerian patients?", a: "Yes — Bumrungrad International serves patients from 190 countries, including Nigeria and across sub-Saharan Africa. The hospital's International Patient Centre handles English-speaking African patients routinely. Bumrungrad and Samitivej have experience with common conditions among Nigerian patients including sickle cell trait screening, Hepatitis B (very common in Nigeria at 8–11% prevalence), tropical disease testing, and other Africa-specific health concerns. English is the primary language of service — the same as Nigerian private hospitals — so communication is straightforward." },
+      { q: "How do I get my Hepatitis B status checked in Bangkok?", a: "Hepatitis B is endemic in Nigeria with 8–11% prevalence — one of the most important tests for Nigerians. Bangkok hospitals offer complete Hepatitis B panel: HBsAg (surface antigen — am I infected?), anti-HBs (am I immune from vaccine?), HBeAg and HBV DNA viral load (for those known positive — how active is the virus?). HBsAg standalone: ฿400–฿800; complete panel: ฿1,500–฿3,000. If HBsAg positive: Bangkok hepatologists can initiate tenofovir antiviral therapy at 80–90% below US prices. Hepatitis B vaccination is available at Bangkok hospitals for ₦ 800–1,500 (฿1,500–฿3,000 per dose) for unvaccinated patients." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-south-africa-vs-thailand", label: "South Africa vs Thailand" },
+      { href: "/en/guide/health-checkup-egypt-vs-thailand", label: "Egypt vs Thailand" },
+      { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
     ],
   },
 
