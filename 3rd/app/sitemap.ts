@@ -107,6 +107,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-rolex`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/compare/hermes-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/lv-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages
