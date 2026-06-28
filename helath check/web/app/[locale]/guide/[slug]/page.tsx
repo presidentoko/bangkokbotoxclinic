@@ -3991,11 +3991,73 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic speakers — best Bangkok hospitals" },
+      { href: "/en/guide/health-checkup-saudi-arabia-vs-thailand", label: "Saudi Arabia vs Thailand" },
       { href: "/en/guide/health-checkup-egypt-vs-thailand", label: "Egypt vs Thailand comparison" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/health-checkup-south-africa-vs-thailand", label: "South Africa vs Thailand comparison" },
       { href: "/en/for/arabic-health-checkup-bangkok", label: "Arabic segment packages" },
+    ],
+  },
+
+  "health-checkup-saudi-arabia-vs-thailand": {
+    title: "Health Check-Up: Saudi Arabia vs Thailand 2026 — Bangkok for Saudi Patients",
+    description: "Saudi private hospital executive check-up SAR 3,000–15,000. Bangkok JCI: ฿8,000–฿25,000 ($215–$675) — same JCI quality, 40–60% cheaper. No visa to Thailand for Saudis. Guide.",
+    intro: "Saudi Arabia has a well-developed healthcare system with major hospitals like King Faisal Specialist Hospital (KFSH), King Abdulaziz Medical City, and a growing private sector (Saudi German, Dr. Sulaiman Al Habib, American Hospital Riyadh). However, comprehensive executive health check-up packages at premium private hospitals cost SAR 3,000–15,000+ ($800–$4,000), and KFSH is extremely busy. Bangkok, Thailand, is increasingly chosen by Saudi patients — not only for treatment but for preventive health check-ups — because of JCI-quality care at 40–60% lower cost, immediate appointments, and no visa requirement for Saudi passport holders since early 2023.",
+    sections: [
+      {
+        heading: "Saudi Arabia vs Bangkok — health check-up price comparison (2026)",
+        content: "Approximate prices at Saudi private hospitals (Dr. Sulaiman Al Habib, Saudi German, American Hospital) vs Bangkok JCI hospitals. Exchange rate: SAR 1 ≈ ฿9.9 (USD 1 ≈ SAR 3.75 ≈ ฿37):",
+        list: [
+          "Blood panel (CBC + metabolic + lipids + thyroid): Saudi private SAR 500–1,500; Bangkok ฿2,500–฿5,000 ($68–135) — Bangkok 20–50% cheaper",
+          "Gastroscopy with sedation: Saudi private SAR 1,500–4,000 ($400–1,067); Bangkok ฿4,500–฿9,000 ($122–243) — Bangkok 50–65% cheaper",
+          "Colonoscopy with sedation: Saudi private SAR 2,000–6,000 ($533–1,600); Bangkok ฿8,000–฿18,000 ($216–486) — Bangkok 50–65% cheaper",
+          "MRI brain or abdomen: Saudi private SAR 1,500–4,000 ($400–1,067); Bangkok ฿5,000–฿15,000 ($135–405) — Bangkok 50–60% cheaper",
+          "CT scan chest/abdomen: Saudi private SAR 800–3,000 ($213–800); Bangkok ฿4,000–฿9,000 ($108–243) — Bangkok 40–60% cheaper",
+          "Executive health check-up (25–40 tests with tumor markers + imaging): Saudi private SAR 3,000–12,000 ($800–3,200); Bangkok ฿12,000–฿25,000 ($320–675) — Bangkok 50–75% cheaper for equivalent scope",
+          "Cardiac CT calcium score: Saudi private SAR 1,500–4,000 ($400–1,067); Bangkok ฿4,000–฿8,000 ($108–216) — Bangkok significantly cheaper",
+          "PET-CT (cancer staging): Saudi private SAR 5,000–15,000 ($1,333–4,000); Bangkok ฿20,000–฿45,000 ($540–1,215) — Bangkok 60–70% cheaper",
+        ],
+      },
+      {
+        heading: "Saudi healthcare and why Bangkok is chosen",
+        content: "Factors driving Saudi patients to Bangkok for health check-ups:",
+        list: [
+          "KFSH (King Faisal Specialist Hospital) — world-class but extremely busy: appointments for specialist consultations and advanced imaging can take weeks to months even for complex referrals; Bangkok has immediate availability",
+          "Saudi private hospitals growing: Dr. Sulaiman Al Habib (HMG), Saudi German Hospital, Dallah Hospital — good quality but JCI hospital count is limited vs Bangkok's 9 JCI facilities",
+          "No visa required: Saudi Arabia was added to Thailand's visa-exemption list in early 2023 (30 days) — Saudi passport holders can now travel to Bangkok without any visa; no need for visa applications",
+          "Direct flights: Riyadh (RUH) → Bangkok (BKK Suvarnabhumi): Saudia Airlines direct, approximately 7.5 hours; Jeddah (JED) → Bangkok: direct on Saudia, approximately 8 hours; also connections via Dubai (EK) 9–11 hours total",
+          "Halal certification: Bangkok JCI hospitals (Bumrungrad, Samitivej) are experienced with Saudi and Gulf Muslim patients; halal food available; prayer facilities at Bumrungrad; Arabic-speaking coordinators",
+          "Saudi diaspora and expat routing: Saudis studying or working in the UK, USA, or Malaysia often add a Bangkok stop for health check-ups — very convenient from Southeast Asian hubs",
+          "Oncology and advanced treatment: Bumrungrad's oncology centre has Saudi patients for chemotherapy, radiation, and complex treatment protocols at 60–70% below Saudi private hospital prices",
+        ],
+      },
+      {
+        heading: "Practical guide: Saudi Arabia to Bangkok",
+        content: "Visa, flights, and practical information for Saudi patients:",
+        list: [
+          "Visa: Saudi passport holders have visa-exemption for Thailand (since 2023) — no visa needed; up to 30-day tourist entry with no pre-registration required",
+          "Flights from Riyadh: Saudia Airlines direct RUH→BKK approximately 7.5 hours; also Emirates via Dubai approximately 9–11 hours; Flydubai and Air Arabia options",
+          "Flights from Jeddah: Saudia direct JED→BKK approximately 8 hours; also via Dubai",
+          "Flights from Dammam: no direct; connection via Dubai (EK) approximately 9–11 hours total",
+          "Arrival: Suvarnabhumi Airport (BKK) — taxi to Bumrungrad approximately 40 minutes (฿400–฿600); Airport Rail Link to Phaya Thai then BTS to Nana station, 5 minutes walk to Bumrungrad",
+          "Accommodation: Bumrungrad is on Sukhumvit Soi 3 — also known as 'Arab Street' in Bangkok; nearby Soi 3–5 have numerous Arabic restaurants, grocery stores, and shisha cafes; very familiar environment for Saudi patients",
+          "Bumrungrad's Arabic services: Bumrungrad has Arabic-speaking international patient coordinators; online booking in Arabic via bumrungrad.com; medical reports available in Arabic on request",
+          "Ramadan: Bangkok hospitals are fully capable of accommodating fasting patients — blood draws can be done pre-dawn; Suhoor and Iftar meals arranged; prayer facilities available",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do Saudi passport holders need a visa for Thailand?", a: "No — Saudi Arabia has been visa-exempt for Thailand since early 2023. Saudi citizens can enter Thailand with a valid passport for tourism for up to 30 days without any pre-application or fee. This makes Bangkok one of the easiest international health check-up destinations for Saudis. Simply fly in, present your Saudi passport at immigration, and you're done. The 30-day exemption is more than sufficient for a health check-up visit (1 day) plus leisure time in Bangkok or at Thai beach destinations." },
+      { q: "Which Bangkok hospital is best for Saudi patients?", a: "Bumrungrad International Hospital is the clear first choice for Saudi patients: (1) Located on Sukhumvit Soi 3 — Bangkok's 'Arab Street' with many Arabic restaurants, shops, and grocery stores nearby; (2) Arabic-speaking international patient coordinators on staff; (3) Medical reports available in Arabic; (4) Prayer room in the hospital; (5) Halal food options; (6) 9,000+ patients from the GCC per year, well-experienced with Saudi patient preferences. Samitivej Sukhumvit is a strong alternative with slightly lower prices. Book online or email Bumrungrad's international patient centre." },
+      { q: "How does Bangkok compare to medical treatment in Germany/UK/USA for Saudi patients who go abroad?", a: "Saudi patients traditionally travel to the US, UK, Germany, or South Korea for complex treatment. For health check-ups (preventive screening), Bangkok is 50–75% cheaper than comparable US/UK private care and 40–60% cheaper than German private clinics. For complex treatment (oncology, cardiac surgery, neurosurgery), Bangkok JCI hospitals (Bumrungrad, Bangkok Hospital) offer comparable quality to German or South Korean facilities at 40–60% lower cost. Flight time is also shorter: Riyadh to Bangkok 7.5 hours vs Riyadh to London 7 hours / Frankfurt 6 hours / New York 15 hours — Bangkok is geographically very competitive as a medical destination from Saudi Arabia." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-uae-vs-thailand", label: "UAE / Dubai vs Thailand" },
+      { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic speakers — best Bangkok hospitals" },
+      { href: "/en/guide/health-checkup-egypt-vs-thailand", label: "Egypt vs Thailand" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
     ],
   },
 
