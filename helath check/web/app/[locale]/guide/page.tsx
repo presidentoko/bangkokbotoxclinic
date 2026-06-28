@@ -438,6 +438,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-vietnam-vs-thailand",
+    title: "Health Check-Up Vietnam vs Thailand (2026) — Bangkok cho người Việt Nam 🇻🇳",
+    description: "Khám sức khỏe tổng quát tại Bangkok JCI: ฿8,000–฿25,000. 1.5–2 giờ bay từ TP.HCM/Hà Nội. Không cần visa. MRI 3T và PET-CT sẵn có. Hướng dẫn đầy đủ bằng tiếng Việt.",
+    emoji: "🇻🇳",
+    category: "By Nationality",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

@@ -3755,8 +3755,66 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/hat-yai-health-checkup", label: "Hat Yai health check-up guide" },
       { href: "/en/guide/thailand-vs-singapore-health-checkup", label: "Thailand vs Singapore comparison" },
+      { href: "/en/guide/health-checkup-vietnam-vs-thailand", label: "Vietnam vs Thailand comparison" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/compare?city=hat-yai", label: "Compare Hat Yai packages" },
+    ],
+  },
+
+  "health-checkup-vietnam-vs-thailand": {
+    title: "Health Check-Up Vietnam vs Thailand 2026 — Bangkok cho người Việt Nam",
+    description: "Khám sức khỏe tổng quát Hà Nội/TP.HCM: 3–12 triệu đồng. Bangkok JCI: ฿8,000–฿25,000 (~5–16 triệu VNĐ). 2 giờ bay, không cần visa. Bumrungrad có nhân viên nói tiếng Anh tốt.",
+    intro: "Vietnam's private healthcare sector is growing fast — Vinmec International Hospital, Hong Ngoc, FV Hospital in Ho Chi Minh City — but for comprehensive executive health check-ups with the full range of specialist imaging and cancer markers, Bangkok remains the reference destination for Vietnamese medical tourists. Bangkok is 2 hours from both Hanoi and Ho Chi Minh City, visa-free for Vietnamese passport holders, and JCI hospitals offer equipment and specialist depth that isn't yet universally available in Vietnam. Vietnam sends approximately 500,000+ tourists to Thailand annually, and medical tourism from Vietnam to Bangkok is among the fastest-growing in Southeast Asia.",
+    sections: [
+      {
+        heading: "So sánh giá khám sức khỏe: Việt Nam vs Bangkok",
+        content: "Health check-up price comparison between Vietnam private hospitals and Bangkok JCI hospitals (2026):",
+        list: [
+          "Gói khám cơ bản (tổng phân tích máu, sinh hóa, đường huyết, cholesterol, nước tiểu, X-quang, điện tim): Hà Nội/TP.HCM tư nhân 1–3 triệu VNĐ / Bangkok ฿3,000–฿7,000 (~2–4,5 triệu VNĐ) — giá tương đương",
+          "Gói khám toàn diện (+siêu âm bụng, chức năng tuyến giáp, viêm gan B/C): Việt Nam tư nhân 3–8 triệu VNĐ / Bangkok ฿5,000–฿12,000 (~3,2–7,7 triệu VNĐ) — tương đương",
+          "Gói khám Executive (đủ cơ quan nội tạng + chỉ số ung thư + bác sĩ tư vấn): Vinmec/FV 8–20 triệu VNĐ / Bangkok ฿8,000–฿25,000 (~5–16 triệu VNĐ) — Bangkok cạnh tranh, đôi khi rẻ hơn",
+          "Cộng hưởng từ não (MRI não): Việt Nam tư nhân 4–10 triệu VNĐ / Bangkok ฿5,000–฿12,000 (~3,2–7,7 triệu VNĐ) — Bangkok thường rẻ hơn 20–40%",
+          "Nội soi dạ dày có gây mê: Việt Nam tư nhân 2–6 triệu VNĐ / Bangkok ฿4,500–฿9,000 (~2,9–5,8 triệu VNĐ) — tương đương hoặc Bangkok rẻ hơn",
+          "Nội soi đại tràng: Việt Nam tư nhân 3–8 triệu VNĐ / Bangkok ฿8,000–฿18,000 (~5,1–11,6 triệu VNĐ) — giá gần tương đương nhau",
+          "Lưu ý: bệnh viện Vinmec và FV tại TP.HCM có tiêu chuẩn rất tốt; lợi thế Bangkok chủ yếu ở tầm vóc quốc tế, kinh nghiệm JCI, và tính sẵn sàng cho các gói khám chuyên sâu đặc biệt",
+        ],
+      },
+      {
+        heading: "Bệnh viện Việt Nam tốt nhất vs bệnh viện Bangkok JCI",
+        content: "Comparison of top Vietnamese hospitals vs Bangkok JCI hospitals for health check-ups:",
+        list: [
+          "Vinmec International (Hà Nội, TP.HCM): tiêu chuẩn quốc tế tốt, JCI accreditation pending/obtained at some branches; gói khám comprehensive sẵn có; NHƯNG danh mục máy móc chuyên biệt vẫn hạn chế so với Bangkok",
+          "FV Hospital (TP.HCM): bệnh viện Pháp-Việt, chất lượng tốt, bác sĩ Pháp và Việt; gói khám executive từ 10–20 triệu VNĐ",
+          "Hong Ngoc Hospital, Vinmec Times City (Hà Nội): gói khám sức khỏe tiêu chuẩn tốt; ít chuyên sâu hơn với bệnh nhân quốc tế",
+          "So với Bangkok: Bumrungrad phục vụ hơn 500.000 bệnh nhân quốc tế/năm từ 190 quốc gia; kinh nghiệm với bệnh nhân quốc tế vô song; Samitivej, Bangkok Hospital tương tự",
+          "Equipment advantage Bangkok: MRI 3T, PET-CT scan cho ung thư, cardiac CT 256 slice — công nghệ cao nhất thường sẵn có sớm hơn ở Bangkok",
+          "For complex specialist follow-up: if screening in Bangkok reveals an issue requiring specialist follow-up, Bangkok hospital specialist departments (oncology, cardiology, gastroenterology) are on-site for same-day or next-day referral",
+        ],
+      },
+      {
+        heading: "Hướng dẫn thực tế: người Việt Nam đến Bangkok khám sức khỏe",
+        content: "Practical guide for Vietnamese patients visiting Bangkok for a health check-up:",
+        list: [
+          "Visa: công dân Việt Nam được vào Thái Lan không cần visa trong 30 ngày — cực kỳ thuận tiện",
+          "Bay: Hà Nội (HAN) – Bangkok (BKK/DMK): ~2 giờ 30 phút; TP.HCM (SGN) – Bangkok (BKK/DMK): ~1 giờ 30–2 giờ; nhiều chuyến bay/ngày với Vietnam Airlines, Vietjet, Thai AirAsia, Bangkok Airways, Nok Air",
+          "Tiếng Anh: bác sĩ và nhân viên tại các bệnh viện lớn Bangkok nói tiếng Anh tốt. Có thể giao tiếp bằng tiếng Anh cơ bản; một số bệnh nhân Việt Nam nhờ bạn hoặc người thân biết tiếng Anh đi cùng",
+          "Chiến lược khám: đặt vé bay buổi sáng sớm từ SGN (6–7h sáng), đến Bangkok lúc 8–9h, nhận phòng khách sạn gần Sukhumvit; khám sáng hôm sau; kết quả chiều; về hoặc ở thêm khám phá Bangkok",
+          "Thanh toán: thẻ Visa/Mastercard của ngân hàng Việt Nam (Techcombank, VPBank, ACB) hoạt động ở Bangkok; một số thẻ cần kích hoạt giao dịch quốc tế trước — kiểm tra trước khi đi",
+          "Kết quả gửi về: tất cả kết quả bằng tiếng Anh PDF; bác sĩ Việt Nam tư nhân đọc được; mang về CD ảnh DICOM cho MRI/CT",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Khám sức khỏe ở Bangkok có đắt hơn TP.HCM không?", a: "Không nhất thiết — gói khám cơ bản đến tiêu chuẩn (huyết học + sinh hóa + X-quang + điện tim) ở Bangkok có giá tương đương Vinmec hoặc FV tại TP.HCM. Lợi thế của Bangkok chủ yếu ở: (1) gói Executive đầy đủ hơn với chỉ số ung thư và siêu âm toàn bộ, (2) thiết bị hình ảnh cao cấp hơn (MRI 3T, PET-CT), (3) không có hàng chờ, kết quả cùng ngày, (4) bác sĩ chuyên khoa cùng tòa nhà nếu cần tư vấn ngay. Chi phí đi lại TP.HCM–Bangkok rất thấp (từ $30–80 khứ hồi với Vietjet/AirAsia), nên tổng chi phí vẫn hợp lý." },
+      { q: "Bệnh viện Bangkok có nhân viên nói tiếng Việt không?", a: "Hầu hết các bệnh viện lớn Bangkok không có nhân viên thường xuyên nói tiếng Việt, nhưng tiếng Anh rất tốt ở tất cả bệnh viện JCI. Bumrungrad có bộ phận quốc tế với nhân viên từ nhiều quốc gia — một số có thể hỗ trợ tiếng Việt theo yêu cầu (cần hỏi trước khi đặt lịch). Nhiều bệnh nhân Việt Nam đến Bangkok đi cùng với người thân hoặc bạn bè biết tiếng Anh. Tài liệu hướng dẫn và kết quả đều bằng tiếng Anh." },
+      { q: "Bác sĩ ở Việt Nam có chấp nhận kết quả khám từ Bangkok không?", a: "Có — bác sĩ tư nhân Việt Nam chấp nhận kết quả từ Bumrungrad, Samitivej, Bangkok Hospital bằng tiếng Anh. Đơn vị xét nghiệm (mmol/L, g/dL, IU/L) là tiêu chuẩn quốc tế, bác sĩ Việt đọc được dễ dàng. Với xét nghiệm hình ảnh, mang CD DICOM về — bất kỳ bác sĩ X-quang tại Việt Nam đều có thể đọc được. Luôn xin bản PDF đầy đủ kết quả xét nghiệm và bản tóm tắt y tế của bác sĩ từ bệnh viện Bangkok." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-malaysia-vs-thailand", label: "Malaysia vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-philippines-vs-thailand", label: "Philippines vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-indonesia-vs-thailand", label: "Indonesia vs Thailand comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
     ],
   },
 
