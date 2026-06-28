@@ -550,6 +550,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "liver-function-test-bangkok",
+    title: "Liver Function Test Bangkok — ALT, AST, GGT, Bilirubin Prices (2026)",
+    description: "ALT/AST ฿200–฿500 each, full LFT panel ฿800–฿2,000, GGT ฿200–฿400. NAFLD, hepatitis, alcohol liver — what your Bangkok LFT results mean and what to do next.",
+    emoji: "🫀",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
