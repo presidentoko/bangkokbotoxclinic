@@ -78,6 +78,10 @@ const SEGMENTS: Record<string, {
       { q: "Are halal food options available at Bangkok hospitals for check-up visits?", a: "Most Bangkok private hospitals, including Bumrungrad, Vejthani, and Bangkok Hospital, can provide halal meal options for inpatient stays. For outpatient health check-ups (half-day), meals are generally not provided, but staff can direct you to nearby halal restaurants." },
       { q: "Do Bangkok hospitals accept Saudi Aramco or DAMAN insurance?", a: "Some Bangkok hospitals accept specific GCC insurance plans, but this varies. Bumrungrad and Bangkok Hospital have the broadest international insurance acceptance. Contact the hospital's international patient office directly to verify your specific insurance plan." },
     ],
+    relatedGuides: [
+      { href: "/guide/best-hospitals-arabic-speakers", label: "Arabic Speakers Guide (أفضل مستشفيات)" },
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
+    ],
   },
   "korean-health-checkup-bangkok": {
     title: "방콕 건강검진 한국어 가이드 — Korean Health Check-Up Bangkok 2026",

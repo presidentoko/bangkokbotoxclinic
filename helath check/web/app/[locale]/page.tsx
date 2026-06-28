@@ -12,14 +12,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const loc = locale as Locale;
   return {
     title: `${t(loc, "site_name")} — Compare Health Check-Up Prices in Thailand`,
-    description: "Compare real health check-up prices from 235+ hospitals across 18 cities in Thailand. Bangkok, Chiang Mai, Phuket, Pattaya and more. No ads, no sponsored listings.",
+    description: "Compare real health check-up prices from 235+ hospitals across 22 cities in Thailand. Bangkok, Chiang Mai, Phuket, Pattaya and more. No ads, no sponsored listings.",
     alternates: {
       canonical: `${BASE}/en`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
     },
     openGraph: {
       title: "Compare Health Check-Up Prices in Thailand — Real Prices, No Ads",
-      description: "Real prices from 235 hospitals across Bangkok, Chiang Mai, Phuket and 15 more Thai cities. Executive, cancer, cardiac, women's screening and more.",
+      description: "Real prices from 235+ hospitals across Bangkok, Chiang Mai, Phuket and 19 more Thai cities. Executive, cancer, cardiac, women's screening and more.",
       url: `${BASE}/${locale}`,
     },
   };
