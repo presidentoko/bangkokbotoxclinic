@@ -522,6 +522,13 @@ const GUIDES = [
     category: "Hospital Guides",
   },
   {
+    slug: "health-checkup-turkey-vs-thailand",
+    title: "Sağlık Taraması: Türkiye vs Tayland — Bangkok Check-Up Maliyetleri (2026)",
+    description: "Türkiye özel hastanesine kıyasla Bangkok %40–65 daha ucuz. Gastroskopi ฿4,500–฿8,000, yönetici paketi ฿12,000–฿25,000. Türk pasaportuna 30 gün vize muafiyeti. JCI belgeli.",
+    emoji: "🇹🇷",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

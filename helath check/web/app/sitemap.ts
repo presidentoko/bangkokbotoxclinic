@@ -177,6 +177,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "high-cholesterol-treatment-bangkok",
       "high-blood-pressure-treatment-bangkok",
       "phyathai-hospital-health-checkup",
+      "health-checkup-turkey-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

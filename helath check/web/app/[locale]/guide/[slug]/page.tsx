@@ -4231,6 +4231,65 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-turkey-vs-thailand": {
+    title: "Sağlık Taraması: Türkiye vs Tayland (2026) — Bangkok'ta Check-Up Maliyetleri",
+    description: "Türkiye'den Bangkok'a sağlık taraması: gastroskopi %50–70 daha ucuz, mamografi %60–75, tam check-up %40–60 tasarruf. Türkçe konuşan koordinatör. JCI belgeli hastaneler.",
+    intro: "Türkiye'nin özel hastaneleri dünya standartlarında sağlık hizmeti sunmaktadır; ancak Türkiye'de özel sağlık taraması ücretleri son yıllarda önemli ölçüde artmıştır. Özellikle kapsamlı yönetici paketleri, endoskopi ve ileri görüntüleme maliyetleri Avrupa'daki Türk diasporası ile yüksek bütçeli Türk vatandaşları için yük olmaya başlamıştır. Tayland'ın Bangkok şehri ise aynı JCI belgeli kaliteyi — tam İngilizce raporlama, uluslararası standart laboratuvarlar ve aynı gün sonuç — Türkiye özel hastane fiyatlarının %40–70 altında sunmaktadır.",
+    sections: [
+      {
+        heading: "Türkiye vs Bangkok fiyat karşılaştırması (2026)",
+        content: "Türkiye özel hastane fiyatları ile Bangkok JCI hastaneleri karşılaştırması (TRY fiyatları Euro ve Baht olarak dönüştürülmüştür):",
+        list: [
+          "Gastroskopi (üst endoskopi): Türkiye özel 8.000–20.000 TRY (≈200–500 EUR); Bangkok 4.500–8.000 THB (≈115–205 EUR) — %40–55 daha ucuz",
+          "Kolonoskopi: Türkiye özel 10.000–25.000 TRY (≈250–630 EUR); Bangkok 8.000–18.000 THB (≈200–460 EUR) — %20–30 tasarruf",
+          "Mamografi (dijital): Türkiye özel 1.500–4.000 TRY (≈38–100 EUR); Bangkok 1.500–3.000 THB (≈38–77 EUR) — benzer veya %20–30 daha ucuz",
+          "MRI (beyin veya karın): Türkiye özel 5.000–15.000 TRY (≈125–375 EUR); Bangkok 5.000–15.000 THB (≈128–385 EUR) — benzer fiyat, Bangkok'ta daha hızlı randevu",
+          "Kapsamlı yönetici paketi (Executive check-up, 30–40 test): Türkiye özel 25.000–60.000 TRY (≈625–1.500 EUR); Bangkok 12.000–25.000 THB (≈310–640 EUR) — %50–65 daha ucuz",
+          "PSA testi (prostat kanseri taraması): Türkiye özel 400–1.500 TRY (≈10–38 EUR); Bangkok 600–1.200 THB (≈15–30 EUR) — benzer",
+          "Tiroid ultrasonografisi: Türkiye özel 1.000–3.000 TRY (≈25–75 EUR); Bangkok 1.500–2.500 THB (≈38–64 EUR) — benzer",
+          "Tüm check-up + uçuş (İstanbul-Bangkok dönüş): Türkiye özel yönetici paketi tutarı genellikle Bangkok paketi + uçuş tutarını karşılar; özellikle çift veya grup seyahatinde belirgin tasarruf",
+        ],
+      },
+      {
+        heading: "Türkiye sağlık sigortası boşlukları ve SGK kapsamı",
+        content: "Türkiye'de özel ve devlet sağlık sistemi yapısı ve Bangkok'un nasıl tamamlayıcı olduğu:",
+        list: [
+          "SGK (Sosyal Güvenlik Kurumu) devlet hastaneleri: ücretsiz; ancak uzun randevu bekleme süreleri, kalabalık ve sınırlı İngilizce hizmet",
+          "MHRS sistemi ile randevu: ileri görüntüleme (MRI, kolonoskopi) için devlet hastanesinde 1–6 ay bekleme normal",
+          "Özel sigorta tamamlayıcı paketi: kapsamlı tarama paketlerini karşılamayabilir; gastroskopi ve kolonoskopi için onay süreci uzun olabilir",
+          "Türkiye'de muayene dışında kalan alanlar: koruyucu tarama (kanser belirteçleri, fertilite, dexa kemik yoğunluğu, kapsamlı yönetici check-up'ları) genellikle SGK kapsamı dışında",
+          "Avrupalı Türk diasporası (Almanya, Hollanda, Belçika, Fransa): Avrupa kamu sisteminde check-up kapsamı sınırlı; aynı uçuşla Bangkok'a gitmek Türkiye özel alternatifindan daha uygun olabilir",
+          "Bangkok'un avantajı: Bumrungrad'da 190 ülkeden hasta servisi; Türkçe konuşan koordinatör veya tercüman talep üzerine mevcut; Türk hasta topluluğunun deneyimli olduğu bir destinasyon",
+        ],
+      },
+      {
+        heading: "Türk hastalar için Bangkok'a pratik rehber",
+        content: "Türkiye'den Bangkok check-up için pratik bilgiler:",
+        list: [
+          "Vize: Türkiye pasaportu ile Tayland'a 30 gün vize muafiyeti — check-up için ek vize gerekmez",
+          "Uçuş süresi: İstanbul (IST/SAW) → Bangkok (BKK/DMK): doğrudan uçuş yok; Dubai (DXB), Doha (DOH), Abu Dhabi (AUH) veya Kuala Lumpur (KUL) aktarmalı 10–14 saat toplam uçuş",
+          "Havalimanı transferi: Suvarnabhumi (BKK) havalimanından Sukhumvit/Bumrungrad bölgesine ~45 dakika; taksi veya Express Rail Link ile",
+          "Önerilen Sukhumvit bölgesi: Bumrungrad, Samitivej Sukhumvit, Vejthani ve Bangkok Hospital tümü Nana/Asok/Phrom Phong BTS hattı yakınında — otel arama için 'Nana BTS' veya 'Asok BTS' kullanın",
+          "Check-up gün planı: aç karnına (8–12 saat) saat 07:00–08:00'de hastaneye gelin; standart paket 3–4 saatte tamamlanır; sonuçlar aynı gün PDF/e-posta ile",
+          "Türkçe konuşan tercüman: Bumrungrad International Patient Center'dan talep edin; ücret mevcut olabilir; Türkçe mevcut olup olmadığını önceden doğrulayın",
+          "Türkiye'ye dönüş için sonuçlar: tüm Bangkok hastane raporları İngilizce; Türkiye'deki doktorunuza veya sigortanıza teslim edebilirsiniz",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Bangkok'taki hastaneler Türkiye'deki özel hastaneler kadar güvenilir mi?", a: "Evet — Bumrungrad International, Samitivej, Bangkok Hospital ve BNH tümü JCI (Joint Commission International) belgeli hastanelerdir. JCI, dünyanın en prestijli hastane akreditasyon kuruluşudur ve Türkiye'nin saygın özel hastanelerinde de bulunan aynı standarttır. Bangkok'taki JCI hastanelerinde kullanılan laboratuvar sistemleri uluslararası akredite (ISO 15189) olup sonuçlar global standartlarda yorumlanabilir. Türk doktorlar, Bangkok JCI hastanesinden gelen check-up raporlarını kolaylıkla anlayacaktır." },
+      { q: "Bangkok check-up'ı Türkiye'deki sigortam kapsar mı?", a: "Genellikle hayır — Türk özel sağlık sigortaları yurt dışı check-up masraflarını karşılamaz. Ancak SGK veya özel sigorta olan hastalar check-up sonuçlarını (örneğin yüksek PSA, anormal EKG, şüpheli ultrason bulgusu) Türkiye'ye döndüklerinde takip tedavisi için kullanabilirler; bu takip sigorta kapsamında olabilir. Bazı kurumsal sağlık paketleri yurt dışı sağlık masraflarını karşılıyor olabilir — işvereninizin sigorta poliçesini kontrol edin." },
+      { q: "İstanbul'dan Bangkok'a uçmanın değeri var mı?", a: "Kapsamlı yönetici paketi, gastroskopi + kolonoskopi veya ileri kanser taraması planlıyorsanız: genellikle evet. Bangkok'taki yönetici check-up paketi (฿12.000–฿25.000 = ≈310–640 EUR) artı dönüş uçuş maliyeti (≈300–600 EUR), Türkiye özel hastane kapsamlı paket fiyatını karşılar veya daha ucuz olur. Tek kişilik temel kan tahlili için maliyet hesabı düşer; ancak eşinizle birlikte veya yıllık tatille birleştirirseniz ekonomik açıdan da mantıklı hale gelir." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand" },
+      { href: "/en/guide/health-checkup-uae-vs-thailand", label: "UAE vs Thailand" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
+    ],
+  },
+
   "health-checkup-japan-vs-thailand": {
     title: "Health Check-Up: Japan vs Thailand (2026) — Ningen Dock in Bangkok",
     description: "Compare health check-up costs between Japan and Thailand. Bangkok hospitals offer Ningen Dock-equivalent packages at 50–70% below Japanese prices. Japanese-speaking staff at BNH, Samitivej, and Bumrungrad.",
