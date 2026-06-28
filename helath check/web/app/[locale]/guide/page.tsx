@@ -641,6 +641,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "cardiac-ct-calcium-score-bangkok",
+    title: "Cardiac CT & Coronary Calcium Score Bangkok — Prices & Guide (2026)",
+    description: "CAC score ฿4,000–฿8,000, CT coronary angiography ฿15,000–฿35,000. Finds silent heart disease before symptoms. Score=0 means very low risk. Same-day, no referral needed.",
+    emoji: "❤️",
+    category: "Specialist Tests",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
