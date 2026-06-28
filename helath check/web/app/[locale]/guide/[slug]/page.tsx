@@ -174,6 +174,8 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/hospital/bumrungrad", label: "Bumrungrad packages" },
       { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
       { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej comparison" },
+      { href: "/en/guide/vejthani-hospital-health-checkup", label: "Vejthani Hospital — best value JCI" },
+      { href: "/en/guide/bnh-hospital-health-checkup", label: "BNH Hospital — expat favourite" },
     ],
   },
   "what-is-included-checkup": {

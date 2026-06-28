@@ -184,6 +184,8 @@ export default async function HospitalsPage({
             { href: `/${locale}/guide/what-is-included-checkup`, label: "What's included in each package tier" },
             { href: `/${locale}/guide/jci-hospitals-bangkok`, label: "JCI hospitals guide" },
             { href: `/${locale}/guide/bumrungrad-vs-samitivej-health-checkup`, label: "Bumrungrad vs Samitivej" },
+            { href: `/${locale}/guide/vejthani-hospital-health-checkup`, label: "Vejthani Hospital guide" },
+            { href: `/${locale}/guide/bnh-hospital-health-checkup`, label: "BNH Hospital guide" },
             { href: `/${locale}/guide/executive-health-checkup-bangkok`, label: "Executive packages guide" },
             { href: `/${locale}/guide/how-to-prepare-health-checkup-thailand`, label: "How to prepare" },
           ].map((g) => (
