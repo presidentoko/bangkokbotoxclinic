@@ -389,6 +389,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "bone-density-dexa-scan-bangkok",
+    title: "Bone Density DEXA Scan Bangkok — Osteoporosis Test Prices (2026)",
+    description: "DEXA scan Bangkok: ฿2,500–฿5,000. T-score interpretation, who should get tested (women 65+, men 70+, steroid users). Osteoporosis treatment options. No referral needed.",
+    emoji: "🦴",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

@@ -161,6 +161,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "fertility-test-bangkok",
       "sti-hiv-test-bangkok",
       "h-pylori-test-bangkok",
+      "bone-density-dexa-scan-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
