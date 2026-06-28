@@ -277,6 +277,31 @@ export default async function GuidesPage({
           </Link>
         </div>
       </div>
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "BangkokCheckup", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: "Guides", item: `${BASE}/${locale}/guide` },
+        ],
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Health Check-Up Guides for Thailand",
+        numberOfItems: GUIDES.length,
+        itemListElement: GUIDES.map((g, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Article",
+            headline: g.title,
+            description: g.description,
+            url: `${BASE}/${locale}/guide/${g.slug}`,
+          },
+        })),
+      }) }} />
     </div>
   );
 }
