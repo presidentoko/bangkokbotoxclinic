@@ -49,6 +49,25 @@ const SEGMENTS: Record<string, {
     relatedGuides: [
       { href: "/guide/health-checkup-expats-thailand", label: "Expat Health Check-Up Thailand Guide" },
       { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
+      { href: "/guide/vitamin-d-test-bangkok", label: "Vitamin D Test — Common in Expats" },
+    ],
+  },
+  "digital-nomad-health-checkup-bangkok": {
+    title: "Health Check-Up for Digital Nomads in Bangkok — Annual Check & Walk-In Labs (2026)",
+    h1: "Health Check-Up for Digital Nomads in Bangkok",
+    description: "No insurance? No problem. Bangkok's private hospitals offer walk-in blood tests and annual check-up packages from ฿1,500 — affordable self-pay health screening for digital nomads.",
+    filter: (p) => p.city === "Bangkok" && (p.has_blood === 1),
+    intro: "Bangkok is one of the world's top digital nomad hubs — and its private hospitals make health screening easy and affordable without any insurance or referral. Walk into a Bangkok private hospital laboratory in the morning, choose your tests, and have results by afternoon. Annual executive check-up packages from ฿5,000–฿8,000 cover everything a self-employed worker needs to track their health while living abroad.",
+    faqs: [
+      { q: "Can I get a health check-up in Bangkok without insurance?", a: "Yes — all Bangkok private hospitals accept self-pay patients for health check-ups. There's no referral needed and no insurance required. You pay directly at registration, either by card or cash. A comprehensive annual executive check-up costs ฿8,000–฿15,000 as a self-pay patient. Individual blood tests (glucose, cholesterol, liver, kidney) cost ฿1,500–฿3,000 as a walk-in." },
+      { q: "What is the cheapest annual health check-up for digital nomads in Bangkok?", a: "The most cost-effective full check-up for a self-employed person in their 30s–40s: a standard package including CBC, metabolic panel, lipid panel, thyroid (TSH), liver, kidney, chest X-ray, and doctor consultation runs ฿3,000–฿5,000. For full annual check-up value, executive packages at ฿7,000–฿10,000 add ultrasound, ECG, and cancer markers. Most Bangkok private hospitals allow walk-in morning bookings — no advance appointment needed." },
+      { q: "Are Vitamin D and thyroid tests recommended for digital nomads in Bangkok?", a: "Yes — both are worth testing annually. Vitamin D deficiency is surprisingly common in Bangkok digital nomads despite the tropical climate (many work indoors with air conditioning). Thyroid issues are also common in expats. Both tests cost ฿500–฿1,200 each as add-ons to any check-up package, or ฿300–฿600 as standalone walk-in tests." },
+    ],
+    relatedGuides: [
+      { href: "/guide/health-checkup-expats-thailand", label: "Expat Health Check-Up Thailand Guide" },
+      { href: "/guide/blood-test-price-bangkok", label: "All Blood Test Prices Bangkok" },
+      { href: "/guide/vitamin-d-test-bangkok", label: "Vitamin D Test Bangkok" },
+      { href: "/guide/executive-health-checkup-bangkok", label: "Executive Packages Guide" },
     ],
   },
   "japanese-health-checkup-bangkok": {

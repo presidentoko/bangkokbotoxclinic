@@ -418,6 +418,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             { href: `${base}/for/diabetes-screening-bangkok`, icon: "🩸", label: "Diabetes Screening" },
             { href: `${base}/for/health-checkup-tourists-thailand`, icon: "✈️", label: "Tourists (day trip)" },
             { href: `${base}/for/chinese-health-checkup-bangkok`, icon: "🇨🇳", label: "Chinese / 中文" },
+            { href: `${base}/for/digital-nomad-health-checkup-bangkok`, icon: "💻", label: "Digital Nomads" },
           ].map((item) => (
             <Link key={item.href} href={item.href}
               className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all group flex items-center gap-3">

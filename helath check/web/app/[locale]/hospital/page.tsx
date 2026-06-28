@@ -111,6 +111,7 @@ export default async function HospitalsPage({
           { href: `/${locale}/for/korean-health-checkup-bangkok`, label: "🇰🇷 Korean" },
           { href: `/${locale}/for/chinese-health-checkup-bangkok`, label: "🇨🇳 Chinese" },
           { href: `/${locale}/for/health-checkup-expats-bangkok`, label: "🌍 Expats" },
+          { href: `/${locale}/for/digital-nomad-health-checkup-bangkok`, label: "💻 Digital Nomads" },
         ].map(({ href, label }) => (
           <Link key={href} href={href}
             className="text-xs border border-slate-200 rounded-full px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-700 bg-white transition-colors">
