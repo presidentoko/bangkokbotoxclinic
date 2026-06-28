@@ -480,6 +480,13 @@ const GUIDES = [
     category: "Hospital Guides",
   },
   {
+    slug: "health-checkup-by-age-bangkok",
+    title: "Health Check-Up by Age in Bangkok — Tests at 30s, 40s, 50s, 60s+ (2026)",
+    description: "Evidence-based screening guide for Bangkok check-ups: glucose+lipids in your 30s, colonoscopy+mammogram in 50s, DEXA+cardiac echo at 60+. Walk-in JCI hospitals, ฿3,500–฿40,000.",
+    emoji: "📅",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
