@@ -2914,8 +2914,68 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Deutschland / Germany comparison" },
       { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-mexico-vs-thailand", label: "Mexico vs Thailand comparison" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
+  "health-checkup-mexico-vs-thailand": {
+    title: "Chequeo Médico: México vs Tailandia 2026 — Bangkok para Mexicanos y Latinos",
+    description: "Chequeo médico en México DF: $8,000–$40,000 MXN. Bangkok: ฿8,000–฿25,000 ($800–$2,500 MXN) — 40–70% de ahorro. JCI acreditado. Sin visa (30 días). Guía en español para México y LATAM.",
+    intro: "El sistema de salud privado en México ha visto incrementos de precios sustanciales en los últimos años, especialmente en chequeos ejecutivos completos, endoscopías e imágenes avanzadas. Al mismo tiempo, Bangkok se ha consolidado como el destino de turismo médico más importante de Asia: hospitales acreditados por JCI, resultados el mismo día, y costos significativamente menores a los de la medicina privada mexicana. Esta guía está escrita específicamente para pacientes mexicanos y latinoamericanos que consideran Bangkok para su chequeo anual.",
+    sections: [
+      {
+        heading: "Comparación de precios: México vs Bangkok (2026)",
+        content: "Precios aproximados en hospitales privados de México (CDMX/Guadalajara/Monterrey) vs hospitales JCI de Bangkok (tipo de cambio: 1 THB ≈ 0.80–1.00 MXN):",
+        list: [
+          "Endoscopía superior (gastroscopía): México privado $6,000–$15,000 MXN; Bangkok ฿4,500–฿8,000 (≈$3,600–$8,000 MXN) — Bangkok generalmente más barato + sedación incluida",
+          "Colonoscopía: México privado $8,000–$25,000 MXN; Bangkok ฿8,000–฿18,000 (≈$6,400–$18,000 MXN) — comparable o más barato en Bangkok",
+          "Resonancia magnética (cerebro o abdomen): México privado $5,000–$20,000 MXN; Bangkok ฿5,000–฿15,000 (≈$4,000–$15,000 MXN) — comparable pero sin espera en Bangkok",
+          "Mastografía (mamografía digital): México privado $800–$3,000 MXN; Bangkok ฿1,500–฿3,000 (≈$1,200–$3,000 MXN) — similar",
+          "Paquete ejecutivo completo (30–40 estudios: sangre, orina, ECG, RX, ultrasonido, marcadores tumorales, consulta): México privado $8,000–$40,000 MXN; Bangkok ฿12,000–฿25,000 (≈$9,600–$25,000 MXN) — ahorro 30–60%",
+          "PSA (próstata): México privado $400–$1,500 MXN; Bangkok ฿600–฿1,200 (≈$480–$1,200 MXN) — similar",
+          "Ultrasonido abdominal: México privado $800–$3,000 MXN; Bangkok ฿1,500–฿3,000 (≈$1,200–$3,000 MXN) — similar",
+          "Tomografía computarizada (TC de tórax, coronaria): México privado $3,000–$12,000 MXN; Bangkok ฿3,500–฿9,000 (≈$2,800–$9,000 MXN) — Bangkok más económico",
+        ],
+      },
+      {
+        heading: "IMSS, Seguro Popular, y las brechas del sistema",
+        content: "Por qué los mexicanos con seguro privado consideran Bangkok para su chequeo preventivo:",
+        list: [
+          "IMSS y ISSSTE: cobertura básica gratuita pero tiempos de espera de meses para estudios de imagen y procedimientos; los estudios preventivos no urgentes son difíciles de agendar en tiempo razonable",
+          "Seguro de gastos médicos mayores (GNP, Metlife, AXA, Monterrey): cubre enfermedades y cirugías pero raramente paquetes de chequeo preventivo ejecutivo completo; deducibles altos",
+          "Clínicas privadas en CDMX (ABC Medical Center, Médica Sur, TecSalud, Christus MUGUERZA): excelente calidad pero precios crecientes; citas de días o semanas para estudios avanzados",
+          "Para el mexicano en EE.UU. sin seguro o con deducible alto: Bangkok puede ser MÁS económico que una visita preventiva en EE.UU. incluyendo el vuelo — y con mejores resultados en tiempo de respuesta",
+          "Ventaja de Bangkok: citas el mismo día o siguiente, resultados misma tarde, todos los estudios en un solo lugar — que es difícil de lograr con múltiples proveedores en México",
+        ],
+      },
+      {
+        heading: "Guía práctica: de México a Bangkok para chequeo médico",
+        content: "Todo lo que necesitas saber para organizar tu chequeo en Bangkok desde México:",
+        list: [
+          "Visa: México no necesita visa para Tailandia — 30 días de estancia sin costo (como turista); no se requiere visa médica para chequeos preventivos",
+          "Vuelo: Ciudad de México (MEX) → Bangkok (BKK/Suvarnabhumi): sin vuelo directo; conexión típica vía Los Ángeles (LAX), Tokio (NRT), Seúl (ICN), Hong Kong (HKG) o Dubái (DXB); tiempo total 18–24 horas",
+          "Vuelo desde EE.UU.: si vives en Los Ángeles, San Francisco o Nueva York, vuelos directos a Bangkok más frecuentes y con menor tiempo de conexión",
+          "Aeropuerto y traslado: Suvarnabhumi (BKK) es el aeropuerto internacional principal; a Bumrungrad (Hospital Internacional) son 45 minutos en taxi o 30 min en Airport Rail Link + BTS",
+          "Hotel recomendado: zonas Nana, Asok o Phrom Phong en Sukhumvit — a pie o 1–2 estaciones BTS de Bumrungrad y Samitivej",
+          "Día del chequeo: llega en ayuno (8–12 horas) a las 7:00–8:00 am; paquete estándar 3–4 horas; resultados ese día en PDF por correo",
+          "Personal en español: Bumrungrad tiene coordinador de pacientes internacionales que habla español (verifica disponibilidad al reservar); médicos hablan inglés; lleva a alguien que traduzca si es necesario o usa Google Translate para el reporte en inglés",
+          "Pago: tarjeta Visa/Mastercard en todos los hospitales; efectivo en Baht disponible en cajeros del aeropuerto o del área de Sukhumvit",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Necesitan visa los mexicanos para viajar a Tailandia?", a: "No — los ciudadanos mexicanos tienen acceso libre a Tailandia por 30 días sin visa de turismo. Solo necesitan pasaporte vigente con al menos 6 meses de validez. Este tiempo es más que suficiente para un chequeo médico (1 día) más algunos días de turismo. No se requiere carta de hospital ni visa médica para chequeos preventivos de rutina." },
+      { q: "¿Mi médico en México puede interpretar los resultados de Bangkok?", a: "Sí — los hospitales JCI de Bangkok (Bumrungrad, Samitivej, Bangkok Hospital) emiten resultados completos en inglés con unidades y rangos de referencia internacionales. Los médicos mexicanos pueden interpretar directamente: glucosa en mg/dL, colesterol en mg/dL, hemoglobina en g/dL — las mismas unidades que en México. Pide siempre el reporte de laboratorio completo (no solo el resumen del médico) en PDF. Para estudios de imagen, pide el CD de DICOM." },
+      { q: "¿Vale la pena el viaje desde México a Bangkok para un chequeo?", a: "Para un paquete ejecutivo completo con endoscopías, imagen avanzada y marcadores tumorales: generalmente sí, especialmente si combinas el chequeo con turismo. El ahorro en el paquete (30–60% vs México privado) puede cubrir parte del vuelo. Para mexicanos en EE.UU. con seguro con deducible alto o sin acceso a prevención asequible, el cálculo es aún más favorable. Para estudios básicos de sangre solos — el viaje no tiene justificación económica. La clave es la combinación: chequeo ejecutivo completo + vacaciones en Bangkok." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-spain-vs-thailand", label: "Spain vs Thailand (Latin American guide)" },
+      { href: "/en/guide/health-checkup-brazil-vs-thailand", label: "Brazil vs Thailand" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
     ],
   },
 

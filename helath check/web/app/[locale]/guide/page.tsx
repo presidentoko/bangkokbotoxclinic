@@ -571,6 +571,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "health-checkup-mexico-vs-thailand",
+    title: "Chequeo Médico: México vs Tailandia — Bangkok para Mexicanos (2026)",
+    description: "Paquete ejecutivo en México: $8,000–$40,000 MXN. Bangkok: ฿12,000–฿25,000 (ahorro 30–60%). Sin visa 30 días. JCI acreditado. Resultados misma tarde. Guía en español.",
+    emoji: "🇲🇽",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
