@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -52,7 +52,7 @@ export default async function ValentinoBrandTH({ params }: Props) {
             {items.map(item => (
               <div key={item.id} className="flex justify-between items-center py-3 border-b border-gray-100">
                 <Link href={`/${locale}/${item.slug}`} className="text-gray-800 hover:text-blue-600 font-medium">{item.model}</Link>
-                <span className="text-green-700 font-medium">{formatPrice(item.price_ranges.very_good!.min)}–{formatPrice(item.price_ranges.very_good!.max)}</span>
+                <span className="text-green-700 font-medium">{formatPriceTHB(item.price_ranges.very_good!.min)}–{formatPriceTHB(item.price_ranges.very_good!.max)}</span>
               </div>
             ))}
           </div>

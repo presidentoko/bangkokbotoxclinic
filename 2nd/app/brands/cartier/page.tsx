@@ -33,9 +33,9 @@ export default function CartierBrandPage() {
   const items = getItemsByBrand('cartier').filter(i => i.retail_price_usd > 0)
 
   const categories = {
-    jewelry: items.filter(i => i.category === 'jewelry' || i.category === 'bracelets'),
+    jewelry: items.filter(i => (i.category as string) === 'jewelry' || (i.category as string) === 'bracelets'),
     watches: items.filter(i => i.category === 'watches'),
-    other: items.filter(i => !['jewelry', 'bracelets', 'watches'].includes(i.category)),
+    other: items.filter(i => !(['jewelry', 'bracelets', 'watches'] as string[]).includes(i.category)),
   }
 
   return (

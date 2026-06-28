@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -109,7 +109,7 @@ export default async function FendiVsLoeweTH({ params }: Props) {
                 {fendiItems.map(item => (
                   <div key={item.id} className="flex justify-between text-sm py-1.5 border-b border-gray-100">
                     <Link href={`/${locale}/${item.slug}`} className="text-gray-700 hover:text-blue-600">{item.model}</Link>
-                    <span className="text-gray-500">{formatPrice(item.price_ranges.very_good!.min)}+</span>
+                    <span className="text-gray-500">{formatPriceTHB(item.price_ranges.very_good!.min)}+</span>
                   </div>
                 ))}
               </div>
@@ -120,7 +120,7 @@ export default async function FendiVsLoeweTH({ params }: Props) {
                 {loeweItems.map(item => (
                   <div key={item.id} className="flex justify-between text-sm py-1.5 border-b border-gray-100">
                     <Link href={`/${locale}/${item.slug}`} className="text-gray-700 hover:text-blue-600">{item.model}</Link>
-                    <span className="text-gray-500">{formatPrice(item.price_ranges.very_good!.min)}+</span>
+                    <span className="text-gray-500">{formatPriceTHB(item.price_ranges.very_good!.min)}+</span>
                   </div>
                 ))}
               </div>
