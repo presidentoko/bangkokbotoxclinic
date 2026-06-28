@@ -2571,6 +2571,68 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-netherlands-vs-thailand", label: "Netherlands vs Thailand comparison" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/health-checkup-italy-vs-thailand", label: "Italy vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-italy-vs-thailand": {
+    title: "Health Check-Up: Italy vs Thailand 2026 — Bangkok per Italiani / Italian Guide",
+    description: "SSN visite specialistiche: 6–24 mesi di attesa. Privata in Italia: €200–€800. Bangkok JCI: ฿8,000–฿25,000 (€190–€600) — stessa qualità, nessuna attesa. Guida per italiani in Thailandia.",
+    intro: "Il Servizio Sanitario Nazionale italiano è tra i migliori del mondo in termini di copertura teorica — ma le liste d'attesa per visite specialistiche ed esami diagnostici preventivi sono diventate insostenibili: 6–24 mesi per risonanza magnetica, 3–12 mesi per ecografia o visita cardiologica, se si vuole evitare il privato. Un check-up preventivo completo in Italia (privato) costa €300–€1,200, mentre a Bangkok in un ospedale JCI accreditato si ottiene la stessa qualità per ฿8,000–฿25,000 (€190–€600) — senza attese. / Italy has one of the world's best healthcare systems in theory but one of the longest average wait times in the EU for specialist appointments. Bangkok's JCI hospitals offer Italians the same diagnostic quality at 60–80% lower private cost with next-day appointments.",
+    sections: [
+      {
+        heading: "Confronto prezzi: Italia privata vs Bangkok",
+        content: "Comparison of private health check-up costs: Italy vs Bangkok (2026):",
+        list: [
+          "Visita internistica + ECG + esami di base (Italia privata): €150–€400 / Bangkok: ฿4,000–฿8,000 (€95–€190) — risparmio 50–70%",
+          "Pacchetto completo (check-up con emocromo, profilo metabolico, colesterolo, glicemia, funzione renale/epatica, esame urine, Rx torace, ECG, visita medica): Italia privata €400–€1,200 / Bangkok ฿8,000–฿20,000 (€190–€475) — risparmio 60–70%",
+          "Ecografia addominale (Italia privata): €80–€200 / Bangkok: inclusa nel pacchetto o ฿1,500–฿3,000 (€36–€71) separata",
+          "Risonanza magnetica cerebrale (Italia privata): €300–€700 / Bangkok: ฿8,000–฿18,000 (€190–€425) — prezzi simili o leggermente inferiori a Bangkok",
+          "TC total body (Italia privata): €400–€900 / Bangkok: ฿10,000–฿25,000 (€240–€595) — prezzi comparabili",
+          "Mammografia digitale (Italia privata): €100–€250 / Bangkok: ฿1,200–฿2,800 (€28–€66) — risparmio 70–80%",
+          "Colonscopia (Italia privata): €400–€1,000 / Bangkok: ฿8,000–฿18,000 (€190–€425) — risparmio 40–60%",
+          "Note: i prezzi italiani privati variano molto — il Nord è generalmente più caro del Sud; Roma e Milano hanno le tariffe più alte",
+        ],
+      },
+      {
+        heading: "SSN vs privato in Italia — i tempi di attesa",
+        content: "Italian NHS (SSN) wait times for routine tests that Italians seek in Bangkok:",
+        list: [
+          "Ecografia addominale SSN: attesa media 60–180 giorni in molte regioni italiane",
+          "Risonanza magnetica SSN: 6–24 mesi in molte regioni del Centro-Sud; 3–6 mesi al Nord",
+          "Visita cardiologica SSN: 3–12 mesi",
+          "Gastroscopia (endoscopia SSN): 6–12+ mesi in molte regioni",
+          "Colonscopia SSN: 6–18 mesi — tranne per le emergenze",
+          "Visita oncologica SSN: 1–6 mesi (varia molto)",
+          "Ciò spiega perché molti italiani che trascorrono le vacanze in Thailandia (circa 300,000/anno) scelgono di eseguire check-up preventivi a Bangkok, dove le stesse indagini sono disponibili il giorno successivo alla prenotazione",
+          "Bangkok advantage for Italian tourists: no waiting list, English results accepted by Italian private specialists, lower cost than Italian private sector, possible to complete everything in one morning",
+        ],
+      },
+      {
+        heading: "Aspetti pratici: check-up a Bangkok per italiani",
+        content: "Practical guidance for Italians booking a health check-up in Bangkok:",
+        list: [
+          "Lingua: quasi tutti i medici dei principali ospedali privati di Bangkok parlano inglese eccellente. Non è necessario l'italiano — i referti sono in inglese con valori di riferimento internazionali (mmol/L, g/dL) compatibili con la medicina italiana",
+          "I referti sono accettati dai medici italiani? Sì — Bumrungrad, Samitivej e Bangkok Hospital forniscono referti completi in inglese. I medici privati italiani li leggono senza difficoltà. Chiedere sempre i risultati di laboratorio in formato PDF (non solo il riassunto medico)",
+          "Carte di credito: Visa, Mastercard, American Express accettate in tutti gli ospedali privati di Bangkok. Si può pagare direttamente senza anticipi tramite assicurazione",
+          "Il check-up a Bangkok è coperto dall'assicurazione sanitaria italiana? No — la copertura SSN non si estende ai controlli preventivi programmati all'estero. Alcune polizze private 'world coverage' o assicurazioni da viaggio premium coprono certi esami d'urgenza, non i check-up preventivi pianificati",
+          "Prenotare in anticipo: prenotare con 2–3 giorni di anticipo per i pacchetti completi con sedazione (per endoscopia). I prelievi del sangue e le ecografie sono spesso disponibili il giorno stesso",
+          "Ospedali consigliati per gli italiani: Bumrungrad International (il più internazionale), Samitivej Sukhumvit (atmosfera più riservata, prezzi leggermente inferiori), BNH Hospital (preferito dagli europei)",
+          "Dove alloggiare vicino agli ospedali: Bumrungrad è a Sukhumvit Soi 3 (zona Nana/Asok); Samitivej è a Soi 49; BNH è in zona Silom — tutti con molti hotel a pochi passi",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Il mio medico di base italiano accetta i referti di Bangkok?", a: "I medici di base italiani (MMG) generalmente non contestano i referti di ospedali stranieri accreditati, ma non sono obbligati ad inserirli nel fascicolo sanitario elettronico italiano. I medici privati italiani leggono senza problemi i referti in inglese di Bumrungrad o Samitivej. Per gli esami strumentali (ecografia, TAC, RMN), il CD con le immagini DICOM di Bangkok può essere riletto da qualsiasi radiologo italiano. Chiedere sempre un report del radiologo in inglese + immagini su CD." },
+      { q: "Ci sono medici italiani o italofoni a Bangkok?", a: "Non ci sono reparti dedicati agli italiani nelle strutture private di Bangkok, ma il personale dei dipartimenti internazionali parla ottimo inglese e alcune strutture dispongono di interpreti su prenotazione. La comunità italiana a Bangkok (circa 3,000–5,000 residenti) si appoggia principalmente a Bumrungrad e BNH Hospital per le cure. Alcuni medici italiani residenti a Bangkok esercitano privatamente come general practitioner — cercare su expat groups FB 'Italiani a Bangkok'." },
+      { q: "Vale la pena fare il check-up a Bangkok invece che in Italia?", a: "Dipende dal tuo caso specifico: se hai bisogno solo di esami del sangue di routine, la differenza di costo non giustifica un viaggio dedicato. Ma se sei già in Thailandia per le vacanze, aggiungere un check-up completo ha senso — risparmio del 60–80% rispetto al privato italiano, nessuna attesa, tutto in una mattinata. Se hai specifici esami specialistici (gastroscopia, colonscopia, risonanza magnetica) che in Italia richiederebbero mesi di attesa, il risparmio + immediatezza a Bangkok può essere significativo. Tipicamente gli italiani fanno il check-up di mattina e si godono Bangkok nel pomeriggio." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
     ],
   },
 

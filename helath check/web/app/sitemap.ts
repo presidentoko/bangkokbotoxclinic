@@ -163,6 +163,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "h-pylori-test-bangkok",
       "bone-density-dexa-scan-bangkok",
       "allergy-test-bangkok",
+      "health-checkup-italy-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

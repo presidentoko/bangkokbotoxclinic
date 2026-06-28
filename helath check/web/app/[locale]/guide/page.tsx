@@ -403,6 +403,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "health-checkup-italy-vs-thailand",
+    title: "Health Check-Up Italy vs Thailand (2026) — Bangkok per Italiani 🇮🇹",
+    description: "SSN wait times: 6–24 months for MRI. Private Italy: €400–€1,200. Bangkok JCI: ฿8,000–฿25,000 (€190–€600) — 60–80% cheaper. Italian guide with prices, results, practical tips.",
+    emoji: "🇮🇹",
+    category: "By Nationality",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
