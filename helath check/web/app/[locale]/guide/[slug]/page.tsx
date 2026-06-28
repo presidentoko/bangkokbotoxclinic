@@ -2237,6 +2237,75 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/medical-visa-thailand", label: "Medical visa Thailand guide" },
       { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic-speaking patients guide" },
+      { href: "/en/guide/health-checkup-indonesia-vs-thailand", label: "Indonesia vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-indonesia-vs-thailand": {
+    title: "Health Check-Up: Indonesia vs Thailand 2026 — Bangkok for Indonesian Patients",
+    description: "Compare health check-up costs between Indonesia and Bangkok. Jakarta's top private hospitals (RSPI, Mayapada, Pondok Indah) vs Bangkok JCI hospitals — Bangkok is 40–60% cheaper with same-day results.",
+    intro: "Indonesia sends over 2 million patients abroad for medical care annually — Thailand is the #1 destination. Jakarta's premium private hospitals (RS Pondok Indah, RSPI Sulianti Saroso, Mayapada Hospital, RS Siloam) offer good quality care, but comprehensive executive check-up packages can cost IDR 3–15 million (US$180–900). Bangkok's JCI-accredited hospitals offer equivalent or superior diagnostic scope at 40–60% lower cost, with same-day results. Many Indonesian patients combine a Bangkok check-up with shopping at Siam or Chatuchak Weekend Market.",
+    sections: [
+      {
+        heading: "Price comparison: Indonesia (Jakarta) vs Bangkok",
+        content: "Executive health check-up package comparison (approximate exchange rate: IDR 1 = ฿0.0024 / US$1 ≈ ฿35 ≈ IDR 15,600):",
+        list: [
+          "Basic blood check (CBC, gula darah, kolesterol, fungsi hati, ginjal) — Jakarta private: IDR 800k–2M | Bangkok: ฿2,500–฿5,000 (IDR 1M–2M) | Similar or 20–30% cheaper",
+          "Standard MCU (Medical Check-Up: blood + EKG + rontgen + USG) — Jakarta: IDR 2M–5M | Bangkok: ฿5,000–฿9,000 (IDR 2M–3.7M) | Saving 20–50%",
+          "Executive/Comprehensive MCU — Jakarta: IDR 5M–15M | Bangkok: ฿8,000–฿25,000 (IDR 3.3M–10.4M) | Saving 30–55%",
+          "MRI otak/kepala — Jakarta private: IDR 4M–10M | Bangkok: ฿5,000–฿12,000 (IDR 2M–5M) | Saving 30–50%",
+          "Gastroskopi (kamera lambung) — Jakarta: IDR 3M–8M | Bangkok: ฿4,500–฿9,000 (IDR 1.9M–3.7M) | Saving 30–50%",
+          "Skrining kanker (tumor marker) — Jakarta: IDR 2M–5M | Bangkok add-on: ฿3,000–฿6,000 (IDR 1.2M–2.5M) | Saving 40–55%",
+          "Key advantage: Bangkok packages typically include dokter konsultasi dan hasil hari yang sama (same-day results + doctor consultation) in one visit fee",
+        ],
+      },
+      {
+        heading: "Mengapa pasien Indonesia memilih Bangkok (Why Indonesian patients choose Bangkok)",
+        content: "Key reasons Indonesian medical tourists choose Bangkok over Jakarta or Singapore:",
+        list: [
+          "Harga lebih murah 40–60% dibanding Jakarta private hospitals untuk paket setara",
+          "Kualitas lebih tinggi dari Jakarta: Bangkok memiliki 9 rumah sakit bersertifikat JCI (standar internasional tertinggi) — Jakarta memiliki sedikit JCI hospital",
+          "Lebih murah dari Singapura: Bangkok 50–70% lebih murah dari Mount Elizabeth/Gleneagles untuk paket executive",
+          "Hasil hari yang sama (same-day results) — tidak perlu kembali 2–3 hari kemudian",
+          "English fully: Bumrungrad, Samitivej memiliki banyak staf bilingual; tidak ada hambatan bahasa",
+          "Kemudahan belanja dan wisata — bangkok hospital dekat BTS (Asoke/Sukhumvit), mudah ke pusat perbelanjaan",
+          "Bahasa Indonesia assistance di beberapa hospital on request; bahasa Melayu dipahami oleh staf Thailand Selatan dan sebagian staf Bangkok",
+        ],
+      },
+      {
+        heading: "Rumah sakit terbaik di Bangkok untuk pasien Indonesia",
+        content: "Top Bangkok hospitals most frequently chosen by Indonesian medical tourists:",
+        list: [
+          "Bumrungrad International — yang paling banyak dipilih pasien Indonesia, staf multilingual, JCI, dekat BTS Nana",
+          "Samitivej Sukhumvit — paket executive half-day, lebih tenang, JCI, sangat direkomendasikan",
+          "Vejthani Hospital — harga lebih terjangkau, JCI, sering dipilih untuk paket comprehensive",
+          "Bangkok Hospital (BDMS group) — jaringan luas, beberapa cabang di Bangkok; Phyathai 2 popular dengan Indonesian medical tourists",
+          "BNH Hospital — lebih kecil dan personal, reputasi baik di kalangan ekspatriat Asia Tenggara",
+        ],
+      },
+      {
+        heading: "Visa dan logistik untuk warga negara Indonesia",
+        content: "Practical information for Indonesian citizens planning a health check-up in Bangkok:",
+        list: [
+          "Visa: WNI (Warga Negara Indonesia) dapat masuk Thailand tanpa visa untuk 30 hari — tidak perlu Visa on Arrival atau e-Visa",
+          "Penerbangan: Jakarta (CGK) langsung ke Bangkok (BKK/DMK): ~3.5 jam dengan Garuda Indonesia, Lion Air, Thai AirAsia, atau Thai Lion Air",
+          "Bali (DPS) – Bangkok: ~4.5 jam; Surabaya (SUB) – Bangkok: ~3 jam",
+          "Strategi: tiba sore hari, puasa dari jam 22.00, check-up jam 7–8 pagi keesokan harinya, hasil dan konsultasi selesai sebelum jam 14.00",
+          "Pembayaran: Visa/Mastercard Indonesia berlaku di Thailand; BCA/Mandiri international cards diterima; cash USD/SGD mudah ditukar di money changer Sukhumvit",
+          "Asuransi: BPJS Kesehatan tidak menanggung perawatan elektif di luar negeri; gunakan asuransi perjalanan dari Prudential, AXA Mandiri, atau Allianz sebelum berangkat",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Apakah medical check-up di Bangkok lebih murah dari Jakarta?", a: "Ya — paket executive health check-up di Bangkok JCI-accredited hospital seperti Bumrungrad atau Samitivej umumnya 40–55% lebih murah dari RS Pondok Indah, Mayapada, atau RSPI Jakarta untuk lingkup yang setara. Keuntungan tambahan: hasil hari yang sama, tidak perlu kembali lagi, dan standar JCI internasional yang lebih tinggi dari kebanyakan RS swasta Jakarta." },
+      { q: "Apakah ada staf berbahasa Indonesia di rumah sakit Bangkok?", a: "Bumrungrad International memiliki staf dari berbagai negara termasuk berbahasa Melayu/Indonesia terbatas. Sebagian besar dokter dan staf Bumrungrad dan Samitivej berbahasa Inggris dengan sangat baik — bahasa Inggris adalah standar komunikasi internasional di sana. Untuk pasien yang tidak nyaman dengan bahasa Inggris, tersedia jasa penerjemah on-request melalui international patient department." },
+      { q: "Berapa lama waktu yang dibutuhkan untuk medical check-up di Bangkok?", a: "Paket standard (darah + EKG + rontgen + USG + konsultasi): sekitar 3–4 jam. Paket executive lengkap (termasuk semua organ panel + tumor marker): 4–6 jam. Paket premium dengan MRI: seharian penuh. Semua ini biasanya dilakukan dalam satu kunjungan, dengan hasil dan konsultasi dokter sebelum Anda pulang." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/health-checkup-india-vs-thailand", label: "India vs Thailand comparison" },
+      { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic/Muslim patients guide" },
     ],
   },
 

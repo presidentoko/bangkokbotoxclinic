@@ -291,6 +291,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-indonesia-vs-thailand",
+    title: "Indonesia vs Thailand Health Check-Up (2026) — Bangkok untuk Orang Indonesia",
+    description: "MCU di Bangkok vs Jakarta: 40–60% lebih murah, hasil hari yang sama, JCI accredited. Panduan untuk WNI yang ingin cek kesehatan di Thailand.",
+    emoji: "🇮🇩",
+    category: "Practical Guides",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
