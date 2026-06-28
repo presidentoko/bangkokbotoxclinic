@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/hospital/24h`,             priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/emergency`,       priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/surgery`,         priority: 0.8,  changeFrequency: 'weekly'  },
+    { url: `${BASE}/mri`,                      priority: 0.8,  changeFrequency: 'monthly' },
     { url: `${BASE}/compare`,                  priority: 0.7,  changeFrequency: 'weekly'  },
     { url: `${BASE}/adopt`,                    priority: 0.8,  changeFrequency: 'weekly'  },
     { url: `${BASE}/cost`,                     priority: 0.7,  changeFrequency: 'monthly' },
