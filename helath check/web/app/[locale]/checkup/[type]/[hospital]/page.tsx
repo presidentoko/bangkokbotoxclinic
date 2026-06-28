@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { type Locale, catLabel, CATEGORIES } from "@/lib/i18n";
+import { type Locale, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
 import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow } from "@/lib/db";
 
 export const revalidate = 3600;
@@ -24,6 +24,8 @@ export async function generateStaticParams() {
   }
 }
 
+const BASE = "https://www.bangkoktopclinic.com";
+
 export async function generateMetadata({
   params,
 }: {
@@ -31,10 +33,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, type, hospital } = await params;
   const label = catLabel(locale as Locale, type);
-  const slug = hospital.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const hospitalName = hospital.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   return {
-    title: `${label} Health Check-Up at ${slug} — Price & Details`,
-    description: `${label} check-up price, inclusions, and booking at ${slug} in Bangkok. Compare with other hospitals.`,
+    title: `${label} Health Check-Up at ${hospitalName} — Price & Inclusions 2026`,
+    description: `${label} check-up package at ${hospitalName}, Thailand. Real price, inclusions (blood, ultrasound, MRI, cancer markers), results timeline, and booking info.`,
+    alternates: {
+      canonical: `${BASE}/en/checkup/${type}/${hospital}`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/checkup/${type}/${hospital}`])),
+    },
   };
 }
 
@@ -171,6 +177,15 @@ export default async function PackageDetailPage({
       )}
 
       {/* Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: label, item: `${BASE}/${locale}/checkup/${type}` },
+          { "@type": "ListItem", position: 3, name: pkg.hospital_name, item: `${BASE}/${locale}/checkup/${type}/${hospital}` },
+        ],
+      }) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -178,15 +193,17 @@ export default async function PackageDetailPage({
             "@context": "https://schema.org",
             "@type": "Product",
             name: pkg.package_name,
-            description: `${label} health check-up at ${pkg.hospital_name}, Bangkok`,
+            description: `${label} health check-up at ${pkg.hospital_name}, Thailand. Price: ${pkg.price ? `฿${parseFloat(pkg.price).toLocaleString()}` : "on request"}`,
             offers: {
               "@type": "Offer",
               price: pkg.price ?? "0",
               priceCurrency: pkg.currency || "THB",
               availability: "https://schema.org/InStock",
+              url: `${BASE}/${locale}/checkup/${type}/${hospital}`,
               seller: {
                 "@type": "MedicalOrganization",
                 name: pkg.hospital_name,
+                ...(pkg.jci === 1 ? { medicalSpecialty: "International Patient Center" } : {}),
               },
             },
           }),

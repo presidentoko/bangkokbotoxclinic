@@ -16,23 +16,25 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; city?: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { category } = await searchParams;
+  const { category, city } = await searchParams;
   const cat = category || "executive";
   const loc = locale as Locale;
   const label = catLabel(loc, cat);
   const languages: Record<string, string> = {};
   for (const l of LOCALES) languages[l] = `${BASE}/${l}/compare?category=${cat}`;
+  const cityLabel = city ? ` in ${city}` : " Thailand";
+  const cities = city ? city : "Bangkok, Phuket, Chiang Mai";
   return {
-    title: `${label} Health Check-Up Thailand — Price Comparison Bangkok, Phuket, Chiang Mai`,
-    description: `Compare ${label.toLowerCase()} health check-up packages across Thailand hospitals — Bangkok, Phuket, Chiang Mai and more. Real prices, JCI hospitals, MRI/CT/cancer marker inclusion. Updated weekly.`,
+    title: `${label} Health Check-Up${cityLabel} — Compare Prices 2026`,
+    description: `Compare ${label.toLowerCase()} health check-up packages across ${cities} hospitals. Real scraped prices, JCI status, MRI/CT/cancer marker inclusion filters. Updated weekly.`,
     alternates: { canonical: `${BASE}/${locale}/compare?category=${cat}`, languages },
     openGraph: {
-      title: `${label} Health Check-Up Thailand — Compare Prices`,
-      description: `Find the best ${label.toLowerCase()} health check-up in Thailand. Compare real prices across Bangkok, Phuket, Chiang Mai hospitals.`,
-      url: `${BASE}/${locale}/compare?category=${cat}`,
+      title: `${label} Health Check-Up${cityLabel} — Compare Prices`,
+      description: `Find the best ${label.toLowerCase()} health check-up in ${cities}. Real prices, no ads, filter by MRI/cancer screening.`,
+      url: `${BASE}/${locale}/compare?category=${cat}${city ? `&city=${city}` : ""}`,
     },
   };
 }
