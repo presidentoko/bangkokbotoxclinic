@@ -417,6 +417,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-south-africa-vs-thailand",
+    title: "Health Check-Up South Africa vs Thailand (2026) — Bangkok for South Africans",
+    description: "SA private check-up R5,000–R25,000. Bangkok JCI: ฿8,000–฿25,000 (R3,200–R10,000). Discovery Health doesn't cover preventive screening abroad. Gastroscopy 55–65% cheaper.",
+    emoji: "🇿🇦",
+    category: "By Nationality",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

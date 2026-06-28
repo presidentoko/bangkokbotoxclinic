@@ -2895,7 +2895,67 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic speakers — best Bangkok hospitals" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/health-checkup-south-africa-vs-thailand", label: "South Africa vs Thailand comparison" },
       { href: "/en/for/arabic-health-checkup-bangkok", label: "Arabic segment packages" },
+    ],
+  },
+
+  "health-checkup-south-africa-vs-thailand": {
+    title: "Health Check-Up: South Africa vs Thailand 2026 — Bangkok for South Africans",
+    description: "South African medical aid (Discovery Health, Momentum) gaps. Private SA check-up R5,000–R25,000. Bangkok JCI: ฿8,000–฿25,000 (R3,200–R10,000) — 30–60% cheaper with zero waiting.",
+    intro: "South Africa operates a two-tier healthcare system: a severely underfunded public sector (government hospitals) and a high-cost private sector. Medical aid schemes (Discovery Health, Momentum, Bonitas, Medihelp) are essential for middle-class South Africans but leave significant out-of-pocket gaps on preventive screening. A comprehensive private health check-up in South Africa costs R5,000–R25,000 — while the same scope at a JCI-accredited Bangkok hospital costs ฿8,000–฿25,000 (R3,200–R10,000 at 2026 exchange rates), typically 30–60% cheaper and with next-day appointments. South Africa sends approximately 400,000 tourists to Thailand annually.",
+    sections: [
+      {
+        heading: "Health check-up cost comparison: South Africa vs Thailand",
+        content: "Private hospital health check-up prices — South Africa vs Bangkok (2026):",
+        list: [
+          "Basic check-up (FBC, metabolic panel, cholesterol, glucose, urinalysis, chest X-ray, ECG): SA private R3,000–R8,000 / Bangkok ฿4,000–฿8,000 (R1,600–R3,200) — Bangkok 40–60% cheaper",
+          "Comprehensive check-up (full organ function + cancer markers): SA private R10,000–R25,000 / Bangkok ฿10,000–฿25,000 (R4,000–R10,000) — Bangkok 30–60% cheaper depending on exchange rate",
+          "Executive package (+ MRI or cardiac CT): SA private R25,000–R70,000+ / Bangkok ฿25,000–฿60,000 (R10,000–R24,000) — comparable to SA, sometimes cheaper at Bangkok",
+          "Ultrasound abdomen (SA private): R1,500–R3,500 / Bangkok: ฿1,500–฿3,000 (R600–R1,200) — Bangkok significantly cheaper",
+          "Gastroscopy (SA private): R8,000–R20,000 / Bangkok: ฿4,500–฿9,000 (R1,800–R3,600) — Bangkok 50–65% cheaper",
+          "Colonoscopy (SA private): R12,000–R30,000 / Bangkok: ฿8,000–฿18,000 (R3,200–R7,200) — Bangkok 50–60% cheaper",
+          "Note: South African Rand has weakened significantly vs Thai Baht — at current exchange rates (approx. R2.5 = ฿1), Bangkok offers excellent value. Monitor exchange rate before booking.",
+          "Currency conversion: ฿1,000 ≈ R400–R500 (variable 2026); Bangkok hotel + health check-up + flights can still be cheaper than SA private equivalent for comprehensive packages",
+        ],
+      },
+      {
+        heading: "Medical aid and Discovery Health — what's covered",
+        content: "South African medical aid scheme coverage for preventive health screening:",
+        list: [
+          "Discovery Health: PMB (Prescribed Minimum Benefits) covers treatment of chronic conditions but NOT routine preventive health screening packages",
+          "Discovery Vitality programme: wellness benefits include annual screening (some blood tests, BMI, BP) but not comprehensive executive health check-up packages",
+          "Momentum, Bonitas, Medihelp: similar to Discovery — preventive health screening rarely covered as a comprehensive package; some schemes offer limited annual check-up benefit (R2,000–R5,000)",
+          "Gap cover: some South Africans have gap cover for shortfalls on in-hospital procedures; this does not cover preventive check-up packages",
+          "What to do: if your SA medical aid doesn't cover preventive screening, paying self-pay in Bangkok is often cheaper than the co-payment you'd pay in SA anyway",
+          "Discovery Vitality international: does NOT extend health check-up benefits to Thailand. Travel insurance may cover emergency care but not planned preventive procedures",
+        ],
+      },
+      {
+        heading: "Practical guide: South Africans in Bangkok for a health check-up",
+        content: "Logistics for South Africans visiting Bangkok for health screening:",
+        list: [
+          "Visa: South African passport holders can enter Thailand without a visa for 30 days — no prior application needed",
+          "Flights: Johannesburg (JNB) to Bangkok (BKK): typically 11–13 hours with one stop (Singapore, Dubai, Doha, Hong Kong); no direct flights currently; Thai Airways, Singapore Airlines, Emirates, Qatar, Cathay Pacific",
+          "Flight cost: typically ZAR 12,000–R25,000 return from Johannesburg to Bangkok depending on season — factor this into the value calculation for shorter stays",
+          "Best for South Africans: multi-purpose trip — combine Bangkok check-up with Thailand vacation to amortise flight cost; Phuket or Koh Samui resort + Bangkok health check-up is a popular combination",
+          "English: all major Bangkok hospitals offer full English-language care; South African English accents are well-understood",
+          "Hospitals recommended: Bumrungrad (largest international infrastructure), Samitivej (more private, executive atmosphere), BNH (European-style, smaller)",
+          "Payment: Visa/Mastercard (Capitec, Absa, Standard Bank, FNB international cards) all work at Bangkok hospitals; notify your bank before departure; cash USD is also accepted",
+          "Results to bring home: full PDF lab report + image CD for any scans; acceptable by South African private specialists and for Discovery Health documentation",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Bangkok significantly cheaper than South Africa for health check-ups?", a: "Yes — especially for comprehensive and procedure-based packages. A gastroscopy in SA private costs R8,000–R20,000; in Bangkok ฿4,500–฿9,000 (R1,800–R3,600) — 55–65% cheaper. A comprehensive check-up with cancer markers: SA private R10,000–R25,000; Bangkok ฿10,000–฿25,000 (R4,000–R10,000) — 40–60% cheaper. The Rand/Baht exchange rate significantly affects the value calculation — check the current rate before booking. At 2026 exchange rates, Bangkok offers substantial savings on procedure-heavy packages." },
+      { q: "Will my Discovery Health medical aid cover a health check-up in Bangkok?", a: "No — Discovery Health PMB benefits and standard plans do not cover preventive health screening abroad. Discovery Vitality wellness benefits (annual screening) are also only valid in South Africa. If you travel to Thailand for planned preventive care, you pay out of pocket at Bangkok hospitals. This is typically self-pay via credit card, directly at the hospital. Keep all invoices and results for your own records — though you cannot claim reimbursement from Discovery for planned overseas preventive care." },
+      { q: "Is the quality of Bangkok hospitals comparable to South African private hospitals?", a: "Yes — Bumrungrad, Samitivej, Bangkok Hospital, Vejthani, and BNH are all JCI-accredited (Joint Commission International), the same international standard used to evaluate Netcare, Mediclinic, and Life Healthcare hospitals in South Africa (several of which hold JCI accreditation). Bangkok's JCI hospitals have equipment, specialist depth, and infection control standards comparable to or exceeding South Africa's best private hospitals. The main practical difference is language — Thai is the primary language, but English is excellent at all JCI hospitals." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
+      { href: "/en/guide/health-checkup-australia-vs-thailand", label: "Australia vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
     ],
   },
 

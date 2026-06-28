@@ -165,6 +165,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "allergy-test-bangkok",
       "health-checkup-italy-vs-thailand",
       "health-checkup-philippines-vs-thailand",
+      "health-checkup-south-africa-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
