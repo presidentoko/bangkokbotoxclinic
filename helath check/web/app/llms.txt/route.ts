@@ -24,7 +24,7 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **110+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
+- **120+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
 - **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
 
 ## Key pages
@@ -110,6 +110,13 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Anaemia & iron deficiency — ferritin, IV iron: ${BASE}/en/guide/anemia-iron-test-bangkok
 - Kidney function test Bangkok (creatinine, eGFR): ${BASE}/en/guide/kidney-function-test-bangkok
 - Liver function test Bangkok (ALT, AST, FibroScan): ${BASE}/en/guide/liver-function-test-bangkok
+- Gout treatment Bangkok (allopurinol ฿30-฿150/mo): ${BASE}/en/guide/gout-treatment-bangkok
+- Anaemia & iron deficiency Bangkok (ferritin, FibroScan): ${BASE}/en/guide/anemia-iron-test-bangkok
+- Vitamin B12 deficiency (injection ฿200-฿500): ${BASE}/en/guide/vitamin-b12-deficiency-bangkok
+- Diabetes management Bangkok (metformin, SGLT2, GLP-1): ${BASE}/en/guide/diabetes-management-bangkok
+- Fatty liver NAFLD/MASLD Bangkok (FibroScan ฿3k-฿6k): ${BASE}/en/guide/fatty-liver-bangkok
+- Thyroid nodule Bangkok (FNAC biopsy, TI-RADS): ${BASE}/en/guide/thyroid-nodule-bangkok
+- Cardiac CT & coronary calcium score (CAC ฿4k-฿8k): ${BASE}/en/guide/cardiac-ct-calcium-score-bangkok
 
 ## Country Comparison Guides (How Much You Save)
 
@@ -141,6 +148,11 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Poland vs Thailand (NFZ gaps, po polsku): ${BASE}/en/guide/health-checkup-poland-vs-thailand
 - Egypt vs Thailand (بالعربية, e-Visa): ${BASE}/en/guide/health-checkup-egypt-vs-thailand
 - Argentina vs Thailand (en español — OSDE/Swiss Medical gaps): ${BASE}/en/guide/health-checkup-argentina-vs-thailand
+- Colombia vs Thailand (en español — EPS/prepagada gaps): ${BASE}/en/guide/health-checkup-colombia-vs-thailand
+- Pakistan vs Thailand (Hep B, halal, Aga Khan vs JCI): ${BASE}/en/guide/health-checkup-pakistan-vs-thailand
+- Bangladesh vs Thailand (direct DAC–BKK 2.5hrs, halal): ${BASE}/en/guide/health-checkup-bangladesh-vs-thailand
+- Kenya vs Thailand (Aga Khan vs Bangkok, 60-75% cheaper): ${BASE}/en/guide/health-checkup-kenya-vs-thailand
+- Saudi Arabia vs Thailand (no visa since 2023, Arabic services): ${BASE}/en/guide/health-checkup-saudi-arabia-vs-thailand
 
 ## Practical Guides
 
