@@ -1475,9 +1475,10 @@ const GUIDES: Record<string, Guide> = {
       { q: "Is colonoscopy recommended as part of a men's check-up?", a: "Colonoscopy is recommended from age 45–50 for average-risk men, or earlier if there's a family history of colorectal cancer. Bangkok hospitals offer colonoscopy as an add-on to executive check-ups. The procedure costs ฿7,000–฿15,000 under sedation, compared to USD 1,500–3,500 in the US without insurance. Colonoscopy requires a separate bowel prep appointment the day before." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=men", label: "Compare men's packages" },
+      { href: "/en/compare?category=men", label: "Compare men's health packages" },
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening guide" },
-      { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health guide" },
+      { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health check-up guide" },
+      { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your results" },
     ],
   },
 
@@ -1728,7 +1729,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "What health checks are Koreans most likely to add?", a: "Koreans commonly add gastroscopy (위내시경, ฿4,500–฿9,000) and colonoscopy (대장내시경, ฿7,000–฿15,000) which have high uptake in Korea. H. pylori testing is also popular (high prevalence in Korean adults). Cancer markers including AFP, CEA, CA19-9, and PSA/CA125 are commonly requested." },
     ],
     relatedLinks: [
-      { href: "/en/for/japanese-health-checkup-bangkok", label: "Japanese health check-up packages" },
+      { href: "/en/for/korean-health-checkup-bangkok", label: "Korean health check-up packages (한국어)" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/compare?category=executive", label: "Compare executive packages" },
     ],
