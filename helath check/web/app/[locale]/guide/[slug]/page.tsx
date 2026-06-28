@@ -2009,6 +2009,81 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "private-vs-government-hospital-thailand": {
+    title: "Private vs Government Hospital in Thailand — Which to Choose (2026)",
+    description: "Should you go to a government hospital or private hospital for a health check-up in Thailand? Cost, waiting time, quality, English service — full comparison for expats and medical tourists.",
+    intro: "Thailand has two parallel healthcare systems: an extensive government hospital network (funded by taxes, ultra-cheap, long waits) and a world-class private hospital sector (fee-based, fast, English-friendly). For health check-ups, the right choice depends heavily on your priorities — cost vs time, Thai language vs English, basic testing vs comprehensive screening.",
+    sections: [
+      {
+        heading: "Cost comparison: private vs government hospitals",
+        content: "Price difference is the most significant factor. Government hospitals are heavily subsidised:",
+        list: [
+          "Basic blood panel at government hospital: ฿200–฿600 (Thai citizens via Universal Coverage Scheme may pay ฿30–฿100)",
+          "Same basic blood panel at private hospital: ฿800–฿2,000",
+          "Comprehensive check-up at government hospital: ฿1,500–฿4,500 (longer queue, fewer inclusions)",
+          "Comprehensive check-up at private hospital: ฿4,000–฿12,000 (faster, more inclusions, English results)",
+          "Executive check-up (not widely available at govt hospitals): ฿8,000–฿15,000 at select university hospitals vs ฿15,000–฿40,000 at top private hospitals",
+          "For foreigners: government hospitals charge non-resident rates, narrowing the price gap significantly",
+        ],
+      },
+      {
+        heading: "Waiting time: the biggest practical difference",
+        content: "Waiting time is where government and private hospitals diverge most:",
+        list: [
+          "Government hospital walk-in queue: 2–6 hours is common; popular hospitals (Siriraj, Chulalongkorn) may mean all-day waits",
+          "Government hospital appointment: 2–4 weeks for non-urgent check-ups",
+          "Private hospital walk-in health check-up: 15–45 minutes to start; full check-up completed in 3–5 hours",
+          "Private hospital appointment: same day or next day for most packages",
+          "Results: government hospitals 3–14 days; private hospitals typically same-day to 24 hours",
+        ],
+      },
+      {
+        heading: "English language support",
+        content: "Language is a critical consideration for foreign visitors:",
+        list: [
+          "Government hospitals: English is available at International Patient departments, but depth of English service varies. Siriraj International, Chulalongkorn (King Chulalongkorn Memorial Hospital) and Ramathibodi have dedicated English-language services, but availability is limited",
+          "Private hospitals (JCI): all staff at Bumrungrad, Samitivej, Vejthani, BNH, Bangkok Hospital speak English. Results, reports, and consultations are fully in English",
+          "Non-JCI private hospitals: English support is usually available but less consistent",
+          "For medical tourists: private hospitals are strongly recommended for English-language experience",
+        ],
+      },
+      {
+        heading: "When to choose a government hospital",
+        content: "Government hospitals make sense in specific situations:",
+        list: [
+          "You have Thai national health insurance (30-Baht Scheme, CSMBS, SSF) — check-ups may be free or ฿30",
+          "You want the lowest absolute price for a simple blood test and can wait",
+          "You are a long-term resident comfortable navigating the Thai-language system",
+          "You want specific specialist care not available at private hospitals — some government university hospitals lead in rare-disease treatment",
+          "Budget check-ups: Siriraj, Chulalongkorn Memorial, and Ramathibodi offer quality lab testing at low prices",
+        ],
+      },
+      {
+        heading: "When to choose a private hospital",
+        content: "Private hospitals are the right choice for most health check-up scenarios:",
+        list: [
+          "You are a foreign visitor, expat, or medical tourist — English service, fast results, international payment options",
+          "You want a comprehensive check-up completed in one day — private hospitals process blood, imaging, and ECG simultaneously",
+          "You want same-day results with a doctor consultation to review findings",
+          "You have international health insurance — private hospitals provide the documentation insurers require",
+          "You want JCI accreditation standards, international safety protocols, and a verifiable quality benchmark",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can foreigners use Thai government hospitals for health check-ups?", a: "Yes — government hospitals are open to all patients, including foreigners. However, foreigners pay the 'non-registered' rate rather than the subsidised Thai citizen rate. This reduces the price advantage. Expect to pay ฿1,500–฿5,000 for a comprehensive check-up at a government hospital as a foreigner, compared to ฿4,000–฿8,000 at a private hospital — but with much longer waits and less English support at the government facility." },
+      { q: "Is a Siriraj health check-up as accurate as a private hospital?", a: "Lab accuracy is comparable — government university hospitals like Siriraj and Chulalongkorn use ISO 15189-accredited laboratories with the same equipment as private hospitals. The difference is in speed, patient experience, English reporting, imaging scope, and specialist consultation time. For the lab tests themselves, accuracy is not a concern." },
+      { q: "Are Bangkok's government hospitals really that slow?", a: "Popular government hospitals during peak times (7–9 AM) have queues of 200–400+ patients. Health check-ups are lower priority than acute care. Realistically, a foreigner attempting a walk-in health check-up at Siriraj would likely wait 3–6 hours and may not complete all tests the same day. Private hospitals process health check-up patients on a dedicated fast track, typically finishing in 3–5 hours." },
+      { q: "Which private hospitals are closest in price to government hospitals?", a: "Phyathai 1, Phyathai 2, and Phyathai 3 hospitals offer competitive pricing close to the budget end of the private market. Vibhavadi Hospital, Kasemrad, and Ramkhamhaeng Hospital are also competitively priced. These non-JCI private hospitals offer basic packages from ฿1,200–฿2,500 with English service and fast results — the best compromise between government hospital price and private hospital experience." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up complete guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/for/budget-health-checkup-bangkok", label: "Budget packages under ฿3,000" },
+      { href: "/en/compare?category=basic", label: "Compare basic packages" },
+    ],
+  },
+
   "executive-health-checkup-bangkok": {
     title: "Executive Health Check-Up Bangkok — Best Packages, Prices & Hospitals (2026)",
     description: "Complete guide to executive health check-up packages in Bangkok. Compare prices at Bumrungrad, Samitivej, Bangkok Hospital. What's included, how to book, what to expect.",

@@ -284,6 +284,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "private-vs-government-hospital-thailand",
+    title: "Private vs Government Hospital Thailand — Which to Choose",
+    description: "Cost, waiting time, English service — full comparison of Thai private and government hospitals for health check-ups.",
+    emoji: "🏥",
+    category: "Practical Guides",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",
