@@ -107,6 +107,14 @@ const CATEGORY_FAQS: Record<string, { q: string; a: string }[]> = {
     { q: "What health check-up should I get based on my age in Bangkok?", a: "Bangkok hospitals offer age-tailored programmes: Under 30 — basic blood panel (฿3,000–฿6,000). Age 30–45 — adds cholesterol, blood sugar, liver (฿8,000–฿18,000). Age 45–60 — adds cardiac, bone density (฿15,000–฿35,000). Age 60+ — comprehensive geriatric screen (฿20,000–฿50,000)." },
     { q: "Which Bangkok hospital has the best age-based health check-up packages?", a: "Bangkok Hospital (BDMS) and Phyathai Hospital group offer the most detailed age-stratified packages, with specific programmes for each age bracket clearly listed by gender." },
   ],
+  senior: [
+    { q: "What is a senior health check-up package in Bangkok?", a: "Senior packages are designed for adults 60+ and include age-appropriate tests: bone density scan (DEXA), cognitive function assessment, prostate health (PSA for men), colorectal cancer markers, cardiac risk assessment, thyroid, and a geriatric physician consultation. Prices range from ฿3,500 for a basic senior screen to ฿40,000 for an executive senior package." },
+    { q: "Which Bangkok hospital is best for senior health check-ups?", a: "Bumrungrad International has a dedicated Geriatric & Senior Health Centre. Samitivej Sukhumvit has the most comprehensive senior packages for women. Bangkok Hospital (BDMS) has the widest senior programme range across all cities." },
+  ],
+  diabetes: [
+    { q: "What diabetes tests can I get at Bangkok hospitals?", a: "Bangkok private hospitals offer fasting blood glucose (฿100–฿300), HbA1c (฿300–฿600), fasting insulin, 2-hour OGTT (oral glucose tolerance test), C-peptide, and microalbumin for kidney monitoring. A full diabetic metabolic panel costs ฿1,500–฿9,000 depending on what's included." },
+    { q: "Do I need to fast for a diabetes blood test in Bangkok?", a: "Yes, fasting for 8–12 hours is required for fasting glucose and most HbA1c tests. Book a morning appointment, drink only water, and bring your current medications list. Most Bangkok private hospitals offer walk-in blood tests with same-day results." },
+  ],
 };
 
 const CAT_ICONS: Record<string, string> = {
