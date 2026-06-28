@@ -161,6 +161,17 @@ export default async function CityPage({
         <p>A basic health check-up in {cityName} takes 1–2 hours. Comprehensive or executive packages with ultrasound, CT, and specialist consultations typically take 3–5 hours. Results are usually available within 1–3 business days, with some hospitals offering same-day results.</p>
       </div>
 
+      {/* Link to editorial guide if exists */}
+      <div className="mt-8 p-4 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <p className="text-sm font-semibold text-slate-700">Want to learn more about health check-ups in {cityName}?</p>
+          <p className="text-xs text-slate-500 mt-0.5">Our editorial guide covers prices, which tests to expect, and how to book.</p>
+        </div>
+        <Link href={`/${locale}/guide/${city}-health-checkup`} className="shrink-0 text-sm font-semibold text-blue-600 hover:underline">
+          Read {cityName} guide →
+        </Link>
+      </div>
+
       {/* ItemList JSON-LD — hospitals in this city */}
       {rows.length > 0 && (() => {
         const slugs = [...new Set(rows.map((r) => r.hospital_slug))];
