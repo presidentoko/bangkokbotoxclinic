@@ -151,6 +151,20 @@ const GUIDES = [
     category: "City Guides",
   },
   {
+    slug: "krabi-health-checkup",
+    title: "Krabi Health Check-Up Guide (2026)",
+    description: "Andaman coast hub. Private hospitals in Krabi town near the pier and island gateway.",
+    emoji: "⛰️",
+    category: "City Guides",
+  },
+  {
+    slug: "udon-thani-health-checkup",
+    title: "Udon Thani Health Check-Up Guide (2026)",
+    description: "Isan's second city. Popular with expats from the US and Europe. Competitive prices 30–45% below Bangkok.",
+    emoji: "🏯",
+    category: "City Guides",
+  },
+  {
     slug: "rayong-health-checkup",
     title: "Rayong Health Check-Up Guide (2026)",
     description: "Eastern Seaboard industrial hub. Bangkok Hospital Rayong + 3 other options. Prices from ฿1,500.",
