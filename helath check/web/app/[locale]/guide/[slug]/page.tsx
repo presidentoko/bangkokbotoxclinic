@@ -1850,6 +1850,111 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/city/nakhon-si-thammarat", label: "Compare NST packages" },
     ],
   },
+
+  "koh-chang-health-checkup": {
+    title: "Health Check-Up in Koh Chang — Prices, Hospitals & Packages (2026)",
+    description: "Compare health check-up packages at hospitals in and near Koh Chang, Thailand's second-largest island. Nearest facilities in Trat. Basic packages from ฿2,500.",
+    intro: "Koh Chang island itself has limited medical infrastructure — for anything beyond basic care, visitors use Trat Province on the mainland (30 minutes by ferry). Trat Hospital and Bang Phloi Hospital offer basic and standard health check-up packages for tourists. For comprehensive or executive packages, Bangkok Hospital Chanthaburi (1.5 hours away) or Bangkok Pattaya Hospital (3 hours) are better options.",
+    sections: [
+      {
+        heading: "Health check-up options near Koh Chang",
+        content: "Practical options depending on your budget and requirements:",
+        list: [
+          "Koh Chang International Clinic — on-island, for basic tests and consultation only",
+          "Trat Hospital — government facility in Trat town, cheapest, basic check-up packages ฿2,500+",
+          "Bang Phloi Hospital Trat — mid-tier private, better for annual check-ups, ฿3,000–฿8,000",
+          "Bangkok Hospital Chanthaburi — 90 min drive, full executive packages from ฿15,000 (recommended for comprehensive screening)",
+        ],
+      },
+      {
+        heading: "Tips for getting a health check-up around Koh Chang",
+        content: "Planning advice for island visitors:",
+        list: [
+          "Book the Bangkok Hospital Chanthaburi executive package in advance — it fills up weeks ahead",
+          "On-island clinics are for basic blood tests or repeat medication only — not for real health check-ups",
+          "The ferry to Trat mainland takes 45 minutes from Koh Chang Pier (Ban Dan Ao)",
+          "Most check-up packages at Trat hospitals give same-day results for basic blood panels",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is there a hospital on Koh Chang for health check-ups?", a: "Koh Chang has international clinics for basic care and minor emergencies, but no full hospital offering comprehensive health check-up packages. For a proper annual health screening with blood tests, ECG, ultrasound, and doctor consultation, take the 45-minute ferry to Trat and visit Bang Phloi Hospital or Trat Hospital." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/pattaya-health-checkup", label: "Pattaya health check-up guide" },
+      { href: "/en/city/koh-chang", label: "Compare Koh Chang packages" },
+    ],
+  },
+
+  "lampang-health-checkup": {
+    title: "Health Check-Up in Lampang — Prices, Hospitals & Packages (2026)",
+    description: "Compare health check-up packages at hospitals in Lampang, northern Thailand. 2 hours south of Chiang Mai. Packages from ฿2,000 at private hospitals.",
+    intro: "Lampang is a charming northern city 100 km south of Chiang Mai, famous for horse-drawn carriages and traditional Lanna culture. Its private hospitals serve both residents and visitors passing through to Chiang Rai or heading south. Prices are 20–35% lower than Chiang Mai and wait times are shorter — a good option for those already in the area.",
+    sections: [
+      {
+        heading: "Health check-up prices in Lampang",
+        content: "Private hospital packages in Lampang:",
+        list: [
+          "Basic package (CBC, blood glucose, urine): ฿2,000 – ฿4,200",
+          "Standard package (+ ECG, X-ray, kidney/liver): ฿4,200 – ฿8,500",
+          "Comprehensive (+ ultrasound, thyroid, hepatitis): ฿7,500 – ฿14,000",
+          "Executive: ฿13,000 – ฿25,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Lampang for health check-ups",
+        content: "Main options in Lampang:",
+        list: [
+          "Bangkok Hospital Lampang — BDMS branch, highest standard, English service, full package range",
+          "Lampang Hospital — large government hospital, cheapest prices, longer queue",
+          "Muanng Lampang Hospital — established mid-tier private, reliable for standard packages",
+          "Lampangkosol Hospital — smaller private, competitive for basic and standard tiers",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Should I get a health check-up in Lampang or Chiang Mai?", a: "If you are already in Lampang, it is worth getting your check-up there — Bangkok Hospital Lampang offers comparable quality to Bangkok Hospital Chiang Mai at 15–25% lower prices. If you are based in Chiang Mai, the extra travel to Lampang is not usually worthwhile unless you have specific time savings." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/chiang-mai-health-checkup", label: "Chiang Mai health check-up guide" },
+      { href: "/en/city/lampang", label: "Compare Lampang packages" },
+    ],
+  },
+
+  "nakhon-pathom-health-checkup": {
+    title: "Health Check-Up in Nakhon Pathom — Prices, Hospitals & Packages (2026)",
+    description: "Compare health check-up packages in Nakhon Pathom, 56 km west of Bangkok. Day trip option. Packages from ฿2,200 at private hospitals with shorter queues than Bangkok.",
+    intro: "Nakhon Pathom is Thailand's tallest pagoda city, just 56 kilometres west of Bangkok — easily reached by train (45 min) or expressway (1 hour). Its private hospitals offer a practical alternative to Bangkok for medical tourists who want the convenience of Bangkok prices without the traffic. Queue times are significantly shorter than major Bangkok hospitals.",
+    sections: [
+      {
+        heading: "Health check-up prices in Nakhon Pathom",
+        content: "Private hospital packages in Nakhon Pathom:",
+        list: [
+          "Basic package: ฿2,200 – ฿4,500",
+          "Standard package (+ ECG, X-ray): ฿4,500 – ฿9,000",
+          "Comprehensive (+ ultrasound, cancer markers, thyroid): ฿8,500 – ฿16,000",
+          "Executive: ฿15,000 – ฿30,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Nakhon Pathom",
+        content: "Main hospital options:",
+        list: [
+          "Nakhon Pathom Hospital — government facility, cheapest but long queue",
+          "Bangkok Hospital Nakhon Pathom — BDMS branch, highest standard, full package range, English service",
+          "Vejthani Nakhon Pathom — mid-tier private, competitive pricing for executive packages",
+          "Pinklao Nakhon Pathom Hospital — reliable for standard and basic packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Nakhon Pathom worth the trip from Bangkok for a health check-up?", a: "If you want to avoid Bangkok hospital queues and can reach Nakhon Pathom easily (45-min train from Thonburi or 1-hour drive on Route 4), it is a practical option. Bangkok Hospital Nakhon Pathom has the same BDMS quality as Bangkok Hospital in the capital, at roughly similar prices — the main benefit is shorter wait times and easier parking." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/city/nakhon-pathom", label: "Compare Nakhon Pathom packages" },
+    ],
+  },
 };
 
 export function generateStaticParams() {

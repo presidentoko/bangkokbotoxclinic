@@ -116,6 +116,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "chiang-rai-health-checkup",
       "ayutthaya-health-checkup",
       "nakhon-si-thammarat-health-checkup",
+      "koh-chang-health-checkup",
+      "lampang-health-checkup",
+      "nakhon-pathom-health-checkup",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

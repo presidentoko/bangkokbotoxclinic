@@ -262,6 +262,27 @@ const GUIDES = [
     emoji: "🕌",
     category: "City Guides",
   },
+  {
+    slug: "koh-chang-health-checkup",
+    title: "Koh Chang Health Check-Up Guide (2026)",
+    description: "Island options + Trat mainland hospitals. Bangkok Hospital Chanthaburi for executive packages.",
+    emoji: "🏝️",
+    category: "City Guides",
+  },
+  {
+    slug: "lampang-health-checkup",
+    title: "Lampang Health Check-Up Guide (2026)",
+    description: "Northern hub 100km south of Chiang Mai. 20–35% cheaper than Chiang Mai. From ฿2,000.",
+    emoji: "🐴",
+    category: "City Guides",
+  },
+  {
+    slug: "nakhon-pathom-health-checkup",
+    title: "Nakhon Pathom Health Check-Up Guide (2026)",
+    description: "Day trip from Bangkok (56km). Short queues, same quality. Bangkok Hospital branch. From ฿2,200.",
+    emoji: "🏛️",
+    category: "City Guides",
+  },
 ];
 
 const CATEGORIES = ["City Guides", "Hospital Guides", "Understanding Your Check-Up", "Specialist Screening", "By Age & Lifestyle", "Practical Guides", "By Nationality"];
