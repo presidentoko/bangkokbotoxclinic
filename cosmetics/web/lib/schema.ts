@@ -8,27 +8,62 @@ export function itemListLd(pageUrl: string, products: Product[], urlOf: (p: Prod
       url: urlOf(p), name: p.name })) };
 }
 export function productLd(p: Product, pageUrl: string) {
-  const ld: any = { "@context": "https://schema.org", "@type": "Product", name: p.name,
-    brand: { "@type": "Brand", name: p.brand }, image: p.image_url, description: p.description,
+  // Derive concern-based category
+  const concernSeed = Array.isArray(p.concern_seeds)
+    ? p.concern_seeds[0]
+    : String(p.concern_seeds || "").split("|")[0] || "";
+  const CONCERN_CATEGORY: Record<string, string> = {
+    acne: "Acne skincare", whitening: "Brightening & dark spot skincare",
+    antiaging: "Anti-aging skincare", pores: "Pore & texture skincare",
+    oilcontrol: "Oil control skincare", sensitive: "Sensitive skin care",
+  };
+  const category = CONCERN_CATEGORY[concernSeed] ?? "Skincare";
+
+  // Key active ingredients as additionalProperty
+  const keyActives = (p.ingredient_analysis ?? [])
+    .filter((a) => (a.concern_efficacy?.[concernSeed] ?? 0) > 0)
+    .slice(0, 5)
+    .map((a) => ({ "@type": "PropertyValue", name: "Active ingredient", value: a.inci }));
+
+  const ld: any = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: p.name,
+    brand: { "@type": "Brand", name: p.brand },
+    image: p.image_url,
+    description: p.description,
     url: pageUrl,
-    offers: {
-      "@type": "Offer", priceCurrency: "THB", price: String(p.price_thb),
-      url: pageUrl, availability: "https://schema.org/InStock",
-      ...(p.list_price_thb > p.price_thb ? { priceValidUntil: new Date(Date.now() + 7*24*3600*1000).toISOString().slice(0,10) } : {}),
-    },
+    category,
     ...(p.gtin8 ? { gtin8: p.gtin8 } : {}),
     ...(p.sku ? { sku: p.sku } : {}),
+    ...(keyActives.length > 0 ? { additionalProperty: keyActives } : {}),
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "THB",
+      price: String(p.price_thb),
+      url: pageUrl,
+      availability: "https://schema.org/InStock",
+      seller: { "@type": "Organization", name: "BangkokFillers" },
+      ...(p.list_price_thb > p.price_thb ? { priceValidUntil: new Date(Date.now() + 7*24*3600*1000).toISOString().slice(0,10) } : {}),
+    },
   };
   if (p.konvy_review_count > 0 && p.konvy_rating > 0) {
-    ld.aggregateRating = { "@type": "AggregateRating", ratingValue: p.konvy_rating,
-      reviewCount: p.konvy_review_count, bestRating: 5, worstRating: 1 };
+    ld.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: p.konvy_rating,
+      reviewCount: p.konvy_review_count,
+      bestRating: 5,
+      worstRating: 1,
+    };
   }
   ld.review = (p.review_summary?.samples ?? []).slice(0, 3).map((r) => {
     const rr = r as typeof r & { body?: string; text?: string };
-    return { "@type": "Review",
+    return {
+      "@type": "Review",
       reviewRating: { "@type": "Rating", ratingValue: r.rating ?? 0, bestRating: 5 },
       author: { "@type": "Person", name: r.author || "Verified buyer" },
-      reviewBody: rr.body || rr.text || "" };
+      reviewBody: rr.body || rr.text || "",
+    };
   });
   return ld;
 }
@@ -112,8 +147,16 @@ export function faqLd(qas: { q: string; a: string }[]) {
       acceptedAnswer: { "@type": "Answer", text: x.a } })) };
 }
 export function orgLd(siteUrl: string) {
-  return { "@context": "https://schema.org", "@type": "Organization", name: "BangkokFillers",
-    url: siteUrl };
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "BangkokFillers",
+    url: siteUrl,
+    description: "Independent skincare product rankings for Thailand — scored by ingredient science, real reviews from Konvy, Watsons & iHerb, and value-per-ml. No sponsored rankings.",
+    logo: { "@type": "ImageObject", url: `${siteUrl}/og-image.png`, width: 1200, height: 630 },
+    sameAs: ["https://bangkokfillers.com"],
+    contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: `${siteUrl}/th/contact` },
+  };
 }
 
 export function websiteLd(siteUrl: string, locale: string) {
@@ -125,6 +168,27 @@ export function websiteLd(siteUrl: string, locale: string) {
       target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/${locale}/search?q={search_term_string}` },
       "query-input": "required name=search_term_string",
     },
+  };
+}
+
+export function howToLd(opts: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+  url: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    step: opts.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
   };
 }
 

@@ -69,18 +69,18 @@ export async function generateMetadata({
     locale === "th"
       ? `${p.name} — รีวิว ส่วนผสม คะแนน ${totalScoreMeta}/100`
       : `${p.name} — Score ${totalScoreMeta}/100, Reviews & Ingredients`;
-  // Use Konvy product description as meta description when available (richer keyword signal)
   const rawDesc = typeof p.description === "string" ? p.description.trim() : "";
-  const descBase = rawDesc.slice(0, 140) || (
-    locale === "th"
-      ? `${p.name} ได้คะแนนจากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ ดูรายละเอียดส่วนผสมและเปรียบเทียบราคา`
-      : `${p.name} scored from ingredient analysis and ${p.konvy_review_count} reviews. See ingredients and compare prices.`
-  );
+  // Key active ingredient for this concern (first one with efficacy > 0)
+  const keyActive = p.ingredient_analysis?.find(
+    (a: { concern_efficacy?: Record<string, number>; inci: string }) =>
+      (a.concern_efficacy?.[concern] ?? 0) > 0
+  )?.inci ?? "";
+  const priceStr = p.price_thb ? `฿${Math.round(p.price_thb).toLocaleString()}` : "";
   const description = rawDesc
-    ? descBase
+    ? rawDesc.slice(0, 155)
     : locale === "th"
-      ? `${p.name} ได้คะแนนจากส่วนผสมและรีวิว ${p.konvy_review_count} รายการ ดูรายละเอียดส่วนผสมและเปรียบเทียบราคา`
-      : `${p.name} scored from ingredient analysis and ${p.konvy_review_count} reviews. See ingredients and compare prices.`;
+      ? `${p.name}${priceStr ? ` (${priceStr})` : ""} ได้คะแนน ${totalScoreMeta}/100 จากส่วนผสม${keyActive ? ` (${keyActive})` : ""} และรีวิว ${p.konvy_review_count} รายการ`
+      : `${p.name}${priceStr ? ` (${priceStr})` : ""} scores ${totalScoreMeta}/100${keyActive ? ` · Key active: ${keyActive}` : ""}. Based on ${p.konvy_review_count} real reviews.`;
   return {
     title,
     description,

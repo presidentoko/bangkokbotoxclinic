@@ -43,11 +43,9 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${locale}/ingredient/${slug}`,
-      languages: {
-        th: `${BASE}/th/ingredient/${slug}`,
-        en: `${BASE}/en/ingredient/${slug}`,
-      },
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/ingredient/${slug}`])),
     },
+    openGraph: { title, description, url: `${BASE}/${locale}/ingredient/${slug}` },
   };
 }
 
@@ -143,8 +141,36 @@ export default async function IngredientPage({
       <JsonLd
         data={faqLd([
           {
-            q: `${name} ${locale === "th" ? "คืออะไร" : "— what is it?"}`,
+            q: isTh ? `${name} คืออะไร` : `What is ${name}?`,
             a: mech,
+          },
+          ...(ing.typical_pct ? [{
+            q: isTh
+              ? `ควรใช้ ${name} ความเข้มข้นเท่าไหร่`
+              : `What concentration of ${name} should I use?`,
+            a: isTh
+              ? `ความเข้มข้นที่แนะนำสำหรับ ${name} คือ ${ing.typical_pct} — ดูฉลากผลิตภัณฑ์และค่อยๆ เพิ่มความเข้มข้นเพื่อลดโอกาสระคายเคือง`
+              : `The typical effective concentration for ${name} is ${ing.typical_pct}. Check the product label and increase gradually to minimise irritation.`,
+          }] : []),
+          ...(concernKeys.length > 0 ? [{
+            q: isTh
+              ? `${name} เหมาะกับปัญหาผิวอะไร`
+              : `What skin concerns does ${name} help with?`,
+            a: isTh
+              ? `${name} เหมาะกับปัญหา: ${concernKeys.join(", ")} — พบได้ใน ${prods.length} ผลิตภัณฑ์ในฐานข้อมูล BangkokFillers`
+              : `${name} is effective for: ${concernKeys.join(", ")} — found in ${prods.length} products in the BangkokFillers database.`,
+          }] : []),
+          {
+            q: isTh
+              ? `ผลิตภัณฑ์ไหนที่มี ${name}`
+              : `Which products contain ${name}?`,
+            a: isTh
+              ? prods.length > 0
+                ? `มีผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูล BangkokFillers ที่มี ${name} ได้แก่ ${prods.slice(0,3).map(p => p.name).join(", ")}${prods.length > 3 ? ` และอีก ${prods.length - 3} รายการ` : ""}`
+                : `ยังไม่มีผลิตภัณฑ์ในฐานข้อมูลที่มีส่วนผสมนี้`
+              : prods.length > 0
+                ? `There are ${prods.length} products in the BangkokFillers database containing ${name}, including ${prods.slice(0,3).map(p => p.name).join(", ")}${prods.length > 3 ? ` and ${prods.length - 3} more` : ""}.`
+                : `No products in the database currently contain this ingredient.`,
           },
         ])}
       />

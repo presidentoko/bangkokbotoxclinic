@@ -9,7 +9,7 @@ import {
   allBrands,
   brandSlug,
 } from "@/lib/data";
-import { LOCALES } from "@/lib/i18n";
+
 import { SALE_EVENTS } from "@/lib/sale";
 
 const BASE = "https://bangkokfillers.com";
@@ -17,30 +17,14 @@ const NOW = new Date();
 
 type Freq = "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
 
-// entry() accepts a /th/ path and builds hreflang alternates for all 4 locales
+// Sitemap only submits TH-locale URLs to focus crawl budget on the primary content.
+// Hreflang cross-locale signals are handled by <link rel="alternate"> in each page's <head>.
 function entry(
   path: string,
   priority: number,
   changeFrequency: Freq = "weekly"
 ): MetadataRoute.Sitemap[number] {
-  // Derive the locale-agnostic slug from the /th/ path
-  const thPrefix = `${BASE}/th/`;
-  const thRoot = `${BASE}/th`;
-  let slug = "";
-  if (path.startsWith(thPrefix)) {
-    slug = path.slice(thPrefix.length);
-  } else if (path === thRoot) {
-    slug = "";
-  }
-
-  const languages: Record<string, string> = {};
-  for (const l of LOCALES) {
-    const raw = slug ? `${BASE}/${l}/${slug}` : `${BASE}/${l}`;
-    languages[l] = encodeURI(raw);
-  }
-  languages["x-default"] = languages["th"];
-
-  return { url: encodeURI(path), lastModified: NOW, changeFrequency, priority, alternates: { languages } };
+  return { url: encodeURI(path), lastModified: NOW, changeFrequency, priority };
 }
 
 // Sitemap 0: core pages — TH only

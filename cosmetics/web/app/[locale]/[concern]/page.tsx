@@ -16,7 +16,7 @@ import {
   type Concern,
 } from "@/lib/data";
 import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
-import { itemListLd, concernFaqLd, breadcrumbLd } from "@/lib/schema";
+import { itemListLd, concernFaqLd, breadcrumbLd, howToLd } from "@/lib/schema";
 import { getFeaturedMap } from "@/lib/adminData";
 import { getActiveByType } from "@/lib/ads";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
@@ -248,11 +248,11 @@ export default async function ConcernHub({
           {title}
         </h1>
         {directAnswer && (
-          <p className="text-sm text-neutral-600 max-w-prose">
+          <p className="concern-summary text-sm text-neutral-600 max-w-prose">
             {directAnswer}
           </p>
         )}
-        <p className="text-base sm:text-lg text-neutral-700 max-w-prose leading-relaxed">
+        <p className="concern-summary text-base sm:text-lg text-neutral-700 max-w-prose leading-relaxed">
           {intro}
         </p>
         <p className="text-xs text-neutral-400">
@@ -265,7 +265,7 @@ export default async function ConcernHub({
         const g = CONCERN_GUIDE[concern];
         const isTh = locale === "th";
         return (
-          <section className="rounded-2xl border border-[#efe1db] bg-[#fdfaf9] p-5 sm:p-6 space-y-4">
+          <section className="concern-guide-lead rounded-2xl border border-[#efe1db] bg-[#fdfaf9] p-5 sm:p-6 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               <div className="space-y-1.5">
                 <p className="text-[10px] uppercase tracking-widest text-[#c9a86a] font-bold">
@@ -543,10 +543,51 @@ export default async function ConcernHub({
         rows[0]?.name ?? "",
         Math.round(rows[0]?.score ?? 0)
       )} />
+      {CONCERN_GUIDE[concern] && (() => {
+        const g = CONCERN_GUIDE[concern];
+        const isTh = locale === "th";
+        const label = concernLabel(locale, concern);
+        return (
+          <JsonLd data={howToLd({
+            name: isTh ? `วิธีเลือกผลิตภัณฑ์${label}` : `How to choose the right ${label} skincare`,
+            description: isTh ? g.causeTh : g.causeEn,
+            url: `https://bangkokfillers.com/${locale}/${concern}`,
+            steps: [
+              {
+                name: isTh ? "เข้าใจสาเหตุ" : "Understand the cause",
+                text: isTh ? g.causeTh : g.causeEn,
+              },
+              {
+                name: isTh ? "ส่วนผสมที่ควรมองหา" : "Key ingredients to look for",
+                text: (isTh ? g.ingredientsTh : g.ingredientsEn).join(" · "),
+              },
+              {
+                name: isTh ? "วิธีใช้อย่างถูกต้อง" : "How to use effectively",
+                text: isTh ? g.howTh : g.howEn,
+              },
+              {
+                name: isTh ? "เลือกจากคะแนนข้อมูลจริง" : "Select by data score",
+                text: isTh
+                  ? `ใช้ตารางอันดับ BangkokFillers เพื่อเปรียบเทียบ ${rows.length} ผลิตภัณฑ์ตามคะแนนส่วนผสม+รีวิวจริง`
+                  : `Use the BangkokFillers ranking to compare ${rows.length} products by ingredient score + real reviews.`,
+              },
+            ],
+          })} />
+        );
+      })()}
       <JsonLd data={breadcrumbLd([
         { name: "BangkokFillers", url: `https://bangkokfillers.com/${locale}` },
         { name: concernLabel(locale, concern), url: `https://bangkokfillers.com/${locale}/${concern}` },
       ])} />
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        url: `https://bangkokfillers.com/${locale}/${concern}`,
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["h1", ".concern-summary", ".concern-guide-lead"],
+        },
+      }} />
 
       {/* Budget filter links — cross-link to /budget/* pages */}
       <div className="mt-8 flex flex-wrap gap-2">
