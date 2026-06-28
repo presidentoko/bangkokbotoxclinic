@@ -502,6 +502,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "Does health insurance cover senior check-ups in Thailand?", a: "It depends on your policy. Major international insurers (Bupa Global, Cigna, Allianz Care) often cover annual health check-ups as a benefit. Thai LTR visa holders with Thai health insurance should check their policy schedule for wellness benefits." },
     ],
     relatedLinks: [
+      { href: "/en/for/senior-health-checkup-bangkok", label: "Senior packages in Bangkok →" },
       { href: "/en/compare?category=senior", label: "Compare senior health packages →" },
       { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
       { href: "/en/compare?category=cardiac", label: "Compare cardiac packages →" },
@@ -978,7 +979,11 @@ const GUIDES: Record<string, Guide> = {
       { q: "What's the difference between fasting glucose and HbA1c?", a: "Fasting glucose (FPG) shows your blood sugar at one point in time. HbA1c reflects your average blood sugar over the past 3 months. Both are needed for a complete diabetes assessment — a normal FPG with a high HbA1c can reveal undiagnosed diabetes." },
       { q: "Do I need to fast before a diabetes screening in Thailand?", a: "Yes, for a complete panel you need 8–12 hours of fasting (water only). The 2-hour OGTT also requires fasting. Schedule your appointment for early morning to make fasting convenient." },
     ],
-    relatedLinks: [{ href: "/checkup/diabetes", label: "Compare diabetes screening packages" }, { href: "/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" }],
+    relatedLinks: [
+      { href: "/en/for/diabetes-screening-bangkok", label: "Diabetes screening packages in Bangkok →" },
+      { href: "/checkup/diabetes", label: "Compare diabetes screening packages" },
+      { href: "/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+    ],
   },
   "heart-screening-thailand": {
     title: "Heart & Cardiac Screening in Thailand — Complete Guide (2026)",
