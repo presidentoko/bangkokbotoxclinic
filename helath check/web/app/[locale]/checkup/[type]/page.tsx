@@ -29,6 +29,51 @@ export async function generateMetadata({
   };
 }
 
+const CAT_EDITORIAL: Record<string, { intro: string; priceRange: string; forWho: string; guide?: string }> = {
+  executive: {
+    intro: "Executive health check-ups include a comprehensive blood panel, abdominal ultrasound, ECG, chest X-ray, and a physician consultation — all in one appointment. Many packages also include cancer markers and specialist referrals.",
+    priceRange: "฿8,000 – ฿80,000",
+    forWho: "Corporate professionals, medical tourists, adults 40+, anyone wanting a thorough annual assessment.",
+    guide: "bangkok-health-checkup",
+  },
+  comprehensive: {
+    intro: "Comprehensive packages cover the full range of standard diagnostic tests: blood tests, imaging (ultrasound, X-ray), ECG, and specialist review. They typically include more blood markers than basic packages and add thyroid, hepatitis B/C, and urinalysis.",
+    priceRange: "฿5,000 – ฿35,000",
+    forWho: "Adults 30+, anyone with a family history of chronic illness, expats requiring an annual health report.",
+    guide: "what-is-included-checkup",
+  },
+  cancer: {
+    intro: "Cancer screening packages focus on tumour marker blood tests (AFP, CEA, CA-125, PSA, CA 19-9) alongside imaging. They are most useful for individuals with a family history of cancer or aged 45+.",
+    priceRange: "฿3,000 – ฿25,000",
+    forWho: "Adults 45+, anyone with family history of cancer, people seeking proactive screening.",
+    guide: "cancer-screening-bangkok",
+  },
+  cardiac: {
+    intro: "Cardiac health check-ups include ECG, echocardiogram, lipid panel, blood pressure, and physician consultation. Advanced packages add coronary CT angiography or exercise stress testing.",
+    priceRange: "฿5,000 – ฿40,000",
+    forWho: "Adults with high cholesterol, smokers, people with a family history of heart disease, those experiencing chest pain.",
+    guide: "cardiac-health-checkup-bangkok",
+  },
+  women: {
+    intro: "Women's health packages combine gynaecological screening (Pap smear, mammogram, pelvic ultrasound) with full blood work and hormonal panels. Some add HPV genotyping and bone density testing.",
+    priceRange: "฿5,000 – ฿30,000",
+    forWho: "Women 25+, those overdue for a cervical smear or mammogram, women experiencing hormonal symptoms.",
+    guide: "womens-health-checkup-bangkok",
+  },
+  men: {
+    intro: "Men's health packages include PSA (prostate cancer marker), testosterone, lipid panel, liver/kidney function, and abdominal ultrasound. Advanced packages add cardiac stress test and colonoscopy referral.",
+    priceRange: "฿4,000 – ฿25,000",
+    forWho: "Men 40+, anyone with prostate concerns, those wanting a comprehensive male health assessment.",
+    guide: null,
+  },
+  basic: {
+    intro: "Basic packages cover the essential annual screen: complete blood count, blood sugar, cholesterol, liver and kidney function, urinalysis, and blood pressure. Ideal for healthy young adults.",
+    priceRange: "฿1,500 – ฿5,000",
+    forWho: "Young adults 20–35, those wanting a quick annual baseline, budget-conscious patients.",
+    guide: "what-is-included-checkup",
+  },
+};
+
 function Flag({ val }: { val: number | null }) {
   if (val === 1) return <span className="text-emerald-600">✓</span>;
   if (val === 0) return <span className="text-slate-300">✗</span>;
@@ -62,14 +107,43 @@ export default async function CheckupTypePage({
       </nav>
 
       <h1 className="text-2xl font-bold text-slate-900 mb-1">{label} Health Check-Up Bangkok</h1>
-      <p className="text-slate-500 mb-6">Sorted by price · {rows.length} package{rows.length !== 1 ? "s" : ""}</p>
+      <p className="text-slate-500 mb-4">Sorted by price · {rows.length} package{rows.length !== 1 ? "s" : ""}</p>
 
-      <div className="mb-6">
+      {/* Editorial intro */}
+      {CAT_EDITORIAL[type] && (
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-6 space-y-3">
+          <p className="text-slate-700 text-sm leading-relaxed">{CAT_EDITORIAL[type].intro}</p>
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-0.5">Price range</p>
+              <p className="font-bold text-blue-700">{CAT_EDITORIAL[type].priceRange}</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-0.5">Recommended for</p>
+              <p className="text-slate-700">{CAT_EDITORIAL[type].forWho}</p>
+            </div>
+          </div>
+          {CAT_EDITORIAL[type].guide && (
+            <Link href={`/${locale}/guide/${CAT_EDITORIAL[type].guide}`}
+              className="inline-block text-blue-600 hover:underline text-xs font-medium">
+              Read the full guide →
+            </Link>
+          )}
+        </div>
+      )}
+
+      <div className="mb-6 flex flex-wrap gap-3">
         <Link
           href={`/${locale}/compare?category=${type}`}
           className="inline-block bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors"
         >
           Compare all in a table →
+        </Link>
+        <Link
+          href={`/${locale}/enquiry`}
+          className="inline-block border border-blue-200 text-blue-700 font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-50 transition-colors"
+        >
+          Get free advice
         </Link>
       </div>
 
