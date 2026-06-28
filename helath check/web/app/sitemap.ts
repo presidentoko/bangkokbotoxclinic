@@ -175,6 +175,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "travel-disease-tests-bangkok",
       "ultrasound-scan-bangkok",
       "high-cholesterol-treatment-bangkok",
+      "high-blood-pressure-treatment-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

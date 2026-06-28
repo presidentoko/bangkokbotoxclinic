@@ -508,6 +508,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "high-blood-pressure-treatment-bangkok",
+    title: "High Blood Pressure After Bangkok Check-Up — Medication, Costs & Next Steps (2026)",
+    description: "Hypertension found at Bangkok check-up? Amlodipine ฿50–฿150/month, 24-hour ABPM ฿2,000–฿3,500, same-day cardiologist ฿1,500–฿3,000. Don't panic — one reading isn't a diagnosis.",
+    emoji: "🩺",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
