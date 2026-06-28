@@ -3352,10 +3352,73 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/health-checkup-india-vs-thailand", label: "India vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-bangladesh-vs-thailand", label: "Bangladesh vs Thailand" },
       { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
       { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
+    ],
+  },
+
+  "health-checkup-bangladesh-vs-thailand": {
+    title: "Health Check-Up: Bangladesh vs Thailand 2026 — Bangkok for Bangladeshi Patients",
+    description: "Bangladesh top private hospital executive check-up: BDT 30,000–BDT 150,000. Bangkok JCI: ฿8,000–฿25,000 ($215–$675). JCI-accredited, same-day results, halal. Visa on arrival. Guide.",
+    intro: "Bangladesh has a rapidly growing private healthcare sector, with hospitals like Square, United, Apollo, Evercare, and Labaid offering executive health check-up packages in Dhaka and Chittagong. However, JCI-accredited facilities remain limited, and comprehensive packages including advanced imaging, endoscopy, and full tumor marker panels can cost BDT 50,000–150,000 ($450–$1,350) at premium hospitals. Bangkok's 9 JCI-accredited hospitals offer equivalent or better diagnostic quality at 30–50% lower cost, with same-day results in English. Hepatitis B prevalence in Bangladesh (approximately 5–6%) makes comprehensive liver screening particularly important — Bangkok packages include this routinely.",
+    sections: [
+      {
+        heading: "Bangladesh vs Bangkok — health check-up price comparison (2026)",
+        content: "Approximate costs at top Dhaka private hospitals vs Bangkok JCI hospitals. Exchange rate: BDT 1 ≈ ฿0.034 (USD 1 ≈ BDT 110 ≈ ฿37):",
+        list: [
+          "Blood panel (CBC + metabolic panel + lipids + thyroid): Dhaka private BDT 8,000–20,000; Bangkok ฿2,500–฿5,000 ($68–135) — comparable or cheaper in Bangkok",
+          "Gastroscopy with sedation: Dhaka private BDT 15,000–40,000; Bangkok ฿4,500–฿9,000 ($122–243) — Bangkok cheaper with standard sedation",
+          "Colonoscopy with sedation: Dhaka private BDT 25,000–70,000; Bangkok ฿8,000–฿18,000 ($216–486) — comparable; Bangkok immediate booking",
+          "MRI brain or abdomen: Dhaka private BDT 15,000–45,000; Bangkok ฿5,000–฿15,000 ($135–405) — Bangkok 30–50% cheaper",
+          "CT scan chest or abdomen: Dhaka private BDT 10,000–30,000; Bangkok ฿4,000–฿9,000 ($108–243) — Bangkok cheaper",
+          "Executive health check-up (25–40 tests with imaging and tumor markers): Dhaka private BDT 30,000–100,000; Bangkok ฿12,000–฿25,000 ($320–675) — Bangkok 30–50% cheaper for equivalent scope",
+          "Echocardiogram: Dhaka private BDT 8,000–20,000; Bangkok ฿4,000–฿8,000 ($108–216) — Bangkok comparable or cheaper",
+          "Hepatitis B full panel (HBsAg, anti-HBs, HBeAg, HBV DNA if positive): Dhaka private BDT 5,000–15,000; Bangkok ฿800–฿2,500 — Bangkok cheaper and widely included in standard packages",
+        ],
+      },
+      {
+        heading: "Why Bangladeshi patients choose Bangkok for health check-ups",
+        content: "Key factors driving Bangladeshi medical tourists to Bangkok over Dhaka or Singapore:",
+        list: [
+          "JCI accreditation: very limited in Bangladesh (Apollo Dhaka is JCI-accredited; most others are not) vs 9 JCI hospitals in Bangkok including Bumrungrad, Samitivej, Bangkok Hospital",
+          "Advanced imaging equipment: newer MRI and CT scanners at Bangkok JCI hospitals vs aging equipment at many Dhaka private hospitals; some Bangkok hospitals use 3T MRI, dual-source CT",
+          "Hepatitis B: Bangladesh has one of the highest HBV carrier rates in the world (~5–6%); Bangkok executive packages include full HBV panel routinely; essential for all Bangladeshi check-up visitors",
+          "Thalassaemia: Bangladesh has a high thalassaemia carrier rate — Bangkok can do haemoglobin electrophoresis to confirm thalassaemia trait vs true iron deficiency anaemia; important before iron supplementation",
+          "Singapore alternative: many Bangladeshis have historically gone to Singapore (Mount Elizabeth, Gleneagles); Bangkok costs 50–70% less for equivalent packages",
+          "Halal food: Nana/Sukhumvit area near Bumrungrad has extensive halal food options including Bangladeshi, Indian, and Middle Eastern restaurants",
+          "Prayer facilities: Masjid Noor near Sukhumvit Soi 3 (walking distance from Bumrungrad); several mosques in Bangkok central area",
+          "Bangladeshi diaspora: patients from the UK, Middle East (UAE, Qatar, Saudi Arabia), USA, and Italy often use Bangkok as a health check-up destination during regional travels",
+        ],
+      },
+      {
+        heading: "Practical guide: Bangladesh to Bangkok",
+        content: "Visa, flights, and logistics for Bangladeshi patients:",
+        list: [
+          "Visa: Bangladeshi passport holders need a Thai Visa on Arrival (VOA) at Suvarnabhumi airport: THB 2,000 fee, valid 15 days; bring passport photo + return flight evidence",
+          "Alternative: Thai e-Visa or visa at Royal Thai Embassy in Dhaka — 30-day single entry tourist visa; apply 2–4 weeks before travel",
+          "Flights: Dhaka (DAC) → Bangkok (BKK Suvarnabhumi): Biman Bangladesh Airlines operates direct flights DAC–BKK; also Air Asia via Kuala Lumpur, Thai Airways; approximately 2.5–4 hours direct",
+          "This is one of the easiest routes from South Asia to Bangkok — direct Dhaka–Bangkok in 2.5 hours; no long layovers needed",
+          "Chittagong (CGP) → Bangkok: via Dhaka or Kuala Lumpur; 5–8 hours total",
+          "Hotel: Nana/Asok area in Sukhumvit — 5 minutes walking from Bumrungrad; halal food concentrated on Sukhumvit Soi 3 and adjacent streets",
+          "Cost planning: 2 nights hotel (฿600–1,500/night) + check-up (฿12,000–25,000) + flights (BDT 25,000–60,000 return) — total trip cost often less than a full check-up at Apollo Dhaka or equivalent Singapore package",
+          "Payment: Visa/Mastercard (Dutch-Bangla, BRAC, Islami Bank cards) — verify international transaction limits before travel; ATMs at airport and Sukhumvit",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do Bangladeshi passport holders need a visa for Thailand?", a: "Bangladeshi nationals do not qualify for the visa exemption — a visa is required. However, a Visa on Arrival (VOA) is available at Suvarnabhumi International Airport (Bangkok): THB 2,000 (~BDT 6,000), valid 15 days, renewable once. You need: passport valid 6+ months, 1 passport-size photo, completed arrival/departure card, proof of return journey, and sufficient funds declaration. The 15-day VOA is more than enough for a health check-up stay. For longer stays, apply for a Thai tourist visa at the Royal Thai Embassy in Dhaka in advance." },
+      { q: "Are Dhaka–Bangkok flights direct?", a: "Yes — Biman Bangladesh Airlines operates direct flights between Dhaka (DAC) and Bangkok Suvarnabhumi (BKK), making it one of the easiest South Asian cities to reach Bangkok from. Flight time is approximately 2 hours 40 minutes. Other options include Air Asia via Kuala Lumpur (4–6 hours total), Thai Airways, and US-Bangla. For same-day check-in to Bumrungrad, take a morning flight from Dhaka (departs ~8am) and arrive in Bangkok before noon — enough time to complete registration for a next-morning check-up." },
+      { q: "I'm a Gulf-based Bangladeshi worker — is Bangkok easy to reach from Dubai/Qatar/Saudi Arabia?", a: "Yes — Bangkok is well-connected from the Gulf. Dubai (DXB) → Bangkok: Emirates, Flydubai, Thai Airways; approximately 6 hours. Doha (DOH) → Bangkok: Qatar Airways direct, 7 hours. Riyadh (RUH) → Bangkok: via Dubai or Kuala Lumpur; 9–12 hours. Kuwait → Bangkok: via Dubai; approximately 9 hours. For Gulf-based Bangladeshis planning to visit family in Dhaka and also want a Bangkok check-up, Bangkok can be added as a stopover on the DAC itinerary. Direct booking at Bumrungrad's international patient portal can be done online from anywhere." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-pakistan-vs-thailand", label: "Pakistan vs Thailand" },
+      { href: "/en/guide/health-checkup-india-vs-thailand", label: "India vs Thailand" },
+      { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
     ],
   },
 

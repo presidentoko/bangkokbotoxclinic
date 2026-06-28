@@ -627,6 +627,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-bangladesh-vs-thailand",
+    title: "Health Check-Up: Bangladesh vs Thailand 2026 — Bangkok for Bangladeshi Patients",
+    description: "Dhaka private executive check-up BDT 30,000–100,000. Bangkok JCI: $215–$675 — 30–50% cheaper. Direct Dhaka–Bangkok 2.5 hrs. Halal food near hospital. Hep B screening. VOA THB 2,000.",
+    emoji: "🇧🇩",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
