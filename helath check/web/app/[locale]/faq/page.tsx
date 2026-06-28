@@ -1,0 +1,212 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { type Locale, LOCALES } from "@/lib/i18n";
+
+export const revalidate = 86400;
+
+const BASE = "https://www.bangkoktopclinic.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  void locale;
+  return {
+    title: "Health Check-Up Thailand FAQ — All Your Questions Answered",
+    description: "Frequently asked questions about getting a health check-up in Thailand. Costs, what's included, how to book, which hospitals, insurance, results — all answered.",
+    alternates: {
+      canonical: `${BASE}/en/faq`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/faq`])),
+    },
+  };
+}
+
+const FAQS = [
+  {
+    category: "Costs & Pricing",
+    items: [
+      {
+        q: "How much does a health check-up cost in Bangkok?",
+        a: "Bangkok health check-up prices range from ฿1,200 (basic blood panel) to ฿80,000+ (full executive with MRI at a JCI hospital). A good mid-range executive package covering blood tests, ultrasound, chest X-ray, ECG, and doctor consultation typically costs ฿6,000–฿15,000. Prices are 20–40% lower than Bumrungrad at smaller private hospitals.",
+        link: null,
+      },
+      {
+        q: "Is health check-up cheaper in Chiang Mai than Bangkok?",
+        a: "Yes — equivalent packages in Chiang Mai are typically 20–35% cheaper than Bangkok. A comprehensive package at Chiang Mai Ram Hospital or McCormick costs ฿4,000–฿8,000 vs ฿6,000–฿15,000 for the same scope in Bangkok. JCI hospitals are less common outside Bangkok, but private hospitals maintain excellent standards.",
+        link: { label: "Chiang Mai check-up guide", href: "/guide/chiang-mai-health-checkup" },
+      },
+      {
+        q: "Why are prices at Bumrungrad so much higher?",
+        a: "Bumrungrad is JCI-accredited, sees 1.1 million patients/year, and markets heavily to international medical tourists. Their prices are 40–80% above the Bangkok average. You're paying for reputation, international coordination services, and the premium location on Sukhumvit. Vejthani, Phyathai 2, and BNH offer similar JCI accreditation at lower prices.",
+        link: null,
+      },
+      {
+        q: "Does my international health insurance cover health check-ups in Thailand?",
+        a: "Some international health insurance plans (Cigna, Bupa, AXA, Allianz) cover preventive health screening once per year. Coverage depends on your plan — some cover basic screening only, others cover executive packages up to a specific value. Always get pre-authorisation from your insurer before booking. Most Thai private hospitals have an insurance desk.",
+        link: null,
+      },
+    ],
+  },
+  {
+    category: "What's Included",
+    items: [
+      {
+        q: "What does a basic health check-up include?",
+        a: "A basic package (฿1,200–฿3,000) typically includes: CBC (complete blood count), blood glucose, cholesterol (lipid panel), kidney function (creatinine, BUN), liver enzymes (ALT, AST), urinalysis, and a brief physical examination. Some add chest X-ray. Blood pressure and BMI measurement are always included.",
+        link: { label: "What's included guide", href: "/guide/what-is-included-checkup" },
+      },
+      {
+        q: "What's the difference between an executive and comprehensive package?",
+        a: "An executive package typically adds ultrasound of abdominal organs, ECG, eye screening, and a 30-60 minute consultation with an internal medicine doctor. A comprehensive package goes further with cancer tumour markers (AFP, PSA, CA125, CEA), optional CT or MRI, cardiac stress test, and may include gastroscopy. Prices range ฿15,000–฿80,000 for comprehensive.",
+        link: null,
+      },
+      {
+        q: "Are cancer screening tumour markers included in standard check-up packages?",
+        a: "Cancer marker blood tests (AFP for liver, PSA for prostate, CA125 for ovarian, CEA for colorectal, CA19-9 for pancreatic) are usually optional add-ons or part of cancer-specific or comprehensive packages — not basic or standard packages. They add ฿1,500–฿5,000 to the package cost. Imaging (CT, PET) for cancer screening is always a separate package.",
+        link: { label: "Cancer screening guide", href: "/guide/cancer-screening-bangkok" },
+      },
+      {
+        q: "Is MRI included in executive health check-up packages?",
+        a: "Most executive packages do NOT include MRI by default — it's usually an add-on (฿5,000–฿15,000 per scan). Some premium comprehensive packages priced ฿30,000+ include brain MRI or abdominal MRI. Always check the package details carefully on our comparison table.",
+        link: null,
+      },
+    ],
+  },
+  {
+    category: "Booking & Logistics",
+    items: [
+      {
+        q: "How do I book a health check-up in Thailand as a tourist?",
+        a: "You can book directly on the hospital website (most have English booking) or call the international patient centre. Walk-in appointments for morning health check-ups are accepted at most hospitals. Arrive fasting (nothing to eat or drink except water for 8-12 hours before). Bring your passport. Results are usually ready within 4-24 hours.",
+        link: { label: "How to prepare guide", href: "/guide/how-to-prepare-health-checkup-thailand" },
+      },
+      {
+        q: "Do I need to make an appointment or can I walk in?",
+        a: "Walk-in is generally fine for morning health check-up packages, but appointments are recommended at busy hospitals (Bumrungrad, Samitivej). Booking 1-3 days in advance avoids waits. Some hospitals have dedicated health check-up centres open weekdays 7am–2pm. Weekend availability is more limited.",
+        link: null,
+      },
+      {
+        q: "How long does a health check-up take in Bangkok?",
+        a: "A basic package takes 2-3 hours. An executive package with ultrasound and doctor consultation takes 4-6 hours. A comprehensive package with multiple imaging studies may take a full day. Most hospitals allow same-day or next-day result collection, though some specialist tests take 2-3 days.",
+        link: null,
+      },
+      {
+        q: "Do I need to fast before a health check-up?",
+        a: "Yes — most health check-up packages require fasting for 8-12 hours before the appointment for accurate blood glucose and lipid (cholesterol) results. Water is allowed. Morning appointments (7am-9am) are most convenient for fasting. If you ate, inform the nurse — most hospitals can still perform the check-up but blood sugar/lipid results will be noted as non-fasting.",
+        link: null,
+      },
+    ],
+  },
+  {
+    category: "Hospital Quality",
+    items: [
+      {
+        q: "What is JCI accreditation and which Bangkok hospitals have it?",
+        a: "JCI (Joint Commission International) is the US-based gold standard for hospital quality internationally. Bangkok has 9 JCI-accredited hospitals — among the most in Asia. They include Bumrungrad, Bangkok Hospital, Samitivej, BNH, Vejthani, Phyathai 2, Saint Louis, Praram 9 (BDMS), and Yanhee. JCI hospitals charge a premium but maintain the highest international standards.",
+        link: { label: "JCI hospitals guide", href: "/guide/jci-hospitals-bangkok" },
+      },
+      {
+        q: "Are non-JCI private hospitals in Thailand safe?",
+        a: "Yes — Thailand's private hospitals have an excellent reputation even without JCI accreditation. Hospitals like Ramathibodi, Phyathai, and Paolo Memorial are internationally respected. The Joint Hospital Accreditation (HA) system provides local quality standards. For routine health screening, accreditation is less critical than for complex procedures.",
+        link: null,
+      },
+    ],
+  },
+];
+
+export default async function FaqPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  const allFaqs = FAQS.flatMap((cat) => cat.items);
+
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-8">
+      <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2">
+        <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
+        <span>›</span>
+        <span className="text-slate-600">FAQ</span>
+      </nav>
+
+      <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+        Health Check-Up Thailand — Frequently Asked Questions
+      </h1>
+      <p className="text-slate-500 mb-10">
+        Everything you need to know about getting a health check-up in Thailand — costs, inclusions, booking, and which hospitals to choose.
+      </p>
+
+      <div className="space-y-12">
+        {FAQS.map((section) => (
+          <section key={section.category}>
+            <h2 className="text-lg font-bold text-blue-700 mb-4 flex items-center gap-2">
+              <span className="h-px flex-1 bg-blue-100" />
+              {section.category}
+              <span className="h-px flex-1 bg-blue-100" />
+            </h2>
+            <div className="space-y-3">
+              {section.items.map((faq, i) => (
+                <details key={i} className="bg-white border border-slate-200 rounded-xl group">
+                  <summary className="px-5 py-4 font-semibold text-slate-800 cursor-pointer flex items-center justify-between gap-3 list-none">
+                    <span>{faq.q}</span>
+                    <span className="text-slate-400 group-open:rotate-180 transition-transform shrink-0 text-sm">▼</span>
+                  </summary>
+                  <div className="px-5 pb-5 text-slate-600 text-sm leading-relaxed space-y-2">
+                    <p>{faq.a}</p>
+                    {faq.link && (
+                      <Link href={`/${locale}${faq.link.href}`}
+                        className="inline-block text-blue-600 hover:underline font-medium mt-1">
+                        → {faq.link.label}
+                      </Link>
+                    )}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div className="mt-12 bg-blue-50 border border-blue-200 rounded-2xl p-6">
+        <h3 className="font-bold text-slate-800 mb-2">Still have questions?</h3>
+        <p className="text-slate-500 text-sm mb-4">
+          Tell us your age, medical concerns, budget, and city — we'll recommend the right package and hospital.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link href={`/${locale}/enquiry`}
+            className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-center text-sm">
+            Ask a free question →
+          </Link>
+          <Link href={`/${locale}/compare`}
+            className="border border-blue-200 text-blue-700 font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-center text-sm">
+            Compare prices now
+          </Link>
+        </div>
+      </div>
+
+      {/* FAQ Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: allFaqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: "FAQ", item: `${BASE}/${locale}/faq` },
+        ],
+      }) }} />
+    </div>
+  );
+}

@@ -161,6 +161,26 @@ export default async function CityPage({
         <p>A basic health check-up in {cityName} takes 1–2 hours. Comprehensive or executive packages with ultrasound, CT, and specialist consultations typically take 3–5 hours. Results are usually available within 1–3 business days, with some hospitals offering same-day results.</p>
       </div>
 
+      {/* ItemList JSON-LD — hospitals in this city */}
+      {rows.length > 0 && (() => {
+        const slugs = [...new Set(rows.map((r) => r.hospital_slug))];
+        const names = Object.fromEntries(rows.map((r) => [r.hospital_slug, r.hospital_name]));
+        return (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: `Health Check-Up Hospitals in ${cityName}`,
+            numberOfItems: slugs.length,
+            itemListElement: slugs.slice(0, 20).map((slug, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: names[slug],
+              url: `${BASE}/${locale}/hospital/${slug}`,
+            })),
+          }) }} />
+        );
+      })()}
+
       {/* Breadcrumb JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
