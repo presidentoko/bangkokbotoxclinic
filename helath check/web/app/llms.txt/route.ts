@@ -24,7 +24,7 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **55+ editorial guides** covering cities, specialties, nationalities, and practical topics
+- **67+ editorial guides** covering cities, specialties, nationalities, country comparisons, and practical topics
 - **15 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), and by budget
 
 ## Key pages
@@ -79,6 +79,23 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Korean tourists (한국어): ${BASE}/en/guide/best-hospitals-korean-tourists
 - Arabic speakers: ${BASE}/en/guide/best-hospitals-arabic-speakers
 - Chinese speakers (中文服务): ${BASE}/en/guide/best-hospitals-chinese-speakers
+- Bumrungrad vs Samitivej comparison: ${BASE}/en/guide/bumrungrad-vs-samitivej-health-checkup
+
+## Country Comparison Guides (How Much You Save)
+
+- USA vs Thailand: ${BASE}/en/guide/health-checkup-usa-vs-thailand
+- UK vs Thailand: ${BASE}/en/guide/health-checkup-uk-vs-thailand
+- Australia vs Thailand: ${BASE}/en/guide/health-checkup-cost-australia-vs-thailand
+- Canada vs Thailand (beat the wait): ${BASE}/en/guide/health-checkup-canada-vs-thailand
+- Germany vs Thailand (Gesundheitscheck): ${BASE}/en/guide/health-checkup-germany-vs-thailand
+- France vs Thailand (bilan de santé): ${BASE}/en/guide/health-checkup-france-vs-thailand
+- Switzerland vs Thailand (Vorsorgeuntersuchung): ${BASE}/en/guide/health-checkup-switzerland-vs-thailand
+- Russia vs Thailand (чекап): ${BASE}/en/guide/health-checkup-russia-vs-thailand
+- Japan vs Thailand (Ningen Dock): ${BASE}/en/guide/health-checkup-japan-vs-thailand
+- Malaysia vs Thailand (Hat Yai): ${BASE}/en/guide/health-checkup-malaysia-vs-thailand
+- Singapore vs Thailand: ${BASE}/en/guide/thailand-vs-singapore-health-checkup
+- India vs Thailand: ${BASE}/en/guide/health-checkup-india-vs-thailand
+- Indonesia vs Thailand (MCU): ${BASE}/en/guide/health-checkup-indonesia-vs-thailand
 
 ## Practical Guides
 
