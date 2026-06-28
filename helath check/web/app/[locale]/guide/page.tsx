@@ -620,6 +620,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "health-checkup-colombia-vs-thailand",
+    title: "Chequeo Médico: Colombia vs Tailandia 2026 — Bangkok para Colombianos",
+    description: "Chequeo privado en Bogotá/Medellín: COP 800,000–4,000,000. Bangkok JCI: $215–$675 — 40–60% más económico. Sin visa 30 días. Resultados mismo día. Marcadores tumorales incluidos.",
+    emoji: "🇨🇴",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
