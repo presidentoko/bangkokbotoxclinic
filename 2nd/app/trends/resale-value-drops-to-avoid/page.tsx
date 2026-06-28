@@ -58,8 +58,8 @@ const holds = [
   { item: 'Chanel Classic Flap (small/medium)', why: 'Annual price increases, timeless, high demand' },
   { item: 'LV Neverfull MM (Monogram/DE)', why: 'Evergreen, massive secondary market, holds 70–90%' },
   { item: 'Hermès Birkin/Kelly (neutral Togo)', why: 'Sells above retail consistently' },
-  { item: 'Bottega Veneta Jodie (classic woven)', why: 'Quiet luxury, steady demand, doesn't date' },
-  { item: 'Cartier Love Bracelet / Juste un Clou', why: 'Jewelry doesn't date like bags' },
+  { item: 'Bottega Veneta Jodie (classic woven)', why: "Quiet luxury, steady demand, doesn't date" },
+  { item: 'Cartier Love Bracelet / Juste un Clou', why: "Jewelry doesn't date like bags" },
 ]
 
 export default function ResaleValueDropsPage() {

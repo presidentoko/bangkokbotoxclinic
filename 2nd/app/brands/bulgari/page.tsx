@@ -15,7 +15,7 @@ const pieces = [
   { name: 'Serpenti Turbogas Bracelet', category: 'Jewelry', range: '$2,800–6,500', retail: '~$7,000', retention: '40–93%', note: 'Spring-coil gold — iconic design, strong demand' },
   { name: 'B.zero1 Ring (yellow gold)', category: 'Jewelry', range: '$1,200–2,800', retail: '~$3,200', retention: '37–87%', note: 'Most recognizable BV piece; 1-3-4 band variations' },
   { name: 'Diva\'s Dream Necklace', category: 'Fine jewelry', range: '$4,500–18,000', retail: '$12,000–45,000', retention: '37–40%', note: 'Fan-shaped, pearl options; best pre-owned value' },
-  { name: 'Octo Roma Watch', category: 'Watch', range: '$5,500–12,000', retail: '~$12,000', retention: '46–100%', note: 'Octagonal case — Bulgari's key watch reference' },
+  { name: 'Octo Roma Watch', category: 'Watch', range: '$5,500–12,000', retail: '~$12,000', retention: '46–100%', note: "Octagonal case — Bulgari's key watch reference" },
   { name: 'Serpenti Watch (thin)', category: 'Watch', range: '$3,500–9,000', retail: '~$9,000–14,000', retention: '39–64%', note: 'Snake-form watch — theatrical, niche market' },
 ]
 
