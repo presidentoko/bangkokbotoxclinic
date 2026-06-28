@@ -988,10 +988,71 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages →" },
       { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/guide/allergy-test-bangkok", label: "Allergy test Bangkok — expat essential" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
       { href: "/en/guide/what-is-included-checkup", label: "What is included in a health check-up?" },
     ],
   },
+
+  "allergy-test-bangkok": {
+    title: "Allergy Test Bangkok — Skin Prick, Blood IgE Tests & Immunotherapy (2026)",
+    description: "Allergy testing in Bangkok: skin prick test (SPT) ฿1,500–฿4,000 for 20–40 allergens, specific IgE blood panel ฿3,000–฿8,000. Allergen immunotherapy available. Common triggers: dust mites, mould, tropical pollen, seafood.",
+    intro: "Bangkok residents and long-term visitors frequently develop new allergies — particularly to house dust mites (endemic in Thailand's humid climate), tropical mould species, and local pollen. Bangkok's private hospitals offer comprehensive allergy testing without a referral, and allergen immunotherapy (desensitisation) is available for most common allergens. Testing is 50–70% cheaper than in UK, US, or Australia.",
+    sections: [
+      {
+        heading: "Allergy test types and prices in Bangkok",
+        content: "Allergy testing options at Bangkok hospitals and allergy clinics (2026):",
+        list: [
+          "Skin Prick Test (SPT): ฿1,500–฿4,000 for a panel of 20–40 common allergens; results in 15–20 minutes; most efficient way to identify environmental allergies; requires stopping antihistamines 3–7 days before",
+          "Total serum IgE: ฿500–฿1,000; measures overall atopic tendency; used as screening but not specific to individual allergens",
+          "Specific IgE blood test (RAST / ImmunoCAP): ฿500–฿1,500 per allergen or ฿3,000–฿8,000 for a panel of 20 allergens; no antihistamine restriction needed; useful when skin prick is not possible (severe eczema, dermatographism)",
+          "ImmunoCAP ISAC (multi-allergen component test): ฿8,000–฿15,000 — tests 112 allergen components from 51 allergen sources in one blood test; detailed molecular-level sensitisation profile; available at Bumrungrad, Samitivej, Bangkok Hospital",
+          "Patch test (contact allergen / delayed allergy): ฿2,000–฿5,000 — for skin contact allergens (nickel, fragrances, preservatives, rubber); separate from immediate IgE allergy testing; requires 3 visits over 4 days",
+          "Food elimination challenge (supervised): ฿3,000–฿8,000 — supervised oral food challenge under allergist supervision; gold standard for food allergy diagnosis",
+          "Common Bangkok panel allergens tested: house dust mites (Dermatophagoides pteronyssinus, D. farinae), cockroach, local tree pollen (acacia, casuarina), grass pollen, mould (Aspergillus, Alternaria, Cladosporium), cat/dog dander, latex, common foods (shrimp, fish, peanut, soy, wheat)",
+        ],
+      },
+      {
+        heading: "Most common allergens in Bangkok",
+        content: "The main allergens affecting Bangkok residents and long-term visitors:",
+        list: [
+          "House dust mites: #1 cause of allergic rhinitis and asthma in Bangkok — DPT and DFT thrive in Thailand's heat and humidity; sensitisation rates in Bangkok residents are among the highest in Asia",
+          "Cockroach allergen: highly prevalent in Bangkok apartments and buildings; common cause of year-round rhinitis and asthma",
+          "Mould spores: Thailand's wet climate supports Aspergillus, Cladosporium, Alternaria — symptoms often worse in rainy season (June–October)",
+          "Tropical pollen: acacia trees, Bermuda grass, other tropical species — seasonal peaks but year-round in Bangkok",
+          "Pet dander: cat and dog allergy rates similar to Western countries; common in expat households",
+          "Latex: relevant for healthcare workers, frequent hospital patients; cross-reacts with banana, avocado, kiwi (latex-fruit syndrome)",
+          "Seafood: shrimp, prawns, and other shellfish — common in Thai cuisine; allergy is distinct from fish allergy; very common new-onset allergy for people moving to Thailand",
+          "Note: many expats who never had allergies in their home countries develop dust mite or mould allergy within 1–3 years of living in Bangkok's climate",
+        ],
+      },
+      {
+        heading: "Allergy treatment in Bangkok",
+        content: "Allergy treatment and immunotherapy options available at Bangkok hospitals:",
+        list: [
+          "Antihistamines: cetirizine, loratadine, bilastine — widely available OTC at Thai pharmacies; ฿50–฿200/month; second-generation are non-sedating",
+          "Nasal corticosteroid sprays (mometasone, fluticasone, budesonide): available OTC in Thailand; ฿100–฿400/bottle; most effective daily treatment for allergic rhinitis",
+          "Allergen Immunotherapy (AIT / desensitisation shots): subcutaneous immunotherapy (SCIT) available at Bumrungrad, Samitivej, Praram 9, Phyathai; ฿2,000–฿4,000 per monthly injection; 3–5 year course; can achieve long-lasting remission",
+          "Sublingual immunotherapy (SLIT drops or tablets): house dust mite SLIT drops — convenient at-home treatment between visits; ฿2,000–฿5,000/month; available at most allergist offices",
+          "Monoclonal antibody therapy (Dupixent / Dupilumab): for severe atopic dermatitis or eosinophilic asthma unresponsive to standard treatment; ฿20,000–฿30,000 per injection at Bangkok hospitals; cheaper than US/Australia but significant cost",
+          "Biologics (Omalizumab/Xolair for severe allergic asthma): available at Bumrungrad, Samitivej; ฿15,000–฿25,000/month",
+          "Best allergists in Bangkok: Bumrungrad International Allergy Centre, Samitivej Allergy Clinic, Bangkok Hospital Allergy Unit, Phyathai 2 (Dr. Jettanin allergy team)",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do I need a referral to get an allergy test in Bangkok?", a: "No — at all Bangkok private hospitals you can self-refer to the Allergy Clinic or Ear-Nose-Throat/Internal Medicine department. When booking, request an 'allergy consultation' or 'allergy panel skin prick test'. The allergist will take a history, select appropriate allergens to test, and interpret results in the same appointment. Initial consultation fee is ฿800–฿1,500, and the allergy testing panel is billed separately." },
+      { q: "How do I prepare for an allergy skin prick test in Bangkok?", a: "Stop antihistamines (e.g., cetirizine, loratadine, fexofenadine, diphenhydramine) for 3–7 days before the skin prick test — they suppress the skin reaction and can produce false negatives. The duration depends on the antihistamine (cetirizine: 3 days; diphenhydramine: 3 days; hydroxyzine: 7 days). Montelukast (Singulair) should also be stopped. Nasal steroids and inhaled steroids do not need to be stopped. Blood IgE tests (RAST/ImmunoCAP) do not require any antihistamine washout." },
+      { q: "Can I start allergy immunotherapy in Bangkok if I live there long-term?", a: "Yes — allergen immunotherapy (SCIT injections) is an excellent option for Bangkok long-term residents with significant dust mite or mould allergy. After initial build-up (weekly injections for 3–6 months), you move to monthly maintenance injections for 3–5 years. Many expats find this dramatically reduces their rhinitis symptoms and reduces medication dependence. If you relocate, some doctors can transition you to sublingual immunotherapy (drops) for continuation at home." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat annual health check-up guide" },
+      { href: "/en/guide/blood-test-price-bangkok", label: "All blood test prices Bangkok" },
+      { href: "/en/guide/sti-hiv-test-bangkok", label: "Other specialist tests in Bangkok" },
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in health check-up packages" },
+    ],
+  },
+
   "chiang-mai-health-checkup": {
     title: "Health Check-Up in Chiang Mai — Hospitals, Prices & Guide (2026)",
     description: "Complete guide to health check-up packages in Chiang Mai, Thailand. Compare prices at Chiang Mai Ram, Lanna, Bangkok Hospital Chiang Mai and more. From ฿1,800.",

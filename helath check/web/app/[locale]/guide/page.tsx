@@ -396,6 +396,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "allergy-test-bangkok",
+    title: "Allergy Test Bangkok — Skin Prick, IgE Blood Tests & Immunotherapy (2026)",
+    description: "Skin prick test ฿1,500–฿4,000 (20–40 allergens), specific IgE panel ฿3,000–฿8,000. Bangkok's top allergens: house dust mites, mould, seafood. Immunotherapy available.",
+    emoji: "🌿",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
