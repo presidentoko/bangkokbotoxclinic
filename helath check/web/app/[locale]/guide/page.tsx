@@ -221,6 +221,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "thailand-vs-singapore-health-checkup",
+    title: "Thailand vs Singapore Health Check-Up — Price Comparison 2026",
+    description: "Bangkok hospitals vs Singapore: prices, quality, JCI status, language coverage. Bangkok is 50–70% cheaper.",
+    emoji: "⚖️",
+    category: "Practical Guides",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",

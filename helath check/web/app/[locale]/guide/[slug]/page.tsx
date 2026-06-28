@@ -1357,6 +1357,71 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "thailand-vs-singapore-health-checkup": {
+    title: "Thailand vs Singapore Health Check-Up — Price Comparison 2026",
+    description: "Compare health check-up prices, hospital quality, and logistics between Bangkok and Singapore. Bangkok hospitals are 50–70% cheaper for the same JCI-accredited quality.",
+    intro: "Bangkok and Singapore are the two most popular medical tourism destinations in Southeast Asia. Both cities have JCI-accredited hospitals with world-class facilities. The key difference: Bangkok is 50–70% cheaper for equivalent health check-up packages, with comparable or better international patient services at top hospitals like Bumrungrad and Samitivej.",
+    sections: [
+      {
+        heading: "Price comparison: Bangkok vs Singapore",
+        content: "Side-by-side package prices at comparable JCI hospitals:",
+        list: [
+          "Executive health check-up — Bangkok: ฿8,000–฿25,000 (SGD 310–970) vs Singapore: SGD 1,200–3,500",
+          "Comprehensive check-up with MRI — Bangkok: ฿25,000–฿55,000 vs Singapore: SGD 3,500–7,000",
+          "Women's executive (mammogram + ultrasound + pap smear) — Bangkok: ฿8,500–฿18,000 vs Singapore: SGD 1,500–3,200",
+          "Cancer screening panel (all markers) — Bangkok: ฿5,000–฿15,000 vs Singapore: SGD 1,500–3,500",
+          "MRI brain — Bangkok: ฿8,000–฿18,000 vs Singapore: SGD 1,500–3,000",
+          "Gastroscopy — Bangkok: ฿4,500–฿9,000 vs Singapore: SGD 1,200–2,200",
+          "Overall savings: Bangkok packages are 50–70% cheaper on average",
+        ],
+      },
+      {
+        heading: "Hospital quality: Bangkok vs Singapore",
+        content: "Both cities have internationally accredited hospitals, but differ in coverage:",
+        list: [
+          "JCI hospitals — Bangkok: 9 (Bumrungrad, Bangkok Hospital, Samitivej, BNH, Vejthani, Saint Louis, Phyathai 2, Praram 9, Yanhee); Singapore: 5 (NUH, SGH, Mount Elizabeth, Gleneagles, Raffles)",
+          "Bumrungrad Bangkok handles ~1.1M patients/year including 520,000 international patients — similar scale to Singapore General Hospital",
+          "Bangkok hospitals have significant advantage in language coverage for Asian languages (Japanese, Korean, Arabic, Chinese coordinators on staff)",
+          "Singapore has an advantage for English speakers and Malay-speaking patients from Malaysia/Indonesia",
+          "Both cities have comparable wait times (1–3 days for appointments, same-day results for most tests)",
+        ],
+      },
+      {
+        heading: "Bangkok advantages over Singapore",
+        content: "Specific advantages for choosing Bangkok:",
+        list: [
+          "Cost: 50–70% cheaper across all package types — significant savings on executive and comprehensive packages",
+          "Specialisation: Bumrungrad is consistently ranked Asia's #1 medical tourism hospital by IMTJ (International Medical Travel Journal)",
+          "Nationality coverage: dedicated Japanese, Korean, Arabic, and Chinese patient programmes beyond what Singapore offers",
+          "Package variety: Bangkok has 3–4x more package options across more hospitals in the same city",
+          "No GST: Singapore's 9% GST adds cost; Thailand has no medical service tax for foreign patients",
+          "Tourism: Bangkok's entertainment, food, and accommodation is 40–60% cheaper — lower total trip cost",
+        ],
+      },
+      {
+        heading: "Singapore advantages over Bangkok",
+        content: "Reasons some travellers prefer Singapore:",
+        list: [
+          "English-first environment: Singapore operates entirely in English with no translation concerns",
+          "Proximity to Malaysia: Singapore is preferred for Malaysian patients, especially from Johor Bahru",
+          "Tier 1 Western accreditation: Singapore hospitals are Joint Commission International (USA) accredited — same as Bangkok JCI hospitals, but with more familiarity for Western patients",
+          "Connectivity: Singapore Changi is a major Asian hub — no stopovers for some long-haul routes",
+          "ASEAN hub: Singapore has deeper ties with Australian, New Zealand, and UK private insurance networks",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Bangkok or Singapore better for a health check-up?", a: "For cost: Bangkok wins by 50–70%. For English-first environment: Singapore is slightly more comfortable. For quality: both are comparable — Bangkok's JCI hospitals (Bumrungrad, Samitivej) match or exceed Singapore's private hospital quality. Most medical tourists who go to Bangkok don't switch back to Singapore for cost reasons alone." },
+      { q: "Do Malaysian medical tourists go to Bangkok or Singapore?", a: "Malaysians are split: those from Johor Bahru and the South typically use Singapore for convenience. Malaysians from Kuala Lumpur, Penang, and northern states are increasingly going to Bangkok — particularly Hat Yai for border-area Thais and Penangites, and Bangkok for comprehensive packages. Hat Yai's hospitals are 30–60% cheaper than Penang private hospitals." },
+      { q: "Is it worth flying from Singapore to Bangkok just for a health check-up?", a: "For comprehensive or executive packages: typically yes — the savings (SGD 1,500–4,000+) more than offset a Bangkok flight (SGD 120–250 return). Budget 2 days minimum: one for the check-up, one buffer for results collection. Budget travellers can do Bangkok as a round-trip in 36 hours for a comprehensive check-up." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages in Bangkok" },
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+    ],
+  },
+
   "best-hospitals-korean-tourists": {
     title: "Best Hospitals for Korean Tourists in Bangkok (2026) — 한국어 가이드",
     description: "Korean-speaking staff, Korean-language menus, and Korean-preferred health check-up packages in Bangkok. Bumrungrad, Samitivej, Vejthani — which is best for Koreans?",
