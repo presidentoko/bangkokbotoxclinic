@@ -106,6 +106,9 @@ export default async function HospitalsPage({
           { href: `/${locale}/for/budget-health-checkup-bangkok`, label: "Under ฿3,000" },
           { href: `/${locale}/for/cancer-screening-bangkok`, label: "Cancer screening" },
           { href: `/${locale}/for/womens-health-checkup-bangkok`, label: "Women's health" },
+          { href: `/${locale}/for/japanese-health-checkup-bangkok`, label: "🇯🇵 Japanese" },
+          { href: `/${locale}/for/arabic-health-checkup-bangkok`, label: "🌙 Arabic" },
+          { href: `/${locale}/for/health-checkup-expats-bangkok`, label: "🌍 Expats" },
         ].map(({ href, label }) => (
           <Link key={href} href={href}
             className="text-xs border border-slate-200 rounded-full px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-700 bg-white transition-colors">
