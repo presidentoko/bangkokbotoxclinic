@@ -515,6 +515,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "phyathai-hospital-health-checkup",
+    title: "Phyathai Hospital Health Check-Up Bangkok — Packages, Prices & Review (2026)",
+    description: "Phyathai 1, 2 & 3 health check-up: basic ฿2,500–฿4,500, executive ฿8,000–฿18,000 — 30–40% cheaper than Bumrungrad. JCI-accredited (Phyathai 2). Preferred by Bangkok residents.",
+    emoji: "🏨",
+    category: "Hospital Guides",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

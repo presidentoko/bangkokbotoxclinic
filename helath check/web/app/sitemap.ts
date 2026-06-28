@@ -176,6 +176,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "ultrasound-scan-bangkok",
       "high-cholesterol-treatment-bangkok",
       "high-blood-pressure-treatment-bangkok",
+      "phyathai-hospital-health-checkup",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
