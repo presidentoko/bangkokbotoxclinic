@@ -141,7 +141,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Browse by city ── */}
       <section className="mx-auto max-w-6xl px-4 pb-10">
-        <h2 className="text-xl font-bold text-slate-800 mb-5">Browse health check-ups by city</h2>
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-slate-800">Browse health check-ups by city</h2>
+          <Link href={`${base}/hospital`} className="text-sm text-blue-600 hover:underline font-medium">All 22 cities →</Link>
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
           {[
             { city: "bangkok", label: "Bangkok", emoji: "🏙️" },
