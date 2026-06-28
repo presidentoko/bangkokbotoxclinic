@@ -564,6 +564,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "full-body-mri-bangkok",
+    title: "Full Body MRI Bangkok — Whole-Body Scan Prices & What It Covers (2026)",
+    description: "Whole-body MRI ฿18,000–฿45,000. 3T scanner, AI-assisted reading, English report in 24–48 hours. 60–80% cheaper than UK/US. What it detects — and what it misses.",
+    emoji: "🧲",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
