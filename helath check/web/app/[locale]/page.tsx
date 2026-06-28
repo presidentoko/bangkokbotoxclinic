@@ -347,11 +347,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {[
             { slug: "health-checkup-usa-vs-thailand", title: "USA vs Thailand — How Much You Save", emoji: "🇺🇸", desc: "Bangkok packages cost 75–90% less than US out-of-pocket prices." },
             { slug: "health-checkup-uk-vs-thailand", title: "UK vs Thailand Health Check-Up", emoji: "🇬🇧", desc: "Skip NHS waits. Executive packages 65–75% cheaper in Bangkok." },
+            { slug: "health-checkup-germany-vs-thailand", title: "Germany vs Thailand (Gesundheitscheck)", emoji: "🇩🇪", desc: "GKV deckt keine Vorsorge-Check-ups. Bangkok 70–80% günstiger." },
+            { slug: "health-checkup-canada-vs-thailand", title: "Canada vs Thailand — Beat the Wait", emoji: "🍁", desc: "Canada's wait times: 4.5 months. Bangkok: same day. 70–85% cheaper." },
+            { slug: "health-checkup-australia-vs-thailand", title: "Australia vs Thailand", emoji: "🇦🇺", desc: "Medicare gaps add up. Bangkok executive check-ups 65–75% cheaper." },
+            { slug: "health-checkup-netherlands-vs-thailand", title: "Netherlands vs Thailand", emoji: "🇳🇱", desc: "Basisverzekering dekt geen preventieve check-ups. 70–80% besparing." },
             { slug: "health-checkup-japan-vs-thailand", title: "Japan vs Thailand (Ningen Dock)", emoji: "🇯🇵", desc: "人間ドック equivalent packages at 50–70% below Japanese prices." },
             { slug: "health-checkup-malaysia-vs-thailand", title: "Malaysia vs Thailand (Hat Yai)", emoji: "🇲🇾", desc: "Hat Yai serves 100k+ Malaysian visitors/year. 40–60% cheaper." },
             { slug: "thailand-vs-singapore-health-checkup", title: "Singapore vs Thailand", emoji: "🇸🇬", desc: "Save 50–70% vs Singapore private hospitals. Same JCI quality." },
-            { slug: "health-checkup-canada-vs-thailand", title: "Canada vs Thailand — Beat the Wait", emoji: "🍁", desc: "Canada's wait times: 4.5 months. Bangkok: same day. 70–85% cheaper." },
-            { slug: "understanding-health-checkup-results", title: "Understanding Your Results", emoji: "📊", desc: "Normal ranges for blood glucose, cholesterol, cancer markers — explained." },
           ].map(({ slug, title, emoji, desc }) => (
             <Link key={slug} href={`${base}/guide/${slug}`}
               className="group flex gap-4 bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all">
@@ -360,6 +362,37 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <p className="font-semibold text-slate-800 group-hover:text-blue-700 text-sm leading-snug mb-1">{title}</p>
                 <p className="text-xs text-slate-500">{desc}</p>
               </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Specialist tests & procedures ── */}
+      <section className="mx-auto max-w-6xl px-4 pb-10">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-slate-800">Specialist tests & procedure costs</h2>
+          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All guides →</Link>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {[
+            { slug: "mri-scan-cost-bangkok", label: "MRI Scan", emoji: "🧲", sub: "฿5k–฿12k" },
+            { slug: "ct-scan-cost-bangkok", label: "CT Scan", emoji: "💿", sub: "฿3.5k–฿8k" },
+            { slug: "blood-test-price-bangkok", label: "Blood Tests", emoji: "🩸", sub: "฿1.5k–฿3k" },
+            { slug: "thyroid-screening-bangkok", label: "Thyroid (TSH)", emoji: "🦋", sub: "฿300–฿600" },
+            { slug: "psa-test-bangkok", label: "PSA Test", emoji: "🔬", sub: "฿400–฿900" },
+            { slug: "vitamin-d-test-bangkok", label: "Vitamin D", emoji: "☀️", sub: "฿500–฿1.2k" },
+            { slug: "mammogram-cost-bangkok", label: "Mammogram", emoji: "🎀", sub: "฿1.5k–฿4k" },
+            { slug: "colonoscopy-cost-bangkok", label: "Colonoscopy", emoji: "🏥", sub: "฿8k–฿22k" },
+            { slug: "gastroscopy-cost-bangkok", label: "Gastroscopy", emoji: "💊", sub: "฿4.5k–฿9k" },
+            { slug: "cancer-screening-bangkok", label: "Cancer Markers", emoji: "🎗️", sub: "฿500–฿2k" },
+            { slug: "cardiac-health-checkup-bangkok", label: "Heart Screening", emoji: "❤️", sub: "฿3k–฿15k" },
+            { slug: "diabetes-screening-thailand", label: "Diabetes Check", emoji: "🍬", sub: "฿400–฿1.5k" },
+          ].map((t) => (
+            <Link key={t.slug} href={`${base}/guide/${t.slug}`}
+              className="bg-white border border-slate-200 rounded-xl p-3 text-center hover:border-blue-300 hover:shadow-sm transition-all group">
+              <div className="text-xl mb-1.5">{t.emoji}</div>
+              <p className="text-xs font-semibold text-slate-700 group-hover:text-blue-700 leading-snug mb-0.5">{t.label}</p>
+              <p className="text-[10px] text-slate-400">{t.sub}</p>
             </Link>
           ))}
         </div>
