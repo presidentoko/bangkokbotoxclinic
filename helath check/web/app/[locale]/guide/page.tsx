@@ -312,6 +312,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "health-checkup-switzerland-vs-thailand",
+    title: "Switzerland vs Thailand Health Check-Up 2026 — Bangkok für Schweizer",
+    description: "Swiss Vorsorgeuntersuchung costs CHF 500–3,500. Bangkok JCI hospitals: same scope at 70–85% lower cost. Visa-free 30 days. No waiting.",
+    emoji: "🇨🇭",
+    category: "Practical Guides",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

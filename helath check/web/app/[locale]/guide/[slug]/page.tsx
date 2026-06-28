@@ -2111,6 +2111,63 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
       { href: "/en/guide/health-checkup-cost-australia-vs-thailand", label: "Australia vs Thailand comparison" },
       { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-switzerland-vs-thailand", label: "Switzerland vs Thailand comparison" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
+  "health-checkup-switzerland-vs-thailand": {
+    title: "Health Check-Up: Switzerland vs Thailand 2026 — Bangkok für Schweizer",
+    description: "Swiss healthcare costs are among the world's highest (CHF 500–3,500 for a Vorsorgeuntersuchung). Bangkok JCI hospitals offer equivalent comprehensive check-ups at 70–85% lower cost.",
+    intro: "Die Schweiz hat ein exzellentes, aber teures Gesundheitssystem — Grundversicherung ist Pflicht, aber Vorsorgeuntersuchungen sind oft nicht oder nur teilweise gedeckt. Eine umfassende Vorsorgeuntersuchung beim Privatarzt kostet CHF 500–3,500. Die gleiche oder umfassendere Untersuchung in einem JCI-akkreditierten Bangkoker Krankenhaus kostet ฿8,000–฿25,000 (CHF 210–660) — 70–85% günstiger. Switzerland is Thailand's second-largest European tourist source, with ~250,000 Swiss visitors annually. Bangkok's JCI hospitals offer world-class care at a fraction of Swiss private clinic costs.",
+    sections: [
+      {
+        heading: "Preisvergleich: Schweiz vs Bangkok / Prix comparaison: Suisse vs Bangkok",
+        content: "Direktvergleich Vorsorgeuntersuchungen (Wechselkurs CHF 1 ≈ ฿41):",
+        list: [
+          "Basisblutbild (KKB, Nüchternglukose, Cholesterin, Schilddrüse, Leber, Niere) — Schweiz Privatarzt: CHF 200–600 | Bangkok: ฿2,500–฿5,000 (CHF 61–122) | Ersparnis 70–80%",
+          "Standard-Vorsorge (+ EKG, Röntgen, Ultraschall) — Schweiz: CHF 600–1,500 | Bangkok: ฿5,000–฿9,000 (CHF 122–220) | Ersparnis 75–85%",
+          "Executive Check-up (komplettes Organpanel + Tumormarker + Arztgespräch) — Schweiz: CHF 1,500–3,500 | Bangkok: ฿8,000–฿25,000 (CHF 195–610) | Ersparnis 70–85%",
+          "Premium (+ MRT, Herzspezialisten) — Schweiz: CHF 3,000–8,000 | Bangkok: ฿25,000–฿60,000 (CHF 610–1,460) | Ersparnis 70–80%",
+          "MRT Gehirn — Schweiz: CHF 700–1,800 | Bangkok: ฿5,000–฿12,000 (CHF 122–293) | Ersparnis 75–85%",
+          "Gastroskopie mit Narkose — Schweiz: CHF 500–1,200 | Bangkok: ฿4,500–฿9,000 (CHF 110–220) | Ersparnis 75–80%",
+          "Fazit: Bangkok bietet für einen europäischen Urlaub plus Executive-Check-up oft mehr Kostenersparnis als die reinen Flugkosten (ZRH–BKK Return CHF 600–1,200)",
+        ],
+      },
+      {
+        heading: "Was die Grundversicherung (KVG) abdeckt — und was nicht",
+        content: "Was bei der obligatorischen Grundversicherung für Vorsorge gilt:",
+        list: [
+          "Krebsfrüherkennungsuntersuchungen (Mammo, Darmspiegelung): teilweise übernommen ab bestimmtem Alter (Mammographie alle 2 Jahre ab 50)",
+          "Allgemeine Vorsorgeuntersuchung beim Hausarzt: nicht als eigenständige Leistung abgedeckt — muss an konkrete Diagnose geknüpft sein",
+          "Blutbild auf eigenen Wunsch ohne Symptome: Selbstzahler (Franchise + Selbstbehalt = CHF 500–3,000 pro Jahr eigene Kosten)",
+          "Zahnuntersuchung, Augentest: grundsätzlich nicht in Grundversicherung — Privatleistung",
+          "Fazit: Für eine umfassende präventive Vorsorgeuntersuchung ist man in der Schweiz im Wesentlichen Selbstzahler — Bangkok kostet trotz Reise weniger",
+          "Zusatzversicherung (VVG): Einige Anbieter (CSS, Helsana, SWICA) haben internationale Krankenzusatzversicherungen — prüfen Sie die Police auf Auslandsvorsorge",
+        ],
+      },
+      {
+        heading: "Praxis: Reiseplanung Bangkok für Schweizer",
+        content: "Informationen zur Reiseplanung für Schweizer Staatsbürger:",
+        list: [
+          "Visum: Schweizer Staatsbürger sind von der Visumspflicht befreit — bis 30 Tage visumfrei, verlängerbar auf 60 Tage",
+          "Flug: Zürich (ZRH) – Bangkok (BKK) ca. 10–11 Stunden mit Thai Airways, SWISS via Dubai, Emirates, Qatar Airways",
+          "Zahlung: Visa/Mastercard Schweizer Banken (UBS, CS/PostFinance) funktionieren in Thailand einwandfrei; kein Twint, kein Mobile Payment von CH-Banken",
+          "Krankenkasse im Ausland: Grundversicherung gilt nicht für geplante Vorsorge im Nicht-EU-Ausland; Reisekrankenversicherung abschliessen (Helvetia, TCS, ADAC-äquivalent)",
+          "Rückreise mit Befunden: alle Resultate auf Englisch — Schweizer Ärzte lesen englische Laborberichte problemlos; Einheiten (mmol/L) kompatibel mit CH-Norm",
+          "Beste Zeit: November–März (trocken, warm) für Bangkok; April–Oktober hat mehr Regen aber weniger Andrang in den Spitälern",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Lohnt sich ein Health Check-up in Bangkok trotz Flugkosten für Schweizer?", a: "Ja — für ein umfassendes Executive Check-up (CHF 1,500–3,500 in der Schweiz vs. CHF 195–610 in Bangkok) beträgt die Ersparnis CHF 900–2,900 selbst nach Abzug der Flugkosten (ZRH–BKK ab CHF 600 return). Viele Schweizer kombinieren den Check-up mit einem Thailand-Urlaub, sodass die Reisekosten ohnehin anfallen. Für alle, die Thailand ohnehin besuchen, ist der Check-up quasi umsonst." },
+      { q: "Akzeptiert mein Schweizer Hausarzt oder Facharzt die Befunde aus Bangkok?", a: "Ja — internationale Krankenhäuser wie Bumrungrad und Samitivej stellen Laborbefunde auf Englisch mit internationalen Referenzwerten aus. Schweizer Ärzte können diese direkt auswerten. Die Einheiten (mmol/L für Glukose und Cholesterin, g/dL für Hämoglobin) sind identisch mit schweizerischen Normen. Bitten Sie immer um den vollständigen Laborbefund, nicht nur die Arztbriefzusammenfassung." },
+      { q: "Gilt meine Reisekrankenversicherung für einen Check-up in Thailand?", a: "Standard-Reisekrankenversicherungen (TCS, Europäische Reiseversicherung, Helvetia) decken in der Regel Notfallbehandlungen, nicht geplante präventive Vorsorgeuntersuchungen. Lesen Sie die Policenbedingungen genau; einige 'Premium'-Reisezusatzversicherungen haben Vorsorge im Ausland eingeschlossen. Falls nicht gedeckt, zahlen Sie direkt — das ist in Bangkok deutlich günstiger als die Franchise+Selbstbehalt in der Schweiz." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Deutschland / Germany comparison" },
+      { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
     ],
