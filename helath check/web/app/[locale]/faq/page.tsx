@@ -134,6 +134,46 @@ const FAQS = [
       },
     ],
   },
+  {
+    category: "Country Comparisons — How Much You Save",
+    items: [
+      {
+        q: "How much cheaper is a health check-up in Bangkok vs the US?",
+        a: "A comprehensive executive health check-up in Bangkok costs ฿8,000–฿20,000 (approximately US$220–$550). An equivalent package in the US would cost US$1,500–$5,000 out-of-pocket (without insurance) — 75–90% more expensive. Bangkok's JCI hospitals (Bumrungrad, Samitivej, Vejthani) use the same international lab standards and have English-speaking doctors.",
+        link: { label: "USA vs Thailand comparison guide", href: "/guide/health-checkup-usa-vs-thailand" },
+      },
+      {
+        q: "Is a health check-up in Thailand cheaper than in Singapore?",
+        a: "Yes — Bangkok health check-up packages are 50–70% cheaper than equivalent packages at Mount Elizabeth, Gleneagles, or Parkway hospitals in Singapore. A comprehensive executive package at Bumrungrad or Samitivej costs ฿8,000–฿20,000 vs SGD 1,500–SGD 4,000 (approximately ฿40,000–฿110,000) in Singapore. Quality is comparable — both markets have multiple JCI-accredited hospitals.",
+        link: { label: "Thailand vs Singapore comparison", href: "/guide/thailand-vs-singapore-health-checkup" },
+      },
+      {
+        q: "Should Japanese visitors get a Ningen Dock check-up in Bangkok?",
+        a: "Bangkok offers Ningen Dock (人間ドック) equivalent packages at 50–70% below Japanese prices. BNH Hospital, Samitivej, and Bumrungrad have dedicated Japanese departments with Japanese-speaking staff, Japanese-language reports, and gastroscopy (直接カメラ) instead of the barium swallow common in Japan. For patients outside the Japanese public system, Bangkok is an attractive alternative.",
+        link: { label: "Japan vs Thailand guide (日本語)", href: "/guide/health-checkup-japan-vs-thailand" },
+      },
+      {
+        q: "Is Hat Yai cheaper than Bangkok for health check-ups?",
+        a: "Yes — Hat Yai packages are typically 25–35% cheaper than Bangkok for equivalent quality. Hat Yai is popular with Malaysian visitors (only 90 minutes from Penang by road). Bangkok Hospital Hat Yai and Hat Yai Ram Hospital offer standard packages from ฿1,800 and executive packages from ฿6,000. For complex or specialist screening, Bangkok is still recommended.",
+        link: { label: "Malaysia vs Thailand / Hat Yai guide", href: "/guide/health-checkup-malaysia-vs-thailand" },
+      },
+    ],
+  },
+  {
+    category: "Visa & Long-Stay",
+    items: [
+      {
+        q: "What medical tests are required for a Thai retirement visa?",
+        a: "The Non-Immigrant O-A (retirement visa) requires a medical certificate from a licensed Thai hospital including: chest X-ray (to rule out TB), HIV/AIDS test (must be negative), and syphilis (VDRL) test. All tests must be performed in Thailand. Most private hospitals can complete the full visa medical package in one morning (฿800–฿2,500).",
+        link: { label: "Retirement visa health check guide", href: "/guide/health-checkup-for-retirement-visa-thailand" },
+      },
+      {
+        q: "Do I need a medical visa to get a health check-up in Thailand?",
+        a: "No — most health check-up visits are completed within a standard tourist visa or visa exemption (30–60 days depending on nationality). A dedicated Medical Treatment Visa is only needed for treatment or recovery exceeding 60 days, or major surgery with extended hospitalisation. For a one-day health check-up, your existing tourist entry is sufficient.",
+        link: { label: "Medical visa Thailand guide", href: "/guide/medical-visa-thailand" },
+      },
+    ],
+  },
 ];
 
 export default async function FaqPage({
