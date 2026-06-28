@@ -123,6 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/chanel-vs-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${BASE}/brands/tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/cartier-love-bracelet-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/trends/chanel-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
