@@ -105,6 +105,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "surat-thani-health-checkup",
       "phitsanulok-health-checkup",
       "trang-health-checkup",
+      "executive-health-checkup-bangkok",
       "blood-test-price-bangkok",
       "mri-scan-cost-bangkok",
       "chon-buri-health-checkup",

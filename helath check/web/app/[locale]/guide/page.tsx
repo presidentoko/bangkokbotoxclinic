@@ -214,6 +214,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "executive-health-checkup-bangkok",
+    title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
+    description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",
+    emoji: "💼",
+    category: "Hospital Guides",
+  },
+  {
     slug: "blood-test-price-bangkok",
     title: "Blood Test Price in Bangkok (2026 Guide)",
     description: "How much does a blood test cost in Bangkok? CBC, lipid panel, liver function, cancer markers — all prices compared.",

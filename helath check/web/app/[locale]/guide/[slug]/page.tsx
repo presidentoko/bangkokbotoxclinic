@@ -1500,6 +1500,88 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "executive-health-checkup-bangkok": {
+    title: "Executive Health Check-Up Bangkok — Best Packages, Prices & Hospitals (2026)",
+    description: "Complete guide to executive health check-up packages in Bangkok. Compare prices at Bumrungrad, Samitivej, Bangkok Hospital. What's included, how to book, what to expect.",
+    intro: "An executive health check-up in Bangkok is the gold standard in preventive medicine — a comprehensive all-day screen covering every major organ system, with specialist consultations, advanced imaging (MRI or CT), and cancer marker panels. Bangkok's executive packages at JCI hospitals cost 30–60% less than equivalent packages in the US, UK, or Singapore.",
+    sections: [
+      {
+        heading: "What is an executive health check-up in Bangkok?",
+        content: "An executive health check-up in Bangkok typically includes all of the following in one appointment:",
+        list: [
+          "Full blood panel: CBC, metabolic panel, lipids, liver, kidney, thyroid, HbA1c, uric acid",
+          "Cancer markers: AFP, CEA, CA-125 (women), CA 19-9, PSA (men), CA 15-3 (women)",
+          "Cardiovascular: ECG, blood pressure, coronary risk score",
+          "Imaging: chest X-ray, abdominal ultrasound (full), +/- coronary CT, brain MRI",
+          "Women's specific: Pap smear, breast ultrasound or mammogram, pelvic ultrasound",
+          "Men's specific: PSA, testicular ultrasound (optional), prostate check",
+          "Specialist consultation: internist (or cardiologist/oncologist as needed)",
+          "Results review with detailed health report — often PDF format, sharable with your home doctor",
+        ],
+      },
+      {
+        heading: "Executive health check-up prices in Bangkok (2026)",
+        content: "Price ranges across all hospital tiers:",
+        list: [
+          "Budget / provincial private hospital: ฿8,000 – ฿12,000 (full blood + X-ray + ultrasound + ECG + consult)",
+          "Established private hospital (non-JCI): ฿12,000 – ฿25,000 (above + cancer markers + MRI option)",
+          "JCI hospital — entry level: ฿18,000 – ฿35,000 (Vejthani, Saint Louis, Phyathai)",
+          "JCI hospital — premium: ฿35,000 – ฿60,000 (Bangkok Hospital, BNH, Samitivej)",
+          "JCI flagship (Bumrungrad): ฿45,000 – ฿85,000 (full executive A to Executive Platinum)",
+          "Executive package with MRI brain + body: add ฿15,000 – ฿35,000 to above prices",
+        ],
+      },
+      {
+        heading: "Best hospitals for executive health check-ups in Bangkok",
+        content: "Top-rated hospitals for comprehensive executive packages:",
+        list: [
+          "Bumrungrad International — widest package range (3 executive tiers), most experienced team, largest international patient base, 2.5 hours average check-up time",
+          "Samitivej Sukhumvit — best rated for women's executive packages, excellent oncology team, slightly lower prices than Bumrungrad",
+          "Bangkok Hospital (Phaya Thai) — BDMS flagship, strong imaging department, dedicated health check-up floor, Bangkok-standard care",
+          "BNH Hospital — preferred by Europeans and Japanese, quieter, efficient, 3.5 hours average check-up, JCI accredited",
+          "Vejthani Hospital — best price-to-quality ratio for JCI executive packages, English and Mandarin services",
+          "Saint Louis Hospital — good value JCI, central location (Sathon), strong reputation for thorough exams",
+        ],
+      },
+      {
+        heading: "How long does an executive health check-up take in Bangkok?",
+        content: "Timeline for a full executive check-up:",
+        list: [
+          "Registration and pre-check (blood draw, weight, BP, vision, hearing): 30–45 min",
+          "Imaging (chest X-ray, abdominal ultrasound): 45–90 min",
+          "ECG + treadmill test (if included): 30–45 min",
+          "MRI (if included): 30–60 min",
+          "Lunch break (most executive packages include lunch at the hospital): 30–60 min",
+          "Specialist consultation and results review: 45–60 min",
+          "Total: 4–6 hours for a full executive package without MRI; 6–8 hours with MRI",
+        ],
+      },
+      {
+        heading: "How to book an executive health check-up in Bangkok",
+        content: "Booking tips for first-time visitors:",
+        list: [
+          "Book at least 2–3 days in advance — executive check-up slots are limited, especially at Bumrungrad",
+          "Fast from midnight the night before; water is fine; no alcohol for 24 hours before",
+          "Bring passport and any previous health records or lab results",
+          "Wear comfortable clothing — you will change into a hospital gown for imaging",
+          "Arrange transport for the return journey — you may feel lightheaded after fasting all morning",
+          "Ask for your results in PDF format — most hospitals provide a digital copy that day",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "What is the difference between a comprehensive and executive health check-up in Bangkok?", a: "A comprehensive package covers the essential tests (blood panel, X-ray, ECG, ultrasound) without a physician consultation. An executive package adds specialist consultations, advanced imaging (MRI or CT), cancer markers, and a detailed health report. Executive packages typically take a full day vs 3 hours for comprehensive packages." },
+      { q: "Are Bangkok executive health check-up results recognised internationally?", a: "Yes — all JCI-accredited Bangkok hospitals issue results in international standard formats (HL7/FHIR-compatible PDFs) that are recognised by doctors worldwide. Lab normal ranges may differ slightly from US/European references — your home doctor should be informed that the reference ranges are based on Thai population data." },
+      { q: "Can I combine an executive health check-up with cancer screening in Bangkok?", a: "Yes — most executive packages include basic cancer markers. For a comprehensive cancer screen, look for packages that include a low-dose CT chest (lung cancer detection), gastroscopy or barium meal, colonoscopy referral, and full tumour marker panel. Ask the hospital's health check-up coordinator to build a customised cancer-plus-executive package." },
+    ],
+    relatedLinks: [
+      { href: "/en/compare?category=executive", label: "Compare all executive packages" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening in Bangkok" },
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up?" },
+    ],
+  },
+
   "blood-test-price-bangkok": {
     title: "Blood Test Price in Bangkok — 2026 Cost Guide",
     description: "How much does a blood test cost in Bangkok? Complete guide to blood test packages at Thai private hospitals — CBC, lipid panel, liver function, diabetes screening and more.",
