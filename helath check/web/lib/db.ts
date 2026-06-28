@@ -6,7 +6,7 @@ declare global {
   var _bkkPool: mysql.Pool | undefined;
 }
 
-function getPool(): mysql.Pool {
+export function getPool(): mysql.Pool {
   if (!global._bkkPool) {
     const isRemote = (process.env.DB_HOST || "127.0.0.1") !== "127.0.0.1";
     global._bkkPool = mysql.createPool({

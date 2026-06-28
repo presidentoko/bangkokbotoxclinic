@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, t, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
-import { getStatsForHome, getPackagesByCategory, getCategories, type PackageRow, type CategoryCount } from "@/lib/db";
+import { getStatsForHome, getPackagesByCategory, getCategories, getRecentPriceChanges, type PackageRow, type CategoryCount } from "@/lib/db";
 
 export const revalidate = 3600;
 
@@ -51,11 +51,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   let stats = { jciCount: 0, packageCount: 0, hospitalCount: 0 };
   let executiveRows: PackageRow[] = [];
   let catCounts: CategoryCount[] = [];
+  let recentDrops: import("@/lib/db").PriceTrendRow[] = [];
   try {
-    [stats, executiveRows, catCounts] = await Promise.all([
+    [stats, executiveRows, catCounts, recentDrops] = await Promise.all([
       getStatsForHome(),
       getPackagesByCategory("executive", "price"),
       getCategories(),
+      getRecentPriceChanges(6).then((r) => r.filter((x) => x.change_pct < 0)).catch(() => []),
     ]);
   } catch { /* DB not connected yet */ }
   const catCountMap = Object.fromEntries(catCounts.map((c) => [c.category, c.count]));
@@ -274,6 +276,35 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               className="bg-blue-600 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm">
               See all {executiveRows.length} executive packages →
             </Link>
+          </div>
+        </section>
+      )}
+
+      {/* ── Recent price drops (only shown once data exists) ── */}
+      {recentDrops.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pb-10">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">📉</span>
+              <h2 className="text-xl font-bold text-slate-800">Recent price drops</h2>
+            </div>
+            <Link href={`${base}/trends`} className="text-sm text-blue-600 hover:underline font-medium">
+              All price trends →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {recentDrops.map((d) => (
+              <Link key={d.package_id} href={`${base}/hospital/${d.hospital_slug}`}
+                className="bg-white border border-emerald-100 rounded-xl p-4 hover:border-emerald-300 hover:shadow-sm transition-all">
+                <p className="font-semibold text-slate-800 text-sm leading-snug">{d.hospital_name}</p>
+                <p className="text-xs text-slate-500 mt-0.5 mb-2 line-clamp-1">{d.package_name}</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-600 font-bold text-sm">{d.change_pct}%</span>
+                  <span className="text-xs text-slate-400 line-through">฿{d.prev_price.toLocaleString()}</span>
+                  <span className="text-sm font-bold text-slate-700">฿{d.latest_price.toLocaleString()}</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       )}
