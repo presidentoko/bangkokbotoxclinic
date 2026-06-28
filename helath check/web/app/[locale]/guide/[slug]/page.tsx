@@ -1151,7 +1151,74 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/medical-visa-thailand", label: "Medical visa guide" },
       { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/guide/health-checkup-for-retirement-visa-thailand", label: "Health check for retirement visa Thailand" },
       { href: "/en/compare?category=executive", label: "Compare executive packages" },
+    ],
+  },
+
+  "health-checkup-for-retirement-visa-thailand": {
+    title: "Health Check-Up for Thailand Retirement Visa & Long-Stay Visa (2026)",
+    description: "What medical tests are required for a Thailand retirement visa, Non-Immigrant O-A visa, and Thailand Elite Visa? X-ray, blood test, HIV — full requirements and where to get them.",
+    intro: "Applying for a Thai Retirement Visa (Non-Immigrant O-A), Thailand Elite Visa, or Work Permit often requires specific medical tests from a licensed Thai hospital. The requirements vary by visa type but typically include a chest X-ray, blood test, and a signed medical certificate. Bangkok private hospitals provide same-day medical certificate services for visa applicants.",
+    sections: [
+      {
+        heading: "Non-Immigrant O-A (Retirement Visa) medical requirements",
+        content: "The Non-Immigrant O-A visa (for retirees aged 50+) requires a medical certificate from a licensed Thai physician. Requirements as of 2026:",
+        list: [
+          "Chest X-ray (PA view) — to rule out active tuberculosis",
+          "HIV/AIDS test (ELISA or equivalent) — must be negative",
+          "Syphilis (VDRL) test — must be negative",
+          "Complete blood count (CBC) is sometimes requested",
+          "All tests must be performed at a licensed Thai hospital (not a clinic)",
+          "The medical certificate must be signed by a licensed Thai doctor on hospital letterhead",
+          "Results valid for 3 months — book tests shortly before your visa appointment",
+          "Cost at a private Bangkok hospital: ฿800–฿2,500 for the full visa medical package",
+        ],
+      },
+      {
+        heading: "Thailand Elite Visa medical requirements",
+        content: "Thailand Elite Visa (5-year, 10-year, 20-year) has no mandatory medical test at the application stage. However:",
+        list: [
+          "Some Elite Visa benefits include access to health check-up packages at partner hospitals",
+          "For the Elite Ultimate Privilege (20-year) membership, an annual executive health check-up is included at specific hospitals",
+          "No medical test is required to purchase or renew Elite Visa — only a clean criminal record",
+        ],
+      },
+      {
+        heading: "Work permit medical requirements in Thailand",
+        content: "To obtain or renew a Thai work permit, employees must provide a medical certificate stating they are free from specific conditions:",
+        list: [
+          "Required declaration: freedom from 9 prohibited diseases including leprosy, tuberculosis (active), drug addiction, alcoholism, and syphilis (stage 3)",
+          "Certificate signed by a licensed Thai physician",
+          "Chest X-ray may be requested by the employer or Ministry of Labour",
+          "HIV/AIDS status: NOT required for work permits (illegal to discriminate based on HIV status under Thai law)",
+          "Cost for work permit medical at a Bangkok private hospital: ฿500–฿1,500",
+        ],
+      },
+      {
+        heading: "Where to get a visa medical check-up in Bangkok",
+        content: "The best hospitals for fast, same-day visa medical certificates in Bangkok:",
+        list: [
+          "Bumrungrad International Hospital — international patient department handles visa medicals; English letter same day; ฿1,800–฿2,500",
+          "BNH Hospital — experienced with expat visa medicals; certificate in 2–3 hours; ฿1,500–฿2,200",
+          "Samitivej Hospital Sukhumvit — dedicated expat services; English certificate; ฿1,800–฿2,500",
+          "Phyathai 2 Hospital — more affordable option; certificates same day; ฿800–฿1,500",
+          "Kasemrad Hospital — budget-friendly; popular with budget expats; ฿600–฿1,200",
+          "Most hospitals: bring your passport, arrive in the morning, and expect 2–4 hours total",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I use a medical certificate from my home country for a Thai retirement visa?", a: "No — for the Non-Immigrant O-A retirement visa, the Thai immigration authority requires a medical certificate issued by a licensed Thai physician on Thai hospital letterhead, not a certificate from your home country. The tests must be performed in Thailand." },
+      { q: "How long is a Thai visa medical certificate valid?", a: "Medical certificates for Thai visa purposes are generally valid for 3 months from the date of issue. Book your medical tests close to your intended visa application date. Some consulates may accept certificates up to 6 months old — check with the specific Thai Embassy or Consulate." },
+      { q: "Do I need an HIV test for a Thai retirement visa?", a: "Yes — the Non-Immigrant O-A visa application requires an HIV test result (ELISA or equivalent). The result must be negative (non-reactive). HIV-positive applicants are technically prohibited from obtaining the O-A visa under Thai immigration regulations, though this policy has been debated as discriminatory by international health organisations." },
+      { q: "How much does a retirement visa medical check-up cost in Bangkok?", a: "A full medical package for Non-Immigrant O-A visa purposes (chest X-ray, HIV test, syphilis test, CBC, medical certificate) costs ฿800–฿2,500 at Bangkok private hospitals. Budget private hospitals (Phyathai, Kasemrad) are at the lower end; JCI hospitals (Bumrungrad, BNH) are at the higher end with more detailed English documentation." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/medical-visa-thailand", label: "Medical visa for treatment in Thailand" },
+      { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
+      { href: "/en/guide/health-insurance-thailand", label: "Health insurance for expats in Thailand" },
+      { href: "/en/for/health-checkup-expats-bangkok", label: "Expat health check-up packages" },
     ],
   },
 

@@ -291,6 +291,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-for-retirement-visa-thailand",
+    title: "Health Check-Up for Thailand Retirement Visa (Non-OA) 2026",
+    description: "Chest X-ray, HIV test, syphilis test — exact requirements and where to get them for the Thai retirement visa and work permit.",
+    emoji: "🛂",
+    category: "Practical Guides",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",
