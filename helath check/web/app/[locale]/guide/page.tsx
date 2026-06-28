@@ -270,6 +270,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-malaysia-vs-thailand",
+    title: "Malaysia vs Thailand Health Check-Up (2026) — Hat Yai & Bangkok",
+    description: "Hat Yai and Bangkok attract 100,000+ Malaysian medical tourists yearly. Save 40–60% vs KL private hospital prices.",
+    emoji: "🇲🇾",
+    category: "Practical Guides",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",

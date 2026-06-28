@@ -1735,6 +1735,69 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-malaysia-vs-thailand": {
+    title: "Health Check-Up: Malaysia vs Thailand (2026) — Hat Yai & Bangkok",
+    description: "Compare health check-up costs between Malaysia and Thailand. Hat Yai (Southern Thailand) and Bangkok attract thousands of Malaysian medical tourists annually. Save 40–60% vs KL private hospitals.",
+    intro: "Thailand is Malaysia's #1 medical tourism destination, with Hat Yai alone receiving an estimated 100,000+ Malaysian visitors annually for medical and dental care. Bangkok's JCI hospitals offer comparable quality to Gleneagles, Prince Court, and Pantai KL — at 40–60% lower prices. Even accounting for travel, medical tourists from Kuala Lumpur often save significantly on comprehensive packages.",
+    sections: [
+      {
+        heading: "Price comparison: Malaysia vs Thailand health check-up 2026",
+        content: "Direct price comparison for equivalent health check-up packages (exchange rate ~MYR 1 = ฿8.5):",
+        list: [
+          "Basic (blood, X-ray, urine): KL MYR 400–800 | Bangkok ฿1,500–฿2,500 (MYR 175–290) | Saving 50–60%",
+          "Standard (+ ECG, ultrasound): KL MYR 1,200–2,000 | Bangkok ฿3,500–฿6,000 (MYR 410–700) | Saving 55–65%",
+          "Executive (full organ panel): KL MYR 3,500–6,000 | Bangkok ฿8,000–฿15,000 (MYR 940–1,750) | Saving 55–70%",
+          "Premium (CT, MRI, cancer markers): KL MYR 8,000–15,000 | Bangkok ฿20,000–฿40,000 (MYR 2,330–4,650) | Saving 55–70%",
+          "Women's health package: KL MYR 2,000–3,500 | Bangkok ฿5,000–฿10,000 (MYR 580–1,160) | Saving 50–60%",
+        ],
+      },
+      {
+        heading: "Hat Yai: the medical hub for Malaysian visitors",
+        content: "Hat Yai in Songkhla Province, Southern Thailand, is only 90 minutes by road from Penang and 5 hours from KL. Key facts for Malaysian medical tourists:",
+        list: [
+          "Hat Yai Ram Hospital and Bangkok Hospital Hat Yai are the main private hospitals — both offer check-up packages from ฿1,800",
+          "Many hospitals in Hat Yai have Malay-speaking staff and accept Thai Baht / Malaysian Ringgit",
+          "Hat Yai is 80km from the Malaysian border at Sadao — day trips for medical care are common",
+          "Bus service from Penang to Hat Yai: ~RM 50, 5–6 hours. Budget airlines (AirAsia, Firefly) from KL or Penang: from RM 80–200",
+          "Hat Yai packages are typically 25–35% cheaper than Bangkok for equivalent quality",
+        ],
+      },
+      {
+        heading: "Bangkok vs KL hospitals: quality comparison",
+        content: "Both cities have internationally-accredited hospitals, but Bangkok's ecosystem is larger:",
+        list: [
+          "JCI accreditation: Bangkok has 9 JCI hospitals; Malaysia has ~8 (Gleneagles KL, Prince Court, Pantai, KPJ Ampang, and others)",
+          "Scale: Bumrungrad International treats 1.1M patients/year from 190 countries — larger than any single Malaysian hospital",
+          "Specialised cancer care: Bangkok Hospital's cancer centre and Wattanosoth Hospital exceed Malaysia's oncology depth",
+          "Waiting times: Bangkok JCI hospitals offer appointments within 1–3 days; KL private hospitals 3–10 days for complex imaging",
+          "Language: English is used throughout both systems; Bangkok hospitals add Malay/Bahasa support at Hat Yai and some Bangkok hospitals",
+        ],
+      },
+      {
+        heading: "Should Malaysians choose Hat Yai or Bangkok?",
+        content: "The choice depends on your location and package needs:",
+        list: [
+          "Hat Yai: best for Malaysians from Penang, Alor Setar, Kedah, Kelantan — short journey, lower prices, good for standard/executive packages",
+          "Bangkok: best for complex or specialist needs (cancer screening, cardiac, cardiac imaging), or if you're combining with tourism",
+          "Phuket: convenient for Malaysian visitors from Penang via ferry or AirAsia — comparable to Bangkok pricing but in a resort setting",
+          "Koh Samui: smaller hospital network, not ideal for comprehensive packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it worth travelling from KL to Bangkok for a health check-up?", a: "For comprehensive or executive packages (above MYR 2,000 equivalent in Malaysia), the savings in Bangkok (40–60%) typically exceed round-trip AirAsia flights from KL to Bangkok (from ~MYR 300–600 return). For basic check-ups under MYR 800, the saving is less compelling unless you're combining with tourism." },
+      { q: "Which Bangkok hospitals are most popular with Malaysian patients?", a: "Bumrungrad International is the most well-known among Malaysians, with Bahasa Malay-speaking staff available. Vejthani Hospital offers the best value among JCI hospitals. Samitivej Sukhumvit is preferred for women's health. For Islamic-observant patients, most major Bangkok hospitals provide halal meal options and can accommodate prayer needs." },
+      { q: "Do Hat Yai hospitals accept Malaysian Ringgit?", a: "Some Hat Yai hospitals accept MYR at the counter or have money changers in the building. Thai Baht is preferred — exchange before travel at better rates, or withdraw from ATMs in Hat Yai. Major credit cards (Visa, Mastercard) are accepted at all private hospitals." },
+      { q: "Can I use Malaysian insurance at Thai hospitals?", a: "Most Malaysian health insurance policies (Great Eastern, AIA, Prudential, Allianz) do not cover planned medical trips abroad. However, Allianz Care, AXA, and Pacific Cross international health insurance plans can be used at JCI hospitals in Bangkok. Check with your insurer before travel. Keep all receipts for potential reimbursement claims." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/hat-yai-health-checkup", label: "Hat Yai health check-up guide" },
+      { href: "/en/guide/thailand-vs-singapore-health-checkup", label: "Thailand vs Singapore comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/compare?city=hat-yai", label: "Compare Hat Yai packages" },
+    ],
+  },
+
   "rayong-health-checkup": {
     title: "Rayong Health Check-Up Guide (2026)",
     description: "Health check-up hospitals in Rayong, Thailand. Bangkok Hospital Rayong, Camillian, and more. Prices from ฿1,500.",
