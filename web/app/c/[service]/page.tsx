@@ -42,9 +42,18 @@ export async function generateMetadata(
     .reduce((s, c) => s + c.total_reviews, 0);
   // thin content — fewer than 5 clinics → noindex to avoid thin SEO pages
   const robots = count < 5 ? { index: false, follow: true } : undefined;
+  const PRICE_HINTS: Partial<Record<string, string>> = {
+    botox: "From ฿80/unit · Allergan, Dysport, Botulax",
+    dental: "Implants from ฿35,000 · Veneers ฿12,000/tooth",
+    filler: "From ฿8,000/syringe · Juvederm, Restylane",
+    hifu: "From ฿8,000/session · Ultherapy, Thermage, Ultraformer",
+    laser: "Pico from ฿3,000 · CO2 from ฿8,000",
+    hair_transplant: "FUE from ฿65,000 (2,000 grafts)",
+  };
+  const priceHint = PRICE_HINTS[service];
   return {
-    title: `${count} Best ${label} Clinics in Bangkok — Trust Score Ranking`,
-    description: `${count} verified ${label.toLowerCase()} clinics in Bangkok analyzed across ${totalReviews.toLocaleString()} Google reviews. Compare trust scores, reviewer credibility, and district options.`,
+    title: `${count} Best ${label} Clinics in Bangkok 2026 — Verified Reviews${priceHint ? `, ${priceHint.split("·")[0].trim()}` : ""}`,
+    description: `${count} verified ${label.toLowerCase()} clinics in Bangkok ranked by Trust Score from ${totalReviews.toLocaleString()} Google reviews.${priceHint ? ` ${priceHint}.` : ""} Compare credibility, district, and patient satisfaction. Save up to 70% vs Western prices.`,
     alternates: { canonical: `/c/${service}` },
     ...(robots && { robots }),
     openGraph: {

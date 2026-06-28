@@ -12,12 +12,14 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: ["GPTBot", "ChatGPT-User", "OAI-SearchBot",
-                    "PerplexityBot", "ClaudeBot", "Claude-Web", "Google-Extended"],
-        allow: "/",
+                    "PerplexityBot", "Claude-Web", "ClaudeBot",
+                    "Google-Extended", "Applebot", "cohere-ai",
+                    "anthropic-ai", "Gemini-Google"],
+        allow: ["/", "/llms.txt", "/en/", "/sitemap.xml"],
         crawlDelay: 5,
       },
     ],
-    sitemap: `${SITE}/sitemap.xml`,
+    sitemap: [`${SITE}/sitemap.xml`],
     host: SITE,
   };
 }

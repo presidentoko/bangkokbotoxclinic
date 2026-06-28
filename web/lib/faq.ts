@@ -10,8 +10,20 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
       a: "Botox in Bangkok typically ranges from ฿80–250 per unit depending on the brand (Allergan/Botox-original, Dysport, Botulax) and the clinic. Forehead treatments use 10–20 units, while a full upper face uses 30–60 units. Compare individual clinic pricing on each clinic's detail page.",
     },
     {
+      q: "Is botox cheaper in Bangkok than in the US or UK?",
+      a: "Yes — significantly. Bangkok botox costs ฿80–250/unit (roughly $2–7 USD), compared to $10–20/unit in the US and £8–15/unit in the UK. A full upper-face treatment (30–50 units) costs ฿4,000–12,000 in Bangkok vs $400–1,000 in the US. Savings of 60–80% are typical at reputable clinics with international standards.",
+    },
+    {
+      q: "What botox brands are available in Bangkok?",
+      a: "Bangkok clinics stock four main botulinum toxin brands: Allergan Botox (US, gold standard), Dysport (France, slightly more diffuse spread), Botulax (Korea, lowest price, widely available), and Xeomin (Germany, additive-free). Premium clinics verify authenticity with box + hologram + lot number. Ask to see the original packaging before injection.",
+    },
+    {
       q: "Are Bangkok botox clinics safe?",
       a: "The clinics in this directory all hold Thai medical licenses and operate publicly on Google Maps. Trust Score above 70 indicates strong reviewer credibility (Local Guides, high review volume, recent positive trend). Always verify the brand authenticity at consultation — review excerpts mentioning 'genuine brand' indicate clinics with strong brand-verification practices.",
+    },
+    {
+      q: "How do I avoid bad botox in Bangkok?",
+      a: "Five rules: (1) Use Trust Score 70+ clinics — verified by 100+ reviews across multiple platforms. (2) Ask to see the original sealed vial before injection. (3) Insist on a licensed doctor (not nurse or technician) performing the injection. (4) Avoid deals below ฿80/unit — underpriced botox is often diluted or counterfeit. (5) Read the Google review excerpts on our clinic pages — patients mention 'genuine brand', 'real Allergan', etc. when they were satisfied.",
     },
     {
       q: "Which Bangkok district is best for botox?",
@@ -20,6 +32,10 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     {
       q: "How long does Bangkok botox last?",
       a: "Standard duration is 3–4 months, similar to other countries. Effect duration depends on dosage, brand, treatment area, and individual metabolism, not country of treatment.",
+    },
+    {
+      q: "What should I expect at a Bangkok botox consultation?",
+      a: "A reputable Bangkok botox consultation takes 15–30 minutes: facial assessment, brand and unit discussion, price confirmation, and before photos. The injection itself takes 5–15 minutes. Expect mild redness for 20–30 minutes. Avoid lying down for 4 hours and avoid strenuous exercise for 24 hours post-injection. Results appear in 3–7 days, peak at 2 weeks.",
     },
   ],
   filler: [
@@ -73,11 +89,27 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
   dental: [
     {
       q: "Why is Bangkok popular for dental work?",
-      a: "Bangkok has English-speaking dental clinics with international standards at 50–70% lower cost than Western countries. Implants ฿35,000–80,000 per tooth (vs $3,000–6,000 in US). Teeth whitening ฿4,000–12,000.",
+      a: "Bangkok has English-speaking dental clinics with international standards at 50–70% lower cost than Western countries. Implants ฿35,000–80,000 per tooth (vs $3,000–6,000 in US). Teeth whitening ฿4,000–12,000. Veneers ฿12,000–30,000/tooth vs $1,500–3,000 in the US. Many Bangkok clinics hold international accreditation (JCI or TEMOS) and use the same implant brands (Straumann, Nobel Biocare) as Western clinics.",
+    },
+    {
+      q: "What is the best dental clinic in Bangkok?",
+      a: "The best Bangkok dental clinic depends on your procedure. For implants, look for clinics with Trust Score 80+ that specifically mention Straumann or Nobel Biocare implants in their reviews. For cosmetic veneers, clinics with dedicated cosmetic dentists and CAD/CAM same-day milling are preferable. Our Trust Score ranking on this page reflects real patient feedback across Google Maps and other platforms — the top-ranked clinics consistently deliver verified, high-quality care.",
+    },
+    {
+      q: "How much do dental implants cost in Bangkok?",
+      a: "Bangkok dental implant costs (full restoration, implant + abutment + crown): Straumann/Nobel Biocare (Switzerland/Sweden) ฿55,000–80,000 per tooth; Osstem/Astra (Korea/Sweden) ฿35,000–55,000 per tooth; generic unbranded ฿20,000–30,000 (not recommended). All-on-4 full arch: ฿250,000–500,000. Compare: US $3,000–6,000 per implant (฿105,000–210,000). Bangkok saves 50–70%.",
     },
     {
       q: "How long does dental implant treatment take in Bangkok?",
       a: "Typical timeline: Day 1 consultation + extraction; 3–6 month osseointegration period (you fly home); Day 1 of return trip crown placement. Same-day immediate-load implants are offered by some Bangkok clinics for ฿15,000–25,000 surcharge but require strong jawbone density. All-on-4 full-arch usually finishes in 5–7 day single trip.",
+    },
+    {
+      q: "Can I get Invisalign in Bangkok?",
+      a: "Yes — Bangkok is a popular destination for Invisalign treatment. Official Invisalign providers charge ฿80,000–200,000 for full treatment (vs $4,000–8,000 in US). Many patients start treatment in Bangkok, continue with a local dentist at home using the Invisalign app, and return for periodic check-ups. Clinics with Invisalign Diamond or Platinum status indicate high case volume and experience.",
+    },
+    {
+      q: "How much do dental crowns cost in Bangkok?",
+      a: "Bangkok dental crown prices: porcelain-fused-to-metal (PFM) ฿6,000–12,000; full ceramic/E.max ฿10,000–20,000; zirconia ฿8,000–18,000. Compare: US $1,000–2,000 per crown. Same-day CEREC/CAD-CAM crowns (milled in-clinic) available at premium clinics for ฿12,000–22,000.",
     },
     {
       q: "Which implant brands do Bangkok dentists use?",
@@ -90,6 +122,10 @@ export const CATEGORY_FAQS: Record<string, Faq[]> = {
     {
       q: "Can I get veneers done in Bangkok?",
       a: "Bangkok offers porcelain veneers ฿12,000–30,000 per tooth, composite ฿4,000–8,000. Full smile makeover (8 upper veneers) typically ฿100,000–240,000 vs $15,000–25,000 in US/UK. Same-day E.max veneers (CAD/CAM milled in-clinic) available at premium clinics — single visit completion possible.",
+    },
+    {
+      q: "Do Bangkok dentists speak English?",
+      a: "Yes — international dental clinics in Bangkok are well-equipped for English-speaking patients. Most dentists trained abroad (US, UK, Australia, or Japan) or at Thai universities with international programs. Clinics in Sukhumvit, Silom, and Ratchadamri cater especially to medical tourists. Our clinic pages show patient reviews mentioning language: search 'English' in the review excerpts to verify.",
     },
   ],
   hair: [
@@ -152,5 +188,13 @@ export const HOME_FAQS: Faq[] = [
   {
     q: "Can I trust the reviews shown here?",
     a: "All reviews are sourced directly from public platforms — Google Maps, HDmall, Wongnai, Bookimed, and others. We don't filter, edit, or selectively show reviews — sample reviews are picked by length and rating only, with full attribution. Cross-platform agreement (a clinic well-rated on both Google AND HDmall AND Wongnai) is a much stronger signal than any single platform.",
+  },
+  {
+    q: "Is medical treatment in Bangkok safe for tourists?",
+    a: "Thailand's Medical Council licenses all practitioners. Bangkok's private hospitals (Bumrungrad, BNH, Samitivej) and clinics serving medical tourists operate under JCI or TEMOS international accreditation. For aesthetic and dental procedures at clinics in this directory: choose Trust Score 75+ clinics with 100+ reviews and verified multi-platform ratings. For complex surgeries, add the Dental or Aesthetic clinic's international accreditation number to your checklist.",
+  },
+  {
+    q: "How much money can I save on dental or aesthetic work in Bangkok?",
+    a: "Typical savings vs US/UK/Australia: dental implants 50–70% (฿35,000–80,000 vs $3,000–6,000 in US); veneers 60–75% (฿12,000–30,000 per tooth vs $1,500–3,000); botox 60–80% (from ฿80/unit vs $10–20/unit); hair transplant FUE 50–70% (฿65,000–150,000 for 2,000 grafts vs $8,000–25,000). Most procedures at internationally-accredited Bangkok clinics use the same equipment and brands as Western clinics.",
   },
 ];

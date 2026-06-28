@@ -32,17 +32,46 @@ import SisterSites from "@/components/SisterSites";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.origin),
-  title: { default: SITE.name, template: `%s — ${SITE.name}` },
-  description: SITE.tagline.en,
+  title: {
+    default: "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026",
+    template: `%s — ${SITE.name}`,
+  },
+  description: "Compare 130+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000 · SMP from ฿15,000. Ranked by Trust Score from real Google + Bookimed + Reddit reviews. Save 50–70% vs Korea or UK.",
   openGraph: {
     type: "website",
     url: SITE.origin,
     siteName: SITE.name,
-    title: SITE.name,
-    description: SITE.tagline.en,
+    title: "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026",
+    description: "Compare 130+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000. Ranked by Trust Score.",
+    images: [{ url: `${SITE.origin}/og-default.png`, width: 1200, height: 630, alt: "Bangkok Hair Transplant Clinics" }],
   },
-  twitter: { card: "summary_large_image", title: SITE.name, description: SITE.tagline.en },
-  alternates: { canonical: SITE.origin },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026",
+    description: "130+ clinics · FUE from ฿65,000 · Trust Score ranked from real reviews.",
+  },
+  alternates: {
+    canonical: SITE.origin,
+    languages: {
+      "en": `${SITE.origin}/en/`,
+      "th": `${SITE.origin}/th/`,
+      "ko": `${SITE.origin}/ko/`,
+      "zh": `${SITE.origin}/zh/`,
+      "ar": `${SITE.origin}/ar/`,
+      "x-default": `${SITE.origin}/en/`,
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {

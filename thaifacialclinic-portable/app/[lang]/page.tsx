@@ -3,6 +3,7 @@ import Link from "next/link";
 import { loadClinics } from "@/lib/data";
 import { SITE, SUPPORTED_LANGS } from "@/lib/i18n";
 import type { Lang } from "@/lib/types";
+import { HOME_FAQS } from "@/lib/faq";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
@@ -64,8 +65,45 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
 
   const noFouc = `(function(){try{var s=localStorage.getItem('theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})();`;
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: HOME_FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.origin,
+    description: SITE.tagline.en,
+    knowsAbout: [
+      "Hair Transplant", "FUE Hair Transplant", "DHI Hair Transplant",
+      "Scalp Micropigmentation", "SMP", "PRP Hair Treatment",
+      "Beard Transplant", "Eyebrow Transplant",
+      "Men's Clinic Thailand", "Hair Loss Treatment Bangkok",
+      "Medical Tourism Thailand",
+    ],
+    areaServed: [
+      { "@type": "City", name: "Bangkok" },
+      { "@type": "City", name: "Phuket" },
+      { "@type": "City", name: "Chiang Mai" },
+    ],
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE.origin}/${lang}/#directory?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
       <script dangerouslySetInnerHTML={{ __html: noFouc }} />
       <div className="mx-auto max-w-6xl px-4 pb-20">
         <Header lang={lang} />

@@ -33,6 +33,12 @@ const KNOWS_ABOUT_BY_FOCUS: Record<string, string[]> = {
   ],
 };
 
+const SITE_SAMEAS: Record<string, string[]> = {
+  botox: ["https://www.google.com/maps/search/botox+clinic+bangkok"],
+  dental: ["https://www.google.com/maps/search/dental+clinic+bangkok"],
+  hair: ["https://www.google.com/maps/search/hair+transplant+bangkok"],
+};
+
 export function OrgJsonLd() {
   const cfg = getSiteConfig();
   return tag({
@@ -41,8 +47,14 @@ export function OrgJsonLd() {
     name: cfg.brand,
     url: SITE,
     description: cfg.description,
-    areaServed: { "@type": "City", name: "Bangkok" },
+    areaServed: [
+      { "@type": "City", name: "Bangkok", "@id": "https://www.wikidata.org/wiki/Q1861" },
+      { "@type": "Country", name: "Thailand", "@id": "https://www.wikidata.org/wiki/Q869" },
+    ],
     knowsAbout: KNOWS_ABOUT_BY_FOCUS[cfg.focus] ?? KNOWS_ABOUT_BY_FOCUS.all,
+    sameAs: SITE_SAMEAS[cfg.focus] ?? [],
+    foundingDate: "2024",
+    numberOfEmployees: { "@type": "QuantitativeValue", value: 1 },
   });
 }
 
