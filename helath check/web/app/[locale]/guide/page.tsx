@@ -466,6 +466,13 @@ const GUIDES = [
     category: "Hospital Guides",
   },
   {
+    slug: "samitivej-hospital-health-checkup",
+    title: "Samitivej Hospital Health Check-Up Bangkok — Packages & Review (2026)",
+    description: "Samitivej Sukhumvit: JCI-accredited, 10–25% cheaper than Bumrungrad, quieter. Packages from ฿3,500 to ฿60,000+. Japanese/Korean coordinators. Women's health specialist.",
+    emoji: "🏥",
+    category: "Hospital Guides",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
