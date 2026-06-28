@@ -151,14 +151,41 @@ export default async function CompareHospitalsPage({
   } catch { /* DB not ready */ }
 
   if (!a || !b || !hospA || !hospB) {
+    const POPULAR_PAIRS = [
+      { a: "bumrungrad-international-hospital", b: "samitivej-hospital-sukhumvit", label: "Bumrungrad vs Samitivej" },
+      { a: "bumrungrad-international-hospital", b: "bangkok-hospital", label: "Bumrungrad vs Bangkok Hospital" },
+      { a: "samitivej-hospital-sukhumvit", b: "vejthani-hospital", label: "Samitivej vs Vejthani" },
+      { a: "bangkok-hospital", b: "phyathai-2-hospital", label: "Bangkok Hospital vs Phyathai 2" },
+      { a: "bnh-hospital", b: "bumrungrad-international-hospital", label: "BNH vs Bumrungrad" },
+      { a: "praram-9-hospital", b: "samitivej-hospital-sukhumvit", label: "Praram 9 vs Samitivej" },
+    ];
     return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-slate-800 mb-3">Compare two hospitals</h1>
-        <p className="text-slate-500 mb-6 text-sm">Use <code className="bg-slate-100 px-1 rounded">?a=hospital-slug&b=other-hospital-slug</code> in the URL to compare.</p>
-        <p className="text-slate-500 text-sm mb-8">Example: <code className="bg-slate-100 px-1 rounded">/compare-hospitals?a=bumrungrad-international-hospital&b=samitivej-hospital-sukhumvit</code></p>
-        <Link href={`/${locale}/hospital`} className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors">
-          Browse all hospitals →
-        </Link>
+      <div className="mx-auto max-w-3xl px-4 py-12">
+        <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2">
+          <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
+          <span>›</span>
+          <span className="text-slate-600">Compare Hospitals</span>
+        </nav>
+        <h1 className="text-2xl font-bold text-slate-800 mb-2">Compare Bangkok Hospital Packages</h1>
+        <p className="text-slate-500 mb-8 text-sm">Side-by-side price and inclusion comparison for any two Bangkok hospitals.</p>
+        <div className="mb-10">
+          <h2 className="text-sm font-semibold text-slate-600 mb-3 uppercase tracking-wide">Popular comparisons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {POPULAR_PAIRS.map((pair) => (
+              <Link key={pair.a + pair.b} href={`/${locale}/compare-hospitals?a=${pair.a}&b=${pair.b}`}
+                className="bg-white border border-slate-200 rounded-xl px-4 py-3 hover:border-blue-300 hover:shadow-sm transition-all text-sm font-semibold text-slate-700 hover:text-blue-700">
+                {pair.label} →
+              </Link>
+            ))}
+          </div>
+        </div>
+        <p className="text-slate-400 text-xs mb-2">Or compare any two hospitals by visiting:</p>
+        <code className="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded block">/compare-hospitals?a=hospital-slug&b=other-hospital-slug</code>
+        <div className="mt-6">
+          <Link href={`/${locale}/hospital`} className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors inline-block">
+            Browse all hospitals →
+          </Link>
+        </div>
         {(!hospA && a) && <p className="text-red-400 text-sm mt-4">Hospital &quot;{a}&quot; not found.</p>}
         {(!hospB && b) && <p className="text-red-400 text-sm mt-4">Hospital &quot;{b}&quot; not found.</p>}
       </div>
