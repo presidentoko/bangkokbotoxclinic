@@ -189,6 +189,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-argentina-vs-thailand",
       "gout-treatment-bangkok",
       "anemia-iron-test-bangkok",
+      "health-checkup-pakistan-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

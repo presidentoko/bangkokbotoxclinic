@@ -3165,6 +3165,69 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-pakistan-vs-thailand": {
+    title: "Health Check-Up: Pakistan vs Thailand 2026 — Bangkok for Pakistani Patients",
+    description: "Pakistan private hospital executive check-up PKR 25,000–PKR 120,000. Bangkok JCI: ฿8,000–฿25,000 ($215–$675) — JCI-accredited, English-speaking, same-day results. e-Visa on arrival. Guide.",
+    intro: "Pakistan's private healthcare sector has expanded rapidly, with facilities like Aga Khan Hospital in Karachi, Shaukat Khanum Cancer Centre, and major Lahore private hospitals offering good services. However, advanced executive health check-up packages with imaging (MRI, CT, full abdominal ultrasound), comprehensive tumor markers, and endoscopy can cost PKR 50,000–200,000 in Karachi or Lahore private hospitals — and availability of JCI-standard facilities is limited. Bangkok offers 9 JCI-accredited hospitals with same-day results, English-speaking international patient coordinators, and package prices 30–50% lower than equivalent Pakistani private care. With a Thai visa on arrival (PKR ~8,000), Bangkok is increasingly considered for comprehensive health check-ups by Pakistani medical travellers.",
+    sections: [
+      {
+        heading: "Pakistan vs Bangkok — health check-up price comparison (2026)",
+        content: "Approximate prices at major Pakistani private hospitals (Aga Khan, Shaukat Khanum, CMH, Ittefaq) vs Bangkok JCI hospitals. Exchange rate approximate: PKR 1 ≈ ฿0.013 (1 USD ≈ PKR 278 ≈ ฿37):",
+        list: [
+          "Blood panel (CBC + metabolic panel + lipids + thyroid): Pakistan private PKR 8,000–25,000; Bangkok ฿2,500–฿5,000 ($68–135) — comparable or cheaper in Bangkok",
+          "Gastroscopy (upper endoscopy with sedation): Pakistan private PKR 18,000–50,000; Bangkok ฿4,500–฿9,000 ($122–243) — Bangkok 20–40% cheaper with sedation standard",
+          "Colonoscopy with sedation: Pakistan private PKR 30,000–80,000; Bangkok ฿8,000–฿18,000 ($216–486) — comparable; Bangkok no wait",
+          "MRI brain or abdomen: Pakistan private PKR 20,000–60,000; Bangkok ฿5,000–฿15,000 ($135–405) — similar or cheaper in Bangkok",
+          "CT scan chest / abdomen: Pakistan private PKR 15,000–40,000; Bangkok ฿4,000–฿9,000 ($108–243) — comparable",
+          "Executive health check-up package (30–40 tests: blood, urine, ECG, X-ray, ultrasound, tumor markers, doctor consultation): Pakistan private PKR 50,000–150,000; Bangkok ฿12,000–฿25,000 ($320–675) — Bangkok 30–50% cheaper",
+          "Cardiac stress test (treadmill / ETT): Pakistan private PKR 8,000–20,000; Bangkok ฿2,500–฿5,000 ($68–135) — Bangkok comparable",
+          "PSA (prostate): Pakistan private PKR 3,000–8,000; Bangkok ฿600–฿1,200 ($16–32) — Bangkok cheaper",
+          "Echocardiogram (cardiac ultrasound): Pakistan private PKR 8,000–25,000; Bangkok ฿4,000–฿8,000 ($108–216) — Bangkok comparable or cheaper",
+        ],
+      },
+      {
+        heading: "Pakistan healthcare gaps and why Bangkok is chosen",
+        content: "Key factors driving Pakistani medical tourists to Bangkok for health check-ups:",
+        list: [
+          "JCI accreditation gap: Aga Khan Hospital has JCI; most other Pakistani private hospitals do not — Bangkok has 9 JCI-accredited hospitals including Bumrungrad, Samitivej, Bangkok Hospital (BDMS)",
+          "Wait times: Pakistani private hospitals increasingly have scheduling delays for endoscopy, MRI, and specialist consultations in major cities; Karachi and Lahore hospitals are busy",
+          "Cardiac care and cancer screening: Bangkok hospitals offer cardiac risk stratification programs (Cardiac CT, nuclear stress, advanced lipid panels) more comprehensive than most Pakistani private packages",
+          "Language: English is widely spoken at Bangkok international hospitals; English-medium results reports; international patient coordinators available",
+          "Hepatitis B screening: Hepatitis B carrier rate in Pakistan is 4–5% (among the highest in Asia) — Bangkok executive packages routinely include HBsAg + anti-HBs + HBeAg at ฿800–฿1,500 total",
+          "Pakistani diaspora routing: Pakistani nationals in the UK, Middle East (Dubai, Abu Dhabi, Riyadh, Kuwait), or the US often transit through Bangkok for comprehensive check-ups that exceed local options in coverage",
+          "Thai Visa on Arrival: Pakistan passport holders can obtain Thai Visa on Arrival at Suvarnabhumi airport for THB 2,000 (~PKR 8,000); valid 15 days; sufficient for a health check-up stay",
+        ],
+      },
+      {
+        heading: "Practical guide: Pakistan to Bangkok for a health check-up",
+        content: "Logistics and visa information for Pakistani patients visiting Bangkok:",
+        list: [
+          "Visa: Pakistani passport holders need a Thai Visa on Arrival (VOA) — THB 2,000 fee payable on arrival at Suvarnabhumi; 15-day stay; bring a passport photo and return flight booking",
+          "Alternative: apply for a Thai tourist visa at Thai Embassy in Karachi, Islamabad, or Lahore — 30-day single entry; valid option for extended stay",
+          "Flights: Karachi (KHI) → Bangkok (BKK): direct flights on PIA; also Lahore (LHE) → Bangkok via Kuala Lumpur, Dubai, or Abu Dhabi; total 6–9 hours",
+          "Islamabad (ISB) → Bangkok: via Kuala Lumpur (AirAsia) or Dubai (Emirates/FlyDubai); 8–12 hours total",
+          "Airport transfer: Suvarnabhumi to Bumrungrad Hospital 45 minutes by taxi (~฿400–฿600); Airport Rail Link to Phaya Thai then BTS to Nana 35 minutes (~฿55)",
+          "Recommendation: stay in Nana/Asok area of Sukhumvit — walking distance or 1 BTS stop to Bumrungrad; many halal food restaurants available in the Nana/Asok area",
+          "Halal food: Nana/Sukhumvit area has a well-established halal food corridor with Pakistani, Indian, and Middle Eastern restaurants; Bumrungrad hospital itself has halal food options",
+          "Payment: Visa/Mastercard widely accepted; ATMs at Suvarnabhumi and throughout Sukhumvit; bring some USD to exchange to THB as backup",
+          "Prayer facilities: Masjid Noor al-Islam near Sukhumvit Soi 3 (Nana area), walking distance from Bumrungrad; several mosques in central Bangkok",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do Pakistani passport holders need a visa to enter Thailand?", a: "Pakistani passport holders are NOT eligible for the visa exemption — they require a visa. However, a Visa on Arrival (VOA) is available at Suvarnabhumi and Don Mueang airports: THB 2,000 fee (~PKR 8,000), valid 15 days, suitable for a health check-up visit. You need: passport valid for ≥6 months, passport-size photo, completed arrival card, and proof of onward journey (return ticket or booking). Alternatively, apply in advance for a Thai tourist visa at the Royal Thai Embassy in Islamabad, Karachi, or Lahore — 30 days, more convenient for longer stays." },
+      { q: "Which Bangkok hospital is best for Pakistani patients?", a: "Bumrungrad International Hospital is often the first choice for Pakistani patients: JCI-accredited, English-speaking international patient services team, halal food available in the hospital, and a dedicated International Patient Assistance service. Samitivej Sukhumvit is a strong alternative with lower prices for some procedures. Both are within walking distance of the Nana area of Sukhumvit where halal food, prayer facilities, and Pakistani restaurants are concentrated. Book via the hospital's international patient website or email — online booking accepted from Pakistan." },
+      { q: "Are Bangkok check-up results accepted by Pakistani doctors?", a: "Yes — Bangkok JCI hospitals (Bumrungrad, Samitivej, Bangkok Hospital) issue comprehensive English-language lab reports with international standard units: glucose in mg/dL, cholesterol in mg/dL, haemoglobin in g/dL. These are directly interpretable by any Pakistani physician without conversion. For imaging (MRI, CT, ultrasound), request the full DICOM CD plus the radiologist's report in English — Pakistani radiologists can read these directly. Aga Khan Hospital accepts second opinion reviews of Bangkok imaging." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-india-vs-thailand", label: "India vs Thailand comparison" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
+    ],
+  },
+
   "health-checkup-france-vs-thailand": {
     title: "Bilan de santé : France vs Thaïlande 2026 — Bangkok pour les Français",
     description: "La France rembourse un bilan de prévention tous les 10 ans. Bangkok offre un bilan complet sans rendez-vous, sans attente, 60–75% moins cher qu'une clinique privée française.",
