@@ -16,6 +16,7 @@ const SEGMENTS: Record<string, {
   filter: (p: PackageRow) => boolean;
   intro: string;
   faqs: { q: string; a: string }[];
+  relatedGuides?: { href: string; label: string }[];
 }> = {
   "jci-accredited-health-checkup-bangkok": {
     title: "JCI-Accredited Health Check-Up Bangkok — Certified Hospitals 2026",
@@ -27,6 +28,10 @@ const SEGMENTS: Record<string, {
       { q: "What does JCI accreditation mean for a health check-up?", a: "JCI-accredited hospitals meet 1,000+ international standards for patient safety, cleanliness, infection control, and care quality. For health check-ups, this means standardised laboratory procedures, certified technicians, and consistent result interpretation." },
       { q: "Are JCI hospitals in Bangkok more expensive for health check-ups?", a: "JCI hospitals typically charge 20–40% more than non-accredited private hospitals. However, package prices at Vejthani and Saint Louis JCI hospitals are competitive with non-JCI hospitals. The price difference narrows for executive packages." },
       { q: "Which JCI hospitals in Bangkok offer the best health check-up packages?", a: "Bumrungrad International has the widest range (50+ packages). Samitivej Sukhumvit is top-rated for women's health check-ups. Vejthani offers the best price-to-JCI ratio. Bangkok Hospital is best for full executive packages with CT and MRI." },
+    ],
+    relatedGuides: [
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI Hospitals in Bangkok — Full Guide" },
+      { href: "/guide/executive-health-checkup-bangkok", label: "Executive Health Check-Up Bangkok" },
     ],
   },
   "health-checkup-expats-bangkok": {
@@ -41,6 +46,10 @@ const SEGMENTS: Record<string, {
       { q: "What's included in a typical annual health check-up for expats in Bangkok?", a: "A standard expat annual check-up (฿3,000–฿8,000) includes: CBC blood panel, blood glucose, cholesterol, kidney and liver function, thyroid, chest X-ray, urinalysis, and a doctor consultation. Executive packages add ultrasound, ECG, and cancer marker panels." },
       { q: "Which Bangkok hospital is best for expat health check-ups?", a: "Bumrungrad International is the most popular for expats (1.1M patients/year, 190 nationalities). BNH Hospital is preferred by the European and Japanese expat community. Samitivej Sukhumvit is top-rated for families and women's check-ups." },
     ],
+    relatedGuides: [
+      { href: "/guide/health-checkup-expats-thailand", label: "Expat Health Check-Up Thailand Guide" },
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
+    ],
   },
   "japanese-health-checkup-bangkok": {
     title: "Japanese Health Check-Up Bangkok (人間ドック) — 日本語対応病院",
@@ -52,6 +61,10 @@ const SEGMENTS: Record<string, {
       { q: "Which Bangkok hospitals have Japanese interpreters for health check-ups?", a: "BNH Hospital has the longest history of serving Japanese patients with a dedicated Japanese desk. Samitivej Sukhumvit has full Japanese services. Bumrungrad has Japanese coordinators available. All charge ฿0–฿500 extra for Japanese interpreter service." },
       { q: "How much cheaper is a health check-up in Bangkok vs Japan?", a: "A Ningen Dock-equivalent package in Bangkok (฿8,000–฿20,000 / approximately ¥30,000–¥75,000) costs 50–70% less than the same package in Japan (typically ¥80,000–¥200,000). Travel and accommodation are additional, but the total saving is still significant for comprehensive packages." },
       { q: "What is included in a Bangkok health check-up equivalent to a Japanese Ningen Dock?", a: "The Thai executive package equivalent to Ningen Dock includes: blood panel (CBC, lipids, liver/kidney, diabetes, thyroid), urinalysis, stool test, chest X-ray, ECG, ultrasound (liver, gallbladder, kidney, spleen), and in some packages, gastroscopy or barium meal. Cancer marker panels are add-on options." },
+    ],
+    relatedGuides: [
+      { href: "/guide/best-hospitals-japanese-tourists", label: "Japanese Tourists Guide (日本語)" },
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
     ],
   },
   "arabic-health-checkup-bangkok": {
@@ -77,6 +90,10 @@ const SEGMENTS: Record<string, {
       { q: "How much is a 건강검진 (health checkup) in Bangkok vs Seoul?", a: "A comprehensive 건강검진-equivalent package in Bangkok costs ฿8,000–฿18,000 (approximately 300,000–700,000원). An equivalent package at a Seoul private hospital or specialized checkup centre would cost 500,000–2,500,000원. Bangkok offers the same JCI-accredited quality at 50–75% below Seoul prices." },
       { q: "Do Korean insurance plans work at Bangkok hospitals?", a: "Korean national health insurance (건강보험) generally does not cover overseas treatment. However, some Korean travel insurance (해외여행보험) and international health insurance plans may reimburse medical costs in Thailand. Bumrungrad and Bangkok Hospital accept major international insurance for direct billing. Keep all receipts and official medical certificates for reimbursement claims." },
     ],
+    relatedGuides: [
+      { href: "/guide/best-hospitals-korean-tourists", label: "Korean Medical Tourists Guide (한국어)" },
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
+    ],
   },
   "cancer-screening-bangkok": {
     title: "Cancer Screening Packages Bangkok — Compare Prices 2026",
@@ -89,6 +106,10 @@ const SEGMENTS: Record<string, {
       { q: "How much does a cancer screening package cost in Bangkok?", a: "Basic cancer marker blood panel: ฿1,500–฿3,000 (add-on to any check-up). Comprehensive cancer marker package: ฿5,000–฿15,000. Low-dose CT lung cancer screening: ฿8,000–฿15,000. Full PET/CT body scan: ฿25,000–฿45,000. Combination cancer + executive package: ฿15,000–฿50,000." },
       { q: "Which Bangkok hospital is best for cancer screening?", a: "Bumrungrad International has the most comprehensive cancer screening programme including PET/CT. Bangkok Hospital's Cancer Centre offers specialised oncology-led screening. Vejthani Hospital offers competitive-priced JCI cancer marker packages. Wattanosoth Hospital specialises in cancer care." },
     ],
+    relatedGuides: [
+      { href: "/guide/cancer-screening-bangkok", label: "Cancer Screening Bangkok — Full Guide" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding cancer marker results" },
+    ],
   },
   "womens-health-checkup-bangkok": {
     title: "Women's Health Check-Up Bangkok 2026 — Compare Packages & Prices",
@@ -100,6 +121,10 @@ const SEGMENTS: Record<string, {
       { q: "What is included in a women's health check-up in Bangkok?", a: "A standard women's package (฿3,000–฿8,000) includes: blood panel, Pap smear (cervical cancer screen), pelvic ultrasound (uterus, ovaries), breast exam or breast ultrasound, and urinalysis. Executive women's packages (฿8,000–฿25,000) add mammogram, bone density, CA-125 (ovarian cancer marker), hormone panel (FSH, LH, estradiol), and thyroid." },
       { q: "How much does a Pap smear cost in Bangkok?", a: "Standalone Pap smear at a Bangkok private hospital: ฿500–฿1,500. As part of a women's package: included. As part of a standard check-up: often available as add-on for ฿500–฿800. Thin prep (liquid-based) Pap smear costs ฿800–฿1,500 and is more accurate." },
       { q: "Which Bangkok hospital is best for women's health check-ups?", a: "Samitivej Hospital Sukhumvit is consistently ranked best for women's health. Bumrungrad has the broadest women's package range. Bangkok Hospital Silom's Women's Centre is convenient for the Silom/Sathorn expat corridor. BNH Hospital is popular with European and Japanese expat women." },
+    ],
+    relatedGuides: [
+      { href: "/guide/womens-health-checkup-bangkok", label: "Women's Health Check-Up Bangkok — Full Guide" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding your health check-up results" },
     ],
   },
   "budget-health-checkup-bangkok": {
@@ -176,6 +201,10 @@ const SEGMENTS: Record<string, {
       { q: "Which Bangkok hospital is best for senior health check-ups?", a: "Bumrungrad International Hospital has a dedicated Geriatric & Senior Health Centre with specialist geriatricians. Samitivej Sukhumvit and Bangkok Hospital offer Senior Wellness programmes with tailored packages. For seniors concerned about bone density, Vejthani Hospital has competitive DEXA scan pricing (around ฿2,500)." },
       { q: "How often should seniors get a health check-up in Bangkok?", a: "Most geriatric specialists recommend a comprehensive check-up every 12 months for adults over 60, and every 6 months for those over 70 or with pre-existing conditions. Colonoscopy is recommended every 5–10 years from age 45, or sooner if symptoms exist." },
     ],
+    relatedGuides: [
+      { href: "/guide/senior-health-checkup-thailand", label: "Senior Health Check-Up Guide (60+)" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding your results" },
+    ],
   },
 
   "diabetes-screening-bangkok": {
@@ -188,6 +217,10 @@ const SEGMENTS: Record<string, {
       { q: "What diabetes tests can I get in Bangkok?", a: "Bangkok private hospitals offer: fasting blood glucose (฿100–฿300), HbA1c (฿300–฿600), fasting insulin (฿500–฿800), OGTT — oral glucose tolerance test (฿600–฿1,200), C-peptide, microalbumin (for kidney monitoring), and full diabetic panels (฿1,500–฿3,500) that include kidney and eye screening." },
       { q: "Do I need to fast for a diabetes blood test in Bangkok?", a: "Yes, fasting for 8–12 hours is required for fasting blood glucose and most HbA1c tests. Drink only water. HbA1c measures average blood sugar over 3 months and is more reliable than a single fasting glucose reading. Plan to arrive at the hospital in the morning before eating." },
       { q: "Can I walk in for a diabetes test in Bangkok without an appointment?", a: "Yes, most private hospitals in Bangkok accept walk-in blood tests. Go to the laboratory or check-up department, request the test, and results are typically ready within 2–4 hours. A nurse or doctor can also review results the same day. Hospitals like Bumrungrad, Samitivej, and Bangkok Hospital all offer walk-in blood testing." },
+    ],
+    relatedGuides: [
+      { href: "/guide/diabetes-screening-thailand", label: "Diabetes Screening Thailand — Full Guide" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding blood glucose results" },
     ],
   },
 };
@@ -306,6 +339,21 @@ export default async function LongtailPage({
           </details>
         ))}
       </div>
+
+      {/* Related guides */}
+      {seg.relatedGuides && seg.relatedGuides.length > 0 && (
+        <div className="mt-10 mb-6">
+          <h2 className="text-base font-semibold text-slate-600 mb-3">Related guides</h2>
+          <div className="flex flex-wrap gap-3">
+            {seg.relatedGuides.map((g) => (
+              <Link key={g.href} href={`/${locale}${g.href}`}
+                className="bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 hover:border-blue-300 hover:text-blue-700 transition-colors">
+                {g.label} →
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Bottom CTA */}
       <div className="mt-10 bg-blue-700 rounded-2xl p-8 text-center text-white">
