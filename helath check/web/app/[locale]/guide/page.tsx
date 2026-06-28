@@ -333,6 +333,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-uae-vs-thailand",
+    title: "UAE / Dubai vs Thailand Health Check-Up 2026 — Bangkok for Gulf Patients",
+    description: "Dubai private hospital check-ups cost AED 3,000–12,000. Bangkok JCI hospitals: same scope 60–75% cheaper. Arabic services, halal food. Direct flight 7h.",
+    emoji: "🇦🇪",
+    category: "Practical Guides",
+  },
+  {
     slug: "vitamin-d-test-bangkok",
     title: "Vitamin D Test Bangkok — Price, Results & Treatment (2026)",
     description: "Vitamin D (25-OH) test price in Bangkok: ฿500–฿1,200 standalone. 60–80% of Bangkok expats test deficient despite tropical climate. Same-day results.",

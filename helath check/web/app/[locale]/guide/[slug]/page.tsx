@@ -2430,7 +2430,77 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/medical-visa-thailand", label: "Medical visa Thailand guide" },
       { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic-speaking patients guide" },
+      { href: "/en/guide/health-checkup-uae-vs-thailand", label: "UAE/Dubai vs Thailand" },
       { href: "/en/guide/health-checkup-indonesia-vs-thailand", label: "Indonesia vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-uae-vs-thailand": {
+    title: "Health Check-Up: UAE / Dubai vs Thailand 2026 — Bangkok for Gulf Patients",
+    description: "Dubai and Abu Dhabi's private hospital check-ups cost AED 3,000–12,000. Bangkok JCI hospitals offer the same scope at 60–75% lower cost. Direct flights Bangkok–Dubai 7 hours.",
+    intro: "The UAE has world-class healthcare infrastructure but at world-class prices. A comprehensive executive health check-up at a Dubai private hospital (American Hospital Dubai, Mediclinic, Cleveland Clinic Abu Dhabi, Saudi German Hospital) costs AED 3,000–12,000 (USD 820–3,270). The same or more comprehensive package at a Bangkok JCI hospital costs ฿8,000–฿25,000 (AED 840–2,630) — 60–75% less. With direct flights between Bangkok and Dubai (7 hours), many UAE-based expats and Gulf nationals visit Bangkok for annual check-ups, combining medical screening with leisure. Arabic language services are available at Bangkok's top hospitals.",
+    sections: [
+      {
+        heading: "Price comparison: UAE/Dubai vs Bangkok",
+        content: "Direct comparison of health check-up costs (exchange rate: AED 1 ≈ ฿10.5):",
+        list: [
+          "Basic blood panel (lipid, glucose, CBC, LFT, RFT, thyroid) — Dubai private: AED 600–1,500 | Bangkok: ฿2,500–฿5,000 (AED 238–476) | Saving 60–70%",
+          "Standard (+ ECG, chest X-ray, abdominal ultrasound) — Dubai: AED 1,500–3,000 | Bangkok: ฿5,000–฿9,000 (AED 476–857) | Saving 65–75%",
+          "Executive (full organ panel + cancer markers) — Dubai: AED 3,000–8,000 | Bangkok: ฿8,000–฿25,000 (AED 762–2,381) | Saving 60–70%",
+          "Premium (+ MRI, cardiac specialist, advanced imaging) — Dubai: AED 8,000–20,000 | Bangkok: ฿25,000–฿60,000 (AED 2,381–5,714) | Saving 65–75%",
+          "MRI Brain — Dubai: AED 1,500–4,000 | Bangkok: ฿5,000–฿12,000 (AED 476–1,143) | Saving 65–75%",
+          "CT Coronary Calcium Score — Dubai: AED 1,800–3,500 | Bangkok: ฿6,000–฿12,000 (AED 571–1,143) | Saving 65–70%",
+          "Cleveland Clinic Abu Dhabi Executive Package: AED 6,000–12,000 | Bumrungrad Executive: AED 800–2,400 | Saving 70–80%",
+        ],
+      },
+      {
+        heading: "Arabic language services at Bangkok hospitals",
+        content: "Arabic-speaking patient services available in Bangkok:",
+        list: [
+          "Bumrungrad International: dedicated Arabic patient coordinator, Arabic-language brochures, halal food options in the hospital café",
+          "Samitivej Sukhumvit: Arabic-speaking staff on request through international patient department",
+          "Bangkok Hospital: interpreter services for Arabic speakers on appointment",
+          "All major hospitals: halal certification not formally held but beef/chicken/fish are available; pork-free meals can be arranged on request",
+          "For full Arabic-speaking services guide: see our Arabic speakers guide (مركز اللغة العربية في بانكوك)",
+          "Prayer room: Bumrungrad has a dedicated Muslim prayer room; Samitivej and Bangkok Hospital can arrange quiet prayer space on request",
+          "Payment: UAE credit cards (Visa/Mastercard) work at all Bangkok hospitals; AMEX accepted at major hospitals; contactless payments available",
+        ],
+      },
+      {
+        heading: "UAE health insurance and Bangkok hospitals",
+        content: "Using your UAE health insurance for a Bangkok check-up:",
+        list: [
+          "DHA (Dubai Health Authority) and HAAD (Abu Dhabi Health Authority) insurance policies are UAE-only and don't cover overseas elective care",
+          "International travel insurance from UAE insurers (AXA Gulf, Oman Insurance, MetLife UAE): may cover emergency care in Bangkok, rarely planned check-ups — check your policy carefully",
+          "Self-pay is standard for health check-ups in Bangkok — even with insurance, it's often cheaper to self-pay than deal with international claims",
+          "Bumrungrad and Samitivej provide VAT-compliant invoices (English) acceptable for UAE employers' medical reimbursement schemes",
+          "Some UAE employers with international benefit programs (Cigna, AXA, MetLife International) do cover Bangkok hospitals directly — ask your HR",
+          "ADNOC, Emirates Group, and some government employees may have international plans with Bangkok hospital coverage — worth verifying",
+        ],
+      },
+      {
+        heading: "Practical guide for UAE residents visiting Bangkok",
+        content: "Key logistics for UAE-based patients:",
+        list: [
+          "Visa: UAE residents (GCC nationals) do not need a Thai visa for stays up to 30 days; residents of UAE on non-GCC passports: check nationality-specific requirements",
+          "Flight: Dubai (DXB) – Bangkok (BKK/DMK) non-stop 7 hours with Emirates, flydubai, Air Arabia, Thai Airways — multiple daily flights",
+          "Best time: November–February (cool and dry) for Bangkok; avoid April (hottest), but hospitals are comfortable year-round",
+          "Getting to hospitals: Bumrungrad is 5–10 minutes from the Sukhumvit BTS (Skytrain) area; Samitivej is at Sukhumvit 49 — both are near major Airbnb/hotel clusters",
+          "Currency: Thai Baht (THB) — exchange at Suvarnabhumi Airport or Sukhumvit money changers; UAE dirhams not directly exchangeable at hospitals; use ATM or card",
+          "Accommodation: Sukhumvit (BTS Nana to Phrom Phong stations) has the most hotels near Bumrungrad and Samitivej — from budget to 5-star",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it worth flying from Dubai to Bangkok for a health check-up?", a: "For a comprehensive executive check-up: yes, for many patients. Savings of AED 2,000–8,000 vs Dubai private hospitals (60–75%) more than offset a budget return flight (AED 700–1,500 Dubai–Bangkok). Many UAE-based expats combine their Bangkok health check-up with a holiday, making the medical benefit a bonus rather than the sole cost justification. For a basic blood panel only, the flight cost makes it less compelling — the value increases with package complexity." },
+      { q: "Do Bangkok hospitals have halal food and prayer facilities?", a: "Most major Bangkok JCI hospitals accommodate Muslim patients' dietary needs — halal-certified meals or pork-free options are available on request; confirm when booking. Bumrungrad International has a dedicated Muslim prayer room and Arabic-speaking staff. You won't hear the adhan, but Bangkok hospitals are experienced with Muslim patient preferences and are respectful of dietary and modesty requirements." },
+      { q: "Can I use my UAE medical insurance in Bangkok?", a: "Most UAE employer health insurance (DHA/HAAD-regulated plans) covers UAE only. International plans from global insurers (Cigna, AXA, Bupa International) with worldwide cover may cover Bangkok hospitals — Bumrungrad and Samitivej are on most international insurer panels. Check your specific policy: look for 'worldwide coverage including Asia' or 'direct billing partners in Thailand.' For planned check-ups, direct billing is rare — you typically pay and claim reimbursement." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic speakers — best Bangkok hospitals" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/for/arabic-health-checkup-bangkok", label: "Arabic segment packages" },
     ],
   },
 
