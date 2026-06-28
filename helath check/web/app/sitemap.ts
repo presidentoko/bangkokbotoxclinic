@@ -174,6 +174,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-by-age-bangkok",
       "travel-disease-tests-bangkok",
       "ultrasound-scan-bangkok",
+      "high-cholesterol-treatment-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

@@ -1471,7 +1471,76 @@ const GUIDES: Record<string, Guide> = {
       { q: "Who should get a cardiac screening in Thailand?", a: "Anyone over 40, with a family history of heart disease, hypertension, diabetes, high cholesterol, obesity, or a history of smoking should consider an annual cardiac screening. Younger patients with multiple risk factors should start at 35." },
       { q: "Is a treadmill stress test safe?", a: "Yes, when performed under a cardiologist's supervision with emergency equipment available, a treadmill stress test is very safe. Thai hospitals follow ACC/AHA protocols and halt the test immediately if any concerning signs appear." },
     ],
-    relatedLinks: [{ href: "/checkup/heart", label: "Compare heart screening packages" }, { href: "/checkup/cardiac", label: "Compare cardiac packages" }, { href: "/guide/senior-health-checkup-thailand", label: "Senior check-up guide" }],
+    relatedLinks: [
+      { href: "/checkup/heart", label: "Compare heart screening packages" },
+      { href: "/checkup/cardiac", label: "Compare cardiac packages" },
+      { href: "/en/guide/high-cholesterol-treatment-bangkok", label: "High cholesterol treatment Bangkok" },
+      { href: "/guide/senior-health-checkup-thailand", label: "Senior check-up guide" },
+    ],
+  },
+
+  "high-cholesterol-treatment-bangkok": {
+    title: "High Cholesterol Treatment Bangkok — After Your Check-Up: Next Steps & Costs (2026)",
+    description: "Bangkok check-up showed high cholesterol? Statins from ฿300/month, Lipitor generic ฿200/month, Repatha ฿3,500/month. Full cardiologist consultation ฿1,500–฿3,000. What to do next.",
+    intro: "A high LDL or elevated total cholesterol on your Bangkok health check-up report is one of the most common findings — and one of the most treatable. Thailand is actually one of the best places in the world to follow up on a high-cholesterol result: cardiologists are available for same-day consultations at major hospitals, generic statins are dramatically cheaper than in the West, and pharmacies stock the full range of lipid-lowering medications without a prescription in many cases. This guide covers what your results mean, how to interpret your lipid panel, and what Bangkok's treatment options and costs look like.",
+    sections: [
+      {
+        heading: "Understanding your lipid panel from Bangkok — what's normal?",
+        content: "Standard cholesterol reference ranges from Bangkok laboratory reports (ACC/AHA and NCEP ATP III guidelines):",
+        list: [
+          "Total cholesterol: desirable <200 mg/dL; borderline high 200–239 mg/dL; high ≥240 mg/dL",
+          "LDL-cholesterol (bad cholesterol): optimal <100 mg/dL; near-optimal 100–129 mg/dL; borderline high 130–159 mg/dL; high 160–189 mg/dL; very high ≥190 mg/dL",
+          "HDL-cholesterol (good cholesterol): protective ≥60 mg/dL; low <40 mg/dL (men), <50 mg/dL (women) = risk factor",
+          "Triglycerides: normal <150 mg/dL; borderline high 150–199 mg/dL; high 200–499 mg/dL; very high ≥500 mg/dL (pancreatitis risk)",
+          "Non-HDL cholesterol (Total − HDL): optimal <130 mg/dL; useful when TG >200 (LDL-C less accurate at high TG)",
+          "LDL/HDL ratio: ideally <2.5 for low cardiovascular risk; >5.0 = high risk",
+          "Bangkok hospitals report hs-CRP (high-sensitivity C-reactive protein) in cardiac packages — hs-CRP <1.0 mg/L = low CV risk; 1.0–3.0 = average; >3.0 = high",
+          "What matters most: LDL target depends on your overall cardiovascular risk score (SCORE2, Framingham) — discuss with a cardiologist, not just the range flag",
+        ],
+      },
+      {
+        heading: "Cholesterol treatment costs in Bangkok",
+        content: "Bangkok private hospital and pharmacy costs for lipid-lowering therapy (2026):",
+        list: [
+          "Cardiologist consultation (lipid specialist, follow-up including interpretation of results): ฿1,500–฿3,000 at major Bangkok hospitals",
+          "Repeat lipid panel after starting treatment: ฿600–฿1,500 (standalone blood draw)",
+          "Atorvastatin generic (Lipitor equivalent, 10mg–80mg): ฿3–฿10 per tablet = ฿90–฿300/month — available at most Bangkok pharmacies and hospital pharmacies",
+          "Rosuvastatin generic (Crestor equivalent, 5mg–40mg): ฿5–฿15 per tablet = ฿150–฿450/month",
+          "Simvastatin 20mg (older, less potent statin): ฿2–฿5 per tablet — cheaper but more drug interactions than atorvastatin or rosuvastatin",
+          "Ezetimibe (Zetia — cholesterol absorption inhibitor, adds ≈18–25% extra LDL reduction): ฿15–฿30 per tablet; often combined with statin",
+          "Fenofibrate (for high triglycerides specifically): ฿5–฿12 per tablet — generic widely available in Bangkok",
+          "Repatha / Evolocumab (PCSK9 inhibitor injection, for very high LDL or statin intolerance): ฿3,000–฿4,500/month per injection — available at Bumrungrad, Samitivej, Bangkok Hospital",
+          "Dietary supplements (Omega-3 EPA: reduces TG; Red yeast rice: mild LDL reduction): widely available at Watsons/Boots/pharmacies; ฿300–฿1,500/month",
+          "Lifestyle programme (registered dietitian consultation at Bangkok hospital): ฿1,000–฿2,500/session",
+        ],
+      },
+      {
+        heading: "What to do next after a high-cholesterol Bangkok check-up result",
+        content: "Practical step-by-step guide for acting on elevated cholesterol found at a Bangkok check-up:",
+        list: [
+          "Step 1 — Ask the check-up doctor same-day: Bangkok check-up packages include a doctor's review at the end; ask directly 'what is my 10-year cardiovascular risk?' not just 'is my cholesterol high?'",
+          "Step 2 — Calculate your cardiovascular risk score: high LDL alone doesn't determine treatment; a 45-year-old non-smoker with no diabetes may have a very low 10-year risk and not need medication",
+          "Step 3 — Book a specialist: all major Bangkok hospitals have cardiologists or internists who specialise in lipid management; appointment same or next day available",
+          "Step 4 — Start with lifestyle (if low-medium risk): Mediterranean-style diet (olive oil, fish, nuts, less saturated fat); 30 min aerobic exercise 5×/week; LDL can drop 10–25% from diet alone",
+          "Step 5 — If statin indicated: Bangkok pharmacies dispense atorvastatin or rosuvastatin generic; you can often buy a 30-day supply without prescription to take home",
+          "Step 6 — Arrange follow-up: recheck lipid panel in 6–8 weeks after starting statin; if you are home, your local GP can order the test and email results to Bangkok cardiologist",
+          "Step 7 — Bring the report home: Bangkok hospital lipid panels are standardised in mg/dL and internationally interpretable; take a printed copy and DICOM/PDF",
+          "Step 8 — Statin intolerance (muscle aches): switch to rosuvastatin (less myopathy), reduce dose, add CoQ10 supplement, or switch to alternate-day dosing — Bangkok cardiologist can guide remotely via email/Telehealth",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I buy statins without a prescription in Bangkok?", a: "Many Bangkok pharmacies stock generic atorvastatin and rosuvastatin and will sell them to patients who present a recent lab result showing elevated LDL and who know their target dose. However, the better route is a brief cardiologist consultation (฿1,500–฿3,000 at most Bangkok hospitals) — the doctor will calculate your 10-year cardiovascular risk, determine whether statins are indicated, choose the right type and dose, and flag interactions with your other medications. Generic atorvastatin 20mg is roughly ฿200–฿400/month — buying 3 months' supply at hospital pharmacy to take home is common." },
+      { q: "My Bangkok check-up shows high cholesterol but I feel fine — do I need to do anything?", a: "High cholesterol causes no symptoms until a heart attack or stroke occurs — 'feeling fine' gives no signal. What matters is your 10-year cardiovascular risk score, which your check-up doctor can calculate using your LDL, blood pressure, age, sex, smoking status, and diabetes status. If your 10-year risk is low (<5%) and LDL is only mildly elevated, lifestyle changes alone may be appropriate. If LDL is very high (>190 mg/dL), a statin is usually recommended regardless of other factors. Treat the risk score, not just the number." },
+      { q: "Is it safe to start a statin in Bangkok and continue at home?", a: "Yes — this is very common. Bangkok hospitals prescribe atorvastatin or rosuvastatin daily (generic); you fill a 1–3 month supply at the Bangkok hospital pharmacy to take home. Your local GP re-orders a lipid panel in 6–8 weeks and can continue the prescription. Statins require a lipid recheck 6–8 weeks after initiation (to confirm LDL target reached) and a liver enzyme check (ALT) at 3 months — both are basic blood tests available anywhere. Most GPs worldwide will continue a statin started appropriately at a JCI-accredited Bangkok hospital." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health check-up Bangkok" },
+      { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your Bangkok check-up results" },
+      { href: "/en/guide/blood-test-price-bangkok", label: "Blood test prices Bangkok" },
+      { href: "/en/guide/health-checkup-by-age-bangkok", label: "Health check-up by age" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad Hospital check-up guide" },
+    ],
   },
 
   "medical-visa-thailand": {
