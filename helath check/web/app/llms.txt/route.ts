@@ -69,6 +69,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - CT scan cost Bangkok: ${BASE}/en/guide/ct-scan-cost-bangkok
 - Mammogram cost Bangkok: ${BASE}/en/guide/mammogram-cost-bangkok
 - Colonoscopy cost Bangkok: ${BASE}/en/guide/colonoscopy-cost-bangkok
+- Gastroscopy cost Bangkok (胃カメラ): ${BASE}/en/guide/gastroscopy-cost-bangkok
 - Blood test prices: ${BASE}/en/guide/blood-test-price-bangkok
 - Executive health checkup: ${BASE}/en/guide/executive-health-checkup-bangkok
 

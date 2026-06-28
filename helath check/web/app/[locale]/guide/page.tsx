@@ -319,6 +319,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "gastroscopy-cost-bangkok",
+    title: "Gastroscopy Cost Bangkok — 2026 (Upper Endoscopy / 胃カメラ)",
+    description: "Gastroscopy prices from ฿4,500 with sedation. HD endoscopes, English reports, same-day. Popular with Japanese and Korean tourists.",
+    emoji: "🩻",
+    category: "Specialist Screening",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",

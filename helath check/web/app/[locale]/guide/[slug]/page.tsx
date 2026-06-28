@@ -423,9 +423,73 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
+      { href: "/en/guide/gastroscopy-cost-bangkok", label: "Gastroscopy cost Bangkok" },
       { href: "/en/guide/health-checkup-japan-vs-thailand", label: "Japan vs Thailand — Ningen Dock" },
       { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean tourists guide (한국어)" },
-      { href: "/en/guide/mri-scan-cost-bangkok", label: "MRI scan cost Bangkok" },
+    ],
+  },
+
+  "gastroscopy-cost-bangkok": {
+    title: "Gastroscopy Cost in Bangkok — 2026 Price Guide (Endoscopy)",
+    description: "How much does a gastroscopy (upper endoscopy) cost in Bangkok? From ฿4,500. Sedation available, same-day results, popular with Japanese and Korean tourists.",
+    intro: "A gastroscopy (胃カメラ / 위내시경 / upper endoscopy / OGD) in Bangkok costs ฿4,500–฿9,000 — compared to US$700–$3,000 in the US, or ¥20,000–฿40,000 in Japan. Bangkok's private hospitals use HD Olympus or Fujifilm endoscopes, and experienced gastroenterologists perform thousands of procedures annually. Sedation (conscious or light) is routinely available.",
+    sections: [
+      {
+        heading: "Gastroscopy prices in Bangkok (2026)",
+        content: "Gastroscopy cost at Bangkok private hospitals (outpatient, including sedation and report):",
+        list: [
+          "Gastroscopy only (no sedation): ฿3,500 – ฿6,000",
+          "Gastroscopy with sedation: ฿4,500 – ฿9,000",
+          "Gastroscopy + biopsy (if ulcer/H.pylori suspected): ฿5,500 – ฿12,000",
+          "Combined gastroscopy + colonoscopy ('top and tail'): ฿12,000 – ฿25,000",
+          "H. Pylori urea breath test (non-endoscopic alternative): ฿800 – ฿2,000",
+          "H. Pylori rapid test (blood, stool, or biopsy): ฿500 – ฿2,500",
+        ],
+      },
+      {
+        heading: "What is a gastroscopy — and who needs one?",
+        content: "A gastroscopy examines the oesophagus, stomach, and the first part of the small intestine (duodenum) using a flexible camera on a tube:",
+        list: [
+          "Diagnostic uses: persistent heartburn/GERD, difficulty swallowing, unexplained weight loss, nausea, upper abdominal pain, suspected stomach ulcer or H. pylori infection",
+          "Screening uses: Japan and Korea have high rates of stomach cancer (among the highest in the world) — annual or biennial gastroscopy screening is routine in these countries from age 40–50",
+          "Not required routinely in Western countries: US/UK guidelines recommend gastroscopy only for symptoms, not routine screening for average-risk individuals",
+          "Tourist add-on: many Japanese and Korean medical tourists in Bangkok add gastroscopy to their health check-up package — Bangkok hospitals process the same day, Japanese hospitals often have 6–12 month waits",
+        ],
+      },
+      {
+        heading: "Gastroscopy preparation in Bangkok",
+        content: "Preparation for a gastroscopy is simpler than colonoscopy:",
+        list: [
+          "Fasting: 6–8 hours before the procedure; water allowed up to 2 hours before",
+          "Sedation: conscious sedation (midazolam ± fentanyl) makes the procedure comfortable; you may have mild awareness",
+          "Throat spray: local anaesthetic throat spray is typically given even with sedation to suppress the gag reflex",
+          "Duration: procedure takes 10–20 minutes; recovery from sedation 30–60 minutes",
+          "After the procedure: minor throat discomfort is normal; eat soft foods for the first 24 hours; no driving after sedation",
+        ],
+      },
+      {
+        heading: "Gastroscopy vs barium swallow — why Bangkok is better",
+        content: "Japanese Ningen Dock traditionally uses a barium swallow (バリウム検査) rather than direct gastroscopy. Bangkok hospitals use direct gastroscopy as standard:",
+        list: [
+          "Accuracy: direct gastroscopy is significantly more sensitive than barium swallow for detecting early gastric cancer, ulcers, and polyps",
+          "Biopsy: gastroscopy allows immediate biopsy of suspicious lesions; barium swallow cannot",
+          "H. pylori: biopsy during gastroscopy allows direct detection (CLO test); barium swallow cannot detect H. pylori",
+          "Patient experience: barium swallow requires drinking a thick chalky liquid and lying at angles; modern sedation makes gastroscopy comfortable",
+          "Price: Bangkok gastroscopy (฿4,500–฿9,000) is comparable to Japanese barium swallow cost (¥5,000–฿20,000) and offers superior clinical value",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How much does a gastroscopy cost in Bangkok?", a: "A gastroscopy with sedation in Bangkok costs ฿4,500–฿9,000 (approximately US$125–$250). In the US without insurance: $700–$3,000. In Japan: ¥20,000–¥40,000 (barium equivalent). In the UK (Spire/BMI private): £800–£1,500. Bangkok offers the same HD endoscope quality at 70–80% lower cost." },
+      { q: "Is sedation available for a gastroscopy in Bangkok?", a: "Yes — conscious sedation (midazolam with or without fentanyl) is available at all major Bangkok private hospitals. Propofol (full sedation) is also available on request at JCI hospitals. Most patients report little or no discomfort with sedation. Bring a companion to drive you home — you should not drive or make important decisions for 12–24 hours after sedation." },
+      { q: "Can I combine a gastroscopy with my health check-up?", a: "Yes — gastroscopy is one of the most popular health check-up add-ons at Bangkok private hospitals, especially for Japanese and Korean visitors. You can combine it with an executive health check-up. Note: the gastroscopy should be scheduled on the same morning as your blood tests and fasting — all in one appointment. Most hospitals arrange this seamlessly." },
+      { q: "Is gastroscopy the same as an endoscopy?", a: "Yes — 'gastroscopy', 'upper endoscopy', and 'OGD' (oesophago-gastro-duodenoscopy) all refer to the same procedure: camera examination of the upper gastrointestinal tract from the mouth to the duodenum. 'Endoscopy' alone can mean either upper or lower (colonoscopy). When booking, specify 'upper GI endoscopy' or 'gastroscopy' to ensure you get the stomach camera, not the colonoscopy." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/colonoscopy-cost-bangkok", label: "Colonoscopy cost Bangkok" },
+      { href: "/en/guide/health-checkup-japan-vs-thailand", label: "Japan vs Thailand — Ningen Dock" },
+      { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean tourists guide" },
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
     ],
   },
 

@@ -134,6 +134,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "ct-scan-cost-bangkok",
       "mammogram-cost-bangkok",
       "colonoscopy-cost-bangkok",
+      "gastroscopy-cost-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
