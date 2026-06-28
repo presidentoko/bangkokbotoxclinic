@@ -410,6 +410,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-philippines-vs-thailand",
+    title: "Health Check-Up Philippines vs Thailand (2026) — Bangkok for Filipinos",
+    description: "PhilHealth gaps, Manila private ₱30,000–₱80,000 vs Bangkok JCI ฿12,000–฿25,000. 2-hour flight, no visa. Filipino nurses at Bumrungrad. Gastroscopy 50–60% cheaper.",
+    emoji: "🇵🇭",
+    category: "By Nationality",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

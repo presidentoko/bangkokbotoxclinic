@@ -164,6 +164,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "bone-density-dexa-scan-bangkok",
       "allergy-test-bangkok",
       "health-checkup-italy-vs-thailand",
+      "health-checkup-philippines-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

@@ -2963,7 +2963,67 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/health-checkup-india-vs-thailand", label: "India vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-philippines-vs-thailand", label: "Philippines vs Thailand comparison" },
       { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic/Muslim patients guide" },
+    ],
+  },
+
+  "health-checkup-philippines-vs-thailand": {
+    title: "Health Check-Up: Philippines vs Thailand 2026 — Bangkok for Filipino Patients",
+    description: "PhilHealth coverage gaps, Makati Medical vs Bangkok JCI prices. Bangkok comprehensive check-up ฿8,000–฿25,000 vs PHP 15,000–60,000 in Manila private. 2-hour flight, no visa needed.",
+    intro: "The Philippines has PhilHealth (national health insurance) but coverage for preventive health screening packages is limited. Manila private hospitals (Makati Medical Center, St. Luke's, Asian Hospital) offer quality care but at prices comparable to or exceeding Bangkok for comprehensive packages — without Bangkok's international JCI accreditation infrastructure. Many Filipino OFWs (Overseas Filipino Workers) in the Middle East and Southeast Asia route through Bangkok for health check-ups on their way home, and Manila professionals increasingly travel to Bangkok for premium screening not available at home. The Philippines sends approximately 700,000+ tourists to Thailand annually.",
+    sections: [
+      {
+        heading: "Health check-up cost comparison: Philippines vs Thailand",
+        content: "Private hospital health check-up prices — Manila vs Bangkok (2026):",
+        list: [
+          "Basic check-up (CBC, chemistry, X-ray, ECG): Manila private ₱8,000–₱20,000 / Bangkok ฿4,000–฿8,000 (₱6,300–₱12,600) — broadly comparable",
+          "Comprehensive check-up (full organ panel + cancer markers): Manila ₱30,000–₱80,000 / Bangkok ฿12,000–฿25,000 (₱18,900–₱39,400) — Bangkok 30–50% cheaper",
+          "Executive package (+ MRI or CT + specialist): Manila ₱60,000–₱200,000+ / Bangkok ฿25,000–฿60,000 (₱39,400–₱94,500) — Bangkok significantly cheaper for premium scope",
+          "Specific tests — ultrasound abdomen: Manila ₱2,000–฿4,000 / Bangkok ฿1,500–฿3,000 (₱2,400–฿4,700) — similar",
+          "Gastroscopy: Manila ₱15,000–₱35,000 / Bangkok ฿4,500–฿9,000 (₱7,100–₱14,200) — Bangkok 50–60% cheaper",
+          "Colonoscopy: Manila ₱25,000–₱50,000 / Bangkok ฿8,000–฿18,000 (₱12,600–₱28,400) — Bangkok significantly cheaper",
+          "Note: some Manila top-tier private hospitals (St. Luke's Bonifacio Global City, Asian Hospital) approach or match Bangkok prices; smaller Manila private hospitals are cheaper but may lack Bangkok's JCI standards",
+          "JCI accreditation: Bumrungrad, Samitivej, Bangkok Hospital, Vejthani all JCI-accredited — provides international quality assurance that most Filipino patients cannot access at equivalent price in Manila",
+        ],
+      },
+      {
+        heading: "PhilHealth and private insurance coverage",
+        content: "How Philippine health coverage works — and what it doesn't cover:",
+        list: [
+          "PhilHealth: covers hospitalisation and some outpatient procedures; does NOT cover routine preventive health screening packages",
+          "PhilHealth Z-benefit: covers catastrophic illness treatment — cancer, dialysis, etc. — but not annual check-ups",
+          "Private Philippine health cards (Maxicare, Medicard, Intellicare, Health Maintenance Organisations): some cover annual physical exam with limits (e.g., PHP 5,000–10,000 annual check-up benefit); most don't cover the comprehensive tier Filipinos want",
+          "Bangkok at own expense: most Filipino patients who go to Bangkok for health check-ups pay out-of-pocket — cash or credit card (Visa/Mastercard widely accepted)",
+          "PhilHealth abroad: only covers emergency care in bilateral treaty countries — Thailand is not a PhilHealth treaty partner, so no coverage applies",
+          "OFW strategy: many OFWs with Middle East residency stop in Bangkok en route to the Philippines for a health check-up, then bring results to their Philippine employer's annual health assessment",
+        ],
+      },
+      {
+        heading: "Practical guide: Filipino patients in Bangkok",
+        content: "Logistics for Filipinos visiting Bangkok for a health check-up:",
+        list: [
+          "Visa: Filipino passport holders can enter Thailand without visa for 30 days — one of the easiest borders in Southeast Asia",
+          "Flights: Manila (MNL) to Bangkok (BKK/DMK): 2 hours 30 min – 3 hours; daily multiple flights with Philippine Airlines, Cebu Pacific, Thai Airways, AirAsia; Cebu (CEB) to Bangkok: 3 hours",
+          "English language: no barrier — all major Bangkok hospitals offer full English-language care; Filipino nurses are common at Bumrungrad and Samitivej",
+          "Currency: Thai Baht — exchange or ATM in Bangkok; Visa/Mastercard accepted at all hospitals",
+          "Best hospitals for Filipino patients: Bumrungrad International (familiar with Filipino patients, many Filipino nursing staff), Samitivej Sukhumvit (quieter, value premium packages), BNH (European-style atmosphere)",
+          "Strategy: fly to Bangkok on Thursday evening, check-up Friday morning (full morning package, done by noon), afternoon free, return Saturday or Sunday",
+          "Results: all in English PDF, readable by Philippine doctors; bring results to your Philippine internist for documentation",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Bangkok cheaper than Manila for health check-ups?", a: "For comprehensive and executive packages — yes, Bangkok is significantly cheaper. A comprehensive check-up with cancer markers in Manila (St. Luke's, Makati Med) costs ₱30,000–₱80,000; in Bangkok (Bumrungrad, Samitivej) the equivalent costs ฿12,000–฿25,000 (approximately ₱18,900–₱39,400), saving 30–50%. For basic blood tests only, prices are broadly comparable. The biggest Manila-vs-Bangkok savings are on procedures: gastroscopy and colonoscopy are 50–60% cheaper in Bangkok." },
+      { q: "Do Bangkok hospitals have Filipino staff?", a: "Yes — Bumrungrad International Hospital in particular employs a notable number of Filipino nurses and medical staff, as the Philippines is Southeast Asia's largest provider of internationally-trained nurses. Filipino patients often report feeling at ease with the familiar staff. All major Bangkok private hospitals have English as the primary language of international patient service, so communication is excellent for Filipino patients regardless of specific staff nationality." },
+      { q: "Can I get my Bangkok health check-up results accepted for a Philippine employer medical check?", a: "Yes — if your Philippine employer requires an annual medical exam or fitness-for-work certificate, results from Bumrungrad, Samitivej, or another JCI-accredited Bangkok hospital are typically accepted by Philippine occupational health physicians. Bring the complete laboratory result printout (not just the summary) and a medical certificate if your Bangkok doctor provides one. For government-mandated OFW medical examinations (POEA requirements), these require specific Philippine DOH-accredited clinics — Bangkok results are not a substitute for OFW documentation." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-indonesia-vs-thailand", label: "Indonesia vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-malaysia-vs-thailand", label: "Malaysia vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-singapore-vs-thailand", label: "Singapore vs Thailand comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
     ],
   },
 
