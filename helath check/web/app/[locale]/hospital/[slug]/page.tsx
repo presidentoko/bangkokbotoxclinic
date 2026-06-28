@@ -156,6 +156,12 @@ export default async function HospitalPage({
         <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
         <span>›</span>
         <Link href={`/${locale}/hospital`} className="hover:text-blue-600">Hospitals</Link>
+        {hospital.city && (
+          <>
+            <span>›</span>
+            <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-blue-600">{hospital.city}</Link>
+          </>
+        )}
         <span>›</span>
         <span className="text-slate-600">{hospital.name}</span>
       </nav>
@@ -327,6 +333,16 @@ export default async function HospitalPage({
         </div>
       </div>
 
+      {/* More hospitals in city */}
+      {hospital.city && (
+        <div className="mt-8 p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
+          <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="font-semibold text-blue-600 hover:underline">
+            Compare all hospitals in {hospital.city} →
+          </Link>
+          <span className="text-slate-400 ml-2">See prices from every hospital in {hospital.city}</span>
+        </div>
+      )}
+
       {/* Individual reviews schema */}
       {reviews.length > 0 && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -350,7 +366,8 @@ export default async function HospitalPage({
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "BangkokCheckup", item: `${BASE}/${locale}` },
           { "@type": "ListItem", position: 2, name: "Hospitals", item: `${BASE}/${locale}/hospital` },
-          { "@type": "ListItem", position: 3, name: hospital.name, item: `${BASE}/${locale}/hospital/${hospital.slug}` },
+          ...(hospital.city ? [{ "@type": "ListItem", position: 3, name: hospital.city, item: `${BASE}/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}` }] : []),
+          { "@type": "ListItem", position: hospital.city ? 4 : 3, name: hospital.name, item: `${BASE}/${locale}/hospital/${hospital.slug}` },
         ],
       }) }} />
 
