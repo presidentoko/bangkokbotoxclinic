@@ -24,7 +24,7 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **95+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
+- **100+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
 - **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
 
 ## Key pages
@@ -100,6 +100,11 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Age-based health check-up guide (30s / 40s / 50s / 60s+): ${BASE}/en/guide/health-checkup-by-age-bangkok
 - Samitivej Hospital dedicated guide: ${BASE}/en/guide/samitivej-hospital-health-checkup
 - Bumrungrad International Hospital dedicated guide: ${BASE}/en/guide/bumrungrad-hospital-health-checkup
+- Phyathai Hospital guide (budget-friendly Bangkok private): ${BASE}/en/guide/phyathai-hospital-health-checkup
+- High cholesterol next steps (statins, PCSK9, cardiologist): ${BASE}/en/guide/high-cholesterol-treatment-bangkok
+- High blood pressure next steps (ABPM, antihypertensives): ${BASE}/en/guide/high-blood-pressure-treatment-bangkok
+- What to do when check-up finds something abnormal: ${BASE}/en/guide/abnormal-results-bangkok-what-to-do
+- Turkey vs Thailand (Türkçe): ${BASE}/en/guide/health-checkup-turkey-vs-thailand
 
 ## Country Comparison Guides (How Much You Save)
 

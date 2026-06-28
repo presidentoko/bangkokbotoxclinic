@@ -316,7 +316,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-6xl px-4 pb-10 md:pb-14">
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-xl font-bold text-slate-800">Health check-up guides</h2>
-          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All 90+ guides →</Link>
+          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All 100+ guides →</Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
