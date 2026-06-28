@@ -599,6 +599,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "anemia-iron-test-bangkok",
+    title: "Anaemia & Iron Deficiency Bangkok — Ferritin, CBC, Iron Panel Prices (2026)",
+    description: "Ferritin ฿300–฿700, full iron panel ฿600–฿1,200. Most common reason for flagged haemoglobin. IV iron ฿2,000–฿5,000 same-day. Thalassaemia trait vs true iron deficiency — how to tell.",
+    emoji: "🩸",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
