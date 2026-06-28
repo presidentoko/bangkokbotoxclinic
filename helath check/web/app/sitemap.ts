@@ -182,6 +182,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-poland-vs-thailand",
       "kidney-function-test-bangkok",
       "liver-function-test-bangkok",
+      "health-checkup-egypt-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
