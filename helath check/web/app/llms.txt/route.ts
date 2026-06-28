@@ -24,7 +24,7 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **100+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
+- **110+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
 - **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
 
 ## Key pages
@@ -105,6 +105,11 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - High blood pressure next steps (ABPM, antihypertensives): ${BASE}/en/guide/high-blood-pressure-treatment-bangkok
 - What to do when check-up finds something abnormal: ${BASE}/en/guide/abnormal-results-bangkok-what-to-do
 - Turkey vs Thailand (Türkçe): ${BASE}/en/guide/health-checkup-turkey-vs-thailand
+- Full-body MRI Bangkok: ${BASE}/en/guide/full-body-mri-bangkok
+- Gout & uric acid test + allopurinol prices: ${BASE}/en/guide/gout-treatment-bangkok
+- Anaemia & iron deficiency — ferritin, IV iron: ${BASE}/en/guide/anemia-iron-test-bangkok
+- Kidney function test Bangkok (creatinine, eGFR): ${BASE}/en/guide/kidney-function-test-bangkok
+- Liver function test Bangkok (ALT, AST, FibroScan): ${BASE}/en/guide/liver-function-test-bangkok
 
 ## Country Comparison Guides (How Much You Save)
 
@@ -131,6 +136,11 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Philippines vs Thailand (PhilHealth gaps): ${BASE}/en/guide/health-checkup-philippines-vs-thailand
 - South Africa vs Thailand (Discovery Health): ${BASE}/en/guide/health-checkup-south-africa-vs-thailand
 - Vietnam vs Thailand (bệnh viện Bangkok): ${BASE}/en/guide/health-checkup-vietnam-vs-thailand
+- Mexico vs Thailand (en español — IMSS/HMO gaps): ${BASE}/en/guide/health-checkup-mexico-vs-thailand
+- Nigeria vs Thailand (₦ vs THB comparison): ${BASE}/en/guide/health-checkup-nigeria-vs-thailand
+- Poland vs Thailand (NFZ gaps, po polsku): ${BASE}/en/guide/health-checkup-poland-vs-thailand
+- Egypt vs Thailand (بالعربية, e-Visa): ${BASE}/en/guide/health-checkup-egypt-vs-thailand
+- Argentina vs Thailand (en español — OSDE/Swiss Medical gaps): ${BASE}/en/guide/health-checkup-argentina-vs-thailand
 
 ## Practical Guides
 
