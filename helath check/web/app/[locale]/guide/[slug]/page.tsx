@@ -2032,6 +2032,73 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
       { href: "/en/guide/health-checkup-cost-australia-vs-thailand", label: "Australia vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
+  "health-checkup-france-vs-thailand": {
+    title: "Bilan de santé : France vs Thaïlande 2026 — Bangkok pour les Français",
+    description: "La France rembourse un bilan de prévention tous les 10 ans. Bangkok offre un bilan complet sans rendez-vous, sans attente, 60–75% moins cher qu'une clinique privée française.",
+    intro: "La France dispose d'un des meilleurs systèmes de santé du monde — mais le bilan de santé de l'Assurance Maladie est limité à un examen tous les 10 ans (3 ans pour certaines tranches d'âge), et les délais de rendez-vous chez le spécialiste dépassent souvent 3 à 6 mois. Bangkok propose des bilans complets de type executive sans rendez-vous préalable, avec résultats le jour même, à 60–75% du prix d'une clinique privée française. La Thaïlande accueille environ 600 000 touristes français par an — la combinaison bilan de santé + séjour est une option très pertinente.",
+    sections: [
+      {
+        heading: "Comparaison des prix : France vs Bangkok",
+        content: "Prix comparatifs pour des bilans équivalents (taux de change indicatif : €1 ≈ ฿37) :",
+        list: [
+          "Bilan sanguin complet (NFS, bilan lipidique, glycémie, thyroïde, foie, rein) — France clinique privée : €150–€400 | Bangkok : ฿2,500–฿5,000 (€68–135) | Économie 50–65%",
+          "Bilan standard (+ ECG, radio thorax, échographie abdominale) — France privé : €500–€1,200 | Bangkok : ฿5,000–฿9,000 (€135–243) | Économie 75–80%",
+          "Bilan executive complet (+ marqueurs tumoraux, consultation médecin) — France clinique : €1,200–€3,000 | Bangkok : ฿8,000–฿25,000 (€216–675) | Économie 60–75%",
+          "IRM cérébral — France privé : €350–€700 | Bangkok : ฿5,000–฿12,000 (€135–324) | Économie 50–55%",
+          "Scanner thoracique (low-dose) — France : €150–€300 (dépassement d'honoraires) | Bangkok : ฿4,000–฿9,000 (€108–243)",
+          "Coloscopie avec sédation — France privé : €400–€900 | Bangkok : ฿12,000–฿20,000 (€324–540) | légèrement plus cher → recommandé pour: Bangkokcost compétitif quand combiné avec d'autres examens",
+        ],
+      },
+      {
+        heading: "Ce que le bilan Sécurité Sociale ne couvre pas (et Bangkok couvre)",
+        content: "Examens souvent non remboursés en France ou avec des délais longs :",
+        list: [
+          "Marqueurs tumoraux (PSA, CA125, CEA, AFP, CA19-9) : non remboursés sans prescription et suspicion — Bangkok : ฿3,000–฿6,000 en add-on",
+          "Échographie complète des organes (foie, rate, rein, vésicule biliaire) sans pathologie connue : délai 2–4 mois en France | Bangkok : incluse dans les bilans standard",
+          "Vitamine D (25-OH-D3) : non remboursée depuis 2019 sauf cas particuliers | Bangkok add-on ฿800–฿1,500 (€22–41)",
+          "Dépistage cancer colorectal (coloscopie avant 50 ans) : non recommandé sans facteur de risque | Bangkok disponible sans restriction",
+          "Bilan hormonal complet (estrogènes, progestérone, LH/FSH, DHEA-S) : non remboursé hors infertilité | Bangkok inclus dans les bilans femmes",
+          "Délai de rendez-vous chez le gastro-entérologue (coloscopie) en France : 4–12 mois | Bangkok : 2–3 jours",
+        ],
+      },
+      {
+        heading: "Meilleurs hôpitaux à Bangkok pour les patients francophones",
+        content: "Les hôpitaux suivants ont des services internationaux complets en anglais et sur demande en français :",
+        list: [
+          "Bumrungrad International — hôpital international le plus réputé d'Asie, personnel international, français sur demande, accrédité JCI",
+          "Samitivej Sukhumvit — bilans executive en demi-journée, excellent pour les séjours courts, accrédité JCI",
+          "Bangkok Hospital Phuket — idéal pour les touristes à Phuket (Patong, Kata, Karon)",
+          "Koh Samui Hospital / Bangkok Hospital Samui — pour les séjours à Koh Samui",
+          "BNH Hospital — atmosphère plus intimiste, centre de Bangkok, bien établi pour les expatriés européens",
+        ],
+      },
+      {
+        heading: "Informations pratiques pour les touristes français en Thaïlande",
+        content: "Conseils pratiques pour organiser un bilan de santé lors d'un séjour en Thaïlande :",
+        list: [
+          "Visa : les ressortissants français sont exemptés de visa pour un séjour jusqu'à 30 jours en Thaïlande (prolongeable à 60 jours)",
+          "Vol direct : Paris (CDG) – Bangkok (BKK) avec Thai Airways ou Air France : environ 11–12 heures",
+          "Phuket : vols saisonniers directs depuis Paris en hiver (octobre–mars) ; sinon correspondance via Bangkok",
+          "Organisation : dîner léger la veille, jeûne (eau autorisée) à partir de 22h00, arrivée à l'hôpital 7h–8h, résultats et consultation avant 14h",
+          "Résultats : demandez les résultats complets en anglais (format PDF), le médecin généraliste français peut les lire directement",
+          "Assurance voyage : la carte Vitale et la CPAM ne couvrent pas les soins élecifs à l'étranger — souscrivez une assurance voyage avant le départ (AXA, Allianz, MAAF)",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Mon médecin français acceptera-t-il les résultats d'analyses de Bangkok ?", a: "Oui — les grands hôpitaux de Bangkok comme Bumrungrad, Samitivej et Bangkok Hospital fournissent des résultats complets en anglais avec les valeurs de référence internationales. Les médecins généralistes français peuvent lire ces bilans directement. Demandez toujours les résultats bruts de laboratoire (pas seulement le résumé médecin) — les valeurs sont en unités standard (mmol/L, g/dL) identiques aux normes françaises." },
+      { q: "La Sécurité Sociale rembourse-t-elle un bilan de santé effectué à l'étranger ?", a: "Non — l'Assurance Maladie ne rembourse pas les examens préventifs réalisés hors UE/EEE de façon planifiée. Certaines mutuelles avec option 'soins à l'étranger' couvrent les urgences, pas les bilans de santé planifiés. Vous réglez directement à Bangkok (carte bancaire Visa/Mastercard) et conservez la facture pour vos archives." },
+      { q: "Y a-t-il des médecins francophones à Bangkok ?", a: "Bumrungrad International et Samitivej disposent de départements internationaux avec des coordinateurs parlant français (variable selon les périodes). La plupart des médecins thaïlandais des hôpitaux JCI parlent un excellent anglais. Pour une assistance complète en français, il est possible de solliciter un interprète via le département international — à préciser lors de la réservation." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Allemagne vs Thaïlande / Germany guide" },
+      { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
     ],

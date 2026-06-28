@@ -270,6 +270,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-france-vs-thailand",
+    title: "Bilan de santé France vs Thaïlande 2026 — Bangkok pour les Français",
+    description: "Bilan Sécu tous les 10 ans. Bangkok : bilan complet sans attente, résultats le jour même, 60–75% moins cher qu'une clinique privée française.",
+    emoji: "🇫🇷",
+    category: "Practical Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",
