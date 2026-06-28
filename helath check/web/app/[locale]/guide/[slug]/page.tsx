@@ -2349,6 +2349,75 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive health check-up guide" },
       { href: "/en/compare?category=executive", label: "Compare executive packages" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/ct-scan-cost-bangkok", label: "CT scan cost Bangkok" },
+    ],
+  },
+
+  "ct-scan-cost-bangkok": {
+    title: "CT Scan Cost in Bangkok — 2026 Price Guide",
+    description: "How much does a CT scan cost in Bangkok? Chest CT, abdominal CT, coronary calcium CT, full-body CT — all prices compared at JCI and private hospitals.",
+    intro: "CT (computed tomography) scans in Bangkok cost 40–70% less than equivalent scans in the US, UK, or Australia — with same-day results at most private hospitals. Bangkok's top hospitals use 64-slice and 128-slice CT scanners for accurate diagnostic imaging. CT is available standalone or as part of an executive health check-up package.",
+    sections: [
+      {
+        heading: "CT scan prices in Bangkok (2026)",
+        content: "Approximate CT scan prices at Bangkok private hospitals:",
+        list: [
+          "Chest CT (low-dose, lung screening): ฿3,500 – ฿8,000 (US equivalent: $400–$1,200)",
+          "Abdominal CT (with contrast): ฿5,000 – ฿12,000 (US equivalent: $500–$1,500)",
+          "Chest + abdomen + pelvis CT: ฿9,000 – ฿20,000",
+          "Coronary calcium score CT (CACS): ฿4,500 – ฿9,000 (US equivalent: $150–$600)",
+          "Coronary CT angiography (CCTA): ฿15,000 – ฿35,000 (US equivalent: $1,000–$4,000)",
+          "Brain CT: ฿3,500 – ฿8,000",
+          "Whole-body CT scan: ฿15,000 – ฿35,000",
+          "Neck CT: ฿4,000 – ฿8,500",
+        ],
+      },
+      {
+        heading: "CT vs MRI — which do you need?",
+        content: "CT and MRI are both imaging technologies but used for different purposes:",
+        list: [
+          "CT scan: uses X-rays, faster (5–15 min), better for bone, lung, calcification, acute bleeding, coronary calcium; involves radiation",
+          "MRI: uses magnetic fields, slower (30–60 min), better for soft tissue, brain, spinal cord, joints, soft-tissue tumours; no radiation",
+          "For cardiac screening: coronary calcium score CT is the standard first-line test for heart disease risk",
+          "For lung cancer screening: low-dose CT (LDCT) is recommended for high-risk individuals (smokers, age 50+)",
+          "For abdominal check-up: CT shows liver, gallbladder, kidneys, spleen, colon clearly; ultrasound is cheaper for initial screening",
+          "For brain check-up: MRI is preferred for soft-tissue detail; CT is faster and used for acute/emergency situations",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for CT scans",
+        content: "Top-rated hospitals for CT scanning with newest equipment:",
+        list: [
+          "Bumrungrad International — 256-slice CT scanner; fastest imaging in Bangkok; used for complex cardiac CT angiography",
+          "Bangkok Hospital — 128-slice CT with dual-energy capability; excellent for abdominal and cardiac",
+          "Samitivej Sukhumvit — 128-slice CT; strong cardiac CT programme; competitive pricing",
+          "Vejthani Hospital — 128-slice CT; most competitive JCI pricing for standalone CT scans",
+          "Phyathai 2 — 64-slice CT; good value for straightforward chest/abdominal CT; non-JCI but reputable",
+        ],
+      },
+      {
+        heading: "Coronary calcium score CT (CACS) — Bangkok guide",
+        content: "The coronary calcium score CT is one of the most popular add-on tests for health check-up visitors from abroad:",
+        list: [
+          "Price in Bangkok: ฿4,500 – ฿9,000 (US equivalent: $150–$600, often without insurance coverage)",
+          "No contrast injection required — lower risk than coronary CTA",
+          "Scan time: 5–10 minutes; results within 1 hour",
+          "Score interpretation: 0 = very low risk; 1–99 = mild risk; 100–399 = moderate risk; 400+ = high risk",
+          "Best candidates: men over 45, women over 55, smokers, family history of heart disease",
+          "Available as standalone or included in executive cardiac packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How much does a CT scan cost in Bangkok vs the US?", a: "A chest CT in Bangkok costs ฿3,500–฿8,000 (approximately US$95–$220), compared to US$300–$1,200 in the US without insurance. A coronary calcium score CT costs ฿4,500–฿9,000 (US$125–$250) in Bangkok vs $150–$600 in the US (often not covered by insurance). Whole-body CT: ฿15,000–฿35,000 (US$410–$960) in Bangkok vs $1,500–$4,000 in the US." },
+      { q: "Do I need a referral for a CT scan in Bangkok?", a: "No referral is required at Bangkok private hospitals. You can request a CT scan as part of a health check-up package or standalone. The hospital will have a physician review your request to ensure the scan is appropriate. Walk-in CT requests for straightforward cases (chest, abdominal, coronary calcium) are routinely accommodated." },
+      { q: "How long do CT scan results take in Bangkok?", a: "Results are typically available within 2–4 hours for a straightforward CT. More complex scans (coronary CTA, full-body) may take 24 hours for a complete radiologist report. All major Bangkok private hospitals provide results via an online patient portal, and English-language reports can be emailed to you after leaving Thailand." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/mri-scan-cost-bangkok", label: "MRI scan cost in Bangkok" },
+      { href: "/en/guide/blood-test-price-bangkok", label: "Blood test prices in Bangkok" },
+      { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health check-up Bangkok" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages (includes CT)" },
     ],
   },
 

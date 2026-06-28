@@ -298,6 +298,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "ct-scan-cost-bangkok",
+    title: "CT Scan Cost in Bangkok — 2026 Price Guide",
+    description: "Chest CT, abdominal CT, coronary calcium score, full-body CT — all prices at JCI and private hospitals. 40–70% cheaper than US/UK.",
+    emoji: "🔭",
+    category: "Practical Guides",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",

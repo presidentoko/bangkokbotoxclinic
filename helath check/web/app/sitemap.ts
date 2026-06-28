@@ -131,6 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-japan-vs-thailand",
       "private-vs-government-hospital-thailand",
       "health-checkup-for-retirement-visa-thailand",
+      "ct-scan-cost-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
