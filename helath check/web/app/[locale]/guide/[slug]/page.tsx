@@ -1969,6 +1969,71 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-insurance-thailand", label: "Health insurance for Thailand" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages in Bangkok" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare" },
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-germany-vs-thailand": {
+    title: "Health Check-Up: Germany vs Thailand (2026) — Bangkok für Deutsche",
+    description: "Germany has Gesundheitscheck-up (GKV) every 3 years — Bangkok offers the same annually at 60–75% lower cost. No referral, no waiting. Guide for German tourists and long-stay visitors.",
+    intro: "Deutschland hat ein gutes Gesundheitssystem — aber der kostenfreie Gesundheits-Check-up (GKV) steht nur alle 3 Jahre (ab 35) zu, ist stark limitiert, und lange Wartezeiten beim Facharzt sind normal. Bangkok's JCI-akkreditierte Krankenhäuser bieten umfassende Executive-Checks ohne Überweisung, ohne Wartezeit, und zu 60–75% niedrigeren Kosten als vergleichbare Privatklinikchecks in Deutschland. Thailand ist eines der beliebtesten Reiseziele für Deutsche, mit Phuket und Koh Samui besonders beliebt — eine Kombination aus Urlaub und Gesundheitsvorsorge ist gut möglich. Bangkok hospitals serve many German-speaking patients; several hospitals have German-speaking staff or interpreters.",
+    sections: [
+      {
+        heading: "GKV vs Bangkok — was ist im deutschen Check-up enthalten?",
+        content: "Der GKV Gesundheits-Check-up (Allgemeinmediziner) bietet: Blutdruckmessung, Cholesterin (Gesamtcholesterin), Blutzucker (Nüchternblutzucker), Urintest, Körpergewicht. Bangkok executive packages sind deutlich umfassender:",
+        list: [
+          "GKV Basis-Check (Allgemeinarzt): Gesamtcholesterin + Blutzucker + Blutdruck + Urin — vergleichbar ฿1,500–฿3,500 (ca. €40–95) in Bangkok; GKV: kostenlos, aber nur alle 3 Jahre",
+          "Bangkok Standard (฿3,500–฿8,000 / €95–215): CBC, komplettes Lipidprofil (LDL/HDL), HbA1c, Schilddrüse (TSH), Leber (GOT/GPT/GGT), Niere (Kreatinin), Harnsäure, EKG, Röntgen Brust",
+          "Bangkok Executive (฿8,000–฿25,000 / €215–675): + Ultraschall (Leber, Gallenblase, Niere, Milz, Schilddrüse), Tumormarker, Vitamin D, Ferritin, Arztgespräch",
+          "Bangkok Premium (฿20,000–฿60,000 / €540–1,620): + CT-Koronarangiographie, Ganzkörper-MRT, ausführliche Endokrinologie",
+          "Private Vorsorge-Volluntersuchung in Deutschland (IGeL, Privatliquidation): €500–€3,000 ohne Krankenkasse — Bangkok Executive ist 60–75% günstiger",
+        ],
+      },
+      {
+        heading: "Beste Krankenhäuser in Bangkok für deutschsprachige Patienten",
+        content: "Folgende Krankenhäuser bieten englischsprachige Dienste (und teilweise Deutsch) für internationale Patienten:",
+        list: [
+          "Bumrungrad International — größtes internationales Krankenhaus Asiens, English/Deutsch auf Anfrage, JCI-akkreditiert, viele europäische Patienten",
+          "Samitivej Sukhumvit — stark bei Executive Check-ups, halbtagsformat, Englisch vollständig, gut für Kurzbesucher",
+          "Vejthani Hospital — etwas günstiger, Dolmetscherservice auf Anfrage, JCI-akkreditiert",
+          "Bangkok Hospital Samui — ideal für Patienten auf Koh Samui, gut erreichbar von Nathon und Chaweng",
+          "Bangkok Hospital Phuket — gut für Patienten in Phuket (Patong, Kata) oder auf Phi Phi",
+        ],
+      },
+      {
+        heading: "Urlaubskombination: Gesundheitscheck und Thailand-Urlaub",
+        content: "Viele Deutsche kombinieren Check-up mit Thailand-Urlaub, besonders in Phuket oder Bangkok:",
+        list: [
+          "Direktflug: Frankfurt (FRA) oder München (MUC) nach Bangkok (BKK): ca. 10–11 Stunden mit Thai Airways oder Lufthansa",
+          "Phuket: Direktflüge aus Frankfurt in der Hochsaison (Oktober–März); Bangkok Hospital Phuket oder Phuket International Hospital empfohlen",
+          "Koh Samui: Flug via Bangkok; Samui Hospital oder Bangkok Hospital Samui",
+          "Timing: Check-up morgens (Nüchternheit ab 22:00 Uhr Vorabend), Ergebnisse und Arztgespräch bis ca. 13:00–14:00 Uhr, Nachmittag frei",
+          "Reisekrankenversicherung: GKV-Auslandsversicherung gilt für Notfallbehandlungen in EU/EWR — Thailand ist nicht abgedeckt. ADAC oder HanseMerkur Reisekranken empfehlen",
+          "Kassenzettel aufheben: Alle Befunde auf Englisch mitbringen für deutschen Hausarzt — Laborbefunde ohne Translation direkt lesbar",
+        ],
+      },
+      {
+        heading: "Was GKV und PKV normalerweise nicht abdecken (und Bangkok abdeckt)",
+        content: "Leistungen, die in Deutschland oft als IGeL (individuelle Gesundheitsleistungen) gelten und selbst bezahlt werden müssen:",
+        list: [
+          "Ultraschall der Bauchorgane (ohne konkreten Verdacht): IGeL €50–€150 | Bangkok: ฿2,000–฿4,000 (€54–108)",
+          "Krebsmarker im Blut (PSA, CEA, CA19-9, AFP): IGeL €100–€300 | Bangkok: ฿3,000–฿6,000 (€81–162) als Add-on",
+          "Schilddrüsen-Ultraschall: GKV nur bei konkretem Verdacht; IGeL €60–€150 | Bangkok im Paket enthalten ab ฿6,000",
+          "Vitamin D (25-OH-D3): GKV deckt selten ab; IGeL €20–€50 | Bangkok Add-on ฿800–฿1,500 (€22–41)",
+          "Ganzkörper-MRT: IGeL €800–€1,800 | Bangkok ฿18,000–฿40,000 (€488–1,080) — noch €300–€700 günstiger",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Übernimmt meine Krankenkasse (GKV/PKV) Kosten für einen Gesundheits-Check in Bangkok?", a: "Nein — GKV-Leistungen gelten im Ausland nicht für elektive Vorsorgeuntersuchungen. PKV-Tarife mit Auslandsschutz decken in der Regel nur Akutbehandlungen ab, nicht geplante Gesundheitschecks. Sie zahlen in Bangkok bar oder per Kreditkarte und erhalten eine englischsprachige Rechnung (IGeL-kompatibel) für Ihre Unterlagen. Die meisten Deutschen finden die Bangkok-Kosten trotz Selbstzahlung deutlich niedriger als IGeL-Preise in Deutschland." },
+      { q: "Akzeptiert mein Hausarzt in Deutschland die Befunde aus Bangkok?", a: "Ja — Bangkok Krankenhäuser wie Bumrungrad, Samitivej und Bangkok Hospital stellen Laborbefunde und Berichte auf Englisch mit internationalen Referenzwerten aus. Deutsche Ärzte können diese direkt verwenden. Fordern Sie immer einen vollständigen Laborbefundausdruck an — nicht nur die ärztliche Zusammenfassung. Blut- und Urinwerte sind in Einheiten (mmol/L, g/dL) angegeben, die mit deutschen Normen übereinstimmen." },
+      { q: "Wie finde ich einen deutschen Dolmetscher im Krankenhaus Bangkok?", a: "Bumrungrad International und Samitivej Sukhumvit bieten Dolmetscherservice auf Anfrage an. Der Arztbericht ist auf Englisch (gut verständlich für die meisten Deutschen). Für komplexere Fälle lohnt sich die Buchung über einen Patientenkoordinator, der Deutsch spricht — Bumrungrad hat vereinzelt deutschsprachige Mitarbeitende im International Patient Department." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-cost-australia-vs-thailand", label: "Australia vs Thailand comparison" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
     ],
   },
 

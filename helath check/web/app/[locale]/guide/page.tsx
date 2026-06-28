@@ -263,6 +263,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-germany-vs-thailand",
+    title: "Deutschland vs Thailand Gesundheitscheck (2026) — Bangkok für Deutsche",
+    description: "GKV Gesundheitscheck alle 3 Jahre reicht nicht. Bangkok bietet Executive-Check ohne Wartezeit zu 60–75% niedrigeren Kosten als IGeL-Preise in Deutschland.",
+    emoji: "🇩🇪",
+    category: "Practical Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",
