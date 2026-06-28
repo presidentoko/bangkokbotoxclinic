@@ -193,6 +193,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "diabetes-management-bangkok",
       "health-checkup-colombia-vs-thailand",
       "health-checkup-bangladesh-vs-thailand",
+      "thyroid-nodule-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
