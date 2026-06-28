@@ -176,6 +176,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/compare/omega-seamaster-vs-constellation`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/lv-pochette-vs-felicie`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/compare/bottega-veneta-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/guides/chanel-19-vs-classic-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
   }
 
   // Brand pages
