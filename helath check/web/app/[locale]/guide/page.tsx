@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale } from "@/lib/i18n";
+import { type Locale, LOCALES } from "@/lib/i18n";
 
 export const revalidate = 86400;
+
+const BASE = "https://www.bangkoktopclinic.com";
 
 export async function generateMetadata({
   params,
@@ -14,6 +16,10 @@ export async function generateMetadata({
   return {
     title: "Health Check-Up Guides — Thailand Medical Tourism",
     description: "Expert guides to health check-ups in Thailand. Bangkok, Chiang Mai, Phuket, senior health, expat health, cancer screening, JCI hospitals and more.",
+    alternates: {
+      canonical: `${BASE}/en/guide`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/guide`])),
+    },
   };
 }
 

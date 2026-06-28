@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LOCALES } from "@/lib/i18n";
 import { ShareButtons } from "@/app/components/ShareButtons";
 
 export const revalidate = 86400;
@@ -1515,6 +1516,10 @@ export async function generateMetadata({
   return {
     title: guide.title,
     description: guide.description,
+    alternates: {
+      canonical: `${BASE}/en/guide/${slug}`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/guide/${slug}`])),
+    },
     openGraph: {
       title: guide.title,
       description: guide.description,

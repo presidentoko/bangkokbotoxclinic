@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale } from "@/lib/i18n";
+import { type Locale, LOCALES } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 import { HospitalSearch } from "@/app/components/HospitalSearch";
 
@@ -13,9 +13,15 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
+  void locale;
   return {
     title: "Health Check-Up Hospitals in Thailand — Bangkok, Phuket, Chiang Mai",
     description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 15 more cities. Real prices, JCI-accredited hospitals listed.",
+    alternates: {
+      canonical: `${BASE}/en/hospital`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital`])),
+    },
   };
 }
 

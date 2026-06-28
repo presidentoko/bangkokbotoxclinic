@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, t, catLabel, CATEGORIES } from "@/lib/i18n";
+import { type Locale, t, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, type PackageRow, type CategoryCount } from "@/lib/db";
 
 export const revalidate = 3600;
@@ -13,6 +13,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t(loc, "site_name")} — Compare Health Check-Up Prices in Thailand`,
     description: "Compare real health check-up prices from 235+ hospitals across 18 cities in Thailand. Bangkok, Chiang Mai, Phuket, Pattaya and more. No ads, no sponsored listings.",
+    alternates: {
+      canonical: `${BASE}/en`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
+    },
     openGraph: {
       title: "Compare Health Check-Up Prices in Thailand — Real Prices, No Ads",
       description: "Real prices from 235 hospitals across Bangkok, Chiang Mai, Phuket and 15 more Thai cities. Executive, cancer, cardiac, women's screening and more.",
@@ -389,6 +393,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         url: BASE,
         description: "Compare health check-up prices at Bangkok hospitals. Real prices, no ads.",
         potentialAction: { "@type": "SearchAction", target: `${BASE}/en/compare?category={search_term_string}`, "query-input": "required name=search_term_string" },
+      }) }} />
+
+      {/* Schema: Organization */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "BangkokCheckup",
+        url: BASE,
+        logo: `${BASE}/logo.png`,
+        sameAs: [],
+        contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: `${BASE}/en/enquiry`, availableLanguage: ["English", "Chinese", "Japanese", "Thai", "Arabic"] },
       }) }} />
 
       {/* Schema: FAQPage */}
