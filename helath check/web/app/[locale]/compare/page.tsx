@@ -282,6 +282,25 @@ export default async function ComparePage({
         </section>
       )}
 
+      {/* Related guides */}
+      <section className="border-t border-slate-100 pt-6 mt-6">
+        <h2 className="text-sm font-semibold text-slate-600 mb-3">Related guides</h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { href: `/${locale}/guide/what-is-included-checkup`, label: "What's in each package tier" },
+            { href: `/${locale}/guide/how-to-prepare-health-checkup-thailand`, label: "How to prepare" },
+            { href: `/${locale}/guide/understanding-health-checkup-results`, label: "Understanding your results" },
+            { href: `/${locale}/guide/jci-hospitals-bangkok`, label: "JCI hospitals guide" },
+            { href: `/${locale}/guide/private-vs-government-hospital-thailand`, label: "Private vs government" },
+          ].map((g) => (
+            <Link key={g.href} href={g.href}
+              className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-600 transition-colors">
+              {g.label} →
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* BreadcrumbList */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
