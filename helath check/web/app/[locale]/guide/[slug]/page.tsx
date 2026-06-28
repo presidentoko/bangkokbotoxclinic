@@ -1422,6 +1422,63 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-usa-vs-thailand": {
+    title: "USA vs Thailand Health Check-Up Prices (2026) — How Much Americans Save",
+    description: "Health check-up packages in Bangkok cost 70–90% less than US private clinics. JCI-accredited hospitals with English staff, same-day results. How much Americans save.",
+    intro: "The United States is the most expensive country in the world for healthcare. A comprehensive health check-up with blood work, imaging, and physician review costs USD 1,500–8,000 out-of-pocket at a US private clinic or hospital. The same scope at Bangkok's JCI-accredited Bumrungrad International Hospital costs USD 280–1,200 — a saving of 70–90%. Americans are the third-largest group of international patients at Bangkok's top hospitals.",
+    sections: [
+      {
+        heading: "Price comparison: US vs Bangkok",
+        content: "Cost comparison at JCI-accredited hospitals (USD at roughly 0.027 to THB):",
+        list: [
+          "Basic annual physical (blood work + doctor visit) — Bangkok: ฿2,500–฿5,500 (USD 70–155) vs US out-of-pocket: USD 250–600",
+          "Comprehensive blood panel (40+ tests) — Bangkok: ฿3,500–฿7,000 (USD 95–190) vs US: USD 500–2,500 (without insurance)",
+          "Executive package (full blood + ultrasound + ECG + doctor) — Bangkok: ฿9,000–฿25,000 (USD 243–680) vs US: USD 2,000–8,000",
+          "MRI brain — Bangkok: ฿8,000–฿18,000 (USD 216–490) vs US: USD 1,000–3,500 (without insurance)",
+          "Colonoscopy — Bangkok: ฿7,000–฿15,000 (USD 190–406) vs US: USD 1,000–3,500 (without insurance)",
+          "Mammogram — Bangkok: ฿1,800–฿5,000 (USD 49–135) vs US: USD 200–500+ (copay even with insurance)",
+          "PSA test (prostate) — Bangkok: ฿300–฿800 (USD 8–22) vs US: USD 40–100 per test",
+          "Average savings: 75–90% vs US out-of-pocket costs",
+        ],
+      },
+      {
+        heading: "Why Americans choose Bangkok for health check-ups",
+        content: "Specific advantages for US patients:",
+        list: [
+          "Cost: 75–90% cheaper out-of-pocket than US private clinics — savings typically USD 1,500–7,000 per trip",
+          "No insurance required: Bangkok private hospitals charge transparent flat rates, no surprise bills, no insurance coordination",
+          "Bumrungrad International is consistently ranked in the top 5 Asian hospitals — serves 520,000+ international patients per year",
+          "Same-day results for most tests — US often requires 3–14 business days for lab and imaging results",
+          "No deductibles, no co-insurance, no out-of-pocket maximums: you pay one flat fee for the complete package",
+          "Gastroscopy and colonoscopy same day in one visit: US requires separate specialist, separate facility, multiple appointments",
+          "English as the working language at all major Bangkok JCI hospitals",
+        ],
+      },
+      {
+        heading: "Things US patients should know",
+        content: "Practical notes for American patients:",
+        list: [
+          "Health insurance: US domestic health insurance (Blue Cross, Aetna, UnitedHealth, etc.) generally does not cover elective check-ups in Thailand — you pay out-of-pocket and save vs US out-of-pocket anyway",
+          "Travel insurance: Some travel insurance plans have emergency medical coverage in Thailand — check for exclusions for pre-existing conditions",
+          "Results: Bangkok hospitals issue results in English — compatible with US physicians and electronic health record systems",
+          "Flight cost: Return fare from LAX/JFK to Bangkok runs USD 400–900 — still net savings of USD 1,000+ on an executive package",
+          "Timing: Allow 2 days minimum in Bangkok — Day 1 for fasting check-up, Day 2 to collect results and meet with doctor",
+          "Medical records transfer: Bumrungrad offers a MyBumrungrad patient portal and can electronically share records with US physicians",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it really worth flying to Bangkok from the US for a health check-up?", a: "For Americans without insurance or with high deductibles: yes, frequently. A comprehensive executive check-up at Bumrungrad costs ~USD 600. A return flight from the West Coast costs ~USD 500. Total: ~USD 1,100. The same scope in the US without insurance: USD 3,000–8,000. Even with a trip that's just for a check-up, the math works. Many Americans combine it with a Thailand holiday, reducing the effective cost further." },
+      { q: "Do Bangkok hospital results work with US doctors?", a: "Yes — Bangkok's major international hospitals (Bumrungrad, Bangkok Hospital, Samitivej, Vejthani) issue English-language laboratory reports using CLSI reference ranges (same as US labs). Imaging reports are written by board-certified radiologists in English. Your US GP or specialist can read them directly. Ask for CD/USB with DICOM imaging files for scan results." },
+      { q: "Can I use my US FSA/HSA money for a Bangkok health check-up?", a: "FSA and HSA funds are generally for qualified medical expenses. Expenses at foreign hospitals are eligible if they are medically necessary — preventive health check-ups are included under IRS Publication 502 as a qualified medical expense. Keep all receipts and official hospital documentation. Consult your FSA/HSA administrator to confirm your specific plan's rules for overseas medical expenses." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages" },
+      { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your results" },
+    ],
+  },
+
   "understanding-health-checkup-results": {
     title: "Understanding Your Thai Health Check-Up Results (2026 Guide)",
     description: "How to read Thai hospital health check-up results. Normal ranges explained for CBC, liver function, kidney function, cholesterol, blood glucose, and cancer markers.",

@@ -249,6 +249,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "health-checkup-usa-vs-thailand",
+    title: "USA vs Thailand Health Check-Up Prices (2026)",
+    description: "Bangkok packages cost 75–90% less than US out-of-pocket prices. No deductibles, same-day results, JCI-accredited hospitals.",
+    emoji: "🇺🇸",
+    category: "Practical Guides",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",
