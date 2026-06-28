@@ -138,6 +138,10 @@ const SEGMENTS: Record<string, {
       { q: "Are cheap health check-ups in Bangkok still accurate?", a: "Government hospital labs (Siriraj, Chulalongkorn, Ramathibodi) and accredited private hospital labs are highly accurate — many are ISO 15189 certified. The same lab machines are used regardless of package price. The difference is in consultation time and additional imaging, not lab accuracy." },
       { q: "Can tourists get a cheap health check-up in Bangkok?", a: "Yes. Private hospitals welcome walk-in patients without a hospital ID or Thai insurance. Government hospitals are cheaper but have longer waiting times and less English support. Budget around ฿1,500–฿3,000 for a basic check-up at a community private hospital in Bangkok." },
     ],
+    relatedGuides: [
+      { href: "/guide/what-is-included-checkup", label: "What's included in a health check-up" },
+      { href: "/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
+    ],
   },
   "executive-health-checkup-bangkok": {
     title: "Executive Health Check-Up Bangkok 2026 — Premium Packages Compared",
@@ -150,6 +154,11 @@ const SEGMENTS: Record<string, {
       { q: "How long does an executive health check-up take in Bangkok?", a: "A full executive package typically takes 4–6 hours at the hospital. Most hospitals have dedicated executive health check-up lounges where you complete all tests in one visit, with a doctor consultation at the end to review results. Some premium packages spread over 2 visits." },
       { q: "How much does an executive health check-up cost in Bangkok vs Singapore?", a: "Bangkok executive package: ฿15,000–฿35,000 (approximately SGD 600–1,400). Singapore executive package: SGD 1,500–SGD 4,000 (approximately ฿40,000–฿110,000). Bangkok is 60–75% cheaper for equivalent JCI-standard executive programmes." },
     ],
+    relatedGuides: [
+      { href: "/guide/executive-health-checkup-bangkok", label: "Executive Health Check-Up — Full Guide" },
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding your results" },
+    ],
   },
   "health-checkup-tourists-thailand": {
     title: "Health Check-Up for Tourists in Thailand — Quick Guide 2026",
@@ -161,6 +170,11 @@ const SEGMENTS: Record<string, {
       { q: "Can I get a health check-up without an appointment in Thailand?", a: "Yes. Most private hospitals in Bangkok, Phuket, and Chiang Mai accept walk-in patients for health check-ups, though morning appointments (7–8am) are recommended to complete fasting blood tests. Some hospitals have dedicated health check-up centres that can process walk-ins on the same day." },
       { q: "Do I need to fast before a health check-up in Thailand?", a: "Yes — fast for 8–12 hours before your appointment (water is fine). This is required for fasting blood glucose and lipid panel tests. Schedule your check-up for morning and skip breakfast. The hospital will provide a meal voucher after your fasting tests are complete." },
       { q: "How do I get my health check-up results back home after leaving Thailand?", a: "Most Bangkok private hospitals can email results as a PDF within 24–48 hours. Ask for a printed and stamped copy before you leave the hospital — this is standard practice for medical tourists. Bumrungrad and Samitivej have online patient portals where you can access results from anywhere." },
+    ],
+    relatedGuides: [
+      { href: "/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding your results" },
+      { href: "/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
     ],
   },
 
@@ -175,6 +189,10 @@ const SEGMENTS: Record<string, {
       { q: "Which Bangkok hospital is best for cardiac health screening?", a: "Bangkok Hospital (BDMS) Heart Centre and Samitivej Hospital Heart Centre are the most specialised. Bumrungrad International Hospital Cardiology has the broadest service range. All three have 128-slice CT scanners for coronary calcium scoring and coronary CTA. Pricing is highest at Bumrungrad and most competitive at Vejthani." },
       { q: "Do I need a referral for cardiac screening in Bangkok?", a: "No referral is required at Bangkok private hospitals. Walk in and request a cardiac check-up directly. The hospital will have a nurse measure your BP and BMI, then an internist or cardiologist will order the appropriate tests based on your risk factors. For very specific tests like coronary CTA, a brief consultation first is standard practice." },
     ],
+    relatedGuides: [
+      { href: "/guide/cardiac-health-checkup-bangkok", label: "Cardiac Health Check-Up Guide" },
+      { href: "/guide/heart-screening-thailand", label: "Heart Screening Thailand" },
+    ],
   },
 
   "comprehensive-health-checkup-bangkok": {
@@ -187,6 +205,11 @@ const SEGMENTS: Record<string, {
       { q: "What is the difference between a basic and comprehensive health check-up in Bangkok?", a: "A basic package (฿1,500–฿3,500) covers blood count, blood sugar, cholesterol, and urinalysis. A comprehensive package (฿4,000–฿12,000) adds chest X-ray, abdominal ultrasound, ECG, thyroid function, Hepatitis B/C, liver enzymes, and kidney function — giving you a complete picture of your health in one visit." },
       { q: "How long does a comprehensive health check-up take in Bangkok?", a: "A comprehensive check-up in Bangkok typically takes 3–4 hours. This includes blood draw (30 min), imaging (1 hour), ECG (15 min), and a physician consultation to review results (30–45 min). Some hospitals provide lunch between the tests and the consultation." },
       { q: "Can I compare comprehensive packages by what tests are included?", a: "Yes — use our compare tool with the 'Comprehensive' filter. You can see exactly which hospitals include ultrasound, ECG, cancer markers, and doctor consultation as part of their comprehensive package. Look for the ✓ Included markers on each package card." },
+    ],
+    relatedGuides: [
+      { href: "/guide/what-is-included-checkup", label: "What's included in a health check-up" },
+      { href: "/guide/bangkok-health-checkup", label: "Bangkok Health Check-Up Guide" },
+      { href: "/guide/understanding-health-checkup-results", label: "Understanding your results" },
     ],
   },
 
