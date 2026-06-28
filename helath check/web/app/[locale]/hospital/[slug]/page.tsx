@@ -333,9 +333,28 @@ export default async function HospitalPage({
         </div>
       </div>
 
+      {/* Related guides */}
+      <div className="mt-8">
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Health check-up guides</h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { href: `/${locale}/guide/what-is-included-checkup`, label: "What's included in each package" },
+            { href: `/${locale}/guide/how-to-prepare-health-checkup-thailand`, label: "How to prepare" },
+            { href: `/${locale}/guide/understanding-health-checkup-results`, label: "Understanding your results" },
+            ...(hospital.jci ? [{ href: `/${locale}/guide/jci-hospitals-bangkok`, label: "JCI hospitals guide" }] : []),
+            { href: `/${locale}/guide/executive-health-checkup-bangkok`, label: "Executive packages guide" },
+          ].map((g) => (
+            <Link key={g.href} href={g.href}
+              className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-600 transition-colors">
+              {g.label} →
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* More hospitals in city */}
       {hospital.city && (
-        <div className="mt-8 p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
+        <div className="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm">
           <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="font-semibold text-blue-600 hover:underline">
             Compare all hospitals in {hospital.city} →
           </Link>
