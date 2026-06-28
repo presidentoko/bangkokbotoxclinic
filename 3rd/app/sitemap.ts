@@ -152,6 +152,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/trends/dior-saddle-bag-comeback-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/compare/kelly-vs-birkin`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages
