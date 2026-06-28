@@ -174,6 +174,36 @@ const FAQS = [
       },
     ],
   },
+  {
+    category: "Procedure Costs (MRI, CT, Mammogram, Scope)",
+    items: [
+      {
+        q: "How much does an MRI scan cost in Bangkok?",
+        a: "MRI scan prices in Bangkok: single region (brain, spine, knee) ฿5,000–฿12,000 at private hospitals; full-body MRI ฿18,000–฿45,000. At government hospitals (Siriraj, Ramathibodi) prices are lower but waiting times can be 2–4 weeks. Most private hospital results are available within 24–48 hours. JCI hospitals like Bumrungrad and Samitivej include radiologist reports in English.",
+        link: { label: "MRI scan cost Bangkok guide", href: "/guide/mri-scan-cost-bangkok" },
+      },
+      {
+        q: "How much does a CT scan cost in Bangkok?",
+        a: "CT scan prices in Bangkok range from ฿3,500–฿8,000 for a single region (chest, abdomen, head) at private hospitals. CT coronary angiography (CTCA) for heart screening costs ฿15,000–฿35,000. Low-dose chest CT (lung cancer screening) costs ฿4,000–฿9,000. Contrast CT (with iodine dye) costs ฿1,000–฿3,000 more than non-contrast. Results typically same-day or next morning.",
+        link: { label: "CT scan cost Bangkok guide", href: "/guide/ct-scan-cost-bangkok" },
+      },
+      {
+        q: "What is the cost of a mammogram in Bangkok?",
+        a: "2D mammogram (standard bilateral): ฿1,500–฿4,000 at private Bangkok hospitals. 3D mammogram (tomosynthesis / digital breast tomography): ฿3,500–฿7,000. Breast ultrasound: ฿1,500–฿3,500 (often recommended alongside mammogram for dense breast tissue). Most women's health check-up packages at ฿8,000+ include a 2D mammogram; some include both ultrasound and mammogram.",
+        link: { label: "Mammogram cost Bangkok guide", href: "/guide/mammogram-cost-bangkok" },
+      },
+      {
+        q: "How much does a colonoscopy cost in Bangkok?",
+        a: "Colonoscopy with sedation at Bangkok private hospitals: ฿12,000–฿30,000 including sedation fee and pathology. Without sedation: ฿6,000–฿12,000 (not recommended — sedation is standard internationally). At government hospitals: ฿3,000–฿6,000 but with long waits. For comparison, colonoscopy in the US costs US$1,200–$3,500 without insurance; Singapore SGD 1,800–3,500. Bangkok is 60–75% cheaper than these.",
+        link: { label: "Colonoscopy cost Bangkok guide", href: "/guide/colonoscopy-cost-bangkok" },
+      },
+      {
+        q: "How much does a gastroscopy (stomach endoscopy) cost in Bangkok?",
+        a: "Gastroscopy (upper GI endoscopy / 胃カメラ / 위내시경) with sedation: ฿4,500–฿9,000 at Bangkok private hospitals. Without sedation: ฿2,500–฿5,000. Combined gastroscopy + colonoscopy package: ฿20,000–฿35,000 including sedation for both. The combined package is popular with Japanese and Korean medical tourists accustomed to annual stomach+bowel cancer screening.",
+        link: { label: "Gastroscopy cost Bangkok guide", href: "/guide/gastroscopy-cost-bangkok" },
+      },
+    ],
+  },
 ];
 
 export default async function FaqPage({
