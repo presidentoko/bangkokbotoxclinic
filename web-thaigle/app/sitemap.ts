@@ -8,6 +8,7 @@ import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
+import { OCCASIONS } from "@/lib/occasions";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -38,6 +39,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/dental`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
     { url: `${SITE}/activities`, lastModified: updated, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE}/plan`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/quiz`, lastModified: updated, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE}/bingo`, lastModified: updated, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE}/my-trip`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/local-tips`, lastModified: updated, changeFrequency: "monthly", priority: 0.82 },
+    { url: `${SITE}/for`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${SITE}/trending`, lastModified: updated, changeFrequency: "daily", priority: 0.88 },
+    ...OCCASIONS.map((o) => ({
+      url: `${SITE}/for/${o.slug}`,
+      lastModified: updated,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
   ];
 
   // Place verification pages — all 1,647 real places × 3 langs

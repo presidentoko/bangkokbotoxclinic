@@ -8,6 +8,25 @@ import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { getAffiliateLink } from "@/lib/affiliate";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { WeatherWidget } from "@/components/WeatherWidget";
+import { BudgetCalculator } from "@/components/BudgetCalculator";
+import { HighlightReel } from "@/components/HighlightReel";
+import { SavingsCounter } from "@/components/SavingsCounter";
+import { NearbyThings } from "@/components/NearbyThings";
+import { NeighborhoodMatcher } from "@/components/NeighborhoodMatcher";
+import { FirstDayItinerary } from "@/components/FirstDayItinerary";
+import { WeekendPlan } from "@/components/WeekendPlan";
+import { DayTripGuide } from "@/components/DayTripGuide";
+import { BangkokDayPlanner } from "@/components/BangkokDayPlanner";
+import { BangkokDayTripsExpanded } from "@/components/BangkokDayTripsExpanded";
+import { BangkokCruiseGuide } from "@/components/BangkokCruiseGuide";
+import { BangkokWaterfallsDayTrips } from "@/components/BangkokWaterfallsDayTrips";
+import { BangkokWeekendItinerary } from "@/components/BangkokWeekendItinerary";
+import { BangkokNightTrains } from "@/components/BangkokNightTrains";
+import { BangkokIslandHopping } from "@/components/BangkokIslandHopping";
 
 export const dynamic = "force-static";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -106,9 +125,12 @@ export default async function DayPlanPage() {
             <span key={p.key} title={p.label}>{p.icon}</span>
           ))}
         </div>
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
-          Your Bangkok Day
-        </h1>
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight">
+            Your Bangkok Day
+          </h1>
+          <ShareButton title="Bangkok Day Planner 2026 — Real Picks, Fully Bookable" text="One full Bangkok day: eat, train, treat, learn, relax. All ranked by real Google data." url={`${SITE}/day-plan`} line whatsapp />
+        </div>
         <p className="text-[var(--muted)] text-base max-w-xl mx-auto">
           One full day across five pillars — all ranked by real Google data, all bookable.
           Eat · Train · Treat · Learn · Relax.
@@ -225,6 +247,58 @@ export default async function DayPlanPage() {
           })}
         </div>
       </section>
+
+      {/* Engagement CTAs */}
+      <div className="mt-8 grid sm:grid-cols-3 gap-3">
+        <a href="/quiz" className="flex items-center gap-3 p-4 rounded-2xl bg-orange-50 border border-orange-200 hover:border-orange-300 transition group">
+          <span className="text-2xl shrink-0">🎯</span>
+          <div>
+            <div className="font-bold text-sm group-hover:text-orange-700 transition">Find your type</div>
+            <div className="text-xs text-[var(--muted)]">5-question quiz</div>
+          </div>
+        </a>
+        <a href="/for" className="flex items-center gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-200 hover:border-amber-300 transition group">
+          <span className="text-2xl shrink-0">✨</span>
+          <div>
+            <div className="font-bold text-sm group-hover:text-amber-700 transition">Perfect For...</div>
+            <div className="text-xs text-[var(--muted)]">Browse by occasion</div>
+          </div>
+        </a>
+        <a href="/bingo" className="flex items-center gap-3 p-4 rounded-2xl bg-green-50 border border-green-200 hover:border-green-300 transition group">
+          <span className="text-2xl shrink-0">🏆</span>
+          <div>
+            <div className="font-bold text-sm group-hover:text-green-700 transition">Bucket List Bingo</div>
+            <div className="text-xs text-[var(--muted)]">Track your Bangkok journey</div>
+          </div>
+        </a>
+      </div>
+
+      <WeatherWidget />
+      <HighlightReel />
+      <SavingsCounter />
+      <BangkokDayPlanner />
+      <FirstDayItinerary />
+      <WeekendPlan />
+      <DayTripGuide />
+      <BangkokDayTripsExpanded />
+      <BangkokCruiseGuide />
+      <BangkokWaterfallsDayTrips />
+      <BangkokWeekendItinerary />
+      <BangkokNightTrains />
+      <BangkokIslandHopping />
+      <NeighborhoodMatcher />
+      <NearbyThings context="general" />
+      <BudgetCalculator />
+      <BangkokTip />
+
+      {/* Poll */}
+      <div className="mb-8">
+        <VersusVote
+          question="Planning your Bangkok day — which matters more?"
+          a={{ id: "food-first", label: "Food first", emoji: "🌶️", desc: "Plan around the best meals — activities fill the gaps", url: "/restaurants/cuisine/thai" }}
+          b={{ id: "activities-first", label: "Activities first", emoji: "🥊", desc: "Lock in the experiences — eat wherever you end up", url: "/activities" }}
+        />
+      </div>
 
       <script
         type="application/ld+json"

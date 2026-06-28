@@ -1,4 +1,5 @@
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { RatingLegend } from "@/components/RatingLegend";
 import { getSiteConfig } from "@/lib/site";
 import { NICHES } from "@/lib/niches";
 import type { Metadata } from "next";
@@ -166,6 +167,7 @@ export default async function ForVenuesPage() {
         </a>
       </section>
 
+      <RatingLegend />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "For Venues", url: "/for-venues" },

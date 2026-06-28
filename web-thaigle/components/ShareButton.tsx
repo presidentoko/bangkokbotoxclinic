@@ -9,9 +9,10 @@ type Props = {
   kakao?: boolean;
   whatsapp?: boolean;
   line?: boolean;
+  facebook?: boolean;
 };
 
-export function ShareButton({ title, text, url, kakao = false, whatsapp = false, line = false }: Props) {
+export function ShareButton({ title, text, url, kakao = false, whatsapp = false, line = false, facebook = false }: Props) {
   const [copied, setCopied] = useState(false);
 
   async function handleShare() {
@@ -85,6 +86,19 @@ export function ShareButton({ title, text, url, kakao = false, whatsapp = false,
           aria-label="KakaoTalk 공유"
         >
           카카오
+        </a>
+      )}
+
+      {/* Facebook — popular in Thailand */}
+      {facebook && (
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-[#1877F2] text-white hover:brightness-95 transition active:scale-95"
+          aria-label="Share on Facebook"
+        >
+          Facebook
         </a>
       )}
     </div>

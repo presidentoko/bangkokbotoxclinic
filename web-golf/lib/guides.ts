@@ -383,6 +383,72 @@ export const GUIDES: Guide[] = [
     related: ["booking-thai-golf", "green-fees-thailand", "korean-golf-tour-thailand"],
   },
   {
+    slug: "thailand-golf-travel-guide",
+    title: "Thailand Golf Travel Guide 2026 — Everything You Need to Know",
+    metaTitle: "Thailand Golf Travel Guide 2026 — Complete Visitor's Handbook",
+    metaDescription:
+      "Complete Thailand golf travel guide: best courses, green fees, booking process, caddy tips, best time to visit, and destination comparisons — Bangkok, Pattaya, Hua Hin, Phuket, Chiang Mai.",
+    updated: "2026-06-01",
+    intro:
+      "Thailand is one of the world's top golf destinations — 600+ courses, year-round playability, low green fees, and mandatory caddies who carry your bag and read your putts. This guide covers everything a first-time or returning visitor needs to plan a Thailand golf trip.",
+    sections: [
+      {
+        heading: "Why play golf in Thailand?",
+        body:
+          "Value: premium championship courses cost ฿3,000–7,000 per round (all-in with caddy) — a fraction of equivalent US/European rates. Year-round access: tropical climate means some region is always in good condition. Service: mandatory caddies at every course carry your bag, read putts, rake bunkers, and spot shots — a luxury round by any standard. Course quality: major names have designed Thailand courses — Jack Nicklaus, Pete Dye, Robert Trent Jones Jr — and tournament-grade facilities are widespread. Bangkok, Pattaya, Hua Hin, Phuket, and Chiang Mai each have distinct character.",
+      },
+      {
+        heading: "Best golf destinations in Thailand",
+        body:
+          "Bangkok: 80+ courses within 60 minutes of the city. Thai Country Club, Alpine Golf & Sports Club, Riverdale, Nikanti. Best for visitors who want city access + golf. Premium country clubs dominate; weekends fill fast.\n\nPattaya (Chon Buri, ~2h south): 25–30 courses, strongest Korean/Japanese tour infrastructure. Siam Country Club (3 layouts), Laem Chabang International, Phoenix Gold, Crystal Bay. Best for dedicated golf trips with multiple rounds.\n\nHua Hin (3h south): Thailand's original golf resort town. Black Mountain, Banyan, Springfield Royal (Jack Nicklaus). Most concentrated stay-and-play scene. Best for couples or leisure golfers wanting beach + golf.\n\nPhuket: Premium beach resort + golf. Blue Canyon Canyon Course (Thailand's #1), Laguna Phuket, Red Mountain, Mission Hills. Best for golfers pairing a beach holiday with 2–3 rounds.\n\nChiang Mai: Best dry-season value. Chiang Mai Highlands, Alpine Golf Resort Chiangmai (Jack Nicklaus). Cool November–February temperatures perfect for golf.",
+      },
+      {
+        heading: "Green fees and costs",
+        body:
+          "Budget tiers: Public courses ฿1,500–3,000 weekday. Mid-range private ฿3,000–5,000 weekday. Premium country clubs ฿5,000–10,000+ weekday.\n\nAlways add: caddy fee ฿400 (mandatory), tip ฿400–600, cart ฿700–1,000 if not walking.\n\nAll-in realistic estimates: Budget round ฿2,500–4,500. Mid-range round ฿4,500–7,500. Premium round ฿7,500–13,000+.\n\nWeekend surcharges of 20–50% are common at popular courses. November–February is peak pricing; May–October discounts of 10–30% available.",
+      },
+      {
+        heading: "How to book tee times",
+        body:
+          "Direct booking (cheapest): Course website or phone — best rates but limited English support. Call-ahead is always recommended.\n\nGolf agency (most convenient): Golfsavers, Sawasdee Golf, and GolfAsian bundle green fee + transfer + caddy coordination. Markup is 5–15% over direct but no logistics hassle.\n\nKlook: Good for one-off rounds at tourist-friendly courses. Real-time inventory, easy cancellation.\n\nHotel concierge: Best for first-timers — they handle all logistics with minimal friction.\n\nLead times: Bangkok/Pattaya weekends — book 1–2 weeks ahead in peak season. Weekdays — 1–3 days. Off-season (May–Sept) — often same day.",
+      },
+      {
+        heading: "Best time to visit for golf",
+        body:
+          "November to February: peak season. Cool (22–30°C), dry, no rain. Best conditions — also busiest and most expensive. Book well ahead.\n\nMarch to May: hot and dry. Mornings are playable. Green fees stay high. Less crowded than peak.\n\nMay to October: green season. Morning rounds are reliable. Afternoon thunderstorms are common. Green fees 10–30% cheaper. Best value for flexible travelers.\n\nChiang Mai exception: November–February temperatures hit 18–25°C — the ideal golf climate in all of Southeast Asia.",
+      },
+      {
+        heading: "Caddy culture and tipping",
+        body:
+          "Caddies are mandatory at almost all Thai courses. Your caddy carries your bag, rakes bunkers, reads greens, spots shots, and keeps score. Quality varies — top courses have well-trained English-speaking caddies.\n\nCaddy fee: ฿400 paid at the clubhouse. Tip: ฿400–600 (฿500–800 at premium clubs). Korean tour groups typically tip ฿600–1,000 for Korean-speaking caddies — this culture has pushed caddy tipping expectations up at Pattaya courses.\n\nFor Korean-speaking caddies: request when booking. Courses like Phoenix Gold (Pattaya), Lam Luk Ka (Bangkok), and Alpine have the strongest Korean-caddy supply.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Is Thailand a good golf destination?",
+        a: "Yes — Thailand consistently ranks as one of Asia's top golf destinations. Over 600 courses, year-round playability, affordable green fees (compared to US/Europe), mandatory caddies at every course, and high-quality resort infrastructure. Peak destination for Korean, Japanese, and European golf tour groups.",
+      },
+      {
+        q: "How much does a golf trip to Thailand cost?",
+        a: "A 5-day / 4-round trip for one person based in Bangkok runs approximately USD 1,200–2,500 depending on hotel tier and course selection. Budget breakdown: flights (varies), hotel 5 nights USD 400–1,000, 4 rounds including caddy and cart USD 400–1,200, transfers and meals USD 200–400. Stay-and-play packages in Hua Hin and Phuket can reduce golf costs 25–40%.",
+      },
+      {
+        q: "Do I need to be a skilled golfer to play in Thailand?",
+        a: "No — Thailand has courses for all skill levels. Beginner-friendly public courses cost ฿1,500–2,500 per round. Many driving ranges and golf academies cater to learners. Championship courses require basic etiquette but no handicap certificate for visitor play at most venues.",
+      },
+      {
+        q: "Can women play at Thailand golf courses?",
+        a: "Yes — women are welcome at all public and resort courses. Dress code same as men: collared shirt, golf shorts or skirt, soft-spike shoes. Women's tee boxes are available at all courses. A few older private clubs have historical restrictions but these are rare.",
+      },
+      {
+        q: "What's the best golf course in Thailand?",
+        a: "Blue Canyon Country Club (Canyon Course, Phuket) consistently ranks as Thailand's #1 — host of multiple Asian Tour events. Siam Country Club Plantation Course (Pattaya) and Black Mountain Golf Club (Hua Hin) follow closely. For Bangkok, Thai Country Club, Alpine Golf & Sports Club, and Nikanti Golf Club lead by Trust Score.",
+      },
+    ],
+    related: ["booking-thai-golf", "green-fees-thailand", "best-time-thailand-golf"],
+    city_slugs: ["bangkok", "chon_buri", "prachuap_khiri_khan", "phuket", "chiang_mai"],
+  },
+  {
     slug: "thailand-golf-dress-code",
     title: "Thailand Golf Dress Code — What to Wear and Pack",
     metaTitle: "Thailand Golf Dress Code 2026 — What to Wear",

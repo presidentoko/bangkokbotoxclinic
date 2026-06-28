@@ -1,5 +1,8 @@
 import { loadClinicDb, topClinicsByRating } from "@/lib/clinics";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { SavingsCounter } from "@/components/SavingsCounter";
+import { BangkokFacts } from "@/components/BangkokFacts";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -52,6 +55,9 @@ export default async function ClinicsPage() {
           </div>
         ))}
       </div>
+      <BangkokFacts />
+      <SavingsCounter />
+      <BangkokTip />
     </div>
   );
 }

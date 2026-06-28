@@ -1,5 +1,10 @@
 import { loadDentalDb, topDentalByRating } from "@/lib/dental";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
+import { BangkokFacts } from "@/components/BangkokFacts";
+import { SavingsCounter } from "@/components/SavingsCounter";
+import { BangkokTip } from "@/components/BangkokTip";
+import { TrustScoreExplainer } from "@/components/TrustScoreExplainer";
+import { EmergencyInfo } from "@/components/EmergencyInfo";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -52,6 +57,11 @@ export default async function DentalPage() {
           </div>
         ))}
       </div>
+      <TrustScoreExplainer />
+      <BangkokFacts />
+      <SavingsCounter />
+      <EmergencyInfo />
+      <BangkokTip />
     </div>
   );
 }

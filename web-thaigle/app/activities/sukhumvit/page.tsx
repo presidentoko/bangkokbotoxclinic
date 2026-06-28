@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { NICHES } from "@/lib/niches";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { NearbyLink } from "@/components/NearbyLink";
+import { AreaGuide } from "@/components/AreaGuide";
+import { FoodPairing } from "@/components/FoodPairing";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -86,9 +95,12 @@ export default function SukhumvitActivitiesPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold mb-3">
         District Guide · BTS Sukhumvit Line
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Activities in Sukhumvit, Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Activities in Sukhumvit, Bangkok
+        </h1>
+        <ShareButton title="Best Activities in Sukhumvit Bangkok 2026" text="Bangkok's most activity-dense corridor — ranked by real reviews" url={`${SITE}/activities/sukhumvit`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Bangkok&apos;s most activity-dense corridor. Muay Thai, Thai massage, yoga, coworking, and more — all within BTS reach.
       </p>
@@ -173,6 +185,21 @@ export default function SukhumvitActivitiesPage() {
           </a>
         </div>
       </section>
+
+      {/* Area showdown */}
+      <section className="mb-8">
+        <VersusVote
+          question="Sukhumvit vs Silom — where do you spend your Bangkok day?"
+          a={{ id: "sukhumvit-win", label: "Sukhumvit", emoji: "🌇", desc: "BTS, malls, rooftops, expat scene", url: "/activities/sukhumvit", highlight: "Most popular" }}
+          b={{ id: "silom-win", label: "Silom / Sathorn", emoji: "🏙️", desc: "Business district, Patpong, night market", url: "/activities/silom" }}
+        />
+      </section>
+
+      <div className="mt-2 mb-2"><NearbyLink /></div>
+      <AreaGuide />
+      <FoodPairing />
+      <BangkokChallenge />
+      <BangkokTip />
 
       <FaqJsonLd faqs={SUKHUMVIT_FAQS} />
       <BreadcrumbJsonLd items={[

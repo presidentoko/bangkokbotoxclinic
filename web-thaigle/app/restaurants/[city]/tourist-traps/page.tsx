@@ -2,7 +2,13 @@ import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { LocalsChoice } from "@/components/LocalsChoice";
+import { BangkokTip } from "@/components/BangkokTip";
 import type { Metadata } from "next";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export async function generateStaticParams() {
   return [{ city: "bangkok" }, { city: "pattaya" }];
@@ -50,7 +56,10 @@ export default async function TouristTrapsPage(
         { name: "Tourist Traps", url: `/restaurants/${city}/tourist-traps` },
       ]} />
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-2">Tourist Trap Restaurants in {label}</h1>
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h1 className="text-3xl font-bold">Tourist Trap Restaurants in {label}</h1>
+          <ShareButton title={`Tourist Trap Restaurants in ${label} — Watch Out`} text="Data-flagged tourist traps: avoid these in Bangkok" url={`${SITE}/restaurants/${city}/tourist-traps`} line whatsapp />
+        </div>
         <p className="text-[var(--muted)] mb-4">Flagged by real Google reviewers and Trust Score analysis. Not our opinion — the data speaks.</p>
         <p className="mb-8 text-sm bg-red-50 border border-red-200 rounded-lg p-4">
           These restaurants appear frequently in searches but show signs of tourist targeting: low Trust Scores, "tourist trap" mentions in reviews, or inflated-looking ratings.
@@ -76,6 +85,20 @@ export default async function TouristTrapsPage(
             );
           })}
         </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4">
+        <LocalsChoice />
+        <BangkokTip />
+      </div>
+
+      {/* Poll */}
+      <div className="max-w-5xl mx-auto px-4 pb-12">
+        <VersusVote
+          question="How do you avoid tourist traps in Bangkok?"
+          a={{ id: "trust-score", label: "Check Trust Score", emoji: "📊", desc: "Data from real verified Google reviewers", url: "/trending", highlight: "Thaigle method" }}
+          b={{ id: "local-recs", label: "Ask locals / expats", emoji: "🤝", desc: "Personal recommendations from people who live there", url: "/local-tips" }}
+        />
       </div>
     </>
   );

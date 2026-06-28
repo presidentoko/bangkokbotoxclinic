@@ -14,9 +14,9 @@ export function getSiteConfig(): SiteConfig {
   return {
     brand,
     domain,
-    title: `${brand} — Verified Course Reviews & Trust Scores`,
+    title: `Best Golf Courses in Thailand 2026 — 600+ Ranked & Verified`,
     description:
-      "600+ golf courses across Bangkok, Chonburi, Pattaya, Hua Hin, Phuket, Chiang Mai ranked by Trust Score from real Google reviews. Caddy quality, course conditions, English/Korean support — verified.",
+      "Thailand's trusted golf directory. 600+ courses ranked by real Google reviews — Bangkok, Pattaya, Hua Hin, Phuket, Chiang Mai. Compare caddy quality, green fees & conditions before you book.",
     hero: "Thailand Golf Guide — verified by real golfers",
     heroSub:
       "600+ courses nationwide. Real Google reviews analyzed. Compare conditions, caddies, and value before you book.",

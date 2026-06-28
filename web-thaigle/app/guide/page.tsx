@@ -1,7 +1,51 @@
 import { GUIDES } from "@/lib/guides";
 import { NICHES } from "@/lib/niches";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { LocalsChoice } from "@/components/LocalsChoice";
+import { TripType } from "@/components/TripType";
+import { BangkokFacts } from "@/components/BangkokFacts";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { TopSearched } from "@/components/TopSearched";
+import { BangkokEtiquette } from "@/components/BangkokEtiquette";
+import { BangkokCountdown } from "@/components/BangkokCountdown";
+import { SafetyTips } from "@/components/SafetyTips";
+import { InstagramSpots } from "@/components/InstagramSpots";
+import { BangkokMonthlyCalendar } from "@/components/BangkokMonthlyCalendar";
+import { HiddenGemPicker } from "@/components/HiddenGemPicker";
+import { TempleGuide } from "@/components/TempleGuide";
+import { BangkokNeighborhoodProfile } from "@/components/BangkokNeighborhoodProfile";
+import { ThaiEtiquetteQuiz } from "@/components/ThaiEtiquetteQuiz";
+import { BangkokFestivalCalendar } from "@/components/BangkokFestivalCalendar";
+import { BangkokWeatherByMonth } from "@/components/BangkokWeatherByMonth";
+import { BangkokPhotographySpots } from "@/components/BangkokPhotographySpots";
+import { BangkokMuseumGuide } from "@/components/BangkokMuseumGuide";
+import { BangkokTempleGuide } from "@/components/BangkokTempleGuide";
+import { BangkokChinatownGuide } from "@/components/BangkokChinatownGuide";
+import { BangkokBuddhistCalendar } from "@/components/BangkokBuddhistCalendar";
+import { BangkokArtScene } from "@/components/BangkokArtScene";
+import { BangkokGalleryDistrict } from "@/components/BangkokGalleryDistrict";
+import { BangkokRainyDayGuide } from "@/components/BangkokRainyDayGuide";
+import { BangkokHistoryGuide } from "@/components/BangkokHistoryGuide";
+import { BangkokStreetArt } from "@/components/BangkokStreetArt";
+import { BangkokTemples } from "@/components/BangkokTemples";
+import { BangkokMuseums } from "@/components/BangkokMuseums";
+import { BangkokVisaGuide } from "@/components/BangkokVisaGuide";
+import { BangkokBackpackerGuide } from "@/components/BangkokBackpackerGuide";
+import { BangkokStats } from "@/components/BangkokStats";
+import { BangkokElephantSanctuaries } from "@/components/BangkokElephantSanctuaries";
+import { BangkokTempleHopping } from "@/components/BangkokTempleHopping";
+import { BangkokCoworkingSpaces } from "@/components/BangkokCoworkingSpaces";
+import { BangkokFilmPhotography } from "@/components/BangkokFilmPhotography";
+import { BangkokSurfingGuide } from "@/components/BangkokSurfingGuide";
+import { BangkokArchery } from "@/components/BangkokArchery";
+import { BangkokOmakase } from "@/components/BangkokOmakase";
 import type { Metadata } from "next";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const metadata: Metadata = {
   title: "Bangkok Guides — Food, Activities & Local Tips (2026)",
@@ -33,7 +77,10 @@ export default function GuideIndexPage() {
         <span>Guides</span>
       </nav>
 
-      <h1 className="text-4xl font-bold tracking-tight mb-3">Bangkok Guides</h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-4xl font-bold tracking-tight">Bangkok Guides</h1>
+        <ShareButton title="Bangkok Guides 2026 — Data-Backed, No Fluff" text="Bangkok guides backed by real review data — food, activities, prices" url={`${SITE}/guide`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-10 max-w-2xl">
         No-fluff guides backed by real data — what locals know, prices in Thai Baht, and how to avoid tourist traps.
       </p>
@@ -93,19 +140,91 @@ export default function GuideIndexPage() {
         </section>
       )}
 
+      <TopSearched />
+      <BangkokMonthlyCalendar />
+      <BangkokNeighborhoodProfile />
+      <BangkokPhotographySpots />
+      <BangkokMuseumGuide />
+      <BangkokTempleGuide />
+      <BangkokChinatownGuide />
+      <BangkokBuddhistCalendar />
+      <BangkokArtScene />
+      <BangkokGalleryDistrict />
+      <BangkokRainyDayGuide />
+      <BangkokHistoryGuide />
+      <BangkokTemples />
+      <BangkokMuseums />
+      <BangkokStreetArt />
+      <BangkokWeatherByMonth />
+      <BangkokFestivalCalendar />
+      <ThaiEtiquetteQuiz />
+      <HiddenGemPicker />
+      <BangkokCountdown />
+      <BangkokFacts />
+      <BangkokStats />
+      <BangkokElephantSanctuaries />
+      <BangkokTempleHopping />
+      <BangkokCoworkingSpaces />
+      <BangkokFilmPhotography />
+      <BangkokSurfingGuide />
+      <BangkokArchery />
+      <BangkokOmakase />
+      <BangkokVisaGuide />
+      <BangkokBackpackerGuide />
+      <SeasonalTip />
+      <TempleGuide />
+      <BangkokEtiquette />
+      <SafetyTips />
+      <TripType />
+      <LocalsChoice />
+      <InstagramSpots />
+      <BangkokChallenge />
+      <BangkokTip />
+
+      {/* Poll */}
+      <div className="mb-6">
+        <VersusVote
+          question="When you're planning Bangkok — what's your style?"
+          a={{ id: "guide-research", label: "Read the guides first", emoji: "📖", desc: "Research, plan, compare prices — show up prepared", url: "/guide/best-thai-food-bangkok" }}
+          b={{ id: "show-up", label: "Show up and figure it out", emoji: "🎲", desc: "Discover as you go — Bangkok rewards wanderers", url: "/activities/surprise-me" }}
+        />
+      </div>
+
       {/* CTA */}
       <section className="border border-orange-200 rounded-2xl p-6 bg-gradient-to-br from-orange-50 to-amber-50">
         <h2 className="font-black text-lg mb-2">Want to book an activity?</h2>
         <p className="text-sm text-[var(--muted)] mb-4">Browse our ranked directories — sorted by Trust Score from real Google reviews.</p>
-        <a href="/activities" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500 text-white font-bold text-sm hover:bg-orange-600 transition">
-          All Activities in Bangkok →
-        </a>
+        <div className="flex flex-wrap gap-3">
+          <a href="/activities" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500 text-white font-bold text-sm hover:bg-orange-600 transition">
+            All Activities →
+          </a>
+          <a href="/quiz" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-300 text-orange-700 font-bold text-sm hover:bg-orange-50 transition">
+            🎯 Take the quiz
+          </a>
+          <a href="/bingo" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-300 text-green-700 font-bold text-sm hover:bg-green-50 transition">
+            🏆 Bucket List Bingo
+          </a>
+        </div>
       </section>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Guides", url: "/guide" },
       ]} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Bangkok Travel Guides 2026",
+        "description": "Practical Bangkok guides — Thai food, Muay Thai, Thai massage, yoga, cooking classes, diving, coworking.",
+        "url": `${SITE}/guide`,
+        "numberOfItems": GUIDES.length,
+        "itemListElement": GUIDES.map((g, i) => ({
+          "@type": "ListItem",
+          "position": i + 1,
+          "name": g.title,
+          "url": `${SITE}/guide/${g.slug}`,
+        })),
+      }) }} />
     </div>
   );
 }

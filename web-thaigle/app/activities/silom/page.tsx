@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { NICHES } from "@/lib/niches";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { NearbyLink } from "@/components/NearbyLink";
+import { AreaGuide } from "@/components/AreaGuide";
+import { OpenNow } from "@/components/OpenNow";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -55,9 +64,12 @@ export default function SilomActivitiesPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold mb-3">
         District Guide · BTS Silom Line
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Activities in Silom & Sathorn, Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Activities in Silom & Sathorn, Bangkok
+        </h1>
+        <ShareButton title="Activities in Silom & Sathorn Bangkok 2026" text="Luxury spas, yoga studios, Muay Thai in Bangkok's business district" url={`${SITE}/activities/silom`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Bangkok&apos;s business district meets luxury wellness corridor. Lumphini Park, world-class hotel spas, and quality yoga — all BTS-accessible.
       </p>
@@ -124,6 +136,21 @@ export default function SilomActivitiesPage() {
           </a>
         </div>
       </section>
+
+      <div className="mb-2 mt-2"><NearbyLink /></div>
+      <OpenNow />
+      <AreaGuide />
+      <BangkokChallenge />
+      <BangkokTip />
+
+      {/* Poll */}
+      <div className="mb-8">
+        <VersusVote
+          question="Silom & Sathorn — your vibe in Bangkok's business district?"
+          a={{ id: "luxury-spa", label: "Luxury spa day", emoji: "💆", desc: "Hotel spa, premium massage, full relaxation package", url: "/activities/spa" }}
+          b={{ id: "muay-thai-park", label: "Muay Thai + Lumphini Park", emoji: "🥊", desc: "Train hard, run in the park, eat street food outside", url: "/activities/muay-thai" }}
+        />
+      </div>
 
       <FaqJsonLd faqs={SILOM_FAQS} />
       <BreadcrumbJsonLd items={[

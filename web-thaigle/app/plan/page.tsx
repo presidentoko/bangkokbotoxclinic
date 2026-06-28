@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import { PlannerClient } from "@/components/PlannerClient";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ThaiPhrase } from "@/components/ThaiPhrase";
+import { BangkokTip } from "@/components/BangkokTip";
+import { PrintPlan } from "@/components/PrintPlan";
+import { WeatherWidget } from "@/components/WeatherWidget";
+import { CurrencyHelper } from "@/components/CurrencyHelper";
+import { PublicTransitGuide } from "@/components/PublicTransitGuide";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { WeekendPlan } from "@/components/WeekendPlan";
+import { BangkokBudgetCalc } from "@/components/BangkokBudgetCalc";
+import { BangkokDayPlanner } from "@/components/BangkokDayPlanner";
 
 export const metadata: Metadata = {
   title: "Bangkok Day Planner — Build Your Perfect Day | Thaigle",
@@ -65,6 +75,21 @@ export default function PlanPage() {
 
       {/* Client planner — hydrates and takes over */}
       <PlannerClient />
+
+      <div className="max-w-2xl mx-auto px-4 pb-8">
+        <WeatherWidget />
+        <SeasonalTip />
+        <BangkokDayPlanner />
+        <BangkokBudgetCalc />
+        <WeekendPlan />
+        <CurrencyHelper />
+        <PublicTransitGuide />
+        <ThaiPhrase />
+        <BangkokTip />
+        <div className="mt-4 flex justify-end">
+          <PrintPlan label="🖨️ Print itinerary" />
+        </div>
+      </div>
     </>
   );
 }

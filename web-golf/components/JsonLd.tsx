@@ -22,7 +22,21 @@ export function OrgJsonLd() {
     name: BRAND,
     url: SITE,
     description:
-      "Independent directory of golf courses, country clubs, driving ranges, and resorts across Thailand. Trust Scores from real Google review analysis.",
+      "Independent directory of 600+ golf courses, country clubs, driving ranges, and resorts across Thailand. Trust Scores derived from real Google review analysis — Bangkok, Pattaya, Hua Hin, Phuket, Chiang Mai.",
+    foundingDate: "2024",
+    areaServed: {
+      "@type": "Country",
+      name: "Thailand",
+    },
+    knowsAbout: [
+      "Golf courses in Thailand",
+      "Thailand golf travel",
+      "Bangkok golf",
+      "Pattaya golf courses",
+      "Hua Hin golf",
+      "Phuket golf",
+      "Chiang Mai golf",
+    ],
   });
 }
 
@@ -31,12 +45,15 @@ export function WebsiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: BRAND,
+    alternateName: "Thailand Golf Guide",
     url: SITE,
+    description: "Thailand's trusted directory for finding and comparing golf courses, ranked by real Google reviews.",
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE}/?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
+    inLanguage: ["en", "ko", "th"],
   });
 }
 

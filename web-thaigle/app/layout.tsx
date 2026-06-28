@@ -10,6 +10,7 @@ import { PlannerBar } from "@/components/PlannerBar";
 import { StickyBottomNav } from "@/components/StickyBottomNav";
 import { TikTokGuard } from "@/components/TikTokGuard";
 import { CookieConsent } from "@/components/CookieConsent";
+import { BackToTop } from "@/components/BackToTop";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const cfg = getSiteConfig();
@@ -84,6 +85,11 @@ export default function RootLayout({
                 <a href="/restaurants/cuisine/italian" className="hover:text-black hidden sm:inline">Italian</a>
                 <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
                 <a href="/activities" className="hover:text-black hidden md:inline">Activities</a>
+                <a href="/trending" className="hover:text-black hidden md:inline">Trending</a>
+                <a href="/for" className="hover:text-black hidden md:inline">Perfect For</a>
+                <a href="/quiz" className="hover:text-black hidden lg:inline">🎯 Quiz</a>
+                <a href="/bingo" className="hover:text-black hidden lg:inline">🏆 Bingo</a>
+                <a href="/my-trip" className="hover:text-black hidden lg:inline">🗺 My Trip</a>
                 <a href="/day-plan" className="hover:text-black hidden md:inline">Day Plan</a>
                 <a href="/clinics" className="hover:text-black hidden md:inline">Clinics</a>
                 <a href="/dental" className="hover:text-black hidden md:inline">Dental</a>
@@ -112,12 +118,18 @@ export default function RootLayout({
             </div>
           </header>
           <main className="pb-16 md:pb-0">{children}</main>
+          <BackToTop />
           <PlannerBar />
           <StickyBottomNav />
           <footer className="border-t border-[var(--border)] mt-16 bg-white">
             <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
               <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
                 <a href="/about" className="hover:text-black">About</a>
+                <a href="/quiz" className="hover:text-black">Bangkok Quiz</a>
+                <a href="/bingo" className="hover:text-black">Bucket List</a>
+                <a href="/my-trip" className="hover:text-black">My Trip</a>
+                <a href="/local-tips" className="hover:text-black">Local Tips</a>
+                <a href="/for" className="hover:text-black">Perfect For</a>
                 <a href="/contact" className="hover:text-black">Contact</a>
                 <a href="/for-venues" className="hover:text-black">For Venues</a>
                 <a href="/terms" className="hover:text-black">Terms</a>

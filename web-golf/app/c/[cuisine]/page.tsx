@@ -20,9 +20,16 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { cuisine } = await params;
   const label = CATEGORY_LABELS[cuisine] ?? cuisine;
+  const db2 = await loadMasterDb();
+  const count2 = db2.cuisine_counts?.[cuisine] ?? 0;
+  const isCourse = cuisine === "course";
   return {
-    title: `${label}s in Thailand — Trust Score Ranking`,
-    description: `Best ${label.toLowerCase()}s across Thailand ranked by verified Google review analysis. Trust Scores, caddy quality, course conditions.`,
+    title: isCourse
+      ? `Golf Courses in Thailand 2026 — ${count2 || "600"}+ Ranked by Real Reviews`
+      : `Best ${label}s in Thailand 2026${count2 ? ` — ${count2} Ranked` : ""} | Thailand Golf Guide`,
+    description: isCourse
+      ? `Compare ${count2 || "600"}+ golf courses in Thailand ranked by real Google reviews. Bangkok, Pattaya, Hua Hin, Phuket — caddy quality, green fees & conditions verified by golfers.`
+      : `Best ${label.toLowerCase()}s across Thailand ranked by Trust Score from real Google reviews. Caddy quality, course conditions, English/Korean support — verified.`,
     alternates: { canonical: `/c/${cuisine}` },
   };
 }
@@ -73,10 +80,13 @@ export default async function CategoryPage(
         </nav>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2 flex items-center gap-3">
           <span>{icon}</span>
-          {label}s in Thailand
+          {cuisine === "course" ? "Golf Courses in Thailand" : `${label}s in Thailand`}
         </h1>
         <p className="text-[var(--muted)] mb-8">
-          {filtered.length} {label.toLowerCase()}s nationwide, ranked by Trust Score from real Google reviews.
+          {cuisine === "course"
+            ? `${filtered.length} golf courses across Thailand — Bangkok, Pattaya, Hua Hin, Phuket, Chiang Mai — ranked by Trust Score from real Google reviews. Compare caddy quality, green fees & conditions.`
+            : `${filtered.length} ${label.toLowerCase()}s nationwide, ranked by Trust Score from real Google reviews.`
+          }
         </p>
 
         {cities.length > 1 && (

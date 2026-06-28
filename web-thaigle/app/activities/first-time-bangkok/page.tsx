@@ -2,6 +2,43 @@ import type { Metadata } from "next";
 import { NICHES, loadNicheDb } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BangkokBingo } from "@/components/BangkokBingo";
+import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { TravelChecklist } from "@/components/TravelChecklist";
+import { StreetFoodGuide } from "@/components/StreetFoodGuide";
+import { GrabTips } from "@/components/GrabTips";
+import { PublicTransitGuide } from "@/components/PublicTransitGuide";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { BangkokEtiquette } from "@/components/BangkokEtiquette";
+import { SafetyTips } from "@/components/SafetyTips";
+import { FirstDayItinerary } from "@/components/FirstDayItinerary";
+import { EmergencyInfo } from "@/components/EmergencyInfo";
+import { TravelPackingList } from "@/components/TravelPackingList";
+import { BangkokAirportGuide } from "@/components/BangkokAirportGuide";
+import { TempleGuide } from "@/components/TempleGuide";
+import { SimCardGuide } from "@/components/SimCardGuide";
+import { MoneyGuide } from "@/components/MoneyGuide";
+import { BangkokVisaGuide } from "@/components/BangkokVisaGuide";
+import { ActivityBookingTips } from "@/components/ActivityBookingTips";
+import { BangkokHospitalsGuide } from "@/components/BangkokHospitalsGuide";
+import { BangkokScamAlert } from "@/components/BangkokScamAlert";
+import { BangkokWeatherByMonth } from "@/components/BangkokWeatherByMonth";
+import { BangkokBudgetHotels } from "@/components/BangkokBudgetHotels";
+import { BangkokHealthTips } from "@/components/BangkokHealthTips";
+import { BangkokUniversityArea } from "@/components/BangkokUniversityArea";
+import { BangkokThaiLanguage } from "@/components/BangkokThaiLanguage";
+import { BangkokExpatsGuide } from "@/components/BangkokExpatsGuide";
+import { BangkokSharehouseAirbnb } from "@/components/BangkokSharehouseAirbnb";
+import { BangkokDrinkingWater } from "@/components/BangkokDrinkingWater";
+import { BangkokWifiSIM } from "@/components/BangkokWifiSIM";
+import { BangkokPublicTransport } from "@/components/BangkokPublicTransport";
+import { BangkokFoodGlossary } from "@/components/BangkokFoodGlossary";
+import { BangkokTempleGuide } from "@/components/BangkokTempleGuide";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -111,9 +148,12 @@ export default async function FirstTimeBangkokPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold mb-3">
         2026 Guide
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Things to Do in Bangkok — First Timer&apos;s Guide
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Things to Do in Bangkok — First Timer&apos;s Guide
+        </h1>
+        <ShareButton title="First Time Bangkok Guide 2026" text="The real first-timer guide — ranked by actual Google reviews" url={`${SITE}/activities/first-time-bangkok`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-2">
         Ranked by real Google reviews. No influencer picks, no paid placements.
       </p>
@@ -220,6 +260,55 @@ export default async function FirstTimeBangkokPage() {
           ))}
         </div>
       </section>
+
+      {/* Quick Poll */}
+      <div className="mb-6">
+        <VersusVote
+          question="First time in Bangkok — what are you most excited about?"
+          a={{ id: "food-experience", label: "The food", emoji: "🌶️", desc: "Pad Thai, Som Tam, Mango Sticky Rice — you're here to eat", url: "/restaurants/cuisine/thai" }}
+          b={{ id: "activities", label: "The activities", emoji: "🥊", desc: "Muay Thai, Thai massage, cooking class — the experiences", url: "/activities" }}
+        />
+      </div>
+
+      {/* Bucket List for first-timers */}
+      <section className="mb-8">
+        <div className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wide mb-3">Your Bangkok first-timer checklist</div>
+        <BangkokBingo />
+      </section>
+
+      <BangkokWeatherByMonth />
+      <StreetFoodGuide />
+      <GrabTips />
+      <FirstDayItinerary />
+      <PublicTransitGuide />
+      <SeasonalTip />
+      <BangkokEtiquette />
+      <SafetyTips />
+      <BangkokScamAlert />
+      <TempleGuide />
+      <ActivityBookingTips />
+      <BangkokVisaGuide />
+      <SimCardGuide />
+      <MoneyGuide />
+      <BangkokAirportGuide />
+      <TravelPackingList />
+      <BangkokHospitalsGuide />
+      <BangkokBudgetHotels />
+      <BangkokHealthTips />
+      <BangkokUniversityArea />
+      <BangkokThaiLanguage />
+      <BangkokExpatsGuide />
+      <BangkokSharehouseAirbnb />
+      <BangkokDrinkingWater />
+      <BangkokWifiSIM />
+      <BangkokPublicTransport />
+      <BangkokFoodGlossary />
+      <BangkokVisaGuide />
+      <BangkokTempleGuide />
+      <EmergencyInfo />
+      <TravelChecklist />
+      <BangkokChallenge />
+      <BangkokTip />
 
       <FaqJsonLd faqs={FIRST_TIMER_FAQS} />
       <BreadcrumbJsonLd items={[

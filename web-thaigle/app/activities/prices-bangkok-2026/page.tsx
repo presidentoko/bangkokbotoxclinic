@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { PriceCompare } from "@/components/PriceCompare";
+import { ShareButton } from "@/components/ShareButton";
+import { BudgetCalculator } from "@/components/BudgetCalculator";
+import { BangkokTip } from "@/components/BangkokTip";
+import { SavingsCounter } from "@/components/SavingsCounter";
+import { CurrencyHelper } from "@/components/CurrencyHelper";
+import { PriceQuickView } from "@/components/PriceQuickView";
 
 export const dynamic = "force-static";
 
@@ -169,9 +176,17 @@ export default function PricesBangkok2026Page() {
       <div className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold mb-3">
         Updated 2026
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Bangkok Activity Prices 2026
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Bangkok Activity Prices 2026
+        </h1>
+        <ShareButton
+          title="Bangkok Activity Prices 2026 — Thaigle"
+          text="Real Bangkok activity prices in 2026 — massage, Muay Thai, cooking, yoga, diving. No tourist traps."
+          url="https://thaigle.com/activities/prices-bangkok-2026"
+          line whatsapp
+        />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Comprehensive price guide for all Bangkok activities — Thai massage, Muay Thai, cooking classes, yoga, coworking, and diving. Real prices across all budget levels.
       </p>
@@ -241,6 +256,11 @@ export default function PricesBangkok2026Page() {
         </div>
       </aside>
 
+      {/* Interactive price compare */}
+      <section className="mb-8">
+        <PriceCompare />
+      </section>
+
       {/* FAQ */}
       <section className="mb-8">
         <h2 className="text-xl font-black mb-4">Price FAQ — Bangkok 2026</h2>
@@ -257,6 +277,11 @@ export default function PricesBangkok2026Page() {
         </div>
       </section>
 
+      <PriceQuickView type="activity" />
+      <CurrencyHelper />
+      <SavingsCounter />
+      <BudgetCalculator />
+      <BangkokTip />
       <FaqJsonLd faqs={PRICE_FAQS} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

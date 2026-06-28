@@ -64,27 +64,35 @@ export const CUISINE_FAQS: Record<string, Faq[]> = {
 
 export const HOME_FAQS: Faq[] = [
   {
+    q: "What are the best golf courses in Thailand?",
+    a: "The top-rated golf courses in Thailand by Trust Score include Siam Country Club (Pattaya/Chon Buri), Black Mountain Golf Club (Hua Hin), Nikanti Golf Club (near Bangkok), Alpine Golf & Sports Club (Bangkok), Blue Canyon Country Club (Phuket), and Thai Country Club (Bangkok). Rankings update continuously from real Google reviews — see the full Top 50 list for the current consensus.",
+  },
+  {
+    q: "How much does it cost to play golf in Thailand?",
+    a: "Green fees range from ฿1,500–3,000 at weekday public courses to ฿4,000–9,000+ at premium country clubs. Caddy fee (~฿400, mandatory) and tip (฿400–600) are additional. Total cost for a morning round is typically ฿2,500–5,000 at mid-range venues. Bangkok courses are priciest; Chiang Mai and Hua Hin offer better value for the same tier.",
+  },
+  {
+    q: "What is the best time to play golf in Thailand?",
+    a: "November to February is peak season — cool temperatures (25–30°C), low humidity, and excellent course conditions. March–April is hot but dry. May–October is monsoon season: afternoon storms are common, but courses remain playable in the morning and green fees drop 20–40%. Chiang Mai has especially ideal dry-season conditions November through February.",
+  },
+  {
+    q: "Which city in Thailand has the best golf?",
+    a: "Bangkok and its surroundings have the highest course density (80+ courses within 60 minutes). Pattaya (Chon Buri) has 25–30 courses with the strongest Korean tour-group infrastructure. Hua Hin offers the most concentrated premium stay-and-play scene (Black Mountain, Banyan). Phuket has the highest average course quality (Blue Canyon, Laguna, Red Mountain).",
+  },
+  {
+    q: "Do Thai golf courses require a caddy?",
+    a: "Yes — caddies are mandatory at almost every Thai golf course. The caddy fee (~฿400) is charged at the clubhouse on arrival; a tip of ฿400–600 is given directly to the caddy after the round. Korean- and English-speaking caddies are available at courses popular with international tour groups — request one when booking.",
+  },
+  {
+    q: "How do I book a golf course in Thailand?",
+    a: "Four options: (1) Direct — course website or phone, cheapest, limited English support. (2) Golf agency — Golfsavers, Sawasdee Golf, or GolfAsian handle full booking + airport transfer + caddy coordination. (3) Klook — simple booking for popular tourist courses. (4) Hotel concierge — best for first-time visitors. Weekends book up 1–2 weeks ahead in peak season (November–February).",
+  },
+  {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) combines: course Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority via average reviewer review count (5%). It's our derived metric — not a Google ranking. We rebuild it continuously from public Google Maps data.",
+    a: "Trust Score (0–100) combines: Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority via average reviewer review count (5%). It rebuilds continuously from public Google Maps data — not a paid placement or editorial selection.",
   },
   {
     q: "Are these listings sponsored?",
-    a: "Organic listings are never paid. Some courses buy clearly-labelled Editor's Pick / Recommended / Featured slots, but we never delete or downrank organic listings. Sponsored slots appear above organic results with explicit badges.",
-  },
-  {
-    q: "How fresh is this data?",
-    a: "Listings and Trust Scores rebuild continuously from Google Maps scraping. Sample reviews on each course page are real, recent excerpts from public Google reviews — never edited or filtered.",
-  },
-  {
-    q: "Why is there no booking on this site?",
-    a: "Thailand has well-established golf booking partners (Golfsavers, Sawasdee Golf, Klook). Rather than reinvent the wheel and add markup, we link to their booking pages where useful and focus on giving you accurate, current information to decide where to play. Direct course websites and phone numbers are also listed where available.",
-  },
-  {
-    q: "Is the Korean review coverage real?",
-    a: "Yes — we tag courses by reviewer language (Thai/English/Korean/Japanese) using the actual Google review text. Courses popular with Korean tour groups show high Korean review counts. Korean-speaking caddy mentions are extracted from review content.",
-  },
-  {
-    q: "What does the Korean caddy or English caddy badge mean?",
-    a: "These are extracted from actual reviewer mentions — not self-reported by the course. If multiple reviewers say the caddy spoke Korean (or English), the course gets the badge. It's an indicator of language likelihood, not a guarantee — request when booking.",
+    a: "Organic listings are never paid. Some courses buy clearly-labelled Featured/Recommended slots that appear above organic results with explicit badges. Organic Trust Score rankings are never modified by payment.",
   },
 ];

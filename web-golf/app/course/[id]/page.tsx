@@ -734,10 +734,24 @@ export default async function CoursePage(
         { name: r.name, url: `/course/${r.id}` },
       ]} />
       <FaqJsonLd faqs={[
-        { q: `${r.name} 그린피가 얼마예요?`, a: r.green_fee_mentions ? `최근 리뷰 기준: ${r.green_fee_mentions}. 그린피는 시즌·요일·예약 방식에 따라 변동됩니다. 최신 요금은 코스에 직접 문의하세요.` : `${r.name}의 그린피는 시즌·요일에 따라 변동됩니다. 최신 요금은 코스에 직접 문의하거나 가격비교 페이지를 확인하세요.` },
-        { q: `${r.name}에 캐디가 있나요?`, a: "대부분의 태국 골프장은 캐디 동반이 필수입니다. 캐디피는 약 ฿400이며, 라운드 후 팁 ฿400~600을 현금으로 드리는 게 관례입니다." },
-        { q: `${r.name} 예약 방법은?`, a: "공식 웹사이트·전화 직접 예약 또는 GolfAsian·ThailandGolfCentre 같은 골프 에이전시를 통해 예약할 수 있습니다. 에이전시 예약 시 픽업·장비 렌탈 패키지가 편리합니다." },
-        { q: `${r.name} 드레스코드가 있나요?`, a: "대부분의 태국 골프장은 칼라 있는 셔츠(폴로)와 슬랙스 또는 골프 반바지를 요구합니다. 청바지·민소매·슬리퍼는 일반적으로 금지됩니다." },
+        {
+          q: `How much is the green fee at ${r.name}?`,
+          a: r.green_fee_mentions
+            ? `Based on recent reviews: ${r.green_fee_mentions}. Green fees vary by season, day of week, and booking channel — contact the course directly or check a golf agency (Golfsavers, Sawasdee Golf) for current rates.`
+            : `Green fees at ${r.name} vary by season and day of week. Contact the course directly or use a golf booking agency (Golfsavers, GolfAsian) to get current prices and bundle with caddy and cart.`,
+        },
+        {
+          q: `Does ${r.name} require a caddy?`,
+          a: `Yes — like most Thai golf courses, ${r.name} requires golfers to use a caddy. Caddy fee is typically ฿400 (paid at the clubhouse on arrival), with a tip of ฿400–600 given directly to the caddy after the round.${r.is_korean_friendly ? " Korean-speaking caddies are available — request one when booking." : r.is_english_friendly ? " English-speaking caddies are available at this course." : ""}`,
+        },
+        {
+          q: `How do I book a tee time at ${r.name}?`,
+          a: `Book directly via the course website or phone, or use a golf agency (Golfsavers, Sawasdee Golf, GolfAsian) for a bundled booking with airport transfer and caddy coordination. Weekend tee times fill up 1–2 weeks ahead in peak season (November–February) — book early.`,
+        },
+        {
+          q: `What is the dress code at ${r.name}?`,
+          a: `Most Thai golf courses, including ${r.name}, require a collared shirt (polo), slacks or golf shorts. Jeans, sleeveless tops, and sandals are generally not permitted. Soft spikes or spikeless golf shoes are required on the course.`,
+        },
       ]} />
     </div>
   );

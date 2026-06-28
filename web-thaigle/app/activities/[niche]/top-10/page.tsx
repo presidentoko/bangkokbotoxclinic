@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ShareButton } from "@/components/ShareButton";
 import {
   NICHES,
   loadNicheDb,
@@ -9,6 +10,11 @@ import {
 import type { NicheSlug } from "@/lib/niches";
 import { BreadcrumbJsonLd, FaqJsonLd, NicheItemListJsonLd } from "@/components/JsonLd";
 import { NICHE_FAQS, NICHE_INTRO } from "@/lib/niche-content";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { RatingLegend } from "@/components/RatingLegend";
+import { PhotoHints } from "@/components/PhotoHints";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -80,9 +86,17 @@ export default async function NicheTop10Page({
           Ranked by Trust Score · 2026
         </span>
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Top 10 {info.label} in Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Top 10 {info.label} in Bangkok
+        </h1>
+        <ShareButton
+          title={`Top 10 ${info.label} in Bangkok 2026`}
+          text={`Best ${info.label} in Bangkok — ranked by real Google reviews. No sponsored results.`}
+          url={`https://thaigle.com/activities/${niche}/top-10`}
+          line whatsapp
+        />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-2">
         {intro?.sub ?? `${db.total} venues ranked by real Google reviews.`}
       </p>
@@ -219,6 +233,24 @@ export default async function NicheTop10Page({
           </div>
         </section>
       )}
+
+      <RatingLegend />
+      <PhotoHints niche={niche} />
+
+      {/* Daily Challenge */}
+      <BangkokChallenge />
+
+      {/* Daily Tip */}
+      <BangkokTip />
+
+      {/* Quick Poll */}
+      <div className="mb-4">
+        <VersusVote
+          question={`${info.label} in Bangkok — what matters most to you?`}
+          a={{ id: "reviews-data", label: "Real reviews + Trust Score", emoji: "📊", desc: "Data-driven — ranked by what verified reviewers actually say", url: `/activities/${niche}` }}
+          b={{ id: "price-value", label: "Best value for money", emoji: "💸", desc: "Maximum experience at minimum cost — Bangkok specialty", url: "/activities/budget" }}
+        />
+      </div>
 
       {/* See all CTA */}
       <section className="p-5 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 flex items-center justify-between gap-4 flex-wrap">

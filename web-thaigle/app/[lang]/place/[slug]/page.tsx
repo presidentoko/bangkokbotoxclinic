@@ -11,6 +11,9 @@ import {
 import type { Lang, Place } from "@/lib/places";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { PopularTimes } from "@/components/PopularTimes";
+import { CrowdRating } from "@/components/CrowdRating";
+import { NearbyThings } from "@/components/NearbyThings";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -266,6 +269,10 @@ export default async function PlacePage({
           </a>
         </div>
       </div>
+
+      <PopularTimes type="restaurant" />
+      <CrowdRating itemId={place.slug} label={place.name} />
+      <NearbyThings context="restaurant" />
 
       {/* JSON-LD */}
       <PlaceSchemaLd place={place} lang={lang as Lang} />

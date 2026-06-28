@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BudgetCalculator } from "@/components/BudgetCalculator";
+import { FoodPairing } from "@/components/FoodPairing";
+import { HighlightReel } from "@/components/HighlightReel";
+import { BangkokCouplesActivities } from "@/components/BangkokCouplesActivities";
+import { BangkokCoupleTips } from "@/components/BangkokCoupleTips";
+import { BangkokChaoPhrayaHotels } from "@/components/BangkokChaoPhrayaHotels";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -120,9 +131,12 @@ export default function CouplesPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-pink-100 text-pink-800 text-xs font-bold mb-3">
         Couples Guide
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Best Activities for Couples in Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Best Activities for Couples in Bangkok
+        </h1>
+        <ShareButton title="Best Couples Activities Bangkok 2026" text="Ranked by real reviews — spas, cooking classes & more" url={`${SITE}/activities/couples`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Ranked by real reviews. Bangkok is one of the world&apos;s best couple destinations — world-class spas, cooking classes, and adventure at a fraction of Western prices.
       </p>
@@ -191,6 +205,35 @@ export default function CouplesPage() {
           ))}
         </div>
       </section>
+
+      {/* Bangkok Showdown — couples edition */}
+      <section className="mb-8">
+        <div className="text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-4 flex items-center gap-2">
+          <span className="w-4 h-0.5 bg-current" />
+          Couples Poll
+          <span className="w-4 h-0.5 bg-current" />
+        </div>
+        <VersusVote
+          question="Best couples activity in Bangkok?"
+          a={{ id: "couples-massage", label: "Couples Massage", emoji: "💆‍♀️💆‍♂️", desc: "60-90 min side-by-side Thai massage", url: "/activities/spa", highlight: "Most romantic" }}
+          b={{ id: "cooking-class", label: "Cooking Class", emoji: "👨‍🍳👩‍🍳", desc: "Cook Thai dishes together, take the recipes home", url: "/activities/cooking" }}
+        />
+        <div className="mt-4">
+          <VersusVote
+            question="For dinner on a date night?"
+            a={{ id: "rooftop", label: "Rooftop Restaurant", emoji: "🌆", desc: "Views + cocktails + Bangkok skyline", url: "/for/views", highlight: "Most Instagrammable" }}
+            b={{ id: "street-food", label: "Street Food Market", emoji: "🍜", desc: "Local experience, half the price", url: "/restaurants/cuisine/street_food" }}
+          />
+        </div>
+      </section>
+
+      <BangkokCouplesActivities />
+      <BangkokChaoPhrayaHotels />
+      <BangkokCoupleTips />
+      <HighlightReel />
+      <FoodPairing />
+      <BudgetCalculator />
+      <BangkokTip />
 
       <FaqJsonLd faqs={COUPLES_FAQS} />
       <BreadcrumbJsonLd items={[

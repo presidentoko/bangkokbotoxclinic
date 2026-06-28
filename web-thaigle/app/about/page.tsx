@@ -1,7 +1,15 @@
 import { loadMasterDb } from "@/lib/data";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokFacts } from "@/components/BangkokFacts";
+import { RatingLegend } from "@/components/RatingLegend";
+import { TrustScoreExplainer } from "@/components/TrustScoreExplainer";
+import { RelatedGuides } from "@/components/RelatedGuides";
+import { BangkokThingsNearBTS } from "@/components/BangkokThingsNearBTS";
 import type { Metadata } from "next";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const metadata: Metadata = {
   title: "About — Methodology & Data Sources",
@@ -57,7 +65,10 @@ export default async function AboutPage() {
         <span>About</span>
       </nav>
 
-      <h1 className="text-4xl font-bold tracking-tight mb-3">About {cfg.brand}</h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-4xl font-bold tracking-tight">About {cfg.brand}</h1>
+        <ShareButton title={`About ${cfg.brand} — Real Bangkok Rankings`} text="Independent Bangkok guide: Trust Score methodology, no paid placements" url={`${SITE}/about`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
         Independent directory of Bangkok and Pattaya restaurants. Value comes from one thing: applying consistent analysis to public Google review data so diners can compare restaurants on objective signals — not just star ratings.
       </p>
@@ -117,6 +128,46 @@ export default async function AboutPage() {
         ))}
       </section>
 
+      {/* Engagement links */}
+      <section className="border border-[var(--border)] rounded-2xl p-5 bg-white">
+        <h2 className="font-black text-lg mb-3">Explore Thaigle</h2>
+        <div className="grid sm:grid-cols-2 gap-3">
+          <a href="/quiz" className="flex items-center gap-3 p-3 rounded-xl bg-orange-50 border border-orange-200 hover:border-orange-300 transition group">
+            <span className="text-2xl shrink-0">🎯</span>
+            <div>
+              <div className="font-bold text-sm group-hover:text-orange-700 transition">Bangkok Traveler Quiz</div>
+              <div className="text-xs text-[var(--muted)]">Find your traveler type in 5 questions</div>
+            </div>
+          </a>
+          <a href="/bingo" className="flex items-center gap-3 p-3 rounded-xl bg-green-50 border border-green-200 hover:border-green-300 transition group">
+            <span className="text-2xl shrink-0">🏆</span>
+            <div>
+              <div className="font-bold text-sm group-hover:text-green-700 transition">Bucket List Bingo</div>
+              <div className="text-xs text-[var(--muted)]">Track what you've done in Bangkok</div>
+            </div>
+          </a>
+          <a href="/local-tips" className="flex items-center gap-3 p-3 rounded-xl bg-blue-50 border border-blue-200 hover:border-blue-300 transition group">
+            <span className="text-2xl shrink-0">🗺️</span>
+            <div>
+              <div className="font-bold text-sm group-hover:text-blue-700 transition">Local Insider Tips</div>
+              <div className="text-xs text-[var(--muted)]">What locals know, tourist traps to avoid</div>
+            </div>
+          </a>
+          <a href="/day-plan" className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border)] bg-white hover:border-orange-300 transition group">
+            <span className="text-2xl shrink-0">📅</span>
+            <div>
+              <div className="font-bold text-sm group-hover:text-orange-700 transition">Bangkok Day Plans</div>
+              <div className="text-xs text-[var(--muted)]">25 curated itineraries by area &amp; theme</div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <TrustScoreExplainer />
+      <BangkokFacts />
+      <RelatedGuides context="general" />
+      <BangkokThingsNearBTS />
+      <RatingLegend />
       <FaqJsonLd faqs={FAQS} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import { AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { SavingsCounter } from "@/components/SavingsCounter";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -44,9 +49,12 @@ export default async function ThemeHubPage({ params }: Props) {
       </div>
 
       <div className="text-3xl mb-2">{themeDef.icon}</div>
-      <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-3">
-        {themeDef.label} in Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-2xl md:text-3xl font-black tracking-tight">
+          {themeDef.label} in Bangkok
+        </h1>
+        <ShareButton title={`${themeDef.label} in Bangkok 2026 — Full Day Plans`} text={`${areas.length} area-specific ${themeDef.label.toLowerCase()} itineraries`} url={`${SITE}/day-plan/hub/theme/${theme}`} line whatsapp />
+      </div>
 
       <p className="text-[var(--muted)] leading-relaxed mb-8">
         {areas.length} area-specific {themeDef.label.toLowerCase()} itineraries — each assembled from venues ranked by Trust Score (public Google Maps data, never paid). Pick the neighbourhood that suits your hotel or budget.
@@ -91,6 +99,9 @@ export default async function ThemeHubPage({ params }: Props) {
           })}
         </div>
       </section>
+
+      <SavingsCounter />
+      <BangkokTip />
     </div>
   );
 }

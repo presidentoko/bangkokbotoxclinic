@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { PhraseBook } from "@/components/PhraseBook";
+import { LocalsChoice } from "@/components/LocalsChoice";
+import { NearbyThings } from "@/components/NearbyThings";
+import { BangkokHalalGuide } from "@/components/BangkokHalalGuide";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -87,9 +97,12 @@ export default function HalalActivitiesPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-bold mb-3">
         Muslim Traveler Guide
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Halal-Friendly Activities in Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Halal-Friendly Activities in Bangkok
+        </h1>
+        <ShareButton title="Halal Activities Bangkok 2026" text="All activity categories open to Muslim travelers — what to know" url={`${SITE}/activities/halal`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Bangkok welcomes millions of Muslim tourists annually. All activity categories on Thaigle are open to Muslim travelers — here&apos;s what to know for each.
       </p>
@@ -158,6 +171,22 @@ export default function HalalActivitiesPage() {
           ))}
         </div>
       </section>
+
+      {/* Halal food vs activities poll */}
+      <section className="mb-8">
+        <VersusVote
+          question="What do you look for most in Bangkok as a Muslim traveler?"
+          a={{ id: "halal-food", label: "Halal Food Options", emoji: "🍛", desc: "Restaurants certified halal, wide variety", url: "/for/halal", highlight: "Most requested" }}
+          b={{ id: "halal-prayer", label: "Prayer Facilities", emoji: "🕌", desc: "Mosques nearby, prayer room access", url: "/activities/halal" }}
+        />
+      </section>
+
+      <LocalsChoice />
+      <BangkokHalalGuide />
+      <NearbyThings context="restaurant" />
+      <BangkokChallenge />
+      <PhraseBook />
+      <BangkokTip />
 
       <FaqJsonLd faqs={HALAL_FAQS} />
       <BreadcrumbJsonLd items={[

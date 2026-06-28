@@ -1,5 +1,22 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { PriceCompare } from "@/components/PriceCompare";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BudgetCalculator } from "@/components/BudgetCalculator";
+import { SavingsCounter } from "@/components/SavingsCounter";
+import { CurrencyHelper } from "@/components/CurrencyHelper";
+import { PriceQuickView } from "@/components/PriceQuickView";
+import { MonthlyBudgetGuide } from "@/components/MonthlyBudgetGuide";
+import { BangkokBudgetCalc } from "@/components/BangkokBudgetCalc";
+import { BangkokBudgetWeek } from "@/components/BangkokBudgetWeek";
+import { BangkokBackpackerGuide } from "@/components/BangkokBackpackerGuide";
+import { BangkokBudgetFoodie } from "@/components/BangkokBudgetFoodie";
+import { BangkokFreeTourism } from "@/components/BangkokFreeTourism";
+import { BangkokBudgetHotels } from "@/components/BangkokBudgetHotels";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -56,9 +73,12 @@ export default function BudgetActivitiesPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-bold mb-3">
         Budget Traveler Guide
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Bangkok Activities on a Budget
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Bangkok Activities on a Budget
+        </h1>
+        <ShareButton title="Budget Bangkok Activities 2026 — Real Prices" text="What activities actually cost in Bangkok — no tourist inflation" url={`${SITE}/activities/budget`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Bangkok is one of the world&apos;s best value cities. Here&apos;s what activities actually cost — and how to avoid tourist-area price inflation.
       </p>
@@ -139,6 +159,36 @@ export default function BudgetActivitiesPage() {
           ))}
         </div>
       </section>
+
+      {/* Interactive price widget */}
+      <section className="mb-8">
+        <PriceCompare />
+      </section>
+
+      {/* Budget Calculator */}
+      <BangkokBudgetCalc />
+      <BangkokBudgetWeek />
+      <BangkokBackpackerGuide />
+      <BangkokBudgetFoodie />
+      <BangkokFreeTourism />
+      <BangkokBudgetHotels />
+      <PriceQuickView type="restaurant" />
+      <MonthlyBudgetGuide />
+      <CurrencyHelper />
+      <SavingsCounter />
+      <BudgetCalculator />
+
+      {/* Daily Tip */}
+      <BangkokTip />
+
+      {/* Quick Poll */}
+      <div className="mb-8">
+        <VersusVote
+          question="Bangkok on a budget — what's your biggest saving?"
+          a={{ id: "street-food", label: "Eating street food", emoji: "🥢", desc: "Pad Thai for ฿50, Som Tam for ฿60 — the real savings are in eating like a local", url: "/restaurants/cuisine/street_food" }}
+          b={{ id: "local-areas", label: "Staying off-tourist areas", emoji: "🏘️", desc: "Prices drop 30-50% once you leave Sukhumvit & Silom", url: "/local-tips" }}
+        />
+      </div>
 
       <FaqJsonLd faqs={BUDGET_FAQS} />
       <BreadcrumbJsonLd items={[

@@ -380,8 +380,34 @@ export default async function HomePage() {
 
         <FaqJsonLd faqs={HOME_FAQS} />
         <ItemListJsonLd
-          name="Top Thailand Golf Courses by Trust Score"
+          name="Best Golf Courses in Thailand — Top 20 by Trust Score"
           items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/course/${r.id}` }))}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: "Best Golf Courses in Thailand 2026",
+              description: "Thailand's trusted golf directory with 600+ courses ranked by real Google reviews — Bangkok, Pattaya, Hua Hin, Phuket, Chiang Mai.",
+              url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com",
+              breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [{
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: process.env.NEXT_PUBLIC_SITE_URL || "https://www.thailandgolfguide.com",
+                }],
+              },
+              about: {
+                "@type": "ItemList",
+                name: "Thailand Golf Courses",
+                description: "Complete directory of golf courses in Thailand ranked by Trust Score",
+              },
+            }),
+          }}
         />
       </div>
     </>

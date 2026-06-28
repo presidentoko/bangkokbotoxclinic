@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { NichePlace, KlookEntry } from "@/lib/niches";
+import { SaveButton } from "@/components/SaveButton";
 
 type Props = {
   places: NichePlace[];
@@ -123,7 +124,13 @@ export function NicheGrid({ places, klookData, nicheSlug, nicheIcon, PRICE_BAND_
               )}
 
               <div className="p-4 flex flex-col flex-1">
-                <h3 className="font-bold text-base leading-tight mb-1 line-clamp-2">{p.name}</h3>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <h3 className="font-bold text-base leading-tight line-clamp-2 flex-1">{p.name}</h3>
+                  <SaveButton
+                    size="sm"
+                    item={{ id: p.id, name: p.name, type: "activity", url: `/activities/${nicheSlug}/${p.slug}`, icon: nicheIcon }}
+                  />
+                </div>
                 <p className="text-xs text-[var(--muted)] mb-2 truncate">
                   {p.address ? p.address.split(",").slice(-3, -1).join(",").trim() : p.city}
                 </p>

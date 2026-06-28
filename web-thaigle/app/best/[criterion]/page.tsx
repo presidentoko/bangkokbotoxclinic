@@ -7,7 +7,19 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { isFood } from "@/lib/data";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { RatingLegend } from "@/components/RatingLegend";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokBestViewpoints } from "@/components/BangkokBestViewpoints";
+import { BangkokBudgetTravel } from "@/components/BangkokBudgetTravel";
+import { BangkokOmakase } from "@/components/BangkokOmakase";
+import { BangkokGlutenFree } from "@/components/BangkokGlutenFree";
+import { BangkokRooftopBars } from "@/components/BangkokRooftopBars";
+import { BangkokLiveMusic } from "@/components/BangkokLiveMusic";
 import type { Metadata } from "next";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export async function generateStaticParams() {
   return BEST_FOR.map((c) => ({ criterion: c.slug }));
@@ -52,7 +64,10 @@ export default async function BestForPage(
         <span>{cfg.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's /, "")}</span>
       </nav>
 
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{cfg.title}</h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{cfg.title}</h1>
+        <ShareButton title={`${cfg.title} in Bangkok 2026`} text={cfg.intro} url={`${SITE}/best/${criterion}`} line whatsapp />
+      </div>
       <p className="text-[var(--muted)] mb-2">{cfg.intro}</p>
       <p className="text-xs text-[var(--muted)] mb-8 italic">
         {filtered.length} restaurants matched. Refreshed continuously from public Google reviews.
@@ -95,6 +110,49 @@ export default async function BestForPage(
           </section>
         </>
       )}
+
+      <RatingLegend />
+      <BangkokTip />
+      {criterion === "great-view" && <BangkokBestViewpoints />}
+      {criterion === "affordable" && <BangkokBudgetTravel />}
+      {criterion === "fine-dining" && <BangkokOmakase />}
+      {criterion === "dietary-options" && <BangkokGlutenFree />}
+      {(criterion === "rooftop" || criterion === "sky-bar") && <BangkokRooftopBars />}
+      {criterion === "live-entertainment" && <BangkokLiveMusic />}
+
+      {/* Poll */}
+      <div className="mt-8 mb-4">
+        <VersusVote
+          question="How do you choose a restaurant in Bangkok?"
+          a={{ id: "trust-score-data", label: "Trust Score data", emoji: "📊", desc: "Verified Google reviewers, volume analysis — no hype", url: "/methodology" }}
+          b={{ id: "instagram-tiktok", label: "Instagram / TikTok", emoji: "📱", desc: "If it looks amazing online, worth a try — right?", url: "/restaurants/bangkok/instagram-famous-vs-actually-good" }}
+        />
+      </div>
+
+      {/* Quiz + Bingo CTAs */}
+      <div className="mt-8 grid sm:grid-cols-3 gap-3">
+        <a href="/quiz" className="flex items-center gap-3 p-4 rounded-2xl bg-orange-50 border border-orange-200 hover:border-orange-300 transition group">
+          <span className="text-2xl shrink-0">🎯</span>
+          <div>
+            <div className="font-bold text-sm group-hover:text-orange-700 transition">Take the Quiz</div>
+            <div className="text-xs text-[var(--muted)]">Personalized picks</div>
+          </div>
+        </a>
+        <a href="/for" className="flex items-center gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-200 hover:border-amber-300 transition group">
+          <span className="text-2xl shrink-0">✨</span>
+          <div>
+            <div className="font-bold text-sm group-hover:text-amber-700 transition">Perfect For...</div>
+            <div className="text-xs text-[var(--muted)]">Browse by occasion</div>
+          </div>
+        </a>
+        <a href="/bingo" className="flex items-center gap-3 p-4 rounded-2xl bg-green-50 border border-green-200 hover:border-green-300 transition group">
+          <span className="text-2xl shrink-0">🏆</span>
+          <div>
+            <div className="font-bold text-sm group-hover:text-green-700 transition">Bucket List Bingo</div>
+            <div className="text-xs text-[var(--muted)]">Tick what you&apos;ve done</div>
+          </div>
+        </a>
+      </div>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

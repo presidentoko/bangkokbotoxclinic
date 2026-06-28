@@ -32,9 +32,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "vegetarian-friendly",
     title: "Best Vegetarian-Friendly Restaurants in Bangkok",
-    metaTitle: "Best Vegetarian Restaurants in Bangkok — Verified Reviews",
+    metaTitle: "Best Vegetarian Restaurants in Bangkok 2026 — Verified Reviews",
     metaDescription:
-      "Bangkok restaurants with vegetarian and vegan options most often praised in reviews.",
+      "Bangkok restaurants with vegetarian and vegan options most praised in 2026 real Google reviews. No influencer picks.",
     intro:
       "Bangkok restaurants where reviewers explicitly mention vegetarian or vegan friendly menus. Includes dedicated vegetarian places + omnivore restaurants with strong veg options.",
     scoreFn: (r) => topicHits(r, "vegetarian_friendly") * 10 + r.trust_score,
@@ -43,9 +43,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "affordable",
     title: "Most Affordable Bangkok Restaurants",
-    metaTitle: "Affordable Bangkok Restaurants — Verified Reviews",
+    metaTitle: "Best Affordable Restaurants in Bangkok 2026 — Cheap Eats Ranked",
     metaDescription:
-      "Bangkok restaurants most often described as affordable, reasonably priced, or good value in real Google reviews.",
+      "Bangkok restaurants most often described as affordable, reasonably priced, or good value in real Google reviews 2026. Budget-friendly picks, no influencer bias.",
     intro:
       "Bangkok restaurants where reviewers most often use words like affordable, cheap, reasonable price, or good value.",
     scoreFn: (r) => topicHits(r, "affordable") * 8 + r.trust_score,
@@ -65,9 +65,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "instagrammable",
     title: "Most Instagrammable Bangkok Restaurants",
-    metaTitle: "Instagrammable Bangkok Restaurants — Best for Photos",
+    metaTitle: "Most Instagrammable Bangkok Restaurants 2026 — Best for Photos",
     metaDescription:
-      "Bangkok restaurants most often described as photo-worthy, Instagrammable, or with great views.",
+      "Bangkok restaurants most often described as photo-worthy, Instagrammable, or with great views in 2026 Google reviews. Ranked by photo mention count + Trust Score.",
     intro:
       "Bangkok restaurants reviewers love to photograph — Instagrammable interiors, plating, rooftop views.",
     scoreFn: (r) =>
@@ -83,9 +83,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "korean-friendly",
     title: "Bangkok Restaurants with Korean Menus",
-    metaTitle: "Korean-Friendly Bangkok Restaurants",
+    metaTitle: "Best Korean-Friendly Bangkok Restaurants 2026 — With Korean Menus",
     metaDescription:
-      "Bangkok restaurants where reviewers mention Korean menus, Korean staff, or Korean tourist popularity.",
+      "Bangkok restaurants with Korean menus, Korean-speaking staff, or popular with Korean tourists. Ranked by real Google reviews in 2026.",
     intro:
       "Bangkok restaurants frequently mentioned by Korean reviewers or with Korean-language menus. Popular with Korean tourists.",
     scoreFn: (r) => topicHits(r, "korean_friendly") * 12 + r.language_breakdown.other * 0.5 + r.trust_score,
@@ -94,9 +94,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "kid-friendly",
     title: "Family & Kid Friendly Bangkok Restaurants",
-    metaTitle: "Family Friendly Bangkok Restaurants",
+    metaTitle: "Best Family & Kid-Friendly Bangkok Restaurants 2026 — Verified",
     metaDescription:
-      "Bangkok restaurants with family-friendly atmosphere and good options for kids.",
+      "Bangkok restaurants with family-friendly atmosphere and good options for kids. Ranked by real Google reviews in 2026 — no influencer picks.",
     intro:
       "Bangkok restaurants where reviewers explicitly mention family-friendly atmosphere, kids menu, or being good with children.",
     scoreFn: (r) => topicHits(r, "kid_friendly") * 8 + r.trust_score,
@@ -105,9 +105,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "great-view",
     title: "Bangkok Restaurants with the Best Views",
-    metaTitle: "Bangkok Rooftop & View Restaurants",
+    metaTitle: "Best Bangkok Rooftop & View Restaurants 2026 — Ranked by Reviews",
     metaDescription:
-      "Bangkok restaurants with great views — rooftop dining, skyline, river view.",
+      "Bangkok rooftop restaurants with great views — skyline, river view. Ranked by real Google reviews in 2026. Sky Bar, Vertigo & verified hidden gems.",
     intro:
       "Bangkok restaurants with skyline, rooftop, or river views — top-mentioned in reviews.",
     scoreFn: (r) => topicHits(r, "good_view") * 10 + r.trust_score,
@@ -116,9 +116,9 @@ export const BEST_FOR: Criterion[] = [
   {
     slug: "highly-recommended",
     title: "Most Highly Recommended Bangkok Restaurants",
-    metaTitle: "Highly Recommended Bangkok Restaurants",
+    metaTitle: "Most Highly Recommended Bangkok Restaurants 2026 — Top Picks",
     metaDescription:
-      "Bangkok restaurants most explicitly praised as delicious, authentic, or recommend-worthy.",
+      "Bangkok restaurants most explicitly praised as delicious, authentic, or recommend-worthy in 2026 real Google reviews. No influencer bias — data-driven rankings.",
     intro:
       "Bangkok restaurants where reviewers consistently say authentic, delicious, or recommend coming back.",
     scoreFn: (r) =>

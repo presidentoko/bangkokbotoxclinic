@@ -1,5 +1,12 @@
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { RatingLegend } from "@/components/RatingLegend";
+import { TrustScoreExplainer } from "@/components/TrustScoreExplainer";
 import type { Metadata } from "next";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const metadata: Metadata = {
   title: "How Thaigle Detects Fake Reviews & Influencer Manipulation | Methodology",
@@ -39,7 +46,10 @@ export default function MethodologyPage() {
       ]} />
       <FaqJsonLd faqs={FAQS} />
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">How Thaigle Works</h1>
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <h1 className="text-3xl font-bold">How Thaigle Works</h1>
+          <ShareButton title="How Thaigle Detects Fake Reviews — Trust Score Methodology" text="Independent methodology for restaurant review authenticity in Bangkok" url={`${SITE}/methodology`} line whatsapp />
+        </div>
         <p className="text-[var(--muted)] mb-8">
           Independent methodology for detecting fake reviews and influencer manipulation in Thailand restaurant rankings.
         </p>
@@ -78,6 +88,32 @@ export default function MethodologyPage() {
             ))}
           </div>
         </section>
+
+        <TrustScoreExplainer />
+        <RatingLegend />
+        <BangkokTip />
+
+        {/* Poll */}
+        <div className="mt-8 mb-4">
+          <VersusVote
+            question="When you pick a Bangkok restaurant — what do you trust most?"
+            a={{ id: "star-rating", label: "Star rating alone", emoji: "⭐", desc: "Google 4.5+ is enough — high rating = good restaurant", url: "/trending" }}
+            b={{ id: "trust-score", label: "Trust Score methodology", emoji: "📊", desc: "Reviewer credibility, fake review filtering, trend analysis", url: "/trending", highlight: "Thaigle approach" }}
+          />
+        </div>
+
+        {/* CTA links */}
+        <div className="flex flex-wrap gap-3">
+          <a href="/trending" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500 text-white font-bold text-sm hover:bg-orange-600 transition">
+            See top ranked venues →
+          </a>
+          <a href="/quiz" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-300 text-orange-700 font-bold text-sm hover:bg-orange-50 transition">
+            🎯 Take the Bangkok Quiz
+          </a>
+          <a href="/local-tips" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-[var(--muted)] text-sm hover:border-orange-300 hover:text-orange-700 transition">
+            🗺️ Local insider tips
+          </a>
+        </div>
       </div>
     </>
   );

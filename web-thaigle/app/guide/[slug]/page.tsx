@@ -7,6 +7,21 @@ import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { loadNicheDb, topNichePlaces, buildKlookIndex, NICHES } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
+import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { DontMiss } from "@/components/DontMiss";
+import { NearbyThings } from "@/components/NearbyThings";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { ThaiWordOfDay } from "@/components/ThaiWordOfDay";
+import { InstagramSpots } from "@/components/InstagramSpots";
+import { BangkokDessertGuide } from "@/components/BangkokDessertGuide";
+import { BangkokCraftBeer } from "@/components/BangkokCraftBeer";
+import { BangkokVintageShops } from "@/components/BangkokVintageShops";
+import { BangkokKlongTour } from "@/components/BangkokKlongTour";
+import { BangkokCabaret } from "@/components/BangkokCabaret";
+import { BangkokCraftsWorkshops } from "@/components/BangkokCraftsWorkshops";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -51,6 +66,7 @@ export default async function GuidePage(
   const nichePlaces = g.nicheSlug ? await loadNicheDb(g.nicheSlug as NicheSlug).then(db => topNichePlaces(db.places, 5)) : [];
   const nicheKlook = nichePlaces.length > 0 ? await buildKlookIndex(nichePlaces.map(p => p.id)) : new Map();
 
+  const brand = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -58,9 +74,20 @@ export default async function GuidePage(
     description: g.metaDescription,
     datePublished: g.updated,
     dateModified: g.updated,
-    publisher: { "@type": "Organization", name: "SNS Stopper", url: SITE },
-    author: { "@type": "Organization", name: "SNS Stopper Editorial" },
+    image: `${SITE}/opengraph-image`,
+    publisher: {
+      "@type": "Organization",
+      name: brand,
+      url: SITE,
+      logo: { "@type": "ImageObject", url: `${SITE}/icon`, width: 512, height: 512 },
+    },
+    author: { "@type": "Organization", name: `${brand} Editorial`, url: SITE },
     mainEntityOfPage: `${SITE}/guide/${g.slug}`,
+    about: {
+      "@type": "Thing",
+      name: "Bangkok Activities and Restaurants",
+      description: "Activities, restaurants, and experiences in Bangkok, Thailand",
+    },
   };
 
   return (
@@ -74,9 +101,19 @@ export default async function GuidePage(
       </nav>
 
       <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-balance">
-          {g.title}
-        </h1>
+        <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-balance">
+            {g.title}
+          </h1>
+          <ShareButton
+            title={g.metaTitle}
+            text={g.metaDescription}
+            url={`${SITE}/guide/${g.slug}`}
+            whatsapp
+            line
+            facebook
+          />
+        </div>
         <p className="text-base text-[var(--muted)] leading-relaxed">{g.intro}</p>
         <p className="text-xs text-[var(--muted)] mt-3 italic">
           Updated {g.updated} · Editorial · Independent of any restaurant
@@ -202,6 +239,33 @@ export default async function GuidePage(
           </div>
         </section>
       )}
+
+      <DontMiss />
+      <SeasonalTip />
+      <ThaiWordOfDay />
+      <InstagramSpots />
+      <NearbyThings context="general" />
+      <BangkokDessertGuide />
+      <BangkokCraftBeer />
+      <BangkokVintageShops />
+      <BangkokKlongTour />
+      <BangkokCabaret />
+      <BangkokCraftsWorkshops />
+
+      {/* Daily Challenge */}
+      <BangkokChallenge />
+
+      {/* Daily Tip */}
+      <BangkokTip />
+
+      {/* Poll */}
+      <div className="mt-4">
+        <VersusVote
+          question="When you're visiting Bangkok — how do you plan?"
+          a={{ id: "research-data", label: "Research with data", emoji: "📊", desc: "Trust Score, reviews, rankings — let the numbers guide you", url: "/trending" }}
+          b={{ id: "go-with-flow", label: "Explore & discover", emoji: "🗺️", desc: "Wander the streets, follow your nose — no plan, no regrets", url: "/activities/surprise-me" }}
+        />
+      </div>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

@@ -12,15 +12,47 @@ import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
 import { NICHES, loadNicheDb } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
+import { SurpriseMe } from "@/components/SurpriseMe";
+import type { SurpriseVenue } from "@/components/SurpriseMe";
+import { BangkokTip } from "@/components/BangkokTip";
+import { ThaiPhrase } from "@/components/ThaiPhrase";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { VersusVote } from "@/components/VersusVote";
+import { OCCASION_NAV } from "@/lib/occasions";
+import { BangkokBingo } from "@/components/BangkokBingo";
+import { LiveCount } from "@/components/LiveCount";
+import { WeatherWidget } from "@/components/WeatherWidget";
+import { PriceCompare } from "@/components/PriceCompare";
+import { DontMiss } from "@/components/DontMiss";
+import { CuisineMatch } from "@/components/CuisineMatch";
+import { FoodPairing } from "@/components/FoodPairing";
+import { ActivityFinder } from "@/components/ActivityFinder";
+import { TripType } from "@/components/TripType";
+import { OpenNow } from "@/components/OpenNow";
+import { HighlightReel } from "@/components/HighlightReel";
+import { BangkokFacts } from "@/components/BangkokFacts";
+import { RecentlyViewedHome } from "@/components/RecentlyViewedHome";
+import { SavedListHome } from "@/components/SaveButton";
+import { BangkokStats } from "@/components/BangkokStats";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { PublicTransitGuide } from "@/components/PublicTransitGuide";
+import { TopSearched } from "@/components/TopSearched";
+import { BangkokCountdown } from "@/components/BangkokCountdown";
+import { QuizTeaser } from "@/components/QuizTeaser";
+import { ThaiWordOfDay } from "@/components/ThaiWordOfDay";
+import { HiddenGemPicker } from "@/components/HiddenGemPicker";
+import { BangkokMonthlyCalendar } from "@/components/BangkokMonthlyCalendar";
+import { KlookTopDeals } from "@/components/KlookTopDeals";
+import { BangkokNeighborhoodProfile } from "@/components/BangkokNeighborhoodProfile";
 
 export const dynamic = "force-static";
 
-const OG_TITLE = "Thaigle — Bangkok Activities & Restaurants Ranked by Real Reviews";
+const OG_TITLE = "Thaigle — Bangkok Activities & Restaurants Ranked by Real Reviews (2026)";
 
 export const metadata: Metadata = {
   title: OG_TITLE,
   description:
-    "Bangkok's most trusted activity and restaurant directory. Muay Thai gyms, spas, yoga studios, cooking classes ranked by real Google reviews — no influencer picks, no paid placements.",
+    "Bangkok's most trusted directory for 2026: 3,200+ restaurants, Muay Thai gyms, spas, yoga studios & cooking classes ranked by real Google reviews. No influencer picks. No paid placements.",
   alternates: {
     canonical: "https://www.thaigle.com/",
     languages: {
@@ -36,26 +68,59 @@ export const metadata: Metadata = {
   openGraph: {
     title: OG_TITLE,
     description:
-      "Bangkok activity venues + restaurants ranked by real Google reviews. Muay Thai, spas, yoga, cooking classes — no paid rankings.",
+      "Bangkok 2026: 3,200+ restaurants & activity venues ranked by real Google reviews. Muay Thai, spas, yoga, cooking classes — no paid rankings, no influencer picks.",
     url: "https://www.thaigle.com/",
   },
   twitter: {
     title: OG_TITLE,
     description:
-      "Bangkok activity venues + restaurants ranked by real Google reviews. No influencer picks, no paid placements.",
+      "Bangkok 2026: 3,200+ restaurants & activities ranked by real Google reviews. No influencer picks, no paid placements.",
   },
 };
 
 export default async function HomePage() {
-  const [db, slugMap, nicheCounts] = await Promise.all([
+  const [db, slugMap, nicheCounts, nicheTopPlaces] = await Promise.all([
     loadMasterDb(),
     getSlugMap(),
     Promise.all(NICHES.map(async (n) => {
       const nd = await loadNicheDb(n.slug as NicheSlug);
       return { slug: n.slug, label: n.label, icon: n.icon, total: nd.total };
     })),
+    Promise.all(NICHES.map(async (n) => {
+      const { topNichePlaces } = await import("@/lib/niches");
+      const nd = await loadNicheDb(n.slug as NicheSlug);
+      return { slug: n.slug, label: n.label, icon: n.icon, top: topNichePlaces(nd.places, 8) };
+    })),
   ]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));
+
+  // Build SurpriseMe venue pool
+  const surpriseVenues: SurpriseVenue[] = [
+    ...top.slice(0, 30).map((r) => ({
+      name: r.name,
+      url: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }),
+      type: "restaurant" as const,
+      rating: r.rating,
+      reviews: r.total_reviews,
+      tag: CUISINE_LABELS[r.cuisines[0]] ?? "Restaurant",
+      trust: r.trust_score,
+      location: r.district || r.city_label,
+      emoji: CUISINE_ICONS[r.cuisines[0]] ?? "🍽️",
+    })),
+    ...nicheTopPlaces.flatMap((n) =>
+      n.top.map((p) => ({
+        name: p.name,
+        url: `/activities/${n.slug}/${p.slug}`,
+        type: "activity" as const,
+        rating: p.rating ?? 4.5,
+        reviews: p.review_count ?? 0,
+        tag: n.label,
+        trust: p.trust_score,
+        location: p.address?.split(",")[0] ?? "Bangkok",
+        emoji: n.icon,
+      }))
+    ),
+  ];
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
   const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
@@ -145,6 +210,32 @@ export default async function HomePage() {
             popularLabel="Try"
           />
         </div>
+        <div className="flex justify-center mt-4 mb-2">
+          <LiveCount />
+        </div>
+        <OpenNow />
+        <QuizTeaser />
+      </section>
+
+      {/* QUIZ + SURPRISE ME STRIP */}
+      <section className="border-b border-[var(--border)] bg-white">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center gap-3">
+          <a href="/quiz" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-orange-300 bg-orange-50 text-orange-800 font-bold text-sm hover:bg-orange-100 hover:border-orange-500 transition">
+            🎯 What Bangkok traveler are you?
+          </a>
+          <span className="text-[var(--muted)] text-xs hidden sm:block">·</span>
+          <a href="/bingo" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-200 bg-green-50 text-green-800 font-bold text-sm hover:bg-green-100 transition">
+            🏆 Bangkok Bucket List
+          </a>
+          <span className="text-[var(--muted)] text-xs hidden md:block">·</span>
+          <a href="/for" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-white font-medium text-sm hover:border-orange-400 hover:text-orange-700 transition hidden md:inline-flex">
+            💑 Date night · 🌆 Views · 💸 Budget →
+          </a>
+          <span className="text-[var(--muted)] text-xs hidden lg:block">·</span>
+          <a href="/local-tips" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-white font-medium text-sm hover:border-blue-400 hover:text-blue-700 transition hidden lg:inline-flex">
+            🗺️ Local insider tips →
+          </a>
+        </div>
       </section>
 
       {/* MEGA STATS BAR — visual numbers */}
@@ -163,6 +254,84 @@ export default async function HomePage() {
           const hero = top.find((r) => sponsoredTier(r.id));
           return hero ? <SponsoredHero r={hero} slugMap={slugMap} /> : null;
         })()}
+
+        {/* TRENDING THIS WEEK teaser */}
+        <section className="mb-8 -mx-4 px-4 py-4 bg-gradient-to-r from-orange-600/5 via-amber-600/5 to-transparent border-b border-orange-100">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-widest text-orange-700">Live</span>
+              <span className="font-bold">Trending in Bangkok today</span>
+              <span className="text-sm text-[var(--muted)]">— {db.generated_at.split("T")[0]}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex gap-2 flex-wrap">
+                {top.slice(0, 3).map((r) => (
+                  <a key={r.id} href={restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })}
+                    className="text-xs px-2.5 py-1 rounded-full bg-white border border-[var(--border)] hover:border-orange-400 hover:text-orange-700 transition font-medium truncate max-w-[120px]">
+                    {r.name}
+                  </a>
+                ))}
+              </div>
+              <a href="/trending" className="text-xs font-bold text-orange-600 hover:underline whitespace-nowrap">See all →</a>
+            </div>
+          </div>
+        </section>
+
+        {/* PERFECT FOR — occasion browsing */}
+        <section className="mb-10">
+          <div className="flex items-baseline justify-between gap-4 mb-4">
+            <div>
+              <h2 className="text-xl md:text-2xl font-black tracking-tight">Perfect for...</h2>
+              <p className="text-sm text-[var(--muted)] mt-0.5">Find the right place for your situation</p>
+            </div>
+            <a href="/for" className="text-sm font-bold hover:text-orange-600 hover:underline">All occasions →</a>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+            {OCCASION_NAV.slice(0, 8).map((o) => (
+              <a
+                key={o.slug}
+                href={`/for/${o.slug}`}
+                className="group flex items-center gap-2 p-3 rounded-xl border border-[var(--border)] bg-white hover:border-orange-300 hover:shadow-md hover:bg-orange-50 transition"
+              >
+                <span className="text-xl">{o.emoji}</span>
+                <span className="font-medium text-sm group-hover:text-orange-700 transition leading-tight">{o.label}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* WEATHER WIDGET */}
+        <WeatherWidget />
+        <SeasonalTip />
+        <TripType />
+
+        {/* DON'T MISS */}
+        <BangkokFacts />
+        <HighlightReel />
+        <DontMiss />
+        <ActivityFinder />
+        <CuisineMatch />
+        <FoodPairing />
+
+        {/* DAILY CHALLENGE */}
+        <BangkokChallenge />
+
+        {/* DAILY GEM + THAI PHRASE */}
+        <HiddenGemPicker />
+        <ThaiWordOfDay />
+        <ThaiPhrase />
+
+        {/* TRANSIT GUIDE */}
+        <PublicTransitGuide />
+
+        {/* DAILY TIP */}
+        <BangkokTip />
+
+        {/* SURPRISE ME */}
+        <section className="mb-12">
+          <SurpriseMe venues={surpriseVenues} />
+        </section>
 
         {/* MANIFESTO — why this exists */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
@@ -383,6 +552,40 @@ export default async function HomePage() {
         )}
 
         <AdSlot slot="home-mid" />
+
+        <KlookTopDeals />
+        <TopSearched />
+        <BangkokMonthlyCalendar />
+        <BangkokNeighborhoodProfile />
+        <BangkokCountdown />
+
+        {/* PERSONAL STATS (client-side, localStorage) */}
+        <BangkokStats />
+
+        {/* RECENTLY VIEWED (client-side, localStorage) */}
+        <RecentlyViewedHome />
+
+        {/* SAVED WISHLIST (client-side, localStorage) */}
+        <SavedListHome />
+
+        {/* PRICE COMPARE */}
+        <section className="mb-12">
+          <PriceCompare />
+        </section>
+
+        {/* BUCKET LIST BINGO */}
+        <section className="mb-12">
+          <BangkokBingo />
+        </section>
+
+        {/* QUICK POLL */}
+        <div className="mb-12">
+          <VersusVote
+            question="Bangkok trip — what's your bigger priority?"
+            a={{ id: "food", label: "Eating", emoji: "🌶️", desc: "World-class Thai food at street prices — the real reason to visit", url: "/restaurants/cuisine/thai", highlight: "Most popular" }}
+            b={{ id: "activities", label: "Experiences", emoji: "🥊", desc: "Muay Thai, Thai massage, cooking class — doing > eating", url: "/activities" }}
+          />
+        </div>
 
         {/* TOP 50 LIST */}
         <section>

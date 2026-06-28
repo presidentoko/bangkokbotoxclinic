@@ -26,12 +26,12 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { name } = await params;
   const db = await loadMasterDb();
-  const display =
-    Object.keys(db.city_counts).find((k) => citySlug(k) === name) ??
-    name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const displayKey = Object.keys(db.city_counts).find((k) => citySlug(k) === name);
+  const display = displayKey ?? name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const count = displayKey ? db.city_counts[displayKey] : 0;
   return {
-    title: `${display} Golf Courses — Verified Reviews & Trust Scores`,
-    description: `All ${display} golf courses, country clubs, and driving ranges ranked by Trust Score from real Google reviews. Caddy quality, course conditions, English/Korean support — verified.`,
+    title: `Best Golf Courses in ${display} 2026${count ? ` — ${count} Ranked` : ""} | Thailand Golf Guide`,
+    description: `The best ${display} golf courses ranked by Trust Score from real Google reviews. Compare caddy quality, green fees & conditions — country clubs, driving ranges & resorts verified.`,
     alternates: { canonical: `/city/${name}` },
   };
 }

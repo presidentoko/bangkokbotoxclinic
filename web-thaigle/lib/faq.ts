@@ -55,23 +55,47 @@ export const CUISINE_FAQS: Record<string, Faq[]> = {
 
 export const HOME_FAQS: Faq[] = [
   {
+    q: "What are the best things to do in Bangkok in 2026?",
+    a: "Bangkok's top activities in 2026 include: Muay Thai training at local gyms (฿300–฿800/session), Thai massage and spa treatments (from ฿200/hour), Thai cooking classes with market visits (฿800–฿1,800), yoga and Pilates studios (from ฿400/class), and rooftop dining with skyline views. For first-time visitors, combine a half-day cooking class with an evening Muay Thai session and a traditional Thai massage. All ranked on Thaigle by real Google reviews — no paid rankings.",
+  },
+  {
+    q: "What is Bangkok famous for in terms of food?",
+    a: "Bangkok is globally famous for Thai street food, particularly Pad Thai, Tom Yum, Pad Kra Pao (basil stir-fry), Khao Mun Gai (chicken rice), and Mango Sticky Rice. The city also has exceptional Japanese, Korean, Italian, and Chinese restaurant scenes driven by a large expat community. Bangkok's Yaowarat (Chinatown) is one of Asia's best street food districts. Trust Scores on this site help identify the most credible restaurants vs. tourist traps.",
+  },
+  {
+    q: "How much does a Thai massage cost in Bangkok?",
+    a: "A 1-hour traditional Thai massage costs ฿200–฿400 at street-level shops, ฿500–฿1,200 at mid-range spas, and ฿1,500–฿3,000+ at luxury hotel spas. Foot massage (1 hour) is typically ฿200–฿300. Always tip 50–100 baht for good service at budget spas. Tourist-area spas (Khao San Road, Silom walking street) charge 50–100% more for similar quality.",
+  },
+  {
+    q: "Can tourists do Muay Thai training in Bangkok?",
+    a: "Yes — Bangkok has over 381 Muay Thai gyms, many welcoming tourists daily. A typical 90-minute beginner session (฿300–฿800) covers pad work, bag work, and basic technique drills with an English-speaking trainer. No experience needed. Look for gyms marked 'Beginner Friendly' on Thaigle. For a one-off experience, Klook-bookable gyms (฿600–฿1,200) include equipment. For serious training, book a training camp with morning and afternoon sessions.",
+  },
+  {
+    q: "What cooking classes are available in Bangkok for tourists?",
+    a: "Bangkok has 296+ ranked cooking schools. Most offer half-day classes (3–4 hours, ฿800–฿1,800) teaching 3–5 Thai dishes — Pad Thai, Tom Yum, Green Curry, and Mango Sticky Rice are standard. Full-day classes (฿1,500–฿3,500) add a market tour at Or Tor Kor or a local wet market. Private classes for 1–2 people run ฿2,500–฿6,000. Most schools accommodate vegetarians with advance notice. Classes can be booked directly or via Klook.",
+  },
+  {
+    q: "What are the best areas to eat in Bangkok?",
+    a: "Sukhumvit (Soi 1–55): Largest concentration of international restaurants, Japanese, Korean, and upscale Thai. Yaowarat (Chinatown): Best street food, especially at night — noodle soup, seafood, dim sum. Silom / Bang Rak: Mix of budget Thai and fine dining, excellent rooftop bars. Ari: Neighborhood cafés, local-facing Thai restaurants, excellent value. Chatuchak: Or Tor Kor Market (premium Thai produce) and weekend street food. Thong Lor / Ekkamai: Trendy restaurants, brunch spots, upscale Asian cuisine.",
+  },
+  {
+    q: "Is there yoga in Bangkok? What do yoga studios cost?",
+    a: "Bangkok has 284+ yoga and Pilates studios, particularly in Thong Lor, Ari, and Sukhumvit. Drop-in classes cost ฿400–฿800. A 7-day tourist intro pass (unlimited classes) is ฿800–฿1,500 — best value for short stays. Monthly memberships range from ฿2,500–฿8,000. Hot yoga is extremely popular in Bangkok. Reformer Pilates (฿600–฿1,200/session) has grown rapidly in 2024–2026. Most studios teach in English.",
+  },
+  {
+    q: "What cheap activities can tourists do in Bangkok?",
+    a: "Bangkok has excellent low-cost activities: street food at local markets (฿40–฿150/dish), traditional Thai massage (from ฿200/hour), temple visits (most free), Chatuchak Weekend Market (free entry), BTS SkyTrain to explore neighborhoods (฿16–฿59/trip), Or Tor Kor Market food tasting (under ฿200), Muay Thai training (from ฿300/session drop-in), and yoga classes (from ฿400). A full day of activities including food, massage, and transport typically costs under ฿1,000.",
+  },
+  {
     q: "How is the Trust Score calculated?",
     a: "Trust Score (0-100) is built from four components: Google star rating (max 50 pts), review volume on a log scale (max 40 pts), Local Guide reviewer ratio (max 10 pts), and reviewer authority (max 5 pts). Raw score is capped at 100. Updated every 30 minutes from public Google Maps data — not a Google ranking.",
   },
   {
-    q: "Are these listings sponsored?",
-    a: "Organic listings are never paid. Some restaurants buy clearly-labelled Editor's Pick / Recommended / Featured slots, but we never delete or downrank organic listings. Sponsored slots appear above organic results with explicit badges.",
+    q: "Are the listings on Thaigle sponsored?",
+    a: "Organic listings are never paid. Some restaurants and venues buy clearly-labelled Editor's Pick / Recommended / Featured slots, but organic rankings are never altered for payment. Sponsored slots appear above organic results with explicit badges.",
   },
   {
-    q: "How fresh is this data?",
-    a: "Listings and Trust Scores rebuild approximately every 30 minutes from continuous Google Maps scraping. Sample reviews shown on each restaurant page are real, recent excerpts from public Google reviews.",
-  },
-  {
-    q: "Can I trust the reviews shown here?",
-    a: "All reviews are sourced directly from Google Maps. We don't filter, edit, or selectively show reviews — sample reviews are picked by length and rating only, with full attribution. Local Guide counts indicate how many reviewers are Google-verified high-credibility users.",
-  },
-  {
-    q: "Why no booking integration?",
-    a: "Bangkok restaurants typically take walk-ins or use direct LINE/phone bookings. We focus on giving you accurate, current information — view on Google Maps for directions, or call directly. Some restaurants offer their own online booking via the website link on their detail page.",
+    q: "How current is the Bangkok restaurant and activity data?",
+    a: "Listings and Trust Scores rebuild approximately every 30 minutes from continuous Google Maps data. Sample reviews on each page are real, recent excerpts from public Google reviews. Data freshness is shown on each listing page.",
   },
 ];

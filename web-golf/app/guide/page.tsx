@@ -3,9 +3,9 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Thailand Golf Guides — Booking, Green Fees, Caddy Tipping",
+  title: "Thailand Golf Travel Guides 2026 — Complete Planning Handbook",
   description:
-    "Practical guides to golfing in Thailand: booking, green fees, caddy tipping, Korean tour scene, dress code, regional comparison.",
+    "Complete Thailand golf travel guides: booking tee times, green fees, caddy tipping, best time to visit, Bangkok vs Pattaya, dress code — everything you need to plan your trip.",
   alternates: {
     canonical: "/guide",
     languages: { "x-default": "/guide", "en-US": "/guide", "ko-KR": "/ko/guide", "th-TH": "/th/guide" },

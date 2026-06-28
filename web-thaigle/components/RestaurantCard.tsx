@@ -6,6 +6,7 @@ import { sponsoredTier } from "@/lib/sponsored";
 import type { SlugMap } from "@/lib/restaurants";
 import { restaurantUrl } from "@/lib/restaurants";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
+import { SaveButton } from "@/components/SaveButton";
 
 function normalizePriceSymbol(s: string): string {
   if (!s) return "";
@@ -75,13 +76,14 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
               {r.primary_type}
             </p>
           </div>
-          <div className="text-right shrink-0">
+          <div className="text-right shrink-0 flex flex-col items-end gap-1">
             <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">
               ★ {r.rating.toFixed(1)}
             </div>
-            <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
+            <div className="text-xs text-[var(--muted)] tabular-nums">
               {r.total_reviews.toLocaleString()} reviews
             </div>
+            <SaveButton size="sm" item={{ id: r.id, name: r.name, type: "restaurant", url: href }} />
           </div>
         </div>
 

@@ -16,13 +16,33 @@ function tag(data: object) {
 }
 
 export function OrgJsonLd() {
+  const brand = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
   return tag({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: process.env.NEXT_PUBLIC_BRAND || "Thaigle",
+    name: brand,
     url: SITE,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE}/icon`,
+      width: 512,
+      height: 512,
+    },
     description:
       "Independent Bangkok activity and restaurant directory ranked by real Google reviews — no influencer picks, no paid placements.",
+    areaServed: {
+      "@type": "Country",
+      name: "Thailand",
+    },
+    knowsAbout: [
+      "Bangkok restaurants",
+      "Muay Thai gyms Bangkok",
+      "Thai massage and spas",
+      "Bangkok cooking classes",
+      "Yoga studios Bangkok",
+      "Coworking spaces Bangkok",
+      "Diving near Bangkok",
+    ],
   });
 }
 
@@ -199,6 +219,107 @@ export function LocalBusinessJsonLd({ name, address, phone, website, rating, rev
   if (website) data.sameAs = [website];
   if (imageUrl) data.image = imageUrl;
   if (category) data.description = category;
+  if (rating && reviewCount) {
+    data.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: rating,
+      reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    };
+  }
+  return tag(data);
+}
+
+export function TouristAttractionJsonLd({ name, description, url, items }: {
+  name: string;
+  description: string;
+  url: string;
+  items: { name: string; url: string; rating?: number | null; reviewCount?: number | null; address?: string }[];
+}) {
+  const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    name,
+    description,
+    url: fullUrl,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Bangkok",
+      addressCountry: "TH",
+    },
+    touristType: ["Travelers", "Tourists", "Expats"],
+    isAccessibleForFree: false,
+    containsPlace: items.slice(0, 10).map((it) => ({
+      "@type": "LocalBusiness",
+      name: it.name,
+      url: it.url.startsWith("http") ? it.url : `${SITE}${it.url}`,
+      ...(it.address ? { address: { "@type": "PostalAddress", streetAddress: it.address, addressCountry: "TH" } } : {}),
+      ...(it.rating && it.reviewCount ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: it.rating,
+          reviewCount: it.reviewCount,
+          bestRating: 5,
+          worstRating: 1,
+        }
+      } : {}),
+    })),
+  });
+}
+
+export function SpeakableJsonLd({ url, cssSelectors }: { url: string; cssSelectors: string[] }) {
+  const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    url: fullUrl,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: cssSelectors,
+    },
+  });
+}
+
+export function ActivityServiceJsonLd({ name, description, url, category, priceMin, priceMax, rating, reviewCount }: {
+  name: string;
+  description: string;
+  url: string;
+  category: string;
+  priceMin?: number;
+  priceMax?: number;
+  rating?: number;
+  reviewCount?: number;
+}) {
+  const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    url: fullUrl,
+    serviceType: category,
+    areaServed: {
+      "@type": "City",
+      name: "Bangkok",
+      containedIn: { "@type": "Country", name: "Thailand" },
+    },
+    provider: {
+      "@type": "Organization",
+      name: process.env.NEXT_PUBLIC_BRAND || "Thaigle",
+      url: SITE,
+    },
+  };
+  if (priceMin && priceMax) {
+    data.offers = {
+      "@type": "AggregateOffer",
+      lowPrice: priceMin,
+      highPrice: priceMax,
+      priceCurrency: "THB",
+      offerCount: reviewCount || undefined,
+    };
+  }
   if (rating && reviewCount) {
     data.aggregateRating = {
       "@type": "AggregateRating",

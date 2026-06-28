@@ -14,10 +14,10 @@ export function getSiteConfig(): SiteConfig {
   return {
     brand,
     domain,
-    title: `${brand} — Thailand's Real Review Directory`,
+    title: `${brand} — Bangkok Restaurants & Activities Ranked by Real Reviews (2026)`,
     description:
-      "Find the best restaurants, spas, and experiences in Thailand. Real Google reviews, Trust Scores, no influencer rankings.",
-    hero: "Thailand's real review directory.",
+      "Bangkok's most trusted directory: 3,200+ restaurants, Muay Thai gyms, spas & cooking classes ranked by real Google reviews. No influencer picks. No paid rankings. Updated daily.",
+    hero: "Bangkok's real review directory.",
     heroSub:
       "3,200+ Bangkok & Pattaya restaurants ranked by Trust Score from verified Google reviews. No influencers. No paid rankings.",
     themeAccent: "#f97316",

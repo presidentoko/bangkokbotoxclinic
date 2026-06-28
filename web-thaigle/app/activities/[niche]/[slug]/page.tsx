@@ -11,6 +11,10 @@ import {
 import type { NicheSlug } from "@/lib/niches";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
 import { ShareButton } from "@/components/ShareButton";
+import { VersusVote } from "@/components/VersusVote";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { SaveButton } from "@/components/SaveButton";
 import { ViewTracker } from "@/components/ViewTracker";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import type { PlanItemType } from "@/lib/planner";
@@ -23,6 +27,13 @@ import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { TrustScoreBadge } from "@/components/TrustScoreBadge";
 import { getDayPlansForVenue } from "@/lib/venue-day-plans";
 import { ReportButton } from "@/components/ReportButton";
+import { VenueStamp } from "@/components/VenueStamp";
+import { PopularTimes } from "@/components/PopularTimes";
+import { CrowdRating } from "@/components/CrowdRating";
+import { PhotoHints } from "@/components/PhotoHints";
+import { KlookBanner } from "@/components/KlookBanner";
+import { NearbyThings } from "@/components/NearbyThings";
+import { SeasonalTip } from "@/components/SeasonalTip";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -52,13 +63,17 @@ export async function generateMetadata({
   const place = findBySlug(db.places, slug);
   if (!place) return {};
 
+  const cityLabel = place.city ? place.city.charAt(0).toUpperCase() + place.city.slice(1) : "Bangkok";
+  const priceStr = place.price_min_thb > 0 ? ` From ฿${place.price_min_thb.toLocaleString()}.` : "";
+  const trustLabel = place.trust_score >= 80 ? "Highly trusted" : place.trust_score >= 60 ? "Trusted" : "Verified";
   return {
-    title: `${place.name} — ${info.label} in ${place.city}`,
-    description: `${place.name} in ${place.city}: ★${place.rating?.toFixed(1) ?? "N/A"} · ${(place.review_count ?? 0).toLocaleString()} Google reviews · ${place.category || info.label}. ${place.top_review_text?.slice(0, 100) ?? ""}`,
+    title: `${place.name} — ${info.label} in ${cityLabel} | ★${place.rating?.toFixed(1) ?? "N/A"} (${(place.review_count ?? 0).toLocaleString()} Reviews)`,
+    description: `${place.name}: ${info.label} in ${cityLabel}. ★${place.rating?.toFixed(1) ?? "N/A"} from ${(place.review_count ?? 0).toLocaleString()} Google reviews. Trust Score ${place.trust_score} (${trustLabel}).${priceStr} Book on Klook or visit directly.`,
+    alternates: { canonical: `/activities/${niche}/${slug}` },
     openGraph: {
-      title: `${place.name} · ${info.label} Bangkok`,
-      description: `★${place.rating?.toFixed(1) ?? "N/A"} · ${(place.review_count ?? 0).toLocaleString()} reviews · Trust Score ${place.trust_score}`,
-      images: place.top_photo_url ? [{ url: place.top_photo_url }] : [],
+      title: `${place.name} — ${info.label} Bangkok`,
+      description: `★${place.rating?.toFixed(1) ?? "N/A"} · ${(place.review_count ?? 0).toLocaleString()} reviews · Trust Score ${place.trust_score}${priceStr}`,
+      images: place.top_photo_url ? [{ url: place.top_photo_url, alt: `${place.name} — ${info.label} in Bangkok` }] : [],
     },
   };
 }
@@ -138,7 +153,10 @@ export default async function PlaceDetailPage({
           <h1 className="text-2xl md:text-3xl font-black tracking-tight">{place.name}</h1>
           <p className="text-sm text-[var(--muted)] mt-1">{place.address || place.city}</p>
         </div>
-        <ShareButton title={place.name} text={`${place.name} — ${info.label} in Bangkok`} url={pageUrl} kakao line whatsapp />
+        <div className="flex items-center gap-2 shrink-0">
+          <SaveButton item={{ id: place.id, name: place.name, type: "activity", url: `/activities/${niche}/${slug}`, icon: info.icon }} />
+          <ShareButton title={place.name} text={`${place.name} — ${info.label} in Bangkok`} url={pageUrl} kakao line whatsapp />
+        </div>
       </div>
 
       {/* Trust score + stats bar */}
@@ -159,6 +177,20 @@ export default async function PlaceDetailPage({
           </div>
         </div>
       </div>
+
+      <SeasonalTip />
+      <PopularTimes type={niche === "spa" ? "spa" : niche === "muay-thai" || niche === "yoga-pilates" ? "gym" : "restaurant"} />
+      <CrowdRating itemId={place.id} label={place.name} />
+      <PhotoHints niche={niche} />
+      <NearbyThings context="activity" />
+      <KlookBanner variant={
+        niche === "muay-thai" ? "muay-thai" :
+        niche === "cooking" ? "cooking" :
+        niche === "spa" ? "spa" :
+        niche === "diving" ? "diving" :
+        niche === "yoga-pilates" ? "yoga" :
+        "general"
+      } />
 
       {/* Feature badges */}
       <div className="flex flex-wrap gap-2 mb-5">
@@ -211,7 +243,7 @@ export default async function PlaceDetailPage({
       {/* Review samples */}
       {place.reviews_sample && place.reviews_sample.length > 0 && (
         <section className="mb-6">
-          <h2 className="font-black text-lg mb-3">What people say</h2>
+          <h2 className="font-black text-lg mb-3">What Google reviewers say about {place.name}</h2>
           <div className="space-y-3">
             {place.reviews_sample.slice(0, 3).map((r, i) => (
               <div key={i} className="bg-white border border-[var(--border)] rounded-xl p-4">
@@ -321,11 +353,36 @@ export default async function PlaceDetailPage({
         </section>
       )}
 
+      {/* Daily Challenge + Tip */}
+      <BangkokChallenge />
+      <BangkokTip />
+
+      {/* Quick Poll */}
+      <div className="mb-4">
+        <VersusVote
+          question="First time visiting this type of venue in Bangkok?"
+          a={{ id: "first-time", label: "Yes, first time!", emoji: "🌟", desc: "Bangkok is incredible for first-timers — so much to discover", url: `/activities/${niche}` }}
+          b={{ id: "regular", label: "Regular visitor", emoji: "🔁", desc: "Always come back — Bangkok just keeps getting better", url: `/activities/${niche}/top-10` }}
+        />
+      </div>
+
+      {/* Quiz CTA */}
+      <div className="mb-6 p-4 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-between gap-3 flex-wrap">
+        <div>
+          <div className="font-black text-sm mb-0.5">🎯 What&apos;s your Bangkok traveler type?</div>
+          <div className="text-xs text-[var(--muted)]">5 questions → personalized picks for your trip</div>
+        </div>
+        <a href="/quiz" className="shrink-0 px-4 py-2 rounded-full bg-orange-500 text-white font-bold text-sm hover:bg-orange-600 transition">
+          Take quiz →
+        </a>
+      </div>
+
       {/* Back link + report */}
       <div className="flex items-center justify-between text-sm flex-wrap gap-2">
         <a href={`/activities/${niche}`} className="text-[var(--muted)] hover:text-black">
           ← Back to {info.label}
         </a>
+        <VenueStamp venueId={place.id} venueName={place.name} />
         <div className="flex items-center gap-3">
           <ReportButton venueName={place.name} venueUrl={pageUrl} />
           <a href="/activities" className="text-[var(--muted)] hover:text-black">

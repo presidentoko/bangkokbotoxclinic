@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { WeatherWidget } from "@/components/WeatherWidget";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { KlookBanner } from "@/components/KlookBanner";
+import { SavingsCounter } from "@/components/SavingsCounter";
+import { BangkokWellnessWeek } from "@/components/BangkokWellnessWeek";
+import { BangkokWellnessPrices } from "@/components/BangkokWellnessPrices";
+import { BangkokSpaTypes } from "@/components/BangkokSpaTypes";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -113,9 +126,12 @@ export default function WellnessWeekPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold mb-3">
         7-Day Itinerary
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Bangkok Wellness Week — Day-by-Day Plan
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Bangkok Wellness Week — Day-by-Day Plan
+        </h1>
+        <ShareButton title="Bangkok Wellness Week Plan 2026" text="7-day wellness itinerary: Thai massage, Muay Thai, yoga & more" url={`${SITE}/activities/wellness-week`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         A complete 7-day wellness itinerary in Bangkok: Thai massage, Muay Thai, yoga, float tanks, cooking classes, and healthy food. All ranked venues, real prices.
       </p>
@@ -210,6 +226,25 @@ export default function WellnessWeekPage() {
           ))}
         </div>
       </section>
+
+      {/* Wellness showdown */}
+      <section className="mb-8">
+        <VersusVote
+          question="For your wellness routine in Bangkok?"
+          a={{ id: "yoga", label: "Yoga / Pilates", emoji: "🧘", desc: "Flow, flexibility, mindfulness", url: "/activities/yoga-pilates", highlight: "Most popular" }}
+          b={{ id: "muay", label: "Muay Thai", emoji: "🥊", desc: "Strength, cardio, discipline", url: "/activities/muay-thai" }}
+        />
+      </section>
+
+      <WeatherWidget />
+      <BangkokWellnessWeek />
+      <BangkokSpaTypes />
+      <BangkokWellnessPrices />
+      <SeasonalTip />
+      <SavingsCounter />
+      <KlookBanner variant="spa" />
+      <BangkokChallenge />
+      <BangkokTip />
 
       <FaqJsonLd faqs={WELLNESS_FAQS} />
       <BreadcrumbJsonLd items={[

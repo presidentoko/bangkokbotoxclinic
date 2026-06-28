@@ -1,18 +1,49 @@
 import type { Metadata } from "next";
 import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
+import { FaqJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { PriceCompare } from "@/components/PriceCompare";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { FoodPairing } from "@/components/FoodPairing";
+import { ActivityFinder } from "@/components/ActivityFinder";
+import { SeasonalTip } from "@/components/SeasonalTip";
+import { KlookBanner } from "@/components/KlookBanner";
+import { QuizTeaser } from "@/components/QuizTeaser";
+import { KlookTopDeals } from "@/components/KlookTopDeals";
+import { ActivityBookingTips } from "@/components/ActivityBookingTips";
+import { BangkokFoodTours } from "@/components/BangkokFoodTours";
+import { BangkokEcoTourism } from "@/components/BangkokEcoTourism";
+import { BangkokBirdwatching } from "@/components/BangkokBirdwatching";
+import { BangkokCycleFriendly } from "@/components/BangkokCycleFriendly";
+import { BangkokSaturdayMarket } from "@/components/BangkokSaturdayMarket";
+import { BangkokCyclingTours } from "@/components/BangkokCyclingTours";
+import { BangkokDayTripsGuide } from "@/components/BangkokDayTripsGuide";
+import { BangkokSundayActivities } from "@/components/BangkokSundayActivities";
+import { BangkokArchery } from "@/components/BangkokArchery";
+import { BangkokGamingCafes } from "@/components/BangkokGamingCafes";
+import { BangkokVolunteer } from "@/components/BangkokVolunteer";
+import { BangkokFilmPhotography } from "@/components/BangkokFilmPhotography";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Bangkok Activities 2026 — Muay Thai, Thai Massage, Yoga, Cooking Classes",
+  title: "Best Things to Do in Bangkok 2026 — Muay Thai, Spas, Cooking Classes, Yoga",
   description:
-    "Bangkok activity venues ranked by real Google reviews. Muay Thai, Thai massage, yoga, cooking classes, diving — no paid placements, Trust Score method.",
+    "The best Bangkok activities in 2026 ranked by real Google reviews: Muay Thai gyms, Thai massage & spas, cooking classes, yoga studios, coworking spaces, diving. No paid rankings. Prices & Klook booking.",
   alternates: { canonical: "/activities" },
   openGraph: {
-    title: "Bangkok Activities 2026 — Muay Thai, Thai Massage, Yoga, Cooking Classes",
+    title: "Best Things to Do in Bangkok 2026 — Ranked by Real Reviews",
     description:
-      "Bangkok activity venues ranked by real Google reviews. Muay Thai, Thai massage, yoga, cooking classes — no paid placements.",
+      "Bangkok activities ranked by Trust Score from real Google reviews: Muay Thai, Thai massage, yoga, cooking classes, diving — no paid placements, prices included.",
+  },
+  twitter: {
+    title: "Best Bangkok Activities 2026",
+    description: "Muay Thai, spas, yoga, cooking classes & more — ranked by real Google reviews. No influencer picks.",
   },
 };
 
@@ -97,9 +128,12 @@ export default async function ActivitiesPage() {
           <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
           No influencer · No paid review
         </div>
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
-          Best Activities in Bangkok
-        </h1>
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight">
+            Best Activities in Bangkok
+          </h1>
+          <ShareButton title="Best Activities in Bangkok 2026 — Real Rankings" text="Muay Thai, Thai massage, cooking classes, yoga — ranked by real Google reviews" url={`${SITE}/activities`} line whatsapp />
+        </div>
         <p className="text-[var(--muted)] max-w-2xl text-lg">
           <span className="font-bold text-[var(--fg)]">{totalPlaces.toLocaleString()}</span> venues ranked by real Google reviews.
           From Muay Thai training to Thai massage, cooking classes to yoga — data-driven, no fluff.
@@ -279,6 +313,65 @@ export default async function ActivitiesPage() {
               <div className="text-sm text-[var(--muted)]">Cheap activities · price comparisons · free things to do</div>
             </div>
           </a>
+          <a
+            href="/local-tips"
+            className="flex items-center gap-4 p-5 border border-[var(--border)] rounded-2xl bg-white hover:border-blue-300 hover:shadow-sm transition group"
+          >
+            <span className="text-3xl shrink-0">🗺️</span>
+            <div>
+              <div className="font-black group-hover:text-blue-700 transition">Local Tips</div>
+              <div className="text-sm text-[var(--muted)]">What locals know · avoid tourist traps · insider transport</div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      {/* BANGKOK SHOWDOWN — A vs B vote */}
+      <section className="mb-10">
+        <div className="flex items-baseline justify-between gap-4 mb-4">
+          <div>
+            <h2 className="text-xl font-black">Bangkok Showdown 🥊</h2>
+            <p className="text-sm text-[var(--muted)]">Vote on Bangkok&apos;s biggest activity debates</p>
+          </div>
+        </div>
+        <ActivityFinder />
+        <FoodPairing />
+        <ActivityBookingTips />
+        <BangkokFoodTours />
+        <BangkokEcoTourism />
+        <BangkokBirdwatching />
+        <BangkokCycleFriendly />
+        <BangkokSaturdayMarket />
+        <BangkokCyclingTours />
+        <BangkokDayTripsGuide />
+        <BangkokSundayActivities />
+        <BangkokArchery />
+        <BangkokGamingCafes />
+        <BangkokVolunteer />
+        <BangkokFilmPhotography />
+        <KlookTopDeals />
+        <SeasonalTip />
+        <QuizTeaser />
+        <KlookBanner variant="general" />
+        <BangkokChallenge />
+        <BangkokTip />
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <VersusVote
+            question="First Bangkok experience?"
+            a={{ id: "muay-thai", label: "Muay Thai", emoji: "🥊", desc: "Train like a local. Beginner sessions from ฿300.", url: "/activities/muay-thai", highlight: "381+ gyms" }}
+            b={{ id: "spa", label: "Thai Massage", emoji: "💆", desc: "Relax first, explore later. From ฿200/hr.", url: "/activities/spa", highlight: "2,000+ venues" }}
+          />
+          <VersusVote
+            question="Best couple activity?"
+            a={{ id: "cooking", label: "Cooking Class", emoji: "👨‍🍳", desc: "Cook together, eat together. ฿800–฿1,800.", url: "/activities/cooking", highlight: "296+ classes" }}
+            b={{ id: "yoga", label: "Couples Yoga", emoji: "🧘", desc: "Stretch and zen out as a duo. From ฿400.", url: "/activities/yoga-pilates", highlight: "284+ studios" }}
+          />
+        </div>
+        <div className="mt-4">
+          <a href="/quiz" className="inline-flex items-center gap-2 text-sm font-bold text-orange-600 hover:underline">
+            🎯 Take the Bangkok traveler quiz for personalized picks →
+          </a>
         </div>
       </section>
 
@@ -318,6 +411,54 @@ export default async function ActivitiesPage() {
           ))}
         </div>
       </section>
+
+      {/* Price compare widget */}
+      <section className="mt-12 mb-12">
+        <PriceCompare />
+      </section>
+
+      <section className="mt-4">
+        <h2 className="text-2xl font-black tracking-tight mb-5">Frequently Asked About Bangkok Activities</h2>
+        <div className="space-y-3">
+          {ACTIVITIES_FAQS.map((f, i) => (
+            <details key={i} className="bg-white border border-[var(--border)] rounded-xl p-4 group">
+              <summary className="font-medium cursor-pointer flex items-center justify-between gap-3 text-sm">
+                <span>{f.q}</span>
+                <span className="text-[var(--muted)] group-open:rotate-180 transition shrink-0">⌄</span>
+              </summary>
+              <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+      <FaqJsonLd faqs={ACTIVITIES_FAQS} />
     </div>
   );
 }
+
+const ACTIVITIES_FAQS = [
+  {
+    q: "What are the best activities to do in Bangkok in 2026?",
+    a: "Bangkok's top activities in 2026 include: Muay Thai training (฿300–฿800/session at 381+ gyms), traditional Thai massage and spa (from ฿200/hour at 2,000+ venues), Thai cooking classes with market visits (฿800–฿1,800 at 296+ schools), yoga and Pilates (from ฿400/class at 284+ studios), coworking spaces for digital nomads (฿250–฿600/day), and diving day trips to Pattaya and Koh Larn (from ฿1,800). All ranked by real Google reviews on Thaigle.",
+  },
+  {
+    q: "What is the most popular activity for tourists in Bangkok?",
+    a: "Thai massage and spa is the most-booked activity for Bangkok tourists — with 2,000+ venues, it's accessible everywhere, and prices start at just ฿200/hour. Muay Thai training (especially 1–2 session experiences via Klook) and Thai cooking classes are close seconds. First-time visitors typically combine all three over a 3–5 day stay.",
+  },
+  {
+    q: "How much do Bangkok activities cost in 2026?",
+    a: "Typical Bangkok activity prices in 2026: Thai massage ฿200–฿400/hour (street level) to ฿1,500+ (luxury spa). Muay Thai training ฿300–฿800 drop-in, ฿600–฿1,200 via Klook. Thai cooking class ฿800–฿1,800 (half day). Yoga drop-in ฿400–฿800. Coworking day pass ฿250–฿600. Diving day trip from Bangkok ฿1,800–฿3,500. Overall, Bangkok activities cost 40–70% less than equivalent experiences in Europe or North America.",
+  },
+  {
+    q: "Can beginners do Muay Thai in Bangkok?",
+    a: "Yes. Most Bangkok Muay Thai gyms welcome complete beginners daily. A typical 90-minute beginner session covers pad work with a trainer, bag work, and basic technique — no sparring with experienced fighters. Gyms marked 'Beginner Friendly' on Thaigle have been verified via Google reviews to welcome first-timers. Equipment (gloves, wraps) is usually provided or rented for ฿50–฿100.",
+  },
+  {
+    q: "Are Bangkok spas and massage parlors safe?",
+    a: "Licensed spas displaying the Thai Massage Standard certificate are regulated and safe. For any Google-reviewed spa with 100+ reviews and a rating above 4.3, hygiene complaints are statistically rare. Street-level massage shops in tourist areas (Khao San Road, Silom main street) are generally lower quality — walk one block off the main road for better quality at the same price. Thaigle's Trust Score filters out low-credibility establishments.",
+  },
+  {
+    q: "What is the best area in Bangkok for activities?",
+    a: "Sukhumvit (BTS Asoke to Thong Lo): Best for Muay Thai gyms, yoga studios, and cooking classes. High concentration of foreigner-friendly venues. Silom: Dense spa area, several Muay Thai camps nearby. Ari: Best yoga and wellness scene, quieter than Sukhumvit. Chatuchak/Mo Chit: Traditional Muay Thai camps with lower prices. For diving day trips, most operators depart from central Bangkok (Sukhumvit area) for Pattaya/Koh Larn.",
+  },
+];

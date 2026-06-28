@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import { AREA_DEFS, THEME_DEFS, allDayPlanParams } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { OpenNow } from "@/components/OpenNow";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -44,9 +49,12 @@ export default async function AreaHubPage({ params }: Props) {
         <a href="/day-plan" className="hover:text-black transition">Day Plan</a> › {areaDef.label}
       </div>
 
-      <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-2">
-        Things to do in {areaDef.label}, Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <h1 className="text-2xl md:text-3xl font-black tracking-tight">
+          Things to do in {areaDef.label}, Bangkok
+        </h1>
+        <ShareButton title={`Things to Do in ${areaDef.label} Bangkok 2026`} text={areaDef.desc} url={`${SITE}/day-plan/hub/${area}`} line whatsapp />
+      </div>
 
       {/* Answer-first summary for AEO */}
       <p className="text-[var(--muted)] leading-relaxed mb-6">
@@ -121,6 +129,27 @@ export default async function AreaHubPage({ params }: Props) {
           })}
         </div>
       </section>
+
+      {/* Engagement CTAs */}
+      <div className="grid grid-cols-2 gap-3 mt-4">
+        <a href="/quiz" className="flex items-center gap-2 p-3 rounded-xl bg-orange-50 border border-orange-200 hover:border-orange-300 transition group">
+          <span className="text-xl shrink-0">🎯</span>
+          <div>
+            <div className="font-bold text-xs group-hover:text-orange-700 transition">What Bangkok traveler are you?</div>
+            <div className="text-[10px] text-[var(--muted)]">5-question quiz</div>
+          </div>
+        </a>
+        <a href="/bingo" className="flex items-center gap-2 p-3 rounded-xl bg-green-50 border border-green-200 hover:border-green-300 transition group">
+          <span className="text-xl shrink-0">🏆</span>
+          <div>
+            <div className="font-bold text-xs group-hover:text-green-700 transition">Bangkok Bucket List Bingo</div>
+            <div className="text-[10px] text-[var(--muted)]">Track your journey</div>
+          </div>
+        </a>
+      </div>
+
+      <OpenNow />
+      <BangkokTip />
     </div>
   );
 }

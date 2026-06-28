@@ -152,12 +152,12 @@ export const BEST_FOR: Criterion[] = [
   },
   {
     slug: "highly-recommended",
-    title: "Most Highly Recommended Golf Courses in Thailand",
-    metaTitle: "Most Highly Recommended Golf Courses in Thailand",
+    title: "Best Golf Courses in Thailand 2026 — Ranked by Trust Score",
+    metaTitle: "Best Golf Courses in Thailand 2026 — Top 50 Ranked",
     metaDescription:
-      "Thailand golf courses with the highest combined Trust Score and reviewer enthusiasm — the consensus picks.",
+      "The best golf courses in Thailand ranked by Trust Score from real Google reviews. Top picks for Bangkok, Pattaya, Hua Hin & Phuket — verified by golfers, not agencies. Updated 2026.",
     intro:
-      "Thailand golf courses with the strongest combination of Trust Score, reviewer praise, and overall consensus.",
+      "Thailand's top-ranked golf courses by Trust Score — the strongest combination of Google rating, review volume, Local Guide reviews, and reviewer authority. Updated continuously from real reviews.",
     scoreFn: (r) =>
       r.trust_score * 1.2 +
       topicHits(r, "well_maintained") * 3 +

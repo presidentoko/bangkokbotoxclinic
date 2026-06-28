@@ -6,6 +6,9 @@ import { AffiliateLink } from "@/components/AffiliateLink";
 import { TrustScoreBadge } from "@/components/TrustScoreBadge";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { encodePlan } from "@/lib/planner";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { SavingsCounter } from "@/components/SavingsCounter";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -96,9 +99,12 @@ export default async function DayPlanDetailPage({ params }: Props) {
           <span>{themeDef.label}</span>
         </div>
         <div className="text-3xl mb-2">{themeDef.icon}</div>
-        <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight mb-3">
-          {plan.headline}
-        </h1>
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">
+            {plan.headline}
+          </h1>
+          <ShareButton title={plan.headline} text={plan.desc} url={`${SITE}/day-plan/${area}/${theme}`} line whatsapp />
+        </div>
 
         {/* Answer-first summary (AEO) */}
         <p className="text-[var(--muted)] leading-relaxed mb-4">{plan.desc}</p>
@@ -195,7 +201,7 @@ export default async function DayPlanDetailPage({ params }: Props) {
       {/* Area hub link */}
       <a
         href={`/day-plan/hub/${area}`}
-        className="flex items-center justify-between border border-[var(--border)] rounded-xl p-4 hover:border-orange-400 transition group"
+        className="flex items-center justify-between border border-[var(--border)] rounded-xl p-4 hover:border-orange-400 transition group mb-6"
       >
         <div>
           <div className="font-bold text-sm group-hover:text-orange-600 transition">All {areaDef.label} day plans →</div>
@@ -203,6 +209,27 @@ export default async function DayPlanDetailPage({ params }: Props) {
         </div>
         <span className="text-[var(--muted)] group-hover:translate-x-1 transition">→</span>
       </a>
+
+      <SavingsCounter />
+      <BangkokTip />
+
+      {/* Engagement CTAs */}
+      <div className="grid grid-cols-2 gap-3">
+        <a href="/quiz" className="flex items-center gap-2 p-3 rounded-xl bg-orange-50 border border-orange-200 hover:border-orange-300 transition group">
+          <span className="text-xl shrink-0">🎯</span>
+          <div>
+            <div className="font-bold text-xs group-hover:text-orange-700 transition">Quiz: Your Bangkok type</div>
+            <div className="text-[10px] text-[var(--muted)]">5 questions</div>
+          </div>
+        </a>
+        <a href="/bingo" className="flex items-center gap-2 p-3 rounded-xl bg-green-50 border border-green-200 hover:border-green-300 transition group">
+          <span className="text-xl shrink-0">🏆</span>
+          <div>
+            <div className="font-bold text-xs group-hover:text-green-700 transition">Bucket List Bingo</div>
+            <div className="text-[10px] text-[var(--muted)]">Track your journey</div>
+          </div>
+        </a>
+      </div>
     </div>
   );
 }

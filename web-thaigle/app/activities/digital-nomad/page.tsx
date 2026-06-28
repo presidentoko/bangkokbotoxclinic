@@ -1,5 +1,20 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { WeatherWidget } from "@/components/WeatherWidget";
+import { CurrencyHelper } from "@/components/CurrencyHelper";
+import { PublicTransitGuide } from "@/components/PublicTransitGuide";
+import { NearbyThings } from "@/components/NearbyThings";
+import { WifiFinder } from "@/components/WifiFinder";
+import { MonthlyBudgetGuide } from "@/components/MonthlyBudgetGuide";
+import { SimCardGuide } from "@/components/SimCardGuide";
+import { BangkokVisaGuide } from "@/components/BangkokVisaGuide";
+import { BangkokTechScene } from "@/components/BangkokTechScene";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -54,9 +69,12 @@ export default function DigitalNomadPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold mb-3">
         2026 Guide
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Bangkok for Digital Nomads
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Bangkok for Digital Nomads
+        </h1>
+        <ShareButton title="Bangkok Digital Nomad Guide 2026" text="Coworking, visa, neighborhoods, cost of living — real data" url={`${SITE}/activities/digital-nomad`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         Everything you need to work remotely from Bangkok — coworking spaces, visa options, neighborhoods, and cost of living. Backed by real data.
       </p>
@@ -153,6 +171,27 @@ export default function DigitalNomadPage() {
           ))}
         </div>
       </section>
+
+      {/* Nomad showdown */}
+      <section className="mb-8">
+        <VersusVote
+          question="Where do you prefer to work in Bangkok?"
+          a={{ id: "cowork", label: "Coworking Space", emoji: "💻", desc: "Fast WiFi, community, meeting rooms", url: "/activities/coworking", highlight: "Most productive" }}
+          b={{ id: "cafe", label: "Specialty Cafe", emoji: "☕", desc: "Atmosphere, vibe, Instagram-worthy", url: "/restaurants/cuisine/cafe" }}
+        />
+      </section>
+
+      <WeatherWidget />
+      <BangkokTechScene />
+      <BangkokVisaGuide />
+      <SimCardGuide />
+      <WifiFinder />
+      <MonthlyBudgetGuide />
+      <CurrencyHelper />
+      <PublicTransitGuide />
+      <NearbyThings context="activity" />
+      <BangkokChallenge />
+      <BangkokTip />
 
       <FaqJsonLd faqs={NOMAD_FAQS} />
       <BreadcrumbJsonLd items={[

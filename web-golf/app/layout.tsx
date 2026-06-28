@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     siteName: cfg.brand,
     locale: "en_US",
     url: SITE,
+    description: cfg.description,
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

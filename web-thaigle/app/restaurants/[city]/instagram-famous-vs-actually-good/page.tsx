@@ -2,7 +2,13 @@ import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { RatingLegend } from "@/components/RatingLegend";
+import { BangkokTip } from "@/components/BangkokTip";
 import type { Metadata } from "next";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export async function generateStaticParams() {
   return [{ city: "bangkok" }, { city: "pattaya" }];
@@ -51,7 +57,10 @@ export default async function InstagramFamousPage(
         { name: "Instagram Famous vs Actually Good", url: `/restaurants/${city}/instagram-famous-vs-actually-good` },
       ]} />
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-2">Instagram Famous vs Actually Good</h1>
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h1 className="text-3xl font-bold">Instagram Famous vs Actually Good</h1>
+          <ShareButton title={`Instagram Famous vs Actually Good — ${label}`} text="Which Bangkok restaurants are overhyped on social media?" url={`${SITE}/restaurants/${city}/instagram-famous-vs-actually-good`} line whatsapp />
+        </div>
         <p className="text-[var(--muted)] mb-2">{label} · Updated from {db.generated_at.slice(0, 10)}</p>
         <p className="mb-8 text-sm bg-orange-50 border border-orange-200 rounded-lg p-4">
           These restaurants have <strong>high review counts</strong> (lots of visitors) but <strong>low Trust Scores</strong> — meaning the ratings may not reflect the real diner experience. High volume + low trust = social media hype ≠ quality.
@@ -83,6 +92,20 @@ export default async function InstagramFamousPage(
             );
           })}
         </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4">
+        <RatingLegend />
+        <BangkokTip />
+      </div>
+
+      {/* Poll */}
+      <div className="max-w-5xl mx-auto px-4 pb-12">
+        <VersusVote
+          question="What matters more when choosing a Bangkok restaurant?"
+          a={{ id: "instagram-matters", label: "Instagram-worthy vibes", emoji: "📸", desc: "Aesthetic, lighting, shareable moments", url: "/for/views" }}
+          b={{ id: "reviews-matter", label: "Real reviews & trust score", emoji: "⭐", desc: "Actual food quality, verified by locals", url: "/trending", highlight: "Local choice" }}
+        />
       </div>
     </>
   );

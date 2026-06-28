@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { BangkokChallenge } from "@/components/BangkokChallenge";
+import { BudgetCalculator } from "@/components/BudgetCalculator";
+import { ActivityFinder } from "@/components/ActivityFinder";
+import { BangkokFacts } from "@/components/BangkokFacts";
+import { WeekendPlan } from "@/components/WeekendPlan";
+import { DayTripGuide } from "@/components/DayTripGuide";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 
@@ -137,9 +148,17 @@ export default function WeekendBangkokPage() {
       <div className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold mb-3">
         2-Day Guide
       </div>
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">
-        Perfect Weekend in Bangkok
-      </h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
+          Perfect Weekend in Bangkok
+        </h1>
+        <ShareButton
+          title="Perfect Weekend in Bangkok — 2-Day Guide"
+          text="48-hour Bangkok plan with real venues and prices"
+          url={`${SITE}/activities/weekend-in-bangkok`}
+          line whatsapp
+        />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">
         48 hours in Bangkok done right. Real venues, real prices. Not the tourist-trap version.
       </p>
@@ -245,6 +264,23 @@ export default function WeekendBangkokPage() {
           ))}
         </div>
       </section>
+
+      {/* Weekend showdown */}
+      <section className="mb-8">
+        <VersusVote
+          question="Best way to spend a Bangkok weekend?"
+          a={{ id: "active", label: "Action-packed weekend", emoji: "🥊", desc: "Muay Thai + cooking + night market", url: "/activities/muay-thai", highlight: "Most popular" }}
+          b={{ id: "relax", label: "Relaxed weekend", emoji: "🧘", desc: "Spa + yoga + rooftop dining", url: "/activities/spa" }}
+        />
+      </section>
+
+      <WeekendPlan />
+      <DayTripGuide />
+      <ActivityFinder />
+      <BangkokFacts />
+      <BudgetCalculator />
+      <BangkokChallenge />
+      <BangkokTip />
 
       <FaqJsonLd faqs={WEEKEND_FAQS} />
       <BreadcrumbJsonLd items={[

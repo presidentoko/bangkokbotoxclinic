@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import type { NicheFaq } from "@/lib/niche-content";
+import { VersusVote } from "@/components/VersusVote";
+import { ShareButton } from "@/components/ShareButton";
+import { BangkokTip } from "@/components/BangkokTip";
+import { ActivityFinder } from "@/components/ActivityFinder";
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -166,7 +172,10 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
         <span>Compare</span>
       </nav>
 
-      <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3 text-balance">{c.title}</h1>
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">{c.title}</h1>
+        <ShareButton title={c.title} text={c.description} url={`${SITE}/activities/compare/${slug}`} line whatsapp />
+      </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-8">{c.description}</p>
 
       {/* VS Card */}
@@ -242,6 +251,18 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
             </details>
           ))}
         </div>
+      </section>
+
+      <ActivityFinder />
+      <BangkokTip />
+
+      {/* Live poll */}
+      <section className="mb-8">
+        <VersusVote
+          question={`Which would you choose?`}
+          a={{ id: `${slug}-a`, label: c.a.name, emoji: c.a.icon, desc: c.a.bestFor, url: `/activities/${c.a.nicheSlug}`, highlight: c.a.priceRange }}
+          b={{ id: `${slug}-b`, label: c.b.name, emoji: c.b.icon, desc: c.b.bestFor, url: `/activities/${c.b.nicheSlug}` }}
+        />
       </section>
 
       {/* More comparisons */}
