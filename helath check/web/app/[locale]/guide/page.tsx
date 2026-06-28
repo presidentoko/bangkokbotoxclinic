@@ -431,6 +431,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-brazil-vs-thailand",
+    title: "Health Check-Up Brazil vs Thailand (2026) — Bangkok para Brasileiros 🇧🇷",
+    description: "Plano de saúde: coparticipação + glosas. Fleury/Sírio executive R$5,000–R$15,000. Bangkok JCI ฿8,000–฿25,000 (R$4,000–R$12,500). Guia completo em português.",
+    emoji: "🇧🇷",
+    category: "By Nationality",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

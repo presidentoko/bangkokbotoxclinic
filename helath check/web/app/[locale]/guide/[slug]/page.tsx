@@ -2816,7 +2816,67 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/phuket-health-checkup", label: "Phuket health check-up guide" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/health-checkup-brazil-vs-thailand", label: "Brazil vs Thailand comparison" },
       { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-brazil-vs-thailand": {
+    title: "Health Check-Up Brazil vs Thailand 2026 — Bangkok para Brasileiros 🇧🇷",
+    description: "Plano de saúde particular: R$800–R$3.500/mês, coparticipação em exames. Bangkok JCI: ฿8.000–฿25.000 (R$4.000–R$12.500). Guia completo para brasileiros no check-up em Bangkok.",
+    intro: "O Brasil tem um dos sistemas de saúde mais complexos do mundo: o SUS (Sistema Único de Saúde) público com filas longas, e o setor privado com planos de saúde caros e cheios de coparticipações. Um check-up executivo completo na rede privada (Fleury, Delboni, Hospital Albert Einstein, Sírio-Libanês) pode custar R$3.000–R$15.000 — e ainda há coparticipação e glosas. Em Bangkok, o mesmo check-up executivo custa ฿8.000–฿25.000 (aproximadamente R$4.000–R$12.500 na cotação de 2026), sem filas, com resultados no mesmo dia e hospitais JCI-acreditados de padrão internacional. O Brasil envia mais de 500.000 turistas por ano para a Tailândia — muitos combinam férias em Phuket/Bangkok com um check-up de saúde.",
+    sections: [
+      {
+        heading: "Comparativo de preços: Brasil privado vs Bangkok",
+        content: "Comparison of health check-up costs: Brazil (private) vs Bangkok (2026):",
+        list: [
+          "Check-up básico (hemograma, bioquímica, glicose, colesterol, ureia, creatinina, EAS) — Brasil privado: R$800–R$2.000 / Bangkok: ฿3.000–฿7.000 (R$1.500–R$3.500) — valor similar",
+          "Check-up padrão (+EKG, radiografia de tórax, ultrassonografia abdominal, TSH) — Brasil privado: R$2.000–R$5.000 / Bangkok: ฿5.000–฿10.000 (R$2.500–R$5.000) — comparable",
+          "Check-up executivo completo (painel de órgãos + marcadores tumorais + consulta) — Brasil privado (Fleury/Sírio): R$5.000–R$15.000 / Bangkok: ฿8.000–฿25.000 (R$4.000–R$12.500) — Bangkok 20–50% mais barato",
+          "Ressonância magnética de crânio — Brasil privado: R$800–R$3.000 / Bangkok: ฿5.000–฿12.000 (R$2.500–R$6.000) — similares ou Bangkok mais barato",
+          "Endoscopia digestiva alta com sedação — Brasil privado: R$2.500–R$6.000 / Bangkok: ฿4.500–฿9.000 (R$2.250–R$4.500) — Bangkok 20–40% mais barato",
+          "Colonoscopia — Brasil privado: R$3.000–R$8.000 / Bangkok: ฿8.000–฿18.000 (R$4.000–R$9.000) — similares; Bangkok com JCI e sedação incluída",
+          "Mamografia digital — Brasil privado: R$300–R$700 / Bangkok: ฿1.200–฿2.800 (R$600–R$1.400) — similares ou Bangkok mais barato",
+          "Nota: câmbio BRL/THB variável (2026 aprox. R$0,50 = ฿1); verificar cotação atual antes de calcular economia",
+        ],
+      },
+      {
+        heading: "Plano de saúde particular e SUS — limitações para check-up",
+        content: "Understanding Brazilian health insurance gaps that motivate Bangkok health check-up tourism:",
+        list: [
+          "SUS: cobertura universal teórica, mas filas longas para exames diagnósticos (RM: 6–24 meses em muitos estados) e consultas especializadas; check-up preventivo de qualidade não está acessível na prática",
+          "Plano de saúde particular: os planos cobrem doenças mas muitos não cobrem check-up preventivo (consulta + exames de rastreamento sem queixa); coparticipação em exames pode ser significativa",
+          "ANS regulamentação: check-up com solicitar vários exames juntos pode gerar glosas; médicos solicitam exames individualmente para evitar glosas, fragmentando o processo",
+          "Plano pessoa física: muito mais caro que plano empresarial — mensalidades de R$800–R$3.500 para plano premium individual",
+          "Resultado: brasileiros com plano de saúde ainda têm que pagar coparticipação em exames caros, e os melhores hospitais (Einstein, Sírio) têm valores que superam Bangkok mesmo com desconto do plano",
+          "Bangkok advantage for Brazilians: pagamento direto em um único pacote, sem coparticipação fracionada, sem glosas, resultados completos no mesmo dia",
+        ],
+      },
+      {
+        heading: "Guia prático para brasileiros em Bangkok",
+        content: "Practical guide for Brazilian patients visiting Bangkok for a health check-up:",
+        list: [
+          "Visto: cidadãos brasileiros podem entrar na Tailândia sem visto por 30 dias — não é necessário visto prévio",
+          "Voos: São Paulo (GRU) – Bangkok (BKK): 22–28 horas com uma escala (Dubai/Doha/Singapura/Doha/Hong Kong); com Thai Airways, Emirates, Qatar Airways, Singapore Airlines, Cathay Pacific",
+          "Estratégia de viagem: Bangkok + Phuket + check-up em uma viagem de 10–14 dias faz sentido — o check-up cobre parte ou toda a diferença de custo do pacote premium",
+          "Idioma: todos os grandes hospitais de Bangkok têm médicos e enfermeiros com inglês excelente. Não há equipe com português disponível, mas o inglês intermediário é suficiente para comunicar histórico médico e entender resultados",
+          "Os resultados de Bangkok são aceitos no Brasil? Sim — os resultados do Bumrungrad, Samitivej ou Bangkok Hospital em inglês são aceitos por especialistas privados brasileiros. Solicitar sempre PDF completo dos exames laboratoriais + relatório médico + CD de imagens para qualquer exame de imagem",
+          "Pagamento: cartão Visa/Mastercard brasileiro (Bradesco, Itaú, Santander) funciona em Bangkok — avisar o banco antes da viagem sobre compras internacionais",
+          "Hospitais recomendados: Bumrungrad International, Samitivej Sukhumvit, Bangkok Hospital (BDMS), BNH Hospital — todos JCI-acreditados",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Vale a pena ir a Bangkok para fazer check-up saindo do Brasil?", a: "Se você já planeja uma viagem à Ásia (o que é comum para brasileiros que visitam Japão, Coreia, Tailândia ou Bali), adicionar um check-up em Bangkok faz muito sentido — o custo do check-up pode ser similar ou mais barato do que no privado brasileiro, sem coparticipação e sem espera. Se a viagem for exclusivamente para o check-up, o custo da passagem aérea (R$4.000–R$10.000) deve ser comparado com o real benefício financeiro — que é maior para check-ups executivos completos ou procedimentos como endoscopia e colonoscopia." },
+      { q: "Meu médico no Brasil vai aceitar os resultados feitos em Bangkok?", a: "Sim — especialistas privados brasileiros (cardiologistas, gastroenterologistas, oncologistas) aceitam perfeitamente laudos em inglês de hospitais internacionais como Bumrungrad ou Samitivej. O formato dos exames laboratoriais é padrão internacional (mmol/L, g/dL). Solicitar sempre: o laudo laboratorial completo em PDF, laudo do radiologista para exames de imagem, e um relatório médico sumário assinado pelo médico do hospital. Para exames de imagem, pedir o CD com arquivos DICOM — qualquer radiologista brasileiro consegue ler." },
+      { q: "Os hospitais de Bangkok têm padrão equivalente ao Einstein ou Sírio-Libanês?", a: "Os hospitais JCI-acreditados de Bangkok (Bumrungrad, Samitivej, Bangkok Hospital, Vejthani, BNH) têm acreditação JCI — o mesmo padrão internacional que o Hospital Israelita Albert Einstein e o Sírio-Libanês buscam. O Bumrungrad atende 500.000 pacientes internacionais por ano. O equipamento diagnóstico (ressonância 3T, TC 256 cortes, endoscopia HD com NBI) é equivalente ao dos melhores hospitais brasileiros. A diferença prática está na familiaridade com o idioma português — que não existe — e no ambiente cultural diferente." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-spain-vs-thailand", label: "Spain vs Thailand — Spanish guide" },
+      { href: "/en/guide/health-checkup-usa-vs-thailand", label: "USA vs Thailand comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive check-up packages" },
     ],
   },
 

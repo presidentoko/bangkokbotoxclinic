@@ -167,6 +167,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-philippines-vs-thailand",
       "health-checkup-south-africa-vs-thailand",
       "health-checkup-spain-vs-thailand",
+      "health-checkup-brazil-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
