@@ -24,7 +24,7 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **90+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
+- **95+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
 - **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
 
 ## Key pages
@@ -95,6 +95,11 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - H. pylori breath test + eradication: ${BASE}/en/guide/h-pylori-test-bangkok
 - Bone density DEXA scan: ${BASE}/en/guide/bone-density-dexa-scan-bangkok
 - Allergy test (skin prick, IgE): ${BASE}/en/guide/allergy-test-bangkok
+- Travel infectious disease tests (dengue, malaria, typhoid, leptospirosis): ${BASE}/en/guide/travel-disease-tests-bangkok
+- Ultrasound scan (abdominal, thyroid, pelvic, echocardiogram): ${BASE}/en/guide/ultrasound-scan-bangkok
+- Age-based health check-up guide (30s / 40s / 50s / 60s+): ${BASE}/en/guide/health-checkup-by-age-bangkok
+- Samitivej Hospital dedicated guide: ${BASE}/en/guide/samitivej-hospital-health-checkup
+- Bumrungrad International Hospital dedicated guide: ${BASE}/en/guide/bumrungrad-hospital-health-checkup
 
 ## Country Comparison Guides (How Much You Save)
 
