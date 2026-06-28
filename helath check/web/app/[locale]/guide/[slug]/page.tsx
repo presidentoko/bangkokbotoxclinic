@@ -5022,9 +5022,73 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/mri-scan-cost-bangkok", label: "MRI scan cost in Bangkok" },
+      { href: "/en/guide/ultrasound-scan-bangkok", label: "Ultrasound scan Bangkok" },
       { href: "/en/guide/blood-test-price-bangkok", label: "Blood test prices in Bangkok" },
       { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health check-up Bangkok" },
       { href: "/en/compare?category=executive", label: "Compare executive packages (includes CT)" },
+    ],
+  },
+
+  "ultrasound-scan-bangkok": {
+    title: "Ultrasound Scan Bangkok — Abdominal, Thyroid, Pelvic, Cardiac Echo Prices (2026)",
+    description: "Ultrasound scan Bangkok: abdominal ultrasound ฿1,500–฿3,000, thyroid ultrasound ฿1,500–฿2,500, pelvic ฿1,500–฿2,500, echocardiogram ฿4,000–฿8,000. No referral, same day.",
+    intro: "Ultrasound is one of the most commonly performed diagnostic tests in Bangkok health check-up packages — it uses sound waves (no radiation), produces real-time images, and is quick and painless. Bangkok's JCI-accredited hospitals offer all major ultrasound modalities as standalone tests or included in check-up packages, with an English-speaking sonographer and radiologist report within hours. Walk-in ultrasound bookings are available at most major hospitals with 1–2 hours wait.",
+    sections: [
+      {
+        heading: "Ultrasound scan types and prices in Bangkok",
+        content: "Ultrasound scan prices at Bangkok private hospitals (2026):",
+        list: [
+          "Abdominal ultrasound (liver, gallbladder, pancreas, spleen, kidneys): ฿1,500–฿3,000 — most commonly included in standard check-up packages; checks for fatty liver, gallstones, kidney stones, cysts",
+          "Upper abdominal ultrasound (liver + gallbladder only): ฿1,000–฿2,000 — limited scan for suspected gallstones or right upper quadrant pain",
+          "Pelvic ultrasound (uterus + ovaries): ฿1,500–฿2,500 (transabdominal) or ฿2,000–฿3,500 (transvaginal for better resolution) — used for fibroids, cysts, PCOS pattern, endometrial thickness",
+          "Thyroid ultrasound: ฿1,500–฿2,500 — looks for thyroid nodules, goitre, thyroiditis; recommended with TSH if any abnormality",
+          "Breast ultrasound: ฿1,500–฿3,000 — complementary to mammogram in dense breast tissue; under 40 or for cyst evaluation",
+          "Testicular ultrasound: ฿1,500–฿3,000 — for varicocele, epididymitis, or testicular mass evaluation",
+          "Echocardiogram (heart ultrasound / Echo): ฿4,000–฿8,000 — assesses heart function, valve disorders, chambers; requires cardiac technician or cardiologist",
+          "Carotid doppler ultrasound (carotid IMT): ฿3,000–฿5,000 — measures carotid artery wall thickness as a cardiovascular risk marker; recommended for executive cardiac packages",
+          "Abdominal + pelvic ultrasound combo: ฿2,500–฿4,500 — most common combined order for comprehensive check-ups",
+          "Whole abdominal ultrasound (includes bladder, prostate in men): ฿2,000–฿4,000 — the comprehensive abdominal scan that covers all organ zones",
+        ],
+      },
+      {
+        heading: "When to get each type of ultrasound in Bangkok",
+        content: "Clinical guide to which ultrasound to request based on your health profile:",
+        list: [
+          "Abdominal ultrasound: everyone 35+ as a baseline; annually if fatty liver (NAFLD) detected or liver function tests abnormal; standard in all executive check-up packages",
+          "Fatty liver detection: liver ultrasound is the most sensitive non-invasive test for non-alcoholic fatty liver disease (NAFLD) — highly prevalent in Bangkok residents; often abnormal before liver enzyme tests rise",
+          "Gallstones: the most common incidental finding on abdominal ultrasound in Thailand; often asymptomatic; follow-up depends on size and symptoms",
+          "Thyroid ultrasound: recommended if TSH is abnormal OR if you can feel a lump in the thyroid area OR if thyroid cancer family history; often paired with thyroid blood tests in executive packages",
+          "Pelvic ultrasound: standard for women's health packages; important for women with irregular periods, heavy periods, pelvic pain, or fertility concerns — can detect fibroids, PCOS, endometrial abnormalities",
+          "Echocardiogram: recommended for anyone with abnormal ECG, cardiac symptoms, or who wants a full cardiac check-up; assesses ejection fraction and valve function that ECG cannot show",
+          "Carotid IMT: available as an add-on in executive packages; elevated IMT correlates with increased stroke and MI risk; particularly useful at 45+ with cardiovascular risk factors",
+          "Prostate ultrasound (TRUS): used diagnostically if PSA is elevated and biopsy is considered; not a routine screening test",
+        ],
+      },
+      {
+        heading: "Understanding your ultrasound results from Bangkok",
+        content: "Common ultrasound findings at Bangkok check-ups and what they mean:",
+        list: [
+          "Fatty liver (hepatic steatosis): graded Grade 1 (mild), Grade 2 (moderate), Grade 3 (severe) based on echogenicity; very common in check-up results; follow-up with liver function tests, weight management; Grade 2–3 warrants fibroscan (liver stiffness) follow-up",
+          "Gallstones: if small (<1cm) and asymptomatic, often conservatively managed; if large or symptomatic, surgical consultation; Bangkok laparoscopic cholecystectomy: ฿50,000–฿120,000",
+          "Kidney cysts: simple cysts (Bosniak I/II) are benign and common after 40; complex cysts (Bosniak III/IV) need urologist follow-up",
+          "Thyroid nodules: detected in up to 50% of adults on ultrasound; Thyroid Imaging Reporting and Data System (TIRADS) scoring guides follow-up; TIRADS 4–5 lesions need fine-needle aspiration biopsy",
+          "Uterine fibroids: very common in women over 35; size and location determine symptoms; Bangkok myomectomy or endometrial ablation available if symptomatic",
+          "Ovarian cysts: simple functional cysts (< 5cm) are usually benign and resolve; complex cysts or CA125-elevated cysts need gynaecologist follow-up",
+          "Ask for the ultrasound report in English: all major Bangkok hospitals provide English-language ultrasound reports; take the CD/images with you for home follow-up",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do I need to fast before an abdominal ultrasound in Bangkok?", a: "Yes — for an abdominal ultrasound that includes the gallbladder, you should fast for 4–6 hours before the scan (water is fine). Fasting allows the gallbladder to be distended and visible — if you've eaten, the gallbladder will have contracted and stones may be missed. For a kidney-only or thyroid-only ultrasound, no fasting is required. For pelvic ultrasound (women): transabdominal requires a full bladder; transvaginal requires an empty bladder. Most Bangkok hospitals will advise you on preparation when booking." },
+      { q: "Is ultrasound safe? Does it involve radiation?", a: "Ultrasound uses high-frequency sound waves — not radiation. There is no ionising radiation involved (unlike X-ray, CT, or PET). It is completely safe for repeated use, for pregnant women (obstetric ultrasound is a standard part of prenatal care), and for children. There are no known harmful effects from diagnostic ultrasound at standard clinical settings. This makes ultrasound particularly valuable as a regular screening tool for fatty liver, kidney function, and gynecological health." },
+      { q: "Is ultrasound included in standard Bangkok health check-up packages?", a: "Abdominal ultrasound is included in most standard and all executive health check-up packages in Bangkok. Basic packages (under ฿5,000) may not include ultrasound — check the inclusion list for 'ultrasound' or 'USG' before booking. Thyroid ultrasound is usually in executive and premium packages but may cost ฿1,500–฿2,500 extra in standard packages. Pelvic ultrasound is usually in women's health packages. Echocardiogram is a cardiac-specific add-on." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/mri-scan-cost-bangkok", label: "MRI scan cost Bangkok" },
+      { href: "/en/guide/ct-scan-cost-bangkok", label: "CT scan cost Bangkok" },
+      { href: "/en/guide/mammogram-cost-bangkok", label: "Mammogram Bangkok" },
+      { href: "/en/guide/bone-density-dexa-scan-bangkok", label: "Bone density DEXA scan" },
+      { href: "/en/guide/thyroid-screening-bangkok", label: "Thyroid test Bangkok" },
     ],
   },
 

@@ -494,6 +494,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "ultrasound-scan-bangkok",
+    title: "Ultrasound Scan Bangkok — Abdominal, Thyroid, Pelvic, Echo Prices (2026)",
+    description: "Abdominal ultrasound ฿1,500–฿3,000, thyroid ฿1,500–฿2,500, pelvic ฿1,500–฿3,500, echocardiogram ฿4,000–฿8,000. No radiation, no referral. Included in most executive packages.",
+    emoji: "🔊",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
