@@ -88,6 +88,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 
 - Vitamin D test Bangkok: ${BASE}/en/guide/vitamin-d-test-bangkok
 - PSA prostate test: ${BASE}/en/guide/psa-test-bangkok
+- Complete prostate health check (PSA→mpMRI→biopsy→Da Vinci 40% cheaper): ${BASE}/en/guide/prostate-health-check-bangkok
 - Hepatitis B & C test: ${BASE}/en/guide/hepatitis-test-bangkok
 - Thyroid screening (TSH, T3, T4): ${BASE}/en/guide/thyroid-screening-bangkok
 - Fertility assessment (AMH, FSH, sperm): ${BASE}/en/guide/fertility-test-bangkok
@@ -153,6 +154,8 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Bangladesh vs Thailand (direct DAC–BKK 2.5hrs, halal): ${BASE}/en/guide/health-checkup-bangladesh-vs-thailand
 - Kenya vs Thailand (Aga Khan vs Bangkok, 60-75% cheaper): ${BASE}/en/guide/health-checkup-kenya-vs-thailand
 - Saudi Arabia vs Thailand (no visa since 2023, Arabic services): ${BASE}/en/guide/health-checkup-saudi-arabia-vs-thailand
+- Taiwan vs Thailand 台灣健檢 (NHI gap, NT$50k→NT$23k, 3.5hr flight): ${BASE}/en/guide/health-checkup-taiwan-vs-thailand
+- Czech Republic / Slovakia / Hungary vs Thailand (CZK/HUF, no visa EU): ${BASE}/en/guide/health-checkup-central-europe-vs-thailand
 
 ## Practical Guides
 

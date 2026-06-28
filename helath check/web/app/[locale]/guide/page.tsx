@@ -690,6 +690,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-taiwan-vs-thailand",
+    title: "Health Check-Up: Taiwan vs Thailand 2026 — 台灣人赴泰健檢指南",
+    description: "台灣自費健檢 NT$8,000–NT$50,000。曼谷 JCI ฿8,000–฿25,000（NT$7,500–NT$23,500），節省 40–60%。免簽 30 天。中文服務完善。3.5 小時直飛。",
+    emoji: "🇹🇼",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
