@@ -168,6 +168,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/compare/fendi-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-tudor`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-omega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/trends/miu-miu-rise-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
   }
 
   // Brand pages
