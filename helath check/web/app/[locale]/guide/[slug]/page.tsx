@@ -356,10 +356,79 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
       { href: "/en/compare?category=executive", label: "Compare executive packages (with cancer markers) →" },
+      { href: "/en/guide/colonoscopy-cost-bangkok", label: "Colonoscopy cost Bangkok" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI-accredited hospitals in Bangkok" },
-      { href: "/en/hospital", label: "Browse all hospitals" },
     ],
   },
+
+  "colonoscopy-cost-bangkok": {
+    title: "Colonoscopy Cost in Bangkok — 2026 Price Guide",
+    description: "How much does a colonoscopy cost in Bangkok? Compare colonoscopy prices at JCI and private hospitals. From ฿7,000. Sedation, same-day results, English reports.",
+    intro: "A colonoscopy in Bangkok costs 50–80% less than in the US, UK, or Japan — with the same standard of care, HD imaging, and English-speaking gastroenterologists at all major private hospitals. Bangkok's JCI hospitals perform thousands of colonoscopies annually for both local patients and medical tourists. Sedation (conscious or deep) is standard, and results including biopsy if taken are typically available within 1–7 days.",
+    sections: [
+      {
+        heading: "Colonoscopy prices in Bangkok (2026)",
+        content: "Colonoscopy cost comparison at Bangkok private hospitals:",
+        list: [
+          "Colonoscopy (diagnostic, no polyp): ฿7,000 – ฿15,000 (US equivalent: $1,500–$4,000)",
+          "Colonoscopy with polypectomy (polyp removal): ฿12,000 – ฿25,000 (US equivalent: $2,500–$7,000)",
+          "Combined gastroscopy + colonoscopy ('scope from both ends'): ฿12,000 – ฿25,000 (separate price: ฿4,500–฿8,000 for gastroscopy)",
+          "Colonoscopy add-on to executive health package: ฿7,000 – ฿12,000",
+          "Virtual colonoscopy (CT colonoscopy): ฿8,000 – ฿18,000",
+          "Biopsy analysis (if polyp found): ฿1,500 – ฿4,000 extra per sample",
+        ],
+      },
+      {
+        heading: "Preparation for colonoscopy in Bangkok",
+        content: "Colonoscopy preparation at Bangkok hospitals follows international protocols:",
+        list: [
+          "Low-fibre diet: 2–3 days before the procedure, avoid high-fibre foods, raw vegetables, fruits with seeds",
+          "Clear liquid diet: 1 day before — water, broth, clear juices, electrolyte drinks only; nothing red or purple",
+          "Bowel prep solution: hospital provides a solution (typically Fortrans/PEG or sodium phosphate); drink 2–4 litres the afternoon/evening before",
+          "Fasting: nothing by mouth (including water) for 4–6 hours before procedure",
+          "Sedation: conscious sedation (midazolam + fentanyl) or deep sedation (propofol) is standard; you will not feel pain; bring a companion to drive you home",
+          "Duration: the procedure takes 20–60 minutes; you stay 1–2 hours for recovery",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for colonoscopy",
+        content: "Top-rated hospitals for gastroenterology and colonoscopy in Bangkok:",
+        list: [
+          "Bumrungrad International — largest gastroenterology department in Thailand; HD colonoscopy; full sedation options; results same day",
+          "Bangkok Hospital — BDMS Gastrointestinal Centre; experienced endoscopists; competitive pricing for procedures",
+          "Samitivej Sukhumvit — dedicated endoscopy suite; Korean gastroscopy specialists popular with Japanese and Korean visitors",
+          "Vejthani Hospital — most competitive JCI pricing; English-speaking gastroenterologists; good for combination gastroscopy + colonoscopy",
+          "BNH Hospital — preferred by Japanese and European expat community; personal atmosphere; qualified gastroenterologists",
+          "Praram 9 Hospital — good value non-JCI option; central location; experienced endoscopy team",
+        ],
+      },
+      {
+        heading: "Who needs a colonoscopy?",
+        content: "Colonoscopy is recommended for:",
+        list: [
+          "Adults age 45+: first-line colorectal cancer screening for average-risk individuals (ACS 2024 guideline — down from 50)",
+          "Adults age 40+ with family history: if a parent/sibling had colorectal cancer, start 10 years before their diagnosis age",
+          "Repeat screening: every 10 years if no polyps found; every 3–5 years if adenomatous polyps were found",
+          "Symptomatic: rectal bleeding, change in bowel habits, unexplained anaemia, abdominal pain, unintentional weight loss",
+          "Japanese visitors: colonoscopy is commonly added to health check-up packages; Tokyo hospitals often have 6–12 month waits vs same-week in Bangkok",
+          "Korean visitors: 대장내시경 (colonoscopy) is standard in Korean 건강검진 from age 50; Bangkok offers it from age 45 without waiting",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How much does a colonoscopy cost in Bangkok vs the US?", a: "A colonoscopy in Bangkok costs ฿7,000–฿15,000 (approximately US$190–$410). In the US without insurance: $1,500–$4,000. Even with insurance, US co-pays can be $500–$1,500. A colonoscopy with polypectomy in Bangkok: ฿12,000–฿25,000 (US$330–$690) vs US$2,500–$7,000 in America. Bangkok offers the same HD endoscopy equipment and board-certified gastroenterologists." },
+      { q: "Is sedation available for a colonoscopy in Bangkok?", a: "Yes — all major Bangkok private hospitals offer sedation for colonoscopy. Conscious sedation (midazolam + fentanyl) is most common — you are relaxed and pain-free but may have some awareness. Propofol (deep sedation) is available at most JCI hospitals on request — you are fully asleep. The sedation cost is typically included in the colonoscopy price at Bangkok private hospitals." },
+      { q: "How long does a colonoscopy take in Bangkok?", a: "The colonoscopy procedure itself takes 20–60 minutes depending on bowel preparation quality and any polyps found. Recovery from sedation takes 1–2 hours. You will need to fast the day before and follow bowel preparation. Plan for a full-day commitment — arrive early, undergo prep review, the procedure, and recovery. A same-day appointment is usually possible with advance notice." },
+      { q: "Can I combine a colonoscopy with my executive health check-up?", a: "Yes — all Bangkok JCI hospitals offer colonoscopy as an add-on to health check-up packages. Adding a colonoscopy to your executive package typically adds ฿7,000–฿12,000 to the package price. Note: colonoscopy requires separate preparation the day before your health check-up, so you will need 2 days in Bangkok. Most hospitals will schedule your health check-up bloods and imaging on day 1, and the scope on day 2." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
+      { href: "/en/guide/health-checkup-japan-vs-thailand", label: "Japan vs Thailand — Ningen Dock" },
+      { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean tourists guide (한국어)" },
+      { href: "/en/guide/mri-scan-cost-bangkok", label: "MRI scan cost Bangkok" },
+    ],
+  },
+
   "womens-health-checkup-bangkok": {
     title: "Women's Health Check-Up in Bangkok — Packages, Prices & Best Hospitals (2026)",
     description: "Complete guide to women's health check-up packages in Bangkok. Pap smear, mammogram, HPV testing, hormone panel — what's included and where.",

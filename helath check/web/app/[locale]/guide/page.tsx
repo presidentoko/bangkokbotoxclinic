@@ -312,6 +312,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "colonoscopy-cost-bangkok",
+    title: "Colonoscopy Cost in Bangkok — 2026 Price Guide",
+    description: "Colonoscopy prices in Bangkok from ฿7,000. Sedation included, same-day scoping at Bumrungrad, Bangkok Hospital, Vejthani.",
+    emoji: "🔬",
+    category: "Specialist Screening",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",
