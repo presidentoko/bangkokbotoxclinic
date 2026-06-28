@@ -1663,8 +1663,10 @@ export default async function GuidePage({
         headline: guide.title,
         description: guide.description,
         inLanguage: "en",
-        author: { "@type": "Organization", name: "BangkokCheckup" },
-        publisher: { "@type": "Organization", name: "BangkokCheckup", url: BASE },
+        dateModified: "2026-06-28",
+        datePublished: "2026-01-01",
+        author: { "@type": "Organization", name: "BangkokCheckup", url: BASE },
+        publisher: { "@type": "Organization", name: "BangkokCheckup", url: BASE, logo: { "@type": "ImageObject", url: `${BASE}/logo.png` } },
         mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE}/${locale}/guide/${slug}` },
       }) }} />
       {guide.faqs.length > 0 && (

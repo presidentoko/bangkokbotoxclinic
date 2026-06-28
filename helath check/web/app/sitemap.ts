@@ -63,6 +63,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     // FAQ
     entries.push({ url: `${BASE}/${locale}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.8 });
+    // About
+    entries.push({ url: `${BASE}/${locale}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.5 });
     // Price trends
     entries.push({ url: `${BASE}/${locale}/trends`, lastModified: now, changeFrequency: "daily", priority: 0.75 });
     // Compare hospitals
