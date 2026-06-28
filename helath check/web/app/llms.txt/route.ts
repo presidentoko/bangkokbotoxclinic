@@ -24,7 +24,7 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **77+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, and practical topics
+- **90+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
 - **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
 
 ## Key pages
@@ -82,6 +82,19 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Bumrungrad vs Samitivej comparison: ${BASE}/en/guide/bumrungrad-vs-samitivej-health-checkup
 - Vejthani Hospital guide: ${BASE}/en/guide/vejthani-hospital-health-checkup
 - BNH Hospital guide (expat favourite): ${BASE}/en/guide/bnh-hospital-health-checkup
+- Bangkok Hospital BDMS group: ${BASE}/en/guide/bangkok-hospital-health-checkup
+
+## Specialist Test Guides
+
+- Vitamin D test Bangkok: ${BASE}/en/guide/vitamin-d-test-bangkok
+- PSA prostate test: ${BASE}/en/guide/psa-test-bangkok
+- Hepatitis B & C test: ${BASE}/en/guide/hepatitis-test-bangkok
+- Thyroid screening (TSH, T3, T4): ${BASE}/en/guide/thyroid-screening-bangkok
+- Fertility assessment (AMH, FSH, sperm): ${BASE}/en/guide/fertility-test-bangkok
+- STI & HIV test (confidential): ${BASE}/en/guide/sti-hiv-test-bangkok
+- H. pylori breath test + eradication: ${BASE}/en/guide/h-pylori-test-bangkok
+- Bone density DEXA scan: ${BASE}/en/guide/bone-density-dexa-scan-bangkok
+- Allergy test (skin prick, IgE): ${BASE}/en/guide/allergy-test-bangkok
 
 ## Country Comparison Guides (How Much You Save)
 
@@ -102,6 +115,12 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - UAE / Dubai vs Thailand (Gulf patients): ${BASE}/en/guide/health-checkup-uae-vs-thailand
 - Netherlands vs Thailand (Gezondheidscheck): ${BASE}/en/guide/health-checkup-netherlands-vs-thailand
 - Scandinavia vs Thailand (Sweden/Norway/Denmark): ${BASE}/en/guide/health-checkup-scandinavia-vs-thailand
+- Italy vs Thailand (SSN waiting lists): ${BASE}/en/guide/health-checkup-italy-vs-thailand
+- Spain vs Thailand (for Spaniards + Latin America): ${BASE}/en/guide/health-checkup-spain-vs-thailand
+- Brazil vs Thailand (plano de saúde gaps): ${BASE}/en/guide/health-checkup-brazil-vs-thailand
+- Philippines vs Thailand (PhilHealth gaps): ${BASE}/en/guide/health-checkup-philippines-vs-thailand
+- South Africa vs Thailand (Discovery Health): ${BASE}/en/guide/health-checkup-south-africa-vs-thailand
+- Vietnam vs Thailand (bệnh viện Bangkok): ${BASE}/en/guide/health-checkup-vietnam-vs-thailand
 
 ## Practical Guides
 
