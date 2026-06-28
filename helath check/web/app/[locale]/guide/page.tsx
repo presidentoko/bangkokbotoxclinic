@@ -277,6 +277,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-japan-vs-thailand",
+    title: "Japan vs Thailand Health Check-Up (2026) — Ningen Dock in Bangkok",
+    description: "人間ドック equivalent packages in Bangkok cost 50–70% less than in Japan. Japanese-speaking staff at BNH, Samitivej, Bumrungrad.",
+    emoji: "🇯🇵",
+    category: "Practical Guides",
+  },
+  {
     slug: "mens-health-checkup-bangkok",
     title: "Men's Health Check-Up in Bangkok (2026)",
     description: "PSA, testosterone, cardiac risk, liver, kidney — what's in a Bangkok men's health package and where to go.",

@@ -79,6 +79,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 
 - JCI hospitals Bangkok: ${BASE}/en/guide/jci-hospitals-bangkok
 - Thailand vs Malaysia (Hat Yai): ${BASE}/en/guide/health-checkup-malaysia-vs-thailand
+- Thailand vs Japan (Ningen Dock): ${BASE}/en/guide/health-checkup-japan-vs-thailand
 - What is included in a health checkup: ${BASE}/en/guide/what-is-included-checkup
 - Health checkup for expats: ${BASE}/en/guide/health-checkup-expats-thailand
 - How to prepare: ${BASE}/en/guide/how-to-prepare-health-checkup-thailand

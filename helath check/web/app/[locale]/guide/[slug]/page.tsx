@@ -1798,6 +1798,69 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-japan-vs-thailand": {
+    title: "Health Check-Up: Japan vs Thailand (2026) — Ningen Dock in Bangkok",
+    description: "Compare health check-up costs between Japan and Thailand. Bangkok hospitals offer Ningen Dock-equivalent packages at 50–70% below Japanese prices. Japanese-speaking staff at BNH, Samitivej, and Bumrungrad.",
+    intro: "Japan has one of the world's most thorough health screening cultures — the Ningen Dock (人間ドック) is a standard annual check-up for most working adults. Thailand's Bangkok hospitals offer equivalent packages at 50–70% lower prices, with dedicated Japanese departments, Japanese-speaking staff, and same-day results. BNH Hospital has served Japanese patients in Bangkok for over 40 years.",
+    sections: [
+      {
+        heading: "Price comparison: Japan vs Thailand health check-up 2026",
+        content: "Ningen Dock-equivalent package cost comparison (exchange rate ~¥4.3 = ฿1):",
+        list: [
+          "Ningen Dock basic (blood panel, X-ray, urine, ECG, ultrasound): Japan ¥50,000–¥100,000 | Bangkok ฿8,000–฿15,000 (¥34,000–¥65,000) | Saving 35–65%",
+          "Ningen Dock comprehensive (+ endoscopy, cancer markers): Japan ¥100,000–¥200,000 | Bangkok ฿18,000–฿35,000 (¥77,000–¥150,000) | Saving 40–55%",
+          "Executive premium (+ MRI, full imaging): Japan ¥200,000–¥400,000+ | Bangkok ฿35,000–฿70,000 (¥150,000–¥300,000) | Saving 40–60%",
+          "Gastroscopy standalone: Japan ¥20,000–¥40,000 | Bangkok ฿4,500–฿9,000 (¥19,000–¥39,000) | Similar price",
+          "PET/CT full body scan: Japan ¥100,000–¥120,000 | Bangkok ฿25,000–฿45,000 (¥107,000–¥194,000) | Saving 30–50%",
+        ],
+      },
+      {
+        heading: "What is Ningen Dock — and what does Bangkok offer?",
+        content: "Ningen Dock (人間ドック) is Japan's standard annual health screening — far more comprehensive than a typical Western annual check-up. Bangkok hospitals offer equivalent or superior packages:",
+        list: [
+          "Standard Ningen Dock includes: blood CBC, metabolic panel, urinalysis, stool occult blood, chest X-ray, ECG, abdominal ultrasound, lung function test, eye test, and a doctor consultation",
+          "Bangkok equivalent: available at Bumrungrad (「フルボディチェックアップ」), BNH (Japanese-branded package), and Samitivej — all with Japanese-language reports",
+          "Gastroscopy (胃内視鏡): Japan typically uses barium swallow (バリウム検査); Bangkok hospitals offer gastroscopy (直接カメラ) as the standard — more accurate, results same day",
+          "Colonoscopy (大腸内視鏡): common add-on in Japan, available at Bangkok hospitals for ฿7,000–฿15,000",
+          "H. Pylori (ピロリ菌) test: common in Japan given high prevalence; available in Bangkok as add-on from ฿800",
+        ],
+      },
+      {
+        heading: "Best Bangkok hospitals for Japanese patients",
+        content: "These hospitals have established Japanese patient departments with full Japanese-language services:",
+        list: [
+          "BNH Hospital — the original Japanese-community hospital in Bangkok; 40+ years serving Japanese residents; smallest and most personal feel; competitive pricing",
+          "Samitivej Sukhumvit — full Japanese Health Centre; 日本語でのサービス full Japanese-language reporting; popular with Japanese families",
+          "Bumrungrad International — 40+ Japanese-speaking staff; Japanese-language patient app; widest package selection; most recognisable brand to Japanese patients",
+          "Bangkok Hospital (main) — BDMS Japanese desk; popular for Japanese corporate groups",
+          "Phyathai 2 — Japanese coordinator on-site; competitive pricing for standard/executive packages",
+        ],
+      },
+      {
+        heading: "Practical guide for Japanese visitors",
+        content: "Everything you need to know to book a health check-up in Bangkok:",
+        list: [
+          "Booking: contact the hospital's Japanese desk (日本語窓口) directly — BNH, Samitivej, and Bumrungrad all have Japanese-language phone/email support",
+          "Fasting (絶食): 10–12 hours before the appointment; water only; morning appointments (7–8 AM) are best",
+          "Travel: ANA, JAL, Thai Airways, and budget carriers fly Bangkok from major Japanese cities from ¥30,000–¥80,000 return",
+          "Medical records: request Japanese-language results — available at Bumrungrad and Samitivej within 24–48 hours",
+          "Medical travel insurance: Japan travel insurance (海外旅行保険) from companies like Sony, Tokio Marine can sometimes cover emergency treatment but not planned check-ups",
+          "Payment: all major credit cards (Visa, Mastercard, JCB) accepted; no need for cash conversion beforehand",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "バンコクで人間ドックを受けるのはいくらですか？ (How much is a Ningen Dock-equivalent health check in Bangkok?)", a: "バンコクの人間ドック相当パッケージは฿8,000（約34,000円）から始まります。胃カメラ付き総合パッケージは฿18,000–฿35,000（約77,000–150,000円）。日本の同等パッケージ（¥50,000–¥200,000）と比べて50–70%節約できます。BNH病院、サミティベット病院、バムルンラード病院が日本語サービスを提供しています。" },
+      { q: "Which Bangkok hospitals have Japanese-speaking staff for health check-ups?", a: "BNH Hospital has the longest history of Japanese patient care with a dedicated Japanese department. Samitivej Sukhumvit has a full Japanese Health Centre with Japanese-language reports. Bumrungrad International has 40+ Japanese-speaking staff. All three hospitals offer Japanese-language consultations, appointments, and printed results." },
+      { q: "Is a gastroscopy (胃カメラ) better in Bangkok than Japan's barium swallow?", a: "Yes — Bangkok hospitals use direct gastroscopy (カメラ内視鏡) as standard, which is more accurate and faster than the barium swallow (バリウム検査) common at Japanese Ningen Dock centres. Gastroscopy is available in Bangkok for ฿4,500–฿9,000 as an add-on. You can request light sedation (鎮静剤) at most Bangkok hospitals for comfort." },
+    ],
+    relatedLinks: [
+      { href: "/en/for/japanese-health-checkup-bangkok", label: "Japanese health check-up packages" },
+      { href: "/en/guide/best-hospitals-japanese-tourists", label: "Best hospitals for Japanese tourists" },
+      { href: "/en/guide/thailand-vs-singapore-health-checkup", label: "Thailand vs Singapore comparison" },
+    ],
+  },
+
   "rayong-health-checkup": {
     title: "Rayong Health Check-Up Guide (2026)",
     description: "Health check-up hospitals in Rayong, Thailand. Bangkok Hospital Rayong, Camillian, and more. Prices from ฿1,500.",
