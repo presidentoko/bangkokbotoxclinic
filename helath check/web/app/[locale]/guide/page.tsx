@@ -241,6 +241,27 @@ const GUIDES = [
     emoji: "🏭",
     category: "City Guides",
   },
+  {
+    slug: "chiang-rai-health-checkup",
+    title: "Chiang Rai Health Check-Up Guide (2026)",
+    description: "Golden Triangle area hospitals. 20–40% cheaper than Chiang Mai. Good for northern Thailand travellers.",
+    emoji: "🌄",
+    category: "City Guides",
+  },
+  {
+    slug: "ayutthaya-health-checkup",
+    title: "Ayutthaya Health Check-Up Guide (2026)",
+    description: "Day trip option 80km from Bangkok. Bangkok Hospital Ayutthaya + 3 other options. From ฿2,000.",
+    emoji: "🏯",
+    category: "City Guides",
+  },
+  {
+    slug: "nakhon-si-thammarat-health-checkup",
+    title: "Nakhon Si Thammarat Health Check-Up Guide (2026)",
+    description: "Southern Thailand's oldest city. Competitive prices, short queues. From ฿2,200.",
+    emoji: "🕌",
+    category: "City Guides",
+  },
 ];
 
 const CATEGORIES = ["City Guides", "Hospital Guides", "Understanding Your Check-Up", "Specialist Screening", "By Age & Lifestyle", "Practical Guides", "By Nationality"];

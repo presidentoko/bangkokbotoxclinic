@@ -1744,6 +1744,112 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
     ],
   },
+
+  "chiang-rai-health-checkup": {
+    title: "Health Check-Up in Chiang Rai — Prices, Hospitals & Packages (2026)",
+    description: "Compare health check-up packages at Chiang Rai hospitals. Prices from ฿1,800 at private hospitals. Near the Golden Triangle — conveniently combined with northern Thailand travel.",
+    intro: "Chiang Rai is Thailand's northernmost major city, popular with travellers exploring the Golden Triangle, Doi Tung, and the border with Myanmar and Laos. The city has several private hospitals offering competitive health check-up packages — ideal for travellers who want to combine sightseeing with a check-up at prices 20–40% lower than Chiang Mai or Bangkok.",
+    sections: [
+      {
+        heading: "Health check-up prices in Chiang Rai",
+        content: "Health check-up packages at Chiang Rai private hospitals offer good value:",
+        list: [
+          "Basic package (blood panel, blood pressure, urinalysis): ฿1,800 – ฿4,000",
+          "Standard package (+ chest X-ray, ECG): ฿4,000 – ฿8,500",
+          "Comprehensive package (+ ultrasound, hepatitis, thyroid): ฿7,500 – ฿15,000",
+          "Executive package (full screening with specialist): ฿14,000 – ฿30,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Chiang Rai for health check-ups",
+        content: "Chiang Rai's main private hospitals:",
+        list: [
+          "Chiang Rai Prachanukroh Hospital — major government hospital, lower cost, longer wait",
+          "Overbrook Hospital — oldest private hospital, central location, English service available",
+          "Mae Fah Luang University Hospital — newer facility, strong academic backing, modern equipment",
+          "Bangkok Hospital Chiang Rai — BDMS branch, highest international standard in Chiang Rai",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it worth getting a health check-up in Chiang Rai vs Chiang Mai?", a: "Chiang Rai is a good option if you are already visiting the area — prices are 15–25% lower than Chiang Mai and wait times are shorter. However, Chiang Mai has a broader range of packages, more JCI-accredited facilities, and better specialist coverage for complex cases." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/chiang-mai-health-checkup", label: "Chiang Mai health check-up guide" },
+      { href: "/en/city/chiang-rai", label: "Compare Chiang Rai packages" },
+    ],
+  },
+
+  "ayutthaya-health-checkup": {
+    title: "Health Check-Up in Ayutthaya — Prices, Hospitals & Packages (2026)",
+    description: "Compare health check-up packages in Ayutthaya, Thailand's ancient capital. From ฿2,000 at private hospitals, 1 hour from Bangkok. Day trip health checkup option.",
+    intro: "Ayutthaya, UNESCO World Heritage city and former Thai capital, is just 80 kilometres north of Bangkok — a 1-hour drive or 1.5-hour train ride. Its private hospitals offer good-value health check-ups for visitors exploring the historic temples, or residents who prefer shorter queues than Bangkok.",
+    sections: [
+      {
+        heading: "Health check-up prices in Ayutthaya",
+        content: "Private hospital packages in Ayutthaya:",
+        list: [
+          "Basic package (blood, blood pressure, urine): ฿2,000 – ฿4,500",
+          "Standard package (+ ECG, chest X-ray): ฿4,500 – ฿9,000",
+          "Comprehensive (+ ultrasound, hepatitis, thyroid): ฿8,000 – ฿16,000",
+          "Executive: ฿15,000 – ฿28,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Ayutthaya for health check-ups",
+        content: "Ayutthaya's private hospitals:",
+        list: [
+          "Krung Sri Hospital — largest private hospital in Ayutthaya, widest package range",
+          "Ayutthaya Hospital — major government facility, cheapest option, long queues",
+          "Bangkok Hospital Ayutthaya — BDMS branch, highest standard, English service",
+          "Theppakorn Hospital — mid-tier private, good for standard packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can I combine a health check-up day trip with sightseeing in Ayutthaya?", a: "Yes — most check-up packages take 3–5 hours. Arrive at 7–8am fasting, complete the check-up by noon, then visit the temples in the afternoon. Bangkok Hospital Ayutthaya is conveniently located near the train station. Results are ready same day for most tests." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/city/ayutthaya", label: "Compare Ayutthaya packages" },
+    ],
+  },
+
+  "nakhon-si-thammarat-health-checkup": {
+    title: "Health Check-Up in Nakhon Si Thammarat — Prices & Hospitals (2026)",
+    description: "Compare health check-up packages at hospitals in Nakhon Si Thammarat. Southern Thailand's largest inland city. Packages from ฿2,200 at private hospitals.",
+    intro: "Nakhon Si Thammarat (NST) is the largest and oldest city in southern Thailand, a regional hub with a strong healthcare infrastructure serving residents from across the southern provinces. Private hospitals in NST offer comprehensive health check-ups at some of the most competitive prices in the country — without Bangkok waiting times.",
+    sections: [
+      {
+        heading: "Health check-up prices in Nakhon Si Thammarat",
+        content: "Health check-up packages in NST private hospitals:",
+        list: [
+          "Basic package: ฿2,200 – ฿5,000",
+          "Standard package (+ ECG, X-ray): ฿5,000 – ฿10,000",
+          "Comprehensive package (+ ultrasound, cancer markers): ฿8,000 – ฿18,000",
+          "Executive: ฿16,000 – ฿35,000",
+        ],
+      },
+      {
+        heading: "Best hospitals in Nakhon Si Thammarat",
+        content: "Main hospital options in NST:",
+        list: [
+          "Bangkok Hospital Nakhon Si Thammarat — BDMS branch, highest standard, full package range",
+          "Maharaj Nakhon Si Thammarat Hospital — major government hospital, cheaper, longer wait",
+          "Nawamin Hospital — established private, mid-tier pricing",
+          "Thaksin Hospital — mid-size private, standard packages, competitive pricing",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Nakhon Si Thammarat or Hat Yai better for a health check-up?", a: "Hat Yai has more hospitals, more package options, and slightly stronger international patient services. NST is better if you are already there — prices are similar, but NST hospitals tend to have shorter wait times. Both cities have Bangkok Hospital branches of equivalent quality." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/hat-yai-health-checkup", label: "Hat Yai health check-up guide" },
+      { href: "/en/guide/phuket-health-checkup", label: "Phuket health check-up guide" },
+      { href: "/en/city/nakhon-si-thammarat", label: "Compare NST packages" },
+    ],
+  },
 };
 
 export function generateStaticParams() {
