@@ -119,6 +119,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/guides/patek-philippe-nautilus-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
   }
 
   // Brand pages
