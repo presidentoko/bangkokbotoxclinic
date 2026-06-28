@@ -298,6 +298,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "thyroid-screening-bangkok",
+    title: "Thyroid Screening in Bangkok — TSH, T3, T4 Costs & What They Mean",
+    description: "Thyroid test prices in Bangkok: TSH ฿300–600, full panel ฿800–2,500, ultrasound ฿1,500–4,000. Included in most executive packages. Same-day results.",
+    emoji: "🦋",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

@@ -3034,7 +3034,77 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up?" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
+      { href: "/en/guide/thyroid-screening-bangkok", label: "Thyroid screening in Bangkok" },
       { href: "/en/compare?category=basic", label: "Compare basic packages" },
+    ],
+  },
+
+  "thyroid-screening-bangkok": {
+    title: "Thyroid Screening in Bangkok — TSH, T3, T4 Test Costs & What They Mean (2026)",
+    description: "Thyroid function tests in Bangkok: TSH, Free T3, Free T4, thyroid ultrasound, and antibody tests. Prices, what results mean, and which hospitals to choose.",
+    intro: "Thyroid disorders are among the most commonly discovered conditions during health check-ups in Bangkok — especially in expatriates and visitors from regions with historical iodine deficiency. A basic thyroid panel (TSH, Free T3, Free T4) costs ฿800–฿2,500 as an add-on to a standard health check-up, or is included in most executive packages. Bangkok's private hospitals offer same-day thyroid test results, thyroid ultrasound, and specialist consultation if needed — making a full thyroid work-up possible in a single morning.",
+    sections: [
+      {
+        heading: "Thyroid test prices in Bangkok (2026)",
+        content: "Cost of individual thyroid tests and packages at Bangkok private hospitals:",
+        list: [
+          "TSH (Thyroid Stimulating Hormone) only: ฿300–฿600 — the primary screening test; abnormal result triggers further testing",
+          "TSH + Free T3 + Free T4 (full basic panel): ฿800–฿1,500 — standard panel for diagnosing hypo/hyperthyroidism",
+          "TSH + Free T3 + Free T4 + TPO antibodies (anti-TPO): ฿1,200–฿2,500 — adds autoimmune thyroid disease screening (Hashimoto's, Graves')",
+          "Full thyroid panel (TSH + FT3 + FT4 + anti-TPO + anti-TG + thyroglobulin): ฿2,500–฿5,000 — comprehensive, used for known thyroid disease monitoring",
+          "Thyroid ultrasound: ฿1,500–฿4,000 — scans for nodules, goitre, and structural abnormalities; often done same-day",
+          "Fine needle aspiration biopsy (FNA) of thyroid nodule: ฿8,000–฿20,000 including pathology — requires specialist booking",
+          "Most executive health check-up packages (฿8,000+) include TSH as standard; Free T3/T4 are included at ฿12,000+ tier",
+        ],
+      },
+      {
+        heading: "Understanding your thyroid results",
+        content: "Reference ranges used at Bangkok international hospitals (may vary slightly by lab):",
+        list: [
+          "TSH normal range: 0.4–4.0 mIU/L — below 0.4 suggests hyperthyroidism; above 4.0 suggests hypothyroidism",
+          "Free T4 normal: 0.8–1.8 ng/dL — low T4 with high TSH = primary hypothyroidism",
+          "Free T3 normal: 2.3–4.2 pg/mL — elevated T3 with low TSH = hyperthyroidism",
+          "Anti-TPO antibodies: <35 IU/mL is normal — elevated = Hashimoto's thyroiditis (autoimmune hypothyroidism)",
+          "Anti-TG antibodies: <40 IU/mL is normal — elevated with nodules = further monitoring needed",
+          "Thyroid nodule found on ultrasound: most are benign (95%+); size >1cm or suspicious features trigger FNA biopsy recommendation",
+          "Bangkok doctors will provide a clear English-language explanation of results; ask for the reference ranges on your result sheet",
+        ],
+      },
+      {
+        heading: "Who should get a thyroid test in Bangkok?",
+        content: "Groups for whom thyroid screening is particularly relevant:",
+        list: [
+          "Women aged 30–60: thyroid disorders are 5–8× more common in women; hypothyroidism is very common in perimenopausal women",
+          "Expats in Bangkok: iodized salt use varies; some expats from countries with less iodine fortification have higher risk",
+          "Anyone with symptoms: unexplained fatigue, weight changes, hair loss, feeling cold/hot all the time, heart palpitations",
+          "After COVID-19: post-COVID thyroid dysfunction (subacute thyroiditis) has been documented; worth checking 3–6 months after infection",
+          "Family history of thyroid disease: Hashimoto's and Graves' disease run in families — screen from age 25–30 if first-degree relatives affected",
+          "Anyone on lithium, amiodarone, or interferon: these medications can cause thyroid dysfunction",
+        ],
+      },
+      {
+        heading: "Best hospitals for thyroid testing in Bangkok",
+        content: "Where to get a thyroid work-up in Bangkok:",
+        list: [
+          "Bumrungrad International — dedicated endocrinology department, same-day TSH/T4, thyroid ultrasound by dedicated radiologist, walk-in lab available",
+          "Samitivej Sukhumvit — thyroid panel included in executive check-up packages, same-day results, good for first-time screens",
+          "Bangkok Hospital — strong endocrinology team at main campus; thyroid specialist referral same-day if results warrant",
+          "BNH Hospital — smaller, quieter, good for comprehensive thyroid panel with specialist consultation in one visit",
+          "Praram 9 Hospital — cost-effective option for basic TSH + T3/T4 if you know what you need",
+          "For FNA biopsy: all of the above have facilities, but Bumrungrad and Bangkok Hospital have the highest biopsy volume",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is a thyroid test included in a standard Bangkok health check-up?", a: "TSH (the primary screening test) is included in most executive-tier packages at Bangkok hospitals — typically from ฿8,000–฿10,000 packages. Basic packages (below ฿5,000) often include only blood glucose and cholesterol, not thyroid. To ensure TSH is included, look for 'Thyroid Function' or 'TSH' in the package inclusion list, or ask when booking. Full Free T3/T4 and antibody panels are usually add-ons unless you're getting a premium package." },
+      { q: "How quickly are thyroid test results available in Bangkok?", a: "TSH, Free T3, and Free T4 results are typically available within 4–6 hours at Bangkok private hospitals. Antibody tests (anti-TPO, anti-TG) may take 6–8 hours or until the next morning. Thyroid ultrasound results are available immediately from the radiologist (or within 1–2 hours in a written report). If you're doing a full morning check-up, all routine thyroid results should be ready by the time you have your doctor consultation." },
+      { q: "What if my Bangkok thyroid test shows an abnormal result?", a: "If your TSH is out of range, the reviewing internist at the hospital will discuss next steps during the consultation — this is included in executive package pricing. They may recommend further tests (antibodies, ultrasound) which you can often get the same day. Thyroid replacement therapy (levothyroxine) is available OTC at most Thai pharmacies at very low cost (฿50–฿150 for a month's supply) — but dosing requires a prescription from your Bangkok physician." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/blood-test-price-bangkok", label: "Blood test prices Bangkok" },
+      { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your results" },
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in a check-up?" },
+      { href: "/en/guide/womens-health-checkup-bangkok", label: "Women's health guide" },
     ],
   },
 
