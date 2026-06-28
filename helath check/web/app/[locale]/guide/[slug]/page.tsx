@@ -2504,7 +2504,69 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
+      { href: "/en/guide/abnormal-results-bangkok-what-to-do", label: "What to do when Bangkok check-up finds something" },
       { href: "/en/compare?category=executive", label: "Compare executive packages" },
+    ],
+  },
+
+  "abnormal-results-bangkok-what-to-do": {
+    title: "Bangkok Check-Up Found Something Abnormal — What To Do Next (2026)",
+    description: "Your Bangkok health check-up flagged something. Don't panic. This guide covers what common abnormal results mean, when to act in Bangkok vs wait until home, and exactly what to bring back.",
+    intro: "Getting an abnormal result on your Bangkok health check-up can be alarming — but it's important to understand that 'flagged' does not mean 'sick.' Bangkok's JCI-accredited hospitals screen comprehensively, which means they will detect minor anomalies that routine checks at home might miss. Most abnormal flags require monitoring, not emergency action. This guide is a calm, step-by-step resource for understanding what different types of abnormal findings mean and what to do — both while you're still in Bangkok and after you return home.",
+    sections: [
+      {
+        heading: "Common abnormal Bangkok check-up findings — and what they typically mean",
+        content: "What specific flagged results mean and the usual level of urgency:",
+        list: [
+          "High LDL cholesterol: very common; not an emergency; start lifestyle changes and discuss statin therapy with cardiologist; same-day cardiologist consultation available ฿1,500–฿3,000",
+          "High fasting glucose or HbA1c: suggests prediabetes or diabetes; not emergency; retest to confirm if only mildly elevated; endocrinologist consultation ฿1,500–฿3,000",
+          "High blood pressure (one reading): one high reading may be anxiety or transient; not diagnostic on its own; repeat after rest; 24-hour ABPM ฿2,000–฿3,500 to confirm",
+          "Fatty liver on ultrasound (Grade 1–2): extremely common (30–40% of executive check-ups); lifestyle modification recommended; not an emergency",
+          "Thyroid abnormality (TSH high or low): usually managed with medication; thyroid ultrasound ฿1,500–฿2,500 to check for nodules; endocrinologist same-day available",
+          "Elevated cancer marker (PSA, CA-125, CEA, AFP): a mildly elevated marker often has benign causes; does NOT confirm cancer; requires specialist follow-up to investigate",
+          "Anaemia (low haemoglobin/haematocrit): iron deficiency very common, especially in women; usually managed with iron supplements; further blood tests to find cause",
+          "Abnormal ECG: most ECG 'abnormalities' are normal variants; a cardiologist review of the ECG print is often all that's needed; echocardiogram ฿4,000–฿8,000 if cardiologist advises",
+          "Abnormal kidney function (elevated creatinine): may be transient dehydration; retest after hydration; nephrologist if persistently abnormal",
+          "Gallstones on ultrasound: extremely common incidental finding; if asymptomatic, often conservatively managed; surgeon consultation ฿1,500–฿3,000",
+        ],
+      },
+      {
+        heading: "When to see a specialist in Bangkok before you fly home",
+        content: "Green, yellow, and red flags — what warrants same-day action in Bangkok vs waiting until home:",
+        list: [
+          "ACT SAME-DAY IN BANGKOK (red flags): chest pain or pressure, difficulty breathing, severe headache with high BP (>180/120), sudden vision change, very high glucose (>400 mg/dL with symptoms), rapidly growing lump, platelet count <50,000 with bleeding, haemoglobin <7 g/dL with symptoms — these require hospital emergency or urgent specialist",
+          "BOOK SPECIALIST BEFORE FLYING (yellow flags — book within 24–48 hours): elevated PSA or CA marker with no baseline; thyroid nodule on ultrasound (TIRADS 4 or 5); ovarian cyst >5cm complex; significantly abnormal ECG with symptoms; creatinine >2.0 consistently; persistent high BP >160/100",
+          "MONITOR AND FOLLOW UP AT HOME (green flags — safe to fly and follow up with home GP): mildly elevated cholesterol or blood sugar (first finding, no symptoms); Grade 1–2 fatty liver; simple kidney cysts (Bosniak I/II); small thyroid nodules (TIRADS 1–3); mild anaemia; Vitamin D deficiency; minor ECG variations",
+          "How to book a Bangkok specialist same-day: go to any major hospital international patient centre (Bumrungrad, Samitivej, Bangkok Hospital, BNH) and explain what was flagged — they can usually arrange specialist review within 2–6 hours",
+          "Cost of Bangkok specialist consultation: ฿1,500–฿4,000 depending on department; usually 20–40% of equivalent private consultation in the US, UK, or Australia",
+        ],
+      },
+      {
+        heading: "What to take home from Bangkok after an abnormal finding",
+        content: "Comprehensive checklist of documents and materials to bring home for follow-up:",
+        list: [
+          "Full laboratory report (PDF): request by email from the hospital; all major Bangkok international hospitals provide this; keep a copy on your phone",
+          "Doctor's written summary: the check-up doctor's assessment at the end of the report is your most important document — it notes which findings require follow-up",
+          "Imaging files (DICOM): for any CT, MRI, or ultrasound — request a CD or USB stick; your home radiologist or specialist can read DICOM files directly; Bumrungrad and Samitivej offer cloud download option",
+          "Radiologist report in English: a written English-language interpretation of any imaging; ask the hospital's radiology department",
+          "Specialist consultation note: if you saw a specialist in Bangkok, ask for a printed English consultation summary — this is what your home GP needs to continue your care",
+          "Medication: if Bangkok prescribed a medication (statin, antihypertensive, thyroid), buy 1–3 months supply from hospital pharmacy; generic Bangkok prices are 50–80% lower than home pharmacy prices",
+          "Follow-up plan: ask the Bangkok check-up doctor to write a clear 'what to do next' note — specifically: what tests to repeat and when, what specialist to see at home, what to watch for as warning signs",
+          "Bangkok hospital contact: save the hospital's email or WhatsApp — many Bangkok private hospitals (especially Bumrungrad, Samitivej) offer telemedicine follow-up or can answer questions via email after you've left",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "My Bangkok check-up flagged a high cancer marker. Should I be scared?", a: "Elevated cancer markers are one of the most anxiety-inducing results — but it's critical to understand that cancer markers are not cancer tests. They are proteins that can be elevated by many benign conditions. PSA (prostate) can rise from prostate infection, an enlarged prostate, or a recent bike ride. CA-125 (ovarian) can rise from endometriosis, fibroids, or menstruation. CEA (colon) can rise from smoking, inflammatory bowel disease, or liver conditions. A single mildly elevated marker on a first-ever test requires follow-up investigation — imaging, repeat testing, specialist review — not panic. Only a proper diagnostic workup (often involving biopsy) can confirm or rule out cancer. Book a specialist in Bangkok before flying home if the elevation is significant." },
+      { q: "Can I fly home after getting an abnormal result at my Bangkok check-up?", a: "For most 'green flag' abnormal findings (mild cholesterol, early fatty liver, small thyroid nodule, mild anaemia, borderline glucose), flying home is completely safe — follow up with your GP within 2–4 weeks. For 'yellow flag' findings (significantly elevated cancer markers, complex cysts, TIRADS 4–5 thyroid nodule, ECG abnormality with symptoms), consider booking a specialist review in Bangkok before your flight; this takes 2–48 hours and avoids a period of anxiety and waiting at home. For 'red flag' findings (severe hypertension, very abnormal labs with symptoms, chest pain), seek emergency care before flying." },
+      { q: "My home doctor doesn't recognise the Bangkok hospital tests — what should I do?", a: "Bangkok's major international hospitals (Bumrungrad, Samitivej, Bangkok Hospital) use the same laboratory test standards, units, and reference ranges as hospitals in the US, UK, Australia, and Europe. The tests use identical methodologies — HbA1c is HbA1c everywhere; creatinine is creatinine. Any GP or specialist worldwide can read and interpret these results. If your doctor expresses unfamiliarity with the hospital, show them that it is JCI-accredited — the international standard equivalent to Joint Commission (US) or QPS (UK). If they refuse to act on the results, ask them to repeat the specific tests locally to confirm." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your check-up results" },
+      { href: "/en/guide/high-cholesterol-treatment-bangkok", label: "High cholesterol — next steps" },
+      { href: "/en/guide/high-blood-pressure-treatment-bangkok", label: "High blood pressure — next steps" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad Hospital guide" },
+      { href: "/en/guide/health-checkup-by-age-bangkok", label: "Health check-up by age guide" },
     ],
   },
 
