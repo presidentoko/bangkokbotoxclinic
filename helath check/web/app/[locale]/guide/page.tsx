@@ -368,6 +368,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "fertility-test-bangkok",
+    title: "Fertility Test Bangkok — AMH, Hormone Panel, Sperm Analysis Prices (2026)",
+    description: "AMH ฿1,500–฿2,500, Day-3 hormone panel ฿1,500–฿3,000, sperm analysis ฿1,000–฿2,500. Full fertility work-up at JCI hospitals. 60–80% cheaper than US or UK.",
+    emoji: "🌱",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
