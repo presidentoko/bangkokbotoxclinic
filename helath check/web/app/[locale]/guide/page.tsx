@@ -319,6 +319,20 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "vitamin-d-test-bangkok",
+    title: "Vitamin D Test Bangkok — Price, Results & Treatment (2026)",
+    description: "Vitamin D (25-OH) test price in Bangkok: ฿500–฿1,200 standalone. 60–80% of Bangkok expats test deficient despite tropical climate. Same-day results.",
+    emoji: "☀️",
+    category: "Specialist Screening",
+  },
+  {
+    slug: "psa-test-bangkok",
+    title: "PSA Test Bangkok — Prostate Cancer Screening Cost & Results (2026)",
+    description: "PSA test price in Bangkok: ฿400–฿900 standalone, included in men's health packages from age 45+. Same-day results, urologist referral same day if needed.",
+    emoji: "🔬",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",

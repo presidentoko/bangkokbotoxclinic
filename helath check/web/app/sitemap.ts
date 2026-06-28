@@ -147,6 +147,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "thyroid-screening-bangkok",
       "health-checkup-day-bangkok",
       "health-checkup-switzerland-vs-thailand",
+      "vitamin-d-test-bangkok",
+      "psa-test-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
