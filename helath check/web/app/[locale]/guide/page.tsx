@@ -487,6 +487,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "travel-disease-tests-bangkok",
+    title: "Travel Disease Tests Bangkok — Dengue, Typhoid, Malaria, Leptospirosis (2026)",
+    description: "Got sick in Thailand? Dengue NS1 ฿400–฿800, malaria RDT ฿400–฿600, typhoid ฿500–฿1,000, full tropical panel ฿3,000–฿6,000. Walk-in, same-day results. Symptom guide.",
+    emoji: "🦟",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

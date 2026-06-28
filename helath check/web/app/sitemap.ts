@@ -172,6 +172,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "samitivej-hospital-health-checkup",
       "bumrungrad-hospital-health-checkup",
       "health-checkup-by-age-bangkok",
+      "travel-disease-tests-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
