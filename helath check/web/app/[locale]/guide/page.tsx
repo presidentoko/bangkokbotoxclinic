@@ -368,6 +368,20 @@ const GUIDES = [
     category: "Hospital Guides",
   },
   {
+    slug: "vejthani-hospital-health-checkup",
+    title: "Vejthani Hospital Health Check-Up Bangkok — Packages, Prices & Review (2026)",
+    description: "Vejthani is JCI-accredited with Bangkok's strongest Korean patient program. Executive packages 15–30% cheaper than Bumrungrad. Great value for Korean and Arabic patients.",
+    emoji: "🏥",
+    category: "Hospital Guides",
+  },
+  {
+    slug: "bnh-hospital-health-checkup",
+    title: "BNH Hospital Health Check-Up Bangkok — Expat Favourite, JCI-Accredited",
+    description: "BNH Hospital (Bangkok Nursing Home) is the preferred choice for European, Japanese and long-term expats. Quiet, English-first, Silom location. Check-up packages from ฿3,000.",
+    emoji: "🏨",
+    category: "Hospital Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",
