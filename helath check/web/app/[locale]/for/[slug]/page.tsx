@@ -152,6 +152,32 @@ const SEGMENTS: Record<string, {
       { q: "Can I compare comprehensive packages by what tests are included?", a: "Yes — use our compare tool with the 'Comprehensive' filter. You can see exactly which hospitals include ultrasound, ECG, cancer markers, and doctor consultation as part of their comprehensive package. Look for the ✓ Included markers on each package card." },
     ],
   },
+
+  "senior-health-checkup-bangkok": {
+    title: "Senior Health Check-Up Bangkok — Best Packages for 60+ (2026)",
+    h1: "Senior Health Check-Up in Bangkok",
+    description: "Compare senior health check-up packages in Bangkok for adults 60 and over. Includes bone density, cardiac, cognitive, and cancer screening. Packages from ฿3,500.",
+    filter: (p) => p.category === "senior" || p.category === "comprehensive" || p.category === "executive",
+    intro: "Bangkok's private hospitals offer dedicated senior health programmes with age-appropriate screening: bone density (DEXA), cardiac risk assessment, colorectal cancer screening, cognitive function testing, and hormone panels. Packages for adults over 60 range from ฿3,500 for a focused senior screen to ฿40,000 for an executive package with full imaging. JCI-accredited hospitals such as Bumrungrad and Samitivej have geriatric specialists on-site.",
+    faqs: [
+      { q: "What tests are included in a senior health check-up in Bangkok?", a: "A senior package at Bangkok private hospitals typically includes: complete blood panel (CBC, lipid, glucose, kidney/liver function), thyroid, Vitamin D, full urinalysis, ECG, chest X-ray, abdominal ultrasound, bone density scan (DEXA), and a physician consultation. Higher-tier packages add colonoscopy, cognitive assessment (Mini-Mental State Exam), echocardiogram, and cancer tumour markers." },
+      { q: "Which Bangkok hospital is best for senior health check-ups?", a: "Bumrungrad International Hospital has a dedicated Geriatric & Senior Health Centre with specialist geriatricians. Samitivej Sukhumvit and Bangkok Hospital offer Senior Wellness programmes with tailored packages. For seniors concerned about bone density, Vejthani Hospital has competitive DEXA scan pricing (around ฿2,500)." },
+      { q: "How often should seniors get a health check-up in Bangkok?", a: "Most geriatric specialists recommend a comprehensive check-up every 12 months for adults over 60, and every 6 months for those over 70 or with pre-existing conditions. Colonoscopy is recommended every 5–10 years from age 45, or sooner if symptoms exist." },
+    ],
+  },
+
+  "diabetes-screening-bangkok": {
+    title: "Diabetes Screening Bangkok — Blood Sugar Tests & Packages 2026",
+    h1: "Diabetes Screening in Bangkok",
+    description: "Compare diabetes screening and blood sugar test packages in Bangkok. Fasting glucose, HbA1c, insulin resistance panels. From ฿500 at private hospitals. Same-day results.",
+    filter: (p) => p.category === "diabetes" || p.has_blood === 1,
+    intro: "Bangkok private hospitals offer rapid diabetes screening with same-day results. A basic diabetes screen (fasting blood glucose + HbA1c) costs ฿500–฿1,500 and gives you a complete picture of short-term and 3-month average blood sugar levels. More comprehensive metabolic panels include fasting insulin, C-peptide, microalbumin, and kidney function — important for pre-diabetics or those managing Type 2 diabetes.",
+    faqs: [
+      { q: "What diabetes tests can I get in Bangkok?", a: "Bangkok private hospitals offer: fasting blood glucose (฿100–฿300), HbA1c (฿300–฿600), fasting insulin (฿500–฿800), OGTT — oral glucose tolerance test (฿600–฿1,200), C-peptide, microalbumin (for kidney monitoring), and full diabetic panels (฿1,500–฿3,500) that include kidney and eye screening." },
+      { q: "Do I need to fast for a diabetes blood test in Bangkok?", a: "Yes, fasting for 8–12 hours is required for fasting blood glucose and most HbA1c tests. Drink only water. HbA1c measures average blood sugar over 3 months and is more reliable than a single fasting glucose reading. Plan to arrive at the hospital in the morning before eating." },
+      { q: "Can I walk in for a diabetes test in Bangkok without an appointment?", a: "Yes, most private hospitals in Bangkok accept walk-in blood tests. Go to the laboratory or check-up department, request the test, and results are typically ready within 2–4 hours. A nurse or doctor can also review results the same day. Hospitals like Bumrungrad, Samitivej, and Bangkok Hospital all offer walk-in blood testing." },
+    ],
+  },
 };
 
 export function generateStaticParams() {

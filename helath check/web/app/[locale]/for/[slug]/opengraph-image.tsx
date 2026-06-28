@@ -16,6 +16,8 @@ const SEGMENT_META: Record<string, { icon: string; title: string; subtitle: stri
   "health-checkup-tourists-thailand":         { icon: "✈️", title: "Health Check-Up for Tourists", subtitle: "Same-day results · No registration needed · All cities" },
   "cardiac-health-checkup-bangkok":           { icon: "❤️", title: "Cardiac Health Check-Up Bangkok", subtitle: "ECG · Echocardiogram · Coronary CT · Cardiologist review" },
   "comprehensive-health-checkup-bangkok":     { icon: "🔬", title: "Comprehensive Health Check-Up Bangkok", subtitle: "Full body screen · Blood · Ultrasound · X-ray · ECG" },
+  "senior-health-checkup-bangkok":            { icon: "🧓", title: "Senior Health Check-Up Bangkok", subtitle: "Bone density · Cardiac · Cognitive · Cancer markers · 60+" },
+  "diabetes-screening-bangkok":               { icon: "🩸", title: "Diabetes Screening Bangkok", subtitle: "HbA1c · Fasting glucose · Insulin · Same-day results" },
 };
 
 export default async function Image({
