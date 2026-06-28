@@ -473,6 +473,13 @@ const GUIDES = [
     category: "Hospital Guides",
   },
   {
+    slug: "bumrungrad-hospital-health-checkup",
+    title: "Bumrungrad International Hospital Health Check-Up Bangkok (2026)",
+    description: "Bumrungrad International health check-up packages from ฿5,500 to ฿80,000+. Thailand's most internationally recognised hospital. 500,000 international patients/year, 40 languages, JCI-accredited.",
+    emoji: "🌐",
+    category: "Hospital Guides",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

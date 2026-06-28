@@ -170,6 +170,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-brazil-vs-thailand",
       "health-checkup-vietnam-vs-thailand",
       "samitivej-hospital-health-checkup",
+      "bumrungrad-hospital-health-checkup",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

@@ -3581,6 +3581,67 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "bumrungrad-hospital-health-checkup": {
+    title: "Bumrungrad International Hospital Health Check-Up Bangkok — Packages (2026)",
+    description: "Bumrungrad International health check-up: packages from ฿5,500 to ฿80,000+. JCI-accredited, 500,000+ international patients/year. 40 languages, 190 nationalities. Most internationally recognised hospital in Thailand.",
+    intro: "Bumrungrad International Hospital is Thailand's most internationally recognised private hospital — serving over 500,000 international patients per year from 190 countries, with staff communicating in 40+ languages. For international patients who prioritise global recognition, specialist depth, and English-first infrastructure, Bumrungrad is the benchmark. Health check-up packages range from basic blood tests to premium executive check-ups with whole-body MRI, cardiac CT, and specialist consultations.",
+    sections: [
+      {
+        heading: "Bumrungrad health check-up packages and prices",
+        content: "Package tiers at Bumrungrad International Hospital (2026 — approximate pricing):",
+        list: [
+          "Platinum Basic (CBC, metabolic panel, glucose, cholesterol, urinalysis): ฿5,500–฿8,000",
+          "Platinum Standard (+ ECG, chest X-ray, abdominal + pelvic ultrasound, thyroid TSH): ฿8,000–฿14,000",
+          "Platinum Comprehensive (+ full cancer marker panel, hepatitis B/C, physician report): ฿14,000–฿25,000",
+          "Platinum Executive (+ bone density, Vitamin D, HbA1c, hormonal panel, specialist consultation): ฿20,000–฿40,000",
+          "Platinum Premier (+ MRI brain, cardiac CT, echocardiogram, full specialist review): ฿40,000–฿80,000",
+          "Women's Platinum (+ mammogram, pap smear, HPV, pelvic ultrasound, OB/GYN consult): ฿10,000–฿25,000",
+          "Men's Executive (PSA, testosterone, cardiac, prostate specialist): ฿12,000–฿28,000",
+          "Note: Bumrungrad prices have increased 10–20% since 2023; currently among the highest in Bangkok for equivalent scope — 10–30% above Samitivej for comparable packages",
+        ],
+      },
+      {
+        heading: "Why choose Bumrungrad for your health check-up",
+        content: "Bumrungrad's specific advantages for international health check-up patients:",
+        list: [
+          "Global recognition: most widely accepted by insurers, employers, and home-country doctors — if you need internationally recognised certification, Bumrungrad's name carries weight",
+          "Language support: 40+ languages including Arabic, Chinese (Mandarin and Cantonese), Japanese, Korean, Russian, French, German — dedicated international patient coordinators for each major language",
+          "Specialist availability: 1,200+ specialist doctors on-site; if a screening result reveals a concern, same-day or next-day specialist referral within the hospital",
+          "Insurance: Bumrungrad is accepted by virtually all major international health insurers (Cigna, AXA, Bupa Global, Allianz, Pacific Cross); billing direct to insurance is available",
+          "Technology: 1.5T and 3T MRI, 256-slice cardiac CT, PET-CT, digital mammography, advanced echo — all on-site",
+          "International patient lounge: dedicated check-in area, expedited service for certain nationalities; Arabic lounge, VIP services",
+          "Medical records: Bumrungrad has an electronic patient record system that can provide full history across visits; useful for long-term expats and returning visitors",
+          "Academic quality: Bumrungrad is affiliated with major US medical schools and regularly publishes in international medical journals — medical quality oversight is rigorous",
+        ],
+      },
+      {
+        heading: "How to book a Bumrungrad health check-up",
+        content: "Booking process and practical preparation for Bumrungrad International:",
+        list: [
+          "Online pre-registration: bumrungrad.com/health-checkup — select package, choose date/time, fill medical history form online",
+          "International patient centre: call the international desk (24-hour availability); Arabic, Japanese, Korean, Chinese, Russian coordinators available to advise on appropriate package",
+          "Walk-in: accepted at the health check-up centre, 2nd floor main building; but morning slots (7–8 AM) fill well in advance — book at least 3–5 days ahead, 2 weeks in peak season (Nov–Mar)",
+          "Fasting: 8–10 hours for blood tests; glucose tolerance test (if included) requires 12 hours fasting; water and blood pressure medications allowed",
+          "Same-day booking: call the morning of your visit — last-minute afternoon slots may be available; better odds on weekdays vs weekends",
+          "Getting there: Sukhumvit Soi 3 (Soi Nana); BTS Nana station 5-minute walk; taxi from Suvarnabhumi Airport 30–45 minutes; from Asok BTS 10–15 minutes",
+          "Payment: Visa, Mastercard, Amex, UnionPay, direct insurance billing; international telegraphic transfer for large packages",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Bumrungrad worth the premium over Samitivej?", a: "For most international health check-up visitors, Samitivej offers comparable JCI-accredited care at 10–25% lower cost with shorter queues. Bumrungrad's premium is justified if: (1) you need a specific specialist only available at Bumrungrad, (2) your insurer or employer specifically accepts Bumrungrad documentation, (3) you communicate in a language where Bumrungrad has the best coordinator team (e.g., Arabic services are exceptional), or (4) you want to continue care at the same hospital if a specialist concern is found. For a routine annual check-up, Samitivej is often the better value." },
+      { q: "Can I get a second opinion at Bumrungrad after a check-up elsewhere?", a: "Yes — Bumrungrad offers second-opinion consultations for specialist findings. You can bring results from any hospital in Thailand or abroad, and request a specialist consultation (฿1,500–฿3,000 consultation fee). The specialist will review your results and give an independent interpretation. This is particularly useful for uncertain biopsy results, complex cardiac findings, or oncology cases." },
+      { q: "Does Bumrungrad accept my home-country health insurance?", a: "Bumrungrad accepts most major international health insurance policies directly — including Cigna, Bupa Global, AXA, Allianz, AIG, Pacific Cross, and many others. Call the insurance desk before your appointment to set up direct billing. Health check-up packages specifically may or may not be covered (preventive care coverage varies by policy) — check your policy for 'wellness check-up' or 'preventive screening' benefits. Keep all receipts regardless for potential reimbursement." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej full comparison" },
+      { href: "/en/guide/samitivej-hospital-health-checkup", label: "Samitivej Hospital guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive check-up guide" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+    ],
+  },
+
   "samitivej-hospital-health-checkup": {
     title: "Samitivej Hospital Health Check-Up Bangkok — Packages, Prices & Review (2026)",
     description: "Samitivej Sukhumvit hospital health check-up: packages from ฿3,500. JCI-accredited, quieter than Bumrungrad, 10–25% cheaper. Best for executives, women's health, Japanese and Korean patients. Full review.",
