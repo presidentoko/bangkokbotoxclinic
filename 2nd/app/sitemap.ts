@@ -127,6 +127,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/guides/how-to-buy-pre-owned-luxury-online`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${BASE}/compare/fendi-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/rolex-submariner-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${BASE}/trends/hermes-birkin-waitlist-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
