@@ -141,6 +141,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/trends/louis-vuitton-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${BASE}/compare/prada-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/how-to-authenticate-balenciaga`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/guides/best-luxury-bags-under-3000`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
