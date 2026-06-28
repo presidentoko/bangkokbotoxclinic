@@ -2380,8 +2380,68 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
       { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand comparison" },
       { href: "/en/guide/health-checkup-netherlands-vs-thailand", label: "Netherlands vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-spain-vs-thailand", label: "Spain vs Thailand comparison" },
       { href: "/en/guide/vitamin-d-test-bangkok", label: "Vitamin D test Bangkok" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+    ],
+  },
+
+  "health-checkup-spain-vs-thailand": {
+    title: "Health Check-Up Spain vs Thailand 2026 — Bangkok para Españoles y Latinoamericanos",
+    description: "Sistema Nacional de Salud espera 3–18 meses. Privada España: €200–€1,000. Bangkok JCI: ฿8,000–฿25,000 (€190–€595) — igual calidad, sin espera. Guía para españoles y latinoamericanos.",
+    intro: "El Sistema Nacional de Salud (SNS) de España ofrece cobertura universal, pero las listas de espera para pruebas preventivas y especialistas pueden ser frustrantes: 3–18 meses para resonancia magnética, 2–6 meses para endoscopia, 3–9 meses para visita a especialista en muchas comunidades autónomas. La sanidad privada española cuesta €200–€1,000 para un chequeo completo. En Bangkok, un chequeo ejecutivo en hospital JCI cuesta ฿8,000–฿25,000 (€190–€595) — misma calidad, cero espera, resultados el mismo día. Este guide is also relevant for Latin American patients from Mexico, Argentina, Colombia, Chile, and Brazil, where private healthcare costs are comparable to or exceed European levels. Spain sends approximately 800,000 tourists to Thailand annually.",
+    sections: [
+      {
+        heading: "Comparativa de precios: España privada vs Bangkok",
+        content: "Private healthcare costs in Spain vs Bangkok health check-up (2026):",
+        list: [
+          "Analítica básica (hemograma, bioquímica, glucosa, colesterol, orina) — España privada: €80–€200 / Bangkok: ฿2,500–฿5,000 (€60–€120) — ahorro 30–60%",
+          "Chequeo estándar (+ EKG, radiografía de tórax, ecografía abdominal, TSH) — España privada: €300–€600 / Bangkok: ฿5,000–฿10,000 (€120–€240) — ahorro 50–65%",
+          "Chequeo ejecutivo completo (panel de órganos + marcadores tumorales + consulta médica) — España privada: €600–€1,500 / Bangkok: ฿8,000–฿25,000 (€190–€595) — ahorro 40–70%",
+          "Resonancia magnética cerebral — España privada: €250–€700 / Bangkok: ฿5,000–฿12,000 (€120–€285) — ahorro 50–65%",
+          "Gastroscopia con sedación — España privada: €350–€900 / Bangkok: ฿4,500–฿9,000 (€107–€215) — ahorro 50–70%",
+          "Colonoscopia — España privada: €500–€1,200 / Bangkok: ฿8,000–฿18,000 (€190–€430) — ahorro 40–65%",
+          "Mamografía — España privada: €80–€200 / Bangkok: ฿1,200–฿2,800 (€29–€67) — ahorro 60–70%",
+          "Nota: precios españoles varían según comunidad autónoma; Madrid y Barcelona tienden a ser más caros; precios islas Canarias y Baleares intermedios",
+        ],
+      },
+      {
+        heading: "SNS listas de espera — por qué los españoles viajan a Bangkok",
+        content: "Spanish NHS (SNS) wait times that motivate health check-up tourism to Bangkok:",
+        list: [
+          "Resonancia magnética SNS: media nacional 3–18 meses (INGESA: Ceuta y Melilla mejor; Andalucía, Murcia, Comunitat Valenciana: tiempos más largos)",
+          "Visita a especialista SNS: media nacional 3–6 meses; en algunas especialidades (Reumatología, Neurología) hasta 12 meses",
+          "Gastroscopia/endoscopia SNS: 2–8 meses en la mayoría de comunidades",
+          "Colonoscopia de cribado SNS: 4–12+ meses en algunas comunidades",
+          "Resultado: muchos españoles que pueden pagarse la sanidad privada o que viajan prefieren hacerse sus chequeos durante las vacaciones en Tailandia — sin listas de espera, resultados en horas",
+          "Bangkok advantage for Spaniards: next-day appointment, everything done in one morning, English results acceptable to Spanish private specialists, combination with Thailand vacation (Bangkok/Phuket) makes economic sense",
+        ],
+      },
+      {
+        heading: "Guía práctica para españoles y latinoamericanos en Bangkok",
+        content: "Practical information for Spanish and Latin American patients visiting Bangkok:",
+        list: [
+          "Visa: ciudadanos españoles pueden entrar en Tailandia sin visado hasta 30 días. Ciudadanos latinoamericanos: la mayoría también sin visado para 30 días (México, Argentina, Colombia, Chile, Brasil, Perú — verificar en embajada tailandesa)",
+          "Vuelos desde España: Madrid (MAD) a Bangkok (BKK): 11–14 horas con escala en Doha (Qatar Airways), Dubai (Emirates), Abu Dhabi (Etihad), Singapur (Singapore Airlines), o Bangkok via Europeos",
+          "Vuelos desde LATAM: Bogotá/Lima/Santiago — Bangkok: 25–35 horas total con escala; para latinoamericanos que ya viajan a Asia, combinar con chequeo tiene sentido",
+          "Idioma: los médicos de los principales hospitales privados hablan inglés excelente. No hay español disponible sistemáticamente, pero el inglés es suficiente para comunicarse con fluidez sobre resultados y tratamientos",
+          "¿El médico de cabecera español aceptará los resultados? Sí — los informes de Bumrungrad, Samitivej, Bangkok Hospital en inglés son completamente legibles por médicos privados españoles. Solicitar siempre los resultados brutos del laboratorio en PDF + CD con imágenes si hay radiología",
+          "Hospitales recomendados: Bumrungrad International (el más reconocible internacionalmente), Samitivej Sukhumvit (más tranquilo, muy recomendado por europeos), BNH Hospital (pequeño, estilo europeo, Silom)",
+          "Pago: Visa, Mastercard y American Express de bancos españoles o latinoamericanos funcionan sin problema. Avisar al banco antes del viaje. Cash USD también aceptado.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Mi médico de familia español aceptará los resultados de Bangkok?", a: "Los médicos de cabecera del SNS generalmente no están obligados a registrar en la historia clínica electrónica tests realizados en el extranjero, pero pueden revisarlos e incorporarlos a su criterio. Los médicos privados españoles aceptan sin problema los resultados de hospitales JCI de Bangkok. Solicitar siempre: informe de laboratorio completo en PDF (con valores de referencia), informes médicos en inglés, y CD DICOM para cualquier prueba de imagen. Todo esto es legible directamente por especialistas españoles." },
+      { q: "¿Cuánto tiempo lleva hacerse el chequeo en Bangkok?", a: "Un chequeo estándar (análisis de sangre + EKG + radiografía + ecografía + consulta médica) dura 3–4 horas. Un paquete ejecutivo completo (con marcadores tumorales y especialista) puede durar 4–6 horas. Todo se realiza en una sola visita, con resultados y consulta médica antes de salir del hospital. La mayoría de los hospitales ofrecen horario de primera hora de la mañana (7–8 AM) para el ayuno, con todos los resultados antes del mediodía." },
+      { q: "¿Vale la pena ir a Bangkok desde España sólo para el chequeo?", a: "Si el viaje a Bangkok es tu destino de vacaciones, definitivamente sí — el ahorro en el chequeo puede ser del 50–70% vs la sanidad privada española, y sin listas de espera. Si viajas específicamente para el chequeo desde España, el coste del vuelo (€600–€1,200) puede superar el ahorro para un chequeo básico. Para chequeos ejecutivos con procedimientos (gastroscopia, colonoscopia, RM) los ahorros son mayores (€500–€2,000 vs sanidad privada española). La opción más común para españoles: combinar chequeo con vacaciones en Tailandia (Phuket, Koh Samui) — el chequeo cuesta prácticamente lo mismo que solo los vuelos desde España a la clínica privada en Madrid." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-italy-vs-thailand", label: "Italy vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-scandinavia-vs-thailand", label: "Scandinavia vs Thailand comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej" },
     ],
   },
 

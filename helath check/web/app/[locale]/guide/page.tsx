@@ -424,6 +424,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-spain-vs-thailand",
+    title: "Health Check-Up Spain vs Thailand (2026) — Bangkok para Españoles 🇪🇸",
+    description: "SNS espera 3–18 meses. España privada: €300–€1,500. Bangkok JCI: ฿8,000–฿25,000 (€190–€595). Sin espera, resultados mismo día. Guía también para latinoamericanos.",
+    emoji: "🇪🇸",
+    category: "By Nationality",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
