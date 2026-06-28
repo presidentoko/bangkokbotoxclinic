@@ -31,7 +31,7 @@ import {
   DownloadableGuide, MemberPerksStrip, ScrollReveal,
 } from "@/components/LazyWidgets";
 
-export const revalidate = 1800; // ISR 30분 — sponsored 슬롯 변경은 admin API 의 revalidatePath() 로 즉시 반영. 백그라운드 자동 갱신은 30분 (Hobby ISR Writes 한도 절약)
+export const revalidate = 86400; // ISR 24h — sponsored 변경은 admin API revalidatePath()로 즉시 반영. Hobby ISR Writes 한도 절약.
 
 export default async function HomePage() {
   const cfg = getSiteConfig();

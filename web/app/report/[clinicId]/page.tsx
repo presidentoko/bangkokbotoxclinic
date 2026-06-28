@@ -4,7 +4,7 @@ import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { buildReportData } from "@/lib/reportData";
 import type { Metadata } from "next";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bangkokbotoxclinic.com";
 

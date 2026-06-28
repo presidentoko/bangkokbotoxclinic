@@ -6,7 +6,7 @@ import { getSiteConfig, applySiteFilter } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
-export const revalidate = 3600; // 1h ISR
+export const revalidate = 86400; // 24h ISR — Hobby ISR Writes 한도 절약
 
 export async function generateMetadata(): Promise<Metadata> {
   const cfg = getSiteConfig();

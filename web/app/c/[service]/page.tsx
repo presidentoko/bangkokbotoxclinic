@@ -26,6 +26,8 @@ const FOCUS_VALID: Partial<Record<string, Set<string>>> = {
   laser:  new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
 };
 
+export const dynamic = "force-static";
+
 export async function generateStaticParams() {
   return Array.from(VALID).map((service) => ({ service }));
 }
