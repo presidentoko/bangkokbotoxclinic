@@ -195,6 +195,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "health-checkup-bangladesh-vs-thailand",
       "thyroid-nodule-bangkok",
       "cardiac-ct-calcium-score-bangkok",
+      "health-checkup-kenya-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

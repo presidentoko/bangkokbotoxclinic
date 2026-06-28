@@ -648,6 +648,13 @@ const GUIDES = [
     category: "Specialist Tests",
   },
   {
+    slug: "health-checkup-kenya-vs-thailand",
+    title: "Health Check-Up: Kenya vs Thailand 2026 — Bangkok for Kenyan Patients",
+    description: "Nairobi (Aga Khan) executive check-up KES 80,000–300,000. Bangkok JCI: $320–$675 — 60–75% cheaper. VOA THB 2,000 or e-Visa $35. Dubai route 11 hrs. Same-day MRI vs 1–4 week wait.",
+    emoji: "🇰🇪",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

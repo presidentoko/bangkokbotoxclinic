@@ -4103,10 +4103,72 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/health-checkup-south-africa-vs-thailand", label: "South Africa vs Thailand" },
+      { href: "/en/guide/health-checkup-kenya-vs-thailand", label: "Kenya vs Thailand" },
       { href: "/en/guide/health-checkup-egypt-vs-thailand", label: "Egypt vs Thailand" },
       { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
       { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+    ],
+  },
+
+  "health-checkup-kenya-vs-thailand": {
+    title: "Health Check-Up: Kenya vs Thailand 2026 — Bangkok for Kenyan Patients",
+    description: "Nairobi private hospital executive check-up KES 50,000–KES 250,000. Bangkok JCI: ฿8,000–฿25,000 ($215–$675) — world-class diagnostics, same-day results, direct Nairobi–Bangkok via Gulf. Guide.",
+    intro: "Kenya has East Africa's most developed private healthcare sector, with facilities like Aga Khan University Hospital Nairobi, Karen Hospital, Nairobi Hospital, and Gertrude's offering health check-up packages. However, comprehensive executive check-ups with advanced imaging (MRI, CT), endoscopy, and full tumor marker panels are expensive at top Nairobi hospitals (KES 100,000–500,000, or $700–$3,500 at 2026 exchange rates) and waiting times for MRI and specialist consultations can be significant. Bangkok, with 9 JCI-accredited hospitals and same-day results, offers equivalent or superior quality at 40–60% lower cost. Thailand is increasingly chosen by Kenyan and East African patients.",
+    sections: [
+      {
+        heading: "Kenya vs Bangkok — health check-up price comparison (2026)",
+        content: "Approximate prices at top Nairobi private hospitals vs Bangkok JCI hospitals. Exchange rate: KES 1 ≈ ฿0.028 (USD 1 ≈ KES 130 ≈ ฿37):",
+        list: [
+          "Blood panel (CBC + metabolic + lipids + thyroid): Nairobi private KES 15,000–40,000; Bangkok ฿2,500–฿5,000 ($68–135) — Bangkok 50–70% cheaper",
+          "Gastroscopy with sedation: Nairobi private KES 50,000–120,000 ($385–920); Bangkok ฿4,500–฿9,000 ($122–243) — Bangkok 50–70% cheaper",
+          "MRI brain or abdomen: Nairobi private KES 40,000–150,000 ($310–1,150); Bangkok ฿5,000–฿15,000 ($135–405) — Bangkok 60–75% cheaper",
+          "CT scan chest/abdomen: Nairobi private KES 25,000–80,000 ($190–615); Bangkok ฿4,000–฿9,000 ($108–243) — Bangkok 60–70% cheaper",
+          "Executive check-up package (20–35 tests with tumor markers): Nairobi private KES 80,000–300,000 ($615–2,300); Bangkok ฿12,000–฿25,000 ($320–675) — Bangkok 60–70% cheaper",
+          "Colonoscopy with sedation: Nairobi private KES 60,000–160,000 ($460–1,230); Bangkok ฿8,000–฿18,000 ($216–486) — Bangkok 50–60% cheaper",
+          "Echocardiogram: Nairobi private KES 20,000–60,000 ($154–462); Bangkok ฿4,000–฿8,000 ($108–216) — Bangkok 50–60% cheaper",
+          "Endoscopy + colonoscopy combined package: Nairobi private KES 120,000–300,000; Bangkok ฿12,000–฿25,000 ($320–675) — Bangkok 60–75% cheaper",
+        ],
+      },
+      {
+        heading: "NHIF, private insurance, and Kenya healthcare gaps",
+        content: "Kenya's health coverage landscape and why Kenyan patients choose Bangkok:",
+        list: [
+          "NHIF (National Health Insurance Fund): government scheme for formal-sector workers; covers basic inpatient care; does not cover comprehensive executive check-ups, advanced imaging, or elective endoscopy",
+          "Private medical insurance (CIC, Jubilee, AAR, APA): growing, but executive check-up packages with MRI and endoscopy typically require pre-authorization or are subject to waiting periods",
+          "Aga Khan University Hospital Nairobi: the most advanced private hospital in East Africa; JCI-accredited; executive packages KES 100,000–400,000+ ($770–$3,000+) — Bangkok still 40–60% cheaper",
+          "MRI wait times: even at top Nairobi private hospitals, MRI appointments can take 1–4 weeks; Bangkok is same-day or next-day",
+          "Diaspora routing: substantial Kenyan diaspora in UK, USA, Canada, Australia; many use Bangkok as a health check-up destination when visiting Asia or transiting; cost-effective even including flights from London or New York",
+          "Hepatitis B screening: Kenya has moderate Hepatitis B prevalence (~4%); Bangkok packages include HBsAg + anti-HBs routinely",
+          "Advanced imaging: Bangkok hospitals have 3T MRI, dual-source CT, PET-CT — more advanced than most Nairobi hospitals outside Aga Khan",
+        ],
+      },
+      {
+        heading: "Practical guide: Kenya to Bangkok",
+        content: "Visa, flights, and logistics for Kenyan patients traveling to Bangkok:",
+        list: [
+          "Visa: Kenyan passport holders can obtain Thai Visa on Arrival (VOA) at Suvarnabhumi Airport: THB 2,000 (~KES 7,000), valid 15 days; bring passport photo + return flight evidence",
+          "Alternative: Thai e-Visa at evisa.thaigov.go.th — $35, 30-day single entry, processed online in 3–5 working days",
+          "Flights: Nairobi (NBO) → Bangkok (BKK Suvarnabhumi): no direct flights; main connections via Dubai (EK — approximately 11 hours total), Doha (QR — approximately 12 hours), Addis Ababa (ET — via Addis + connection); total journey 10–15 hours",
+          "Dubai connection: Emirates operates multiple Nairobi–Dubai–Bangkok flights daily; typically 5 hours Nairobi–Dubai + 6 hours Dubai–Bangkok = 11 hours total (plus transit)",
+          "For Kenyan diaspora in UK: London–Bangkok direct (11 hours, British Airways, Thai Airways, Singapore Airlines) — easy addition to a visit home via Nairobi",
+          "Hotel: Sukhumvit area (BTS Nana or Asok) — 5–10 minutes from Bumrungrad; many African-owned or African-frequented restaurants nearby",
+          "Day of check-up: arrive fasting at 7:00–8:00 AM; standard executive check-up 3–5 hours; results emailed in English same day",
+          "Payment: Visa/Mastercard (Equity Bank, KCB, NCBA Kenyan cards) — verify international transaction limits; ATMs at airport and Sukhumvit; carry some USD as backup",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do Kenyan passport holders need a visa for Thailand?", a: "Kenyan nationals do not qualify for the visa exemption — a visa is required. The easiest option is a Visa on Arrival (VOA) at Suvarnabhumi Airport (Bangkok): THB 2,000 (~KES 7,000), valid 15 days, renewable once (one extension). Requirements: passport valid 6+ months, 1 passport photo, completed TM30 form, proof of return flight and accommodation. Alternatively, apply in advance for a Thai e-Visa at evisa.thaigov.go.th: $35 USD, 30-day single entry, online processing 3–5 working days — recommended for more flexibility." },
+      { q: "Is Bangkok significantly cheaper than Aga Khan Nairobi for a check-up?", a: "Yes, materially so. An executive health check-up with full tumor markers, abdominal ultrasound, and ECG at Aga Khan Nairobi (Kenya's top JCI hospital) typically costs KES 80,000–300,000 ($615–$2,300). The same package at Bumrungrad or Samitivej Bangkok costs ฿12,000–฿25,000 ($320–$675) — approximately 60–75% less in USD terms. If you add gastroscopy + colonoscopy to the Aga Khan package, the total can exceed KES 300,000; in Bangkok, the combined package is ฿20,000–฿35,000 ($540–$945). Including flights (Nairobi–Bangkok return approximately $600–$1,200), the total Bangkok trip can still cost less than the Aga Khan check-up + endoscopy alone." },
+      { q: "What conditions are common in Kenyan patients that Bangkok handles well?", a: "Bangkok's international hospitals regularly handle: Hepatitis B screening and antiviral treatment (Bangkok is 80–90% cheaper for tenofovir/entecavir); tropical infectious disease testing (dengue, malaria RDT, typhoid, leptospirosis); sickle cell trait confirmation (haemoglobin electrophoresis available); hypertension and cardiovascular risk assessment (cardiac CT calcium score ฿4,000–฿8,000 — unavailable at most Nairobi hospitals); advanced cancer screening (CEA, CA125, AFP, CA19-9, PSA markers + ultrasound + CT); and routine executive check-ups that are simply 60–75% cheaper. Bumrungrad's International Patient Centre handles English-speaking East African patients routinely." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-south-africa-vs-thailand", label: "South Africa vs Thailand" },
+      { href: "/en/guide/health-checkup-nigeria-vs-thailand", label: "Nigeria vs Thailand" },
+      { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/travel-disease-tests-bangkok", label: "Tropical disease tests Bangkok" },
     ],
   },
 
