@@ -374,6 +374,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             { href: `${base}/for/womens-health-checkup-bangkok`, icon: "♀️", label: "Women's Health" },
             { href: `${base}/for/budget-health-checkup-bangkok`, icon: "💰", label: "Budget Under ฿3k" },
             { href: `${base}/for/executive-health-checkup-bangkok`, icon: "💼", label: "Executive Packages" },
+            { href: `${base}/for/cardiac-health-checkup-bangkok`, icon: "❤️", label: "Cardiac / Heart" },
+            { href: `${base}/for/comprehensive-health-checkup-bangkok`, icon: "🔬", label: "Comprehensive" },
           ].map((item) => (
             <Link key={item.href} href={item.href}
               className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all group flex items-center gap-3">

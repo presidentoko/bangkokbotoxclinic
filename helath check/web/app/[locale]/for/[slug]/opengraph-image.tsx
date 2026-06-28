@@ -14,6 +14,8 @@ const SEGMENT_META: Record<string, { icon: string; title: string; subtitle: stri
   "budget-health-checkup-bangkok":            { icon: "💰", title: "Budget Health Check-Up Bangkok", subtitle: "Under ฿3,000 · Best value packages compared" },
   "executive-health-checkup-bangkok":         { icon: "💼", title: "Executive Health Check-Up Bangkok", subtitle: "Premium packages · MRI · CT · Cancer markers" },
   "health-checkup-tourists-thailand":         { icon: "✈️", title: "Health Check-Up for Tourists", subtitle: "Same-day results · No registration needed · All cities" },
+  "cardiac-health-checkup-bangkok":           { icon: "❤️", title: "Cardiac Health Check-Up Bangkok", subtitle: "ECG · Echocardiogram · Coronary CT · Cardiologist review" },
+  "comprehensive-health-checkup-bangkok":     { icon: "🔬", title: "Comprehensive Health Check-Up Bangkok", subtitle: "Full body screen · Blood · Ultrasound · X-ray · ECG" },
 };
 
 export default async function Image({

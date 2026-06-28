@@ -58,6 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "budget-health-checkup-bangkok",
       "executive-health-checkup-bangkok",
       "health-checkup-tourists-thailand",
+      "cardiac-health-checkup-bangkok",
+      "comprehensive-health-checkup-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/for/${seg}`, lastModified: now, changeFrequency: "weekly", priority: 0.85 });
     }

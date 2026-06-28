@@ -126,6 +126,32 @@ const SEGMENTS: Record<string, {
       { q: "How do I get my health check-up results back home after leaving Thailand?", a: "Most Bangkok private hospitals can email results as a PDF within 24–48 hours. Ask for a printed and stamped copy before you leave the hospital — this is standard practice for medical tourists. Bumrungrad and Samitivej have online patient portals where you can access results from anywhere." },
     ],
   },
+
+  "cardiac-health-checkup-bangkok": {
+    title: "Cardiac Health Check-Up Bangkok — Heart Screening Packages 2026",
+    h1: "Cardiac Health Check-Up in Bangkok",
+    description: "Compare cardiac health check-up packages at Bangkok hospitals. ECG, echocardiogram, treadmill stress test, coronary CT angiography. Prices from ฿3,500 at JCI hospitals.",
+    filter: (p) => p.has_ecg === 1 || p.category === "cardiac",
+    intro: "Bangkok's private hospitals offer some of the best cardiac health screening facilities in Asia, with modern imaging technology including 128-slice CT scanners, 3T MRI, and digital echocardiography. Cardiac health check-ups in Bangkok cost 30–60% less than equivalent screening in the US, UK, or Singapore — without the long waiting times.",
+    faqs: [
+      { q: "What is included in a cardiac health check-up in Bangkok?", a: "A basic cardiac screen (฿3,500–฿8,000) includes ECG, blood pressure, lipid panel (cholesterol), blood glucose, and doctor consultation. A comprehensive cardiac package (฿12,000–฿30,000) adds echocardiogram, treadmill exercise stress test, coronary calcium score (CT), and specialist cardiologist review. Advanced packages include coronary CT angiography (CCTA) for direct visualisation of coronary artery blockage." },
+      { q: "Which Bangkok hospital is best for cardiac health screening?", a: "Bangkok Hospital (BDMS) Heart Centre and Samitivej Hospital Heart Centre are the most specialised. Bumrungrad International Hospital Cardiology has the broadest service range. All three have 128-slice CT scanners for coronary calcium scoring and coronary CTA. Pricing is highest at Bumrungrad and most competitive at Vejthani." },
+      { q: "Do I need a referral for cardiac screening in Bangkok?", a: "No referral is required at Bangkok private hospitals. Walk in and request a cardiac check-up directly. The hospital will have a nurse measure your BP and BMI, then an internist or cardiologist will order the appropriate tests based on your risk factors. For very specific tests like coronary CTA, a brief consultation first is standard practice." },
+    ],
+  },
+
+  "comprehensive-health-checkup-bangkok": {
+    title: "Comprehensive Health Check-Up Bangkok — Full Body Screening 2026",
+    h1: "Comprehensive Health Check-Up in Bangkok",
+    description: "Compare comprehensive health check-up packages in Bangkok. Full body blood tests, abdominal ultrasound, chest X-ray, ECG, and more. Best packages ranked by value.",
+    filter: (p) => p.category === "comprehensive" || (p.has_blood === 1 && p.has_ultrasound === 1 && p.has_xray === 1),
+    intro: "A comprehensive health check-up in Bangkok covers every major body system in a single appointment: full blood panel, chest X-ray, abdominal ultrasound, ECG, thyroid, hepatitis, urinalysis, and a physician consultation. Bangkok hospitals offer the same scope of tests as hospitals in Singapore, Australia, or the UK — at 40–70% lower prices.",
+    faqs: [
+      { q: "What is the difference between a basic and comprehensive health check-up in Bangkok?", a: "A basic package (฿1,500–฿3,500) covers blood count, blood sugar, cholesterol, and urinalysis. A comprehensive package (฿4,000–฿12,000) adds chest X-ray, abdominal ultrasound, ECG, thyroid function, Hepatitis B/C, liver enzymes, and kidney function — giving you a complete picture of your health in one visit." },
+      { q: "How long does a comprehensive health check-up take in Bangkok?", a: "A comprehensive check-up in Bangkok typically takes 3–4 hours. This includes blood draw (30 min), imaging (1 hour), ECG (15 min), and a physician consultation to review results (30–45 min). Some hospitals provide lunch between the tests and the consultation." },
+      { q: "Can I compare comprehensive packages by what tests are included?", a: "Yes — use our compare tool with the 'Comprehensive' filter. You can see exactly which hospitals include ultrasound, ECG, cancer markers, and doctor consultation as part of their comprehensive package. Look for the ✓ Included markers on each package card." },
+    ],
+  },
 };
 
 export function generateStaticParams() {
