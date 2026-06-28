@@ -197,6 +197,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "cardiac-ct-calcium-score-bangkok",
       "health-checkup-kenya-vs-thailand",
       "fatty-liver-bangkok",
+      "vitamin-b12-deficiency-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

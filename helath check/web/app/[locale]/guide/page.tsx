@@ -662,6 +662,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "vitamin-b12-deficiency-bangkok",
+    title: "Vitamin B12 Deficiency Bangkok — Test, B12 Injection & Supplement Prices (2026)",
+    description: "B12 blood test ฿600–฿1,200. IM injection ฿200–฿500. Oral methylcobalamin ฿100–฿400/month. Common in vegans, metformin users, over-60s. Tingling/numbness? Get tested.",
+    emoji: "💉",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
