@@ -67,6 +67,23 @@ const SEGMENTS: Record<string, {
       { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
     ],
   },
+  "chinese-health-checkup-bangkok": {
+    title: "曼谷体检推荐 2026 — Chinese Health Check-Up Bangkok (中文服务)",
+    h1: "Bangkok Health Check-Up for Chinese-Speaking Visitors (中文体检指南)",
+    description: "曼谷JCI认证医院体检套餐对比。中文服务，免签入境，比中国私立医院节省30–60%。Best Bangkok hospitals for mainland China, Hong Kong and Taiwan visitors.",
+    filter: (p) => (p.jci === 1) || p.has_interpreter === 1,
+    intro: "曼谷是中国大陆、香港和台湾游客热门的医疗旅游目的地。中国公民自2023年起可免签入境泰国30天。泰国康健医院（Vejthani）、康民国际（Bumrungrad）和三美泰（Samitivej）均设有中文服务部，提供中文体检报告。同等级体检套餐比上海、北京私立医院节省30–60%，加上飞行时间仅4–5小时，极具性价比。Bangkok hospitals below are JCI-accredited with documented interpreter services — best suited for Chinese-speaking medical tourists.",
+    faqs: [
+      { q: "中国公民去泰国体检需要签证吗？", a: "不需要。中国大陆公民自2023年12月起免签入境泰国，可停留30天。香港和澳门居民同样免签30天。台湾公民免签30天。" },
+      { q: "曼谷医院体检结果是否有中文报告？", a: "Vejthani Hospital专门设有中文部，提供完整中文报告，通常需额外2–3个工作日。Bumrungrad等医院报告为英文，配有中文翻译协助解读。建议预约时提前说明需要中文服务。" },
+      { q: "曼谷体检比中国贵还是便宜？", a: "同等级JCI认证医院的体检套餐，曼谷通常比中国主要城市私立医院便宜30–60%。例如，执行套餐曼谷约฿8,000–25,000（约人民币1,650–5,150元），而上海同等套餐通常需人民币8,000–30,000元。" },
+    ],
+    relatedGuides: [
+      { href: "/guide/best-hospitals-chinese-speakers", label: "中文体检医院完整指南" },
+      { href: "/guide/jci-hospitals-bangkok", label: "JCI-Accredited Hospitals Bangkok" },
+      { href: "/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+    ],
+  },
   "arabic-health-checkup-bangkok": {
     title: "Health Check-Up Bangkok for Arabic Speakers — أفضل مستشفيات بانكوك",
     h1: "Health Check-Up in Bangkok for Arabic Speakers",

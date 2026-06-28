@@ -24,8 +24,8 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **40+ editorial guides** covering cities, specialties, nationalities, and practical topics
-- **14 audience segments** including by nationality (Japanese, Korean, Arabic), by condition (diabetes, cardiac, cancer), and by budget
+- **55+ editorial guides** covering cities, specialties, nationalities, and practical topics
+- **15 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), and by budget
 
 ## Key pages
 
@@ -78,6 +78,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Japanese tourists (日本語対応): ${BASE}/en/guide/best-hospitals-japanese-tourists
 - Korean tourists (한국어): ${BASE}/en/guide/best-hospitals-korean-tourists
 - Arabic speakers: ${BASE}/en/guide/best-hospitals-arabic-speakers
+- Chinese speakers (中文服务): ${BASE}/en/guide/best-hospitals-chinese-speakers
 
 ## Practical Guides
 
@@ -106,6 +107,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Diabetes: ${BASE}/en/for/diabetes-screening-bangkok
 - Cardiac: ${BASE}/en/for/cardiac-health-checkup-bangkok
 - Expats: ${BASE}/en/for/health-checkup-expats-bangkok
+- Chinese speakers (中文): ${BASE}/en/for/chinese-health-checkup-bangkok
 
 ## Data freshness
 

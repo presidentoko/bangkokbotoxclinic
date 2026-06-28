@@ -1622,6 +1622,74 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "best-hospitals-chinese-speakers": {
+    title: "曼谷最佳体检医院推荐 2026 — Best Bangkok Hospitals for Chinese Speakers",
+    description: "曼谷顶级体检医院推荐：泰国JCI认证医院，中文服务，体检套餐价格。Bangkok health check-up guide for Chinese-speaking visitors from mainland China, Hong Kong, and Taiwan.",
+    intro: "曼谷是中国大陆、香港和台湾游客最受欢迎的医疗旅游目的地之一。曼谷国际医院（Bangkok International Hospital）、康民国际医院（Samitivej）和泰国康健医院（Vejthani）均提供中文服务，并有中文翻译协助。与上海或北京顶级私立医院相比，曼谷同等体检套餐价格节省60–75%。Bangkok is among the top medical tourism destinations for visitors from mainland China, Hong Kong, and Taiwan. JCI-accredited hospitals offer Mandarin-speaking coordinators and comprehensive check-up packages.",
+    sections: [
+      {
+        heading: "曼谷体检价格对比 — Bangkok vs China price comparison (价格对比)",
+        content: "曼谷顶级医院体检套餐价格与中国主要城市私立医院对比：",
+        list: [
+          "基础体检套餐 — 曼谷：฿1,500–3,000（约人民币310–620元）vs 上海私立：RMB 2,000–6,000",
+          "高端执行套餐 — 曼谷：฿8,000–25,000（约人民币1,650–5,150元）vs 上海/北京私立：RMB 8,000–30,000",
+          "癌症筛查套餐 — 曼谷：฿12,000–35,000 vs 北京国际医院：RMB 15,000–50,000",
+          "女性专项筛查（含妇科+乳腺+宫颈） — 曼谷：฿8,000–18,000 vs 同等级中国私立：RMB 10,000–25,000",
+          "含胃肠镜（胃镜+肠镜） — 曼谷：฿9,000–20,000 vs 中国私立同等套餐：RMB 8,000–18,000",
+          "总结：曼谷JCI认证医院体检费用比中国同等级私立医院节省30–60%，加上签证和机票后综合性价比仍相当可观",
+        ],
+      },
+      {
+        heading: "中文服务最佳医院推荐 (Top hospitals with Chinese-language services)",
+        content: "以下医院专为中文客户提供完善的中文体检服务：",
+        list: [
+          "Vejthani Hospital（泰国康健医院）— 设有中文部，中文协调员，中文体检报告，最受大陆游客欢迎",
+          "Bumrungrad International（康民国际）— 国际标准最高，多名中文翻译，支持大陆/香港/台湾客户，JCI认证",
+          "Samitivej Sukhumvit（三美泰医院）— 曼谷核心地段，中文服务，东南亚医疗旅游老牌品牌",
+          "Bangkok Hospital（曼谷国际医院）— 多个分院，部分设有中文接待",
+          "Praram 9 Hospital（帕拉玛9医院）— 价格适中，有中文接待，适合预算有限的体检游客",
+          "所有上述医院均为JCI国际认证，医疗质量达国际水准",
+        ],
+      },
+      {
+        heading: "签证与出行实用信息 (Visa and travel logistics for Chinese visitors)",
+        content: "中国大陆、香港、台湾游客赴泰实用信息：",
+        list: [
+          "签证：中国大陆公民可享免签入境泰国30天（2023年12月起实施互免签证协议）",
+          "香港/澳门居民：持BNO或HKSAR护照可免签30天",
+          "台湾公民：免签30天",
+          "直飞：北京/上海/广州直飞曼谷素万那普（BKK）约4–5小时，成都约3.5小时",
+          "建议提前预约：JCI医院热门时段（早8–10点）需提前至少1周预约体检",
+          "结果时间：大多数套餐当日出结果摘要，完整报告2–3个工作日，中文翻译需额外2–3天",
+          "支付：支持微信支付（WeChat Pay）和银联卡的医院：Vejthani、Bumrungrad（通过第三方）",
+        ],
+      },
+      {
+        heading: "什么套餐适合您？体检套餐选择指南",
+        content: "根据您的年龄和健康关注点，推荐以下套餐：",
+        list: [
+          "30岁以下健康体检 — 选基础套餐（Basic/Standard）：฿1,500–3,500，含血常规、尿检、心电图、胸片",
+          "35–50岁全面体检 — 选综合套餐（Comprehensive）：฿5,000–12,000，另加肿瘤标志物",
+          "50岁以上或有家族病史 — 选执行套餐（Executive）：฿10,000–25,000，含超声、CT选项、完整内分泌检查",
+          "女性专项 — 妇科+宫颈癌筛查+乳腺超声/钼靶：฿6,000–15,000",
+          "胃肠道问题/家族胃癌史 — 加选胃镜（gastroscopy）：通常额外฿4,500–9,000",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "曼谷医院体检报告是否提供中文版本？", a: "Vejthani Hospital提供中文报告翻译服务，通常需额外2–3个工作日。Bumrungrad等医院的报告主要为英文，配有中文翻译协助解读。建议在预约时提前说明需要中文报告，以便安排翻译。" },
+      { q: "曼谷体检需要预约多早？", a: "热门医院（尤其是Bumrungrad和Vejthani）在旅游旺季（11月–3月）的早上时段通常需提前1–2周预约。旺季前建议提前通过医院国际服务部官网或中国代理预约。4–9月（淡季）通常1–3天内可约到。" },
+      { q: "体检当天需要空腹吗？需要多长时间？", a: "大多数综合体检套餐要求前晚10点后禁食（空腹8–12小时），包括禁水（少量饮水通常可接受）。基础体检约需2–3小时，综合套餐含超声约需4–5小时，含胃镜则建议预留全天。当日可拿到初步结果摘要。" },
+      { q: "曼谷JCI认证医院水平如何？与中国三甲医院相比？", a: "JCI（国际医疗卫生机构认证联合委员会）标准与中国三甲医院评审等级相当，在某些流程标准上更为严格。Bumrungrad、Samitivej等医院设备齐全，服务流程专为国际患者设计，候诊时间通常比中国三甲医院短得多。" },
+    ],
+    relatedLinks: [
+      { href: "/en/for/chinese-health-checkup-bangkok", label: "Chinese speakers — package comparison" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals guide" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare" },
+    ],
+  },
+
   "thailand-vs-singapore-health-checkup": {
     title: "Thailand vs Singapore Health Check-Up — Price Comparison 2026",
     description: "Compare health check-up prices, hospital quality, and logistics between Bangkok and Singapore. Bangkok hospitals are 50–70% cheaper for the same JCI-accredited quality.",

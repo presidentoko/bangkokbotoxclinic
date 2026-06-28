@@ -63,6 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "senior-health-checkup-bangkok",
       "diabetes-screening-bangkok",
       "korean-health-checkup-bangkok",
+      "chinese-health-checkup-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/for/${seg}`, lastModified: now, changeFrequency: "weekly", priority: 0.85 });
     }
@@ -135,6 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "mammogram-cost-bangkok",
       "colonoscopy-cost-bangkok",
       "gastroscopy-cost-bangkok",
+      "best-hospitals-chinese-speakers",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

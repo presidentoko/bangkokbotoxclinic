@@ -228,6 +228,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "best-hospitals-chinese-speakers",
+    title: "曼谷最佳体检医院 — Best Hospitals for Chinese Speakers",
+    description: "中文服务体检医院推荐。免签入境，比中国私立医院省30–60%。Mandarin-speaking coordinators.",
+    emoji: "🇨🇳",
+    category: "By Nationality",
+  },
+  {
     slug: "best-hospitals-korean-tourists",
     title: "Best Hospitals for Korean Tourists in Bangkok (2026)",
     description: "한국어 가이드. Korean coordinators, 건강검진-style packages, gastroscopy, cancer markers in Bangkok.",
