@@ -2171,6 +2171,74 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-india-vs-thailand": {
+    title: "Health Check-Up: India vs Thailand 2026 — Bangkok for Indian Patients",
+    description: "Compare health check-up costs between India and Bangkok, Thailand. Bangkok JCI hospitals offer executive packages at 30–60% below Apollo/Fortis/Max prices — with same-day results and no waiting.",
+    intro: "India has world-class hospitals — Apollo, Fortis, Max, Narayana — but the pricing for comprehensive check-up packages at premium Delhi, Mumbai, or Bengaluru facilities is rising steadily. Bangkok's JCI-accredited hospitals offer equivalent or superior diagnostic scope at 30–60% lower cost, with same-day results, English/Hindi assistance, and no waiting for specialist consultations. Bangkok is particularly popular with Indian business travellers transiting through Thailand, and with Indian expats based in Southeast Asia. Thailand has a large Indian diaspora — Tamil, Telugu, Gujarati, and Punjabi communities are all represented in Bangkok.",
+    sections: [
+      {
+        heading: "Price comparison: India (metro private) vs Bangkok",
+        content: "Price comparison for equivalent packages at premium private hospitals (₹ at roughly 0.44 to ฿):",
+        list: [
+          "Standard blood panel (CBC, lipids, liver, kidney, thyroid, HbA1c) — Apollo/Max Delhi: ₹4,000–₹12,000 | Bangkok: ฿2,500–฿5,000 (~₹5,500–11,000) | Similar or cheaper",
+          "Comprehensive check-up (blood + ECG + X-ray + ultrasound + urine) — Apollo/Fortis: ₹15,000–₹35,000 | Bangkok: ฿5,000–฿9,000 (~₹11,000–20,000) | Saving 30–50%",
+          "Executive Health Check-Up ('Corporate Health Check') — Apollo: ₹35,000–₹80,000 | Bangkok: ฿8,000–฿25,000 (~₹18,000–55,000) | Saving 30–50%",
+          "Premium cancer screening (markers + imaging) — Apollo/Narayana: ₹60,000–₹1,50,000 | Bangkok: ฿20,000–฿60,000 (~₹44,000–1,32,000) | Saving 20–50%",
+          "MRI brain — Delhi private: ₹10,000–₹25,000 | Bangkok: ฿5,000–฿12,000 (~₹11,000–26,000) | Similar pricing, same-day results",
+          "Gastroscopy with sedation — India: ₹8,000–₹20,000 | Bangkok: ฿4,500–฿9,000 (~₹9,900–19,800) | Similar or slightly cheaper; same-day",
+          "Key advantage: Bangkok packages include doctor consultation, same-day results, and English reports — something Indian corporate check-ups sometimes split into separate billing",
+        ],
+      },
+      {
+        heading: "Why Indian patients choose Bangkok over India for health check-ups",
+        content: "Key reasons Indian medical travellers choose Bangkok:",
+        list: [
+          "Same-day results and doctor consultation in a single visit — Indian hospitals sometimes require 2–3 visits for the full package",
+          "No queue, no waiting room — private appointment slot for the full check-up morning",
+          "International-standard JCI accreditation vs individual hospital accreditations (NABH) in India",
+          "Executive atmosphere at Bumrungrad, Samitivej — private rooms, minimal waiting, concierge service",
+          "Hindi-speaking staff available at select Bangkok hospitals on request (Bumrungrad has multi-lingual staff)",
+          "Combined with Bangkok tourist experience — combine check-up morning with shopping (Siam Paragon 5 minutes from Bumrungrad), temples, food",
+          "For NRIs / Indians living in Southeast Asia: Bangkok is closer and cheaper than flying back to India for annual check-up",
+        ],
+      },
+      {
+        heading: "Best hospitals in Bangkok for Indian patients",
+        content: "Top Bangkok hospitals with documented experience serving Indian patients:",
+        list: [
+          "Bumrungrad International — largest international hospital in Asia, serves the largest Indian patient population in Bangkok, multi-language staff, JCI",
+          "Samitivej Sukhumvit — strong executive check-up programme, efficient half-day format, JCI",
+          "Vejthani Hospital — good value, JCI, interpreter service on request",
+          "Bangkok Hospital — BDMS network with multiple branches, good for NISA Indian insurance holders",
+          "Phyathai 2 — central Bangkok, more budget-oriented, English throughout",
+        ],
+      },
+      {
+        heading: "Practical logistics for Indian visitors to Bangkok",
+        content: "Travel and planning tips for Indian citizens seeking health check-ups in Bangkok:",
+        list: [
+          "Visa: Indian citizens need a visa for Thailand (Visa on Arrival ฿2,000 at BKK, or eVisa online before travel — 30 days stay); apply online at thaievisa.go.th",
+          "Flight: Delhi (DEL) direct to Bangkok (BKK): ~4 hours on Air India/Thai Airways/IndiGo; Mumbai (BOM): ~4.5 hours; Chennai (MAA): ~3 hours",
+          "No fasting difficulty: morning check-up means fasting from 10 PM previous evening — most Indian visitors find this natural if landing in Bangkok the day before",
+          "Payment: Indian-issued Visa/Mastercard/RuPay international cards work in Thailand; UPI does not; ensure your card has international transactions enabled",
+          "Health check-up timing: arrive BKK Day 1 (evening), sleep, fast from 10 PM, check-up 7:00–8:00 AM Day 2, results + consultation by 1:00 PM, afternoon free",
+          "Insurance: Indian travel insurance (from HDFC Ergo, Bajaj Allianz etc.) covers emergency care in Thailand; routine check-ups are out-of-pocket",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is a health check-up in Bangkok cheaper than Apollo or Fortis in Delhi?", a: "For comprehensive and executive packages, Bangkok is typically 30–50% cheaper than Apollo Gold/Platinum or Fortis equivalent packages in Delhi or Mumbai. Basic blood panels are similarly priced. The bigger advantage is same-day results and no separate billing for consultation — Bangkok executive packages are all-inclusive. For NRIs in Southeast Asia, Bangkok is often more convenient than flying to India." },
+      { q: "Is there Hindi-speaking assistance at Bangkok hospitals?", a: "Bumrungrad International has the broadest multilingual staff and can arrange Hindi-speaking assistance on request. Most Bangkok hospitals have English as the operating language — English and Hindi share many medical terms, and most Indian patients find English-language communication sufficient. For complex discussions, a translator app or pre-arranged Hindi interpreter can be arranged through the hospital's international patient department." },
+      { q: "Do I need a Medical Visa for a health check-up in Bangkok as an Indian citizen?", a: "No — a standard Thai Visa on Arrival (฿2,000 at the airport) or eVisa (30 days) is sufficient for a health check-up visit. A Medical Treatment Visa is only for treatment exceeding 60 days or major surgery. For a one-day check-up, the standard tourist entry is correct." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/medical-visa-thailand", label: "Medical visa Thailand guide" },
+      { href: "/en/guide/best-hospitals-arabic-speakers", label: "Arabic-speaking patients guide" },
+    ],
+  },
+
   "health-checkup-cost-australia-vs-thailand": {
     title: "Health Check-Up Cost: Australia vs Thailand (2026) — How Much You Save",
     description: "Compare health check-up prices between Australia and Thailand. Bangkok hospitals offer executive packages at 60–80% below Australian private hospital rates — same JCI quality.",

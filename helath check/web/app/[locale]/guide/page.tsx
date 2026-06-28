@@ -284,6 +284,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-india-vs-thailand",
+    title: "India vs Thailand Health Check-Up (2026) — Bangkok for Indian Patients",
+    description: "Bangkok JCI hospitals: 30–60% cheaper than Apollo/Fortis/Max. Same-day results. Hindi assistance available. Visa on Arrival for Indians.",
+    emoji: "🇮🇳",
+    category: "Practical Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",
