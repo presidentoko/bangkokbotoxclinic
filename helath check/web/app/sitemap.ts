@@ -200,6 +200,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "vitamin-b12-deficiency-bangkok",
       "health-checkup-saudi-arabia-vs-thailand",
       "prostate-health-check-bangkok",
+      "health-checkup-central-europe-vs-thailand",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

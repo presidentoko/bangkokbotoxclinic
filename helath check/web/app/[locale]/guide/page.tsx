@@ -683,6 +683,13 @@ const GUIDES = [
     category: "Specialist Tests",
   },
   {
+    slug: "health-checkup-central-europe-vs-thailand",
+    title: "Health Check-Up: Czech Republic, Slovakia & Hungary vs Thailand (2026)",
+    description: "Prague/Bratislava/Budapest private check-up €300–€1,600. Bangkok JCI: $215–$675 — 40–65% cheaper. No visa (EU passport). MRI same-day vs 2–6 month wait. 10–11 hr flight.",
+    emoji: "🇨🇿",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

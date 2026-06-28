@@ -3799,6 +3799,66 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-central-europe-vs-thailand": {
+    title: "Health Check-Up: Czech Republic, Slovakia & Hungary vs Thailand (2026)",
+    description: "Czech private check-up CZK 8,000–40,000. Slovak and Hungarian private: €200–€1,000. Bangkok JCI: ฿8,000–฿25,000 ($215–$675) — 50–70% cheaper. 11-hour flights. No visa needed. Guide.",
+    intro: "Central Europe — the Czech Republic, Slovakia, and Hungary — has a two-tier healthcare system: a public (pojišťovna/zdravotná poisťovňa/OEP) tier with long waits for non-urgent preventive screening, and a private tier that has become significantly more expensive in recent years. Private comprehensive executive check-ups in Prague, Bratislava, or Budapest now cost €300–€1,200, while gastroscopy and colonoscopy private fees have risen to €400–€1,200 — making Bangkok competitively priced even after accounting for flights. Czech, Slovak, and Hungarian nationals who travel to Southeast Asia, or who live in Western Europe as part of the diaspora, increasingly consider Bangkok for comprehensive health check-ups.",
+    sections: [
+      {
+        heading: "Central Europe vs Bangkok — health check-up price comparison (2026)",
+        content: "Approximate prices at Czech, Slovak, and Hungarian private clinics vs Bangkok JCI hospitals. Exchange rates: CZK 1 ≈ ฿1.68; HUF 1 ≈ ฿0.097; EUR 1 ≈ ฿41:",
+        list: [
+          "Blood panel (CBC + metabolic + lipids + thyroid): Czech private CZK 3,000–8,000 (€120–320); Bangkok ฿2,500–฿5,000 ($68–135) — comparable or cheaper in Bangkok",
+          "Gastroscopy (Czech/Slovak private): CZK 6,000–15,000 (€240–600); Bangkok ฿4,500–฿9,000 ($122–243) — Bangkok 40–60% cheaper",
+          "Colonoscopy with sedation: Czech/Slovak/Hungarian private €400–€1,200; Bangkok ฿8,000–฿18,000 ($216–486) — Bangkok comparable or cheaper",
+          "MRI brain or abdomen: Czech private CZK 8,000–20,000 (€320–800); Bangkok ฿5,000–฿15,000 ($135–405) — Bangkok 40–60% cheaper",
+          "CT scan: Czech private CZK 6,000–15,000 (€240–600); Bangkok ฿4,000–฿9,000 ($108–243) — Bangkok 40–60% cheaper",
+          "Executive health check-up (25–40 tests + tumor markers + imaging): Czech private CZK 15,000–40,000 (€600–1,600); Bangkok ฿12,000–฿25,000 ($320–675) — Bangkok 40–65% cheaper",
+          "Public (pojišťovna/VZP/ZP/OEP) coverage: preventive check-ups in Czech Republic include a general practitioner 'preventive examination' every 2 years — this covers basic bloods and physical exam but NOT comprehensive tumor markers, gastroscopy, MRI, or cancer screening; similar limits in Slovakia and Hungary",
+          "Wait times for non-urgent specialists in Czech Republic: gastroenterologist 4–16 weeks; MRI 2–6 months; cardiologist 6–12 weeks — Bangkok: 1–3 days",
+        ],
+      },
+      {
+        heading: "Czech, Slovak, and Hungarian healthcare context",
+        content: "Why Central European patients consider Bangkok for health check-ups:",
+        list: [
+          "Czech health insurance (VZP, ČPZP, OZP): covers preventive examinations at GP every 2 years — comprehensive executive check-ups with MRI, gastroscopy, and full tumor panels are self-pay or through supplemental insurance",
+          "Slovak system (Všeobecná zdravotná poisťovňa, Dôvera, Union): similar structure; 'preventivná prehliadka' every 2 years via GP; specialist wait times improving but still 4–12 weeks for non-urgent referrals",
+          "Hungarian OEP / NEAK: public system wait times can be very long (6–24 months for non-urgent procedures); private sector has grown rapidly but prices rose substantially",
+          "JCI accreditation gap: Bangkok has 9 JCI-accredited hospitals; very few Czech or Slovak private hospitals hold JCI accreditation",
+          "Czech/Slovak diaspora: substantial Czech and Slovak communities in UK, Germany, Austria, and Netherlands — many use Bangkok as a health check-up destination when visiting Southeast Asia, as flight time from Prague/Vienna to Bangkok is approximately 10–11 hours",
+          "Language: English widely spoken at Bangkok JCI hospitals; most Central European patients speak good English; medical reports are in English which Central European physicians can read directly",
+          "No visa: Czech, Slovak, and Hungarian citizens (EU passports) can enter Thailand without a visa for 30 days",
+        ],
+      },
+      {
+        heading: "Practical guide: Central Europe to Bangkok",
+        content: "Flights, visa, and logistics for Czech, Slovak, and Hungarian patients:",
+        list: [
+          "Visa: Czech, Slovak, and Hungarian citizens are EU nationals with Thai visa exemption — no visa needed for up to 30 days",
+          "Flights from Prague (PRG): Prague–Bangkok typically via Dubai (EK, 10–11 hours), Amsterdam (KL+TG), or Vienna; Czech Airlines no longer flies to Bangkok directly; budget options via Wizz Air from Vienna or low-cost connections via Gulf carriers",
+          "Flights from Vienna (VIE) to Bangkok: Austrian Airlines or Emirates direct/1-stop; approximately 10–11 hours; convenient for Slovak and Czech travellers",
+          "Flights from Budapest (BUD): Budapest–Bangkok via Dubai (EK) or Istanbul (TK); approximately 11–13 hours total",
+          "Key healthcare hubs in Bangkok: Sukhumvit area — Bumrungrad International (Soi 3), Samitivej Sukhumvit (Soi 49), Bangkok Hospital (New Petchaburi) — all within easy BTS access",
+          "Day of check-up: arrive at 7:00–8:00 am fasting (8–12 hours); executive check-up 3–5 hours; results in English PDF by early afternoon",
+          "Payment: Visa/Mastercard EU cards widely accepted; Revolut/Wise cards work well in Bangkok",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do Czech, Slovak, and Hungarian citizens need a visa for Thailand?", a: "No — Czech, Slovak, and Hungarian citizens hold EU/EEA passports and benefit from Thailand's visa exemption for EU nationals. You can enter Thailand for up to 30 days without any pre-arranged visa, simply presenting your EU passport at the immigration counter at Suvarnabhumi Airport. This can be extended to 60 days at an immigration office in Thailand if needed. No medical visa or special documentation is required for a routine health check-up." },
+      { q: "Is Bangkok significantly cheaper than private clinics in Prague or Bratislava?", a: "For comprehensive executive check-ups with imaging and tumor markers: yes, materially so. A private executive check-up including gastroscopy, abdominal CT, MRI, and full tumor panel at a top Prague or Bratislava private clinic can cost CZK 25,000–55,000 (€1,000–€2,200). The same scope in Bangkok costs ฿20,000–฿45,000 ($540–$1,215) — approximately 40–50% cheaper in EUR terms. Including a Prague–Bangkok return flight (€400–€800 via Gulf carriers), the total Bangkok trip with check-up is often comparable to or less than the Prague equivalent — particularly for comprehensive packages." },
+      { q: "Can a Czech or Slovak doctor read a Bangkok hospital report?", a: "Yes — Bangkok JCI hospitals issue reports in English with SI units and international reference ranges directly applicable to Czech, Slovak, and Hungarian medicine. Results use standard units: glucose in mmol/L (same as Czech labs), haemoglobin in g/L (Czech) or g/dL (American — convert ÷10), cholesterol in mmol/L (same as Czech). A Czech or Slovak internist or GP can interpret the results directly. For imaging (MRI, CT, ultrasound), request the DICOM CD and the radiologist's English report — Czech and Slovak radiologists can read DICOM directly. Some Bangkok hospitals have Czech-speaking international patient coordinators on request." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand" },
+      { href: "/en/guide/health-checkup-poland-vs-thailand", label: "Poland vs Thailand" },
+      { href: "/en/guide/health-checkup-austria-scandinavia", label: "Scandinavia / Austria vs Thailand" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
+    ],
+  },
+
   "health-checkup-brazil-vs-thailand": {
     title: "Health Check-Up Brazil vs Thailand 2026 — Bangkok para Brasileiros 🇧🇷",
     description: "Plano de saúde particular: R$800–R$3.500/mês, coparticipação em exames. Bangkok JCI: ฿8.000–฿25.000 (R$4.000–R$12.500). Guia completo para brasileiros no check-up em Bangkok.",
