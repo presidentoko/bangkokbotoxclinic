@@ -100,6 +100,26 @@ const FAQS = [
     ],
   },
   {
+    category: "Senior & Specialist Screening",
+    items: [
+      {
+        q: "What health tests should seniors (60+) get in Thailand?",
+        a: "Seniors should get a comprehensive check-up covering: full blood panel, bone density scan (DEXA), cognitive assessment, ECG, echocardiogram, abdominal ultrasound, prostate (men) or ovarian (women) markers, thyroid, Vitamin D, and colorectal cancer screening. Bangkok hospitals like Bumrungrad offer dedicated senior geriatric packages from ฿10,000.",
+        link: { label: "Senior health check-up guide", href: "/guide/senior-health-checkup-thailand" },
+      },
+      {
+        q: "How much does diabetes screening cost in Bangkok?",
+        a: "Basic diabetes screening (fasting glucose + HbA1c) costs ฿500–฿1,500 at Bangkok private hospitals. A comprehensive metabolic panel including fasting insulin, kidney function, and lipid profile costs ฿3,500–฿9,000. Walk-in blood tests are accepted at most hospitals; results are ready within 2–4 hours. Fasting for 8–12 hours is required.",
+        link: { label: "Diabetes screening guide", href: "/guide/diabetes-screening-thailand" },
+      },
+      {
+        q: "How much does an MRI cost in Bangkok?",
+        a: "MRI scan prices in Bangkok range from ฿8,000–฿18,000 for a brain MRI, ฿12,000–฿25,000 for a spine MRI, and ฿35,000–฿65,000 for a whole-body MRI. Bangkok hospitals charge 40–70% less than equivalent scans in the US, UK, or Australia. Appointment-only — expect 1–3 hours for the scan and report.",
+        link: { label: "MRI scan cost guide", href: "/guide/mri-scan-cost-bangkok" },
+      },
+    ],
+  },
+  {
     category: "Hospital Quality",
     items: [
       {
