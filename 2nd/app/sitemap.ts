@@ -179,6 +179,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/guides/how-to-authenticate-miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/compare/fendi-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/trends/patek-philippe-nautilus-investment-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${BASE}/compare/ap-royal-oak-vs-nautilus`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
