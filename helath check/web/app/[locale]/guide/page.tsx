@@ -536,6 +536,13 @@ const GUIDES = [
     category: "Understanding Your Check-Up",
   },
   {
+    slug: "health-checkup-poland-vs-thailand",
+    title: "Badania Kontrolne: Polska vs Tajlandia — Bangkok dla Polaków (2026)",
+    description: "Prywatna diagnostyka w Polsce 2.500–8.000 PLN. Bangkok: 1.100–2.300 PLN za executive check-up — oszczędność 40–65%. JCI, wyniki PO ANGIELSKU, brak wizy. Przewodnik po polsku.",
+    emoji: "🇵🇱",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

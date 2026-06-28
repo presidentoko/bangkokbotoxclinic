@@ -2917,9 +2917,67 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Allemagne vs Thaïlande / Germany guide" },
       { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
       { href: "/en/guide/health-checkup-netherlands-vs-thailand", label: "Netherlands vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-poland-vs-thailand", label: "Poland vs Thailand comparison" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/health-checkup-italy-vs-thailand", label: "Italy vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-poland-vs-thailand": {
+    title: "Badania Kontrolne: Polska vs Tajlandia (2026) — Bangkok dla Polaków",
+    description: "Prywatna gastroskopia w Polsce: 400–900 PLN. Bangkok: ฿4,500–฿8,000 (ok. 490–870 PLN). Executive check-up 60% taniej. Akredytacja JCI. Brak wizy. Przewodnik dla Polaków.",
+    intro: "Polski system ochrony zdrowia oferuje bezpłatne świadczenia w ramach NFZ, jednak czas oczekiwania na badania specjalistyczne i diagnostyczne jest często bardzo długi — od kilku miesięcy do ponad roku dla gastroskopii, kolonoskopii czy rezonansu magnetycznego z kontrastem. Prywatne kliniki w Polsce kosztują coraz więcej: kompleksowy pakiet executive od 2.500 do 8.000 PLN. Bangkok, odległy o 10 godzin lotu z Warszawy, oferuje tę samą jakość diagnostyczną (laboratoria z akredytacją ISO, szpitale z certyfikatem JCI) przy oszczędnościach rzędu 40–65%.",
+    sections: [
+      {
+        heading: "Polska vs Bangkok — porównanie cen badań (2026)",
+        content: "Orientacyjne ceny w polskich prywatnych placówkach w porównaniu z bangkockimi szpitalami JCI (kurs PLN/THB ok. 1 PLN = 9–11 THB):",
+        list: [
+          "Gastroskopia (górny odcinek przewodu pokarmowego): Polska prywatna 400–900 PLN; Bangkok 4.500–8.000 THB (ok. 410–730 PLN) — podobna lub lepsza cena + sedacja w cenie",
+          "Kolonoskopia: Polska prywatna 600–1.500 PLN; Bangkok 8.000–18.000 THB (ok. 730–1.640 PLN) — podobna cena, Bangkok dostępna bez miesięcznego oczekiwania",
+          "Mammografia (cyfrowa): Polska prywatna 200–450 PLN; Bangkok 1.500–3.000 THB (ok. 140–280 PLN) — 30–40% taniej",
+          "MRI (mózg lub brzuch): Polska prywatna 800–2.500 PLN; Bangkok 5.000–15.000 THB (ok. 460–1.370 PLN) — podobna cena, krótszy czas oczekiwania",
+          "Pakiet executive (20–40 badań: krew, mocz, EKG, RTG, USG brzucha, markery nowotworowe): Polska prywatna 2.500–8.000 PLN; Bangkok 12.000–25.000 THB (ok. 1.100–2.300 PLN) — oszczędność 40–70%",
+          "Badanie PSA (prostata): Polska prywatna 80–200 PLN; Bangkok 600–1.200 THB (ok. 55–110 PLN) — tańsze w Bangkok",
+          "USG tarczycy: Polska prywatna 150–400 PLN; Bangkok 1.500–2.500 THB (ok. 140–230 PLN) — porównywalna cena",
+          "Konsultacja kardiologa ze złożoną interpretacją wyników: Polska prywatna 300–700 PLN; Bangkok 1.500–3.000 THB (ok. 140–280 PLN) — tańsze w Bangkok",
+        ],
+      },
+      {
+        heading: "NFZ, prywatne ubezpieczenia i luki w systemie",
+        content: "Jak wygląda dostępność badań kontrolnych w polskim systemie:",
+        list: [
+          "NFZ pokrywa: badania profilaktyczne w ograniczonym zakresie (np. cytologia co 3 lata dla kobiet 25–59 lat, mammografia co 2 lata dla kobiet 50–69 lat, kolonoskopia w programie raka jelita grubego)",
+          "NFZ NIE pokrywa: prywatnych pakietów executive, markery CA125/CEA/AFP/CA19-9, badania genetyczne, densytometria DEXA dla osób poniżej 65 r.ż., kompleksowe badania hormonalne płodności",
+          "Czas oczekiwania NFZ: gastroskopia 6–24 miesięcy; kolonoskopia 3–18 miesięcy; MRI z kontrastem 2–12 miesięcy; kardiolog 1–6 miesięcy — zależy od regionu",
+          "Prywatne ubezpieczenia zdrowotne (PZU, Medicover, LuxMed): pakiety roczne od 200 do 600 PLN/miesiąc; badania profilaktyczne objęte z limitami roczymi; pakiety executive często częściowo pokryte lub z dopłatą",
+          "Polacy za granicą (emigracja w UK, Niemcy, Holandia, Irlandia): ograniczone prawo do NFZ; badania kontrolne droższe lub mniej dostępne w krajach zamieszkania; Bangkok jest opcją dla emigrantów planujących wizytę do kraju",
+        ],
+      },
+      {
+        heading: "Praktyczny przewodnik — Bangkok dla Polaka",
+        content: "Logistyka wizyty medycznej z Polski do Bangkoku:",
+        list: [
+          "Wiza: Polska jest krajem UE/Schengen — obywatele polscy mogą wjechać do Tajlandii bez wizy na 30 dni",
+          "Lot: Warszawa (WAW) → Bangkok (BKK/Suvarnabhumi): brak połączeń bezpośrednich (Lot wstrzymał trasę); typowe trasy przez Dubaj (EK), Doha (QR), Abu Dhabi (EY), Frankfurt (LH), Amsterdam (KL); łączny czas podróży 11–14 godzin",
+          "Lokalizacja hotelu: dla check-up najwygodniej blisko BTS Nana lub Asok (Bumrungrad i wiele innych szpitali w odległości 10–20 min. chodu lub 1 stacja metra naziemnego)",
+          "Pójście na check-up: zamelduj się na czczo (8–12 godzin) o godz. 7:00–8:00 rano; standardowy pakiet: 3–4 godziny; wyniki tego samego dnia; konsultacja z lekarzem w języku angielskim",
+          "Dokumenty po badaniu: poproś o pełny raport laboratoryjny w języku angielskim (PDF na e-mail); zdjęcia na CD/USB dla badań obrazowych (RTG, USG, TK, RM); twój lekarz POZ w Polsce może to bezpośrednio odczytać",
+          "Apteki w Bangkoku: statyny, leki na nadciśnienie, metformina — tanie generyki dostępne w aptekach szpitalnych; oszczędności 50–80% vs ceny polskich aptek",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Czy wyniki badań z Bangkoku zostaną uznane przez polskiego lekarza POZ?", a: "Tak — wyniki z akredytowanych szpitali JCI w Bangkoku (Bumrungrad, Samitivej, Bangkok Hospital) są sporządzane w standardowych jednostkach międzynarodowych (mmol/L, g/dL, IU/L) zgodnych z normami europejskimi. Polski lekarz może bezpośrednio zinterpretować morfologię, lipidogram, HbA1c, kreatynę, TSH i inne badania standardowe. Badania obrazowe (RTG, RM, USG) są opatrzone opisem radiologicznym w języku angielskim — wystarczy tłumaczenie przysięgłe lub lekarz znający angielski na poziomie medycznym, co jest standardem wśród polskich specjalistów." },
+      { q: "Czy NFZ lub prywatne ubezpieczenie refunduje badania wykonane w Bangkoku?", a: "NFZ zasadniczo nie refunduje planowych badań profilaktycznych wykonanych poza UE/EOG. Prywatne polisy zdrowotne (Medicover, LuxMed, PZU, Allianz) z reguły nie obejmują planowanej diagnostyki zagranicznej — sprawdź warunki ubezpieczenia przed podróżą. Możliwe są wyjątki dla ubezpieczeń turystycznych lub korporacyjnych z klauzulą 'świadczenia medyczne za granicą'. Zachowaj wszystkie faktury i wyniki — przydadzą się przy kontynuacji leczenia w Polsce." },
+      { q: "Czy warto jechać do Bangkoku na badania z Polski?", a: "Dla pakietu executive z gastroskopią i kolonoskopią, markerami nowotworowymi, USG i pełną diagnostyką: zazwyczaj tak. Cena pakietu w Bangkoku (ok. 1.100–2.300 PLN) plus bilet lotniczy (500–1.200 PLN w obydwie strony) często wychodzi porównywalnie lub taniej niż prywatna diagnostyka w Polsce, szczególnie przy porównywalnym zakresie badań. Przy okazji urlopu w Azji, wycieczki rodzinnej lub planowanej wizyty — ekonomika jest wyraźnie korzystna. Dla podstawowych badań krwi lub mammografii, które NFZ refunduje — nie warto." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand" },
+      { href: "/en/guide/health-checkup-scandinavia-vs-thailand", label: "Scandinavia vs Thailand" },
+      { href: "/en/guide/health-checkup-russia-vs-thailand", label: "Russia vs Thailand" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
     ],
   },
 
