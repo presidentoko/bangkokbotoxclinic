@@ -71,6 +71,18 @@ const CAT_EDITORIAL: Record<string, { intro: string; priceRange: string; forWho:
     forWho: "Young adults 20–35, those wanting a quick annual baseline, budget-conscious patients.",
     guide: "what-is-included-checkup",
   },
+  senior: {
+    intro: "Senior health check-ups are designed for adults 60+ with age-appropriate tests including bone density (DEXA), cognitive assessment, prostate/colorectal cancer markers, and geriatric physician consultation. Bangkok's private hospitals offer senior programmes at 40–60% less than Western counterparts.",
+    priceRange: "฿3,500 – ฿40,000",
+    forWho: "Adults 60+, retirees, medical tourists, anyone with multiple chronic conditions.",
+    guide: "senior-health-checkup-thailand",
+  },
+  diabetes: {
+    intro: "Diabetes screening packages test fasting blood glucose, HbA1c (3-month average), and often include insulin resistance score (HOMA-IR), kidney function (microalbumin), and lipid panel. Same-day results available at most Bangkok private hospitals.",
+    priceRange: "฿800 – ฿9,000",
+    forWho: "Pre-diabetics, adults with family history of T2DM, overweight individuals, adults over 45.",
+    guide: "diabetes-screening-thailand",
+  },
 };
 
 function Flag({ val }: { val: number | null }) {
