@@ -361,6 +361,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "hepatitis-test-bangkok",
+    title: "Hepatitis B & C Test Bangkok — Prices, Results & What To Do (2026)",
+    description: "Hepatitis B (HBsAg) ฿300–฿600, Hepatitis C (Anti-HCV) ฿300–฿600, combined panel ฿500–฿1,200. Included in executive packages. Vaccination available. HCV treatment from USD 200.",
+    emoji: "🧫",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
