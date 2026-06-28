@@ -88,6 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/trends/watch-buying-guide-thailand`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
     entries.push({ url: `${BASE}/${locale}/guides/pre-owned-vs-new-luxury`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/compare/prada-vs-miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages
