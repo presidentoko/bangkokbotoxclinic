@@ -135,6 +135,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/compare/lv-vs-prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${BASE}/guides/chanel-mini-vs-small-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${BASE}/compare/chanel-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/guides/how-to-authenticate-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${BASE}/trends/luxury-resale-platforms-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 },
   ]
 
   const brandRoutes: MetadataRoute.Sitemap = brands.map(b => ({
