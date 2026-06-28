@@ -90,6 +90,8 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai electronics manufacturers and EMS providers. Hard drives, PCBs, automotive electronics — Pathum Thani and Bang Pa-In clusters.",
     intro:
       "Thailand is the world's #2 hard disk drive manufacturer and a major EMS contract manufacturing hub. Listings span HDD assembly, PCB fabrication, automotive electronics, and consumer electronics OEM.",
+    longContext:
+      "Western Digital and Seagate both operate major HDD assembly plants in Pathum Thani — supported by a dense cluster of PCB, spindle motor, and head-gimbal assembly Tier 2 suppliers. Automotive electronics (ABS controllers, ECUs, instrument clusters) concentrate near Chon Buri and Ayutthaya to serve Japanese OEM plants. Most EMS suppliers require NDA before quoting.",
     bestForSlug: "electronics-manufacturers",
   },
   chemical: {
@@ -99,6 +101,8 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai chemical manufacturers concentrated in Map Ta Phut industrial complex (PTT, IRPC, PTTGC, SCG). Petrochemical, specialty, and industrial chemicals.",
     intro:
       "Thailand's chemical industry centers on the Map Ta Phut Industrial Complex in Rayong — Southeast Asia's largest petrochemical cluster. PTT, IRPC, PTTGC, and SCG Chemicals operate integrated complexes here, surrounded by downstream specialty chemical operators.",
+    longContext:
+      "Map Ta Phut hosts an integrated upstream–downstream value chain: naphtha crackers feed aromatics plants, which feed PTA/PET lines, which feed polyester and packaging converters. Specialty chemical producers (adhesives, coatings, surfactants, agrochemicals) cluster around Bangkok suburbs. Direct contact details shown for B2B procurement inquiries.",
   },
   plastic: {
     title: "Plastic Injection Molding Thailand",
@@ -118,6 +122,9 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai steel mills and metal fabricators. SCG, Daido Steel, structural steel and precision sheet metal. Saraburi and Eastern Seaboard clusters.",
     intro:
       "Steel and metal fabrication in Thailand splits between heavy mills (Saraburi cluster, dominated by SCG) and precision fabrication (Eastern Seaboard, supplying automotive). Listings include both flagship integrated operators and mid-tier fabricators.",
+    longContext:
+      "Thailand's steel production covers long products (wire rod, rebar, angles from Saraburi), flat products (hot-rolled coil from Eastern Seaboard), and downstream fabrication (stampings, tube, structural sections, precision sheet metal for automotive). Most major producers have export-certified quality management. Contact each supplier directly for specific product grades, available stock, and export pricing.",
+    bestForSlug: "manufacturers",
   },
   machining: {
     title: "Machining & Mechanical Engineering in Thailand",
@@ -126,6 +133,9 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai precision machining — CNC, EDM, mechanical engineering. Tier 2/3 automotive supply chain backbone clustered around Eastern Seaboard.",
     intro:
       "Precision machining is the backbone of Thailand's automotive Tier 2/3 supply chain. Most operators cluster around Chon Buri and Rayong to feed Tier 1 OEMs, with a secondary cluster in Samut Sakhon.",
+    longContext:
+      "Thai machining shops typically offer CNC turning (Swiss-type to large-bore), CNC milling (3-to-5 axis), EDM wire cutting, and coordinate measuring (CMM). Standard tolerances ±0.01 mm; precision shops to ±0.005 mm. Common materials: S45C, SCM440, SUS304/316, A6061, brass. Most shops are set up for small-medium batches (50–5,000 pieces). Send a technical drawing (PDF/DXF/STEP) and quantity to each listed shop for quotation.",
+    bestForSlug: "manufacturers",
   },
   equipment: {
     title: "Industrial Equipment Suppliers in Thailand",
@@ -158,6 +168,9 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
       "Thai rubber manufacturers concentrated in southern Thailand (Songkhla / Hat Yai). Natural rubber, latex products, automotive rubber components.",
     intro:
       "Thailand is the world's largest natural rubber producer. Most upstream rubber processors cluster in southern Thailand (Songkhla, Hat Yai region), with downstream rubber product manufacturers spread across the Eastern Seaboard automotive belt.",
+    longContext:
+      "Thailand produces ~4 million tonnes of natural rubber per year. Ribbed smoked sheets (RSS) and technically specified rubber (TSR/STR) are the main export forms, traded via licensed exporters. Downstream: automotive seals and gaskets (Eastern Seaboard Tier 2), latex examination gloves (southern cluster), rubber hoses, conveyor belts, and footwear soles. Most latex glove producers hold EN/ASTM certifications for EU and US hospital markets.",
+    bestForSlug: "manufacturers",
   },
   textile: {
     title: "Textile Manufacturers in Thailand",

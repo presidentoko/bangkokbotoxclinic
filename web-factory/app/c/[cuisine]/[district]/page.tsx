@@ -3,7 +3,8 @@ import { loadMasterDb, filterByCategory } from "@/lib/data";
 import { districtsForBuild, districtBySlug, suppliersInDistrict } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS } from "@/lib/types";
-import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { CUISINE_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import type { Metadata } from "next";
@@ -105,6 +106,7 @@ export default async function CategoryDistrictPage(
         { name: label, url: `/c/${cuisine}` },
         { name: districtName, url: `/c/${cuisine}/${district}` },
       ]} />
+      <FaqJsonLd faqs={(CUISINE_FAQS[cuisine] ?? []).slice(0, 2)} />
       <ItemListJsonLd
         name={`${label} in ${districtName}`}
         items={filtered.slice(0, 20).map((r) => ({ name: r.name, url: `/supplier/${r.id}` }))}

@@ -76,11 +76,21 @@ function articleJsonLd(g: ReturnType<typeof findGuide> & object) {
             "@type": "Organization",
             name: BRAND,
             url: SITE,
-            logo: { "@type": "ImageObject", url: `${SITE}/icon` },
+            logo: { "@type": "ImageObject", url: `${SITE}/icon`, width: 512, height: 512 },
           },
           mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/guide/${g.slug}` },
           inLanguage: "en",
           articleSection: "Buyer Guides",
+          speakable: {
+            "@type": "SpeakableSpecification",
+            cssSelector: ["h1", ".guide-intro"],
+          },
+          about: {
+            "@type": "Thing",
+            name: "Thailand B2B Sourcing",
+            description: "Sourcing manufacturers, suppliers, and logistics operators in Thailand",
+          },
+          keywords: g.metaTitle.replace(/ — .*$/, ""),
         }),
       }}
     />
@@ -130,7 +140,7 @@ export default async function GuidePage(
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance leading-[1.1]">
             {g.title}
           </h1>
-          <p className="text-lg text-[var(--muted)] leading-relaxed text-balance">{g.intro}</p>
+          <p className="guide-intro text-lg text-[var(--muted)] leading-relaxed text-balance">{g.intro}</p>
           <div className="mt-5">
             <ShareButton url={`/guide/${slug}`} title={`${g.title} — Thai Supply Hub Buyer Guide`} variant="compact" />
           </div>

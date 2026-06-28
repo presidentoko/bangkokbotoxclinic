@@ -4,7 +4,8 @@ import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { districtsForCity } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
-import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
+import { CITY_FAQS } from "@/lib/faq";
 import { findGuide } from "@/lib/guides";
 import { computeTrustScore } from "@/lib/trustScore";
 
@@ -51,79 +52,79 @@ export async function generateStaticParams() {
     .map((slug) => ({ name: slug }));
 }
 
-// City context — 한국 buyer 가 알 만한 핵심 facts (AEO).
+// City context — English buyer facts for AEO / meta descriptions.
 const CITY_NOTES: Record<string, { hook: string; long: string }> = {
   chon_buri: {
-    hook: "Eastern Seaboard 본진 — Toyota·Honda·Mitsubishi·Isuzu 본플랜트 + Tier 1/2 협력사 클러스터.",
-    long: "Chon Buri (촌부리)는 태국 자동차·전자 제조의 핵심. Pinthong, Amata City Chonburi, WHA Chonburi 등 주요 산단 5+ 곳이 위치. Sriracha 항만 + Laem Chabang 컨테이너 항구로 수출 logistics 최적.",
+    hook: "Eastern Seaboard hub — Toyota, Honda, Mitsubishi, Isuzu main plants + Tier 1/2 supplier clusters.",
+    long: "Chon Buri is the core of Thailand's automotive and electronics manufacturing. Major industrial estates — Pinthong, Amata City Chonburi, WHA Chonburi — are concentrated here. Sriracha and Laem Chabang container port make it the optimal export logistics base for Eastern Seaboard manufacturers.",
   },
   rayong: {
-    hook: "Map Ta Phut petrochemical 복합단지 — PTT, IRPC, PTTGC, SCG Chemicals 본단.",
-    long: "Rayong (라용)은 동남아 최대 석유화학 집적지. Amata City Rayong, Hemaraj Eastern Seaboard 등 산단 다수. Toyota·Ford 등 자동차 OEM 본플랜트 + 일본계 부품사 집중.",
+    hook: "Map Ta Phut petrochemical complex — PTT, IRPC, PTTGC, SCG Chemicals headquarters.",
+    long: "Rayong hosts Southeast Asia's largest petrochemical cluster at Map Ta Phut. Amata City Rayong and Hemaraj Eastern Seaboard industrial estates anchor the area. Toyota and Ford vehicle plants, plus a dense network of Japanese automotive Tier 1 suppliers, operate throughout the province.",
   },
   pathum_thani: {
-    hook: "방콕 북쪽 산단 벨트 — 전자·식품·HDD 클러스터.",
-    long: "Pathum Thani (빠툼따니)는 Bangkok 북쪽 30km. Bangkadi Industrial Park 등 산단 위치. Western Digital, Seagate (HDD), 식품 가공업체 다수.",
+    hook: "Bangkok's northern industrial belt — electronics, food processing, and HDD cluster.",
+    long: "Pathum Thani sits 30 km north of Bangkok and hosts Bangkadi Industrial Park. Western Digital, Seagate (HDD assembly), and food processing manufacturers are major industrial operators. Good highway and logistics links to central Bangkok.",
   },
   samut_sakhon: {
-    hook: "방콕 남서 — 가공식품·해산물·플라스틱 OEM 거점.",
-    long: "Samut Sakhon (사뭇사콘)은 가공식품 (특히 냉동 해산물) 의 태국 1위 cluster. 플라스틱·포장재·텍스타일 OEM 도 집중.",
+    hook: "Bangkok southwest — processed food, frozen seafood, and plastic OEM hub.",
+    long: "Samut Sakhon is Thailand's #1 cluster for processed food, especially frozen seafood (shrimp, squid, fish). Plastic, packaging, and textile OEM manufacturers are also heavily concentrated here, benefiting from proximity to Bangkok's distribution network.",
   },
   samut_prakan: {
-    hook: "Suvarnabhumi 공항 인접 — 항공물류·전자·의류 OEM.",
-    long: "Samut Prakan (사뭇쁘라깐)은 Suvarnabhumi 공항을 끼고 있는 항공 물류 거점. Bangpoo Industrial Estate 등 산단 위치. 전자·의류 OEM 다수.",
+    hook: "Adjacent to Suvarnabhumi Airport — air cargo logistics, electronics, and apparel OEM.",
+    long: "Samut Prakan's proximity to Suvarnabhumi International Airport makes it Thailand's primary air freight logistics hub. Bangpoo Industrial Estate is located here with electronics and apparel OEM manufacturers. Fast customs processing and airside access are key advantages.",
   },
   bangkok: {
-    hook: "본사·R&D·corporate office 거점.",
-    long: "Bangkok (방콕)은 제조 plant 보다 본사·R&D·commercial 헤드쿼터가 집중. Lat Krabang Industrial Estate 등 일부 산단도 위치.",
+    hook: "Corporate HQ and R&D hub — manufacturer offices rather than production plants.",
+    long: "Bangkok concentrates corporate headquarters, R&D centers, and commercial offices of major Thai and multinational manufacturers — rather than production plants, which sit in Eastern Seaboard or suburban industrial estates. Lat Krabang Industrial Estate within Bangkok hosts some manufacturing capacity.",
   },
   ayutthaya: {
-    hook: "Rojana Hi-Tech + 일본계 자동차 본단.",
-    long: "Ayutthaya (아유타야)는 Rojana Industrial Park, Hi-Tech Industrial Estate, Saha Rattana Nakorn 본단. Honda 자동차, 일본계 전자 (Sony, Sharp) 집중.",
+    hook: "Rojana Hi-Tech industrial estates — Honda, Sony, Sharp and Japanese supplier clusters.",
+    long: "Ayutthaya hosts Rojana Industrial Park, Hi-Tech Industrial Estate, and Saha Rattana Nakorn — all predominantly Japanese-led tenant bases. Honda vehicles, Sony, and Sharp electronics are flagship operators. Excellent highway access to Bangkok and Eastern Seaboard.",
   },
   songkhla: {
-    hook: "남부 — 천연고무·해산물·할랄 가공식품.",
-    long: "Songkhla (송클라)는 Hat Yai 도시권. 태국 1위 천연고무 cluster + 해산물·할랄 가공식품 OEM 거점.",
+    hook: "Southern hub — natural rubber processing, seafood, and halal food manufacturing.",
+    long: "Songkhla (Hat Yai area) is Thailand's top natural rubber processing cluster and a major seafood / halal food OEM base. The province handles a significant share of Thailand's natural rubber exports and serves as the commercial gateway for southern Thailand and the Malaysia border trade corridor.",
   },
   nonthaburi: {
-    hook: "방콕 북서 위성도시 — 의약품·화장품·식품 OEM 클러스터.",
-    long: "Nonthaburi (논타부리)는 방콕 서북쪽 접경 위성도시. Bangkhen, Pak Kret 일대에 의약품·화장품·가공식품 OEM 공장이 집중. 방콕 도심 접근성을 유지하면서도 Pathum Thani 산단 벨트와 연결되는 위치.",
+    hook: "Bangkok northwest — pharmaceuticals, cosmetics, and food OEM cluster.",
+    long: "Nonthaburi sits northwest of Bangkok. The Bangkhen and Pak Kret areas concentrate pharmaceutical, cosmetics, and processed food OEM factories — industries benefiting from proximity to Bangkok's regulatory bodies and distribution network, with connectivity to the Pathum Thani industrial belt.",
   },
   chachoengsao: {
-    hook: "방콕 동쪽 관문 — Eastern Seaboard 물류 허브·산업단지.",
-    long: "Chachoengsao (차청사오)는 방콕에서 동쪽으로 80km — Eastern Seaboard 진입 관문. Amata Nakhon Industrial Estate (Chon Buri 경계 인근), WHA Industrial Estate Chachoengsao 등 주요 산단 위치. 자동차 부품·전자·물류 창고 집중.",
+    hook: "Eastern gateway to Bangkok — logistics hub and industrial estates on the Eastern Seaboard.",
+    long: "Chachoengsao sits 80 km east of Bangkok — the entry gateway to the Eastern Seaboard. Amata Nakhon Industrial Estate and WHA Industrial Estate Chachoengsao are major anchors. Automotive parts, electronics, and logistics warehouses concentrate here, benefiting from proximity to both Bangkok and Laem Chabang port.",
   },
   nakhon_ratchasima: {
-    hook: "동북부 최대 도시 — 자동차·전자·농식품 OEM.",
-    long: "Nakhon Ratchasima (나콘랏차시마·코랏)는 태국 동북부 최대 산업도시. Suranaree Industrial Estate, Nakhon Ratchasima Industrial Estate 위치. Honda, Mitsubishi 협력사 + 농식품 가공업체 분포.",
+    hook: "Largest northeastern city — automotive parts, electronics, and agri-food OEM.",
+    long: "Nakhon Ratchasima (Korat) is the largest industrial city in Northeast Thailand. Suranaree and Nakhon Ratchasima Industrial Estates host Honda and Mitsubishi supplier networks alongside food processing manufacturers serving the Isan agricultural base.",
   },
   khon_kaen: {
-    hook: "동북부 허브 — 농업·식품 가공·물류 거점.",
-    long: "Khon Kaen (콘깬)은 태국 동북부 (이산) 경제 허브. 농식품 가공 (전분·설탕·가금류), 자동차 부품 일부, 물류 창고 위치. Khon Kaen Special Economic Zone 지정으로 외국인 투자 유치 중.",
+    hook: "Northeast Thailand hub — agri-food processing, warehousing, and regional logistics center.",
+    long: "Khon Kaen is the economic hub of Northeast Thailand (Isan region). Key industries include agri-food processing (tapioca starch, sugarcane, poultry), logistics warehousing, and some automotive component manufacturing. The Khon Kaen Special Economic Zone is attracting new foreign direct investment.",
   },
   chiang_rai: {
-    hook: "북부 — GMS 무역 관문·농식품 OEM.",
-    long: "Chiang Rai (치앙라이)는 태국 최북단 도시. 미얀마·라오스·중국 클릉난강 무역 통로 GMS (Greater Mekong Subregion) 관문. 커피·차·과일 농식품 OEM + 내륙 물류 창고 집중.",
+    hook: "Northern border gateway — GMS trade route, coffee, tea, and agri-food OEM.",
+    long: "Chiang Rai is Thailand's northernmost major city and the gateway to the Greater Mekong Subregion (GMS) trade corridor connecting Myanmar, Laos, and southern China. Coffee, tea, tropical fruit, and herbal agri-food OEM manufacturers are concentrated here alongside inland logistics warehouses.",
   },
   si_racha: {
-    hook: "Laem Chabang 항구 최인접 — 자동차 Tier 2/3 + 수출 물류 허브.",
-    long: "Si Racha (시라차)는 Laem Chabang 컨테이너 항구에서 차로 20-30분 거리. Pinthong Industrial Estate 1-5 등 주요 수출 산단이 집중되어 있어 자동차 Tier 2/3 부품·패키징·플라스틱 OEM의 물류 거점으로 이상적.",
+    hook: "Closest city to Laem Chabang port — Tier 2/3 automotive parts and export logistics hub.",
+    long: "Si Racha sits 20–30 minutes from Laem Chabang container port — Thailand's largest international container terminal. Pinthong Industrial Estates 1–5 and other key export-oriented estates are clustered here, making it ideal for automotive Tier 2/3 parts, packaging, plastic OEM, and export logistics operators.",
   },
   chonburi: {
-    hook: "Eastern Seaboard 핵심 — 산업단지 밀집 지역.",
-    long: "Chonburi (촌부리)는 Chon Buri 주 광역 행정구역. Amata City Chonburi, Pinthong, WHA Chonburi 등 주요 산단 밀집. 자동차 부품·전자·플라스틱·패키징 OEM의 핵심 거점.",
+    hook: "Chon Buri province core — Thailand's densest industrial estate concentration.",
+    long: "Chonburi (the broader administrative area of Chon Buri province) hosts Amata City Chonburi, Pinthong, WHA Chonburi, and many smaller estates — Thailand's highest concentration of industrial estates by number and total leased area. Automotive parts, electronics, plastics, and packaging OEM are dominant industries.",
   },
   map_ta_phut: {
-    hook: "동남아 최대 석유화학 집적지 — PTT·IRPC·PTTGC 본단.",
-    long: "Map Ta Phut (맵타풋)는 Rayong 내 특수 산업 구역. PTT, IRPC, PTTGC, SCG Chemicals 등 태국 대형 석유화학기업 본단. 전용 항구 + 파이프라인 인프라 보유. 화학·플라스틱 원재료 조달 최적지.",
+    hook: "Southeast Asia's largest petrochemical complex — PTT, IRPC, PTTGC headquarters.",
+    long: "Map Ta Phut is a special industrial zone within Rayong. PTT, IRPC, PTTGC, and SCG Chemicals operate integrated petrochemical complexes here with dedicated deep-sea port and pipeline infrastructure. It is the primary sourcing base in Thailand for bulk polymer, aromatic, and specialty chemical raw materials.",
   },
   pattaya: {
-    hook: "Eastern Seaboard 남단 — 자동차·제조·물류 복합 거점.",
-    long: "Pattaya (파타야)는 관광도시 이미지와 달리 제조 인프라 보유. Eastern Seaboard 남단에 위치해 Chon Buri·Rayong 산단과 근접. 자동차 부품·물류·서비스 기업 분포.",
+    hook: "Eastern Seaboard south — automotive parts, manufacturing, and logistics cluster.",
+    long: "Beyond its tourism profile, Pattaya hosts manufacturing and logistics infrastructure on the southern end of the Eastern Seaboard. Proximity to Chon Buri and Rayong industrial estates makes it a strategic base for automotive parts, logistics, and service businesses supporting the manufacturing corridor.",
   },
   chiang_mai: {
-    hook: "북부 경제 허브 — 농식품 OEM·공예·소규모 제조.",
-    long: "Chiang Mai (치앙마이)는 태국 북부 최대 도시. 농식품 (커피·허브·건강식품) OEM, 전통 공예 (래커·세라믹·섬유), 소규모 정밀 제조 클러스터. Chiang Mai Industrial Estate 위치.",
+    hook: "Northern economic hub — agri-food OEM, traditional crafts, and small-batch manufacturing.",
+    long: "Chiang Mai is the largest city in Northern Thailand. Key manufacturing sectors: agri-food OEM (coffee, herbs, health foods), traditional crafts (lacquerware, ceramics, hand-woven textiles), and precision small-batch manufacturing. Chiang Mai Industrial Estate anchors the local formal manufacturing cluster.",
   },
 };
 
@@ -342,6 +343,23 @@ export default async function CityPage(
         <a href="/guide" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">Buyer guides →</a>
       </div>
 
+      {(CITY_FAQS[name] ?? []).length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-xl font-bold mb-4">{display} — FAQ</h2>
+          <div className="space-y-3">
+            {(CITY_FAQS[name] ?? []).map((f, i) => (
+              <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">
+                <summary className="font-medium cursor-pointer flex items-center justify-between gap-3">
+                  <span>{f.q}</span>
+                  <span className="text-[var(--muted)] group-open:rotate-180 transition">⌄</span>
+                </summary>
+                <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
       <CollectionPageJsonLd
         name={`${display} Suppliers Directory`}
         description={note?.hook ?? `Verified Thai suppliers in ${display}: manufacturers, warehouses, industrial estates.`}
@@ -352,6 +370,7 @@ export default async function CityPage(
         { name: "Home", url: "/" },
         { name: display, url: `/city/${name}` },
       ]} />
+      <FaqJsonLd faqs={CITY_FAQS[name] ?? []} />
       <ItemListJsonLd
         name={`Top ${display} suppliers`}
         description={note?.long}

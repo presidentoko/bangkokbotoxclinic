@@ -24,9 +24,22 @@ export function OrgJsonLd() {
     "@id": `${SITE}#organization`,
     name: BRAND,
     url: SITE,
-    logo: `${SITE}/icon`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE}/icon`,
+      width: 512,
+      height: 512,
+    },
     description:
       "Independent directory of Thai manufacturers, industrial estates, warehouses, and logistics operators. Trust Scores from real Google review analysis. Direct contact, no sourcing-agent middleman.",
+    foundingDate: "2024",
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "inquiry@thaisupplyhub.com",
+      contactType: "customer support",
+      areaServed: "TH",
+      availableLanguage: ["English", "Korean", "Thai"],
+    },
     knowsAbout: [
       "Thai manufacturers",
       "Eastern Seaboard industrial estates",
@@ -39,8 +52,21 @@ export function OrgJsonLd() {
       "Tier 1 OEM Thailand",
       "Thai food manufacturers",
       "Bangkok manufacturing hub",
+      "plastic injection molding Thailand",
+      "3PL logistics providers Thailand",
+      "food ingredient suppliers Thailand",
+      "DBD business registry Thailand",
+      "Thai rubber manufacturers",
+      "electronics manufacturers Thailand",
+      "warehouse rental Thailand",
+      "Laem Chabang port logistics",
+      "Thailand sourcing directory",
+      "B2B supplier verification Thailand",
     ],
     areaServed: { "@type": "Country", name: "Thailand" },
+    sameAs: [
+      "https://thaisupplyhub.com",
+    ],
   });
 }
 
@@ -53,11 +79,51 @@ export function WebsiteJsonLd() {
     url: SITE,
     inLanguage: ["en", "ko", "th"],
     publisher: { "@id": `${SITE}#organization` },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", ".hero-description"],
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: { "@type": "EntryPoint", urlTemplate: `${SITE}/?q={search_term_string}` },
       "query-input": "required name=search_term_string",
     },
+  });
+}
+
+// ── Dataset (supplier directory as a Dataset) ──────────────────
+export function DatasetJsonLd({ totalSuppliers, verifiedCount, updatedAt }: {
+  totalSuppliers: number;
+  verifiedCount: number;
+  updatedAt: string;
+}) {
+  return tag({
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: "Thailand B2B Supplier Directory",
+    description: `Verified directory of ${totalSuppliers.toLocaleString()} Thai B2B suppliers — manufacturers, industrial estates, warehouses, logistics — with ${verifiedCount.toLocaleString()} DBD-registry-verified entries. Trust Scores from real Google review analysis.`,
+    url: SITE,
+    creator: { "@id": `${SITE}#organization` },
+    publisher: { "@id": `${SITE}#organization` },
+    dateModified: updatedAt,
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    variableMeasured: [
+      "Thai manufacturer count",
+      "DBD-verified supplier count",
+      "Trust Score",
+      "Google review volume",
+    ],
+    spatialCoverage: { "@type": "Country", name: "Thailand" },
+    keywords: [
+      "Thai manufacturers",
+      "Thailand B2B suppliers",
+      "industrial estates Thailand",
+      "plastic injection molding Thailand",
+      "food ingredient suppliers Thailand",
+      "3PL providers Thailand",
+      "warehouse Thailand",
+      "DBD verified suppliers",
+    ],
   });
 }
 

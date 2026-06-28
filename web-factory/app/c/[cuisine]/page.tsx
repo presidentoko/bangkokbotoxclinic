@@ -29,6 +29,14 @@ export async function generateMetadata(
     title: intro?.metaTitle ?? `${label} in Thailand — Verified B2B Directory`,
     description: intro?.metaDescription ??
       `Verified Thai ${label.toLowerCase()} suppliers ranked by Trust Score from real Google reviews. Direct contact, no sourcing-agent markup.`,
+    keywords: [
+      `${label} Thailand`,
+      `Thai ${label.toLowerCase()}`,
+      `${label.toLowerCase()} suppliers Thailand`,
+      "B2B supplier directory Thailand",
+      "DBD verified",
+      "direct contact no agent",
+    ],
     alternates: {
       canonical: `/c/${cuisine}`,
       languages: {

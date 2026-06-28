@@ -14,12 +14,12 @@ export function getSiteConfig(): SiteConfig {
   return {
     brand,
     domain,
-    title: `${brand} — DBD-Verified Thai Manufacturers, Industrial Estates & Logistics`,
+    title: `${brand} — Find Verified Manufacturers & B2B Suppliers in Thailand`,
     description:
-      "849 DBD-verified manufacturers + 3,300 B2B suppliers across Thailand's Eastern Seaboard. Capital, registered date, TSIC industry code, photos — sourced from the official Department of Business Development registry. Pinthong, Amata, WHA, Rojana, Nava Nakorn — in one searchable directory.",
-    hero: "DBD-verified Thai manufacturers, industrial estates & logistics",
+      "Search 3,000+ verified Thai B2B suppliers — manufacturers, industrial estates, warehouses, 3PL logistics. DBD registry cross-checked with capital, TSIC code, founding date. Plastic injection molding, food ingredients, auto parts, electronics — direct contact, no agent markup.",
+    hero: "Verified Thai manufacturers & B2B suppliers — direct contact, no agent",
     heroSub:
-      "849 manufacturers cross-checked with Thailand's official business registry. Capital, founding date, registered industry — all in one place. Skip the sourcing agent and contact suppliers directly.",
+      "Cross-checked with Thailand's Department of Business Development registry. Capital, founding date, registered industry — all in one place. Skip the sourcing agent and contact suppliers directly.",
     themeAccent: "#0f766e",
   };
 }

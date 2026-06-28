@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "How the Trust Score Works — Methodology",
@@ -74,6 +74,24 @@ export default function TrustScorePage() {
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: "Trust Score", url: "/trust-score" },
+      ]} />
+      <FaqJsonLd faqs={[
+        {
+          q: "What is the Trust Score on Thai Supply Hub?",
+          a: "The Trust Score (0–100) is a composite supplier quality metric averaging five signals: registered capital from Thailand's DBD registry, years in business, Google review strength, active verifications (DBD/Halal/TSIC/estate), and site-evidence photos. It's computed from public data and cannot be purchased.",
+        },
+        {
+          q: "How is the Thai Supply Hub Trust Score calculated?",
+          a: "Trust Score averages five equally-weighted components: (1) Registered capital (log-scaled, ฿1B+ = 100 points), (2) Years in business (4 pts/year, capped at 100), (3) Google review strength (volume × rating, log-scaled), (4) Active verifications out of 4 (DBD, Halal, TSIC code, industrial estate membership), (5) Site-evidence photos (12.5 pts each, capped at 8+ photos = 100).",
+        },
+        {
+          q: "Can a supplier pay to improve their Trust Score?",
+          a: "No. Trust Score is computed automatically from public data (Google Maps and Thailand's Department of Business Development registry). It cannot be bought, edited, or manipulated. Sponsored listings have clearly-labelled badges and do not affect organic Trust Score rankings.",
+        },
+        {
+          q: "What Trust Score is considered good for a Thai supplier?",
+          a: "Tiers: Excellent (75+), Strong (60+), Fair (40+), Limited (below 40). Most established manufacturers with DBD registration, 10+ years of operation, and significant Google review volume score in the 60–85 range. Trust Score is informational — always perform direct due diligence (sample orders, factory audits, contract review) before committing.",
+        },
       ]} />
     </div>
   );

@@ -31,6 +31,7 @@ export async function generateMetadata(
       publishedTime: p.published,
       modifiedTime: p.updated ?? p.published,
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -56,6 +57,10 @@ function articleJsonLd(p: ReturnType<typeof findPost> & object) {
           mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/blog/${p.slug}` },
           inLanguage: /[가-힣]/.test(p.title) ? "ko" : "en",
           articleSection: p.category,
+          speakable: {
+            "@type": "SpeakableSpecification",
+            cssSelector: ["h1", ".blog-intro"],
+          },
         }),
       }}
     />

@@ -2,7 +2,8 @@
 // 3개 라우트(/for-buyers, /ko/for-buyers, /th/for-buyers)에서 import.
 
 import { loadMasterDb } from "@/lib/data";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { HOME_FAQS } from "@/lib/faq";
 import { getSiteConfig } from "@/lib/site";
 import { RfqForm } from "@/components/RfqForm";
 import { LeadMagnetCta } from "@/components/LeadMagnetCta";
@@ -133,6 +134,7 @@ export async function ForBuyersPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
+      {locale === "en" && <FaqJsonLd faqs={HOME_FAQS.slice(0, 5)} />}
       <BreadcrumbJsonLd items={[
         { name: homeLabel, url: homeHref },
         { name: t.breadcrumb, url: locale === "en" ? "/for-buyers" : `/${locale}/for-buyers` },

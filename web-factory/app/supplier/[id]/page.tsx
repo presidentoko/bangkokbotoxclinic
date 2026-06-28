@@ -66,21 +66,36 @@ export async function generateMetadata(
   const cats = r.categories.map((c) => CATEGORY_LABELS[c] ?? c).join(", ");
   const verified = r.verified ? "DBD-verified · " : "";
   const founded = r.dbd?.registered_date ? `Est. ${r.dbd.registered_date.slice(0, 4)}` : "";
-  const top = r.external_reviews?.[0]?.text || r.dbd?.purpose || "";
-  const desc = `${verified}${r.name} (${loc}). ${cats}${founded ? " · " + founded : ""}. ${top.slice(0, 140)}`;
+  const capital = r.dbd?.capital_thb
+    ? (r.dbd.capital_thb >= 1_000_000 ? `฿${(r.dbd.capital_thb / 1_000_000).toFixed(0)}M capital` : "")
+    : "";
+  const reviewSnippet = r.external_reviews?.[0]?.text?.slice(0, 100) || r.dbd?.purpose?.slice(0, 100) || "";
+  const descParts = [
+    `${verified}${cats || "Supplier"} in ${loc}.`,
+    founded ? founded : "",
+    capital ? capital + "." : "",
+    reviewSnippet,
+  ].filter(Boolean).join(" ");
+  const desc = descParts.slice(0, 200);
+
+  const catKeywords = r.categories.map((c) => CATEGORY_LABELS[c] ?? c);
 
   return {
     title: r.verified
-      ? `${r.name} — Verified Thai ${cats || "Supplier"} · ${loc}`
-      : `${r.name} — Thai Supplier · ${loc}`,
-    description: desc.slice(0, 200),
+      ? `${r.name} — DBD-Verified ${cats || "Thai Supplier"} in ${loc}`
+      : `${r.name} — Thai ${cats || "Supplier"} in ${loc}`,
+    description: desc || `${r.name} — ${cats || "Thai B2B supplier"} in ${loc}. Contact directly for quotes.`,
+    keywords: [r.name, ...catKeywords, loc, "Thailand supplier", "B2B"].filter(Boolean),
     alternates: { canonical: `/supplier/${id}` },
     openGraph: {
-      title: `${r.name}${r.verified ? " — Verified Thai Supplier" : ""}`,
-      description: desc.slice(0, 200),
-      type: "website",
-      images: r.hero_image ? [{ url: photoUrl(r.hero_image) }] : undefined,
+      title: `${r.name} — ${cats || "Thai Supplier"} · ${loc}`,
+      description: desc || `${r.name}: ${cats || "Thai B2B supplier"} in ${loc}.`,
+      type: "profile",
+      images: r.hero_image
+        ? [{ url: photoUrl(r.hero_image), width: 1200, height: 630, alt: `${r.name} factory` }]
+        : undefined,
     },
+    twitter: { card: "summary_large_image" },
     robots: { index: true, follow: true },
   };
 }

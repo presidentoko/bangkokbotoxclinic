@@ -1,7 +1,7 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { districtsForBuild } from "@/lib/districts";
 import { CATEGORY_ICONS } from "@/lib/types";
-import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { FaqJsonLd, ItemListJsonLd, DatasetJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS } from "@/lib/faq";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { HeroSearch } from "@/components/HeroSearch";
@@ -370,6 +370,11 @@ export default async function HomePage() {
         <ItemListJsonLd
           name="Top Thailand Suppliers by Trust Score"
           items={top.slice(0, 20).map((r) => ({ name: r.name, url: `/supplier/${r.id}` }))}
+        />
+        <DatasetJsonLd
+          totalSuppliers={db.total_suppliers}
+          verifiedCount={verifiedCount}
+          updatedAt={db.generated_at}
         />
       </div>
     </>

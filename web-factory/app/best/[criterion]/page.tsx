@@ -49,7 +49,9 @@ export async function generateMetadata(
   return {
     title: cfg.metaTitle,
     description: cfg.metaDescription,
+    keywords: [cfg.title, "Thailand supplier ranking", "DBD verified", "Thai manufacturers", "Trust Score"],
     alternates: { canonical: `/best/${cfg.slug}` },
+    twitter: { card: "summary_large_image" },
   };
 }
 
