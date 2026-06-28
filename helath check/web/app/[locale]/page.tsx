@@ -382,6 +382,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             { href: `${base}/for/comprehensive-health-checkup-bangkok`, icon: "🔬", label: "Comprehensive" },
             { href: `${base}/for/senior-health-checkup-bangkok`, icon: "🧓", label: "Senior / 60+" },
             { href: `${base}/for/diabetes-screening-bangkok`, icon: "🩸", label: "Diabetes Screening" },
+            { href: `${base}/for/health-checkup-tourists-thailand`, icon: "✈️", label: "Tourists (day trip)" },
           ].map((item) => (
             <Link key={item.href} href={item.href}
               className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all group flex items-center gap-3">
@@ -400,7 +401,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {[
               { icon: "🔍", title: "Real prices only", desc: "Every price is scraped from the hospital's own website — not aggregators or ad networks." },
               { icon: "🏆", title: "No paid rankings", desc: "Packages sort by price. Hospitals can't pay for higher placement. Ever." },
-              { icon: "🌏", title: "Multiple languages", desc: "Compare in English, Chinese, Japanese, Thai, and Arabic." },
+              { icon: "🌏", title: "Multiple languages", desc: "Compare in English, Chinese, Japanese, Korean, Thai, and Arabic." },
             ].map((item) => (
               <div key={item.title} className="text-center p-4">
                 <div className="text-3xl mb-3">{item.icon}</div>
