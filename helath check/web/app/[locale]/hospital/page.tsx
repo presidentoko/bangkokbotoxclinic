@@ -17,7 +17,7 @@ export async function generateMetadata({
   void locale;
   return {
     title: "Health Check-Up Hospitals in Thailand — Bangkok, Phuket, Chiang Mai",
-    description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 15 more cities. Real prices, JCI-accredited hospitals listed.",
+    description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 19 more cities. Real prices, JCI-accredited hospitals listed.",
     alternates: {
       canonical: `${BASE}/en/hospital`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital`])),
@@ -109,6 +109,7 @@ export default async function HospitalsPage({
           { href: `/${locale}/for/japanese-health-checkup-bangkok`, label: "🇯🇵 Japanese" },
           { href: `/${locale}/for/arabic-health-checkup-bangkok`, label: "🌙 Arabic" },
           { href: `/${locale}/for/korean-health-checkup-bangkok`, label: "🇰🇷 Korean" },
+          { href: `/${locale}/for/chinese-health-checkup-bangkok`, label: "🇨🇳 Chinese" },
           { href: `/${locale}/for/health-checkup-expats-bangkok`, label: "🌍 Expats" },
         ].map(({ href, label }) => (
           <Link key={href} href={href}
@@ -173,6 +174,25 @@ export default async function HospitalsPage({
           ))}
         </div>
       )}
+
+      {/* Guide links */}
+      <div className="mt-10 border-t border-slate-100 pt-8">
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Health check-up guides</h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { href: `/${locale}/guide/what-is-included-checkup`, label: "What's included in each package tier" },
+            { href: `/${locale}/guide/jci-hospitals-bangkok`, label: "JCI hospitals guide" },
+            { href: `/${locale}/guide/bumrungrad-vs-samitivej-health-checkup`, label: "Bumrungrad vs Samitivej" },
+            { href: `/${locale}/guide/executive-health-checkup-bangkok`, label: "Executive packages guide" },
+            { href: `/${locale}/guide/how-to-prepare-health-checkup-thailand`, label: "How to prepare" },
+          ].map((g) => (
+            <Link key={g.href} href={g.href}
+              className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-600 transition-colors">
+              {g.label} →
+            </Link>
+          ))}
+        </div>
+      </div>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
