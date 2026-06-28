@@ -490,9 +490,68 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/colonoscopy-cost-bangkok", label: "Colonoscopy cost Bangkok" },
+      { href: "/en/guide/h-pylori-test-bangkok", label: "H. pylori test Bangkok" },
       { href: "/en/guide/health-checkup-japan-vs-thailand", label: "Japan vs Thailand — Ningen Dock" },
       { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean tourists guide" },
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
+    ],
+  },
+
+  "h-pylori-test-bangkok": {
+    title: "H. pylori Test Bangkok — Urea Breath Test, Stool Antigen, Biopsy Prices (2026)",
+    description: "H. pylori test in Bangkok: urea breath test ฿800–฿1,800, stool antigen ฿600–฿1,200, biopsy during gastroscopy ฿500–฿1,500 add-on. Eradication triple therapy from ฿1,500.",
+    intro: "Helicobacter pylori (H. pylori) infects around 50% of the world's population — and in Southeast and East Asia, prevalence is even higher (50–70%). Bangkok's private hospitals offer fast, accurate H. pylori detection methods without a referral, and eradication therapy is inexpensive and readily available. Particularly relevant for Korean, Japanese, and Chinese visitors whose home-country health screening programmes routinely include H. pylori testing.",
+    sections: [
+      {
+        heading: "H. pylori test types and prices in Bangkok",
+        content: "H. pylori testing options available at Bangkok hospitals and clinics (2026):",
+        list: [
+          "Urea Breath Test (UBT / 13C-UBT): ฿800–฿1,800 — gold standard non-invasive test; swallow a carbon-13 labelled urea capsule, breathe into bags, H. pylori urease metabolises it if present; sensitivity/specificity > 95%; requires no antibiotic use for 4 weeks and no PPI for 2 weeks before",
+          "H. pylori Stool Antigen Test (SAT / ELISA-based): ฿600–฿1,200 — accurate non-invasive alternative; same pre-test restrictions as UBT; preferred when breath test unavailable",
+          "H. pylori Serology (blood antibody IgG): ฿400–฿800 — cheapest but least accurate for current infection; stays positive for years after eradication so cannot confirm cure; not recommended as primary diagnostic",
+          "Rapid Urease Test (CLO test): ฿500–฿1,500 as add-on to gastroscopy — biopsy taken during endoscopy, tested for urease activity; highly accurate for diagnosis during procedure",
+          "Histopathology biopsy (pathology lab from gastroscopy): ฿1,000–฿3,000 — sends gastric tissue to pathologist; most comprehensive but requires gastroscopy; identifies active gastritis/dysplasia simultaneously",
+          "H. pylori antigen from stool PCR (molecular): ฿1,500–฿3,000 — can distinguish strain and antibiotic resistance; useful if prior eradication failed",
+          "Most accessible option for quick testing without gastroscopy: Urea Breath Test or Stool Antigen — both walk-in at most Bangkok hospitals",
+        ],
+      },
+      {
+        heading: "H. pylori eradication treatment in Bangkok",
+        content: "H. pylori treatment options and costs at Bangkok private hospitals:",
+        list: [
+          "Standard triple therapy (7–14 days): Amoxicillin + Clarithromycin + PPI (e.g., Omeprazole or Pantoprazole): ฿1,200–฿2,500 for full course; success rate ~75–85% in areas without clarithromycin resistance",
+          "Bismuth quadruple therapy (first-line where clarithromycin resistance is high): Bismuth + Tetracycline + Metronidazole + PPI (10–14 days): ฿2,000–฿4,000; preferred by many Bangkok gastroenterologists",
+          "Sequential therapy (5+5 days) or concomitant therapy: alternatives used at some Bangkok hospitals; consult a gastroenterologist",
+          "Test of cure: must be done ≥ 4 weeks after completing antibiotic course AND ≥ 2 weeks after stopping PPI — use UBT or stool antigen (NOT serology, which stays positive)",
+          "Full package (breath test + triple therapy + test of cure): approximately ฿4,000–฿7,000 total out of pocket at Bangkok private hospitals",
+          "Note: Bangkok (Thailand) has growing clarithromycin resistance (~25–35%), so bismuth quadruple therapy is increasingly first-line; ask your Bangkok gastroenterologist which regimen they recommend",
+        ],
+      },
+      {
+        heading: "Who should get tested for H. pylori in Bangkok",
+        content: "H. pylori screening and testing recommendations for Bangkok check-up visitors:",
+        list: [
+          "Korean visitors: South Korea has one of the highest H. pylori rates in East Asia (50–60%). Korean national health screening (국가건강검진) has included H. pylori testing since 2021 for stomach cancer prevention — Vejthani, Samitivej, and Bumrungrad all offer H. pylori testing as part of Korean health screening packages",
+          "Japanese visitors: Japan has very high H. pylori rates (30–50%+ depending on age cohort) and government-endorsed eradication programmes for gastric cancer prevention (胃がんリスク層別化検診); most Tokyo Ningen Dock packages include H. pylori; Bangkok hospitals can replicate this",
+          "Chinese visitors: China has 50–60% H. pylori prevalence; growing awareness; commonly requested alongside gastroscopy",
+          "Symptomatic patients: upper abdominal discomfort, bloating, early satiety, nausea — consider H. pylori testing as first step before gastroscopy",
+          "Family history of gastric cancer: H. pylori + gastric cancer family history = significantly elevated risk; test and treat",
+          "Long-term Bangkok/Thailand residents: consider baseline H. pylori test if you've never been tested — Southeast Asian prevalence is ~40–60%",
+          "Note: Bangkok hospitals can arrange H. pylori UBT or stool antigen test on the same morning as your annual health check-up",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Do I need a referral to get an H. pylori test in Bangkok?", a: "No — you can walk in to any major Bangkok private hospital and request an H. pylori Urea Breath Test (UBT) or stool antigen test without a referral. Most hospitals can arrange the UBT on the same morning as your health check-up blood tests. Results for UBT are available within 1–3 hours. Tell the registration desk 'I want an H. pylori breath test' and they will direct you to the gastroenterology or internal medicine department." },
+      { q: "Can I get the H. pylori breath test and gastroscopy on the same visit?", a: "It's possible but usually not scheduled on the exact same day — the gastroscopy biopsy CLO test already tests for H. pylori during the procedure, so if you're having a gastroscopy, you don't also need a UBT. If H. pylori is found during gastroscopy biopsy, the gastroenterologist will discuss eradication therapy at your same-day post-procedure consultation. For testing without gastroscopy, the UBT or stool antigen can be combined with your morning blood tests in a single visit." },
+      { q: "How accurate is the H. pylori urea breath test?", a: "The 13C Urea Breath Test has approximately 96–98% sensitivity and 93–98% specificity — making it the most accurate non-invasive H. pylori test. It tests for active current infection (unlike serology/antibody which stays positive even after eradication). Critical precautions: stop antibiotics for at least 4 weeks before the test, stop proton pump inhibitors (omeprazole, lansoprazole, etc.) for at least 2 weeks before — both can suppress H. pylori activity and cause false-negative results." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/gastroscopy-cost-bangkok", label: "Gastroscopy (stomach camera) in Bangkok" },
+      { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
+      { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean health check-up guide" },
+      { href: "/en/guide/health-checkup-south-korea-vs-thailand", label: "Korea vs Thailand health check-up" },
+      { href: "/en/guide/health-checkup-japan-vs-thailand", label: "Japan vs Thailand — Ningen Dock" },
     ],
   },
 

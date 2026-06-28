@@ -382,6 +382,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "h-pylori-test-bangkok",
+    title: "H. pylori Test Bangkok — Breath Test, Stool Antigen & Eradication (2026)",
+    description: "Urea breath test ฿800–฿1,800, stool antigen ฿600–฿1,200, biopsy CLO add-on ฿500–฿1,500. Eradication triple therapy ฿1,200–฿2,500. Walk-in, same-day results.",
+    emoji: "🦠",
+    category: "Specialist Screening",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
