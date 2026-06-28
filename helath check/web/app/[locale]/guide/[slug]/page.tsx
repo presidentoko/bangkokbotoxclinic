@@ -173,6 +173,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/compare?category=executive", label: "Compare JCI hospital prices →" },
       { href: "/en/hospital/bumrungrad", label: "Bumrungrad packages" },
       { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
+      { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej comparison" },
     ],
   },
   "what-is-included-checkup": {
@@ -2348,6 +2349,73 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-cost-australia-vs-thailand", label: "Australia vs Thailand comparison" },
       { href: "/en/guide/health-checkup-usa-vs-thailand", label: "USA vs Thailand comparison" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
+  "bumrungrad-vs-samitivej-health-checkup": {
+    title: "Bumrungrad vs Samitivej Health Check-Up 2026 — Which Hospital to Choose?",
+    description: "Detailed comparison of Bumrungrad International vs Samitivej Sukhumvit for health check-ups in Bangkok. Prices, package scope, experience, wait times, and who each hospital is best for.",
+    intro: "Bumrungrad International and Samitivej Sukhumvit are the two most frequently compared Bangkok hospitals for health check-ups. Both are JCI-accredited, both have English-speaking staff throughout, and both serve large numbers of international medical tourists. The key differences are in pricing, atmosphere, package structure, and specialty strengths. This guide gives you a direct comparison so you can choose the right hospital for your specific needs and budget.",
+    sections: [
+      {
+        heading: "Price comparison: Bumrungrad vs Samitivej",
+        content: "Executive health check-up package price ranges at both hospitals (2026 data, subject to change — verify on hospital website):",
+        list: [
+          "Basic check-up (blood, urine, X-ray, ECG) — Bumrungrad: ~฿6,500–฿9,000 | Samitivej: ~฿5,000–฿7,500 | Samitivej is typically 10–20% cheaper",
+          "Comprehensive check-up (+ ultrasound, full blood panel) — Bumrungrad: ~฿12,000–฿18,000 | Samitivej: ~฿9,000–฿14,000",
+          "Executive check-up (full organ panel, cancer markers, consultation) — Bumrungrad: ~฿18,000–฿35,000 | Samitivej: ~฿14,000–฿28,000",
+          "Premium/VIP (+ MRI, specialty consult) — Bumrungrad: ~฿35,000–฿70,000+ | Samitivej: ~฿28,000–฿55,000",
+          "Verdict on price: Samitivej is generally 10–25% cheaper than Bumrungrad for equivalent scope — significant on premium packages",
+          "Add-ons (CT, MRI, gastroscopy) are similarly priced at both hospitals — compare when building your custom package",
+        ],
+      },
+      {
+        heading: "Experience and atmosphere",
+        content: "The 'feel' of each hospital — important for your half-day experience:",
+        list: [
+          "Bumrungrad: large, hotel-like lobby with multiple restaurants (Subway, McDonald's, coffee shops), feels more like an airport terminal — efficient but busy",
+          "Samitivej Sukhumvit: smaller, quieter, more personal — dedicated check-up floor with private changing rooms, less crowded waiting areas",
+          "Patient volume: Bumrungrad sees ~5,000 patients daily (busiest private hospital in Asia); Samitivej sees fewer — shorter perceived wait times",
+          "International patient staff: both have English throughout; Bumrungrad has 70+ nationalities on staff; Samitivej has strong Japanese and Korean departments",
+          "Check-up-specific area: Samitivej has a dedicated health check-up center on a single floor — more streamlined. Bumrungrad check-up moves between departments",
+          "Location: both are near BTS Asoke — Bumrungrad is 5 minutes walk; Samitivej is 2 minutes walk from Asoke BTS/MRT interchange",
+        ],
+      },
+      {
+        heading: "Package scope and inclusions",
+        content: "What each hospital typically includes at the executive tier:",
+        list: [
+          "Bumrungrad Executive programs: structured as 3 levels (Executive I/II/III); includes blood panel, urine, stool, X-ray, ECG, ultrasound, cancer markers — tiered based on depth",
+          "Samitivej Executive programs: check-up packages for men, women, senior categories; similar scope but often includes thyroid ultrasound in mid-tier",
+          "Cancer markers: included from mid-tier at both hospitals; Samitivej includes more in baseline packages vs Bumrungrad (check current package sheets)",
+          "Doctor consultation: 15–30 min internist review at both — both hospitals schedule this as part of the same visit",
+          "Results turnaround: most results within 4–6 hours same day at both hospitals; some advanced panels (pathology) may take 1–2 days at either",
+          "Report format: both issue comprehensive English-language digital and printed reports; Bumrungrad results app is more polished",
+        ],
+      },
+      {
+        heading: "Who should choose which hospital",
+        content: "Practical recommendation guide based on specific needs:",
+        list: [
+          "Choose Bumrungrad if: you want the most internationally recognised name, you need specific rare specialty consultations, you're on a large corporate account, you want the widest range of on-site dining and amenities",
+          "Choose Samitivej if: you prefer a quieter, less crowded experience, you're cost-conscious (10–25% saving matters), you're Japanese or Korean (both have dedicated language services), you value a more personal consultation",
+          "For first-time Bangkok visitors: Samitivej is often recommended for a less overwhelming experience",
+          "For complex cases requiring multiple specialists: Bumrungrad has a slightly wider specialist network on-site",
+          "For budget under ฿10,000: Samitivej typically offers more scope at this price point",
+          "Both are equivalent for standard executive check-up results quality — lab equipment and accreditation are identical (JCI)",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is Bumrungrad or Samitivej better for health check-ups?", a: "Both are excellent — JCI accredited with identical lab equipment. Samitivej is generally 10–25% cheaper and has a quieter, more personal atmosphere. Bumrungrad has the larger international recognition, more on-site amenities, and more specialist depth. For a standard executive health check-up, most patients report equal satisfaction at both. Choose Bumrungrad if price isn't the primary concern; Samitivej if you want similar quality with a lower price and less crowded environment." },
+      { q: "Are the prices for Bumrungrad and Samitivej check-ups fixed or negotiable?", a: "Published package prices are generally fixed for walk-in patients. However, Bumrungrad and Samitivej both have corporate contracts for companies that bring multiple employees — these provide 15–30% discounts. Individual patients on premium packages may sometimes negotiate minor add-on tests. For best pricing, book the specific named package rather than custom-building tests à la carte (packages are substantially cheaper per test)." },
+      { q: "Do I need to book in advance for Bumrungrad or Samitivej?", a: "Advance booking (1–7 days) is strongly recommended for morning slots (7–8 AM) at both hospitals, especially in peak tourist season (November–March). Walk-in is possible but you may wait 30–60 minutes for morning appointments. Book via the hospital website's international patient portal or by email. Samitivej tends to have slightly more morning availability than Bumrungrad due to lower patient volume." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages" },
     ],
   },
 
