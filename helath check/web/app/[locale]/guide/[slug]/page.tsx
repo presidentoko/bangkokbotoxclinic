@@ -2049,6 +2049,65 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages in Bangkok" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare" },
       { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-scandinavia-vs-thailand", label: "Scandinavia vs Thailand comparison" },
+    ],
+  },
+
+  "health-checkup-scandinavia-vs-thailand": {
+    title: "Health Check-Up: Scandinavia vs Thailand 2026 — Bangkok for Nordic Patients",
+    description: "Sweden, Norway, Denmark, Finland: free universal healthcare with long specialist waits. Bangkok JCI hospitals offer private executive check-ups at 70–80% below Nordic private clinic costs.",
+    intro: "Scandinavia has among the world's best universal healthcare systems — but 'free' healthcare comes with waiting lists. In Sweden, the national guarantee is 90 days for specialist appointments; in Norway, 4–8 weeks for non-urgent specialist care is standard. For people who want a comprehensive annual health screening NOW — not in 3 months — Bangkok's private JCI hospitals offer same-day results at 70–80% below Nordic private clinic prices. Combined with Thailand's popularity as a holiday destination (900,000+ Scandinavian visitors per year), a Bangkok health check-up makes increasing sense for Northern European visitors.",
+    sections: [
+      {
+        heading: "Price comparison: Scandinavia vs Bangkok",
+        content: "Comparison of private health check-up costs in Scandinavia vs Bangkok (exchange rates: SEK 1 ≈ ฿3.2, NOK 1 ≈ ฿3.1, DKK 1 ≈ ฿5.6):",
+        list: [
+          "Basic blood panel (cholesterol, glucose, liver, kidney, thyroid) — Swedish private clinic: SEK 2,500–6,000 (฿8,000–฿19,200) | Bangkok: ฿2,500–฿5,000 | Saving 55–80%",
+          "Basic blood panel — Norwegian private: NOK 2,000–5,000 (฿6,200–฿15,500) | Bangkok: ฿2,500–฿5,000 | Saving 50–75%",
+          "Standard (+ ECG, X-ray, ultrasound) — Sweden Capio/Aleris: SEK 6,000–12,000 | Bangkok: ฿5,000–฿9,000 | Saving 55–75%",
+          "Executive full check-up — Sweden Sophiahemmet/Capio: SEK 15,000–30,000 | Bangkok: ฿8,000–฿25,000 | Saving 55–75%",
+          "MRI brain — Sweden private: SEK 8,000–15,000 (฿25,600–฿48,000) | Bangkok: ฿5,000–฿12,000 | Saving 55–80%",
+          "Colonoscopy — Norway private: NOK 10,000–20,000 (฿31,000–฿62,000) | Bangkok: ฿8,000–฿22,000 | Saving 50–70%",
+          "Conclusion: even after a return flight from Stockholm or Oslo (SEK 4,000–8,000 / NOK 4,000–10,000 economy), the combined cost of Bangkok flight + executive check-up is often less than the check-up alone at a Scandinavian private clinic",
+        ],
+      },
+      {
+        heading: "What free Nordic healthcare covers — and the waiting times",
+        content: "Why many Scandinavians seek private care in Bangkok:",
+        list: [
+          "Sweden: 90-day specialist wait guarantee (Vårdgarantin) — but cancer and cardiac screening as a preventive measure without symptoms is not routinely offered; must have a referral from our GP (Husläkare/Fastläkare)",
+          "Norway: Fastlegelegen (GP scheme) — GP referral required for all specialist care; 8–12 weeks typical specialist wait for non-urgent cases; prevention-focused check-ups not routinely offered",
+          "Denmark: same GP gatekeeper model — full preventive check-up is not a standard NHS entitlement; Sundhedspakke offered by private providers for DKK 1,500–5,000",
+          "Finland: Terveyskeskus (health centres) have extensive waiting times in many municipalities; private Pihlajalinna/Mehiläinen clinics offer comprehensive packages for €200–€600",
+          "What IS free: emergency care everywhere in Scandinavia; maternal care; vaccination programs; cancer screening programs (mammography, cervical, colorectal from specific ages)",
+          "The gap Bangkok fills: comprehensive preventive check-up with same-day results, no referral needed, no waiting list, broader scope than what public systems offer routinely",
+        ],
+      },
+      {
+        heading: "Practical guide for Nordic visitors",
+        content: "Logistics for Scandinavian patients visiting Bangkok:",
+        list: [
+          "Visa: Swedish, Norwegian, Danish, Finnish, Icelandic passport holders — visa-free up to 60 days in Thailand",
+          "Flight: Stockholm (ARN) – Bangkok: 10–11 hours non-stop with Thai Airways; Oslo (OSL) – Bangkok: 10–12 hours (SAS, Thai Airways, via hub); Copenhagen (CPH) – Bangkok: 10 hours non-stop",
+          "Language: all Bangkok JCI hospitals operate in English; Scandinavian patients generally have excellent English",
+          "Medical report: results issued in English, compatible with Scandinavian medical records; bring report to your Fastläkare/Fastlege on return",
+          "Payment: Scandinavian Visa/Mastercard debit cards (Swedbank, DNB, Nordea, Handelsbanken) work across Bangkok hospitals; Klarna, Swish, MobilePay not available — use card or cash",
+          "Travel insurance: standard Nordic travel insurance covers emergency treatment but not planned preventive screening; private check-up at Bangkok hospital is self-pay",
+          "Best time: November–February (dry season, pleasant temperatures); Scandinavians particularly enjoy the warmth contrast",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is it worth flying from Stockholm or Oslo to Bangkok for a health check-up?", a: "For a comprehensive executive check-up, the numbers often work out. A return flight from Stockholm or Oslo costs SEK 4,000–8,000 / NOK 4,000–10,000. An executive check-up at Bumrungrad or Samitivej costs ฿8,000–฿25,000 (SEK 6,400–20,000 / NOK 6,200–19,400). The same scope at a private clinic in Sweden (Capio, Aleris) or Norway costs SEK 15,000–30,000 / NOK 15,000–30,000. So the Bangkok trip + check-up costs less than the check-up at home — before accounting for the holiday value." },
+      { q: "Will my Swedish/Norwegian doctor accept the check-up results from Bangkok?", a: "Yes — Bangkok JCI hospitals produce English-language results with international reference ranges (mg/dL, mmol/L) that are compatible with Nordic medical records. Your Fastläkare or Fastlege can use these directly. For imaging (MRI, CT), request the DICOM files on a USB drive — Scandinavian radiology departments can review them. Always get the full laboratory print-out, not just the summary letter." },
+      { q: "Can I get a Vitamin D test in Bangkok as part of my check-up?", a: "Yes — Vitamin D (25-OH) testing is available standalone for ฿500–฿1,200 or included in executive packages. Vitamin D deficiency is particularly common among Northern Europeans, especially after long winter months. Bangkok physicians often check Vitamin D as a standard add-on for Scandinavian patients. If deficient, Vitamin D3 supplements are available OTC at Bangkok pharmacies from ฿50–฿200/month." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-netherlands-vs-thailand", label: "Netherlands vs Thailand comparison" },
+      { href: "/en/guide/vitamin-d-test-bangkok", label: "Vitamin D test Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
     ],
   },
 

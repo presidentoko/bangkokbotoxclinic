@@ -340,6 +340,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-scandinavia-vs-thailand",
+    title: "Scandinavia vs Thailand Health Check-Up 2026 — Nordic Patients Bangkok",
+    description: "Sweden, Norway, Denmark: free universal care with long waits. Bangkok JCI hospitals offer same-day executive check-ups at 70–80% below Nordic private clinic prices.",
+    emoji: "🇸🇪",
+    category: "Practical Guides",
+  },
+  {
     slug: "vitamin-d-test-bangkok",
     title: "Vitamin D Test Bangkok — Price, Results & Treatment (2026)",
     description: "Vitamin D (25-OH) test price in Bangkok: ฿500–฿1,200 standalone. 60–80% of Bangkok expats test deficient despite tropical climate. Same-day results.",
