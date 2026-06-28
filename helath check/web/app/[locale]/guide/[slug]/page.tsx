@@ -2973,8 +2973,67 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/health-checkup-spain-vs-thailand", label: "Spain vs Thailand (Latin American guide)" },
       { href: "/en/guide/health-checkup-brazil-vs-thailand", label: "Brazil vs Thailand" },
+      { href: "/en/guide/health-checkup-argentina-vs-thailand", label: "Argentina vs Thailand" },
       { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages Bangkok" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
+    ],
+  },
+
+  "health-checkup-argentina-vs-thailand": {
+    title: "Chequeo Médico: Argentina vs Tailandia 2026 — Bangkok para Argentinos",
+    description: "Chequeo ejecutivo privado en Buenos Aires: USD 200–USD 800. Bangkok: USD 215–650 (฿8,000–฿25,000) — calidad JCI, sin lista de espera, resultados mismo día. Guía para argentinos.",
+    intro: "El sistema de salud argentino enfrenta un desafío doble: el sector público saturado y el privado con precios en dólares cada vez más altos para quienes cobran en pesos. Las obras sociales y prepagas (OSDE, Swiss Medical, Medicus, PAMI) cubren consultas básicas, pero los chequeos ejecutivos completos, estudios de imágenes avanzados y procedimientos como endoscopía o colonoscopía generan copagos significativos o quedan fuera de cobertura. Bangkok, con sus hospitales JCI acreditados y resultados el mismo día, ofrece una alternativa en dólares comparable o más económica que la medicina privada argentina — especialmente para argentinos residentes en el exterior.",
+    sections: [
+      {
+        heading: "Comparación de precios: Argentina vs Bangkok (2026)",
+        content: "Precios en medicina privada argentina (Buenos Aires, Córdoba, Rosario) vs hospitales JCI de Bangkok en USD (tipo de cambio oficial/libre muy variable — precios en USD para comparación objetiva):",
+        list: [
+          "Gastroscopía: Argentina privada USD 150–$500 (con sedación); Bangkok ฿4,500–฿9,000 (USD 120–245) — Bangkok más económico con sedación incluida como estándar",
+          "Colonoscopía: Argentina privada USD 200–$700; Bangkok ฿8,000–฿18,000 (USD 215–486) — comparable; Bangkok sin lista de espera",
+          "Resonancia magnética (cerebro o abdomen): Argentina privada USD 150–$500; Bangkok ฿5,000–฿15,000 (USD 135–405) — Bangkok comparable con turnos inmediatos",
+          "Mamografía digital: Argentina privada USD 50–$150; Bangkok ฿1,500–฿3,000 (USD 40–80) — similar",
+          "Paquete ejecutivo completo (30–40 estudios con marcadores tumorales): Argentina privada USD 300–$800; Bangkok ฿12,000–฿25,000 (USD 320–675) — muy comparable; Bangkok incluye más estudios por el mismo precio",
+          "PSA (próstata): Argentina USD 20–$60; Bangkok ฿600–฿1,200 (USD 16–32) — similar",
+          "Ecocardiograma: Argentina privada USD 100–$300; Bangkok ฿4,000–฿8,000 (USD 108–216) — Bangkok comparable o más económico",
+          "Nota importante: el tipo de cambio Peso Argentino/USD es muy volátil; para los argentinos que cobran en pesos, el costo en dólares del chequeo varía enormemente; argentinos con ahorros en USD o que viven en el exterior encuentran Bangkok objetivamente competitivo",
+        ],
+      },
+      {
+        heading: "Obras sociales, prepagas y las brechas del sistema",
+        content: "Cobertura del sistema de salud argentino y por qué los argentinos consideran Bangkok:",
+        list: [
+          "OSDE: la prepaga premium de Argentina; cubre muchos estudios pero con coseguros, módulos adicionales y montos de cobertura que no siempre alcanzan la inflación médica",
+          "Swiss Medical, Medicus, Galeno: similares a OSDE en estructura; chequeos ejecutivos completos parcialmente cubiertos con copagos en dólares crecientes",
+          "PAMI: cobertura para jubilados; estudios básicos cubiertos pero con largas esperas y derivaciones complicadas para especialistas",
+          "Argentinos en el exterior (España, Italia, EE.UU., México, Chile): sin acceso a prepaga argentina; seguro local a menudo no cubre preventivo completo o acceso limitado; Bangkok es opción natural durante visita a Asia",
+          "Ventaja de Bangkok: mismo día de llegada, chequeo de 4 horas, resultados en inglés, médicos bilingüe en inglés-tailandés; chequeo completo en inglés sin interpretación adicional necesaria",
+        ],
+      },
+      {
+        heading: "Guía práctica: de Argentina a Bangkok",
+        content: "Información logística para argentinos que planean viajar a Bangkok para un chequeo médico:",
+        list: [
+          "Visa: Argentina tiene convenio de exención de visa con Tailandia — entrada libre 30 días sin visa; solo pasaporte vigente",
+          "Vuelo: Buenos Aires (EZE) → Bangkok (BKK/Suvarnabhumi): sin vuelo directo; conexiones típicas vía Miami (AA/LAN), Bogotá (AV+TG), Lima (LA+EK), Dallas (AA), Madrid (IB+TG), Dubái (EK); total 22–30 horas",
+          "Ruta más rápida: generalmente vía Dubái (Emirates) o vía Asia (Seoul, Tokio) si hay buen precio",
+          "Para argentinos en Europa (España, Italia, Francia): vuelo directo o 1 escala de ~10–12 horas, mucho más accesible",
+          "Hotel: Sukhumvit Bangkok (BTS Nana, Asok, Phrom Phong) para estar cerca de Bumrungrad y Samitivej; hoteles 3–4 estrellas a USD 40–120 por noche",
+          "Día del chequeo: en ayuno (8–12 horas) a las 7:00–8:00 am; paquete ejecutivo 4–5 horas; resultados ese día por correo en inglés",
+          "Pago: Visa/Mastercard Argentina aceptada (verificar si tu tarjeta tiene bloqueo internacional); llevar dólares cash como alternativa; cuenta en dólares facilita el pago",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "¿Necesitan visa los argentinos para Tailandia?", a: "No — Argentina tiene acuerdo de exención de visa con Tailandia. Los ciudadanos argentinos pueden ingresar con pasaporte válido sin necesidad de visa, con estancia permitida de hasta 30 días por ingreso. No hay ningún trámite previo; simplemente se presenta el pasaporte en el control migratorio de Suvarnabhumi. Excepción: si el pasaporte argentino tiene alguna observación de migraciones tailandesas por estadías previas largas, consulta la embajada tailandesa antes." },
+      { q: "¿Los resultados del chequeo de Bangkok son reconocidos en Argentina?", a: "Sí — los hospitales JCI (Bumrungrad, Samitivej, Bangkok Hospital) emiten resultados en inglés en unidades internacionales estándar: glucemia en mg/dL, colesterol en mg/dL, hemoglobina en g/dL — exactamente las mismas unidades que usan los laboratorios argentinos. Un médico clínico o cardiólogo argentino puede interpretar directamente el reporte sin conversión. Para estudios de imagen (RMI, eco, TAC), pide el CD de DICOM y el informe del radiólogo en inglés — cualquier radiólogo argentino puede leerlo." },
+      { q: "¿Vale la pena el viaje desde Argentina a Bangkok para un chequeo?", a: "Para argentinos que ya visitan Asia como turistas, la respuesta es casi siempre sí. Para quienes viajan desde Buenos Aires específicamente para el chequeo, el análisis depende del valor del dólar: el chequeo ejecutivo completo en Bangkok (USD 320–675) más vuelo desde Buenos Aires (USD 800–2,000) puede resultar similar o apenas más caro que un chequeo privado completo en Argentina pagado en dólares (USD 300–800). La diferencia real está en la velocidad (1 día vs semanas de turnos), la amplitud del paquete, y la calidad de la infraestructura hospitalaria. Para argentinos residentes en Europa, la ecuación es mucho más favorable." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-brazil-vs-thailand", label: "Brazil vs Thailand" },
+      { href: "/en/guide/health-checkup-mexico-vs-thailand", label: "Mexico vs Thailand" },
+      { href: "/en/guide/health-checkup-spain-vs-thailand", label: "Spain + Latin America guide" },
+      { href: "/en/guide/bumrungrad-hospital-health-checkup", label: "Bumrungrad International guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals Bangkok" },
     ],
   },

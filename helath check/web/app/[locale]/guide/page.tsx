@@ -585,6 +585,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "health-checkup-argentina-vs-thailand",
+    title: "Chequeo Médico: Argentina vs Tailandia — Bangkok para Argentinos (2026)",
+    description: "Chequeo ejecutivo en Buenos Aires: USD 300–800. Bangkok: USD 320–675 — misma calidad JCI, resultados mismo día, sin lista de espera. Sin visa 30 días. Guía en español.",
+    emoji: "🇦🇷",
+    category: "By Nationality",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
