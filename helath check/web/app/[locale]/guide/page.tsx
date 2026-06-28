@@ -389,6 +389,13 @@ const GUIDES = [
     category: "Hospital Guides",
   },
   {
+    slug: "bangkok-hospital-health-checkup",
+    title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
+    description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",
+    emoji: "🌐",
+    category: "Hospital Guides",
+  },
+  {
     slug: "health-checkup-uk-vs-thailand",
     title: "UK vs Thailand Health Check-Up Cost (2026)",
     description: "Bupa/Nuffield vs Bangkok hospitals. Bangkok packages cost 65–75% less with same-day results and no waiting lists.",
