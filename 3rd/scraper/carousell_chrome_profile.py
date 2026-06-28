@@ -9,6 +9,7 @@ import json, os, time, random, subprocess
 from datetime import datetime
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from playwright_stealth import Stealth
 
 DB_PATH = Path(__file__).parent.parent / 'data' / 'items_db.json'
 CHROME_USER_DATA = Path(os.environ.get('LOCALAPPDATA', '')) / 'Google' / 'Chrome' / 'User Data'
@@ -129,9 +130,16 @@ def run():
             headless=False,
             viewport={'width': 1280, 'height': 800},
             locale='th-TH',
-            args=['--no-sandbox'],
+            args=[
+                '--no-sandbox',
+                '--disable-blink-features=AutomationControlled',
+                '--disable-infobars',
+                '--excludeSwitches=enable-automation',
+            ],
+            ignore_default_args=['--enable-automation'],
         )
         page = ctx.new_page()
+        Stealth().apply_stealth_sync(page)
         print('Using copied Chrome profile — logged in sessions active')
 
         updated = 0
