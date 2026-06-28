@@ -24,8 +24,8 @@ export async function GET() {
 - **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **67+ editorial guides** covering cities, specialties, nationalities, country comparisons, and practical topics
-- **15 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), and by budget
+- **77+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, and practical topics
+- **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
 
 ## Key pages
 
@@ -80,6 +80,8 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Arabic speakers: ${BASE}/en/guide/best-hospitals-arabic-speakers
 - Chinese speakers (中文服务): ${BASE}/en/guide/best-hospitals-chinese-speakers
 - Bumrungrad vs Samitivej comparison: ${BASE}/en/guide/bumrungrad-vs-samitivej-health-checkup
+- Vejthani Hospital guide: ${BASE}/en/guide/vejthani-hospital-health-checkup
+- BNH Hospital guide (expat favourite): ${BASE}/en/guide/bnh-hospital-health-checkup
 
 ## Country Comparison Guides (How Much You Save)
 
@@ -96,6 +98,10 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 - Singapore vs Thailand: ${BASE}/en/guide/thailand-vs-singapore-health-checkup
 - India vs Thailand: ${BASE}/en/guide/health-checkup-india-vs-thailand
 - Indonesia vs Thailand (MCU): ${BASE}/en/guide/health-checkup-indonesia-vs-thailand
+- South Korea vs Thailand (건강검진): ${BASE}/en/guide/health-checkup-south-korea-vs-thailand
+- UAE / Dubai vs Thailand (Gulf patients): ${BASE}/en/guide/health-checkup-uae-vs-thailand
+- Netherlands vs Thailand (Gezondheidscheck): ${BASE}/en/guide/health-checkup-netherlands-vs-thailand
+- Scandinavia vs Thailand (Sweden/Norway/Denmark): ${BASE}/en/guide/health-checkup-scandinavia-vs-thailand
 
 ## Practical Guides
 

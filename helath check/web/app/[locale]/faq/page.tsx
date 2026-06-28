@@ -204,6 +204,56 @@ const FAQS = [
       },
     ],
   },
+  {
+    category: "Specific Tests & Add-Ons",
+    items: [
+      {
+        q: "Can I get a Vitamin D test in Bangkok without a doctor's referral?",
+        a: "Yes — all Bangkok private hospitals allow walk-in blood tests for Vitamin D (25-OH). No referral is needed. Go to the laboratory department, ask for a '25-hydroxyvitamin D test,' pay at the counter (฿500–฿1,200), and get results in 4–6 hours. Most executive health check-up packages from ฿8,000 include Vitamin D automatically — add it as an individual test for ฿500–฿900 if your package doesn't include it.",
+        link: { label: "Vitamin D test Bangkok guide", href: "/guide/vitamin-d-test-bangkok" },
+      },
+      {
+        q: "At what age should I get a PSA test in Bangkok?",
+        a: "PSA (prostate cancer screening) is recommended from age 45–50 for average-risk men, or from age 40 if you have a first-degree relative with prostate cancer. Most Bangkok executive and men's health packages include PSA for men 45+. As a standalone test, PSA costs ฿400–฿900. Same-day results, and an internist is available to discuss results during the same check-up morning if elevated.",
+        link: { label: "PSA test Bangkok guide", href: "/guide/psa-test-bangkok" },
+      },
+      {
+        q: "Is a thyroid test (TSH) included in standard Bangkok health check-up packages?",
+        a: "TSH (the primary thyroid screening test) is included in most executive packages (฿8,000+) and in women's health packages. Basic packages below ฿5,000 often do not include thyroid. Full thyroid panel (TSH + Free T3 + Free T4 + antibodies) is usually an add-on of ฿500–฿1,500 beyond a basic TSH. Thyroid ultrasound (for nodule screening) is an additional ฿1,500–฿4,000.",
+        link: { label: "Thyroid screening Bangkok guide", href: "/guide/thyroid-screening-bangkok" },
+      },
+      {
+        q: "Can digital nomads get a health check-up in Bangkok without insurance?",
+        a: "Yes — all Bangkok private hospitals accept self-pay patients with no insurance required. Walk-in morning appointments are available at most hospitals. A comprehensive annual check-up (CBC, metabolic panel, thyroid, ultrasound, ECG, X-ray, doctor consultation) costs ฿5,000–฿12,000 as a self-pay patient. Individual blood tests can be done walk-in for ฿1,500–฿3,000. Bumrungrad, Samitivej, and Bangkok Hospital all have efficient international patient processes for self-pay visitors.",
+        link: { label: "Digital nomad health check-up Bangkok", href: "/for/digital-nomad-health-checkup-bangkok" },
+      },
+      {
+        q: "What blood tests are recommended for long-term Thailand residents?",
+        a: "For long-term Thailand residents, key add-on blood tests beyond the standard panel: (1) Dengue NS1/IgG antibody — if you've been in Thailand long and had febrile episodes; (2) Vitamin D — very commonly deficient in indoor workers despite tropical climate; (3) Hepatitis B surface antigen (HBsAg) — if not vaccinated and sexually active; (4) Blood smear for malaria — if you've visited rural areas; (5) HIV — annual for sexually active adults. These add ฿300–฿1,000 each and can be added to any morning check-up.",
+        link: { label: "Blood test prices Bangkok", href: "/guide/blood-test-price-bangkok" },
+      },
+    ],
+  },
+  {
+    category: "Nationality & Language",
+    items: [
+      {
+        q: "Which Bangkok hospital has the best Korean language services?",
+        a: "Vejthani International Hospital and Samitivej Sukhumvit are generally considered to have the strongest Korean-language programs. Vejthani has a dedicated Korean Patient Center with Korean nurses and coordinators. Samitivej has a Korean Health Centre. Bumrungrad also has 40+ Korean-speaking staff. For health check-ups, all three are excellent options; Vejthani offers the best price-to-Korean-service ratio.",
+        link: { label: "Korean tourist hospital guide (한국어)", href: "/guide/best-hospitals-korean-tourists" },
+      },
+      {
+        q: "Is there Arabic language support at Bangkok hospitals?",
+        a: "Yes — Bumrungrad International has a dedicated Arabic-speaking coordinator and Arabic-language materials. Samitivej and Bangkok Hospital can arrange Arabic interpreters on request. Halal food options are available. Muslim prayer facilities are available at Bumrungrad; other hospitals can arrange quiet prayer space. Bangkok's major hospitals are experienced with Gulf, Middle Eastern, and North African patients.",
+        link: { label: "Arabic speakers Bangkok guide", href: "/guide/best-hospitals-arabic-speakers" },
+      },
+      {
+        q: "Can I get my Bangkok health check-up results in English for use in my home country?",
+        a: "Yes — all major Bangkok private hospitals (Bumrungrad, Samitivej, Bangkok Hospital, BNH, Vejthani, Phyathai) issue results in English with international reference ranges. Your GP or specialist at home can read and use these directly. Units are in international standards (mmol/L, mg/dL, g/dL) compatible with Western medical systems. Always request the full laboratory print-out, not just the physician summary letter. Imaging (MRI, CT, X-ray) can be provided on a USB or CD in DICOM format on request.",
+        link: null,
+      },
+    ],
+  },
 ];
 
 export default async function FaqPage({
