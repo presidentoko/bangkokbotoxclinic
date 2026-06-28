@@ -172,6 +172,21 @@ export default async function CityPage({
         </Link>
       </div>
 
+      {/* Practical guide links */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {[
+          { href: `/${locale}/guide/what-is-included-checkup`, label: "What's included" },
+          { href: `/${locale}/guide/how-to-prepare-health-checkup-thailand`, label: "How to prepare" },
+          { href: `/${locale}/guide/understanding-health-checkup-results`, label: "Understanding results" },
+          { href: `/${locale}/guide/private-vs-government-hospital-thailand`, label: "Private vs government" },
+        ].map((g) => (
+          <Link key={g.href} href={g.href}
+            className="text-xs bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-600 hover:border-blue-300 hover:text-blue-600 transition-colors">
+            {g.label} →
+          </Link>
+        ))}
+      </div>
+
       {/* ItemList JSON-LD — hospitals in this city */}
       {rows.length > 0 && (() => {
         const slugs = [...new Set(rows.map((r) => r.hospital_slug))];
