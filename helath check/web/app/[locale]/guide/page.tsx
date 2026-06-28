@@ -319,6 +319,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-netherlands-vs-thailand",
+    title: "Netherlands vs Thailand Health Check-Up 2026 — Bangkok voor Nederlanders",
+    description: "Dutch basisverzekering barely covers preventive checks. Bangkok JCI hospitals offer the same comprehensive Gezondheidscheck at 70–80% lower cost. Visa-free 60 days.",
+    emoji: "🇳🇱",
+    category: "Practical Guides",
+  },
+  {
     slug: "vitamin-d-test-bangkok",
     title: "Vitamin D Test Bangkok — Price, Results & Treatment (2026)",
     description: "Vitamin D (25-OH) test price in Bangkok: ฿500–฿1,200 standalone. 60–80% of Bangkok expats test deficient despite tropical climate. Same-day results.",

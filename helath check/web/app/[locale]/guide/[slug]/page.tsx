@@ -2235,7 +2235,65 @@ const GUIDES: Record<string, Guide> = {
     relatedLinks: [
       { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Allemagne vs Thaïlande / Germany guide" },
       { href: "/en/guide/health-checkup-uk-vs-thailand", label: "UK vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-netherlands-vs-thailand", label: "Netherlands vs Thailand comparison" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+    ],
+  },
+
+  "health-checkup-netherlands-vs-thailand": {
+    title: "Health Check-Up: Netherlands vs Thailand 2026 — Bangkok voor Nederlanders",
+    description: "Dutch basisverzekering doesn't cover preventive check-ups. A private Gezondheidscheck in the Netherlands costs €300–€1,500. Bangkok JCI hospitals offer the same scope at 70–80% lower cost.",
+    intro: "Nederland heeft een van de beste zorgstelsels ter wereld — maar preventieve gezondheidsscreenings vallen grotendeels buiten de basisverzekering. Een uitgebreide Gezondheidscheck bij een privékliniek kost €300–€1,500 eigen risico of meer. Dezelfde of uitgebreidere check-up in een JCI-geaccrediteerd ziekenhuis in Bangkok kost ฿8.000–฿25.000 (€190–€600) — 70–80% goedkoper. Met 900.000+ Nederlandse toeristen per jaar in Thailand is Bangkok een logische keuze voor preventieve zorg. The Netherlands also has one of the highest 'health tourist' rates to Thailand in Western Europe — particularly for dental, laser eye surgery, and health check-ups.",
+    sections: [
+      {
+        heading: "Prijsvergelijking: Nederland vs Bangkok",
+        content: "Vergelijking van kosten voor gezondheidsscreenings (wisselkoers: €1 ≈ ฿42):",
+        list: [
+          "Basis bloedonderzoek (cholesterol, glucose, lever, nier, schildklier) — Nederlandse privékliniek: €150–€400 | Bangkok: ฿2.500–฿5.000 (€60–€120) | Besparing 60–75%",
+          "Standaard check-up (+ ECG, röntgen, echo) — Nederland: €400–€800 | Bangkok: ฿5.000–฿9.000 (€120–€215) | Besparing 70–80%",
+          "Executive check-up (complete panel + tumormarkers + consultatie) — Nederland: €800–€1.500 | Bangkok: ฿8.000–฿25.000 (€190–€595) | Besparing 60–75%",
+          "Premium (+ MRI, hartscan, maagcamera) — Nederland: €2.000–€5.000 | Bangkok: ฿25.000–฿60.000 (€595–€1.430) | Besparing 65–75%",
+          "Colonoscopie — Nederland: €800–€1.500 | Bangkok: ฿8.000–฿22.000 (€190–€524) | Besparing 60–75%",
+          "MRI hersenen — Nederland: €500–€1.200 | Bangkok: ฿5.000–฿12.000 (€119–€286) | Besparing 70–80%",
+          "Conclusie: voor een retourticket Amsterdam–Bangkok (€400–€800) + executive check-up in Bangkok (€190–€595) is de totaalkost vaak lager dan dezelfde check-up in Nederland, zeker wanneer de reis al gepland was",
+        ],
+      },
+      {
+        heading: "Wat de basisverzekering dekt — en wat niet",
+        content: "Wat het Nederlandse zorgverzekeringsstelsel vergoedt voor preventieve screening:",
+        list: [
+          "Bevolkingsonderzoek (borstkanker, baarmoederhalskanker, darmkanker): gratis via het Rijksvaccinatieprogramma op uitnodiging — maar met strikte leeftijdsgrenzen en geen eigen keuze van tijdstip",
+          "Preventieve bloedtest op eigen verzoek (cholesterol, glucose) zonder klachten: valt onder eigen risico (€385/jaar in 2026) + eventueel niet-vergoede kosten",
+          "Volledig jaarlijkse preventieve check-up: niet standaard gedekt — huisarts voert op indicatie deelonderzoeken uit",
+          "Eigen risico: €385 in 2026 — dit maakt routinebloeduitslagen bij de huisarts al duur als u geen andere kosten heeft",
+          "Aanvullende verzekering: sommige pakketten (bijv. ONVZ Royaal+) vergoeden gedeeltelijk preventieve check-ups, maar met jaarlimieten van €150–€300",
+          "Bangkok-alternatief: een uitgebreide check-up in Bangkok (฿8.000–฿15.000) is voor veel Nederlanders goedkoper dan het volledig uitputten van het Nederlandse stelsel voor dezelfde tests",
+        ],
+      },
+      {
+        heading: "Praktische informatie voor Nederlanders in Bangkok",
+        content: "Alles wat Nederlandse bezoekers moeten weten:",
+        list: [
+          "Visum: Nederlandse paspoorthouders zijn visumvrij — tot 60 dagen bij aankomst (met registratie) of 30 dagen visa-on-arrival, afhankelijk van binnenkomst",
+          "Vlucht: Amsterdam (AMS) – Bangkok (BKK) circa 11 uur met KLM non-stop of 13–16 uur met tussenstop (Emiraten, Qatar)",
+          "Betaling: Visa/Mastercard Nederlandse banken (ING, ABN AMRO, Rabobank) werken overal in Thailand; Google Pay en Apple Pay werken op sommige moderne terminals",
+          "Zorgverzekering buitenland: basisverzekering dekt spoedeisende hulp in het buitenland tot Nederlandse tarieven; Bumrungrad en Samitivej accepteren Eurocross/SOS Internationale reisverzekeringen",
+          "Medisch Engels: alle grote Bangkok-ziekenhuizen communiceren in het Engels; Nederlandse patiënten vinden dit vrijwel altijd voldoende; vraag naar een schriftelijk rapport in het Engels voor uw Nederlands dossier",
+          "Resultaten meenemen: print altijd een volledig PDF-rapport af — uw huisarts in Nederland kan dit rechtstreeks gebruiken; eenheden (mmol/L) zijn identiek aan Nederlandse normen",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Lohnt het de moeite om een gezondheidscheck te doen in Bangkok in vergelijking met Nederland?", a: "Ja — voor een uitgebreide executive check-up bespaart u €600–€900 vergeleken met een Nederlandse privékliniek, zelfs na aftrek van vluchtkosten. Voor Nederlanders die Thailand al bezoeken is de check-up vrijwel gratis relatief aan de reis. Bovendien hoeft u niet te wachten op een verwijzing of afspraak — in Bangkok regelt u alles op dezelfde dag." },
+      { q: "Accepteert mijn Nederlandse huisarts de uitslag uit Bangkok?", a: "Ja — internationale ziekenhuizen zoals Bumrungrad, Samitivej en Bangkok Hospital leveren labuitlagen op Engelse rapporten met internationale referentiewaarden. Nederlandse huisartsen en specialisten kunnen deze direct gebruiken. De eenheden zijn identiek aan de Nederlandse norm (mmol/L voor glucose en cholesterol, g/dL voor hemoglobine). Vraag altijd om het volledige laboratoriumrapport, niet alleen de artssamenvattinge." },
+      { q: "Is Vitamin D-test inbegrepen in Bangkok check-uppakketten?", a: "Vitamine D (25-OH) is inbegrepen in de meeste executive-pakketten (฿8.000+) in Bangkok. Als individuele test kost het ฿500–฿1.200. Opvallend: Nederlanders die in Thailand werken of vakantie houden, testen vaker vitamine D-tekort dan verwacht — ondanks de zon. Dit geldt ook voor bezoekers die veel zonnebrand gebruiken of binnenshuis werken. De test is snel, goedkoop en actiegericht." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/health-checkup-germany-vs-thailand", label: "Germany vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-france-vs-thailand", label: "France vs Thailand comparison" },
+      { href: "/en/guide/health-checkup-switzerland-vs-thailand", label: "Switzerland vs Thailand comparison" },
+      { href: "/en/guide/vitamin-d-test-bangkok", label: "Vitamin D test Bangkok" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
     ],
   },

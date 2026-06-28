@@ -147,6 +147,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "thyroid-screening-bangkok",
       "health-checkup-day-bangkok",
       "health-checkup-switzerland-vs-thailand",
+      "health-checkup-netherlands-vs-thailand",
       "vitamin-d-test-bangkok",
       "psa-test-bangkok",
     ]) {
