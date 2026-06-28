@@ -1422,6 +1422,63 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "understanding-health-checkup-results": {
+    title: "Understanding Your Thai Health Check-Up Results (2026 Guide)",
+    description: "How to read Thai hospital health check-up results. Normal ranges explained for CBC, liver function, kidney function, cholesterol, blood glucose, and cancer markers.",
+    intro: "Thai hospitals issue health check-up results in English (at private international hospitals) or Thai/English bilingual format. Understanding the numbers is the most important part of your check-up. This guide explains the key tests and what your results mean — including when to be concerned and when to ask for a doctor follow-up.",
+    sections: [
+      {
+        heading: "Blood test results: normal ranges to know",
+        content: "Key blood test reference ranges used by Thai hospitals (WHO/international standards):",
+        list: [
+          "Fasting blood glucose: 70–100 mg/dL (normal), 100–125 (pre-diabetes), 126+ (diabetes threshold)",
+          "HbA1c (3-month blood sugar average): <5.7% (normal), 5.7–6.4% (pre-diabetes), 6.5%+ (diabetes)",
+          "Total cholesterol: <200 mg/dL (desirable), 200–239 (borderline), 240+ (high)",
+          "LDL cholesterol: <100 mg/dL (optimal for most), <70 for high-risk individuals",
+          "HDL cholesterol: >60 mg/dL (good), <40 for men / <50 for women (low, risk factor)",
+          "Triglycerides: <150 mg/dL (normal), 150–199 (borderline), 200+ (high)",
+          "ALT/AST (liver enzymes): ALT normal 7–40 U/L, AST 10–40 U/L — elevated may indicate liver stress",
+          "Creatinine (kidney): Male 0.7–1.3 mg/dL, Female 0.6–1.1 mg/dL",
+          "TSH (thyroid): 0.4–4.0 mIU/L (normal); outside range requires follow-up",
+          "Uric acid: Male <7.0 mg/dL, Female <6.0 mg/dL — elevated linked to gout",
+        ],
+      },
+      {
+        heading: "Cancer marker results: what they mean",
+        content: "Cancer tumour markers included in Bangkok hospital packages — what to know:",
+        list: [
+          "AFP (alpha-fetoprotein, liver cancer): <10 ng/mL is normal; elevated doesn't mean cancer — can be elevated in liver disease, pregnancy, or other conditions",
+          "PSA (prostate, men only): <4.0 ng/mL (normal); 4–10 is a grey zone; >10 warrants urology referral",
+          "CA-125 (ovarian, women): <35 U/mL normal; elevated in many conditions (endometriosis, fibroids) not just cancer",
+          "CEA (colon/lung/breast): <2.5 ng/mL (non-smokers), <5.0 (smokers); mild elevation is common and often not cancer",
+          "CA 19-9 (pancreatic): <37 U/mL; single elevated result requires repeat testing — highly variable",
+          "⚠️ Important: A single elevated cancer marker result is NOT a cancer diagnosis. It requires clinical context, repeat testing, and specialist review. Do not panic over a borderline result.",
+        ],
+      },
+      {
+        heading: "CBC (complete blood count) explained",
+        content: "What each CBC measurement means:",
+        list: [
+          "Haemoglobin (Hb): Male 13.5–17.5 g/dL, Female 12.0–15.5 g/dL — low indicates anaemia",
+          "WBC (white blood cells): 4,500–11,000 cells/μL — high may indicate infection or inflammation",
+          "Platelets: 150,000–400,000/μL — low may affect clotting; high may increase clot risk",
+          "MCV (red blood cell size): 80–100 fL — low indicates iron-deficiency anaemia; high indicates B12/folate deficiency",
+          "Thai hospitals flag out-of-range values with H (high) or L (low) markers on the report",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "My Bangkok health check-up results are in Thai — what do I do?", a: "If you had your check-up at a major international hospital (Bumrungrad, Samitivej, Bangkok Hospital, Vejthani, BNH), ask for an English copy — all these hospitals issue English reports as standard. If your report is in Thai only, the international patient centre can arrange a translated summary. Alternatively, photograph the numerical results — the laboratory values (numbers and units) are universal." },
+      { q: "What if one of my results is flagged as 'out of range'?", a: "An out-of-range flag means the value falls outside the statistical normal range — it does NOT necessarily mean you are sick. Many out-of-range results are minor, transient, or clinically insignificant. The attending doctor's written assessment at the end of the report tells you which abnormal results require follow-up. If in doubt, book a 15-minute doctor consultation at the hospital (฿300–800) to review specific concerns." },
+      { q: "How do I share my Bangkok test results with my doctor back home?", a: "Ask the hospital to email a PDF copy of your full laboratory report — all major Bangkok international hospitals provide this service free of charge. For imaging (X-ray, ultrasound, CT, MRI), request a CD or USB stick of the DICOM files and a radiologist's written report. Most Western hospitals and GPs can read DICOM files directly." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up" },
+      { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
+      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+    ],
+  },
+
   "health-checkup-uk-vs-thailand": {
     title: "UK vs Thailand Health Check-Up Cost (2026) — NHS vs Private Bangkok",
     description: "NHS health checks vs Bangkok private hospital packages. Private health check-ups in Bangkok cost 60–80% less than UK private clinics. What you can get and what you save.",

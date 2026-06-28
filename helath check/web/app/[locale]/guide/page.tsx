@@ -242,6 +242,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "understanding-health-checkup-results",
+    title: "Understanding Your Thai Health Check-Up Results",
+    description: "Normal ranges for blood glucose, cholesterol, liver, kidney, cancer markers — explained in plain English for Bangkok hospital check-ups.",
+    emoji: "📊",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "executive-health-checkup-bangkok",
     title: "Executive Health Check-Up Bangkok (2026) — Best Packages",
     description: "Full guide to executive health check-ups in Bangkok. What's included, prices, best hospitals, how to book. From ฿18,000 at JCI hospitals.",

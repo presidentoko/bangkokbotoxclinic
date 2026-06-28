@@ -124,6 +124,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "thailand-vs-singapore-health-checkup",
       "health-checkup-cost-australia-vs-thailand",
       "health-checkup-uk-vs-thailand",
+      "understanding-health-checkup-results",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
