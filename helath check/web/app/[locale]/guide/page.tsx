@@ -676,6 +676,13 @@ const GUIDES = [
     category: "By Nationality",
   },
   {
+    slug: "prostate-health-check-bangkok",
+    title: "Prostate Health Check Bangkok — PSA, mpMRI, Biopsy & Urologist Prices (2026)",
+    description: "PSA ฿400–฿900. mpMRI ฿15,000–฿25,000. TRUS biopsy ฿15,000–฿40,000. Robotic surgery ฿350,000–฿650,000 (50% below US prices). Urologist same-day. PSA elevated? Full guide.",
+    emoji: "♂️",
+    category: "Specialist Tests",
+  },
+  {
     slug: "bangkok-hospital-health-checkup",
     title: "Bangkok Hospital Health Check-Up — BDMS Group Packages & Prices (2026)",
     description: "Bangkok Hospital (BDMS) is Thailand's largest private hospital group — 49 locations including Phuket, Chiang Mai, Pattaya, Hua Hin. Executive packages ฿10,000–฿25,000, PET-CT cancer screening available.",

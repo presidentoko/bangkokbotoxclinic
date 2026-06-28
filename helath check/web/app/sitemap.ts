@@ -199,6 +199,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "fatty-liver-bangkok",
       "vitamin-b12-deficiency-bangkok",
       "health-checkup-saudi-arabia-vs-thailand",
+      "prostate-health-check-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }
