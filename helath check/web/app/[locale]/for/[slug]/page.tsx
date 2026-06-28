@@ -243,7 +243,33 @@ export default async function LongtailPage({
         ))}
       </div>
 
+      {/* Bottom CTA */}
+      <div className="mt-10 bg-blue-700 rounded-2xl p-8 text-center text-white">
+        <h2 className="text-xl font-bold mb-2">Not sure which package to pick?</h2>
+        <p className="text-blue-200 text-sm mb-5 max-w-md mx-auto">
+          Tell us your requirements — age, concerns, budget, city — and we'll match you to the right package.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link href={`/${locale}/enquiry`}
+            className="bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors">
+            Get free advice →
+          </Link>
+          <Link href={`/${locale}/compare`}
+            className="border-2 border-white/40 text-white font-semibold px-6 py-3 rounded-xl hover:border-white transition-colors">
+            Browse all packages
+          </Link>
+        </div>
+      </div>
+
       {/* JSON-LD */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: seg.h1, item: `${BASE}/${locale}/for/${slug}` },
+        ],
+      }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "FAQPage",
