@@ -164,6 +164,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${BASE}/${locale}/trends/phoebe-philo-effect-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/trends/best-luxury-bags-to-invest-2026`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
     entries.push({ url: `${BASE}/${locale}/guides/best-pre-owned-watches-for-beginners`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
+    entries.push({ url: `${BASE}/${locale}/compare/fendi-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
   }
 
   // Brand pages
