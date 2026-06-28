@@ -64,7 +64,6 @@ const CAT_EDITORIAL: Record<string, { intro: string; priceRange: string; forWho:
     intro: "Men's health packages include PSA (prostate cancer marker), testosterone, lipid panel, liver/kidney function, and abdominal ultrasound. Advanced packages add cardiac stress test and colonoscopy referral.",
     priceRange: "฿4,000 – ฿25,000",
     forWho: "Men 40+, anyone with prostate concerns, those wanting a comprehensive male health assessment.",
-    guide: null,
   },
   basic: {
     intro: "Basic packages cover the essential annual screen: complete blood count, blood sugar, cholesterol, liver and kidney function, urinalysis, and blood pressure. Ideal for healthy young adults.",
