@@ -1,12 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale } from "@/lib/i18n";
+import { type Locale, LOCALES } from "@/lib/i18n";
 import { ContactForm } from "@/app/components/ContactForm";
 
-export const metadata: Metadata = {
-  title: "Book a Health Check-Up in Bangkok — Enquiry",
-  description: "Get personalised help booking a health check-up at a Bangkok hospital. Send us your requirements and we'll find the best package.",
-};
+const BASE = "https://www.bangkoktopclinic.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  void locale;
+  return {
+    title: "Book a Health Check-Up in Bangkok — Free Enquiry",
+    description: "Get personalised help booking a health check-up at a Bangkok hospital. Tell us your age, concerns, and budget — we'll find the best package. Free, no obligation.",
+    alternates: {
+      canonical: `${BASE}/en/enquiry`,
+      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/enquiry`])),
+    },
+  };
+}
 
 export default async function EnquiryPage({
   params,

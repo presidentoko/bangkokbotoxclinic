@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale } from "@/lib/i18n";
+import { type Locale, LOCALES } from "@/lib/i18n";
 import { getHospital, type HospitalDetail, type PackageRow } from "@/lib/db";
 
 export const revalidate = 3600;
+
+const BASE = "https://www.bangkoktopclinic.com";
 
 export async function generateMetadata({
   params, searchParams,
@@ -11,11 +13,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ a?: string; b?: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
+  void locale;
   const { a, b } = await searchParams;
-  if (!a || !b) return { title: "Compare Hospitals — BangkokCheckup" };
+  const languages = Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/compare-hospitals`]));
+  if (!a || !b) return {
+    title: "Compare Hospitals — BangkokCheckup",
+    alternates: { canonical: `${BASE}/en/compare-hospitals`, languages },
+  };
   return {
-    title: `Compare ${a} vs ${b} — Health Check-Up Packages`,
-    description: `Side-by-side comparison of health check-up packages at two Thai hospitals. Prices, inclusions, JCI status.`,
+    title: `Compare ${a} vs ${b} — Health Check-Up Packages Bangkok`,
+    description: `Side-by-side comparison of health check-up packages, prices, and inclusions at ${a} vs ${b} in Thailand. JCI status, MRI, cancer markers.`,
+    alternates: { canonical: `${BASE}/en/compare-hospitals?a=${a}&b=${b}`, languages },
   };
 }
 
