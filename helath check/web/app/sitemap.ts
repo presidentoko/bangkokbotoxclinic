@@ -196,6 +196,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "thyroid-nodule-bangkok",
       "cardiac-ct-calcium-score-bangkok",
       "health-checkup-kenya-vs-thailand",
+      "fatty-liver-bangkok",
     ]) {
       entries.push({ url: `${BASE}/${locale}/guide/${guideSlug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
     }

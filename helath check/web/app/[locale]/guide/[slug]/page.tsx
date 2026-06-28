@@ -5796,9 +5796,73 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/blood-test-price-bangkok", label: "All blood test prices Bangkok" },
+      { href: "/en/guide/liver-function-test-bangkok", label: "Liver function test Bangkok" },
+      { href: "/en/guide/fatty-liver-bangkok", label: "Fatty liver diagnosis and treatment Bangkok" },
       { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
       { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your results" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages that include hepatitis" },
+    ],
+  },
+
+  "fatty-liver-bangkok": {
+    title: "Fatty Liver Diagnosis & Treatment Bangkok — FibroScan, GLP-1, Grade 1–3 Guide (2026)",
+    description: "Fatty liver (NAFLD/MASLD) found on abdominal ultrasound? FibroScan ฿3,000–฿6,000. Gastroenterologist ฿1,500–฿3,000. Grade 1–3 explained. GLP-1 medications available. Action plan.",
+    intro: "Fatty liver (non-alcoholic fatty liver disease — NAFLD, now renamed MASLD) is the most common liver condition in the world, affecting 25–30% of adults globally and found on abdominal ultrasound in approximately 30–35% of Bangkok executive health check-up patients. It is also the most common incidental finding when the ultrasound reads 'increased hepatic echogenicity' or 'fatty liver, grade 1/2/3.' The great majority of grade 1 fatty liver does not progress to serious disease — but grades 2–3 require follow-up and management. Bangkok has excellent hepatology and gastroenterology departments, FibroScan liver stiffness measurement, and access to medications (including GLP-1 agents) that are dramatically cheaper than in the West.",
+    sections: [
+      {
+        heading: "Fatty liver evaluation and FibroScan in Bangkok (2026)",
+        content: "Tests for fatty liver assessment at Bangkok private hospitals:",
+        list: [
+          "Abdominal ultrasound: included in most executive check-up packages (฿8,000+); standalone ฿1,500–฿3,000 — the usual initial finding, categorises as Grade 1 (mild), Grade 2 (moderate), or Grade 3 (severe)",
+          "Liver function tests (ALT, AST, GGT, ALP, bilirubin): included in all health check-ups; ฿400–฿800 standalone — elevated ALT/AST may indicate active liver inflammation (NASH)",
+          "FibroScan (transient elastography — measures liver stiffness to estimate fibrosis stage): ฿3,000–฿6,000 at Bangkok private hospitals — the gold standard non-invasive fibrosis assessment; takes 10 minutes, completely painless; available at Bumrungrad, Samitivej, Bangkok Hospital, Vejthani",
+          "Controlled Attenuation Parameter (CAP score) — measured simultaneously with FibroScan: quantifies the degree of steatosis (fat content) accurately; ฿3,000–฿6,000 (combined with FibroScan in the same session)",
+          "Gastroenterologist / hepatologist consultation: ฿1,500–฿3,000 same-day at major Bangkok hospitals — to review ultrasound and LFT results and determine if FibroScan + metabolic work-up is needed",
+          "Metabolic panel (glucose, HbA1c, insulin resistance HOMA-IR, lipids, uric acid): ฿1,500–฿3,000 — fatty liver is closely linked to metabolic syndrome, insulin resistance, and Type 2 diabetes",
+          "Liver biopsy: ฿15,000–฿30,000 including procedure — rarely needed with FibroScan available; only for cases where FibroScan result is indeterminate or advanced fibrosis is suspected",
+        ],
+      },
+      {
+        heading: "Understanding fatty liver grades and FibroScan results",
+        content: "How to interpret your Bangkok ultrasound and FibroScan fatty liver findings:",
+        list: [
+          "Grade 1 fatty liver (mild steatosis): mild increase in liver echogenicity on ultrasound; most common finding; liver vasculature still visible; risk is low if metabolic factors controlled",
+          "Grade 2 fatty liver (moderate steatosis): moderate echogenicity increase; hepatic vessels slightly obscured; requires metabolic evaluation (HbA1c, lipids, glucose)",
+          "Grade 3 fatty liver (severe steatosis): marked echogenicity; deep hepatic vasculature not visible; requires urgent gastroenterologist consultation and FibroScan",
+          "FibroScan E value (liver stiffness in kPa): F0–F1 = no/minimal fibrosis (<7 kPa); F1–F2 = mild fibrosis (7–9.5 kPa); F2–F3 = moderate fibrosis (9.5–12.5 kPa); F3–F4 = advanced fibrosis (12.5–17.5 kPa); F4 = cirrhosis (>17.5 kPa)",
+          "CAP score (steatosis quantification): S0 <238 dB/m (no/minimal fat); S1 238–259 dB/m (mild steatosis); S2 260–292 dB/m (moderate); S3 ≥292 dB/m (severe steatosis)",
+          "NASH vs simple NAFLD: simple steatosis (fat without inflammation) is low risk; NASH (non-alcoholic steatohepatitis — fat + inflammation + ballooning) can progress to fibrosis and cirrhosis; the distinction requires FibroScan and/or biopsy",
+          "Grade 1 fatty liver with normal LFTs and no metabolic risk factors: lifestyle advice only — no medication needed; annual ultrasound recommended",
+          "Grade 2–3 fatty liver OR elevated ALT/AST OR metabolic syndrome: FibroScan + specialist consultation recommended; management of underlying risk factors essential",
+        ],
+      },
+      {
+        heading: "Fatty liver treatment in Bangkok (2026)",
+        content: "Management options for NAFLD/MASLD at Bangkok hospitals:",
+        list: [
+          "Lifestyle modification (first-line for all grades): 7–10% body weight loss reduces hepatic steatosis by 40–80%; Mediterranean diet; aerobic exercise 150 min/week; alcohol abstinence (even 'social' drinking worsens NAFLD)",
+          "GLP-1 receptor agonists (semaglutide/Ozempic, liraglutide/Victoza): now first-line evidence-based medication for MASLD with obesity — reduces liver fat 30–40% in clinical trials; also promotes weight loss; available in Bangkok at 30–50% lower cost than Western countries",
+          "Semaglutide (Ozempic injection 0.5–2mg weekly): ฿3,000–฿5,500/month in Bangkok vs $800–$1,500/month in the US",
+          "Tirzepatide (GIP/GLP-1 dual agonist — Mounjaro): ฿4,000–฿8,000/month when available in Bangkok; even more powerful for weight loss and steatosis reduction",
+          "Pioglitazone (TZD — for NASH with T2DM): ฿5–฿15/tablet; ฿150–฿450/month — reduces liver fat and fibrosis but causes water retention",
+          "Vitamin E 800 IU/day (for non-diabetic NASH): evidence for ALT reduction and histological improvement; ฿50–฿200/month",
+          "Resmetirom (Rezdiffra — THRβ agonist, FDA-approved 2024 for MASH with significant fibrosis): may be available at Bangkok hospitals on compassionate use or import — ask hepatologist",
+          "Statins: safe in fatty liver (even with mildly elevated LFTs) — atorvastatin generic ฿3–฿15/tablet; important for the cardiovascular risk that accompanies NAFLD",
+          "Management of comorbidities: control of HbA1c, blood pressure, cholesterol, weight is the most effective treatment — fatty liver is a metabolic disease",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "My Bangkok check-up ultrasound says 'Grade 1 fatty liver' — is this serious?", a: "Grade 1 (mild) fatty liver found incidentally on ultrasound in someone with normal liver enzymes (ALT/AST) and no metabolic risk factors is generally a low-risk finding. It does not mean you have liver disease or that you will develop cirrhosis. The first steps: check if your ALT and AST are elevated (included in the same check-up); check HbA1c and lipids to rule out metabolic syndrome; and make lifestyle changes — even a 7% reduction in body weight significantly reduces liver fat. Annual ultrasound follow-up is typically recommended. Only grade 2–3 fatty liver, elevated liver enzymes, or metabolic syndrome alongside grade 1 warrant more urgent investigation with FibroScan." },
+      { q: "What is FibroScan and can I get one in Bangkok?", a: "FibroScan (transient elastography) is a 10-minute, painless ultrasound-based test that measures liver stiffness — used to estimate how much scarring (fibrosis) has occurred in the liver. It's the preferred non-invasive alternative to liver biopsy. FibroScan is available at Bumrungrad, Samitivej, Bangkok Hospital, and Vejthani Hospital — costs ฿3,000–฿6,000 including the CAP score (fat quantification). No preparation needed; just lie still while a probe is placed on the right side of your abdomen for a few seconds. Results are immediate. A gastroenterologist interprets the combined FibroScan (stiffness) + CAP (fat) report." },
+      { q: "I have Grade 2–3 fatty liver at my Bangkok check-up — what should I do before flying home?", a: "Don't panic — Grade 2–3 fatty liver on ultrasound is common and usually manageable. Before leaving Bangkok: (1) Request a gastroenterologist consultation (฿1,500–฿3,000) to review your results — same-day available; (2) Request a FibroScan if not already done (฿3,000–฿6,000) to assess fibrosis stage; (3) Get a metabolic panel (HbA1c, HOMA-IR, full lipids, uric acid) if not included in your check-up; (4) Discuss whether to start a GLP-1 agent (semaglutide/Ozempic) which you can obtain in Bangkok at 30–50% below Western retail; (5) Obtain written results in English PDF to share with your home doctor. A 3-month supply of medication purchased in Bangkok can bridge the gap until your home doctor appointment." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/liver-function-test-bangkok", label: "Liver function test Bangkok" },
+      { href: "/en/guide/ultrasound-scan-bangkok", label: "Ultrasound scan Bangkok" },
+      { href: "/en/guide/diabetes-management-bangkok", label: "Diabetes management Bangkok" },
+      { href: "/en/guide/abnormal-results-bangkok-what-to-do", label: "Abnormal results — what to do" },
+      { href: "/en/guide/health-checkup-by-age-bangkok", label: "Health check-up by age" },
     ],
   },
 
