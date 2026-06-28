@@ -305,6 +305,13 @@ const GUIDES = [
     category: "Specialist Screening",
   },
   {
+    slug: "health-checkup-day-bangkok",
+    title: "What to Expect on Health Check-Up Day in Bangkok — Step-by-Step",
+    description: "Step-by-step walkthrough of a Bangkok hospital health check-up morning: registration, blood draw, ECG, ultrasound, results, doctor consultation — all in 3–5 hours.",
+    emoji: "🏥",
+    category: "Understanding Your Check-Up",
+  },
+  {
     slug: "bumrungrad-vs-samitivej-health-checkup",
     title: "Bumrungrad vs Samitivej Health Check-Up — Which Hospital? (2026)",
     description: "Direct comparison: price, atmosphere, package scope, wait times. Samitivej is 10–25% cheaper and quieter. Bumrungrad has more specialist depth. Both JCI.",
