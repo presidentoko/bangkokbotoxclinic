@@ -2502,6 +2502,79 @@ const GUIDES: Record<string, Guide> = {
     ],
   },
 
+  "health-checkup-south-korea-vs-thailand": {
+    title: "한국 vs 태국 건강검진 비교 2026 — Bangkok Health Check-Up for Koreans",
+    description: "한국 건강검진 비용과 태국(방콕) 비교. 방콕 JCI 인증 병원 건강검진 패키지, 한국어 코디네이터, 인간복 닥 상당 프로그램. 40–60% 절약.",
+    intro: "한국은 국가 건강검진 프로그램이 잘 갖춰져 있지만, 프리미엄 종합검진(기업체 VIP 건강검진, 정밀 MRI 포함)은 국내에서도 비용이 상당합니다. 서울아산병원 프리미엄 건강검진: 50만~200만원, 강남 VIP 클리닉: 100만~500만원. 방콕 JCI 인증 병원(범룽랏, 사미티벳)에서 동급 또는 더 포괄적인 건강검진을 ฿8,000~฿30,000(약 30만~110만원)에 받을 수 있습니다. 한국어 코디네이터 서비스도 제공됩니다. South Korea has 1.5 million+ annual visitors to Thailand — making Koreans one of the largest tourist groups. Bangkok hospitals have invested heavily in Korean-language services to serve this market.",
+    sections: [
+      {
+        heading: "한국 vs 방콕 건강검진 비용 비교",
+        content: "건강검진 비용 직접 비교 (환율: ฿1 ≈ 37원 기준):",
+        list: [
+          "기본 혈액검사 (혈당, 콜레스테롤, 간·신장 기능, 갑상선) — 한국 개인 병원: 10~30만원 | 방콕: ฿2,500~฿5,000 (9~18만원) | 절감 30~60%",
+          "종합검진 중급 (+ ECG, 흉부X선, 복부초음파) — 한국 종합병원: 30~70만원 | 방콕: ฿5,000~฿9,000 (18~33만원) | 절감 40~60%",
+          "정밀 종합검진 (인간복닥 상당, 암마커 포함) — 한국 프리미엄: 70~200만원 | 방콕: ฿8,000~฿25,000 (30~92만원) | 절감 40~60%",
+          "VIP 프리미엄 (+ MRI, 위내시경, 특수 암검사) — 한국 VIP클리닉: 200~500만원 | 방콕: ฿30,000~฿80,000 (110~295만원) | 절감 35~50%",
+          "MRI 뇌 (Brain MRI) — 한국: 35~80만원 | 방콕: ฿5,000~฿12,000 (18~44만원) | 절감 40~60%",
+          "위내시경 (수면) — 한국: 10~25만원 | 방콕: ฿4,500~฿9,000 (17~33만원) | 절감 25~40%",
+          "종합: 국내 국가검진(건보)은 무료지만 보장 범위가 제한적 — 정밀 VIP 검진은 자비부담 부분이 크며, 방콕에서 절감 효과가 큼",
+        ],
+      },
+      {
+        heading: "방콕에서 한국어 서비스 받기",
+        content: "한국어 지원이 있는 방콕 주요 병원:",
+        list: [
+          "범룽랏 인터내셔널(Bumrungrad International): 한국국제환자부 운영, 한국어 코디네이터 상주, 한국어 안내문 제공",
+          "사미티벳 수쿰빗(Samitivej Sukhumvit): 한국 환자 담당 코디네이터, 의사 영어소통 원활",
+          "방콕병원(Bangkok Hospital): 한국어 통역사 요청 가능",
+          "BNH 병원: 영어 중심이나 한국어 코디 요청 가능",
+          "예약 방법: 각 병원 국제환자센터(International Patient Department)를 통해 한국어로 이메일 문의 또는 사전 예약 권장",
+          "결과 보고서: 영어로 발급됨 — 귀국 후 국내 병원 또는 검진기관에서 참고 자료로 활용 가능; 주요 수치(mmol/L, mg/dL)가 국제 표준과 동일",
+          "방콕-서울 직항: 약 5시간 30분 (타이항공, 대한항공, 아시아나, 에어서울 운항)",
+        ],
+      },
+      {
+        heading: "한국인이 방콕에서 특히 관심 갖는 검진 항목",
+        content: "방콕을 찾는 한국인 환자가 자주 추가하는 검사 항목:",
+        list: [
+          "위내시경 (수면 위내시경): 한국인 위암 발생률이 세계 1위 수준이므로 정기 검진 중요 — 방콕 비용 ฿4,500~฿9,000, 수면 추가 ฿1,500~฿2,500",
+          "대장내시경: 50세 이상 또는 가족력 있는 경우 — 방콕 ฿8,000~฿22,000 (수면 포함)",
+          "간암마커 (AFP, HBsAg): B형 간염 보유율이 높은 한국인에게 중요 — 대부분의 executive 패키지에 포함",
+          "갑상선 초음파: 한국인 갑상선암 검출률이 높아 초음파 요청 많음 — 방콕 ฿1,500~฿4,000",
+          "저선량 폐CT (LDCT): 흡연력 있는 50세 이상 남성 — 방콕 ฿6,000~฿12,000",
+          "전립선 PSA (남성 50세 이상): 방콕 ฿400~฿900, 대부분 남성 패키지에 포함",
+          "골밀도 검사 (DEXA): 폐경 후 여성 또는 50대 이상 — 방콕 ฿800~฿2,000",
+          "부인과 검진 (여성): 자궁경부암 세포진, HPV DNA 검사, 유방초음파 또는 맘모그라피 — 방콕 각 ฿500~฿2,500",
+        ],
+      },
+      {
+        heading: "방콕 건강검진 여행 실용 정보",
+        content: "한국인을 위한 방콕 의료여행 실용 팁:",
+        list: [
+          "비자: 한국 여권 소지자 비자 면제 — 최대 60일까지 무비자 체류 가능 (항공편에 따라 30일)",
+          "검진 예약: 최소 1주일 전 국제환자부에 이메일로 패키지 선택 후 예약 권장; 당일 워크인도 가능하나 대기 발생",
+          "검진 당일: 전날 밤 10시부터 금식(물은 가능), 아침 7~8시 병원 도착 권장",
+          "결제: Visa/Mastercard 한국 신용카드 사용 가능 (해외 수수료 확인); 현지 ATM에서 바트화 인출도 용이",
+          "숙소: 수쿰빗 지역(BTS 역 근처)이 범룽랏, 사미티벳 접근 편리",
+          "여행 일정 추천: 검진 전날 도착, 검진 당일(3~5시간 소요), 다음 날 관광 또는 귀국",
+          "세금 환급: 태국 의료비는 국내 의료비 세액공제 적용 불가 — 의료비 영수증은 보관하되 국내 세금 환급은 기대하기 어려움",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "방콕 건강검진이 한국 국가 건강검진보다 나은 점은 무엇인가요?", a: "한국 국가건강검진은 매우 훌륭하지만 기본 항목만 제공됩니다. 방콕 JCI 병원의 프리미엄 패키지는 국내 검진에 없는 항목(고해상도 복부 CT, 3T MRI, 종합 암마커 10종 이상, 심장 특수 검사)이 포함됩니다. 또한 당일 결과 확인과 의사 상담이 3~5시간 이내에 모두 완료됩니다. 국내 동급 VIP 건강검진 대비 40~60% 저렴합니다." },
+      { q: "방콕 건강검진 결과를 한국 병원에서 사용할 수 있나요?", a: "네 — 범룽랏, 사미티벳 등은 영어로 된 상세 검진 결과 보고서를 제공합니다. 한국 병원에서 참고 자료로 충분히 활용 가능하며, 혈액 수치 단위(mg/dL, mmol/L)도 국제 표준을 따릅니다. 정밀 영상(MRI, CT)의 경우 CD 또는 USB로 DICOM 파일을 요청하시면 귀국 후 국내 영상의학과에서 직독 판독이 가능합니다." },
+      { q: "한국어로 방콕 병원 예약이 가능한가요?", a: "범룽랏 인터내셔널의 경우 한국국제환자부(Korea Desk)를 통해 한국어 이메일 문의가 가능합니다. 다른 병원들도 국제환자부에 영어로 문의하면 한국어 코디네이터 연결을 요청할 수 있습니다. 온라인 예약 시 '한국어 서비스 요청(Korean language service needed)'을 특기사항에 명시하면 됩니다." },
+    ],
+    relatedLinks: [
+      { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean tourist hospital guide (한국어)" },
+      { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
+      { href: "/en/guide/gastroscopy-cost-bangkok", label: "Gastroscopy cost Bangkok (위내시경)" },
+      { href: "/en/for/korean-health-checkup-bangkok", label: "Korean-friendly packages" },
+    ],
+  },
+
   "health-checkup-cost-australia-vs-thailand": {
     title: "Health Check-Up Cost: Australia vs Thailand (2026) — How Much You Save",
     description: "Compare health check-up prices between Australia and Thailand. Bangkok hospitals offer executive packages at 60–80% below Australian private hospital rates — same JCI quality.",
@@ -2729,7 +2802,9 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/for/korean-health-checkup-bangkok", label: "Korean health check-up packages (한국어)" },
+      { href: "/en/guide/health-checkup-south-korea-vs-thailand", label: "한국 vs 태국 건강검진 비용 비교" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
+      { href: "/en/guide/gastroscopy-cost-bangkok", label: "위내시경 비용 — Gastroscopy cost Bangkok" },
       { href: "/en/compare?category=executive", label: "Compare executive packages" },
     ],
   },

@@ -326,6 +326,13 @@ const GUIDES = [
     category: "Practical Guides",
   },
   {
+    slug: "health-checkup-south-korea-vs-thailand",
+    title: "한국 vs 태국 건강검진 2026 — Bangkok Health Check-Up for Koreans",
+    description: "방콕 JCI 인증 병원에서 한국 프리미엄 건강검진 대비 40–60% 절약. 한국어 코디네이터, 당일 결과. Executive packages ฿8,000–฿30,000.",
+    emoji: "🇰🇷",
+    category: "By Nationality",
+  },
+  {
     slug: "vitamin-d-test-bangkok",
     title: "Vitamin D Test Bangkok — Price, Results & Treatment (2026)",
     description: "Vitamin D (25-OH) test price in Bangkok: ฿500–฿1,200 standalone. 60–80% of Bangkok expats test deficient despite tropical climate. Same-day results.",
