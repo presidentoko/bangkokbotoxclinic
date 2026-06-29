@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-06-29T12:14:16.536505+00:00",
-  "total_restaurants": 3541,
+  "generated_at": "2026-06-29T18:08:55.236565+00:00",
+  "total_restaurants": 3551,
   "city_counts": {
     "bangkok": 2916,
-    "pattaya": 625
+    "pattaya": 635
   },
-  "with_district": 2350,
-  "with_cuisines": 2947,
-  "with_reviews_scraped": 3071,
+  "with_district": 2353,
+  "with_cuisines": 2951,
+  "with_reviews_scraped": 3079,
   "language_total": {
     "th": 2,
-    "en": 156952,
+    "en": 157634,
     "ko": 0,
     "ja": 4,
-    "other": 498
+    "other": 499
   },
   "district_counts": {
     "bangkok/Pathum Wan": 283,
@@ -40,27 +40,27 @@
     "bangkok/Din Daeng": 31,
     "bangkok/Thon Buri": 25,
     "bangkok/Bang Phlat": 20,
-    "pattaya/South Pattaya": 18,
+    "pattaya/South Pattaya": 20,
     "bangkok/Wang Thonglang": 16,
     "bangkok/Lak Si": 12,
     "pattaya/Central Pattaya": 9,
-    "pattaya/Pattaya Beach": 2,
+    "pattaya/Pattaya Beach": 3,
     "pattaya/North Pattaya": 1
   },
   "cuisine_counts": {
-    "thai": 1202,
-    "western": 1200,
-    "bar_pub": 732,
-    "vietnamese": 596,
-    "seafood": 589,
+    "western": 1207,
+    "thai": 1204,
+    "bar_pub": 736,
+    "vietnamese": 600,
+    "seafood": 592,
     "japanese": 464,
-    "italian": 395,
+    "italian": 397,
     "cafe": 395,
-    "breakfast": 335,
-    "dessert": 286,
+    "breakfast": 336,
+    "dessert": 288,
     "street_food": 189,
     "chinese": 174,
-    "indian": 152,
+    "indian": 153,
     "fusion": 146,
     "fine_dining": 128,
     "korean": 112,
@@ -3587,6 +3587,104 @@
       "maps_url": "https://www.google.com/maps/place/Shree+Khodiyar+Kathiyawadi+Dhaba+pure+vegetarian+Indian+restaurant+Bangkok/data=!4m7!3m6!1s0x30e29fa83bed9433:0x7a2ba9c8115f6397!8m2!3d13.7539696!4d100.5412736!16s%2Fg%2F11sx329rjc!19sChIJM5TtO6if4jARl2NfEcipK3o?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310293e836b006c1_0x9f535fb2ac82a61f",
+      "place_id": "0x310293e836b006c1:0x9f535fb2ac82a61f",
+      "name": "Back to School Cafe & Roastery",
+      "primary_type": "Cafe",
+      "address": "\nหมู่ 9 เลขที่ 175 ซอย Na Chom Thian 13, Na Chom Thian, Sattahip District, Chon Buri 20250, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 92 124 7710",
+      "website": "https://backtoschool-roastery.com/menu-drink.html",
+      "menu_url": "https://backtoschool-roastery.com/menu-drink.html",
+      "lat": 12.8207644,
+      "lng": 100.9183401,
+      "rating": 4.8,
+      "total_reviews": 1245,
+      "trust_score": 100.1,
+      "cuisines": [
+        "bar_pub",
+        "cafe",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 10,
+      "local_guide_count": 10,
+      "avg_author_review_count": 682.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 10,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "cafe": 12,
+        "bar_pub": 2,
+        "western": 2,
+        "fusion": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "fresh",
+          "count": 3
+        },
+        {
+          "topic": "tasty",
+          "count": 3
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 1
+        },
+        {
+          "topic": "dirty",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 9,
+          "avg": 4.89
+        },
+        "old": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Very enjoyable lunch here with friends & were fortunate to meet 1 of the owners. 4 meals, all delightfully tasty with minimum wait time. We'll definitely return should the opportunity present itself.",
+          "rating": 5,
+          "author": "Gerry Steiert"
+        },
+        {
+          "text": "If you're a family with toddler or small kid, this is the place for you. The cafe's very clean and spacious with welcoming staffs. The coffee and food were excellent. Will surely come back.",
+          "rating": 5,
+          "author": "Vin I."
+        },
+        {
+          "text": "This place is amazing! The space is spacious and beautifully decorated with plenty of seating options. The outdoor zone has a good atmosphere. The drinks were also great.",
+          "rating": 5,
+          "author": "Jibbie Love"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Back+to+School+Cafe+%26+Roastery/data=!4m7!3m6!1s0x310293e836b006c1:0x9f535fb2ac82a61f!8m2!3d12.8207644!4d100.9183401!16s%2Fg%2F11f5412w9z!19sChIJwQawNuiTAjERH6aCrLJfU58?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299865e9668a9_0xa0c8b0b010506549",
       "place_id": "0x30e299865e9668a9:0xa0c8b0b010506549",
       "name": "Central Pinklao",
@@ -4799,106 +4897,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/LASANIA+RANIA+INDIAN+AND+EUROPEAN+RESTAURANT/data=!4m7!3m6!1s0x31029730d9aaf7b5:0x7642b54cdde12697!8m2!3d12.8853277!4d100.8810447!16s%2Fg%2F11cm0wgkff!19sChIJtfeq2TCXAjERlybh3Uy1QnY?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310293e836b006c1_0x9f535fb2ac82a61f",
-      "place_id": "0x310293e836b006c1:0x9f535fb2ac82a61f",
-      "name": "Back to School Cafe & Roastery",
-      "primary_type": "Cafe",
-      "address": "\nหมู่ 9 เลขที่ 175 ซอย Na Chom Thian 13, Na Chom Thian, Sattahip District, Chon Buri 20250, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 92 124 7710",
-      "website": "https://backtoschool-roastery.com/menu-drink.html",
-      "menu_url": "https://backtoschool-roastery.com/menu-drink.html",
-      "lat": 12.8207644,
-      "lng": 100.9183401,
-      "rating": 4.8,
-      "total_reviews": 1243,
-      "trust_score": 99.7,
-      "cuisines": [
-        "breakfast",
-        "cafe",
-        "vietnamese"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 29,
-      "local_guide_count": 21,
-      "avg_author_review_count": 199.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 20,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "vietnamese": 2,
-        "cafe": 14,
-        "bakery": 1,
-        "bar_pub": 1,
-        "western": 1,
-        "breakfast": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 13
-        },
-        {
-          "topic": "fresh",
-          "count": 2
-        },
-        {
-          "topic": "spicy",
-          "count": 2
-        },
-        {
-          "topic": "kid_friendly",
-          "count": 2
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 29,
-          "avg": 4.83
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Tried their breakfast and sourdough bread (Wednesday and Saturday) - tasty. Delicious selection of specialty coffees.",
-          "rating": 5,
-          "author": "Martin Reisinger"
-        },
-        {
-          "text": "The restaurant has a small playground, and offers a variety of savory and sweet dishes suitable for both children and adults, all with good taste.",
-          "rating": 5,
-          "author": "Chalisa Techawatcharapaikul"
-        },
-        {
-          "text": "The coffee tastes great, the staff are wonderful... everything makes this shop so charming. I'll definitely be back.",
-          "rating": 5,
-          "author": "Namyen S"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Back+to+School+Cafe+%26+Roastery/data=!4m7!3m6!1s0x310293e836b006c1:0x9f535fb2ac82a61f!8m2!3d12.8207644!4d100.9183401!16s%2Fg%2F11f5412w9z!19sChIJwQawNuiTAjERH6aCrLJfU58?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d61e984b16db1_0x304b69064ed70e1c",
@@ -21045,6 +21043,115 @@
       "maps_url": "https://www.google.com/maps/place/Yang+Hin/data=!4m7!3m6!1s0x30e299f5989eda6d:0x8bc465e1da4fbe8c!8m2!3d13.7350898!4d100.5237674!16s%2Fg%2F11vfbbhcs9!19sChIJbdqemPWZ4jARjL5P2uFlxIs?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102934b5db1e20b_0xf5c8aa84dbd70608",
+      "place_id": "0x3102934b5db1e20b:0xf5c8aa84dbd70608",
+      "name": "Tide Bangsaray",
+      "primary_type": "Restaurant",
+      "address": "\n111, Bangsaray Beach, Sukhumvit Rd, Tambon Bang Sare, Sattahip District, Chon Buri 20250, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 95 965 5364",
+      "website": "https://linktr.ee/tidebangsaray",
+      "menu_url": "http://bit.ly/tidebangsaray",
+      "lat": 12.7713119,
+      "lng": 100.8993741,
+      "rating": 4.6,
+      "total_reviews": 1053,
+      "trust_score": 96.0,
+      "cuisines": [
+        "breakfast",
+        "thai",
+        "vietnamese",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 20,
+      "local_guide_count": 15,
+      "avg_author_review_count": 76.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 20,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 2,
+        "vietnamese": 3,
+        "cafe": 1,
+        "fine_dining": 1,
+        "western": 2,
+        "breakfast": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 10
+        },
+        {
+          "topic": "fresh",
+          "count": 5
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 5
+        },
+        {
+          "topic": "expensive",
+          "count": 4
+        },
+        {
+          "topic": "spicy",
+          "count": 3
+        },
+        {
+          "topic": "michelin",
+          "count": 2
+        },
+        {
+          "topic": "good_view",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 15,
+          "avg": 4.6
+        },
+        "old": {
+          "count": 4,
+          "avg": 3.75
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Great food and a cozy atmosphere! The service was excellent—special thanks to Noey and Jenny for being so attentive, friendly, and accommodating. They truly made our dining experience more enjoyable.",
+          "rating": 5,
+          "author": "Jesyl Caballero"
+        },
+        {
+          "text": "Price was a bit high when first looked at the menu, however, the food was pretty good and yummy. The atmosphere of the restaurant was great as well. The service from staff were also excellent and friendly.",
+          "rating": 5,
+          "author": "First P"
+        },
+        {
+          "text": "A European-style seaside restaurant with beautiful atmosphere and great service. Perfect for relaxing by the ocean while enjoying delicious food in a comfortable and welcoming setting!!",
+          "rating": 5,
+          "author": "Phanitta Sangaroon"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Tide+Bangsaray/data=!4m7!3m6!1s0x3102934b5db1e20b:0xf5c8aa84dbd70608!8m2!3d12.7713119!4d100.8993741!16s%2Fg%2F11kr9nkqr1!19sChIJC-KxXUuTAjERCAbX24SqyPU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29b25920a9a21_0x774a7fede036219b",
       "place_id": "0x30e29b25920a9a21:0x774a7fede036219b",
       "name": "Spicy Kuck Riverside by Amdaeng Typhoon",
@@ -25420,101 +25527,6 @@
       "maps_url": "https://www.google.com/maps/place/BAOBAO+BANGKOK/data=!4m7!3m6!1s0x30e29fb2e1dbf5a9:0x6558970445094fe2!8m2!3d13.7467959!4d100.5398741!16s%2Fg%2F11xkkq_ysc!19sChIJqfXb4bKf4jAR4k8JRQSXWGU?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102bd0066ecfc69_0x1b80327e8094d000",
-      "place_id": "0x3102bd0066ecfc69:0x1b80327e8094d000",
-      "name": "Skybar Summer Club - Pattaya Restaurant and Rooftop Bar",
-      "primary_type": "Restaurant",
-      "address": "\n390 Thanon Pattaya Sai 2, Pattaya City, Bang Lamung District, Chang Wat Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 38 930 600",
-      "website": "https://www.skybarsummerclub.com/?utm_content_GMB",
-      "menu_url": "https://storage.googleapis.com/qrfyprod/a6bf37e0-3b71-4e4d-a0c4-f6c64a586641.pdf",
-      "lat": 12.9457738,
-      "lng": 100.8886192,
-      "rating": 4.9,
-      "total_reviews": 472,
-      "trust_score": 95.2,
-      "cuisines": [
-        "bar_pub",
-        "italian"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 50,
-      "local_guide_count": 30,
-      "avg_author_review_count": 116.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 35,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "italian": 2,
-        "bar_pub": 14
-      },
-      "mentioned_topics": [
-        {
-          "topic": "good_view",
-          "count": 7
-        },
-        {
-          "topic": "tasty",
-          "count": 5
-        },
-        {
-          "topic": "spicy",
-          "count": 2
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 28,
-          "avg": 4.89
-        },
-        "midterm": {
-          "count": 22,
-          "avg": 4.59
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Food on the top bar ok but not the same as the restaurant below which is better. Fantastic uninterrupted view.",
-          "rating": 5,
-          "author": "Anthony Berni"
-        },
-        {
-          "text": "Film was our host both times. Very friendly and polite. She remembered faces and smiled. We feel welcomed and the vibes and always nice. Thank you film for what you do.",
-          "rating": 5,
-          "author": "Todd Holland"
-        },
-        {
-          "text": "Great spot to watch the sunset. The restaurant is very good with reasonable prices for this type of place: two main courses, two appetizers, and two cocktails for under 1000 baht, so very reasonable.",
-          "rating": 5,
-          "author": "Anto Ferrara"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Skybar+Summer+Club+-+Pattaya+Restaurant+and+Rooftop+Bar/data=!4m7!3m6!1s0x3102bd0066ecfc69:0x1b80327e8094d000!8m2!3d12.9457738!4d100.8886192!16s%2Fg%2F11vpl4wq_z!19sChIJafzsZgC9AjERANCUgH4ygBs?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x310295d73750e4db_0x572ca94785a4e6dc",
       "place_id": "0x310295d73750e4db:0x572ca94785a4e6dc",
       "name": "Mae Sri Ruen Outlet Mall",
@@ -29424,6 +29436,102 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Sea+Talay+Restaurant+-+%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%8B%E0%B8%B5%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%A5+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2/data=!4m7!3m6!1s0x3102950a745bf231:0x4816e901611e2f9c!8m2!3d13.0167795!4d100.9279276!16s%2Fg%2F11lw0vtljp!19sChIJMfJbdAqVAjERnC8eYQHpFkg?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102bd0066ecfc69_0x1b80327e8094d000",
+      "place_id": "0x3102bd0066ecfc69:0x1b80327e8094d000",
+      "name": "Skybar Summer Club - Pattaya Restaurant and Rooftop Bar",
+      "primary_type": "Restaurant",
+      "address": "\n390 Thanon Pattaya Sai 2, Pattaya City, Bang Lamung District, Chang Wat Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 38 930 600",
+      "website": "https://www.skybarsummerclub.com/?utm_content_GMB",
+      "menu_url": "https://storage.googleapis.com/qrfyprod/a6bf37e0-3b71-4e4d-a0c4-f6c64a586641.pdf",
+      "lat": 12.9457738,
+      "lng": 100.8886192,
+      "rating": 4.9,
+      "total_reviews": 472,
+      "trust_score": 94.8,
+      "cuisines": [
+        "bar_pub"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 31,
+      "avg_author_review_count": 75.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 50,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 1,
+        "italian": 1,
+        "bar_pub": 28,
+        "western": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "spicy",
+          "count": 13
+        },
+        {
+          "topic": "good_view",
+          "count": 12
+        },
+        {
+          "topic": "tasty",
+          "count": 6
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 19,
+          "avg": 4.63
+        },
+        "old": {
+          "count": 26,
+          "avg": 4.96
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Really cool roof bar in Pattaya. Good variety of drinks and cocktails. Prices are a little bit expensive but you’re paying for the view.\n\nWe didn’t have food.\n\nThe bar itself is cosy, and can be quite windy.",
+          "rating": 5,
+          "author": "Nina Walsh"
+        },
+        {
+          "text": "Awesome service at Skylar! My server, Nina, was incredible—just like the stunning view. She made our dining experience truly memorable with her attentive and friendly service. Highly recommend this place for both the food and the atmosphere. A must-visit if you're in the area!",
+          "rating": 5,
+          "author": "Juan Florez"
+        },
+        {
+          "text": "Stunning rooftop infinity pool with views to die for. We paid 500 baht for a day pass and this includes food and and drink with the value up to 1000 baht.",
+          "rating": 5,
+          "author": "Angela Deacon"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Skybar+Summer+Club+-+Pattaya+Restaurant+and+Rooftop+Bar/data=!4m7!3m6!1s0x3102bd0066ecfc69:0x1b80327e8094d000!8m2!3d12.9457738!4d100.8886192!16s%2Fg%2F11vpl4wq_z!19sChIJafzsZgC9AjERANCUgH4ygBs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29c1c50eee00d_0x6333dcf5b312ac22",
@@ -38647,6 +38755,78 @@
       "maps_url": "https://www.google.com/maps/place/Fusion+Multi+Cuisine+Restaurant/data=!4m7!3m6!1s0x3102970732cfa2c3:0x8b4078e674249a4a!8m2!3d12.917998!4d100.8621469!16s%2Fg%2F11xzpl42bj!19sChIJw6LPMgeXAjERSpokdOZ4QIs?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102960c38bb16ef_0x61325f17ffd364a3",
+      "place_id": "0x3102960c38bb16ef:0x61325f17ffd364a3",
+      "name": "Nicky's on Buakhao",
+      "primary_type": "",
+      "address": "\n293, 43 Soi Buakhao, ตำบล หนองปรือ, Bang Lamung District, Chon Buri 20260, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 33 641 125",
+      "website": "https://www.facebook.com/Buakhaorestaurant1/",
+      "menu_url": "",
+      "lat": 12.9269468,
+      "lng": 100.8826293,
+      "rating": 4.4,
+      "total_reviews": 833,
+      "trust_score": 93.6,
+      "cuisines": [
+        "breakfast",
+        "cafe"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 9,
+      "local_guide_count": 5,
+      "avg_author_review_count": 190.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 8,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "cafe": 2,
+        "western": 1,
+        "breakfast": 11
+      },
+      "mentioned_topics": [
+        {
+          "topic": "spicy",
+          "count": 2
+        },
+        {
+          "topic": "fresh",
+          "count": 1
+        },
+        {
+          "topic": "tasty",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Nicky%27s+on+Buakhao/data=!4m10!3m9!1s0x3102960c38bb16ef:0x61325f17ffd364a3!5m2!4m1!1i2!8m2!3d12.9269468!4d100.8826293!16s%2Fg%2F11b7w270kd!19sChIJ7xa7OAyWAjERo2TT_xdfMmE?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fafa9fd3f47_0xd9f9c60af989a5e2",
       "place_id": "0x30e29fafa9fd3f47:0xd9f9c60af989a5e2",
       "name": "Heaven of weed",
@@ -39410,6 +39590,111 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Easy+Health/data=!4m7!3m6!1s0x3102960bc5453825:0x71a5b151e53909ac!8m2!3d12.9270718!4d100.8861498!16s%2Fg%2F11g9dgdz9c!19sChIJJThFxQuWAjERrAk55VGxpXE?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102bd45a790b6f9_0xa0f2753393d565e1",
+      "place_id": "0x3102bd45a790b6f9:0xa0f2753393d565e1",
+      "name": "Playa Bistro & Lounge",
+      "primary_type": "European restaurant",
+      "address": "\n436/541 Moo 9 Beach Road Amphur, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "Pattaya Beach",
+      "phone": "+66 92 389 8897",
+      "website": "https://www.facebook.com/PlayaBistroLounge",
+      "menu_url": "https://www.facebook.com/PlayaBistroLounge",
+      "lat": 12.9467478,
+      "lng": 100.8848897,
+      "rating": 4.7,
+      "total_reviews": 713,
+      "trust_score": 93.5,
+      "cuisines": [
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 57,
+      "local_guide_count": 25,
+      "avg_author_review_count": 55.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 44,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 1,
+        "italian": 1,
+        "vietnamese": 1,
+        "bar_pub": 1,
+        "western": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 19
+        },
+        {
+          "topic": "fresh",
+          "count": 3
+        },
+        {
+          "topic": "spicy",
+          "count": 3
+        },
+        {
+          "topic": "fast_service",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "good_view",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 40,
+          "avg": 4.83
+        },
+        "midterm": {
+          "count": 17,
+          "avg": 4.29
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Had a great night at Playa in Pattaya.\n\nThe food was solid - fresh, well-seasoned, and the portions were generous. You …",
+          "rating": 5,
+          "author": "Tsey Jeng Chong"
+        },
+        {
+          "text": "Took my family to town and we had a great late lunch at PLAYA BISTRO & LOUNGE. Good vibes and great view of the sunset\nFood was tasty and we all enjoyed our meal.",
+          "rating": 5,
+          "author": "Ying Porntita"
+        },
+        {
+          "text": "I visited Playa Bistro & Lounge in Pattaya and had a really pleasant experience. The atmosphere is relaxed and comfortable, great for a casual dinner or drinks with friends. The food was tasty and nicely presented, and the staff were friendly and attentive. A solid spot I’d happily return to.",
+          "rating": 5,
+          "author": "Don Corleone"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Playa+Bistro+%26+Lounge/data=!4m7!3m6!1s0x3102bd45a790b6f9:0xa0f2753393d565e1!8m2!3d12.9467478!4d100.8848897!16s%2Fg%2F11r_xl9_jw!19sChIJ-baQp0W9AjER4WXVkzN18qA?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f88b1b68907_0xc307502017dfec6a",
@@ -56085,69 +56370,6 @@
       "maps_url": "https://www.google.com/maps/place/Ali%27s+Indian+%26+Thai+-+MBK+Center+G+Floor+Zone+D+%28Halal%29/data=!4m7!3m6!1s0x30e29f5bf0eab7ad:0x1386a25b335d7ac!8m2!3d13.7436484!4d100.5299705!16s%2Fg%2F11gq_k7ctl!19sChIJrbfq8Fuf4jARrNc1syVqOAE?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102960c38bb16ef_0x61325f17ffd364a3",
-      "place_id": "0x3102960c38bb16ef:0x61325f17ffd364a3",
-      "name": "Nicky's on Buakhao",
-      "primary_type": "",
-      "address": "\n293, 43 Soi Buakhao, ตำบล หนองปรือ, Bang Lamung District, Chon Buri 20260, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 33 641 125",
-      "website": "https://www.facebook.com/Buakhaorestaurant1/",
-      "menu_url": "",
-      "lat": 12.9269468,
-      "lng": 100.8826293,
-      "rating": 4.4,
-      "total_reviews": 833,
-      "trust_score": 91.9,
-      "cuisines": [
-        "breakfast"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 7,
-      "local_guide_count": 3,
-      "avg_author_review_count": 141.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 6,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "cafe": 1,
-        "western": 1,
-        "breakfast": 7
-      },
-      "mentioned_topics": [
-        {
-          "topic": "spicy",
-          "count": 2
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/Nicky%27s+on+Buakhao/data=!4m10!3m9!1s0x3102960c38bb16ef:0x61325f17ffd364a3!5m2!4m1!1i2!8m2!3d12.9269468!4d100.8826293!16s%2Fg%2F11b7w270kd!19sChIJ7xa7OAyWAjERo2TT_xdfMmE?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29ecfc0441cb9_0x638510e1fe8b1d2",
       "place_id": "0x30e29ecfc0441cb9:0x638510e1fe8b1d2",
       "name": "Kumpoon Central world",
@@ -67851,99 +68073,6 @@
       "maps_url": "https://www.google.com/maps/place/Lucky+Panda+-+American+Chinese+Eats+%28Sathorn%29/data=!4m7!3m6!1s0x30e29fe5d3ab88ed:0x525cfeb9e052e952!8m2!3d13.7229095!4d100.5311925!16s%2Fg%2F11vdvw_9ny!19sChIJ7Yir0-Wf4jARUulS4Ln-XFI?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102977d77415ef1_0x89af44ced5bb7c93",
-      "place_id": "0x3102977d77415ef1:0x89af44ced5bb7c93",
-      "name": "Osteria Sendi",
-      "primary_type": "Italian restaurant",
-      "address": "\n327, 269 Pattaya Tai 16 Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 96 669 7286",
-      "website": "https://www.pattayabiz.site/business/osteria-sendi",
-      "menu_url": "",
-      "lat": 12.9261299,
-      "lng": 100.8891007,
-      "rating": 4.8,
-      "total_reviews": 288,
-      "trust_score": 91.0,
-      "cuisines": [
-        "italian"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 60,
-      "local_guide_count": 30,
-      "avg_author_review_count": 57.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 44,
-        "ko": 0,
-        "ja": 0,
-        "other": 1
-      },
-      "cuisine_mentions": {
-        "italian": 21
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 20
-        },
-        {
-          "topic": "fresh",
-          "count": 5
-        },
-        {
-          "topic": "authentic",
-          "count": 3
-        },
-        {
-          "topic": "good_portion",
-          "count": 3
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 19,
-          "avg": 4.89
-        },
-        "midterm": {
-          "count": 41,
-          "avg": 4.78
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The food is fresh and delicious, the staff provides excellent service, and the chef is attentive.",
-          "rating": 5,
-          "author": "Jojoe Kamolthiptrakul"
-        },
-        {
-          "text": "The food was delicious, the portions were large, the service was good and friendly. The chef was excellent at refilling the wine glass, and the dishes were changed three times. If you want to eat steak, you have to come on Friday.",
-          "rating": 5,
-          "author": "Nutjaya Aramkul"
-        },
-        {
-          "text": "The meat was delicious. The Beef Tatar was amazing, and the steak was also delicious.\n\nI really liked the Spaghetti Carbonara; it was so tasty. The desserts were delicious too.",
-          "rating": 5,
-          "author": "Preerapat Jai-uea"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Osteria+Sendi/data=!4m7!3m6!1s0x3102977d77415ef1:0x89af44ced5bb7c93!8m2!3d12.9261299!4d100.8891007!16s%2Fg%2F11kpsljtl0!19sChIJ8V5Bd32XAjERk3y71c5Er4k?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29df3f4b4b7df_0xb6703c4a09c98bbf",
       "place_id": "0x30e29df3f4b4b7df:0xb6703c4a09c98bbf",
       "name": "Uptojug Kitchen & Cafe - ครัวแล้วแต่จั๊ก",
@@ -68886,6 +69015,107 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/BHARATIA+RECIPE+VEG/data=!4m7!3m6!1s0x31029725e10c97e5:0xfc8f7e7c7767ed63!8m2!3d12.9245079!4d100.8829845!16s%2Fg%2F11j0td_r6z!19sChIJ5ZcM4SWXAjERY-1nd3x-j_w?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102977d77415ef1_0x89af44ced5bb7c93",
+      "place_id": "0x3102977d77415ef1:0x89af44ced5bb7c93",
+      "name": "Osteria Sendi",
+      "primary_type": "Italian restaurant",
+      "address": "\n327, 269 Pattaya Tai 16 Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 96 669 7286",
+      "website": "https://www.pattayabiz.site/business/osteria-sendi",
+      "menu_url": "",
+      "lat": 12.9261299,
+      "lng": 100.8891007,
+      "rating": 4.8,
+      "total_reviews": 288,
+      "trust_score": 90.9,
+      "cuisines": [
+        "italian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 87,
+      "local_guide_count": 50,
+      "avg_author_review_count": 47.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 76,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "cuisine_mentions": {
+        "italian": 43
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 33
+        },
+        {
+          "topic": "authentic",
+          "count": 13
+        },
+        {
+          "topic": "fresh",
+          "count": 7
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 7
+        },
+        {
+          "topic": "good_portion",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 19,
+          "avg": 4.89
+        },
+        "midterm": {
+          "count": 38,
+          "avg": 4.92
+        },
+        "old": {
+          "count": 30,
+          "avg": 4.93
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Came for the tenderloin special tonight, was cooked to order (medium rare) and the spinach side was amazing as well. My partner went for the shrimp gnocchi, also tasted delicious and very large portion. Nice ambiance, will return soon as I saw more on the menu I would like to try.",
+          "rating": 5,
+          "author": "ga vi"
+        },
+        {
+          "text": "Some friends recommended this restaurant to me. I went last night and was very satisfied. I had a bruschetta with sausage and a pasta dish recommended by the chef. Everything was delicious. The atmosphere is relaxing, with soft lighting. I'm happy to have discovered this little corner of Italy.",
+          "rating": 5,
+          "author": "Natthaphon Thongprachum"
+        },
+        {
+          "text": "I had dinner here last night. The waitress recommended the ravioli with ragù, a great choice, they were delicious. I also had a glass of Italian wine, very good.\nThe tiramisu was outstanding. I definitely recommend this restaurant.",
+          "rating": 5,
+          "author": "Paweena"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Osteria+Sendi/data=!4m7!3m6!1s0x3102977d77415ef1:0x89af44ced5bb7c93!8m2!3d12.9261299!4d100.8891007!16s%2Fg%2F11kpsljtl0!19sChIJ8V5Bd32XAjERk3y71c5Er4k?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29faf8b13beeb_0xa128bbc125491ad4",
@@ -77758,111 +77988,6 @@
       "maps_url": "https://www.google.com/maps/place/Zaab+High+Pattaya+Sai+3/data=!4m7!3m6!1s0x310297002c4f7d23:0x52f104fc2ac0b5f8!8m2!3d12.9266694!4d100.8860209!16s%2Fg%2F11wxfc9hjm!19sChIJI31PLACXAjER-LXAKvwE8VI?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102973e7b82f4a5_0x600b1113abeafbc",
-      "place_id": "0x3102973e7b82f4a5:0x600b1113abeafbc",
-      "name": "Swagatam Indian Cafe and Restaurant",
-      "primary_type": "Restaurant",
-      "address": "\n597/4 M10, S Pattaya Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 97 315 4536",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.9269862,
-      "lng": 100.8750919,
-      "rating": 4.8,
-      "total_reviews": 253,
-      "trust_score": 90.3,
-      "cuisines": [
-        "bar_pub",
-        "cafe",
-        "indian"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 20,
-      "local_guide_count": 12,
-      "avg_author_review_count": 53.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 20,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 1,
-        "indian": 2,
-        "bar_pub": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 5
-        },
-        {
-          "topic": "spicy",
-          "count": 5
-        },
-        {
-          "topic": "authentic",
-          "count": 4
-        },
-        {
-          "topic": "fresh",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 7,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 13,
-          "avg": 4.15
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Good food and service. Clean seating area and greet location Open till late night and just near walking street Gate.",
-          "rating": 5,
-          "author": "Mohammad zahir uddin khan"
-        },
-        {
-          "text": "Diners praise the authentic and delicious Indian dishes, noting they’re served hot and clean, served with care. The staff is described as friendly, and the pricing is economical. Its convenient location near Pattaya Beach is a big plus.",
-          "rating": 5,
-          "author": "SANJAY MAHINDRU"
-        },
-        {
-          "text": "It is a wonderful restaurant with good Indian dishes. Their taste is authentic and they serve  hot and clean.\nThe staff is also very friendly. The restaurant is very close to pattaya beach. The rates are also economical. Overall a very good experience. The restaurant is recommended.",
-          "rating": 5,
-          "author": "Dr. Zainab Asim"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Swagatam+Indian+Cafe+and+Restaurant/data=!4m7!3m6!1s0x3102973e7b82f4a5:0x600b1113abeafbc!8m2!3d12.9269862!4d100.8750919!16s%2Fg%2F11t9mqhpl4!19sChIJpfSCez6XAjERvK--OhGxAAY?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29fede8d11ea5_0x6fd128aa086ee942",
       "place_id": "0x30e29fede8d11ea5:0x6fd128aa086ee942",
       "name": "La Mía",
@@ -81900,6 +82025,120 @@
       "maps_url": "https://www.google.com/maps/place/Mana+Mana+%E3%81%BE%E3%81%AA+%E3%81%BE%E3%81%AA+(%E0%B8%A1%E0%B8%B2%E0%B8%99%E0%B8%B0+%E0%B8%A1%E0%B8%B2%E0%B8%99%E0%B8%B0)/@13.7099646,100.5998501,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29f4c41268dcb:0x51acb0d3c4d57008!8m2!3d13.7099646!4d100.5998501!16s%2Fg%2F11vf8bwl0d!19sChIJy40mQUyf4jARCHDVxNOwrFE?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x3102972188d23e55_0xb5ca2637cff4aa8f",
+      "place_id": "0x3102972188d23e55:0xb5ca2637cff4aa8f",
+      "name": "Sugo Italian Restaurant",
+      "primary_type": "Italian restaurant",
+      "address": "\nJomtien Second Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "South Pattaya",
+      "phone": "+66 85 881 9386",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8965431,
+      "lng": 100.8691905,
+      "rating": 4.7,
+      "total_reviews": 266,
+      "trust_score": 90.0,
+      "cuisines": [
+        "italian",
+        "seafood",
+        "vietnamese"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 96,
+      "local_guide_count": 71,
+      "avg_author_review_count": 87.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 82,
+        "ko": 0,
+        "ja": 0,
+        "other": 1
+      },
+      "cuisine_mentions": {
+        "italian": 73,
+        "vietnamese": 2,
+        "seafood": 2,
+        "western": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 27
+        },
+        {
+          "topic": "fresh",
+          "count": 12
+        },
+        {
+          "topic": "authentic",
+          "count": 10
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 4
+        },
+        {
+          "topic": "spicy",
+          "count": 3
+        },
+        {
+          "topic": "fast_service",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "good_view",
+          "count": 1
+        },
+        {
+          "topic": "live_music",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 24,
+          "avg": 4.83
+        },
+        "midterm": {
+          "count": 49,
+          "avg": 4.65
+        },
+        "old": {
+          "count": 23,
+          "avg": 4.7
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The best Italian pizza that I ever had in Thailand ❤️🍕. Good service and good prices.",
+          "rating": 5,
+          "author": "Juthamard sae-wong"
+        },
+        {
+          "text": "it was such a lovely experience, I never thought paella would actually taste better than in Spain!!\nsuper fast service and the staff is always caring about everything.\nWe sat on the top floor with a rooftop and a great atmosphere with music.\nI will definetely return, I loved it so much!!",
+          "rating": 5,
+          "author": "Yanisa Moritz"
+        },
+        {
+          "text": "Attentive staffs. I love both Caesar salad and pasta. There are 2 smalls table in the front where you can enjoy the street view and the sea. So I enjoyed a glass of wine there and moved in for my dinner. Definitely will be back to try their pizza and other dishes.",
+          "rating": 5,
+          "author": "June Siripana"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Sugo+Italian+Restaurant/data=!4m7!3m6!1s0x3102972188d23e55:0xb5ca2637cff4aa8f!8m2!3d12.8965431!4d100.8691905!16s%2Fg%2F11wt__lfnd!19sChIJVT7SiCGXAjERj6r0zzcmyrU?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299514ee7d44b_0xc527929ad23774bc",
       "place_id": "0x30e299514ee7d44b:0xc527929ad23774bc",
       "name": "ฉ่ำ Charm Bar & Bistro",
@@ -85795,6 +86034,119 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/NICO+NICO+-+Gaysorn+Amarin/data=!4m7!3m6!1s0x30e29f667d3b1173:0x66ed6b92940797c4!8m2!3d13.7439979!4d100.5413947!16s%2Fg%2F11vxh6t3tr!19sChIJcxE7fWaf4jARxJcHlJJr7WY?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102973e7b82f4a5_0x600b1113abeafbc",
+      "place_id": "0x3102973e7b82f4a5:0x600b1113abeafbc",
+      "name": "Swagatam Indian Cafe and Restaurant",
+      "primary_type": "Restaurant",
+      "address": "\n597/4 M10, S Pattaya Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 97 315 4536",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9269862,
+      "lng": 100.8750919,
+      "rating": 4.8,
+      "total_reviews": 253,
+      "trust_score": 89.7,
+      "cuisines": [
+        "bar_pub",
+        "cafe",
+        "indian",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 90,
+      "local_guide_count": 43,
+      "avg_author_review_count": 45.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 79,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 2,
+        "street_food": 1,
+        "indian": 7,
+        "cafe": 4,
+        "bar_pub": 2,
+        "western": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 23
+        },
+        {
+          "topic": "authentic",
+          "count": 8
+        },
+        {
+          "topic": "spicy",
+          "count": 7
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 3
+        },
+        {
+          "topic": "fresh",
+          "count": 2
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "good_portion",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 4.67
+        },
+        "midterm": {
+          "count": 30,
+          "avg": 4.97
+        },
+        "old": {
+          "count": 57,
+          "avg": 4.33
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Good food and service. Clean seating area and greet location Open till late night and just near walking street Gate.",
+          "rating": 5,
+          "author": "Mohammad zahir uddin khan"
+        },
+        {
+          "text": "Diners praise the authentic and delicious Indian dishes, noting they’re served hot and clean, served with care. The staff is described as friendly, and the pricing is economical. Its convenient location near Pattaya Beach is a big plus.",
+          "rating": 5,
+          "author": "SANJAY MAHINDRU"
+        },
+        {
+          "text": "It is a wonderful restaurant with good Indian dishes. Their taste is authentic and they serve  hot and clean.\nThe staff is also very friendly. The restaurant is very close to pattaya beach. The rates are also economical. Overall a very good experience. The restaurant is recommended.",
+          "rating": 5,
+          "author": "Dr. Zainab Asim"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Swagatam+Indian+Cafe+and+Restaurant/data=!4m7!3m6!1s0x3102973e7b82f4a5:0x600b1113abeafbc!8m2!3d12.9269862!4d100.8750919!16s%2Fg%2F11t9mqhpl4!19sChIJpfSCez6XAjERvK--OhGxAAY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d61b22677937f_0xba23780c381b2909",
@@ -104316,73 +104668,6 @@
       "maps_url": "https://www.google.com/maps/place/Grandmother+Restaurant/data=!4m7!3m6!1s0x30e29ecc82f0e15b:0x6a653ee02cc5873!8m2!3d13.7515217!4d100.5318939!16s%2Fg%2F11d_dvk12_!19sChIJW-Hwgsye4jARc1jMAu5TpgY?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102953c7262cc99_0xa8ed457c55761844",
-      "place_id": "0x3102953c7262cc99:0xa8ed457c55761844",
-      "name": "ครัวนับดาว Nubdao Garden Resort & Restaurant",
-      "primary_type": "",
-      "address": "\nทู่งกลม 34 Pornprapanimit 34, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 97 446 9879",
-      "website": "http://www.facebook.com/nubdaorestaurant",
-      "menu_url": "",
-      "lat": 12.9117675,
-      "lng": 100.9632606,
-      "rating": 4.5,
-      "total_reviews": 352,
-      "trust_score": 88.2,
-      "cuisines": [],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 7,
-      "local_guide_count": 5,
-      "avg_author_review_count": 22.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 3,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "vietnamese": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "fresh",
-          "count": 1
-        },
-        {
-          "topic": "tasty",
-          "count": 1
-        },
-        {
-          "topic": "spicy",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%99%E0%B8%B1%E0%B8%9A%E0%B8%94%E0%B8%B2%E0%B8%A7+Nubdao+Garden+Resort+%26+Restaurant/data=!4m10!3m9!1s0x3102953c7262cc99:0xa8ed457c55761844!5m2!4m1!1i2!8m2!3d12.9117675!4d100.9632606!16s%2Fg%2F11clvrzztt!19sChIJmcxicjyVAjERRBh2VXxF7ag?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f48ffb108c7_0x3221a02360c50405",
       "place_id": "0x30e29f48ffb108c7:0x3221a02360c50405",
       "name": "8855 Restaurant & Bar",
@@ -110869,7 +111154,7 @@
       "lat": 12.9495459,
       "lng": 100.8986322,
       "rating": 4.9,
-      "total_reviews": 1701,
+      "total_reviews": 1700,
       "trust_score": 87.8,
       "cuisines": [
         "bar_pub",
@@ -117497,113 +117782,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%8A%E0%B8%B4%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AB%E0%B8%99%E0%B8%B6%E0%B9%88%E0%B8%87+%E0%B8%9E%E0%B8%A3%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B8%81-%E0%B8%81%E0%B8%B2%E0%B8%8D%E0%B8%88%E0%B8%99%E0%B8%B2%E0%B8%A0%E0%B8%B4%E0%B9%80%E0%B8%A9%E0%B8%81/@13.7525517,100.4367914,17z/data=!3m1!4b1!4m7!3m6!1s0x30e297007ecd0daf:0x178c11b04ab19fc3!8m2!3d13.7525517!4d100.4367914!16s%2Fg%2F11ybt6564y!19sChIJrw3NfgCX4jARw5-xSrARjBc?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
-      "id": "0x31029644a47c3859_0x4b9632972ff3762a",
-      "place_id": "0x31029644a47c3859:0x4b9632972ff3762a",
-      "name": "ร้านอาหารขวัญ - Kwan Restaurant",
-      "primary_type": "Restaurant",
-      "address": "\n357/83 Phra Tam Nak 5, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 96 706 8614",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.9131102,
-      "lng": 100.8617254,
-      "rating": 4.3,
-      "total_reviews": 349,
-      "trust_score": 87.4,
-      "cuisines": [
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 20,
-      "local_guide_count": 14,
-      "avg_author_review_count": 90.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 16,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 3,
-        "cafe": 1,
-        "western": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 7
-        },
-        {
-          "topic": "affordable",
-          "count": 6
-        },
-        {
-          "topic": "authentic",
-          "count": 2
-        },
-        {
-          "topic": "spicy",
-          "count": 1
-        },
-        {
-          "topic": "fast_service",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        },
-        {
-          "topic": "live_music",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 10,
-          "avg": 4.4
-        },
-        "midterm": {
-          "count": 10,
-          "avg": 3.9
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The food is delicious and affordable, but there's no parking for cars. A motorbike is recommended. There's also some live music.",
-          "rating": 5,
-          "author": "อัมพวรรณ เกิดชัง"
-        },
-        {
-          "text": "Very nice family business with traditional Thai style seating. Huge Menue and super delicious",
-          "rating": 5,
-          "author": "H2O Explorers"
-        },
-        {
-          "text": "A tasty and affordable local eatery—definitely worth trying when you’re in Pattaya. The dishes are well-seasoned and truly reflect authentic Thai flavors. You can ask for less spice so they adjust the chili level for you! Our group of five had lunch with five dishes for about 750 baht",
-          "rating": 5,
-          "author": "Hieu Nguyen"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%82%E0%B8%A7%E0%B8%B1%E0%B8%8D+-+Kwan+Restaurant/data=!4m7!3m6!1s0x31029644a47c3859:0x4b9632972ff3762a!8m2!3d12.9131102!4d100.8617254!16s%2Fg%2F11g6m296kv!19sChIJWTh8pESWAjERKnbzL5cylks?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d60710457728d_0x114b95ed21c7acd6",
@@ -126912,6 +127090,95 @@
       "maps_url": "https://www.google.com/maps/place/Nicha+Steak+%26+thaifood+padthai+%28%E0%B8%93%E0%B8%B4%E0%B8%8C%E0%B8%B2+%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B9%87%E0%B8%81-%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87-%E0%B8%9C%E0%B8%B1%E0%B8%94%E0%B9%84%E0%B8%97%E0%B8%A2%29/data=!4m7!3m6!1s0x30e299aed569b671:0x4fced0e3b3a059ab!8m2!3d13.7624199!4d100.5023186!16s%2Fg%2F11kb9d7h2h!19sChIJcbZp1a6Z4jARq1mgs-PQzk8?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102974cd9ad9957_0xaa5de9b68294bce8",
+      "place_id": "0x3102974cd9ad9957:0xaa5de9b68294bce8",
+      "name": "Dhaba (ढाबा) - Best Indian Restaurant Pattaya",
+      "primary_type": "Indian restaurant",
+      "address": "\n325 39 Moo 10, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 97 237 1284",
+      "website": "https://dhabarestaurantpattaya.com/",
+      "menu_url": "",
+      "lat": 12.9277279,
+      "lng": 100.8769817,
+      "rating": 4.7,
+      "total_reviews": 454,
+      "trust_score": 86.8,
+      "cuisines": [
+        "indian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 70,
+      "local_guide_count": 19,
+      "avg_author_review_count": 17.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 58,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "indian": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 17
+        },
+        {
+          "topic": "spicy",
+          "count": 3
+        },
+        {
+          "topic": "authentic",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 4.33
+        },
+        "midterm": {
+          "count": 64,
+          "avg": 4.98
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "I recommed to thos who couple aur small group of friends, it is tiny restaurant, but food quality is very good and also food quantity is good.",
+          "rating": 5,
+          "author": "Travel With GURMEET"
+        },
+        {
+          "text": "Food was very good. Got unlimited tanduri roti. Overall a good and budget friendly restaurant.",
+          "rating": 5,
+          "author": "Ashutosh Tiwari"
+        },
+        {
+          "text": "Very good food and homely staff. Unlimited tandoori roti on order above 399 for 2 people😛😛😛",
+          "rating": 5,
+          "author": "Manmeet Yadav"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Dhaba+%28%E0%A4%A2%E0%A4%BE%E0%A4%AC%E0%A4%BE%29+-+Best+Indian+Restaurant+Pattaya/data=!4m7!3m6!1s0x3102974cd9ad9957:0xaa5de9b68294bce8!8m2!3d12.9277279!4d100.8769817!16s%2Fg%2F11k457x46f!19sChIJV5mt2UyXAjER6LyUgrbpXao?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29b5cafa3270f_0xd6479c085e440457",
       "place_id": "0x30e29b5cafa3270f:0xd6479c085e440457",
       "name": "เช็งซิมอี๊ & ฮกหลี คิทเช่น (สาขา ติวานนท์)",
@@ -133973,6 +134240,117 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Lucky+Panda+-+American+Chinese+Eats+(Pattaya)/@12.9241349,100.8785381,17z/data=!3m1!4b1!4m6!3m5!1s0x31029714f0e3e617:0xbd90406048f0ede5!8m2!3d12.9241349!4d100.8785381!16s%2Fg%2F11xgq67vxf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyMy4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "id": "0x31029380c414f835_0xcb42eda79c93080a",
+      "place_id": "0x31029380c414f835:0xcb42eda79c93080a",
+      "name": "Pink Salmon Beach House",
+      "primary_type": "Restaurant",
+      "address": "\n281 หมู่ที่ 2 Na Chom Thian 18 Alley, Na Chom Thian, Sattahip District, Chon Buri 20250, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 63 614 7463",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.840103,
+      "lng": 100.9051708,
+      "rating": 4.6,
+      "total_reviews": 172,
+      "trust_score": 86.4,
+      "cuisines": [
+        "bar_pub",
+        "seafood",
+        "thai",
+        "vietnamese",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 85,
+      "local_guide_count": 45,
+      "avg_author_review_count": 59.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 70,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 3,
+        "vietnamese": 2,
+        "seafood": 6,
+        "cafe": 1,
+        "bar_pub": 2,
+        "dessert": 1,
+        "western": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 31
+        },
+        {
+          "topic": "spicy",
+          "count": 7
+        },
+        {
+          "topic": "fresh",
+          "count": 5
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 5
+        },
+        {
+          "topic": "good_view",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 54,
+          "avg": 4.5
+        },
+        "midterm": {
+          "count": 31,
+          "avg": 4.74
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "This is just WOW! Amazing place with private beach. Plenty of parking. Very gentle & polite stuff. And the food.....just best. Fresh and delicious cooked! It's our first but for sure not the last time we go there!🥳😎🥰😍",
+          "rating": 5,
+          "author": "Martin Scherrer"
+        },
+        {
+          "text": "This is a brand new beach restaurant that just opened, but the atmosphere is great and the staff are friendly.\nThe food is also delicious, so I was very satisfied.",
+          "rating": 5,
+          "author": "Zfjiyeutskhx"
+        },
+        {
+          "text": "A great spot on the beach with really comfortable couch to chill on. The food was superb and great selection. The staff were friendly and very attentive. I highly recommend to visit this place.",
+          "rating": 5,
+          "author": "Brad W"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pink+Salmon+Beach+House/data=!4m7!3m6!1s0x31029380c414f835:0xcb42eda79c93080a!8m2!3d12.840103!4d100.9051708!16s%2Fg%2F11yqvss4fr!19sChIJNfgUxICTAjERCgiTnKftQss?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29d001a31dcf5_0xe608755d4cd306fd",
@@ -158056,6 +158434,94 @@
       "maps_url": "https://www.google.com/maps/place/Hula+Poke+%26+Salad+Bar/data=!4m7!3m6!1s0x30e29fe648bae5e7:0x29c0b3c47bf15fbc!8m2!3d13.7182042!4d100.5760784!16s%2Fg%2F11t86zfdl0!19sChIJ5-W6SOaf4jARvF_xe8SzwCk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102bdf15fb7f041_0x8b58c6a40f2ce9bd",
+      "place_id": "0x3102bdf15fb7f041:0x8b58c6a40f2ce9bd",
+      "name": "Patrick's Huay Yai Steakhouse",
+      "primary_type": "",
+      "address": "\n96, 2, Muang Pattaya, Bang Lamung District, Chon Buri 20260, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 96 819 3579",
+      "website": "https://patrickshuayyai.com/",
+      "menu_url": "",
+      "lat": 12.8638843,
+      "lng": 100.9392836,
+      "rating": 4.8,
+      "total_reviews": 86,
+      "trust_score": 85.0,
+      "cuisines": [
+        "italian",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 69,
+      "local_guide_count": 46,
+      "avg_author_review_count": 77.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 61,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "italian": 9,
+        "seafood": 1,
+        "western": 11
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 9
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 6
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 58,
+          "avg": 4.9
+        },
+        "midterm": {
+          "count": 11,
+          "avg": 4.73
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "10 stars would be more appropriate. The quality of the food was outstanding. The menu was varied catering to many different preferences. The staff was so professional. We will be back!",
+          "rating": 5,
+          "author": "Brian Corley"
+        },
+        {
+          "text": "Wow!! The new Patrick’s Steak House in Huay Yai is fantastic. Great food. Steaks are great. Good selection of wines. Lots of parking.. excellent service. I would recommend this restaurant …I will be back!!",
+          "rating": 5,
+          "author": "Aussie Thai Bangkok"
+        },
+        {
+          "text": "Great Wagyu steak. I ordered Tenderloin and it came very tender. Good atmosphere. When I visit around5pm already a lot of crowds. Restaurant owner is from Belgium and the restaurant is named after him.",
+          "rating": 5,
+          "author": "M Traveler M Traveler"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Patrick's+Huay+Yai+Steakhouse/@12.8638843,100.9392836,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bdf15fb7f041:0x8b58c6a40f2ce9bd!8m2!3d12.8638843!4d100.9392836!16s%2Fg%2F11z10yq8mq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
       "id": "0x311d5f0bbc234819_0x9312cd04a11ee8eb",
       "place_id": "0x311d5f0bbc234819:0x9312cd04a11ee8eb",
       "name": "มักข้าวซอย",
@@ -164613,9 +165079,9 @@
       ],
       "price_level": "",
       "price_symbol": "",
-      "scraped_review_count": 78,
-      "local_guide_count": 46,
-      "avg_author_review_count": 89.2,
+      "scraped_review_count": 74,
+      "local_guide_count": 43,
+      "avg_author_review_count": 87.7,
       "language_breakdown": {
         "th": 0,
         "en": 63,
@@ -164629,7 +165095,7 @@
         "seafood": 8,
         "fine_dining": 2,
         "western": 5,
-        "breakfast": 4
+        "breakfast": 2
       },
       "mentioned_topics": [
         {
@@ -164687,8 +165153,8 @@
           "avg": 4.91
         },
         "old": {
-          "count": 28,
-          "avg": 4.68
+          "count": 24,
+          "avg": 4.62
         },
         "trend": "stable"
       },
@@ -173901,6 +174367,113 @@
       "maps_url": "https://www.google.com/maps/place/Tieng+Kway+Chap/@13.7829338,100.6303918,17z/data=!3m1!4b1!4m7!3m6!1s0x311d6204b6510b65:0xb4c18f1a475d7900!8m2!3d13.7829338!4d100.6303918!16s%2Fg%2F1ptyxg6q9!19sChIJZQtRtgRiHTERAHldRxqPwbQ?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x310295ec6c3bb3f7_0x7315a77579e0d767",
+      "place_id": "0x310295ec6c3bb3f7:0x7315a77579e0d767",
+      "name": "ครัวทับทิมห้วยใหญ่",
+      "primary_type": "Restaurant",
+      "address": "\n43 Tesabal Road 1 Soi 23, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 87 913 9296",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8635779,
+      "lng": 100.9478445,
+      "rating": 4.6,
+      "total_reviews": 113,
+      "trust_score": 84.1,
+      "cuisines": [
+        "seafood",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 78,
+      "local_guide_count": 46,
+      "avg_author_review_count": 52.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 50,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 6,
+        "seafood": 5
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 41
+        },
+        {
+          "topic": "affordable",
+          "count": 15
+        },
+        {
+          "topic": "fresh",
+          "count": 6
+        },
+        {
+          "topic": "spicy",
+          "count": 6
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "fast_service",
+          "count": 1
+        },
+        {
+          "topic": "kid_friendly",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 4.7
+        },
+        "midterm": {
+          "count": 22,
+          "avg": 4.5
+        },
+        "old": {
+          "count": 46,
+          "avg": 4.65
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Delicious food at reasonable prices. There is no air conditioning in the restaurant.The shop owner provides very good service.",
+          "rating": 5,
+          "author": "Pea Jay"
+        },
+        {
+          "text": "This restaurant serves the very best Thai food in Huay Yai. The manager is extremely friendly and the prices are very, very inexpensive. I would highly recommend this restaurant.",
+          "rating": 5,
+          "author": "Tony Herley"
+        },
+        {
+          "text": "A home-style, casual cooking experience. Delicious, fresh food, prepared by an elderly lady. Affordable prices.",
+          "rating": 5,
+          "author": "Victor Tula"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%9A%E0%B8%97%E0%B8%B4%E0%B8%A1%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x310295ec6c3bb3f7:0x7315a77579e0d767!8m2!3d12.8635779!4d100.9478445!16s%2Fg%2F11hfkn9292!19sChIJ97M7bOyVAjERZ9fgeXWnFXM?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29e58879c11ef_0x5a0cbd335586f85e",
       "place_id": "0x30e29e58879c11ef:0x5a0cbd335586f85e",
       "name": "Chai Potchana",
@@ -180130,6 +180703,122 @@
       "maps_url": "https://www.google.com/maps/place/Versailles+Restaurant/data=!4m7!3m6!1s0x30e299b2d62f2909:0x6113e437cbf02432!8m2!3d13.7377297!4d100.4707701!16s%2Fg%2F1tcw117s!19sChIJCSkv1rKZ4jARMiTwyzfkE2E?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102983cd13c5175_0x9b0b789dca2ec1a7",
+      "place_id": "0x3102983cd13c5175:0x9b0b789dca2ec1a7",
+      "name": "Pookai Cafe & Restaurant",
+      "primary_type": "Thai restaurant",
+      "address": "\nWQFQ+79X, Unnamed Road, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 84 873 7509",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9232284,
+      "lng": 100.7884734,
+      "rating": 4.1,
+      "total_reviews": 233,
+      "trust_score": 83.7,
+      "cuisines": [
+        "breakfast",
+        "cafe",
+        "dessert",
+        "seafood",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 34,
+      "avg_author_review_count": 133.6,
+      "language_breakdown": {
+        "th": 0,
+        "en": 44,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 7,
+        "vietnamese": 1,
+        "seafood": 3,
+        "cafe": 4,
+        "bar_pub": 1,
+        "dessert": 2,
+        "western": 1,
+        "breakfast": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 16
+        },
+        {
+          "topic": "fresh",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "dirty",
+          "count": 2
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 4.2
+        },
+        "midterm": {
+          "count": 29,
+          "avg": 3.28
+        },
+        "old": {
+          "count": 16,
+          "avg": 3.88
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The restaurant is easy to find, near the pier in front of the house, next to the Shrine of the Goddess of Life. It has air conditioning, a wide variety of menu options, fresh seafood, a nice atmosphere, good service, and reasonable prices.",
+          "rating": 5,
+          "author": "PP SUPARACH"
+        },
+        {
+          "text": "After leaving Koh Larn, we went to a restaurant that was absolutely delicious. We waited about 10 minutes, and they served three dishes. The shrimp were incredibly fresh, and the Tom Yum soup was very rich and flavorful. Every dish was delicious; highly recommended!",
+          "rating": 5,
+          "author": "huimin gao"
+        },
+        {
+          "text": "I absolutely loved the iced coffee at this café! It was perfectly balanced — rich, smooth, and incredibly refreshing. You could really taste the quality of the coffee, and it was just the right pick-me-up on a warm day. I’ll definitely be coming back for another cup!",
+          "rating": 5,
+          "author": "Vladislav Beliaev"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Pookai+Cafe+%26+Restaurant/data=!4m7!3m6!1s0x3102983cd13c5175:0x9b0b789dca2ec1a7!8m2!3d12.9232284!4d100.7884734!16s%2Fg%2F11hbq9qcz_!19sChIJdVE80TyYAjERp8Euyp14C5s?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fab772994c5_0x61928dec6fa30fb0",
       "place_id": "0x30e29fab772994c5:0x61928dec6fa30fb0",
       "name": "Tempura Kanda",
@@ -180993,118 +181682,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/COCO+LIMA+BKK+-+RONGMUANG+2/@13.7451417,100.5190402,17z/data=!3m1!4b1!4m7!3m6!1s0x30e299a7e10e9557:0x767d3093cb940753!8m2!3d13.7451417!4d100.5190402!16s%2Fg%2F11tgbkgxsn!19sChIJV5UO4aeZ4jARUweUy5MwfXY?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
-      "id": "0x3102983cd13c5175_0x9b0b789dca2ec1a7",
-      "place_id": "0x3102983cd13c5175:0x9b0b789dca2ec1a7",
-      "name": "Pookai Cafe & Restaurant",
-      "primary_type": "Thai restaurant",
-      "address": "\nWQFQ+79X, Unnamed Road, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 84 873 7509",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.9232284,
-      "lng": 100.7884734,
-      "rating": 4.1,
-      "total_reviews": 233,
-      "trust_score": 83.6,
-      "cuisines": [
-        "cafe",
-        "seafood",
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 35,
-      "local_guide_count": 24,
-      "avg_author_review_count": 129.2,
-      "language_breakdown": {
-        "th": 0,
-        "en": 30,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 5,
-        "vietnamese": 1,
-        "seafood": 3,
-        "cafe": 4,
-        "western": 1,
-        "breakfast": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 10
-        },
-        {
-          "topic": "fresh",
-          "count": 4
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "dirty",
-          "count": 2
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "long_wait",
-          "count": 1
-        },
-        {
-          "topic": "expensive",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 6,
-          "avg": 4.33
-        },
-        "midterm": {
-          "count": 28,
-          "avg": 3.21
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "The restaurant is easy to find, near the pier in front of the house, next to the Shrine of the Goddess of Life. It has air conditioning, a wide variety of menu options, fresh seafood, a nice atmosphere, good service, and reasonable prices.",
-          "rating": 5,
-          "author": "PP SUPARACH"
-        },
-        {
-          "text": "After leaving Koh Larn, we went to a restaurant that was absolutely delicious. We waited about 10 minutes, and they served three dishes. The shrimp were incredibly fresh, and the Tom Yum soup was very rich and flavorful. Every dish was delicious; highly recommended!",
-          "rating": 5,
-          "author": "huimin gao"
-        },
-        {
-          "text": "I absolutely loved the iced coffee at this café! It was perfectly balanced — rich, smooth, and incredibly refreshing. You could really taste the quality of the coffee, and it was just the right pick-me-up on a warm day. I’ll definitely be coming back for another cup!",
-          "rating": 5,
-          "author": "Vladislav Beliaev"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Pookai+Cafe+%26+Restaurant/data=!4m7!3m6!1s0x3102983cd13c5175:0x9b0b789dca2ec1a7!8m2!3d12.9232284!4d100.7884734!16s%2Fg%2F11hbq9qcz_!19sChIJdVE80TyYAjERp8Euyp14C5s?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299b82fb96021_0xbf2193777481626c",
@@ -182650,6 +183227,119 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Zafran+Eatery+%28Indian+Food%29/data=!4m7!3m6!1s0x30e29966994acbff:0x9cec38ec7e1ab143!8m2!3d13.7429582!4d100.5016959!16s%2Fg%2F11s48s4l8_!19sChIJ_8tKmWaZ4jARQ7Eafuw47Jw?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310297e86d0eec11_0x3a5ffc034a02e88d",
+      "place_id": "0x310297e86d0eec11:0x3a5ffc034a02e88d",
+      "name": "Kolhapuri Tadka Restaurant-Pattaya (Thailand) | Best Indian Restaurant in Pattaya",
+      "primary_type": "Indian restaurant",
+      "address": "\n217 No, 11 12, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 96 292 8793",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.93518,
+      "lng": 100.8855168,
+      "rating": 4.7,
+      "total_reviews": 234,
+      "trust_score": 83.5,
+      "cuisines": [
+        "indian",
+        "vietnamese"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 111,
+      "local_guide_count": 31,
+      "avg_author_review_count": 18.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 99,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "indian": 6,
+        "vietnamese": 2,
+        "western": 1,
+        "breakfast": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "authentic",
+          "count": 28
+        },
+        {
+          "topic": "tasty",
+          "count": 19
+        },
+        {
+          "topic": "fresh",
+          "count": 13
+        },
+        {
+          "topic": "spicy",
+          "count": 5
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "fast_service",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "good_portion",
+          "count": 1
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 21,
+          "avg": 4.48
+        },
+        "midterm": {
+          "count": 48,
+          "avg": 4.62
+        },
+        "old": {
+          "count": 42,
+          "avg": 4.67
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Very authentic maharashtrian test all staff also Marathi . Try chicken gavran fry ,pitthal Sonkdi , also they make special mutton and fish malvani for us.. all items they have customized as per your request.",
+          "rating": 5,
+          "author": "Hardik Patel"
+        },
+        {
+          "text": "‎Excellent food and excellent service. Everything was perfect. Prices was good.\n‎Staff are very helpful. Homely atmosphere. I will definitely come back again.",
+          "rating": 5,
+          "author": "Vicky"
+        },
+        {
+          "text": "The food is very good and tastes fresh. The Indian dishes are authentic and full of flavor. It is a nice place to eat and worth visiting.",
+          "rating": 5,
+          "author": "Calista G"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Kolhapuri+Tadka+Restaurant-Pattaya+%28Thailand%29+%7C+Best+Indian+Restaurant+in+Pattaya/data=!4m7!3m6!1s0x310297e86d0eec11:0x3a5ffc034a02e88d!8m2!3d12.93518!4d100.8855168!16s%2Fg%2F11w34lslrh!19sChIJEewObeiXAjERjegCSgP8Xzo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x310297ef011385a9_0x442f51d228d071e9",
@@ -184524,6 +185214,87 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/CoCo+ICHIBANYA/data=!4m7!3m6!1s0x30e29ecdf83a7f99:0xfeedb8f18176dd7f!8m2!3d13.746039!4d100.5348617!16s%2Fg%2F11rs17gtd!19sChIJmX86-M2e4jARf912gfG47f4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310297d1e82f5a71_0x15b86c4da4026b58",
+      "place_id": "0x310297d1e82f5a71:0x15b86c4da4026b58",
+      "name": "Mumbai's Great Punjab Restaurant",
+      "primary_type": "Punjabi restaurant",
+      "address": "\nCondo, 247/89-94 M-10 L.K, Pattaya 3rd Rd, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 95 189 6250",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9205042,
+      "lng": 100.8759851,
+      "rating": 4.2,
+      "total_reviews": 218,
+      "trust_score": 83.4,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 33,
+      "avg_author_review_count": 45.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 18,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 6,
+          "avg": 4.5
+        },
+        "midterm": {
+          "count": 27,
+          "avg": 4.0
+        },
+        "old": {
+          "count": 17,
+          "avg": 4.88
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Amazing place. Worth the value you pay. Buffet for 200 bhat is unbelievable in the expensive pattaya. Great quality and super service. I will recommend all Indians irrespective from whichever part you are to try this place once and you will surely go there again.",
+          "rating": 5,
+          "author": "HARISH RAMACHANDRAN"
+        },
+        {
+          "text": "Best pleace to have Indian food and drinks with music in Pattaya....awesome hospitality...reasonable price and can accommodate big groups also",
+          "rating": 5,
+          "author": "Hiren Kanani"
+        },
+        {
+          "text": "Awesome food with great service. It belongs to a punjabi family. Food was superb and so do the host.. felt like home. Thank you",
+          "rating": 5,
+          "author": "Nidhi Kanungo"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Mumbai%27s+Great+Punjab+Restaurant/data=!4m7!3m6!1s0x310297d1e82f5a71:0x15b86c4da4026b58!8m2!3d12.9205042!4d100.8759851!16s%2Fg%2F11tcthyh2z!19sChIJcVov6NGXAjERWGsCpE1suBU?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x31029669038c1f6d_0x3e2852e76fe63f30",
@@ -190138,114 +190909,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B9%87%E0%B8%81%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88/data=!4m7!3m6!1s0x311d61af28fa1101:0x2b45dc7c786bdfc9!8m2!3d13.7063572!4d100.6690317!16s%2Fg%2F11sym706xd!19sChIJARH6KK9hHTERyd9reHzcRSs?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x31029710b2a0fd25_0x92fc8144dee12c7d",
-      "place_id": "0x31029710b2a0fd25:0x92fc8144dee12c7d",
-      "name": "Buono restaurant",
-      "primary_type": "Restaurant",
-      "address": "\nChom Thian 4 Alley, Pattaya City, Bang Lamung District, Chang Wat Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 98 662 2504",
-      "website": "http://www.happybeachjomtien.com/",
-      "menu_url": "",
-      "lat": 12.8972374,
-      "lng": 100.8696335,
-      "rating": 4.6,
-      "total_reviews": 86,
-      "trust_score": 83.1,
-      "cuisines": [
-        "italian"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 50,
-      "local_guide_count": 33,
-      "avg_author_review_count": 92.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 42,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 1,
-        "italian": 8,
-        "western": 1,
-        "breakfast": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 15
-        },
-        {
-          "topic": "fresh",
-          "count": 2
-        },
-        {
-          "topic": "spicy",
-          "count": 2
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 2
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "fast_service",
-          "count": 1
-        },
-        {
-          "topic": "small_portion",
-          "count": 1
-        },
-        {
-          "topic": "kid_friendly",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 3.0
-        },
-        "midterm": {
-          "count": 19,
-          "avg": 4.58
-        },
-        "old": {
-          "count": 30,
-          "avg": 4.43
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Good quality and tasty food. Quantity was also sufficient. The waitress and her young kid took good care of us.",
-          "rating": 5,
-          "author": "Venkat Raman"
-        },
-        {
-          "text": "Excellent food, we had pasta carbonara and Wiener schnitzel.\nOf course, these dishes are better in Germany and Italy, but for Thailand, the standard is very good.\nThe service was excellent.\nFor some reason, there weren't many people there.",
-          "rating": 5,
-          "author": "Алексей Гасперович"
-        },
-        {
-          "text": "The wait was reasonable. The food was cooked and presented very well. The waitress was very professional and friendly.",
-          "rating": 5,
-          "author": "Yannoch zdouf"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Buono+restaurant/data=!4m7!3m6!1s0x31029710b2a0fd25:0x92fc8144dee12c7d!8m2!3d12.8972374!4d100.8696335!16s%2Fg%2F11vbjxz2dx!19sChIJJf2gshCXAjERfSzh3kSB_JI?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29dd2a9217f7f_0xec4ef5e3574dbcfe",
       "place_id": "0x30e29dd2a9217f7f:0xec4ef5e3574dbcfe",
       "name": "Raja Wonton Noodle",
@@ -192915,6 +193578,125 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%8A%E0%B9%87%E0%B8%87%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D+%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%82%E0%B8%9F%E0%B9%81%E0%B8%9B%E0%B9%89%E0%B8%87%E0%B8%81%E0%B8%A3%E0%B8%AD%E0%B8%9A+Chengcharoen.Bkk/@13.7174292,100.5270371,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29955506ed2db:0x4c0ca6345adf56ca!8m2!3d13.7174292!4d100.5270371!16s%2Fg%2F11vz94ttbk!19sChIJ29JuUFWZ4jARylbfWjSmDEw?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x31029710b2a0fd25_0x92fc8144dee12c7d",
+      "place_id": "0x31029710b2a0fd25:0x92fc8144dee12c7d",
+      "name": "Buono restaurant",
+      "primary_type": "Restaurant",
+      "address": "\nChom Thian 4 Alley, Pattaya City, Bang Lamung District, Chang Wat Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 98 662 2504",
+      "website": "http://www.happybeachjomtien.com/",
+      "menu_url": "",
+      "lat": 12.8972374,
+      "lng": 100.8696335,
+      "rating": 4.6,
+      "total_reviews": 86,
+      "trust_score": 83.0,
+      "cuisines": [
+        "breakfast",
+        "italian",
+        "thai",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 69,
+      "local_guide_count": 38,
+      "avg_author_review_count": 77.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 61,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 2,
+        "italian": 11,
+        "western": 2,
+        "breakfast": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 22
+        },
+        {
+          "topic": "fresh",
+          "count": 4
+        },
+        {
+          "topic": "expensive",
+          "count": 4
+        },
+        {
+          "topic": "spicy",
+          "count": 3
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "fast_service",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        },
+        {
+          "topic": "small_portion",
+          "count": 1
+        },
+        {
+          "topic": "kid_friendly",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 1,
+          "avg": 3.0
+        },
+        "midterm": {
+          "count": 19,
+          "avg": 4.58
+        },
+        "old": {
+          "count": 49,
+          "avg": 4.59
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Good food and service.  Small portions but very delicious. Fans keep things comfortable.",
+          "rating": 5,
+          "author": "Jeff Michael"
+        },
+        {
+          "text": "Good quality and tasty food. Quantity was also sufficient. The waitress and her young kid took good care of us.",
+          "rating": 5,
+          "author": "Venkat Raman"
+        },
+        {
+          "text": "Great food and service and the staff was super warm and friendly!  Will be back for sure!",
+          "rating": 5,
+          "author": "bmarbles"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Buono+restaurant/data=!4m7!3m6!1s0x31029710b2a0fd25:0x92fc8144dee12c7d!8m2!3d12.8972374!4d100.8696335!16s%2Fg%2F11vbjxz2dx!19sChIJJf2gshCXAjERfSzh3kSB_JI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29f2d8a258f79_0xff2af43a38fdf6b",
       "place_id": "0x30e29f2d8a258f79:0xff2af43a38fdf6b",
       "name": "etcha",
@@ -193534,6 +194316,110 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Santa+Monica+Diner+Bangkok/data=!4m7!3m6!1s0x30e29fa2cddc74e7:0x98aa8fc398306731!8m2!3d13.7029766!4d100.6020504!16s%2Fg%2F11kh960t5n!19sChIJ53TczaKf4jARMWcwmMOPqpg?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x31029551cf2555f9_0x36b5348eb6a451f8",
+      "place_id": "0x31029551cf2555f9:0x36b5348eb6a451f8",
+      "name": "Mum Baan Suan Coffee & Homestay",
+      "primary_type": "Restaurant",
+      "address": "\n202/3-4 หมู่ที่ 6 Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 81 854 5424",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.8644806,
+      "lng": 100.9632856,
+      "rating": 4.3,
+      "total_reviews": 153,
+      "trust_score": 82.9,
+      "cuisines": [
+        "bar_pub",
+        "breakfast",
+        "cafe",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 82,
+      "local_guide_count": 59,
+      "avg_author_review_count": 68.1,
+      "language_breakdown": {
+        "th": 0,
+        "en": 60,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "vietnamese": 1,
+        "cafe": 2,
+        "bar_pub": 3,
+        "western": 7,
+        "breakfast": 4
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 22
+        },
+        {
+          "topic": "fresh",
+          "count": 4
+        },
+        {
+          "topic": "spicy",
+          "count": 3
+        },
+        {
+          "topic": "affordable",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "long_wait",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 5,
+          "avg": 4.0
+        },
+        "midterm": {
+          "count": 14,
+          "avg": 4.29
+        },
+        "old": {
+          "count": 63,
+          "avg": 4.52
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Did the Buffet Breakfast 🍳 this morning.\nFriendly Service ,Good Food and Coffee☕",
+          "rating": 5,
+          "author": "Del Rudd"
+        },
+        {
+          "text": "Found it by accident but have to say it is a beautiful restaurant with nice staff and lovely food. Highly recommended.",
+          "rating": 5,
+          "author": "R J"
+        },
+        {
+          "text": "Had lunch there the other day..   is really nice place to sit, good ambiance.... food is good, freshly prepared, and tasty.. .. mixture of thai and western. Nice gardens, ice cold beer.",
+          "rating": 5,
+          "author": "Chris Chaitow"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Mum+Baan+Suan+Coffee+%26+Homestay/data=!4m7!3m6!1s0x31029551cf2555f9:0x36b5348eb6a451f8!8m2!3d12.8644806!4d100.9632856!16s%2Fg%2F11gsk3k03g!19sChIJ-VUlz1GVAjER-FGkto40tTY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29b73767e17c3_0xa98b9bf66621c669",
@@ -195127,103 +196013,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Han+Duensong/@13.6394066,100.4131133,17z/data=!3m1!4b1!4m7!3m6!1s0x30e2bce66082d4bf:0x9e45f35fc3f49026!8m2!3d13.6394066!4d100.4131133!16s%2Fg%2F11b7y7q_qh!19sChIJv9SCYOa84jARJpD0w1_zRZ4?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
-      "id": "0x31029551cf2555f9_0x36b5348eb6a451f8",
-      "place_id": "0x31029551cf2555f9:0x36b5348eb6a451f8",
-      "name": "Mum Baan Suan Coffee & Homestay",
-      "primary_type": "Restaurant",
-      "address": "\n202/3-4 หมู่ที่ 6 Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 81 854 5424",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.8644806,
-      "lng": 100.9632856,
-      "rating": 4.3,
-      "total_reviews": 153,
-      "trust_score": 82.8,
-      "cuisines": [
-        "bar_pub",
-        "breakfast",
-        "western"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 30,
-      "local_guide_count": 23,
-      "avg_author_review_count": 63.3,
-      "language_breakdown": {
-        "th": 0,
-        "en": 30,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "bar_pub": 2,
-        "western": 4,
-        "breakfast": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 3
-        },
-        {
-          "topic": "spicy",
-          "count": 2
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 2
-        },
-        {
-          "topic": "fresh",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 3,
-          "avg": 2.33
-        },
-        "old": {
-          "count": 27,
-          "avg": 4.56
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Did the Buffet Breakfast 🍳 this morning.\nFriendly Service ,Good Food and Coffee☕",
-          "rating": 5,
-          "author": "Del Rudd"
-        },
-        {
-          "text": "Found it by accident but have to say it is a beautiful restaurant with nice staff and lovely food. Highly recommended.",
-          "rating": 5,
-          "author": "R J"
-        },
-        {
-          "text": "Had lunch there the other day..   is really nice place to sit, good ambiance.... food is good, freshly prepared, and tasty.. .. mixture of thai and western. Nice gardens, ice cold beer.",
-          "rating": 5,
-          "author": "Chris Chaitow"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Mum+Baan+Suan+Coffee+%26+Homestay/data=!4m7!3m6!1s0x31029551cf2555f9:0x36b5348eb6a451f8!8m2!3d12.8644806!4d100.9632856!16s%2Fg%2F11gsk3k03g!19sChIJ-VUlz1GVAjER-FGkto40tTY?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299272a65cf0d_0xd5ae01b06843efae",
@@ -202588,6 +203377,110 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/298+Nikuya+Yakiniku/data=!4m7!3m6!1s0x30e29f7640c2df7f:0x728667400ad5db6f!8m2!3d13.7293722!4d100.5726534!16s%2Fg%2F11v06dw06r!19sChIJf9_CQHaf4jARb9vVCkBnhnI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x31029782a71ab50b_0xd469bf23606cdc98",
+      "place_id": "0x31029782a71ab50b:0xd469bf23606cdc98",
+      "name": "Golden sand restaurant Jomtien beach pattaya",
+      "primary_type": "Restaurant",
+      "address": "\n75/104-105 Moo12, Jomtien beach road, Pattaya City, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "South Pattaya",
+      "phone": "+66 84 362 8812",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.895354,
+      "lng": 100.8702943,
+      "rating": 3.9,
+      "total_reviews": 308,
+      "trust_score": 82.4,
+      "cuisines": [
+        "bar_pub",
+        "thai",
+        "vietnamese",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 32,
+      "avg_author_review_count": 55.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 40,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 3,
+        "vietnamese": 2,
+        "seafood": 1,
+        "bar_pub": 2,
+        "western": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 12
+        },
+        {
+          "topic": "spicy",
+          "count": 2
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 2
+        },
+        {
+          "topic": "live_music",
+          "count": 2
+        },
+        {
+          "topic": "fast_service",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 7,
+          "avg": 3.71
+        },
+        "midterm": {
+          "count": 43,
+          "avg": 4.05
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "We walked into this place by chance, but all the food was delicious and not too salty. The fried rice and fried noodles were both tasty, and the papaya salad—which the waiter warned was spicy—was indeed spicy but delicious. The kids are already asking to go again. The prices are also reasonable.",
+          "rating": 5,
+          "author": "왕놀이왕"
+        },
+        {
+          "text": "My husband and I enjoyed our dinner here for three consecutive nights! The food was consistently excellent, the service outstanding, and the staff were friendly and accommodating. Thank you for providing such lovely evenings. We look forward to returning during our next visit to Pattaya.",
+          "rating": 5,
+          "author": "Andy Badua"
+        },
+        {
+          "text": "The pineapple rice was delicious. Everything else we ordered was delicious too. We left the place full and happy :)",
+          "rating": 5,
+          "author": "Регина Латыпова"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Golden+sand+restaurant+Jomtien+beach+pattaya/data=!4m7!3m6!1s0x31029782a71ab50b:0xd469bf23606cdc98!8m2!3d12.895354!4d100.8702943!16s%2Fg%2F11pdfvj8g4!19sChIJC7Uap4KXAjERmNxsYCO_adQ?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x31029964a73cf405_0xf930681ae27ebae8",
@@ -217551,82 +218444,6 @@
       "maps_url": "https://www.google.com/maps/place/Sao+Cafe+Ladprao/data=!4m7!3m6!1s0x30e29d7911b700a1:0xbec188833985f172!8m2!3d13.8046473!4d100.5701737!16s%2Fg%2F11m62vg4w0!19sChIJoQC3EXmd4jARcvGFOYOIwb4?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x310295564c14dd1f_0xfe44b1fdf539d48c",
-      "place_id": "0x310295564c14dd1f:0xfe44b1fdf539d48c",
-      "name": "Bosu Sushi โบสุซูชิ ห้วยใหญ่",
-      "primary_type": "Japanese restaurant",
-      "address": "\nVX46+FJF, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 88 656 4079",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.856179,
-      "lng": 100.9615512,
-      "rating": 4.9,
-      "total_reviews": 34,
-      "trust_score": 81.6,
-      "cuisines": [
-        "japanese"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 10,
-      "local_guide_count": 8,
-      "avg_author_review_count": 123.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 4,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "japanese": 2
-      },
-      "mentioned_topics": [
-        {
-          "topic": "fresh",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 9,
-          "avg": 5.0
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Everything we got was excellent! I definitely recommend giving Bosu a try. The restaurant was very clean and even though they didn't speak English the menu had english translation and the owner was very welcoming.",
-          "rating": 5,
-          "author": "Ruth Pippin"
-        },
-        {
-          "text": "Reasonable price, salmon slices are fresh, better place in Pattaya so far 👌 cute price but not tiny bite, keep doing good naka …",
-          "rating": 5,
-          "author": "Maneerat n"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Bosu+Sushi+%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%B8%E0%B8%8B%E0%B8%B9%E0%B8%8A%E0%B8%B4+%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x310295564c14dd1f:0xfe44b1fdf539d48c!8m2!3d12.856179!4d100.9615512!16s%2Fg%2F11q7rl84q5!19sChIJH90UTFaVAjERjNQ59f2xRP4?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f49921bbf1b_0x977b4f2e94233af2",
       "place_id": "0x30e29f49921bbf1b:0x977b4f2e94233af2",
       "name": "Pinki's Deli - Ekkamai",
@@ -220574,6 +221391,92 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B8%B4%E0%B8%A1%E0%B8%9A%E0%B8%B6%E0%B8%87%E2%80%8B+Swamp+Restaurant/@12.894306,100.9441052,17z/data=!3m1!4b1!4m6!3m5!1s0x310295d00ceb7a09:0xbfc9ab4ac739b789!8m2!3d12.894306!4d100.9441052!16s%2Fg%2F11ll3r98dq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "id": "0x310293e13b190653_0xdc1ecffc66f6fcee",
+      "place_id": "0x310293e13b190653:0xdc1ecffc66f6fcee",
+      "name": "The Pizza Company คาลเท็กซ์ บ้านอำเภอ",
+      "primary_type": "Pizza restaurant",
+      "address": "\nเลขที่ 247 20, Na Chom Thian, Sattahip District, Chon Buri 20250, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 61 389 0806",
+      "website": "https://www.1112.com/",
+      "menu_url": "",
+      "lat": 12.8329831,
+      "lng": 100.9145613,
+      "rating": 4.7,
+      "total_reviews": 84,
+      "trust_score": 81.4,
+      "cuisines": [
+        "italian"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 65,
+      "local_guide_count": 27,
+      "avg_author_review_count": 33.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 32,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "italian": 14,
+        "cafe": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 9
+        },
+        {
+          "topic": "fresh",
+          "count": 2
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 3.67
+        },
+        "midterm": {
+          "count": 21,
+          "avg": 4.14
+        },
+        "old": {
+          "count": 41,
+          "avg": 4.85
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Called in for a quick bite after filling the car up.\n\nOrdered the spicy chicken medium pizza.\n\nPizza was delicious, not much spice though………needs some fresh chilli 🌶️\n\nStaff were very polite and were ok with discussing my order in English.\n\nWill visit again 👍",
+          "rating": 5,
+          "author": "Tony Otsujt (TJ)"
+        },
+        {
+          "text": "Pizzas were good. I got wrong pizza at first but they gave me bigger size to apologize. Appreciate it.",
+          "rating": 5,
+          "author": "Kylian Ch"
+        },
+        {
+          "text": "We happened to catch a buy-one-get-one-free promotion! The five of us ordered two pizzas and a large bottle of Coke, which came to 604 yuan. The store was nicely air-conditioned, and the staff were friendly.",
+          "rating": 5,
+          "author": "lin lin"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/The+Pizza+Company+%E0%B8%84%E0%B8%B2%E0%B8%A5%E0%B9%80%E0%B8%97%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD/data=!4m7!3m6!1s0x310293e13b190653:0xdc1ecffc66f6fcee!8m2!3d12.8329831!4d100.9145613!16s%2Fg%2F11vjymjtjq!19sChIJUwYZO-GTAjER7vz2ZvzPHtw?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29db8973d446d_0x693d988c4733eb46",
@@ -227450,97 +228353,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%88%E0%B8%B5%E0%B9%8A%E0%B8%A2%E0%B8%B0%E0%B8%88%E0%B8%B8%E0%B9%89%E0%B8%A2-Jiajui/@13.7493363,100.6677041,17z/data=!3m1!4b1!4m7!3m6!1s0x311d61cc8577b409:0xcd7a1d465dea52ee!8m2!3d13.7493363!4d100.6677041!16s%2Fg%2F11vdnsp78d!19sChIJCbR3hcxhHTER7lLqXUYdes0?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
-      "id": "0x3102eb0049481eef_0x5e392f5159a64b7c",
-      "place_id": "0x3102eb0049481eef:0x5e392f5159a64b7c",
-      "name": "Toma Wine Brasserie",
-      "primary_type": "French restaurant",
-      "address": "\n1 Huay Yai Muk Rd, Pong, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 90 799 7828",
-      "website": "https://tomawinebrasserie.com/",
-      "menu_url": "",
-      "lat": 12.9379208,
-      "lng": 100.9833038,
-      "rating": 4.9,
-      "total_reviews": 53,
-      "trust_score": 81.1,
-      "cuisines": [
-        "thai",
-        "western"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 53,
-      "local_guide_count": 23,
-      "avg_author_review_count": 24.1,
-      "language_breakdown": {
-        "th": 0,
-        "en": 39,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 2,
-        "western": 3
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 19
-        },
-        {
-          "topic": "affordable",
-          "count": 2
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 33,
-          "avg": 4.94
-        },
-        "old": {
-          "count": 20,
-          "avg": 4.8
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Delicious meal, cooked perfectly, warm and welcoming atmosphere, friendly and very attentive staff. Highly recommend.",
-          "rating": 5,
-          "author": "Donna Hansell"
-        },
-        {
-          "text": "Such a lovely place to eat, and the food is great too! Staff are so friendly! Definitely a place I'm coming back too!",
-          "rating": 5,
-          "author": "Yasmin Jansen"
-        },
-        {
-          "text": "Very friendly restaurant with lovely dishes.\nThe meat is absolutely well cooked and the brownie chocolate desert take is in the dream\n\nPrice is usual and very fair.\nThanks for this enjoyable moment",
-          "rating": 5,
-          "author": "Christophe SDS"
-        }
-      ],
-      "business_status": "Temporarily closed",
-      "maps_url": "https://www.google.com/maps/place/Toma+Wine+Brasserie/data=!4m7!3m6!1s0x3102eb0049481eef:0x5e392f5159a64b7c!8m2!3d12.9379208!4d100.9833038!16s%2Fg%2F11x199lygc!19sChIJ7x5ISQDrAjERfEumWVEvOV4?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2991de1ccd4a1_0x67170d793b55ab2a",
       "place_id": "0x30e2991de1ccd4a1:0x67170d793b55ab2a",
       "name": "ก๋วยเตี๋ยวเรือคุณหลุยส์",
@@ -227942,6 +228754,91 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/BB+restaurants+Thai+food%26Noodles+%E0%B8%9A%E0%B8%B5%E0%B8%9A%E0%B8%B5%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87/data=!4m7!3m6!1s0x31029543192135f7:0x67e337c4e84363ec!8m2!3d12.9249945!4d100.8910281!16s%2Fg%2F11vxx7hdtm!19sChIJ9zUhGUOVAjER7GND6MQ342c?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310295564c14dd1f_0xfe44b1fdf539d48c",
+      "place_id": "0x310295564c14dd1f:0xfe44b1fdf539d48c",
+      "name": "Bosu Sushi โบสุซูชิ ห้วยใหญ่",
+      "primary_type": "Japanese restaurant",
+      "address": "\nVX46+FJF, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 88 656 4079",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.856179,
+      "lng": 100.9615512,
+      "rating": 4.9,
+      "total_reviews": 34,
+      "trust_score": 81.1,
+      "cuisines": [
+        "japanese"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 34,
+      "local_guide_count": 22,
+      "avg_author_review_count": 73.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 20,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "japanese": 13
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 9
+        },
+        {
+          "topic": "affordable",
+          "count": 6
+        },
+        {
+          "topic": "fresh",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 1,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 33,
+          "avg": 4.91
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Really good sushi, hope to come back soon. Fish looks very fresh and the burned saba is a great option to try something different. I was a little unlucky, I felt the rice was a little overcooked for me. But overall great place and nice decoration.",
+          "rating": 5,
+          "author": "Lucas Paiva"
+        },
+        {
+          "text": "Everything we got was excellent! I definitely recommend giving Bosu a try. The restaurant was very clean and even though they didn't speak English the menu had english translation and the owner was very welcoming.",
+          "rating": 5,
+          "author": "Ruth Pippin"
+        },
+        {
+          "text": "Reasonable price, salmon slices are fresh, better place in Pattaya so far 👌 cute price but not tiny bite, keep doing good naka …",
+          "rating": 5,
+          "author": "Maneerat n"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Bosu+Sushi+%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%B8%E0%B8%8B%E0%B8%B9%E0%B8%8A%E0%B8%B4+%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x310295564c14dd1f:0xfe44b1fdf539d48c!8m2!3d12.856179!4d100.9615512!16s%2Fg%2F11q7rl84q5!19sChIJH90UTFaVAjERjNQ59f2xRP4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299688505566d_0xb61eea80aed753fc",
@@ -233202,121 +234099,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%A1%E0%B9%88%E0%B8%B2%E0%B8%A5%E0%B9%88%E0%B8%B2+-+Gan+Mala+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%AD%E0%B9%82%E0%B8%A8%E0%B8%81/data=!4m7!3m6!1s0x30e29f004dc6f3ff:0x62c5976a606cc425!8m2!3d13.7473329!4d100.5625197!16s%2Fg%2F11ydx6s__9!19sChIJ__PGTQCf4jARJcRsYGqXxWI?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102983fb6b00001_0xff4f158a38f6c9b2",
-      "place_id": "0x3102983fb6b00001:0xff4f158a38f6c9b2",
-      "name": "ร้านตาแหวนบีชรีสอร์ทเกาะล้าน",
-      "primary_type": "Restaurant",
-      "address": "\nWQGH+3V7 Unnamed Road Bang Lamung District, Chon Buri, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 85 699 9683",
-      "website": "https://www.tawaenresort.com/",
-      "menu_url": "",
-      "lat": 12.9251537,
-      "lng": 100.779663,
-      "rating": 4.0,
-      "total_reviews": 163,
-      "trust_score": 80.7,
-      "cuisines": [
-        "breakfast",
-        "seafood",
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 40,
-      "local_guide_count": 32,
-      "avg_author_review_count": 121.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 40,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 3,
-        "seafood": 2,
-        "bar_pub": 1,
-        "western": 1,
-        "breakfast": 4
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 12
-        },
-        {
-          "topic": "fresh",
-          "count": 9
-        },
-        {
-          "topic": "spicy",
-          "count": 8
-        },
-        {
-          "topic": "expensive",
-          "count": 5
-        },
-        {
-          "topic": "kid_friendly",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        },
-        {
-          "topic": "small_portion",
-          "count": 1
-        },
-        {
-          "topic": "live_music",
-          "count": 1
-        },
-        {
-          "topic": "dirty",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 2.33
-        },
-        "midterm": {
-          "count": 11,
-          "avg": 3.64
-        },
-        "old": {
-          "count": 26,
-          "avg": 3.58
-        },
-        "trend": "declining"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "It’s a very simple beach bar, do not expect fancy things here, but the food was really nice and we could pay by card. Be careful, the portions are big. :)",
-          "rating": 5,
-          "author": "Ildikó Szabó"
-        },
-        {
-          "text": "Very nice open air setting. A bit more upscale than the neighbors. Food is mostly Thai and very good. Service is also friendly. A very nice experience. I will certainly be back.",
-          "rating": 5,
-          "author": "Yann Leroy"
-        },
-        {
-          "text": "Good atmosphere, Good food, Good drink, Good sea side, Good dinner, This is my heaven. I like very much",
-          "rating": 5,
-          "author": "NecvoAsiax Audio-Work"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%81%E0%B8%AB%E0%B8%A7%E0%B8%99%E0%B8%9A%E0%B8%B5%E0%B8%8A%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%99/data=!4m7!3m6!1s0x3102983fb6b00001:0xff4f158a38f6c9b2!8m2!3d12.9251537!4d100.779663!16s%2Fg%2F11c2y8fwng!19sChIJAQCwtj-YAjERssn2OIoVT_8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2992772da2a93_0x15e4f3cc6b49d428",
@@ -245260,108 +246042,6 @@
       "maps_url": "https://www.google.com/maps/place/Padthai+Bar+%28Song+Wat%29/data=!4m7!3m6!1s0x30e2bfff2a83fec9:0x51e2f3c31fd770b1!8m2!3d13.7385109!4d100.5074269!16s%2Fg%2F11myl53bsf!19sChIJyf6DKv-_4jARsXDXH8Pz4lE?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102bff29590ba47_0x802247e0d15f44f3",
-      "place_id": "0x3102bff29590ba47:0x802247e0d15f44f3",
-      "name": "หอมมาลัย คาเฟ่ By ครัวยายมาลัย",
-      "primary_type": "Restaurant",
-      "address": "\nมาบบอน Map Bon 1 Alley, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 89 831 4045",
-      "website": "https://www.facebook.com/hommalaicafe/",
-      "menu_url": "",
-      "lat": 12.9764857,
-      "lng": 100.9580376,
-      "rating": 4.7,
-      "total_reviews": 37,
-      "trust_score": 80.1,
-      "cuisines": [
-        "cafe"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 37,
-      "local_guide_count": 25,
-      "avg_author_review_count": 137.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 19,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 1,
-        "cafe": 3
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 9
-        },
-        {
-          "topic": "fresh",
-          "count": 2
-        },
-        {
-          "topic": "spicy",
-          "count": 2
-        },
-        {
-          "topic": "expensive",
-          "count": 2
-        },
-        {
-          "topic": "live_music",
-          "count": 2
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 5,
-          "avg": 5.0
-        },
-        "old": {
-          "count": 29,
-          "avg": 4.59
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "A very good place for everyone! Friendly people and foods are so delicious. You must  try it once! I suggest!",
-          "rating": 5,
-          "author": "Naj Jang"
-        },
-        {
-          "text": "Good food and coffee, inexpensive prices, very big garden, relaxing atmosphere and friendly owner",
-          "rating": 5,
-          "author": "mingchuan chen"
-        },
-        {
-          "text": "The atmosphere is great and the food is delicious. I recommend the deep-fried sea bass with fish sauce – both the fish and the dipping sauce are amazing – and the stir-fried sea bass with chili and salt. The owner is very kind and friendly. I'll definitely be back! 🥰",
-          "rating": 5,
-          "author": "oporvlove"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2+%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88+By+%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%A2%E0%B8%B2%E0%B8%A2%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2/data=!4m7!3m6!1s0x3102bff29590ba47:0x802247e0d15f44f3!8m2!3d12.9764857!4d100.9580376!16s%2Fg%2F11sd487rfv!19sChIJR7qQlfK_AjER80Rf0eBHIoA?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2991638c845fd_0xe713be63ba4367b5",
       "place_id": "0x30e2991638c845fd:0xe713be63ba4367b5",
       "name": "เจ๊หนูตามสั่งตรอกโรงหมู",
@@ -249786,6 +250466,101 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B9%84%E0%B8%81%E0%B9%88%E0%B8%9B%E0%B9%89%E0%B8%B2%E0%B8%A5%E0%B8%B3%E0%B8%94%E0%B8%A7%E0%B8%99/data=!4m7!3m6!1s0x310293a8b5d6cd21:0x240dec683aceb8f2!8m2!3d12.8142378!4d100.91563!16s%2Fg%2F11js27b5wk!19sChIJIc3WtaiTAjER8rjOOmjsDSQ?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102bff29590ba47_0x802247e0d15f44f3",
+      "place_id": "0x3102bff29590ba47:0x802247e0d15f44f3",
+      "name": "หอมมาลัย คาเฟ่ By ครัวยายมาลัย",
+      "primary_type": "",
+      "address": "\nมาบบอน Map Bon 1 Alley, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 89 831 4045",
+      "website": "https://www.facebook.com/hommalaicafe/",
+      "menu_url": "",
+      "lat": 12.9764857,
+      "lng": 100.9580376,
+      "rating": 4.7,
+      "total_reviews": 37,
+      "trust_score": 79.8,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 20,
+      "local_guide_count": 14,
+      "avg_author_review_count": 95.5,
+      "language_breakdown": {
+        "th": 0,
+        "en": 11,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "cafe": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 6
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        },
+        {
+          "topic": "fresh",
+          "count": 1
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 5,
+          "avg": 5.0
+        },
+        "old": {
+          "count": 12,
+          "avg": 4.58
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Spacious place with plenty of seating, delicious food, affordable prices, and good service. Highly recommended.",
+          "rating": 5,
+          "author": "woravit suetongkit"
+        },
+        {
+          "text": "Good food and coffee, inexpensive prices, very big garden, relaxing atmosphere and friendly owner",
+          "rating": 5,
+          "author": "mingchuan chen"
+        },
+        {
+          "text": "The atmosphere is great and the food is delicious. I recommend the deep-fried sea bass with fish sauce – both the fish and the dipping sauce are amazing – and the stir-fried sea bass with chili and salt. The owner is very kind and friendly. I'll definitely be back! 🥰",
+          "rating": 5,
+          "author": "oporvlove"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2+%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88+By+%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%A2%E0%B8%B2%E0%B8%A2%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2/@12.9764857,100.9580376,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bff29590ba47:0x802247e0d15f44f3!8m2!3d12.9764857!4d100.9580376!16s%2Fg%2F11sd487rfv?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
       "id": "0x30e29ea8433f0f95_0xbe5813b0be620ea5",
       "place_id": "0x30e29ea8433f0f95:0xbe5813b0be620ea5",
       "name": "Wraptor",
@@ -253096,7 +253871,7 @@
       "price_symbol": "",
       "scraped_review_count": 45,
       "local_guide_count": 25,
-      "avg_author_review_count": 76.5,
+      "avg_author_review_count": 76.6,
       "language_breakdown": {
         "th": 0,
         "en": 36,
@@ -253115,15 +253890,11 @@
       "mentioned_topics": [
         {
           "topic": "tasty",
-          "count": 17
+          "count": 16
         },
         {
           "topic": "spicy",
-          "count": 6
-        },
-        {
-          "topic": "fresh",
-          "count": 1
+          "count": 5
         },
         {
           "topic": "fast_service",
@@ -253403,7 +254174,7 @@
       "price_symbol": "",
       "scraped_review_count": 37,
       "local_guide_count": 23,
-      "avg_author_review_count": 77.5,
+      "avg_author_review_count": 77.6,
       "language_breakdown": {
         "th": 0,
         "en": 30,
@@ -261753,60 +262524,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Fahana+Italian+%28Halal%29/data=!4m7!3m6!1s0x311d61d76a0ff345:0x702452d95090fb88!8m2!3d13.7409014!4d100.6238777!16s%2Fg%2F1hm4vlb4p!19sChIJRfMPatdhHTERiPuQUNlSJHA?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102974cd9ad9957_0xaa5de9b68294bce8",
-      "place_id": "0x3102974cd9ad9957:0xaa5de9b68294bce8",
-      "name": "Dhaba (ढाबा) - Best Indian Restaurant Pattaya",
-      "primary_type": "Indian restaurant",
-      "address": "\n325 39 Moo 10, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 97 237 1284",
-      "website": "https://dhabarestaurantpattaya.com/",
-      "menu_url": "",
-      "lat": 12.9277279,
-      "lng": 100.8769817,
-      "rating": 4.7,
-      "total_reviews": 456,
-      "trust_score": 78.9,
-      "cuisines": [
-        "indian"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Dhaba+%28%E0%A4%A2%E0%A4%BE%E0%A4%AC%E0%A4%BE%29+-+Best+Indian+Restaurant+Pattaya/data=!4m7!3m6!1s0x3102974cd9ad9957:0xaa5de9b68294bce8!8m2!3d12.9277279!4d100.8769817!16s%2Fg%2F11k457x46f!19sChIJV5mt2UyXAjER6LyUgrbpXao?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29ecdf9a5b03b_0xfa8464871ccd6984",
@@ -271927,7 +272644,7 @@
       "cuisine_mentions": {
         "indian": 3,
         "seafood": 1,
-        "cafe": 15,
+        "cafe": 14,
         "western": 1,
         "breakfast": 1
       },
@@ -271971,9 +272688,9 @@
       "sample_reviews_th": [],
       "sample_reviews_en": [
         {
-          "text": "The food was delicious! The taste was great, I really enjoyed it. The service was also good.",
+          "text": "Good place to relax\nThey have a mini golf field at the back\nWe celebrate birthday party and it's a good experience",
           "rating": 5,
-          "author": "Panisa Promsurin"
+          "author": "Gs A"
         },
         {
           "text": "A really nice Indian restaurant, the food was excellent and freshly prepared taking into account any special requirements. Our waiter, Suleyman, was very attentive and pleasant to talk to.",
@@ -271981,13 +272698,13 @@
           "author": "Robert Durrand"
         },
         {
-          "text": "Good place to relax\nThey have a mini golf field at the back\nWe celebrate birthday party and it's a good experience",
+          "text": "Cookies are amazing, get them fresh from oven! Lots of board games to play, good beer selection .",
           "rating": 5,
-          "author": "Gs A"
+          "author": "Matthew Campbell"
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/NEW+MAGIC+INDIAN+RESTAURANT/data=!4m7!3m6!1s0x310295000afa27e5:0xfb8662c60553f0ad!8m2!3d12.9273875!4d100.9511094!16s%2Fg%2F11ylmhh_jf!19sChIJ5Sf6CgCVAjERrfBTBcZihvs?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/NEW+MAGIC+INDIAN+RESTAURANT/@12.9273875,100.9511094,17z/data=!3m1!4b1!4m6!3m5!1s0x310295000afa27e5:0xfb8662c60553f0ad!8m2!3d12.9273875!4d100.9511094!16s%2Fg%2F11ylmhh_jf?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x3102996902038a21_0xe04c81ae67e3834f",
@@ -273850,18 +274567,18 @@
           "author": "นายต้น หุ่นหมี"
         },
         {
+          "text": "Delicious Thai food and great cooperation with the cafe on the other side of the street. We had delicious red curry and went there a few times. Also the service is very nice. It’s perfect to go there before/after Polo/Motocross/Golf. Also a …",
+          "rating": 5,
+          "author": "NI NA"
+        },
+        {
           "text": "The menu offers a wide variety of dishes, including seafood and wild game, all delicious and reasonably priced.",
           "rating": 5,
           "author": "Jeeda Pattaya"
-        },
-        {
-          "text": "No matter how many times I come, I always order these three dishes:\nStir-fried shark with chili paste\nSpicy jungle curry with sand fish (and termite mushrooms)\nShrimp or crab omelet",
-          "rating": 5,
-          "author": "Thanong Plangsri"
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B8%B9/data=!4m7!3m6!1s0x3102953619b2bd37:0xcc875beaa3ae536d!8m2!3d12.9180521!4d100.9738172!16s%2Fg%2F11c5srhh5z!19sChIJN72yGTaVAjERbVOuo-pbh8w?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B8%B9/@12.9180521,100.9738172,17z/data=!3m1!4b1!4m6!3m5!1s0x3102953619b2bd37:0xcc875beaa3ae536d!8m2!3d12.9180521!4d100.9738172!16s%2Fg%2F11c5srhh5z?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x310295748f25221b_0xd88a74a69e9d0297",
@@ -287707,121 +288424,6 @@
       "maps_url": "https://www.google.com/maps/place/Buenazo+-+CEVICHERIA+%26+PERUVIAN+EATERY/data=!4m7!3m6!1s0x30e29f0b99f95ed9:0x4b95b18db82aa8e2!8m2!3d13.7350463!4d100.5820914!16s%2Fg%2F11t3cwwznk!19sChIJ2V75mQuf4jAR4qgquI2xlUs?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x31029646e058b871_0x695d643267d9c23d",
-      "place_id": "0x31029646e058b871:0x695d643267d9c23d",
-      "name": "Wanpen Restaurant",
-      "primary_type": "Restaurant",
-      "address": "\nWVC6+75J, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 62 545 1419",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.9207084,
-      "lng": 100.8603992,
-      "rating": 3.9,
-      "total_reviews": 108,
-      "trust_score": 77.1,
-      "cuisines": [
-        "cafe",
-        "seafood",
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 60,
-      "local_guide_count": 37,
-      "avg_author_review_count": 67.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 45,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 12,
-        "seafood": 2,
-        "cafe": 3,
-        "bar_pub": 1,
-        "western": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 21
-        },
-        {
-          "topic": "spicy",
-          "count": 7
-        },
-        {
-          "topic": "affordable",
-          "count": 6
-        },
-        {
-          "topic": "expensive",
-          "count": 4
-        },
-        {
-          "topic": "fresh",
-          "count": 3
-        },
-        {
-          "topic": "dirty",
-          "count": 3
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 2
-        },
-        {
-          "topic": "kid_friendly",
-          "count": 1
-        },
-        {
-          "topic": "long_lines",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 1,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 11,
-          "avg": 4.45
-        },
-        "old": {
-          "count": 48,
-          "avg": 3.23
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "A pleasant place with nice decor and music. The staff is friendly. But you should go into the courtyard, not the cafe off the road. The menu is varied, including Thai and tourist-friendly options. The selection is extensive, and the food is fast 💖",
-          "rating": 5,
-          "author": "Maria"
-        },
-        {
-          "text": "We stopped by once to check it out.\n\nThe tom yum was delicious.\nLarge portion, 180 baht.\nA casserole, so to speak.\nFor two.\nLots of seafood.\n\nThe sandwiches were fresh.\n150 baht.\n\nWe didn't like the loud music or the fact that you can smoke at the tables.\nTwo tables smoked.",
-          "rating": 5,
-          "author": "Алена"
-        },
-        {
-          "text": "Everything was delicious.\nThe tom yum soup was excellent, very tasty.\nThe kha soup was also excellent, rich and generous in portions. I recommend it to everyone. The service was superb, the waiters were very responsive.",
-          "rating": 5,
-          "author": "ЧАЩИХИН ДМИТРИЙ"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Wanpen+Restaurant/data=!4m7!3m6!1s0x31029646e058b871:0x695d643267d9c23d!8m2!3d12.9207084!4d100.8603992!16s%2Fg%2F11cn9jhqx0!19sChIJcbhY4EaWAjERPcLZZzJkXWk?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e29f0036a59399_0x9cd5d6168c4bef9f",
       "place_id": "0x30e29f0036a59399:0x9cd5d6168c4bef9f",
       "name": "Katsukura Central Park Bangkok",
@@ -288073,7 +288675,7 @@
       "mentioned_topics": [
         {
           "topic": "tasty",
-          "count": 16
+          "count": 15
         },
         {
           "topic": "affordable",
@@ -288081,7 +288683,7 @@
         },
         {
           "topic": "fresh",
-          "count": 2
+          "count": 1
         },
         {
           "topic": "spicy",
@@ -288123,14 +288725,14 @@
           "author": "Nicky"
         },
         {
+          "text": "Hidden gem. Great people that own and run this little place. It location is quiet and at the end of the beach. Beautiful views of the sunset. Tasty food and a romantic little place to go for a date.",
+          "rating": 5,
+          "author": "Ross Hackler"
+        },
+        {
           "text": "Hidden gem on the beach, great food, great people, very peaceful with a gorgeous view of the Pattaya city coastline! 10/10",
           "rating": 5,
           "author": "Alex Loginov"
-        },
-        {
-          "text": "I don't usually go to places like this, but it was early morning and I was hungry. Surprisingly, the food was delicious and the mango smoothie was very refreshing.",
-          "rating": 5,
-          "author": "RUSLAD"
         }
       ],
       "business_status": "Open",
@@ -293049,6 +293651,103 @@
       "maps_url": "https://www.google.com/maps/place/Caf%C3%A9+Amazon/@13.6836877,100.4995469,17z/data=!3m1!4b1!4m7!3m6!1s0x30e2a3b08674e40b:0x549cf70f8ddfdf8f!8m2!3d13.6836877!4d100.4995469!16s%2Fg%2F11fj9j9bxf!19sChIJC-R0hrCj4jARj9_fjQ_3nFQ?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x31029500182b6e27_0x63992a18d9a2274e",
+      "place_id": "0x31029500182b6e27:0x63992a18d9a2274e",
+      "name": "Janis Thai-Farang Food",
+      "primary_type": "Thai restaurant",
+      "address": "\nWXCC+43G ชบ.4095 Pong, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 64 336 9346",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9203143,
+      "lng": 100.9702478,
+      "rating": 4.9,
+      "total_reviews": 31,
+      "trust_score": 76.5,
+      "cuisines": [
+        "thai",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 30,
+      "local_guide_count": 10,
+      "avg_author_review_count": 30.4,
+      "language_breakdown": {
+        "th": 0,
+        "en": 27,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 3,
+        "street_food": 1,
+        "bar_pub": 1,
+        "western": 2
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 18
+        },
+        {
+          "topic": "affordable",
+          "count": 5
+        },
+        {
+          "topic": "fresh",
+          "count": 2
+        },
+        {
+          "topic": "spicy",
+          "count": 2
+        },
+        {
+          "topic": "authentic",
+          "count": 2
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 10,
+          "avg": 4.6
+        },
+        "old": {
+          "count": 18,
+          "avg": 5.0
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "A super authentic place with super friendly staff :) delicious food at a great price",
+          "rating": 5,
+          "author": "Leo Triebskorn"
+        },
+        {
+          "text": "Just what you are looking for and will make made to order. Just what you want with great service.",
+          "rating": 5,
+          "author": "Sunset Dreams"
+        },
+        {
+          "text": "After a beer at the Irish pub further down the road and a walk along the lake, we enjoyed a delicious (pre-ordered) cordon bleu with fresh coleslaw. Highly recommended, so: do it!",
+          "rating": 5,
+          "author": "Vief B"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Janis+Thai-Farang+Food/data=!4m7!3m6!1s0x31029500182b6e27:0x63992a18d9a2274e!8m2!3d12.9203143!4d100.9702478!16s%2Fg%2F11y3b9cw8l!19sChIJJ24rGACVAjERTiei2RgqmWM?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x3102960e1062a259_0xb5524c27d7393413",
       "place_id": "0x3102960e1062a259:0xb5524c27d7393413",
       "name": "Dicey Reilly's Bar & Restaurant",
@@ -296724,102 +297423,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%AE%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%8A%E0%B9%89/data=!4m7!3m6!1s0x30e2996b9f9947a7:0xe9dbfc264077e89b!8m2!3d13.7611157!4d100.5034022!16s%2Fg%2F11gcxzty5p!19sChIJp0eZn2uZ4jARm-h3QCb82-k?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x310297aebf0d5e9f_0x5c34c5eadb73c1af",
-      "place_id": "0x310297aebf0d5e9f:0x5c34c5eadb73c1af",
-      "name": "Oasis Russian Restaurant",
-      "primary_type": "Russian restaurant",
-      "address": "\npark night market, A 6-1 Pattaya park night market, Pattaya City, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 92 482 8718",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.909955,
-      "lng": 100.864031,
-      "rating": 4.8,
-      "total_reviews": 31,
-      "trust_score": 76.1,
-      "cuisines": [
-        "cafe",
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 31,
-      "local_guide_count": 11,
-      "avg_author_review_count": 33.8,
-      "language_breakdown": {
-        "th": 0,
-        "en": 27,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 2,
-        "vietnamese": 1,
-        "cafe": 5
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 26
-        },
-        {
-          "topic": "good_atmosphere",
-          "count": 5
-        },
-        {
-          "topic": "spicy",
-          "count": 1
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "affordable",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 11,
-          "avg": 5.0
-        },
-        "midterm": {
-          "count": 20,
-          "avg": 4.75
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Very good Russian restaurant. You can try anything here and it’s going to be delicious!",
-          "rating": 5,
-          "author": "Master Maz"
-        },
-        {
-          "text": "The atmosphere was calm and friendly. The food was good and the service pleasant.",
-          "rating": 5,
-          "author": "Jonathan"
-        },
-        {
-          "text": "I definitely recommend this place. Delicious home-cooked food, excellent service, and a wide selection. Elena was very kind, we'll be back!",
-          "rating": 5,
-          "author": "V Demina"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Oasis+Russian+Restaurant/data=!4m7!3m6!1s0x310297aebf0d5e9f:0x5c34c5eadb73c1af!8m2!3d12.909955!4d100.864031!16s%2Fg%2F11ypbbf1mn!19sChIJn14Nv66XAjERr8Fz2-rFNFw?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2990003878989_0x9195797036ff600b",
       "place_id": "0x30e2990003878989:0x9195797036ff600b",
       "name": "Yuen Kee Dumpling 袁记云饺",
@@ -300084,6 +300687,58 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/Elefin+Coffee/data=!4m10!3m9!1s0x30e29904fae6944f:0xd2899f493c21a4d9!5m2!4m1!1i2!8m2!3d13.7443205!4d100.4925404!16s%2Fg%2F12mj78xvp!19sChIJT5Tm-gSZ4jAR2aQhPEmfidI?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102953c7262cc99_0xa8ed457c55761844",
+      "place_id": "0x3102953c7262cc99:0xa8ed457c55761844",
+      "name": "ครัวนับดาว Nubdao Garden Resort & Restaurant",
+      "primary_type": "",
+      "address": "\nทู่งกลม 34 Pornprapanimit 34, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 97 446 9879",
+      "website": "http://www.facebook.com/nubdaorestaurant",
+      "menu_url": "",
+      "lat": 12.9117675,
+      "lng": 100.9632606,
+      "rating": 4.5,
+      "total_reviews": 352,
+      "trust_score": 75.6,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%99%E0%B8%B1%E0%B8%9A%E0%B8%94%E0%B8%B2%E0%B8%A7+Nubdao+Garden+Resort+%26+Restaurant/data=!4m10!3m9!1s0x3102953c7262cc99:0xa8ed457c55761844!5m2!4m1!1i2!8m2!3d12.9117675!4d100.9632606!16s%2Fg%2F11clvrzztt!19sChIJmcxicjyVAjERRBh2VXxF7ag?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x3102bedecd8ab45d_0x4b4523fca91c78eb",
@@ -305058,6 +305713,110 @@
       "maps_url": "https://www.google.com/maps/place/GUGU+Chicken+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2+%E0%B8%AD%E0%B9%82%E0%B8%A8%E0%B8%81+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B9%89%E0%B8%B2%E0%B8%A1%E0%B8%9B%E0%B8%B9/data=!4m7!3m6!1s0x30e29f62d58d8c63:0xac5ea1204c11203f!8m2!3d13.7459106!4d100.5629531!16s%2Fg%2F11nmmj_dwj!19sChIJY4yN1WKf4jARPyARTCChXqw?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102bfbe1f19bca1_0x323b95e3447c56f8",
+      "place_id": "0x3102bfbe1f19bca1:0x323b95e3447c56f8",
+      "name": "ผู้การชาบู หมูกระทะ พัทยา โรงโป๊ะ by 22 ศรีนครินทร์",
+      "primary_type": "Restaurant",
+      "address": "\n2WCX+8JQ, เลขที่, ตะเคียนเตี้ย ซ.18 Takhian Tia, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 90 997 9169",
+      "website": "",
+      "menu_url": "",
+      "lat": 13.0208353,
+      "lng": 100.9491157,
+      "rating": 4.2,
+      "total_reviews": 44,
+      "trust_score": 75.1,
+      "cuisines": [
+        "bar_pub",
+        "dessert",
+        "seafood",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 44,
+      "local_guide_count": 22,
+      "avg_author_review_count": 49.8,
+      "language_breakdown": {
+        "th": 0,
+        "en": 33,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "japanese": 1,
+        "seafood": 5,
+        "bar_pub": 5,
+        "dessert": 3,
+        "western": 3
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 17
+        },
+        {
+          "topic": "fresh",
+          "count": 6
+        },
+        {
+          "topic": "spicy",
+          "count": 4
+        },
+        {
+          "topic": "affordable",
+          "count": 3
+        },
+        {
+          "topic": "expensive",
+          "count": 2
+        },
+        {
+          "topic": "kid_friendly",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 2,
+          "avg": 5.0
+        },
+        "midterm": {
+          "count": 8,
+          "avg": 4.38
+        },
+        "old": {
+          "count": 34,
+          "avg": 4.12
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Cheap price 189. Even though it doesn't include water, the water isn't expensive. Price per person 189. If compared to the food, it's a lot for this price. There are 2 kinds of dipping sauces. Order a seafood stove, add 25 baht per person. Enjoy eating shrimp.",
+          "rating": 5,
+          "author": "Inspect Home Channel"
+        },
+        {
+          "text": "The food is fresh and very clean. The sauce is delicious. If you paint the shop white, it will make the shop look very bright.",
+          "rating": 5,
+          "author": "Daravadee Singtoetong"
+        },
+        {
+          "text": "The food was delicious, the prices were reasonable, and the staff provided excellent service.",
+          "rating": 5,
+          "author": "เสาวภา เครือคํา"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%8A%E0%B8%B2%E0%B8%9A%E0%B8%B9+%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%97%E0%B8%B0+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2+%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%82%E0%B8%9B%E0%B9%8A%E0%B8%B0+by+22+%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x3102bfbe1f19bca1:0x323b95e3447c56f8!8m2!3d13.0208353!4d100.9491157!16s%2Fg%2F11j6smgdzd!19sChIJobwZH76_AjER-FZ8ROOVOzI?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29d84fc8a204f_0xc8fb6d0a68c343a",
       "place_id": "0x30e29d84fc8a204f:0xc8fb6d0a68c343a",
       "name": "The Abyss - ร้านพิซซ่า เตาฟืน",
@@ -305517,111 +306276,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/My+Taste/@13.7533721,100.6439187,17z/data=!3m1!4b1!4m7!3m6!1s0x311d61001da7e037:0xe3b04ea9f48e2aa0!8m2!3d13.7533721!4d100.6439187!16s%2Fg%2F11wxckfs7n!19sChIJN-CnHQBhHTERoCqO9KlOsOM?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
-      "id": "0x3102bddef1cd3c87_0x8b14dc98f93ead6b",
-      "place_id": "0x3102bddef1cd3c87:0x8b14dc98f93ead6b",
-      "name": "Breeze Beach Restaurant & Pool Bar",
-      "primary_type": "Restaurant",
-      "address": "\n381 หมู่ที่ 5 Soi Na Kluea 12, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 90 889 6856",
-      "website": "https://restaurants.accor.com/",
-      "menu_url": "",
-      "lat": 12.9707853,
-      "lng": 100.8865004,
-      "rating": 4.1,
-      "total_reviews": 49,
-      "trust_score": 75.0,
-      "cuisines": [
-        "bar_pub",
-        "italian",
-        "seafood",
-        "western"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 49,
-      "local_guide_count": 25,
-      "avg_author_review_count": 68.6,
-      "language_breakdown": {
-        "th": 0,
-        "en": 39,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "italian": 5,
-        "seafood": 2,
-        "bar_pub": 8,
-        "halal": 1,
-        "western": 3,
-        "breakfast": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "spicy",
-          "count": 7
-        },
-        {
-          "topic": "tasty",
-          "count": 5
-        },
-        {
-          "topic": "fresh",
-          "count": 3
-        },
-        {
-          "topic": "authentic",
-          "count": 1
-        },
-        {
-          "topic": "halal_certified",
-          "count": 1
-        },
-        {
-          "topic": "kid_friendly",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 9,
-          "avg": 4.44
-        },
-        "midterm": {
-          "count": 18,
-          "avg": 4.5
-        },
-        "old": {
-          "count": 22,
-          "avg": 3.64
-        },
-        "trend": "improving"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "Very nice place at beach side. Good food and taste. Surely recommend to come here and relax with good food and view. Also can get promotion and food. Must visit place.",
-          "rating": 5,
-          "author": "Purushottam"
-        },
-        {
-          "text": "Probably one of the best places. Not crowded, lots of pools.\nChildren's pool, deep pool, pool bar 🍸 clear sea, sun loungers, showers, toilets, restaurant\n10/10/10",
-          "rating": 5,
-          "author": "Yulia Gavrushina"
-        },
-        {
-          "text": "The staff provided good service. During happy hour, they reminded me that the promotion was about to end. The prices were acceptable.",
-          "rating": 5,
-          "author": "minie mint"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Breeze+Beach+Restaurant+%26+Pool+Bar/data=!4m7!3m6!1s0x3102bddef1cd3c87:0x8b14dc98f93ead6b!8m2!3d12.9707853!4d100.8865004!16s%2Fg%2F11fylycpbd!19sChIJhzzN8d69AjERa60--ZjcFIs?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29d00073f4bab_0x9cd4106e930ebc72",
@@ -307741,10 +308395,6 @@
           "count": 2
         },
         {
-          "topic": "fresh",
-          "count": 1
-        },
-        {
           "topic": "authentic",
           "count": 1
         },
@@ -307759,12 +308409,12 @@
           "avg": 3.85
         },
         "midterm": {
-          "count": 17,
-          "avg": 4.41
+          "count": 16,
+          "avg": 4.38
         },
         "old": {
-          "count": 7,
-          "avg": 4.57
+          "count": 8,
+          "avg": 4.62
         },
         "trend": "declining"
       },
@@ -307781,13 +308431,13 @@
           "author": "JINGJUNG GAMER"
         },
         {
-          "text": "It's delicious! Besides the regular noodles, they also have flat noodles and fish noodles to choose from.\nThe soup broth has a well-balanced flavor.",
+          "text": "The crab, mantis shrimp, and fish noodles were so delicious and addictive, I finished the whole bowl without realizing it!\nThe stir-fried squid with chili and salt was incredibly delicious; the squid was …",
           "rating": 5,
-          "author": "Sorawich Sripaisan"
+          "author": "นัฐจิตรา นิยากร"
         }
       ],
       "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B8%8D%E0%B8%B2+%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%9B%E0%B8%B9/data=!4m7!3m6!1s0x3102bfbcc25d34b9:0x1a7b79c4b557769c!8m2!3d12.9938905!4d100.962492!16s%2Fg%2F11k4w8p1tq!19sChIJuTRdwry_AjERnHZXtcR5exo?authuser=0&hl=en&rclk=1"
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B8%8D%E0%B8%B2+%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%9B%E0%B8%B9/@12.9938905,100.962492,17z/data=!3m1!4b1!4m6!3m5!1s0x3102bfbcc25d34b9:0x1a7b79c4b557769c!8m2!3d12.9938905!4d100.962492!16s%2Fg%2F11k4w8p1tq?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
       "id": "0x31029601f75b2ea1_0x6eb10eac26f5b9ab",
@@ -310834,6 +311484,111 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B8%B2%E0%B8%94%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2%E0%B8%A2%E0%B8%AD%E0%B8%94%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%A8%E0%B8%B4%E0%B8%A3%E0%B8%B4%E0%B8%A3%E0%B8%B2%E0%B8%8A2523/data=!4m7!3m6!1s0x30e299a74cb58df7:0xae4c576037b02e90!8m2!3d13.7538141!4d100.4837376!16s%2Fg%2F11g9dzgzf4!19sChIJ9421TKeZ4jARkC6wN2BXTK4?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x3102bddef1cd3c87_0x8b14dc98f93ead6b",
+      "place_id": "0x3102bddef1cd3c87:0x8b14dc98f93ead6b",
+      "name": "Breeze Beach Restaurant & Pool Bar",
+      "primary_type": "Restaurant",
+      "address": "\n381 หมู่ที่ 5 Soi Na Kluea 12, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 90 889 6856",
+      "website": "https://restaurants.accor.com/",
+      "menu_url": "",
+      "lat": 12.9707853,
+      "lng": 100.8865004,
+      "rating": 4.0,
+      "total_reviews": 50,
+      "trust_score": 74.0,
+      "cuisines": [
+        "bar_pub",
+        "italian",
+        "seafood",
+        "western"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 50,
+      "local_guide_count": 25,
+      "avg_author_review_count": 67.3,
+      "language_breakdown": {
+        "th": 0,
+        "en": 39,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "italian": 5,
+        "seafood": 2,
+        "bar_pub": 8,
+        "halal": 1,
+        "western": 3,
+        "breakfast": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "spicy",
+          "count": 7
+        },
+        {
+          "topic": "tasty",
+          "count": 5
+        },
+        {
+          "topic": "fresh",
+          "count": 3
+        },
+        {
+          "topic": "authentic",
+          "count": 1
+        },
+        {
+          "topic": "halal_certified",
+          "count": 1
+        },
+        {
+          "topic": "kid_friendly",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 10,
+          "avg": 4.1
+        },
+        "midterm": {
+          "count": 18,
+          "avg": 4.5
+        },
+        "old": {
+          "count": 22,
+          "avg": 3.64
+        },
+        "trend": "improving"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Very nice place at beach side. Good food and taste. Surely recommend to come here and relax with good food and view. Also can get promotion and food. Must visit place.",
+          "rating": 5,
+          "author": "Purushottam"
+        },
+        {
+          "text": "Nice Beach & Pool Bar at Modus Beachfront Resort\nThe Price is reasonable good promotion about Happy hour",
+          "rating": 5,
+          "author": "Farang Noiz"
+        },
+        {
+          "text": "Great food and drinks in a beautiful beachfront setting.\nThe seafood was fresh and well-cooked, with high-quality ingredients and authentic flavors.\nCocktails were refreshing and well balanced, love the swim up bar with beautiful view.\nA perfect spot to relax and enjoy dinner by the sea.",
+          "rating": 5,
+          "author": "Somkamol Somboonsilp"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Breeze+Beach+Restaurant+%26+Pool+Bar/data=!4m7!3m6!1s0x3102bddef1cd3c87:0x8b14dc98f93ead6b!8m2!3d12.9707853!4d100.8865004!16s%2Fg%2F11fylycpbd!19sChIJhzzN8d69AjERa60--ZjcFIs?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29e083614655d_0x1a5bb5c08d143bf2",
       "place_id": "0x30e29e083614655d:0x1a5bb5c08d143bf2",
       "name": "be3 Cafe",
@@ -313706,6 +314461,58 @@
       "maps_url": "https://www.google.com/maps/place/Joy+Table/@13.7883378,100.5929811,17z/data=!3m1!4b1!4m7!3m6!1s0x30e29ddd2fe4732f:0x923b8ce7e543a6a0!8m2!3d13.7883378!4d100.5929811!16s%2Fg%2F11fx9bb8h0!19sChIJL3PkL92d4jARoKZD5eeMO5I?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D"
     },
     {
+      "id": "0x31029644a47c3859_0x4b9632972ff3762a",
+      "place_id": "0x31029644a47c3859:0x4b9632972ff3762a",
+      "name": "ร้านอาหารขวัญ - Kwan Restaurant",
+      "primary_type": "Restaurant",
+      "address": "\n357/83 Phra Tam Nak 5, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 96 706 8614",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9131102,
+      "lng": 100.8617254,
+      "rating": 4.3,
+      "total_reviews": 349,
+      "trust_score": 73.5,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%82%E0%B8%A7%E0%B8%B1%E0%B8%8D+-+Kwan+Restaurant/data=!4m7!3m6!1s0x31029644a47c3859:0x4b9632972ff3762a!8m2!3d12.9131102!4d100.8617254!16s%2Fg%2F11g6m296kv!19sChIJWTh8pESWAjERKnbzL5cylks?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e29fda5de49905_0x4edcdef817399dc0",
       "place_id": "0x30e29fda5de49905:0x4edcdef817399dc0",
       "name": "Tonsei",
@@ -313910,11 +314717,11 @@
           "avg": null
         },
         "midterm": {
-          "count": 1,
-          "avg": 5.0
+          "count": 0,
+          "avg": null
         },
         "old": {
-          "count": 41,
+          "count": 42,
           "avg": 4.83
         },
         "trend": "insufficient_data"
@@ -314930,6 +315737,124 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/The+Indian+Spice+And+Herbs/data=!4m7!3m6!1s0x30e299fe83c9852f:0xdc346456340f5109!8m2!3d13.7585001!4d100.4988223!16s%2Fg%2F11lcw2n6_x!19sChIJL4XJg_6Z4jARCVEPNFZkNNw?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102bf6d1c9f5847_0x8a36a354a532f39c",
+      "place_id": "0x3102bf6d1c9f5847:0x8a36a354a532f39c",
+      "name": "Velana Restaurant",
+      "primary_type": "Thai restaurant",
+      "address": "\nNaklua, Muang Pattaya, Amphoe Bang Lamung, Chang Wat Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "North Pattaya",
+      "phone": "+66 94 780 9797",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9521995,
+      "lng": 100.8863133,
+      "rating": 3.8,
+      "total_reviews": 67,
+      "trust_score": 73.2,
+      "cuisines": [
+        "seafood",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 62,
+      "local_guide_count": 35,
+      "avg_author_review_count": 43.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 57,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 25,
+        "korean": 1,
+        "seafood": 5,
+        "bar_pub": 1,
+        "western": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 22
+        },
+        {
+          "topic": "authentic",
+          "count": 10
+        },
+        {
+          "topic": "spicy",
+          "count": 8
+        },
+        {
+          "topic": "affordable",
+          "count": 6
+        },
+        {
+          "topic": "fresh",
+          "count": 5
+        },
+        {
+          "topic": "expensive",
+          "count": 4
+        },
+        {
+          "topic": "dirty",
+          "count": 3
+        },
+        {
+          "topic": "fast_service",
+          "count": 1
+        },
+        {
+          "topic": "live_music",
+          "count": 1
+        },
+        {
+          "topic": "korean_friendly",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 3.67
+        },
+        "midterm": {
+          "count": 12,
+          "avg": 3.58
+        },
+        "old": {
+          "count": 47,
+          "avg": 3.85
+        },
+        "trend": "stable"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "Perfect local restaurant, very tasty food. You get chilli separate so you can spice it up like you want. Nice prices and some fruit as gift. If you are nearby, be sure to visit",
+          "rating": 5,
+          "author": "Pavel Bouda"
+        },
+        {
+          "text": "I am very satisfied with the food, service, and mood. I highly recommend this authentic restaurant.",
+          "rating": 5,
+          "author": "Irene Lee"
+        },
+        {
+          "text": "Very quick service. Friendly staff. Free wifi and cheap prices. Food taste fresh. They give you a platter of fresh food complimentary :)",
+          "rating": 5,
+          "author": "Lenka Kerrison"
+        }
+      ],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Velana+Restaurant/data=!4m7!3m6!1s0x3102bf6d1c9f5847:0x8a36a354a532f39c!8m2!3d12.9521995!4d100.8863133!16s%2Fg%2F11t7_9z4jt!19sChIJR1ifHG2_AjERnPMypVSjNoo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f51b396a227_0xf3e704aec237586f",
@@ -315983,120 +316908,6 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Potato+Corner+MBK+Center/data=!4m7!3m6!1s0x30e29f003ed3e6d3:0x1b9ecee41afaf210!8m2!3d13.7446334!4d100.5300317!16s%2Fg%2F11ydl608k2!19sChIJ0-bTPgCf4jAREPL6GuTOnhs?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x3102bf6d1c9f5847_0x8a36a354a532f39c",
-      "place_id": "0x3102bf6d1c9f5847:0x8a36a354a532f39c",
-      "name": "Velana Restaurant",
-      "primary_type": "Thai restaurant",
-      "address": "\nNaklua, Muang Pattaya, Amphoe Bang Lamung, Chang Wat Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "North Pattaya",
-      "phone": "+66 94 780 9797",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.9521995,
-      "lng": 100.8863133,
-      "rating": 3.8,
-      "total_reviews": 67,
-      "trust_score": 73.0,
-      "cuisines": [
-        "seafood",
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 50,
-      "local_guide_count": 30,
-      "avg_author_review_count": 35.9,
-      "language_breakdown": {
-        "th": 0,
-        "en": 45,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {
-        "thai": 24,
-        "korean": 1,
-        "seafood": 3,
-        "bar_pub": 1,
-        "western": 1
-      },
-      "mentioned_topics": [
-        {
-          "topic": "tasty",
-          "count": 14
-        },
-        {
-          "topic": "authentic",
-          "count": 8
-        },
-        {
-          "topic": "spicy",
-          "count": 6
-        },
-        {
-          "topic": "fresh",
-          "count": 4
-        },
-        {
-          "topic": "expensive",
-          "count": 3
-        },
-        {
-          "topic": "affordable",
-          "count": 3
-        },
-        {
-          "topic": "dirty",
-          "count": 3
-        },
-        {
-          "topic": "fast_service",
-          "count": 1
-        },
-        {
-          "topic": "korean_friendly",
-          "count": 1
-        }
-      ],
-      "rating_trend": {
-        "recent": {
-          "count": 3,
-          "avg": 3.67
-        },
-        "midterm": {
-          "count": 12,
-          "avg": 3.58
-        },
-        "old": {
-          "count": 35,
-          "avg": 3.71
-        },
-        "trend": "stable"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [
-        {
-          "text": "It's a decent eatery, I don't know about the rotten stuff or anything, but I've been there a few times, and it's all good! It's definitely a cool place.",
-          "rating": 5,
-          "author": "Vasya Kurolesov"
-        },
-        {
-          "text": "We visited this establishment twice.\nWe loved the food. The portions were huge. We loved everything we ate.",
-          "rating": 5,
-          "author": "Евгения Прикупец"
-        },
-        {
-          "text": "A super great Thai restaurant. The old lady is very welcoming and can speak Chinese. The rice and shrimp fried rice are delicious. The shrimp are super big. I recommend everyone to go there.",
-          "rating": 5,
-          "author": "Andy"
-        }
-      ],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Velana+Restaurant/data=!4m7!3m6!1s0x3102bf6d1c9f5847:0x8a36a354a532f39c!8m2!3d12.9521995!4d100.8863133!16s%2Fg%2F11t7_9z4jt!19sChIJR1ifHG2_AjERnPMypVSjNoo?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29f518c5787b5_0xb57ed8e2e3433e4c",
@@ -318510,6 +319321,67 @@
       ],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/The+Bay/@13.6196391,100.4013268,17z/data=!3m1!4b1!4m6!3m5!1s0x30e2bd6749c62103:0x358a5fb3dd671665!8m2!3d13.6196391!4d100.4013268!16s%2Fg%2F11lv33s_j_?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
+      "id": "0x3102c0754a30f94f_0x419c66906f39deec",
+      "place_id": "0x3102c0754a30f94f:0x419c66906f39deec",
+      "name": "Krua Kon Suea",
+      "primary_type": "",
+      "address": "\nXX7J+HQQ, Pong, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9639644,
+      "lng": 100.9819713,
+      "rating": 4.1,
+      "total_reviews": 30,
+      "trust_score": 72.5,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 30,
+      "local_guide_count": 19,
+      "avg_author_review_count": 81.7,
+      "language_breakdown": {
+        "th": 0,
+        "en": 5,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 2
+        },
+        {
+          "topic": "affordable",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 30,
+          "avg": 4.13
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Permanently closed",
+      "maps_url": "https://www.google.com/maps/place/Krua+Kon+Suea/data=!4m7!3m6!1s0x3102c0754a30f94f:0x419c66906f39deec!8m2!3d12.9639644!4d100.9819713!16s%2Fg%2F1hm2hpsjb!19sChIJT_kwSnXAAjER7N45b5BmnEE?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2990dd94e31d9_0xa0cf2f99dd4c5c24",
@@ -324008,60 +324880,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%84%E0%B8%82%E0%B9%88%E0%B8%AB%E0%B8%A7%E0%B8%B2%E0%B8%99%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%8B%E0%B8%B9%E0%B8%8A%E0%B8%B4+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A7%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x30e2990952802177:0x15f916d93b7d783!8m2!3d13.7265385!4d100.4948047!16s%2Fg%2F11h0spqzvl!19sChIJdyGAUgmZ4jARg9e3k22RXwE?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x3102bdf15fb7f041_0x8b58c6a40f2ce9bd",
-      "place_id": "0x3102bdf15fb7f041:0x8b58c6a40f2ce9bd",
-      "name": "Patrick's Huay Yai Steakhouse",
-      "primary_type": "Restaurant",
-      "address": "\n96, 2, Muang Pattaya, Bang Lamung District, Chon Buri 20260, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 96 819 3579",
-      "website": "https://patrickshuayyai.com/",
-      "menu_url": "",
-      "lat": 12.8638843,
-      "lng": 100.9392836,
-      "rating": 4.8,
-      "total_reviews": 85,
-      "trust_score": 71.2,
-      "cuisines": [
-        "western"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Patrick%27s+Huay+Yai+Steakhouse/data=!4m7!3m6!1s0x3102bdf15fb7f041:0x8b58c6a40f2ce9bd!8m2!3d12.8638843!4d100.9392836!16s%2Fg%2F11z10yq8mq!19sChIJQfC3X_G9AjERveksD6TGWIs?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x30e2992242b86a21_0x56a350de3e1bffd3",
       "place_id": "0x30e2992242b86a21:0x56a350de3e1bffd3",
       "name": "Khao Sia Po",
@@ -325550,7 +326368,7 @@
       "cuisines": [],
       "price_level": "",
       "price_symbol": "",
-      "scraped_review_count": 1,
+      "scraped_review_count": 0,
       "local_guide_count": 0,
       "avg_author_review_count": 0.0,
       "language_breakdown": {
@@ -326129,58 +326947,6 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/TAKAKI/data=!4m7!3m6!1s0x30e29e51eb4d547d:0x42fd758e801d7226!8m2!3d13.7391666!4d100.5844722!16s%2Fg%2F11bx1c9ts_!19sChIJfVRN61Ge4jARJnIdgI51_UI?authuser=0&hl=en&rclk=1"
-    },
-    {
-      "id": "0x310295ec6c3bb3f7_0x7315a77579e0d767",
-      "place_id": "0x310295ec6c3bb3f7:0x7315a77579e0d767",
-      "name": "ครัวทับทิมห้วยใหญ่",
-      "primary_type": "Restaurant",
-      "address": "\n43 Tesabal Road 1 Soi 23, Pattaya City, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 87 913 9296",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.8635779,
-      "lng": 100.9478445,
-      "rating": 4.6,
-      "total_reviews": 113,
-      "trust_score": 70.6,
-      "cuisines": [],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B8%97%E0%B8%B1%E0%B8%9A%E0%B8%97%E0%B8%B4%E0%B8%A1%E0%B8%AB%E0%B9%89%E0%B8%A7%E0%B8%A2%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88/data=!4m7!3m6!1s0x310295ec6c3bb3f7:0x7315a77579e0d767!8m2!3d12.8635779!4d100.9478445!16s%2Fg%2F11hfkn9292!19sChIJ97M7bOyVAjERZ9fgeXWnFXM?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29916ec3cf207_0xf875252e691399b5",
@@ -329186,6 +329952,58 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Tha+Sholay+restaurant/data=!4m7!3m6!1s0x310297c7fddc1c35:0xb7ccd5b84bf6bb48!8m2!3d12.92011!4d100.875475!16s%2Fg%2F11ydwq0fph!19sChIJNRzc_ceXAjERSLv2S7jVzLc?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102eb0049481eef_0x5e392f5159a64b7c",
+      "place_id": "0x3102eb0049481eef:0x5e392f5159a64b7c",
+      "name": "Toma Wine Brasserie",
+      "primary_type": "French restaurant",
+      "address": "\n1 Huay Yai Muk Rd, Pong, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 90 799 7828",
+      "website": "https://tomawinebrasserie.com/",
+      "menu_url": "",
+      "lat": 12.9379208,
+      "lng": 100.9833038,
+      "rating": 4.9,
+      "total_reviews": 53,
+      "trust_score": 69.7,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Temporarily closed",
+      "maps_url": "https://www.google.com/maps/place/Toma+Wine+Brasserie/data=!4m7!3m6!1s0x3102eb0049481eef:0x5e392f5159a64b7c!8m2!3d12.9379208!4d100.9833038!16s%2Fg%2F11x199lygc!19sChIJ7x5ISQDrAjERfEumWVEvOV4?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x311d63b8a40ea4ad_0xec802d80273c392e",
@@ -335843,60 +336661,6 @@
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%81%E0%B8%97%E0%B9%89+Wok+%E0%B8%81%E0%B8%B0+Steak+Lotus+Onnut/data=!4m7!3m6!1s0x30e29f000223a6c3:0xb63b6d2a2d4de9b2!8m2!3d13.7053618!4d100.6002305!16s%2Fg%2F11xd62tb31!19sChIJw6YjAgCf4jARsulNLSptO7Y?authuser=0&hl=en&rclk=1"
     },
     {
-      "id": "0x31029500182b6e27_0x63992a18d9a2274e",
-      "place_id": "0x31029500182b6e27:0x63992a18d9a2274e",
-      "name": "Janis Thai-Farang Food",
-      "primary_type": "Thai restaurant",
-      "address": "\nWXCC+43G ชบ.4095 Pong, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 64 336 9346",
-      "website": "",
-      "menu_url": "",
-      "lat": 12.9203143,
-      "lng": 100.9702478,
-      "rating": 4.9,
-      "total_reviews": 31,
-      "trust_score": 66.9,
-      "cuisines": [
-        "thai"
-      ],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/Janis+Thai-Farang+Food/data=!4m7!3m6!1s0x31029500182b6e27:0x63992a18d9a2274e!8m2!3d12.9203143!4d100.9702478!16s%2Fg%2F11y3b9cw8l!19sChIJJ24rGACVAjERTiei2RgqmWM?authuser=0&hl=en&rclk=1"
-    },
-    {
       "id": "0x3102975e31e7cd93_0xaaf1ca21c6cb6abb",
       "place_id": "0x3102975e31e7cd93:0xaaf1ca21c6cb6abb",
       "name": "Collis Restaurant & Bistro",
@@ -336314,6 +337078,58 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/Hungry+Panda+American+Chinese+Eatery/data=!4m7!3m6!1s0x310297ddad3d1193:0xca8bceb27340d16!8m2!3d12.9293569!4d100.887807!16s%2Fg%2F11x6zms0hk!19sChIJkxE9rd2XAjERFg00J-u8qAw?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x3102983fb6b00001_0xff4f158a38f6c9b2",
+      "place_id": "0x3102983fb6b00001:0xff4f158a38f6c9b2",
+      "name": "ร้านตาแหวนบีชรีสอร์ทเกาะล้าน",
+      "primary_type": "Restaurant",
+      "address": "\nWQGH+3V7 Unnamed Road Bang Lamung District, Chon Buri, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 85 699 9683",
+      "website": "https://www.tawaenresort.com/",
+      "menu_url": "",
+      "lat": 12.9251537,
+      "lng": 100.779663,
+      "rating": 4.0,
+      "total_reviews": 163,
+      "trust_score": 66.5,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%81%E0%B8%AB%E0%B8%A7%E0%B8%99%E0%B8%9A%E0%B8%B5%E0%B8%8A%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%99/data=!4m7!3m6!1s0x3102983fb6b00001:0xff4f158a38f6c9b2!8m2!3d12.9251537!4d100.779663!16s%2Fg%2F11c2y8fwng!19sChIJAQCwtj-YAjERssn2OIoVT_8?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e2992c263abc9b_0xb14f4425210a883f",
@@ -337466,6 +338282,58 @@
       "maps_url": "https://www.google.com/maps/place/Tee+Yentafo/data=!4m7!3m6!1s0x30e29f46f41fefe5:0x11ff0864564c5090!8m2!3d13.7071657!4d100.5439252!16s%2Fg%2F1pyd3mwpg!19sChIJ5e8f9Eaf4jARkFBMVmQI_xE?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x310297aebf0d5e9f_0x5c34c5eadb73c1af",
+      "place_id": "0x310297aebf0d5e9f:0x5c34c5eadb73c1af",
+      "name": "Oasis Russian Restaurant",
+      "primary_type": "Russian restaurant",
+      "address": "\npark night market, A 6-1 Pattaya park night market, Pattaya City, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 92 482 8718",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.909955,
+      "lng": 100.864031,
+      "rating": 4.8,
+      "total_reviews": 31,
+      "trust_score": 65.9,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Oasis+Russian+Restaurant/data=!4m7!3m6!1s0x310297aebf0d5e9f:0x5c34c5eadb73c1af!8m2!3d12.909955!4d100.864031!16s%2Fg%2F11ypbbf1mn!19sChIJn14Nv66XAjERr8Fz2-rFNFw?authuser=0&hl=en&rclk=1"
+    },
+    {
       "id": "0x30e299079c6585d1_0xd6ce82b3f941ddee",
       "place_id": "0x30e299079c6585d1:0xd6ce82b3f941ddee",
       "name": "Shabu Nangnai",
@@ -338387,6 +339255,109 @@
       "sample_reviews_en": [],
       "business_status": "Open",
       "maps_url": "https://www.google.com/maps/place/%E0%B9%80%E0%B8%9A%E0%B8%AA+%E0%B8%9A%E0%B8%B5%E0%B8%99+%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%9F%E0%B9%88+%28%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%8A%E0%B8%A1%E0%B8%9E%E0%B8%B9%29/data=!4m7!3m6!1s0x30e29930e0e33831:0x1e9dd6e596d85eba!8m2!3d13.7486569!4d100.5152987!16s%2Fg%2F11jcn1l1yx!19sChIJMTjj4DCZ4jARul7YluXWnR4?authuser=0&hl=en&rclk=1"
+    },
+    {
+      "id": "0x310299f2d76d6ed7_0x4e739bf90b77c04e",
+      "place_id": "0x310299f2d76d6ed7:0x4e739bf90b77c04e",
+      "name": "Thien Beach Restaurant Sangad Seafood - ลุงสงัด ซีฟู้ด",
+      "primary_type": "Seafood restaurant",
+      "address": "\nWQ9C+72F, Unnamed Road, Bang Lamung District, Chon Buri, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9181888,
+      "lng": 100.7700607,
+      "rating": 3.2,
+      "total_reviews": 42,
+      "trust_score": 65.3,
+      "cuisines": [
+        "cafe",
+        "seafood",
+        "thai"
+      ],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 42,
+      "local_guide_count": 29,
+      "avg_author_review_count": 83.2,
+      "language_breakdown": {
+        "th": 0,
+        "en": 32,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {
+        "thai": 8,
+        "seafood": 3,
+        "cafe": 5,
+        "bar_pub": 1,
+        "western": 1
+      },
+      "mentioned_topics": [
+        {
+          "topic": "tasty",
+          "count": 11
+        },
+        {
+          "topic": "dirty",
+          "count": 2
+        },
+        {
+          "topic": "spicy",
+          "count": 1
+        },
+        {
+          "topic": "expensive",
+          "count": 1
+        },
+        {
+          "topic": "good_atmosphere",
+          "count": 1
+        },
+        {
+          "topic": "live_music",
+          "count": 1
+        }
+      ],
+      "rating_trend": {
+        "recent": {
+          "count": 3,
+          "avg": 2.33
+        },
+        "midterm": {
+          "count": 4,
+          "avg": 3.75
+        },
+        "old": {
+          "count": 35,
+          "avg": 3.23
+        },
+        "trend": "declining"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [
+        {
+          "text": "The food was delicious! I ordered stir-fried cashew nuts, stir-fried mixed vegetables, and corn salad. Last time I came with a big family and we ordered a lot of food, and everything was delicious.\nSunbed is 100 baht/seat.\nI'll definitely come again!",
+          "rating": 5,
+          "author": "Pani"
+        },
+        {
+          "text": "We've been to two cafes on this beach. This one is the best. Even when we stayed at other sun loungers further away, we went to this one to buy food. We just took it in containers. The price and quality are fine. We were there in December 2022.",
+          "rating": 5,
+          "author": "Марина Могилева"
+        },
+        {
+          "text": "Quaint little spot under the trees and right on the water.  Really good food, but be patient.",
+          "rating": 4,
+          "author": "Mike Szaroleta"
+        }
+      ],
+      "business_status": "",
+      "maps_url": "https://www.google.com/maps/place/Thien+Beach+Restaurant+Sangad+Seafood+-+%E0%B8%A5%E0%B8%B8%E0%B8%87%E0%B8%AA%E0%B8%87%E0%B8%B1%E0%B8%94+%E0%B8%8B%E0%B8%B5%E0%B8%9F%E0%B9%89%E0%B8%B9%E0%B8%94/data=!4m7!3m6!1s0x310299f2d76d6ed7:0x4e739bf90b77c04e!8m2!3d12.9181888!4d100.7700607!16s%2Fg%2F11h94vshdp!19sChIJ125t1_KZAjERTsB3C_mbc04?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e29a725a751cff_0x1d26a4793ed245f3",
@@ -341449,6 +342420,58 @@
       "maps_url": "https://www.google.com/maps/place/Sukiya+The+PARQ/data=!4m7!3m6!1s0x30e29fa875e0a34d:0xd9b1cf298c605a4b!8m2!3d13.7212244!4d100.5583153!16s%2Fg%2F11htwqc28k!19sChIJTaPgdaif4jARS1pgjCnPsdk?authuser=0&hl=en&rclk=1"
     },
     {
+      "id": "0x31029646e058b871_0x695d643267d9c23d",
+      "place_id": "0x31029646e058b871:0x695d643267d9c23d",
+      "name": "Wanpen Restaurant",
+      "primary_type": "Restaurant",
+      "address": "\nWVC6+75J, Muang Pattaya, Bang Lamung District, Chon Buri 20150, Thailand",
+      "city": "pattaya",
+      "city_label": "Pattaya",
+      "district": "",
+      "phone": "+66 62 545 1419",
+      "website": "",
+      "menu_url": "",
+      "lat": 12.9207084,
+      "lng": 100.8603992,
+      "rating": 3.9,
+      "total_reviews": 108,
+      "trust_score": 63.4,
+      "cuisines": [],
+      "price_level": "",
+      "price_symbol": "",
+      "scraped_review_count": 0,
+      "local_guide_count": 0,
+      "avg_author_review_count": 0.0,
+      "language_breakdown": {
+        "th": 0,
+        "en": 0,
+        "ko": 0,
+        "ja": 0,
+        "other": 0
+      },
+      "cuisine_mentions": {},
+      "mentioned_topics": [],
+      "rating_trend": {
+        "recent": {
+          "count": 0,
+          "avg": null
+        },
+        "midterm": {
+          "count": 0,
+          "avg": null
+        },
+        "old": {
+          "count": 0,
+          "avg": null
+        },
+        "trend": "insufficient_data"
+      },
+      "sample_reviews_th": [],
+      "sample_reviews_en": [],
+      "business_status": "Open",
+      "maps_url": "https://www.google.com/maps/place/Wanpen+Restaurant/@12.9207084,100.8603992,17z/data=!3m1!4b1!4m6!3m5!1s0x31029646e058b871:0x695d643267d9c23d!8m2!3d12.9207084!4d100.8603992!16s%2Fg%2F11cn9jhqx0?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+    },
+    {
       "id": "0x3102bfa2fe493167_0xf5237f0fb4f97dd3",
       "place_id": "0x3102bfa2fe493167:0xf5237f0fb4f97dd3",
       "name": "The Green House - Mabprachan",
@@ -343018,58 +344041,6 @@
       "sample_reviews_en": [],
       "business_status": "",
       "maps_url": "https://www.google.com/maps/place/The+Sandwich+Shop/@12.9199744,100.8645135,17z/data=!3m1!4b1!4m6!3m5!1s0x31029532c678bb09:0x4803f95ef77cf177!8m2!3d12.9199744!4d100.8645135!16s%2Fg%2F11w3h0y64c?authuser=0&hl=en&entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D"
-    },
-    {
-      "id": "0x3102bfbe1f19bca1_0x323b95e3447c56f8",
-      "place_id": "0x3102bfbe1f19bca1:0x323b95e3447c56f8",
-      "name": "ผู้การชาบู หมูกระทะ พัทยา โรงโป๊ะ by 22 ศรีนครินทร์",
-      "primary_type": "Restaurant",
-      "address": "\n2WCX+8JQ, เลขที่, ตะเคียนเตี้ย ซ.18 Takhian Tia, Bang Lamung District, Chon Buri 20150, Thailand",
-      "city": "pattaya",
-      "city_label": "Pattaya",
-      "district": "",
-      "phone": "+66 90 997 9169",
-      "website": "",
-      "menu_url": "",
-      "lat": 13.0208353,
-      "lng": 100.9491157,
-      "rating": 4.2,
-      "total_reviews": 44,
-      "trust_score": 61.7,
-      "cuisines": [],
-      "price_level": "",
-      "price_symbol": "",
-      "scraped_review_count": 0,
-      "local_guide_count": 0,
-      "avg_author_review_count": 0.0,
-      "language_breakdown": {
-        "th": 0,
-        "en": 0,
-        "ko": 0,
-        "ja": 0,
-        "other": 0
-      },
-      "cuisine_mentions": {},
-      "mentioned_topics": [],
-      "rating_trend": {
-        "recent": {
-          "count": 0,
-          "avg": null
-        },
-        "midterm": {
-          "count": 0,
-          "avg": null
-        },
-        "old": {
-          "count": 0,
-          "avg": null
-        },
-        "trend": "insufficient_data"
-      },
-      "sample_reviews_th": [],
-      "sample_reviews_en": [],
-      "business_status": "Open",
-      "maps_url": "https://www.google.com/maps/place/%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%8A%E0%B8%B2%E0%B8%9A%E0%B8%B9+%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%97%E0%B8%B0+%E0%B8%9E%E0%B8%B1%E0%B8%97%E0%B8%A2%E0%B8%B2+%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%82%E0%B8%9B%E0%B9%8A%E0%B8%B0+by+22+%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B8%99%E0%B8%84%E0%B8%A3%E0%B8%B4%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C/data=!4m7!3m6!1s0x3102bfbe1f19bca1:0x323b95e3447c56f8!8m2!3d13.0208353!4d100.9491157!16s%2Fg%2F11j6smgdzd!19sChIJobwZH76_AjER-FZ8ROOVOzI?authuser=0&hl=en&rclk=1"
     },
     {
       "id": "0x30e299868cf9ce17_0x9992764f56fb544e",
