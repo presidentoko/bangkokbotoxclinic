@@ -112,6 +112,186 @@ import { BangkokCabaret } from "@/components/BangkokCabaret";
 import { BangkokHennaTattoo } from "@/components/BangkokHennaTattoo";
 import { BangkokSilentDisco } from "@/components/BangkokSilentDisco";
 import { BangkokCraftsWorkshops } from "@/components/BangkokCraftsWorkshops";
+import { BangkokSportsWatching } from "@/components/BangkokSportsWatching";
+import { BangkokFleaMarkets } from "@/components/BangkokFleaMarkets";
+import { BangkokAntiques } from "@/components/BangkokAntiques";
+import { BangkokChristmasNewYear } from "@/components/BangkokChristmasNewYear";
+import { BangkokSongkran } from "@/components/BangkokSongkran";
+import { BangkokLoyKrathong } from "@/components/BangkokLoyKrathong";
+import { BangkokSpiritualTours } from "@/components/BangkokSpiritualTours";
+import { BangkokWaterParks } from "@/components/BangkokWaterParks";
+import { BangkokHotAirBalloon } from "@/components/BangkokHotAirBalloon";
+import { BangkokMuayThaiGym } from "@/components/BangkokMuayThaiGym";
+import { BangkokFitnessClasses } from "@/components/BangkokFitnessClasses";
+import { BangkokCookingClass } from "@/components/BangkokCookingClass";
+import { BangkokGardenCafe } from "@/components/BangkokGardenCafe";
+import { BangkokKarting } from "@/components/BangkokKarting";
+import { BangkokBowling } from "@/components/BangkokBowling";
+import { BangkokSkateParks } from "@/components/BangkokSkateParks";
+import { BangkokBirding } from "@/components/BangkokBirding";
+import { BangkokCanoeing } from "@/components/BangkokCanoeing";
+import { BangkokJazzBars } from "@/components/BangkokJazzBars";
+import { BangkokPetFriendly } from "@/components/BangkokPetFriendly";
+import { BangkokTheatre } from "@/components/BangkokTheatre";
+import { BangkokArchitecture } from "@/components/BangkokArchitecture";
+import { BangkokKpop } from "@/components/BangkokKpop";
+import { BangkokMorningRun } from "@/components/BangkokMorningRun";
+import { BangkokSauna } from "@/components/BangkokSauna";
+import { BangkokPicnic } from "@/components/BangkokPicnic";
+import { BangkokBarHopping } from "@/components/BangkokBarHopping";
+import { BangkokCulturalTours } from "@/components/BangkokCulturalTours";
+import { BangkokSkydiving } from "@/components/BangkokSkydiving";
+import { BangkokBungeeJumping } from "@/components/BangkokBungeeJumping";
+import { BangkokConcerts } from "@/components/BangkokConcerts";
+import { BangkokMindfulness } from "@/components/BangkokMindfulness";
+import { BangkokTennis } from "@/components/BangkokTennis";
+import { BangkokBadminton } from "@/components/BangkokBadminton";
+import { BangkokBilliards } from "@/components/BangkokBilliards";
+import { BangkokCrossFit } from "@/components/BangkokCrossFit";
+import { BangkokSoccer } from "@/components/BangkokSoccer";
+import { BangkokBasketball } from "@/components/BangkokBasketball";
+import { BangkokVolleyball } from "@/components/BangkokVolleyball";
+import { BangkokTableTennis } from "@/components/BangkokTableTennis";
+import { BangkokMartialArts } from "@/components/BangkokMartialArts";
+import { BangkokRugby } from "@/components/BangkokRugby";
+import { BangkokCricket } from "@/components/BangkokCricket";
+import { BangkokInlineSkating } from "@/components/BangkokInlineSkating";
+import { BangkokSwimmingLessons } from "@/components/BangkokSwimmingLessons";
+import { BangkokTriathlon } from "@/components/BangkokTriathlon";
+import { BangkokMotorSport } from "@/components/BangkokMotorSport";
+import { BangkokCyclingClub } from "@/components/BangkokCyclingClub";
+import { BangkokHashRun } from "@/components/BangkokHashRun";
+import { BangkokWeightlifting } from "@/components/BangkokWeightlifting";
+import { BangkokSquash } from "@/components/BangkokSquash";
+import { BangkokFencing } from "@/components/BangkokFencing";
+import { BangkokGymnastics } from "@/components/BangkokGymnastics";
+import { BangkokArcade } from "@/components/BangkokArcade";
+import { BangkokBoardGames } from "@/components/BangkokBoardGames";
+import { BangkokWineClass } from "@/components/BangkokWineClass";
+import { BangkokCoffeeCupping } from "@/components/BangkokCoffeeCupping";
+import { BangkokCeramicsWorkshop } from "@/components/BangkokCeramicsWorkshop";
+import { BangkokCalligraphy } from "@/components/BangkokCalligraphy";
+import { BangkokFlowerArranging } from "@/components/BangkokFlowerArranging";
+import { BangkokAstrology } from "@/components/BangkokAstrology";
+import { BangkokSoundHealing } from "@/components/BangkokSoundHealing";
+import { BangkokReikiHealing } from "@/components/BangkokReikiHealing";
+import { BangkokOsteopath } from "@/components/BangkokOsteopath";
+import { BangkokFloatTank } from "@/components/BangkokFloatTank";
+import { BangkokPhotoTour } from "@/components/BangkokPhotoTour";
+import { BangkokNightPhotography } from "@/components/BangkokNightPhotography";
+import { BangkokKiteSurf } from "@/components/BangkokKiteSurf";
+import { BangkokWindsurfing } from "@/components/BangkokWindsurfing";
+import { BangkokSailing } from "@/components/BangkokSailing";
+import { BangkokMosaicWorkshop } from "@/components/BangkokMosaicWorkshop";
+import { BangkokArtGallery } from "@/components/BangkokArtGallery";
+import { BangkokHorseRiding } from "@/components/BangkokHorseRiding";
+import { BangkokRockClimbing } from "@/components/BangkokRockClimbing";
+import { BangkokKnitting } from "@/components/BangkokKnitting";
+import { BangkokSewingClass } from "@/components/BangkokSewingClass";
+import { BangkokDragonBoat } from "@/components/BangkokDragonBoat";
+import { BangkokZipline } from "@/components/BangkokZipline";
+import { BangkokWaterPolo } from "@/components/BangkokWaterPolo";
+import { BangkokBeachVolleyball } from "@/components/BangkokBeachVolleyball";
+import { BangkokShishaLounge } from "@/components/BangkokShishaLounge";
+import { BangkokPickleball } from "@/components/BangkokPickleball";
+import { BangkokKorfball } from "@/components/BangkokKorfball";
+import { BangkokCoWorking } from "@/components/BangkokCoWorking";
+import { BangkokMuralArt } from "@/components/BangkokMuralArt";
+import { BangkokBonsai } from "@/components/BangkokBonsai";
+import { BangkokWrestling } from "@/components/BangkokWrestling";
+import { BangkokParagliding } from "@/components/BangkokParagliding";
+import { BangkokAquarium } from "@/components/BangkokAquarium";
+import { BangkokTaiChi } from "@/components/BangkokTaiChi";
+import { BangkokKendo } from "@/components/BangkokKendo";
+import { BangkokBreakdance } from "@/components/BangkokBreakdance";
+import { BangkokZumba } from "@/components/BangkokZumba";
+import { BangkokPoleDance } from "@/components/BangkokPoleDance";
+import { BangkokFitnessBootcamp } from "@/components/BangkokFitnessBootcamp";
+import { BangkokFishing } from "@/components/BangkokFishing";
+import { BangkokSpeedboat } from "@/components/BangkokSpeedboat";
+import { BangkokPaintball } from "@/components/BangkokPaintball";
+import { BangkokRoboticsClub } from "@/components/BangkokRoboticsClub";
+import { BangkokPhilosophyClub } from "@/components/BangkokPhilosophyClub";
+import { BangkokOrchidGarden } from "@/components/BangkokOrchidGarden";
+import { BangkokFashionWeek } from "@/components/BangkokFashionWeek";
+import { BangkokMuayThaiAmateur } from "@/components/BangkokMuayThaiAmateur";
+import { BangkokSupercar } from "@/components/BangkokSupercar";
+import { BangkokHeritage } from "@/components/BangkokHeritage";
+import { BangkokLuxurySpa } from "@/components/BangkokLuxurySpa";
+import { BangkokPride } from "@/components/BangkokPride";
+import { BangkokNetball } from "@/components/BangkokNetball";
+import { BangkokMusicProduction } from "@/components/BangkokMusicProduction";
+import { BangkokOilPainting } from "@/components/BangkokOilPainting";
+import { BangkokChessClub } from "@/components/BangkokChessClub";
+import { BangkokHomeDecor } from "@/components/BangkokHomeDecor";
+import { BangkokStationery } from "@/components/BangkokStationery";
+import { BangkokEsports } from "@/components/BangkokEsports";
+import { BangkokCookingSchool } from "@/components/BangkokCookingSchool";
+import { BangkokUrbanFarming } from "@/components/BangkokUrbanFarming";
+import { BangkokPilates } from "@/components/BangkokPilates";
+import { BangkokFreeRunning } from "@/components/BangkokFreeRunning";
+import { BangkokGraffitiArt } from "@/components/BangkokGraffitiArt";
+import { BangkokKiteboarding } from "@/components/BangkokKiteboarding";
+import { BangkokCalisthenics } from "@/components/BangkokCalisthenics";
+import { BangkokImprov } from "@/components/BangkokImprov";
+import { BangkokKaraoke } from "@/components/BangkokKaraoke";
+import { BangkokRafting } from "@/components/BangkokRafting";
+import { BangkokAcupuncture } from "@/components/BangkokAcupuncture";
+import { BangkokStargazing } from "@/components/BangkokStargazing";
+import { BangkokPodcast } from "@/components/BangkokPodcast";
+import { BangkokSculpture } from "@/components/BangkokSculpture";
+import { BangkokJiuJitsu } from "@/components/BangkokJiuJitsu";
+import { BangkokBodywork } from "@/components/BangkokBodywork";
+import { BangkokPoloClub } from "@/components/BangkokPoloClub";
+import { BangkokFootball } from "@/components/BangkokFootball";
+import { BangkokHockey } from "@/components/BangkokHockey";
+import { BangkokTaekwondo } from "@/components/BangkokTaekwondo";
+import { BangkokCoding } from "@/components/BangkokCoding";
+import { BangkokAnime } from "@/components/BangkokAnime";
+import { BangkokMagic } from "@/components/BangkokMagic";
+import { BangkokWhiskey } from "@/components/BangkokWhiskey";
+import { BangkokPlantCulture } from "@/components/BangkokPlantCulture";
+import { BangkokBeauty } from "@/components/BangkokBeauty";
+import { BangkokCustomTailoring } from "@/components/BangkokCustomTailoring";
+import { BangkokArtMarket } from "@/components/BangkokArtMarket";
+import { BangkokClassicalMusic } from "@/components/BangkokClassicalMusic";
+import { BangkokLatinDance } from "@/components/BangkokLatinDance";
+import { BangkokHipHop } from "@/components/BangkokHipHop";
+import { BangkokThriftShop } from "@/components/BangkokThriftShop";
+import { BangkokJewelry } from "@/components/BangkokJewelry";
+import { BangkokTechShopping } from "@/components/BangkokTechShopping";
+import { BangkokNatureEscape } from "@/components/BangkokNatureEscape";
+import { BangkokCoastalDayTrip } from "@/components/BangkokCoastalDayTrip";
+import { BangkokMotorcycleRiding } from "@/components/BangkokMotorcycleRiding";
+import { BangkokRunning } from "@/components/BangkokRunning";
+import { BangkokPaddle } from "@/components/BangkokPaddle";
+import { BangkokCombatSports } from "@/components/BangkokCombatSports";
+import { BangkokSkateboarding } from "@/components/BangkokSkateboarding";
+import { BangkokBouldering } from "@/components/BangkokBouldering";
+import { BangkokGhostTour } from "@/components/BangkokGhostTour";
+import { BangkokSpecialtyCoffee } from "@/components/BangkokSpecialtyCoffee";
+import { BangkokBarbers } from "@/components/BangkokBarbers";
+import { BangkokPiercing } from "@/components/BangkokPiercing";
+import { BangkokVR } from "@/components/BangkokVR";
+import { BangkokAirsoft } from "@/components/BangkokAirsoft";
+import { BangkokGolfSimulator } from "@/components/BangkokGolfSimulator";
+import { BangkokPadel } from "@/components/BangkokPadel";
+import { BangkokHerping } from "@/components/BangkokHerping";
+import { BangkokAstronomy } from "@/components/BangkokAstronomy";
+import { BangkokFilmmaking } from "@/components/BangkokFilmmaking";
+import { BangkokPodcasting } from "@/components/BangkokPodcasting";
+import { BangkokMixology } from "@/components/BangkokMixology";
+import { BangkokWhisky } from "@/components/BangkokWhisky";
+import { BangkokAerialSports } from "@/components/BangkokAerialSports";
+import { BangkokMotocross } from "@/components/BangkokMotocross";
+import { BangkokWakeboard } from "@/components/BangkokWakeboard";
+import { BangkokAcrobatics } from "@/components/BangkokAcrobatics";
+import { BangkokKrabiKrabong } from "@/components/BangkokKrabiKrabong";
+import { BangkokSalsaDance } from "@/components/BangkokSalsaDance";
+import { BangkokHiking } from "@/components/BangkokHiking";
+import { BangkokMTB } from "@/components/BangkokMTB";
+import { BangkokGrappling } from "@/components/BangkokGrappling";
+import { BangkokBallet } from "@/components/BangkokBallet";
 
 export const dynamic = "force-static";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -433,6 +613,186 @@ export default async function NichePage({
       {(niche === "henna" || niche === "body-art") && <BangkokHennaTattoo />}
       {(niche === "silent-disco" || niche === "rave" || niche === "club") && <BangkokSilentDisco />}
       {(niche === "crafts" || niche === "workshop" || niche === "diy") && <BangkokCraftsWorkshops />}
+      {(niche === "spectator-sport" || niche === "watch-sport" || niche === "football") && <BangkokSportsWatching />}
+      {(niche === "flea-market" || niche === "vintage" || niche === "antique") && <BangkokFleaMarkets />}
+      {(niche === "antique" || niche === "collectibles" || niche === "art") && <BangkokAntiques />}
+      {(niche === "new-year" || niche === "christmas" || niche === "countdown") && <BangkokChristmasNewYear />}
+      {(niche === "songkran" || niche === "water-festival" || niche === "thai-new-year") && <BangkokSongkran />}
+      {(niche === "loy-krathong" || niche === "festival" || niche === "lantern") && <BangkokLoyKrathong />}
+      {(niche === "spiritual" || niche === "temple" || niche === "meditation") && <BangkokSpiritualTours />}
+      {(niche === "water-park" || niche === "swimming" || niche === "family") && <BangkokWaterParks />}
+      {(niche === "hot-air-balloon" || niche === "balloon" || niche === "aerial") && <BangkokHotAirBalloon />}
+      {(niche === "muay-thai-training" || niche === "boxing-training" || niche === "martial-arts") && <BangkokMuayThaiGym />}
+      {(niche === "zumba" || niche === "dance-fitness" || niche === "fitness-class") && <BangkokFitnessClasses />}
+      {(niche === "cooking-class" || niche === "culinary" || niche === "food-experience") && <BangkokCookingClass />}
+      {(niche === "cafe-hopping" || niche === "garden-cafe" || niche === "cafe") && <BangkokGardenCafe />}
+      {(niche === "karting" || niche === "go-kart" || niche === "racing") && <BangkokKarting />}
+      {(niche === "bowling" || niche === "glow-bowling" || niche === "indoor-sport") && <BangkokBowling />}
+      {(niche === "skateboarding" || niche === "skating" || niche === "bmx") && <BangkokSkateParks />}
+      {(niche === "birdwatching" || niche === "birding" || niche === "wildlife") && <BangkokBirding />}
+      {(niche === "kayaking" || niche === "canoeing" || niche === "paddle") && <BangkokCanoeing />}
+      {(niche === "jazz" || niche === "live-music-bar" || niche === "blues") && <BangkokJazzBars />}
+      {(niche === "pet-friendly" || niche === "dog-walking" || niche === "cat-cafe") && <BangkokPetFriendly />}
+      {(niche === "theatre" || niche === "theater" || niche === "traditional-dance") && <BangkokTheatre />}
+      {(niche === "architecture" || niche === "design" || niche === "heritage") && <BangkokArchitecture />}
+      {(niche === "k-pop" || niche === "kpop" || niche === "korean-pop") && <BangkokKpop />}
+      {(niche === "running" || niche === "jogging" || niche === "marathon") && <BangkokMorningRun />}
+      {(niche === "sauna" || niche === "steam-room" || niche === "wellness") && <BangkokSauna />}
+      {(niche === "picnic" || niche === "park" || niche === "outdoor-leisure") && <BangkokPicnic />}
+      {(niche === "bar-hopping" || niche === "nightlife-crawl" || niche === "drinks-crawl") && <BangkokBarHopping />}
+      {(niche === "cultural-tour" || niche === "heritage-walk" || niche === "history-tour") && <BangkokCulturalTours />}
+      {(niche === "skydiving" || niche === "paragliding" || niche === "indoor-skydiving") && <BangkokSkydiving />}
+      {(niche === "bungee" || niche === "bungee-jumping" || niche === "extreme-sport") && <BangkokBungeeJumping />}
+      {(niche === "concert" || niche === "music-event" || niche === "live-event") && <BangkokConcerts />}
+      {(niche === "mindfulness" || niche === "vipassana" || niche === "retreat") && <BangkokMindfulness />}
+      {(niche === "tennis" || niche === "tennis-court" || niche === "racket-sport") && <BangkokTennis />}
+      {(niche === "badminton" || niche === "badminton-court" || niche === "shuttlecock") && <BangkokBadminton />}
+      {(niche === "billiards" || niche === "snooker" || niche === "pool-table") && <BangkokBilliards />}
+      {(niche === "crossfit" || niche === "functional-fitness" || niche === "hiit-gym") && <BangkokCrossFit />}
+      {(niche === "football" || niche === "soccer" || niche === "futsal") && <BangkokSoccer />}
+      {(niche === "basketball" || niche === "pickup-basketball" || niche === "nba") && <BangkokBasketball />}
+      {(niche === "volleyball" || niche === "beach-volleyball" || niche === "sand-volleyball") && <BangkokVolleyball />}
+      {(niche === "table-tennis" || niche === "ping-pong" || niche === "table-sport") && <BangkokTableTennis />}
+      {(niche === "bjj" || niche === "wrestling" || niche === "mma") && <BangkokMartialArts />}
+      {(niche === "rugby" || niche === "rugby-union" || niche === "touch-rugby") && <BangkokRugby />}
+      {(niche === "cricket" || niche === "cricket-club" || niche === "t20") && <BangkokCricket />}
+      {(niche === "inline-skating" || niche === "rollerblade" || niche === "skating-rink") && <BangkokInlineSkating />}
+      {(niche === "swimming-lesson" || niche === "learn-to-swim" || niche === "swim-class") && <BangkokSwimmingLessons />}
+      {(niche === "triathlon" || niche === "ironman" || niche === "duathlon") && <BangkokTriathlon />}
+      {(niche === "motorsport" || niche === "motogp" || niche === "circuit-racing") && <BangkokMotorSport />}
+      {(niche === "cycling-club" || niche === "road-cycling" || niche === "cycling-group") && <BangkokCyclingClub />}
+      {(niche === "hash-run" || niche === "hash-house-harriers" || niche === "social-running") && <BangkokHashRun />}
+      {(niche === "weightlifting" || niche === "powerlifting" || niche === "strength-training") && <BangkokWeightlifting />}
+      {(niche === "squash" || niche === "squash-court" || niche === "racquetball") && <BangkokSquash />}
+      {(niche === "fencing" || niche === "sword-fighting" || niche === "saber") && <BangkokFencing />}
+      {(niche === "gymnastics" || niche === "acrobatics" || niche === "trampoline") && <BangkokGymnastics />}
+      {(niche === "arcade" || niche === "gaming-center" || niche === "video-games") && <BangkokArcade />}
+      {(niche === "board-games" || niche === "tabletop" || niche === "game-cafe") && <BangkokBoardGames />}
+      {(niche === "wine-tasting" || niche === "wine-class" || niche === "wset") && <BangkokWineClass />}
+      {(niche === "coffee-cupping" || niche === "specialty-coffee" || niche === "coffee-class") && <BangkokCoffeeCupping />}
+      {(niche === "ceramics" || niche === "wheel-throwing" || niche === "pottery-class") && <BangkokCeramicsWorkshop />}
+      {(niche === "calligraphy" || niche === "brush-lettering" || niche === "hand-lettering") && <BangkokCalligraphy />}
+      {(niche === "flower-arranging" || niche === "ikebana" || niche === "floral-workshop") && <BangkokFlowerArranging />}
+      {(niche === "astrology" || niche === "fortune-telling" || niche === "tarot") && <BangkokAstrology />}
+      {(niche === "sound-healing" || niche === "singing-bowls" || niche === "sound-bath") && <BangkokSoundHealing />}
+      {(niche === "reiki" || niche === "energy-healing" || niche === "holistic-healing") && <BangkokReikiHealing />}
+      {(niche === "osteopath" || niche === "physiotherapy" || niche === "chiropractic") && <BangkokOsteopath />}
+      {(niche === "float-tank" || niche === "sensory-deprivation" || niche === "flotation") && <BangkokFloatTank />}
+      {(niche === "photo-tour" || niche === "photography-walk" || niche === "street-photography") && <BangkokPhotoTour />}
+      {(niche === "night-photography" || niche === "nightscape" || niche === "cityscape") && <BangkokNightPhotography />}
+      {(niche === "kite-surfing" || niche === "kiteboarding" || niche === "wing-foil") && <BangkokKiteSurf />}
+      {(niche === "windsurfing" || niche === "sup" || niche === "paddleboard") && <BangkokWindsurfing />}
+      {(niche === "sailing" || niche === "yacht" || niche === "yacht-charter") && <BangkokSailing />}
+      {(niche === "mosaic" || niche === "mosaic-art" || niche === "macrame") && <BangkokMosaicWorkshop />}
+      {(niche === "art-gallery" || niche === "contemporary-art" || niche === "art-museum") && <BangkokArtGallery />}
+      {(niche === "horse-riding" || niche === "equestrian" || niche === "horse-racing") && <BangkokHorseRiding />}
+      {(niche === "rock-climbing" || niche === "bouldering" || niche === "indoor-climbing") && <BangkokRockClimbing />}
+      {(niche === "knitting" || niche === "crochet" || niche === "amigurumi") && <BangkokKnitting />}
+      {(niche === "sewing" || niche === "tailoring" || niche === "dressmaking") && <BangkokSewingClass />}
+      {(niche === "dragon-boat" || niche === "rowing" || niche === "kayaking") && <BangkokDragonBoat />}
+      {(niche === "zipline" || niche === "ziplining" || niche === "canopy-walk") && <BangkokZipline />}
+      {(niche === "water-polo" || niche === "swim-club" || niche === "competitive-swimming") && <BangkokWaterPolo />}
+      {(niche === "beach-volleyball" || niche === "padel" || niche === "sand-volleyball") && <BangkokBeachVolleyball />}
+      {(niche === "shisha" || niche === "hookah" || niche === "shisha-lounge") && <BangkokShishaLounge />}
+      {(niche === "pickleball" || niche === "paddle-sport" || niche === "kitchen-dink") && <BangkokPickleball />}
+      {(niche === "korfball" || niche === "ultimate-frisbee" || niche === "frisbee") && <BangkokKorfball />}
+      {(niche === "co-working" || niche === "digital-nomad" || niche === "remote-work") && <BangkokCoWorking />}
+      {(niche === "street-art" || niche === "mural" || niche === "graffiti") && <BangkokMuralArt />}
+      {(niche === "bonsai" || niche === "plant-collecting" || niche === "terrarium") && <BangkokBonsai />}
+      {(niche === "wrestling" || niche === "bjj" || niche === "grappling") && <BangkokWrestling />}
+      {(niche === "paragliding" || niche === "skydiving" || niche === "hot-air-balloon") && <BangkokParagliding />}
+      {(niche === "aquarium" || niche === "sea-life" || niche === "marine-life") && <BangkokAquarium />}
+      {(niche === "tai-chi" || niche === "qigong" || niche === "chinese-martial-arts") && <BangkokTaiChi />}
+      {(niche === "kendo" || niche === "iaido" || niche === "japanese-sword") && <BangkokKendo />}
+      {(niche === "breakdance" || niche === "bboy" || niche === "street-dance") && <BangkokBreakdance />}
+      {(niche === "zumba" || niche === "latin-dance" || niche === "belly-dance") && <BangkokZumba />}
+      {(niche === "pole-dance" || niche === "aerial-silks" || niche === "lyra") && <BangkokPoleDance />}
+      {(niche === "bootcamp" || niche === "fitness-bootcamp" || niche === "hiit") && <BangkokFitnessBootcamp />}
+      {(niche === "fishing" || niche === "freshwater-fishing" || niche === "sea-fishing") && <BangkokFishing />}
+      {(niche === "speedboat" || niche === "canal-tour" || niche === "long-tail-boat") && <BangkokSpeedboat />}
+      {(niche === "paintball" || niche === "laser-tag" || niche === "airsoft") && <BangkokPaintball />}
+      {(niche === "robotics" || niche === "maker-space" || niche === "drone-racing") && <BangkokRoboticsClub />}
+      {(niche === "philosophy" || niche === "book-club" || niche === "dharma") && <BangkokPhilosophyClub />}
+      {(niche === "orchid" || niche === "botanical-garden" || niche === "flower-garden") && <BangkokOrchidGarden />}
+      {(niche === "fashion" || niche === "fashion-week" || niche === "design-community") && <BangkokFashionWeek />}
+      {(niche === "amateur-muay-thai" || niche === "white-collar-boxing" || niche === "fight-night") && <BangkokMuayThaiAmateur />}
+      {(niche === "supercar" || niche === "track-day" || niche === "motorsport") && <BangkokSupercar />}
+      {(niche === "heritage" || niche === "historical-sites" || niche === "cultural-heritage") && <BangkokHeritage />}
+      {(niche === "luxury-spa" || niche === "spa-day" || niche === "wellness-spa") && <BangkokLuxurySpa />}
+      {(niche === "pride" || niche === "lgbtq" || niche === "gay-scene") && <BangkokPride />}
+      {(niche === "netball" || niche === "touch-rugby" || niche === "expat-sports") && <BangkokNetball />}
+      {(niche === "music-production" || niche === "recording-studio" || niche === "music-gear") && <BangkokMusicProduction />}
+      {(niche === "oil-painting" || niche === "watercolor" || niche === "traditional-thai-art") && <BangkokOilPainting />}
+      {(niche === "chess" || niche === "board-games" || niche === "mahjong") && <BangkokChessClub />}
+      {(niche === "home-decor" || niche === "interior-design" || niche === "thai-crafts") && <BangkokHomeDecor />}
+      {(niche === "stationery" || niche === "journaling" || niche === "fountain-pens") && <BangkokStationery />}
+      {(niche === "esports" || niche === "gaming" || niche === "competitive-gaming") && <BangkokEsports />}
+      {(niche === "cooking-school" || niche === "thai-cooking" || niche === "culinary") && <BangkokCookingSchool />}
+      {(niche === "urban-farming" || niche === "organic-gardening" || niche === "permaculture") && <BangkokUrbanFarming />}
+      {(niche === "pilates" || niche === "reformer-pilates" || niche === "mat-pilates") && <BangkokPilates />}
+      {(niche === "parkour" || niche === "freerunning" || niche === "acrobatics") && <BangkokFreeRunning />}
+      {(niche === "graffiti" || niche === "street-art" || niche === "urban-art") && <BangkokGraffitiArt />}
+      {(niche === "kiteboarding" || niche === "kite-surfing" || niche === "sup") && <BangkokKiteboarding />}
+      {(niche === "calisthenics" || niche === "street-workout" || niche === "crossfit") && <BangkokCalisthenics />}
+      {(niche === "improv" || niche === "comedy" || niche === "stand-up") && <BangkokImprov />}
+      {(niche === "karaoke" || niche === "noraebang" || niche === "singing") && <BangkokKaraoke />}
+      {(niche === "rafting" || niche === "white-water" || niche === "kayaking") && <BangkokRafting />}
+      {(niche === "acupuncture" || niche === "traditional-medicine" || niche === "tcm") && <BangkokAcupuncture />}
+      {(niche === "stargazing" || niche === "astronomy" || niche === "night-sky") && <BangkokStargazing />}
+      {(niche === "podcast" || niche === "content-creation" || niche === "youtube") && <BangkokPodcast />}
+      {(niche === "sculpture" || niche === "ceramics" || niche === "pottery") && <BangkokSculpture />}
+      {(niche === "bjj" || niche === "jiu-jitsu" || niche === "mma") && <BangkokJiuJitsu />}
+      {(niche === "bodywork" || niche === "deep-tissue" || niche === "sports-massage") && <BangkokBodywork />}
+      {(niche === "polo" || niche === "equestrian" || niche === "horse-riding") && <BangkokPoloClub />}
+      {(niche === "football" || niche === "soccer" || niche === "futsal") && <BangkokFootball />}
+      {(niche === "hockey" || niche === "ice-hockey" || niche === "field-hockey") && <BangkokHockey />}
+      {(niche === "taekwondo" || niche === "karate" || niche === "judo") && <BangkokTaekwondo />}
+      {(niche === "coding" || niche === "programming" || niche === "tech") && <BangkokCoding />}
+      {(niche === "anime" || niche === "manga" || niche === "cosplay") && <BangkokAnime />}
+      {(niche === "magic" || niche === "escape-room" || niche === "board-game-cafe") && <BangkokMagic />}
+      {(niche === "whisky" || niche === "whiskey" || niche === "single-malt") && <BangkokWhiskey />}
+      {(niche === "plants" || niche === "aquascaping" || niche === "bonsai") && <BangkokPlantCulture />}
+      {(niche === "beauty" || niche === "nail-art" || niche === "hair-salon") && <BangkokBeauty />}
+      {(niche === "tailoring" || niche === "custom-suit" || niche === "thai-silk") && <BangkokCustomTailoring />}
+      {(niche === "art-market" || niche === "galleries" || niche === "street-art") && <BangkokArtMarket />}
+      {(niche === "classical-music" || niche === "orchestra" || niche === "jazz") && <BangkokClassicalMusic />}
+      {(niche === "salsa" || niche === "bachata" || niche === "latin-dance") && <BangkokLatinDance />}
+      {(niche === "hiphop" || niche === "bboy" || niche === "electronic-music") && <BangkokHipHop />}
+      {(niche === "thrift" || niche === "vintage-clothing" || niche === "second-hand") && <BangkokThriftShop />}
+      {(niche === "jewelry" || niche === "gems" || niche === "amulets") && <BangkokJewelry />}
+      {(niche === "tech-shopping" || niche === "gaming" || niche === "cameras") && <BangkokTechShopping />}
+      {(niche === "national-park" || niche === "wildlife" || niche === "nature-escape") && <BangkokNatureEscape />}
+      {(niche === "beach-trip" || niche === "coastal" || niche === "island") && <BangkokCoastalDayTrip />}
+      {(niche === "motorcycle" || niche === "motorbike" || niche === "motorcycle-touring") && <BangkokMotorcycleRiding />}
+      {(niche === "running" || niche === "marathon" || niche === "jogging") && <BangkokRunning />}
+      {(niche === "sup" || niche === "kayaking" || niche === "dragon-boat" || niche === "wakeboarding") && <BangkokPaddle />}
+      {(niche === "mma" || niche === "karate" || niche === "judo" || niche === "krav-maga") && <BangkokCombatSports />}
+      {(niche === "skateboarding" || niche === "bmx" || niche === "inline-skating") && <BangkokSkateboarding />}
+      {(niche === "bouldering" || niche === "rock-climbing" || niche === "climbing-gym") && <BangkokBouldering />}
+      {(niche === "ghost-tour" || niche === "haunted" || niche === "spirit-houses") && <BangkokGhostTour />}
+      {(niche === "specialty-coffee" || niche === "third-wave-coffee" || niche === "cafe-hopping") && <BangkokSpecialtyCoffee />}
+      {(niche === "barbershop" || niche === "grooming" || niche === "mens-grooming") && <BangkokBarbers />}
+      {(niche === "piercing" || niche === "body-modification" || niche === "sak-yant") && <BangkokPiercing />}
+      {(niche === "vr" || niche === "gaming" || niche === "esports") && <BangkokVR />}
+      {(niche === "airsoft" || niche === "paintball" || niche === "laser-tag") && <BangkokAirsoft />}
+      {(niche === "golf-simulator" || niche === "driving-range" || niche === "disc-golf") && <BangkokGolfSimulator />}
+      {(niche === "padel" || niche === "pickleball" || niche === "beach-volleyball") && <BangkokPadel />}
+      {(niche === "herping" || niche === "reptiles" || niche === "urban-wildlife") && <BangkokHerping />}
+      {(niche === "stargazing" || niche === "astronomy" || niche === "astrology") && <BangkokAstronomy />}
+      {(niche === "filmmaking" || niche === "content-creation" || niche === "vlogging") && <BangkokFilmmaking />}
+      {(niche === "podcasting" || niche === "music-production" || niche === "live-music") && <BangkokPodcasting />}
+      {(niche === "mixology" || niche === "craft-cocktails" || niche === "craft-beer") && <BangkokMixology />}
+      {(niche === "whisky" || niche === "whiskey" || niche === "sake") && <BangkokWhisky />}
+      {(niche === "paramotor" || niche === "hot-air-balloon" || niche === "drone-racing" || niche === "fpv") && <BangkokAerialSports />}
+      {(niche === "motocross" || niche === "dirt-bike" || niche === "karting" || niche === "track-day") && <BangkokMotocross />}
+      {(niche === "wakeboarding" || niche === "kitesurfing" || niche === "rafting" || niche === "cable-park") && <BangkokWakeboard />}
+      {(niche === "aerial-silks" || niche === "acro-yoga" || niche === "pole-dance" || niche === "circus-arts") && <BangkokAcrobatics />}
+      {(niche === "krabi-krabong" || niche === "silat" || niche === "capoeira" || niche === "traditional-martial-arts") && <BangkokKrabiKrabong />}
+      {(niche === "salsa" || niche === "bachata" || niche === "hip-hop-dance" || niche === "breaking" || niche === "ballroom") && <BangkokSalsaDance />}
+      {(niche === "hiking" || niche === "trail-running" || niche === "rock-climbing" || niche === "trekking") && <BangkokHiking />}
+      {(niche === "mountain-biking" || niche === "mtb" || niche === "road-cycling" || niche === "bmx" || niche === "skateboarding") && <BangkokMTB />}
+      {(niche === "bjj" || niche === "judo" || niche === "wrestling" || niche === "grappling" || niche === "mma") && <BangkokGrappling />}
+      {(niche === "ballet" || niche === "contemporary-dance" || niche === "classical-dance" || niche === "khon") && <BangkokBallet />}
       {niche === "spa" && <SpaGuide />}
       {niche === "yoga-pilates" && <YogaGuide />}
       {niche === "diving" && <DivingGuide />}

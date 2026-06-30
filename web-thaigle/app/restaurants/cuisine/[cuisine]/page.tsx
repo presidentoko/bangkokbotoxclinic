@@ -16,6 +16,48 @@ import { ThaiDessertsGuide } from "@/components/ThaiDessertsGuide";
 import { BangkokNightMarkets } from "@/components/BangkokNightMarkets";
 import { BangkokVeganGuide } from "@/components/BangkokVeganGuide";
 import { BangkokBeerGuide } from "@/components/BangkokBeerGuide";
+import { BangkokNaturalWine } from "@/components/BangkokNaturalWine";
+import { BangkokMicrobrewery } from "@/components/BangkokMicrobrewery";
+import { BangkokKosherFood } from "@/components/BangkokKosherFood";
+import { BangkokNepaliFood } from "@/components/BangkokNepaliFood";
+import { BangkokRussianFood } from "@/components/BangkokRussianFood";
+import { BangkokIrishPubs } from "@/components/BangkokIrishPubs";
+import { BangkokRawFood } from "@/components/BangkokRawFood";
+import { BangkokBreakfast } from "@/components/BangkokBreakfast";
+import { BangkokTapas } from "@/components/BangkokTapas";
+import { BangkokGermanFood } from "@/components/BangkokGermanFood";
+import { BangkokBurmeseFood } from "@/components/BangkokBurmeseFood";
+import { BangkokSriLankanFood } from "@/components/BangkokSriLankanFood";
+import { BangkokMoroccanFood } from "@/components/BangkokMoroccanFood";
+import { BangkokChocolate } from "@/components/BangkokChocolate";
+import { BangkokDonburi } from "@/components/BangkokDonburi";
+import { BangkokUdon } from "@/components/BangkokUdon";
+import { BangkokPho } from "@/components/BangkokPho";
+import { BangkokBakery } from "@/components/BangkokBakery";
+import { BangkokPortugueseFood } from "@/components/BangkokPortugueseFood";
+import { BangkokOrganicFood } from "@/components/BangkokOrganicFood";
+import { BangkokFoodTruck } from "@/components/BangkokFoodTruck";
+import { BangkokTeppanyaki } from "@/components/BangkokTeppanyaki";
+import { BangkokHotChicken } from "@/components/BangkokHotChicken";
+import { BangkokAfricanFood } from "@/components/BangkokAfricanFood";
+import { BangkokSandwich } from "@/components/BangkokSandwich";
+import { BangkokCreperie } from "@/components/BangkokCreperie";
+import { BangkokWaffles } from "@/components/BangkokWaffles";
+import { BangkokBagels } from "@/components/BangkokBagels";
+import { BangkokBubbleTea } from "@/components/BangkokBubbleTea";
+import { BangkokThaiFusion } from "@/components/BangkokThaiFusion";
+import { BangkokSmokehouse } from "@/components/BangkokSmokehouse";
+import { BangkokGastropub } from "@/components/BangkokGastropub";
+import { BangkokWineBar } from "@/components/BangkokWineBar";
+import { BangkokLevantineFood } from "@/components/BangkokLevantineFood";
+import { BangkokPastry } from "@/components/BangkokPastry";
+import { BangkokArgentinianFood } from "@/components/BangkokArgentinianFood";
+import { BangkokScandinavianFood } from "@/components/BangkokScandinavianFood";
+import { BangkokMediterraneanFood } from "@/components/BangkokMediterraneanFood";
+import { BangkokNepaleseFood } from "@/components/BangkokNepaleseFood";
+import { BangkokArabicFood } from "@/components/BangkokArabicFood";
+import { BangkokPolishFood } from "@/components/BangkokPolishFood";
+import { BangkokColombianFood } from "@/components/BangkokColombianFood";
 import { BangkokKoreanFood } from "@/components/BangkokKoreanFood";
 import { BangkokJapaneseFood } from "@/components/BangkokJapaneseFood";
 import { BangkokWesternFood } from "@/components/BangkokWesternFood";
@@ -65,6 +107,14 @@ import { BangkokFilipinoFood } from "@/components/BangkokFilipinoFood";
 import { BangkokIndonesianFood } from "@/components/BangkokIndonesianFood";
 import { BangkokBrazilianFood } from "@/components/BangkokBrazilianFood";
 import { BangkokPersianFood } from "@/components/BangkokPersianFood";
+import { BangkokCurryGuide } from "@/components/BangkokCurryGuide";
+import { BangkokHeatCoolers } from "@/components/BangkokHeatCoolers";
+import { BangkokWagyuSteakhouses } from "@/components/BangkokWagyuSteakhouses";
+import { BangkokHongKongBistro } from "@/components/BangkokHongKongBistro";
+import { BangkokTurkishFood } from "@/components/BangkokTurkishFood";
+import { BangkokEthiopianFood } from "@/components/BangkokEthiopianFood";
+import { BangkokPeruvianFood } from "@/components/BangkokPeruvianFood";
+import { BangkokSingaporeanFood } from "@/components/BangkokSingaporeanFood";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -189,6 +239,48 @@ export default async function CuisineHub(
         {(cuisine === "street_food" || cuisine === "thai") && <BangkokNightMarkets />}
         {(cuisine === "vegan" || cuisine === "vegetarian") && <BangkokVeganGuide />}
         {cuisine === "bar_pub" && <BangkokBeerGuide />}
+        {(cuisine === "wine" || cuisine === "natural_wine" || cuisine === "wine_bar") && <BangkokNaturalWine />}
+        {(cuisine === "craft_beer" || cuisine === "brewery" || cuisine === "taproom") && <BangkokMicrobrewery />}
+        {(cuisine === "kosher" || cuisine === "jewish" || cuisine === "middle_eastern") && <BangkokKosherFood />}
+        {(cuisine === "nepali" || cuisine === "himalayan" || cuisine === "tibetan") && <BangkokNepaliFood />}
+        {(cuisine === "russian" || cuisine === "eastern_european" || cuisine === "slavic") && <BangkokRussianFood />}
+        {(cuisine === "pub" || cuisine === "irish" || cuisine === "british") && <BangkokIrishPubs />}
+        {(cuisine === "raw_food" || cuisine === "raw_vegan" || cuisine === "living_food") && <BangkokRawFood />}
+        {(cuisine === "breakfast" || cuisine === "brunch" || cuisine === "cafe_brunch") && <BangkokBreakfast />}
+        {(cuisine === "tapas" || cuisine === "spanish_tapas" || cuisine === "sharing_plates") && <BangkokTapas />}
+        {(cuisine === "german" || cuisine === "austrian" || cuisine === "bavarian") && <BangkokGermanFood />}
+        {(cuisine === "burmese" || cuisine === "myanmar" || cuisine === "shan") && <BangkokBurmeseFood />}
+        {(cuisine === "sri_lankan" || cuisine === "ceylonese" || cuisine === "sinhala") && <BangkokSriLankanFood />}
+        {(cuisine === "moroccan" || cuisine === "north_african" || cuisine === "maghrebi") && <BangkokMoroccanFood />}
+        {(cuisine === "chocolate" || cuisine === "dessert_chocolate" || cuisine === "confectionery") && <BangkokChocolate />}
+        {(cuisine === "donburi" || cuisine === "rice_bowl" || cuisine === "gyudon") && <BangkokDonburi />}
+        {(cuisine === "udon" || cuisine === "japanese_noodles" || cuisine === "sanuki") && <BangkokUdon />}
+        {(cuisine === "pho" || cuisine === "vietnamese_noodles" || cuisine === "bun_bo_hue") && <BangkokPho />}
+        {(cuisine === "bakery" || cuisine === "sourdough" || cuisine === "croissant") && <BangkokBakery />}
+        {(cuisine === "portuguese" || cuisine === "macanese" || cuisine === "lusophone") && <BangkokPortugueseFood />}
+        {(cuisine === "organic" || cuisine === "farm-to-table" || cuisine === "health_food") && <BangkokOrganicFood />}
+        {(cuisine === "food-truck" || cuisine === "street-food-market" || cuisine === "pop-up") && <BangkokFoodTruck />}
+        {(cuisine === "teppanyaki" || cuisine === "yakiniku" || cuisine === "japanese_grill") && <BangkokTeppanyaki />}
+        {(cuisine === "fried-chicken" || cuisine === "hot-chicken" || cuisine === "nashville") && <BangkokHotChicken />}
+        {(cuisine === "african" || cuisine === "ethiopian" || cuisine === "west_african") && <BangkokAfricanFood />}
+        {(cuisine === "sandwich" || cuisine === "deli" || cuisine === "banh-mi") && <BangkokSandwich />}
+        {(cuisine === "crepe" || cuisine === "galette" || cuisine === "creperie") && <BangkokCreperie />}
+        {(cuisine === "waffle" || cuisine === "bubble-waffle" || cuisine === "egg-waffle") && <BangkokWaffles />}
+        {(cuisine === "bagel" || cuisine === "deli" || cuisine === "jewish") && <BangkokBagels />}
+        {(cuisine === "bubble-tea" || cuisine === "boba" || cuisine === "milk-tea") && <BangkokBubbleTea />}
+        {(cuisine === "thai-fusion" || cuisine === "modern-thai" || cuisine === "thai-contemporary") && <BangkokThaiFusion />}
+        {(cuisine === "bbq" || cuisine === "smokehouse" || cuisine === "smoked-meat") && <BangkokSmokehouse />}
+        {(cuisine === "gastropub" || cuisine === "pub-food" || cuisine === "craft-beer") && <BangkokGastropub />}
+        {(cuisine === "wine-bar" || cuisine === "natural-wine" || cuisine === "fine-wine") && <BangkokWineBar />}
+        {(cuisine === "levantine" || cuisine === "lebanese" || cuisine === "falafel") && <BangkokLevantineFood />}
+        {(cuisine === "pastry" || cuisine === "patisserie" || cuisine === "french-bakery") && <BangkokPastry />}
+        {(cuisine === "argentinian" || cuisine === "parrilla" || cuisine === "south-american") && <BangkokArgentinianFood />}
+        {(cuisine === "scandinavian" || cuisine === "nordic" || cuisine === "swedish") && <BangkokScandinavianFood />}
+        {(cuisine === "mediterranean" || cuisine === "greek" || cuisine === "italian") && <BangkokMediterraneanFood />}
+        {(cuisine === "nepali" || cuisine === "himalayan" || cuisine === "sri-lankan") && <BangkokNepaleseFood />}
+        {(cuisine === "arabic" || cuisine === "middle-eastern" || cuisine === "lebanese") && <BangkokArabicFood />}
+        {(cuisine === "polish" || cuisine === "eastern-european" || cuisine === "czech") && <BangkokPolishFood />}
+        {(cuisine === "colombian" || cuisine === "venezuelan" || cuisine === "latin-american") && <BangkokColombianFood />}
         {cuisine === "korean" && <BangkokKoreanFood />}
         {cuisine === "japanese" && <BangkokJapaneseFood />}
         {(cuisine === "western" || cuisine === "american") && <BangkokWesternFood />}
@@ -238,6 +330,14 @@ export default async function CuisineHub(
         {(cuisine === "indonesian" || cuisine === "balinese" || cuisine === "nasi_goreng") && <BangkokIndonesianFood />}
         {(cuisine === "brazilian" || cuisine === "churrasco" || cuisine === "rodizio") && <BangkokBrazilianFood />}
         {(cuisine === "persian" || cuisine === "iranian" || cuisine === "kebab") && <BangkokPersianFood />}
+        {(cuisine === "curry" || cuisine === "thai_curry") && <BangkokCurryGuide />}
+        {(cuisine === "drinks" || cuisine === "dessert" || cuisine === "thai_drinks") && <BangkokHeatCoolers />}
+        {(cuisine === "wagyu" || cuisine === "fine_dining" || cuisine === "steakhouse") && <BangkokWagyuSteakhouses />}
+        {(cuisine === "hong_kong" || cuisine === "cantonese" || cuisine === "char_siu") && <BangkokHongKongBistro />}
+        {(cuisine === "turkish" || cuisine === "kebab_turkish" || cuisine === "mediterranean") && <BangkokTurkishFood />}
+        {(cuisine === "ethiopian" || cuisine === "african" || cuisine === "east_african") && <BangkokEthiopianFood />}
+        {(cuisine === "peruvian" || cuisine === "latin_american" || cuisine === "ceviche") && <BangkokPeruvianFood />}
+        {(cuisine === "singaporean" || cuisine === "hainanese" || cuisine === "laksa") && <BangkokSingaporeanFood />}
         <OpenNow />
         <RatingLegend />
 
