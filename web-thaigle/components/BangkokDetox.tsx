@@ -1,0 +1,52 @@
+const SPOTS = [
+  {
+    name: "Bangkok IV Drip & Vitamin Infusion Clinics",
+    emoji: "💊",
+    area: "IV drip clinics throughout Bangkok: Absolute Health (Langsuan), IV Drip Bangkok (Thonglor), many international hospital-adjacent wellness centers, and increasingly in premium hotel spa facilities in Sukhumvit, Silom, and Sathorn",
+    price: "Basic IV hydration: ฿800–2,000; Vitamin C high-dose IV: ฿1,500–4,000; Myers Cocktail (multivitamin): ฿2,000–5,000; Glutathione whitening IV: ฿1,500–4,000; NAD+ IV infusion: ฿8,000–25,000; Full hangover recovery IV: ฿2,000–5,000",
+    why: "Bangkok's IV drip and vitamin infusion clinic industry has grown into a mainstream wellness category — driven by the combination of genuine medical indications (dehydration from Bangkok's heat and active tourist schedules, jet lag recovery, party recovery) and growing interest in IV micronutrient therapy and longevity protocols. The Bangkok IV drip market spans: (1) Medical clinic-based IV therapy — genuine clinical settings with physicians supervising infusions; (2) Spa-based IV services — wellness spas adding IV therapy as a premium service adjacent to massage and aesthetic treatments; (3) Hotel-room IV delivery services — mobile nurses delivering drips to hotel rooms; a service that grew from party-recovery demand; (4) Popular formulations: standard saline hydration, Myers Cocktail (magnesium, B vitamins, vitamin C, calcium), high-dose vitamin C (ascorbic acid — used in both wellness and adjunct cancer care contexts), glutathione (antioxidant, skin brightening), NAD+ (nicotinamide adenine dinucleotide — cellular energy, increasingly popular in longevity protocols). Bangkok's low cost (relative to US IV concierge services) and easy appointment availability have made IV drip a standard tool for some Bangkok residents managing energy and wellness.",
+    tip: "Bangkok IV drip safety and navigation: (1) Medical supervision requirement: any IV infusion carries risk (vein access, infusion rate errors, allergic reactions, electrolyte imbalance); using clinics with physician oversight rather than nurse-only or unqualified operators is essential; (2) Glutathione IV and skin whitening: Bangkok's glutathione IV market is enormous — driven by demand for skin lightening; while glutathione has genuine antioxidant value, the skin whitening efficacy from IV glutathione is debated and high-dose protocols carry risk; (3) Hangover IV timing: Bangkok's party culture generates significant same-day demand for hangover recovery IVs; hotel delivery and walk-in clinic services handle this efficiently; (4) NAD+ infusion for jetlag/longevity: NAD+ infusions have experienced a global trend wave from the longevity medicine community; Bangkok's wellness clinics offering NAD+ are among Asia's more accessible sources of this expensive infusion (฿8,000–25,000 vs. $500–1,500 in USA); (5) Contraindication awareness: IV therapies have genuine contraindications (kidney disease, heart failure, G6PD deficiency for high-dose vitamin C); disclosing complete medical history at the clinic consultation is essential.",
+  },
+  {
+    name: "Bangkok Detox Retreats & Cleansing Programs",
+    emoji: "🌿",
+    area: "Bangkok day retreats and residential programs: The Cleanse (Sukhumvit), The Spa at Four Seasons, EllePure wellness, and longer programs accessible from Bangkok: Samahita Retreat (Koh Samui), The Sanctuary (Koh Phangan), COMO Shambhala (Bali accessible), and Chiiva-Som (Hua Hin)",
+    price: "Bangkok day juice cleanse: ฿2,000–5,000; Weekend detox retreat (near Bangkok): ฿8,000–25,000; Residential 5-day detox (Koh Samui/Koh Phangan): ฿25,000–80,000; Luxury residential detox (Chiva-Som): ฿60,000–250,000/week; Juice cleanse delivery to Bangkok hotel: ฿1,500–4,000/day",
+    why: "Bangkok serves as a hub for a broader Thai wellness retreat ecosystem that extends to the Gulf of Thailand islands (Koh Samui, Koh Phangan) for residential detox programs. Bangkok-based day and half-day detox programs offer supervised juice fasting, colonic hydrotherapy, herbal therapy, and nutritional counseling without the need for multi-day travel. The residential retreat option — particularly Koh Samui's Samahita Retreat and Koh Phangan's The Sanctuary — combine 5–14 day structured detox programs with island accommodation; Bangkok functions as the flight hub (45-minute flight to Koh Samui from Bangkok). Chiva-Som in Hua Hin (2.5 hours from Bangkok by road) represents the ultimate luxury wellness resort experience in Thailand — with week-long programs that include medical assessment, Thai traditional and contemporary wellness therapies, nutritional planning, and supervised detox in spectacular facilities.",
+    tip: "Bangkok detox program selection: (1) Defining detox goals: the term 'detox' covers a wide range (juice fasting → colonic cleansing → medically supervised elimination diet → residential mind-body programs); clarifying which aspect is most relevant to your goal helps select the appropriate program type; (2) Medical clearance: any extended fasting or elimination program warrants medical clearance, particularly for those with diabetes, cardiac conditions, or eating disorder history; Bangkok's wellness programs at the professional end require intake health questionnaires; (3) The science of detox: the liver and kidneys perform the body's actual detoxification continuously; the evidence for specific 'detox' products or protocols beyond their general healthy-eating effects is limited; structuring the Bangkok detox experience as a rest, reset, and mindful-eating opportunity is more aligned with evidence than expecting specific toxin removal; (4) Post-detox Bangkok food reintroduction: the reintroduction of Thai food after a juice cleanse in Bangkok can be somewhat challenging — the flavors are intense and the spice and acidity may feel overwhelming on a sensitized digestive system; gentle reintroduction (congee, plain rice, mild soups) eases transition; (5) Juice cleanse delivery services: Bangkok's juice cleanse delivery market (same as major Western cities) delivers cold-pressed juice programs to hotel rooms; practical for maintaining a light eating protocol during a Bangkok trip without the structure of a formal program.",
+  },
+  {
+    name: "Colonic Hydrotherapy & Gut Health in Bangkok",
+    emoji: "🏥",
+    area: "Colonic hydrotherapy centers in Bangkok: Absolute Health (Langsuan), The Cleanse Bangkok (Sukhumvit), Balance Health Bangkok (Ekkamai), and specialized clinics near international hospitals throughout the city",
+    price: "Colonic hydrotherapy session (60 min): ฿2,500–5,000; Three-session package: ฿6,000–12,000; Probiotic consultation post-colonics: ฿1,500–3,000; Gut health assessment (comprehensive stool test): ฿5,000–15,000; SIBO breath test: ฿3,000–8,000; Functional medicine gut assessment: ฿8,000–20,000",
+    why: "Colonic hydrotherapy (colon cleansing through controlled water irrigation of the colon) has maintained significant demand in Bangkok's wellness market — attracting both Bangkok residents interested in gut health optimization and medical tourists who combine colonics with other Bangkok wellness experiences. Bangkok's colonic hydrotherapy centers use either the open-system (gravity-fed, the patient controls the release) or closed-system (therapist-controlled, more regulated) formats. Alongside colonics, Bangkok's functional medicine clinics offer comprehensive gut health assessment including microbiome analysis, SIBO (small intestinal bacterial overgrowth) breath testing, food intolerance testing (IgG panel), and treatment protocols for conditions including IBS, Crohn's disease, and chronic bloating. Bangkok's functional medicine community is served by practitioners trained in integrative medicine approaches from the USA, UK, and Australia who bring Western functional medicine methodology to Bangkok's accessible, lower-cost environment.",
+    tip: "Bangkok gut health services navigation: (1) Colonic hydrotherapy evidence context: evidence for colonic hydrotherapy benefits beyond preparation for colonoscopy is limited; the gut health community is divided; considering it as a complementary experience rather than a proven medical treatment creates appropriate expectations; (2) Qualified practitioners: seek colonic hydrotherapy practitioners who are registered with legitimate professional associations and work in clean clinical environments with sterile single-use equipment; Bangkok's colonic market has quality variation; (3) Pre/probiotic strategy: the colonic hydrotherapy market in Bangkok integrates pre and probiotic supplementation as part of gut health programs; choosing programs that include professional guidance on probiotic supplementation after colonics supports microbiome recovery; (4) Functional medicine for chronic gut symptoms: Bangkok's functional medicine practitioners who take a comprehensive history, order appropriate testing, and develop evidence-based treatment protocols represent better value for serious gut health issues than repeated colonic sessions alone; (5) Post-colonic diet in Bangkok: Thai cuisine's herb and spice elements (ginger, garlic, turmeric, holy basil) all have prebiotic or anti-inflammatory gut properties; transitioning from cleansing protocols back into Thai food provides genuinely gut-supportive nutrition.",
+  },
+];
+
+export function BangkokDetox() {
+  return (
+    <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
+      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+        💊 Bangkok wellness detox — IV therapy, cleansing retreats & gut health clinics
+      </div>
+      <div className="space-y-2">
+        {SPOTS.map((s) => (
+          <div key={s.name} className="border border-cyan-100 rounded-xl p-3">
+            <div className="flex items-start gap-2 mb-1.5">
+              <span className="text-2xl shrink-0">{s.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <div className="font-bold text-xs">{s.name}</div>
+                <div className="text-[10px] text-[var(--muted)]">{s.area}</div>
+              </div>
+              <span className="shrink-0 text-[10px] font-mono text-green-700">{s.price}</span>
+            </div>
+            <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{s.why}</div>
+            <div className="text-[10px] text-cyan-700">💡 {s.tip}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

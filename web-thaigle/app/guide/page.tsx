@@ -295,6 +295,7 @@ import { BangkokAnimal } from "@/components/BangkokAnimal";
 import { BangkokMedicine } from "@/components/BangkokMedicine";
 import { BangkokDesign } from "@/components/BangkokDesign";
 import { BangkokPhilippine } from "@/components/BangkokPhilippine";
+import { BangkokKhlong } from "@/components/BangkokKhlong";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -672,6 +673,7 @@ export default function GuideIndexPage() {
       <BangkokMedicine />
       <BangkokDesign />
       <BangkokPhilippine />
+      <BangkokKhlong />
       <BangkokTravelHacks />
       <BangkokVisaGuide />
       <BangkokBackpackerGuide />

@@ -1,0 +1,44 @@
+const TOPICS = [
+  {
+    title: "Bangkok's Tech Startup Ecosystem — Thai Unicorns, SCB10X & Venture Capital",
+    emoji: "🚀",
+    summary: "Thailand has developed one of Southeast Asia's most active startup ecosystems, with Bangkok as its center: (1) Thai startup scale: Thailand has produced its first unicorns (startups with $1B+ valuation); Flash Express (logistics), Bitkub (crypto exchange), and Ascend Money (True Money, fintech) achieved unicorn status or near-unicorn valuations; the ecosystem is smaller than Singapore and Indonesia but growing significantly; (2) Corporate venture capital: Thailand's most significant startup capital comes from corporate venture arms of established Thai conglomerates; SCB10X (Siam Commercial Bank's venture arm, $800M+ deployed) is the most active; CP Ventures (Charoen Pokphand), KASIKORN Business Technology Group, True Digital, and PTT Innovation Institute all have formal venture investment programs; (3) Government ecosystem support: National Innovation Agency (NIA) and National Science and Technology Development Agency (NSTDA) provide grants, acceleration programs, and incubation for Thai startups; the Thailand Science Park (Wang Klai Kangwon, Pathum Thani, north Bangkok) concentrates deep tech and biotech startups; (4) Key Bangkok startup areas: True Digital Park (Bang Na, Punnawithi BTS) is Bangkok's largest startup campus; Chulalongkorn University's CU Innovation Hub (Siam Square area) concentrates university-linked startups; Bangkok's co-working spaces (HUBBA, WeWork, The Hive) host early-stage startups; (5) Cross-border investment flow: Singapore's VC ecosystem (which is Southeast Asia's dominant venture capital hub) actively invests in Thai startups; Thai startups increasingly use Singapore's holding company structure (Cayman or Singapore) while operating teams in Bangkok; this Singapore-Thailand VC bridge is a consistent pattern in Thai startup financing.",
+    action: "True Digital Park (punnawithi BTS, tdpk.co.th) for startup community access; SCB10X (scb10x.com) for corporate venture investment landscape; NIA (nia.or.th) for government startup support programs; AIS The StartUp (ais.th/startup) for telco-backed acceleration; Techsauce (Thailand's leading tech media/event organizer, techsauce.co) for current ecosystem news and events; Startup Thailand event (annual, typically April) for ecosystem summit access.",
+  },
+  {
+    title: "Thailand's Digital Economy & E-Commerce — Shopee, Lazada, LINE MAN & Super Apps",
+    emoji: "📱",
+    summary: "Thailand's digital economy is one of Southeast Asia's fastest-growing and largest: (1) E-commerce platform dominance: Thailand's e-commerce market is dominated by two platform giants — Shopee (Sea Group, Singapore-owned) and Lazada (Alibaba Group-owned, relaunching under new ASEAN strategy); both platforms have massive Thai seller bases, deep promotional discount cultures, and integrated payment/logistics; TikTok Shop launched aggressively in Thailand creating a third significant e-commerce channel; (2) LINE's Thai super-app role: LINE (Japanese messaging app owned by LY Corporation) is Thailand's dominant messaging platform with 50M+ Thai users; LINE's Thai ecosystem extends beyond messaging: LINE Pay, LINE MAN (food delivery), LINE Shopping, LINE TV; LINE is more central to Thai digital commerce than WhatsApp is to Western markets; (3) Thai food delivery: LINE MAN Wongnai and GrabFood are Thailand's two main food delivery platforms; both serve Bangkok extensively with 30–45 minute delivery times; LINE MAN Wongnai merged Thailand's largest restaurant review platform (Wongnai, analogous to Yelp) with food delivery; (4) PromptPay national payment system: Thailand's PromptPay instant transfer system (linked to Thai national ID or mobile number) has become the dominant P2P and small business payment method; QR code payment via PromptPay is accepted at Bangkok street food stalls, markets, and small businesses; the infrastructure is faster and cheaper than card payment; (5) Thailand's digital literacy: Thailand has high smartphone penetration (90%+) and high social media engagement (60M+ Thai Facebook users); the combination creates a digitally active commerce environment; Thai consumers actively compare prices, read reviews, and participate in flash sales; Bangkok's merchant community has high LINE QR payment adoption.",
+    action: "Shopee Thailand (shopee.co.th) for e-commerce seller registration and product research; Lazada Thailand (lazada.co.th) for marketplace access; LINE MAN (lineman.line.me) for food delivery and restaurant discovery; Wongnai (wongnai.com) for Thai-language restaurant reviews with broader local coverage than Google Maps; PromptPay enrollment at any Thai bank for local mobile payment; TikTok Shop Thailand for live-commerce selling opportunities.",
+  },
+  {
+    title: "Bangkok's Creative & Design Industry — TCDC, Advertising & Brand Marketing",
+    emoji: "🎨",
+    summary: "Bangkok has a significant creative economy spanning advertising, graphic design, fashion, and digital content: (1) Bangkok's advertising industry: Bangkok is Southeast Asia's second-largest advertising market after Singapore; major global advertising holding companies (WPP, Omnicom, Publicis, IPG, Dentsu) all have Bangkok offices with significant Thai operations; Thai advertising is known for distinctive emotional storytelling — Thai ads ('Thai commercials,' particularly Muang Thai Life Assurance and THAI beverage campaigns) have won Cannes Lions and gone viral globally due to their unexpected emotional impact; (2) TCDC (Thailand Creative and Design Center): TCDC (at Charoen Krung Soi 29, housed in a converted warehouse on the riverside) is Thailand's government-funded creative infrastructure; the center has a large materials library (physical material samples for designers), co-working for creative professionals, gallery spaces, and educational programming; TCDC is free for registered members (registering at the center is straightforward); (3) Thai graphic design and typography: Thailand has a rich tradition of Thai script typography; Thai font design is a specialized field with both historical preservation (royal Thai script styles) and contemporary innovation; TCDC's materials library and academic programs support this tradition; Thai branding and packaging design quality is high — Thai consumer goods often have sophisticated packaging design; (4) Bangkok fashion industry: Thailand has a growing independent fashion design sector; Bangkok International Fashion Week and the Siam Discovery concept store/market model supports Thai designers; Thai designers are increasingly appearing at regional fashion weeks; traditional Thai textiles (silk, cotton weaves from specific regions) are being reinterpreted in contemporary fashion; (5) Film and television production: Bangkok has a well-developed film and television production industry serving both Thai domestic content (GMMTV series with international popularity in Asia, particularly 'Boys Love' Thai drama format) and international productions; Bangkok's varied cityscape (modern skyscrapers, traditional temples, slums, river frontages) provides diverse location settings; production costs are competitive with Western equivalents.",
+    action: "TCDC Bangkok (tcdc.or.th, Charoen Krung 29) for free membership and materials library access; Bangkok Design Week (bkkdw.net, January annual) for city-wide creative district events; Ad Addict (adaddictthailand.com) for Thai advertising industry news; Creative Economy Agency Thailand (cea.or.th) for government creative sector programs; Thailand Animation & Visual Effects market information via BOI; Thai independent fashion: Saturday market at Dusit Zoo area, Siam Discovery's Thai designer floor, Chatuchak designer section.",
+  },
+];
+
+export function BangkokVentureTech() {
+  return (
+    <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
+      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+        🚀 Bangkok tech economy — startup ecosystem, e-commerce platforms & creative industry
+      </div>
+      <div className="space-y-1.5">
+        {TOPICS.map((t) => (
+          <details key={t.title} className="border border-cyan-100 rounded-xl">
+            <summary className="px-3 py-2 cursor-pointer font-bold text-xs flex items-center gap-2">
+              <span>{t.emoji}</span>
+              <span>{t.title}</span>
+            </summary>
+            <div className="px-3 pb-3">
+              <div className="text-[10px] text-[var(--fg)] leading-snug mb-1">{t.summary}</div>
+              <div className="text-[10px] text-cyan-700">→ {t.action}</div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  );
+}

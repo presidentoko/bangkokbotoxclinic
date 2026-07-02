@@ -1,0 +1,52 @@
+const SPOTS = [
+  {
+    name: "Pak Khlong Talat — Bangkok's 24-Hour Flower Market",
+    emoji: "🌸",
+    area: "Pak Khlong Talat flower market: Chak Phet Road, near Tha Tien pier and Saphan Phut (Memorial Bridge) in Old Bangkok; busiest from midnight to 4am (wholesale rush), remains active through morning",
+    price: "Mixed flower bunch (from ฿50); Premium roses (dozen): ฿200–600; Orchid arrangements: ฿100–500; Jasmine garlands (phuang malai): ฿20–100; Floral workshop at nearby studio: ฿1,500–4,000; Thai flower arrangement class: ฿2,500–5,000",
+    why: "Pak Khlong Talat (literally 'market by the canal') is one of Asia's most spectacular fresh flower markets — operating 24 hours a day with wholesale and retail trading that peaks dramatically between midnight and 5am when Bangkok's florists, hotel purchasing staff, and restaurant decorators arrive to source the day's flowers. The market spans both sides of Chak Phet Road with flower stalls packed so densely that the air becomes fragrant from 100 meters away. The variety is extraordinary: roses in every color, tropical Thai orchids (both Dendrobium and Phalaenopsis in dozens of varieties), crown flowers, chrysanthemums, bird of paradise, lotuses (used extensively in Thai Buddhist offerings), marigolds (for ceremony garlands), and the fragrant jasmine flowers used in phuang malai (Thai offering garlands woven on string). Beyond cut flowers, Pak Khlong Talat also sells potted plants, dried flowers, floral foam and wire, and the supplies for making traditional Thai decorative flower arrangements (bai sri: elaborate ceremonial food offerings made with banana leaves and flowers).",
+    tip: "Pak Khlong Talat visit strategy: (1) Best visit timing: arriving between midnight and 4am provides the most spectacular wholesale atmosphere and freshest stock; the market is well-lit and has significant foot traffic at these hours making it safe for visitors; a 3am market visit is one of Bangkok's most memorable nocturnal experiences; (2) Daytime access: the market remains active through the morning (until 9–10am when wholesale winds down) but retail prices are slightly higher than wholesale pre-dawn hours; visiting at 6–7am after sunrise provides good atmosphere with natural light; (3) Making phuang malai: the traditional Thai offering garlands are threaded onto string or wire in intricate patterns using crown flowers (dok rak) and jasmine buds; learning the basic technique from a vendor or from a subsequent floral workshop is a distinctly Thai skill; (4) Photography: the pre-dawn market under fluorescent lighting with saturated flower colors produces dramatic photography; bringing a camera with good low-light performance maximizes results; (5) Transport: Pak Khlong Talat is accessible by Chao Phraya boat (Tha Tien pier) or by taxi; the area has slightly restricted vehicle access in peak hours.",
+  },
+  {
+    name: "Thai Traditional Flower Art & Bai Sri Ceremony",
+    emoji: "🌺",
+    area: "Thai traditional floral art classes throughout Bangkok; major ceremony at temples and royal institutions; Department of Fine Arts (Rattanakosin area) traditional craft programs; Suan Pakkad Palace Museum cultural demonstrations",
+    price: "Thai flower arrangement class: ฿2,500–5,000; Bai sri making workshop: ฿2,000–4,000; Fruit carving and flower folding class: ฿1,500–3,500; Lotus folding lesson: ฿500–1,500; Cultural demonstration (temples): free to ฿300",
+    why: "Traditional Thai decorative flower arts represent some of the most sophisticated and culturally distinctive craft traditions in Southeast Asia — developing over centuries within the royal court and temple traditions of the Chakri dynasty. Key Thai flower art forms: (1) Phuang malai (garland making): jasmine and crown flower garlands woven in intricate patterns; used as offerings to Buddha images, spirit houses, vehicles, and as respectful gifts; the most widely practiced Thai flower art; (2) Dok mai chan (floral display): elaborate arrangements of tropical flowers in traditional Thai vessels; the palace tradition of floral display that influenced the decorative culture of the aristocracy; (3) Bai sri (ceremonial food offering structure): complex multi-tiered structures made from banana leaves, flowers, food offerings, and candles; used in important ceremony (blessing ceremonies, weddings, ordination ceremonies); a highly skilled craft requiring weeks of training to produce the full traditional form; (4) Lotus folding: fresh lotus petals are folded into precise geometric forms and presented as Buddha offerings; the technique requires care with the fresh, easily damaged petals; (5) Fruit and vegetable carving (kae sa lak): closely related to flower art in Thai palace culture; vegetables and fruits are carved into elaborate floral forms as part of royal banquet presentation tradition.",
+    tip: "Thai flower art learning in Bangkok: (1) Institute level training: the Department of Fine Arts (กรมศิลปากร) offers traditional Thai arts training including flower arrangement; serious students can access multi-month programs; (2) Workshop access: Bangkok's cultural tourism industry has developed accessible workshop formats (2–3 hours) for garland making and lotus folding that give real exposure to the techniques without requiring extended commitment; (3) Cultural context: traditional Thai flower arts are inseparable from their ceremonial context — making offerings to Buddha images with fresh flowers is a daily practice in Thai households; learning the tradition through its actual use (temple offerings) rather than purely as an art exercise connects with living culture; (4) Supplies at Pak Khlong Talat: the flower market sells the specific flower types needed for traditional Thai floral arts; jasmine buds, crown flowers, and lotus flowers are all widely available at low prices; (5) YouTube resources: Thai floral art instruction in English and Thai is widely available on YouTube; supplementing a hands-on workshop experience with video instruction accelerates skill development.",
+  },
+  {
+    name: "Bangkok Contemporary Floral Design & Flower Subscription",
+    emoji: "🌷",
+    area: "Contemporary floral studios in Bangkok: Flowers by Potted (Thonglor), Tropicana Florist (multiple), Petal to Petal (Thonglor/Ekkamai), Hua Lam Floral (Phrom Phong), and various Instagram-active independent florists throughout Bangkok",
+    price: "Contemporary hand-tied bouquet: ฿800–3,000; Luxury floral installation (events): ฿5,000–100,000+; Weekly flower subscription (delivered): ฿1,500–4,000/month; Floral design workshop (contemporary): ฿3,000–6,000; Wedding floral consultation: ฿1,000–3,000 (often credited toward order)",
+    why: "Bangkok's contemporary floral design scene has flourished alongside the city's café culture and wedding industry — producing a generation of Bangkok florists who combine international floral design training (many trained in Korea, Japan, or Europe) with access to Thailand's extraordinary tropical flower diversity. Contemporary Bangkok florists work with the same material base (orchids, tropical blooms, protea, anthuriums, heliconia, bird of paradise) as traditional market florists but apply aesthetics influenced by Korean minimalism, European wildflower arrangements, and Japanese ikebana principles. The Bangkok wedding industry (a major economic sector given the city's popularity as both a domestic and destination wedding location) has driven significant investment in high-caliber floral design — Bangkok's top wedding florists create installations comparable to what the world's best studios produce. The flower subscription model (weekly delivery of a curated bouquet to Bangkok apartments or offices) has grown into a Bangkok lifestyle product with multiple subscription companies operating regular delivery routes through BTS-accessible neighborhoods.",
+    tip: "Bangkok contemporary floristry access: (1) Instagram-first discovery: Bangkok's best contemporary florists are primarily discovered through Instagram; searching 'Bangkok florist' and 'ร้านดอกไม้กรุงเทพ' reveals the current landscape of design-forward studios; (2) Thonglor concentration: Bangkok's most innovative contemporary florists cluster in the Thonglor and Ekkamai neighborhoods; walking these areas on weekend mornings (when studios open early for wedding prep) provides the fullest picture; (3) Floral design workshops in English: Bangkok's Korean and Japanese-influenced florists frequently offer English-language workshops using techniques they learned abroad; these workshops teach Western and East Asian design principles using Thai and imported flowers; (4) Seasonal availability: Bangkok's tropical climate means some seasonal flowers (peonies, ranunculus, garden roses, tulips) are imported and therefore more expensive and available primarily in cooler months; requesting 'what's in season from Thailand now' from any Bangkok florist produces the freshest, most economical options; (5) Event florals: Bangkok's florists are experienced in venue-size floral installations; international event planners staging Bangkok events benefit from local florist connections who understand Thai flower sourcing and venue-specific logistics.",
+  },
+];
+
+export function BangkokFloralDesign() {
+  return (
+    <div className="rounded-2xl border border-rose-200 bg-white p-4 my-4">
+      <div className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
+        🌸 Bangkok flower culture — Pak Khlong Talat market, Thai floral art & contemporary design
+      </div>
+      <div className="space-y-2">
+        {SPOTS.map((s) => (
+          <div key={s.name} className="border border-rose-100 rounded-xl p-3">
+            <div className="flex items-start gap-2 mb-1.5">
+              <span className="text-2xl shrink-0">{s.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <div className="font-bold text-xs">{s.name}</div>
+                <div className="text-[10px] text-[var(--muted)]">{s.area}</div>
+              </div>
+              <span className="shrink-0 text-[10px] font-mono text-green-700">{s.price}</span>
+            </div>
+            <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{s.why}</div>
+            <div className="text-[10px] text-rose-700">💡 {s.tip}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
