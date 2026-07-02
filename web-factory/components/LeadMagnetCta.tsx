@@ -5,9 +5,12 @@
 import { useState } from "react";
 import { LEAD_MAGNET_I18N, type Locale } from "@/lib/buyersI18n";
 
-const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_MAGNET_ENDPOINT || "";
+// Default to the same Telegram-backed function RfqForm uses, so PDF leads
+// notify the same channel as RFQs instead of silently falling back to a
+// mailto: link that exposes a personal inbox on the public page.
+const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_MAGNET_ENDPOINT || "/api/inquiry";
 const PDF_URL  = process.env.NEXT_PUBLIC_LEAD_MAGNET_PDF_URL || "";
-const FALLBACK_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chillanel22@gmail.com";
+const FALLBACK_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "inquiry@thaisupplyhub.com";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -31,6 +34,10 @@ export function LeadMagnetCta({ locale = "en", title, subtitle, benefitBullets }
     const form = e.currentTarget;
     const fd = new FormData(form);
     fd.set("_locale", locale);
+    // /api/inquiry requires name + message; this compact form only asks for
+    // email + company, so backfill sensible values for the Telegram line.
+    fd.set("name", (fd.get("company") as string) || "PDF request");
+    fd.set("message", `Requested the free Sourcing Playbook PDF (${locale}).`);
 
     if (!ENDPOINT) {
       window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(`PDF request (${locale}) — Sourcing Playbook`)}&body=${encodeURIComponent(`Please send me the PDF.\n\nLocale: ${locale}\nEmail: ${fd.get("email")}\nCompany: ${fd.get("company") || "—"}`)}`;

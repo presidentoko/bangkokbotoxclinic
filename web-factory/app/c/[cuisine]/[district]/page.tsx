@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCategory } from "@/lib/data";
-import { districtsForBuild, districtBySlug, suppliersInDistrict } from "@/lib/districts";
+import { districtBySlug, suppliersInDistrict, districtCategoryCombos, MIN_COMBO_SUPPLIERS } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -15,19 +15,16 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  // (canonical district × category) 조합 중 supplier 7+ 있는 것만 prerender — thin content + 빌드 한도 절감.
+  // (canonical district × category) 조합 중 supplier 충분한 것만 prerender — thin content 방지.
+  // districtCategoryCombos() is the single source of truth: every "By District"
+  // / "By Type" link elsewhere uses the same threshold, so links never 404.
+  const combos = districtCategoryCombos(db);
   const params: { cuisine: string; district: string }[] = [];
-  for (const g of districtsForBuild(db)) {
-    const counts = new Map<string, number>();
-    for (const s of suppliersInDistrict(db, g.slug)) {
-      for (const cat of s.categories) {
-        if (!VALID_CUISINES.has(cat)) continue;
-        counts.set(cat, (counts.get(cat) ?? 0) + 1);
-      }
-    }
-    for (const [cuisine, n] of counts) {
-      if (n >= 7) params.push({ cuisine, district: g.slug });
-    }
+  for (const [k, n] of combos) {
+    if (n < MIN_COMBO_SUPPLIERS) continue;
+    const [cuisine, district] = k.split("::");
+    if (!VALID_CUISINES.has(cuisine)) continue;
+    params.push({ cuisine, district });
   }
   return params;
 }

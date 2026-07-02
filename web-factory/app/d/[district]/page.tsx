@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
-import { districtsForBuild, districtBySlug, suppliersInDistrict } from "@/lib/districts";
+import { districtsForBuild, districtBySlug, suppliersInDistrict, districtCategoryCombos, MIN_COMBO_SUPPLIERS } from "@/lib/districts";
 import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -40,12 +40,12 @@ export default async function DistrictPage(
 
   const filtered = sortWithSponsored(suppliersInDistrict(db, district));
 
-  // Category facets within district
-  const catMap = new Map<string, number>();
-  for (const r of filtered) {
-    for (const c of r.categories) catMap.set(c, (catMap.get(c) ?? 0) + 1);
-  }
-  const cats = [...catMap.entries()].filter(([, n]) => n >= 1).sort((a, b) => b[1] - a[1]);
+  // Category facets within district — only categories with an actually-built /c/<cat>/<district> page.
+  const combos = districtCategoryCombos(db);
+  const cats = Array.from(combos.entries())
+    .filter(([k, n]) => k.endsWith(`::${district}`) && n >= MIN_COMBO_SUPPLIERS)
+    .map(([k, n]): [string, number] => [k.slice(0, k.length - district.length - 2), n])
+    .sort((a, b) => b[1] - a[1]);
   const cityLabel = group.cityLabel;
   const citySlug = group.citySlug;
   const verifiedCount = filtered.filter((r) => r.verified).length;

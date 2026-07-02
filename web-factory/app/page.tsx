@@ -161,6 +161,43 @@ export default async function HomePage() {
           return hero ? <SponsoredHero r={hero} /> : null;
         })()}
 
+        {/* SECTOR CARDS — industry first, ahead of location: this is how buyers actually think ("I need an auto parts factory", not "I need Chon Buri"). */}
+        <section className="mb-6">
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">What are you sourcing?</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {sectorData.map((s) => (
+              <SectorCard
+                key={s.key}
+                icon={s.icon}
+                label={s.label}
+                href={s.href}
+                supplierCount={s.supplierCount}
+                dbdCount={s.dbdCount}
+                topCity={s.topCity}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* COMPARE CTA — surfaces the shortlist/compare flow, which is otherwise buried past several scrolls */}
+        <section className="mb-12">
+          <a
+            href="/compare"
+            className="group flex flex-col sm:flex-row items-center gap-5 p-6 rounded-2xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 hover:border-emerald-400 transition"
+          >
+            <div className="text-4xl shrink-0">⚖️</div>
+            <div className="flex-1 min-w-0 text-center sm:text-left">
+              <h3 className="font-bold text-lg mb-1">Shortlist suppliers and compare them side-by-side</h3>
+              <p className="text-sm text-[var(--muted)]">
+                Trust Score, registered capital, founding date, reviews, categories — lined up so you can pick without opening 10 tabs.
+              </p>
+            </div>
+            <span className="shrink-0 px-5 py-2.5 rounded-lg bg-black text-white text-sm font-bold group-hover:bg-gray-800 transition whitespace-nowrap">
+              Compare suppliers →
+            </span>
+          </a>
+        </section>
+
         {/* MANIFESTO */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
@@ -213,24 +250,6 @@ export default async function HomePage() {
             >
               Full sourcing guide for buyers →
             </a>
-          </div>
-        </section>
-
-        {/* SECTOR CARDS */}
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Find by industry</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {sectorData.map((s) => (
-              <SectorCard
-                key={s.key}
-                icon={s.icon}
-                label={s.label}
-                href={s.href}
-                supplierCount={s.supplierCount}
-                dbdCount={s.dbdCount}
-                topCity={s.topCity}
-              />
-            ))}
           </div>
         </section>
 

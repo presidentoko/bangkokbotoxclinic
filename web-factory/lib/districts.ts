@@ -17,6 +17,9 @@ import type { MasterDb, Supplier } from "./types";
 /** A district page must have at least this many suppliers to be worth indexing. */
 export const MIN_DISTRICT_SUPPLIERS = 5;
 
+/** A category+district combo page must have at least this many suppliers to be built. */
+export const MIN_COMBO_SUPPLIERS = 3;
+
 export type DistrictGroup = {
   slug: string;
   display: string;
@@ -257,6 +260,34 @@ export function districtBySlug(db: MasterDb, slug: string): DistrictGroup | null
   const g = buildDistrictIndex(db).get(slug);
   if (!g || g.count < MIN_DISTRICT_SUPPLIERS) return null;
   return plain(g);
+}
+
+/**
+ * Category × canonical-district supplier counts, keyed `${category}::${districtSlug}`.
+ * Single source of truth for which `/c/<cat>/<district>` combo pages exist —
+ * used by that route's generateStaticParams AND by every page that links to
+ * one (category page's "By District", district page's "By Type"), so a link
+ * is never generated for a combo that wasn't actually built.
+ */
+export function districtCategoryCombos(db: MasterDb): Map<string, number> {
+  const index = buildDistrictIndex(db);
+  const keyToSlug = new Map<string, string>();
+  for (const [slug, entry] of index) {
+    if (entry.count >= MIN_DISTRICT_SUPPLIERS) keyToSlug.set(entry.key, slug);
+  }
+
+  const combos = new Map<string, number>();
+  for (const s of db.suppliers) {
+    const canon = normalizeDistrict(s.district, s.city);
+    if (!canon) continue;
+    const slug = keyToSlug.get(canon.key);
+    if (!slug) continue;
+    for (const c of s.categories) {
+      const k = `${c}::${slug}`;
+      combos.set(k, (combos.get(k) ?? 0) + 1);
+    }
+  }
+  return combos;
 }
 
 /** All suppliers belonging to a canonical district slug. */

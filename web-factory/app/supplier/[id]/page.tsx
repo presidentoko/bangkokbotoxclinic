@@ -36,22 +36,13 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  // CF Pages 20k file limit — only build pages with at least one trust signal.
-  // Thin pages are caught by public/_redirects → 301 to homepage.
-  // CF Pages 20k file limit. Each page generates ~8 files (RSC payloads).
-  // Take top 1500 suppliers by trust score — ~12k files, safely under limit.
-  return db.suppliers
-    .filter((r) => {
-      const score = r.b2b_score ?? r.trust_score ?? 0;
-      return r.verified || r.website || r.phone || score >= 8;
-    })
-    .sort((a, b) => {
-      const sa = a.b2b_score ?? a.trust_score ?? 0;
-      const sb = b.b2b_score ?? b.trust_score ?? 0;
-      return sb - sa;
-    })
-    .slice(0, 1300)
-    .map((r) => ({ id: r.id }));
+  // Every card that links to /supplier/{id} (SupplierCard, estate tenant grid,
+  // favorites, compare, related) draws from the full unfiltered db.suppliers.
+  // Excluding any of them here means that link 404s -> 301s to homepage.
+  // The deploy script strips __next.*.txt and *.txt from out/ before upload,
+  // so the real per-page cost against the CF Pages 20k file limit is 1 file
+  // (index.html) — building all suppliers stays well under budget.
+  return db.suppliers.map((r) => ({ id: r.id }));
 }
 
 export async function generateMetadata(

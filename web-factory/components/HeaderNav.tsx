@@ -10,6 +10,7 @@ const NAV = [
   { en: "Auto Parts",         ko: "자동차 부품",     th: "ชิ้นส่วนยานยนต์",  href: "/c/auto_parts",   hrefKo: "/ko/c/auto_parts",   hrefTh: "/th/c/auto_parts" },
   { en: "Industrial Estates", ko: "산업단지",        th: "นิคมอุตสาหกรรม",   href: "/c/industrial_estate", hrefKo: "/ko/c/industrial_estate", hrefTh: "/th/c/industrial_estate" },
   { en: "Warehouses",         ko: "창고",            th: "คลังสินค้า",       href: "/c/warehouse",    hrefKo: "/ko/c/warehouse",    hrefTh: "/th/c/warehouse" },
+  { en: "Compare",            ko: "비교하기",        th: "เปรียบเทียบ",      href: "/compare",        hrefKo: "/compare",           hrefTh: "/compare" },
   { en: "Guides",             ko: "가이드",          th: "คู่มือ",           href: "/guide",          hrefKo: "/ko/guide",          hrefTh: "/th/guide" },
   { en: "Blog",               ko: "블로그",          th: "บล็อก",            href: "/blog",           hrefKo: "/blog",              hrefTh: "/blog" },
   { en: "For Buyers",         ko: "바이어용",        th: "สำหรับผู้ซื้อ",     href: "/for-buyers",     hrefKo: "/for-buyers",        hrefTh: "/for-buyers" },
@@ -42,7 +43,8 @@ function switchLangHref(currentPath: string, target: Lang): string {
     p === "/contact" ||
     p === "/for-suppliers" ||
     p === "/guide" ||
-    p.startsWith("/guide/")
+    p.startsWith("/guide/") ||
+    p === "/compare"
   );
   // /supplier/*, /best/*, /d/*, /blog 등은 영어판만 → ko/th 클릭 시 ko/th 홈으로.
   if (!validKoTh) return target === "ko" ? "/ko" : "/th";
@@ -82,7 +84,7 @@ export function HeaderNav() {
     <>
       {/* Desktop nav */}
       <nav className="hidden md:flex text-sm gap-4 lg:gap-5 text-[var(--muted)] items-center">
-        {NAV.slice(0, 7).map((item) => (
+        {NAV.slice(0, 8).map((item) => (
           <a key={item.href} href={hrefForLang(item)} className="hover:text-black whitespace-nowrap">
             {labelForLang(item)}
           </a>

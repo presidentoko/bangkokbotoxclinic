@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd, CollectionPageJsonLd } fro
 import { CUISINE_FAQS } from "@/lib/faq";
 import { CATEGORY_INTROS, CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
 import { findGuide } from "@/lib/guides";
+import { districtCategoryCombos, districtBySlug, MIN_COMBO_SUPPLIERS } from "@/lib/districts";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
@@ -66,15 +67,17 @@ export default async function CategoryPage(
   for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
-  // District breakdown
-  const byDistrict = new Map<string, number>();
-  for (const r of filtered) {
-    if (!r.district) continue;
-    byDistrict.set(r.district, (byDistrict.get(r.district) ?? 0) + 1);
-  }
-  const districts = Array.from(byDistrict.entries())
-    .filter(([, n]) => n >= 1)
-    .sort((a, b) => b[1] - a[1]);
+  // District breakdown — only districts with an actually-built /c/<cat>/<district> page.
+  const combos = districtCategoryCombos(db);
+  const districts = Array.from(combos.entries())
+    .filter(([k, n]) => k.startsWith(`${cuisine}::`) && n >= MIN_COMBO_SUPPLIERS)
+    .map(([k, n]) => {
+      const slug = k.slice(cuisine.length + 2);
+      const group = districtBySlug(db, slug);
+      return group ? { slug, display: group.display, count: n } : null;
+    })
+    .filter((d): d is { slug: string; display: string; count: number } => d !== null)
+    .sort((a, b) => b.count - a.count);
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = filtered.filter((r) => r.website).length;
@@ -219,13 +222,13 @@ export default async function CategoryPage(
             {label} by District
           </h2>
           <div className="flex flex-wrap gap-2">
-            {districts.map(([d, n]) => (
+            {districts.map((d) => (
               <a
-                key={d}
-                href={`/c/${cuisine}/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                key={d.slug}
+                href={`/c/${cuisine}/${d.slug}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
               >
-                {label} in {d} <span className="text-[var(--muted)]">{n}</span>
+                {label} in {d.display} <span className="text-[var(--muted)]">{d.count}</span>
               </a>
             ))}
           </div>

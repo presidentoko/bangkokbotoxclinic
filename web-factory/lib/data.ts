@@ -3,7 +3,7 @@ import path from "node:path";
 import type { MasterDb, Supplier } from "./types";
 import { computeTrustScore } from "./trustScore";
 import { normalizeProvince } from "./provinceNorm";
-import { normalizeCity } from "./cityNorm";
+import { normalizeCity, citySlugFromDisplay } from "./cityNorm";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 const PHOTOS_PATH = path.join(process.cwd(), "data", "supplier_photos.json");
@@ -26,7 +26,16 @@ export async function loadMasterDb(): Promise<MasterDb> {
   for (const s of db.suppliers) {
     if (photos[s.id]) s.hero_image = photos[s.id];
     s.province_en = normalizeProvince(s.province_en);
+    // city_label is the display string grouped/filtered on across the site
+    // (By Region lists, filter dropdowns). Raw source data has Latin-spelling
+    // and Thai-script duplicates of the same province — collapse them here so
+    // every consumer downstream sees one canonical label for free.
+    const normalizedLabel = normalizeProvince(s.city_label) || s.city_label;
+    s.city_label = normalizedLabel;
     s.city = normalizeCity(s.city);
+    if (!s.city || s.city === "thailand" || s.city === "city") {
+      s.city = citySlugFromDisplay(normalizedLabel) || s.city;
+    }
   }
 
   _cache = db;

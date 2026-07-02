@@ -1,6 +1,7 @@
 const NORM: Record<string, string> = {
   // Thai script → English
   "จ.ปทุมธานี": "Pathum Thani",
+  "จปทุมธานี": "Pathum Thani",
   "ปทุมธานี": "Pathum Thani",
   "จ.นนทบุรี": "Nonthaburi",
   "นนทบุรี": "Nonthaburi",
@@ -43,6 +44,8 @@ const NORM: Record<string, string> = {
   "Nakhon Ratchasima": "Nakhon Ratchasima",
   "Srisaket": "Si Sa Ket",
   "Si Sa Ket": "Si Sa Ket",
+  "Suphanburi": "Suphan Buri",
+  "Suphan buri": "Suphan Buri",
   // Remove garbage values
   "City": "",
   "N/A": "",
