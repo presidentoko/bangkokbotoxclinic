@@ -11,6 +11,7 @@ import { StickyBottomNav } from "@/components/StickyBottomNav";
 import { TikTokGuard } from "@/components/TikTokGuard";
 import { CookieConsent } from "@/components/CookieConsent";
 import { BackToTop } from "@/components/BackToTop";
+import { HeaderNav } from "@/components/HeaderNav";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const cfg = getSiteConfig();
@@ -79,42 +80,7 @@ export default function RootLayout({
               <a href="/" className="flex items-center hover:opacity-80 transition">
                 <Logo accent={cfg.themeAccent} />
               </a>
-              <nav className="text-sm flex gap-4 md:gap-5 text-[var(--muted)] items-center">
-                <a href="/restaurants/cuisine/thai" className="hover:text-black">Thai</a>
-                <a href="/restaurants/cuisine/japanese" className="hover:text-black hidden sm:inline">Japanese</a>
-                <a href="/restaurants/cuisine/italian" className="hover:text-black hidden sm:inline">Italian</a>
-                <a href="/best/halal" className="hover:text-black hidden md:inline">Best of</a>
-                <a href="/activities" className="hover:text-black hidden md:inline">Activities</a>
-                <a href="/trending" className="hover:text-black hidden md:inline">Trending</a>
-                <a href="/for" className="hover:text-black hidden md:inline">Perfect For</a>
-                <a href="/quiz" className="hover:text-black hidden lg:inline">🎯 Quiz</a>
-                <a href="/bingo" className="hover:text-black hidden lg:inline">🏆 Bingo</a>
-                <a href="/my-trip" className="hover:text-black hidden lg:inline">🗺 My Trip</a>
-                <a href="/day-plan" className="hover:text-black hidden md:inline">Day Plan</a>
-                <a href="/clinics" className="hover:text-black hidden md:inline">Clinics</a>
-                <a href="/dental" className="hover:text-black hidden md:inline">Dental</a>
-                <a href="/guide" className="hover:text-black hidden md:inline">Guides</a>
-                <a href="/about" className="hover:text-black hidden md:inline">About</a>
-                <a
-                  href="/for-venues"
-                  className="px-3 py-1.5 rounded-full bg-black text-white hover:bg-gray-800 text-xs font-bold hidden sm:inline-flex"
-                >
-                  For owners →
-                </a>
-                <span className="text-xs text-[var(--muted)] flex items-center gap-2">
-                  <a href="/" className="hover:text-black">EN</a>
-                  <span aria-hidden="true">·</span>
-                  <a href="/th" className="hover:text-black">TH</a>
-                  <span aria-hidden="true">·</span>
-                  <a href="/ko" className="hover:text-black">KO</a>
-                  <span aria-hidden="true">·</span>
-                  <a href="/ja" className="hover:text-black">JA</a>
-                  <span aria-hidden="true">·</span>
-                  <a href="/ru" className="hover:text-black">RU</a>
-                  <span aria-hidden="true">·</span>
-                  <a href="/ar" className="hover:text-black">AR</a>
-                </span>
-              </nav>
+              <HeaderNav />
             </div>
           </header>
           <main className="pb-16 md:pb-0">{children}</main>

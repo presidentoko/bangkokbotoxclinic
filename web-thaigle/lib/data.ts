@@ -11,7 +11,11 @@ let _cache: MasterDb | null = null;
 export async function loadMasterDb(): Promise<MasterDb> {
   if (_cache) return _cache;
   const raw = await fs.readFile(DATA_PATH, "utf-8");
-  _cache = JSON.parse(raw) as MasterDb;
+  const db = JSON.parse(raw) as MasterDb;
+  for (const r of db.restaurants) {
+    r.trust_score = Math.max(0, Math.min(100, r.trust_score));
+  }
+  _cache = db;
   return _cache;
 }
 

@@ -7,6 +7,7 @@ import type { SlugMap } from "@/lib/restaurants";
 import { restaurantUrl } from "@/lib/restaurants";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
 import { SaveButton } from "@/components/SaveButton";
+import { isThaiScript } from "@/lib/thaiName";
 
 function normalizePriceSymbol(s: string): string {
   if (!s) return "";
@@ -69,11 +70,19 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
                 <span className="text-[var(--muted)]">{normalizePriceSymbol(r.price_symbol)}</span>
               )}
             </div>
-            <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate">
+            <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate flex items-center gap-1.5">
               {r.name}
+              {isThaiScript(r.name) && (
+                <span
+                  className="shrink-0 text-[10px] font-medium text-[var(--muted)] border border-[var(--border)] rounded-full px-1.5 py-0.5"
+                  title="No English name on file for this venue — tap the map pin below to navigate"
+                >
+                  TH name
+                </span>
+              )}
             </h3>
             <p className="text-sm text-[var(--muted)] truncate mt-0.5">
-              {r.primary_type}
+              {r.primary_type}{r.district ? ` · ${r.district}` : ""}
             </p>
           </div>
           <div className="text-right shrink-0 flex flex-col items-end gap-1">

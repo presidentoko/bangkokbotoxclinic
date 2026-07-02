@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { FaqJsonLd } from "@/components/JsonLd";
+import { CardImage } from "@/components/CardImage";
 import { VersusVote } from "@/components/VersusVote";
 import { PriceCompare } from "@/components/PriceCompare";
 import { ShareButton } from "@/components/ShareButton";
@@ -208,18 +209,12 @@ export default async function ActivitiesPage() {
                       href={`/activities/${nSlug}/${p.slug}`}
                       className="group relative rounded-xl overflow-hidden bg-gray-100 aspect-square"
                     >
-                      {p.top_photo_url ? (
-                        <img
-                          src={p.top_photo_url}
-                          alt={p.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-50 to-amber-50">
-                          <span className="text-3xl opacity-40">{nicheInfo.icon}</span>
-                        </div>
-                      )}
+                      <CardImage
+                        src={p.top_photo_url}
+                        alt={p.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                        fallbackIcon={nicheInfo.icon}
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-2">
                         <div className="text-white text-[10px] font-bold line-clamp-2 leading-tight">{p.name}</div>

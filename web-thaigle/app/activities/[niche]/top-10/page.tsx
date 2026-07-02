@@ -15,6 +15,7 @@ import { BangkokTip } from "@/components/BangkokTip";
 import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { RatingLegend } from "@/components/RatingLegend";
 import { PhotoHints } from "@/components/PhotoHints";
+import { CardImage } from "@/components/CardImage";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -139,11 +140,11 @@ export default async function NicheTop10Page({
                 <div className="border border-[var(--border)] rounded-2xl overflow-hidden bg-white ml-14">
                   {place.top_photo_url && (
                     <div className="h-48 overflow-hidden bg-gray-100">
-                      <img
+                      <CardImage
                         src={place.top_photo_url}
                         alt={`${place.name} — #${i + 1} ${info.label} Bangkok`}
                         className="w-full h-full object-cover"
-                        loading="lazy"
+                        fallbackIcon={info.icon}
                       />
                     </div>
                   )}

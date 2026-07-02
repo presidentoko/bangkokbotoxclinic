@@ -29,8 +29,9 @@ function ScoreBar({ label, value, max, color }: { label: string; value: number; 
   );
 }
 
-export function TrustScoreBadge({ score, rating, reviewCount, scrapedCount, localGuideCount, avgAuthorReviewCount, size = "md" }: Props) {
+export function TrustScoreBadge({ score: rawScore, rating, reviewCount, scrapedCount, localGuideCount, avgAuthorReviewCount, size = "md" }: Props) {
   const [open, setOpen] = useState(false);
+  const score = Math.max(0, Math.min(100, rawScore));
 
   const color = score >= 80 ? "#16a34a" : score >= 65 ? "#059669" : score >= 50 ? "#ca8a04" : "#dc2626";
   const label = score >= 80 ? "Highly trustworthy" : score >= 65 ? "Credible" : score >= 50 ? "Moderate — verify independently" : "Low — inspect reviews carefully";

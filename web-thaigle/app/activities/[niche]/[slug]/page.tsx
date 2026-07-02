@@ -20,6 +20,7 @@ import { RecentlyViewed } from "@/components/RecentlyViewed";
 import type { PlanItemType } from "@/lib/planner";
 import { LocalBusinessJsonLd, BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { NICHE_FAQS } from "@/lib/niche-content";
+import { CardImage } from "@/components/CardImage";
 import { getAffiliateLink } from "@/lib/affiliate";
 import { BookingCTAs } from "@/components/BookingCTAs";
 import { AffiliateLink } from "@/components/AffiliateLink";
@@ -135,10 +136,11 @@ export default async function PlaceDetailPage({
       {/* Photo */}
       {place.top_photo_url && (
         <div className="rounded-2xl overflow-hidden mb-5 h-52 md:h-72 bg-gray-100">
-          <img
+          <CardImage
             src={place.top_photo_url}
             alt={place.name}
             className="w-full h-full object-cover"
+            fallbackIcon={info.icon}
           />
         </div>
       )}
@@ -265,7 +267,7 @@ export default async function PlaceDetailPage({
           <div className="grid grid-cols-3 gap-2">
             {place.photos_sample.slice(1, 7).map((url, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-gray-100">
-                <img src={url} alt={`${place.name} photo ${i + 2}`} className="w-full h-full object-cover" loading="lazy" />
+                <CardImage src={url} alt={`${place.name} photo ${i + 2}`} className="w-full h-full object-cover" fallbackIcon={info.icon} />
               </div>
             ))}
           </div>

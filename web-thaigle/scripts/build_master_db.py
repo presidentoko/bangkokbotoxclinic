@@ -271,7 +271,7 @@ def trust_score(rating: float, total_reviews: int,
     lg_ratio = (local_guide_count / scraped_review_count) if scraped_review_count > 0 else 0
     lg_part = min(10, lg_ratio * 20)
     authority_part = min(5, math.log10(max(1, avg_author_review_count)) * 2)
-    return round(rating_part + volume_part + lg_part + authority_part, 1)
+    return round(min(100.0, rating_part + volume_part + lg_part + authority_part), 1)
 
 
 _COORDS_RE = re.compile(r"!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)")

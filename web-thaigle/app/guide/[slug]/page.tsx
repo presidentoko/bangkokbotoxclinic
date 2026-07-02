@@ -5,6 +5,7 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { CardImage } from "@/components/CardImage";
 import { loadNicheDb, topNichePlaces, buildKlookIndex, NICHES } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { ShareButton } from "@/components/ShareButton";
@@ -169,12 +170,14 @@ export default async function GuidePage(
                   className="group flex items-center gap-4 bg-white border border-[var(--border)] rounded-xl p-4 hover:border-orange-300 hover:shadow-md transition"
                 >
                   {p.top_photo_url && (
-                    <img
-                      src={p.top_photo_url}
-                      alt={p.name}
-                      className="w-16 h-16 rounded-lg object-cover shrink-0"
-                      loading="lazy"
-                    />
+                    <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0">
+                      <CardImage
+                        src={p.top_photo_url}
+                        alt={p.name}
+                        className="w-16 h-16 object-cover"
+                        fallbackIcon={NICHES.find((n) => n.slug === g.nicheSlug)?.icon ?? "📷"}
+                      />
+                    </div>
                   )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">

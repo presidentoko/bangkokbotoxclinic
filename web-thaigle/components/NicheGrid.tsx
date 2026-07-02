@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { NichePlace, KlookEntry } from "@/lib/niches";
 import { SaveButton } from "@/components/SaveButton";
+import { CardImage } from "@/components/CardImage";
 
 type Props = {
   places: NichePlace[];
@@ -90,38 +91,23 @@ export function NicheGrid({ places, klookData, nicheSlug, nicheIcon, PRICE_BAND_
               key={p.id}
               className="group relative bg-white border border-[var(--border)] rounded-2xl overflow-hidden hover:shadow-lg hover:border-orange-300 transition flex flex-col"
             >
-              {photo ? (
-                <div className="relative h-40 overflow-hidden bg-gray-100 shrink-0">
-                  <img
-                    src={photo}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs font-black px-2 py-0.5 rounded-full">
-                    #{i + 1}
-                  </div>
-                  <div
-                    className="absolute top-2 right-2 text-sm font-black px-2 py-0.5 rounded-full text-white"
-                    style={{ background: p.trust_score >= 75 ? "#16a34a" : p.trust_score >= 60 ? "#059669" : "#ca8a04" }}
-                  >
-                    {Math.min(100, p.trust_score)}
-                  </div>
+              <div className="relative h-40 overflow-hidden bg-gray-100 shrink-0">
+                <CardImage
+                  src={photo}
+                  alt={p.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  fallbackIcon={nicheIcon}
+                />
+                <div className="absolute top-2 left-2 bg-black/70 text-white text-xs font-black px-2 py-0.5 rounded-full">
+                  #{i + 1}
                 </div>
-              ) : (
-                <div className="h-24 bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center shrink-0 relative">
-                  <span className="text-4xl opacity-40">{nicheIcon}</span>
-                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs font-black px-2 py-0.5 rounded-full">
-                    #{i + 1}
-                  </div>
-                  <div
-                    className="absolute top-2 right-2 text-sm font-black px-2 py-0.5 rounded-full text-white"
-                    style={{ background: p.trust_score >= 75 ? "#16a34a" : p.trust_score >= 60 ? "#059669" : "#ca8a04" }}
-                  >
-                    {Math.min(100, p.trust_score)}
-                  </div>
+                <div
+                  className="absolute top-2 right-2 text-sm font-black px-2 py-0.5 rounded-full text-white"
+                  style={{ background: p.trust_score >= 75 ? "#16a34a" : p.trust_score >= 60 ? "#059669" : "#ca8a04" }}
+                >
+                  {Math.min(100, p.trust_score)}
                 </div>
-              )}
+              </div>
 
               <div className="p-4 flex flex-col flex-1">
                 <div className="flex items-start justify-between gap-2 mb-1">

@@ -1,0 +1,21 @@
+name: Deploy web-thaigle (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web-thaigle
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g vercel
+      - run: vercel --prod --archive=tgz --token=${{ secrets.VERCEL_TOKEN }} --scope=team_fwjcJEIFlKpe2FixzvLR2zGj --yes
+        env:
+          VERCEL_ORG_ID: team_fwjcJEIFlKpe2FixzvLR2zGj
+          VERCEL_PROJECT_ID: prj_1o4Ryxg0B8l4HTk8YW08GT6oH8Oi

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, getRestaurantBySlug, getTop500Params, restaurantUrl } from "@/lib/restaurants";
+import { isThaiScript } from "@/lib/thaiName";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
 import { TrustDonut } from "@/components/TrustBadge";
@@ -123,7 +124,17 @@ export default async function RestaurantPage(
 
         {tier && <SponsoredBadge id={r.id} />}
         <div className="flex items-start justify-between gap-3 mb-1 flex-wrap">
-          <h1 className="text-2xl font-bold">{r.name}</h1>
+          <h1 className="text-2xl font-bold flex items-center gap-2 flex-wrap">
+            {r.name}
+            {isThaiScript(r.name) && (
+              <span
+                className="text-xs font-medium text-[var(--muted)] border border-[var(--border)] rounded-full px-2 py-0.5"
+                title="No English name on file for this venue — use the map link to navigate"
+              >
+                Thai name — no English listing
+              </span>
+            )}
+          </h1>
           <div className="flex items-center gap-2 shrink-0">
             <SaveButton item={{ id: r.id, name: r.name, type: "restaurant", url: `${url}` }} />
             <ShareButton

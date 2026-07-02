@@ -261,8 +261,8 @@ export default async function HomePage() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
               <span className="text-xs font-bold uppercase tracking-widest text-orange-700">Live</span>
-              <span className="font-bold">Trending in Bangkok today</span>
-              <span className="text-sm text-[var(--muted)]">— {db.generated_at.split("T")[0]}</span>
+              <span className="font-bold">Trending in Bangkok</span>
+              <span className="text-sm text-[var(--muted)]">— updated {db.generated_at.split("T")[0]}</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex gap-2 flex-wrap">

@@ -128,6 +128,9 @@ export async function loadNicheDb(niche: NicheSlug): Promise<NicheDb> {
   if (_nicheCache.has(niche)) return _nicheCache.get(niche)!;
   const raw = await fs.readFile(path.join(process.cwd(), "data", "by-niche", `${niche}.json`), "utf-8");
   const db = JSON.parse(raw) as NicheDb;
+  for (const p of db.places) {
+    p.trust_score = Math.max(0, Math.min(100, p.trust_score));
+  }
   _nicheCache.set(niche, db);
   return db;
 }
