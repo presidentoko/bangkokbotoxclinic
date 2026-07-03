@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getAllPlaces } from "@/lib/places";
 import { HomeSearch } from "@/components/HomeSearch";
 import { CATEGORY_COLORS } from "@/lib/plan/store";
@@ -8,6 +9,11 @@ export const dynamic = "force-static";
 
 const LANGS = ["th", "en", "ko"] as const;
 type Lang = typeof LANGS[number];
+
+// All locales actually served across the site (header language switcher,
+// alternates.languages in the root layout). Anything outside this set is a
+// typo/broken link and should 404, not silently render English content.
+const SUPPORTED_LANGS = ["th", "en", "ko", "ja", "ru", "ar"] as const;
 
 export function generateStaticParams() {
   return LANGS.map((lang) => ({ lang }));
@@ -50,6 +56,9 @@ export default async function LangHomePage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  if (!SUPPORTED_LANGS.includes(lang as (typeof SUPPORTED_LANGS)[number])) {
+    notFound();
+  }
 
   // Trending: take top 6 places by localsScore
   const places = getAllPlaces()
