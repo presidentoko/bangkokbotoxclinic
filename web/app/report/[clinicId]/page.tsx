@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 export const revalidate = 86400;
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ clinicId: string }> },

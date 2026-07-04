@@ -4,7 +4,7 @@ import { getSiteConfig, applySiteFilter } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 const PRIORITY_COUNT = 200;
 
 // Top-200 priority clinics — submitted first to GSC for fast crawl-budget seeding.

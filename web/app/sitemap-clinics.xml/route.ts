@@ -4,7 +4,7 @@ import { getSiteConfig, applySiteFilter } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 const PRIORITY_COUNT = 200;
 
 // Remaining clinics after top-200 priority list in /sitemap.xml

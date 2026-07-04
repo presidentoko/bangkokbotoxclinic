@@ -8,7 +8,7 @@ import { isAdminAuthedFromCookies } from "@/lib/adminAuth";
 import AdminLogin from "@/components/AdminLogin";
 import { CopyButton } from "./CopyButton";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
 
 export default async function OutreachPage(
   { params }: { params: Promise<{ clinicId: string }> },

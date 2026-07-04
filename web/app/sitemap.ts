@@ -3,7 +3,7 @@ import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES } from "@/lib/guides";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
 
 // /sitemap.xml — hubs + top 200 priority clinics.

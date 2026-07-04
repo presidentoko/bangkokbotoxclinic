@@ -7,7 +7,7 @@ export const alt = "Free Clinic Report";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
 
 export default async function ReportOG(
   { params }: { params: Promise<{ clinicId: string }> },

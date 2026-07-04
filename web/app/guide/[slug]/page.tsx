@@ -7,7 +7,7 @@ import { ClinicCard } from "@/components/ClinicCard";
 import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://bangkokbotoxclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
 export async function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
