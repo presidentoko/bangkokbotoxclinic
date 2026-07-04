@@ -110,7 +110,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
   dental: {
     focus: "dental",
     brand: "Bangkok Best Clinic",
-    domain: "bangkokbestclinic.com",
+    domain: "www.bangkokbestclinic.com",
     title: "Best Dental Clinics in Bangkok 2026 — Implants from ฿35,000, Verified",
     description:
       "200+ Bangkok dental clinics ranked by Trust Score. Implants from ฿35,000 · Veneers from ฿12,000/tooth · Whitening from ฿4,000. Save 60% vs US prices. English & Korean speaking. Ranked from 200,000+ Google reviews.",
