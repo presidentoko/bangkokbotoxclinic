@@ -113,7 +113,7 @@ export function DatasetJsonLd({ totalSuppliers, verifiedCount, updatedAt }: {
       "Trust Score",
       "Google review volume",
     ],
-    spatialCoverage: { "@type": "Country", name: "Thailand" },
+    spatialCoverage: { "@type": "Place", name: "Thailand" },
     keywords: [
       "Thai manufacturers",
       "Thailand B2B suppliers",
