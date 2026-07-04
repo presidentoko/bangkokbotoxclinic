@@ -2,7 +2,7 @@
 
 import type { Restaurant } from "@/lib/types";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 
 function tag(data: object) {
   return (

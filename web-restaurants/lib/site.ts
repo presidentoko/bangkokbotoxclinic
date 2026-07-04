@@ -12,7 +12,7 @@ export type SiteConfig = {
 
 export function getSiteConfig(): SiteConfig {
   const brand = process.env.NEXT_PUBLIC_BRAND || "SNS Stopper";
-  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
   return {
     brand,
     domain,

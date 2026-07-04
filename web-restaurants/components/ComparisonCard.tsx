@@ -2,7 +2,7 @@
 
 import type { FamousVsGoodEntry } from "@/lib/famous-vs-good";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 
 function trustColor(score: number): string {
   if (score >= 85) return "#16a34a";

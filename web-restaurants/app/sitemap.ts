@@ -5,7 +5,7 @@ import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { loadAllSlugs } from "@/lib/famous-vs-good";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
 
 export const dynamic = "force-static";

@@ -18,7 +18,7 @@ const dmSerif = DM_Serif_Display({
   display: "swap",
 });
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const cfg = getSiteConfig();
 
 export const metadata: Metadata = {

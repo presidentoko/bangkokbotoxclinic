@@ -7,7 +7,7 @@ import { RestaurantCard } from "@/components/RestaurantCard";
 import { BEST_FOR } from "@/lib/bestFor";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://snsstopper.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 
 export async function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
