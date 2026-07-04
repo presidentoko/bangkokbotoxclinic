@@ -23,14 +23,26 @@ export async function generateMetadata({
   const cat = category || "executive";
   const loc = locale as Locale;
   const label = catLabel(loc, cat);
+  // Self-referencing canonical: when no ?category= is present, canonicalize
+  // to the bare /compare URL (which is what nav/homepage/etc link to
+  // site-wide), not to the ?category=executive variant. Previously this page
+  // always canonicalized to "?category=executive" even when visited at the
+  // bare URL, i.e. the page's own canonical tag pointed at a *different* URL
+  // than the one overwhelmingly favored by internal links — exactly the kind
+  // of mismatch that leads Google to pick its own canonical instead of ours.
+  const canonicalPath = category
+    ? `${BASE}/${locale}/compare?category=${cat}`
+    : `${BASE}/${locale}/compare`;
   const languages: Record<string, string> = {};
-  for (const l of LOCALES) languages[l] = `${BASE}/${l}/compare?category=${cat}`;
+  for (const l of LOCALES) {
+    languages[l] = category ? `${BASE}/${l}/compare?category=${cat}` : `${BASE}/${l}/compare`;
+  }
   const cityLabel = city ? ` in ${city}` : " Thailand";
   const cities = city ? city : "Bangkok, Phuket, Chiang Mai";
   return {
     title: `${label} Health Check-Up${cityLabel} — Compare Prices 2026`,
     description: `Compare ${label.toLowerCase()} health check-up packages across ${cities} hospitals. Real scraped prices, JCI status, MRI/CT/cancer marker inclusion filters. Updated weekly.`,
-    alternates: { canonical: `${BASE}/${locale}/compare?category=${cat}`, languages },
+    alternates: { canonical: canonicalPath, languages },
     openGraph: {
       title: `${label} Health Check-Up${cityLabel} — Compare Prices`,
       description: `Find the best ${label.toLowerCase()} health check-up in ${cities}. Real prices, no ads, filter by MRI/cancer screening.`,
