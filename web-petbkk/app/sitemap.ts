@@ -84,7 +84,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/cat-not-using-litter`,     priority: 0.9,  changeFrequency: 'monthly' },
     { url: `${BASE}/dog-barking`,              priority: 0.9,  changeFrequency: 'monthly' },
     { url: `${BASE}/checklist`,                priority: 0.7,  changeFrequency: 'weekly'  },
-    { url: `${BASE}/saved`,                    priority: 0.3,  changeFrequency: 'never'   },
     { url: `${BASE}/contact`,                  priority: 0.5,  changeFrequency: 'yearly'  },
   ]
 
