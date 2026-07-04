@@ -13,12 +13,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Amazonbot", allow: "/" },
       { userAgent: "YouBot", allow: "/" },
     ],
-    sitemap: [
-      `${base}/sitemap/0.xml`,
-      `${base}/sitemap/1.xml`,
-      `${base}/sitemap/2.xml`,
-      `${base}/sitemap/3.xml`,
-    ],
+    sitemap: `${base}/sitemap.xml`,
     host: base,
   };
 }

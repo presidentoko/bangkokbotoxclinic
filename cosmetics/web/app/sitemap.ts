@@ -84,17 +84,24 @@ function brandEntries(): MetadataRoute.Sitemap {
   );
 }
 
-export function generateSitemaps() {
-  return [{ id: "0" }, { id: "1" }, { id: "2" }, { id: "3" }];
-}
-
-export default async function sitemap(props: {
-  id: Promise<string>;
-}): Promise<MetadataRoute.Sitemap> {
-  const id = await props.id;
-  if (id === "0") return coreEntries();
-  if (id === "1") return productEntries();
-  if (id === "2") return ingredientEntries();
-  if (id === "3") return brandEntries();
-  return [];
+// Total URL count (core + products + ingredients + brands) is well under
+// Google's 50,000-URL-per-sitemap limit (~1,300 URLs as of 2026-07), so this
+// is served as a single sitemap at the conventional /sitemap.xml URL rather
+// than split via `generateSitemaps`.
+//
+// NOTE: previously this used `generateSitemaps` to split into /sitemap/0.xml
+// .. /sitemap/3.xml. That caused a routing bug in production: Next.js
+// reserves the bare /sitemap.xml path for this file (a request for it without
+// an `id` doesn't resolve to any of the generated sub-sitemaps), so
+// `/sitemap.xml` fell through to the app/[locale] catch-all and was served as
+// a normal HTML page (locale="sitemap.xml") instead of XML — which is what
+// Google Search Console flagged. Combining everything into one plain
+// `sitemap()` export avoids the ambiguity entirely.
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return [
+    ...coreEntries(),
+    ...productEntries(),
+    ...ingredientEntries(),
+    ...brandEntries(),
+  ];
 }
