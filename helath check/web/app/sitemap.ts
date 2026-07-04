@@ -77,8 +77,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push({ url: `${BASE}/${locale}/trends`, lastModified: now, changeFrequency: "daily", priority: 0.75 });
     // Compare hospitals
     entries.push({ url: `${BASE}/${locale}/compare-hospitals`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
-    // Saved packages
-    entries.push({ url: `${BASE}/${locale}/saved`, lastModified: now, changeFrequency: "never", priority: 0.1 });
+    // NOTE: /saved is intentionally NOT included here — it's a client-side,
+    // localStorage-only bookmarks page with no indexable content, and
+    // robots.txt disallows "/*/saved". Listing it in the sitemap caused a
+    // "blocked by robots.txt" report in Search Console.
     // Guide index
     entries.push({ url: `${BASE}/${locale}/guide`, lastModified: now, changeFrequency: "monthly", priority: 0.75 });
     // Guides
