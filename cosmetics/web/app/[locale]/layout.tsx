@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { notFound } from "next/navigation";
 import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "../globals.css";
 import { LOCALES, type Locale, isRTL } from "@/lib/i18n";
@@ -8,6 +9,15 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getBanner } from "@/lib/adminData";
 import { getNoindexLocales } from "@/lib/indexing";
+
+// The `[locale]` segment is a catch-all for the first path component. Without
+// validating it against the supported LOCALES, requests for unmatched special
+// paths (e.g. /sitemap.xml when no more specific route claims them) fall
+// through to this segment and get rendered as a normal, indexable page under
+// a bogus "locale" instead of a 404. Reject anything that isn't a real locale.
+function isValidLocale(locale: string): locale is Locale {
+  return (LOCALES as readonly string[]).includes(locale);
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,6 +85,9 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
   const noindexSet = await getNoindexLocales();
   if (noindexSet.has(locale)) {
     return { ...BASE_METADATA, robots: { index: false, follow: false } };
@@ -92,7 +105,10 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const loc = locale as Locale;
+  if (!isValidLocale(locale)) {
+    notFound();
+  }
+  const loc = locale;
   const banner = await getBanner();
   return (
     <html
