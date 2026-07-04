@@ -14,12 +14,36 @@ export function loadHospitals(): Hospital[] {
   return rawData as Hospital[]
 }
 
-export function hospitalSlug(h: Hospital): string {
+function baseHospitalSlug(h: Hospital): string {
   const fromId = toSlug(h.id)
   if (fromId.length > 5) return fromId
   const fromName = toSlug(h.name_en)
   if (fromName.length > 5) return fromName
   return toSlug(h.google_place_id)
+}
+
+// A handful of hospitals share the same ASCII slug once Thai-only branch names
+// are stripped (e.g. "Animal Clinic" vs "Animal Clinic โชคชัยรักษาสัตว์" both
+// collapse to "animal-clinic"). Disambiguate collisions deterministically so
+// getHospitalBySlug() never silently shadows a second hospital behind the first.
+let slugMap: WeakMap<Hospital, string> | null = null
+
+function getSlugMap(): WeakMap<Hospital, string> {
+  if (slugMap) return slugMap
+  const map = new WeakMap<Hospital, string>()
+  const counts = new Map<string, number>()
+  for (const h of loadHospitals()) {
+    const base = baseHospitalSlug(h)
+    const n = (counts.get(base) ?? 0) + 1
+    counts.set(base, n)
+    map.set(h, n === 1 ? base : `${base}-${n}`)
+  }
+  slugMap = map
+  return map
+}
+
+export function hospitalSlug(h: Hospital): string {
+  return getSlugMap().get(h) ?? baseHospitalSlug(h)
 }
 
 export function getHospitalBySlug(slug: string): Hospital | null {
