@@ -4,6 +4,9 @@ import RelatedGuides from '@/components/RelatedGuides'
 export const metadata: Metadata = {
   title: 'ส่วนผสมอันตรายในอาหารสัตว์เลี้ยง — BHA BHT Ethoxyquin',
   description: 'รายชื่อส่วนผสมอันตรายในอาหารสัตว์เลี้ยง BHA BHT Ethoxyquin พร้อมอธิบายผลเสียต่อสุขภาพ เลือกอาหารปลอดภัยให้น้อง',
+  alternates: {
+    canonical: 'https://www.thailandpethub.com/ingredients',
+  },
   openGraph: {
     title: 'ส่วนผสมอันตรายในอาหารสัตว์เลี้ยง — รู้ก่อนเลือกซื้อ',
     description: 'BHA, BHT, Ethoxyquin และสารเคมีอื่นๆ ที่ควรหลีกเลี่ยงในอาหารสัตว์เลี้ยง',

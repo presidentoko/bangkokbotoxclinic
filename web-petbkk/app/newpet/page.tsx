@@ -4,6 +4,9 @@ import RelatedGuides from '@/components/RelatedGuides'
 export const metadata: Metadata = {
   title: 'คู่มือเลี้ยงน้องใหม่ — เช็คลิสต์ 20 ข้อสำหรับเจ้าของมือใหม่',
   description: 'เช็คลิสต์ครบ 20 ข้อสำหรับผู้เลี้ยงสัตว์มือใหม่ ตั้งแต่อุปกรณ์จำเป็น อาหาร วัคซีน และการไปหาสัตวแพทย์',
+  alternates: {
+    canonical: 'https://www.thailandpethub.com/newpet',
+  },
   openGraph: {
     title: 'เช็คลิสต์ 20 ข้อ — คู่มือเลี้ยงน้องใหม่สำหรับมือใหม่',
     description: 'อุปกรณ์จำเป็น อาหาร วัคซีน และทุกสิ่งที่ต้องรู้ก่อนเลี้ยงสัตว์เลี้ยงครั้งแรก',

@@ -4,6 +4,9 @@ import RelatedGuides from '@/components/RelatedGuides'
 export const metadata: Metadata = {
   title: 'คู่มือฉุกเฉินสัตว์เลี้ยง — อาการไหนต้องไปหาหมอทันที',
   description: 'อาการฉุกเฉินในสัตว์เลี้ยงที่ต้องรีบพบสัตวแพทย์ทันที รวมถึงอาการที่ต้องติดตาม แบ่งตามระดับความรุนแรง',
+  alternates: {
+    canonical: 'https://www.thailandpethub.com/emergency',
+  },
   openGraph: {
     title: '🚨 คู่มือฉุกเฉินสัตว์เลี้ยง — ต้องไปหาหมอเมื่อไหร่?',
     description: 'อาการฉุกเฉิน 17 ข้อที่ต้องรีบพบสัตวแพทย์ทันที แบ่งตามระดับความรุนแรง',

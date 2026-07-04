@@ -4,6 +4,9 @@ import RelatedGuides from '@/components/RelatedGuides'
 export const metadata: Metadata = {
   title: 'เคล็ดลับดูแลสัตว์เลี้ยง 15 ข้อ — อาหาร วัคซีน สุขภาพ',
   description: 'คำถามที่พบบ่อย 15 ข้อเกี่ยวกับการดูแลสัตว์เลี้ยง อาหาร วัคซีน และสุขภาพทั่วไป พร้อมคำตอบจากผู้เชี่ยวชาญ',
+  alternates: {
+    canonical: 'https://www.thailandpethub.com/tips',
+  },
   openGraph: {
     title: 'เคล็ดลับดูแลสัตว์เลี้ยง 15 ข้อ — อาหาร วัคซีน สุขภาพ',
     description: 'คำถามที่พบบ่อย 15 ข้อเกี่ยวกับการดูแลสัตว์เลี้ยง พร้อมคำตอบครบครัน',

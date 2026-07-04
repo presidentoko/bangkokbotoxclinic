@@ -4,6 +4,9 @@ import RelatedGuides from '@/components/RelatedGuides'
 export const metadata: Metadata = {
   title: '12 อาหารที่เป็นพิษต่อสุนัขและแมว — อย่าให้กินเด็ดขาด',
   description: 'อาหาร 12 ชนิดที่เป็นพิษต่อสุนัขและแมว เช่น ช็อกโกแลต กระเทียม องุ่น พร้อมอาการและระดับความรุนแรง',
+  alternates: {
+    canonical: 'https://www.thailandpethub.com/toxic',
+  },
   openGraph: {
     title: '⚠️ 12 อาหารที่เป็นพิษต่อสุนัขและแมว',
     description: 'ช็อกโกแลต กระเทียม องุ่น และอาหาร 9 ชนิดอื่นที่อันตรายต่อสัตว์เลี้ยง',

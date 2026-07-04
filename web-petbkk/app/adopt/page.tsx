@@ -5,6 +5,9 @@ import RelatedGuides from '@/components/RelatedGuides'
 export const metadata: Metadata = {
   title: 'รับเลี้ยงสัตว์จรจัด — ไม่ต้องซื้อ ให้รับเลี้ยงแทน',
   description: 'สัตว์จรจัดในไทยกว่า 5 ล้านตัวรอบ้านใหม่ ดูรายชื่อองค์กรรับเลี้ยงสัตว์ที่เชื่อถือได้ฟรี ไม่มีค่าใช้จ่าย',
+  alternates: {
+    canonical: 'https://www.thailandpethub.com/adopt',
+  },
   openGraph: {
     title: 'รับเลี้ยงสัตว์จรจัด — อย่าซื้อ ให้รับเลี้ยงแทน',
     description: 'สัตว์จรจัดในไทยกว่า 5 ล้านตัวรอบ้านใหม่ ดูรายชื่อองค์กรรับเลี้ยงสัตว์ 6 แห่งในไทย',
