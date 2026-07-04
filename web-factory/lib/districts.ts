@@ -312,6 +312,15 @@ export function districtRedirects(db: MasterDb): Map<string, string> {
   for (const e of index.values()) {
     if (e.count >= MIN_DISTRICT_SUPPLIERS) keyToSlug.set(e.key, e.slug);
   }
+  // Slugs that are themselves live, indexed canonical district pages. A
+  // redirect must never originate from one of these, or it would 301-shadow
+  // a real page. This happens when a raw district string (e.g. a bare
+  // "Muang" with no resolvable province) is merged into its own low-signal
+  // canonical group that later crosses MIN_DISTRICT_SUPPLIERS, while that
+  // same string is *also* a legacy alias for an unrelated province's
+  // district (e.g. "Muang" -> Samut Sakhon) — two unrelated meanings
+  // colliding on one slug.
+  const livePageSlugs = new Set(keyToSlug.values());
 
   const out = new Map<string, string>();
   const seen = new Set<string>();
@@ -324,9 +333,9 @@ export function districtRedirects(db: MasterDb): Map<string, string> {
     const targetSlug = keyToSlug.get(canon.key);
     if (!targetSlug) continue;
     const rawSlug = raw.toLowerCase().replace(/\s+/g, "-");
-    if (rawSlug && rawSlug !== targetSlug && !out.has(rawSlug)) {
-      out.set(rawSlug, targetSlug);
-    }
+    if (!rawSlug || rawSlug === targetSlug) continue;
+    if (livePageSlugs.has(rawSlug) || out.has(rawSlug)) continue;
+    out.set(rawSlug, targetSlug);
   }
   return out;
 }
