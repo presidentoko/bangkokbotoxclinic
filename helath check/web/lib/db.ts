@@ -360,6 +360,17 @@ export async function getAllHospitalSlugs(): Promise<string[]> {
   return (rows as { slug: string }[]).map((r) => r.slug);
 }
 
+export async function getCheckupCombos(): Promise<{ category: string; hospital_slug: string }[]> {
+  const pool = getPool();
+  const [rows] = await pool.query<mysql.RowDataPacket[]>(
+    `SELECT DISTINCT p.category, h.slug AS hospital_slug
+     FROM checkup_packages p
+     JOIN hospitals h ON h.id = p.hospital_id
+     WHERE p.category IS NOT NULL`,
+  );
+  return rows as { category: string; hospital_slug: string }[];
+}
+
 export type PriceTrendRow = {
   hospital_name: string;
   hospital_slug: string;

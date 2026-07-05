@@ -19,8 +19,37 @@ async function getHospitalSlugs(): Promise<string[]> {
   }
 }
 
+// checkup/[cat]/[hospital] pages call notFound() when no package row matches
+// that (category, hospital) pair — a naive cat x hospital cartesian product
+// here submits thousands of URLs that 404. Only emit combos backed by a real
+// checkup_packages row.
+async function getRealComboKeys(): Promise<Set<string>> {
+  try {
+    const { getCheckupCombos } = await import("@/lib/db");
+    const combos = await getCheckupCombos();
+    return new Set(combos.map((c) => `${c.category}::${c.hospital_slug}`));
+  } catch {
+    return new Set();
+  }
+}
+
+// city/[city] renders a "0 packages found" soft-404 page for any city with
+// no hospitals in the DB. Only emit cities that actually have package data.
+async function getRealCitySlugs(): Promise<Set<string>> {
+  try {
+    const { getCities } = await import("@/lib/db");
+    const cities = await getCities();
+    return new Set(cities.map((c) => c.city.toLowerCase().replace(/\s+/g, "-")));
+  } catch {
+    return new Set();
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getHospitalSlugs();
+  const realCombos = await getRealComboKeys();
+  const realCities = await getRealCitySlugs();
+  const realCategories = new Set(Array.from(realCombos).map((k) => k.split("::")[0]));
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
 
@@ -38,12 +67,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     // City pages
     for (const city of CITY_SLUGS) {
+      if (!realCities.has(city)) continue;
       entries.push({ url: `${BASE}/${locale}/city/${city}`, lastModified: now, changeFrequency: "weekly", priority: 0.85 });
     }
     // Longtail
     for (const cat of CATEGORIES) {
+      if (!realCategories.has(cat)) continue;
       entries.push({ url: `${BASE}/${locale}/checkup/${cat}`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
       for (const slug of slugs) {
+        if (!realCombos.has(`${cat}::${slug}`)) continue;
         entries.push({ url: `${BASE}/${locale}/checkup/${cat}/${slug}`, lastModified: now, changeFrequency: "weekly", priority: 0.6 });
       }
     }
