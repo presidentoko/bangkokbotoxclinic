@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { loadMasterDb } from "@/lib/data";
+import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { buildComparePairs } from "@/lib/comparePairs";
@@ -186,10 +186,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
+  // /c/[category]/[district] pages render a 200 "no matches" empty state
+  // (not notFound()) when a category has zero courses in a given district,
+  // so submit only combos with a real match — a naive category x district
+  // cartesian product here soft-404s for most combos.
+  const categoryCourses = new Map(CUISINES.map((c) => [c, filterByCuisine(db.restaurants, c)]));
   for (const d of districts) {
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
     for (const c of CUISINES) {
+      const matches = filterByDistrict(categoryCourses.get(c)!, d);
+      if (matches.length === 0) continue;
       items.push({ url: `${SITE}/c/${c}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
     }
   }
