@@ -6,7 +6,7 @@ import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
-import { allDayPlanParams, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
+import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 import { OCCASIONS } from "@/lib/occasions";
 
@@ -203,7 +203,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const theme of Object.keys(THEME_DEFS) as ThemeSlug[]) {
     items.push({ url: `${SITE}/day-plan/hub/theme/${theme}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }
+  // /day-plan/[area]/[theme] notFound()s when fewer than 3 stops resolve —
+  // only submit combos that actually build a valid plan.
   for (const { area, theme } of allDayPlanParams()) {
+    const plan = await buildDayPlan(area, theme);
+    if (!plan.valid) continue;
     items.push({ url: `${SITE}/day-plan/${area}/${theme}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
   }
 
