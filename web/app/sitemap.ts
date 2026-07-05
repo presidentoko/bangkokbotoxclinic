@@ -2,9 +2,16 @@ import type { MetadataRoute } from "next";
 import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES } from "@/lib/guides";
+import { getSiteConfig, FOCUS_VALID } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
+// /c/[service] 404s for services this domain's SITE_FOCUS doesn't serve
+// (see app/c/[service]/page.tsx's FOCUS_VALID check) — only the /c/{service}
+// hub loop below needs this; the other SERVICES loops (district combos,
+// doctors, compare) aren't focus-gated on their page side.
+const focusValid = FOCUS_VALID[getSiteConfig().focus];
+const HUB_SERVICES = focusValid ? SERVICES.filter((s) => focusValid.has(s)) : SERVICES;
 
 // /sitemap.xml — hubs + top 200 priority clinics.
 // /sitemap-clinics.xml (route handler) — remaining clinic pages.
@@ -33,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const g of GUIDES) {
     items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
-  for (const s of SERVICES) {
+  for (const s of HUB_SERVICES) {
     items.push({ url: `${SITE}/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
   }
   for (const c of BEST_FOR) {

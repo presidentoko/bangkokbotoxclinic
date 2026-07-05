@@ -139,6 +139,19 @@ export function getSiteConfig(): SiteConfig {
   return CONFIGS[focus] ?? CONFIGS.all;
 }
 
+// focus별 허용 서비스 — 다른 사이트 서비스 페이지 노출 방지.
+// app/c/[service]/page.tsx 와 app/sitemap.ts 둘 다 이 테이블을 참조해야
+// 사이트맵에 없는 사이트의 서비스가 실려서 404 나는 걸 방지.
+export const FOCUS_VALID: Partial<Record<SiteFocus, Set<string>>> = {
+  dental: new Set(["dental"]),
+  hair:   new Set(["hair_transplant"]),
+  botox:  new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  filler: new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  hifu:   new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  facial: new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+  laser:  new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]),
+};
+
 // 치과 사이트 — 진짜 치과만 (피부과/성형외과의 dental 옵션 제외)
 const DENTAL_PRIMARY_TYPES = new Set([
   "Dental clinic", "Dentist", "Orthodontist", "Pediatric dentist",
