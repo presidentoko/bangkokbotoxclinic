@@ -9,9 +9,19 @@ import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
 
 export const revalidate = 3600;
-export const dynamic = "force-dynamic";
 
 const BASE = "https://www.bangkoktopclinic.com";
+
+export async function generateStaticParams() {
+  // Pre-render the top 50 hospitals; the rest render on first visit and
+  // are then cached for `revalidate` seconds (ISR fallback).
+  try {
+    const slugs = (await getAllHospitalSlugs()).slice(0, 50);
+    return slugs.map((slug) => ({ slug }));
+  } catch {
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,

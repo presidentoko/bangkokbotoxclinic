@@ -63,7 +63,7 @@ export function ContactForm({
           <input
             type="text" value={name} onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
           />
         </div>
       )}
@@ -74,7 +74,7 @@ export function ContactForm({
           <input
             type="email" value={email} onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
           />
         </div>
       )}
@@ -86,7 +86,7 @@ export function ContactForm({
             required value={message} onChange={(e) => setMessage(e.target.value)}
             placeholder={placeholder ?? "Type your message..."}
             rows={4}
-            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 resize-none"
+            className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 resize-none"
           />
         </div>
       )}

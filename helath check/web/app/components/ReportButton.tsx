@@ -107,7 +107,7 @@ export function ReportButton({ pageUrl, hospitalName }: { pageUrl?: string; hosp
                     value={note} onChange={(e) => setNote(e.target.value)}
                     placeholder="e.g. Actual price is ฿12,000 not ฿8,000"
                     rows={3}
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-base md:text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
                   />
                 </div>
 

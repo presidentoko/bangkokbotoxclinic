@@ -10,6 +10,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
+  turbopack: { root: __dirname },
+  staticPageGenerationTimeout: 120,
   async redirects() {
     return [
       { source: "/", destination: "/en", permanent: false },

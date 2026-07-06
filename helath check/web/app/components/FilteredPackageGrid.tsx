@@ -391,7 +391,7 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search hospital or package name..."
-            className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+            className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-xl text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
           />
           {query && (
             <button onClick={() => setQuery("")}

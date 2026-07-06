@@ -15,8 +15,15 @@ export function getPool(): mysql.Pool {
       user:            process.env.DB_USER || "root",
       password:        process.env.DB_PASS || "",
       database:        "bkkcheckup",
-      connectionLimit: 3,
+      connectionLimit: 10,
+      connectTimeout:  20000,
+      enableKeepAlive: true,
       charset:         "utf8mb4",
+      // mysql2 returns DATE/DATETIME columns as JS Date objects by default;
+      // every DATE/DATETIME field in this file is typed (and used) as string
+      // (e.g. review_date.slice(...), snapshot_date). Force string output so
+      // runtime values match the declared types instead of crashing on .slice().
+      dateStrings:     true,
       ssl:             isRemote ? { rejectUnauthorized: false } : undefined,
     });
   }
@@ -113,10 +120,20 @@ export async function getCategories(): Promise<CategoryCount[]> {
   return rows as CategoryCount[];
 }
 
+const categoryCache = new Map<string, { data: PackageRow[]; ts: number }>();
+const CATEGORY_CACHE_TTL_MS = 60 * 60 * 1000; // matches page revalidate window
+
 export async function getPackagesByCategory(
   cat: string,
   sort = "price",
 ): Promise<PackageRow[]> {
+  // generateStaticParams fans out to the same (category, sort) pair once per
+  // hospital × locale (~180x for a single category) — memoize to avoid
+  // saturating the DB pool during static generation.
+  const cacheKey = `${cat}:${sort}`;
+  const cached = categoryCache.get(cacheKey);
+  if (cached && Date.now() - cached.ts < CATEGORY_CACHE_TTL_MS) return cached.data;
+
   const pool = getPool();
   const orderBy = SORT_WHITELIST[sort] ?? SORT_WHITELIST.price;
   const [rows] = await pool.query<mysql.RowDataPacket[]>(
@@ -135,7 +152,9 @@ export async function getPackagesByCategory(
      ORDER BY ${orderBy}`,
     [cat],
   );
-  return rows as PackageRow[];
+  const data = rows as PackageRow[];
+  categoryCache.set(cacheKey, { data, ts: Date.now() });
+  return data;
 }
 
 export async function getAllPackages(sort = "price"): Promise<PackageRow[]> {

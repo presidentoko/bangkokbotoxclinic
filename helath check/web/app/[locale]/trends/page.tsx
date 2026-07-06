@@ -4,7 +4,6 @@ import { type Locale, LOCALES } from "@/lib/i18n";
 import { getRecentPriceChanges, type PriceTrendRow } from "@/lib/db";
 
 export const revalidate = 3600;
-export const dynamic = "force-dynamic";
 
 const BASE = "https://www.bangkoktopclinic.com";
 

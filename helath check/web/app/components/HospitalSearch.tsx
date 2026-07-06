@@ -44,7 +44,7 @@ export function HospitalSearch({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search hospitals by name or city…"
-          className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
+          className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-base md:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
         />
         {query && (
           <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">✕</button>

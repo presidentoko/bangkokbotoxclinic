@@ -4,8 +4,6 @@ import { type Locale, LOCALES } from "@/lib/i18n";
 import { getAllPackages, type PackageRow } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 
-export const dynamic = "force-dynamic";
-
 export const revalidate = 86400;
 
 // Each longtail segment with its config
