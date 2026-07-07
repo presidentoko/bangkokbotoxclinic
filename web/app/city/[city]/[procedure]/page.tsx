@@ -104,6 +104,15 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
       { q: "How much does a hair transplant cost in Bangkok?", a: "FUE hair transplant in Bangkok costs ฿25,000–฿80,000 depending on the number of grafts (typically 1,000–3,000). DHI technique costs slightly more. This is 40–60% cheaper than equivalent clinics in the UK or US." },
     ],
   },
+  "root-canal": {
+    label: "Root Canal Treatment",
+    category: "dental",
+    desc: "root canal therapy, retreatment, and post-and-core restoration",
+    faqs: [
+      { q: "How much does a root canal cost in Thailand?", a: "Root canal treatment in Thailand costs ฿4,000–฿15,000 per tooth depending on the tooth type (front teeth are cheaper than molars) and complexity. A crown afterward adds ฿8,000–฿25,000. This is typically 60–80% cheaper than the US or UK." },
+      { q: "Is root canal treatment painful?", a: "Modern root canal treatment is performed under local anesthesia and is generally no more uncomfortable than a filling. Most patients report mild soreness for 1–2 days afterward, manageable with over-the-counter pain relief." },
+    ],
+  },
 };
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";

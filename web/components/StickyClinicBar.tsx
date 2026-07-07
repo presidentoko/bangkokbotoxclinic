@@ -20,7 +20,8 @@ export function StickyClinicBar({
 
   return (
     <>
-      <div className="sticky top-0 z-40 bg-white border-b border-[var(--border)] shadow-sm">
+      {/* top-14 = SiteHeader의 h-14 높이만큼 offset — 겹쳐서 헤더/햄버거 메뉴를 가리는 것 방지 */}
+      <div className="sticky top-14 z-20 bg-white border-b border-[var(--border)] shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-3 flex-wrap">
           <p className="font-semibold text-sm truncate max-w-[200px] md:max-w-xs text-[var(--fg)]">
             {clinicName}
@@ -28,7 +29,7 @@ export function StickyClinicBar({
           <div className="flex items-center gap-2 shrink-0">
             {phone && (
               <a
-                href={`tel:${phone}`}
+                href={`tel:${phone.replace(/[^+\d]/g, "")}`}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--border)] text-sm hover:bg-gray-50 transition"
               >
                 📞 <span className="hidden sm:inline">Call</span>

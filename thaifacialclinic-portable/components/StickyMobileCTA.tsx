@@ -34,7 +34,7 @@ export default function StickyMobileCTA({
   return (
     <div className="sm:hidden fixed bottom-14 inset-x-0 z-30 px-2 print:hidden toast-fade-up"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <div className="mx-auto max-w-md rounded-2xl bg-white border-2 border-emerald-300 shadow-2xl p-2.5 flex items-center gap-2">
+      <div className="mx-auto max-w-md rounded-2xl bg-[rgb(var(--bg-elev))] border-2 border-emerald-300 dark:border-emerald-700 shadow-2xl p-2.5 flex items-center gap-2">
         <div className="flex-1 min-w-0 pl-1">
           <div className="font-bold text-xs truncate">{clinicName}</div>
           <div className="text-[10px] text-[rgb(var(--muted))] flex items-center gap-1.5">

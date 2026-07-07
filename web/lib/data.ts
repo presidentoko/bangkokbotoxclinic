@@ -12,8 +12,14 @@ let _cache: MasterDb | null = null;
 
 export async function loadMasterDb(): Promise<MasterDb> {
   if (_cache) return _cache;
-  const raw = await fs.readFile(DATA_PATH, "utf-8");
-  const parsed = JSON.parse(raw) as MasterDb;
+  let parsed: MasterDb;
+  try {
+    const raw = await fs.readFile(DATA_PATH, "utf-8");
+    parsed = JSON.parse(raw) as MasterDb;
+  } catch (err) {
+    console.error(`[loadMasterDb] failed to read/parse ${DATA_PATH}:`, err);
+    throw err;
+  }
   const DEFAULT_TREND = { recent: { count: 0, avg: null }, midterm: { count: 0, avg: null }, old: { count: 0, avg: null }, trend: "insufficient_data" as const };
   for (const c of parsed.clinics) {
     if (c.trust_score > 100) c.trust_score = 100;
@@ -146,10 +152,15 @@ export function getAllDoctors(clinics: Clinic[]): DoctorWithClinic[] {
 }
 
 export function getDoctorByCompositeSlug(clinics: Clinic[], slug: string): DoctorWithClinic | undefined {
+  // App Router 전달값이 percent-encoded로 남는 케이스가 있어 (태국어 slug),
+  // 디코드된 값과 원본 값 둘 다 비교 — 둘 중 하나라도 일치하면 매치.
+  let decoded = slug;
+  try { decoded = decodeURIComponent(slug); } catch { /* malformed — raw slug만 비교 */ }
   for (const c of clinics) {
     for (const d of c.doctor_stats ?? []) {
-      if (makeCompositeDoctorSlug(d, c) === slug) {
-        return { ...d, composite_slug: slug, clinic: c };
+      const composite = makeCompositeDoctorSlug(d, c);
+      if (composite === slug || composite === decoded) {
+        return { ...d, composite_slug: composite, clinic: c };
       }
     }
   }

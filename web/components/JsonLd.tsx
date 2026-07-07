@@ -122,7 +122,8 @@ export function ClinicJsonLd({ c, photos, priceRange }: {
   if (c.maps_url) {
     data.sameAs = data.sameAs ? [...(data.sameAs as string[]), c.maps_url] : [c.maps_url];
   }
-  if (c.business_status) data.openingHours = c.business_status;
+  // openingHours는 "Mo-Fr 09:00-17:00" 형식이어야 함 — business_status("Open" 등)는
+  // 스펙 위반이라 넣지 않음. 실제 영업시간 데이터 확보 전까지 필드 생략.
   // Photos — Google rich result image carousel + AEO 시각 정보
   if (photos && photos.length > 0) {
     data.image = photos.slice(0, 6).map((p) => p.large);
@@ -145,16 +146,9 @@ export function ClinicJsonLd({ c, photos, priceRange }: {
   if (specialties.length > 0) {
     data.medicalSpecialty = Array.from(new Set(specialties));
   }
-  // Sample reviews 노출 — review snippet rich result 가능
-  const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 3);
-  if (samples.length > 0) {
-    data.review = samples.map((r) => ({
-      "@type": "Review",
-      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
-      author: { "@type": "Person", name: r.author || "Google reviewer" },
-      reviewBody: r.text,
-    }));
-  }
+  // NOTE: 이전에 여기서 Google 리뷰(제3자 데이터)를 schema.org Review로 마크업했으나
+  // Google 리치결과 정책상 자사 사이트에서 직접 수집한 리뷰만 허용 — 제3자 집계 리뷰
+  // 마크업은 리치결과 무시 또는 수동 조치 리스크가 있어 제거함.
   return tag(data);
 }
 
