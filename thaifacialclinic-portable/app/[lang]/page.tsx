@@ -30,12 +30,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: Lang }> }): Promise<Metadata> {
   const { lang } = await params;
   const url = `${SITE.origin}/${lang}/`;
+  const { total } = loadClinics();
   return {
     title: lang === "en"
       ? "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026"
       : `${SITE.name} — Verified Thai Hair Clinics`,
     description: lang === "en"
-      ? "Compare Bangkok hair transplant clinics by Trust Score from 134 verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis. Free consultation."
+      ? `Compare Bangkok hair transplant clinics by Trust Score from ${total} verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis. Free consultation.`
       : SITE.tagline[lang],
     alternates: {
       canonical: url,
@@ -46,10 +47,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
         ? "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026"
         : `${SITE.name} — Verified Thai Hair Clinics`,
       description: lang === "en"
-        ? "Compare Bangkok hair transplant clinics by Trust Score from 134 verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis."
+        ? `Compare Bangkok hair transplant clinics by Trust Score from ${total} verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis.`
         : SITE.tagline[lang],
       url,
-      images: [{ url: `${SITE.origin}/og-default.png`, width: 1200, height: 630 }],
+      images: [{ url: `${SITE.origin}/opengraph-image`, width: 1200, height: 630 }],
     },
   };
 }

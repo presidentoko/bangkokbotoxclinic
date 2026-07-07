@@ -12,22 +12,6 @@ function fmtAddress(c: Clinic) {
   };
 }
 
-function fmtReviews(c: Clinic) {
-  return c.reviews_sample
-    .filter((r) => r.text && r.text.length >= 30)
-    .slice(0, 10)
-    .map((r) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: r.reviewer || `Reviewer (${r.source})` },
-      datePublished: r.date || undefined,
-      reviewBody: r.text,
-      reviewRating: r.rating
-        ? { "@type": "Rating", ratingValue: r.rating, bestRating: 5 }
-        : undefined,
-      publisher: { "@type": "Organization", name: r.source || "google" },
-    }));
-}
-
 function buildFaq(c: Clinic): FaqItem[] {
   const reddit = c.reviews_sample.find((r) => /reddit/i.test(r.source || ""));
   const naver = c.reviews_sample.find((r) => /naver/i.test(r.source || ""));
@@ -83,7 +67,8 @@ export default function AeoSchema({ c, lang }: { c: Clinic; lang: Lang }) {
             bestRating: 5,
           }
         : undefined,
-    review: fmtReviews(c),
+    // NOTE: 이전엔 Google/Reddit/Naver 등 제3자 리뷰를 schema.org Review로 마크업했으나
+    // Google 리치결과 정책상 자사 사이트에서 직접 수집한 리뷰만 허용돼서 제거함.
     priceRange: c.bookimed_price_from || undefined,
     medicalSpecialty: ["Plastic Surgery", "Dermatology"],
     knowsAbout: c.procedures.length ? c.procedures : ["Hair Transplant", "FUE", "DHI"],

@@ -31,12 +31,16 @@ if (!fs.existsSync(SOURCE_CSV)) {
 const OPT_OUT_FILE = path.join(process.cwd(), "..", "data", "opt_out.json");
 const optOutSet = new Set();
 if (fs.existsSync(OPT_OUT_FILE)) {
-  const { blocked } = JSON.parse(fs.readFileSync(OPT_OUT_FILE, "utf-8"));
-  for (const { id, slug } of blocked) {
-    if (id) optOutSet.add(id.toLowerCase());
-    if (slug) optOutSet.add(slug.toLowerCase());
+  try {
+    const { blocked } = JSON.parse(fs.readFileSync(OPT_OUT_FILE, "utf-8"));
+    for (const { id, slug } of blocked) {
+      if (id) optOutSet.add(id.toLowerCase());
+      if (slug) optOutSet.add(slug.toLowerCase());
+    }
+    console.log(`[build-data] opt-out list: ${optOutSet.size} entries`);
+  } catch (err) {
+    console.warn(`[build-data] failed to parse ${OPT_OUT_FILE}, ignoring opt-out list:`, err.message);
   }
-  console.log(`[build-data] opt-out list: ${optOutSet.size} entries`);
 }
 
 const { parse } = await import("csv-parse/sync");
@@ -55,11 +59,14 @@ function num(v, fallback = 0) {
 }
 
 function slugify(s) {
+  // ASCII-only — 태국어/한글을 slug에 보존하면 URL에서 percent-encoded로 깨져 보이고
+  // 공유/백링크에 불리함. place_id suffix(6자)가 이미 유일성을 보장하므로
+  // 비ASCII 문자는 그냥 제거해도 충돌 위험 없음.
   return String(s || "")
     .normalize("NFKD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
-    .replace(/[^a-z0-9฀-๿가-힯]+/g, "-")
+    .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
 }
@@ -183,7 +190,7 @@ const clinics = rows
       slug: slugify(`${r.name}-${r.place_id.slice(-6)}`),
       name: r.name,
       // Geo
-      address: r.address || "",
+      address: (r.address || "").trim(),
       city: normalizeCity(r.city, r.address),
       // Google
       rating: num(r.rating) || null,
@@ -204,7 +211,7 @@ const clinics = rows
       reviews_sample: reviews.slice(0, 5).map((rv) => ({
         source: rv.source || "google",
         reviewer: (rv.reviewer || "").slice(0, 60),
-        rating: rv.rating ?? null,
+        rating: num(rv.rating, null),
         date: (rv.date || "").slice(0, 20),
         text: (rv.text || "").slice(0, 400),
       })),
@@ -265,7 +272,7 @@ fs.writeFileSync(
     {
       generated_at: new Date().toISOString(),
       total: clinics.length,
-      avg_trust: Math.round(clinics.reduce((s, c) => s + c.trust_score, 0) / clinics.length),
+      avg_trust: clinics.length > 0 ? Math.round(clinics.reduce((s, c) => s + c.trust_score, 0) / clinics.length) : 0,
       clinics,
     },
     null,

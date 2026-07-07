@@ -48,7 +48,7 @@ export function GET() {
     "",
     "## Methodology",
     "",
-    "Trust Score (0-100) = Google rating weighted (45%) + review volume log-scaled (35%) + Local Guide reviewer ratio (15%) + rating consistency (5%). Cross-validated against Bookimed testimonials, Reddit discussions, Naver blogs, Pantip forum posts. Refreshed continuously from live scraping.",
+    "Trust Score (0-100) = source diversity across Google/photos/videos/website/Bookimed (25%) + Google rating (15%) + review volume, log-scaled (15%) + photo volume (10%) + video volume (5%) + procedure breadth (10%) + hair-relevance signal (20%). Heavily favors review source diversity over any single-source volume, to de-weight viral/promoted listings. Cross-validated against Bookimed testimonials, Reddit discussions, Naver blogs, Pantip forum posts.",
     "",
     "## Frequently asked",
     "",

@@ -4,6 +4,7 @@ import Link from "next/link";
 import fs from "node:fs";
 import path from "node:path";
 import { findGuide, GUIDES, GUIDE_TO_PROCS, procLabel, type GuideTopic } from "@/lib/guides";
+import { loadClinics } from "@/lib/data";
 import { SITE, SUPPORTED_LANGS } from "@/lib/i18n";
 import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
@@ -77,6 +78,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: La
   const p = pantip().filter((t) => matchPantip(g, t)).slice(0, 20);
   const n = naver().filter((t) => matchNaver(g, t)).slice(0, 20);
   const totalSources = r.length + p.length + n.length;
+  const { total: totalClinics } = loadClinics();
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-16">
@@ -229,7 +231,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: La
           <div className="rounded-2xl border-2 bg-gold-50 dark:bg-gold-950/30 p-6 text-center"
             style={{ borderColor: "rgb(var(--border))" }}>
             <h3 className="font-display text-xl font-bold">Ready to talk to a real clinic?</h3>
-            <p className="mt-2 text-sm muted">230+ verified clinics across Thailand · free quote · no spam</p>
+            <p className="mt-2 text-sm muted">{totalClinics}+ verified clinics across Thailand · free quote · no spam</p>
             <Link href={`/${lang}/#directory`} className="mt-4 inline-block btn-gold">Browse directory →</Link>
           </div>
         </section>

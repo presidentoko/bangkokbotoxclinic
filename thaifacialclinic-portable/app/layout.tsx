@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/i18n";
+import { loadClinics } from "@/lib/data";
 import { CompareProvider } from "@/components/CompareContext";
 
 const fraunces = Fraunces({
@@ -30,25 +31,27 @@ import ReadingProgressBar from "@/components/ReadingProgressBar";
 import CookieConsent from "@/components/CookieConsent";
 import SisterSites from "@/components/SisterSites";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const { total } = loadClinics();
+  return {
   metadataBase: new URL(SITE.origin),
   title: {
     default: "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026",
     template: `%s — ${SITE.name}`,
   },
-  description: "Compare 130+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000 · SMP from ฿15,000. Ranked by Trust Score from real Google + Bookimed + Reddit reviews. Save 50–70% vs Korea or UK.",
+  description: `Compare ${total}+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000 · SMP from ฿15,000. Ranked by Trust Score from real Google + Bookimed + Reddit reviews. Save 50–70% vs Korea or UK.`,
   openGraph: {
     type: "website",
     url: SITE.origin,
     siteName: SITE.name,
     title: "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026",
-    description: "Compare 130+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000. Ranked by Trust Score.",
-    images: [{ url: `${SITE.origin}/og-default.png`, width: 1200, height: 630, alt: "Bangkok Hair Transplant Clinics" }],
+    description: `Compare ${total}+ Bangkok hair transplant clinics. FUE from ฿65,000 · DHI from ฿85,000. Ranked by Trust Score.`,
+    // images intentionally omitted — app/opengraph-image.tsx provides the default via Next's file convention
   },
   twitter: {
     card: "summary_large_image",
     title: "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026",
-    description: "130+ clinics · FUE from ฿65,000 · Trust Score ranked from real reviews.",
+    description: `${total}+ clinics · FUE from ฿65,000 · Trust Score ranked from real reviews.`,
   },
   alternates: {
     canonical: SITE.origin,
@@ -72,7 +75,8 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-};
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",

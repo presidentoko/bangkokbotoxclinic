@@ -71,7 +71,7 @@ export default function LiveChatBubble() {
       {!open && (
         <button
           onClick={() => { setOpen(true); setShowPulse(false); }}
-          className="fixed bottom-6 right-24 sm:right-28 z-30 grid place-items-center h-14 w-14 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 text-white text-2xl shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition print:hidden"
+          className="fixed bottom-20 sm:bottom-6 right-24 sm:right-28 z-30 grid place-items-center h-14 w-14 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 text-white text-2xl shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition print:hidden"
           aria-label="Open chat"
         >
           💬
@@ -85,7 +85,7 @@ export default function LiveChatBubble() {
         <>
           <div className="hidden sm:block fixed inset-0 z-30" onClick={() => setOpen(false)} aria-hidden />
           <div role="dialog" aria-modal="false"
-            className="fixed bottom-6 right-4 sm:right-6 z-40 w-[92vw] max-w-sm rounded-3xl bg-white shadow-2xl overflow-hidden border-2 border-emerald-200 toast-fade-up print:hidden">
+            className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 w-[92vw] max-w-sm rounded-3xl bg-[rgb(var(--bg-elev))] shadow-2xl overflow-hidden border-2 border-emerald-200 dark:border-emerald-800 toast-fade-up print:hidden">
             {/* Header */}
             <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white px-4 py-3 flex items-center gap-3">
               <span className="grid place-items-center h-10 w-10 rounded-full bg-white/20 text-xl">🌴</span>
