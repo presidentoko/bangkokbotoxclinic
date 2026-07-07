@@ -14,6 +14,7 @@ import { OnboardingTrigger } from "@/components/OnboardingTrigger";
 import { PersonalizedSection } from "@/components/PersonalizedSection";
 import { BEST_FOR } from "@/lib/bestFor";
 import { EmailSignup } from "@/components/EmailSignup";
+import { CommunityLeaderboard } from "@/components/CommunityLeaderboard";
 
 export const dynamic = "force-static";
 
@@ -144,9 +145,7 @@ export default async function HomePage() {
         <section className="mb-12 bg-[var(--card)] border border-[var(--border)] rounded-3xl p-6">
           <h2 className="font-serif-display text-xl text-[var(--fg)] mb-1">🔥 Community SNS flags</h2>
           <p className="text-xs text-[var(--muted)] mb-4">Places the community suspects of overhype</p>
-          <p className="text-sm text-[var(--muted)]">
-            Flag data is accumulating. Hit 🚩 on any restaurant card to report suspected SNS inflation.
-          </p>
+          <CommunityLeaderboard candidates={top.map((r) => ({ id: r.id, name: r.name }))} />
         </section>
 
         {/* SPONSORED HERO if any */}

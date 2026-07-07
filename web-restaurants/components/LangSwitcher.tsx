@@ -8,15 +8,17 @@ function setLocaleCookie(locale: string) {
   document.cookie = `${COOKIE}=${locale};path=/;max-age=${COOKIE_MAX_AGE};samesite=lax`;
 }
 
+// Route types that have real th/ko hub-page translations: /c/[cuisine], /d/[district], /city/[name]
+const LOCALIZED_HUB = /^\/(c|d|city)\/[^/]+\/?$/;
+
 // Map current path to target locale's equivalent path
 function localePath(pathname: string, target: "en" | "th" | "ko"): string {
   // Strip existing locale prefix
   const stripped = pathname.replace(/^\/(th|ko)(\/|$)/, "/");
   if (target === "en") return stripped || "/";
-  // For th/ko: only home + sub-pages that exist. For non-home, go to locale home.
-  // We only have locale-specific versions of the home page.
-  if (stripped === "/") return `/${target}`;
-  // Other pages don't have locale versions — send to locale home
+  // th/ko have real translations for cuisine/district/city hub pages — keep those in place.
+  if (LOCALIZED_HUB.test(stripped)) return `/${target}${stripped}`;
+  // Everything else (restaurants, best/, guides, etc.) has no locale version yet — go to locale home.
   return `/${target}`;
 }
 
@@ -33,14 +35,12 @@ export function LangSwitcher() {
   }
 
   const cls = (active: boolean) =>
-    `transition ${active ? "font-bold text-[var(--accent)]" : "hover:text-[var(--fg)]"}`;
+    `min-h-[44px] min-w-[36px] px-1.5 flex items-center justify-center transition ${active ? "font-bold text-[var(--accent)]" : "hover:text-[var(--fg)]"}`;
 
   return (
-    <span className="text-xs text-[var(--muted)] flex items-center gap-2">
+    <span className="text-xs text-[var(--muted)] flex items-center">
       <button onClick={() => switchLang("en")} className={cls(isEn)}>EN</button>
-      <span aria-hidden="true">·</span>
       <button onClick={() => switchLang("th")} className={cls(isTh)}>TH</button>
-      <span aria-hidden="true">·</span>
       <button onClick={() => switchLang("ko")} className={cls(isKo)}>KO</button>
     </span>
   );

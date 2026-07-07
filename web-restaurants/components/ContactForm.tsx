@@ -79,7 +79,7 @@ export function ContactForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={tr(s.namePlaceholder, locale)}
-          className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[var(--accent)]"
+          className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-base bg-white focus:outline-none focus:border-[var(--accent)]"
         />
       </div>
 
@@ -94,7 +94,7 @@ export function ContactForm() {
           onChange={(e) => setContact(e.target.value)}
           placeholder={tr(s.contactPlaceholder, locale)}
           required
-          className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[var(--accent)]"
+          className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-base bg-white focus:outline-none focus:border-[var(--accent)]"
         />
       </div>
 
@@ -108,7 +108,7 @@ export function ContactForm() {
           required
           rows={5}
           placeholder={tr(s.messagePlaceholder, locale)}
-          className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm bg-white focus:outline-none focus:border-[var(--accent)] resize-none"
+          className="w-full border border-[var(--border)] rounded-xl px-4 py-2.5 text-base bg-white focus:outline-none focus:border-[var(--accent)] resize-none"
         />
       </div>
 

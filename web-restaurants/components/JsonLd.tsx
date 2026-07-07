@@ -1,8 +1,10 @@
 // Schema.org JSON-LD — Restaurant edition.
 
 import type { Restaurant } from "@/lib/types";
+import { getSiteConfig } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
+const BRAND = getSiteConfig().brand;
 
 function tag(data: object) {
   return (
@@ -17,7 +19,7 @@ export function OrgJsonLd() {
   return tag({
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats",
+    name: BRAND,
     url: SITE,
     description:
       "Independent directory of Bangkok and Pattaya restaurants with Google review analysis and Trust Scores.",
@@ -28,7 +30,7 @@ export function WebsiteJsonLd() {
   return tag({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: process.env.NEXT_PUBLIC_BRAND || "Bangkok Eats",
+    name: BRAND,
     url: SITE,
     potentialAction: {
       "@type": "SearchAction",

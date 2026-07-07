@@ -18,8 +18,38 @@ function getIp(req: NextRequest): string {
   return req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
 }
 
+export async function GET(req: NextRequest) {
+  const ids = req.nextUrl.searchParams.get("ids");
+  if (!ids) {
+    return NextResponse.json({ ok: false, error: "missing ids" }, { status: 400 });
+  }
+  const idList = ids.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 50);
+  if (idList.length === 0) {
+    return NextResponse.json({ ok: false, error: "missing ids" }, { status: 400 });
+  }
+
+  const redis = getRedis();
+  const [flags, ups, downs] = await Promise.all([
+    Promise.all(idList.map((id) => redis.get<number>(`flag:${id}`))),
+    Promise.all(idList.map((id) => redis.get<number>(`vote:${id}:up`))),
+    Promise.all(idList.map((id) => redis.get<number>(`vote:${id}:down`))),
+  ]);
+
+  const counts: Record<string, { flags: number; up: number; down: number }> = {};
+  idList.forEach((id, i) => {
+    counts[id] = { flags: flags[i] ?? 0, up: ups[i] ?? 0, down: downs[i] ?? 0 };
+  });
+
+  return NextResponse.json({ ok: true, counts });
+}
+
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "invalid json" }, { status: 400 });
+  }
   const { action, restaurantId, value, category, text } = body as {
     action: "flag" | "vote" | "report";
     restaurantId: string;
@@ -60,6 +90,10 @@ export async function POST(req: NextRequest) {
   }
 
   if (action === "report") {
+    const rateLimitKey = `ratelimit:report:${ip}`;
+    const recent = await getRedis().incr(rateLimitKey);
+    if (recent === 1) await getRedis().expire(rateLimitKey, 3600);
+    if (recent > 10) return NextResponse.json({ ok: false, error: "rate limited" }, { status: 429 });
     const entry = JSON.stringify({ category, text: text?.slice(0, 500), ts: Date.now() });
     await getRedis().rpush(`report:${restaurantId}`, entry);
     await getRedis().ltrim(`report:${restaurantId}`, -100, -1);

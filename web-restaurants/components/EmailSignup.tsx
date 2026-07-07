@@ -30,12 +30,12 @@ export function EmailSignup({ variant = "inline" }: { variant?: "inline" | "bann
     return (
       <section className="bg-[var(--fg)] text-white py-10 px-4">
         <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-2xl font-black mb-2">Weekly Bangkok restaurant digest</h2>
+          <h2 className="text-2xl font-black mb-2">Get notified about big Trust Score changes</h2>
           <p className="text-sm text-gray-300 mb-5">
-            New hidden gems, Trust Score drops, and SNS Check updates — every Monday. No spam.
+            New hidden gems and SNS Check updates, sent occasionally. No spam, unsubscribe anytime.
           </p>
           {status === "done" ? (
-            <p className="text-green-400 font-semibold">✓ You're in! Check your inbox.</p>
+            <p className="text-green-400 font-semibold">✓ You're on the list.</p>
           ) : (
             <form onSubmit={handleSubmit} className="flex gap-2 max-w-sm mx-auto">
               <input
@@ -44,7 +44,7 @@ export function EmailSignup({ variant = "inline" }: { variant?: "inline" | "bann
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-white"
+                className="flex-1 px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 text-base focus:outline-none focus:border-white"
               />
               <button
                 type="submit"
@@ -65,13 +65,13 @@ export function EmailSignup({ variant = "inline" }: { variant?: "inline" | "bann
 
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
-      <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-2">Weekly digest</div>
+      <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-2">Get updates</div>
       <h3 className="font-bold text-base mb-1">Bangkok restaurant updates</h3>
       <p className="text-sm text-[var(--muted)] mb-4">
-        New hidden gems and Trust Score changes — every Monday. No spam.
+        Occasional emails on new hidden gems and Trust Score changes. No spam.
       </p>
       {status === "done" ? (
-        <p className="text-green-700 font-semibold text-sm">✓ You're in!</p>
+        <p className="text-green-700 font-semibold text-sm">✓ You're on the list!</p>
       ) : (
         <form onSubmit={handleSubmit} className="flex gap-2">
           <input
@@ -80,7 +80,7 @@ export function EmailSignup({ variant = "inline" }: { variant?: "inline" | "bann
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="flex-1 px-3 py-2 border border-[var(--border)] rounded-lg text-sm focus:outline-none focus:border-[var(--accent)]"
+            className="flex-1 px-3 py-2 border border-[var(--border)] rounded-lg text-base focus:outline-none focus:border-[var(--accent)]"
           />
           <button
             type="submit"

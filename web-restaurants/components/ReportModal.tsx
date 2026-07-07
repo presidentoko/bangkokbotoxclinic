@@ -2,10 +2,10 @@
 import { useState } from "react";
 
 const CATEGORIES = [
-  { value: "paid", label: "광고비 받은 거 알아요" },
-  { value: "disappointing", label: "실제 가보니 별로였어요" },
-  { value: "fake_reviews", label: "리뷰 조작 의심돼요" },
-  { value: "other", label: "기타" },
+  { value: "paid", label: "This looks like paid promotion" },
+  { value: "disappointing", label: "Visited — it wasn't like this" },
+  { value: "fake_reviews", label: "I suspect fake reviews" },
+  { value: "other", label: "Other" },
 ];
 
 export function ReportModal({
@@ -42,21 +42,21 @@ export function ReportModal({
         {sent ? (
           <div className="text-center py-6">
             <div className="text-3xl mb-3">📨</div>
-            <p className="font-bold text-[var(--fg)]">제보 감사해요!</p>
-            <p className="text-sm text-[var(--muted)] mt-1">검토 후 반영할게요.</p>
+            <p className="font-bold text-[var(--fg)]">Thanks for the report!</p>
+            <p className="text-sm text-[var(--muted)] mt-1">We'll review it and update the listing.</p>
             <button
               onClick={onClose}
-              className="mt-5 w-full py-2.5 rounded-xl bg-[var(--accent)] text-white font-bold text-sm"
+              className="mt-5 w-full min-h-[44px] py-2.5 rounded-xl bg-[var(--accent)] text-white font-bold text-sm"
             >
-              닫기
+              Close
             </button>
           </div>
         ) : (
           <>
-            <h3 className="font-serif-display text-xl text-[var(--fg)] mb-4">어떤 제보인가요?</h3>
+            <h3 className="font-serif-display text-xl text-[var(--fg)] mb-4">What's the issue?</h3>
             <div className="space-y-2 mb-4">
               {CATEGORIES.map((c) => (
-                <label key={c.value} className="flex items-center gap-3 cursor-pointer">
+                <label key={c.value} className="flex items-center gap-3 cursor-pointer min-h-[44px]">
                   <input
                     type="radio"
                     name="category"
@@ -70,26 +70,26 @@ export function ReportModal({
               ))}
             </div>
             <textarea
-              placeholder="추가 내용 (선택)"
+              placeholder="Additional details (optional)"
               value={text}
               onChange={(e) => setText(e.target.value)}
               rows={3}
               maxLength={500}
-              className="w-full border border-[var(--border)] rounded-xl px-3 py-2 text-sm resize-none focus:outline-none focus:border-[var(--accent)] bg-[var(--bg)]"
+              className="w-full border border-[var(--border)] rounded-xl px-3 py-2 text-base resize-none focus:outline-none focus:border-[var(--accent)] bg-[var(--bg)]"
             />
             <div className="flex gap-2 mt-3">
               <button
                 onClick={onClose}
-                className="flex-1 py-2.5 rounded-xl border border-[var(--border)] text-sm text-[var(--muted)] font-medium"
+                className="flex-1 min-h-[44px] py-2.5 rounded-xl border border-[var(--border)] text-sm text-[var(--muted)] font-medium"
               >
-                취소
+                Cancel
               </button>
               <button
                 onClick={submit}
                 disabled={!category || loading}
-                className="flex-1 py-2.5 rounded-xl bg-[var(--accent)] text-white font-bold text-sm disabled:opacity-40"
+                className="flex-1 min-h-[44px] py-2.5 rounded-xl bg-[var(--accent)] text-white font-bold text-sm disabled:opacity-40"
               >
-                {loading ? "전송 중..." : "제보 보내기"}
+                {loading ? "Sending..." : "Send report"}
               </button>
             </div>
           </>

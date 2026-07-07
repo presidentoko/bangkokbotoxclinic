@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ReportModal } from "./ReportModal";
+import { subscribeCounts } from "@/lib/communityCounts";
 
 export function CommunityButtons({
   restaurantId,
@@ -19,12 +20,24 @@ export function CommunityButtons({
   const [flagged, setFlagged] = useState(false);
   const [voted, setVoted] = useState(false);
   const [showReport, setShowReport] = useState(false);
+  const interactedRef = useRef(false);
+
+  useEffect(() => {
+    const unsubscribe = subscribeCounts(restaurantId, (counts) => {
+      if (interactedRef.current) return;
+      setFlags(counts.flags);
+      setUp(counts.up);
+      setDown(counts.down);
+    });
+    return unsubscribe;
+  }, [restaurantId]);
 
   const total = up + down;
   const agreePct = total > 0 ? Math.round((up / total) * 100) : null;
 
   async function handleFlag() {
     if (flagged) return;
+    interactedRef.current = true;
     setFlagged(true);
     setFlags((f) => f + 1);
     const res = await fetch("/api/community", {
@@ -40,6 +53,7 @@ export function CommunityButtons({
 
   async function handleVote(value: "up" | "down") {
     if (voted) return;
+    interactedRef.current = true;
     setVoted(true);
     if (value === "up") setUp((v) => v + 1);
     else setDown((v) => v + 1);
@@ -67,12 +81,12 @@ export function CommunityButtons({
         <button
           onClick={handleFlag}
           disabled={flagged}
-          className={`flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border transition font-medium ${
+          className={`flex items-center gap-1 text-xs px-2.5 min-h-[40px] rounded-lg border transition font-medium ${
             flagged
               ? "bg-red-50 border-red-200 text-red-500"
               : "border-[var(--border)] text-[var(--muted)] hover:border-red-300 hover:text-red-500 hover:bg-red-50"
           }`}
-          title="인플루언서 낚시 신고"
+          title="Flag as influencer bait"
         >
           🚩 {flags > 0 && <span>{flags}</span>}
         </button>
@@ -80,35 +94,35 @@ export function CommunityButtons({
         <button
           onClick={() => handleVote("up")}
           disabled={voted}
-          className={`flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border transition font-medium ${
+          className={`flex items-center gap-1 text-xs px-2.5 min-h-[40px] rounded-lg border transition font-medium ${
             voted
               ? "bg-green-50 border-green-200 text-green-600"
               : "border-[var(--border)] text-[var(--muted)] hover:border-green-300 hover:text-green-600 hover:bg-green-50"
           }`}
-          title="Trust Score 맞아요"
+          title="Trust Score checks out"
         >
-          👍 {agreePct !== null ? <span>{agreePct}% 동의</span> : <span>맞아요</span>}
+          👍 {agreePct !== null ? <span>{agreePct}% agree</span> : <span>Agree</span>}
         </button>
 
         <button
           onClick={() => handleVote("down")}
           disabled={voted}
-          className={`flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border transition font-medium ${
+          className={`flex items-center gap-1 text-xs px-2.5 min-h-[40px] rounded-lg border transition font-medium ${
             voted
               ? "bg-orange-50 border-orange-200 text-orange-500"
               : "border-[var(--border)] text-[var(--muted)] hover:border-orange-300 hover:text-orange-500 hover:bg-orange-50"
           }`}
-          title="실제랑 달라요"
+          title="Doesn't match reality"
         >
-          👎 {voted && <span>반영됨</span>}
+          👎 {voted && <span>Noted</span>}
         </button>
 
         <button
           onClick={() => setShowReport(true)}
-          className="ml-auto flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border border-[var(--border)] text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent-light)] transition font-medium"
-          title="제보하기"
+          className="ml-auto flex items-center gap-1 text-xs px-2.5 min-h-[40px] rounded-lg border border-[var(--border)] text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent-light)] transition font-medium"
+          title="Report an issue"
         >
-          📨 제보
+          📨 Report
         </button>
       </div>
 

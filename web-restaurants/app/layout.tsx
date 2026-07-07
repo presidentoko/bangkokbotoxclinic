@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
@@ -6,6 +6,7 @@ import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 import { BottomNav } from "@/components/BottomNav";
 import { LangSwitcher } from "@/components/LangSwitcher";
+import { MobileMenu } from "@/components/MobileMenu";
 import { ClientFooter } from "@/components/ClientFooter";
 import { BackToTop } from "@/components/BackToTop";
 import { Analytics } from "@vercel/analytics/next";
@@ -20,6 +21,12 @@ const dmSerif = DM_Serif_Display({
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const cfg = getSiteConfig();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -93,10 +100,11 @@ export default function RootLayout({
                 For owners →
               </a>
               <LangSwitcher />
+              <MobileMenu />
             </nav>
           </div>
         </header>
-        <main className="pb-14 sm:pb-0">{children}</main>
+        <main className="pb-[calc(3.5rem+env(safe-area-inset-bottom))] sm:pb-0">{children}</main>
         <BottomNav />
         <ClientFooter brand={cfg.brand} year={new Date().getFullYear()} />
         <BackToTop />

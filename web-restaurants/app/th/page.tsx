@@ -1,7 +1,8 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
+import { CUISINE_ICONS } from "@/lib/types";
+import { cuisineLabel } from "@/lib/hubI18n";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
@@ -70,8 +71,8 @@ export default async function ThHomePage() {
               }))}
               hrefBase="/restaurant"
               popularSearches={cuisines.slice(0, 4).map(([cat]) => ({
-                label: CUISINE_LABELS[cat] ?? cat,
-                href: `/c/${cat}`,
+                label: cuisineLabel(cat, "th"),
+                href: `/th/c/${cat}`,
               }))}
               popularLabel="ยอดนิยม"
               searchLang="th"
@@ -97,11 +98,11 @@ export default async function ThHomePage() {
               {cuisines.map(([cat, count]) => (
                 <a
                   key={cat}
-                  href={`/c/${cat}`}
+                  href={`/th/c/${cat}`}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
                   <span aria-hidden>{CUISINE_ICONS[cat] ?? "🍴"}</span>
-                  {CUISINE_LABELS[cat] ?? cat}
+                  {cuisineLabel(cat, "th")}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
                 </a>
               ))}
@@ -115,7 +116,7 @@ export default async function ThHomePage() {
             {districts.map(([d, count]) => (
               <a
                 key={d}
-                href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                href={`/th/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>

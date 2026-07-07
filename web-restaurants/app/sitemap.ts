@@ -42,10 +42,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const c of cities) {
     items.push({ url: `${SITE}/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
+    items.push({ url: `${SITE}/th/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.75 });
+    items.push({ url: `${SITE}/ko/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.75 });
   }
 
   for (const c of CUISINES) {
     items.push({ url: `${SITE}/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
+    items.push({ url: `${SITE}/th/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.8 });
+    items.push({ url: `${SITE}/ko/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.8 });
   }
 
   for (const c of BEST_FOR) {
@@ -60,6 +64,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const d of districts) {
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
+    items.push({ url: `${SITE}/th/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 });
+    items.push({ url: `${SITE}/ko/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 });
     for (const c of CUISINES) {
       const matches = filterByDistrict(cuisineRestaurants.get(c)!, d);
       if (matches.length === 0) continue;

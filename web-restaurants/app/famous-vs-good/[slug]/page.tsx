@@ -8,6 +8,7 @@ import {
 } from "@/lib/famous-vs-good";
 import { GapList } from "@/components/GapList";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
+import { GenericShareButton, WhatsAppShare } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
 
@@ -126,6 +127,15 @@ export default async function FamousVsGoodSlugPage(
           <span className="bg-white border border-[var(--border)] rounded-full px-4 py-1.5 font-medium">
             {totalReviews.toLocaleString()} Google reviews cross-checked
           </span>
+        </div>
+
+        <div className="flex flex-wrap gap-3 mt-5">
+          <GenericShareButton
+            title={`Instagram Famous vs Actually Good: ${label}`}
+            text={`${M} of ${N} Instagram-famous ${label.toLowerCase()} in Bangkok score below ${X} on Trust Score. See the gap:`}
+            url={`/famous-vs-good/${slug}`}
+          />
+          <WhatsAppShare name={`${label} — Instagram Famous vs Actually Good`} url={`/famous-vs-good/${slug}`} />
         </div>
       </header>
 

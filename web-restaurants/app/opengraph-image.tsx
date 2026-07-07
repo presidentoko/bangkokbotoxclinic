@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 import { getSiteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
-export const alt = "Verified Restaurant Reviews & Trust Scores";
+export const alt = "SNS Stopper — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -30,8 +30,8 @@ export default async function OG() {
             }}
           >+</div>
           <div style={{ fontSize: 28, fontWeight: 800, display: "flex" }}>
-            <span>bkk</span>
-            <span style={{ color: cfg.themeAccent }}>clinics</span>
+            <span>SNS</span>
+            <span style={{ color: cfg.themeAccent }}>Stopper</span>
           </div>
         </div>
 

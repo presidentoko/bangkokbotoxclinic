@@ -21,12 +21,12 @@ export function BottomNav() {
 
   return (
     <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--card)] border-t border-[var(--border)] pb-safe">
-      <div className="flex justify-around items-center h-14">
+      <div className="flex justify-around items-stretch h-14">
         {ITEMS.map((item) => (
           <a
             key={item.href}
             href={item.href}
-            className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition ${
+            className={`flex-1 flex flex-col items-center justify-center gap-0.5 rounded-xl transition ${
               isActive(item.href) ? "text-[var(--accent)]" : "text-[var(--muted)]"
             }`}
           >

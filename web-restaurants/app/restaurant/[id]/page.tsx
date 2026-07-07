@@ -43,7 +43,7 @@ export async function generateMetadata(
       siteName: "SNS Stopper",
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `${r.name} · Trust ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)}`,
       description,
     },
@@ -97,7 +97,7 @@ export default async function RestaurantPage(
   const seedMatch = igSeeds.find((s) => s.place_id === r.place_id);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 pb-28 sm:pb-8">
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
@@ -409,6 +409,25 @@ export default async function RestaurantPage(
             </div>
           )}
         </aside>
+      </div>
+
+      <div className="sm:hidden fixed left-0 right-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 bg-[var(--card)] border-t border-[var(--border)] px-4 py-2 flex gap-2">
+        <a
+          href={r.maps_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 min-h-[44px] bg-black text-white rounded-lg font-bold text-center text-sm flex items-center justify-center"
+        >
+          📍 Directions
+        </a>
+        {r.phone && (
+          <a
+            href={`tel:${r.phone.replace(/[^+\d]/g, "")}`}
+            className="min-h-[44px] px-4 bg-white border border-[var(--border)] rounded-lg font-bold text-sm flex items-center justify-center"
+          >
+            📞 Call
+          </a>
+        )}
       </div>
 
       <RestaurantJsonLd r={r} />

@@ -93,15 +93,15 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
       <div className="px-5 pb-3 flex gap-2">
         <a
           href={`/restaurant/${r.id}`}
-          className="flex-1 text-center py-2 px-3 rounded-xl bg-[var(--fg)] text-white text-xs font-bold hover:opacity-80 transition"
+          className="flex-1 text-center min-h-[44px] py-2.5 px-3 rounded-xl bg-[var(--fg)] text-white text-xs font-bold hover:opacity-80 transition flex items-center justify-center"
         >
-          자세히 보기 →
+          View details →
         </a>
         <a
           href={r.maps_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="py-2 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center"
+          className="min-h-[44px] min-w-[44px] py-2.5 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center justify-center"
           title="View on Google Maps"
           aria-label="View on Google Maps"
         >
@@ -110,7 +110,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         {r.phone && (
           <a
             href={`tel:${r.phone.replace(/[^+\d]/g, "")}`}
-            className="py-2 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center"
+            className="min-h-[44px] min-w-[44px] py-2.5 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center justify-center"
             title={`Call ${r.phone}`}
             aria-label="Call restaurant"
           >
@@ -122,7 +122,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
             href={r.menu_url}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            className="py-2 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center"
+            className="min-h-[44px] min-w-[44px] py-2.5 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center justify-center"
             title="Menu"
             aria-label="Menu"
           >

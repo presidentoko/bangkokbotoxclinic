@@ -42,15 +42,15 @@ export function PersonalizedSection({ restaurants }: { restaurants: SlimRestaura
       <div className="flex items-baseline justify-between gap-4 mb-5">
         <div>
           <h2 className="font-serif-display text-2xl md:text-3xl text-[var(--fg)]">
-            취향 맞춤 추천
+            Picked for you
           </h2>
-          <p className="text-sm text-[var(--muted)] mt-1">{cuisineLabel} 기반</p>
+          <p className="text-sm text-[var(--muted)] mt-1">Based on {cuisineLabel}</p>
         </div>
         <button
           onClick={() => { localStorage.removeItem("snsstopper_prefs"); setPrefs(null); window.location.reload(); }}
-          className="text-xs text-[var(--muted)] hover:text-[var(--accent)] underline"
+          className="text-xs text-[var(--muted)] hover:text-[var(--accent)] underline min-h-[44px] flex items-center"
         >
-          취향 다시 설정
+          Reset preferences
         </button>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">

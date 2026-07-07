@@ -27,7 +27,15 @@ export async function generateMetadata(
   return {
     title: `${count} Best ${label} Restaurants in Bangkok — Real Reviews, Not SNS Hype`,
     description: `${count} verified ${label.toLowerCase()} restaurants in Bangkok and Pattaya analyzed across ${totalReviews.toLocaleString()} Google reviews. No paid influencer rankings — just real diner data.`,
-    alternates: { canonical: `/c/${cuisine}` },
+    alternates: {
+      canonical: `/c/${cuisine}`,
+      languages: {
+        en: `/c/${cuisine}`,
+        th: `/th/c/${cuisine}`,
+        ko: `/ko/c/${cuisine}`,
+        "x-default": `/c/${cuisine}`,
+      },
+    },
     openGraph: {
       title: `${count} Best ${label} Restaurants in Bangkok`,
       description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,

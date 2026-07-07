@@ -9,7 +9,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "not configured" }, { status: 503 });
   }
 
-  const body = await req.json();
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "invalid json" }, { status: 400 });
+  }
   const { name, purpose, message, contact } = body as {
     name?: string;
     purpose?: string;
