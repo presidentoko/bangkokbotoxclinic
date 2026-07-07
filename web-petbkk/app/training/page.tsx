@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ฝึกสุนัขเบื้องต้น — คำสั่งพื้นฐานและการฝึกห้องน้ำ | ThailandPetHub',
+  title: 'ฝึกสุนัขเบื้องต้น — คำสั่งพื้นฐานและการฝึกห้องน้ำ',
   description: 'วิธีฝึกสุนัขด้วยตัวเองที่บ้าน คำสั่งพื้นฐาน (นั่ง นอน อยู่ที่) การฝึกห้องน้ำ และการแก้พฤติกรรมไม่พึงประสงค์ ใช้ positive reinforcement',
   alternates: { canonical: 'https://www.thailandpethub.com/training' },
   keywords: ['ฝึกสุนัข', 'สอนสุนัขนั่ง', 'ฝึกสุนัขห้องน้ำ', 'สอนสุนัข', 'ฝึกสุนัขด้วยตัวเอง'],
@@ -189,7 +189,7 @@ export default function TrainingPage() {
         <a href="/food/puppy" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🐶 อาหาร Puppy</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="training" count={4} />
     </main>
   )
 }

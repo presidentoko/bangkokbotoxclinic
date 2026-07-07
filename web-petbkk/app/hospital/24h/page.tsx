@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { filterHospitals } from '@/lib/hospitals'
 import HospitalCard from '@/components/HospitalCard'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรงพยาบาลสัตว์ 24 ชั่วโมง กรุงเทพ — รายการครบที่สุด | ThailandPetHub',
+  title: 'โรงพยาบาลสัตว์ 24 ชั่วโมง กรุงเทพ — รายการครบที่สุด',
   description: 'รวมโรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงในกรุงเทพและปริมณฑล พร้อมที่อยู่ เบอร์โทร คะแนน Google และเส้นทาง ค้นหาฟรี ไม่มีค่าใช้จ่าย',
   alternates: { canonical: 'https://www.thailandpethub.com/hospital/24h' },
   keywords: ['โรงพยาบาลสัตว์ 24 ชั่วโมง', 'โรงพยาบาลสัตว์ 24 ชม กรุงเทพ', 'หมอสัตว์ 24 ชั่วโมง', 'คลินิกสัตว์ 24 ชั่วโมง'],
@@ -110,6 +111,8 @@ export default function Hospital24hPage() {
           🚨 โรงพยาบาลฉุกเฉิน →
         </a>
       </div>
+
+      <RelatedGuides current="hospital" count={4} />
     </main>
   )
 }

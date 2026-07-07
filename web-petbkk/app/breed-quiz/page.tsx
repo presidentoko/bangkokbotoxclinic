@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import BreedQuiz from '@/components/BreedQuiz'
 
 export const metadata: Metadata = {
-  title: 'สายพันธุ์ไหนเหมาะกับคุณ? — แบบทดสอบ 4 คำถาม | ThailandPetHub',
+  title: 'สายพันธุ์ไหนเหมาะกับคุณ? — แบบทดสอบ 4 คำถาม',
   description: 'แบบทดสอบหาสายพันธุ์สุนัขหรือแมวที่เหมาะกับไลฟ์สไตล์ของคุณ ตอบ 4 คำถาม รู้ผลทันที',
   alternates: { canonical: 'https://www.thailandpethub.com/breed-quiz' },
   keywords: ['แบบทดสอบสายพันธุ์', 'สายพันธุ์ที่เหมาะกับฉัน', 'ควรเลี้ยงอะไร', 'breed finder'],

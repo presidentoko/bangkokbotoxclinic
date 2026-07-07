@@ -4,6 +4,8 @@ import CompareTray from '@/components/CompareTray'
 import InstallPrompt from '@/components/InstallPrompt'
 import NewsletterForm from '@/components/NewsletterForm'
 import NotificationWatcher from '@/components/NotificationWatcher'
+import GlobalSearch from '@/components/GlobalSearch'
+import MobileNav from '@/components/MobileNav'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -89,17 +91,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* Brand + primary nav */}
             <div className="flex items-center gap-4 mb-2">
               <a href="/" className="font-black text-xl text-orange-500 flex-shrink-0 tracking-tight">🐾 PetBKK</a>
-              <nav className="flex gap-3 text-sm overflow-x-auto scrollbar-none">
-                <a href="/food"     className="whitespace-nowrap hover:text-orange-600">อาหาร</a>
-                <a href="/hospital" className="whitespace-nowrap hover:text-orange-600">โรงพยาบาล</a>
-                <a href="/adopt"    className="whitespace-nowrap hover:text-orange-600 text-green-600 font-medium">รับเลี้ยง</a>
-                <a href="/tips"     className="whitespace-nowrap hover:text-orange-600">เคล็ดลับ</a>
-                <a href="/guides"   className="whitespace-nowrap hover:text-orange-600 font-medium text-orange-500">📚 คู่มือทั้งหมด</a>
-                <a href="/emergency" className="whitespace-nowrap text-red-500 font-medium hover:text-red-600">🚨 ฉุกเฉิน</a>
+              <nav className="hidden sm:flex gap-3 text-sm overflow-x-auto scrollbar-none flex-1 min-w-0">
+                <a href="/food"     className="whitespace-nowrap hover:text-orange-600 py-2">อาหาร</a>
+                <a href="/hospital" className="whitespace-nowrap hover:text-orange-600 py-2">โรงพยาบาล</a>
+                <a href="/adopt"    className="whitespace-nowrap hover:text-orange-600 text-green-600 font-medium py-2">รับเลี้ยง</a>
+                <a href="/tips"     className="whitespace-nowrap hover:text-orange-600 py-2">เคล็ดลับ</a>
+                <a href="/guides"   className="whitespace-nowrap hover:text-orange-600 font-medium text-orange-500 py-2">📚 คู่มือทั้งหมด</a>
+                <a href="/emergency" className="whitespace-nowrap text-red-500 font-medium hover:text-red-600 py-2">🚨 ฉุกเฉิน</a>
               </nav>
+              <div className="flex-1 sm:hidden" />
+              <GlobalSearch />
+              <MobileNav />
             </div>
             {/* Tools strip */}
-            <nav className="flex gap-2 overflow-x-auto scrollbar-none text-xs text-gray-500 pb-0.5">
+            <nav className="hidden sm:flex gap-2 overflow-x-auto scrollbar-none text-xs text-gray-500 pb-0.5">
               {[
                 { href: '/compare',         label: 'เปรียบเทียบ' },
                 { href: '/cost',            label: 'ค่าใช้จ่าย' },
@@ -141,7 +146,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 { href: '/saved',            label: '❤️ บันทึก' },
               ].map(l => (
                 <a key={l.href} href={l.href}
-                  className="whitespace-nowrap px-2.5 py-1 bg-gray-100 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors flex-shrink-0">
+                  className="whitespace-nowrap px-2.5 py-2 bg-gray-100 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors flex-shrink-0">
                   {l.label}
                 </a>
               ))}
@@ -151,7 +156,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="max-w-5xl mx-auto px-4 py-8 pb-28">
           {children}
         </div>
-        <footer className="max-w-5xl mx-auto px-4 py-8 text-center text-xs text-gray-400 border-t border-gray-100 mt-4">
+        <footer className="max-w-5xl mx-auto px-4 py-8 pb-24 text-center text-xs text-gray-400 border-t border-gray-100 mt-4">
           {/* Newsletter */}
           <div className="mb-5">
             <p className="font-semibold text-gray-600 text-sm mb-1">รับข้อมูลดูแลสัตว์เลี้ยงใหม่ๆ</p>

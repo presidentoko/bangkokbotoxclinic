@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ผิวหนังสัตว์เลี้ยง — โรคผิวหนัง คัน ขนร่วง และวิธีดูแล | ThailandPetHub',
+  title: 'ผิวหนังสัตว์เลี้ยง — โรคผิวหนัง คัน ขนร่วง และวิธีดูแล',
   description: 'โรคผิวหนังสัตว์เลี้ยงพบบ่อย อาการคัน ขนร่วง สะเก็ด ผิวแดง สาเหตุและวิธีดูแล',
   alternates: { canonical: 'https://www.thailandpethub.com/skin' },
   keywords: ['สัตว์เลี้ยงคัน', 'สุนัขขนร่วง', 'แมวคัน', 'โรคผิวหนังสัตว์', 'สัตว์เลี้ยงผิวหนัง'],
@@ -103,7 +103,7 @@ export default function SkinPage() {
         <a href="/supplements" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💊 Omega-3</a>
       </div>
 
-      <RelatedGuides current="allergy" count={4} />
+      <RelatedGuides current="skin" count={4} />
     </main>
   )
 }

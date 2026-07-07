@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'เลี้ยงลูกสุนัข — คู่มือดูแลตั้งแต่แรกเกิดถึง 1 ปี | ThailandPetHub',
+  title: 'เลี้ยงลูกสุนัข — คู่มือดูแลตั้งแต่แรกเกิดถึง 1 ปี',
   description: 'คู่มือดูแลลูกสุนัขตั้งแต่แรกเกิด อาหาร วัคซีน การเข้าสังคม ฝึกนิสัย และช่วงอายุที่สำคัญ',
   alternates: { canonical: 'https://www.thailandpethub.com/puppy-care' },
   keywords: ['เลี้ยงลูกสุนัข', 'ดูแลลูกสุนัข', 'ลูกสุนัขแรกเกิด', 'อาหารลูกสุนัข', 'ฝึกลูกสุนัข'],
@@ -112,7 +112,7 @@ export default function PuppyCarePage() {
         <a href="/vaccine" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💉 วัคซีน</a>
       </div>
 
-      <RelatedGuides current="newpet" count={4} />
+      <RelatedGuides current="puppy-care" count={4} />
     </main>
   )
 }

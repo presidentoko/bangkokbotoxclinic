@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import SymptomChecker from '@/components/SymptomChecker'
 
 export const metadata: Metadata = {
-  title: 'ตรวจสอบอาการสัตว์เลี้ยง — สุนัขแมวมีอาการแบบนี้ต้องทำอะไร | ThailandPetHub',
+  title: 'ตรวจสอบอาการสัตว์เลี้ยง — สุนัขแมวมีอาการแบบนี้ต้องทำอะไร',
   description: 'ตรวจสอบอาการสุนัขและแมว ไม่กิน ท้องเสีย อาเจียน ตาแดง คัน ซึม — เราแนะนำคู่มือที่เหมาะสมและบอกว่าต้องพาหมอหรือเปล่า',
   alternates: { canonical: 'https://www.thailandpethub.com/symptoms' },
   keywords: ['ตรวจสอบอาการสัตว์เลี้ยง', 'สุนัขแมวป่วย', 'อาการสัตว์เลี้ยง', 'ต้องพาหมอไหม'],
@@ -13,9 +13,22 @@ export const metadata: Metadata = {
   },
 }
 
+function SymptomsBreadcrumbJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'ตรวจสอบอาการ', item: 'https://www.thailandpethub.com/symptoms' },
+    ],
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+}
+
 export default function SymptomsPage() {
   return (
     <main className="max-w-2xl mx-auto">
+      <SymptomsBreadcrumbJsonLd />
       <nav className="text-xs text-gray-400 mb-4">
         <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
         <span className="mx-1.5">›</span>

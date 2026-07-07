@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ป้องกันหมัดและเห็บในสัตว์เลี้ยง — วิธีกำจัดและยาที่ใช้ | ThailandPetHub',
+  title: 'ป้องกันหมัดและเห็บในสัตว์เลี้ยง — วิธีกำจัดและยาที่ใช้',
   description: 'วิธีป้องกันและกำจัดหมัดและเห็บในสุนัขและแมว ยาหยด ปลอกคอ สเปรย์ และการทำความสะอาดบ้าน ป้องกันโรคที่มาจากหมัดและเห็บ',
   alternates: { canonical: 'https://www.thailandpethub.com/flea' },
   keywords: ['กำจัดหมัดสุนัข', 'หมัดแมว', 'ยากำจัดหมัด', 'ป้องกันเห็บ', 'หมัดสัตว์เลี้ยง'],
@@ -155,7 +155,7 @@ export default function FleaPage() {
         <a href="/tips" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">📚 เคล็ดลับดูแล</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="flea" count={4} />
     </main>
   )
 }

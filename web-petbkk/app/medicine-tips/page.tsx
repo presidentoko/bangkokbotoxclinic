@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'วิธีให้ยาสัตว์เลี้ยง — ยาเม็ด ยาน้ำ และยาหยอด | ThailandPetHub',
+  title: 'วิธีให้ยาสัตว์เลี้ยง — ยาเม็ด ยาน้ำ และยาหยอด',
   description: 'เทคนิคให้ยาสุนัขและแมวที่ไม่ยอมกินยา วิธีซ่อนยาในอาหาร วิธีกล้ำยาเม็ด ยาน้ำ และยาหยอดตา/หู สำหรับเจ้าของที่ทำเองที่บ้าน',
   alternates: { canonical: 'https://www.thailandpethub.com/medicine-tips' },
   keywords: ['วิธีให้ยาแมว', 'วิธีให้ยาสุนัข', 'สัตว์เลี้ยงไม่กินยา', 'กล้ำยาสุนัข', 'ซ่อนยาในอาหาร'],
@@ -121,7 +121,7 @@ export default function MedicineTipsPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 หาโรงพยาบาล</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="medicine-tips" count={4} />
     </main>
   )
 }

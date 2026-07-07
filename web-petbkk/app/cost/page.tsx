@@ -2,6 +2,7 @@
 import { useState, useMemo } from 'react'
 import { calculateCost } from '@/lib/cost'
 import type { Species, PetSize } from '@/lib/cost'
+import SocialShare from '@/components/SocialShare'
 
 function CostSchemaLd() {
   const schemas = [
@@ -181,6 +182,8 @@ export default function CostPage() {
       <p className="text-xs text-gray-400 text-center">
         * ตัวเลขเป็นการประมาณการในกรุงเทพมหานคร ค่าใช้จ่ายจริงอาจแตกต่างตามพื้นที่และพฤติกรรมสัตว์เลี้ยง
       </p>
+
+      <SocialShare title="คำนวณค่าใช้จ่ายเลี้ยงสัตว์เลี้ยง — ThailandPetHub" url="https://www.thailandpethub.com/cost" />
     </main>
   )
 }

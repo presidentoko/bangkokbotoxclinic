@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'คู่มือดูแลสัตว์เลี้ยงครบทุกเรื่อง | ThailandPetHub',
+  title: 'คู่มือดูแลสัตว์เลี้ยงครบทุกเรื่อง',
   description: 'รวมคู่มือดูแลสัตว์เลี้ยงทุกเรื่อง สุขภาพ อาหาร พฤติกรรม ฉุกเฉิน และการเตรียมตัวรับน้องใหม่ ฟรี อ่านได้เลย',
   alternates: { canonical: 'https://www.thailandpethub.com/guides' },
   keywords: ['คู่มือสัตว์เลี้ยง', 'ดูแลสุนัข', 'ดูแลแมว', 'เลี้ยงสัตว์เลี้ยง', 'ข้อมูลสัตว์เลี้ยงไทย'],
@@ -122,9 +122,38 @@ const CATEGORIES = [
   },
 ]
 
+function GuidesJsonLd() {
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'คู่มือทั้งหมด', item: 'https://www.thailandpethub.com/guides' },
+    ],
+  }
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'คู่มือดูแลสัตว์เลี้ยงทั้งหมด',
+    itemListElement: CATEGORIES.flatMap(c => c.guides).map((g, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: g.title,
+      url: `https://www.thailandpethub.com${g.href}`,
+    })),
+  }
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+    </>
+  )
+}
+
 export default function GuidesPage() {
   return (
     <main className="max-w-3xl mx-auto">
+      <GuidesJsonLd />
       <nav className="text-xs text-gray-400 mb-4">
         <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
         <span className="mx-1.5">›</span>

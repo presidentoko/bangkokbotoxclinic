@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหารเสริมสัตว์เลี้ยง — โอเมก้า 3 กลูโคซามีน โพรไบโอติก | ThailandPetHub',
+  title: 'อาหารเสริมสัตว์เลี้ยง — โอเมก้า 3 กลูโคซามีน โพรไบโอติก',
   description: 'คู่มืออาหารเสริมสำหรับสุนัขและแมว น้ำมันปลา โอเมก้า 3 กลูโคซามีน โพรไบโอติก วิตามิน ตัวไหนจำเป็น ตัวไหนไม่ต้องซื้อ',
   alternates: { canonical: 'https://www.thailandpethub.com/supplements' },
   keywords: ['อาหารเสริมสัตว์เลี้ยง', 'โอเมก้า 3 สุนัข', 'กลูโคซามีนสุนัข', 'โพรไบโอติกแมว', 'วิตามินสัตว์เลี้ยง'],
@@ -146,7 +146,7 @@ export default function SupplementsPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 ปรึกษาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="supplements" count={4} />
     </main>
   )
 }

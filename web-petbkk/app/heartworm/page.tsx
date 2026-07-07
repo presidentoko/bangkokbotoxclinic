@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'พยาธิหัวใจในสุนัขและแมว — ป้องกัน ตรวจ และรักษา | ThailandPetHub',
+  title: 'พยาธิหัวใจในสุนัขและแมว — ป้องกัน ตรวจ และรักษา',
   description: 'คู่มือพยาธิหัวใจสัตว์เลี้ยงในประเทศไทย วิธีป้องกัน ยาที่ใช้ อาการ และการรักษา พยาธิหัวใจพบบ่อยในไทยเพราะอากาศชื้นและมียุงชุก',
   alternates: { canonical: 'https://www.thailandpethub.com/heartworm' },
   keywords: ['พยาธิหัวใจสุนัข', 'พยาธิหัวใจแมว', 'ป้องกันพยาธิหัวใจ', 'ยาพยาธิหัวใจ', 'heartworm ไทย'],
@@ -129,7 +129,7 @@ export default function HeartwormPage() {
         <a href="/flea" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🦟 กำจัดหมัด/เห็บ</a>
       </div>
 
-      <RelatedGuides current="deworming" count={4} />
+      <RelatedGuides current="heartworm" count={4} />
     </main>
   )
 }

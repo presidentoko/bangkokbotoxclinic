@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'พฤติกรรมแมว — ทำไมแมวถึง... คู่มือเข้าใจภาษาแมว | ThailandPetHub',
+  title: 'พฤติกรรมแมว — ทำไมแมวถึง... คู่มือเข้าใจภาษาแมว',
   description: 'ทำไมแมวถึงข่วน กัด ร้องตอนดึก ไม่มาหา หรือซ่อนตัว เข้าใจภาษาแมวและแก้พฤติกรรมที่ไม่พึงประสงค์ด้วยวิธีที่ถูกต้อง',
   alternates: { canonical: 'https://www.thailandpethub.com/cat-behavior' },
   keywords: ['พฤติกรรมแมว', 'ทำไมแมวถึงข่วน', 'แมวร้องตอนดึก', 'แมวกัดมือ', 'แมวไม่ยอมให้อุ้ม'],
@@ -151,7 +151,7 @@ export default function CatBehaviorPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 หาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="cat-behavior" count={4} />
     </main>
   )
 }

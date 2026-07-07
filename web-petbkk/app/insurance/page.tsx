@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ประกันสัตว์เลี้ยงในไทย — เปรียบเทียบและสิ่งที่ต้องรู้ | ThailandPetHub',
+  title: 'ประกันสัตว์เลี้ยงในไทย — เปรียบเทียบและสิ่งที่ต้องรู้',
   description: 'คู่มือประกันสัตว์เลี้ยงในประเทศไทย ประกันครอบคลุมอะไรบ้าง ราคาโดยประมาณ ข้อดีข้อเสีย และวิธีเลือกประกันที่เหมาะสมกับน้อง',
   alternates: { canonical: 'https://www.thailandpethub.com/insurance' },
   keywords: ['ประกันสัตว์เลี้ยง', 'ประกันสุนัข', 'ประกันแมว', 'ประกันสุขภาพสัตว์เลี้ยง', 'ค่ารักษาสัตว์เลี้ยง'],
@@ -172,7 +172,7 @@ export default function InsurancePage() {
         <a href="/tips" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">📚 เคล็ดลับดูแลน้อง</a>
       </div>
 
-      <RelatedGuides current="hospital" count={4} />
+      <RelatedGuides current="insurance" count={4} />
     </main>
   )
 }

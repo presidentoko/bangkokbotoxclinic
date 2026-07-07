@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ทำไมสุนัขกินหญ้า? — อันตรายไหม ต้องห้ามหรือเปล่า | ThailandPetHub',
+  title: 'ทำไมสุนัขกินหญ้า? — อันตรายไหม ต้องห้ามหรือเปล่า',
   description: 'สุนัขกินหญ้าเป็นเรื่องปกติหรือไม่? สาเหตุ 5 อย่าง และเมื่อไหร่ที่น่าเป็นห่วง',
   alternates: { canonical: 'https://www.thailandpethub.com/why-dogs-eat-grass' },
   keywords: ['สุนัขกินหญ้า', 'ทำไมสุนัขกินหญ้า', 'หมากินหญ้า', 'dog eat grass', 'สุนัขกินหญ้าแล้วอาเจียน'],
@@ -113,7 +113,7 @@ export default function WhyDogsEatGrassPage() {
         <a href="/food" className="mt-2 inline-block text-xs text-blue-700 underline font-semibold">→ ดูอาหารที่มีไฟเบอร์สูง</a>
       </section>
 
-      <RelatedGuides current="dog-behavior" count={4} />
+      <RelatedGuides current="why-dogs-eat-grass" count={4} />
     </main>
   )
 }

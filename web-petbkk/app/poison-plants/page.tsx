@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'พืชพิษสำหรับสัตว์เลี้ยง — ไม้ประดับที่อันตรายกับสุนัขและแมว | ThailandPetHub',
+  title: 'พืชพิษสำหรับสัตว์เลี้ยง — ไม้ประดับที่อันตรายกับสุนัขและแมว',
   description: 'รายชื่อพืชและไม้ประดับที่เป็นพิษต่อสุนัขและแมว พืชที่พบบ่อยในบ้านไทย อาการพิษและวิธีปฐมพยาบาลเบื้องต้น',
   alternates: { canonical: 'https://www.thailandpethub.com/poison-plants' },
   keywords: ['พืชพิษสุนัข', 'ไม้ประดับพิษแมว', 'พืชอันตรายสัตว์เลี้ยง', 'ต้นไม้ห้ามสัตว์เลี้ยงกิน'],
@@ -107,7 +107,7 @@ export default function PoisonPlantsPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-red-500 text-white font-semibold rounded-xl text-sm hover:bg-red-600 transition-colors">🏥 โรงพยาบาลสัตว์</a>
       </div>
 
-      <RelatedGuides current="toxic" count={4} />
+      <RelatedGuides current="poison-plants" count={4} />
     </main>
   )
 }

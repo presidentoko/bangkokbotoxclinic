@@ -4,6 +4,7 @@ import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
 import PantipReviews from '@/components/PantipReviews'
+import RelatedGuides from '@/components/RelatedGuides'
 import type { Metadata } from 'next'
 import type { Hospital } from '@/lib/types'
 
@@ -399,6 +400,18 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
       {/* Nearby hospitals */}
       <NearbyHospitals hospital={h} />
+
+      {/* Related guides */}
+      <div className="flex flex-wrap gap-2 mt-6">
+        <a href="/emergency" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🚨 คู่มือฉุกเฉิน</a>
+        {h.has_surgery && (
+          <a href="/neutering" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✂️ ทำหมัน</a>
+        )}
+        <a href="/vaccine" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💉 ตารางวัคซีน</a>
+        <a href="/insurance" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🛡️ ประกันสัตว์เลี้ยง</a>
+      </div>
+
+      <RelatedGuides current="hospital" count={4} />
 
       <HospitalFaqJsonLd h={h} />
 

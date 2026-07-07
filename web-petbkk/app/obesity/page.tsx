@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'สัตว์เลี้ยงอ้วน — วิธีลดน้ำหนักสุนัขและแมวให้ถูกต้อง | ThailandPetHub',
+  title: 'สัตว์เลี้ยงอ้วน — วิธีลดน้ำหนักสุนัขและแมวให้ถูกต้อง',
   description: 'วิธีลดน้ำหนักสัตว์เลี้ยง ตรวจสอบ BCS สาเหตุที่ทำให้อ้วน และแผนอาหาร — ลดช้าๆ ปลอดภัยกว่า',
   alternates: { canonical: 'https://www.thailandpethub.com/obesity' },
   keywords: ['สัตว์เลี้ยงอ้วน', 'สุนัขอ้วน', 'แมวอ้วน', 'ลดน้ำหนักสัตว์เลี้ยง', 'BCS สัตว์'],
@@ -112,7 +112,7 @@ export default function ObesityPage() {
         <a href="/food" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🍖 เลือกอาหาร low-cal</a>
       </div>
 
-      <RelatedGuides current="weight" count={4} />
+      <RelatedGuides current="obesity" count={4} />
     </main>
   )
 }

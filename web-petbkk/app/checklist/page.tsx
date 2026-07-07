@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import SocialShare from '@/components/SocialShare'
 
 interface CheckItem {
   id: string
@@ -153,6 +154,8 @@ export default function ChecklistPage() {
       </div>
 
       <p className="text-xs text-gray-400 text-center">ข้อมูลบันทึกในเครื่องของคุณเท่านั้น ไม่มีการส่งข้อมูลออกไป</p>
+
+      <SocialShare title="เช็คลิสต์ดูแลสัตว์เลี้ยงรายสัปดาห์ — ThailandPetHub" url="https://www.thailandpethub.com/checklist" />
     </main>
   )
 }

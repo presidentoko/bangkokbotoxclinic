@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'สัตว์เลี้ยงไม่ยอมกินอาหาร — สาเหตุและวิธีแก้ | ThailandPetHub',
+  title: 'สัตว์เลี้ยงไม่ยอมกินอาหาร — สาเหตุและวิธีแก้',
   description: 'สุนัขหรือแมวไม่กินอาหาร ไม่กินข้าว สาเหตุที่พบบ่อย วิธีแก้ที่บ้าน และสัญญาณที่ต้องพาสัตวแพทย์',
   alternates: { canonical: 'https://www.thailandpethub.com/not-eating' },
   keywords: ['สุนัขไม่กินอาหาร', 'แมวไม่กิน', 'สัตว์เลี้ยงเบื่ออาหาร', 'แมวไม่กินข้าว', 'สุนัขเบื่ออาหาร'],
@@ -124,7 +124,7 @@ export default function NotEatingPage() {
         <a href="/diarrhea" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💩 ท้องเสีย</a>
       </div>
 
-      <RelatedGuides current="emergency" count={4} />
+      <RelatedGuides current="not-eating" count={4} />
     </main>
   )
 }

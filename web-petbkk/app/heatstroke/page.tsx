@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรคลมแดด (Heatstroke) ในสัตว์เลี้ยง — สัญญาณ วิธีปฐมพยาบาล | ThailandPetHub',
+  title: 'โรคลมแดด (Heatstroke) ในสัตว์เลี้ยง — สัญญาณ วิธีปฐมพยาบาล',
   description: 'สัตว์เลี้ยงเสี่ยงโรคลมแดดมากในอากาศร้อนของไทย เรียนรู้อาการเตือน วิธีปฐมพยาบาลฉุกเฉิน และวิธีป้องกันก่อนพาไปสัตวแพทย์',
   alternates: { canonical: 'https://www.thailandpethub.com/heatstroke' },
   keywords: ['โรคลมแดดสุนัข', 'heatstroke สัตว์เลี้ยง', 'สุนัขร้อนจัด', 'สัตว์เลี้ยงอยู่ในรถร้อน', 'ป้องกันความร้อน'],
@@ -148,7 +148,7 @@ export default function HeatstrokePage() {
         <a href="/emergency" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🚨 คู่มือฉุกเฉิน</a>
       </div>
 
-      <RelatedGuides current="emergency" count={4} />
+      <RelatedGuides current="heatstroke" count={4} />
     </main>
   )
 }

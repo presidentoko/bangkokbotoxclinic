@@ -1,5 +1,6 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import AgeShareCard from '@/components/AgeShareCard'
 
 function AgeSchemaLd() {
@@ -78,18 +79,37 @@ const SIZE_LABELS: Record<Size, string> = {
 }
 
 export default function AgePage() {
-  const [species, setSpecies] = useState<Species>('dog')
-  const [size, setSize]       = useState<Size>('small')
-  const [age, setAge]         = useState(3)
-  const [name, setName]       = useState('')
+  return (
+    <Suspense fallback={null}>
+      <AgePageInner />
+    </Suspense>
+  )
+}
+
+function AgePageInner() {
+  const searchParams = useSearchParams()
+  const initialSpecies = searchParams.get('species') === 'cat' ? 'cat' : 'dog'
+  const initialSize = (['small', 'medium', 'large'] as Size[]).includes(searchParams.get('size') as Size)
+    ? (searchParams.get('size') as Size) : 'small'
+  const initialAgeParam = Number(searchParams.get('age'))
+  const initialAge = Number.isFinite(initialAgeParam) && initialAgeParam > 0 ? initialAgeParam : 3
+  const initialName = searchParams.get('name') ?? ''
+
+  const [species, setSpecies] = useState<Species>(initialSpecies)
+  const [size, setSize]       = useState<Size>(initialSize)
+  const [age, setAge]         = useState(initialAge)
+  const [name, setName]       = useState(initialName)
 
   const humanAge = useMemo(() => petAgeToHuman(species, size, age), [species, size, age])
   const stage    = humanStage(humanAge)
   const petLabel = species === 'dog' ? 'น้องหมา' : 'น้องแมว'
   const petEmoji = species === 'dog' ? '🐕' : '🐈'
 
-  const lineText = `${name || petLabel}อายุ ${age} ปี เทียบได้กับมนุษย์ ${humanAge} ปี (${stage}) ลองคำนวณที่ https://www.thailandpethub.com/age 🐾`
-  const lineUrl  = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent('https://www.thailandpethub.com/age')}&text=${encodeURIComponent(lineText)}`
+  const shareParams = new URLSearchParams({ species, size, age: String(age) })
+  if (name) shareParams.set('name', name)
+  const shareUrl = `https://www.thailandpethub.com/age?${shareParams.toString()}`
+
+  const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`
 
   return (
     <main className="max-w-xl mx-auto">
@@ -168,6 +188,7 @@ export default function AgePage() {
             humanAge={humanAge}
             species={species}
             petName={name || undefined}
+            shareUrl={shareUrl}
           />
         </div>
       )}

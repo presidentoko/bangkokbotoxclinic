@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ฝึกสุนัขและแมวฉี่ถูกที่ — คู่มือ Potty Training ฉบับสมบูรณ์ | ThailandPetHub',
+  title: 'ฝึกสุนัขและแมวฉี่ถูกที่ — คู่มือ Potty Training ฉบับสมบูรณ์',
   description: 'วิธีฝึกลูกสุนัขฉี่ถูกที่ สอนแมวใช้กระบะทราย และแก้พฤติกรรมฉี่ผิดที่ ขั้นตอนทีละก้าว ใช้ positive reinforcement',
   alternates: { canonical: 'https://www.thailandpethub.com/potty-training' },
   keywords: ['ฝึกสุนัขฉี่ถูกที่', 'สอนลูกสุนัขฉี่', 'ฝึกแมวกระบะทราย', 'สุนัขฉี่ผิดที่', 'potty training'],
@@ -175,7 +175,7 @@ export default function PottyTrainingPage() {
         <a href="/food/puppy" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🐶 อาหาร Puppy</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="potty-training" count={4} />
     </main>
   )
 }

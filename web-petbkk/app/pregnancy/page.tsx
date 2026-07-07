@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'แมวและสุนัขท้อง — ดูแลระหว่างตั้งท้องและหลังคลอด | ThailandPetHub',
+  title: 'แมวและสุนัขท้อง — ดูแลระหว่างตั้งท้องและหลังคลอด',
   description: 'วิธีดูแลแมวหรือสุนัขที่ตั้งท้อง ระยะเวลาตั้งครรภ์ อาการที่ควรรู้ การเตรียมที่คลอด และการดูแลลูกแรกเกิด',
   alternates: { canonical: 'https://www.thailandpethub.com/pregnancy' },
   keywords: ['แมวท้อง', 'สุนัขท้อง', 'ดูแลแมวตั้งท้อง', 'ลูกแมวแรกเกิด', 'สัตว์เลี้ยงตั้งครรภ์'],
@@ -138,7 +138,7 @@ export default function PregnancyPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-blue-600 text-white font-semibold rounded-xl text-sm hover:bg-blue-700 transition-colors">🏥 สัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="pregnancy" count={4} />
     </main>
   )
 }

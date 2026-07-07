@@ -107,9 +107,9 @@ export default function PetProfileCard({ profile }: Props) {
   const shareText = `น้องของฉันชื่อ ${profile.name || (profile.species === 'dog' ? 'น้องหมา' : 'น้องแมว')} 🐾 ดูแลน้องครบจบที่ https://www.thailandpethub.com`
 
   function handleLine() {
+    // LINE's lineit/share endpoint only reads `url` — it silently drops any `text` param.
     const url = encodeURIComponent('https://www.thailandpethub.com')
-    const text = encodeURIComponent(shareText)
-    window.open(`https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`, '_blank', 'noopener')
+    window.open(`https://social-plugins.line.me/lineit/share?url=${url}`, '_blank', 'noopener')
   }
 
   async function handleNativeShare() {

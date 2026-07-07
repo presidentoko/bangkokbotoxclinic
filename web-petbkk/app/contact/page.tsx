@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
-  title: 'ติดต่อเรา | ThailandPetHub',
+  title: 'ติดต่อเรา',
   description: 'ติดต่อทีมงาน ThailandPetHub — แจ้งข้อมูลโรงพยาบาล ส่งข้อมูลอาหาร หรือพูดคุยเรื่องสัตว์เลี้ยง',
   alternates: { canonical: 'https://www.thailandpethub.com/contact' },
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ดูแลสัตว์เลี้ยงสูงอายุ — สุนัขและแมวสูงวัย | ThailandPetHub',
+  title: 'ดูแลสัตว์เลี้ยงสูงอายุ — สุนัขและแมวสูงวัย',
   description: 'วิธีดูแลสุนัขและแมวสูงอายุ การตรวจสุขภาพ อาหาร การออกกำลังกาย โรคที่พบบ่อยในวัยชรา และสัญญาณที่ต้องพาไปสัตวแพทย์',
   alternates: { canonical: 'https://www.thailandpethub.com/senior-care' },
   keywords: ['ดูแลสุนัขสูงอายุ', 'ดูแลแมวสูงอายุ', 'สัตว์เลี้ยงแก่', 'สุนัขชรา', 'แมวชรา'],
@@ -132,7 +132,7 @@ export default function SeniorCarePage() {
         <a href="/hospital" className="px-4 py-2.5 bg-blue-600 text-white font-semibold rounded-xl text-sm hover:bg-blue-700 transition-colors">🏥 หาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="senior-care" count={4} />
     </main>
   )
 }

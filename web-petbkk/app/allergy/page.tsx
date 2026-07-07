@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'สัตว์เลี้ยงแพ้อาหาร — อาการ การตรวจ และอาหาร Hypoallergenic | ThailandPetHub',
+  title: 'สัตว์เลี้ยงแพ้อาหาร — อาการ การตรวจ และอาหาร Hypoallergenic',
   description: 'วิธีสังเกตอาการแพ้อาหารในสุนัขและแมว การทำ elimination diet ตรวจหาสาเหตุ และอาหาร hypoallergenic ที่แนะนำ',
   alternates: { canonical: 'https://www.thailandpethub.com/allergy' },
   keywords: ['สุนัขแพ้อาหาร', 'แมวแพ้อาหาร', 'อาการแพ้สัตว์เลี้ยง', 'อาหาร hypoallergenic', 'elimination diet'],
@@ -153,7 +153,7 @@ export default function AllergyPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 หาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="food" count={4} />
+      <RelatedGuides current="allergy" count={4} />
     </main>
   )
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'เลี้ยงสัตว์เลี้ยงในคอนโด/อพาร์ทเมนต์ — สายพันธุ์ที่เหมาะและเคล็ดลับ | ThailandPetHub',
+  title: 'เลี้ยงสัตว์เลี้ยงในคอนโด/อพาร์ทเมนต์ — สายพันธุ์ที่เหมาะและเคล็ดลับ',
   description: 'แนะนำสายพันธุ์สุนัขและแมวที่เหมาะกับคอนโดและอพาร์ทเมนต์ในกรุงเทพ วิธีดูแลสัตว์เลี้ยงในพื้นที่จำกัด และข้อพิจารณากฎของนิติบุคคล',
   alternates: { canonical: 'https://www.thailandpethub.com/apartment-pets' },
   keywords: ['เลี้ยงสัตว์เลี้ยงคอนโด', 'สุนัขในอพาร์ทเมนต์', 'แมวในคอนโด', 'สัตว์เลี้ยงกรุงเทพ', 'คอนโด pet-friendly'],
@@ -107,7 +107,7 @@ export default function ApartmentPetsPage() {
         <a href="/anxiety" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">😰 Separation Anxiety</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="apartment-pets" count={4} />
     </main>
   )
 }

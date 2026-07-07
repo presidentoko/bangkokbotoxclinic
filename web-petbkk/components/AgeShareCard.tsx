@@ -6,9 +6,10 @@ interface Props {
   humanAge: number
   species: 'dog' | 'cat'
   petName?: string
+  shareUrl?: string
 }
 
-export default function AgeShareCard({ petAge, humanAge, species, petName }: Props) {
+export default function AgeShareCard({ petAge, humanAge, species, petName, shareUrl = 'https://www.thailandpethub.com/age' }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -96,20 +97,21 @@ export default function AgeShareCard({ petAge, humanAge, species, petName }: Pro
           files: [file],
           title: `อายุน้อง ${petAge} ปี = ${humanAge} ปีในมนุษย์!`,
           text: `น้องของฉันอายุ ${petAge} ปี เทียบได้กับมนุษย์อายุ ${humanAge} ปีเลย! 🐾`,
-          url: 'https://www.thailandpethub.com/age',
+          url: shareUrl,
         }).catch(() => {})
       }
     }, 'image/png')
   }
 
   function handleCopy() {
-    const shareText = `น้องของฉันอายุ ${petAge} ปี เทียบเท่ามนุษย์อายุ ${humanAge} ปีเลย! 🐾\nคำนวณอายุน้องได้ที่ https://www.thailandpethub.com/age`
+    const shareText = `น้องของฉันอายุ ${petAge} ปี เทียบเท่ามนุษย์อายุ ${humanAge} ปีเลย! 🐾\nคำนวณอายุน้องได้ที่ ${shareUrl}`
     navigator.clipboard.writeText(shareText).catch(() => {})
   }
 
   function handleLine() {
-    const text = encodeURIComponent(`น้องของฉันอายุ ${petAge} ปี เทียบเท่ามนุษย์อายุ ${humanAge} ปีเลย! 🐾 คำนวณอายุน้องได้ที่ https://www.thailandpethub.com/age`)
-    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent('https://www.thailandpethub.com/age')}&text=${text}`, '_blank')
+    // LINE's lineit/share endpoint only reads `url` — it silently drops any `text` param,
+    // so the caption must live in the shared page's own OG title/description instead.
+    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`, '_blank')
   }
 
   return (

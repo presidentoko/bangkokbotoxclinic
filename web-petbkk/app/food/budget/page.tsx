@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหารสัตว์เลี้ยงราคาถูกคุณภาพดี — เกรด A-B ราคาประหยัด | ThailandPetHub',
+  title: 'อาหารสัตว์เลี้ยงราคาถูกคุณภาพดี — เกรด A-B ราคาประหยัด',
   description: 'รวมอาหารสุนัขและแมวคุณภาพดี (เกรด A-B) ในราคาที่จับต้องได้ วิเคราะห์ส่วนประกอบจริง ฟรี 100% ไม่ต้องจ่ายแพงเพื่อคุณภาพที่ดี',
   alternates: { canonical: 'https://www.thailandpethub.com/food/budget' },
   keywords: ['อาหารสัตว์เลี้ยงราคาถูก', 'อาหารหมาราคาประหยัด', 'อาหารแมวราคาถูก', 'อาหารสัตว์คุ้มค่า', 'อาหารสัตว์เลี้ยงราคาดี'],
@@ -130,6 +131,8 @@ export default function BudgetFoodPage() {
         <a href="/food/best" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">⭐ เกรด A ทั้งหมด</a>
         <a href="/ingredients" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🔬 ส่วนผสมอันตราย</a>
       </div>
+
+      <RelatedGuides current="food" count={4} />
     </main>
   )
 }

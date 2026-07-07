@@ -1,5 +1,44 @@
 import FoodListClient from '@/components/FoodListClient'
+import RecentFoods from '@/components/RecentFoods'
+import RelatedGuides from '@/components/RelatedGuides'
 import type { Animal, LifeStage } from '@/lib/types'
+
+const FOOD_CATEGORIES = [
+  { href: '/food/best',   name: 'อาหารเกรด A' },
+  { href: '/food/dog',    name: 'อาหารสุนัข' },
+  { href: '/food/cat',    name: 'อาหารแมว' },
+  { href: '/food/puppy',  name: 'อาหารลูกสุนัข/ลูกแมว' },
+  { href: '/food/senior', name: 'อาหารสัตว์เลี้ยงสูงอายุ' },
+  { href: '/food/budget', name: 'อาหารราคาประหยัด' },
+]
+
+function FoodJsonLd() {
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'ตรวจสอบอาหาร', item: 'https://www.thailandpethub.com/food' },
+    ],
+  }
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'หมวดหมู่อาหารสัตว์เลี้ยง',
+    itemListElement: FOOD_CATEGORIES.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      url: `https://www.thailandpethub.com${c.href}`,
+    })),
+  }
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+    </>
+  )
+}
 
 export default async function FoodPage({
   searchParams,
@@ -16,6 +55,7 @@ export default async function FoodPage({
 
   return (
     <main>
+      <FoodJsonLd />
       <div className="mb-4">
         <h1 className="text-2xl font-black text-gray-900 mb-1">🍖 เลือกอาหารให้น้อง</h1>
         <p className="text-sm text-gray-400 mb-4">ตรวจสอบเกรดและส่วนประกอบ เพื่อสุขภาพที่ดีที่สุด</p>
@@ -37,11 +77,13 @@ export default async function FoodPage({
           ))}
         </div>
       </div>
+      <RecentFoods />
       <FoodListClient
         initialAnimal={initialAnimal}
         initialStage={initialStage}
         initialQuery={sp.q ?? ''}
       />
+      <RelatedGuides current="food" count={4} />
     </main>
   )
 }

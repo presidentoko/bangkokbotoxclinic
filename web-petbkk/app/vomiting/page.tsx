@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'สัตว์เลี้ยงอาเจียน — สาเหตุ วิธีดูแลที่บ้าน และสัญญาณต้องพาหมอ | ThailandPetHub',
+  title: 'สัตว์เลี้ยงอาเจียน — สาเหตุ วิธีดูแลที่บ้าน และสัญญาณต้องพาหมอ',
   description: 'สุนัขหรือแมวอาเจียน สาเหตุที่พบบ่อย ดูแลที่บ้านได้ไหม อาเจียนแบบไหนต้องพาหมอทันที',
   alternates: { canonical: 'https://www.thailandpethub.com/vomiting' },
   keywords: ['สุนัขอาเจียน', 'แมวอาเจียน', 'สัตว์เลี้ยงอาเจียน', 'แมวอ้วก', 'สุนัขอ้วก'],
@@ -101,7 +101,7 @@ export default function VomitingPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-red-500 text-white font-semibold rounded-xl text-sm hover:bg-red-600 transition-colors">🏥 หาโรงพยาบาล</a>
       </div>
 
-      <RelatedGuides current="emergency" count={4} />
+      <RelatedGuides current="vomiting" count={4} />
     </main>
   )
 }

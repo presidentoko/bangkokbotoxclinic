@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ดูแลขนและอาบน้ำสัตว์เลี้ยง — คู่มือ Grooming ครบฉบับ | ThailandPetHub',
+  title: 'ดูแลขนและอาบน้ำสัตว์เลี้ยง — คู่มือ Grooming ครบฉบับ',
   description: 'วิธีอาบน้ำสุนัขและแมวที่บ้าน ตัดขน แปรงขน ตัดเล็บ และดูแลหูอย่างถูกต้อง ความถี่ที่แนะนำและสัญญาณที่ต้องไปร้าน Grooming',
   alternates: { canonical: 'https://www.thailandpethub.com/grooming' },
   keywords: ['อาบน้ำสุนัข', 'ดูแลขนแมว', 'grooming สัตว์เลี้ยง', 'ตัดขนสุนัข', 'ดูแลเล็บสัตว์เลี้ยง'],
@@ -185,7 +185,7 @@ export default function GroomingPage() {
         <a href="/tips" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">📚 เคล็ดลับดูแล</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="grooming" count={4} />
     </main>
   )
 }

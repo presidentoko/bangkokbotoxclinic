@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ถ่ายพยาธิสุนัขและแมว — ตารางและวิธีการถ่ายพยาธิ | ThailandPetHub',
+  title: 'ถ่ายพยาธิสุนัขและแมว — ตารางและวิธีการถ่ายพยาธิ',
   description: 'ตารางถ่ายพยาธิสุนัขและแมว วิธีสังเกตอาการพยาธิ ประเภทยาถ่ายพยาธิ และคำแนะนำจากสัตวแพทย์ ป้องกันพยาธิอย่างถูกต้อง',
   alternates: { canonical: 'https://www.thailandpethub.com/deworming' },
   keywords: ['ถ่ายพยาธิสุนัข', 'ถ่ายพยาธิแมว', 'พยาธิสัตว์เลี้ยง', 'ยาถ่ายพยาธิ', 'ป้องกันพยาธิ'],
@@ -150,7 +150,7 @@ export default function DewormingPage() {
         <a href="/tips" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">📚 เคล็ดลับดูแล</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="deworming" count={4} />
     </main>
   )
 }

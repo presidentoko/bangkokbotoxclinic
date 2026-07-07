@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'สุนัขเห่ามาก — สาเหตุ วิธีฝึกหยุดเห่า และเมื่อไหร่ที่น่าเป็นห่วง | ThailandPetHub',
+  title: 'สุนัขเห่ามาก — สาเหตุ วิธีฝึกหยุดเห่า และเมื่อไหร่ที่น่าเป็นห่วง',
   description: 'ทำไมสุนัขถึงเห่า? วิธีหยุดเห่าที่ได้ผล 5 เทคนิค และเมื่อไหร่ต้องพาหาสัตวแพทย์พฤติกรรม',
   alternates: { canonical: 'https://www.thailandpethub.com/dog-barking' },
   keywords: ['สุนัขเห่ามาก', 'ฝึกสุนัขไม่ให้เห่า', 'หมาเห่าทั้งคืน', 'วิธีหยุดเห่า', 'สุนัขเห่าไม่หยุด'],
@@ -115,7 +115,7 @@ export default function DogBarkingPage() {
         <a href="/training" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🎓 ฝึกสุนัขพื้นฐาน</a>
       </div>
 
-      <RelatedGuides current="dog-behavior" count={4} />
+      <RelatedGuides current="dog-barking" count={4} />
     </main>
   )
 }

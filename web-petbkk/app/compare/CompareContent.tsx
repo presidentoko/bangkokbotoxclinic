@@ -4,6 +4,7 @@ import { loadFoods } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
 import type { PetFood } from '@/lib/types'
 import GradeBar from '@/components/GradeBar'
+import SocialShare from '@/components/SocialShare'
 
 const GRADE_COLOR: Record<string, string> = {
   A: 'text-green-600 font-black text-xl',
@@ -102,6 +103,8 @@ export default function CompareContent({ ids }: { ids: string[] }) {
           เพิ่มได้อีก {3 - foods.length} รายการ → <a href="/food" className="text-orange-600 underline">ไปเลือกอาหาร</a>
         </p>
       )}
+
+      {foods.length > 0 && <SocialShare title="เปรียบเทียบอาหารสัตว์เลี้ยง — ThailandPetHub" />}
     </main>
   )
 }

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { filterFoods } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหารสุนัขที่ดีที่สุด — เปรียบเทียบเกรดคุณภาพ | ThailandPetHub',
+  title: 'อาหารสุนัขที่ดีที่สุด — เปรียบเทียบเกรดคุณภาพ',
   description: 'เปรียบเทียบอาหารสุนัขยี่ห้อดัง Royal Canin, Hill\'s, Purina พร้อมเกรด A-F จากการวิเคราะห์ส่วนประกอบจริง หาอาหารสุนัขที่ดีที่สุดสำหรับน้อง ฟรี 100%',
   alternates: { canonical: 'https://www.thailandpethub.com/food/dog' },
   keywords: ['อาหารสุนัข', 'อาหารสุนัขที่ดีที่สุด', 'อาหารหมา', 'Royal Canin', 'Hills', 'Purina', 'เกรดอาหารสุนัข', 'AAFCO'],
@@ -127,6 +128,8 @@ export default function DogFoodPage() {
           🐈 อาหารแมว →
         </a>
       </div>
+
+      <RelatedGuides current="food" count={4} />
     </main>
   )
 }

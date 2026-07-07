@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ไมโครชิปสัตว์เลี้ยง — ขั้นตอน ราคา และประโยชน์ | ThailandPetHub',
+  title: 'ไมโครชิปสัตว์เลี้ยง — ขั้นตอน ราคา และประโยชน์',
   description: 'ทุกอย่างที่ควรรู้เกี่ยวกับไมโครชิปสำหรับสุนัขและแมว ราคาฝังไมโครชิป ขั้นตอนการดำเนินการ และความสำคัญสำหรับสัตว์เลี้ยงในประเทศไทย',
   alternates: { canonical: 'https://www.thailandpethub.com/microchip' },
   keywords: ['ไมโครชิปสุนัข', 'ฝังไมโครชิปแมว', 'ไมโครชิปสัตว์เลี้ยง', 'ราคาไมโครชิป', 'ลงทะเบียนสัตว์เลี้ยง'],
@@ -172,7 +172,7 @@ export default function MicrochipPage() {
         <a href="/newpet" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🆕 คู่มือเลี้ยงใหม่</a>
       </div>
 
-      <RelatedGuides current="vaccine" count={4} />
+      <RelatedGuides current="microchip" count={4} />
     </main>
   )
 }

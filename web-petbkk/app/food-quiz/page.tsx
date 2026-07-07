@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import FoodQuiz from '@/components/FoodQuiz'
 
 export const metadata: Metadata = {
-  title: 'แบบทดสอบ — อาหารสัตว์เลี้ยงที่เหมาะกับน้อง | ThailandPetHub',
+  title: 'แบบทดสอบ — อาหารสัตว์เลี้ยงที่เหมาะกับน้อง',
   description: 'ตอบ 4 คำถาม รู้ทันทีว่าอาหารยี่ห้อไหนเหมาะกับสุนัขหรือแมวของคุณ',
   alternates: { canonical: 'https://www.thailandpethub.com/food-quiz' },
   keywords: ['แบบทดสอบอาหารสัตว์เลี้ยง', 'อาหารสุนัขที่ดีที่สุด', 'อาหารแมวที่ดีที่สุด', 'เลือกอาหารสัตว์เลี้ยง'],

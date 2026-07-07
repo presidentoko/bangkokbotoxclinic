@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ทำหมันสุนัขและแมว — ประโยชน์ ราคา และการฟื้นตัว | ThailandPetHub',
+  title: 'ทำหมันสุนัขและแมว — ประโยชน์ ราคา และการฟื้นตัว',
   description: 'คู่มือทำหมันสัตว์เลี้ยงครบถ้วน ประโยชน์ของการทำหมัน อายุที่เหมาะสม ราคาโดยประมาณ และการดูแลหลังผ่าตัด ทั้งสุนัขและแมวตัวผู้-ตัวเมีย',
   alternates: { canonical: 'https://www.thailandpethub.com/neutering' },
   keywords: ['ทำหมันสุนัข', 'ทำหมันแมว', 'ราคาทำหมัน', 'ทำหมันดีไหม', 'หมันสุนัขตัวเมีย'],
@@ -164,7 +164,7 @@ export default function NeuteringPage() {
         <a href="/vaccine" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💉 ตารางวัคซีน</a>
       </div>
 
-      <RelatedGuides current="hospital" count={4} />
+      <RelatedGuides current="neutering" count={4} />
     </main>
   )
 }

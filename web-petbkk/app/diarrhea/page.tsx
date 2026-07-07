@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ท้องเสียสัตว์เลี้ยง — สาเหตุ วิธีดูแลที่บ้าน และเมื่อไหร่ต้องพาหมอ | ThailandPetHub',
+  title: 'ท้องเสียสัตว์เลี้ยง — สาเหตุ วิธีดูแลที่บ้าน และเมื่อไหร่ต้องพาหมอ',
   description: 'สุนัขหรือแมวท้องเสีย สาเหตุที่พบบ่อย วิธีดูแลเบื้องต้นที่บ้าน สัญญาณอันตราย และเมื่อไหร่ต้องพาสัตวแพทย์ทันที',
   alternates: { canonical: 'https://www.thailandpethub.com/diarrhea' },
   keywords: ['สุนัขท้องเสีย', 'แมวท้องเสีย', 'สัตว์เลี้ยงท้องเสีย', 'อาเจียนสุนัข', 'แมวถ่ายเหลว'],
@@ -127,7 +127,7 @@ export default function DiarrheaPage() {
         <a href="/deworming" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🪱 ถ่ายพยาธิ</a>
       </div>
 
-      <RelatedGuides current="emergency" count={4} />
+      <RelatedGuides current="diarrhea" count={4} />
     </main>
   )
 }

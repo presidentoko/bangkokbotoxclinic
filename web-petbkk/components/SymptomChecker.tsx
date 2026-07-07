@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import SocialShare from '@/components/SocialShare'
 
 type Animal = 'dog' | 'cat' | ''
@@ -58,9 +59,30 @@ const SYMPTOM_MAP: Record<string, Record<string, Result>> = {
 const SYMPTOMS = Object.keys(SYMPTOM_MAP)
 
 export default function SymptomChecker() {
-  const [animal, setAnimal] = useState<Animal>('')
-  const [symptom, setSymptom] = useState('')
+  return (
+    <Suspense fallback={null}>
+      <SymptomCheckerInner />
+    </Suspense>
+  )
+}
+
+function SymptomCheckerInner() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const initialAnimal = (searchParams.get('animal') === 'dog' || searchParams.get('animal') === 'cat')
+    ? (searchParams.get('animal') as Animal) : ''
+  const initialSymptom = searchParams.get('symptom') ?? ''
+
+  const [animal, setAnimal] = useState<Animal>(initialAnimal)
+  const [symptom, setSymptom] = useState(initialSymptom && SYMPTOMS.includes(initialSymptom) ? initialSymptom : '')
   const result = symptom && animal ? SYMPTOM_MAP[symptom]?.[animal] : null
+
+  const selectSymptom = (a: Animal, s: string) => {
+    setSymptom(s)
+    if (a) router.replace(`/symptoms?animal=${a}&symptom=${encodeURIComponent(s)}`, { scroll: false })
+  }
+
+  const shareUrl = result ? `https://www.thailandpethub.com/symptoms?animal=${animal}&symptom=${encodeURIComponent(symptom)}` : undefined
 
   return (
     <div>
@@ -70,7 +92,7 @@ export default function SymptomChecker() {
           {[{ val: 'dog', label: '🐕 สุนัข' }, { val: 'cat', label: '🐱 แมว' }].map(a => (
             <button
               key={a.val}
-              onClick={() => { setAnimal(a.val as Animal); setSymptom('') }}
+              onClick={() => { setAnimal(a.val as Animal); setSymptom(''); router.replace('/symptoms', { scroll: false }) }}
               className={`p-4 rounded-xl border-2 font-semibold text-base transition-all ${animal === a.val ? 'border-orange-400 bg-orange-50 text-orange-600' : 'border-gray-200 text-gray-600 hover:border-orange-200 hover:bg-orange-50/50'}`}
             >
               {a.label}
@@ -86,7 +108,7 @@ export default function SymptomChecker() {
             {SYMPTOMS.map(s => (
               <button
                 key={s}
-                onClick={() => setSymptom(s)}
+                onClick={() => selectSymptom(animal, s)}
                 className={`p-2.5 rounded-xl border text-xs font-medium text-left transition-all ${symptom === s ? 'border-orange-400 bg-orange-50 text-orange-700' : 'border-gray-200 text-gray-600 hover:border-orange-200'}`}
               >
                 {s}
@@ -117,7 +139,7 @@ export default function SymptomChecker() {
       )}
 
       <p className="text-xs text-gray-400 text-center mb-6 italic">ข้อมูลนี้เป็นแนวทางเบื้องต้น ไม่ใช่คำวินิจฉัยทางสัตวแพทย์</p>
-      <SocialShare title="ตรวจสอบอาการสัตว์เลี้ยง — ThailandPetHub" url="https://www.thailandpethub.com/symptoms" />
+      <SocialShare title="ตรวจสอบอาการสัตว์เลี้ยง — ThailandPetHub" url={shareUrl ?? 'https://www.thailandpethub.com/symptoms'} />
     </div>
   )
 }

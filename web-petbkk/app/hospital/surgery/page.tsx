@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { filterHospitals } from '@/lib/hospitals'
 import HospitalCard from '@/components/HospitalCard'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรงพยาบาลสัตว์ผ่าตัด กรุงเทพ — รายการครบที่สุด | ThailandPetHub',
+  title: 'โรงพยาบาลสัตว์ผ่าตัด กรุงเทพ — รายการครบที่สุด',
   description: 'รวมโรงพยาบาลสัตว์ที่มีห้องผ่าตัดในกรุงเทพและปริมณฑล พร้อมที่อยู่ เบอร์โทร คะแนน Google รองรับผ่าตัดฉุกเฉินและนัดหมายล่วงหน้า',
   alternates: { canonical: 'https://www.thailandpethub.com/hospital/surgery' },
   keywords: ['โรงพยาบาลสัตว์ผ่าตัด', 'คลินิกสัตว์ผ่าตัด', 'ผ่าตัดสัตว์เลี้ยง', 'ทำหมันสัตว์', 'ผ่าตัดสุนัขแมว'],
@@ -106,6 +107,8 @@ export default function HospitalSurgeryPage() {
         <a href="/hospital/24h" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">⏰ 24 ชั่วโมง →</a>
         <a href="/hospital/emergency" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🚨 ฉุกเฉิน →</a>
       </div>
+
+      <RelatedGuides current="hospital" count={4} />
     </main>
   )
 }

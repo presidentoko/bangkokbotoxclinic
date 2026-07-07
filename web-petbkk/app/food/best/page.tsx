@@ -2,11 +2,57 @@ import type { Metadata } from 'next'
 import { loadFoods, foodSlug } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
 import GradeBar from '@/components/GradeBar'
+import RelatedGuides from '@/components/RelatedGuides'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'อาหารสัตว์เลี้ยง Grade A — เกรดดีที่สุด | PetBKK',
   description: 'รายชื่ออาหารสัตว์เลี้ยงที่ได้เกรด A — ส่วนประกอบดีเยี่ยม คุ้มค่าที่สุด',
+  alternates: { canonical: 'https://www.thailandpethub.com/food/best' },
+  openGraph: {
+    title: 'อาหารสัตว์เลี้ยงเกรดดีที่สุด — A ถึง B',
+    description: 'รายชื่ออาหารสัตว์เลี้ยงที่ได้เกรด A และ B เรียงตามราคาต่อกิโลกรัม',
+    url: 'https://www.thailandpethub.com/food/best',
+  },
+}
+
+function BestFoodsFaqJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'อาหารสัตว์เลี้ยงเกรด A คืออะไร?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'อาหารเกรด A คืออาหารที่มีโปรตีนจากเนื้อสัตว์เป็นส่วนประกอบหลัก ผ่านมาตรฐาน AAFCO และไม่มีสารกันบูดหรือส่วนผสมอันตราย เช่น BHA, BHT, Ethoxyquin จากการวิเคราะห์ส่วนประกอบจริงของ ThailandPetHub',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'ควรเลือกอาหารเกรด A หรือ B ดี?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ทั้งสองเกรดถือว่าปลอดภัยและมีคุณภาพดี เกรด A มักมีโปรตีนคุณภาพสูงกว่าและไม่มีส่วนผสมที่ควรระวังเลย ส่วนเกรด B อาจมีส่วนผสมเล็กน้อยที่ควรสังเกต แต่ยังคุ้มค่าและปลอดภัยสำหรับใช้เป็นประจำ',
+        },
+      },
+    ],
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+}
+
+function BestFoodsBreadcrumbJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'อาหารสัตว์เลี้ยง', item: 'https://www.thailandpethub.com/food' },
+      { '@type': 'ListItem', position: 3, name: 'เกรดดีที่สุด', item: 'https://www.thailandpethub.com/food/best' },
+    ],
+  }
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
 export default function BestFoodsPage() {
@@ -24,6 +70,17 @@ export default function BestFoodsPage() {
 
   return (
     <main className="max-w-3xl mx-auto">
+      <BestFoodsFaqJsonLd />
+      <BestFoodsBreadcrumbJsonLd />
+
+      <nav className="text-xs text-gray-400 mb-4">
+        <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
+        <span className="mx-1.5">›</span>
+        <a href="/food" className="hover:text-orange-600">อาหารสัตว์เลี้ยง</a>
+        <span className="mx-1.5">›</span>
+        <span className="text-gray-600">เกรดดีที่สุด</span>
+      </nav>
+
       <h1 className="text-2xl font-bold mb-2">อาหารสัตว์เลี้ยงเกรดดีที่สุด</h1>
       <p className="text-sm text-gray-400 mb-8">
         เรียงตามราคาต่อกิโลกรัม — อาหารที่คุ้มค่าที่สุดสำหรับน้อง
@@ -88,12 +145,29 @@ export default function BestFoodsPage() {
         </div>
       )}
 
-      <div className="bg-orange-50 border border-orange-100 rounded-2xl p-5 text-center">
+      <div className="bg-orange-50 border border-orange-100 rounded-2xl p-5 text-center mb-6">
         <p className="text-sm text-gray-600 mb-3">เปรียบเทียบอาหารหลายรายการพร้อมกัน</p>
         <a href="/food" className="inline-block px-5 py-2.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors text-sm">
           ← กลับไปเลือกอาหาร
         </a>
       </div>
+
+      <section className="bg-white border rounded-2xl p-6 mb-6">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">คำถามที่พบบ่อย</h2>
+        <div className="space-y-4 divide-y divide-gray-100">
+          {[
+            { q: 'อาหารสัตว์เลี้ยงเกรด A คืออะไร?', a: 'อาหารเกรด A คืออาหารที่มีโปรตีนจากเนื้อสัตว์เป็นส่วนประกอบหลัก ผ่านมาตรฐาน AAFCO และไม่มีสารกันบูดหรือส่วนผสมอันตราย เช่น BHA, BHT, Ethoxyquin จากการวิเคราะห์ส่วนประกอบจริงของ ThailandPetHub' },
+            { q: 'ควรเลือกอาหารเกรด A หรือ B ดี?', a: 'ทั้งสองเกรดถือว่าปลอดภัยและมีคุณภาพดี เกรด A มักมีโปรตีนคุณภาพสูงกว่าและไม่มีส่วนผสมที่ควรระวังเลย ส่วนเกรด B อาจมีส่วนผสมเล็กน้อยที่ควรสังเกต แต่ยังคุ้มค่าและปลอดภัยสำหรับใช้เป็นประจำ' },
+          ].map((item, i) => (
+            <div key={i} className={i > 0 ? 'pt-4' : ''}>
+              <h3 className="font-semibold text-gray-800 mb-1">{item.q}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <RelatedGuides current="food" count={4} />
     </main>
   )
 }

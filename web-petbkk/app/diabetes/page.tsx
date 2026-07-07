@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรคเบาหวานในสุนัขและแมว — อาการ อาหาร และการรักษา | ThailandPetHub',
+  title: 'โรคเบาหวานในสุนัขและแมว — อาการ อาหาร และการรักษา',
   description: 'โรคเบาหวาน (Diabetes Mellitus) ในสุนัขและแมว อาการเตือน การรักษาด้วยอินซูลิน อาหารที่เหมาะสม และการดูแลที่บ้าน',
   alternates: { canonical: 'https://www.thailandpethub.com/diabetes' },
   keywords: ['โรคเบาหวานสุนัข', 'โรคเบาหวานแมว', 'เบาหวาน diabetes สัตว์เลี้ยง', 'อินซูลินสุนัข', 'แมวเบาหวาน'],
@@ -134,7 +134,7 @@ export default function DiabetesPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-blue-600 text-white font-semibold rounded-xl text-sm hover:bg-blue-700 transition-colors">🏥 หาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="diabetes" count={4} />
     </main>
   )
 }

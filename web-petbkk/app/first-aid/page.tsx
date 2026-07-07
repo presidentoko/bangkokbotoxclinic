@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ปฐมพยาบาลสัตว์เลี้ยงเบื้องต้น — ก่อนพาไปหาหมอ | ThailandPetHub',
+  title: 'ปฐมพยาบาลสัตว์เลี้ยงเบื้องต้น — ก่อนพาไปหาหมอ',
   description: 'วิธีปฐมพยาบาลสัตว์เลี้ยงเบื้องต้น กรณีกินยาเกินขนาด บาดแผล หมดสติ ชัก และเลือดออก ก่อนพาไปโรงพยาบาลสัตว์',
   alternates: { canonical: 'https://www.thailandpethub.com/first-aid' },
   keywords: ['ปฐมพยาบาลสัตว์เลี้ยง', 'สุนัขหมดสติ', 'แมวชัก', 'สัตว์เลี้ยงฉุกเฉิน', 'ก่อนพาหาหมอ'],
@@ -180,7 +180,7 @@ export default function FirstAidPage() {
         <a href="/toxic" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">⚠️ อาหารต้องห้าม</a>
       </div>
 
-      <RelatedGuides current="emergency" count={4} />
+      <RelatedGuides current="first-aid" count={4} />
     </main>
   )
 }

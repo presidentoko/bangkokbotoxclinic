@@ -4,6 +4,7 @@ import SearchBar from '@/components/SearchBar'
 import PetProfileSetup from '@/components/PetProfileSetup'
 import PersonalizedFoodRecs from '@/components/PersonalizedFoodRecs'
 import PopularFoods from '@/components/PopularFoods'
+import RecentFoods from '@/components/RecentFoods'
 
 const FOOD_CHIPS = [
   { label: 'Royal Canin', href: '/food?q=royal+canin' },
@@ -147,6 +148,11 @@ export default function HomePage() {
       <div className="max-w-2xl mx-auto px-4">
         <PetProfileSetup />
         <PersonalizedFoodRecs />
+      </div>
+
+      {/* ── RECENTLY VIEWED ─────────────────────────────────────────── */}
+      <div className="max-w-2xl mx-auto px-4">
+        <RecentFoods />
       </div>
 
       {/* ── POPULAR FOODS ───────────────────────────────────────────── */}

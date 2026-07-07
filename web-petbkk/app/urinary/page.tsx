@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรคระบบทางเดินปัสสาวะแมว (FLUTD/FUS) — อาการและวิธีดูแล | ThailandPetHub',
+  title: 'โรคระบบทางเดินปัสสาวะแมว (FLUTD/FUS) — อาการและวิธีดูแล',
   description: 'โรคทางเดินปัสสาวะแมว (FLUTD/FUS) อาการ สาเหตุ การป้องกัน และวิธีดูแลที่บ้าน — พบบ่อยในแมวตัวผู้',
   alternates: { canonical: 'https://www.thailandpethub.com/urinary' },
   keywords: ['โรคทางเดินปัสสาวะแมว', 'FLUTD', 'แมวปัสสาวะลำบาก', 'แมวฉี่เลือด', 'FUS แมว'],
@@ -111,7 +111,7 @@ export default function UrinaryPage() {
         <a href="/diarrhea" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💩 ท้องเสีย</a>
       </div>
 
-      <RelatedGuides current="kidney-disease" count={4} />
+      <RelatedGuides current="urinary" count={4} />
     </main>
   )
 }

@@ -1,4 +1,5 @@
 'use client'
+import { useEffect, useState } from 'react'
 
 interface Props {
   title?: string
@@ -6,8 +7,17 @@ interface Props {
 }
 
 export default function SocialShare({ title = '', url = '' }: Props) {
-  const pageTitle = title || (typeof document !== 'undefined' ? document.title : 'ThailandPetHub')
-  const pageUrl = url || (typeof window !== 'undefined' ? window.location.href : 'https://www.thailandpethub.com')
+  const [pageTitle, setPageTitle] = useState(title || 'ThailandPetHub')
+  const [pageUrl, setPageUrl] = useState(url || 'https://www.thailandpethub.com')
+  const [copied, setCopied] = useState(false)
+
+  // Read document.title / window.location only after mount so the server-rendered
+  // and first client render match — avoids a hydration mismatch.
+  useEffect(() => {
+    if (!title) setPageTitle(document.title)
+    if (!url) setPageUrl(window.location.href)
+  }, [title, url])
+
   const encodedTitle = encodeURIComponent(pageTitle)
   const encodedUrl = encodeURIComponent(pageUrl)
 
@@ -47,14 +57,13 @@ export default function SocialShare({ title = '', url = '' }: Props) {
       <button
         onClick={() => {
           navigator.clipboard?.writeText(pageUrl).then(() => {
-            const btn = document.querySelector('[data-copy-btn]') as HTMLButtonElement
-            if (btn) { btn.textContent = 'คัดลอกแล้ว ✓'; setTimeout(() => { btn.textContent = 'คัดลอก URL' }, 2000) }
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
           })
         }}
-        data-copy-btn
         className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-lg hover:bg-gray-200 transition-colors"
       >
-        คัดลอก URL
+        {copied ? 'คัดลอกแล้ว ✓' : 'คัดลอก URL'}
       </button>
     </div>
   )

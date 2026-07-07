@@ -7,6 +7,7 @@ import SimilarFoods from '@/components/SimilarFoods'
 import ShareCard from '@/components/ShareCard'
 import TrackRecentFood from '@/components/TrackRecentFood'
 import PantipReviews from '@/components/PantipReviews'
+import RelatedGuides from '@/components/RelatedGuides'
 import type { Metadata } from 'next'
 import type { FoodGrade, PetFood } from '@/lib/types'
 
@@ -143,6 +144,23 @@ function FoodFaqJsonLd({ food, grade }: { food: PetFood; grade: FoodGrade | null
   )
 }
 
+function getConditionLinks(food: PetFood): { href: string; label: string }[] {
+  const links: { href: string; label: string }[] = []
+  if (food.life_stage === 'puppy') {
+    links.push(food.animal === 'cat'
+      ? { href: '/kitten-care', label: '🐱 เลี้ยงลูกแมว' }
+      : { href: '/puppy-care', label: '🐶 เลี้ยงลูกสุนัข' })
+  } else if (food.life_stage === 'senior') {
+    links.push({ href: '/senior-care', label: '👴 น้องสูงวัย' })
+  }
+  links.push(food.animal === 'cat'
+    ? { href: '/cat-behavior', label: '🐱 พฤติกรรมแมว' }
+    : { href: '/dog-behavior', label: '🐕 พฤติกรรมสุนัข' })
+  links.push({ href: '/allergy', label: '🤧 แพ้อาหาร' })
+  links.push({ href: '/obesity', label: '⚖️ น้องอ้วน' })
+  return links
+}
+
 const GRADE_CONFIG: Record<FoodGrade, { color: string; bgCls: string; label: string }> = {
   A: { color: '#16a34a', bgCls: 'bg-green-500',  label: 'ดีเยี่ยม' },
   B: { color: '#65a30d', bgCls: 'bg-lime-500',   label: 'ดี' },
@@ -161,6 +179,7 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
   const similar = getSimilarFoods(food)
   const total = food.green_count + food.yellow_count + food.red_count + food.black_count
   const pantipReview = getFoodReviews(food.id)
+  const conditionLinks = getConditionLinks(food)
 
   return (
     <main className="max-w-2xl mx-auto">
@@ -273,6 +292,19 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           🛒 ซื้อราคาถูกสุด
         </a>
       )}
+
+      {/* Related conditions */}
+      <div className="flex flex-wrap gap-2 mt-6">
+        {conditionLinks.map(l => (
+          <a key={l.href} href={l.href}
+            className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">
+            {l.label}
+          </a>
+        ))}
+      </div>
+
+      <RelatedGuides current="food" count={4} />
+
       <BreadcrumbJsonLd name={food.name_th || food.name_en} />
     </main>
   )

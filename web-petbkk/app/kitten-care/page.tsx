@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'เลี้ยงลูกแมว — คู่มือดูแลลูกแมวตั้งแต่แรกเกิดถึง 1 ปี | ThailandPetHub',
+  title: 'เลี้ยงลูกแมว — คู่มือดูแลลูกแมวตั้งแต่แรกเกิดถึง 1 ปี',
   description: 'คู่มือดูแลลูกแมวตั้งแต่แรกเกิด อาหาร วัคซีน การเข้าสังคม ช่วงอายุที่สำคัญ และอาการที่ต้องพาสัตวแพทย์',
   alternates: { canonical: 'https://www.thailandpethub.com/kitten-care' },
   keywords: ['เลี้ยงลูกแมว', 'ดูแลลูกแมว', 'ลูกแมวแรกเกิด', 'อาหารลูกแมว', 'วัคซีนลูกแมว'],
@@ -113,7 +113,7 @@ export default function KittenCarePage() {
         <a href="/cat-behavior" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🐱 พฤติกรรมแมว</a>
       </div>
 
-      <RelatedGuides current="newpet" count={4} />
+      <RelatedGuides current="kitten-care" count={4} />
     </main>
   )
 }

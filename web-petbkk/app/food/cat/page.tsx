@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { filterFoods } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหารแมวที่ดีที่สุด — เปรียบเทียบเกรดคุณภาพ | ThailandPetHub',
+  title: 'อาหารแมวที่ดีที่สุด — เปรียบเทียบเกรดคุณภาพ',
   description: 'เปรียบเทียบอาหารแมวยี่ห้อดัง Royal Canin, Hill\'s, Whiskas พร้อมเกรด A-F จากการวิเคราะห์ส่วนประกอบจริง หาอาหารแมวที่ดีที่สุดสำหรับน้อง ฟรี 100%',
   alternates: { canonical: 'https://www.thailandpethub.com/food/cat' },
   keywords: ['อาหารแมว', 'อาหารแมวที่ดีที่สุด', 'Royal Canin แมว', 'Hills แมว', 'Whiskas', 'เกรดอาหารแมว', 'AAFCO แมว'],
@@ -127,6 +128,8 @@ export default function CatFoodPage() {
           🐕 อาหารสุนัข →
         </a>
       </div>
+
+      <RelatedGuides current="food" count={4} />
     </main>
   )
 }

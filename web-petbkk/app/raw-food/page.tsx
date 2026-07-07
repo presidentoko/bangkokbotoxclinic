@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหาร Raw สัตว์เลี้ยง — ข้อดี ข้อเสีย ความเสี่ยง และวิธีทำ | ThailandPetHub',
+  title: 'อาหาร Raw สัตว์เลี้ยง — ข้อดี ข้อเสีย ความเสี่ยง และวิธีทำ',
   description: 'คู่มืออาหาร Raw (BARF/PMR) สำหรับสุนัขและแมว ข้อดีและข้อเสีย ความเสี่ยงจากเชื้อโรค วิธีเตรียมให้ปลอดภัย และอาหารที่ห้ามใส่',
   alternates: { canonical: 'https://www.thailandpethub.com/raw-food' },
   keywords: ['อาหาร raw สุนัข', 'อาหาร raw แมว', 'BARF', 'อาหารดิบสัตว์เลี้ยง', 'raw diet ไทย'],
@@ -147,7 +147,7 @@ export default function RawFoodPage() {
         <a href="/allergy" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🤧 อาหารแพ้</a>
       </div>
 
-      <RelatedGuides current="food" count={4} />
+      <RelatedGuides current="raw-food" count={4} />
     </main>
   )
 }

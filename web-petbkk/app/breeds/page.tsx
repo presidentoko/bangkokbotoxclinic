@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
+import { BREEDS } from '@/lib/breeds'
 
 export const metadata: Metadata = {
-  title: 'สายพันธุ์สุนัขและแมวยอดนิยมในไทย — ลักษณะ นิสัย และการดูแล | ThailandPetHub',
+  title: 'สายพันธุ์สุนัขและแมวยอดนิยมในไทย — ลักษณะ นิสัย และการดูแล',
   description: 'รวมสายพันธุ์สุนัขและแมวที่นิยมเลี้ยงในไทย ลักษณะ นิสัย ความต้องการดูแล และสุขภาพที่ต้องระวัง',
   alternates: { canonical: 'https://www.thailandpethub.com/breeds' },
   keywords: ['สายพันธุ์สุนัข', 'สายพันธุ์แมว', 'สุนัขนิยมในไทย', 'แมวนิยมในไทย', 'เลือกสัตว์เลี้ยง'],
@@ -13,23 +14,8 @@ export const metadata: Metadata = {
   },
 }
 
-const DOG_BREEDS = [
-  { name: 'ชิห์สึ (Shih Tzu)', icon: '🐾', size: 'เล็ก', energy: 'ปานกลาง', grooming: 'สูง', traits: 'เป็นมิตร รักเจ้าของ เหมาะอพาร์ทเมนต์', watch: 'ทางเดินหายใจ (หน้าสั้น) ตา' },
-  { name: 'พูเดิล (Poodle)', icon: '🐩', size: 'เล็ก-กลาง', energy: 'สูง', grooming: 'สูง', traits: 'ฉลาดมาก เรียนรู้ไว ไม่ค่อยหลุดขน', watch: 'โรคข้อสะโพก ตา' },
-  { name: 'ชิวาวา (Chihuahua)', icon: '🐕', size: 'เล็กมาก', energy: 'สูง', grooming: 'ต่ำ', traits: 'กล้า จงรักภักดี ชอบเจ้าของคนเดียว', watch: 'กระดูกเปราะ ฟัน Trachea' },
-  { name: 'โกลเดน รีทรีฟเวอร์', icon: '🦮', size: 'ใหญ่', energy: 'สูง', grooming: 'ปานกลาง', traits: 'เป็นมิตรทุกคน เล่นกับเด็กได้ดี ต้องออกกำลัง', watch: 'ข้อสะโพก มะเร็ง' },
-  { name: 'พอมเมอเรเนียน', icon: '🐕', size: 'เล็ก', energy: 'ปานกลาง', grooming: 'สูง', traits: 'มั่นใจตัวเอง ฉลาด เห่าบ้าง', watch: 'ฟัน ขาหน้า กระดูก' },
-  { name: 'มัลทีส (Maltese)', icon: '🐕', size: 'เล็ก', energy: 'ต่ำ-ปานกลาง', grooming: 'สูงมาก', traits: 'ใจเย็น รักเจ้าของ เหมาะอพาร์ทเมนต์', watch: 'ตา หู ขน' },
-]
-
-const CAT_BREEDS = [
-  { name: 'เปอร์เซีย (Persian)', icon: '🐱', size: 'กลาง-ใหญ่', energy: 'ต่ำ', grooming: 'สูงมาก', traits: 'เงียบ สงบ เหมาะบ้านเงียบ', watch: 'ตา (หน้าสั้น) ไต ขน' },
-  { name: 'ไทย (วิเชียรมาศ/ขาวมณี)', icon: '🐱', size: 'กลาง', energy: 'สูง', grooming: 'ต่ำ', traits: 'ช่างพูด สังคม ผูกพันเจ้าของ', watch: 'ตา หัวใจ' },
-  { name: 'สก็อตติช โฟลด์', icon: '🐈', size: 'กลาง', energy: 'ปานกลาง', grooming: 'ปานกลาง', traits: 'เงียบ ใจเย็น ชอบนั่งตัวตรง', watch: 'ข้อต่อ กระดูก (Osteochondrodysplasia)' },
-  { name: 'เมนคูน (Maine Coon)', icon: '🐈', size: 'ใหญ่มาก', energy: 'ปานกลาง', grooming: 'ปานกลาง-สูง', traits: 'ฉลาด เล่นน้ำได้ เป็นมิตร เหมือนสุนัข', watch: 'หัวใจ (HCM) ข้อสะโพก' },
-  { name: 'รัสเซียนบลู', icon: '🐱', size: 'กลาง', energy: 'ปานกลาง', grooming: 'ต่ำ', traits: 'ขี้อาย คนแปลกหน้า แต่รักเจ้าของมาก', watch: 'อ้วนง่าย' },
-  { name: 'อเมริกันชอร์ตแฮร์', icon: '🐈', size: 'กลาง', energy: 'ปานกลาง', grooming: 'ต่ำ', traits: 'แข็งแรง เป็นมิตร ดูแลง่าย เหมาะมือใหม่', watch: 'อ้วน โรคหัวใจ' },
-]
+const DOG_BREEDS = BREEDS.filter(b => b.animal === 'dog')
+const CAT_BREEDS = BREEDS.filter(b => b.animal === 'cat')
 
 const ENERGY_COLORS: Record<string, string> = {
   'สูงมาก': 'bg-red-100 text-red-600',
@@ -39,9 +25,38 @@ const ENERGY_COLORS: Record<string, string> = {
   'ต่ำ': 'bg-blue-100 text-blue-700',
 }
 
+function BreedsJsonLd() {
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
+      { '@type': 'ListItem', position: 2, name: 'สายพันธุ์', item: 'https://www.thailandpethub.com/breeds' },
+    ],
+  }
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'สายพันธุ์สุนัขและแมวยอดนิยมในไทย',
+    itemListElement: BREEDS.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b.name,
+      url: `https://www.thailandpethub.com/breeds/${b.slug}`,
+    })),
+  }
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+    </>
+  )
+}
+
 export default function BreedsPage() {
   return (
     <main className="max-w-3xl mx-auto">
+      <BreedsJsonLd />
       <nav className="text-xs text-gray-400 mb-4">
         <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
         <span className="mx-1.5">›</span>
@@ -63,7 +78,7 @@ export default function BreedsPage() {
         <h2 className="font-black text-xl text-gray-900 mb-4">🐕 สุนัขยอดนิยมในไทย</h2>
         <div className="space-y-3">
           {DOG_BREEDS.map(b => (
-            <div key={b.name} className="bg-white rounded-2xl border shadow-sm p-4">
+            <a key={b.slug} href={`/breeds/${b.slug}`} className="block bg-white rounded-2xl border shadow-sm p-4 hover:shadow-md hover:border-orange-200 transition-all">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="font-bold text-gray-900 text-base">{b.name}</h3>
                 <div className="flex gap-1.5 flex-shrink-0 ml-2">
@@ -75,7 +90,7 @@ export default function BreedsPage() {
               <div className="flex items-center gap-1.5 text-xs text-gray-400">
                 <span className="font-medium text-amber-600">⚠️ ระวัง:</span><span>{b.watch}</span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
@@ -84,7 +99,7 @@ export default function BreedsPage() {
         <h2 className="font-black text-xl text-gray-900 mb-4">🐱 แมวยอดนิยมในไทย</h2>
         <div className="space-y-3">
           {CAT_BREEDS.map(b => (
-            <div key={b.name} className="bg-white rounded-2xl border shadow-sm p-4">
+            <a key={b.slug} href={`/breeds/${b.slug}`} className="block bg-white rounded-2xl border shadow-sm p-4 hover:shadow-md hover:border-orange-200 transition-all">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="font-bold text-gray-900 text-base">{b.name}</h3>
                 <div className="flex gap-1.5 flex-shrink-0 ml-2">
@@ -96,7 +111,7 @@ export default function BreedsPage() {
               <div className="flex items-center gap-1.5 text-xs text-gray-400">
                 <span className="font-medium text-amber-600">⚠️ ระวัง:</span><span>{b.watch}</span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
@@ -113,7 +128,7 @@ export default function BreedsPage() {
         <a href="/food" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🍖 อาหารที่เหมาะสม</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="breeds" count={4} />
     </main>
   )
 }

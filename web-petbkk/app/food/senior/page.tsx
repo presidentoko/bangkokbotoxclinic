@@ -4,7 +4,7 @@ import FoodCard from '@/components/FoodCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหารสัตว์เลี้ยงสูงอายุที่ดีที่สุด — สุนัขและแมว Senior | ThailandPetHub',
+  title: 'อาหารสัตว์เลี้ยงสูงอายุที่ดีที่สุด — สุนัขและแมว Senior',
   description: 'เปรียบเทียบอาหารสัตว์เลี้ยงสูงอายุ (Senior) สุนัขและแมว พร้อมเกรด A-F จากการวิเคราะห์ส่วนประกอบจริง เลือกอาหารที่ดีที่สุดสำหรับน้องวัยชรา',
   alternates: { canonical: 'https://www.thailandpethub.com/food/senior' },
   keywords: ['อาหารสุนัขสูงอายุ', 'อาหารแมวสูงอายุ', 'อาหาร senior', 'อาหารน้องแก่', 'อาหารสัตว์เลี้ยงผู้สูงวัย'],

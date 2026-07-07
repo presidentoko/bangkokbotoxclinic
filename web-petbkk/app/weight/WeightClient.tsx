@@ -98,7 +98,7 @@ export default function WeightClient() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 ปรึกษาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="age" count={4} />
+      <RelatedGuides current="weight" count={4} />
     </>
   )
 }

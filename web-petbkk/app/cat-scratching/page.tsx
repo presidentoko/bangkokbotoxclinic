@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'แมวข่วนเฟอร์นิเจอร์ — วิธีหยุดและเปลี่ยนพฤติกรรม | ThailandPetHub',
+  title: 'แมวข่วนเฟอร์นิเจอร์ — วิธีหยุดและเปลี่ยนพฤติกรรม',
   description: 'ทำไมแมวถึงข่วน วิธีหยุดแมวข่วนโซฟาและเฟอร์นิเจอร์ สิ่งที่ต้องจัดเตรียม และวิธีฝึกให้ข่วนในที่ที่ถูกต้อง',
   alternates: { canonical: 'https://www.thailandpethub.com/cat-scratching' },
   keywords: ['แมวข่วนโซฟา', 'หยุดแมวข่วน', 'เสาข่วน', 'แมวข่วนเฟอร์นิเจอร์', 'ฝึกแมว'],
@@ -115,7 +115,7 @@ export default function CatScratchingPage() {
         <a href="/kitten-care" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🐱 เลี้ยงลูกแมว</a>
       </div>
 
-      <RelatedGuides current="cat-behavior" count={4} />
+      <RelatedGuides current="cat-scratching" count={4} />
     </main>
   )
 }

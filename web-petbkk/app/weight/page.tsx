@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import WeightClient from './WeightClient'
 
 export const metadata: Metadata = {
-  title: 'ประเมินน้ำหนักสัตว์เลี้ยง (BCS) — อ้วน ผอม หรือสมบูรณ์แบบ? | ThailandPetHub',
+  title: 'ประเมินน้ำหนักสัตว์เลี้ยง (BCS) — อ้วน ผอม หรือสมบูรณ์แบบ?',
   description: 'ประเมิน Body Condition Score (BCS 1-9) ของสุนัขและแมว ตรวจสอบว่าน้องน้ำหนักเกิน อ้วน ผอม หรืออยู่ในเกณฑ์ดี พร้อมคำแนะนำ',
   alternates: { canonical: 'https://www.thailandpethub.com/weight' },
   keywords: ['น้ำหนักสุนัข', 'สุนัขอ้วน', 'แมวอ้วน', 'BCS สัตว์เลี้ยง', 'ประเมินน้ำหนักสัตว์เลี้ยง'],

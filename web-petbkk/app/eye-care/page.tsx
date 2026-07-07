@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ตาสัตว์เลี้ยงเป็นหนอง/อักเสบ — สาเหตุและวิธีดูแล | ThailandPetHub',
+  title: 'ตาสัตว์เลี้ยงเป็นหนอง/อักเสบ — สาเหตุและวิธีดูแล',
   description: 'ตาแมวตาสุนัขเป็นหนอง น้ำตาไหล ตาแดง สาเหตุที่พบบ่อย วิธีดูแลที่บ้าน และอาการที่ต้องพาสัตวแพทย์',
   alternates: { canonical: 'https://www.thailandpethub.com/eye-care' },
   keywords: ['ตาแมวเป็นหนอง', 'ตาสุนัขอักเสบ', 'สัตว์เลี้ยงตาแดง', 'น้ำตาไหลแมว', 'ดูแลตาสัตว์เลี้ยง'],
@@ -118,7 +118,7 @@ export default function EyeCarePage() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 หาโรงพยาบาล</a>
       </div>
 
-      <RelatedGuides current="emergency" count={4} />
+      <RelatedGuides current="eye-care" count={4} />
     </main>
   )
 }

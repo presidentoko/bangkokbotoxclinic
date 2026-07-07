@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ดูแลฟันสุนัขและแมว — คู่มือครบฉบับ | ThailandPetHub',
+  title: 'ดูแลฟันสุนัขและแมว — คู่มือครบฉบับ',
   description: 'วิธีแปรงฟันสุนัขและแมวที่บ้าน สัญญาณโรคเหงือก ควรไปสเกลฟันเมื่อไหร่ และผลิตภัณฑ์ดูแลฟันสัตว์เลี้ยงที่ดีที่สุด',
   alternates: { canonical: 'https://www.thailandpethub.com/dental' },
   keywords: ['แปรงฟันสุนัข', 'ดูแลฟันแมว', 'โรคเหงือกสัตว์เลี้ยง', 'สเกลฟันสุนัข', 'ฟันสุนัขเหลือง'],
@@ -175,7 +175,7 @@ export default function DentalPage() {
         <a href="/vaccine" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">💉 ตารางวัคซีน</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="dental" count={4} />
     </main>
   )
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'เดินทางกับสัตว์เลี้ยง — ขึ้นเครื่อง รถไฟ และข้ามประเทศ | ThailandPetHub',
+  title: 'เดินทางกับสัตว์เลี้ยง — ขึ้นเครื่อง รถไฟ และข้ามประเทศ',
   description: 'วิธีเดินทางกับสุนัขและแมวในไทย นำขึ้นเครื่องบิน รถไฟ และเดินทางระหว่างประเทศ เอกสารที่ต้องใช้ และการเตรียมสัตว์เลี้ยงก่อนเดินทาง',
   alternates: { canonical: 'https://www.thailandpethub.com/travel' },
   keywords: ['เดินทางกับสุนัข', 'นำแมวขึ้นเครื่อง', 'เดินทางสัตว์เลี้ยง', 'สายการบินรับสัตว์เลี้ยง', 'ส่งออกสัตว์เลี้ยง'],
@@ -161,7 +161,7 @@ export default function TravelPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-blue-600 text-white font-semibold rounded-xl text-sm hover:bg-blue-700 transition-colors">🏥 ใบรับรองสุขภาพ</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="travel" count={4} />
     </main>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import SocialShare from './SocialShare'
 
 const QUESTIONS = [
@@ -85,9 +86,25 @@ function getRecs(answers: string[]): Rec[] {
   ]
 }
 
+const ANSWER_KEYS = ['species', 'age', 'health', 'budget']
+
 export default function FoodQuiz() {
-  const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState<string[]>([])
+  return (
+    <Suspense fallback={null}>
+      <FoodQuizInner />
+    </Suspense>
+  )
+}
+
+function FoodQuizInner() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const sharedAnswers = ANSWER_KEYS.map(k => searchParams.get(k)).every(Boolean)
+    ? ANSWER_KEYS.map(k => searchParams.get(k) as string)
+    : null
+
+  const [step, setStep] = useState(sharedAnswers ? QUESTIONS.length : 0)
+  const [answers, setAnswers] = useState<string[]>(sharedAnswers ?? [])
 
   const done = step >= QUESTIONS.length
   const recs = done ? getRecs(answers) : []
@@ -96,10 +113,18 @@ export default function FoodQuiz() {
     const next = [...answers, val]
     setAnswers(next)
     setStep(step + 1)
+    if (step + 1 >= QUESTIONS.length) {
+      const params = new URLSearchParams(ANSWER_KEYS.reduce((acc, k, i) => ({ ...acc, [k]: next[i] }), {} as Record<string, string>))
+      router.replace(`/food-quiz?${params.toString()}`, { scroll: false })
+    }
   }
+
+  const reset = () => { setStep(0); setAnswers([]); router.replace('/food-quiz', { scroll: false }) }
 
   if (done) {
     const speciesLabel = answers[0] === 'dog' ? 'สุนัข' : 'แมว'
+    const shareParams = new URLSearchParams(ANSWER_KEYS.reduce((acc, k, i) => ({ ...acc, [k]: answers[i] }), {} as Record<string, string>))
+    const shareUrl = `https://www.thailandpethub.com/food-quiz?${shareParams.toString()}`
     return (
       <div>
         <div className="bg-orange-50 border border-orange-200 rounded-2xl p-5 mb-4">
@@ -118,10 +143,10 @@ export default function FoodQuiz() {
           </div>
         </div>
 
-        <SocialShare title={`ผลแบบทดสอบ: อาหารน้อง${speciesLabel}ที่เหมาะที่สุด — ${recs[0]?.title}`} />
+        <SocialShare title={`ผลแบบทดสอบ: อาหารน้อง${speciesLabel}ที่เหมาะที่สุด — ${recs[0]?.title}`} url={shareUrl} />
 
         <div className="mt-4 flex gap-3">
-          <button onClick={() => { setStep(0); setAnswers([]) }} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50">เริ่มใหม่</button>
+          <button onClick={reset} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50">เริ่มใหม่</button>
           <a href="/food" className="flex-1 py-2.5 bg-orange-500 text-white rounded-xl text-sm font-bold text-center hover:bg-orange-600 transition-colors">ดูอาหารทั้งหมด →</a>
         </div>
       </div>

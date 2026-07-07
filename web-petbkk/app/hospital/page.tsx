@@ -1,4 +1,5 @@
 import HospitalListClient from '@/components/HospitalListClient'
+import RelatedGuides from '@/components/RelatedGuides'
 
 export default async function HospitalPage({
   searchParams,
@@ -18,6 +19,7 @@ export default async function HospitalPage({
       <h1 className="text-2xl font-black text-gray-900 mb-1">🏥 โรงพยาบาลสัตว์</h1>
       <p className="text-sm text-gray-400 mb-6">ค้นหาโรงพยาบาลสัตว์เลี้ยงใกล้คุณในกรุงเทพและปริมณฑล</p>
       <HospitalListClient initialFilter={initialFilter} initialQuery={sp.q ?? ''} />
+      <RelatedGuides current="hospital" count={4} />
     </main>
   )
 }

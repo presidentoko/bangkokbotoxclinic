@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'พฤติกรรมสุนัข — ทำไมสุนัขถึงเห่า ขุด กัด และวิธีแก้ | ThailandPetHub',
+  title: 'พฤติกรรมสุนัข — ทำไมสุนัขถึงเห่า ขุด กัด และวิธีแก้',
   description: 'อ่านภาษาสุนัข ทำไมสุนัขถึงเห่า กัด ขุดดิน วิ่งไล่ หรือกินอุจจาระ วิธีแก้ไขพฤติกรรมที่ไม่พึงประสงค์ด้วย positive reinforcement',
   alternates: { canonical: 'https://www.thailandpethub.com/dog-behavior' },
   keywords: ['พฤติกรรมสุนัข', 'สุนัขเห่า', 'สุนัขกัด', 'สุนัขขุดดิน', 'แก้นิสัยสุนัข', 'ภาษากาย สุนัข'],

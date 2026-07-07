@@ -4,7 +4,7 @@ import FoodCard from '@/components/FoodCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'อาหารลูกสุนัขและลูกแมวที่ดีที่สุด — เกรด A-F | ThailandPetHub',
+  title: 'อาหารลูกสุนัขและลูกแมวที่ดีที่สุด — เกรด A-F',
   description: 'เปรียบเทียบอาหารลูกสุนัขและลูกแมว (Puppy/Kitten) พร้อมเกรด A-F จากการวิเคราะห์ส่วนประกอบจริง เลือกอาหารที่ดีที่สุดสำหรับน้องวัยเยาว์',
   alternates: { canonical: 'https://www.thailandpethub.com/food/puppy' },
   keywords: ['อาหารลูกสุนัข', 'อาหารลูกแมว', 'อาหาร puppy', 'อาหาร kitten', 'อาหารน้องวัยเยาว์'],

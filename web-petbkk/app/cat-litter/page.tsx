@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'ทรายแมว — เลือกยังไง Bentonite Tofu Silica เปรียบเทียบ | ThailandPetHub',
+  title: 'ทรายแมว — เลือกยังไง Bentonite Tofu Silica เปรียบเทียบ',
   description: 'เปรียบเทียบทรายแมวทุกประเภท Bentonite (ดินเหนียว) Tofu (ถั่วเหลือง) Silica และ Wood Pellet ข้อดีข้อเสีย ราคา และการเลือกที่เหมาะกับน้องแมว',
   alternates: { canonical: 'https://www.thailandpethub.com/cat-litter' },
   keywords: ['ทรายแมว', 'ทรายแมว bentonite', 'ทรายแมว tofu', 'ทรายแมวซิลิก้า', 'เลือกทรายแมว'],
@@ -156,7 +156,7 @@ export default function CatLitterPage() {
         <a href="/food/cat" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🍖 อาหารแมว</a>
       </div>
 
-      <RelatedGuides current="cat-behavior" count={4} />
+      <RelatedGuides current="cat-litter" count={4} />
     </main>
   )
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'สัตว์เลี้ยงแยกเจ้าของไม่ได้ (Separation Anxiety) — สัญญาณและวิธีแก้ | ThailandPetHub',
+  title: 'สัตว์เลี้ยงแยกเจ้าของไม่ได้ (Separation Anxiety) — สัญญาณและวิธีแก้',
   description: 'สุนัขหรือแมวมีอาการวิตกกังวลเมื่อแยกจากเจ้าของ เห่า ทำลายข้าวของ ฉี่ผิดที่ วิธีช่วยน้องรับมือกับการอยู่คนเดียวอย่างปลอดภัย',
   alternates: { canonical: 'https://www.thailandpethub.com/anxiety' },
   keywords: ['สุนัข separation anxiety', 'สุนัขวิตกกังวล', 'สัตว์เลี้ยงอยู่คนเดียวไม่ได้', 'แก้นิสัยสุนัขเห่า', 'สุนัขทำลายข้าวของ'],
@@ -115,7 +115,7 @@ export default function AnxietyPage() {
         <a href="/hospital" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🏥 ปรึกษาสัตวแพทย์</a>
       </div>
 
-      <RelatedGuides current="tips" count={4} />
+      <RelatedGuides current="anxiety" count={4} />
     </main>
   )
 }

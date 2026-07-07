@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'แมวไม่ยอมใช้กระบะทราย — สาเหตุและวิธีแก้ | ThailandPetHub',
+  title: 'แมวไม่ยอมใช้กระบะทราย — สาเหตุและวิธีแก้',
   description: 'แมวไปฉี่/อึนอกกระบะทราย สาเหตุที่พบบ่อย 7 ข้อ และวิธีแก้ทีละขั้นตอน',
   alternates: { canonical: 'https://www.thailandpethub.com/cat-not-using-litter' },
   keywords: ['แมวไม่ยอมใช้กระบะทราย', 'แมวฉี่นอกกระบะ', 'แมวถ่ายนอกกระบะ', 'แก้ปัญหากระบะทรายแมว'],
@@ -98,7 +98,7 @@ export default function CatNotUsingLitterPage() {
         <a href="/cat-litter" className="px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl text-sm hover:bg-gray-50 transition-colors">🪨 เลือกทรายแมว</a>
       </div>
 
-      <RelatedGuides current="cat-behavior" count={4} />
+      <RelatedGuides current="cat-not-using-litter" count={4} />
     </main>
   )
 }

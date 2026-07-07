@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import PetProfile from '@/components/PetProfile'
 
 export const metadata: Metadata = {
-  title: 'โปรไฟล์น้อง — ติดตามวัคซีน ถ่ายพยาธิ และสุขภาพ | ThailandPetHub',
+  title: 'โปรไฟล์น้อง — ติดตามวัคซีน ถ่ายพยาธิ และสุขภาพ',
   description: 'บันทึกข้อมูลน้องของคุณ ติดตามวันครบกำหนดวัคซีน ถ่ายพยาธิ และยาหมัดเห็บ ไม่ต้องสมัครสมาชิก เก็บในอุปกรณ์ของคุณ',
   alternates: { canonical: 'https://www.thailandpethub.com/my-pet' },
   keywords: ['โปรไฟล์สัตว์เลี้ยง', 'ติดตามวัคซีน', 'ปฏิทินสัตว์เลี้ยง', 'บันทึกสุขภาพน้อง'],
