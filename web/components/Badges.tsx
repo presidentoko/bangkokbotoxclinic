@@ -62,27 +62,9 @@ export async function VerifiedPartnerBadge({ clinicId }: { clinicId: string }) {
   );
 }
 
-// Freshness — master_db.generated_at 으로부터 상대 시간.
-export function Freshness({ generatedAt, mode = "card" }: {
-  generatedAt: string;
-  mode?: "card" | "detail";
-}) {
-  const ago = relativeTimeFromIso(generatedAt);
-  if (mode === "card") {
-    return (
-      <span className="inline-flex items-center gap-1 text-[11px] text-[var(--muted)]">
-        <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
-        Updated {ago}
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex items-center gap-2 text-xs text-[var(--muted)] bg-white px-3 py-1 rounded-full border border-[var(--border)]">
-      <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-      Last updated {ago}
-    </span>
-  );
-}
+// Freshness moved to components/Freshness.tsx (client component — computes relative
+// time on mount so it doesn't freeze stale inside the 7-day ISR cache for clinic pages).
+export { Freshness } from "./Freshness";
 
 // Trust 상대 ranking — 카테고리/지역 내 percentile.
 export function RelativeRanking({ percentile, label }: {
@@ -99,17 +81,4 @@ export function RelativeRanking({ percentile, label }: {
       Top {top}% in {label}
     </span>
   );
-}
-
-function relativeTimeFromIso(iso: string): string {
-  const then = new Date(iso).getTime();
-  if (isNaN(then)) return "recently";
-  const diff = Math.max(0, Date.now() - then);
-  const min = Math.floor(diff / 60_000);
-  if (min < 1) return "just now";
-  if (min < 60) return `${min} min ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return `${hr}h ago`;
-  const day = Math.floor(hr / 24);
-  return `${day}d ago`;
 }

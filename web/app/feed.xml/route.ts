@@ -1,6 +1,7 @@
 // RSS feed — top trust score 클리닉 + 최근 변화. AEO/syndication 보너스.
 
 import { loadMasterDb } from "@/lib/data";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
@@ -15,7 +16,8 @@ function escape(s: string): string {
 
 export async function GET() {
   const db = await loadMasterDb();
-  const top = [...db.clinics]
+  const cfg = getSiteConfig();
+  const top = [...applySiteFilter(db.clinics, cfg)]
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 50);
 

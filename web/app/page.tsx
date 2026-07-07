@@ -298,11 +298,11 @@ export default async function HomePage() {
             <h2 className="text-xl font-bold mb-4">Browse by procedure</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {[
-                { label: "🦷 Implants",     href: "/implants/bangkok" },
-                { label: "💎 Veneers",      href: "/veneers/bangkok" },
-                { label: "✨ Whitening",    href: "/whitening/bangkok" },
-                { label: "📐 Orthodontics", href: "/orthodontics/bangkok" },
-                { label: "🩺 Root Canal",   href: "/root-canal/bangkok" },
+                { label: "🦷 Implants",     href: "/city/bangkok/implants" },
+                { label: "💎 Veneers",      href: "/city/bangkok/veneers" },
+                { label: "✨ Whitening",    href: "/city/bangkok/whitening" },
+                { label: "📐 Orthodontics", href: "/city/bangkok/orthodontics" },
+                { label: "🩺 Root Canal",   href: "/city/bangkok/root-canal" },
               ].map((p) => (
                 <a
                   key={p.href}
@@ -576,9 +576,9 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Quick compare CTA — top 4 clinics paired up */}
-        {focused.length >= 4 && (() => {
-          const top = focused.slice(0, 4);
+        {/* Quick compare CTA — top 4 clinics paired up (ranked, not DB order) */}
+        {top.length >= 4 && (() => {
+          const top4 = top.slice(0, 4);
           return (
             <section className="mb-10">
               <div className="flex items-baseline justify-between gap-4 mb-4">
@@ -586,7 +586,7 @@ export default async function HomePage() {
                 <span className="text-xs text-[var(--muted)]">Side-by-side Trust Score analysis</span>
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
-                {([[top[0], top[1]], [top[2], top[3]]] as [typeof top[0], typeof top[0]][]).map(([x, y]) => x && y ? (
+                {([[top4[0], top4[1]], [top4[2], top4[3]]] as [typeof top4[0], typeof top4[0]][]).map(([x, y]) => x && y ? (
                   <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`}
                     className="group flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition">
                     <div className="flex-1 min-w-0 space-y-1">

@@ -6,6 +6,7 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
+import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 const VALID_SERVICES = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -17,9 +18,12 @@ function districtFromSlug(slug: string, all: string[]): string | null {
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
+  const cfg = getSiteConfig();
+  const focusValid = FOCUS_VALID[cfg.focus];
+  const services = focusValid ? [...VALID_SERVICES].filter((s) => focusValid.has(s)) : [...VALID_SERVICES];
   const districts = Object.keys(db.district_counts);
   const params: { service: string; district: string }[] = [];
-  for (const service of VALID_SERVICES) {
+  for (const service of services) {
     for (const d of districts) {
       params.push({
         service,
@@ -35,9 +39,11 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { service, district } = await params;
   const label = CATEGORY_LABELS[service] ?? service;
+  const cfg = getSiteConfig();
   const db = await loadMasterDb();
+  const scoped = applySiteFilter(db.clinics, cfg);
   const districtName = districtFromSlug(district, Object.keys(db.district_counts)) ?? district;
-  const count = filterByDistrict(filterByCategory(db.clinics, service), districtName).length;
+  const count = filterByDistrict(filterByCategory(scoped, service), districtName).length;
   const robots = count < 3 ? { index: false, follow: true } : undefined;
   return {
     title: `${count} ${label} Clinics in ${districtName}, Bangkok — Trust Score Ranking`,
@@ -53,17 +59,22 @@ export default async function ServiceDistrictPage(
   const { service, district } = await params;
   if (!VALID_SERVICES.has(service)) notFound();
 
+  const cfg = getSiteConfig();
+  const focusValid = FOCUS_VALID[cfg.focus];
+  if (focusValid && !focusValid.has(service)) notFound();
+
   const db = await loadMasterDb();
+  const scoped = applySiteFilter(db.clinics, cfg);
   const districtName = districtFromSlug(district, Object.keys(db.district_counts));
   if (!districtName) notFound();
 
-  const filtered = filterByDistrict(filterByCategory(db.clinics, service), districtName)
+  const filtered = filterByDistrict(filterByCategory(scoped, service), districtName)
     .sort((a, b) => b.trust_score - a.trust_score);
 
   const label = CATEGORY_LABELS[service] ?? service;
 
   // 같은 서비스의 다른 지역들 (클리닉 2개 이상, 현재 district 제외, 상위 8개)
-  const allForService = filterByCategory(db.clinics, service);
+  const allForService = filterByCategory(scoped, service);
   const districtCountMap = new Map<string, number>();
   for (const c of allForService) {
     if (!c.district || c.district === districtName) continue;

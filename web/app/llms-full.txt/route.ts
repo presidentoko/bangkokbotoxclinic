@@ -1,6 +1,6 @@
 import { loadMasterDb } from "@/lib/data";
 import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
-import { getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 
@@ -8,7 +8,8 @@ export async function GET() {
   const db = await loadMasterDb();
   const cfg = getSiteConfig();
   const BRAND = cfg.brand;
-  const top = [...db.clinics].sort((a, b) => b.trust_score - a.trust_score).slice(0, 100);
+  const scoped = applySiteFilter(db.clinics, cfg);
+  const top = [...scoped].sort((a, b) => b.trust_score - a.trust_score).slice(0, 100);
 
   const cityCounts = db.city_counts ?? {};
   const cityList = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]);

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES } from "@/lib/guides";
-import { getSiteConfig, FOCUS_VALID } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
@@ -20,6 +20,8 @@ const HUB_SERVICES = focusValid ? SERVICES.filter((s) => focusValid.has(s)) : SE
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
+  const scoped = applySiteFilter(db.clinics, cfg);
   const updated = new Date(db.generated_at);
 
   const districts = Object.keys(db.district_counts);
@@ -55,8 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if ((count as number) < 5) continue;
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
-    for (const s of SERVICES) {
-      const comboCount = db.clinics.filter(
+    for (const s of HUB_SERVICES) {
+      const comboCount = scoped.filter(
         (c) =>
           (c.district || "").toLowerCase().replace(/\s+/g, "-") === slug &&
           (c.categories || []).includes(s),
@@ -71,12 +73,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const slug = cityLabel.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/doctors/c/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }
-  for (const s of SERVICES) {
+  for (const s of HUB_SERVICES) {
     items.push({ url: `${SITE}/doctors/s/${s}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }
   for (const d of allDoctors) {
     items.push({
-      url: `${SITE}/doctor/${d.composite_slug}`,
+      // encodeURI — 태국어 doctor slug가 그대로 <loc>에 실리면 사이트맵 XML/URL 스펙 위반
+      url: encodeURI(`${SITE}/doctor/${d.composite_slug}`),
       lastModified: updated,
       changeFrequency: "weekly",
       priority: d.mentions >= 5 ? 0.75 : 0.55,
@@ -112,8 +115,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   void districts; // reserved for future district-only sitemap
 
   // Compare pages — top clinics per service, paired (1vs2, 2vs3, 3vs4) → 3 pairs × N services = ~24 compare URLs
-  for (const s of SERVICES) {
-    const pool = db.clinics
+  // (scoped 사용 — isClinicLike 필터 + 현재 사이트 소관 클리닉만, 레스토랑 등 노이즈 및 타 도메인 URL 방지)
+  for (const s of HUB_SERVICES) {
+    const pool = scoped
       .filter((c) => (c.categories ?? []).includes(s))
       .sort((a, b) => b.trust_score - a.trust_score)
       .slice(0, 5);
