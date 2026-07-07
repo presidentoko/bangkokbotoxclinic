@@ -23,9 +23,20 @@ import { StickyClinicBar } from "@/components/StickyClinicBar";
 import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
-import { getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+
+// 클리닉이 현재 사이트 소관이 아닐 때 진짜 소유 도메인 — 크롤러가 두 도메인에서
+// 같은 클리닉 페이지를 동시 색인하는 걸 막기 위한 절대 캐노니컬 타겟.
+// (현재 실제 배포된 도메인은 dental·botox 두 곳; hair_transplant은 별도 앱/레포.)
+const AESTHETIC_CATS = new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]);
+function resolveOwnerUrl(categories: string[]): string | null {
+  if (categories.includes("dental")) return "https://www.bangkokbestclinic.com";
+  if (categories.includes("hair_transplant")) return "https://thaifacialclinic.com";
+  if (categories.some((cat) => AESTHETIC_CATS.has(cat))) return "https://www.bangkokbotoxclinic.com";
+  return null;
+}
 
 // Below-fold components — lazy loaded into separate chunks for faster initial bundle
 const TrustDonut = dynamic(
@@ -74,17 +85,28 @@ export async function generateMetadata(
   const cats = c.categories.map((x) => CATEGORY_LABELS[x] ?? x).join(", ");
   const title = `${c.name} — Reviews & Trust Score`;
   const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} (${c.total_reviews} reviews). Trust Score ${c.trust_score}. ${cats || "Aesthetic clinic"}.`;
+
+  // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
+  // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.
+  const cfg = getSiteConfig();
+  const inSite = applySiteFilter([c], cfg).length > 0;
+  const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
+  const canonical = ownerUrl ? `${ownerUrl}/clinic/${c.id}` : `/clinic/${c.id}`;
+
   return {
     title,
     description,
+    ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
-      canonical: `/clinic/${c.id}`,
-      // hreflang — Google에게 같은 클리닉의 TH/EN 양국어 변형 알림
-      languages: {
-        "en-US": `/clinic/${c.id}`,
-        "th-TH": `/th/clinic/${c.id}`,
-        "x-default": `/clinic/${c.id}`,
-      },
+      canonical,
+      // hreflang — Google에게 같은 클리닉의 TH/EN 양국어 변형 알림 (소관 클리닉만)
+      ...(inSite && {
+        languages: {
+          "en-US": `/clinic/${c.id}`,
+          "th-TH": `/th/clinic/${c.id}`,
+          "x-default": `/clinic/${c.id}`,
+        },
+      }),
     },
     openGraph: {
       title,
@@ -115,6 +137,11 @@ export default async function ClinicPage(
   const c = getClinicById(db.clinics, id);
   if (!c) notFound();
 
+  // 추천 후보 풀은 항상 현재 사이트 소관 클리닉으로 한정 — 다른 도메인 클리닉을
+  // similar/nearby로 내부링크해서 크롤러가 발견하는 걸 방지 (교차 도메인 중복 콘텐츠).
+  const cfg = getSiteConfig();
+  const scopedClinics = applySiteFilter(db.clinics, cfg);
+
   const tier = await sponsoredTier(c.id);
   const trend = c.rating_trend?.trend ?? "insufficient_data";
   const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 4);
@@ -137,8 +164,10 @@ export default async function ClinicPage(
   const sortedTrust = sameCategory
     .map((x) => x.trust_score)
     .sort((a, b) => b - a);
-  const idx = sortedTrust.indexOf(c.trust_score);
-  const percentile = sortedTrust.length > 0 ? Math.round((idx / sortedTrust.length) * 100) : 100;
+  // indexOf는 동점 시 항상 첫 인덱스(0)를 반환해 동점자 전원이 "Top 1%"가 되는 버그가 있었음 —
+  // 자신보다 엄격히 높은 개수 기준으로 계산해야 동점 그룹이 같은(정확한) percentile을 받음.
+  const rankAbove = sortedTrust.filter((v) => v > c.trust_score).length;
+  const percentile = sortedTrust.length > 0 ? Math.round((rankAbove / sortedTrust.length) * 100) : 100;
   const rankingLabel = c.categories.length > 0
     ? CATEGORY_LABELS[c.categories[0]] ?? "Bangkok"
     : "Bangkok";
@@ -157,7 +186,7 @@ export default async function ClinicPage(
   ];
 
   // Similar clinics (sidebar — loose match: district OR category)
-  const similar = db.clinics
+  const similar = scopedClinics
     .filter((other) =>
       other.id !== c.id &&
       (other.district === c.district || c.categories.some((cat) => other.categories.includes(cat)))
@@ -168,7 +197,7 @@ export default async function ClinicPage(
   // Nearby clinics (main column — strict: same district AND same primary category, fallback to loose)
   const primaryCat = c.categories[0];
   const strictNearby = primaryCat && c.district
-    ? db.clinics
+    ? scopedClinics
         .filter((other) =>
           other.id !== c.id &&
           other.district === c.district &&
@@ -179,7 +208,7 @@ export default async function ClinicPage(
     : [];
   const nearbyClinics = strictNearby.length >= 3
     ? strictNearby
-    : db.clinics
+    : scopedClinics
         .filter((other) =>
           other.id !== c.id &&
           (other.district === c.district || c.categories.some((cat) => other.categories.includes(cat)))
@@ -191,7 +220,7 @@ export default async function ClinicPage(
   const wikiSummary = await loadWikiSummary(c.id);
 
   // 크로스사이트 컨텍스트 CTA: 현재 사이트 포커스와 다른 카테고리가 있을 때 표시
-  const siteFocus = getSiteConfig().focus;
+  const siteFocus = cfg.focus;
   const CROSS_SITE_MAP: Partial<Record<string, { url: string; emoji: string; label: string; cta: string }>> = {
     dental: { url: "https://www.bangkokbestclinic.com/", emoji: "🦷", label: "Bangkok Best Clinic", cta: "Top dental implants & veneers →" },
     hair_transplant: { url: "https://thaifacialclinic.com/", emoji: "💇", label: "Thai Facial Clinic", cta: "Hair transplant specialists →" },
@@ -216,7 +245,7 @@ export default async function ClinicPage(
     : [];
   // "Compare vs #1" — 같은 primary 카테고리 최상위 클리닉 (자신이 #1이면 #2)
   const comparePeer = primaryCat
-    ? db.clinics
+    ? scopedClinics
         .filter((other) => other.id !== c.id && other.categories.includes(primaryCat))
         .sort((a, b) => b.trust_score - a.trust_score)[0]
     : null;

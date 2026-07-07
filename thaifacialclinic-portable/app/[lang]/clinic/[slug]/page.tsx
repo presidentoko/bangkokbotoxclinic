@@ -9,19 +9,16 @@ import AeoSchema from "@/components/AeoSchema";
 import TrustScoreRing from "@/components/TrustScoreRing";
 import SourceBadges from "@/components/SourceBadges";
 import Header from "@/components/Header";
-import Sparkline from "@/components/Sparkline";
 import MiniDonut from "@/components/MiniDonut";
 import ClinicBookingForm from "@/components/ClinicBookingForm";
 import AfterSubmitFlow from "@/components/AfterSubmitFlow";
 import PhotoLightbox from "@/components/PhotoLightbox";
 import { showAffiliateLink, isPaidPartner } from "@/lib/partnerCheck";
-import UrgencyBar from "@/components/UrgencyBar";
 import WishlistButton from "@/components/WishlistButton";
 import PaymentPlansBadge from "@/components/PaymentPlansBadge";
 import VirtualConsultBadge from "@/components/VirtualConsultBadge";
 import FreshScoreBadge from "@/components/FreshScoreBadge";
 import TrustScoreExplainer from "@/components/TrustScoreExplainer";
-import LiveAvailabilityCalendar from "@/components/LiveAvailabilityCalendar";
 import FullCostBreakdown from "@/components/FullCostBreakdown";
 import IntlPatientServices from "@/components/IntlPatientServices";
 import TestimonialSubmitForm from "@/components/TestimonialSubmitForm";
@@ -63,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const title = `${c.name} — Trust Score ${c.trust_score}/100`;
   const description = c.top_review_text?.slice(0, 156) ||
     `${c.name} in ${c.city}. ${c.reviews_scraped_count} reviews · ${c.photos_count} photos · ${c.videos_count} YouTube clips.`;
-  const og = c.top_photo_url || `${SITE.origin}/og-default.png`;
+  const og = c.top_photo_url || `${SITE.origin}/opengraph-image`;
   return {
     title, description,
     alternates: {
@@ -77,24 +74,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   };
 }
 
-// Mock 12-month review trend (random walk seeded by trust_score)
-function trendFor(c: { trust_score: number; reviews_scraped_count: number }) {
-  const base = Math.max(2, Math.round(c.reviews_scraped_count / 6));
-  const seed = c.trust_score;
-  const out: number[] = [];
-  for (let i = 0; i < 12; i++) {
-    const v = base + Math.round(Math.sin(i + seed / 17) * 4) + Math.round((i * seed) % 5);
-    out.push(Math.max(0, v));
-  }
-  return out;
-}
-
 export default async function ClinicPage({ params }: { params: Promise<{ lang: Lang; slug: string }> }) {
   const { lang, slug } = await params;
   const c = getClinicBySlug(slug);
   if (!c) notFound();
   const bundle = loadClinics();
-  const wiki = loadWikiSummary(c.id);
+  const wiki = loadWikiSummary(c.id, c.name);
 
   // Nearby clinics — same city, top trust_score, excluding self
   const nearbyClinics = bundle.clinics
@@ -102,7 +87,6 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 6);
 
-  const trend = trendFor(c);
   const relatedGuides = guidesForProcedures(c.procedures);
   const sourcePie = [
     { value: c.source_badges.google_reviews, color: "#3b82f6", label: "Google" },
@@ -122,8 +106,9 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
       <div className="mx-auto max-w-5xl px-4 pb-20">
         <Header lang={lang} />
 
-        {/* Sticky booking CTA — appears on scroll for fast conversion */}
-        <a href="#booking" className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 sm:bottom-6">
+        {/* Sticky booking CTA — desktop only; mobile uses the richer StickyMobileCTA below
+            (both showing at once on mobile stacked/overlapped awkwardly). */}
+        <a href="#booking" className="hidden sm:inline-block fixed bottom-6 left-1/2 z-40 -translate-x-1/2">
           <span className="inline-flex items-center gap-2 rounded-full bg-navy-900 px-5 py-3 text-sm font-bold text-white shadow-premium-lg ring-2 ring-gold-400/30 transition hover:bg-navy-800">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
             Book consultation
@@ -236,20 +221,9 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
             </div>
           </div>
 
-          {/* Analytics row */}
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <div className="card p-5">
-              <div className="eyebrow">Review trend</div>
-              <div className="mt-3 flex items-end justify-between">
-                <Sparkline data={trend} width={180} height={56} stroke="#199955" />
-                <div className="text-right">
-                  <div className="font-display text-3xl font-bold tabular-nums text-mint-700">
-                    {trend[trend.length - 1] - trend[0] > 0 ? "+" : ""}{trend[trend.length - 1] - trend[0]}
-                  </div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider muted">12-month</div>
-                </div>
-              </div>
-            </div>
+          {/* Analytics row — "Review trend" sparkline removed: it was a fabricated
+              12-month random walk, not real data, which is a trust risk on a YMYL site. */}
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             <div className="card p-5">
               <div className="eyebrow">Source mix</div>
               <div className="mt-3 flex items-center justify-center">
@@ -354,11 +328,6 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
             </div>
           )}
 
-          {/* Urgency + WishlistButton */}
-          <div className="mt-8">
-            <UrgencyBar clinicId={c.id} trustScore={c.trust_score} totalReviews={c.review_count ?? 0} />
-          </div>
-
           {/* Trust badges row */}
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <VirtualConsultBadge clinicName={c.name} />
@@ -371,11 +340,6 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
           {/* Clinic phone + 24/7 contact */}
           <div className="mt-10">
             <ClinicPhoneWidget clinic={c} />
-          </div>
-
-          {/* Live availability */}
-          <div className="mt-10">
-            <LiveAvailabilityCalendar clinicId={c.id} />
           </div>
 
           {/* Collapsible sections — mobile-friendly. Default-open: pricing + timeline */}

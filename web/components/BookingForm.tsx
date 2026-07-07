@@ -72,7 +72,8 @@ export function BookingForm({
 
   const today = new Date();
   today.setDate(today.getDate() + 1); // 내일부터 가능
-  const minDate = today.toISOString().slice(0, 10);
+  // toISOString()은 UTC 기준이라 태국 새벽(UTC+7)엔 하루 밀림 — 로컬 날짜로 조립.
+  const minDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
   async function submit() {
     setStatus("submitting");
@@ -209,7 +210,7 @@ export function BookingForm({
                 value={dateStr}
                 min={minDate}
                 onChange={(e) => setDateStr(e.target.value)}
-                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
               />
             </div>
             <div>
@@ -259,7 +260,7 @@ export function BookingForm({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Full name"
-                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
               />
             </div>
             <div>
@@ -269,7 +270,7 @@ export function BookingForm({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@email.com"
-                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
               />
             </div>
             <div>
@@ -278,7 +279,7 @@ export function BookingForm({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+66 ..."
-                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
               />
             </div>
             <div>
@@ -288,7 +289,7 @@ export function BookingForm({
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}
                 placeholder="Any specific concerns, areas, or questions"
-                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black resize-none"
+                className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black resize-none"
               />
             </div>
             <div className="flex gap-2 pt-2">

@@ -10,7 +10,7 @@ import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { GUIDES } from "@/lib/guides";
-import { getSiteConfig, FOCUS_VALID } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -26,9 +26,11 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { service } = await params;
   const label = CATEGORY_LABELS[service] ?? service;
+  const cfg = getSiteConfig();
   const db = await loadMasterDb();
-  const count = db.clinics.filter((c) => c.categories.includes(service)).length;
-  const totalReviews = db.clinics
+  const scoped = applySiteFilter(db.clinics, cfg);
+  const count = scoped.filter((c) => c.categories.includes(service)).length;
+  const totalReviews = scoped
     .filter((c) => c.categories.includes(service))
     .reduce((s, c) => s + c.total_reviews, 0);
   // thin content — fewer than 5 clinics → noindex to avoid thin SEO pages
@@ -73,7 +75,7 @@ export default async function ServicePage(
   if (focusValid && !focusValid.has(service)) notFound();
 
   const db = await loadMasterDb();
-  const filtered = filterByCategory(db.clinics, service)
+  const filtered = filterByCategory(applySiteFilter(db.clinics, cfg), service)
     .sort((a, b) => b.trust_score - a.trust_score);
   const label = CATEGORY_LABELS[service] ?? service;
 

@@ -238,7 +238,7 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
                       )}
                       {/* Interstitial banner — every 2 chunks (12 clinics) */}
                       {idx > 0 && idx % 2 === 1 && idx < chunks.length - 1 && (
-                        <Interstitial idx={idx} totalShown={(idx + 1) * 6} totalAll={rest.length} />
+                        <Interstitial idx={idx} totalShown={(idx + 1) * 6} totalAll={rest.length} lang={lang} />
                       )}
                     </div>
                   ));
@@ -253,7 +253,7 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
 }
 
 /** Visual break between clinic chunks — cycles 4 variants for variety. */
-function Interstitial({ idx, totalShown, totalAll }: { idx: number; totalShown: number; totalAll: number }) {
+function Interstitial({ idx, totalShown, totalAll, lang }: { idx: number; totalShown: number; totalAll: number; lang: Lang }) {
   const variant = idx % 4;
   if (variant === 1) {
     return (
@@ -276,10 +276,10 @@ function Interstitial({ idx, totalShown, totalAll }: { idx: number; totalShown: 
           <div className="font-display text-base font-bold tracking-tighter-display">
             {totalShown} of {totalAll} clinics shown so far
           </div>
-          <p className="text-xs muted mt-0.5">Keep scrolling, or jump to <a href="/insights" className="underline font-bold">insights</a> for market data.</p>
+          <p className="text-xs muted mt-0.5">Keep scrolling, or jump to <a href={`/${lang}/guide/hair-transplant-cost-bangkok`} className="underline font-bold">cost guide</a> for market data.</p>
         </div>
-        <a href="/insights" className="rounded-lg bg-amber-600 text-white text-xs font-black px-4 py-2 hover:bg-amber-700 whitespace-nowrap">
-          See insights →
+        <a href={`/${lang}/guide/hair-transplant-cost-bangkok`} className="rounded-lg bg-amber-600 text-white text-xs font-black px-4 py-2 hover:bg-amber-700 whitespace-nowrap">
+          See cost guide →
         </a>
       </div>
     );
