@@ -100,11 +100,31 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
 
   const partner = isPaidPartner(c);
 
+  const citySlug = c.city.toLowerCase().replace(/\s+/g, "-");
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.origin}/${lang}/` },
+      { "@type": "ListItem", position: 2, name: c.city, item: `${SITE.origin}/${lang}/city/${citySlug}/` },
+      { "@type": "ListItem", position: 3, name: c.name, item: `${SITE.origin}/${lang}/clinic/${c.slug}/` },
+    ],
+  };
+
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: noFouc }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="mx-auto max-w-5xl px-4 pb-20">
         <Header lang={lang} />
+
+        <nav className="mb-3 text-xs muted">
+          <Link href={`/${lang}/`} className="hover:text-[rgb(var(--fg))]">Home</Link>
+          <span className="mx-2">›</span>
+          <Link href={`/${lang}/city/${citySlug}/`} className="hover:text-[rgb(var(--fg))]">{c.city}</Link>
+          <span className="mx-2">›</span>
+          <span>{c.name}</span>
+        </nav>
 
         {/* Sticky booking CTA — desktop only; mobile uses the richer StickyMobileCTA below
             (both showing at once on mobile stacked/overlapped awkwardly). */}

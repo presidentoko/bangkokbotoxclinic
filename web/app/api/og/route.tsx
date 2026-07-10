@@ -138,6 +138,9 @@ export async function GET(req: NextRequest) {
   const title = searchParams.get("title") ?? "Bangkok Clinics — Verified by Trust Score";
   const sub = searchParams.get("sub") ?? "Independent review analysis from real Google data";
   const count = searchParams.get("count");
+  // 요청이 실제로 들어온 host 사용 — 하드코딩 시 덴탈/헤어 사이트의 OG/공유
+  // 카드에도 "bangkokbotoxclinic.com"이 찍혀서 나감 (2026-07-10 감사).
+  const host = req.headers.get("host") ?? "bangkokbotoxclinic.com";
 
   return new ImageResponse(
     (
@@ -175,7 +178,7 @@ export async function GET(req: NextRequest) {
         </div>
         <div style={{ display: "flex", fontSize: 22, color: MUTED, textAlign: "center" }}>{sub}</div>
         <div style={{ display: "flex", marginTop: 20, fontSize: 14, color: ACCENT, fontWeight: 600 }}>
-          bangkokbotoxclinic.com
+          {host}
         </div>
       </div>
     ),

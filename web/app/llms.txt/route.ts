@@ -3,10 +3,10 @@
 
 import { loadMasterDb } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
-import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 import { CATEGORY_FAQS } from "@/lib/faq";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export async function GET() {
   const cfg = getSiteConfig();

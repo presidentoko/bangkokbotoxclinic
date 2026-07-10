@@ -1,13 +1,13 @@
 import { ImageResponse } from "next/og";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 import { buildReportData } from "@/lib/reportData";
 
 export const alt = "Free Clinic Report";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export default async function ReportOG(
   { params }: { params: Promise<{ clinicId: string }> },

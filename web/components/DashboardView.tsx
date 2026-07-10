@@ -25,10 +25,11 @@ import { OnboardingTour } from "@/components/dashboard/OnboardingTour";
 import { NotificationCenter } from "@/components/dashboard/NotificationCenter";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { OnboardingProgressBar } from "@/components/dashboard/OnboardingProgressBar";
+import { getSiteUrl } from "@/lib/site";
 
-// Derive site domain from NEXT_PUBLIC_SITE_URL (inlined at build time). The default
-// matches the botox site so the dental deploy must set NEXT_PUBLIC_SITE_URL.
-const SITE_DOMAIN = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com")
+// SITE_FOCUS 기반 폴백(lib/site.ts getSiteUrl) — NEXT_PUBLIC_SITE_URL 미설정 시
+// 무조건 botox로 떨어지던 것 방지.
+const SITE_DOMAIN = getSiteUrl()
   .replace(/^https?:\/\/(www\.)?/, "")
   .replace(/\/$/, "");
 

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { SITE as SITE_CFG } from "@/lib/i18n";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaifacialclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || SITE_CFG.origin;
 
 export default function robots(): MetadataRoute.Robots {
   return {

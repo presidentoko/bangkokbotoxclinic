@@ -208,7 +208,7 @@ const clinics = rows
       avg_scraped_rating: num(r.avg_scraped_rating) || null,
       top_review_text: (r.top_review_text || "").slice(0, 600),
       top_review_source: r.top_review_source || "",
-      reviews_sample: reviews.slice(0, 5).map((rv) => ({
+      reviews_sample: reviews.slice(0, 6).map((rv) => ({
         source: rv.source || "google",
         reviewer: (rv.reviewer || "").slice(0, 60),
         rating: num(rv.rating, null),

@@ -53,7 +53,9 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "120+ botox clinics ranked by Trust Score. Allergan, Dysport, Botulax, Xeomin authenticity tracked. Sukhumvit · Siam · Ari specialists from ฿80/unit.",
     themeAccent: "#7c3aed",
     mentionThreshold: 3,
-    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
+    // 치앙마이/코사무이/후아힌 추가 (2026-07-10) — DB의 21%가 이 4개 도시
+    // allowedCities 밖이라 어느 사이트에도 안 나오고 있었음.
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Chiang Mai", "Koh Samui", "Hua Hin"],
   },
   filler: {
     focus: "filler",
@@ -66,7 +68,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "HA, Juvederm, Restylane and Belotero specialists ranked by review-verified Trust Score.",
     themeAccent: "#ec4899",
     mentionThreshold: 3,
-    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Chiang Mai", "Koh Samui", "Hua Hin"],
   },
   hifu: {
     focus: "hifu",
@@ -79,7 +81,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "Verified Ultherapy, Thermage, Ultraformer providers ranked by Trust Score.",
     themeAccent: "#06b6d4",
     mentionThreshold: 2,
-    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Chiang Mai", "Koh Samui", "Hua Hin"],
   },
   facial: {
     focus: "facial",
@@ -92,7 +94,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "HydraFacial, LED, oxygen and chemical peel specialists ranked by Trust Score.",
     themeAccent: "#0ea5e9",
     mentionThreshold: 3,
-    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Chiang Mai", "Koh Samui", "Hua Hin"],
   },
   laser: {
     focus: "laser",
@@ -105,7 +107,7 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "Pico, CO2 fractional, IPL and hair-removal laser experts ranked by Trust Score.",
     themeAccent: "#f59e0b",
     mentionThreshold: 3,
-    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani"],
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Chiang Mai", "Koh Samui", "Hua Hin"],
   },
   dental: {
     focus: "dental",
@@ -118,7 +120,8 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     heroSub: "200+ dental clinics in Bangkok & Pattaya ranked by Trust Score. Implants · Veneers · Invisalign · All-on-4. Save up to 70% vs Western prices.",
     themeAccent: "#10b981",
     mentionThreshold: 2,
-    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Pattaya", "Chonburi"],
+    // 치앙마이/코사무이/후아힌 추가 (2026-07-10) — botox와 동일 이유
+    allowedCities: ["Bangkok", "Nonthaburi", "Samut Prakan", "Pathum Thani", "Pattaya", "Chonburi", "Chiang Mai", "Koh Samui", "Hua Hin"],
   },
   hair: {
     focus: "hair",
@@ -137,6 +140,32 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
 export function getSiteConfig(): SiteConfig {
   const focus = (process.env.NEXT_PUBLIC_SITE_FOCUS || "all") as SiteFocus;
   return CONFIGS[focus] ?? CONFIGS.all;
+}
+
+// 단일 소스 사이트 URL. 예전엔 ~20개 파일이 각자
+// `process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com"` 를
+// 하드코딩해서, NEXT_PUBLIC_SITE_URL 이 비었을 때 덴탈 등 다른 프로젝트가
+// 전부 botox canonical/사이트맵/OG 를 뱉는 사고 위험이 있었음 (2026-07-10 감사).
+// 폴백을 SITE_FOCUS 기반으로 바꿔 최소한 "엉뚱한 사이트로 폴백"은 안 나게 함.
+// 클리닉/의사가 현재 사이트 소관이 아닐 때 진짜 소유 도메인 — 크롤러가 두
+// 도메인에서 같은 페이지를 동시 색인하는 걸 막기 위한 절대 캐노니컬 타겟.
+// clinic/[id] 와 doctor/[slug] 둘 다 이 함수로 통일 (2026-07-10: doctor 라우트만
+// 이 가드가 없어서 보톡스·덴탈 도메인에 같은 의사 페이지 2,000+개가 각자
+// self-canonical 로 중복 색인되던 버그 발견).
+const AESTHETIC_CATS = new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]);
+export function resolveOwnerUrl(categories: string[]): string | null {
+  if (categories.includes("dental")) return `https://www.${CONFIGS.dental.domain.replace(/^www\./, "")}`;
+  if (categories.includes("hair_transplant")) return `https://www.${CONFIGS.hair.domain.replace(/^www\./, "")}`;
+  if (categories.some((cat) => AESTHETIC_CATS.has(cat))) return `https://www.${CONFIGS.botox.domain.replace(/^www\./, "")}`;
+  return null;
+}
+
+export function getSiteUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (envUrl) return envUrl.replace(/\/$/, "");
+  const cfg = getSiteConfig();
+  const host = cfg.domain.replace(/^www\./, "");
+  return `https://www.${host}`;
 }
 
 // focus별 허용 서비스 — 다른 사이트 서비스 페이지 노출 방지.

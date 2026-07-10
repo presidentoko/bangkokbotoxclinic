@@ -8,8 +8,9 @@
 import type { Metadata } from "next";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
+import { getSiteUrl } from "@/lib/site";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 // 동일 클리닉 set 으로 pre-build (top 100 ISR 정책 share)
 // route segment config 는 직접 선언 — Turbopack 이 `export { ... } from` 재export 를

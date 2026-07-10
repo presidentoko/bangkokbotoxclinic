@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { loadMasterDb } from "@/lib/data";
-import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 const PRIORITY_COUNT = 200;
 
 // Top-200 priority clinics — submitted first to GSC for fast crawl-budget seeding.
@@ -14,7 +14,10 @@ export async function GET() {
   const cfg = getSiteConfig();
   const updated = db.generated_at;
 
-  const clinics = applySiteFilter(db.clinics, cfg).filter((c) => c.trust_score >= 40);
+  // trust_score 게이트 제거 — 롱테일 클리닉이 사이트맵 자체에서 빠져 색인이
+  // 안 되는 문제였음 (2026-07-10 감사). 우선순위는 slice(0,200)/<priority> 값으로
+  // 이미 티어링되므로 게이트는 그냥 손실이었음.
+  const clinics = applySiteFilter(db.clinics, cfg);
   clinics.sort(
     (a, b) => b.trust_score - a.trust_score || b.scraped_review_count - a.scraped_review_count,
   );

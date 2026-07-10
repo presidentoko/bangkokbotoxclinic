@@ -2,13 +2,13 @@ export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 import { buildReportData } from "@/lib/reportData";
 import { isAdminAuthedFromCookies } from "@/lib/adminAuth";
 import AdminLogin from "@/components/AdminLogin";
 import { CopyButton } from "./CopyButton";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export default async function OutreachPage(
   { params }: { params: Promise<{ clinicId: string }> },

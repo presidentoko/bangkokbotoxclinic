@@ -18,16 +18,17 @@ export default function Header({ lang }: { lang: Lang }) {
           </span>
           <span className="flex flex-col leading-none min-w-0">
             <span className="font-display text-sm sm:text-base font-bold tracking-tighter-display text-[rgb(var(--fg))] truncate">
-              Hair <span className="text-gold-600 dark:text-gold-400">by</span> Thai Facial Clinic
+              Thailand Hair Transplant <span className="text-gold-600 dark:text-gold-400">Guide</span>
             </span>
             <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] muted hidden sm:block">Hair-transplant specialist · TFC group</span>
           </span>
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm font-medium md:flex">
+          <Link href={`/${lang}/city/bangkok/`} className="muted hover:text-[rgb(var(--fg))] transition">Bangkok</Link>
+          <Link href={`/${lang}/city/chiang-mai/`} className="muted hover:text-[rgb(var(--fg))] transition">Chiang Mai</Link>
           <Link href={`/${lang}/c/fue/`} className="muted hover:text-[rgb(var(--fg))] transition">FUE</Link>
           <Link href={`/${lang}/c/dhi/`} className="muted hover:text-[rgb(var(--fg))] transition">DHI</Link>
-          <Link href={`/${lang}/c/smp/`} className="muted hover:text-[rgb(var(--fg))] transition">SMP</Link>
           <Link href={`/${lang}/guide/bangkok-hair-clinic-guide/`} className="muted hover:text-[rgb(var(--fg))] transition">Guides</Link>
           <Link href={`/${lang}/about/`} className="muted hover:text-[rgb(var(--fg))] transition">About</Link>
           <Link href={`/${lang}/contact/`} className="muted hover:text-[rgb(var(--fg))] transition">Contact</Link>
@@ -67,6 +68,8 @@ export default function Header({ lang }: { lang: Lang }) {
         <div className="md:hidden border-t" style={{ borderColor: "rgb(var(--border))" }}>
           <nav className="mx-auto max-w-6xl flex flex-col gap-1 py-3 text-sm font-medium">
             {[
+              { href: `/${lang}/city/bangkok/`, label: "Bangkok" },
+              { href: `/${lang}/city/chiang-mai/`, label: "Chiang Mai" },
               { href: `/${lang}/c/fue/`, label: "FUE" },
               { href: `/${lang}/c/dhi/`, label: "DHI" },
               { href: `/${lang}/c/smp/`, label: "SMP" },

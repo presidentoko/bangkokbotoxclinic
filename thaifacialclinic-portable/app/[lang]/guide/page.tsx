@@ -6,6 +6,7 @@ import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return SUPPORTED_LANGS.map((lang) => ({ lang }));
@@ -14,10 +15,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: Lang }> }): Promise<Metadata> {
   const { lang } = await params;
   const url = `${SITE.origin}/${lang}/guide/`;
+  // 콘텐츠가 영어 전용(T[] 미사용) — 비영어 로케일을 별도 색인시키면 5중 얇은 복제.
+  // en으로 canonical 고정, non-en은 페이지는 살아있되 색인은 en 하나로 수렴.
+  const canonicalUrl = lang === "en" ? url : `${SITE.origin}/en/guide/`;
   return {
     title: "Hair Transplant Guides — Thailand",
     description: "Cost breakdowns, technique comparisons (FUE vs DHI), and real patient review roundups for hair transplant clinics in Thailand.",
-    alternates: { canonical: url },
+    alternates: { canonical: canonicalUrl },
     openGraph: { title: "Hair Transplant Guides — Thai Facial Clinic", url },
   };
 }

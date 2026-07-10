@@ -23,6 +23,10 @@ import CompareBar from "@/components/CompareBar";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const dynamic = "force-static";
+// lang 이 SUPPORTED_LANGS 밖이면(예: 오타 URL이 [lang] 세그먼트에 그대로 매칭)
+// on-demand 렌더를 시도하다 T[lang]/SITE.tagline[lang] undefined 접근으로 500 났음
+// (2026-07-10 라이브 감사). false 로 고정해 즉시 notFound() → 정상 404.
+export const dynamicParams = false;
 export function generateStaticParams() {
   return SUPPORTED_LANGS.map((lang) => ({ lang }));
 }
@@ -33,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const { total } = loadClinics();
   return {
     title: lang === "en"
-      ? "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026"
+      ? "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026"
       : `${SITE.name} — Verified Thai Hair Clinics`,
     description: lang === "en"
       ? `Compare Bangkok hair transplant clinics by Trust Score from ${total} verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis. Free consultation.`
@@ -44,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     },
     openGraph: {
       title: lang === "en"
-        ? "Bangkok Hair Transplant Clinics — FUE, DHI & Verified Reviews 2026"
+        ? "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026"
         : `${SITE.name} — Verified Thai Hair Clinics`,
       description: lang === "en"
         ? `Compare Bangkok hair transplant clinics by Trust Score from ${total} verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis.`
@@ -89,11 +93,12 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
       "Men's Clinic Thailand", "Hair Loss Treatment Bangkok",
       "Medical Tourism Thailand",
     ],
-    areaServed: [
-      { "@type": "City", name: "Bangkok" },
-      { "@type": "City", name: "Phuket" },
-      { "@type": "City", name: "Chiang Mai" },
-    ],
+    // 실제 보유 도시로 생성 — 하드코딩 시 데이터 없는 도시(Phuket)가 스키마에
+    // 남거나 신규 도시가 누락됨 (2026-07-10 라이브 감사)
+    areaServed: [...new Set(clinics.map((c) => c.city).filter(Boolean))].map((name) => ({
+      "@type": "City",
+      name,
+    })),
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE.origin}/${lang}/#directory?q={search_term_string}`,

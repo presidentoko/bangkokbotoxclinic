@@ -10,6 +10,7 @@ import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 type RedditThread = { id: string; title: string; subreddit: string; query: string; url: string; author: string; score: number; comments: number; excerpt: string };
 type PantipTopic = { id: string; title: string; url: string; author: string; comments: number; excerpt: string };
@@ -62,10 +63,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const { lang, topic } = await params;
   const g = findGuide(topic);
   if (!g) return {};
+  // 콘텐츠가 영어 전용 — 비영어 로케일 canonical을 en으로 수렴 (5중 얇은 복제 방지)
+  const canonicalLang = lang === "en" ? lang : "en";
   return {
     title: g.metaTitle ?? g.title,
     description: g.metaDescription ?? g.intro.slice(0, 160),
-    alternates: { canonical: `${SITE.origin}/${lang}/guide/${g.slug}/` },
+    alternates: { canonical: `${SITE.origin}/${canonicalLang}/guide/${g.slug}/` },
   };
 }
 

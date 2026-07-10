@@ -1,8 +1,8 @@
 import { loadMasterDb } from "@/lib/data";
 import { CATEGORY_LABELS, TOPIC_LABELS } from "@/lib/types";
-import { applySiteFilter, getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export async function GET() {
   const db = await loadMasterDb();

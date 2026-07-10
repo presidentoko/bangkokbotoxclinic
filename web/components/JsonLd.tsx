@@ -2,9 +2,9 @@
 // 각 페이지 타입별로 사용 — Google 리치결과 + AEO 신호.
 
 import type { Clinic } from "@/lib/types";
-import { getSiteConfig } from "@/lib/site";
+import { getSiteConfig, getSiteUrl } from "@/lib/site";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 function tag(data: object) {
   return (
@@ -93,10 +93,11 @@ export function ClinicJsonLd({ c, photos, priceRange }: {
   photos?: { large: string }[];
   priceRange?: { min: number; max: number };
 }) {
-  // MedicalBusiness 가 적합 — 미용/시술 클리닉이면 BeautySalon 도 가능하지만 의료 레지스트리상 MedicalBusiness 가 안전.
+  // MedicalBusiness 가 기본 — 치과는 Dentist 타입이 리치결과 적중률 더 높음.
+  const schemaType = c.categories?.includes("dental") ? "Dentist" : "MedicalBusiness";
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
+    "@type": schemaType,
     name: c.name,
     url: `${SITE}/clinic/${c.id}`,
     address: {
@@ -106,14 +107,18 @@ export function ClinicJsonLd({ c, photos, priceRange }: {
       addressRegion: "Bangkok",
       addressCountry: "TH",
     },
-    aggregateRating: {
+  };
+  // 리뷰 0건인데 aggregateRating을 발행하면 GSC에서 "필수 필드 누락" 에러 →
+  // 사이트 전체 리치결과 자격 상실 위험 (2026-07-10 감사). 실데이터 있을 때만.
+  if (c.rating && c.total_reviews) {
+    data.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: c.rating,
       reviewCount: c.total_reviews,
       bestRating: 5,
       worstRating: 1,
-    },
-  };
+    };
+  }
   if (c.lat && c.lng) {
     data.geo = { "@type": "GeoCoordinates", latitude: c.lat, longitude: c.lng };
   }
@@ -242,7 +247,7 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
   name: string;
   description: string;
   url: string;
-  items: Pick<Clinic, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label">[];
+  items: Pick<Clinic, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label" | "categories">[];
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
   // 평균 평점 가중평균 (review count 가중)
@@ -265,16 +270,19 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
         "@type": "ListItem",
         position: i + 1,
         item: {
-          "@type": "MedicalBusiness",
+          "@type": c.categories?.includes("dental") ? "Dentist" : "MedicalBusiness",
           "@id": `${SITE}/clinic/${c.id}`,
           name: c.name,
           url: `${SITE}/clinic/${c.id}`,
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: c.rating,
-            reviewCount: c.total_reviews,
-            bestRating: 5,
-          },
+          // 리뷰 0건이면 aggregateRating 생략 — ClinicJsonLd와 동일 가드
+          ...(c.rating && c.total_reviews && {
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: c.rating,
+              reviewCount: c.total_reviews,
+              bestRating: 5,
+            },
+          }),
           address: {
             "@type": "PostalAddress",
             addressLocality: c.district || c.city_label || "Bangkok",

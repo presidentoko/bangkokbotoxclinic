@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 import { loadClinics } from "@/lib/data";
-import { SUPPORTED_LANGS } from "@/lib/i18n";
+import { SUPPORTED_LANGS, SITE as SITE_CFG } from "@/lib/i18n";
 import { GUIDES } from "@/lib/guides";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaifacialclinic.com";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || SITE_CFG.origin;
 const PROCEDURES = ["fue", "dhi", "fut", "prp", "smp", "stem-cell", "eyebrow", "beard", "scalp-care"];
 
 // trailingSlash:true (next.config) 이므로 사이트맵 URL도 슬래시 포함 —
@@ -35,6 +35,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 사이트맵에 넣으면 인덱스 희석만 됨. 페이지 자체는 hreflang으로 계속 발견 가능.
   items.push({ url: u("/en/c"), lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
   items.push({ url: u("/en/guide"), lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
+  const citySlugs = [...new Set(clinics.map((c) => c.city).filter(Boolean))]
+    .map((c) => c.toLowerCase().replace(/\s+/g, "-"));
+  for (const slug of citySlugs) {
+    items.push({ url: u(`/en/city/${slug}`), lastModified: updated, changeFrequency: "weekly", priority: 0.88 });
+  }
   for (const p of PROCEDURES) {
     items.push({ url: u(`/en/c/${p}`), lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }

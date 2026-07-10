@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import ContactBlock from "@/components/ContactBlock";
 import EmergencyContactsBar from "@/components/EmergencyContactsBar";
 
+export const dynamicParams = false;
 export function generateStaticParams() {
   return SUPPORTED_LANGS.map((lang) => ({ lang }));
 }
@@ -15,7 +16,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   return {
     title: `Contact — ${SITE.name}`,
     description: `Reach ${SITE.name} via LINE, WhatsApp, or email. Bangkok-based. Replies within 1 hour during business hours.`,
-    alternates: { canonical: `${SITE.origin}/${lang}/contact` },
+    alternates: {
+      canonical: `${SITE.origin}/${lang}/contact`,
+      languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/contact`])),
+    },
   };
 }
 

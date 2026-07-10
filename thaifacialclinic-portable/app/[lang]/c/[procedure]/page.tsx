@@ -10,6 +10,7 @@ import { findGuide, PROC_TO_GUIDES } from "@/lib/guides";
 import { PROCEDURE_FAQS } from "@/lib/faq";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 const PROC_MAP: Record<string, { name: string; match: RegExp; priceHint: string }> = {
   "fue": { name: "FUE Hair Transplant", match: /FUE/i, priceHint: "from ฿65,000 (2,000 grafts)" },
@@ -34,14 +35,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const proc = PROC_MAP[procedure];
   if (!proc) return {};
   const url = `${SITE.origin}/${lang}/c/${procedure}/`;
+  const canonicalUrl = lang === "en" ? url : `${SITE.origin}/en/c/${procedure}/`;
   const { clinics: allClinics } = loadClinics();
   const count = allClinics.filter((c) =>
     c.procedures.some((p) => proc.match.test(p)) || proc.match.test(c.category) || proc.match.test(c.name)
   ).length;
   return {
-    title: `${proc.name} in Bangkok — ${count} Verified Clinics, ${proc.priceHint}`,
+    title: `${proc.name} in Thailand — ${count} Verified Clinics, ${proc.priceHint}`,
     description: `Compare ${count} verified ${proc.name} clinics in Bangkok & Thailand. ${proc.priceHint}. Trust Score ranked from real Google + Bookimed + Reddit + Naver reviews. Free consultation.`,
-    alternates: { canonical: url },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: `${proc.name} in Bangkok — ${count} Verified Clinics`,
       description: `${count} clinics · ${proc.priceHint} · Trust Score ranked from real patient reviews.`,

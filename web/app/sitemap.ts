@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES } from "@/lib/guides";
-import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 const SERVICES = ["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"];
 // /c/[service] 404s for services this domain's SITE_FOCUS doesn't serve
 // (see app/c/[service]/page.tsx's FOCUS_VALID check) — only the /c/{service}
@@ -26,7 +26,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const districts = Object.keys(db.district_counts);
   const cities = Object.keys(db.city_counts ?? {});
-  const allDoctors = getAllDoctors(db.clinics);
+  // scoped(현재 사이트 소관 클리닉)에서만 의사 추출 — 이전엔 db.clinics 전체를 써서
+  // botox/덴탈 사이트맵에 동일한 2,000+ 의사 URL이 중복 제출됨 (2026-07-10 감사).
+  const allDoctors = getAllDoctors(scoped);
 
   const items: MetadataRoute.Sitemap = [
     { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },

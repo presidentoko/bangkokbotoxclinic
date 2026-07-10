@@ -4,11 +4,12 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { LineButton } from "@/components/LineButton";
 import { BookingForm } from "@/components/BookingForm";
+import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
 import type { Metadata } from "next";
 
 // JSON-LD must use the deployed origin, not the botox-site default — otherwise the
 // dental deploy emits aesthetic-site URLs to Google.
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 // 비용 절감: top 30 doctor만 pre-build, 나머지 on-demand + 7일 캐시.
 export const revalidate = 604800;
@@ -16,7 +17,11 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  const docs = getAllDoctors(db.clinics);
+  const cfg = getSiteConfig();
+  // 이 사이트 소관 클리닉의 의사만 pre-build — 다른 버티컬(예: 덴탈 사이트에
+  // 보톡스 의사) 대량 pre-render 후 noindex 처리하는 낭비 방지 (clinic/[id]와
+  // 동일 이슈, 2026-07-10 감사).
+  const docs = getAllDoctors(db.clinics).filter((d) => applySiteFilter([d.clinic], cfg).length > 0);
   const ranked = [...docs].sort((a, b) =>
     (b.mentions || 0) - (a.mentions || 0)
   );
@@ -36,10 +41,19 @@ export async function generateMetadata(
   const langs = languageList(d.language_count);
   const title = `Dr. ${d.name} at ${c.name} — Reviews & Trust`;
   const description = `Dr. ${d.name}: ${d.mentions} patient mentions, ★${d.rating_avg.toFixed(1)} average. ${specialty || "Aesthetic medicine"} at ${c.name}${c.district ? ", " + c.district : ""}. Patients praise in ${langs}.`;
+
+  // clinic/[id] 와 동일 가드 — 이 사이트 소관이 아닌 의사(예: 덴탈 도메인에 뜬
+  // 보톡스 전용 의사)면 진짜 소유 도메인을 절대 캐노니컬로 지정 + noindex.
+  const cfg = getSiteConfig();
+  const inSite = applySiteFilter([c], cfg).length > 0;
+  const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
+  const canonical = ownerUrl ? `${ownerUrl}/doctor/${slug}` : `/doctor/${slug}`;
+
   return {
     title,
     description,
-    alternates: { canonical: `/doctor/${slug}` },
+    ...(!inSite && { robots: { index: false, follow: true } }),
+    alternates: { canonical },
     openGraph: { title, description, url: `/doctor/${slug}`, type: "profile" },
   };
 }

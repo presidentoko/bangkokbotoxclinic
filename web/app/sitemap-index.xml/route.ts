@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { getSiteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 // Sitemap index — robots.txt points here.
 // /sitemap.xml          → hubs only (static pages, guides, districts, doctors)

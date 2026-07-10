@@ -10,7 +10,7 @@ import { BookingForm } from "@/components/BookingForm";
 import { StatsBar } from "@/components/StatsBar";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { GUIDES } from "@/lib/guides";
-import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 const VALID = new Set(["botox", "filler", "hifu", "facial", "laser", "dental", "hair_transplant", "eye"]);
@@ -54,7 +54,7 @@ export async function generateMetadata(
       description: `Independent ranking — ${totalReviews.toLocaleString()} reviews analyzed.`,
       url: `/c/${service}`,
       images: [{
-        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com"}/api/og?title=${encodeURIComponent(`${count} Best ${label} Clinics in Bangkok`)}&sub=${encodeURIComponent(`${totalReviews.toLocaleString()} Google reviews analyzed · Trust Score ranking`)}&count=${count}`,
+        url: `${getSiteUrl()}/api/og?title=${encodeURIComponent(`${count} Best ${label} Clinics in Bangkok`)}&sub=${encodeURIComponent(`${totalReviews.toLocaleString()} Google reviews analyzed · Trust Score ranking`)}&count=${count}`,
         width: 1200,
         height: 630,
         alt: `${label} Clinics Bangkok`,

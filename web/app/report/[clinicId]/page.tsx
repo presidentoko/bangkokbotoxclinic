@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { getSiteConfig, applySiteFilter } from "@/lib/site";
+import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 import { buildReportData } from "@/lib/reportData";
 import type { Metadata } from "next";
 
 export const revalidate = 86400;
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export async function generateMetadata(
   { params }: { params: Promise<{ clinicId: string }> },

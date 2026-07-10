@@ -4,10 +4,12 @@ export const SUPPORTED_LANGS: Lang[] = ["en", "ko", "th", "zh", "ar"];
 export const DEFAULT_LANG: Lang = "en";
 
 export const SITE = {
-  origin: "https://thaifacialclinic.com",
-  name: "Hair by Thai Facial Clinic",
-  shortName: "Hair by TFC",
-  parentName: "Thai Facial Clinic",
+  // www 필수 — 호스트가 apex→www 리다이렉트라 non-www canonical/사이트맵은
+  // 전부 리다이렉트 URL이 되어 구글에 모순 신호를 보냄 (2026-07-10 라이브 감사)
+  origin: "https://www.thaifacialclinic.com",
+  name: "Thailand Hair Transplant Guide",
+  shortName: "TH Hair Guide",
+  parentName: "Thai Facial Clinic Group",
   parentSubtext: "Also covering botox · filler · HIFU at our group sites",
   tagline: {
     en: "Real reviews. Real photos. Real clinics. No paid viral.",

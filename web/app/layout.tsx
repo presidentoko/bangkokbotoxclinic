@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
-import { getSiteConfig } from "@/lib/site";
+import { getSiteConfig, getSiteUrl } from "@/lib/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToastProvider } from "@/components/Toast";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -17,7 +17,7 @@ import {
   AccessibilityToolbar, ScrollToTopButton, ReadingProgressBar, NavSpacer,
 } from "@/components/LazyWidgets";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 const cfg = getSiteConfig();
 
 export const metadata: Metadata = {

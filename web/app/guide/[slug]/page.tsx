@@ -4,10 +4,10 @@ import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
-import { applySiteFilter, getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
 import type { Metadata } from "next";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export async function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));

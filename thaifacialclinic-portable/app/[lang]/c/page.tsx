@@ -6,6 +6,7 @@ import type { Lang } from "@/lib/types";
 import Header from "@/components/Header";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 const PROC_MAP: Record<string, { name: string; match: RegExp; priceHint: string }> = {
   "fue": { name: "FUE Hair Transplant", match: /FUE/i, priceHint: "from ฿65,000" },
@@ -26,10 +27,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: Lang }> }): Promise<Metadata> {
   const { lang } = await params;
   const url = `${SITE.origin}/${lang}/c/`;
+  const canonicalUrl = lang === "en" ? url : `${SITE.origin}/en/c/`;
   return {
     title: "Browse Hair Transplant Clinics by Procedure — Thailand",
     description: "Browse Thailand hair transplant clinics by procedure: FUE, DHI, FUT, PRP, SMP and more. Verified reviews, Trust Score ranked.",
-    alternates: { canonical: url },
+    alternates: { canonical: canonicalUrl },
     openGraph: { title: "Browse by Procedure — Thai Facial Clinic", url },
   };
 }

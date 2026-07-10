@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
-import { applySiteFilter, getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
 import { findGuide } from "@/lib/guides";
 import type { Metadata } from "next";
 
@@ -115,7 +115,7 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
   },
 };
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export async function generateStaticParams() {
   return Object.keys(CITIES).flatMap((city) =>

@@ -23,20 +23,11 @@ import { StickyClinicBar } from "@/components/StickyClinicBar";
 import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
-import { applySiteFilter, getSiteConfig } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl } from "@/lib/site";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-// 클리닉이 현재 사이트 소관이 아닐 때 진짜 소유 도메인 — 크롤러가 두 도메인에서
-// 같은 클리닉 페이지를 동시 색인하는 걸 막기 위한 절대 캐노니컬 타겟.
-// (현재 실제 배포된 도메인은 dental·botox 두 곳; hair_transplant은 별도 앱/레포.)
-const AESTHETIC_CATS = new Set(["botox", "filler", "hifu", "facial", "laser", "eye"]);
-function resolveOwnerUrl(categories: string[]): string | null {
-  if (categories.includes("dental")) return "https://www.bangkokbestclinic.com";
-  if (categories.includes("hair_transplant")) return "https://thaifacialclinic.com";
-  if (categories.some((cat) => AESTHETIC_CATS.has(cat))) return "https://www.bangkokbotoxclinic.com";
-  return null;
-}
+// resolveOwnerUrl 은 lib/site.ts 로 이동 — doctor/[slug] 도 동일 가드 사용.
 
 // Below-fold components — lazy loaded into separate chunks for faster initial bundle
 const TrustDonut = dynamic(
@@ -115,7 +106,7 @@ export async function generateMetadata(
       type: "article",
       locale: "en_US",
       images: [{
-        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.bangkokbotoxclinic.com"}/api/og?title=${encodeURIComponent(c.name.slice(0, 50))}&sub=${encodeURIComponent(`Trust Score ${Math.round(c.trust_score)} · ★${c.rating} · ${c.district ?? "Bangkok"}`)}&count=${c.total_reviews}`,
+        url: `${getSiteUrl()}/api/og?title=${encodeURIComponent(c.name.slice(0, 50))}&sub=${encodeURIComponent(`Trust Score ${Math.round(c.trust_score)} · ★${c.rating} · ${c.district ?? "Bangkok"}`)}&count=${c.total_reviews}`,
         width: 1200,
         height: 630,
         alt: c.name,

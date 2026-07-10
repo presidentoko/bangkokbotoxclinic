@@ -6,11 +6,12 @@
 import { sendEmail, getFallbackEmail } from "@/lib/notify";
 import { rateLimitOk } from "@/lib/leadStore";
 import { loadMasterDb, getClinicById } from "@/lib/data";
+import { getSiteUrl } from "@/lib/site";
 
 export const runtime = "nodejs";
 
 // Dashboard URL must reflect the deployed site (botox vs dental), not a hardcode.
-const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bangkokbotoxclinic.com";
+const SITE = getSiteUrl();
 
 export async function POST(req: Request) {
   let body: Record<string, unknown>;

@@ -9,6 +9,7 @@ import PartnerLogosWall from "@/components/PartnerLogosWall";
 import TransparencyBadge from "@/components/TransparencyBadge";
 import PatientCommunityCount from "@/components/PatientCommunityCount";
 
+export const dynamicParams = false;
 export function generateStaticParams() {
   return SUPPORTED_LANGS.map((lang) => ({ lang }));
 }
@@ -18,7 +19,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   return {
     title: `About — ${SITE.name}`,
     description: `${SITE.name} aggregates verified clinic data from 6+ public sources. We never delete reviews. ${fullAddress() || "Bangkok, Thailand"}.`,
-    alternates: { canonical: `${SITE.origin}/${lang}/about` },
+    alternates: {
+      canonical: `${SITE.origin}/${lang}/about`,
+      languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/about`])),
+    },
   };
 }
 
