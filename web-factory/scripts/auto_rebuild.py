@@ -16,10 +16,16 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+# Windows: bare "npx"/"npm" have no .exe, only a .cmd shim. subprocess.run(shell=False)
+# does not resolve that shim (WinError 2), so resolve the real path once at import time.
+NPX = shutil.which("npx") or "npx"
+NPM = shutil.which("npm") or "npm"
 
 ROOT = Path(__file__).resolve().parents[2]
 WEB = ROOT / "web-factory"
@@ -140,12 +146,14 @@ def main() -> int:
         log("WARN — community build failed (continuing)")
 
     # 1c. regenerate canonical-district 301s in public/_redirects (data-derived).
-    if not run(["npx", "tsx", "scripts/gen_redirects.mts"], cwd=WEB, timeout=120):
+    if not run([NPX, "tsx", "scripts/gen_redirects.mts"], cwd=WEB, timeout=120):
         log("WARN — gen_redirects failed (continuing with stale _redirects)")
 
-    # 2. next build
-    if not run(["npx", "next", "build"], cwd=WEB, timeout=900):
-        log("ABORT — next build failed")
+    # 2. build — via `npm run build`, NOT `next build` directly, so npm's
+    # prebuild (compare-index.json / browse-index.json regeneration) and
+    # postbuild (strip_rsc_payloads.mjs) lifecycle hooks actually run.
+    if not run([NPM, "run", "build"], cwd=WEB, timeout=900):
+        log("ABORT — build failed")
         return 1
 
     out_dir = WEB / "out"
@@ -153,23 +161,9 @@ def main() -> int:
         log("ABORT — out/ not produced")
         return 1
 
-    # 2b. RSC 디버그 파일 제거 — Next 16 가 페이지마다 __next.* 6+ 개 생성하는데
-    #     Cloudflare Pages 의 20K 파일 한도를 쉽게 넘김. 정적 export 라 안 필요.
-    rsc_files = 0
-    for p in list(out_dir.rglob("__next*")):
-        try:
-            if p.is_file():
-                p.unlink(); rsc_files += 1
-            elif p.is_dir():
-                import shutil
-                shutil.rmtree(p, ignore_errors=True); rsc_files += 1
-        except OSError:
-            pass
-    log(f"removed {rsc_files} RSC debug files/dirs")
-
     # 3. wrangler deploy
     if not run(
-        ["npx", "wrangler", "pages", "deploy", "out/",
+        [NPX, "wrangler", "pages", "deploy", "out/",
          "--project-name=thaisupplyhub", "--branch=main", "--commit-dirty=true"],
         cwd=WEB, timeout=900,
     ):
