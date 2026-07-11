@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { BangkokStats } from "@/components/BangkokStats";
 import { SavedListHome } from "@/components/SaveButton";
 import { RecentlyViewedHome } from "@/components/RecentlyViewedHome";
@@ -14,6 +15,7 @@ import { SeasonalTip } from "@/components/SeasonalTip";
 import { HiddenGemPicker } from "@/components/HiddenGemPicker";
 import { ThaiWordOfDay } from "@/components/ThaiWordOfDay";
 import { BangkokPhotoSpots } from "@/components/BangkokPhotoSpots";
+import { SharedWishlistBanner } from "@/components/SharedWishlist";
 
 export const dynamic = "force-static";
 
@@ -36,6 +38,10 @@ export default function MyTripPage() {
       <p className="text-sm text-[var(--muted)] mb-6">
         Your personal travel hub — saved places, quiz result, and bucket list. All stored locally, no account needed.
       </p>
+
+      <Suspense fallback={null}>
+        <SharedWishlistBanner />
+      </Suspense>
 
       {/* Live stats */}
       <BangkokStats />
@@ -94,7 +100,9 @@ export default function MyTripPage() {
       {/* Bucket List */}
       <div className="mt-8">
         <div className="text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-3">Your bucket list</div>
-        <BangkokBingo />
+        <Suspense fallback={null}>
+          <BangkokBingo />
+        </Suspense>
       </div>
 
       <div className="mt-8">

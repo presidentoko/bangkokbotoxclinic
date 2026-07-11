@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCity } from "@/lib/data";
-import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
+import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { OCCASION_NAV } from "@/lib/occasions";
@@ -139,7 +139,7 @@ export default async function CityHub(
             <h2 className="font-semibold text-base mb-3">Browse by Area in {label}</h2>
             <div className="flex flex-wrap gap-2">
               {districts.map((d) => (
-                <a key={d} href={`/restaurants/${city}/${d!.toLowerCase().replace(/\s+/g, "-")}`}
+                <a key={d} href={`/restaurants/${city}/${slugifySegment(d!)}`}
                    className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
                   📍 {d}
                 </a>

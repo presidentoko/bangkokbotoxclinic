@@ -3,6 +3,7 @@
 import { useSyncExternalStore, useState } from "react";
 import { plannerStore, CATEGORY_COLORS } from "@/lib/plan/store";
 import type { PlanItem, TravelSegment } from "@/lib/plan/store";
+import { trackShare } from "@/lib/track";
 
 const TRAVEL_ICON: Record<string, string> = {
   bts: "🚇",
@@ -105,9 +106,10 @@ export function PlanTimeline() {
   }
 
   async function handleShare() {
+    trackShare("line", "plan");
     const serialized = plannerStore.serialize();
-    const encoded = btoa(serialized);
-    const url = `${window.location.origin}/en/plan/share?d=${encoded}`;
+    const encoded = btoa(unescape(encodeURIComponent(serialized)));
+    const url = `${window.location.origin}/en/plan/share?d=${encodeURIComponent(encoded)}`;
     try {
       await navigator.share({ title: "My Bangkok Day Plan — Thaigle", url });
     } catch {

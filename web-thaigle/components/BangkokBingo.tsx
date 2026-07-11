@@ -1,33 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
+import { BINGO_ITEMS, encodeBingo, decodeBingo, type BingoItem } from "@/lib/bingo";
+import { trackShare } from "@/lib/track";
 
-type BingoItem = {
-  id: string;
-  emoji: string;
-  label: string;
-  url?: string;
-  category: "food" | "activity" | "experience" | "nightlife";
-};
-
-const ITEMS: BingoItem[] = [
-  { id: "massage", emoji: "💆", label: "Thai massage", url: "/activities/spa", category: "activity" },
-  { id: "muay", emoji: "🥊", label: "Muay Thai training", url: "/activities/muay-thai", category: "activity" },
-  { id: "cooking", emoji: "👨‍🍳", label: "Cooking class", url: "/activities/cooking", category: "activity" },
-  { id: "padthai", emoji: "🍜", label: "Pad Thai on the street", url: "/restaurants/cuisine/street_food", category: "food" },
-  { id: "tuk", emoji: "🛺", label: "Tuk tuk ride", url: "/local-tips", category: "experience" },
-  { id: "rooftop", emoji: "🌆", label: "Rooftop bar at sunset", url: "/for/views", category: "nightlife" },
-  { id: "temple", emoji: "⛩️", label: "Wat Pho temple", url: "/local-tips", category: "experience" },
-  { id: "market", emoji: "🥬", label: "Chatuchak market", url: "/local-tips", category: "experience" },
-  { id: "somtam", emoji: "🥗", label: "Som Tam (papaya salad)", url: "/restaurants/cuisine/street_food", category: "food" },
-  { id: "yoga", emoji: "🧘", label: "Yoga class", url: "/activities/yoga-pilates", category: "activity" },
-  { id: "mango", emoji: "🥭", label: "Mango sticky rice", url: "/restaurants/cuisine/street_food", category: "food" },
-  { id: "nightlife", emoji: "🎵", label: "Live music or nightclub", url: "/for/late-night", category: "nightlife" },
-  { id: "boat", emoji: "⛵", label: "Chao Phraya boat", url: "/local-tips", category: "experience" },
-  { id: "streetfood2am", emoji: "🌙", label: "Street food after midnight", url: "/for/late-night", category: "food" },
-  { id: "floating", emoji: "🚤", label: "Floating market", url: "/local-tips", category: "experience" },
-  { id: "diving", emoji: "🤿", label: "Snorkeling or diving", url: "/activities/diving", category: "activity" },
-];
+const ITEMS = BINGO_ITEMS;
 
 const KEY = "thaigle_bingo";
 
@@ -46,14 +24,23 @@ const CATEGORY_CHECKED: Record<BingoItem["category"], string> = {
 };
 
 export function BangkokBingo() {
+  const searchParams = useSearchParams();
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [shared, setShared] = useState(false);
+  const [sharedFrom, setSharedFrom] = useState<Set<string> | null>(null);
 
   useEffect(() => {
     try {
       const stored: string[] = JSON.parse(localStorage.getItem(KEY) ?? "[]");
       setChecked(new Set(stored));
     } catch {}
+
+    const d = searchParams.get("d");
+    if (d) {
+      const decoded = decodeBingo(d);
+      if (decoded.size > 0) setSharedFrom(decoded);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggle = useCallback((id: string) => {
@@ -80,7 +67,9 @@ export function BangkokBingo() {
   };
 
   const shareResult = async () => {
-    const text = `My Bangkok Bingo: ${count}/${total} done (${pct}%)! 🇹🇭\nCheck yours → https://thaigle.com/bingo`;
+    trackShare("native", "bingo");
+    const shareUrl = `https://thaigle.com/bingo?d=${encodeBingo(checked)}&utm_source=share&utm_medium=native&utm_campaign=bingo`;
+    const text = `My Bangkok Bingo: ${count}/${total} done (${pct}%)! 🇹🇭\nCheck yours → ${shareUrl}`;
     if (navigator.share) {
       try { await navigator.share({ title: "My Bangkok Bucket List", text }); return; } catch {}
     }
@@ -90,7 +79,21 @@ export function BangkokBingo() {
   };
 
   return (
-    <div className="bg-white border border-[var(--border)] rounded-2xl overflow-hidden">
+    <div>
+      {sharedFrom && (
+        <div className="mb-4 p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between gap-3 flex-wrap">
+          <p className="text-sm text-amber-900">
+            🇹🇭 A friend shared their Bangkok Bingo: <strong>{sharedFrom.size}/{ITEMS.length}</strong> done!
+          </p>
+          <button
+            onClick={() => setSharedFrom(null)}
+            className="text-xs font-bold text-amber-700 hover:text-amber-900 underline underline-offset-2"
+          >
+            Start your own →
+          </button>
+        </div>
+      )}
+      <div className="bg-white border border-[var(--border)] rounded-2xl overflow-hidden">
       <div className="px-5 pt-5 pb-4 border-b border-[var(--border)]">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
@@ -158,6 +161,7 @@ export function BangkokBingo() {
           </button>
         </div>
       )}
+      </div>
     </div>
   );
 }

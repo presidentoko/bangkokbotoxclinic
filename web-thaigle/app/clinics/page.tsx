@@ -3,6 +3,7 @@ import { AddToPlannerButton } from "@/components/AddToPlannerButton";
 import { BangkokTip } from "@/components/BangkokTip";
 import { SavingsCounter } from "@/components/SavingsCounter";
 import { BangkokFacts } from "@/components/BangkokFacts";
+import { ItemListJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -51,6 +52,7 @@ export default async function ClinicsPage() {
               id: c.id,
               name: c.name,
               rating: c.rating,
+              url: c.website || c.maps_url,
             }} />
           </div>
         ))}
@@ -58,6 +60,10 @@ export default async function ClinicsPage() {
       <BangkokFacts />
       <SavingsCounter />
       <BangkokTip />
+      <ItemListJsonLd
+        name="Best Aesthetic Clinics in Bangkok"
+        items={top.map((c) => ({ name: c.name, url: c.website || c.maps_url }))}
+      />
     </div>
   );
 }

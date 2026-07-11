@@ -113,17 +113,9 @@ export function RestaurantJsonLd({ r, url }: { r: Restaurant; url: string }) {
   if (r.maps_url) sameAs.push(r.maps_url);
   if (sameAs.length) data.sameAs = sameAs;
   if (r.cuisines.length > 0) data.servesCuisine = r.cuisines;
-  const samples = [...r.sample_reviews_en, ...r.sample_reviews_th]
-    .filter((rev) => rev.rating && rev.rating > 0 && rev.rating <= 5)
-    .slice(0, 3);
-  if (samples.length > 0) {
-    data.review = samples.map((rev) => ({
-      "@type": "Review",
-      reviewRating: { "@type": "Rating", ratingValue: rev.rating, bestRating: 5, worstRating: 1 },
-      author: { "@type": "Person", name: rev.author || "Google reviewer" },
-      reviewBody: rev.text,
-    }));
-  }
+  // No `review` markup: these are third-party Google reviews, and Google's
+  // review-snippet policy prohibits republishing reviews you don't own —
+  // aggregateRating (our own aggregate of that same public data) is fine.
   return tag(data);
 }
 
@@ -341,10 +333,6 @@ export function CollectionPageJsonLd({ name, description, url, items, slugMap }:
   slugMap?: SlugMap;
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
-  const totalReviews = items.reduce((s, r) => s + (r.total_reviews || 0), 0);
-  const weightedRating = totalReviews > 0
-    ? items.reduce((s, r) => s + (r.rating || 0) * (r.total_reviews || 0), 0) / totalReviews
-    : 0;
 
   return tag({
     "@context": "https://schema.org",
@@ -353,24 +341,15 @@ export function CollectionPageJsonLd({ name, description, url, items, slugMap }:
     description,
     url: fullUrl,
     numberOfItems: items.length,
-    aggregateRating: items.length > 0 && totalReviews > 0 ? {
-      "@type": "AggregateRating",
-      ratingValue: Number(weightedRating.toFixed(2)),
-      reviewCount: totalReviews,
-      bestRating: 5,
-      worstRating: 1,
-      itemReviewed: { "@type": "Thing", name },
-    } : undefined,
+    // No page-level aggregateRating: Google requires it to describe a specific
+    // reviewable entity (itemReviewed), not a collection page — each item's
+    // own aggregateRating below is the correct place for rating data.
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,
       itemListElement: items.slice(0, 25).map((r, i) => {
         const entry = slugMap?.[r.id];
-        const rUrl = entry
-          ? `${SITE}${restaurantUrl(entry)}`
-          : entry === undefined && slugMap
-            ? `${SITE}${restaurantUrl({ city: r.city, district: r.district || "other", slug: r.id })}`
-            : `${SITE}/restaurant/${r.id}`;
+        const rUrl = `${SITE}${restaurantUrl(entry ?? { city: r.city, district: r.district || "other", slug: r.id })}`;
         return {
           "@type": "ListItem",
           position: i + 1,

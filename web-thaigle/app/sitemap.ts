@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { loadMasterDb } from "@/lib/data";
-import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
+import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
@@ -23,7 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const items: MetadataRoute.Sitemap = [
     { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
     { url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
-    { url: `${SITE}/en`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/ko`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/ja`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/ru`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
@@ -32,7 +31,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE}/terms`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE}/takedown`, lastModified: updated, changeFrequency: "monthly", priority: 0.4 },
-    { url: `${SITE}/for-restaurants`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/for-venues`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/methodology`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE}/privacy`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/restaurants`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/clinics`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
@@ -41,7 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/plan`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/quiz`, lastModified: updated, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE}/bingo`, lastModified: updated, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE}/my-trip`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/local-tips`, lastModified: updated, changeFrequency: "monthly", priority: 0.82 },
     { url: `${SITE}/for`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 },
     { url: `${SITE}/trending`, lastModified: updated, changeFrequency: "daily", priority: 0.88 },
@@ -54,12 +54,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Place verification pages — all 1,647 real places × 3 langs
-  const { getAllPlaceSlugs } = await import("@/lib/places");
-  const placeSlugs = getAllPlaceSlugs();
+  const { getAllPlaceSlugsServer } = await import("@/lib/places-server");
+  const placeSlugs = await getAllPlaceSlugsServer();
   items.push(
     ...placeSlugs.map(({ lang, slug }) => ({
       url: `${SITE}/${lang}/place/${slug}`,
-      lastModified: new Date().toISOString(),
+      lastModified: updated,
       changeFrequency: "weekly" as const,
       priority: 0.75,
     }))
@@ -70,61 +70,61 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
   items.push({
     url: `${SITE}/activities/first-time-bangkok`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.85,
   });
   items.push({
     url: `${SITE}/activities/halal`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
   items.push({
     url: `${SITE}/activities/digital-nomad`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
   items.push({
     url: `${SITE}/activities/couples`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
   items.push({
     url: `${SITE}/activities/budget`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
   items.push({
     url: `${SITE}/activities/wellness-week`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
   items.push({
     url: `${SITE}/activities/weekend-in-bangkok`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.85,
   });
   items.push({
     url: `${SITE}/activities/prices-bangkok-2026`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.9,
   });
   items.push({
     url: `${SITE}/activities/sukhumvit`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
   items.push({
     url: `${SITE}/activities/silom`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   });
@@ -135,7 +135,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const n of NICHES) {
     items.push({
       url: `${SITE}/activities/${n.slug}/top-10`,
-      lastModified: new Date().toISOString(),
+      lastModified: updated,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     });
@@ -156,7 +156,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "yoga-vs-pilates-bangkok",
   ].map((slug) => ({
     url: `${SITE}/activities/compare/${slug}`,
-    lastModified: new Date().toISOString(),
+    lastModified: updated,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
@@ -182,11 +182,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const districtSet = new Set<string>();
   for (const r of db.restaurants) {
     if (r.district) {
-      const key = `${r.city}/${r.district.toLowerCase().replace(/\s+/g, "-")}`;
+      const key = `${r.city}/${slugifySegment(r.district)}`;
       if (!districtSet.has(key)) {
         districtSet.add(key);
         items.push({
-          url: `${SITE}/restaurants/${r.city}/${r.district.toLowerCase().replace(/\s+/g, "-")}`,
+          url: `${SITE}/restaurants/${r.city}/${slugifySegment(r.district)}`,
           lastModified: updated,
           changeFrequency: "weekly",
           priority: 0.7,
@@ -213,11 +213,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const [id, entry] of Object.entries(slugMap)) {
     const r = db.restaurants.find((x) => x.id === id);
+    if (!r) continue;
     items.push({
       url: `${SITE}${restaurantUrl(entry)}`,
       lastModified: updated,
       changeFrequency: "weekly",
-      priority: r && r.trust_score >= 70 ? 0.8 : r && r.trust_score >= 50 ? 0.6 : 0.4,
+      priority: r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4,
     });
   }
 

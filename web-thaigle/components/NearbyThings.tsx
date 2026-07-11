@@ -11,11 +11,11 @@ const GENERAL_LINKS: NearbyLink[] = [
 ];
 
 const RESTAURANT_LINKS: NearbyLink[] = [
-  { label: "Restaurants near BTS Asok", emoji: "🚉", url: "/restaurants/bangkok/asok", hint: "International expat hub" },
-  { label: "Cafés in Ari", emoji: "☕", url: "/restaurants/bangkok/ari", hint: "Bangkok's hipster café belt" },
-  { label: "Street food Chinatown", emoji: "🏮", url: "/restaurants/bangkok/chinatown", hint: "Best night market eats" },
+  { label: "Restaurants in Watthana (Sukhumvit/Thonglor)", emoji: "🚉", url: "/restaurants/bangkok/watthana", hint: "International expat hub" },
+  { label: "Cafés in Phaya Thai (Ari)", emoji: "☕", url: "/restaurants/bangkok/phaya-thai", hint: "Bangkok's hipster café belt" },
+  { label: "Street food in Samphanthawong (Chinatown)", emoji: "🏮", url: "/restaurants/bangkok/samphanthawong", hint: "Best night market eats" },
   { label: "Japanese restaurants Bangkok", emoji: "🍣", url: "/restaurants/cuisine/japanese", hint: "4,000+ Thai-Japanese places" },
-  { label: "Vegan food Bangkok", emoji: "🌿", url: "/for/vegan", hint: "Plant-based scene is thriving" },
+  { label: "Vegetarian food Bangkok", emoji: "🌿", url: "/for/vegetarian", hint: "Plant-based scene is thriving" },
   { label: "Rooftop dining", emoji: "🌃", url: "/for/views", hint: "Skyline views + great food" },
 ];
 
@@ -23,7 +23,7 @@ const ACTIVITY_LINKS: NearbyLink[] = [
   { label: "Muay Thai gyms Bangkok", emoji: "🥊", url: "/activities/muay-thai", hint: "From casual 1-class to intensive camps" },
   { label: "Thai cooking classes", emoji: "👨‍🍳", url: "/activities/cooking", hint: "Half-day + full-day options" },
   { label: "Yoga & meditation", emoji: "🧘", url: "/activities/yoga-pilates", hint: "Drop-in classes from ฿300" },
-  { label: "Rock climbing gyms", emoji: "🧗", url: "/activities/rock-climbing", hint: "Indoor bouldering & top-rope" },
+  { label: "Spa & Thai massage", emoji: "💆", url: "/activities/spa", hint: "Traditional Thai massage from ฿200/hr" },
   { label: "Scuba diving courses", emoji: "🤿", url: "/activities/diving", hint: "PADI courses + day trips" },
   { label: "Wellness centers", emoji: "🌿", url: "/activities/wellness", hint: "Retreat-level experience in the city" },
 ];

@@ -3,9 +3,10 @@ import { decodePlan, TYPE_LABELS } from "@/lib/planner";
 import type { PlanItemType } from "@/lib/planner";
 import { getSiteConfig } from "@/lib/site";
 
-export const alt = "방콕 여행 플래너 — Thaigle";
+export const alt = "Bangkok Trip Planner — Thaigle";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const dynamic = "force-dynamic";
 
 export default async function PlanOG({
   searchParams,

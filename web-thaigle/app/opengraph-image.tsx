@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 import { getSiteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
-export const alt = "Verified Restaurant Reviews & Trust Scores";
+export const alt = "Thaigle — Bangkok Restaurants & Activities Ranked by Real Reviews";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -29,9 +29,8 @@ export default async function OG() {
               fontSize: 32, fontWeight: 800,
             }}
           >+</div>
-          <div style={{ fontSize: 28, fontWeight: 800, display: "flex" }}>
-            <span>bkk</span>
-            <span style={{ color: cfg.themeAccent }}>clinics</span>
+          <div style={{ fontSize: 28, fontWeight: 800, color: cfg.themeAccent, display: "flex" }}>
+            {cfg.brand}
           </div>
         </div>
 

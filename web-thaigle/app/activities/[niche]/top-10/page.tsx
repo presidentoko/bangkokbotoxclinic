@@ -16,6 +16,7 @@ import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { RatingLegend } from "@/components/RatingLegend";
 import { PhotoHints } from "@/components/PhotoHints";
 import { CardImage } from "@/components/CardImage";
+import { withKlookAid } from "@/lib/affiliate";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -193,7 +194,7 @@ export default async function NicheTop10Page({
                     <div className="flex flex-wrap gap-2">
                       {topProduct && (
                         <a
-                          href={topProduct.product_url}
+                          href={withKlookAid(topProduct.product_url)}
                           target="_blank"
                           rel="noopener noreferrer sponsored"
                           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-bold hover:bg-orange-600 transition"

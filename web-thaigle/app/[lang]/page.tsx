@@ -40,13 +40,10 @@ export async function generateMetadata({
     description: descs[lang] ?? descs.en,
     alternates: {
       canonical: `/${lang}`,
-      languages: {
-        th: "/th",
-        en: "/en",
-        ko: "/ko",
-        "x-default": "/th",
-      },
     },
+    // This is a distinct TikTok/IG-verification utility, not the site homepage —
+    // keep it out of the indexed hreflang cluster to avoid competing with "/".
+    robots: { index: false, follow: true },
   };
 }
 

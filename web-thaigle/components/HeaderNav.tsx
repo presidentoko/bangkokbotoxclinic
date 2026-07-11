@@ -66,7 +66,7 @@ function Dropdown({ label, items }: { label: string; items: LinkItem[] }) {
             <a
               key={item.href}
               href={item.href}
-              className="block px-3 py-1.5 text-sm hover:bg-gray-50 hover:text-black text-[var(--muted)]"
+              className="flex items-center min-h-[44px] px-3 text-sm hover:bg-gray-50 hover:text-black text-[var(--muted)]"
               onClick={() => setOpen(false)}
             >
               {item.label}
@@ -113,7 +113,7 @@ export function HeaderNav() {
 
       {/* Mobile hamburger */}
       <button
-        className="md:hidden flex items-center justify-center w-9 h-9 -mr-2 text-[var(--fg)]"
+        className="md:hidden flex items-center justify-center w-11 h-11 -mr-1 text-[var(--fg)]"
         aria-label={mobileOpen ? "Close menu" : "Open menu"}
         aria-expanded={mobileOpen}
         onClick={() => setMobileOpen((o) => !o)}

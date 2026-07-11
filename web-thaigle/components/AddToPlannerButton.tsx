@@ -20,7 +20,7 @@ export function AddToPlannerButton({ item }: { item: PlanItem }) {
           : "bg-white text-[var(--muted)] border-[var(--border)] hover:border-orange-400 hover:text-orange-600"
       }`}
     >
-      {added ? "✓ 플래너에 추가됨" : "+ 플래너에 추가"}
+      {added ? "✓ Added to planner" : "+ Add to planner"}
     </button>
   );
 }

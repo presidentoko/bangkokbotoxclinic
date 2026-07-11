@@ -28,7 +28,7 @@ import { BangkokWeekendItinerary } from "@/components/BangkokWeekendItinerary";
 import { BangkokNightTrains } from "@/components/BangkokNightTrains";
 import { BangkokIslandHopping } from "@/components/BangkokIslandHopping";
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const metadata: Metadata = {

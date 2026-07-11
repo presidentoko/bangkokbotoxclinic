@@ -30,7 +30,7 @@ export function PlannerProvider({ children }: { children: React.ReactNode }) {
 
   function save(next: Plan) {
     setPlan(next);
-    localStorage.setItem(LS_KEY, JSON.stringify(next));
+    try { localStorage.setItem(LS_KEY, JSON.stringify(next)); } catch {}
   }
 
   function add(item: PlanItem) {

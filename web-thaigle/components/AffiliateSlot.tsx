@@ -1,6 +1,7 @@
 // 어필리에이트 inline slot — 비교 카드 형식. Eatigo + Hungry Hub + Klook.
 
 import { klookSearchLink } from "@/lib/affiliate";
+import { AffiliateLink } from "@/components/AffiliateLink";
 
 export function AffiliateInline({ category, district }: {
   category?: string;
@@ -13,6 +14,7 @@ export function AffiliateInline({ category, district }: {
   const label = category
     ? `Reserve ${category} restaurants${district ? ` in ${district}` : ""}`
     : "Reserve a restaurant in Bangkok";
+  const surface = district ? "detail" : "hub";
 
   return (
     <aside className="my-6 border border-[var(--border)] rounded-2xl p-5 bg-gradient-to-br from-orange-50 via-white to-amber-50 shadow-sm">
@@ -26,10 +28,9 @@ export function AffiliateInline({ category, district }: {
         <span className="text-xs text-[var(--muted)]">No-fee booking · instant confirm</span>
       </div>
       <div className="grid sm:grid-cols-3 gap-2">
-        <a
+        <AffiliateLink
           href={eatigo}
-          target="_blank"
-          rel="noopener sponsored nofollow"
+          tracking={{ type: "affiliate", provider: "Eatigo", activityType: "restaurant", surface }}
           className="group flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white border border-[var(--border)] hover:border-orange-400 hover:shadow-md transition"
         >
           <div className="flex items-center gap-3 min-w-0">
@@ -40,11 +41,10 @@ export function AffiliateInline({ category, district }: {
             </div>
           </div>
           <span className="text-orange-600 group-hover:translate-x-1 transition shrink-0">→</span>
-        </a>
-        <a
+        </AffiliateLink>
+        <AffiliateLink
           href={hungry}
-          target="_blank"
-          rel="noopener sponsored nofollow"
+          tracking={{ type: "affiliate", provider: "HungryHub", activityType: "restaurant", surface }}
           className="group flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white border border-[var(--border)] hover:border-pink-400 hover:shadow-md transition"
         >
           <div className="flex items-center gap-3 min-w-0">
@@ -55,11 +55,10 @@ export function AffiliateInline({ category, district }: {
             </div>
           </div>
           <span className="text-pink-600 group-hover:translate-x-1 transition shrink-0">→</span>
-        </a>
-        <a
+        </AffiliateLink>
+        <AffiliateLink
           href={klook}
-          target="_blank"
-          rel="noopener sponsored nofollow"
+          tracking={{ type: "affiliate", provider: "Klook", activityType: "restaurant", surface }}
           className="group flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white border border-[var(--border)] hover:border-purple-400 hover:shadow-md transition"
         >
           <div className="flex items-center gap-3 min-w-0">
@@ -70,7 +69,7 @@ export function AffiliateInline({ category, district }: {
             </div>
           </div>
           <span className="text-purple-600 group-hover:translate-x-1 transition shrink-0">→</span>
-        </a>
+        </AffiliateLink>
       </div>
       <p className="text-[10px] text-[var(--muted)] mt-3 leading-relaxed">
         We may earn a small commission on bookings made through these partner links — at no extra cost to you. Organic listings are never paid.

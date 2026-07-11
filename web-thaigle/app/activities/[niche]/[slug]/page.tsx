@@ -21,7 +21,7 @@ import type { PlanItemType } from "@/lib/planner";
 import { LocalBusinessJsonLd, BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { NICHE_FAQS } from "@/lib/niche-content";
 import { CardImage } from "@/components/CardImage";
-import { getAffiliateLink } from "@/lib/affiliate";
+import { getAffiliateLink, withKlookAid } from "@/lib/affiliate";
 import { BookingCTAs } from "@/components/BookingCTAs";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
@@ -67,14 +67,19 @@ export async function generateMetadata({
   const cityLabel = place.city ? place.city.charAt(0).toUpperCase() + place.city.slice(1) : "Bangkok";
   const priceStr = place.price_min_thb > 0 ? ` From ฿${place.price_min_thb.toLocaleString()}.` : "";
   const trustLabel = place.trust_score >= 80 ? "Highly trusted" : place.trust_score >= 60 ? "Trusted" : "Verified";
+  const hasRating = !!(place.rating && place.review_count);
+  const ratingTitleFragment = hasRating ? ` | ★${place.rating!.toFixed(1)} (${place.review_count!.toLocaleString()} Reviews)` : "";
+  const ratingDescFragment = hasRating
+    ? `★${place.rating!.toFixed(1)} from ${place.review_count!.toLocaleString()} Google reviews. `
+    : "";
   return {
-    title: `${place.name} — ${info.label} in ${cityLabel} | ★${place.rating?.toFixed(1) ?? "N/A"} (${(place.review_count ?? 0).toLocaleString()} Reviews)`,
-    description: `${place.name}: ${info.label} in ${cityLabel}. ★${place.rating?.toFixed(1) ?? "N/A"} from ${(place.review_count ?? 0).toLocaleString()} Google reviews. Trust Score ${place.trust_score} (${trustLabel}).${priceStr} Book on Klook or visit directly.`,
+    title: `${place.name} — ${info.label} in ${cityLabel}${ratingTitleFragment}`,
+    description: `${place.name}: ${info.label} in ${cityLabel}. ${ratingDescFragment}Trust Score ${place.trust_score} (${trustLabel}).${priceStr} Book on Klook or visit directly.`,
     alternates: { canonical: `/activities/${niche}/${slug}` },
     openGraph: {
       title: `${place.name} — ${info.label} Bangkok`,
-      description: `★${place.rating?.toFixed(1) ?? "N/A"} · ${(place.review_count ?? 0).toLocaleString()} reviews · Trust Score ${place.trust_score}${priceStr}`,
-      images: place.top_photo_url ? [{ url: place.top_photo_url, alt: `${place.name} — ${info.label} in Bangkok` }] : [],
+      description: `${hasRating ? `★${place.rating!.toFixed(1)} · ${place.review_count!.toLocaleString()} reviews · ` : ""}Trust Score ${place.trust_score}${priceStr}`,
+      ...(place.top_photo_url ? { images: [{ url: place.top_photo_url, alt: `${place.name} — ${info.label} in Bangkok` }] } : {}),
     },
   };
 }
@@ -289,6 +294,7 @@ export default async function PlaceDetailPage({
             city: place.city,
             trust_score: place.trust_score,
             price_min_thb: place.price_min_thb > 0 ? place.price_min_thb : undefined,
+            url: `/activities/${niche}/${slug}`,
           }}
         />
       </div>
@@ -414,13 +420,13 @@ export default async function PlaceDetailPage({
       {/* Mobile sticky bar: Book + Add to plan */}
       {klook?.products?.[0] && (
         <MobileStickyBar
-          bookingUrl={klook.products[0].product_url}
+          bookingUrl={withKlookAid(klook.products[0].product_url)}
           bookingProvider="Klook"
           bookingLabel="Book on Klook"
           priceLabel={klook.products[0].price_thb ? `฿${klook.products[0].price_thb.toLocaleString()}` : "View prices"}
           nicheSlug={niche}
           placeId={place.id}
-          planItem={{ type: planType, id: place.id, name: place.name, rating: place.rating ?? undefined, city: place.city, trust_score: place.trust_score, price_min_thb: place.price_min_thb > 0 ? place.price_min_thb : undefined }}
+          planItem={{ type: planType, id: place.id, name: place.name, rating: place.rating ?? undefined, city: place.city, trust_score: place.trust_score, price_min_thb: place.price_min_thb > 0 ? place.price_min_thb : undefined, url: `/activities/${niche}/${slug}` }}
         />
       )}
     </div>

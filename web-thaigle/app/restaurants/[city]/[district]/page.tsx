@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
-import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
+import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
   const pairs = new Set<string>();
   for (const r of db.restaurants) {
     if (r.district) {
-      const districtSlug = r.district.toLowerCase().replace(/\s+/g, "-");
+      const districtSlug = slugifySegment(r.district);
       pairs.add(`${r.city}|${districtSlug}`);
     }
   }
@@ -41,7 +41,7 @@ export async function generateMetadata(
   const districtLabel = district.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   const cityLabel = city.charAt(0).toUpperCase() + city.slice(1);
   const matches = db.restaurants.filter(
-    (r) => r.city === city && r.district?.toLowerCase().replace(/\s+/g, "-") === district
+    (r) => r.city === city && r.district && slugifySegment(r.district) === district
   );
   const topRestaurant = matches.sort((a, b) => b.trust_score - a.trust_score)[0];
   const topSnippet = topRestaurant ? ` Best: ${topRestaurant.name} (★${topRestaurant.rating}).` : "";
@@ -63,7 +63,7 @@ export default async function DistrictHub(
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
 
   const restaurants = db.restaurants.filter(
-    (r) => r.city === city && (r.district?.toLowerCase().replace(/\s+/g, "-") === district || (!r.district && district === "other"))
+    (r) => r.city === city && ((r.district && slugifySegment(r.district) === district) || (!r.district && district === "other"))
   );
   if (restaurants.length === 0) notFound();
 

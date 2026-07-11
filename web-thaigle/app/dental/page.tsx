@@ -5,6 +5,7 @@ import { SavingsCounter } from "@/components/SavingsCounter";
 import { BangkokTip } from "@/components/BangkokTip";
 import { TrustScoreExplainer } from "@/components/TrustScoreExplainer";
 import { EmergencyInfo } from "@/components/EmergencyInfo";
+import { ItemListJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
@@ -53,6 +54,7 @@ export default async function DentalPage() {
               id: c.id,
               name: c.name,
               rating: c.rating,
+              url: c.website || c.maps_url,
             }} />
           </div>
         ))}
@@ -62,6 +64,10 @@ export default async function DentalPage() {
       <SavingsCounter />
       <EmergencyInfo />
       <BangkokTip />
+      <ItemListJsonLd
+        name="Best Dental Clinics in Bangkok"
+        items={top.map((c) => ({ name: c.name, url: c.website || c.maps_url }))}
+      />
     </div>
   );
 }

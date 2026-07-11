@@ -1,3 +1,6 @@
+import { withKlookAid } from "@/lib/affiliate";
+import { AffiliateLink } from "@/components/AffiliateLink";
+
 const DEALS = [
   {
     emoji: "🥊",
@@ -6,7 +9,7 @@ const DEALS = [
     rating: "4.8★",
     reviews: "2,400+",
     from: "฿390",
-    url: "https://www.klook.com/en-US/activity/19023-muay-thai-boxing-class-bangkok/?aid=thaigle",
+    url: "https://www.klook.com/en-US/activity/19023-muay-thai-boxing-class-bangkok/",
   },
   {
     emoji: "👨‍🍳",
@@ -15,7 +18,7 @@ const DEALS = [
     rating: "4.9★",
     reviews: "8,700+",
     from: "฿1,100",
-    url: "https://www.klook.com/en-US/activity/2249-cooking-class-bangkok/?aid=thaigle",
+    url: "https://www.klook.com/en-US/activity/2249-cooking-class-bangkok/",
   },
   {
     emoji: "💆",
@@ -24,7 +27,7 @@ const DEALS = [
     rating: "4.7★",
     reviews: "5,200+",
     from: "฿580",
-    url: "https://www.klook.com/en-US/activity/thai-massage-bangkok/?aid=thaigle",
+    url: "https://www.klook.com/en-US/search/?query=thai%20massage%20bangkok",
   },
   {
     emoji: "🛺",
@@ -33,7 +36,7 @@ const DEALS = [
     rating: "4.8★",
     reviews: "3,100+",
     from: "฿890",
-    url: "https://www.klook.com/en-US/activity/1065-bangkok-by-night-tuk-tuk/?aid=thaigle",
+    url: "https://www.klook.com/en-US/activity/1065-bangkok-by-night-tuk-tuk/",
   },
 ];
 
@@ -45,7 +48,7 @@ export function KlookTopDeals() {
           🎟️ Top-booked Bangkok activities (Klook)
         </div>
         <a
-          href="https://www.klook.com/en-US/city/2-bangkok-things-to-do/?aid=thaigle"
+          href={withKlookAid("https://www.klook.com/en-US/city/2-bangkok-things-to-do/")}
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-[10px] text-orange-500 hover:underline"
@@ -55,11 +58,10 @@ export function KlookTopDeals() {
       </div>
       <div className="space-y-2">
         {DEALS.map((d) => (
-          <a
+          <AffiliateLink
             key={d.name}
-            href={d.url}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
+            href={withKlookAid(d.url)}
+            tracking={{ type: "affiliate", provider: "Klook", activityType: d.category.toLowerCase(), surface: "hub" }}
             className="flex items-start gap-3 bg-white rounded-xl p-3 border border-orange-100 hover:border-orange-400 hover:shadow-sm transition group"
           >
             <span className="text-2xl shrink-0">{d.emoji}</span>
@@ -73,7 +75,7 @@ export function KlookTopDeals() {
               <div className="text-[10px] text-[var(--muted)]">From</div>
               <div className="font-mono font-black text-orange-600 text-xs">{d.from}</div>
             </div>
-          </a>
+          </AffiliateLink>
         ))}
       </div>
       <p className="mt-2 text-[10px] text-orange-600 text-center italic">Affiliate links — we earn a commission at no cost to you</p>

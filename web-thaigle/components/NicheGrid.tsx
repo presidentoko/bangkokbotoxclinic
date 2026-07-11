@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { NichePlace, KlookEntry } from "@/lib/niches";
 import { SaveButton } from "@/components/SaveButton";
 import { CardImage } from "@/components/CardImage";
+import { withKlookAid } from "@/lib/affiliate";
 
 type Props = {
   places: NichePlace[];
@@ -159,7 +160,7 @@ export function NicheGrid({ places, klookData, nicheSlug, nicheIcon, PRICE_BAND_
                 <div className="mt-auto space-y-2">
                   {topProduct ? (
                     <a
-                      href={topProduct.product_url}
+                      href={withKlookAid(topProduct.product_url)}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       className="flex items-center justify-between w-full py-2 px-3 rounded-xl bg-orange-500 text-white text-xs font-bold hover:bg-orange-600 transition active:scale-95"

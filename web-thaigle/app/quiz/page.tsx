@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { BangkokQuiz } from "@/components/BangkokQuiz";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { BangkokTip } from "@/components/BangkokTip";
@@ -12,17 +13,26 @@ import { ThaiEtiquetteQuiz } from "@/components/ThaiEtiquetteQuiz";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
-export const metadata: Metadata = {
-  title: "What Kind of Bangkok Traveler Are You? — Quiz | Thaigle",
-  description: "Take the 5-question Bangkok traveler quiz and get personalized restaurant & activity picks. Find your type: Foodie, Wellness Warrior, Muay Thai Pilgrim, Digital Nomad & more.",
-  alternates: { canonical: "/quiz" },
-  openGraph: {
-    title: "What Kind of Bangkok Traveler Are You? 🇹🇭",
-    description: "5 questions → your personalized Bangkok picks. No paid placements, just real Google review data.",
-  },
-};
-
-export const dynamic = "force-static";
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ r?: string }>;
+}): Promise<Metadata> {
+  const { r } = await searchParams;
+  return {
+    title: "What Kind of Bangkok Traveler Are You? — Quiz | Thaigle",
+    description: "Take the 5-question Bangkok traveler quiz and get personalized restaurant & activity picks. Find your type: Foodie, Wellness Warrior, Muay Thai Pilgrim, Digital Nomad & more.",
+    alternates: { canonical: "/quiz" },
+    openGraph: {
+      title: "What Kind of Bangkok Traveler Are You? 🇹🇭",
+      description: "5 questions → your personalized Bangkok picks. No paid placements, just real Google review data.",
+      // Carries the `r` result id through so a shared quiz link renders a
+      // personalized OG card — the opengraph-image convention alone can't
+      // see the page's query string, so we build the URL explicitly here.
+      images: [`/quiz/opengraph-image${r ? `?r=${encodeURIComponent(r)}` : ""}`],
+    },
+  };
+}
 
 export default function QuizPage() {
   return (
@@ -47,7 +57,9 @@ export default function QuizPage() {
           </div>
         </div>
 
-        <BangkokQuiz />
+        <Suspense fallback={null}>
+          <BangkokQuiz />
+        </Suspense>
 
         <div className="mt-10 grid sm:grid-cols-2 gap-3">
           <a href="/bingo" className="flex items-center gap-3 p-4 rounded-2xl bg-green-50 border border-green-200 hover:border-green-300 transition group">

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/trending" },
 };
 
-export const dynamic = "force-static";
+export const revalidate = 86400;
 
 export default async function TrendingPage() {
   const [db, slugMap, nicheDbs] = await Promise.all([

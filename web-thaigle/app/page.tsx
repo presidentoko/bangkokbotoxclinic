@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { loadMasterDb, topByTrust } from "@/lib/data";
-import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
+import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -20,7 +20,6 @@ import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { VersusVote } from "@/components/VersusVote";
 import { OCCASION_NAV } from "@/lib/occasions";
 import { BangkokBingo } from "@/components/BangkokBingo";
-import { LiveCount } from "@/components/LiveCount";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { PriceCompare } from "@/components/PriceCompare";
 import { DontMiss } from "@/components/DontMiss";
@@ -54,7 +53,7 @@ export const metadata: Metadata = {
   description:
     "Bangkok's most trusted directory for 2026: 3,200+ restaurants, Muay Thai gyms, spas, yoga studios & cooking classes ranked by real Google reviews. No influencer picks. No paid placements.",
   alternates: {
-    canonical: "https://www.thaigle.com/",
+    canonical: "/",
     languages: {
       en: "/",
       th: "/th",
@@ -69,7 +68,7 @@ export const metadata: Metadata = {
     title: OG_TITLE,
     description:
       "Bangkok 2026: 3,200+ restaurants & activity venues ranked by real Google reviews. Muay Thai, spas, yoga, cooking classes — no paid rankings, no influencer picks.",
-    url: "https://www.thaigle.com/",
+    url: "/",
   },
   twitter: {
     title: OG_TITLE,
@@ -152,7 +151,7 @@ export default async function HomePage() {
   ];
 
   const searchIndex = db.restaurants.map((r) => ({
-    id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }),
+    id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }).slice(1),
     name: r.name,
     district: r.district,
     city_label: r.city_label,
@@ -209,9 +208,6 @@ export default async function HomePage() {
             popularSearches={popularSearches}
             popularLabel="Try"
           />
-        </div>
-        <div className="flex justify-center mt-4 mb-2">
-          <LiveCount />
         </div>
         <OpenNow />
         <QuizTeaser />
@@ -481,7 +477,7 @@ export default async function HomePage() {
             {districts.map(([d, { count, city }]) => (
               <a
                 key={d}
-                href={`/restaurants/${city}/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/restaurants/${city}/${slugifySegment(d)}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>

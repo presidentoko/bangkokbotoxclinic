@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 type PopularTimesProps = {
   type?: "restaurant" | "spa" | "gym" | "cafe";
 };
@@ -11,14 +14,35 @@ const PROFILES: Record<string, number[]> = {
 
 const HOURS = ["12a","","","","","","6a","","","","","","12p","","","","","","6p","","","","",""];
 
+const TYPE_LABEL: Record<string, string> = {
+  restaurant: "restaurants",
+  spa: "spas & massage shops",
+  gym: "gyms",
+  cafe: "cafés",
+};
+
+function bangkokHour(): number {
+  return parseInt(
+    new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Bangkok", hour: "numeric", hour12: false }).format(new Date()),
+    10
+  ) % 24;
+}
+
 export function PopularTimes({ type = "restaurant" }: PopularTimesProps) {
   const data = PROFILES[type] ?? PROFILES.restaurant;
   const max = Math.max(...data);
-  const now = new Date().getHours();
+  // Computed client-side in Asia/Bangkok time — this page is statically cached,
+  // so a server-computed hour would be stale (and in the wrong timezone).
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => { setNow(bangkokHour()); }, []);
+
+  if (now === null) return null;
 
   return (
     <div className="mt-4 p-4 border border-[var(--border)] rounded-xl bg-white">
-      <div className="text-xs font-bold uppercase tracking-wide text-[var(--muted)] mb-3">Popular times</div>
+      <div className="text-xs font-bold uppercase tracking-wide text-[var(--muted)] mb-3">
+        Typical hours for {TYPE_LABEL[type] ?? "venues"} in Bangkok
+      </div>
       <div className="flex items-end gap-0.5 h-12">
         {data.map((v, i) => (
           <div
@@ -29,7 +53,7 @@ export function PopularTimes({ type = "restaurant" }: PopularTimesProps) {
               minHeight: v > 0 ? "2px" : "0",
               background: i === now ? "#f97316" : v > 0 ? "#fed7aa" : "#f3f4f6",
             }}
-            title={`${HOURS[i] || `${i % 12 || 12}${i < 12 ? "a" : "p"}m`}: ${v > 0 ? (v >= 7 ? "Very busy" : v >= 4 ? "Busy" : "Not too busy") : "Closed"}`}
+            title={`${HOURS[i] || `${i % 12 || 12}${i < 12 ? "a" : "p"}m`}: ${v > 0 ? (v >= 7 ? "Typically very busy" : v >= 4 ? "Typically busy" : "Typically quiet") : "Typically closed"}`}
           />
         ))}
       </div>
@@ -40,7 +64,7 @@ export function PopularTimes({ type = "restaurant" }: PopularTimesProps) {
       </div>
       <div className="text-xs text-[var(--muted)] mt-2">
         <span className="inline-block w-2.5 h-2.5 rounded-sm bg-orange-400 mr-1" />
-        Usually {data[now] >= 7 ? "very busy" : data[now] >= 4 ? "busy" : "not too busy"} right now
+        General pattern for this venue type — not this specific venue&apos;s live occupancy.
       </div>
     </div>
   );

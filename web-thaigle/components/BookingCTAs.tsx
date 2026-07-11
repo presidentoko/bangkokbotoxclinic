@@ -1,6 +1,7 @@
 "use client";
 
 import { AffiliateLink } from "@/components/AffiliateLink";
+import { withKlookAid } from "@/lib/affiliate";
 
 type KlookProduct = {
   product_url: string;
@@ -36,7 +37,7 @@ export function BookingCTAs({
     <div className="space-y-2 mb-6">
       {klookProduct && (
         <AffiliateLink
-          href={klookProduct.product_url}
+          href={withKlookAid(klookProduct.product_url)}
           tracking={{ type: "affiliate", provider: "Klook", activityType: nicheSlug, surface: "detail", venueId: placeId }}
           className="flex items-center justify-between gap-3 w-full py-3.5 px-5 rounded-2xl bg-orange-500 text-white font-bold hover:bg-orange-600 transition active:scale-95"
         >

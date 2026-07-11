@@ -12,6 +12,9 @@ const RATE_LIMIT_WINDOW = 60_000; // 1 minute
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now();
+  for (const [key, e] of RATE_LIMIT) {
+    if (now > e.resetAt) RATE_LIMIT.delete(key);
+  }
   const entry = RATE_LIMIT.get(ip);
   if (!entry || now > entry.resetAt) {
     RATE_LIMIT.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });

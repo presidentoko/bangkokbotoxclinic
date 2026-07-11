@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { encodeWishlist } from "@/lib/wishlist";
+import { trackShare } from "@/lib/track";
 
 const KEY = "thaigle_saved";
 
@@ -74,7 +76,10 @@ export function SavedListHome() {
   }, []);
 
   const shareWishlist = async () => {
-    const text = `🇹🇭 My Bangkok wishlist (${items.length} places):\n${items.map(i => `${i.icon ?? "📍"} ${i.name}`).join("\n")}\n\nAll ranked by real Google reviews → https://thaigle.com`;
+    trackShare("native", "wishlist");
+    const payload = encodeURIComponent(encodeWishlist(items));
+    const shareUrl = `https://thaigle.com/my-trip?w=${payload}&utm_source=share&utm_medium=native&utm_campaign=wishlist`;
+    const text = `🇹🇭 My Bangkok wishlist (${items.length} places):\n${items.map(i => `${i.icon ?? "📍"} ${i.name}`).join("\n")}\n\nAll ranked by real Google reviews → ${shareUrl}`;
     if (navigator.share) {
       try { await navigator.share({ text }); return; } catch {}
     }

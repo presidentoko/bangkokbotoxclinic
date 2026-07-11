@@ -1,3 +1,7 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 const SEASONS = [
   {
     months: [11, 0, 1, 2],
@@ -49,7 +53,14 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 export function SeasonalTip() {
-  const month = new Date().getMonth();
+  const [month, setMonth] = useState<number | null>(null);
+
+  useEffect(() => {
+    setMonth(new Date().getMonth());
+  }, []);
+
+  if (month === null) return null;
+
   const season = SEASONS.find((s) => s.months.includes(month)) ?? SEASONS[0];
   const cls = COLOR_MAP[season.color] ?? COLOR_MAP.blue;
 

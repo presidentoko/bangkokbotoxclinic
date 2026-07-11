@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import {
-  getPlace,
-  getAllPlaceSlugs,
   CATEGORY_SCHEMA,
   PRICE_TIER_LABEL,
   CATEGORY_LABEL,
 } from "@/lib/places";
 import type { Lang, Place } from "@/lib/places";
+import { getPlaceServer, getAllPlaceSlugsServer } from "@/lib/places-server";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { PopularTimes } from "@/components/PopularTimes";
@@ -16,11 +15,13 @@ import { CrowdRating } from "@/components/CrowdRating";
 import { NearbyThings } from "@/components/NearbyThings";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 export const revalidate = 86400;
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
-export function generateStaticParams() {
-  return getAllPlaceSlugs().map(({ lang, slug }) => ({ lang, slug }));
+export async function generateStaticParams() {
+  const slugs = await getAllPlaceSlugsServer();
+  return slugs.map(({ lang, slug }) => ({ lang, slug }));
 }
 
 export async function generateMetadata({
@@ -29,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string; slug: string }>;
 }): Promise<Metadata> {
   const { lang, slug } = await params;
-  const place = getPlace(slug, lang as Lang);
+  const place = await getPlaceServer(slug, lang as Lang);
   if (!place) return {};
 
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
@@ -37,7 +38,7 @@ export async function generateMetadata({
   const canonical = `/${lang}/place/${slug}`;
 
   return {
-    title: `${t.name} — ${place.subtype} · ${place.area} | Thaigle`,
+    title: `${t.name} — ${place.subtype} · ${place.area}`,
     description: desc,
     alternates: {
       canonical,
@@ -45,13 +46,13 @@ export async function generateMetadata({
         th: `/th/place/${slug}`,
         en: `/en/place/${slug}`,
         ko: `/ko/place/${slug}`,
-        "x-default": `/th/place/${slug}`,
+        "x-default": `/en/place/${slug}`,
       },
     },
     openGraph: {
       title: `${t.name} · ${place.subtype} · ${place.area}`,
       description: desc,
-      images: place.hero.src.startsWith("/") ? [`${SITE}${place.hero.src}`] : [],
+      ...(place.hero.src.startsWith("/") ? { images: [`${SITE}${place.hero.src}`] } : {}),
     },
   };
 }
@@ -59,8 +60,9 @@ export async function generateMetadata({
 function PlaceSchemaLd({ place, lang }: { place: Place; lang: Lang }) {
   const t = place.i18n[lang] ?? place.i18n["en"];
   const schemaType = CATEGORY_SCHEMA[place.category];
-  const ratingValue = (place.localsScore / 20).toFixed(1);
 
+  // No aggregateRating: localsScore is our own composite metric, not a review
+  // average, so presenting it as AggregateRating would misrepresent review data.
   const schema = {
     "@context": "https://schema.org",
     "@type": schemaType,
@@ -78,13 +80,6 @@ function PlaceSchemaLd({ place, lang }: { place: Place; lang: Lang }) {
     },
     priceRange: PRICE_TIER_LABEL[place.priceTier],
     url: `${SITE}/${lang}/place/${place.slug}`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue,
-      ratingCount: place.sources.reviewCount,
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 
   const faqSchema = {
@@ -126,7 +121,7 @@ export default async function PlacePage({
   params: Promise<{ lang: string; slug: string }>;
 }) {
   const { lang, slug } = await params;
-  const place = getPlace(slug, lang as Lang);
+  const place = await getPlaceServer(slug, lang as Lang);
   if (!place) notFound();
 
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
@@ -278,7 +273,6 @@ export default async function PlacePage({
       <PlaceSchemaLd place={place} lang={lang as Lang} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
-        { name: "Places", url: "/en/place" },
         { name: t.name, url: `/${lang}/place/${slug}` },
       ]} />
     </article>

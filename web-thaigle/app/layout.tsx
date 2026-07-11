@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
@@ -15,6 +15,14 @@ import { HeaderNav } from "@/components/HeaderNav";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const cfg = getSiteConfig();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
+  viewportFit: "cover",
+  colorScheme: "light",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

@@ -15,11 +15,14 @@ type Props = {
 };
 
 export function MobileStickyBar({ bookingUrl, bookingProvider, bookingLabel, priceLabel, nicheSlug, placeId, planItem }: Props) {
-  const { add, remove, has } = usePlanner();
+  const { add, remove, has, plan } = usePlanner();
   const inPlan = has(planItem.id, planItem.type);
+  // PlannerBar renders fixed at bottom-16 (mobile) whenever the plan has items —
+  // stack this bar above it instead of letting them overlap at the same offset.
+  const bottomClass = plan.items.length > 0 ? "bottom-[7.5rem]" : "bottom-16";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden p-3 bg-white border-t border-[var(--border)] shadow-lg safe-area-inset-bottom">
+    <div className={`fixed ${bottomClass} left-0 right-0 z-40 md:hidden p-3 bg-white border-t border-[var(--border)] shadow-lg`}>
       <div className="flex gap-2">
         <AffiliateLink
           href={bookingUrl}

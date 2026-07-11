@@ -149,7 +149,7 @@ export async function loadCommunityDb(niche: NicheSlug): Promise<CommunityDb | n
 
 export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
   return [...places]
-    .filter((p) => p.trust_score > 0)
+    .filter((p) => p.trust_score > 0 && !!p.rating && !!p.review_count && p.review_count > 0)
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, n);
 }

@@ -1,4 +1,5 @@
 import { loadMasterDb } from "@/lib/data";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
@@ -10,20 +11,23 @@ function escape(s: string): string {
 }
 
 export async function GET() {
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 50);
   const updated = new Date(db.generated_at).toUTCString();
 
-  const items = top.map((r) => `
+  const items = top.map((r) => {
+    const url = `${SITE}${restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })}`;
+    return `
     <item>
       <title>${escape(r.name)} — Trust ${r.trust_score} · ★${r.rating} (${r.total_reviews} reviews)</title>
-      <link>${SITE}/restaurant/${r.id}</link>
-      <guid isPermaLink="true">${SITE}/restaurant/${r.id}</guid>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
       <description>${escape(`${r.primary_type}${r.district ? ` in ${r.district}` : ""}, ${r.city_label}. ${r.cuisines.join(", ")}.`)}</description>
       <pubDate>${updated}</pubDate>
       <category>${escape(r.district || r.city_label)}</category>
     </item>
-  `).join("");
+  `;
+  }).join("");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

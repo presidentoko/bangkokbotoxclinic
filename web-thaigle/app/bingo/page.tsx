@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { BangkokBingo } from "@/components/BangkokBingo";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { VersusVote } from "@/components/VersusVote";
@@ -14,17 +15,26 @@ import { NightlifeGuide } from "@/components/NightlifeGuide";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
-export const metadata: Metadata = {
-  title: "Bangkok Bucket List Bingo 2026 — Tick What You've Done | Thaigle",
-  description: "Bangkok Bucket List: 16 must-do experiences — Thai massage, Muay Thai, Pad Thai, rooftop bar, cooking class & more. Tick what you've done and share your score.",
-  alternates: { canonical: "/bingo" },
-  openGraph: {
-    title: "Bangkok Bucket List Bingo 🇹🇭 — Have You Done All 16?",
-    description: "Tick what you've experienced in Bangkok — Thai massage, Muay Thai, street food after midnight, rooftop bar & 12 more. Share your score.",
-  },
-};
-
-export const dynamic = "force-static";
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ d?: string }>;
+}): Promise<Metadata> {
+  const { d } = await searchParams;
+  return {
+    title: "Bangkok Bucket List Bingo 2026 — Tick What You've Done | Thaigle",
+    description: "Bangkok Bucket List: 16 must-do experiences — Thai massage, Muay Thai, Pad Thai, rooftop bar, cooking class & more. Tick what you've done and share your score.",
+    alternates: { canonical: "/bingo" },
+    openGraph: {
+      title: "Bangkok Bucket List Bingo 🇹🇭 — Have You Done All 16?",
+      description: "Tick what you've experienced in Bangkok — Thai massage, Muay Thai, street food after midnight, rooftop bar & 12 more. Share your score.",
+      // Carries the `d` score payload through so a shared link renders a
+      // personalized OG card (the opengraph-image convention alone can't
+      // see the page's query string).
+      images: [`/bingo/opengraph-image${d ? `?d=${encodeURIComponent(d)}` : ""}`],
+    },
+  };
+}
 
 export default function BingoPage() {
   return (
@@ -49,7 +59,9 @@ export default function BingoPage() {
           </div>
         </div>
 
-        <BangkokBingo />
+        <Suspense fallback={null}>
+          <BangkokBingo />
+        </Suspense>
 
         {/* Don't Miss */}
         <DontMiss />

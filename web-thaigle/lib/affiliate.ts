@@ -16,6 +16,21 @@ function addUtm(url: string, activityType: string): string {
   return `${url}${sep}${qs}`;
 }
 
+// Appends our Klook affiliate ID to a direct product URL scraped without one.
+export function withKlookAid(url: string): string {
+  if (!KLOOK_AID || !url) return url;
+  try {
+    const u = new URL(url);
+    if (!u.searchParams.has("aid")) {
+      u.searchParams.set("aid", KLOOK_AID);
+      u.searchParams.set("aff_adid", "thaigle");
+    }
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
 function klookSearchUrl(query: string): string {
   const u = new URL(KLOOK_SEARCH_BASE);
   u.searchParams.set("keyword", query);

@@ -119,6 +119,7 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
           rating: r.rating,
           city: r.city,
           trust_score: r.trust_score,
+          url: href,
         }} />
         <a
           href={href}

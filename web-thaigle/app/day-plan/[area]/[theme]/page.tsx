@@ -34,15 +34,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const NICHE_TO_PLAN_TYPE: Record<string, "wellness" | "gym"> = {
+  "muay-thai": "gym",
+  "diving": "gym",
+  "spa": "wellness",
+  "wellness": "wellness",
+  "yoga-pilates": "wellness",
+  "cooking": "wellness",
+  "coworking": "wellness",
+};
+
+function activityTypeFor(venueUrl: string): "wellness" | "gym" {
+  const niche = venueUrl.split("/")[2];
+  return NICHE_TO_PLAN_TYPE[niche] ?? "wellness";
+}
+
 function buildEditUrl(stops: DayPlanStop[]): string {
   const items = stops.map((s) => ({
-    type: (s.venueUrl.startsWith("/activities") ? "wellness" : "restaurant") as "wellness" | "restaurant",
+    type: (s.venueUrl.startsWith("/activities") ? activityTypeFor(s.venueUrl) : "restaurant") as "wellness" | "gym" | "restaurant",
     id: s.venueId,
     name: s.venueName,
     rating: s.rating ?? undefined,
+    url: s.venueUrl,
   }));
   const encoded = encodePlan({ title: "My Bangkok Day", items });
-  return `/plan?d=${encoded}`;
+  return `/plan?d=${encodeURIComponent(encoded)}`;
 }
 
 export default async function DayPlanDetailPage({ params }: Props) {

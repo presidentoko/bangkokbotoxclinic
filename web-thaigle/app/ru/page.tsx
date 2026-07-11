@@ -1,5 +1,5 @@
 import { loadMasterDb, topByTrust } from "@/lib/data";
-import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
+import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -69,11 +69,18 @@ export default async function RuHomePage() {
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
   const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
 
-  const districtMap = new Map<string, number>();
+  const districtMap = new Map<string, { city: string; count: number }>();
   for (const r of db.restaurants) {
-    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+    if (r.district) {
+      const key = `${r.city}|${r.district}`;
+      const existing = districtMap.get(key);
+      districtMap.set(key, { city: r.city, count: (existing?.count ?? 0) + 1 });
+    }
   }
-  const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+  const districts = [...districtMap.entries()]
+    .map(([key, v]) => ({ district: key.split("|")[1], city: v.city, count: v.count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 12);
   const cuisines = Object.entries(db.cuisine_counts);
 
   return (
@@ -92,13 +99,14 @@ export default async function RuHomePage() {
           <div className="max-w-2xl mx-auto">
             <HeroSearch
               entities={db.restaurants.map((r) => ({
-                id: r.id, name: r.name, district: r.district,
+                id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }).slice(1),
+                name: r.name, district: r.district,
                 city_label: r.city_label, rating: r.rating, trust_score: r.trust_score,
               }))}
-              hrefBase="/restaurant"
+              hrefBase=""
               popularSearches={cuisines.slice(0, 4).map(([cat]) => ({
                 label: CUISINE_LABELS[cat] ?? cat,
-                href: `/c/${cat}`,
+                href: `/restaurants/cuisine/${cat}`,
               }))}
               popularLabel="Популярное"
             />
@@ -123,7 +131,7 @@ export default async function RuHomePage() {
               {cuisines.map(([cat, count]) => (
                 <a
                   key={cat}
-                  href={`/c/${cat}`}
+                  href={`/restaurants/cuisine/${cat}`}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
                   <span aria-hidden>{CUISINE_ICONS[cat] ?? "🍴"}</span>
@@ -138,10 +146,10 @@ export default async function RuHomePage() {
         <section className="mb-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">По районам</h2>
           <div className="flex flex-wrap gap-2">
-            {districts.map(([d, count]) => (
+            {districts.map(({ district: d, city, count }) => (
               <a
-                key={d}
-                href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                key={`${city}-${d}`}
+                href={`/restaurants/${city}/${slugifySegment(d)}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>

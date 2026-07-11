@@ -12,17 +12,28 @@ import { WeekendPlan } from "@/components/WeekendPlan";
 import { BangkokBudgetCalc } from "@/components/BangkokBudgetCalc";
 import { BangkokDayPlanner } from "@/components/BangkokDayPlanner";
 
-export const metadata: Metadata = {
-  title: "Bangkok Day Planner — Build Your Perfect Day | Thaigle",
-  description:
-    "Plan your Bangkok day with restaurants, spas, Muay Thai, yoga, cooking classes and more. Save venues, share with friends, and book activities in one place.",
-  alternates: { canonical: "/plan" },
-  openGraph: {
-    title: "Bangkok Day Planner — Build Your Perfect Day",
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ d?: string }>;
+}): Promise<Metadata> {
+  const { d } = await searchParams;
+  return {
+    title: "Bangkok Day Planner — Build Your Perfect Day | Thaigle",
     description:
-      "Plan eat · train · treat · learn · relax. Add Bangkok venues to your day plan, share with friends, and book activities.",
-  },
-};
+      "Plan your Bangkok day with restaurants, spas, Muay Thai, yoga, cooking classes and more. Save venues, share with friends, and book activities in one place.",
+    alternates: { canonical: "/plan" },
+    openGraph: {
+      title: "Bangkok Day Planner — Build Your Perfect Day",
+      description:
+        "Plan eat · train · treat · learn · relax. Add Bangkok venues to your day plan, share with friends, and book activities.",
+      // Carries the `d` plan payload through so a shared link renders a
+      // personalized OG card (the opengraph-image convention alone can't
+      // see the page's query string).
+      images: [`/plan/opengraph-image${d ? `?d=${encodeURIComponent(d)}` : ""}`],
+    },
+  };
+}
 
 const CATEGORIES = [
   { icon: "🍜", label: "Eat", href: "/restaurants/bangkok", desc: "3,200+ restaurants ranked by real reviews" },

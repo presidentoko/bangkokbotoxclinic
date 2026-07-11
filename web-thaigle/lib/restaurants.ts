@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { Restaurant } from "./types";
+import { slugifySegment } from "./slug";
 
 export type SlugEntry = { city: string; district: string; slug: string };
 export type SlugMap = Record<string, SlugEntry>;
@@ -17,9 +18,7 @@ export async function getSlugMap(): Promise<SlugMap> {
   return _slugMap;
 }
 
-export function slugifySegment(s: string): string {
-  return s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-}
+export { slugifySegment };
 
 export function restaurantUrl(entry: SlugEntry): string {
   return `/restaurants/${entry.city}/${slugifySegment(entry.district)}/${entry.slug}`;

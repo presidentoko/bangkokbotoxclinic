@@ -34,3 +34,9 @@ export function trackTikTokConversion(venueId: string, action: "book" | "add_pla
     track("tiktok_conversion", { venueId, action, src: "tiktok" });
   } catch {}
 }
+
+export function trackShare(medium: string, campaign: string) {
+  try {
+    track("share_click", { medium, campaign });
+  } catch {}
+}

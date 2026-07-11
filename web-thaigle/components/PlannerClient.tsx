@@ -7,6 +7,7 @@ import type { Plan, PlanItem, PlanItemType } from "@/lib/planner";
 import { usePlanner } from "@/components/PlannerContext";
 import { getAffiliateLink } from "@/lib/affiliate";
 import { AffiliateLink } from "@/components/AffiliateLink";
+import { trackShare } from "@/lib/track";
 import { DayBuilder } from "@/components/DayBuilder";
 
 const PLAN_TYPE_TO_ACTIVITY: Partial<Record<PlanItemType, string>> = {
@@ -35,18 +36,23 @@ function PlannerContent() {
     }))
     .filter((g) => g.items.length > 0);
 
+  function shareableUrl(medium: string) {
+    // planUrl() already encodeURIComponent's the `d` payload — safe to append further params with `&`.
+    return `${window.location.origin}${planUrl(plan)}&utm_source=share&utm_medium=${medium}&utm_campaign=plan`;
+  }
+
   function copyLink() {
-    const url = `${window.location.origin}${planUrl(plan)}`;
-    navigator.clipboard.writeText(url);
+    trackShare("copy", "plan");
+    navigator.clipboard.writeText(shareableUrl("copy"));
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
 
   function kakaoShare() {
     if (typeof window === "undefined") return;
-    const url = `${window.location.origin}${planUrl(plan)}`;
+    trackShare("kakao", "plan");
     window.open(
-      `https://sharer.kakao.com/talk/friends/picker/link?app_key=&url=${encodeURIComponent(url)}`,
+      `https://story.kakao.com/share?url=${encodeURIComponent(shareableUrl("kakao"))}`,
       "_blank"
     );
   }
@@ -72,7 +78,7 @@ function PlannerContent() {
           <h1
             className={`text-2xl font-black ${!isShared ? "cursor-pointer hover:text-orange-600 transition" : ""}`}
             onClick={() => !isShared && setEditingTitle(true)}
-            title={!isShared ? "클릭해서 제목 편집" : undefined}
+            title={!isShared ? "Click to edit title" : undefined}
           >
             {plan.title}
             {!isShared && <span className="text-sm text-[var(--muted)] font-normal ml-2">✏️</span>}
@@ -160,13 +166,13 @@ function PlannerContent() {
           onClick={copyLink}
           className="flex items-center gap-2 bg-black text-white font-bold px-5 py-3 rounded-full hover:bg-gray-800 transition"
         >
-          {copied ? "✓ 복사됨!" : "🔗 링크 복사"}
+          {copied ? "✓ Copied!" : "🔗 Copy link"}
         </button>
         <button
           onClick={kakaoShare}
           className="flex items-center gap-2 bg-[#FEE500] text-black font-bold px-5 py-3 rounded-full hover:opacity-90 transition"
         >
-          💬 카카오톡 공유
+          💬 Share on KakaoTalk
         </button>
       </div>
 
@@ -175,7 +181,7 @@ function PlannerContent() {
           onClick={clear}
           className="text-sm text-[var(--muted)] hover:text-red-500 transition"
         >
-          플래너 초기화
+          Reset planner
         </button>
       )}
     </div>
@@ -183,14 +189,18 @@ function PlannerContent() {
 }
 
 function PlanItemRow({ item, isShared, onRemove }: { item: PlanItem; isShared: boolean; onRemove: () => void }) {
+  // Prefer the canonical URL captured at add-time; older/shared items may predate it,
+  // so fall back to a route that's at least guaranteed to exist (never a guessed detail page).
   const href =
-    item.type === "restaurant"
-      ? `/restaurants/${item.city ?? "bangkok"}/${(item.district ?? "other").toLowerCase().replace(/\s+/g, "-")}/${item.id}`
+    item.url ??
+    (item.type === "restaurant"
+      ? `/restaurants/${item.city ?? "bangkok"}`
       : item.type === "clinic"
-        ? `/clinics/${item.id}`
+        ? "/clinics"
         : item.type === "dental"
-          ? `/dental/${item.id}`
-          : `/activities`;
+          ? "/dental"
+          : "/activities");
+  const external = href.startsWith("http");
 
   const activityType = PLAN_TYPE_TO_ACTIVITY[item.type];
   const bookLink = activityType
@@ -202,7 +212,7 @@ function PlanItemRow({ item, isShared, onRemove }: { item: PlanItem; isShared: b
 
   return (
     <div className="flex items-center justify-between gap-3 bg-white border border-[var(--border)] rounded-xl p-4 hover:border-orange-300 transition">
-      <a href={href} className="min-w-0 flex-1">
+      <a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="min-w-0 flex-1">
         <div className="font-bold text-sm truncate">{item.name}</div>
         <div className="text-xs text-[var(--muted)]">
           {item.district && <span>📍 {item.district}</span>}
@@ -223,7 +233,7 @@ function PlanItemRow({ item, isShared, onRemove }: { item: PlanItem; isShared: b
           <button
             onClick={onRemove}
             className="text-[var(--muted)] hover:text-red-500 text-xl leading-none transition"
-            aria-label="제거"
+            aria-label="Remove"
           >
             ×
           </button>

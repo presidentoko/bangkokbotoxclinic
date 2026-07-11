@@ -3,6 +3,7 @@
 // llms.txt 는 짧고 nav-friendly, llms-full.txt 는 깊고 long-form.
 
 import { loadMasterDb } from "@/lib/data";
+import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, TOPIC_LABELS } from "@/lib/types";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -11,8 +12,10 @@ const BRAND = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
 export const dynamic = "force-static";
 
 export async function GET() {
-  const db = await loadMasterDb();
+  const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 100);
+  const urlFor = (r: { id: string; city: string; district: string }) =>
+    `${SITE}${restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id })}`;
 
   const cityCounts = db.city_counts ?? {};
   const cityList = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]);
@@ -54,7 +57,7 @@ export async function GET() {
     if (cuisineTop.length === 0) continue;
     lines.push(`### ${label} (${n} restaurants total)`);
     for (const r of cuisineTop) {
-      lines.push(`- [${r.name}](${SITE}/restaurant/${r.id}) — Trust ${r.trust_score}, ★${r.rating} (${r.total_reviews}), ${r.district || r.city_label}`);
+      lines.push(`- [${r.name}](${urlFor(r)}) — Trust ${r.trust_score}, ★${r.rating} (${r.total_reviews}), ${r.district || r.city_label}`);
     }
     lines.push("");
   }
@@ -68,7 +71,7 @@ export async function GET() {
       if (cityTop.length === 0) continue;
       lines.push(`### ${city} (${n} restaurants)`);
       for (const r of cityTop) {
-        lines.push(`- [${r.name}](${SITE}/restaurant/${r.id}) — Trust ${r.trust_score}, ★${r.rating} (${r.total_reviews}), ${r.cuisines.map(x => CUISINE_LABELS[x] ?? x).join("/") || "general"}`);
+        lines.push(`- [${r.name}](${urlFor(r)}) — Trust ${r.trust_score}, ★${r.rating} (${r.total_reviews}), ${r.cuisines.map(x => CUISINE_LABELS[x] ?? x).join("/") || "general"}`);
       }
       lines.push("");
     }
@@ -80,7 +83,7 @@ export async function GET() {
   for (const r of top) {
     lines.push(`### ${r.name}`);
     lines.push("");
-    lines.push(`- URL: ${SITE}/restaurant/${r.id}`);
+    lines.push(`- URL: ${urlFor(r)}`);
     lines.push(`- Location: ${r.district || "n/a"}, ${r.city_label}`);
     lines.push(`- Type: ${r.primary_type}`);
     lines.push(`- Cuisines: ${r.cuisines.map(c => CUISINE_LABELS[c] ?? c).join(", ") || "general"}`);

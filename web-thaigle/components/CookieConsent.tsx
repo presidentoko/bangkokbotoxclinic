@@ -26,7 +26,7 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-3 md:p-4 bg-white border-t border-[var(--border)] shadow-xl md:bottom-4 md:left-4 md:right-auto md:max-w-sm md:rounded-2xl md:border">
+    <div className="fixed bottom-16 left-0 right-0 z-50 p-3 md:p-4 bg-white border-t border-[var(--border)] shadow-xl md:bottom-4 md:left-4 md:right-auto md:max-w-sm md:rounded-2xl md:border">
       <p className="text-xs text-[var(--muted)] mb-3 leading-relaxed">
         เราใช้คุกกี้เพื่อวิเคราะห์การใช้งาน (Vercel Analytics) ไม่มีโฆษณาบุคคลที่สาม
         <br />

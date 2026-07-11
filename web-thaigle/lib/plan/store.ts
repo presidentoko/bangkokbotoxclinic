@@ -52,10 +52,39 @@ export const CATEGORY_COLORS: Record<Category, { bg: string; text: string; borde
 
 type Listener = () => void;
 
-let plan: Plan = { items: [], travelSegments: [] };
+const PLAN_LS_KEY = "thaigle_place_plan";
+
+function loadPersisted(): Plan {
+  if (typeof window === "undefined") return { items: [], travelSegments: [] };
+  try {
+    const raw = localStorage.getItem(PLAN_LS_KEY);
+    if (!raw) return { items: [], travelSegments: [] };
+    const parsed = JSON.parse(raw) as { items: PlanItem[] };
+    return { items: Array.isArray(parsed.items) ? parsed.items : [], travelSegments: [] };
+  } catch {
+    return { items: [], travelSegments: [] };
+  }
+}
+
+let plan: Plan = loadPersisted();
+// Restore derived state (travel segments, start times) dropped from the persisted snapshot.
+rebuildTravel();
+rebuildStartTimes();
+
 const listeners = new Set<Listener>();
 
+function persist() {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(
+      PLAN_LS_KEY,
+      JSON.stringify({ items: plan.items.map(({ slug, category, name, lat, lng, localsScore, durationMin, dataSays, startTime, locked }) => ({ slug, category, name, lat, lng, localsScore, durationMin, dataSays, startTime, locked })) })
+    );
+  } catch {}
+}
+
 function notify() {
+  persist();
   for (const l of listeners) l();
 }
 
@@ -128,38 +157,49 @@ function rebuildStartTimes() {
   }
 }
 
-// Nearest-neighbor + time-window optimizer (heuristic TSP)
+// Nearest-neighbor optimizer (heuristic TSP) — reorders unlocked items only;
+// locked items keep their original array position so nothing is ever dropped.
 function optimizeRoute(): void {
   if (plan.items.length < 3) return;
 
-  const locked = plan.items.filter((it) => it.locked);
-  const free = plan.items.filter((it) => !it.locked);
+  const original = plan.items;
+  const locked = original.filter((it) => it.locked);
+  const free = original.filter((it) => !it.locked);
+  if (free.length === 0) return;
 
-  // Greedy nearest-neighbor from first locked or first free item
-  const start = locked[0] ?? free[0];
-  const remaining = free.filter((it) => it.slug !== start.slug);
-  const ordered: PlanItem[] = [start];
+  // Greedy nearest-neighbor over the unlocked items, starting from the first
+  // locked item (if any) so the walk flows naturally from a fixed anchor.
+  const anchor = locked[0] ?? free[0];
+  const remaining = locked[0] ? [...free] : free.filter((it) => it.slug !== anchor.slug);
+  const orderedFree: PlanItem[] = locked[0] ? [] : [anchor];
 
-  let current = start;
+  let current = anchor;
   while (remaining.length > 0) {
     let nearest = remaining[0];
     let minDist = haversine(current.lat, current.lng, nearest.lat, nearest.lng);
     for (const item of remaining.slice(1)) {
       const d = haversine(current.lat, current.lng, item.lat, item.lng);
-      // Time window constraint: eat items prefer noon (720) or evening (1080)
-      const penalty = item.category === "eat" ? 0 : 0;
-      if (d + penalty < minDist) {
-        minDist = d + penalty;
+      if (d < minDist) {
+        minDist = d;
         nearest = item;
       }
     }
-    ordered.push(nearest);
+    orderedFree.push(nearest);
     remaining.splice(remaining.indexOf(nearest), 1);
     current = nearest;
   }
 
-  // Re-insert locked items at original positions
-  plan.items = ordered;
+  // Re-insert locked items at their original positions; fill the remaining
+  // slots with the newly-ordered free items.
+  const lockedSlugs = new Set(locked.map((it) => it.slug));
+  const ordered: PlanItem[] = [];
+  let freeCursor = 0;
+  for (const it of original) {
+    if (lockedSlugs.has(it.slug)) ordered.push(it);
+    else ordered.push(orderedFree[freeCursor++]);
+  }
+
+  plan = { ...plan, items: ordered };
   rebuildTravel();
   rebuildStartTimes();
   notify();
@@ -224,6 +264,7 @@ export const plannerStore = {
   hydrate(data: string): void {
     try {
       const parsed = JSON.parse(data) as { items: PlanItem[] };
+      if (!Array.isArray(parsed.items)) return;
       plan = { items: parsed.items, travelSegments: [] };
       rebuildTravel();
       rebuildStartTimes();

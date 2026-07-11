@@ -29,6 +29,8 @@ export type PlanItem = {
   trust_score?: number;
   price_min_thb?: number;
   slot?: SlotKey;
+  /** Canonical link to this item, set at add-time. Falls back to a best-guess route if absent. */
+  url?: string;
 };
 
 export type Plan = {
@@ -36,14 +38,14 @@ export type Plan = {
   items: PlanItem[];
 };
 
-export const EMPTY_PLAN: Plan = { title: "내 방콕 트립", items: [] };
+export const EMPTY_PLAN: Plan = { title: "My Bangkok Trip", items: [] };
 
 export const TYPE_LABELS: Record<PlanItemType, string> = {
-  restaurant: "🍜 맛집",
-  clinic: "💉 클리닉",
-  dental: "🦷 치과",
-  wellness: "💆 웰니스",
-  gym: "🥊 무에타이",
+  restaurant: "🍜 Restaurant",
+  clinic: "💉 Clinic",
+  dental: "🦷 Dental",
+  wellness: "💆 Wellness",
+  gym: "🥊 Muay Thai",
 };
 
 // Rough price estimate for spend summary when price_min_thb is not stored
@@ -68,7 +70,7 @@ export function decodePlan(str: string): Plan | null {
 }
 
 export function planUrl(plan: Plan): string {
-  return `/plan?d=${encodePlan(plan)}`;
+  return `/plan?d=${encodeURIComponent(encodePlan(plan))}`;
 }
 
 export function getSlottedItems(plan: Plan): Record<SlotKey, PlanItem | null> {

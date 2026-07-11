@@ -8,37 +8,44 @@ interface SharePageProps {
   searchParams: Promise<{ d?: string }>;
 }
 
+function parsePlanItems(d: string): PlanItem[] {
+  try {
+    const data = JSON.parse(Buffer.from(d, "base64").toString());
+    if (!Array.isArray(data?.items)) return [];
+    return data.items.filter(
+      (it: unknown): it is PlanItem =>
+        !!it && typeof it === "object" && (it as PlanItem).category in CATEGORY_COLORS
+    );
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ searchParams }: SharePageProps): Promise<Metadata> {
   const { d } = await searchParams;
   let title = "Bangkok Day Plan — Thaigle";
   let description = "A curated Bangkok day itinerary from Thaigle.";
 
   if (d) {
-    try {
-      const data = JSON.parse(Buffer.from(d, "base64").toString()) as { items: PlanItem[] };
-      const names = data.items.slice(0, 4).map((it) => it.name).join(" → ");
+    const items = parsePlanItems(d);
+    if (items.length > 0) {
+      const names = items.slice(0, 4).map((it) => it.name).join(" → ");
       title = `Bangkok Day: ${names} — Thaigle`;
-      description = `${data.items.length}-stop Bangkok day plan: ${names}. Each place verified by real reviews.`;
-    } catch {}
+      description = `${items.length}-stop Bangkok day plan: ${names}. Each place verified by real reviews.`;
+    }
   }
 
   return {
     title,
     description,
+    robots: { index: false, follow: true },
     openGraph: { title, description },
   };
 }
 
 export default async function SharePage({ searchParams }: SharePageProps) {
   const { d } = await searchParams;
-  let items: PlanItem[] = [];
-
-  if (d) {
-    try {
-      const data = JSON.parse(Buffer.from(d, "base64").toString()) as { items: PlanItem[] };
-      items = data.items;
-    } catch {}
-  }
+  const items: PlanItem[] = d ? parsePlanItems(d) : [];
 
   if (items.length === 0) {
     return (
