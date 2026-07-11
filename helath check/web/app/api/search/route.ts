@@ -1,22 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import mysql from "mysql2/promise";
+import type { RowDataPacket } from "mysql2/promise";
+import { getPool } from "@/lib/db";
 
-const pool = mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  port: Number(process.env.MYSQL_PORT || 3306),
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-  connectionLimit: 3,
-  ssl: { rejectUnauthorized: false },
-});
+// Uses the shared pool from lib/db — a previous standalone pool here read
+// MYSQL_* env vars that don't exist in this deployment (the real ones are
+// DB_*), so every search silently failed. Response shape must stay
+// { hospitals, packages } to match app/components/SiteSearch.tsx.
 
 export async function GET(req: NextRequest) {
   const q = (req.nextUrl.searchParams.get("q") || "").trim().slice(0, 100);
-  if (q.length < 2) return NextResponse.json([]);
+  if (q.length < 2) return NextResponse.json({ hospitals: [], packages: [] });
 
   const like = `%${q}%`;
-  const [rows] = await pool.query<mysql.RowDataPacket[]>(
+  const pool = getPool();
+
+  const [hospitalRows] = await pool.query<RowDataPacket[]>(
     `SELECT h.slug, h.name, h.city, h.jci,
             MIN(p.price) min_price, COUNT(p.id) pkg_count
      FROM hospitals h
@@ -24,19 +22,23 @@ export async function GET(req: NextRequest) {
      WHERE h.name LIKE ? OR h.city LIKE ? OR h.area LIKE ?
      GROUP BY h.id
      ORDER BY h.jci DESC, pkg_count DESC
-     LIMIT 10`,
+     LIMIT 6`,
     [like, like, like],
   );
 
+  const [packageRows] = await pool.query<RowDataPacket[]>(
+    `SELECT p.id package_id, p.name package_name, p.category, p.price,
+            h.slug hospital_slug, h.name hospital_name, h.jci
+     FROM checkup_packages p
+     JOIN hospitals h ON h.id = p.hospital_id
+     WHERE p.name LIKE ? AND p.price IS NOT NULL
+     ORDER BY h.jci DESC, p.price ASC
+     LIMIT 6`,
+    [like],
+  );
+
   return NextResponse.json(
-    rows.map((r) => ({
-      slug: r.slug,
-      name: r.name,
-      city: r.city,
-      jci: r.jci,
-      min_price: r.min_price,
-      pkg_count: r.pkg_count,
-    })),
-    { headers: { "Cache-Control": "public, s-maxage=60" } },
+    { hospitals: hospitalRows, packages: packageRows },
+    { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600" } },
   );
 }

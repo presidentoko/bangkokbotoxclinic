@@ -4,11 +4,15 @@ import { type Locale, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
 import { getPackagesByCategory, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export function generateStaticParams() {
   return CATEGORIES.map((type) => ({ type }));
 }
+
+// CATEGORIES is the complete param space — unknown types 404 at the router
+// without a function invocation or ISR write.
+export const dynamicParams = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 
@@ -145,7 +149,7 @@ export default async function CheckupTypePage({
 
       <div className="mb-6 flex flex-wrap gap-3">
         <Link
-          href={`/${locale}/compare?category=${type}`}
+          href={`/${locale}/compare/${type}`}
           className="inline-block bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors"
         >
           Compare all in a table →

@@ -18,9 +18,10 @@ const GUIDE_META: Record<string, { title: string; emoji: string; tag: string }> 
   "health-checkup-expats-thailand": { title: "Expat Health Check-Up Guide", emoji: "🌍", tag: "Expat Guide" },
 };
 
-export default function Image({ params }: { params: { slug: string } }) {
-  const meta = GUIDE_META[params.slug] || {
-    title: params.slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const meta = GUIDE_META[slug] || {
+    title: slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
     emoji: "📋",
     tag: "Health Guide",
   };
@@ -35,26 +36,26 @@ export default function Image({ params }: { params: { slug: string } }) {
       }}>
         {/* Header */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "8px 20px" }}>
-            <span style={{ color: "white", fontSize: "18px", fontWeight: 700 }}>BangkokCheckup</span>
+          <div style={{ display: "flex", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "8px 20px" }}>
+            <span style={{ display: "flex", color: "white", fontSize: "18px", fontWeight: 700 }}>BangkokCheckup</span>
           </div>
-          <div style={{ background: "rgba(255,255,255,0.2)", borderRadius: "999px", padding: "6px 18px" }}>
-            <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "14px", fontWeight: 600 }}>{meta.tag}</span>
+          <div style={{ display: "flex", background: "rgba(255,255,255,0.2)", borderRadius: "999px", padding: "6px 18px" }}>
+            <span style={{ display: "flex", color: "rgba(255,255,255,0.9)", fontSize: "14px", fontWeight: 600 }}>{meta.tag}</span>
           </div>
         </div>
 
         {/* Body */}
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          <div style={{ fontSize: "80px", lineHeight: 1 }}>{meta.emoji}</div>
-          <div style={{ color: "white", fontSize: "52px", fontWeight: 800, lineHeight: 1.1, maxWidth: "900px" }}>
+          <div style={{ display: "flex", fontSize: "80px", lineHeight: 1 }}>{meta.emoji}</div>
+          <div style={{ display: "flex", color: "white", fontSize: "52px", fontWeight: 800, lineHeight: 1.1, maxWidth: "900px" }}>
             {meta.title}
           </div>
-          <div style={{ color: "rgba(255,255,255,0.75)", fontSize: "24px" }}>
+          <div style={{ display: "flex", color: "rgba(255,255,255,0.75)", fontSize: "24px" }}>
             2026 · Real prices from 235+ Thailand hospitals
           </div>
         </div>
       </div>
     ),
-    { ...size }
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } }
   );
 }

@@ -35,20 +35,20 @@ export default async function OgImage() {
     >
       {/* Top bar */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "13px", fontWeight: "700", letterSpacing: "0.05em" }}>
+        <div style={{ display: "flex", background: "rgba(255,255,255,0.12)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "13px", fontWeight: "700", letterSpacing: "0.05em" }}>
           BANGKOKTOPCLINIC.COM
         </div>
-        <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
           No ads · No paid rankings
         </div>
       </div>
 
       {/* Main content */}
-      <div>
-        <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "18px", marginBottom: "10px" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.6)", fontSize: "18px", marginBottom: "10px" }}>
           🏥 Compare Health Check-Up Hospitals
         </div>
-        <div style={{ color: "white", fontSize: "52px", fontWeight: "800", lineHeight: "1.1", marginBottom: "24px" }}>
+        <div style={{ display: "flex", color: "white", fontSize: "52px", fontWeight: "800", lineHeight: "1.1", marginBottom: "24px" }}>
           {hospitalCount}+ Hospitals Across Thailand
         </div>
 
@@ -56,11 +56,13 @@ export default async function OgImage() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginBottom: "24px" }}>
           {CITIES.map((c) => (
             <div key={c.name} style={{
+              display: "flex",
               background: "rgba(255,255,255,0.12)",
               borderRadius: "8px", padding: "8px 14px",
               color: "white", fontSize: "14px",
             }}>
-              {c.name} <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px" }}>{c.count}</span>
+              <span style={{ display: "flex" }}>{c.name}</span>
+              <span style={{ display: "flex", color: "rgba(255,255,255,0.6)", fontSize: "12px", marginLeft: "4px" }}>{c.count}</span>
             </div>
           ))}
         </div>
@@ -68,27 +70,27 @@ export default async function OgImage() {
         {/* Stats */}
         <div style={{ display: "flex", gap: "20px" }}>
           {jciCount > 0 && (
-            <div style={{ background: "#fbbf24", borderRadius: "10px", padding: "12px 20px", color: "#1e293b" }}>
-              <div style={{ fontSize: "26px", fontWeight: "800" }}>{jciCount}</div>
-              <div style={{ fontSize: "11px", fontWeight: "600" }}>JCI Accredited</div>
+            <div style={{ display: "flex", flexDirection: "column", background: "#fbbf24", borderRadius: "10px", padding: "12px 20px", color: "#1e293b" }}>
+              <div style={{ display: "flex", fontSize: "26px", fontWeight: "800" }}>{jciCount}</div>
+              <div style={{ display: "flex", fontSize: "11px", fontWeight: "600" }}>JCI Accredited</div>
             </div>
           )}
-          <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "12px 20px", color: "white" }}>
-            <div style={{ fontSize: "26px", fontWeight: "800" }}>18</div>
-            <div style={{ fontSize: "11px", opacity: 0.7 }}>Cities</div>
+          <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "12px 20px", color: "white" }}>
+            <div style={{ display: "flex", fontSize: "26px", fontWeight: "800" }}>18</div>
+            <div style={{ display: "flex", fontSize: "11px", opacity: 0.7 }}>Cities</div>
           </div>
-          <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "12px 20px", color: "white" }}>
-            <div style={{ fontSize: "26px", fontWeight: "800" }}>6</div>
-            <div style={{ fontSize: "11px", opacity: 0.7 }}>Languages</div>
+          <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.12)", borderRadius: "10px", padding: "12px 20px", color: "white" }}>
+            <div style={{ display: "flex", fontSize: "26px", fontWeight: "800" }}>6</div>
+            <div style={{ display: "flex", fontSize: "11px", opacity: 0.7 }}>Languages</div>
           </div>
         </div>
       </div>
 
       {/* Bottom */}
-      <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>
+      <div style={{ display: "flex", color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>
         Real prices scraped daily — compare executive, comprehensive, cancer, and cardiac packages
       </div>
     </div>,
-    { ...size },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
   );
 }

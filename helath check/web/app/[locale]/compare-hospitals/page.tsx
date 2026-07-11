@@ -3,7 +3,7 @@ import Link from "next/link";
 import { type Locale, LOCALES } from "@/lib/i18n";
 import { getHospital, type HospitalDetail, type PackageRow } from "@/lib/db";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

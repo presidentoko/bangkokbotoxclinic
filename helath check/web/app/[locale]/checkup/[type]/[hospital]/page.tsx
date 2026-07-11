@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { type Locale, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
 import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow } from "@/lib/db";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   // Pre-render top 30 hospitals × top 6 categories = 180 combos per locale
@@ -147,7 +147,7 @@ export default async function PackageDetailPage({
       {/* Compare CTA */}
       <div className="mb-8">
         <Link
-          href={`/${locale}/compare?category=${type}`}
+          href={`/${locale}/compare/${type}`}
           className="text-blue-600 hover:underline text-sm"
         >
           ← Compare all {label.toLowerCase()} packages in Bangkok

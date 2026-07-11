@@ -1,5 +1,6 @@
 "use client";
 import { useState, useDeferredValue, useMemo, useCallback, useRef, useEffect, useId } from "react";
+import { useRouter } from "next/navigation";
 import { SaveButton } from "./SaveButton";
 
 const PAGE_SIZE = 36;
@@ -225,7 +226,8 @@ function getCity(r: PackageRow): string {
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Locale }) {
+export function FilteredPackageGrid({ rows, loc, serverCategory }: { rows: PackageRow[]; loc: Locale; serverCategory?: string }) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [activeFeatures, setActiveFeatures] = useState<Set<FeatureKey>>(new Set());
   const [activeCity, setActiveCity] = useState<string | null>(null);
@@ -356,7 +358,18 @@ export function FilteredPackageGrid({ rows, loc }: { rows: PackageRow[]; loc: Lo
           <span className="text-xs text-slate-500 font-medium">Type:</span>
           {CATEGORIES.map((c) => (
             <button key={c.key}
-              onClick={() => { setActiveCategory(activeCategory === c.key ? null : c.key); resetPage(); }}
+              onClick={() => {
+                // When the server pre-filtered rows to one category (compare
+                // pages), filtering client-side by a different category always
+                // yields zero results — navigate to that category's page
+                // instead of silently emptying the grid.
+                if (serverCategory && c.key !== serverCategory) {
+                  router.push(c.key === "executive" ? `/${loc}/compare` : `/${loc}/compare/${c.key}`);
+                  return;
+                }
+                setActiveCategory(activeCategory === c.key ? null : c.key);
+                resetPage();
+              }}
               className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors border ${
                 activeCategory === c.key
                   ? "bg-violet-600 text-white border-violet-600"

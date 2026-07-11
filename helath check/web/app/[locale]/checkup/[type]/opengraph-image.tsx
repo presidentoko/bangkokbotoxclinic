@@ -26,7 +26,12 @@ export default async function Image({
   params: Promise<{ locale: string; type: string }>;
 }) {
   const { locale, type } = await params;
-  const loc = locale as Locale;
+  // Satori's default font shaper can't render Arabic script — any Arabic
+  // text throws "lookupType: 5 - substFormat: 3 is not yet supported" while
+  // piping the response (upstream Satori/resvg limitation). Fall back to
+  // the English category label for the ar locale's OG image only; the page
+  // itself stays fully Arabic.
+  const loc = (locale === "ar" ? "en" : locale) as Locale;
   const label = catLabel(loc, type);
   const icon = CAT_ICONS[type] ?? "🏥";
   const [dark, mid] = CAT_COLORS[type] ?? ["#1e3a5f", "#1d6fa4"];
@@ -42,13 +47,14 @@ export default async function Image({
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div style={{ fontSize: 72, marginBottom: 24 }}>{icon}</div>
+        <div style={{ display: "flex", fontSize: 72, marginBottom: 24 }}>{icon}</div>
 
-        <div style={{ fontSize: 52, fontWeight: 800, color: "white", lineHeight: 1.2, marginBottom: 20 }}>
-          {label} Health<br />Check-Ups in Bangkok
+        <div style={{ display: "flex", flexDirection: "column", fontSize: 52, fontWeight: 800, color: "white", lineHeight: 1.2, marginBottom: 20 }}>
+          <span style={{ display: "flex" }}>{`${label} Health`}</span>
+          <span style={{ display: "flex" }}>Check-Ups in Bangkok</span>
         </div>
 
-        <div style={{ fontSize: 22, color: "rgba(255,255,255,0.75)", marginBottom: "auto" }}>
+        <div style={{ display: "flex", fontSize: 22, color: "rgba(255,255,255,0.75)", marginBottom: "auto" }}>
           Compare real prices from every Bangkok hospital
         </div>
 
@@ -58,14 +64,15 @@ export default async function Image({
           borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 28,
         }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            <span style={{ fontSize: 28, fontWeight: 800, color: "white" }}>235+</span>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}>Hospitals</span>
+            <span style={{ display: "flex", fontSize: 28, fontWeight: 800, color: "white" }}>235+</span>
+            <span style={{ display: "flex", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>Hospitals</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            <span style={{ fontSize: 28, fontWeight: 800, color: "white" }}>0</span>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}>Paid rankings</span>
+            <span style={{ display: "flex", fontSize: 28, fontWeight: 800, color: "white" }}>0</span>
+            <span style={{ display: "flex", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>Paid rankings</span>
           </div>
           <div style={{
+            display: "flex",
             marginLeft: "auto",
             background: "rgba(255,255,255,0.15)",
             borderRadius: 12, padding: "10px 20px",
@@ -76,6 +83,6 @@ export default async function Image({
         </div>
       </div>
     ),
-    { ...size },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
   );
 }

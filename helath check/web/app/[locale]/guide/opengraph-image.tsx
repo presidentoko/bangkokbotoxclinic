@@ -29,21 +29,22 @@ export default async function OgImage() {
     >
       {/* Top bar */}
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "13px", fontWeight: "700", letterSpacing: "0.05em" }}>
+        <div style={{ display: "flex", background: "rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "13px", fontWeight: "700", letterSpacing: "0.05em" }}>
           BANGKOKTOPCLINIC.COM
         </div>
-        <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
           Expert Guides
         </div>
       </div>
 
       {/* Main content */}
-      <div>
-        <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "20px", marginBottom: "12px" }}>
-          📚 Health Check-Up Knowledge Base
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.7)", fontSize: "20px", marginBottom: "12px" }}>
+          {"\u{1F4DA} Health Check-Up Knowledge Base"}
         </div>
-        <div style={{ color: "white", fontSize: "50px", fontWeight: "800", lineHeight: "1.1", marginBottom: "28px" }}>
-          29 Expert Guides to<br />Thai Medical Tourism
+        <div style={{ display: "flex", flexDirection: "column", color: "white", fontSize: "50px", fontWeight: "800", lineHeight: "1.1", marginBottom: "28px" }}>
+          <span style={{ display: "flex" }}>29 Expert Guides to</span>
+          <span style={{ display: "flex" }}>Thai Medical Tourism</span>
         </div>
 
         {/* Topic pills */}
@@ -55,18 +56,18 @@ export default async function OgImage() {
               color: "white", fontSize: "14px",
               display: "flex", alignItems: "center", gap: "6px",
             }}>
-              <span>{g.icon}</span>
-              <span>{g.label}</span>
+              <span style={{ display: "flex" }}>{g.icon}</span>
+              <span style={{ display: "flex" }}>{g.label}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Bottom */}
-      <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>
+      <div style={{ display: "flex", color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>
         Bangkok · Chiang Mai · Phuket · Pattaya · Hua Hin — free, no registration
       </div>
     </div>,
-    { ...size },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
   );
 }

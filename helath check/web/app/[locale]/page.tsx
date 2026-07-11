@@ -3,7 +3,7 @@ import Link from "next/link";
 import { type Locale, t, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, getRecentPriceChanges, type PackageRow, type CategoryCount } from "@/lib/db";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const BASE = "https://www.bangkoktopclinic.com";
 
@@ -89,7 +89,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </p>
             )}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href={`${base}/compare?category=executive`}
+              <Link href={`${base}/compare`}
                 className="bg-white text-blue-700 font-bold px-6 py-3.5 rounded-xl hover:bg-blue-50 transition-colors text-center shadow-lg">
                 Compare Executive Packages →
               </Link>
@@ -126,7 +126,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <h2 className="text-xl font-bold text-slate-800 mb-6">Browse by check-up type</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
           {CATEGORIES.map((cat) => (
-            <Link key={cat} href={`${base}/compare?category=${cat}`}
+            <Link key={cat} href={`${base}/compare/${cat}`}
               className="bg-white rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:shadow-md transition-all group active:scale-95">
               <div className="text-2xl mb-2">{CAT_ICONS[cat]}</div>
               <p className="font-semibold text-slate-800 group-hover:text-blue-700 text-sm leading-snug">{catLabel(loc, cat)}</p>
@@ -212,7 +212,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className="mx-auto max-w-6xl px-4 pb-12">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-slate-800">Executive packages — top picks</h2>
-            <Link href={`${base}/compare?category=executive`} className="text-sm text-blue-600 hover:underline font-medium">
+            <Link href={`${base}/compare`} className="text-sm text-blue-600 hover:underline font-medium">
               Full comparison →
             </Link>
           </div>
@@ -220,7 +220,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {/* Mobile cards */}
           <div className="block md:hidden space-y-3">
             {previewRows.slice(0, 4).map((row) => (
-              <Link key={row.package_id} href={`${base}/compare?category=executive`}
+              <Link key={row.package_id} href={`${base}/compare`}
                 className="block bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-200 transition-colors">
                 <div className="flex justify-between items-start gap-2">
                   <div>
@@ -275,7 +275,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </table>
           </div>
           <div className="mt-3 flex justify-center">
-            <Link href={`${base}/compare?category=executive`}
+            <Link href={`${base}/compare`}
               className="bg-blue-600 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm">
               See all {executiveRows.length} executive packages →
             </Link>
@@ -468,7 +468,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         name: "BangkokCheckup",
         url: BASE,
         description: "Compare health check-up prices at Bangkok hospitals. Real prices, no ads.",
-        potentialAction: { "@type": "SearchAction", target: `${BASE}/en/compare?category={search_term_string}`, "query-input": "required name=search_term_string" },
+        // No SearchAction: the site has no /search results page URL pattern —
+        // pointing it at compare category paths made it a broken action target.
       }) }} />
 
       {/* Schema: Organization */}

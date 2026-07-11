@@ -5,7 +5,7 @@ import { getPackagesByCity } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const CITY_SLUGS: Record<string, string> = {
   "bangkok": "Bangkok",

@@ -15,6 +15,21 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/", destination: "/en", permanent: false },
+      // Legacy compare URLs used ?category= query params, which forced the
+      // page into per-request SSR. Categories are now path segments
+      // (/compare/[category], SSG). The alternation is the exact CATEGORIES
+      // list — junk values fall through to the bare static page, which
+      // ignores the query.
+      {
+        source: "/:locale/compare",
+        has: [{
+          type: "query",
+          key: "category",
+          value: "(?<category>comprehensive|executive|standard|cancer|cardiac|heart|women|men|senior|basic|diabetes|eye|liver|kidney|brain|dental)",
+        }],
+        destination: "/:locale/compare/:category",
+        permanent: true,
+      },
     ];
   },
   async headers() {

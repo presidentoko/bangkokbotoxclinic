@@ -10,6 +10,8 @@ const CITY_SLUGS = [
 
 const BASE = "https://www.bangkoktopclinic.com";
 
+export const revalidate = 86400;
+
 async function getHospitalSlugs(): Promise<string[]> {
   try {
     const { getAllHospitalSlugs } = await import("@/lib/db");
@@ -50,15 +52,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const realCombos = await getRealComboKeys();
   const realCities = await getRealCitySlugs();
   const realCategories = new Set(Array.from(realCombos).map((k) => k.split("::")[0]));
-  const now = new Date();
+  // Truncate to midnight UTC: a raw `new Date()` here re-stamps every URL's
+  // lastmod on each ISR regeneration, telling crawlers the whole site changed
+  // — which drives them to re-fetch all ~4,000 URLs (and their OG images)
+  // over and over, burning Vercel quota. Prices update once daily anyway.
+  const now = new Date(new Date().toISOString().slice(0, 10));
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of LOCALES) {
     // Home
     entries.push({ url: `${BASE}/${locale}`, lastModified: now, changeFrequency: "weekly", priority: 1.0 });
-    // Compare
+    // Compare — bare URL is the canonical executive view; other categories
+    // are path-based SSG pages. /compare/executive is intentionally omitted
+    // (it canonicalizes to the bare URL).
+    entries.push({ url: `${BASE}/${locale}/compare`, lastModified: now, changeFrequency: "weekly", priority: 0.9 });
     for (const cat of CATEGORIES) {
-      entries.push({ url: `${BASE}/${locale}/compare?category=${cat}`, lastModified: now, changeFrequency: "weekly", priority: 0.9 });
+      if (cat === "executive") continue;
+      entries.push({ url: `${BASE}/${locale}/compare/${cat}`, lastModified: now, changeFrequency: "weekly", priority: 0.9 });
     }
     // Hospitals
     entries.push({ url: `${BASE}/${locale}/hospital`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });

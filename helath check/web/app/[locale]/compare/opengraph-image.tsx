@@ -12,7 +12,12 @@ const CAT_ICONS: Record<string, string> = {
 
 export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const loc = locale as Locale;
+  // Satori's default font shaper can't render Arabic script — any Arabic
+  // text throws "lookupType: 5 - substFormat: 3 is not yet supported" while
+  // piping the response (upstream Satori/resvg limitation). Fall back to
+  // English category labels for the ar locale's OG image only; the page
+  // itself stays fully Arabic.
+  const loc = (locale === "ar" ? "en" : locale) as Locale;
 
   return new ImageResponse(
     (
@@ -28,6 +33,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         {/* Top badge */}
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
           <div style={{
+            display: "flex",
             background: "rgba(255,255,255,0.15)", borderRadius: 100,
             padding: "6px 16px", color: "rgba(255,255,255,0.9)", fontSize: 14, fontWeight: 600,
           }}>
@@ -36,8 +42,9 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         </div>
 
         {/* Main heading */}
-        <div style={{ fontSize: 54, fontWeight: 800, color: "white", lineHeight: 1.15, marginBottom: 24, flex: 1 }}>
-          Compare Health Check-Up<br />Prices in Thailand
+        <div style={{ display: "flex", flexDirection: "column", fontSize: 54, fontWeight: 800, color: "white", lineHeight: 1.15, marginBottom: 24, flex: 1 }}>
+          <span style={{ display: "flex" }}>Compare Health Check-Up</span>
+          <span style={{ display: "flex" }}>Prices in Thailand</span>
         </div>
 
         {/* Category pills */}
@@ -48,7 +55,8 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
               borderRadius: 8, padding: "8px 16px",
               color: "white", fontSize: 15, fontWeight: 600, display: "flex", alignItems: "center", gap: 6,
             }}>
-              {CAT_ICONS[cat] ?? "📋"} {catLabel(loc, cat)}
+              <span style={{ display: "flex" }}>{CAT_ICONS[cat] ?? "📋"}</span>
+              <span style={{ display: "flex" }}>{catLabel(loc, cat)}</span>
             </div>
           ))}
         </div>
@@ -65,13 +73,13 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
             { val: "฿0", label: "Paid rankings" },
           ].map(({ val, label }) => (
             <div key={label} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              <span style={{ fontSize: 32, fontWeight: 800, color: "white" }}>{val}</span>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.65)" }}>{label}</span>
+              <span style={{ display: "flex", fontSize: 32, fontWeight: 800, color: "white" }}>{val}</span>
+              <span style={{ display: "flex", fontSize: 13, color: "rgba(255,255,255,0.65)" }}>{label}</span>
             </div>
           ))}
         </div>
       </div>
     ),
-    { ...size },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
   );
 }

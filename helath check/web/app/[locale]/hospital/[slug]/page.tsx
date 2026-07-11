@@ -8,7 +8,7 @@ import { ShareButtons } from "@/app/components/ShareButtons";
 import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const BASE = "https://www.bangkoktopclinic.com";
 
@@ -329,7 +329,7 @@ export default async function HospitalPage({
         <p className="text-slate-500 text-sm mb-4">See how their packages rank on price, inclusions, and JCI status.</p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
-            href={`/${locale}/compare?category=executive`}
+            href={`/${locale}/compare`}
             className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-center"
           >
             Compare all hospitals →

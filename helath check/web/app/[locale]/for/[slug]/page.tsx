@@ -290,6 +290,10 @@ export function generateStaticParams() {
   return Object.keys(SEGMENTS).map((slug) => ({ slug }));
 }
 
+// SEGMENTS is the complete param space — unknown slugs 404 at the router
+// without a function invocation or ISR write.
+export const dynamicParams = false;
+
 const BASE = "https://www.bangkoktopclinic.com";
 
 export async function generateMetadata({

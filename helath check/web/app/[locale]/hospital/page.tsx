@@ -4,7 +4,7 @@ import { type Locale, LOCALES } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 import { HospitalSearch } from "@/app/components/HospitalSearch";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

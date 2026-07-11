@@ -40,49 +40,49 @@ export default async function OgImage({
     >
       {/* Top bar */}
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "14px", fontWeight: "700", letterSpacing: "0.05em" }}>
+        <div style={{ display: "flex", background: "rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "14px", fontWeight: "700", letterSpacing: "0.05em" }}>
           BANGKOKTOPCLINIC.COM
         </div>
         {jci && (
-          <div style={{ background: "#fbbf24", borderRadius: "6px", padding: "4px 10px", color: "#1e293b", fontSize: "12px", fontWeight: "800" }}>
+          <div style={{ display: "flex", background: "#fbbf24", borderRadius: "6px", padding: "4px 10px", color: "#1e293b", fontSize: "12px", fontWeight: "800" }}>
             JCI ACCREDITED
           </div>
         )}
       </div>
 
       {/* Main content */}
-      <div>
-        <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "18px", marginBottom: "12px" }}>
-          📍 {city}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.7)", fontSize: "18px", marginBottom: "12px" }}>
+          {`\u{1F4CD} ${city}`}
         </div>
-        <div style={{ color: "white", fontSize: "52px", fontWeight: "800", lineHeight: "1.1", marginBottom: "20px" }}>
+        <div style={{ display: "flex", color: "white", fontSize: "52px", fontWeight: "800", lineHeight: "1.1", marginBottom: "20px" }}>
           {name}
         </div>
         <div style={{ display: "flex", gap: "24px" }}>
           {packageCount > 0 && (
-            <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 24px", color: "white" }}>
-              <div style={{ fontSize: "28px", fontWeight: "800" }}>{packageCount}</div>
-              <div style={{ fontSize: "13px", opacity: 0.8 }}>Packages</div>
+            <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 24px", color: "white" }}>
+              <div style={{ display: "flex", fontSize: "28px", fontWeight: "800" }}>{packageCount}</div>
+              <div style={{ display: "flex", fontSize: "13px", opacity: 0.8 }}>Packages</div>
             </div>
           )}
           {minPrice && (
-            <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 24px", color: "white" }}>
-              <div style={{ fontSize: "28px", fontWeight: "800" }}>{minPrice}</div>
-              <div style={{ fontSize: "13px", opacity: 0.8 }}>Starting price</div>
+            <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 24px", color: "white" }}>
+              <div style={{ display: "flex", fontSize: "28px", fontWeight: "800" }}>{minPrice}</div>
+              <div style={{ display: "flex", fontSize: "13px", opacity: 0.8 }}>Starting price</div>
             </div>
           )}
-          <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 24px", color: "white" }}>
-            <div style={{ fontSize: "28px", fontWeight: "800" }}>Real</div>
-            <div style={{ fontSize: "13px", opacity: 0.8 }}>Prices only</div>
+          <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 24px", color: "white" }}>
+            <div style={{ display: "flex", fontSize: "28px", fontWeight: "800" }}>Real</div>
+            <div style={{ display: "flex", fontSize: "13px", opacity: 0.8 }}>Prices only</div>
           </div>
         </div>
       </div>
 
       {/* Bottom */}
-      <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>
+      <div style={{ display: "flex", color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>
         Compare health check-up packages — no ads, no paid rankings
       </div>
     </div>,
-    { ...size },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
   );
 }

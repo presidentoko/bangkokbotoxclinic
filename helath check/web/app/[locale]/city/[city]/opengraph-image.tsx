@@ -70,47 +70,47 @@ export default async function OgImage({
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "13px", fontWeight: "700" }}>
+        <div style={{ display: "flex", background: "rgba(255,255,255,0.15)", borderRadius: "8px", padding: "6px 14px", color: "white", fontSize: "13px", fontWeight: "700" }}>
           BANGKOKTOPCLINIC.COM
         </div>
-        <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
           Real prices · No ads
         </div>
       </div>
 
-      <div>
-        <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "22px", marginBottom: "10px" }}>
-          {emoji} Health Check-Up
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", color: "rgba(255,255,255,0.7)", fontSize: "22px", marginBottom: "10px" }}>
+          {`${emoji} Health Check-Up`}
         </div>
-        <div style={{ color: "white", fontSize: "58px", fontWeight: "800", lineHeight: "1.1", marginBottom: "24px" }}>
+        <div style={{ display: "flex", color: "white", fontSize: "58px", fontWeight: "800", lineHeight: "1.1", marginBottom: "24px" }}>
           {cityName}
         </div>
         <div style={{ display: "flex", gap: "16px" }}>
           {hospitalCount > 0 && (
-            <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 22px", color: "white" }}>
-              <div style={{ fontSize: "30px", fontWeight: "800" }}>{hospitalCount}</div>
-              <div style={{ fontSize: "12px", opacity: 0.7 }}>Hospitals</div>
+            <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 22px", color: "white" }}>
+              <div style={{ display: "flex", fontSize: "30px", fontWeight: "800" }}>{hospitalCount}</div>
+              <div style={{ display: "flex", fontSize: "12px", opacity: 0.7 }}>Hospitals</div>
             </div>
           )}
           {packageCount > 0 && (
-            <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 22px", color: "white" }}>
-              <div style={{ fontSize: "30px", fontWeight: "800" }}>{packageCount}</div>
-              <div style={{ fontSize: "12px", opacity: 0.7 }}>Packages</div>
+            <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 22px", color: "white" }}>
+              <div style={{ display: "flex", fontSize: "30px", fontWeight: "800" }}>{packageCount}</div>
+              <div style={{ display: "flex", fontSize: "12px", opacity: 0.7 }}>Packages</div>
             </div>
           )}
           {minPrice > 0 && (
-            <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 22px", color: "white" }}>
-              <div style={{ fontSize: "30px", fontWeight: "800" }}>from {minPrice.toLocaleString()} THB</div>
-              <div style={{ fontSize: "12px", opacity: 0.7 }}>Starting price</div>
+            <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.15)", borderRadius: "12px", padding: "14px 22px", color: "white" }}>
+              <div style={{ display: "flex", fontSize: "30px", fontWeight: "800" }}>{`from ${minPrice.toLocaleString()} THB`}</div>
+              <div style={{ display: "flex", fontSize: "12px", opacity: 0.7 }}>Starting price</div>
             </div>
           )}
         </div>
       </div>
 
-      <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>
+      <div style={{ display: "flex", color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>
         Executive - Comprehensive - Cancer - Cardiac - Women&apos;s - Men&apos;s health packages
       </div>
     </div>,
-    { ...size },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
   );
 }

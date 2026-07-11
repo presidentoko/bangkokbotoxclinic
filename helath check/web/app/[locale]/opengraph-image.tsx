@@ -25,8 +25,14 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
     ar: "الفحوصات الصحية في تايلاند",
   };
 
-  const heading = headings[locale] || headings.en;
-  const tagline = taglines[locale] || taglines.en;
+  // Satori's default font shaper can't render Arabic script at all — any
+  // Arabic text throws "lookupType: 5 - substFormat: 3 is not yet supported"
+  // during response piping (a Satori/resvg limitation, not our layout code;
+  // confirmed even single short Arabic words crash it). The actual page
+  // stays fully Arabic — only this link-preview image falls back to English
+  // for the ar locale so the OG image exists at all instead of 500ing.
+  const heading = locale === "ar" ? headings.en : (headings[locale] || headings.en);
+  const tagline = locale === "ar" ? taglines.en : (taglines[locale] || taglines.en);
 
   return new ImageResponse(
     (
@@ -38,12 +44,13 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
       }}>
         {/* Top bar */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: "14px", padding: "10px 24px" }}>
-            <span style={{ color: "white", fontSize: "20px", fontWeight: 800 }}>BangkokCheckup</span>
+          <div style={{ display: "flex", background: "rgba(255,255,255,0.15)", borderRadius: "14px", padding: "10px 24px" }}>
+            <span style={{ display: "flex", color: "white", fontSize: "20px", fontWeight: 800 }}>BangkokCheckup</span>
           </div>
           <div style={{ display: "flex", gap: "8px" }}>
             {["฿ Real Prices", "0 Ads", "JCI Listed"].map((tag) => (
               <div key={tag} style={{
+                display: "flex",
                 background: "rgba(255,255,255,0.12)", borderRadius: "999px",
                 padding: "6px 16px", color: "rgba(255,255,255,0.85)", fontSize: "13px", fontWeight: 600,
               }}>{tag}</div>
@@ -53,10 +60,10 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
 
         {/* Main content */}
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <div style={{ color: "white", fontSize: "62px", fontWeight: 800, lineHeight: 1.1, maxWidth: "900px" }}>
+          <div style={{ display: "flex", color: "white", fontSize: "62px", fontWeight: 800, lineHeight: 1.1, maxWidth: "900px" }}>
             {heading}
           </div>
-          <div style={{ color: "rgba(255,255,255,0.8)", fontSize: "26px", fontWeight: 500 }}>
+          <div style={{ display: "flex", color: "rgba(255,255,255,0.8)", fontSize: "26px", fontWeight: 500 }}>
             {tagline}
           </div>
         </div>
@@ -70,13 +77,13 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
             { num: "0", label: "Paid rankings" },
           ].map(({ num, label }) => (
             <div key={label} style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              <span style={{ color: "white", fontSize: "32px", fontWeight: 800 }}>{num}</span>
-              <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "14px" }}>{label}</span>
+              <span style={{ display: "flex", color: "white", fontSize: "32px", fontWeight: 800 }}>{num}</span>
+              <span style={{ display: "flex", color: "rgba(255,255,255,0.65)", fontSize: "14px" }}>{label}</span>
             </div>
           ))}
         </div>
       </div>
     ),
-    { ...size }
+    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } }
   );
 }

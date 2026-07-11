@@ -120,8 +120,8 @@ const GUIDES: Record<string, Guide> = {
       { q: "Is Bangkok cheaper than Singapore or Hong Kong for health check-ups?", a: "Yes, significantly. An executive health check-up that costs ฿20,000 at a JCI Bangkok hospital would typically cost USD 1,500–3,000 at a comparable Singapore or Hong Kong hospital." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
-      { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
+      { href: "/en/compare/comprehensive", label: "Compare comprehensive packages →" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI-accredited hospitals in Bangkok" },
       { href: "/en/hospital", label: "Browse all hospitals" },
     ],
@@ -170,7 +170,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "How can I verify a Bangkok hospital's JCI status?", a: "Check the official JCI Gold Seal directory at jointcommissioninternational.org. The hospital's current accreditation, expiry date, and accreditation type are listed publicly." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=executive", label: "Compare JCI hospital prices →" },
+      { href: "/en/compare", label: "Compare JCI hospital prices →" },
       { href: "/en/hospital/bumrungrad", label: "Bumrungrad packages" },
       { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
       { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej comparison" },
@@ -278,9 +278,9 @@ const GUIDES: Record<string, Guide> = {
       { q: "Is an MRI included in a standard executive check-up in Bangkok?", a: "Not always — MRI is included in premium executive packages at flagship hospitals (Bumrungrad, Bangkok Hospital) but costs extra at many mid-tier hospitals. Use our comparison table's MRI filter to see which packages include it as standard." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
-      { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
+      { href: "/en/compare/comprehensive", label: "Compare comprehensive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
+      { href: "/en/compare/cancer", label: "Compare cancer screening packages →" },
     ],
   },
   "cancer-screening-bangkok": {
@@ -357,8 +357,8 @@ const GUIDES: Record<string, Guide> = {
       { q: "Does travel insurance cover cancer screening in Bangkok?", a: "Most standard travel insurance does NOT cover elective screening. International health insurance (Cigna, Bupa, AXA) may cover preventive screening if your policy includes wellness benefits — check your policy document before booking." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages (with cancer markers) →" },
+      { href: "/en/compare/cancer", label: "Compare cancer screening packages →" },
+      { href: "/en/compare", label: "Compare executive packages (with cancer markers) →" },
       { href: "/en/guide/colonoscopy-cost-bangkok", label: "Colonoscopy cost Bangkok" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI-accredited hospitals in Bangkok" },
     ],
@@ -887,8 +887,8 @@ const GUIDES: Record<string, Guide> = {
       { q: "Is a Pap smear required every year?", a: "Current evidence supports less frequent screening. NICE (UK) guidelines: every 3 years age 25–49, every 5 years age 50–64. With a negative HPV test: every 5 years. If you have not been screened recently, book now — Bangkok hospitals offer walk-in cervical screening from ฿1,000." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=women", label: "Compare women's health packages →" },
-      { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
+      { href: "/en/compare/women", label: "Compare women's health packages →" },
+      { href: "/en/compare/cancer", label: "Compare cancer screening packages →" },
       { href: "/en/guide/mammogram-cost-bangkok", label: "Mammogram cost Bangkok guide" },
       { href: "/en/guide/fertility-test-bangkok", label: "Fertility assessment Bangkok" },
       { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
@@ -966,7 +966,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/womens-health-checkup-bangkok", label: "Women's health check-up guide" },
       { href: "/en/guide/thyroid-screening-bangkok", label: "Thyroid test — important for fertility" },
       { href: "/en/guide/blood-test-price-bangkok", label: "All blood test prices Bangkok" },
-      { href: "/en/compare?category=women", label: "Compare women's health packages" },
+      { href: "/en/compare/women", label: "Compare women's health packages" },
     ],
   },
 
@@ -1031,7 +1031,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening Bangkok" },
       { href: "/en/guide/bone-density-dexa-scan-bangkok", label: "Bone density DEXA scan Bangkok" },
       { href: "/en/guide/ct-scan-cost-bangkok", label: "CT scan cost Bangkok" },
-      { href: "/en/compare?category=women", label: "Compare women's health packages" },
+      { href: "/en/compare/women", label: "Compare women's health packages" },
     ],
   },
 
@@ -1175,9 +1175,9 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/for/senior-health-checkup-bangkok", label: "Senior packages in Bangkok →" },
-      { href: "/en/compare?category=senior", label: "Compare senior health packages →" },
-      { href: "/en/compare?category=cancer", label: "Compare cancer screening packages →" },
-      { href: "/en/compare?category=cardiac", label: "Compare cardiac packages →" },
+      { href: "/en/compare/senior", label: "Compare senior health packages →" },
+      { href: "/en/compare/cancer", label: "Compare cancer screening packages →" },
+      { href: "/en/compare/cardiac", label: "Compare cardiac packages →" },
       { href: "/en/guide/bone-density-dexa-scan-bangkok", label: "Bone density DEXA scan Bangkok" },
       { href: "/en/guide/bangkok-health-checkup", label: "Full Bangkok health check-up guide" },
     ],
@@ -1247,8 +1247,8 @@ const GUIDES: Record<string, Guide> = {
       { q: "How do I get my health check-up results in English in Thailand?", a: "All major private hospitals provide results in English as standard for international patients. Some hospitals also offer online patient portals where you can download PDF results. Always ask for an English summary letter for your home GP." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare/comprehensive", label: "Compare comprehensive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/allergy-test-bangkok", label: "Allergy test Bangkok — expat essential" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
       { href: "/en/guide/what-is-included-checkup", label: "What is included in a health check-up?" },
@@ -1375,7 +1375,7 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/city/chiang-mai", label: "All health check-up packages in Chiang Mai →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
       { href: "/en/guide/what-is-included-checkup", label: "What is included in a health check-up?" },
     ],
@@ -1440,7 +1440,7 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/city/phuket", label: "All health check-up packages in Phuket →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening guide" },
     ],
@@ -1507,8 +1507,8 @@ const GUIDES: Record<string, Guide> = {
       { q: "Is a referral needed for cardiac screening in Bangkok?", a: "No referral is needed at private hospitals. You can book a cardiology screening package directly. If an issue is found, the hospital cardiology team will advise on next steps including specialist consultation." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=cardiac", label: "Compare cardiac health packages →" },
-      { href: "/en/compare?category=executive", label: "Executive packages (includes cardiac screening) →" },
+      { href: "/en/compare/cardiac", label: "Compare cardiac health packages →" },
+      { href: "/en/compare", label: "Executive packages (includes cardiac screening) →" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI-accredited hospitals in Bangkok" },
       { href: "/en/hospital/bumrungrad", label: "Bumrungrad cardiac packages" },
     ],
@@ -1560,7 +1560,7 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/city/pattaya", label: "All health check-up packages in Pattaya →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
       { href: "/en/guide/senior-health-checkup-thailand", label: "Senior health check-up guide" },
     ],
@@ -1610,7 +1610,7 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/city/hua-hin", label: "All health check-up packages in Hua Hin →" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
       { href: "/en/guide/senior-health-checkup-thailand", label: "Senior health check-up guide" },
     ],
@@ -2020,7 +2020,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/medical-visa-thailand", label: "Medical visa guide" },
       { href: "/en/guide/health-checkup-expats-thailand", label: "Expat health check-up guide" },
       { href: "/en/guide/health-checkup-for-retirement-visa-thailand", label: "Health check for retirement visa Thailand" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -2159,7 +2159,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/what-is-included-checkup", label: "What's included in each package?" },
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up guide" },
       { href: "/en/guide/health-checkup-day-bangkok", label: "What to expect on check-up day" },
-      { href: "/en/compare?category=comprehensive", label: "Compare comprehensive packages" },
+      { href: "/en/compare/comprehensive", label: "Compare comprehensive packages" },
     ],
   },
 
@@ -2236,7 +2236,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/what-is-included-checkup", label: "What's included in each package?" },
       { href: "/en/guide/understanding-health-checkup-results", label: "Understanding your results" },
       { href: "/en/guide/abnormal-results-bangkok-what-to-do", label: "If something is flagged abnormal" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -2362,7 +2362,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "Which hospital in Bangkok is best known for Japanese patients?", a: "BNH Hospital has the longest history of Japanese patient care — it was co-founded with Japanese involvement and maintains strong ties with the Tokyo Medical University alumni network. Bumrungrad International has the largest dedicated Japan Desk with daily Japanese-speaking coordinators and the widest range of Japanese-language materials." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/what-is-included-checkup", label: "What's included in a Thai health check-up?" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare guide" },
     ],
@@ -2427,7 +2427,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "Do Thai hospitals have Arabic signage and Arabic patient materials?", a: "Bumrungrad International provides the most comprehensive Arabic patient experience — Arabic signage, website, consent forms, and result summaries in Arabic. Most other hospitals rely on Arabic-speaking coordinators rather than translated written materials, so verbal communication is covered even if written materials may primarily be in English." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=executive", label: "Compare executive packages →" },
+      { href: "/en/compare", label: "Compare executive packages →" },
       { href: "/en/guide/medical-visa-thailand", label: "Medical visa guide" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
     ],
@@ -2619,7 +2619,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "Is colonoscopy recommended as part of a men's check-up?", a: "Colonoscopy is recommended from age 45–50 for average-risk men, or earlier if there's a family history of colorectal cancer. Bangkok hospitals offer colonoscopy as an add-on to executive check-ups. The procedure costs ฿7,000–฿15,000 under sedation, compared to USD 1,500–3,500 in the US without insurance. Colonoscopy requires a separate bowel prep appointment the day before." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=men", label: "Compare men's health packages" },
+      { href: "/en/compare/men", label: "Compare men's health packages" },
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening guide" },
       { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health check-up guide" },
       { href: "/en/guide/psa-test-bangkok", label: "PSA (prostate) test Bangkok" },
@@ -2830,7 +2830,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare for your check-up" },
       { href: "/en/guide/abnormal-results-bangkok-what-to-do", label: "What to do when Bangkok check-up finds something" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -4798,7 +4798,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bnh-hospital-health-checkup", label: "BNH Hospital check-up guide" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive packages guide" },
       { href: "/en/guide/how-to-prepare-health-checkup-thailand", label: "How to prepare" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -4858,7 +4858,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bumrungrad-vs-samitivej-health-checkup", label: "Bumrungrad vs Samitivej comparison" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
       { href: "/en/guide/best-hospitals-korean-tourists", label: "Korean tourist hospital guide" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -4919,7 +4919,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bangkok-hospital-health-checkup", label: "Bangkok Hospital group guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
       { href: "/en/guide/best-hospitals-japanese-tourists", label: "Japanese tourist hospital guide" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -4980,7 +4980,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bnh-hospital-health-checkup", label: "BNH Hospital guide" },
       { href: "/en/guide/vejthani-hospital-health-checkup", label: "Vejthani Hospital guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -5041,7 +5041,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/samitivej-hospital-health-checkup", label: "Samitivej Hospital guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive check-up guide" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -5104,7 +5104,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bnh-hospital-health-checkup", label: "BNH Hospital guide" },
       { href: "/en/guide/vejthani-hospital-health-checkup", label: "Vejthani Hospital guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -5166,7 +5166,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bnh-hospital-health-checkup", label: "BNH Hospital guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "All JCI hospitals Bangkok" },
       { href: "/en/guide/phuket-health-checkup", label: "Phuket health check-up guide" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -5221,7 +5221,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/health-checkup-south-korea-vs-thailand", label: "한국 vs 태국 건강검진 비용 비교" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/gastroscopy-cost-bangkok", label: "위내시경 비용 — Gastroscopy cost Bangkok" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
     ],
   },
 
@@ -5687,7 +5687,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/bangkok-health-checkup", label: "Bangkok health check-up complete guide" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/for/budget-health-checkup-bangkok", label: "Budget packages under ฿3,000" },
-      { href: "/en/compare?category=basic", label: "Compare basic packages" },
+      { href: "/en/compare/basic", label: "Compare basic packages" },
     ],
   },
 
@@ -5766,7 +5766,7 @@ const GUIDES: Record<string, Guide> = {
       { q: "Can I combine an executive health check-up with cancer screening in Bangkok?", a: "Yes — most executive packages include basic cancer markers. For a comprehensive cancer screen, look for packages that include a low-dose CT chest (lung cancer detection), gastroscopy or barium meal, colonoscopy referral, and full tumour marker panel. Ask the hospital's health check-up coordinator to build a customised cancer-plus-executive package." },
     ],
     relatedLinks: [
-      { href: "/en/compare?category=executive", label: "Compare all executive packages" },
+      { href: "/en/compare", label: "Compare all executive packages" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/cancer-screening-bangkok", label: "Cancer screening in Bangkok" },
       { href: "/en/guide/what-is-included-checkup", label: "What's included in a health check-up?" },
@@ -5840,7 +5840,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/hepatitis-test-bangkok", label: "Hepatitis B & C test Bangkok" },
       { href: "/en/guide/vitamin-d-test-bangkok", label: "Vitamin D test Bangkok" },
       { href: "/en/guide/psa-test-bangkok", label: "PSA test Bangkok (men)" },
-      { href: "/en/compare?category=basic", label: "Compare basic packages" },
+      { href: "/en/compare/basic", label: "Compare basic packages" },
     ],
   },
 
@@ -6651,7 +6651,7 @@ const GUIDES: Record<string, Guide> = {
     ],
     relatedLinks: [
       { href: "/en/guide/executive-health-checkup-bangkok", label: "Executive health check-up guide" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages" },
+      { href: "/en/compare", label: "Compare executive packages" },
       { href: "/en/guide/jci-hospitals-bangkok", label: "JCI hospitals in Bangkok" },
       { href: "/en/guide/ct-scan-cost-bangkok", label: "CT scan cost Bangkok" },
     ],
@@ -6723,7 +6723,7 @@ const GUIDES: Record<string, Guide> = {
       { href: "/en/guide/blood-test-price-bangkok", label: "Blood test prices in Bangkok" },
       { href: "/en/guide/cardiac-ct-calcium-score-bangkok", label: "Cardiac CT & coronary calcium score Bangkok" },
       { href: "/en/guide/cardiac-health-checkup-bangkok", label: "Cardiac health check-up Bangkok" },
-      { href: "/en/compare?category=executive", label: "Compare executive packages (includes CT)" },
+      { href: "/en/compare", label: "Compare executive packages (includes CT)" },
     ],
   },
 
@@ -7109,6 +7109,12 @@ export function generateStaticParams() {
   return Object.keys(GUIDES).map((slug) => ({ slug }));
 }
 
+// GUIDES is the complete param space, so unknown slugs can 404 at the router
+// without invoking this function — saves an ISR write + render per bot hit
+// on junk URLs, and turns the old soft-404 ("Guide not found" with HTTP 200)
+// into a real 404.
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {
@@ -7227,7 +7233,7 @@ export default async function GuidePage({
         <p className="font-semibold text-slate-800 mb-1">Ready to compare prices?</p>
         <p className="text-slate-500 text-sm mb-4">Real prices scraped directly from hospital websites. No ads, no paid rankings.</p>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Link href={`/${locale}/compare?category=executive`}
+          <Link href={`/${locale}/compare`}
             className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-center">
             Open comparison table →
           </Link>

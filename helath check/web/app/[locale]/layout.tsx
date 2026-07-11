@@ -35,7 +35,13 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
-export const revalidate = 3600;
+// Next.js uses the LOWEST revalidate across layout+page for a route, so this
+// value is the ceiling for the entire site. It was 3600, which silently
+// forced all ~4,000 SSG pages (including the 86400 guide pages) to
+// regenerate hourly under bot crawl — the root cause of blowing through
+// Vercel hobby ISR read/write quotas. Prices are scraped once daily, so
+// daily revalidation matches the data cadence.
+export const revalidate = 86400;
 
 function NavBar({ locale }: { locale: Locale }) {
   const base = `/${locale}`;
@@ -107,7 +113,7 @@ function Footer({ locale }: { locale: Locale }) {
         <div>
           <p className="font-semibold text-slate-800 mb-2">Compare</p>
           {["executive", "comprehensive", "cancer", "cardiac", "women", "men"].map((c) => (
-            <Link key={c} href={`${base}/compare?category=${c}`} className="block hover:text-blue-600 capitalize py-0.5">{c}</Link>
+            <Link key={c} href={`${base}/compare/${c}`} className="block hover:text-blue-600 capitalize py-0.5">{c}</Link>
           ))}
         </div>
         <div>
