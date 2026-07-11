@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getItemsByBrand, getAllBrands } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
@@ -190,8 +190,11 @@ export function generateStaticParams() {
   return getAllBrands().flatMap(b => locales.map(locale => ({ locale, brand: b.slug })))
 }
 
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, brand } = await params
+  setRequestLocale(locale)
   const items = getItemsByBrand(brand)
   if (!items.length) return {}
   const t = await getTranslations({ locale, namespace: 'common' })
@@ -210,6 +213,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BrandPage({ params }: Props) {
   const { locale, brand } = await params
+  setRequestLocale(locale)
   const items = getItemsByBrand(brand)
   if (!items.length) notFound()
   const t = await getTranslations({ locale, namespace: 'common' })

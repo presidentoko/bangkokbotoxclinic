@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllBrands, getAllItems, toBrandSlug, formatPriceTHB, getAvgPrice } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
@@ -9,6 +9,7 @@ const BASE = 'https://www.chicpreowned.com'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: 'common' })
   const otherLocale = locale === 'en' ? 'th' : 'en'
   return {
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: 'common' })
   const allBrands = getAllBrands()
   const allItems = getAllItems()

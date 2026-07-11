@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getItemsByCategory } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
@@ -9,6 +9,7 @@ const BASE = 'https://www.chicpreowned.com'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: 'common' })
   return {
     title: t('page_title_handbags'),
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function HandbagsPage({ params }: Props) {
   const { locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: 'common' })
   const items = getItemsByCategory('handbags')
 

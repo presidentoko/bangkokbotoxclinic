@@ -149,6 +149,8 @@ export async function generateStaticParams() {
   return getAllBrands().map(b => ({ brand: b.slug }))
 }
 
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brand } = await params
   const items = getItemsByBrand(brand)

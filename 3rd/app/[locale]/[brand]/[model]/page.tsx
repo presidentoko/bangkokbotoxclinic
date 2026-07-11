@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import {
   getItemBySlug,
   getAllItems,
@@ -33,8 +33,11 @@ export function generateStaticParams() {
   })
 }
 
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, brand, model } = await params
+  setRequestLocale(locale)
   const item = getItemBySlug(brand, model)
   if (!item) return {}
   const t = await getTranslations({ locale, namespace: 'common' })
@@ -270,6 +273,7 @@ function getFAQs(item: Item, locale: string) {
 
 export default async function ModelPage({ params }: Props) {
   const { locale, brand, model } = await params
+  setRequestLocale(locale)
   const item = getItemBySlug(brand, model)
   if (!item) notFound()
 

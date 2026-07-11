@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, getTranslations } from 'next-intl/server'
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n'
 import { LocaleSwitcher } from '@/components/LocaleSwitcher'
@@ -18,8 +18,15 @@ interface Props {
   params: Promise<{ locale: string }>
 }
 
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }))
+}
+
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: 'common' })
   return {
     metadataBase: new URL('https://www.chicpreowned.com'),
@@ -36,6 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   if (!routing.locales.includes(locale as 'en' | 'th')) notFound()
+  setRequestLocale(locale)
   const messages = await getMessages()
   const t = await getTranslations({ locale, namespace: 'common' })
   const items = getAllItems()

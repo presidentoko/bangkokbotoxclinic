@@ -21,6 +21,8 @@ export async function generateStaticParams() {
   })
 }
 
+export const dynamicParams = false
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brand, model } = await params
   const item = getItemBySlug(brand, model)
