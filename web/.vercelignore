@@ -1,8 +1,10 @@
 # Explicit ignore — needed for --archive=tgz mode (auto-exclusion bypassed)
+# 주의: .git 은 절대 넣지 말 것 — git 배포에서 빌드 컨테이너의 .git(얕은
+# 클론이라 작음)까지 지워져 ignoreCommand 의 git diff 가 "Not a git
+# repository"로 죽고 배포 전체가 ERROR 남 (2026-07-11 사고).
 node_modules
 .next
 .vercel
-.git
 .env
 .env.local
 .env.development
