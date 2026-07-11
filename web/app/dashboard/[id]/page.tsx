@@ -9,7 +9,7 @@ import {
 } from "@/lib/dashboardStore";
 import { verifyAccess } from "@/lib/dashboardAccessStore";
 import { isAdminAuthedFromCookies } from "@/lib/adminAuth";
-import { getSiteConfig } from "@/lib/site";
+import { getSiteConfig, safeEncodeURIComponent } from "@/lib/site";
 import type { Metadata } from "next";
 
 // 대쉬보드는 private (robots disallow) + 실시간 lead 표시 필요 → dynamic 렌더링.
@@ -68,7 +68,7 @@ export default async function ClinicDashboardPage(
           </ul>
         </div>
         <a
-          href={`mailto:${partnerEmail}?subject=${encodeURIComponent(`Dashboard access request — ${c.name}`)}&body=${encodeURIComponent(`Hi,\n\nI am the owner of ${c.name} and would like the secure dashboard link.\n\nClinic ID: ${c.id}\nMaps: ${c.maps_url || ""}\n\nThank you.`)}`}
+          href={`mailto:${partnerEmail}?subject=${safeEncodeURIComponent(`Dashboard access request — ${c.name}`)}&body=${safeEncodeURIComponent(`Hi,\n\nI am the owner of ${c.name} and would like the secure dashboard link.\n\nClinic ID: ${c.id}\nMaps: ${c.maps_url || ""}\n\nThank you.`)}`}
           className="inline-block bg-[var(--accent)] text-white font-bold px-5 py-3 rounded-xl"
         >
           Email {partnerEmail} to request access →

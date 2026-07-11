@@ -4,7 +4,7 @@ import { CATEGORY_LABELS, TOPIC_LABELS, type Clinic } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { LineButton } from "@/components/LineButton";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, safeEncodeURIComponent } from "@/lib/site";
 import type { Metadata } from "next";
 
 // 정적 생성: 모든 클리닉 × 모든 클리닉 = N² → 너무 많아서 동적 SSR.
@@ -29,7 +29,7 @@ export async function generateMetadata(
     ? `${ca.name} (Trust ${ca.trust_score.toFixed(0)}) vs ${cb.name} (Trust ${cb.trust_score.toFixed(0)}). ${winner} leads in Trust Score. Independent review analysis.`
     : `${ca.name} vs ${cb.name} — Trust ${ca.trust_score.toFixed(0)} vs ${cb.trust_score.toFixed(0)}. Tied! Side-by-side review analysis to help you decide.`;
   const SITE = getSiteUrl();
-  const ogImage = `${SITE}/api/og?type=compare&a=${encodeURIComponent(ca.name.slice(0, 40))}&b=${encodeURIComponent(cb.name.slice(0, 40))}&ta=${Math.round(ca.trust_score)}&tb=${Math.round(cb.trust_score)}`;
+  const ogImage = `${SITE}/api/og?type=compare&a=${safeEncodeURIComponent(ca.name.slice(0, 40))}&b=${safeEncodeURIComponent(cb.name.slice(0, 40))}&ta=${Math.round(ca.trust_score)}&tb=${Math.round(cb.trust_score)}`;
   return {
     title,
     description,

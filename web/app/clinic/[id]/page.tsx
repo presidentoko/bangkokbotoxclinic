@@ -23,7 +23,7 @@ import { StickyClinicBar } from "@/components/StickyClinicBar";
 import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
-import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -105,7 +105,7 @@ export async function generateMetadata(
       type: "article",
       locale: "en_US",
       images: [{
-        url: `${getSiteUrl()}/api/og?title=${encodeURIComponent(c.name.slice(0, 50))}&sub=${encodeURIComponent(`Trust Score ${Math.round(c.trust_score)} · ★${c.rating} · ${c.district ?? "Bangkok"}`)}&count=${c.total_reviews}`,
+        url: `${getSiteUrl()}/api/og?title=${safeEncodeURIComponent(c.name.slice(0, 50))}&sub=${safeEncodeURIComponent(`Trust Score ${Math.round(c.trust_score)} · ★${c.rating} · ${c.district ?? "Bangkok"}`)}&count=${c.total_reviews}`,
         width: 1200,
         height: 630,
         alt: c.name,

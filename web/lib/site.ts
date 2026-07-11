@@ -160,6 +160,20 @@ export function resolveOwnerUrl(categories: string[]): string | null {
   return null;
 }
 
+// encodeURIComponent throws URIError on a lone UTF-16 surrogate — happens when
+// scraped clinic names get .slice()'d mid-surrogate-pair (Thai/emoji chars).
+// One bad clinic ID (0x30e2990d6f6fd079_...) crashed the ENTIRE build once
+// clinic/[id] switched to full pre-render (2026-07-11), taking both live
+// sites down. Strip lone surrogates before encoding instead of trusting input.
+export function safeEncodeURIComponent(s: string): string {
+  const cleaned = s.replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, "");
+  try {
+    return encodeURIComponent(cleaned);
+  } catch {
+    return encodeURIComponent(cleaned.replace(/[^\x00-\x7F]/g, ""));
+  }
+}
+
 export function getSiteUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
   if (envUrl) return envUrl.replace(/\/$/, "");
