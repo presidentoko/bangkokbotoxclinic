@@ -7,6 +7,10 @@ import type { Metadata } from "next";
 
 const VALID_SPECIALTIES = Object.keys(CATEGORY_LABELS);
 
+// 봇 쓰레기 param(/d/wp-login.php 등)의 온디맨드 렌더+캐시 write 차단
+// (Hobby ISR Writes 한도 누수, 2026-07-11 감사). GSP가 링크 공간 전체 커버.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const db = await loadMasterDb();
   const all = getAllDoctors(db.clinics);
@@ -23,7 +27,7 @@ export async function generateStaticParams() {
     }
   }
   return Array.from(counts.values())
-    .filter((c) => c.n >= 3)
+    .filter((c) => c.n >= 1) // dynamicParams=false 와 짝 — 1-2명 조합 링크도 404 안 나게 전량 생성
     .map(({ district, specialty }) => ({ district: slugify(district), specialty }));
 }
 

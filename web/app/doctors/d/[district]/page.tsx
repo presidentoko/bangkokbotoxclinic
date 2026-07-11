@@ -5,6 +5,10 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
+// 봇 쓰레기 param(/d/wp-login.php 등)의 온디맨드 렌더+캐시 write 차단
+// (Hobby ISR Writes 한도 누수, 2026-07-11 감사). GSP가 링크 공간 전체 커버.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const db = await loadMasterDb();
   const districts = new Set<string>();

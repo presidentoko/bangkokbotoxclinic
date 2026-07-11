@@ -4,7 +4,10 @@ import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 import { buildReportData } from "@/lib/reportData";
 import type { Metadata } from "next";
 
-export const revalidate = 86400;
+// noindex 공유 전용 페이지 — GSP 없이 revalidate(ISR)였을 땐 봇이 두드리는
+// clinicId마다 캐시 write 발생 (Hobby 한도 누수, 2026-07-11 감사).
+// 트래픽이 거의 없으니 force-dynamic(write 0)이 맞음.
+export const dynamic = "force-dynamic";
 
 const SITE = getSiteUrl();
 

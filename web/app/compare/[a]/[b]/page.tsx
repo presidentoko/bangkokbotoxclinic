@@ -7,13 +7,11 @@ import { LineButton } from "@/components/LineButton";
 import { getSiteUrl, safeEncodeURIComponent } from "@/lib/site";
 import type { Metadata } from "next";
 
-// 정적 생성: 모든 클리닉 × 모든 클리닉 = N² → 너무 많아서 동적 SSR.
-export const dynamic = "force-static";
-export const dynamicParams = true;
-
-export async function generateStaticParams() {
-  return [];
-}
+// 모든 클리닉 × 모든 클리닉 = N² 조합이라 프리렌더 불가.
+// force-static(온디맨드 캐시)이었을 땐 봇이 두드리는 조합마다 ISR write가
+// 쌓여 Hobby 200K/월 한도를 갉아먹음 (2026-07-11 감사) → force-dynamic으로
+// 전환: 캐시를 아예 안 쓰므로 write 0, 트래픽 낮은 페이지라 CPU 부담 미미.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ a: string; b: string }> }
