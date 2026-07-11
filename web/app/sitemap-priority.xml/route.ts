@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { loadMasterDb } from "@/lib/data";
 import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+// sitemap-clinics.xml 과 동일 — 일 1회 ISR (CPU 절약)
+export const dynamic = "force-static";
+export const revalidate = 86400;
 
 const SITE = getSiteUrl();
 const PRIORITY_COUNT = 200;

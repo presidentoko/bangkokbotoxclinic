@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { getSiteUrl } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+// 내용이 상수 3줄짜리 인덱스 — 동적일 이유가 없음
+export const dynamic = "force-static";
+export const revalidate = 86400;
 
 const SITE = getSiteUrl();
 

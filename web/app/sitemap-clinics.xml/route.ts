@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { loadMasterDb } from "@/lib/data";
 import { getSiteConfig, applySiteFilter, getSiteUrl } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+// force-dynamic 이던 것을 일 1회 ISR 로 — 요청마다 18MB master_db 를 파싱해
+// Fluid CPU 를 태우고 있었음 (Hobby 4h 한도 초과의 한 축, 2026-07-11 감사).
+// 데이터는 어차피 push 시 재빌드로 갱신됨.
+export const dynamic = "force-static";
+export const revalidate = 86400;
 
 const SITE = getSiteUrl();
 const PRIORITY_COUNT = 200;
