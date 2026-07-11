@@ -20,6 +20,7 @@ run.sh 의 bash watchdog 은 `kill -0 <pid>` 가 Git Bash 에서 Windows native 
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import subprocess
@@ -38,8 +39,10 @@ VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
 CHECK_INTERVAL = 10      # 초 (Tier1 업그레이드: 20→10)
 MAX_RESTARTS_PER_MIN = 5
-CHROME_SOFT_LIMIT = 80   # 이 이상이면 chrome_heavy 서비스 재시작 보류
-CHROME_HARD_LIMIT = 120  # 이 이상이면 chrome 전체 강제 kill
+CHROME_SOFT_LIMIT = 60   # 이 이상이면 chrome_heavy 서비스 재시작 보류
+CHROME_HARD_LIMIT = 90   # 이 이상이면 chrome 전체 강제 kill
+                         # (2026-07-07: 111개에서 RAM 2.7GB까지 고갈됐는데
+                         #  구 임계 120이라 가드 미발동 → 하향)
 GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
 REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 큐 비면 graceful exit 직전에 찍는 라인
 
@@ -276,6 +279,18 @@ class Service:
         env.update(self.env_extra)
         env["PYTHONIOENCODING"] = "utf-8"
 
+        # 로그 로테이션 — 장기 무인 운행 시 개별 로그가 100MB+ 로 비대해져
+        # tail 기반 done-체크가 느려지고 디스크를 잠식. 재시작 시점에 50MB
+        # 넘으면 .old 로 교체 (서비스당 최대 ~100MB 로 상한).
+        try:
+            if self.log_file.exists() and self.log_file.stat().st_size > 50 * 1024 * 1024:
+                old = self.log_file.with_suffix(self.log_file.suffix + ".old")
+                if old.exists():
+                    old.unlink()
+                self.log_file.rename(old)
+        except OSError:
+            pass
+
         log_f = open(self.log_file, "a", buffering=1, encoding="utf-8")
         log_f.write(f"\n=== watchdog 재시작 {time.strftime('%Y-%m-%d %H:%M:%S')} ===\n")
 
@@ -348,6 +363,95 @@ def _chrome_count() -> int:
         return sum(1 for ln in out.splitlines() if "chrome-headless-shell" in ln.lower())
     except (subprocess.SubprocessError, OSError):
         return 0
+
+
+def _find_script_instances(script_name: str) -> list[tuple[int, int]]:
+    """script_name 을 cmdline 에 포함한 python.exe 프로세스 (pid, ppid) 목록."""
+    try:
+        out = subprocess.check_output(
+            ["wmic", "process", "where", "name='python.exe'",
+             "get", "ProcessId,ParentProcessId,CommandLine", "/format:csv"],
+            text=True, errors="replace", timeout=30,
+        )
+    except (subprocess.SubprocessError, OSError):
+        return []
+    found = []
+    for line in out.splitlines():
+        if script_name not in line:
+            continue
+        parts = line.rsplit(",", 2)  # CSV: Node,CommandLine,ParentProcessId,ProcessId 꼴
+        try:
+            ppid, pid = int(parts[-2]), int(parts[-1])
+            found.append((pid, ppid))
+        except (ValueError, IndexError):
+            continue
+    return found
+
+
+def _singleton_guard() -> None:
+    """watchdog 중복 실행 방지 — 이미 다른 인스턴스가 살아있으면 조용히 종료.
+
+    2026-07-07 사고 재발방지: 수동 재시작 + 5분 주기 스케줄러가 겹치며
+    watchdog 2개 → nordvpn_runner 10개 중복 → VPN 계정 동시연결 폭주로
+    전 터널 붕괴. venv 런처(부모)와 그 워커(자식)는 한 쌍으로 취급."""
+    me, my_parent = os.getpid(), os.getppid()
+    for pid, ppid in _find_script_instances("watchdog.py"):
+        if pid in (me, my_parent) or ppid in (me, my_parent):
+            continue
+        log(f"[싱글턴] 기존 watchdog(PID {pid}) 감지 — 이번 인스턴스(PID {me}) 종료")
+        sys.exit(0)
+
+
+def _validate_proxy_ports(services: list["Service"]) -> None:
+    """모든 서비스의 프록시 포트가 nordvpn_runner 터널 범위 안인지 부팅 시 검증.
+
+    2026-07-08~10 사고 재발방지: nordvpn --ports 를 16→8로 줄이면서
+    dental(2090-2093)/hair(2092-2095) 리뷰가 리스너 없는 포트를 3일간
+    두드려 수확 0. 범위 위반은 조용한 아사로 이어지므로 fail-fast."""
+    vpn = next((s for s in services if s.name == "nordvpn_runner"), None)
+    if not vpn:
+        return
+    try:
+        n_ports = int(vpn.cmd[vpn.cmd.index("--ports") + 1])
+        base = int(vpn.cmd[vpn.cmd.index("--base-port") + 1])
+    except (ValueError, IndexError):
+        log("[포트검증] nordvpn_runner cmd 파싱 실패 — 검증 스킵")
+        return
+    lo, hi = base, base + n_ports - 1
+    bad: list[str] = []
+    for s in services:
+        env = s.env_extra or {}
+        ranges: list[tuple[int, int]] = []
+        if "PROXY_PORT_BASE" in env:
+            b = int(env["PROXY_PORT_BASE"])
+            n = int(env.get("N_WORKERS", "4"))
+            ranges.append((b, b + n - 1))
+        if "GRID_PROXY_PORT" in env:
+            b = int(env["GRID_PROXY_PORT"])
+            n = int(env.get("GRID_N_WORKERS", "4"))
+            ranges.append((b, b + n - 1))
+        if "HAIR_PROXY_PORT" in env:
+            b = int(env["HAIR_PROXY_PORT"])
+            ranges.append((b, b))
+        for a, z in ranges:
+            if a < lo or z > hi:
+                bad.append(f"{s.name}: 포트 {a}-{z} — 터널 범위({lo}-{hi}) 밖")
+    if bad:
+        for line in bad:
+            log(f"[포트검증] ❌ {line}")
+        log(f"[포트검증] 리스너 없는 포트를 쓰는 서비스 {len(bad)}개 — 조용한 아사 방지 위해 watchdog 시작 거부. 포트 설정 수정 필요.")
+        sys.exit(1)
+    log(f"[포트검증] ✅ 전 서비스 프록시 포트가 터널 범위({lo}-{hi}) 내")
+
+
+def _vpn_alive_count() -> int:
+    """/tmp/vpn_status.json 기준 살아있는 터널 수. 읽기 실패 시 -1 (판단 보류)."""
+    try:
+        import tempfile
+        data = json.loads((Path(tempfile.gettempdir()) / "vpn_status.json").read_text())
+        return sum(1 for p in data.get("ports", []) if p.get("alive"))
+    except Exception:
+        return -1
 
 
 def _kill_all_chrome():
@@ -524,7 +628,7 @@ def build_services() -> list[Service]:
         "CITY_LNG": "99.9577",
         "CITY_RADIUS_M": "12000",
         "CITY_OUTPUT_DIR": "../hua_hin/clinics_output",
-        "GRID_PROXY_PORT": "2088",
+        "GRID_PROXY_PORT": "2084",
         "GRID_N_WORKERS": "4",
     }
     bangkok_clinics_env = {
@@ -550,7 +654,7 @@ def build_services() -> list[Service]:
     return [
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "16", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
@@ -733,7 +837,7 @@ def build_services() -> list[Service]:
                 "CITY_OUTPUT_DIR": "../dental_output/bangkok",
                 # dental 전용 포트 2090-2095 (review 2080-2089와 분리)
                 "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2090",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_bangkok.log",
             chrome_heavy=True,
@@ -750,7 +854,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "12.9236", "CITY_LNG": "100.8825", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/pattaya",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_pattaya.log",
             chrome_heavy=True,
@@ -767,7 +871,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "18.7883", "CITY_LNG": "98.9853", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/chiang_mai",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_chiang_mai.log",
             chrome_heavy=True,
@@ -784,7 +888,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "7.8804", "CITY_LNG": "98.3923", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/phuket",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_phuket.log",
             chrome_heavy=True,
@@ -801,7 +905,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "9.5018", "CITY_LNG": "99.9648", "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../dental_output/koh_samui",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2090",
+                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_koh_samui.log",
             chrome_heavy=True,
@@ -962,7 +1066,7 @@ def build_services() -> list[Service]:
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../hair_output/bangkok",
                 "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2092",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "hair_review_bangkok.log",
             chrome_heavy=True,
@@ -983,7 +1087,7 @@ def build_services() -> list[Service]:
                 "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../hair_output/phuket",
                 "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2092",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "hair_review_phuket.log",
             chrome_heavy=True,
@@ -1004,7 +1108,7 @@ def build_services() -> list[Service]:
                 "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../hair_output/chiang_mai",
                 "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2092",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "hair_review_chiang_mai.log",
             chrome_heavy=True,
@@ -1025,7 +1129,7 @@ def build_services() -> list[Service]:
                 "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../hair_output/pattaya",
                 "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2092",
+                "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "hair_review_pattaya.log",
             chrome_heavy=True,
@@ -1042,6 +1146,16 @@ def build_services() -> list[Service]:
             log_file=LOGS / "hair_data_builder.log",
             progress_pattern=re.compile(r"(완료|스킵|클리닉 →)"),
             progress_stale_sec=14400,   # 4h — 6h 주기 루프
+            progress_grace_sec=300,
+        ),
+        Service(
+            name="hair_done_watcher",
+            cmd=["scripts/hair_done_watcher.py"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "hair_done_watcher.log",
+            grid_done_check=True,
+            progress_stale_sec=1800,
             progress_grace_sec=300,
         ),
         # ── 모발이식 파이프라인 끝 ──────────────────────────────────────────────
@@ -1304,7 +1418,9 @@ def main():
     import atexit
     atexit.register(_clear_self_pid)
 
+    _singleton_guard()
     services = build_services()
+    _validate_proxy_ports(services)
     log(f"watchdog 시작 PID={os.getpid()} — {len(services)}개 서비스 감시, {CHECK_INTERVAL}초 주기")
     for s in services:
         pid = s.get_pid()
@@ -1349,6 +1465,13 @@ def main():
             if s.is_alive():
                 # 살아있어도 진행 정체면 강제 재시작
                 if s.progress_stale():
+                    # VPN 터널 전멸 상태의 브라우저 스크래퍼는 킥 보류 —
+                    # 재시작해봤자 똑같이 정체되고, 재시작마다 같은 재시도 대상
+                    # 재수집 + 브라우저 재기동 낭비만 생김 (2026-07-11: 이 킥
+                    # 폭풍으로 서비스당 하루 110~140회 재시작, 완료 로그 ~900건이
+                    # 실제론 동일 클리닉 18개 반복이었음).
+                    if s.chrome_heavy and _vpn_alive_count() == 0:
+                        continue  # VPN 복구되면 자연히 진행 재개
                     s.kick(f"progress 정체 ({s.progress_stale_sec}s)")
                     any_action = True
                 continue

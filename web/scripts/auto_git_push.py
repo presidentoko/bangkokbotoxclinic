@@ -168,11 +168,27 @@ def main() -> int:
             dirty = run(["git", "diff", "--name-only"], check=False)
             stashed = False
             if dirty.stdout.strip():
-                s = run(["git", "stash", "push", "-m", "auto-merge-stash"], check=False)
-                stashed = s.returncode == 0
+                # 무차별 stash 금지 — 예전엔 워킹트리 전체를 stash 했다가
+                # pop 이 충돌로 실패(check=False)하면 개발자의 미커밋 코드
+                # 수정이 트리에서 통째로 사라졌음 (2026-07-10 19:25 실제 사고:
+                # scraper.py/watchdog.py/nordvpn_runner.py 수정 소실). merge 를
+                # 실제로 막는 파일만 최소 범위로 stash 한다.
+                behind = run(["git", "diff", "--name-only", "HEAD..origin/main"], check=False)
+                incoming = set(ln.strip() for ln in behind.stdout.splitlines() if ln.strip())
+                local = [ln.strip() for ln in dirty.stdout.splitlines() if ln.strip()]
+                blocking = [f for f in local if f in incoming]
+                if blocking:
+                    s = run(["git", "stash", "push", "-m", "auto-merge-stash", "--"] + blocking,
+                            check=False)
+                    stashed = s.returncode == 0
             merge = run(["git", "merge", "origin/main", "-X", "ours", "--no-edit"], check=False)
             if stashed:
-                run(["git", "stash", "pop"], check=False)
+                pop = run(["git", "stash", "pop"], check=False)
+                if pop.returncode != 0:
+                    # pop 실패 = 변경이 stash 에 갇힘. 조용히 넘기지 말 것.
+                    # 복구: git stash list → git checkout stash@{N} -- <파일>
+                    print("[auto_git_push] !! stash pop 실패 — 변경이 stash에 갇힘, 수동 복구 필요: "
+                          + pop.stderr.strip()[:200], file=sys.stderr)
             if merge.returncode != 0:
                 print(f"[auto_git_push] merge 실패: {merge.stderr.strip()[:200]}", file=sys.stderr)
                 return 1

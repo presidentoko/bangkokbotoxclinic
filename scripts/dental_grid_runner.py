@@ -90,10 +90,14 @@ def dedup_csv(path: Path) -> int:
             if pid and pid not in seen:
                 seen.add(pid)
                 rows.append(row)
-    with open(path, "w", encoding="utf-8", newline="") as f:
+    # 원자적 쓰기 — 프로세스가 중간에 죽어도 discovered_places.csv 가
+    # 빈 파일로 남지 않도록 tmp에 먼저 쓰고 교체
+    tmp_path = path.with_suffix(".csv.tmp")
+    with open(tmp_path, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fieldnames)
         w.writeheader()
         w.writerows(rows)
+    os.replace(tmp_path, path)
     return len(rows)
 
 
@@ -126,7 +130,7 @@ def main():
             "CITY_RADIUS_M":    city["radius"],
             "CITY_OUTPUT_DIR":  str(out_dir),
             "GRID_N_WORKERS":   "4",
-            "GRID_PROXY_PORT":  "2090",  # review(2080-2089)와 분리, dental 전용 (2090-2093)
+            "GRID_PROXY_PORT":  "2084",  # nordvpn_runner 8포트(2080-2087) 범위 내 필수 — 2090+ 는 리스너 없음
             "PYTHONIOENCODING": "utf-8",
         }
 
@@ -143,9 +147,17 @@ def main():
         unique = dedup_csv(out_dir / "discovered_places.csv")
         grand_total += unique
         print(f"[dental_grid] {city['name']}: {unique}개 발견 (실패 {fails}개)")
+
+        if unique == 0:
+            # 전부 실패(VPN/프록시 죽음 등) — done 마킹 안 함, 다음 실행 때 재시도
+            print(f"[dental_grid] {city['name']}: 0개 — done 마킹 스킵, 다음 실행에 재시도")
+            continue
+
         mark_done(city["name"])
 
-        # 도시별 review 스크래퍼 활성화 (.disabled 마커 제거)
+        # 도시별 review 스크래퍼 활성화 (.disabled 마커 제거) — 실제로 뭔가
+        # 발견됐을 때만. 0개인데 활성화하면 review 워커가 빈 큐로 crash-loop
+        # 돌다 watchdog에 영구 disabled 되는 문제가 있었음.
         review_disabled = ROOT / "run" / f"dental_review_{city['name']}.disabled"
         if review_disabled.exists():
             try:

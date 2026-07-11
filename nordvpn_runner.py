@@ -156,6 +156,9 @@ class Runner:
         self.used_ips: set[str] = set()
         # host -> 이 timestamp 까지 pick 제외. tunnel/health 실패한 노드는 잠시 쉬게.
         self.failed_until: dict[str, float] = {}
+        # 포트 idx -> 연속 부팅실패 스트릭 / 백오프 만료 시각
+        self._backoff_streak: dict[int, int] = {}
+        self._backoff_until: dict[int, float] = {}
         self._stop = False
         self.rotate_ptr = 0
         self.last_refresh = 0.0
@@ -231,7 +234,26 @@ class Runner:
         self.failed_until[host] = time.time() + FAILED_HOST_COOLDOWN
 
     # ── 포트 관리 ────────────────────────────────────────
-    def boot_port(self, p: Port, max_attempts: int = 10) -> bool:
+    # ── 포트별 지수 백오프 ─────────────────────────────────────
+    # 터널이 1초 만에 즉사하는 시기(NordVPN 측 거부/차단)에 쉼 없이
+    # 재시도하면 분당 수십 회 접속 폭탄이 되어 차단이 더 길어짐
+    # (2026-07-11: 최근 1000줄 기준 실패 411 vs 성공 37). 연속 실패 시
+    # 30s→60s→120s→...→최대 600s 로 쉬어서 플러딩을 멈춘다.
+    def _backoff_active(self, idx: int) -> bool:
+        return time.time() < self._backoff_until.get(idx, 0.0)
+
+    def _backoff_bump(self, idx: int):
+        streak = self._backoff_streak.get(idx, 0) + 1
+        self._backoff_streak[idx] = streak
+        wait = min(30 * (2 ** (streak - 1)), 600) + random.uniform(0, 10)
+        self._backoff_until[idx] = time.time() + wait
+        log(f"port {self.ports[idx].port}: 연속실패 {streak}회 → {wait:.0f}s 백오프")
+
+    def _backoff_reset(self, idx: int):
+        self._backoff_streak[idx] = 0
+        self._backoff_until[idx] = 0.0
+
+    def boot_port(self, p: Port, max_attempts: int = 3) -> bool:
         if p.server_ip:
             self.used_ips.discard(p.server_ip)
         for attempt in range(max_attempts):
@@ -257,18 +279,26 @@ class Runner:
             if not ok:
                 log(f"port {p.port}: tunnel 실패 (host={s['host']}) — {FAILED_HOST_COOLDOWN}s cooldown")
                 self._mark_failed(s["host"])
-                p.stop(); continue
+                p.stop()
+                time.sleep(3)  # 즉사 시 1초 간격 연타 방지
+                continue
             exit_ip = p.check_health()
             if exit_ip:
                 log(f"port {p.port}: READY exit={exit_ip} via {s['host']}")
+                self._backoff_reset(p.idx)
                 return True
             log(f"port {p.port}: health check 실패 (host={s['host']}) — {FAILED_HOST_COOLDOWN}s cooldown")
             self._mark_failed(s["host"])
             p.stop()
+            time.sleep(3)
+        self._backoff_bump(p.idx)
         return False
 
     def rotate_port(self, idx: int):
         p = self.ports[idx]
+        if self._backoff_active(idx):
+            log(f"port {p.port}: rotate 요청 무시 — 백오프 중 (연속실패 {self._backoff_streak.get(idx, 0)}회)")
+            return
         old = p.server_host
         log(f"port {p.port}: rotate (was {old})")
         self.boot_port(p)
@@ -395,7 +425,7 @@ class Runner:
             if now - last_health > 15:
                 last_health = now
                 for p in self.ports:
-                    if not p.is_alive():
+                    if not p.is_alive() and not self._backoff_active(p.idx):
                         log(f"port {p.port}: process died → respawn")
                         self.boot_port(p)
                         self._write_status()
@@ -407,7 +437,8 @@ class Runner:
                     if p.is_alive() and not p.check_health(timeout=5.0):
                         log(f"port {p.port}: SOCKS dead (process alive) → rotate")
                         self._mark_failed(p.server_host)
-                        self.boot_port(p)
+                        if not self._backoff_active(p.idx):
+                            self.boot_port(p)
                         self._write_status()
 
             if now - self.last_refresh > REFRESH_INTERVAL:
@@ -417,6 +448,38 @@ class Runner:
 
         for p in self.ports: p.stop()
         log("all stopped")
+
+
+def _takeover_guard():
+    """다른 nordvpn_runner 인스턴스를 전부 강제 종료 — 포트 소유권 단일화.
+
+    2026-07-07 사고 재발방지: watchdog 중복으로 runner 가 10개까지 누적되어
+    NordVPN 계정 동시연결이 폭주, 서버들이 접속을 거부하며 전 터널 붕괴.
+    runner 는 시스템 전역 자원(SOCKS 포트 + VPN 계정)을 관리하므로
+    반드시 1개만 존재해야 한다. 신규 인스턴스가 기존 것을 밀어낸다
+    (watchdog 은 죽은 것을 감지해 재시작하므로 최신 설정이 항상 승리)."""
+    me, my_parent = os.getpid(), os.getppid()
+    try:
+        out = subprocess.check_output(
+            ["wmic", "process", "where", "name='python.exe'",
+             "get", "ProcessId,ParentProcessId,CommandLine", "/format:csv"],
+            text=True, errors="replace", timeout=30, **_WIN_NO_WINDOW,
+        )
+    except (subprocess.SubprocessError, OSError):
+        return
+    for line in out.splitlines():
+        if "nordvpn_runner.py" not in line:
+            continue
+        parts = line.rsplit(",", 2)
+        try:
+            ppid, pid = int(parts[-2]), int(parts[-1])
+        except (ValueError, IndexError):
+            continue
+        if pid in (me, my_parent) or ppid in (me, my_parent):
+            continue
+        log(f"takeover: 기존 nordvpn_runner(PID {pid}) 종료")
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(pid)],
+                       capture_output=True, **_WIN_NO_WINDOW)
 
 
 def main():
@@ -439,6 +502,7 @@ def main():
               "https://downloads.nordcdn.com/configs/files/ovpn_legacy/servers/jp522.nordvpn.com.tcp443.ovpn",
               file=sys.stderr); sys.exit(1)
 
+    _takeover_guard()
     r = Runner(args.ports, args.base_port, args.auth, args.proto)
     r.run()
 

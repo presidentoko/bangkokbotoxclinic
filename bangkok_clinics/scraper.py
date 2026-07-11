@@ -49,6 +49,84 @@ SLOW_THRESHOLD_SEC = 120     # 1건 처리 시간이 이 이상이면 다음 작
 ROTATE_TIMEOUT_SEC = 90      # vpn_runner가 새 터널을 올릴 때까지 최대 대기 (45→90, NordVPN 일부 서버 boot 30s+)
 ROTATE_EVERY_TASKS = 15      # 이 주기(성공 건수)마다 워커가 정기적으로 VPN 교체
 
+CLOSED_STATUSES = ("permanently closed", "temporarily closed")
+
+# ── 버티컬 순도 필터 ─────────────────────────────────────────
+# 검색 키워드에 미용실/외국지점이 섞여 들어오는 문제 차단 (2026-07-10):
+# 헤어 수집분에 DHI Colombo(스리랑카)·Dr. Viral Desai Pune(인도)·
+# 허브 트리트먼트 가게가 실제로 들어와 있었음.
+_OUT_HINT = (os.environ.get("CITY_OUTPUT_DIR", "") + " "
+             + os.environ.get("SEARCH_TAG", "")).lower()
+VERTICAL = ("hair" if "hair" in _OUT_HINT
+            else "dental" if "dental" in _OUT_HINT
+            else "clinic")
+
+# 버티컬 무관 업소 (미용실·스파·네일·안경점 등)
+OFF_VERTICAL_RE = re.compile(
+    r"hair salon|barber|beauty salon|nail|massage|\bspa\b|waxing|tattoo|"
+    r"piercing|wig|hairdress|hair extension|makeup|eyelash|\blash\b|\bbrow\b|"
+    r"optician|optical|pharmacy|drugstore|veterinar|\bpet\b|\bgym\b|fitness|"
+    r"restaurant|cafe|coffee|hotel|hostel|"
+    r"ร้านทำผม|ตัดผม|ร้านเสริมสวย|นวด|สปา|ทำเล็บ|ร้านสัก|ต่อขนตา|ร้านแว่น|ร้านขายยา|"
+    r"미용실|네일|마사지",
+    re.IGNORECASE,
+)
+# 모발이식 시그널 — 있으면 헤어 버티컬에서 차단 면제
+HAIR_SIGNAL_RE = re.compile(
+    r"transplant|graft|\bfue\b|\bdhi\b|restoration|regrow|hair loss|"
+    r"hair clinic|hair center|scalp|trichol|"
+    r"ปลูกผม|รักษาผมร่วง|모발이식|이식",
+    re.IGNORECASE,
+)
+# 치과 시그널 — 덴탈 버티컬은 이게 없으면 수집 안 함 (allowlist)
+DENTAL_SIGNAL_RE = re.compile(
+    r"dent|orthodont|ทันตกรรม|ทันตแพทย์|จัดฟัน|คลินิกฟัน|รักษาฟัน|หมอฟัน|"
+    r"치과|임플란트",
+    re.IGNORECASE,
+)
+
+# 태국 좌표 범위 — 외국 지점(구글 텍스트검색이 전세계 체인점을 돌려줌) 차단
+TH_LAT_RANGE = (5.5, 20.6)
+TH_LNG_RANGE = (97.2, 105.9)
+
+
+def _vertical_reject(name: str, primary_type: str) -> str:
+    """버티컬에 안 맞으면 skip 사유 문자열, 맞으면 빈 문자열."""
+    blob = f"{name} {primary_type}"
+    if VERTICAL == "dental":
+        if not DENTAL_SIGNAL_RE.search(blob):
+            return f"category:not_dental:{(primary_type or name)[:40]}"
+        return ""
+    if VERTICAL == "hair":
+        if HAIR_SIGNAL_RE.search(blob):
+            return ""
+        if OFF_VERTICAL_RE.search(blob):
+            return f"category:off_vertical:{(primary_type or name)[:40]}"
+        return ""
+    # clinic (에스테틱/보톡스)
+    if OFF_VERTICAL_RE.search(blob):
+        return f"category:off_vertical:{(primary_type or name)[:40]}"
+    return ""
+
+
+def _outside_thailand(lat: str, lng: str) -> bool:
+    try:
+        la, ln = float(lat), float(lng)
+    except (TypeError, ValueError):
+        return False  # 좌표 못 읽으면 통과 (좌표는 보조 필터)
+    return not (TH_LAT_RANGE[0] <= la <= TH_LAT_RANGE[1]
+                and TH_LNG_RANGE[0] <= ln <= TH_LNG_RANGE[1])
+
+_skip_reason_local = threading.local()
+
+
+def _set_skip_reason(reason: str) -> None:
+    _skip_reason_local.value = reason
+
+
+def _pop_skip_reason() -> str:
+    return getattr(_skip_reason_local, "value", "unknown")
+
 
 def _rotate_vpn_and_wait(vpn_idx: int, timeout: float = ROTATE_TIMEOUT_SEC) -> bool:
     """
@@ -439,6 +517,7 @@ def get_restaurant_full(
     page: Page, maps_url: str
 ) -> tuple[Restaurant | None, list[RestaurantFeature], list[RestaurantHours]]:
     if not goto_with_retry(page, add_hl_en(maps_url), retries=3, delay=3.0):
+        _set_skip_reason("goto_failed")
         return None, [], []
     safe_sleep(2.0)
     # F7nice(별점+리뷰수) 렌더링 대기
@@ -466,6 +545,7 @@ def get_restaurant_full(
     if is_dead_tunnel_page_name(name):
         raise SocksDeadError(f"dead tunnel page detected: {name[:80]!r}")
     if not name or name == "Results":
+        _set_skip_reason("no_name")
         return None, [], []
 
     # rating + review count
@@ -488,6 +568,7 @@ def get_restaurant_full(
     if total_reviews < config.MIN_REVIEW_COUNT:
         log.info(f"  건너뜀 (리뷰 {total_reviews}개 < {config.MIN_REVIEW_COUNT}): "
                   f"{name} | F7nice={fnice_text!r}")
+        _set_skip_reason(f"low_reviews:{total_reviews}")
         return None, [], []
 
     # 주소
@@ -586,6 +667,18 @@ def get_restaurant_full(
     except Exception:
         pass
 
+    if business_status.lower() in CLOSED_STATUSES:
+        log.info(f"  건너뜀 ({business_status}): {name}")
+        _set_skip_reason(f"closed:{business_status}")
+        return None, [], []
+
+    # 버티컬 순도: 미용실/무관 업종/타 버티컬 차단
+    _reject = _vertical_reject(name, primary_type)
+    if _reject:
+        log.info(f"  건너뜀 (버티컬 불일치, {primary_type or '?'}): {name}")
+        _set_skip_reason(_reject)
+        return None, [], []
+
     # editorial summary
     editorial_summary = ""
     try:
@@ -597,6 +690,12 @@ def get_restaurant_full(
 
     lat, lng = extract_coords_from_url(current_url)
     place_id = extract_place_id_from_url(current_url)
+
+    # 태국 밖 지점 차단 (구글 텍스트검색이 DHI Colombo 같은 해외 체인점을 섞어줌)
+    if _outside_thailand(lat, lng):
+        log.info(f"  건너뜀 (태국 밖 {lat},{lng}): {name}")
+        _set_skip_reason(f"geo:{lat},{lng}")
+        return None, [], []
 
     rest = Restaurant(
         place_id=place_id, name=name, primary_type=primary_type,
@@ -1240,10 +1339,11 @@ def worker(
                         rest, feats, hours = get_restaurant_full(page, href)
                         if not rest:
                             elapsed = time.time() - t0
-                            log.info(f"[W{worker_id}] #{idx} 스킵 ({elapsed:.0f}s)")
+                            reason = _pop_skip_reason()
+                            log.info(f"[W{worker_id}] #{idx} 스킵 ({elapsed:.0f}s) — {reason}")
                             if elapsed > SLOW_THRESHOLD_SEC:
                                 pending_rotate = True
-                            result_queue.put(("skip", href))
+                            result_queue.put(("skip", (href, reason)))
                             continue
                         reviews, metas = collect_reviews_for_restaurant(page, rest)
                         elapsed = time.time() - t0
@@ -1332,6 +1432,17 @@ def main():
                     href = row.get("href") or ""
                     if not href:
                         continue
+                    status_hint = (row.get("status_hint") or "").lower()
+                    if any(s in status_hint for s in CLOSED_STATUSES):
+                        continue
+                    # 버티컬 순도 사전필터 — 카드 정보만으로 확실히 무관한
+                    # 업소(미용실 등)는 상세 방문 비용 자체를 아낌.
+                    # 덴탈 allowlist 는 카드 정보가 부실할 수 있어 여기선
+                    # 적용 안 함 (상세 페이지에서 최종 판정).
+                    blob = f"{row.get('name','')} {row.get('primary_type','')}"
+                    if OFF_VERTICAL_RE.search(blob) and not (
+                            VERTICAL == "hair" and HAIR_SIGNAL_RE.search(blob)):
+                        continue
                     try:
                         rc = int(row.get("review_count") or 0)
                     except ValueError:
@@ -1361,25 +1472,31 @@ def main():
     #   - complete: relevant + newest 두 sort_source 모두 수집됨 → 스킵
     #   - partial: 하나만 수집됨 (타임아웃 등) → 재처리
     #   - none/failed: 0건인데 리뷰 30+ → 재처리
-    def _review_status(pid_fn: str) -> str:
+    def _review_status(pid_fn: str) -> tuple[str, int]:
+        """(status, 수집된 리뷰 행수) 반환."""
         p = reviews_dir / f"{pid_fn}_reviews.csv"
         if not p.exists():
-            return "none"
+            return "none", 0
         try:
             with open(p, encoding="utf-8-sig", errors="replace") as f:
                 r = csv.DictReader(f)
-                sources = {(row.get("sort_source") or "").strip() for row in r}
+                sources: set[str] = set()
+                n_rows = 0
+                for row in r:
+                    n_rows += 1
+                    sources.add((row.get("sort_source") or "").strip())
         except Exception:
-            return "none"
+            return "none", 0
         sources.discard("")
         if not sources:
-            return "none"
+            return "none", 0
         if "relevant" in sources and "newest" in sources:
-            return "complete"
-        return "partial"
+            return "complete", n_rows
+        return "partial", n_rows
 
     existing_ids: set[str] = set()
     retry_ids: set[str] = set()  # partial/failed
+    retry_hrefs: dict[str, str] = {}  # pid -> maps_url, clinics.csv 기준 (재시도용)
     partial_cnt = failed_cnt = 0
     restaurants_path = out_dir / "clinics.csv"
     if restaurants_path.exists():
@@ -1394,38 +1511,91 @@ def main():
                 except (ValueError, TypeError):
                     total = 0
                 pid_fn = place_id_to_filename(pid)
-                status = _review_status(pid_fn)
+                status, n_rows = _review_status(pid_fn)
+                # partial 수렴: 리뷰 적은 곳은 newest 탭이 없어 sort_source 가
+                # 하나만 나올 수 있음 → 영원히 partial 로 남아 재시작마다
+                # 재수집하는 낭비 (Patama 루프). 수집 행수가 전체 리뷰수에
+                # 근접하면 사실상 완료로 취급.
+                # n_rows >= 100 절대상한: 총리뷰 수백 개짜리는 구글맵 스크롤
+                # 한계상 0.8 비율을 영원히 못 채워 만성 partial 루프가 됨
+                if status == "partial" and (total <= 10 or n_rows >= total * 0.8 or n_rows >= 100):
+                    status = "complete"
                 if status == "complete":
                     existing_ids.add(pid)
                 elif status == "partial":
                     retry_ids.add(pid)
                     partial_cnt += 1
+                    if row.get("maps_url"):
+                        retry_hrefs[pid] = row["maps_url"]
                 elif total >= config.MIN_REVIEW_COUNT:
                     # none + 리뷰 많음 = 완전 실패
                     retry_ids.add(pid)
                     failed_cnt += 1
+                    if row.get("maps_url"):
+                        retry_hrefs[pid] = row["maps_url"]
                 else:
                     existing_ids.add(pid)  # 리뷰 적어서 비어있는 건 정상
-    log.info(f"기존 완료: {len(existing_ids)} | 부분수집 재시도: {partial_cnt} | 완전실패 재시도: {failed_cnt}")
+    # 재시도 예산 (세션 간 지속) — 재시작이 잦은 시기엔 같은 partial 을 수십 번
+    # 재수집하는 낭비가 남 (2026-07-11: VPN 장애 + 킥 폭풍으로 하루 재시작 140회
+    # × 동일 재시도 큐 = 완료 로그 ~900건이 실제 신규 18건). pid당 3세션까지만
+    # 재시도, 이후엔 수집분으로 완료 취급. 리셋: retry_attempts.json 삭제.
+    retry_budget_file = out_dir / "retry_attempts.json"
+    try:
+        retry_attempts: dict[str, int] = json.loads(retry_budget_file.read_text(encoding="utf-8"))
+    except Exception:
+        retry_attempts = {}
+    _exhausted = {pid for pid in retry_ids if retry_attempts.get(pid, 0) >= 3}
+    if _exhausted:
+        log.info(f"재시도 예산(3회) 소진: {len(_exhausted)}개 — 수집분으로 완료 처리")
+        retry_ids -= _exhausted
+        existing_ids |= _exhausted
+    for pid in retry_ids:
+        retry_attempts[pid] = retry_attempts.get(pid, 0) + 1
+    try:
+        _tmp_budget = retry_budget_file.with_suffix(".json.tmp")
+        _tmp_budget.write_text(json.dumps(retry_attempts), encoding="utf-8")
+        os.replace(_tmp_budget, retry_budget_file)
+    except Exception:
+        pass
+
+    log.info(f"기존 완료: {len(existing_ids)} | 부분수집 재시도: {partial_cnt} | 완전실패 재시도: {failed_cnt} | 예산소진 제외: {len(_exhausted)}")
 
     # 이전 세션에서 스킵된 href 로드 (재시작 시 큐 롤백 방지)
     skipped_file = out_dir / "skipped_hrefs.txt"
     skipped_hrefs: set[str] = set()
     if skipped_file.exists():
         try:
-            skipped_hrefs = {l.strip() for l in skipped_file.read_text(encoding="utf-8").splitlines() if l.strip()}
+            # 신규 포맷: "href\treason". 구 포맷(href만)도 그대로 지원.
+            skipped_hrefs = {
+                l.strip().split("\t", 1)[0]
+                for l in skipped_file.read_text(encoding="utf-8").splitlines()
+                if l.strip()
+            }
         except Exception:
             pass
 
     # 필터링된 후보만 큐에 넣기
     filtered_hrefs = []
+    seen_filtered_pids: set[str] = set()
     for href in unique_hrefs:
         pid = extract_place_id_from_url(href)
         if pid not in existing_ids and href not in skipped_hrefs:
             filtered_hrefs.append(href)
+            seen_filtered_pids.add(pid)
+
+    # partial/완전실패 재시도 대상 — discovered_places.csv 에 더 이상 없어도
+    # clinics.csv 에 기록된 maps_url 로 재시도 큐에 편입 (예전엔 retry_ids 만
+    # 계산하고 실제로 큐에 안 넣는 버그가 있었음)
+    retry_added = 0
+    for pid in retry_ids:
+        href = retry_hrefs.get(pid)
+        if href and pid not in seen_filtered_pids and href not in skipped_hrefs:
+            filtered_hrefs.append(href)
+            seen_filtered_pids.add(pid)
+            retry_added += 1
 
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
-    log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)}")
+    log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개)")
     log.info(f"목표: {'무제한' if target_n is None else target_n}")
     log.info(f"워커: {config.N_WORKERS}개 "
              f"(포트 {config.PROXY_PORT_BASE}~{config.PROXY_PORT_BASE + config.N_WORKERS - 1})")
@@ -1514,13 +1684,21 @@ def main():
 
         if status == "skip":
             skip_count += 1
-            if payload:  # href
-                skipped_hrefs.add(payload)
-                try:
-                    with open(skipped_file, "a", encoding="utf-8") as _sf:
-                        _sf.write(payload + "\n")
-                except Exception:
-                    pass
+            if payload:  # (href, reason)
+                skip_href, skip_reason = payload
+                skipped_hrefs.add(skip_href)  # 세션 내 재큐잉 방지 (메모리)
+                # 영구 skip은 콘텐츠성 사유만. goto_failed/no_name 같은
+                # 인프라성 실패를 파일에 쓰면 VPN 장애 기간의 실패가
+                # 영구화되어 큐가 마름 (2026-07-08~10: 재시도 대상 623개
+                # 전원이 skip 목록에 갇혀 3일 무수확).
+                permanent = skip_reason.startswith(
+                    ("low_reviews", "closed", "category", "geo"))
+                if permanent:
+                    try:
+                        with open(skipped_file, "a", encoding="utf-8") as _sf:
+                            _sf.write(f"{skip_href}\t{skip_reason}\n")
+                    except Exception:
+                        pass
             continue
         if status != "ok" or not payload:
             continue
