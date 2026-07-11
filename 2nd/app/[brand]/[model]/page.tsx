@@ -44,7 +44,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: `Used ${item.brand} ${item.model} Price (2026)`,
       description,
-      images: [`/api/og/${item.slug}`],
     },
   }
 }

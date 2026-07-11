@@ -1,6 +1,8 @@
 import { getAllItems, formatPrice, getAvgPrice } from '@/lib/data'
 import { NextResponse } from 'next/server'
 
+export const dynamic = 'force-static'
+
 export function GET() {
   const items = getAllItems()
   const lines = [
