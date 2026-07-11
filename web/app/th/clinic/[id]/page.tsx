@@ -16,7 +16,7 @@ const SITE = getSiteUrl();
 // route segment config 는 직접 선언 — Turbopack 이 `export { ... } from` 재export 를
 // route config 로 인식하지 못해 빌드 실패하므로 부모와 동일 값으로 명시.
 export const revalidate = 604800;
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const generateStaticParams = parentGSP;
 
 export async function generateMetadata(

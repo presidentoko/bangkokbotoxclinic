@@ -11,9 +11,10 @@ import type { Metadata } from "next";
 // dental deploy emits aesthetic-site URLs to Google.
 const SITE = getSiteUrl();
 
-// 비용 절감: top 30 doctor만 pre-build, 나머지 on-demand + 7일 캐시.
+// 전량 프리렌더 + dynamicParams=false — clinic/[id]와 동일 이유(Hobby ISR
+// Writes 200K/월 한도를 봇의 무작위 slug 크롤이 소진, 2026-07-10 감사).
 export const revalidate = 604800;
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
@@ -22,10 +23,7 @@ export async function generateStaticParams() {
   // 보톡스 의사) 대량 pre-render 후 noindex 처리하는 낭비 방지 (clinic/[id]와
   // 동일 이슈, 2026-07-10 감사).
   const docs = getAllDoctors(db.clinics).filter((d) => applySiteFilter([d.clinic], cfg).length > 0);
-  const ranked = [...docs].sort((a, b) =>
-    (b.mentions || 0) - (a.mentions || 0)
-  );
-  return ranked.slice(0, 30).map((d) => ({ slug: d.composite_slug! }));
+  return docs.map((d) => ({ slug: d.composite_slug! }));
 }
 
 export async function generateMetadata(

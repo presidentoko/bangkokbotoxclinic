@@ -54,16 +54,15 @@ const PantipMentions = dynamic(
 // top 500 클리닉 pre-build — Google 크롤 시 cold start 없애서 인덱싱 개선.
 // 나머지는 첫 방문 시 on-demand 생성 → 7일 캐시.
 export const revalidate = 604800;
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  const ranked = [...db.clinics].sort((a, b) => {
-    const sa = (a.trust_score || 0) * Math.log(1 + (a.total_reviews || 0));
-    const sb = (b.trust_score || 0) * Math.log(1 + (b.total_reviews || 0));
-    return sb - sa;
-  });
-  return ranked.slice(0, 500).map((c) => ({ id: c.id }));
+  // 전량 프리렌더 — dynamicParams=false 와 짝. Hobby ISR Writes 200K/월 한도를
+  // 봇이 무작위 id 두드릴 때마다(404도 캐시에 기록됨) 소진시키던 문제
+  // (bangkokfillers 2026-07-10 사고와 동일 패턴). 빌드는 느려지지만 잘못된
+  // id 는 라우팅 단계에서 즉시 404 — ISR write 자체가 안 생김.
+  return db.clinics.map((c) => ({ id: c.id }));
 }
 
 export async function generateMetadata(

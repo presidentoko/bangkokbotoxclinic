@@ -46,6 +46,7 @@ import { loadWikiSummary } from "@/lib/wiki";
 import { guidesForProcedures } from "@/lib/guides";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   const { clinics } = loadClinics();
