@@ -10,11 +10,14 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
-  title: "Bangkok Dental Clinics — Top Rated",
-  description: "Top-rated dental clinics in Bangkok. Implants, crowns, whitening — verified from real Google reviews.",
-  alternates: { canonical: "/dental" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const db = await loadDentalDb();
+  return {
+    title: `Best Dental Clinics in Bangkok 2026 — ${db.clinics.length} Top Rated`,
+    description: `${db.clinics.length} top-rated dental clinics in Bangkok, ranked by real Google reviews. Implants, crowns, whitening — verified 2026 pricing and ratings.`,
+    alternates: { canonical: "/dental" },
+  };
+}
 
 export default async function DentalPage() {
   const db = await loadDentalDb();
@@ -27,7 +30,7 @@ export default async function DentalPage() {
           🦷 Bangkok Dental
         </div>
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
-          Best Dental Clinics in Bangkok
+          Best Dental Clinics in Bangkok 2026
         </h1>
         <p className="text-[var(--muted)] max-w-2xl">
           {db.clinics.length.toLocaleString()} dental clinics ranked by Google review rating.
@@ -65,7 +68,7 @@ export default async function DentalPage() {
       <EmergencyInfo />
       <BangkokTip />
       <ItemListJsonLd
-        name="Best Dental Clinics in Bangkok"
+        name="Best Dental Clinics in Bangkok 2026"
         items={top.map((c) => ({ name: c.name, url: c.website || c.maps_url }))}
       />
     </div>

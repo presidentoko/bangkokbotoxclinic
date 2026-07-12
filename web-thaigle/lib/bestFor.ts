@@ -125,6 +125,28 @@ export const BEST_FOR: Criterion[] = [
       topicHits(r, "tasty") * 5 + topicHits(r, "authentic") * 5 + r.trust_score,
     filterFn: (r) => topicHits(r, "tasty") >= 1 || topicHits(r, "authentic") >= 1,
   },
+  {
+    slug: "michelin-mentioned",
+    title: "Bangkok Restaurants Reviewers Compare to Michelin",
+    metaTitle: "Michelin-Mentioned Bangkok Restaurants 2026 — Ranked by Reviews",
+    metaDescription:
+      "194 Bangkok restaurants where Google reviewers explicitly bring up Michelin — starred, Bib Gourmand, or guide-mentioned. Ranked by real review data, not paid placements.",
+    intro:
+      "Bangkok restaurants reviewers describe in the same breath as Michelin — starred venues, Bib Gourmand picks, and spots reviewers say deserve a star. Sorted by mention count weighted by Trust Score.",
+    scoreFn: (r) => topicHits(r, "michelin") * 15 + r.trust_score,
+    filterFn: (r) => topicHits(r, "michelin") >= 1,
+  },
+  {
+    slug: "live-music",
+    title: "Bangkok Restaurants with Live Music",
+    metaTitle: "Best Bangkok Restaurants with Live Music 2026 — Ranked by Reviews",
+    metaDescription:
+      "Bangkok restaurants and bars where reviewers mention a live band, singer, or jazz night. Ranked by real Google reviews in 2026 — no paid placements.",
+    intro:
+      "Bangkok restaurants and bars reviewers call out for live bands, singers, or jazz nights — good for a dinner that turns into a night out.",
+    scoreFn: (r) => topicHits(r, "live_music") * 10 + r.trust_score,
+    filterFn: (r) => topicHits(r, "live_music") >= 1,
+  },
 ];
 
 export function findBestFor(slug: string): Criterion | null {

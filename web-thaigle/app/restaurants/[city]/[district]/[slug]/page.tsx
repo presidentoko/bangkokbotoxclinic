@@ -48,7 +48,8 @@ export async function generateMetadata(
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
   const cityLabel = r.city_label || city.charAt(0).toUpperCase() + city.slice(1);
   const districtName = r.district || cityLabel;
-  const title = `${r.name} — ★${r.rating} (${r.total_reviews.toLocaleString()} Reviews) | ${districtName}, ${cityLabel}`;
+  const menuFragment = r.menu_url ? " Menu," : "";
+  const title = `${r.name} —${menuFragment} ★${r.rating} (${r.total_reviews.toLocaleString()} Reviews) | ${districtName}, ${cityLabel}`;
   const trustLabel = r.trust_score >= 80 ? "Highly credible" : r.trust_score >= 60 ? "Credible" : "Mixed";
   const description = `${r.name} in ${districtName}, ${cityLabel}: ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews. Trust Score ${r.trust_score}/100 (${trustLabel}). ${cuisines || "Restaurant"}. View reviews, address & photos.`;
   const canonical = restaurantUrl({ city, district, slug });

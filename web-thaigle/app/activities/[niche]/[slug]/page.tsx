@@ -67,7 +67,9 @@ export async function generateMetadata({
   if (!place) return {};
 
   const cityLabel = place.city ? place.city.charAt(0).toUpperCase() + place.city.slice(1) : "Bangkok";
-  const priceStr = place.price_min_thb > 0 ? ` From ฿${place.price_min_thb.toLocaleString()}.` : "";
+  const hasPrice = place.price_min_thb > 0;
+  const priceStr = hasPrice ? ` From ฿${place.price_min_thb.toLocaleString()}.` : "";
+  const priceTitleFragment = hasPrice ? " | Prices" : "";
   const trustLabel = place.trust_score >= 80 ? "Highly trusted" : place.trust_score >= 60 ? "Trusted" : "Verified";
   const hasRating = !!(place.rating && place.review_count);
   const ratingTitleFragment = hasRating ? ` | ★${place.rating!.toFixed(1)} (${place.review_count!.toLocaleString()} Reviews)` : "";
@@ -75,13 +77,13 @@ export async function generateMetadata({
     ? `★${place.rating!.toFixed(1)} from ${place.review_count!.toLocaleString()} Google reviews. `
     : "";
   return {
-    title: `${place.name} — ${info.label} in ${cityLabel}${ratingTitleFragment}`,
+    title: `${place.name} — ${info.label} in ${cityLabel} 2026${priceTitleFragment}${ratingTitleFragment}`,
     description: `${place.name}: ${info.label} in ${cityLabel}. ${ratingDescFragment}Trust Score ${place.trust_score} (${trustLabel}).${priceStr} Book on Klook or visit directly.`,
     alternates: { canonical: `/activities/${niche}/${slug}` },
     openGraph: {
-      title: `${place.name} — ${info.label} Bangkok`,
+      title: `${place.name} — ${info.label} ${cityLabel}`,
       description: `${hasRating ? `★${place.rating!.toFixed(1)} · ${place.review_count!.toLocaleString()} reviews · ` : ""}Trust Score ${place.trust_score}${priceStr}`,
-      ...(place.top_photo_url ? { images: [{ url: place.top_photo_url, alt: `${place.name} — ${info.label} in Bangkok` }] } : {}),
+      ...(place.top_photo_url ? { images: [{ url: place.top_photo_url, alt: `${place.name} — ${info.label} in ${cityLabel}` }] } : {}),
     },
   };
 }

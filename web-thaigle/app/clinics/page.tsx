@@ -8,11 +8,19 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
-  title: "Bangkok Clinics — Aesthetic & Beauty",
-  description: "Top-rated aesthetic clinics in Bangkok ranked by Google reviews. Botox, fillers, facials — verified ratings.",
-  alternates: { canonical: "/clinics" },
-};
+function bangkokClinicCount(clinics: { address: string }[]): number {
+  return clinics.filter((c) => /bangkok/i.test(c.address)).length;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const db = await loadClinicDb();
+  const count = bangkokClinicCount(db.clinics);
+  return {
+    title: `Best Aesthetic Clinics in Bangkok 2026 — ${count.toLocaleString()} Ranked`,
+    description: `${count.toLocaleString()} top-rated aesthetic clinics in Bangkok ranked by Google reviews. Botox, fillers, facials — verified 2026 ratings.`,
+    alternates: { canonical: "/clinics" },
+  };
+}
 
 export default async function ClinicsPage() {
   const db = await loadClinicDb();
@@ -29,7 +37,7 @@ export default async function ClinicsPage() {
           💉 Bangkok Clinics
         </div>
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
-          Best Aesthetic Clinics in Bangkok
+          Best Aesthetic Clinics in Bangkok 2026
         </h1>
         <p className="text-[var(--muted)] max-w-2xl">
           {bangkokClinics.length.toLocaleString()} clinics ranked by Google review rating and volume.
@@ -65,7 +73,7 @@ export default async function ClinicsPage() {
       <SavingsCounter />
       <BangkokTip />
       <ItemListJsonLd
-        name="Best Aesthetic Clinics in Bangkok"
+        name="Best Aesthetic Clinics in Bangkok 2026"
         items={top.map((c) => ({ name: c.name, url: c.website || c.maps_url }))}
       />
     </div>
