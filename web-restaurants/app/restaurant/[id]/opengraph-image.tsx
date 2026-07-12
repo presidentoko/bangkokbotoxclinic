@@ -45,12 +45,15 @@ export default async function RestaurantOG({ params }: { params: Promise<{ id: s
 
   if (!r) return simpleFallback("Restaurant", size);
 
-  // Sanitize name to ASCII-safe to avoid satori font lookup failures on Thai/CJK chars
-  const safeName = r.name.replace(/[^\x00-\x7F]/g, "").trim() || "Restaurant";
+  // Sanitize name to ASCII-safe to avoid satori font lookup failures on Thai/CJK chars.
   const cuisines = r.cuisines.slice(0, 3).map((x) => CUISINE_LABELS[x] ?? x).join(" - ");
-  const trust = r.trust_score;
-  const trustColor = trust >= 75 ? "#10b981" : trust >= 50 ? "#f59e0b" : "#737373";
   const where = [r.district, r.city_label].filter(Boolean).map(s => s.replace(/[^\x00-\x7F]/g, "").trim()).filter(Boolean).join(", ");
+  // Fully-Thai/Korean names strip to "" — fall back to cuisine+area instead of a bare "Restaurant" card.
+  const safeName = r.name.replace(/[^\x00-\x7F]/g, "").trim()
+    || (cuisines ? `${cuisines} Restaurant` : null)
+    || (where ? `Restaurant in ${where}` : "Restaurant");
+  const trust = Math.round(r.trust_score);
+  const trustColor = trust >= 75 ? "#10b981" : trust >= 50 ? "#f59e0b" : "#737373";
 
   try {
     return new ImageResponse(

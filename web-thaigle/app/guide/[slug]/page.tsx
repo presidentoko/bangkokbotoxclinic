@@ -27,6 +27,8 @@ import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
 }

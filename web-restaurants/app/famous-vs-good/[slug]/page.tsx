@@ -92,7 +92,7 @@ export default async function FamousVsGoodSlugPage(
     },
     {
       q: "How fresh is the data?",
-      a: "Scrapers run continuously. The master dataset rebuilds every few minutes. Trust Scores reflect current Google review data.",
+      a: "Scrapers run continuously and the master dataset rebuilds on a rolling basis. Trust Scores reflect the most recent Google review data we've collected.",
     },
   ];
 
@@ -171,7 +171,7 @@ export default async function FamousVsGoodSlugPage(
       </div>
 
       <p className="text-xs text-[var(--muted)] italic mb-8 border border-[var(--border)] rounded-lg px-4 py-3 bg-white">
-        Scores derived from public Google reviews, updated every 30 min,
+        Scores derived from public Google reviews, refreshed on a rolling basis,
         reflecting review credibility — not food quality opinions.
       </p>
 

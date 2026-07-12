@@ -50,10 +50,12 @@ export function GenericShareButton({
   title,
   text,
   url,
+  label = "Share this verdict",
 }: {
   title: string;
   text: string;
   url: string;
+  label?: string;
 }) {
   const [copied, setCopied] = useState(false);
   const fullUrl = `https://www.snsstopper.com${url}`;
@@ -81,7 +83,7 @@ export function GenericShareButton({
       {copied ? (
         <>✓ Copied to clipboard!</>
       ) : (
-        <><span aria-hidden>↗</span> Share this verdict</>
+        <><span aria-hidden>↗</span> {label}</>
       )}
     </button>
   );

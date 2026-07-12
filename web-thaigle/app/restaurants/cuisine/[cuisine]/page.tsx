@@ -119,6 +119,8 @@ import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
   return Object.keys(db.cuisine_counts).map((cuisine) => ({ cuisine }));

@@ -148,8 +148,16 @@ export async function loadCommunityDb(niche: NicheSlug): Promise<CommunityDb | n
 }
 
 export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
-  return [...places]
+  const rated = [...places]
     .filter((p) => p.trust_score > 0 && !!p.rating && !!p.review_count && p.review_count > 0)
+    .sort((a, b) => b.trust_score - a.trust_score);
+  if (rated.length > 0) return rated.slice(0, n);
+
+  // Some scraped datasets (e.g. spa, yoga-pilates) ship with rating/review_count
+  // entirely null across the board — fall back to trust_score-only ranking
+  // instead of returning an empty list for the whole niche.
+  return [...places]
+    .filter((p) => p.trust_score > 0)
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, n);
 }

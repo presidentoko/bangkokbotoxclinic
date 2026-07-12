@@ -1,8 +1,19 @@
 "use client";
 import { useLocale } from "@/hooks/useLocale";
 import { strings, tr } from "@/lib/strings";
+import { CUISINE_LABELS } from "@/lib/types";
 
-export function ClientFooter({ brand, year }: { brand: string; year: number }) {
+export function ClientFooter({
+  brand,
+  year,
+  topCuisines = [],
+  topDistricts = [],
+}: {
+  brand: string;
+  year: number;
+  topCuisines?: string[];
+  topDistricts?: string[];
+}) {
   const locale = useLocale();
   const s = strings.footer;
   const c = strings.common;
@@ -17,6 +28,36 @@ export function ClientFooter({ brand, year }: { brand: string; year: number }) {
             {tr(s.seeDetector, locale)}
           </a>
         </p>
+
+        {(topCuisines.length > 0 || topDistricts.length > 0) && (
+          <div className="flex flex-wrap gap-x-8 gap-y-4 mb-5 pb-5 border-b border-[var(--border)]">
+            {topCuisines.length > 0 && (
+              <div>
+                <div className="text-[10px] uppercase tracking-wide font-bold mb-2">Popular cuisines</div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                  {topCuisines.map((cat) => (
+                    <a key={cat} href={`/c/${cat}`} className="hover:text-[var(--fg)]">
+                      {CUISINE_LABELS[cat] ?? cat}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+            {topDistricts.length > 0 && (
+              <div>
+                <div className="text-[10px] uppercase tracking-wide font-bold mb-2">Popular areas</div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                  {topDistricts.map((d) => (
+                    <a key={d} href={`/d/${d.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-[var(--fg)]">
+                      {d}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
           <a href="/famous-vs-good" className="hover:text-[var(--fg)] font-medium">{tr(c.snsCheck, locale)}</a>
           <a href="/about" className="hover:text-[var(--fg)]">{tr(c.about, locale)}</a>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, getRestaurantById } from "@/lib/data";
+import { loadMasterDb, getRestaurantById, topByTrust } from "@/lib/data";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
+import type { Restaurant } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
@@ -13,6 +14,8 @@ import type { Metadata } from "next";
 import { loadIgSeed } from "@/lib/famous-vs-good";
 import { ShareButton, WhatsAppShare } from "@/components/ShareButton";
 import { EmailSignup } from "@/components/EmailSignup";
+import { SaveButton } from "@/components/SaveButton";
+import { CommunityButtons } from "@/components/CommunityButtons";
 
 export const dynamic = "force-static";
 
@@ -29,14 +32,20 @@ export async function generateMetadata(
   const r = getRestaurantById(db.restaurants, id);
   if (!r) return { title: "Restaurant not found" };
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
-  const title = `${r.name} — Trust Score ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)} (${r.total_reviews.toLocaleString()} reviews)`;
-  const description = `${r.name} in ${r.district || r.city_label || "Bangkok"} — Trust Score ${r.trust_score.toFixed(0)}/100 from ${r.total_reviews.toLocaleString()} verified Google reviews. ${cuisines ? `Serves ${cuisines}.` : ""} No influencer bias, just real data.`;
+  const primaryCuisine = r.cuisines[0] ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : null;
+  const city = r.city_label || "Bangkok";
+  const place = r.district ? `${r.district}, ${city}` : city;
+  const kind = primaryCuisine ? `${primaryCuisine} Restaurant` : "Restaurant";
+  // Lead with the keywords people actually search — name, cuisine, area, "menu"/"reviews" —
+  // instead of burying them behind our own "Trust Score" jargon.
+  const title = `${r.name} — ${kind} in ${place} | Menu, Reviews & Trust Score`;
+  const description = `${r.name}, a ${cuisines || "restaurant"} spot in ${place}. Trust Score ${r.trust_score.toFixed(0)}/100 from ${r.total_reviews.toLocaleString()} real Google reviews — no influencer bias, just the data.`;
   return {
     title,
     description,
     alternates: { canonical: `/restaurant/${id}` },
     openGraph: {
-      title: `${r.name} — Trust Score ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)}`,
+      title: `${r.name} — ${kind} in ${place}`,
       description,
       url: `/restaurant/${id}`,
       type: "article",
@@ -44,7 +53,7 @@ export async function generateMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: `${r.name} · Trust ${r.trust_score.toFixed(0)} · ★${r.rating.toFixed(1)}`,
+      title: `${r.name} — ${kind} in ${place}`,
       description,
     },
   };
@@ -86,11 +95,26 @@ export default async function RestaurantPage(
     ? `${CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]} (${r.city_label})`
     : r.city_label;
 
-  const similar = db.restaurants
-    .filter((other) => other.id !== r.id &&
-      (other.district === r.district || r.cuisines.some((c) => other.cuisines.includes(c))))
-    .sort((a, b) => b.trust_score - a.trust_score)
-    .slice(0, 4);
+  // Mix in restaurants outside the sitewide top-100 (they get almost no other
+  // inbound links — hub pages only list their own top 100) instead of always
+  // surfacing the same handful of already-well-linked matches everywhere.
+  const cohortAll = db.restaurants.filter((other) => other.id !== r.id &&
+    (other.district === r.district || r.cuisines.some((c) => other.cuisines.includes(c))));
+  const globalTop100Ids = new Set(topByTrust(db.restaurants, 100).map((x) => x.id));
+  const sameDistrict = cohortAll.filter((o) => o.district === r.district);
+  const similar: Restaurant[] = [];
+  const seenIds = new Set<string>();
+  function addFrom(pool: Restaurant[]) {
+    for (const o of [...pool].sort((a, b) => b.trust_score - a.trust_score)) {
+      if (similar.length >= 4) break;
+      if (seenIds.has(o.id)) continue;
+      similar.push(o);
+      seenIds.add(o.id);
+    }
+  }
+  addFrom(sameDistrict.filter((o) => !globalTop100Ids.has(o.id)));
+  addFrom(sameDistrict);
+  addFrom(cohortAll);
 
   // Check if restaurant appears in famous-vs-good seed
   const igSeeds = await loadIgSeed();
@@ -161,6 +185,11 @@ export default async function RestaurantPage(
           <Freshness generatedAt={db.generated_at} mode="detail" />
           <ShareButton name={r.name} rating={r.rating} trustScore={r.trust_score} url={`/restaurant/${r.id}`} />
           <WhatsAppShare name={r.name} url={`/restaurant/${r.id}`} />
+          <SaveButton id={r.id} />
+        </div>
+
+        <div className="mt-4 max-w-md">
+          <CommunityButtons restaurantId={r.id} />
         </div>
 
         {r.cuisines.length > 0 && (

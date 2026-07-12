@@ -1,12 +1,21 @@
 import { ImageResponse } from "next/og";
 import { loadMasterDb } from "@/lib/data";
-import { getSlugMap, getRestaurantBySlug } from "@/lib/restaurants";
+import { getSlugMap, getRestaurantBySlug, getAllRestaurantParams } from "@/lib/restaurants";
 import { CUISINE_LABELS } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
 
 export const alt = "Restaurant — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+// Mirror the parent page's static params so this doesn't fall back to an
+// on-demand ImageResponse render (invocation + CPU) per social-crawler hit.
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const slugMap = await getSlugMap();
+  return getAllRestaurantParams(slugMap);
+}
 
 export default async function RestaurantOG({ params }: { params: Promise<{ city: string; district: string; slug: string }> }) {
   const { city, district, slug } = await params;

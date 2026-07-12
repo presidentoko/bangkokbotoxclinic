@@ -5,6 +5,7 @@ import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
+import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -63,9 +64,17 @@ export default async function CityPage(
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
         {display} Restaurants
       </h1>
-      <p className="text-[var(--muted)] mb-8">
+      <p className="text-[var(--muted)] mb-4">
         {filtered.length} restaurants in {display}, ranked by Trust Score.
       </p>
+      <div className="mb-8">
+        <GenericShareButton
+          title={`${display} Restaurants — Verified Reviews & Trust Scores`}
+          text={`${filtered.length} verified restaurants in ${display}, ranked by real Google review Trust Score:`}
+          url={`/city/${name}`}
+          label="Share this list"
+        />
+      </div>
 
       {cuisines.length > 0 && (
         <section className="mb-8">

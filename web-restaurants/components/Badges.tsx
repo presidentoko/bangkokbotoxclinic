@@ -67,7 +67,7 @@ export function RelativeRanking({ percentile, label }: {
   percentile: number;
   label: string;
 }) {
-  const top = Math.max(1, Math.round((1 - percentile / 100) * 100));
+  const top = Math.max(1, Math.round(percentile));
   return (
     <span
       className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"
@@ -79,7 +79,7 @@ export function RelativeRanking({ percentile, label }: {
   );
 }
 
-function relativeTimeFromIso(iso: string): string {
+export function relativeTimeFromIso(iso: string): string {
   const then = new Date(iso).getTime();
   if (isNaN(then)) return "recently";
   const diff = Math.max(0, Date.now() - then);

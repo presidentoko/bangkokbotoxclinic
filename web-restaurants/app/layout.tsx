@@ -11,6 +11,7 @@ import { ClientFooter } from "@/components/ClientFooter";
 import { BackToTop } from "@/components/BackToTop";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { loadMasterDb } from "@/lib/data";
 
 const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
@@ -72,11 +73,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const db = await loadMasterDb();
+  const topCuisines = Object.entries(db.cuisine_counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([c]) => c);
+  const districtMap = new Map<string, number>();
+  for (const r of db.restaurants) {
+    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+  }
+  const topDistricts = [...districtMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([d]) => d);
+
   return (
     <html lang="en" className={dmSerif.variable}>
       <body>
@@ -106,7 +121,7 @@ export default function RootLayout({
         </header>
         <main className="pb-[calc(3.5rem+env(safe-area-inset-bottom))] sm:pb-0">{children}</main>
         <BottomNav />
-        <ClientFooter brand={cfg.brand} year={new Date().getFullYear()} />
+        <ClientFooter brand={cfg.brand} year={new Date().getFullYear()} topCuisines={topCuisines} topDistricts={topDistricts} />
         <BackToTop />
         <Analytics />
         <SpeedInsights />

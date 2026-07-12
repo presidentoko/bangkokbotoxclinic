@@ -1,30 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
 
-type Candidate = { id: string; name: string };
-type Ranked = Candidate & { flags: number };
+type Ranked = { id: string; name: string; flags: number };
 
-export function CommunityLeaderboard({ candidates }: { candidates: Candidate[] }) {
+export function CommunityLeaderboard() {
   const [ranked, setRanked] = useState<Ranked[] | null>(null);
 
   useEffect(() => {
-    const ids = candidates.map((c) => c.id);
-    if (ids.length === 0) return;
     let cancelled = false;
-    fetch(`/api/community?ids=${ids.map(encodeURIComponent).join(",")}`)
+    // Sitewide leaderboard, not limited to whatever candidate list a page
+    // happens to pass in — any restaurant can surface here once flagged.
+    fetch(`/api/community?leaderboard=1&limit=5`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (cancelled || !data?.counts) return;
-        const withFlags = candidates
-          .map((c) => ({ ...c, flags: data.counts[c.id]?.flags ?? 0 }))
-          .filter((c) => c.flags > 0)
-          .sort((a, b) => b.flags - a.flags)
-          .slice(0, 5);
-        setRanked(withFlags);
+        if (cancelled || !data?.ok) return;
+        setRanked(data.leaderboard ?? []);
       })
       .catch(() => {});
     return () => { cancelled = true; };
-  }, [candidates]);
+  }, []);
 
   if (!ranked || ranked.length === 0) {
     return (

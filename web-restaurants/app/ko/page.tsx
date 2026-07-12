@@ -6,8 +6,9 @@ import { cuisineLabel } from "@/lib/hubI18n";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
-import { HeroSearch } from "@/components/HeroSearch";
+import { LazySearch } from "@/components/LazySearch";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { EnHomeLink } from "@/components/EnHomeLink";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 const KO_FAQS = [
   {
     q: "신뢰도 점수는 어떻게 계산되나요?",
-    a: "0-100 점수로 4가지 시그널을 합산: Google 평점 (50% 가중치), 리뷰 수 logarithmic scale (40%), Google Local Guide 리뷰어 비율 (10%), 평균 리뷰어 권위 점수 (5%). Google 순위가 아닌 자체 메트릭이며 30분마다 갱신됩니다.",
+    a: "0-100 점수로 4가지 시그널을 합산: Google 평점 (50% 가중치), 리뷰 수 logarithmic scale (40%), Google Local Guide 리뷰어 비율 (10%), 평균 리뷰어 권위 점수 (5%). Google 순위가 아닌 자체 메트릭이며 스크래퍼가 새 리뷰를 수집하는 대로 자동 갱신됩니다.",
   },
   {
     q: "여기 정보 믿을 수 있나요?",
@@ -64,7 +65,7 @@ export default async function KoHomePage() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
-            한국어 · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a>
+            한국어 · <EnHomeLink>English</EnHomeLink> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             인스타 말고 <span className="text-orange-600">진짜 후기</span>로 방콕 맛집 찾자
@@ -73,11 +74,7 @@ export default async function KoHomePage() {
             {db.total_restaurants.toLocaleString()}개 식당 · {totalReviews.toLocaleString()}개 Google 리뷰 분석 · 인플루언서 협찬 없음
           </p>
           <div className="max-w-2xl mx-auto">
-            <HeroSearch
-              entities={db.restaurants.map((r) => ({
-                id: r.id, name: r.name, district: r.district,
-                city_label: r.city_label, rating: r.rating, trust_score: r.trust_score,
-              }))}
+            <LazySearch
               hrefBase="/restaurant"
               popularSearches={cuisines.slice(0, 4).map(([cat]) => ({
                 label: cuisineLabel(cat, "ko"),

@@ -6,6 +6,7 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { EmailSignup } from "@/components/EmailSignup";
+import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -65,9 +66,17 @@ export default async function BestForPage(
 
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{cfg.title}</h1>
       <p className="text-[var(--muted)] mb-2">{cfg.intro}</p>
-      <p className="text-xs text-[var(--muted)] mb-8 italic">
+      <p className="text-xs text-[var(--muted)] mb-4 italic">
         {filtered.length} restaurants matched. Refreshed continuously from public Google reviews.
       </p>
+      <div className="mb-8">
+        <GenericShareButton
+          title={cfg.title}
+          text={cfg.intro}
+          url={`/best/${cfg.slug}`}
+          label="Share this list"
+        />
+      </div>
 
       {filtered.length === 0 ? (
         <p className="text-[var(--muted)]">No restaurants matched this criterion yet.</p>

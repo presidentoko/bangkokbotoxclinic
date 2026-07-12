@@ -1,4 +1,5 @@
 import { loadMasterDb } from "@/lib/data";
+import { relativeTimeFromIso } from "@/components/Badges";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
@@ -40,7 +41,7 @@ export default async function ForRestaurantsPage() {
       <section className="grid sm:grid-cols-3 gap-4 mb-16">
         <Stat n={db.total_restaurants.toLocaleString()} label="Restaurants indexed" />
         <Stat n={totalReviews.toLocaleString()} label="Reviews analyzed" />
-        <Stat n="< 30 min" label="From scrape to live" />
+        <Stat n={relativeTimeFromIso(db.generated_at)} label="Data last updated" />
       </section>
 
       <section className="space-y-8 mb-16">
@@ -110,7 +111,7 @@ export default async function ForRestaurantsPage() {
           <Why
             icon="⚡"
             title="Fresh data"
-            body="Listings refresh every 30 minutes from continuous scraping. New patient reviews appear here within an hour."
+            body="Listings refresh automatically from continuous scraping — no manual re-submission needed when your reviews change."
           />
         </div>
       </section>

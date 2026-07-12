@@ -6,8 +6,9 @@ import { cuisineLabel } from "@/lib/hubI18n";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
-import { HeroSearch } from "@/components/HeroSearch";
+import { LazySearch } from "@/components/LazySearch";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { EnHomeLink } from "@/components/EnHomeLink";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ const TH_FAQS = [
   },
   {
     q: "ข้อมูลอัปเดตบ่อยแค่ไหน?",
-    a: "ทุก 30 นาที สแครเปอร์ทำงาน 24/7",
+    a: "สแครปเปอร์ทำงานต่อเนื่อง ข้อมูลอัปเดตอัตโนมัติเป็นระยะเมื่อพบรีวิวใหม่",
   },
   {
     q: "ร้านที่แสดงเป็นโฆษณาหรือไม่?",
@@ -55,7 +56,7 @@ export default async function ThHomePage() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
-            ภาษาไทย · <a href="/" className="underline hover:text-[var(--fg)]">English</a>
+            ภาษาไทย · <EnHomeLink>English</EnHomeLink>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             ร้านอาหารกรุงเทพ — ตรวจสอบจากรีวิวจริง
@@ -64,11 +65,7 @@ export default async function ThHomePage() {
             {db.total_restaurants.toLocaleString()} ร้าน · วิเคราะห์รีวิว Google {totalReviews.toLocaleString()} รายการ
           </p>
           <div className="max-w-2xl mx-auto">
-            <HeroSearch
-              entities={db.restaurants.map((r) => ({
-                id: r.id, name: r.name, district: r.district,
-                city_label: r.city_label, rating: r.rating, trust_score: r.trust_score,
-              }))}
+            <LazySearch
               hrefBase="/restaurant"
               popularSearches={cuisines.slice(0, 4).map(([cat]) => ({
                 label: cuisineLabel(cat, "th"),

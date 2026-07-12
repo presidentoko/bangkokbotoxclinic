@@ -61,7 +61,7 @@ export function OnboardingFlow({
 
   function finish() {
     const prefs: UserPrefs = { cuisines, atmosphere, dietary, completedAt: Date.now() };
-    localStorage.setItem("snsstopper_prefs", JSON.stringify(prefs));
+    try { localStorage.setItem("snsstopper_prefs", JSON.stringify(prefs)); } catch {}
     onComplete(prefs);
   }
 

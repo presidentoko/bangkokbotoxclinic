@@ -20,7 +20,14 @@ export function CommunityButtons({
   const [flagged, setFlagged] = useState(false);
   const [voted, setVoted] = useState(false);
   const [showReport, setShowReport] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
   const interactedRef = useRef(false);
+
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 4000);
+    return () => clearTimeout(t);
+  }, [toast]);
 
   useEffect(() => {
     const unsubscribe = subscribeCounts(restaurantId, (counts) => {
@@ -39,13 +46,25 @@ export function CommunityButtons({
     if (flagged) return;
     interactedRef.current = true;
     setFlagged(true);
-    setFlags((f) => f + 1);
-    const res = await fetch("/api/community", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "flag", restaurantId }),
-    });
-    if (!res.ok) {
+    const newCount = flags + 1;
+    setFlags(newCount);
+    try {
+      const res = await fetch("/api/community", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "flag", restaurantId }),
+      });
+      if (!res.ok) {
+        setFlagged(false);
+        setFlags((f) => f - 1);
+      } else {
+        setToast(
+          newCount > 1
+            ? `🚩 Flagged — you're one of ${newCount.toLocaleString()} who noticed.`
+            : "🚩 Flagged — you're the first to notice this one."
+        );
+      }
+    } catch {
       setFlagged(false);
       setFlags((f) => f - 1);
     }
@@ -67,6 +86,8 @@ export function CommunityButtons({
         setVoted(false);
         if (value === "up") setUp((v) => v - 1);
         else setDown((v) => v - 1);
+      } else {
+        setToast(value === "up" ? "👍 Thanks — vote counted." : "👎 Thanks — we'll factor that in.");
       }
     } catch {
       setVoted(false);
@@ -125,6 +146,10 @@ export function CommunityButtons({
           📨 Report
         </button>
       </div>
+
+      {toast && (
+        <p className="text-xs text-[var(--muted)] mt-1.5" role="status">{toast}</p>
+      )}
 
       {showReport && (
         <ReportModal restaurantId={restaurantId} onClose={() => setShowReport(false)} />

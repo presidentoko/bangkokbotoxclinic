@@ -7,16 +7,22 @@ const ITEMS = [
   { href: "/",               key: "home"     as const, icon: "🏠" },
   { href: "/famous-vs-good", key: "snsCheck" as const, icon: "📊" },
   { href: "/c/thai",         key: "explore"  as const, icon: "🍜" },
+  { href: "/saved",          key: "saved"    as const, icon: "❤️" },
   { href: "/guide",          key: "guide"    as const, icon: "📖" },
 ];
+
+const LOCALE_PREFIX_RE = /^\/(th|ko)(?=\/|$)/;
+const EXPLORE_PREFIXES = ["/c/", "/d/", "/city/", "/restaurant/", "/best/"];
 
 export function BottomNav() {
   const path = usePathname();
   const locale = useLocale();
+  const unprefixed = path.replace(LOCALE_PREFIX_RE, "") || "/";
 
   function isActive(href: string) {
-    if (href === "/") return path === "/" || path === "/ko" || path === "/th";
-    return path.startsWith(href);
+    if (href === "/") return unprefixed === "/";
+    if (href === "/c/thai") return EXPLORE_PREFIXES.some((p) => unprefixed.startsWith(p));
+    return unprefixed.startsWith(href);
   }
 
   return (

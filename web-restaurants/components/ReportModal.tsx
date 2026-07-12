@@ -19,10 +19,12 @@ export function ReportModal({
   const [text, setText] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   async function submit() {
     if (!category) return;
     setLoading(true);
+    setError(false);
     try {
       const res = await fetch("/api/community", {
         method: "POST",
@@ -30,6 +32,9 @@ export function ReportModal({
         body: JSON.stringify({ action: "report", restaurantId, category, text }),
       });
       if (res.ok) setSent(true);
+      else setError(true);
+    } catch {
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -77,6 +82,11 @@ export function ReportModal({
               maxLength={500}
               className="w-full border border-[var(--border)] rounded-xl px-3 py-2 text-base resize-none focus:outline-none focus:border-[var(--accent)] bg-[var(--bg)]"
             />
+            {error && (
+              <p className="text-sm text-red-600 mt-2">
+                Couldn't send that — please try again in a bit.
+              </p>
+            )}
             <div className="flex gap-2 mt-3">
               <button
                 onClick={onClose}

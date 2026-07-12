@@ -1,4 +1,5 @@
 import { loadMasterDb } from "@/lib/data";
+import { relativeTimeFromIso } from "@/components/Badges";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { getLocale, type Locale } from "@/lib/locale";
@@ -14,31 +15,31 @@ export const metadata: Metadata = {
 
 const FAQS: Record<Locale, { q: string; a: string }[]> = {
   en: [
-    { q: "Where does this data come from?", a: "All restaurant listings, ratings, reviews, and metadata are sourced from public Google Maps listings. We do not edit, hide, or selectively filter any restaurant. Data refreshes every 30 minutes." },
+    { q: "Where does this data come from?", a: "All restaurant listings, ratings, reviews, and metadata are sourced from public Google Maps listings. We do not edit, hide, or selectively filter any restaurant. Data refreshes automatically as our scrapers collect new reviews — see the \"Data updated\" stat above for the current cycle." },
     { q: "How is the Trust Score calculated?", a: "Trust Score (0-100) combines four signals: Google rating (50% weight), review volume on logarithmic scale (40%), Local Guide reviewer ratio (10%), and reviewer authority (5%). It's our derived metric." },
     { q: "What does 'AI Verified · X% real' mean?", a: "Confidence score derived from the proportion of reviewers who are Google Local Guides — a status given by Google to high-volume verified reviewers. We start at 50% baseline and add up to 50% based on Local Guide ratio. Defense against fake review concerns." },
     { q: "Are listings sponsored?", a: "Organic listings are never paid. We offer Featured / Editor's Pick / Recommended slots that are clearly labelled with a coloured badge. We do not delete, hide, or downrank any organic listing." },
-    { q: "How fresh is the data?", a: "Continuously. Scrapers run 24/7, master dataset rebuilds every 5 minutes, the website redeploys when data changes. New public reviews typically appear within 30 minutes." },
+    { q: "How fresh is the data?", a: "Scrapers run continuously and the master dataset rebuilds on a rolling basis; the site redeploys when it changes. Check the \"Data updated\" stat above for exactly how current this snapshot is." },
     { q: "What are 'mentioned topics'?", a: "Phrases like 'fresh', 'spicy', 'halal', 'long wait' counted across all reviews. Help diners spot patterns a star rating misses. Fixed keyword dictionary in English and Thai." },
     { q: "How does the rating timeline work?", a: "Each Google review has a relative timestamp. We bucket into recent (<3mo), midterm (3-12mo), historical (1+ year). Comparing average rating per bucket gives a quality trajectory: improving / stable / declining." },
     { q: "Why no booking?", a: "Most Bangkok restaurants take walk-ins or use direct phone/LINE. We focus on accurate, current information — view on Google Maps for directions, or call directly." },
   ],
   ko: [
-    { q: "데이터는 어디서 가져오나요?", a: "모든 레스토랑 정보, 평점, 리뷰, 메타데이터는 공개 Google Maps 리스팅에서 자동 수집됩니다. 어떤 레스토랑도 편집하거나 숨기거나 선택적으로 필터링하지 않습니다. 데이터는 30분마다 갱신됩니다." },
+    { q: "데이터는 어디서 가져오나요?", a: "모든 레스토랑 정보, 평점, 리뷰, 메타데이터는 공개 Google Maps 리스팅에서 자동 수집됩니다. 어떤 레스토랑도 편집하거나 숨기거나 선택적으로 필터링하지 않습니다. 데이터는 스크래퍼가 새 리뷰를 수집하는 대로 자동 갱신됩니다 — 현재 갱신 시점은 위 '데이터 업데이트' 항목을 참고하세요." },
     { q: "Trust Score는 어떻게 계산되나요?", a: "Trust Score(0-100)는 네 가지 신호를 결합합니다: Google 평점(50%), 리뷰 수 로그 스케일(40%), Local Guide 리뷰어 비율(10%), 리뷰어 신뢰도(5%). 우리가 직접 산출하는 지표입니다." },
     { q: "'AI Verified · X% 실제'는 무슨 뜻인가요?", a: "Google이 고신뢰 리뷰어에게 부여하는 Local Guide 비율에서 파생된 신뢰도 점수입니다. 기준 50%에서 시작해 Local Guide 비율에 따라 최대 50%를 추가합니다. 가짜 리뷰 방어 지표입니다." },
     { q: "리스팅에 광고가 포함되나요?", a: "유기적 리스팅은 절대 유료가 아닙니다. 유색 배지로 명확히 표시된 Featured / Editor's Pick / Recommended 슬롯을 제공합니다. 어떤 유기적 리스팅도 삭제, 숨김, 순위 하락시키지 않습니다." },
-    { q: "데이터는 얼마나 최신인가요?", a: "지속적으로 갱신됩니다. 스크래퍼가 24/7 가동되며, 마스터 데이터셋은 5분마다 재구축됩니다. 새 공개 리뷰는 보통 30분 이내에 반영됩니다." },
+    { q: "데이터는 얼마나 최신인가요?", a: "스크래퍼가 계속 가동되며 마스터 데이터셋은 주기적으로 재구축됩니다. 이 스냅샷이 얼마나 최신인지는 위 '데이터 업데이트' 항목에서 정확히 확인할 수 있습니다." },
     { q: "'언급 주제'란 무엇인가요?", a: "'신선함', '매운맛', '할랄', '대기 시간' 등 모든 리뷰에서 집계된 키워드입니다. 별점이 놓치는 패턴을 파악하는 데 도움이 됩니다." },
     { q: "평점 타임라인은 어떻게 작동하나요?", a: "각 Google 리뷰의 상대적 타임스탬프를 기준으로 최근(<3개월), 중기(3-12개월), 과거(1년+)로 분류합니다. 구간별 평균 평점 비교로 품질 추이를 파악합니다." },
     { q: "예약 기능은 왜 없나요?", a: "방콕 레스토랑 대부분은 워크인 또는 직접 전화/LINE을 사용합니다. 우리는 정확하고 현재적인 정보 제공에 집중합니다." },
   ],
   th: [
-    { q: "ข้อมูลมาจากไหน?", a: "รายชื่อร้านอาหาร คะแนน รีวิว และข้อมูลทั้งหมดมาจากรายชื่อสาธารณะ Google Maps เราไม่แก้ไข ซ่อน หรือกรองร้านอาหารใดๆ ข้อมูลอัปเดตทุก 30 นาที" },
+    { q: "ข้อมูลมาจากไหน?", a: "รายชื่อร้านอาหาร คะแนน รีวิว และข้อมูลทั้งหมดมาจากรายชื่อสาธารณะ Google Maps เราไม่แก้ไข ซ่อน หรือกรองร้านอาหารใดๆ ข้อมูลอัปเดตอัตโนมัติเมื่อสแครปเปอร์เก็บรีวิวใหม่ — ดูรอบอัปเดตล่าสุดที่สถิติ 'อัปเดตข้อมูล' ด้านบน" },
     { q: "Trust Score คำนวณอย่างไร?", a: "Trust Score (0-100) รวมสัญญาณ 4 อย่าง: คะแนน Google (50%) ปริมาณรีวิวในสเกลลอการิทึม (40%) สัดส่วน Local Guide (10%) และความน่าเชื่อถือของผู้รีวิว (5%)" },
     { q: "'AI Verified · X% จริง' หมายความว่าอะไร?", a: "คะแนนความเชื่อมั่นจากสัดส่วน Local Guide ของ Google — ผู้รีวิวที่ Google รับรองว่ามีปริมาณรีวิวสูง เริ่มต้นที่ 50% และเพิ่มขึ้นตามสัดส่วน Local Guide" },
     { q: "รายชื่อมีสปอนเซอร์ไหม?", a: "รายชื่อออร์แกนิกไม่มีการชำระเงิน เราเสนอสล็อต Featured / Editor's Pick ที่มีป้ายสีชัดเจน เราไม่ลบ ซ่อน หรือลดอันดับรายชื่อออร์แกนิกใดๆ" },
-    { q: "ข้อมูลสดแค่ไหน?", a: "อัปเดตต่อเนื่อง สแครปเปอร์ทำงาน 24/7 ชุดข้อมูลหลักสร้างใหม่ทุก 5 นาที รีวิวสาธารณะใหม่ปรากฏภายใน 30 นาที" },
+    { q: "ข้อมูลสดแค่ไหน?", a: "สแครปเปอร์ทำงานต่อเนื่องและชุดข้อมูลหลักสร้างใหม่เป็นระยะ ดูความสดของข้อมูลชุดนี้ได้ที่สถิติ 'อัปเดตข้อมูล' ด้านบน" },
     { q: "'หัวข้อที่กล่าวถึง' คืออะไร?", a: "คำเช่น 'สด' 'เผ็ด' 'ฮาลาล' 'รอนาน' ที่นับจากรีวิวทั้งหมด ช่วยให้เห็นรูปแบบที่คะแนนดาวมองไม่เห็น" },
     { q: "ไทม์ไลน์คะแนนทำงานอย่างไร?", a: "แต่ละรีวิว Google มีการประทับเวลาสัมพัทธ์ เราแบ่งเป็นล่าสุด (<3 เดือน) กลาง (3-12 เดือน) เก่า (1+ ปี) เพื่อดูแนวโน้มคุณภาพ" },
     { q: "ทำไมไม่มีการจอง?", a: "ร้านอาหารกรุงเทพส่วนใหญ่รับ walk-in หรือโทรตรง เราเน้นข้อมูลที่ถูกต้องและทันสมัย" },
@@ -49,19 +50,19 @@ const PRINCIPLES: Record<Locale, { title: string; body: string }[]> = {
   en: [
     { title: "Every number is visible.", body: "Trust Score breakdown shown on every restaurant page. You can see exactly how it's calculated — no black box, no editorial override, no hidden weights." },
     { title: "We don't write reviews.", body: "All review excerpts come from real Google Maps users, with attribution. We analyze; we don't editorialize. Numbers only." },
-    { title: "The algorithm ranks. Humans don't.", body: "Rankings rebuild every 30 minutes from raw scraped data. No human touches the order. No deletion, no suppression, no favor." },
+    { title: "The algorithm ranks. Humans don't.", body: "Rankings rebuild automatically from raw scraped data on a rolling cycle. No human touches the order. No deletion, no suppression, no favor." },
     { title: "Sponsored slots are labeled. Always.", body: "Some restaurants buy Featured / Editor's Pick visibility. These are badged and never displace organic rankings. The lie we're fighting is hidden sponsorship — we won't do that." },
   ],
   ko: [
     { title: "모든 숫자는 공개됩니다.", body: "Trust Score 세부 내역이 모든 레스토랑 페이지에 표시됩니다. 계산 방식을 정확히 확인할 수 있습니다 — 블랙박스 없음, 편집 개입 없음, 숨겨진 가중치 없음." },
     { title: "우리는 리뷰를 쓰지 않습니다.", body: "모든 리뷰 발췌는 출처 표시와 함께 실제 Google Maps 사용자에게서 옵니다. 우리는 분석할 뿐, 평론하지 않습니다. 숫자만." },
-    { title: "알고리즘이 랭킹을 매깁니다. 인간이 아닌.", body: "랭킹은 30분마다 원시 스크래핑 데이터에서 재구축됩니다. 어떤 인간도 순서에 손대지 않습니다. 삭제, 억제, 편의 없음." },
+    { title: "알고리즘이 랭킹을 매깁니다. 인간이 아닌.", body: "랭킹은 원시 스크래핑 데이터에서 주기적으로 자동 재구축됩니다. 어떤 인간도 순서에 손대지 않습니다. 삭제, 억제, 편의 없음." },
     { title: "스폰서 슬롯은 항상 표시됩니다.", body: "일부 레스토랑이 Featured / Editor's Pick 노출을 구입합니다. 이는 배지로 표시되며 유기적 랭킹을 절대 대체하지 않습니다. 우리가 싸우는 거짓말은 숨겨진 스폰서십입니다 — 우리는 그러지 않겠습니다." },
   ],
   th: [
     { title: "ตัวเลขทุกตัวโปร่งใส", body: "การแจกแจง Trust Score แสดงในทุกหน้าร้านอาหาร คุณเห็นได้ว่าคำนวณอย่างไร — ไม่มีกล่องดำ ไม่มีการแทรกแซงบรรณาธิการ ไม่มีน้ำหนักที่ซ่อนอยู่" },
     { title: "เราไม่เขียนรีวิว", body: "ตัวอย่างรีวิวทั้งหมดมาจากผู้ใช้ Google Maps จริงๆ พร้อมการอ้างอิง เราวิเคราะห์ ไม่ใช่วิจารณ์ ตัวเลขเท่านั้น" },
-    { title: "อัลกอริทึมจัดอันดับ ไม่ใช่มนุษย์", body: "การจัดอันดับสร้างใหม่ทุก 30 นาทีจากข้อมูลดิบ ไม่มีมนุษย์แตะต้องลำดับ ไม่มีการลบ กด หรือเอื้อประโยชน์" },
+    { title: "อัลกอริทึมจัดอันดับ ไม่ใช่มนุษย์", body: "การจัดอันดับสร้างใหม่โดยอัตโนมัติจากข้อมูลดิบเป็นรอบ ไม่มีมนุษย์แตะต้องลำดับ ไม่มีการลบ กด หรือเอื้อประโยชน์" },
     { title: "สล็อตสปอนเซอร์มีป้ายกำกับเสมอ", body: "บางร้านซื้อพื้นที่ Featured / Editor's Pick สิ่งเหล่านี้มีป้ายและไม่แทนที่การจัดอันดับออร์แกนิก สิ่งที่เราต่อสู้คือการสนับสนุนที่ซ่อนอยู่" },
   ],
 };
@@ -118,7 +119,7 @@ export default async function AboutPage() {
             <div className="text-xs text-[var(--muted)] uppercase tracking-wide">{tr(s.cuisines, locale)}</div>
           </div>
           <div>
-            <div className="text-2xl font-bold tabular-nums">30 min</div>
+            <div className="text-2xl font-bold tabular-nums">{relativeTimeFromIso(db.generated_at)}</div>
             <div className="text-xs text-[var(--muted)] uppercase tracking-wide">{tr(s.refreshCycle, locale)}</div>
           </div>
         </div>

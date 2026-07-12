@@ -1,7 +1,10 @@
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
+import { loadMasterDb } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
+
+const LEADERBOARD_KEY = "leaderboard:flags";
 
 let _redis: Redis | null = null;
 function getRedis(): Redis {
@@ -19,6 +22,27 @@ function getIp(req: NextRequest): string {
 }
 
 export async function GET(req: NextRequest) {
+  if (req.nextUrl.searchParams.get("leaderboard")) {
+    const limit = Math.min(20, Math.max(1, Number(req.nextUrl.searchParams.get("limit")) || 5));
+    // Ranked from a global sorted set (all restaurants), not a client-supplied
+    // candidate list — otherwise a restaurant outside anyone's "top N" prop
+    // could never surface here no matter how many flags it collects.
+    const top = await getRedis().zrange<string[]>(LEADERBOARD_KEY, 0, limit - 1, {
+      rev: true,
+      withScores: true,
+    });
+    const entries: { id: string; flags: number }[] = [];
+    for (let i = 0; i < top.length; i += 2) {
+      entries.push({ id: String(top[i]), flags: Number(top[i + 1]) });
+    }
+    const db = await loadMasterDb();
+    const byId = new Map(db.restaurants.map((r) => [r.id, r.name]));
+    const leaderboard = entries
+      .filter((e) => byId.has(e.id))
+      .map((e) => ({ id: e.id, name: byId.get(e.id)!, flags: e.flags }));
+    return NextResponse.json({ ok: true, leaderboard });
+  }
+
   const ids = req.nextUrl.searchParams.get("ids");
   if (!ids) {
     return NextResponse.json({ ok: false, error: "missing ids" }, { status: 400 });
@@ -61,15 +85,18 @@ export async function POST(req: NextRequest) {
   if (!restaurantId || !action) {
     return NextResponse.json({ ok: false, error: "missing fields" }, { status: 400 });
   }
+  if (typeof restaurantId !== "string" || !/^0x[0-9a-f]+_0x[0-9a-f]+$/i.test(restaurantId)) {
+    return NextResponse.json({ ok: false, error: "invalid restaurantId" }, { status: 400 });
+  }
 
   const ip = getIp(req);
 
   if (action === "flag") {
     const rateLimitKey = `ratelimit:flag:${ip}:${restaurantId}`;
-    const already = await getRedis().get(rateLimitKey);
-    if (already) return NextResponse.json({ ok: false, error: "already flagged" }, { status: 429 });
-    await getRedis().set(rateLimitKey, 1, { ex: 86400 });
+    const acquired = await getRedis().set(rateLimitKey, 1, { ex: 86400, nx: true });
+    if (!acquired) return NextResponse.json({ ok: false, error: "already flagged" }, { status: 429 });
     const count = await getRedis().incr(`flag:${restaurantId}`);
+    await getRedis().zadd(LEADERBOARD_KEY, { score: count, member: restaurantId });
     return NextResponse.json({ ok: true, count });
   }
 
@@ -78,9 +105,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "invalid value" }, { status: 400 });
     }
     const rateLimitKey = `ratelimit:vote:${ip}:${restaurantId}`;
-    const already = await getRedis().get(rateLimitKey);
-    if (already) return NextResponse.json({ ok: false, error: "already voted" }, { status: 429 });
-    await getRedis().set(rateLimitKey, 1, { ex: 86400 });
+    const acquired = await getRedis().set(rateLimitKey, 1, { ex: 86400, nx: true });
+    if (!acquired) return NextResponse.json({ ok: false, error: "already voted" }, { status: 429 });
     await getRedis().incr(`vote:${restaurantId}:${value}`);
     const [up, down] = await Promise.all([
       getRedis().get<number>(`vote:${restaurantId}:up`),
@@ -92,7 +118,7 @@ export async function POST(req: NextRequest) {
   if (action === "report") {
     const rateLimitKey = `ratelimit:report:${ip}`;
     const recent = await getRedis().incr(rateLimitKey);
-    if (recent === 1) await getRedis().expire(rateLimitKey, 3600);
+    await getRedis().expire(rateLimitKey, 3600);
     if (recent > 10) return NextResponse.json({ ok: false, error: "rate limited" }, { status: 429 });
     const entry = JSON.stringify({ category, text: text?.slice(0, 500), ts: Date.now() });
     await getRedis().rpush(`report:${restaurantId}`, entry);

@@ -85,15 +85,9 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
   if (r.maps_url) sameAs.push(r.maps_url);
   if (sameAs.length) data.sameAs = sameAs;
   if (r.cuisines.length > 0) data.servesCuisine = r.cuisines;
-  const samples = [...r.sample_reviews_en, ...r.sample_reviews_th].slice(0, 3);
-  if (samples.length > 0) {
-    data.review = samples.map((rev) => ({
-      "@type": "Review",
-      reviewRating: { "@type": "Rating", ratingValue: rev.rating, bestRating: 5 },
-      author: { "@type": "Person", name: rev.author || "Google reviewer" },
-      reviewBody: rev.text,
-    }));
-  }
+  // No `review` block: those review bodies are scraped from Google, not collected
+  // on this site — republishing them as our own Review markup risks a Google
+  // review-snippet policy violation / manual action.
   return tag(data);
 }
 
@@ -135,10 +129,6 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
   items: Pick<Restaurant, "id" | "name" | "rating" | "total_reviews" | "trust_score" | "district" | "city_label">[];
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
-  const totalReviews = items.reduce((s, r) => s + (r.total_reviews || 0), 0);
-  const weightedRating = totalReviews > 0
-    ? items.reduce((s, r) => s + (r.rating || 0) * (r.total_reviews || 0), 0) / totalReviews
-    : 0;
 
   return tag({
     "@context": "https://schema.org",
@@ -147,14 +137,9 @@ export function CollectionPageJsonLd({ name, description, url, items }: {
     description,
     url: fullUrl,
     numberOfItems: items.length,
-    aggregateRating: items.length > 0 && totalReviews > 0 ? {
-      "@type": "AggregateRating",
-      ratingValue: Number(weightedRating.toFixed(2)),
-      reviewCount: totalReviews,
-      bestRating: 5,
-      worstRating: 1,
-      itemReviewed: { "@type": "Thing", name },
-    } : undefined,
+    // No collection-level aggregateRating/itemReviewed here — a CollectionPage
+    // isn't a reviewable entity, and that combo is flagged by GSC as unsupported.
+    // Per-restaurant ratings still live on each item below.
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,

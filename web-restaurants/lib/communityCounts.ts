@@ -37,6 +37,9 @@ export function subscribeCounts(id: string, cb: Listener): () => void {
   pending.add(id);
   scheduleFlush();
   return () => {
-    listeners.get(id)?.delete(cb);
+    const set = listeners.get(id);
+    if (!set) return;
+    set.delete(cb);
+    if (set.size === 0) listeners.delete(id);
   };
 }

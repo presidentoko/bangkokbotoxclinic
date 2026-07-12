@@ -16,7 +16,8 @@ import { NearbyThings } from "@/components/NearbyThings";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
-export const revalidate = 86400;
+// dynamicParams=false already makes this pure SSG — data only changes at
+// deploy time, so a revalidate window just burns ISR writes for nothing.
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export async function generateStaticParams() {

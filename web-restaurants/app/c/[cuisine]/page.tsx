@@ -7,6 +7,7 @@ import { CUISINE_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CUISINE_LABELS));
@@ -97,9 +98,17 @@ export default async function CuisinePage(
           <span>{icon}</span>
           {label} Restaurants
         </h1>
-        <p className="text-[var(--muted)] mb-8">
+        <p className="text-[var(--muted)] mb-4">
           {filtered.length} restaurants in Bangkok and Pattaya, ranked by Trust Score from real Google reviews.
         </p>
+        <div className="mb-8">
+          <GenericShareButton
+            title={`${filtered.length} Best ${label} Restaurants in Bangkok`}
+            text={`${filtered.length} verified ${label} restaurants in Bangkok, ranked by real Google review Trust Score:`}
+            url={`/c/${cuisine}`}
+            label="Share this list"
+          />
+        </div>
 
         {districts.length > 0 && (
           <section className="mb-10">

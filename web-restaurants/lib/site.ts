@@ -16,7 +16,7 @@ export function getSiteConfig(): SiteConfig {
   return {
     brand,
     domain,
-    title: `${brand} — Real Reviews, Not SNS Hype`,
+    title: `${brand} — Bangkok Restaurant Reviews, Not SNS Hype`,
     description:
       "Stop searching restaurants on Instagram. Real Bangkok and Pattaya restaurants ranked by Trust Score from verified Google reviews — no influencer fluff.",
     hero: "Stop searching on SNS. Find restaurants by real reviews.",

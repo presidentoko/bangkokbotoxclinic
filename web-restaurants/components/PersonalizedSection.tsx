@@ -47,7 +47,7 @@ export function PersonalizedSection({ restaurants }: { restaurants: SlimRestaura
           <p className="text-sm text-[var(--muted)] mt-1">Based on {cuisineLabel}</p>
         </div>
         <button
-          onClick={() => { localStorage.removeItem("snsstopper_prefs"); setPrefs(null); window.location.reload(); }}
+          onClick={() => { try { localStorage.removeItem("snsstopper_prefs"); } catch {} setPrefs(null); window.location.reload(); }}
           className="text-xs text-[var(--muted)] hover:text-[var(--accent)] underline min-h-[44px] flex items-center"
         >
           Reset preferences

@@ -4,6 +4,7 @@ import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { CommunityButtons } from "./CommunityButtons";
+import { SaveButton } from "./SaveButton";
 
 export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
   const trend = r.rating_trend.trend;
@@ -97,6 +98,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         >
           View details →
         </a>
+        <SaveButton id={r.id} />
         <a
           href={r.maps_url}
           target="_blank"

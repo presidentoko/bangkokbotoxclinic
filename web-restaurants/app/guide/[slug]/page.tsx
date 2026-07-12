@@ -5,6 +5,7 @@ import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { BEST_FOR } from "@/lib/bestFor";
+import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
@@ -81,6 +82,14 @@ export default async function GuidePage(
         <p className="text-xs text-[var(--muted)] mt-3 italic">
           Updated {g.updated} · Editorial · Independent of any restaurant
         </p>
+        <div className="mt-4">
+          <GenericShareButton
+            title={g.title}
+            text={g.metaDescription}
+            url={`/guide/${g.slug}`}
+            label="Share this guide"
+          />
+        </div>
       </header>
 
       <AdSlot slot="guide-top" />

@@ -15,9 +15,15 @@ type Lang = typeof LANGS[number];
 // typo/broken link and should 404, not silently render English content.
 const SUPPORTED_LANGS = ["th", "en", "ko", "ja", "ru", "ar"] as const;
 
+// This route matches any single-segment path (/[lang]), which makes it a
+// magnet for bot probes (/wp-login.php, /xmlrpc.php, etc). Pre-generate every
+// supported lang (including the ja/ru/ar leaf pages) and hard-404 everything
+// else at build time instead of rendering + ISR-caching each probe on demand.
 export function generateStaticParams() {
-  return LANGS.map((lang) => ({ lang }));
+  return SUPPORTED_LANGS.map((lang) => ({ lang }));
 }
+
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,

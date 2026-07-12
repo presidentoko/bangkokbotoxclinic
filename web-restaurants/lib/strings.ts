@@ -19,6 +19,7 @@ export const strings = {
     home:     { en: "Home",      ko: "홈",     th: "หน้าหลัก" } as Tr,
     snsCheck: { en: "SNS Check", ko: "SNS체크", th: "เช็ค SNS" } as Tr,
     explore:  { en: "Explore",   ko: "탐색",   th: "สำรวจ" } as Tr,
+    saved:    { en: "Saved",     ko: "저장",   th: "บันทึก" } as Tr,
     guide:    { en: "Guide",     ko: "가이드", th: "คู่มือ" } as Tr,
   },
 
@@ -83,7 +84,7 @@ export const strings = {
     restaurants: { en: "Restaurants",          ko: "레스토랑",      th: "ร้านอาหาร" } as Tr,
     fullAnalysis:{ en: "Full review analysis", ko: "리뷰 전체 분석", th: "วิเคราะห์รีวิวครบ" } as Tr,
     cuisines:    { en: "Cuisines",             ko: "요리 종류",     th: "ประเภทอาหาร" } as Tr,
-    refreshCycle:{ en: "Refresh cycle",        ko: "갱신 주기",     th: "รอบการอัปเดต" } as Tr,
+    refreshCycle:{ en: "Data updated",         ko: "데이터 업데이트", th: "อัปเดตข้อมูล" } as Tr,
     howTitle:    { en: "How we end the lie",   ko: "거짓말을 끝내는 방법", th: "วิธีที่เราหยุดความหลอกลวง" } as Tr,
     faqTitle:    { en: "Frequently asked",     ko: "자주 묻는 질문", th: "คำถามที่พบบ่อย" } as Tr,
     legalTitle:  { en: "법적 고지 / Legal Notice", ko: "법적 고지",  th: "ข้อกฎหมาย / Legal Notice" } as Tr,

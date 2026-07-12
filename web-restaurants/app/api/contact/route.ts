@@ -33,15 +33,19 @@ export async function POST(req: NextRequest) {
     other: "❓ 기타",
   };
 
+  // User-supplied fields can contain unbalanced _ * ` [ which break Telegram's
+  // legacy Markdown parser and drop the whole message with a 400 — escape them.
+  const escapeMd = (s: string) => s.replace(/([_*`[])/g, "\\$1");
+
   const text = [
     `🔔 *SNS Stopper 새 문의*`,
     ``,
-    `👤 이름: ${name || "미입력"}`,
-    `📌 목적: ${purposeLabel[purpose ?? ""] || purpose || "미선택"}`,
-    `📞 연락처: ${contact || "미입력"}`,
+    `👤 이름: ${escapeMd(name || "미입력")}`,
+    `📌 목적: ${purposeLabel[purpose ?? ""] || escapeMd(purpose ?? "") || "미선택"}`,
+    `📞 연락처: ${escapeMd(contact || "미입력")}`,
     ``,
     `💬 내용:`,
-    message.trim(),
+    escapeMd(message.trim()),
   ].join("\n");
 
   const tgRes = await fetch(

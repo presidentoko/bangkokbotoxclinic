@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
-import { getSlugMap, getRestaurantBySlug, getTop500Params, restaurantUrl } from "@/lib/restaurants";
+import { getSlugMap, getRestaurantBySlug, getAllRestaurantParams, restaurantUrl } from "@/lib/restaurants";
 import { isThaiScript } from "@/lib/thaiName";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
@@ -27,15 +27,15 @@ import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
-export const revalidate = 86400;
-export const dynamicParams = true;
+// All 3,269 restaurants are already in the sitemap, so pre-render all of them
+// — leaving 2,769 to render on-demand (dynamicParams=true) turned every
+// sitemap-following crawler hit into a function invocation + ISR write
+// against the 9.7MB master_db.json, plus a duplicate cost for the OG image.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const [db, slugMap] = await Promise.all([
-    loadMasterDb(),
-    getSlugMap(),
-  ]);
-  return getTop500Params(db.restaurants, slugMap);
+  const slugMap = await getSlugMap();
+  return getAllRestaurantParams(slugMap);
 }
 
 export async function generateMetadata(

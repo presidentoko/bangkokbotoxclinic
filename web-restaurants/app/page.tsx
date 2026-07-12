@@ -4,14 +4,14 @@ import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
-import { HeroSearch } from "@/components/HeroSearch";
+import { LazySearch } from "@/components/LazySearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
 import { ExposeStat } from "@/components/ExposeStat";
 import { ResetPrefsButton } from "@/components/ResetPrefsButton";
 import { OnboardingTrigger } from "@/components/OnboardingTrigger";
-import { PersonalizedSection } from "@/components/PersonalizedSection";
+import { LazyPersonalized } from "@/components/LazyPersonalized";
 import { BEST_FOR } from "@/lib/bestFor";
 import { EmailSignup } from "@/components/EmailSignup";
 import { CommunityLeaderboard } from "@/components/CommunityLeaderboard";
@@ -41,15 +41,6 @@ export default async function HomePage() {
     { label: "💑 Date night", href: "/best/date-night" },
     { label: "💎 Hidden gems", href: "/best/hidden-gems" },
   ];
-
-  const searchIndex = db.restaurants.map((r) => ({
-    id: r.id,
-    name: r.name,
-    district: r.district,
-    city_label: r.city_label,
-    rating: r.rating,
-    trust_score: r.trust_score,
-  }));
 
   // Pull a few standout reviews to display as social proof
   const reviewQuotes = db.restaurants
@@ -82,6 +73,9 @@ export default async function HomePage() {
             <span className="font-bold text-[var(--fg)]">{db.total_restaurants.toLocaleString()} restaurants</span>{" "}
             by real Google reviews — zero paid placements, zero influencer bias.
           </p>
+          <div className="max-w-2xl mx-auto mb-6">
+            <LazySearch hrefBase="/restaurant" popularSearches={popularSearches} />
+          </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <ResetPrefsButton />
             <a
@@ -106,17 +100,7 @@ export default async function HomePage() {
       <div className="max-w-5xl mx-auto px-4 py-10">
         {/* ONBOARDING TRIGGER + PERSONALIZED SECTION */}
         <OnboardingTrigger>
-          <PersonalizedSection
-            restaurants={db.restaurants.map((r) => ({
-              id: r.id,
-              name: r.name,
-              district: r.district,
-              city_label: r.city_label,
-              rating: r.rating,
-              trust_score: r.trust_score,
-              cuisines: r.cuisines,
-            }))}
-          />
+          <LazyPersonalized />
         </OnboardingTrigger>
 
         {/* SNS CHECK PROMO */}
@@ -145,7 +129,7 @@ export default async function HomePage() {
         <section className="mb-12 bg-[var(--card)] border border-[var(--border)] rounded-3xl p-6">
           <h2 className="font-serif-display text-xl text-[var(--fg)] mb-1">🔥 Community SNS flags</h2>
           <p className="text-xs text-[var(--muted)] mb-4">Places the community suspects of overhype</p>
-          <CommunityLeaderboard candidates={top.map((r) => ({ id: r.id, name: r.name }))} />
+          <CommunityLeaderboard />
         </section>
 
         {/* SPONSORED HERO if any */}
@@ -169,7 +153,7 @@ export default async function HomePage() {
           <Manifesto
             icon="—"
             title="No one bought our opinion."
-            body="Scrapers, not humans. Rankings rebuild every 30 minutes from public Google data. Nothing is deleted. Nothing is boosted. No filter."
+            body="Scrapers, not humans. Rankings rebuild automatically from public Google data on a rolling cycle. Nothing is deleted. Nothing is boosted. No filter."
           />
         </section>
 

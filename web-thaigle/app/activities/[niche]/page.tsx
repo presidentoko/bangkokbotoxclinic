@@ -294,6 +294,7 @@ import { BangkokGrappling } from "@/components/BangkokGrappling";
 import { BangkokBallet } from "@/components/BangkokBallet";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export function generateStaticParams() {

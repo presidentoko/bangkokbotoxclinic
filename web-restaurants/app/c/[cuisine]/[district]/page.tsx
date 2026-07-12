@@ -59,6 +59,7 @@ export default async function CuisineDistrictPage(
   if (!districtName) notFound();
 
   const filtered = sortWithSponsored(filterByDistrict(filterByCuisine(db.restaurants, cuisine), districtName));
+  if (filtered.length === 0) notFound();
   const label = CUISINE_LABELS[cuisine] ?? cuisine;
 
   return (
@@ -77,24 +78,18 @@ export default async function CuisineDistrictPage(
         {filtered.length} {label.toLowerCase()} restaurants in {districtName} — sorted by Trust Score.
       </p>
 
-      {filtered.length === 0 ? (
-        <p className="text-[var(--muted)]">No restaurants matched this filter. Try a broader category or different district.</p>
-      ) : (
-        <>
-          <div className="grid gap-3">
-            {filtered.slice(0, 5).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 1} />
-            ))}
-          </div>
-          <AffiliateInline category={label} district={districtName} />
-          <AdSlot slot="cuisine-district-mid" />
-          <div className="grid gap-3 mt-3">
-            {filtered.slice(5).map((r, i) => (
-              <RestaurantCard key={r.id} r={r} rank={i + 6} />
-            ))}
-          </div>
-        </>
-      )}
+      <div className="grid gap-3">
+        {filtered.slice(0, 5).map((r, i) => (
+          <RestaurantCard key={r.id} r={r} rank={i + 1} />
+        ))}
+      </div>
+      <AffiliateInline category={label} district={districtName} />
+      <AdSlot slot="cuisine-district-mid" />
+      <div className="grid gap-3 mt-3">
+        {filtered.slice(5).map((r, i) => (
+          <RestaurantCard key={r.id} r={r} rank={i + 6} />
+        ))}
+      </div>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

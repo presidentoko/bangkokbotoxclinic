@@ -6,6 +6,7 @@ const LINKS = [
   { href: "/best/halal", label: "Best of" },
   { href: "/guide", label: "Guides" },
   { href: "/c/thai", label: "Browse cuisines" },
+  { href: "/saved", label: "Saved restaurants" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/for-restaurants", label: "For owners" },

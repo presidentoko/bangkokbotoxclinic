@@ -6,8 +6,11 @@ export function OnboardingTrigger({ children }: { children: React.ReactNode }) {
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
-    const raw = localStorage.getItem("snsstopper_prefs");
-    if (!raw) setShowOnboarding(true);
+    try {
+      const raw = localStorage.getItem("snsstopper_prefs");
+      const skipped = localStorage.getItem("snsstopper_onboarding_skipped");
+      if (!raw && !skipped) setShowOnboarding(true);
+    } catch {}
   }, []);
 
   if (showOnboarding) {
@@ -15,7 +18,10 @@ export function OnboardingTrigger({ children }: { children: React.ReactNode }) {
       <OnboardingFlow
         onComplete={() => { setShowOnboarding(false); window.location.reload(); }}
         onSkip={() => {
-          localStorage.setItem("snsstopper_prefs", JSON.stringify({ cuisines: [], atmosphere: [], dietary: [], completedAt: Date.now() }));
+          // Don't write empty prefs — that permanently disables PersonalizedSection
+          // with no re-entry path. Track the skip separately so "Get personalized
+          // picks" on the homepage can still trigger onboarding again.
+          try { localStorage.setItem("snsstopper_onboarding_skipped", "1"); } catch {}
           setShowOnboarding(false);
         }}
       />
