@@ -40,7 +40,11 @@ export function getRestaurantBySlug(
 }
 
 export function getAllRestaurantParams(slugMap: SlugMap): SlugEntry[] {
-  return Object.values(slugMap);
+  // district in slugMap is stored unslugified ("Bang Kapi") but restaurantUrl()
+  // and the actual route both use the slugified form ("bang-kapi") — without
+  // this, generateStaticParams registers the wrong path and every restaurant
+  // detail page 404s once dynamicParams is false.
+  return Object.values(slugMap).map((e) => ({ ...e, district: slugifySegment(e.district) }));
 }
 
 export function getTop500Params(

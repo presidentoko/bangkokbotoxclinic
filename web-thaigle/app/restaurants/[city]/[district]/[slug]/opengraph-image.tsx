@@ -67,7 +67,7 @@ export default async function RestaurantOG({ params }: { params: Promise<{ city:
             <span style={{ width: 7, height: 7, borderRadius: 4, background: cfg.themeAccent, display: "flex" }} />
             <span>No influencer · No paid review</span>
           </div>
-          <div style={{ marginLeft: "auto", fontSize: 22, fontWeight: 700, color: "#525252" }}>
+          <div style={{ marginLeft: "auto", fontSize: 22, fontWeight: 700, color: "#525252", display: "flex" }}>
             {cfg.brand}
           </div>
         </div>
@@ -77,7 +77,7 @@ export default async function RestaurantOG({ params }: { params: Promise<{ city:
           <div
             style={{
               fontSize: 64, fontWeight: 800, lineHeight: 1.05, letterSpacing: -1,
-              color: "#0a0a0a", maxWidth: 1040,
+              color: "#0a0a0a", maxWidth: 1040, display: "flex",
             }}
           >
             {r.name.length > 60 ? r.name.slice(0, 58) + "…" : r.name}
@@ -94,24 +94,28 @@ export default async function RestaurantOG({ params }: { params: Promise<{ city:
         {/* Footer */}
         <div style={{ display: "flex", gap: "40px", alignItems: "center", marginTop: "auto" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            <div style={{ fontSize: 48, fontWeight: 800, color: "#0a0a0a", display: "flex", alignItems: "baseline", gap: "8px" }}>
-              <span style={{ color: "#f59e0b" }}>★</span>
+            <div style={{ fontSize: 48, fontWeight: 800, color: "#0a0a0a", display: "flex", alignItems: "center", gap: "10px" }}>
+              {/* Solid-color accent instead of a "★" glyph — that Unicode
+                  range isn't in Satori's bundled font and triggers a
+                  network fetch to Google Fonts per render, which is too
+                  flaky/rate-limited across 3,000+ static-export renders. */}
+              <div style={{ width: 14, height: 14, borderRadius: "50%", background: "#f59e0b", display: "flex" }} />
               <span>{r.rating.toFixed(1)}</span>
               <span style={{ fontSize: 22, color: "#737373", fontWeight: 500 }}>
                 ({r.total_reviews.toLocaleString()})
               </span>
             </div>
-            <div style={{ fontSize: 16, color: "#a3a3a3", textTransform: "uppercase", letterSpacing: 1 }}>
+            <div style={{ fontSize: 16, color: "#a3a3a3", textTransform: "uppercase", letterSpacing: 1, display: "flex" }}>
               Google reviews
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-            <div style={{ fontSize: 48, fontWeight: 800, color: trustColor }}>
-              {trust}
+            <div style={{ fontSize: 48, fontWeight: 800, color: trustColor, display: "flex", alignItems: "baseline", gap: "4px" }}>
+              <span>{trust}</span>
               <span style={{ fontSize: 22, color: "#a3a3a3", fontWeight: 500 }}>/100</span>
             </div>
-            <div style={{ fontSize: 16, color: "#a3a3a3", textTransform: "uppercase", letterSpacing: 1 }}>
+            <div style={{ fontSize: 16, color: "#a3a3a3", textTransform: "uppercase", letterSpacing: 1, display: "flex" }}>
               Trust Score
             </div>
           </div>

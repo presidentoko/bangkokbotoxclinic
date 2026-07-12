@@ -35,16 +35,16 @@ export default async function OG() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1.05, letterSpacing: -1.5, color: "#0a0a0a" }}>
+          <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1.05, letterSpacing: -1.5, color: "#0a0a0a", display: "flex" }}>
             {cfg.hero}
           </div>
-          <div style={{ fontSize: 28, color: "#525252", maxWidth: 1000 }}>
+          <div style={{ fontSize: 28, color: "#525252", maxWidth: 1000, display: "flex" }}>
             {cfg.heroSub}
           </div>
         </div>
 
         <div style={{ display: "flex", gap: "24px", marginTop: "auto", color: "#737373", fontSize: 22 }}>
-          <span>★ Trust Scores</span>
+          <span>Trust Scores</span>
           <span>·</span>
           <span>Real Google Reviews</span>
           <span>·</span>

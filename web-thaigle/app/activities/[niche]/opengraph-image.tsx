@@ -48,7 +48,7 @@ export default async function OG({ params }: { params: Promise<{ niche: string }
 
         {/* Bottom */}
         <div style={{ display: "flex", gap: "32px", marginTop: "auto", color: "#92400e", fontSize: 22, fontWeight: 700 }}>
-          <span>★ Trust Score</span>
+          <span>Trust Score</span>
           <span>·</span>
           <span>Real Google Reviews</span>
           <span>·</span>
