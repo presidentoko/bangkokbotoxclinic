@@ -83,11 +83,16 @@ export default async function RootLayout({
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6)
     .map(([c]) => c);
-  const districtMap = new Map<string, number>();
-  for (const r of db.restaurants) {
-    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+  // Root layout re-runs this on every request for the few dynamic (ƒ) routes
+  // (e.g. /about, /contact) — aggregate the precomputed district_counts map
+  // (~dozens of entries) instead of scanning all 3,630 restaurants each time.
+  const districtTotals = new Map<string, number>();
+  for (const [key, count] of Object.entries(db.district_counts)) {
+    const name = key.split("/")[1];
+    if (!name) continue;
+    districtTotals.set(name, (districtTotals.get(name) ?? 0) + count);
   }
-  const topDistricts = [...districtMap.entries()]
+  const topDistricts = [...districtTotals.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6)
     .map(([d]) => d);
