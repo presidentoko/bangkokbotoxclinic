@@ -26,7 +26,7 @@ const PAIRINGS = [
     why: "Learn to cook Thai food at noon, celebrate on Khao San at night.",
     links: [
       { label: "Cooking classes →", url: "/activities/cooking" },
-      { label: "Bangkok nightlife →", url: "/for/nightlife" },
+      { label: "Bangkok nightlife →", url: "/for/late-night" },
     ],
   },
   {

@@ -268,7 +268,7 @@ export default async function GuidePage(
         <VersusVote
           question="When you're visiting Bangkok — how do you plan?"
           a={{ id: "research-data", label: "Research with data", emoji: "📊", desc: "Trust Score, reviews, rankings — let the numbers guide you", url: "/trending" }}
-          b={{ id: "go-with-flow", label: "Explore & discover", emoji: "🗺️", desc: "Wander the streets, follow your nose — no plan, no regrets", url: "/activities/surprise-me" }}
+          b={{ id: "go-with-flow", label: "Explore & discover", emoji: "🗺️", desc: "Wander the streets, follow your nose — no plan, no regrets", url: "/activities" }}
         />
       </div>
 

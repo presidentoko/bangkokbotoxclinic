@@ -145,7 +145,7 @@ export default async function HomePage() {
 
   const popularSearches = [
     { label: "🌶️ Thai", href: "/restaurants/cuisine/thai" },
-    { label: "🍜 Noodles", href: "/restaurants/cuisine/noodles" },
+    { label: "🍜 Noodles", href: "/restaurants/cuisine/street_food" },
     { label: "🍱 Japanese", href: "/restaurants/cuisine/japanese" },
     { label: "☕ Cafés", href: "/restaurants/cuisine/cafe" },
   ];

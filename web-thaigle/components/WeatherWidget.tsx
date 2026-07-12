@@ -8,7 +8,7 @@ const SEASONS = [
     icon: "☀️",
     tip: "Best time to visit! Outdoor markets, rooftop dining & street food are ideal now.",
     suggestions: ["Night markets", "Boat tours", "Rooftop bars"],
-    links: ["/for/outdoor", "/activities/yoga-pilates", "/restaurants/cuisine/thai"],
+    links: ["/activities", "/activities/yoga-pilates", "/restaurants/cuisine/thai"],
     color: "from-amber-50 to-orange-50",
     border: "border-amber-200",
   },

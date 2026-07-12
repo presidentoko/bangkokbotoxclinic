@@ -30,7 +30,7 @@ const RESULTS: Record<string, { title: string; url: string; why: string }> = {
   "active-group":  { title: "Muay Thai group class", url: "/activities/muay-thai", why: "Nothing bonds friends like a punch in the face (padded)" },
   "active-family": { title: "Yoga & wellness", url: "/activities/wellness", why: "Safe, fun, and connects all ages" },
   "relax-solo":    { title: "Thai spa day", url: "/activities/spa", why: "Your body will thank you for 2 hours of silence" },
-  "relax-couple":  { title: "Couples spa package", url: "/for/couples", why: "Best 2 hours you'll spend in Bangkok" },
+  "relax-couple":  { title: "Couples spa package", url: "/for/date-night", why: "Best 2 hours you'll spend in Bangkok" },
   "relax-group":   { title: "Group spa & massage", url: "/activities/spa", why: "Luxe day out — many spas do group bookings" },
   "relax-family":  { title: "Wellness & swimming", url: "/activities/wellness", why: "Kids and adults both win" },
   "food-solo":     { title: "Street food crawl", url: "/restaurants/cuisine/street_food", why: "Eat at your own pace, try everything twice" },

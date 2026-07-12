@@ -4,7 +4,7 @@ const TYPES = [
   { label: "First Timer", emoji: "🗺️", desc: "Essentials, must-do & what to skip", url: "/activities/first-time-bangkok" },
   { label: "Wellness Retreat", emoji: "🧘", desc: "Yoga, spa & mindful eating", url: "/activities/wellness-week" },
   { label: "Foodie", emoji: "🍜", desc: "Street food, fine dining & cooking classes", url: "/local-tips" },
-  { label: "Couple", emoji: "💑", desc: "Romantic spots & shared experiences", url: "/for/couples" },
+  { label: "Couple", emoji: "💑", desc: "Romantic spots & shared experiences", url: "/for/date-night" },
 ];
 
 export function TripType() {

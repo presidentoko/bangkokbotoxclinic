@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import {
   CATEGORY_SCHEMA,
   PRICE_TIER_LABEL,
@@ -13,12 +12,20 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { PopularTimes } from "@/components/PopularTimes";
 import { CrowdRating } from "@/components/CrowdRating";
 import { NearbyThings } from "@/components/NearbyThings";
+import { CardImage } from "@/components/CardImage";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
 // dynamicParams=false already makes this pure SSG — data only changes at
 // deploy time, so a revalidate window just burns ISR writes for nothing.
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
+
+// True only for actual self-hosted paths ("/img/foo.jpg"). A protocol-relative
+// URL ("//host/foo.jpg") also starts with "/" but is a remote URL — treating
+// it as self-hosted produces a broken "https://thaigle.com//host/..." link.
+function isSelfHosted(src: string): boolean {
+  return src.startsWith("/") && !src.startsWith("//");
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllPlaceSlugsServer();
@@ -53,7 +60,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${t.name} · ${place.subtype} · ${place.area}`,
       description: desc,
-      ...(place.hero.src.startsWith("/") ? { images: [`${SITE}${place.hero.src}`] } : {}),
+      ...(isSelfHosted(place.hero.src) ? { images: [`${SITE}${place.hero.src}`] } : {}),
     },
   };
 }
@@ -64,21 +71,28 @@ function PlaceSchemaLd({ place, lang }: { place: Place; lang: Lang }) {
 
   // No aggregateRating: localsScore is our own composite metric, not a review
   // average, so presenting it as AggregateRating would misrepresent review data.
+  const hasCoords = place.lat !== 0 || place.lng !== 0;
   const schema = {
     "@context": "https://schema.org",
     "@type": schemaType,
     name: t.name,
-    image: place.hero.src.startsWith("/") ? `${SITE}${place.hero.src}` : undefined,
+    image: isSelfHosted(place.hero.src) ? `${SITE}${place.hero.src}` : undefined,
     address: {
       "@type": "PostalAddress",
       addressLocality: place.area,
       addressCountry: "TH",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: place.lat,
-      longitude: place.lng,
-    },
+    // Omit geo entirely when the source has no real geocode (lat:0/lng:0) —
+    // publishing (0,0) is a bad geo signal, not a "missing data" signal.
+    ...(hasCoords
+      ? {
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: place.lat,
+            longitude: place.lng,
+          },
+        }
+      : {}),
     priceRange: PRICE_TIER_LABEL[place.priceTier],
     url: `${SITE}/${lang}/place/${place.slug}`,
   };
@@ -126,19 +140,22 @@ export default async function PlacePage({
   if (!place) notFound();
 
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
+  // Some scraped places carry lat:0/lng:0 (missing geocode) — that resolves
+  // to a real point in the Gulf of Guinea, so treat it as "no coordinates".
+  const hasCoords = place.lat !== 0 || place.lng !== 0;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`;
 
   return (
     <article className="max-w-2xl mx-auto pb-20 md:pb-0">
-      {/* 1. HERO — LCP target, self-hosted only */}
+      {/* 1. HERO — LCP target */}
       <div className="relative w-full aspect-video bg-gray-100 overflow-hidden">
-        <Image
+        <CardImage
           src={place.hero.src}
           alt={place.hero.alt}
-          fill
-          className="object-cover"
+          className="absolute inset-0"
           priority
           sizes="(max-width: 768px) 100vw, 672px"
+          fallbackIcon="🖼️"
         />
         {/* Category chip — top left */}
         <div className="absolute top-3 left-3">
@@ -254,15 +271,17 @@ export default async function PlacePage({
               dataSays: t.receipt.dataSays,
             }}
           />
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-[var(--border)] text-sm font-medium hover:border-gray-400 transition"
-          >
-            <span>🗺</span>
-            <span>Map</span>
-          </a>
+          {hasCoords && (
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-[var(--border)] text-sm font-medium hover:border-gray-400 transition"
+            >
+              <span>🗺</span>
+              <span>Map</span>
+            </a>
+          )}
         </div>
       </div>
 

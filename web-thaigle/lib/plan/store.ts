@@ -101,6 +101,20 @@ function haversine(lat1: number, lng1: number, lat2: number, lng2: number): numb
 
 // Estimate travel time: Bangkok heuristic
 function estimateTravel(from: PlanItem, to: PlanItem): TravelSegment {
+  // Places with a missing geocode are stored as lat:0/lng:0 — haversine on
+  // that pair produces a real-looking (but meaningless) distance, so surface
+  // "unknown" instead of a confident wrong estimate.
+  const hasCoords = (p: PlanItem) => p.lat !== 0 || p.lng !== 0;
+  if (!hasCoords(from) || !hasCoords(to)) {
+    return {
+      fromSlug: from.slug,
+      toSlug: to.slug,
+      durationMin: 20,
+      mode: "estimate",
+      label: "Travel time unknown (est.)",
+    };
+  }
+
   const km = haversine(from.lat, from.lng, to.lat, to.lng);
   let durationMin: number;
   let mode: TravelSegment["mode"];

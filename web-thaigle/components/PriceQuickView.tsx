@@ -19,7 +19,7 @@ const ACTIVITY_PRICES: PriceRange[] = [
   { budget: "Budget (under ฿500)", emoji: "💸", range: "฿150–499", examples: "Thai massage 1hr, Muay Thai day pass", url: "/activities/budget" },
   { budget: "Mid-range", emoji: "💰", range: "฿500–1500", examples: "Cooking class, dive intro, yoga package", url: "/activities" },
   { budget: "Premium", emoji: "⭐", range: "฿1500–4000", examples: "Spa package, sailing trip, surf camp day", url: "/activities" },
-  { budget: "Luxury", emoji: "💎", range: "฿4000+", examples: "Full-day private boat, luxury spa retreat", url: "/for/luxury" },
+  { budget: "Luxury", emoji: "💎", range: "฿4000+", examples: "Full-day private boat, luxury spa retreat", url: "/activities/spa" },
 ];
 
 export function PriceQuickView({ type = "restaurant" }: PriceQuickViewProps) {

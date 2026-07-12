@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function TakedownPage() {
+  return (
+    <Suspense fallback={null}>
+      <TakedownForm />
+    </Suspense>
+  );
+}
+
+function TakedownForm() {
+  const searchParams = useSearchParams();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
-    businessName: "",
-    pageUrl: "",
+    businessName: searchParams.get("businessName") ?? "",
+    pageUrl: searchParams.get("pageUrl") ?? "",
     contactName: "",
     contactEmail: "",
     requestType: "correction",
@@ -21,6 +32,7 @@ export default function TakedownPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setError(false);
     try {
       const res = await fetch("/api/report", {
         method: "POST",
@@ -28,13 +40,15 @@ export default function TakedownPage() {
         body: JSON.stringify({ type: "takedown", ...form }),
       });
       const data = await res.json();
-      if (data.ok) {
-        // Open mailto as backup so admin definitely sees it
-        if (data.mailtoUrl) window.location.href = data.mailtoUrl;
-      }
-    } catch {}
-    setLoading(false);
-    setSubmitted(true);
+      if (!res.ok || !data.ok) throw new Error("submit failed");
+      // Open mailto as backup so admin definitely sees it
+      if (data.mailtoUrl) window.location.href = data.mailtoUrl;
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {
@@ -144,6 +158,12 @@ export default function TakedownPage() {
         <div className="text-xs text-[var(--muted)] leading-relaxed">
           By submitting, you confirm the information provided is accurate to the best of your knowledge. False takedown requests may be logged. For personal data requests under Thailand PDPA, see our <a href="/privacy" className="underline">Privacy Policy</a>.
         </div>
+
+        {error && (
+          <div className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-xl px-3 py-2.5">
+            Something went wrong submitting your request. Please try again, or email us directly via the contact page.
+          </div>
+        )}
 
         <button
           type="submit"

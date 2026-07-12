@@ -692,7 +692,7 @@ export default function GuideIndexPage() {
         <VersusVote
           question="When you're planning Bangkok — what's your style?"
           a={{ id: "guide-research", label: "Read the guides first", emoji: "📖", desc: "Research, plan, compare prices — show up prepared", url: "/guide/best-thai-food-bangkok" }}
-          b={{ id: "show-up", label: "Show up and figure it out", emoji: "🎲", desc: "Discover as you go — Bangkok rewards wanderers", url: "/activities/surprise-me" }}
+          b={{ id: "show-up", label: "Show up and figure it out", emoji: "🎲", desc: "Discover as you go — Bangkok rewards wanderers", url: "/activities" }}
         />
       </div>
 

@@ -7,7 +7,7 @@ const TRENDING_TOPICS = [
   { label: "Best ramen Bangkok", url: "/restaurants/cuisine/japanese" },
   { label: "Yoga studios Ari", url: "/activities/yoga-pilates" },
   { label: "Halal food Bangkok", url: "/for/halal" },
-  { label: "Brunch Thonglor 2026", url: "/restaurants/bangkok/thonglor" },
+  { label: "Brunch Thonglor 2026", url: "/restaurants/bangkok/watthana" },
   { label: "Night market Bangkok", url: "/local-tips" },
 ];
 

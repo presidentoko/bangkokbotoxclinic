@@ -50,7 +50,7 @@ const SLOTS: TimeSlot[] = [
     label: "Late night — bars, rooftops & night markets",
     emoji: "🌃",
     links: [
-      { label: "Night scene", url: "/for/nightlife" },
+      { label: "Night scene", url: "/for/late-night" },
       { label: "Yaowarat (Chinatown)", url: "/restaurants/cuisine/chinese" },
     ],
   },
