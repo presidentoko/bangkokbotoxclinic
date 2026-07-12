@@ -3,6 +3,7 @@ import { NICHES } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
