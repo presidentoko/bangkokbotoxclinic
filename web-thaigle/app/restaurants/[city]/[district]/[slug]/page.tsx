@@ -19,7 +19,6 @@ import { BangkokTip } from "@/components/BangkokTip";
 import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { VenueStamp } from "@/components/VenueStamp";
 import { PopularTimes } from "@/components/PopularTimes";
-import { CrowdRating } from "@/components/CrowdRating";
 import { QuickFacts } from "@/components/QuickFacts";
 import { BangkokKhaoTom } from "@/components/BangkokKhaoTom";
 import { BangkokSimCardGuide } from "@/components/BangkokSimCardGuide";
@@ -75,6 +74,11 @@ export default async function RestaurantPage(
   const cityLabel = r.city_label || city.charAt(0).toUpperCase() + city.slice(1);
   const districtLabel = r.district || cityLabel;
   const url = restaurantUrl({ city, district, slug });
+  // Some scraped rows have price_level polluted with a review-photo alt-text
+  // sentence or a raw address instead of a real price descriptor. Real
+  // values ("Moderately priced", "$$") top out well under this; garbage
+  // rows measured 66+ chars.
+  const priceLevel = r.price_level && r.price_level.length < 40 ? r.price_level : undefined;
 
   // Trust breakdown
   const ratingPart = (r.rating / 5) * 50;
@@ -165,10 +169,9 @@ export default async function RestaurantPage(
           </div>
         </div>
 
-        <QuickFacts priceRange={r.price_level || undefined} />
+        <QuickFacts priceRange={priceLevel} />
         <RatingChart trend={r.rating_trend} />
         <PopularTimes type="restaurant" />
-        <CrowdRating itemId={r.id} label={r.name} />
         <TopicCluster topics={r.mentioned_topics} />
 
         {samples.length > 0 && (
@@ -201,10 +204,10 @@ export default async function RestaurantPage(
                 <dd>{cuisines}</dd>
               </div>
             )}
-            {r.price_level && (
+            {priceLevel && (
               <div className="flex gap-2">
                 <dt className="text-[var(--muted)] shrink-0 w-24">Price range</dt>
-                <dd>{r.price_level}</dd>
+                <dd>{priceLevel}</dd>
               </div>
             )}
             <div className="flex gap-2">

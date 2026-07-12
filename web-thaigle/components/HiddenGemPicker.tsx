@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const GEMS = [
   { name: "Bangkrachao Green Lung", emoji: "🌿", type: "Nature", area: "Phra Pradaeng", desc: "25 min from downtown. Rent a bike, cycle through mangroves and local farms. Zero tourists.", url: "/local-tips" },
   { name: "Warehouse 30", emoji: "🏭", type: "Art & food", area: "Charoen Krung", desc: "Converted WWII warehouse. Local designers, craft coffee, rotating art exhibitions. Sat–Sun best.", url: "/guide" },
@@ -9,8 +12,14 @@ const GEMS = [
 ];
 
 export function HiddenGemPicker() {
-  const seed = Math.floor(Date.now() / 86400000);
-  const gem = GEMS[seed % GEMS.length];
+  const [gem, setGem] = useState<typeof GEMS[number] | null>(null);
+
+  useEffect(() => {
+    const seed = Math.floor(Date.now() / 86400000);
+    setGem(GEMS[seed % GEMS.length]);
+  }, []);
+
+  if (!gem) return null;
 
   return (
     <a

@@ -10,7 +10,6 @@ import { getPlaceServer, getAllPlaceSlugsServer } from "@/lib/places-server";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { PopularTimes } from "@/components/PopularTimes";
-import { CrowdRating } from "@/components/CrowdRating";
 import { NearbyThings } from "@/components/NearbyThings";
 import { CardImage } from "@/components/CardImage";
 
@@ -239,18 +238,17 @@ export default async function PlacePage({
 
         {/* 5. SOURCE TRANSPARENCY */}
         <section className="mb-5 border border-[var(--border)] rounded-xl p-4">
-          <div className="grid grid-cols-3 gap-2 mb-3">
+          {/* No "Updated Nd" tile here — the pipeline doesn't stamp a real
+              per-place update date, and a hardcoded day-count would just be
+              a stale freshness claim dressed up as a live one. */}
+          <div className="grid grid-cols-2 gap-2 mb-3">
             <div className="text-center">
               <div className="text-lg font-black tabular-nums">{place.sources.reviewCount.toLocaleString()}</div>
               <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider">Reviews</div>
             </div>
-            <div className="text-center border-x border-[var(--border)]">
+            <div className="text-center border-l border-[var(--border)]">
               <div className="text-lg font-black tabular-nums">{place.sources.sourceCount}</div>
               <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider">Sources</div>
-            </div>
-            <div className="text-center">
-              <div className="text-lg font-black tabular-nums">{place.sources.updatedDaysAgo}d</div>
-              <div className="text-[10px] text-[var(--muted)] uppercase tracking-wider">Updated</div>
             </div>
           </div>
           <p className="text-xs text-[var(--muted)] text-center">
@@ -286,7 +284,6 @@ export default async function PlacePage({
       </div>
 
       <PopularTimes type="restaurant" />
-      <CrowdRating itemId={place.slug} label={place.name} />
       <NearbyThings context="restaurant" />
 
       {/* JSON-LD */}

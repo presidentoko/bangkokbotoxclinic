@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const MONTHS = [
   { month: "Jan", emoji: "☀️", temp: "24–33°C", rain: "Low", label: "Peak season", color: "bg-green-100 text-green-800" },
   { month: "Feb", emoji: "☀️", temp: "25–34°C", rain: "Low", label: "Peak season", color: "bg-green-100 text-green-800" },
@@ -13,9 +16,15 @@ const MONTHS = [
   { month: "Dec", emoji: "☀️", temp: "22–31°C", rain: "Low", label: "Peak season", color: "bg-green-100 text-green-800" },
 ];
 
-const CURRENT_MONTH_IDX = new Date().getMonth();
-
 export function BangkokWeatherByMonth() {
+  const [currentMonthIdx, setCurrentMonthIdx] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentMonthIdx(new Date().getMonth());
+  }, []);
+
+  if (currentMonthIdx === null) return null;
+
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
       <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
@@ -25,13 +34,13 @@ export function BangkokWeatherByMonth() {
         {MONTHS.map((m, i) => (
           <div
             key={m.month}
-            className={`rounded-xl p-2.5 border ${i === CURRENT_MONTH_IDX ? "border-orange-400 ring-1 ring-orange-300" : "border-[var(--border)]"}`}
+            className={`rounded-xl p-2.5 border ${i === currentMonthIdx ? "border-orange-400 ring-1 ring-orange-300" : "border-[var(--border)]"}`}
           >
             <div className="flex items-center gap-1.5 mb-1">
               <span className="text-lg">{m.emoji}</span>
               <div>
                 <span className="font-black text-xs">{m.month}</span>
-                {i === CURRENT_MONTH_IDX && <span className="ml-1 text-[8px] font-black text-orange-600">NOW</span>}
+                {i === currentMonthIdx && <span className="ml-1 text-[8px] font-black text-orange-600">NOW</span>}
               </div>
             </div>
             <div className="text-[10px] font-mono font-bold text-[var(--fg)]">{m.temp}</div>

@@ -30,7 +30,6 @@ import { getDayPlansForVenue } from "@/lib/venue-day-plans";
 import { ReportButton } from "@/components/ReportButton";
 import { VenueStamp } from "@/components/VenueStamp";
 import { PopularTimes } from "@/components/PopularTimes";
-import { CrowdRating } from "@/components/CrowdRating";
 import { PhotoHints } from "@/components/PhotoHints";
 import { KlookBanner } from "@/components/KlookBanner";
 import { NearbyThings } from "@/components/NearbyThings";
@@ -187,7 +186,6 @@ export default async function PlaceDetailPage({
 
       <SeasonalTip />
       <PopularTimes type={niche === "spa" ? "spa" : niche === "muay-thai" || niche === "yoga-pilates" ? "gym" : "restaurant"} />
-      <CrowdRating itemId={place.id} label={place.name} />
       <PhotoHints niche={niche} />
       <NearbyThings context="activity" />
       <KlookBanner variant={

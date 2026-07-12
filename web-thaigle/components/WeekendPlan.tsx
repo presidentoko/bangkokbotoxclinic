@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const PLANS = [
   {
     type: "Budget weekend",
@@ -26,8 +29,14 @@ const PLANS = [
 ];
 
 export function WeekendPlan() {
-  const seed = Math.floor(Date.now() / 86400000/ 7);
-  const plan = PLANS[seed % PLANS.length];
+  const [plan, setPlan] = useState<typeof PLANS[number] | null>(null);
+
+  useEffect(() => {
+    const seed = Math.floor(Date.now() / 86400000 / 7);
+    setPlan(PLANS[seed % PLANS.length]);
+  }, []);
+
+  if (!plan) return null;
 
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">

@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const WORDS = [
   { thai: "อร่อย", romanized: "aroi", meaning: "Delicious", context: "The most important word for any Bangkok foodie." },
   { thai: "เท่าไหร่", romanized: "tao rai", meaning: "How much?", context: "Essential for markets and street food. Always ask before picking up." },
@@ -10,8 +13,14 @@ const WORDS = [
 ];
 
 export function ThaiWordOfDay() {
-  const seed = Math.floor(Date.now() / 86400000);
-  const word = WORDS[seed % WORDS.length];
+  const [word, setWord] = useState<typeof WORDS[number] | null>(null);
+
+  useEffect(() => {
+    const seed = Math.floor(Date.now() / 86400000);
+    setWord(WORDS[seed % WORDS.length]);
+  }, []);
+
+  if (!word) return null;
 
   return (
     <div className="rounded-2xl border border-teal-200 bg-teal-50 p-4 my-4">

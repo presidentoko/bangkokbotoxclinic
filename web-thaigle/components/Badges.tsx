@@ -2,6 +2,7 @@
 
 import type { Restaurant } from "@/lib/types";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
+import { FreshnessTime } from "@/components/FreshnessTime";
 
 // AI Verified — Local Guide 비율 기반 "real review" 신뢰도.
 export function AIVerifiedBadge({ r, size = "sm" }: { r: Restaurant; size?: "sm" | "md" }) {
@@ -46,19 +47,18 @@ export function Freshness({ generatedAt, mode = "card" }: {
   generatedAt: string;
   mode?: "card" | "detail";
 }) {
-  const ago = relativeTimeFromIso(generatedAt);
   if (mode === "card") {
     return (
       <span className="inline-flex items-center gap-1 text-[11px] text-[var(--muted)]">
         <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
-        Updated {ago}
+        Updated <FreshnessTime generatedAt={generatedAt} />
       </span>
     );
   }
   return (
     <span className="inline-flex items-center gap-2 text-xs text-[var(--muted)] bg-white px-3 py-1 rounded-full border border-[var(--border)]">
       <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-      Last updated {ago}
+      Last updated <FreshnessTime generatedAt={generatedAt} />
     </span>
   );
 }
@@ -77,17 +77,4 @@ export function RelativeRanking({ percentile, label }: {
       Top {top}% in {label}
     </span>
   );
-}
-
-function relativeTimeFromIso(iso: string): string {
-  const then = new Date(iso).getTime();
-  if (isNaN(then)) return "recently";
-  const diff = Math.max(0, Date.now() - then);
-  const min = Math.floor(diff / 60_000);
-  if (min < 1) return "just now";
-  if (min < 60) return `${min} min ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return `${hr}h ago`;
-  const day = Math.floor(hr / 24);
-  return `${day}d ago`;
 }

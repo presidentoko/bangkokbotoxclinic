@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const FACTS = [
   { fact: "Bangkok has over 50,000 street food vendors — that's one for every 200 residents.", emoji: "🍜", source: "City of Bangkok 2023" },
   { fact: "Wat Arun (Temple of Dawn) gets over 1 million visitors per year — most arrive by boat for 5฿.", emoji: "⛩️", source: "Tourism Authority of Thailand" },
@@ -10,8 +13,14 @@ const FACTS = [
 ];
 
 export function BangkokFacts() {
-  const seed = Math.floor(Date.now() / 86400000);
-  const fact = FACTS[seed % FACTS.length];
+  const [fact, setFact] = useState<typeof FACTS[number] | null>(null);
+
+  useEffect(() => {
+    const seed = Math.floor(Date.now() / 86400000);
+    setFact(FACTS[seed % FACTS.length]);
+  }, []);
+
+  if (!fact) return null;
 
   return (
     <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-4 my-4">

@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const EVENTS = [
   { month: "Jan", event: "Makha Bucha", desc: "Buddhist holy day. Candle processions at temples. Alcohol banned at some venues." },
   { month: "Feb", event: "Chinese New Year", desc: "Chinatown shuts down for celebrations. 3-day festival. Best dragon dances in SE Asia." },
@@ -11,9 +14,17 @@ const EVENTS = [
   { month: "Dec", event: "Father's Day / King's Birthday", desc: "Dec 5. Royal celebrations, lights along Ratchadamnoen Avenue. Buddhist ceremonies at temples." },
 ];
 
-const CURRENT_MONTH_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][new Date().getMonth()];
+const MONTH_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 export function BangkokBuddhistCalendar() {
+  const [currentMonthShort, setCurrentMonthShort] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrentMonthShort(MONTH_SHORT[new Date().getMonth()]);
+  }, []);
+
+  if (currentMonthShort === null) return null;
+
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
       <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
@@ -21,11 +32,11 @@ export function BangkokBuddhistCalendar() {
       </div>
       <div className="space-y-1.5">
         {EVENTS.map((e) => (
-          <div key={`${e.month}-${e.event}`} className={`flex gap-2 items-start rounded-xl px-3 py-2 border ${e.month === CURRENT_MONTH_SHORT ? "border-orange-400 bg-orange-50" : "border-yellow-100"}`}>
-            <div className={`shrink-0 text-[10px] font-black w-8 text-center ${e.month === CURRENT_MONTH_SHORT ? "text-orange-700" : "text-yellow-700"}`}>{e.month}</div>
+          <div key={`${e.month}-${e.event}`} className={`flex gap-2 items-start rounded-xl px-3 py-2 border ${e.month === currentMonthShort ? "border-orange-400 bg-orange-50" : "border-yellow-100"}`}>
+            <div className={`shrink-0 text-[10px] font-black w-8 text-center ${e.month === currentMonthShort ? "text-orange-700" : "text-yellow-700"}`}>{e.month}</div>
             <div>
-              <div className={`text-[11px] font-bold ${e.month === CURRENT_MONTH_SHORT ? "text-orange-700" : "text-[var(--fg)]"}`}>
-                {e.event}{e.month === CURRENT_MONTH_SHORT ? " ← THIS MONTH" : ""}
+              <div className={`text-[11px] font-bold ${e.month === currentMonthShort ? "text-orange-700" : "text-[var(--fg)]"}`}>
+                {e.event}{e.month === currentMonthShort ? " ← THIS MONTH" : ""}
               </div>
               <div className="text-[10px] text-[var(--muted)] leading-snug">{e.desc}</div>
             </div>

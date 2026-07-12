@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const MONTHS = [
   { m: 0, name: "January", events: ["Bangkok International Film Festival (BIFF)", "Art & Design District markets", "Low season (coolest, best time)"] },
   { m: 1, name: "February", events: ["Valentine's week rooftop events", "Chinese New Year in Chinatown (varies)", "Flower Festival (Chiang Mai connection)"] },
@@ -14,7 +17,14 @@ const MONTHS = [
 ];
 
 export function BangkokEventCalendar() {
-  const currentMonth = new Date().getMonth();
+  const [currentMonth, setCurrentMonth] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentMonth(new Date().getMonth());
+  }, []);
+
+  if (currentMonth === null) return null;
+
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
       <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">

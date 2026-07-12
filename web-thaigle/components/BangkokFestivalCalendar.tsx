@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const FESTIVALS = [
   { month: "Jan", name: "New Year Celebrations", emoji: "🎆", where: "Central World, Asiatique", type: "Public holiday" },
   { month: "Feb", name: "Chinese New Year (Yaowarat)", emoji: "🏮", where: "Chinatown, Yaowarat Rd", type: "Cultural" },
@@ -24,12 +27,19 @@ const TYPE_COLORS: Record<string, string> = {
   "Public holiday": "bg-gray-100 text-gray-700",
 };
 
-const CURRENT_MONTH = new Date().getMonth() + 1;
 const MONTH_NUMS: Record<string, number> = {
   Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12,
 };
 
 export function BangkokFestivalCalendar() {
+  const [currentMonth, setCurrentMonth] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentMonth(new Date().getMonth() + 1);
+  }, []);
+
+  if (currentMonth === null) return null;
+
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
       <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
@@ -37,7 +47,7 @@ export function BangkokFestivalCalendar() {
       </div>
       <div className="space-y-1.5">
         {FESTIVALS.map((f) => {
-          const isCurrent = MONTH_NUMS[f.month] === CURRENT_MONTH;
+          const isCurrent = MONTH_NUMS[f.month] === currentMonth;
           return (
             <div
               key={f.month}

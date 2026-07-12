@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const EVENTS: Record<number, { name: string; emoji: string; desc: string }[]> = {
   1: [{ name: "New Year's recovery", emoji: "🎆", desc: "Peak tourist season. Hotels expensive. Rooftop parties on 31st." }],
   2: [{ name: "Valentine's Day Bangkok", emoji: "💕", desc: "Flower markets go wild. Best rooftop dinner reservations fill up fast." }],
@@ -14,7 +17,14 @@ const EVENTS: Record<number, { name: string; emoji: string; desc: string }[]> = 
 };
 
 export function BangkokMonthlyCalendar() {
-  const month = new Date().getMonth() + 1;
+  const [month, setMonth] = useState<number | null>(null);
+
+  useEffect(() => {
+    setMonth(new Date().getMonth() + 1);
+  }, []);
+
+  if (month === null) return null;
+
   const events = EVENTS[month] ?? [];
   const monthName = new Date(2026, month - 1, 1).toLocaleString("en-US", { month: "long" });
 
