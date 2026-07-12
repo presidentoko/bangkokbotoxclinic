@@ -38,6 +38,7 @@ export async function generateMetadata(
       languages: {
         "en-US": `${SITE}/clinic/${c.id}`,
         "th-TH": `${SITE}/th/clinic/${c.id}`,
+        "ko-KR": `${SITE}/ko/clinic/${c.id}`,
         "x-default": `${SITE}/clinic/${c.id}`,
       },
     },

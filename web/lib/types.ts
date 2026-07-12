@@ -62,6 +62,9 @@ export type Clinic = {
   district: string;
   phone: string;
   website: string;
+  website_email?: string;     // clinic-enrichment/data/_raw/email_cache.json 매칭 시
+  website_instagram?: string; // website 가 instagram.com 링크인 클리닉만
+  website_line?: string;      // website 가 line.me/lin.ee 링크인 클리닉만
   lat: number | null;
   lng: number | null;
   rating: number;

@@ -89,11 +89,12 @@ export async function generateMetadata(
     ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
       canonical,
-      // hreflang — Google에게 같은 클리닉의 TH/EN 양국어 변형 알림 (소관 클리닉만)
+      // hreflang — Google에게 같은 클리닉의 TH/EN/KO 다국어 변형 알림 (소관 클리닉만)
       ...(inSite && {
         languages: {
           "en-US": `/clinic/${c.id}`,
           "th-TH": `/th/clinic/${c.id}`,
+          "ko-KR": `/ko/clinic/${c.id}`,
           "x-default": `/clinic/${c.id}`,
         },
       }),
@@ -569,6 +570,44 @@ export default async function ClinicPage(
                   >
                     {c.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
                   </a>
+                </>
+              )}
+              {c.website_email && (
+                <>
+                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Email</div>
+                  <a
+                    href={`mailto:${c.website_email}`}
+                    className="text-sm text-[var(--accent)] hover:underline truncate block"
+                  >
+                    {c.website_email}
+                  </a>
+                </>
+              )}
+              {(c.website_instagram || c.website_line) && (
+                <>
+                  <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Social</div>
+                  <div className="flex gap-3">
+                    {c.website_instagram && (
+                      <a
+                        href={c.website_instagram}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="text-sm text-[var(--accent)] hover:underline"
+                      >
+                        Instagram
+                      </a>
+                    )}
+                    {c.website_line && (
+                      <a
+                        href={c.website_line}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="text-sm text-[var(--accent)] hover:underline"
+                      >
+                        LINE
+                      </a>
+                    )}
+                  </div>
                 </>
               )}
             </div>
