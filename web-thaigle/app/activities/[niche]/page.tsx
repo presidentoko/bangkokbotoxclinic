@@ -6,6 +6,7 @@ import {
   loadCommunityDb,
   topNichePlaces,
   buildKlookIndex,
+  cityScopeLabel,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -311,16 +312,17 @@ export async function generateMetadata({
   if (!info) return {};
   const db = await loadNicheDb(niche as NicheSlug);
   const intro = NICHE_INTRO[niche as NicheSlug];
+  const scope = cityScopeLabel(topNichePlaces(db.places, 60));
   return {
-    title: `Best ${info.label} in Bangkok 2026 — ${db.total} Ranked by Real Reviews`,
-    description: `Find the best ${info.label.toLowerCase()} in Bangkok in 2026. ${db.total} venues ranked by Trust Score from real Google reviews — prices, tips, and Klook booking. No paid picks.`,
+    title: `Best ${info.label} in ${scope} 2026 — ${db.total} Ranked by Real Reviews`,
+    description: `Find the best ${info.label.toLowerCase()} in ${scope} in 2026. ${db.total} venues ranked by Trust Score from real Google reviews — prices, tips, and Klook booking. No paid picks.`,
     alternates: { canonical: `/activities/${niche}` },
     openGraph: {
-      title: `Best ${info.label} in Bangkok 2026 — Data-Driven Rankings`,
+      title: `Best ${info.label} in ${scope} 2026 — Data-Driven Rankings`,
       description: `${db.total} ${info.label.toLowerCase()} venues ranked by Trust Score from verified Google reviews. ${intro?.sub ?? "No paid picks."}`,
     },
     twitter: {
-      title: `Best ${info.label} in Bangkok 2026`,
+      title: `Best ${info.label} in ${scope} 2026`,
       description: `${db.total} venues ranked by real Google reviews — no influencer picks, no paid placements.`,
     },
   };
@@ -348,6 +350,7 @@ export default async function NichePage({
   ]);
 
   const top = topNichePlaces(db.places, 60);
+  const scope = cityScopeLabel(top);
   const klookMap = await buildKlookIndex(top.map((p) => p.id));
   const topReddit = community?.top_reddit?.slice(0, 4) ?? [];
   const topNaver = community?.top_naver?.slice(0, 3) ?? [];
@@ -368,7 +371,7 @@ export default async function NichePage({
             <span className="text-4xl">{info.icon}</span>
             <div>
               <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
-                {NICHE_INTRO[niche as NicheSlug]?.headline ?? `Best ${info.label} in Bangkok`}
+                {NICHE_INTRO[niche as NicheSlug]?.headline ?? `Best ${info.label} in ${scope}`}
               </h1>
               <p className="text-sm text-[var(--muted)] mt-1">
                 {NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} venues · ranked by real reviews`}
@@ -376,7 +379,7 @@ export default async function NichePage({
             </div>
           </div>
           <ShareButton
-            title={`Best ${info.label} in Bangkok`}
+            title={`Best ${info.label} in ${scope}`}
             text={`${db.total} venues ranked by real Google reviews — no paid picks`}
             url={pageUrl}
             kakao
@@ -406,7 +409,7 @@ export default async function NichePage({
       <div className="mb-4 text-sm">
         <span className="text-[var(--muted)]">Looking for a ranked article? </span>
         <a href={`/activities/${niche}/top-10`} className="text-orange-600 font-bold hover:underline">
-          See our Top 10 {info.label} in Bangkok →
+          See our Top 10 {info.label} in {scope} →
         </a>
       </div>
 
@@ -867,7 +870,7 @@ export default async function NichePage({
 
       {/* Structured data */}
       <NicheItemListJsonLd
-        name={`Best ${info.label} in Bangkok 2026`}
+        name={`Best ${info.label} in ${scope} 2026`}
         items={top.slice(0, 20).map((p) => ({
           name: p.name,
           slug: p.slug,
@@ -885,7 +888,7 @@ export default async function NichePage({
         { name: info.label, url: `/activities/${niche}` },
       ]} />
       <TouristAttractionJsonLd
-        name={`Best ${info.label} in Bangkok 2026`}
+        name={`Best ${info.label} in ${scope} 2026`}
         description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} ${info.label.toLowerCase()} venues ranked by real Google reviews.`}
         url={`/activities/${niche}`}
         items={top.slice(0, 10).map((p) => ({
@@ -897,8 +900,8 @@ export default async function NichePage({
         }))}
       />
       <ActivityServiceJsonLd
-        name={`${info.label} in Bangkok`}
-        description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} ${info.label.toLowerCase()} venues in Bangkok.`}
+        name={`${info.label} in ${scope}`}
+        description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} ${info.label.toLowerCase()} venues in ${scope}.`}
         url={`/activities/${niche}`}
         category={info.label}
         rating={top.length > 0 && top[0].rating ? top[0].rating : undefined}

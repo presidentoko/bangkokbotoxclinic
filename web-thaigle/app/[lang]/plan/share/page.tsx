@@ -5,8 +5,11 @@ import { CATEGORY_COLORS } from "@/lib/plan/store";
 export const dynamic = "force-dynamic";
 
 interface SharePageProps {
+  params: Promise<{ lang: string }>;
   searchParams: Promise<{ d?: string }>;
 }
+
+const SUPPORTED_LANGS = ["th", "en", "ko"];
 
 function parsePlanItems(d: string): PlanItem[] {
   try {
@@ -43,7 +46,9 @@ export async function generateMetadata({ searchParams }: SharePageProps): Promis
   };
 }
 
-export default async function SharePage({ searchParams }: SharePageProps) {
+export default async function SharePage({ params, searchParams }: SharePageProps) {
+  const { lang: rawLang } = await params;
+  const lang = SUPPORTED_LANGS.includes(rawLang) ? rawLang : "en";
   const { d } = await searchParams;
   const items: PlanItem[] = d ? parsePlanItems(d) : [];
 
@@ -84,7 +89,7 @@ export default async function SharePage({ searchParams }: SharePageProps) {
                   {item.category}
                 </span>
                 <div className="flex items-center justify-between gap-2">
-                  <a href={`/en/place/${item.slug}`} className="font-black text-sm hover:text-orange-700 truncate">
+                  <a href={`/${lang}/place/${item.slug}`} className="font-black text-sm hover:text-orange-700 truncate">
                     {item.name}
                   </a>
                   <span className="font-black text-sm shrink-0" style={{ color: scoreColor }}>

@@ -16,7 +16,16 @@ export function decodeWishlist(str: string): WishlistItem[] {
     if (!Array.isArray(data)) return [];
     return data.filter(
       (it): it is WishlistItem =>
-        !!it && typeof it === "object" && typeof it.id === "string" && typeof it.name === "string" && typeof it.url === "string"
+        !!it &&
+        typeof it === "object" &&
+        typeof it.id === "string" &&
+        typeof it.name === "string" &&
+        typeof it.url === "string" &&
+        // Only ever render same-origin paths here — a crafted share link
+        // could otherwise smuggle a javascript:/external href into a
+        // trusted-looking "a friend shared their wishlist" banner.
+        it.url.startsWith("/") &&
+        !it.url.startsWith("//")
     );
   } catch {
     return [];

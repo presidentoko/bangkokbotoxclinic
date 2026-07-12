@@ -21,6 +21,7 @@ type LinkResult = {
 function usePlanCount() {
   const [count, setCount] = useState(0);
   useEffect(() => {
+    setCount(plannerStore.getItemCount());
     const unsub = plannerStore.subscribe(() => setCount(plannerStore.getItemCount()));
     return unsub;
   }, []);

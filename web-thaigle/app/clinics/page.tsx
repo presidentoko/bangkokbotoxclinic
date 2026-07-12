@@ -16,7 +16,11 @@ export const metadata: Metadata = {
 
 export default async function ClinicsPage() {
   const db = await loadClinicDb();
-  const top = topClinicsByRating(db.clinics, 50);
+  // ~31% of the raw dataset (784/2,518) are addressed outside Bangkok
+  // (Nonthaburi, Samut Prakan, etc.) — this page is scoped to Bangkok, so
+  // rank and count from the Bangkok subset instead of the full dataset.
+  const bangkokClinics = db.clinics.filter((c) => /bangkok/i.test(c.address));
+  const top = topClinicsByRating(bangkokClinics, 50);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -28,7 +32,7 @@ export default async function ClinicsPage() {
           Best Aesthetic Clinics in Bangkok
         </h1>
         <p className="text-[var(--muted)] max-w-2xl">
-          {db.clinics.length.toLocaleString()} clinics ranked by Google review rating and volume.
+          {bangkokClinics.length.toLocaleString()} clinics ranked by Google review rating and volume.
           Botox, fillers, facials, skin care — verified from real patient reviews.
         </p>
       </div>

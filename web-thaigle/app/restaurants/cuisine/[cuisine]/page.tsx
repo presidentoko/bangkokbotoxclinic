@@ -119,6 +119,14 @@ import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
+// Cuisine lists span both Bangkok and Pattaya — label "Bangkok" only when
+// this cuisine's restaurants are actually Bangkok-majority.
+function cityScope(list: { city: string }[]): string {
+  if (list.length === 0) return "Bangkok";
+  const bangkokShare = list.filter((r) => r.city === "bangkok").length / list.length;
+  return bangkokShare >= 0.6 ? "Bangkok" : "Thailand";
+}
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -133,15 +141,16 @@ export async function generateMetadata(
   const label = CUISINE_LABELS[cuisine] ?? cuisine;
   const db = await loadMasterDb();
   const list = filterByCuisine(db.restaurants, cuisine);
+  const scope = cityScope(list);
   const totalReviews = list.reduce((s, r) => s + r.total_reviews, 0);
   const top = [...list].sort((a, b) => b.trust_score - a.trust_score)[0];
   const topSnippet = top ? ` Top-ranked: ${top.name} (★${top.rating}, Trust Score ${top.trust_score}).` : "";
   return {
-    title: `Best ${label} Restaurants in Bangkok 2026 — ${list.length} Ranked by Real Reviews`,
-    description: `${list.length} ${label.toLowerCase()} restaurants in Bangkok ranked by Trust Score from ${totalReviews.toLocaleString()} Google reviews.${topSnippet} No paid picks, updated 2026.`,
+    title: `Best ${label} Restaurants in ${scope} 2026 — ${list.length} Ranked by Real Reviews`,
+    description: `${list.length} ${label.toLowerCase()} restaurants in ${scope} ranked by Trust Score from ${totalReviews.toLocaleString()} Google reviews.${topSnippet} No paid picks, updated 2026.`,
     alternates: { canonical: `/restaurants/cuisine/${cuisine}` },
     openGraph: {
-      title: `Best ${label} Restaurants Bangkok 2026`,
+      title: `Best ${label} Restaurants ${scope} 2026`,
       description: `${list.length} ${label.toLowerCase()} restaurants ranked by real Google reviews — no influencer picks, no paid placements.`,
     },
   };
@@ -155,6 +164,7 @@ export default async function CuisineHub(
   const label = CUISINE_LABELS[cuisine] ?? cuisine;
   const list = filterByCuisine(db.restaurants, cuisine);
   if (list.length === 0) notFound();
+  const scope = cityScope(list);
   const sorted = [...list].sort((a, b) => b.trust_score - a.trust_score);
 
   const faqs = CUISINE_FAQS[cuisine] ?? [];
@@ -164,11 +174,11 @@ export default async function CuisineHub(
       <BreadcrumbJsonLd items={[
         { name: "Thaigle", url: "/" },
         { name: "Restaurants", url: "/restaurants" },
-        { name: `${label} Restaurants Bangkok`, url: `/restaurants/cuisine/${cuisine}` },
+        { name: `${label} Restaurants ${scope}`, url: `/restaurants/cuisine/${cuisine}` },
       ]} />
       <CollectionPageJsonLd
-        name={`Best ${label} Restaurants in Bangkok 2026`}
-        description={`${list.length} ${label.toLowerCase()} restaurants in Bangkok ranked by Trust Score from real Google reviews.`}
+        name={`Best ${label} Restaurants in ${scope} 2026`}
+        description={`${list.length} ${label.toLowerCase()} restaurants in ${scope} ranked by Trust Score from real Google reviews.`}
         url={`/restaurants/cuisine/${cuisine}`}
         items={sorted.slice(0, 20)}
         slugMap={slugMap}
@@ -185,10 +195,10 @@ export default async function CuisineHub(
         <div className="flex items-start justify-between gap-3 mb-2">
           <h1 className="text-3xl font-bold">
             {CUISINE_ICONS[cuisine] && <span className="mr-2">{CUISINE_ICONS[cuisine]}</span>}
-            Best {label} Restaurants in Bangkok (2026)
+            Best {label} Restaurants in {scope} (2026)
           </h1>
           <ShareButton
-            title={`Best ${label} Restaurants in Bangkok 2026`}
+            title={`Best ${label} Restaurants in ${scope} 2026`}
             text={`${sorted.length} ${label} restaurants ranked by real Google reviews`}
             url={`${SITE}/restaurants/cuisine/${cuisine}`}
             line
@@ -220,7 +230,7 @@ export default async function CuisineHub(
         </div>
         {faqs.length > 0 && (
           <section className="mt-6">
-            <h2 className="text-xl font-black mb-4">Frequently Asked About {label} Food in Bangkok</h2>
+            <h2 className="text-xl font-black mb-4">Frequently Asked About {label} Food in {scope}</h2>
             <div className="space-y-3">
               {faqs.map((f, i) => (
                 <details key={i} className="bg-white border border-[var(--border)] rounded-xl p-4 group">

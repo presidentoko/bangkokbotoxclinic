@@ -1,9 +1,20 @@
 "use client";
 
 import { useSyncExternalStore, useState } from "react";
+import { usePathname } from "next/navigation";
 import { plannerStore, CATEGORY_COLORS } from "@/lib/plan/store";
 import type { PlanItem, TravelSegment } from "@/lib/plan/store";
 import { trackShare } from "@/lib/track";
+
+const SUPPORTED_LANGS = ["th", "en", "ko"];
+
+// Reads the current /[lang]/... segment so place links + the share URL stay
+// in the visitor's language instead of always bouncing to /en/.
+function useCurrentLang(): string {
+  const pathname = usePathname();
+  const seg = pathname.split("/")[1];
+  return SUPPORTED_LANGS.includes(seg) ? seg : "en";
+}
 
 const TRAVEL_ICON: Record<string, string> = {
   bts: "🚇",
@@ -14,6 +25,7 @@ const TRAVEL_ICON: Record<string, string> = {
 };
 
 function SlotCard({ item, onRemove }: { item: PlanItem; onRemove: () => void }) {
+  const lang = useCurrentLang();
   const colors = CATEGORY_COLORS[item.category];
   const scoreColor = item.localsScore >= 80 ? "#0F6E56" : item.localsScore >= 65 ? "#B45309" : "#991B1B";
 
@@ -38,7 +50,7 @@ function SlotCard({ item, onRemove }: { item: PlanItem; onRemove: () => void }) 
         {/* Name + score */}
         <div className="flex items-center justify-between gap-2 mb-1">
           <a
-            href={`/en/place/${item.slug}`}
+            href={`/${lang}/place/${item.slug}`}
             className="font-black text-sm leading-tight hover:text-orange-700 transition truncate"
           >
             {item.name}
@@ -92,6 +104,7 @@ function EmptySlotHint() {
 }
 
 export function PlanTimeline() {
+  const lang = useCurrentLang();
   const plan = useSyncExternalStore(
     plannerStore.subscribe,
     plannerStore.getSnapshot,
@@ -109,7 +122,7 @@ export function PlanTimeline() {
     trackShare("line", "plan");
     const serialized = plannerStore.serialize();
     const encoded = btoa(unescape(encodeURIComponent(serialized)));
-    const url = `${window.location.origin}/en/plan/share?d=${encodeURIComponent(encoded)}`;
+    const url = `${window.location.origin}/${lang}/plan/share?d=${encodeURIComponent(encoded)}`;
     try {
       await navigator.share({ title: "My Bangkok Day Plan — Thaigle", url });
     } catch {

@@ -6,6 +6,7 @@ import {
   loadNicheDb,
   topNichePlaces,
   buildKlookIndex,
+  cityScopeLabel,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { BreadcrumbJsonLd, FaqJsonLd, NicheItemListJsonLd } from "@/components/JsonLd";
@@ -36,14 +37,15 @@ export async function generateMetadata({
   if (!info) return {};
   const db = await loadNicheDb(niche as NicheSlug);
   const top = topNichePlaces(db.places, 10);
+  const scope = cityScopeLabel(top);
   return {
-    title: `Top 10 ${info.label} in Bangkok (2026) — Ranked by Real Reviews`,
-    description: `The 10 best ${info.label.toLowerCase()} in Bangkok, ranked by Trust Score from real Google reviews. No paid placements. Prices, tips, and Klook booking.`,
+    title: `Top 10 ${info.label} in ${scope} (2026) — Ranked by Real Reviews`,
+    description: `The 10 best ${info.label.toLowerCase()} in ${scope}, ranked by Trust Score from real Google reviews. No paid placements. Prices, tips, and Klook booking.`,
     alternates: {
       canonical: `/activities/${niche}/top-10`,
     },
     openGraph: {
-      title: `Top 10 ${info.label} Bangkok 2026`,
+      title: `Top 10 ${info.label} ${scope} 2026`,
       description: `Ranked by ${top.length > 0 ? `${top[0].review_count?.toLocaleString() ?? "thousands of"} Google` : "real"} reviews. Trust Score method, no paid rankings.`,
     },
   };
@@ -63,6 +65,7 @@ export default async function NicheTop10Page({
 
   const db = await loadNicheDb(niche as NicheSlug);
   const top10 = topNichePlaces(db.places, 10);
+  const scope = cityScopeLabel(top10);
   const klookMap = await buildKlookIndex(top10.map((p) => p.id));
 
   const intro = NICHE_INTRO[niche as NicheSlug];
@@ -90,11 +93,11 @@ export default async function NicheTop10Page({
       </div>
       <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
         <h1 className="text-3xl md:text-4xl font-black tracking-tight text-balance">
-          Top 10 {info.label} in Bangkok
+          Top 10 {info.label} in {scope}
         </h1>
         <ShareButton
-          title={`Top 10 ${info.label} in Bangkok 2026`}
-          text={`Best ${info.label} in Bangkok — ranked by real Google reviews. No sponsored results.`}
+          title={`Top 10 ${info.label} in ${scope} 2026`}
+          text={`Best ${info.label} in ${scope} — ranked by real Google reviews. No sponsored results.`}
           url={`https://thaigle.com/activities/${niche}/top-10`}
           line whatsapp
         />
@@ -143,7 +146,7 @@ export default async function NicheTop10Page({
                     <div className="h-48 overflow-hidden bg-gray-100">
                       <CardImage
                         src={place.top_photo_url}
-                        alt={`${place.name} — #${i + 1} ${info.label} Bangkok`}
+                        alt={`${place.name} — #${i + 1} ${info.label} ${place.city}`}
                         className="w-full h-full object-cover"
                         fallbackIcon={info.icon}
                       />
@@ -221,7 +224,7 @@ export default async function NicheTop10Page({
       {/* FAQ section */}
       {faqs.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-xl font-black mb-4">FAQ — {info.label} in Bangkok</h2>
+          <h2 className="text-xl font-black mb-4">FAQ — {info.label} in {scope}</h2>
           <div className="space-y-3">
             {faqs.slice(0, 3).map((f, i) => (
               <details key={i} className="bg-white border border-[var(--border)] rounded-xl p-4 group">
@@ -276,7 +279,7 @@ export default async function NicheTop10Page({
       ]} />
       {faqs.length > 0 && <FaqJsonLd faqs={faqs.slice(0, 3)} />}
       <NicheItemListJsonLd
-        name={`Top 10 ${info.label} in Bangkok`}
+        name={`Top 10 ${info.label} in ${scope}`}
         items={top10.map((p, i) => ({
           name: p.name,
           slug: p.slug,

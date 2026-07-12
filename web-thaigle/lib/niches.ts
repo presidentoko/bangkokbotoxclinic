@@ -162,6 +162,17 @@ export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
     .slice(0, n);
 }
 
+// Several niches (spa, cooking, yoga-pilates) are majority non-Bangkok in
+// the actual ranked data — labeling those "in Bangkok" is both inaccurate
+// and gives up head-term SEO for Chiang Mai/Phuket/Pattaya searches.
+export function cityScopeLabel(places: NichePlace[]): string {
+  if (places.length === 0) return "Bangkok";
+  const counts = new Map<string, number>();
+  for (const p of places) counts.set(p.city, (counts.get(p.city) ?? 0) + 1);
+  const bangkokShare = (counts.get("Bangkok") ?? 0) / places.length;
+  return bangkokShare >= 0.6 ? "Bangkok" : "Thailand";
+}
+
 export function findBySlug(places: NichePlace[], slug: string): NichePlace | null {
   return places.find((p) => p.slug === slug) ?? null;
 }
