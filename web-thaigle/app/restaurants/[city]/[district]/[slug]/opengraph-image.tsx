@@ -8,6 +8,16 @@ export const alt = "Restaurant — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Satori's font-shaping engine can't handle every script's OpenType layout
+// features — e.g. Arabic names throw "lookupType: 5 - substFormat: 3 is not
+// yet supported" and hard-fail the whole export. ~1,174 of 3,269 restaurant
+// names use a non-Latin script (mostly Thai, plus Arabic/CJK/Korean/Hebrew),
+// so rather than allowlist scripts one crash at a time, only render the raw
+// name when it's ASCII and fall back to a safe generic title otherwise.
+function isAsciiSafe(s: string): boolean {
+  return /^[\x00-\x7F–—·…]*$/.test(s);
+}
+
 // Mirror the parent page's static params so this doesn't fall back to an
 // on-demand ImageResponse render (invocation + CPU) per social-crawler hit.
 export const dynamicParams = false;
@@ -42,6 +52,9 @@ export default async function RestaurantOG({ params }: { params: Promise<{ city:
   const trust = r.trust_score;
   const trustColor = trust >= 75 ? "#10b981" : trust >= 50 ? "#f59e0b" : "#737373";
   const where = [r.district, r.city_label].filter(Boolean).join(", ");
+  const displayName = isAsciiSafe(r.name)
+    ? r.name
+    : `${cuisines || "Restaurant"} in ${r.district || r.city_label || "Bangkok"}`;
 
   return new ImageResponse(
     (
@@ -80,7 +93,7 @@ export default async function RestaurantOG({ params }: { params: Promise<{ city:
               color: "#0a0a0a", maxWidth: 1040, display: "flex",
             }}
           >
-            {r.name.length > 60 ? r.name.slice(0, 58) + "…" : r.name}
+            {displayName.length > 60 ? displayName.slice(0, 58) + "…" : displayName}
           </div>
           {(where || cuisines) && (
             <div style={{ fontSize: 26, color: "#525252", display: "flex", gap: "10px" }}>
