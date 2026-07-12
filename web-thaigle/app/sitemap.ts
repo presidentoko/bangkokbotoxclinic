@@ -65,8 +65,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
+  // Matches the uncapped generateStaticParams() in activities/[niche]/[slug]
+  // — every place that clears topNichePlaces()'s quality gate gets a page,
+  // so the sitemap should list all of them, not just the first 80.
   const nicheDbs = await Promise.all(
-    NICHES.map(async (n) => ({ slug: n.slug, places: topNichePlaces((await loadNicheDb(n.slug as NicheSlug)).places, 80) }))
+    NICHES.map(async (n) => ({ slug: n.slug, places: topNichePlaces((await loadNicheDb(n.slug as NicheSlug)).places, Infinity) }))
   );
   items.push({
     url: `${SITE}/activities/first-time-bangkok`,

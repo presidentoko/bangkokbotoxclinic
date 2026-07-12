@@ -1,24 +1,29 @@
 // lib/search.ts
-// Client-safe place search using the places DB
+// Client-safe place search using a slim search index
 // NOTE: This is a simple prefix/fuzzy match — no external deps needed
 
-import { getAllPlaces } from "@/lib/places";
-import type { Place } from "@/lib/places";
+// This file is imported by client components (HomeSearch), so it must not
+// pull in lib/places.ts's full 4.25MB places-data.json (hero images, i18n
+// translations, receipts, etc.) — a search index only ever needs these 6
+// fields. See scripts/build-search-index.mjs for how this file is generated.
+import SEARCH_INDEX from "@/lib/places-search-index.json";
 
 export type SearchResult = {
   slug: string;
   name: string;
-  category: Place["category"];
+  category: "eat" | "train" | "treat" | "learn" | "relax";
   subtype: string;
   area: string;
   localsScore: number;
 };
 
+const PLACES = SEARCH_INDEX as SearchResult[];
+
 function normalize(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9฀-๿]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-function score(query: string, place: Place): number {
+function score(query: string, place: SearchResult): number {
   const q = normalize(query);
   const name = normalize(place.name);
   const area = normalize(place.area);
@@ -40,20 +45,12 @@ function score(query: string, place: Place): number {
 
 export function searchPlaces(query: string, limit = 5): SearchResult[] {
   if (!query.trim()) return [];
-  const places = getAllPlaces();
-  return places
+  return PLACES
     .map((p) => ({ place: p, score: score(query, p) }))
     .filter((r) => r.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-    .map(({ place }) => ({
-      slug: place.slug,
-      name: place.name,
-      category: place.category,
-      subtype: place.subtype,
-      area: place.area,
-      localsScore: place.localsScore,
-    }));
+    .map(({ place }) => place);
 }
 
 export function isUrl(input: string): boolean {

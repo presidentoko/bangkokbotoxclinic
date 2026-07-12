@@ -43,7 +43,10 @@ export async function generateStaticParams() {
   const params: { niche: string; slug: string }[] = [];
   for (const n of NICHES) {
     const db = await loadNicheDb(n.slug as NicheSlug);
-    const top = topNichePlaces(db.places, 80);
+    // No artificial cap — topNichePlaces() already gates on having a real
+    // rating + review count (or a trust_score fallback), so every place
+    // that clears the quality bar gets a page instead of just the top 80.
+    const top = topNichePlaces(db.places, Infinity);
     for (const p of top) {
       params.push({ niche: n.slug, slug: p.slug });
     }
