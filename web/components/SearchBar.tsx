@@ -1,6 +1,12 @@
+// ⚠️ AUTO-GENERATED from shared/components/SearchBar.tsx
+// DO NOT edit directly — edit shared/components/SearchBar.tsx, then run `python scripts/sync_shared.py`.
+
 "use client";
+// 클라이언트 검색 — entities (clinic / restaurant / course)에서 즉시 필터.
+// site별 차이는 props 로 흡수: hrefBase ("/clinic" | "/restaurant" | "/course"),
+// lang (en/ko/th), placeholder.
+
 import { useState, useMemo, useEffect, useRef } from "react";
-import Fuse from "fuse.js";
 
 export type SearchableEntity = {
   id: string;
@@ -23,11 +29,15 @@ export function SearchBar({
   hrefBase,
   placeholder,
   lang = "en",
+  noMatchesText,
+  resultsHeader,
 }: {
   entities: SearchableEntity[];
   hrefBase: string; // "/clinic" | "/restaurant" | "/course"
   placeholder?: string;
   lang?: Lang;
+  noMatchesText?: string;
+  resultsHeader?: string;
 }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
@@ -35,6 +45,7 @@ export function SearchBar({
 
   const copy = COPY[lang];
   const ph = placeholder ?? copy.defaultPlaceholder;
+  const noMatch = noMatchesText ?? copy.noMatches;
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -44,30 +55,18 @@ export function SearchBar({
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  const fuse = useMemo(
-    () =>
-      new Fuse(entities, {
-        keys: [
-          { name: "name", weight: 4 },
-          { name: "district", weight: 2 },
-          { name: "city_label", weight: 1.5 },
-        ],
-        threshold: 0.35,
-        includeScore: true,
-        ignoreLocation: true,
-        minMatchCharLength: 2,
-      }),
-    [entities]
-  );
-
   const results = useMemo(() => {
     if (q.trim().length < 2) return [];
-    return fuse
-      .search(q)
-      .slice(0, 10)
-      .sort((a, b) => (b.item.trust_score - a.item.trust_score))
-      .map((r) => r.item);
-  }, [q, fuse]);
+    const lower = q.toLowerCase();
+    return entities
+      .filter((e) =>
+        e.name.toLowerCase().includes(lower) ||
+        (e.district && e.district.toLowerCase().includes(lower)) ||
+        (e.city_label && e.city_label.toLowerCase().includes(lower))
+      )
+      .sort((a, b) => b.trust_score - a.trust_score)
+      .slice(0, 10);
+  }, [q, entities]);
 
   return (
     <div ref={ref} className="relative">
@@ -80,6 +79,11 @@ export function SearchBar({
       />
       {open && results.length > 0 && (
         <ul className="absolute top-full left-0 right-0 mt-1 bg-white border border-[var(--border)] rounded-xl shadow-lg overflow-hidden z-20 max-h-96 overflow-y-auto">
+          {resultsHeader && (
+            <li className="px-4 py-2 text-xs font-semibold text-[var(--muted)] bg-gray-50 border-b border-[var(--border)] uppercase tracking-wide">
+              {resultsHeader}
+            </li>
+          )}
           {results.map((r) => (
             <li key={r.id}>
               <a
@@ -104,7 +108,7 @@ export function SearchBar({
       )}
       {open && q.trim().length >= 2 && results.length === 0 && (
         <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[var(--border)] rounded-xl shadow-lg px-4 py-3 text-sm text-[var(--muted)] z-20">
-          {copy.noMatches}
+          {noMatch}
         </div>
       )}
     </div>

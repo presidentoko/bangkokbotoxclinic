@@ -46,6 +46,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   for (const s of HUB_SERVICES) {
     items.push({ url: `${SITE}/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
+    // 한국 의료관광 검색 타겟 (2026-07-13 신설). thin-content 방지 위해 EN과
+    // 동일 기준(scoped 카테고리에 5개 이상 클리닉)일 때만 제출.
+    if (scoped.filter((c) => c.categories.includes(s)).length >= 5) {
+      items.push({ url: `${SITE}/ko/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
+    }
   }
   for (const c of BEST_FOR) {
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });

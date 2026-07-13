@@ -1,13 +1,13 @@
 // ⚠️ AUTO-GENERATED from shared/lib/i18n.ts
 // DO NOT edit directly — edit shared/lib/i18n.ts, then run `python scripts/sync_shared.py`.
 
-// 다국어 지원 — EN (default) + TH.
+// 다국어 지원 — EN (default) + TH + KO.
 // 사용: const t = await loadStrings(lang); t.home.hero
-// 페이지 url 패턴: /en/* (default, 생략 가능) | /th/*
+// 페이지 url 패턴: /en/* (default, 생략 가능) | /th/* | /ko/*
 
-export type Lang = "en" | "th";
+export type Lang = "en" | "th" | "ko";
 
-export const LANGS: Lang[] = ["en", "th"];
+export const LANGS: Lang[] = ["en", "th", "ko"];
 
 type Strings = {
   nav: { all: string; byService: string; forClinics: string; about: string };
@@ -182,7 +182,82 @@ const TH: Strings = {
   },
 };
 
-const STRINGS: Record<Lang, Strings> = { en: EN, th: TH };
+const KO: Strings = {
+  nav: {
+    all: "전체 클리닉",
+    byService: "시술별",
+    forClinics: "클리닉 등록",
+    about: "소개",
+  },
+  home: {
+    heroSub: "개 클리닉 분석 · 실제 구글 리뷰 기반 신뢰도 점수. 지속 업데이트.",
+    featured: "이번 주 추천",
+    byService: "시술별",
+    byDistrict: "지역별",
+    topByTrust: "신뢰도 상위 {n}",
+    faq: "자주 묻는 질문",
+  },
+  card: {
+    trust: "신뢰도",
+    reviews: "리뷰",
+    open: "영업중",
+    trendingUp: "↗ 상승세",
+    declining: "↘ 하락세",
+    localGuides: "로컬 가이드",
+  },
+  clinic: {
+    realReviews: "실제 리뷰 발췌",
+    methodology: "신뢰도 점수 산정 방식",
+    similar: "비슷한 클리닉",
+    quickActions: "빠른 연락",
+    callClinic: "전화하기",
+    viewMaps: "구글맵에서 보기",
+    visitWebsite: "웹사이트 방문",
+    contactLine: "LINE으로 문의",
+    bookConsult: "상담 예약",
+    address: "주소",
+    phone: "전화번호",
+    website: "웹사이트",
+    timeline: "품질 추이",
+    topics: "리뷰어들이 가장 많이 언급하는 것",
+    services: "언급된 시술",
+    aiVerified: "AI 검증됨",
+    realRate: "실제 리뷰",
+    updated: "업데이트",
+    lastUpdated: "최종 업데이트",
+  },
+  booking: {
+    heading: "상담 예약하기",
+    headingClinic: "{name} 상담 예약",
+    sub: "무료, 예약 의무 없음. 24시간 내 확인 연락.",
+    steps: ["시술", "날짜", "연락처", "확인"],
+    selectService: "어떤 시술인가요?",
+    preferredDate: "희망 날짜",
+    timeSlot: "희망 시간대",
+    name: "이름",
+    email: "이메일",
+    phone: "전화 / LINE / WhatsApp",
+    notes: "메모",
+    optional: "(선택)",
+    back: "이전",
+    continue: "다음",
+    review: "확인 →",
+    confirm: "예약 요청",
+    sending: "전송 중...",
+    receivedTitle: "요청이 접수됐습니다",
+    receivedBody: "24시간 내로 확정 시간과 가격을 안내해드립니다.",
+    error: "전송 실패. 다시 시도하거나 직접 문의해주세요.",
+    timeSlots: ["오전 (9–12시)", "오후 (12–17시)", "저녁 (17–20시)", "시간 무관"],
+  },
+  footer: {
+    note: "독립적인 리뷰 집계 서비스입니다. 특정 클리닉과 제휴 관계가 없으며, 데이터는 공개된 Google Maps 정보를 기반으로 합니다.",
+    forClinics: "클리닉 등록 문의",
+    about: "소개",
+    contact: "문의",
+  },
+};
+
+const STRINGS: Record<Lang, Strings> = { en: EN, th: TH, ko: KO };
 
 export function tFor(lang: Lang) {
   return STRINGS[lang] ?? STRINGS.en;
@@ -190,13 +265,13 @@ export function tFor(lang: Lang) {
 
 export function langFromPath(pathname: string): Lang {
   if (pathname.startsWith("/th")) return "th";
+  if (pathname.startsWith("/ko")) return "ko";
   return "en";
 }
 
 export function altLangPath(pathname: string, target: Lang): string {
-  const stripped = pathname.replace(/^\/th(\/|$)/, "/");
-  if (target === "th") {
-    return stripped === "/" ? "/th" : `/th${stripped}`;
-  }
-  return stripped;
+  const stripped = pathname.replace(/^\/(th|ko)(\/|$)/, "/");
+  if (target === "en") return stripped;
+  const prefix = `/${target}`;
+  return stripped === "/" ? prefix : `${prefix}${stripped}`;
 }
