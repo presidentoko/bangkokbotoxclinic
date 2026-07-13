@@ -7,7 +7,15 @@ import { CategoryIcon } from "./CategoryIcon";
 import { loadPhotos } from "@/lib/photos";
 import { formatTrustScore } from "@/lib/utils";
 
-export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; accent?: string }) {
+type Lang = "en" | "ko" | "th";
+const COPY: Record<Lang, { pick: string; handPicked: string; trust: string; rating: string; reviews: string; viewDetails: string; site: string; bangkok: string }> = {
+  en: { pick: "Editor's Pick #1", handPicked: "Hand-picked by our editors", trust: "Trust", rating: "Rating", reviews: "Reviews", viewDetails: "View details", site: "🌐 Site", bangkok: "Bangkok" },
+  ko: { pick: "에디터 픽 #1", handPicked: "에디터가 직접 선정", trust: "신뢰도", rating: "평점", reviews: "리뷰", viewDetails: "상세 보기", site: "🌐 웹사이트", bangkok: "방콕" },
+  th: { pick: "ตัวเลือกบรรณาธิการ #1", handPicked: "คัดสรรโดยทีมบรรณาธิการ", trust: "ความน่าเชื่อถือ", rating: "คะแนน", reviews: "รีวิว", viewDetails: "ดูรายละเอียด", site: "🌐 เว็บไซต์", bangkok: "กรุงเทพ" },
+};
+
+export async function SpotlightCard({ c, accent = "#0f766e", lang = "en" }: { c: Clinic; accent?: string; lang?: Lang }) {
+  const t = COPY[lang] ?? COPY.en;
   const photoSet = await loadPhotos(c.id);
   const hero = photoSet?.photos?.[0];
 
@@ -32,7 +40,7 @@ export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; acce
           <div className="absolute left-5 top-5">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-900 shadow-lg backdrop-blur">
               <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: accent }} />
-              Editor&apos;s Pick #1
+              {t.pick}
             </span>
           </div>
         </a>
@@ -41,13 +49,13 @@ export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; acce
         <div className="flex flex-col justify-between p-7 sm:p-10">
           <div>
             <div className="text-xs font-bold uppercase tracking-widest" style={{ color: accent }}>
-              Hand-picked by our editors
+              {t.handPicked}
             </div>
             <h3 className="mt-3 text-3xl sm:text-4xl font-black leading-tight tracking-tight">
               {c.name}
             </h3>
             <p className="mt-2 text-sm text-[var(--muted)]">
-              {c.district || c.city_label || "Bangkok"}
+              {c.district || c.city_label || t.bangkok}
               {c.primary_type && <> · {c.primary_type}</>}
             </p>
           </div>
@@ -59,17 +67,17 @@ export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; acce
               }}>
                 {formatTrustScore(c.trust_score)}
               </div>
-              <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">Trust</div>
+              <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">{t.trust}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-black tabular-nums">
                 {c.rating.toFixed(1)}<span className="text-base font-medium text-[var(--muted)]">★</span>
               </div>
-              <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">Rating</div>
+              <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">{t.rating}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-black tabular-nums">{c.total_reviews.toLocaleString()}</div>
-              <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">Reviews</div>
+              <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">{t.reviews}</div>
             </div>
           </div>
 
@@ -90,7 +98,7 @@ export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; acce
               className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-white text-sm font-bold transition shadow-md hover:opacity-90"
               style={{ background: accent }}
             >
-              View details <span aria-hidden>→</span>
+              {t.viewDetails} <span aria-hidden>→</span>
             </a>
             {c.website && (
               <a
@@ -99,7 +107,7 @@ export async function SpotlightCard({ c, accent = "#0f766e" }: { c: Clinic; acce
                 rel="noopener noreferrer nofollow"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-[var(--border)] text-sm font-semibold hover:border-black transition"
               >
-                🌐 Site
+                {t.site}
               </a>
             )}
           </div>

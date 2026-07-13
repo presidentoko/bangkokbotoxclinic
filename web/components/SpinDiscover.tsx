@@ -16,13 +16,49 @@ type Mini = {
   photo?: string; // optional thumb url
 };
 
+type Lang = "en" | "ko" | "th";
+
+const COPY: Record<Lang, {
+  eyebrow: string; heading: string; sub: string; spinsSoFar: string;
+  spinningLabel: string; idlePrompt: string; pickedNow: string; reviews: string; trust: string;
+  spin: string; spinAgain: string; spinning: string; seeProfile: string; seenOf: string;
+}> = {
+  en: {
+    eyebrow: "🎰 Discover · don't scroll, spin", heading: "Pick me a clinic",
+    sub: "Random Top-50 reveal. Click again for another — no two spins repeat until you've seen them all.",
+    spinsSoFar: "spins so far", spinningLabel: "spinning...", idlePrompt: "Press the button and meet a clinic you might have missed.",
+    pickedNow: "✨ Picked just now", reviews: "reviews", trust: "Trust",
+    spin: "🎲 Spin", spinAgain: "🎲 Spin again", spinning: "Spinning...", seeProfile: "See full profile →",
+    seenOf: "spins — you've seen {n} of {total}.",
+  },
+  ko: {
+    eyebrow: "🎰 랜덤 발견 · 스크롤 대신 돌려보세요", heading: "클리닉 뽑기",
+    sub: "TOP 50 중 무작위 공개. 다시 클릭하면 다른 곳 — 다 볼 때까지 중복 없음.",
+    spinsSoFar: "회 돌림", spinningLabel: "돌아가는 중...", idlePrompt: "버튼을 눌러 놓쳤을 수도 있는 클리닉을 만나보세요.",
+    pickedNow: "✨ 방금 선택됨", reviews: "리뷰", trust: "신뢰도",
+    spin: "🎲 돌리기", spinAgain: "🎲 다시 돌리기", spinning: "돌아가는 중...", seeProfile: "전체 프로필 보기 →",
+    seenOf: "회 돌림 — {total}곳 중 {n}곳 확인.",
+  },
+  th: {
+    eyebrow: "🎰 ค้นพบ · หมุนแทนการเลื่อน", heading: "สุ่มคลินิกให้ฉัน",
+    sub: "สุ่มเปิดจาก TOP 50 กดอีกครั้งเพื่อดูอันใหม่ — ไม่ซ้ำจนกว่าจะเห็นครบทุกที่",
+    spinsSoFar: "ครั้งที่หมุนแล้ว", spinningLabel: "กำลังหมุน...", idlePrompt: "กดปุ่มเพื่อพบคลินิกที่คุณอาจพลาดไป",
+    pickedNow: "✨ เพิ่งถูกเลือก", reviews: "รีวิว", trust: "ความน่าเชื่อถือ",
+    spin: "🎲 หมุน", spinAgain: "🎲 หมุนอีกครั้ง", spinning: "กำลังหมุน...", seeProfile: "ดูโปรไฟล์เต็ม →",
+    seenOf: "ครั้ง — คุณเห็นแล้ว {n} จาก {total}",
+  },
+};
+
 export function SpinDiscover({
   pool,
   accent = "#2563eb",
+  lang = "en",
 }: {
   pool: Mini[];
   accent?: string;
+  lang?: Lang;
 }) {
+  const t = COPY[lang] ?? COPY.en;
   const [phase, setPhase] = useState<"idle" | "spinning" | "revealed">("idle");
   const [current, setCurrent] = useState<Mini | null>(null);
   const [tick, setTick] = useState(0);
@@ -79,13 +115,13 @@ export function SpinDiscover({
         <div className="relative flex items-baseline justify-between gap-3 flex-wrap mb-4">
           <div>
             <div className="text-[11px] uppercase tracking-widest font-bold mb-1" style={{ color: accent }}>
-              🎰 Discover · don&apos;t scroll, spin
+              {t.eyebrow}
             </div>
             <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-              Pick me a clinic
+              {t.heading}
             </h2>
             <p className="text-xs text-[var(--muted)] mt-1">
-              Random Top-50 reveal. Click again for another — no two spins repeat until you&apos;ve seen them all.
+              {t.sub}
             </p>
           </div>
           {revealedCount > 0 && (
@@ -93,7 +129,7 @@ export function SpinDiscover({
               <div className="text-2xl font-black tabular-nums" style={{ color: accent }}>
                 {revealedCount}
               </div>
-              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">spins so far</div>
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">{t.spinsSoFar}</div>
             </div>
           )}
         </div>
@@ -103,13 +139,13 @@ export function SpinDiscover({
           {phase === "idle" && !current && (
             <div className="bg-white rounded-xl border border-dashed border-[var(--border)] p-8 flex flex-col items-center gap-3 text-center">
               <div className="text-4xl">🎰</div>
-              <p className="text-sm text-[var(--muted)]">Press the button and meet a clinic you might have missed.</p>
+              <p className="text-sm text-[var(--muted)]">{t.idlePrompt}</p>
             </div>
           )}
 
           {phase === "spinning" && (
             <div className="bg-white rounded-xl border border-[var(--border)] p-5 md:p-6 shadow-sm">
-              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold mb-1">spinning...</div>
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold mb-1">{t.spinningLabel}</div>
               <div className="text-base md:text-xl font-bold truncate transition-all" style={{ color: accent }} title={tickerName}>
                 {tickerName || "—"}
               </div>
@@ -144,7 +180,7 @@ export function SpinDiscover({
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="text-[10px] uppercase tracking-widest font-bold" style={{ color: accent }}>
-                    ✨ Picked just now
+                    {t.pickedNow}
                   </div>
                   <h3 className="font-bold text-base md:text-lg leading-tight mt-1 mb-1 group-hover:opacity-80 transition line-clamp-2">
                     {current.name}
@@ -154,14 +190,14 @@ export function SpinDiscover({
                     <span>·</span>
                     <span className="text-yellow-700 font-bold whitespace-nowrap">★ {current.rating.toFixed(1)}</span>
                     <span>·</span>
-                    <span className="whitespace-nowrap">{current.total_reviews.toLocaleString()} reviews</span>
+                    <span className="whitespace-nowrap">{current.total_reviews.toLocaleString()} {t.reviews}</span>
                   </div>
                   <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold"
                        style={{
                          background: current.trust_score >= 75 ? "#dcfce7" : current.trust_score >= 60 ? "#fef9c3" : "#fee2e2",
                          color: current.trust_score >= 75 ? "#15803d" : current.trust_score >= 60 ? "#a16207" : "#b91c1c"
                        }}>
-                    Trust {formatTrustScore(current.trust_score)}
+                    {t.trust} {formatTrustScore(current.trust_score)}
                   </div>
                 </div>
               </div>
@@ -178,7 +214,7 @@ export function SpinDiscover({
             className="px-7 py-3 rounded-full text-white text-sm font-black uppercase tracking-widest shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
             style={{ background: accent }}
           >
-            {phase === "spinning" ? "Spinning..." : current ? "🎲 Spin again" : "🎲 Spin"}
+            {phase === "spinning" ? t.spinning : current ? t.spinAgain : t.spin}
           </button>
           {current && (
             <a
@@ -186,14 +222,16 @@ export function SpinDiscover({
               className="text-sm font-bold hover:underline"
               style={{ color: accent }}
             >
-              See full profile →
+              {t.seeProfile}
             </a>
           )}
         </div>
 
         {revealedCount >= 5 && (
           <p className="relative text-[10px] text-center text-[var(--muted)] mt-4">
-            🔥 {revealedCount} spins — you&apos;ve seen {Math.min(revealedCount, pool.length)} of {pool.length}.
+            🔥 {revealedCount} {t.seenOf
+              .replace("{n}", String(Math.min(revealedCount, pool.length)))
+              .replace("{total}", String(pool.length))}
           </p>
         )}
       </div>

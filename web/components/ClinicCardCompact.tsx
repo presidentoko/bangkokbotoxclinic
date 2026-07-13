@@ -5,30 +5,66 @@ import type { Clinic } from "@/lib/types";
 import { sponsoredTier } from "@/lib/sponsored";
 import { formatTrustScore } from "@/lib/utils";
 
-const POSITIVE_TOPICS: Record<string, { label: string; emoji: string }> = {
-  english_speaking:   { label: "English",     emoji: "🇬🇧" },
-  korean_doctor:      { label: "Korean Dr",   emoji: "🇰🇷" },
-  genuine_brand:      { label: "Genuine",     emoji: "🛡" },
-  clean_facility:     { label: "Clean",       emoji: "✨" },
-  friendly_staff:     { label: "Friendly",    emoji: "😊" },
-  no_pain:            { label: "Gentle",      emoji: "🌿" },
-  affordable:         { label: "Affordable",  emoji: "💰" },
-  premium:            { label: "Premium",     emoji: "✦" },
-  results_satisfied:  { label: "Results",     emoji: "✓" },
-  recommend:          { label: "Recommended", emoji: "👍" },
+type Lang = "en" | "ko" | "th";
+
+const POSITIVE_TOPICS: Record<Lang, Record<string, { label: string; emoji: string }>> = {
+  en: {
+    english_speaking:   { label: "English",     emoji: "🇬🇧" },
+    korean_doctor:      { label: "Korean Dr",   emoji: "🇰🇷" },
+    genuine_brand:      { label: "Genuine",     emoji: "🛡" },
+    clean_facility:     { label: "Clean",       emoji: "✨" },
+    friendly_staff:     { label: "Friendly",    emoji: "😊" },
+    no_pain:            { label: "Gentle",      emoji: "🌿" },
+    affordable:         { label: "Affordable",  emoji: "💰" },
+    premium:            { label: "Premium",     emoji: "✦" },
+    results_satisfied:  { label: "Results",     emoji: "✓" },
+    recommend:          { label: "Recommended", emoji: "👍" },
+  },
+  ko: {
+    english_speaking:   { label: "영어가능",  emoji: "🇬🇧" },
+    korean_doctor:      { label: "한국인 의사", emoji: "🇰🇷" },
+    genuine_brand:      { label: "정품",      emoji: "🛡" },
+    clean_facility:     { label: "청결",      emoji: "✨" },
+    friendly_staff:     { label: "친절",      emoji: "😊" },
+    no_pain:            { label: "안 아픔",   emoji: "🌿" },
+    affordable:         { label: "가성비",    emoji: "💰" },
+    premium:            { label: "프리미엄",  emoji: "✦" },
+    results_satisfied:  { label: "만족스러운 결과", emoji: "✓" },
+    recommend:          { label: "추천",      emoji: "👍" },
+  },
+  th: {
+    english_speaking:   { label: "พูดอังกฤษ", emoji: "🇬🇧" },
+    korean_doctor:      { label: "หมอเกาหลี", emoji: "🇰🇷" },
+    genuine_brand:      { label: "ของแท้",    emoji: "🛡" },
+    clean_facility:     { label: "สะอาด",     emoji: "✨" },
+    friendly_staff:     { label: "เป็นกันเอง", emoji: "😊" },
+    no_pain:            { label: "ไม่เจ็บ",   emoji: "🌿" },
+    affordable:         { label: "ราคาคุ้มค่า", emoji: "💰" },
+    premium:            { label: "พรีเมียม",  emoji: "✦" },
+    results_satisfied:  { label: "ผลลัพธ์ดี", emoji: "✓" },
+    recommend:          { label: "แนะนำ",     emoji: "👍" },
+  },
 };
 
-function topHighlight(clinic: Clinic): { label: string; emoji: string } | null {
+function topHighlight(clinic: Clinic, lang: Lang): { label: string; emoji: string } | null {
+  const topics = POSITIVE_TOPICS[lang] ?? POSITIVE_TOPICS.en;
   for (const t of clinic.mentioned_topics ?? []) {
-    const meta = POSITIVE_TOPICS[t.topic];
+    const meta = topics[t.topic];
     if (meta) return meta;
   }
   return null;
 }
 
-export async function ClinicCardCompact({ clinic, rank }: { clinic: Clinic; rank: number }) {
+const COPY: Record<Lang, { open: string; trust: string }> = {
+  en: { open: "Open", trust: "Trust" },
+  ko: { open: "영업중", trust: "신뢰도" },
+  th: { open: "เปิด", trust: "ความน่าเชื่อถือ" },
+};
+
+export async function ClinicCardCompact({ clinic, rank, lang = "en" }: { clinic: Clinic; rank: number; lang?: Lang }) {
+  const t = COPY[lang] ?? COPY.en;
   const tier = await sponsoredTier(clinic.id);
-  const highlight = topHighlight(clinic);
+  const highlight = topHighlight(clinic, lang);
   const trustColor =
     clinic.trust_score >= 80 ? "#059669" :
     clinic.trust_score >= 65 ? "#2563eb" :
@@ -68,7 +104,7 @@ export async function ClinicCardCompact({ clinic, rank }: { clinic: Clinic; rank
           {clinic.business_status === "Open" && (
             <span className="text-green-700 flex items-center gap-1">
               <span className="w-1 h-1 rounded-full bg-green-500" />
-              Open
+              {t.open}
             </span>
           )}
           {highlight && (
@@ -90,7 +126,7 @@ export async function ClinicCardCompact({ clinic, rank }: { clinic: Clinic; rank
           <div className="text-base font-black tabular-nums leading-none" style={{ color: trustColor }}>
             {formatTrustScore(clinic.trust_score)}
           </div>
-          <div className="text-[10px] text-[var(--muted)] uppercase tracking-widest mt-0.5">Trust</div>
+          <div className="text-[10px] text-[var(--muted)] uppercase tracking-widest mt-0.5">{t.trust}</div>
         </div>
         <span className="text-[var(--muted)] group-hover:text-[var(--fg)] transition text-lg hidden sm:inline">→</span>
       </div>

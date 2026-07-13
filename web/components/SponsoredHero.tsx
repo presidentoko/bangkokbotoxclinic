@@ -6,7 +6,15 @@ import { CategoryIcon } from "./CategoryIcon";
 import { sponsoredTier, SPONSORED_BADGE } from "@/lib/sponsored";
 import { formatTrustScore } from "@/lib/utils";
 
-export async function SponsoredHero({ c }: { c: Clinic }) {
+type Lang = "en" | "ko" | "th";
+const COPY: Record<Lang, { editorsPick: string; recommended: string; featured: string; trust: string; reviews: string; viewDetails: string; maps: string; site: string; bangkok: string }> = {
+  en: { editorsPick: "Hand-picked by our editors", recommended: "Recommended by us", featured: "Featured this week", trust: "Trust", reviews: "reviews", viewDetails: "View details", maps: "📍 Maps", site: "🌐 Site", bangkok: "Bangkok" },
+  ko: { editorsPick: "에디터가 직접 선정", recommended: "저희가 추천", featured: "이번 주 추천", trust: "신뢰도", reviews: "리뷰", viewDetails: "상세 보기", maps: "📍 지도", site: "🌐 웹사이트", bangkok: "방콕" },
+  th: { editorsPick: "คัดสรรโดยทีมบรรณาธิการ", recommended: "แนะนำโดยเรา", featured: "แนะนำสัปดาห์นี้", trust: "ความน่าเชื่อถือ", reviews: "รีวิว", viewDetails: "ดูรายละเอียด", maps: "📍 แผนที่", site: "🌐 เว็บไซต์", bangkok: "กรุงเทพ" },
+};
+
+export async function SponsoredHero({ c, lang = "en" }: { c: Clinic; lang?: Lang }) {
+  const t = COPY[lang] ?? COPY.en;
   const tier = await sponsoredTier(c.id);
   if (!tier) return null;
   const cfg = SPONSORED_BADGE[tier];
@@ -48,15 +56,15 @@ export async function SponsoredHero({ c }: { c: Clinic }) {
 
           <div className="p-6 md:p-8">
             <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-2">
-              {tier === "editors_pick" ? "Hand-picked by our editors" :
-               tier === "recommended" ? "Recommended by us" :
-               "Featured this week"}
+              {tier === "editors_pick" ? t.editorsPick :
+               tier === "recommended" ? t.recommended :
+               t.featured}
             </div>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight mb-2">
               {c.name}
             </h2>
             <p className="text-sm text-[var(--muted)] mb-4">
-              {c.district || "Bangkok"}
+              {c.district || t.bangkok}
               {c.primary_type && <> · {c.primary_type}</>}
             </p>
 
@@ -67,11 +75,11 @@ export async function SponsoredHero({ c }: { c: Clinic }) {
                 }}>
                   {formatTrustScore(c.trust_score)}
                 </div>
-                <div className="text-[10px] uppercase text-[var(--muted)] tracking-wider">Trust</div>
+                <div className="text-[10px] uppercase text-[var(--muted)] tracking-wider">{t.trust}</div>
               </div>
               <div className="text-yellow-700">
                 <div className="text-xl font-bold">★ {c.rating.toFixed(1)}</div>
-                <div className="text-[10px] text-[var(--muted)]">{c.total_reviews.toLocaleString()} reviews</div>
+                <div className="text-[10px] text-[var(--muted)]">{c.total_reviews.toLocaleString()} {t.reviews}</div>
               </div>
             </div>
 
@@ -91,7 +99,7 @@ export async function SponsoredHero({ c }: { c: Clinic }) {
                 href={`/clinic/${c.id}`}
                 className={`inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-white text-sm font-bold ${styles.badgeBg} hover:opacity-90 transition shadow-md`}
               >
-                View details
+                {t.viewDetails}
                 <span aria-hidden>→</span>
               </a>
               <a
@@ -100,7 +108,7 @@ export async function SponsoredHero({ c }: { c: Clinic }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-[var(--border)] text-sm font-semibold hover:border-black transition"
               >
-                📍 Maps
+                {t.maps}
               </a>
               {c.website && (
                 <a
@@ -109,7 +117,7 @@ export async function SponsoredHero({ c }: { c: Clinic }) {
                   rel="noopener noreferrer nofollow"
                   className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-[var(--border)] text-sm font-semibold hover:border-black transition"
                 >
-                  🌐 Site
+                  {t.site}
                 </a>
               )}
             </div>

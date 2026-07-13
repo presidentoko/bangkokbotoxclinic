@@ -33,7 +33,55 @@ import {
 
 export const revalidate = 86400; // ISR 24h — sponsored 변경은 admin API revalidatePath()로 즉시 반영. Hobby ISR Writes 한도 절약.
 
-export default async function HomePage() {
+type HomeLang = "en" | "ko" | "th";
+
+// 2026-07-13: TH/KO 홈이 EN과 완전히 다른(섹션 5개 vs 20개) 별도 구현이라 콘텐츠
+// 격차가 컸음 — 같은 HomePage 컴포넌트를 lang prop으로 재사용해 구조(섹션 전체)는
+// 통일하고, 헤딩/라벨만 번역. 시술별 매니페스토 본문·가이드 카드 설명 등 긴 focus별
+// 텍스트는 아직 EN — 후속 작업.
+const HOME_T: Record<HomeLang, Record<string, string>> = {
+  en: {
+    verifiedBadge: "Verified · Independent · No sponsorship in rankings",
+    ctaTop6: "See top 6 by Trust Score", ctaMatch: "Get matched (free)", visitorsFrom: "Visitors from",
+    statClinics: "Clinics verified", statReviews: "Cross-source reviews", statDeep: "Deep-analyzed",
+    top6: "Top 6 by Trust Score", seeFullRanking: "See full ranking →", rank: "Rank #", trust: "Trust", reviews: "reviews",
+    realPatients: "What real patients say", fromVerified: "From verified Google reviews",
+    byCity: "By City", byService: "By Service",
+    compareTop: "Compare top clinics", sideBySide: "Side-by-side Trust Score analysis",
+    editorsGuides: "Editor's guides", guidesSub: "Pricing reality, brand verification, what packages cover.", allGuides: "All guides →",
+    topN: "Top {n} by Trust Score", runnerUp: "#11 – #{n} · runner-up rankings", sameDepth: "Same data depth, lighter view",
+    faq: "Frequently asked",
+  },
+  ko: {
+    verifiedBadge: "검증됨 · 독립 운영 · 순위에 광고비 영향 없음",
+    ctaTop6: "신뢰도 TOP 6 보기", ctaMatch: "무료 매칭 받기", visitorsFrom: "방문자 출신국",
+    statClinics: "검증된 클리닉", statReviews: "통합 리뷰 수", statDeep: "심층 분석 완료",
+    top6: "신뢰도 TOP 6", seeFullRanking: "전체 순위 보기 →", rank: "순위 #", trust: "신뢰도", reviews: "리뷰",
+    realPatients: "실제 환자들의 후기", fromVerified: "검증된 Google 리뷰 기준",
+    byCity: "도시별", byService: "시술별",
+    compareTop: "상위 클리닉 비교", sideBySide: "신뢰도 점수 나란히 비교",
+    editorsGuides: "에디터 가이드", guidesSub: "실제 가격, 브랜드 검증, 패키지에 포함된 것.", allGuides: "전체 가이드 →",
+    topN: "신뢰도 TOP {n}", runnerUp: "#11 – #{n} · 차순위 클리닉", sameDepth: "데이터는 동일, 가벼운 뷰",
+    faq: "자주 묻는 질문",
+  },
+  th: {
+    verifiedBadge: "ตรวจสอบแล้ว · เป็นอิสระ · อันดับไม่ได้รับอิทธิพลจากโฆษณา",
+    ctaTop6: "ดู TOP 6 ตามคะแนนความน่าเชื่อถือ", ctaMatch: "จับคู่ฟรี", visitorsFrom: "ผู้เข้าชมจาก",
+    statClinics: "คลินิกที่ตรวจสอบแล้ว", statReviews: "รีวิวรวมทุกแหล่ง", statDeep: "วิเคราะห์เชิงลึก",
+    top6: "TOP 6 ตามคะแนนความน่าเชื่อถือ", seeFullRanking: "ดูอันดับทั้งหมด →", rank: "อันดับ #", trust: "ความน่าเชื่อถือ", reviews: "รีวิว",
+    realPatients: "เสียงจริงจากผู้ป่วยจริง", fromVerified: "จากรีวิว Google ที่ยืนยันแล้ว",
+    byCity: "ตามเมือง", byService: "ตามบริการ",
+    compareTop: "เปรียบเทียบคลินิกยอดนิยม", sideBySide: "เทียบคะแนนความน่าเชื่อถือแบบเคียงข้าง",
+    editorsGuides: "คู่มือจากบรรณาธิการ", guidesSub: "ราคาจริง การตรวจสอบแบรนด์ สิ่งที่รวมอยู่ในแพ็กเกจ", allGuides: "คู่มือทั้งหมด →",
+    topN: "TOP {n} ตามคะแนนความน่าเชื่อถือ", runnerUp: "#11 – #{n} · อันดับรองลงมา", sameDepth: "ข้อมูลเดียวกัน มุมมองที่เบากว่า",
+    faq: "คำถามที่พบบ่อย",
+  },
+};
+
+export default async function HomePage(
+  { lang = "en", faqs: faqsOverride }: { lang?: HomeLang; faqs?: { q: string; a: string }[] } = {}
+) {
+  const t = HOME_T[lang] ?? HOME_T.en;
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
@@ -102,9 +150,9 @@ export default async function HomePage() {
     .filter(([cat]) => !allowedCats || allowedCats.has(cat))
     .sort((a, b) => b[1] - a[1]);
 
-  const homeFaqs = cfg.focus !== "all" && CATEGORY_FAQS[cfg.focus]
+  const homeFaqs = faqsOverride ?? (cfg.focus !== "all" && CATEGORY_FAQS[cfg.focus]
     ? [...CATEGORY_FAQS[cfg.focus], ...HOME_FAQS]
-    : HOME_FAQS;
+    : HOME_FAQS);
 
   const popularSearches = [
     ...(cfg.focus !== "all"
@@ -158,11 +206,17 @@ export default async function HomePage() {
               style={{ background: `${accent}15`, color: accent }}
             >
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent }} />
-              Verified · Independent · No sponsorship in rankings
+              {t.verifiedBadge}
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
-            {cfg.focus === "all" ? (
+            {lang === "ko" ? (
+              cfg.focus === "dental" ? (<>진료 전에<br /><span style={{ color: accent }}>먼저 확인하세요.</span></>)
+              : (<>시술 전에<br /><span style={{ color: accent }}>먼저 확인하세요.</span></>)
+            ) : lang === "th" ? (
+              cfg.focus === "dental" ? (<>ตรวจสอบก่อน<br /><span style={{ color: accent }}>ยิ้มอย่างมั่นใจ</span></>)
+              : (<>ตรวจสอบก่อน<br /><span style={{ color: accent }}>ตัดสินใจทำ</span></>)
+            ) : cfg.focus === "all" ? (
               <>Verify before<br /><span style={{ color: accent }}>you book.</span></>
             ) : cfg.focus === "botox" || cfg.focus === "filler" ? (
               <>Verify before<br /><span style={{ color: accent }}>you inject.</span></>
@@ -175,12 +229,35 @@ export default async function HomePage() {
             )}
           </h1>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
-            <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked across{" "}
-            <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} —{" "}
-            <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> deep-analyzed for credibility.
+            {lang === "ko" ? (
+              <>
+                <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span>개 {focusLabel} 클리닉을{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span>개 리뷰(Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip, Reddit" : ""} 등)로 순위화 —{" "}
+                <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span>곳은 신뢰도 심층 분석 완료.
+              </>
+            ) : lang === "th" ? (
+              <>
+                จัดอันดับคลินิก{focusLabel} <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> แห่ง จาก{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> รีวิวรวมจาก Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip และ Reddit" : ""} —{" "}
+                วิเคราะห์เชิงลึกแล้ว <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> แห่ง
+              </>
+            ) : (
+              <>
+                <span className="font-bold text-[var(--fg)]">{focused.length.toLocaleString()}</span> {focusLabel} clinics ranked across{" "}
+                <span className="font-bold text-[var(--fg)]">{totalReviews.toLocaleString()}</span> reviews aggregated from Google Maps, HDmall, Wongnai{cfg.focus === "hair" ? ", Bookimed, Pantip and Reddit" : " and other Thai platforms"} —{" "}
+                <span className="font-bold text-[var(--fg)]">{withScraped.toLocaleString()}</span> deep-analyzed for credibility.
+              </>
+            )}
           </p>
 
-          <HeroSearch entities={searchIndex} hrefBase="/clinic" popularSearches={popularSearches} searchPlaceholder="Search clinic name or district..." />
+          <HeroSearch
+            entities={searchIndex}
+            hrefBase="/clinic"
+            popularSearches={popularSearches}
+            popularLabel={lang === "ko" ? "인기 검색" : lang === "th" ? "ยอดนิยม" : "Popular"}
+            searchPlaceholder={lang === "ko" ? "클리닉명 또는 지역 검색..." : lang === "th" ? "ค้นหาชื่อคลินิกหรือเขต..." : "Search clinic name or district..."}
+            searchLang={lang}
+          />
 
           {/* Dual CTA — 모바일 stacked, 데스크탑 horizontal */}
           <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 max-w-sm sm:max-w-none mx-auto">
@@ -189,19 +266,19 @@ export default async function HomePage() {
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-white text-sm font-bold shadow-md hover:shadow-lg active:scale-95 sm:hover:scale-105 transition-transform"
               style={{ background: accent }}
             >
-              See top 6 by Trust Score <span aria-hidden>↓</span>
+              {t.ctaTop6} <span aria-hidden>↓</span>
             </a>
             <a
               href="#booking"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white border border-[var(--border)] text-[var(--fg)] text-sm font-bold hover:border-black transition-colors"
             >
-              Get matched (free)
+              {t.ctaMatch}
             </a>
           </div>
 
           {/* Visitors-from strip — medical-tourism signal */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-xs text-[var(--muted)]">
-            <span className="font-semibold uppercase tracking-wider text-[10px]">Visitors from</span>
+            <span className="font-semibold uppercase tracking-wider text-[10px]">{t.visitorsFrom}</span>
             <span className="text-base">🇰🇷</span>
             <span className="text-base">🇸🇦</span>
             <span className="text-base">🇦🇪</span>
@@ -225,68 +302,102 @@ export default async function HomePage() {
         style={{ background: `linear-gradient(90deg, ${accent} 0%, ${accent}dd 50%, ${accent} 100%)` }}
       >
         <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-3 gap-4 text-center">
-          <Stat big={focused.length.toLocaleString()} label="Clinics verified" />
-          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label="Cross-source reviews" />
-          <Stat big={withScraped.toLocaleString()} label="Deep-analyzed" />
+          <Stat big={focused.length.toLocaleString()} label={t.statClinics} />
+          <Stat big={`${(totalReviews / 1000).toFixed(0)}K`} label={t.statReviews} />
+          <Stat big={withScraped.toLocaleString()} label={t.statDeep} />
         </div>
       </section>
 
       {/* Multi-source visualization — clearly communicate aggregation site */}
-      <SourcesStrip focus={cfg.focus} accent={accent} />
+      <SourcesStrip focus={cfg.focus} accent={accent} lang={lang} />
 
       {/* Why us vs them — focus-aware differentiation */}
       <ScrollReveal className="max-w-5xl mx-auto px-4 pt-10">
-        <WhyUs focus={cfg.focus} />
+        <WhyUs focus={cfg.focus} lang={lang} />
       </ScrollReveal>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
-        {heroClinic ? <SponsoredHero c={heroClinic} /> : top[0] ? <SpotlightCard c={top[0]} accent={accent} /> : null}
+        {heroClinic ? <SponsoredHero c={heroClinic} lang={lang} /> : top[0] ? <SpotlightCard c={top[0]} accent={accent} lang={lang} /> : null}
 
         {/* Ad slot — hero 직하 leaderboard */}
-        <AdPlaceholder variant="banner" label="Sponsored" hint="Top placement for premium clinics & partners" />
+        <AdPlaceholder
+          variant="banner"
+          lang={lang}
+          hint={lang === "ko" ? "프리미엄 클리닉 & 파트너 상단 노출" : lang === "th" ? "ตำแหน่งบนสุดสำหรับคลินิกพรีเมียมและพาร์ตเนอร์" : "Top placement for premium clinics & partners"}
+        />
 
         {/* MANIFESTO — site-aware trust signals */}
         <section className="mb-12 grid md:grid-cols-3 gap-4">
           <Manifesto
             icon="🛡️"
-            title="Multi-source verified"
-            body={cfg.focus === "hair"
-              ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — we cross-reference 7+ platforms so a single fake-review wave can't lift any clinic's rank."
-              : "Google Maps + HDmall + Wongnai + partner platforms — we cross-reference multiple sources so a single fake-review wave can't lift any clinic's rank."}
+            title={lang === "ko" ? "다중 출처 검증" : lang === "th" ? "ตรวจสอบจากหลายแหล่ง" : "Multi-source verified"}
+            body={lang === "ko" ? (
+              cfg.focus === "hair"
+                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — 7개 이상 플랫폼을 교차 검증해서 가짜 리뷰 한 파도로 순위가 올라가지 못하게 합니다."
+                : "Google Maps + HDmall + Wongnai + 파트너 플랫폼 — 여러 출처를 교차 검증해서 가짜 리뷰 한 파도로 순위가 올라가지 못하게 합니다."
+            ) : lang === "th" ? (
+              cfg.focus === "hair"
+                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — เราตรวจสอบข้ามแพลตฟอร์ม 7+ แห่ง เพื่อไม่ให้รีวิวปลอมชุดเดียวดันอันดับคลินิกได้"
+                : "Google Maps + HDmall + Wongnai + แพลตฟอร์มพาร์ตเนอร์ — เราตรวจสอบข้ามหลายแหล่ง เพื่อไม่ให้รีวิวปลอมชุดเดียวดันอันดับคลินิกได้"
+            ) : (
+              cfg.focus === "hair"
+                ? "Google Maps + HDmall + Bookimed + Pantip + Reddit + Naver — we cross-reference 7+ platforms so a single fake-review wave can't lift any clinic's rank."
+                : "Google Maps + HDmall + Wongnai + partner platforms — we cross-reference multiple sources so a single fake-review wave can't lift any clinic's rank."
+            )}
             accent={accent}
           />
           <Manifesto
             icon="📊"
-            title="Trust Score"
-            body="Rating + review volume + Local Guide credibility + reviewer authority. One transparent number, every clinic."
+            title={lang === "ko" ? "신뢰도 점수" : lang === "th" ? "คะแนนความน่าเชื่อถือ" : "Trust Score"}
+            body={lang === "ko"
+              ? "평점 + 리뷰량 + Local Guide 신뢰도 + 리뷰어 권위. 모든 클리닉에 투명한 하나의 숫자."
+              : lang === "th"
+              ? "คะแนน + จำนวนรีวิว + ความน่าเชื่อถือของ Local Guide + อำนาจของผู้รีวิว ตัวเลขเดียวที่โปร่งใส ทุกคลินิก"
+              : "Rating + review volume + Local Guide credibility + reviewer authority. One transparent number, every clinic."}
             accent={accent}
           />
           {cfg.focus === "dental" ? (
             <Manifesto
               icon="🦷"
-              title="Specialist credentials"
-              body="We track implant brand mentions (Straumann, Nobel, Osstem) and specialist signals — implantologist vs general dentist, English/Korean-speaking, US/UK/JP-trained."
+              title={lang === "ko" ? "전문의 자격 검증" : lang === "th" ? "ตรวจสอบคุณสมบัติผู้เชี่ยวชาญ" : "Specialist credentials"}
+              body={lang === "ko"
+                ? "임플란트 브랜드 언급(Straumann, Nobel, Osstem)과 전문성 시그널을 추적합니다 — 임플란트 전문의 vs 일반 치과의, 영어/한국어 가능 여부, 미국/영국/일본 연수 여부."
+                : lang === "th"
+                ? "เราติดตามการกล่าวถึงแบรนด์รากฟันเทียม (Straumann, Nobel, Osstem) และสัญญาณความเชี่ยวชาญ — implantologist vs ทันตแพทย์ทั่วไป พูดอังกฤษ/เกาหลีได้ ฝึกอบรมจากสหรัฐ/อังกฤษ/ญี่ปุ่น"
+                : "We track implant brand mentions (Straumann, Nobel, Osstem) and specialist signals — implantologist vs general dentist, English/Korean-speaking, US/UK/JP-trained."}
               accent={accent}
             />
           ) : cfg.focus === "hifu" || cfg.focus === "laser" ? (
             <Manifesto
               icon="⚡"
-              title="Machine verification"
-              body="We track Ultherapy / Thermage / Ultraformer / Pico / CO2 brand mentions in reviews — spot generic-machine clinics charging brand prices."
+              title={lang === "ko" ? "장비 검증" : lang === "th" ? "ตรวจสอบเครื่องมือ" : "Machine verification"}
+              body={lang === "ko"
+                ? "리뷰에서 Ultherapy / Thermage / Ultraformer / Pico / CO2 브랜드 언급을 추적합니다 — 정품가 받으면서 저가 범용 장비 쓰는 클리닉을 골라냅니다."
+                : lang === "th"
+                ? "เราติดตามการกล่าวถึงแบรนด์ Ultherapy / Thermage / Ultraformer / Pico / CO2 ในรีวิว — จับคลินิกที่ใช้เครื่องทั่วไปแต่คิดราคาแบรนด์"
+                : "We track Ultherapy / Thermage / Ultraformer / Pico / CO2 brand mentions in reviews — spot generic-machine clinics charging brand prices."}
               accent={accent}
             />
           ) : cfg.focus === "facial" ? (
             <Manifesto
               icon="✨"
-              title="Treatment depth"
-              body="HydraFacial, LED, oxygen, chemical peel, brightening — we track which treatments each clinic actually performs (vs marketing claims)."
+              title={lang === "ko" ? "시술 깊이" : lang === "th" ? "ความลึกของหัตถการ" : "Treatment depth"}
+              body={lang === "ko"
+                ? "HydraFacial, LED, 산소, 필링, 브라이트닝 — 각 클리닉이 실제로 하는 시술을 추적합니다(광고 문구가 아니라)."
+                : lang === "th"
+                ? "HydraFacial, LED, ออกซิเจน, ผลัดเซลล์ผิว, ทำให้ผิวกระจ่างใส — เราติดตามหัตถการที่คลินิกทำจริง (ไม่ใช่แค่คำโฆษณา)"
+                : "HydraFacial, LED, oxygen, chemical peel, brightening — we track which treatments each clinic actually performs (vs marketing claims)."}
               accent={accent}
             />
           ) : (
             <Manifesto
               icon="💉"
-              title="Brand verification"
-              body="We track Allergan / Dysport / Botulax / Juvederm / Restylane mentions in reviews — spot fake product claims."
+              title={lang === "ko" ? "브랜드 검증" : lang === "th" ? "ตรวจสอบแบรนด์" : "Brand verification"}
+              body={lang === "ko"
+                ? "리뷰에서 Allergan / Dysport / Botulax / Juvederm / Restylane 언급을 추적합니다 — 가짜 제품 주장을 골라냅니다."
+                : lang === "th"
+                ? "เราติดตามการกล่าวถึง Allergan / Dysport / Botulax / Juvederm / Restylane ในรีวิว — จับข้อกล่าวอ้างผลิตภัณฑ์ปลอม"
+                : "We track Allergan / Dysport / Botulax / Juvederm / Restylane mentions in reviews — spot fake product claims."}
               accent={accent}
             />
           )}
@@ -295,7 +406,7 @@ export default async function HomePage() {
         {/* Dental: Browse by procedure */}
         {cfg.focus === "dental" && (
           <section className="mb-10">
-            <h2 className="text-xl font-bold mb-4">Browse by procedure</h2>
+            <h2 className="text-xl font-bold mb-4">{lang === "ko" ? "시술별 보기" : lang === "th" ? "เลือกตามหัตถการ" : "Browse by procedure"}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {[
                 { label: "🦷 Implants",     href: "/city/bangkok/implants" },
@@ -319,7 +430,7 @@ export default async function HomePage() {
         {/* Botox: Browse by treatment */}
         {cfg.focus === "botox" && (
           <section className="mb-10">
-            <h2 className="text-xl font-bold mb-4">Browse by treatment</h2>
+            <h2 className="text-xl font-bold mb-4">{lang === "ko" ? "시술별 보기" : lang === "th" ? "เลือกตามหัตถการ" : "Browse by treatment"}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {[
                 { label: "💉 Botox",      href: "/c/botox" },
@@ -343,7 +454,7 @@ export default async function HomePage() {
         {/* Hair: Browse by treatment */}
         {cfg.focus === "hair" && (
           <section className="mb-10">
-            <h2 className="text-xl font-bold mb-4">Browse by treatment</h2>
+            <h2 className="text-xl font-bold mb-4">{lang === "ko" ? "시술별 보기" : lang === "th" ? "เลือกตามหัตถการ" : "Browse by treatment"}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {[
                 { label: "💇 FUE Transplant",  href: "/c/hair_transplant" },
@@ -370,15 +481,15 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-3xl font-bold text-emerald-700">1,608+</p>
-                <p className="text-sm text-[var(--muted)] mt-1">dental clinics in Thailand</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "태국 치과 클리닉" : lang === "th" ? "คลินิกทันตกรรมในไทย" : "dental clinics in Thailand"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-emerald-700">50–70%</p>
-                <p className="text-sm text-[var(--muted)] mt-1">cheaper than US & UK</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "미국·영국 대비 저렴" : lang === "th" ? "ถูกกว่าสหรัฐฯ และอังกฤษ" : "cheaper than US & UK"}</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-emerald-700">English</p>
-                <p className="text-sm text-[var(--muted)] mt-1">speaking staff at top clinics</p>
+                <p className="text-3xl font-bold text-emerald-700">{lang === "ko" ? "영어가능" : lang === "th" ? "อังกฤษได้" : "English"}</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "주요 클리닉 영어 가능 직원" : lang === "th" ? "พนักงานพูดภาษาอังกฤษที่คลินิกชั้นนำ" : "speaking staff at top clinics"}</p>
               </div>
             </div>
           </section>
@@ -390,15 +501,15 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-3xl font-bold text-purple-700">2,000+</p>
-                <p className="text-sm text-[var(--muted)] mt-1">aesthetic clinics in Bangkok</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "방콕 미용 클리닉" : lang === "th" ? "คลินิกความงามในกรุงเทพ" : "aesthetic clinics in Bangkok"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-purple-700">50–70%</p>
-                <p className="text-sm text-[var(--muted)] mt-1">cheaper than Singapore & Korea</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "싱가포르·한국 대비 저렴" : lang === "th" ? "ถูกกว่าสิงคโปร์และเกาหลี" : "cheaper than Singapore & Korea"}</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-purple-700">Genuine</p>
-                <p className="text-sm text-[var(--muted)] mt-1">Allergan & Dysport verified</p>
+                <p className="text-3xl font-bold text-purple-700">{lang === "ko" ? "정품" : lang === "th" ? "ของแท้" : "Genuine"}</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "Allergan·Dysport 정품 확인" : lang === "th" ? "ยืนยัน Allergan และ Dysport" : "Allergan & Dysport verified"}</p>
               </div>
             </div>
           </section>
@@ -410,15 +521,15 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-3xl font-bold text-amber-700">฿65K–150K</p>
-                <p className="text-sm text-[var(--muted)] mt-1">FUE transplant (2,000 grafts)</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "FUE 이식(2,000모 기준)" : lang === "th" ? "ปลูกผม FUE (2,000 กราฟต์)" : "FUE transplant (2,000 grafts)"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-amber-700">40–60%</p>
-                <p className="text-sm text-[var(--muted)] mt-1">cheaper than Korea & Singapore</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "한국·싱가포르 대비 저렴" : lang === "th" ? "ถูกกว่าเกาหลีและสิงคโปร์" : "cheaper than Korea & Singapore"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-amber-700">4–5 days</p>
-                <p className="text-sm text-[var(--muted)] mt-1">typical trip duration</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{lang === "ko" ? "평균 여행 기간" : lang === "th" ? "ระยะเวลาเดินทางโดยทั่วไป" : "typical trip duration"}</p>
               </div>
             </div>
           </section>
@@ -429,10 +540,10 @@ export default async function HomePage() {
           <section className="mb-12 scroll-mt-20" id="top6">
             <div className="flex items-baseline justify-between gap-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-                Top 6 by Trust Score
+                {t.top6}
               </h2>
               <a href="/best/highly-rated" className="text-sm font-medium hover:underline" style={{ color: accent }}>
-                See full ranking →
+                {t.seeFullRanking}
               </a>
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -455,21 +566,21 @@ export default async function HomePage() {
                         />
                       {/* Rank badge — top-left over photo */}
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-white text-xs font-black tabular-nums">
-                        Rank #{i + 1}
+                        {t.rank}{i + 1}
                       </div>
                       {/* Trust Score badge — top-right over photo */}
                       <div
                         className="absolute top-2 right-2 px-2 py-0.5 rounded-md text-white text-xs font-black tabular-nums"
                         style={{ background: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}
                       >
-                        <span className="opacity-80 font-normal">Trust</span> {formatTrustScore(c.trust_score)}
+                        <span className="opacity-80 font-normal">{t.trust}</span> {formatTrustScore(c.trust_score)}
                       </div>
                     </div>
                     ) : (
                     <div className="flex items-center justify-between px-3 pt-3">
-                      <span className="px-2 py-0.5 rounded-md bg-black/10 text-[var(--fg)] text-xs font-black tabular-nums">Rank #{i + 1}</span>
+                      <span className="px-2 py-0.5 rounded-md bg-black/10 text-[var(--fg)] text-xs font-black tabular-nums">{t.rank}{i + 1}</span>
                       <span className="px-2 py-0.5 rounded-md text-white text-xs font-black tabular-nums" style={{ background: c.trust_score >= 75 ? "#16a34a" : c.trust_score >= 60 ? "#059669" : "#ca8a04" }}>
-                        <span className="opacity-80 font-normal">Trust</span> {formatTrustScore(c.trust_score)}
+                        <span className="opacity-80 font-normal">{t.trust}</span> {formatTrustScore(c.trust_score)}
                       </span>
                     </div>
                     )}
@@ -479,7 +590,7 @@ export default async function HomePage() {
                       <div className="flex items-center gap-2 mt-3 text-xs text-[var(--muted)]">
                         <span className="text-yellow-700 font-bold">★ {c.rating.toFixed(1)}</span>
                         <span>·</span>
-                        <span>{c.total_reviews.toLocaleString()} reviews</span>
+                        <span>{c.total_reviews.toLocaleString()} {t.reviews}</span>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-1">
                         {c.categories.slice(0, 2).map((cat) => (
@@ -502,16 +613,20 @@ export default async function HomePage() {
         )}
 
         {/* Ad slot — Top 6 직하, 가장 viewing 많은 자리 */}
-        <AdPlaceholder variant="banner" label="Sponsored" hint="Mid-content placement · ~70% scroll depth" />
+        <AdPlaceholder
+          variant="banner"
+          lang={lang}
+          hint={lang === "ko" ? "중간 콘텐츠 위치 · 스크롤 70% 지점" : lang === "th" ? "ตำแหน่งกลางเนื้อหา · ความลึกสกรอลล์ ~70%" : "Mid-content placement · ~70% scroll depth"}
+        />
 
         {/* REAL REVIEW QUOTES */}
         {reviewQuotes.length >= 3 && (
           <section className="mb-12">
             <div className="flex items-baseline justify-between gap-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-                What real patients say
+                {t.realPatients}
               </h2>
-              <span className="text-xs text-[var(--muted)]">From verified Google reviews</span>
+              <span className="text-xs text-[var(--muted)]">{t.fromVerified}</span>
             </div>
             <div className="grid md:grid-cols-3 gap-4">
               {reviewQuotes.map((q, i) => (
@@ -540,7 +655,7 @@ export default async function HomePage() {
         {/* By City — 도시 2개 이상일 때만 표시 (Bangkok만 있으면 의미 없음) */}
         {cities.length >= 2 && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By City</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">{t.byCity}</h2>
             <div className="flex flex-wrap gap-2">
               {cities.map(([label, { slug, count }]) => (
                 <a
@@ -559,7 +674,7 @@ export default async function HomePage() {
         {/* By Service — 카테고리 2개 이상일 때만 (dental/hair 단일 focus 사이트는 섹션 숨김) */}
         {categories.length > 1 && (
           <section className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">By Service</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">{t.byService}</h2>
             <div className="flex flex-wrap gap-2">
               {categories.map(([cat, count]) => (
                 <a
@@ -582,8 +697,8 @@ export default async function HomePage() {
           return (
             <section className="mb-10">
               <div className="flex items-baseline justify-between gap-4 mb-4">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">Compare top clinics</h2>
-                <span className="text-xs text-[var(--muted)]">Side-by-side Trust Score analysis</span>
+                <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">{t.compareTop}</h2>
+                <span className="text-xs text-[var(--muted)]">{t.sideBySide}</span>
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 {([[top4[0], top4[1]], [top4[2], top4[3]]] as [typeof top4[0], typeof top4[0]][]).map(([x, y]) => x && y ? (
@@ -621,10 +736,11 @@ export default async function HomePage() {
                   city={city}
                   total={clinics.length}
                   seeAllHref={`/city/${(clinics[0]?.city_slug ?? city).toLowerCase().replace(/\s+/g, "-")}`}
+                  lang={lang}
                 >
                   {clinics.slice(0, 12).map((c, idx) => (
                     <div key={c.id} className="w-[280px] shrink-0 snap-start sm:w-[320px]">
-                      <ClinicCardCompact clinic={c} rank={idx + 1} />
+                      <ClinicCardCompact clinic={c} rank={idx + 1} lang={lang} />
                     </div>
                   ))}
                 </CityRow>
@@ -635,7 +751,7 @@ export default async function HomePage() {
 
         <section className="mb-10">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-            By District{dominantCity ? ` · ${dominantCity}` : ""}
+            {lang === "ko" ? "지역별" : lang === "th" ? "ตามเขต" : "By District"}{dominantCity ? ` · ${dominantCity}` : ""}
           </h2>
           <div className="flex flex-wrap gap-2">
             {districts.map(([d, count]) => (
@@ -655,10 +771,10 @@ export default async function HomePage() {
           <section className="mb-12 border border-[var(--border)] rounded-2xl bg-slate-50/40 p-6 md:p-8">
             <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
               <div>
-                <h2 className="text-xl md:text-2xl font-black tracking-tight">Editor's guides</h2>
-                <p className="text-sm text-[var(--muted)] mt-1">Pricing reality, brand verification, what packages cover.</p>
+                <h2 className="text-xl md:text-2xl font-black tracking-tight">{t.editorsGuides}</h2>
+                <p className="text-sm text-[var(--muted)] mt-1">{t.guidesSub}</p>
               </div>
-              <a href="/guide" className="text-sm font-bold hover:underline" style={{ color: accent }}>All guides →</a>
+              <a href="/guide" className="text-sm font-bold hover:underline" style={{ color: accent }}>{t.allGuides}</a>
             </div>
             <div className="grid sm:grid-cols-3 gap-3">
               {focusGuides.map((g) => (
@@ -677,13 +793,14 @@ export default async function HomePage() {
 
         {/* Hidden Gem — 매일 다른 underrated 클리닉 spotlight */}
         {gemPick && (
-          <HiddenGem pool={[gemPick]} accent={accent} photo={gemPhoto?.photos[0]} />
+          <HiddenGem pool={[gemPick]} accent={accent} photo={gemPhoto?.photos[0]} lang={lang} />
         )}
 
         {/* GAME WIDGET — random clinic reveal. Increases session time. */}
         {top.length >= 10 && (
           <SpinDiscover
             accent={accent}
+            lang={lang}
             pool={top.slice(0, 50).map((c, i) => ({
               id: c.id,
               name: c.name,
@@ -697,28 +814,28 @@ export default async function HomePage() {
         )}
 
         <section>
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top {Math.min(top.length, 50)} by Trust Score</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">{t.topN.replace("{n}", String(Math.min(top.length, 50)))}</h2>
           <div className="grid gap-3">
             {top.slice(0, 10).map((c, i) => (
-              <ClinicCard key={c.id} clinic={c} rank={i + 1} />
+              <ClinicCard key={c.id} clinic={c} rank={i + 1} lang={lang} />
             ))}
           </div>
 
-          <AffiliateInline />
+          <AffiliateInline lang={lang} />
 
           {top.length > 10 && (
             <div className="mt-8">
               <div className="flex items-baseline justify-between mb-3">
                 <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">
-                  #11 – #{top.length} · runner-up rankings
+                  {t.runnerUp.replace("{n}", String(top.length))}
                 </h3>
                 <span className="text-xs text-[var(--muted)] hidden sm:inline">
-                  Same data depth, lighter view
+                  {t.sameDepth}
                 </span>
               </div>
               <div className="grid gap-1.5">
                 {top.slice(10).map((c, i) => (
-                  <ClinicCardCompact key={c.id} clinic={c} rank={i + 11} />
+                  <ClinicCardCompact key={c.id} clinic={c} rank={i + 11} lang={lang} />
                 ))}
               </div>
             </div>
@@ -728,7 +845,7 @@ export default async function HomePage() {
         {/* Dental: Guide links */}
         {cfg.focus === "dental" && (
           <section className="mt-10">
-            <h2 className="text-xl font-bold mb-4">Dental guides</h2>
+            <h2 className="text-xl font-bold mb-4">{lang === "ko" ? "치과 가이드" : lang === "th" ? "คู่มือทันตกรรม" : "Dental guides"}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { title: "Implants Cost Guide",  href: "/guide/dental-implants-bangkok-cost", desc: "Brands, timeline, what to pay" },
@@ -751,7 +868,7 @@ export default async function HomePage() {
         {/* Botox: Guide links */}
         {cfg.focus === "botox" && (
           <section className="mt-10">
-            <h2 className="text-xl font-bold mb-4">Botox guides</h2>
+            <h2 className="text-xl font-bold mb-4">{lang === "ko" ? "보톡스 가이드" : lang === "th" ? "คู่มือโบท็อกซ์" : "Botox guides"}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { title: "Jaw Slimming Guide",   href: "/guide/masseter-botox-bangkok-jaw-slimming", desc: "V-line results, units, cost" },
@@ -774,7 +891,7 @@ export default async function HomePage() {
         {/* Hair: Guide links */}
         {cfg.focus === "hair" && (
           <section className="mt-10">
-            <h2 className="text-xl font-bold mb-4">Hair transplant guides</h2>
+            <h2 className="text-xl font-bold mb-4">{lang === "ko" ? "모발이식 가이드" : lang === "th" ? "คู่มือปลูกผม" : "Hair transplant guides"}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { title: "FUE Cost Guide",     href: "/guide/fue-hair-transplant-bangkok-cost", desc: "Grafts, pricing, trip planning" },
@@ -796,7 +913,7 @@ export default async function HomePage() {
 
         {/* Patient community count */}
         <div className="mb-8">
-          <PatientCommunityCount />
+          <PatientCommunityCount lang={lang} />
         </div>
 
         {/* Downloadable buyer's guide — lead magnet */}
@@ -811,27 +928,31 @@ export default async function HomePage() {
 
         {/* Curated focus-aware collections */}
         <ScrollReveal>
-          <CuratedCollections clinics={focused} focus={cfg.focus} />
+          <CuratedCollections clinics={focused} focus={cfg.focus} lang={lang} />
         </ScrollReveal>
 
         {/* Patient-voice marquee — final persuasion before booking */}
         <ScrollReveal direction="scale">
-          <TestimonialMarquee clinics={top} />
+          <TestimonialMarquee clinics={top} lang={lang} />
         </ScrollReveal>
 
         {/* Ad slot — booking 직전 */}
-        <AdPlaceholder variant="banner" label="Sponsored" hint="Bottom placement before booking" />
+        <AdPlaceholder
+          variant="banner"
+          lang={lang}
+          hint={lang === "ko" ? "예약 전 하단 노출" : lang === "th" ? "ตำแหน่งล่างสุดก่อนการจอง" : "Bottom placement before booking"}
+        />
 
         <section className="mt-12 scroll-mt-20" id="booking">
-          <BookingForm />
+          <BookingForm lang={lang} />
         </section>
 
         <section className="mt-10">
-          <AfterSubmitFlow />
+          <AfterSubmitFlow lang={lang} />
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Frequently asked</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">{t.faq}</h2>
           <div className="space-y-3">
             {homeFaqs.map((f, i) => (
               <details key={i} className="bg-white border border-[var(--border)] rounded-lg p-4 group">

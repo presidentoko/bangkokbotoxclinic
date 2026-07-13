@@ -1,37 +1,39 @@
 "use client";
 // 다단계 예약/문의 폼 — service → date → contact → confirm.
+// 2026-07-13: lang prop 추가, shared/lib/i18n.ts 의 booking 섹션(이미 en/ko/th 번역됨) 재사용.
 
 import { useState } from "react";
+import { tFor, type Lang } from "@/lib/i18n";
 
-type ServiceOpt = { id: string; label: string; emoji: string };
+type ServiceOpt = { id: string; label: Record<Lang, string>; emoji: string };
 
 // Focus 별 서비스 목록 — Dental 사이트에 implants/veneers가 없거나
 // Hair 사이트에 botox만 보이는 mismatch 방지.
 const ALL_SERVICES: ServiceOpt[] = [
-  { id: "botox", label: "Botox", emoji: "💉" },
-  { id: "filler", label: "Filler", emoji: "💧" },
-  { id: "hifu", label: "HIFU / Ulthera", emoji: "⚡" },
-  { id: "facial", label: "Facial / Skincare", emoji: "🌸" },
-  { id: "laser", label: "Laser", emoji: "✨" },
-  { id: "consult", label: "General consultation", emoji: "💬" },
+  { id: "botox", label: { en: "Botox", ko: "보톡스", th: "โบท็อกซ์" }, emoji: "💉" },
+  { id: "filler", label: { en: "Filler", ko: "필러", th: "ฟิลเลอร์" }, emoji: "💧" },
+  { id: "hifu", label: { en: "HIFU / Ulthera", ko: "HIFU / 울쎄라", th: "HIFU / อัลเทอร่า" }, emoji: "⚡" },
+  { id: "facial", label: { en: "Facial / Skincare", ko: "페이셜 / 스킨케어", th: "เฟเชียล / สกินแคร์" }, emoji: "🌸" },
+  { id: "laser", label: { en: "Laser", ko: "레이저", th: "เลเซอร์" }, emoji: "✨" },
+  { id: "consult", label: { en: "General consultation", ko: "일반 상담", th: "ปรึกษาทั่วไป" }, emoji: "💬" },
 ];
 
 const DENTAL_SERVICES: ServiceOpt[] = [
-  { id: "dental_implant", label: "Dental implant", emoji: "🦷" },
-  { id: "veneers", label: "Veneers", emoji: "✨" },
-  { id: "whitening", label: "Whitening", emoji: "🌟" },
-  { id: "orthodontics", label: "Orthodontics / Braces", emoji: "😬" },
-  { id: "all_on_4", label: "All-on-4", emoji: "🦷" },
-  { id: "consult", label: "General consultation", emoji: "💬" },
+  { id: "dental_implant", label: { en: "Dental implant", ko: "임플란트", th: "รากฟันเทียม" }, emoji: "🦷" },
+  { id: "veneers", label: { en: "Veneers", ko: "비니어", th: "วีเนียร์" }, emoji: "✨" },
+  { id: "whitening", label: { en: "Whitening", ko: "미백", th: "ฟอกสีฟัน" }, emoji: "🌟" },
+  { id: "orthodontics", label: { en: "Orthodontics / Braces", ko: "교정", th: "จัดฟัน" }, emoji: "😬" },
+  { id: "all_on_4", label: { en: "All-on-4", ko: "올온포", th: "All-on-4" }, emoji: "🦷" },
+  { id: "consult", label: { en: "General consultation", ko: "일반 상담", th: "ปรึกษาทั่วไป" }, emoji: "💬" },
 ];
 
 const HAIR_SERVICES: ServiceOpt[] = [
-  { id: "fue", label: "FUE Transplant", emoji: "💇" },
-  { id: "dhi", label: "DHI Transplant", emoji: "💇‍♂️" },
-  { id: "smp", label: "Scalp Micropigmentation", emoji: "🎨" },
-  { id: "beard_transplant", label: "Beard / Eyebrow", emoji: "🧔" },
-  { id: "scalp_care", label: "Scalp / PRP / Mesotherapy", emoji: "💧" },
-  { id: "consult", label: "General consultation", emoji: "💬" },
+  { id: "fue", label: { en: "FUE Transplant", ko: "FUE 이식", th: "ปลูกผม FUE" }, emoji: "💇" },
+  { id: "dhi", label: { en: "DHI Transplant", ko: "DHI 이식", th: "ปลูกผม DHI" }, emoji: "💇‍♂️" },
+  { id: "smp", label: { en: "Scalp Micropigmentation", ko: "두피 미세색소", th: "สักไมโครเม็ดสีหนังศีรษะ" }, emoji: "🎨" },
+  { id: "beard_transplant", label: { en: "Beard / Eyebrow", ko: "수염 / 눈썹", th: "หนวดเครา / คิ้ว" }, emoji: "🧔" },
+  { id: "scalp_care", label: { en: "Scalp / PRP / Mesotherapy", ko: "두피 / PRP / 메조테라피", th: "หนังศีรษะ / PRP / เมโสเธอราพี" }, emoji: "💧" },
+  { id: "consult", label: { en: "General consultation", ko: "일반 상담", th: "ปรึกษาทั่วไป" }, emoji: "💬" },
 ];
 
 function servicesForFocus(): ServiceOpt[] {
@@ -44,20 +46,65 @@ function servicesForFocus(): ServiceOpt[] {
 
 const SERVICES = servicesForFocus();
 
-const TIME_SLOTS = [
-  "Morning (9–12)",
-  "Afternoon (12–17)",
-  "Evening (17–20)",
-  "Flexible",
-];
+// 추가 번역 — shared i18n.ts 의 booking 섹션이 안 덮는 부분(disclosure, consent, Row 라벨 등).
+const EXTRA: Record<Lang, {
+  whereGoes: string; forwardClinic: string; forwardGeneral: string; noSell: string; privacy: string;
+  watchInbox: string; hourWithin: string; notified: string;
+  rowService: string; rowDate: string; rowTime: string; rowName: string; rowEmail: string; rowPhone: string; rowClinic: string; rowNotes: string;
+  consentPre: string; matchingClinic: string; consentPost: string;
+  fullName: string; notesPlaceholder: string; consentTitle: string;
+}> = {
+  en: {
+    whereGoes: "Where this goes:",
+    forwardClinic: "We forward your details to {clinic} so a staff member can confirm time, pricing, and brand availability — and to our internal admin for follow-up if they don't respond within 24h.",
+    forwardGeneral: "We forward your details to the clinic(s) best matching your request, and to our internal admin so we can follow up if there's no response within 24h.",
+    noSell: "We don't sell or rent your data. See", privacy: "privacy policy",
+    watchInbox: "Watch your inbox · Mark our messages as not-spam to keep replies fast",
+    hourWithin: "24 hours", notified: "will be notified of your request.",
+    rowService: "Service", rowDate: "Date", rowTime: "Time", rowName: "Name", rowEmail: "Email", rowPhone: "Phone", rowClinic: "Clinic", rowNotes: "Notes",
+    consentPre: "I agree to share my contact details with", matchingClinic: "the matching clinic",
+    consentPost: "and the site admin for the purpose of confirming this booking, in line with the",
+    fullName: "Full name", notesPlaceholder: "Any specific concerns, areas, or questions",
+    consentTitle: "Please tick consent above",
+  },
+  ko: {
+    whereGoes: "전달되는 곳:",
+    forwardClinic: "{clinic}에 상세 정보를 전달해 시간·가격·브랜드 가능 여부를 확인하며, 24시간 내 응답이 없으면 내부 관리자가 follow-up합니다.",
+    forwardGeneral: "요청에 가장 적합한 클리닉에 상세 정보를 전달하고, 24시간 내 응답이 없으면 내부 관리자가 follow-up합니다.",
+    noSell: "귀하의 정보를 판매·대여하지 않습니다. 자세히 보기:", privacy: "개인정보처리방침",
+    watchInbox: "메일함을 확인해주세요 · 스팸함으로 가지 않도록 '스팸 아님'으로 표시해주시면 빠른 답변에 도움됩니다",
+    hourWithin: "24시간", notified: "에 요청이 전달됩니다.",
+    rowService: "시술", rowDate: "날짜", rowTime: "시간", rowName: "이름", rowEmail: "이메일", rowPhone: "전화번호", rowClinic: "클리닉", rowNotes: "메모",
+    consentPre: "연락처 정보를", matchingClinic: "매칭된 클리닉",
+    consentPost: "및 사이트 관리자와 이 예약 확인 목적으로 공유하는 데 동의합니다. 자세한 내용은",
+    fullName: "성함", notesPlaceholder: "궁금한 점이나 특별히 신경쓰이는 부분",
+    consentTitle: "위 동의에 체크해주세요",
+  },
+  th: {
+    whereGoes: "ข้อมูลนี้จะถูกส่งไปที่:",
+    forwardClinic: "เราส่งข้อมูลของคุณไปยัง {clinic} เพื่อให้เจ้าหน้าที่ยืนยันเวลา ราคา และความพร้อมของแบรนด์ — และแจ้งแอดมินภายในเพื่อติดตามหากไม่ตอบกลับภายใน 24 ชม.",
+    forwardGeneral: "เราส่งข้อมูลของคุณไปยังคลินิกที่เหมาะสมที่สุด และแจ้งแอดมินภายในเพื่อติดตามหากไม่มีการตอบกลับภายใน 24 ชม.",
+    noSell: "เราไม่ขายหรือให้เช่าข้อมูลของคุณ ดู", privacy: "นโยบายความเป็นส่วนตัว",
+    watchInbox: "เช็คอีเมลของคุณ · ทำเครื่องหมายข้อความของเราว่าไม่ใช่สแปมเพื่อรับการตอบกลับเร็วขึ้น",
+    hourWithin: "24 ชั่วโมง", notified: "จะได้รับการแจ้งคำขอของคุณ",
+    rowService: "บริการ", rowDate: "วันที่", rowTime: "เวลา", rowName: "ชื่อ", rowEmail: "อีเมล", rowPhone: "โทรศัพท์", rowClinic: "คลินิก", rowNotes: "หมายเหตุ",
+    consentPre: "ฉันยินยอมแบ่งปันข้อมูลติดต่อของฉันกับ", matchingClinic: "คลินิกที่จับคู่",
+    consentPost: "และแอดมินเว็บไซต์เพื่อวัตถุประสงค์ในการยืนยันการจองนี้ ตามที่ระบุใน",
+    fullName: "ชื่อ-นามสกุล", notesPlaceholder: "ข้อกังวล บริเวณที่สนใจ หรือคำถามเฉพาะ",
+    consentTitle: "กรุณาติ๊กยินยอมด้านบน",
+  },
+};
 
 export function BookingForm({
-  clinicId, clinicName, defaultService,
+  clinicId, clinicName, defaultService, lang = "en",
 }: {
   clinicId?: string;
   clinicName?: string;
   defaultService?: string;
+  lang?: Lang;
 }) {
+  const t = tFor(lang);
+  const x = EXTRA[lang] ?? EXTRA.en;
   const [step, setStep] = useState(0);
   const [service, setService] = useState(defaultService ?? "");
   const [dateStr, setDateStr] = useState("");
@@ -107,20 +154,20 @@ export function BookingForm({
         <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-green-500 text-white flex items-center justify-center text-3xl font-black shadow-md">
           ✓
         </div>
-        <h3 className="font-black text-xl mb-2">Request received</h3>
+        <h3 className="font-black text-xl mb-2">{t.booking.receivedTitle}</h3>
         <p className="text-sm text-[var(--muted)] max-w-md mx-auto leading-relaxed">
-          We&apos;ll contact you within <strong className="text-[var(--fg)]">24 hours</strong> with confirmed times and pricing.
-          {clinicName ? <> <strong className="text-[var(--fg)]">{clinicName}</strong> will be notified of your request.</> : ""}
+          {t.booking.receivedBody}
+          {clinicName ? <> <strong className="text-[var(--fg)]">{clinicName}</strong> {x.notified}</> : ""}
         </p>
         <p className="text-[11px] text-[var(--muted)] mt-4 opacity-80">
-          Watch your inbox · Mark our messages as not-spam to keep replies fast
+          {x.watchInbox}
         </p>
       </div>
     );
   }
 
-  const heading = clinicName ? `Book consultation at ${clinicName}` : "Reserve your consultation";
-  const steps = ["Service", "Date", "Contact", "Review"];
+  const heading = clinicName ? t.booking.headingClinic.replace("{name}", clinicName) : t.booking.heading;
+  const steps = t.booking.steps;
 
   return (
     <div className="bg-white border border-[var(--border)] rounded-xl overflow-hidden">
@@ -138,16 +185,18 @@ export function BookingForm({
       <div className="px-5 pt-5">
         <h3 className="font-bold text-lg">{heading}</h3>
         <p className="text-xs text-[var(--muted)] mt-1">
-          Free, no obligation. We confirm within 24h.
+          {t.booking.sub}
         </p>
         {/* Data-handling disclosure — visible upfront, before user fills anything */}
         <div className="mt-3 text-[11px] leading-relaxed text-[var(--muted)] bg-slate-50 border border-[var(--border)] rounded-lg p-3">
-          <strong className="text-[var(--fg)]">Where this goes:</strong>{" "}
+          <strong className="text-[var(--fg)]">{x.whereGoes}</strong>{" "}
           {clinicName
-            ? <>We forward your details to <strong className="text-[var(--fg)]">{clinicName}</strong> so a staff member can confirm time, pricing, and brand availability — and to our internal admin for follow-up if they don&apos;t respond within 24h.</>
-            : <>We forward your details to the clinic(s) best matching your request, and to our internal admin so we can follow up if there&apos;s no response within 24h.</>}
-          {" "}We don&apos;t sell or rent your data. See{" "}
-          <a href="/privacy" target="_blank" rel="noreferrer" className="underline text-[var(--fg)] hover:opacity-70">privacy policy</a>.
+            ? x.forwardClinic.split("{clinic}").map((part, i, arr) => i < arr.length - 1
+                ? <span key={i}>{part}<strong className="text-[var(--fg)]">{clinicName}</strong></span>
+                : <span key={i}>{part}</span>)
+            : x.forwardGeneral}
+          {" "}{x.noSell}{" "}
+          <a href="/privacy" target="_blank" rel="noreferrer" className="underline text-[var(--fg)] hover:opacity-70">{x.privacy}</a>.
         </div>
         {/* Progress — 큰 step indicator + 현재 step label */}
         <div className="mt-4">
@@ -180,7 +229,7 @@ export function BookingForm({
       <div className="p-5">
         {step === 0 && (
           <div>
-            <label className="block text-sm font-medium mb-3">Which service?</label>
+            <label className="block text-sm font-medium mb-3">{t.booking.selectService}</label>
             <div className="grid grid-cols-2 gap-2">
               {SERVICES.map((s) => (
                 <button
@@ -194,7 +243,7 @@ export function BookingForm({
                   }`}
                 >
                   <span className="text-xl">{s.emoji}</span>
-                  <span className="text-sm font-medium">{s.label}</span>
+                  <span className="text-sm font-medium">{s.label[lang] ?? s.label.en}</span>
                 </button>
               ))}
             </div>
@@ -204,7 +253,7 @@ export function BookingForm({
         {step === 1 && (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Preferred date</label>
+              <label className="block text-sm font-medium mb-2">{t.booking.preferredDate}</label>
               <input
                 type="date"
                 value={dateStr}
@@ -214,20 +263,20 @@ export function BookingForm({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Time slot</label>
+              <label className="block text-sm font-medium mb-2">{t.booking.timeSlot}</label>
               <div className="grid grid-cols-2 gap-2">
-                {TIME_SLOTS.map((t) => (
+                {t.booking.timeSlots.map((ts, i) => (
                   <button
-                    key={t}
+                    key={ts}
                     type="button"
-                    onClick={() => setTimeSlot(t)}
+                    onClick={() => setTimeSlot(ts)}
                     className={`px-3 py-2 rounded-lg border text-sm transition ${
-                      timeSlot === t
+                      timeSlot === ts
                         ? "border-black bg-gray-50 font-medium"
                         : "border-[var(--border)] hover:border-gray-400"
                     }`}
                   >
-                    {t}
+                    {ts}
                   </button>
                 ))}
               </div>
@@ -238,7 +287,7 @@ export function BookingForm({
                 onClick={() => setStep(0)}
                 className="px-4 py-2.5 rounded-lg border border-[var(--border)] text-sm font-medium hover:bg-gray-50"
               >
-                Back
+                {t.booking.back}
               </button>
               <button
                 type="button"
@@ -246,7 +295,7 @@ export function BookingForm({
                 disabled={!dateStr || !timeSlot}
                 className="flex-1 px-4 py-2.5 rounded-lg bg-black text-white text-sm font-bold hover:bg-gray-800 disabled:opacity-40"
               >
-                Continue
+                {t.booking.continue}
               </button>
             </div>
           </div>
@@ -255,16 +304,16 @@ export function BookingForm({
         {step === 2 && (
           <div className="space-y-3">
             <div>
-              <label className="block text-sm font-medium mb-1.5">Your name</label>
+              <label className="block text-sm font-medium mb-1.5">{t.booking.name}</label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Full name"
+                placeholder={x.fullName}
                 className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">Email</label>
+              <label className="block text-sm font-medium mb-1.5">{t.booking.email}</label>
               <input
                 type="email"
                 value={email}
@@ -274,7 +323,7 @@ export function BookingForm({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">Phone / LINE / WhatsApp <span className="text-[var(--muted)] font-normal">(optional)</span></label>
+              <label className="block text-sm font-medium mb-1.5">{t.booking.phone} <span className="text-[var(--muted)] font-normal">{t.booking.optional}</span></label>
               <input
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -283,12 +332,12 @@ export function BookingForm({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">Notes <span className="text-[var(--muted)] font-normal">(optional)</span></label>
+              <label className="block text-sm font-medium mb-1.5">{t.booking.notes} <span className="text-[var(--muted)] font-normal">{t.booking.optional}</span></label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}
-                placeholder="Any specific concerns, areas, or questions"
+                placeholder={x.notesPlaceholder}
                 className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black resize-none"
               />
             </div>
@@ -298,7 +347,7 @@ export function BookingForm({
                 onClick={() => setStep(1)}
                 className="px-4 py-2.5 rounded-lg border border-[var(--border)] text-sm font-medium hover:bg-gray-50"
               >
-                Back
+                {t.booking.back}
               </button>
               <button
                 type="button"
@@ -306,7 +355,7 @@ export function BookingForm({
                 disabled={!name || !email || !email.includes("@")}
                 className="flex-1 px-4 py-2.5 rounded-lg bg-black text-white text-sm font-bold hover:bg-gray-800 disabled:opacity-40"
               >
-                Review →
+                {t.booking.review}
               </button>
             </div>
           </div>
@@ -315,14 +364,14 @@ export function BookingForm({
         {step === 3 && (
           <div className="space-y-3">
             <div className="bg-gray-50 rounded-lg p-4 space-y-1.5 text-sm">
-              <Row label="Service" value={SERVICES.find(s => s.id === service)?.label ?? service} />
-              <Row label="Date" value={dateStr} />
-              <Row label="Time" value={timeSlot} />
-              <Row label="Name" value={name} />
-              <Row label="Email" value={email} />
-              {phone && <Row label="Phone" value={phone} />}
-              {clinicName && <Row label="Clinic" value={clinicName} />}
-              {notes && <Row label="Notes" value={notes} />}
+              <Row label={x.rowService} value={SERVICES.find(s => s.id === service)?.label[lang] ?? service} />
+              <Row label={x.rowDate} value={dateStr} />
+              <Row label={x.rowTime} value={timeSlot} />
+              <Row label={x.rowName} value={name} />
+              <Row label={x.rowEmail} value={email} />
+              {phone && <Row label={x.rowPhone} value={phone} />}
+              {clinicName && <Row label={x.rowClinic} value={clinicName} />}
+              {notes && <Row label={x.rowNotes} value={notes} />}
             </div>
 
             {/* Consent — required before submit */}
@@ -334,10 +383,10 @@ export function BookingForm({
                 className="mt-0.5 h-4 w-4 accent-black shrink-0"
               />
               <span className="text-xs leading-relaxed text-[var(--fg)]">
-                I agree to share my contact details with{" "}
-                {clinicName ? <strong>{clinicName}</strong> : "the matching clinic"}{" "}
-                and the site admin for the purpose of confirming this booking, in line with the{" "}
-                <a href="/privacy" target="_blank" rel="noreferrer" className="underline">privacy policy</a>.
+                {x.consentPre}{" "}
+                {clinicName ? <strong>{clinicName}</strong> : x.matchingClinic}{" "}
+                {x.consentPost}{" "}
+                <a href="/privacy" target="_blank" rel="noreferrer" className="underline">{x.privacy}</a>.
               </span>
             </label>
 
@@ -347,20 +396,20 @@ export function BookingForm({
                 onClick={() => setStep(2)}
                 className="px-4 py-2.5 rounded-lg border border-[var(--border)] text-sm font-medium hover:bg-gray-50"
               >
-                Back
+                {t.booking.back}
               </button>
               <button
                 type="button"
                 onClick={submit}
                 disabled={status === "submitting" || !consent}
                 className="flex-1 px-4 py-2.5 rounded-lg bg-black text-white text-sm font-bold hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed"
-                title={!consent ? "Please tick consent above" : undefined}
+                title={!consent ? x.consentTitle : undefined}
               >
-                {status === "submitting" ? "Sending..." : "Confirm request"}
+                {status === "submitting" ? t.booking.sending : t.booking.confirm}
               </button>
             </div>
             {status === "error" && (
-              <p className="text-xs text-red-700 text-center">Could not send. Try again or contact directly.</p>
+              <p className="text-xs text-red-700 text-center">{t.booking.error}</p>
             )}
           </div>
         )}

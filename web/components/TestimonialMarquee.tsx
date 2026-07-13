@@ -3,7 +3,15 @@
 
 import type { Clinic } from "@/lib/types";
 
-export default function TestimonialMarquee({ clinics }: { clinics: Clinic[] }) {
+type Lang = "en" | "ko" | "th";
+const COPY: Record<Lang, { eyebrow: string; heading: string; sub: string }> = {
+  en: { eyebrow: "Patient voices", heading: "Real voices from real patients", sub: "Aggregated from Google · HDmall · Wongnai · Pantip. We do not edit or remove negative reviews." },
+  ko: { eyebrow: "환자의 목소리", heading: "실제 환자들의 진짜 목소리", sub: "Google · HDmall · Wongnai · Pantip에서 수집. 부정 리뷰를 편집하거나 삭제하지 않습니다." },
+  th: { eyebrow: "เสียงจากผู้ป่วย", heading: "เสียงจริงจากผู้ป่วยจริง", sub: "รวบรวมจาก Google · HDmall · Wongnai · Pantip เราไม่แก้ไขหรือลบรีวิวเชิงลบ" },
+};
+
+export default function TestimonialMarquee({ clinics, lang = "en" }: { clinics: Clinic[]; lang?: Lang }) {
+  const t = COPY[lang] ?? COPY.en;
   const samples: { text: string; reviewer: string; clinic: string; rating: number }[] = [];
 
   for (const c of clinics) {
@@ -24,10 +32,10 @@ export default function TestimonialMarquee({ clinics }: { clinics: Clinic[] }) {
   return (
     <section className="space-y-6 py-10">
       <div className="text-center">
-        <div className="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">Patient voices</div>
-        <h2 className="mt-2 text-3xl sm:text-4xl font-black tracking-tight">Real voices from real patients</h2>
+        <div className="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">{t.eyebrow}</div>
+        <h2 className="mt-2 text-3xl sm:text-4xl font-black tracking-tight">{t.heading}</h2>
         <p className="mt-2 text-sm text-[var(--muted)] max-w-2xl mx-auto">
-          Aggregated from Google · HDmall · Wongnai · Pantip. We do not edit or remove negative reviews.
+          {t.sub}
         </p>
       </div>
 

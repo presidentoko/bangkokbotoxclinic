@@ -11,15 +11,43 @@ function dayOfYearSeed(): number {
   return Math.floor((now.getTime() - start) / 86400000);
 }
 
+type Lang = "en" | "ko" | "th";
+const COPY: Record<Lang, {
+  badge: string; todaysPick: string; reviews: string; trustScore: string;
+  verifiedReviewer: string; whyClinic: string; whyBody: string; seeProfile: string;
+}> = {
+  en: {
+    badge: "💎 Hidden gem · today", todaysPick: "Today's pick · refreshes daily", reviews: "reviews", trustScore: "Trust Score",
+    verifiedReviewer: "Verified reviewer",
+    whyClinic: "Why this clinic?", whyBody: "High Trust Score with a smaller review pool — quality is established but it isn't blowing up on social yet. Often a better value than the top-of-list giants.",
+    seeProfile: "See full profile",
+  },
+  ko: {
+    badge: "💎 오늘의 숨은 보석", todaysPick: "오늘의 픽 · 매일 갱신", reviews: "리뷰", trustScore: "신뢰도 점수",
+    verifiedReviewer: "검증된 리뷰어",
+    whyClinic: "왜 이 클리닉인가?", whyBody: "신뢰도는 높은데 아직 리뷰 수는 적은 곳 — 품질은 검증됐지만 아직 입소문이 크게 안 났습니다. 상위권 대형 클리닉보다 가성비가 좋을 때가 많습니다.",
+    seeProfile: "전체 프로필 보기",
+  },
+  th: {
+    badge: "💎 อัญมณีที่ซ่อนอยู่ · วันนี้", todaysPick: "ตัวเลือกวันนี้ · อัปเดตทุกวัน", reviews: "รีวิว", trustScore: "คะแนนความน่าเชื่อถือ",
+    verifiedReviewer: "ผู้รีวิวที่ยืนยันแล้ว",
+    whyClinic: "ทำไมต้องคลินิกนี้?", whyBody: "คะแนนความน่าเชื่อถือสูงแต่มีรีวิวยังไม่มาก — คุณภาพพิสูจน์แล้วแต่ยังไม่ดังบนโซเชียล มักคุ้มค่ากว่าคลินิกอันดับต้นๆ ที่ใหญ่กว่า",
+    seeProfile: "ดูโปรไฟล์เต็ม",
+  },
+};
+
 export function HiddenGem({
   pool,
   accent = "#2563eb",
   photo,
+  lang = "en",
 }: {
   pool: Clinic[];
   accent?: string;
   photo?: { thumb: string; large: string };
+  lang?: Lang;
 }) {
+  const t = COPY[lang] ?? COPY.en;
   // 후보: high-trust 인데 review_volume 적은 클리닉 → 진짜 숨은 보석
   const candidates = pool.filter(
     (c) => c.trust_score >= 70 && c.total_reviews >= 30 && c.total_reviews <= 250
@@ -63,14 +91,14 @@ export function HiddenGem({
             {/* Floating badge */}
             <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-white text-[10px] uppercase tracking-widest font-black shadow-md"
                  style={{ background: accent }}>
-              💎 Hidden gem · today
+              {t.badge}
             </div>
           </div>
 
           {/* Info half */}
           <div className="p-5 md:p-7 bg-white">
             <div className="text-[10px] uppercase tracking-widest font-bold mb-2" style={{ color: accent }}>
-              Today&apos;s pick · refreshes daily
+              {t.todaysPick}
             </div>
             <h2 className="text-2xl md:text-3xl font-black tracking-tight leading-tight mb-2">
               {pick.name}
@@ -80,18 +108,18 @@ export function HiddenGem({
               <span>·</span>
               <span className="text-yellow-700 font-bold">★ {pick.rating.toFixed(1)}</span>
               <span>·</span>
-              <span>{pick.total_reviews.toLocaleString()} reviews</span>
+              <span>{pick.total_reviews.toLocaleString()} {t.reviews}</span>
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
                  style={{ background: `${accent}15`, color: accent }}>
               <span className="text-lg font-black tabular-nums">{formatTrustScore(pick.trust_score)}</span>
-              <span className="text-[10px] uppercase tracking-widest font-bold">Trust Score</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold">{t.trustScore}</span>
             </div>
 
             {sample && (
               <blockquote className="border-l-4 pl-3 mb-4 italic" style={{ borderColor: accent }}>
                 <p className="text-sm leading-relaxed line-clamp-3">&ldquo;{sample.text}&rdquo;</p>
-                <footer className="text-[10px] text-[var(--muted)] mt-1">— {sample.author || "Verified reviewer"}</footer>
+                <footer className="text-[10px] text-[var(--muted)] mt-1">— {sample.author || t.verifiedReviewer}</footer>
               </blockquote>
             )}
 
@@ -106,8 +134,7 @@ export function HiddenGem({
             )}
 
             <p className="text-[11px] text-[var(--muted)] mb-3 leading-relaxed">
-              <strong className="text-[var(--fg)]">Why this clinic?</strong> High Trust Score with a smaller review pool —
-              quality is established but it isn&apos;t blowing up on social yet. Often a better value than the top-of-list giants.
+              <strong className="text-[var(--fg)]">{t.whyClinic}</strong> {t.whyBody}
             </p>
 
             <a
@@ -115,7 +142,7 @@ export function HiddenGem({
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm font-bold hover:shadow-md hover:-translate-y-0.5 transition-all"
               style={{ background: accent }}
             >
-              See full profile <span aria-hidden>→</span>
+              {t.seeProfile} <span aria-hidden>→</span>
             </a>
           </div>
         </div>

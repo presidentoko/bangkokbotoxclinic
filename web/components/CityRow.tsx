@@ -5,17 +5,27 @@
 
 import { useRef, type ReactNode } from "react";
 
+type Lang = "en" | "ko" | "th";
+const COPY: Record<Lang, { clinic: string; clinics: string; seeAll: string; scrollLeft: string; scrollRight: string }> = {
+  en: { clinic: "clinic", clinics: "clinics", seeAll: "See all {n} →", scrollLeft: "Scroll left", scrollRight: "Scroll right" },
+  ko: { clinic: "곳", clinics: "곳", seeAll: "{n}곳 전체 보기 →", scrollLeft: "왼쪽으로 스크롤", scrollRight: "오른쪽으로 스크롤" },
+  th: { clinic: "แห่ง", clinics: "แห่ง", seeAll: "ดูทั้งหมด {n} แห่ง →", scrollLeft: "เลื่อนซ้าย", scrollRight: "เลื่อนขวา" },
+};
+
 export default function CityRow({
   city,
   total,
   seeAllHref,
   children,
+  lang = "en",
 }: {
   city: string;
   total: number;
   seeAllHref?: string;
   children: ReactNode;
+  lang?: Lang;
 }) {
+  const t = COPY[lang] ?? COPY.en;
   const scrollRef = useRef<HTMLDivElement>(null);
 
   function scroll(dir: 1 | -1) {
@@ -30,7 +40,7 @@ export default function CityRow({
         <div>
           <div className="text-xs font-bold uppercase tracking-widest text-[var(--accent)]">{city}</div>
           <h3 className="mt-1 text-2xl sm:text-3xl font-black tracking-tight">
-            {city} <span className="text-[var(--muted)] font-bold">· {total} clinic{total === 1 ? "" : "s"}</span>
+            {city} <span className="text-[var(--muted)] font-bold">· {total} {total === 1 ? t.clinic : t.clinics}</span>
           </h3>
         </div>
         <div className="flex items-center gap-2">
@@ -38,7 +48,7 @@ export default function CityRow({
             type="button" onClick={() => scroll(-1)}
             className="grid h-10 w-10 place-items-center rounded-full border bg-white transition hover:border-black"
             style={{ borderColor: "var(--border)" }}
-            aria-label="Scroll left"
+            aria-label={t.scrollLeft}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
@@ -46,7 +56,7 @@ export default function CityRow({
             type="button" onClick={() => scroll(1)}
             className="grid h-10 w-10 place-items-center rounded-full border bg-white transition hover:border-black"
             style={{ borderColor: "var(--border)" }}
-            aria-label="Scroll right"
+            aria-label={t.scrollRight}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
@@ -56,7 +66,7 @@ export default function CityRow({
               className="rounded-full border bg-white px-4 py-2 text-xs font-bold transition hover:border-black"
               style={{ borderColor: "var(--border)" }}
             >
-              See all {total} →
+              {t.seeAll.replace("{n}", String(total))}
             </a>
           )}
         </div>

@@ -300,7 +300,7 @@ export default async function KoServicePage(
         })()}
 
         <div className="my-8">
-          <BookingForm defaultService={service} />
+          <BookingForm defaultService={service} lang="ko" />
         </div>
 
         {faqs.length > 0 && (
