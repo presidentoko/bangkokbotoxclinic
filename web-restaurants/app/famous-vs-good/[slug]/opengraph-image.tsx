@@ -5,6 +5,7 @@ import { ImageResponse } from "next/og";
 import { loadFamousVsGoodCollection, loadAllSlugs } from "@/lib/famous-vs-good";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 export const alt = "Instagram Famous vs Actually Good — Real Data, Not Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

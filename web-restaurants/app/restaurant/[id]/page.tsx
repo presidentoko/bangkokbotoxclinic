@@ -18,6 +18,10 @@ import { SaveButton } from "@/components/SaveButton";
 import { CommunityButtons } from "@/components/CommunityButtons";
 
 export const dynamic = "force-static";
+// All valid ids are enumerated below at build time — reject anything else at
+// the routing layer instead of invoking the function to generate-then-404.
+// Bots probing bogus/expired ids were burning ISR writes + Fluid CPU on this.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();

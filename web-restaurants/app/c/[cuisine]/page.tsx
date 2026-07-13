@@ -12,6 +12,8 @@ import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CUISINE_LABELS));
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return Array.from(VALID).map((cuisine) => ({ cuisine }));
 }

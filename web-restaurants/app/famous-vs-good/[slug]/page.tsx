@@ -11,6 +11,7 @@ import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { GenericShareButton, WhatsAppShare } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = await loadAllSlugs();

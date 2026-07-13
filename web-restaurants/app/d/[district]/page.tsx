@@ -13,6 +13,8 @@ function districtFromSlug(slug: string, all: string[]): string | null {
   return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
   const districts = Array.from(new Set(

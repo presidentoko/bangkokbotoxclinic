@@ -8,6 +8,7 @@ import { getSiteConfig } from "@/lib/site";
 
 // Edge runtime 제거 — loadMasterDb 가 fs 사용 (Node only).
 export const dynamic = "force-static";
+export const dynamicParams = false;
 export const alt = "Restaurant — Real Reviews, Not SNS Hype";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

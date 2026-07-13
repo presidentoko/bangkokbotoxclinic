@@ -9,6 +9,8 @@ import { EmailSignup } from "@/components/EmailSignup";
 import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return BEST_FOR.map((c) => ({ criterion: c.slug }));
 }

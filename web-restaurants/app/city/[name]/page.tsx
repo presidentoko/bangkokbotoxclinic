@@ -8,6 +8,8 @@ import { AdSlot } from "@/components/AffiliateSlot";
 import { GenericShareButton } from "@/components/ShareButton";
 import type { Metadata } from "next";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
   return Object.keys(db.city_counts).map((name) => ({ name }));
