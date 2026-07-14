@@ -20,6 +20,7 @@ const CITY_TO_GUIDE: Record<string, string> = {
   samut_sakhon: "thai-food-manufacturer-haccp-export",
   samut_prakan: "thai-textile-apparel-oem-guide",
   ayutthaya: "eastern-seaboard-industrial-estates-compared",
+  phra_nakhon_si_ayutthaya: "eastern-seaboard-industrial-estates-compared",
   bangkok: "sourcing-thai-suppliers-direct",
   songkhla: "thai-rubber-products-sourcing-guide",
   nonthaburi: "sourcing-thai-suppliers-direct",
@@ -27,6 +28,7 @@ const CITY_TO_GUIDE: Record<string, string> = {
   nakhon_ratchasima: "sourcing-thai-suppliers-direct",
   chiang_mai: "sourcing-thai-suppliers-direct",
   pattaya: "laem-chabang-warehouse-logistics",
+  prachin_buri: "eastern-seaboard-industrial-estates-compared",
 };
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -82,6 +84,10 @@ const CITY_NOTES: Record<string, { hook: string; long: string }> = {
     hook: "Rojana Hi-Tech industrial estates — Honda, Sony, Sharp and Japanese supplier clusters.",
     long: "Ayutthaya hosts Rojana Industrial Park, Hi-Tech Industrial Estate, and Saha Rattana Nakorn — all predominantly Japanese-led tenant bases. Honda vehicles, Sony, and Sharp electronics are flagship operators. Excellent highway access to Bangkok and Eastern Seaboard.",
   },
+  phra_nakhon_si_ayutthaya: {
+    hook: "Rojana Hi-Tech industrial estates — Honda, Sony, Sharp and Japanese supplier clusters.",
+    long: "Phra Nakhon Si Ayutthaya (Ayutthaya) hosts Rojana Industrial Park, Hi-Tech Industrial Estate, and Saha Rattana Nakorn — all predominantly Japanese-led tenant bases. Honda vehicles, Sony, and Sharp electronics are flagship operators. Excellent highway access to Bangkok and Eastern Seaboard.",
+  },
   songkhla: {
     hook: "Southern hub — natural rubber processing, seafood, and halal food manufacturing.",
     long: "Songkhla (Hat Yai area) is Thailand's top natural rubber processing cluster and a major seafood / halal food OEM base. The province handles a significant share of Thailand's natural rubber exports and serves as the commercial gateway for southern Thailand and the Malaysia border trade corridor.",
@@ -125,6 +131,10 @@ const CITY_NOTES: Record<string, { hook: string; long: string }> = {
   chiang_mai: {
     hook: "Northern economic hub — agri-food OEM, traditional crafts, and small-batch manufacturing.",
     long: "Chiang Mai is the largest city in Northern Thailand. Key manufacturing sectors: agri-food OEM (coffee, herbs, health foods), traditional crafts (lacquerware, ceramics, hand-woven textiles), and precision small-batch manufacturing. Chiang Mai Industrial Estate anchors the local formal manufacturing cluster.",
+  },
+  prachin_buri: {
+    hook: "304 Industrial Park — Japanese and Korean auto parts, electronics, and food processing.",
+    long: "Prachin Buri sits just north of Chachoengsao on the inland edge of the Eastern Seaboard corridor. 304 Industrial Park (Phases 1–3) is the province's main anchor, hosting Japanese and Korean automotive parts, electronics, and food processing manufacturers who want Eastern Seaboard logistics access without Chon Buri/Rayong land costs.",
   },
 };
 
@@ -218,9 +228,9 @@ export default async function CityPage(
           <div className="text-xs text-[var(--muted)]">Suppliers</div>
         </div>
         {verifiedCount > 0 && (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
-            <div className="text-2xl font-bold tabular-nums text-emerald-700">✓ {verifiedCount.toLocaleString()}</div>
-            <div className="text-xs text-emerald-700">DBD-verified</div>
+          <div className="rounded-xl border border-[var(--gold-light)] bg-[var(--gold-bg)] p-3">
+            <div className="text-2xl font-bold tabular-nums text-[var(--gold-deep)]">✓ {verifiedCount.toLocaleString()}</div>
+            <div className="text-xs text-[var(--gold-deep)]">DBD-verified</div>
           </div>
         )}
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">
@@ -234,8 +244,8 @@ export default async function CityPage(
       </div>
 
       {estateMap.size > 0 && (
-        <section className="mb-8 border border-emerald-200 rounded-2xl bg-emerald-50/30 p-5">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-emerald-800 mb-3">
+        <section className="mb-8 border border-[var(--gold-light)] rounded-2xl bg-[var(--gold-bg)]/30 p-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--gold-deep)] mb-3">
             🏘 Industrial Estates in {display}
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -245,9 +255,9 @@ export default async function CityPage(
                 <a
                   key={slug}
                   href={`/estate/${slug}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300 bg-white text-sm hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-800 transition font-medium"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--gold-light)] bg-white text-sm hover:border-[var(--gold)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
                 >
-                  {name} <span className="text-emerald-600 tabular-nums">{count}</span>
+                  {name} <span className="text-[var(--gold)] tabular-nums">{count}</span>
                 </a>
               ))}
           </div>
@@ -261,20 +271,20 @@ export default async function CityPage(
         return (
           <a
             href={`/guide/${guide.slug}`}
-            className="block mb-8 p-5 bg-emerald-50/40 border border-emerald-200 rounded-xl hover:border-emerald-400 hover:shadow-md transition group"
+            className="block mb-8 p-5 bg-[var(--gold-bg)]/40 border border-[var(--gold-light)] rounded-xl hover:border-[var(--gold)] hover:shadow-md transition group"
           >
             <div className="flex items-start gap-4">
               <div className="text-2xl shrink-0">📖</div>
               <div className="flex-1 min-w-0">
-                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-1">
+                <div className="text-xs font-bold uppercase tracking-widest text-[var(--gold-deep)] mb-1">
                   Buyer guide for {display}
                 </div>
-                <h2 className="font-bold text-lg leading-snug mb-1 group-hover:text-emerald-700 transition">
+                <h2 className="font-bold text-lg leading-snug mb-1 group-hover:text-[var(--gold-deep)] transition">
                   {guide.title}
                 </h2>
                 <p className="text-sm text-[var(--muted)] line-clamp-2">{guide.metaDescription}</p>
               </div>
-              <span className="text-emerald-700 group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
+              <span className="text-[var(--gold-deep)] group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
             </div>
           </a>
         );
@@ -288,7 +298,7 @@ export default async function CityPage(
               <a
                 key={c}
                 href={`/c/${c}`}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
               >
                 <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
                 {CATEGORY_LABELS[c] ?? c}
@@ -307,7 +317,7 @@ export default async function CityPage(
               <a
                 key={g.slug}
                 href={`/d/${g.slug}`}
-                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
               >
                 📍 {g.display} <span className="text-[var(--muted)]">{g.count}</span>
               </a>
@@ -340,7 +350,7 @@ export default async function CityPage(
 
       <div className="mt-10 flex flex-wrap gap-3 text-sm">
         <a href="/best" className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 transition">🏆 Curated lists →</a>
-        <a href="/guide" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-emerald-400 hover:text-emerald-700 transition">Buyer guides →</a>
+        <a href="/guide" className="px-3 py-1.5 rounded-full border border-[var(--border)] bg-white hover:border-[var(--gold-light)] hover:text-[var(--gold-deep)] transition">Buyer guides →</a>
       </div>
 
       {(CITY_FAQS[name] ?? []).length > 0 && (
