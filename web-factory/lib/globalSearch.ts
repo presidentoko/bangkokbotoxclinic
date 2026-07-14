@@ -19,11 +19,18 @@ export function matchCategories(query: string): SearchResult[] {
     .map(([key, label]) => ({ kind: "category" as const, key, label, href: `/c/${key}` }));
 }
 
-/** Group browse-index entries by city_label. Compute once per fetched dataset. */
-export function regionCounts(entries: BrowseEntry[]): Map<string, number> {
+/**
+ * Group browse-index entries by city_label. Compute once per fetched dataset.
+ * When `validCities` is given, labels outside it are dropped — some
+ * supplier.city_label values (e.g. "Pattaya", "Phuket") never made it into
+ * master_db.json's city_counts and have no generated /city/{slug} page, so
+ * surfacing them as a clickable region result would 404.
+ */
+export function regionCounts(entries: BrowseEntry[], validCities?: Set<string>): Map<string, number> {
   const m = new Map<string, number>();
   for (const e of entries) {
     if (!e.city_label) continue;
+    if (validCities && !validCities.has(e.city_label)) continue;
     m.set(e.city_label, (m.get(e.city_label) ?? 0) + 1);
   }
   return m;

@@ -7,10 +7,20 @@ import { CATEGORY_ICONS } from "@/lib/types";
 
 export function GlobalSearch() {
   const [entries, setEntries] = useState<BrowseEntry[]>([]);
+  const [validCities, setValidCities] = useState<Set<string> | undefined>(undefined);
   const [fetchStarted, setFetchStarted] = useState(false);
   const [q, setQ] = useState("");
+  const [debouncedQ, setDebouncedQ] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Debounce the ~8,200-entry scan (matchSuppliers/matchRegions in lib/globalSearch.ts)
+  // so it runs once after typing pauses instead of on every keystroke — avoids
+  // input lag on slower/mobile devices while the input itself stays instant.
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedQ(q), 150);
+    return () => clearTimeout(t);
+  }, [q]);
 
   function ensureFetched() {
     if (fetchStarted) return;
@@ -18,6 +28,10 @@ export function GlobalSearch() {
     fetch("/browse-index.json")
       .then((r) => (r.ok ? r.json() : []))
       .then((data: BrowseEntry[]) => setEntries(data))
+      .catch(() => {});
+    fetch("/city-index.json")
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: string[]) => setValidCities(new Set(data)))
       .catch(() => {});
   }
 
@@ -29,9 +43,9 @@ export function GlobalSearch() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  const counts = useMemo(() => regionCounts(entries), [entries]);
-  const results = useMemo(() => globalSearch(q, entries, counts), [q, entries, counts]);
-  const showDropdown = open && q.trim().length >= 2;
+  const counts = useMemo(() => regionCounts(entries, validCities), [entries, validCities]);
+  const results = useMemo(() => globalSearch(debouncedQ, entries, counts), [debouncedQ, entries, counts]);
+  const showDropdown = open && debouncedQ.trim().length >= 2;
 
   return (
     <div ref={ref} className="relative w-full">

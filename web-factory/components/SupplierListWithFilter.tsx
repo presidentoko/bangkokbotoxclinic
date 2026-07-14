@@ -37,6 +37,20 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
   const top10 = filtered.slice(0, 10);
   const total = filtered.length;
 
+  // /c/{category} and /city/{slug} show every supplier in that category/city —
+  // neither supports a dbdOnly filter, so only offer the smart link when
+  // exactly one of category/city is active AND dbdOnly is off (otherwise the
+  // count shown wouldn't match what the destination page actually displays).
+  const viewAll = (() => {
+    if (!dbdOnly && category && !city) {
+      return { href: `/c/${category}`, label: `View all ${total.toLocaleString()} ${category.replace(/_/g, " ")} suppliers →` };
+    }
+    if (!dbdOnly && city && !category) {
+      return { href: `/city/${citySlugFromDisplay(city)}`, label: `View all ${total.toLocaleString()} suppliers in ${city} →` };
+    }
+    return { href: viewAllHref, label: `View all ${totalSuppliers.toLocaleString()} suppliers →` };
+  })();
+
   return (
     <div>
       {/* Sticky filter bar */}
@@ -46,7 +60,7 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="text-sm border border-[var(--border)] rounded-lg px-3 py-1.5 bg-white hover:border-emerald-400 transition cursor-pointer"
+            className="text-sm border border-[var(--border)] rounded-lg px-3 py-1.5 bg-white hover:border-[var(--gold-light)] transition cursor-pointer"
           >
             <option value="">All categories</option>
             {categoryOptions.map((c) => (
@@ -60,7 +74,7 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
         <select
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="text-sm border border-[var(--border)] rounded-lg px-3 py-1.5 bg-white hover:border-emerald-400 transition cursor-pointer"
+          className="text-sm border border-[var(--border)] rounded-lg px-3 py-1.5 bg-white hover:border-[var(--gold-light)] transition cursor-pointer"
         >
           <option value="">All provinces</option>
           {cityOptions.map((c) => (
@@ -73,9 +87,9 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
             type="checkbox"
             checked={dbdOnly}
             onChange={(e) => setDbdOnly(e.target.checked)}
-            className="rounded border-[var(--border)] accent-emerald-600"
+            className="rounded border-[var(--border)] accent-[var(--gold)]"
           />
-          <span className="font-medium text-emerald-700">DBD Verified only</span>
+          <span className="font-medium text-[var(--gold-deep)]">DBD Verified only</span>
         </label>
 
         <span className="ml-auto text-xs text-[var(--muted)] tabular-nums">
@@ -89,7 +103,7 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
           <a
             key={s.id}
             href={`/supplier/${s.id}`}
-            className="flex items-center gap-4 px-4 py-3 border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-emerald-300 transition"
+            className="flex items-center gap-4 px-4 py-3 border border-[var(--border)] rounded-xl bg-white hover:shadow-md hover:border-[var(--gold-light)] transition"
           >
             <div className="text-sm font-black tabular-nums text-[var(--muted)] w-6 shrink-0">
               {i + 1}
@@ -99,12 +113,12 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
               <div className="text-xs text-[var(--muted)] mt-0.5">
                 {s.district || s.city_label}
                 {s.dbd && (
-                  <span className="ml-2 text-emerald-700 font-medium">· DBD ✓</span>
+                  <span className="ml-2 text-[var(--gold-deep)] font-medium">· DBD ✓</span>
                 )}
               </div>
             </div>
             <div className="shrink-0 text-right">
-              <div className="text-lg font-black tabular-nums text-emerald-700">{s.trust_score}</div>
+              <div className="text-lg font-black tabular-nums text-[var(--gold-deep)]">{s.trust_score}</div>
               <div className="text-[10px] text-[var(--muted)] uppercase tracking-wide">Trust</div>
             </div>
           </a>
@@ -119,20 +133,10 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
 
       <div className="mt-4 text-center">
         <a
-          href={
-            category && !city
-              ? `/c/${category}`
-              : city && !category
-              ? `/city/${citySlugFromDisplay(city)}`
-              : viewAllHref
-          }
+          href={viewAll.href}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[var(--border)] text-sm font-bold hover:border-[var(--gold-light)] hover:text-[var(--gold-deep)] transition"
         >
-          {category && !city
-            ? `View all ${total.toLocaleString()} ${category.replace(/_/g, " ")} suppliers →`
-            : city && !category
-            ? `View all ${total.toLocaleString()} suppliers in ${city} →`
-            : `View all ${totalSuppliers.toLocaleString()} suppliers →`}
+          {viewAll.label}
         </a>
       </div>
     </div>

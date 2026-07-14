@@ -39,7 +39,18 @@ export function HeaderQuickAccess() {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       })
-      .catch(() => {});
+      .catch(() => {
+        // Clipboard API unavailable (non-HTTPS, permission denied, older Safari) —
+        // same execCommand fallback ShortlistTray uses for this exact URL.
+        const el = document.createElement("textarea");
+        el.value = url;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
   }
 
   if (recent.length === 0 && shortlist.length === 0) return null;

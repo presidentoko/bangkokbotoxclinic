@@ -93,7 +93,14 @@ export default async function CategoryPage(
     dbd: !!s.dbd,
     trust_score: s.trust_score ?? 0,
   }));
-  const cityOptions = Array.from(new Set(filtered.map((s) => s.city_label).filter(Boolean))).sort();
+  // Only offer cities that actually have a generated /city/{slug} page — some
+  // suppliers carry a city_label (e.g. "Ayutthaya", "Pattaya") that was never
+  // aggregated into db.city_counts (the source generateStaticParams uses for
+  // /city/[name]), so filtering here avoids a dead-link "View all in {city}".
+  const validCities = new Set(Object.keys(db.city_counts));
+  const cityOptions = Array.from(
+    new Set(filtered.map((s) => s.city_label).filter((c) => c && validCities.has(c))),
+  ).sort();
 
   // For industrial_estate: group by estate
   const byEstate = new Map<string, { slug: string; count: number }>();
