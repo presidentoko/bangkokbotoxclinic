@@ -125,18 +125,18 @@ export default async function CategoryPage(
             `${filtered.length.toLocaleString()} verified ${label.toLowerCase()} suppliers across Thailand. Ranked by Trust Score from public Google review analysis.`}
         </p>
         <div className="flex flex-wrap gap-2 text-xs">
-          <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+          <span className="bg-[var(--gold-bg)] text-[var(--gold-deep)] px-2.5 py-1 rounded-full font-medium tabular-nums">
             {filtered.length.toLocaleString()} suppliers
           </span>
           {verifiedCount > 0 && (
-            <span className="bg-emerald-600 text-white px-2.5 py-1 rounded-full font-medium tabular-nums">
+            <span className="bg-[var(--gold)] text-white px-2.5 py-1 rounded-full font-medium tabular-nums">
               ✓ {verifiedCount.toLocaleString()} DBD-verified
             </span>
           )}
-          <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+          <span className="bg-[var(--gold-bg)] text-[var(--gold-deep)] px-2.5 py-1 rounded-full font-medium tabular-nums">
             {totalReviews.toLocaleString()} reviews analyzed
           </span>
-          <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
+          <span className="bg-[var(--gold-bg)] text-[var(--gold-deep)] px-2.5 py-1 rounded-full font-medium tabular-nums">
             {withWebsite.toLocaleString()} with direct website
           </span>
           {intro?.bestForSlug && (
@@ -155,28 +155,28 @@ export default async function CategoryPage(
         return (
           <a
             href={`/guide/${guide.slug}`}
-            className="block mb-8 p-5 bg-emerald-50/40 border border-emerald-200 rounded-xl hover:border-emerald-400 hover:shadow-md transition group"
+            className="block mb-8 p-5 bg-[var(--gold-bg)]/40 border border-[var(--gold-light)] rounded-xl hover:border-[var(--gold)] hover:shadow-md transition group"
           >
             <div className="flex items-start gap-4">
               <div className="text-2xl shrink-0">📖</div>
               <div className="flex-1 min-w-0">
-                <div className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-1">
+                <div className="text-xs font-bold uppercase tracking-widest text-[var(--gold-deep)] mb-1">
                   Read the buyer guide
                 </div>
-                <h2 className="font-bold text-lg leading-snug mb-1 group-hover:text-emerald-700 transition">
+                <h2 className="font-bold text-lg leading-snug mb-1 group-hover:text-[var(--gold-deep)] transition">
                   {guide.title}
                 </h2>
                 <p className="text-sm text-[var(--muted)] line-clamp-2">{guide.metaDescription}</p>
               </div>
-              <span className="text-emerald-700 group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
+              <span className="text-[var(--gold-deep)] group-hover:translate-x-1 transition shrink-0 self-center text-xl">→</span>
             </div>
           </a>
         );
       })()}
 
       {byEstate.size > 0 && (
-        <section className="mb-8 border border-emerald-200 rounded-2xl bg-emerald-50/30 p-5">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-emerald-800 mb-3">
+        <section className="mb-8 border border-[var(--gold-light)] rounded-2xl bg-[var(--gold-bg)]/30 p-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--gold-deep)] mb-3">
             🏘 Browse by Estate
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -186,10 +186,10 @@ export default async function CategoryPage(
                 <a
                   key={slug}
                   href={`/estate/${slug}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300 bg-white text-sm hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-800 transition font-medium"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--gold-light)] bg-white text-sm hover:border-[var(--gold)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
                 >
                   {name}
-                  <span className="text-emerald-600 tabular-nums">{count}</span>
+                  <span className="text-[var(--gold)] tabular-nums">{count}</span>
                 </a>
               ))}
           </div>
@@ -206,7 +206,7 @@ export default async function CategoryPage(
               <a
                 key={city}
                 href={`/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
               >
                 {city}
                 <span className="text-[var(--muted)] tabular-nums">{n}</span>
@@ -226,7 +226,7 @@ export default async function CategoryPage(
               <a
                 key={d.slug}
                 href={`/c/${cuisine}/${d.slug}`}
-                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
               >
                 {label} in {d.display} <span className="text-[var(--muted)]">{d.count}</span>
               </a>
