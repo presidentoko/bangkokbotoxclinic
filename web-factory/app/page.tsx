@@ -107,23 +107,23 @@ export default async function HomePage() {
   return (
     <>
       {/* MEGA HERO */}
-      <section className="relative bg-gradient-to-b from-emerald-50 via-green-50/30 to-white overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[var(--gold-bg)] via-[var(--gold-bg)]/30 to-white overflow-hidden">
         <div className="absolute inset-0 opacity-30 pointer-events-none">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl" />
-          <div className="absolute top-32 right-10 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl" />
+          <div className="absolute top-10 left-10 w-72 h-72 bg-[var(--gold-light)] rounded-full mix-blend-multiply filter blur-3xl" />
+          <div className="absolute top-32 right-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl" />
         </div>
         <div className="relative max-w-5xl mx-auto px-4 pt-16 md:pt-20 pb-12 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-widest mb-6">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--gold-bg)] text-[var(--gold-deep)] text-xs font-bold uppercase tracking-widest mb-6">
+            <span className="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse" />
             Verified by real buyers · No agent middleman
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
             Thai sourcing,<br />
-            <span className="text-emerald-700">ranked by buyers</span>{" "}
-            <span className="opacity-50 line-through decoration-emerald-500 decoration-4">— not agents.</span>
+            <span className="text-[var(--gold-deep)]">ranked by buyers</span>{" "}
+            <span className="opacity-50 line-through decoration-[var(--gold)] decoration-4">— not agents.</span>
           </h1>
           <p className="text-lg md:text-xl text-[var(--muted)] mb-8 max-w-2xl mx-auto text-balance">
-            <span className="font-bold text-emerald-800">{verifiedCount.toLocaleString()}</span> manufacturers cross-checked with Thailand&apos;s official business registry (DBD). Plus{" "}
+            <span className="font-bold text-[var(--gold-deep)]">{verifiedCount.toLocaleString()}</span> manufacturers cross-checked with Thailand&apos;s official business registry (DBD). Plus{" "}
             <span className="font-bold text-[var(--fg)]">{db.total_suppliers.toLocaleString()}</span> B2B suppliers across{" "}
             <span className="font-bold text-[var(--fg)]">{provinces}</span> provinces — capital, registered date, TSIC code, photos, real Google reviews.
           </p>
@@ -136,7 +136,7 @@ export default async function HomePage() {
       </section>
 
       {/* MEGA STATS BAR */}
-      <section className="border-y border-[var(--border)] bg-gradient-to-r from-emerald-700 via-green-700 to-emerald-800 text-white">
+      <section className="border-y border-[var(--border)] bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 text-white">
         <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <Stat big={verifiedCount.toLocaleString()} label="DBD-verified" />
           <Stat big={db.total_suppliers.toLocaleString()} label="B2B suppliers" />
@@ -173,7 +173,7 @@ export default async function HomePage() {
         <section className="mb-12">
           <a
             href="/compare"
-            className="group flex flex-col sm:flex-row items-center gap-5 p-6 rounded-2xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 hover:border-emerald-400 transition"
+            className="group flex flex-col sm:flex-row items-center gap-5 p-6 rounded-2xl border border-[var(--gold-light)] bg-[var(--gold-bg)]/50 hover:bg-[var(--gold-bg)] hover:border-[var(--gold)] transition"
           >
             <div className="text-4xl shrink-0">⚖️</div>
             <div className="flex-1 min-w-0 text-center sm:text-left">
@@ -236,7 +236,7 @@ export default async function HomePage() {
           <div className="mt-6 text-center">
             <a
               href="/for-buyers"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-emerald-600 text-emerald-700 text-sm font-bold hover:bg-emerald-50 transition"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[var(--gold)] text-[var(--gold-deep)] text-sm font-bold hover:bg-[var(--gold-bg)] transition"
             >
               Full sourcing guide for buyers →
             </a>
@@ -252,7 +252,7 @@ export default async function HomePage() {
                 <a
                   key={city}
                   href={`/city/${citySlug(city)}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
                 >
                   {city}
                   <span className="text-[var(--muted)] tabular-nums">{count}</span>
@@ -267,17 +267,17 @@ export default async function HomePage() {
           <section className="mb-12">
             <div className="flex items-baseline justify-between gap-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">Latest from the blog</h2>
-              <a href="/blog" className="text-sm text-emerald-700 font-medium hover:underline">All posts →</a>
+              <a href="/blog" className="text-sm text-[var(--gold-deep)] font-medium hover:underline">All posts →</a>
             </div>
             <div className="grid sm:grid-cols-3 gap-4">
               {[...POSTS].sort((a, b) => b.published.localeCompare(a.published)).slice(0, 3).map((p) => (
                 <a
                   key={p.slug}
                   href={`/blog/${p.slug}`}
-                  className="block p-5 bg-white border border-[var(--border)] rounded-xl hover:border-emerald-400 hover:shadow-md transition group"
+                  className="block p-5 bg-white border border-[var(--border)] rounded-xl hover:border-[var(--gold-light)] hover:shadow-md transition group"
                 >
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 mb-2">{p.category}</div>
-                  <h3 className="font-bold text-base leading-snug mb-2 group-hover:text-emerald-700 transition line-clamp-2">{p.title}</h3>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-[var(--gold-deep)] mb-2">{p.category}</div>
+                  <h3 className="font-bold text-base leading-snug mb-2 group-hover:text-[var(--gold-deep)] transition line-clamp-2">{p.title}</h3>
                   <p className="text-xs text-[var(--muted)] leading-relaxed line-clamp-3">{p.metaDescription}</p>
                 </a>
               ))}
@@ -289,14 +289,14 @@ export default async function HomePage() {
         <section className="mb-10">
           <div className="flex items-baseline justify-between gap-4 mb-3">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">Buyer Guides</h2>
-            <a href="/guide" className="text-xs text-emerald-700 font-medium hover:underline">All {GUIDES.length} guides →</a>
+            <a href="/guide" className="text-xs text-[var(--gold-deep)] font-medium hover:underline">All {GUIDES.length} guides →</a>
           </div>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
             {GUIDES.slice(0, 6).map((g) => (
               <a
                 key={g.slug}
                 href={`/guide/${g.slug}`}
-                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
               >
                 {g.title.replace(/ — .*$/, "").replace(/ \(\d{4}\)$/, "")}
               </a>
@@ -309,14 +309,14 @@ export default async function HomePage() {
           <section className="mb-10">
             <div className="flex items-baseline justify-between gap-4 mb-3">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">Best of</h2>
-              <a href="/best" className="text-xs text-emerald-700 font-medium hover:underline">All {BEST_FOR.length} lists →</a>
+              <a href="/best" className="text-xs text-[var(--gold-deep)] font-medium hover:underline">All {BEST_FOR.length} lists →</a>
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
               {BEST_FOR.map((c) => (
                 <a
                   key={c.slug}
                   href={`/best/${c.slug}`}
-                  className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                  className="block px-4 py-3 rounded-xl border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
                 >
                   {c.title.replace(/^Best |^Top |^Most /, "").replace(/ in Thailand$/, "")}
                 </a>
@@ -333,7 +333,7 @@ export default async function HomePage() {
                 <a
                   key={g.slug}
                   href={`/d/${g.slug}`}
-                  className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition"
+                  className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition"
                 >
                   📍 {g.display} <span className="text-[var(--muted)] tabular-nums">{g.count}</span>
                 </a>
@@ -401,7 +401,7 @@ function Stat({ big, label }: { big: string; label: string }) {
 
 function Manifesto({ icon, title, body }: { icon: string; title: string; body: string }) {
   return (
-    <div className="p-5 rounded-2xl border border-[var(--border)] bg-white hover:shadow-md hover:border-emerald-300 transition">
+    <div className="p-5 rounded-2xl border border-[var(--border)] bg-white hover:shadow-md hover:border-[var(--gold-light)] transition">
       <div className="text-3xl mb-3">{icon}</div>
       <h3 className="font-bold text-base mb-1">{title}</h3>
       <p className="text-sm text-[var(--muted)] leading-relaxed">{body}</p>
@@ -413,10 +413,10 @@ function HowStep({ step, icon, title, body }: { step: string; icon: string; titl
   return (
     <div className="flex flex-col items-center">
       <div className="relative mb-4">
-        <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-2xl">
+        <div className="w-14 h-14 rounded-2xl bg-[var(--gold-bg)] border border-[var(--gold-light)] flex items-center justify-center text-2xl">
           {icon}
         </div>
-        <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-black flex items-center justify-center">
+        <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--gold)] text-white text-xs font-black flex items-center justify-center">
           {step}
         </div>
       </div>
