@@ -30,13 +30,33 @@ export async function loadMasterDb(): Promise<MasterDb> {
     // (By Region lists, filter dropdowns). Raw source data has Latin-spelling
     // and Thai-script duplicates of the same province — collapse them here so
     // every consumer downstream sees one canonical label for free.
-    const normalizedLabel = normalizeProvince(s.city_label) || s.city_label;
+    // normalizeProvince() already handles "no match" by passing the trimmed
+    // original straight through (NORM[trimmed] ?? trimmed) — it only returns
+    // "" for values explicitly mapped to it (known garbage like raw "City"/
+    // "N/A"). A `|| s.city_label` fallback here would undo that on purpose,
+    // reviving the exact garbage value normalization was meant to discard.
+    const normalizedLabel = normalizeProvince(s.city_label);
     s.city_label = normalizedLabel;
     s.city = normalizeCity(s.city);
     if (!s.city || s.city === "thailand" || s.city === "city") {
       s.city = citySlugFromDisplay(normalizedLabel) || s.city;
     }
   }
+
+  // db.city_counts is a raw aggregate baked in by the (out-of-repo) build
+  // pipeline and was never run through the normalization above, so it still
+  // has Latin/Thai-script duplicate keys ("Chon Buri" vs "Chonburi" vs
+  // "ชลบุรี") for provinces the per-supplier loop just collapsed. Recompute
+  // it from the now-normalized city_label so every consumer that reads
+  // db.city_counts (city filter dropdowns, By Region pills, /city/[name]'s
+  // generateStaticParams, the browse/city index build scripts) sees one
+  // canonical key per city instead of rebuilding this fix independently.
+  const cityCounts: Record<string, number> = {};
+  for (const s of db.suppliers) {
+    if (!s.city_label) continue;
+    cityCounts[s.city_label] = (cityCounts[s.city_label] ?? 0) + 1;
+  }
+  db.city_counts = cityCounts;
 
   _cache = db;
   return _cache;

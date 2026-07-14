@@ -8,6 +8,7 @@ import { CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
 import { findGuideKo } from "@/lib/guides_ko";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -52,8 +53,13 @@ export default async function KoCategoryPage(
   const icon = CATEGORY_ICONS[cuisine] ?? "🏭";
   const intro = CATEGORY_INTROS_KO[cuisine];
 
+  // Only cities with a generated /city/{slug} page — avoids a dead-link pill.
+  const validCities = new Set(Object.keys(db.city_counts));
   const byCity = new Map<string, number>();
-  for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  for (const r of filtered) {
+    if (!validCities.has(r.city_label)) continue;
+    byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  }
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
@@ -137,7 +143,7 @@ export default async function KoCategoryPage(
             {cities.map(([city, n]) => (
               <a
                 key={city}
-                href={`/ko/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
+                href={`/ko/city/${citySlugFromDisplay(city)}`}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
               >
                 {city}

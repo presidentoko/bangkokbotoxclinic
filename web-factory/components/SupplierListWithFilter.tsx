@@ -37,6 +37,16 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
   const top10 = filtered.slice(0, 10);
   const total = filtered.length;
 
+  // categoryOptions=[] means the caller (e.g. a /c/[cuisine] page) already
+  // pre-filtered `suppliers` to one implicit category and hid the dropdown —
+  // `category` state is then permanently "", which must NOT be read as "no
+  // category filter is active." Neither /c/{category} nor /city/{slug}
+  // supports a second filter dimension (no combined route exists), so on a
+  // category-locked page we only trust the caller's own viewAllHref/
+  // totalSuppliers (already scoped to the locked category) rather than
+  // overriding it with a city-only link that would silently drop that scope.
+  const categoryLocked = categoryOptions.length === 0;
+
   // /c/{category} and /city/{slug} show every supplier in that category/city —
   // neither supports a dbdOnly filter, so only offer the smart link when
   // exactly one of category/city is active AND dbdOnly is off (otherwise the
@@ -45,7 +55,7 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
     if (!dbdOnly && category && !city) {
       return { href: `/c/${category}`, label: `View all ${total.toLocaleString()} ${category.replace(/_/g, " ")} suppliers →` };
     }
-    if (!dbdOnly && city && !category) {
+    if (!dbdOnly && !categoryLocked && city && !category) {
       return { href: `/city/${citySlugFromDisplay(city)}`, label: `View all ${total.toLocaleString()} suppliers in ${city} →` };
     }
     return { href: viewAllHref, label: `View all ${totalSuppliers.toLocaleString()} suppliers →` };

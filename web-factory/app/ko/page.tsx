@@ -9,6 +9,7 @@ import { POSTS_KO } from "@/lib/posts_ko";
 import { GUIDES_KO } from "@/lib/guides_ko";
 import { HeroSearch } from "@/components/HeroSearch";
 import { computeTrustScore } from "@/lib/trustScore";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -82,7 +83,9 @@ export default async function KoHomePage() {
     trust_score: computeTrustScore(r).overall,
   }));
 
-  const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
+  const cities = Object.entries(db.city_counts)
+    .filter(([city]) => city)
+    .sort((a, b) => b[1] - a[1]);
   const categories = Object.entries(db.category_counts).sort((a, b) => b[1] - a[1]);
 
   // 한국 buyer 관심 카테고리 — 우선 노출
@@ -197,7 +200,7 @@ export default async function KoHomePage() {
               {cities.map(([city, count]) => (
                 <a
                   key={city}
-                  href={`/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
+                  href={`/city/${citySlugFromDisplay(city)}`}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
                 >
                   {city}

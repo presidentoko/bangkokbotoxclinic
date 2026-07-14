@@ -56,7 +56,7 @@ export function matchSuppliers(query: string, entries: BrowseEntry[], limit: num
   return entries
     .filter(
       (e) =>
-        e.name.toLowerCase().includes(q) ||
+        (e.name && e.name.toLowerCase().includes(q)) ||
         (e.district && e.district.toLowerCase().includes(q)) ||
         (e.city_label && e.city_label.toLowerCase().includes(q)),
     )

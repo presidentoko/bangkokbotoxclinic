@@ -33,11 +33,20 @@ const NORM: Record<string, string> = {
   "จ.นครปฐม": "Nakhon Pathom",
   "จ.สมุทรสาคร": "Samut Sakhon",
   "สมุทรสาคร": "Samut Sakhon",
+  "จ.สระบุรี": "Saraburi",
+  "สระบุรี": "Saraburi",
+  "จังหวัด กรุงเทพมหานคร": "Bangkok",
+  "ชุมพร": "Chumphon",
+  "จ.ชุมพร": "Chumphon",
+  // บ้านบึง (Ban Bueng) is a district within Chon Buri, not its own province —
+  // collapse to the province like every other city_label in this dataset.
+  "บ้านบึง": "Chon Buri",
   // Spelling variants → canonical
   "Chonburi": "Chon Buri",
   "Chon buri": "Chon Buri",
   "Pathumthani": "Pathum Thani",
   "Pathum thani": "Pathum Thani",
+  "Pathumthanee": "Pathum Thani",
   "Samutsakhon": "Samut Sakhon",
   "Samutprakarn": "Samut Prakan",
   "Samut Prakarn": "Samut Prakan",
@@ -48,6 +57,7 @@ const NORM: Record<string, string> = {
   "Suphan buri": "Suphan Buri",
   // Remove garbage values
   "City": "",
+  "city": "",
   "N/A": "",
 };
 

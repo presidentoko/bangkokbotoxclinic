@@ -7,12 +7,20 @@ import { CATEGORY_ICONS } from "@/lib/types";
 
 export function GlobalSearch() {
   const [entries, setEntries] = useState<BrowseEntry[]>([]);
+  // undefined = "not loaded yet, don't filter regions" (regionCounts's documented
+  // behavior) — must stay undefined on any failure, never become a defined empty
+  // Set, which would instead filter out every region result.
   const [validCities, setValidCities] = useState<Set<string> | undefined>(undefined);
-  const [fetchStarted, setFetchStarted] = useState(false);
   const [q, setQ] = useState("");
   const [debouncedQ, setDebouncedQ] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  // useRef, not useState: ensureFetched() can run twice before a state update
+  // from the first call commits (rapid blur→refocus), so a state-backed guard
+  // can't prevent duplicate fetches — a ref mutates synchronously.
+  const fetchStarted = useRef(false);
+  const mounted = useRef(true);
+  useEffect(() => () => { mounted.current = false; }, []);
 
   // Debounce the ~8,200-entry scan (matchSuppliers/matchRegions in lib/globalSearch.ts)
   // so it runs once after typing pauses instead of on every keystroke — avoids
@@ -23,15 +31,19 @@ export function GlobalSearch() {
   }, [q]);
 
   function ensureFetched() {
-    if (fetchStarted) return;
-    setFetchStarted(true);
+    if (fetchStarted.current) return;
+    fetchStarted.current = true;
     fetch("/browse-index.json")
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data: BrowseEntry[]) => setEntries(data))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: BrowseEntry[] | null) => {
+        if (mounted.current && data) setEntries(data);
+      })
       .catch(() => {});
     fetch("/city-index.json")
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data: string[]) => setValidCities(new Set(data)))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: string[] | null) => {
+        if (mounted.current && data) setValidCities(new Set(data));
+      })
       .catch(() => {});
   }
 

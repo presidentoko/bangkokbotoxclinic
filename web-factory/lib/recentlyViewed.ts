@@ -50,3 +50,17 @@ export function subscribeRecent(cb: () => void): () => void {
   window.addEventListener(EVENT, cb);
   return () => window.removeEventListener(EVENT, cb);
 }
+
+/** Drop entries for suppliers no longer in the current dataset (see lib/validIds.ts). */
+export function pruneStaleRecent(validIds: Set<string>): void {
+  if (typeof window === "undefined") return;
+  const current = loadRecent();
+  const kept = current.filter((x) => validIds.has(x.id));
+  if (kept.length === current.length) return;
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(kept));
+    window.dispatchEvent(new CustomEvent(EVENT));
+  } catch {
+    // non-fatal
+  }
+}

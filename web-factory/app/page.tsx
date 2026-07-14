@@ -14,6 +14,7 @@ import { computeTrustScore } from "@/lib/trustScore";
 import { SectorCard } from "@/components/SectorCard";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import type { Metadata } from "next";
 
@@ -30,10 +31,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
-function citySlug(label: string): string {
-  return label.toLowerCase().replace(/\s+/g, "_");
-}
 
 const FEATURED_CATEGORIES: { key: string; icon: string; label: string }[] = [
   { key: "manufacturer",       icon: "🏭", label: "Manufacturers" },
@@ -63,7 +60,9 @@ export default async function HomePage() {
   const verifiedCount = db.verified_count ?? db.suppliers.filter((r) => r.verified).length;
   const withPhotos = db.with_photos ?? db.suppliers.filter((r) => r.photos && r.photos.length > 0).length;
 
-  const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
+  const cities = Object.entries(db.city_counts)
+    .filter(([city]) => city)
+    .sort((a, b) => b[1] - a[1]);
 
   // Canonical districts (Mueang/Muang 등 병합, supplier 5+ 만), busiest 12.
   const districts = districtsForBuild(db).slice(0, 12);
@@ -102,7 +101,7 @@ export default async function HomePage() {
     .sort((a, b) => b.trust_score - a.trust_score);
 
   const categoryOptions = Object.keys(db.category_counts).sort();
-  const cityOptions = Object.keys(db.city_counts).sort();
+  const cityOptions = Object.keys(db.city_counts).filter(Boolean).sort();
 
   return (
     <>
@@ -251,7 +250,7 @@ export default async function HomePage() {
               {cities.map(([city, count]) => (
                 <a
                   key={city}
-                  href={`/city/${citySlug(city)}`}
+                  href={`/city/${citySlugFromDisplay(city)}`}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
                 >
                   {city}

@@ -11,7 +11,13 @@ export function loadValidIds(): Promise<Set<string>> {
     cache = fetch("/browse-index.json")
       .then((r) => (r.ok ? r.json() : []))
       .then((data: { id: string }[]) => new Set(data.map((d) => d.id)))
-      .catch(() => new Set<string>());
+      .catch(() => {
+        // Don't cache a failed fetch as "zero valid ids" — that would make
+        // every future .has(id) check false (pruning every real entry) for
+        // the rest of the session. Reset so the next call retries instead.
+        cache = null;
+        return new Set<string>();
+      });
   }
   return cache;
 }

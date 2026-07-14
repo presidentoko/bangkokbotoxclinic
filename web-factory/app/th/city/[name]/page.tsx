@@ -4,25 +4,16 @@ import { SupplierCard } from "@/components/SupplierCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { TH_CITY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
-
-function citySlug(label: string): string {
-  return label.toLowerCase().replace(/\s+/g, "_");
-}
-
-// 태국어 도시 페이지 — 핵심 도시만.
-const TH_CITY_VALID = new Set([
-  "chon_buri", "rayong", "pathum_thani", "samut_sakhon",
-  "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla",
-  "si_racha", "map_ta_phut", "chiang_mai",
-]);
 
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
   return Object.keys(db.city_counts)
-    .map((label) => ({ name: citySlug(label) }))
+    .map((label) => ({ name: citySlugFromDisplay(label) }))
     .filter((p) => TH_CITY_VALID.has(p.name));
 }
 
@@ -46,7 +37,7 @@ export async function generateMetadata(
   const { name } = await params;
   const db = await loadMasterDb();
   const display =
-    Object.keys(db.city_counts).find((k) => citySlug(k) === name) ?? name.replace(/_/g, " ");
+    Object.keys(db.city_counts).find((k) => citySlugFromDisplay(k) === name) ?? name.replace(/_/g, " ");
   const note = CITY_NOTES_TH[name];
   return {
     title: `ผู้ผลิตและซัพพลายเออร์ใน${display} — ไดเรกทอรี B2B`,

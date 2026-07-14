@@ -10,6 +10,8 @@ import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { TH_CATEGORY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -43,7 +45,9 @@ export async function generateMetadata(
       languages: {
         "en-US": `/c/${cuisine}`,
         "ko-KR": `/ko/c/${cuisine}`,
-        "th-TH": `/th/c/${cuisine}`,
+        // /th/c/[cuisine] only prerenders TH_CATEGORY_VALID (dynamicParams=false) —
+        // emitting this for every category would hreflang-link to a 404 for most.
+        ...(TH_CATEGORY_VALID.has(cuisine) ? { "th-TH": `/th/c/${cuisine}` } : {}),
         "x-default": `/c/${cuisine}`,
       },
     },
@@ -62,9 +66,18 @@ export default async function CategoryPage(
   const icon = CATEGORY_ICONS[cuisine] ?? "🏭";
   const intro = CATEGORY_INTROS[cuisine];
 
+  // Cities that actually have a generated /city/{slug} page — some suppliers
+  // carry a city_label that was never aggregated into db.city_counts (the
+  // source generateStaticParams uses for /city/[name]), so filtering here
+  // avoids dead links both in the "By Region" pills and the filter dropdown.
+  const validCities = new Set(Object.keys(db.city_counts));
+
   // City-level breakdown
   const byCity = new Map<string, number>();
-  for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  for (const r of filtered) {
+    if (!validCities.has(r.city_label)) continue;
+    byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  }
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
   // District breakdown — only districts with an actually-built /c/<cat>/<district> page.
@@ -93,11 +106,6 @@ export default async function CategoryPage(
     dbd: !!s.dbd,
     trust_score: s.trust_score ?? 0,
   }));
-  // Only offer cities that actually have a generated /city/{slug} page — some
-  // suppliers carry a city_label (e.g. "Ayutthaya", "Pattaya") that was never
-  // aggregated into db.city_counts (the source generateStaticParams uses for
-  // /city/[name]), so filtering here avoids a dead-link "View all in {city}".
-  const validCities = new Set(Object.keys(db.city_counts));
   const cityOptions = Array.from(
     new Set(filtered.map((s) => s.city_label).filter((c) => c && validCities.has(c))),
   ).sort();
@@ -212,7 +220,7 @@ export default async function CategoryPage(
             {cities.map(([city, n]) => (
               <a
                 key={city}
-                href={`/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
+                href={`/city/${citySlugFromDisplay(city)}`}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--gold-light)] hover:bg-[var(--gold-bg)] hover:text-[var(--gold-deep)] transition font-medium"
               >
                 {city}

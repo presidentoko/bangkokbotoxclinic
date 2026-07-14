@@ -5,7 +5,6 @@
 // instead of embedding all ~5,000 suppliers in every page's HTML.
 import type { Supplier } from "./types";
 import { computeTrustScore } from "./trustScore";
-import { normalizeProvince } from "./provinceNorm";
 
 export type BrowseEntry = {
   id: string;
@@ -18,11 +17,16 @@ export type BrowseEntry = {
   dbd: boolean;
 };
 
+// city_label is expected to already be normalized (lib/data.ts's loadMasterDb()
+// runs every supplier through normalizeProvince() before this is called) — do
+// not re-normalize here. A previous version did `normalizeProvince(s.city_label)
+// || s.city_label`, which undid normalizeProvince's intentional "" for known
+// garbage values (e.g. raw "City") by falling back to the un-normalized original.
 export function toBrowseEntry(s: Supplier): BrowseEntry {
   return {
     id: s.id,
     name: s.name,
-    city_label: normalizeProvince(s.city_label) || s.city_label || "",
+    city_label: s.city_label || "",
     district: s.district ?? null,
     rating: s.rating || 0,
     trust_score: computeTrustScore(s).overall,

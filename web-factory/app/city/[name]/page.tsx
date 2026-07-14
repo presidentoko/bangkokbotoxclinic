@@ -33,6 +33,7 @@ const CITY_TO_GUIDE: Record<string, string> = {
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
+import { TH_CITY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
 
 function citySlug(label: string): string {
@@ -157,7 +158,9 @@ export async function generateMetadata(
       languages: {
         "en-US": `/city/${name}`,
         "ko-KR": `/ko/city/${name}`,
-        "th-TH": `/th/city/${name}`,
+        // /th/city/[name] only prerenders TH_CITY_VALID (dynamicParams=false) —
+        // emitting this for every city would hreflang-link to a 404 for most.
+        ...(TH_CITY_VALID.has(name) ? { "th-TH": `/th/city/${name}` } : {}),
         "x-default": `/city/${name}`,
       },
     },

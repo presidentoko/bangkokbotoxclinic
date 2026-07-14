@@ -9,14 +9,19 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { toBrowseEntry } from "../lib/browseIndex.ts";
-import type { MasterDb } from "../lib/types.ts";
+import { loadMasterDb } from "../lib/data.ts";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "public", "browse-index.json");
 const CITY_OUT = path.join(ROOT, "public", "city-index.json");
 
 async function main() {
-  const db: MasterDb = JSON.parse(await fs.readFile(path.join(ROOT, "data", "master_db.json"), "utf-8"));
+  // loadMasterDb() (not a raw fs.readFile+JSON.parse) so city_label/city_counts
+  // get the same normalization every page already relies on — reading the
+  // file raw here was the root cause of a whole class of dead-link bugs
+  // (browse-index.json and compare-index.json disagreeing on city spelling).
+  process.chdir(ROOT);
+  const db = await loadMasterDb();
   const entries = db.suppliers.map(toBrowseEntry).sort((a, b) => b.trust_score - a.trust_score);
   await fs.writeFile(OUT, JSON.stringify(entries));
   console.log(`build_browse_index: wrote ${entries.length} entries to public/browse-index.json`);

@@ -68,6 +68,13 @@ export function clearShortlist(): ShortlistItem[] {
   return save([]);
 }
 
+/** Drop entries for suppliers no longer in the current dataset (see lib/validIds.ts). */
+export function pruneStaleShortlist(validIds: Set<string>): void {
+  const current = loadShortlist();
+  const kept = current.filter((x) => validIds.has(x.id));
+  if (kept.length !== current.length) save(kept);
+}
+
 /** Subscribe to changes (same-tab CustomEvent + cross-tab storage). Returns unsubscribe. */
 export function subscribeShortlist(cb: () => void): () => void {
   if (typeof window === "undefined") return () => {};

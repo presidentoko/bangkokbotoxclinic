@@ -115,7 +115,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                 <a
                   href={`/estate/${r.estate_slug}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--gold-deep)] bg-[var(--gold-bg)] border border-[var(--gold-light)] px-2 py-0.5 rounded-full hover:bg-[var(--gold-light)] transition"
+                  className="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--gold-deep)] bg-[var(--gold-bg)] border border-[var(--gold-light)] px-2 py-0.5 rounded-full hover:bg-[var(--gold-bg)]/60 transition"
                 >
                   🏘 {r.estate_name}
                 </a>

@@ -8,13 +8,9 @@ import { CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
 import { findGuideTh } from "@/lib/guides_th";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { TH_CATEGORY_VALID as TH_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
-
-// 태국어 페이지는 분량 절감 위해 핵심 카테고리만 prerender.
-const TH_VALID = new Set([
-  "manufacturer", "auto_parts", "industrial_estate", "warehouse",
-  "logistics", "packaging", "food_mfg",
-]);
 
 export const dynamicParams = false;
 
@@ -56,8 +52,13 @@ export default async function ThCategoryPage(
   const icon = CATEGORY_ICONS[cuisine] ?? "🏭";
   const intro = CATEGORY_INTROS_TH[cuisine];
 
+  // Only cities with a generated /th/city/{slug} page (a small subset of the
+  // full EN city list) — avoids a dead-link pill.
   const byCity = new Map<string, number>();
-  for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  for (const r of filtered) {
+    if (!TH_CITY_VALID.has(citySlugFromDisplay(r.city_label))) continue;
+    byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
+  }
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
@@ -132,7 +133,7 @@ export default async function ThCategoryPage(
             {cities.map(([city, n]) => (
               <a
                 key={city}
-                href={`/th/city/${city.toLowerCase().replace(/\s+/g, "_")}`}
+                href={`/th/city/${citySlugFromDisplay(city)}`}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition font-medium"
               >
                 {city}

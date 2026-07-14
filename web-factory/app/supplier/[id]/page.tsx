@@ -78,13 +78,14 @@ export async function generateMetadata(
     description: desc || `${r.name} — ${cats || "Thai B2B supplier"} in ${loc}. Contact directly for quotes.`,
     keywords: [r.name, ...catKeywords, loc, "Thailand supplier", "B2B"].filter(Boolean),
     alternates: { canonical: `/supplier/${id}` },
+    // No `images` here — this route also has app/supplier/[id]/opengraph-image.tsx
+    // (Next.js file-convention OG image), which always takes precedence over an
+    // `openGraph.images` set here. Setting both is dead code / a false signal
+    // that this page's real photo drives the share-card image; it doesn't.
     openGraph: {
       title: `${r.name} — ${cats || "Thai Supplier"} · ${loc}`,
       description: desc || `${r.name}: ${cats || "Thai B2B supplier"} in ${loc}.`,
       type: "profile",
-      images: r.hero_image
-        ? [{ url: photoUrl(r.hero_image), width: 1200, height: 630, alt: `${r.name} factory` }]
-        : undefined,
     },
     twitter: { card: "summary_large_image" },
     robots: { index: true, follow: true },

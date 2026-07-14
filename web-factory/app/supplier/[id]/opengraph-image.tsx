@@ -19,10 +19,10 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const r = getSupplierById(db.suppliers, id);
 
   const name = r?.name ?? "Thai Supplier";
-  const loc = r ? [r.district, r.city_label].filter(Boolean).join(", ") || "Thailand" : "Thailand";
+  const loc = (r && [r.district, r.city_label].filter(Boolean).join(", ")) || "Thailand";
   const primaryCat = r?.categories?.[0];
   const catLabel = primaryCat ? CATEGORY_LABELS[primaryCat] ?? primaryCat : "B2B Supplier";
-  const catIcon = primaryCat ? CATEGORY_ICONS[primaryCat] ?? "🏭" : "🏭";
+  const catIcon = (primaryCat && CATEGORY_ICONS[primaryCat]) || "🏭";
   const trust = r ? computeTrustScore(r) : null;
   const verified = !!r?.verified;
 

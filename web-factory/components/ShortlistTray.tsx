@@ -19,12 +19,19 @@ export function ShortlistTray() {
     }).catch(() => {
       const el = document.createElement("textarea");
       el.value = url;
+      el.style.position = "fixed";
+      el.style.opacity = "0";
       document.body.appendChild(el);
       el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        document.execCommand("copy");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // no fallback left — Share silently does nothing
+      } finally {
+        document.body.removeChild(el);
+      }
     });
   }
 

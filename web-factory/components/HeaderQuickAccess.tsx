@@ -1,25 +1,28 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { loadRecent, subscribeRecent, type RecentItem } from "@/lib/recentlyViewed";
-import { loadShortlist, subscribeShortlist, clearShortlist, type ShortlistItem } from "@/lib/shortlist";
+import { useRecentlyViewed } from "./useRecentlyViewed";
+import { useShortlist } from "./useShortlist";
+import { pruneStaleRecent } from "@/lib/recentlyViewed";
+import { clearShortlist, pruneStaleShortlist } from "@/lib/shortlist";
+import { loadValidIds } from "@/lib/validIds";
 
 export function HeaderQuickAccess() {
-  const [recent, setRecent] = useState<RecentItem[]>([]);
-  const [shortlist, setShortlist] = useState<ShortlistItem[]>([]);
+  const { items: recent } = useRecentlyViewed();
+  const { items: shortlist } = useShortlist();
   const [openPanel, setOpenPanel] = useState<"recent" | "shortlist" | null>(null);
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  // Drop entries for suppliers no longer in the current dataset (e.g. removed
+  // in a data refresh) — otherwise a stale id lingers here forever and
+  // clicking it just hits the /supplier/* catch-all redirect to the homepage.
   useEffect(() => {
-    setRecent(loadRecent());
-    setShortlist(loadShortlist());
-    const unsubRecent = subscribeRecent(() => setRecent(loadRecent()));
-    const unsubShortlist = subscribeShortlist(() => setShortlist(loadShortlist()));
-    return () => {
-      unsubRecent();
-      unsubShortlist();
-    };
+    loadValidIds().then((validIds) => {
+      if (validIds.size === 0) return;
+      pruneStaleRecent(validIds);
+      pruneStaleShortlist(validIds);
+    });
   }, []);
 
   useEffect(() => {
@@ -41,15 +44,25 @@ export function HeaderQuickAccess() {
       })
       .catch(() => {
         // Clipboard API unavailable (non-HTTPS, permission denied, older Safari) —
-        // same execCommand fallback ShortlistTray uses for this exact URL.
+        // same execCommand fallback ShortlistTray uses for this exact URL. Wrapped
+        // in its own try/catch — if execCommand itself throws (deprecated/removed
+        // in some browsers), the finally still removes the temp textarea instead
+        // of leaving it stuck in the DOM.
         const el = document.createElement("textarea");
         el.value = url;
+        el.style.position = "fixed";
+        el.style.opacity = "0";
         document.body.appendChild(el);
         el.select();
-        document.execCommand("copy");
-        document.body.removeChild(el);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        try {
+          document.execCommand("copy");
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch {
+          // no fallback left — Share silently does nothing
+        } finally {
+          document.body.removeChild(el);
+        }
       });
   }
 

@@ -8,13 +8,18 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { toCompareEntry, type CompareIndex } from "../lib/compare.ts";
-import type { MasterDb } from "../lib/types.ts";
+import { loadMasterDb } from "../lib/data.ts";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "public", "compare-index.json");
 
 async function main() {
-  const db: MasterDb = JSON.parse(await fs.readFile(path.join(ROOT, "data", "master_db.json"), "utf-8"));
+  // loadMasterDb() (not a raw fs.readFile+JSON.parse) so city_label gets the
+  // same normalization browse-index.json's build script uses — reading the
+  // file raw here previously let compare-index.json ship duplicate city
+  // spellings ("Chon Buri" vs "Chonburi") that browse-index.json didn't.
+  process.chdir(ROOT);
+  const db = await loadMasterDb();
   const index: CompareIndex = {};
   for (const s of db.suppliers) index[s.id] = toCompareEntry(s);
   await fs.writeFile(OUT, JSON.stringify(index));
