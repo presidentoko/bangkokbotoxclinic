@@ -39,7 +39,8 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
   return (
     <div>
       {/* Sticky filter bar */}
-      <div className="sticky top-14 z-20 bg-white border border-[var(--border)] rounded-xl px-4 py-3 mb-4 flex flex-wrap gap-2 items-center shadow-sm">
+      {/* top-28 accounts for the mobile 2-row sticky header (logo row + search row); md:top-14 for the 1-row desktop header. */}
+      <div className="sticky top-28 md:top-14 z-20 bg-white border border-[var(--border)] rounded-xl px-4 py-3 mb-4 flex flex-wrap gap-2 items-center shadow-sm">
         {categoryOptions.length > 0 && (
           <select
             value={category}

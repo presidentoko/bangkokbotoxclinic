@@ -5,6 +5,8 @@ import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 import { HeaderNav } from "@/components/HeaderNav";
 import { ShortlistTray } from "@/components/ShortlistTray";
+import { GlobalSearch } from "@/components/GlobalSearch";
+import { HeaderQuickAccess } from "@/components/HeaderQuickAccess";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const cfg = getSiteConfig();
@@ -66,12 +68,21 @@ export default function RootLayout({
       <body>
         <OrgJsonLd />
         <WebsiteJsonLd />
-        <header className="border-b border-[var(--border)] bg-white sticky top-0 z-10 shadow-sm">
-          <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-            <a href="/" className="flex items-center hover:opacity-80 transition">
+        <header className="border-b border-[var(--border)] bg-white sticky top-0 z-30 shadow-sm">
+          <div className="max-w-5xl mx-auto px-4 h-14 flex items-center gap-3">
+            <a href="/" className="flex items-center hover:opacity-80 transition shrink-0">
               <Logo accent={cfg.themeAccent} />
             </a>
-            <HeaderNav />
+            <div className="hidden md:block flex-1 max-w-md">
+              <GlobalSearch />
+            </div>
+            <HeaderQuickAccess />
+            <div className="flex-1 flex justify-end">
+              <HeaderNav />
+            </div>
+          </div>
+          <div className="md:hidden border-t border-[var(--border)] px-4 py-2">
+            <GlobalSearch />
           </div>
         </header>
         <main>{children}</main>
