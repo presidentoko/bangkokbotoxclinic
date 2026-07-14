@@ -50,7 +50,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {r.verified && r.dbd?.match_score !== undefined && r.dbd.match_score >= 90 && (
-              <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow">
+              <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--gold)] text-white text-[10px] font-bold uppercase tracking-wider shadow">
                 ✓ DBD Verified
               </span>
             )}
@@ -86,7 +86,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                   </span>
                 )}
               </div>
-              <h3 className="font-semibold text-base group-hover:text-emerald-700 transition flex items-start gap-1.5">
+              <h3 className="font-semibold text-base group-hover:text-[var(--gold-deep)] transition flex items-start gap-1.5">
                 <span className="line-clamp-2">{r.name}</span>
                 {verifiedConf && (
                   <span
@@ -115,7 +115,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                 <a
                   href={`/estate/${r.estate_slug}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full hover:bg-emerald-100 transition"
+                  className="inline-flex items-center gap-1 mt-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--gold-deep)] bg-[var(--gold-bg)] border border-[var(--gold-light)] px-2 py-0.5 rounded-full hover:bg-[var(--gold-light)] transition"
                 >
                   🏘 {r.estate_name}
                 </a>
@@ -152,7 +152,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
         <div className="flex flex-wrap gap-1.5 text-xs justify-end items-center">
           <AIVerifiedBadge r={r} size="sm" />
           {r.categories.slice(0, 3).map((c) => (
-            <span key={c} className="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
+            <span key={c} className="bg-[var(--gold-bg)] text-[var(--gold-deep)] px-2 py-0.5 rounded-full inline-flex items-center gap-1 font-medium">
               <span aria-hidden>{CATEGORY_ICONS[c] ?? "🏭"}</span>
               {CATEGORY_LABELS[c] ?? c}
             </span>
