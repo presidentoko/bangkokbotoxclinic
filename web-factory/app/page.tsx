@@ -4,7 +4,7 @@ import { CATEGORY_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd, DatasetJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS } from "@/lib/faq";
 import { AdSlot } from "@/components/AffiliateSlot";
-import { HeroSearch } from "@/components/HeroSearch";
+import { LazyHeroSearch } from "@/components/LazyHeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { BEST_FOR } from "@/lib/bestFor";
@@ -75,15 +75,6 @@ export default async function HomePage() {
     { label: "Warehouses", href: "/c/warehouse" },
   ];
 
-  const searchIndex = db.suppliers.map((r) => ({
-    id: r.id,
-    name: r.name,
-    district: r.district,
-    city_label: r.city_label,
-    rating: r.rating,
-    trust_score: computeTrustScore(r).overall,
-  }));
-
   // 섹터 카드 데이터 (빌드 타임)
   const sectorData = FEATURED_CATEGORIES
     .filter(({ key }) => (db.category_counts[key] ?? 0) > 0)
@@ -137,8 +128,7 @@ export default async function HomePage() {
             <span className="font-bold text-[var(--fg)]">{provinces}</span> provinces — capital, registered date, TSIC code, photos, real Google reviews.
           </p>
 
-          <HeroSearch
-            entities={searchIndex}
+          <LazyHeroSearch
             hrefBase="/supplier"
             popularSearches={popularSearches}
           />

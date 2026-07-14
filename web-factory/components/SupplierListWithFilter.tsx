@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
 
 export type FilterableSupplier = {
   id: string;
@@ -118,10 +119,20 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
 
       <div className="mt-4 text-center">
         <a
-          href={viewAllHref}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[var(--border)] text-sm font-bold hover:border-emerald-400 hover:text-emerald-700 transition"
+          href={
+            category && !city
+              ? `/c/${category}`
+              : city && !category
+              ? `/city/${citySlugFromDisplay(city)}`
+              : viewAllHref
+          }
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[var(--border)] text-sm font-bold hover:border-[var(--gold-light)] hover:text-[var(--gold-deep)] transition"
         >
-          View all {totalSuppliers.toLocaleString()} suppliers →
+          {category && !city
+            ? `View all ${total.toLocaleString()} ${category.replace(/_/g, " ")} suppliers →`
+            : city && !category
+            ? `View all ${total.toLocaleString()} suppliers in ${city} →`
+            : `View all ${totalSuppliers.toLocaleString()} suppliers →`}
         </a>
       </div>
     </div>
