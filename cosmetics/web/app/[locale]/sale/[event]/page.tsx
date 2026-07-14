@@ -6,6 +6,9 @@ import { SALE_EVENTS, getSaleEvent, getSaleRanking } from "@/lib/sale";
 import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = 86400;
+// 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. event는 고정 목록뿐이라
+// 온디맨드 렌더 허용할 이유 없음.
+export const dynamicParams = false;
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 

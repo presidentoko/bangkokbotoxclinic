@@ -13,6 +13,9 @@ import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
 
 const BASE = "https://bangkokfillers.com";
+// 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. 유효 성분은
+// generateStaticParams가 전부 열거하므로 온디맨드 렌더 허용할 이유 없음.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) =>

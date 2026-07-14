@@ -79,6 +79,11 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
+// 2026-07-14 긴급 픽스 — LOCALES는 4개 고정값이라 dynamicParams 기본값(true)일 이유가
+// 없음. false로 고정하면 /wp-login.php, /.env 같은 봇 스캔 경로가 [locale] 세그먼트에
+// 걸려도 layout 함수 실행/ISR 캐시 write 없이 라우팅 단계에서 즉시 404 처리됨.
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {

@@ -9,7 +9,7 @@ export interface QuizParams {
   budget: Budget;
 }
 
-const BUDGET_RANGE: Record<Budget, { min: number; max: number }> = {
+export const BUDGET_RANGE: Record<Budget, { min: number; max: number }> = {
   low:  { min: 0,   max: 280 },
   mid:  { min: 280, max: 700 },
   high: { min: 700, max: Infinity },

@@ -14,6 +14,9 @@ import {
 import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = false;
+// 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. 유효 브랜드는
+// generateStaticParams가 전부 열거하므로 온디맨드 렌더 허용할 이유 없음.
+export const dynamicParams = false;
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 

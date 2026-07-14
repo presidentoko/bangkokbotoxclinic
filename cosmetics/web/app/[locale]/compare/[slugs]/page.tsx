@@ -9,8 +9,12 @@ import { faqLd, breadcrumbLd } from "@/lib/schema";
 import type { Product } from "@/lib/types";
 
 const BASE = "https://bangkokfillers.com";
+// 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. slugs는 상품 조합 전체 공간이라
+// 봇이 임의 "A-vs-B" 조합을 찍으면 온디맨드 렌더+캐시 write가 무한히 발생함.
+// generateStaticParams가 콘선별 top5 조합을 전부 열거하므로 그 외는 즉시 404.
+export const dynamicParams = false;
 
-function parseCompare(slugs: string): { pA: Product; pB: Product } | null {
+export function parseCompare(slugs: string): { pA: Product; pB: Product } | null {
   let searchFrom = 0;
   while (true) {
     const idx = slugs.indexOf("-vs-", searchFrom);

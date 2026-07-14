@@ -5,6 +5,8 @@ import { CONCERNS, getRanking } from "@/lib/data";
 export const alt = "BangkokFillers — Ranked by ingredients + real reviews";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+// 2026-07-13 긴급 픽스 — 봇 스캔 경로가 satori 렌더까지 태우지 않도록 즉시 404.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) =>

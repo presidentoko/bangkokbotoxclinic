@@ -74,3 +74,21 @@ export async function kvSet(key: string, value: string) {
     await r.set(key, value);
   } catch {}
 }
+
+export async function kvRpush(key: string, value: string) {
+  const r = await getClient();
+  if (!r) return;
+  try {
+    await r.rPush(key, value);
+  } catch {}
+}
+
+export async function kvLrange(key: string, start: number, stop: number): Promise<string[]> {
+  const r = await getClient();
+  if (!r) return [];
+  try {
+    return (await r.lRange(key, start, stop)) ?? [];
+  } catch {
+    return [];
+  }
+}

@@ -5,6 +5,9 @@ import { allProducts, productSlug } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = false;
+// 2026-07-13 긴급 픽스 — ISR Writes 한도 초과 대응. range는 3개 고정값뿐이라
+// 온디맨드 렌더 허용할 이유 없음.
+export const dynamicParams = false;
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 

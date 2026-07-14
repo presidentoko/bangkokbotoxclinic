@@ -16,6 +16,9 @@ import { JsonLd } from "@/components/JsonLd";
 import { faqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
 
 const BASE = "https://bangkokfillers.com";
+// 2026-07-13 긴급 픽스 — ISR Writes 한도 초과(1.5M/200K) 대응. 유효 조합은
+// generateStaticParams가 전부 열거하므로 온디맨드 렌더 허용할 이유 없음.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   const result: { locale: string; concern: string; filter: string }[] = [];

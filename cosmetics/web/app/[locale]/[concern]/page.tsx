@@ -30,6 +30,11 @@ import { CopyButton } from "@/components/CopyButton";
 
 const BASE = "https://bangkokfillers.com";
 export const revalidate = 86400;
+// 2026-07-13 긴급 픽스: [concern]은 /{locale}/ 아래 전체를 캐치하는 catch-most 라우트라
+// dynamicParams 기본값(true)이면 /th/wp-login 같은 봇 쓰레기 경로까지 전부 온디맨드
+// 렌더+ISR 캐시 write 발생 — Hobby 월 200K 한도를 1.5M까지 초과시킨 원인.
+// false로 고정해 미리 생성 안 된 concern은 라우팅 단계에서 즉시 404 (렌더/캐시 write 없음).
+export const dynamicParams = false;
 
 type GuideEntry = {
   causeTh: string; causeEn: string;
