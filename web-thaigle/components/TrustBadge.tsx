@@ -1,12 +1,18 @@
-// ⚠️ AUTO-GENERATED from shared/components/TrustBadge.tsx
-// DO NOT edit directly — edit shared/components/TrustBadge.tsx, then run `python scripts/sync_shared.py`.
+// Note: this started as a copy of shared/components/TrustBadge.tsx, but
+// web-thaigle was never added to scripts/sync_shared.py's target list
+// (web/, web-restaurants/, web-golf/ only) — this copy has already
+// diverged (thresholds unified with TrustScoreBadge below) and edits here
+// are web-thaigle-local. shared/components/TrustBadge.tsx is a different,
+// still-live source for the other three sites — don't edit it for this.
 
 // Trust Score 시각화 — 0-100 그라데이션 바 + 숫자.
 
+import { trustColor, trustTierShort } from "@/lib/trust";
+
 export function TrustBadge({ score, size = "md" }: { score: number; size?: "sm" | "md" | "lg" }) {
   const pct = Math.max(0, Math.min(100, score));
-  const tier = pct >= 75 ? "Excellent" : pct >= 60 ? "Strong" : pct >= 40 ? "Fair" : "Limited";
-  const color = pct >= 75 ? "#16a34a" : pct >= 60 ? "#059669" : pct >= 40 ? "#ca8a04" : "#94a3b8";
+  const tier = trustTierShort(pct);
+  const color = trustColor(pct);
 
   if (size === "sm") {
     return (
@@ -49,8 +55,8 @@ export function TrustDonut({ score, breakdown }: {
   breakdown?: { label: string; value: number; max: number; color: string }[];
 }) {
   const pct = Math.max(0, Math.min(100, score));
-  const tier = pct >= 75 ? "Excellent" : pct >= 60 ? "Strong" : pct >= 40 ? "Fair" : "Limited";
-  const color = pct >= 75 ? "#16a34a" : pct >= 60 ? "#059669" : pct >= 40 ? "#ca8a04" : "#94a3b8";
+  const tier = trustTierShort(pct);
+  const color = trustColor(pct);
   const radius = 52;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (pct / 100) * circumference;

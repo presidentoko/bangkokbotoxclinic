@@ -49,7 +49,12 @@ export function SaveButton({ item, size = "md" }: { item: SavedItem; size?: "sm"
         toggle(item);
       }}
       title={isSaved ? "Remove from wishlist" : "Save to wishlist"}
-      className={`inline-flex items-center justify-center rounded-full border transition active:scale-95 ${
+      // The visual circle stays small (28px) so it doesn't bulk up dense
+      // card grids, but the actual tap target is expanded to 44px via an
+      // invisible centered pseudo-element — this is the most-tapped
+      // control on the site (every card, every list) and was previously
+      // sub-44px everywhere it appears at size="sm".
+      className={`relative inline-flex items-center justify-center rounded-full border transition active:scale-95 before:content-[''] before:absolute before:inset-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-11 before:h-11 ${
         size === "sm"
           ? "w-7 h-7 text-sm"
           : "w-9 h-9 text-base"

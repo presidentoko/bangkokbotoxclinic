@@ -10,6 +10,7 @@ import {
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { AddToPlannerButton } from "@/components/AddToPlannerButton";
+import { trustTierLong } from "@/lib/trust";
 import { ShareButton } from "@/components/ShareButton";
 import { VersusVote } from "@/components/VersusVote";
 import { BangkokTip } from "@/components/BangkokTip";
@@ -70,7 +71,7 @@ export async function generateMetadata({
   const hasPrice = place.price_min_thb > 0;
   const priceStr = hasPrice ? ` From ฿${place.price_min_thb.toLocaleString()}.` : "";
   const priceTitleFragment = hasPrice ? " | Prices" : "";
-  const trustLabel = place.trust_score >= 80 ? "Highly trusted" : place.trust_score >= 60 ? "Trusted" : "Verified";
+  const trustLabel = trustTierLong(place.trust_score);
   const hasRating = !!(place.rating && place.review_count);
   const ratingTitleFragment = hasRating ? ` | ★${place.rating!.toFixed(1)} (${place.review_count!.toLocaleString()} Reviews)` : "";
   const ratingDescFragment = hasRating

@@ -6,7 +6,10 @@
   --bg: #fafafa;
   --fg: #111;
   --muted: #6b7280;
-  --accent: #2563eb;
+  /* orange-600 — matches the brand accent used everywhere else (buttons,
+     hover states, badges). Was blue, which only ever showed up as a stray
+     inconsistency against the rest of the orange UI. */
+  --accent: #ea580c;
   --border: #e5e7eb;
 
   /* Receipt / verification page tokens */

@@ -5,6 +5,7 @@ import { isThaiScript } from "@/lib/thaiName";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
 import { TrustDonut } from "@/components/TrustBadge";
+import { trustTierLong } from "@/lib/trust";
 import { MapEmbed } from "@/components/MapEmbed";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
@@ -54,7 +55,7 @@ export async function generateMetadata(
   // ("mookata thonglor", "korean bbq sukhumvit").
   const cuisineFragment = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "Restaurant";
   const title = `${r.name} — ${cuisineFragment} Restaurant in ${districtName}, ${cityLabel} (Menu, Prices & Reviews)`;
-  const trustLabel = r.trust_score >= 80 ? "Highly credible" : r.trust_score >= 60 ? "Credible" : "Mixed";
+  const trustLabel = trustTierLong(r.trust_score);
   const description = `${r.name} in ${districtName}, ${cityLabel}: ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews. Trust Score ${r.trust_score}/100 (${trustLabel}). ${cuisines || "Restaurant"}. View reviews, address & photos.`;
   const canonical = restaurantUrl({ city, district, slug });
 
@@ -264,7 +265,7 @@ export default async function RestaurantPage(
             )}
             <div className="flex gap-2">
               <dt className="text-[var(--muted)] shrink-0 w-24">Trust Score</dt>
-              <dd>{r.trust_score}/100 — {r.trust_score >= 80 ? "Highly credible reviews" : r.trust_score >= 60 ? "Credible reviews" : "Mixed reviewer credibility"}</dd>
+              <dd>{r.trust_score}/100 — {trustTierLong(r.trust_score)}</dd>
             </div>
             {r.phone && (
               <div className="flex gap-2">

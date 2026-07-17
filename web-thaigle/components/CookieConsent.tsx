@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePlanner } from "@/components/PlannerContext";
 
 const KEY = "thaigle_cookie_consent";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const { plan } = usePlanner();
+  // Was fixed at the exact same bottom-16/z-50 offset as PlannerBar — the
+  // two banners collided pixel-for-pixel whenever a first-time visitor
+  // already had plan items. Mirror the offset MobileStickyBar already uses
+  // to stack above PlannerBar instead of on top of it.
+  const bottomClass = plan.items.length > 0 ? "bottom-[7.5rem]" : "bottom-16";
 
   useEffect(() => {
     try {
@@ -26,7 +33,7 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-16 left-0 right-0 z-50 p-3 md:p-4 bg-white border-t border-[var(--border)] shadow-xl md:bottom-4 md:left-4 md:right-auto md:max-w-sm md:rounded-2xl md:border">
+    <div className={`fixed ${bottomClass} left-0 right-0 z-50 p-3 md:p-4 bg-white border-t border-[var(--border)] shadow-xl md:bottom-4 md:left-4 md:right-auto md:max-w-sm md:rounded-2xl md:border`}>
       <p className="text-xs text-[var(--muted)] mb-3 leading-relaxed">
         เราใช้คุกกี้เพื่อวิเคราะห์การใช้งาน (Vercel Analytics) ไม่มีโฆษณาบุคคลที่สาม
         <br />

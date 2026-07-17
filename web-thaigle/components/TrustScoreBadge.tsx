@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trustColor, trustTierLong } from "@/lib/trust";
 
 type Props = {
   score: number;
@@ -33,8 +34,8 @@ export function TrustScoreBadge({ score: rawScore, rating, reviewCount, scrapedC
   const [open, setOpen] = useState(false);
   const score = Math.max(0, Math.min(100, rawScore));
 
-  const color = score >= 80 ? "#16a34a" : score >= 65 ? "#059669" : score >= 50 ? "#ca8a04" : "#dc2626";
-  const label = score >= 80 ? "Highly trustworthy" : score >= 65 ? "Credible" : score >= 50 ? "Moderate — verify independently" : "Low — inspect reviews carefully";
+  const color = trustColor(score);
+  const label = trustTierLong(score);
 
   // Compute breakdown components
   const hasFullData = rating != null && reviewCount != null && scrapedCount != null && localGuideCount != null && avgAuthorReviewCount != null;
@@ -51,7 +52,10 @@ export function TrustScoreBadge({ score: rawScore, rating, reviewCount, scrapedC
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex flex-col items-center cursor-pointer group"
+        // Content-based width can be under 44px for a narrow 2-digit score
+        // at size="sm" — expand the tap target invisibly without resizing
+        // the visible number/label.
+        className="relative flex flex-col items-center cursor-pointer group before:content-[''] before:absolute before:inset-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-11 before:h-11"
         aria-expanded={open}
         aria-label={`Trust Score ${score} — click to see breakdown`}
       >
