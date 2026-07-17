@@ -21,8 +21,6 @@ import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { VenueStamp } from "@/components/VenueStamp";
 import { PopularTimes } from "@/components/PopularTimes";
 import { QuickFacts } from "@/components/QuickFacts";
-import { BangkokKhaoTom } from "@/components/BangkokKhaoTom";
-import { BangkokSimCardGuide } from "@/components/BangkokSimCardGuide";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -98,6 +96,13 @@ export default async function RestaurantPage(
     { label: "Local Gd", value: lgPart, max: 10, color: "#7c3aed" },
     { label: "Authority", value: authPart, max: 5, color: "#0891b2" },
   ];
+
+  // BangkokChallenge/BangkokTip/the dining poll were previously all stacked
+  // together (plus BangkokKhaoTom + BangkokSimCardGuide, unrelated to
+  // restaurants at all) on every one of 3,269 near-identical pages — a wall
+  // of boilerplate that pushed the unique-to-boilerplate text ratio to
+  // ~10%. Deterministically pick one engagement widget per venue instead.
+  const widgetPick = [...r.id].reduce((s, c) => s + c.charCodeAt(0), 0) % 3;
 
   // Similar restaurants
   const similar = db.restaurants
@@ -313,23 +318,18 @@ export default async function RestaurantPage(
           </section>
         )}
 
-        {/* Daily Challenge */}
-        <BangkokChallenge />
-
-        {/* Daily Tip */}
-        <BangkokTip />
-
-        {/* Quick Poll */}
-        <div className="mt-4">
-          <VersusVote
-            question="When dining in Bangkok — what do you prefer?"
-            a={{ id: "street-food", label: "Street food stalls", emoji: "🥢", desc: "Plastic stools, 50 baht, maximum flavour", url: "/restaurants/cuisine/street_food" }}
-            b={{ id: "restaurant", label: "Sit-down restaurant", emoji: "🍽️", desc: "AC, menu, proper service — worth paying more", url: "/restaurants/cuisine/thai" }}
-          />
-        </div>
-
-        <BangkokKhaoTom />
-        <BangkokSimCardGuide />
+        {/* One engagement widget, deterministically picked per venue */}
+        {widgetPick === 0 && <BangkokChallenge />}
+        {widgetPick === 1 && <BangkokTip />}
+        {widgetPick === 2 && (
+          <div className="mt-4">
+            <VersusVote
+              question="When dining in Bangkok — what do you prefer?"
+              a={{ id: "street-food", label: "Street food stalls", emoji: "🥢", desc: "Plastic stools, 50 baht, maximum flavour", url: "/restaurants/cuisine/street_food" }}
+              b={{ id: "restaurant", label: "Sit-down restaurant", emoji: "🍽️", desc: "AC, menu, proper service — worth paying more", url: "/restaurants/cuisine/thai" }}
+            />
+          </div>
+        )}
 
         {/* Quiz CTA */}
         <div className="mt-4 p-4 rounded-2xl bg-orange-50 border border-orange-200 text-center">

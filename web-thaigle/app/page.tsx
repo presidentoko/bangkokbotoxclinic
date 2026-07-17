@@ -150,14 +150,23 @@ export default async function HomePage() {
     { label: "☕ Cafés", href: "/restaurants/cuisine/cafe" },
   ];
 
-  const searchIndex = db.restaurants.map((r) => ({
-    id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }).slice(1),
-    name: r.name,
-    district: r.district,
-    city_label: r.city_label,
-    rating: r.rating,
-    trust_score: r.trust_score,
-  }));
+  // SearchBar takes entities as a prop, not a fetched dataset, so every
+  // entry here gets serialized straight into this page's RSC/HTML payload.
+  // All 3,269 restaurants measured ~593KB raw (~149KB gzip) — capping to
+  // the top 400 by trust score covers what people are actually searching
+  // for from the homepage (the long tail is still reachable via district/
+  // cuisine browsing) at a fraction of the payload.
+  const searchIndex = [...db.restaurants]
+    .sort((a, b) => b.trust_score - a.trust_score)
+    .slice(0, 400)
+    .map((r) => ({
+      id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }).slice(1),
+      name: r.name,
+      district: r.district,
+      city_label: r.city_label,
+      rating: r.rating,
+      trust_score: r.trust_score,
+    }));
 
   // Pull a few standout reviews to display as social proof
   const reviewQuotes = db.restaurants

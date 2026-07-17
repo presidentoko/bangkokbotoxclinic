@@ -98,7 +98,7 @@ export default async function ArHomePage() {
           </p>
           <div className="max-w-2xl mx-auto" dir="ltr">
             <HeroSearch
-              entities={db.restaurants.map((r) => ({
+              entities={[...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 400).map((r) => ({
                 id: restaurantUrl(slugMap[r.id] ?? { city: r.city, district: r.district || "other", slug: r.id }).slice(1),
                 name: r.name, district: r.district,
                 city_label: r.city_label, rating: r.rating, trust_score: r.trust_score,

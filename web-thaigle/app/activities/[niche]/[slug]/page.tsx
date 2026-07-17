@@ -129,6 +129,7 @@ export default async function PlaceDetailPage({
   });
 
   const dayPlanRefs = await getDayPlansForVenue(place.id);
+  const widgetPick = [...place.id].reduce((s, c) => s + c.charCodeAt(0), 0) % 3;
 
   // Niche hubs only link the top ~60 places, so anything ranked lower is a
   // sitemap orphan with no inbound link from anywhere but the sitemap
@@ -397,18 +398,19 @@ export default async function PlaceDetailPage({
         </section>
       )}
 
-      {/* Daily Challenge + Tip */}
-      <BangkokChallenge />
-      <BangkokTip />
-
-      {/* Quick Poll */}
-      <div className="mb-4">
-        <VersusVote
-          question="First time visiting this type of venue in Bangkok?"
-          a={{ id: "first-time", label: "Yes, first time!", emoji: "🌟", desc: "Bangkok is incredible for first-timers — so much to discover", url: `/activities/${niche}` }}
-          b={{ id: "regular", label: "Regular visitor", emoji: "🔁", desc: "Always come back — Bangkok just keeps getting better", url: `/activities/${niche}/top-10` }}
-        />
-      </div>
+      {/* One engagement widget, deterministically picked per venue —
+          previously all three stacked on every one of ~15k activity pages */}
+      {widgetPick === 0 && <BangkokChallenge />}
+      {widgetPick === 1 && <BangkokTip />}
+      {widgetPick === 2 && (
+        <div className="mb-4">
+          <VersusVote
+            question="First time visiting this type of venue in Bangkok?"
+            a={{ id: "first-time", label: "Yes, first time!", emoji: "🌟", desc: "Bangkok is incredible for first-timers — so much to discover", url: `/activities/${niche}` }}
+            b={{ id: "regular", label: "Regular visitor", emoji: "🔁", desc: "Always come back — Bangkok just keeps getting better", url: `/activities/${niche}/top-10` }}
+          />
+        </div>
+      )}
 
       {/* Quiz CTA */}
       <div className="mb-6 p-4 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-between gap-3 flex-wrap">
