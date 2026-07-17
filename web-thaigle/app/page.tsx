@@ -43,6 +43,7 @@ import { HiddenGemPicker } from "@/components/HiddenGemPicker";
 import { BangkokMonthlyCalendar } from "@/components/BangkokMonthlyCalendar";
 import { KlookTopDeals } from "@/components/KlookTopDeals";
 import { BangkokNeighborhoodProfile } from "@/components/BangkokNeighborhoodProfile";
+import { BespokeBanner } from "@/components/BespokeBanner";
 
 export const dynamic = "force-static";
 
@@ -406,6 +407,8 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        <BespokeBanner />
 
         {/* REAL REVIEW QUOTES — social proof carousel */}
         {reviewQuotes.length >= 3 && (
