@@ -11,15 +11,31 @@ const EVENTS: EventEntry[] = [
   { name: "King's Birthday", emoji: "🇹🇭", month: 7, day: 28, desc: "National holiday — many venues closed, grand ceremonies citywide." },
 ];
 
-function getNextOccurrence(month: number, day: number): Date {
-  const now = new Date();
-  const thisYear = new Date(now.getFullYear(), month - 1, day);
-  if (thisYear > now) return thisYear;
-  return new Date(now.getFullYear() + 1, month - 1, day);
+// "Days away" and "already happened this year" need to be evaluated
+// against Bangkok's own calendar day, not the visitor's — otherwise a
+// distant-timezone reader gets an off-by-one day count, or the event flips
+// to "next year" up to ~14 hours early/late depending on which side of UTC
+// their local midnight falls on. Building a UTC-stamped Date whose fields
+// mirror the Bangkok wall clock keeps every comparison in one consistent
+// (fictional but self-consistent) frame.
+function bangkokNow(): Date {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Bangkok",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date());
+  const get = (type: string) => Number(parts.find((p) => p.type === type)?.value ?? "0");
+  return new Date(Date.UTC(get("year"), get("month") - 1, get("day"), get("hour"), get("minute"), get("second")));
 }
 
-function daysUntil(d: Date): number {
-  const now = new Date();
+function getNextOccurrence(month: number, day: number, now: Date): Date {
+  const thisYear = new Date(Date.UTC(now.getUTCFullYear(), month - 1, day));
+  if (thisYear > now) return thisYear;
+  return new Date(Date.UTC(now.getUTCFullYear() + 1, month - 1, day));
+}
+
+function daysUntil(d: Date, now: Date): number {
   const diff = d.getTime() - now.getTime();
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
@@ -28,9 +44,10 @@ export function BangkokCountdown() {
   const [event, setEvent] = useState<{ entry: EventEntry; days: number } | null>(null);
 
   useEffect(() => {
+    const now = bangkokNow();
     const withDays = EVENTS.map((e) => ({
       entry: e,
-      days: daysUntil(getNextOccurrence(e.month, e.day)),
+      days: daysUntil(getNextOccurrence(e.month, e.day, now), now),
     })).sort((a, b) => a.days - b.days);
     setEvent(withDays[0]);
   }, []);

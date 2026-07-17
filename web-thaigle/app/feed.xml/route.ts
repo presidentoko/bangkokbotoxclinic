@@ -1,4 +1,4 @@
-import { loadMasterDb } from "@/lib/data";
+import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -12,7 +12,10 @@ function escape(s: string): string {
 
 export async function GET() {
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
-  const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 50);
+  // Raw trust-score sort (no isFood filter) let non-restaurants like
+  // shopping centres into a "top restaurants" feed — every other ranking
+  // surface on the site already goes through topByTrust for this reason.
+  const top = topByTrust(db.restaurants, 50);
   const updated = new Date(db.generated_at).toUTCString();
 
   const items = top.map((r) => {
@@ -35,7 +38,7 @@ export async function GET() {
     <title>${BRAND} — Top by Trust Score</title>
     <link>${SITE}</link>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Top Bangkok and Pattaya restaurants ranked by Trust Score from real Google review analysis. Refreshed every 30 minutes.</description>
+    <description>Top Bangkok and Pattaya restaurants ranked by Trust Score from real Google review analysis. Refreshed on every deploy.</description>
     <language>en-US</language>
     <lastBuildDate>${updated}</lastBuildDate>
     ${items}

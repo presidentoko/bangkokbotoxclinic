@@ -140,7 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   for (const nd of nicheDbs) {
     for (const p of nd.places) {
-      items.push({ url: `${SITE}/activities/${nd.slug}/${p.slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
+      items.push({ url: `${SITE}/activities/${nd.slug}/${encodeURIComponent(p.slug)}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
     }
   }
 

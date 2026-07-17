@@ -171,6 +171,17 @@ function rebuildStartTimes() {
   }
 }
 
+// Places with a missing geocode (lat:0/lng:0) — same guard estimateTravel
+// uses. Without it, haversine() from a real anchor to (0,0) computes a
+// real-looking ~8,700km distance that always "loses" the nearest-neighbor
+// comparison, silently and confidently shoving the item to the route's end
+// instead of surfacing that its position is actually unknown.
+const hasCoords = (p: PlanItem) => p.lat !== 0 || p.lng !== 0;
+function planDistance(a: PlanItem, b: PlanItem): number {
+  if (!hasCoords(a) || !hasCoords(b)) return Infinity;
+  return haversine(a.lat, a.lng, b.lat, b.lng);
+}
+
 // Nearest-neighbor optimizer (heuristic TSP) — reorders unlocked items only;
 // locked items keep their original array position so nothing is ever dropped.
 function optimizeRoute(): void {
@@ -190,9 +201,9 @@ function optimizeRoute(): void {
   let current = anchor;
   while (remaining.length > 0) {
     let nearest = remaining[0];
-    let minDist = haversine(current.lat, current.lng, nearest.lat, nearest.lng);
+    let minDist = planDistance(current, nearest);
     for (const item of remaining.slice(1)) {
-      const d = haversine(current.lat, current.lng, item.lat, item.lng);
+      const d = planDistance(current, item);
       if (d < minDist) {
         minDist = d;
         nearest = item;
@@ -264,6 +275,10 @@ export const plannerStore = {
       ...plan,
       items: plan.items.map((p) => p.slug === slug ? { ...p, startTime, locked: true } : p),
     };
+    // Unlike setDuration, this was skipping the cascade — later stops kept
+    // showing their pre-lock times until some unrelated action happened to
+    // trigger a rebuild, so the itinerary displayed contradictory times.
+    rebuildStartTimes();
     notify();
   },
 

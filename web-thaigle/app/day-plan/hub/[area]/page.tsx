@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { AREA_DEFS, THEME_DEFS, allDayPlanParams } from "@/lib/day-plans";
+import { AREA_DEFS, THEME_DEFS, buildDayPlan } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
@@ -34,8 +34,21 @@ export default async function AreaHubPage({ params }: Props) {
   if (!(area in AREA_DEFS)) notFound();
   const areaDef = AREA_DEFS[area as AreaSlug];
   const themes = Object.keys(THEME_DEFS) as ThemeSlug[];
-  const allParams = allDayPlanParams();
   const otherAreas = (Object.keys(AREA_DEFS) as AreaSlug[]).filter((a) => a !== area);
+  // allDayPlanParams() lists every area×theme combo unconditionally — the
+  // sitemap already filters to buildDayPlan().valid (fewer than 3 stops
+  // resolve = a 404), so the hub linked here needs the same check or it
+  // links a page that immediately notFound()s the moment an area's venue
+  // pool thins out.
+  const validThemes = new Set(
+    (
+      await Promise.all(
+        themes.map(async (theme) => ({ theme, valid: (await buildDayPlan(area as AreaSlug, theme)).valid }))
+      )
+    )
+      .filter((t) => t.valid)
+      .map((t) => t.theme)
+  );
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
@@ -91,8 +104,7 @@ export default async function AreaHubPage({ params }: Props) {
       <div className="grid grid-cols-1 gap-4 mb-10">
         {themes.map((theme) => {
           const td = THEME_DEFS[theme];
-          const hasPage = allParams.some((p) => p.area === area && p.theme === theme);
-          if (!hasPage) return null;
+          if (!validThemes.has(theme)) return null;
           return (
             <a
               key={theme}

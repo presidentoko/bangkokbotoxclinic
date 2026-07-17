@@ -79,7 +79,11 @@ export async function generateMetadata({
   return {
     title: `${place.name} — ${info.label} in ${cityLabel} 2026${priceTitleFragment}${ratingTitleFragment}`,
     description: `${place.name}: ${info.label} in ${cityLabel}. ${ratingDescFragment}Trust Score ${place.trust_score} (${trustLabel}).${priceStr} Book on Klook or visit directly.`,
-    alternates: { canonical: `/activities/${niche}/${slug}` },
+    // ~683 niche-place slugs contain Thai characters (kept intentionally,
+    // see lib/data.ts slugify) — sitemap spec and strict crawlers require
+    // RFC-3986-encoded <loc>/canonical/hreflang, unlike plain <a href>
+    // which browsers happily percent-encode themselves.
+    alternates: { canonical: `/activities/${niche}/${encodeURIComponent(slug)}` },
     openGraph: {
       title: `${place.name} — ${info.label} ${cityLabel}`,
       description: `${hasRating ? `★${place.rating!.toFixed(1)} · ${place.review_count!.toLocaleString()} reviews · ` : ""}Trust Score ${place.trust_score}${priceStr}`,
@@ -138,7 +142,7 @@ export default async function PlaceDetailPage({
     ? Object.entries(place.languages).filter(([, v]) => v).map(([k]) => LANG_LABELS[k] ?? k)
     : [];
 
-  const pageUrl = `${SITE}/activities/${niche}/${slug}`;
+  const pageUrl = `${SITE}/activities/${niche}/${encodeURIComponent(slug)}`;
 
   return (
     <div className={`max-w-3xl mx-auto px-4 py-6${klook?.products?.[0] ? " pb-24 md:pb-6" : ""}`}>
@@ -445,7 +449,7 @@ export default async function PlaceDetailPage({
         { name: "Home", url: "/" },
         { name: "Activities", url: "/activities" },
         { name: info.label, url: `/activities/${niche}` },
-        { name: place.name, url: `/activities/${niche}/${slug}` },
+        { name: place.name, url: `/activities/${niche}/${encodeURIComponent(slug)}` },
       ]} />
 
       {/* Mobile sticky bar: Book + Add to plan */}

@@ -42,7 +42,11 @@ export async function generateMetadata({
 
   const t = place.i18n[lang as Lang] ?? place.i18n["en"];
   const desc = t.receipt.dataSays.slice(0, 140);
-  const canonical = `/${lang}/place/${slug}`;
+  // 415/1,647 place slugs contain Thai characters (kept intentionally, see
+  // lib/data.ts slugify) — canonical/hreflang require RFC-3986-encoded
+  // paths, unlike plain <a href> which browsers percent-encode themselves.
+  const encodedSlug = encodeURIComponent(slug);
+  const canonical = `/${lang}/place/${encodedSlug}`;
 
   return {
     title: `${t.name} — ${place.subtype} · ${place.area}`,
@@ -50,10 +54,10 @@ export async function generateMetadata({
     alternates: {
       canonical,
       languages: {
-        th: `/th/place/${slug}`,
-        en: `/en/place/${slug}`,
-        ko: `/ko/place/${slug}`,
-        "x-default": `/en/place/${slug}`,
+        th: `/th/place/${encodedSlug}`,
+        en: `/en/place/${encodedSlug}`,
+        ko: `/ko/place/${encodedSlug}`,
+        "x-default": `/en/place/${encodedSlug}`,
       },
     },
     openGraph: {
@@ -93,7 +97,7 @@ function PlaceSchemaLd({ place, lang }: { place: Place; lang: Lang }) {
         }
       : {}),
     priceRange: PRICE_TIER_LABEL[place.priceTier],
-    url: `${SITE}/${lang}/place/${place.slug}`,
+    url: `${SITE}/${lang}/place/${encodeURIComponent(place.slug)}`,
   };
 
   const faqSchema = {
@@ -290,7 +294,7 @@ export default async function PlacePage({
       <PlaceSchemaLd place={place} lang={lang as Lang} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
-        { name: t.name, url: `/${lang}/place/${slug}` },
+        { name: t.name, url: `/${lang}/place/${encodeURIComponent(slug)}` },
       ]} />
     </article>
   );

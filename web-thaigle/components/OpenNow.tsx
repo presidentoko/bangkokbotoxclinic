@@ -65,11 +65,21 @@ const SLOTS: TimeSlot[] = [
   },
 ];
 
+function bangkokHour(): number {
+  return parseInt(
+    new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Bangkok", hour: "numeric", hour12: false }).format(new Date()),
+    10
+  ) % 24;
+}
+
 export function OpenNow() {
   const [slot, setSlot] = useState<TimeSlot | null>(null);
 
   useEffect(() => {
-    const hour = new Date().getHours();
+    // "What's good right now" means right now in Bangkok, not the
+    // visitor's local time — a London reader at 8pm Bangkok time was
+    // getting the breakfast-café slot instead of the dinner slot.
+    const hour = bangkokHour();
     setSlot(SLOTS.find((s) => s.hours.includes(hour)) ?? SLOTS[0]);
   }, []);
 
