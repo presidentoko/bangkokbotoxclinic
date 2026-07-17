@@ -2,6 +2,7 @@ import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { DoctorGrid } from "@/components/DoctorGrid";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 
 export default async function DoctorsIndexPage() {
   const db = await loadMasterDb();
-  const doctors = getAllDoctors(db.clinics)
+  const cfg = getSiteConfig();
+  // 이 사이트 소관 클리닉 의사만 — 타 버티컬 의사를 링크하면 doctor/[slug]가
+  // dynamicParams=false 로 그 id를 prerender 안 해서 404 (2026-07-17 감사).
+  const doctors = getAllDoctors(applySiteFilter(db.clinics, cfg))
     .sort((a, b) => b.mentions - a.mentions);
 
   const total = doctors.length;

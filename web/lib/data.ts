@@ -56,6 +56,15 @@ export async function loadMasterDb(): Promise<MasterDb> {
   return _cache;
 }
 
+// getClinicById/getDoctorByCompositeSlug 는 페이지당 여러 번(generateMetadata +
+// page body) O(n) 스캔을 반복해 빌드 시간을 갉아먹었음 — db.clinics 원본
+// 배열(레퍼런스 동일)로 조회할 때만 Map 캐시 사용, 그 외(필터링된 subset)는
+// 기존 O(n) 스캔으로 폴백해 동작은 100% 그대로 유지 (2026-07-17 감사).
+let _clinicByIdSrc: Clinic[] | null = null;
+let _clinicByIdMap: Map<string, Clinic> | null = null;
+let _doctorSlugSrc: Clinic[] | null = null;
+let _doctorSlugMap: Map<string, DoctorWithClinic> | null = null;
+
 export function slugify(s: string): string {
   return s
     .toLowerCase()
@@ -106,6 +115,16 @@ export function topByFocusRelevance(
 }
 
 export function getClinicById(clinics: Clinic[], id: string): Clinic | undefined {
+  if (clinics === _clinicByIdSrc && _clinicByIdMap) {
+    return _clinicByIdMap.get(id);
+  }
+  if (clinics.length > 200) {
+    // db.clinics 전체(수천 개) 규모일 때만 Map 구축 비용이 남는 장사 —
+    // 작은 subset 은 그냥 스캔이 더 쌈.
+    _clinicByIdSrc = clinics;
+    _clinicByIdMap = new Map(clinics.map((c) => [c.id, c]));
+    return _clinicByIdMap.get(id);
+  }
   return clinics.find((c) => c.id === id);
 }
 
@@ -156,6 +175,23 @@ export function getDoctorByCompositeSlug(clinics: Clinic[], slug: string): Docto
   // 디코드된 값과 원본 값 둘 다 비교 — 둘 중 하나라도 일치하면 매치.
   let decoded = slug;
   try { decoded = decodeURIComponent(slug); } catch { /* malformed — raw slug만 비교 */ }
+
+  // db.clinics 전체(레퍼런스 동일)일 때만 Map 캐시 — O(clinics×doctors) 스캔을
+  // 페이지 렌더마다 반복하던 걸 1회 구축 후 O(1) 조회로 (2026-07-17 감사).
+  if (clinics.length > 200) {
+    if (clinics !== _doctorSlugSrc || !_doctorSlugMap) {
+      _doctorSlugSrc = clinics;
+      _doctorSlugMap = new Map();
+      for (const c of clinics) {
+        for (const d of c.doctor_stats ?? []) {
+          const composite = makeCompositeDoctorSlug(d, c);
+          _doctorSlugMap.set(composite, { ...d, composite_slug: composite, clinic: c });
+        }
+      }
+    }
+    return _doctorSlugMap.get(slug) ?? _doctorSlugMap.get(decoded);
+  }
+
   for (const c of clinics) {
     for (const d of c.doctor_stats ?? []) {
       const composite = makeCompositeDoctorSlug(d, c);

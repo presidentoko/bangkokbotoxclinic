@@ -30,8 +30,23 @@ import PatientCommunityCount from "@/components/PatientCommunityCount";
 import {
   DownloadableGuide, MemberPerksStrip, ScrollReveal,
 } from "@/components/LazyWidgets";
+import type { Metadata } from "next";
 
 export const revalidate = 86400; // ISR 24h — sponsored 변경은 admin API revalidatePath()로 즉시 반영. Hobby ISR Writes 한도 절약.
+
+// layout.tsx 에서 이동 — 레이아웃에 있으면 /saved, /pay 등 metadata 없는
+// 모든 하위 페이지가 홈으로 canonical 상속받는 버그 (2026-07-17 감사).
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en": "/",
+      "th": "/th",
+      "ko": "/ko",
+      "x-default": "/",
+    },
+  },
+};
 
 type HomeLang = "en" | "ko" | "th";
 
@@ -702,7 +717,7 @@ export default async function HomePage(
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 {([[top4[0], top4[1]], [top4[2], top4[3]]] as [typeof top4[0], typeof top4[0]][]).map(([x, y]) => x && y ? (
-                  <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`}
+                  <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`} rel="nofollow"
                     className="group flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition">
                     <div className="flex-1 min-w-0 space-y-1">
                       <div className="text-xs font-medium truncate">{x.name}</div>

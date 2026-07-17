@@ -3,6 +3,7 @@ import { loadMasterDb, getAllDoctors, slugify } from "@/lib/data";
 import { DoctorGrid } from "@/components/DoctorGrid";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 const VALID_SPECIALTIES = Object.keys(CATEGORY_LABELS);
@@ -13,7 +14,8 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  const all = getAllDoctors(db.clinics);
+  const cfg = getSiteConfig();
+  const all = getAllDoctors(applySiteFilter(db.clinics, cfg));
   // district × specialty 조합 중 의사 ≥3 만 SSG 생성
   const counts = new Map<string, { district: string; specialty: string; n: number }>();
   for (const d of all) {
@@ -34,7 +36,8 @@ export async function generateStaticParams() {
 async function resolve(districtSlug: string, specialty: string) {
   if (!VALID_SPECIALTIES.includes(specialty)) return null;
   const db = await loadMasterDb();
-  const all = getAllDoctors(db.clinics);
+  const cfg = getSiteConfig();
+  const all = getAllDoctors(applySiteFilter(db.clinics, cfg));
   const districts = new Set(all.map((d) => d.clinic.district).filter(Boolean));
   const district = Array.from(districts).find((d) => slugify(d) === districtSlug);
   if (!district) return null;

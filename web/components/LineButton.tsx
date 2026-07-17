@@ -1,9 +1,15 @@
 "use client";
-// LINE 빠른 연결 — 핵심 CTA. 버튼 클릭 → 모달로 BookingForm 또는 직링크.
-// 향후 clinic.line_id 가 있으면 직접 LINE 앱으로 deep link.
+// LINE 빠른 연결 — 핵심 CTA. clinic.line_id 있으면 그 클리닉으로 직접
+// deep link, 없으면(대부분) 사이트 공식 LINE OA로 클리닉명 prefill 딥링크
+// — 예전엔 이 경우 무조건 4단계 BookingForm 모달로 빠져서 "원탭 연결"이
+// 실제론 폼 작성이었음 (2026-07-17 감사: 5,360개 중 4건만 clinic.line_id
+// 있어서 사실상 전 클리닉이 이 경로였음). 폼은 보조 경로로 남김.
 
 import { useState } from "react";
 import { BookingForm } from "./BookingForm";
+
+// 사이트 공용 LINE OA — app/layout.tsx 푸터와 동일 계정 (모든 도메인 공유).
+const SITE_LINE_OA = "405zhjqb";
 
 export function LineButton({
   clinicName, lineId, phone, size = "md",
@@ -15,13 +21,13 @@ export function LineButton({
 }) {
   const [open, setOpen] = useState(false);
 
-  // LINE ID 있으면 직접 deep link
+  // 클리닉 자체 LINE 있으면 그쪽으로 직접, 없으면 사이트 OA로 클리닉명 prefill.
   const directLine = lineId
     ? `https://line.me/R/ti/p/@${encodeURIComponent(lineId.replace(/^@/, ""))}`
-    : null;
+    : `https://line.me/R/oaMessage/@${SITE_LINE_OA}/?${encodeURIComponent(`I'm interested in ${clinicName}`)}`;
 
-  if (directLine) {
-    return (
+  return (
+    <>
       <a
         href={directLine}
         target="_blank"
@@ -31,19 +37,15 @@ export function LineButton({
       >
         <LineLogo /> Quick contact via LINE
       </a>
-    );
-  }
-
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={btnClass(size)}
-        style={{ background: "#06C755", color: "white" }}
-      >
-        <LineLogo /> Quick contact via LINE
-      </button>
+      {!lineId && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="block mt-1.5 text-xs text-[var(--muted)] hover:text-[var(--fg)] underline underline-offset-2"
+        >
+          or send a request instead
+        </button>
+      )}
 
       {open && (
         <div

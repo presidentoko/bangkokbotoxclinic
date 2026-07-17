@@ -3,29 +3,33 @@ import { loadMasterDb } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
-import { findGuide } from "@/lib/guides";
+import { findGuide, guidesForFocus } from "@/lib/guides";
 import type { Metadata } from "next";
 
+// citySlug 은 master_db.json 의 clinic.city_slug 실제 값과 정확히 일치해야
+// 함(하이픈, 언더스코어 아님) — 안 맞으면 filter 가 0건 매치라 빈 페이지가
+// 색인됨 (2026-07-17 감사: chiang_mai/koh_samui/hua_hin 이 실제론 하이픈).
 const CITIES: Record<string, { label: string; citySlug: string }> = {
   "bangkok":    { label: "Bangkok",    citySlug: "bangkok" },
   "pattaya":    { label: "Pattaya",    citySlug: "pattaya" },
   "phuket":     { label: "Phuket",     citySlug: "phuket" },
-  "chiang-mai": { label: "Chiang Mai", citySlug: "chiang_mai" },
-  "koh-samui":  { label: "Koh Samui", citySlug: "koh_samui" },
-  "hua-hin":    { label: "Hua Hin",   citySlug: "hua_hin" },
+  "chiang-mai": { label: "Chiang Mai", citySlug: "chiang-mai" },
+  "koh-samui":  { label: "Koh Samui", citySlug: "koh-samui" },
+  "hua-hin":    { label: "Hua Hin",   citySlug: "hua-hin" },
 };
 
 const PROCEDURE_GUIDES: Record<string, string[]> = {
-  implants:    ["dental-implants-bangkok-cost", "dental-implant-cost-thailand"],
-  veneers:     ["veneers-bangkok-price"],
-  whitening:   ["teeth-whitening-bangkok"],
-  botox:       ["bangkok-botox-guide", "botox-price-bangkok-2026"],
-  filler:      ["bangkok-filler-guide"],
-  hifu:        ["hifu-ultherapy-bangkok-cost"],
-  hair:        ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
-  rhinoplasty: [],
-  braces:      [],
-  eyes:        [],
+  implants:         ["dental-implants-bangkok-cost", "dental-implant-cost-thailand"],
+  veneers:          ["veneers-bangkok-price"],
+  whitening:        ["teeth-whitening-bangkok"],
+  botox:            ["bangkok-botox-guide", "botox-price-bangkok-2026"],
+  filler:           ["bangkok-filler-guide"],
+  hifu:             ["hifu-ultherapy-bangkok-cost"],
+  // PROCEDURES 의 실제 키는 "hair-transplant" — "hair" 였으면 절대 안 매치됨 (2026-07-17 감사)
+  "hair-transplant": ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
+  rhinoplasty:      [],
+  braces:           [],
+  eyes:             [],
 };
 
 const PROCEDURES: Record<string, { label: string; category: string; desc: string; faqs: { q: string; a: string }[] }> = {
@@ -159,11 +163,16 @@ export default async function ProcedureCityPage(
   const procInfo = PROCEDURES[procedure];
   if (!cityInfo || !procInfo) notFound();
 
+  const cfg = getSiteConfig();
+  // 이 페이지는 city×procedure 전체 조합을 도메인 무관하게 생성하지만(기존
+  // 동작, 별개 이슈), guide/[slug]는 focus 밖 가이드를 이제 prerender 안
+  // 하므로(2026-07-17 감사) 그 슬러그만은 focus로 걸러야 404가 안 남.
+  const focusGuideSlugs = new Set(guidesForFocus(cfg.focus).map((g) => g.slug));
   const relatedGuides = (PROCEDURE_GUIDES[procedure] ?? [])
+    .filter((slug) => focusGuideSlugs.has(slug))
     .map((slug) => findGuide(slug))
     .filter(Boolean) as NonNullable<ReturnType<typeof findGuide>>[];
 
-  const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
 

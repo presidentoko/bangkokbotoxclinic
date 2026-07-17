@@ -917,7 +917,9 @@ export const FOCUS_TO_PROCEDURES: Record<string, string[]> = {
   filler: ["filler"],
   hifu:   ["hifu"],
   dental: ["implants", "veneers", "whitening"],
-  hair:   ["hair"],
+  // /city/[city]/[procedure] 의 실제 procedure 키는 "hair-transplant" — "hair"
+  // 였으면 존재하지 않는 페이지로 링크되어 항상 404 (2026-07-17 감사).
+  hair:   ["hair-transplant"],
   facial: [],
   laser:  [],
 };

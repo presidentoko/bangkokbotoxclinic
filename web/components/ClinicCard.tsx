@@ -6,6 +6,8 @@ import { CategoryIcon } from "./CategoryIcon";
 import { AIVerifiedBadge } from "./Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { formatTrustScore } from "@/lib/utils";
+import { loadPhotos } from "@/lib/photos";
+import { ClinicPhoto } from "./ClinicPhoto";
 
 type Lang = "en" | "ko" | "th";
 
@@ -185,6 +187,11 @@ function pickSnippet(c: Clinic): string | null {
 export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic; rank?: number; lang?: Lang }) {
   const t = COPY[lang] ?? COPY.en;
   const tier = await sponsoredTier(clinic.id);
+  // 카드 목록(허브/best/홈)이 텍스트만 있어서 사진 있는 구글 로컬팩 대비
+  // 이탈률이 높았을 가능성 — 이미 스크랩된 사진(1,395개 클리닉)을 카드에도
+  // 노출 (2026-07-17 감사). loadPhotos 자체 캐시라 반복 호출 저렴.
+  const photoData = await loadPhotos(clinic.id);
+  const photo = photoData?.photos[0];
   const trendDelta = ratingDelta(clinic);
   const sparkline = sparklinePoints(clinic);
   const reviewLangs = langBar(clinic);
@@ -194,10 +201,13 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
   const services = topServices(clinic);
   const doctor = topDoctor(clinic);
   const snippet = pickSnippet(clinic);
+  // TrustBadge/TrustDonut/clinic 상세페이지와 동일 임계값(75/60/40)+색상으로
+  // 통일 — 예전엔 이 카드만 80/65/50 + 파랑 배색이라 같은 68점이 페이지마다
+  // 다른 등급/색으로 보였음 (2026-07-17 감사).
   const trustColor =
-    clinic.trust_score >= 80 ? "#059669" :
-    clinic.trust_score >= 65 ? "#2563eb" :
-    clinic.trust_score >= 50 ? "#d97706" : "#6b7280";
+    clinic.trust_score >= 75 ? "#16a34a" :
+    clinic.trust_score >= 60 ? "#059669" :
+    clinic.trust_score >= 40 ? "#ca8a04" : "#94a3b8";
 
   const tierStyles = tier === "editors_pick"
     ? { wrapper: "shadow-lg shadow-amber-200/40 ring-2 ring-amber-300", corner: "from-amber-400 to-yellow-600" }
@@ -218,6 +228,13 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
       <a href={`/clinic/${clinic.id}`} className="block p-5 pb-3">
         {/* Top row — rank, district, status, name, rating */}
         <div className="flex items-start justify-between gap-3 mb-3">
+          {photo && (
+            <ClinicPhoto
+              src={photo.thumb}
+              alt={clinic.name}
+              className="w-16 h-16 rounded-lg object-cover shrink-0 bg-gray-100"
+            />
+          )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-1 flex-wrap">
               {rank !== undefined && <span className="font-bold text-[var(--fg)] tabular-nums">#{rank}</span>}
@@ -284,7 +301,7 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
             <div className="flex items-baseline gap-2">
               <span className="text-lg font-black tabular-nums" style={{ color: trustColor }}>{formatTrustScore(clinic.trust_score)}</span>
               <span className="text-[10px] uppercase tracking-wider" style={{ color: trustColor }}>
-                {clinic.trust_score >= 80 ? t.excellent : clinic.trust_score >= 65 ? t.strong : clinic.trust_score >= 50 ? t.good : t.fair}
+                {clinic.trust_score >= 75 ? t.excellent : clinic.trust_score >= 60 ? t.strong : clinic.trust_score >= 40 ? t.good : t.fair}
               </span>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { DoctorGrid } from "@/components/DoctorGrid";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 const CITY_SLUG_MAP: Record<string, string> = {
@@ -20,7 +21,8 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
-  const cities = new Set(getAllDoctors(db.clinics).map((d) => d.clinic.city_label));
+  const cfg = getSiteConfig();
+  const cities = new Set(getAllDoctors(applySiteFilter(db.clinics, cfg)).map((d) => d.clinic.city_label));
   return Array.from(cities)
     .filter(Boolean)
     .map((c) => ({ city: c.toLowerCase().replace(/\s+/g, "-") }));
@@ -47,7 +49,8 @@ export default async function DoctorsByCity(
   if (!cityLabel) notFound();
 
   const db = await loadMasterDb();
-  const doctors = getAllDoctors(db.clinics)
+  const cfg = getSiteConfig();
+  const doctors = getAllDoctors(applySiteFilter(db.clinics, cfg))
     .filter((d) => d.clinic.city_label === cityLabel)
     .sort((a, b) => b.mentions - a.mentions);
 

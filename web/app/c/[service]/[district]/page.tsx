@@ -127,7 +127,7 @@ export default async function ServiceDistrictPage(
       ) : (
         <>
           {compareLink && (
-            <a href={compareLink}
+            <a href={compareLink} rel="nofollow"
               className="mb-6 flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--border)] bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition text-sm font-medium w-fit">
               ⚖️ Compare #{1} vs #{2}: {filtered[0].name} vs {filtered[1].name} →
             </a>

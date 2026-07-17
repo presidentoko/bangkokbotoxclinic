@@ -56,10 +56,9 @@ export async function POST(req: Request) {
     at: new Date().toISOString(),
   };
 
-  // 저장
-  if (clinicId) {
-    await storeLead(lead);
-  }
+  // 저장 — clinicId 없는(지역/서비스 허브 폼) 리드도 공용 버킷에 반드시 저장.
+  // 예전엔 clinicId 있을 때만 저장해서, notify 실패 시(이메일 미설정 등) 완전 유실됐음.
+  await storeLead(lead);
 
   // 알림 라우팅: 파트너 클리닉이면 그 클리닉으로, 아니면 fallback
   // (Redis 우선, JSON 파일 fallback — partnerStore.listPartners 가 처리)

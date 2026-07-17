@@ -23,7 +23,7 @@ import { StickyClinicBar } from "@/components/StickyClinicBar";
 import { ClinicPriceBlock } from "@/components/ClinicPriceBlock";
 import { ClinicCtaCard } from "@/components/ClinicCtaCard";
 import { extractPriceEstimates } from "@/lib/priceEstimates";
-import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, resolveOwnerUrl, safeEncodeURIComponent, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -52,17 +52,27 @@ const PantipMentions = dynamic(
 );
 
 // top 500 클리닉 pre-build — Google 크롤 시 cold start 없애서 인덱싱 개선.
-// 나머지는 첫 방문 시 on-demand 생성 → 7일 캐시.
-export const revalidate = 604800;
+// 데이터는 배포(재빌드) 시에만 바뀌고 배포는 어차피 전체 prerender를 무효화
+// 하므로, revalidate 기간 자체는 "핫픽스 없이 얼마나 오래 버틸까"의 의미만
+// 있음 — 7일→30일로 늘려 크롤 재방문 시 불필요한 ISR write 절감 (2026-07-17 감사).
+export const revalidate = 2592000;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  // 전량 프리렌더 — dynamicParams=false 와 짝. Hobby ISR Writes 200K/월 한도를
-  // 봇이 무작위 id 두드릴 때마다(404도 캐시에 기록됨) 소진시키던 문제
-  // (bangkokfillers 2026-07-10 사고와 동일 패턴). 빌드는 느려지지만 잘못된
-  // id 는 라우팅 단계에서 즉시 404 — ISR write 자체가 안 생김.
-  return db.clinics.map((c) => ({ id: c.id }));
+  // dynamicParams=false 와 짝 — Hobby ISR Writes 200K/월 한도를 봇이 무작위
+  // id 두드릴 때마다(404도 캐시에 기록됨) 소진시키던 문제 방지
+  // (bangkokfillers 2026-07-10 사고와 동일 패턴). 잘못된 id 는 라우팅
+  // 단계에서 즉시 404 — ISR write 자체가 안 생김.
+  //
+  // 이 사이트 소관 클리닉만 prerender — doctor/[slug]와 동일 이유
+  // (2026-07-17 감사: 도메인 무관 전량 프리렌더 시 ~90%가 noindex 처리될
+  // 타 도메인 클리닉이라 빌드/배포/ISR write 낭비가 컸음). 범위 밖 id는
+  // 이제 noindex 대신 404 — 어차피 색인 대상이 아니었고 내부링크도 이미
+  // 소관 클리닉으로만 한정돼 있어(scopedClinics) 신규 유입 경로는 없음.
+  const cfg = getSiteConfig();
+  const scoped = applySiteFilter(db.clinics, cfg);
+  return scoped.map((c) => ({ id: c.id }));
 }
 
 export async function generateMetadata(
@@ -132,10 +142,24 @@ export default async function ClinicPage(
   // similar/nearby로 내부링크해서 크롤러가 발견하는 걸 방지 (교차 도메인 중복 콘텐츠).
   const cfg = getSiteConfig();
   const scopedClinics = applySiteFilter(db.clinics, cfg);
+  // 이 클리닉이 사이트 소관이어도 categories 중 일부는 이 사이트 focus 밖일 수
+  // 있음(예: 보톡스+덴탈 겸업 클리닉) — /c/{cat} 링크는 focus 밖 카테고리면
+  // FOCUS_VALID 체크로 404 나므로, 카테고리 칩/primaryCat 은 focus 내로 한정.
+  const focusValidCats = FOCUS_VALID[cfg.focus];
+  const focusCategories = focusValidCats
+    ? c.categories.filter((cat) => focusValidCats.has(cat))
+    : c.categories;
 
   const tier = await sponsoredTier(c.id);
   const trend = c.rating_trend?.trend ?? "insufficient_data";
-  const samples = [...(c.sample_reviews_en ?? []), ...(c.sample_reviews_th ?? [])].slice(0, 4);
+  // EN 우선(이미 그랬음) + 출처 언어 태깅 — 예전엔 en/th를 그냥 이어붙여서
+  // en 리뷰가 4개 미만이면 태그 없는 태국어 원문이 그냥 섞여 나왔음
+  // (2026-07-17 감사). SampleReview 타입에 date/url 필드가 없어 상대날짜·
+  // 원문링크는 추가 불가 — 데이터 없는 걸 지어내지 않음.
+  const samples = [
+    ...(c.sample_reviews_en ?? []).map((r) => ({ ...r, srcLang: "en" as const })),
+    ...(c.sample_reviews_th ?? []).map((r) => ({ ...r, srcLang: "th" as const })),
+  ].slice(0, 4);
 
   // Pricing — hdmall package 데이터(있는 경우)
   const pricing = await loadPricing(c.id);
@@ -186,7 +210,7 @@ export default async function ClinicPage(
     .slice(0, 4);
 
   // Nearby clinics (main column — strict: same district AND same primary category, fallback to loose)
-  const primaryCat = c.categories[0];
+  const primaryCat = focusCategories[0];
   const strictNearby = primaryCat && c.district
     ? scopedClinics
         .filter((other) =>
@@ -250,9 +274,9 @@ export default async function ClinicPage(
       <StickyClinicBar
         clinicName={c.name}
         phone={c.phone || undefined}
-        lineId={null}
+        lineId={c.website_line}
       />
-      <FloatingContactBar clinicName={c.name} phone={c.phone} />
+      <FloatingContactBar clinicName={c.name} phone={c.phone} lineId={c.website_line} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         {c.district && (
@@ -275,9 +299,6 @@ export default async function ClinicPage(
           <SponsoredBadge clinicId={c.id} />
         </div>
       )}
-
-      {/* Owner lead funnel — all clinic pages */}
-      <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />
 
       {/* Header */}
       <header className="mb-8">
@@ -324,9 +345,9 @@ export default async function ClinicPage(
           )}
         </div>
 
-        {c.categories.length > 0 && (
+        {focusCategories.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {c.categories.map((cat) => (
+            {focusCategories.map((cat) => (
               <a
                 key={cat}
                 href={`/c/${cat}`}
@@ -448,6 +469,12 @@ export default async function ClinicPage(
                       <span className="font-medium">{r.author || "Google reviewer"}</span>
                       <span>·</span>
                       <span className="text-yellow-700">★ {r.rating}</span>
+                      {r.srcLang === "th" && (
+                        <>
+                          <span>·</span>
+                          <span className="uppercase tracking-wide">Thai, untranslated</span>
+                        </>
+                      )}
                     </footer>
                   </blockquote>
                 ))}
@@ -463,7 +490,7 @@ export default async function ClinicPage(
 
           {/* Compare CTA — 같은 카테고리 최상위 클리닉과 비교 */}
           {comparePeer && (
-            <a href={`/compare/${c.id}/${comparePeer.id}`}
+            <a href={`/compare/${c.id}/${comparePeer.id}`} rel="nofollow"
               className="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition group">
               <span className="text-2xl shrink-0">⚖️</span>
               <div className="min-w-0 flex-1">
@@ -624,7 +651,7 @@ export default async function ClinicPage(
           <ClinicCtaCard
             clinicName={c.name}
             phone={c.phone || undefined}
-            lineId={null}
+            lineId={c.website_line}
           />
           {/* Hero CTA — 가장 prominent. accent gradient + 강한 contrast */}
           <div
@@ -703,6 +730,7 @@ export default async function ClinicPage(
                     </a>
                     <a
                       href={`/compare/${c.id}/${s.id}`}
+                      rel="nofollow"
                       className="shrink-0 text-[10px] uppercase tracking-widest text-[var(--muted)] hover:text-[var(--accent)] border border-[var(--border)] rounded px-2 py-0.5 hover:border-[var(--accent)] transition"
                       title={`Compare ${c.name} vs ${s.name}`}
                     >
@@ -715,6 +743,14 @@ export default async function ClinicPage(
           )}
         </aside>
       </div>
+
+      {/* Owner lead funnel — 이미 sponsored/partner인 클리닉은 claim 유도 불필요.
+          예전엔 H1보다 위, 첫 화면 최상단에 있어서 환자가 페이지 열자마자
+          "이 사이트는 이 클리닉과 무관함"으로 읽혀 신뢰를 깎았음(2026-07-17 감사) —
+          FAQ/RelatedExplore 다음, 페이지 최하단으로 이동. */}
+      {!tier && (
+        <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />
+      )}
 
       <ClinicJsonLd c={c} photos={photos?.photos} priceRange={priceRange ?? undefined} />
       <BreadcrumbJsonLd items={[

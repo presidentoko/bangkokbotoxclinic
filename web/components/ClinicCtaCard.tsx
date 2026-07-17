@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { BookingForm } from "./BookingForm";
+import { getSiteConfig } from "@/lib/site";
+
+// 사이트 공용 LINE OA — LineButton.tsx/app/layout.tsx 푸터와 동일 계정.
+const SITE_LINE_OA = "405zhjqb";
 
 export function ClinicCtaCard({
   clinicName,
@@ -13,21 +17,25 @@ export function ClinicCtaCard({
   lineId?: string | null;
 }) {
   const [open, setOpen] = useState(false);
+  const cfg = getSiteConfig();
 
+  // 클리닉 자체 LINE 없으면(거의 항상) 사이트 OA로 클리닉명 prefill —
+  // 예전엔 lineId 없으면 LINE 버튼 자체가 안 뜸 (2026-07-17 감사).
   const lineDeepLink = lineId
     ? `https://line.me/R/ti/p/@${encodeURIComponent(lineId.replace(/^@/, ""))}`
-    : null;
+    : `https://line.me/R/oaMessage/@${SITE_LINE_OA}/?${encodeURIComponent(`I'm interested in ${clinicName}`)}`;
 
   return (
     <>
       <div className="border-2 border-[var(--accent)] rounded-xl p-5 bg-white shadow-sm">
+        {/* "Dental" 하드코딩 → focus-aware. "Usually responds within 2 hours"
+            등 5,360개 전 클리닉에 걸친 검증 불가능한 주장은 제거 (2026-07-17 감사). */}
         <h2 className="text-lg font-bold text-[var(--fg)] mb-1">
-          Get a Free Dental Consultation
+          Get a Free {cfg.focus === "dental" ? "Dental" : cfg.focus === "hair" ? "Hair" : ""} Consultation
         </h2>
         <ul className="text-sm text-[var(--muted)] mb-4 space-y-0.5">
           <li>✓ No obligation</li>
-          <li>✓ English-speaking staff</li>
-          <li>⏱ Usually responds within 2 hours</li>
+          <li>✓ We relay your request directly to the clinic</li>
         </ul>
 
         <button

@@ -130,6 +130,9 @@ export async function GET(req: NextRequest) {
       {
         width: 1200,
         height: 630,
+        // Vercel edge CDN 은 s-maxage 없으면 캐시 안 함 — 같은 비교 조합이
+        // 재요청될 때마다 매번 새로 렌더링되던 문제 (2026-07-17 감사).
+        headers: { "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400" },
       }
     );
   }
@@ -182,6 +185,10 @@ export async function GET(req: NextRequest) {
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    {
+      width: 1200,
+      height: 630,
+      headers: { "Cache-Control": "public, s-maxage=604800, stale-while-revalidate=86400" },
+    }
   );
 }

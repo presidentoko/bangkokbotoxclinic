@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { GUIDES, findGuide, proceduresForGuide } from "@/lib/guides";
+import { GUIDES, findGuide, proceduresForGuide, guidesForFocus } from "@/lib/guides";
 import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
@@ -14,7 +14,11 @@ const SITE = getSiteUrl();
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return GUIDES.map((g) => ({ slug: g.slug }));
+  // focus 태그 있는 가이드(예: 덴탈)는 그 사이트에서만 — 안 그러면 보톡스
+  // 도메인에 덴탈 가이드가 색인되는 크로스도메인 중복 콘텐츠 발생
+  // (2026-07-17 감사). 태그 없는 general 가이드는 guidesForFocus 가 항상 포함.
+  const cfg = getSiteConfig();
+  return guidesForFocus(cfg.focus).map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata(
@@ -197,7 +201,7 @@ export default async function GuidePage(
       )}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema).replace(/</g, "\\u003c") }}
       />
     </article>
   );

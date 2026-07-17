@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
-import { GUIDES } from "@/lib/guides";
+import { guidesForFocus } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 
 const SITE = getSiteUrl();
@@ -41,7 +41,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/doctors`, lastModified: updated, changeFrequency: "daily", priority: 0.85 },
   ];
 
-  for (const g of GUIDES) {
+  // focus 태그 있는 가이드는 그 사이트에서만 제출 — 안 그러면 타 도메인
+  // 가이드가 크로스도메인 중복 콘텐츠로 색인됨 (2026-07-17 감사).
+  for (const g of guidesForFocus(cfg.focus)) {
     items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
   for (const s of HUB_SERVICES) {

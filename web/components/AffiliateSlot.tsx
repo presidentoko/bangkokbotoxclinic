@@ -111,62 +111,33 @@ export function AdSlot({ slot }: { slot: string }) {
   );
 }
 
-/** 광고 placeholder — AdSense 환경변수 없을 때도 시각적으로 자리 표시.
- *  실제 광고/sponsored 클리닉 들어갈 위치를 사이트에서 미리 reserve.
- *  운영자가 위치/사이즈/문구 변경 없이 광고 코드만 wiring 하면 됨.
- *  variant: banner(가로 thin), square(정사각), inline(중간 텍스트)
- */
-const AD_COPY: Record<Lang, { sponsored: string; reserved: string }> = {
-  en: { sponsored: "Sponsored", reserved: "Reserved for sponsored partner" },
-  ko: { sponsored: "광고", reserved: "광고 파트너 예약 영역" },
-  th: { sponsored: "สปอนเซอร์", reserved: "พื้นที่สำรองสำหรับพาร์ตเนอร์สปอนเซอร์" },
-};
+/** AdSense 설정돼 있을 때만 렌더 — 미설정이면 null (2026-07-17 감사 이전엔
+ *  운영자용 자리표시 박스를 실사용자에게 노출했음). */
 
 export function AdPlaceholder({
   variant = "banner",
-  label,
-  hint,
-  lang = "en",
 }: {
   variant?: "banner" | "square" | "inline";
   label?: string;
   hint?: string;
   lang?: Lang;
 }) {
-  const t = AD_COPY[lang] ?? AD_COPY.en;
-  const resolvedLabel = label ?? t.sponsored;
   const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-  if (client) {
-    // 실제 AdSense — placeholder 대신 진짜 광고 렌더
-    return (
-      <ins
-        className="adsbygoogle block my-4"
-        style={{ display: "block" }}
-        data-ad-client={client}
-        data-ad-slot="auto"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    );
+  if (!client) {
+    // AdSense 미설정이면 실사용자에게 빈 자리표시(내부 운영 메모 "Reserved for
+    // sponsored partner" 포함)를 보여주던 걸 제거 — 광고 없는 사이트처럼
+    // 보이지 않고 마치 미완성/광고 최우선 사이트처럼 보였음 (2026-07-17 감사).
+    return null;
   }
-  // Placeholder — 운영자가 광고 자리 시각화하기 위해 보이는 박스
-  // 모바일에서 광고 자리가 너무 크면 fold 차지 → 모바일 작게
-  const size =
-    variant === "banner"
-      ? "h-16 md:h-32"
-      : variant === "square"
-      ? "h-32 md:h-56"
-      : "h-14 md:h-20";
+  void variant;
   return (
-    <div
-      aria-label="Sponsored slot"
-      className={`relative my-6 ${size} border-2 border-dashed border-[var(--border)] rounded-xl bg-gradient-to-br from-slate-50 via-white to-slate-50 flex flex-col items-center justify-center gap-1 text-center px-4`}
-    >
-      <span className="text-[10px] uppercase tracking-widest text-[var(--muted)] font-bold">
-        {resolvedLabel}
-      </span>
-      {hint && <span className="text-xs text-[var(--muted)]">{hint}</span>}
-      <span className="text-[10px] text-[var(--muted)] opacity-60">{t.reserved}</span>
-    </div>
+    <ins
+      className="adsbygoogle block my-4"
+      style={{ display: "block" }}
+      data-ad-client={client}
+      data-ad-slot="auto"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
   );
 }

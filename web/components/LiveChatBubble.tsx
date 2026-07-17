@@ -3,11 +3,13 @@
 // Quick-reply chips lead to concrete actions (Get matched / Cost / Visa) — short funnel.
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import { getSiteConfig } from "@/lib/site";
+import { siteEmails } from "@/lib/contact";
 
 type Msg = { role: "bot" | "user"; text: string; t: number };
 
 const LINE_URL = "https://line.me/R/ti/p/@405zhjqb";
-const EMAIL = "hello@bkkclinics.com";
 
 const QUICK_REPLIES = [
   { v: "match",    label: "Get matched with a clinic" },
@@ -26,6 +28,9 @@ const BOT_REPLIES: Record<string, string> = {
 };
 
 export default function LiveChatBubble() {
+  const pathname = usePathname();
+  const cfg = getSiteConfig();
+  const EMAIL = siteEmails().general;
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -44,7 +49,7 @@ export default function LiveChatBubble() {
     if (msgs.length === 0) {
       // Initial greeting after open
       setTimeout(() => {
-        setMsgs([{ role: "bot", text: "Hi 👋 I'm the BKK Clinics concierge. What would help most right now?", t: Date.now() }]);
+        setMsgs([{ role: "bot", text: `Hi 👋 I'm the ${cfg.brand} concierge. What would help most right now?`, t: Date.now() }]);
       }, 300);
     }
   }, [open, msgs.length]);
@@ -64,7 +69,10 @@ export default function LiveChatBubble() {
     }, 700);
   }
 
-  if (!mounted) return null;
+  // /clinic/[id]* 페이지엔 이미 FloatingContactBar(실제 LINE 딥링크)가 있음 —
+  // 여기에 이 가짜 채팅 + WhatsApp + 이 위젯까지 겹쳐서 모바일 하단 우측에
+  // 초록 원이 3~4개 쌓이던 문제 (2026-07-17 감사).
+  if (!mounted || /\/clinic\//.test(pathname ?? "")) return null;
 
   return (
     <>
@@ -90,7 +98,7 @@ export default function LiveChatBubble() {
             <div className="bg-gradient-to-br from-emerald-600 to-teal-700 text-white px-4 py-3 flex items-center gap-3">
               <span className="grid place-items-center h-10 w-10 rounded-full bg-white/20 text-xl">🌴</span>
               <div className="flex-1 min-w-0">
-                <div className="font-black text-sm">BKK Clinics concierge</div>
+                <div className="font-black text-sm">{cfg.brand} concierge</div>
                 <div className="text-[10px] opacity-90 flex items-center gap-1.5">
                   <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-300 animate-pulse" />
                   Usually replies in &lt; 1 hour

@@ -223,7 +223,7 @@ export default async function ServicePage(
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
               {pairs.map(([x, y]) => (
-                <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`}
+                <a key={`${x.id}-${y.id}`} href={`/compare/${x.id}/${y.id}`} rel="nofollow"
                   className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition">
                   <div className="flex-1 min-w-0 space-y-1.5">
                     <div className="flex items-center gap-2">

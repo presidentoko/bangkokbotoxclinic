@@ -3,6 +3,7 @@ import { loadMasterDb, getAllDoctors, slugify } from "@/lib/data";
 import { DoctorGrid } from "@/components/DoctorGrid";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 // 봇 쓰레기 param(/d/wp-login.php 등)의 온디맨드 렌더+캐시 write 차단
@@ -11,8 +12,9 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
   const districts = new Set<string>();
-  for (const d of getAllDoctors(db.clinics)) {
+  for (const d of getAllDoctors(applySiteFilter(db.clinics, cfg))) {
     if (d.clinic.district) districts.add(d.clinic.district);
   }
   return Array.from(districts).map((d) => ({ district: slugify(d) }));
@@ -20,7 +22,8 @@ export async function generateStaticParams() {
 
 async function resolveDistrict(slug: string) {
   const db = await loadMasterDb();
-  const all = getAllDoctors(db.clinics);
+  const cfg = getSiteConfig();
+  const all = getAllDoctors(applySiteFilter(db.clinics, cfg));
   const districts = new Set(all.map((d) => d.clinic.district).filter(Boolean));
   const district = Array.from(districts).find((d) => slugify(d) === slug);
   if (!district) return null;

@@ -2,13 +2,21 @@
 // Floating WhatsApp button. Sits left of LiveChatBubble (which is right). Visible always.
 // Pre-fills a useful message.
 
+import { usePathname } from "next/navigation";
 import { CONTACT } from "@/lib/contact";
+import { getSiteConfig } from "@/lib/site";
 
 const WA_NUMBER = CONTACT.whatsapp.number;
-const PREFILL = "Hi! I'm interested in booking a consult through bkkclinics. Could you help?";
 
 export default function WhatsAppCTA() {
-  const link = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(PREFILL)}`;
+  const pathname = usePathname();
+  const cfg = getSiteConfig();
+  // /clinic/[id]* 페이지엔 이미 FloatingContactBar가 있음 — 겹치는 플로팅
+  // 위젯 줄이기 (2026-07-17 감사).
+  if (/\/clinic\//.test(pathname ?? "")) return null;
+  // "through bkkclinics" 하드코딩 → focus-aware brand (2026-07-17 감사).
+  const prefill = `Hi! I'm interested in booking a consult through ${cfg.brand}. Could you help?`;
+  const link = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(prefill)}`;
   return (
     <a
       href={link}

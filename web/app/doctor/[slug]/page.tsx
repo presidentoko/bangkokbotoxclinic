@@ -4,7 +4,7 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { LineButton } from "@/components/LineButton";
 import { BookingForm } from "@/components/BookingForm";
-import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
+import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 // JSON-LD must use the deployed origin, not the botox-site default — otherwise the
@@ -13,7 +13,8 @@ const SITE = getSiteUrl();
 
 // 전량 프리렌더 + dynamicParams=false — clinic/[id]와 동일 이유(Hobby ISR
 // Writes 200K/월 한도를 봇의 무작위 slug 크롤이 소진, 2026-07-10 감사).
-export const revalidate = 604800;
+// 30일로 연장 — 데이터는 배포 시에만 바뀜 (2026-07-17 감사).
+export const revalidate = 2592000;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -68,6 +69,7 @@ export default async function DoctorPage(
 ) {
   const { slug } = await params;
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
   const d = getDoctorByCompositeSlug(db.clinics, slug);
   if (!d) notFound();
 
@@ -79,8 +81,15 @@ export default async function DoctorPage(
   // 같은 클리닉 다른 의사들
   const colleagues = (c.doctor_stats ?? []).filter((x) => x.slug !== d.slug).slice(0, 5);
 
-  // 같은 district + category 다른 의사들 (cross-link)
-  const peerDoctors = getAllDoctors(db.clinics)
+  // 겸업 클리닉의 focus 밖 카테고리는 /c/{cat} 링크가 404 나므로 제외 (2026-07-17 감사).
+  const focusValidCats = FOCUS_VALID[cfg.focus];
+  const focusCategories = focusValidCats
+    ? c.categories.filter((cat) => focusValidCats.has(cat))
+    : c.categories;
+
+  // 같은 district + category 다른 의사들 (cross-link) — 이 사이트 소관만,
+  // 아니면 doctor/[slug]가 prerender 안 해서 404 (2026-07-17 감사).
+  const peerDoctors = getAllDoctors(applySiteFilter(db.clinics, cfg))
     .filter((x) =>
       x.clinic.id !== c.id &&
       x.mentions >= 3 &&
@@ -135,7 +144,7 @@ export default async function DoctorPage(
           <span className="bg-blue-50 text-blue-800 px-3 py-1 rounded-full">
             🌍 {langs}
           </span>
-          {c.categories.slice(0, 4).map((cat) => (
+          {focusCategories.slice(0, 4).map((cat) => (
             <a key={cat} href={`/c/${cat}`} className="bg-purple-50 text-purple-800 px-3 py-1 rounded-full hover:bg-purple-100">
               {CATEGORY_LABELS[cat] ?? cat}
             </a>
@@ -360,7 +369,8 @@ export default async function DoctorPage(
             .filter(([k, v]) => v > 0 && k !== "other")
             .map(([k]) => ({ th: "Thai", en: "English", ko: "Korean", ja: "Japanese" }[k as "th" | "en" | "ko" | "ja"] || k)),
           url: `${SITE}/doctor/${d.composite_slug}`,
-        }) }}
+          // d.name 은 구글 리뷰 원문에서 추출된 값(누구나 작성 가능) — "<" 이스케이프 필수.
+        }).replace(/</g, "\\u003c") }}
       />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

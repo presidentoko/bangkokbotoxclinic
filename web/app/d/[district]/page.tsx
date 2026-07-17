@@ -7,6 +7,7 @@ import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
+import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 function districtFromSlug(slug: string, all: string[]): string | null {
@@ -30,8 +31,14 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { district } = await params;
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
   const districtName = districtFromSlug(district, Object.keys(db.district_counts)) ?? district;
-  const count = db.district_counts[districtName] ?? 0;
+  // db.district_counts 는 전 도메인 합산 카운트 — 이 사이트 소관만 센 카운트를
+  // 써야 noindex 기준(count<5)과 타이틀 숫자가 실제 표시되는 클리닉 수와
+  // 일치함 (2026-07-17 감사: 안 그러면 겸업 카운트 때문에 사실상 텅 빈
+  // 페이지가 색인되거나, 타이틀 숫자와 실제 목록 길이가 안 맞음).
+  const scoped = applySiteFilter(db.clinics, cfg);
+  const count = filterByDistrict(scoped, districtName).length;
   // 실제 도시 lookup — Pattaya/Phuket district가 Bangkok으로 잘못 표기되는 것 방지.
   const sample = db.clinics.find((c) => c.district === districtName && c.city_label);
   const cityLabel = sample?.city_label ?? "Bangkok";
@@ -54,17 +61,26 @@ export default async function DistrictPage(
 ) {
   const { district } = await params;
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
   const districtName = districtFromSlug(district, Object.keys(db.district_counts));
   if (!districtName) notFound();
 
-  const filtered = filterByDistrict(db.clinics, districtName)
+  // 이 사이트 소관 클리닉만 — 안 그러면 겸업 클리닉이 섞여 타 버티컬
+  // 클리닉이 이 도메인 지역 페이지에 랭킹으로 뜸 (2026-07-17 감사).
+  const scoped = applySiteFilter(db.clinics, cfg);
+  const filtered = filterByDistrict(scoped, districtName)
     .sort((a, b) => b.trust_score - a.trust_score);
   const cityLabel = filtered.find((c) => c.city_label)?.city_label ?? "Bangkok";
 
-  // 카테고리 분포 (3개 이상 클리닉만)
+  // 카테고리 분포 (3개 이상 클리닉만) — focus 밖 카테고리는 /c/{cat}/{district}
+  // 가 404 나므로 제외.
+  const focusValidCats = FOCUS_VALID[cfg.focus];
   const categoryMap = new Map<string, number>();
   for (const c of filtered) {
-    for (const cat of c.categories) categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+    for (const cat of c.categories) {
+      if (focusValidCats && !focusValidCats.has(cat)) continue;
+      categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+    }
   }
   const topCats = [...categoryMap.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]);
 

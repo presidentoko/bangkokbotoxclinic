@@ -8,14 +8,14 @@
 import type { Metadata } from "next";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { getSiteUrl } from "@/lib/site";
+import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
 
 const SITE = getSiteUrl();
 
 // 동일 클리닉 set 으로 pre-build (top 100 ISR 정책 share)
 // route segment config 는 직접 선언 — Turbopack 이 `export { ... } from` 재export 를
 // route config 로 인식하지 못해 빌드 실패하므로 부모와 동일 값으로 명시.
-export const revalidate = 604800;
+export const revalidate = 2592000;
 export const dynamicParams = false;
 export const generateStaticParams = parentGSP;
 
@@ -30,17 +30,28 @@ export async function generateMetadata(
   const description = c.address
     ? `${c.name} ใน ${c.district || c.city_label} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google. ที่อยู่: ${c.address.slice(0, 80)}.`
     : `${c.name} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google.`;
+
+  // EN 페이지와 동일 가드 — parentGSP가 이제 사이트 소관 클리닉만 prerender
+  // 하므로(2026-07-17 감사) 실질적으론 도달 불가하지만, 방어적으로 유지.
+  const cfg = getSiteConfig();
+  const inSite = applySiteFilter([c], cfg).length > 0;
+  const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
+  const canonical = ownerUrl ? `${ownerUrl}/th/clinic/${c.id}` : `${SITE}/th/clinic/${c.id}`;
+
   return {
     title,
     description,
+    ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
-      canonical: `${SITE}/th/clinic/${c.id}`,
-      languages: {
-        "en-US": `${SITE}/clinic/${c.id}`,
-        "th-TH": `${SITE}/th/clinic/${c.id}`,
-        "ko-KR": `${SITE}/ko/clinic/${c.id}`,
-        "x-default": `${SITE}/clinic/${c.id}`,
-      },
+      canonical,
+      ...(inSite && {
+        languages: {
+          "en-US": `${SITE}/clinic/${c.id}`,
+          "th-TH": `${SITE}/th/clinic/${c.id}`,
+          "ko-KR": `${SITE}/ko/clinic/${c.id}`,
+          "x-default": `${SITE}/clinic/${c.id}`,
+        },
+      }),
     },
     openGraph: {
       type: "website",

@@ -178,7 +178,7 @@ export default async function BestForPage(
           {filtered.length >= 2 && (
             <section className="mb-10">
               <h2 className="text-sm font-bold uppercase tracking-widest text-[var(--muted)] mb-3">Head-to-head comparison</h2>
-              <a href={`/compare/${filtered[0].id}/${filtered[1].id}`}
+              <a href={`/compare/${filtered[0].id}/${filtered[1].id}`} rel="nofollow"
                 className="flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition group">
                 <span className="text-2xl shrink-0">⚖️</span>
                 <div className="min-w-0 flex-1">

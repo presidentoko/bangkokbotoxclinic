@@ -14,7 +14,10 @@ const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL;
 function fromAddress(): string {
   if (process.env.RESEND_FROM_EMAIL) return process.env.RESEND_FROM_EMAIL;
   const cfg = getSiteConfig();
-  return `${cfg.brand} <leads@${cfg.domain}>`;
+  // cfg.domain 은 사이트별로 "www." 포함 여부가 다름(덴탈만 포함) — Resend는
+  // 미인증 서브도메인(leads@www.foo.com)을 거부해 이메일이 조용히 실패함.
+  const bareDomain = cfg.domain.replace(/^www\./, "");
+  return `${cfg.brand} <leads@${bareDomain}>`;
 }
 
 export async function sendEmail(to: string, subject: string, html: string, text: string): Promise<boolean> {

@@ -4,14 +4,17 @@
 import type { Clinic } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { findGuide } from "@/lib/guides";
+import { getSiteConfig, FOCUS_VALID } from "@/lib/site";
 
-// 클리닉 카테고리 → 관련 가이드 슬러그 목록. 가이드 당 최대 2개 노출.
+// 클리닉 카테고리(clinic.categories 실제 값) → 관련 가이드 슬러그 목록. 가이드 당 최대 2개 노출.
 const CAT_TO_GUIDES: Record<string, string[]> = {
   botox:  ["bangkok-botox-guide", "botox-price-bangkok-2026"],
   filler: ["bangkok-filler-guide"],
   hifu:   ["hifu-ultherapy-bangkok-cost"],
   dental: ["dental-implants-bangkok-cost", "veneers-bangkok-price", "teeth-whitening-bangkok"],
-  hair:   ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
+  // clinic.categories 의 실제 값은 "hair_transplant" — "hair" 였으면 절대 안
+  // 매치돼 헤어이식 클리닉엔 관련 가이드가 영원히 안 뜸 (2026-07-17 감사).
+  hair_transplant: ["fue-hair-transplant-bangkok-cost", "dhi-vs-fue-bangkok"],
 };
 
 export function RelatedExplore({ clinic, lang = "en" }: {
@@ -26,8 +29,17 @@ export function RelatedExplore({ clinic, lang = "en" }: {
     : null;
   const citySlug = clinic.city_slug || (clinic.city_label || "bangkok").toLowerCase().replace(/\s+/g, "-");
 
+  // 클리닉이 겸업(예: 보톡스+덴탈)이면 categories 중 이 사이트 focus 밖인
+  // 것도 섞여있음 — /c/{cat} 는 focus 밖 카테고리면 404 나므로 필터 필수
+  // (2026-07-17 감사).
+  const cfg = getSiteConfig();
+  const focusValidCats = FOCUS_VALID[cfg.focus];
+  const focusCategories = focusValidCats
+    ? clinic.categories.filter((cat) => focusValidCats.has(cat))
+    : clinic.categories;
+
   // 카테고리 × 지역 콤보 long-tail links — 가장 SEO 가치 높음
-  const comboLinks = clinic.categories.slice(0, 4).flatMap((cat) => {
+  const comboLinks = focusCategories.slice(0, 4).flatMap((cat) => {
     const links = [{
       href: `${prefix}/c/${cat}`,
       label: isTH
@@ -58,10 +70,13 @@ export function RelatedExplore({ clinic, lang = "en" }: {
     label: isTH ? `คลินิกใน ${cityLabel}` : `Clinics in ${cityLabel}`,
   };
 
-  // 관련 가이드 — 클리닉 카테고리 기반, 중복 제거, 최대 3개
+  // 관련 가이드 — 클리닉 카테고리 기반, 중복 제거, 최대 3개.
+  // focusCategories 만 사용 — guide/[slug] 가 이제 focus 밖 가이드는 prerender
+  // 안 해서(2026-07-17 감사), 겸업 클리닉의 타 버티컬 카테고리로 가이드를
+  // 추천하면 404 남.
   const guideLinks: { href: string; title: string }[] = [];
   const seenSlugs = new Set<string>();
-  for (const cat of clinic.categories) {
+  for (const cat of focusCategories) {
     for (const slug of CAT_TO_GUIDES[cat] ?? []) {
       if (seenSlugs.has(slug)) continue;
       const g = findGuide(slug);

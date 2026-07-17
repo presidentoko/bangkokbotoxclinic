@@ -202,7 +202,24 @@ const DENTAL_PRIMARY_TYPES = new Set([
   "Oral surgeon",
 ]);
 
+// clinics 인자는 거의 항상 db.clinics(캐시된 원본 배열, 프로세스 생애주기 내
+// 레퍼런스 불변) — cfg.focus 도 배포당 env로 고정이라 매 페이지 렌더/빌드마다
+// 동일 입력에 대해 이 필터를 다시 도는 게 낭비였음 (수천 클리닉 × 정규식 2-3개
+// × 페이지 수천 개, 2026-07-17 감사). 레퍼런스 동일할 때만 캐시 재사용.
+let _siteFilterSrc: Clinic[] | null = null;
+let _siteFilterResult: Clinic[] | null = null;
+
 export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
+  if (clinics === _siteFilterSrc && _siteFilterResult) return _siteFilterResult;
+  const result = _applySiteFilterUncached(clinics, cfg);
+  if (clinics.length > 200) {
+    _siteFilterSrc = clinics;
+    _siteFilterResult = result;
+  }
+  return result;
+}
+
+function _applySiteFilterUncached(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
   // 모든 사이트에서 non-clinic 먼저 제거
   let clinical = clinics.filter(isClinicLike);
   if (cfg.focus === "all") return clinical;

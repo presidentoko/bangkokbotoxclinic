@@ -8,6 +8,11 @@ import { CATEGORY_FAQS } from "@/lib/faq";
 
 const SITE = getSiteUrl();
 
+// sitemap-clinics.xml 과 동일 이유(2026-07-11 감사) — route config 없으면
+// 요청마다 uncached 25MB 파싱 함수 호출. 데이터는 배포 시 재빌드로만 갱신.
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 export async function GET() {
   const cfg = getSiteConfig();
   const db = await loadMasterDb();

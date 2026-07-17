@@ -3,6 +3,7 @@ import { loadMasterDb, getAllDoctors } from "@/lib/data";
 import { DoctorGrid } from "@/components/DoctorGrid";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { applySiteFilter, getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 const VALID_SPECIALTIES = Object.keys(CATEGORY_LABELS);
@@ -36,7 +37,8 @@ export default async function DoctorsBySpecialty(
   if (!label) notFound();
 
   const db = await loadMasterDb();
-  const doctors = getAllDoctors(db.clinics)
+  const cfg = getSiteConfig();
+  const doctors = getAllDoctors(applySiteFilter(db.clinics, cfg))
     .filter((d) => d.clinic.categories.includes(specialty))
     .sort((a, b) => b.mentions - a.mentions);
 

@@ -7,10 +7,13 @@ import { getSiteConfig, getSiteUrl } from "@/lib/site";
 const SITE = getSiteUrl();
 
 function tag(data: object) {
+  // 스크랩 데이터(클리닉명, 리뷰에서 뽑은 의사명, Pantip 제목 등)가 그대로 들어오므로
+  // "<"를 이스케이프 안 하면 "</script><script>..." 로 태그 이탈 가능 (stored XSS).
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }

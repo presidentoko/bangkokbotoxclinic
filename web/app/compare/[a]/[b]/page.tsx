@@ -93,9 +93,11 @@ export default async function ComparePage(
         </div>
       </Section>
 
-      {/* Quick stats grid */}
+      {/* Quick stats grid — StatRow 자체가 label/a/vs/b 4-분할을 한 줄에
+          이미 보여주므로, 바깥을 grid-cols-2로 또 쪼개면 모바일에서 그
+          4분할이 반쪽 폭에 눌려 라벨/이름이 다 잘림 (2026-07-17 감사). */}
       <Section title="Quick stats">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+        <div className="grid grid-cols-1 gap-y-2">
           <StatRow label="Google rating" a={`★ ${ca.rating.toFixed(1)}`} b={`★ ${cb.rating.toFixed(1)}`} winner={cmp(ca.rating, cb.rating)} />
           <StatRow label="Total reviews" a={ca.total_reviews.toLocaleString()} b={cb.total_reviews.toLocaleString()} winner={cmp(ca.total_reviews, cb.total_reviews)} />
           <StatRow label="District" a={ca.district || "—"} b={cb.district || "—"} />
@@ -114,7 +116,7 @@ export default async function ComparePage(
 
       {/* Language breakdown */}
       <Section title="Reviewer languages">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <LangBreakdown clinic={ca} />
           <LangBreakdown clinic={cb} />
         </div>
@@ -123,7 +125,7 @@ export default async function ComparePage(
       {/* Top doctor comparison */}
       {(ca.doctor_stats?.length || cb.doctor_stats?.length) && (
         <Section title="Top mentioned doctor">
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <DoctorCard clinic={ca} />
             <DoctorCard clinic={cb} />
           </div>
@@ -132,7 +134,7 @@ export default async function ComparePage(
 
       {/* Highlight topics */}
       <Section title="What reviewers say">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <TopicList clinic={ca} />
           <TopicList clinic={cb} />
         </div>
@@ -140,7 +142,7 @@ export default async function ComparePage(
 
       {/* Sample reviews */}
       <Section title="Sample reviews">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <SampleReview clinic={ca} />
           <SampleReview clinic={cb} />
         </div>
@@ -171,6 +173,7 @@ export default async function ComparePage(
               <a
                 key={`${x.id}-${y.id}`}
                 href={`/compare/${x.id}/${y.id}`}
+                rel="nofollow"
                 className="group flex items-start gap-3 p-4 rounded-xl border border-[var(--border)] bg-white hover:border-[var(--accent)] transition"
               >
                 <div className="flex-1 min-w-0">

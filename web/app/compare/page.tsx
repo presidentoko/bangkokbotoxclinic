@@ -45,6 +45,7 @@ export default async function ComparePickerPage() {
             <a
               key={c.id}
               href={`/compare/${c.id}/${peer.id}`}
+              rel="nofollow"
               className="group flex items-center gap-3 p-3 rounded-lg border border-[var(--border)] bg-white hover:border-[var(--accent)] transition"
             >
               <span className="text-xs font-bold bg-blue-50 text-blue-600 rounded px-1.5 py-0.5 shrink-0">#{i + 1}</span>

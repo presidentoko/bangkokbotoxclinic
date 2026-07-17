@@ -60,15 +60,10 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en": "/",
-      "th": "/th",
-      "ko": "/ko",
-      "x-default": "/",
-    },
-  },
+  // alternates(canonical/languages)는 홈페이지 전용이라 app/page.tsx 로 이동
+  // — 레이아웃 metadata 는 Next.js가 자체 metadata 없는 하위 페이지에 그대로
+  // 상속시키므로, 여기 두면 /saved, /pay, /onboarding/* 등이 전부 홈으로
+  // canonical 잡히는 버그가 생김 (2026-07-17 감사).
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
     other: process.env.NEXT_PUBLIC_BING_VERIFICATION
