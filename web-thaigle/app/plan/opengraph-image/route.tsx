@@ -1,20 +1,18 @@
 import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 import { decodePlan, TYPE_LABELS } from "@/lib/planner";
 import type { PlanItemType } from "@/lib/planner";
 import { getSiteConfig } from "@/lib/site";
 
-export const alt = "Bangkok Trip Planner — Thaigle";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const dynamic = "force-dynamic";
 
-export default async function PlanOG({
-  searchParams,
-}: {
-  searchParams: Promise<{ d?: string }> | { d?: string };
-}) {
-  const resolved = searchParams instanceof Promise ? await searchParams : (searchParams ?? {});
-  const { d } = resolved;
+// Plain route handler (see app/quiz/opengraph-image/route.tsx for why) —
+// the opengraph-image metadata convention's generated GET never receives
+// searchParams, so a shared /plan?d=... link's OG card always rendered the
+// generic "My Bangkok Trip" fallback instead of the actual plan contents.
+export async function GET(req: NextRequest) {
+  const d = req.nextUrl.searchParams.get("d") ?? undefined;
   const plan = d ? decodePlan(d) : null;
   const cfg = getSiteConfig();
 

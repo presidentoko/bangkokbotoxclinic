@@ -1,19 +1,18 @@
 import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 import { BINGO_ITEMS, decodeBingo } from "@/lib/bingo";
 import { getSiteConfig } from "@/lib/site";
 
-export const alt = "Bangkok Bucket List Bingo — Thaigle";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const dynamic = "force-dynamic";
 
-export default async function BingoOG({
-  searchParams,
-}: {
-  searchParams: Promise<{ d?: string }> | { d?: string };
-}) {
-  const resolved = searchParams instanceof Promise ? await searchParams : (searchParams ?? {});
-  const checked = resolved.d ? decodeBingo(resolved.d) : new Set<string>();
+// Plain route handler (see app/quiz/opengraph-image/route.tsx for why) —
+// the opengraph-image metadata convention's generated GET never receives
+// searchParams, so a shared /bingo?d=... link's OG card always rendered the
+// generic "have you done all 16" fallback instead of the real progress.
+export async function GET(req: NextRequest) {
+  const d = req.nextUrl.searchParams.get("d") ?? undefined;
+  const checked = d ? decodeBingo(d) : new Set<string>();
   const total = BINGO_ITEMS.length;
   const count = checked.size;
   const pct = total > 0 ? Math.round((count / total) * 100) : 0;

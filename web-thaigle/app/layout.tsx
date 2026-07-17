@@ -12,6 +12,7 @@ import { TikTokGuard } from "@/components/TikTokGuard";
 import { CookieConsent } from "@/components/CookieConsent";
 import { BackToTop } from "@/components/BackToTop";
 import { HeaderNav } from "@/components/HeaderNav";
+import { HtmlLangSync } from "@/components/HtmlLangSync";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const cfg = getSiteConfig();
@@ -80,6 +81,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <PlannerProvider>
+          <HtmlLangSync />
           <TikTokGuard />
           <OrgJsonLd />
           <WebsiteJsonLd />

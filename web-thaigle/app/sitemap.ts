@@ -53,17 +53,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  // Place verification pages — all 1,647 real places × 3 langs
-  const { getAllPlaceSlugsServer } = await import("@/lib/places-server");
-  const placeSlugs = await getAllPlaceSlugsServer();
-  items.push(
-    ...placeSlugs.map(({ lang, slug }) => ({
-      url: `${SITE}/${lang}/place/${slug}`,
-      lastModified: updated,
-      changeFrequency: "weekly" as const,
-      priority: 0.75,
-    }))
-  );
+  // /{lang}/place/* (1,647 places × 3 langs = 4,941 URLs) intentionally
+  // left out of the sitemap: it's a TikTok/IG-verification utility tree,
+  // not a search-target content tree, and was previously eating 42% of the
+  // submitted sitemap's crawl budget ahead of the actual money pages below.
+  // The route itself still exists/renders — this only stops asking Google
+  // to prioritize crawling it.
 
   // Matches the uncapped generateStaticParams() in activities/[niche]/[slug]
   // — every place that clears topNichePlaces()'s quality gate gets a page,

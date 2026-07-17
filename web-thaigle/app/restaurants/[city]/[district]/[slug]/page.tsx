@@ -48,8 +48,12 @@ export async function generateMetadata(
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
   const cityLabel = r.city_label || city.charAt(0).toUpperCase() + city.slice(1);
   const districtName = r.district || cityLabel;
-  const menuFragment = r.menu_url ? " Menu," : "";
-  const title = `${r.name} —${menuFragment} ★${r.rating} (${r.total_reviews.toLocaleString()} Reviews) | ${districtName}, ${cityLabel}`;
+  // Star-count-first titles ("★4.5 (1,234 Reviews)") target zero-search-
+  // volume decoration — Google/Maps/TripAdvisor already own the brand-name
+  // query. Leading with the cuisine targets what people actually search
+  // ("mookata thonglor", "korean bbq sukhumvit").
+  const cuisineFragment = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "Restaurant";
+  const title = `${r.name} — ${cuisineFragment} Restaurant in ${districtName}, ${cityLabel} (Menu, Prices & Reviews)`;
   const trustLabel = r.trust_score >= 80 ? "Highly credible" : r.trust_score >= 60 ? "Credible" : "Mixed";
   const description = `${r.name} in ${districtName}, ${cityLabel}: ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews. Trust Score ${r.trust_score}/100 (${trustLabel}). ${cuisines || "Restaurant"}. View reviews, address & photos.`;
   const canonical = restaurantUrl({ city, district, slug });
@@ -127,6 +131,18 @@ export default async function RestaurantPage(
       <div className="max-w-3xl mx-auto px-4 py-8">
         <p className="sr-only">{aeoSummary}</p>
 
+        {/* Breadcrumb — was JSON-LD-only, so every restaurant page passed
+            zero crawlable link equity up to the district/city hubs. */}
+        <nav className="text-sm text-[var(--muted)] mb-4 flex items-center gap-2 flex-wrap">
+          <a href="/restaurants" className="hover:text-black">Restaurants</a>
+          <span>›</span>
+          <a href={`/restaurants/${city}`} className="hover:text-black">{cityLabel}</a>
+          <span>›</span>
+          <a href={`/restaurants/${city}/${district}`} className="hover:text-black">{districtLabel}</a>
+          <span>›</span>
+          <span className="text-[var(--fg)] truncate max-w-[200px]">{r.name}</span>
+        </nav>
+
         {tier && <SponsoredBadge id={r.id} />}
         <div className="flex items-start justify-between gap-3 mb-1 flex-wrap">
           <h1 className="text-2xl font-bold flex items-center gap-2 flex-wrap">
@@ -159,6 +175,41 @@ export default async function RestaurantPage(
           ))}
           <Freshness generatedAt={db.generated_at} />
         </div>
+
+        {/* Primary action row — previously the only next-action on this
+            template was a small blue text link buried after the map. */}
+        {(r.maps_url || r.phone || r.website) && (
+          <div className="flex gap-2 mb-6 flex-wrap">
+            {r.maps_url && (
+              <a
+                href={r.maps_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-orange-600 text-white text-sm font-bold hover:bg-orange-700 transition"
+              >
+                📍 Directions
+              </a>
+            )}
+            {r.phone && (
+              <a
+                href={`tel:${r.phone}`}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[var(--border)] bg-white text-sm font-bold hover:border-orange-300 hover:text-orange-600 transition"
+              >
+                📞 Call
+              </a>
+            )}
+            {r.website && (
+              <a
+                href={r.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[var(--border)] bg-white text-sm font-bold hover:border-orange-300 hover:text-orange-600 transition"
+              >
+                🌐 Website
+              </a>
+            )}
+          </div>
+        )}
 
         <div className="flex gap-6 mb-6 flex-wrap">
           <TrustDonut score={r.trust_score} breakdown={breakdown} />
@@ -230,12 +281,6 @@ export default async function RestaurantPage(
           </dl>
         </section>
 
-        {r.maps_url && (
-          <div className="mt-4">
-            <a href={r.maps_url} target="_blank" rel="noopener noreferrer"
-               className="text-sm text-blue-600 underline">View on Google Maps →</a>
-          </div>
-        )}
         <section className="mt-4">
           <h2 className="sr-only">Map — {r.name}</h2>
           <MapEmbed lat={r.lat} lng={r.lng} name={r.name} />

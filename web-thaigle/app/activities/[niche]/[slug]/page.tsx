@@ -125,6 +125,15 @@ export default async function PlaceDetailPage({
 
   const dayPlanRefs = await getDayPlansForVenue(place.id);
 
+  // Niche hubs only link the top ~60 places, so anything ranked lower is a
+  // sitemap orphan with no inbound link from anywhere but the sitemap
+  // itself — mirrors the "similar restaurants" cohort on the restaurant
+  // detail template so every generated page gets a few inbound links.
+  const similarInNiche = topNichePlaces(db.places, Infinity)
+    .filter((p) => p.slug !== place.slug && p.city === place.city)
+    .sort((a, b) => Math.abs(a.trust_score - place.trust_score) - Math.abs(b.trust_score - place.trust_score))
+    .slice(0, 6);
+
   const spokeLanguages = place.languages
     ? Object.entries(place.languages).filter(([, v]) => v).map(([k]) => LANG_LABELS[k] ?? k)
     : [];
@@ -314,6 +323,25 @@ export default async function PlaceDetailPage({
 
       {/* Recently viewed */}
       <RecentlyViewed currentId={place.id} />
+
+      {/* Similar venues in the same niche — gives lower-ranked (61+) pages inbound links */}
+      {similarInNiche.length > 0 && (
+        <section className="mb-6">
+          <h2 className="font-black text-base mb-3">More {info.label} in {place.city}</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {similarInNiche.map((p) => (
+              <a
+                key={p.slug}
+                href={`/activities/${niche}/${p.slug}`}
+                className="block p-3 rounded-xl bg-white border border-[var(--border)] hover:border-orange-300 hover:shadow-sm transition"
+              >
+                <div className="text-xs font-bold leading-tight truncate">{p.name}</div>
+                <div className="text-[10px] text-[var(--muted)] mt-1">Trust {p.trust_score}{p.rating ? ` · ★${p.rating.toFixed(1)}` : ""}</div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Cross-niche suggestions */}
       <section className="mb-6 border border-[var(--border)] rounded-2xl p-5 bg-gradient-to-br from-gray-50 to-white">

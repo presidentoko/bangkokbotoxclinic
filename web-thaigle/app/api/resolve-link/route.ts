@@ -93,8 +93,8 @@ export async function POST(req: NextRequest) {
   let url: string;
   try {
     const body = (await req.json()) as { url: string };
-    url = body.url?.trim();
-    if (!url || !url.startsWith("http")) throw new Error("invalid");
+    url = typeof body.url === "string" ? body.url.trim() : "";
+    if (!url || url.length > 2000 || !url.startsWith("http")) throw new Error("invalid");
   } catch {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }

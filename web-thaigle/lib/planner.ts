@@ -61,9 +61,37 @@ export function encodePlan(plan: Plan): string {
   return btoa(unescape(encodeURIComponent(JSON.stringify(plan))));
 }
 
+const PLAN_ITEM_TYPES: PlanItemType[] = ["restaurant", "clinic", "dental", "wellness", "gym"];
+
+function sanitizePlanItem(it: unknown): PlanItem | null {
+  if (!it || typeof it !== "object") return null;
+  const raw = it as Record<string, unknown>;
+  if (typeof raw.id !== "string" || typeof raw.name !== "string") return null;
+  if (typeof raw.type !== "string" || !PLAN_ITEM_TYPES.includes(raw.type as PlanItemType)) return null;
+  const item: PlanItem = { id: raw.id, name: raw.name, type: raw.type as PlanItemType };
+  if (typeof raw.district === "string") item.district = raw.district;
+  if (typeof raw.rating === "number") item.rating = raw.rating;
+  if (typeof raw.city === "string") item.city = raw.city;
+  if (typeof raw.trust_score === "number") item.trust_score = raw.trust_score;
+  if (typeof raw.price_min_thb === "number") item.price_min_thb = raw.price_min_thb;
+  if (typeof raw.slot === "string" && (SLOT_ORDER as string[]).includes(raw.slot)) item.slot = raw.slot as SlotKey;
+  // Only ever render same-origin paths — a crafted /plan?d= link could
+  // otherwise smuggle a javascript:/external href into a trusted-looking
+  // "shared trip plan" UI (same class of bug already guarded in wishlist.ts).
+  if (typeof raw.url === "string" && raw.url.startsWith("/") && !raw.url.startsWith("//")) {
+    item.url = raw.url;
+  }
+  return item;
+}
+
 export function decodePlan(str: string): Plan | null {
   try {
-    return JSON.parse(decodeURIComponent(escape(atob(str)))) as Plan;
+    const data = JSON.parse(decodeURIComponent(escape(atob(str)))) as unknown;
+    if (!data || typeof data !== "object") return null;
+    const raw = data as Record<string, unknown>;
+    if (typeof raw.title !== "string" || !Array.isArray(raw.items)) return null;
+    const items = raw.items.map(sanitizePlanItem).filter((i): i is PlanItem => i !== null);
+    return { title: raw.title.slice(0, 200), items };
   } catch {
     return null;
   }

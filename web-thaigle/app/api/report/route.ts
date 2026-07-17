@@ -3,6 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 const ADMIN_EMAIL = process.env.CONTACT_EMAIL || "chillanel22@gmail.com";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Telegram's HTML parse_mode rejects unescaped &/</> that don't form a
+// supported tag (e.g. "price <300 baht") with a 400 and drops the whole
+// message — this is the only delivery path that gets reviewed in practice.
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 const REQUEST_TYPE_EMOJI: Record<string, string> = {
   correction: "✏️",
   closed: "🚫",
@@ -29,21 +36,26 @@ async function notifyTelegram(fields: {
   if (!token || !chatId) return;
 
   const emoji = REQUEST_TYPE_EMOJI[fields.requestType ?? ""] ?? "📩";
+  const description = escapeHtml(fields.description).slice(0, 3500);
   const text =
     `${emoji} <b>Thaigle ${fields.type === "report" ? "Report" : "Takedown"}</b>\n` +
-    `Type: ${fields.requestType ?? fields.type}\n` +
-    `Business: ${fields.businessName || "-"}\n` +
-    `Page: ${fields.pageUrl || "-"}\n` +
-    `From: ${fields.contactName || "-"} (${fields.contactEmail})\n\n` +
-    `${fields.description}`;
+    `Type: ${escapeHtml(fields.requestType ?? fields.type)}\n` +
+    `Business: ${escapeHtml(fields.businessName || "-")}\n` +
+    `Page: ${escapeHtml(fields.pageUrl || "-")}\n` +
+    `From: ${escapeHtml(fields.contactName || "-")} (${escapeHtml(fields.contactEmail)})\n\n` +
+    `${description}`;
 
   try {
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
     });
-  } catch {
+    if (!res.ok) {
+      console.error("[thaigle-report] telegram delivery failed", res.status, await res.text());
+    }
+  } catch (err) {
+    console.error("[thaigle-report] telegram delivery threw", err);
     // non-fatal — the mailto fallback still fires client-side
   }
 }
@@ -77,8 +89,15 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { type, businessName, pageUrl, contactName, contactEmail, requestType, description } = body;
 
-    if (!contactEmail || !description || !EMAIL_RE.test(contactEmail)) {
+    if (typeof contactEmail !== "string" || typeof description !== "string" || !EMAIL_RE.test(contactEmail)) {
       return NextResponse.json({ error: "Missing or invalid required fields" }, { status: 400 });
+    }
+    const isOptionalString = (v: unknown) => v === undefined || typeof v === "string";
+    if (!isOptionalString(businessName) || !isOptionalString(pageUrl) || !isOptionalString(contactName) || !isOptionalString(requestType) || typeof type !== "string") {
+      return NextResponse.json({ error: "Invalid field type" }, { status: 400 });
+    }
+    if (description.length > 5000 || contactEmail.length > 320 || (businessName?.length ?? 0) > 300 || (pageUrl?.length ?? 0) > 2000 || (contactName?.length ?? 0) > 200) {
+      return NextResponse.json({ error: "Field too long" }, { status: 400 });
     }
 
     // Build mailto URL for admin notification

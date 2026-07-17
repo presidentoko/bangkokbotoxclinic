@@ -1,19 +1,19 @@
 import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 import { QUIZ_RESULTS } from "@/lib/quiz";
 import { getSiteConfig } from "@/lib/site";
 
-export const alt = "What Kind of Bangkok Traveler Are You? — Thaigle Quiz";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const dynamic = "force-dynamic";
 
-export default async function QuizOG({
-  searchParams,
-}: {
-  searchParams: Promise<{ r?: string }> | { r?: string };
-}) {
-  const resolved = searchParams instanceof Promise ? await searchParams : (searchParams ?? {});
-  const result = resolved.r ? QUIZ_RESULTS.find((res) => res.id === resolved.r) : undefined;
+// This is a plain route handler, not the opengraph-image metadata
+// convention — Next's auto-generated GET for that convention only forwards
+// { params }, never the request's searchParams, so a personalized
+// /quiz/opengraph-image?r=... link always rendered the generic fallback.
+// A real route handler gets the full NextRequest.
+export async function GET(req: NextRequest) {
+  const r = req.nextUrl.searchParams.get("r") ?? undefined;
+  const result = r ? QUIZ_RESULTS.find((res) => res.id === r) : undefined;
   const cfg = getSiteConfig();
 
   return new ImageResponse(

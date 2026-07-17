@@ -16,7 +16,11 @@ import type { Metadata } from "next";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
 export const revalidate = 86400;
-export const dynamicParams = true;
+// All valid districts are already covered by generateStaticParams below —
+// dynamicParams=true let any bogus /restaurants/{city}/{anything} URL
+// render on-demand AND write its notFound() result into the ISR cache,
+// same unbounded-write pattern that blew through bangkokfillers' quota.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
