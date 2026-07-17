@@ -255,6 +255,11 @@ export default async function HomePage() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4 py-10">
+        {/* Was buried 7 sections down past the entire widget stack — moved
+            right after hero+stats so it's visible within the first screen
+            instead of requiring 3-5 screens of scrolling to reach. */}
+        <BespokeBanner />
+
         {/* SPONSORED HERO if any */}
         {(() => {
           const hero = top.find((r) => sponsoredTier(r.id));
@@ -407,8 +412,6 @@ export default async function HomePage() {
             </div>
           </section>
         )}
-
-        <BespokeBanner />
 
         {/* REAL REVIEW QUOTES — social proof carousel */}
         {reviewQuotes.length >= 3 && (
