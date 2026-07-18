@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Rolex watches in Thailand — Cyclops lens, sweep seconds, case back engravings, crown guards. 2025 guide for Thai buyers.'
       : 'ตรวจสอบ Rolex แท้ในไทย — เลนส์ Cyclops เข็มวินาที การแกะสลักหลังเคส crown guards คู่มือ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

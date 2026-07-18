@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Neverfull MM vs OnTheGo MM for Bangkok buyers — THB prices, capacity, strap options, zip vs open top, pre-owned value comparison 2025.'
       : 'Neverfull MM vs OnTheGo MM สำหรับผู้ซื้อกรุงเทพ ราคาบาท ความจุ ตัวเลือกสาย ซิปกับปิดบนแบบเปิด เปรียบเทียบมูลค่ามือสอง 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

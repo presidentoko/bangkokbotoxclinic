@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'The most valuable pre-owned luxury bags in 2025 for Thai buyers — Hermès Birkin, Chanel Classic, Kelly. Which bag appreciates most? THB market prices.'
       : 'กระเป๋าหรูมือสองที่มีมูลค่าสูงสุดในปี 2025 สำหรับผู้ซื้อชาวไทย — Hermès Birkin Chanel Classic Kelly กระเป๋าไหนเพิ่มมูลค่าสูงสุด ราคาตลาดบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

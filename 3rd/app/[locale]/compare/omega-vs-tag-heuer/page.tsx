@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Omega vs TAG Heuer for Thai buyers — Speedmaster vs Carrera in THB prices, value retention, and where to buy in Bangkok.'
       : 'Omega vs TAG Heuer สำหรับคนไทย — Speedmaster vs Carrera ราคาบาท อัตราการรักษามูลค่า และที่ซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

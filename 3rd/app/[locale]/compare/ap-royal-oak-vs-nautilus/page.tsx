@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Audemars Piguet Royal Oak vs Patek Nautilus for Thailand buyers 2025 — Gerald Genta legacy, investment tiers, THB prices, production status, and which steel sports watch to buy pre-owned.'
       : 'AP Royal Oak vs Patek Nautilus สำหรับผู้ซื้อในไทย 2025 มรดก Gerald Genta ระดับการลงทุน ราคาบาท สถานะการผลิต และควรซื้อนาฬิกา steel sports ไหนมือสอง',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

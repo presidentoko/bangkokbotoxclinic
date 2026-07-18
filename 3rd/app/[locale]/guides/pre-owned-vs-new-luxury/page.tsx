@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Pre-owned vs new luxury bags in Thailand — THB price comparisons, duty considerations, when pre-owned wins, authentication tips for Thai buyers.'
       : 'มือสองกับ luxury ใหม่ในไทย — เปรียบราคาบาท ภาษีนำเข้า เมื่อไหรที่มือสองชนะ เคล็ดลับตรวจสอบสำหรับคนไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

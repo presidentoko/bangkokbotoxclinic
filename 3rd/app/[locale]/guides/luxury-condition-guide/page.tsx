@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Understand pre-owned luxury condition grades — Excellent, Very Good, Good, Fair. How each grade affects price. Guide for Thai buyers.'
       : 'เข้าใจระดับสภาพกระเป๋าหรูมือสอง — Excellent Very Good Good Fair แต่ละระดับส่งผลต่อราคาอย่างไร คู่มือสำหรับผู้ซื้อชาวไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

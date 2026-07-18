@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Bottega Veneta vs Celine for Bangkok buyers 2025 — Jodie vs Triomphe, THB prices, resale retention, and which quiet luxury brand is the better pre-owned investment in Thailand.'
       : 'Bottega Veneta vs Celine สำหรับผู้ซื้อกรุงเทพ 2025 Jodie vs Triomphe ราคาบาท อัตราการรักษามูลค่า และแบรนด์ quiet luxury ไหนลงทุนมือสองได้ดีกว่าในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

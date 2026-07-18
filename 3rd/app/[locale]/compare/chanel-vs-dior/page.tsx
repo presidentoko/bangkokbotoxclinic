@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel vs Dior pre-owned in Thailand — Classic Flap vs Lady Dior. Price in THB, value retention, which to buy in 2025.'
       : 'Chanel vs Dior มือสองในไทย — Classic Flap vs Lady Dior ราคาเป็นบาท การรักษามูลค่า และอะไรน่าซื้อในปี 2568',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

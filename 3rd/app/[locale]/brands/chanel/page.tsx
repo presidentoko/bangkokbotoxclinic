@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'ราคา Chanel มือสองในไทย (บาท) Classic Flap, Boy Bag, 2.55, WOC — ประหยัดได้ถึง 40% เทียบกับราคาใหม่ เปรียบเทียบตามสภาพ',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
-      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` },
+      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
     },
   }
 }

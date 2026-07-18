@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'Bottega Veneta vs Loewe มือสองในไทย 2025: intrecciato vs Puzzle — สอง quiet luxury giants เปรียบเทียบกัน',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
-      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` },
+      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
     },
   }
 }

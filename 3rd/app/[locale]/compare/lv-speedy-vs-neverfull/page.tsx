@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Louis Vuitton Speedy vs Neverfull for Bangkok buyers 2025 — resale retention, THB prices, security considerations, and which LV is the better pre-owned investment in Thailand.'
       : 'Louis Vuitton Speedy vs Neverfull สำหรับผู้ซื้อกรุงเทพ 2025 อัตราการรักษามูลค่า ราคาบาท ข้อพิจารณาด้านความปลอดภัย และ LV ไหนลงทุนมือสองได้ดีกว่าในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

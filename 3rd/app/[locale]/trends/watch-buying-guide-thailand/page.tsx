@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Complete guide to buying pre-owned luxury watches in Thailand — Rolex, AP, Patek, Omega. Where to buy in Bangkok, grey market tips, duty on imported watches.'
       : 'คู่มือครบถ้วนการซื้อนาฬิกา luxury มือสองในไทย — Rolex, AP, Patek, Omega. ซื้อที่ไหนในกรุงเทพ ตลาด grey market ภาษีนำเข้า',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'AP vs Patek Philippe pre-owned comparison for Thai buyers — Royal Oak vs Nautilus price history, THB values, both above retail.'
       : 'เปรียบ AP กับ Patek Philippe มือสองสำหรับคนไทย — ราคา Royal Oak vs Nautilus ในบาท ทั้งคู่ขายเกิน retail',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

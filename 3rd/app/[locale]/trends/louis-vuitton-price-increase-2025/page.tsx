@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Louis Vuitton price increases 2019–2025 in THB — Neverfull MM, Speedy 30, Alma BB. How LV price hikes affect pre-owned value in Thailand and when to buy.'
       : 'การขึ้นราคา Louis Vuitton 2019–2025 เป็นบาท — Neverfull MM, Speedy 30, Alma BB การขึ้นราคา LV ส่งผลต่อมูลค่ามือสองในไทยอย่างไรและควรซื้อเมื่อไหร่',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

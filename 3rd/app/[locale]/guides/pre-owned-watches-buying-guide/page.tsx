@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'How to buy pre-owned Rolex, Omega, Patek Philippe in Thailand. THB prices, authentication tips, where to buy in Bangkok.'
       : 'คู่มือซื้อนาฬิกา Rolex, Omega, Patek Philippe มือสองในไทย ราคาบาท วิธีตรวจสอบความแท้ และที่ซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'ราคา Cartier มือสองในไทย (บาท) Love Bracelet, Juste un Clou, Trinity, Tank — รักษามูลค่าได้ 70–90%',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
-      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` },
+      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
     },
   }
 }

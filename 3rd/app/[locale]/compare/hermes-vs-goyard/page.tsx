@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès vs Goyard comparison — resale value, canvas vs leather, Thailand availability. Which is the better pre-owned buy?'
       : 'เปรียบ Hermès กับ Goyard — มูลค่าขายต่อ ผ้า vs หนัง หาง่ายแค่ไหนในไทย อันไหนซื้อมือสองคุ้มกว่า?',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

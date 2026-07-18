@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Gucci Dionysus vs GG Marmont for Thai buyers — THB prices, which holds value better, tiger vs chevron quilting, Bangkok resale tips.'
       : 'Gucci Dionysus vs GG Marmont สำหรับคนไทย — ราคาบาท อันไหน resale ดีกว่า tiger vs chevron quilting เคล็ดลับ resale กรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

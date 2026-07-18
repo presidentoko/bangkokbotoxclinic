@@ -1,213 +1,52 @@
 import { MetadataRoute } from 'next'
 import { getAllItems, getAllBrands } from '@/lib/data'
+import { STATIC_PAGES } from '@/lib/site-pages'
 
 const BASE = 'https://www.chicpreowned.com'
-const LOCALES = ['en', 'th'] as const
 const TODAY = new Date().toISOString().split('T')[0]
+
+function localizedEntry(
+  path: string,
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'],
+  priority: number
+): MetadataRoute.Sitemap[number] {
+  const enUrl = `${BASE}/en${path}`
+  const thUrl = `${BASE}/th${path}`
+  return {
+    url: enUrl,
+    lastModified: TODAY,
+    changeFrequency,
+    priority,
+    alternates: {
+      languages: {
+        en: enUrl,
+        th: thUrl,
+        'x-default': enUrl,
+      },
+    },
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const items = getAllItems()
   const brands = getAllBrands()
   const entries: MetadataRoute.Sitemap = []
 
-  // Root + locale homepages
-  entries.push({ url: BASE, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 })
-  for (const locale of LOCALES) {
-    entries.push({ url: `${BASE}/${locale}`, lastModified: TODAY, changeFrequency: 'weekly', priority: 1.0 })
-    entries.push({ url: `${BASE}/${locale}/handbags`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/watches`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/clothing`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/shoes`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/under-15000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/under-30000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/under-60000`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/first-luxury-bag`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/value-guide`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/market-overview`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/jewelry`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/belts`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/scarves`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/small-leather-goods`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/lv-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-lv`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-omega`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/luxury-gift-guide`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/best-bags-for-travel`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/best-bags-for-work`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/quiet-luxury-2025`, lastModified: TODAY, changeFrequency: 'monthly', priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/dior-vs-chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/bottega-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/luxury-bags-as-investments`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/where-to-sell-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-spot-fake-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/hermes-vs-bottega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/rolex`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/omega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/cartier-vs-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-audemars-piguet`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/saint-laurent-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-care-for-luxury-bags`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/audemars-piguet`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/fendi`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/hermes-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/pre-owned-watches-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/thai-luxury-market-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/prada-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/bangkok-luxury-shopping-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/rolex-reference-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/chanel-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/fendi-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/best-bags-to-gift-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/chanel-price-history`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/cartier-vs-bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/balenciaga`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/omega-vs-tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/saint-laurent-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/authentication-basics`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/luxury-above-retail`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/watch-buying-guide-thailand`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/pre-owned-vs-new-luxury`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/prada-vs-miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/hermes-birkin-vs-kelly`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/ap-vs-patek-philippe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/lv-neverfull-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/resale-value-drops-to-avoid`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/dior-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/chanel-classic-vs-boy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/gucci-dionysus-vs-marmont`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/lv-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/quiet-luxury-watch-brands-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/brands/goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-chanel`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-hermes`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-rolex`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/hermes-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/lv-vs-goyard`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/cartier-vs-tiffany`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/balenciaga-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/lv-monogram-vs-damier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/most-iconic-bags-to-buy-used`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/lv-speedy-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/hermes-bag-size-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/luxury-condition-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/saint-laurent-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/patek-philippe-nautilus-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/luxury-jewelry-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/givenchy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/most-valuable-pre-owned-bags-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/y2k-luxury-bags-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/omega-seamaster-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/brands/tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/dior-vs-louis-vuitton`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/cartier-love-bracelet-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/chanel-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-buy-pre-owned-luxury-online`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/fendi-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/rolex-submariner-buying-guide`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/hermes-birkin-waitlist-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/gucci-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/hermes-vs-dior`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/lv-vs-prada`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/chanel-mini-vs-small-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/chanel-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-saint-laurent`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/luxury-resale-platforms-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/dior-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/louis-vuitton-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/prada-vs-bottega-veneta`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-balenciaga`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/best-luxury-bags-under-3000`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-cartier`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/dior-saddle-bag-comeback-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/kelly-vs-birkin`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/tiffany-vs-van-cleef`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/loewe-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/chanel-classic-flap-vs-2-55`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/omega-vs-iwc`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/hermes-birkin-price-increase-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/lv-neverfull-vs-onthego`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/dior-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/best-pre-owned-watches-under-5000`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/phoebe-philo-effect-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/best-luxury-bags-to-invest-2026`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/best-pre-owned-watches-for-beginners`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-bulgari`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/fendi-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/rolex-vs-tudor`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-omega`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/miu-miu-rise-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/jacquemus-vs-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-tag-heuer`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/cartier-tank-vs-santos-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/trends/gen-z-luxury-trends-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/omega-seamaster-vs-constellation`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/lv-pochette-vs-felicie`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/bottega-veneta-vs-celine`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/chanel-19-vs-classic-flap`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-fendi`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/lv-speedy-vs-neverfull`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/saint-laurent-vs-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/lv-alma-vs-speedy`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/hermes-constance-vs-kelly`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-valentino`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/rolex-daytona-investment-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-loewe`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/guides/how-to-authenticate-miu-miu`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/compare/fendi-vs-gucci`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.8 })
-    entries.push({ url: `${BASE}/${locale}/trends/patek-philippe-nautilus-investment-2025`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
-    entries.push({ url: `${BASE}/${locale}/compare/ap-royal-oak-vs-nautilus`, lastModified: TODAY, changeFrequency: 'monthly' as const, priority: 0.9 })
+  // Root (/) just redirects to /en (see app/page.tsx), so it is intentionally not
+  // listed separately here — the /en entry below (with x-default) is the effective
+  // highest-priority entry for the site.
+  for (const page of STATIC_PAGES) {
+    entries.push(localizedEntry(page.path, page.changeFrequency, page.priority))
   }
 
   // Brand pages
   for (const brand of brands) {
-    for (const locale of LOCALES) {
-      entries.push({ url: `${BASE}/${locale}/${brand.slug}`, lastModified: TODAY, changeFrequency: 'weekly' as const, priority: 0.7 })
-    }
+    entries.push(localizedEntry(`/${brand.slug}`, 'weekly', 0.7))
   }
 
   // Model pages
   for (const item of items) {
-    for (const locale of LOCALES) {
-      entries.push({
-        url: `${BASE}/${locale}/${item.slug}`,
-        lastModified: TODAY,
-        changeFrequency: 'weekly' as const,
-        priority: 0.9,
-      })
-    }
+    entries.push(localizedEntry(`/${item.slug}`, 'weekly', 0.9))
   }
 
   return entries

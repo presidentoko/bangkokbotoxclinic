@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'ราคา Rolex มือสองในไทย (บาท) Submariner, GMT-Master II, Datejust, Daytona — รุ่น sports มักราคาเกินของใหม่',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
-      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` },
+      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
     },
   }
 }

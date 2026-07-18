@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'ราคา Prada มือสองในไทย (บาท) Galleria, Re-Edition 2000, Cleo เปรียบเทียบราคาตามสภาพ',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
-      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` },
+      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
     },
   }
 }

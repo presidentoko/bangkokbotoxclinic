@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Where to buy pre-owned luxury bags and watches in Bangkok 2025 — Carousell, Line Market, Chatuchak, Siam, and trusted dealers.'
       : 'ที่ซื้อกระเป๋าและนาฬิกา luxury มือสองในกรุงเทพ 2025 — Carousell, Line Market, จตุจักร, สยาม และดีลเลอร์ที่น่าเชื่อถือ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'LV vs Goyard comparison — canvas bags, resale value, availability in Thailand. THB prices and which is the better buy.'
       : 'เปรียบ LV กับ Goyard — กระเป๋าผ้า มูลค่าขายต่อ หาง่ายแค่ไหนในไทย ราคาบาทและอันไหนคุ้มกว่า',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

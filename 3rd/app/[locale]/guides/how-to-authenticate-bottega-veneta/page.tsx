@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Bottega Veneta bags in Thailand — check the intrecciato weave, leather, hardware. 6-step guide with Thai authentication options.'
       : 'ตรวจสอบ Bottega Veneta ในไทย — เช็คการถัก intrecciato หนัง hardware คู่มือ 6 ขั้นตอน พร้อมตัวเลือกตรวจสอบในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

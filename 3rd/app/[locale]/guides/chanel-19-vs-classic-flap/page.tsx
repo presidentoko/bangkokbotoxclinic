@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel 19 vs Classic Flap for Bangkok buyers — resale retention, THB prices, which holds value better, and which Chanel is the better pre-owned investment in Thailand 2025.'
       : 'Chanel 19 vs Classic Flap สำหรับผู้ซื้อกรุงเทพ อัตราการรักษามูลค่า ราคาบาท อันไหนรักษามูลค่าได้ดีกว่า และ Chanel ไหนลงทุนมือสองได้ดีกว่าในไทย 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

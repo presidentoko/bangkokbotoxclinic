@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'How to spot fake Prada in Thailand — triangle logo, serial tag, zipper, nylon stitching, interior label. Authenticate Prada pre-owned Bangkok 2025.'
       : 'วิธีสังเกตกระเป๋า Prada ปลอมในไทย — แผ่นโลโก้สามเหลี่ยม แท็ก serial ซิป การเย็บ nylon ป้ายภายใน ตรวจสอบ Prada มือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

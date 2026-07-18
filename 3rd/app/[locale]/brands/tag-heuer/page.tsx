@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Tag Heuer pre-owned watches Thailand — Carrera, Aquaracer, Monaco. THB prices, which model to buy used in Bangkok 2025.'
       : 'Tag Heuer มือสองในไทย — Carrera Aquaracer Monaco ราคาบาท รุ่นไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

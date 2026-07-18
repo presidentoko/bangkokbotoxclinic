@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel Classic Flap size guide for Thai buyers — Mini, Small, Medium/Large, Maxi compared in THB prices with climate tips for Bangkok.'
       : 'คู่มือขนาด Chanel Classic Flap สำหรับคนไทย — Mini, Small, Medium/Large, Maxi เปรียบเทียบราคาบาทพร้อมเคล็ดลับสำหรับอากาศในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Best first luxury watch to buy pre-owned in Thailand — Omega Seamaster, Cartier Tank, Rolex Datejust. Entry prices in USD and THB, what to check, Bangkok boutique context.'
       : 'นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ในไทย Omega Seamaster, Cartier Tank, Rolex Datejust ราคาเป็น USD และบาท สิ่งที่ต้องตรวจสอบ บริบทบูทีคกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

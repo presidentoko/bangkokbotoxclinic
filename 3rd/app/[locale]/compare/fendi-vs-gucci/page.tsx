@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Fendi vs Gucci for Thailand buyers 2025 — Roman architecture vs Florentine eclecticism, resale retention, THB prices, Gucci creative director volatility, and which Italian luxury brand to buy pre-owned.'
       : 'Fendi vs Gucci สำหรับผู้ซื้อในไทย 2025 สถาปัตยกรรมโรมัน vs ผสมผสานฟลอเรนซ์ อัตราการรักษามูลค่า ราคาบาท ความผันผวนของผู้อำนวยการสร้างสรรค์ Gucci และควรซื้อแบรนด์หรูอิตาลีไหนมือสอง',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

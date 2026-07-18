@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Saint Laurent vs Valentino for Thailand buyers 2025 — Parisian cool vs Roman romance, resale retention, THB prices, Rockstud caution, and investment tier comparison.'
       : 'Saint Laurent vs Valentino สำหรับผู้ซื้อในไทย 2025 ความเก๋แบบปารีส vs โรแมนติกแบบโรมัน อัตราการรักษามูลค่า ราคาบาท คำเตือน Rockstud และการเปรียบเทียบระดับการลงทุน',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

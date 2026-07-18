@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Complete guide to buying pre-owned luxury bags and watches online safely in Thailand — authentication, payment, condition grades, red flags 2025.'
       : 'คู่มือซื้อกระเป๋าและนาฬิกาหรูมือสองออนไลน์อย่างปลอดภัยในไทย — การตรวจสอบ การชำระเงิน เกรดสภาพ สัญญาณเตือน 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

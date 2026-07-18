@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Balenciaga in Thailand — City bag hardware engraving, Triple S sole layers, Cagole weight, interior stamp, arena leather texture. Bangkok buyers guide 2025.'
       : 'ตรวจสอบ Balenciaga ในไทย — การแกะสลัก hardware กระเป๋า City ชั้น sole ของ Triple S น้ำหนัก Cagole ตราประทับภายใน ผิว arena leather คู่มือผู้ซื้อกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

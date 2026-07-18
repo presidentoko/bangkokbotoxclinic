@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Nautilus buying guide for Thai buyers — 5711, 5712, 5726. THB prices, market trends, authentication. Pre-owned Patek in Thailand 2025.'
       : 'คู่มือซื้อ Nautilus สำหรับผู้ซื้อชาวไทย — 5711 5712 5726 ราคาบาท แนวโน้มตลาด การตรวจสอบ Patek มือสองในไทย 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 
@@ -78,8 +78,8 @@ export default async function NautilusTH({ params }: Props) {
           ? <Link href="/th/guides/patek-philippe-nautilus-guide" className="text-sm text-blue-600 hover:underline">ดูในภาษาไทย →</Link>
           : <Link href="/en/guides/patek-philippe-nautilus-guide" className="text-sm text-blue-600 hover:underline">View in English →</Link>
         }
-        <Link href={`/${locale}/guides/quiet-luxury-watch-brands-2025`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">{isEn ? 'Watch Brands →' : 'แบรนด์นาฬิกา →'}</Link>
-        <Link href={`/${locale}/compare/rolex-vs-patek`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Rolex vs Patek →</Link>
+        <Link href={`/${locale}/trends/quiet-luxury-watch-brands-2025`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">{isEn ? 'Watch Brands →' : 'แบรนด์นาฬิกา →'}</Link>
+        <Link href={`/${locale}/compare/rolex-vs-patek-philippe`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Rolex vs Patek →</Link>
       </div>
     </div>
   )

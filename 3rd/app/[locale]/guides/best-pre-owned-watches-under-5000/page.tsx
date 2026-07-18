@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Best pre-owned luxury watches under $5,000 for Bangkok buyers — Rolex Datejust, Omega Speedmaster, TAG Heuer, IWC, Cartier Santos. THB prices included.'
       : 'นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 สำหรับผู้ซื้อกรุงเทพ Rolex Datejust, Omega Speedmaster, TAG Heuer, IWC, Cartier Santos รวมราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

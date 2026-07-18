@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel vs Gucci comparison for Thai buyers — Classic Flap vs Dionysus, investment value, resale retention. THB prices and buying guide.'
       : 'เปรียบ Chanel กับ Gucci สำหรับผู้ซื้อชาวไทย — Classic Flap vs Dionysus มูลค่าการลงทุน การคงมูลค่าขายต่อ ราคาบาทและคู่มือซื้อ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Louis Vuitton Pochette Métis vs Félicie for Bangkok buyers — size, structure, resale retention, THB prices, and which LV pochette is the better pre-owned buy in Thailand 2025.'
       : 'Louis Vuitton Pochette Métis vs Félicie สำหรับผู้ซื้อกรุงเทพ ขนาด โครงสร้าง อัตราการรักษามูลค่า ราคาบาท และ LV pochette ไหนน่าซื้อมือสองในไทย 2025 มากกว่า',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

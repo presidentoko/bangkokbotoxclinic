@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Y2K luxury bag trends 2025 for Thailand — Fendi Baguette, Dior Saddle, Prada Re-Edition 2000. What Y2K bags to buy pre-owned in Bangkok.'
       : 'เทรนด์กระเป๋าหรู Y2K 2025 สำหรับไทย — Fendi Baguette Dior Saddle Prada Re-Edition 2000 กระเป๋า Y2K ไหนที่ควรซื้อมือสองในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel Classic Flap vs Boy Bag for Thai buyers — which holds value better, THB prices, caviar vs lambskin, Bangkok buying tips.'
       : 'Chanel Classic Flap vs Boy Bag สำหรับคนไทย — อันไหนรักษามูลค่าดีกว่า ราคาบาท caviar vs lambskin เคล็ดลับซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

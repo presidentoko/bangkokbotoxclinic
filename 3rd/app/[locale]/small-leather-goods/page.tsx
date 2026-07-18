@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: `${BASE}/en/small-leather-goods`,
         th: `${BASE}/th/small-leather-goods`,
+        'x-default': `${BASE}/en/small-leather-goods`,
       },
     },
   }

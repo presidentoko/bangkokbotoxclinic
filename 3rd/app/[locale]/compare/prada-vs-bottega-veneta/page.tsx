@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Prada vs Bottega Veneta for Thai buyers — Galleria vs Cassette, THB prices, quiet luxury comparison, which Italian house to buy pre-owned in Bangkok 2025.'
       : 'เปรียบ Prada กับ Bottega Veneta สำหรับผู้ซื้อชาวไทย — Galleria vs Cassette ราคาบาท เปรียบ quiet luxury อันไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

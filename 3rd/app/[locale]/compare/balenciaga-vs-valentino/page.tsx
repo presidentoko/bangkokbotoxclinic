@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Balenciaga vs Valentino comparison — resale value, City Bag vs Rockstud, Thailand pre-owned market. THB prices.'
       : 'เปรียบ Balenciaga กับ Valentino — มูลค่าขายต่อ City Bag vs Rockstud ตลาดมือสองไทย ราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

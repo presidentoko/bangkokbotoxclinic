@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Louis Vuitton Neverfull size guide for Thai buyers — PM vs MM vs GM dimensions, THB prices, which size to buy pre-owned in Thailand.'
       : 'คู่มือขนาด LV Neverfull สำหรับคนไทย — PM vs MM vs GM ขนาด ราคาบาท ซื้อขนาดไหนมือสองในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

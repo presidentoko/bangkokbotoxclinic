@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'คู่มือดูแลกระเป๋าแบรนด์เนมในสภาพอากาศชื้นของไทย การเก็บรักษา ทำความสะอาด และป้องกันความชื้น สำหรับ Chanel, LV, Hermès',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
-      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` },
+      languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
     },
   }
 }

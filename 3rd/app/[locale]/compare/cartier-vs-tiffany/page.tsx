@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Cartier vs Tiffany comparison — Love Bracelet vs T1 bangle, resale value, jewelry investment in Thailand. THB prices.'
       : 'เปรียบ Cartier กับ Tiffany — Love Bracelet vs T1 bangle มูลค่าขายต่อ การลงทุนเครื่องประดับในไทย ราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Rolex vs Tudor comparison for Bangkok buyers — Black Bay vs Submariner, THB prices, resale retention, and whether Tudor is worth it at Bangkok boutique prices.'
       : 'เปรียบเทียบ Rolex vs Tudor สำหรับผู้ซื้อกรุงเทพ Black Bay vs Submariner ราคาบาท อัตราการรักษามูลค่า และ Tudor คุ้มค่าที่ราคาบูทีคกรุงเทพหรือไม่',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

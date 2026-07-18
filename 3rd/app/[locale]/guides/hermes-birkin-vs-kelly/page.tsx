@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès Birkin vs Kelly for Thai buyers — which holds value better, THB prices, where to find in Bangkok, practical differences.'
       : 'Hermès Birkin vs Kelly สำหรับคนไทย — อันไหนรักษามูลค่าดีกว่า ราคาบาท หาซื้อที่ไหนในกรุงเทพ ความแตกต่างในทางปฏิบัติ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

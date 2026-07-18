@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Rolex vs Cartier for Thai buyers — Submariner vs Santos, THB prices, investment case, which Swiss watchmaker to buy pre-owned in Bangkok 2025.'
       : 'Rolex vs Cartier สำหรับผู้ซื้อชาวไทย — Submariner vs Santos ราคาบาท กรณีลงทุน นาฬิกาสวิสแบรนด์ไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

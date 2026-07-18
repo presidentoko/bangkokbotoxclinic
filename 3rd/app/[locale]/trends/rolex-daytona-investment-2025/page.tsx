@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Rolex Daytona investment analysis for Thailand buyers 2025 — Panda vs Reverse Panda, ceramic bezel refs, Paul Newman vintage opportunity, THB prices, and 2025 market correction context.'
       : 'การวิเคราะห์การลงทุน Rolex Daytona สำหรับผู้ซื้อในไทย 2025 Panda vs Reverse Panda อ้างอิงขอบเซรามิก โอกาสวินเทจ Paul Newman ราคาบาท และบริบทการปรับตัวของตลาด 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

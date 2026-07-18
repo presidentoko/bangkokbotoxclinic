@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'How to spot a fake Omega watch in Thailand — Speedmaster Moonwatch, Seamaster 300M. 7 checks for Bangkok buyers with movement verification tips.'
       : 'วิธีสังเกต Omega ปลอมในไทย Speedmaster Moonwatch, Seamaster 300M 7 ขั้นตอนสำหรับผู้ซื้อกรุงเทพพร้อมเคล็ดลับการตรวจสอบเคลื่อนไหว',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

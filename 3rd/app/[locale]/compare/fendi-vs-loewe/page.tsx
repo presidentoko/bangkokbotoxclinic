@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Fendi Baguette vs Loewe Puzzle for Thai buyers — THB pre-owned prices, value retention, and which to buy in Bangkok 2025.'
       : 'Fendi Baguette vs Loewe Puzzle สำหรับผู้ซื้อชาวไทย — ราคามือสองบาท อัตราการรักษามูลค่า และซื้ออะไรดีในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

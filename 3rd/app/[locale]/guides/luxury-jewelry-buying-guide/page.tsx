@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Pre-owned luxury jewelry guide for Thai buyers — Cartier Love, Tiffany T, VCA Alhambra. THB prices, resale retention, authentication tips.'
       : 'คู่มือซื้อเครื่องประดับหรูมือสองสำหรับผู้ซื้อชาวไทย — Cartier Love Tiffany T VCA Alhambra ราคาบาท การคงมูลค่า เคล็ดลับตรวจสอบ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

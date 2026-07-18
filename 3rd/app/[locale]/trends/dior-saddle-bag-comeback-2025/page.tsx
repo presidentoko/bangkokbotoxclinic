@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Dior Saddle Bag 2025 for Thai buyers — price history, John Galliano vs Maria Grazia Chiuri era, pre-owned THB values, buy or sell now? Bangkok market context.'
       : 'กระเป๋า Dior Saddle 2025 สำหรับผู้ซื้อชาวไทย ประวัติราคา ยุค John Galliano vs Maria Grazia Chiuri มูลค่ามือสองบาท ควรซื้อหรือขายตอนนี้? บริบทตลาดกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès Constance vs Kelly for Thailand buyers 2025 — H clasp crossbody vs structured frame, THB prices, Kelly 25 Sellier investment case, and which Hermès pre-owned to choose.'
       : 'Hermès Constance vs Kelly สำหรับผู้ซื้อในไทย 2025 สายสะพาย H clasp vs กรอบมีโครงสร้าง ราคาบาท เหตุผลการลงทุน Kelly 25 Sellier และ Hermès มือสองไหนควรเลือก',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

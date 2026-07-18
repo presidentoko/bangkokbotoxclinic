@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel Mini Flap vs Small Classic Flap for Thai buyers — dimensions, what fits, THB price difference, which size to buy pre-owned in Bangkok 2025.'
       : 'Chanel Mini Flap vs Small Classic Flap สำหรับผู้ซื้อชาวไทย — ขนาด ใส่อะไรได้บ้าง ราคาต่างกันเท่าไหร่ ขนาดไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès bag size guide for Thai buyers — Birkin 25/30/35, Kelly 25/28/32/35, Constance 14/18/24. Which size holds value best? THB prices.'
       : 'คู่มือขนาดกระเป๋า Hermès สำหรับผู้ซื้อชาวไทย — Birkin 25/30/35 Kelly 25/28/32/35 Constance 14/18/24 ขนาดไหนคงมูลค่าดีที่สุด ราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

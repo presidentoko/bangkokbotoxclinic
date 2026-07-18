@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Van Cleef & Arpels in Thailand — Alhambra size, VCA clasp engraving (not "VCA"), milled petal edge, MOP quality, hallmarks. Bangkok buyers guide 2025.'
       : 'ตรวจสอบ Van Cleef & Arpels ในไทย — ขนาด Alhambra การแกะสลัก VCA clasp (ไม่ใช่ "VCA") ขอบกลีบดอก ไม้ MOP hallmarks คู่มือผู้ซื้อกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

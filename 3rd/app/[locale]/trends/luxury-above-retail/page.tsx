@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Which luxury bags and watches sell for MORE than retail in Thailand? Birkin, Daytona, Chanel — THB premiums explained.'
       : 'สินค้า luxury อะไรบ้างที่ขายมือสองในราคาแพงกว่า retail ในไทย? Birkin, Daytona, Chanel — อธิบายราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

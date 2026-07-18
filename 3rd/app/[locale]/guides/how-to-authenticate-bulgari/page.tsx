@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'How to spot a fake Bulgari in Thailand — BVLGARI engraving, Serpenti mechanism, B.zero1 weight, hallmarks. 6 checks for Bangkok buyers.'
       : 'วิธีสังเกต Bulgari ปลอมในไทย การแกะสลัก BVLGARI กลไก Serpenti น้ำหนัก B.zero1 ตราประทับ 6 ขั้นตอนสำหรับผู้ซื้อกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

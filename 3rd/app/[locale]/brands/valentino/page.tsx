@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Valentino Rockstud, VLogo, and Locò pre-owned in Thailand. THB prices, resale value, and Piccioli vs Michele era comparison.'
       : 'Valentino Rockstud, VLogo และ Locò มือสองในไทย ราคาบาท มูลค่าขายต่อ และเปรียบเทียบยุค Piccioli กับ Michele',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

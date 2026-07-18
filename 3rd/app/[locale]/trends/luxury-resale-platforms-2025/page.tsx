@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Vestiaire Collective vs The RealReal vs Fashionphile vs Rebag 2025 — fees, authentication, which platform works for Thai buyers and sellers of pre-owned luxury.'
       : 'Vestiaire Collective vs The RealReal vs Fashionphile vs Rebag 2025 — ค่าธรรมเนียม การรับรองความถูกต้อง แพลตฟอร์มไหนเหมาะสำหรับผู้ซื้อและผู้ขายชาวไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

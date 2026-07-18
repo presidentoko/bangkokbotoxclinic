@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Classic Flap vs 2.55 Reissue differences for Bangkok buyers — CC lock vs Mademoiselle lock, THB prices, resale value, which to buy 2025.'
       : 'ความแตกต่าง Classic Flap vs 2.55 Reissue สำหรับผู้ซื้อกรุงเทพ ล็อค CC vs ล็อค Mademoiselle ราคาบาท มูลค่าขายต่อ ควรซื้ออันไหน 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Cartier Tank vs Santos for Bangkok buyers 2025 — resale retention, THB prices, which models appreciate, and which is the better pre-owned investment in Thailand.'
       : 'Cartier Tank vs Santos สำหรับผู้ซื้อกรุงเทพ 2025 การรักษามูลค่าขายต่อ ราคาบาท รุ่นไหนขึ้นราคา และอันไหนลงทุนมือสองได้ดีกว่าในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

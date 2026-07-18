@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Dior vs Louis Vuitton for Thai buyers — Lady Dior vs Neverfull, resale values, which is the better pre-owned buy. THB prices 2025.'
       : 'เปรียบ Dior กับ Louis Vuitton สำหรับผู้ซื้อชาวไทย — Lady Dior vs Neverfull มูลค่าขายต่อ อันไหนซื้อมือสองได้ดีกว่า ราคาบาท 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

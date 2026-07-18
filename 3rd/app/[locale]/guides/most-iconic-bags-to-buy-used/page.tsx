@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Top 10 iconic luxury bags worth buying pre-owned in Thailand — Chanel Classic, Hermès Birkin, LV Neverfull, Gucci Dionysus. THB prices.'
       : '10 อันดับกระเป๋าหรูไอคอนที่คุ้มค่าซื้อมือสองในไทย — Chanel Classic, Hermès Birkin, LV Neverfull, Gucci Dionysus ราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

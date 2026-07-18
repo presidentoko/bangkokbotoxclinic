@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Louis Vuitton Speedy size guide for Thailand — dimensions, what fits inside, which holds value best. THB prices 2025.'
       : 'คู่มือขนาด Louis Vuitton Speedy สำหรับคนไทย — ขนาด จุของได้แค่ไหน ขนาดไหนคงมูลค่าดีที่สุด ราคาบาท 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

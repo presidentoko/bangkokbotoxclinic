@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel Classic Flap vs Bottega Veneta Jodie — which holds value better in Thailand? THB prices and Thai market insights.'
       : 'Chanel Classic Flap vs Bottega Veneta Jodie — อันไหนรักษามูลค่าดีกว่าในไทย? ราคาบาทและข้อมูลตลาดไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

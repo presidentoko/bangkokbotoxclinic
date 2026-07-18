@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel vs Saint Laurent for Thai buyers — Classic Flap vs Lou Lou, THB prices, resale values. Which is the better buy pre-owned in Bangkok?'
       : 'เปรียบ Chanel กับ Saint Laurent สำหรับผู้ซื้อชาวไทย — Classic Flap vs Lou Lou ราคาบาท มูลค่าขายต่อ อันไหนซื้อมือสองได้ดีกว่าในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

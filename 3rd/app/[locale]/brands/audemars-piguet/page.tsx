@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Audemars Piguet Royal Oak pre-owned prices in Thailand. 15500ST trades 150–300% of retail. Buy AP watches at fair prices.'
       : 'ราคา Audemars Piguet Royal Oak มือสองในไทย 15500ST ซื้อขายที่ 150–300% ของราคาปลีก',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

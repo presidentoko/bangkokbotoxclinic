@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Balenciaga City, Triple S, and Le Cagole pre-owned in Thailand. THB prices, authentication tips, and resale value.'
       : 'Balenciaga City, Triple S และ Le Cagole มือสองในไทย ราคาบาท เคล็ดลับตรวจสอบ และมูลค่าขายต่อ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

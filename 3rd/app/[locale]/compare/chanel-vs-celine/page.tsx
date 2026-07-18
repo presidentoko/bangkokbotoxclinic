@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel vs Celine for Thai buyers — Classic Flap vs Luggage, THB prices, investment case, which French house to buy pre-owned in Bangkok 2025.'
       : 'เปรียบ Chanel กับ Celine สำหรับผู้ซื้อชาวไทย — Classic Flap vs Luggage ราคาบาท กรณีลงทุน อันไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

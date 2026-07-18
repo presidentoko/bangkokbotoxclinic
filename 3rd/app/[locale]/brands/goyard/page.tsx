@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Buy pre-owned Goyard in Thailand — Saint-Louis Tote, Anjou reversible, Artois. THB prices, value retention guide, where to buy.'
       : 'ซื้อ Goyard มือสองในไทย — Saint-Louis Tote, Anjou reversible, Artois ราคาบาท คู่มือมูลค่าคืน แหล่งซื้อ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

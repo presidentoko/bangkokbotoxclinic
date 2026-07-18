@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Dior vs Valentino for Bangkok buyers — Lady Dior vs Roman Stud, THB prices, resale, investment case. Which luxury house to buy pre-owned in Thailand 2025?'
       : 'Dior vs Valentino สำหรับผู้ซื้อกรุงเทพ Lady Dior vs Roman Stud ราคาบาท การขายต่อ คุณค่าการลงทุน ควรซื้อบ้านหรูอันไหนมือสองในไทย 2025?',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

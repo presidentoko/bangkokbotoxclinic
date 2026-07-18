@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Chanel bags in Thailand — serial numbers, CC hardware alignment, stitching, dust bag. 2025 guide with Thai market tips.'
       : 'ตรวจสอบกระเป๋า Chanel แท้ในไทย — เลขซีเรียล โลโก้ CC การเย็บ ถุงผ้า คู่มือ 2025 พร้อมเคล็ดลับตลาดไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

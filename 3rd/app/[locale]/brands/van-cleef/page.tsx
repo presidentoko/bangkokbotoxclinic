@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Buy pre-owned Van Cleef & Arpels in Thailand — Alhambra, Perlee, THB prices, Bangkok buying tips.'
       : 'ซื้อ Van Cleef & Arpels มือสองในไทย — Alhambra, Perlee ราคาบาท เคล็ดลับซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

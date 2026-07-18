@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Quiet luxury watch brands for Thai buyers — A. Lange, JLC, Vacheron, IWC. Watches that signal taste, not just money. THB prices.'
       : 'แบรนด์นาฬิกา quiet luxury สำหรับคนไทย — A. Lange, JLC, Vacheron, IWC นาฬิกาที่แสดงรสนิยม ไม่ใช่แค่เงิน ราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

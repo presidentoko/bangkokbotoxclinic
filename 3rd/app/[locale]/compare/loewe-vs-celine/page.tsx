@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Loewe vs Celine for Bangkok buyers — Puzzle bag vs Triomphe, Philo vs Slimane era, THB prices, resale, quiet luxury comparison 2025.'
       : 'Loewe vs Celine สำหรับผู้ซื้อกรุงเทพ Puzzle bag vs Triomphe ยุค Philo vs Slimane ราคาบาท การขายต่อ เปรียบเทียบ quiet luxury 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

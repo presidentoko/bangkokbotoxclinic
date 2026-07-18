@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Louis Vuitton bags in Thailand — date codes, monogram alignment, heat stamps, stitching. Full 2025 guide.'
       : 'ตรวจสอบ Louis Vuitton ในไทย — date codes การเรียงลาย โมโนแกรม heat stamp การเย็บ คู่มือ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

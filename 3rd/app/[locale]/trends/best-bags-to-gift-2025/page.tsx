@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Best pre-owned luxury bags to gift in Thailand 2025 — by THB budget, what lands well in Bangkok, and gifting tips.'
       : 'กระเป๋า luxury มือสองของขวัญที่ดีที่สุดในไทย 2025 — แยกตามงบประมาณบาท สิ่งที่ดีในกรุงเทพ และเคล็ดลับการให้ของขวัญ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

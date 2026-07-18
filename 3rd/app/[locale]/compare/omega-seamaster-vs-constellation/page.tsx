@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Omega Seamaster vs Constellation for Bangkok buyers 2025 — resale retention, THB prices, dive watch vs dress watch, and which Omega is the better pre-owned buy.'
       : 'Omega Seamaster vs Constellation สำหรับผู้ซื้อกรุงเทพ 2025 การรักษามูลค่า ราคาบาท นาฬิกาดำน้ำ vs นาฬิกาชุด และ Omega ไหนลงทุนมือสองได้ดีกว่า',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

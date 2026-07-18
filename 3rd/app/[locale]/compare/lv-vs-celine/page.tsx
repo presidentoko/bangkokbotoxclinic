@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'LV vs Céline for Thai buyers — Neverfull vs Luggage THB prices, value retention, which is better pre-owned in Thailand.'
       : 'LV vs Céline สำหรับคนไทย — ราคา Neverfull vs Luggage บาท รักษามูลค่า อันไหนดีกว่าซื้อมือสองในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

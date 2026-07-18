@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Fendi vs Valentino 2025 — Baguette vs Rockstud, resale retention, THB prices, Bangkok boutique context. Which Italian house is worth buying pre-owned in Thailand?'
       : 'Fendi vs Valentino 2025 — Baguette vs Rockstud อัตราการรักษามูลค่า ราคาบาท บริบทบูทีคกรุงเทพ แบรนด์อิตาลีไหนคุ้มกว่าในการซื้อมือสองในไทย?',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

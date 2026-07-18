@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate any TAG Heuer watch in Thailand with 7 checks: caseback engraving, dial text, movement, crown, serial, clasp, and crystal. Covers Aquaracer, Carrera, Monaco.'
       : 'ยืนยันความถูกต้องของนาฬิกา TAG Heuer ในไทยด้วย 7 จุดตรวจ: การแกะสลักฝาหลัง, ตัวหน้าปัด, จักรกล, มงกุฎ, ซีเรียล, คลิป และกระจก ครอบคลุม Aquaracer, Carrera, Monaco',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

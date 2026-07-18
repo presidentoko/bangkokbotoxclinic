@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate Hermès Birkin and Kelly in Thailand — blind stamps, leather types, hardware, stitching. 2025 guide.'
       : 'ตรวจสอบ Hermès Birkin และ Kelly ในไทย — ตราประทับ ประเภทหนัง hardware การเย็บ คู่มือ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

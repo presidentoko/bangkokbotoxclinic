@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Omega Seamaster pre-owned guide for Thai buyers — 300M, Planet Ocean, Aqua Terra. THB prices, which model holds value, authentication basics.'
       : 'คู่มือ Omega Seamaster มือสองสำหรับผู้ซื้อชาวไทย — 300M Planet Ocean Aqua Terra ราคาบาท รุ่นไหนคงมูลค่า พื้นฐานการตรวจสอบ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

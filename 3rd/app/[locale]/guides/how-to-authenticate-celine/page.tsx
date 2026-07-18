@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'How to spot fake Celine in Thailand — Triomphe canvas, interior stamp, turn-lock, zipper, leather, serial tag. Authenticate Celine pre-owned Bangkok 2025.'
       : 'วิธีสังเกตกระเป๋า Celine ปลอมในไทย — canvas Triomphe ตราประทับภายใน turn-lock ซิป หนัง แท็ก serial ตรวจสอบ Celine มือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 
@@ -90,7 +90,7 @@ export default async function AuthenticateCelineTH({ params }: Props) {
           : <Link href="/en/guides/how-to-authenticate-celine" className="text-sm text-blue-600 hover:underline">View in English →</Link>
         }
         <Link href={`/${locale}/brands/celine`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">{isEn ? 'Celine Pre-Owned →' : 'Celine มือสอง →'}</Link>
-        <Link href={`/${locale}/compare/celine-vs-saint-laurent`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Celine vs Saint Laurent →</Link>
+        <Link href={`/${locale}/compare/saint-laurent-vs-celine`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Celine vs Saint Laurent →</Link>
       </div>
     </div>
   )

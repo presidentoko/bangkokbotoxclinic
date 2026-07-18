@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Which luxury bags lose value fastest in Thailand? Avoid paying too much for trendy pieces with weak resale. Data on drops + what holds value instead.'
       : 'กระเป๋าแบรนด์ไหนราคาตกเร็วที่สุดในไทย? หลีกเลี่ยงการจ่ายแพงเกินไปสำหรับสินค้าเทรนด์ที่ขายต่อยาก',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

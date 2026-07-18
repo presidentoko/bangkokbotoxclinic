@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate any Miu Miu bag in Thailand — MIU MIU interior emboss, serial format (2 letters + 4 digits), washed nappa texture, matelassé quilting, bow clasp weight, stitching, and Made in Italy stamp.'
       : 'ยืนยันความถูกต้องของกระเป๋า Miu Miu ในไทย การนูน MIU MIU ภายใน รูปแบบซีเรียล (2 ตัวอักษร + 4 หลัก) เนื้อสัมผัส nappa ที่ถูกล้าง การเย็บ matelassé น้ำหนักตัวล็อคโบว์ การเย็บ และตราประทับ Made in Italy',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

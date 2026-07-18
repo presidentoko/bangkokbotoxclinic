@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès Birkin waitlist Thailand 2025 — how long the Bangkok wait is, pre-owned Birkin prices in THB, why Thai buyers choose pre-owned.'
       : 'รายชื่อรอ Hermès Birkin ในไทย 2025 — รอนานแค่ไหนในกรุงเทพ ราคา Birkin มือสองเป็นบาท ทำไมผู้ซื้อชาวไทยเลือกมือสอง',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

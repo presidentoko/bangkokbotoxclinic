@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Gucci authentication guide for Thailand buyers — GG logo alignment, hardware, serial, stitching. Spot fakes before you buy.'
       : 'คู่มือตรวจสอบ Gucci สำหรับผู้ซื้อในไทย — โลโก้ GG hardware serial การเย็บ หาของปลอมก่อนซื้อ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

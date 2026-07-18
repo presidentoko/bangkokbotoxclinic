@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'LV Alma vs Speedy for Bangkok buyers 2025 — arch shape vs barrel, size comparison, THB prices, Vernis Alma investment tip, and which to buy pre-owned in Thailand.'
       : 'LV Alma vs Speedy สำหรับผู้ซื้อกรุงเทพ 2025 ทรงโค้งvs ทรงถัง เปรียบเทียบขนาด ราคาบาท เคล็ดลับการลงทุน Vernis Alma และควรซื้อมือสองอันไหนในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

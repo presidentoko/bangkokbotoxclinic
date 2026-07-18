@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Dior bag authentication guide for Thai buyers — Lady Dior charms, saddle stitching, serial codes, CD logo, cannage stitching. Spot fakes.'
       : 'คู่มือตรวจสอบ Dior สำหรับผู้ซื้อชาวไทย — จี้ Lady Dior การเย็บ saddle รหัสซีเรียล โลโก้ CD การเย็บ cannage',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate any Loewe bag in Thailand — Anagram emboss, Puzzle panel construction, LOEWE hardware engraving, nappa leather quality, interior Made in Spain stamp, stitching, and hardware weight.'
       : 'ยืนยันความถูกต้องของกระเป๋า Loewe ใดก็ตามในไทย การนูน Anagram โครงสร้างแผง Puzzle การแกะสลักฮาร์ดแวร์ LOEWE คุณภาพหนัง nappa ตราประทับ Made in Spain ภายใน การเย็บ และน้ำหนักฮาร์ดแวร์',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

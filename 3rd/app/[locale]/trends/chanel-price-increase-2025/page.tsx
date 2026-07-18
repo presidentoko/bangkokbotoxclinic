@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel raised prices 40+ times since 2019. Classic Flap doubled. How Chanel price increases affect pre-owned values in Thailand — THB impact 2025.'
       : 'Chanel ขึ้นราคากว่า 40 ครั้งตั้งแต่ปี 2019 Classic Flap ราคาเพิ่มเป็น 2 เท่า ผลกระทบต่อมูลค่า Chanel มือสองในไทย ราคาบาท 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

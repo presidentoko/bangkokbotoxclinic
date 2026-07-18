@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Loewe Puzzle, Hammock & Gate pre-owned prices in Thailand. Jonathan Anderson era bags save 35-45% vs retail. Buy in Bangkok.'
       : 'ราคากระเป๋า Loewe มือสองในไทย — Puzzle, Hammock, Gate ประหยัด 35-45% เทียบกับราคาใหม่',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

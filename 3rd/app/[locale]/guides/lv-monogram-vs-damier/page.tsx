@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Louis Vuitton Monogram vs Damier Ebene vs Azur — which canvas holds value better? Pre-owned price comparison and guide for Thai buyers.'
       : 'Louis Vuitton Monogram vs Damier Ebene vs Azur — ผ้าไหนคงมูลค่าดีกว่า? เปรียบราคามือสองและคู่มือสำหรับผู้ซื้อชาวไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

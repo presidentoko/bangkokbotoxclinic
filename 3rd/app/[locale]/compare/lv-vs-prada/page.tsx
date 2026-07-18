@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'LV vs Prada for Thai buyers — Neverfull vs Galleria, THB resale prices, investment case, which to buy pre-owned in Bangkok 2025.'
       : 'เปรียบ LV กับ Prada สำหรับผู้ซื้อชาวไทย — Neverfull vs Galleria ราคาขายต่อบาท กรณีลงทุน อันไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

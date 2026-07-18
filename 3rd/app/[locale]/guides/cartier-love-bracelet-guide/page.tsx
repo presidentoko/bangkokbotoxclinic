@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Cartier Love Bracelet guide for Thai buyers — sizes, metals, THB prices, authentication. How much to pay for pre-owned Cartier Love in Bangkok 2025.'
       : 'คู่มือกำไล Cartier Love สำหรับผู้ซื้อชาวไทย — ไซส์ โลหะ ราคาบาท การตรวจสอบ ซื้อ Cartier Love มือสองในกรุงเทพราคาเท่าไหร่ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

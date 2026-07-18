@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Buy pre-owned Miu Miu in Thailand — Wander Bag, Arqué, Matelassé. THB prices, value retention, where to find in Bangkok.'
       : 'ซื้อ Miu Miu มือสองในไทย — Wander Bag, Arqué, Matelassé ราคาบาท อัตราการรักษามูลค่า หาซื้อที่ไหนในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

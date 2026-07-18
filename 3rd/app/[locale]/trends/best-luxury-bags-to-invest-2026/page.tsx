@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Which luxury bags to invest in 2026 for Thai buyers? Hermès Birkin, Chanel Classic Flap, LV Neverfull — ranked by resale retention and 5-year appreciation. THB prices included.'
       : 'กระเป๋าหรูไหนลงทุนดีที่สุดในปี 2026 สำหรับผู้ซื้อชาวไทย? Hermès Birkin, Chanel Classic Flap, LV Neverfull จัดอันดับตามการรักษามูลค่าและการเพิ่มขึ้น 5 ปี รวมราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

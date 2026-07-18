@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Chanel Classic Flap price hike history 2019–2025 in Thailand. From ฿195,000 to ฿350,000 — and why pre-owned is now the smarter buy.'
       : 'ประวัติการขึ้นราคา Chanel Classic Flap 2562–2568 ในไทย จาก 195,000 บาท เป็น 350,000 บาท — และทำไมมือสองถึงเป็นทางเลือกที่ฉลาดกว่า',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

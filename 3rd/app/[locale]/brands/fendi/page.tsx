@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Fendi Baguette, Peekaboo & First pre-owned prices in Thailand. Save 35-50% vs retail. Buy authentic Fendi bags in Bangkok.'
       : 'ราคากระเป๋า Fendi มือสองในไทย — Baguette, Peekaboo, First ประหยัด 35-50% เทียบกับราคาใหม่',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

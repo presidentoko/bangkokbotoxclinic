@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Saint Laurent vs Gucci comparison for Thai buyers — Lou Lou vs Dionysus, Sac de Jour vs Marmont. THB prices and resale values.'
       : 'เปรียบ Saint Laurent กับ Gucci สำหรับผู้ซื้อชาวไทย — Lou Lou vs Dionysus Sac de Jour vs Marmont ราคาบาทและมูลค่าขายต่อ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

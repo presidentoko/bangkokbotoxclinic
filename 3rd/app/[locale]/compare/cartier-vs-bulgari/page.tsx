@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Cartier vs Bulgari for Thai buyers — Love Bracelet vs B.zero1, THB prices, value retention, and where to buy in Bangkok.'
       : 'Cartier vs Bulgari สำหรับคนไทย — Love Bracelet vs B.zero1 ราคาบาท อัตราการรักษามูลค่า และที่ซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

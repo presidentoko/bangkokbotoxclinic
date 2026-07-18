@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès vs Louis Vuitton pre-owned in Thailand — Birkin vs Neverfull. THB prices, value retention, which to buy in Bangkok.'
       : 'Hermès vs Louis Vuitton มือสองในไทย — Birkin vs Neverfull ราคาบาท การรักษามูลค่า อะไรน่าซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

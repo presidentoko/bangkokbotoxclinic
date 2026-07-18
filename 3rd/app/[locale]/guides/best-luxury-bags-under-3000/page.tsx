@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Best pre-owned luxury bags under $3,000 / ฿108,000 for Thai buyers 2025 — Louis Vuitton, Prada, Celine, Gucci, Bottega picks with THB prices and Bangkok market context.'
       : 'กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 สำหรับผู้ซื้อชาวไทย 2025 ราคาบาทและบริบทตลาดกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

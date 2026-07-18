@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate any Valentino bag in Thailand — Rockstud pyramid attachment, VALENTINO GARAVANI hardware engraving, serial number, leather quality, stitching, lining, and Made in Italy stamp.'
       : 'ยืนยันความถูกต้องของกระเป๋า Valentino ใดก็ตามในไทย การยึดหมุด Rockstud การแกะสลักฮาร์ดแวร์ VALENTINO GARAVANI ซีเรียลนัมเบอร์ คุณภาพหนัง การเย็บ ซับใน และตราประทับ Made in Italy',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

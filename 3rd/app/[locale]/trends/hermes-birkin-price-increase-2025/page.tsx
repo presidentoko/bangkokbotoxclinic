@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Hermès Birkin price history 2015–2025 in THB for Thai buyers. Annual increases ~5–8%, pre-owned trading at or above retail. Bangkok market context.'
       : 'ประวัติราคา Hermès Birkin 2015–2025 เป็นบาทสำหรับผู้ซื้อชาวไทย การขึ้นราคาประจำปี ~5–8% มือสองซื้อขายที่หรือเกินราคาร้าน บริบทตลาดกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

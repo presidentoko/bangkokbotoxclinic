@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Dior vs Gucci for Thai buyers — Lady Dior vs Marmont, THB prices, investment case, which French-Italian house to buy pre-owned in Bangkok 2025.'
       : 'เปรียบ Dior กับ Gucci สำหรับผู้ซื้อชาวไทย — Lady Dior vs Marmont ราคาบาท กรณีลงทุน อันไหนควรซื้อมือสองในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Prada vs Miu Miu for Thai buyers — Re-Nylon vs Wander Bag, THB prices, which holds value better in Bangkok.'
       : 'Prada vs Miu Miu สำหรับคนไทย — Re-Nylon กับ Wander Bag ราคาบาท อันไหนรักษามูลค่าดีกว่าในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Gucci vs Bottega Veneta for Thai buyers — logo vs no-logo, investment case, THB resale prices, which Italian luxury holds better in Bangkok 2025.'
       : 'เปรียบ Gucci กับ Bottega Veneta สำหรับผู้ซื้อชาวไทย — โลโก้ vs ไม่มีโลโก้ กรณีลงทุน ราคาขายต่อบาท อันไหนคงมูลค่าดีกว่าในกรุงเทพ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

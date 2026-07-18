@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Thailand luxury resale market 2025 — what\'s hot, what\'s cooling, and where the best pre-owned deals are in Bangkok right now.'
       : 'ตลาด luxury มือสองไทย 2025 — อะไรกำลังร้อนแรง อะไรที่กำลังเย็นตัว และดีลมือสองที่ดีที่สุดในกรุงเทพตอนนี้',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

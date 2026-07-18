@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Tiffany vs VCA for Bangkok buyers — THB prices, resale value, Alhambra vs HardWear, investment case. Which jewelry brand to buy pre-owned in Thailand 2025?'
       : 'Tiffany vs VCA สำหรับผู้ซื้อกรุงเทพ ราคาบาท มูลค่าขายต่อ Alhambra vs HardWear คุณค่าการลงทุน ควรซื้อแบรนด์เครื่องประดับอะไรมือสองในไทย 2025?',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 
@@ -127,7 +127,7 @@ export default async function TiffanyVsVCATH({ params }: Props) {
           ? <Link href="/th/compare/tiffany-vs-van-cleef" className="text-sm text-blue-600 hover:underline">ดูในภาษาไทย →</Link>
           : <Link href="/en/compare/tiffany-vs-van-cleef" className="text-sm text-blue-600 hover:underline">View in English →</Link>
         }
-        <Link href={`/${locale}/brands/tiffany`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">{isEn ? 'Tiffany Pre-Owned →' : 'Tiffany มือสอง →'}</Link>
+        <Link href={`/${locale}/compare/cartier-vs-tiffany`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">{isEn ? 'Tiffany vs Cartier →' : 'Tiffany vs Cartier →'}</Link>
         <Link href={`/${locale}/brands/van-cleef`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">{isEn ? 'Van Cleef Pre-Owned →' : 'Van Cleef มือสอง →'}</Link>
         <Link href={`/${locale}/compare/cartier-vs-van-cleef`} className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Cartier vs Van Cleef →</Link>
       </div>

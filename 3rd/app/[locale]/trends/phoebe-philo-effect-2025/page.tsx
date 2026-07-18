@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Philo-era Celine bags for Bangkok buyers — which pieces are rising, how to identify Philo vs Slimane, THB prices, investment case 2025.'
       : 'กระเป๋า Celine ยุค Philo สำหรับผู้ซื้อกรุงเทพ ชิ้นไหนกำลังขึ้นราคา วิธีระบุ Philo vs Slimane ราคาบาท คุณค่าการลงทุน 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

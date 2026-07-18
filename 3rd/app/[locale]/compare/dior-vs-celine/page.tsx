@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Dior vs Céline for Thai buyers — Lady Dior vs Luggage price comparison in THB, value retention, Philo era explained.'
       : 'Dior vs Céline สำหรับคนไทย — เปรียบ Lady Dior กับ Luggage ราคาบาท รักษามูลค่า อธิบายยุค Philo',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

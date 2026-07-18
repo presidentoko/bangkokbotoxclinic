@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Buy pre-owned Bulgari in Thailand — Serpenti, B.zero1, Diva\'s Dream. THB prices, authentic pieces, Bangkok buying tips.'
       : 'ซื้อ Bulgari มือสองในไทย — Serpenti, B.zero1, Diva\'s Dream ราคาบาท ของแท้ เคล็ดลับซื้อในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'How to read Rolex reference numbers and what each trades for in Thailand. THB prices for Sub, GMT, Daytona and Datejust in 2025.'
       : 'วิธีอ่านเลขอ้างอิง Rolex และราคาซื้อขายในไทย ราคาบาทสำหรับ Sub, GMT, Daytona และ Datejust ปี 2568',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

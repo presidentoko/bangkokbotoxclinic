@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Cartier authentication guide — Love bracelet screw details, hallmarks, serial numbers, weight, engravings. Buy authentic pre-owned Cartier in Thailand.'
       : 'คู่มือตรวจสอบ Cartier — รายละเอียดสกรู Love bracelet hallmark หมายเลขซีเรียล น้ำหนัก การแกะสลัก ซื้อ Cartier มือสองของแท้ในไทย',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

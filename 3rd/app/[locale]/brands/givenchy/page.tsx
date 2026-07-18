@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Givenchy pre-owned bags Thailand — Antigona Medium, Small, Pandora Satchel. THB prices, resale values, best Givenchy to buy used.'
       : 'กระเป๋า Givenchy มือสองในไทย — Antigona Medium Small Pandora Satchel ราคาบาท มูลค่าขายต่อ Givenchy ที่ดีที่สุดที่ควรซื้อมือสอง',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

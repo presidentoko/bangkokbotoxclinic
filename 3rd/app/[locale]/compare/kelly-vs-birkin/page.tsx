@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Kelly vs Birkin comparison for Bangkok buyers — THB prices, waitlist reality in Thailand, investment value, pre-owned market. Which Hermès to buy first in 2025?'
       : 'เปรียบเทียบ Kelly vs Birkin สำหรับผู้ซื้อกรุงเทพ ราคาบาท ความจริงของรายชื่อรอในไทย มูลค่าการลงทุน ตลาดมือสอง ควรซื้อ Hermès อันไหนก่อนในปี 2025?',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

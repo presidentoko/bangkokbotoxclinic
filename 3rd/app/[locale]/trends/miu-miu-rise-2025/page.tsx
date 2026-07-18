@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Miu Miu Brand of the Year 2022–2024 — which Miu Miu bags are rising in pre-owned value for Thai buyers? Wander, Arcadie, vintage pieces ranked with THB prices.'
       : 'Miu Miu แบรนด์แห่งปี 2022–2024 กระเป๋า Miu Miu ไหนกำลังขึ้นมูลค่ามือสองสำหรับผู้ซื้อชาวไทย? Wander, Arcadie, ชิ้น vintage จัดอันดับพร้อมราคาบาท',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

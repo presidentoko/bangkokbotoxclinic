@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Gen Z is reshaping Bangkok\'s pre-owned luxury market — Miu Miu, Loewe, vintage LV, Y2K jewellery. THB prices and Bangkok shopping context for the Gen Z luxury buyer.'
       : 'Gen Z กำลังปรับรูปแบบตลาดหรูมือสองกรุงเทพ Miu Miu, Loewe, LV vintage, เครื่องประดับ Y2K ราคาบาทและบริบทการช้อปปิ้งกรุงเทพสำหรับผู้ซื้อหรู Gen Z',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         [locale]: `${BASE}/${locale}`,
         [otherLocale]: `${BASE}/${otherLocale}`,
+        'x-default': `${BASE}/en`,
       },
     },
   }

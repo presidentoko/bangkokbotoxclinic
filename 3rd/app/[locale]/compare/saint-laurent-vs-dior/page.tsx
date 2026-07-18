@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Saint Laurent vs Dior for Thai buyers — Sac de Jour vs Lady Dior, THB prices, value retention, and which to buy in Bangkok.'
       : 'Saint Laurent vs Dior สำหรับคนไทย — Sac de Jour vs Lady Dior ราคาบาท อัตราการรักษามูลค่า และซื้ออะไรดีในกรุงเทพ',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

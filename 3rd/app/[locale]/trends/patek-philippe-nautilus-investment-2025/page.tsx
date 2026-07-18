@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Patek Philippe Nautilus investment analysis for Thailand 2025 — 5711/1A legend status, market correction from 2022 peak, THB prices, and which Nautilus reference to buy pre-owned.'
       : 'การวิเคราะห์การลงทุน Patek Philippe Nautilus สำหรับไทย 2025 สถานะตำนาน 5711/1A การปรับตัวจากจุดสูงสุดปี 2022 ราคาบาท และควรซื้อรุ่น Nautilus ไหนมือสอง',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

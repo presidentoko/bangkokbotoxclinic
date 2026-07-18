@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Jacquemus vs Loewe for Bangkok buyers — Le Bambino vs Puzzle, resale retention, THB prices, and which is the better pre-owned investment in Thailand 2025.'
       : 'Jacquemus vs Loewe สำหรับผู้ซื้อกรุงเทพ Le Bambino vs Puzzle อัตราการรักษามูลค่า ราคาบาท และอันไหนลงทุนมือสองได้ดีกว่าในไทย 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

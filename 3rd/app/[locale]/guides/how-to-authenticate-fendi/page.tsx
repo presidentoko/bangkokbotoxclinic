@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Authenticate any Fendi bag in Thailand — FF canvas alignment, serial number, hardware engraving, stitching, leather, lining, and Made in Italy stamp. Baguette, Peekaboo, Kan I covered.'
       : 'ยืนยันความถูกต้องของกระเป๋า Fendi ใดก็ตามในไทย การจัดแนว FF canvas ซีเรียลนัมเบอร์ การแกะสลักฮาร์ดแวร์ การเย็บ หนัง ซับใน และตราประทับ Made in Italy ครอบคลุม Baguette, Peekaboo, Kan I',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

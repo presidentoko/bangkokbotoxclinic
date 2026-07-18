@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Rolex Submariner pre-owned guide Thailand — 124060, 126610LN, 126610LV references, THB prices, authentication 2025.'
       : 'คู่มือ Rolex Submariner มือสองในไทย — อ้างอิง 124060 126610LN 126610LV ราคาบาท การตรวจสอบ 2025',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 

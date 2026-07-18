@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: isEn
       ? 'Omega vs IWC for Bangkok buyers — Seamaster vs Pilot Watch, THB prices, resale value, investment case. Which Swiss watch to buy pre-owned in Thailand 2025?'
       : 'Omega vs IWC สำหรับผู้ซื้อกรุงเทพ Seamaster vs Pilot Watch ราคาบาท มูลค่าขายต่อ คุณค่าการลงทุน ควรซื้อนาฬิกาสวิสอันไหนมือสองในไทย 2025?',
-    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}` } },
+    alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
 
