@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAdSlots, saveAdSlots, makeAdId } from "@/lib/ads";
 import type { AdType, AdSlot } from "@/lib/ads";
+import { requireAuth } from "../actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { robots: "noindex" };
@@ -17,12 +18,14 @@ const AD_TYPES = [
 
 async function deleteSlot(id: string) {
   "use server";
+  await requireAuth();
   const slots = await getAdSlots();
   await saveAdSlots(slots.filter((s) => s.id !== id));
 }
 
 async function createSlot(formData: FormData) {
   "use server";
+  await requireAuth();
   const slots = await getAdSlots();
   const newSlot: AdSlot = {
     id: makeAdId(),

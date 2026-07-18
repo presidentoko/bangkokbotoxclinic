@@ -102,7 +102,7 @@ export function FavoritesPageClient({ locale }: FavoritesPageClientProps) {
                 {/* Price */}
                 {product.priceTHB > 0 && (
                   <p className="text-xs text-[#8a7a76] mt-auto">
-                    ฿{Math.round(product.priceTHB).toLocaleString()}
+                    ฿{Math.round(product.priceTHB).toLocaleString("en-US")}
                   </p>
                 )}
               </Link>

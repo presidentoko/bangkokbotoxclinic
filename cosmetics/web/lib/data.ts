@@ -1,20 +1,22 @@
 import master from "@/data/master_db.json";
 import ingredientDb from "@/data/ingredient_db.json";
 import type { MasterDb, Product, RankingEntry, IngredientEntry } from "./types";
-import { slugify } from "./format";
+import { slugify, productSlug, productIdFromSlug } from "./format";
+import { CONCERNS, type Concern } from "./quiz-config";
 
 const db = master as unknown as MasterDb;
 const ingDb = ingredientDb as unknown as Record<string, IngredientEntry>;
 
-export const CONCERNS = ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"] as const;
-export type Concern = (typeof CONCERNS)[number];
+// Re-exported for existing server-side callers of "@/lib/data" — the
+// canonical, client-safe definitions live in ./format and ./quiz-config
+// so "use client" components can import just these without pulling in
+// the 8.6MB master_db.json bundled here.
+export { CONCERNS, type Concern, productSlug, productIdFromSlug };
 
 export const generatedAt = () => db.generated_at;
 export const allProducts = (): Product[] => Object.values(db.products);
 export const getProduct = (id: string): Product | undefined => db.products[id];
 export const getRanking = (concern: string): RankingEntry[] => db.rankings[concern] ?? [];
-export const productSlug = (p: Product) => `${slugify(p.brand)}-${p.product_id}`;
-export const productIdFromSlug = (slug: string) => slug.split("-").pop() ?? "";
 
 export const allIngredients = (): [string, IngredientEntry][] => Object.entries(ingDb);
 export const ingredientSlug = (inci: string) => slugify(inci);

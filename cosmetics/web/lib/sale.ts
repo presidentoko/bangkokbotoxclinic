@@ -16,6 +16,20 @@ export function getSaleEvent(slug: string) {
   return SALE_EVENTS.find((e) => e.slug === slug) ?? null;
 }
 
+// The event happening today, else the next upcoming one this year, else
+// wrap around to next year's first event. Used so nav links to /sale/*
+// never point at a date that's already passed.
+export function currentSaleEvent(now: Date = new Date()) {
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const today = SALE_EVENTS.find((e) => e.month === month && e.day === day);
+  if (today) return today;
+  const upcoming = SALE_EVENTS.find(
+    (e) => e.month > month || (e.month === month && e.day > day)
+  );
+  return upcoming ?? SALE_EVENTS[0];
+}
+
 export type SaleProduct = Product & { _saleScore: number };
 
 export function getSaleRanking(limit = 60): SaleProduct[] {

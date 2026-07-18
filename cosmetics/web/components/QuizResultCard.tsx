@@ -140,7 +140,7 @@ export function QuizResultCard({ entries, skin, concern, budget, locale, resultU
                       {Math.round(p.total_score[concern] ?? 0)} pts
                     </span>
                     <span className="text-xs text-neutral-400">
-                      ฿{Math.round(p.price_thb).toLocaleString()}
+                      ฿{Math.round(p.price_thb).toLocaleString("en-US")}
                     </span>
                     {p.konvy_rating > 0 && (
                       <span className="text-xs text-amber-500">

@@ -82,7 +82,9 @@ export function ingredientLd(ing: IngredientEntry & { inci: string }, pageUrl: s
     inDefinedTermSet: pageUrl.replace(/\/ingredient\/.*/, "/ingredient") };
 }
 /** Rich FAQ for a concern hub page — AEO featured snippet targets */
-export function concernFaqLd(concern: string, locale: Locale, topProductName: string, topScore: number) {
+// Extracted so the concern page can render the exact same Q&A visibly
+// (avoids a FAQPage schema with no matching on-page content).
+export function concernFaqQas(concern: string, locale: Locale, topProductName: string, topScore: number): { q: string; a: string }[] {
   const label = concernLabel(locale, concern);
   const isTh = locale === "th";
 
@@ -138,7 +140,11 @@ export function concernFaqLd(concern: string, locale: Locale, topProductName: st
     },
   ];
 
-  return faqLd(qas);
+  return qas;
+}
+
+export function concernFaqLd(concern: string, locale: Locale, topProductName: string, topScore: number) {
+  return faqLd(concernFaqQas(concern, locale, topProductName, topScore));
 }
 
 export function faqLd(qas: { q: string; a: string }[]) {

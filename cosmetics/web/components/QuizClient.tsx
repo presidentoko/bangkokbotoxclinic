@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
-import { SKIN_LABELS, BUDGET_LABELS, CONCERN_QUIZ_META, type SkinType, type Budget } from "@/lib/quiz-config";
-import { CONCERNS, type Concern } from "@/lib/data";
+import { SKIN_LABELS, BUDGET_LABELS, CONCERN_QUIZ_META, CONCERNS, type SkinType, type Budget, type Concern } from "@/lib/quiz-config";
 
 type Step = "skin" | "concern" | "budget" | "loading";
 

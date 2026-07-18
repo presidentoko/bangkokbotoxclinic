@@ -973,13 +973,28 @@ export default async function ProductPage({
       {/* ══════════════════════════════════════
           STICKY BOTTOM BUY BAR — MOBILE ONLY
           fixed bottom-0, hidden on sm+
+          Only rendered when there's an actual CTA — an always-on bar with
+          a conditional button inside left an empty pink strip covering
+          content whenever the affiliate link was dead.
       ══════════════════════════════════════ */}
-      <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]"
-        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-        <div className="flex items-center justify-center px-4 py-3.5 min-h-[56px]">
-          {linkAlive && <AffiliateButton p={p} locale={locale} variant="sticky" />}
+      {linkAlive ? (
+        <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+          <div className="flex items-center justify-center px-4 py-3.5 min-h-[56px]">
+            <AffiliateButton p={p} locale={locale} variant="sticky" />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white border-t border-[#efe1db] shadow-[0_-2px_12px_rgba(0,0,0,0.08)]"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+          <Link
+            href={`/${locale}/${concern}`}
+            className="flex items-center justify-center px-4 py-3.5 min-h-[56px] text-sm font-semibold text-rose-600"
+          >
+            {locale === "th" ? "ลิงก์นี้ใช้ไม่ได้ — ดูสินค้าใกล้เคียง →" : "This link is unavailable — see similar products →"}
+          </Link>
+        </div>
+      )}
     </>
   );
 }

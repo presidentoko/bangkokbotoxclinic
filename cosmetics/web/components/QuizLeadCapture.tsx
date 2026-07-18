@@ -18,12 +18,16 @@ export function QuizLeadCapture({ skin, concern, budget, locale }: Props) {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setState("loading");
-    const res = await fetch("/api/leads", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, skin, concern, budget }),
-    });
-    setState(res.ok ? "done" : "error");
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, skin, concern, budget }),
+      });
+      setState(res.ok ? "done" : "error");
+    } catch {
+      setState("error");
+    }
   }
 
   if (state === "done") {

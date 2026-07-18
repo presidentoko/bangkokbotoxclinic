@@ -1,12 +1,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { logout, setFeatured, clearFeatured, saveBanner } from "./actions";
+import { logout, setFeatured, clearFeatured, saveBanner, requireAuth } from "./actions";
 import { getFeaturedMap, getBanner, kvAvailable } from "@/lib/adminData";
 import { CONCERNS, allProducts, getProduct, productSlug, siteStats } from "@/lib/data";
 import { concernLabel } from "@/lib/i18n";
 import Link from "next/link";
 import { getLinkHealth } from "@/lib/link-health";
-import { kvGet } from "@/lib/kv";
+import { getLeads } from "@/lib/leads";
 import { getNoindexLocales, setNoindexLocales } from "@/lib/indexing";
 
 export const metadata = { title: "Admin — BangkokFillers", robots: "noindex" };
@@ -14,8 +14,8 @@ export const dynamic = "force-dynamic";
 
 async function saveNoindexLocales(formData: FormData) {
   "use server";
+  await requireAuth();
   const value = (formData.get("noindex_locales") as string) ?? "";
-  const { setNoindexLocales } = await import("@/lib/indexing");
   const locales = value.split(",").map((s) => s.trim()).filter(Boolean);
   await setNoindexLocales(locales);
 }
@@ -34,9 +34,7 @@ export default async function AdminPage() {
     .filter((p) => linkHealth[p.product_id] && !linkHealth[p.product_id].ok)
     .slice(0, 50);
   const lastChecked = Object.values(linkHealth)[0]?.checkedAt ?? null;
-  const leadsRaw = await kvGet("leads");
-  const leads: { email: string; skin: string; concern: string; budget: string; ts: string }[] =
-    leadsRaw ? JSON.parse(leadsRaw as string) : [];
+  const leads = await getLeads();
   const noindexSet = await getNoindexLocales();
   const currentNoindex = Array.from(noindexSet).join(", ");
 

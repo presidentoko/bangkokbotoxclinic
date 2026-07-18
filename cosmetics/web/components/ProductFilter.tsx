@@ -2,9 +2,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/types";
-import { productSlug } from "@/lib/data";
-import { scoreColor } from "@/lib/format";
+import { productSlug, scoreColor } from "@/lib/format";
 
 // ── types ────────────────────────────────────────────────────────────────────
 
@@ -16,8 +14,23 @@ interface FilterState {
   budget: Budget;
 }
 
+// Slim projection of Product — only what this filter/card actually renders.
+// Keeps concern-page RSC payload small; never pass full Product[] (with
+// review_summary/pantip/youtube/watsons blobs) down to a client component.
+export interface FilterProduct {
+  product_id: string;
+  brand: string;
+  name: string;
+  price_thb: number;
+  discount_pct: number;
+  image_url: string;
+  sold_count: number;
+  total_score: Record<string, number>;
+  ingredient_analysis: { inci: string; concern_efficacy: Record<string, number>; safety_flags: string[] }[];
+}
+
 interface ProductFilterProps {
-  products: Product[];   // full ranked pool for the concern
+  products: FilterProduct[];   // slim ranked pool for the concern
   concern: string;
   locale: string;
 }
@@ -41,15 +54,15 @@ const OILY_GOOD = new Set(["Salicylic Acid", "Zinc PCA", "Niacinamide",
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
-function hasFlag(p: Product, flag: string) {
+function hasFlag(p: FilterProduct, flag: string) {
   return p.ingredient_analysis?.some((a) => a.safety_flags?.includes(flag));
 }
 
-function hasIngredient(p: Product, set: Set<string>) {
+function hasIngredient(p: FilterProduct, set: Set<string>) {
   return p.ingredient_analysis?.some((a) => set.has(a.inci));
 }
 
-function filterProducts(products: Product[], f: FilterState, concern: string): Product[] {
+function filterProducts(products: FilterProduct[], f: FilterState, concern: string): FilterProduct[] {
   const [minP, maxP] = BUDGET_RANGES[f.budget];
   return products.filter((p) => {
     // budget — use ?? 0 guard; upper boundary is inclusive (mid ends at 700, high starts at 700+)
@@ -72,7 +85,7 @@ function filterProducts(products: Product[], f: FilterState, concern: string): P
   });
 }
 
-function whyGood(p: Product, concern: string, locale: string): string {
+function whyGood(p: FilterProduct, concern: string, locale: string): string {
   const actives = (p.ingredient_analysis ?? [])
     .filter((a) => (a.concern_efficacy?.[concern] ?? 0) >= 2)
     .slice(0, 2)
@@ -83,12 +96,12 @@ function whyGood(p: Product, concern: string, locale: string): string {
   if (locale === "th") {
     if (actives.length > 0)
       return `มี ${actives.join(", ")} — ส่วนผสมที่ได้ผลจริง · คะแนน ${score}/100`;
-    if (sold > 10000) return `ขายแล้ว ${sold.toLocaleString()} ชิ้น · คะแนน ${score}/100`;
+    if (sold > 10000) return `ขายแล้ว ${sold.toLocaleString("en-US")} ชิ้น · คะแนน ${score}/100`;
     return `คะแนนรวม ${score}/100 จากส่วนผสมและรีวิว`;
   }
   if (actives.length > 0)
     return `Contains ${actives.join(", ")} — proven actives · Score ${score}/100`;
-  if (sold > 10000) return `${sold.toLocaleString()} sold · Score ${score}/100`;
+  if (sold > 10000) return `${sold.toLocaleString("en-US")} sold · Score ${score}/100`;
   return `Score ${score}/100 from ingredients + reviews`;
 }
 
@@ -115,7 +128,7 @@ function Chip({
 
 function FilterCard({
   p, concern, locale, slug,
-}: { p: Product; concern: string; locale: string; slug: string }) {
+}: { p: FilterProduct; concern: string; locale: string; slug: string }) {
   const score = Math.round(p.total_score?.[concern] ?? 0);
   const reason = whyGood(p, concern, locale);
   const hasDiscount = (p.discount_pct ?? 0) > 0;
@@ -149,7 +162,7 @@ function FilterCard({
         <p className="text-[10px] text-[#8a7a76] leading-snug line-clamp-2">{reason}</p>
         {/* Price */}
         <div className="flex items-center gap-1.5 pt-0.5">
-          <span className="text-xs font-bold text-[#2b2222]">฿{Math.round(p.price_thb).toLocaleString()}</span>
+          <span className="text-xs font-bold text-[#2b2222]">฿{Math.round(p.price_thb).toLocaleString("en-US")}</span>
           {hasDiscount && (
             <span className="rounded-full bg-rose-50 border border-rose-200 px-1.5 py-0.5 text-[9px] font-semibold text-rose-600">
               -{p.discount_pct}%

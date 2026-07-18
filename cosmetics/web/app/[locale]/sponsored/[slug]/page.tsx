@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { LOCALES, type Locale } from "@/lib/i18n";
-import { getProduct, productSlug, allProducts } from "@/lib/data";
+import { getProduct, productSlug, productIdFromSlug } from "@/lib/data";
 import { affiliateUrl } from "@/lib/affiliate";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { JsonLd } from "@/components/JsonLd";
@@ -21,8 +21,10 @@ export default async function SponsoredReviewPage({
   const loc = locale as Locale;
   if (!LOCALES.includes(loc)) notFound();
 
-  const p = allProducts().find((prod) => productSlug(prod) === slug);
-  if (!p) notFound();
+  // O(1) id lookup instead of scanning all products — bot-guessed slugs
+  // still 404, but without an O(n) full-catalog scan per junk request.
+  const p = getProduct(productIdFromSlug(slug));
+  if (!p || productSlug(p) !== slug) notFound();
 
   const buyUrl = affiliateUrl(p);
   const isTh = loc === "th";

@@ -6,6 +6,10 @@ export const alt = "BangkokFillers — Product Score Card";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const revalidate = 86400;
+// Prerender the same product slugs as the page; unknown/junk slugs 404 at
+// routing level instead of burning a satori render per bot-scanned URL.
+export { generateStaticParams } from "./page";
+export const dynamicParams = false;
 
 
 function scoreColor(s: number): string {
@@ -32,7 +36,6 @@ export default async function Image({
   const totalScore = Math.round(p.total_score?.[concern] ?? 0);
   const rating = Number(p.konvy_rating) || 0;
   const starCount = Math.min(5, Math.max(0, Math.round(rating)));
-  const stars = "★".repeat(starCount) + "☆".repeat(5 - starCount);
   const soldLabel = locale === "th" ? "สั่งแล้ว" : "sold";
   const reviewLabel = locale === "th" ? "รีวิว" : "reviews";
   const scoreLabel = locale === "th" ? "คะแนน" : "score";
@@ -133,14 +136,28 @@ export default async function Image({
               <span style={{ fontFamily: "Georgia, serif", fontSize: 14, color: "#8a7a76", marginTop: 2 }}>{scoreLabel}</span>
             </div>
 
-            {/* Stars + reviews */}
+            {/* Stars + reviews — rendered as divs, not glyphs (satori's
+                default font has no ★/☆ and throws a render error on them) */}
             <div style={{ display: "flex", flexDirection: "column", gap: 6, paddingBottom: 8 }}>
-              <div style={{ fontFamily: "Georgia, serif", fontSize: 28, color: "#f59e0b" }}>{stars}</div>
-              <div style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "#2b2222", fontWeight: 700 }}>
+              <div style={{ display: "flex", gap: 6 }}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: "flex",
+                      width: 22,
+                      height: 22,
+                      borderRadius: 6,
+                      background: i < starCount ? "#f59e0b" : "#f1e5d8",
+                    }}
+                  />
+                ))}
+              </div>
+              <div style={{ display: "flex", fontFamily: "Georgia, serif", fontSize: 18, color: "#2b2222", fontWeight: 700 }}>
                 {rating.toFixed(1)} · {(Number(p.konvy_review_count) || 0).toLocaleString()} {reviewLabel}
               </div>
               {p.sold_count > 0 && (
-                <div style={{ fontFamily: "Georgia, serif", fontSize: 16, color: "#8a7a76" }}>
+                <div style={{ display: "flex", fontFamily: "Georgia, serif", fontSize: 16, color: "#8a7a76" }}>
                   {p.sold_count.toLocaleString()} {soldLabel}
                 </div>
               )}
@@ -159,6 +176,7 @@ export default async function Image({
                 </span>
                 <div
                   style={{
+                    display: "flex",
                     background: "#e0607e",
                     color: "white",
                     fontFamily: "Georgia, serif",

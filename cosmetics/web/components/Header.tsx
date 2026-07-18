@@ -1,38 +1,13 @@
 import Link from "next/link";
-import { t, concernLabelShort, LOCALES, type Locale } from "@/lib/i18n";
+import { t, concernLabelShort, type Locale } from "@/lib/i18n";
 import { CONCERNS } from "@/lib/data";
-
-const LOCALE_CODES: Record<Locale, string> = {
-  th: "TH", en: "EN", ko: "KO", ar: "AR",
-};
-
-function LocaleToggle({ locale }: { locale: Locale }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {LOCALES.map((l) =>
-        l === locale ? (
-          <span
-            key={l}
-            className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-rose-500 text-white"
-          >
-            {LOCALE_CODES[l]}
-          </span>
-        ) : (
-          <Link
-            key={l}
-            href={`/${l}`}
-            className="text-[10px] font-medium px-1.5 py-0.5 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
-          >
-            {LOCALE_CODES[l]}
-          </Link>
-        )
-      )}
-    </div>
-  );
-}
+import { currentSaleEvent } from "@/lib/sale";
+import { LocaleToggle } from "@/components/LocaleToggle";
+import { FavoritesBadge } from "@/components/FavoritesBadge";
 
 export function Header({ locale }: { locale: Locale }) {
   const isTh = locale === "th";
+  const sale = currentSaleEvent();
   return (
     <header className="sticky top-0 z-50 border-b border-[#efe1db] bg-[#fbf4f1]/90 backdrop-blur-sm">
       {/* ── Row 1: wordmark + locale toggle ── */}
@@ -55,12 +30,13 @@ export function Header({ locale }: { locale: Locale }) {
           </Link>
           <Link
             href={`/${locale}/favorites`}
-            className="flex items-center justify-center w-7 h-7 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
+            className="relative flex items-center justify-center w-7 h-7 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
             aria-label="Saved"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
+            <FavoritesBadge />
           </Link>
           <Link
             href={`/${locale}/quiz`}
@@ -104,10 +80,10 @@ export function Header({ locale }: { locale: Locale }) {
               {t(locale, "methodology")}
             </Link>
             <Link
-              href={`/${locale}/sale/7-7`}
+              href={`/${locale}/sale/${sale.slug}`}
               className="whitespace-nowrap text-sm font-semibold text-rose-500 hover:text-rose-600 transition-colors px-3 py-2 rounded-full border border-rose-200 bg-rose-50 hover:bg-rose-100 min-h-[44px] flex items-center"
             >
-              🔥 {isTh ? "ดีล 7.7" : "7.7 Sale"}
+              🔥 {isTh ? `ดีล ${sale.labelTh}` : sale.labelEn}
             </Link>
             <Link
               href={`/${locale}/budget/under-500`}
@@ -150,10 +126,10 @@ export function Header({ locale }: { locale: Locale }) {
               {isTh ? "แบรนด์" : "Brands"}
             </Link>
             <Link
-              href={`/${locale}/sale/7-7`}
+              href={`/${locale}/sale/${sale.slug}`}
               className="whitespace-nowrap text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors"
             >
-              🔥 {isTh ? "ดีล 7.7" : "7.7 Sale"}
+              🔥 {isTh ? `ดีล ${sale.labelTh}` : sale.labelEn}
             </Link>
             <Link
               href={`/${locale}/budget/under-500`}
@@ -177,12 +153,13 @@ export function Header({ locale }: { locale: Locale }) {
           </Link>
           <Link
             href={`/${locale}/favorites`}
-            className="flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2 py-1 rounded-full hover:bg-rose-50"
+            className="relative flex items-center gap-1 text-[#8a7a76] hover:text-rose-500 transition-colors px-2 py-1 rounded-full hover:bg-rose-50"
             aria-label="Saved"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
+            <FavoritesBadge />
           </Link>
           <Link
             href={`/${locale}/quiz`}

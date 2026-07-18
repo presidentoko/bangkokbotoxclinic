@@ -3,6 +3,9 @@
 export type SkinType = "oily" | "dry" | "combo" | "sensitive";
 export type Budget = "low" | "mid" | "high";
 
+export const CONCERNS = ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"] as const;
+export type Concern = (typeof CONCERNS)[number];
+
 export const VALID_SKINS = ["oily", "dry", "combo", "sensitive"] as const;
 export const VALID_BUDGETS = ["low", "mid", "high"] as const;
 

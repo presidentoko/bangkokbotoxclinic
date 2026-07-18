@@ -54,8 +54,8 @@ export function ShareCard({
 
   const shareText =
     locale === "th"
-      ? `${name} — คะแนน ${score}/100 · ★${rating.toFixed(1)} · ${soldCount.toLocaleString()} สั่งแล้ว · ฿${Math.round(priceTHB).toLocaleString()}`
-      : `${name} — Score ${score}/100 · ★${rating.toFixed(1)} · ${soldCount.toLocaleString()} sold · ฿${Math.round(priceTHB).toLocaleString()}`;
+      ? `${name} — คะแนน ${score}/100 · ★${rating.toFixed(1)} · ${soldCount.toLocaleString("en-US")} สั่งแล้ว · ฿${Math.round(priceTHB).toLocaleString("en-US")}`
+      : `${name} — Score ${score}/100 · ★${rating.toFixed(1)} · ${soldCount.toLocaleString("en-US")} sold · ฿${Math.round(priceTHB).toLocaleString("en-US")}`;
 
   const handleShare = async () => {
     if (typeof navigator === "undefined") return;
@@ -127,7 +127,7 @@ export function ShareCard({
                     {"★".repeat(stars)}{"☆".repeat(Math.max(0, 5 - stars))}
                   </span>
                   <span className="text-xs text-neutral-500">
-                    {rating.toFixed(1)} · {reviewCount.toLocaleString()}{" "}
+                    {rating.toFixed(1)} · {reviewCount.toLocaleString("en-US")}{" "}
                     {locale === "th" ? "รีวิว" : "reviews"}
                   </span>
                 </div>
@@ -148,14 +148,14 @@ export function ShareCard({
               <div className="flex items-center gap-1 rounded-full bg-rose-50 border border-rose-200 px-3 py-1">
                 <span className="text-rose-400 text-xs">🛒</span>
                 <span className="text-xs font-semibold text-rose-700">
-                  {soldCount.toLocaleString()}
+                  {soldCount.toLocaleString("en-US")}
                   {locale === "th" ? " สั่งแล้ว" : " sold"}
                 </span>
               </div>
             )}
             <div className="flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-3 py-1">
               <span className="text-xs font-bold text-[#2b2222]">
-                ฿{Math.round(priceTHB).toLocaleString()}
+                ฿{Math.round(priceTHB).toLocaleString("en-US")}
               </span>
               {hasDiscount && (
                 <span className="text-xs font-semibold text-rose-500 ml-0.5">
@@ -164,7 +164,7 @@ export function ShareCard({
               )}
               {hasDiscount && (
                 <span className="text-[10px] text-neutral-400 line-through ml-1">
-                  ฿{Math.round(listPriceTHB).toLocaleString()}
+                  ฿{Math.round(listPriceTHB).toLocaleString("en-US")}
                 </span>
               )}
             </div>

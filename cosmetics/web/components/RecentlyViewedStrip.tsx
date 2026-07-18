@@ -74,7 +74,7 @@ export function RecentlyViewedStrip({ locale }: RecentlyViewedStripProps) {
               {/* Price */}
               {product.priceTHB > 0 && (
                 <p className="text-[10px] text-[#8a7a76] mt-auto">
-                  ฿{Math.round(product.priceTHB).toLocaleString()}
+                  ฿{Math.round(product.priceTHB).toLocaleString("en-US")}
                 </p>
               )}
             </Link>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { t, type Locale } from "@/lib/i18n";
 import { generatedAt } from "@/lib/data";
+import { currentSaleEvent } from "@/lib/sale";
 
 const CONCERNS = ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"] as const;
 const CONCERN_LABELS: Record<string, { th: string; en: string }> = {
@@ -15,6 +16,7 @@ const CONCERN_LABELS: Record<string, { th: string; en: string }> = {
 export function Footer({ locale }: { locale: Locale }) {
   const date = generatedAt();
   const isTh = locale === "th";
+  const sale = currentSaleEvent();
 
   return (
     <footer className="border-t border-[#efe1db] mt-12">
@@ -57,7 +59,7 @@ export function Footer({ locale }: { locale: Locale }) {
             <Link href={`/${locale}/budget/under-500`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "งบไม่เกิน 500" : "Under ฿500"}
             </Link>
-            <Link href={`/${locale}/sale/7-7`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
+            <Link href={`/${locale}/sale/${sale.slug}`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "ดีลพิเศษ" : "Sale events"}
             </Link>
             <Link href={`/${locale}/search`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">

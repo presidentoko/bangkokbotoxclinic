@@ -4,6 +4,12 @@ export function slugify(s: string): string {
     .replace(/[^a-z0-9ก-๙]+/gi, "-")
     .replace(/^-+|-+$/g, "");
 }
+
+// Client-safe — only needs brand/product_id, never import "@/lib/data"
+// (8.6MB master_db.json) from a "use client" file just for this.
+export const productSlug = (p: { brand: string; product_id: string }) =>
+  `${slugify(p.brand)}-${p.product_id}`;
+export const productIdFromSlug = (slug: string) => slug.split("-").pop() ?? "";
 export const baht = (n: number) => "฿" + Math.round(n).toLocaleString("en-US");
 export const score1 = (n: number) => (Math.round(n * 10) / 10).toFixed(1);
 
