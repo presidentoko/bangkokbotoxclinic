@@ -1,17 +1,18 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import type { Item } from '@/lib/data'
-import { getAvgPrice, formatPrice } from '@/lib/data'
+import type { SearchIndexItem } from '@/lib/data'
+import { formatPrice, normalizeForSearch } from '@/lib/data'
 
-export function SiteSearch({ items }: { items: Item[] }) {
+export function SiteSearch({ items }: { items: SearchIndexItem[] }) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
-  const results = query.length > 1
+  const normQuery = normalizeForSearch(query)
+  const results = normQuery.length > 1
     ? items.filter(i =>
-        `${i.brand} ${i.model}`.toLowerCase().includes(query.toLowerCase())
+        normalizeForSearch(`${i.brand} ${i.model}`).includes(normQuery)
       ).slice(0, 8)
     : []
 
@@ -36,7 +37,6 @@ export function SiteSearch({ items }: { items: Item[] }) {
       {open && results.length > 0 && (
         <div className="absolute top-full mt-1 w-full bg-white border border-[#E8E2D9] rounded-xl shadow-lg z-50 overflow-hidden">
           {results.map(item => {
-            const vg = item.price_ranges.very_good
             const [brand, ...rest] = item.slug.split('/')
             return (
               <Link
@@ -49,9 +49,9 @@ export function SiteSearch({ items }: { items: Item[] }) {
                   <span className="text-xs text-[#8C7355] uppercase tracking-wide">{item.brand}</span>
                   <p className="text-sm font-medium text-[#1A1A1A]">{item.model}</p>
                 </div>
-                {vg && (
+                {item.avgPrice !== null && (
                   <span className="text-sm font-semibold text-[#B8954A]">
-                    {formatPrice(getAvgPrice(vg))}
+                    {formatPrice(item.avgPrice)}
                   </span>
                 )}
               </Link>
