@@ -37,6 +37,7 @@ export default async function Image({ params }: { params: Promise<{ brand: strin
           </div>
           {savingsPct !== null && savingsPct > 0 && (
             <div style={{
+              display: 'flex',
               background: '#B8954A',
               color: '#ffffff',
               fontSize: '26px',

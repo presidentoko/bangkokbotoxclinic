@@ -21,7 +21,7 @@ export default async function Image({ params }: { params: Promise<{ brand: strin
         <div style={{ color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>SecondLuxuryItems.com</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ color: '#888', fontSize: '22px' }}>Pre-Owned Price Guide</div>
-          <div style={{ color: '#ffffff', fontSize: '60px', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-1.5px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', color: '#ffffff', fontSize: '60px', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-1.5px' }}>
             Used {brandName}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
