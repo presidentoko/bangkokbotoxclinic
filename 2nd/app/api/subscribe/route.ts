@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json()
-  if (!email || !email.includes('@')) {
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
+
+  const email = (body as { email?: unknown } | null)?.email
+  if (typeof email !== 'string' || !email.includes('@')) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
   }
 
@@ -13,10 +20,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true })
   }
 
-  await fetch(`${redisUrl}/sadd/subscribers/${encodeURIComponent(email)}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${redisToken}` },
-  })
+  try {
+    await fetch(`${redisUrl}/sadd/subscribers/${encodeURIComponent(email)}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${redisToken}` },
+    })
+  } catch (err) {
+    console.error('subscribe: Upstash request failed', err)
+  }
 
   return NextResponse.json({ ok: true })
 }
