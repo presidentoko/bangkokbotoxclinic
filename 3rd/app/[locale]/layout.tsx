@@ -6,8 +6,9 @@ import { notFound } from 'next/navigation'
 import { routing } from '@/i18n'
 import { LocaleSwitcher } from '@/components/LocaleSwitcher'
 import { SiteSearch } from '@/components/SiteSearch'
+import { MobileMenu } from '@/components/MobileMenu'
 import { EmailCapture } from '@/components/EmailCapture'
-import { getAllItems } from '@/lib/data'
+import { getSearchIndex } from '@/lib/data'
 import '../globals.css'
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' })
@@ -46,27 +47,35 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale)
   const messages = await getMessages()
   const t = await getTranslations({ locale, namespace: 'common' })
-  const items = getAllItems()
+  const searchIndex = getSearchIndex()
+
+  const navLinks = [
+    { href: `/${locale}/handbags`, label: t('nav_handbags') },
+    { href: `/${locale}/watches`, label: t('nav_watches') },
+    { href: `/${locale}/brands`, label: locale === 'th' ? 'แบรนด์' : 'Brands' },
+    { href: `/${locale}/value-guide`, label: locale === 'th' ? 'คู่มือมูลค่า' : 'Value Guide' },
+    { href: `/${locale}/guides`, label: t('nav_guides') },
+    { href: `/${locale}/clothing`, label: t('nav_clothing') },
+    { href: `/${locale}/contact`, label: locale === 'th' ? 'ติดต่อ' : 'Contact' },
+  ]
 
   return (
     <html lang={locale}>
       <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#FAFAF9] text-[#1A1A1A]`}>
         <NextIntlClientProvider messages={messages}>
-          <header className="bg-[#FAFAF9] border-b border-[#E8E2D9]">
+          <header className="bg-[#FAFAF9] border-b border-[#E8E2D9] relative">
             <div className="max-w-5xl mx-auto px-6 py-5 flex items-center gap-4 justify-between">
               <a href={`/${locale}`} className="font-serif text-xl tracking-wider text-[#1A1A1A] shrink-0" style={{ fontFamily: 'var(--font-playfair)' }}>
                 {t('site_name')}
               </a>
-              <SiteSearch items={items} locale={locale} />
-              <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase shrink-0">
-                <a href={`/${locale}/handbags`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_handbags')}</a>
-                <a href={`/${locale}/watches`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_watches')}</a>
-                <a href={`/${locale}/brands`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'แบรนด์' : 'Brands'}</a>
-                <a href={`/${locale}/value-guide`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'คู่มือมูลค่า' : 'Value Guide'}</a>
-                <a href={`/${locale}/clothing`} className="hover:text-[#1A1A1A] transition-colors">{t('nav_clothing')}</a>
-                <a href={`/${locale}/contact`} className="hover:text-[#1A1A1A] transition-colors">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a>
+              <SiteSearch items={searchIndex} locale={locale} />
+              <nav className="hidden md:flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase shrink-0">
+                {navLinks.map(link => (
+                  <a key={link.href} href={link.href} className="hover:text-[#1A1A1A] transition-colors">{link.label}</a>
+                ))}
                 <LocaleSwitcher locale={locale} />
               </nav>
+              <MobileMenu locale={locale} links={navLinks} />
             </div>
           </header>
           <main className="max-w-5xl mx-auto px-6 py-10 pb-24 sm:pb-10">
