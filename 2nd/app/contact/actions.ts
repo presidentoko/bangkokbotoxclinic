@@ -1,5 +1,13 @@
 'use server'
 
+// Telegram's legacy "Markdown" parse mode rejects the whole message if any of
+// these characters appear unescaped and don't form a valid entity — user
+// input can contain them freely (e.g. "call me *ASAP*"), so escape before
+// interpolating into a Markdown-formatted message.
+function escapeMarkdown(text: string): string {
+  return text.replace(/([_*`[])/g, '\\$1')
+}
+
 export async function sendContactMessage(formData: FormData) {
   const name = (formData.get('name') as string || '').trim()
   const email = (formData.get('email') as string || '').trim()
@@ -14,7 +22,7 @@ export async function sendContactMessage(formData: FormData) {
 
   const typeEmoji: Record<string, string> = { wrong_data: '⚠️', ad: '💰', collaboration: '🤝', question: '❓', other: '📝' }
   const emoji = typeEmoji[type] || '📩'
-  const text = `${emoji} *SecondLuxuryItems.com* [${type.replace('_', ' ').toUpperCase()}]\n\n*Name:* ${name}\n*Email:* ${email || '–'}\n*Message:* ${message}`
+  const text = `${emoji} *SecondLuxuryItems.com* [${type.replace('_', ' ').toUpperCase()}]\n\n*Name:* ${escapeMarkdown(name)}\n*Email:* ${escapeMarkdown(email) || '–'}\n*Message:* ${escapeMarkdown(message)}`
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
