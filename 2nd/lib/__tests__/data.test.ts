@@ -9,12 +9,32 @@ import {
   formatPrice,
   getPriceVsRetail,
 } from '../data'
+import rawDb from '../../data/items_db.json'
+
+// Independent read of the source data (not via lib/data.ts) so the expected
+// counts below are computed from the data file itself, not from the code
+// under test — and stay correct automatically as items_db.json changes.
+const rawItems = (rawDb as { items: { id: string; brand: string }[] }).items
 
 describe('toBrandSlug', () => {
   it('lowercases and hyphenates', () => {
     expect(toBrandSlug('Louis Vuitton')).toBe('louis-vuitton')
     expect(toBrandSlug('Audemars Piguet')).toBe('audemars-piguet')
     expect(toBrandSlug('Hermès')).toBe('hermes')
+  })
+  it('strips & and . without leaving a double hyphen', () => {
+    expect(toBrandSlug('Van Cleef & Arpels')).toBe('van-cleef-arpels')
+    expect(toBrandSlug('Tiffany & Co.')).toBe('tiffany-co')
+  })
+  it('produces a slug matching the prefix of every item slug for every brand', () => {
+    const brandToSlugPrefix = new Map<string, string>()
+    for (const item of rawItems as { brand: string; slug?: string }[]) {
+      const prefix = (item.slug as string).split('/')[0]
+      brandToSlugPrefix.set(item.brand, prefix)
+    }
+    for (const [brand, expectedPrefix] of brandToSlugPrefix) {
+      expect(toBrandSlug(brand)).toBe(expectedPrefix)
+    }
   })
 })
 
@@ -37,8 +57,12 @@ describe('getPriceVsRetail', () => {
 })
 
 describe('getAllItems', () => {
-  it('returns all 13 items', () => {
-    expect(getAllItems()).toHaveLength(13)
+  it('returns every item in items_db.json', () => {
+    expect(getAllItems()).toHaveLength(rawItems.length)
+  })
+  it('every item has a unique id', () => {
+    const ids = getAllItems().map(i => i.id)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })
 
@@ -57,9 +81,17 @@ describe('getItemsByCategory', () => {
 
 describe('getItemsByBrand', () => {
   it('returns Chanel items by slug', () => {
+    const expectedCount = rawItems.filter(i => i.brand === 'Chanel').length
     const items = getItemsByBrand('chanel')
-    expect(items.length).toBe(2)
+    expect(items.length).toBe(expectedCount)
     items.forEach(i => expect(i.brand).toBe('Chanel'))
+  })
+  it('accepts a display name as well as a slug', () => {
+    expect(getItemsByBrand('Van Cleef & Arpels').length).toBeGreaterThan(0)
+    expect(getItemsByBrand('patek philippe').length).toBeGreaterThan(0)
+  })
+  it('slug and display-name lookups agree', () => {
+    expect(getItemsByBrand('chanel').length).toBe(getItemsByBrand('Chanel').length)
   })
 })
 
@@ -80,7 +112,17 @@ describe('getAllBrands', () => {
     expect(new Set(slugs).size).toBe(slugs.length)
   })
   it('counts models correctly for Chanel', () => {
+    const expectedCount = rawItems.filter(i => i.brand === 'Chanel').length
     const chanel = getAllBrands().find(b => b.slug === 'chanel')
-    expect(chanel?.count).toBe(2)
+    expect(chanel?.count).toBe(expectedCount)
+  })
+  it('every brand slug matches the prefix used in its items\' own slugs', () => {
+    for (const brand of getAllBrands()) {
+      const items = getItemsByBrand(brand.slug)
+      expect(items.length).toBeGreaterThan(0)
+      for (const item of items) {
+        expect(item.slug.startsWith(`${brand.slug}/`)).toBe(true)
+      }
+    }
   })
 })
