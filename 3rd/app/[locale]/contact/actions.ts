@@ -1,5 +1,13 @@
 'use server'
 
+// Telegram's legacy Markdown parse_mode rejects the whole message if these
+// characters appear unescaped and don't form a valid entity (e.g. a lone "*"
+// or "_" in someone's name or message). Escape them in user-supplied text so
+// ordinary punctuation doesn't silently break delivery.
+function escapeMarkdown(s: string): string {
+  return s.replace(/([_*`[])/g, '\\$1')
+}
+
 export async function sendContactMessage(formData: FormData) {
   const name = (formData.get('name') as string || '').trim()
   const email = (formData.get('email') as string || '').trim()
@@ -15,7 +23,12 @@ export async function sendContactMessage(formData: FormData) {
 
   const typeEmoji: Record<string, string> = { wrong_data: '⚠️', ad: '💰', collaboration: '🤝', question: '❓', other: '📝' }
   const emoji = typeEmoji[type] || '📩'
-  const text = `${emoji} *ChicPreowned.com* [${type.replace('_', ' ').toUpperCase()}] (${locale.toUpperCase()})\n\n*Name:* ${name}\n*Email:* ${email || '–'}\n*Message:* ${message}`
+  const safeType = escapeMarkdown(type.replace('_', ' ').toUpperCase())
+  const safeLocale = escapeMarkdown(locale.toUpperCase())
+  const safeName = escapeMarkdown(name)
+  const safeEmail = escapeMarkdown(email || '–')
+  const safeMessage = escapeMarkdown(message)
+  const text = `${emoji} *ChicPreowned.com* [${safeType}] (${safeLocale})\n\n*Name:* ${safeName}\n*Email:* ${safeEmail}\n*Message:* ${safeMessage}`
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
