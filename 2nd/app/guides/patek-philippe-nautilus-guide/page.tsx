@@ -94,7 +94,7 @@ export default function PatekNautilusPage() {
       <div className="flex gap-3 flex-wrap">
         <Link href="/guides/rolex-submariner-buying-guide" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Rolex Submariner Guide →</Link>
         <Link href="/guides/omega-seamaster-buying-guide" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Omega Seamaster Guide →</Link>
-        <Link href="/compare/rolex-vs-patek" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Rolex vs Patek →</Link>
+        <Link href="/compare/rolex-vs-patek-philippe" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Rolex vs Patek →</Link>
       </div>
     </div>
   )

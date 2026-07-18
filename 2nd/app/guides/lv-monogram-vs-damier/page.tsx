@@ -147,7 +147,7 @@ export default function LVMonogramVsDamierPage() {
 
       <div className="flex gap-3 flex-wrap">
         <Link href="/brands/louis-vuitton" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">All LV Prices →</Link>
-        <Link href="/how-to-authenticate-louis-vuitton" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Authenticate LV →</Link>
+        <Link href="/guides/how-to-authenticate-louis-vuitton" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Authenticate LV →</Link>
         <Link href="/compare/chanel-vs-louis-vuitton" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Chanel vs LV →</Link>
       </div>
     </div>

@@ -99,7 +99,7 @@ export default function BirkinVsKellyPage() {
       <div className="flex gap-3 flex-wrap">
         <Link href="/brands/hermes" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Hermès Pre-Owned →</Link>
         <Link href="/trends/luxury-bags-above-retail" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Above-Retail Guide →</Link>
-        <Link href="/compare/chanel-vs-hermes" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Chanel vs Hermès →</Link>
+        <Link href="/compare/hermes-vs-chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Chanel vs Hermès →</Link>
       </div>
     </div>
   )

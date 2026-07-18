@@ -104,7 +104,7 @@ export default function ChanelSizeGuidePage() {
 
       <div className="flex gap-3 flex-wrap">
         <Link href="/brands/chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Chanel Prices →</Link>
-        <Link href="/how-to-authenticate-chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Authenticate Chanel →</Link>
+        <Link href="/guides/how-to-authenticate-chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Authenticate Chanel →</Link>
         <Link href="/compare/chanel-vs-dior" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Chanel vs Dior →</Link>
       </div>
     </div>

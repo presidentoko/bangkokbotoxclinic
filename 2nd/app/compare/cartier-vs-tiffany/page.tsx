@@ -249,7 +249,7 @@ export default function CartierVsTiffanyPage() {
           </div>
           <div className="mt-4">
             <Link
-              href="/tiffany--co"
+              href="/tiffany-co"
               className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors"
             >
               View all Tiffany &amp; Co. models →

@@ -77,7 +77,7 @@ export default function TiffanyVsVCA() {
       </div>
 
       <div className="flex gap-3 flex-wrap">
-        <Link href="/brands/tiffany" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Tiffany Pre-Owned →</Link>
+        <Link href="/tiffany-co" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Tiffany Pre-Owned →</Link>
         <Link href="/brands/van-cleef" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Van Cleef Pre-Owned →</Link>
         <Link href="/compare/cartier-vs-van-cleef" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Cartier vs Van Cleef →</Link>
         <Link href="/compare/cartier-vs-tiffany" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Cartier vs Tiffany →</Link>

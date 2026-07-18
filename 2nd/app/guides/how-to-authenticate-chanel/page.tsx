@@ -180,8 +180,8 @@ export default function HowToAuthenticateChanelPage() {
         <div className="flex flex-wrap gap-3">
           <Link href="/chanel" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">All Chanel Prices →</Link>
           <Link href="/chanel/classic-flap-medium" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Classic Flap Price →</Link>
-          <Link href="/chanel/boy-medium" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Boy Bag Price →</Link>
-          <Link href="/chanel/19-medium-flap" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Chanel 19 Price →</Link>
+          <Link href="/chanel/boy-bag-medium" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Boy Bag Price →</Link>
+          <Link href="/chanel/19-bag-medium" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Chanel 19 Price →</Link>
           <Link href="/guides/luxury-condition-guide" className="text-sm text-[#B8954A] hover:text-[#8C7355] transition-colors">Condition Guide →</Link>
         </div>
       </nav>

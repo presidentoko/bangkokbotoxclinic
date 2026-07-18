@@ -92,7 +92,7 @@ export default function SaintLaurentVsValentino() {
         <Link href="/brands/saint-laurent" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Saint Laurent Pre-Owned →</Link>
         <Link href="/brands/valentino" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Valentino Pre-Owned →</Link>
         <Link href="/compare/saint-laurent-vs-celine" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Saint Laurent vs Celine →</Link>
-        <Link href="/compare/valentino-vs-gucci" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Valentino vs Gucci →</Link>
+        <Link href="/compare/dior-vs-valentino" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Valentino vs Dior →</Link>
       </div>
     </div>
   )

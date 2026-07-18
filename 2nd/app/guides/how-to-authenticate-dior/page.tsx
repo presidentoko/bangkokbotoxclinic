@@ -97,7 +97,7 @@ export default function AuthenticateDiorPage() {
       <div className="flex gap-3 flex-wrap">
         <Link href="/brands/dior" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Dior Price Guide →</Link>
         <Link href="/compare/dior-vs-chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Dior vs Chanel →</Link>
-        <Link href="/how-to-authenticate-chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Authenticate Chanel →</Link>
+        <Link href="/guides/how-to-authenticate-chanel" className="border border-gray-200 rounded-lg px-4 py-2 text-sm hover:border-gray-400">Authenticate Chanel →</Link>
       </div>
     </div>
   )
