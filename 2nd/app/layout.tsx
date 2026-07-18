@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
+import Link from 'next/link'
 import './globals.css'
 import { SiteSearch } from '@/components/SiteSearch'
 import { EmailCapture } from '@/components/EmailCapture'
-import { getAllItems } from '@/lib/data'
+import { getSearchIndex } from '@/lib/data'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const items = getAllItems()
+  const searchIndex = getSearchIndex()
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#FAFAF9] text-[#1A1A1A]`}>
@@ -41,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/" className="font-serif text-xl tracking-wider text-[#1A1A1A] shrink-0" style={{ fontFamily: 'var(--font-playfair)' }}>
               Second Luxury Items
             </a>
-            <SiteSearch items={items} />
+            <SiteSearch items={searchIndex} />
             <nav className="flex gap-6 text-sm text-[#6B6052] items-center tracking-wide uppercase shrink-0">
               <a href="/handbags" className="hover:text-[#1A1A1A] transition-colors">Handbags</a>
               <a href="/watches" className="hover:text-[#1A1A1A] transition-colors">Watches</a>
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/scarves" className="hover:text-[#1A1A1A] transition-colors">Scarves</a>
               <a href="/value-guide" className="hover:text-[#1A1A1A] transition-colors">Value Guide</a>
               <a href="/brands" className="hover:text-[#1A1A1A] transition-colors">Brands</a>
+              <Link href="/guides" className="hover:text-[#1A1A1A] transition-colors">Guides</Link>
               <a href="/contact" className="hover:text-[#1A1A1A] transition-colors">Contact</a>
             </nav>
           </div>
@@ -61,6 +63,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EmailCapture />
         <footer className="border-t border-[#E8E2D9] mt-16">
           <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-[#6B6052]">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 uppercase tracking-wide text-xs">
+              <Link href="/guides" className="hover:text-[#1A1A1A] transition-colors">Guides & Care</Link>
+              <Link href="/compare" className="hover:text-[#1A1A1A] transition-colors">Brand Comparisons</Link>
+              <Link href="/trends" className="hover:text-[#1A1A1A] transition-colors">Market Trends</Link>
+            </div>
             <p>Prices are estimates based on recent market data. Always verify current listings before purchasing.</p>
             <p className="mt-1">© {new Date().getFullYear()} SecondLuxuryItems.com</p>
           </div>

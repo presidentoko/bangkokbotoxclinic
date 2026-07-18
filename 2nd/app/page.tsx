@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getAllBrands, getAllItems, getItemsByBrand, formatPrice, getAvgPrice, Item } from '@/lib/data'
 import { BrandCard } from '@/components/BrandCard'
 
@@ -37,8 +38,8 @@ function avgSavingsPct(items: Item[]): number | null {
 export default function HomePage() {
   const allItems = getAllItems()
   const brands = getAllBrands()
-  const handbagBrands = brands.filter(b => b.category === 'handbags')
-  const watchBrands   = brands.filter(b => b.category === 'watches')
+  const handbagBrands = brands.filter(b => b.categories.includes('handbags'))
+  const watchBrands   = brands.filter(b => b.categories.includes('watches'))
   const totalItems    = allItems.length
   const brandsCount   = new Set(allItems.map(i => i.brand)).size
   const itemsWithPrices = allItems.filter(i => Object.keys(i.price_ranges).length > 0).length
@@ -167,7 +168,7 @@ export default function HomePage() {
                 brand={b.brand}
                 slug={b.slug}
                 count={b.count}
-                category={b.category}
+                categories={b.categories}
                 savingsPct={savings !== null ? savings : undefined}
               />
             )
@@ -194,11 +195,38 @@ export default function HomePage() {
                 brand={b.brand}
                 slug={b.slug}
                 count={b.count}
-                category={b.category}
+                categories={b.categories}
                 savingsPct={savings !== null ? savings : undefined}
               />
             )
           })}
+        </div>
+      </section>
+
+      {/* Guides & Comparisons */}
+      <section className="mb-16">
+        <div className="flex items-center gap-4 mb-10">
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+          <span className="text-xs tracking-[0.15em] uppercase text-[#9C8B7A]">Guides & Comparisons</span>
+          <div className="flex-1 h-px bg-[#E8E2D9]" />
+        </div>
+        <div className="grid sm:grid-cols-3 gap-4">
+          {[
+            { href: '/guides', title: 'Buying Guides', desc: 'Authentication, sizing, and how-to-buy guides.' },
+            { href: '/compare', title: 'Brand Comparisons', desc: 'Head-to-head brand and model comparisons.' },
+            { href: '/trends', title: 'Market Trends', desc: 'What’s moving in the resale market right now.' },
+          ].map(s => (
+            <Link
+              key={s.href}
+              href={s.href}
+              className="group block p-5 bg-white border border-[#E8E2D9] hover:border-[#B8954A] hover:shadow-md transition-all duration-200"
+            >
+              <h3 className="font-serif text-lg text-[#1A1A1A] group-hover:text-[#8C7355] transition-colors mb-1" style={{ fontFamily: 'var(--font-playfair)' }}>
+                {s.title}
+              </h3>
+              <p className="text-sm text-[#6B6052] leading-relaxed">{s.desc}</p>
+            </Link>
+          ))}
         </div>
       </section>
 
