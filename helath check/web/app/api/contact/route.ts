@@ -3,6 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TG_CHAT = process.env.TELEGRAM_CHAT_ID;
 
+// The Telegram request below uses parse_mode: "HTML" — any <, >, or & from
+// user input must be escaped first, or a stray "<" breaks Telegram's HTML
+// parser (400, message never delivered) and unescaped tags let a submitter
+// inject fake bold/italic/link formatting into the admin's notification.
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 export async function POST(req: NextRequest) {
   if (!TG_TOKEN || !TG_CHAT) {
     return NextResponse.json({ ok: false, error: "Contact not configured" }, { status: 500 });
@@ -31,12 +39,12 @@ export async function POST(req: NextRequest) {
   const text = [
     `${typeLabel[type] ?? "💬 Message"} — BangkokCheckup`,
     ``,
-    `Name: ${name}`,
-    email ? `Email: ${email}` : null,
-    url ? `Page: ${url}` : null,
+    `Name: ${escapeHtml(name)}`,
+    email ? `Email: ${escapeHtml(email)}` : null,
+    url ? `Page: ${escapeHtml(url)}` : null,
     ``,
     `Message:`,
-    message.trim().slice(0, 1000),
+    escapeHtml(message.trim().slice(0, 1000)),
   ].filter((l) => l !== null).join("\n");
 
   const tgResp = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {

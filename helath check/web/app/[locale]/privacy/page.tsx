@@ -17,7 +17,7 @@ export async function generateMetadata({
     title: "Privacy Policy — BangkokCheckup",
     description: "BangkokCheckup privacy policy. How we handle your data when you use our health check-up comparison tool.",
     alternates: {
-      canonical: `${BASE}/en/privacy`,
+      canonical: `${BASE}/${locale}/privacy`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/privacy`])),
     },
     robots: { index: false, follow: true },

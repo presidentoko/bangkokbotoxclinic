@@ -59,7 +59,7 @@ export function SiteSearch({ locale }: { locale: string }) {
           onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
           onFocus={() => setOpen(true)}
           placeholder="Search hospitals or packages…"
-          className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-base md:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
+          className="w-full ps-9 pe-3 py-2 border border-slate-200 rounded-xl text-base md:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
         />
       </div>
       {open && query.trim().length >= 2 && (

@@ -16,7 +16,7 @@ export async function generateMetadata({
     title: "Book a Health Check-Up in Bangkok — Free Enquiry",
     description: "Get personalised help booking a health check-up at a Bangkok hospital. Tell us your age, concerns, and budget — we'll find the best package. Free, no obligation.",
     alternates: {
-      canonical: `${BASE}/en/enquiry`,
+      canonical: `${BASE}/${locale}/enquiry`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/enquiry`])),
     },
   };

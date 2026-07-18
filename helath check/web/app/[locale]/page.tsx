@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, t, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
+import { homeT } from "@/lib/home-i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, getRecentPriceChanges, type PackageRow, type CategoryCount } from "@/lib/db";
 
 export const revalidate = 86400;
@@ -10,16 +11,17 @@ const BASE = "https://www.bangkoktopclinic.com";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const loc = locale as Locale;
+  const hc = homeT(loc);
   return {
-    title: `${t(loc, "site_name")} — Compare Health Check-Up Prices in Thailand`,
-    description: "Compare real health check-up prices from 235+ hospitals across 22 cities in Thailand. Bangkok, Chiang Mai, Phuket, Pattaya and more. No ads, no sponsored listings.",
+    title: `${t(loc, "site_name")} — ${hc.ogTitle}`,
+    description: hc.metaDescription,
     alternates: {
-      canonical: `${BASE}/en`,
+      canonical: `${BASE}/${locale}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
     },
     openGraph: {
-      title: "Compare Health Check-Up Prices in Thailand — Real Prices, No Ads",
-      description: "Real prices from 235+ hospitals across Bangkok, Chiang Mai, Phuket and 19 more Thai cities. Executive, cancer, cardiac, women's screening and more.",
+      title: hc.ogTitle,
+      description: hc.ogDescription,
       url: `${BASE}/${locale}`,
     },
   };
@@ -46,6 +48,7 @@ function Flag({ val }: { val: number | null }) {
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const loc = locale as Locale;
+  const hc = homeT(loc);
   const base = `/${locale}`;
 
   let stats = { jciCount: 0, packageCount: 0, hospitalCount: 0 };
@@ -72,30 +75,30 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-24">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-blue-500/40 rounded-full px-3 py-1 text-xs font-semibold text-blue-100 mb-4">
-              ✓ No ads · No sponsored rankings · Real prices only
+              {hc.heroBadge}
             </div>
             <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-              Compare Bangkok<br className="hidden sm:block" /> Health Check-Up Prices
+              {hc.heroTitleLine1}<br className="hidden sm:block" /> {hc.heroTitleLine2}
             </h1>
             <p className="text-blue-100 text-lg mb-2 max-w-xl">
-              Real prices scraped directly from hospital websites.
+              {hc.heroSubtitle}
               {cheapest?.price && (
                 <> Executive packages from <strong className="text-white">฿{parseFloat(cheapest.price).toLocaleString()}</strong>.</>
               )}
             </p>
             {stats.hospitalCount > 0 && (
               <p className="text-blue-200 text-sm mb-8">
-                {stats.hospitalCount} hospitals · {stats.packageCount} packages · {stats.jciCount} JCI-accredited
+                {hc.heroStats(stats.hospitalCount, stats.packageCount, stats.jciCount)}
               </p>
             )}
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href={`${base}/compare`}
                 className="bg-white text-blue-700 font-bold px-6 py-3.5 rounded-xl hover:bg-blue-50 transition-colors text-center shadow-lg">
-                Compare Executive Packages →
+                {hc.ctaCompareExecutive}
               </Link>
               <Link href={`${base}/compare`}
                 className="border-2 border-white/50 text-white font-semibold px-6 py-3.5 rounded-xl hover:border-white hover:bg-white/10 transition-colors text-center">
-                All categories
+                {hc.ctaAllCategories}
               </Link>
             </div>
           </div>
@@ -107,10 +110,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className="bg-white border-b border-slate-100">
           <div className="mx-auto max-w-6xl px-4 py-4 flex flex-wrap justify-center gap-6 md:gap-10 text-center">
             {[
-              { val: stats.hospitalCount, label: "Hospitals" },
-              { val: stats.packageCount, label: "Packages" },
-              { val: stats.jciCount, label: "JCI-accredited" },
-              { val: "0", label: "Paid placements" },
+              { val: stats.hospitalCount, label: hc.trustHospitals },
+              { val: stats.packageCount, label: hc.trustPackages },
+              { val: stats.jciCount, label: hc.trustJci },
+              { val: "0", label: hc.trustPaid },
             ].map(({ val, label }) => (
               <div key={label}>
                 <p className="text-2xl md:text-3xl font-bold text-blue-700">{val}</p>
@@ -123,7 +126,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Category cards ── */}
       <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">Browse by check-up type</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-6">{hc.browseByType}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
           {CATEGORIES.map((cat) => (
             <Link key={cat} href={`${base}/compare/${cat}`}
@@ -142,8 +145,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Browse by city ── */}
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-slate-800">Browse health check-ups by city</h2>
-          <Link href={`${base}/hospital`} className="text-sm text-blue-600 hover:underline font-medium">All 22 cities →</Link>
+          <h2 className="text-xl font-bold text-slate-800">{hc.browseByCity}</h2>
+          <Link href={`${base}/hospital`} className="text-sm text-blue-600 hover:underline font-medium">{hc.allCities}</Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
           {[
@@ -172,27 +175,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── How it works ── */}
       <section className="bg-gradient-to-br from-slate-50 to-blue-50/30 border-t border-b border-slate-100">
         <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
-          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-10 text-center">How BangkokCheckup works</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-10 text-center">{hc.howItWorksTitle}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                step: "1",
-                icon: "🔍",
-                title: "Browse real prices",
-                desc: "Our scrapers pull prices directly from hospital websites weekly. No mark-ups, no \"call for price\", no ads.",
-              },
-              {
-                step: "2",
-                icon: "⚖️",
-                title: "Compare what's included",
-                desc: "Use filters to see which packages include MRI, cancer markers, interpreter service, or CT scan — side by side.",
-              },
-              {
-                step: "3",
-                icon: "📋",
-                title: "Book direct or get advice",
-                desc: "Book directly on the hospital's website (no middleman fee) or send us your requirements for a personalised recommendation.",
-              },
+              { step: "1", icon: "🔍", title: hc.step1Title, desc: hc.step1Desc },
+              { step: "2", icon: "⚖️", title: hc.step2Title, desc: hc.step2Desc },
+              { step: "3", icon: "📋", title: hc.step3Title, desc: hc.step3Desc },
             ].map((item) => (
               <div key={item.step} className="flex flex-col items-center text-center relative">
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4 shadow-sm">
@@ -211,9 +199,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {previewRows.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pb-12">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-slate-800">Executive packages — top picks</h2>
+            <h2 className="text-xl font-bold text-slate-800">{hc.executivePreviewTitle}</h2>
             <Link href={`${base}/compare`} className="text-sm text-blue-600 hover:underline font-medium">
-              Full comparison →
+              {hc.fullComparison}
             </Link>
           </div>
 
@@ -245,10 +233,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-slate-50 text-slate-600 text-left border-b border-slate-200">
+                <tr className="bg-slate-50 text-slate-600 text-start border-b border-slate-200">
                   <th className="px-4 py-3 font-semibold">Hospital</th>
                   <th className="px-3 py-3 font-semibold">Package</th>
-                  <th className="px-3 py-3 font-semibold text-right">Price (THB)</th>
+                  <th className="px-3 py-3 font-semibold text-end">Price (THB)</th>
                   <th className="px-3 py-3 font-semibold text-center">MRI</th>
                   <th className="px-3 py-3 font-semibold text-center">Cancer</th>
                   <th className="px-3 py-3 font-semibold text-center">Interpreter</th>
@@ -259,11 +247,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <tr key={row.package_id} className={`border-t border-slate-100 hover:bg-blue-50/30 transition-colors ${i % 2 ? "bg-slate-50/40" : "bg-white"}`}>
                     <td className="px-4 py-3">
                       <span className="font-medium text-slate-800">{row.hospital_name}</span>
-                      {row.jci === 1 && <span className="ml-1.5 bg-blue-100 text-blue-800 text-[10px] font-bold px-1 py-0.5 rounded uppercase">JCI</span>}
-                      {row.rating && <span className="ml-2 text-amber-500 text-xs">★{parseFloat(row.rating).toFixed(1)}</span>}
+                      {row.jci === 1 && <span className="ms-1.5 bg-blue-100 text-blue-800 text-[10px] font-bold px-1 py-0.5 rounded uppercase">JCI</span>}
+                      {row.rating && <span className="ms-2 text-amber-500 text-xs">★{parseFloat(row.rating).toFixed(1)}</span>}
                     </td>
                     <td className="px-3 py-3 text-slate-600 text-xs">{row.package_name}</td>
-                    <td className="px-3 py-3 text-right font-bold text-slate-900">
+                    <td className="px-3 py-3 text-end font-bold text-slate-900">
                       {row.price ? `฿${parseFloat(row.price).toLocaleString()}` : "—"}
                     </td>
                     <td className="px-3 py-3 text-center"><Flag val={row.has_mri} /></td>
@@ -277,7 +265,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="mt-3 flex justify-center">
             <Link href={`${base}/compare`}
               className="bg-blue-600 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm">
-              See all {executiveRows.length} executive packages →
+              {hc.seeAllExecutive(executiveRows.length)}
             </Link>
           </div>
         </section>
@@ -289,10 +277,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <span className="text-xl">📉</span>
-              <h2 className="text-xl font-bold text-slate-800">Recent price drops</h2>
+              <h2 className="text-xl font-bold text-slate-800">{hc.recentDropsTitle}</h2>
             </div>
             <Link href={`${base}/trends`} className="text-sm text-blue-600 hover:underline font-medium">
-              All price trends →
+              {hc.allTrends}
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -315,8 +303,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Guides section ── */}
       <section className="mx-auto max-w-6xl px-4 pb-10 md:pb-14">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-slate-800">Health check-up guides</h2>
-          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All 120+ guides →</Link>
+          <h2 className="text-xl font-bold text-slate-800">{hc.guidesTitle}</h2>
+          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">{hc.allGuides}</Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
@@ -340,8 +328,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── City guides ── */}
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-slate-800">Country comparisons — how much you save</h2>
-          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All guides →</Link>
+          <h2 className="text-xl font-bold text-slate-800">{hc.countryComparisonTitle}</h2>
+          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">{hc.allGuides}</Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
@@ -370,8 +358,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Specialist tests & procedures ── */}
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-slate-800">Specialist tests & procedure costs</h2>
-          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">All guides →</Link>
+          <h2 className="text-xl font-bold text-slate-800">{hc.specialistTestsTitle}</h2>
+          <Link href={`${base}/guide`} className="text-sm text-blue-600 hover:underline font-medium">{hc.allGuides}</Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {[
@@ -400,7 +388,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ── Who is this for ── */}
       <section className="mx-auto max-w-6xl px-4 pb-12">
-        <h2 className="text-xl font-bold text-slate-800 mb-5">Find the right package for you</h2>
+        <h2 className="text-xl font-bold text-slate-800 mb-5">{hc.findRightPackageTitle}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {[
             { href: `${base}/for/jci-accredited-health-checkup-bangkok`, icon: "🏆", label: "JCI-Accredited Hospitals" },
@@ -432,12 +420,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Why this site ── */}
       <section className="bg-white border-t border-slate-100">
         <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
-          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8 text-center">Why use BangkokCheckup?</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-8 text-center">{hc.whyUseTitle}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: "🔍", title: "Real prices only", desc: "Every price is scraped from the hospital's own website — not aggregators or ad networks." },
-              { icon: "🏆", title: "No paid rankings", desc: "Packages sort by price. Hospitals can't pay for higher placement. Ever." },
-              { icon: "🌏", title: "Multiple languages", desc: "Compare in English, Chinese, Japanese, Korean, Thai, and Arabic." },
+              { icon: "🔍", title: hc.why1Title, desc: hc.why1Desc },
+              { icon: "🏆", title: hc.why2Title, desc: hc.why2Desc },
+              { icon: "🌏", title: hc.why3Title, desc: hc.why3Desc },
             ].map((item) => (
               <div key={item.title} className="text-center p-4">
                 <div className="text-3xl mb-3">{item.icon}</div>
@@ -452,11 +440,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* ── Bottom CTA ── */}
       <section className="bg-blue-700 text-white">
         <div className="mx-auto max-w-4xl px-4 py-10 text-center">
-          <h2 className="text-xl font-bold mb-2">Not sure which package is right for you?</h2>
-          <p className="text-blue-200 text-sm mb-5">Tell us your requirements and we'll find the best match.</p>
+          <h2 className="text-xl font-bold mb-2">{hc.bottomCtaTitle}</h2>
+          <p className="text-blue-200 text-sm mb-5">{hc.bottomCtaSubtitle}</p>
           <Link href={`${base}/enquiry`}
             className="bg-white text-blue-700 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors inline-block">
-            Get personalised advice →
+            {hc.bottomCtaButton}
           </Link>
         </div>
       </section>
@@ -467,7 +455,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         "@type": "WebSite",
         name: "BangkokCheckup",
         url: BASE,
-        description: "Compare health check-up prices at Bangkok hospitals. Real prices, no ads.",
+        description: hc.metaDescription,
         // No SearchAction: the site has no /search results page URL pattern —
         // pointing it at compare category paths made it a broken action target.
       }) }} />
@@ -480,7 +468,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         url: BASE,
         logo: `${BASE}/logo.png`,
         sameAs: [],
-        contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: `${BASE}/en/enquiry`, availableLanguage: ["English", "Chinese", "Japanese", "Thai", "Arabic"] },
+        contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: `${BASE}/${locale}/enquiry`, availableLanguage: ["English", "Chinese", "Japanese", "Thai", "Arabic"] },
       }) }} />
 
       {/* Schema: FAQPage */}

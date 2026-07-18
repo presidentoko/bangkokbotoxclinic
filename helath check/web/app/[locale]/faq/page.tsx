@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, LOCALES } from "@/lib/i18n";
+import { faqT } from "@/lib/faq-i18n";
 
 export const revalidate = 86400;
 
@@ -12,12 +13,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  void locale;
+  const fc = faqT(locale as Locale);
   return {
-    title: "Health Check-Up Thailand FAQ — All Your Questions Answered",
-    description: "Frequently asked questions about getting a health check-up in Thailand. Costs, what's included, how to book, which hospitals, insurance, results — all answered.",
+    title: fc.pageTitle,
+    description: fc.pageIntro,
     alternates: {
-      canonical: `${BASE}/en/faq`,
+      canonical: `${BASE}/${locale}/faq`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/faq`])),
     },
   };
@@ -262,26 +263,43 @@ export default async function FaqPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const loc = locale as Locale;
+  const fc = faqT(loc);
 
-  const allFaqs = FAQS.flatMap((cat) => cat.items);
+  // Only "Costs & Pricing" (the highest-traffic category) is translated —
+  // merge its Q&A onto the base FAQS[0] entries by index, preserving each
+  // item's `link` field which lib/faq-i18n.ts's QA type doesn't carry.
+  // Every other category stays English (documented scope in faq-i18n.ts).
+  const sections = FAQS.map((section, si) => {
+    if (si !== 0) return section;
+    return {
+      category: fc.categoryCostsPricing,
+      items: section.items.map((item, ii) => ({
+        ...item,
+        q: fc.costsPricing[ii]?.q ?? item.q,
+        a: fc.costsPricing[ii]?.a ?? item.a,
+      })),
+    };
+  });
+  const allFaqs = sections.flatMap((cat) => cat.items);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2">
-        <Link href={`/${locale}`} className="hover:text-blue-600">Home</Link>
+        <Link href={`/${locale}`} className="hover:text-blue-600">{fc.breadcrumbHome}</Link>
         <span>›</span>
-        <span className="text-slate-600">FAQ</span>
+        <span className="text-slate-600">{fc.breadcrumbFaq}</span>
       </nav>
 
       <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-        Health Check-Up Thailand — Frequently Asked Questions
+        {fc.pageTitle}
       </h1>
       <p className="text-slate-500 mb-10">
-        Everything you need to know about getting a health check-up in Thailand — costs, inclusions, booking, and which hospitals to choose.
+        {fc.pageIntro}
       </p>
 
       <div className="space-y-12">
-        {FAQS.map((section) => (
+        {sections.map((section) => (
           <section key={section.category}>
             <h2 className="text-lg font-bold text-blue-700 mb-4 flex items-center gap-2">
               <span className="h-px flex-1 bg-blue-100" />
@@ -313,18 +331,18 @@ export default async function FaqPage({
 
       {/* CTA */}
       <div className="mt-12 bg-blue-50 border border-blue-200 rounded-2xl p-6">
-        <h3 className="font-bold text-slate-800 mb-2">Still have questions?</h3>
+        <h3 className="font-bold text-slate-800 mb-2">{fc.ctaTitle}</h3>
         <p className="text-slate-500 text-sm mb-4">
-          Tell us your age, medical concerns, budget, and city — we'll recommend the right package and hospital.
+          {fc.ctaSubtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link href={`/${locale}/enquiry`}
             className="bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-center text-sm">
-            Ask a free question →
+            {fc.ctaAsk}
           </Link>
           <Link href={`/${locale}/compare`}
             className="border border-blue-200 text-blue-700 font-semibold px-5 py-2.5 rounded-xl hover:bg-blue-50 transition-colors text-center text-sm">
-            Compare prices now
+            {fc.ctaCompare}
           </Link>
         </div>
       </div>
@@ -343,8 +361,8 @@ export default async function FaqPage({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/${locale}` },
-          { "@type": "ListItem", position: 2, name: "FAQ", item: `${BASE}/${locale}/faq` },
+          { "@type": "ListItem", position: 1, name: fc.breadcrumbHome, item: `${BASE}/${locale}` },
+          { "@type": "ListItem", position: 2, name: fc.breadcrumbFaq, item: `${BASE}/${locale}/faq` },
         ],
       }) }} />
     </div>

@@ -38,7 +38,7 @@ export async function generateMetadata({
     title: `${label} Health Check-Up at ${hospitalName} — Price & Inclusions 2026`,
     description: `${label} check-up package at ${hospitalName}, Thailand. Real price, inclusions (blood, ultrasound, MRI, cancer markers), results timeline, and booking info.`,
     alternates: {
-      canonical: `${BASE}/en/checkup/${type}/${hospital}`,
+      canonical: `${BASE}/${locale}/checkup/${type}/${hospital}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/checkup/${type}/${hospital}`])),
     },
   };
@@ -95,11 +95,11 @@ export default async function PackageDetailPage({
               {pkg.hospital_name}
             </Link>
             {pkg.jci === 1 && (
-              <span className="ml-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">JCI</span>
+              <span className="ms-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">JCI</span>
             )}
             {pkg.area && <p className="text-sm text-slate-500 mt-1">📍 {pkg.area}</p>}
           </div>
-          <div className="text-right">
+          <div className="text-end">
             <p className="text-2xl font-bold text-blue-700">{price}</p>
             <p className="text-sm text-slate-400">{pkg.currency || "THB"}</p>
           </div>

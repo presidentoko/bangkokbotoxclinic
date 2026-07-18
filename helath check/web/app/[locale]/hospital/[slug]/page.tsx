@@ -38,7 +38,7 @@ export async function generateMetadata({
       title: `${hospital.name} Health Check-Up Packages & Prices — ${cityLabel}`,
       description: `Compare all health check-up packages at ${hospital.name}, ${cityLabel}, Thailand.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
       alternates: {
-        canonical: `${BASE}/en/hospital/${slug}`,
+        canonical: `${BASE}/${locale}/hospital/${slug}`,
         languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital/${slug}`])),
       },
       openGraph: {
@@ -83,7 +83,7 @@ function PackageCard({ pkg, locale, history }: { pkg: PackageRow; locale: string
             </span>
           )}
         </div>
-        <div className="text-right shrink-0">
+        <div className="text-end shrink-0">
           <p className="font-bold text-xl text-blue-700 whitespace-nowrap">{price}</p>
           {history && history.length >= 2 && (
             <div className="mt-1 flex justify-end"><Sparkline prices={history} /></div>
@@ -368,7 +368,7 @@ export default async function HospitalPage({
           <Link href={`/${locale}/city/${hospital.city.toLowerCase().replace(/\s+/g, "-")}`} className="font-semibold text-blue-600 hover:underline">
             Compare all hospitals in {hospital.city} →
           </Link>
-          <span className="text-slate-400 ml-2">See prices from every hospital in {hospital.city}</span>
+          <span className="text-slate-400 ms-2">See prices from every hospital in {hospital.city}</span>
         </div>
       )}
 

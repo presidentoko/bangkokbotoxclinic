@@ -1,10 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "../globals.css";
 import { LOCALES, type Locale, isRTL, t, OG_LOCALE } from "@/lib/i18n";
 import Link from "next/link";
 import { MobileMenuButton } from "@/app/components/MobileNav";
 import { WhatsAppCTA } from "@/app/components/WhatsAppCTA";
+import { SiteSearch } from "@/app/components/SiteSearch";
+import { SavedCount } from "@/app/components/SaveButton";
+
+// NEXT_PUBLIC_GA4_ID is currently unset (empty string) in both .env.local and
+// Vercel production — this renders nothing until a real Measurement ID
+// (G-XXXXXXX from analytics.google.com) is added as an env var. No code
+// change needed once that's set; this is the one thing this fix could not
+// complete, since there's no ID to wire in.
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -49,6 +59,8 @@ function NavBar({ locale }: { locale: Locale }) {
     { href: `${base}/compare`, label: t(locale, "nav_compare") },
     { href: `${base}/hospital`, label: t(locale, "nav_hospitals") },
     { href: `${base}/guide`, label: t(locale, "nav_guide") },
+    { href: `${base}/trends`, label: t(locale, "nav_trends") },
+    { href: `${base}/saved`, label: t(locale, "nav_saved") },
     { href: `${base}/enquiry`, label: t(locale, "nav_enquiry") },
   ];
   return (
@@ -61,14 +73,20 @@ function NavBar({ locale }: { locale: Locale }) {
         {/* Desktop nav */}
         <div className="hidden md:flex gap-5 text-sm font-medium text-slate-600 flex-1">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="hover:text-blue-700 whitespace-nowrap transition-colors">
+            <Link key={item.href} href={item.href} className="hover:text-blue-700 whitespace-nowrap transition-colors flex items-center">
               {item.label}
+              {item.href === `${base}/saved` && <SavedCount />}
             </Link>
           ))}
         </div>
 
+        {/* Search (desktop) */}
+        <div className="hidden md:block w-48 shrink-0">
+          <SiteSearch locale={locale} />
+        </div>
+
         {/* Language switcher (desktop) */}
-        <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-400 ml-auto">
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-400">
           {([["en","EN"],["zh","中"],["ja","JP"],["th","TH"],["ko","한"],["ar","عر"]] as [Locale,string][]).map(([l, label]) => (
             <Link key={l} href={`/${l}/compare`}
               className={`px-1.5 py-0.5 rounded hover:text-blue-600 transition-colors ${l === locale ? "text-blue-600 font-semibold" : ""}`}>
@@ -78,16 +96,17 @@ function NavBar({ locale }: { locale: Locale }) {
         </div>
 
         <Link href={`${base}/enquiry`}
-          className="hidden md:inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors ml-3 shrink-0">
+          className="hidden md:inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors ms-3 shrink-0">
           {t(locale, "book_now")}
         </Link>
 
         {/* Mobile hamburger */}
-        <div className="md:hidden ml-auto">
+        <div className="md:hidden ms-auto">
           <MobileMenuButton
             items={navItems}
             bookLabel={t(locale, "book_now")}
             bookHref={`${base}/enquiry`}
+            locale={locale}
           />
         </div>
       </div>
@@ -161,6 +180,17 @@ export default async function LocaleLayout({
   return (
     <html lang={loc} dir={isRTL(loc) ? "rtl" : "ltr"} className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased font-[var(--font-inter)]">
+        {GA4_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} strategy="afterInteractive" />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA4_ID}');`}
+            </Script>
+          </>
+        )}
         <NavBar locale={loc} />
         <main className="flex-1 pb-14 md:pb-0">{children}</main>
         {/* Mobile sticky bottom CTA — hidden on md+ (compare drawer uses its own sticky bar) */}

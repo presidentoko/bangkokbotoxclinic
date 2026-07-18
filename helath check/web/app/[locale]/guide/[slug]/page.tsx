@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LOCALES } from "@/lib/i18n";
+import { LOCALES, type Locale } from "@/lib/i18n";
+import { guideT } from "@/lib/guide-i18n";
 import { ShareButtons } from "@/app/components/ShareButtons";
 
 export const revalidate = 86400;
@@ -7121,13 +7122,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug, locale } = await params;
-  const guide = GUIDES[slug];
-  if (!guide) return {};
+  const guideBase = GUIDES[slug];
+  if (!guideBase) return {};
+  const override = guideT(locale as Locale, slug);
+  const guide = override ? { ...guideBase, ...override } : guideBase;
   return {
     title: guide.title,
     description: guide.description,
     alternates: {
-      canonical: `${BASE}/en/guide/${slug}`,
+      canonical: `${BASE}/${locale}/guide/${slug}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/guide/${slug}`])),
     },
     openGraph: {
@@ -7144,7 +7147,9 @@ export default async function GuidePage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const guide = GUIDES[slug];
+  const guideBase = GUIDES[slug];
+  const override = guideBase ? guideT(locale as Locale, slug) : undefined;
+  const guide = guideBase && override ? { ...guideBase, ...override } : guideBase;
 
   if (!guide) {
     return (

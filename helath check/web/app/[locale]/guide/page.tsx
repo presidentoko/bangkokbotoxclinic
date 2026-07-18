@@ -17,7 +17,7 @@ export async function generateMetadata({
     title: "Health Check-Up Guides — Thailand Medical Tourism",
     description: "Expert guides to health check-ups in Thailand. Bangkok, Chiang Mai, Phuket, senior health, expat health, cancer screening, JCI hospitals and more.",
     alternates: {
-      canonical: `${BASE}/en/guide`,
+      canonical: `${BASE}/${locale}/guide`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/guide`])),
     },
   };

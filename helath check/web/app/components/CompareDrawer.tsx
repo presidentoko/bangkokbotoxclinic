@@ -143,7 +143,7 @@ export function CompareDrawer() {
               <h2 className="font-bold text-slate-900 text-lg">Package Comparison</h2>
               <div className="flex items-center gap-2">
                 <button onClick={clear} className="text-xs text-slate-400 hover:text-red-500 underline underline-offset-2">Clear all</button>
-                <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-700 text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">×</button>
+                <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-700 text-2xl leading-none min-w-11 min-h-11 flex items-center justify-center rounded-full hover:bg-slate-100">×</button>
               </div>
             </div>
 
@@ -152,7 +152,7 @@ export function CompareDrawer() {
               <table className="w-full text-sm border-collapse min-w-[500px]">
                 <thead>
                   <tr className="bg-slate-50 sticky top-0">
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 w-32">Feature</th>
+                    <th className="px-4 py-3 text-start text-xs font-semibold text-slate-500 w-32">Feature</th>
                     {selected.map((r) => (
                       <th key={r.package_id} className="px-4 py-3 text-center">
                         <p className="font-bold text-slate-800 text-sm">{r.hospital_name}</p>

@@ -27,7 +27,7 @@ export async function generateMetadata({
     title: `${label} Health Check-Up in Thailand — Compare Prices (2026)`,
     description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from 235+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
     alternates: {
-      canonical: `${BASE}/en/checkup/${type}`,
+      canonical: `${BASE}/${locale}/checkup/${type}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/checkup/${type}`])),
     },
   };
@@ -180,12 +180,12 @@ export default async function CheckupTypePage({
                       {row.hospital_name}
                     </Link>
                     {row.jci === 1 && (
-                      <span className="ml-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">JCI</span>
+                      <span className="ms-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">JCI</span>
                     )}
                     {row.area && <p className="text-sm text-slate-500 mt-0.5">📍 {row.area}</p>}
                     <p className="text-slate-700 mt-1">{row.package_name}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-end">
                     <p className="text-xl font-bold text-blue-700">{price}</p>
                     {row.rating && (
                       <p className="text-sm text-amber-500">★ {parseFloat(row.rating).toFixed(1)}</p>

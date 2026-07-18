@@ -38,14 +38,14 @@ function StarRating({ rating, count }: { rating: string | null; count: number | 
 
 function PriceTag({ price, cheapest }: { price: string | null; cheapest: number }) {
   if (!price) return (
-    <div className="text-right">
+    <div className="text-end">
       <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-lg whitespace-nowrap">Contact for price</span>
     </div>
   );
   const p = parseFloat(price);
   const diff = Math.round(((p - cheapest) / cheapest) * 100);
   return (
-    <div className="text-right">
+    <div className="text-end">
       <p className="text-2xl font-extrabold text-slate-900 leading-none">฿{p.toLocaleString()}</p>
       {diff === 0 && <p className="text-[10px] font-bold text-emerald-600 mt-0.5 uppercase tracking-wide">Cheapest</p>}
       {diff > 0 && diff <= 50 && <p className="text-[10px] text-slate-400 mt-0.5">+{diff}%</p>}
@@ -404,7 +404,7 @@ export function FilteredPackageGrid({ rows, loc, serverCategory }: { rows: Packa
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search hospital or package name..."
-            className="w-full pl-10 pr-10 py-2.5 border border-slate-200 rounded-xl text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+            className="w-full ps-10 pe-10 py-2.5 border border-slate-200 rounded-xl text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
           />
           {query && (
             <button onClick={() => setQuery("")}
@@ -430,7 +430,7 @@ export function FilteredPackageGrid({ rows, loc, serverCategory }: { rows: Packa
           })}
           {hasFilters && (
             <button onClick={() => { setQuery(""); setActiveFeatures(new Set()); setActiveCity(null); setActiveCategory(null); setActivePriceKey(null); }}
-              className="text-xs text-slate-400 hover:text-red-500 transition-colors ml-auto underline underline-offset-2">
+              className="text-xs text-slate-400 hover:text-red-500 transition-colors ms-auto underline underline-offset-2">
               Clear all
             </button>
           )}

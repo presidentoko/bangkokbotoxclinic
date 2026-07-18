@@ -19,7 +19,7 @@ export async function generateMetadata({
     title: "Health Check-Up Hospitals in Thailand — Bangkok, Phuket, Chiang Mai",
     description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 19 more cities. Real prices, JCI-accredited hospitals listed.",
     alternates: {
-      canonical: `${BASE}/en/hospital`,
+      canonical: `${BASE}/${locale}/hospital`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital`])),
     },
   };
@@ -131,7 +131,7 @@ export default async function HospitalsPage({
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold text-slate-800">
                   {CITY_CITY[city] || "🏥"} {city}
-                  <span className="text-sm font-normal text-slate-400 ml-2">({grouped[city].length})</span>
+                  <span className="text-sm font-normal text-slate-400 ms-2">({grouped[city].length})</span>
                 </h2>
                 <Link href={`/${locale}/city/${city.toLowerCase().replace(/ /g, '-')}`}
                   className="text-sm text-blue-600 hover:underline">
@@ -148,7 +148,7 @@ export default async function HospitalsPage({
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="font-semibold text-slate-800 leading-snug text-sm">{h.name}</h3>
                       {h.jci === 1 && (
-                        <span className="ml-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">JCI</span>
+                        <span className="ms-2 bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase shrink-0">JCI</span>
                       )}
                     </div>
                     {h.area && h.area !== city && (

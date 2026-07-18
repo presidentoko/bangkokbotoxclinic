@@ -45,5 +45,5 @@ export function SavedCount() {
   const [count, setCount] = useState(0);
   useEffect(() => { setCount(getSaved().size); }, []);
   if (!count) return null;
-  return <span className="ml-1 text-xs bg-amber-400 text-white rounded-full px-1.5 py-0.5">{count}</span>;
+  return <span className="ms-1 text-xs bg-amber-400 text-white rounded-full px-1.5 py-0.5">{count}</span>;
 }

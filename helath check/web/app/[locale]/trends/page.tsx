@@ -18,7 +18,7 @@ export async function generateMetadata({
     title: "Health Checkup Price Trends — Which Packages Got Cheaper?",
     description: "See which health check-up packages in Thailand have recently changed price. Track price drops and increases across Bangkok, Phuket, Chiang Mai hospitals.",
     alternates: {
-      canonical: `${BASE}/en/trends`,
+      canonical: `${BASE}/${locale}/trends`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/trends`])),
     },
   };
@@ -88,7 +88,7 @@ export default async function TrendsPage({
                         </Link>
                         <p className="text-xs text-slate-500 mt-0.5">{t.package_name}</p>
                       </div>
-                      <div className="text-right shrink-0">
+                      <div className="text-end shrink-0">
                         <p className="text-emerald-600 font-bold text-sm">{t.change_pct}%</p>
                         <p className="text-xs text-slate-400 line-through">฿{t.prev_price.toLocaleString()}</p>
                         <p className="text-sm font-bold text-slate-800">฿{t.latest_price.toLocaleString()}</p>
@@ -121,7 +121,7 @@ export default async function TrendsPage({
                         </Link>
                         <p className="text-xs text-slate-500 mt-0.5">{t.package_name}</p>
                       </div>
-                      <div className="text-right shrink-0">
+                      <div className="text-end shrink-0">
                         <p className="text-red-500 font-bold text-sm">+{t.change_pct}%</p>
                         <p className="text-xs text-slate-400 line-through">฿{t.prev_price.toLocaleString()}</p>
                         <p className="text-sm font-bold text-slate-800">฿{t.latest_price.toLocaleString()}</p>

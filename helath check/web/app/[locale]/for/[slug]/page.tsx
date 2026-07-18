@@ -301,7 +301,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const seg = SEGMENTS[slug];
   if (!seg) return { title: "Health Check-Up Thailand" };
   return {
@@ -309,7 +309,7 @@ export async function generateMetadata({
     description: seg.description,
     keywords: seg.h1.split(" "),
     alternates: {
-      canonical: `${BASE}/en/for/${slug}`,
+      canonical: `${BASE}/${locale}/for/${slug}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/for/${slug}`])),
     },
   };

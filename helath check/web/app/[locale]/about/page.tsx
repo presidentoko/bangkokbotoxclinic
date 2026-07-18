@@ -18,7 +18,7 @@ export async function generateMetadata({
     title: "About BangkokCheckup — How We Compare Hospital Prices",
     description: "BangkokCheckup scrapes health check-up prices directly from hospital websites in Thailand. No paid rankings, no ads, no middlemen. Learn how our comparison tool works.",
     alternates: {
-      canonical: `${BASE}/en/about`,
+      canonical: `${BASE}/${locale}/about`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/about`])),
     },
   };
@@ -123,7 +123,7 @@ export default async function AboutPage({
         "@context": "https://schema.org",
         "@type": "AboutPage",
         name: "About BangkokCheckup",
-        url: `${BASE}/en/about`,
+        url: `${BASE}/${locale}/about`,
         mainEntity: {
           "@type": "Organization",
           name: "BangkokCheckup",

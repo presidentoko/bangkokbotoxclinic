@@ -50,7 +50,7 @@ export async function generateMetadata({
     description: `Compare health check-up packages at hospitals in ${cityName}, Thailand. Real prices, all hospitals, all package types. Find the best value health screening in ${cityName}.`,
     keywords: [`health checkup ${cityName}`, `health screening ${cityName}`, `hospital ${cityName} health package`, `ตรวจสุขภาพ${cityName}`],
     alternates: {
-      canonical: `${BASE}/en/city/${city}`,
+      canonical: `${BASE}/${locale}/city/${city}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/city/${city}`])),
     },
   };

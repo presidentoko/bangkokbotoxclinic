@@ -44,7 +44,7 @@ export function HospitalSearch({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search hospitals by name or city…"
-          className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-base md:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
+          className="w-full ps-9 pe-4 py-2.5 border border-slate-200 rounded-xl text-base md:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200"
         />
         {query && (
           <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">✕</button>
@@ -66,8 +66,8 @@ export function HospitalSearch({
                   <p className="text-sm font-medium text-slate-900">{h.name}</p>
                   <p className="text-xs text-slate-500">{h.city || h.area || "Thailand"}</p>
                 </div>
-                <div className="text-right shrink-0">
-                  {h.jci === 1 && <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold mr-1">JCI</span>}
+                <div className="text-end shrink-0">
+                  {h.jci === 1 && <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold me-1">JCI</span>}
                   {h.min_price && <span className="text-xs text-slate-500">฿{parseFloat(h.min_price).toLocaleString()}</span>}
                 </div>
               </Link>

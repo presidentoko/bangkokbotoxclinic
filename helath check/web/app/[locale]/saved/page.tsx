@@ -33,7 +33,7 @@ function PackageCard({ pkg, locale, onRemove }: { pkg: PackageRow; locale: strin
               <span className="text-[11px] bg-violet-100 text-violet-700 font-medium px-2 py-0.5 rounded-full">{pkg.category}</span>
             )}
           </div>
-          <div className="text-right shrink-0">
+          <div className="text-end shrink-0">
             {pkg.price
               ? <p className="text-xl font-bold text-blue-700">฿{parseFloat(pkg.price).toLocaleString()}</p>
               : <p className="text-sm text-slate-400 italic">Contact for price</p>}

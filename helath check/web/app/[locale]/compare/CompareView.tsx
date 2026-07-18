@@ -190,7 +190,7 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
 
       {/* Legend */}
       <p className="text-xs text-slate-400 mb-8">
-        <span className="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded mr-1">JCI</span>
+        <span className="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded me-1">JCI</span>
         JCI = Joint Commission International accreditation &nbsp;·&nbsp;
         <span className="text-emerald-600 font-bold">✓</span> Included &nbsp;·&nbsp;
         <span className="text-slate-300">✗</span> Not included &nbsp;·&nbsp;
