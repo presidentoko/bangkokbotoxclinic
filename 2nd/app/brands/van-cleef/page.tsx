@@ -20,7 +20,7 @@ const pieces = [
 ]
 
 export default function VanCleefPage() {
-  const items = getItemsByBrand('van cleef').filter(i => i.price_ranges?.very_good)
+  const items = getItemsByBrand('van cleef & arpels').filter(i => i.price_ranges?.very_good)
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">

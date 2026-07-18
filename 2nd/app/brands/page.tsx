@@ -30,15 +30,15 @@ function computeBrandData() {
     })
     .filter(Boolean)
     .sort((a, b) => b!.retention - a!.retention) as Array<{
-      brand: string; slug: string; category: string; count: number;
+      brand: string; slug: string; categories: string[]; count: number;
       avgSavings: number; retention: number; itemCount: number
     }>
 }
 
 export default function BrandsPage() {
   const brandData = computeBrandData()
-  const handbags = brandData.filter(b => b.category === 'handbags')
-  const watches = brandData.filter(b => b.category === 'watches')
+  const handbags = brandData.filter(b => b.categories.includes('handbags'))
+  const watches = brandData.filter(b => b.categories.includes('watches'))
 
   function RankList({ items, label }: { items: typeof handbags; label: string }) {
     return (

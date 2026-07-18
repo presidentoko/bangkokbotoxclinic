@@ -32,7 +32,17 @@ export interface BrandSummary {
   brand: string
   slug: string
   count: number
-  category: Category
+  categories: Category[]
+}
+
+/** Slim shape for client-side search/filtering — avoids serializing full
+ * items (with price_samples etc) into every page. */
+export interface SearchIndexItem {
+  id: string
+  brand: string
+  model: string
+  slug: string
+  avgPrice: number | null
 }
 
 const items = (db as { items: Item[] }).items
@@ -43,7 +53,8 @@ export function getItemsByCategory(category: Category): Item[] {
   return items.filter(i => i.category === category)
 }
 
-export function getItemsByBrand(brandSlug: string): Item[] {
+export function getItemsByBrand(brand: string): Item[] {
+  const brandSlug = toBrandSlug(brand)
   return items.filter(i => toBrandSlug(i.brand) === brandSlug)
 }
 
@@ -58,11 +69,29 @@ export function getAllBrands(): BrandSummary[] {
     const existing = map.get(slug)
     if (existing) {
       existing.count++
+      if (!existing.categories.includes(item.category)) {
+        existing.categories.push(item.category)
+      }
     } else {
-      map.set(slug, { brand: item.brand, slug, count: 1, category: item.category })
+      map.set(slug, { brand: item.brand, slug, count: 1, categories: [item.category] })
     }
   }
   return Array.from(map.values())
+}
+
+export function getSearchIndex(): SearchIndexItem[] {
+  return items.map(i => ({
+    id: i.id,
+    brand: i.brand,
+    model: i.model,
+    slug: i.slug,
+    avgPrice: i.price_ranges.very_good ? getAvgPrice(i.price_ranges.very_good) : null,
+  }))
+}
+
+/** Accent-folding + lowercasing for search matching, e.g. "hermes" ~ "Hermès". */
+export function normalizeForSearch(s: string): string {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 }
 
 export function toBrandSlug(brand: string): string {
@@ -70,8 +99,11 @@ export function toBrandSlug(brand: string): string {
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+    .replace(/[&.''']/g, '')
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }
 
 export function formatPrice(price: number): string {
