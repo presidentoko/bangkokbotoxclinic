@@ -91,8 +91,11 @@ export function GapList({
   const [shownGems, setShownGems] = useState(INITIAL_SHOW);
 
   const matched = entries.filter((e) => e.restaurant !== null);
+  // Must match the page's own headline/FAQ stat exactly (both derive from
+  // trust_score < thresholds.bigGapThreshold) — mixing in "decent" here
+  // made the tab badge disagree with the page's own quoted numbers.
   const bigGaps = [...matched]
-    .filter((e) => e.gap === "big_gap" || e.gap === "decent")
+    .filter((e) => e.gap === "big_gap")
     .sort((a, b) => a.restaurant!.trust_score - b.restaurant!.trust_score);
   const holdsUp = matched
     .filter((e) => e.gap === "holds_up")
@@ -135,7 +138,6 @@ export function GapList({
               </p>
               <p className="text-xs text-[var(--muted)]">
                 With {matched.length} venues, all score above {Math.round(thresholds.bigGapThreshold)}.
-                Add more data via <code className="text-xs bg-gray-100 px-1 rounded">npm run fvg:ingest</code> to surface lower-scoring hyped venues.
               </p>
             </div>
           ) : (

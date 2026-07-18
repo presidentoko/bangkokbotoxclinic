@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/hooks/useLocale";
 import { strings, tr } from "@/lib/strings";
+import { localizedHubHref } from "@/lib/localizedHref";
 
 const ITEMS = [
   { href: "/",               key: "home"     as const, icon: "🏠" },
@@ -31,7 +32,7 @@ export function BottomNav() {
         {ITEMS.map((item) => (
           <a
             key={item.href}
-            href={item.href}
+            href={localizedHubHref(item.href, locale)}
             className={`flex-1 flex flex-col items-center justify-center gap-0.5 rounded-xl transition ${
               isActive(item.href) ? "text-[var(--accent)]" : "text-[var(--muted)]"
             }`}

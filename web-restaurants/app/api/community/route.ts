@@ -40,7 +40,10 @@ export async function GET(req: NextRequest) {
     const leaderboard = entries
       .filter((e) => byId.has(e.id))
       .map((e) => ({ id: e.id, name: byId.get(e.id)!, flags: e.flags }));
-    return NextResponse.json({ ok: true, leaderboard });
+    return NextResponse.json(
+      { ok: true, leaderboard },
+      { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
+    );
   }
 
   const ids = req.nextUrl.searchParams.get("ids");
@@ -53,10 +56,12 @@ export async function GET(req: NextRequest) {
   }
 
   const redis = getRedis();
+  // One MGET per field instead of one GET per id per field — was up to
+  // 3 * idList.length individual Redis round trips on every pageview.
   const [flags, ups, downs] = await Promise.all([
-    Promise.all(idList.map((id) => redis.get<number>(`flag:${id}`))),
-    Promise.all(idList.map((id) => redis.get<number>(`vote:${id}:up`))),
-    Promise.all(idList.map((id) => redis.get<number>(`vote:${id}:down`))),
+    redis.mget<(number | null)[]>(...idList.map((id) => `flag:${id}`)),
+    redis.mget<(number | null)[]>(...idList.map((id) => `vote:${id}:up`)),
+    redis.mget<(number | null)[]>(...idList.map((id) => `vote:${id}:down`)),
   ]);
 
   const counts: Record<string, { flags: number; up: number; down: number }> = {};
@@ -64,7 +69,10 @@ export async function GET(req: NextRequest) {
     counts[id] = { flags: flags[i] ?? 0, up: ups[i] ?? 0, down: downs[i] ?? 0 };
   });
 
-  return NextResponse.json({ ok: true, counts });
+  return NextResponse.json(
+    { ok: true, counts },
+    { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
+  );
 }
 
 export async function POST(req: NextRequest) {

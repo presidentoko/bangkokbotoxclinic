@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SavedListClient } from "@/components/SavedListClient";
+import { RecentlyViewedStrip } from "@/components/RecentlyViewedStrip";
 
 export const dynamic = "force-static";
 
@@ -17,6 +18,7 @@ export default function SavedPage() {
         Stored on this device only — saved restaurants aren't linked to an account.
       </p>
       <SavedListClient />
+      <RecentlyViewedStrip />
     </div>
   );
 }

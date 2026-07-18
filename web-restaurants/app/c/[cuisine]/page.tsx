@@ -132,7 +132,7 @@ export default async function CuisinePage(
         )}
 
         <section>
-          <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
+          <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 36)}</h2>
           <div className="grid gap-3">
             {filtered.slice(0, 10).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 1} />
@@ -143,14 +143,30 @@ export default async function CuisinePage(
           <AdSlot slot="cuisine-mid" />
 
           <div className="grid gap-3 mt-3">
-            {filtered.slice(10, 100).map((r, i) => (
+            {filtered.slice(10, 36).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 11} />
             ))}
           </div>
 
-          {filtered.length > 100 && (
+          {filtered.length > 36 && (
             <p className="mt-6 text-sm text-[var(--muted)]">
-              {filtered.length - 100} more restaurants — visit district pages to explore.
+              {filtered.length - 36} more restaurants —{" "}
+              {districts.length > 0 ? (
+                <>
+                  narrow by{" "}
+                  {districts.slice(0, 3).map((d, i) => (
+                    <span key={d[0]}>
+                      {i > 0 && ", "}
+                      <a href={`/c/${cuisine}/${d[0].toLowerCase().replace(/\s+/g, "-")}`} className="underline hover:text-[var(--accent)]">
+                        {d[0]}
+                      </a>
+                    </span>
+                  ))}
+                  .
+                </>
+              ) : (
+                "visit district pages to explore."
+              )}
             </p>
           )}
         </section>

@@ -120,7 +120,7 @@ export async function CuisineHubContent(
         )}
 
         <section>
-          <h2 className="text-xl font-bold mb-4">{copy.top(Math.min(filtered.length, 100))}</h2>
+          <h2 className="text-xl font-bold mb-4">{copy.top(Math.min(filtered.length, 36))}</h2>
           <div className="grid gap-3">
             {filtered.slice(0, 10).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 1} />
@@ -130,13 +130,13 @@ export async function CuisineHubContent(
           <AdSlot slot="cuisine-mid" />
 
           <div className="grid gap-3 mt-3">
-            {filtered.slice(10, 100).map((r, i) => (
+            {filtered.slice(10, 36).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 11} />
             ))}
           </div>
 
-          {filtered.length > 100 && (
-            <p className="mt-6 text-sm text-[var(--muted)]">{copy.more(filtered.length - 100)}</p>
+          {filtered.length > 36 && (
+            <p className="mt-6 text-sm text-[var(--muted)]">{copy.more(filtered.length - 36)}</p>
           )}
         </section>
 

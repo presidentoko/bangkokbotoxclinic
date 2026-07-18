@@ -14,7 +14,7 @@ export function ShareButton({
 }) {
   const [copied, setCopied] = useState(false);
 
-  const fullUrl = `https://www.snsstopper.com${url}`;
+  const fullUrl = `https://www.snsstopper.com${url}?utm_source=share&utm_medium=social`;
   const shareText = `${name} — Trust Score ${trustScore.toFixed(0)}, ★${rating.toFixed(1)} (${fullUrl})`;
 
   async function handleShare() {
@@ -22,13 +22,18 @@ export function ShareButton({
       try {
         await navigator.share({ title: name, text: shareText, url: fullUrl });
         return;
-      } catch {
-        // cancelled or not supported — fall through to copy
+      } catch (err) {
+        // User-dismissed the share sheet — respect that, don't fall through to copy.
+        if (err instanceof Error && err.name === "AbortError") return;
       }
     }
-    await navigator.clipboard.writeText(shareText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard permission denied — nothing more we can do
+    }
   }
 
   return (
@@ -58,7 +63,7 @@ export function GenericShareButton({
   label?: string;
 }) {
   const [copied, setCopied] = useState(false);
-  const fullUrl = `https://www.snsstopper.com${url}`;
+  const fullUrl = `https://www.snsstopper.com${url}?utm_source=share&utm_medium=social`;
   const shareText = `${text} ${fullUrl}`;
 
   async function handleShare() {
@@ -66,13 +71,17 @@ export function GenericShareButton({
       try {
         await navigator.share({ title, text, url: fullUrl });
         return;
-      } catch {
-        // cancelled or not supported — fall through to copy
+      } catch (err) {
+        if (err instanceof Error && err.name === "AbortError") return;
       }
     }
-    await navigator.clipboard.writeText(shareText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(shareText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard permission denied — nothing more we can do
+    }
   }
 
   return (
@@ -90,7 +99,7 @@ export function GenericShareButton({
 }
 
 export function WhatsAppShare({ name, url }: { name: string; url: string }) {
-  const fullUrl = `https://www.snsstopper.com${url}`;
+  const fullUrl = `https://www.snsstopper.com${url}?utm_source=share&utm_medium=whatsapp`;
   const text = encodeURIComponent(`Check out ${name} on SNS Stopper: ${fullUrl}`);
   return (
     <a
@@ -100,6 +109,21 @@ export function WhatsAppShare({ name, url }: { name: string; url: string }) {
       className="flex items-center gap-1.5 px-3 min-h-[44px] rounded-full border border-[var(--border)] text-xs text-[var(--muted)] hover:border-green-500 hover:text-green-600 transition font-medium"
     >
       WhatsApp
+    </a>
+  );
+}
+
+/** LINE is the dominant messaging app in Thailand — worth its own share button. */
+export function LineShare({ name, url }: { name: string; url: string }) {
+  const fullUrl = `https://www.snsstopper.com${url}?utm_source=share&utm_medium=line`;
+  return (
+    <a
+      href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(fullUrl)}&text=${encodeURIComponent(`Check out ${name} on SNS Stopper`)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-1.5 px-3 min-h-[44px] rounded-full border border-[var(--border)] text-xs text-[var(--muted)] hover:border-green-500 hover:text-green-600 transition font-medium"
+    >
+      LINE
     </a>
   );
 }

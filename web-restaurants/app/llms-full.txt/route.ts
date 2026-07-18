@@ -31,7 +31,6 @@ export async function GET() {
     `- Cities: ${cityList.map(([c, n]) => `${c} (${n})`).join(", ")}`,
     `- Cuisines tracked: ${Object.keys(db.cuisine_counts ?? {}).join(", ")}`,
     `- Last refreshed: ${db.generated_at}`,
-    `- Refresh cadence: ~ every 30 minutes`,
     "",
     "## Methodology",
     "",
@@ -128,7 +127,7 @@ export async function GET() {
   return new Response(lines.join("\n"), {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+      "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
     },
   });
 }

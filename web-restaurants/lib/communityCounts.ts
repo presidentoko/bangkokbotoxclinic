@@ -7,25 +7,36 @@ const listeners = new Map<string, Set<Listener>>();
 let pending = new Set<string>();
 let flushTimer: ReturnType<typeof setTimeout> | null = null;
 
+// Must match the API route's own idList cap (app/api/community/route.ts) —
+// requests past that limit were silently truncated server-side, leaving
+// every card beyond the 50th permanently stuck at zero counts.
+const CHUNK_SIZE = 50;
+
+async function fetchChunk(ids: string[]) {
+  try {
+    const res = await fetch(`/api/community?ids=${ids.map(encodeURIComponent).join(",")}`);
+    if (!res.ok) return;
+    const data = await res.json();
+    const counts: Record<string, Counts> = data.counts ?? {};
+    for (const id of ids) {
+      const c = counts[id];
+      if (!c) continue;
+      listeners.get(id)?.forEach((cb) => cb(c));
+    }
+  } catch {
+    // best-effort — cards just keep their optimistic/zero state
+  }
+}
+
 function scheduleFlush() {
   if (flushTimer) return;
-  flushTimer = setTimeout(async () => {
+  flushTimer = setTimeout(() => {
     flushTimer = null;
     const ids = Array.from(pending);
     pending = new Set();
     if (ids.length === 0) return;
-    try {
-      const res = await fetch(`/api/community?ids=${ids.map(encodeURIComponent).join(",")}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      const counts: Record<string, Counts> = data.counts ?? {};
-      for (const id of ids) {
-        const c = counts[id];
-        if (!c) continue;
-        listeners.get(id)?.forEach((cb) => cb(c));
-      }
-    } catch {
-      // best-effort — cards just keep their optimistic/zero state
+    for (let i = 0; i < ids.length; i += CHUNK_SIZE) {
+      fetchChunk(ids.slice(i, i + CHUNK_SIZE));
     }
   }, 40);
 }

@@ -1,6 +1,7 @@
 import { cityStaticParams, cityMetadata, CityHubContent } from "@/lib/hub/cityContent";
 import type { Metadata } from "next";
 
+export const dynamicParams = false;
 export const generateStaticParams = cityStaticParams;
 
 export async function generateMetadata(

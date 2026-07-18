@@ -79,17 +79,8 @@ export function AffiliateInline({ category, district }: {
   );
 }
 
-export function AdSlot({ slot }: { slot: string }) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-  if (!client) return null;
-  return (
-    <ins
-      className="adsbygoogle block my-4"
-      style={{ display: "block" }}
-      data-ad-client={client}
-      data-ad-slot={slot}
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    />
-  );
-}
+// Re-exported so existing `import { AffiliateInline, AdSlot } from
+// "@/components/AffiliateSlot"` call sites keep working unchanged — the
+// implementation moved to its own client component (needs to push({}) on
+// mount, which this file's other exports don't).
+export { AdSlot } from "./AdSlot";

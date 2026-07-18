@@ -18,6 +18,8 @@ export async function GET() {
     cuisines: r.cuisines,
   }));
   return NextResponse.json(entities, {
-    headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" },
+    headers: {
+      "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
+    },
   });
 }

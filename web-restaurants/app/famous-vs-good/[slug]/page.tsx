@@ -8,7 +8,7 @@ import {
 } from "@/lib/famous-vs-good";
 import { GapList } from "@/components/GapList";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
-import { GenericShareButton, WhatsAppShare } from "@/components/ShareButton";
+import { GenericShareButton, WhatsAppShare, LineShare } from "@/components/ShareButton";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -137,6 +137,7 @@ export default async function FamousVsGoodSlugPage(
             url={`/famous-vs-good/${slug}`}
           />
           <WhatsAppShare name={`${label} — Instagram Famous vs Actually Good`} url={`/famous-vs-good/${slug}`} />
+          <LineShare name={`${label} — Instagram Famous vs Actually Good`} url={`/famous-vs-good/${slug}`} />
         </div>
       </header>
 

@@ -94,11 +94,11 @@ export async function DistrictHubContent(
       </div>
       <AdSlot slot="district-mid" />
       <div className="grid gap-3 mt-3">
-        {filtered.slice(10, 200).map((r, i) => (
+        {filtered.slice(10, 36).map((r, i) => (
           <RestaurantCard key={r.id} r={r} rank={i + 11} />
         ))}
       </div>
-      {filtered.length > 200 && (
+      {filtered.length > 36 && (
         <p className="mt-6 text-sm text-[var(--muted)]">{copy.showingTop(filtered.length)}</p>
       )}
 

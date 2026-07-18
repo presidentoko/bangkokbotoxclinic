@@ -15,12 +15,14 @@ import { LazyPersonalized } from "@/components/LazyPersonalized";
 import { BEST_FOR } from "@/lib/bestFor";
 import { EmailSignup } from "@/components/EmailSignup";
 import { CommunityLeaderboard } from "@/components/CommunityLeaderboard";
+import { SurpriseMeButton } from "@/components/SurpriseMeButton";
+import { RecentlyViewedStrip } from "@/components/RecentlyViewedStrip";
 
 export const dynamic = "force-static";
 
 export default async function HomePage() {
   const db = await loadMasterDb();
-  const top = sortWithSponsored(topByTrust(db.restaurants, 50));
+  const top = sortWithSponsored(topByTrust(db.restaurants, 24));
 
   const totalReviews = db.restaurants.reduce((s, r) => s + r.total_reviews, 0);
   const withScraped = db.restaurants.filter((r) => r.scraped_review_count > 0).length;
@@ -84,6 +86,7 @@ export default async function HomePage() {
             >
               See full ranking →
             </a>
+            <SurpriseMeButton className="px-8 py-3.5 rounded-2xl border-2 border-[var(--border)] text-[var(--fg)] font-bold text-base hover:border-[var(--accent)] transition" />
           </div>
         </div>
       </section>
@@ -102,6 +105,8 @@ export default async function HomePage() {
         <OnboardingTrigger>
           <LazyPersonalized />
         </OnboardingTrigger>
+
+        <RecentlyViewedStrip />
 
         {/* SNS CHECK PROMO */}
         <section className="mb-12">
@@ -356,7 +361,7 @@ export default async function HomePage() {
         <section id="top-list">
           <div className="flex items-baseline justify-between gap-4 mb-5">
             <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-              Top {Math.min(top.length, 50)} by Trust Score
+              Top {Math.min(top.length, 24)} by Trust Score
             </h2>
           </div>
           <div className="grid gap-3">
@@ -368,7 +373,7 @@ export default async function HomePage() {
           <AffiliateInline />
 
           <div className="grid gap-3 mt-3">
-            {top.slice(10).map((r, i) => (
+            {top.slice(10, 24).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 11} />
             ))}
           </div>

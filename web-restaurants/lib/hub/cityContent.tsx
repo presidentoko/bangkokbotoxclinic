@@ -118,9 +118,9 @@ export async function CityHubContent(
       <AdSlot slot="city-mid" />
 
       <section>
-        <h2 className="text-xl font-bold mb-4">{copy.top(Math.min(filtered.length, 100))}</h2>
+        <h2 className="text-xl font-bold mb-4">{copy.top(Math.min(filtered.length, 36))}</h2>
         <div className="grid gap-3">
-          {filtered.slice(0, 100).map((r, i) => (
+          {filtered.slice(0, 36).map((r, i) => (
             <RestaurantCard key={r.id} r={r} rank={i + 1} />
           ))}
         </div>

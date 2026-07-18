@@ -88,10 +88,15 @@ export default async function CuisineDistrictPage(
       <AffiliateInline category={label} district={districtName} />
       <AdSlot slot="cuisine-district-mid" />
       <div className="grid gap-3 mt-3">
-        {filtered.slice(5).map((r, i) => (
+        {filtered.slice(5, 36).map((r, i) => (
           <RestaurantCard key={r.id} r={r} rank={i + 6} />
         ))}
       </div>
+      {filtered.length > 36 && (
+        <p className="mt-6 text-sm text-[var(--muted)]">
+          Showing top 36 of {filtered.length}.
+        </p>
+      )}
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

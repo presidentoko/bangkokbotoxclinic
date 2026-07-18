@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
 import { Logo } from "@/components/Logo";
 import { BottomNav } from "@/components/BottomNav";
-import { LangSwitcher } from "@/components/LangSwitcher";
-import { MobileMenu } from "@/components/MobileMenu";
+import { HeaderNav } from "@/components/HeaderNav";
 import { ClientFooter } from "@/components/ClientFooter";
 import { BackToTop } from "@/components/BackToTop";
 import { Analytics } from "@vercel/analytics/next";
@@ -100,6 +100,14 @@ export default async function RootLayout({
   return (
     <html lang="en" className={dmSerif.variable}>
       <body>
+        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
         <OrgJsonLd />
         <WebsiteJsonLd />
         <header className="border-b border-[var(--border)] bg-[var(--card)] sticky top-0 z-10 backdrop-blur-sm bg-white/95">
@@ -107,21 +115,7 @@ export default async function RootLayout({
             <a href="/" className="flex items-center hover:opacity-80 transition">
               <Logo accent={cfg.themeAccent} />
             </a>
-            <nav className="text-sm flex gap-4 md:gap-5 text-[var(--muted)] items-center">
-              <a href="/famous-vs-good" className="hover:text-[var(--fg)] font-medium text-[var(--accent)] hidden sm:inline">SNS Check</a>
-              <a href="/c/thai" className="hover:text-[var(--fg)] hidden md:inline">Thai</a>
-              <a href="/best/halal" className="hover:text-[var(--fg)] hidden md:inline">Best of</a>
-              <a href="/guide" className="hover:text-[var(--fg)] hidden lg:inline">Guides</a>
-              <a href="/about" className="hover:text-[var(--fg)] hidden md:inline">About</a>
-              <a
-                href="/for-restaurants"
-                className="px-3 py-1.5 rounded-full bg-[var(--fg)] text-white hover:opacity-80 text-xs font-bold hidden sm:inline-flex transition"
-              >
-                For owners →
-              </a>
-              <LangSwitcher />
-              <MobileMenu />
-            </nav>
+            <HeaderNav />
           </div>
         </header>
         <main className="pb-[calc(3.5rem+env(safe-area-inset-bottom))] sm:pb-0">{children}</main>

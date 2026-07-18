@@ -61,6 +61,22 @@ function normalizeName(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9฀-๿]/g, "").trim();
 }
 
+// Ratio of the shared leading substring over the shorter name — catches
+// branch-suffix variants ("After You Dessert Cafe" vs "...Cafe Thonglor")
+// and abbreviation variants ("Rocket Coffeebar S.12" vs "...at Lumphini")
+// that an exact-equality match misses.
+function commonPrefixRatio(a: string, b: string): number {
+  const max = Math.min(a.length, b.length);
+  let i = 0;
+  while (i < max && a[i] === b[i]) i++;
+  return max === 0 ? 0 : i / max;
+}
+
+function fuzzyNameMatch(seedName: string, candidateName: string): boolean {
+  if (seedName.length < 6 || candidateName.length < 6) return false;
+  return commonPrefixRatio(seedName, candidateName) >= 0.65;
+}
+
 function matchRestaurant(
   seed: IgSeedEntry,
   restaurants: Restaurant[]
@@ -71,16 +87,18 @@ function matchRestaurant(
   }
   const seedName = normalizeName(seed.name);
   const cityMatches = restaurants.filter((r) => r.city === seed.city);
-  const byName = cityMatches.find((r) => normalizeName(r.name) === seedName);
-  if (byName) return byName;
+  const exact = cityMatches.find((r) => normalizeName(r.name) === seedName);
+  if (exact) return exact;
+
+  const fuzzyCandidates = cityMatches.filter((r) =>
+    fuzzyNameMatch(seedName, normalizeName(r.name))
+  );
+  if (fuzzyCandidates.length === 0) return null;
   if (seed.district) {
-    const byNameDistrict = restaurants.find(
-      (r) =>
-        normalizeName(r.name) === seedName && r.district === seed.district
-    );
-    if (byNameDistrict) return byNameDistrict;
+    const sameDistrict = fuzzyCandidates.find((r) => r.district === seed.district);
+    if (sameDistrict) return sameDistrict;
   }
-  return null;
+  return fuzzyCandidates[0];
 }
 
 // ── Percentile-based threshold computation (Fix 1) ────────────────────────────
@@ -162,16 +180,23 @@ export async function loadHiddenGems(
   limit = 6
 ): Promise<Restaurant[]> {
   const [seeds, db] = await Promise.all([loadIgSeed(), loadMasterDb()]);
-  const inSeed = new Set(
-    seeds.filter((s) => s.category === slug).map((s) => s.place_id).filter(Boolean)
+  const categorySeeds = seeds.filter((s) => s.category === slug);
+  // Exclude by the actually-resolved restaurant id, not just seed.place_id —
+  // seeds with no place_id that still resolve via name matching must not be
+  // eligible to reappear here as a "hidden gem the feed ignores".
+  const matchedIds = new Set(
+    categorySeeds
+      .map((s) => matchRestaurant(s, db.restaurants))
+      .filter((r): r is Restaurant => r !== null)
+      .map((r) => r.id)
   );
-  const city = seeds.find((s) => s.category === slug)?.city ?? "bangkok";
+  const city = categorySeeds[0]?.city ?? "bangkok";
   return db.restaurants
     .filter(
       (r) =>
         r.city === city &&
         r.trust_score >= GAP_THRESHOLD_HIGH &&
-        !inSeed.has(r.place_id) &&
+        !matchedIds.has(r.id) &&
         (r.cuisines.includes("cafe") ||
           r.cuisines.includes("bakery") ||
           r.cuisines.includes("dessert"))

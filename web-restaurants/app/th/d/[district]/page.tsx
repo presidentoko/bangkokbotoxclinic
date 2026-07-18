@@ -1,6 +1,7 @@
 import { districtStaticParams, districtMetadata, DistrictHubContent } from "@/lib/hub/districtContent";
 import type { Metadata } from "next";
 
+export const dynamicParams = false;
 export const generateStaticParams = districtStaticParams;
 
 export async function generateMetadata(

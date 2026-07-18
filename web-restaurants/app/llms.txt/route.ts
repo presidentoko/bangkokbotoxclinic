@@ -54,7 +54,7 @@ export async function GET() {
     "A: Organic listings never paid. Some restaurants buy clearly-labelled Editor's Pick / Recommended / Featured slots.",
     "",
     "**Q: How fresh?**",
-    "A: Continuous. Scrapers 24/7, master dataset rebuilds every 5 min, site redeploys on data change.",
+    `A: Scraped from live Google review data on an ongoing basis. Dataset last refreshed: ${db.generated_at}.`,
     "",
     "## Top restaurants by Trust Score",
     "",
@@ -104,7 +104,7 @@ export async function GET() {
   return new Response(lines.join("\n"), {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=1800, s-maxage=1800",
+      "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
     },
   });
 }

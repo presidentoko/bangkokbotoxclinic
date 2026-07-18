@@ -42,27 +42,6 @@ export function SponsoredBadge({ id }: { id: string }) {
   );
 }
 
-export function Freshness({ generatedAt, mode = "card" }: {
-  generatedAt: string;
-  mode?: "card" | "detail";
-}) {
-  const ago = relativeTimeFromIso(generatedAt);
-  if (mode === "card") {
-    return (
-      <span className="inline-flex items-center gap-1 text-[11px] text-[var(--muted)]">
-        <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
-        Updated {ago}
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex items-center gap-2 text-xs text-[var(--muted)] bg-white px-3 py-1 rounded-full border border-[var(--border)]">
-      <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-      Last updated {ago}
-    </span>
-  );
-}
-
 export function RelativeRanking({ percentile, label }: {
   percentile: number;
   label: string;
@@ -79,6 +58,9 @@ export function RelativeRanking({ percentile, label }: {
   );
 }
 
+// Kept here so Freshness.tsx (a client component, since it must compute
+// relative time at view time rather than baking it into force-static HTML)
+// can import it without pulling client-only code into this server file.
 export function relativeTimeFromIso(iso: string): string {
   const then = new Date(iso).getTime();
   if (isNaN(then)) return "recently";

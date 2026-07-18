@@ -33,23 +33,11 @@ function getLocaleFromAcceptLanguage(req: NextRequest): Locale | null {
 }
 
 export function middleware(req: NextRequest) {
-  const { pathname, host, protocol } = req.nextUrl;
+  const { pathname } = req.nextUrl;
 
-  // www 통일 — non-www → www 301
-  if (host === "snsstopper.com") {
-    const url = req.nextUrl.clone();
-    url.host = "www.snsstopper.com";
-    return NextResponse.redirect(url, 301);
-  }
-
-  // Skip static files, API, Next internals
-  if (
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/api") ||
-    pathname.includes(".") // static assets
-  ) {
-    return NextResponse.next();
-  }
+  // www unification is handled at the Vercel domain level (apex -> www, 308) —
+  // do not duplicate it here, it would cost a Fluid Function invocation on
+  // every request for a redirect that already happens at the edge.
 
   // Skip bots — serve URL as-is, no redirect
   const ua = req.headers.get("user-agent") ?? "";
@@ -68,32 +56,38 @@ export function middleware(req: NextRequest) {
     return res;
   }
 
-  // Root or non-locale path — check cookie first, then Accept-Language
-  if (pathname === "/") {
-    const cookieLocale = getLocaleFromCookie(req);
-    if (cookieLocale) {
-      return NextResponse.redirect(new URL(`/${cookieLocale}`, req.url), 302);
-    }
-    // User explicitly chose English — respect it, skip Accept-Language redirect
-    if (req.cookies.get(COOKIE)?.value === "en") {
-      return NextResponse.next();
-    }
-    const acceptLocale = getLocaleFromAcceptLanguage(req);
-    if (acceptLocale) {
-      // First-time visitor auto-detect — set cookie and redirect
-      const res = NextResponse.redirect(new URL(`/${acceptLocale}`, req.url), 302);
-      res.cookies.set(COOKIE, acceptLocale, {
-        path: "/",
-        maxAge: COOKIE_MAX_AGE,
-        sameSite: "lax",
-      });
-      return res;
-    }
+  // Root path — check cookie first, then Accept-Language
+  const cookieLocale = getLocaleFromCookie(req);
+  if (cookieLocale) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${cookieLocale}`;
+    return NextResponse.redirect(url, 302);
+  }
+  // User explicitly chose English — respect it, skip Accept-Language redirect
+  if (req.cookies.get(COOKIE)?.value === "en") {
+    return NextResponse.next();
+  }
+  const acceptLocale = getLocaleFromAcceptLanguage(req);
+  if (acceptLocale) {
+    // First-time visitor auto-detect — set cookie and redirect
+    const url = req.nextUrl.clone();
+    url.pathname = `/${acceptLocale}`;
+    const res = NextResponse.redirect(url, 302);
+    res.cookies.set(COOKIE, acceptLocale, {
+      path: "/",
+      maxAge: COOKIE_MAX_AGE,
+      sameSite: "lax",
+    });
+    return res;
   }
 
   return NextResponse.next();
 }
 
+// Only the root and locale-prefixed paths need this logic — every other
+// route (restaurant/c/d/city/best/guide/famous-vs-good, ~8k prebuilt pages)
+// must never invoke middleware at all; that was the single largest source
+// of Fluid Active CPU usage on the hobby plan.
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/", "/th", "/th/:path*", "/ko", "/ko/:path*"],
 };

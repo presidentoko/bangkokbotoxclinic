@@ -2,15 +2,21 @@
 
 import type { Restaurant } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
+import { CUISINE_LABELS } from "@/lib/types";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const BRAND = getSiteConfig().brand;
 
 function tag(data: object) {
+  // Scraped restaurant names are third-party data and can contain "<" or a
+  // literal "</script>" sequence — unescaped, that terminates the script tag
+  // early and lets the rest render as markup. < is valid inside a JSON
+  // string and can't break out of the surrounding <script> element.
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }
@@ -57,8 +63,10 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
+    "@id": `${SITE}/restaurant/${r.id}`,
     name: r.name,
     url: `${SITE}/restaurant/${r.id}`,
+    image: `${SITE}/restaurant/${r.id}/opengraph-image`,
     address: {
       "@type": "PostalAddress",
       streetAddress: r.address,
@@ -84,7 +92,7 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
   if (r.website) sameAs.push(r.website);
   if (r.maps_url) sameAs.push(r.maps_url);
   if (sameAs.length) data.sameAs = sameAs;
-  if (r.cuisines.length > 0) data.servesCuisine = r.cuisines;
+  if (r.cuisines.length > 0) data.servesCuisine = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c);
   // No `review` block: those review bodies are scraped from Google, not collected
   // on this site — republishing them as our own Review markup risks a Google
   // review-snippet policy violation / manual action.

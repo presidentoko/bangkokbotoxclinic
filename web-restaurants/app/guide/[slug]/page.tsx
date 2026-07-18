@@ -181,7 +181,7 @@ export default async function GuidePage(
       <FaqJsonLd faqs={g.faqs} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema).replace(/</g, "\\u003c") }}
       />
     </article>
   );

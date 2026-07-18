@@ -31,7 +31,7 @@ export async function GET() {
     <title>${BRAND} — Top by Trust Score</title>
     <link>${SITE}</link>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Top Bangkok and Pattaya restaurants ranked by Trust Score from real Google review analysis. Refreshed every 30 minutes.</description>
+    <description>Top Bangkok and Pattaya restaurants ranked by Trust Score from real Google review analysis. Dataset last refreshed ${updated}.</description>
     <language>en-US</language>
     <lastBuildDate>${updated}</lastBuildDate>
     ${items}
@@ -41,7 +41,7 @@ export async function GET() {
   return new Response(xml, {
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
-      "Cache-Control": "public, max-age=1800, s-maxage=1800",
+      "Cache-Control": "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800",
     },
   });
 }

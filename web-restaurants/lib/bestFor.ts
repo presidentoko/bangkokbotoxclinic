@@ -144,20 +144,6 @@ export const BEST_FOR: Criterion[] = [
       r.cuisines.includes("fine_dining"),
   },
   {
-    slug: "outdoor-seating",
-    title: "Bangkok Restaurants with Outdoor Seating",
-    metaTitle: "Best Bangkok Restaurants with Outdoor Seating (2026)",
-    metaDescription:
-      "Bangkok restaurants with verified outdoor seating, garden areas, or alfresco dining. Ranked by reviewer mentions.",
-    intro:
-      "Bangkok restaurants with outdoor seating — garden terraces, rooftop decks, or alfresco areas. Reviewers mention outdoor experience most.",
-    scoreFn: (r) =>
-      topicHits(r, "outdoor_seating") * 12 +
-      topicHits(r, "good_view") * 4 +
-      r.trust_score,
-    filterFn: (r) => topicHits(r, "outdoor_seating") >= 1,
-  },
-  {
     slug: "quick-lunch",
     title: "Best Quick Lunch Spots in Bangkok",
     metaTitle: "Best Quick Lunch Restaurants in Bangkok (2026)",
@@ -170,19 +156,6 @@ export const BEST_FOR: Criterion[] = [
       topicHits(r, "affordable") * 4 +
       r.trust_score,
     filterFn: (r) => topicHits(r, "fast_service") >= 1,
-  },
-  {
-    slug: "late-night",
-    title: "Best Late Night Restaurants in Bangkok",
-    metaTitle: "Best Late Night Food in Bangkok (2026) — Open Late",
-    metaDescription:
-      "Bangkok restaurants open late, verified from real reviews. From street-food-style to upscale late-night dining.",
-    intro:
-      "Bangkok restaurants open after 10pm — verified by reviewer mentions of late hours, night crowd, or after-midnight dining.",
-    scoreFn: (r) =>
-      topicHits(r, "open_late") * 15 +
-      r.trust_score,
-    filterFn: (r) => topicHits(r, "open_late") >= 1,
   },
   {
     slug: "hidden-gems",
@@ -267,20 +240,6 @@ export const BEST_FOR: Criterion[] = [
       topicHits(r, "michelin") * 30 +
       r.trust_score * 2,
     filterFn: (r) => topicHits(r, "michelin") >= 1,
-  },
-  {
-    slug: "pet-friendly",
-    title: "Pet-Friendly Restaurants in Bangkok",
-    metaTitle: "Pet-Friendly Bangkok Restaurants (2026) — Dogs Welcome",
-    metaDescription:
-      "Bangkok restaurants where dogs and pets are welcome — verified from real Google reviews. Perfect for expats and pet owners.",
-    intro:
-      "Bangkok restaurants and cafés where reviewers mention bringing dogs or pets. Outdoor seating and pet water bowls are common features.",
-    scoreFn: (r) =>
-      topicHits(r, "pet_friendly") * 15 +
-      topicHits(r, "outdoor_seating") * 5 +
-      r.trust_score,
-    filterFn: (r) => topicHits(r, "pet_friendly") >= 1,
   },
   {
     slug: "views",

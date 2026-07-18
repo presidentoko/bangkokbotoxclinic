@@ -1,19 +1,23 @@
 "use client";
 import { useState } from "react";
+import { useLocale } from "@/hooks/useLocale";
+import { strings, tr } from "@/lib/strings";
+import { localizedHubHref } from "@/lib/localizedHref";
 
 const LINKS = [
-  { href: "/famous-vs-good", label: "SNS Check" },
-  { href: "/best/halal", label: "Best of" },
-  { href: "/guide", label: "Guides" },
-  { href: "/c/thai", label: "Browse cuisines" },
-  { href: "/saved", label: "Saved restaurants" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/for-restaurants", label: "For owners" },
+  { href: "/famous-vs-good", label: strings.common.snsCheck },
+  { href: "/best/halal", label: strings.common.bestOf },
+  { href: "/guide", label: strings.common.guides },
+  { href: "/c/thai", label: strings.common.thai },
+  { href: "/saved", label: strings.bottomNav.saved },
+  { href: "/about", label: strings.common.about },
+  { href: "/contact", label: strings.common.contact },
+  { href: "/for-restaurants", label: strings.common.forRestaurants },
 ];
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const locale = useLocale();
 
   return (
     <>
@@ -44,11 +48,11 @@ export function MobileMenu() {
               {LINKS.map((l) => (
                 <a
                   key={l.href}
-                  href={l.href}
+                  href={localizedHubHref(l.href, locale)}
                   onClick={() => setOpen(false)}
                   className="min-h-[48px] flex items-center px-3 rounded-xl text-[var(--fg)] font-medium hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition"
                 >
-                  {l.label}
+                  {tr(l.label, locale)}
                 </a>
               ))}
             </nav>

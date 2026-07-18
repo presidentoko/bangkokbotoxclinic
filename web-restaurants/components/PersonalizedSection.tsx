@@ -19,7 +19,9 @@ export function PersonalizedSection({ restaurants }: { restaurants: SlimRestaura
   useEffect(() => {
     try {
       const raw = localStorage.getItem("snsstopper_prefs");
-      if (raw) setPrefs(JSON.parse(raw));
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.cuisines)) setPrefs(parsed);
     } catch {}
   }, []);
 

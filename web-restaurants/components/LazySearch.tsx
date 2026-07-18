@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { HeroSearch } from "./HeroSearch";
 import type { SearchableEntity } from "./SearchBar";
+import { fetchSearchIndex } from "@/lib/searchIndexClient";
 
 // Fetches the search index client-side instead of receiving all 3,630
 // restaurants as an inline prop — keeps them out of the page's RSC payload.
@@ -20,10 +21,7 @@ export function LazySearch(props: {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/search-index")
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data) => { if (!cancelled) setEntities(data); })
-      .catch(() => {});
+    fetchSearchIndex().then((data) => { if (!cancelled) setEntities(data); });
     return () => { cancelled = true; };
   }, []);
 

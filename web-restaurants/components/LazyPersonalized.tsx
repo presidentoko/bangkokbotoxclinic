@@ -1,28 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import { PersonalizedSection } from "./PersonalizedSection";
-
-type SlimRestaurant = {
-  id: string;
-  name: string;
-  district: string;
-  city_label: string;
-  rating: number;
-  trust_score: number;
-  cuisines: string[];
-};
+import { fetchSearchIndex, type SearchIndexEntity } from "@/lib/searchIndexClient";
 
 // Fetches the same search index instead of receiving all 3,630 restaurants
 // as an inline prop — keeps them out of the page's RSC payload.
 export function LazyPersonalized() {
-  const [restaurants, setRestaurants] = useState<SlimRestaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<SearchIndexEntity[]>([]);
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/search-index")
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data) => { if (!cancelled) setRestaurants(data); })
-      .catch(() => {});
+    fetchSearchIndex().then((data) => { if (!cancelled) setRestaurants(data); });
     return () => { cancelled = true; };
   }, []);
 

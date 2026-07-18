@@ -7,15 +7,18 @@ import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
-import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
+import { AIVerifiedBadge, SponsoredBadge, RelativeRanking } from "@/components/Badges";
+import { Freshness } from "@/components/Freshness";
+import { RecentlyViewedTracker } from "@/components/RecentlyViewedTracker";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import type { Metadata } from "next";
 import { loadIgSeed } from "@/lib/famous-vs-good";
-import { ShareButton, WhatsAppShare } from "@/components/ShareButton";
+import { ShareButton, WhatsAppShare, LineShare } from "@/components/ShareButton";
 import { EmailSignup } from "@/components/EmailSignup";
 import { SaveButton } from "@/components/SaveButton";
 import { CommunityButtons } from "@/components/CommunityButtons";
+import { RestaurantCard } from "@/components/RestaurantCard";
 
 export const dynamic = "force-static";
 // All valid ids are enumerated below at build time — reject anything else at
@@ -40,9 +43,12 @@ export async function generateMetadata(
   const city = r.city_label || "Bangkok";
   const place = r.district ? `${r.district}, ${city}` : city;
   const kind = primaryCuisine ? `${primaryCuisine} Restaurant` : "Restaurant";
-  // Lead with the keywords people actually search — name, cuisine, area, "menu"/"reviews" —
-  // instead of burying them behind our own "Trust Score" jargon.
-  const title = `${r.name} — ${kind} in ${place} | Menu, Reviews & Trust Score`;
+  // Lead with the keywords people actually search — name, cuisine, area —
+  // instead of burying them behind our own "Trust Score" jargon. The layout
+  // title template already appends "| SNS Stopper"; don't add a second pipe
+  // segment here or every restaurant page's <title> runs ~95+ chars and gets
+  // truncated in the SERP.
+  const title = `${r.name} — ${kind} in ${place}`;
   const description = `${r.name}, a ${cuisines || "restaurant"} spot in ${place}. Trust Score ${r.trust_score.toFixed(0)}/100 from ${r.total_reviews.toLocaleString()} real Google reviews — no influencer bias, just the data.`;
   return {
     title,
@@ -110,7 +116,7 @@ export default async function RestaurantPage(
   const seenIds = new Set<string>();
   function addFrom(pool: Restaurant[]) {
     for (const o of [...pool].sort((a, b) => b.trust_score - a.trust_score)) {
-      if (similar.length >= 4) break;
+      if (similar.length >= 8) break;
       if (seenIds.has(o.id)) continue;
       similar.push(o);
       seenIds.add(o.id);
@@ -126,6 +132,7 @@ export default async function RestaurantPage(
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 pb-28 sm:pb-8">
+      <RecentlyViewedTracker id={r.id} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         <span className="mx-2">›</span>
@@ -189,6 +196,7 @@ export default async function RestaurantPage(
           <Freshness generatedAt={db.generated_at} mode="detail" />
           <ShareButton name={r.name} rating={r.rating} trustScore={r.trust_score} url={`/restaurant/${r.id}`} />
           <WhatsAppShare name={r.name} url={`/restaurant/${r.id}`} />
+          <LineShare name={r.name} url={`/restaurant/${r.id}`} />
           <SaveButton id={r.id} />
         </div>
 
@@ -332,6 +340,27 @@ export default async function RestaurantPage(
             </section>
           )}
 
+          {similar.length > 0 && (
+            <section>
+              <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
+                <h2 className="text-lg font-bold">More like this</h2>
+                {r.district && r.cuisines[0] && (
+                  <a
+                    href={`/c/${r.cuisines[0]}/${r.district.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="text-sm text-[var(--accent)] font-medium hover:underline"
+                  >
+                    All {CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]} in {r.district} →
+                  </a>
+                )}
+              </div>
+              <div className="grid gap-3">
+                {similar.map((s, i) => (
+                  <RestaurantCard key={s.id} r={s} rank={i + 1} />
+                ))}
+              </div>
+            </section>
+          )}
+
           <AdSlot slot="restaurant-detail-mid" />
 
           <section className="grid sm:grid-cols-2 gap-3">
@@ -400,36 +429,9 @@ export default async function RestaurantPage(
           </div>
 
           <EmailSignup variant="inline" />
-          <AffiliateInline category={r.cuisines[0]} district={r.district} />
+          <AffiliateInline category={r.cuisines[0] ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : undefined} district={r.district} />
           <AdSlot slot="restaurant-sidebar" />
 
-          {similar.length > 0 && (
-            <div className="bg-white border border-[var(--border)] rounded-xl p-4">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)] mb-3">
-                Similar restaurants
-              </h3>
-              <div className="space-y-2">
-                {similar.map((s) => (
-                  <a key={s.id} href={`/restaurant/${s.id}`} className="block group">
-                    <div className="font-medium text-sm group-hover:text-[var(--accent)] truncate transition">
-                      {s.name}
-                    </div>
-                    <div className="text-xs text-[var(--muted)] flex items-center gap-2">
-                      <span>{s.district || s.city_label}</span>
-                      <span>·</span>
-                      <span>★ {s.rating.toFixed(1)}</span>
-                      <span>·</span>
-                      <span className="font-medium" style={{
-                        color: s.trust_score >= 75 ? "#16a34a" : s.trust_score >= 60 ? "#059669" : "#ca8a04"
-                      }}>
-                        Trust {s.trust_score.toFixed(0)}
-                      </span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
           {seedMatch && (
             <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
               <p className="text-xs font-semibold text-orange-800 mb-1">In the SNS ranking</p>
@@ -461,6 +463,8 @@ export default async function RestaurantPage(
             📞 Call
           </a>
         )}
+        <SaveButton id={r.id} className="min-h-[44px]" />
+        <ShareButton name={r.name} rating={r.rating} trustScore={r.trust_score} url={`/restaurant/${r.id}`} />
       </div>
 
       <RestaurantJsonLd r={r} />
