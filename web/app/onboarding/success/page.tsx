@@ -29,21 +29,11 @@ export default async function OnboardingSuccessPage({
         </p>
         <ul className="mt-4 space-y-1.5 text-sm text-emerald-800">
           <li>✓ Dashboard access confirmed and activated</li>
-          <li>✓ LINE bot wiring — we&apos;ll send setup instructions</li>
           <li>✓ Your first 30 days are free, no card needed</li>
         </ul>
       </div>
       <p className="text-sm text-[var(--muted)] mb-6">
-        Questions? Reach us on{" "}
-        <a
-          href="https://line.me/R/ti/p/@405zhjqb"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-bold underline"
-        >
-          LINE @405zhjqb
-        </a>{" "}
-        or email{" "}
+        Questions? Email{" "}
         <a href="mailto:hello@bkkclinics.com" className="font-bold underline">
           hello@bkkclinics.com
         </a>

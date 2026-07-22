@@ -1,4 +1,5 @@
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BookingForm } from "@/components/BookingForm";
 import type { Metadata } from "next";
 
 const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg";
@@ -20,7 +21,7 @@ export default function ContactPage() {
 
       <h1 className="text-4xl font-bold tracking-tight mb-3">Contact</h1>
       <p className="text-base text-[var(--muted)] mb-8 leading-relaxed">
-        For partnerships, data corrections, press, or general questions, email us. We typically respond within 24 hours.
+        For partnerships, data corrections, press, or general questions, send us a message below. We typically respond within 24 hours.
       </p>
 
       <div className="space-y-3 mb-8">
@@ -46,19 +47,11 @@ export default function ContactPage() {
         />
       </div>
 
-      <div className="bg-white border border-[var(--border)] rounded-xl p-6">
-        <h2 className="font-bold text-lg mb-2">Email us</h2>
-        <p className="text-sm text-[var(--muted)] mb-4">
-          Include the relevant clinic name or page URL when applicable.
-        </p>
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="inline-flex items-center gap-2 bg-black text-white py-3 px-5 rounded-lg font-bold hover:bg-gray-800 text-base"
-        >
-          <span aria-hidden>✉</span>
-          {CONTACT_EMAIL}
-        </a>
-      </div>
+      <BookingForm defaultService="consult" />
+
+      <p className="text-xs text-[var(--muted)] mt-6 text-center">
+        Prefer email? <a href={`mailto:${CONTACT_EMAIL}`} className="underline hover:text-black">{CONTACT_EMAIL}</a>
+      </p>
 
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },

@@ -74,7 +74,7 @@ export default async function PayPage({
       />
 
       <div className="mt-6 text-center text-xs text-[var(--muted)]">
-        Questions? <a href="https://line.me/R/ti/p/@405zhjqb" target="_blank" rel="noopener noreferrer" className="font-bold underline">LINE us</a> or email <a href="mailto:billing@bkkclinics.com" className="font-bold underline">billing@bkkclinics.com</a>
+        Questions? Email <a href="mailto:billing@bkkclinics.com" className="font-bold underline">billing@bkkclinics.com</a>
       </div>
     </div>
   );

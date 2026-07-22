@@ -11,12 +11,10 @@ import dynamic from "next/dynamic";
 // ── Layout (모든 페이지) ─────────────────────────────────────
 export const PersonalizationQuiz = dynamic(() => import("./PersonalizationQuiz"), { ssr: false });
 export const SocialProofToasts = dynamic(() => import("./SocialProofToasts"), { ssr: false });
-export const LiveChatBubble = dynamic(() => import("./LiveChatBubble"), { ssr: false });
 export const CookieConsent = dynamic(() => import("./CookieConsent"), { ssr: false });
 export const MobileBottomNav = dynamic(() => import("./MobileBottomNav"), { ssr: false });
 export const DealsAlert = dynamic(() => import("./DealsAlert"), { ssr: false });
 export const ExitIntentPopup = dynamic(() => import("./ExitIntentPopup"), { ssr: false });
-export const WhatsAppCTA = dynamic(() => import("./WhatsAppCTA"), { ssr: false });
 export const AccessibilityToolbar = dynamic(() => import("./AccessibilityToolbar"), { ssr: false });
 export const ScrollToTopButton = dynamic(() => import("./ScrollToTopButton"), { ssr: false });
 export const ReadingProgressBar = dynamic(() => import("./ReadingProgressBar"), { ssr: false });

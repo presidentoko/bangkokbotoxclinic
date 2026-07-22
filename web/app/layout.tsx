@@ -5,15 +5,14 @@ import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig, getSiteUrl } from "@/lib/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToastProvider } from "@/components/Toast";
-import NewsletterSignup from "@/components/NewsletterSignup";
 import SisterSites from "@/components/SisterSites";
 import { CurrencyProvider } from "@/components/CurrencyConverter";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // Hydration-after 위젯들 — initial HTML 에서 제외. components/LazyWidgets.tsx 참고.
 import {
-  LiveChatBubble, CookieConsent,
-  MobileBottomNav, WhatsAppCTA,
+  CookieConsent,
+  MobileBottomNav,
   AccessibilityToolbar, ScrollToTopButton, ReadingProgressBar, NavSpacer,
 } from "@/components/LazyWidgets";
 
@@ -115,45 +114,26 @@ export default function RootLayout({
         <SisterSites focus={cfg.focus} />
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
-            <div className="mb-8">
-              <NewsletterSignup focus={cfg.focus} />
-            </div>
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
-              <div className="flex-1">
-                <div className="flex flex-wrap gap-x-8 gap-y-3 mb-3">
-                  <a href="/about" className="hover:text-black">About</a>
-                  <a href="/insights" className="hover:text-black">Market Insights</a>
-                  <a href="/contact" className="hover:text-black">Contact</a>
-                  <a href="https://www.bangkoktopclinic.com/?ref=footer" target="_blank" rel="noopener" className="hover:text-black">For Clinics</a>
-                  <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
-                  <a href="/llms.txt" className="hover:text-black">llms.txt</a>
-                </div>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 text-xs">
-                  <span className="font-semibold text-[var(--fg)]">Legal:</span>
-                  <a href="/terms" className="hover:text-black">Terms</a>
-                  <a href="/privacy" className="hover:text-black">Privacy</a>
-                  <a href="/disclaimer" className="hover:text-black">Disclaimer</a>
-                  <a href="/methodology" className="hover:text-black">Methodology</a>
-                  <a href="/corrections" className="hover:text-black">Corrections</a>
-                </div>
-                <p className="text-xs leading-relaxed max-w-2xl">
-                  Independent review aggregation. Not affiliated with any clinic. Rankings, Trust Scores, and authenticity estimates are automated opinion based on public data — not statements of fact. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
-                </p>
+            <div className="mb-6">
+              <div className="flex flex-wrap gap-x-8 gap-y-3 mb-3">
+                <a href="/about" className="hover:text-black">About</a>
+                <a href="/insights" className="hover:text-black">Market Insights</a>
+                <a href="/contact" className="hover:text-black">Contact</a>
+                <a href="https://www.bangkoktopclinic.com/?ref=footer" target="_blank" rel="noopener" className="hover:text-black">For Clinics</a>
+                <a href="/sitemap.xml" className="hover:text-black">Sitemap</a>
+                <a href="/llms.txt" className="hover:text-black">llms.txt</a>
               </div>
-              <a
-                href="https://line.me/R/ti/p/@405zhjqb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 shrink-0 rounded-lg border border-[var(--border)] px-3 py-2 hover:bg-[var(--bg-soft,#f7f7f7)]"
-                aria-label="Contact us via LINE @405zhjqb"
-              >
-                <img src="/line-qr.jpg" alt="LINE QR @405zhjqb" width={72} height={72} className="rounded" />
-                <div className="text-xs leading-tight">
-                  <div className="font-semibold text-black">Contact via LINE</div>
-                  <div className="text-[var(--muted)]">@405zhjqb</div>
-                  <div className="text-[10px] text-[var(--muted)] mt-1">Scan or tap to chat</div>
-                </div>
-              </a>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mb-4 text-xs">
+                <span className="font-semibold text-[var(--fg)]">Legal:</span>
+                <a href="/terms" className="hover:text-black">Terms</a>
+                <a href="/privacy" className="hover:text-black">Privacy</a>
+                <a href="/disclaimer" className="hover:text-black">Disclaimer</a>
+                <a href="/methodology" className="hover:text-black">Methodology</a>
+                <a href="/corrections" className="hover:text-black">Corrections</a>
+              </div>
+              <p className="text-xs leading-relaxed max-w-2xl">
+                Independent review aggregation. Not affiliated with any clinic. Rankings, Trust Scores, and authenticity estimates are automated opinion based on public data — not statements of fact. Data sourced from public Google Maps listings, refreshed continuously. Sponsored slots are clearly labelled and never replace organic results.
+              </p>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-[var(--muted)]">
               <p>© {new Date().getFullYear()} {cfg.brand} · Independent directory, not affiliated with any clinic.</p>
@@ -161,8 +141,6 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
-        <LiveChatBubble />
-        <WhatsAppCTA />
         <MobileBottomNav />
         <AccessibilityToolbar />
         <ScrollToTopButton />

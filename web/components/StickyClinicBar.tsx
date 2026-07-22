@@ -3,25 +3,14 @@
 import { useState } from "react";
 import { BookingForm } from "./BookingForm";
 
-// 사이트 공용 LINE OA — LineButton.tsx/app/layout.tsx 푸터와 동일 계정.
-const SITE_LINE_OA = "405zhjqb";
-
 export function StickyClinicBar({
   clinicName,
   phone,
-  lineId,
 }: {
   clinicName: string;
   phone?: string;
-  lineId?: string | null;
 }) {
   const [open, setOpen] = useState(false);
-
-  // 클리닉 자체 LINE 없으면(거의 항상) 사이트 OA로 클리닉명 prefill —
-  // 예전엔 lineId 없으면 LINE 버튼 자체가 안 뜸 (2026-07-17 감사).
-  const lineDeepLink = lineId
-    ? `https://line.me/R/ti/p/@${encodeURIComponent(lineId.replace(/^@/, ""))}`
-    : `https://line.me/R/oaMessage/@${SITE_LINE_OA}/?${encodeURIComponent(`I'm interested in ${clinicName}`)}`;
 
   return (
     <>
@@ -38,16 +27,6 @@ export function StickyClinicBar({
                 className="flex items-center gap-1.5 px-3 py-2.5 rounded-lg border border-[var(--border)] text-sm hover:bg-gray-50 transition"
               >
                 📞 <span className="hidden sm:inline">Call</span>
-              </a>
-            )}
-            {lineDeepLink && (
-              <a
-                href={lineDeepLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2.5 rounded-lg border border-[var(--border)] text-sm hover:bg-gray-50 transition"
-              >
-                💬 <span className="hidden sm:inline">LINE</span>
               </a>
             )}
             <button

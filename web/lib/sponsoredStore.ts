@@ -23,9 +23,14 @@ function envFallback(): SponsoredMap {
 async function redisGet(): Promise<SponsoredMap | null> {
   if (!UPSTASH_URL || !UPSTASH_TOKEN) return null;
   try {
+    // cache: "no-store" 였던 걸 revalidate로 교체 — 이 fetch가 clinic/[id]와
+    // 홈페이지 render path에 있어서, no-store 하나가 Next.js 전체 라우트를
+    // 강제로 동적 렌더링(ƒ)시켜 6,900+ 클리닉 페이지 + 홈페이지가 매 요청마다
+    // 캐싱 없이 풀 렌더링되던 중 (Vercel Hobby Fluid CPU/Origin Transfer 한도
+    // 초과 원인, 2026-07-22 감사). 어드민 스폰서 변경은 5분 내 반영되면 충분.
     const res = await fetch(`${UPSTASH_URL}/get/${REDIS_KEY}`, {
       headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
-      cache: "no-store",
+      next: { revalidate: 300 },
     });
     if (!res.ok) return null;
     const j = (await res.json()) as { result?: string | null };

@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { loadMasterDb, getAllDoctors, getDoctorByCompositeSlug, makeCompositeDoctorSlug } from "@/lib/data";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
-import { LineButton } from "@/components/LineButton";
 import { BookingForm } from "@/components/BookingForm";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
@@ -289,8 +288,7 @@ export default async function DoctorPage(
         {/* Sidebar */}
         <aside className="lg:sticky lg:top-4 lg:self-start space-y-4">
           <div className="bg-white border border-[var(--border)] rounded-xl p-4">
-            <LineButton clinicName={c.name} phone={c.phone} size="lg" />
-            <p className="text-[11px] text-[var(--muted)] mt-2 text-center">
+            <p className="text-[11px] text-[var(--muted)] text-center">
               Specifically request <strong>Dr. {d.name}</strong> when booking.
             </p>
           </div>

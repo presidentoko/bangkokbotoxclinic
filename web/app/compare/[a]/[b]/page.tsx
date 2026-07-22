@@ -3,7 +3,6 @@ import { loadMasterDb, getClinicById } from "@/lib/data";
 import { CATEGORY_LABELS, TOPIC_LABELS, type Clinic } from "@/lib/types";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
-import { LineButton } from "@/components/LineButton";
 import { getSiteUrl, safeEncodeURIComponent } from "@/lib/site";
 import type { Metadata } from "next";
 
@@ -152,11 +151,23 @@ export default async function ComparePage(
       <div className="grid sm:grid-cols-2 gap-3 mb-8">
         <div>
           <h3 className="text-sm font-semibold mb-2">{ca.name}</h3>
-          <LineButton clinicName={ca.name} phone={ca.phone} size="lg" />
+          <a
+            href={`/clinic/${ca.id}`}
+            className="inline-flex items-center justify-center gap-2 rounded-lg font-bold py-2.5 px-4 text-sm text-white hover:opacity-90 transition"
+            style={{ background: "var(--accent)" }}
+          >
+            Book Consultation →
+          </a>
         </div>
         <div>
           <h3 className="text-sm font-semibold mb-2">{cb.name}</h3>
-          <LineButton clinicName={cb.name} phone={cb.phone} size="lg" />
+          <a
+            href={`/clinic/${cb.id}`}
+            className="inline-flex items-center justify-center gap-2 rounded-lg font-bold py-2.5 px-4 text-sm text-white hover:opacity-90 transition"
+            style={{ background: "var(--accent)" }}
+          >
+            Book Consultation →
+          </a>
         </div>
       </div>
 

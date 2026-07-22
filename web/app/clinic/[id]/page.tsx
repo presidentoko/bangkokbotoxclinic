@@ -9,7 +9,6 @@ import { buildClinicFaqs } from "@/lib/clinic-faq";
 import { BookingForm } from "@/components/BookingForm";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { TopicCluster } from "@/components/TopicCluster";
-import { LineButton } from "@/components/LineButton";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking, VerifiedPartnerBadge } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
 import { AdPlaceholder } from "@/components/AffiliateSlot";
@@ -274,9 +273,8 @@ export default async function ClinicPage(
       <StickyClinicBar
         clinicName={c.name}
         phone={c.phone || undefined}
-        lineId={c.website_line}
       />
-      <FloatingContactBar clinicName={c.name} phone={c.phone} lineId={c.website_line} />
+      <FloatingContactBar clinicId={c.id} clinicName={c.name} phone={c.phone} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <a href="/" className="hover:text-[var(--fg)]">Home</a>
         {c.district && (
@@ -610,30 +608,18 @@ export default async function ClinicPage(
                   </a>
                 </>
               )}
-              {(c.website_instagram || c.website_line) && (
+              {c.website_instagram && (
                 <>
                   <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Social</div>
                   <div className="flex gap-3">
-                    {c.website_instagram && (
-                      <a
-                        href={c.website_instagram}
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                        className="text-sm text-[var(--accent)] hover:underline"
-                      >
-                        Instagram
-                      </a>
-                    )}
-                    {c.website_line && (
-                      <a
-                        href={c.website_line}
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                        className="text-sm text-[var(--accent)] hover:underline"
-                      >
-                        LINE
-                      </a>
-                    )}
+                    <a
+                      href={c.website_instagram}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="text-sm text-[var(--accent)] hover:underline"
+                    >
+                      Instagram
+                    </a>
                   </div>
                 </>
               )}
@@ -651,7 +637,6 @@ export default async function ClinicPage(
           <ClinicCtaCard
             clinicName={c.name}
             phone={c.phone || undefined}
-            lineId={c.website_line}
           />
           {/* Hero CTA — 가장 prominent. accent gradient + 강한 contrast */}
           <div
@@ -661,7 +646,6 @@ export default async function ClinicPage(
             <div className="text-[10px] uppercase tracking-widest font-bold opacity-90 mb-2">
               Book consultation
             </div>
-            <LineButton clinicName={c.name} phone={c.phone} size="lg" />
             <p className="text-[11px] mt-2 text-center opacity-90">
               Free · We confirm your slot within 24h
             </p>

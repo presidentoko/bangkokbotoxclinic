@@ -1,10 +1,12 @@
 // Lead capture endpoint.
-// Flow: validate → honeypot → rate-limit → store → notify (email + LINE) → respond.
+// Flow: validate → honeypot → rate-limit → store → notify (email + Telegram) → respond.
 // 파트너 클리닉이면 클리닉 직접 라우팅, 아니면 fallback (우리 inbox).
+// 모든 리드는 항상 중앙 Telegram 봇으로도 알림 — 웹사이트 고객 컨택 채널을
+// LINE/WhatsApp에서 컨택폼 → Telegram으로 통일 (2026-07-20).
 
 import { storeLead, rateLimitOk, makeLeadId, type LeadRecord } from "@/lib/leadStore";
 import { listPartners } from "@/lib/partnerStore";
-import { sendEmail, sendLinePush, getFallbackEmail } from "@/lib/notify";
+import { sendEmail, sendTelegram, getFallbackEmail } from "@/lib/notify";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -70,13 +72,11 @@ export async function POST(req: Request) {
   const text = formatTextSummary(lead);
   const html = formatHtmlSummary(lead);
 
-  // 병렬 전송
+  // 병렬 전송 — 파트너/fallback 이메일 + 중앙 Telegram 봇, 항상 둘 다.
   const tasks: Promise<unknown>[] = [
     sendEmail(recipientEmail, subject, html, text),
+    sendTelegram(`📩 New lead\n${text}`),
   ];
-  if (partner?.line_user_id) {
-    tasks.push(sendLinePush(partner.line_bot_token, partner.line_user_id, text));
-  }
   // Legacy Slack-style webhook (fallback notification 채널)
   if (LEGACY_WEBHOOK) {
     tasks.push(

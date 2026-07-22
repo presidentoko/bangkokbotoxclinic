@@ -135,12 +135,12 @@ export default function PersonalizationQuiz() {
                 </div>
                 <span className="text-blue-700">→</span>
               </a>
-              <a href="https://line.me/R/ti/p/@405zhjqb" target="_blank" rel="noopener noreferrer"
+              <a href="/contact" onClick={() => setOpen(false)}
                 className="flex items-center gap-3 rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4 hover:bg-emerald-100 hover:-translate-y-0.5 transition">
                 <span className="text-2xl">💬</span>
                 <div className="flex-1">
                   <div className="font-bold text-sm">Get personal recommendations</div>
-                  <div className="text-xs text-[var(--muted)]">DM us — free clinic match in 24h</div>
+                  <div className="text-xs text-[var(--muted)]">Message us — free clinic match in 24h</div>
                 </div>
                 <span className="text-emerald-700">→</span>
               </a>
