@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useSyncExternalStore, useCallback } from "react";
 import type { SavedProduct } from "@/lib/saved";
 
 const STORAGE_KEY = "bf_favorites";
+const EMPTY: SavedProduct[] = [];
 
 function readStorage(): SavedProduct[] {
   if (typeof window === "undefined") return [];
@@ -24,23 +25,39 @@ function writeStorage(items: SavedProduct[]): void {
   }
 }
 
-export function useFavorites() {
-  const [items, setItems] = useState<SavedProduct[]>([]);
+let cache: SavedProduct[] | null = null;
+const listeners = new Set<() => void>();
 
-  // Hydrate from localStorage on mount
-  useEffect(() => {
-    setItems(readStorage());
-  }, []);
+function getCache(): SavedProduct[] {
+  if (cache === null) cache = readStorage();
+  return cache;
+}
+
+function setCache(next: SavedProduct[]) {
+  cache = next;
+  writeStorage(next);
+  listeners.forEach((l) => l());
+}
+
+function subscribe(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  return () => listeners.delete(onStoreChange);
+}
+
+function getServerSnapshot(): SavedProduct[] {
+  return EMPTY;
+}
+
+export function useFavorites() {
+  const items = useSyncExternalStore(subscribe, getCache, getServerSnapshot);
 
   const toggle = useCallback((product: SavedProduct) => {
-    setItems((prev) => {
-      const exists = prev.some((p) => p.productId === product.productId);
-      const next = exists
-        ? prev.filter((p) => p.productId !== product.productId)
-        : [...prev, product];
-      writeStorage(next);
-      return next;
-    });
+    const prev = getCache();
+    const exists = prev.some((p) => p.productId === product.productId);
+    const next = exists
+      ? prev.filter((p) => p.productId !== product.productId)
+      : [...prev, product];
+    setCache(next);
   }, []);
 
   const isFavorited = useCallback(

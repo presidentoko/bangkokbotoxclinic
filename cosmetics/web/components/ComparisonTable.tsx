@@ -66,6 +66,42 @@ function productDisplayName(brand: string, name: string): string {
   return `${brand} ${name}`;
 }
 
+function thSortDir(k: Key): "asc" | "desc" {
+  return k === "price" ? "asc" : "desc";
+}
+
+function ThSortable({
+  k,
+  sort,
+  onSort,
+  children,
+}: {
+  k: Key;
+  sort: Key;
+  onSort: (k: Key) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <th
+      onClick={() => onSort(k)}
+      className={`cursor-pointer px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide select-none whitespace-nowrap ${
+        sort === k ? "text-rose-600" : "text-[#8a7a76] hover:text-[#2b2222]"
+      }`}
+    >
+      {children}
+      <SortIndicator active={sort === k} dir={thSortDir(k)} />
+    </th>
+  );
+}
+
+function ThPlain({ children }: { children: React.ReactNode }) {
+  return (
+    <th className="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-[#8a7a76] whitespace-nowrap">
+      {children}
+    </th>
+  );
+}
+
 export function ComparisonTable({
   rows,
   locale,
@@ -77,10 +113,8 @@ export function ComparisonTable({
 }) {
   const [sort, setSort] = useState<Key>("score");
 
-  const sortDir = (k: Key): "asc" | "desc" => (k === "price" ? "asc" : "desc");
-
   const sorted = [...rows].sort((a, b) =>
-    sort === "price" ? a.price - b.price : (b as any)[sort] - (a as any)[sort]
+    sort === "price" ? a.price - b.price : (b[sort] as number) - (a[sort] as number)
   );
 
   function handleSort(k: Key) {
@@ -93,24 +127,6 @@ export function ComparisonTable({
     { key: "price", labelTh: "ราคา", labelEn: "Price" },
     { key: "reviews", labelTh: "รีวิว", labelEn: "Reviews" },
   ];
-
-  const ThSortable = ({ k, children }: { k: Key; children: React.ReactNode }) => (
-    <th
-      onClick={() => handleSort(k)}
-      className={`cursor-pointer px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide select-none whitespace-nowrap ${
-        sort === k ? "text-rose-600" : "text-[#8a7a76] hover:text-[#2b2222]"
-      }`}
-    >
-      {children}
-      <SortIndicator active={sort === k} dir={sortDir(k)} />
-    </th>
-  );
-
-  const ThPlain = ({ children }: { children: React.ReactNode }) => (
-    <th className="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-[#8a7a76] whitespace-nowrap">
-      {children}
-    </th>
-  );
 
   return (
     <>
@@ -131,7 +147,7 @@ export function ComparisonTable({
               {labelTh}/{labelEn}
               {active && (
                 <span className="ml-1 text-xs opacity-80">
-                  {sortDir(key) === "desc" ? "▼" : "▲"}
+                  {thSortDir(key) === "desc" ? "▼" : "▲"}
                 </span>
               )}
             </button>
@@ -146,10 +162,10 @@ export function ComparisonTable({
             <tr className="bg-rose-50/60 border-b border-[#efe1db] sticky top-0 z-10">
               <ThPlain>{labels.rank}</ThPlain>
               <ThPlain>{labels.product}</ThPlain>
-              <ThSortable k="score">{labels.score}</ThSortable>
+              <ThSortable k="score" sort={sort} onSort={handleSort}>{labels.score}</ThSortable>
               <ThPlain>{labels.key_ingredient}</ThPlain>
-              <ThSortable k="price">{labels.price}</ThSortable>
-              <ThSortable k="reviews">{labels.rating}</ThSortable>
+              <ThSortable k="price" sort={sort} onSort={handleSort}>{labels.price}</ThSortable>
+              <ThSortable k="reviews" sort={sort} onSort={handleSort}>{labels.rating}</ThSortable>
             </tr>
           </thead>
           <tbody>

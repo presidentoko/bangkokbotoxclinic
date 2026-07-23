@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useSyncExternalStore, useCallback } from "react";
 import type { SavedProduct } from "@/lib/saved";
 
 const STORAGE_KEY = "bf_recently_viewed";
 const MAX_ITEMS = 10;
+const EMPTY: SavedProduct[] = [];
 
 function readStorage(): SavedProduct[] {
   if (typeof window === "undefined") return [];
@@ -25,36 +26,46 @@ function writeStorage(items: SavedProduct[]): void {
   }
 }
 
-export function useRecentlyViewed() {
-  const [items, setItems] = useState<SavedProduct[]>([]);
+let cache: SavedProduct[] | null = null;
+const listeners = new Set<() => void>();
 
-  // Hydrate from localStorage on mount
-  useEffect(() => {
-    setItems(readStorage());
-  }, []);
+function getCache(): SavedProduct[] {
+  if (cache === null) cache = readStorage();
+  return cache;
+}
+
+function setCache(next: SavedProduct[]) {
+  cache = next;
+  writeStorage(next);
+  listeners.forEach((l) => l());
+}
+
+function subscribe(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  return () => listeners.delete(onStoreChange);
+}
+
+function getServerSnapshot(): SavedProduct[] {
+  return EMPTY;
+}
+
+export function useRecentlyViewed() {
+  const items = useSyncExternalStore(subscribe, getCache, getServerSnapshot);
 
   const addItem = useCallback((product: SavedProduct) => {
-    setItems((prev) => {
-      // Dedupe: remove existing entry for this productId
-      const filtered = prev.filter((p) => p.productId !== product.productId);
-      // Prepend and trim to max
-      const next = [product, ...filtered].slice(0, MAX_ITEMS);
-      writeStorage(next);
-      return next;
-    });
+    const prev = getCache();
+    const filtered = prev.filter((p) => p.productId !== product.productId);
+    const next = [product, ...filtered].slice(0, MAX_ITEMS);
+    setCache(next);
   }, []);
 
   const removeItem = useCallback((productId: string) => {
-    setItems((prev) => {
-      const next = prev.filter((p) => p.productId !== productId);
-      writeStorage(next);
-      return next;
-    });
+    const next = getCache().filter((p) => p.productId !== productId);
+    setCache(next);
   }, []);
 
   const clearAll = useCallback(() => {
-    writeStorage([]);
-    setItems([]);
+    setCache([]);
   }, []);
 
   return { items, addItem, removeItem, clearAll };
