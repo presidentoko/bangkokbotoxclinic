@@ -107,10 +107,19 @@ def core_pids() -> dict[str, tuple[str | None, bool]]:
 
 
 def append_log(line: str):
+    # watchdog.py's parse_log_timestamp expects a local "YYYY-MM-DD HH:MM:SS"
+    # (optionally bracketed) at the START of the line. This script's own
+    # embedded timestamps are UTC ISO-8601 (now_iso()) and appear after the
+    # [OK]/[WARN]/[CRIT] tag, not at position 0 — so watchdog's progress_pattern
+    # (\[(OK|WARN|CRIT)) matched but the line was never parseable, and
+    # progress_stale() always fell through to "stale" (kicked every ~2.5min
+    # regardless of progress_stale_sec, discovered 2026-07-24). Prefix a
+    # fresh local timestamp so watchdog can actually judge freshness.
+    prefix = datetime.now().strftime("[%Y-%m-%d %H:%M:%S] ")
     LOGS.mkdir(parents=True, exist_ok=True)
     with HEALTH_LOG.open("a", encoding="utf-8") as f:
-        f.write(line + "\n")
-    print(line, flush=True)
+        f.write(prefix + line + "\n")
+    print(prefix + line, flush=True)
 
 
 def collect_history() -> list[tuple[str, int]]:

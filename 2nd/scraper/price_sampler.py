@@ -146,7 +146,14 @@ def run():
 
 if __name__ == '__main__':
     while True:
-        print(f'[price_sampler] run start {datetime.now():%Y-%m-%d %H:%M:%S}')
+        # watchdog.py's parse_log_timestamp needs "YYYY-MM-DD HH:MM:SS" at the
+        # START of the line — it was previously after "run start ", so this
+        # line never parsed and progress_stale() always fell through to
+        # "stale" (kicked every ~5min despite a 7-day progress_stale_sec,
+        # discovered 2026-07-24). flush=True since stdout is redirected to a
+        # file (block-buffered by default) and a long run() could otherwise
+        # get force-killed before this line ever reached disk.
+        print(f'{datetime.now():%Y-%m-%d %H:%M:%S} [price_sampler] run start', flush=True)
         run()
-        print(f'[price_sampler] sleeping {INTERVAL_HOURS}h until next run')
+        print(f'{datetime.now():%Y-%m-%d %H:%M:%S} [price_sampler] sleeping {INTERVAL_HOURS}h until next run', flush=True)
         time.sleep(INTERVAL_HOURS * 3600)

@@ -162,7 +162,11 @@ def run():
 
 if __name__ == '__main__':
     while True:
-        print(f'[price_sampler_chic] run start {datetime.now():%Y-%m-%d %H:%M:%S}')
+        # See 2nd/scraper/price_sampler.py's matching comment — same bug,
+        # same fix (timestamp must lead the line for watchdog to parse it;
+        # flush=True since a long run() could get force-killed before a
+        # block-buffered print ever reaches disk).
+        print(f'{datetime.now():%Y-%m-%d %H:%M:%S} [price_sampler_chic] run start', flush=True)
         run()
-        print(f'[price_sampler_chic] sleeping {INTERVAL_HOURS}h')
+        print(f'{datetime.now():%Y-%m-%d %H:%M:%S} [price_sampler_chic] sleeping {INTERVAL_HOURS}h', flush=True)
         time.sleep(INTERVAL_HOURS * 3600)

@@ -15,8 +15,18 @@ import threading
 import time
 import urllib.parse
 from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
+
+
+def _ts() -> str:
+    # watchdog.py's parse_log_timestamp needs "YYYY-MM-DD HH:MM:SS" at the
+    # START of the line — every "[hdmall] ..." print here had no timestamp
+    # at all, so this service would crash-loop the same way ram_manager/
+    # health_monitor/price_sampler did (confirmed 2026-07-24) as soon as
+    # it's un-paused. Prefix this before "[hdmall]" in each print call.
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 
@@ -526,12 +536,12 @@ def main(max_clinics: int = 0):
     """
     max_clinics: 0 = unlimited, N = stop after N clinic pages (for testing).
     """
-    print("[hdmall] Starting HDmall scraper")
-    print(f"[hdmall] master_db: {MASTER_DB}")
-    print(f"[hdmall] output: external_reviews/ + pricing/ dirs")
+    print(f"{_ts()} [hdmall] Starting HDmall scraper")
+    print(f"{_ts()} [hdmall] master_db: {MASTER_DB}")
+    print(f"{_ts()} [hdmall] output: external_reviews/ + pricing/ dirs")
 
     gmaps_clinics = load_bangkok_clinics()
-    print(f"[hdmall] Bangkok GMaps clinics: {len(gmaps_clinics)}")
+    print(f"{_ts()} [hdmall] Bangkok GMaps clinics: {len(gmaps_clinics)}")
 
     with sync_playwright() as pw:
         browser = pw.chromium.launch(
@@ -554,7 +564,7 @@ def main(max_clinics: int = 0):
         page.set_default_timeout(25000)
 
         # Stage 1
-        print("\n[hdmall] Stage 1: directory crawl")
+        print(f"\n{_ts()} [hdmall] Stage 1: directory crawl")
         brand_map = crawl_directory(page)
         # De-duplicate by (category, slug) full key
         seen_keys: set[tuple[str, str]] = set()
@@ -565,11 +575,11 @@ def main(max_clinics: int = 0):
                 if key not in seen_keys:
                     seen_keys.add(key)
                     clinic_tasks.append((cat, slug))
-        print(f"[hdmall] Total unique brand pages to scrape: {len(clinic_tasks)}")
+        print(f"{_ts()} [hdmall] Total unique brand pages to scrape: {len(clinic_tasks)}")
 
         if max_clinics:
             clinic_tasks = clinic_tasks[:max_clinics]
-            print(f"[hdmall] Limited to {max_clinics} for this run")
+            print(f"{_ts()} [hdmall] Limited to {max_clinics} for this run")
 
         # A. Resume: skip slugs that already succeeded in a prior run.
         cached_by_key: dict[tuple[str, str], dict] = {}
@@ -582,39 +592,79 @@ def main(max_clinics: int = 0):
                     for c in raw
                     if c.get("fetch_ok") and c.get("category") and c.get("slug")
                 }
-                print(f"[hdmall] Resume: {len(cached_by_key)} cached fetch_ok clinics will be skipped")
+                print(f"{_ts()} [hdmall] Resume: {len(cached_by_key)} cached fetch_ok clinics will be skipped")
             except (json.JSONDecodeError, OSError, ValueError) as e:
-                print(f"[hdmall] Resume cache load failed: {e} — starting fresh")
+                print(f"{_ts()} [hdmall] Resume cache load failed: {e} — starting fresh")
 
         # B. Per-clinic hard timeout — Playwright CDP can wedge past internal timeouts.
         # On hard-timeout, rebuild the browser to recover, mark slug failed, continue.
+        #
+        # 2026-07-12 버그 픽스: 예전 코드는 메인 스레드에서 만든 `page` 를
+        # 매 클리닉마다 새로 스폰한 threading.Thread 안에서 호출했음.
+        # Playwright sync API 는 driver 를 생성한 스레드에서만 호출 가능
+        # (스레드-affine) 이라 매 호출이 "Cannot switch to a different thread"
+        # 로 즉시 실패 — 874/874 전량 fetch_ok=false 로 캐시가 오염됐던 원인.
+        # 첫 시도로 page 호출만 워커 스레드로 옮겼다가 재발: `pw`(sync_playwright
+        # 컨텍스트 자체)도 메인 스레드 소유라 `pw.chromium.launch()` 호출부터
+        # 같은 에러가 남. 고침: `sync_playwright()` 진입부터 browser/context/
+        # page 생성까지 전부 전용 워커 스레드 **안에서** 수행 — 메인 스레드는
+        # 그 스레드의 Playwright 객체를 절대 건드리지 않고 큐로만 통신.
+        # 스레드가 멈추면 (daemon이라) 버리고 새 전용 스레드를 다시 띄움 —
+        # "browser 재구축" 의도는 동일하게 유지.
         PER_CLINIC_TIMEOUT_SEC = 60
 
-        def _rebuild_browser_ctx_page(old_browser):
-            try: old_browser.close()
-            except Exception: pass
-            new_browser = pw.chromium.launch(
-                headless=True,
-                args=["--disable-blink-features=AutomationControlled"],
-            )
-            new_ctx = new_browser.new_context(
-                locale="th-TH",
-                user_agent=(
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/120.0.0.0 Safari/537.36"
-                ),
-                extra_http_headers={"Accept-Language": "th,en;q=0.9"},
-            )
-            new_ctx.add_init_script(
-                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
-            )
-            new_page = new_ctx.new_page()
-            new_page.set_default_timeout(25000)
-            return new_browser, new_ctx, new_page
+        import queue as _queue
+
+        def _spawn_driver_thread():
+            """Playwright 전체(진입~브라우저~컨텍스트~페이지)를 전담 소유하는
+            전용 스레드 시작. 반환된 task_q 에 (cat, slug) 를 넣으면 result_q 에
+            ("ok", clinic) 또는 ("err", exc) 가 나온다. task_q 에 None 을 넣으면
+            스레드가 종료."""
+            task_q: _queue.Queue = _queue.Queue()
+            result_q: _queue.Queue = _queue.Queue()
+
+            def _driver():
+                with sync_playwright() as _pw:
+                    b = _pw.chromium.launch(
+                        headless=True,
+                        args=["--disable-blink-features=AutomationControlled"],
+                    )
+                    c = b.new_context(
+                        locale="th-TH",
+                        user_agent=(
+                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                            "AppleWebKit/537.36 (KHTML, like Gecko) "
+                            "Chrome/120.0.0.0 Safari/537.36"
+                        ),
+                        extra_http_headers={"Accept-Language": "th,en;q=0.9"},
+                    )
+                    c.add_init_script(
+                        "Object.defineProperty(navigator, 'webdriver', {get: () => undefined});"
+                    )
+                    p = c.new_page()
+                    p.set_default_timeout(25000)
+                    try:
+                        while True:
+                            item = task_q.get()
+                            if item is None:
+                                break
+                            cat, slug = item
+                            try:
+                                result_q.put(("ok", parse_clinic_page(p, cat, slug)))
+                            except BaseException as exc:  # noqa: BLE001 — 워커 죽이지 않고 보고
+                                result_q.put(("err", exc))
+                    finally:
+                        try: b.close()
+                        except Exception: pass
+
+            t = threading.Thread(target=_driver, daemon=True)
+            t.start()
+            return t, task_q, result_q
+
+        driver_thread, task_q, result_q = _spawn_driver_thread()
 
         # Stage 2
-        print("\n[hdmall] Stage 2: clinic page parsing")
+        print(f"\n{_ts()} [hdmall] Stage 2: clinic page parsing")
         hdmall_clinics: list[HDmallClinic] = []
         clinic_field_names = set(HDmallClinic.__dataclass_fields__)
         # Checkpoint only after real fetches, never during pure resume-skip — otherwise
@@ -627,36 +677,32 @@ def main(max_clinics: int = 0):
                     **{k: v for k, v in cached.items() if k in clinic_field_names}
                 ))
                 if (i + 1) % 100 == 0:
-                    print(f"  [hdmall] [{i+1}/{len(clinic_tasks)}] resume-skip")
+                    print(f"  {_ts()} [hdmall] [{i+1}/{len(clinic_tasks)}] resume-skip")
                 continue
 
-            result_holder: list[Optional[HDmallClinic]] = [None]
-            exc_holder: list[Optional[BaseException]] = [None]
-            def _worker(_page=page, _cat=cat, _slug=slug):
-                try:
-                    result_holder[0] = parse_clinic_page(_page, _cat, _slug)
-                except BaseException as exc:
-                    exc_holder[0] = exc
-            t = threading.Thread(target=_worker, daemon=True)
-            t.start()
-            t.join(timeout=PER_CLINIC_TIMEOUT_SEC)
+            task_q.put((cat, slug))
+            try:
+                kind, payload = result_q.get(timeout=PER_CLINIC_TIMEOUT_SEC)
+            except _queue.Empty:
+                kind, payload = "timeout", None
 
-            if t.is_alive():
+            if kind == "timeout":
                 clinic = HDmallClinic(
                     hdmall_url=f"https://hdmall.co.th/{cat}/{slug}",
                     category=cat, slug=slug,
                     error=f"hard-timeout({PER_CLINIC_TIMEOUT_SEC}s)",
                 )
-                print(f"  [{i+1}/{len(clinic_tasks)}] {cat}/{slug[:30]} → HARD-TIMEOUT, rebuilding browser")
-                browser, ctx, page = _rebuild_browser_ctx_page(browser)
-            elif exc_holder[0] is not None:
+                print(f"  [{i+1}/{len(clinic_tasks)}] {cat}/{slug[:30]} → HARD-TIMEOUT, rebuilding driver thread")
+                # 멈춘 전용 스레드는 daemon 이라 버려두고(프로세스 종료 시 정리됨) 새로 띄움.
+                driver_thread, task_q, result_q = _spawn_driver_thread()
+            elif kind == "err":
                 clinic = HDmallClinic(
                     hdmall_url=f"https://hdmall.co.th/{cat}/{slug}",
                     category=cat, slug=slug,
-                    error=f"exc:{type(exc_holder[0]).__name__}:{str(exc_holder[0])[:80]}",
+                    error=f"exc:{type(payload).__name__}:{str(payload)[:80]}",
                 )
             else:
-                clinic = result_holder[0] or HDmallClinic(
+                clinic = payload or HDmallClinic(
                     hdmall_url=f"https://hdmall.co.th/{cat}/{slug}",
                     category=cat, slug=slug,
                     error="no-result",
@@ -676,12 +722,16 @@ def main(max_clinics: int = 0):
         if new_fetches_since_ckpt > 0:
             _checkpoint(hdmall_clinics, gmaps_clinics)
 
+        # 마지막 Stage-2 전용 드라이버 스레드에게 정상 종료(브라우저 close) 신호.
+        task_q.put(None)
+        driver_thread.join(timeout=10)
+
         ctx.close()
         browser.close()
 
     # Stage 3 + 4
     _checkpoint(hdmall_clinics, gmaps_clinics)
-    print("[hdmall] Done")
+    print(f"{_ts()} [hdmall] Done")
 
 
 def _checkpoint(hdmall_clinics: list[HDmallClinic], gmaps_clinics: list[dict]):
@@ -705,7 +755,7 @@ def _checkpoint(hdmall_clinics: list[HDmallClinic], gmaps_clinics: list[dict]):
     wr, wp = write_outputs(matches, hd_by_url)
     strong = sum(1 for m in matches if m.score >= 0.45)
     weak = sum(1 for m in matches if 0.35 <= m.score < 0.45)
-    print(f"[hdmall] checkpoint: {len(hd_by_url)} fetched, {len(matches)} matched "
+    print(f"{_ts()} [hdmall] checkpoint: {len(hd_by_url)} fetched, {len(matches)} matched "
           f"(strong≥0.45: {strong}, weak: {weak}), wrote {wr} reviews + {wp} pricing files")
 
 
@@ -735,7 +785,7 @@ if __name__ == "__main__":
     else:
         limit = int(sys.argv[1]) if len(sys.argv) > 1 else 0
         main(max_clinics=limit)
-        print("[hdmall] idle 1h before next run")
+        print(f"{_ts()} [hdmall] idle 1h before next run")
         for _i in range(12):  # 12 * 5min = 1h
             time.sleep(300)
-            print(f"[hdmall] idle {(_i + 1) * 5}/60 min")
+            print(f"{_ts()} [hdmall] idle {(_i + 1) * 5}/60 min")
