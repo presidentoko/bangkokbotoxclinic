@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 250 253 252;          /* pale mint-white */
+  --bg-elev: 255 255 255;
+  --fg: 20 35 33;              /* deep teal-black */
+  --muted: 90 105 102;
+  --border: 214 228 224;
+  --accent: 15 118 110;        /* teal-600 */
+}
+html.dark {
+  --bg: 8 15 14;
+  --bg-elev: 18 28 27;
+  --fg: 236 245 243;
+  --muted: 148 165 161;
+  --border: 34 51 48;
+  --accent: 45 212 191;        /* teal-400 */
+}
+
+html { scroll-behavior: smooth; }
+body { background: rgb(var(--bg)); color: rgb(var(--fg)); }
