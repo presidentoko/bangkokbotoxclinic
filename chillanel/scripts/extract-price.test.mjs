@@ -30,3 +30,23 @@ test("handles empty/null review text without throwing", () => {
   assert.doesNotThrow(() => extractPriceMentions(reviews));
   assert.deepEqual(extractPriceMentions(reviews), []);
 });
+
+test("rejects a truncated fragment of a long digit run instead of extracting a wrong value (regression)", () => {
+  const reviews = [{ text: "Paid ฿100000 for surgery, way too expensive." }];
+  assert.deepEqual(extractPriceMentions(reviews), []);
+});
+
+test("rejects a phone-number-like digit run followed by a currency word (regression)", () => {
+  const reviews = [{ text: "Call 0812345678 baht for booking." }];
+  assert.deepEqual(extractPriceMentions(reviews), []);
+});
+
+test("parses comma-formatted thousands correctly (regression)", () => {
+  const reviews = [{ text: "Cost was 1,200 baht for the package." }];
+  assert.deepEqual(extractPriceMentions(reviews), [1200]);
+});
+
+test("does not double-count when both symbol and word markers appear on the same number (regression)", () => {
+  const reviews = [{ text: "Paid ฿500 baht for foot massage." }];
+  assert.deepEqual(extractPriceMentions(reviews), [500]);
+});
