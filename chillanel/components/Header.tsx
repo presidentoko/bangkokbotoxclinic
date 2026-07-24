@@ -12,7 +12,7 @@ export function Header({ lang }: { lang: Lang }) {
           chillanel
         </Link>
         <nav className="hidden sm:flex gap-6 text-sm font-medium">
-          <Link href={`/${lang}/city/bangkok`} className="hover:text-accent">{t.nav.home}</Link>
+          <Link href={`/${lang}`} className="hover:text-accent">{t.nav.home}</Link>
           <Link href={`/${lang}/guide`} className="hover:text-accent">{t.nav.guides}</Link>
           <Link href={`/${lang}/about`} className="hover:text-accent">{t.nav.about}</Link>
         </nav>
