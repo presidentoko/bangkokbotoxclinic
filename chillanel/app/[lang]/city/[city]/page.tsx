@@ -52,9 +52,9 @@ export default async function CityPage({
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-ink text-on-ink sm:mx-[calc(50%-50vw)] px-6 sm:px-0">
+      <section className="relative overflow-hidden bg-ink text-on-ink sm:mx-[calc(50%-50vw)] px-6 sm:px-0 pb-20 sm:pb-28">
         <div className="spa-glow bg-accent w-[320px] h-[320px] -top-32 -right-24" aria-hidden="true" />
-        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 py-14 sm:py-20">
+        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 pt-14 sm:pt-20">
           <Breadcrumbs
             variant="ink"
             items={[{ name: t.nav.home, href: `/${lang}` }, { name: label, href: `/${lang}/city/${city}` }]}
@@ -62,22 +62,37 @@ export default async function CityPage({
           <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">
             {t.city.listTitle.replace("{city}", label)}
           </h1>
-          <p className="text-on-ink-muted mb-1">
-            {allRelevant.length} {t.city.placeCount}
-          </p>
           <p className="text-on-ink-muted max-w-2xl leading-relaxed">{t.city.intro.replace("{city}", label)}</p>
-          {allRelevant.length > places.length && (
-            <p className="text-xs text-on-ink-muted/70 mt-1">
-              {t.city.showingTop.replace("{shown}", String(places.length))}
-            </p>
-          )}
         </div>
       </section>
 
+      {/* Floating card bridging hero/content, same pattern as the home page —
+          keeps the two pages feeling like one site rather than a hero
+          template stamped onto every route. */}
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="relative -mt-12 sm:-mt-16 rounded-3xl bg-bg-elev border border-border shadow-2xl shadow-ink/20 px-6 sm:px-8 py-5 sm:py-6 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span className="font-display text-2xl sm:text-3xl font-semibold text-accent tabular-nums">
+              {allRelevant.length}
+            </span>
+            <span className="text-muted ml-2">{t.city.placeCount}</span>
+          </div>
+          {allRelevant.length > places.length && (
+            <p className="text-xs text-muted">{t.city.showingTop.replace("{shown}", String(places.length))}</p>
+          )}
+        </div>
+      </div>
+
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-14">
-          {places.map((place) => (
-            <PlaceCard key={place.id} place={place} lang={lang} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:auto-rows-[1fr] gap-5 mb-14">
+          {places.map((place, i) => (
+            <PlaceCard
+              key={place.id}
+              place={place}
+              lang={lang}
+              editorsPick={i === 0}
+              size={i === 0 ? "large" : "default"}
+            />
           ))}
         </div>
         <Faq

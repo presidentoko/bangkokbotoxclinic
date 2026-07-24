@@ -44,7 +44,7 @@ export default async function HomePage({
   const quotes: QuoteItem[] = bangkok.places
     .filter((p) => p.therapistMentions.length > 0)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
-    .slice(0, 6)
+    .slice(0, 8)
     .map((p) => ({
       quote: p.therapistMentions[0].quotes[0],
       therapistName: p.therapistMentions[0].name,
@@ -55,17 +55,13 @@ export default async function HomePage({
 
   return (
     <div>
-      {/* Full-bleed premium hero */}
-      <section className="relative overflow-hidden bg-ink text-on-ink sm:mx-[calc(50%-50vw)] px-6 sm:px-0">
-        <div
-          className="spa-glow bg-accent w-[420px] h-[420px] -top-40 -left-32"
-          aria-hidden="true"
-        />
-        <div
-          className="spa-glow bg-accent-warm w-[360px] h-[360px] -bottom-32 right-0"
-          aria-hidden="true"
-        />
-        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 pt-20 sm:pt-32 pb-14 sm:pb-16">
+      {/* Full-bleed premium hero — extra bottom padding leaves room for the
+          floating stat card below to overlap it, instead of every section
+          stacking as an even, uniform band. */}
+      <section className="relative overflow-hidden bg-ink text-on-ink sm:mx-[calc(50%-50vw)] px-6 sm:px-0 pb-24 sm:pb-32">
+        <div className="spa-glow bg-accent w-[420px] h-[420px] -top-40 -left-32" aria-hidden="true" />
+        <div className="spa-glow bg-accent-warm w-[360px] h-[360px] top-10 right-0" aria-hidden="true" />
+        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 pt-20 sm:pt-32">
           {totalPlaces > 0 && (
             <div className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur px-3.5 py-1.5 text-xs font-semibold text-on-ink-muted mb-7">
               <span className="text-accent-warm" aria-hidden="true">✦</span>
@@ -95,42 +91,58 @@ export default async function HomePage({
               </Link>
             </div>
           )}
-          <p className="mt-8 text-xs text-on-ink-muted/70 max-w-lg leading-relaxed">{t.home.manifesto}</p>
         </div>
+      </section>
 
-        {/* Stat strip — converts trust claims into real numbers from data we already have. */}
-        {totalPlaces > 0 && (
-          <div className="relative border-t border-white/10">
-            <div className="max-w-5xl mx-auto grid grid-cols-3 divide-x divide-white/10 text-center">
-              {[
-                { value: totalPlaces, label: t.home.stats.places },
-                { value: totalReviews, label: t.home.stats.reviews },
-                { value: totalMentions, label: t.home.stats.therapists },
-              ].map((s) => (
-                <div key={s.label} className="px-3 py-6 sm:py-8">
-                  <div className="font-display text-2xl sm:text-4xl font-semibold tabular-nums text-accent-warm">
-                    {s.value.toLocaleString()}+
-                  </div>
-                  <div className="text-[11px] sm:text-xs text-on-ink-muted mt-1.5 leading-snug">{s.label}</div>
+      {/* Floating stat card — deliberately breaks the hero/content boundary
+          instead of the stats living inside the dark band as another
+          stacked strip. */}
+      {totalPlaces > 0 && (
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="relative -mt-14 sm:-mt-20 rounded-3xl bg-bg-elev border border-border shadow-2xl shadow-ink/20 grid grid-cols-3 divide-x divide-border">
+            {[
+              { value: totalPlaces, label: t.home.stats.places },
+              { value: totalReviews, label: t.home.stats.reviews },
+              { value: totalMentions, label: t.home.stats.therapists },
+            ].map((s) => (
+              <div key={s.label} className="px-3 py-6 sm:py-8 text-center">
+                <div className="font-display text-2xl sm:text-4xl font-semibold tabular-nums text-accent">
+                  {s.value.toLocaleString()}+
                 </div>
-              ))}
-            </div>
+                <div className="text-[11px] sm:text-xs text-muted mt-1.5 leading-snug">{s.label}</div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+      )}
+
+      {/* Editorial split, no card container — deliberately different rhythm
+          from the bordered cards everywhere else on the page. */}
+      <section className="bg-bg-elev border-y border-border sm:mx-[calc(50%-50vw)] px-6 sm:px-0 mt-16 sm:mt-24">
+        <div className="max-w-5xl mx-auto px-0 sm:px-6 py-14 sm:py-20 grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-14 items-center">
+          <h2 className="font-display italic text-3xl sm:text-4xl leading-snug">{t.home.philosophyTitle}</h2>
+          <div>
+            <p className="text-muted leading-relaxed text-base sm:text-lg">{t.home.philosophyBody}</p>
+            <p className="mt-5 text-xs text-muted/80 leading-relaxed border-l-2 border-accent-warm/40 pl-3">
+              {t.home.manifesto}
+            </p>
+          </div>
+        </div>
       </section>
 
       <div className="max-w-5xl mx-auto px-4 py-14 sm:py-16">
-        <section className="mb-14 rounded-3xl border border-border bg-bg-elev p-7 sm:p-10">
-          <h2 className="font-display italic text-2xl sm:text-3xl mb-3">{t.home.philosophyTitle}</h2>
-          <p className="text-muted leading-relaxed text-base sm:text-lg max-w-2xl">{t.home.philosophyBody}</p>
-        </section>
-
         {featured.length > 0 && (
-          <section className="mb-14">
+          <section className="mb-16">
             <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.home.featuredTitle}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:auto-rows-[1fr] gap-5">
               {featured.map((place, i) => (
-                <PlaceCard key={place.id} place={place} lang={lang} editorsPick={i < 2} />
+                <PlaceCard
+                  key={place.id}
+                  place={place}
+                  lang={lang}
+                  editorsPick={i === 0}
+                  size={i === 0 ? "large" : "default"}
+                />
               ))}
             </div>
           </section>
