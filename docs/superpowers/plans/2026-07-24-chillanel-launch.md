@@ -741,7 +741,7 @@ Create a tiny fixture CSV pair so the test doesn't depend on the live (constantl
 ```csv
 "review_id","place_id","restaurant_name","rating","text","author_name","author_id","author_uri","author_photo_uri","author_is_local_guide","author_review_count","author_photo_count","relative_date","spent_amount","sort_source"
 "r1","0xabc:0xdef","Test Spa Bangkok",5,"Ask for Nong, she's amazing.","A","1","","",0,3,0,"2 months ago","","relevant"
-"r2","0xabc:0xdef","Test Spa Bangkok",5,"Went back for Nong, she's amazing every time.","B","2","","",0,5,0,"1 month ago","","relevant"
+"r2","0xabc:0xdef","Test Spa Bangkok",5,"Ask for Nong again, she's amazing every time.","B","2","","",0,5,0,"1 month ago","","relevant"
 ```
 
 `chillanel/scripts/build-data.test.mjs`:
