@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+import { DEFAULT_LANG } from "@/lib/site";
+
 export default function RootPage() {
-  return <div className="p-8">chillanel — scaffold OK</div>;
+  redirect(`/${DEFAULT_LANG}`);
 }
