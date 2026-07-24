@@ -78,10 +78,16 @@ GRID_CHAIN = [
     # .disabled 마커는 run/ 에 남아있어 그때까지 안 깨어남.
 ]
 
-# 로그 타임스탬프 패턴 두 종류 지원:
+# 로그 타임스탬프 패턴 세 종류 지원:
 #  - scraper / telegram_monitor (logging 모듈): "YYYY-MM-DD HH:MM:SS,mmm [LEVEL] ..."
 #  - nordvpn_runner (직접 print): "[HH:MM:SS] ..."
-_LOG_TS_RE_FULL = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})")
+#  - ram_manager / chillanel_refresher / thaigle_refresher (직접 print):
+#    "[YYYY-MM-DD HH:MM:SS] ..." — 대괄호 있는 전체 날짜시간. 기존
+#    _LOG_TS_RE_FULL엔 대괄호가 없어서 이 세 서비스는 단 한 줄도 파싱된 적
+#    없이 항상 stale=True로 판정되어 grace 끝나자마자 계속 킥당했음
+#    (2026-07-24, 실측 로그로 확인 — 표면적으로는 진행 중처럼 보이는 로그도
+#    파싱 실패하면 매치 0건과 동일하게 취급됨).
+_LOG_TS_RE_FULL = re.compile(r"^\[?(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]?")
 _LOG_TS_RE_TIME = re.compile(r"^\[(\d{2}:\d{2}:\d{2})\]")
 
 
