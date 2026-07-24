@@ -42,9 +42,13 @@ export default async function CityPage({
   if (data.places.length === 0) notFound();
   const t = tFor(lang);
   const label = cityLabel(city);
-  const places = data.places
+  const MAX_SHOWN = 90; // keeps the static HTML payload reasonable — a full
+  // Bangkok render (734 places) was 1.6MB of HTML in one page, the same
+  // class of bug already hit once in this repo's sibling `facial` project.
+  const allRelevant = data.places
     .filter((p) => isRelevantCategory(p.primaryType))
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
+  const places = allRelevant.slice(0, MAX_SHOWN);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 sm:py-12">
@@ -53,9 +57,12 @@ export default async function CityPage({
         {t.city.listTitle.replace("{city}", label)}
       </h1>
       <p className="text-muted mb-1">
-        {places.length} {t.city.placeCount}
+        {allRelevant.length} {t.city.placeCount}
       </p>
-      <p className="text-muted max-w-2xl mb-8 leading-relaxed">{t.city.intro.replace("{city}", label)}</p>
+      <p className="text-muted max-w-2xl leading-relaxed">{t.city.intro.replace("{city}", label)}</p>
+      <p className="text-xs text-muted mt-1 mb-8">
+        {allRelevant.length > places.length ? t.city.showingTop.replace("{shown}", String(places.length)) : " "}
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-14">
         {places.map((place) => (
           <PlaceCard key={place.id} place={place} lang={lang} />

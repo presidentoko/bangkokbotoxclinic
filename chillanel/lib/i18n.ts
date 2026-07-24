@@ -34,6 +34,8 @@ export type Dict = {
     listTitle: string;
     placeCount: string;
     intro: string;
+    /** Template with a "{shown}" placeholder, e.g. "Showing the top {shown} by rating.". */
+    showingTop: string;
     faqTitle: string;
     faq: FaqItem[];
   };
@@ -87,6 +89,7 @@ const en: Dict = {
     listTitle: "Massage & spa in {city}",
     placeCount: "places",
     intro: "Real Google reviews from {city}, read for the part other sites skip — who's actually behind the massage.",
+    showingTop: "Showing the top {shown}, sorted by rating.",
     faqTitle: "Massage & spa in {city} — FAQ",
     faq: [
       {
@@ -162,6 +165,7 @@ const th: Dict = {
     listTitle: "ร้านนวดและสปาใน {city}",
     placeCount: "ร้าน",
     intro: "รีวิว Google จริงจาก{city} อ่านในมุมที่เว็บอื่นข้ามไป — ใครคือคนที่นวดให้จริง ๆ",
+    showingTop: "แสดง {shown} อันดับแรก เรียงตามคะแนน",
     faqTitle: "นวดและสปาใน{city} — คำถามที่พบบ่อย",
     faq: [
       {
@@ -237,6 +241,7 @@ const ko: Dict = {
     listTitle: "{city}의 마사지 & 스파",
     placeCount: "곳",
     intro: "{city}의 실제 구글 리뷰를 다른 사이트가 건너뛰는 부분까지 — 실제로 누가 마사지를 해주는지 읽어드립니다.",
+    showingTop: "평점순으로 상위 {shown}곳을 보여드려요.",
     faqTitle: "{city} 마사지·스파 — 자주 묻는 질문",
     faq: [
       {
