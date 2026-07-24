@@ -62,3 +62,16 @@ test("handles empty/whitespace-only review text without throwing", () => {
   assert.doesNotThrow(() => extractMentionsFromReviews(reviews));
   assert.equal(extractMentionsFromReviews(reviews).length, 0);
 });
+
+test("does not capture a lowercase pronoun as a name (case-fold false positive)", () => {
+  // The "i" flag on PATTERNS makes trigger words case-insensitive, but must
+  // not also let it capture a lowercase word as a "name" — regex captures
+  // keep the source text's actual casing, so a candidate whose captured
+  // text isn't itself capitalized must be rejected.
+  const reviews = [
+    { text: "The room was clean and she was amazing at her job." },
+    { text: "Overall pleasant visit, she was amazing throughout." },
+  ];
+  const mentions = extractMentionsFromReviews(reviews);
+  assert.equal(mentions.length, 0, `expected no false-positive pronoun capture, got: ${JSON.stringify(mentions)}`);
+});

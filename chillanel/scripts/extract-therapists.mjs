@@ -35,6 +35,14 @@ function candidatesFromText(text) {
     let m;
     while ((m = pattern.exec(text)) !== null) {
       const name = m[1];
+      // Patterns use the "i" flag so trigger words match case-insensitively
+      // ("Ask"/"ask"/"THANKS"), but that also case-folds the NAME capture
+      // group itself — a lowercase pronoun right before "was/is amazing"
+      // (e.g. "...she was amazing...") would otherwise be captured as a
+      // "name". Regex captures preserve the source text's actual casing
+      // even under /i/, so reject anything the source text didn't itself
+      // capitalize.
+      if (name[0] !== name[0].toUpperCase()) continue;
       if (STOPWORDS.has(name)) continue;
       out.push({ name, quote: extractSentenceContaining(text, m.index) });
     }
