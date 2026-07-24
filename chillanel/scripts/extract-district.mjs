@@ -36,5 +36,3 @@ export function nearestDistrict(lat, lng) {
   }
   return bestDistSq <= MAX_DIST_SQ ? best : null;
 }
-
-export { DISTRICTS };

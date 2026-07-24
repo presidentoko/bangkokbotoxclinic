@@ -11,6 +11,12 @@
 // word "baht" — found in review, 2026-07-24). Comma-grouped amounts
 // ("1,200 baht") are supported since Thai baht prices are routinely written
 // that way.
+//
+// Note: the suffix branch's trailing \b only matches after a *word*
+// character, so a symbol-suffix price ("500฿", no space) won't match there —
+// ฿ is a non-word char so no boundary exists there. In practice this is fine
+// since ฿ is almost always written as a prefix ("฿500"), which the first
+// branch already handles; flagged rather than fixed since it's an unused edge case.
 const NUMBER = String.raw`(?:\d{1,3}(?:,\d{3})+|\d{2,5})`;
 const PRICE_RE = new RegExp(
   String.raw`(?:฿|thb)\s?(?<!\d)(${NUMBER})(?!\d)` +
