@@ -9,7 +9,8 @@
     "prebuild": "node scripts/build-data.mjs",
     "vercel-build": "node scripts/build-data.mjs && next build",
     "data": "node scripts/build-data.mjs",
-    "test": "node --test scripts/*.test.mjs"
+    "test": "node --test scripts/*.test.mjs",
+    "screenshot": "node scripts/screenshot.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -24,6 +25,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.20",
+    "playwright": "^1.48.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.7.2"
