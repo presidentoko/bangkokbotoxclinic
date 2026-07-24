@@ -560,7 +560,7 @@ test("drops a name mentioned in only 1 review (false-positive suppression)", () 
 test("extracts '[Name] was amazing' pattern", () => {
   const reviews = [
     { text: "Malee was amazing, best massage in Bangkok." },
-    { text: "I went back specifically for Malee, was amazing again." },
+    { text: "Went back on my second trip and Malee was amazing again." },
   ];
   const mentions = extractMentionsFromReviews(reviews);
   assert.equal(mentions.length, 1);
@@ -594,6 +594,19 @@ test("handles empty/whitespace-only review text without throwing", () => {
   const reviews = [{ text: "" }, { text: "   " }, { text: null }];
   assert.doesNotThrow(() => extractMentionsFromReviews(reviews));
   assert.equal(extractMentionsFromReviews(reviews).length, 0);
+});
+
+test("does not capture a lowercase pronoun as a name (case-fold false positive)", () => {
+  // The "i" flag on PATTERNS makes trigger words case-insensitive, but must
+  // not also let it capture a lowercase word as a "name" — regex captures
+  // keep the source text's actual casing, so a candidate whose captured
+  // text isn't itself capitalized must be rejected.
+  const reviews = [
+    { text: "The room was clean and she was amazing at her job." },
+    { text: "Overall pleasant visit, she was amazing throughout." },
+  ];
+  const mentions = extractMentionsFromReviews(reviews);
+  assert.equal(mentions.length, 0, `expected no false-positive pronoun capture, got: ${JSON.stringify(mentions)}`);
 });
 ```
 
@@ -646,6 +659,14 @@ function candidatesFromText(text) {
     let m;
     while ((m = pattern.exec(text)) !== null) {
       const name = m[1];
+      // Patterns use the "i" flag so trigger words match case-insensitively
+      // ("Ask"/"ask"/"THANKS"), but that also case-folds the NAME capture
+      // group itself — a lowercase pronoun right before "was/is amazing"
+      // (e.g. "...she was amazing...") would otherwise be captured as a
+      // "name". Regex captures preserve the source text's actual casing
+      // even under /i/, so reject anything the source text didn't itself
+      // capitalize.
+      if (name[0] !== name[0].toUpperCase()) continue;
       if (STOPWORDS.has(name)) continue;
       out.push({ name, quote: extractSentenceContaining(text, m.index) });
     }
@@ -685,7 +706,7 @@ export function extractMentionsFromReviews(reviews) {
 cd chillanel && node --test scripts/extract-therapists.test.mjs
 ```
 
-Expected: `# pass 6`, `# fail 0`, exit code 0.
+Expected: `# pass 7`, `# fail 0`, exit code 0.
 
 - [ ] **Step 6: Commit**
 
