@@ -5,6 +5,7 @@ import { isLang, SITE, hreflangAlternates } from "@/lib/site";
 import { listCities, loadCity } from "@/lib/data";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Faq } from "@/components/Faq";
+import { ReviewQuotes, type QuoteItem } from "@/components/ReviewQuotes";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -37,6 +38,20 @@ export default async function HomePage({
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
     .slice(0, 9);
   const totalPlaces = bangkok.places.length;
+  const totalReviews = bangkok.places.reduce((sum, p) => sum + p.reviews.length, 0);
+  const totalMentions = bangkok.places.reduce((sum, p) => sum + p.therapistMentions.length, 0);
+
+  const quotes: QuoteItem[] = bangkok.places
+    .filter((p) => p.therapistMentions.length > 0)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, 6)
+    .map((p) => ({
+      quote: p.therapistMentions[0].quotes[0],
+      therapistName: p.therapistMentions[0].name,
+      placeName: p.name,
+      placeId: p.id,
+    }))
+    .filter((q) => Boolean(q.quote));
 
   return (
     <div>
@@ -50,7 +65,7 @@ export default async function HomePage({
           className="spa-glow bg-accent-warm w-[360px] h-[360px] -bottom-32 right-0"
           aria-hidden="true"
         />
-        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 py-20 sm:py-32">
+        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 pt-20 sm:pt-32 pb-14 sm:pb-16">
           {totalPlaces > 0 && (
             <div className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur px-3.5 py-1.5 text-xs font-semibold text-on-ink-muted mb-7">
               <span className="text-accent-warm" aria-hidden="true">✦</span>
@@ -80,7 +95,28 @@ export default async function HomePage({
               </Link>
             </div>
           )}
+          <p className="mt-8 text-xs text-on-ink-muted/70 max-w-lg leading-relaxed">{t.home.manifesto}</p>
         </div>
+
+        {/* Stat strip — converts trust claims into real numbers from data we already have. */}
+        {totalPlaces > 0 && (
+          <div className="relative border-t border-white/10">
+            <div className="max-w-5xl mx-auto grid grid-cols-3 divide-x divide-white/10 text-center">
+              {[
+                { value: totalPlaces, label: t.home.stats.places },
+                { value: totalReviews, label: t.home.stats.reviews },
+                { value: totalMentions, label: t.home.stats.therapists },
+              ].map((s) => (
+                <div key={s.label} className="px-3 py-6 sm:py-8">
+                  <div className="font-display text-2xl sm:text-4xl font-semibold tabular-nums text-accent-warm">
+                    {s.value.toLocaleString()}+
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-on-ink-muted mt-1.5 leading-snug">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <div className="max-w-5xl mx-auto px-4 py-14 sm:py-16">
@@ -93,12 +129,14 @@ export default async function HomePage({
           <section className="mb-14">
             <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.home.featuredTitle}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {featured.map((place) => (
-                <PlaceCard key={place.id} place={place} lang={lang} />
+              {featured.map((place, i) => (
+                <PlaceCard key={place.id} place={place} lang={lang} editorsPick={i < 2} />
               ))}
             </div>
           </section>
         )}
+
+        <ReviewQuotes title={t.home.quotesTitle} items={quotes} lang={lang} />
 
         <Faq title={t.home.faqTitle} items={t.home.faq} />
       </div>

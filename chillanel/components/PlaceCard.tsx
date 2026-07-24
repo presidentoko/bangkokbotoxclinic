@@ -19,15 +19,33 @@ function gradientForId(id: string): string {
   return variants[hash % variants.length];
 }
 
-export function PlaceCard({ place, lang }: { place: Place; lang: Lang }) {
+export function PlaceCard({
+  place,
+  lang,
+  editorsPick = false,
+}: {
+  place: Place;
+  lang: Lang;
+  editorsPick?: boolean;
+}) {
   const t = tFor(lang);
   const badge = categoryBadgeLabel(place.primaryType, lang);
+  const mentionCount = place.therapistMentions.length;
+  // Visual "signal strength" for the differentiator — not a fake precision
+  // score, just how many named-therapist mentions this place has, capped
+  // at 3 dots so it stays legible instead of trying to look scientific.
+  const signalDots = Math.min(mentionCount, 3);
 
   return (
     <Link
       href={`/${lang}/place/${place.id}`}
-      className="group block rounded-3xl border border-border bg-bg-elev overflow-hidden hover:shadow-xl hover:shadow-ink/5 hover:-translate-y-1 transition-all duration-300"
+      className="group relative block rounded-3xl border border-border bg-bg-elev overflow-hidden hover:shadow-xl hover:shadow-ink/5 hover:-translate-y-1 transition-all duration-300"
     >
+      {editorsPick && (
+        <div className="absolute top-0 right-0 z-10 bg-gradient-to-r from-accent-warm to-amber-500 text-ink text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">
+          {t.home.editorsPick}
+        </div>
+      )}
       <div
         className={`relative h-20 bg-gradient-to-br ${gradientForId(place.id)}`}
         style={{
@@ -58,13 +76,22 @@ export function PlaceCard({ place, lang }: { place: Place; lang: Lang }) {
           <span className="text-muted">
             {place.reviewCount} {t.place.reviewCountLabel}
           </span>
-          {place.therapistMentions.length > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-accent-warm/15 text-accent-warm font-semibold px-2.5 py-1">
-              <span aria-hidden="true">✦</span>
-              {t.place.namedInReviews.replace("{n}", String(place.therapistMentions.length))}
-            </span>
-          )}
         </div>
+        {mentionCount > 0 && (
+          <div className="mt-3 flex items-center gap-2 rounded-xl bg-accent-warm/10 px-3 py-2">
+            <div className="flex gap-0.5" aria-hidden="true">
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className={`w-1.5 h-1.5 rounded-full ${i < signalDots ? "bg-accent-warm" : "bg-accent-warm/25"}`}
+                />
+              ))}
+            </div>
+            <span className="text-xs font-semibold text-accent-warm">
+              {t.place.namedInReviews.replace("{n}", String(mentionCount))}
+            </span>
+          </div>
+        )}
       </div>
     </Link>
   );

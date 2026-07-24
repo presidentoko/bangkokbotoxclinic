@@ -13,6 +13,10 @@ export type Dict = {
     /** Template with a "{count}" placeholder. */
     trustBadge: string;
     ctaBrowse: string;
+    manifesto: string;
+    stats: { places: string; reviews: string; therapists: string };
+    quotesTitle: string;
+    editorsPick: string;
     faqTitle: string;
     faq: FaqItem[];
   };
@@ -56,6 +60,10 @@ const en: Dict = {
     featuredTitle: "Featured places",
     trustBadge: "{count}+ places, built from real Google reviews",
     ctaBrowse: "Browse Bangkok",
+    manifesto: "No paid placements. No sponsored ranks. Every listing pulled straight from public Google reviews.",
+    stats: { places: "places listed", reviews: "reviews analyzed", therapists: "therapists named by reviewers" },
+    quotesTitle: "In their own words",
+    editorsPick: "Top rated",
     faqTitle: "Common questions",
     faq: [
       {
@@ -132,6 +140,10 @@ const th: Dict = {
     featuredTitle: "ร้านแนะนำ",
     trustBadge: "รวมกว่า {count}+ ร้าน จากรีวิว Google จริง",
     ctaBrowse: "ดูร้านในกรุงเทพฯ",
+    manifesto: "ไม่มีการจ่ายเงินจัดอันดับ ไม่มีสปอนเซอร์ ทุกรายชื่อดึงตรงจากรีวิว Google สาธารณะ",
+    stats: { places: "ร้านที่รวบรวม", reviews: "รีวิวที่วิเคราะห์", therapists: "หมอนวดที่ถูกเอ่ยชื่อโดยรีวิว" },
+    quotesTitle: "คำพูดจากรีวิวจริง",
+    editorsPick: "คะแนนสูงสุด",
     faqTitle: "คำถามที่พบบ่อย",
     faq: [
       {
@@ -208,6 +220,10 @@ const ko: Dict = {
     featuredTitle: "추천 업체",
     trustBadge: "실제 구글 리뷰 기반, {count}+개 업체 수록",
     ctaBrowse: "방콕 업체 보기",
+    manifesto: "돈 받고 순위 매기지 않아요. 스폰서도 없어요. 모든 목록은 공개된 구글 리뷰에서 그대로 가져옵니다.",
+    stats: { places: "등록된 업체", reviews: "분석한 리뷰", therapists: "리뷰에서 이름이 언급된 테라피스트" },
+    quotesTitle: "실제 리뷰어의 말",
+    editorsPick: "최고 평점",
     faqTitle: "자주 묻는 질문",
     faq: [
       {
