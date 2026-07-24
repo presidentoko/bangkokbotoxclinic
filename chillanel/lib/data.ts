@@ -18,7 +18,13 @@ export function loadCity(city: string): CityData {
   const cached = cache.get(city);
   if (cached) return cached;
   const file = path.join(DATA_DIR, `clinics.${city}.json`);
-  const empty: CityData = { city, generatedAt: new Date(0).toISOString(), places: [] };
+  const empty: CityData = {
+    city,
+    generatedAt: new Date(0).toISOString(),
+    places: [],
+    themeAggregate: [],
+    moodAggregate: [],
+  };
   if (!fs.existsSync(file)) {
     cache.set(city, empty);
     return empty;

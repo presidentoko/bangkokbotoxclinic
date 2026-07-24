@@ -12,6 +12,10 @@ export type Review = {
   relativeDate: string;
 };
 
+export type ThemeCount = { label: string; count: number };
+
+export type RatingDistribution = { 5: number; 4: number; 3: number; 2: number; 1: number };
+
 export type Place = {
   id: string;
   name: string;
@@ -27,10 +31,17 @@ export type Place = {
   mapsUrl: string;
   reviews: Review[];
   therapistMentions: TherapistMention[];
+  serviceThemes: ThemeCount[];
+  moodKeywords: ThemeCount[];
+  ratingDistribution: RatingDistribution;
+  priceMentions: number[];
+  district: string | null;
 };
 
 export type CityData = {
   city: string;
   generatedAt: string;
   places: Place[];
+  themeAggregate: ThemeCount[];
+  moodAggregate: ThemeCount[];
 };

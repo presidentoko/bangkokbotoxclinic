@@ -6,6 +6,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { parse } from "csv-parse/sync";
 import { extractMentionsFromReviews } from "./extract-therapists.mjs";
+import { extractThemeCounts, sumThemeCounts, SERVICE_THEMES, MOOD_KEYWORDS } from "./extract-themes.mjs";
+import { extractPriceMentions } from "./extract-price.mjs";
+import { nearestDistrict } from "./extract-district.mjs";
 
 function argValue(flag, fallback) {
   const i = process.argv.indexOf(flag);
@@ -41,6 +44,15 @@ function reviewsForPlace(placeId) {
   }));
 }
 
+function ratingDistribution(reviews) {
+  const dist = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  for (const r of reviews) {
+    const rounded = r.rating != null ? Math.round(r.rating) : null;
+    if (rounded >= 1 && rounded <= 5) dist[rounded] += 1;
+  }
+  return dist;
+}
+
 const CLOSED_STATUSES = new Set(["CLOSED_PERMANENTLY", "CLOSED_TEMPORARILY"]);
 
 function buildPlaces() {
@@ -53,13 +65,15 @@ function buildPlaces() {
     .map((r) => {
       const reviews = reviewsForPlace(r.place_id);
       const therapistMentions = extractMentionsFromReviews(reviews);
+      const lat = num(r.latitude, null);
+      const lng = num(r.longitude, null);
       return {
         id: r.place_id.replace(/:/g, "_"),
         name: r.name,
         city: CITY,
         address: (r.formatted_address || "").trim(),
-        lat: num(r.latitude, null),
-        lng: num(r.longitude, null),
+        lat,
+        lng,
         phone: r.phone || "",
         website: r.website || "",
         rating: num(r.rating, null),
@@ -68,6 +82,11 @@ function buildPlaces() {
         mapsUrl: r.maps_url || "",
         reviews: reviews.slice(0, 20),
         therapistMentions,
+        serviceThemes: extractThemeCounts(reviews, SERVICE_THEMES),
+        moodKeywords: extractThemeCounts(reviews, MOOD_KEYWORDS),
+        ratingDistribution: ratingDistribution(reviews),
+        priceMentions: extractPriceMentions(reviews),
+        district: nearestDistrict(lat, lng),
       };
     })
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
@@ -82,17 +101,32 @@ if (!fs.existsSync(CLINICS_CSV)) {
     process.exit(0);
   }
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
-  fs.writeFileSync(OUT_FILE, JSON.stringify({ city: CITY, generatedAt: new Date().toISOString(), places: [] }, null, 2));
+  fs.writeFileSync(
+    OUT_FILE,
+    JSON.stringify(
+      { city: CITY, generatedAt: new Date().toISOString(), places: [], themeAggregate: [], moodAggregate: [] },
+      null,
+      2
+    )
+  );
   console.warn(`[build-data] no existing output either — wrote empty stub.`);
   process.exit(0);
 }
 
 const places = buildPlaces();
+const themeAggregate = sumThemeCounts(places.map((p) => p.serviceThemes));
+const moodAggregate = sumThemeCounts(places.map((p) => p.moodKeywords));
 fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
 fs.writeFileSync(
   OUT_FILE,
-  JSON.stringify({ city: CITY, generatedAt: new Date().toISOString(), places }, null, 2),
+  JSON.stringify(
+    { city: CITY, generatedAt: new Date().toISOString(), places, themeAggregate, moodAggregate },
+    null,
+    2
+  ),
   "utf-8"
 );
 console.log(`[build-data] wrote ${places.length} places → ${OUT_FILE}`);
 console.log(`[build-data] places with therapist mentions: ${places.filter((p) => p.therapistMentions.length > 0).length}`);
+console.log(`[build-data] top service themes: ${themeAggregate.slice(0, 5).map((t) => `${t.label}(${t.count})`).join(", ")}`);
+console.log(`[build-data] top mood keywords: ${moodAggregate.slice(0, 5).map((t) => `${t.label}(${t.count})`).join(", ")}`);
