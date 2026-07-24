@@ -7,6 +7,19 @@ import path from "node:path";
 const ROOT = path.join(import.meta.dirname, "..", "..");
 const WATCH_FILES = ["spa_output/bangkok/clinics.csv"];
 const INTERVAL_MS = 5 * 60 * 1000;
+const VERCEL_SCOPE = "vamoss2";
+
+// watchdog launches this with env_extra={}, so it only inherits whatever env
+// watchdog.py itself started with — no persistent `vercel login` session and
+// no VERCEL_TOKEN guaranteed. Read the token straight from the repo's
+// gitignored root .env instead of relying on ambient environment.
+function loadVercelToken() {
+  if (process.env.VERCEL_TOKEN) return process.env.VERCEL_TOKEN;
+  const envPath = path.join(ROOT, ".env");
+  if (!fs.existsSync(envPath)) return undefined;
+  const match = fs.readFileSync(envPath, "utf-8").match(/^VERCEL_TOKEN=(.+)$/m);
+  return match ? match[1].trim() : undefined;
+}
 
 function latestMtime() {
   let latest = 0;
@@ -33,7 +46,10 @@ function deploy() {
   log("변경 감지 — build-data 재실행");
   execFileSync(process.execPath, ["scripts/build-data.mjs"], { cwd: import.meta.dirname + "/..", stdio: "inherit" });
   log("vercel --prod 배포 시작");
-  execFileSync("vercel", ["--prod", "--yes"], { cwd: import.meta.dirname + "/..", stdio: "inherit" });
+  const token = loadVercelToken();
+  const args = ["deploy", "--prod", "--yes", "--scope", VERCEL_SCOPE];
+  if (token) args.push("--token", token);
+  execFileSync("vercel", args, { cwd: import.meta.dirname + "/..", stdio: "inherit" });
   log("배포 완료");
 }
 
