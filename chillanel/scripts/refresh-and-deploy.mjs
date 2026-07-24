@@ -41,6 +41,10 @@ while (true) {
     } catch (e) {
       log(`배포 실패: ${e.message}`);
     }
+  } else {
+    // Heartbeat so the watchdog's progress_pattern keeps matching during idle
+    // polling — without this, 25min of no CSV change looks like a hang.
+    log("변경 없음");
   }
   await new Promise((r) => setTimeout(r, INTERVAL_MS));
 }

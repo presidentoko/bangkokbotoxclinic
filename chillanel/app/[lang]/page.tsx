@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE } from "@/lib/site";
-import { loadCity } from "@/lib/data";
+import { listCities, loadCity } from "@/lib/data";
 import { PlaceCard } from "@/components/PlaceCard";
 import { notFound } from "next/navigation";
 
@@ -28,7 +28,8 @@ export default async function HomePage({
   const { lang } = await params;
   if (!isLang(lang)) notFound();
   const t = tFor(lang);
-  const bangkok = loadCity("bangkok");
+  const cities = listCities();
+  const bangkok = cities.length > 0 ? loadCity(cities[0]) : { city: "", generatedAt: "", places: [] };
   const featured = bangkok.places
     .filter((p) => p.rating != null && p.reviewCount >= 10)
     .slice(0, 9);

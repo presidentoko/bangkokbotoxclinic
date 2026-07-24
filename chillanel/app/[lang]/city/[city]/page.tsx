@@ -23,7 +23,7 @@ export async function generateMetadata({
   const t = tFor(lang);
   const label = cityLabel(city);
   return {
-    title: `${t.city.listTitle} ${label} — ${SITE.name}`,
+    title: `${t.city.listTitle.replace("{city}", label)} — ${SITE.name}`,
     alternates: { canonical: `/${lang}/city/${city}` },
   };
 }
@@ -43,7 +43,7 @@ export default async function CityPage({
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-black mb-1">
-        {t.city.listTitle} {label}
+        {t.city.listTitle.replace("{city}", label)}
       </h1>
       <p className="text-muted mb-8">
         {data.places.length} {t.city.placeCount}

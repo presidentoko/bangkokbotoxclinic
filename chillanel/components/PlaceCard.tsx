@@ -1,8 +1,10 @@
 import Link from "next/link";
 import type { Lang } from "@/lib/site";
 import type { Place } from "@/lib/types";
+import { tFor } from "@/lib/i18n";
 
 export function PlaceCard({ place, lang }: { place: Place; lang: Lang }) {
+  const t = tFor(lang);
   return (
     <Link
       href={`/${lang}/place/${place.id}`}
@@ -14,10 +16,12 @@ export function PlaceCard({ place, lang }: { place: Place; lang: Lang }) {
         {place.rating != null && (
           <span className="font-semibold">★ {place.rating.toFixed(1)}</span>
         )}
-        <span className="text-muted">{place.reviewCount} reviews</span>
+        <span className="text-muted">
+          {place.reviewCount} {t.place.reviewCountLabel}
+        </span>
         {place.therapistMentions.length > 0 && (
           <span className="text-accent text-xs font-semibold">
-            {place.therapistMentions.length} named in reviews
+            {t.place.namedInReviews.replace("{n}", String(place.therapistMentions.length))}
           </span>
         )}
       </div>

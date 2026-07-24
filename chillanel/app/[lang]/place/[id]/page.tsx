@@ -80,7 +80,7 @@ export default async function PlacePage({
           {place.reviews.slice(0, 10).map((r) => (
             <div key={r.id} className="border-b border-border pb-3">
               <div className="flex items-center gap-2 text-sm mb-1">
-                <span className="font-semibold">{r.authorName || "Anonymous"}</span>
+                <span className="font-semibold">{r.authorName || t.place.anonymousReviewer}</span>
                 {r.rating != null && <span>★ {r.rating}</span>}
                 <span className="text-muted text-xs">{r.relativeDate}</span>
               </div>

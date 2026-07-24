@@ -18,12 +18,19 @@ export function loadCity(city: string): CityData {
   const cached = cache.get(city);
   if (cached) return cached;
   const file = path.join(DATA_DIR, `clinics.${city}.json`);
+  const empty: CityData = { city, generatedAt: new Date(0).toISOString(), places: [] };
   if (!fs.existsSync(file)) {
-    const empty: CityData = { city, generatedAt: new Date(0).toISOString(), places: [] };
     cache.set(city, empty);
     return empty;
   }
-  const parsed = JSON.parse(fs.readFileSync(file, "utf-8")) as CityData;
+  let parsed: CityData;
+  try {
+    parsed = JSON.parse(fs.readFileSync(file, "utf-8")) as CityData;
+  } catch (e) {
+    console.error(`loadCity: failed to parse ${file}, falling back to empty city data: ${(e as Error).message}`);
+    cache.set(city, empty);
+    return empty;
+  }
   cache.set(city, parsed);
   return parsed;
 }

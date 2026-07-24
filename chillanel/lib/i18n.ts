@@ -18,7 +18,11 @@ export type Dict = {
     reviewCountLabel: string;
     addressLabel: string;
     viewOnMaps: string;
+    /** Template with a "{n}" placeholder, e.g. "{n} named in reviews". */
+    namedInReviews: string;
+    anonymousReviewer: string;
   };
+  /** listTitle is a template with a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: { listTitle: string; placeCount: string };
   guide: { indexTitle: string };
   about: { title: string; body: string };
@@ -46,8 +50,10 @@ const en: Dict = {
     reviewCountLabel: "reviews",
     addressLabel: "Address",
     viewOnMaps: "View on Google Maps",
+    namedInReviews: "{n} named in reviews",
+    anonymousReviewer: "Anonymous",
   },
-  city: { listTitle: "Massage & spa in", placeCount: "places" },
+  city: { listTitle: "Massage & spa in {city}", placeCount: "places" },
   guide: { indexTitle: "Guides" },
   about: {
     title: "About chillanel",
@@ -78,8 +84,10 @@ const th: Dict = {
     reviewCountLabel: "รีวิว",
     addressLabel: "ที่อยู่",
     viewOnMaps: "ดูใน Google Maps",
+    namedInReviews: "ถูกเอ่ยชื่อในรีวิว {n} คน",
+    anonymousReviewer: "ไม่ระบุชื่อ",
   },
-  city: { listTitle: "ร้านนวดและสปาใน", placeCount: "ร้าน" },
+  city: { listTitle: "ร้านนวดและสปาใน {city}", placeCount: "ร้าน" },
   guide: { indexTitle: "คู่มือ" },
   about: {
     title: "เกี่ยวกับ chillanel",
@@ -110,8 +118,10 @@ const ko: Dict = {
     reviewCountLabel: "리뷰",
     addressLabel: "주소",
     viewOnMaps: "구글맵에서 보기",
+    namedInReviews: "리뷰에 이름 언급 {n}명",
+    anonymousReviewer: "익명",
   },
-  city: { listTitle: "의 마사지 & 스파", placeCount: "곳" },
+  city: { listTitle: "{city}의 마사지 & 스파", placeCount: "곳" },
   guide: { indexTitle: "가이드" },
   about: {
     title: "chillanel 소개",

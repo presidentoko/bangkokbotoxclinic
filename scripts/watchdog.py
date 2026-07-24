@@ -1531,7 +1531,7 @@ def build_services() -> list[Service]:
             cwd=ROOT,
             env_extra={},
             log_file=LOGS / "chillanel_refresher.log",
-            progress_pattern=re.compile(r"(감시 시작|배포 완료|변경 감지)"),
+            progress_pattern=re.compile(r"(감시 시작|배포 완료|변경 감지|변경 없음)"),
             progress_stale_sec=1500,
             progress_grace_sec=120,
         ),
