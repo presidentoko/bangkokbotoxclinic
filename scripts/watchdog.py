@@ -1477,8 +1477,14 @@ def build_services() -> list[Service]:
             env_extra={},
             log_file=LOGS / "ram_manager.log",
             progress_pattern=re.compile(r"\[RAM\]|\[20\d\d-"),
-            progress_stale_sec=180,
-            progress_grace_sec=30,
+            # 2026-07-24: 60초 tick인데도 180s/30s 마진으로 ~90초 간격
+            # 재시작 루프 발견 (실측 시 최신 tick이 16~36초밖에 안 됐는데도
+            # kick됨 — 정확한 레이스 원인은 특정 못함, chrome_heavy 다수 동시
+            # 가동 중 CPU 경합/스케줄링 지연 추정). tick 주기(60s) 대비
+            # 10배 마진으로 확대 — 다른 안정적 서비스들(PROG_VPN 등)과
+            # 동일한 여유율 패턴.
+            progress_stale_sec=600,
+            progress_grace_sec=90,
         ),
         Service(
             # Health monitor — 무인 운영 중 시스템 상태 5분 주기로 체크/로깅.

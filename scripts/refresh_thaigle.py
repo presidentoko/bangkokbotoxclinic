@@ -14,6 +14,7 @@ import subprocess
 import sys
 import time
 import zipfile
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -73,9 +74,18 @@ def deploy():
         print(f"[refresh] ❌ Deploy failed (exit {result.returncode})")
 
 
+def _ts() -> str:
+    # watchdog.py's parse_log_timestamp only recognizes a leading
+    # "[YYYY-MM-DD HH:MM:SS]" (or bare "[HH:MM:SS]") — these [watcher] lines
+    # previously had no timestamp at all, so progress_stale() could never
+    # find a parseable match and always fell through to "stale", crash-looping
+    # this service every ~2.5min despite it running fine.
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
 def watch(interval: int = 300):
     """data.zip 변경 감지 → 자동 추출 + 배포. 무한 루프."""
-    print(f"[watcher] 👀 Watching {DATA_ZIP} every {interval}s...")
+    print(f"[{_ts()}] [watcher] 👀 Watching {DATA_ZIP} every {interval}s...", flush=True)
     last_mtime: float = DATA_ZIP.stat().st_mtime if DATA_ZIP.exists() else 0
     while True:
         time.sleep(interval)
@@ -84,13 +94,13 @@ def watch(interval: int = 300):
         except FileNotFoundError:
             continue
         if mtime != last_mtime:
-            print(f"[watcher] 📦 data.zip changed — refreshing...")
+            print(f"[{_ts()}] [watcher] 📦 data.zip changed — refreshing...", flush=True)
             last_mtime = mtime
             ok = extract_data()
             if ok:
                 deploy()
         else:
-            print(f"[watcher] ✓ no change")
+            print(f"[{_ts()}] [watcher] ✓ no change", flush=True)
 
 
 if __name__ == "__main__":
