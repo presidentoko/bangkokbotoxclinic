@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { listCities, loadCity } from "@/lib/data";
+import { isRelevantCategory } from "@/lib/categories";
 import { PlaceCard } from "@/components/PlaceCard";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Faq } from "@/components/Faq";
 
 export function generateStaticParams() {
   return listCities().map((city) => ({ city }));
-}
-
-function cityLabel(city: string): string {
-  return city.charAt(0).toUpperCase() + city.slice(1).replace(/-/g, " ");
 }
 
 export async function generateMetadata({
@@ -24,7 +23,11 @@ export async function generateMetadata({
   const label = cityLabel(city);
   return {
     title: `${t.city.listTitle.replace("{city}", label)} — ${SITE.name}`,
-    alternates: { canonical: `/${lang}/city/${city}` },
+    description: t.city.intro.replace("{city}", label),
+    alternates: {
+      canonical: `/${lang}/city/${city}`,
+      languages: hreflangAlternates((l) => `/${l}/city/${city}`),
+    },
   };
 }
 
@@ -39,20 +42,26 @@ export default async function CityPage({
   if (data.places.length === 0) notFound();
   const t = tFor(lang);
   const label = cityLabel(city);
+  const places = data.places
+    .filter((p) => isRelevantCategory(p.primaryType))
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-black mb-1">
+    <div className="max-w-5xl mx-auto px-4 py-10 sm:py-12">
+      <Breadcrumbs items={[{ name: t.nav.home, href: `/${lang}` }, { name: label, href: `/${lang}/city/${city}` }]} />
+      <h1 className="text-3xl sm:text-4xl font-black mb-2 tracking-tight">
         {t.city.listTitle.replace("{city}", label)}
       </h1>
-      <p className="text-muted mb-8">
-        {data.places.length} {t.city.placeCount}
+      <p className="text-muted mb-1">
+        {places.length} {t.city.placeCount}
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {data.places.map((place) => (
+      <p className="text-muted max-w-2xl mb-8 leading-relaxed">{t.city.intro.replace("{city}", label)}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-14">
+        {places.map((place) => (
           <PlaceCard key={place.id} place={place} lang={lang} />
         ))}
       </div>
+      <Faq title={t.city.faqTitle.replace("{city}", label)} items={t.city.faq.map((f) => ({ q: f.q.replace("{city}", label), a: f.a.replace("{city}", label) }))} />
     </div>
   );
 }

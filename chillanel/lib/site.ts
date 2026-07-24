@@ -13,3 +13,15 @@ export const SITE = {
 export function isLang(v: string): v is Lang {
   return (SUPPORTED_LANGS as readonly string[]).includes(v);
 }
+
+export function cityLabel(city: string): string {
+  return city.charAt(0).toUpperCase() + city.slice(1).replace(/-/g, " ");
+}
+
+/** Builds a hreflang alternates map (+ x-default) for a route shape shared across all languages. */
+export function hreflangAlternates(pathForLang: (lang: Lang) => string): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of SUPPORTED_LANGS) langs[l] = `${SITE.origin}${pathForLang(l)}`;
+  langs["x-default"] = `${SITE.origin}${pathForLang(DEFAULT_LANG)}`;
+  return langs;
+}

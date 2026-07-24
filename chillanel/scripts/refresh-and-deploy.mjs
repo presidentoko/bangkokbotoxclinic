@@ -18,7 +18,15 @@ function latestMtime() {
 }
 
 function log(msg) {
-  console.log(`[${new Date().toISOString()}] ${msg}`);
+  // watchdog.py's parse_log_timestamp only recognizes "YYYY-MM-DD HH:MM:SS"
+  // (local time) or bare "HH:MM:SS" — ISO-8601 with T/Z doesn't match either
+  // pattern, so every line here was unparseable and progress_stale() fell
+  // through to "always stale" after the grace period, crash-looping this
+  // service every ~2.5min despite it running fine.
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const ts = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  console.log(`[${ts}] ${msg}`);
 }
 
 function deploy() {

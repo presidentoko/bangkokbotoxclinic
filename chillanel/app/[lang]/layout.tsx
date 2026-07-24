@@ -18,11 +18,11 @@ export default async function LangLayout({
   const { lang } = await params;
   if (!isLang(lang)) notFound();
   return (
-    <>
+    <div lang={lang}>
       <HtmlLangSetter lang={lang} />
       <Header lang={lang} />
       <main>{children}</main>
       <Footer lang={lang} />
-    </>
+    </div>
   );
 }

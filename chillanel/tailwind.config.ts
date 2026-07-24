@@ -14,6 +14,7 @@ const config: Config = {
         muted: "rgb(var(--muted) / <alpha-value>)",
         border: "rgb(var(--border) / <alpha-value>)",
         accent: "rgb(var(--accent) / <alpha-value>)",
+        "accent-warm": "rgb(var(--accent-warm) / <alpha-value>)",
       },
     },
   },

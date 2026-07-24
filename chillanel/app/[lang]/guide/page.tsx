@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates } from "@/lib/site";
 import { listGuides } from "@/lib/guides";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLang(lang)) return {};
-  return { title: `${tFor(lang).guide.indexTitle} — ${SITE.name}`, alternates: { canonical: `/${lang}/guide` } };
+  return {
+    title: `${tFor(lang).guide.indexTitle} — ${SITE.name}`,
+    alternates: {
+      canonical: `/${lang}/guide`,
+      languages: hreflangAlternates((l) => `/${l}/guide`),
+    },
+  };
 }
 
 export default async function GuideIndexPage({
@@ -27,13 +34,14 @@ export default async function GuideIndexPage({
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-black mb-8">{t.guide.indexTitle}</h1>
+      <Breadcrumbs items={[{ name: t.nav.home, href: `/${lang}` }, { name: t.guide.indexTitle, href: `/${lang}/guide` }]} />
+      <h1 className="text-3xl sm:text-4xl font-black mb-8 tracking-tight">{t.guide.indexTitle}</h1>
       <div className="space-y-3">
         {guides.map((g) => (
           <Link
             key={g.slug}
             href={`/${lang}/guide/${g.slug}`}
-            className="block rounded-xl border border-border p-4 hover:border-accent transition font-semibold"
+            className="block rounded-xl border border-border bg-bg-elev p-5 hover:border-accent hover:shadow-sm transition font-semibold"
           >
             {g.title[lang]}
           </Link>

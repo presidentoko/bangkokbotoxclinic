@@ -9,15 +9,55 @@
   --muted: 90 105 102;
   --border: 214 228 224;
   --accent: 15 118 110;        /* teal-600 */
-}
-html.dark {
-  --bg: 8 15 14;
-  --bg-elev: 18 28 27;
-  --fg: 236 245 243;
-  --muted: 148 165 161;
-  --border: 34 51 48;
-  --accent: 45 212 191;        /* teal-400 */
+  --accent-warm: 217 119 6;    /* amber-600, used sparingly for CTAs/badges */
 }
 
-html { scroll-behavior: smooth; }
-body { background: rgb(var(--bg)); color: rgb(var(--fg)); }
+/* No manual toggle exists yet — follow the OS/browser preference automatically. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: 8 15 14;
+    --bg-elev: 18 28 27;
+    --fg: 236 245 243;
+    --muted: 148 165 161;
+    --border: 34 51 48;
+    --accent: 45 212 191;      /* teal-400 */
+    --accent-warm: 251 191 36; /* amber-400 */
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.55;
+}
+
+/* next/font can't subset Korean/Thai glyphs into the Latin font, so the
+   active-language wrapper (set server-side in [lang]/layout.tsx) picks the
+   right family — this applies on first paint, no client-side flash. */
+:lang(ko) {
+  font-family: var(--font-kr), var(--font-sans), sans-serif;
+}
+:lang(th) {
+  font-family: var(--font-th), var(--font-sans), sans-serif;
+}
+
+::selection {
+  background: rgb(var(--accent) / 0.25);
+  color: rgb(var(--fg));
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 2px;
+  border-radius: 4px;
+}

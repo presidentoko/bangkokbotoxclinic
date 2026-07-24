@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLang, SITE } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates } from "@/lib/site";
+import { tFor } from "@/lib/i18n";
 import { getGuide, listGuides } from "@/lib/guides";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export function generateStaticParams() {
   return listGuides().map((g) => ({ slug: g.slug }));
@@ -17,7 +19,13 @@ export async function generateMetadata({
   if (!isLang(lang)) return {};
   const guide = getGuide(slug);
   if (!guide) return {};
-  return { title: `${guide.title[lang]} — ${SITE.name}`, alternates: { canonical: `/${lang}/guide/${slug}` } };
+  return {
+    title: `${guide.title[lang]} — ${SITE.name}`,
+    alternates: {
+      canonical: `/${lang}/guide/${slug}`,
+      languages: hreflangAlternates((l) => `/${l}/guide/${slug}`),
+    },
+  };
 }
 
 export default async function GuideDetailPage({
@@ -29,11 +37,19 @@ export default async function GuideDetailPage({
   if (!isLang(lang)) notFound();
   const guide = getGuide(slug);
   if (!guide) notFound();
+  const t = tFor(lang);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-black mb-6">{guide.title[lang]}</h1>
-      <p className="text-muted leading-relaxed whitespace-pre-line">{guide.body[lang]}</p>
+      <Breadcrumbs
+        items={[
+          { name: t.nav.home, href: `/${lang}` },
+          { name: t.guide.indexTitle, href: `/${lang}/guide` },
+          { name: guide.title[lang], href: `/${lang}/guide/${slug}` },
+        ]}
+      />
+      <h1 className="text-3xl sm:text-4xl font-black mb-6 tracking-tight">{guide.title[lang]}</h1>
+      <p className="text-muted leading-relaxed text-lg whitespace-pre-line">{guide.body[lang]}</p>
     </div>
   );
 }
