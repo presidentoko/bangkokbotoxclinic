@@ -39,33 +39,43 @@ VENV_PY = ROOT / ".venv" / "Scripts" / "python.exe"
 
 CHECK_INTERVAL = 10      # 초 (Tier1 업그레이드: 20→10)
 MAX_RESTARTS_PER_MIN = 5
+
+# _kill_stray_instances 가 안전하게 스캔해도 되는 스크립트 basename 집합.
+# main() 에서 build_services() 직후 채워짐 — 정확히 서비스 1개만 쓰는
+# 스크립트만 포함 (scraper.py/scraper_grid.py/price_sampler.py 등은 도시별로
+# env_extra 만 다르고 동일 스크립트를 20개+ 서비스가 공유해서, basename 매칭으론
+# 서로 다른 서비스의 정상 프로세스를 "stray"로 오인해 죽이는 교차살상이 발생함
+# — 2026-07-17 사고: hair/dental/clinics review 8개 서비스가 서로를 25초마다
+# taskkill 하며 전멸).
+_STRAY_KILL_SAFE_SCRIPTS: set[str] = set()
 CHROME_SOFT_LIMIT = 60   # 이 이상이면 chrome_heavy 서비스 재시작 보류
 CHROME_HARD_LIMIT = 90   # 이 이상이면 chrome 전체 강제 kill
                          # (2026-07-07: 111개에서 RAM 2.7GB까지 고갈됐는데
                          #  구 임계 120이라 가드 미발동 → 하향)
 GRID_DONE_MARKER = "처리할 포인트 없음. 종료."
 REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 큐 비면 graceful exit 직전에 찍는 라인
+# pantip/scraper.py 종료 요약 라인. eligible 전부 이미 progress.json 에 ok 면
+# ok=0 fail=0 으로 즉시 정상 종료 — 이걸 "죽음"으로 오판해 17~20초 간격
+# 무한 재시작하는 사고가 있었음 (2026-07-19, RAM 압박 동반).
+PANTIP_DONE_RE = re.compile(r"DONE: ok=(\d+) skip=(\d+) fail=(\d+) / total=(\d+)")
 
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
     # 클리닉 외국인 인기 순서 chain. Pattaya 끝나면 자동으로 다음 도시 진입.
-    # 2026-05-21 update: 영업이 방콕 우선이라 Pattaya 다음 Bangkok 재실행 추가.
-    # Bangkok grid는 새 클리닉 discovery (Fiona 등 누락분 보강), review는 신규/기존 보강.
+    # 2026-07-13: bangkok_clinics_grid/review 둘 다 완전 종료(신규 처리 대상 0) 확인 후
+    # 체인에서 제거 — grid가 영구 "자연 종료" 상태라 review에 .disabled 마커를 걸어도
+    # 매 루프 체인 프로모션이 즉시 다시 벗겨내던 문제(끄고 싶어도 안 꺼짐) 해결.
     "pattaya_clinics_grid",
     "pattaya_clinics_review",
-    "bangkok_clinics_grid",
-    "bangkok_clinics_review",
     "phuket_clinics_grid",
     "phuket_clinics_review",
-    "chiang_mai_clinics_grid",
-    "chiang_mai_clinics_review",
-    "koh_samui_clinics_grid",
-    "koh_samui_clinics_review",
-    "krabi_clinics_grid",
-    "krabi_clinics_review",
-    "hua_hin_clinics_grid",
-    "hua_hin_clinics_review",
+    # 2026-07-18: chiang_mai/koh_samui/krabi/hua_hin clinics_grid 는 전부 이미
+    # 자연 종료라, 체인에 남겨두면 review 에 .disabled 걸어도 다음 루프에
+    # 즉시 다시 벗겨져 pattaya/phuket review 랑 5개 동시 가동 → chrome 102개로
+    # ram-guard 전체 kill 트리거 (bangkok 제거 때와 동일한 문제, 62-64행 참고).
+    # pattaya/phuket clinics_review 가 실제로 끝난 뒤 수동으로 재추가할 것 —
+    # .disabled 마커는 run/ 에 남아있어 그때까지 안 깨어남.
 ]
 
 # 로그 타임스탬프 패턴 두 종류 지원:
@@ -107,6 +117,7 @@ class Service:
     log_file: Path
     grid_done_check: bool = False        # 로그에 grid 자연 종료 마커 보면 비활성
     review_done_check: bool = False      # 로그에 review 자연 종료 마커 보면 비활성 (scraper.py 큐 빔)
+    pantip_done_check: bool = False      # DONE 요약이 ok=0 fail=0 이면 (남은 미완료 항목 없음) 비활성
 
     # 진행률 health check — PID 살아있어도 실제 작업 진척 없으면 hang 으로 판정.
     # progress_pattern: 매 성공 작업마다 로그에 찍히는 패턴.
@@ -124,6 +135,7 @@ class Service:
     disabled_reason: str = ""
     last_started_at: float = 0.0
     last_progress_kick_at: float = 0.0
+    last_launcher_pid: int = 0
 
     @property
     def pid_file(self) -> Path:
@@ -136,6 +148,18 @@ class Service:
     def is_paused(self) -> bool:
         """run/<name>.disabled 파일 있으면 watchdog 건너뜀 (수동 일시정지)."""
         return self.disabled_marker.exists()
+
+    def _persist_disabled_marker(self) -> None:
+        """자연 종료 상태를 파일로 영속화.
+        2026-07-18: grid_naturally_done/review_naturally_done 은 in-memory
+        s.disabled 만 세팅 — watchdog 프로세스가 재시작되면(하루 여러 번 발생)
+        이 플래그가 초기화되어 이미 끝난 서비스가 되살아나 포트 재경합 발생
+        (파타야/치앙마이/코사무이/크라비 clinics_review 가 며칠씩 0건 수확한 원인).
+        마커 파일로 써두면 재시작 후에도 is_paused() 로 계속 걸러짐."""
+        try:
+            self.disabled_marker.write_text(self.disabled_reason, encoding="utf-8")
+        except OSError:
+            pass
 
     def get_pid(self) -> int | None:
         if not self.pid_file.exists():
@@ -264,7 +288,64 @@ class Service:
             return False
         return any(REVIEW_DONE_MARKER in line for line in tail.splitlines()[-50:])
 
+    def pantip_naturally_done(self) -> bool:
+        """pantip_scraper 가 이번 실행에서 새로 처리한 것도 실패한 것도 없이
+        (ok=0, fail=0) 끝났는지 — eligible_clinics() 전부 이미 progress.json
+        에 ok 로 기록돼 있어 할 일이 없다는 뜻. 새 clinic 이 master_db 에
+        추가되면 사람이 run/pantip_scraper.disabled 를 지워서 재개해야 함
+        (grid/review 자연 종료와 동일한 관례)."""
+        if not self.pantip_done_check or not self.log_file.exists():
+            return False
+        try:
+            with open(self.log_file, "rb") as f:
+                f.seek(0, os.SEEK_END)
+                size = f.tell()
+                back = min(size, 8192)
+                f.seek(size - back)
+                tail = f.read().decode("utf-8", errors="replace")
+        except OSError:
+            return False
+        for line in reversed(tail.splitlines()):
+            m = PANTIP_DONE_RE.search(line)
+            if m:
+                ok, _skip, fail, _total = (int(x) for x in m.groups())
+                return ok == 0 and fail == 0
+        return False
+
+    def _kill_stray_instances(self):
+        """restart() 직전에 같은 스크립트를 실행 중인 python.exe 가 이미 떠있으면
+        (PID 파일과 무관하게, launcher/worker 쌍 다 포함해) 죽인다. PID 파일이
+        죽음으로 잘못 판정되거나 _resolve_worker_pid 가 엉뚱한 PID를 기록했을 때,
+        이전 인스턴스가 살아있는 채로 새 인스턴스가 또 뜨는 경우 방지
+        (2026-07-14: nordvpn_runner 가 이렇게 중복 실행되어 SOCKS 8포트가 두
+        매니저에게 동시에 잡히면서 alive=0/8 전멸)."""
+        script = Path(self.cmd[0]).name if self.cmd else ""
+        if not script or script not in _STRAY_KILL_SAFE_SCRIPTS:
+            return
+        self_worker_pid = self.get_pid()
+        for pid, ppid in _find_script_instances(script):
+            # self_worker_pid 만으로 비교하면, _resolve_worker_pid 가 5초
+            # 안에 진짜 워커 자식을 못 찾고 launcher_pid 로 fallback 했다가
+            # (venv 런처는 자식 spawn 후 곧 종료되는 경우가 흔함) 그 launcher
+            # 가 먼저 죽어버리면, 정상적으로 살아서 일하고 있는 진짜 워커가
+            # "추적 불가한 stray"로 오인되어 taskkill 당하는 자멸 루프가 생김
+            # (2026-07-17: hair_review/phuket_clinics_review 등 8개 서비스가
+            # 시작하자마자 25초마다 킬당해 리뷰 수집이 전멸 상태였음).
+            # 그래서 내 launcher 의 자식(ppid 매치)도 "나"로 인정해야 함.
+            if pid == self_worker_pid or pid == self.last_launcher_pid or ppid == self.last_launcher_pid:
+                continue
+            log(f"[{self.name}] stray 인스턴스 발견 (PID {pid}) — 정리")
+            try:
+                subprocess.run(
+                    ["taskkill", "/F", "/T", "/PID", str(pid)],
+                    stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL, timeout=15,
+                    creationflags=_WNOW,
+                )
+            except (subprocess.SubprocessError, OSError):
+                pass
+
     def restart(self) -> bool:
+        self._kill_stray_instances()
         # 폭주 차단
         now = time.time()
         self.restarts = [t for t in self.restarts if now - t < 60]
@@ -319,6 +400,7 @@ class Service:
         actual_pid = self._resolve_worker_pid(proc.pid)
         self.pid_file.write_text(str(actual_pid))
         self.last_started_at = time.time()
+        self.last_launcher_pid = proc.pid
         log(f"[{self.name}] 재시작 launcher={proc.pid} worker={actual_pid}")
         return True
 
@@ -488,24 +570,32 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.5346890",
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "output",
+        "N_WORKERS": "2",
+        "PROXY_PORT_BASE": "2080",
     }
     pattaya_env = {
         "CITY_LAT": "12.9236",
         "CITY_LNG": "100.8825",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../pattaya/output",
+        "N_WORKERS": "2",
+        "PROXY_PORT_BASE": "2082",
     }
     chiang_mai_env = {
         "CITY_LAT": "18.7883",
         "CITY_LNG": "98.9853",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../chiang_mai/output",
+        # chiang_mai_review 추가하면서 phuket_review 와 기본 포트(2081~2085)가
+        # 겹쳐 VPN 터널을 서로 뺏던 문제 → 전용 포트 배정 (2026-07-23 감사).
+        "N_WORKERS": "2", "PROXY_PORT_BASE": "2084",
     }
     phuket_env = {
         "CITY_LAT": "7.8804",
         "CITY_LNG": "98.3923",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../phuket/output",
+        "N_WORKERS": "2", "PROXY_PORT_BASE": "2086",
     }
     ayutthaya_env = {
         "CITY_LAT": "14.3532",
@@ -574,7 +664,10 @@ def build_services() -> list[Service]:
         (ROOT / _city / "clinics_output" / "reviews").mkdir(parents=True, exist_ok=True)
 
     # 도시별 클리닉 env. 외국인 인기 순서로 chain 자동 promotion 됨.
-    # grid는 2080-2081 (default), review는 2082-2087 (default). 각 도시 grid → review 순.
+    # grid는 GRID_PROXY_PORT/GRID_N_WORKERS. review는 N_WORKERS/PROXY_PORT_BASE
+    # 명시 — 전부 config.py 기본값(6워커·2082)에 맡기면 6개 도시가 전부 같은
+    # 4개 포트에 몰려 워커 36개 겹침 (2026-07-12 chrome 과부하 원인) → 서비스별
+    # 소수 워커 + 2080-2087 순환 분산으로 명시.
     pattaya_clinics_env = {
         "SEARCH_QUERY": "clinic",
         "SEARCH_TAG": "en",
@@ -582,6 +675,13 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.8825",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../pattaya/clinics_output",
+        # 2026-07-18: N_WORKERS=2 로 재기동할 때마다 브라우저 launch 가 영구 행
+        # (chrome-headless-shell 자체가 안 뜸, node.exe 드라이버만 존재) — 포트를
+        # dental_grid 안 겹치게 옮겨도 재발, N_WORKERS=1 로 낮춘 서비스들만 정상
+        # 동작 확인됨 (Windows Playwright sync API 멀티스레드 launch 이슈로 추정).
+        # 1워커로 낮춰서 확실히 진행되게 함 — 처리량은 줄지만 완전 정지보다 나음.
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2080",
     }
     phuket_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -590,6 +690,8 @@ def build_services() -> list[Service]:
         "CITY_LNG": "98.3923",
         "CITY_RADIUS_M": "20000",
         "CITY_OUTPUT_DIR": "../phuket/clinics_output",
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2086",
     }
     chiang_mai_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -600,6 +702,11 @@ def build_services() -> list[Service]:
         "CITY_OUTPUT_DIR": "../chiang_mai/clinics_output",
         "GRID_PROXY_PORT": "2080",
         "GRID_N_WORKERS": "4",
+        # 2026-07-18: N_WORKERS=2 review 서비스가 launch 행 되는 문제 있어 1로 낮춤
+        # (pattaya_clinics_env 주석 참고). 이 서비스는 아직 체인 대기 중이라
+        # 시작 안 했지만 나중에 시작될 때 같은 문제 피하도록 미리 수정.
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2085",
     }
     koh_samui_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -610,6 +717,8 @@ def build_services() -> list[Service]:
         "CITY_OUTPUT_DIR": "../koh_samui/clinics_output",
         "GRID_PROXY_PORT": "2084",
         "GRID_N_WORKERS": "4",
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2087",
     }
     krabi_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -620,6 +729,8 @@ def build_services() -> list[Service]:
         "CITY_OUTPUT_DIR": "../krabi/clinics_output",
         "GRID_PROXY_PORT": "2084",
         "GRID_N_WORKERS": "4",
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2081",
     }
     hua_hin_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -630,17 +741,57 @@ def build_services() -> list[Service]:
         "CITY_OUTPUT_DIR": "../hua_hin/clinics_output",
         "GRID_PROXY_PORT": "2084",
         "GRID_N_WORKERS": "4",
+        "N_WORKERS": "1",
+        "PROXY_PORT_BASE": "2084",
     }
     bangkok_clinics_env = {
         "SEARCH_QUERY": "clinic",
-        # review 10 workers(2080-2089), dental 2090-2091 분리
-        "N_WORKERS": "6",
+        # 2026-07-12: 13개 chrome_heavy 서비스가 동시 가동되며 워커 합계 66개 →
+        # chrome-headless-shell 246개까지 폭증, ram-guard 하드리밋(90) 초과로
+        # 7분마다 전체 kill → 재기동 스래싱 (throughput 사실상 0). 전 서비스
+        # 워커를 1~3개로 줄이고 포트를 2080-2087 8개에 고르게 분산.
+        "N_WORKERS": "3",
         "PROXY_PORT_BASE": "2080",
         "SEARCH_TAG": "en",
         "CITY_LAT": "13.7462890",
         "CITY_LNG": "100.5346890",
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "output",
+    }
+    # 스파/웰니스 — 신규 버티컬 1호 (2026-07-23). 방콕부터, 완료되면
+    # 요가/무에타이/쿠킹/코워킹/다이빙 순으로 확장 예정.
+    # 우선순위 스왑 (2026-07-23): 식당은 후보가 너무 많아 오래 걸리니
+    # 스파부터 먼저 끝내기로 함 — 식당 4개 서비스 전부 일시정지, VPN
+    # 8포트 전부(2080~2087) 스파+마사지에 절반씩 할당해서 빠르게 처리.
+    # "spa" 검색만으로는 카테고리가 Massage로만 잡히는 순수 마사지샵이
+    # 안 걸릴 수 있어 "massage" 2차 쿼리 추가 (같은 output dir 공유,
+    # SEARCH_TAG로 checkpoint만 분리 — dental 2-query 패턴과 동일).
+    spa_bangkok_env = {
+        "SEARCH_QUERY": "spa",
+        "SEARCH_TAG": "spa_bangkok",
+        "CITY_LAT": "13.7462890",
+        "CITY_LNG": "100.5346890",
+        "CITY_RADIUS_M": "30000",
+        "CITY_OUTPUT_DIR": "../spa_output/bangkok",
+        "N_WORKERS": "4",
+        "PROXY_PORT_BASE": "2080",
+        # 그리드 단계는 review 아직 안 도는 동안 포트가 노는 게 아까워서
+        # 2→3워커로 증설 (2026-07-23, RAM 여유 보고 절반만 증설 — 8개 풀로
+        # 가면 chrome이 ram-guard 하드리밋 90 근처까지 가서 위험).
+        "GRID_PROXY_PORT": "2080",
+        "GRID_N_WORKERS": "2",
+    }
+    massage_bangkok_env = {
+        "SEARCH_QUERY": "massage",
+        "SEARCH_TAG": "massage_bangkok",
+        "CITY_LAT": "13.7462890",
+        "CITY_LNG": "100.5346890",
+        "CITY_RADIUS_M": "30000",
+        "CITY_OUTPUT_DIR": "../spa_output/bangkok",
+        "N_WORKERS": "4",
+        "PROXY_PORT_BASE": "2084",
+        "GRID_PROXY_PORT": "2082",
+        "GRID_N_WORKERS": "2",
     }
 
     # progress 패턴 (각 서비스의 "실제 작업 진척" 시그널)
@@ -835,9 +986,13 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "100.5346890",
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../dental_output/bangkok",
-                # dental 전용 포트 2090-2095 (review 2080-2089와 분리)
-                "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2084",
+                # 2026-07-12: 2080-2087 8포트에 분산 (기존 전 dental 서비스가
+                # 2084 고정이라 워커 겹침의 주범이었음)
+                # 2026-07-18: N_WORKERS=2 는 browser launch 영구 행 유발 확인 —
+                # 1로 낮춤 (pattaya_clinics_env 주석 참고, 근본 원인은 포트가 아니라
+                # Windows Playwright sync API 멀티스레드 launch 로 추정).
+                "N_WORKERS": "1",
+                "PROXY_PORT_BASE": "2082",
             },
             log_file=LOGS / "dental_review_bangkok.log",
             chrome_heavy=True,
@@ -854,7 +1009,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "12.9236", "CITY_LNG": "100.8825", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/pattaya",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2086",
             },
             log_file=LOGS / "dental_review_pattaya.log",
             chrome_heavy=True,
@@ -871,7 +1026,10 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "18.7883", "CITY_LNG": "98.9853", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/chiang_mai",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
+                # 2026-07-18: 실측 결과 포트 문제가 아니라 N_WORKERS=2 자체가
+                # browser launch 영구 행 유발 (dental_review_bangkok 도 동일 증상,
+                # candidate 0개인데도 chrome 프로세스 자체가 안 뜸). 1워커로 낮춤.
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2084",
             },
             log_file=LOGS / "dental_review_chiang_mai.log",
             chrome_heavy=True,
@@ -888,7 +1046,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "7.8804", "CITY_LNG": "98.3923", "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../dental_output/phuket",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2081",
             },
             log_file=LOGS / "dental_review_phuket.log",
             chrome_heavy=True,
@@ -905,7 +1063,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "9.5018", "CITY_LNG": "99.9648", "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../dental_output/koh_samui",
-                "N_WORKERS": "4", "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2087",
             },
             log_file=LOGS / "dental_review_koh_samui.log",
             chrome_heavy=True,
@@ -921,6 +1079,30 @@ def build_services() -> list[Service]:
             env_extra=pattaya_env,
             log_file=LOGS / "pattaya_review.log",
             chrome_heavy=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="chiang_mai_review",
+            cmd=["scraper.py"],
+            cwd=bk_reviews,
+            env_extra=chiang_mai_env,
+            log_file=LOGS / "chiang_mai_review.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="phuket_review",
+            cmd=["scraper.py"],
+            cwd=bk_reviews,
+            env_extra=phuket_env,
+            log_file=LOGS / "phuket_review.log",
+            chrome_heavy=True,
+            review_done_check=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
             progress_grace_sec=420,
@@ -944,6 +1126,52 @@ def build_services() -> list[Service]:
             log_file=LOGS / "bangkok_clinics_review.log",
             chrome_heavy=True,
             review_done_check=True,   # 큐 비면 자연 종료 → chain promotion (Pattaya로)
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_bangkok",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_bangkok_env,
+            log_file=LOGS / "spa_grid_bangkok.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_bangkok",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_bangkok_env,
+            log_file=LOGS / "spa_review_bangkok.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_bangkok",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_bangkok_env,
+            log_file=LOGS / "massage_grid_bangkok.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_bangkok",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_bangkok_env,
+            log_file=LOGS / "massage_review_bangkok.log",
+            chrome_heavy=True,
+            review_done_check=True,
             progress_pattern=PROG_REVIEW,
             progress_stale_sec=600,
             progress_grace_sec=420,
@@ -1065,8 +1293,8 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "100.5346890",
                 "CITY_RADIUS_M": "30000",
                 "CITY_OUTPUT_DIR": "../hair_output/bangkok",
-                "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1",
+                "PROXY_PORT_BASE": "2085",
             },
             log_file=LOGS / "hair_review_bangkok.log",
             chrome_heavy=True,
@@ -1086,8 +1314,8 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "98.3923",
                 "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../hair_output/phuket",
-                "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1",
+                "PROXY_PORT_BASE": "2080",
             },
             log_file=LOGS / "hair_review_phuket.log",
             chrome_heavy=True,
@@ -1107,8 +1335,8 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "98.9853",
                 "CITY_RADIUS_M": "20000",
                 "CITY_OUTPUT_DIR": "../hair_output/chiang_mai",
-                "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1",
+                "PROXY_PORT_BASE": "2083",
             },
             log_file=LOGS / "hair_review_chiang_mai.log",
             chrome_heavy=True,
@@ -1128,8 +1356,8 @@ def build_services() -> list[Service]:
                 "CITY_LNG": "100.8825",
                 "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../hair_output/pattaya",
-                "N_WORKERS": "4",
-                "PROXY_PORT_BASE": "2084",
+                "N_WORKERS": "1",
+                "PROXY_PORT_BASE": "2086",
             },
             log_file=LOGS / "hair_review_pattaya.log",
             chrome_heavy=True,
@@ -1240,6 +1468,7 @@ def build_services() -> list[Service]:
             progress_pattern=re.compile(r"\[0x[0-9a-f]+_0x[0-9a-f]+\] "),
             progress_stale_sec=600,    # 10분 안 찍히면 죽은 것 (대형 토픽 처리 + retry 고려)
             progress_grace_sec=180,
+            pantip_done_check=True,    # eligible 전부 이미 ok 면 (ok=0 fail=0) 재시작 대신 비활성
         ),
         Service(
             name="ram_manager",
@@ -1290,6 +1519,20 @@ def build_services() -> list[Service]:
             log_file=LOGS / "thaigle_refresher.log",
             progress_pattern=re.compile(r"\[watcher\]"),
             progress_stale_sec=900,   # 15분 안 찍히면 죽은 것 (5분 간격 × 3 = 여유)
+            progress_grace_sec=120,
+        ),
+        Service(
+            # chillanel 데이터 갱신기 — spa_output/bangkok/clinics.csv 변경 감지 →
+            # build-data.mjs 재실행 → vercel --prod 배포. 5분 주기 폴링.
+            # cmd 는 .mjs 스크립트라 VENV_PY(python) 로 직접 실행 불가 —
+            # python -c 로 subprocess.call(['node', ...]) 를 감싸서 node 로 위임.
+            name="chillanel_refresher",
+            cmd=["-c", "import subprocess,sys; sys.exit(subprocess.call(['node', 'chillanel/scripts/refresh-and-deploy.mjs']))"],
+            cwd=ROOT,
+            env_extra={},
+            log_file=LOGS / "chillanel_refresher.log",
+            progress_pattern=re.compile(r"(감시 시작|배포 완료|변경 감지)"),
+            progress_stale_sec=1500,
             progress_grace_sec=120,
         ),
         Service(
@@ -1420,6 +1663,30 @@ def main():
 
     _singleton_guard()
     services = build_services()
+
+    # 2026-07-18: 이전 프로세스 수명에서 자연 종료로 영속화된 .disabled 마커를
+    # in-memory 상태로 되읽음 — _promote_next_in_chain() 이 재시작 후에도
+    # "prev 자연 종료" 를 올바르게 판단하도록.
+    for s in services:
+        if s.is_paused():
+            try:
+                reason = s.disabled_marker.read_text(encoding="utf-8").strip()
+            except OSError:
+                reason = ""
+            if "자연 종료" in reason:
+                s.disabled = True
+                s.disabled_reason = reason
+
+    global _STRAY_KILL_SAFE_SCRIPTS
+    _script_counts: dict[str, int] = {}
+    for s in services:
+        if s.cmd:
+            n = Path(s.cmd[0]).name
+            _script_counts[n] = _script_counts.get(n, 0) + 1
+    _STRAY_KILL_SAFE_SCRIPTS = {n for n, c in _script_counts.items() if c == 1}
+    log(f"[stray-guard] 단독 스크립트 {len(_STRAY_KILL_SAFE_SCRIPTS)}개만 stray 정리 대상: "
+        f"{sorted(_STRAY_KILL_SAFE_SCRIPTS)}")
+
     _validate_proxy_ports(services)
     log(f"watchdog 시작 PID={os.getpid()} — {len(services)}개 서비스 감시, {CHECK_INTERVAL}초 주기")
     for s in services:
@@ -1435,6 +1702,8 @@ def main():
     last_heartbeat = time.time()
     last_chrome_check = 0.0
     CHROME_CHECK_INTERVAL = 30  # 30초마다 chrome 수 체크
+    last_dup_check = 0.0
+    DUP_CHECK_INTERVAL = 120  # 2분마다 — nordvpn_runner 등 공유자원 중복 인스턴스 능동 감시
 
     while True:
         time.sleep(CHECK_INTERVAL)
@@ -1455,6 +1724,37 @@ def main():
                 chrome_n = 0
             elif chrome_n > CHROME_SOFT_LIMIT:
                 log(f"[ram-guard] chrome {chrome_n}개 > {CHROME_SOFT_LIMIT} — chrome_heavy 재시작 보류")
+
+        # ── 중복 인스턴스 능동 감시 (2026-07-14 사고 재발방지) ──────
+        # restart() 시점의 _kill_stray_instances() 만으로는 watchdog 밖에서
+        # 발생한 중복(예: PID 추적이 어긋난 채 이전 인스턴스가 살아남은 경우)을
+        # 못 잡음. 공유 SOCKS 8포트를 쓰는 nordvpn_runner 는 중복 시 blast
+        # radius 가 전체 chrome_heavy 서비스라 매 tick 능동 스캔.
+        if now - last_dup_check >= DUP_CHECK_INTERVAL:
+            last_dup_check = now
+            vpn_svc = next((s for s in services if s.name == "nordvpn_runner"), None)
+            if vpn_svc is not None:
+                script = Path(vpn_svc.cmd[0]).name
+                instances = _find_script_instances(script)
+                # launcher/worker 는 부모-자식 쌍이라 최대 2개 PID가 정상 —
+                # 서로 다른 쌍(양쪽 다 launcher 이거나, 서로 다른 부모를 가진
+                # worker)이 섞여 있으면 3개 이상 잡힘.
+                if len(instances) > 2:
+                    keep_pid = vpn_svc.get_pid()
+                    log(f"[dup-guard] nordvpn_runner 인스턴스 {len(instances)}개 감지 "
+                        f"(정상 2개) — keep={keep_pid}")
+                    for pid, _ppid in instances:
+                        if pid == keep_pid:
+                            continue
+                        try:
+                            subprocess.run(
+                                ["taskkill", "/F", "/T", "/PID", str(pid)],
+                                stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                timeout=15, creationflags=_WNOW,
+                            )
+                            log(f"[dup-guard] PID {pid} 정리")
+                        except (subprocess.SubprocessError, OSError):
+                            pass
 
         any_action = False
         for s in services:
@@ -1478,13 +1778,22 @@ def main():
             if s.grid_naturally_done():
                 s.disabled = True
                 s.disabled_reason = "grid 자연 종료"
+                s._persist_disabled_marker()
                 log(f"[{s.name}] {s.disabled_reason} — 더 이상 재시작 안 함")
                 any_action = True
                 continue
             if s.review_naturally_done():
                 s.disabled = True
                 s.disabled_reason = "review 자연 종료"
+                s._persist_disabled_marker()
                 log(f"[{s.name}] {s.disabled_reason} — 큐 비움, 더 이상 재시작 안 함")
+                any_action = True
+                continue
+            if s.pantip_naturally_done():
+                s.disabled = True
+                s.disabled_reason = "pantip 완료 (남은 미완료 항목 없음)"
+                s._persist_disabled_marker()
+                log(f"[{s.name}] {s.disabled_reason} — 더 이상 재시작 안 함 (재개하려면 run/{s.name}.disabled 삭제)")
                 any_action = True
                 continue
             # chrome 과부하면 브라우저 많이 쓰는 서비스 재시작 보류
