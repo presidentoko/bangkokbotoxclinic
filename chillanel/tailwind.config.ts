@@ -15,6 +15,13 @@ const config: Config = {
         border: "rgb(var(--border) / <alpha-value>)",
         accent: "rgb(var(--accent) / <alpha-value>)",
         "accent-warm": "rgb(var(--accent-warm) / <alpha-value>)",
+        ink: "rgb(var(--ink) / <alpha-value>)",
+        "ink-elev": "rgb(var(--ink-elev) / <alpha-value>)",
+        "on-ink": "rgb(var(--on-ink) / <alpha-value>)",
+        "on-ink-muted": "rgb(var(--on-ink-muted) / <alpha-value>)",
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "serif"],
       },
     },
   },

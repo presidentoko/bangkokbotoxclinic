@@ -9,7 +9,7 @@ export function Header({ lang }: { lang: Lang }) {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg-elev/90 backdrop-blur">
       <div className="relative max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href={`/${lang}`} className="font-black text-lg tracking-tight text-accent">
+        <Link href={`/${lang}`} className="font-display font-semibold italic text-xl tracking-tight text-accent">
           chillanel
         </Link>
         <nav className="hidden sm:flex items-center gap-6 text-sm font-medium">

@@ -64,7 +64,7 @@ export default async function PlacePage({
         ]}
       />
 
-      <h1 className="text-3xl sm:text-4xl font-black mb-3 tracking-tight">{place.name}</h1>
+      <h1 className="font-display italic font-semibold text-3xl sm:text-4xl mb-3 tracking-tight">{place.name}</h1>
       <div className="flex items-center flex-wrap gap-2 text-sm mb-6">
         {place.rating != null && (
           <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 text-accent font-bold px-3 py-1">
@@ -87,7 +87,7 @@ export default async function PlacePage({
             href={place.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-accent text-white font-semibold px-5 py-2.5 hover:opacity-90 transition"
+            className="inline-flex items-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-2.5 shadow-md shadow-accent-warm/20 hover:shadow-lg hover:shadow-accent-warm/30 hover:-translate-y-0.5 transition"
           >
             {t.place.viewOnMaps} →
           </a>
@@ -123,7 +123,7 @@ export default async function PlacePage({
           href={place.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="sm:hidden fixed bottom-4 left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent text-white font-semibold px-5 py-3.5 shadow-lg"
+          className="sm:hidden fixed bottom-4 left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-3.5 shadow-xl shadow-accent-warm/30"
         >
           {t.place.viewOnMaps} →
         </a>

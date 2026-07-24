@@ -51,24 +51,43 @@ export default async function CityPage({
   const places = allRelevant.slice(0, MAX_SHOWN);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 sm:py-12">
-      <Breadcrumbs items={[{ name: t.nav.home, href: `/${lang}` }, { name: label, href: `/${lang}/city/${city}` }]} />
-      <h1 className="text-3xl sm:text-4xl font-black mb-2 tracking-tight">
-        {t.city.listTitle.replace("{city}", label)}
-      </h1>
-      <p className="text-muted mb-1">
-        {allRelevant.length} {t.city.placeCount}
-      </p>
-      <p className="text-muted max-w-2xl leading-relaxed">{t.city.intro.replace("{city}", label)}</p>
-      <p className="text-xs text-muted mt-1 mb-8">
-        {allRelevant.length > places.length ? t.city.showingTop.replace("{shown}", String(places.length)) : " "}
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-14">
-        {places.map((place) => (
-          <PlaceCard key={place.id} place={place} lang={lang} />
-        ))}
+    <div>
+      <section className="relative overflow-hidden bg-ink text-on-ink sm:mx-[calc(50%-50vw)] px-6 sm:px-0">
+        <div className="spa-glow bg-accent w-[320px] h-[320px] -top-32 -right-24" aria-hidden="true" />
+        <div className="relative max-w-5xl mx-auto px-0 sm:px-6 py-14 sm:py-20">
+          <Breadcrumbs
+            variant="ink"
+            items={[{ name: t.nav.home, href: `/${lang}` }, { name: label, href: `/${lang}/city/${city}` }]}
+          />
+          <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">
+            {t.city.listTitle.replace("{city}", label)}
+          </h1>
+          <p className="text-on-ink-muted mb-1">
+            {allRelevant.length} {t.city.placeCount}
+          </p>
+          <p className="text-on-ink-muted max-w-2xl leading-relaxed">{t.city.intro.replace("{city}", label)}</p>
+          {allRelevant.length > places.length && (
+            <p className="text-xs text-on-ink-muted/70 mt-1">
+              {t.city.showingTop.replace("{shown}", String(places.length))}
+            </p>
+          )}
+        </div>
+      </section>
+
+      <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-14">
+          {places.map((place) => (
+            <PlaceCard key={place.id} place={place} lang={lang} />
+          ))}
+        </div>
+        <Faq
+          title={t.city.faqTitle.replace("{city}", label)}
+          items={t.city.faq.map((f) => ({
+            q: f.q.replace("{city}", label),
+            a: f.a.replace("{city}", label),
+          }))}
+        />
       </div>
-      <Faq title={t.city.faqTitle.replace("{city}", label)} items={t.city.faq.map((f) => ({ q: f.q.replace("{city}", label), a: f.a.replace("{city}", label) }))} />
     </div>
   );
 }

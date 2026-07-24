@@ -3,25 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --bg: 250 253 252;          /* pale mint-white */
-  --bg-elev: 255 255 255;
-  --fg: 20 35 33;              /* deep teal-black */
-  --muted: 90 105 102;
-  --border: 214 228 224;
-  --accent: 15 118 110;        /* teal-600 */
-  --accent-warm: 217 119 6;    /* amber-600, used sparingly for CTAs/badges */
+  --bg: 250 248 243;           /* warm stone-white, not clinical mint */
+  --bg-elev: 255 255 254;
+  --fg: 26 33 31;               /* warm near-black */
+  --muted: 104 100 92;
+  --border: 226 219 206;
+  --accent: 13 100 92;          /* deep spa teal */
+  --accent-warm: 180 130 44;    /* muted gold */
+  --ink: 10 22 21;              /* near-black teal, for dark/hero sections */
+  --ink-elev: 18 34 32;
+  --on-ink: 240 238 230;
+  --on-ink-muted: 176 187 182;
 }
 
-/* No manual toggle exists yet — follow the OS/browser preference automatically. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: 8 15 14;
-    --bg-elev: 18 28 27;
-    --fg: 236 245 243;
-    --muted: 148 165 161;
-    --border: 34 51 48;
-    --accent: 45 212 191;      /* teal-400 */
-    --accent-warm: 251 191 36; /* amber-400 */
+    --bg: 12 18 17;
+    --bg-elev: 20 28 27;
+    --fg: 236 238 233;
+    --muted: 158 165 159;
+    --border: 40 51 48;
+    --accent: 45 200 184;
+    --accent-warm: 224 178 104;
+    --ink: 6 12 11;
+    --ink-elev: 14 22 21;
+    --on-ink: 240 238 230;
+    --on-ink-muted: 168 178 173;
   }
 }
 
@@ -51,6 +58,16 @@ body {
   font-family: var(--font-th), var(--font-sans), sans-serif;
 }
 
+.font-display {
+  font-family: var(--font-display), var(--font-sans), serif;
+}
+:lang(ko) .font-display {
+  font-family: var(--font-kr), var(--font-sans), sans-serif;
+}
+:lang(th) .font-display {
+  font-family: var(--font-th), var(--font-sans), sans-serif;
+}
+
 ::selection {
   background: rgb(var(--accent) / 0.25);
   color: rgb(var(--fg));
@@ -60,4 +77,14 @@ body {
   outline: 2px solid rgb(var(--accent));
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* Soft decorative glow blobs used behind hero/section headers — pure CSS,
+   no image assets needed. */
+.spa-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: 0.55;
+  pointer-events: none;
 }
