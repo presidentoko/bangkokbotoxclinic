@@ -60,6 +60,13 @@ export type Dict = {
     listTitle: string;
     intro: string;
     backToCity: string;
+    faqTitle: string;
+    /** Template with "{theme}" and "{city}" placeholders. */
+    faqQuestion: string;
+    /** Template with "{count}", "{theme}", and "{city}" placeholders. */
+    faqAnswer: string;
+    /** Template with a "{rating}" placeholder — appended as a second sentence only when an average rating exists. */
+    faqAnswerRatingClause: string;
   };
   guide: { indexTitle: string };
   about: { title: string; body: string };
@@ -142,9 +149,13 @@ const en: Dict = {
     trendingTitle: "What reviewers say most in {city}",
   },
   service: {
-    listTitle: "{theme} in {city}",
-    intro: "Real Google reviews mentioning {theme} in {city}.",
+    listTitle: "Best {theme} in {city}",
+    intro: "Real Google reviews mentioning {theme} in {city}, ranked by rating and review count.",
     backToCity: "← All places in {city}",
+    faqTitle: "FAQ",
+    faqQuestion: "What's the best {theme} in {city}?",
+    faqAnswer: "Based on real Google reviews, {count} places in {city} are noted for {theme}.",
+    faqAnswerRatingClause: "Their average rating is {rating}★.",
   },
   guide: { indexTitle: "Guides" },
   about: {
@@ -236,9 +247,13 @@ const th: Dict = {
     trendingTitle: "รีวิวใน{city}พูดถึงอะไรมากที่สุด",
   },
   service: {
-    listTitle: "{theme}ใน{city}",
-    intro: "รีวิว Google จริงที่พูดถึง{theme}ใน{city}",
+    listTitle: "{theme}ที่ดีที่สุดใน{city}",
+    intro: "รีวิว Google จริงที่พูดถึง{theme}ใน{city} เรียงตามคะแนนและจำนวนรีวิว",
     backToCity: "← ร้านทั้งหมดใน{city}",
+    faqTitle: "คำถามที่พบบ่อย",
+    faqQuestion: "{theme}ที่ดีที่สุดใน{city}คือที่ไหน",
+    faqAnswer: "จากรีวิว Google จริง มี {count} ร้านใน{city}ที่ถูกพูดถึงเรื่อง{theme}",
+    faqAnswerRatingClause: "คะแนนเฉลี่ยของร้านเหล่านี้อยู่ที่ {rating}★",
   },
   guide: { indexTitle: "คู่มือ" },
   about: {
@@ -330,9 +345,13 @@ const ko: Dict = {
     trendingTitle: "{city} 리뷰에서 가장 많이 언급된 것",
   },
   service: {
-    listTitle: "{city} {theme}",
-    intro: "{city}에서 {theme}를 언급한 실제 구글 리뷰입니다.",
+    listTitle: "{city} 베스트 {theme}",
+    intro: "{city}에서 {theme}를 언급한 실제 구글 리뷰입니다 — 평점과 리뷰 수 순으로 정렬했습니다.",
     backToCity: "← {city} 전체 업체 보기",
+    faqTitle: "자주 묻는 질문",
+    faqQuestion: "{city}에서 가장 좋은 {theme}는 어디인가요?",
+    faqAnswer: "실제 구글 리뷰를 기준으로 {city}에서 {theme}로 언급된 곳은 {count}곳입니다.",
+    faqAnswerRatingClause: "이들의 평균 평점은 {rating}★입니다.",
   },
   guide: { indexTitle: "가이드" },
   about: {
