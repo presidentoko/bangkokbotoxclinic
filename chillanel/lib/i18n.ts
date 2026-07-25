@@ -88,6 +88,16 @@ export type Dict = {
     /** Template with a "{rating}" placeholder — appended as a second sentence only when an average rating exists. */
     faqAnswerRatingClause: string;
   };
+  trustScore: {
+    title: string;
+    excellent: string;
+    good: string;
+    fair: string;
+    limited: string;
+    breakdownRating: string;
+    breakdownVolume: string;
+    breakdownDiversity: string;
+  };
   guide: { indexTitle: string };
   favorites: {
     title: string;
@@ -221,6 +231,16 @@ const en: Dict = {
     moodFaqQuestion: "Which massage places in {city} are known for {theme}?",
     faqAnswer: "Based on real Google reviews, {count} places in {city} are noted for {theme}.",
     faqAnswerRatingClause: "Their average rating is {rating}★.",
+  },
+  trustScore: {
+    title: "Trust Score",
+    excellent: "Excellent",
+    good: "Good",
+    fair: "Fair",
+    limited: "Limited data",
+    breakdownRating: "Rating",
+    breakdownVolume: "Reviews",
+    breakdownDiversity: "Signal diversity",
   },
   guide: { indexTitle: "Guides" },
   favorites: {
@@ -362,6 +382,16 @@ const th: Dict = {
     faqAnswer: "จากรีวิว Google จริง มี {count} ร้านใน{city}ที่ถูกพูดถึงเรื่อง{theme}",
     faqAnswerRatingClause: "คะแนนเฉลี่ยของร้านเหล่านี้อยู่ที่ {rating}★",
   },
+  trustScore: {
+    title: "คะแนนความน่าเชื่อถือ",
+    excellent: "ยอดเยี่ยม",
+    good: "ดี",
+    fair: "พอใช้",
+    limited: "ข้อมูลจำกัด",
+    breakdownRating: "คะแนนรีวิว",
+    breakdownVolume: "จำนวนรีวิว",
+    breakdownDiversity: "ความหลากหลายของข้อมูล",
+  },
   guide: { indexTitle: "คู่มือ" },
   favorites: {
     title: "รายการโปรดของคุณ",
@@ -501,6 +531,16 @@ const ko: Dict = {
     moodFaqQuestion: "{city}에서 {theme} 마사지샵은 어디인가요?",
     faqAnswer: "실제 구글 리뷰를 기준으로 {city}에서 {theme}로 언급된 곳은 {count}곳입니다.",
     faqAnswerRatingClause: "이들의 평균 평점은 {rating}★입니다.",
+  },
+  trustScore: {
+    title: "신뢰 점수",
+    excellent: "매우 좋음",
+    good: "좋음",
+    fair: "보통",
+    limited: "데이터 부족",
+    breakdownRating: "평점",
+    breakdownVolume: "리뷰 수",
+    breakdownDiversity: "리뷰 신호 다양성",
   },
   guide: { indexTitle: "가이드" },
   favorites: {
