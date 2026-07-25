@@ -6,6 +6,7 @@ import { categoryBadgeLabel } from "@/lib/categories";
 import { RatingBars, hasRatingData } from "./RatingBars";
 import { themeLabel } from "@/lib/theme-labels";
 import { CardActions } from "./CardActions";
+import { TrustScoreBadge } from "./TrustScoreBadge";
 
 // No photo data in the pipeline yet, so cards lean on a textured gradient
 // header instead of a blank placeholder — keeps the grid feeling premium
@@ -61,12 +62,15 @@ export function PlaceCard({
           backgroundBlendMode: "overlay",
         }}
       >
-        {place.rating != null && (
-          <div className="absolute -bottom-4 left-4 flex items-center gap-1 rounded-full bg-bg-elev border border-border shadow-sm text-sm font-bold px-2.5 py-1">
-            <span className="text-accent-warm" aria-hidden="true">★</span>
-            {place.rating.toFixed(1)}
-          </div>
-        )}
+        <div className="absolute -bottom-4 left-4 flex items-center gap-2">
+          {place.rating != null && (
+            <div className="flex items-center gap-1 rounded-full bg-bg-elev border border-border shadow-sm text-sm font-bold px-2.5 py-1">
+              <span className="text-accent-warm" aria-hidden="true">★</span>
+              {place.rating.toFixed(1)}
+            </div>
+          )}
+          <TrustScoreBadge place={place} lang={lang} />
+        </div>
       </div>
 
       <div className="p-5 pt-6 flex-1 flex flex-col">
