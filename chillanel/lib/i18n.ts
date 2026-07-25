@@ -38,6 +38,11 @@ export type Dict = {
     ratingBreakdownTitle: string;
     /** Template with a "{price}" placeholder. */
     priceRangeLabel: string;
+    /** Template with a "{theme}" placeholder, used inside the auto-generated summary paragraph. */
+    summaryThemeClause: string;
+    /** Template with a "{mood}" placeholder, used inside the auto-generated summary paragraph. */
+    summaryMoodClause: string;
+    similarPlacesTitle: string;
   };
   /** listTitle/intro/faqTitle/faq[].* use a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: {
@@ -110,6 +115,9 @@ const en: Dict = {
     moodKeywordsTitle: "How reviewers describe it",
     ratingBreakdownTitle: "Rating breakdown",
     priceRangeLabel: "~{price}฿ per session, based on reviewer mentions",
+    summaryThemeClause: "Reviewers most often mention {theme} here.",
+    summaryMoodClause: "Regulars describe the place as {mood}.",
+    similarPlacesTitle: "Similar places nearby",
   },
   city: {
     listTitle: "Massage & spa in {city}",
@@ -201,6 +209,9 @@ const th: Dict = {
     moodKeywordsTitle: "รีวิวบอกว่าร้านนี้เป็นยังไง",
     ratingBreakdownTitle: "สัดส่วนคะแนนรีวิว",
     priceRangeLabel: "ประมาณ ~{price}฿ ต่อครั้ง (จากรีวิว)",
+    summaryThemeClause: "รีวิวพูดถึง{theme}ที่นี่บ่อยที่สุด",
+    summaryMoodClause: "ลูกค้าประจำบอกว่าร้านนี้{mood}",
+    similarPlacesTitle: "ร้านใกล้เคียงที่คล้ายกัน",
   },
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
@@ -292,6 +303,9 @@ const ko: Dict = {
     moodKeywordsTitle: "리뷰어들이 말하는 이곳의 분위기",
     ratingBreakdownTitle: "평점 분포",
     priceRangeLabel: "리뷰 기준 회당 약 ~{price}฿",
+    summaryThemeClause: "리뷰에서 이곳의 {theme}가 가장 많이 언급됩니다.",
+    summaryMoodClause: "단골들은 이곳을 {mood} 분위기라고 말합니다.",
+    similarPlacesTitle: "비슷한 인근 업체",
   },
   city: {
     listTitle: "{city}의 마사지 & 스파",
