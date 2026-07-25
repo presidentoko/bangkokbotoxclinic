@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE, SUPPORTED_LANGS } from "@/lib/site";
 import { listCities, getAllPlaces } from "@/lib/data";
 import { listGuides } from "@/lib/guides";
+import { slugifyTheme } from "@/lib/theme-labels";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
@@ -19,6 +20,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
     for (const { place } of getAllPlaces()) {
       entries.push({ url: `${SITE.origin}/${lang}/place/${place.id}`, changeFrequency: "weekly", priority: 0.6 });
+    }
+
+    const serviceLabels = new Set<string>();
+    for (const { place } of getAllPlaces()) {
+      for (const theme of place.serviceThemes) serviceLabels.add(theme.label);
+    }
+    for (const label of serviceLabels) {
+      entries.push({
+        url: `${SITE.origin}/${lang}/service/${slugifyTheme(label)}`,
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
     }
   }
 
