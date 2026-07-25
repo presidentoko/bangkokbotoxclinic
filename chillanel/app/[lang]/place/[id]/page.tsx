@@ -7,6 +7,9 @@ import { categoryBadgeLabel } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RatingBars } from "@/components/RatingBars";
+import { TagCloud } from "@/components/TagCloud";
+import { themeLabel } from "@/lib/theme-labels";
 
 export function generateStaticParams() {
   return getAllPlaces().map(({ place }) => ({ id: place.id }));
@@ -52,6 +55,12 @@ export default async function PlacePage({
   const t = tFor(lang);
   const label = cityLabel(city);
   const badge = categoryBadgeLabel(place.primaryType, lang);
+  const priceMedian = (() => {
+    const prices = place.priceMentions;
+    if (prices.length === 0) return null;
+    const mid = Math.floor(prices.length / 2);
+    return prices.length % 2 !== 0 ? prices[mid] : Math.round((prices[mid - 1] + prices[mid]) / 2);
+  })();
 
   return (
     <div className="max-w-3xl mx-auto px-4 pt-10 sm:pt-12 pb-24 sm:pb-12">
@@ -92,12 +101,45 @@ export default async function PlacePage({
             {t.place.viewOnMaps} →
           </a>
         )}
+        {priceMedian != null && (
+          <p className="text-sm text-muted mt-4 pt-4 border-t border-border">
+            {t.place.priceRangeLabel.replace("{price}", priceMedian.toLocaleString())}
+          </p>
+        )}
       </div>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-bold mb-3">{t.place.ratingBreakdownTitle}</h2>
+        <RatingBars distribution={place.ratingDistribution} />
+      </section>
 
       <section className="mb-10">
         <h2 className="text-lg font-bold mb-3">{t.place.therapistMentionsTitle}</h2>
         <TherapistMentions mentions={place.therapistMentions} lang={lang} />
       </section>
+
+      {place.serviceThemes.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-lg font-bold mb-3">{t.place.serviceThemesTitle}</h2>
+          <div className="flex flex-wrap gap-2">
+            {place.serviceThemes.map((theme) => (
+              <span
+                key={theme.label}
+                className="rounded-full border border-accent-warm/30 bg-accent-warm/10 px-3 py-1.5 text-sm text-accent-warm font-medium"
+              >
+                {themeLabel(theme.label, lang)} <span className="font-semibold">{theme.count}</span>
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {place.moodKeywords.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-lg font-bold mb-3">{t.place.moodKeywordsTitle}</h2>
+          <TagCloud items={place.moodKeywords} lang={lang} />
+        </section>
+      )}
 
       <section>
         <h2 className="text-lg font-bold mb-3">{t.place.reviewsTitle}</h2>
