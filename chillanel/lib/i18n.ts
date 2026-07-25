@@ -19,6 +19,7 @@ export type Dict = {
     editorsPick: string;
     faqTitle: string;
     faq: FaqItem[];
+    trendingTitle: string;
   };
   place: {
     reviewsTitle: string;
@@ -32,6 +33,11 @@ export type Dict = {
     /** Template with a "{n}" placeholder, e.g. "{n} named in reviews". */
     namedInReviews: string;
     anonymousReviewer: string;
+    serviceThemesTitle: string;
+    moodKeywordsTitle: string;
+    ratingBreakdownTitle: string;
+    /** Template with a "{price}" placeholder. */
+    priceRangeLabel: string;
   };
   /** listTitle/intro/faqTitle/faq[].* use a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: {
@@ -42,6 +48,13 @@ export type Dict = {
     showingTop: string;
     faqTitle: string;
     faq: FaqItem[];
+    trendingTitle: string;
+  };
+  /** listTitle/intro use "{theme}" and "{city}" placeholders; backToCity uses "{city}". */
+  service: {
+    listTitle: string;
+    intro: string;
+    backToCity: string;
   };
   guide: { indexTitle: string };
   about: { title: string; body: string };
@@ -79,6 +92,7 @@ const en: Dict = {
         a: "Start with the rating and review count, then check if any therapist is named repeatedly in reviews — that's a stronger signal than the storefront. Read a few recent reviews for context on cleanliness and pressure style.",
       },
     ],
+    trendingTitle: "What Bangkok reviewers say most",
   },
   place: {
     reviewsTitle: "What reviewers say",
@@ -92,6 +106,10 @@ const en: Dict = {
     viewOnMaps: "View on Google Maps",
     namedInReviews: "{n} named in reviews",
     anonymousReviewer: "Anonymous",
+    serviceThemesTitle: "Services mentioned in reviews",
+    moodKeywordsTitle: "How reviewers describe it",
+    ratingBreakdownTitle: "Rating breakdown",
+    priceRangeLabel: "~{price}฿ per session, based on reviewer mentions",
   },
   city: {
     listTitle: "Massage & spa in {city}",
@@ -113,6 +131,12 @@ const en: Dict = {
         a: "No — chillanel is an independent guide, not a booking platform. Tap through to a place's Google Maps listing to call or get directions directly.",
       },
     ],
+    trendingTitle: "What reviewers say most in {city}",
+  },
+  service: {
+    listTitle: "{theme} in {city}",
+    intro: "Real Google reviews mentioning {theme} in {city}.",
+    backToCity: "← All places in {city}",
   },
   guide: { indexTitle: "Guides" },
   about: {
@@ -159,6 +183,7 @@ const th: Dict = {
         a: "เริ่มจากคะแนนและจำนวนรีวิว จากนั้นดูว่ามีชื่อหมอนวดคนไหนถูกเอ่ยซ้ำ ๆ ในรีวิวไหม นั่นเป็นสัญญาณที่น่าเชื่อถือกว่าหน้าร้าน แล้วอ่านรีวิวล่าสุดสักสองสามอันเพื่อดูความสะอาดและสไตล์การนวด",
       },
     ],
+    trendingTitle: "รีวิวในกรุงเทพฯ พูดถึงอะไรมากที่สุด",
   },
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
@@ -172,6 +197,10 @@ const th: Dict = {
     viewOnMaps: "ดูใน Google Maps",
     namedInReviews: "ถูกเอ่ยชื่อในรีวิว {n} คน",
     anonymousReviewer: "ไม่ระบุชื่อ",
+    serviceThemesTitle: "บริการที่ถูกพูดถึงในรีวิว",
+    moodKeywordsTitle: "รีวิวบอกว่าร้านนี้เป็นยังไง",
+    ratingBreakdownTitle: "สัดส่วนคะแนนรีวิว",
+    priceRangeLabel: "ประมาณ ~{price}฿ ต่อครั้ง (จากรีวิว)",
   },
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
@@ -193,6 +222,12 @@ const th: Dict = {
         a: "ไม่รับ — chillanel เป็นคู่มืออิสระ ไม่ใช่แพลตฟอร์มจองคิว กดเข้าไปที่ลิงก์ Google Maps ของร้านเพื่อโทรหรือดูเส้นทางได้โดยตรง",
       },
     ],
+    trendingTitle: "รีวิวใน{city}พูดถึงอะไรมากที่สุด",
+  },
+  service: {
+    listTitle: "{theme}ใน{city}",
+    intro: "รีวิว Google จริงที่พูดถึง{theme}ใน{city}",
+    backToCity: "← ร้านทั้งหมดใน{city}",
   },
   guide: { indexTitle: "คู่มือ" },
   about: {
@@ -239,6 +274,7 @@ const ko: Dict = {
         a: "평점과 리뷰 수를 먼저 확인하고, 리뷰에 반복적으로 언급되는 테라피스트 이름이 있는지 살펴보세요. 이는 매장 외관보다 더 신뢰할 수 있는 신호예요. 최근 리뷰 몇 개를 읽으면 청결도나 마사지 스타일도 파악할 수 있습니다.",
       },
     ],
+    trendingTitle: "방콕 리뷰에서 가장 많이 언급된 것",
   },
   place: {
     reviewsTitle: "리뷰어들의 후기",
@@ -252,6 +288,10 @@ const ko: Dict = {
     viewOnMaps: "구글맵에서 보기",
     namedInReviews: "리뷰에 이름 언급 {n}명",
     anonymousReviewer: "익명",
+    serviceThemesTitle: "리뷰에서 언급된 서비스",
+    moodKeywordsTitle: "리뷰어들이 말하는 이곳의 분위기",
+    ratingBreakdownTitle: "평점 분포",
+    priceRangeLabel: "리뷰 기준 회당 약 ~{price}฿",
   },
   city: {
     listTitle: "{city}의 마사지 & 스파",
@@ -273,6 +313,12 @@ const ko: Dict = {
         a: "아니요 — chillanel은 독립 가이드이며 예약 플랫폼이 아닙니다. 업체의 구글맵 링크로 이동해서 직접 전화하거나 길찾기를 이용해 주세요.",
       },
     ],
+    trendingTitle: "{city} 리뷰에서 가장 많이 언급된 것",
+  },
+  service: {
+    listTitle: "{city} {theme}",
+    intro: "{city}에서 {theme}를 언급한 실제 구글 리뷰입니다.",
+    backToCity: "← {city} 전체 업체 보기",
   },
   guide: { indexTitle: "가이드" },
   about: {
