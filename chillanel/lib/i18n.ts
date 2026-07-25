@@ -3,7 +3,16 @@ import type { Lang } from "./site";
 export type FaqItem = { q: string; a: string };
 
 export type Dict = {
-  nav: { home: string; guides: string; about: string; menuOpen: string; menuClose: string };
+  nav: {
+    home: string;
+    guides: string;
+    about: string;
+    menuOpen: string;
+    menuClose: string;
+    favorites: string;
+    compare: string;
+    browse: string;
+  };
   home: {
     heroTitle: string;
     heroSub: string;
@@ -44,6 +53,12 @@ export type Dict = {
     summaryMoodClause: string;
     similarPlacesTitle: string;
     prosTitle: string;
+    addFavorite: string;
+    removeFavorite: string;
+    addToCompare: string;
+    removeFromCompare: string;
+    /** Template with a "{max}" placeholder. */
+    compareLimitReached: string;
   };
   /** listTitle/intro/faqTitle/faq[].* use a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: {
@@ -74,12 +89,49 @@ export type Dict = {
     faqAnswerRatingClause: string;
   };
   guide: { indexTitle: string };
+  favorites: {
+    title: string;
+    intro: string;
+    empty: string;
+    browseCta: string;
+  };
+  compare: {
+    title: string;
+    intro: string;
+    empty: string;
+    browseCta: string;
+    clearAll: string;
+    themesLabel: string;
+    moodsLabel: string;
+    priceLabel: string;
+    viewButton: string;
+  };
+  priceFilter: {
+    label: string;
+    all: string;
+    /** Template with a "{price}" placeholder — the top bucket ("X฿+"). */
+    over: string;
+    /** Template with "{min}" and "{max}" placeholders. */
+    range: string;
+    /** Template with a "{price}" placeholder — the bottom bucket ("Under X฿"). */
+    under: string;
+    noPriceData: string;
+  };
   about: { title: string; body: string };
   footer: { rights: string; tagline: string; exploreTitle: string; languageTitle: string };
 };
 
 const en: Dict = {
-  nav: { home: "Home", guides: "Guides", about: "About", menuOpen: "Open menu", menuClose: "Close menu" },
+  nav: {
+    home: "Home",
+    guides: "Guides",
+    about: "About",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    favorites: "Favorites",
+    compare: "Compare",
+    browse: "Browse",
+  },
   home: {
     heroTitle: "It's not the spa. It's the hands.",
     heroSub:
@@ -131,6 +183,11 @@ const en: Dict = {
     summaryMoodClause: "Regulars describe the place as {mood}.",
     similarPlacesTitle: "Similar places nearby",
     prosTitle: "Why reviewers like it",
+    addFavorite: "Save to favorites",
+    removeFavorite: "Remove from favorites",
+    addToCompare: "Add to compare",
+    removeFromCompare: "Remove from compare",
+    compareLimitReached: "You can compare up to {max} places at once",
   },
   city: {
     listTitle: "Massage & spa in {city}",
@@ -166,6 +223,31 @@ const en: Dict = {
     faqAnswerRatingClause: "Their average rating is {rating}★.",
   },
   guide: { indexTitle: "Guides" },
+  favorites: {
+    title: "Your favorites",
+    intro: "Saved on this device only — nothing is uploaded, so favorites won't follow you to another browser.",
+    empty: "No favorites yet. Tap the heart on any place to save it here.",
+    browseCta: "Browse places",
+  },
+  compare: {
+    title: "Compare places",
+    intro: "Pick up to 3 places from any listing to compare them side by side.",
+    empty: "Nothing selected yet. Tap the + on any place to add it here.",
+    browseCta: "Browse places",
+    clearAll: "Clear all",
+    themesLabel: "Top services",
+    moodsLabel: "Reviewers say",
+    priceLabel: "Typical price",
+    viewButton: "View",
+  },
+  priceFilter: {
+    label: "Price",
+    all: "All prices",
+    over: "{price}฿+",
+    range: "{min}–{max}฿",
+    under: "Under {price}฿",
+    noPriceData: "No price data",
+  },
   about: {
     title: "About chillanel",
     body:
@@ -180,7 +262,16 @@ const en: Dict = {
 };
 
 const th: Dict = {
-  nav: { home: "หน้าแรก", guides: "คู่มือ", about: "เกี่ยวกับเรา", menuOpen: "เปิดเมนู", menuClose: "ปิดเมนู" },
+  nav: {
+    home: "หน้าแรก",
+    guides: "คู่มือ",
+    about: "เกี่ยวกับเรา",
+    menuOpen: "เปิดเมนู",
+    menuClose: "ปิดเมนู",
+    favorites: "รายการโปรด",
+    compare: "เปรียบเทียบ",
+    browse: "ดูร้าน",
+  },
   home: {
     heroTitle: "ไม่ใช่ร้าน แต่เป็นฝีมือคน",
     heroSub:
@@ -232,6 +323,11 @@ const th: Dict = {
     summaryMoodClause: "ลูกค้าประจำบอกว่าร้านนี้{mood}",
     similarPlacesTitle: "ร้านใกล้เคียงที่คล้ายกัน",
     prosTitle: "ทำไมรีวิวถึงชอบร้านนี้",
+    addFavorite: "บันทึกรายการโปรด",
+    removeFavorite: "ลบออกจากรายการโปรด",
+    addToCompare: "เพิ่มเพื่อเปรียบเทียบ",
+    removeFromCompare: "ลบออกจากการเปรียบเทียบ",
+    compareLimitReached: "เปรียบเทียบได้สูงสุด {max} ร้านพร้อมกัน",
   },
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
@@ -267,6 +363,31 @@ const th: Dict = {
     faqAnswerRatingClause: "คะแนนเฉลี่ยของร้านเหล่านี้อยู่ที่ {rating}★",
   },
   guide: { indexTitle: "คู่มือ" },
+  favorites: {
+    title: "รายการโปรดของคุณ",
+    intro: "บันทึกไว้บนอุปกรณ์นี้เท่านั้น ไม่มีการอัปโหลดข้อมูล ดังนั้นรายการโปรดจะไม่ตามไปที่เบราว์เซอร์อื่น",
+    empty: "ยังไม่มีรายการโปรด กดรูปหัวใจที่ร้านไหนก็ได้เพื่อบันทึกไว้ที่นี่",
+    browseCta: "ดูร้านทั้งหมด",
+  },
+  compare: {
+    title: "เปรียบเทียบร้าน",
+    intro: "เลือกได้สูงสุด 3 ร้านจากรายการใดก็ได้เพื่อเปรียบเทียบแบบเคียงข้างกัน",
+    empty: "ยังไม่ได้เลือกร้าน กดปุ่ม + ที่ร้านไหนก็ได้เพื่อเพิ่มที่นี่",
+    browseCta: "ดูร้านทั้งหมด",
+    clearAll: "ล้างทั้งหมด",
+    themesLabel: "บริการเด่น",
+    moodsLabel: "รีวิวบอกว่า",
+    priceLabel: "ราคาโดยประมาณ",
+    viewButton: "ดูรายละเอียด",
+  },
+  priceFilter: {
+    label: "ราคา",
+    all: "ทุกช่วงราคา",
+    over: "{price}฿ ขึ้นไป",
+    range: "{min}–{max}฿",
+    under: "ต่ำกว่า {price}฿",
+    noPriceData: "ไม่มีข้อมูลราคา",
+  },
   about: {
     title: "เกี่ยวกับ chillanel",
     body:
@@ -281,7 +402,16 @@ const th: Dict = {
 };
 
 const ko: Dict = {
-  nav: { home: "홈", guides: "가이드", about: "소개", menuOpen: "메뉴 열기", menuClose: "메뉴 닫기" },
+  nav: {
+    home: "홈",
+    guides: "가이드",
+    about: "소개",
+    menuOpen: "메뉴 열기",
+    menuClose: "메뉴 닫기",
+    favorites: "찜한 곳",
+    compare: "비교하기",
+    browse: "둘러보기",
+  },
   home: {
     heroTitle: "중요한 건 스파가 아니라 손끝이에요.",
     heroSub:
@@ -333,6 +463,11 @@ const ko: Dict = {
     summaryMoodClause: "단골들은 이곳을 {mood} 분위기라고 말합니다.",
     similarPlacesTitle: "비슷한 인근 업체",
     prosTitle: "리뷰어들이 좋아하는 이유",
+    addFavorite: "찜하기",
+    removeFavorite: "찜 해제",
+    addToCompare: "비교에 추가",
+    removeFromCompare: "비교에서 제거",
+    compareLimitReached: "최대 {max}곳까지 비교할 수 있어요",
   },
   city: {
     listTitle: "{city}의 마사지 & 스파",
@@ -368,6 +503,31 @@ const ko: Dict = {
     faqAnswerRatingClause: "이들의 평균 평점은 {rating}★입니다.",
   },
   guide: { indexTitle: "가이드" },
+  favorites: {
+    title: "찜한 곳",
+    intro: "이 기기에만 저장돼요 — 서버에 올라가지 않아서 다른 브라우저에서는 보이지 않아요.",
+    empty: "아직 찜한 곳이 없어요. 원하는 곳의 하트를 눌러 저장해보세요.",
+    browseCta: "업체 둘러보기",
+  },
+  compare: {
+    title: "업체 비교하기",
+    intro: "어디서든 최대 3곳을 선택해서 나란히 비교해볼 수 있어요.",
+    empty: "아직 선택된 곳이 없어요. 원하는 곳의 + 버튼을 눌러 추가해보세요.",
+    browseCta: "업체 둘러보기",
+    clearAll: "전체 지우기",
+    themesLabel: "주요 서비스",
+    moodsLabel: "리뷰 키워드",
+    priceLabel: "대략적인 가격",
+    viewButton: "자세히 보기",
+  },
+  priceFilter: {
+    label: "가격",
+    all: "전체 가격대",
+    over: "{price}฿ 이상",
+    range: "{min}–{max}฿",
+    under: "{price}฿ 미만",
+    noPriceData: "가격 정보 없음",
+  },
   about: {
     title: "chillanel 소개",
     body:

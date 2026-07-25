@@ -130,3 +130,23 @@ console.log(`[build-data] wrote ${places.length} places → ${OUT_FILE}`);
 console.log(`[build-data] places with therapist mentions: ${places.filter((p) => p.therapistMentions.length > 0).length}`);
 console.log(`[build-data] top service themes: ${themeAggregate.slice(0, 5).map((t) => `${t.label}(${t.count})`).join(", ")}`);
 console.log(`[build-data] top mood keywords: ${moodAggregate.slice(0, 5).map((t) => `${t.label}(${t.count})`).join(", ")}`);
+
+// Rebuilds public/places-index.json from every data/clinics.*.json on disk
+// (not just the city just written) — a client-fetchable index for the
+// favorites/compare pages, which have no backend and only know place IDs
+// from localStorage. Each place keeps every field except `reviews` (the
+// full review text), which is the only field large enough to matter here;
+// stripping it keeps a same-shape Place[] so client components can reuse
+// PlaceCard directly with no separate slim type.
+const DATA_DIR = path.join(import.meta.dirname, "..", "data");
+const INDEX_FILE = path.join(import.meta.dirname, "..", "public", "places-index.json");
+const allCityFiles = fs
+  .readdirSync(DATA_DIR)
+  .filter((f) => f.startsWith("clinics.") && f.endsWith(".json"));
+const indexPlaces = allCityFiles.flatMap((f) => {
+  const cityData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, f), "utf-8"));
+  return (cityData.places ?? []).map((p) => ({ ...p, reviews: [] }));
+});
+fs.mkdirSync(path.dirname(INDEX_FILE), { recursive: true });
+fs.writeFileSync(INDEX_FILE, JSON.stringify(indexPlaces), "utf-8");
+console.log(`[build-data] wrote ${indexPlaces.length} places → ${INDEX_FILE} (client index, no review text)`);

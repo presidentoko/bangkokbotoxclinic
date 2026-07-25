@@ -3,6 +3,7 @@ import { isLang } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { HtmlLangSetter } from "@/components/HtmlLangSetter";
+import { BottomNav } from "@/components/BottomNav";
 
 export function generateStaticParams() {
   return [{ lang: "en" }, { lang: "th" }, { lang: "ko" }];
@@ -21,8 +22,9 @@ export default async function LangLayout({
     <div lang={lang}>
       <HtmlLangSetter lang={lang} />
       <Header lang={lang} />
-      <main>{children}</main>
+      <main className="pb-16 sm:pb-0">{children}</main>
       <Footer lang={lang} />
+      <BottomNav lang={lang} />
     </div>
   );
 }

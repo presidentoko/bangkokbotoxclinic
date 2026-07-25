@@ -4,8 +4,8 @@ import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { listCities, loadCity } from "@/lib/data";
 import { isRelevantCategory } from "@/lib/categories";
-import { PlaceCard } from "@/components/PlaceCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
 
@@ -86,17 +86,7 @@ export default async function CityPage({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:auto-rows-[1fr] gap-5 mb-14">
-          {places.map((place, i) => (
-            <PlaceCard
-              key={place.id}
-              place={place}
-              lang={lang}
-              editorsPick={i === 0}
-              size={i === 0 ? "large" : "default"}
-            />
-          ))}
-        </div>
+        <PriceFilterableGrid places={places} lang={lang} />
         {data.themeAggregate.length > 0 && (
           <section className="mb-14">
             <h2 className="font-display italic text-2xl sm:text-3xl mb-6">

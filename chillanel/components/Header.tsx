@@ -19,6 +19,12 @@ export function Header({ lang }: { lang: Lang }) {
           <Link href={`/${lang}/guide`} className="hover:text-accent transition-colors">
             {t.nav.guides}
           </Link>
+          <Link href={`/${lang}/favorites`} className="hover:text-accent transition-colors">
+            {t.nav.favorites}
+          </Link>
+          <Link href={`/${lang}/compare`} className="hover:text-accent transition-colors">
+            {t.nav.compare}
+          </Link>
           <Link href={`/${lang}/about`} className="hover:text-accent transition-colors">
             {t.nav.about}
           </Link>

@@ -44,6 +44,12 @@ export function MobileNav({ lang, t }: { lang: Lang; t: Dict["nav"] }) {
             <Link href={`/${lang}/guide`} onClick={() => setOpen(false)} className="py-2.5">
               {t.guides}
             </Link>
+            <Link href={`/${lang}/favorites`} onClick={() => setOpen(false)} className="py-2.5">
+              {t.favorites}
+            </Link>
+            <Link href={`/${lang}/compare`} onClick={() => setOpen(false)} className="py-2.5">
+              {t.compare}
+            </Link>
             <Link href={`/${lang}/about`} onClick={() => setOpen(false)} className="py-2.5">
               {t.about}
             </Link>

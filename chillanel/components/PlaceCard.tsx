@@ -5,6 +5,7 @@ import { tFor } from "@/lib/i18n";
 import { categoryBadgeLabel } from "@/lib/categories";
 import { RatingBars, hasRatingData } from "./RatingBars";
 import { themeLabel } from "@/lib/theme-labels";
+import { CardActions } from "./CardActions";
 
 // No photo data in the pipeline yet, so cards lean on a textured gradient
 // header instead of a blank placeholder — keeps the grid feeling premium
@@ -46,6 +47,7 @@ export function PlaceCard({
       href={`/${lang}/place/${place.id}`}
       className={`group relative flex flex-col h-full rounded-3xl border border-border bg-bg-elev overflow-hidden hover:shadow-xl hover:shadow-ink/5 hover:-translate-y-1 transition-all duration-300 ${large ? "sm:col-span-2 sm:row-span-2" : ""}`}
     >
+      <CardActions placeId={place.id} lang={lang} />
       {editorsPick && (
         <div className="absolute top-0 right-0 z-10 bg-gradient-to-r from-accent-warm to-amber-500 text-ink text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">
           {t.home.editorsPick}

@@ -11,6 +11,7 @@ import { RatingBars, hasRatingData } from "@/components/RatingBars";
 import { TagCloud } from "@/components/TagCloud";
 import { PlaceCard } from "@/components/PlaceCard";
 import { ProsList } from "@/components/ProsList";
+import { PlaceActions } from "@/components/PlaceActions";
 import { themeLabel } from "@/lib/theme-labels";
 import { placeSummary, priceMedian } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
@@ -90,6 +91,8 @@ export default async function PlacePage({
           <span className="rounded-full border border-border px-3 py-1 text-muted font-medium">{badge}</span>
         )}
       </div>
+
+      <PlaceActions placeId={place.id} lang={lang} />
 
       {summary && <p className="text-muted leading-relaxed mb-6 max-w-2xl">{summary}</p>}
 
@@ -190,7 +193,7 @@ export default async function PlacePage({
           href={place.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="sm:hidden fixed bottom-4 left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-3.5 shadow-xl shadow-accent-warm/30"
+          className="sm:hidden fixed bottom-20 left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-3.5 shadow-xl shadow-accent-warm/30"
         >
           {t.place.viewOnMaps} →
         </a>
