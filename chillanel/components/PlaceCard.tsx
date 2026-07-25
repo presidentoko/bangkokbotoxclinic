@@ -3,6 +3,8 @@ import type { Lang } from "@/lib/site";
 import type { Place } from "@/lib/types";
 import { tFor } from "@/lib/i18n";
 import { categoryBadgeLabel } from "@/lib/categories";
+import { RatingBars } from "./RatingBars";
+import { themeLabel } from "@/lib/theme-labels";
 
 // No photo data in the pipeline yet, so cards lean on a textured gradient
 // header instead of a blank placeholder — keeps the grid feeling premium
@@ -76,6 +78,11 @@ export function PlaceCard({
               {badge}
             </span>
           )}
+          {place.serviceThemes.length > 0 && (
+            <span className="rounded-full border border-accent-warm/30 bg-accent-warm/10 px-2.5 py-1 text-accent-warm font-medium">
+              {themeLabel(place.serviceThemes[0].label, lang)}
+            </span>
+          )}
           <span className="text-muted">
             {place.reviewCount} {t.place.reviewCountLabel}
           </span>
@@ -93,6 +100,11 @@ export function PlaceCard({
             <span className="text-xs font-semibold text-accent-warm">
               {t.place.namedInReviews.replace("{n}", String(mentionCount))}
             </span>
+          </div>
+        )}
+        {large && (
+          <div className="mt-4 border-t border-border pt-4">
+            <RatingBars distribution={place.ratingDistribution} size="compact" />
           </div>
         )}
         {large && mentionCount > 0 && place.therapistMentions[0].quotes[0] && (
