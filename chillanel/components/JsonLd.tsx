@@ -38,6 +38,21 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   return jsonLdScript(json);
 }
 
+export function ItemListJsonLd({ name, items }: { name: string; items: { name: string; url: string }[] }) {
+  const json = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: item.url,
+    })),
+  };
+  return jsonLdScript(json);
+}
+
 export function FaqJsonLd({ items }: { items: FaqItem[] }) {
   const json = {
     "@context": "https://schema.org",

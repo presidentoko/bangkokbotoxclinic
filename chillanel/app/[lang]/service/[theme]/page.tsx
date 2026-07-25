@@ -3,29 +3,24 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
-import { listCities, loadCity } from "@/lib/data";
+import { listCities, loadCity, getAllPlaces } from "@/lib/data";
 import { themeLabel, slugifyTheme } from "@/lib/theme-labels";
+import { placeMatchesLabel, averageRating, allThemeAndMoodLabels } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Faq } from "@/components/Faq";
+import { ItemListJsonLd } from "@/components/JsonLd";
 
 const MAX_SHOWN = 90; // same payload-size discipline as the city page
 
-function allServiceThemeLabels(): string[] {
-  const labels = new Set<string>();
-  for (const city of listCities()) {
-    for (const place of loadCity(city).places) {
-      for (const theme of place.serviceThemes) labels.add(theme.label);
-    }
-  }
-  return [...labels];
-}
-
 function findLabelForSlug(slug: string): string | null {
-  return allServiceThemeLabels().find((label) => slugifyTheme(label) === slug) ?? null;
+  const labels = allThemeAndMoodLabels(getAllPlaces().map(({ place }) => place));
+  return labels.find((label) => slugifyTheme(label) === slug) ?? null;
 }
 
 export function generateStaticParams() {
-  return allServiceThemeLabels().map((label) => ({ theme: slugifyTheme(label) }));
+  const labels = allThemeAndMoodLabels(getAllPlaces().map(({ place }) => place));
+  return labels.map((label) => ({ theme: slugifyTheme(label) }));
 }
 export const dynamicParams = false;
 
@@ -70,10 +65,24 @@ export default async function ServiceThemePage({
   const cityDisplayLabel = cityLabel(cityCode);
 
   const allMatching = cityData.places
-    .filter((p) => p.serviceThemes.some((s) => s.label === rawLabel))
+    .filter((p) => placeMatchesLabel(p, rawLabel))
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
   if (allMatching.length === 0) notFound();
   const places = allMatching.slice(0, MAX_SHOWN);
+
+  const avgRating = averageRating(allMatching);
+  const faqAnswer = [
+    t.service.faqAnswer.replace("{count}", String(allMatching.length)).replace("{theme}", label).replace("{city}", cityDisplayLabel),
+    avgRating != null ? t.service.faqAnswerRatingClause.replace("{rating}", avgRating.toFixed(1)) : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const faqItems = [
+    {
+      q: t.service.faqQuestion.replace("{theme}", label).replace("{city}", cityDisplayLabel),
+      a: faqAnswer,
+    },
+  ];
 
   return (
     <div>
@@ -87,6 +96,10 @@ export default async function ServiceThemePage({
               { name: cityDisplayLabel, href: `/${lang}/city/${cityCode}` },
               { name: label, href: `/${lang}/service/${theme}` },
             ]}
+          />
+          <ItemListJsonLd
+            name={t.service.listTitle.replace("{theme}", label).replace("{city}", cityDisplayLabel)}
+            items={places.map((p) => ({ name: p.name, url: `${SITE.origin}/${lang}/place/${p.id}` }))}
           />
           <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">
             {t.service.listTitle.replace("{theme}", label).replace("{city}", cityDisplayLabel)}
@@ -109,6 +122,7 @@ export default async function ServiceThemePage({
             <PlaceCard key={place.id} place={place} lang={lang} />
           ))}
         </div>
+        <Faq title={t.service.faqTitle} items={faqItems} />
       </div>
     </div>
   );
