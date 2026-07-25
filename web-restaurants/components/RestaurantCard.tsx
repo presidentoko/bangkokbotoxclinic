@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
@@ -29,7 +30,7 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
         </div>
       )}
 
-      <a href={`/restaurant/${r.id}`} className="block p-5 pb-3">
+      <Link href={`/restaurant/${r.id}`} prefetch={false} className="block p-5 pb-3">
         <div className="flex items-start justify-between gap-3 mb-2">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-1 flex-wrap">
@@ -89,15 +90,16 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
             ))}
           </div>
         </div>
-      </a>
+      </Link>
 
       <div className="px-5 pb-3 flex gap-2">
-        <a
+        <Link
           href={`/restaurant/${r.id}`}
+          prefetch={false}
           className="flex-1 text-center min-h-[44px] py-2.5 px-3 rounded-xl bg-[var(--fg)] text-white text-xs font-bold hover:opacity-80 transition flex items-center justify-center"
         >
           View details →
-        </a>
+        </Link>
         <SaveButton id={r.id} />
         <a
           href={r.maps_url}

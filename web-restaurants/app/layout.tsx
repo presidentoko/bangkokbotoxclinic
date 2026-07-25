@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display } from "next/font/google";
 import Script from "next/script";
+import { headers } from "next/headers";
+import Link from "next/link";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
@@ -79,6 +81,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const db = await loadMasterDb();
+  const hdrs = await headers();
+  const htmlLang = hdrs.get("x-locale") ?? "en";
   const topCuisines = Object.entries(db.cuisine_counts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 6)
@@ -98,7 +102,7 @@ export default async function RootLayout({
     .map(([d]) => d);
 
   return (
-    <html lang="en" className={dmSerif.variable}>
+    <html lang={htmlLang} className={dmSerif.variable}>
       <body>
         {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
           <Script
@@ -112,9 +116,9 @@ export default async function RootLayout({
         <WebsiteJsonLd />
         <header className="border-b border-[var(--border)] bg-[var(--card)] sticky top-0 z-10 backdrop-blur-sm bg-white/95">
           <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-            <a href="/" className="flex items-center hover:opacity-80 transition">
+            <Link href="/" className="flex items-center hover:opacity-80 transition">
               <Logo accent={cfg.themeAccent} />
-            </a>
+            </Link>
             <HeaderNav />
           </div>
         </header>

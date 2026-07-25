@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { loadMasterDb, getRestaurantById, topByTrust } from "@/lib/data";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import type { Restaurant } from "@/lib/types";
@@ -134,18 +135,18 @@ export default async function RestaurantPage(
     <div className="max-w-6xl mx-auto px-4 py-8 pb-28 sm:pb-8">
       <RecentlyViewedTracker id={r.id} />
       <nav className="text-sm text-[var(--muted)] mb-4">
-        <a href="/" className="hover:text-[var(--fg)]">Home</a>
+        <Link href="/" className="hover:text-[var(--fg)]">Home</Link>
         <span className="mx-2">›</span>
-        <a href={`/city/${r.city}`} className="hover:text-[var(--fg)]">{r.city_label}</a>
+        <Link href={`/city/${r.city}`} className="hover:text-[var(--fg)]">{r.city_label}</Link>
         {r.district && (
           <>
             <span className="mx-2">›</span>
-            <a
+            <Link
               href={`/d/${r.district.toLowerCase().replace(/\s+/g, "-")}`}
               className="hover:text-[var(--fg)]"
             >
               {r.district}
-            </a>
+            </Link>
           </>
         )}
         <span className="mx-2">›</span>
@@ -207,7 +208,7 @@ export default async function RestaurantPage(
         {r.cuisines.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
             {r.cuisines.map((c) => (
-              <a
+              <Link
                 key={c}
                 href={`/c/${c}`}
                 className="bg-orange-50 text-orange-800 px-3 py-1 rounded-full text-sm hover:bg-orange-100 inline-flex items-center gap-1.5"
@@ -217,7 +218,7 @@ export default async function RestaurantPage(
                 {r.cuisine_mentions[c] ? (
                   <span className="opacity-70 text-xs">· {r.cuisine_mentions[c]} mentions</span>
                 ) : null}
-              </a>
+              </Link>
             ))}
             {trend === "improving" && (
               <span className="bg-green-50 text-green-800 px-3 py-1 rounded-full text-sm">
@@ -284,9 +285,9 @@ export default async function RestaurantPage(
               </div>
               <div className="px-4 py-3 border-t border-[var(--border)] bg-[var(--bg)] text-xs text-[var(--muted)]">
                 No filter. Just numbers. —{" "}
-                <a href={`/famous-vs-good/${seedMatch.category}`} className="text-orange-600 font-semibold hover:underline">
+                <Link href={`/famous-vs-good/${seedMatch.category}`} className="text-orange-600 font-semibold hover:underline">
                   See this venue in the full ranking →
-                </a>
+                </Link>
               </div>
             </div>
           ) : (
@@ -345,12 +346,12 @@ export default async function RestaurantPage(
               <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
                 <h2 className="text-lg font-bold">More like this</h2>
                 {r.district && r.cuisines[0] && (
-                  <a
+                  <Link
                     href={`/c/${r.cuisines[0]}/${r.district.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-sm text-[var(--accent)] font-medium hover:underline"
                   >
                     All {CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]} in {r.district} →
-                  </a>
+                  </Link>
                 )}
               </div>
               <div className="grid gap-3">
@@ -435,12 +436,12 @@ export default async function RestaurantPage(
           {seedMatch && (
             <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
               <p className="text-xs font-semibold text-orange-800 mb-1">In the SNS ranking</p>
-              <a
+              <Link
                 href={`/famous-vs-good/${seedMatch.category}`}
                 className="block text-center text-xs font-bold bg-[#ea580c] text-white px-3 py-2 rounded-lg hover:opacity-90 transition"
               >
                 See feed vs data →
-              </a>
+              </Link>
             </div>
           )}
         </aside>

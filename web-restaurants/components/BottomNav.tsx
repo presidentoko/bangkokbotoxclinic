@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/hooks/useLocale";
 import { strings, tr } from "@/lib/strings";
@@ -30,7 +31,7 @@ export function BottomNav() {
     <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--card)] border-t border-[var(--border)] pb-safe">
       <div className="flex justify-around items-stretch h-14">
         {ITEMS.map((item) => (
-          <a
+          <Link
             key={item.href}
             href={localizedHubHref(item.href, locale)}
             className={`flex-1 flex flex-col items-center justify-center gap-0.5 rounded-xl transition ${
@@ -39,7 +40,7 @@ export function BottomNav() {
           >
             <span className="text-xl leading-none">{item.icon}</span>
             <span className="text-[10px] font-medium">{tr(strings.bottomNav[item.key], locale)}</span>
-          </a>
+          </Link>
         ))}
       </div>
     </nav>

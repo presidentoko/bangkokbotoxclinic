@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { useLocale } from "@/hooks/useLocale";
 import { strings, tr } from "@/lib/strings";
 import { localizedHubHref } from "@/lib/localizedHref";
@@ -46,14 +47,14 @@ export function MobileMenu() {
             </div>
             <nav className="flex flex-col px-2 py-2">
               {LINKS.map((l) => (
-                <a
+                <Link
                   key={l.href}
                   href={localizedHubHref(l.href, locale)}
                   onClick={() => setOpen(false)}
                   className="min-h-[48px] flex items-center px-3 rounded-xl text-[var(--fg)] font-medium hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition"
                 >
                   {tr(l.label, locale)}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>

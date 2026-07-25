@@ -43,7 +43,16 @@ export default async function FamousVsGoodOG({
   const DARK = "#0a0a0a";
   const MUTED = "#737373";
 
-  return new ImageResponse(
+  // Sanitize to ASCII-safe to avoid satori font lookup failures on Thai/CJK
+  // venue names (crashes the whole OG route otherwise — see restaurant/[id]
+  // opengraph-image.tsx for the same guard). Fully-Thai/Korean names strip to
+  // "" — fall back to the generic "N venues" headline instead of a bare venue.
+  const rawHeadlineName = headlineVenue?.restaurant?.name ?? "";
+  const safeHeadlineName = rawHeadlineName.replace(/[^\x00-\x7F]/g, "").trim();
+  const showHeadlineVenue = headlineVenue && safeHeadlineName.length > 0;
+
+  try {
+    return new ImageResponse(
     (
       <div
         style={{
@@ -152,20 +161,20 @@ export default async function FamousVsGoodOG({
               <div
                 style={{
                   display: "flex",
-                  fontSize: headlineVenue ? 38 : 32,
+                  fontSize: showHeadlineVenue ? 38 : 32,
                   fontWeight: 800,
                   color: DARK,
                   lineHeight: 1.1,
                   letterSpacing: -0.5,
                 }}
               >
-                {headlineVenue
-                  ? headlineVenue.restaurant!.name.length > 28
-                    ? headlineVenue.restaurant!.name.slice(0, 26) + "..."
-                    : headlineVenue.restaurant!.name
+                {showHeadlineVenue
+                  ? safeHeadlineName.length > 28
+                    ? safeHeadlineName.slice(0, 26) + "..."
+                    : safeHeadlineName
                   : `${N} venues hyped on social`}
               </div>
-              {headlineVenue?.seed.ig_signal && (
+              {showHeadlineVenue && headlineVenue?.seed.ig_signal && (
                 <div
                   style={{
                     display: "flex",
@@ -231,7 +240,7 @@ export default async function FamousVsGoodOG({
               >
                 Actually Good?
               </div>
-              {headlineVenue ? (
+              {showHeadlineVenue ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   <div
                     style={{
@@ -240,20 +249,20 @@ export default async function FamousVsGoodOG({
                       fontWeight: 900,
                       lineHeight: 1,
                       color:
-                        headlineVenue.restaurant!.trust_score >= 85
+                        headlineVenue!.restaurant!.trust_score >= 85
                           ? "#16a34a"
-                          : headlineVenue.restaurant!.trust_score >= 75
+                          : headlineVenue!.restaurant!.trust_score >= 75
                           ? "#ca8a04"
                           : "#dc2626",
                     }}
                   >
-                    {Math.round(headlineVenue.restaurant!.trust_score)}
+                    {Math.round(headlineVenue!.restaurant!.trust_score)}
                   </div>
                   <div style={{ display: "flex", fontSize: 16, color: MUTED }}>
                     Trust Score / 100
                   </div>
                   <div style={{ display: "flex", fontSize: 14, color: MUTED }}>
-                    {headlineVenue.restaurant!.total_reviews.toLocaleString()} Google reviews
+                    {headlineVenue!.restaurant!.total_reviews.toLocaleString()} Google reviews
                   </div>
                 </div>
               ) : (
@@ -292,6 +301,24 @@ export default async function FamousVsGoodOG({
         </div>
       </div>
     ),
-    size
-  );
+      size
+    );
+  } catch {
+    return new ImageResponse(
+      (
+        <div
+          style={{
+            width: "100%", height: "100%", background: "#0a0a0a",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexDirection: "column", gap: "16px",
+            fontFamily: "system-ui, sans-serif",
+          }}
+        >
+          <div style={{ display: "flex", fontSize: 48, fontWeight: 800, color: "white" }}>{label}</div>
+          <div style={{ display: "flex", fontSize: 22, color: "#737373" }}>Instagram Famous vs Actually Good</div>
+        </div>
+      ),
+      size
+    );
+  }
 }

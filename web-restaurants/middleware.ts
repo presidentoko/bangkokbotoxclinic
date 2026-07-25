@@ -45,9 +45,13 @@ export function middleware(req: NextRequest) {
 
   const pathLocale = getLocaleFromPath(pathname);
 
-  // If URL already has a locale prefix, record it in cookie and continue
+  // If URL already has a locale prefix, record it in cookie and continue.
+  // Also forward it as a request header so the root layout (a Server
+  // Component with no other way to see the pathname) can set <html lang>.
   if (pathLocale) {
-    const res = NextResponse.next();
+    const headers = new Headers(req.headers);
+    headers.set("x-locale", pathLocale);
+    const res = NextResponse.next({ request: { headers } });
     res.cookies.set(COOKIE, pathLocale, {
       path: "/",
       maxAge: COOKIE_MAX_AGE,
