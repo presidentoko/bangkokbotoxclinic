@@ -6,6 +6,7 @@ import { listCities, loadCity } from "@/lib/data";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Faq } from "@/components/Faq";
 import { ReviewQuotes, type QuoteItem } from "@/components/ReviewQuotes";
+import { TagCloud } from "@/components/TagCloud";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -32,7 +33,10 @@ export default async function HomePage({
   if (!isLang(lang)) notFound();
   const t = tFor(lang);
   const cities = listCities();
-  const bangkok = cities.length > 0 ? loadCity(cities[0]) : { city: "", generatedAt: "", places: [] };
+  const bangkok =
+    cities.length > 0
+      ? loadCity(cities[0])
+      : { city: "", generatedAt: "", places: [], themeAggregate: [], moodAggregate: [] };
   const featured = bangkok.places
     .filter((p) => p.rating != null && p.reviewCount >= 10)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
@@ -149,6 +153,13 @@ export default async function HomePage({
         )}
 
         <ReviewQuotes title={t.home.quotesTitle} items={quotes} lang={lang} />
+
+        {bangkok.themeAggregate.length > 0 && (
+          <section className="mb-14">
+            <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.home.trendingTitle}</h2>
+            <TagCloud items={bangkok.themeAggregate} lang={lang} linkToService max={15} />
+          </section>
+        )}
 
         <Faq title={t.home.faqTitle} items={t.home.faq} />
       </div>

@@ -7,6 +7,7 @@ import { isRelevantCategory } from "@/lib/categories";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq } from "@/components/Faq";
+import { TagCloud } from "@/components/TagCloud";
 
 export function generateStaticParams() {
   return listCities().map((city) => ({ city }));
@@ -95,6 +96,14 @@ export default async function CityPage({
             />
           ))}
         </div>
+        {data.themeAggregate.length > 0 && (
+          <section className="mb-14">
+            <h2 className="font-display italic text-2xl sm:text-3xl mb-6">
+              {t.city.trendingTitle.replace("{city}", label)}
+            </h2>
+            <TagCloud items={data.themeAggregate} lang={lang} linkToService max={15} />
+          </section>
+        )}
         <Faq
           title={t.city.faqTitle.replace("{city}", label)}
           items={t.city.faq.map((f) => ({
