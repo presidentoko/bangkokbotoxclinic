@@ -43,6 +43,7 @@ export type Dict = {
     /** Template with a "{mood}" placeholder, used inside the auto-generated summary paragraph. */
     summaryMoodClause: string;
     similarPlacesTitle: string;
+    prosTitle: string;
   };
   /** listTitle/intro/faqTitle/faq[].* use a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: {
@@ -129,6 +130,7 @@ const en: Dict = {
     summaryThemeClause: "Reviewers most often mention {theme} here.",
     summaryMoodClause: "Regulars describe the place as {mood}.",
     similarPlacesTitle: "Similar places nearby",
+    prosTitle: "Why reviewers like it",
   },
   city: {
     listTitle: "Massage & spa in {city}",
@@ -229,6 +231,7 @@ const th: Dict = {
     summaryThemeClause: "รีวิวพูดถึง{theme}ที่นี่บ่อยที่สุด",
     summaryMoodClause: "ลูกค้าประจำบอกว่าร้านนี้{mood}",
     similarPlacesTitle: "ร้านใกล้เคียงที่คล้ายกัน",
+    prosTitle: "ทำไมรีวิวถึงชอบร้านนี้",
   },
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
@@ -329,6 +332,7 @@ const ko: Dict = {
     summaryThemeClause: "리뷰에서 이곳의 {theme}가 가장 많이 언급됩니다.",
     summaryMoodClause: "단골들은 이곳을 {mood} 분위기라고 말합니다.",
     similarPlacesTitle: "비슷한 인근 업체",
+    prosTitle: "리뷰어들이 좋아하는 이유",
   },
   city: {
     listTitle: "{city}의 마사지 & 스파",

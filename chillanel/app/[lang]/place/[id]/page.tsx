@@ -10,6 +10,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RatingBars, hasRatingData } from "@/components/RatingBars";
 import { TagCloud } from "@/components/TagCloud";
 import { PlaceCard } from "@/components/PlaceCard";
+import { ProsList } from "@/components/ProsList";
 import { themeLabel } from "@/lib/theme-labels";
 import { placeSummary, priceMedian } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
@@ -91,6 +92,13 @@ export default async function PlacePage({
       </div>
 
       {summary && <p className="text-muted leading-relaxed mb-6 max-w-2xl">{summary}</p>}
+
+      {place.moodKeywords.length > 0 && (
+        <>
+          <h2 className="text-xs uppercase tracking-wide text-muted font-semibold mb-2">{t.place.prosTitle}</h2>
+          <ProsList items={place.moodKeywords} lang={lang} />
+        </>
+      )}
 
       <div className="rounded-2xl border border-border bg-bg-elev p-5 mb-8">
         <div className="text-xs uppercase tracking-wide text-muted mb-1">{t.place.addressLabel}</div>
