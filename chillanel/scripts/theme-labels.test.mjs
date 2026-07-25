@@ -1,3 +1,12 @@
+// Unlike i18n.test.mjs (which reads lib/i18n.ts as text and regex-parses it
+// to avoid running TypeScript), this file directly imports the .ts source —
+// these tests need real function behavior, not just structural checks. That
+// relies on Node's native TS type-stripping, on by default since Node 23.6
+// (flagged behind --experimental-strip-types on 22.6-23.5, unsupported
+// before that). This repo has no `engines` field pinning a minimum Node
+// version; if this file ever fails with ERR_UNKNOWN_FILE_EXTENSION, that's
+// why. Not a build/deploy risk — `next build`/`vercel-build` never invoke
+// `node --test`, only local/manual test runs depend on this.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { themeLabel, slugifyTheme } from "../lib/theme-labels.ts";
