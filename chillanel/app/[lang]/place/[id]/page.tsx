@@ -7,7 +7,7 @@ import { categoryBadgeLabel } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { RatingBars } from "@/components/RatingBars";
+import { RatingBars, hasRatingData } from "@/components/RatingBars";
 import { TagCloud } from "@/components/TagCloud";
 import { themeLabel } from "@/lib/theme-labels";
 
@@ -108,10 +108,12 @@ export default async function PlacePage({
         )}
       </div>
 
-      <section className="mb-10">
-        <h2 className="text-lg font-bold mb-3">{t.place.ratingBreakdownTitle}</h2>
-        <RatingBars distribution={place.ratingDistribution} />
-      </section>
+      {hasRatingData(place.ratingDistribution) && (
+        <section className="mb-10">
+          <h2 className="text-lg font-bold mb-3">{t.place.ratingBreakdownTitle}</h2>
+          <RatingBars distribution={place.ratingDistribution} />
+        </section>
+      )}
 
       <section className="mb-10">
         <h2 className="text-lg font-bold mb-3">{t.place.therapistMentionsTitle}</h2>

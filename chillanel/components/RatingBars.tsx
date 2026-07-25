@@ -2,6 +2,16 @@ import type { RatingDistribution } from "@/lib/types";
 
 const STARS = [5, 4, 3, 2, 1] as const;
 
+// RatingBars itself returns null when every bucket is 0 (~9.4% of the live
+// dataset — a Google aggregate rating exists but no scraped review carried
+// a numeric star value). Callers that render a heading/border/wrapper AROUND
+// RatingBars must check this first, or they ship an orphaned heading /
+// empty divider on those places — found in Phase 1's final review, live on
+// 69/734 place pages before this fix.
+export function hasRatingData(distribution: RatingDistribution): boolean {
+  return STARS.some((star) => distribution[star] > 0);
+}
+
 export function RatingBars({
   distribution,
   size = "default",

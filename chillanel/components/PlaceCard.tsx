@@ -3,7 +3,7 @@ import type { Lang } from "@/lib/site";
 import type { Place } from "@/lib/types";
 import { tFor } from "@/lib/i18n";
 import { categoryBadgeLabel } from "@/lib/categories";
-import { RatingBars } from "./RatingBars";
+import { RatingBars, hasRatingData } from "./RatingBars";
 import { themeLabel } from "@/lib/theme-labels";
 
 // No photo data in the pipeline yet, so cards lean on a textured gradient
@@ -102,7 +102,7 @@ export function PlaceCard({
             </span>
           </div>
         )}
-        {large && (
+        {large && hasRatingData(place.ratingDistribution) && (
           <div className="mt-4 border-t border-border pt-4">
             <RatingBars distribution={place.ratingDistribution} size="compact" />
           </div>
