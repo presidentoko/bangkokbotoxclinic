@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
-import { getAllPlaces } from "@/lib/data";
+import { getAllPlaces, loadCity } from "@/lib/data";
 import { categoryBadgeLabel } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RatingBars, hasRatingData } from "@/components/RatingBars";
 import { TagCloud } from "@/components/TagCloud";
+import { PlaceCard } from "@/components/PlaceCard";
 import { themeLabel } from "@/lib/theme-labels";
+import { placeSummary, priceMedian } from "@/lib/summary";
+import { relatedPlaces } from "@/lib/related";
 
 export function generateStaticParams() {
   return getAllPlaces().map(({ place }) => ({ id: place.id }));
@@ -29,12 +32,14 @@ export async function generateMetadata({
   if (!isLang(lang)) return {};
   const found = findPlace(id);
   if (!found) return {};
+  const summary = placeSummary(found.place, lang);
   return {
     title: `${found.place.name} — ${SITE.name}`,
     description:
-      found.place.rating != null
+      summary ??
+      (found.place.rating != null
         ? `${found.place.name}: ★${found.place.rating.toFixed(1)} (${found.place.reviewCount} reviews). ${found.place.address}`
-        : found.place.address,
+        : found.place.address),
     alternates: {
       canonical: `/${lang}/place/${id}`,
       languages: hreflangAlternates((l) => `/${l}/place/${id}`),
@@ -55,16 +60,13 @@ export default async function PlacePage({
   const t = tFor(lang);
   const label = cityLabel(city);
   const badge = categoryBadgeLabel(place.primaryType, lang);
-  const priceMedian = (() => {
-    const prices = place.priceMentions;
-    if (prices.length === 0) return null;
-    const mid = Math.floor(prices.length / 2);
-    return prices.length % 2 !== 0 ? prices[mid] : Math.round((prices[mid - 1] + prices[mid]) / 2);
-  })();
+  const priceMedianValue = priceMedian(place.priceMentions);
+  const summary = placeSummary(place, lang);
+  const related = relatedPlaces(place, loadCity(city).places);
 
   return (
     <div className="max-w-3xl mx-auto px-4 pt-10 sm:pt-12 pb-24 sm:pb-12">
-      <LocalBusinessJsonLd place={place} />
+      <LocalBusinessJsonLd place={place} description={summary} />
       <Breadcrumbs
         items={[
           { name: t.nav.home, href: `/${lang}` },
@@ -88,6 +90,8 @@ export default async function PlacePage({
         )}
       </div>
 
+      {summary && <p className="text-muted leading-relaxed mb-6 max-w-2xl">{summary}</p>}
+
       <div className="rounded-2xl border border-border bg-bg-elev p-5 mb-8">
         <div className="text-xs uppercase tracking-wide text-muted mb-1">{t.place.addressLabel}</div>
         <div className="mb-4">{place.address}</div>
@@ -101,9 +105,9 @@ export default async function PlacePage({
             {t.place.viewOnMaps} →
           </a>
         )}
-        {priceMedian != null && (
+        {priceMedianValue != null && (
           <p className="text-sm text-muted mt-4 pt-4 border-t border-border">
-            {t.place.priceRangeLabel.replace("{price}", priceMedian.toLocaleString())}
+            {t.place.priceRangeLabel.replace("{price}", priceMedianValue.toLocaleString())}
           </p>
         )}
       </div>
@@ -161,6 +165,17 @@ export default async function PlacePage({
           ))}
         </div>
       </section>
+
+      {related.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-lg font-bold mb-3">{t.place.similarPlacesTitle}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {related.map((r) => (
+              <PlaceCard key={r.id} place={r} lang={lang} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {place.mapsUrl && (
         <a

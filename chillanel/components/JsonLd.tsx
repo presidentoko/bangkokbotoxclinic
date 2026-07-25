@@ -51,13 +51,14 @@ export function FaqJsonLd({ items }: { items: FaqItem[] }) {
   return jsonLdScript(json);
 }
 
-export function LocalBusinessJsonLd({ place }: { place: Place }) {
+export function LocalBusinessJsonLd({ place, description }: { place: Place; description?: string | null }) {
   const json = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
     name: place.name,
     address: place.address,
     url: `${SITE.origin}/en/place/${place.id}`,
+    ...(description ? { description } : {}),
     ...(place.rating != null && place.reviewCount > 0
       ? {
           aggregateRating: {
