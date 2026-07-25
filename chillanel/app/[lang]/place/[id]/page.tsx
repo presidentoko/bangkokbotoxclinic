@@ -12,6 +12,7 @@ import { TagCloud } from "@/components/TagCloud";
 import { PlaceCard } from "@/components/PlaceCard";
 import { ProsList } from "@/components/ProsList";
 import { PlaceActions } from "@/components/PlaceActions";
+import { TrustScoreDetail } from "@/components/TrustScoreDetail";
 import { themeLabel } from "@/lib/theme-labels";
 import { placeSummary, priceMedian } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
@@ -91,6 +92,8 @@ export default async function PlacePage({
           <span className="rounded-full border border-border px-3 py-1 text-muted font-medium">{badge}</span>
         )}
       </div>
+
+      <TrustScoreDetail place={place} lang={lang} />
 
       <PlaceActions placeId={place.id} lang={lang} />
 
