@@ -12,6 +12,7 @@ import { TagCloud } from "@/components/TagCloud";
 export function generateStaticParams() {
   return listCities().map((city) => ({ city }));
 }
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
