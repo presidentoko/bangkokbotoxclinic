@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { placeMatchesLabel, averageRating, allThemeAndMoodLabels } from "../lib/theme-stats.ts";
+import { placeMatchesLabel, averageRating, allThemeAndMoodLabels, isMoodLabel } from "../lib/theme-stats.ts";
+import { SERVICE_THEMES, MOOD_KEYWORDS } from "./extract-themes.mjs";
 
 function place(overrides = {}) {
   return {
@@ -58,4 +59,29 @@ test("allThemeAndMoodLabels: returns the union of every service-theme and mood-k
 
 test("allThemeAndMoodLabels: returns an empty array for no places", () => {
   assert.deepEqual(allThemeAndMoodLabels([]), []);
+});
+
+test("isMoodLabel: true for a mood keyword, false for a service theme", () => {
+  assert.equal(isMoodLabel("Clean"), true);
+  assert.equal(isMoodLabel("Foot massage"), false);
+});
+
+test("isMoodLabel: false for an unrecognized label", () => {
+  assert.equal(isMoodLabel("Something Unmapped"), false);
+});
+
+test("regression: SERVICE_THEMES and MOOD_KEYWORDS (scripts/extract-themes.mjs) never share a label — placeMatchesLabel's OR of both arrays depends on this", () => {
+  const serviceLabels = new Set(Object.keys(SERVICE_THEMES));
+  const moodLabels = new Set(Object.keys(MOOD_KEYWORDS));
+  const overlap = [...serviceLabels].filter((label) => moodLabels.has(label));
+  assert.deepEqual(overlap, []);
+});
+
+test("isMoodLabel's hardcoded MOOD_LABELS set matches the real MOOD_KEYWORDS keys from extract-themes.mjs", () => {
+  for (const label of Object.keys(MOOD_KEYWORDS)) {
+    assert.equal(isMoodLabel(label), true, `"${label}" is a real mood keyword but isMoodLabel() doesn't recognize it`);
+  }
+  for (const label of Object.keys(SERVICE_THEMES)) {
+    assert.equal(isMoodLabel(label), false, `"${label}" is a real service theme but isMoodLabel() incorrectly treats it as a mood`);
+  }
 });

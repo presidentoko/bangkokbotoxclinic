@@ -5,7 +5,7 @@ import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { listCities, loadCity, getAllPlaces } from "@/lib/data";
 import { themeLabel, slugifyTheme } from "@/lib/theme-labels";
-import { placeMatchesLabel, averageRating, allThemeAndMoodLabels } from "@/lib/theme-stats";
+import { placeMatchesLabel, averageRating, allThemeAndMoodLabels, isMoodLabel } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq } from "@/components/Faq";
@@ -37,8 +37,10 @@ export async function generateMetadata({
   const label = themeLabel(rawLabel, lang);
   const cities = listCities();
   const cityDisplayLabel = cities.length > 0 ? cityLabel(cities[0]) : "";
+  const listTitleTemplate = isMoodLabel(rawLabel) ? t.service.moodListTitle : t.service.listTitle;
+  const pageTitle = listTitleTemplate.replace("{theme}", label).replace("{city}", cityDisplayLabel);
   return {
-    title: `${t.service.listTitle.replace("{theme}", label).replace("{city}", cityDisplayLabel)} — ${SITE.name}`,
+    title: `${pageTitle} — ${SITE.name}`,
     description: t.service.intro.replace("{theme}", label).replace("{city}", cityDisplayLabel),
     alternates: {
       canonical: `/${lang}/service/${theme}`,
@@ -63,6 +65,10 @@ export default async function ServiceThemePage({
   const cityData = loadCity(cityCode);
   const label = themeLabel(rawLabel, lang);
   const cityDisplayLabel = cityLabel(cityCode);
+  const isMood = isMoodLabel(rawLabel);
+  const pageTitle = (isMood ? t.service.moodListTitle : t.service.listTitle)
+    .replace("{theme}", label)
+    .replace("{city}", cityDisplayLabel);
 
   const allMatching = cityData.places
     .filter((p) => placeMatchesLabel(p, rawLabel))
@@ -79,7 +85,7 @@ export default async function ServiceThemePage({
     .join(" ");
   const faqItems = [
     {
-      q: t.service.faqQuestion.replace("{theme}", label).replace("{city}", cityDisplayLabel),
+      q: (isMood ? t.service.moodFaqQuestion : t.service.faqQuestion).replace("{theme}", label).replace("{city}", cityDisplayLabel),
       a: faqAnswer,
     },
   ];
@@ -98,12 +104,11 @@ export default async function ServiceThemePage({
             ]}
           />
           <ItemListJsonLd
-            name={t.service.listTitle.replace("{theme}", label).replace("{city}", cityDisplayLabel)}
+            name={pageTitle}
+            numberOfItems={allMatching.length}
             items={places.map((p) => ({ name: p.name, url: `${SITE.origin}/${lang}/place/${p.id}` }))}
           />
-          <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">
-            {t.service.listTitle.replace("{theme}", label).replace("{city}", cityDisplayLabel)}
-          </h1>
+          <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">{pageTitle}</h1>
           <p className="text-on-ink-muted max-w-2xl leading-relaxed">
             {t.service.intro.replace("{theme}", label).replace("{city}", cityDisplayLabel)}
           </p>

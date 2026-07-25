@@ -1,10 +1,33 @@
 import type { Place } from "./types";
 
 // The 8 SERVICE_THEMES and 7 MOOD_KEYWORDS labels (scripts/extract-themes.mjs)
-// never overlap (verified in theme-labels.test.mjs), so checking both arrays
-// for a given label is unambiguous.
+// never overlap (verified in theme-labels.test.mjs and by the disjointness
+// test in theme-stats.test.mjs, which imports the real dictionaries), so
+// checking both arrays for a given label is unambiguous.
 export function placeMatchesLabel(place: Place, label: string): boolean {
   return place.serviceThemes.some((t) => t.label === label) || place.moodKeywords.some((m) => m.label === label);
+}
+
+// Hardcoded copy of scripts/extract-themes.mjs's MOOD_KEYWORDS keys — mirrors
+// the same precedent already set by lib/theme-labels.ts's LABELS table (a
+// separate hardcoded copy of the same 15 labels for translation). Needed
+// because service/[theme]'s "Best {theme} in {city}" title/FAQ phrasing
+// reads fine for noun service themes ("Best Foot massage in Bangkok") but is
+// ungrammatical for adjective-like mood keywords ("Best Clean in Bangkok") —
+// found in Phase 3's final review. Keep in sync with extract-themes.mjs and
+// theme-labels.ts if either dictionary changes.
+const MOOD_LABELS = new Set([
+  "Clean",
+  "Quiet & relaxing",
+  "Strong pressure",
+  "Gentle",
+  "Friendly staff",
+  "Good value",
+  "Walk-in friendly",
+]);
+
+export function isMoodLabel(label: string): boolean {
+  return MOOD_LABELS.has(label);
 }
 
 // Mean of non-null ratings among the given places, rounded to 1 decimal.

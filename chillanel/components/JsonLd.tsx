@@ -38,11 +38,21 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   return jsonLdScript(json);
 }
 
-export function ItemListJsonLd({ name, items }: { name: string; items: { name: string; url: string }[] }) {
+export function ItemListJsonLd({
+  name,
+  items,
+  numberOfItems,
+}: {
+  name: string;
+  items: { name: string; url: string }[];
+  /** True count of matching items when `items` is a capped top-N — signals the list isn't exhaustive. */
+  numberOfItems?: number;
+}) {
   const json = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name,
+    ...(numberOfItems != null ? { numberOfItems } : {}),
     itemListElement: items.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,
