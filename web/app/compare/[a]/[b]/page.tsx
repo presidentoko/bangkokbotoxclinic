@@ -12,10 +12,16 @@ import type { Metadata } from "next";
 // 전환: 캐시를 아예 안 쓰므로 write 0, 트래픽 낮은 페이지라 CPU 부담 미미.
 export const dynamic = "force-dynamic";
 
+// master_db place_id 컨벤션(`0xA_0xB`, lib/data.ts). 이 형태가 아니면
+// 실존 클리닉일 수 없으니 loadMasterDb 호출 전에 즉시 404 — 스캐너가
+// /compare/wp-login.php/foo 류를 두드릴 때 CPU/origin transfer 낭비 방지.
+const CLINIC_ID_RE = /^0x[0-9a-f]+_0x[0-9a-f]+$/i;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ a: string; b: string }> }
 ): Promise<Metadata> {
   const { a, b } = await params;
+  if (!CLINIC_ID_RE.test(a) || !CLINIC_ID_RE.test(b)) return { title: "Compare clinics" };
   const db = await loadMasterDb();
   const ca = getClinicById(db.clinics, a);
   const cb = getClinicById(db.clinics, b);
@@ -51,6 +57,7 @@ export default async function ComparePage(
   { params }: { params: Promise<{ a: string; b: string }> }
 ) {
   const { a, b } = await params;
+  if (!CLINIC_ID_RE.test(a) || !CLINIC_ID_RE.test(b)) notFound();
   const db = await loadMasterDb();
   const ca = getClinicById(db.clinics, a);
   const cb = getClinicById(db.clinics, b);
