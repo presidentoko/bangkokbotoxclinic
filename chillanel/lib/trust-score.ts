@@ -40,7 +40,7 @@ function diversityPoints(serviceThemes: ThemeCount[], moodKeywords: ThemeCount[]
 
 function labelFor(score: number): TrustLabel {
   if (score >= 85) return "excellent";
-  if (score >= 65) return "good";
+  if (score >= 70) return "good";
   if (score >= 50) return "fair";
   return "limited";
 }

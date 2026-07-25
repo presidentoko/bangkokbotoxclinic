@@ -236,7 +236,7 @@ test("full integration: score equals the sum of the rounded breakdown components
   assert.equal(result.breakdown.volumePoints, 22);
   assert.equal(result.breakdown.diversityPoints, 3);
   assert.equal(result.score, 43 + 22 + 3);
-  assert.equal(result.label, "good");
+  assert.equal(result.label, "fair"); // 68 falls in the 50-69 Fair band, not Good (>=70)
 });
 ```
 

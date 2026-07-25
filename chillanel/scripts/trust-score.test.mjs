@@ -89,6 +89,20 @@ test("label bands: 70-84 is good, 50-69 is fair, below 50 is limited", () => {
   assert.equal(trustScore(place({ rating: 5, reviewCount: 107 })).label, "good");
 });
 
+test("label bands: exact boundary — score 69 is fair, score 70 is good (regression: an earlier implementation used >=65 for 'good', which this exact pair would have caught)", () => {
+  // Both cases: rating 5 (50pts) + reviewCount 2 (5pts, verified via volumePoints(2)=5) + N distinct labels.
+  const labels14 = Array.from({ length: 14 }, (_, i) => ({ label: `Label ${i}`, count: 1 }));
+  const labels15 = Array.from({ length: 15 }, (_, i) => ({ label: `Label ${i}`, count: 1 }));
+
+  const at69 = trustScore(place({ rating: 5, reviewCount: 2, serviceThemes: labels14 }));
+  assert.equal(at69.score, 69);
+  assert.equal(at69.label, "fair");
+
+  const at70 = trustScore(place({ rating: 5, reviewCount: 2, serviceThemes: labels15 }));
+  assert.equal(at70.score, 70);
+  assert.equal(at70.label, "good");
+});
+
 test("full integration: score equals the sum of the rounded breakdown components", () => {
   const p = place({
     rating: 4.3,
@@ -101,5 +115,5 @@ test("full integration: score equals the sum of the rounded breakdown components
   assert.equal(result.breakdown.volumePoints, 22);
   assert.equal(result.breakdown.diversityPoints, 3);
   assert.equal(result.score, 43 + 22 + 3);
-  assert.equal(result.label, "good");
+  assert.equal(result.label, "fair"); // 68 falls in the 50-69 Fair band, not Good (>=70)
 });
