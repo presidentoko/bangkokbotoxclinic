@@ -31,17 +31,19 @@ test("placeSummary: returns null when theme/mood/price are all empty", () => {
   assert.equal(placeSummary(place(), "en"), null);
 });
 
-test("placeSummary: combines theme, mood, and price clauses in en, in that order", () => {
+test("placeSummary: combines theme and mood clauses in en, in that order", () => {
   const p = place({
     serviceThemes: [{ label: "Foot massage", count: 5 }],
     moodKeywords: [{ label: "Quiet & relaxing", count: 3 }],
     priceMentions: [300, 400, 500],
   });
   const result = placeSummary(p, "en");
-  assert.equal(
-    result,
-    "Reviewers most often mention Foot massage here. Regulars describe the place as Quiet & relaxing. ~400฿ per session, based on reviewer mentions"
-  );
+  assert.equal(result, "Reviewers most often mention Foot massage here. Regulars describe the place as Quiet & relaxing.");
+});
+
+test("placeSummary: ignores priceMentions entirely (price already shown separately in the address card)", () => {
+  const p = place({ priceMentions: [300, 400, 500] });
+  assert.equal(placeSummary(p, "en"), null);
 });
 
 test("placeSummary: omits the mood clause when moodKeywords is empty", () => {
