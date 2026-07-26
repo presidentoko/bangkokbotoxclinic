@@ -3,9 +3,8 @@ import { SITE } from "@/lib/site";
 
 // Next.js's app/manifest.ts file convention auto-serves this at
 // /manifest.webmanifest and links it in <head> — no extra wiring needed.
-// English-only name/description here (the manifest has no locale
-// awareness in this route), matching how app/layout.tsx's root metadata
-// is also English-default.
+// English-only name/description here since this route has no locale
+// awareness (it isn't nested under [lang]).
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${SITE.name} — Bangkok massage & spa guide`,
