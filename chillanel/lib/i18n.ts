@@ -573,7 +573,9 @@ const ko: Dict = {
     moodKeywordsTitle: "리뷰어들이 말하는 이곳의 분위기",
     ratingBreakdownTitle: "평점 분포",
     priceRangeLabel: "리뷰 기준 회당 약 ~{price}฿",
-    summaryThemeClause: "리뷰에서 이곳의 {theme}가 가장 많이 언급됩니다.",
+    // {theme} carries its own subject particle (이/가) appended by the
+    // caller via lib/korean-particles.ts -- see lib/summary.ts.
+    summaryThemeClause: "리뷰에서 이곳의 {theme} 가장 많이 언급됩니다.",
     summaryMoodClause: "단골들은 이곳을 {mood} 분위기라고 말합니다.",
     similarPlacesTitle: "비슷한 인근 업체",
     viewDistrict: "{district}의 다른 업체 보기 →",
@@ -617,12 +619,15 @@ const ko: Dict = {
   service: {
     listTitle: "{city} 베스트 {theme}",
     moodListTitle: "{city} {theme} 마사지",
-    intro: "{city}에서 {theme}를 언급한 실제 구글 리뷰입니다 — 평점과 리뷰 수 순으로 정렬했습니다.",
+    // {theme} in intro/faqQuestion/faqAnswer carries its own particle
+    // (을/를, 은/는, 으로/로) appended by the caller via lib/korean-particles.ts
+    // -- see app/[lang]/service/[theme]/page.tsx.
+    intro: "{city}에서 {theme} 언급한 실제 구글 리뷰입니다 — 평점과 리뷰 수 순으로 정렬했습니다.",
     backToCity: "← {city} 전체 업체 보기",
     faqTitle: "자주 묻는 질문",
-    faqQuestion: "{city}에서 가장 좋은 {theme}는 어디인가요?",
+    faqQuestion: "{city}에서 가장 좋은 {theme} 어디인가요?",
     moodFaqQuestion: "{city}에서 {theme} 마사지샵은 어디인가요?",
-    faqAnswer: "실제 구글 리뷰를 기준으로 {city}에서 {theme}로 언급된 곳은 {count}곳입니다.",
+    faqAnswer: "실제 구글 리뷰를 기준으로 {city}에서 {theme} 언급된 곳은 {count}곳입니다.",
     faqAnswerRatingClause: "이들의 평균 평점은 {rating}★입니다.",
     faqAnswerTopPick: "{name}이(가) 이 목록에서 평점이 가장 높습니다 — {rating}★, 리뷰 {reviewCount}개.",
     topPickLabel: "베스트 픽",

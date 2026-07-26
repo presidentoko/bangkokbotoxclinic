@@ -2,6 +2,7 @@ import type { Lang } from "./site.ts";
 import type { Place } from "./types.ts";
 import { tFor } from "./i18n.ts";
 import { themeLabel } from "./theme-labels.ts";
+import { iGa } from "./korean-particles.ts";
 
 export function priceMedian(prices: number[]): number | null {
   if (prices.length === 0) return null;
@@ -26,7 +27,12 @@ export function placeSummary(place: Place, lang: Lang): string | null {
 
   const topTheme = place.serviceThemes[0];
   if (topTheme) {
-    clauses.push(t.place.summaryThemeClause.replace("{theme}", themeLabel(topTheme.label, lang)));
+    const label = themeLabel(topTheme.label, lang);
+    // KO's summaryThemeClause template has no hardcoded particle -- {theme}
+    // must already carry the grammatically correct one, since 가/이 depends
+    // on whether the label ends in a batchim (e.g. "페이셜이" vs "오일 마사지가").
+    const labelWithParticle = lang === "ko" ? `${label}${iGa(label)}` : label;
+    clauses.push(t.place.summaryThemeClause.replace("{theme}", labelWithParticle));
   }
 
   const topMood = place.moodKeywords[0];

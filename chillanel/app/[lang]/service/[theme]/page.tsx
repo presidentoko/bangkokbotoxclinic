@@ -6,6 +6,7 @@ import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { listCities, loadCity, getAllPlaces } from "@/lib/data";
 import { themeLabel, slugifyTheme } from "@/lib/theme-labels";
 import { placeMatchesLabel, averageRating, allThemeAndMoodLabels, isMoodLabel } from "@/lib/theme-stats";
+import { eulReul, eunNeun, euroRo } from "@/lib/korean-particles";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq } from "@/components/Faq";
@@ -39,9 +40,12 @@ export async function generateMetadata({
   const cityDisplayLabel = cities.length > 0 ? cityLabel(cities[0]) : "";
   const listTitleTemplate = isMoodLabel(rawLabel) ? t.service.moodListTitle : t.service.listTitle;
   const pageTitle = listTitleTemplate.replace("{theme}", label).replace("{city}", cityDisplayLabel);
+  // KO's intro template carries no hardcoded particle -- {theme} must
+  // already include the grammatically correct one (see lib/korean-particles.ts).
+  const themeForIntro = lang === "ko" ? `${label}${eulReul(label)}` : label;
   return {
     title: `${pageTitle} — ${SITE.name}`,
-    description: t.service.intro.replace("{theme}", label).replace("{city}", cityDisplayLabel),
+    description: t.service.intro.replace("{theme}", themeForIntro).replace("{city}", cityDisplayLabel),
     alternates: {
       canonical: `/${lang}/service/${theme}`,
       languages: hreflangAlternates((l) => `/${l}/service/${theme}`),
@@ -70,6 +74,13 @@ export default async function ServiceThemePage({
   const pageTitle = (isMood ? t.service.moodListTitle : t.service.listTitle)
     .replace("{theme}", label)
     .replace("{city}", cityDisplayLabel);
+  // KO's intro/faqQuestion/faqAnswer templates carry no hardcoded particle --
+  // {theme} must already include the grammatically correct one, since which
+  // allomorph is right depends on whether the label ends in a batchim (e.g.
+  // "페이셜이" vs "오일 마사지가"). See lib/korean-particles.ts.
+  const themeForIntro = lang === "ko" ? `${label}${eulReul(label)}` : label;
+  const themeForFaqQuestion = lang === "ko" ? `${label}${eunNeun(label)}` : label;
+  const themeForFaqAnswer = lang === "ko" ? `${label}${euroRo(label)}` : label;
 
   const allMatching = cityData.places
     .filter((p) => placeMatchesLabel(p, rawLabel))
@@ -81,7 +92,7 @@ export default async function ServiceThemePage({
   const topPick = allMatching[0];
   const topPickHasRating = topPick.rating != null;
   const faqAnswer = [
-    t.service.faqAnswer.replace("{count}", String(allMatching.length)).replace("{theme}", label).replace("{city}", cityDisplayLabel),
+    t.service.faqAnswer.replace("{count}", String(allMatching.length)).replace("{theme}", themeForFaqAnswer).replace("{city}", cityDisplayLabel),
     avgRating != null ? t.service.faqAnswerRatingClause.replace("{rating}", avgRating.toFixed(1)) : null,
     topPickHasRating
       ? t.service.faqAnswerTopPick
@@ -94,7 +105,9 @@ export default async function ServiceThemePage({
     .join(" ");
   const faqItems = [
     {
-      q: (isMood ? t.service.moodFaqQuestion : t.service.faqQuestion).replace("{theme}", label).replace("{city}", cityDisplayLabel),
+      q: (isMood ? t.service.moodFaqQuestion : t.service.faqQuestion)
+        .replace("{theme}", isMood ? label : themeForFaqQuestion)
+        .replace("{city}", cityDisplayLabel),
       a: faqAnswer,
     },
   ];
@@ -119,7 +132,7 @@ export default async function ServiceThemePage({
           />
           <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">{pageTitle}</h1>
           <p className="text-on-ink-muted max-w-2xl leading-relaxed">
-            {t.service.intro.replace("{theme}", label).replace("{city}", cityDisplayLabel)}
+            {t.service.intro.replace("{theme}", themeForIntro).replace("{city}", cityDisplayLabel)}
           </p>
         </div>
       </section>
