@@ -12,6 +12,10 @@ export type Dict = {
     favorites: string;
     compare: string;
     browse: string;
+    searchPlaceholder: string;
+    searchNoResults: string;
+    searchOpen: string;
+    searchClose: string;
   };
   home: {
     heroTitle: string;
@@ -175,6 +179,10 @@ const en: Dict = {
     favorites: "Favorites",
     compare: "Compare",
     browse: "Browse",
+    searchPlaceholder: "Search places…",
+    searchNoResults: "No places found.",
+    searchOpen: "Search",
+    searchClose: "Close search",
   },
   home: {
     heroTitle: "It's not the spa. It's the hands.",
@@ -353,6 +361,10 @@ const th: Dict = {
     favorites: "รายการโปรด",
     compare: "เปรียบเทียบ",
     browse: "ดูร้าน",
+    searchPlaceholder: "ค้นหาร้าน…",
+    searchNoResults: "ไม่พบร้านที่ค้นหา",
+    searchOpen: "ค้นหา",
+    searchClose: "ปิดการค้นหา",
   },
   home: {
     heroTitle: "ไม่ใช่ร้าน แต่เป็นฝีมือคน",
@@ -531,6 +543,10 @@ const ko: Dict = {
     favorites: "찜한 곳",
     compare: "비교하기",
     browse: "둘러보기",
+    searchPlaceholder: "업체 검색…",
+    searchNoResults: "검색 결과가 없어요.",
+    searchOpen: "검색",
+    searchClose: "검색 닫기",
   },
   home: {
     heroTitle: "중요한 건 스파가 아니라 손끝이에요.",

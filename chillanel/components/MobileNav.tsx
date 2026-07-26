@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SUPPORTED_LANGS, type Lang } from "@/lib/site";
 import type { Dict } from "@/lib/i18n";
+import { SearchBox } from "./SearchBox";
 
 const LANG_LABELS: Record<Lang, string> = { en: "EN", th: "ไทย", ko: "한국어" };
 
@@ -38,6 +39,9 @@ export function MobileNav({ lang, t }: { lang: Lang; t: Dict["nav"] }) {
           className="absolute left-0 right-0 top-14 border-b border-border bg-bg-elev shadow-lg"
         >
           <nav className="max-w-5xl mx-auto px-4 py-4 flex flex-col gap-1 text-base font-medium">
+            <div className="pb-3 mb-1 border-b border-border">
+              <SearchBox lang={lang} />
+            </div>
             <Link href={`/${lang}`} onClick={() => setOpen(false)} className="py-2.5">
               {t.home}
             </Link>
