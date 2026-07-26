@@ -78,7 +78,13 @@ function buildPlaces() {
         id: r.place_id.replace(/:/g, "_"),
         name: r.name,
         city: CITY,
-        address: (r.formatted_address || "").trim(),
+        // Google Maps' scraped DOM text leaves a stray Private Use Area
+        // codepoint (an icon-font glyph, invisible in most fonts/browsers)
+        // at the start of formatted_address on 733/734 real places -- found
+        // via the full-site audit when it surfaced in structured data even
+        // though it never rendered visibly in the UI. Strip it at the
+        // source so it's clean everywhere the address is used, not just here.
+        address: (r.formatted_address || "").replace(/^[\u{E000}-\u{F8FF}]+/u, "").trim(),
         lat,
         lng,
         phone: r.phone || "",

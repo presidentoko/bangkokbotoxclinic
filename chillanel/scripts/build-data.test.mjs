@@ -30,6 +30,14 @@ test("build-data pipeline: fixture CSV -> JSON with therapist mention", () => {
   assert.equal(place.therapistMentions[0].name, "Nong");
   assert.equal(place.therapistMentions[0].count, 2);
 
+  // The fixture's address is prefixed with the exact stray Private Use Area
+  // codepoint (U+E0C8) found in 733/734 real scraped addresses -- an
+  // icon-font glyph leaking from the scraped DOM text, invisible in the UI
+  // but present when the raw string reaches structured data (JSON-LD). Must
+  // be stripped, not just trimmed (it isn't whitespace).
+  assert.equal(place.address, "123 Test Rd, Bangkok");
+  assert.equal(place.address.codePointAt(0), "1".codePointAt(0));
+
   fs.unlinkSync(OUT_FILE);
 });
 

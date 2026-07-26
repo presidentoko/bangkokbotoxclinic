@@ -1,6 +1,7 @@
 import type { Place } from "@/lib/types";
 import type { FaqItem } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
+import { priceMedian } from "@/lib/summary";
 
 function jsonLdScript(json: unknown) {
   return (
@@ -77,13 +78,28 @@ export function FaqJsonLd({ items }: { items: FaqItem[] }) {
 }
 
 export function LocalBusinessJsonLd({ place, description }: { place: Place; description?: string | null }) {
+  const median = priceMedian(place.priceMentions);
+  // place.address is one unstructured scraped string (already ends in
+  // "Bangkok NNNNN, Thailand" for 725/734 places) rather than separately
+  // parsed components — using it as streetAddress plus the two fields we
+  // can actually assert (city, country) is honest; inventing a parsed
+  // district/postal code we didn't verify would not be.
+  const reviewsWithText = place.reviews.filter((r) => r.text && r.text.trim().length > 0).slice(0, 10);
   const json = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
     name: place.name,
-    address: place.address,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: place.address.trim(),
+      addressLocality: "Bangkok",
+      addressCountry: "TH",
+    },
     url: `${SITE.origin}/en/place/${place.id}`,
     ...(description ? { description } : {}),
+    ...(place.phone ? { telephone: place.phone } : {}),
+    ...(place.website ? { sameAs: [place.website] } : {}),
+    ...(median != null ? { priceRange: `~${median}฿` } : {}),
     ...(place.rating != null && place.reviewCount > 0
       ? {
           aggregateRating: {
@@ -95,6 +111,19 @@ export function LocalBusinessJsonLd({ place, description }: { place: Place; desc
       : {}),
     ...(place.lat != null && place.lng != null
       ? { geo: { "@type": "GeoCoordinates", latitude: place.lat, longitude: place.lng } }
+      : {}),
+    // Capped at the same 10 reviews the page itself renders (place/[id]/page.tsx
+    // does place.reviews.slice(0, 10)) so the schema never claims more than a
+    // reader can actually see and verify on the page.
+    ...(reviewsWithText.length > 0
+      ? {
+          review: reviewsWithText.map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: r.authorName || "Anonymous" },
+            ...(r.rating != null ? { reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 } } : {}),
+            reviewBody: r.text,
+          })),
+        }
       : {}),
   };
   return jsonLdScript(json);
