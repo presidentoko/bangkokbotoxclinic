@@ -69,3 +69,32 @@ test("build-data pipeline: wires theme/mood/rating/price/district extractors int
 
   fs.unlinkSync(OUT_FILE);
 });
+
+test("build-data pipeline: falls back to parsing lat/lng from maps_url when the CSV's own latitude/longitude columns are empty", () => {
+  // Mirrors the real live dataset exactly: every scraped clinics.csv row has
+  // empty latitude/longitude columns, but maps_url always carries the same
+  // coordinates in a !3d!4d segment (see scripts/extract-coords.mjs).
+  execFileSync(
+    process.execPath,
+    [
+      path.join(ROOT, "build-data.mjs"),
+      "--clinics-csv", path.join(ROOT, "__fixtures__", "clinics-no-csv-coords.csv"),
+      "--reviews-dir", path.join(ROOT, "__fixtures__", "reviews"),
+      "--city", "__fixture_test",
+      "--out", OUT_FILE,
+    ],
+    { stdio: "pipe" }
+  );
+
+  const data = JSON.parse(fs.readFileSync(OUT_FILE, "utf-8"));
+  const place = data.places[0];
+
+  assert.equal(place.lat, 13.7466);
+  assert.equal(place.lng, 100.5347);
+  // Same coordinates as the CSV-populated fixture test above, so this must
+  // resolve to the same district: confirms the fallback feeds nearestDistrict
+  // correctly, not just that lat/lng end up non-null.
+  assert.equal(place.district, "Siam & Pathumwan");
+
+  fs.unlinkSync(OUT_FILE);
+});

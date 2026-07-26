@@ -9,6 +9,7 @@ import { extractMentionsFromReviews } from "./extract-therapists.mjs";
 import { extractThemeCounts, sumThemeCounts, SERVICE_THEMES, MOOD_KEYWORDS } from "./extract-themes.mjs";
 import { extractPriceMentions } from "./extract-price.mjs";
 import { nearestDistrict } from "./extract-district.mjs";
+import { parseCoordsFromMapsUrl } from "./extract-coords.mjs";
 
 function argValue(flag, fallback) {
   const i = process.argv.indexOf(flag);
@@ -65,8 +66,14 @@ function buildPlaces() {
     .map((r) => {
       const reviews = reviewsForPlace(r.place_id);
       const therapistMentions = extractMentionsFromReviews(reviews);
-      const lat = num(r.latitude, null);
-      const lng = num(r.longitude, null);
+      // The clinics CSV's own latitude/longitude columns are empty for
+      // every scraped row, but the maps_url the scraper does capture embeds
+      // the same pin coordinates — recover them from there instead of
+      // leaving every place un-located (see extract-coords.mjs).
+      const csvCoords = { lat: num(r.latitude, null), lng: num(r.longitude, null) };
+      const urlCoords = parseCoordsFromMapsUrl(r.maps_url);
+      const lat = csvCoords.lat ?? urlCoords?.lat ?? null;
+      const lng = csvCoords.lng ?? urlCoords?.lng ?? null;
       return {
         id: r.place_id.replace(/:/g, "_"),
         name: r.name,
