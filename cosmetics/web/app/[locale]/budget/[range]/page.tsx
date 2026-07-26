@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import { allProducts, productSlug } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -34,7 +34,7 @@ function getBudgetProducts(max: number, limit = 40) {
 }
 
 export async function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     BUDGET_RANGES.map((r) => ({ locale, range: r.slug }))
   );
 }

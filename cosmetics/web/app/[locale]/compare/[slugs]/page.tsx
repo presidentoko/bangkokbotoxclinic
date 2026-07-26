@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CONCERNS, getRanking, getProduct, productSlug, productIdFromSlug } from "@/lib/data";
-import { LOCALES, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd, breadcrumbLd } from "@/lib/schema";
@@ -43,7 +43,7 @@ export function generateStaticParams() {
         if (seen.has(key)) continue;
         seen.add(key);
         const slugs = `${productSlug(pA)}-vs-${productSlug(pB)}`;
-        for (const locale of LOCALES) {
+        for (const locale of STATIC_LOCALES) {
           result.push({ locale, slugs });
         }
       }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
-import { concernLabel, LOCALES } from "@/lib/i18n";
+import { concernLabel, LOCALES, STATIC_LOCALES } from "@/lib/i18n";
 import { CONCERNS, productSlug, getProduct, siteStats, type Concern } from "@/lib/data";
 import { quizRecommendations, BUDGET_RANGE } from "@/lib/quiz";
 import { getActiveByType } from "@/lib/ads";
@@ -29,7 +29,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   const result: { locale: string; skin: string; concern: string; budget: string }[] = [];
-  for (const locale of LOCALES) {
+  for (const locale of STATIC_LOCALES) {
     for (const skin of VALID_SKINS) {
       for (const concern of CONCERNS) {
         for (const budget of VALID_BUDGETS) {

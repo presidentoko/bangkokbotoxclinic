@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import { SearchClient } from "@/components/SearchClient";
 import { buildSearchIndex, buildComparablePairs } from "@/lib/search-index";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export const revalidate = 86400;
 const BASE = "https://bangkokfillers.com";
 
 export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
+  return STATIC_LOCALES.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({

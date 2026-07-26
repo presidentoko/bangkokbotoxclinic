@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import { generatedAt } from "@/lib/data";
 
 const BASE = "https://bangkokfillers.com";
 
 export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
+  return STATIC_LOCALES.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({

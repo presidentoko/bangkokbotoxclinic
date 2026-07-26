@@ -1,6 +1,12 @@
 export const LOCALES = ["th", "en", "ko", "ar"] as const;
 export type Locale = (typeof LOCALES)[number];
 
+// 2026-07-26 ISR/bandwidth quota fix — ko/ar have only ~40 UI strings
+// translated (content falls back to English) and are noindexed already.
+// Only th/en get statically generated + crawled; ko/ar redirect to en
+// at the next.config.ts routing layer before ever reaching a page.
+export const STATIC_LOCALES = ["th", "en"] as const satisfies readonly Locale[];
+
 // RTL locales
 export const RTL_LOCALES: Locale[] = ["ar"];
 export const isRTL = (loc: Locale) => RTL_LOCALES.includes(loc);

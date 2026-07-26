@@ -26,6 +26,15 @@ const nextConfig: NextConfig = {
       // instead of leaving a permanent 404.
       { source: "/ja", destination: "/th", permanent: true },
       { source: "/ja/:path*", destination: "/th/:path*", permanent: true },
+      // ko/ar content is thin (falls back to English) and already noindexed —
+      // redirect at the routing layer so bots/crawlers never reach the app's
+      // rendering pipeline for them (cuts ISR reads/writes, Fast Origin
+      // Transfer, and image transformations roughly in half). Temporary
+      // (not permanent) in case full translations get built out later.
+      { source: "/ko", destination: "/en", permanent: false },
+      { source: "/ko/:path*", destination: "/en/:path*", permanent: false },
+      { source: "/ar", destination: "/en", permanent: false },
+      { source: "/ar/:path*", destination: "/en/:path*", permanent: false },
     ];
   },
 };

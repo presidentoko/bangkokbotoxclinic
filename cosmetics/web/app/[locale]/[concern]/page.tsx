@@ -15,7 +15,7 @@ import {
   CONCERN_FILTER_SLUGS,
   type Concern,
 } from "@/lib/data";
-import { LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
 import { itemListLd, concernFaqQas, faqLd, breadcrumbLd, howToLd } from "@/lib/schema";
 import { getFeaturedMap } from "@/lib/adminData";
 import { getActiveByType } from "@/lib/ads";
@@ -142,7 +142,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     CONCERNS.map((concern) => ({ locale, concern }))
   );
 }

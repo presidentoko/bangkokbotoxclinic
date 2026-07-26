@@ -12,7 +12,7 @@ import {
   keyIngredients,
   cheaperAlternatives,
 } from "@/lib/data";
-import { LOCALES, t, toBaseLocale, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, t, toBaseLocale, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
@@ -46,7 +46,7 @@ export function generateStaticParams() {
       (p.beautrium_review_count ?? 0) > 0 || // Beautrium with reviews
       topIds.has(p.product_id)               // top-ranked any concern
   );
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     prioritized.map((p) => ({ locale, slug: productSlug(p) }))
   );
 }

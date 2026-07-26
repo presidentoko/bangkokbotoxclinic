@@ -10,7 +10,7 @@ import {
   productSlug,
   type Concern,
 } from "@/lib/data";
-import { LOCALES, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
@@ -22,7 +22,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   const result: { locale: string; concern: string; filter: string }[] = [];
-  for (const locale of LOCALES) {
+  for (const locale of STATIC_LOCALES) {
     for (const concern of CONCERNS) {
       const slugs = CONCERN_FILTER_SLUGS[concern] ?? [];
       for (const filter of slugs) {

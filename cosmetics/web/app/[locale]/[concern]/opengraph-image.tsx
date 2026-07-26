@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { LOCALES, concernLabel, toBaseLocale, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, concernLabel, toBaseLocale, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking } from "@/lib/data";
 
 export const alt = "BangkokFillers — Ranked by ingredients + real reviews";
@@ -9,7 +9,7 @@ export const contentType = "image/png";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     CONCERNS.map((concern) => ({ locale, concern }))
   );
 }

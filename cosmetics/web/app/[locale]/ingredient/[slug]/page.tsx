@@ -7,7 +7,7 @@ import {
   productsWithIngredient,
   productSlug,
 } from "@/lib/data";
-import { LOCALES, t, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, t, type Locale } from "@/lib/i18n";
 import { ingredientLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const BASE = "https://bangkokfillers.com";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     allIngredients().map(([inci]) => ({ locale, slug: ingredientSlug(inci) }))
   );
 }

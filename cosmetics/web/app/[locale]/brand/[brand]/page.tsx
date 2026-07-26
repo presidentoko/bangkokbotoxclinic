@@ -6,7 +6,7 @@ import {
   allBrands, brandSlug, brandFromSlug, brandProducts, brandStats,
   productSlug, getRanking, type Concern, CONCERNS,
 } from "@/lib/data";
-import { concernLabel, LOCALES, type Locale } from "@/lib/i18n";
+import { concernLabel, LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import { brandFaqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { scoreColor, baht } from "@/lib/format";
@@ -18,7 +18,7 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return allBrands().flatMap((b) =>
-    LOCALES.map((locale) => ({ locale, brand: brandSlug(b) }))
+    STATIC_LOCALES.map((locale) => ({ locale, brand: brandSlug(b) }))
   );
 }
 

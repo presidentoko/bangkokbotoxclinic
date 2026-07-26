@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import {
   allBrands,
   brandSlug,
@@ -35,7 +35,7 @@ function primaryConcern(seeds: string | string[]): Concern {
 
 export async function generateStaticParams() {
   const brands = allBrands();
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     brands.map((brand) => ({
       locale,
       brand: brandSlug(brand),

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { allBrands, brandSlug, brandStats } from "@/lib/data";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/schema";
@@ -9,7 +9,7 @@ import { breadcrumbLd } from "@/lib/schema";
 const BASE = "https://bangkokfillers.com";
 
 export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
+  return STATIC_LOCALES.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({

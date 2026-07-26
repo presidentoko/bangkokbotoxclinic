@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
 import { productSlug } from "@/lib/data";
 import { SALE_EVENTS, getSaleEvent, getSaleRanking } from "@/lib/sale";
 import { JsonLd } from "@/components/JsonLd";
@@ -13,7 +13,7 @@ export const dynamicParams = false;
 const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://bangkokfillers.com";
 
 export async function generateStaticParams() {
-  return LOCALES.flatMap((locale) =>
+  return STATIC_LOCALES.flatMap((locale) =>
     SALE_EVENTS.map((e) => ({ locale, event: e.slug }))
   );
 }

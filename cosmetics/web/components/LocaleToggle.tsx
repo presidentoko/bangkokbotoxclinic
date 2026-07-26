@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, type Locale } from "@/lib/i18n";
 
 const LOCALE_CODES: Record<Locale, string> = {
   th: "TH", en: "EN", ko: "KO", ar: "AR",
@@ -21,7 +21,7 @@ export function LocaleToggle({ locale }: { locale: Locale }) {
 
   return (
     <div className="flex items-center gap-1">
-      {LOCALES.map((l) =>
+      {STATIC_LOCALES.map((l) =>
         l === locale ? (
           <span
             key={l}
