@@ -21,6 +21,7 @@ export async function generateMetadata({
     title: `${SITE.name} — ${t.home.heroTitle}`,
     description: t.home.heroSub,
     alternates: { canonical: `/${lang}`, languages: hreflangAlternates((l) => `/${l}`) },
+    openGraph: { url: `${SITE.origin}/${lang}` },
   };
 }
 

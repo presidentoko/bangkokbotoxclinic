@@ -21,6 +21,7 @@ export async function generateMetadata({
       canonical: `/${lang}/compare`,
       languages: hreflangAlternates((l) => `/${l}/compare`),
     },
+    openGraph: { url: `${SITE.origin}/${lang}/compare` },
   };
 }
 

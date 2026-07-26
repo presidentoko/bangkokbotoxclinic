@@ -39,6 +39,7 @@ export function TrustScoreDetail({
           {t.trustScore.breakdownDiversity}: {result.breakdown.diversityPoints}/15
         </li>
       </ul>
+      <p className="text-xs text-muted leading-relaxed mt-3 pt-3 border-t border-border">{t.trustScore.explainer}</p>
     </details>
   );
 }

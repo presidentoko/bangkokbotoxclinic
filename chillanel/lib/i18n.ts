@@ -97,6 +97,7 @@ export type Dict = {
     breakdownRating: string;
     breakdownVolume: string;
     breakdownDiversity: string;
+    explainer: string;
   };
   guide: { indexTitle: string };
   favorites: {
@@ -127,7 +128,7 @@ export type Dict = {
     under: string;
     noPriceData: string;
   };
-  about: { title: string; body: string };
+  about: { title: string; body: string; trustScoreTitle: string; trustScoreBody: string };
   footer: { rights: string; tagline: string; exploreTitle: string; languageTitle: string };
 };
 
@@ -241,6 +242,8 @@ const en: Dict = {
     breakdownRating: "Rating",
     breakdownVolume: "Reviews",
     breakdownDiversity: "Signal diversity",
+    explainer:
+      "Combines your rating, review volume, and how many distinct things reviewers actually mention into one 0-100 number — a fuller picture than a star rating alone.",
   },
   guide: { indexTitle: "Guides" },
   favorites: {
@@ -272,6 +275,9 @@ const en: Dict = {
     title: "About chillanel",
     body:
       "chillanel is an independent guide to massage and spa places in Thailand. We're not affiliated with any venue. Our angle: therapist quality varies far more than facility quality, so we surface what reviewers say about the people, not just the place.",
+    trustScoreTitle: "How the Trust Score works",
+    trustScoreBody:
+      "Every place gets a 0-100 Trust Score built from three things we can verify. Half comes from the Google rating itself (50 points). Just over a third comes from how many reviews back that rating up, on a log scale so one viral review can't skew things (35 points). The rest comes from how many distinct things reviewers actually mention about the place — service style, mood, cleanliness — capped at 15 points. A place with no reviewer detail beyond a star rating scores lower on that last part; it isn't a penalty, just an honest reflection of how much we could verify.",
   },
   footer: {
     rights: "Independent guide. Not affiliated with any venue.",
@@ -391,6 +397,8 @@ const th: Dict = {
     breakdownRating: "คะแนนรีวิว",
     breakdownVolume: "จำนวนรีวิว",
     breakdownDiversity: "ความหลากหลายของข้อมูล",
+    explainer:
+      "รวมคะแนนรีวิว จำนวนรีวิว และความหลากหลายของสิ่งที่รีวิวพูดถึงจริง ๆ ไว้ในตัวเลขเดียว 0-100 ให้ภาพที่ครบกว่าคะแนนดาวเพียงอย่างเดียว",
   },
   guide: { indexTitle: "คู่มือ" },
   favorites: {
@@ -422,6 +430,9 @@ const th: Dict = {
     title: "เกี่ยวกับ chillanel",
     body:
       "chillanel คือคู่มืออิสระสำหรับร้านนวดและสปาในประเทศไทย เราไม่มีส่วนเกี่ยวข้องกับร้านใด ๆ มุมมองของเรา: ฝีมือของพนักงานนวดต่างกันมากกว่าคุณภาพของสถานที่ เราจึงนำเสนอสิ่งที่รีวิวพูดถึงตัวคน ไม่ใช่แค่สถานที่",
+    trustScoreTitle: "คะแนนความน่าเชื่อถือคำนวณยังไง",
+    trustScoreBody:
+      "ทุกร้านจะได้คะแนนความน่าเชื่อถือ 0-100 ที่มาจาก 3 ส่วนที่เราตรวจสอบได้จริง ครึ่งหนึ่งมาจากคะแนนรีวิว Google โดยตรง (50 คะแนน) มากกว่าหนึ่งในสามมาจากจำนวนรีวิวที่รองรับคะแนนนั้น โดยคำนวณแบบ log scale เพื่อไม่ให้รีวิวไวรัลเพียงรีวิวเดียวทำให้ผลเพี้ยน (35 คะแนน) และที่เหลือมาจากจำนวนสิ่งที่แตกต่างกันที่รีวิวพูดถึงจริง ๆ เช่น สไตล์บริการ บรรยากาศ ความสะอาด สูงสุด 15 คะแนน ร้านที่รีวิวไม่ได้ลงรายละเอียดอะไรนอกจากให้ดาวจะได้คะแนนส่วนนี้น้อยกว่า ไม่ใช่การลงโทษ แค่สะท้อนตามจริงว่าเราตรวจสอบได้มากแค่ไหน",
   },
   footer: {
     rights: "คู่มืออิสระ ไม่มีส่วนเกี่ยวข้องกับร้านใด ๆ",
@@ -541,6 +552,8 @@ const ko: Dict = {
     breakdownRating: "평점",
     breakdownVolume: "리뷰 수",
     breakdownDiversity: "리뷰 신호 다양성",
+    explainer:
+      "평점, 리뷰 수, 리뷰에서 실제로 언급된 내용의 다양성을 하나의 0-100 점수로 합친 지표예요 — 별점만 볼 때보다 더 폭넓은 그림을 보여줘요.",
   },
   guide: { indexTitle: "가이드" },
   favorites: {
@@ -572,6 +585,9 @@ const ko: Dict = {
     title: "chillanel 소개",
     body:
       "chillanel은 태국 마사지·스파 업체에 대한 독립 가이드입니다. 특정 업체와 제휴 관계가 없습니다. 저희 관점: 시설보다 테라피스트의 실력 차이가 훨씬 크기 때문에, 장소가 아니라 사람에 대한 리뷰 내용을 보여드립니다.",
+    trustScoreTitle: "신뢰 점수는 어떻게 계산되나요",
+    trustScoreBody:
+      "모든 업체는 검증 가능한 3가지 요소로 만든 0-100 신뢰 점수를 받아요. 절반은 구글 평점 자체에서 나오고(50점), 3분의 1 조금 넘게는 그 평점을 뒷받침하는 리뷰 수에서 나오는데 로그 스케일로 계산해서 리뷰 하나가 급증한다고 결과가 왜곡되지 않게 했어요(35점). 나머지는 리뷰에서 실제로 언급된 서로 다른 요소들 — 서비스 스타일, 분위기, 청결도 등 — 의 개수에서 나와요, 최대 15점이에요. 리뷰에 별점 말고 다른 디테일이 없는 곳은 이 마지막 부분에서 낮은 점수를 받는데, 이건 페널티가 아니라 저희가 검증할 수 있었던 만큼만 정직하게 반영한 거예요.",
   },
   footer: {
     rights: "독립 가이드입니다. 특정 업체와 제휴 관계가 없습니다.",

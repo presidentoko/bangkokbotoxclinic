@@ -19,6 +19,7 @@ export async function generateMetadata({
       canonical: `/${lang}/guide`,
       languages: hreflangAlternates((l) => `/${l}/guide`),
     },
+    openGraph: { url: `${SITE.origin}/${lang}/guide` },
   };
 }
 

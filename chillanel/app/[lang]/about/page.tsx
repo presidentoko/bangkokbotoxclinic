@@ -19,6 +19,7 @@ export async function generateMetadata({
       canonical: `/${lang}/about`,
       languages: hreflangAlternates((l) => `/${l}/about`),
     },
+    openGraph: { url: `${SITE.origin}/${lang}/about` },
   };
 }
 
@@ -36,6 +37,8 @@ export default async function AboutPage({
       <Breadcrumbs items={[{ name: t.nav.home, href: `/${lang}` }, { name: t.about.title, href: `/${lang}/about` }]} />
       <h1 className="text-3xl sm:text-4xl font-black mb-6 tracking-tight">{t.about.title}</h1>
       <p className="text-muted leading-relaxed text-lg">{t.about.body}</p>
+      <h2 className="text-xl font-bold mt-10 mb-3">{t.about.trustScoreTitle}</h2>
+      <p className="text-muted leading-relaxed">{t.about.trustScoreBody}</p>
     </div>
   );
 }

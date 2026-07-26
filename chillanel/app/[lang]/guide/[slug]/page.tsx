@@ -10,6 +10,17 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
+// Without this, generateMetadata returned no `description` at all, so every
+// guide inherited the identical homepage boilerplate from the root layout —
+// all 4 guides looked the same to search engines. Truncates at a word
+// boundary so it doesn't cut mid-word.
+function metaDescriptionFrom(body: string, maxLength = 160): string {
+  if (body.length <= maxLength) return body;
+  const truncated = body.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(" ");
+  return `${truncated.slice(0, lastSpace > 0 ? lastSpace : maxLength)}…`;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -21,10 +32,12 @@ export async function generateMetadata({
   if (!guide) return {};
   return {
     title: `${guide.title[lang]} — ${SITE.name}`,
+    description: metaDescriptionFrom(guide.body[lang]),
     alternates: {
       canonical: `/${lang}/guide/${slug}`,
       languages: hreflangAlternates((l) => `/${l}/guide/${slug}`),
     },
+    openGraph: { url: `${SITE.origin}/${lang}/guide/${slug}` },
   };
 }
 

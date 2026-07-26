@@ -22,7 +22,7 @@ export default async function LangLayout({
     <div lang={lang}>
       <HtmlLangSetter lang={lang} />
       <Header lang={lang} />
-      <main className="pb-16 sm:pb-0">{children}</main>
+      <main>{children}</main>
       <Footer lang={lang} />
       <BottomNav lang={lang} />
     </div>

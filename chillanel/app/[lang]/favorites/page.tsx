@@ -23,6 +23,7 @@ export async function generateMetadata({
       canonical: `/${lang}/favorites`,
       languages: hreflangAlternates((l) => `/${l}/favorites`),
     },
+    openGraph: { url: `${SITE.origin}/${lang}/favorites` },
   };
 }
 

@@ -7,7 +7,7 @@ const LANG_LABELS: Record<Lang, string> = { en: "English", th: "ไทย", ko: 
 export function Footer({ lang }: { lang: Lang }) {
   const t = tFor(lang);
   return (
-    <footer className="border-t border-border mt-16">
+    <footer className="border-t border-border mt-16 pb-16 sm:pb-0">
       <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
         <div className="col-span-2 sm:col-span-1">
           <div className="font-black text-accent mb-2">chillanel</div>

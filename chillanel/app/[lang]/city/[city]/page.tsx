@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
+import { ItemListJsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return listCities().map((city) => ({ city }));
@@ -30,6 +31,7 @@ export async function generateMetadata({
       canonical: `/${lang}/city/${city}`,
       languages: hreflangAlternates((l) => `/${l}/city/${city}`),
     },
+    openGraph: { url: `${SITE.origin}/${lang}/city/${city}` },
   };
 }
 
@@ -60,6 +62,11 @@ export default async function CityPage({
           <Breadcrumbs
             variant="ink"
             items={[{ name: t.nav.home, href: `/${lang}` }, { name: label, href: `/${lang}/city/${city}` }]}
+          />
+          <ItemListJsonLd
+            name={t.city.listTitle.replace("{city}", label)}
+            numberOfItems={allRelevant.length}
+            items={places.map((p) => ({ name: p.name, url: `${SITE.origin}/${lang}/place/${p.id}` }))}
           />
           <h1 className="font-display italic font-semibold text-3xl sm:text-5xl tracking-tight mb-3">
             {t.city.listTitle.replace("{city}", label)}
