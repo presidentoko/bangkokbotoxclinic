@@ -10,7 +10,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api"],
+        // /{lang}/place/* (~4,941 URLs) was already dropped from sitemap.xml
+        // as low-value duplicate content across 6 languages — this crawl
+        // volume was showing up as >50% of production requests (recrawl of
+        // long-tail business listings), driving Vercel ISR read/origin
+        // transfer overage for pages we've already deprioritized.
+        disallow: ["/admin", "/api", "/*/place/*"],
       },
       {
         userAgent: "GPTBot",
@@ -31,6 +36,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: "/",
+        disallow: ["/*/place/*"],
       },
     ],
     sitemap: `${SITE}/sitemap.xml`,
