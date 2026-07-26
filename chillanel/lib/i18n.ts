@@ -136,6 +136,7 @@ export type Dict = {
     intro: string;
     empty: string;
     browseCta: string;
+    suggestedTitle: string;
   };
   compare: {
     title: string;
@@ -147,6 +148,7 @@ export type Dict = {
     moodsLabel: string;
     priceLabel: string;
     viewButton: string;
+    suggestedTitle: string;
   };
   priceFilter: {
     label: string;
@@ -303,6 +305,7 @@ const en: Dict = {
     intro: "Saved on this device only — nothing is uploaded, so favorites won't follow you to another browser.",
     empty: "No favorites yet. Tap the heart on any place to save it here.",
     browseCta: "Browse places",
+    suggestedTitle: "Popular right now",
   },
   compare: {
     title: "Compare places",
@@ -314,6 +317,7 @@ const en: Dict = {
     moodsLabel: "Reviewers say",
     priceLabel: "Typical price",
     viewButton: "View",
+    suggestedTitle: "Popular right now",
   },
   priceFilter: {
     label: "Price",
@@ -479,6 +483,7 @@ const th: Dict = {
     intro: "บันทึกไว้บนอุปกรณ์นี้เท่านั้น ไม่มีการอัปโหลดข้อมูล ดังนั้นรายการโปรดจะไม่ตามไปที่เบราว์เซอร์อื่น",
     empty: "ยังไม่มีรายการโปรด กดรูปหัวใจที่ร้านไหนก็ได้เพื่อบันทึกไว้ที่นี่",
     browseCta: "ดูร้านทั้งหมด",
+    suggestedTitle: "กำลังได้รับความนิยม",
   },
   compare: {
     title: "เปรียบเทียบร้าน",
@@ -490,6 +495,7 @@ const th: Dict = {
     moodsLabel: "รีวิวบอกว่า",
     priceLabel: "ราคาโดยประมาณ",
     viewButton: "ดูรายละเอียด",
+    suggestedTitle: "กำลังได้รับความนิยม",
   },
   priceFilter: {
     label: "ราคา",
@@ -660,6 +666,7 @@ const ko: Dict = {
     intro: "이 기기에만 저장돼요 — 서버에 올라가지 않아서 다른 브라우저에서는 보이지 않아요.",
     empty: "아직 찜한 곳이 없어요. 원하는 곳의 하트를 눌러 저장해보세요.",
     browseCta: "업체 둘러보기",
+    suggestedTitle: "지금 인기 있는 곳",
   },
   compare: {
     title: "업체 비교하기",
@@ -668,6 +675,7 @@ const ko: Dict = {
     browseCta: "업체 둘러보기",
     clearAll: "전체 지우기",
     themesLabel: "주요 서비스",
+    suggestedTitle: "지금 인기 있는 곳",
     moodsLabel: "리뷰 키워드",
     priceLabel: "대략적인 가격",
     viewButton: "자세히 보기",

@@ -8,35 +8,69 @@ import { tFor } from "@/lib/i18n";
 import { getCompareIds, clearCompare } from "@/lib/compare";
 import { themeLabel } from "@/lib/theme-labels";
 import { priceMedian } from "@/lib/summary";
+import { PlaceCard } from "@/components/PlaceCard";
+import { PlaceCardSkeleton } from "@/components/PlaceCardSkeleton";
+
+const SUGGESTION_COUNT = 3;
 
 export function CompareClient({ lang }: { lang: Lang }) {
   const t = tFor(lang);
   const [places, setPlaces] = useState<Place[] | null>(null);
+  // Populated only when nothing is selected yet, so the empty state isn't a
+  // dead end — real top-rated places, not placeholder content.
+  const [suggestions, setSuggestions] = useState<Place[]>([]);
 
   useEffect(() => {
     const ids = getCompareIds();
-    if (ids.length === 0) {
-      setPlaces([]);
-      return;
-    }
     fetch("/places-index.json")
       .then((res) => res.json())
       .then((all: Place[]) => {
         const byId = new Map(all.map((p) => [p.id, p]));
         setPlaces(ids.map((id) => byId.get(id)).filter((p): p is Place => Boolean(p)));
+        if (ids.length === 0) {
+          setSuggestions(
+            [...all]
+              .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
+              .slice(0, SUGGESTION_COUNT)
+          );
+        }
       })
       .catch(() => setPlaces([]));
   }, []);
 
-  if (places === null) return null;
+  if (places === null) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {Array.from({ length: 3 }, (_, i) => (
+          // Fixed-length placeholder array, not a reorderable list.
+          // eslint-disable-next-line react/no-array-index-key
+          <PlaceCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
   if (places.length === 0) {
     return (
-      <div className="text-center py-16">
-        <p className="text-muted mb-4">{t.compare.empty}</p>
-        <Link href={`/${lang}`} className="inline-block text-sm font-semibold text-accent hover:underline">
-          {t.compare.browseCta} →
-        </Link>
+      <div>
+        <div className="text-center py-16">
+          <p className="text-muted mb-4">{t.compare.empty}</p>
+          <Link href={`/${lang}`} className="inline-block text-sm font-semibold text-accent hover:underline">
+            {t.compare.browseCta} →
+          </Link>
+        </div>
+        {suggestions.length > 0 && (
+          <section>
+            <h2 className="text-xs uppercase tracking-wide text-muted font-semibold mb-3">
+              {t.compare.suggestedTitle}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {suggestions.map((place) => (
+                <PlaceCard key={place.id} place={place} lang={lang} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     );
   }
