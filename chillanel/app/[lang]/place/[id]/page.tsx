@@ -153,11 +153,23 @@ export default async function PlacePage({
         )}
       </div>
 
+      {/* Rating breakdown / service tags / mood tags are supplementary --
+          collapsed by default (same zero-JS <details> pattern as Faq.tsx)
+          to cut the page's default scroll length. Reviews and therapist
+          mentions stay always-visible since they're this site's core
+          content, not something to bury behind a click. */}
       {hasRatingData(place.ratingDistribution) && (
-        <section className="mb-10">
-          <h2 className="text-lg font-bold mb-3">{t.place.ratingBreakdownTitle}</h2>
-          <RatingBars distribution={place.ratingDistribution} />
-        </section>
+        <details className="group rounded-xl border border-border bg-bg-elev p-4 mb-10">
+          <summary className="cursor-pointer list-none font-bold text-lg flex items-center justify-between gap-4">
+            {t.place.ratingBreakdownTitle}
+            <span className="shrink-0 text-muted transition-transform group-open:rotate-45 text-lg leading-none">
+              +
+            </span>
+          </summary>
+          <div className="mt-4">
+            <RatingBars distribution={place.ratingDistribution} />
+          </div>
+        </details>
       )}
 
       <section className="mb-10">
@@ -166,9 +178,14 @@ export default async function PlacePage({
       </section>
 
       {place.serviceThemes.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-lg font-bold mb-3">{t.place.serviceThemesTitle}</h2>
-          <div className="flex flex-wrap gap-2">
+        <details className="group rounded-xl border border-border bg-bg-elev p-4 mb-10">
+          <summary className="cursor-pointer list-none font-bold text-lg flex items-center justify-between gap-4">
+            {t.place.serviceThemesTitle}
+            <span className="shrink-0 text-muted transition-transform group-open:rotate-45 text-lg leading-none">
+              +
+            </span>
+          </summary>
+          <div className="flex flex-wrap gap-2 mt-4">
             {place.serviceThemes.map((theme) => (
               <span
                 key={theme.label}
@@ -178,14 +195,21 @@ export default async function PlacePage({
               </span>
             ))}
           </div>
-        </section>
+        </details>
       )}
 
       {place.moodKeywords.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-lg font-bold mb-3">{t.place.moodKeywordsTitle}</h2>
-          <TagCloud items={place.moodKeywords} lang={lang} />
-        </section>
+        <details className="group rounded-xl border border-border bg-bg-elev p-4 mb-10">
+          <summary className="cursor-pointer list-none font-bold text-lg flex items-center justify-between gap-4">
+            {t.place.moodKeywordsTitle}
+            <span className="shrink-0 text-muted transition-transform group-open:rotate-45 text-lg leading-none">
+              +
+            </span>
+          </summary>
+          <div className="mt-4">
+            <TagCloud items={place.moodKeywords} lang={lang} />
+          </div>
+        </details>
       )}
 
       <section>
