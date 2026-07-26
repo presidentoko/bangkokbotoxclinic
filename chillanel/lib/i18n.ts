@@ -61,6 +61,19 @@ export type Dict = {
     removeFromCompare: string;
     /** Template with a "{max}" placeholder. */
     compareLimitReached: string;
+    faqTitle: string;
+    /** Template with a "{name}" placeholder. */
+    ratingFaqQuestion: string;
+    /** Template with "{name}", "{rating}", "{reviewCount}" placeholders. */
+    ratingFaqAnswer: string;
+    /** Template with a "{name}" placeholder. */
+    locationFaqQuestion: string;
+    /** Template with "{name}" and "{address}" placeholders. */
+    locationFaqAnswer: string;
+    /** Template with a "{name}" placeholder. */
+    priceFaqQuestion: string;
+    /** Template with "{name}" and "{price}" placeholders. */
+    priceFaqAnswer: string;
   };
   /** listTitle/intro/faqTitle/faq[].* use a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: {
@@ -218,6 +231,13 @@ const en: Dict = {
     addToCompare: "Add to compare",
     removeFromCompare: "Remove from compare",
     compareLimitReached: "You can compare up to {max} places at once",
+    faqTitle: "FAQ",
+    ratingFaqQuestion: "What is {name}'s rating?",
+    ratingFaqAnswer: "{name} has a {rating}★ rating from {reviewCount} Google reviews.",
+    locationFaqQuestion: "Where is {name} located?",
+    locationFaqAnswer: "{name} is located at {address}.",
+    priceFaqQuestion: "How much does {name} cost?",
+    priceFaqAnswer: "Based on reviewer mentions, a session at {name} costs around ~{price}฿.",
   },
   city: {
     listTitle: "Massage & spa in {city}",
@@ -387,6 +407,13 @@ const th: Dict = {
     addToCompare: "เพิ่มเพื่อเปรียบเทียบ",
     removeFromCompare: "ลบออกจากการเปรียบเทียบ",
     compareLimitReached: "เปรียบเทียบได้สูงสุด {max} ร้านพร้อมกัน",
+    faqTitle: "คำถามที่พบบ่อย",
+    ratingFaqQuestion: "{name} มีคะแนนเท่าไหร่",
+    ratingFaqAnswer: "{name} มีคะแนน {rating}★ จากรีวิว Google จำนวน {reviewCount} รีวิว",
+    locationFaqQuestion: "{name} อยู่ที่ไหน",
+    locationFaqAnswer: "{name} ตั้งอยู่ที่ {address}",
+    priceFaqQuestion: "{name} ราคาเท่าไหร่",
+    priceFaqAnswer: "จากรีวิวของลูกค้า ราคาที่ {name} อยู่ที่ประมาณ ~{price}฿ ต่อครั้ง",
   },
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
@@ -556,6 +583,13 @@ const ko: Dict = {
     addToCompare: "비교에 추가",
     removeFromCompare: "비교에서 제거",
     compareLimitReached: "최대 {max}곳까지 비교할 수 있어요",
+    faqTitle: "자주 묻는 질문",
+    ratingFaqQuestion: "{name}의 평점은 어떻게 되나요?",
+    ratingFaqAnswer: "{name}은(는) 구글 리뷰 {reviewCount}개 기준 {rating}★의 평점을 가지고 있습니다.",
+    locationFaqQuestion: "{name}은(는) 어디에 있나요?",
+    locationFaqAnswer: "{name}은(는) {address}에 위치해 있습니다.",
+    priceFaqQuestion: "{name}의 가격은 얼마인가요?",
+    priceFaqAnswer: "리뷰 기준으로 {name}의 1회 이용 가격은 약 ~{price}฿입니다.",
   },
   city: {
     listTitle: "{city}의 마사지 & 스파",

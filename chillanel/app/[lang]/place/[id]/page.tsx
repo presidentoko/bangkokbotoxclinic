@@ -6,7 +6,7 @@ import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { getAllPlaces, loadCity } from "@/lib/data";
 import { categoryBadgeLabel } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
-import { LocalBusinessJsonLd } from "@/components/JsonLd";
+import { LocalBusinessJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RatingBars, hasRatingData } from "@/components/RatingBars";
 import { TagCloud } from "@/components/TagCloud";
@@ -14,6 +14,7 @@ import { PlaceCard } from "@/components/PlaceCard";
 import { ProsList } from "@/components/ProsList";
 import { PlaceActions } from "@/components/PlaceActions";
 import { TrustScoreDetail } from "@/components/TrustScoreDetail";
+import { Faq } from "@/components/Faq";
 import { themeLabel } from "@/lib/theme-labels";
 import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
 import { placeSummary, priceMedian } from "@/lib/summary";
@@ -70,9 +71,32 @@ export default async function PlacePage({
   const summary = placeSummary(place, lang);
   const related = relatedPlaces(place, loadCity(city).places);
 
+  const faqItems = [
+    place.rating != null
+      ? {
+          q: t.place.ratingFaqQuestion.replace("{name}", place.name),
+          a: t.place.ratingFaqAnswer
+            .replace("{name}", place.name)
+            .replace("{rating}", place.rating.toFixed(1))
+            .replace("{reviewCount}", String(place.reviewCount)),
+        }
+      : null,
+    {
+      q: t.place.locationFaqQuestion.replace("{name}", place.name),
+      a: t.place.locationFaqAnswer.replace("{name}", place.name).replace("{address}", place.address),
+    },
+    priceMedianValue != null
+      ? {
+          q: t.place.priceFaqQuestion.replace("{name}", place.name),
+          a: t.place.priceFaqAnswer.replace("{name}", place.name).replace("{price}", priceMedianValue.toLocaleString()),
+        }
+      : null,
+  ].filter((item) => item != null);
+
   return (
     <div className="max-w-3xl mx-auto px-4 pt-10 sm:pt-12 pb-24 sm:pb-12">
       <LocalBusinessJsonLd place={place} description={summary} />
+      <FaqJsonLd items={faqItems} />
       <Breadcrumbs
         items={[
           { name: t.nav.home, href: `/${lang}` },
@@ -193,6 +217,8 @@ export default async function PlacePage({
           </div>
         </section>
       )}
+
+      <Faq title={t.place.faqTitle} items={faqItems} />
 
       {place.district && (
         <Link
