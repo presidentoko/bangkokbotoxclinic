@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { listCities, loadCity } from "@/lib/data";
+import Link from "next/link";
 import { isRelevantCategory } from "@/lib/categories";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
 import { ItemListJsonLd } from "@/components/JsonLd";
+import { districtLabel, slugifyDistrict, allDistricts } from "@/lib/district-labels";
 
 export function generateStaticParams() {
   return listCities().map((city) => ({ city }));
@@ -53,6 +55,7 @@ export default async function CityPage({
     .filter((p) => isRelevantCategory(p.primaryType))
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
   const places = allRelevant.slice(0, MAX_SHOWN);
+  const districts = allDistricts(allRelevant);
 
   return (
     <div>
@@ -100,6 +103,22 @@ export default async function CityPage({
               {t.city.trendingTitle.replace("{city}", label)}
             </h2>
             <TagCloud items={data.themeAggregate} lang={lang} linkToService max={15} />
+          </section>
+        )}
+        {districts.length > 0 && (
+          <section className="mb-14">
+            <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.city.browseByAreaTitle}</h2>
+            <div className="flex flex-wrap gap-2">
+              {districts.map((d) => (
+                <Link
+                  key={d}
+                  href={`/${lang}/district/${slugifyDistrict(d)}`}
+                  className="rounded-full border border-border bg-bg-elev px-4 py-2 text-sm font-medium hover:border-accent hover:text-accent transition"
+                >
+                  {districtLabel(d, lang)}
+                </Link>
+              ))}
+            </div>
           </section>
         )}
         <Faq

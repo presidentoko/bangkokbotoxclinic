@@ -4,6 +4,7 @@ import { listCities, loadCity, getAllPlaces } from "@/lib/data";
 import { allThemeAndMoodLabels } from "@/lib/theme-stats";
 import { listGuides } from "@/lib/guides";
 import { slugifyTheme } from "@/lib/theme-labels";
+import { allDistricts, slugifyDistrict } from "@/lib/district-labels";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
@@ -46,6 +47,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const label of serviceLabels) {
       entries.push({
         url: `${SITE.origin}/${lang}/service/${slugifyTheme(label)}`,
+        lastModified: latestCityDate,
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
+    }
+
+    const districts = allDistricts(getAllPlaces().map(({ place }) => place));
+    for (const d of districts) {
+      entries.push({
+        url: `${SITE.origin}/${lang}/district/${slugifyDistrict(d)}`,
         lastModified: latestCityDate,
         changeFrequency: "weekly",
         priority: 0.7,

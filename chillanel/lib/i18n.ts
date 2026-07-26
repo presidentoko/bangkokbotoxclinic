@@ -52,6 +52,8 @@ export type Dict = {
     /** Template with a "{mood}" placeholder, used inside the auto-generated summary paragraph. */
     summaryMoodClause: string;
     similarPlacesTitle: string;
+    /** Template with a "{district}" placeholder. */
+    viewDistrict: string;
     prosTitle: string;
     addFavorite: string;
     removeFavorite: string;
@@ -70,6 +72,7 @@ export type Dict = {
     faqTitle: string;
     faq: FaqItem[];
     trendingTitle: string;
+    browseByAreaTitle: string;
   };
   /** listTitle/intro use "{theme}" and "{city}" placeholders; backToCity uses "{city}". */
   service: {
@@ -87,6 +90,15 @@ export type Dict = {
     faqAnswer: string;
     /** Template with a "{rating}" placeholder — appended as a second sentence only when an average rating exists. */
     faqAnswerRatingClause: string;
+  };
+  /** listTitle/intro/faqQuestion/faqAnswer use "{district}" and "{city}" placeholders; faqAnswer also uses "{count}". */
+  district: {
+    listTitle: string;
+    intro: string;
+    backToCity: string;
+    faqTitle: string;
+    faqQuestion: string;
+    faqAnswer: string;
   };
   trustScore: {
     title: string;
@@ -193,6 +205,7 @@ const en: Dict = {
     summaryThemeClause: "Reviewers most often mention {theme} here.",
     summaryMoodClause: "Regulars describe the place as {mood}.",
     similarPlacesTitle: "Similar places nearby",
+    viewDistrict: "More places in {district} →",
     prosTitle: "Why reviewers like it",
     addFavorite: "Save to favorites",
     removeFavorite: "Remove from favorites",
@@ -221,6 +234,7 @@ const en: Dict = {
       },
     ],
     trendingTitle: "What reviewers say most in {city}",
+    browseByAreaTitle: "Browse by area",
   },
   service: {
     listTitle: "Best {theme} in {city}",
@@ -232,6 +246,14 @@ const en: Dict = {
     moodFaqQuestion: "Which massage places in {city} are known for {theme}?",
     faqAnswer: "Based on real Google reviews, {count} places in {city} are noted for {theme}.",
     faqAnswerRatingClause: "Their average rating is {rating}★.",
+  },
+  district: {
+    listTitle: "Massage & spa in {district}, {city}",
+    intro: "Real Google reviews from massage and spa places in {district}, {city} — ranked by rating and review count.",
+    backToCity: "← All areas in {city}",
+    faqTitle: "FAQ",
+    faqQuestion: "What's the best massage or spa in {district}?",
+    faqAnswer: "Based on real Google reviews, {count} places in {district} are listed here.",
   },
   trustScore: {
     title: "Trust Score",
@@ -348,6 +370,7 @@ const th: Dict = {
     summaryThemeClause: "รีวิวพูดถึง{theme}ที่นี่บ่อยที่สุด",
     summaryMoodClause: "ลูกค้าประจำบอกว่าร้านนี้{mood}",
     similarPlacesTitle: "ร้านใกล้เคียงที่คล้ายกัน",
+    viewDistrict: "ร้านอื่น ๆ ใน{district} →",
     prosTitle: "ทำไมรีวิวถึงชอบร้านนี้",
     addFavorite: "บันทึกรายการโปรด",
     removeFavorite: "ลบออกจากรายการโปรด",
@@ -376,6 +399,7 @@ const th: Dict = {
       },
     ],
     trendingTitle: "รีวิวใน{city}พูดถึงอะไรมากที่สุด",
+    browseByAreaTitle: "เลือกดูตามโซน",
   },
   service: {
     listTitle: "{theme}ที่ดีที่สุดใน{city}",
@@ -387,6 +411,14 @@ const th: Dict = {
     moodFaqQuestion: "ร้านนวดที่{theme}ใน{city}มีที่ไหนบ้าง",
     faqAnswer: "จากรีวิว Google จริง มี {count} ร้านใน{city}ที่ถูกพูดถึงเรื่อง{theme}",
     faqAnswerRatingClause: "คะแนนเฉลี่ยของร้านเหล่านี้อยู่ที่ {rating}★",
+  },
+  district: {
+    listTitle: "นวดและสปาใน{district} {city}",
+    intro: "รีวิว Google จริงจากร้านนวดและสปาใน{district} {city} เรียงตามคะแนนและจำนวนรีวิว",
+    backToCity: "← ดูทุกโซนใน{city}",
+    faqTitle: "คำถามที่พบบ่อย",
+    faqQuestion: "นวดหรือสปาที่ดีที่สุดใน{district}คือที่ไหน",
+    faqAnswer: "จากรีวิว Google จริง มี {count} ร้านใน{district}ที่แสดงอยู่ที่นี่",
   },
   trustScore: {
     title: "คะแนนความน่าเชื่อถือ",
@@ -503,6 +535,7 @@ const ko: Dict = {
     summaryThemeClause: "리뷰에서 이곳의 {theme}가 가장 많이 언급됩니다.",
     summaryMoodClause: "단골들은 이곳을 {mood} 분위기라고 말합니다.",
     similarPlacesTitle: "비슷한 인근 업체",
+    viewDistrict: "{district}의 다른 업체 보기 →",
     prosTitle: "리뷰어들이 좋아하는 이유",
     addFavorite: "찜하기",
     removeFavorite: "찜 해제",
@@ -531,6 +564,7 @@ const ko: Dict = {
       },
     ],
     trendingTitle: "{city} 리뷰에서 가장 많이 언급된 것",
+    browseByAreaTitle: "지역별로 보기",
   },
   service: {
     listTitle: "{city} 베스트 {theme}",
@@ -542,6 +576,14 @@ const ko: Dict = {
     moodFaqQuestion: "{city}에서 {theme} 마사지샵은 어디인가요?",
     faqAnswer: "실제 구글 리뷰를 기준으로 {city}에서 {theme}로 언급된 곳은 {count}곳입니다.",
     faqAnswerRatingClause: "이들의 평균 평점은 {rating}★입니다.",
+  },
+  district: {
+    listTitle: "{city} {district} 마사지 & 스파",
+    intro: "{city} {district}에 있는 마사지 & 스파의 실제 구글 리뷰입니다 — 평점과 리뷰 수 순으로 정렬했습니다.",
+    backToCity: "← {city} 전체 지역 보기",
+    faqTitle: "자주 묻는 질문",
+    faqQuestion: "{district}에서 가장 좋은 마사지·스파는 어디인가요?",
+    faqAnswer: "실제 구글 리뷰를 기준으로 {district}에는 {count}곳이 등록되어 있습니다.",
   },
   trustScore: {
     title: "신뢰 점수",

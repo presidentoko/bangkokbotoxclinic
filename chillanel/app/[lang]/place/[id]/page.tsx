@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
@@ -14,6 +15,7 @@ import { ProsList } from "@/components/ProsList";
 import { PlaceActions } from "@/components/PlaceActions";
 import { TrustScoreDetail } from "@/components/TrustScoreDetail";
 import { themeLabel } from "@/lib/theme-labels";
+import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
 import { placeSummary, priceMedian } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
 
@@ -190,6 +192,15 @@ export default async function PlacePage({
             ))}
           </div>
         </section>
+      )}
+
+      {place.district && (
+        <Link
+          href={`/${lang}/district/${slugifyDistrict(place.district)}`}
+          className="inline-block mt-8 text-sm text-accent font-semibold hover:underline"
+        >
+          {t.place.viewDistrict.replace("{district}", districtLabel(place.district, lang))}
+        </Link>
       )}
 
       {place.mapsUrl && (
