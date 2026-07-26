@@ -64,6 +64,30 @@ export function ItemListJsonLd({
   return jsonLdScript(json);
 }
 
+export function ArticleJsonLd({
+  headline,
+  description,
+  url,
+}: {
+  headline: string;
+  description: string;
+  url: string;
+}) {
+  // No datePublished/dateModified: guides carry no real per-guide authored
+  // date in the data model, and inventing one would be exactly the kind of
+  // unverified claim this project's JSON-LD avoids everywhere else.
+  const json = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    author: { "@type": "Organization", name: SITE.name },
+    publisher: { "@type": "Organization", name: SITE.name },
+  };
+  return jsonLdScript(json);
+}
+
 export function FaqJsonLd({ items }: { items: FaqItem[] }) {
   const json = {
     "@context": "https://schema.org",

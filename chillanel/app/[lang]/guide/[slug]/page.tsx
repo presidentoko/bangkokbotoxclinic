@@ -4,6 +4,7 @@ import { isLang, SITE, hreflangAlternates } from "@/lib/site";
 import { tFor } from "@/lib/i18n";
 import { getGuide, listGuides } from "@/lib/guides";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ArticleJsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return listGuides().map((g) => ({ slug: g.slug }));
@@ -54,6 +55,11 @@ export default async function GuideDetailPage({
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
+      <ArticleJsonLd
+        headline={guide.title[lang]}
+        description={metaDescriptionFrom(guide.body[lang])}
+        url={`${SITE.origin}/${lang}/guide/${slug}`}
+      />
       <Breadcrumbs
         items={[
           { name: t.nav.home, href: `/${lang}` },
