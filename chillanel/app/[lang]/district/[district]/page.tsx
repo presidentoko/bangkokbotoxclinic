@@ -74,9 +74,17 @@ export default async function DistrictPage({
   const places = allMatching.slice(0, MAX_SHOWN);
 
   const avgRating = averageRating(allMatching);
+  const topPick = allMatching[0];
+  const topPickHasRating = topPick.rating != null;
   const faqAnswer = [
     t.district.faqAnswer.replace("{count}", String(allMatching.length)).replace("{district}", label),
     avgRating != null ? t.service.faqAnswerRatingClause.replace("{rating}", avgRating.toFixed(1)) : null,
+    topPickHasRating
+      ? t.district.faqAnswerTopPick
+          .replace("{name}", topPick.name)
+          .replace("{rating}", topPick.rating!.toFixed(1))
+          .replace("{reviewCount}", String(topPick.reviewCount))
+      : null,
   ]
     .filter(Boolean)
     .join(" ");
@@ -120,8 +128,15 @@ export default async function DistrictPage({
           {t.district.backToCity.replace("{city}", cityDisplayLabel)}
         </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {places.map((place) => (
-            <PlaceCard key={place.id} place={place} lang={lang} />
+          {places.map((place, i) => (
+            <PlaceCard
+              key={place.id}
+              place={place}
+              lang={lang}
+              editorsPick={i === 0}
+              badgeLabel={t.district.topPickLabel}
+              size={i === 0 ? "large" : "default"}
+            />
           ))}
         </div>
         <Faq title={t.district.faqTitle} items={faqItems} />

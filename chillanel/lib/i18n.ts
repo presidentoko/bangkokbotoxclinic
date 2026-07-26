@@ -90,6 +90,9 @@ export type Dict = {
     faqAnswer: string;
     /** Template with a "{rating}" placeholder — appended as a second sentence only when an average rating exists. */
     faqAnswerRatingClause: string;
+    /** Template with "{name}", "{rating}", "{reviewCount}" placeholders — names the actual #1-ranked place instead of only stating a count, so the page (and its FAQ schema) gives a direct, citable answer. */
+    faqAnswerTopPick: string;
+    topPickLabel: string;
   };
   /** listTitle/intro/faqQuestion/faqAnswer use "{district}" and "{city}" placeholders; faqAnswer also uses "{count}". */
   district: {
@@ -99,6 +102,9 @@ export type Dict = {
     faqTitle: string;
     faqQuestion: string;
     faqAnswer: string;
+    /** Same placeholders/purpose as service.faqAnswerTopPick. */
+    faqAnswerTopPick: string;
+    topPickLabel: string;
   };
   trustScore: {
     title: string;
@@ -246,6 +252,8 @@ const en: Dict = {
     moodFaqQuestion: "Which massage places in {city} are known for {theme}?",
     faqAnswer: "Based on real Google reviews, {count} places in {city} are noted for {theme}.",
     faqAnswerRatingClause: "Their average rating is {rating}★.",
+    faqAnswerTopPick: "{name} is the top-rated pick, at {rating}★ from {reviewCount} reviews.",
+    topPickLabel: "Top pick",
   },
   district: {
     listTitle: "Massage & spa in {district}, {city}",
@@ -254,6 +262,8 @@ const en: Dict = {
     faqTitle: "FAQ",
     faqQuestion: "What's the best massage or spa in {district}?",
     faqAnswer: "Based on real Google reviews, {count} places in {district} are listed here.",
+    faqAnswerTopPick: "{name} is the top-rated pick, at {rating}★ from {reviewCount} reviews.",
+    topPickLabel: "Top pick",
   },
   trustScore: {
     title: "Trust Score",
@@ -411,6 +421,8 @@ const th: Dict = {
     moodFaqQuestion: "ร้านนวดที่{theme}ใน{city}มีที่ไหนบ้าง",
     faqAnswer: "จากรีวิว Google จริง มี {count} ร้านใน{city}ที่ถูกพูดถึงเรื่อง{theme}",
     faqAnswerRatingClause: "คะแนนเฉลี่ยของร้านเหล่านี้อยู่ที่ {rating}★",
+    faqAnswerTopPick: "{name} เป็นร้านที่คะแนนสูงสุดในลิสต์นี้ ด้วยคะแนน {rating}★ จาก {reviewCount} รีวิว",
+    topPickLabel: "ตัวเลือกอันดับ 1",
   },
   district: {
     listTitle: "นวดและสปาใน{district} {city}",
@@ -419,6 +431,8 @@ const th: Dict = {
     faqTitle: "คำถามที่พบบ่อย",
     faqQuestion: "นวดหรือสปาที่ดีที่สุดใน{district}คือที่ไหน",
     faqAnswer: "จากรีวิว Google จริง มี {count} ร้านใน{district}ที่แสดงอยู่ที่นี่",
+    faqAnswerTopPick: "{name} เป็นร้านที่คะแนนสูงสุดในลิสต์นี้ ด้วยคะแนน {rating}★ จาก {reviewCount} รีวิว",
+    topPickLabel: "ตัวเลือกอันดับ 1",
   },
   trustScore: {
     title: "คะแนนความน่าเชื่อถือ",
@@ -576,6 +590,8 @@ const ko: Dict = {
     moodFaqQuestion: "{city}에서 {theme} 마사지샵은 어디인가요?",
     faqAnswer: "실제 구글 리뷰를 기준으로 {city}에서 {theme}로 언급된 곳은 {count}곳입니다.",
     faqAnswerRatingClause: "이들의 평균 평점은 {rating}★입니다.",
+    faqAnswerTopPick: "{name}이(가) 이 목록에서 평점이 가장 높습니다 — {rating}★, 리뷰 {reviewCount}개.",
+    topPickLabel: "베스트 픽",
   },
   district: {
     listTitle: "{city} {district} 마사지 & 스파",
@@ -584,6 +600,8 @@ const ko: Dict = {
     faqTitle: "자주 묻는 질문",
     faqQuestion: "{district}에서 가장 좋은 마사지·스파는 어디인가요?",
     faqAnswer: "실제 구글 리뷰를 기준으로 {district}에는 {count}곳이 등록되어 있습니다.",
+    faqAnswerTopPick: "{name}이(가) 이 목록에서 평점이 가장 높습니다 — {rating}★, 리뷰 {reviewCount}개.",
+    topPickLabel: "베스트 픽",
   },
   trustScore: {
     title: "신뢰 점수",

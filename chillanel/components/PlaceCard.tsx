@@ -27,11 +27,14 @@ export function PlaceCard({
   place,
   lang,
   editorsPick = false,
+  badgeLabel,
   size = "default",
 }: {
   place: Place;
   lang: Lang;
   editorsPick?: boolean;
+  /** Overrides the badge text shown when editorsPick is true — defaults to t.home.editorsPick (e.g. service/district pages use this to label the actual #1-ranked place instead of a generic "editor's pick"). */
+  badgeLabel?: string;
   size?: "default" | "large";
 }) {
   const t = tFor(lang);
@@ -51,7 +54,7 @@ export function PlaceCard({
       <CardActions placeId={place.id} lang={lang} />
       {editorsPick && (
         <div className="absolute top-0 right-0 z-10 bg-gradient-to-r from-accent-warm to-amber-500 text-ink text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-sm">
-          {t.home.editorsPick}
+          {badgeLabel ?? t.home.editorsPick}
         </div>
       )}
       <div
