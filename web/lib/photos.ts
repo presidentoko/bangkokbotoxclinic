@@ -20,6 +20,18 @@ export type ClinicPhotos = {
 
 const PHOTOS_DIR = path.join(process.cwd(), "data", "photos");
 
+// Locally-scraped photos (as opposed to lh3.googleusercontent.com hotlinks)
+// used to be served from web/public/clinic-images/ on Vercel's own edge,
+// which counted against Vercel's bandwidth quota. They're now uploaded to
+// an R2 bucket bound to this custom domain instead (2026-07-27) -- rewrite
+// happens here, once, rather than touching every data/photos/*.json file.
+const LOCAL_IMAGE_PREFIX = "/clinic-images/";
+const IMAGE_CDN_ORIGIN = "https://img.bangkokbestclinic.com";
+
+function toCdnUrl(url: string): string {
+  return url.startsWith(LOCAL_IMAGE_PREFIX) ? `${IMAGE_CDN_ORIGIN}${url}` : url;
+}
+
 const _cache = new Map<string, ClinicPhotos | null>();
 
 export async function loadPhotos(clinicId: string): Promise<ClinicPhotos | null> {
@@ -31,6 +43,7 @@ export async function loadPhotos(clinicId: string): Promise<ClinicPhotos | null>
       const raw = await fs.readFile(file, "utf-8");
       const parsed = JSON.parse(raw) as ClinicPhotos;
       if (Array.isArray(parsed.photos) && parsed.photos.length > 0) {
+        parsed.photos = parsed.photos.map((p) => ({ ...p, thumb: toCdnUrl(p.thumb), large: toCdnUrl(p.large) }));
         _cache.set(clinicId, parsed);
         return parsed;
       }
