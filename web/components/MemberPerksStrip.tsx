@@ -52,7 +52,7 @@ export default function MemberPerksStrip() {
         <form onSubmit={submit} className="flex gap-2 max-w-md mx-auto">
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="flex-1 rounded-xl border-2 border-violet-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-violet-500" />
+            className="flex-1 rounded-xl border-2 border-violet-200 bg-white px-4 py-2.5 text-base outline-none focus:border-violet-500" />
           <button type="submit" disabled={busy}
             className="rounded-xl bg-violet-700 text-white px-5 py-2.5 text-sm font-black hover:bg-violet-800 disabled:opacity-50">
             {busy ? "…" : "Join free"}

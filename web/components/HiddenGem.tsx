@@ -4,6 +4,7 @@
 
 import type { Clinic } from "@/lib/types";
 import { formatTrustScore } from "@/lib/utils";
+import { ClinicPhoto } from "./ClinicPhoto";
 
 function dayOfYearSeed(): number {
   const now = new Date();
@@ -76,11 +77,10 @@ export function HiddenGem({
             style={photo ? undefined : { background: `linear-gradient(135deg, ${accent}22, ${accent}08)` }}
           >
             {photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <ClinicPhoto
                 src={photo.large}
                 alt={`${pick.name} exterior`}
-                loading="lazy"
+                placeholderIcon="💎"
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : (

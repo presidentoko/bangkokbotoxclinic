@@ -325,6 +325,8 @@ export function BookingForm({
             <div>
               <label className="block text-sm font-medium mb-1.5">{t.booking.phone} <span className="text-[var(--muted)] font-normal">{t.booking.optional}</span></label>
               <input
+                type="tel"
+                inputMode="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+66 ..."

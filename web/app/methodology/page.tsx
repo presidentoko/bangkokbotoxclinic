@@ -50,6 +50,11 @@ export default function MethodologyPage() {
             The score is derived from four publicly available signals. Weights below are approximate and subject
             to ongoing calibration:
           </p>
+          {/* overflow-x-auto safety net — same class of bug fixed on
+              about/trust-score's table (2026-07-28 감사): a table with no
+              scroll wrapper either clips silently or forces page-wide
+              horizontal scroll on narrow viewports. */}
+          <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="border-b border-[var(--border)]">
@@ -81,6 +86,7 @@ export default function MethodologyPage() {
               </tr>
             </tbody>
           </table>
+          </div>
           <p className="text-xs text-[var(--muted)] mt-2">Weights sum to 100%. Subject to change.</p>
         </section>
 

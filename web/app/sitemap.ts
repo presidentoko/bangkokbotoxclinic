@@ -77,8 +77,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Doctor pages
+  // Doctor pages — 실제 의사 데이터가 있는 도시만. app/doctors/c/[city]/page.tsx의
+  // generateStaticParams는 allDoctors에 등장하는 도시만 빌드하고
+  // dynamicParams=false라 그 외는 무조건 404 — 이전엔 여기서 전체 도시 목록
+  // (db.city_counts, 의사 유무 무관)을 그대로 써서 사이트맵이 죽은 URL을
+  // 제출하고 있었음 (예: /doctors/c/phuket, /doctors/c/krabi — 2026-07-28 감사).
+  const citiesWithDoctors = new Set(allDoctors.map((d) => d.clinic.city_label).filter(Boolean));
   for (const cityLabel of cities) {
+    if (!citiesWithDoctors.has(cityLabel)) continue;
     const slug = cityLabel.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/doctors/c/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }

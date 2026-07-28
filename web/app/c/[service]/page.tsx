@@ -130,7 +130,7 @@ export default async function ServicePage(
               <a
                 key={d}
                 href={`/c/${service}/${d.toLowerCase().replace(/\s+/g, "-")}`}
-                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                className="inline-flex items-center px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 {label} in {d} <span className="text-[var(--muted)]">{n}</span>
               </a>

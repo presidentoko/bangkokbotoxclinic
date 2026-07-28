@@ -21,10 +21,12 @@ body {
   color: var(--fg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
   font-feature-settings: "ss01", "ss02";
-  /* 모바일: 가로 스크롤 차단 보강 */
-  overflow-x: hidden;
   /* 부드러운 스크롤 */
   -webkit-overflow-scrolling: touch;
+  /* 주의: overflow-x:hidden 을 여기 두면 body가 자체 스크롤 컨테이너가 되어
+     position:sticky 의 기준(가장 가까운 스크롤 조상)이 body가 되고, body는
+     절대 스크롤되지 않으므로 sticky가 사이트 전체에서 무력화된다.
+     가로 스크롤 차단은 html 쪽 하나로 충분 (2026-07-28 감사에서 발견). */
 }
 
 /* 모바일: 터치 타깃 보장 — 작은 링크/버튼도 최소 44px 누름 영역 (WCAG/iOS HIG) */
@@ -40,14 +42,24 @@ body {
   }
 }
 
-/* 모바일: 이미지 자동 max-width 보장 — 절대 viewport 초과 안 함 */
-img, video, iframe {
-  max-width: 100%;
-  height: auto;
+/* 모바일: 이미지 자동 max-width 보장 — 절대 viewport 초과 안 함.
+   @layer base 안에 둬야 Tailwind 유틸리티(h-16 등)가 이 규칙을 이긴다 —
+   레이어 밖 규칙은 레이어 안 유틸리티보다 항상 우선하므로 명시적 크기
+   지정이 전부 무효화됐었다 (2026-07-28 감사에서 발견).
+   iframe은 여기서 제외 — MapEmbed의 height={320} HTML 속성이 살아야
+   지도가 320px로 렌더링된다 (레이어에 넣어도 attribute보다 우선함). */
+@layer base {
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
-/* 태국어 줄간격 보강 (글자 위/아래 모음 표기 잘림 방지) */
-:lang(th), [lang="th"] {
+/* 태국어 줄간격 보강 (글자 위/아래 모음 표기 잘림 방지).
+   html lang="en" 하드코딩 버그 때문에 이 규칙 자체가 죽어있었다 (2026-07-28
+   감사) — layout.tsx에서 lang을 고치면서 이제 실제로 적용된다. word-break:
+   keep-all 은 CJK용이라 태국어(단어 사이 공백이 거의 없음)에 적용하면 줄바꿈이
+   막혀 가로 오버플로우가 나므로 제거 — 브라우저 기본 태국어 줄바꿈에 맡긴다. */
+:lang(th) {
   line-height: 1.6;
-  word-break: keep-all;
 }

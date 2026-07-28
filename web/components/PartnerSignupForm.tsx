@@ -79,7 +79,7 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
             value={selected ? selected.name : search}
             onChange={(e) => { setSearch(e.target.value); setSelected(null); }}
             placeholder="Type clinic name (e.g., Aura Bangkok Siam)"
-            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
           />
           {matches.length > 0 && !selected && (
             <div className="mt-1 border border-[var(--border)] rounded-lg bg-white shadow-sm divide-y divide-[var(--border)] max-h-64 overflow-y-auto">
@@ -111,14 +111,14 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
             <input
               value={contactName} onChange={(e) => setContactName(e.target.value)}
               placeholder="Owner / manager name"
-              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
             />
           </Field>
           <Field label="Email" required>
             <input
               type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)}
               placeholder="owner@clinic.com"
-              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
             />
           </Field>
         </div>
@@ -128,14 +128,15 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
             <input
               value={lineUserId} onChange={(e) => setLineUserId(e.target.value)}
               placeholder="U1234567890abcdef..."
-              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm font-mono focus:outline-none focus:border-black"
+              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base font-mono focus:outline-none focus:border-black"
             />
           </Field>
           <Field label="Phone" sub="optional — SMS fallback">
             <input
+              type="tel" inputMode="tel"
               value={phone} onChange={(e) => setPhone(e.target.value)}
               placeholder="+66 ..."
-              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black"
+              className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black"
             />
           </Field>
         </div>
@@ -169,7 +170,7 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
           <input
             type="number" value={ticket} onChange={(e) => setTicket(parseInt(e.target.value || "0", 10) || 0)}
             min={1000} max={1000000} step={1000}
-            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black tabular-nums"
+            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black tabular-nums"
           />
         </Field>
 
@@ -178,7 +179,7 @@ export function PartnerSignupForm({ clinics, preselect }: { clinics: ClinicHit[]
             value={notes} onChange={(e) => setNotes(e.target.value)}
             rows={2}
             placeholder="Anything specific (languages, doctors, hours...)"
-            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-black resize-none"
+            className="w-full border border-[var(--border)] rounded-lg px-3 py-2.5 text-base focus:outline-none focus:border-black resize-none"
           />
         </Field>
 

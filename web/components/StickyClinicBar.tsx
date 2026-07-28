@@ -31,9 +31,11 @@ export function StickyClinicBar({
             )}
             <button
               onClick={() => setOpen(true)}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white text-sm font-medium hover:opacity-90 transition"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white text-sm font-medium hover:opacity-90 transition whitespace-nowrap"
             >
-              Book Free Consultation →
+              {/* 360px에서 전체 문구 쓰면 이름+전화 버튼과 함께 두 줄로 밀림 (2026-07-28 감사) */}
+              <span className="sm:hidden">Book →</span>
+              <span className="hidden sm:inline">Book Free Consultation →</span>
             </button>
           </div>
         </div>

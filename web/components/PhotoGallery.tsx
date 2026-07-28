@@ -5,6 +5,52 @@
 import { useState, useEffect } from "react";
 import type { ClinicPhoto } from "@/lib/photos";
 
+// gps-cs-s 형식 Google 사진 URL은 시간이 지나면 만료돼 403이 난다 (2026-07-28
+// 감사에서 발견 — 전체 사진의 70%가 이미 만료됨). onError 없이는 깨진 이미지
+// 아이콘이 그대로 노출되므로, 여기서만 쓰는 작은 폴백 래퍼로 감싼다.
+function GalleryTile({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className={`${className} flex items-center justify-center bg-gray-100 text-3xl opacity-30`}>
+        🏥
+      </div>
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt={alt} className={className} loading="lazy" onError={() => setFailed(true)} />
+  );
+}
+
+function LightboxImg({ src, alt }: { src: string; alt: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className="max-w-full max-h-full w-80 h-80 flex items-center justify-center bg-gray-900 text-6xl opacity-40">
+        🏥
+      </div>
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      className="max-w-full max-h-full object-contain"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 export function PhotoGallery({
   photos,
   clinicName,
@@ -45,12 +91,10 @@ export function PhotoGallery({
             className="col-span-2 md:col-span-2 md:row-span-2 relative bg-gray-100 aspect-[4/3] group cursor-zoom-in overflow-hidden"
             aria-label={`Open photo 1 of ${clinicName}`}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <GalleryTile
               src={hero.large}
               alt={`${clinicName} — exterior`}
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
             />
           </button>
           {/* Thumbs — right 2x2 grid */}
@@ -62,12 +106,10 @@ export function PhotoGallery({
               className="relative bg-gray-100 aspect-[4/3] group cursor-zoom-in overflow-hidden"
               aria-label={`Open photo ${i + 2} of ${clinicName}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <GalleryTile
                 src={p.thumb}
                 alt={`${clinicName} — photo ${i + 2}`}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                loading="lazy"
               />
               {/* "+N" overlay on last thumb if more photos */}
               {i === thumbs.length - 1 && extraCount > 0 && (
@@ -133,11 +175,10 @@ export function PhotoGallery({
             className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <LightboxImg
+              key={openIdx}
               src={photos[openIdx].large}
               alt={`${clinicName} — photo ${openIdx + 1}`}
-              className="max-w-full max-h-full object-contain"
             />
           </div>
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xs tabular-nums bg-black/60 px-3 py-1 rounded-full">

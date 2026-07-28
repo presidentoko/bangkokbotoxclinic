@@ -91,9 +91,12 @@ export default async function ComparePage(
         Independent side-by-side analysis from public Google review data.
       </p>
 
-      {/* Trust Score visual bars */}
+      {/* Trust Score visual bars — grid-cols-1 sm:grid-cols-2: TrustVisual의
+          text-5xl 점수 + uppercase 라벨 flex row가 360px 폭의 반쪽(약 104px)
+          안에서 최소 콘텐츠 폭(142px)보다 좁아 카드 밖으로 넘쳤음 (2026-07-28
+          감사). 이 페이지의 다른 그리드는 전부 이 패턴을 이미 쓰고 있었음. */}
       <Section title="Trust Score">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <TrustVisual clinic={ca} winner={ca.trust_score > cb.trust_score} />
           <TrustVisual clinic={cb} winner={cb.trust_score > ca.trust_score} />
         </div>

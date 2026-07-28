@@ -111,7 +111,10 @@ export function SiteHeader({ focus, accent }: { focus: SiteFocus; accent: string
 
         {/* Mobile right side: lang + hamburger */}
         <div className="md:hidden flex items-center gap-2">
-          <a href="/for-clinics" className="px-3 py-1.5 rounded-full bg-black text-white text-[11px] font-bold whitespace-nowrap">
+          {/* inline-flex items-center — globals.css의 min-height:44px 규칙은 인라인
+              박스엔 안 먹어서(이 헤더의 유일한 모바일 CTA인데도) 실제 높이가
+              ~25px였음. flex로 블록화해야 규칙이 실제로 적용된다 (2026-07-28 감사). */}
+          <a href="/for-clinics" className="inline-flex items-center px-3 py-1.5 rounded-full bg-black text-white text-[11px] font-bold whitespace-nowrap">
             {t.forClinics}
           </a>
           <button

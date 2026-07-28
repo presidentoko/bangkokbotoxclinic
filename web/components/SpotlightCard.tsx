@@ -6,6 +6,7 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { CategoryIcon } from "./CategoryIcon";
 import { loadPhotos } from "@/lib/photos";
 import { formatTrustScore } from "@/lib/utils";
+import { ClinicPhoto } from "./ClinicPhoto";
 
 type Lang = "en" | "ko" | "th";
 const COPY: Record<Lang, { pick: string; handPicked: string; trust: string; rating: string; reviews: string; viewDetails: string; site: string; bangkok: string }> = {
@@ -25,12 +26,10 @@ export async function SpotlightCard({ c, accent = "#0f766e", lang = "en" }: { c:
         {/* Photo side */}
         <a href={`/clinic/${c.id}`} className="relative block aspect-[16/10] overflow-hidden bg-slate-100 lg:aspect-auto">
           {hero ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={hero.large}
+            <ClinicPhoto
+              src={hero.thumb}
               alt={c.name}
-              loading="eager"
-              referrerPolicy="no-referrer"
+              priority
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : (

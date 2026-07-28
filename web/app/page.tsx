@@ -773,7 +773,10 @@ export default async function HomePage(
               <a
                 key={d}
                 href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
-                className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                // inline-flex items-center — 모바일 min-height:44px 규칙(globals.css)이
+                // 일반 inline <a>엔 안 먹어서 텍스트가 칩 위쪽에 붙어있었음
+                // ("By City" 칩은 이미 이 패턴이라 정상이었음, 2026-07-28 감사)
+                className="inline-flex items-center px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
               </a>

@@ -9,11 +9,14 @@ export function ClinicPhoto({
   alt,
   className,
   placeholderIcon = "🏥",
+  priority = false,
 }: {
   src: string;
   alt: string;
   className?: string;
   placeholderIcon?: string;
+  /** LCP 후보 이미지에만 true로 — lazy loading을 꺼서 로딩을 지연시키지 않는다. */
+  priority?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
 
@@ -32,7 +35,7 @@ export function ClinicPhoto({
       alt={alt}
       className={className}
       onError={() => setFailed(true)}
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
     />
   );
 }

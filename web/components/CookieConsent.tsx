@@ -31,7 +31,10 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-xl"
+      // bottom-16: 모바일에서 MobileBottomNav(~54-64px)/FloatingContactBar(~64px)를
+      // 완전히 덮어버리는 문제 수정 — 그 위에 띄운다 (2026-07-28 감사에서 발견).
+      // 64px 자체가 노치 세이프에어리어보다 넉넉해서 별도 safe-area 패딩은 불필요.
+      className="fixed bottom-16 sm:bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-xl"
     >
       <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center gap-3">
         <p className="text-xs text-gray-600 flex-1 leading-relaxed">

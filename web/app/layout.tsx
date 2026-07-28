@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
@@ -85,13 +86,16 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // middleware.ts가 pathname(/th, /ko)으로부터 계산해 넣어주는 헤더 —
+  // /th, /ko 페이지가 <html lang="en">으로 나가던 걸 고침 (2026-07-28 감사).
+  const lang = (await headers()).get("x-lang") ?? "en";
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
@@ -110,7 +114,6 @@ export default function RootLayout({
           <CurrencyProvider>
           <SiteHeader focus={cfg.focus} accent={cfg.themeAccent} />
           <main>{children}</main>
-          <NavSpacer />
         <SisterSites focus={cfg.focus} />
         <footer className="border-t border-[var(--border)] mt-16 bg-white">
           <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
@@ -141,6 +144,14 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        {/* NavSpacer는 반드시 footer 뒤(진짜 문서 최하단)에 와야 한다 — footer보다
+            앞에 있으면 최대 스크롤 시 footer의 마지막 줄이 항상 뷰포트 하단과
+            정확히 맞물리게 되고, 그 자리는 position:fixed 바가 그대로 덮어버린다
+            (spacer 높이와 무관하게 수학적으로 항상 그렇게 됨). 이전엔 이 순서가
+            뒤바뀌어 있어서 홈페이지의 MobileBottomNav도 footer를 가리고 있었고,
+            /clinic/* 페이지의 FloatingContactBar도 마찬가지였다
+            (2026-07-28 감사 + 실제 브라우저 측정으로 확인). */}
+        <NavSpacer />
         <MobileBottomNav />
         <AccessibilityToolbar />
         <ScrollToTopButton />

@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { formatTrustScore } from "@/lib/utils";
+import { ClinicPhoto } from "./ClinicPhoto";
 
 type Mini = {
   id: string;
@@ -163,11 +164,9 @@ export function SpinDiscover({
             >
               <div className="flex items-start gap-3 md:gap-4">
                 {current.photo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <ClinicPhoto
                     src={current.photo}
                     alt={current.name}
-                    loading="lazy"
                     className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover shrink-0"
                   />
                 ) : (

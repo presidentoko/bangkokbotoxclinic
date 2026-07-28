@@ -23,7 +23,10 @@ export function FloatingContactBar({
   return (
     <>
       {/* MOBILE — bottom sticky bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+      <div
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
         <div className="bg-white border-t border-[var(--border)] shadow-2xl px-3 py-2.5 flex gap-2 items-center">
           <button
             type="button"
@@ -44,7 +47,8 @@ export function FloatingContactBar({
           )}
           <button
             onClick={() => setDismissed(true)}
-            className="text-[var(--muted)] hover:text-[var(--fg)] text-lg leading-none px-2"
+            // w-11 h-11 = 44px 터치 타깃 (기존엔 ~26px, Book 버튼 바로 옆이라 오탭 위험 — 2026-07-28 감사)
+            className="w-11 h-11 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--fg)] text-lg leading-none"
             aria-label="Dismiss contact bar"
           >
             ×

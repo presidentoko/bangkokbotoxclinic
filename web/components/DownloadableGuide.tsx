@@ -81,7 +81,7 @@ export default function DownloadableGuide({ focus }: { focus: SiteFocus }) {
             <form onSubmit={submit} className="rounded-xl bg-white border-2 p-3" style={{ borderColor: "var(--border)" }}>
               <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full border-b border-slate-200 px-2 py-2 text-sm outline-none focus:border-indigo-500" />
+                className="w-full border-b border-slate-200 px-2 py-2 text-base outline-none focus:border-indigo-500" />
               <button type="submit" disabled={busy}
                 className="mt-2 w-full rounded-lg bg-indigo-600 text-white px-3 py-2 text-sm font-black hover:bg-indigo-700 disabled:opacity-50">
                 {busy ? "…" : "Get the PDF →"}

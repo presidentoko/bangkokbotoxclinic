@@ -111,6 +111,10 @@ export default async function TrustScoreExplainerPage() {
             Top 10 clinics by Trust Score · 10+ reviews filter
           </div>
         </div>
+        {/* overflow-x-auto: 5개 컬럼(숫자 4개+클리닉명)이 360px에 안 들어가면
+            바깥 div의 overflow-hidden이 Trust 컬럼을 그냥 잘라버리고 스크롤할
+            방법이 없었음 (2026-07-28 감사) — table만 따로 감싸 가로 스크롤 허용. */}
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-xs uppercase tracking-wider text-[var(--muted)] border-b border-[var(--border)]">
@@ -133,6 +137,7 @@ export default async function TrustScoreExplainerPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       <h2 className="text-2xl font-black mt-10 mb-3">What it isn't</h2>
