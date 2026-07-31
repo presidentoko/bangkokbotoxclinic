@@ -322,22 +322,22 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
 
         <SeasonalTip />
         <LocalsChoice />
-        {occasion === "families" && <BangkokFamilyGuide />}
+        {occasion === "family" && <BangkokFamilyGuide />}
         {(occasion === "couples" || occasion === "honeymoon") && <BangkokCoupleTips />}
         {occasion === "lgbtq" && <BangkokLGBTGuide />}
         {(occasion === "date-night" || occasion === "couples" || occasion === "honeymoon") && <BangkokRooftopBars />}
         {(occasion === "honeymoon" || occasion === "special-occasion") && <BangkokLuxuryGuide />}
-        {occasion === "families" && <BangkokKidsActivities />}
-        {occasion === "families" && <BangkokFamilyHotels />}
+        {occasion === "family" && <BangkokKidsActivities />}
+        {occasion === "family" && <BangkokFamilyHotels />}
         {(occasion === "solo" || occasion === "solo-travel") && <BangkokSoloActivities />}
-        {occasion === "families" && <BangkokChildrenMuseum />}
+        {occasion === "family" && <BangkokChildrenMuseum />}
         {(occasion === "date-night" || occasion === "couples") && <BangkokDateNightGuide />}
         {(occasion === "honeymoon" || occasion === "special-occasion" || occasion === "anniversary") && <BangkokPrivateVilla />}
         {(occasion === "business" || occasion === "corporate") && <BangkokBusinessTips />}
         {occasion === "birthday" && <BangkokBirthdayGuide />}
         {(occasion === "wedding" || occasion === "engagement") && <BangkokWeddingVenue />}
         {(occasion === "graduation" || occasion === "achievement") && <BangkokGraduationGuide />}
-        {(occasion === "families" || occasion === "kids") && <BangkokChildrenActivities />}
+        {(occasion === "family" || occasion === "kids") && <BangkokChildrenActivities />}
         {(occasion === "girls-trip" || occasion === "bachelorette" || occasion === "women") && <BangkokGirlsTrip />}
         {(occasion === "retirement" || occasion === "milestone") && <BangkokRetirementCelebration />}
         {(occasion === "anniversary" || occasion === "romantic") && <BangkokAnniversary />}

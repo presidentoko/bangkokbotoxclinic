@@ -49,6 +49,8 @@ export function SaveButton({ item, size = "md" }: { item: SavedItem; size?: "sm"
         toggle(item);
       }}
       title={isSaved ? "Remove from wishlist" : "Save to wishlist"}
+      aria-label={isSaved ? "Remove from wishlist" : "Save to wishlist"}
+      aria-pressed={isSaved}
       // The visual circle stays small (28px) so it doesn't bulk up dense
       // card grids, but the actual tap target is expanded to 44px via an
       // invisible centered pseudo-element — this is the most-tapped
@@ -83,7 +85,7 @@ export function SavedListHome() {
   const shareWishlist = async () => {
     trackShare("native", "wishlist");
     const payload = encodeURIComponent(encodeWishlist(items));
-    const shareUrl = `https://thaigle.com/my-trip?w=${payload}&utm_source=share&utm_medium=native&utm_campaign=wishlist`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}/my-trip?w=${payload}&utm_source=share&utm_medium=native&utm_campaign=wishlist`;
     const text = `🇹🇭 My Bangkok wishlist (${items.length} places):\n${items.map(i => `${i.icon ?? "📍"} ${i.name}`).join("\n")}\n\nAll ranked by real Google reviews → ${shareUrl}`;
     if (navigator.share) {
       try { await navigator.share({ text }); return; } catch {}

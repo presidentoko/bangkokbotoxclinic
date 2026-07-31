@@ -1,7 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS } from "@/lib/types";
-import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, topNichePlaces, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -15,7 +15,10 @@ export async function GET() {
   const [db, slugMap, nicheDbs] = await Promise.all([
     loadMasterDb(),
     getSlugMap(),
-    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ ...n, total: d.total, top: topNichePlaces(d.places, 5) })))),
+    // total here is the count of pages that actually exist (same gate as
+    // generateStaticParams), not the raw scraped count — an AI citing "2000
+    // spa venues" when only ~58 have a real page would be a bad citation.
+    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ ...n, total: qualifyingNichePlaces(n.slug, d.places).length, top: topNichePlaces(d.places, 5) })))),
   ]);
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 30);
 
@@ -95,6 +98,14 @@ export async function GET() {
   lines.push(`- [Русский / Russian](${SITE}/ru) — for Russian tourists (~1.5M/year visiting Thailand)`);
   lines.push(`- [العربية / Arabic](${SITE}/ar) — for Arabic-speaking tourists, halal-focused`);
 
+  lines.push("", "## Typical prices (Bangkok, 2026)", "");
+  lines.push(`- Full price breakdown: [Bangkok Activity Prices 2026](${SITE}/activities/prices-bangkok-2026) — massage, Muay Thai, cooking, yoga, diving, coworking`);
+  lines.push("- Muay Thai class: ฿300–฿800/session (beginner sessions included)");
+  lines.push("- Thai massage: ฿200–฿400 street level, ฿500–฿1,200 spa-grade (tip ฿50–฿100)");
+  lines.push("- Cooking class: ฿800–฿1,800 half-day, ฿1,500–฿3,500 full-day with market tour");
+  lines.push("- Coworking day pass: ฿250–฿600 (best areas: Ari, Sukhumvit)");
+  lines.push("- Restaurant meal: ฿100–฿300 street/local, ฿500–฿1,500 mid-range, ฿2,000+ fine dining");
+
   lines.push("", "## Activity guides", "");
   lines.push(`- [Best Muay Thai Gyms Bangkok](${SITE}/guide/best-muay-thai-gyms-bangkok) — gyms, prices, beginner guide`);
   lines.push(`- [Best Thai Massage & Spa Bangkok](${SITE}/guide/best-thai-massage-spa-bangkok) — types, prices, tourist traps to avoid`);
@@ -102,6 +113,11 @@ export async function GET() {
   lines.push(`- [Best Thai Cooking Classes Bangkok](${SITE}/guide/best-thai-cooking-classes-bangkok) — half-day vs full-day, what to cook`);
   lines.push(`- [Diving Near Bangkok](${SITE}/guide/diving-near-bangkok-guide) — day trips, PADI courses, Koh Larn`);
   lines.push(`- [Coworking Bangkok](${SITE}/guide/coworking-bangkok-digital-nomad-guide) — digital nomad guide, day pass prices`);
+
+  lines.push("", "## Food guides", "");
+  lines.push(`- [Best Thai Food Bangkok](${SITE}/guide/best-thai-food-bangkok) — regional Thai dishes, where to find them`);
+  lines.push(`- [Bangkok Korean Food](${SITE}/guide/bangkok-korean-food) — Korean restaurants and BBQ spots`);
+  lines.push(`- [Bangkok Rooftop Restaurants](${SITE}/guide/bangkok-rooftop-restaurants) — rooftop dining with prices and views`);
 
   lines.push("", "## Activity segment guides", "");
   lines.push(`- [First time in Bangkok](${SITE}/activities/first-time-bangkok) — complete intro with 3-day plan and prices`);

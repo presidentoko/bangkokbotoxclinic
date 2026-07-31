@@ -38,7 +38,7 @@ export function BangkokChallenge() {
       const idx = Math.floor(Date.now() / 86400000) % CHALLENGES.length;
       localStorage.setItem(`thaigle_challenge_${idx}`, "done");
       setCompleted(true);
-      const text = `🏆 I completed the Bangkok Daily Challenge on Thaigle: "${challenge?.title}" https://thaigle.com`;
+      const text = `🏆 I completed the Bangkok Daily Challenge on Thaigle: "${challenge?.title}" ${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}`;
       if (navigator.share) { navigator.share({ text }).catch(() => {}); }
       else { window.open(`https://line.me/R/msg/text/?${encodeURIComponent(text)}`, "_blank"); }
     } catch {}

@@ -4,6 +4,7 @@ import { getAllPlaces } from "@/lib/places";
 import { HomeSearch } from "@/components/HomeSearch";
 import { CATEGORY_COLORS } from "@/lib/plan/store";
 import type { Category } from "@/lib/plan/store";
+import { localsScoreColor } from "@/lib/localsScoreColor";
 
 export const dynamic = "force-static";
 
@@ -105,12 +106,7 @@ export default async function LangHomePage({
             {places.map((place) => {
               const t = place.i18n[lang as Lang] ?? place.i18n["en"];
               const colors = CATEGORY_COLORS[place.category as Category];
-              const scoreColor =
-                place.localsScore >= 80
-                  ? "#0F6E56"
-                  : place.localsScore >= 65
-                  ? "#B45309"
-                  : "#991B1B";
+              const scoreColor = localsScoreColor(place.localsScore);
 
               return (
                 <a

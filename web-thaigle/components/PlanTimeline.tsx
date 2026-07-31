@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { plannerStore, CATEGORY_COLORS } from "@/lib/plan/store";
 import type { PlanItem, TravelSegment } from "@/lib/plan/store";
 import { trackShare } from "@/lib/track";
+import { localsScoreColor } from "@/lib/localsScoreColor";
 
 const SUPPORTED_LANGS = ["th", "en", "ko"];
 
@@ -27,7 +28,7 @@ const TRAVEL_ICON: Record<string, string> = {
 function SlotCard({ item, onRemove }: { item: PlanItem; onRemove: () => void }) {
   const lang = useCurrentLang();
   const colors = CATEGORY_COLORS[item.category];
-  const scoreColor = item.localsScore >= 80 ? "#0F6E56" : item.localsScore >= 65 ? "#B45309" : "#991B1B";
+  const scoreColor = localsScoreColor(item.localsScore);
 
   return (
     <div className="relative flex gap-3 bg-white border border-[var(--border)] rounded-2xl p-4 shadow-sm hover:shadow-md transition">

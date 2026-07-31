@@ -2,8 +2,19 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { searchPlaces, isUrl, detectPlatform } from "@/lib/search";
-import type { SearchResult } from "@/lib/search";
+import { isUrl, detectPlatform } from "@/lib/searchUtils";
+import type { SearchResult } from "@/lib/searchUtils";
+
+// lib/search.ts carries a ~324KB search index — loaded on demand the first
+// time someone actually types a text query, not on every visit to a page
+// that renders this search box.
+let searchPlacesFn: typeof import("@/lib/search").searchPlaces | null = null;
+async function searchPlaces(query: string, limit = 5): Promise<SearchResult[]> {
+  if (!searchPlacesFn) {
+    searchPlacesFn = (await import("@/lib/search")).searchPlaces;
+  }
+  return searchPlacesFn(query, limit);
+}
 import { plannerStore, CATEGORY_COLORS } from "@/lib/plan/store";
 import type { Category } from "@/lib/plan/store";
 
@@ -56,8 +67,8 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
 
     // Debounced text search
     if (debounceTimer) clearTimeout(debounceTimer);
-    const t = setTimeout(() => {
-      const found = searchPlaces(val, 5);
+    const t = setTimeout(async () => {
+      const found = await searchPlaces(val, 5);
       setResults(found);
       setMode("searching");
     }, 200);
@@ -77,7 +88,7 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
     }
 
     // Text search — single match → direct navigate
-    const found = searchPlaces(val, 1);
+    const found = await searchPlaces(val, 1);
     if (found.length === 1) {
       router.push(`/${lang}/place/${found[0].slug}`);
     } else if (found.length > 1) {
@@ -123,6 +134,7 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
           onChange={(e) => handleInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
           placeholder="Search place or paste TikTok / IG link…"
+          aria-label="Search place or paste TikTok / IG link"
           className="w-full px-5 py-4 pr-14 rounded-2xl border-2 border-[var(--border)] focus:border-orange-400 focus:outline-none text-base bg-white shadow-sm transition"
         />
         <button

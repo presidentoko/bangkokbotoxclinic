@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import {
   NICHES,
   loadNicheDb,
-  topNichePlaces,
+  qualifyingNichePlaces,
   findBySlug,
   loadCommunityDb,
   buildKlookIndex,
@@ -35,6 +35,7 @@ import { PhotoHints } from "@/components/PhotoHints";
 import { KlookBanner } from "@/components/KlookBanner";
 import { NearbyThings } from "@/components/NearbyThings";
 import { SeasonalTip } from "@/components/SeasonalTip";
+import { upscaleGooglePhoto, isLikelyAvatarThumbnail } from "@/lib/googlePhotoSize";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -44,10 +45,12 @@ export async function generateStaticParams() {
   const params: { niche: string; slug: string }[] = [];
   for (const n of NICHES) {
     const db = await loadNicheDb(n.slug as NicheSlug);
-    // No artificial cap — topNichePlaces() already gates on having a real
-    // rating + review count (or a trust_score fallback), so every place
-    // that clears the quality bar gets a page instead of just the top 80.
-    const top = topNichePlaces(db.places, Infinity);
+    // No artificial cap — qualifyingNichePlaces() already gates on having a
+    // real rating + review count (or a trust_score fallback), plus an extra
+    // content-depth gate for spa specifically (see lib/niches.ts) — shared
+    // with the niche/city listing pages so nothing links to a slug that
+    // doesn't actually get built here.
+    const top = qualifyingNichePlaces(n.slug, db.places);
     for (const p of top) {
       params.push({ niche: n.slug, slug: p.slug });
     }
@@ -135,7 +138,7 @@ export default async function PlaceDetailPage({
   // sitemap orphan with no inbound link from anywhere but the sitemap
   // itself — mirrors the "similar restaurants" cohort on the restaurant
   // detail template so every generated page gets a few inbound links.
-  const similarInNiche = topNichePlaces(db.places, Infinity)
+  const similarInNiche = qualifyingNichePlaces(niche, db.places)
     .filter((p) => p.slug !== place.slug && p.city === place.city)
     .sort((a, b) => Math.abs(a.trust_score - place.trust_score) - Math.abs(b.trust_score - place.trust_score))
     .slice(0, 6);
@@ -146,8 +149,10 @@ export default async function PlaceDetailPage({
 
   const pageUrl = `${SITE}/activities/${niche}/${encodeURIComponent(slug)}`;
 
+  const hasStickyBooking = !!(klook?.products?.[0] || place.affiliate?.viator || place.affiliate?.getyourguide || fallback);
+
   return (
-    <div className={`max-w-3xl mx-auto px-4 py-6${klook?.products?.[0] ? " pb-24 md:pb-6" : ""}`}>
+    <div className={`max-w-3xl mx-auto px-4 py-6${hasStickyBooking ? " pb-24 md:pb-6" : ""}`}>
       {/* Breadcrumb */}
       <nav className="text-sm text-[var(--muted)] mb-4 flex items-center gap-2 flex-wrap">
         <a href="/activities" className="hover:text-black">Activities</a>
@@ -157,14 +162,16 @@ export default async function PlaceDetailPage({
         <span className="text-[var(--fg)] truncate max-w-[200px]">{place.name}</span>
       </nav>
 
-      {/* Photo */}
+      {/* Photo — LCP element on this template, must not lazy-load */}
       {place.top_photo_url && (
         <div className="rounded-2xl overflow-hidden mb-5 h-52 md:h-72 bg-gray-100">
           <CardImage
-            src={place.top_photo_url}
+            src={upscaleGooglePhoto(place.top_photo_url)}
             alt={place.name}
             className="w-full h-full object-cover"
             fallbackIcon={info.icon}
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
           />
         </div>
       )}
@@ -204,19 +211,6 @@ export default async function PlaceDetailPage({
         </div>
       </div>
 
-      <SeasonalTip />
-      <PopularTimes type={niche === "spa" ? "spa" : niche === "muay-thai" || niche === "yoga-pilates" ? "gym" : "restaurant"} />
-      <PhotoHints niche={niche} />
-      <NearbyThings context="activity" />
-      <KlookBanner variant={
-        niche === "muay-thai" ? "muay-thai" :
-        niche === "cooking" ? "cooking" :
-        niche === "spa" ? "spa" :
-        niche === "diving" ? "diving" :
-        niche === "yoga-pilates" ? "yoga" :
-        "general"
-      } />
-
       {/* Feature badges */}
       <div className="flex flex-wrap gap-2 mb-5">
         {place.is_beginner_friendly && (
@@ -233,7 +227,10 @@ export default async function PlaceDetailPage({
         ))}
       </div>
 
-      {/* Booking CTAs */}
+      {/* Booking CTAs — right under the stats bar, above the fold. Was
+          previously pushed below 5 engagement widgets + a generic Klook
+          banner, so the revenue-driving action on the page was routinely
+          off-screen on mobile. */}
       <BookingCTAs
         nicheSlug={niche}
         placeId={place.id}
@@ -246,6 +243,24 @@ export default async function PlaceDetailPage({
         fallbackLabel={fallback?.label ?? null}
         fallbackProvider={fallback?.provider ?? null}
       />
+
+      <SeasonalTip />
+      <PopularTimes type={niche === "spa" ? "spa" : niche === "muay-thai" || niche === "yoga-pilates" ? "gym" : "restaurant"} />
+      <PhotoHints niche={niche} />
+      <NearbyThings context="activity" />
+      {/* Generic cross-sell banner only when this venue has no direct
+          product of its own — otherwise it competes with (and sits above)
+          the venue's own higher-value Klook link. */}
+      {!klook?.products?.[0] && (
+        <KlookBanner variant={
+          niche === "muay-thai" ? "muay-thai" :
+          niche === "cooking" ? "cooking" :
+          niche === "spa" ? "spa" :
+          niche === "diving" ? "diving" :
+          niche === "yoga-pilates" ? "yoga" :
+          "general"
+        } />
+      )}
 
       {/* Contact info */}
       {(place.phone || place.website) && (
@@ -283,19 +298,23 @@ export default async function PlaceDetailPage({
         </section>
       )}
 
-      {/* Photo gallery */}
-      {place.photos_sample && place.photos_sample.length > 1 && (
-        <section className="mb-6">
-          <h2 className="font-black text-lg mb-3">Photos</h2>
-          <div className="grid grid-cols-3 gap-2">
-            {place.photos_sample.slice(1, 7).map((url, i) => (
-              <div key={i} className="aspect-square rounded-xl overflow-hidden bg-gray-100">
-                <CardImage src={url} alt={`${place.name} photo ${i + 2}`} className="w-full h-full object-cover" fallbackIcon={info.icon} />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Photo gallery — some scraped photo arrays are contaminated with
+          reviewer profile-picture thumbnails instead of venue photos. */}
+      {(() => {
+        const gallery = (place.photos_sample ?? []).filter((url) => !isLikelyAvatarThumbnail(url));
+        return gallery.length > 1 && (
+          <section className="mb-6">
+            <h2 className="font-black text-lg mb-3">Photos</h2>
+            <div className="grid grid-cols-3 gap-2">
+              {gallery.slice(1, 7).map((url, i) => (
+                <div key={i} className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+                  <CardImage src={url} alt={`${place.name} photo ${i + 2}`} className="w-full h-full object-cover" fallbackIcon={info.icon} />
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Add to planner */}
       <div className="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 rounded-2xl p-5 mb-6 flex items-center justify-between gap-4">
@@ -447,6 +466,9 @@ export default async function PlaceDetailPage({
         category={place.category}
         imageUrl={place.top_photo_url}
         url={pageUrl}
+        priceMin={place.price_min_thb}
+        priceMax={place.price_max_thb}
+        priceBand={place.price_band}
       />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
@@ -455,13 +477,35 @@ export default async function PlaceDetailPage({
         { name: place.name, url: `/activities/${niche}/${encodeURIComponent(slug)}` },
       ]} />
 
-      {/* Mobile sticky bar: Book + Add to plan */}
-      {klook?.products?.[0] && (
+      {/* Mobile sticky bar: Book + Add to plan — mirrors BookingCTAs' klook
+          > viator > gyg > fallback priority so venues without a Klook match
+          (most of them) still get a sticky booking CTA instead of none. */}
+      {(klook?.products?.[0] || place.affiliate?.viator || place.affiliate?.getyourguide || fallback) && (
         <MobileStickyBar
-          bookingUrl={withKlookAid(klook.products[0].product_url)}
-          bookingProvider="Klook"
-          bookingLabel="Book on Klook"
-          priceLabel={klook.products[0].price_thb ? `฿${klook.products[0].price_thb.toLocaleString()}` : "View prices"}
+          bookingUrl={
+            klook?.products?.[0]
+              ? withKlookAid(klook.products[0].product_url)
+              : place.affiliate?.viator || place.affiliate?.getyourguide || fallback!.url
+          }
+          bookingProvider={
+            klook?.products?.[0]
+              ? "Klook"
+              : place.affiliate?.viator
+              ? "Viator"
+              : place.affiliate?.getyourguide
+              ? "GetYourGuide"
+              : fallback!.provider ?? "Klook"
+          }
+          bookingLabel={
+            klook?.products?.[0]
+              ? "Book on Klook"
+              : place.affiliate?.viator
+              ? "Search on Viator"
+              : place.affiliate?.getyourguide
+              ? "GetYourGuide"
+              : fallback!.label ?? "Find & book similar"
+          }
+          priceLabel={klook?.products?.[0]?.price_thb ? `฿${klook.products[0].price_thb.toLocaleString()}` : "View prices"}
           nicheSlug={niche}
           placeId={place.id}
           planItem={{ type: planType, id: place.id, name: place.name, rating: place.rating ?? undefined, city: place.city, trust_score: place.trust_score, price_min_thb: place.price_min_thb > 0 ? place.price_min_thb : undefined, url: `/activities/${niche}/${slug}` }}

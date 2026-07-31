@@ -120,7 +120,7 @@ export default async function BestForPage(
       {criterion === "fine-dining" && <BangkokOmakase />}
       {criterion === "dietary-options" && <BangkokGlutenFree />}
       {(criterion === "rooftop" || criterion === "sky-bar") && <BangkokRooftopBars />}
-      {criterion === "live-entertainment" && <BangkokLiveMusic />}
+      {criterion === "live-music" && <BangkokLiveMusic />}
 
       {/* Poll */}
       <div className="mt-8 mb-4">

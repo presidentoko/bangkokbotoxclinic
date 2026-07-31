@@ -4,7 +4,7 @@ import { buildDayPlan, allDayPlanParams, AREA_DEFS, THEME_DEFS } from "@/lib/day
 import type { AreaSlug, ThemeSlug, DayPlanStop } from "@/lib/day-plans";
 import { AffiliateLink } from "@/components/AffiliateLink";
 import { TrustScoreBadge } from "@/components/TrustScoreBadge";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { encodePlan } from "@/lib/planner";
 import { ShareButton } from "@/components/ShareButton";
 import { BangkokTip } from "@/components/BangkokTip";
@@ -92,6 +92,19 @@ export default async function DayPlanDetailPage({ params }: Props) {
   const totalMin = plan.stops.reduce((acc, s) => acc + (s.priceMin ?? 0), 0);
   const priceRange = totalMin > 0 ? `฿${totalMin.toLocaleString()}+` : null;
 
+  const faqs = [
+    {
+      q: `How much does a ${themeDef.label.toLowerCase()} day in ${areaDef.label} cost?`,
+      a: totalMin > 0
+        ? `Budget from ${priceRange} for all ${plan.stops.length} stops combined (${plan.stops.map((s) => s.venueName).join(", ")}), based on current listed prices. Actual spend varies by what you order/book at each stop.`
+        : `Cost varies by stop — see the price shown on each of the ${plan.stops.length} stops below, or check current prices on the booking link for each venue.`,
+    },
+    {
+      q: `How many stops are in this ${areaDef.label} ${themeDef.label.toLowerCase()} day plan?`,
+      a: `${plan.stops.length} stops: ${plan.stops.map((s) => s.venueName).join(", ")}. Each is independently bookable — you can drop or swap any stop using the Day Builder.`,
+    },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <script
@@ -104,6 +117,7 @@ export default async function DayPlanDetailPage({ params }: Props) {
         { name: areaDef.label, url: `/day-plan/hub/${area}` },
         { name: themeDef.label, url: `/day-plan/${area}/${theme}` },
       ]} />
+      <FaqJsonLd faqs={faqs} />
 
       {/* Header */}
       <div className="mb-8">

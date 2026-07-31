@@ -4,7 +4,7 @@ import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
-import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -61,11 +61,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // to prioritize crawling it.
 
   // Matches the uncapped generateStaticParams() in activities/[niche]/[slug]
-  // — every place that clears topNichePlaces()'s quality gate gets a page,
-  // so the sitemap should list all of them, not just the first 80.
+  // — every place that clears qualifyingNichePlaces()'s quality gate (incl.
+  // the extra spa-specific content-depth filter) gets a page, so the
+  // sitemap should list exactly those, not a superset that 404s.
   const nicheDbs = await Promise.all(
-    NICHES.map(async (n) => ({ slug: n.slug, places: topNichePlaces((await loadNicheDb(n.slug as NicheSlug)).places, Infinity) }))
+    NICHES.map(async (n) => ({ slug: n.slug, places: qualifyingNichePlaces(n.slug, (await loadNicheDb(n.slug as NicheSlug)).places) }))
   );
+  // Niche×city landing pages (app/activities/[niche]/city/[city]) — same
+  // MIN_VENUES gate as generateStaticParams there.
+  const nicheCityLinks = await Promise.all(
+    NICHES.map(async (n) => nicheCityCounts(n.slug, (await loadNicheDb(n.slug as NicheSlug)).places))
+  );
+  for (let i = 0; i < NICHES.length; i++) {
+    for (const c of nicheCityLinks[i]) {
+      items.push({
+        url: `${SITE}/activities/${NICHES[i].slug}/city/${c.slug}`,
+        lastModified: updated,
+        changeFrequency: "weekly",
+        priority: 0.8,
+      });
+    }
+  }
   items.push({
     url: `${SITE}/activities/first-time-bangkok`,
     lastModified: updated,

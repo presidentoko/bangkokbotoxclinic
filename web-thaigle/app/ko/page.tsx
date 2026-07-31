@@ -87,7 +87,7 @@ export default async function KoHomePage() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
-            한국어 · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a>
+            한국어 · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a> · <a href="/ja" className="underline hover:text-[var(--fg)]">日本語</a> · <a href="/ru" className="underline hover:text-[var(--fg)]">Русский</a> · <a href="/ar" className="underline hover:text-[var(--fg)]">العربية</a>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             인스타 말고 <span className="text-orange-600">진짜 후기</span>로 방콕 맛집 찾자

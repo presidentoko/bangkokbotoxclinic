@@ -1,18 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePlanner } from "@/components/PlannerContext";
 
 const KEY = "thaigle_cookie_consent";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
-  const { plan } = usePlanner();
-  // Was fixed at the exact same bottom-16/z-50 offset as PlannerBar — the
-  // two banners collided pixel-for-pixel whenever a first-time visitor
-  // already had plan items. Mirror the offset MobileStickyBar already uses
-  // to stack above PlannerBar instead of on top of it.
-  const bottomClass = plan.items.length > 0 ? "bottom-[7.5rem]" : "bottom-16";
 
   useEffect(() => {
     try {
@@ -32,8 +25,12 @@ export function CookieConsent() {
 
   if (!visible) return null;
 
+  // Mobile has up to 3 other fixed bottom bars (bottom nav, planner bar,
+  // per-page sticky booking CTA) whose combined height varies by page and
+  // plan state — anchoring here at the top avoids fighting all of them for
+  // the same real estate. Desktop has no such stack, so bottom-left is fine.
   return (
-    <div className={`fixed ${bottomClass} left-0 right-0 z-50 p-3 md:p-4 bg-white border-t border-[var(--border)] shadow-xl md:bottom-4 md:left-4 md:right-auto md:max-w-sm md:rounded-2xl md:border`}>
+    <div className="fixed top-0 left-0 right-0 z-50 p-3 md:p-4 bg-white border-b border-[var(--border)] shadow-xl md:top-auto md:bottom-4 md:left-4 md:right-auto md:max-w-sm md:rounded-2xl md:border">
       <p className="text-xs text-[var(--muted)] mb-3 leading-relaxed">
         เราใช้คุกกี้เพื่อวิเคราะห์การใช้งาน (Vercel Analytics) ไม่มีโฆษณาบุคคลที่สาม
         <br />

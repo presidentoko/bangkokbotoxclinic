@@ -5,6 +5,7 @@ import {
   NICHES,
   loadNicheDb,
   topNichePlaces,
+  qualifyingNichePlaces,
   buildKlookIndex,
   cityScopeLabel,
 } from "@/lib/niches";
@@ -67,6 +68,9 @@ export default async function NicheTop10Page({
   const top10 = topNichePlaces(db.places, 10);
   const scope = cityScopeLabel(top10);
   const klookMap = await buildKlookIndex(top10.map((p) => p.id));
+  // db.total is the raw scraped count, not the number of pages that
+  // actually exist for thin-data niches like spa — see lib/niches.ts.
+  const rankedCount = qualifyingNichePlaces(niche, db.places).length;
 
   const intro = NICHE_INTRO[niche as NicheSlug];
   const faqs = NICHE_FAQS[niche as NicheSlug] ?? [];
@@ -98,12 +102,12 @@ export default async function NicheTop10Page({
         <ShareButton
           title={`Top 10 ${info.label} in ${scope} 2026`}
           text={`Best ${info.label} in ${scope} — ranked by real Google reviews. No sponsored results.`}
-          url={`https://thaigle.com/activities/${niche}/top-10`}
+          url={`${SITE}/activities/${niche}/top-10`}
           line whatsapp
         />
       </div>
       <p className="text-base text-[var(--muted)] leading-relaxed mb-2">
-        {intro?.sub ?? `${db.total} venues ranked by real Google reviews.`}
+        {intro?.sub ?? `${rankedCount} venues ranked by real Google reviews.`}
       </p>
       <p className="text-sm text-[var(--muted)] mb-8">
         Updated 2026 · Trust Score ranks by review volume, rating, and reviewer authority — no paid placements.
@@ -260,7 +264,7 @@ export default async function NicheTop10Page({
       {/* See all CTA */}
       <section className="p-5 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <div className="font-black">See all {db.total} venues</div>
+          <div className="font-black">See all {rankedCount} venues</div>
           <div className="text-sm text-[var(--muted)]">Filter by price, language, Klook availability, and more</div>
         </div>
         <a

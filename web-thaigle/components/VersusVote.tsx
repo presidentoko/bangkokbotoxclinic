@@ -47,9 +47,13 @@ export function VersusVote({ a, b, question }: { a: VersusOption; b: VersusOptio
     if (navigator.share) {
       try { await navigator.share({ title: question, text }); return; } catch {}
     }
-    await navigator.clipboard.writeText(text);
-    setShared(true);
-    setTimeout(() => setShared(false), 2000);
+    try {
+      await navigator.clipboard.writeText(text);
+      setShared(true);
+      setTimeout(() => setShared(false), 2000);
+    } catch {
+      // Clipboard API unavailable — nothing more we can do here.
+    }
   };
 
   return (

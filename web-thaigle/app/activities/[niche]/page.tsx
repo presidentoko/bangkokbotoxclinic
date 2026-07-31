@@ -5,8 +5,10 @@ import {
   loadNicheDb,
   loadCommunityDb,
   topNichePlaces,
+  qualifyingNichePlaces,
   buildKlookIndex,
   cityScopeLabel,
+  nicheCityCounts,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -313,17 +315,23 @@ export async function generateMetadata({
   const db = await loadNicheDb(niche as NicheSlug);
   const intro = NICHE_INTRO[niche as NicheSlug];
   const scope = cityScopeLabel(topNichePlaces(db.places, 60));
+  // db.total is the raw scraped count — for niches like spa where most
+  // records have no rating/price/review/photo at all, that count is far
+  // higher than the number of pages that actually get built (qualifying
+  // count), so a "2000 Ranked" title claim above 58 real pages is a false
+  // freshness/inventory claim, not just an off-by-a-little rounding.
+  const rankedCount = qualifyingNichePlaces(niche, db.places).length;
   return {
-    title: `Best ${info.label} in ${scope} 2026 — ${db.total} Ranked by Real Reviews`,
-    description: `Find the best ${info.label.toLowerCase()} in ${scope} in 2026. ${db.total} venues ranked by Trust Score from real Google reviews — prices, tips, and Klook booking. No paid picks.`,
+    title: `Best ${info.label} in ${scope} 2026 — ${rankedCount} Ranked by Real Reviews`,
+    description: `Find the best ${info.label.toLowerCase()} in ${scope} in 2026. ${rankedCount} venues ranked by Trust Score from real Google reviews — prices, tips, and Klook booking. No paid picks.`,
     alternates: { canonical: `/activities/${niche}` },
     openGraph: {
       title: `Best ${info.label} in ${scope} 2026 — Data-Driven Rankings`,
-      description: `${db.total} ${info.label.toLowerCase()} venues ranked by Trust Score from verified Google reviews. ${intro?.sub ?? "No paid picks."}`,
+      description: `${rankedCount} ${info.label.toLowerCase()} venues ranked by Trust Score from verified Google reviews. ${intro?.sub ?? "No paid picks."}`,
     },
     twitter: {
       title: `Best ${info.label} in ${scope} 2026`,
-      description: `${db.total} venues ranked by real Google reviews — no influencer picks, no paid placements.`,
+      description: `${rankedCount} venues ranked by real Google reviews — no influencer picks, no paid placements.`,
     },
   };
 }
@@ -352,6 +360,10 @@ export default async function NichePage({
   const top = topNichePlaces(db.places, 60);
   const scope = cityScopeLabel(top);
   const klookMap = await buildKlookIndex(top.map((p) => p.id));
+  const cityLinks = nicheCityCounts(niche, db.places);
+  // See generateMetadata above — db.total is the raw scraped count and can
+  // wildly overstate how many pages actually exist for thin-data niches.
+  const rankedCount = qualifyingNichePlaces(niche, db.places).length;
   const topReddit = community?.top_reddit?.slice(0, 4) ?? [];
   const topNaver = community?.top_naver?.slice(0, 3) ?? [];
   const planType = info.planType;
@@ -374,13 +386,13 @@ export default async function NichePage({
                 {NICHE_INTRO[niche as NicheSlug]?.headline ?? `Best ${info.label} in ${scope}`}
               </h1>
               <p className="text-sm text-[var(--muted)] mt-1">
-                {NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} venues · ranked by real reviews`}
+                {NICHE_INTRO[niche as NicheSlug]?.sub ?? `${rankedCount} venues · ranked by real reviews`}
               </p>
             </div>
           </div>
           <ShareButton
             title={`Best ${info.label} in ${scope}`}
-            text={`${db.total} venues ranked by real Google reviews — no paid picks`}
+            text={`${rankedCount} venues ranked by real Google reviews — no paid picks`}
             url={pageUrl}
             kakao
             line
@@ -412,6 +424,25 @@ export default async function NichePage({
           See our Top 10 {info.label} in {scope} →
         </a>
       </div>
+
+      {/* Browse by city — niche×city landing pages for city-qualified
+          search intent ("cooking class chiang mai") the Thailand-wide
+          page above doesn't target directly. */}
+      {cityLinks.length > 0 && (
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-sm text-[var(--muted)]">Browse by city:</span>
+          {cityLinks.map((c) => (
+            <a
+              key={c.slug}
+              href={`/activities/${niche}/city/${c.slug}`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm font-medium hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
+            >
+              {c.city}
+              <span className="text-[var(--muted)] tabular-nums text-xs">{c.count}</span>
+            </a>
+          ))}
+        </div>
+      )}
 
       <NicheGrid
         places={top}
@@ -551,7 +582,7 @@ export default async function NichePage({
       {(niche === "medical" || niche === "dental") && <BangkokMedicalTourism />}
       {niche === "golf" && <BangkokGolfCourses />}
       {(niche === "hiking" || niche === "trekking" || niche === "nature") && <BangkokHikingDayTrips />}
-      {niche === "yoga" && <BangkokYogaStudios />}
+      {niche === "yoga-pilates" && <BangkokYogaStudios />}
       {niche === "tattoo" && <BangkokTattooStudios />}
       {(niche === "boxing-class" || niche === "muay-thai-class") && <BangkokThaiBoxingClass />}
       {niche === "beauty" && <BangkokHairSalon />}
@@ -700,7 +731,7 @@ export default async function NichePage({
       {(niche === "shisha" || niche === "hookah" || niche === "shisha-lounge") && <BangkokShishaLounge />}
       {(niche === "pickleball" || niche === "paddle-sport" || niche === "kitchen-dink") && <BangkokPickleball />}
       {(niche === "korfball" || niche === "ultimate-frisbee" || niche === "frisbee") && <BangkokKorfball />}
-      {(niche === "co-working" || niche === "digital-nomad" || niche === "remote-work") && <BangkokCoWorking />}
+      {niche === "coworking" && <BangkokCoWorking />}
       {(niche === "street-art" || niche === "mural" || niche === "graffiti") && <BangkokMuralArt />}
       {(niche === "bonsai" || niche === "plant-collecting" || niche === "terrarium") && <BangkokBonsai />}
       {(niche === "wrestling" || niche === "bjj" || niche === "grappling") && <BangkokWrestling />}
@@ -889,11 +920,11 @@ export default async function NichePage({
       ]} />
       <TouristAttractionJsonLd
         name={`Best ${info.label} in ${scope} 2026`}
-        description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} ${info.label.toLowerCase()} venues ranked by real Google reviews.`}
+        description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${rankedCount} ${info.label.toLowerCase()} venues ranked by real Google reviews.`}
         url={`/activities/${niche}`}
         items={top.slice(0, 10).map((p) => ({
           name: p.name,
-          url: `/activities/${niche}/${p.slug}`,
+          url: `/activities/${niche}/${encodeURIComponent(p.slug)}`,
           rating: p.rating,
           reviewCount: p.review_count,
           address: p.address,
@@ -901,7 +932,7 @@ export default async function NichePage({
       />
       <ActivityServiceJsonLd
         name={`${info.label} in ${scope}`}
-        description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${db.total} ${info.label.toLowerCase()} venues in ${scope}.`}
+        description={NICHE_INTRO[niche as NicheSlug]?.sub ?? `${rankedCount} ${info.label.toLowerCase()} venues in ${scope}.`}
         url={`/activities/${niche}`}
         category={info.label}
         rating={top.length > 0 && top[0].rating ? top[0].rating : undefined}

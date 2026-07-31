@@ -53,13 +53,15 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 export function SeasonalTip() {
-  const [month, setMonth] = useState<number | null>(null);
+  // Renders SEASONS[0] on first paint (server + pre-hydration client) so the
+  // card occupies its final height immediately instead of popping in after
+  // mount — only the text corrects itself once the real month is known,
+  // which doesn't shift layout.
+  const [month, setMonth] = useState<number>(SEASONS[0].months[0]);
 
   useEffect(() => {
     setMonth(new Date().getMonth());
   }, []);
-
-  if (month === null) return null;
 
   const season = SEASONS.find((s) => s.months.includes(month)) ?? SEASONS[0];
   const cls = COLOR_MAP[season.color] ?? COLOR_MAP.blue;

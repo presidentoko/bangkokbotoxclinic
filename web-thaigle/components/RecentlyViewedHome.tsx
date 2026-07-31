@@ -18,7 +18,7 @@ export function RecentlyViewedHome() {
   const [shared, setShared] = useState(false);
 
   const shareRecent = async () => {
-    const text = `Places I've been exploring on Thaigle:\n${items.slice(0, 4).map(i => `${i.icon} ${i.name}`).join("\n")}\nhttps://thaigle.com`;
+    const text = `Places I've been exploring on Thaigle:\n${items.slice(0, 4).map(i => `${i.icon} ${i.name}`).join("\n")}\n${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}`;
     if (navigator.share) { try { await navigator.share({ text }); return; } catch {} }
     const url = `https://line.me/R/msg/text/?${encodeURIComponent(text)}`;
     window.open(url, "_blank");

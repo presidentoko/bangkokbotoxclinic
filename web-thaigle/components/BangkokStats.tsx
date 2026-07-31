@@ -11,7 +11,7 @@ type Stats = {
 
 function shareProgress(stats: Stats) {
   const pct = Math.round((stats.bingoCount / 16) * 100);
-  const text = `🇹🇭 My Bangkok journey on Thaigle:\n🏆 Bucket list: ${stats.bingoCount}/16 (${pct}%)\n❤️ Saved: ${stats.saved} places\n🔍 Browsed: ${stats.recentCount} venues\n${stats.quizDone ? "✅ Traveler type: done!" : "🎯 Quiz: not yet"}\n\nhttps://thaigle.com/bingo`;
+  const text = `🇹🇭 My Bangkok journey on Thaigle:\n🏆 Bucket list: ${stats.bingoCount}/16 (${pct}%)\n❤️ Saved: ${stats.saved} places\n🔍 Browsed: ${stats.recentCount} venues\n${stats.quizDone ? "✅ Traveler type: done!" : "🎯 Quiz: not yet"}\n\n${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}/bingo`;
   if (navigator.share) {
     navigator.share({ text }).catch(() => {});
   } else {

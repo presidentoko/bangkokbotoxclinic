@@ -183,7 +183,7 @@ export default function PricesBangkok2026Page() {
         <ShareButton
           title="Bangkok Activity Prices 2026 — Thaigle"
           text="Real Bangkok activity prices in 2026 — massage, Muay Thai, cooking, yoga, diving. No tourist traps."
-          url="https://thaigle.com/activities/prices-bangkok-2026"
+          url={`${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}/activities/prices-bangkok-2026`}
           line whatsapp
         />
       </div>

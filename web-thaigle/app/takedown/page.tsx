@@ -84,7 +84,7 @@ function TakedownForm() {
             value={form.businessName}
             onChange={handleChange}
             required
-            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-sm bg-white"
+            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-base bg-white"
             placeholder="e.g. Siam Wellness Clinic Silom"
           />
         </div>
@@ -95,7 +95,7 @@ function TakedownForm() {
             name="pageUrl"
             value={form.pageUrl}
             onChange={handleChange}
-            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-sm bg-white"
+            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-base bg-white"
             placeholder="https://thaigle.com/activities/spa/..."
           />
         </div>
@@ -108,7 +108,7 @@ function TakedownForm() {
               value={form.contactName}
               onChange={handleChange}
               required
-              className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-sm bg-white"
+              className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-base bg-white"
             />
           </div>
           <div>
@@ -119,7 +119,7 @@ function TakedownForm() {
               value={form.contactEmail}
               onChange={handleChange}
               required
-              className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-sm bg-white"
+              className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-base bg-white"
             />
           </div>
         </div>
@@ -130,7 +130,7 @@ function TakedownForm() {
             name="requestType"
             value={form.requestType}
             onChange={handleChange}
-            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-sm bg-white"
+            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-base bg-white"
           >
             <option value="correction">Correct inaccurate information (address, phone, hours)</option>
             <option value="closed">Mark as permanently closed</option>
@@ -150,7 +150,7 @@ function TakedownForm() {
             onChange={handleChange}
             required
             rows={5}
-            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-sm bg-white resize-none"
+            className="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 text-base bg-white resize-none"
             placeholder="Describe what is incorrect and what the accurate information should be. For removal requests, please state the legal basis."
           />
         </div>

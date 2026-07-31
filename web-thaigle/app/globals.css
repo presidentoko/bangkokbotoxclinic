@@ -27,6 +27,14 @@ body {
   font-feature-settings: "ss01", "ss02";
 }
 
+/* Most interactive elements only style :hover, so keyboard/low-vision users
+   get no visible focus indicator at all. This applies everywhere without
+   needing every component to opt in individually. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 @utility pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }

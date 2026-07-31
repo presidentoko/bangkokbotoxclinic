@@ -272,6 +272,7 @@ export default async function PlacePage({
               localsScore: place.localsScore,
               dataSays: t.receipt.dataSays,
             }}
+            url={`/${lang}/place/${encodeURIComponent(slug)}`}
           />
           {hasCoords && (
             <a

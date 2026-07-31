@@ -1,17 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SURFACES = ["detail", "list", "planner", "dayplan", "hub", "tiktok", "relax"] as const;
-const PASSCODE = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || "";
 
 // C5: Internal analytics report page
 // Data comes from Vercel Analytics dashboard — this page documents the event schema
 // and the double-down rules so the team can act on data without a BI tool.
+//
+// The passcode itself never reaches this component — it's checked server-side
+// by /api/admin-auth, which sets an httpOnly session cookie on success. (This
+// used to compare against NEXT_PUBLIC_ADMIN_PASSCODE directly, which ships
+// the real passcode in the client JS bundle for anyone to read.)
 
 export default function AnalyticsReportPage() {
   const [code, setCode] = useState("");
-  const [unlocked, setUnlocked] = useState(!PASSCODE);
+  const [unlocked, setUnlocked] = useState(false);
+  const [checking, setChecking] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/admin-auth")
+      .then((r) => r.json())
+      .then((d) => setUnlocked(!!d.unlocked))
+      .catch(() => {})
+      .finally(() => setChecking(false));
+  }, []);
+
+  async function submit() {
+    setError(false);
+    try {
+      const res = await fetch("/api/admin-auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      if (res.ok) setUnlocked(true);
+      else setError(true);
+    } catch {
+      setError(true);
+    }
+  }
+
+  if (checking) return null;
 
   if (!unlocked) {
     return (
@@ -22,19 +53,16 @@ export default function AnalyticsReportPage() {
           placeholder="Passcode"
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              if (!PASSCODE || code === PASSCODE) setUnlocked(true);
-            }
-          }}
-          className="border border-[var(--border)] rounded-xl px-4 py-3 w-full mb-3 text-center"
+          onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
+          className="border border-[var(--border)] rounded-xl px-4 py-3 w-full mb-3 text-center text-base"
         />
         <button
-          onClick={() => { if (!PASSCODE || code === PASSCODE) setUnlocked(true); }}
+          onClick={submit}
           className="bg-black text-white font-bold px-6 py-3 rounded-xl w-full hover:bg-gray-800 transition"
         >
           Unlock
         </button>
+        {error && <p className="text-xs text-red-600 mt-3">Incorrect passcode.</p>}
       </div>
     );
   }

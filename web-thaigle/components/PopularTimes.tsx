@@ -33,10 +33,11 @@ export function PopularTimes({ type = "restaurant" }: PopularTimesProps) {
   const max = Math.max(...data);
   // Computed client-side in Asia/Bangkok time — this page is statically cached,
   // so a server-computed hour would be stale (and in the wrong timezone).
-  const [now, setNow] = useState<number | null>(null);
+  // The chart itself is static (PROFILES data), so it doesn't need to wait
+  // for `now` — only the current-hour highlight does. -1 renders the full
+  // chart immediately with no bar highlighted, avoiding a pop-in/CLS.
+  const [now, setNow] = useState<number>(-1);
   useEffect(() => { setNow(bangkokHour()); }, []);
-
-  if (now === null) return null;
 
   return (
     <div className="mt-4 p-4 border border-[var(--border)] rounded-xl bg-white">

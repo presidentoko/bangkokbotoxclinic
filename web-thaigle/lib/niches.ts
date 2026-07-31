@@ -162,6 +162,44 @@ export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
     .slice(0, n);
 }
 
+// spa ships with rating/review_count null across the board, so
+// topNichePlaces() alone lets through ~2,000 pages with almost nothing to
+// show. Any page that LISTS or LINKS to venue detail pages (niche hub, city
+// landing, etc.) should filter through this first, matching the same gate
+// generateStaticParams uses in app/activities/[niche]/[slug]/page.tsx —
+// otherwise a listing page links to slugs that were never actually built.
+export function qualifyingNichePlaces(nicheSlug: string, places: NichePlace[]): NichePlace[] {
+  const top = topNichePlaces(places, Infinity);
+  if (nicheSlug !== "spa") return top;
+  return top.filter(
+    (p) => p.price_min_thb > 0 || !!p.top_review_text || p.reviews_sample.length > 0 || !!p.top_photo_url
+  );
+}
+
+// Shared between the niche/[niche]/city/[city] landing pages and the niche
+// hub page's "browse by city" links — see app/activities/[niche]/city/[city]
+// for why this only splits by `city` (district/address is 0% populated in
+// the scraped data, city is reliably populated).
+export const NICHE_CITY_SLUGS: Record<string, string> = {
+  Bangkok: "bangkok",
+  Phuket: "phuket",
+  "Chiang Mai": "chiang-mai",
+  Pattaya: "pattaya",
+};
+export const NICHE_CITY_MIN_VENUES = 15;
+
+export function nicheCityCounts(nicheSlug: string, places: NichePlace[]): { city: string; slug: string; count: number }[] {
+  const qualifying = qualifyingNichePlaces(nicheSlug, places);
+  const counts = new Map<string, number>();
+  for (const p of qualifying) {
+    if (NICHE_CITY_SLUGS[p.city]) counts.set(p.city, (counts.get(p.city) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .filter(([, count]) => count >= NICHE_CITY_MIN_VENUES)
+    .map(([city, count]) => ({ city, slug: NICHE_CITY_SLUGS[city], count }))
+    .sort((a, b) => b.count - a.count);
+}
+
 // Several niches (spa, cooking, yoga-pilates) are majority non-Bangkok in
 // the actual ranked data — labeling those "in Bangkok" is both inaccurate
 // and gives up head-term SEO for Chiang Mai/Phuket/Pattaya searches.

@@ -124,7 +124,7 @@ export function BangkokQuiz() {
     setCopied(false);
   };
 
-  const shareUrl = `https://thaigle.com/quiz?r=${result?.id}&utm_source=share&utm_medium=copy&utm_campaign=quiz`;
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}/quiz?r=${result?.id}&utm_source=share&utm_medium=copy&utm_campaign=quiz`;
 
   const shareResult = async () => {
     trackShare("native", "quiz");

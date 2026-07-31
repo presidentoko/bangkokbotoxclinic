@@ -89,7 +89,10 @@ export default async function HomePage() {
     Promise.all(NICHES.map(async (n) => {
       const { topNichePlaces } = await import("@/lib/niches");
       const nd = await loadNicheDb(n.slug as NicheSlug);
-      return { slug: n.slug, label: n.label, icon: n.icon, top: topNichePlaces(nd.places, 8) };
+      // 50 (not 8) so the homepage search index below has real coverage per
+      // niche — SurpriseMe also draws from this same pool, which just means
+      // a bit more variety there too.
+      return { slug: n.slug, label: n.label, icon: n.icon, top: topNichePlaces(nd.places, 50) };
     })),
   ]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));
@@ -157,7 +160,7 @@ export default async function HomePage() {
   // the top 400 by trust score covers what people are actually searching
   // for from the homepage (the long tail is still reachable via district/
   // cuisine browsing) at a fraction of the payload.
-  const searchIndex = [...db.restaurants]
+  const restaurantSearchIndex = [...db.restaurants]
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 400)
     .map((r) => ({
@@ -168,6 +171,27 @@ export default async function HomePage() {
       rating: r.rating,
       trust_score: r.trust_score,
     }));
+
+  // The hero search previously only indexed restaurants, so "muay thai" or
+  // any activity query returned nothing — a dead end on the exact search box
+  // meant to funnel people to the Klook-affiliate activity pages. rating is
+  // required by SearchableEntity, so places with a null rating (spa/yoga
+  // datasets ship with rating null across the board) are skipped here rather
+  // than shown with a fake/zero rating.
+  const activitySearchIndex = nicheTopPlaces.flatMap((n) =>
+    n.top
+      .filter((p) => p.rating != null)
+      .map((p) => ({
+        id: `activities/${n.slug}/${encodeURIComponent(p.slug)}`,
+        name: p.name,
+        district: p.city,
+        city_label: undefined,
+        rating: p.rating as number,
+        trust_score: p.trust_score,
+      }))
+  );
+
+  const searchIndex = [...restaurantSearchIndex, ...activitySearchIndex];
 
   // Pull a few standout reviews to display as social proof
   const reviewQuotes = db.restaurants
@@ -537,6 +561,11 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Revenue block — was ~85% down the page after a long stack of
+            engagement widgets; promoted to right after the activities promo
+            so it doesn't require an unrealistic amount of scroll to reach. */}
+        <KlookTopDeals />
+
         {/* GUIDES PROMO */}
         {GUIDES.length > 0 && (
           <section className="mb-12 border border-[var(--border)] rounded-2xl bg-gradient-to-br from-amber-50/40 via-white to-orange-50/40 p-6 md:p-8">
@@ -564,7 +593,6 @@ export default async function HomePage() {
 
         <AdSlot slot="home-mid" />
 
-        <KlookTopDeals />
         <TopSearched />
         <BangkokMonthlyCalendar />
         <BangkokNeighborhoodProfile />

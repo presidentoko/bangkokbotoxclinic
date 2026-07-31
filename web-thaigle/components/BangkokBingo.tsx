@@ -68,7 +68,7 @@ export function BangkokBingo() {
 
   const shareResult = async () => {
     trackShare("native", "bingo");
-    const shareUrl = `https://thaigle.com/bingo?d=${encodeBingo(checked)}&utm_source=share&utm_medium=native&utm_campaign=bingo`;
+    const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}/bingo?d=${encodeBingo(checked)}&utm_source=share&utm_medium=native&utm_campaign=bingo`;
     const text = `My Bangkok Bingo: ${count}/${total} done (${pct}%)! 🇹🇭\nCheck yours → ${shareUrl}`;
     if (navigator.share) {
       try { await navigator.share({ title: "My Bangkok Bucket List", text }); return; } catch {}

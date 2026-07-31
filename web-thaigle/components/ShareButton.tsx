@@ -43,9 +43,14 @@ export function ShareButton({ title, text, url, kakao = false, whatsapp = false,
         // fall through to copy
       }
     }
-    await navigator.clipboard.writeText(shareUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API unavailable (HTTP context, denied permission, old
+      // browser) — nothing more we can do; avoid an unhandled rejection.
+    }
   }
 
   const shareText = text ? `${title}\n${text}` : title;

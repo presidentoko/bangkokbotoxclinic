@@ -127,16 +127,18 @@ export function RestaurantCard({ r, rank, slugMap }: { r: Restaurant; rank?: num
         >
           View details →
         </a>
-        <a
-          href={r.maps_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="py-2 px-3 rounded-lg bg-white border border-[var(--border)] text-xs font-bold hover:border-black transition flex items-center"
-          title="View on Google Maps"
-          aria-label="View on Google Maps"
-        >
-          📍
-        </a>
+        {r.maps_url && (
+          <a
+            href={r.maps_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-2 px-3 rounded-lg bg-white border border-[var(--border)] text-xs font-bold hover:border-black transition flex items-center"
+            title="View on Google Maps"
+            aria-label="View on Google Maps"
+          >
+            📍
+          </a>
+        )}
         {r.phone && (
           <a
             href={`tel:${r.phone.replace(/[^+\d]/g, "")}`}

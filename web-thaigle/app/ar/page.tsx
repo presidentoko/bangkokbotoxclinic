@@ -88,7 +88,7 @@ export default async function ArHomePage() {
       <section className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-4 pt-12 pb-8 text-center">
           <div className="text-xs uppercase tracking-wider text-[var(--muted)] mb-3">
-            العربية · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/ko" className="underline hover:text-[var(--fg)]">한국어</a> · <a href="/ja" className="underline hover:text-[var(--fg)]">日本語</a>
+            العربية · <a href="/" className="underline hover:text-[var(--fg)]">English</a> · <a href="/th" className="underline hover:text-[var(--fg)]">ภาษาไทย</a> · <a href="/ko" className="underline hover:text-[var(--fg)]">한국어</a> · <a href="/ja" className="underline hover:text-[var(--fg)]">日本語</a> · <a href="/ru" className="underline hover:text-[var(--fg)]">Русский</a>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-balance">
             أفضل مطاعم بانكوك<br className="md:hidden" /> بلا <span className="text-orange-600">إعلانات</span>

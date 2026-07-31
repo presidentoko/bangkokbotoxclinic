@@ -56,7 +56,8 @@ export function NicheGrid({ places, klookData, nicheSlug, nicheIcon, PRICE_BAND_
             <button
               key={f}
               onClick={() => setActive(f)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition ${
+              aria-pressed={active === f}
+              className={`inline-flex items-center gap-1.5 min-h-[44px] px-3 py-1.5 rounded-full text-sm font-medium transition ${
                 active === f
                   ? "bg-orange-500 text-white border border-orange-500"
                   : "bg-white border border-[var(--border)] hover:border-orange-400 hover:text-orange-700"

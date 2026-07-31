@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { PlanItem } from "@/lib/plan/store";
 import { CATEGORY_COLORS } from "@/lib/plan/store";
+import { localsScoreColor } from "@/lib/localsScoreColor";
 
 export const dynamic = "force-dynamic";
 
@@ -77,7 +78,7 @@ export default async function SharePage({ params, searchParams }: SharePageProps
       <div className="space-y-3 mb-8">
         {items.map((item, i) => {
           const colors = CATEGORY_COLORS[item.category];
-          const scoreColor = item.localsScore >= 80 ? "#0F6E56" : item.localsScore >= 65 ? "#B45309" : "#991B1B";
+          const scoreColor = localsScoreColor(item.localsScore);
           return (
             <div key={item.slug} className="flex gap-3 bg-white border border-[var(--border)] rounded-2xl p-4">
               <div className="text-xs font-black text-[var(--muted)] w-6 shrink-0 pt-0.5">{i + 1}</div>

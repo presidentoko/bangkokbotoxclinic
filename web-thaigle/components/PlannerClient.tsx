@@ -75,13 +75,20 @@ function PlannerContent() {
             className="text-2xl font-black border-b-2 border-orange-500 outline-none bg-transparent flex-1"
           />
         ) : (
-          <h1
-            className={`text-2xl font-black ${!isShared ? "cursor-pointer hover:text-orange-600 transition" : ""}`}
-            onClick={() => !isShared && setEditingTitle(true)}
-            title={!isShared ? "Click to edit title" : undefined}
-          >
-            {plan.title}
-            {!isShared && <span className="text-sm text-[var(--muted)] font-normal ml-2">✏️</span>}
+          <h1 className="text-2xl font-black">
+            {!isShared ? (
+              <button
+                type="button"
+                onClick={() => setEditingTitle(true)}
+                title="Click to edit title"
+                className="cursor-pointer hover:text-orange-600 transition text-left"
+              >
+                {plan.title}
+                <span className="text-sm text-[var(--muted)] font-normal ml-2">✏️</span>
+              </button>
+            ) : (
+              plan.title
+            )}
           </h1>
         )}
       </div>

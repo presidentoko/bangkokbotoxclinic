@@ -73,7 +73,10 @@ function bangkokHour(): number {
 }
 
 export function OpenNow() {
-  const [slot, setSlot] = useState<TimeSlot | null>(null);
+  // Starts on SLOTS[0] so the card has its final height on first paint —
+  // useEffect below corrects it to the real Bangkok-time slot right after,
+  // which only changes text/links, not the box size.
+  const [slot, setSlot] = useState<TimeSlot>(SLOTS[0]);
 
   useEffect(() => {
     // "What's good right now" means right now in Bangkok, not the
@@ -82,8 +85,6 @@ export function OpenNow() {
     const hour = bangkokHour();
     setSlot(SLOTS.find((s) => s.hours.includes(hour)) ?? SLOTS[0]);
   }, []);
-
-  if (!slot) return null;
 
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">

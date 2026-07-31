@@ -107,7 +107,10 @@ export function RestaurantJsonLd({ r, url }: { r: Restaurant; url: string }) {
   }
   if (r.phone) data.telephone = r.phone;
   if (r.menu_url) data.menu = r.menu_url;
-  if (r.price_level) data.priceRange = r.price_level;
+  // Some scraped rows have price_level polluted with a review-photo
+  // alt-text sentence or a raw address instead of a real price descriptor
+  // (mirrors the same guard on the restaurant detail page template).
+  if (r.price_level && r.price_level.length < 40) data.priceRange = r.price_level;
   const sameAs: string[] = [];
   if (r.website) sameAs.push(r.website);
   if (r.maps_url) sameAs.push(r.maps_url);
@@ -167,7 +170,10 @@ export function NicheItemListJsonLd({ name, items, url }: {
       item: {
         "@type": "LocalBusiness",
         name: p.name,
-        url: `${SITE}/activities/${p.niche}/${p.slug}`,
+        // ~683 niche-place slugs contain Thai characters — must match the
+        // RFC-3986-encoded canonical/sitemap URL for the same page, or
+        // strict parsers treat this as a different (non-existent) URL.
+        url: `${SITE}/activities/${p.niche}/${encodeURIComponent(p.slug)}`,
         address: { "@type": "PostalAddress", addressLocality: p.address || "Bangkok", addressCountry: "TH" },
         ...(p.rating && p.review_count ? {
           aggregateRating: {
@@ -183,7 +189,7 @@ export function NicheItemListJsonLd({ name, items, url }: {
   });
 }
 
-export function LocalBusinessJsonLd({ name, address, phone, website, rating, reviewCount, category, imageUrl, url }: {
+export function LocalBusinessJsonLd({ name, address, phone, website, rating, reviewCount, category, imageUrl, url, priceMin, priceMax, priceBand }: {
   name: string;
   address: string;
   phone?: string;
@@ -193,6 +199,9 @@ export function LocalBusinessJsonLd({ name, address, phone, website, rating, rev
   category?: string;
   imageUrl?: string | null;
   url: string;
+  priceMin?: number;
+  priceMax?: number;
+  priceBand?: string;
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
   const data: Record<string, unknown> = {
@@ -211,6 +220,14 @@ export function LocalBusinessJsonLd({ name, address, phone, website, rating, rev
   if (website) data.sameAs = [website];
   if (imageUrl) data.image = imageUrl;
   if (category) data.description = category;
+  // Many venues here have no rating (nulls across the board for some
+  // niches like spa) — price is often the only structured signal available,
+  // so prefer the real THB figures over the coarser budget/mid/premium band.
+  if (priceMin && priceMin > 0) {
+    data.priceRange = priceMax && priceMax > priceMin ? `฿${priceMin}-฿${priceMax}` : `฿${priceMin}+`;
+  } else if (priceBand && priceBand !== "unknown") {
+    data.priceRange = priceBand === "budget" ? "$" : priceBand === "mid" ? "$$" : "$$$";
+  }
   if (rating && reviewCount) {
     data.aggregateRating = {
       "@type": "AggregateRating",

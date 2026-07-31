@@ -6,16 +6,16 @@
 // pull in lib/places.ts's full 4.25MB places-data.json (hero images, i18n
 // translations, receipts, etc.) — a search index only ever needs these 6
 // fields. See scripts/build-search-index.mjs for how this file is generated.
+//
+// This module itself is meant to be loaded via dynamic import() from
+// client components (not a static top-level import) — the JSON below is
+// ~324KB, and isUrl/detectPlatform (needed on every keystroke) live in
+// lib/searchUtils.ts specifically so they don't drag this in eagerly.
 import SEARCH_INDEX from "@/lib/places-search-index.json";
+import type { SearchResult } from "@/lib/searchUtils";
 
-export type SearchResult = {
-  slug: string;
-  name: string;
-  category: "eat" | "train" | "treat" | "learn" | "relax";
-  subtype: string;
-  area: string;
-  localsScore: number;
-};
+export type { SearchResult } from "@/lib/searchUtils";
+export { isUrl, detectPlatform } from "@/lib/searchUtils";
 
 const PLACES = SEARCH_INDEX as SearchResult[];
 
@@ -51,17 +51,4 @@ export function searchPlaces(query: string, limit = 5): SearchResult[] {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(({ place }) => place);
-}
-
-export function isUrl(input: string): boolean {
-  return (
-    /^https?:\/\//.test(input.trim()) ||
-    /^(www\.|tiktok\.com|instagram\.com|ig\.me)/.test(input.trim())
-  );
-}
-
-export function detectPlatform(url: string): "tiktok" | "instagram" | "other" {
-  if (/tiktok\.com/.test(url)) return "tiktok";
-  if (/instagram\.com|ig\.me/.test(url)) return "instagram";
-  return "other";
 }

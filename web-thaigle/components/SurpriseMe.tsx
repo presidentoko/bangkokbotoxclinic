@@ -112,7 +112,7 @@ export function SurpriseMe({ venues }: { venues: SurpriseVenue[] }) {
               size="md"
             />
             <a
-              href={`https://line.me/R/msg/text/?${encodeURIComponent(`🎲 Thaigle picked for me: ${pick.name}\n★${pick.rating} · Trust ${pick.trust}\nhttps://thaigle.com${pick.url}`)}`}
+              href={`https://line.me/R/msg/text/?${encodeURIComponent(`🎲 Thaigle picked for me: ${pick.name}\n★${pick.rating} · Trust ${pick.trust}\n${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}${pick.url}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-3 py-2.5 rounded-full font-bold text-sm text-white transition"
@@ -122,7 +122,7 @@ export function SurpriseMe({ venues }: { venues: SurpriseVenue[] }) {
               LINE
             </a>
             <a
-              href={`https://wa.me/?text=${encodeURIComponent(`🎲 Thaigle picked for me: ${pick.name}\n★${pick.rating} · Trust ${pick.trust}\nhttps://thaigle.com${pick.url}`)}`}
+              href={`https://wa.me/?text=${encodeURIComponent(`🎲 Thaigle picked for me: ${pick.name}\n★${pick.rating} · Trust ${pick.trust}\n${process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com"}${pick.url}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-3 py-2.5 rounded-full font-bold text-sm text-white transition"
