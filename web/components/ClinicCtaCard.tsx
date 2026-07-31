@@ -37,7 +37,7 @@ export function ClinicCtaCard({
         {phone && (
           <div className="flex gap-2">
             <a
-              href={`tel:${phone}`}
+              href={`tel:${phone.replace(/[^+\d]/g, "")}`}
               className="flex-1 py-2 text-center rounded-lg border border-[var(--border)] text-sm hover:bg-gray-50 transition"
             >
               📞 Call directly
@@ -51,10 +51,12 @@ export function ClinicCtaCard({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
         >
-          <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 relative">
+          <div className="bg-white rounded-xl max-w-md w-full max-h-[90dvh] overflow-y-auto p-6 relative">
+            {/* h-11 w-11 정사각 히트박스 — 글리프 크기(약 12px)만큼만 탭 영역이던 것을
+                min-height 규칙만으론 못 잡던 문제 수정 (2026-07-31 감사). */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-3 right-3 text-[var(--muted)] hover:text-[var(--fg)] text-xl leading-none"
+              className="absolute top-2 right-2 grid h-11 w-11 place-items-center text-[var(--muted)] hover:text-[var(--fg)] text-xl leading-none"
               aria-label="Close"
             >
               ×

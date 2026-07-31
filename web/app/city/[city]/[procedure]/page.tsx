@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
-import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import { findGuide, guidesForFocus } from "@/lib/guides";
 import type { Metadata } from "next";
 
@@ -102,7 +102,10 @@ const PROCEDURES: Record<string, { label: string; category: string; desc: string
   },
   "hair-transplant": {
     label: "Hair Transplant",
-    category: "hair",
+    // 실제 clinic.categories/service_mentions 키는 "hair_transplant"(언더스코어) —
+    // "hair"였던 예전 값은 절대 안 매치돼서 이 조합이 항상 "결과 없음"만
+    // 출력하는 영구 빈 페이지였음 (2026-07-31 감사).
+    category: "hair_transplant",
     desc: "FUE, DHI, and SMP hair restoration",
     faqs: [
       { q: "How much does a hair transplant cost in Bangkok?", a: "FUE hair transplant in Bangkok costs ฿25,000–฿80,000 depending on the number of grafts (typically 1,000–3,000). DHI technique costs slightly more. This is 40–60% cheaper than equivalent clinics in the UK or US." },
@@ -126,8 +129,18 @@ const SITE = getSiteUrl();
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
+  // 예전엔 도메인 무관하게 city×procedure 전 조합(6도시×10시술=60개)을 매
+  // 사이트에서 다 만들어서, 덴탈 사이트가 /city/bangkok/botox 같은 완전히
+  // 무관한 시술 페이지까지 프리렌더했음 — 아무 데도 안 링크되는 고아
+  // 페이지였고 내용도 이 사이트 focus 밖이라 항상 얇음 (2026-07-31 감사).
+  // focus 안 카테고리 시술만 생성.
+  const cfg = getSiteConfig();
+  const focusValidCats = FOCUS_VALID[cfg.focus];
+  const procedures = focusValidCats
+    ? Object.entries(PROCEDURES).filter(([, p]) => focusValidCats.has(p.category)).map(([key]) => key)
+    : Object.keys(PROCEDURES);
   return Object.keys(CITIES).flatMap((city) =>
-    Object.keys(PROCEDURES).map((procedure) => ({ city, procedure }))
+    procedures.map((procedure) => ({ city, procedure }))
   );
 }
 
@@ -142,9 +155,22 @@ export async function generateMetadata(
   const title = `${procInfo.label} in ${cityInfo.label} — Best Clinics & Prices ${new Date().getFullYear()}`;
   const description = `Top ${procInfo.label.toLowerCase()} clinics in ${cityInfo.label}, Thailand. Compare prices, Trust Scores, and patient reviews. ${procInfo.desc.charAt(0).toUpperCase()}${procInfo.desc.slice(1)}.`;
 
+  // 결과 0건인 조합은 절대 색인 안 함 — "결과 없음" 페이지가 색인되면
+  // 얇은 콘텐츠로 잡혀 도메인 전체 신뢰도에 영향 (2026-07-31 감사).
+  const cfg = getSiteConfig();
+  const db = await loadMasterDb();
+  const focused = applySiteFilter(db.clinics, cfg);
+  const cityClinicIds = new Set(db.clinics.filter((c) => c.city_slug === cityInfo.citySlug).map((c) => c.id));
+  const count = focused.filter(
+    (c) => cityClinicIds.has(c.id) &&
+      (c.categories.includes(procInfo.category) || (c.service_mentions[procInfo.category] ?? 0) >= 2)
+  ).length;
+  const robots = count < 3 ? { index: false, follow: true } : undefined;
+
   return {
     title,
     description,
+    ...(robots && { robots }),
     alternates: { canonical: `/city/${city}/${procedure}` },
     openGraph: {
       title,

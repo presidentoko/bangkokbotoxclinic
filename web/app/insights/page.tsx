@@ -137,7 +137,10 @@ export default async function InsightsPage() {
         <div className="space-y-2.5">
           {topDistricts.map(([dist, n]) => (
             <div key={dist} className="flex items-center gap-3">
-              <a href={`/d/${encodeURIComponent(dist)}`} className="flex-1 hover:underline">
+              {/* /d/[district]/generateStaticParams 와 동일한 슬러그 변환을 써야
+                  URL이 실제로 존재한다 — encodeURIComponent는 "Bang Kapi"를
+                  "Bang%20Kapi"로 만들어 항상 404였다 (2026-07-31 감사). */}
+              <a href={`/d/${dist.toLowerCase().replace(/\s+/g, "-")}`} className="flex-1 hover:underline">
                 <div className="flex items-baseline justify-between mb-1">
                   <span className="font-bold text-sm">{dist}</span>
                   <span className="tabular-nums text-sm text-[var(--muted)]">

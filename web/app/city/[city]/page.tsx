@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { BookingForm } from "@/components/BookingForm";
 import { CATEGORY_LABELS } from "@/lib/types";
+import { applySiteFilter, getSiteConfig, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 // 봇 쓰레기 param(/d/wp-login.php 등)의 온디맨드 렌더+캐시 write 차단
@@ -25,7 +26,11 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { city } = await params;
   const db = await loadMasterDb();
-  const list = db.clinics.filter((c) => c.city_slug === city);
+  const cfg = getSiteConfig();
+  // 사이트 소관 필터 없이 도시의 전체 클리닉(타 focus 포함)을 세고 있었음 —
+  // 덴탈 사이트 /city/bangkok이 보톡스 클리닉까지 포함해서 카운트/설명에
+  // 노출되던 문제 (2026-07-31 감사, 아래 페이지 본문과 동일 이유).
+  const list = applySiteFilter(db.clinics, cfg).filter((c) => c.city_slug === city);
   const clinic = list[0];
   const cityLabel = clinic?.city_label ?? city;
   const count = list.length;
@@ -47,18 +52,29 @@ export default async function CityPage(
 ) {
   const { city } = await params;
   const db = await loadMasterDb();
+  const cfg = getSiteConfig();
 
-  const filtered = db.clinics
+  // 사이트 소관 필터 적용 — 예전엔 city_slug만 걸러서 덴탈 사이트의
+  // /city/bangkok에 보톡스 전용 클리닉까지 섞여 나오고, 거기서 나온
+  // "인기 서비스" 칩이 이 사이트엔 없는 /c/botox 같은 링크를 만들었음
+  // (2026-07-31 감사 — clinic/[id] 페이지가 이미 하던 것과 동일 가드).
+  const scoped = applySiteFilter(db.clinics, cfg);
+  const filtered = scoped
     .filter((c) => c.city_slug === city && isClinicLike(c))
     .sort((a, b) => b.trust_score - a.trust_score);
 
   if (filtered.length === 0) notFound();
   const cityLabel = filtered[0].city_label;
 
-  // 도시 안에서 카테고리 분포
+  // 도시 안에서 카테고리 분포 — focus 밖 카테고리는 애초에 칩으로 안 만듦
+  // (focus 안 카테고리만 있어도 /c/{cat} 링크가 항상 유효하게 됨).
+  const focusValidCats = FOCUS_VALID[cfg.focus];
   const categoryMap = new Map<string, number>();
   for (const c of filtered) {
-    for (const cat of c.categories) categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+    for (const cat of c.categories) {
+      if (focusValidCats && !focusValidCats.has(cat)) continue;
+      categoryMap.set(cat, (categoryMap.get(cat) ?? 0) + 1);
+    }
   }
   const topCategories = [...categoryMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
 

@@ -172,7 +172,7 @@ export function PhotoGallery({
             </button>
           )}
           <div
-            className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center"
+            className="relative max-w-5xl max-h-[90dvh] w-full h-full flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <LightboxImg

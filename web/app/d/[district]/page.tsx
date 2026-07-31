@@ -43,8 +43,10 @@ export async function generateMetadata(
   const sample = db.clinics.find((c) => c.district === districtName && c.city_label);
   const cityLabel = sample?.city_label ?? "Bangkok";
   const robots = count < 5 ? { index: false, follow: true } : undefined;
+  // 브랜드 접미사가 붙으면 구글 표시 한계(~60자)를 넘겨 잘림 — absolute로 꺼서
+  // 방지 (2026-07-31 감사).
   return {
-    title: `${count} Clinics in ${districtName}, ${cityLabel} — Verified by Reviews`,
+    title: { absolute: `${count} Clinics in ${districtName}, ${cityLabel} — Reviews` },
     description: `${count} clinics in ${districtName}, ${cityLabel} ranked by verified Google review analysis. Trust Score, reviewer credibility, service mentions for each.`,
     alternates: { canonical: `/d/${district}` },
     ...(robots && { robots }),

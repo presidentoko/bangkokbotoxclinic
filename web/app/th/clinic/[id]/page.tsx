@@ -63,6 +63,10 @@ export async function generateMetadata(
   };
 }
 
-// 페이지 컴포넌트 자체는 EN 버전과 동일하게 re-render.
-// (콘텐츠는 이미 bilingual — WikiSummaryCard, sample_reviews_th 모두 양국어 노출)
-export default ClinicPage;
+// 2026-07-31 감사: EN 컴포넌트를 그대로 re-export만 해서 lang이 한 번도
+// 전달 안 됐음 — WikiSummaryCard가 항상 기본값 "en"으로 렌더돼 태국어
+// wiki_summaries 1,301개(전체의 태국어 요약 보유분)가 /th 페이지에서도
+// 영어로 나오고 있었다. lang="th"만 명시적으로 넘겨주면 됨.
+export default function ThClinicPage(props: { params: Promise<{ id: string }> }) {
+  return ClinicPage({ ...props, lang: "th" });
+}

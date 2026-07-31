@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import Script from "next/script";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
@@ -86,17 +85,32 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // middleware.ts가 pathname(/th, /ko)으로부터 계산해 넣어주는 헤더 —
-  // /th, /ko 페이지가 <html lang="en">으로 나가던 걸 고침 (2026-07-28 감사).
-  const lang = (await headers()).get("x-lang") ?? "en";
+  // 2026-07-31: 이전엔 middleware가 넣어주는 x-lang 헤더를 여기서 headers()로
+  // 읽어 <html lang>을 세팅했는데, 루트 레이아웃에서 headers()를 읽으면 이걸
+  // 상속하는 모든 라우트가 요청마다 다시 렌더링되는 동적 페이지로 바뀐다 —
+  // /clinic/[id] 같은 정적이어야 할 5,000+ 페이지가 매 요청마다 24MB
+  // master_db.json을 다시 읽어 파싱하게 됐고, 이게 5xx 670건의 원인이었다
+  // (x-nextjs-prerender 헤더가 사라진 것으로 직접 확인, 2026-07-31 감사).
+  // 정적 렌더링을 되살리기 위해 <html lang>은 정적 기본값("en")으로 고정하고,
+  // /th·/ko 페이지에서만 beforeInteractive 스크립트로 hydration 전에 동기적으로
+  // 덮어쓴다 — 깜빡임 없이 접근성 요건(올바른 lang)을 만족시키면서도 헤더를
+  // 읽지 않아 페이지 자체는 정적으로 남는다.
   return (
-    <html lang={lang}>
+    <html lang="en">
       <body>
+        <Script id="set-html-lang" strategy="beforeInteractive">{`
+          (function(){
+            var p = window.location.pathname;
+            var l = (p === "/th" || p.indexOf("/th/") === 0) ? "th"
+                  : (p === "/ko" || p.indexOf("/ko/") === 0) ? "ko" : null;
+            if (l) document.documentElement.lang = l;
+          })();
+        `}</Script>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} strategy="afterInteractive" />

@@ -37,7 +37,9 @@ export async function generateMetadata(
   const c = d.clinic;
   const specialty = c.categories.map((cat) => CATEGORY_LABELS[cat] ?? cat).slice(0, 3).join(", ");
   const langs = languageList(d.language_count);
-  const title = `Dr. ${d.name} at ${c.name} — Reviews & Trust`;
+  // 브랜드 접미사 제거(absolute) + "Trust" 같은 비검색어 대신 실제 신호
+  // (평점·언급수)로 구성 (2026-07-31 감사, clinic/[id]와 동일 이유).
+  const title = `Dr. ${d.name} at ${c.name} — Reviews`;
   const description = `Dr. ${d.name}: ${d.mentions} patient mentions, ★${d.rating_avg.toFixed(1)} average. ${specialty || "Aesthetic medicine"} at ${c.name}${c.district ? ", " + c.district : ""}. Patients praise in ${langs}.`;
 
   // clinic/[id] 와 동일 가드 — 이 사이트 소관이 아닌 의사(예: 덴탈 도메인에 뜬
@@ -46,11 +48,16 @@ export async function generateMetadata(
   const inSite = applySiteFilter([c], cfg).length > 0;
   const ownerUrl = !inSite ? resolveOwnerUrl(c.categories) : null;
   const canonical = ownerUrl ? `${ownerUrl}/doctor/${slug}` : `/doctor/${slug}`;
+  // 부모 클리닉 레코드에서 파생된 정보(리뷰에서 뽑은 이름·언급수)뿐이라
+  // 언급 적은 의사는 직접 작성된 문장이 사실상 없음 — 이런 얇은 페이지가
+  // ~800개/도메인 쌓여 "발견함-색인 안 함" 3,400건의 주 원인이었음
+  // (2026-07-31 감사). 언급 10회 미만은 noindex로 크롤 예산을 아낌.
+  const thinContent = d.mentions < 10;
 
   return {
-    title,
+    title: { absolute: title },
     description,
-    ...(!inSite && { robots: { index: false, follow: true } }),
+    ...((!inSite || thinContent) && { robots: { index: false, follow: true } }),
     alternates: { canonical },
     openGraph: { title, description, url: `/doctor/${slug}`, type: "profile" },
   };

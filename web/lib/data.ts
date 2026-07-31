@@ -143,10 +143,13 @@ export type DoctorWithClinic = DoctorStat & {
   clinic: Clinic;
 };
 
-/** clinic_name slugified, 짧게 자르기 — SEO friendly suffix */
+/** 클리닉 place_id 축약 — scripts/build_master_db.py의 composite_doctor_slug와
+ * 동일 로직(마지막 12 hex 문자). 2026-07-31 이전엔 클리닉 이름을 슬러그로
+ * 써서 구글맵 상호명이 바뀔 때마다 그 클리닉의 의사 URL이 전부 영구
+ * 고아가 됐음 — place_id는 안정적이라 대신 사용. */
 function clinicSlugForUrl(c: Clinic): string {
-  const base = slugify(c.name).slice(0, 50);
-  return base || c.id.slice(0, 16);
+  const shortId = c.id.replace(/[^0-9a-fA-F]/g, "").slice(-12).toLowerCase();
+  return shortId || slugify(c.name).slice(0, 50);
 }
 
 /** doctor + clinic 조합으로 globally unique slug 생성.

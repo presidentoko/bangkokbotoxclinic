@@ -186,6 +186,11 @@ function pickSnippet(c: Clinic): string | null {
 
 export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic; rank?: number; lang?: Lang }) {
   const t = COPY[lang] ?? COPY.en;
+  // /th, /ko 페이지에서 카드를 눌러도 항상 영어 /clinic/[id]로 빠지던 문제 —
+  // /th/clinic/[id], /ko/clinic/[id] 모두 EN과 동일 클리닉 set으로 이미
+  // 존재하는데(parentGSP 재사용) 링크만 lang 무시하고 하드코딩돼 있었음
+  // (2026-07-31 감사).
+  const clinicHref = `${lang === "en" ? "" : `/${lang}`}/clinic/${clinic.id}`;
   const tier = await sponsoredTier(clinic.id);
   // 카드 목록(허브/best/홈)이 텍스트만 있어서 사진 있는 구글 로컬팩 대비
   // 이탈률이 높았을 가능성 — 이미 스크랩된 사진(1,395개 클리닉)을 카드에도
@@ -225,7 +230,7 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
         </div>
       )}
 
-      <a href={`/clinic/${clinic.id}`} className="block p-5 pb-3">
+      <a href={clinicHref} className="block p-5 pb-3">
         {/* Top row — rank, district, status, name, rating */}
         <div className="flex items-start justify-between gap-3 mb-3">
           {photo && (
@@ -256,7 +261,10 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
                 </span>
               )}
             </div>
-            <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition truncate">{clinic.name}</h3>
+            {/* truncate였던 걸 line-clamp-2로 — 360px에서 사진·평점 빼면 이름 칸이
+                ~130px라 "Bangkok International Dental Center" 같은 이름이
+                "Bangkok Interna…"로 잘려 목록에서 식별 불가였음 (2026-07-31 감사). */}
+            <h3 className="font-semibold text-base group-hover:text-[var(--accent)] transition line-clamp-2 break-words">{clinic.name}</h3>
             {tier && (
               <div className="mt-1">
                 <span
@@ -420,7 +428,7 @@ export async function ClinicCard({ clinic, rank, lang = "en" }: { clinic: Clinic
           </a>
         ) : (
           <a
-            href={`/clinic/${clinic.id}`}
+            href={clinicHref}
             className="flex-1 text-center py-2 px-3 rounded-lg bg-black text-white text-xs font-bold hover:bg-gray-800 transition"
           >
             {t.viewDetails}

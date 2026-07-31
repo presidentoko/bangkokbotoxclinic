@@ -49,9 +49,10 @@ export async function generateMetadata(
   const districtName = districtFromSlug(district, Object.keys(db.district_counts)) ?? district;
   const count = filterByDistrict(filterByCategory(scoped, service), districtName).length;
   const robots = count < 3 ? { index: false, follow: true } : undefined;
+  // 브랜드 접미사 제거 + 60자/155자 한계 준수 (2026-07-31 감사, /c/[service]와 동일 이유).
   return {
-    title: `${count} ${label} Clinics in ${districtName}, Bangkok — Trust Score Ranking`,
-    description: `${count} verified ${label.toLowerCase()} clinics in ${districtName}, Bangkok. Trust Scores from real Google review analysis. Compare options, read reviews.`,
+    title: { absolute: `${label} in ${districtName}, Bangkok — Verified Reviews` },
+    description: `${count} verified ${label.toLowerCase()} clinics in ${districtName}, Bangkok ranked by Trust Score. Compare reviews and pick with confidence.`,
     alternates: { canonical: `/c/${service}/${district}` },
     ...(robots && { robots }),
   };

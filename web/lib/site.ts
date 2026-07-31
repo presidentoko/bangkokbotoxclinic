@@ -46,9 +46,11 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     focus: "botox",
     brand: "Bangkok Botox Clinic",
     domain: "bangkokbotoxclinic.com",
-    title: "Best Botox Clinics in Bangkok 2026 — From ฿80/unit, Verified Reviews",
+    // 구글 SERP 표시 한계(제목 ~60자, 설명 ~155자) 초과로 잘리던 것 트림
+    // (실측 72자/234자, 2026-07-31 감사).
+    title: "Best Botox Clinics in Bangkok — From ฿80/unit, Verified",
     description:
-      "Compare 120+ Bangkok botox clinics ranked by Trust Score. Allergan · Dysport · Botulax · Xeomin authenticity verified. English-speaking clinics in Sukhumvit, Siam & Ari from ฿80/unit. Ranked from 500,000+ real Google reviews.",
+      "Compare 120+ Bangkok botox clinics ranked by Trust Score. Allergan, Dysport, Botulax authenticity verified. From ฿80/unit in Sukhumvit, Siam & Ari.",
     hero: "Bangkok Botox Specialists — Verified",
     heroSub: "120+ botox clinics ranked by Trust Score. Allergan, Dysport, Botulax, Xeomin authenticity tracked. Sukhumvit · Siam · Ari specialists from ฿80/unit.",
     themeAccent: "#7c3aed",
@@ -113,9 +115,10 @@ const CONFIGS: Record<SiteFocus, SiteConfig> = {
     focus: "dental",
     brand: "Bangkok Best Clinic",
     domain: "www.bangkokbestclinic.com",
-    title: "Best Dental Clinics in Bangkok 2026 — Implants from ฿35,000, Verified",
+    // 구글 SERP 표시 한계 초과로 잘리던 것 트림 (실측 73자/225자, 2026-07-31 감사).
+    title: "Best Dental Clinics in Bangkok — Implants from ฿35,000",
     description:
-      "200+ Bangkok dental clinics ranked by Trust Score. Implants from ฿35,000 · Veneers from ฿12,000/tooth · Whitening from ฿4,000. Save 60% vs US prices. English & Korean speaking. Ranked from 200,000+ Google reviews.",
+      "200+ Bangkok dental clinics ranked by Trust Score. Implants from ฿35,000 · Veneers ฿12,000/tooth · Whitening ฿4,000. Save up to 60% vs US prices.",
     hero: "Bangkok Dental Clinics — Verified by Reviews",
     heroSub: "200+ dental clinics in Bangkok & Pattaya ranked by Trust Score. Implants · Veneers · Invisalign · All-on-4. Save up to 70% vs Western prices.",
     themeAccent: "#10b981",

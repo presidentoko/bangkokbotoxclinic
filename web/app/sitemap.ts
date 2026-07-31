@@ -24,8 +24,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const scoped = applySiteFilter(db.clinics, cfg);
   const updated = new Date(db.generated_at);
 
-  const districts = Object.keys(db.district_counts);
-  const cities = Object.keys(db.city_counts ?? {});
+  // city_counts/district_counts는 전 도메인 합산 — 이걸 그대로 쓰면 이 사이트
+  // 소관 클리닉이 하나도 없는 도시/지역까지 사이트맵에 올라가 죽은 URL을
+  // 제출하게 됨 (예: 덴탈 사이트가 보톡스 전용 도시의 /city/*를 제출 →
+  // 페이지 자체는 notFound()라 항상 404). scoped에 실제로 존재하는 것만
+  // 통과 (2026-07-31 감사).
+  const scopedCitySlugs = new Set(scoped.map((c) => c.city_slug).filter(Boolean));
+  const scopedDistricts = new Set(scoped.map((c) => c.district).filter(Boolean));
+  const districts = Object.keys(db.district_counts).filter((d) => scopedDistricts.has(d));
+  const cities = Object.keys(db.city_counts ?? {}).filter((label) => {
+    const clinic = db.clinics.find((c) => c.city_label === label);
+    const slug = clinic?.city_slug ?? label.toLowerCase().replace(/\s+/g, "-");
+    return scopedCitySlugs.has(slug);
+  });
   // scoped(현재 사이트 소관 클리닉)에서만 의사 추출 — 이전엔 db.clinics 전체를 써서
   // botox/덴탈 사이트맵에 동일한 2,000+ 의사 URL이 중복 제출됨 (2026-07-10 감사).
   const allDoctors = getAllDoctors(scoped);
@@ -62,7 +73,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const slug = clinic?.city_slug ?? cityLabel.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/city/${slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
   }
-  for (const [d, count] of Object.entries(db.district_counts)) {
+  for (const d of districts) {
+    const count = db.district_counts[d];
     if ((count as number) < 5) continue;
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
@@ -126,8 +138,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: n >= 10 ? 0.85 : 0.7,
     });
   }
-
-  void districts; // reserved for future district-only sitemap
 
   // Compare pages — top clinics per service, paired (1vs2, 2vs3, 3vs4) → 3 pairs × N services = ~24 compare URLs
   // (scoped 사용 — isClinicLike 필터 + 현재 사이트 소관 클리닉만, 레스토랑 등 노이즈 및 타 도메인 URL 방지)

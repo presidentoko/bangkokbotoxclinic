@@ -50,15 +50,26 @@ function detectLang(pathname: string): Lang {
   return "en";
 }
 
-/** 같은 페이지의 다른 언어 버전 URL — 단순 prefix swap.
- * /clinic/abc → /ko 또는 /th 는 홈으로 (다국어 detail 페이지 없음). */
+// 실제로 로케일 변형이 존재하는 라우트만 나열 — 이 목록에 없는 페이지에서
+// prefix만 바꾸면 404 (예: /th/d/pathum-wan, /th/best/highly-recommended는
+// 존재하지 않음). 2026-07-31 감사 전에는 홈 아닌 모든 페이지가 무조건 해당
+// 언어의 홈으로 튕겨서, 태국어로 클리닉 상세를 읽던 사용자가 클리닉 카드를
+// 누르는 순간 실수로라도 다른 언어 버전에 못 머무르는 구조였음.
+const LOCALIZED_ROUTE_PATTERNS: { pattern: RegExp; langs: Lang[] }[] = [
+  { pattern: /^\/clinic\/[^/]+\/?$/, langs: ["th", "ko"] },
+  { pattern: /^\/c\/[^/]+\/?$/, langs: ["ko"] }, // /th/c/[service] 는 아직 없음
+];
+
+/** 같은 페이지의 다른 언어 버전 URL. 실제로 존재하는 로케일 변형만 경로를
+ * 유지하고, 없는 조합은 안전하게 그 언어의 홈으로 보낸다. */
 function langSwitchHref(pathname: string, target: Lang): string {
-  // /ko/... 또는 /th/... 면 prefix만 변경
-  const stripped = pathname.replace(/^\/(ko|th)/, "") || "/";
+  const stripped = pathname.replace(/^\/(ko|th)(?=\/|$)/, "") || "/";
   if (target === "en") return stripped;
-  // 비-홈 페이지는 다국어 버전 없음 → 해당 언어 홈으로
-  if (stripped !== "/") return `/${target}`;
-  return `/${target}`;
+  if (stripped === "/") return `/${target}`;
+  const hasVariant = LOCALIZED_ROUTE_PATTERNS.some(
+    ({ pattern, langs }) => pattern.test(stripped) && langs.includes(target)
+  );
+  return hasVariant ? `/${target}${stripped}` : `/${target}`;
 }
 
 export function SiteHeader({ focus, accent }: { focus: SiteFocus; accent: string }) {

@@ -97,6 +97,12 @@ export default async function HomePage(
   { lang = "en", faqs: faqsOverride }: { lang?: HomeLang; faqs?: { q: string; a: string }[] } = {}
 ) {
   const t = HOME_T[lang] ?? HOME_T.en;
+  // /th, /ko 홈에서 클리닉을 눌러도 항상 영어 페이지로 빠지던 문제 수정 —
+  // /th/clinic, /ko/clinic 은 이미 존재(ClinicCard와 동일 이유). /c/[service]는
+  // ko만 존재(/th/c/*는 아직 없음), /city/*, /d/*는 로케일 변형 자체가 없어
+  // 그대로 EN 링크 유지 (2026-07-31 감사).
+  const clinicPrefix = lang === "en" ? "" : `/${lang}`;
+  const servicePrefix = lang === "ko" ? "/ko" : "";
   const cfg = getSiteConfig();
   const db = await loadMasterDb();
   const focused = applySiteFilter(db.clinics, cfg);
@@ -557,7 +563,7 @@ export default async function HomePage(
               <h2 className="text-2xl md:text-3xl font-black tracking-tight">
                 {t.top6}
               </h2>
-              <a href="/best/highly-rated" className="text-sm font-medium hover:underline" style={{ color: accent }}>
+              <a href="/best/highly-recommended" className="text-sm font-medium hover:underline" style={{ color: accent }}>
                 {t.seeFullRanking}
               </a>
             </div>
@@ -567,7 +573,7 @@ export default async function HomePage(
                 return (
                   <a
                     key={c.id}
-                    href={`/clinic/${c.id}`}
+                    href={`${clinicPrefix}/clinic/${c.id}`}
                     className="group block border border-[var(--border)] rounded-2xl bg-white hover:shadow-xl hover:-translate-y-0.5 transition relative overflow-hidden"
                   >
                     {/* Photo header — 실제 사진 있을 때만 표시 */}
@@ -647,7 +653,7 @@ export default async function HomePage(
               {reviewQuotes.map((q, i) => (
                 <a
                   key={i}
-                  href={`/clinic/${q.id}`}
+                  href={`${clinicPrefix}/clinic/${q.id}`}
                   className="group block bg-white border border-[var(--border)] rounded-2xl p-5 hover:shadow-md transition"
                 >
                   <div className="text-3xl leading-none mb-2" style={{ color: accent }}>"</div>
@@ -694,7 +700,7 @@ export default async function HomePage(
               {categories.map(([cat, count]) => (
                 <a
                   key={cat}
-                  href={`/c/${cat}`}
+                  href={`${servicePrefix}/c/${cat}`}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
                   <CategoryIcon category={cat} size={14} />

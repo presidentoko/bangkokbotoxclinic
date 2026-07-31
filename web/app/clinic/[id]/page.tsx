@@ -82,8 +82,12 @@ export async function generateMetadata(
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "Clinic not found" };
   const cats = c.categories.map((x) => CATEGORY_LABELS[x] ?? x).join(", ");
-  const title = `${c.name} — Reviews & Trust Score`;
-  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} (${c.total_reviews} reviews). Trust Score ${c.trust_score}. ${cats || "Aesthetic clinic"}.`;
+  // "Reviews & Trust Score"는 1,846개 클리닉 페이지 전부에 동일하게 붙던
+  // 문구고 "Trust Score"는 아무도 검색하지 않는 용어 — 대신 실제 검색 신호
+  // (평점·리뷰수)로 대체 + 브랜드 접미사는 absolute로 꺼서 60자 내로 유지
+  // (2026-07-31 감사, 실측 브랜드 포함 81자 → 잘림).
+  const title = `${c.name} — ★${c.rating} (${c.total_reviews} reviews)`;
+  const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} rating from ${c.total_reviews} Google reviews. ${cats || "Aesthetic clinic"}. See prices, photos & book a free consult.`;
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)
   // 절대 URL로 진짜 소유 도메인을 캐노니컬로 지정 + noindex — 두 도메인 동시 색인 방지.
@@ -93,7 +97,7 @@ export async function generateMetadata(
   const canonical = ownerUrl ? `${ownerUrl}/clinic/${c.id}` : `/clinic/${c.id}`;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {
@@ -130,7 +134,7 @@ export async function generateMetadata(
 }
 
 export default async function ClinicPage(
-  { params }: { params: Promise<{ id: string }> }
+  { params, lang = "en" }: { params: Promise<{ id: string }>; lang?: "en" | "th" }
 ) {
   const { id } = await params;
   const db = await loadMasterDb();
@@ -375,7 +379,7 @@ export default async function ClinicPage(
       {/* Wiki AI summary — 양국어, AEO/LLM 인용 친화. header 직하 prominent. */}
       {wikiSummary && (
         <div className="mb-6">
-          <WikiSummaryCard summary={wikiSummary} />
+          <WikiSummaryCard summary={wikiSummary} lang={lang} />
         </div>
       )}
 
@@ -579,11 +583,31 @@ export default async function ClinicPage(
           <section className="grid sm:grid-cols-2 gap-3">
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
               <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Address</div>
-              <div className="text-sm leading-relaxed">{c.address || "—"}</div>
+              {/* 이전엔 탭 불가능한 맨 텍스트 — 모바일에서 길찾기 누르려는 사용자가
+                  쓰는 바로 그 카드인데 작동하는 링크는 사이드바 아래쪽에 따로 있었음
+                  (2026-07-31 감사). */}
+              {c.address ? (
+                <a
+                  href={c.maps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm leading-relaxed text-[var(--accent)] hover:underline"
+                >
+                  {c.address}
+                </a>
+              ) : (
+                <div className="text-sm leading-relaxed">—</div>
+              )}
             </div>
             <div className="bg-white border border-[var(--border)] rounded-lg p-4">
               <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1">Phone</div>
-              <div className="text-sm">{c.phone || "—"}</div>
+              {c.phone ? (
+                <a href={`tel:${c.phone.replace(/[^+\d]/g, "")}`} className="text-sm text-[var(--accent)] hover:underline">
+                  {c.phone}
+                </a>
+              ) : (
+                <div className="text-sm">—</div>
+              )}
               {c.website && (
                 <>
                   <div className="text-xs uppercase tracking-wide text-[var(--muted)] mb-1 mt-3">Website</div>

@@ -48,10 +48,25 @@ export async function generateMetadata(
     hair_transplant: "FUE from ฿65,000 (2,000 grafts)",
   };
   const priceHint = PRICE_HINTS[service];
+  // 구글 SERP 표시 한계(제목 ~60자, 설명 ~155자)를 크게 초과해 잘리던 문제
+  // (실측 99~108자/225~234자) — 브랜드 접미사는 title.template 대신
+  // absolute로 꺼서 제거하고, 검색어(서비스+도시)를 앞으로, 길이를 줄임
+  // (2026-07-31 감사).
+  const titleSuffix = priceHint ? priceHint.split("·")[0].trim() : "Verified Reviews";
   return {
-    title: `${count} Best ${label} Clinics in Bangkok 2026 — Verified Reviews${priceHint ? `, ${priceHint.split("·")[0].trim()}` : ""}`,
-    description: `${count} verified ${label.toLowerCase()} clinics in Bangkok ranked by Trust Score from ${totalReviews.toLocaleString()} Google reviews.${priceHint ? ` ${priceHint}.` : ""} Compare credibility, district, and patient satisfaction. Save up to 70% vs Western prices.`,
-    alternates: { canonical: `/c/${service}` },
+    title: { absolute: `${label} Clinics in Bangkok — ${titleSuffix} 2026` },
+    description: `${count} ${label} clinics in Bangkok ranked by Trust Score.${priceHint ? ` ${priceHint}.` : ""} Compare credibility, district, and reviews.`,
+    alternates: {
+      canonical: `/c/${service}`,
+      // ko/c/[service]는 이 페이지로 되돌아오는 languages를 이미 선언하는데
+      // 이쪽엔 상호 선언이 없어 hreflang이 단방향이라 구글이 무시하던 문제
+      // (2026-07-31 감사). th는 아직 /th/c/[service] 자체가 없어 제외.
+      languages: {
+        "en-US": `/c/${service}`,
+        "ko-KR": `/ko/c/${service}`,
+        "x-default": `/c/${service}`,
+      },
+    },
     ...(robots && { robots }),
     openGraph: {
       title: `${count} Best ${label} Clinics in Bangkok`,
