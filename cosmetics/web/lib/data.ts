@@ -80,6 +80,16 @@ export function productsWithIngredient(inci: string): Product[] {
   return allProducts().filter((p) => p.ingredient_analysis.some((a) => a.inci === inci));
 }
 
+// concern_efficacy scores each concern 0-3; 0 means "not effective for this",
+// not "unknown" or "applicable" — callers must filter it out, not just take
+// every key, or they'll assert efficacy the data explicitly says is zero.
+export function effectiveConcerns(concernEfficacy: Record<string, number> | undefined): { concern: Concern; score: number }[] {
+  return Object.entries(concernEfficacy ?? {})
+    .filter(([c, score]) => score > 0 && CONCERNS.includes(c as Concern))
+    .map(([c, score]) => ({ concern: c as Concern, score }))
+    .sort((a, b) => b.score - a.score);
+}
+
 /**
  * Returns products from the same concern ranking that are cheaper than `p`
  * and not much worse in score (within 10 points). Excludes `p` itself.
@@ -154,8 +164,11 @@ function productHasConcern(p: Product, concern: string): boolean {
   if (Array.isArray(seeds)) {
     return seeds.includes(concern);
   }
-  // string — could be "|"-joined or a bare value
-  return seeds.split("|").map((s) => s.trim()).includes(concern);
+  // string — could be "|"-joined or a bare value. Guarded the same way as
+  // brandStats() below: concern_seeds is typed as string here, but this reads
+  // straight from JSON, and a product missing the field entirely would be
+  // `undefined` at runtime despite the type — .split() on that throws.
+  return String(seeds ?? "").split("|").map((s) => s.trim()).includes(concern);
 }
 
 // ---------------------------------------------------------------------------
@@ -374,15 +387,16 @@ export const FILTER_CONFIGS: FilterConfig[] = [
   { slug: "serum",          th: "เซรั่ม",            en: "Serum",                emoji: "🧴", apply: (p) => /serum/i.test(p.name) },
   { slug: "moisturizer",    th: "ครีม/มอยส์เจอไรเซอร์", en: "Cream / Moisturizer", emoji: "🫙", apply: (p) => /(moisturi[sz]|cream|lotion|gel cream)/i.test(p.name) },
   { slug: "toner",          th: "โทนเนอร์",          en: "Toner / Essence",      emoji: "💦", apply: (p) => /toner|essence|mist/i.test(p.name) },
+  { slug: "cleanser",       th: "คลีนเซอร์/เจลล้างหน้า", en: "Cleanser",         emoji: "🧼", apply: (p) => /cleans|facial wash|foam|face wash/i.test(p.name) },
 ];
 
 export const CONCERN_FILTER_SLUGS: Record<string, string[]> = {
-  acne:       ["under-300", "under-500", "fragrance-free", "niacinamide", "salicylic-acid", "serum"],
-  whitening:  ["under-300", "under-500", "fragrance-free", "vitamin-c", "niacinamide", "serum"],
+  acne:       ["under-300", "under-500", "fragrance-free", "niacinamide", "salicylic-acid", "serum", "cleanser"],
+  whitening:  ["under-300", "under-500", "fragrance-free", "vitamin-c", "niacinamide", "serum", "cleanser"],
   antiaging:  ["under-500", "under-1000", "retinol", "vitamin-c", "hyaluronic-acid", "serum", "moisturizer"],
-  pores:      ["under-300", "under-500", "niacinamide", "salicylic-acid", "serum"],
-  oilcontrol: ["under-300", "under-500", "niacinamide", "salicylic-acid", "toner"],
-  sensitive:  ["under-300", "under-500", "fragrance-free", "hyaluronic-acid", "moisturizer"],
+  pores:      ["under-300", "under-500", "niacinamide", "salicylic-acid", "serum", "cleanser"],
+  oilcontrol: ["under-300", "under-500", "niacinamide", "salicylic-acid", "toner", "cleanser"],
+  sensitive:  ["under-300", "under-500", "fragrance-free", "hyaluronic-acid", "moisturizer", "cleanser"],
 };
 
 export function getFilter(slug: string): FilterConfig | undefined {

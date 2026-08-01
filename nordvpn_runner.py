@@ -159,6 +159,11 @@ class Runner:
         # 포트 idx -> 연속 부팅실패 스트릭 / 백오프 만료 시각
         self._backoff_streak: dict[int, int] = {}
         self._backoff_until: dict[int, float] = {}
+        # 포트 idx -> SOCKS 헬스체크 연속 실패 횟수 (단발성 오탐으로 멀쩡한
+        # 터널을 재부팅하지 않기 위함 — 2026-07-29 사고: 8포트를 순차로 체크하며
+        # 5s 타임아웃 1번 실패로 바로 재부팅 → 체크 자체의 지연/오탐이 포트를
+        # 연쇄적으로 재기동시키는 "웨이브" 패턴 유발).
+        self._socks_fail_streak: dict[int, int] = {}
         self._stop = False
         self.rotate_ptr = 0
         self.last_refresh = 0.0
@@ -430,16 +435,39 @@ class Runner:
                         self.boot_port(p)
                         self._write_status()
 
-            # 프로세스는 살아있지만 SOCKS 터널이 죽은 경우 감지
+            # 프로세스는 살아있지만 SOCKS 터널이 죽은 경우 감지.
+            # 병렬로 체크(순차면 8포트 x 최대 5-8s = 최대 90s 걸려서, 체크
+            # 자체가 뒤쪽 포트일수록 지연되고, 그 지연이 실제 장애처럼 보이는
+            # "웨이브" 재기동을 유발했다). 단발성 타임아웃(HEALTH_URL 일시
+            # 지연, subprocess 스폰 지연 등)으로 멀쩡한 터널을 죽이지 않도록
+            # 연속 2회 실패해야만 재부팅 — 1회 실패는 그냥 스트릭만 올리고 넘어감.
             if now - last_socks_check > SOCKS_HEALTH_INTERVAL:
                 last_socks_check = now
-                for p in self.ports:
-                    if p.is_alive() and not p.check_health(timeout=5.0):
-                        log(f"port {p.port}: SOCKS dead (process alive) → rotate")
-                        self._mark_failed(p.server_host)
-                        if not self._backoff_active(p.idx):
-                            self.boot_port(p)
-                        self._write_status()
+                alive_ports = [p for p in self.ports if p.is_alive()]
+                results: dict[int, str | None] = {}
+
+                def _check(p: Port):
+                    results[p.idx] = p.check_health(timeout=8.0)
+
+                threads = [threading.Thread(target=_check, args=(p,)) for p in alive_ports]
+                for t in threads: t.start()
+                for t in threads: t.join(timeout=15)
+
+                for p in alive_ports:
+                    if results.get(p.idx):
+                        self._socks_fail_streak[p.idx] = 0
+                        continue
+                    streak = self._socks_fail_streak.get(p.idx, 0) + 1
+                    self._socks_fail_streak[p.idx] = streak
+                    if streak < 2:
+                        log(f"port {p.port}: SOCKS 헬스체크 실패 (1회, 재확인 대기)")
+                        continue
+                    log(f"port {p.port}: SOCKS dead (process alive, 연속 {streak}회) → rotate")
+                    self._socks_fail_streak[p.idx] = 0
+                    self._mark_failed(p.server_host)
+                    if not self._backoff_active(p.idx):
+                        self.boot_port(p)
+                    self._write_status()
 
             if now - self.last_refresh > REFRESH_INTERVAL:
                 self.fetch_servers()

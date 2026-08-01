@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CONCERNS, getRanking, getProduct, productSlug, productIdFromSlug } from "@/lib/data";
-import { LOCALES, STATIC_LOCALES, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd, breadcrumbLd } from "@/lib/schema";
+import { buildComparablePairs } from "@/lib/search-index";
 import type { Product } from "@/lib/types";
 
 const BASE = "https://bangkokfillers.com";
@@ -76,7 +77,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${loc}/compare/${slugs}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/compare/${slugs}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/compare/${slugs}`),
     },
     openGraph: {
       title, description, url: `${BASE}/${loc}/compare/${slugs}`,
@@ -121,11 +122,19 @@ export default async function ComparePage({
     (best, c) => ((pA.total_score[c] ?? 0) > (pA.total_score[best] ?? 0) ? c : best),
     CONCERNS[0],
   );
+  // Only suggest pairs that generateStaticParams actually prerendered (top-5-per-concern,
+  // both orderings) — buildComparablePairs() is the same top-5 enumeration used there, so
+  // anything missing from it would 404. See lib/search-index.ts:45.
+  const comparablePairs = buildComparablePairs();
   const suggestions = getRanking(topConcernA)
-    .slice(0, 10)
     .map((e) => getProduct(e.product_id))
     .filter((p): p is Product => p != null)
     .filter((p) => p.product_id !== pA.product_id && p.product_id !== pB.product_id)
+    .map((p) => ({
+      p,
+      slug: comparablePairs[[pA.product_id, p.product_id].sort().join("~")],
+    }))
+    .filter((s): s is { p: Product; slug: string } => Boolean(s.slug))
     .slice(0, 3);
 
   const faqQas = scored.map(({ concern, scoreA, scoreB, winner }) => {
@@ -335,18 +344,15 @@ export default async function ComparePage({
             {isTh ? "เปรียบเทียบกับตัวอื่น" : "More comparisons"}
           </p>
           <div className="flex flex-wrap gap-2">
-            {suggestions.map((p) => {
-              const s = `${productSlug(pA)}-vs-${productSlug(p)}`;
-              return (
-                <Link
-                  key={s}
-                  href={`/${locale}/compare/${s}`}
-                  className="text-sm px-3 py-1.5 rounded-full border border-[#efe1db] bg-white text-[#8a7a76] hover:text-rose-500 hover:border-rose-300 transition-colors"
-                >
-                  {pA.brand} vs {p.brand}
-                </Link>
-              );
-            })}
+            {suggestions.map(({ p, slug: s }) => (
+              <Link
+                key={s}
+                href={`/${locale}/compare/${s}`}
+                className="text-sm px-3 py-1.5 rounded-full border border-[#efe1db] bg-white text-[#8a7a76] hover:text-rose-500 hover:border-rose-300 transition-colors"
+              >
+                {pA.brand} vs {p.brand}
+              </Link>
+            ))}
           </div>
         </section>
       )}

@@ -52,7 +52,7 @@ export function QuizLeadCapture({ skin, concern, budget, locale }: Props) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={isTh ? "อีเมลของคุณ" : "your@email.com"}
-          className="flex-1 rounded-lg border border-rose-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400"
+          className="flex-1 rounded-lg border border-rose-200 px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-rose-400"
         />
         <button
           type="submit"

@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
 import { kvHset, kvHdel, kvSet } from "@/lib/kv";
 import type { Concern } from "@/lib/data";
 
@@ -38,7 +39,7 @@ export async function requireAuth() {
 export async function setFeatured(formData: FormData) {
   await requireAuth();
   const concern = formData.get("concern") as Concern;
-  const productId = (formData.get("product_id") as string).trim();
+  const productId = (formData.get("product_id")?.toString() ?? "").trim();
   if (productId) {
     await kvHset(KV_FEATURED, concern, productId);
   } else {
@@ -56,8 +57,11 @@ export async function clearFeatured(formData: FormData) {
 
 export async function saveBanner(formData: FormData) {
   await requireAuth();
-  const text = (formData.get("text") as string).trim();
+  const text = (formData.get("text")?.toString() ?? "").trim();
   const active = formData.get("active") === "on";
   await kvSet(KV_BANNER, JSON.stringify({ text, active }));
+  // Next 16's revalidateTag requires a profile arg even for a plain unstable_cache
+  // tag purge (it doesn't apply a cacheLife semantic here — just satisfies the type).
+  revalidateTag("banner", "max");
   redirect("/admin");
 }

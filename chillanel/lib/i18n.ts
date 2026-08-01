@@ -79,6 +79,11 @@ export type Dict = {
     /** Template with "{name}" and "{price}" placeholders. */
     priceFaqAnswer: string;
   };
+  /** City chooser index at /[lang]/city — lists every city with data. */
+  cities: {
+    title: string;
+    intro: string;
+  };
   /** listTitle/intro/faqTitle/faq[].* use a "{city}" placeholder, e.g. "Massage & spa in {city}". */
   city: {
     listTitle: string;
@@ -187,13 +192,13 @@ const en: Dict = {
   home: {
     heroTitle: "It's not the spa. It's the hands.",
     heroSub:
-      "chillanel is a Bangkok massage & spa guide built around the one thing every ranking site ignores: who's actually giving the massage.",
+      "chillanel is a Thailand massage & spa guide built around the one thing every ranking site ignores: who's actually giving the massage.",
     philosophyTitle: "Why we're different",
     philosophyBody:
       "A five-star lobby doesn't guarantee a good massage, and a plain shophouse doesn't mean a bad one. We read the reviews for the parts other sites skip — the ones that name names.",
     featuredTitle: "Featured places",
     trustBadge: "{count}+ places, built from real Google reviews",
-    ctaBrowse: "Browse Bangkok",
+    ctaBrowse: "Browse all places",
     manifesto: "No paid placements. No sponsored ranks. Every listing pulled straight from public Google reviews.",
     stats: { places: "places listed", reviews: "reviews analyzed", therapists: "therapists named by reviewers" },
     quotesTitle: "In their own words",
@@ -209,11 +214,11 @@ const en: Dict = {
         a: "They're auto-extracted from public Google reviews when 2 or more different reviewers mention the same name — always shown with the original quote. We label them clearly as unverified, and you should confirm availability with the venue directly.",
       },
       {
-        q: "How do I pick a good massage place in Bangkok?",
+        q: "How do I pick a good massage place?",
         a: "Start with the rating and review count, then check if any therapist is named repeatedly in reviews — that's a stronger signal than the storefront. Read a few recent reviews for context on cleanliness and pressure style.",
       },
     ],
-    trendingTitle: "What Bangkok reviewers say most",
+    trendingTitle: "What reviewers say most",
   },
   place: {
     reviewsTitle: "What reviewers say",
@@ -248,6 +253,10 @@ const en: Dict = {
     locationFaqAnswer: "{name} is located at {address}.",
     priceFaqQuestion: "How much does {name} cost?",
     priceFaqAnswer: "Based on reviewer mentions, a session at {name} costs around ~{price}฿.",
+  },
+  cities: {
+    title: "Cities",
+    intro: "Pick a city to browse real, review-backed massage & spa listings.",
   },
   city: {
     listTitle: "Massage & spa in {city}",
@@ -369,13 +378,13 @@ const th: Dict = {
   home: {
     heroTitle: "ไม่ใช่ร้าน แต่เป็นฝีมือคน",
     heroSub:
-      "chillanel คือคู่มือร้านนวด & สปาในกรุงเทพฯ ที่โฟกัสสิ่งที่เว็บจัดอันดับอื่นมองข้าม นั่นคือ ใครเป็นคนนวดจริง ๆ",
+      "chillanel คือคู่มือร้านนวด & สปาในไทย ที่โฟกัสสิ่งที่เว็บจัดอันดับอื่นมองข้าม นั่นคือ ใครเป็นคนนวดจริง ๆ",
     philosophyTitle: "ทำไมเราถึงต่าง",
     philosophyBody:
       "ล็อบบี้ห้าดาวไม่ได้การันตีฝีมือนวดที่ดี และร้านเล็ก ๆ ก็ไม่ได้แปลว่าแย่เสมอไป เราอ่านรีวิวในส่วนที่เว็บอื่นข้ามไป — ส่วนที่เอ่ยชื่อจริง ๆ",
     featuredTitle: "ร้านแนะนำ",
     trustBadge: "รวมกว่า {count}+ ร้าน จากรีวิว Google จริง",
-    ctaBrowse: "ดูร้านในกรุงเทพฯ",
+    ctaBrowse: "ดูร้านทั้งหมด",
     manifesto: "ไม่มีการจ่ายเงินจัดอันดับ ไม่มีสปอนเซอร์ ทุกรายชื่อดึงตรงจากรีวิว Google สาธารณะ",
     stats: { places: "ร้านที่รวบรวม", reviews: "รีวิวที่วิเคราะห์", therapists: "หมอนวดที่ถูกเอ่ยชื่อโดยรีวิว" },
     quotesTitle: "คำพูดจากรีวิวจริง",
@@ -391,11 +400,11 @@ const th: Dict = {
         a: "ชื่อเหล่านี้ดึงมาอัตโนมัติจากรีวิว Google สาธารณะ เมื่อมีผู้รีวิวอย่างน้อย 2 คนขึ้นไปเอ่ยชื่อเดียวกัน — พร้อมแสดงข้อความรีวิวต้นฉบับเสมอ เราระบุชัดเจนว่ายังไม่ได้ยืนยัน กรุณาสอบถามร้านโดยตรงก่อนเข้ารับบริการ",
       },
       {
-        q: "จะเลือกร้านนวดในกรุงเทพฯ ยังไงดี?",
+        q: "จะเลือกร้านนวดยังไงดี?",
         a: "เริ่มจากคะแนนและจำนวนรีวิว จากนั้นดูว่ามีชื่อหมอนวดคนไหนถูกเอ่ยซ้ำ ๆ ในรีวิวไหม นั่นเป็นสัญญาณที่น่าเชื่อถือกว่าหน้าร้าน แล้วอ่านรีวิวล่าสุดสักสองสามอันเพื่อดูความสะอาดและสไตล์การนวด",
       },
     ],
-    trendingTitle: "รีวิวในกรุงเทพฯ พูดถึงอะไรมากที่สุด",
+    trendingTitle: "รีวิวพูดถึงอะไรมากที่สุด",
   },
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
@@ -430,6 +439,10 @@ const th: Dict = {
     locationFaqAnswer: "{name} ตั้งอยู่ที่ {address}",
     priceFaqQuestion: "{name} ราคาเท่าไหร่",
     priceFaqAnswer: "จากรีวิวของลูกค้า ราคาที่ {name} อยู่ที่ประมาณ ~{price}฿ ต่อครั้ง",
+  },
+  cities: {
+    title: "เลือกเมือง",
+    intro: "เลือกเมืองเพื่อดูรายชื่อร้านนวดและสปาที่รวบรวมจากรีวิว Google จริง",
   },
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
@@ -551,13 +564,13 @@ const ko: Dict = {
   home: {
     heroTitle: "중요한 건 스파가 아니라 손끝이에요.",
     heroSub:
-      "chillanel은 다른 순위 사이트들이 놓치는 단 하나 — 실제로 누가 마사지를 해주는지에 집중한 방콕 마사지·스파 가이드입니다.",
+      "chillanel은 다른 순위 사이트들이 놓치는 단 하나 — 실제로 누가 마사지를 해주는지에 집중한 태국 마사지·스파 가이드입니다.",
     philosophyTitle: "우리가 다른 이유",
     philosophyBody:
       "화려한 로비가 좋은 마사지를 보장하지 않고, 소박한 샵이라고 실력이 없는 것도 아니에요. 저희는 다른 사이트가 건너뛰는 리뷰 부분 — 실명이 언급된 부분을 읽습니다.",
     featuredTitle: "추천 업체",
     trustBadge: "실제 구글 리뷰 기반, {count}+개 업체 수록",
-    ctaBrowse: "방콕 업체 보기",
+    ctaBrowse: "전체 둘러보기",
     manifesto: "돈 받고 순위 매기지 않아요. 스폰서도 없어요. 모든 목록은 공개된 구글 리뷰에서 그대로 가져옵니다.",
     stats: { places: "등록된 업체", reviews: "분석한 리뷰", therapists: "리뷰에서 이름이 언급된 테라피스트" },
     quotesTitle: "실제 리뷰어의 말",
@@ -573,11 +586,11 @@ const ko: Dict = {
         a: "공개된 구글 리뷰에서 2명 이상의 서로 다른 리뷰어가 같은 이름을 언급했을 때 자동으로 추출된 이름이며, 원문 인용과 함께 항상 표시됩니다. 검증되지 않았다는 점을 명확히 표시하니, 방문 전 업체에 직접 확인해 주세요.",
       },
       {
-        q: "방콕에서 좋은 마사지샵은 어떻게 고르나요?",
+        q: "좋은 마사지샵은 어떻게 고르나요?",
         a: "평점과 리뷰 수를 먼저 확인하고, 리뷰에 반복적으로 언급되는 테라피스트 이름이 있는지 살펴보세요. 이는 매장 외관보다 더 신뢰할 수 있는 신호예요. 최근 리뷰 몇 개를 읽으면 청결도나 마사지 스타일도 파악할 수 있습니다.",
       },
     ],
-    trendingTitle: "방콕 리뷰에서 가장 많이 언급된 것",
+    trendingTitle: "리뷰에서 가장 많이 언급된 것",
   },
   place: {
     reviewsTitle: "리뷰어들의 후기",
@@ -614,6 +627,10 @@ const ko: Dict = {
     locationFaqAnswer: "{name}은(는) {address}에 위치해 있습니다.",
     priceFaqQuestion: "{name}의 가격은 얼마인가요?",
     priceFaqAnswer: "리뷰 기준으로 {name}의 1회 이용 가격은 약 ~{price}฿입니다.",
+  },
+  cities: {
+    title: "도시 선택",
+    intro: "실제 구글 리뷰 기반 마사지·스파 업체를 도시별로 둘러보세요.",
   },
   city: {
     listTitle: "{city}의 마사지 & 스파",

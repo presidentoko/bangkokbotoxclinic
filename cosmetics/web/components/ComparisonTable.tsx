@@ -81,15 +81,25 @@ function ThSortable({
   onSort: (k: Key) => void;
   children: React.ReactNode;
 }) {
+  const active = sort === k;
   return (
     <th
+      role="button"
+      tabIndex={0}
+      aria-sort={active ? (thSortDir(k) === "asc" ? "ascending" : "descending") : "none"}
       onClick={() => onSort(k)}
-      className={`cursor-pointer px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide select-none whitespace-nowrap ${
-        sort === k ? "text-rose-600" : "text-[#8a7a76] hover:text-[#2b2222]"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSort(k);
+        }
+      }}
+      className={`cursor-pointer px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide select-none whitespace-nowrap focus-visible:outline focus-visible:outline-2 focus-visible:outline-rose-400 ${
+        active ? "text-rose-600" : "text-[#8a7a76] hover:text-[#2b2222]"
       }`}
     >
       {children}
-      <SortIndicator active={sort === k} dir={thSortDir(k)} />
+      <SortIndicator active={active} dir={thSortDir(k)} />
     </th>
   );
 }

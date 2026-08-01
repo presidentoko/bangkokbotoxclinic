@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { SearchClient } from "@/components/SearchClient";
 import { buildSearchIndex, buildComparablePairs } from "@/lib/search-index";
 import Link from "next/link";
 
 // Static shell + client-side filtering over a prebuilt index (lib/search-index.ts)
-// — no more force-dynamic + per-request full-catalog server scan.
-export const revalidate = 86400;
+// — no more force-dynamic + per-request full-catalog server scan. The index is
+// built entirely from master_db.json (build-time data, no KV/ads/date dependence
+// like the concern/product/sale pages have), so there's nothing for a daily
+// revalidate to pick up between deploys.
+export const revalidate = false;
 
 const BASE = "https://bangkokfillers.com";
 
@@ -23,30 +26,18 @@ export async function generateMetadata({
   const { locale: localeRaw } = await params;
   const locale = localeRaw as Locale;
 
-  const title =
-    locale === "th"
-      ? "ค้นหาสินค้า — BangkokFillers"
-      : locale === "ko"
-        ? "제품 검색 — BangkokFillers"
-        : locale === "ar"
-          ? "البحث عن المنتجات — BangkokFillers"
-          : "Search Products — BangkokFillers";
-
+  const title = locale === "th" ? "ค้นหาสินค้า" : "Search Products";
   const description =
     locale === "th"
       ? "ค้นหาสินค้าสกินแคร์ไทย แบรนด์ หรือส่วนผสมที่คุณสนใจ"
-      : locale === "ko"
-        ? "태국 스킨케어 제품, 브랜드, 성분을 검색하세요"
-        : locale === "ar"
-          ? "ابحث عن منتجات العناية بالبشرة التايلاندية، العلامات التجارية، أو المكونات"
-          : "Search Thai skincare products, brands, or ingredients";
+      : "Search Thai skincare products, brands, or ingredients";
 
   return {
     title,
     description,
     alternates: {
       canonical: `${BASE}/${locale}/search`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/search`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/search`),
     },
   };
 }

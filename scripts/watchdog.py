@@ -800,6 +800,60 @@ def build_services() -> list[Service]:
         "GRID_N_WORKERS": "2",
     }
 
+    # massage/spa 타 도시 확장 (2026-07-29) — 방콕과 완전히 동일한 패턴,
+    # 좌표/반경만 기존 {city}_env 재사용. 기본 포트는 방콕 것과 그대로 겹침
+    # (2080-2087) — 아직 순서를 못 받은 도시는 run/*.disabled로 꺼둔 채 대기.
+    #
+    # 2026-07-30: nordvpn_runner가 실제로는 --ports 10 (2080-2089)으로 뜨는데
+    # 8포트(2080-2087)만 다들 나눠 쓰느라 2088-2089는 완전히 유휴 상태였음.
+    # 파타야를 방콕과 "포트 나눠서 동시 진행"시키기로 하면서, 기존 8포트를
+    # 재분배하는 대신 이 유휴 2포트를 파타야 전용으로 새로 배정 — 방콕/덴탈/
+    # 헤어 등 이미 돌고 있는 어떤 서비스와도 안 겹침. spa_proxy_base 등
+    # kwarg로 오버라이드 가능하게 해서, 다음 도시 차례 때도 이런 식으로
+    # 유휴 포트를 찾아 지정할 수 있게 함 (기본값은 여전히 방콕과 충돌하는
+    # 값이라 오버라이드 없이 켜면 위험 — 반드시 여유 포트 확인 후 지정할 것).
+    def _spa_massage_env(
+        city_tag: str, lat: str, lng: str, radius: str, out_dir: str,
+        spa_proxy_base: str = "2080", spa_grid_port: str = "2080",
+        massage_proxy_base: str = "2084", massage_grid_port: str = "2082",
+        n_workers: str = "4", grid_n_workers: str = "2",
+    ) -> tuple[dict, dict]:
+        spa = {
+            "SEARCH_QUERY": "spa", "SEARCH_TAG": f"spa_{city_tag}",
+            "CITY_LAT": lat, "CITY_LNG": lng, "CITY_RADIUS_M": radius,
+            "CITY_OUTPUT_DIR": out_dir,
+            "N_WORKERS": n_workers, "PROXY_PORT_BASE": spa_proxy_base,
+            "GRID_PROXY_PORT": spa_grid_port, "GRID_N_WORKERS": grid_n_workers,
+        }
+        massage = {
+            "SEARCH_QUERY": "massage", "SEARCH_TAG": f"massage_{city_tag}",
+            "CITY_LAT": lat, "CITY_LNG": lng, "CITY_RADIUS_M": radius,
+            "CITY_OUTPUT_DIR": out_dir,
+            "N_WORKERS": n_workers, "PROXY_PORT_BASE": massage_proxy_base,
+            "GRID_PROXY_PORT": massage_grid_port, "GRID_N_WORKERS": grid_n_workers,
+        }
+        return spa, massage
+
+    # 파타야 전용: 유휴 포트 2088(spa) / 2089(massage-grid). review는 spa/massage가
+    # 같은 CITY_OUTPUT_DIR(candidate queue)을 공유하는 기존 방콕 패턴 그대로라
+    # PROXY_PORT_BASE=2088 + N_WORKERS=2 로 2088-2089를 함께 씀 — 방콕 review
+    # (2080-83/2084-87)와는 완전히 분리된 범위.
+    spa_pattaya_env, massage_pattaya_env = _spa_massage_env(
+        "pattaya", "12.9236", "100.8825", "20000", "../spa_output/pattaya",
+        spa_proxy_base="2088", spa_grid_port="2088",
+        massage_proxy_base="2088", massage_grid_port="2089",
+        n_workers="2", grid_n_workers="1")
+    spa_phuket_env, massage_phuket_env = _spa_massage_env(
+        "phuket", "7.8804", "98.3923", "20000", "../spa_output/phuket")
+    spa_chiang_mai_env, massage_chiang_mai_env = _spa_massage_env(
+        "chiang_mai", "18.7883", "98.9853", "20000", "../spa_output/chiang_mai")
+    spa_koh_samui_env, massage_koh_samui_env = _spa_massage_env(
+        "koh_samui", "9.5018", "99.9648", "15000", "../spa_output/koh_samui")
+    spa_hua_hin_env, massage_hua_hin_env = _spa_massage_env(
+        "hua_hin", "12.5684", "99.9577", "12000", "../spa_output/hua_hin")
+    spa_krabi_env, massage_krabi_env = _spa_massage_env(
+        "krabi", "8.0863", "98.9063", "15000", "../spa_output/krabi")
+
     # progress 패턴 (각 서비스의 "실제 작업 진척" 시그널)
     PROG_REVIEW = re.compile(r"✓ \[\d+\].*처리율")  # scraper 한 건 완료 라인
     PROG_GRID   = re.compile(r"\| 결과 \d+ 신규 \d+")  # grid 한 점 처리 라인
@@ -811,7 +865,7 @@ def build_services() -> list[Service]:
     return [
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "10", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
@@ -1176,6 +1230,282 @@ def build_services() -> list[Service]:
             cwd=bk_clinics,
             env_extra=massage_bangkok_env,
             log_file=LOGS / "massage_review_bangkok.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_pattaya",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_pattaya_env,
+            log_file=LOGS / "spa_grid_pattaya.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_pattaya",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_pattaya_env,
+            log_file=LOGS / "spa_review_pattaya.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_pattaya",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_pattaya_env,
+            log_file=LOGS / "massage_grid_pattaya.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_pattaya",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_pattaya_env,
+            log_file=LOGS / "massage_review_pattaya.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_phuket",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_phuket_env,
+            log_file=LOGS / "spa_grid_phuket.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_phuket",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_phuket_env,
+            log_file=LOGS / "spa_review_phuket.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_phuket",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_phuket_env,
+            log_file=LOGS / "massage_grid_phuket.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_phuket",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_phuket_env,
+            log_file=LOGS / "massage_review_phuket.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_chiang_mai",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_chiang_mai_env,
+            log_file=LOGS / "spa_grid_chiang_mai.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_chiang_mai",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_chiang_mai_env,
+            log_file=LOGS / "spa_review_chiang_mai.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_chiang_mai",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_chiang_mai_env,
+            log_file=LOGS / "massage_grid_chiang_mai.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_chiang_mai",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_chiang_mai_env,
+            log_file=LOGS / "massage_review_chiang_mai.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_koh_samui",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_koh_samui_env,
+            log_file=LOGS / "spa_grid_koh_samui.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_koh_samui",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_koh_samui_env,
+            log_file=LOGS / "spa_review_koh_samui.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_koh_samui",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_koh_samui_env,
+            log_file=LOGS / "massage_grid_koh_samui.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_koh_samui",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_koh_samui_env,
+            log_file=LOGS / "massage_review_koh_samui.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_hua_hin",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_hua_hin_env,
+            log_file=LOGS / "spa_grid_hua_hin.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_hua_hin",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_hua_hin_env,
+            log_file=LOGS / "spa_review_hua_hin.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_hua_hin",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_hua_hin_env,
+            log_file=LOGS / "massage_grid_hua_hin.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_hua_hin",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_hua_hin_env,
+            log_file=LOGS / "massage_review_hua_hin.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="spa_grid_krabi",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=spa_krabi_env,
+            log_file=LOGS / "spa_grid_krabi.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="spa_review_krabi",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=spa_krabi_env,
+            log_file=LOGS / "spa_review_krabi.log",
+            chrome_heavy=True,
+            review_done_check=True,
+            progress_pattern=PROG_REVIEW,
+            progress_stale_sec=600,
+            progress_grace_sec=420,
+        ),
+        Service(
+            name="massage_grid_krabi",
+            cmd=["scraper_grid.py"],
+            cwd=bk_clinics,
+            env_extra=massage_krabi_env,
+            log_file=LOGS / "massage_grid_krabi.log",
+            grid_done_check=True,
+            progress_pattern=PROG_GRID,
+            progress_stale_sec=300,
+            progress_grace_sec=180,
+        ),
+        Service(
+            name="massage_review_krabi",
+            cmd=["scraper.py"],
+            cwd=bk_clinics,
+            env_extra=massage_krabi_env,
+            log_file=LOGS / "massage_review_krabi.log",
             chrome_heavy=True,
             review_done_check=True,
             progress_pattern=PROG_REVIEW,

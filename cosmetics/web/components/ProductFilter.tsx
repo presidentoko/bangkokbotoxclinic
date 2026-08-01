@@ -17,6 +17,13 @@ interface FilterState {
 // Slim projection of Product — only what this filter/card actually renders.
 // Keeps concern-page RSC payload small; never pass full Product[] (with
 // review_summary/pantip/youtube/watsons blobs) down to a client component.
+//
+// total_score/concern_efficacy are pre-flattened to a single number for THIS
+// page's concern by the caller — every read site below only ever indexed the
+// current concern out of the full 6-concern Record anyway, so shipping the
+// other 5 values (× every ingredient, × every product) to the browser was
+// pure waste. This was the dominant contributor to concern pages shipping
+// ~1.2MB of JSON to render 12 visible cards.
 export interface FilterProduct {
   product_id: string;
   brand: string;
@@ -25,13 +32,12 @@ export interface FilterProduct {
   discount_pct: number;
   image_url: string;
   sold_count: number;
-  total_score: Record<string, number>;
-  ingredient_analysis: { inci: string; concern_efficacy: Record<string, number>; safety_flags: string[] }[];
+  total_score: number;
+  ingredient_analysis: { inci: string; concern_efficacy: number; safety_flags: string[] }[];
 }
 
 interface ProductFilterProps {
-  products: FilterProduct[];   // slim ranked pool for the concern
-  concern: string;
+  products: FilterProduct[];   // slim ranked pool for the concern, pre-flattened to it
   locale: string;
 }
 
@@ -62,7 +68,7 @@ function hasIngredient(p: FilterProduct, set: Set<string>) {
   return p.ingredient_analysis?.some((a) => set.has(a.inci));
 }
 
-function filterProducts(products: FilterProduct[], f: FilterState, concern: string): FilterProduct[] {
+function filterProducts(products: FilterProduct[], f: FilterState): FilterProduct[] {
   const [minP, maxP] = BUDGET_RANGES[f.budget];
   return products.filter((p) => {
     // budget — use ?? 0 guard; upper boundary is inclusive (mid ends at 700, high starts at 700+)
@@ -79,18 +85,18 @@ function filterProducts(products: FilterProduct[], f: FilterState, concern: stri
     if (f.skinType === "oily") {
       // prefer products with oil-control actives — exclude those with zero relevant actives
       const hasOilyActive = hasIngredient(p, OILY_GOOD);
-      if (!hasOilyActive && (p.total_score?.[concern] ?? 0) < 60) return false;
+      if (!hasOilyActive && (p.total_score ?? 0) < 60) return false;
     }
     return true;
   });
 }
 
-function whyGood(p: FilterProduct, concern: string, locale: string): string {
+function whyGood(p: FilterProduct, locale: string): string {
   const actives = (p.ingredient_analysis ?? [])
-    .filter((a) => (a.concern_efficacy?.[concern] ?? 0) >= 2)
+    .filter((a) => (a.concern_efficacy ?? 0) >= 2)
     .slice(0, 2)
     .map((a) => a.inci);
-  const score = Math.round(p.total_score?.[concern] ?? 0);
+  const score = Math.round(p.total_score ?? 0);
   const sold = p.sold_count ?? 0;
 
   if (locale === "th") {
@@ -127,10 +133,10 @@ function Chip({
 // ── product card ─────────────────────────────────────────────────────────────
 
 function FilterCard({
-  p, concern, locale, slug,
-}: { p: FilterProduct; concern: string; locale: string; slug: string }) {
-  const score = Math.round(p.total_score?.[concern] ?? 0);
-  const reason = whyGood(p, concern, locale);
+  p, locale, slug,
+}: { p: FilterProduct; locale: string; slug: string }) {
+  const score = Math.round(p.total_score ?? 0);
+  const reason = whyGood(p, locale);
   const hasDiscount = (p.discount_pct ?? 0) > 0;
 
   return (
@@ -176,12 +182,12 @@ function FilterCard({
 
 // ── main component ───────────────────────────────────────────────────────────
 
-export function ProductFilter({ products, concern, locale }: ProductFilterProps) {
+export function ProductFilter({ products, locale }: ProductFilterProps) {
   const [filter, setFilter] = useState<FilterState>({ skinType: "all", budget: "all" });
 
   const filtered = useMemo(
-    () => filterProducts(products, filter, concern).slice(0, 12),
-    [products, filter, concern]
+    () => filterProducts(products, filter).slice(0, 12),
+    [products, filter]
   );
 
   const L = (th: string, en: string) => locale === "th" ? th : en;
@@ -246,7 +252,6 @@ export function ProductFilter({ products, concern, locale }: ProductFilterProps)
             <FilterCard
               key={p.product_id}
               p={p}
-              concern={concern}
               locale={locale}
               slug={productSlug(p)}
             />

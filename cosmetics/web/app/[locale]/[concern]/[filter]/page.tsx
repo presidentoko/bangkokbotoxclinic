@@ -10,7 +10,7 @@ import {
   productSlug,
   type Concern,
 } from "@/lib/data";
-import { LOCALES, STATIC_LOCALES, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, type Locale, concernLabel, concernLabelShort } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
@@ -46,20 +46,21 @@ export async function generateMetadata({
 
   const concernLbl = concernLabel(loc, concern);
   const filterLbl = isTh ? fc.th : fc.en;
+  const filterLblSentence = isTh ? fc.th : fc.en.replace(/^With /, "");
 
   const title = isTh
-    ? `${concernLbl} ${filterLbl} อันดับ — BangkokFillers`
-    : `Best ${filterLbl} for ${concernLbl} in Thailand — Data Ranked`;
+    ? `${filterLbl}${concernLbl} อันดับที่ดีที่สุด 2026`
+    : `Best ${filterLblSentence} for ${concernLbl} in Thailand — Data Ranked`;
   const description = isTh
     ? `อันดับ${concernLbl}${filterLbl}ที่ดีที่สุด คำนวณจากส่วนผสม + รีวิวจริงจาก Konvy, Watsons, Boots`
-    : `Top ${filterLbl} products for ${concernLbl} in Thailand — ranked by ingredient science (45%) + verified reviews (45%) + value (10%).`;
+    : `Top ${filterLblSentence} products for ${concernLbl} in Thailand — ranked by ingredient science (45%) + verified reviews (45%) + value (10%).`;
 
   return {
     title,
     description,
     alternates: {
       canonical: `${BASE}/${loc}/${concern}/${filter}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/${concern}/${filter}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/${concern}/${filter}`),
     },
   };
 }
@@ -82,14 +83,15 @@ export default async function FilterPage({
 
   const concernLbl = concernLabel(locale, concern);
   const filterLbl = isTh ? fc.th : fc.en;
+  const filterLblSentence = isTh ? fc.th : fc.en.replace(/^With /, "");
 
   const h1 = isTh
-    ? `${concernLbl} ${filterLbl} : อันดับที่ดีที่สุด`
-    : `Best ${filterLbl} for ${concernLbl} in Thailand`;
+    ? `${filterLbl}${concernLbl} : อันดับที่ดีที่สุด`
+    : `Best ${filterLblSentence} for ${concernLbl} in Thailand`;
 
   const intro = isTh
     ? `รวม ${products.length} ผลิตภัณฑ์${concernLbl} ${filterLbl} จัดอันดับจากคะแนนส่วนผสม + รีวิวจริงจาก Konvy, Watsons, Boots — ไม่มีการจ่ายเงินเพื่อขึ้นอันดับ`
-    : `${products.length} ${filterLbl} products for ${concernLbl} ranked by ingredient science + verified reviews from Konvy, Watsons, Boots. No paid rankings.`;
+    : `${products.length} ${filterLblSentence} products for ${concernLbl} ranked by ingredient science + verified reviews from Konvy, Watsons, Boots. No paid rankings.`;
 
   // Related filter chips (other filters for same concern, excluding current)
   const relatedFilters = (CONCERN_FILTER_SLUGS[concern] ?? [])
@@ -278,23 +280,31 @@ export default async function FilterPage({
         ))}
       </section>
 
-      {/* Other concerns */}
-      <section className="space-y-3 border-t border-[#efe1db] pt-8">
-        <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-bold">
-          {isTh ? "ดูหมวดอื่น" : "Other concerns"}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {CONCERNS.filter((c) => c !== concern).map((c) => (
-            <Link
-              key={c}
-              href={`/${locale}/${c}/${filter}`}
-              className="text-sm px-3 py-1.5 rounded-full border border-[#efe1db] bg-white text-[#8a7a76] hover:text-rose-500 hover:border-rose-300 transition-colors"
-            >
-              {concernLabelShort(locale, c)} {fc.emoji}
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Other concerns sharing this filter */}
+      {(() => {
+        const otherConcerns = CONCERNS.filter(
+          (c) => c !== concern && (CONCERN_FILTER_SLUGS[c] ?? []).includes(filter)
+        );
+        if (otherConcerns.length === 0) return null;
+        return (
+          <section className="space-y-3 border-t border-[#efe1db] pt-8">
+            <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-bold">
+              {isTh ? "ดูหมวดอื่น" : "Other concerns"}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {otherConcerns.map((c) => (
+                <Link
+                  key={c}
+                  href={`/${locale}/${c}/${filter}`}
+                  className="text-sm px-3 py-1.5 rounded-full border border-[#efe1db] bg-white text-[#8a7a76] hover:text-rose-500 hover:border-rose-300 transition-colors"
+                >
+                  {concernLabelShort(locale, c)} {fc.emoji}
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       <JsonLd data={faqLd(faqQas)} />
       <JsonLd

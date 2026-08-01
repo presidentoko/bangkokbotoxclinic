@@ -18,35 +18,35 @@ export function Header({ locale }: { locale: Locale }) {
         >
           {t(locale, "site_name")}
         </Link>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <Link
             href={`/${locale}/search`}
-            className="flex items-center justify-center w-7 h-7 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
+            className="flex items-center justify-center w-11 h-11 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
             aria-label="Search"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </Link>
           <Link
             href={`/${locale}/favorites`}
-            className="relative flex items-center justify-center w-7 h-7 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
+            className="relative flex items-center justify-center w-11 h-11 rounded-full border border-[#efe1db] text-[#8a7a76] hover:border-rose-400 hover:text-rose-500 transition-colors"
             aria-label="Saved"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
             <FavoritesBadge />
           </Link>
           <Link
             href={`/${locale}/quiz`}
-            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors"
+            className="min-h-[44px] flex items-center text-xs font-semibold px-2.5 rounded-full bg-rose-50 border border-rose-200 text-rose-500 hover:bg-rose-100 transition-colors"
           >
             {isTh ? "ทดสอบ 🌸" : "Quiz 🌸"}
           </Link>
           <Link
             href={`/${locale}/media-kit`}
-            className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border border-[#c9a86a]/50 text-[#c9a86a] hover:bg-[#c9a86a]/10 transition-colors"
+            className="min-h-[44px] flex items-center text-[10px] font-bold uppercase tracking-wider px-2 rounded-full border border-[#c9a86a]/50 text-[#c9a86a] hover:bg-[#c9a86a]/10 transition-colors"
           >
             {isTh ? "โฆษณา" : "Ads"}
           </Link>

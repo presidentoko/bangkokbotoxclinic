@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { productSlug } from "@/lib/data";
-import { SALE_EVENTS, getSaleEvent, getSaleRanking } from "@/lib/sale";
+import { SALE_EVENTS, getSaleEvent, getSaleRanking, currentSaleEvent } from "@/lib/sale";
 import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = 86400;
@@ -30,22 +30,27 @@ export async function generateMetadata({
 
   const title =
     loc === "th"
-      ? `ดีลสกินแคร์ ${ev.labelTh} ที่คุ้มสุด 2026 | BangkokFillers`
-      : `Best Skincare ${ev.labelEn} Deals 2026 | BangkokFillers`;
+      ? `ดีลสกินแคร์ ${ev.labelTh} ที่คุ้มสุด 2026`
+      : `Best Skincare ${ev.labelEn} Deals 2026`;
   const description =
     loc === "th"
       ? `รวมสกินแคร์ลดราคา ${ev.labelTh} จัดอันดับโดยข้อมูล — ส่วนลดสูงสุด × คะแนนจากรีวิวจริง`
       : `Top skincare ${ev.labelEn} discounts ranked by data — highest discount × real review scores`;
 
-  const pageUrl = `${BASE}/${locale}/sale/${event}`;
+  // getSaleRanking() has no per-event data to key off of — every /sale/{event} page
+  // renders the exact same "best deals right now" list. Rather than submit 6 byte-identical
+  // pages, only the currently-active (or next-upcoming) event self-canonicals; the rest
+  // point at it so Google consolidates ranking signal onto one URL instead of splitting it.
+  const canonicalEvent = currentSaleEvent().slug;
+  const pageUrl = `${BASE}/${locale}/sale/${event === canonicalEvent ? event : canonicalEvent}`;
   return {
     title,
     description,
     alternates: {
       canonical: pageUrl,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/sale/${event}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/sale/${event}`),
     },
-    openGraph: { title, description, url: pageUrl },
+    openGraph: { title, description, url: `${BASE}/${locale}/sale/${event}` },
   };
 }
 

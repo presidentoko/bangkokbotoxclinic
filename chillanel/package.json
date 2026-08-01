@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prebuild": "node scripts/build-data.mjs",
-    "vercel-build": "node scripts/build-data.mjs && next build",
-    "data": "node scripts/build-data.mjs",
+    "prebuild": "node scripts/build-all-cities.mjs",
+    "vercel-build": "node scripts/build-all-cities.mjs && next build",
+    "data": "node scripts/build-all-cities.mjs",
     "test": "node --test scripts/*.test.mjs",
     "screenshot": "node scripts/screenshot.mjs"
   },

@@ -1,15 +1,57 @@
 import { notFound } from "next/navigation";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { getProduct, productSlug, productIdFromSlug } from "@/lib/data";
 import { affiliateUrl } from "@/lib/affiliate";
+import { getAdSlots } from "@/lib/ads";
 import { SponsoredBadge } from "@/components/SponsoredBadge";
 import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = 86400;
 
+// The parent app/[locale]/layout.tsx sets `dynamicParams = false` to keep bot-scanned
+// junk paths from reaching this segment (see its 2026-07-14 comment) — and in the App
+// Router that setting is enforced across the *entire* route (every segment must allow
+// dynamicParams, not just this one), so returning [] here doesn't get on-demand ISR as
+// the old comment claimed, it makes every sponsored URL 404 permanently. The real fix
+// is to enumerate the ad slots that actually exist at build time. A slot created via
+// the admin panel after the last deploy won't have a page until the next deploy — same
+// as every other build-time data source on this site (master_db.json included).
 export async function generateStaticParams() {
-  // Empty — pages are generated on-demand via ISR
-  return [];
+  const slots = await getAdSlots();
+  const seen = new Set<string>();
+  const result: { locale: string; slug: string }[] = [];
+  for (const slot of slots) {
+    if (seen.has(slot.productSlug)) continue;
+    if (!getProduct(slot.productId)) continue;
+    seen.add(slot.productSlug);
+    for (const locale of STATIC_LOCALES) {
+      result.push({ locale, slug: slot.productSlug });
+    }
+  }
+  return result;
+}
+
+const BASE = "https://bangkokfillers.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const p = getProduct(productIdFromSlug(slug));
+  if (!p || productSlug(p) !== slug) return {};
+  const isTh = locale === "th";
+  const title = isTh
+    ? `${p.name} — รีวิวจากแบรนด์ (Sponsored)`
+    : `${p.name} — Sponsored Review`;
+  return {
+    title,
+    alternates: {
+      canonical: `${BASE}/${locale}/sponsored/${slug}`,
+      languages: localeAlternates((l) => `${BASE}/${l}/sponsored/${slug}`),
+    },
+  };
 }
 
 export default async function SponsoredReviewPage({

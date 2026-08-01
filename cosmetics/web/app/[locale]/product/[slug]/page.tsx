@@ -5,14 +5,13 @@ import { notFound } from "next/navigation";
 import {
   allProducts,
   getProduct,
-  getRanking,
   productSlug,
   productIdFromSlug,
   similarProducts,
   keyIngredients,
   cheaperAlternatives,
 } from "@/lib/data";
-import { LOCALES, STATIC_LOCALES, t, toBaseLocale, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, t, toBaseLocale, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
@@ -30,24 +29,17 @@ export const revalidate = 86400;
 
 const BASE = "https://bangkokfillers.com";
 
-// Statically generate only high-value product pages:
-// - All Konvy/Watsons/Boots/iHerb sourced products (have ingredient data)
-// - Beautrium products with at least 1 review (meaningful SEO content)
-// - All products ranking in top 30 of any concern
-// Beautrium-only products with 0 reviews render on-demand (dynamicParams = true default)
+// Statically generate every product. (An earlier attempt at a "high-value only"
+// filter keyed off `p.source !== "beautrium"`, but no product in master_db.json
+// has ever had a `source` field, so the condition was always true and every
+// product was generated anyway — the filter was a no-op. Note this file's
+// [locale] layout sets `dynamicParams = false`, so a real exclusion here would
+// permanently 404 those products, not "render on-demand" as the old comment
+// claimed — if a future selective filter is reintroduced, make sure excluded
+// products are also dropped from app/sitemap.ts.)
 export function generateStaticParams() {
-  const topIds = new Set<string>();
-  for (const concern of ["acne", "whitening", "antiaging", "pores", "oilcontrol", "sensitive"]) {
-    getRanking(concern).slice(0, 30).forEach((r) => topIds.add(r.product_id));
-  }
-  const prioritized = allProducts().filter(
-    (p) =>
-      p.source !== "beautrium" ||            // all non-Beautrium products
-      (p.beautrium_review_count ?? 0) > 0 || // Beautrium with reviews
-      topIds.has(p.product_id)               // top-ranked any concern
-  );
   return STATIC_LOCALES.flatMap((locale) =>
-    prioritized.map((p) => ({ locale, slug: productSlug(p) }))
+    allProducts().map((p) => ({ locale, slug: productSlug(p) }))
   );
 }
 
@@ -81,12 +73,21 @@ export async function generateMetadata({
     : locale === "th"
       ? `${p.name}${priceStr ? ` (${priceStr})` : ""} ได้คะแนน ${totalScoreMeta}/100 จากส่วนผสม${keyActive ? ` (${keyActive})` : ""} และรีวิว ${p.konvy_review_count} รายการ`
       : `${p.name}${priceStr ? ` (${priceStr})` : ""} scores ${totalScoreMeta}/100${keyActive ? ` · Key active: ${keyActive}` : ""}. Based on ${p.konvy_review_count} real reviews.`;
+  // The English page reuses the (Thai-language) `p.description` body copy verbatim
+  // whenever no `llm_summary.en` exists — which is every product today — making
+  // /en/product/* near-duplicates of /th/product/*. Keep them crawlable (so the
+  // canonical/hreflang graph stays intact) but out of the index until real
+  // English summaries exist in the pipeline.
+  const hasEnglishSummary = Boolean(p.llm_summary?.en);
   return {
     title,
     description,
+    ...(locale === "en" && !hasEnglishSummary
+      ? { robots: { index: false, follow: true } }
+      : {}),
     alternates: {
       canonical: `${BASE}/${locale}/product/${slug}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/product/${slug}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/product/${slug}`),
     },
     openGraph: {
       title,
@@ -477,7 +478,6 @@ function HeadsUpModule({
             <div
               key={flag}
               className={`rounded-full border px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 ${copy.chip_class}`}
-              title={incis.join(", ")}
             >
               <span>⚠</span>
               <span>{locale === "th" ? copy.th : copy.en}</span>
@@ -486,10 +486,13 @@ function HeadsUpModule({
           );
         })}
       </div>
-      <p className="text-xs text-[#8a7a76]">
-        {locale === "th"
-          ? "เลื่อนเมาส์หรือแตะที่ชิปเพื่อดูส่วนผสมที่เกี่ยวข้อง"
-          : "Hover or tap a chip to see which ingredients triggered the flag."}
+      {/* This used to live in a `title` attribute ("hover or tap a chip") — title
+          never fires on tap, so the ingredient names were unreachable on mobile.
+          Just show them. */}
+      <p className="text-xs text-[#8a7a76] leading-relaxed">
+        {Array.from(flagMap.entries())
+          .map(([flag, incis]) => `${locale === "th" ? FLAG_COPY[flag].th : FLAG_COPY[flag].en}: ${incis.join(", ")}`)
+          .join(" · ")}
       </p>
     </section>
   );
@@ -801,20 +804,25 @@ export default async function ProductPage({
             </div>
           </div>
 
-          {/* Mobile-only: price strip inside card (above sticky bar summary) */}
-          {hasDiscount && (
-            <div className="sm:hidden flex items-center gap-3 border-t border-[#efe1db] px-5 py-3">
-              <span className="text-base font-bold text-[#2b2222]">
-                ฿{Math.round(p.price_thb).toLocaleString()}
-              </span>
-              <span className="text-sm text-[#8a7a76] line-through">
-                ฿{Math.round(p.list_price_thb).toLocaleString()}
-              </span>
-              <span className="rounded-full bg-rose-50 border border-[#efe1db] px-2.5 py-0.5 text-xs font-semibold text-rose-600">
-                -{p.discount_pct}%
-              </span>
-            </div>
-          )}
+          {/* Mobile-only: price strip inside card (above sticky bar summary).
+              Used to be gated on hasDiscount, so a full-price product showed no
+              price anywhere on mobile except inside the sticky CTA label — and
+              nothing at all once linkAlive is false. Always show the price. */}
+          <div className="sm:hidden flex items-center gap-3 border-t border-[#efe1db] px-5 py-3">
+            <span className="text-base font-bold text-[#2b2222]">
+              ฿{Math.round(p.price_thb).toLocaleString()}
+            </span>
+            {hasDiscount && (
+              <>
+                <span className="text-sm text-[#8a7a76] line-through">
+                  ฿{Math.round(p.list_price_thb).toLocaleString()}
+                </span>
+                <span className="rounded-full bg-rose-50 border border-[#efe1db] px-2.5 py-0.5 text-xs font-semibold text-rose-600">
+                  -{p.discount_pct}%
+                </span>
+              </>
+            )}
+          </div>
         </div>
 
         {/* ══════════════════════════════════════
@@ -980,7 +988,10 @@ export default async function ProductPage({
       {linkAlive ? (
         <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-rose-500 shadow-[0_-2px_12px_rgba(224,96,126,0.25)]"
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-          <div className="flex items-center justify-center px-4 py-3.5 min-h-[56px]">
+          {/* items-stretch (not items-center) + px-only (no py) so the anchor's own
+              self-stretch/py-3.5 can fill the entire 56px bar as one tap target,
+              instead of centering a text-sized link inside dead padding. */}
+          <div className="flex items-stretch justify-center px-4 min-h-[56px]">
             <AffiliateButton p={p} locale={locale} variant="sticky" />
           </div>
         </div>

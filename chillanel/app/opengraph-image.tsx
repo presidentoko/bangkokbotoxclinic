@@ -26,7 +26,7 @@ export default function OpengraphImage() {
           It&apos;s not the spa. It&apos;s the hands.
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#ccfbf1", marginTop: 32, maxWidth: 900 }}>
-          Bangkok massage &amp; spa guide, built from real Google reviews.
+          Thailand massage &amp; spa guide, built from real Google reviews.
         </div>
       </div>
     ),

@@ -557,9 +557,15 @@ def slugify_match_ts(s: str) -> str:
     return s
 
 
-def composite_doctor_slug(doc_slug: str, clinic_name: str) -> str:
-    """`{doctor_slug}-at-{clinic_slug}` — globally unique. TS의 makeCompositeDoctorSlug 와 동일."""
-    return f"{doc_slug}-at-{slugify_match_ts(clinic_name)[:50]}"
+def composite_doctor_slug(doc_slug: str, place_id: str) -> str:
+    """`{doctor_slug}-at-{place_id 축약}` — globally unique.
+    2026-07-31 이전엔 클리닉 이름을 슬러그로 썼는데, 구글맵 상호명이 바뀔
+    때마다(프로모션 문구 추가, 지점명 변경 등) 그 클리닉의 의사 URL이 전부
+    영구 고아가 됐음 (2,302개 중 1,505개가 사이트맵에서 이탈 — 2026-07-31
+    감사). place_id는 스크래핑 대상이 바뀌지 않는 한 안정적이라 대신 사용.
+    TS의 makeCompositeDoctorSlug 와 동일 로직 유지해야 함."""
+    short_id = re.sub(r"[^0-9a-fA-F]", "", place_id)[-12:].lower()
+    return f"{doc_slug}-at-{short_id}" if short_id else doc_slug
 
 
 # ── 의사 경력 / 트레이닝 시그널 추출 ───────────────────────
@@ -733,7 +739,7 @@ def analyze_reviews(reviews_dir: Path, place_id: str, clinic_name: str = "") -> 
         doctor_stats.append({
             "name": doc_name,
             "slug": ds,
-            "composite_slug": composite_doctor_slug(ds, clinic_name) if clinic_name else ds,
+            "composite_slug": composite_doctor_slug(ds, place_id) if place_id else ds,
             "mentions": len(d["ratings"]),
             "rating_avg": round(avg, 2),
             "language_count": d["lang_count"],

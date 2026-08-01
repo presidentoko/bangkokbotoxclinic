@@ -1,11 +1,18 @@
-// Watches spa_output/**/clinics.csv mtimes; on change, rebuilds data + redeploys.
-// Mirrors web-thaigle/scripts/refresh_thaigle.py's polling approach.
+// Watches spa_output/*/clinics.csv mtimes for every city (not just bangkok —
+// other cities' massage/spa scrapers are wired into watchdog.py but stay
+// .disabled until their VPN slot opens up; whenever one is enabled and
+// produces data, this picks it up automatically without a code change).
+// On any city's change, rebuilds data for ALL cities (cheap — a handful of
+// CSVs) so data/clinics.*.json and public/places-index.json stay in sync,
+// then redeploys once. Mirrors web-thaigle/scripts/refresh_thaigle.py's
+// polling approach.
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { discoverCities } from "./discover-cities.mjs";
 
 const ROOT = path.join(import.meta.dirname, "..", "..");
-const WATCH_FILES = ["spa_output/bangkok/clinics.csv"];
+const SPA_OUTPUT_DIR = path.join(ROOT, "spa_output");
 const INTERVAL_MS = 5 * 60 * 1000;
 const VERCEL_SCOPE = "vamoss2";
 
@@ -21,10 +28,10 @@ function loadVercelToken() {
   return match ? match[1].trim() : undefined;
 }
 
-function latestMtime() {
+function latestMtime(cities) {
   let latest = 0;
-  for (const rel of WATCH_FILES) {
-    const p = path.join(ROOT, rel);
+  for (const city of cities) {
+    const p = path.join(SPA_OUTPUT_DIR, city, "clinics.csv");
     if (fs.existsSync(p)) latest = Math.max(latest, fs.statSync(p).mtimeMs);
   }
   return latest;
@@ -42,9 +49,14 @@ function log(msg) {
   console.log(`[${ts}] ${msg}`);
 }
 
-function deploy() {
-  log("변경 감지 — build-data 재실행");
-  execFileSync(process.execPath, ["scripts/build-data.mjs"], { cwd: import.meta.dirname + "/..", stdio: "inherit" });
+function deploy(cities) {
+  log(`변경 감지 — build-data 재실행 (${cities.join(", ")})`);
+  for (const city of cities) {
+    execFileSync(process.execPath, ["scripts/build-data.mjs", "--city", city], {
+      cwd: import.meta.dirname + "/..",
+      stdio: "inherit",
+    });
+  }
   log("vercel --prod 배포 시작");
   const token = loadVercelToken();
   const args = ["deploy", "--prod", "--yes", "--scope", VERCEL_SCOPE];
@@ -53,15 +65,20 @@ function deploy() {
   log("배포 완료");
 }
 
-let lastSeen = latestMtime();
-log(`감시 시작 — 초기 mtime=${lastSeen}`);
+let cities = discoverCities();
+let lastSeen = latestMtime(cities);
+log(`감시 시작 — 도시 ${cities.length}개 (${cities.join(", ") || "없음"}), 초기 mtime=${lastSeen}`);
 
 while (true) {
-  const current = latestMtime();
+  // Re-discover every poll so a city that just got enabled in watchdog.py
+  // (its .disabled marker removed) and produced its first clinics.csv is
+  // picked up without restarting this service.
+  cities = discoverCities();
+  const current = latestMtime(cities);
   if (current > lastSeen) {
     lastSeen = current;
     try {
-      deploy();
+      deploy(cities);
     } catch (e) {
       log(`배포 실패: ${e.message}`);
     }

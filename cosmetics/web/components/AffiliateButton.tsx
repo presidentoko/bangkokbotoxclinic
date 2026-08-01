@@ -25,7 +25,10 @@ export function AffiliateButton({
         href={affiliateUrl(p)}
         target="_blank"
         rel="sponsored noopener"
-        className="flex w-full items-center justify-center gap-2 text-white font-semibold text-base"
+        // self-stretch fills the parent's min-h-[56px] bar — without it this <a> only
+        // sized itself to its text, leaving ~14px of dead space above and below inside
+        // a bar that looks fully tappable.
+        className="flex w-full self-stretch items-center justify-center gap-2 py-3.5 text-white font-semibold text-base"
       >
         {label}
       </a>

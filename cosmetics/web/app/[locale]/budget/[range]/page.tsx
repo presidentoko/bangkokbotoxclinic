@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { allProducts, productSlug } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -51,8 +51,8 @@ export async function generateMetadata({
 
   const title =
     loc === "th"
-      ? `สกินแคร์${r.th} — ตัวเลือกที่ดีที่สุด | BangkokFillers`
-      : `Best Skincare ${r.en} | BangkokFillers`;
+      ? `สกินแคร์${r.th} — ตัวเลือกที่ดีที่สุด`
+      : `Best Skincare ${r.en}`;
   const description =
     loc === "th"
       ? `รวมสกินแคร์ ${r.th} จัดอันดับโดยคะแนนรีวิวจริงและประสิทธิภาพของส่วนผสม`
@@ -64,7 +64,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: pageUrl,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/budget/${range}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/budget/${range}`),
     },
     openGraph: { title, description, url: pageUrl },
   };

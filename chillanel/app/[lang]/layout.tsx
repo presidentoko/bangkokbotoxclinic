@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { isLang, SITE } from "@/lib/site";
 import { fontVariables } from "@/lib/fonts";
+import { listCities } from "@/lib/data";
 import { WebsiteJsonLd } from "@/components/JsonLd";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.origin),
   title: "chillanel — Real massage & spa reviews, therapist-first",
   description:
-    "A Bangkok massage & spa guide built around the one thing every ranking site ignores: who's actually giving the massage. Real Google reviews, therapist mentions surfaced automatically.",
+    "A Thailand massage & spa guide built around the one thing every ranking site ignores: who's actually giving the massage. Real Google reviews, therapist mentions surfaced automatically.",
   openGraph: {
     siteName: SITE.name,
     type: "website",
@@ -43,6 +44,11 @@ export default async function LangLayout({
 }) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
+  // "Browse" in the bottom tab bar used to point straight at /city/bangkok —
+  // now that other cities can have data too, send it to the city chooser
+  // unless there's genuinely only one city (skip the extra tap in that case).
+  const cities = listCities();
+  const browseHref = cities.length === 1 ? `/${lang}/city/${cities[0]}` : `/${lang}/city`;
   return (
     <html lang={lang} className={fontVariables}>
       <body>
@@ -50,7 +56,7 @@ export default async function LangLayout({
         <Header lang={lang} />
         <main>{children}</main>
         <Footer lang={lang} />
-        <BottomNav lang={lang} />
+        <BottomNav lang={lang} browseHref={browseHref} />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -10,7 +10,7 @@ import {
   brandSlug,
 } from "@/lib/data";
 
-import { SALE_EVENTS } from "@/lib/sale";
+import { currentSaleEvent } from "@/lib/sale";
 
 const BASE = "https://bangkokfillers.com";
 const NOW = new Date();
@@ -45,14 +45,15 @@ function coreEntries(): MetadataRoute.Sitemap {
   // Static core pages
   out.push(entry(`${BASE}/th/quiz`, 0.8, "monthly"));
   out.push(entry(`${BASE}/th/brand`, 0.8, "weekly"));
+  out.push(entry(`${BASE}/th/ingredient`, 0.7, "monthly"));
   out.push(entry(`${BASE}/th/methodology`, 0.6, "monthly"));
   out.push(entry(`${BASE}/th/media-kit`, 0.5, "monthly"));
   out.push(entry(`${BASE}/th/contact`, 0.6, "monthly"));
 
-  // Sale events
-  for (const ev of SALE_EVENTS) {
-    out.push(entry(`${BASE}/th/sale/${ev.slug}`, 0.8, "daily"));
-  }
+  // Sale events — all 6 event pages render the identical "best deals now" ranking
+  // (no per-event data exists to differentiate them) and self-canonicalize onto
+  // whichever one is currently active, so only that one is worth submitting.
+  out.push(entry(`${BASE}/th/sale/${currentSaleEvent().slug}`, 0.8, "daily"));
 
   // Budget ranges
   for (const range of ["under-300", "under-500", "under-1000"]) {

@@ -8,7 +8,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isTh = locale === "th";
-  const title = isTh ? "สินค้าที่บันทึกไว้ | BangkokFillers" : "Saved Products | BangkokFillers";
+  const title = isTh ? "สินค้าที่บันทึกไว้" : "Saved Products";
   return {
     title,
     robots: { index: false, follow: false },

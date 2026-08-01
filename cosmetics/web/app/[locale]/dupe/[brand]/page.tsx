@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import {
   allBrands,
   brandSlug,
@@ -55,22 +55,24 @@ export async function generateMetadata({
 
   const title =
     loc === "th"
-      ? `ดูปของ ${brandName} — ตัวทดแทนราคาประหยัด | BangkokFillers`
-      : `${brandName} Dupes — Affordable Alternatives | BangkokFillers`;
+      ? `ดูปของ ${brandName} — ตัวทดแทนราคาประหยัด`
+      : `${brandName} Dupes — Affordable Alternatives`;
   const description =
     loc === "th"
       ? `ค้นหาสกินแคร์ราคาประหยัดที่ใกล้เคียงกับ ${brandName} วิเคราะห์จากส่วนผสมและคะแนนรีวิวจริง`
       : `Find affordable skincare alternatives to ${brandName}, matched by ingredient profile and real review scores`;
 
   const pageUrl = `${BASE}/${locale}/dupe/${brandSlugParam}`;
+  // Brands with too few products to build a real dupe comparison produce thin,
+  // near-boilerplate pages — keep them crawlable (no internal 404) but out of the index.
+  const isThin = brandProducts(brandName).length < 3;
   return {
     title,
     description,
+    ...(isThin ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical: pageUrl,
-      languages: Object.fromEntries(
-        LOCALES.map((l) => [l, `${BASE}/${l}/dupe/${brandSlugParam}`])
-      ),
+      languages: localeAlternates((l) => `${BASE}/${l}/dupe/${brandSlugParam}`),
     },
     openGraph: { title, description, url: pageUrl },
   };

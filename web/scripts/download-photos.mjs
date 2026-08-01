@@ -26,6 +26,12 @@ function q(arg) {
   return `"${String(arg).replace(/"/g, '\\"')}"`;
 }
 
+// 2026-07-28 감사: 이전엔 uploadToR2의 성공/실패를 버리고 JSON을 무조건
+// 로컬 경로로 덮어썼음 — wrangler가 일시적으로 실패(인증 만료, 네트워크,
+// 레이트리밋)하면 존재하지 않는 R2 키를 가리키는 영구 404가 데이터에 박히고,
+// 로컬 파일이 이미 있으니 다음 실행도 재시도 안 함. stderr도 버려서 원인도
+// 안 남았음. 이제: 실패 시 stderr 로그 + false 반환, JSON은 업로드 성공한
+// 것만 갱신, 실패는 exit code로 드러남.
 function uploadToR2(localPath, filename) {
   return new Promise((resolve) => {
     const cmd = [
@@ -35,9 +41,17 @@ function uploadToR2(localPath, filename) {
       "--cache-control", q("public, max-age=31536000, immutable"),
       "--remote",
     ].join(" ");
-    const proc = spawn(cmd, { shell: true, stdio: "ignore" });
-    proc.on("close", (code) => resolve(code === 0));
-    proc.on("error", () => resolve(false));
+    const proc = spawn(cmd, { shell: true, stdio: ["ignore", "pipe", "pipe"] });
+    let stderr = "";
+    proc.stderr.on("data", (d) => (stderr += d));
+    proc.on("close", (code) => {
+      if (code !== 0) console.error(`[R2 FAIL] ${filename}: ${stderr.trim().slice(0, 200)}`);
+      resolve(code === 0);
+    });
+    proc.on("error", (err) => {
+      console.error(`[R2 FAIL] ${filename}: ${err.message}`);
+      resolve(false);
+    });
   });
 }
 
@@ -46,14 +60,14 @@ await fs.mkdir(OUT_DIR, { recursive: true });
 const files = (await fs.readdir(PHOTOS_DIR)).filter((f) => f.endsWith(".json"));
 console.log(`[download-photos] ${files.length} clinic photo files found`);
 
-let downloaded = 0, skipped = 0, failed = 0;
+let downloaded = 0, skipped = 0, failed = 0, uploadFailed = 0;
 
-// Returns "skipped" (already on disk -- assumed already in R2 from a prior
-// run), "downloaded" (freshly saved, still needs an R2 upload), or false.
-async function downloadOne(url, dest) {
+// Returns true if the file exists on disk after this call (whether it was
+// already there or just got downloaded), false on a download failure.
+async function ensureLocal(url, dest) {
   if (await fs.access(dest).then(() => true).catch(() => false)) {
     skipped++;
-    return "skipped";
+    return true;
   }
   try {
     const controller = new AbortController();
@@ -63,7 +77,7 @@ async function downloadOne(url, dest) {
     if (!res.ok || !res.body) { failed++; return false; }
     await pipeline(Readable.fromWeb(res.body), createWriteStream(dest));
     downloaded++;
-    return "downloaded";
+    return true;
   } catch {
     failed++;
     return false;
@@ -86,13 +100,24 @@ for (let i = 0; i < files.length; i += CONCURRENCY) {
       const photo = data.photos[j];
       if (!photo?.thumb) continue;
       const filename = `${safeId}_${j}.jpg`;
+      const localUrl = `/clinic-images/${filename}`;
+      // 이미 지난 실행에서 업로드까지 성공해 JSON이 로컬 경로를 가리키면
+      // 완전히 끝난 것 — 재시도 불필요.
+      if (photo.thumb === localUrl) continue;
       const dest = path.join(OUT_DIR, filename);
-      const status = await downloadOne(photo.thumb, dest);
-      if (status) localPaths.push({ idx: j, local: `/clinic-images/${filename}` });
-      if (status === "downloaded") await uploadToR2(dest, filename);
+      const onDisk = await ensureLocal(photo.thumb, dest);
+      if (!onDisk) continue;
+      // 파일은 있는데 JSON이 아직 원격 URL을 가리킨다 = 지난 실행에서
+      // 업로드가 실패했다는 뜻 — 다시 시도한다 (skip으로 영구 방치 안 함).
+      const uploaded = await uploadToR2(dest, filename);
+      if (uploaded) {
+        localPaths.push({ idx: j, local: localUrl });
+      } else {
+        uploadFailed++;
+      }
     }
 
-    // Rewrite JSON to prefer local paths when available
+    // Rewrite JSON to prefer local paths — 업로드 성공한 것만.
     if (localPaths.length > 0) {
       const updated = { ...data, photos: data.photos.map((p, idx) => {
         const local = localPaths.find((l) => l.idx === idx);
@@ -103,8 +128,9 @@ for (let i = 0; i < files.length; i += CONCURRENCY) {
   }));
 
   if ((i / CONCURRENCY) % 20 === 0) {
-    console.log(`  ${i + batch.length}/${files.length} processed | dl:${downloaded} skip:${skipped} fail:${failed}`);
+    console.log(`  ${i + batch.length}/${files.length} processed | dl:${downloaded} skip:${skipped} fail:${failed} uploadFail:${uploadFailed}`);
   }
 }
 
-console.log(`[download-photos] done. downloaded:${downloaded} skipped:${skipped} failed:${failed}`);
+console.log(`[download-photos] done. downloaded:${downloaded} skipped:${skipped} downloadFail:${failed} uploadFail:${uploadFailed}`);
+if (uploadFailed > 0) process.exitCode = 1;

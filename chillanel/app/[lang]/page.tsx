@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates } from "@/lib/site";
-import { listCities, loadCity } from "@/lib/data";
+import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
+import { listCities, loadCity, getAllPlaces } from "@/lib/data";
+import { aggregateThemeCounts } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Faq } from "@/components/Faq";
 import { ReviewQuotes, type QuoteItem } from "@/components/ReviewQuotes";
@@ -34,19 +35,21 @@ export default async function HomePage({
   if (!isLang(lang)) notFound();
   const t = tFor(lang);
   const cities = listCities();
-  const bangkok =
-    cities.length > 0
-      ? loadCity(cities[0])
-      : { city: "", generatedAt: "", places: [], themeAggregate: [], moodAggregate: [] };
-  const featured = bangkok.places
+  // Aggregated across every city with data, not just the first one
+  // alphabetically — chillanel now ingests spa_output/{city}/ for multiple
+  // cities, and a Bangkok-only homepage would never surface another city's
+  // top places once it has data.
+  const allPlaces = getAllPlaces().map(({ place }) => place);
+  const featured = allPlaces
     .filter((p) => p.rating != null && p.reviewCount >= 10)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
     .slice(0, 9);
-  const totalPlaces = bangkok.places.length;
-  const totalReviews = bangkok.places.reduce((sum, p) => sum + p.reviews.length, 0);
-  const totalMentions = bangkok.places.reduce((sum, p) => sum + p.therapistMentions.length, 0);
+  const totalPlaces = allPlaces.length;
+  const totalReviews = allPlaces.reduce((sum, p) => sum + p.reviews.length, 0);
+  const totalMentions = allPlaces.reduce((sum, p) => sum + p.therapistMentions.length, 0);
+  const themeAggregate = aggregateThemeCounts(allPlaces);
 
-  const quotes: QuoteItem[] = bangkok.places
+  const quotes: QuoteItem[] = allPlaces
     .filter((p) => p.therapistMentions.length > 0)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
     .slice(0, 8)
@@ -57,6 +60,11 @@ export default async function HomePage({
       placeId: p.id,
     }))
     .filter((q) => Boolean(q.quote));
+  const browseHref = cities.length === 1 ? `/${lang}/city/${cities[0]}` : `/${lang}/city`;
+  const cityCards = cities
+    .map((city) => ({ city, count: loadCity(city).places.length }))
+    .filter((c) => c.count > 0)
+    .sort((a, b) => b.count - a.count);
 
   return (
     <div>
@@ -82,7 +90,7 @@ export default async function HomePage({
           {cities.length > 0 && (
             <div className="flex flex-wrap items-center gap-4 mt-10">
               <Link
-                href={`/${lang}/city/${cities[0]}`}
+                href={browseHref}
                 className="group inline-flex items-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-7 py-3.5 shadow-lg shadow-accent-warm/20 hover:shadow-xl hover:shadow-accent-warm/30 hover:-translate-y-0.5 transition"
               >
                 {t.home.ctaBrowse}
@@ -153,12 +161,32 @@ export default async function HomePage({
           </section>
         )}
 
+        {cityCards.length > 1 && (
+          <section className="mb-16">
+            <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.cities.title}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {cityCards.map(({ city, count }) => (
+                <Link
+                  key={city}
+                  href={`/${lang}/city/${city}`}
+                  className="flex items-center justify-between rounded-xl border border-border bg-bg-elev p-5 hover:border-accent hover:shadow-sm transition"
+                >
+                  <span className="font-display italic text-xl font-semibold">{cityLabel(city)}</span>
+                  <span className="text-sm text-muted tabular-nums">
+                    {count.toLocaleString()} {t.city.placeCount}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         <ReviewQuotes title={t.home.quotesTitle} items={quotes} lang={lang} />
 
-        {bangkok.themeAggregate.length > 0 && (
+        {themeAggregate.length > 0 && (
           <section className="mb-14">
             <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.home.trendingTitle}</h2>
-            <TagCloud items={bangkok.themeAggregate} lang={lang} linkToService max={15} />
+            <TagCloud items={themeAggregate} lang={lang} linkToService max={15} />
           </section>
         )}
 

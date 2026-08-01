@@ -1,6 +1,6 @@
 import type { Place } from "@/lib/types";
 import type { FaqItem } from "@/lib/i18n";
-import { SITE } from "@/lib/site";
+import { SITE, cityLabel } from "@/lib/site";
 import { priceMedian } from "@/lib/summary";
 
 function jsonLdScript(json: unknown) {
@@ -20,7 +20,7 @@ export function WebsiteJsonLd() {
     name: SITE.name,
     url: SITE.origin,
     description:
-      "A Bangkok massage & spa guide built around who's actually giving the massage — real Google reviews, therapist mentions surfaced automatically.",
+      "A Thailand massage & spa guide built around who's actually giving the massage — real Google reviews, therapist mentions surfaced automatically.",
   };
   return jsonLdScript(json);
 }
@@ -104,10 +104,14 @@ export function FaqJsonLd({ items }: { items: FaqItem[] }) {
 export function LocalBusinessJsonLd({ place, description }: { place: Place; description?: string | null }) {
   const median = priceMedian(place.priceMentions);
   // place.address is one unstructured scraped string (already ends in
-  // "Bangkok NNNNN, Thailand" for 725/734 places) rather than separately
-  // parsed components — using it as streetAddress plus the two fields we
-  // can actually assert (city, country) is honest; inventing a parsed
-  // district/postal code we didn't verify would not be.
+  // "<city> NNNNN, Thailand" for the large majority of places) rather than
+  // separately parsed components — using it as streetAddress plus the two
+  // fields we can actually assert (city, country) is honest; inventing a
+  // parsed district/postal code we didn't verify would not be.
+  // addressLocality must come from place.city, not a fixed string — chillanel
+  // now ingests spa_output/{city}/ for multiple cities (see build-data.mjs
+  // --city), and hardcoding "Bangkok" here would emit false structured data
+  // for every place scraped from another city.
   const reviewsWithText = place.reviews.filter((r) => r.text && r.text.trim().length > 0).slice(0, 10);
   const json = {
     "@context": "https://schema.org",
@@ -116,7 +120,7 @@ export function LocalBusinessJsonLd({ place, description }: { place: Place; desc
     address: {
       "@type": "PostalAddress",
       streetAddress: place.address.trim(),
-      addressLocality: "Bangkok",
+      addressLocality: cityLabel(place.city),
       addressCountry: "TH",
     },
     url: `${SITE.origin}/en/place/${place.id}`,

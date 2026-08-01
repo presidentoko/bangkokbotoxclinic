@@ -6,7 +6,7 @@ import {
   allBrands, brandSlug, brandFromSlug, brandProducts, brandStats,
   productSlug, getRanking, type Concern, CONCERNS,
 } from "@/lib/data";
-import { concernLabel, LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { concernLabel, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { brandFaqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { scoreColor, baht } from "@/lib/format";
@@ -33,8 +33,8 @@ export async function generateMetadata({
   const isTh = locale === "th";
   const stats = brandStats(brand);
   const title = isTh
-    ? `${brand} สกินแคร์ไทย — ${stats.count} ผลิตภัณฑ์ จัดอันดับโดยข้อมูล | BangkokFillers`
-    : `${brand} Skincare in Thailand — ${stats.count} products ranked by data | BangkokFillers`;
+    ? `${brand} สกินแคร์ไทย — ${stats.count} ผลิตภัณฑ์ จัดอันดับโดยข้อมูล`
+    : `${brand} Skincare in Thailand — ${stats.count} products ranked by data`;
   const description = isTh
     ? `ผลิตภัณฑ์ ${brand} ${stats.count} รายการ จัดอันดับด้วยคะแนนส่วนผสม รีวิวจาก Konvy และ Watsons ราคาตั้งแต่ ${baht(stats.minPrice)}`
     : `${stats.count} ${brand} products ranked by ingredient science, Konvy & Watsons reviews. Prices from ${baht(stats.minPrice)}.`;
@@ -44,7 +44,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: url,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/brand/${brandSlugParam}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/brand/${brandSlugParam}`),
     },
     openGraph: { title, description, url },
     twitter: { card: "summary_large_image", title, description },

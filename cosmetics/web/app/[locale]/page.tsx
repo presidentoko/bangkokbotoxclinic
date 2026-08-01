@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { t, concernLabel, LOCALES, type Locale } from "@/lib/i18n";
+import Image from "next/image";
+import { t, concernLabel, localeAlternates, type Locale } from "@/lib/i18n";
 import { CONCERNS, getRanking, bestSellersAllConcerns, topPicks, hotDeals, siteStats, mostLoved, getProduct, productSlug } from "@/lib/data";
 import { ProductStrip } from "@/components/ProductStrip";
 import { JsonLd } from "@/components/JsonLd";
@@ -19,18 +20,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const loc = locale as Locale;
+  // ko/ar never actually render this metadata — next.config.ts redirects both to
+  // /en before the request reaches this page — but are kept here as a documented
+  // fallback in case that redirect is ever lifted. ja was removed as a locale
+  // entirely (commit 67c78f7); there's no TITLES["ja"] to keep in sync anymore.
   const TITLES: Record<string, string> = {
     th: "BangkokFillers — เชื่อข้อมูล ไม่ใช่อินฟลูเอนเซอร์",
     en: "BangkokFillers — Trust data, not influencers",
-    ko: "방콕 화장품 추천 — 태국 여행 스킨케어 순위 | BangkokFillers",
-    ja: "バンコク旅行コスメおすすめ — タイスキンケアランキング | BangkokFillers",
-    ar: "أفضل مستحضرات تجميل تايلاند للسياح | BangkokFillers",
+    ko: "방콕 화장품 추천 — 태국 여행 스킨케어 순위",
+    ar: "أفضل مستحضرات تجميل تايلاند للسياح",
   };
   const DESCS: Record<string, string> = {
     th: "จัดอันดับผลิตภัณฑ์สกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง — สิว, ฝ้า กระ จุดด่างดำ",
     en: "Thai skincare products ranked by ingredient science and real reviews — acne, brightening & dark spots.",
     ko: "방콕 여행에서 사야 할 태국 스킨케어 추천 — 4,000개 이상 제품을 성분 데이터와 실제 리뷰로 순위 매긴 완벽 가이드",
-    ja: "バンコク旅行で買うべきタイスキンケア完全ガイド — 4,000以上の製品を成分データと実際のレビューでランキング",
     ar: "أفضل منتجات العناية بالبشرة التايلاندية للسياح في بانكوك — أكثر من 4,000 منتج مصنّف بالبيانات والمراجعات الحقيقية",
   };
   const title = { absolute: TITLES[loc] ?? TITLES["en"] };
@@ -40,7 +43,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${loc}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}`),
     },
   };
 }
@@ -107,9 +110,14 @@ export default async function Home({
   return (
     <div className="space-y-14">
       {/* Hero */}
-      <section className="pt-6 pb-2 space-y-5">
-        <h1 className="font-serif-display text-4xl sm:text-5xl font-semibold text-[#2b2222] leading-tight max-w-2xl">
+      <section className="pt-6 pb-2 space-y-3">
+        <p className="text-sm font-semibold uppercase tracking-widest text-rose-500">
           {t(locale, "site_name")}
+        </p>
+        <h1 className="font-serif-display text-4xl sm:text-5xl font-semibold text-[#2b2222] leading-tight max-w-2xl">
+          {isTh
+            ? "จัดอันดับสกินแคร์ไทยด้วยข้อมูลส่วนผสมและรีวิวจริง"
+            : "Thai skincare ranked by ingredient science and real reviews"}
         </h1>
         <p className="text-xl text-[#8a7a76] max-w-xl leading-relaxed">
           {t(locale, "tagline")}
@@ -243,11 +251,15 @@ export default async function Home({
       {featuredProduct && (
         <section className="rounded-xl border-2 border-amber-200 bg-amber-50 p-4">
           <div className="flex gap-4 items-center">
-            <img
-              src={featuredProduct.image_url}
-              alt={featuredProduct.name}
-              className="w-20 h-20 object-contain rounded-lg shrink-0 bg-white"
-            />
+            <div className="relative w-20 h-20 shrink-0 rounded-lg bg-white overflow-hidden">
+              <Image
+                src={featuredProduct.image_url}
+                alt={featuredProduct.name}
+                fill
+                sizes="80px"
+                className="object-contain"
+              />
+            </div>
             <div className="flex-1 min-w-0">
               <SponsoredBadge locale={locale} className="mb-1" />
               <p className="font-semibold text-sm line-clamp-2">{featuredProduct.name}</p>
@@ -354,13 +366,8 @@ export default async function Home({
         />
       )}
 
-      {/* Recently viewed */}
-      <section className="space-y-3">
-        <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-medium">
-          {isTh ? "ดูล่าสุด" : "Recently viewed"}
-        </p>
-        <RecentlyViewedStrip locale={locale} />
-      </section>
+      {/* Recently viewed — renders nothing (including its heading) when empty */}
+      <RecentlyViewedStrip locale={locale} heading={isTh ? "ดูล่าสุด" : "Recently viewed"} />
 
       {/* Trust strip */}
       <section className="border-t border-[#efe1db] pt-10 space-y-5">

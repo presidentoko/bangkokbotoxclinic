@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${SITE.origin}/${lang}`, changeFrequency: "weekly", priority: 1 });
     entries.push({ url: `${SITE.origin}/${lang}/about`, changeFrequency: "monthly", priority: 0.3 });
     entries.push({ url: `${SITE.origin}/${lang}/guide`, changeFrequency: "monthly", priority: 0.5 });
+    entries.push({ url: `${SITE.origin}/${lang}/city`, changeFrequency: "weekly", priority: 0.6 });
 
     for (const city of listCities()) {
       entries.push({

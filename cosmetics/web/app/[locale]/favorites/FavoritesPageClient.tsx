@@ -53,13 +53,17 @@ export function FavoritesPageClient({ locale }: FavoritesPageClientProps) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {items.map((product) => (
             <div key={product.productId} className="relative">
-              {/* Remove button */}
+              {/* Remove button — visual circle stays small, but the tap target is
+                  padded out to 44px so it doesn't take a precise tap to hit (and
+                  isn't easily mis-tapped while reaching for the card underneath). */}
               <button
                 onClick={() => toggle(product)}
                 aria-label={isTh ? "ยกเลิกบันทึก" : "Remove from saved"}
-                className="absolute top-2 right-2 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-white border border-[#efe1db] text-rose-400 hover:border-rose-400 hover:text-rose-600 text-base leading-none shadow-sm transition-colors"
+                className="absolute top-0 right-0 z-10 w-11 h-11 flex items-center justify-center"
               >
-                ♥
+                <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white border border-[#efe1db] text-rose-400 hover:border-rose-400 hover:text-rose-600 text-base leading-none shadow-sm transition-colors">
+                  ♥
+                </span>
               </button>
 
               <Link

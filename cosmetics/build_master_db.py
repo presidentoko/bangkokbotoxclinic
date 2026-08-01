@@ -171,8 +171,32 @@ def _load_ingredient_patches() -> dict[str, list[str]]:
 
 
 def main() -> int:
-    products = [json.loads(f.read_text(encoding="utf-8"))
-                for f in sorted((config.OUTPUT_DIR / "products").glob("*.json"))]
+    fresh_products = [json.loads(f.read_text(encoding="utf-8"))
+                       for f in sorted((config.OUTPUT_DIR / "products").glob("*.json"))]
+
+    # output/products/*.json is local, gitignored scrape-run state — it is NOT
+    # guaranteed to still be on disk (a fresh checkout/session has none of it, as
+    # happened here: a run that only got through 23 products before hitting the
+    # VPN tunnel budget would otherwise silently REPLACE a 1002-product database
+    # with a 23-product one). master_db.json itself is git-committed and durable,
+    # so treat its existing products as the floor and layer fresh scrape results
+    # on top, keyed by product_id (fresh wins on conflict). This also means a
+    # rebuild now picks up review data collected into output/reviews/ this
+    # session even for products whose own output/products/*.json wasn't re-fetched.
+    existing_by_id: dict = {}
+    if MASTER_DB.exists():
+        try:
+            existing_by_id = json.loads(MASTER_DB.read_text(encoding="utf-8")).get("products", {})
+        except Exception:
+            existing_by_id = {}
+    merged_by_id = dict(existing_by_id)
+    for p in fresh_products:
+        merged_by_id[str(p["product_id"])] = p
+    products = list(merged_by_id.values())
+    if existing_by_id:
+        print(f"merging {len(fresh_products)} freshly scraped product(s) with "
+              f"{len(existing_by_id)} already in master_db.json -> {len(products)} total")
+
     # Apply ingredient backfill patches (products.csv is patched separately; merge here)
     patches = _load_ingredient_patches()
     if patches:

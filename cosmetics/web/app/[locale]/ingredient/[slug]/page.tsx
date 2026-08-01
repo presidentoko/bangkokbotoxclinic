@@ -6,8 +6,9 @@ import {
   getIngredient,
   productsWithIngredient,
   productSlug,
+  effectiveConcerns,
 } from "@/lib/data";
-import { LOCALES, STATIC_LOCALES, t, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, t, concernLabel, SAFETY_FLAG_LABELS, type Locale } from "@/lib/i18n";
 import { ingredientLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
@@ -46,7 +47,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${locale}/ingredient/${slug}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/ingredient/${slug}`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/ingredient/${slug}`),
     },
     openGraph: { title, description, url: `${BASE}/${locale}/ingredient/${slug}` },
   };
@@ -68,7 +69,8 @@ export default async function IngredientPage({
   const mech = isTh ? ing.mechanism_th : ing.mechanism_en;
   const prods = productsWithIngredient(ing.inci);
   const url = `https://bangkokfillers.com/${locale}/ingredient/${slug}`;
-  const concernKeys = Object.keys(ing.concern_efficacy ?? {});
+  const concerns = effectiveConcerns(ing.concern_efficacy);
+  const concernNames = concerns.map((c) => concernLabel(locale, c.concern));
 
   return (
     <article className="prose space-y-8 max-w-3xl overflow-hidden">
@@ -78,46 +80,87 @@ export default async function IngredientPage({
           {name}
         </h1>
         <p className="text-sm text-neutral-400 font-mono tracking-wide break-all">{ing.inci}</p>
+        {ing.aliases?.length > 0 && (
+          <p className="text-sm text-neutral-500">
+            {isTh ? "หรือเรียกว่า: " : "Also known as: "}
+            {ing.aliases.join(", ")}
+          </p>
+        )}
       </header>
 
-      {/* ── Mechanism lead ── */}
-      <p className="text-base text-neutral-700 leading-relaxed">{mech}</p>
-
-      {/* AEO paragraph — indexed by AI search engines */}
-      <div className="not-prose mt-6 mb-8 rounded-xl bg-rose-50 border border-rose-100 p-5 text-sm text-rose-900 max-w-2xl">
-        <p className="font-medium mb-2">
-          {isTh
-            ? `${ing.th_name} คืออะไร?`
-            : `What is ${ing.en_name}?`}
+      {/* ── Mechanism lead (AEO — the same sentence answers the on-page FAQ below) ── */}
+      <div className="not-prose rounded-xl bg-rose-50 border border-rose-100 p-5 text-sm text-rose-900 max-w-2xl space-y-3">
+        <p className="font-medium">
+          {isTh ? `${ing.th_name} คืออะไร?` : `What is ${ing.en_name}?`}
         </p>
-        <p className="leading-relaxed">
-          {isTh
-            ? (ing.mechanism_th ?? ing.mechanism_en ?? "")
-            : (ing.mechanism_en ?? "")}
-        </p>
-        {concernKeys.length > 0 && (
-          <p className="mt-3 leading-relaxed">
-            {isTh
-              ? `เหมาะสำหรับ: ${concernKeys.join(", ")} — พบได้ในผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูลของเรา`
-              : `Best for: ${concernKeys.join(", ")} — found in ${prods.length} products in our database`}
+        <p className="leading-relaxed">{mech}</p>
+        {ing.evidence_note && (
+          <p className="leading-relaxed text-rose-700">
+            {isTh ? "หลักฐานทางวิทยาศาสตร์: " : "Evidence: "}
+            {ing.evidence_note}
           </p>
         )}
+        {concernNames.length > 0 && (
+          <p className="leading-relaxed">
+            {isTh
+              ? `เหมาะสำหรับ: ${concernNames.join(", ")} — พบได้ในผลิตภัณฑ์ ${prods.length} รายการในฐานข้อมูลของเรา`
+              : `Best for: ${concernNames.join(", ")} — found in ${prods.length} products in our database`}
+          </p>
+        )}
+      </div>
+
+      {/* ── Stat row: concentration + safety ── */}
+      <div className="not-prose flex flex-wrap gap-3">
         {ing.typical_pct && (
-          <p className="mt-2 text-xs text-rose-600">
-            {isTh
-              ? `ความเข้มข้นที่แนะนำ: ${ing.typical_pct}`
-              : `Typical effective concentration: ${ing.typical_pct}`}
-          </p>
+          <div className="flex items-center gap-3 rounded-2xl border border-[#efe1db] bg-white px-4 sm:px-5 py-4 shadow-sm shadow-rose-100 w-fit max-w-full">
+            <span className="text-xs uppercase tracking-widest text-[#c9a86a]">
+              {isTh ? "ความเข้มข้นทั่วไป" : "Typical concentration"}
+            </span>
+            <span className="font-semibold text-rose-500 text-lg">{ing.typical_pct}</span>
+          </div>
         )}
       </div>
 
-      {/* ── Typical concentration stat ── */}
-      <div className="not-prose flex items-center gap-3 rounded-2xl border border-[#efe1db] bg-white px-4 sm:px-5 py-4 shadow-sm shadow-rose-100 w-fit max-w-full">
-        <span className="text-xs uppercase tracking-widest text-[#c9a86a]">
-          {locale === "th" ? "ความเข้มข้นทั่วไป" : "Typical concentration"}
-        </span>
-        <span className="font-semibold text-rose-500 text-lg">{ing.typical_pct}</span>
-      </div>
+      {/* ── Per-concern efficacy ── */}
+      {concerns.length > 0 && (
+        <section className="not-prose space-y-3">
+          <h2 className="font-serif-display text-lg sm:text-xl font-semibold text-neutral-800">
+            {isTh ? "ประสิทธิภาพตามปัญหาผิว" : "Efficacy by skin concern"}
+          </h2>
+          <div className="space-y-2 max-w-md">
+            {concerns.map(({ concern, score }) => (
+              <div key={concern} className="flex items-center gap-3">
+                <span className="text-sm text-neutral-600 w-40 shrink-0 truncate">
+                  {concernLabel(locale, concern)}
+                </span>
+                <div className="flex-1 h-2 rounded-full bg-neutral-100 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-rose-400"
+                    style={{ width: `${(score / 3) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── Safety notes ── */}
+      {ing.safety_flags?.length > 0 && (
+        <section className="not-prose space-y-2">
+          <h2 className="font-serif-display text-lg sm:text-xl font-semibold text-neutral-800">
+            {isTh ? "ข้อควรระวัง" : "Safety notes"}
+          </h2>
+          <ul className="space-y-1.5">
+            {ing.safety_flags.map((flag) => (
+              <li key={flag} className="flex items-start gap-2 text-sm text-neutral-700">
+                <span className="text-amber-500 mt-0.5">⚠</span>
+                <span>{isTh ? (SAFETY_FLAG_LABELS[flag]?.th ?? flag) : (SAFETY_FLAG_LABELS[flag]?.en ?? flag)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* ── Products with this ingredient ── */}
       {prods.length > 0 && (
@@ -140,7 +183,25 @@ export default async function IngredientPage({
         </section>
       )}
 
-      <JsonLd data={ingredientLd(ing, url)} />
+      {/* ── Sources ── */}
+      {ing.sources?.length > 0 && (
+        <section className="not-prose space-y-2">
+          <h2 className="font-serif-display text-lg sm:text-xl font-semibold text-neutral-800">
+            {isTh ? "แหล่งอ้างอิง" : "Sources"}
+          </h2>
+          <ul className="space-y-1 text-sm">
+            {ing.sources.map((src) => (
+              <li key={src}>
+                <a href={src} target="_blank" rel="noopener noreferrer nofollow" className="text-rose-600 hover:underline break-all">
+                  {src}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <JsonLd data={ingredientLd(ing, url, locale)} />
       <JsonLd
         data={faqLd([
           {
@@ -155,13 +216,13 @@ export default async function IngredientPage({
               ? `ความเข้มข้นที่แนะนำสำหรับ ${name} คือ ${ing.typical_pct} — ดูฉลากผลิตภัณฑ์และค่อยๆ เพิ่มความเข้มข้นเพื่อลดโอกาสระคายเคือง`
               : `The typical effective concentration for ${name} is ${ing.typical_pct}. Check the product label and increase gradually to minimise irritation.`,
           }] : []),
-          ...(concernKeys.length > 0 ? [{
+          ...(concernNames.length > 0 ? [{
             q: isTh
               ? `${name} เหมาะกับปัญหาผิวอะไร`
               : `What skin concerns does ${name} help with?`,
             a: isTh
-              ? `${name} เหมาะกับปัญหา: ${concernKeys.join(", ")} — พบได้ใน ${prods.length} ผลิตภัณฑ์ในฐานข้อมูล BangkokFillers`
-              : `${name} is effective for: ${concernKeys.join(", ")} — found in ${prods.length} products in the BangkokFillers database.`,
+              ? `${name} เหมาะกับปัญหา: ${concernNames.join(", ")} — พบได้ใน ${prods.length} ผลิตภัณฑ์ในฐานข้อมูล BangkokFillers`
+              : `${name} is effective for: ${concernNames.join(", ")} — found in ${prods.length} products in the BangkokFillers database.`,
           }] : []),
           {
             q: isTh

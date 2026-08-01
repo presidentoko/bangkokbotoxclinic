@@ -7,10 +7,10 @@ import { SITE } from "@/lib/site";
 // awareness (it isn't nested under [lang]).
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${SITE.name} — Bangkok massage & spa guide`,
+    name: `${SITE.name} — Thailand massage & spa guide`,
     short_name: SITE.name,
     description:
-      "A Bangkok massage & spa guide built around who's actually giving the massage — real Google reviews, therapist mentions surfaced automatically.",
+      "A Thailand massage & spa guide built around who's actually giving the massage — real Google reviews, therapist mentions surfaced automatically.",
     start_url: "/en",
     display: "standalone",
     background_color: "#0b0f0e",

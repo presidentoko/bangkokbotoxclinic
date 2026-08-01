@@ -25,6 +25,14 @@ data/wiki_summaries/
 data/external_reviews/
 data/doctor_xref/
 
+# Clinic photos migrated to Cloudflare R2 (img.bangkokbestclinic.com), see
+# lib/photos.ts + scripts/upload-images-to-r2.mjs. Kept locally for the
+# upload script to read from, but must never ship in the Vercel deploy —
+# every request goes through the redirect below to R2 instead
+# (2026-07-28 audit: this 66MB dir was still shipping + still being served
+# straight off Vercel's metered edge, defeating the R2 migration's purpose).
+public/clinic-images/
+
 # Scraper / dev scripts not needed at runtime
 data/.crisis_state.json
 outreach_targets.csv

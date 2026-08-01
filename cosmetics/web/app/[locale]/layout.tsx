@@ -100,7 +100,14 @@ export async function generateMetadata({
   return BASE_METADATA;
 }
 
-export const revalidate = 86400;
+// No blanket revalidate here — every route under [locale] is fully static
+// (master_db.json is build-time data; nothing changes without a redeploy) except
+// the banner and per-locale noindex flag below, which are tag-cached (see
+// lib/adminData.ts / lib/indexing.ts) and refresh on-demand when the admin panel
+// saves them via revalidateTag, not on a timer. A blanket `revalidate = 86400`
+// here used to force literally every page on the site (5,878+ routes) to
+// regenerate daily to byte-identical output just to catch a banner edit —
+// the dominant driver of the ISR Writes quota overage.
 
 export default async function LocaleLayout({
   children,

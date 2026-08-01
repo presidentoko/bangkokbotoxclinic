@@ -76,29 +76,12 @@ export function GET() {
   // Quiz
   sections.push("## Personalisation quiz");
   sections.push(`Find your perfect skincare match (skin type × concern × budget): ${BASE}/th/quiz`);
-  sections.push("Result pages are permanent URLs, e.g.: /th/quiz/result?skin=oily&concern=acne&budget=mid");
+  sections.push("Result pages are permanent URLs, e.g.: /th/quiz/result/oily/acne/mid");
   sections.push("");
 
-  // Multilingual tourist-angle entry points
-  sections.push("## International tourist skincare guides");
-  sections.push("# Korean — 방콕 여행 화장품 추천");
-  sections.push(`${BASE}/ko`);
-  sections.push(`${BASE}/ko/acne  — 여드름에 좋은 태국 화장품 순위`);
-  sections.push(`${BASE}/ko/whitening  — 미백 태국 스킨케어 순위`);
-  sections.push(`${BASE}/ko/brand  — 방콕에서 살 수 있는 스킨케어 브랜드 전체 목록`);
-  sections.push(`${BASE}/ko/quiz  — 내 피부에 맞는 태국 화장품 찾기`);
-  sections.push("");
-  sections.push("# Japanese — バンコク旅行コスメおすすめ");
-  sections.push(`${BASE}/ja`);
-  sections.push(`${BASE}/ja/acne  — ニキビケアタイスキンケアランキング`);
-  sections.push(`${BASE}/ja/whitening  — 美白タイスキンケアランキング`);
-  sections.push(`${BASE}/ja/brand  — バンコクで買えるスキンケアブランド一覧`);
-  sections.push("");
-  sections.push("# Arabic — مستحضرات تجميل تايلاند للسياح");
-  sections.push(`${BASE}/ar`);
-  sections.push(`${BASE}/ar/acne  — أفضل منتجات علاج حب الشباب التايلاندية`);
-  sections.push(`${BASE}/ar/whitening  — أفضل منتجات تفتيح البشرة التايلاندية`);
-  sections.push("");
+  // Note: ko/ar/ja entry points are intentionally omitted — they 307/308-redirect
+  // to /en (ja was removed outright) rather than serving real localized pages, so
+  // listing them here would send crawlers to a redirect instead of content.
 
   // All product URLs (for crawling)
   sections.push("## All products");

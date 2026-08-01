@@ -13,6 +13,14 @@ SEARCH_QUERIES = [SEARCH_QUERY]
 MIN_REVIEW_COUNT = 5        # 최소 리뷰 수 — 더 많은 long-tail 클리닉 노출 위해 10→5
 REVIEWS_PER_RATING = 10     # 별점당 최대 수집 리뷰 수 (1~5점 각각)
 MAX_RESTAURANTS = None      # 무제한 (전체 수집)
+
+# "complete" 처리된 장소도 이 일수가 지나면 재수집 큐에 다시 편입 — 새로
+# 달린 리뷰를 계속 따라잡기 위함 (2026-07-29: review 큐가 한 번 완료되면
+# 영구히 재방문 안 해서 신규 리뷰가 전혀 안 쌓이던 문제 발견 후 추가).
+# collect_reviews_for_restaurant()는 매번 relevant+newest 전체를 다시 긁고
+# 파일을 덮어쓰므로, 재수집 자체가 곧 "최신 리뷰까지 반영"이 된다 — 별도
+# diff/증분 로직 불필요. 리뷰 파일 mtime이 "마지막 재수집" 신호.
+REVIEW_REFRESH_DAYS = int(os.environ.get("REVIEW_REFRESH_DAYS", "7"))
 OUTPUT_DIR = os.environ.get("CITY_OUTPUT_DIR", "output")
 
 # ── 그리드 스캔 설정 (식당 발견 Phase) ──

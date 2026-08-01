@@ -13,14 +13,14 @@ import { tFor } from "@/lib/i18n";
 // to <main> on mobile so this bar never covers page content, and the
 // place detail page's floating "View on Maps" CTA sits above it
 // (bottom-20 instead of bottom-4) to avoid overlapping.
-export function BottomNav({ lang }: { lang: Lang }) {
+export function BottomNav({ lang, browseHref }: { lang: Lang; browseHref: string }) {
   const t = tFor(lang);
   const pathname = usePathname() || `/${lang}`;
   const segment = pathname.split("/")[2] ?? "";
 
   const items: { href: string; label: string; icon: string; active: boolean }[] = [
     { href: `/${lang}`, label: t.nav.home, icon: "⌂", active: segment === "" },
-    { href: `/${lang}/city/bangkok`, label: t.nav.browse, icon: "☰", active: segment === "city" },
+    { href: browseHref, label: t.nav.browse, icon: "☰", active: segment === "city" },
     { href: `/${lang}/favorites`, label: t.nav.favorites, icon: "♡", active: segment === "favorites" },
     { href: `/${lang}/compare`, label: t.nav.compare, icon: "⇄", active: segment === "compare" },
     { href: `/${lang}/guide`, label: t.nav.guides, icon: "▤", active: segment === "guide" },

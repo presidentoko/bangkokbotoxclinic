@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
-import { concernLabel, LOCALES, STATIC_LOCALES } from "@/lib/i18n";
+import { concernLabel, STATIC_LOCALES, localeAlternates } from "@/lib/i18n";
 import { CONCERNS, productSlug, getProduct, siteStats, type Concern } from "@/lib/data";
 import { quizRecommendations, BUDGET_RANGE } from "@/lib/quiz";
 import { getActiveByType } from "@/lib/ads";
@@ -65,8 +65,8 @@ export async function generateMetadata({
   const budgetLbl = isTh ? BUDGET_LABELS[budget].th : BUDGET_LABELS[budget].en;
 
   const title = isTh
-    ? `${skinLbl} · ${concernLbl} — สกินแคร์ TOP 3 | BangkokFillers`
-    : `${skinLbl} skin · ${concernLbl} — Top 3 picks | BangkokFillers`;
+    ? `${skinLbl} · ${concernLbl} — สกินแคร์ TOP 3`
+    : `${skinLbl} skin · ${concernLbl} — Top 3 picks`;
   const description = isTh
     ? `TOP 3 สกินแคร์สำหรับ${skinLbl} กังวลเรื่อง${concernLbl} งบ${budgetLbl} — จัดอันดับโดยข้อมูลส่วนผสมและรีวิวจริง`
     : `Top 3 skincare for ${skinLbl.toLowerCase()} skin, ${concernLbl.toLowerCase()}, ${budgetLbl} budget — ranked by ingredient science and real reviews`;
@@ -76,7 +76,10 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: localeAlternates((l) => `${BASE}/${l}/quiz/result/${skin}/${concern}/${budget}`),
+    },
     openGraph: { title, description, url, type: "website" },
     twitter: { card: "summary_large_image", title, description },
   };

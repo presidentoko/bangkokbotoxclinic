@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LOCALES, STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { generatedAt } from "@/lib/data";
 
 const BASE = "https://bangkokfillers.com";
@@ -28,7 +28,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${BASE}/${loc}/methodology`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/methodology`])),
+      languages: localeAlternates((l) => `${BASE}/${l}/methodology`),
     },
   };
 }

@@ -6,35 +6,59 @@ function escapeHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// User-facing errors only — the Telegram notification below goes to the site
+// operator, not a visitor, so it stays in whatever language they read.
+const ERRORS = {
+  th: {
+    missingFields: "กรุณากรอกข้อมูลให้ครบทุกช่อง",
+    invalidEmail: "กรุณากรอกอีเมลให้ถูกต้อง",
+    tooShort: "กรุณากรอกข้อความอย่างน้อย 10 ตัวอักษร",
+    tooLong: "ข้อความต้องไม่เกิน 2000 ตัวอักษร",
+    serverConfig: "เกิดข้อผิดพลาดของระบบ กรุณาลองใหม่ภายหลัง",
+    tryAgain: "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+  },
+  en: {
+    missingFields: "Please fill in every field.",
+    invalidEmail: "Please enter a valid email address.",
+    tooShort: "Please enter at least 10 characters.",
+    tooLong: "Message must be 2000 characters or fewer.",
+    serverConfig: "A server error occurred. Please try again later.",
+    tryAgain: "Something went wrong. Please try again.",
+  },
+} as const;
+
 export async function submitContact(
   _prev: ContactState,
   formData: FormData
 ): Promise<ContactState> {
+  const locale = formData.get("locale")?.toString() === "th" ? "th" : "en";
+  const err = ERRORS[locale];
+
   const name = (formData.get("name")?.toString() ?? "").trim();
   const email = (formData.get("email")?.toString() ?? "").trim();
   const type = (formData.get("type")?.toString() ?? "").trim();
   const message = (formData.get("message")?.toString() ?? "").trim();
 
   if (!name || !email || !type || !message) {
-    return { ok: false, error: "모든 필드를 입력해 주세요." };
+    return { ok: false, error: err.missingFields };
   }
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!EMAIL_RE.test(email)) {
-    return { ok: false, error: "올바른 이메일 주소를 입력해 주세요." };
+    return { ok: false, error: err.invalidEmail };
   }
 
   if (message.length < 10) {
-    return { ok: false, error: "메시지를 10자 이상 입력해 주세요." };
+    return { ok: false, error: err.tooShort };
   }
   if (message.length > 2000) {
-    return { ok: false, error: "메시지는 2000자 이하로 입력해 주세요." };
+    return { ok: false, error: err.tooLong };
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) {
-    return { ok: false, error: "서버 설정 오류입니다." };
+    return { ok: false, error: err.serverConfig };
   }
 
   const text = [
@@ -56,9 +80,9 @@ export async function submitContact(
         body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
       }
     );
-    if (!res.ok) return { ok: false, error: "잠시 후 다시 시도해 주세요." };
+    if (!res.ok) return { ok: false, error: err.tryAgain };
     return { ok: true };
   } catch {
-    return { ok: false, error: "잠시 후 다시 시도해 주세요." };
+    return { ok: false, error: err.tryAgain };
   }
 }

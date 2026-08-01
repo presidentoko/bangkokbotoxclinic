@@ -35,7 +35,7 @@ export function QuizClient({ locale }: { locale: Locale }) {
     setAnswers(final);
     setStep("loading");
     setTimeout(() => {
-      router.push(`/${locale}/quiz/result?skin=${final.skin}&concern=${final.concern}&budget=${budget}`);
+      router.push(`/${locale}/quiz/result/${final.skin}/${final.concern}/${budget}`);
     }, 700);
   }
 

@@ -1357,8 +1357,16 @@ def worker(
                     except Exception as e:
                         elapsed = time.time() - t0
                         log.warning(f"[W{worker_id}] #{idx} 실패 ({elapsed:.0f}s): {e}")
-                        # 즉시 VPN rotate + 브라우저 context 재생성
-                        _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
+                        # SOCKS/프록시 문제로 확인된 경우만 rotate — 타임아웃, 셀렉터
+                        # 미스, 파싱 에러 등 VPN과 무관한 실패까지 매번 rotate하면
+                        # 멀쩡히 살아있는 터널을 계속 깨뜨리는 꼴이라 오히려 역효과.
+                        # (2026-07-31 발견: 방콕 포함 전체 review 스크래퍼가 며칠째
+                        # 성공률 0에 수렴 — 원인이 여기, 모든 예외가 무조건 rotate를
+                        # 태워서 새 터널 부팅 실패까지 겹치는 상시 rotate 루프였음.
+                        # nordvpn_runner 자체 헬스체크에 있던 것과 같은 종류의
+                        # zero-tolerance 즉시재부팅 안티패턴.)
+                        if isinstance(e, SocksDeadError) or is_socks_dead_error(str(e)):
+                            _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
                         try: context.close()
                         except Exception: pass
                         try:
@@ -1497,7 +1505,10 @@ def main():
     existing_ids: set[str] = set()
     retry_ids: set[str] = set()  # partial/failed
     retry_hrefs: dict[str, str] = {}  # pid -> maps_url, clinics.csv 기준 (재시도용)
+    refresh_ids: set[str] = set()  # complete 이지만 오래돼서 새 리뷰 확인 필요
+    refresh_hrefs: dict[str, str] = {}
     partial_cnt = failed_cnt = 0
+    refresh_cutoff = time.time() - config.REVIEW_REFRESH_DAYS * 86400
     restaurants_path = out_dir / "clinics.csv"
     if restaurants_path.exists():
         with open(restaurants_path, newline="", encoding="utf-8-sig", errors="replace") as f:
@@ -1521,7 +1532,22 @@ def main():
                 if status == "partial" and (total <= 10 or n_rows >= total * 0.8 or n_rows >= 100):
                     status = "complete"
                 if status == "complete":
-                    existing_ids.add(pid)
+                    # 새 리뷰가 계속 쌓이는데 "complete"는 영구 제외라 한 번
+                    # 다 긁고 나면 다시는 안 봤던 문제 (2026-07-29) — 리뷰
+                    # 파일 mtime이 REVIEW_REFRESH_DAYS보다 오래되면 재수집
+                    # 큐에 다시 넣는다. collect_reviews_for_restaurant()는
+                    # 매번 relevant+newest 전체를 다시 긁어 덮어쓰므로 이
+                    # 재수집 자체가 곧 "최신까지 반영"이다.
+                    review_file = reviews_dir / f"{pid_fn}_reviews.csv"
+                    try:
+                        stale = review_file.stat().st_mtime < refresh_cutoff
+                    except OSError:
+                        stale = False
+                    if stale and row.get("maps_url"):
+                        refresh_ids.add(pid)
+                        refresh_hrefs[pid] = row["maps_url"]
+                    else:
+                        existing_ids.add(pid)
                 elif status == "partial":
                     retry_ids.add(pid)
                     partial_cnt += 1
@@ -1558,7 +1584,7 @@ def main():
     except Exception:
         pass
 
-    log.info(f"기존 완료: {len(existing_ids)} | 부분수집 재시도: {partial_cnt} | 완전실패 재시도: {failed_cnt} | 예산소진 제외: {len(_exhausted)}")
+    log.info(f"기존 완료: {len(existing_ids)} | 부분수집 재시도: {partial_cnt} | 완전실패 재시도: {failed_cnt} | 예산소진 제외: {len(_exhausted)} | 신규 리뷰 재스캔({config.REVIEW_REFRESH_DAYS}일 경과): {len(refresh_ids)}")
 
     # 이전 세션에서 스킵된 href 로드 (재시작 시 큐 롤백 방지)
     skipped_file = out_dir / "skipped_hrefs.txt"
@@ -1594,8 +1620,19 @@ def main():
             seen_filtered_pids.add(pid)
             retry_added += 1
 
+    # 신규 리뷰 재스캔 대상도 동일하게 편입. refresh_ids는 이미 리뷰를
+    # 성공 수집했던(=complete) 장소만이라 skipped_hrefs(폐업 등으로 애초에
+    # 수집 실패한 곳)와는 실질적으로 겹치지 않지만, 방어적으로 동일 체크.
+    refresh_added = 0
+    for pid in refresh_ids:
+        href = refresh_hrefs.get(pid)
+        if href and pid not in seen_filtered_pids and href not in skipped_hrefs:
+            filtered_hrefs.append(href)
+            seen_filtered_pids.add(pid)
+            refresh_added += 1
+
     target_n = config.MAX_RESTAURANTS  # None이면 무제한
-    log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개)")
+    log.info(f"전체 후보: {len(unique_hrefs)} | 신규 처리 대상: {len(filtered_hrefs)} (재시도 편입 {retry_added}개, 리뷰 재스캔 편입 {refresh_added}개)")
     log.info(f"목표: {'무제한' if target_n is None else target_n}")
     log.info(f"워커: {config.N_WORKERS}개 "
              f"(포트 {config.PROXY_PORT_BASE}~{config.PROXY_PORT_BASE + config.N_WORKERS - 1})")

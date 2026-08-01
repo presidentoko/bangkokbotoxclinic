@@ -7,15 +7,21 @@ import { scoreColor } from "@/lib/format";
 
 interface RecentlyViewedStripProps {
   locale: string;
+  heading: string;
 }
 
-export function RecentlyViewedStrip({ locale }: RecentlyViewedStripProps) {
+export function RecentlyViewedStrip({ locale, heading }: RecentlyViewedStripProps) {
   const { items, removeItem } = useRecentlyViewed();
 
+  // Whether there's anything to show is only known client-side (localStorage), so
+  // the heading lives in here too — a server-rendered heading above this component
+  // would show for every first-time visitor with nothing underneath it.
   if (items.length === 0) return null;
 
   return (
-    <div className="relative">
+    <section className="space-y-3">
+      <p className="text-xs uppercase tracking-widest text-[#c9a86a] font-medium">{heading}</p>
+      <div className="relative">
       <div
         className="flex gap-3 overflow-x-auto pb-3 snap-x snap-mandatory -mx-4 px-4"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
@@ -85,6 +91,7 @@ export function RecentlyViewedStrip({ locale }: RecentlyViewedStripProps) {
       </div>
       {/* Fade hint */}
       <div className="pointer-events-none absolute right-0 top-0 bottom-3 w-10 bg-gradient-to-l from-[#fbf4f1] to-transparent" />
-    </div>
+      </div>
+    </section>
   );
 }

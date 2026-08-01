@@ -56,6 +56,9 @@ export function Footer({ locale }: { locale: Locale }) {
             <Link href={`/${locale}/brand`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "แบรนด์ทั้งหมด" : "All brands"}
             </Link>
+            <Link href={`/${locale}/ingredient`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
+              {isTh ? "คู่มือส่วนผสม" : "Ingredient guide"}
+            </Link>
             <Link href={`/${locale}/budget/under-500`} className="block text-xs text-[#8a7a76] hover:text-rose-500 transition-colors">
               {isTh ? "งบไม่เกิน 500" : "Under ฿500"}
             </Link>

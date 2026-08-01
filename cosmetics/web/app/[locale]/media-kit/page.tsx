@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { siteStats, allBrands, allIngredients, generatedAt } from "@/lib/data";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/schema";
@@ -19,15 +19,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const isTh = locale === "th";
   return {
-    title: isTh
-      ? "Media Kit — โฆษณากับ BangkokFillers"
-      : "Media Kit — Advertise with BangkokFillers",
+    title: isTh ? "Media Kit — ลงโฆษณากับเรา" : "Media Kit — Advertise With Us",
     description: isTh
       ? "เข้าถึงกลุ่มเป้าหมายสกินแคร์ไทยที่ตัดสินใจซื้อด้วยข้อมูล — แบรนด์ Konvy, Watsons, Boots ติดต่อเราได้เลย"
       : "Reach data-driven Thai skincare buyers. Brands including Konvy, Watsons, Boots partners — contact us.",
     alternates: {
       canonical: `${BASE}/${locale}/media-kit`,
-      languages: { th: `${BASE}/th/media-kit`, en: `${BASE}/en/media-kit` },
+      languages: localeAlternates((l) => `${BASE}/${l}/media-kit`),
     },
   };
 }

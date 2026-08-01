@@ -76,9 +76,9 @@ export function breadcrumbLd(crumbs: { name: string; url: string }[]) {
     })),
   };
 }
-export function ingredientLd(ing: IngredientEntry & { inci: string }, pageUrl: string) {
+export function ingredientLd(ing: IngredientEntry & { inci: string }, pageUrl: string, locale: Locale = "en") {
   return { "@context": "https://schema.org", "@type": "DefinedTerm", name: ing.en_name || ing.inci,
-    alternateName: ing.th_name, description: ing.mechanism_en, url: pageUrl,
+    alternateName: ing.th_name, description: locale === "th" ? ing.mechanism_th : ing.mechanism_en, url: pageUrl,
     inDefinedTermSet: pageUrl.replace(/\/ingredient\/.*/, "/ingredient") };
 }
 /** Rich FAQ for a concern hub page — AEO featured snippet targets */
@@ -159,8 +159,13 @@ export function orgLd(siteUrl: string) {
     name: "BangkokFillers",
     url: siteUrl,
     description: "Independent skincare product rankings for Thailand — scored by ingredient science, real reviews from Konvy, Watsons & iHerb, and value-per-ml. No sponsored rankings.",
-    logo: { "@type": "ImageObject", url: `${siteUrl}/og-image.png`, width: 1200, height: 630 },
-    sameAs: ["https://bangkokfillers.com"],
+    // /og-image.png was never a real file — 404, which disqualifies the Organization
+    // entity from knowledge-panel/logo treatment. /opengraph-image is the site's real,
+    // already-working next/og-generated image (verified: 200 image/png).
+    logo: { "@type": "ImageObject", url: `${siteUrl}/opengraph-image`, width: 1200, height: 630 },
+    // No real external profiles (social, Wikipedia, etc.) exist yet to list here —
+    // a self-referential sameAs is worse than omitting the field. Add real ones
+    // (Facebook, Instagram, etc.) here once they exist.
     contactPoint: { "@type": "ContactPoint", contactType: "customer support", url: `${siteUrl}/th/contact` },
   };
 }

@@ -26,6 +26,17 @@ body {
   font-family: var(--font-serif), Georgia, "Times New Roman", serif;
 }
 
+/* Not a Tailwind v4 built-in (that's the tailwind-scrollbar-hide plugin, not
+   installed here) — Header.tsx used this class name assuming it existed, so the
+   horizontal nav scrollers showed a visible scrollbar. Defined for real here. */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 h1,
 h2,
 h3 {

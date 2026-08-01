@@ -16,9 +16,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const th = locale === "th";
   return {
-    title: th
-      ? "ติดต่อเรา — BangkokFillers"
-      : "Contact Us — BangkokFillers",
+    title: th ? "ติดต่อเรา" : "Contact Us",
     description: th
       ? "สอบถามโฆษณา พาร์ทเนอร์ชิพ หรือข้อเสนอแนะ"
       : "Advertising, partnership, or general enquiries.",

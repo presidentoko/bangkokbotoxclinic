@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   CONCERNS,
   getRanking,
@@ -15,7 +16,7 @@ import {
   CONCERN_FILTER_SLUGS,
   type Concern,
 } from "@/lib/data";
-import { LOCALES, STATIC_LOCALES, t, concernLabel, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, t, concernLabel, concernLabelShort, type Locale } from "@/lib/i18n";
 import { itemListLd, concernFaqQas, faqLd, breadcrumbLd, howToLd } from "@/lib/schema";
 import { getFeaturedMap } from "@/lib/adminData";
 import { getActiveByType } from "@/lib/ads";
@@ -101,40 +102,25 @@ export async function generateMetadata({
   const { locale: localeRaw, concern } = await params;
   const locale = localeRaw as Locale;
   const label = concernLabel(locale, concern);
+  const shortLabel = concernLabelShort(locale, concern);
   const count = getRanking(concern as Concern).length;
   const year = new Date().getFullYear();
-  const KO_CONCERN: Record<string, string> = {
-    acne: "여드름", whitening: "미백/브라이트닝", antiaging: "안티에이징",
-    pores: "모공", oilcontrol: "지성 피부", sensitive: "민감성 피부",
-  };
-  const AR_CONCERN: Record<string, string> = {
-    acne: "حب الشباب", whitening: "التبييض", antiaging: "مكافحة الشيخوخة",
-    pores: "المسام", oilcontrol: "التحكم بالدهون", sensitive: "البشرة الحساسة",
-  };
+  // Keep titles near the ~60-char SERP cut — some concern labels (e.g. whitening's
+  // full Thai label) run 25-30 chars on their own, so the short variant is used here.
   const title =
     locale === "th"
-      ? `สกินแคร์${label}ที่ดีที่สุดในไทย ${year} — ${count} ผลิตภัณฑ์ จัดอันดับจริง`
-      : locale === "ko"
-        ? `태국 ${KO_CONCERN[concern] ?? label} 스킨케어 추천 ${year} — ${count}개 제품 성분+리뷰 순위`
-        : locale === "ar"
-          ? `أفضل منتجات ${AR_CONCERN[concern] ?? label} في تايلاند ${year} — ${count} منتجاً مصنّفاً`
-          : `Best Thai ${label} Skincare ${year} — ${count} Products Ranked by Science`;
+      ? `${shortLabel} อันดับสกินแคร์ไทย ${year} (${count} รายการ)`
+      : `Best Thai ${shortLabel} Skincare ${year} — ${count} Ranked`;
   const description =
     locale === "th"
       ? `เปรียบเทียบ ${count} ผลิตภัณฑ์แก้ปัญหา${label} วิเคราะห์จากส่วนผสมจริง รีวิวจาก Konvy + Watsons + iHerb กว่า 10,000 รีวิว อัปเดต ${year}`
-      : locale === "ko"
-        ? `방콕 여행 쇼핑리스트: ${KO_CONCERN[concern] ?? label} 스킨케어 ${count}개 제품을 성분 데이터와 실제 구매자 리뷰 10,000+개로 순위 매긴 완벽 가이드`
-        : locale === "ar"
-          ? `${count} منتجاً لـ${AR_CONCERN[concern] ?? label} في تايلاند مصنّفة حسب فاعلية المكونات ومراجعات حقيقية من Konvy و Watsons و iHerb`
-          : `${count} Thai skincare products for ${label} — ranked by ingredient efficacy (45%), verified buyer reviews from Konvy, Watsons & iHerb (45%), and value (10%). Updated ${year}.`;
+      : `${count} Thai skincare products for ${label} — ranked by ingredient efficacy (45%), verified buyer reviews from Konvy, Watsons & iHerb (45%), and value (10%). Updated ${year}.`;
   return {
     title,
     description,
     alternates: {
       canonical: `${BASE}/${locale}/${concern}`,
-      languages: Object.fromEntries(
-        LOCALES.map((l) => [l, `${BASE}/${l}/${concern}`])
-      ),
+      languages: localeAlternates((l) => `${BASE}/${l}/${concern}`),
     },
     openGraph: { title, description, url: `${BASE}/${locale}/${concern}` },
     twitter: { card: "summary_large_image", title, description },
@@ -169,8 +155,17 @@ export default async function ConcernHub({
 
   if (!CONCERNS.includes(concern as Concern)) notFound();
 
-  const rows = getRanking(concern).map((e, i) => {
-    const p = getProduct(e.product_id)!;
+  // A ranking entry pointing at a product that's since been removed from
+  // master_db.json would previously crash the whole concern page via the `!`
+  // assertion below — filter those out instead (rank is assigned after
+  // filtering so numbering stays sequential, not gapped).
+  const rankedEntries = getRanking(concern)
+    .map((e) => ({ e, p: getProduct(e.product_id) }))
+    .filter(
+      (x): x is { e: (typeof x)["e"]; p: NonNullable<(typeof x)["p"]> } =>
+        x.p != null
+    );
+  const rows = rankedEntries.map(({ e, p }, i) => {
     const key =
       p.ingredient_analysis.find((a) => a.concern_efficacy[concern] > 0)
         ?.inci ?? "—";
@@ -209,7 +204,8 @@ export default async function ConcernHub({
   const podium = rows.slice(0, 3);
   const products = getRanking(concern)
     .slice(0, 20)
-    .map((e) => getProduct(e.product_id)!);
+    .map((e) => getProduct(e.product_id))
+    .filter((p) => p != null);
 
   // Discovery strip data
   const picks = topPicks(concern, 8);
@@ -327,13 +323,84 @@ export default async function ConcernHub({
         </div>
       )}
 
+      {/* Top-3 Podium cards — moved directly under the header/guide/filters.
+          Used to sit after two sponsored slots, an ingredient guide, and three
+          product strips — a phone user had to scroll ~2,500-3,000px past ad
+          placements to reach the ranking they came for. */}
+      {podium.length > 0 && (
+        <section>
+          <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-3">
+            {locale === "th" ? "อันดับต้น 3" : "Top 3"}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {podium.map((r, i) => {
+              const c = PODIUM_COLORS[i];
+              return (
+                <div
+                  key={r.id}
+                  className={`relative rounded-xl border ${c.border} bg-white ring-2 ${c.ring} p-4 flex flex-col gap-2 shadow-sm`}
+                >
+                  {/* Rank badge */}
+                  <span
+                    className={`absolute -top-3 -left-2 inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold shadow ${c.badge}`}
+                  >
+                    {i + 1}
+                  </span>
+                  {/* Product name */}
+                  <Link
+                    href={`/${locale}/product/${r.slug}`}
+                    className="text-rose-600 hover:text-rose-800 font-medium leading-snug pt-1 hover:underline underline-offset-2"
+                  >
+                    {productDisplayName(r.brand, r.name)}
+                  </Link>
+                  {/* Score pill */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span
+                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${scoreColor(r.score)} ${
+                        r.score >= 85
+                          ? "bg-emerald-50"
+                          : r.score >= 70
+                            ? "bg-amber-50"
+                            : "bg-rose-50"
+                      }`}
+                    >
+                      {(Math.round(r.score * 10) / 10).toFixed(1)}
+                    </span>
+                    <span className="text-xs text-neutral-500">
+                      ฿{Math.round(r.price).toLocaleString("en-US")}
+                    </span>
+                  </div>
+                  {/* Key ingredient */}
+                  {r.keyIngredient !== "—" && (
+                    <p className="text-xs text-neutral-500 mt-auto">
+                      <span className="font-medium text-neutral-600">
+                        {labels.key_ingredient}:
+                      </span>{" "}
+                      {r.keyIngredient}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Full comparison table — moved up alongside the podium, same reasoning. */}
+      <section>
+        <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-3">
+          {locale === "th" ? "ตารางเปรียบเทียบทั้งหมด" : "Full comparison table"}
+        </h2>
+        <ComparisonTable rows={top} locale={locale} labels={labels} />
+      </section>
+
       {/* ── Sponsored slot — clearly labelled, rankings not affected ── */}
       {featuredProduct && (
         <section className="rounded-2xl border-2 border-[#c9a86a]/40 bg-[#fffbf5] p-4 flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex items-center gap-3 flex-1 min-w-0">
             {featuredProduct.image_url && (
-              <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden border border-[#efe1db] bg-white">
-                <img src={featuredProduct.image_url} alt={featuredProduct.name} className="w-full h-full object-contain p-1" />
+              <div className="relative w-14 h-14 shrink-0 rounded-xl overflow-hidden border border-[#efe1db] bg-white">
+                <Image src={featuredProduct.image_url} alt={featuredProduct.name} fill sizes="56px" className="object-contain p-1" />
               </div>
             )}
             <div className="min-w-0">
@@ -417,11 +484,15 @@ export default async function ConcernHub({
       {/* Sponsored: Editor's Pick */}
       {editorsPickProduct && (
         <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 flex gap-4 items-center">
-          <img
-            src={editorsPickProduct.image_url}
-            alt={editorsPickProduct.name}
-            className="w-16 h-16 object-contain rounded-lg shrink-0 bg-white"
-          />
+          <div className="relative w-16 h-16 shrink-0 rounded-lg bg-white overflow-hidden">
+            <Image
+              src={editorsPickProduct.image_url}
+              alt={editorsPickProduct.name}
+              fill
+              sizes="64px"
+              className="object-contain"
+            />
+          </div>
           <div className="flex-1 min-w-0">
             <SponsoredBadge locale={locale} className="mb-1" />
             <p className="text-sm font-semibold line-clamp-2">{editorsPickProduct.name}</p>
@@ -436,73 +507,20 @@ export default async function ConcernHub({
         </section>
       )}
 
-      {/* Top-3 Podium cards */}
-      {podium.length > 0 && (
-        <section>
-          <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-3">
-            {locale === "th" ? "อันดับต้น 3" : "Top 3"}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {podium.map((r, i) => {
-              const c = PODIUM_COLORS[i];
-              return (
-                <div
-                  key={r.id}
-                  className={`relative rounded-xl border ${c.border} bg-white ring-2 ${c.ring} p-4 flex flex-col gap-2 shadow-sm`}
-                >
-                  {/* Rank badge */}
-                  <span
-                    className={`absolute -top-3 -left-2 inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold shadow ${c.badge}`}
-                  >
-                    {i + 1}
-                  </span>
-                  {/* Product name */}
-                  <Link
-                    href={`/${locale}/product/${r.slug}`}
-                    className="text-rose-600 hover:text-rose-800 font-medium leading-snug pt-1 hover:underline underline-offset-2"
-                  >
-                    {productDisplayName(r.brand, r.name)}
-                  </Link>
-                  {/* Score pill */}
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${scoreColor(r.score)} ${
-                        r.score >= 85
-                          ? "bg-emerald-50"
-                          : r.score >= 70
-                            ? "bg-amber-50"
-                            : "bg-rose-50"
-                      }`}
-                    >
-                      {(Math.round(r.score * 10) / 10).toFixed(1)}
-                    </span>
-                    <span className="text-xs text-neutral-500">
-                      ฿{Math.round(r.price).toLocaleString("en-US")}
-                    </span>
-                  </div>
-                  {/* Key ingredient */}
-                  {r.keyIngredient !== "—" && (
-                    <p className="text-xs text-neutral-500 mt-auto">
-                      <span className="font-medium text-neutral-600">
-                        {labels.key_ingredient}:
-                      </span>{" "}
-                      {r.keyIngredient}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* ── แนะนำสำหรับคุณ / Find your match ── */}
+      {/* ── แนะนำสำหรับคุณ / Find your match ──
+          Flatten total_score/concern_efficacy from a 6-concern Record down to a single
+          number for THIS concern, and cap the candidate pool — ProductFilter only ever
+          surfaces 12 cards, so shipping all ~800+ matches (each with every ingredient's
+          full 6-concern efficacy map + safety flags) to the client was pure waste. This
+          was the dominant contributor to concern pages shipping ~1.2MB of RSC payload. */}
       <ProductFilter
         products={allProducts()
           .filter((p) => {
             const seeds = p.concern_seeds;
             return Array.isArray(seeds) ? seeds.includes(concern) : String(seeds).split("|").includes(concern);
           })
+          .sort((a, b) => (b.total_score[concern] ?? 0) - (a.total_score[concern] ?? 0))
+          .slice(0, 200)
           .map((p) => ({
             product_id: p.product_id,
             brand: p.brand,
@@ -511,25 +529,28 @@ export default async function ConcernHub({
             discount_pct: p.discount_pct,
             image_url: p.image_url,
             sold_count: p.sold_count,
-            total_score: p.total_score,
+            total_score: p.total_score[concern] ?? 0,
             ingredient_analysis: p.ingredient_analysis.map((a) => ({
               inci: a.inci,
-              concern_efficacy: a.concern_efficacy,
+              concern_efficacy: a.concern_efficacy?.[concern] ?? 0,
               safety_flags: a.safety_flags,
             })),
           }))}
-        concern={concern}
         locale={locale}
       />
 
       {/* Sponsored: Category Takeover */}
       {takeoverProduct && (
         <section className="rounded-xl border-2 border-amber-300 bg-amber-50 p-4 flex gap-4 items-center">
-          <img
-            src={takeoverProduct.image_url}
-            alt={takeoverProduct.name}
-            className="w-16 h-16 object-contain rounded-lg shrink-0 bg-white"
-          />
+          <div className="relative w-16 h-16 shrink-0 rounded-lg bg-white overflow-hidden">
+            <Image
+              src={takeoverProduct.image_url}
+              alt={takeoverProduct.name}
+              fill
+              sizes="64px"
+              className="object-contain"
+            />
+          </div>
           <div className="flex-1 min-w-0">
             <SponsoredBadge locale={locale} className="mb-1" />
             <p className="font-semibold text-sm line-clamp-2">{takeoverProduct.name}</p>
@@ -543,14 +564,6 @@ export default async function ConcernHub({
           </a>
         </section>
       )}
-
-      {/* Full comparison table */}
-      <section>
-        <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-3">
-          {locale === "th" ? "ตารางเปรียบเทียบทั้งหมด" : "Full comparison table"}
-        </h2>
-        <ComparisonTable rows={top} locale={locale} labels={labels} />
-      </section>
 
       {/* FAQ — same Q&A as the FAQPage JSON-LD below, rendered visibly so
           it's real on-page content (not a schema/content mismatch) and so

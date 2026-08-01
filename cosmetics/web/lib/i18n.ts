@@ -7,6 +7,17 @@ export type Locale = (typeof LOCALES)[number];
 // at the next.config.ts routing layer before ever reaching a page.
 export const STATIC_LOCALES = ["th", "en"] as const satisfies readonly Locale[];
 
+// hreflang must only ever point at locales that actually render (STATIC_LOCALES) —
+// ko/ar redirect at the routing layer before reaching a page, so listing them as
+// alternates makes every hreflang cluster on the site invalid. x-default points at
+// th, the site's primary indexed locale.
+export function localeAlternates(pathForLocale: (locale: Locale) => string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const l of STATIC_LOCALES) out[l] = pathForLocale(l);
+  out["x-default"] = pathForLocale("th");
+  return out;
+}
+
 // RTL locales
 export const RTL_LOCALES: Locale[] = ["ar"];
 export const isRTL = (loc: Locale) => RTL_LOCALES.includes(loc);
@@ -57,6 +68,14 @@ const CONCERN_LABELS: Record<string, Record<Locale, string>> = {
   oilcontrol: { th: "ควบคุมความมัน", en: "Oil control", ko: "유분 조절", ar: "التحكم في الدهون" },
   sensitive:  { th: "ผิวแพ้ง่าย บอบบาง", en: "Sensitive & barrier", ko: "민감성·장벽 강화", ar: "البشرة الحساسة وتعزيز الحاجز" },
 };
+export const SAFETY_FLAG_LABELS: Record<string, { th: string; en: string }> = {
+  irritant:        { th: "อาจระคายเคือง — เริ่มจากความเข้มข้นต่ำ", en: "Can irritate — start at a low concentration" },
+  photosensitizer: { th: "เพิ่มความไวต่อแสงแดด — ควรทากันแดดร่วมด้วย", en: "Increases sun sensitivity — pair with daily SPF" },
+  comedogenic:     { th: "อาจอุดตันรูขุมขนในบางคน", en: "May be comedogenic for some skin types" },
+  fragrance:       { th: "มีน้ำหอม — ผิวแพ้ง่ายควรระวัง", en: "Contains fragrance — caution for sensitive skin" },
+  alcohol:         { th: "มีแอลกอฮอล์ — อาจทำให้ผิวแห้ง", en: "Contains alcohol — can be drying" },
+};
+
 const CONCERN_LABELS_SHORT: Record<string, Record<Locale, string>> = {
   acne:       { th: "สิว",       en: "Acne",        ko: "여드름",    ar: "حب الشباب" },
   whitening:  { th: "ฝ้า กระ",  en: "Brightening", ko: "미백",      ar: "تفتيح" },

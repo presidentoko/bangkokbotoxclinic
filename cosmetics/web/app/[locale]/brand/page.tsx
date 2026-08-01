@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { allBrands, brandSlug, brandStats } from "@/lib/data";
-import { STATIC_LOCALES, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
 import { baht, scoreColor } from "@/lib/format";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/schema";
@@ -21,14 +21,14 @@ export async function generateMetadata({
   const isTh = locale === "th";
   return {
     title: isTh
-      ? "แบรนด์สกินแคร์ทั้งหมด — จัดอันดับโดยข้อมูล | BangkokFillers"
-      : "All Skincare Brands — Ranked by Data | BangkokFillers",
+      ? "แบรนด์สกินแคร์ทั้งหมด — จัดอันดับโดยข้อมูล"
+      : "All Skincare Brands — Ranked by Data",
     description: isTh
       ? "รวมแบรนด์สกินแคร์ทุกแบรนด์ที่วิเคราะห์ด้วยข้อมูลส่วนผสม รีวิวจริง และราคา — Garnier, CeraVe, La Roche Posay, COSRX และอีกมาก"
       : "All skincare brands analysed by ingredient science, real reviews, and price — Garnier, CeraVe, La Roche Posay, COSRX and more.",
     alternates: {
       canonical: `${BASE}/${locale}/brand`,
-      languages: { th: `${BASE}/th/brand`, en: `${BASE}/en/brand` },
+      languages: localeAlternates((l) => `${BASE}/${l}/brand`),
     },
   };
 }
@@ -48,7 +48,7 @@ export default async function BrandIndex({
   // Group alphabetically
   const groups: Record<string, typeof brandData> = {};
   for (const item of brandData) {
-    const key = item.brand[0].toUpperCase();
+    const key = (item.brand || "#")[0].toUpperCase();
     const letter = /[A-Z]/.test(key) ? key : "#";
     if (!groups[letter]) groups[letter] = [];
     groups[letter].push(item);
