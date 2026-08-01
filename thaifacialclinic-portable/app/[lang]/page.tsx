@@ -44,7 +44,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
       : SITE.tagline[lang],
     alternates: {
       canonical: url,
-      languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/`])),
+      languages: {
+        ...Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/`])),
+        "x-default": `${SITE.origin}/en/`,
+      },
     },
     openGraph: {
       title: lang === "en"

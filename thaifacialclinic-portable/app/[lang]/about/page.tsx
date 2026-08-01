@@ -20,8 +20,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     title: `About — ${SITE.name}`,
     description: `${SITE.name} aggregates verified clinic data from 6+ public sources. We never delete reviews. ${fullAddress() || "Bangkok, Thailand"}.`,
     alternates: {
-      canonical: `${SITE.origin}/${lang}/about`,
-      languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/about`])),
+      canonical: `${SITE.origin}/${lang}/about/`,
+      languages: {
+        ...Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/about/`])),
+        "x-default": `${SITE.origin}/en/about/`,
+      },
     },
   };
 }
@@ -89,7 +92,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: La
 
         {/* Pledges */}
         <section className="mb-12">
-          <TransparencyBadge />
+          <TransparencyBadge lang={lang} />
         </section>
 
         {/* Patient count */}

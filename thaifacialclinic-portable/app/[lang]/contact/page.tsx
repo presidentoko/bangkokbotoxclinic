@@ -17,8 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     title: `Contact — ${SITE.name}`,
     description: `Reach ${SITE.name} via LINE, WhatsApp, or email. Bangkok-based. Replies within 1 hour during business hours.`,
     alternates: {
-      canonical: `${SITE.origin}/${lang}/contact`,
-      languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/contact`])),
+      canonical: `${SITE.origin}/${lang}/contact/`,
+      languages: {
+        ...Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/contact/`])),
+        "x-default": `${SITE.origin}/en/contact/`,
+      },
     },
   };
 }

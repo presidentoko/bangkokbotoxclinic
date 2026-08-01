@@ -1,0 +1,43 @@
+# Explicit ignore — needed for --archive=tgz mode (auto-exclusion bypassed).
+# See web/.vercelignore's 2026-08-01 note: without this, node_modules/.next
+# get walked in full during archive packing, which can hang or crash on a
+# large dev-generated .next (72k+ files observed elsewhere in this repo).
+node_modules
+.next
+.vercel
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+README.md
+*.md
+scripts/__pycache__/
+
+# 2026-08-01: Root Directory="thaifacialclinic-portable" means --archive=tgz
+# still walks from repo root (same "web/web" gotcha as web/'s project).
+# Mirror web/.vercelignore's sibling-folder exclusions to avoid the same
+# race-condition crashes against other live projects' churning files.
+run
+web-factory
+web-thaigle
+web-restaurants
+web-dental
+web-golf
+web-petbkk
+2nd
+3rd
+chillanel
+dbd-scraper
+cosmetics
+siamverified-portable
+wiki_generator
+wongnai
+nordvpn
+node-openvpn-socks
+bangkok_clinics
+bangkok_reviews
+logs
+web

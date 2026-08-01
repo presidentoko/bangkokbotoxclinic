@@ -283,3 +283,41 @@ fs.writeFileSync(
 console.log(`[build-data] wrote ${clinics.length} clinics → ${OUT_FILE}`);
 console.log(`[build-data] suspected viral: ${clinics.filter((c) => c.is_suspected_viral).length}`);
 console.log(`[build-data] partners: ${clinics.filter((c) => c.is_partner).length}`);
+
+// slug_history.json 유지 — append-only. 2026-07-31 이전엔 이 파일을 읽는 코드가
+// 어디에도 없었고(완전한 dead code), 애초에 이걸 쓰는 스크립트도 없어서 145개
+// 항목이 전부 "지금 이 순간의 스냅샷"이었음 — 데이터 갱신마다 클리닉이
+// 빠지거나 이름이 바뀌면 그 URL을 기록할 데가 없어 조용히 고아가 됐고,
+// 구글은 여전히 그 옛 URL로 사람을 보내(예: "warodom clinic reviews" 159
+// 노출) 항상 404였음. 이제 매 빌드마다: ① 현재 살아있는 클리닉은 슬러그를
+// 계속 누적(절대 지우지 않음) ② 더 이상 안 보이는 클리닉은 active:false로
+// 표시만(항목 자체는 유지) — next.config.mjs의 redirects()가 이 파일을 읽어
+// 옛 슬러그 → 새 슬러그(살아있으면) 또는 도시 페이지(문 닫았으면)로 301.
+const SLUG_HISTORY_FILE = path.join(process.cwd(), "data", "slug_history.json");
+let slugHistory = {};
+if (fs.existsSync(SLUG_HISTORY_FILE)) {
+  try {
+    slugHistory = JSON.parse(fs.readFileSync(SLUG_HISTORY_FILE, "utf-8"));
+  } catch (err) {
+    console.warn(`[build-data] failed to parse ${SLUG_HISTORY_FILE}, starting fresh:`, err.message);
+  }
+}
+const liveIds = new Set();
+for (const c of clinics) {
+  liveIds.add(c.id);
+  const entry = slugHistory[c.id];
+  if (!entry) {
+    slugHistory[c.id] = { slugs: [c.slug], city: c.city, active: true };
+  } else {
+    entry.active = true;
+    entry.city = c.city;
+    if (!entry.slugs.includes(c.slug)) entry.slugs.push(c.slug);
+  }
+}
+for (const [id, entry] of Object.entries(slugHistory)) {
+  if (!liveIds.has(id)) entry.active = false;
+}
+fs.mkdirSync(path.dirname(SLUG_HISTORY_FILE), { recursive: true });
+fs.writeFileSync(SLUG_HISTORY_FILE, JSON.stringify(slugHistory), "utf-8");
+const newlyGone = Object.values(slugHistory).filter((e) => !e.active).length;
+console.log(`[build-data] slug_history: ${Object.keys(slugHistory).length} tracked, ${newlyGone} inactive`);

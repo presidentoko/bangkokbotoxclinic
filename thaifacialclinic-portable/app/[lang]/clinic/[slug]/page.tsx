@@ -66,7 +66,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     title, description,
     alternates: {
       canonical: url,
-      languages: Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/clinic/${c.slug}/`])),
+      languages: {
+        ...Object.fromEntries(SUPPORTED_LANGS.map((l) => [l, `${SITE.origin}/${l}/clinic/${c.slug}/`])),
+        "x-default": `${SITE.origin}/en/clinic/${c.slug}/`,
+      },
     },
     openGraph: { title, description, url, type: "article", siteName: SITE.name, images: [{ url: og, width: 1200, height: 630, alt: c.name }] },
     twitter: { card: "summary_large_image", title, description, images: [og] },

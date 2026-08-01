@@ -1,6 +1,7 @@
 // Editorial integrity pledges. Builds long-term trust.
+import type { Lang } from "@/lib/types";
 
-export default function TransparencyBadge() {
+export default function TransparencyBadge({ lang }: { lang: Lang }) {
   const pledges = [
     { emoji: "🛡", title: "We never delete negative reviews",  body: "Even from paying partners. They earn rank, never edit content." },
     { emoji: "📊", title: "Trust Score is a public formula",   body: "Audit at any time. We publish the methodology." },
@@ -25,7 +26,10 @@ export default function TransparencyBadge() {
         ))}
       </ul>
       <p className="text-[11px] text-[rgb(var(--muted))] mt-3 leading-relaxed">
-        Reading our <a href="/about" className="underline font-bold">methodology</a> takes 2 minutes. Worth it before any booking.
+        {/* 언어 프리픽스 없이 "/about"만 있어서 trailingSlash:true 사이트에서
+            308→404 체인이었음 (2026-07-31 감사, 이전 감사 때 못 잡힘 —
+            컴포넌트가 안 받던 lang prop을 새로 추가). */}
+        Reading our <a href={`/${lang}/about/`} className="underline font-bold">methodology</a> takes 2 minutes. Worth it before any booking.
       </p>
     </section>
   );

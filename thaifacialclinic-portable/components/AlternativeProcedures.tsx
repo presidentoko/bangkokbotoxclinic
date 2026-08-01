@@ -29,8 +29,17 @@ const CROSS: Partial<Record<SiteFocus, { v: SiteFocus; emoji: string; label: str
   dental: [
     { v: "facial", emoji: "✨", label: "Facial",      tagline: "Combine smile + skin trip" },
   ],
+  // 2026-07-31 감사: 이 파일이 web/(다른 프로젝트)에서 그대로 포팅되면서
+  // "facial" 같은 저 사이트 전용 SiteFocus 값이 v로 남아있었음. 이
+  // 사이트(thaifacialclinic.com)는 SiteFocus 대신 fue/dhi/fut/prp/smp/
+  // eyebrow/beard/scalp-care 같은 실제 procedure 슬러그를 쓰는데 매칭이 안 돼
+  // /c/facial(존재 안 함)로 링크돼 모든 클리닉 페이지에서 항상 404였음.
+  // 이 컴포넌트는 focus="hair"로만 호출되므로(clinic/[slug]/page.tsx:424)
+  // 실제 이 사이트 procedure 슬러그로 교체.
   hair: [
-    { v: "facial", emoji: "✨", label: "HydraFacial", tagline: "Recovery-day spa session" },
+    { v: "prp" as SiteFocus, emoji: "💉", label: "PRP", tagline: "Non-surgical regrowth boost" },
+    { v: "smp" as SiteFocus, emoji: "🖊️", label: "SMP", tagline: "Instant density, no surgery" },
+    { v: "eyebrow" as SiteFocus, emoji: "✨", label: "Eyebrow", tagline: "Same FUE technique, for brows" },
   ],
 };
 
