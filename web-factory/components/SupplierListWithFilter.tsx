@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { Suspense, useState, useMemo, useCallback } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 
@@ -22,10 +23,70 @@ type Props = {
   viewAllHref?: string;
 };
 
-export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions, totalSuppliers, viewAllHref = "/best/highly-recommended" }: Props) {
-  const [category, setCategory] = useState("");
-  const [city, setCity] = useState("");
-  const [dbdOnly, setDbdOnly] = useState(false);
+// Filter selections live in the URL (?cat=&city=&dbd=1) so a filtered result
+// can be shared or bookmarked — wrapped in Suspense because useSearchParams
+// opts this subtree into client-side rendering.
+export function SupplierListWithFilter(props: Props) {
+  return (
+    <Suspense fallback={<SupplierListWithFilterInner {...props} />}>
+      <SupplierListWithFilterUrlSynced {...props} />
+    </Suspense>
+  );
+}
+
+function SupplierListWithFilterUrlSynced(props: Props) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const urlCategory = searchParams.get("cat") ?? "";
+  const urlCity = searchParams.get("city") ?? "";
+  const urlDbd = searchParams.get("dbd") === "1";
+
+  const updateUrl = useCallback(
+    (next: { category?: string; city?: string; dbdOnly?: boolean }) => {
+      const params = new URLSearchParams(searchParams.toString());
+      const category = next.category ?? urlCategory;
+      const city = next.city ?? urlCity;
+      const dbdOnly = next.dbdOnly ?? urlDbd;
+      if (category) params.set("cat", category); else params.delete("cat");
+      if (city) params.set("city", city); else params.delete("city");
+      if (dbdOnly) params.set("dbd", "1"); else params.delete("dbd");
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [searchParams, urlCategory, urlCity, urlDbd, router, pathname],
+  );
+
+  return (
+    <SupplierListWithFilterInner
+      {...props}
+      initialCategory={props.categoryOptions.includes(urlCategory) ? urlCategory : ""}
+      initialCity={props.cityOptions.includes(urlCity) ? urlCity : ""}
+      initialDbdOnly={urlDbd}
+      onFilterChange={updateUrl}
+    />
+  );
+}
+
+type InnerProps = Props & {
+  initialCategory?: string;
+  initialCity?: string;
+  initialDbdOnly?: boolean;
+  onFilterChange?: (next: { category?: string; city?: string; dbdOnly?: boolean }) => void;
+};
+
+function SupplierListWithFilterInner({
+  suppliers, categoryOptions, cityOptions, totalSuppliers, viewAllHref = "/best/highly-recommended",
+  initialCategory = "", initialCity = "", initialDbdOnly = false, onFilterChange,
+}: InnerProps) {
+  const [category, setCategoryState] = useState(initialCategory);
+  const [city, setCityState] = useState(initialCity);
+  const [dbdOnly, setDbdOnlyState] = useState(initialDbdOnly);
+
+  const setCategory = (v: string) => { setCategoryState(v); onFilterChange?.({ category: v }); };
+  const setCity = (v: string) => { setCityState(v); onFilterChange?.({ city: v }); };
+  const setDbdOnly = (v: boolean) => { setDbdOnlyState(v); onFilterChange?.({ dbdOnly: v }); };
 
   const filtered = useMemo(() => {
     return suppliers
@@ -70,7 +131,7 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="text-sm border border-[var(--border)] rounded-lg px-3 py-1.5 bg-white hover:border-[var(--gold-light)] transition cursor-pointer"
+            className="text-sm border border-[var(--border)] rounded-lg px-3 py-2.5 min-h-11 bg-white hover:border-[var(--gold-light)] transition cursor-pointer"
           >
             <option value="">All categories</option>
             {categoryOptions.map((c) => (
@@ -84,7 +145,7 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
         <select
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="text-sm border border-[var(--border)] rounded-lg px-3 py-1.5 bg-white hover:border-[var(--gold-light)] transition cursor-pointer"
+          className="text-sm border border-[var(--border)] rounded-lg px-3 py-2.5 min-h-11 bg-white hover:border-[var(--gold-light)] transition cursor-pointer"
         >
           <option value="">All provinces</option>
           {cityOptions.map((c) => (
@@ -92,12 +153,12 @@ export function SupplierListWithFilter({ suppliers, categoryOptions, cityOptions
           ))}
         </select>
 
-        <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+        <label className="flex items-center gap-2 text-sm cursor-pointer select-none min-h-11 px-1">
           <input
             type="checkbox"
             checked={dbdOnly}
             onChange={(e) => setDbdOnly(e.target.checked)}
-            className="rounded border-[var(--border)] accent-[var(--gold)]"
+            className="w-4 h-4 rounded border-[var(--border)] accent-[var(--gold)]"
           />
           <span className="font-medium text-[var(--gold-deep)]">DBD Verified only</span>
         </label>

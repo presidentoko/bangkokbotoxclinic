@@ -221,9 +221,17 @@ export default async function CityPage(
           {note.hook}
         </p>
       )}
-      <p className="text-[var(--muted)] mb-6">
+      <p className="text-[var(--muted)] mb-2">
         {filtered.length.toLocaleString()} verified suppliers in {display}, ranked by Trust Score from public Google reviews.
       </p>
+      {categories.length > 0 && (
+        <p className="text-[var(--muted)] mb-6 text-sm leading-relaxed">
+          {display} has {filtered.length.toLocaleString()} listed suppliers with an average Trust Score of {avgTrust}/100
+          {verifiedCount > 0 ? `, ${verifiedCount.toLocaleString()} of which are DBD-verified` : ""}.
+          The most common category is {CATEGORY_LABELS[categories[0][0]] ?? categories[0][0]} ({categories[0][1].toLocaleString()} suppliers)
+          {categories[1] ? `, followed by ${CATEGORY_LABELS[categories[1][0]] ?? categories[1][0]} (${categories[1][1].toLocaleString()})` : ""}.
+        </p>
+      )}
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 text-center">
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">

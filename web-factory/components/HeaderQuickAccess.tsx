@@ -75,7 +75,7 @@ export function HeaderQuickAccess() {
           <button
             type="button"
             onClick={() => setOpenPanel(openPanel === "recent" ? null : "recent")}
-            className="relative p-2 rounded-lg hover:bg-[var(--gold-bg)] transition"
+            className="relative p-2.5 min-w-11 min-h-11 flex items-center justify-center rounded-lg hover:bg-[var(--gold-bg)] transition"
             aria-label={`Recently viewed (${recent.length})`}
           >
             <span aria-hidden className="text-base">🕒</span>
@@ -109,7 +109,7 @@ export function HeaderQuickAccess() {
           <button
             type="button"
             onClick={() => setOpenPanel(openPanel === "shortlist" ? null : "shortlist")}
-            className="relative p-2 rounded-lg hover:bg-[var(--gold-bg)] transition"
+            className="relative p-2.5 min-w-11 min-h-11 flex items-center justify-center rounded-lg hover:bg-[var(--gold-bg)] transition"
             aria-label={`Shortlisted suppliers (${shortlist.length})`}
           >
             <span aria-hidden className="text-base">⚖️</span>
@@ -136,20 +136,20 @@ export function HeaderQuickAccess() {
                 <button
                   type="button"
                   onClick={shareShortlist}
-                  className="flex-1 text-xs font-bold py-1.5 rounded-lg border border-[var(--border)] hover:border-[var(--gold)] transition"
+                  className="flex-1 text-xs font-bold py-2.5 min-h-11 rounded-lg border border-[var(--border)] hover:border-[var(--gold)] transition"
                 >
                   {copied ? "✓ Copied!" : "🔗 Share"}
                 </button>
                 <a
                   href="/compare"
-                  className="flex-1 text-center text-xs font-bold py-1.5 rounded-lg bg-[var(--gold)] text-white hover:opacity-90 transition"
+                  className="flex-1 flex items-center justify-center text-center text-xs font-bold py-2.5 min-h-11 rounded-lg bg-[var(--gold)] text-white hover:opacity-90 transition"
                 >
                   Compare →
                 </a>
                 <button
                   type="button"
                   onClick={clearShortlist}
-                  className="text-xs font-bold py-1.5 px-2 rounded-lg border border-[var(--border)] hover:border-stone-700 transition"
+                  className="text-xs font-bold py-2.5 min-h-11 px-3 rounded-lg border border-[var(--border)] hover:border-stone-700 transition"
                 >
                   Clear
                 </button>

@@ -158,9 +158,16 @@ export default async function KoCityPage(
       {note?.hook && (
         <p className="text-[var(--muted)] mb-2 leading-relaxed text-balance">{note.hook}</p>
       )}
-      <p className="text-[var(--muted)] mb-6">
+      <p className="text-[var(--muted)] mb-2">
         {filtered.length.toLocaleString()}곳 검증된 공급사. 신뢰도 점수 기준 정렬.
       </p>
+      {categories.length > 0 && (
+        <p className="text-[var(--muted)] mb-6 text-sm leading-relaxed">
+          {display}에는 총 {filtered.length.toLocaleString()}곳의 공급사가 등록되어 있으며 평균 신뢰도 점수는 {avgTrust}/100입니다.
+          가장 많은 카테고리는 {CATEGORY_LABELS[categories[0][0]] ?? categories[0][0]} ({categories[0][1].toLocaleString()}곳)
+          {categories[1] ? `이며, 그 다음은 ${CATEGORY_LABELS[categories[1][0]] ?? categories[1][0]} (${categories[1][1].toLocaleString()}곳)` : ""}입니다.
+        </p>
+      )}
 
       <div className="grid grid-cols-3 gap-3 mb-8 text-center">
         <div className="rounded-xl border border-[var(--border)] bg-white p-3">

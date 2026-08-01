@@ -64,6 +64,11 @@ export default async function KoCategoryPage(
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = filtered.filter((r) => r.website).length;
+  const verifiedCount = filtered.filter((r) => r.verified).length;
+  const avgTrust =
+    filtered.length > 0
+      ? Math.round(filtered.reduce((s, r) => s + (r.trust_score ?? 0), 0) / filtered.length)
+      : 0;
 
   const guideSlug = CATEGORY_TO_GUIDE[cuisine];
   const koGuide = guideSlug ? findGuideKo(guideSlug) : null;
@@ -85,6 +90,14 @@ export default async function KoCategoryPage(
           {intro?.intro ??
             `태국 ${label.toLowerCase()} 공급사 ${filtered.length.toLocaleString()}곳. 신뢰도 점수로 정렬 — 공개 Google 리뷰 분석 기반.`}
         </p>
+        {cities.length > 0 && (
+          <p className="text-[var(--muted)] leading-relaxed mb-4 text-sm">
+            태국 전체에 {label.toLowerCase()} 공급사 {filtered.length.toLocaleString()}곳이 등록되어 있으며 평균 신뢰도 점수는 {avgTrust}/100
+            {verifiedCount > 0 ? `, 그 중 ${verifiedCount.toLocaleString()}곳이 DBD 검증` : ""}입니다.
+            가장 밀집된 지역은 {cities[0][0]} ({cities[0][1].toLocaleString()}곳)
+            {cities[1] ? `이며, 그 다음은 ${cities[1][0]} (${cities[1][1].toLocaleString()}곳)` : ""}입니다.
+          </p>
+        )}
         <div className="flex flex-wrap gap-2 text-xs">
           <span className="bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-full font-medium tabular-nums">
             {filtered.length.toLocaleString()}곳 공급사

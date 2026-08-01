@@ -103,7 +103,7 @@ export function HeaderNav() {
         type="button"
         aria-label="Open menu"
         aria-expanded={open}
-        className="md:hidden p-2 -mr-2 rounded hover:bg-gray-100"
+        className="md:hidden p-3 -mr-1 rounded hover:bg-gray-100"
         onClick={() => setOpen(true)}
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -126,7 +126,7 @@ export function HeaderNav() {
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="p-2 -mr-2 rounded hover:bg-gray-100"
+                className="p-3 -mr-1 rounded hover:bg-gray-100"
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18" />

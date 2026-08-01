@@ -95,6 +95,10 @@ export default async function CategoryPage(
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = filtered.filter((r) => r.website).length;
   const verifiedCount = filtered.filter((r) => r.verified).length;
+  const avgTrust =
+    filtered.length > 0
+      ? Math.round(filtered.reduce((s, r) => s + (r.trust_score ?? 0), 0) / filtered.length)
+      : 0;
 
   // 필터 컴포넌트용 데이터 (이미 카테고리 필터 적용된 상태)
   const filterableSuppliers: FilterableSupplier[] = filtered.map((s) => ({
@@ -139,6 +143,14 @@ export default async function CategoryPage(
           {intro?.intro ??
             `${filtered.length.toLocaleString()} verified ${label.toLowerCase()} suppliers across Thailand. Ranked by Trust Score from public Google review analysis.`}
         </p>
+        {cities.length > 0 && (
+          <p className="text-[var(--muted)] leading-relaxed mb-4 text-sm">
+            Thailand has {filtered.length.toLocaleString()} listed {label.toLowerCase()} suppliers with an average Trust Score of {avgTrust}/100
+            {verifiedCount > 0 ? `, ${verifiedCount.toLocaleString()} of which are DBD-verified` : ""}.
+            The largest concentration is in {cities[0][0]} ({cities[0][1].toLocaleString()} suppliers)
+            {cities[1] ? `, followed by ${cities[1][0]} (${cities[1][1].toLocaleString()})` : ""}.
+          </p>
+        )}
         <div className="flex flex-wrap gap-2 text-xs">
           <span className="bg-[var(--gold-bg)] text-[var(--gold-deep)] px-2.5 py-1 rounded-full font-medium tabular-nums">
             {filtered.length.toLocaleString()} suppliers
