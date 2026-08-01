@@ -28,8 +28,13 @@ WEB_DATA = ROOT / "web-factory" / "data"
 
 HOME = Path.home()
 APIFY_SEARCH_DIRS = [
+    # Primary — drop new Apify exports here. Consolidated so raw scrape dumps
+    # aren't scattered across Desktop/Downloads (which made prior batches easy
+    # to lose — the 2026-07-14 batch sat unmerged in Downloads for weeks).
+    WEB_DATA / "apify_raw",
     HOME / "Desktop",
     HOME / "Downloads",
+    HOME / "Downloads" / "with review 리뷰",
     HOME / "Downloads" / "공단" / "공단" / "이름만",
     HOME / "Downloads" / "공단" / "공단" / "리뷰",
     HOME / "Desktop" / "공단" / "공단",
@@ -52,8 +57,12 @@ def find_files(patterns: list[str]) -> list[Path]:
     for d in APIFY_SEARCH_DIRS:
         if not d.exists():
             continue
+        # apify_raw is organized into dated subfolders (data/apify_raw/2026-07-14/...),
+        # so it needs a recursive glob; the legacy Desktop/Downloads paths hold files
+        # directly and a recursive glob there would be slow and pick up unrelated junk.
+        globber = d.rglob if d == WEB_DATA / "apify_raw" else d.glob
         for pat in patterns:
-            for p in d.glob(pat):
+            for p in globber(pat):
                 if p.name in seen:
                     continue
                 seen.add(p.name)

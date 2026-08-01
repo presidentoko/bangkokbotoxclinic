@@ -25,6 +25,11 @@ scripts/dbd_bundles/
 data/master_db.legacy.json
 data/master_db.json.bak-*
 
+# Raw Apify export dumps (~100MB+) — merged into master_db.json by
+# scripts/apify_to_master_db.py, kept locally as an archive/re-merge source,
+# not meant for git. Drop new Apify downloads straight into this folder.
+data/apify_raw/
+
 # Google Maps 백업 사진 — 55MB, deploy 시점에 build 가 out/ 으로 복사.
 # git 에 넣을지는 추후 결정 (Cloudflare R2 등 별도 storage 권장).
 public/photos/
