@@ -1,5 +1,5 @@
 import { loadMasterDb, filterByDistrict, topByTrust } from "@/lib/data";
-import { loadNicheDb, topNichePlaces } from "@/lib/niches";
+import { loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { getAffiliateLink } from "@/lib/affiliate";
 import type { Restaurant } from "@/lib/types";
@@ -164,7 +164,7 @@ export async function buildDayPlan(area: AreaSlug, theme: ThemeSlug): Promise<Da
   const nicheMaps = Object.fromEntries(
     await Promise.all(niches.map(async (n) => {
       const db2 = await loadNicheDb(n);
-      return [n, topNichePlaces(db2.places, 3)] as const;
+      return [n, qualifyingNichePlaces(n, db2.places).slice(0, 3)] as const;
     }))
   );
 

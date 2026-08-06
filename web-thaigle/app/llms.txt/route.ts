@@ -1,7 +1,7 @@
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS } from "@/lib/types";
-import { NICHES, loadNicheDb, topNichePlaces, qualifyingNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -18,7 +18,7 @@ export async function GET() {
     // total here is the count of pages that actually exist (same gate as
     // generateStaticParams), not the raw scraped count — an AI citing "2000
     // spa venues" when only ~58 have a real page would be a bad citation.
-    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ ...n, total: qualifyingNichePlaces(n.slug, d.places).length, top: topNichePlaces(d.places, 5) })))),
+    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ ...n, total: qualifyingNichePlaces(n.slug, d.places).length, top: qualifyingNichePlaces(n.slug, d.places).slice(0, 5) })))),
   ]);
   const top = [...db.restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 30);
 

@@ -137,8 +137,8 @@ export async function GET() {
   for (const niche of NICHES) {
     try {
       const nicheDb = await loadNicheDb(niche.slug as import("@/lib/niches").NicheSlug);
-      const { topNichePlaces } = await import("@/lib/niches");
-      const top10 = topNichePlaces(nicheDb.places, 10);
+      const { qualifyingNichePlaces } = await import("@/lib/niches");
+      const top10 = qualifyingNichePlaces(niche.slug, nicheDb.places).slice(0, 10);
       if (top10.length === 0) continue;
       lines.push(`### ${niche.icon} ${niche.label} — ${SITE}/activities/${niche.slug}`);
       lines.push(`Total listings: ${nicheDb.total}`);

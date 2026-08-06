@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
-import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { VersusVote } from "@/components/VersusVote";
@@ -57,7 +57,7 @@ export default async function TrendingPage() {
     getSlugMap(),
     Promise.all(NICHES.map(async (n) => {
       const nd = await loadNicheDb(n.slug as NicheSlug);
-      return { ...n, top: topNichePlaces(nd.places, 5) };
+      return { ...n, top: qualifyingNichePlaces(n.slug, nd.places).slice(0, 5) };
     })),
   ]);
 

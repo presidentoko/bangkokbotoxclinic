@@ -6,7 +6,7 @@ import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CardImage } from "@/components/CardImage";
-import { loadNicheDb, topNichePlaces, buildKlookIndex, NICHES } from "@/lib/niches";
+import { loadNicheDb, qualifyingNichePlaces, buildKlookIndex, NICHES } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { ShareButton } from "@/components/ShareButton";
 import { VersusVote } from "@/components/VersusVote";
@@ -66,7 +66,7 @@ export default async function GuidePage(
 
   // Load niche places if this guide is linked to an activity niche
   const nicheInfo = g.nicheSlug ? NICHES.find(n => n.slug === g.nicheSlug) : null;
-  const nichePlaces = g.nicheSlug ? await loadNicheDb(g.nicheSlug as NicheSlug).then(db => topNichePlaces(db.places, 5)) : [];
+  const nichePlaces = g.nicheSlug ? await loadNicheDb(g.nicheSlug as NicheSlug).then(db => qualifyingNichePlaces(g.nicheSlug as string, db.places).slice(0, 5)) : [];
   const nicheKlook = nichePlaces.length > 0 ? await buildKlookIndex(nichePlaces.map(p => p.id)) : new Map();
 
   const brand = process.env.NEXT_PUBLIC_BRAND || "Thaigle";

@@ -35,6 +35,22 @@ body {
   outline-offset: 2px;
 }
 
+/* Mobile legibility floor.
+   ~3,100 call sites across the component library set text-[9px]/text-[10px],
+   and in the guide/topic blocks that size is the *body copy*, not a badge —
+   9–10px is below what's readable on a phone without pinch-zooming, which is
+   also what Google's mobile-usability checks flag. Raising the floor to 12px
+   on small screens only leaves every desktop layout exactly as designed, and
+   these sizes are always inside wrapping flex/grid containers so the extra
+   2–3px reflows rather than overflowing. */
+@media (max-width: 640px) {
+  .text-\[9px\],
+  .text-\[10px\] {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+}
+
 @utility pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }

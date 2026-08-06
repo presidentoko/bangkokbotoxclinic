@@ -314,7 +314,7 @@ export async function generateMetadata({
   if (!info) return {};
   const db = await loadNicheDb(niche as NicheSlug);
   const intro = NICHE_INTRO[niche as NicheSlug];
-  const scope = cityScopeLabel(topNichePlaces(db.places, 60));
+  const scope = cityScopeLabel(qualifyingNichePlaces(niche, db.places).slice(0, 60));
   // db.total is the raw scraped count — for niches like spa where most
   // records have no rating/price/review/photo at all, that count is far
   // higher than the number of pages that actually get built (qualifying
@@ -357,7 +357,10 @@ export default async function NichePage({
     loadCommunityDb(niche as NicheSlug),
   ]);
 
-  const top = topNichePlaces(db.places, 60);
+  // MUST stay in sync with generateStaticParams() in [niche]/[slug] — every
+  // card below links to a detail page, so ranking off the ungated
+  // topNichePlaces() emitted 58 dead /activities/spa/* links on this page.
+  const top = qualifyingNichePlaces(niche, db.places).slice(0, 60);
   const scope = cityScopeLabel(top);
   const klookMap = await buildKlookIndex(top.map((p) => p.id));
   const cityLinks = nicheCityCounts(niche, db.places);

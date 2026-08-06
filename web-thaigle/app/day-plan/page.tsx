@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import { AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 import type { NicheSlug } from "@/lib/niches";
@@ -58,7 +58,7 @@ export default async function DayPlanPage() {
       PILLARS.filter((p) => p.niche).map((p) =>
         loadNicheDb(p.niche as NicheSlug).then((d) => ({
           niche: p.niche as string,
-          top: topNichePlaces(d.places, 3),
+          top: qualifyingNichePlaces(p.niche as string, d.places).slice(0, 3),
         }))
       )
     ),

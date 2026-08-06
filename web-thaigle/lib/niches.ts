@@ -147,6 +147,16 @@ export async function loadCommunityDb(niche: NicheSlug): Promise<CommunityDb | n
   }
 }
 
+/**
+ * Ranking only — does NOT guarantee a detail page exists for what it returns.
+ *
+ * Callers that render links to /activities/{niche}/{slug} must use
+ * qualifyingNichePlaces() instead: that one applies the same gate as
+ * generateStaticParams(), so its results always have a built page. Using this
+ * function for a listing shipped 58 dead /activities/spa/* links to production.
+ *
+ * @internal — prefer qualifyingNichePlaces() everywhere outside this module.
+ */
 export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
   const rated = [...places]
     .filter((p) => p.trust_score > 0 && !!p.rating && !!p.review_count && p.review_count > 0)

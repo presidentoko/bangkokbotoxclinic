@@ -4,7 +4,7 @@ import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { OCCASIONS, OCCASION_NAV, findOccasion } from "@/lib/occasions";
 import type { OccasionSlug } from "@/lib/occasions";
-import { NICHES, loadNicheDb, topNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
@@ -143,7 +143,7 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
           const n = NICHES.find((x) => x.slug === slug);
           if (!n) return null;
           const db2 = await loadNicheDb(slug as NicheSlug);
-          return { ...n, top: topNichePlaces(db2.places, 5) };
+          return { ...n, top: qualifyingNichePlaces(slug, db2.places).slice(0, 5) };
         })
       ).then((r) => r.filter(Boolean))
     : [];

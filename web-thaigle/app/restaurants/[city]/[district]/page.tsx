@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
+import { NEIGHBORHOODS, findNeighborhood, restaurantsInNeighborhood } from "@/lib/neighborhoods";
+import type { Restaurant } from "@/lib/types";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
@@ -31,10 +33,42 @@ export async function generateStaticParams() {
       pairs.add(`${r.city}|${districtSlug}`);
     }
   }
+  // Colloquial neighbourhood slugs (sukhumvit, thonglor, silom, …) resolve
+  // by geo radius instead of by khet name — see lib/neighborhoods.ts. Six
+  // components linked to these before any page existed for them.
+  for (const n of NEIGHBORHOODS) pairs.add(`${n.city}|${n.slug}`);
   return Array.from(pairs).map((p) => {
     const [city, district] = p.split("|");
     return { city, district };
   });
+}
+
+/**
+ * Resolves either flavour of slug to its restaurant set + display label:
+ * an official khet ("watthana") matches on r.district, a neighbourhood
+ * ("thonglor") matches on distance from a hand-placed centre point.
+ */
+function resolveArea(db: { restaurants: Restaurant[] }, city: string, district: string) {
+  const hood = findNeighborhood(city, district);
+  if (hood) {
+    return {
+      hood,
+      restaurants: restaurantsInNeighborhood(db.restaurants, hood),
+      label: hood.label,
+    };
+  }
+  return {
+    hood: undefined,
+    restaurants: db.restaurants.filter(
+      (r) =>
+        r.city === city &&
+        ((r.district && slugifySegment(r.district) === district) || (!r.district && district === "other"))
+    ),
+    label:
+      district === "other"
+        ? "Other Areas"
+        : district.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+  };
 }
 
 export async function generateMetadata(
@@ -42,16 +76,15 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { city, district } = await params;
   const db = await loadMasterDb();
-  const districtLabel = district.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const { hood, restaurants: matches, label: districtLabel } = resolveArea(db, city, district);
   const cityLabel = city.charAt(0).toUpperCase() + city.slice(1);
-  const matches = db.restaurants.filter(
-    (r) => r.city === city && r.district && slugifySegment(r.district) === district
-  );
-  const topRestaurant = matches.sort((a, b) => b.trust_score - a.trust_score)[0];
+  const topRestaurant = [...matches].sort((a, b) => b.trust_score - a.trust_score)[0];
   const topSnippet = topRestaurant ? ` Best: ${topRestaurant.name} (★${topRestaurant.rating}).` : "";
   return {
     title: `Best Restaurants in ${districtLabel}, ${cityLabel} 2026 — ${matches.length} Ranked`,
-    description: `${matches.length} restaurants in ${districtLabel}, ${cityLabel} ranked by Trust Score from real Google reviews.${topSnippet} No influencer hype. Updated 2026.`,
+    description: hood
+      ? `${matches.length} restaurants in ${districtLabel}, Bangkok ranked by Trust Score from real Google reviews.${topSnippet} ${hood.transit}. No influencer hype. Updated 2026.`
+      : `${matches.length} restaurants in ${districtLabel}, ${cityLabel} ranked by Trust Score from real Google reviews.${topSnippet} No influencer hype. Updated 2026.`,
     alternates: { canonical: `/restaurants/${city}/${district}` },
     openGraph: {
       title: `Best ${districtLabel} Restaurants 2026`,
@@ -66,12 +99,9 @@ export default async function DistrictHub(
   const { city, district } = await params;
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
 
-  const restaurants = db.restaurants.filter(
-    (r) => r.city === city && ((r.district && slugifySegment(r.district) === district) || (!r.district && district === "other"))
-  );
+  const { hood, restaurants, label: districtLabel } = resolveArea(db, city, district);
   if (restaurants.length === 0) notFound();
 
-  const districtLabel = district === "other" ? "Other Areas" : district.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   const cityLabel = city.charAt(0).toUpperCase() + city.slice(1);
   const sorted = [...restaurants].sort((a, b) => b.trust_score - a.trust_score);
 
@@ -118,6 +148,23 @@ export default async function DistrictHub(
           />
         </div>
         <p className="text-[var(--muted)] mb-6">{restaurants.length.toLocaleString()} restaurants · {cityLabel} · Trust Score ranked</p>
+        {hood && (
+          <div className="mb-6 rounded-2xl border border-[var(--border)] bg-orange-50/40 p-4">
+            <p className="text-sm leading-relaxed text-[var(--fg)]">{hood.blurb}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--muted)]">
+              <span>🚇 {hood.transit}</span>
+              <span>
+                📍 Within {hood.radiusKm} km of {hood.label} centre · officially in{" "}
+                <a
+                  href={`/restaurants/${hood.city}/${hood.districtSlug}`}
+                  className="underline underline-offset-2 hover:text-orange-600"
+                >
+                  {hood.districtLabel} district
+                </a>
+              </span>
+            </div>
+          </div>
+        )}
         {topCuisines.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6">
             {topCuisines.map(([cat, count]) => (

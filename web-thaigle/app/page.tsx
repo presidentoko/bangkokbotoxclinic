@@ -87,12 +87,15 @@ export default async function HomePage() {
       return { slug: n.slug, label: n.label, icon: n.icon, total: nd.total };
     })),
     Promise.all(NICHES.map(async (n) => {
-      const { topNichePlaces } = await import("@/lib/niches");
+      const { qualifyingNichePlaces } = await import("@/lib/niches");
       const nd = await loadNicheDb(n.slug as NicheSlug);
       // 50 (not 8) so the homepage search index below has real coverage per
       // niche — SurpriseMe also draws from this same pool, which just means
       // a bit more variety there too.
-      return { slug: n.slug, label: n.label, icon: n.icon, top: topNichePlaces(nd.places, 50) };
+      // qualifying (not top) NichePlaces: every entry here becomes a link or a
+      // search hit pointing at /activities/{niche}/{slug}, and only the
+      // qualifying set actually has a page generated for it.
+      return { slug: n.slug, label: n.label, icon: n.icon, top: qualifyingNichePlaces(n.slug, nd.places).slice(0, 50) };
     })),
   ]);
   const top = sortWithSponsored(topByTrust(db.restaurants, 50));

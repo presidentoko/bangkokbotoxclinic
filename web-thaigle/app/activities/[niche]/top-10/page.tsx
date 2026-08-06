@@ -37,7 +37,7 @@ export async function generateMetadata({
   const info = NICHES.find((n) => n.slug === niche);
   if (!info) return {};
   const db = await loadNicheDb(niche as NicheSlug);
-  const top = topNichePlaces(db.places, 10);
+  const top = qualifyingNichePlaces(niche, db.places).slice(0, 10);
   const scope = cityScopeLabel(top);
   return {
     title: `Top 10 ${info.label} in ${scope} (2026) — Ranked by Real Reviews`,
@@ -65,7 +65,9 @@ export default async function NicheTop10Page({
   if (!info) notFound();
 
   const db = await loadNicheDb(niche as NicheSlug);
-  const top10 = topNichePlaces(db.places, 10);
+  // Same gate as [niche]/[slug]'s generateStaticParams — otherwise entries
+  // here link to detail pages that were never generated.
+  const top10 = qualifyingNichePlaces(niche, db.places).slice(0, 10);
   const scope = cityScopeLabel(top10);
   const klookMap = await buildKlookIndex(top10.map((p) => p.id));
   // db.total is the raw scraped count, not the number of pages that

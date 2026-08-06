@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NICHES, loadNicheDb, topNichePlaces, qualifyingNichePlaces } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { CardImage } from "@/components/CardImage";
@@ -71,7 +71,7 @@ export default async function ActivitiesPage() {
     NICHES.map(async (n) => {
       const db = await loadNicheDb(n.slug as NicheSlug);
       const topPlaces = FEATURED_NICHES.includes(n.slug as NicheSlug)
-        ? topNichePlaces(db.places, 3)
+        ? qualifyingNichePlaces(n.slug, db.places).slice(0, 3)
         : [];
       // db.total is the raw scraped count — for niches like spa where most
       // records have no rating/price/review/photo at all, that's far higher
