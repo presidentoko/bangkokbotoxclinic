@@ -3,6 +3,7 @@
 // Data model mirrors the place verification page spec.
 
 import PLACES_RAW from "./places-data.json";
+import { asciiSlug } from "./placeIndexing";
 
 export type Category = "eat" | "train" | "treat" | "learn" | "relax";
 
@@ -40,7 +41,12 @@ export interface Place {
   }>;
 }
 
-const ALL_PLACES: Place[] = PLACES_RAW as Place[];
+// Normalised at load so the slug is ASCII everywhere downstream — see
+// asciiSlug() for why a Thai-script slug produces a page that 404s.
+const ALL_PLACES: Place[] = (PLACES_RAW as Place[]).map((p) => ({
+  ...p,
+  slug: asciiSlug(p.slug),
+}));
 
 const PLACE_INDEX = new Map<string, Place>(
   ALL_PLACES.map((p) => [p.slug, p])

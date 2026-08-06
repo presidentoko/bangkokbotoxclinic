@@ -8,6 +8,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { Place, Lang } from "./places";
+import { asciiSlug } from "./placeIndexing";
 
 let _places: Place[] | null = null;
 let _index: Map<string, Place> | null = null;
@@ -18,7 +19,9 @@ async function loadPlaces(): Promise<{ places: Place[]; index: Map<string, Place
     path.join(process.cwd(), "lib", "places-data.json"),
     "utf-8"
   );
-  _places = JSON.parse(raw) as Place[];
+  // Must match lib/places.ts's normalisation exactly — the client bundle and
+  // this route have to agree on every slug. See asciiSlug().
+  _places = (JSON.parse(raw) as Place[]).map((p) => ({ ...p, slug: asciiSlug(p.slug) }));
   _index = new Map(_places.map((p) => [p.slug, p]));
   return { places: _places, index: _index };
 }
