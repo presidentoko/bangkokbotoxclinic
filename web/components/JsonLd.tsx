@@ -91,10 +91,14 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
   });
 }
 
-export function ClinicJsonLd({ c, photos, priceRange }: {
+// localePrefix — "" (EN) | "/th" | "/ko". /th·/ko 클리닉 페이지는 canonical 은
+// 자기 자신을 가리키는데 JSON-LD 의 url 만 영어 경로를 뱉고 있어서, 같은 문서가
+// 스스로를 두 URL 로 주장하는 상태였다 (2026-08-06 감사).
+export function ClinicJsonLd({ c, photos, priceRange, localePrefix = "" }: {
   c: Clinic;
   photos?: { large: string }[];
   priceRange?: { min: number; max: number };
+  localePrefix?: string;
 }) {
   // MedicalBusiness 가 기본 — 치과는 Dentist 타입이 리치결과 적중률 더 높음.
   const schemaType = c.categories?.includes("dental") ? "Dentist" : "MedicalBusiness";
@@ -102,7 +106,7 @@ export function ClinicJsonLd({ c, photos, priceRange }: {
     "@context": "https://schema.org",
     "@type": schemaType,
     name: c.name,
-    url: `${SITE}/clinic/${c.id}`,
+    url: `${SITE}${localePrefix}/clinic/${c.id}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: c.address,

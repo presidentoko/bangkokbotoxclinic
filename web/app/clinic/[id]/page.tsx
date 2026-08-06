@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, getClinicById } from "@/lib/data";
+import { loadMasterDb, getClinicById, makeCompositeDoctorSlug } from "@/lib/data";
 import { loadPricing, summarisePackages, priceRangeTHB } from "@/lib/pricing";
 import { loadPhotos } from "@/lib/photos";
 import { PhotoGallery } from "@/components/PhotoGallery";
@@ -133,9 +133,16 @@ export async function generateMetadata(
   };
 }
 
+// 로케일별 경로 접두사와 breadcrumb 루트 라벨. /ko 는 예전엔 이 컴포넌트를 그냥
+// `export default ClinicPage` 로 재export 해서 lang 이 한 번도 안 넘어왔다 —
+// /th 는 2026-07-31에 고쳤지만 /ko 는 그대로였다.
+const LOCALE_PREFIX = { en: "", th: "/th", ko: "/ko" } as const;
+const HOME_CRUMB = { en: "Home", th: "หน้าแรก", ko: "홈" } as const;
+
 export default async function ClinicPage(
-  { params, lang = "en" }: { params: Promise<{ id: string }>; lang?: "en" | "th" }
+  { params, lang = "en" }: { params: Promise<{ id: string }>; lang?: "en" | "th" | "ko" }
 ) {
+  const localePrefix = LOCALE_PREFIX[lang];
   const { id } = await params;
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, id);
@@ -379,7 +386,9 @@ export default async function ClinicPage(
       {/* Wiki AI summary — 양국어, AEO/LLM 인용 친화. header 직하 prominent. */}
       {wikiSummary && (
         <div className="mb-6">
-          <WikiSummaryCard summary={wikiSummary} lang={lang} />
+          {/* wiki_summaries 는 th/en 두 언어만 있다(lib/wiki.ts) — ko 페이지는
+              영어 요약이 올바른 폴백이라 "th"가 아니면 전부 en 으로 넘긴다. */}
+          <WikiSummaryCard summary={wikiSummary} lang={lang === "th" ? "th" : "en"} />
         </div>
       )}
 
@@ -483,6 +492,42 @@ export default async function ClinicPage(
               </div>
             </section>
           )}
+
+          {/* 이 클리닉에서 리뷰에 자주 언급되는 의사들. 2026-08-06 감사 전까지
+              /doctor/* 로 가는 내부 링크가 사이트 전체에 0개였고 /doctors 허브도
+              어디에서도 링크되지 않아, 의사 페이지 900여 개가 사이트맵에만
+              존재하는 고아였다 — 구글이 "발견됨 – 색인되지 않음"으로 분류하는
+              전형적 형태다. mentions 임계값은 doctor/[slug] 의 noindex 기준과
+              같이 움직여야 한다(그 아래는 noindex 라 링크해도 의미 없음). */}
+          {(() => {
+            const linkable = (c.doctor_stats ?? [])
+              .filter((d) => d.mentions >= 10)
+              .sort((a, b) => b.mentions - a.mentions)
+              .slice(0, 8);
+            if (linkable.length === 0) return null;
+            return (
+              <section className="mt-10">
+                <h2 className="text-lg font-bold mb-3">
+                  Doctors mentioned in reviews at {c.name}
+                </h2>
+                <ul className="flex flex-wrap gap-2">
+                  {linkable.map((d) => (
+                    <li key={d.slug}>
+                      <a
+                        href={`${localePrefix}/doctor/${encodeURI(makeCompositeDoctorSlug(d, c))}`}
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
+                      >
+                        <span className="font-medium">Dr. {d.name}</span>
+                        <span className="text-[var(--muted)]">
+                          ★{d.rating_avg.toFixed(1)} · {d.mentions}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })()}
 
           {/* AEO: FAQ 가시 섹션 + JSON-LD 짝꿍 (페이지 끝 JsonLd) */}
           <FaqSection faqs={faqs} />
@@ -760,16 +805,19 @@ export default async function ClinicPage(
         <ClaimBanner clinicId={c.id} clinicName={c.name} accent="var(--accent)" />
       )}
 
-      <ClinicJsonLd c={c} photos={photos?.photos} priceRange={priceRange ?? undefined} />
+      {/* /th 변형은 canonical 이 /th/clinic/{id} 인데 JSON-LD 의 url·breadcrumb 은
+          전부 영어 경로를 뱉고 있었다 — 같은 문서가 canonical 과 구조화 데이터에서
+          서로 다른 URL 을 자기 자신이라고 주장하는 상태 (2026-08-06 감사). */}
+      <ClinicJsonLd c={c} photos={photos?.photos} priceRange={priceRange ?? undefined} localePrefix={localePrefix} />
       <BreadcrumbJsonLd items={[
-        { name: "Home", url: "/" },
-        ...(c.district ? [{ name: c.district, url: `/d/${c.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
-        { name: c.name, url: `/clinic/${c.id}` },
+        { name: HOME_CRUMB[lang], url: `${localePrefix}/` },
+        ...(c.district ? [{ name: c.district, url: `${localePrefix}/d/${c.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
+        { name: c.name, url: `${localePrefix}/clinic/${c.id}` },
       ]} />
       {/* AEO: FAQ schema — Google PAA / LLM 인용 친화 */}
       <FaqJsonLd faqs={faqs} />
       {/* AEO: Speakable — 음성검색 (Google Assistant 등) 응답 elig */}
-      <SpeakableJsonLd url={`/clinic/${c.id}`} />
+      <SpeakableJsonLd url={`${localePrefix}/clinic/${c.id}`} />
     </div>
   );
 }

@@ -166,14 +166,27 @@ export default async function ServicePage(
         const sortedCities = cityOrder.filter((c) => byCity.has(c))
           .concat([...byCity.keys()].filter((c) => !cityOrder.includes(c)));
 
+        // 2026-08-06: slice(0, 50) 이 "도시별"로 적용돼서 도시 7개면 한 페이지에
+        // 클리닉 카드 350장이 렌더됐고, /c/dental 의 HTML 이 1,395 KB 였다
+        // (홈 1,145 KB). 서버 컴포넌트라 RSC 페이로드가 아니라 순수 HTML 무게다 —
+        // Fast Origin Transfer 25 GB/10 GB 초과의 직접 원인.
+        // chillanel(#159)·facial(#37)엔 이미 적용한 다이어트가 web/ 에만 빠져 있었다.
+        //
+        // 새 페이지네이션 라우트를 파면 페이지 수가 늘어 ISR Writes(616K/200K,
+        // 역시 초과 중)를 더 밀어올린다. 그래서 "더보기" 착지점은 이미 존재하고
+        // 사이트맵에도 올라가 있는 /city/{slug} 와 /c/{service}/{district} 를 쓴다.
+        const MAIN_CITY_CARDS = 30;
+        const OTHER_CITY_CARDS = 5;
+        const FULL_CARDS = 10;   // 나머지는 ClinicCardCompact (HTML 훨씬 가벼움)
+
         let globalRank = 1;
         return sortedCities.map((city, idx) => {
           const cityList = byCity.get(city) ?? [];
           if (cityList.length === 0) return null;
           const citySlug = cityList[0].city_slug || city.toLowerCase().replace(/\s+/g, "-");
-          const visible = cityList.slice(0, 50);
-          const more = cityList.length - visible.length;
           const isMain = city === "Bangkok";
+          const visible = cityList.slice(0, isMain ? MAIN_CITY_CARDS : OTHER_CITY_CARDS);
+          const more = cityList.length - visible.length;
           return (
             <section key={city} className={isMain ? "" : "mt-12 pt-8 border-t border-[var(--border)]"}>
               <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
@@ -192,16 +205,16 @@ export default async function ServicePage(
                 </a>
               </div>
               <div className="grid gap-3">
-                {visible.slice(0, 10).map((c) => {
+                {visible.slice(0, FULL_CARDS).map((c) => {
                   const r = globalRank++;
                   return <ClinicCard key={c.id} clinic={c} rank={r} />;
                 })}
               </div>
               {idx === 0 && <AffiliateInline category={label} />}
-              {visible.length > 10 && (
+              {visible.length > FULL_CARDS && (
                 <div className="mt-6">
                   <div className="grid gap-1.5">
-                    {visible.slice(10).map((c) => {
+                    {visible.slice(FULL_CARDS).map((c) => {
                       const r = globalRank++;
                       return <ClinicCardCompact key={c.id} clinic={c} rank={r} />;
                     })}

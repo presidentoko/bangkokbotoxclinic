@@ -43,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const items: MetadataRoute.Sitemap = [
     { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
-    { url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
+    { url: `${SITE}/th`, lastModified: updated, changeFrequency: "daily", priority: 0.95 },
     { url: `${SITE}/ko`, lastModified: updated, changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE}/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
@@ -103,13 +103,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const s of HUB_SERVICES) {
     items.push({ url: `${SITE}/doctors/s/${s}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }
+  // app/doctor/[slug]/page.tsx의 thinContent(= mentions < 10)는 robots noindex를
+  // 내보내는데, 여기선 조건 없이 전원을 제출하고 있었다 — 구글에 "이 페이지 봐줘"
+  // 하고 보낸 뒤 페이지에서 "색인하지 마"라고 답하는 셈이라, 덴탈 사이트맵
+  // 797개 doctor URL 중 670개(84%)가 noindex였다. 사이트맵 전체의 63~75%가
+  // 이런 URL이었고 GSC "발견됨 – 색인되지 않음" 1,614건의 기계적 원인이다
+  // (2026-08-06 감사, 샘플 12개 중 11개 noindex 실측). 임계값은 페이지 쪽
+  // thinContent와 반드시 같이 움직여야 한다.
+  const DOCTOR_INDEXABLE_MENTIONS = 10;
   for (const d of allDoctors) {
+    if (d.mentions < DOCTOR_INDEXABLE_MENTIONS) continue;
     items.push({
       // encodeURI — 태국어 doctor slug가 그대로 <loc>에 실리면 사이트맵 XML/URL 스펙 위반
       url: encodeURI(`${SITE}/doctor/${d.composite_slug}`),
       lastModified: updated,
       changeFrequency: "weekly",
-      priority: d.mentions >= 5 ? 0.75 : 0.55,
+      priority: d.mentions >= 25 ? 0.75 : 0.6,
     });
   }
   const doctorDistricts = new Set<string>();
@@ -139,22 +148,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  // Compare pages — top clinics per service, paired (1vs2, 2vs3, 3vs4) → 3 pairs × N services = ~24 compare URLs
-  // (scoped 사용 — isClinicLike 필터 + 현재 사이트 소관 클리닉만, 레스토랑 등 노이즈 및 타 도메인 URL 방지)
-  for (const s of HUB_SERVICES) {
-    const pool = scoped
-      .filter((c) => (c.categories ?? []).includes(s))
-      .sort((a, b) => b.trust_score - a.trust_score)
-      .slice(0, 5);
-    for (let i = 0; i < pool.length - 1; i++) {
-      items.push({
-        url: `${SITE}/compare/${pool[i].id}/${pool[i + 1].id}`,
-        lastModified: updated,
-        changeFrequency: "weekly" as const,
-        priority: 0.72,
-      });
-    }
-  }
+  // /compare/* 는 app/robots.ts:12에서 Disallow 중이다. robots.txt로 막은 URL을
+  // 사이트맵으로 제출하면 구글이 "사이트맵에 제출됐지만 robots.txt에 의해 차단됨"
+  // 오류로 잡는다 — 서로 반대되는 지시를 동시에 보내는 것이라 둘 중 하나를 골라야
+  // 하고, /compare/ 는 파라미터 조합 폭발 때문에 색인 대상이 아니라고 이미
+  // 판단한 상태다. 따라서 제출 쪽을 없앤다 (2026-08-06 감사).
 
   return items;
 }

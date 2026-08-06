@@ -78,6 +78,11 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,          // 접근성: 사용자 zoom 허용 (시각장애 / 노안)
   userScalable: true,
+  // 이게 없으면 명세상 env(safe-area-inset-*)가 전부 0px로 계산된다 —
+  // FloatingContactBar와 MobileBottomNav가 이미 paddingBottom으로 safe-area를
+  // 쓰고 있었는데 스위치가 꺼져 있어서 노치 아이폰에서 홈 인디케이터에 깔렸다
+  // (2026-08-06 감사). thaifacialclinic-portable 쪽은 원래부터 켜져 있었다.
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)",  color: "#0a0a0a" },
@@ -134,6 +139,13 @@ export default function RootLayout({
             <div className="mb-6">
               <div className="flex flex-wrap gap-x-8 gap-y-3 mb-3">
                 <a href="/about" className="hover:text-black">About</a>
+                {/* /doctors 는 사이트맵에만 있고 사이트 안 어디에서도 링크되지
+                    않는 고아였다 — 홈·클리닉·지역·서비스 페이지 전부에서 이
+                    허브로 가는 링크가 0개였고, 그 아래 의사 페이지 900여 개도
+                    같이 고립돼 있었다. 내부 링크 0개 + 사이트맵에만 존재는
+                    구글이 "발견됨 – 색인되지 않음"으로 분류하는 전형적 형태다
+                    (2026-08-06 감사). */}
+                <a href="/doctors" className="hover:text-black">Doctors</a>
                 <a href="/insights" className="hover:text-black">Market Insights</a>
                 <a href="/contact" className="hover:text-black">Contact</a>
                 <a href="https://www.bangkoktopclinic.com/?ref=footer" target="_blank" rel="noopener" className="hover:text-black">For Clinics</a>

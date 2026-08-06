@@ -39,7 +39,11 @@ export async function generateMetadata(
   const canonical = ownerUrl ? `${ownerUrl}/th/clinic/${c.id}` : `${SITE}/th/clinic/${c.id}`;
 
   return {
-    title,
+    // absolute — EN 라우트(app/clinic/[id]/page.tsx)는 이미 이렇게 쓰는데 여기만
+    // 빠져 있어서 루트 레이아웃의 title 템플릿이 뒤에 브랜드명을 한 번 더 붙였다.
+    // 결과가 "…— รีวิว, ราคา, ที่ตั้ง | Huai Khwang | Bangkok Best Clinic" 118자로
+    // 구글 표시 한도를 한참 넘겨 뒤가 잘렸다 (2026-08-06 감사).
+    title: { absolute: title },
     description,
     ...(!inSite && { robots: { index: false, follow: true } }),
     alternates: {

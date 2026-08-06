@@ -24,9 +24,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    // 홈 클러스터 3개 페이지가 같은 코드 체계로 서로를 전부 선언해야 hreflang이
+    // 자기확인된다. 예전엔 / 가 bare code, /ko 가 region code, /th 가 또 다른
+    // 조합이라 클러스터가 성립하지 않았고 x-default 도 / 에만 있었다
+    // (2026-08-06 감사). 기준은 app/page.tsx 의 bare code 체계.
     alternates: {
       canonical: "/ko",
-      languages: { "ko-KR": "/ko", "th-TH": "/th", "en-US": "/" },
+      languages: { en: "/", th: "/th", ko: "/ko", "x-default": "/" },
     },
     openGraph: { title, description, locale: "ko_KR" },
   };

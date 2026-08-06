@@ -187,13 +187,26 @@ export default async function HomePage(
         }))),
   ];
 
-  const searchIndex = focused.map((c) => ({
-    id: c.id,
-    name: c.name,
-    district: c.district,
-    rating: c.rating,
-    trust_score: c.trust_score,
-  }));
+  // 2026-08-06: 예전엔 focused 전체(덴탈 기준 1,829곳)를 그대로 넘겼다.
+  // SearchBar 가 클라이언트 컴포넌트라 이 배열이 RSC 페이로드로 직렬화되고,
+  // HeroSearch 가 SearchBar 를 데스크톱/모바일 두 번 렌더해서 두 벌이 실렸다 —
+  // 홈 HTML 1,083 KB 중 801 KB(73%)가 이 페이로드였고 Fast Origin Transfer
+  // 25 GB/10 GB 초과의 한 축이었다. 이제 상위 60곳만 시드로 인라인하고
+  // (타이핑 즉시 결과가 뜨는 체감은 유지), 전체 색인은 검색창을 실제로 누른
+  // 방문자만 /search-index.json 에서 한 번 받아간다.
+  const SEARCH_SEED = 60;
+  const searchIndex = focused
+    .slice()
+    .sort((a, b) => b.trust_score - a.trust_score)
+    .slice(0, SEARCH_SEED)
+    .map((c) => ({
+      id: c.id,
+      name: c.name,
+      district: c.district,
+      city_label: c.city_label,
+      rating: c.rating,
+      trust_score: c.trust_score,
+    }));
 
   // Recent positive reviews — social proof
   const reviewQuotes = focused
@@ -231,20 +244,25 @@ export default async function HomePage(
             </div>
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-6 text-balance">
+            {/* 2026-08-06 감사: H1 이 "Verify before you smile." 처럼 타겟 키워드가
+                하나도 없는 슬로건이었다. H1 은 페이지에서 가장 강한 온페이지
+                신호인데 그걸 전부 카피에 쓰고 있던 셈이다. 슬로건 톤은 유지하되
+                첫 줄에 실제 검색어(Bangkok dental clinics / คลินิกทำฟัน / 방콕 치과)를
+                넣고, 강조 줄에 기존 문구를 남긴다. */}
             {lang === "ko" ? (
-              cfg.focus === "dental" ? (<>진료 전에<br /><span style={{ color: accent }}>먼저 확인하세요.</span></>)
-              : (<>시술 전에<br /><span style={{ color: accent }}>먼저 확인하세요.</span></>)
+              cfg.focus === "dental" ? (<>방콕 치과 클리닉<br /><span style={{ color: accent }}>진료 전에 확인하세요.</span></>)
+              : (<>방콕 시술 클리닉<br /><span style={{ color: accent }}>시술 전에 확인하세요.</span></>)
             ) : lang === "th" ? (
-              cfg.focus === "dental" ? (<>ตรวจสอบก่อน<br /><span style={{ color: accent }}>ยิ้มอย่างมั่นใจ</span></>)
-              : (<>ตรวจสอบก่อน<br /><span style={{ color: accent }}>ตัดสินใจทำ</span></>)
+              cfg.focus === "dental" ? (<>คลินิกทำฟันในกรุงเทพฯ<br /><span style={{ color: accent }}>ตรวจสอบก่อนตัดสินใจ</span></>)
+              : (<>คลินิกความงามในกรุงเทพฯ<br /><span style={{ color: accent }}>ตรวจสอบก่อนตัดสินใจ</span></>)
             ) : cfg.focus === "all" ? (
-              <>Verify before<br /><span style={{ color: accent }}>you book.</span></>
+              <>Bangkok clinics —<br /><span style={{ color: accent }}>verify before you book.</span></>
             ) : cfg.focus === "botox" || cfg.focus === "filler" ? (
-              <>Verify before<br /><span style={{ color: accent }}>you inject.</span></>
+              <>Bangkok botox clinics —<br /><span style={{ color: accent }}>verify before you inject.</span></>
             ) : cfg.focus === "dental" ? (
-              <>Verify before<br /><span style={{ color: accent }}>you smile.</span></>
+              <>Bangkok dental clinics —<br /><span style={{ color: accent }}>verify before you smile.</span></>
             ) : cfg.focus === "hifu" || cfg.focus === "laser" ? (
-              <>Verify before<br /><span style={{ color: accent }}>you treat.</span></>
+              <>Bangkok skin clinics —<br /><span style={{ color: accent }}>verify before you treat.</span></>
             ) : (
               <>{cfg.hero.split(" — ")[0] ?? cfg.hero}<br /><span style={{ color: accent }}>{cfg.hero.split(" — ")[1] ?? "verified."}</span></>
             )}
@@ -273,6 +291,7 @@ export default async function HomePage(
 
           <HeroSearch
             entities={searchIndex}
+            entitiesUrl="/search-index.json"
             hrefBase="/clinic"
             popularSearches={popularSearches}
             popularLabel={lang === "ko" ? "인기 검색" : lang === "th" ? "ยอดนิยม" : "Popular"}

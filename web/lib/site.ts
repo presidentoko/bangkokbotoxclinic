@@ -206,20 +206,37 @@ const DENTAL_PRIMARY_TYPES = new Set([
 ]);
 
 // clinics 인자는 거의 항상 db.clinics(캐시된 원본 배열, 프로세스 생애주기 내
-// 레퍼런스 불변) — cfg.focus 도 배포당 env로 고정이라 매 페이지 렌더/빌드마다
-// 동일 입력에 대해 이 필터를 다시 도는 게 낭비였음 (수천 클리닉 × 정규식 2-3개
-// × 페이지 수천 개, 2026-07-17 감사). 레퍼런스 동일할 때만 캐시 재사용.
-let _siteFilterSrc: Clinic[] | null = null;
-let _siteFilterResult: Clinic[] | null = null;
+// 레퍼런스 불변) — 매 페이지 렌더/빌드마다 동일 입력에 대해 이 필터를 다시 도는
+// 게 낭비였음 (수천 클리닉 × 정규식 2-3개 × 페이지 수천 개, 2026-07-17 감사).
+// 캐시 키에 cfg.focus 를 포함시켜야 한다 — 원래는 배열 레퍼런스만 봤는데,
+// "focus 는 배포당 env로 고정"이라는 전제가 깨지는 호출부가 생겼다:
+// next.config.ts 의 크로스도메인 리다이렉트는 같은 db.clinics 배열을 상대
+// 도메인 설정으로도 한 번 더 필터링해야 한다. 그때 이전 focus 의 결과가 그대로
+// 반환되면 "상대 도메인에 이 클리닉이 있는가" 판정이 통째로 틀린다
+// (2026-08-06 감사).
+const _siteFilterCache = new Map<SiteFocus, { src: Clinic[]; result: Clinic[] }>();
 
 export function applySiteFilter(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
-  if (clinics === _siteFilterSrc && _siteFilterResult) return _siteFilterResult;
+  const hit = _siteFilterCache.get(cfg.focus);
+  if (hit && hit.src === clinics) return hit.result;
   const result = _applySiteFilterUncached(clinics, cfg);
-  if (clinics.length > 200) {
-    _siteFilterSrc = clinics;
-    _siteFilterResult = result;
-  }
+  if (clinics.length > 200) _siteFilterCache.set(cfg.focus, { src: clinics, result });
   return result;
+}
+
+// 이 카테고리 집합을 소유한 사이트의 focus. resolveOwnerUrl 과 같은 판정을
+// 쓰되 URL 대신 focus 를 돌려준다 — 호출부가 상대 사이트의 SiteConfig 를 꺼내
+// applySiteFilter 를 돌려야 하는 경우(리다이렉트 대상이 상대 도메인에 실제로
+// 존재하는지 확인)에 필요하다.
+export function resolveOwnerFocus(categories: string[]): SiteFocus | null {
+  if (categories.includes("dental")) return "dental";
+  if (categories.includes("hair_transplant")) return "hair";
+  if (categories.some((cat) => AESTHETIC_CATS.has(cat))) return "botox";
+  return null;
+}
+
+export function configForFocus(focus: SiteFocus): SiteConfig {
+  return CONFIGS[focus] ?? CONFIGS.all;
 }
 
 function _applySiteFilterUncached(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
