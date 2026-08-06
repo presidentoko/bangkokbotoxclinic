@@ -7,6 +7,7 @@ import {
 } from "@/lib/places";
 import type { Lang, Place } from "@/lib/places";
 import { getPlaceServer, getAllPlaceSlugsServer } from "@/lib/places-server";
+import { INDEXABLE_PLACE_LANGS } from "@/lib/placeIndexing";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { PopularTimes } from "@/components/PopularTimes";
@@ -53,10 +54,13 @@ export async function generateMetadata({
     description: desc,
     alternates: {
       canonical,
+      // Only the language trees robots.txt actually lets Google fetch —
+      // advertising hreflang for a disallowed URL earns a GSC warning and
+      // gets the whole cluster ignored. See lib/placeIndexing.ts.
       languages: {
-        th: `/th/place/${encodedSlug}`,
-        en: `/en/place/${encodedSlug}`,
-        ko: `/ko/place/${encodedSlug}`,
+        ...Object.fromEntries(
+          INDEXABLE_PLACE_LANGS.map((l) => [l, `/${l}/place/${encodedSlug}`])
+        ),
         "x-default": `/en/place/${encodedSlug}`,
       },
     },

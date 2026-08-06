@@ -11,6 +11,8 @@ import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
 import { OCCASIONS } from "@/lib/occasions";
 import { NEIGHBORHOODS } from "@/lib/neighborhoods";
 import { GUIDE_TOPICS } from "@/lib/guideTopics";
+import { getAllPlaceSlugsServer } from "@/lib/places-server";
+import { INDEXABLE_PLACE_LANGS } from "@/lib/placeIndexing";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -63,12 +65,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  // /{lang}/place/* (1,647 places × 3 langs = 4,941 URLs) intentionally
-  // left out of the sitemap: it's a TikTok/IG-verification utility tree,
-  // not a search-target content tree, and was previously eating 42% of the
-  // submitted sitemap's crawl budget ahead of the actual money pages below.
-  // The route itself still exists/renders — this only stops asking Google
-  // to prioritize crawling it.
+  // /{lang}/place/* is 1,647 places × 3 langs. Dropping all 4,941 from the
+  // sitemap (2026-07-17) and then blocking them in robots.txt (2026-07-26)
+  // together removed every discovery path this cluster had — the only page
+  // that links into it is /en, which is itself noindex. Re-listing the
+  // English third (the hreflang x-default) gives the robots.txt reopening
+  // something to act on; th/ko stay out of both the sitemap and robots.
+  //
+  // Priority 0.5 deliberately sits below every other content page here: the
+  // original complaint was that this tree crowded out the money pages, and
+  // priority is the lever for that, not omission.
+  const placeSlugs = await getAllPlaceSlugsServer();
+  for (const { lang, slug } of placeSlugs) {
+    if (!INDEXABLE_PLACE_LANGS.includes(lang)) continue;
+    items.push({
+      url: `${SITE}/en/place/${encodeURIComponent(slug)}`,
+      lastModified: updated,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
+  }
 
   // Matches the uncapped generateStaticParams() in activities/[niche]/[slug]
   // — every place that clears qualifyingNichePlaces()'s quality gate (incl.
