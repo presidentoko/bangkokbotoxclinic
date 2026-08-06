@@ -30,31 +30,3 @@ export const BLOCKED_PLACE_LANGS: Lang[] = PLACE_LANGS.filter(
 export const BLOCKED_PLACE_PATHS: string[] = BLOCKED_PLACE_LANGS.map(
   (l) => `/${l}/place/`
 );
-
-/**
- * Strips non-ASCII characters out of a scraped slug.
- *
- * A prerendered page whose path contains Thai script is written to the build
- * output under a raw-Thai filename, but the request for it arrives
- * percent-encoded and never matches the route — so the page exists and still
- * serves a 404. 415 of the 1,647 place slugs are affected (25%), plus 368 of
- * the 1,317 niche venue pages.
- *
- * Applied inside both place loaders (lib/places.ts for the client bundle,
- * lib/places-server.ts for the route) so the slug is already normalised
- * before anything indexes or links it — there's no second place that could
- * disagree about a URL's shape.
- *
- * Slugs keep their trailing unique id, so an all-Thai name degrades to
- * "{category}-{id}" rather than colliding. Verified 0 collisions and 0
- * degenerate results across all 1,647 places and 3,347 niche venues. None of
- * these URLs has ever resolved, so no working URL changes shape.
- */
-export function asciiSlug(slug: string): string {
-  return slug
-    .normalize("NFKD")
-    .replace(/[^\x00-\x7F]/g, "")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-    .toLowerCase();
-}

@@ -1,6 +1,5 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { asciiSlug } from "./placeIndexing";
 
 export const NICHES = [
   { slug: "muay-thai",    label: "Muay Thai",       icon: "🥊", desc: "Muay Thai gyms & training camps in Thailand",         planType: "gym"      },
@@ -131,17 +130,10 @@ export async function loadNicheDb(niche: NicheSlug): Promise<NicheDb> {
   const db = JSON.parse(raw) as NicheDb;
   for (const p of db.places) {
     p.trust_score = Math.max(0, Math.min(100, p.trust_score));
-    // 368 of 1,317 generated venue pages (90% of yoga-pilates) 404'd because
-    // their slug carried Thai script — the .html is prerendered under a
-    // raw-Thai filename but the request arrives percent-encoded and never
-    // matches the route. Normalising at load keeps links,
-    // generateStaticParams and the detail lookup on the same value.
-    p.slug = asciiSlug(p.slug);
   }
   _nicheCache.set(niche, db);
   return db;
 }
-
 
 export async function loadCommunityDb(niche: NicheSlug): Promise<CommunityDb | null> {
   if (_communityCache.has(niche)) return _communityCache.get(niche)!;
