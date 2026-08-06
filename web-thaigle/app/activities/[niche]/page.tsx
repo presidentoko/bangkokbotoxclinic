@@ -447,6 +447,19 @@ export default async function NichePage({
         </div>
       )}
 
+      {/* The grid below is capped at 60, but every qualifying venue has a
+          detail page in sitemap.xml — without this link the tail (899 pages
+          site-wide) has no inbound link at all and stalls in Search Console
+          as "Discovered - currently not indexed". */}
+      <div className="mb-6">
+        <a
+          href={`/activities/${niche}/all`}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 hover:underline"
+        >
+          See the full A–Z list of all {rankedCount.toLocaleString()} {info.label.toLowerCase()} venues →
+        </a>
+      </div>
+
       <NicheGrid
         places={top}
         klookData={[...klookMap.entries()]}

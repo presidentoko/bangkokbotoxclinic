@@ -29,6 +29,15 @@ export async function getAllPlaceSlugsServer(): Promise<{ lang: Lang; slug: stri
   return places.flatMap((p) => langs.map((lang) => ({ lang, slug: p.slug })));
 }
 
+/**
+ * All places, for the /en/place index. Server-side so the index page doesn't
+ * pull the whole dataset into a client bundle the way lib/places.ts does.
+ */
+export async function getAllPlacesServer(): Promise<Place[]> {
+  const { places } = await loadPlaces();
+  return [...places].sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export async function getPlaceServer(slug: string, lang: Lang): Promise<Place | null> {
   const { index } = await loadPlaces();
   const place = index.get(slug);

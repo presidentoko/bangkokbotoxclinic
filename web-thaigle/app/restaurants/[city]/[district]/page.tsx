@@ -31,6 +31,13 @@ export async function generateStaticParams() {
     if (r.district) {
       const districtSlug = slugifySegment(r.district);
       pairs.add(`${r.city}|${districtSlug}`);
+    } else {
+      // The page body already resolves "other" to the district-less
+      // restaurants, but this loop never emitted the param — so 676 detail
+      // pages under /restaurants/{city}/other/* existed with no parent
+      // listing page to link them, which is most of what's left in the
+      // "Discovered - currently not indexed" bucket.
+      pairs.add(`${r.city}|other`);
     }
   }
   // Colloquial neighbourhood slugs (sukhumvit, thonglor, silom, …) resolve

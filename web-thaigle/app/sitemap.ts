@@ -75,6 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Priority 0.5 deliberately sits below every other content page here: the
   // original complaint was that this tree crowded out the money pages, and
   // priority is the lever for that, not omission.
+  items.push({ url: `${SITE}/en/place`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
   const placeSlugs = await getAllPlaceSlugsServer();
   for (const { lang, slug } of placeSlugs) {
     if (!INDEXABLE_PLACE_LANGS.includes(lang)) continue;
@@ -180,6 +181,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     });
   }
+  // Full A–Z venue index per niche — the crawl path to every detail page
+  // beyond the hub's top-60 cut.
+  for (const n of NICHES) {
+    items.push({
+      url: `${SITE}/activities/${n.slug}/all`,
+      lastModified: updated,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    });
+  }
   for (const nd of nicheDbs) {
     for (const p of nd.places) {
       items.push({ url: `${SITE}/activities/${nd.slug}/${encodeURIComponent(p.slug)}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
@@ -228,12 +239,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const districtSet = new Set<string>();
   for (const r of db.restaurants) {
-    if (r.district) {
-      const key = `${r.city}/${slugifySegment(r.district)}`;
+    {
+      // "other" collects the district-less restaurants — it's a real listing
+      // page and the only parent for 676 detail pages, so it belongs here
+      // alongside the named districts.
+      const districtSlug = r.district ? slugifySegment(r.district) : "other";
+      const key = `${r.city}/${districtSlug}`;
       if (!districtSet.has(key)) {
         districtSet.add(key);
         items.push({
-          url: `${SITE}/restaurants/${r.city}/${slugifySegment(r.district)}`,
+          url: `${SITE}/restaurants/${r.city}/${districtSlug}`,
           lastModified: updated,
           changeFrequency: "weekly",
           priority: 0.7,

@@ -4,6 +4,7 @@ import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { OCCASION_NAV } from "@/lib/occasions";
+import { NEIGHBORHOODS } from "@/lib/neighborhoods";
 import { VersusVote } from "@/components/VersusVote";
 import { BangkokTip } from "@/components/BangkokTip";
 import { BangkokChallenge } from "@/components/BangkokChallenge";
@@ -85,6 +86,8 @@ export default async function CityHub(
 
   const label = city.charAt(0).toUpperCase() + city.slice(1);
   const districts = [...new Set(restaurants.map((r) => r.district).filter(Boolean))].sort();
+  const cityHoods = NEIGHBORHOODS.filter((n) => n.city === city);
+  const unlistedCount = restaurants.filter((r) => !r.district).length;
   const top = [...restaurants].sort((a, b) => b.trust_score - a.trust_score).slice(0, 20);
   const cuisineCounts: Record<string, number> = {};
   for (const r of restaurants) {
@@ -135,6 +138,45 @@ export default async function CityHub(
             </div>
           </section>
         )}
+
+        {/* Neighbourhood + editorial hubs. These are all in sitemap.xml, but
+            the only thing that linked the neighbourhoods was NearbyLink, which
+            renders its links after a geolocation prompt — so to a crawler they
+            had no inbound link at all and stalled as "Discovered - currently
+            not indexed". */}
+        <section className="mb-8">
+            <h2 className="font-semibold text-base mb-3">
+              {cityHoods.length > 0 ? `Popular Neighbourhoods in ${label}` : `More in ${label}`}
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {cityHoods.map((n) => (
+                <a key={n.slug} href={`/restaurants/${n.city}/${n.slug}`}
+                   className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
+                  🏙️ {n.label}
+                </a>
+              ))}
+              {/* Generated for every city, not just Bangkok — gating these on
+                  city === "bangkok" left Pattaya's copies unlinked. */}
+              <a href={`/restaurants/${city}/hidden-gems`}
+                 className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
+                💎 Hidden gems
+              </a>
+              <a href={`/restaurants/${city}/tourist-traps`}
+                 className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
+                ⚠️ Tourist traps
+              </a>
+              <a href={`/restaurants/${city}/instagram-famous-vs-actually-good`}
+                 className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
+                📸 Instagram-famous vs actually good
+              </a>
+              {unlistedCount > 0 && (
+                <a href={`/restaurants/${city}/other`}
+                   className="border rounded-full px-3 py-1.5 text-sm hover:bg-orange-50 hover:border-orange-400 transition">
+                  📍 Other areas <span className="text-[var(--muted)] text-xs">{unlistedCount}</span>
+                </a>
+              )}
+          </div>
+        </section>
 
         {districts.length > 0 && (
           <section className="mb-8">

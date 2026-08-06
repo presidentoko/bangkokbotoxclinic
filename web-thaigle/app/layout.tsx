@@ -105,6 +105,17 @@ export default function RootLayout({
                 <a href="/bingo" className="hover:text-black">Bucket List</a>
                 <a href="/my-trip" className="hover:text-black">My Trip</a>
                 <a href="/local-tips" className="hover:text-black">Local Tips</a>
+                {/* Index pages for the two trees that had no crawlable inbound
+                    link — the /en/place/* verification tree (only linked from
+                    /en, which is noindex) and the Bangkok A–Z topics. In the
+                    footer so they're one hop from every page. */}
+                <a href="/guide/bangkok" className="hover:text-black">Bangkok A–Z</a>
+                <a href="/en/place" className="hover:text-black">Verified Places</a>
+                {/* Submitted in sitemap.xml but linked from nowhere on the
+                    site until now. */}
+                <a href="/activities/weekend-in-bangkok" className="hover:text-black">Weekend in Bangkok</a>
+                <a href="/clinics" className="hover:text-black">Clinics</a>
+                <a href="/dental" className="hover:text-black">Dental</a>
                 <a href="/for" className="hover:text-black">Perfect For</a>
                 <a href="/contact" className="hover:text-black">Contact</a>
                 <a href="/for-venues" className="hover:text-black">For Venues</a>
