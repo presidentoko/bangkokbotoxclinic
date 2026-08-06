@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import { shareOrDownloadCanvas } from '@/lib/shareCanvas'
 
 interface Props {
   petAge: number
@@ -38,7 +39,9 @@ export default function AgeShareCard({ petAge, humanAge, species, petName, share
     ctx.fillStyle = 'rgba(255,255,255,0.15)'
     ctx.beginPath()
     const cardX = 40, cardY = 60, cardW = W - 80, cardH = 260
-    ;(ctx as CanvasRenderingContext2D & { roundRect: Function }).roundRect(cardX, cardY, cardW, cardH, 24)
+    // roundRect is missing on older Safari/Firefox and throws, killing the whole draw.
+    if (typeof ctx.roundRect === 'function') ctx.roundRect(cardX, cardY, cardW, cardH, 24)
+    else ctx.rect(cardX, cardY, cardW, cardH)
     ctx.fill()
 
     // Pet emoji (large)
@@ -89,18 +92,11 @@ export default function AgeShareCard({ petAge, humanAge, species, petName, share
   function handleShare() {
     const canvas = canvasRef.current
     if (!canvas) return
-    canvas.toBlob(blob => {
-      if (!blob) return
-      const file = new File([blob], 'pet-age.png', { type: 'image/png' })
-      if (navigator.share && navigator.canShare({ files: [file] })) {
-        navigator.share({
-          files: [file],
-          title: `อายุน้อง ${petAge} ปี = ${humanAge} ปีในมนุษย์!`,
-          text: `น้องของฉันอายุ ${petAge} ปี เทียบได้กับมนุษย์อายุ ${humanAge} ปีเลย! 🐾`,
-          url: shareUrl,
-        }).catch(() => {})
-      }
-    }, 'image/png')
+    shareOrDownloadCanvas(canvas, 'pet-age.png', {
+      title: `อายุน้อง ${petAge} ปี = ${humanAge} ปีในมนุษย์!`,
+      text: `น้องของฉันอายุ ${petAge} ปี เทียบได้กับมนุษย์อายุ ${humanAge} ปีเลย! 🐾`,
+      url: shareUrl,
+    })
   }
 
   function handleCopy() {

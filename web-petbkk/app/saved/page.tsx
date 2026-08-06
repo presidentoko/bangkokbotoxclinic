@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { getSavedIds } from '@/lib/savedHospitals'
 import { getSavedFoodIds } from '@/lib/savedFoods'
 import { loadHospitals } from '@/lib/hospitals'
-import { loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
+import { loadFoodsLight, getFoodGrade } from '@/lib/petfood'
 import HospitalCard from '@/components/HospitalCard'
-import type { Hospital, PetFood } from '@/lib/types'
+import type { Hospital, PetFoodLight } from '@/lib/types'
 
 const GRADE_STYLES: Record<string, { bg: string; text: string; border: string }> = {
   A: { bg: 'bg-green-50',  text: 'text-green-700',  border: 'border-green-400' },
@@ -20,11 +20,11 @@ const GRADE_LABEL: Record<string, string> = { A:'ดีมาก', B:'ดี', C
 export default function SavedPage() {
   const [tab, setTab] = useState<'hospital' | 'food'>('hospital')
   const [hospitals, setHospitals] = useState<Hospital[]>([])
-  const [foods, setFoods] = useState<PetFood[]>([])
+  const [foods, setFoods] = useState<PetFoodLight[]>([])
   const [ready, setReady] = useState(false)
 
   const allHospitals = loadHospitals()
-  const allFoods = loadFoods()
+  const allFoods = loadFoodsLight()
 
   useEffect(() => {
     const loadAll = () => {
@@ -44,7 +44,21 @@ export default function SavedPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!ready) return null
+  // Saved ids live in localStorage, so the first paint has nothing to show —
+  // a skeleton keeps the layout stable instead of flashing an empty page.
+  if (!ready) return (
+    <main className="animate-pulse">
+      <div className="h-8 w-56 bg-gray-100 rounded-lg mb-2" />
+      <div className="h-4 w-72 bg-gray-100 rounded mb-5" />
+      <div className="flex gap-2 mb-6">
+        <div className="h-10 w-36 bg-gray-100 rounded-xl" />
+        <div className="h-10 w-28 bg-gray-100 rounded-xl" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {[0, 1, 2].map(i => <div key={i} className="h-32 bg-gray-100 rounded-2xl" />)}
+      </div>
+    </main>
+  )
 
   return (
     <main>
@@ -119,7 +133,7 @@ export default function SavedPage() {
                   const style = grade ? (GRADE_STYLES[grade] ?? GRADE_STYLES.C) : { bg: 'bg-gray-50', text: 'text-gray-500', border: 'border-gray-300' }
                   const label = grade ? (GRADE_LABEL[grade] ?? '') : '?'
                   return (
-                    <Link key={f.id} href={`/food/${foodSlug(f)}`}
+                    <Link key={f.id} href={`/food/${f.slug}`}
                       className={`bg-white rounded-2xl border-l-4 ${style.border} shadow-sm hover:shadow-md transition-all p-4 block`}
                     >
                       <div className="flex items-start gap-3 mb-3">

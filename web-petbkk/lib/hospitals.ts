@@ -10,8 +10,19 @@ export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: numb
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
 }
 
+// 149 of the scraped records carry a leading " · " separator left over from the
+// listing markup the address was lifted out of. It leaked into <meta description>
+// (…รีวิว) ·  · Henri Dunant Rd) and onto the page, so strip it once at load
+// rather than at each of the dozen render sites.
+let cleaned: Hospital[] | null = null
+
 export function loadHospitals(): Hospital[] {
-  return rawData as Hospital[]
+  if (cleaned) return cleaned
+  cleaned = (rawData as Hospital[]).map(h => {
+    const address = (h.address ?? '').replace(/^[\s·•\-,|]+/, '').trim()
+    return address === h.address ? h : { ...h, address }
+  })
+  return cleaned
 }
 
 function baseHospitalSlug(h: Hospital): string {

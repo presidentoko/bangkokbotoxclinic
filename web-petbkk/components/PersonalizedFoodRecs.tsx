@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useMemo } from 'react'
-import { filterFoods, getFoodGrade } from '@/lib/petfood'
+import { filterFoodsLight, getFoodGrade } from '@/lib/petfood'
 import type { PetProfile } from '@/lib/types'
 import FoodCard from './FoodCard'
 
@@ -18,7 +18,7 @@ export default function PersonalizedFoodRecs() {
 
   const recs = useMemo(() => {
     if (!profile) return []
-    const foods = filterFoods({ animal: profile.species, life_stage: profile.lifeStage })
+    const foods = filterFoodsLight({ animal: profile.species, life_stage: profile.lifeStage })
     return foods
       .map(f => ({ f, g: getFoodGrade(f) }))
       .sort((a, b) => {

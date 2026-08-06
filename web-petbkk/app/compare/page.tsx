@@ -1,12 +1,12 @@
+import { Suspense } from 'react'
 import CompareContent from './CompareContent'
 
-export default async function ComparePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ ids?: string }>
-}) {
-  const sp = await searchParams
-  const ids = (sp.ids ?? '').split(',').filter(Boolean).slice(0, 3)
-
-  return <CompareContent ids={ids} />
+// No searchParams here — CompareContent reads `ids` client-side, which keeps this
+// route statically rendered.
+export default function ComparePage() {
+  return (
+    <Suspense fallback={null}>
+      <CompareContent />
+    </Suspense>
+  )
 }

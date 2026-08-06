@@ -16,14 +16,16 @@ function getBCS(bcs: number): { label: string; color: string; bg: string; advice
   return { label: 'อ้วน', color: 'text-orange-600', bg: 'bg-orange-50 border-orange-200', advice: 'น้องมีน้ำหนักมากเกินไป ควรปรึกษาสัตวแพทย์เพื่อวางแผนลดน้ำหนักอย่างปลอดภัย' }
 }
 
+// `max` closes each row's range — rows 1 and 8 cover two scores, so matching on
+// score alone left BCS 2 and 9 highlighting nothing.
 const BCS_SCALE = [
-  { score: 1, label: '1-2: กระดูกโปนชัด ไม่มีไขมัน' },
-  { score: 3, label: '3: ผอมเล็กน้อย สัมผัสกระดูกง่าย' },
-  { score: 4, label: '4: น้ำหนักดี สัมผัสซี่โครงได้' },
-  { score: 5, label: '5: ดีเยี่ยม เอวชัดเจน' },
-  { score: 6, label: '6: เกินเล็กน้อย ซี่โครงสัมผัสยาก' },
-  { score: 7, label: '7: น้ำหนักเกิน พุงห้อย' },
-  { score: 8, label: '8-9: อ้วนมาก เอวไม่ชัด' },
+  { score: 1, max: 2, label: '1-2: กระดูกโปนชัด ไม่มีไขมัน' },
+  { score: 3, max: 3, label: '3: ผอมเล็กน้อย สัมผัสกระดูกง่าย' },
+  { score: 4, max: 4, label: '4: น้ำหนักดี สัมผัสซี่โครงได้' },
+  { score: 5, max: 5, label: '5: ดีเยี่ยม เอวชัดเจน' },
+  { score: 6, max: 6, label: '6: เกินเล็กน้อย ซี่โครงสัมผัสยาก' },
+  { score: 7, max: 7, label: '7: น้ำหนักเกิน พุงห้อย' },
+  { score: 8, max: 9, label: '8-9: อ้วนมาก เอวไม่ชัด' },
 ]
 
 export default function WeightClient() {
@@ -66,7 +68,7 @@ export default function WeightClient() {
         <h2 className="font-black text-gray-900 text-lg mb-4">🔍 วิธีอ่าน BCS ด้วยการสัมผัส</h2>
         <div className="space-y-2">
           {BCS_SCALE.map(s => (
-            <div key={s.score} className={`flex items-start gap-3 p-2.5 rounded-lg text-sm ${bcs === s.score ? 'bg-orange-50 border border-orange-200' : ''}`}>
+            <div key={s.score} className={`flex items-start gap-3 p-2.5 rounded-lg text-sm ${bcs >= s.score && bcs <= s.max ? 'bg-orange-50 border border-orange-200' : ''}`}>
               <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0 ${
                 s.score <= 3 ? 'bg-red-100 text-red-600' :
                 s.score <= 5 ? 'bg-green-100 text-green-600' :

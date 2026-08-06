@@ -1,12 +1,41 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import type * as Leaflet from 'leaflet'
 import type { Hospital } from '@/lib/types'
 import { hospitalSlug } from '@/lib/hospitals'
 import 'leaflet/dist/leaflet.css'
 
+// Pins live in their own LayerGroup so a changed hospital list only swaps the
+// group's contents — rebuilding the map itself would throw away pan/zoom.
+function renderMarkers(L: typeof Leaflet, markers: Leaflet.LayerGroup, hospitals: Hospital[]) {
+  markers.clearLayers()
+  hospitals.forEach(h => {
+    const color = h.is_24h ? '#ef4444' : '#3b82f6'
+    L.circleMarker([h.lat, h.lng], {
+      color,
+      fillColor: color,
+      fillOpacity: 0.85,
+      radius: 8,
+      weight: 2,
+    })
+      .bindPopup(
+        `<b>${h.name_th}</b><br>` +
+        (h.is_24h ? '⏰ เปิด 24 ชั่วโมง<br>' : '') +
+        (h.google_rating ? `⭐ ${h.google_rating}<br>` : '') +
+        `<a href="/hospital/${hospitalSlug(h)}" style="color:#f97316">ดูรายละเอียด →</a>`
+      )
+      .addTo(markers)
+  })
+}
+
 export default function HospitalMap({ hospitals }: { hospitals: Hospital[] }) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const mapRef = useRef<{ dragging: { enable(): void }; scrollWheelZoom: { enable(): void } } | null>(null)
+  const containerRef  = useRef<HTMLDivElement>(null)
+  const mapRef        = useRef<Leaflet.Map | null>(null)
+  const markersRef    = useRef<Leaflet.LayerGroup | null>(null)
+  const leafletRef    = useRef<typeof Leaflet | null>(null)
+  const hospitalsRef  = useRef(hospitals)
+  hospitalsRef.current = hospitals
+
   const [locked, setLocked] = useState(true)
 
   function unlock() {
@@ -25,12 +54,13 @@ export default function HospitalMap({ hospitals }: { hospitals: Hospital[] }) {
 
     import('leaflet').then(L => {
       if (cancelled || !containerRef.current || mapRef.current) return
+      leafletRef.current = L
       // Fix default icon paths broken by Next.js bundling
       delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl
       L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+        iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+        iconUrl: '/leaflet/marker-icon.png',
+        shadowUrl: '/leaflet/marker-shadow.png',
       })
 
       const map = L.map(containerRef.current!, {
@@ -41,38 +71,33 @@ export default function HospitalMap({ hospitals }: { hospitals: Hospital[] }) {
         dragging: false,
         scrollWheelZoom: false,
       })
-      mapRef.current = map as unknown as { dragging: { enable(): void }; scrollWheelZoom: { enable(): void } }
+      mapRef.current = map
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
       }).addTo(map)
 
-      hospitals.forEach(h => {
-        const color = h.is_24h ? '#ef4444' : '#3b82f6'
-        L.circleMarker([h.lat, h.lng], {
-          color,
-          fillColor: color,
-          fillOpacity: 0.85,
-          radius: 8,
-          weight: 2,
-        })
-          .bindPopup(
-            `<b>${h.name_th}</b><br>` +
-            (h.is_24h ? '⏰ เปิด 24 ชั่วโมง<br>' : '') +
-            (h.google_rating ? `⭐ ${h.google_rating}<br>` : '') +
-            `<a href="/hospital/${hospitalSlug(h)}" style="color:#f97316">ดูรายละเอียด →</a>`
-          )
-          .addTo(map)
-      })
+      const markers = L.layerGroup().addTo(map)
+      markersRef.current = markers
+      // The [hospitals] effect already ran (and bailed) before leaflet resolved,
+      // so seed the first batch from the ref here.
+      renderMarkers(L, markers, hospitalsRef.current)
     })
 
     return () => {
       cancelled = true
-      if (mapRef.current) {
-        (mapRef.current as unknown as { remove(): void }).remove()
-        mapRef.current = null
-      }
+      mapRef.current?.remove()
+      mapRef.current = null
+      markersRef.current = null
+      leafletRef.current = null
     }
+  }, [])
+
+  useEffect(() => {
+    const L = leafletRef.current
+    const markers = markersRef.current
+    if (!L || !markers) return
+    renderMarkers(L, markers, hospitals)
   }, [hospitals])
 
   return (

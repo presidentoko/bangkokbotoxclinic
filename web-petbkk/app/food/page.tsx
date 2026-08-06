@@ -1,7 +1,7 @@
+import { Suspense } from 'react'
 import FoodListClient from '@/components/FoodListClient'
 import RecentFoods from '@/components/RecentFoods'
 import RelatedGuides from '@/components/RelatedGuides'
-import type { Animal, LifeStage } from '@/lib/types'
 
 const FOOD_CATEGORIES = [
   { href: '/food/best',   name: 'อาหารเกรด A' },
@@ -40,19 +40,9 @@ function FoodJsonLd() {
   )
 }
 
-export default async function FoodPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string; animal?: string; life_stage?: string }>
-}) {
-  const sp = await searchParams
-
-  const initialAnimal =
-    sp.animal === 'dog' || sp.animal === 'cat' ? (sp.animal as Animal) : undefined
-  const initialStage = ['puppy', 'adult', 'senior'].includes(sp.life_stage ?? '')
-    ? (sp.life_stage as LifeStage)
-    : undefined
-
+// No searchParams here — FoodListClient reads them client-side, which keeps this
+// shell statically rendered instead of forcing the whole route dynamic.
+export default function FoodPage() {
   return (
     <main>
       <FoodJsonLd />
@@ -78,11 +68,9 @@ export default async function FoodPage({
         </div>
       </div>
       <RecentFoods />
-      <FoodListClient
-        initialAnimal={initialAnimal}
-        initialStage={initialStage}
-        initialQuery={sp.q ?? ''}
-      />
+      <Suspense fallback={null}>
+        <FoodListClient />
+      </Suspense>
       <RelatedGuides current="food" count={4} />
     </main>
   )

@@ -111,7 +111,9 @@ export default function ShareCard({ food }: Props) {
 
     ctx.fillStyle = '#374151'
     ctx.font = '15px sans-serif'
-    ctx.fillText(`โปรตีน ${food.protein_dm}%  ·  AAFCO ${food.aafco_meets ? 'ผ่าน' : 'ไม่ผ่าน'}`, cx, 472)
+    // 0 means the label never listed it — printing "โปรตีน 0%" reads as a real claim.
+    const proteinPart = food.protein_pct > 0 ? `โปรตีน ${food.protein_dm}%  ·  ` : ''
+    ctx.fillText(`${proteinPart}AAFCO ${food.aafco_meets ? 'ผ่าน' : 'ไม่ผ่าน'}`, cx, 472)
 
     // URL
     ctx.fillStyle = '#9ca3af'

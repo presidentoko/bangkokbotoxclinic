@@ -4,13 +4,13 @@ import HospitalCard from '@/components/HospitalCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรงพยาบาลสัตว์ฉุกเฉิน กรุงเทพ — พร้อมรับเคสฉุกเฉิน',
-  description: 'รวมโรงพยาบาลสัตว์ฉุกเฉินในกรุงเทพ พร้อมที่อยู่ เบอร์โทร และคะแนน Google เมื่อน้องเจ็บป่วยฉุกเฉิน ค้นหาได้เลย ฟรี 100%',
+  title: 'โรงพยาบาลสัตว์ฉุกเฉิน 24 ชั่วโมง — อาการแบบไหนต้องไปทันที',
+  description: 'สัตว์เลี้ยงอาการแบบไหนถือว่าฉุกเฉิน ต้องทำอย่างไรระหว่างเดินทาง พร้อมรายชื่อโรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงทั่วไทย เบอร์โทรและเส้นทาง ฟรี 100%',
   alternates: { canonical: 'https://www.thailandpethub.com/hospital/emergency' },
-  keywords: ['โรงพยาบาลสัตว์ฉุกเฉิน', 'คลินิกสัตว์ฉุกเฉิน กรุงเทพ', 'สัตวแพทย์ฉุกเฉิน', 'สัตว์เลี้ยงเจ็บป่วยฉุกเฉิน'],
+  keywords: ['โรงพยาบาลสัตว์ฉุกเฉิน', 'สัตวแพทย์ฉุกเฉิน', 'โรงพยาบาลสัตว์ 24 ชั่วโมง', 'สัตว์เลี้ยงเจ็บป่วยฉุกเฉิน', 'อาการฉุกเฉินสุนัขแมว'],
   openGraph: {
-    title: 'โรงพยาบาลสัตว์ฉุกเฉิน กรุงเทพ',
-    description: 'รวมโรงพยาบาลสัตว์ฉุกเฉินในกรุงเทพ พร้อมที่อยู่และเบอร์โทร',
+    title: 'โรงพยาบาลสัตว์ฉุกเฉิน 24 ชั่วโมง',
+    description: 'อาการแบบไหนต้องไปทันที พร้อมรายชื่อโรงพยาบาลสัตว์เปิด 24 ชม. ทั่วไทย',
     url: 'https://www.thailandpethub.com/hospital/emergency',
   },
 }
@@ -38,10 +38,10 @@ function FaqJsonLd({ count }: { count: number }) {
       },
       {
         '@type': 'Question',
-        name: 'โรงพยาบาลสัตว์ฉุกเฉินในกรุงเทพมีกี่แห่ง?',
+        name: 'โรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงมีกี่แห่ง?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `ThailandPetHub รวบรวมข้อมูลโรงพยาบาลสัตว์ที่รับเคสฉุกเฉินในกรุงเทพและปริมณฑลจำนวน ${count} แห่ง`,
+          text: `ThailandPetHub รวบรวมข้อมูลโรงพยาบาลสัตว์ที่เปิดตลอด 24 ชั่วโมงทั่วประเทศไทยจำนวน ${count} แห่ง ซึ่งเป็นตัวเลือกแรกเมื่อเกิดเหตุฉุกเฉินนอกเวลาทำการ`,
         },
       },
     ],
@@ -49,12 +49,22 @@ function FaqJsonLd({ count }: { count: number }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
+// No source we scrape publishes a reliable "accepts emergencies" flag, so
+// `has_emergency` is false for every record — filtering on it rendered an empty
+// page (and a FAQ schema advertising "0 แห่ง"). 24-hour operation is the honest,
+// verifiable proxy, so that is what we list, and the copy says so. Only the
+// best-rated dozen appear here; /hospital/24h remains the full list.
+const SHOWN = 12
+
 export default function HospitalEmergencyPage() {
-  const hospitals = filterHospitals({ has_emergency: true })
+  const open24h = filterHospitals({ is_24h: true })
+  const hospitals = [...open24h]
+    .sort((a, b) => (b.google_rating ?? 0) - (a.google_rating ?? 0))
+    .slice(0, SHOWN)
 
   return (
     <main className="max-w-4xl mx-auto">
-      <FaqJsonLd count={hospitals.length} />
+      <FaqJsonLd count={open24h.length} />
 
       <nav className="text-xs text-gray-400 mb-4">
         <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
@@ -64,14 +74,15 @@ export default function HospitalEmergencyPage() {
         <span className="text-gray-600">ฉุกเฉิน</span>
       </nav>
 
-      <h1 className="text-3xl font-black text-gray-900 mb-3">🚨 โรงพยาบาลสัตว์ฉุกเฉิน กรุงเทพ</h1>
+      <h1 className="text-3xl font-black text-gray-900 mb-3">🚨 โรงพยาบาลสัตว์ฉุกเฉิน — เปิด 24 ชั่วโมง</h1>
       <p className="text-gray-600 text-sm leading-relaxed mb-2 max-w-2xl">
-        รวม <strong>{hospitals.length} แห่ง</strong>ที่รับเคสฉุกเฉิน พร้อมที่อยู่ เบอร์โทร
-        คะแนน Google และเส้นทาง
+        เมื่อน้องมีอาการวิกฤต สิ่งสำคัญคือหาที่ที่ <strong>เปิดอยู่ตอนนี้</strong> —
+        เรารวบรวมโรงพยาบาลสัตว์ที่เปิดตลอด 24 ชั่วโมง <strong>{open24h.length} แห่งทั่วไทย</strong>
+        พร้อมที่อยู่ เบอร์โทร คะแนน Google และเส้นทาง
       </p>
       <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-2xl">
-        โรงพยาบาลสัตว์ฉุกเฉินพร้อมรับผ่าตัดฉุกเฉิน ให้ยาพิษ รักษาอาการวิกฤต
-        หลายแห่งมีทีมสัตวแพทย์ตลอด 24 ชั่วโมง
+        ด้านล่างคือ {hospitals.length} แห่งที่คะแนนรีวิวสูงสุด — โรงพยาบาลที่เปิด 24 ชั่วโมง
+        มักมีสัตวแพทย์เวรพร้อมรับเคสนอกเวลา แต่ควรโทรยืนยันก่อนเดินทางเสมอ
       </p>
 
       <div className="bg-red-50 border border-red-100 rounded-2xl p-4 mb-6">
@@ -90,13 +101,20 @@ export default function HospitalEmergencyPage() {
         {hospitals.map(h => <HospitalCard key={h.id} hospital={h} />)}
       </div>
 
+      <a
+        href="/hospital/24h"
+        className="inline-block mb-10 text-sm font-semibold text-blue-600 hover:text-blue-700 underline"
+      >
+        ดูโรงพยาบาลที่เปิด 24 ชั่วโมงทั้งหมด {open24h.length} แห่ง →
+      </a>
+
       <section className="bg-white border rounded-2xl p-6 mb-6">
         <h2 className="text-lg font-bold text-gray-900 mb-4">คำถามที่พบบ่อย</h2>
         <div className="space-y-4 divide-y divide-gray-100">
           {[
             { q: 'สัตว์เลี้ยงอาการแบบไหนถือว่าฉุกเฉิน?', a: 'อาการฉุกเฉิน ได้แก่ หายใจลำบาก ชักหรือหมดสติ อาเจียนเป็นเลือดหรือถ่ายเป็นเลือด ท้องโป่งผิดปกติ กินสารพิษ กระดูกหัก หรือถูกรถชน' },
             { q: 'ระหว่างรอไปโรงพยาบาลสัตว์ฉุกเฉินควรทำอย่างไร?', a: 'โทรแจ้งโรงพยาบาลล่วงหน้า วางสัตว์เลี้ยงในที่อบอุ่น ห้ามให้น้ำหรืออาหาร ขับรถไปทันที อย่าเสียเวลาโทรสอบถามหลายที่' },
-            { q: 'โรงพยาบาลสัตว์ฉุกเฉินในกรุงเทพมีกี่แห่ง?', a: `ThailandPetHub รวบรวมข้อมูลโรงพยาบาลสัตว์ที่รับเคสฉุกเฉินในกรุงเทพและปริมณฑลจำนวน ${hospitals.length} แห่ง` },
+            { q: 'โรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงมีกี่แห่ง?', a: `ThailandPetHub รวบรวมข้อมูลโรงพยาบาลสัตว์ที่เปิดตลอด 24 ชั่วโมงทั่วประเทศไทยจำนวน ${open24h.length} แห่ง ซึ่งเป็นตัวเลือกแรกเมื่อเกิดเหตุฉุกเฉินนอกเวลาทำการ` },
           ].map((item, i) => (
             <div key={i} className={i > 0 ? 'pt-4' : ''}>
               <h3 className="font-semibold text-gray-800 mb-1">{item.q}</h3>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
+import { loadFoods, getFoodGrade, toLightFood } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
@@ -101,7 +101,7 @@ export default function BudgetFoodPage() {
             <span className="text-sm font-normal text-gray-400">({dogBudget.length} รายการ)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {dogBudget.map(food => <FoodCard key={food.id} food={food} />)}
+            {dogBudget.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}
@@ -113,7 +113,7 @@ export default function BudgetFoodPage() {
             <span className="text-sm font-normal text-gray-400">({catBudget.length} รายการ)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {catBudget.map(food => <FoodCard key={food.id} food={food} />)}
+            {catBudget.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}

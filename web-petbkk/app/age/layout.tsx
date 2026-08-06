@@ -11,6 +11,10 @@ export const metadata: Metadata = {
     description: 'คำนวณอายุสุนัข/แมวเทียบมนุษย์ แชร์ LINE ได้',
     url: 'https://www.thailandpethub.com/age',
     type: 'website',
+    // Points at the /age/og route handler, which is edge-cached. A layout can't
+    // read searchParams, so this is the generic card; the personalised one is
+    // what AgeShareCard hands to the native share sheet.
+    images: [{ url: 'https://www.thailandpethub.com/age/og', width: 1200, height: 630 }],
   },
 }
 

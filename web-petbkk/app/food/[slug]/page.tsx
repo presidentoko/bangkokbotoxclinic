@@ -186,14 +186,16 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
       <FoodProductJsonLd food={food} grade={grade} slug={slug} />
       <TrackRecentFood foodId={food.id} />
 
-      {/* Back link */}
-      <a
-        href="/food"
-        className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-600 mb-6 transition-colors group"
-      >
-        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
-        กลับ
-      </a>
+      {/* Breadcrumb */}
+      <nav aria-label="breadcrumb" className="text-xs text-gray-400 mb-6">
+        <a href="/" className="hover:text-orange-600 transition-colors">หน้าหลัก</a>
+        <span className="mx-1.5">›</span>
+        <a href={`/food/${food.animal}`} className="hover:text-orange-600 transition-colors">
+          {food.animal === 'cat' ? 'อาหารแมว' : 'อาหารสุนัข'}
+        </a>
+        <span className="mx-1.5">›</span>
+        <span className="text-gray-600">{food.brand}</span>
+      </nav>
 
       {/* Header card */}
       <div className="bg-white rounded-2xl border p-6 mb-4">
@@ -230,6 +232,18 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
           size="lg"
         />
 
+        {/* Buy CTA — mirrors the bottom-of-page one so the affiliate link is above the fold */}
+        {food.buy_url && (
+          <a
+            href={food.buy_url}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="mt-4 w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-2xl transition-colors shadow-sm text-sm block"
+          >
+            🛒 ซื้อราคาถูกสุด
+          </a>
+        )}
+
         {/* Share section */}
         <div className="mt-4 bg-gray-50 rounded-2xl p-4 border border-gray-100">
           <ShareCard food={food} />
@@ -249,10 +263,11 @@ export default async function FoodDetailPage({ params }: { params: Promise<{ slu
               </tr>
             </thead>
             <tbody className="divide-y">
-              <tr><td className="py-2">โปรตีน</td><td>{food.protein_pct}%</td><td className="font-medium">{food.protein_dm}%</td></tr>
-              <tr><td className="py-2">ไขมัน</td><td>{food.fat_pct}%</td><td className="font-medium">{food.fat_dm}%</td></tr>
-              <tr><td className="py-2">ใยอาหาร</td><td>{food.fiber_pct}%</td><td className="text-gray-400">—</td></tr>
-              <tr><td className="py-2">ความชื้น</td><td>{food.moisture_pct}%</td><td className="text-gray-400">—</td></tr>
+              {/* 0 means the label never listed the value — "0%" would read as a real claim. */}
+              <tr><td className="py-2">โปรตีน</td><td>{food.protein_pct > 0 ? `${food.protein_pct}%` : <span className="text-gray-400">—</span>}</td><td className="font-medium">{food.protein_dm > 0 ? `${food.protein_dm}%` : <span className="text-gray-400">—</span>}</td></tr>
+              <tr><td className="py-2">ไขมัน</td><td>{food.fat_pct > 0 ? `${food.fat_pct}%` : <span className="text-gray-400">—</span>}</td><td className="font-medium">{food.fat_dm > 0 ? `${food.fat_dm}%` : <span className="text-gray-400">—</span>}</td></tr>
+              <tr><td className="py-2">ใยอาหาร</td><td>{food.fiber_pct > 0 ? `${food.fiber_pct}%` : <span className="text-gray-400">—</span>}</td><td className="text-gray-400">—</td></tr>
+              <tr><td className="py-2">ความชื้น</td><td>{food.moisture_pct > 0 ? `${food.moisture_pct}%` : <span className="text-gray-400">—</span>}</td><td className="text-gray-400">—</td></tr>
             </tbody>
           </table>
         </div>

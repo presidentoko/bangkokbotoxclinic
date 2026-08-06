@@ -1,6 +1,4 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import SearchBar from '@/components/SearchBar'
+import HomeSearchBars from '@/components/HomeSearchBars'
 import PetProfileSetup from '@/components/PetProfileSetup'
 import PersonalizedFoodRecs from '@/components/PersonalizedFoodRecs'
 import PopularFoods from '@/components/PopularFoods'
@@ -17,12 +15,12 @@ const FOOD_CHIPS = [
 
 const HOSPITAL_CHIPS = [
   { label: '⏰ 24 ชั่วโมง', href: '/hospital?filter=24h' },
-  { label: '🚨 ฉุกเฉิน', href: '/hospital?filter=emergency' },
+  { label: '🚨 ฉุกเฉิน', href: '/hospital/emergency' },
   { label: '📍 ใกล้ฉัน', href: '/hospital?filter=near' },
 ]
 
 const STATS = [
-  { num: '49+', label: 'อาหารที่ตรวจสอบแล้ว', icon: '🍖' },
+  { num: '986', label: 'อาหารที่ตรวจสอบแล้ว', icon: '🍖' },
   { num: '503', label: 'โรงพยาบาลสัตว์', icon: '🏥' },
   { num: '฿0', label: 'ค่าบริการ ฟรีตลอด', icon: '💝' },
 ]
@@ -79,8 +77,6 @@ const TOOLS = [
 ]
 
 export default function HomePage() {
-  const router = useRouter()
-
   return (
     <main>
       {/* ── HERO (full-bleed gradient) ──────────────────────────────── */}
@@ -95,29 +91,17 @@ export default function HomePage() {
             🇹🇭 แหล่งข้อมูลสัตว์เลี้ยงอันดับ 1 ของไทย
           </div>
 
-          <h1 className="text-5xl font-black text-white mb-3 tracking-tight">
-            🐾 PetBKK
+          <p className="text-white/80 text-sm font-bold tracking-wide mb-2">🐾 PetBKK</p>
+          <h1 className="text-3xl sm:text-5xl font-black text-white mb-3 tracking-tight">
+            ตรวจสอบอาหารสัตว์เลี้ยง · หาโรงพยาบาลสัตว์ใกล้คุณ
           </h1>
-          <p className="text-white/85 text-lg font-medium mb-8 leading-relaxed">
-            ตรวจสอบอาหาร · หาโรงพยาบาล<br/>
-            <span className="text-white/70 text-base">ดูแลน้องได้ครบ ฟรี 100%</span>
+          <p className="text-white/85 text-base sm:text-lg font-medium mb-8 leading-relaxed">
+            เช็คส่วนผสมและเกรด A–F ของอาหาร 986 รายการ ค้นโรงพยาบาลสัตว์ 503 แห่งทั่วไทย<br/>
+            <span className="text-white/70 text-sm sm:text-base">ดูแลน้องได้ครบ ฟรี 100%</span>
           </p>
 
           {/* Search bars */}
-          <div className="space-y-2.5 max-w-lg mx-auto">
-            <SearchBar
-              icon="🍖"
-              placeholder="ค้นหาอาหารสัตว์เลี้ยง..."
-              onSearch={q => router.push(`/food?q=${encodeURIComponent(q)}`)}
-              accentColor="orange"
-            />
-            <SearchBar
-              icon="🏥"
-              placeholder="ค้นหาโรงพยาบาลสัตว์..."
-              onSearch={q => router.push(`/hospital?q=${encodeURIComponent(q)}`)}
-              accentColor="blue"
-            />
-          </div>
+          <HomeSearchBars />
 
           {/* Quick chips */}
           <div className="mt-4 flex flex-wrap justify-center gap-2">

@@ -15,8 +15,9 @@ export default function CompareTray() {
 
   if (ids.length === 0) return null
 
+  // Tray sits above the mobile bottom nav, flush to the edge once that nav is gone.
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg px-4 py-3 z-50" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom, 0px))' }}>
+    <div className="fixed bottom-14 sm:bottom-0 left-0 right-0 bg-white border-t shadow-lg px-4 py-3 z-40" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom, 0px))' }}>
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
         <p className="text-sm text-gray-600 font-medium">
           เปรียบเทียบ: <span className="text-orange-600 font-bold">{ids.length}</span>/3 รายการ
@@ -29,7 +30,11 @@ export default function CompareTray() {
             เปรียบเทียบเลย →
           </a>
           <button
-            onClick={() => { clearCompare(); setIds([]) }}
+            onClick={() => {
+              if (!confirm('ล้างรายการเปรียบเทียบทั้งหมด?')) return
+              clearCompare()
+              setIds([])
+            }}
             className="px-3 py-2 text-xs text-gray-400 hover:text-red-500 transition-colors"
           >
             ล้าง

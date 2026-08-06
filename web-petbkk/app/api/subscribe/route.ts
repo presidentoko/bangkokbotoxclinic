@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { isRateLimited, getClientIp } from '@/lib/rateLimit'
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN ?? '8748533217:AAEeWF2hQ0lw_ezz3djk_d2NcbcDndXxvqM'
 const CHAT_ID   = process.env.TELEGRAM_CHAT_ID   ?? '8488265054'
 
 export async function POST(req: NextRequest) {
+  if (isRateLimited(getClientIp(req), 5, 60_000)) {
+    return NextResponse.json({ error: 'too many requests' }, { status: 429 })
+  }
+
   let email = ''
   try {
     const body = await req.json()

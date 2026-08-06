@@ -1,7 +1,7 @@
 'use client'
 import { useMemo } from 'react'
 import Link from 'next/link'
-import { loadFoods, getFoodGrade, foodSlug } from '@/lib/petfood'
+import { loadFoodsLight, getFoodGrade } from '@/lib/petfood'
 
 const GRADE_STYLES: Record<string, { bg: string; text: string; border: string }> = {
   A: { bg: 'bg-green-50',  text: 'text-green-700',  border: 'border-green-400' },
@@ -11,7 +11,7 @@ const GRADE_STYLES: Record<string, { bg: string; text: string; border: string }>
 
 export default function PopularFoods() {
   const foods = useMemo(() => {
-    return loadFoods()
+    return loadFoodsLight()
       .map(f => ({ f, grade: getFoodGrade(f) }))
       .filter(x => x.grade === 'A' || x.grade === 'B')
       .sort((a, b) =>
@@ -41,7 +41,7 @@ export default function PopularFoods() {
           return (
             <Link
               key={f.id}
-              href={`/food/${foodSlug(f)}`}
+              href={`/food/${f.slug}`}
               className={`flex-shrink-0 w-40 bg-white rounded-xl border-l-4 ${style.border} shadow-sm hover:shadow-md transition-all p-3 block`}
             >
               <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full ${style.bg} mb-2`}>

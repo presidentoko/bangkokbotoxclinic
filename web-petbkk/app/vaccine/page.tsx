@@ -80,6 +80,15 @@ const chipCls = (active: boolean) =>
     active ? 'bg-orange-500 text-white border-orange-500' : 'bg-white border-gray-200 hover:border-orange-300'
   }`
 
+// toISOString() is UTC, so in Thailand (UTC+7) it reports yesterday until 07:00
+// local and blocks picking today's date. Build the cap from local parts instead.
+function todayLocalIso(): string {
+  const d = new Date()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${m}-${day}`
+}
+
 export default function VaccinePage() {
   const [species, setSpecies] = useState<Species>('dog')
   const [birthStr, setBirthStr] = useState('')
@@ -119,7 +128,7 @@ export default function VaccinePage() {
             type="date"
             value={birthStr}
             onChange={e => setBirthStr(e.target.value)}
-            max={new Date().toISOString().split('T')[0]}
+            max={todayLocalIso()}
             className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400"
           />
           <p className="text-xs text-gray-400 mt-1">ถ้าไม่แน่ใจวันเกิด ประมาณปีได้เลย</p>

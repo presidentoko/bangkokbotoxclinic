@@ -1,8 +1,9 @@
 'use client'
 import { useMemo } from 'react'
-import { loadFoods } from '@/lib/petfood'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { loadFoodsLight } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
-import type { PetFood } from '@/lib/types'
+import type { PetFoodLight } from '@/lib/types'
 import GradeBar from '@/components/GradeBar'
 import SocialShare from '@/components/SocialShare'
 
@@ -26,12 +27,26 @@ function Row({ label, values, rowIndex }: { label: string; values: React.ReactNo
   )
 }
 
-export default function CompareContent({ ids }: { ids: string[] }) {
-  const all = useMemo(() => loadFoods(), [])
-  const foods: PetFood[] = useMemo(
-    () => ids.map(id => all.find(f => f.id === id)).filter((f): f is PetFood => f != null),
+export default function CompareContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const idsParam = searchParams.get('ids') ?? ''
+
+  const ids = useMemo(
+    () => Array.from(new Set(idsParam.split(',').filter(Boolean))).slice(0, 3),
+    [idsParam]
+  )
+
+  const all = useMemo(() => loadFoodsLight(), [])
+  const foods: PetFoodLight[] = useMemo(
+    () => ids.map(id => all.find(f => f.id === id)).filter((f): f is PetFoodLight => f != null),
     [ids, all]
   )
+
+  function removeFood(id: string) {
+    const next = ids.filter(i => i !== id)
+    router.replace(next.length > 0 ? `/compare?ids=${next.map(encodeURIComponent).join(',')}` : '/compare', { scroll: false })
+  }
 
   if (foods.length === 0) {
     return (
@@ -62,9 +77,18 @@ export default function CompareContent({ ids }: { ids: string[] }) {
             <tr className="bg-orange-50 text-orange-800 font-bold">
               <th className="text-left py-2 pr-4 w-28 text-xs font-bold">รายการ</th>
               {foods.map(f => (
-                <th key={f.id} className="py-2 px-2 text-center">
+                <th key={f.id} className="py-2 px-2 text-center align-top">
                   <p className="text-xs opacity-70">{f.brand}</p>
-                  <p className="text-sm font-bold line-clamp-2">{f.name_th || f.name_en}</p>
+                  <a href={`/food/${f.slug}`} className="text-sm font-bold line-clamp-2 hover:underline block">
+                    {f.name_th || f.name_en}
+                  </a>
+                  <button
+                    onClick={() => removeFood(f.id)}
+                    aria-label="นำออกจากการเปรียบเทียบ"
+                    className="mt-1 text-[11px] text-orange-400 hover:text-orange-700 font-normal"
+                  >
+                    ✕ นำออก
+                  </button>
                 </th>
               ))}
             </tr>

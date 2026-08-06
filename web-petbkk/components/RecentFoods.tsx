@@ -1,20 +1,20 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { getRecentFoodIds } from '@/lib/recentFoods'
-import { loadFoods } from '@/lib/petfood'
-import type { PetFood } from '@/lib/types'
+import { loadFoodsLight } from '@/lib/petfood'
+import type { PetFoodLight } from '@/lib/types'
 import FoodCard from './FoodCard'
 
 export default function RecentFoods() {
-  const [foods, setFoods] = useState<PetFood[]>([])
+  const [foods, setFoods] = useState<PetFoodLight[]>([])
 
   useEffect(() => {
     const ids = getRecentFoodIds()
     if (ids.length === 0) return
-    const all = loadFoods()
+    const all = loadFoodsLight()
     const recent = ids
       .map(id => all.find(f => f.id === id))
-      .filter((f): f is PetFood => f != null)
+      .filter((f): f is PetFoodLight => f != null)
     setFoods(recent)
   }, [])
 

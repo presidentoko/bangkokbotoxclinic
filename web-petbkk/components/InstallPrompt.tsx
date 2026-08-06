@@ -29,12 +29,15 @@ export default function InstallPrompt() {
 
   async function handleInstall() {
     if (!prompt) return
-    await prompt.prompt()
-    const { outcome } = await prompt.userChoice
-    if (outcome === 'accepted') {
-      setShow(false)
-      setDismissed(true)
-    }
+    // A BeforeInstallPromptEvent is single-use — clear it before prompting so a
+    // double tap can't call prompt() twice and throw.
+    setShow(false)
+    setPrompt(null)
+    try {
+      await prompt.prompt()
+      const { outcome } = await prompt.userChoice
+      if (outcome === 'accepted') setDismissed(true)
+    } catch {}
   }
 
   function handleDismiss() {

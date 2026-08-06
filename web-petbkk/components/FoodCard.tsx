@@ -1,10 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import type { PetFood } from '@/lib/types'
+import type { PetFoodLight } from '@/lib/types'
 import { getFoodGrade } from '@/lib/grading'
 import { getCompareIds, toggleCompare } from '@/lib/compare'
-import { foodSlug } from '@/lib/petfood'
 import SaveFoodButton from './SaveFoodButton'
 
 const GRADE_STYLES: Record<string, { bg: string; text: string; border: string; labelBg: string }> = {
@@ -60,7 +59,7 @@ function CompareButton({ foodId }: { foodId: string }) {
 
 // ─── Main card ───────────────────────────────────────────────────────────────
 
-export default function FoodCard({ food }: { food: PetFood }) {
+export default function FoodCard({ food }: { food: PetFoodLight }) {
   const gradeKey = getFoodGrade(food)
   const grade = gradeKey ?? '?'
   const style = gradeKey ? (GRADE_STYLES[gradeKey] ?? FALLBACK_STYLE) : FALLBACK_STYLE
@@ -70,7 +69,7 @@ export default function FoodCard({ food }: { food: PetFood }) {
     <div
       className={`bg-white rounded-2xl border-l-4 ${style.border} shadow-sm hover:shadow-md transition-all group overflow-hidden`}
     >
-      <Link href={`/food/${foodSlug(food)}`} className="block p-4">
+      <Link href={`/food/${food.slug}`} className="block p-4">
         {/* Grade badge + brand / name row */}
         <div className="flex items-start gap-3 mb-3">
           {/* Grade circle */}

@@ -24,13 +24,16 @@ export default function SaveFoodButton({ foodId, size = 'sm' }: Props) {
     window.dispatchEvent(new Event('savedFoodsUpdate'))
   }
 
-  const dim = size === 'sm' ? 'w-7 h-7 text-base' : 'w-9 h-9 text-lg'
+  // Uniform 44px box either way — below that the tap target fails a11y minimums.
+  const dim = size === 'sm' ? 'w-11 h-11 text-base' : 'w-11 h-11 text-lg'
 
   return (
     <button
       onClick={handleClick}
       title={saved ? 'ลบออกจากรายการบันทึก' : 'บันทึกอาหาร'}
-      className={`${dim} rounded-full flex items-center justify-center transition-colors ${
+      aria-label={saved ? 'ลบอาหารออกจากรายการบันทึก' : 'บันทึกอาหารนี้'}
+      aria-pressed={saved}
+      className={`${dim} flex-shrink-0 rounded-full flex items-center justify-center transition-colors ${
         saved ? 'text-red-500 bg-red-50' : 'text-gray-300 hover:text-red-400 bg-white'
       }`}
     >

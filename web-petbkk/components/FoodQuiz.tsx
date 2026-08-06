@@ -2,6 +2,9 @@
 
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { loadFoodsLight } from '@/lib/petfood'
+import { getFoodGrade } from '@/lib/grading'
+import type { PetFoodLight } from '@/lib/types'
 import SocialShare from './SocialShare'
 
 const QUESTIONS = [
@@ -47,46 +50,113 @@ interface Rec {
   gradeColor: string
 }
 
+const GRADE_COLOR: Record<string, string> = {
+  A: 'bg-green-100 text-green-700',
+  B: 'bg-lime-100 text-lime-700',
+  C: 'bg-yellow-100 text-yellow-700',
+  D: 'bg-orange-100 text-orange-700',
+  F: 'bg-red-100 text-red-700',
+}
+
+const GRADE_RANK: Record<string, number> = { A: 0, B: 1, C: 2, D: 3, F: 4 }
+
+const BUDGET_PER_KG = 400
+
+function toRec(food: PetFoodLight, desc: string): Rec {
+  const g = getFoodGrade(food)
+  return {
+    title: `${food.brand} ${food.name_th || food.name_en}`.trim(),
+    desc,
+    href: `/food/${food.slug}`,
+    grade: g ?? '—',
+    gradeColor: g ? GRADE_COLOR[g] : 'bg-gray-100 text-gray-500',
+  }
+}
+
+function byQuality(a: PetFoodLight, b: PetFoodLight): number {
+  const ra = GRADE_RANK[getFoodGrade(a) ?? ''] ?? 9
+  const rb = GRADE_RANK[getFoodGrade(b) ?? ''] ?? 9
+  return ra - rb || b.green_count - a.green_count
+}
+
+function matches(foods: PetFoodLight[], pred: (f: PetFoodLight) => boolean): PetFoodLight[] {
+  return foods.filter(pred).sort(byQuality)
+}
+
+// A narrow filter (e.g. renal formulas for cats) can come back empty as the
+// dataset shifts — fall back to the best-graded foods so the quiz always answers.
+function pick(candidates: PetFoodLight[], desc: string, fallbackDesc: string): Rec[] {
+  if (candidates.length > 0) return candidates.slice(0, 2).map(f => toRec(f, desc))
+  return graded().sort(byQuality).slice(0, 2).map(f => toRec(f, fallbackDesc))
+}
+
+function graded(): PetFoodLight[] {
+  return loadFoodsLight().filter(f => getFoodGrade(f) != null)
+}
+
+function searchText(f: PetFoodLight): string {
+  return `${f.brand} ${f.name_en} ${f.name_th}`.toLowerCase()
+}
+
 function getRecs(answers: string[]): Rec[] {
   const [species, age, health, budget] = answers
+  const all = graded()
+  const pool = species === 'dog' || species === 'cat' ? all.filter(f => f.animal === species) : all
 
-  if (health === 'kidney') return [
-    { title: 'Royal Canin Renal', desc: 'ลดฟอสฟอรัส สูตรเฉพาะโรคไต', href: '/food?q=royal+canin+renal', grade: 'A', gradeColor: 'bg-green-100 text-green-700' },
-    { title: 'Hill\'s k/d', desc: 'สูตร kidney care จาก vet', href: '/food?q=hills+kd', grade: 'A', gradeColor: 'bg-green-100 text-green-700' },
-  ]
+  if (health === 'kidney') return pick(
+    matches(pool, f => /renal|kidney|k\/d|urinary|ไต/.test(searchText(f))),
+    'สูตรดูแลไต ฟอสฟอรัสต่ำ',
+    'เกรดดี ส่วนประกอบสะอาด — ปรึกษาสัตวแพทย์ก่อนเปลี่ยนเป็นสูตรโรคไต',
+  )
 
-  if (health === 'allergy') return [
-    { title: 'Royal Canin Hypoallergenic', desc: 'โปรตีนไฮโดรไลซ์ ลดการแพ้', href: '/food?q=hypoallergenic', grade: 'A', gradeColor: 'bg-green-100 text-green-700' },
-    { title: 'Acana Single Protein', desc: 'โปรตีนเดียว ง่ายต่อ elimination diet', href: '/food?q=acana+single', grade: 'A+', gradeColor: 'bg-green-100 text-green-700' },
-  ]
+  if (health === 'allergy') return pick(
+    matches(pool, f => /hypoallergenic|sensitive|allergy|grain[- ]?free|single|salmon|แพ้|ผิวหนัง/.test(searchText(f))),
+    'ลดโอกาสแพ้ โปรตีนย่อยง่าย',
+    'ส่วนประกอบสะอาด เหมาะเริ่ม elimination diet',
+  )
 
-  if (age === 'puppy' && species === 'dog') return [
-    { title: 'Royal Canin Puppy', desc: 'โปรตีนสูง DHA สำหรับสมองลูกสุนัข', href: '/food?q=royal+canin+puppy', grade: 'B+', gradeColor: 'bg-blue-100 text-blue-700' },
-    { title: 'Acana Puppy & Junior', desc: 'เนื้อเป็นส่วนผสมหลัก ไม่มีสีผสม', href: '/food?q=acana+puppy', grade: 'A', gradeColor: 'bg-green-100 text-green-700' },
-  ]
+  if (age === 'puppy') return pick(
+    matches(pool, f => f.life_stage === 'puppy'),
+    species === 'cat' ? 'สูตรลูกแมว โปรตีนสูงสำหรับการเจริญเติบโต' : 'สูตรลูกสุนัข โปรตีนสูง บำรุงสมองและกระดูก',
+    'เกรดดี เหมาะกับน้องวัยกำลังโต',
+  )
 
-  if (age === 'senior') return [
-    { title: 'Hill\'s Science Diet Senior', desc: 'ลดแคลอรี่ เพิ่ม Omega-3 สำหรับข้อ', href: '/food?q=hills+senior', grade: 'A', gradeColor: 'bg-green-100 text-green-700' },
-    { title: 'Royal Canin Mature', desc: 'เหมาะกับระบบย่อยอาหารที่ช้าลง', href: '/food?q=royal+canin+mature', grade: 'B+', gradeColor: 'bg-blue-100 text-blue-700' },
-  ]
+  if (age === 'senior') return pick(
+    matches(pool, f => f.life_stage === 'senior'),
+    'สูตรสูงวัย แคลอรีพอดี ดูแลข้อต่อ',
+    'เกรดดี ย่อยง่าย เหมาะกับน้องสูงวัย',
+  )
 
-  if (budget === 'budget') return [
-    { title: 'SmartHeart Gold', desc: 'ราคาประหยัด โปรตีนพอเพียง', href: '/food?q=smartheart', grade: 'C', gradeColor: 'bg-yellow-100 text-yellow-700' },
-    { title: 'Pedigree Adult', desc: 'หาง่ายทุกที่ ราคาดี', href: '/food?q=pedigree', grade: 'C+', gradeColor: 'bg-yellow-100 text-yellow-700' },
-  ]
+  if (budget === 'budget') return pick(
+    matches(pool, f => {
+      const g = getFoodGrade(f)
+      return (g === 'A' || g === 'B') && f.price_per_kg > 0 && f.price_per_kg <= BUDGET_PER_KG
+    }),
+    `คุณภาพดี ราคาต่ำกว่า ฿${BUDGET_PER_KG}/กก.`,
+    'ราคาเข้าถึงได้ ส่วนประกอบผ่านเกณฑ์',
+  )
 
-  if (budget === 'premium') return [
-    { title: 'Orijen Original', desc: 'เนื้อสัตว์ 85% ไม่มีธัญพืช', href: '/food?q=orijen', grade: 'A+', gradeColor: 'bg-green-100 text-green-700' },
-    { title: 'Acana Regionals', desc: 'แหล่งโปรตีนหลากหลาย เกรดสูง', href: '/food?q=acana+regional', grade: 'A+', gradeColor: 'bg-green-100 text-green-700' },
-  ]
+  if (budget === 'premium') return pick(
+    matches(pool, f => getFoodGrade(f) === 'A' && f.price_per_kg >= BUDGET_PER_KG),
+    'เกรด A ส่วนประกอบระดับพรีเมียม',
+    'เกรดสูงสุดเท่าที่มีในฐานข้อมูล',
+  )
 
-  return [
-    { title: 'Royal Canin Adult', desc: 'มาตรฐาน ราคากลาง หาได้ทุกที่', href: '/food?q=royal+canin+adult', grade: 'B+', gradeColor: 'bg-blue-100 text-blue-700' },
-    { title: 'Hill\'s Science Diet', desc: 'ผ่านการวิจัย คุณภาพดี', href: '/food?q=hills+science', grade: 'A', gradeColor: 'bg-green-100 text-green-700' },
-  ]
+  return pick(
+    matches(pool, f => {
+      const g = getFoodGrade(f)
+      return f.life_stage === 'adult' && (g === 'A' || g === 'B')
+    }),
+    'สมดุลทั้งคุณภาพและราคา',
+    'เกรดดี เหมาะกับน้องทั่วไป',
+  )
 }
 
 const ANSWER_KEYS = ['species', 'age', 'health', 'budget']
+
+// Answers can arrive from a shared link, so each must be one of the options we
+// actually offer — otherwise a crafted URL injects arbitrary values into getRecs.
+const VALID_VALUES = QUESTIONS.map(q => new Set(q.options.map(o => o.value)))
 
 export default function FoodQuiz() {
   return (
@@ -99,8 +169,9 @@ export default function FoodQuiz() {
 function FoodQuizInner() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const sharedAnswers = ANSWER_KEYS.map(k => searchParams.get(k)).every(Boolean)
-    ? ANSWER_KEYS.map(k => searchParams.get(k) as string)
+  const rawAnswers = ANSWER_KEYS.map(k => searchParams.get(k))
+  const sharedAnswers = rawAnswers.every((v, i) => v != null && VALID_VALUES[i].has(v))
+    ? (rawAnswers as string[])
     : null
 
   const [step, setStep] = useState(sharedAnswers ? QUESTIONS.length : 0)

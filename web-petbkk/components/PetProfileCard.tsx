@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { PetProfile } from '@/lib/types'
+import { shareOrDownloadCanvas } from '@/lib/shareCanvas'
 
 const SPECIES_EMOJI: Record<string, string> = { dog: '🐕', cat: '🐈' }
 const STAGE_LABEL: Record<string, string> = { puppy: 'วัยเด็ก', adult: 'วัยผู้ใหญ่', senior: 'วัยชรา' }
@@ -69,7 +70,10 @@ export default function PetProfileCard({ profile }: Props) {
     const stageW = ctx.measureText(stageLabel).width + 28
     ctx.fillStyle = stageColor
     ctx.beginPath()
-    ;(ctx as CanvasRenderingContext2D & { roundRect: Function }).roundRect(260, 198, stageW, 30, 15)
+    // roundRect is missing on older Safari/Firefox and throws — square corners
+    // beat a card that never renders.
+    if (typeof ctx.roundRect === 'function') ctx.roundRect(260, 198, stageW, 30, 15)
+    else ctx.rect(260, 198, stageW, 30)
     ctx.fill()
     ctx.fillStyle = '#ffffff'
     ctx.textAlign = 'left'
@@ -112,16 +116,13 @@ export default function PetProfileCard({ profile }: Props) {
     window.open(`https://social-plugins.line.me/lineit/share?url=${url}`, '_blank', 'noopener')
   }
 
-  async function handleNativeShare() {
+  function handleNativeShare() {
     const canvas = canvasRef.current
     if (!canvas) return
-    canvas.toBlob(async blob => {
-      if (!blob) return
-      const file = new File([blob], 'pet-card.png', { type: 'image/png' })
-      if (navigator.share && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: `บัตรน้อง — ${profile.name || 'PetBKK'}`, text: shareText }).catch(() => {})
-      }
-    }, 'image/png')
+    shareOrDownloadCanvas(canvas, 'pet-card.png', {
+      title: `บัตรน้อง — ${profile.name || 'PetBKK'}`,
+      text: shareText,
+    })
   }
 
   async function handleCopy() {

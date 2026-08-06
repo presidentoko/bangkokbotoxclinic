@@ -1,21 +1,24 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { filterHospitals, haversineKm } from '@/lib/hospitals'
 import type { Hospital } from '@/lib/types'
 import HospitalCard from '@/components/HospitalCard'
 import NearMeButton from '@/components/NearMeButton'
+import { useLoadMoreSentinel } from '@/hooks/useLoadMoreSentinel'
 import dynamic from 'next/dynamic'
 
 const HospitalMap = dynamic(() => import('@/components/HospitalMap'), { ssr: false })
 
 interface UserLoc { lat: number; lng: number }
 
-interface Props {
-  initialFilter?: 'emergency' | '24h' | 'surgery'
-  initialQuery?: string
-}
+const PAGE_SIZE = 30
 
-export default function HospitalListClient({ initialFilter, initialQuery = '' }: Props) {
+export default function HospitalListClient() {
+  const searchParams = useSearchParams()
+  const initialFilter = searchParams.get('filter')
+  const initialQuery  = searchParams.get('q') ?? ''
+
   const [query, setQuery]   = useState(initialQuery)
   const [filters, setFilters] = useState({
     is_24h:        initialFilter === '24h',
@@ -24,6 +27,7 @@ export default function HospitalListClient({ initialFilter, initialQuery = '' }:
   })
   const [view, setView]       = useState<'map' | 'list'>('list')
   const [userLoc, setUserLoc] = useState<UserLoc | null>(null)
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
   const hospitalsWithDist = useMemo(() => {
     let result = filterHospitals(filters)
@@ -43,13 +47,22 @@ export default function HospitalListClient({ initialFilter, initialQuery = '' }:
     return result.map((h: Hospital) => ({ h, distKm: undefined as number | undefined }))
   }, [filters, query, userLoc])
 
+  // A narrowed result set should start from the top again, not keep the
+  // scroll-grown page size of the previous (wider) list.
+  useEffect(() => { setVisibleCount(PAGE_SIZE) }, [filters, query, userLoc])
+
+  const visible = hospitalsWithDist.slice(0, visibleCount)
+  const hasMore = visibleCount < hospitalsWithDist.length
+  const sentinelRef = useLoadMoreSentinel(() => setVisibleCount(c => c + PAGE_SIZE))
+
   const toggle = (key: keyof typeof filters) =>
     setFilters(f => ({ ...f, [key]: !f[key] }))
 
   const FILTER_CHIPS = [
+    // `has_emergency` is false on every record and `has_surgery` is true on every
+    // record, so chips for either were dead controls — one always emptied the list,
+    // the other never changed it. Re-add them when the scraper fills those fields.
     { key: 'is_24h' as const,       label: '⏰ 24 ชั่วโมง', activeClass: 'bg-red-500 text-white border-red-500' },
-    { key: 'has_emergency' as const, label: '🚨 ฉุกเฉิน',    activeClass: 'bg-orange-500 text-white border-orange-500' },
-    { key: 'has_surgery' as const,   label: '🔪 ผ่าตัด',     activeClass: 'bg-blue-500 text-white border-blue-500' },
   ]
 
   return (
@@ -73,7 +86,7 @@ export default function HospitalListClient({ initialFilter, initialQuery = '' }:
 
       <div className="flex gap-2 mb-4 flex-wrap">
         {(['map', 'list'] as const).map(v => (
-          <button key={v} onClick={() => setView(v)}
+          <button key={v} onClick={() => setView(v)} aria-pressed={view === v}
             className={`px-4 py-1.5 rounded-full text-sm border transition-colors ${view === v ? 'bg-blue-600 text-white border-blue-600' : 'bg-white hover:bg-blue-50'}`}>
             {v === 'map' ? '🗺️ แผนที่' : '📋 รายการ'}
           </button>
@@ -82,7 +95,7 @@ export default function HospitalListClient({ initialFilter, initialQuery = '' }:
 
       <div className="flex flex-wrap items-center gap-2 mb-4">
         {FILTER_CHIPS.map(f => (
-          <button key={f.key} onClick={() => toggle(f.key)}
+          <button key={f.key} onClick={() => toggle(f.key)} aria-pressed={filters[f.key]}
             className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${filters[f.key] ? f.activeClass : 'bg-white hover:bg-blue-50'}`}>
             {f.label}
           </button>
@@ -99,11 +112,25 @@ export default function HospitalListClient({ initialFilter, initialQuery = '' }:
           <p className="text-sm text-gray-300 mt-1">ลองปรับตัวกรองหรือค้นหาด้วยคำอื่น</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {hospitalsWithDist.map(({ h, distKm }: { h: Hospital; distKm: number | undefined }) => (
-            <HospitalCard key={h.id} hospital={h} distanceKm={distKm} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {visible.map(({ h, distKm }: { h: Hospital; distKm: number | undefined }) => (
+              <HospitalCard key={h.id} hospital={h} distanceKm={distKm} />
+            ))}
+          </div>
+          {hasMore && (
+            <>
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                  className="px-5 py-2.5 rounded-full border bg-white text-sm font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                  + ดูเพิ่ม
+                </button>
+              </div>
+              <div ref={sentinelRef} aria-hidden="true" />
+            </>
+          )}
+        </>
       )}
     </>
   )

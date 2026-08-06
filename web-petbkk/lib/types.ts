@@ -36,6 +36,36 @@ export interface PetFood {
   updated_at: string
 }
 
+// Card-level view of PetFood, generated at build time by scripts/build-food-index.js.
+// Drops `ingredients` (the bulk of the payload) and `source_url`, and precomputes the
+// URL slug so list/grid client components never need to import the full dataset.
+export interface PetFoodLight {
+  id: string
+  brand: string
+  name_en: string
+  name_th: string
+  animal: Animal
+  life_stage: LifeStage
+  weight_kg: number
+  price_thb: number
+  price_per_kg: number
+  buy_url: string
+  protein_pct: number
+  fat_pct: number
+  fiber_pct: number
+  moisture_pct: number
+  protein_dm: number
+  fat_dm: number
+  aafco_meets: boolean
+  green_count: number
+  yellow_count: number
+  red_count: number
+  black_count: number
+  updated_at: string
+  slug: string
+  has_ingredients: boolean
+}
+
 export interface Hospital {
   id: string
   name_th: string

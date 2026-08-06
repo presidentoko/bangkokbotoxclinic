@@ -7,6 +7,19 @@ const BASE = 'https://www.thailandpethub.com'
 
 export const dynamic = 'force-static'
 
+// `lastModified` is one of the few sitemap fields Google actually uses to
+// schedule recrawls; without it a 1,500-URL sitemap gives it no reason to
+// prioritise anything, which is how most of the detail pages ended up stuck on
+// "Discovered - currently not indexed". Hospital records ship an empty
+// `updated_at`, so those fall back to the build date.
+const BUILD_DATE = new Date()
+
+function parsedDate(raw: string | undefined): Date {
+  if (!raw) return BUILD_DATE
+  const d = new Date(raw)
+  return isNaN(d.getTime()) ? BUILD_DATE : d
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const foods = loadFoods()
   const hospitals = loadHospitals()
@@ -23,7 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/hospital`,                 priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/24h`,             priority: 0.9,  changeFrequency: 'weekly'  },
     { url: `${BASE}/hospital/emergency`,       priority: 0.9,  changeFrequency: 'weekly'  },
-    { url: `${BASE}/hospital/surgery`,         priority: 0.8,  changeFrequency: 'weekly'  },
     { url: `${BASE}/mri`,                      priority: 0.8,  changeFrequency: 'monthly' },
     { url: `${BASE}/compare`,                  priority: 0.7,  changeFrequency: 'weekly'  },
     { url: `${BASE}/adopt`,                    priority: 0.8,  changeFrequency: 'weekly'  },
@@ -88,23 +100,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/contact`,                  priority: 0.5,  changeFrequency: 'yearly'  },
   ]
 
+  // 176 of the 986 foods have no scraped ingredient list, so their pages carry no
+  // grade — the whole point of the page. Keep them listed but de-prioritised so
+  // crawl budget goes to the 810 that have something to say.
   const foodPages: MetadataRoute.Sitemap = foods.map(f => ({
     url: `${BASE}/food/${foodSlug(f)}`,
-    priority: 0.7,
+    lastModified: parsedDate(f.updated_at),
+    priority: f.ingredients.length > 0 ? 0.7 : 0.4,
     changeFrequency: 'weekly',
   }))
 
   const hospitalPages: MetadataRoute.Sitemap = hospitals.map(h => ({
     url: `${BASE}/hospital/${hospitalSlug(h)}`,
+    lastModified: parsedDate(h.updated_at),
     priority: 0.7,
     changeFrequency: 'weekly',
   }))
 
   const breedPages: MetadataRoute.Sitemap = BREEDS.map(b => ({
     url: `${BASE}/breeds/${b.slug}`,
+    lastModified: BUILD_DATE,
     priority: 0.7,
     changeFrequency: 'monthly',
   }))
 
-  return [...staticPages, ...foodPages, ...hospitalPages, ...breedPages]
+  return [
+    ...staticPages.map(p => ({ lastModified: BUILD_DATE, ...p })),
+    ...foodPages,
+    ...hospitalPages,
+    ...breedPages,
+  ]
 }

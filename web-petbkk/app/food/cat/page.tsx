@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { filterFoods } from '@/lib/petfood'
+import { filterFoods, toLightFood } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
@@ -81,7 +81,7 @@ export default function CatFoodPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4">🐱 อาหารลูกแมว ({kittenFoods.length} รายการ)</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {kittenFoods.map(food => <FoodCard key={food.id} food={food} />)}
+            {kittenFoods.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}
@@ -90,7 +90,7 @@ export default function CatFoodPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4">🐈 อาหารแมวผู้ใหญ่ ({adultFoods.length} รายการ)</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {adultFoods.map(food => <FoodCard key={food.id} food={food} />)}
+            {adultFoods.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}
@@ -99,7 +99,7 @@ export default function CatFoodPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4">🐈 อาหารแมวสูงวัย ({seniorFoods.length} รายการ)</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {seniorFoods.map(food => <FoodCard key={food.id} food={food} />)}
+            {seniorFoods.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}

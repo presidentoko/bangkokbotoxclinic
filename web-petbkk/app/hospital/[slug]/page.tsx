@@ -22,18 +22,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const services: string[] = []
   if (h.is_24h) services.push('เปิด 24 ชม.')
   if (h.has_emergency) services.push('ฉุกเฉิน')
-  if (h.has_surgery) services.push('ผ่าตัดได้')
+  // `has_surgery` is true on every record, so surfacing it added a constant
+  // string to all 503 titles — pure noise that crowded out the rating.
+  const serviceStr = services.join(' · ')
 
   const ratingPart = h.google_rating != null
     ? `⭐${h.google_rating.toFixed(1)}${h.google_review_count ? ` (${h.google_review_count.toLocaleString()} รีวิว)` : ''}`
     : ''
-  const serviceStr = services.join(' · ')
 
-  const titleParts = [h.name_th, ratingPart, serviceStr].filter(Boolean)
-  const title = titleParts.join(' · ')
+  // 197 of the 503 records have an English-only name_th, which produced fully
+  // English titles on a Thai-language site — they rank but barely get clicked
+  // (one query sat at 514 impressions / 1 click). Anchoring every title with the
+  // Thai category term gives Thai searchers something to recognise in the SERP.
+  const needsThaiAnchor = !/[ก-๙]/.test(h.name_th)
+  const titleName = needsThaiAnchor ? `${h.name_th} โรงพยาบาลสัตว์` : h.name_th
+  const title = [titleName, ratingPart, serviceStr].filter(Boolean).join(' · ')
 
   const priceInfo = h.price_consult ? ` · ค่าตรวจ ${h.price_consult.toLocaleString()} บาท` : ''
-  const description = `${h.name_th}${serviceStr ? ` (${serviceStr})` : ''} ${ratingPart} · ${h.address}${priceInfo} · ดูแผนที่ เบอร์โทร ราคา`
+  const description = [
+    `${h.name_th}${serviceStr ? ` (${serviceStr})` : ''}`,
+    ratingPart,
+    h.address,
+  ].filter(Boolean).join(' · ') + `${priceInfo} · ดูแผนที่ เบอร์โทร เวลาทำการ`
 
   const hasEnName = h.name_en && h.name_en !== h.name_th
   const keywords = [h.name_th, ...(hasEnName ? [h.name_en!] : []), 'โรงพยาบาลสัตว์', 'สัตวแพทย์', ...services]
@@ -192,11 +202,13 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
     openingHours: h.is_24h ? 'Mo-Su 00:00-24:00' : undefined,
     ...(priceRange ? { priceRange } : {}),
     ...(availableService.length > 0 ? { availableService } : {}),
-    ...(h.google_rating != null ? {
+    // Google forbids inventing a reviewCount, so omit aggregateRating entirely
+    // unless both the rating and a real (non-zero) count exist.
+    ...(h.google_rating != null && h.google_review_count != null && h.google_review_count > 0 ? {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: h.google_rating,
-        reviewCount: h.google_review_count ?? 1,
+        reviewCount: h.google_review_count,
         bestRating: 5,
         worstRating: 1,
       }
@@ -226,9 +238,13 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
   return (
     <main className="max-w-2xl mx-auto">
-      <a href="/hospital" className="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">
-        ← กลับ
-      </a>
+      <nav aria-label="breadcrumb" className="text-sm text-gray-400 mb-4 flex flex-wrap items-center gap-1">
+        <a href="/" className="hover:text-orange-500 transition-colors">หน้าหลัก</a>
+        <span>›</span>
+        <a href="/hospital" className="hover:text-orange-500 transition-colors">โรงพยาบาลสัตว์</a>
+        <span>›</span>
+        <span className="text-gray-600">{h.name_th}</span>
+      </nav>
 
       <h1 className="text-2xl font-bold mb-1">{h.name_th}</h1>
       {showEnName && (

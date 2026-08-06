@@ -30,3 +30,8 @@ body {
 h1, h2, h3 {
   scroll-margin-top: 80px;
 }
+
+a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}

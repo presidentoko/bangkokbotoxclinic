@@ -4,9 +4,14 @@ import HospitalCard from '@/components/HospitalCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
-  title: 'โรงพยาบาลสัตว์ผ่าตัด กรุงเทพ — รายการครบที่สุด',
-  description: 'รวมโรงพยาบาลสัตว์ที่มีห้องผ่าตัดในกรุงเทพและปริมณฑล พร้อมที่อยู่ เบอร์โทร คะแนน Google รองรับผ่าตัดฉุกเฉินและนัดหมายล่วงหน้า',
+  title: 'โรงพยาบาลสัตว์ผ่าตัด — รายการครบที่สุดทั่วไทย',
+  description: 'รวมโรงพยาบาลสัตว์ที่มีห้องผ่าตัดทั่วไทย พร้อมที่อยู่ เบอร์โทร คะแนน Google รองรับผ่าตัดฉุกเฉินและนัดหมายล่วงหน้า',
   alternates: { canonical: 'https://www.thailandpethub.com/hospital/surgery' },
+  // Every scraped record has has_surgery = true, so this page's list is identical
+  // to /hospital's — Google was picking its own canonical between the two. Keep it
+  // reachable (and crawlable, so it keeps feeding links to the 503 detail pages)
+  // but out of the index until the scraper can actually distinguish surgical care.
+  robots: { index: false, follow: true },
   keywords: ['โรงพยาบาลสัตว์ผ่าตัด', 'คลินิกสัตว์ผ่าตัด', 'ผ่าตัดสัตว์เลี้ยง', 'ทำหมันสัตว์', 'ผ่าตัดสุนัขแมว'],
   openGraph: {
     title: 'โรงพยาบาลสัตว์ผ่าตัด กรุงเทพ',
@@ -64,7 +69,7 @@ export default function HospitalSurgeryPage() {
         <span className="text-gray-600">ผ่าตัด</span>
       </nav>
 
-      <h1 className="text-3xl font-black text-gray-900 mb-3">🏥 โรงพยาบาลสัตว์ผ่าตัด กรุงเทพ</h1>
+      <h1 className="text-3xl font-black text-gray-900 mb-3">🏥 โรงพยาบาลสัตว์ผ่าตัด ทั่วไทย</h1>
       <p className="text-gray-600 text-sm leading-relaxed mb-2 max-w-2xl">
         รวม <strong>{hospitals.length} แห่ง</strong>ที่มีห้องผ่าตัดและทีมสัตวแพทย์เชี่ยวชาญ
         รองรับทั้งการผ่าตัดฉุกเฉินและนัดหมายล่วงหน้า ทำหมัน ผ่าตัดทางเดินอาหาร กระดูก และอื่นๆ

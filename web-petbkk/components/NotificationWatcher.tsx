@@ -26,16 +26,37 @@ export default function NotificationWatcher() {
       const lastNotified = localStorage.getItem('vaccineNotifiedDate')
       const todayStr = today.toISOString().split('T')[0]
       if (lastNotified === todayStr) return
-      localStorage.setItem('vaccineNotifiedDate', todayStr)
 
       const body = due.map(r => `• ${r.name}`).join('\n')
-      try {
-        new Notification('💉 PetBKK — วัคซีนน้องใกล้ถึงกำหนด', {
-          body: `${body}\n\nไปดูตารางวัคซีนที่ PetBKK`,
-          icon: '/icon.svg',
-          tag: 'vaccine-reminder',
-        })
-      } catch {}
+      const title = '💉 PetBKK — วัคซีนน้องใกล้ถึงกำหนด'
+      const opts: NotificationOptions = {
+        body: `${body}\n\nไปดูตารางวัคซีนที่ PetBKK`,
+        icon: '/icon.svg',
+        tag: 'vaccine-reminder',
+      }
+
+      // Android Chrome throws on the bare `new Notification()` constructor, so
+      // go through the service worker first. Only mark the day as notified once
+      // one of the paths actually resolved — otherwise a failure would silently
+      // suppress the reminder for the rest of the day.
+      const markNotified = () => localStorage.setItem('vaccineNotifiedDate', todayStr)
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready
+          .then(reg => reg.showNotification(title, opts))
+          .then(markNotified)
+          .catch(() => {
+            try {
+              new Notification(title, opts)
+              markNotified()
+            } catch {}
+          })
+      } else {
+        try {
+          new Notification(title, opts)
+          markNotified()
+        } catch {}
+      }
     } catch {}
   }, [])
 

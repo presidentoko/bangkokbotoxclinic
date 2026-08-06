@@ -69,9 +69,13 @@ export default function CostPage() {
   const [size, setSize]           = useState<PetSize>('small')
   const [food, setFood]           = useState(800)
 
+  // The size chips only render for dogs, so a stale dog size would otherwise
+  // keep skewing a cat estimate after switching species.
+  const effectiveSize: PetSize = species === 'cat' ? 'medium' : size
+
   const result = useMemo(
-    () => calculateCost({ species, size, monthlyFoodBudget: food }),
-    [species, size, food]
+    () => calculateCost({ species, size: effectiveSize, monthlyFoodBudget: food }),
+    [species, effectiveSize, food]
   )
 
   return (

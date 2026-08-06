@@ -6,6 +6,8 @@ import NewsletterForm from '@/components/NewsletterForm'
 import NotificationWatcher from '@/components/NotificationWatcher'
 import GlobalSearch from '@/components/GlobalSearch'
 import MobileNav from '@/components/MobileNav'
+import BottomNav from '@/components/BottomNav'
+import { NAV_PRIMARY, NAV_GROUPS } from '@/lib/navGroups'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -103,57 +105,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <GlobalSearch />
               <MobileNav />
             </div>
-            {/* Tools strip */}
-            <nav className="hidden sm:flex gap-2 overflow-x-auto scrollbar-none text-xs text-gray-500 pb-0.5">
-              {[
-                { href: '/compare',         label: 'เปรียบเทียบ' },
-                { href: '/cost',            label: 'ค่าใช้จ่าย' },
-                { href: '/age',             label: 'คำนวณอายุ' },
-                { href: '/vaccine',         label: '💉 วัคซีน' },
-                { href: '/hospital/surgery',label: '🔪 ทำหมัน/ผ่าตัด' },
-                { href: '/food/senior',     label: '👴 Senior' },
-                { href: '/food/budget',     label: '💰 ประหยัด' },
-                { href: '/dental',          label: '🦷 ดูแลฟัน' },
-                { href: '/deworming',       label: '🪱 ถ่ายพยาธิ' },
-                { href: '/flea',            label: '🦟 หมัด/เห็บ' },
-                { href: '/grooming',        label: '🪮 Grooming' },
-                { href: '/food/puppy',      label: '🐶 Puppy' },
-                { href: '/toxic',           label: '⚠️ อาหารต้องห้าม' },
-                { href: '/checklist',       label: '✅ เช็คลิสต์' },
-                { href: '/newpet',          label: '🆕 เลี้ยงใหม่' },
-                { href: '/training',        label: '🎓 ฝึกสุนัข' },
-                { href: '/insurance',       label: '🛡️ ประกัน' },
-                { href: '/microchip',       label: '📡 ไมโครชิป' },
-                { href: '/first-aid',       label: '🩹 ปฐมพยาบาล' },
-                { href: '/potty-training',  label: '🚽 ฝึกฉี่ถูกที่' },
-                { href: '/weight',          label: '⚖️ น้ำหนัก' },
-                { href: '/cat-behavior',    label: '🐱 พฤติกรรมแมว' },
-                { href: '/neutering',       label: '✂️ ทำหมัน' },
-                { href: '/heartworm',       label: '🦟 พยาธิหัวใจ' },
-                { href: '/allergy',         label: '🤧 แพ้อาหาร' },
-                { href: '/travel',          label: '✈️ เดินทาง' },
-                { href: '/anxiety',         label: '😰 แยกไม่ได้' },
-                { href: '/heatstroke',      label: '☀️ ลมแดด' },
-                { href: '/dog-behavior',    label: '🐕 พฤติกรรมสุนัข' },
-                { href: '/breeds',          label: '🐾 สายพันธุ์' },
-                { href: '/kidney-disease',  label: '🫘 โรคไต' },
-                { href: '/raw-food',        label: '🥩 Raw Food' },
-                { href: '/symptoms',         label: '🩺 ตรวจอาการ' },
-                { href: '/breed-quiz',       label: '🐾 ค้นหาสายพันธุ์' },
-                { href: '/diarrhea',         label: '💩 ท้องเสีย' },
-                { href: '/not-eating',       label: '🍽️ ไม่กินอาหาร' },
-                { href: '/ingredients',      label: 'ส่วนผสม' },
-                { href: '/saved',            label: '❤️ บันทึก' },
-              ].map(l => (
+            {/* Tools strip — popular chips first, the long tail behind dropdowns */}
+            <nav aria-label="เครื่องมือ" className="hidden sm:flex flex-wrap items-center gap-2 text-xs text-gray-500 pb-0.5">
+              {NAV_PRIMARY.slice(0, 8).map(l => (
                 <a key={l.href} href={l.href}
                   className="whitespace-nowrap px-2.5 py-2 bg-gray-100 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors flex-shrink-0">
                   {l.label}
                 </a>
               ))}
+              {NAV_GROUPS.map(group => (
+                <details key={group.title} className="relative flex-shrink-0">
+                  <summary className="cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden whitespace-nowrap px-2.5 py-2 bg-gray-100 hover:bg-orange-50 hover:text-orange-600 rounded-full transition-colors">
+                    {group.title} ▾
+                  </summary>
+                  <div className="absolute left-0 top-full mt-1 z-50 w-56 max-h-80 overflow-y-auto bg-white border border-gray-100 rounded-xl shadow-lg p-1.5">
+                    {group.items.map(i => (
+                      <a key={i.href} href={i.href}
+                        className="block px-2.5 py-1.5 rounded-lg whitespace-nowrap hover:bg-orange-50 hover:text-orange-600 transition-colors">
+                        {i.label}
+                      </a>
+                    ))}
+                  </div>
+                </details>
+              ))}
             </nav>
           </div>
         </header>
-        <div className="max-w-5xl mx-auto px-4 py-8 pb-28">
+        {/* pb-16 on mobile keeps the fixed BottomNav from covering content */}
+        <div className="max-w-5xl mx-auto px-4 py-8 pb-16 sm:pb-28">
           {children}
         </div>
         <footer className="max-w-5xl mx-auto px-4 py-8 pb-24 text-center text-xs text-gray-400 border-t border-gray-100 mt-4">
@@ -177,6 +156,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NotificationWatcher />
         <InstallPrompt />
         <CompareTray />
+        <BottomNav />
         <script dangerouslySetInnerHTML={{ __html: `
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {

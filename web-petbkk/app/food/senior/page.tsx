@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { filterFoods } from '@/lib/petfood'
+import { filterFoods, toLightFood } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
@@ -82,7 +82,7 @@ export default function SeniorFoodPage() {
             <span className="text-sm font-normal text-gray-400">({dogSenior.length} รายการ)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {dogSenior.map(food => <FoodCard key={food.id} food={food} />)}
+            {dogSenior.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}
@@ -94,7 +94,7 @@ export default function SeniorFoodPage() {
             <span className="text-sm font-normal text-gray-400">({catSenior.length} รายการ)</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {catSenior.map(food => <FoodCard key={food.id} food={food} />)}
+            {catSenior.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
         </section>
       )}

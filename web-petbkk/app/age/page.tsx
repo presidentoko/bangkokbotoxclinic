@@ -92,7 +92,9 @@ function AgePageInner() {
   const initialSize = (['small', 'medium', 'large'] as Size[]).includes(searchParams.get('size') as Size)
     ? (searchParams.get('size') as Size) : 'small'
   const initialAgeParam = Number(searchParams.get('age'))
-  const initialAge = Number.isFinite(initialAgeParam) && initialAgeParam > 0 ? initialAgeParam : 3
+  const initialAge = Number.isFinite(initialAgeParam) && initialAgeParam > 0
+    ? Math.min(initialAgeParam, 20)
+    : 3
   const initialName = searchParams.get('name') ?? ''
 
   const [species, setSpecies] = useState<Species>(initialSpecies)

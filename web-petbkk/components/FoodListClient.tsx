@@ -1,15 +1,17 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
-import { filterFoods, foodSlug } from '@/lib/petfood'
+import { useSearchParams } from 'next/navigation'
+import { filterFoodsLight } from '@/lib/petfood'
 import { getFoodGrade } from '@/lib/grading'
-import type { Animal, LifeStage, PetProfile, PetFood } from '@/lib/types'
+import { useLoadMoreSentinel } from '@/hooks/useLoadMoreSentinel'
+import type { Animal, LifeStage, PetProfile, PetFoodLight } from '@/lib/types'
 import FoodCard from '@/components/FoodCard'
 import RecentFoods from '@/components/RecentFoods'
 import Link from 'next/link'
 
 function BestPicksStrip({ animal }: { animal?: Animal }) {
   const picks = useMemo(() => {
-    const all = filterFoods()
+    const all = filterFoodsLight()
     return all
       .filter(f => {
         if (animal && f.animal !== animal) return false
@@ -40,7 +42,7 @@ function BestPicksStrip({ animal }: { animal?: Animal }) {
           return (
             <Link
               key={food.id}
-              href={`/food/${foodSlug(food)}`}
+              href={`/food/${food.slug}`}
               className="flex-shrink-0 w-36 bg-white border rounded-2xl p-3 hover:shadow-md transition-shadow snap-start"
             >
               <div className={`w-10 h-10 rounded-xl ${gradeCls} flex items-center justify-center text-white font-black text-lg mb-2`}>
@@ -71,6 +73,7 @@ function AnimalPicker({ value, onChange }: { value?: Animal; onChange: (v?: Anim
           <button
             key={key}
             onClick={() => onChange(isActive ? undefined : key)}
+            aria-pressed={isActive}
             className={`rounded-2xl border-2 p-4 text-left transition-all ${isActive ? active : `${bg} ${border} hover:shadow-sm`}`}
           >
             <span className="text-3xl block mb-1">{emoji}</span>
@@ -93,20 +96,24 @@ const STAGES: { key: LifeStage | 'all'; label: string; emoji: string }[] = [
 function StageTabs({ value, onChange }: { value?: LifeStage; onChange: (v?: LifeStage) => void }) {
   return (
     <div className="flex gap-2 mb-5 overflow-x-auto pb-0.5">
-      {STAGES.map(s => (
-        <button
-          key={s.key}
-          onClick={() => onChange(s.key === 'all' ? undefined : s.key as LifeStage)}
-          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-sm whitespace-nowrap transition-colors flex-shrink-0 ${
-            (s.key === 'all' && !value) || value === s.key
-              ? 'bg-orange-500 text-white border-orange-500 font-medium'
-              : 'bg-white border-gray-200 text-gray-600 hover:bg-orange-50'
-          }`}
-        >
-          <span>{s.emoji}</span>
-          <span>{s.label}</span>
-        </button>
-      ))}
+      {STAGES.map(s => {
+        const isActive = (s.key === 'all' && !value) || value === s.key
+        return (
+          <button
+            key={s.key}
+            onClick={() => onChange(s.key === 'all' ? undefined : s.key as LifeStage)}
+            aria-pressed={isActive}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-sm whitespace-nowrap transition-colors flex-shrink-0 ${
+              isActive
+                ? 'bg-orange-500 text-white border-orange-500 font-medium'
+                : 'bg-white border-gray-200 text-gray-600 hover:bg-orange-50'
+            }`}
+          >
+            <span>{s.emoji}</span>
+            <span>{s.label}</span>
+          </button>
+        )
+      })}
     </div>
   )
 }
@@ -122,37 +129,47 @@ const GRADE_META: Record<string, { bg: string; label: string }> = {
 function GradeFilterBar({ value, onChange }: { value?: string; onChange: (v?: string) => void }) {
   return (
     <div className="flex gap-2 mb-5 overflow-x-auto pb-0.5">
-      {Object.entries(GRADE_META).map(([g, meta]) => (
-        <button
-          key={g}
-          onClick={() => onChange(value === g ? undefined : g)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all flex-shrink-0 ${
-            value === g
-              ? `${meta.bg} text-white border-transparent shadow-sm`
-              : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          <span className={`w-2 h-2 rounded-full ${value === g ? 'bg-white/70' : meta.bg}`} />
-          เกรด {g} · {meta.label}
-        </button>
-      ))}
+      {Object.entries(GRADE_META).map(([g, meta]) => {
+        const isActive = value === g
+        return (
+          <button
+            key={g}
+            onClick={() => onChange(isActive ? undefined : g)}
+            aria-pressed={isActive}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold whitespace-nowrap transition-all flex-shrink-0 ${
+              isActive
+                ? `${meta.bg} text-white border-transparent shadow-sm`
+                : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+            }`}
+          >
+            <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-white/70' : meta.bg}`} />
+            เกรด {g} · {meta.label}
+          </button>
+        )
+      })}
     </div>
   )
 }
 
-interface Props {
-  initialAnimal?: Animal
-  initialStage?: LifeStage
-  initialQuery?: string
-}
+const PAGE_SIZE = 30
 
-export default function FoodListClient({ initialAnimal, initialStage, initialQuery = '' }: Props) {
-  const [query, setQuery]         = useState(initialQuery)
+export default function FoodListClient() {
+  // Read from the URL here rather than via props so /food's shell stays static.
+  const searchParams = useSearchParams()
+  const spAnimal = searchParams.get('animal')
+  const spStage  = searchParams.get('life_stage')
+  const initialAnimal = spAnimal === 'dog' || spAnimal === 'cat' ? (spAnimal as Animal) : undefined
+  const initialStage  = ['puppy', 'adult', 'senior'].includes(spStage ?? '')
+    ? (spStage as LifeStage)
+    : undefined
+
+  const [query, setQuery]         = useState(searchParams.get('q') ?? '')
   const [animal, setAnimal]       = useState<Animal | undefined>(initialAnimal)
   const [lifeStage, setLifeStage] = useState<LifeStage | undefined>(initialStage)
   const [grade, setGrade]         = useState<string | undefined>(undefined)
   const [sort, setSort]           = useState<'score' | 'price'>('score')
   const [showAll, setShowAll]     = useState(false)
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
   useEffect(() => {
     if (initialAnimal || initialStage) return
@@ -166,19 +183,25 @@ export default function FoodListClient({ initialAnimal, initialStage, initialQue
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => { setVisibleCount(PAGE_SIZE) }, [animal, lifeStage, query, sort, grade])
+
   const foods = useMemo(() => {
-    let result: PetFood[] = filterFoods({ animal, life_stage: lifeStage, query, sort })
+    let result: PetFoodLight[] = filterFoodsLight({ animal, life_stage: lifeStage, query, sort })
     if (grade) result = result.filter(f => getFoodGrade(f) === grade)
     return result
   }, [animal, lifeStage, query, sort, grade])
 
   const { withData, withoutData } = useMemo(() => ({
-    withData:    foods.filter(f => f.ingredients.length > 0),
-    withoutData: foods.filter(f => f.ingredients.length === 0),
+    withData:    foods.filter(f => f.has_ingredients),
+    withoutData: foods.filter(f => !f.has_ingredients),
   }), [foods])
 
-  const displayFoods = showAll ? foods : withData
+  const displayFoods = showAll ? [...withData, ...withoutData] : withData
+  const visibleFoods = displayFoods.slice(0, visibleCount)
+  const hasMore = visibleCount < displayFoods.length
   const hasQuery = query || grade || lifeStage
+
+  const sentinelRef = useLoadMoreSentinel(() => setVisibleCount(c => c + PAGE_SIZE))
 
   return (
     <>
@@ -213,6 +236,7 @@ export default function FoodListClient({ initialAnimal, initialStage, initialQue
         </div>
         <button
           onClick={() => setSort(sort === 'price' ? 'score' : 'price')}
+          aria-pressed={sort === 'price'}
           className={`ml-2 flex-shrink-0 text-xs px-3 py-1.5 rounded-full border transition-colors ${
             sort === 'price' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
           }`}
@@ -224,8 +248,19 @@ export default function FoodListClient({ initialAnimal, initialStage, initialQue
       {displayFoods.length > 0 ? (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
-            {displayFoods.map(food => <FoodCard key={food.id} food={food} />)}
+            {visibleFoods.map(food => <FoodCard key={food.id} food={food} />)}
           </div>
+          {hasMore && (
+            <>
+              <button
+                onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                className="w-full py-3 mb-4 text-sm font-semibold text-orange-600 border border-orange-200 rounded-xl hover:bg-orange-50 transition-colors"
+              >
+                + ดูเพิ่ม
+              </button>
+              <div ref={sentinelRef} />
+            </>
+          )}
           {!showAll && withoutData.length > 0 && !hasQuery && (
             <button
               onClick={() => setShowAll(true)}
