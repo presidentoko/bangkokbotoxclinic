@@ -30,3 +30,34 @@ export const BLOCKED_PLACE_LANGS: Lang[] = PLACE_LANGS.filter(
 export const BLOCKED_PLACE_PATHS: string[] = BLOCKED_PLACE_LANGS.map(
   (l) => `/${l}/place/`
 );
+
+/**
+ * Strips non-ASCII characters out of a place slug.
+ *
+ * /{lang}/place/{slug} does not resolve when the slug contains Thai script.
+ * The page is prerendered — the .html is in the build output and the path is
+ * in prerender-manifest.json — but the request 404s. It is specific to this
+ * route, not to the slug or its encoding: the identical slug served under
+ * /activities/{niche}/{slug} returns 200, and /en, /th and /ko place URLs all
+ * fail together, so it tracks the dynamic [lang] first segment rather than
+ * anything we control in the data. 415 of 1,647 places are affected.
+ *
+ * Applied in both loaders (lib/places.ts for the client bundle,
+ * lib/places-server.ts for the route) so links, generateStaticParams, the
+ * detail lookup and sitemap.ts can't disagree about a URL's shape.
+ *
+ * Deliberately a no-op for slugs that are already ASCII: those resolve today,
+ * and normalising them would silently move a working URL (one slug ends in a
+ * dash, which the trim below would have rewritten). Only the 415 that have
+ * never resolved change, and they keep their trailing unique id, so an
+ * all-Thai name degrades to "{category}-{id}" — verified 0 collisions.
+ */
+export function asciiSlug(slug: string): string {
+  if (!/[^\x00-\x7F]/.test(slug)) return slug;
+  return slug
+    .normalize("NFKD")
+    .replace(/[^\x00-\x7F]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
+}
