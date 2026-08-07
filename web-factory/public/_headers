@@ -1,16 +1,32 @@
-# Cloudflare Pages cache rules — static export.
+# Cloudflare Pages headers — static export.
 # All HTML revalidates often (data changes); fingerprinted assets cache forever.
+#
+# Rule matching: every matching block contributes its headers, and a more
+# specific path wins for a header it redefines. So the `/*` block below sets the
+# baseline for the whole site and the narrower blocks override Cache-Control
+# only for their own paths.
 
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
-
-# HTML — short edge cache, allow stale-while-revalidate
-/
   Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
 
-/*.html
+# The Cache-Control above used to live under `/` plus `/*.html`, which covered
+# almost nothing: trailingSlash is off, so real page URLs are extensionless
+# (/c/manufacturer, /supplier/{id}) and never matched `/*.html`. Every page
+# except the homepage was served with Cloudflare Pages' default
+# `max-age=0, must-revalidate` — a full revalidation on every hit, on a site
+# that is a pure static export. Verified in production before changing it.
+
+# Client-side data indexes — regenerated with each data refresh, same cadence
+# as the HTML that links them. browse-index.json is ~1.9MB, so a repeat visit
+# reusing it instead of refetching is the single biggest win here.
+/browse-index.json
+  Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
+/compare-index.json
+  Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
+/city-index.json
   Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
 
 # Course photos — scraped, rarely change

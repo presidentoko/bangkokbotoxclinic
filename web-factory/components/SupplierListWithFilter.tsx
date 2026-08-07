@@ -1,9 +1,10 @@
 "use client";
 
-import { Suspense, useState, useMemo, useCallback } from "react";
+import { Suspense, useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { loadBrowseIndex } from "@/lib/browseIndexClient";
 
 export type FilterableSupplier = {
   id: string;
@@ -16,11 +17,28 @@ export type FilterableSupplier = {
 };
 
 type Props = {
-  suppliers: FilterableSupplier[];
+  // Only the first page-worth of rows, rendered server-side so the list is
+  // populated before hydration. The full set arrives from browse-index.json.
+  //
+  // This used to be the whole database (8,379 records) passed straight through
+  // as a prop, which Next.js serialized into the page's inline RSC payload:
+  // 1.92MB of the homepage's 2.02MB of HTML existed to power one dropdown.
+  // public/browse-index.json already carries exactly these fields and is
+  // already fetched on this page by the hero search, so filtering reads from
+  // there instead and the server ships ~100 rows.
+  initialSuppliers: FilterableSupplier[];
   categoryOptions: string[];
   cityOptions: string[];
   totalSuppliers: number;
   viewAllHref?: string;
+  // Set by /c/[cuisine], which renders one category only. The fetched index is
+  // global, so it gets narrowed back down to this category client-side —
+  // equivalent to the server's filterByCategory (categories.includes(cat)).
+  lockedCategory?: string;
+  // Sponsored ids in tier order (editors_pick → recommended → featured), hoisted
+  // to the top of the fetched list to reproduce lib/sponsored.ts's ordering.
+  // Non-sponsored rows are already trust-score-descending in browse-index.json.
+  sponsoredIds?: string[];
 };
 
 // Filter selections live in the URL (?cat=&city=&dbd=1) so a filtered result
@@ -77,16 +95,47 @@ type InnerProps = Props & {
 };
 
 function SupplierListWithFilterInner({
-  suppliers, categoryOptions, cityOptions, totalSuppliers, viewAllHref = "/best/highly-recommended",
+  initialSuppliers, categoryOptions, cityOptions, totalSuppliers,
+  viewAllHref = "/best/highly-recommended", lockedCategory, sponsoredIds,
   initialCategory = "", initialCity = "", initialDbdOnly = false, onFilterChange,
 }: InnerProps) {
   const [category, setCategoryState] = useState(initialCategory);
   const [city, setCityState] = useState(initialCity);
   const [dbdOnly, setDbdOnlyState] = useState(initialDbdOnly);
+  const [full, setFull] = useState<FilterableSupplier[] | null>(null);
 
   const setCategory = (v: string) => { setCategoryState(v); onFilterChange?.({ category: v }); };
   const setCity = (v: string) => { setCityState(v); onFilterChange?.({ city: v }); };
   const setDbdOnly = (v: boolean) => { setDbdOnlyState(v); onFilterChange?.({ dbdOnly: v }); };
+
+  // BrowseEntry is a superset of FilterableSupplier (it also carries `rating`),
+  // so the fetched rows are used as-is with no per-record mapping.
+  useEffect(() => {
+    let on = true;
+    loadBrowseIndex().then((data) => {
+      if (!on || data.length === 0) return;
+      let rows: FilterableSupplier[] = lockedCategory
+        ? data.filter((d) => d.categories.includes(lockedCategory))
+        : data;
+      if (sponsoredIds && sponsoredIds.length > 0) {
+        const rank = new Map(sponsoredIds.map((id, i) => [id, i]));
+        rows = [...rows].sort((a, b) => {
+          const ra = rank.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+          const rb = rank.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+          return ra - rb;
+        });
+      }
+      setFull(rows);
+    });
+    return () => { on = false; };
+  }, [lockedCategory, sponsoredIds]);
+
+  // Before the index lands, filter the server-rendered slice. It's the same
+  // rows in the same order, so the default (unfiltered) view is identical —
+  // only a filter applied within that first moment sees a partial set, which
+  // is why the result count reports the authoritative total separately.
+  const suppliers = full ?? initialSuppliers;
+  const ready = full !== null;
 
   const filtered = useMemo(() => {
     return suppliers
@@ -96,7 +145,10 @@ function SupplierListWithFilterInner({
   }, [suppliers, category, city, dbdOnly]);
 
   const top10 = filtered.slice(0, 10);
-  const total = filtered.length;
+  const noFilterActive = !category && !city && !dbdOnly;
+  // While the index is still loading, only the unfiltered count is knowable
+  // from the server-provided total; a filtered count would undercount.
+  const total = ready ? filtered.length : (noFilterActive ? totalSuppliers : null);
 
   // categoryOptions=[] means the caller (e.g. a /c/[cuisine] page) already
   // pre-filtered `suppliers` to one implicit category and hid the dropdown —
@@ -113,10 +165,10 @@ function SupplierListWithFilterInner({
   // exactly one of category/city is active AND dbdOnly is off (otherwise the
   // count shown wouldn't match what the destination page actually displays).
   const viewAll = (() => {
-    if (!dbdOnly && category && !city) {
+    if (!dbdOnly && category && !city && total !== null) {
       return { href: `/c/${category}`, label: `View all ${total.toLocaleString()} ${category.replace(/_/g, " ")} suppliers →` };
     }
-    if (!dbdOnly && !categoryLocked && city && !category) {
+    if (!dbdOnly && !categoryLocked && city && !category && total !== null) {
       return { href: `/city/${citySlugFromDisplay(city)}`, label: `View all ${total.toLocaleString()} suppliers in ${city} →` };
     }
     return { href: viewAllHref, label: `View all ${totalSuppliers.toLocaleString()} suppliers →` };
@@ -164,7 +216,7 @@ function SupplierListWithFilterInner({
         </label>
 
         <span className="ml-auto text-xs text-[var(--muted)] tabular-nums">
-          {total.toLocaleString()} results
+          {total === null ? "counting…" : `${total.toLocaleString()} results`}
         </span>
       </div>
 
@@ -198,7 +250,9 @@ function SupplierListWithFilterInner({
 
       {top10.length === 0 && (
         <div className="text-center py-12 text-[var(--muted)] text-sm">
-          No suppliers match these filters.
+          {ready
+            ? "No suppliers match these filters. Try clearing one."
+            : "Loading suppliers…"}
         </div>
       )}
 

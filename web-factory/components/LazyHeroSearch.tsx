@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from "react";
 import { HeroSearch } from "./HeroSearch";
+import { loadBrowseIndex } from "@/lib/browseIndexClient";
 import type { SearchableEntity } from "./SearchBar";
 
 export function LazyHeroSearch({
@@ -29,12 +30,9 @@ export function LazyHeroSearch({
 
   useEffect(() => {
     let on = true;
-    fetch("/browse-index.json")
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data: SearchableEntity[]) => {
-        if (on) setEntities(data);
-      })
-      .catch(() => {});
+    loadBrowseIndex().then((data) => {
+      if (on) setEntities(data as unknown as SearchableEntity[]);
+    });
     return () => {
       on = false;
     };

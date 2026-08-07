@@ -10,6 +10,7 @@ import { POSTS } from "@/lib/posts";
 import { POSTS_KO } from "@/lib/posts_ko";
 import { POSTS_TH } from "@/lib/posts_th";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { TH_CATEGORY_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const CATEGORIES = Object.keys(CATEGORY_LABELS);
@@ -77,11 +78,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/th/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
 
-  const TH_CITY_CORE = new Set(["chon_buri", "rayong", "pathum_thani", "samut_sakhon", "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla", "si_racha", "map_ta_phut", "chiang_mai"]);
+  // Was a second hand-written copy of the Thai city list, which drifted from
+  // lib/thBuildSets.ts. One source now: whatever /th/city/[name] actually builds.
   for (const c of cities) {
     items.push({ url: `${SITE}/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
     items.push({ url: `${SITE}/ko/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.8 });
-    if (TH_CITY_CORE.has(c)) {
+    if (TH_CITY_VALID.has(c)) {
       items.push({ url: `${SITE}/th/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.8 });
     }
   }
@@ -90,8 +92,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
     items.push({ url: `${SITE}/ko/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
-  // 태국어 카테고리 — 핵심 7개만
-  for (const c of ["manufacturer", "auto_parts", "industrial_estate", "warehouse", "logistics", "packaging", "food_mfg"]) {
+  // 태국어 카테고리 — /th/c/[cuisine] 가 실제로 빌드하는 목록과 동일 소스.
+  for (const c of TH_CATEGORY_VALID) {
     items.push({ url: `${SITE}/th/c/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
 
@@ -125,13 +127,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Supplier pages — quality-gated: include only suppliers with at least one
-  // contact/trust signal. Thin pages (no phone, no website, unverified, score<8)
-  // are still built (static export) but excluded from sitemap to protect crawl budget.
+  // Supplier pages — quality-gated. Thin pages are still built (static export)
+  // but stay out of the sitemap to protect crawl budget.
+  //
+  // The gate used to be "has phone OR website OR verified OR score>=8", which a
+  // later dead-lead pass on master_db.json made a no-op: every remaining supplier
+  // already cleared it, so all 8,379 went in and the sitemap was 92% supplier
+  // pages. Search Console's verdict on that was 8,216 discovered-but-not-indexed
+  // against 1,647 indexed — Google spending the whole budget on pages that carry
+  // nothing it can't already read off Google Maps.
+  //
+  // The bar is now "something Maps doesn't have": scraped review text, a DBD
+  // registry match, or a website of its own. A phone number alone no longer
+  // qualifies a page for crawl priority.
   for (const r of db.suppliers) {
     const score = r.b2b_score ?? r.trust_score ?? 0;
-    const hasSignal = r.verified || r.website || r.phone || score >= 8;
-    if (!hasSignal) continue;
+    const hasOwnContent =
+      r.dbd || r.verified || r.website || (r.scraped_review_count ?? 0) > 0;
+    if (!hasOwnContent) continue;
     items.push({
       url: `${SITE}/supplier/${r.id}`,
       lastModified: updated,

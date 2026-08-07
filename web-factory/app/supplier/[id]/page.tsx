@@ -60,7 +60,15 @@ export async function generateMetadata(
   const capital = r.dbd?.capital_thb
     ? (r.dbd.capital_thb >= 1_000_000 ? `฿${(r.dbd.capital_thb / 1_000_000).toFixed(0)}M capital` : "")
     : "";
-  const reviewSnippet = r.external_reviews?.[0]?.text?.slice(0, 100) || r.dbd?.purpose?.slice(0, 100) || "";
+  // Same fallback chain the page body uses — a real buyer quote makes a far
+  // better snippet than the DBD registry's boilerplate business purpose, and
+  // sample_reviews_* is the only place most suppliers' review text lives.
+  const reviewSnippet =
+    r.external_reviews?.[0]?.text?.slice(0, 100) ||
+    r.sample_reviews_en?.[0]?.text?.slice(0, 100) ||
+    r.sample_reviews_th?.[0]?.text?.slice(0, 100) ||
+    r.dbd?.purpose?.slice(0, 100) ||
+    "";
   const descParts = [
     `${verified}${cats || "Supplier"} in ${loc}.`,
     founded ? founded : "",
@@ -121,7 +129,25 @@ export default async function SupplierPage(
   const photos = (r.photos && r.photos.length > 0)
     ? r.photos
     : (r.hero_image ? [r.hero_image] : []);
-  const reviews = r.external_reviews || [];
+  // external_reviews (CSV enrichment) is richer when present, but only 520 of
+  // 8,379 suppliers have it — another 458 carry scraped Google review text in
+  // sample_reviews_*. Those were reaching JSON-LD (components/JsonLd.tsx already
+  // falls back) but never the visible page, so the one piece of content this
+  // site has that Google Maps doesn't was invisible on 458 supplier pages.
+  const sampleReviews = [
+    ...(r.sample_reviews_en ?? []),
+    ...(r.sample_reviews_th ?? []),
+    ...(r.sample_reviews_ko ?? []),
+  ];
+  const reviews: { reviewer: string; rating: number; date: string; text: string }[] =
+    r.external_reviews && r.external_reviews.length > 0
+      ? r.external_reviews
+      : sampleReviews.map((s) => ({
+          reviewer: s.author || "Google reviewer",
+          rating: s.rating,
+          date: "",
+          text: s.text,
+        }));
   const founded = r.dbd?.registered_date ? r.dbd.registered_date.slice(0, 4) : null;
   const foundedYear = founded ? parseInt(founded) : null;
   const years = r.years_in_business || (foundedYear ? new Date().getFullYear() - foundedYear : null);

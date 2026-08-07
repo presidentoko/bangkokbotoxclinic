@@ -8,6 +8,7 @@ import { findGuide } from "@/lib/guides";
 import { districtCategoryCombos, districtBySlug, MIN_COMBO_SUPPLIERS } from "@/lib/districts";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { computeTrustScore } from "@/lib/trustScore";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
@@ -100,15 +101,19 @@ export default async function CategoryPage(
       ? Math.round(filtered.reduce((s, r) => s + (r.trust_score ?? 0), 0) / filtered.length)
       : 0;
 
-  // 필터 컴포넌트용 데이터 (이미 카테고리 필터 적용된 상태)
-  const filterableSuppliers: FilterableSupplier[] = filtered.map((s) => ({
+  // 필터 컴포넌트용 초기 데이터 — 상위 100건만. 나머지는 컴포넌트가
+  // browse-index.json 에서 받아 lockedCategory 로 다시 좁힌다.
+  // trust_score 는 computeTrustScore 로 계산 — 원래 raw s.trust_score 를 썼는데
+  // 홈/browse-index 는 composite 를 쓰고 있어서 같은 업체가 페이지마다 다른
+  // 점수로 보이던 불일치가 있었다.
+  const filterableSuppliers: FilterableSupplier[] = filtered.slice(0, 100).map((s) => ({
     id: s.id,
     name: s.name,
     city_label: s.city_label,
     district: s.district ?? null,
     categories: s.categories,
     dbd: !!s.dbd,
-    trust_score: s.trust_score ?? 0,
+    trust_score: computeTrustScore(s).overall,
   }));
   const cityOptions = Array.from(
     new Set(filtered.map((s) => s.city_label).filter((c) => c && validCities.has(c))),
@@ -271,7 +276,8 @@ export default async function CategoryPage(
       <section>
         <h2 className="text-xl font-bold mb-4">Top {label} by Trust Score</h2>
         <SupplierListWithFilter
-          suppliers={filterableSuppliers}
+          initialSuppliers={filterableSuppliers}
+          lockedCategory={cuisine}
           categoryOptions={[]}
           cityOptions={cityOptions}
           totalSuppliers={filtered.length}

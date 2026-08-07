@@ -66,7 +66,10 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
   },
   packaging: {
     title: "Packaging Manufacturers Thailand",
-    metaTitle: "Packaging Manufacturers Thailand — Carton, Plastic, Flexible Film | ThaiSupplyHub",
+    // No brand suffix here — app/layout.tsx appends "| Thai Supply Hub" via the
+    // title template. Writing it inline produced "… | ThaiSupplyHub | Thai Supply Hub",
+    // which pushed the real keywords past Google's ~60-character SERP cutoff.
+    metaTitle: "Packaging Manufacturers Thailand — Carton, Plastic, Flexible Film",
     metaDescription:
       "Packaging manufacturers in Thailand across carton, plastic, flexible film, food-grade, and industrial formats. Verified B2B directory with direct contact.",
     intro:
@@ -106,7 +109,10 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
   },
   plastic: {
     title: "Plastic Injection Molding Thailand",
-    metaTitle: "Plastic Injection Molding Thailand — 200+ Verified Suppliers | ThaiSupplyHub",
+    // "200+ Verified" was wrong twice over: the category holds 256 suppliers and
+    // only a fraction of those are DBD-verified. This is the page taking the most
+    // impressions in Search Console, so the title has to be accurate and short.
+    metaTitle: "Plastic Injection Molding Thailand — Suppliers & Moulders Directory",
     metaDescription:
       "Plastic injection molding suppliers in Thailand — automotive, packaging, consumer goods. Verified by DBD registry. Eastern Seaboard cluster with direct contact, no agent markup.",
     intro:

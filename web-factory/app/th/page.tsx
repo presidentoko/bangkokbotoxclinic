@@ -7,7 +7,7 @@ import { sortWithSponsored } from "@/lib/sponsored";
 import { BEST_FOR } from "@/lib/bestFor";
 import { GUIDES_TH } from "@/lib/guides_th";
 import { POSTS_TH } from "@/lib/posts_th";
-import { HeroSearch } from "@/components/HeroSearch";
+import { LazyHeroSearch } from "@/components/LazyHeroSearch";
 import { computeTrustScore } from "@/lib/trustScore";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import type { Metadata } from "next";
@@ -62,14 +62,8 @@ export default async function ThHomePage() {
   const totalReviews = db.suppliers.reduce((s, r) => s + r.total_reviews, 0);
   const withWebsite = db.suppliers.filter((r) => r.website).length;
 
-  const searchIndex = db.suppliers.map((r) => ({
-    id: r.id,
-    name: r.name,
-    district: r.district,
-    city_label: r.city_label,
-    rating: r.rating,
-    trust_score: computeTrustScore(r).overall,
-  }));
+  // 검색 인덱스는 LazyHeroSearch 가 public/browse-index.json 에서 받아온다.
+  // db.suppliers 전량을 prop 으로 넘기던 것이 이 페이지 RSC 페이로드 1.7MB 의 원인이었다.
 
   const cities = Object.entries(db.city_counts)
     .filter(([city]) => city)
@@ -99,8 +93,7 @@ export default async function ThHomePage() {
           <p className="text-base md:text-lg text-[var(--muted)] mb-7 max-w-2xl mx-auto text-balance">
             ผู้ผลิต <b>{db.total_suppliers.toLocaleString()}</b> แห่ง · เปิดเผยเว็บไซต์ <b>{withWebsite.toLocaleString()}</b> ราย · ผู้ผลิตชิ้นส่วนยานยนต์ 73 ราย, นิคมอุตสาหกรรม 8 แห่ง, คลังสินค้า 55 แห่ง. ข้อมูลทั้งหมดจาก Google Maps Business Profile สาธารณะ ไม่มีค่านายหน้า ไม่มีรีวิวที่จ่ายเงิน
           </p>
-          <HeroSearch
-            entities={searchIndex}
+          <LazyHeroSearch
             hrefBase="/course"
             popularSearches={[
               { label: "ผู้ผลิต", href: "/c/manufacturer" },

@@ -1,5 +1,21 @@
 "use client";
 
+// Deliberately a client component, despite only needing the client for its
+// leaf buttons. Converting it to a server component was tried and measured on
+// /city/chon_buri (100 cards) — it made the page 66% BIGGER:
+//
+//   client component: 495KB markup + 221KB RSC payload = 728KB
+//   server component: 495KB markup + 700KB RSC payload = 1,208KB
+//
+// A client component serializes only its props into the payload (one Supplier
+// object per card). A server component serializes its entire rendered element
+// tree, and this card is ~40 elements deep with long Tailwind class strings —
+// far heavier than the data it was built from.
+//
+// The payload here is still worth shrinking, but the way to do it is to pass a
+// slim projection instead of the full Supplier (the card never reads
+// sample_reviews_*, raw_categories, language_breakdown, mentioned_topics), not
+// to move the render to the server.
 import type { Supplier } from "@/lib/types";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";

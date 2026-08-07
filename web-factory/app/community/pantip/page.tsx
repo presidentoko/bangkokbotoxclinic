@@ -5,6 +5,21 @@ export const dynamic = "force-static";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 
+// How many inlined comments to render per thread.
+//
+// This page renders every group in community_pantip.json on one URL. Unbounded,
+// that was 2,323 threads with 8,481 inlined comments — about 10,800 elements,
+// which built out to an 11.7MB HTML file (4.4MB markup + 6.9MB RSC payload).
+// The comment bodies are only 13% of that by text; the weight is the element
+// tree itself, each node carrying long Tailwind class strings.
+//
+// The comments sit inside a collapsed <details>, so they cost roughly two
+// thirds of the page for content no visitor sees without expanding it. Capping
+// them is the cheap part of the fix. The page still needs real pagination or
+// per-topic routes — 323 topic groups do not belong on one URL — but that
+// changes the site's URL structure and is a separate decision.
+const INLINE_COMMENTS = 2;
+
 export const metadata: Metadata = {
   title: "Pantip OEM & Factory Threads — Real Thai Manufacturer Discussions",
   description:
@@ -91,10 +106,10 @@ export default async function PantipFactoryPage() {
                   {t.comments_inlined && t.comments_inlined.length > 0 && (
                     <details className="mt-3 text-xs">
                       <summary className="cursor-pointer text-[var(--accent)] hover:underline">
-                        Show first {t.comments_inlined.length} of {t.real_comment_count} comments
+                        Show first {Math.min(t.comments_inlined.length, INLINE_COMMENTS)} of {t.real_comment_count} comments
                       </summary>
                       <div className="mt-2 space-y-3 pl-3 border-l-2 border-[var(--border)]">
-                        {t.comments_inlined.map((c, j) => (
+                        {t.comments_inlined.slice(0, INLINE_COMMENTS).map((c, j) => (
                           <div key={j}>
                             <div className="text-[10px] text-[var(--muted)]">
                               {c.author}

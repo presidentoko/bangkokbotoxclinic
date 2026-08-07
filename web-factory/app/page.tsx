@@ -87,7 +87,10 @@ export default async function HomePage() {
       href: `/c/${key}`,
     }));
 
-  // 필터 컴포넌트용 데이터 (trust score 내림차순)
+  // 필터 컴포넌트용 초기 데이터 (trust score 내림차순, 상위 100건만).
+  // 전체 목록은 SupplierListWithFilter 가 public/browse-index.json 에서 받아온다 —
+  // 8,379건 전량을 prop 으로 넘기면 Next.js 가 인라인 RSC 페이로드로 직렬화해서
+  // 홈 HTML 이 2.25MB (그중 1.92MB 가 이 데이터) 가 됐던 게 이 줄이었다.
   const filterableSuppliers: FilterableSupplier[] = db.suppliers
     .map((s) => ({
       id: s.id,
@@ -98,7 +101,17 @@ export default async function HomePage() {
       dbd: !!s.dbd,
       trust_score: computeTrustScore(s).overall,
     }))
-    .sort((a, b) => b.trust_score - a.trust_score);
+    .sort((a, b) => b.trust_score - a.trust_score)
+    .slice(0, 100);
+
+  // browse-index.json 은 trust score 순이므로 스폰서 순서만 클라이언트에서 재적용.
+  const sponsoredIds = db.suppliers
+    .filter((s) => sponsoredTier(s.id))
+    .sort((a, b) => {
+      const rank = (t: string | null) => (t === "editors_pick" ? 0 : t === "recommended" ? 1 : 2);
+      return rank(sponsoredTier(a.id)) - rank(sponsoredTier(b.id));
+    })
+    .map((s) => s.id);
 
   const categoryOptions = Object.keys(db.category_counts).sort();
   const cityOptions = Object.keys(db.city_counts).filter(Boolean).sort();
@@ -352,7 +365,8 @@ export default async function HomePage() {
         <section className="mb-12">
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-5">Top suppliers by trust score</h2>
           <SupplierListWithFilter
-            suppliers={filterableSuppliers}
+            initialSuppliers={filterableSuppliers}
+            sponsoredIds={sponsoredIds}
             categoryOptions={categoryOptions}
             cityOptions={cityOptions}
             totalSuppliers={db.total_suppliers}

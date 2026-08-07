@@ -7,8 +7,11 @@ export const TH_CATEGORY_VALID = new Set([
   "logistics", "packaging", "food_mfg",
 ]);
 
-export const TH_CITY_VALID = new Set([
-  "chon_buri", "rayong", "pathum_thani", "samut_sakhon",
-  "samut_prakan", "bangkok", "phra_nakhon_si_ayutthaya", "songkhla",
-  "si_racha", "map_ta_phut", "chiang_mai",
-]);
+// Regenerated from master_db.json on every build (scripts/build_db_stats.mts):
+// every province with 30+ suppliers, plus Si Racha and Map Ta Phut. It used to be
+// a hand-written list of 11 that never grew with the dataset, so Thai-language
+// demand landed on 404s — Search Console recorded 63 impressions for
+// คลังสินค้า ขอนแก่น while /th/city/khon_kaen did not exist.
+import thCities from "./thCities.json";
+
+export const TH_CITY_VALID = new Set<string>(thCities);

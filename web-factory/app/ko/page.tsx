@@ -7,7 +7,7 @@ import { sortWithSponsored } from "@/lib/sponsored";
 import { BEST_FOR } from "@/lib/bestFor";
 import { POSTS_KO } from "@/lib/posts_ko";
 import { GUIDES_KO } from "@/lib/guides_ko";
-import { HeroSearch } from "@/components/HeroSearch";
+import { LazyHeroSearch } from "@/components/LazyHeroSearch";
 import { computeTrustScore } from "@/lib/trustScore";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import type { Metadata } from "next";
@@ -74,14 +74,8 @@ export default async function KoHomePage() {
   const withPhotos = db.with_photos ?? db.suppliers.filter((s) => s.photos && s.photos.length > 0).length;
   const withEstate = db.with_estate ?? db.suppliers.filter((s) => s.estate_name).length;
 
-  const searchIndex = db.suppliers.map((r) => ({
-    id: r.id,
-    name: r.name,
-    district: r.district,
-    city_label: r.city_label,
-    rating: r.rating,
-    trust_score: computeTrustScore(r).overall,
-  }));
+  // 검색 인덱스는 LazyHeroSearch 가 public/browse-index.json 에서 받아온다.
+  // db.suppliers 전량을 prop 으로 넘기던 것이 이 페이지 RSC 페이로드 1.7MB 의 원인이었다.
 
   const cities = Object.entries(db.city_counts)
     .filter(([city]) => city)
@@ -121,8 +115,7 @@ export default async function KoHomePage() {
           <p className="text-base md:text-lg text-[var(--muted)] mb-7 max-w-2xl mx-auto text-balance">
             <b>{verifiedCount.toLocaleString()}곳</b>은 태국 <b>상무부(DBD) 법인 등기</b>로 검증 — 정식 법인명·등록번호·등록자본금·설립일·TSIC 산업코드 공개. 추가 <b>{(db.total_suppliers - verifiedCount).toLocaleString()}곳</b>은 매칭 진행 중 B2B 공급사. 소싱 에이전트 15-30% 마크업 빼고 직접 RFQ.
           </p>
-          <HeroSearch
-            entities={searchIndex}
+          <LazyHeroSearch
             hrefBase="/course"
             popularSearches={[
               { label: "자동차 부품", href: "/c/auto_parts" },
