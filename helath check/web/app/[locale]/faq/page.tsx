@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, LOCALES } from "@/lib/i18n";
+import { type Locale, hreflangMap } from "@/lib/i18n";
 import { faqT } from "@/lib/faq-i18n";
 
 export const revalidate = 86400;
@@ -19,7 +19,7 @@ export async function generateMetadata({
     description: fc.pageIntro,
     alternates: {
       canonical: `${BASE}/${locale}/faq`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/faq`])),
+      languages: hreflangMap(`/faq`),
     },
   };
 }

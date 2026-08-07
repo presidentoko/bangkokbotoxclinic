@@ -8,6 +8,32 @@ export const OG_LOCALE: Record<Locale, string> = {
   en: "en_US", zh: "zh_CN", ar: "ar_SA", ja: "ja_JP", th: "th_TH", ko: "ko_KR",
 };
 
+export const SITE_URL = "https://www.bangkoktopclinic.com";
+
+/**
+ * hreflang cluster for one page, for `metadata.alternates.languages`.
+ *
+ * Pass the path after the locale segment ("/faq", or "" for the home page), or
+ * a function when the path itself is localised. Always includes `x-default`:
+ * without it Google has no declared fallback for a searcher whose language
+ * isn't one of the six, so it picks a variant itself — which is exactly the
+ * "Duplicate, Google chose a different canonical than user" bucket in Search
+ * Console. Every dynamic segment is percent-encoded here because hospital
+ * slugs still carry raw Thai characters from the scraper.
+ */
+export function hreflangMap(path: string | ((loc: Locale) => string)): Record<string, string> {
+  const at = (loc: Locale) => {
+    const p = typeof path === "function" ? path(loc) : path;
+    // Encode each segment individually so the "/" separators survive.
+    const encoded = p.split("/").map(encodeURIComponent).join("/");
+    return `${SITE_URL}/${loc}${encoded}`;
+  };
+  const map: Record<string, string> = {};
+  for (const l of LOCALES) map[l] = at(l);
+  map["x-default"] = at("en");
+  return map;
+}
+
 const STRINGS: Record<string, Record<Locale, string>> = {
   site_name: {
     en: "BangkokCheckup", zh: "曼谷体检", ar: "فحص بانكوك", ja: "バンコク健診", th: "ตรวจสุขภาพบางกอก", ko: "방콕건강검진",
@@ -87,6 +113,10 @@ export const t = (loc: Locale, key: string): string =>
 export const catLabel = (loc: Locale, cat: string): string =>
   t(loc, `cat_${cat}`) === `cat_${cat}` ? cat : t(loc, `cat_${cat}`);
 
+// "age" is deliberately absent even though cat_age is translated in all six
+// locales: it is a staging value the importers write, which fix_all_data.py
+// then redistributes into the real categories. It is always 0 after a full
+// pipeline run.
 export const CATEGORIES = [
   "comprehensive", "executive", "standard", "cancer", "cardiac", "heart",
   "women", "men", "senior", "basic", "diabetes", "eye", "liver", "kidney", "brain", "dental",

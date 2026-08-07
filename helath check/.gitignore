@@ -1,0 +1,22 @@
+# Raw scrape caches. Kept on disk deliberately — re-parsing must never require
+# re-fetching, and on 2026-08-06 old caches were the only reason the catalogue
+# could be rebuilt after the Railway database was lost. But they are tens of
+# megabytes of third-party HTML that would sit in git history forever, and the
+# processed result is already versioned in web/data/checkup_db.json.
+site_cache/
+hdmall_cache/
+
+# Apify export (~4 MB). Regenerate by re-running the actor; the imported result
+# is in the committed dataset.
+apify_dataset.json
+
+# Database dumps from backup_db.py.
+backups/
+
+# Scraper stdout, kept locally for debugging.
+*.log
+deploy_log.txt
+
+# Contains a Vercel deploy token in plain text. Keep it local; never commit a
+# credential to a file git tracks.
+deploy_bangkoktopclinic.bat

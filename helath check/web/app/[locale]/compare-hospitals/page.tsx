@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, LOCALES } from "@/lib/i18n";
+import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getHospital, type HospitalDetail, type PackageRow } from "@/lib/db";
 
 export const revalidate = 86400;
@@ -15,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const { a, b } = await searchParams;
-  const languages = Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/compare-hospitals`]));
+  const languages = hreflangMap(`/compare-hospitals`);
   if (!a || !b) return {
     title: "Compare Hospitals — BangkokCheckup",
     alternates: { canonical: `${BASE}/${locale}/compare-hospitals`, languages },

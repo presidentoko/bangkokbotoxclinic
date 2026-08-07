@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, LOCALES } from "@/lib/i18n";
+import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getAllPackages, type PackageRow } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 
@@ -17,7 +17,7 @@ const SEGMENTS: Record<string, {
   relatedGuides?: { href: string; label: string }[];
 }> = {
   "jci-accredited-health-checkup-bangkok": {
-    title: "JCI-Accredited Health Check-Up Bangkok — Certified Hospitals 2026",
+    title: "JCI Health Check-Up Bangkok — Accredited Hospitals 2026",
     h1: "JCI-Accredited Health Check-Up in Bangkok",
     description: "Compare health check-up packages at JCI-accredited hospitals in Bangkok. All packages from internationally certified hospitals — Bumrungrad, Samitivej, Phyathai, Vejthani, and more.",
     filter: (p) => p.jci === 1,
@@ -33,7 +33,7 @@ const SEGMENTS: Record<string, {
     ],
   },
   "health-checkup-expats-bangkok": {
-    title: "Health Check-Up for Expats in Bangkok — English Service, All Hospitals",
+    title: "Expat Health Check-Up Bangkok — English-Speaking Hospitals",
     h1: "Health Check-Up for Expats in Bangkok",
     description: "The complete guide to annual health check-ups for expatriates living in Bangkok. English-speaking staff, international insurance accepted, same-day results at major private hospitals.",
     filter: (p) => (p.jci === 1 || p.city === "Bangkok") && (p.has_blood === 1),
@@ -51,7 +51,7 @@ const SEGMENTS: Record<string, {
     ],
   },
   "digital-nomad-health-checkup-bangkok": {
-    title: "Health Check-Up for Digital Nomads in Bangkok — Annual Check & Walk-In Labs (2026)",
+    title: "Digital Nomad Health Check-Up Bangkok — Walk-In Labs 2026",
     h1: "Health Check-Up for Digital Nomads in Bangkok",
     description: "No insurance? No problem. Bangkok's private hospitals offer walk-in blood tests and annual check-up packages from ฿1,500 — affordable self-pay health screening for digital nomads.",
     filter: (p) => p.city === "Bangkok" && (p.has_blood === 1),
@@ -150,7 +150,7 @@ const SEGMENTS: Record<string, {
     ],
   },
   "womens-health-checkup-bangkok": {
-    title: "Women's Health Check-Up Bangkok 2026 — Compare Packages & Prices",
+    title: "Women's Health Check-Up Bangkok — Compare Prices 2026",
     h1: "Women's Health Check-Up Packages in Bangkok",
     description: "Compare women's health check-up packages in Bangkok. Pap smear, mammogram, pelvic ultrasound, bone density, HPV — comprehensive women's screening at private hospitals.",
     filter: (p) => p.category === "women" || (p.has_ultrasound === 1 && p.has_blood === 1),
@@ -182,7 +182,7 @@ const SEGMENTS: Record<string, {
     ],
   },
   "executive-health-checkup-bangkok": {
-    title: "Executive Health Check-Up Bangkok 2026 — Premium Packages Compared",
+    title: "Executive Health Check-Up Bangkok — Premium Packages 2026",
     h1: "Executive Health Check-Up Packages in Bangkok",
     description: "Compare executive and premium health check-up packages in Bangkok. Full body check-up with MRI, CT, cancer screening, cardiac assessment — prices from ฿8,000 to ฿50,000+.",
     filter: (p) => p.category === "executive" || p.category === "comprehensive" || (parseFloat(p.price ?? "0") >= 8000),
@@ -217,7 +217,7 @@ const SEGMENTS: Record<string, {
   },
 
   "cardiac-health-checkup-bangkok": {
-    title: "Cardiac Health Check-Up Bangkok — Heart Screening Packages 2026",
+    title: "Cardiac Health Check-Up Bangkok — Heart Screening 2026",
     h1: "Cardiac Health Check-Up in Bangkok",
     description: "Compare cardiac health check-up packages at Bangkok hospitals. ECG, echocardiogram, treadmill stress test, coronary CT angiography. Prices from ฿3,500 at JCI hospitals.",
     filter: (p) => p.has_ecg === 1 || p.category === "cardiac",
@@ -234,7 +234,7 @@ const SEGMENTS: Record<string, {
   },
 
   "comprehensive-health-checkup-bangkok": {
-    title: "Comprehensive Health Check-Up Bangkok — Full Body Screening 2026",
+    title: "Full Body Health Check-Up Bangkok — Compare Prices 2026",
     h1: "Comprehensive Health Check-Up in Bangkok",
     description: "Compare comprehensive health check-up packages in Bangkok. Full body blood tests, abdominal ultrasound, chest X-ray, ECG, and more. Best packages ranked by value.",
     filter: (p) => p.category === "comprehensive" || (p.has_blood === 1 && p.has_ultrasound === 1 && p.has_xray === 1),
@@ -269,7 +269,7 @@ const SEGMENTS: Record<string, {
   },
 
   "diabetes-screening-bangkok": {
-    title: "Diabetes Screening Bangkok — Blood Sugar Tests & Packages 2026",
+    title: "Diabetes Screening Bangkok — Blood Sugar Test Prices 2026",
     h1: "Diabetes Screening in Bangkok",
     description: "Compare diabetes screening and blood sugar test packages in Bangkok. Fasting glucose, HbA1c, insulin resistance panels. From ฿500 at private hospitals. Same-day results.",
     filter: (p) => p.category === "diabetes" || p.has_blood === 1,
@@ -310,7 +310,7 @@ export async function generateMetadata({
     keywords: seg.h1.split(" "),
     alternates: {
       canonical: `${BASE}/${locale}/for/${slug}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/for/${slug}`])),
+      languages: hreflangMap(`/for/${slug}`),
     },
   };
 }
@@ -333,10 +333,9 @@ export default async function LongtailPage({
     );
   }
 
-  let allRows: PackageRow[] = [];
-  try {
-    allRows = await getAllPackages();
-  } catch { /* DB not ready */ }
+  // Unguarded on purpose: an empty listing cached as a 200 is worse than a
+  // 500. See hospital/[slug]/page.tsx.
+  const allRows: PackageRow[] = await getAllPackages();
 
   const rows = allRows.filter(seg.filter);
   const prices = rows.map((r) => parseFloat(r.price ?? "0")).filter(Boolean);

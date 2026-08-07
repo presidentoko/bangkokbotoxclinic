@@ -2,11 +2,25 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/app/components/ContactForm";
 
-export const metadata: Metadata = {
-  title: "For Clinics & Hospitals — BangkokCheckup",
-  description: "List your Bangkok clinic or hospital on BangkokCheckup. Reach medical tourists searching for health check-up packages.",
-  robots: { index: false, follow: true },
-};
+// Must be generateMetadata, not a static object: without an explicit
+// canonical this page inherited the layout default (`${BASE}/${locale}`) and
+// told Google it was a duplicate of the home page — a canonical pointing
+// somewhere else while the page is also noindex is a contradictory pair of
+// signals, and Google resolves it by picking one arbitrarily.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: "List Your Hospital — For Clinics",
+    description:
+      "List your Bangkok clinic or hospital on BangkokCheckup. Reach medical tourists searching for health check-up packages.",
+    robots: { index: false, follow: true },
+    alternates: { canonical: `https://www.bangkoktopclinic.com/${locale}/for-clinics` },
+  };
+}
 
 const STATS = [
   { val: "Medical tourists", label: "Primary audience" },

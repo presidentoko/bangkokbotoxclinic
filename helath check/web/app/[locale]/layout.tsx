@@ -33,7 +33,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   for (const l of LOCALES) alternates[l] = `${BASE_URL}/${l}`;
   return {
     metadataBase: new URL(BASE_URL),
-    title: { default: `${t(loc, "site_name")} — ${t(loc, "tagline")}`, template: `%s | ${t(loc, "site_name")}` },
+    // No `template` on purpose. Appending " | BangkokCheckup" spent 17 of the
+    // ~60 characters Google actually renders on every single page, pushing the
+    // differentiating half of most titles past the truncation point — and the
+    // brand earns nothing back at an average position of 18, where nobody
+    // recognises it yet. Pages that want the brand can say so themselves.
+    title: `${t(loc, "site_name")} — ${t(loc, "tagline")}`,
     description: t(loc, "tagline"),
     alternates: { canonical: `${BASE_URL}/${loc}`, languages: alternates },
     openGraph: { type: "website", siteName: t(loc, "site_name"), locale: OG_LOCALE[loc] },

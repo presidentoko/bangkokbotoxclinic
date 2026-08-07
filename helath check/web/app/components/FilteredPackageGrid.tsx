@@ -132,7 +132,7 @@ function PackageCard({ row, loc, cheapest, topValueScore }: { row: PackageRow; l
 
       <div className="px-5 pb-4 pt-2 flex items-center gap-2.5">
         <a href={`/api/track?pkg=${row.package_id}&url=${encodeURIComponent(bookUrl)}`}
-          target="_blank" rel="noopener noreferrer"
+          target="_blank" rel="nofollow noopener noreferrer"
           className="flex-1 bg-blue-600 text-white text-sm font-bold py-3 rounded-xl text-center hover:bg-blue-700 active:scale-95 transition-all">
           Book / Enquire →
         </a>

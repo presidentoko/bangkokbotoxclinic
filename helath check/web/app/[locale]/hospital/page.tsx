@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, LOCALES } from "@/lib/i18n";
+import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 import { HospitalSearch } from "@/app/components/HospitalSearch";
 
@@ -20,7 +20,7 @@ export async function generateMetadata({
     description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 19 more cities. Real prices, JCI-accredited hospitals listed.",
     alternates: {
       canonical: `${BASE}/${locale}/hospital`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital`])),
+      languages: hreflangMap(`/hospital`),
     },
   };
 }
@@ -41,12 +41,9 @@ export default async function HospitalsPage({
   const { locale } = await params;
   const loc = locale as Locale;
 
-  let hospitals: HospitalSummary[] = [];
-  try {
-    hospitals = await getHospitals();
-  } catch {
-    // DB not ready
-  }
+  // Unguarded on purpose: an empty directory cached as a 200 is worse than a
+  // 500. See hospital/[slug]/page.tsx.
+  const hospitals: HospitalSummary[] = await getHospitals();
 
   // Group by city
   const grouped: Record<string, HospitalSummary[]> = {};
@@ -153,6 +150,13 @@ export default async function HospitalsPage({
                     </div>
                     {h.area && h.area !== city && (
                       <p className="text-xs text-slate-400 mb-2">📍 {h.area}</p>
+                    )}
+                    {/* Google's classification. The scraped intake mixes real
+                        hospitals with beauty salons and physiotherapy rooms,
+                        so saying what each listing is beats letting the page
+                        imply they are all hospitals. */}
+                    {h.category_name && (
+                      <p className="text-[11px] text-slate-500 mb-2">{h.category_name}</p>
                     )}
                     <div className="flex items-center gap-3 text-sm">
                       {h.rating && <span className="text-amber-500 font-semibold">★ {parseFloat(h.rating).toFixed(1)}</span>}

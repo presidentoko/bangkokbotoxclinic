@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { type Locale, LOCALES, catLabel, CATEGORIES } from "@/lib/i18n";
+import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { compareT } from "@/lib/compare-i18n";
 import { getPackagesByCategory, type PackageRow } from "@/lib/db";
 import { ShareButtons } from "@/app/components/ShareButtons";
@@ -27,10 +27,9 @@ export function buildCompareMetadata(locale: string, category: string | null): M
   const loc = locale as Locale;
   const label = catLabel(loc, cat);
   const canonicalPath = `${BASE}${categoryHref(locale, cat)}`;
-  const languages: Record<string, string> = {};
-  for (const l of LOCALES) {
-    languages[l] = `${BASE}${categoryHref(l, cat)}`;
-  }
+  // categoryHref already includes the locale prefix, so strip it back off and
+  // let hreflangMap re-apply it — that keeps x-default in one place.
+  const languages = hreflangMap((l) => categoryHref(l, cat).replace(`/${l}`, ""));
   return {
     title: `${label} Health Check-Up Thailand — Compare Prices 2026`,
     description: `Compare ${label.toLowerCase()} health check-up packages across Bangkok, Phuket, Chiang Mai hospitals. Real scraped prices, JCI status, MRI/CT/cancer marker inclusion filters. Updated weekly.`,
@@ -113,13 +112,12 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
   const loc = locale as Locale;
   const cc = compareT(loc);
 
-  let rows: PackageRow[] = [];
-  let dbError = false;
-  try {
-    rows = await getPackagesByCategory(activeCat, "price");
-  } catch {
-    dbError = true;
-  }
+  // Unguarded on purpose. The old `dbError` banner was rendered inside a 200,
+  // so Next cached "we can't reach the database" as the canonical body of the
+  // site's highest-priority commercial pages for a full revalidate window.
+  // Throwing yields a 500 instead: never cached, and crawlers come back.
+  // See hospital/[slug]/page.tsx for the full reasoning.
+  const rows: PackageRow[] = await getPackagesByCategory(activeCat, "price");
 
   const aeoSummary = buildAeoSummary(loc, activeCat, rows);
   const faqs = activeCat === "executive" ? cc.executiveFaqs : (CATEGORY_FAQS[activeCat] ?? []);
@@ -171,16 +169,9 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
         </div>
       )}
 
-      {/* DB Error */}
-      {dbError && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl px-5 py-4 text-sm text-amber-800 mb-5">
-          <strong>{cc.dbErrorTitle}</strong> {cc.dbErrorBody}
-        </div>
-      )}
-
       <RecentlyViewedBar locale={locale} />
       {/* Filtered card grid with search (sorting lives in the grid, client-side) */}
-      {!dbError && rows.length === 0 ? (
+      {rows.length === 0 ? (
         <p className="text-slate-400 text-center py-16">{cc.noPackagesFound}</p>
       ) : (
         <Suspense fallback={<div className="h-20" />}>
@@ -276,21 +267,31 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
         ],
       }) }} />
 
-      {/* Schema: ItemList */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org", "@type": "ItemList",
-        name: `${catLabel("en", activeCat)} Health Check-Up Bangkok`,
-        numberOfItems: rows.length,
-        itemListElement: rows.map((r, i) => ({
-          "@type": "ListItem", position: i + 1,
-          item: {
-            "@type": "Product", name: r.package_name,
-            offers: { "@type": "Offer", price: r.price ?? "0", priceCurrency: "THB",
-              availability: "https://schema.org/InStock",
-              seller: { "@type": "MedicalOrganization", name: r.hospital_name } },
-          },
-        })),
-      }) }} />
+      {/* Schema: ItemList — priced rows only, capped.
+          `price: r.price ?? "0"` used to publish "free" for every
+          price-on-request package, contradicting the visible page. And mapping
+          every row inlined a JSON blob of several hundred entries into the
+          HTML for no ranking benefit; Google reads the head of a list. */}
+      {(() => {
+        const priced = rows.filter((r) => r.price).slice(0, 25);
+        if (!priced.length) return null;
+        return (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org", "@type": "ItemList",
+            name: `${catLabel("en", activeCat)} Health Check-Up Bangkok`,
+            numberOfItems: priced.length,
+            itemListElement: priced.map((r, i) => ({
+              "@type": "ListItem", position: i + 1,
+              item: {
+                "@type": "Product", name: r.package_name,
+                offers: { "@type": "Offer", price: r.price, priceCurrency: "THB",
+                  availability: "https://schema.org/InStock",
+                  seller: { "@type": "MedicalOrganization", name: r.hospital_name } },
+              },
+            })),
+          }) }} />
+        );
+      })()}
 
       {faqs.length > 0 && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

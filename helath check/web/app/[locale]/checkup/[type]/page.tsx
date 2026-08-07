@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
+import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { getPackagesByCategory, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
@@ -28,7 +28,7 @@ export async function generateMetadata({
     description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from 235+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
     alternates: {
       canonical: `${BASE}/${locale}/checkup/${type}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/checkup/${type}`])),
+      languages: hreflangMap(`/checkup/${type}`),
     },
   };
 }
@@ -103,13 +103,9 @@ export default async function CheckupTypePage({
   const { locale, type } = await params;
   const loc = locale as Locale;
 
-  const rows: PackageRow[] = [];
-  try {
-    const fetched = await getPackagesByCategory(type, "price");
-    rows.push(...fetched);
-  } catch {
-    // DB not ready
-  }
+  // Unguarded on purpose: an empty listing cached as a 200 is worse than a
+  // 500. See hospital/[slug]/page.tsx.
+  const rows: PackageRow[] = await getPackagesByCategory(type, "price");
 
   const label = catLabel(loc, type);
 
@@ -205,7 +201,7 @@ export default async function CheckupTypePage({
                   <a
                     href={`/api/track?pkg=${row.package_id}&url=${encodeURIComponent(bookUrl)}`}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                     className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     Book / Enquire
@@ -234,30 +230,35 @@ export default async function CheckupTypePage({
         ],
       }) }} />
 
-      {/* ItemList */}
-      {rows.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          name: `${catLabel("en", type)} Health Check-Up Packages in Thailand`,
-          numberOfItems: rows.length,
-          itemListElement: rows.slice(0, 20).map((r, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            item: {
-              "@type": "Product",
-              name: r.package_name,
-              offers: {
-                "@type": "Offer",
-                price: r.price ?? "0",
-                priceCurrency: "THB",
-                availability: "https://schema.org/InStock",
-                seller: { "@type": "MedicalOrganization", name: r.hospital_name },
+      {/* ItemList — priced rows only. `price: r.price ?? "0"` published
+          "free" for every price-on-request package, contradicting the page. */}
+      {(() => {
+        const priced = rows.filter((r) => r.price).slice(0, 20);
+        if (!priced.length) return null;
+        return (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: `${catLabel("en", type)} Health Check-Up Packages in Thailand`,
+            numberOfItems: priced.length,
+            itemListElement: priced.map((r, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Product",
+                name: r.package_name,
+                offers: {
+                  "@type": "Offer",
+                  price: r.price,
+                  priceCurrency: "THB",
+                  availability: "https://schema.org/InStock",
+                  seller: { "@type": "MedicalOrganization", name: r.hospital_name },
+                },
               },
-            },
-          })),
-        }) }} />
-      )}
+            })),
+          }) }} />
+        );
+      })()}
     </div>
   );
 }

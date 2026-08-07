@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { type Locale, catLabel, LOCALES } from "@/lib/i18n";
+import { type Locale, catLabel, hreflangMap } from "@/lib/i18n";
 import { getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
@@ -39,7 +39,7 @@ export async function generateMetadata({
       description: `Compare all health check-up packages at ${hospital.name}, ${cityLabel}, Thailand.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
       alternates: {
         canonical: `${BASE}/${locale}/hospital/${slug}`,
-        languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/hospital/${slug}`])),
+        languages: hreflangMap(`/hospital/${slug}`),
       },
       openGraph: {
         title: `${hospital.name} — ${cityLabel} Health Check-Up Packages`,
@@ -109,13 +109,13 @@ function PackageCard({ pkg, locale, history }: { pkg: PackageRow; locale: string
         <a
           href={`/api/track?pkg=${pkg.package_id}&url=${encodeURIComponent(bookUrl)}`}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           className="bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-colors"
         >
           Book / Enquire
         </a>
         {pkg.source_url && (
-          <a href={pkg.source_url} target="_blank" rel="noopener noreferrer"
+          <a href={pkg.source_url} target="_blank" rel="nofollow noopener noreferrer"
             className="text-sm text-blue-600 hover:underline px-2 py-2">
             View on hospital site →
           </a>
@@ -132,21 +132,25 @@ export default async function HospitalPage({
 }) {
   const { locale, slug } = await params;
 
-  let hospital = null;
+  // Deliberately unguarded: a DB outage must throw (→ 500, which crawlers
+  // retry and Next never caches) rather than fall through to notFound(). A
+  // cached 404 tells Google to delete a hospital page that really exists, and
+  // `revalidate` keeps it wrong for a full day.
+  const hospital = await getHospital(slug);
+  if (!hospital) notFound();
+
+  // Reviews and sparklines are supplementary — let them degrade to empty
+  // instead of failing a page whose main content already loaded.
   let reviews: ReviewRow[] = [];
   let priceHistory: Record<number, number[]> = {};
   try {
-    hospital = await getHospital(slug);
-    if (hospital) {
-      [reviews, priceHistory] = await Promise.all([
-        getHospitalReviews(slug, 5),
-        getPriceHistoryBatch(hospital.packages.map((p) => p.package_id)),
-      ]);
-    }
+    [reviews, priceHistory] = await Promise.all([
+      getHospitalReviews(slug, 5),
+      getPriceHistoryBatch(hospital.packages.map((p) => p.package_id)),
+    ]);
   } catch {
-    // DB not ready
+    // non-fatal
   }
-  if (!hospital) notFound();
 
   const grouped: Record<string, PackageRow[]> = {};
   for (const pkg of hospital.packages) {
@@ -187,8 +191,27 @@ export default async function HospitalPage({
                 📍 {hospital.area && hospital.city && hospital.area !== hospital.city ? `${hospital.area}, ` : ""}{hospital.city || "Bangkok"}
               </p>
             )}
+            {/* Google's own classification — see the note in hospital/page.tsx. */}
+            {hospital.category_name && (
+              <p className="text-slate-500 text-sm mt-1">{hospital.category_name}</p>
+            )}
             {hospital.address && (
-              <p className="text-slate-500 text-sm mt-0.5">🏠 {hospital.address}</p>
+              <p className="text-slate-500 text-sm mt-0.5">
+                🏠 {hospital.address}
+                {hospital.google_maps_url && (
+                  <>
+                    {" "}
+                    <a
+                      href={hospital.google_maps_url}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="text-blue-600 hover:underline whitespace-nowrap"
+                    >
+                      Directions ↗
+                    </a>
+                  </>
+                )}
+              </p>
             )}
             {hospital.phone && (
               <p className="text-slate-500 text-sm mt-0.5">
@@ -222,6 +245,25 @@ export default async function HospitalPage({
         </div>
       </div>
 
+      {/* Opening hours — the single most-asked question for a walk-in
+          check-up, and the one thing a price list can't answer. */}
+      {hospital.opening_hours && hospital.opening_hours.length > 0 && (
+        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
+          <h2 className="font-bold text-slate-800 mb-3">Opening hours</h2>
+          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 text-sm">
+            {hospital.opening_hours.map((oh) => (
+              <div key={oh.day} className="flex justify-between gap-4 border-b border-slate-100 py-1">
+                <dt className="text-slate-500">{oh.day}</dt>
+                <dd className="text-slate-800 font-medium text-end">{oh.hours}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="text-xs text-slate-400 mt-3">
+            Hours from Google. Confirm with the hospital before travelling.
+          </p>
+        </div>
+      )}
+
       {/* Hospital description + details */}
       {(hospital.description || hospital.founded_year || hospital.bed_count || hospital.specialties || hospital.email || hospital.website) && (
         <div className="bg-white border border-slate-200 rounded-xl p-6 mb-8">
@@ -239,7 +281,7 @@ export default async function HospitalPage({
               <div><span className="text-slate-400">Accreditations</span><br /><span className="font-semibold text-slate-800">{hospital.accreditations}</span></div>
             )}
             {hospital.website && (
-              <div><span className="text-slate-400">Website</span><br /><a href={hospital.website} target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline truncate block">{hospital.website.replace(/^https?:\/\//, "")}</a></div>
+              <div><span className="text-slate-400">Website</span><br /><a href={hospital.website} target="_blank" rel="nofollow noopener noreferrer" className="font-semibold text-blue-600 hover:underline truncate block">{hospital.website.replace(/^https?:\/\//, "")}</a></div>
             )}
             {hospital.email && (
               <div><span className="text-slate-400">Email</span><br /><a href={`mailto:${hospital.email}`} className="font-semibold text-blue-600 hover:underline">{hospital.email}</a></div>
@@ -315,7 +357,7 @@ export default async function HospitalPage({
         <div className="bg-slate-100 rounded-xl overflow-hidden mb-8">
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.lng}`}
-            target="_blank" rel="noopener noreferrer"
+            target="_blank" rel="nofollow noopener noreferrer"
             className="block p-4 text-center text-sm text-blue-600 hover:text-blue-700"
           >
             📍 View {hospital.name} on Google Maps →

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, t, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
+import { type Locale, t, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { homeT } from "@/lib/home-i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, getRecentPriceChanges, type PackageRow, type CategoryCount } from "@/lib/db";
 
@@ -13,11 +13,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const loc = locale as Locale;
   const hc = homeT(loc);
   return {
-    title: `${t(loc, "site_name")} — ${hc.ogTitle}`,
+    // Brand prefix dropped: it duplicated the (unknown) site name ahead of the
+    // keywords people actually search, and pushed the title to 85 characters.
+    title: hc.ogTitle,
     description: hc.metaDescription,
     alternates: {
       canonical: `${BASE}/${locale}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}`])),
+      languages: hreflangMap(``),
     },
     openGraph: {
       title: hc.ogTitle,
@@ -51,18 +53,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const hc = homeT(loc);
   const base = `/${locale}`;
 
-  let stats = { jciCount: 0, packageCount: 0, hospitalCount: 0 };
-  let executiveRows: PackageRow[] = [];
-  let catCounts: CategoryCount[] = [];
-  let recentDrops: import("@/lib/db").PriceTrendRow[] = [];
-  try {
-    [stats, executiveRows, catCounts, recentDrops] = await Promise.all([
-      getStatsForHome(),
-      getPackagesByCategory("executive", "price"),
-      getCategories(),
-      getRecentPriceChanges(6).then((r) => r.filter((x) => x.change_pct < 0)).catch(() => []),
-    ]);
-  } catch { /* DB not connected yet */ }
+  // Unguarded on purpose: the home page is the site's strongest ranking asset,
+  // and swallowing a DB error here ships a hero reading "0 hospitals, 0
+  // packages" — cached as a 200 for the full revalidate window. See
+  // hospital/[slug]/page.tsx. The price-drop rail keeps its own .catch()
+  // because it is a decorative extra, not the page's reason to exist.
+  const [stats, executiveRows, catCounts, recentDrops] = await Promise.all([
+    getStatsForHome(),
+    getPackagesByCategory("executive", "price"),
+    getCategories(),
+    getRecentPriceChanges(6).then((r) => r.filter((x) => x.change_pct < 0)).catch(() => []),
+  ]);
   const catCountMap = Object.fromEntries(catCounts.map((c) => [c.category, c.count]));
 
   const cheapest = executiveRows.filter((r) => r.price)[0];

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { type Locale, catLabel, CATEGORIES, LOCALES } from "@/lib/i18n";
+import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow } from "@/lib/db";
 
 export const revalidate = 86400;
@@ -35,11 +35,14 @@ export async function generateMetadata({
   const label = catLabel(locale as Locale, type);
   const hospitalName = hospital.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   return {
-    title: `${label} Health Check-Up at ${hospitalName} — Price & Inclusions 2026`,
+    // Hospital names run long ("Bangkok Hospital Nakhon Si Thammarat"), so the
+    // trailing qualifier is kept short and the searchable words come first —
+    // Google renders roughly 60 characters and cuts the rest.
+    title: `${label} Check-Up at ${hospitalName} — Price 2026`,
     description: `${label} check-up package at ${hospitalName}, Thailand. Real price, inclusions (blood, ultrasound, MRI, cancer markers), results timeline, and booking info.`,
     alternates: {
       canonical: `${BASE}/${locale}/checkup/${type}/${hospital}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/checkup/${type}/${hospital}`])),
+      languages: hreflangMap(`/checkup/${type}/${hospital}`),
     },
   };
 }
@@ -58,17 +61,25 @@ export default async function PackageDetailPage({
   const { locale, type, hospital } = await params;
   const loc = locale as Locale;
 
-  let pkg: PackageRow | null = null;
-  let similar: PackageRow[] = [];
-  try {
-    [pkg, similar] = await Promise.all([
-      getPackage(type, hospital),
-      getPackagesByCategory(type, "price"),
-    ]);
-  } catch {
-    // DB not ready
-  }
+  const [pkgResult, similarResult] = await Promise.allSettled([
+    getPackage(type, hospital),
+    getPackagesByCategory(type, "price"),
+  ]);
+
+  // A DB outage must NOT surface as a 404. Next caches the notFound() result
+  // for the whole `revalidate` window (a day here) and Google reads 404 as
+  // "delete this page" — so one bad afternoon on the DB permanently deindexes
+  // real pages. Rethrow infra failures instead: a 500 tells crawlers to retry
+  // and is never cached. notFound() is reserved for a query that actually came
+  // back empty, which is the only real "this package doesn't exist" signal.
+  if (pkgResult.status === "rejected") throw pkgResult.reason;
+  const pkg = pkgResult.value;
   if (!pkg) notFound();
+
+  // The "similar packages" rail is decorative — degrade it to empty rather
+  // than take down a page that already has its primary content.
+  const similar: PackageRow[] =
+    similarResult.status === "fulfilled" ? similarResult.value : [];
 
   const price = pkg.price ? `฿${parseFloat(pkg.price).toLocaleString()}` : "Price on request";
   const bookUrl = pkg.source_url || pkg.checkup_url || "#";
@@ -136,7 +147,7 @@ export default async function PackageDetailPage({
           <a
             href={`/api/track?pkg=${pkg.package_id}&url=${encodeURIComponent(bookUrl)}`}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="nofollow noopener noreferrer"
             className="inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors"
           >
             Book this package →
@@ -194,18 +205,26 @@ export default async function PackageDetailPage({
             "@type": "Product",
             name: pkg.package_name,
             description: `${label} health check-up at ${pkg.hospital_name}, Thailand. Price: ${pkg.price ? `฿${parseFloat(pkg.price).toLocaleString()}` : "on request"}`,
-            offers: {
-              "@type": "Offer",
-              price: pkg.price ?? "0",
-              priceCurrency: pkg.currency || "THB",
-              availability: "https://schema.org/InStock",
-              url: `${BASE}/${locale}/checkup/${type}/${hospital}`,
-              seller: {
-                "@type": "MedicalOrganization",
-                name: pkg.hospital_name,
-                ...(pkg.jci === 1 ? { medicalSpecialty: "International Patient Center" } : {}),
-              },
-            },
+            // Only claim an Offer when there is a real price. The old `?? "0"`
+            // published "this package is free" as structured data for every
+            // price-on-request row — a factual mismatch with the visible page,
+            // which is exactly what triggers a structured-data manual action.
+            ...(pkg.price
+              ? {
+                  offers: {
+                    "@type": "Offer",
+                    price: pkg.price,
+                    priceCurrency: pkg.currency || "THB",
+                    availability: "https://schema.org/InStock",
+                    url: `${BASE}/${locale}/checkup/${type}/${hospital}`,
+                    seller: {
+                      "@type": "MedicalOrganization",
+                      name: pkg.hospital_name,
+                      ...(pkg.jci === 1 ? { medicalSpecialty: "International Patient Center" } : {}),
+                    },
+                  },
+                }
+              : {}),
           }),
         }}
       />

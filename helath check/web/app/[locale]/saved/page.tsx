@@ -58,7 +58,7 @@ function PackageCard({ pkg, locale, onRemove }: { pkg: PackageRow; locale: strin
 
       <div className="px-5 pb-4 pt-2 flex items-center gap-2">
         <a href={`/api/track?pkg=${pkg.package_id}&url=${encodeURIComponent(bookUrl)}`}
-          target="_blank" rel="noopener noreferrer"
+          target="_blank" rel="nofollow noopener noreferrer"
           className="flex-1 bg-blue-600 text-white text-sm font-bold py-2.5 rounded-xl text-center hover:bg-blue-700 transition-colors">
           Book / Enquire →
         </a>

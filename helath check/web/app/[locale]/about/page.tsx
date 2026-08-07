@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LOCALES } from "@/lib/i18n";
+import { hreflangMap } from "@/lib/i18n";
 import { getStatsForHome } from "@/lib/db";
 
 export const revalidate = 86400;
@@ -19,7 +19,7 @@ export async function generateMetadata({
     description: "BangkokCheckup scrapes health check-up prices directly from hospital websites in Thailand. No paid rankings, no ads, no middlemen. Learn how our comparison tool works.",
     alternates: {
       canonical: `${BASE}/${locale}/about`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/about`])),
+      languages: hreflangMap(`/about`),
     },
   };
 }

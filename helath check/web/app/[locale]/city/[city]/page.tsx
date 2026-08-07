@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, LOCALES } from "@/lib/i18n";
+import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getPackagesByCity } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
@@ -52,7 +52,7 @@ export async function generateMetadata({
     keywords: [`health checkup ${cityName}`, `health screening ${cityName}`, `hospital ${cityName} health package`, `ตรวจสุขภาพ${cityName}`],
     alternates: {
       canonical: `${BASE}/${locale}/city/${city}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/city/${city}`])),
+      languages: hreflangMap(`/city/${city}`),
     },
   };
 }
@@ -66,12 +66,12 @@ export default async function CityPage({
   const loc = locale as Locale;
   const cityName = CITY_SLUGS[city] || city;
 
-  let rows: PackageRow[] = [];
-  try {
-    rows = await getPackagesByCity(cityName);
-  } catch {
-    // DB not ready
-  }
+  // Deliberately unguarded — see the note in hospital/[slug]/page.tsx.
+  // Swallowing a DB error here renders a "0 packages found" page and Next
+  // caches that 200 for the full revalidate window, so a brief outage leaves
+  // Google looking at an empty page for a day and filing it as a soft 404.
+  // Throwing yields a 500, which is never cached and which crawlers retry.
+  const rows: PackageRow[] = await getPackagesByCity(cityName);
 
   const hospitals = new Set(rows.map((r) => r.hospital_slug)).size;
   const prices = rows.map((r) => parseFloat(r.price ?? "0")).filter(Boolean);

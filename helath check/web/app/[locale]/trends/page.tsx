@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, LOCALES } from "@/lib/i18n";
+import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getRecentPriceChanges, type PriceTrendRow } from "@/lib/db";
 
 export const revalidate = 86400;
@@ -19,7 +19,7 @@ export async function generateMetadata({
     description: "See which health check-up packages in Thailand have recently changed price. Track price drops and increases across Bangkok, Phuket, Chiang Mai hospitals.",
     alternates: {
       canonical: `${BASE}/${locale}/trends`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${BASE}/${l}/trends`])),
+      languages: hreflangMap(`/trends`),
     },
   };
 }
@@ -31,12 +31,9 @@ export default async function TrendsPage({
 }) {
   const { locale } = await params;
 
-  let trends: PriceTrendRow[] = [];
-  try {
-    trends = await getRecentPriceChanges(30);
-  } catch {
-    // DB not ready
-  }
+  // Unguarded on purpose: an empty trends table cached as a 200 is worse than
+  // a 500. See hospital/[slug]/page.tsx.
+  const trends: PriceTrendRow[] = await getRecentPriceChanges(30);
 
   const drops = trends.filter((t) => t.change_pct < 0).sort((a, b) => a.change_pct - b.change_pct);
   const rises = trends.filter((t) => t.change_pct > 0).sort((a, b) => b.change_pct - a.change_pct);
