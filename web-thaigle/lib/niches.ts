@@ -181,7 +181,19 @@ export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
 export function qualifyingNichePlaces(nicheSlug: string, places: NichePlace[]): NichePlace[] {
   const top = topNichePlaces(places, Infinity);
   if (nicheSlug !== "spa") return top;
-  return top.filter(
+
+  // Backfilling spa from the scraper gave ~490 venues a real rating, which
+  // flips topNichePlaces() out of its "nothing in this niche is rated"
+  // fallback. That fallback is the only reason 40 rating-less spa venues have
+  // live URLs today, so ranking on the rated set alone would 404 them.
+  // Rated venues rank first; the rest keep their pages at the bottom, still
+  // subject to the content gate below.
+  const ranked = new Set(top.map((p) => p.id));
+  const unrated = places
+    .filter((p) => !ranked.has(p.id) && p.trust_score > 0)
+    .sort((a, b) => b.trust_score - a.trust_score);
+
+  return [...top, ...unrated].filter(
     (p) => p.price_min_thb > 0 || !!p.top_review_text || p.reviews_sample.length > 0 || !!p.top_photo_url
   );
 }
