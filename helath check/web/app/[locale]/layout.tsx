@@ -56,7 +56,14 @@ export function generateStaticParams() {
 // regenerate hourly under bot crawl — the root cause of blowing through
 // Vercel hobby ISR read/write quotas. Prices are scraped once daily, so
 // daily revalidation matches the data cadence.
-export const revalidate = 86400;
+// Fully static: no revalidation. Every value on this page comes from
+// data/checkup_db.json, which is baked into the build — it cannot change
+// without a redeploy, so re-rendering on a timer just reproduces byte-identical
+// HTML. The old `revalidate = 86400` regenerated all ~2,600 pages daily at
+// ~174 KB each: roughly 13 GB/month of Fast Origin Transfer and 2.9M ISR reads
+// for zero content change. A deploy invalidates the CDN, which is the only
+// invalidation this data needs.
+export const revalidate = false;
 
 function NavBar({ locale }: { locale: Locale }) {
   const base = `/${locale}`;

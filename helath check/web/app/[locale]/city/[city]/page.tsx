@@ -5,7 +5,8 @@ import { getPackagesByCity } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 export const dynamicParams = false;
 
 const CITY_SLUGS: Record<string, string> = {

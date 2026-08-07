@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { type Locale, hreflangMap } from "@/lib/i18n";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

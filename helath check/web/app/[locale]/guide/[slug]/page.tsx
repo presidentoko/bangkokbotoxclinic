@@ -4,7 +4,8 @@ import { type Locale, hreflangMap } from "@/lib/i18n";
 import { guideT } from "@/lib/guide-i18n";
 import { ShareButtons } from "@/app/components/ShareButtons";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

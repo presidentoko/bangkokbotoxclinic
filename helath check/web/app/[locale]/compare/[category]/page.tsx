@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { CATEGORIES } from "@/lib/i18n";
 import { CompareView, buildCompareMetadata } from "../CompareView";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 export function generateStaticParams() {
   return CATEGORIES.map((category) => ({ category }));

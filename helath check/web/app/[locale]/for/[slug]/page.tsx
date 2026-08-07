@@ -4,7 +4,8 @@ import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getAllPackages, type PackageRow } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 // Each longtail segment with its config
 const SEGMENTS: Record<string, {

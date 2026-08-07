@@ -4,7 +4,8 @@ import { type Locale, t, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { homeT } from "@/lib/home-i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, getRecentPriceChanges, type PackageRow, type CategoryCount } from "@/lib/db";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

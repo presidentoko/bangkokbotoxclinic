@@ -91,6 +91,6 @@ export default async function OgImage() {
         Real prices scraped daily — compare executive, comprehensive, cancer, and cardiac packages
       </div>
     </div>,
-    { ...size, headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } },
+    { ...size, headers: { "Cache-Control": "public, s-maxage=31536000, stale-while-revalidate=31536000, immutable" } },
   );
 }

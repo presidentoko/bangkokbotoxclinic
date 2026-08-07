@@ -3,7 +3,8 @@ import { LOCALES, CATEGORIES } from "@/lib/i18n";
 
 const BASE = "https://www.bangkoktopclinic.com";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 // Hospital slugs come straight from the scraper and still carry raw Thai and
 // accented characters ("w9-wellness-center-โรงพยาบาลพระรามเกา"). A sitemap

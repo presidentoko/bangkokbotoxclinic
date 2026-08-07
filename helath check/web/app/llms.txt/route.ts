@@ -3,7 +3,8 @@ import { getAllHospitalSlugs } from "@/lib/db";
 
 const BASE = "https://www.bangkoktopclinic.com";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 export async function GET() {
   let hospitalSlugs: string[] = [];

@@ -4,7 +4,8 @@ import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { getPackagesByCategory, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 export function generateStaticParams() {
   return CATEGORIES.map((type) => ({ type }));

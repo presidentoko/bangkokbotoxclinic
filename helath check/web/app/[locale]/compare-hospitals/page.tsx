@@ -3,7 +3,8 @@ import Link from "next/link";
 import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getHospital, type HospitalDetail, type PackageRow } from "@/lib/db";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 
@@ -20,10 +21,17 @@ export async function generateMetadata({
     title: "Compare Hospitals — BangkokCheckup",
     alternates: { canonical: `${BASE}/${locale}/compare-hospitals`, languages },
   };
+  // A comparison of any two hospitals is 241 x 241 x 6 locales — over 300,000
+  // URLs, each of which used to self-canonicalise and so read as its own
+  // indexable page. That is an unbounded crawl space on a site whose whole
+  // problem was 8,927 pages "discovered, not indexed". The pairings are a tool
+  // for a visitor who is already here, not search landing pages: noindex them
+  // and point the canonical at the bare picker.
   return {
     title: `Compare ${a} vs ${b} — Health Check-Up Packages Bangkok`,
     description: `Side-by-side comparison of health check-up packages, prices, and inclusions at ${a} vs ${b} in Thailand. JCI status, MRI, cancer markers.`,
-    alternates: { canonical: `${BASE}/${locale}/compare-hospitals?a=${a}&b=${b}`, languages },
+    robots: { index: false, follow: true },
+    alternates: { canonical: `${BASE}/${locale}/compare-hospitals`, languages },
   };
 }
 

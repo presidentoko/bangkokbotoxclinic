@@ -14,6 +14,20 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "BLEXBot", disallow: "/" },
       { userAgent: "DataForSeoBot", disallow: "/" },
       { userAgent: "serpstatbot", disallow: "/" },
+      // Second wave, added 2026-08 after Vercel usage showed 2.9M ISR reads
+      // against 145 clicks in three months — the traffic was almost entirely
+      // crawlers. These send no visitors to a Thai medical-tourism site and
+      // several are known for ignoring crawl-rate etiquette.
+      { userAgent: "Bytespider", disallow: "/" },
+      { userAgent: "PetalBot", disallow: "/" },
+      { userAgent: "Barkrowler", disallow: "/" },
+      { userAgent: "ImagesiftBot", disallow: "/" },
+      { userAgent: "Sogou web spider", disallow: "/" },
+      { userAgent: "SeekportBot", disallow: "/" },
+      { userAgent: "magpie-crawler", disallow: "/" },
+      { userAgent: "VelenPublicWebCrawler", disallow: "/" },
+      // AI assistants (GPTBot, ClaudeBot, PerplexityBot, …) stay allowed on
+      // purpose — /llms.txt exists to court them.
       // /api/prices is a deliberately public read-only JSON API (promoted via
       // /llms.txt for AI crawlers) — every other /api/* route is a functional
       // endpoint (contact form, click tracking, search, saved-packages lookup)

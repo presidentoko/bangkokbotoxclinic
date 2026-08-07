@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow } from "@/lib/db";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 export async function generateStaticParams() {
   // Pre-render top 30 hospitals × top 6 categories = 180 combos per locale

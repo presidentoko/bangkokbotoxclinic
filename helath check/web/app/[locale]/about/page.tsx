@@ -3,7 +3,8 @@ import Link from "next/link";
 import { hreflangMap } from "@/lib/i18n";
 import { getStatsForHome } from "@/lib/db";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

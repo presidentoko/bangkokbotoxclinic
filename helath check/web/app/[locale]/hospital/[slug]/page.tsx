@@ -8,7 +8,8 @@ import { ShareButtons } from "@/app/components/ShareButtons";
 import { ReportButton } from "@/app/components/ReportButton";
 import { HospitalTracker } from "@/app/components/HospitalTracker";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 

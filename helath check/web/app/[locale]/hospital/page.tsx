@@ -4,7 +4,8 @@ import { type Locale, hreflangMap } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 import { HospitalSearch } from "@/app/components/HospitalSearch";
 
-export const revalidate = 86400;
+// Static — see the note in app/[locale]/page.tsx.
+export const revalidate = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
 
