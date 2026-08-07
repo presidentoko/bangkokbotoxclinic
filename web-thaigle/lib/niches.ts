@@ -178,22 +178,39 @@ export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
 // landing, etc.) should filter through this first, matching the same gate
 // generateStaticParams uses in app/activities/[niche]/[slug]/page.tsx —
 // otherwise a listing page links to slugs that were never actually built.
+/**
+ * Niches that shipped with no rated venues at all and were backfilled later.
+ *
+ * While a niche has zero rated venues, topNichePlaces() serves its unrated
+ * fallback, so every venue in it gets a page. The moment a backfill gives some
+ * of them real ratings that fallback closes, and every venue the backfill
+ * didn't reach silently loses the URL it already had — 40 pages for spa, 266
+ * for yoga. Both were caught in verification, and both would have been live
+ * 404s. For these niches the unrated remainder is kept, ranked below the rated
+ * venues.
+ *
+ * A niche that has always had ratings (muay-thai, cooking, …) is not listed:
+ * its unrated venues have never had pages, and giving them one now would be
+ * publishing a name with nothing attached to it.
+ */
+const BACKFILLED_NICHES = new Set(["spa", "yoga-pilates"]);
+
 export function qualifyingNichePlaces(nicheSlug: string, places: NichePlace[]): NichePlace[] {
   const top = topNichePlaces(places, Infinity);
-  if (nicheSlug !== "spa") return top;
+  if (!BACKFILLED_NICHES.has(nicheSlug)) return top;
 
-  // Backfilling spa from the scraper gave ~490 venues a real rating, which
-  // flips topNichePlaces() out of its "nothing in this niche is rated"
-  // fallback. That fallback is the only reason 40 rating-less spa venues have
-  // live URLs today, so ranking on the rated set alone would 404 them.
-  // Rated venues rank first; the rest keep their pages at the bottom, still
-  // subject to the content gate below.
   const ranked = new Set(top.map((p) => p.id));
   const unrated = places
     .filter((p) => !ranked.has(p.id) && p.trust_score > 0)
     .sort((a, b) => b.trust_score - a.trust_score);
+  const all = [...top, ...unrated];
 
-  return [...top, ...unrated].filter(
+  // spa alone still needs a content gate: 1,942 of its venues carry a name and
+  // a maps link and nothing else, which is thin enough that publishing them
+  // was what put the niche in "Discovered - currently not indexed". yoga's
+  // unrated remainder all have photos, so they clear this anyway.
+  if (nicheSlug !== "spa") return all;
+  return all.filter(
     (p) => p.price_min_thb > 0 || !!p.top_review_text || p.reviews_sample.length > 0 || !!p.top_photo_url
   );
 }
