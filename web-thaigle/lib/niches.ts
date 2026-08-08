@@ -56,6 +56,13 @@ export type NichePlace = {
   is_advanced_oriented: boolean;
   is_open_24h: boolean;
   is_suspected_viral: boolean;
+  /**
+   * Set by scripts/enrich_from_apify.py when Google reports the venue as
+   * permanently closed. Such venues are dropped from every listing and stop
+   * generating a page. Temporarily closed venues are deliberately NOT flagged —
+   * they reopen, and retiring the URL costs its indexing.
+   */
+  permanently_closed?: boolean;
   is_partner: boolean;
   beginner_score: number;
   languages: NicheLanguages;
@@ -158,7 +165,8 @@ export async function loadCommunityDb(niche: NicheSlug): Promise<CommunityDb | n
  * @internal — prefer qualifyingNichePlaces() everywhere outside this module.
  */
 export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
-  const rated = [...places]
+  const open = places.filter((p) => !p.permanently_closed);
+  const rated = [...open]
     .filter((p) => p.trust_score > 0 && !!p.rating && !!p.review_count && p.review_count > 0)
     .sort((a, b) => b.trust_score - a.trust_score);
   if (rated.length > 0) return rated.slice(0, n);
@@ -166,7 +174,7 @@ export function topNichePlaces(places: NichePlace[], n: number): NichePlace[] {
   // Some scraped datasets (e.g. spa, yoga-pilates) ship with rating/review_count
   // entirely null across the board — fall back to trust_score-only ranking
   // instead of returning an empty list for the whole niche.
-  return [...places]
+  return [...open]
     .filter((p) => p.trust_score > 0)
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, n);
@@ -201,7 +209,7 @@ export function qualifyingNichePlaces(nicheSlug: string, places: NichePlace[]): 
 
   const ranked = new Set(top.map((p) => p.id));
   const unrated = places
-    .filter((p) => !ranked.has(p.id) && p.trust_score > 0)
+    .filter((p) => !ranked.has(p.id) && p.trust_score > 0 && !p.permanently_closed)
     .sort((a, b) => b.trust_score - a.trust_score);
   const all = [...top, ...unrated];
 
