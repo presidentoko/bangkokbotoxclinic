@@ -12,6 +12,9 @@ export function generateMetadata(): Metadata {
     title: `Compare Clinics Side-by-Side — ${cfg.brand}`,
     description: `Compare top ${cfg.brand} clinics side-by-side on Trust Score, reviews, doctors, and languages.`,
     alternates: { canonical: "/compare" },
+    // 비교 도구 진입점. 고유 콘텐츠가 없는 선택 UI라 색인 대상이 아니다.
+    // robots.txt 차단 대신 noindex — 사유는 /compare/[a]/[b] 주석 참조.
+    robots: { index: false, follow: true },
   };
 }
 

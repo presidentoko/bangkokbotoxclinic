@@ -239,6 +239,35 @@ export function configForFocus(focus: SiteFocus): SiteConfig {
   return CONFIGS[focus] ?? CONFIGS.all;
 }
 
+/** 이 카테고리 집합을 소유할 **수 있는** 사이트들을 우선순위 순으로 전부 돌려준다.
+ *
+ *  resolveOwnerFocus 는 하나만 돌려주는데, 그게 크로스도메인 리다이렉트에서
+ *  구멍을 만들었다 (2026-08-08 실측). 예: Ratchada Medical General Clinic 은
+ *  categories = ["botox","facial","hair_transplant","laser"] 라
+ *  resolveOwnerFocus 가 우선순위상 "hair" 를 돌려준다. 그런데 hair 는 라우트
+ *  구조가 달라 리다이렉트 생성 단계에서 건너뛰므로, 결국 아무 리다이렉트도
+ *  발급되지 않아 덴탈에서 404 가 났다 — 정작 botox 는 그 페이지를 200 으로
+ *  서빙하고 있는데도.
+ *
+ *  후보를 전부 받아서 "실제로 그 사이트가 빌드하는가" 로 걸러내면 이 틈이 막힌다.
+ *  호출부는 resolveOwnerFocusCandidates → hair/자기자신 제외 → applySiteFilter
+ *  포함 여부 확인 → urlForFocus 순서로 쓸 것. */
+export function resolveOwnerFocusCandidates(categories: string[]): SiteFocus[] {
+  const out: SiteFocus[] = [];
+  if (categories.includes("dental")) out.push("dental");
+  if (categories.includes("hair_transplant")) out.push("hair");
+  if (categories.some((cat) => AESTHETIC_CATS.has(cat))) out.push("botox");
+  return out;
+}
+
+/** focus 로 사이트 URL 을 만든다.
+ *  resolveOwnerUrl(categories) 은 카테고리 우선순위로 판정하므로, 후보 중
+ *  실제 소유자를 골라낸 뒤에 쓰면 엉뚱한 도메인이 나온다. 고른 focus 를
+ *  그대로 URL 로 바꿔야 한다. */
+export function urlForFocus(focus: SiteFocus): string {
+  return `https://www.${configForFocus(focus).domain.replace(/^www\./, "")}`;
+}
+
 function _applySiteFilterUncached(clinics: Clinic[], cfg: SiteConfig): Clinic[] {
   // 모든 사이트에서 non-clinic 먼저 제거
   let clinical = clinics.filter(isClinicLike);

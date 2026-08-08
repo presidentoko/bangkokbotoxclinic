@@ -37,6 +37,12 @@ export async function generateMetadata(
     title,
     description,
     alternates: { canonical: `/compare/${a}/${b}` },
+    // 색인 대상이 아니다 — 클리닉 조합마다 페이지가 생겨 얇은 중복이 대량 발생한다.
+    // 2026-08-08 GSC "Indexed, though blocked by robots.txt" 대응: robots.txt 로
+    // 막는 대신 크롤은 허용하고 여기서 noindex 를 준다. 그래야 구글이 실제로
+    // noindex 를 읽고 색인에서 빼준다. follow 는 유지 — 링크된 클리닉 페이지로
+    // 링크 가치가 흐르게 둔다.
+    robots: { index: false, follow: true },
     openGraph: {
       title,
       description,
