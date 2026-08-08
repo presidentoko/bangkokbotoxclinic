@@ -54,12 +54,29 @@ def qualifying(niche: str, places: list[dict]) -> list[dict]:
             if p["price_min_thb"] > 0 or p.get("top_review_text") or p.get("reviews_sample") or p.get("top_photo_url")]
 
 
+# The 2026-06-20 pipeline stored `review_count` as the number of review
+# samples it scraped (max 5), not the Google total. Pages render it verbatim,
+# so a gym with hundreds of reviews advertises "★5.0 (5 Reviews)" — on a site
+# whose whole claim is ranking by real Google reviews. It also makes
+# trust_score incomparable: spa and yoga were rebuilt from real totals and
+# score 84-100, everything else still scores 8-56 off a number capped at 5.
+# Every venue in these niches is affected, so the whole set is requested.
+def _sample_count_review(p: dict) -> bool:
+    rc = p.get("review_count")
+    return rc is not None and rc <= 10
+
+
 # (niche, human label, predicate for "still missing something")
 TARGETS = [
     ("spa", "photos", lambda p: not p.get("top_photo_url")),
     ("yoga-pilates", "rating", lambda p: p.get("rating") is None),
     ("coworking", "photos", lambda p: not p.get("top_photo_url")),
     ("diving", "photos", lambda p: not p.get("top_photo_url")),
+    ("cooking", "reviewcount", _sample_count_review),
+    ("coworking", "reviewcount", _sample_count_review),
+    ("diving", "reviewcount", _sample_count_review),
+    ("muay-thai", "reviewcount", _sample_count_review),
+    ("wellness", "reviewcount", _sample_count_review),
 ]
 
 

@@ -56,7 +56,8 @@ def main() -> int:
     print(f"[apify] export records: {len(records)}  unique placeIds: {len(by_pid)}")
 
     closed: list[str] = []
-    totals = {"photos": 0, "rating": 0, "address": 0, "phone": 0, "website": 0, "hours": 0}
+    totals = {"photos": 0, "rating": 0, "review_count": 0, "address": 0,
+              "phone": 0, "website": 0, "hours": 0}
 
     for path in sorted(NICHE_DIR.glob("*.json")):
         db = json.loads(path.read_text(encoding="utf-8"))
@@ -99,6 +100,19 @@ def main() -> int:
                 totals["rating"] += 1
                 supplied_rating = True
                 changed = True
+            elif (r.get("reviewsCount") or 0) > 0 and (p.get("review_count") or 0) <= 10:
+                # The old pipeline stored the count of review *samples* it
+                # scraped (max 5) in review_count, and pages print it as the
+                # review total — "★5.0 (5 Reviews)" for a gym with hundreds.
+                # A real total is never wrong to prefer here, and it's what
+                # makes trust_score mean the same thing in every niche. Guarded
+                # at <=10 so a venue that genuinely has few reviews isn't
+                # inflated by a stale export.
+                if r["reviewsCount"] != p.get("review_count"):
+                    p["review_count"] = r["reviewsCount"]
+                    totals["review_count"] += 1
+                    supplied_rating = True
+                    changed = True
 
             for field, src in (("address", "address"), ("phone", "phone"),
                                ("website", "website"), ("category", "categoryName")):
@@ -129,8 +143,8 @@ def main() -> int:
                 path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"\n[apify] filled — photos {totals['photos']}, rating {totals['rating']}, "
-          f"address {totals['address']}, phone {totals['phone']}, "
-          f"website {totals['website']}, hours {totals['hours']}")
+          f"review_count {totals['review_count']}, address {totals['address']}, "
+          f"phone {totals['phone']}, website {totals['website']}, hours {totals['hours']}")
     if closed:
         print(f"\n[apify] closure reports from Google ({len(closed)}):")
         for c in sorted(closed):
