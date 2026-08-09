@@ -1,16 +1,16 @@
 """
 RAM-aware scraper manager.
-여유 RAM 기준으로 식당 스크래퍼를 자동 pause/resume.
+여유 RAM 기준으로 브라우저를 띄우는 스크래퍼를 자동 pause/resume.
 
-우선순위 (나중에 꺼짐):
-  1. bangkok_review  (16k items, 오래 걸림)
-  2. pattaya_review  (소규모, 곧 끝남)
+메모리를 실제로 먹는 것은 scraper.py 가 띄우는 chromium 이다(브라우저 1개당
+약 450MB). 그래서 사다리에는 **지금 실제로 돌면서 브라우저를 띄우는 서비스**만
+올린다. 여기 이름이 run/ 의 서비스 이름과 어긋나면 pause 호출이 아무 일도
+하지 않는데 로그에는 여전히 "OK" 가 찍혀서, 여유 0.3GB 에서 아무것도 안 하고
+OS 가 프로세스를 임의로 죽이게 둔다 — 2026-08-09 에 실제로 그 상태였다.
+그래서 시작할 때 대상 존재 여부를 검증하고 로그로 남긴다.
 
-임계값:
-  < 2.0 GB 여유 → bangkok_review pause
-  < 1.5 GB 여유 → pattaya_review pause
-  > 3.5 GB 여유 → pattaya_review resume
-  > 4.5 GB 여유 → bangkok_review resume
+끄는 순서는 "잃어도 되는 것부터". bangkok_clinics 는 이 레포의 핵심 파이프라인
+이라 마지막이고, 그마저 꺼야 할 정도면 이미 OS 가 뭔가를 죽이고 있는 상황이다.
 """
 from __future__ import annotations
 
@@ -21,17 +21,25 @@ import time
 from pathlib import Path
 
 CHECK_INTERVAL = 60   # 초
+RESUME_STREAK  = 5    # resume 전에 여유가 연속으로 유지돼야 하는 틱 수 (=5분)
 
 ROOT = Path(__file__).parent.parent
 RUN  = ROOT / "run"
 
+# pause 는 여유가 적은 순으로, resume 은 충분한 순으로 — 사이를 벌려 히스테리시스.
 PAUSE_THRESHOLDS = [
-    ("bangkok_review",  2.0),   # < 2.0 GB → pause
-    ("pattaya_review",  1.5),   # < 1.5 GB → pause
+    ("bangkok_review",         2.0),
+    ("pattaya_review",         1.5),
+    ("spa_review_pattaya",     1.5),
+    ("dental_review_bangkok",  1.2),
+    ("bangkok_clinics_review", 0.8),   # 핵심 파이프라인 — 마지막 수단
 ]
 RESUME_THRESHOLDS = [
-    ("pattaya_review",  3.5),   # > 3.5 GB → resume
-    ("bangkok_review",  4.5),   # > 4.5 GB → resume
+    ("bangkok_clinics_review", 2.5),
+    ("dental_review_bangkok",  3.0),
+    ("spa_review_pattaya",     3.5),
+    ("pattaya_review",         3.5),
+    ("bangkok_review",         4.5),
 ]
 
 
@@ -115,8 +123,26 @@ def log(msg: str):
     print(f"[{ts}] {msg}", flush=True)
 
 
+def _audit_targets() -> None:
+    """사다리에 올린 이름이 실제 서비스와 맞는지 시작할 때 확인.
+
+    watchdog 은 run/<name>.pid 를 쓰므로 그 파일이 한 번도 없었다는 건 이름이
+    틀렸거나 없어진 서비스라는 뜻이다. 이게 조용히 어긋나 있으면 pause 가
+    아무 일도 안 하면서 로그에는 정상으로 보인다.
+    """
+    names = [n for n, _ in PAUSE_THRESHOLDS]
+    unknown = [n for n in names if not (RUN / f"{n}.pid").exists()
+               and not (RUN / f"{n}.disabled").exists()]
+    log(f"관리 대상 {len(names)}개: {', '.join(names)}")
+    if unknown:
+        log(f"⚠ run/ 에 흔적이 없는 대상 {len(unknown)}개 — 이름 확인 필요: "
+            f"{', '.join(unknown)}")
+
+
 def main():
     log("RAM manager 시작")
+    _audit_targets()
+    good_streak: dict[str, int] = {}
     while True:
         free = free_ram_gb()
         if free is None:
@@ -125,17 +151,34 @@ def main():
             continue
         actions = []
 
-        # pause 체크
+        # pause — 한 틱에 하나만. 여러 개를 한꺼번에 내리면 그 합만큼 RAM 이
+        # 튀어올라 곧바로 resume 임계값을 넘고, 다음 틱에 도로 켜졌다가 다시
+        # 말라붙는다. 하나 내리고 그 효과를 다음 틱에 재는 편이 낫다.
         for name, threshold in PAUSE_THRESHOLDS:
             if free < threshold and not is_paused(name):
                 pause(name)
                 actions.append(f"pause:{name}")
+                break
 
-        # resume 체크
-        for name, threshold in RESUME_THRESHOLDS:
-            if free > threshold and is_paused(name):
-                resume(name)
-                actions.append(f"resume:{name}")
+        # resume — 여유가 임계값 위로 RESUME_STREAK 틱 연속 유지될 때만.
+        # 한 번 넘겼다고 바로 켜면 스크래퍼가 브라우저를 띄우는 순간 다시
+        # 말라서, 진동만 하고 진도는 안 나간다.
+        if actions:
+            good_streak.clear()
+        else:
+            for name, threshold in RESUME_THRESHOLDS:
+                if not is_paused(name):
+                    good_streak.pop(name, None)
+                    continue
+                if free > threshold:
+                    good_streak[name] = good_streak.get(name, 0) + 1
+                    if good_streak[name] >= RESUME_STREAK:
+                        resume(name)
+                        actions.append(f"resume:{name}")
+                        good_streak.pop(name, None)
+                        break   # 켠 효과도 마찬가지로 다음 틱에 잰다
+                else:
+                    good_streak.pop(name, None)
 
         status = f"여유={free:.1f}GB" + (f" | {','.join(actions)}" if actions else " | OK")
         log(f"[tick] {status}")
