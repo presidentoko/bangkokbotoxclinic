@@ -25,7 +25,14 @@ import { isLinkAlive } from "@/lib/affiliate";
 import { ViewTracker } from "@/components/ViewTracker";
 import { FavoriteButton } from "@/components/FavoriteButton";
 
-export const revalidate = 86400;
+// Was `revalidate = 86400`. This page's only data source is
+// `import master from "@/data/master_db.json"` — a static import bundled at
+// build time — so regenerating it produced a byte-identical page. That is
+// 1,003 products × 4 locales = 4,012 ISR writes a day buying nothing, on the
+// plan whose ISR write quota this site already blew through once (1.6M/200K,
+// 2026-07-10). New product data arrives by committing master_db.json and
+// deploying, and a deploy rebuilds every page anyway.
+export const revalidate = false;
 
 const BASE = "https://bangkokfillers.com";
 

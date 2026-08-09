@@ -5,7 +5,10 @@ import { getProduct, productIdFromSlug } from "@/lib/data";
 export const alt = "BangkokFillers — Product Score Card";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const revalidate = 86400;
+// No revalidate window, matching ./page.tsx: this renders from the same
+// build-time `master_db.json` import, so re-running satori on a schedule
+// produced an identical PNG at the cost of an ISR write per product per day.
+export const revalidate = false;
 // Prerender the same product slugs as the page; unknown/junk slugs 404 at
 // routing level instead of burning a satori render per bot-scanned URL.
 export { generateStaticParams } from "./page";
