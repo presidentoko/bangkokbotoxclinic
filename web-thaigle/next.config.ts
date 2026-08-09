@@ -2,11 +2,23 @@ import type { NextConfig } from "next";
 
 const config: NextConfig = {
   experimental: {
-    // Default worker count is based on CPU cores, which on a memory-
-    // constrained/shared machine can overcommit RAM once thousands of
-    // Satori OG-image renders run concurrently and get silently killed.
-    // Size the pool off available memory instead.
-    memoryBasedWorkersCount: true,
+    // Static generation concurrency, pinned rather than inferred.
+    //
+    // This used to be `memoryBasedWorkersCount: true`, on the theory that
+    // sizing the pool off free memory would stop thousands of Satori OG
+    // renders from overcommitting RAM. It can't: that option enforces a floor
+    // of 4 workers no matter how little memory it finds, so on Vercel's build
+    // container it always ran 4. At 14,095 pages the V8 heap in one of those
+    // workers hit its ceiling and aborted (SIGABRT) — the build passed locally
+    // on 16 GB and failed on the builder.
+    //
+    // Two workers × 4 concurrent pages instead of 4 × 8 quarters peak heap.
+    // It costs build minutes, which are not the scarce resource here.
+    //
+    // `cpus` must be paired with dropping memoryBasedWorkersCount: when that
+    // flag is on it wins over any cpus value equal to the machine default.
+    cpus: 2,
+    staticGenerationMaxConcurrency: 4,
   },
   images: {
     remotePatterns: [
