@@ -59,6 +59,16 @@ REVIEW_DONE_MARKER = "수집 중단/완료 → 워커 정리"  # scraper.py가 �
 # 무한 재시작하는 사고가 있었음 (2026-07-19, RAM 압박 동반).
 PANTIP_DONE_RE = re.compile(r"DONE: ok=(\d+) skip=(\d+) fail=(\d+) / total=(\d+)")
 
+# scraper.py 메인 루프가 큐 고갈로 대기할 때 60초마다 찍는 라인.
+# 이건 "정체"가 아니라 "할 일이 없어서 정상 종료를 카운트다운 중"이라는
+# 살아있음의 증거다. progress 로 인정하지 않으면 watchdog 이 정상 종료보다
+# 먼저 kick 해버려서 REVIEW_DONE_MARKER 가 영영 안 찍히고, 그 결과
+# review_naturally_done() 이 도달 불가능해져 무한 재시작이 된다.
+# (2026-08-07: massage_review_bangkok 이 이 구조로 5시간에 60회 재시작.
+#  후보 1221개 중 신규 5개뿐인 사실상 완료된 서비스였는데, 성공 0 = 정체로
+#  오판돼 매 사이클 크롬 2대를 새로 띄우고 있었다.)
+IDLE_ALIVE_RE = re.compile(r"대기 중…")
+
 # 그리드는 SOCKS 포트 2080 한 개를 공유 → 동시에 한 도시만 가동.
 # 앞 도시가 자연 종료되면 다음 도시의 .disabled 마커 제거하여 깨움.
 GRID_CHAIN = [
@@ -214,8 +224,10 @@ class Service:
         except OSError:
             return False
         # 뒤에서부터 매치 검색 — 파싱 안 되는 줄은 건너뛰고 계속.
+        # progress 패턴뿐 아니라 "큐 고갈 대기" 라인도 살아있음으로 인정한다
+        # (IDLE_ALIVE_RE 주석 참고). 둘 중 더 최근 것이 기준이 된다.
         for line in reversed(tail.splitlines()):
-            if self.progress_pattern.search(line):
+            if self.progress_pattern.search(line) or IDLE_ALIVE_RE.search(line):
                 ts = parse_log_timestamp(line)
                 if ts is None:
                     continue  # 다음 매치 시도
@@ -724,7 +736,7 @@ def build_services() -> list[Service]:
         "GRID_PROXY_PORT": "2084",
         "GRID_N_WORKERS": "4",
         "N_WORKERS": "1",
-        "PROXY_PORT_BASE": "2087",
+        "PROXY_PORT_BASE": "2086",
     }
     krabi_clinics_env = {
         "SEARCH_QUERY": "clinic",
@@ -779,7 +791,12 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.5346890",
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "../spa_output/bangkok",
-        "N_WORKERS": "4",
+        # 2026-08-07: 4→2. review 워커 1개당 chrome 약 4~5개가 붙어서, 방콕
+        # spa+massage review 2개가 8워커를 돌리면 chrome 38~46개 / RAM 89%까지
+        # 갔다(ram-guard 소프트리밋 60 상시 초과 → chrome_heavy 재시작이 계속
+        # 보류됨). 하나를 통째로 끄는 대신 양쪽을 반으로 줄여서 두 파이프라인을
+        # 다 살린다. 포트 점유도 2080-2083 → 2080-2081 로 줄어 터널 부하가 준다.
+        "N_WORKERS": "2",
         "PROXY_PORT_BASE": "2080",
         # 그리드 단계는 review 아직 안 도는 동안 포트가 노는 게 아까워서
         # 2→3워커로 증설 (2026-07-23, RAM 여유 보고 절반만 증설 — 8개 풀로
@@ -794,7 +811,7 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.5346890",
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "../spa_output/bangkok",
-        "N_WORKERS": "4",
+        "N_WORKERS": "2",  # 2026-08-07: 4→2 (spa_bangkok_env 주석 참고). 2084-2085
         "PROXY_PORT_BASE": "2084",
         "GRID_PROXY_PORT": "2082",
         "GRID_N_WORKERS": "2",
@@ -840,8 +857,8 @@ def build_services() -> list[Service]:
     # (2080-83/2084-87)와는 완전히 분리된 범위.
     spa_pattaya_env, massage_pattaya_env = _spa_massage_env(
         "pattaya", "12.9236", "100.8825", "20000", "../spa_output/pattaya",
-        spa_proxy_base="2088", spa_grid_port="2088",
-        massage_proxy_base="2088", massage_grid_port="2089",
+        spa_proxy_base="2085", spa_grid_port="2085",
+        massage_proxy_base="2085", massage_grid_port="2086",
         n_workers="2", grid_n_workers="1")
     spa_phuket_env, massage_phuket_env = _spa_massage_env(
         "phuket", "7.8804", "98.3923", "20000", "../spa_output/phuket")
@@ -863,9 +880,21 @@ def build_services() -> list[Service]:
     PROG_MDB    = re.compile(r"(변경 없음|재빌드 완료|입력 변경)")
 
     return [
+        # --ports 8 은 임의의 숫자가 아니라 NordVPN 계정의 동시접속 한도다.
+        # 2026-08-06까지 10개(2080-2089)를 띄우고 있었는데, 한도를 2개 넘긴
+        # 상태라 NordVPN이 초과분을 서버측에서 끊었다. 어느 터널이 끊길지는
+        # 무작위여서 사망이 10개 포트에 고르게 퍼졌고(포트당 4-6회/시간),
+        # "특정 서버가 불량"처럼 보였지만 실제로는 계정 레벨 신호였다. 그
+        # 결과 review 스크래퍼가 ERR_PROXY_CONNECTION_FAILED /
+        # ERR_SOCKS_CONNECTION_FAILED 로 실패율 60%대를 찍었다.
+        #
+        # 8보다 더 줄이려면 _validate_proxy_ports() 를 먼저 통과해야 한다 —
+        # massage_* 20개 서비스가 PROXY_PORT_BASE=2084 + N_WORKERS=4 로
+        # 2084-2087 을 쓰기 때문에, 7로 내리면 부팅이 거부된다(fail-fast).
+        # 즉 8 은 "포트 재배정 없이 한도를 지킬 수 있는" 유일한 값이다.
         Service(
             name="nordvpn_runner",
-            cmd=["nordvpn_runner.py", "--ports", "10", "--base-port", "2080",
+            cmd=["nordvpn_runner.py", "--ports", "8", "--base-port", "2080",
                  "--auth", "nordvpn/auth.txt", "--proto", "mixed"],
             cwd=ROOT,
             env_extra={},
@@ -1123,7 +1152,7 @@ def build_services() -> list[Service]:
                 "SEARCH_QUERY": "dental", "SEARCH_TAG": "dental",
                 "CITY_LAT": "9.5018", "CITY_LNG": "99.9648", "CITY_RADIUS_M": "15000",
                 "CITY_OUTPUT_DIR": "../dental_output/koh_samui",
-                "N_WORKERS": "1", "PROXY_PORT_BASE": "2087",
+                "N_WORKERS": "1", "PROXY_PORT_BASE": "2086",
             },
             log_file=LOGS / "dental_review_koh_samui.log",
             chrome_heavy=True,
@@ -2158,8 +2187,15 @@ def main():
                 if s.disabled:
                     return f"off:{s.disabled_reason}"
                 return "down"
-            status = ", ".join(f"{s.name}={_state(s)}" for s in services)
-            log(f"heartbeat: {status}")
+            # Only the services that aren't quietly paused. Naming all ~88
+            # every 20s wrote a 4 KB line — about 10 MB of log a day, ~95% of
+            # it the same list of paused scrapers — which is how watchdog.log
+            # reached 124 MB and became too slow to grep when something
+            # actually broke. Paused is the steady state and carries no
+            # information; on/down/off does.
+            noteworthy = [s for s in services if not s.is_paused()]
+            status = ", ".join(f"{s.name}={_state(s)}" for s in noteworthy)
+            log(f"heartbeat: {status}  (+{len(services) - len(noteworthy)} paused)")
             last_heartbeat = now
 
 

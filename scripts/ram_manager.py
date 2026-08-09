@@ -14,6 +14,7 @@ RAM-aware scraper manager.
 """
 from __future__ import annotations
 
+import ctypes
 import subprocess
 import sys
 import time
@@ -34,7 +35,34 @@ RESUME_THRESHOLDS = [
 ]
 
 
-def free_ram_gb() -> float:
+class _MEMORYSTATUSEX(ctypes.Structure):
+    _fields_ = [
+        ("dwLength", ctypes.c_ulong),
+        ("dwMemoryLoad", ctypes.c_ulong),
+        ("ullTotalPhys", ctypes.c_ulonglong),
+        ("ullAvailPhys", ctypes.c_ulonglong),
+        ("ullTotalPageFile", ctypes.c_ulonglong),
+        ("ullAvailPageFile", ctypes.c_ulonglong),
+        ("ullTotalVirtual", ctypes.c_ulonglong),
+        ("ullAvailVirtual", ctypes.c_ulonglong),
+        ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
+    ]
+
+
+def free_ram_gb() -> float | None:
+    """여유 물리 RAM(GB). 알 수 없으면 None.
+
+    GlobalMemoryStatusEx 직접 호출 — wmic 은 Windows 11 에서 폐기 예정인 데다
+    서브프로세스라 정작 메모리가 말라 응답이 필요한 순간에 타임아웃이 났다.
+    이 API 는 프로세스를 안 띄우므로 부하와 무관하게 즉시 답한다.
+    """
+    try:
+        st = _MEMORYSTATUSEX()
+        st.dwLength = ctypes.sizeof(_MEMORYSTATUSEX)
+        if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(st)):
+            return st.ullAvailPhys / 1024 ** 3
+    except Exception:
+        pass
     try:
         out = subprocess.check_output(
             ["wmic", "OS", "get", "FreePhysicalMemory", "/Value"],
@@ -43,11 +71,14 @@ def free_ram_gb() -> float:
         )
         for line in out.splitlines():
             if "FreePhysicalMemory=" in line:
-                kb = int(line.split("=")[1].strip())
-                return kb / 1024 / 1024
+                return int(line.split("=")[1].strip()) / 1024 / 1024
     except Exception:
         pass
-    return 99.0   # 오류 시 충분하다고 가정 (잘못 kill 방지)
+    # 예전엔 여기서 99.0 을 돌려줬다 — "잘못 kill 하느니 넉넉하다고 치자"는
+    # 뜻이었지만, 99GB 는 모든 resume 임계값을 넘기므로 조회가 실패할 때마다
+    # 일시정지된 스크래퍼를 전부 되살렸다. 실제로 여유 0.5GB 인 상태에서
+    # 그렇게 됐다(2026-08-09 11:57 로그). 모르면 아무것도 하지 않는 게 맞다.
+    return None
 
 
 def is_paused(name: str) -> bool:
@@ -88,6 +119,10 @@ def main():
     log("RAM manager 시작")
     while True:
         free = free_ram_gb()
+        if free is None:
+            log("[tick] 여유=? | 조회 실패, 이번 틱은 아무것도 안 함")
+            time.sleep(CHECK_INTERVAL)
+            continue
         actions = []
 
         # pause 체크
