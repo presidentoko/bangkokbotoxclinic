@@ -326,6 +326,127 @@ SOFT_EXCLUDE_NAME = (
 KEEP_OVERRIDE_KWS = ("industrial estate", "industrial park", "manufacturing")
 
 
+# EXCLUDE_CATEGORIES 는 완전일치로만 비교돼서 두 갈래로 샜다.
+#
+#   1) "restaurant" 는 걸리지만 "Italian restaurant" / "Thai restaurant" 는 통과.
+#   2) 아래 all() 은 카테고리가 하나라도 목록 밖이면 통과시킨다. The Deli Factory 는
+#      Restaurant·Bakery·Supermarket·Pizza Takeout 등 10개를 달고도 "Deli" 와
+#      "Delivery service" 가 목록에 없어서 살아남았다.
+#
+# 그 결과 9,056건 중 197건(2.2%)이 소비자 업소였다. 상당수는 이름에 factory 가
+# 들어가서 SUPPLY_KEYWORDS 최종 관문까지 통과한 것들이다 — "The barber factory",
+# "Nail Factory Central", "Fun Factory Boardgame Cafe".
+#
+# 그래서 부분일치로 바꾸되, 대상을 "store"/"shop"/"service" 같은 일반명사가 아니라
+# 소비자 업종을 특정하는 어휘로 한정한다. 그런 낱말이 없으면 예전과 똑같이 동작한다.
+CONSUMER_TOKENS = (
+    "restaurant", "cafe", "coffee shop", "coffee roastery", "bakery", "dessert",
+    "ice cream", "candy", "confectionery", "chocolate", "salad shop", "food court",
+    "noodle", "street food", "bar & grill", "live music bar", "pub",
+    "hotel", "motel", "resort", "hostel", "guest house", "homestay", "lodging",
+    "spa", "salon", "barber", "nail ", "massage", "tattoo", "piercing",
+    "clinic", "hospital", "dental", "pharmacy", "drug store", "veterinar",
+    "school", "college", "university", "kindergarten", "tutoring",
+    "temple", "church", "mosque", "shrine",
+    "gym", "fitness", "yoga", "bowling", "cinema", "karaoke", "amusement",
+    "tourist", "travel agency", "souvenir", "board game", "art studio",
+    "convenience store", "supermarket", "hypermarket", "grocery",
+    "department store", "shopping mall", "thrift store", "second hand store",
+    "cosmetics store", "lingerie", "clothing store", "youth clothing",
+    "toy store", "gift shop", "baby store", "pet ", "florist",
+    "car wash", "car dealer", "car rental", "car stereo",
+    "apartment", "condominium", "housing development", "housing complex",
+    "laundry", "dry clean",
+    # 개인 물건을 고쳐주는 가게. "truck repair" / "hydraulic repair" 같은 산업용
+    # 수리는 건드리지 않도록 대상을 하나씩 적는다.
+    "electronics repair", "electrical repair", "mobile phone repair",
+    "computer repair", "motorcycle repair", "appliance repair",
+    # 생활용품 소매. 여기서도 "store" 같은 일반명사는 쓰지 않는다.
+    "appliance store", "home goods", "home improvement", "cell phone",
+    "computer store", "copy shop", "work clothes", "dairy store",
+    "car battery", "vitamin", "health and beauty", "toiletries",
+    "kitchen furniture", "antique furniture", "outdoor furniture",
+)
+# 이 낱말이 같은 카테고리 문자열에 있으면 소비자 판정을 취소한다.
+# "auto parts manufacturer" 를 "auto parts store" 와 함께 떨구지 않기 위한 장치.
+B2B_TOKENS = (
+    "manufactur", "wholesal", "industrial", "factory", "plant", "supplier",
+    "distributor", "export", "import", "logistic", "freight", "warehouse",
+    "oem", "machining", "fabricat", "contract", "b2b", "packaging",
+)
+
+
+def _consumer_score(strings: list[str]) -> tuple[int, int]:
+    """(소비자 신호 수, B2B 신호 수). 카테고리 문자열 단위로 센다."""
+    consumer = b2b = 0
+    for s in strings:
+        s = (s or "").lower()
+        if not s:
+            continue
+        has_b2b = any(t in s for t in B2B_TOKENS)
+        if has_b2b:
+            b2b += 1
+        elif any(t in s for t in CONSUMER_TOKENS):
+            consumer += 1
+    return consumer, b2b
+
+
+# 이게 하나라도 붙어 있으면 다수결과 무관하게 남긴다.
+# 소매 간판을 같이 단 제조업체가 있다 — "เดอะโชว์" 는 Costume store·Clothing store 와
+# 함께 Clothes and fabric manufacturer 를, "Masota Chocolate" 은 Coffee shop 과 함께
+# Chocolate factory 를 달고 있다. 공장을 가진 곳을 매장 간판 수로 떨구면 안 된다.
+STRONG_KEEP_TOKENS = (
+    "manufactur", "factory", "oem", "odm", "fabricat", "foundry", "refinery",
+    "industrial estate", "industrial park", "mill",
+)
+
+
+# 상호에 있으면 카테고리와 무관하게 남긴다.
+#
+# 구글이 붙이는 카테고리가 자주 틀린다. Siam Yamato Steel(대형 철강사)은
+# "Home improvement store", Kamar Silver Factory and Exporting 은 "Body piercing
+# shop", Life by NK OEM Factory 는 "Vitamin & supplements store" 로 분류돼 있다.
+#
+# "factory" 자체는 여기 넣지 않는다 — 태국에서 상호 장식으로 흔히 쓴다
+# ("The barber factory", "Nail Factory Central", "Salad Factory", "Keep Factory").
+# 장식으로 쓰이지 않는 낱말만 고른다.
+#
+# 이 목록은 놓치는 쪽(소비자 업소가 남는 것)보다 잘못 떨구는 쪽(실제 공급사가
+# 사라지는 것)의 손해가 크다는 판단으로 넉넉하게 잡았다. 남은 미용실 한 곳은
+# 등급이 낮아 어차피 noindex 지만, 지워진 제조사는 재고와 색인 대상 페이지를
+# 통째로 잃는다.
+STRONG_KEEP_NAME = (
+    "oem", "odm", "manufactur", "export", "industr", "supply", "supplies",
+    "steel", "chemical", "plastic", "rubber", "textile", "packaging",
+    "machinery", "foundry", "logistics", "warehouse",
+    # "<산업재> factory" 형태 — 상호 장식이 아니라 실제 생산시설을 가리킨다.
+    # (MVP Garment Factory, Gel Supplement Factory, JKINTERFOODS FACTORY,
+    #  Dura' Kitchen Factory 1, Traditional Bamboo Handcraft factory)
+    "garment", "supplement", "kitchen", "bamboo", "extract",
+    "handcraft", "handicraft", "interfood", "food company",
+    "โรงงาน", "โรงกลึง", "โรงสี",
+)
+
+
+def looks_consumer(category_name: str, categories: list[str], title: str = "") -> bool:
+    """소비자 업소로 볼 것인가. 카테고리들의 다수결."""
+    cn = (category_name or "").lower()
+    cats = [(c or "").lower() for c in (categories or [])]
+
+    if any(t in s for s in [cn, *cats] for t in STRONG_KEEP_TOKENS):
+        return False
+    if any(t in (title or "").lower() for t in STRONG_KEEP_NAME):
+        return False
+
+    # 대표 카테고리 자체가 소비자 업종이면 그것으로 끝. Google 이 첫 번째로 붙인
+    # 분류라 가장 신뢰도가 높다.
+    if cn and not any(t in cn for t in B2B_TOKENS) and any(t in cn for t in CONSUMER_TOKENS):
+        return True
+
+    consumer, b2b = _consumer_score(cats)
+    return consumer > 0 and consumer > b2b
+
+
 def is_supply(p: dict) -> bool:
     cats = p.get("categories") or []
     category_name = p.get("categoryName") or ""
@@ -338,6 +459,8 @@ def is_supply(p: dict) -> bool:
     if cn_l in EXCLUDE_CATEGORIES:
         return False
     if cat_l and all(c in EXCLUDE_CATEGORIES for c in cat_l):
+        return False
+    if looks_consumer(category_name, cats, title):
         return False
 
     title_l = title.lower()
@@ -640,6 +763,12 @@ def main():
                 name_l = (s.get("name") or "").lower()
                 pt_l = (s.get("primary_type") or "").lower()
                 if pt_l in EXCLUDE_CATEGORIES:
+                    return False
+                # is_supply() 와 같은 판정을 건다. 여기만 빼면 이번 배치의 raw 에
+                # 없는 기존 supplier 는 계속 소비자 업소인 채로 남는다.
+                if looks_consumer(s.get("primary_type") or "",
+                                  s.get("raw_categories") or [],
+                                  s.get("name") or ""):
                     return False
                 if any(sig in name_l for sig in HARD_EXCLUDE_NAME):
                     return False
