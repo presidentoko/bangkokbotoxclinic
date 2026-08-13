@@ -53,7 +53,8 @@ def _format_class(name: str) -> str:
 
 def build_db(products: list[dict], reviews_by_id: dict,
              youtube_by_id: dict | None = None,
-             watsons_by_id: dict | None = None) -> dict:
+             watsons_by_id: dict | None = None,
+             boots_by_id: dict | None = None) -> dict:
     db = ingredients.load_db()
     # prior mean rating across products that have ratings
     rated = [p["konvy_rating"] for p in products if p.get("konvy_rating")]
@@ -98,6 +99,30 @@ def build_db(products: list[dict], reviews_by_id: dict,
     # and why the concern pools stopped filtering anything at all.
     AUTO_SEED_MIN_EFFICACY = 4
 
+    # review_score is scaled against the corpus, so the corpus stats have to be
+    # known before any product is scored: the p5-p95 rating band and the largest
+    # pooled review count. Cheap pre-pass — no ingredient matching involved.
+    def _rating_sources(pp: dict) -> list[tuple[float, int]]:
+        out = [(float(pp.get("konvy_rating") or 0), int(pp.get("konvy_review_count") or 0))]
+        b = (boots_by_id or {}).get(pp["product_id"]) or {}
+        # Only barcode-confirmed Boots joins count. Name similarity cannot tell
+        # products apart within a brand, and a wrong join would move a ranking.
+        if b.get("matched_by") == "ean" and (b.get("review_count") or 0) > 0:
+            out.append((float(b.get("rating") or 0), int(b["review_count"])))
+        return [(r, c) for r, c in out if r > 0 and c > 0]
+
+    _pooled_ratings, _max_count = [], 1
+    for pp in products:
+        srcs = _rating_sources(pp)
+        if not srcs:
+            continue
+        n = sum(c for _, c in srcs)
+        _pooled_ratings.append(sum(r * c for r, c in srcs) / n)
+        _max_count = max(_max_count, n)
+    review_band = scoring.rating_band(_pooled_ratings)
+    print(f"  review band (p5-p95): {review_band[0]:.2f}–{review_band[1]:.2f}  "
+          f"max pooled reviews: {_max_count}")
+
     out_products = {}
     for p in products:
         ing_list = p.get("ingredients", [])
@@ -105,8 +130,15 @@ def build_db(products: list[dict], reviews_by_id: dict,
             ing_list = [x for x in ing_list.split("|") if x]
         analysis = ingredients.match(ing_list, db)
         rsum = review_aggregate.summarize(reviews_by_id.get(p["product_id"], []))
-        rev = scoring.review_score(p.get("konvy_rating", 0) or 0,
-                                   p.get("konvy_review_count", 0) or 0, prior_mean=prior)
+
+        # Review score pools every retailer that reports an aggregate rating.
+        # Konvy was the only source; Boots publishes rating + number_of_reviews
+        # for ~83% of its catalogue and is joined here by barcode. Pooling (see
+        # scoring.review_score_multi) shrinks once against the shared prior, so
+        # a second retailer sharpens the estimate instead of averaging it away.
+        bt = (boots_by_id or {}).get(p["product_id"]) or {}
+        rev = scoring.review_score_scaled(_rating_sources(p), review_band,
+                                          prior_mean=prior, max_count=_max_count)
         val = scoring.value_score(p["_ppml"], med_by_format.get(p["_format"], med_ppml))
         ing, tot = {}, {}
         for c in scoring.CONCERNS:
@@ -127,6 +159,13 @@ def build_db(products: list[dict], reviews_by_id: dict,
         wt = (watsons_by_id or {}).get(p["product_id"])
         if wt and wt.get("review_count", 0) > 0:
             rec["watsons"] = wt
+        if bt.get("matched_by") == "ean" and (bt.get("review_count") or 0) > 0:
+            rec["boots"] = {
+                "matched_name": bt.get("matched_name", ""),
+                "rating": bt.get("rating", 0),
+                "review_count": bt.get("review_count", 0),
+                "ean": bt.get("ean", ""),
+            }
         out_products[p["product_id"]] = rec
 
     # Derive concern_seeds from ingredient evidence, from scratch, every build.
@@ -200,6 +239,18 @@ def _load_youtube() -> dict:
     if config.REVIEWS_DIR.exists():
         for f in config.REVIEWS_DIR.glob("*_youtube.json"):
             pid = f.name.split("_youtube")[0]
+            try:
+                out[pid] = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return out
+
+def _load_boots() -> dict:
+    """Boots aggregate ratings (no review prose — Boots publishes none)."""
+    out = {}
+    if config.REVIEWS_DIR.exists():
+        for f in config.REVIEWS_DIR.glob("*_boots.json"):
+            pid = f.name.split("_boots")[0]
             try:
                 out[pid] = json.loads(f.read_text(encoding="utf-8"))
             except Exception:
@@ -309,7 +360,7 @@ def main() -> int:
                     patched += 1
         if patched:
             print(f"Applied ingredient patches: {patched} products updated")
-    db = build_db(products, _load_reviews(), _load_youtube(), _load_watsons())
+    db = build_db(products, _load_reviews(), _load_youtube(), _load_watsons(), _load_boots())
     db["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     MASTER_DB.parent.mkdir(parents=True, exist_ok=True)
     MASTER_DB.write_text(json.dumps(db, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -53,14 +53,41 @@ def _clean_query(name: str, brand: str) -> str:
     return f"{brand} {clean}".strip()
 
 
+def _brand_matches(name: str, brand: str) -> bool:
+    """Whole-word brand check against a candidate product name.
+
+    The previous guard took `brand.lower().split()[0]` and asked whether that
+    substring appeared anywhere in the candidate. For "La Roche Posay" that is
+    the two-letter token "la", which occurs inside ordinary words — "wild PLAnet
+    wild sardines" scored 0.462 against a La Roche-Posay serum and cleared the
+    0.45 threshold. Every "matched" iHerb row in output/reviews is a false
+    positive of this kind (krill oil matched to La Roche-Posay, NMN complex
+    matched to SOME BY MI). No reviews were ever extracted, so nothing was
+    corrupted — but the moment extraction works, those reviews would be attached
+    to the wrong products.
+
+    Now: require a whole-word hit, and for multi-word brands require the two
+    most distinctive words rather than just the first.
+    """
+    if not brand:
+        return True
+    hay = re.sub(r"[^a-z0-9]+", " ", name.lower())
+    words = [w for w in re.sub(r"[^a-z0-9]+", " ", brand.lower()).split() if len(w) >= 3]
+    if not words:
+        # Brand is entirely short tokens (e.g. "3M") — fall back to an exact
+        # whole-word match on the raw brand string.
+        token = re.sub(r"[^a-z0-9]+", " ", brand.lower()).strip()
+        return bool(token) and re.search(rf"\b{re.escape(token)}\b", hay) is not None
+    hits = sum(1 for w in words if re.search(rf"\b{re.escape(w)}\b", hay))
+    return hits >= min(2, len(words))
+
+
 def _score(query: str, name: str, brand: str) -> float:
-    brand_token = brand.lower().split()[0] if brand else ""
-    # Hard-zero if brand token absent from candidate — avoids cross-category noise
-    if brand_token and brand_token not in name.lower():
+    # Hard-zero if the brand isn't really present — avoids cross-category noise
+    if not _brand_matches(name, brand):
         return 0.0
     base = _similarity(_normalize(query), _normalize(name))
-    boost = 0.25 if brand_token and brand_token in name.lower() else 0.0
-    return base + boost
+    return base + 0.25
 
 
 def _extract_search_products(body: "dict | list") -> list[tuple[str, str]]:

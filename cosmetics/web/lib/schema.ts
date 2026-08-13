@@ -7,6 +7,23 @@ export function itemListLd(pageUrl: string, products: Product[], urlOf: (p: Prod
     itemListElement: products.map((p, i) => ({ "@type": "ListItem", position: i + 1,
       url: urlOf(p), name: p.name })) };
 }
+/** Picks the schema.org GTIN property matching the barcode's actual length. */
+function gtinProperty(raw: string | undefined): Record<string, string> {
+  const code = String(raw ?? "").replace(/\D/g, "");
+  switch (code.length) {
+    case 8:
+      return { gtin8: code };
+    case 12:
+      return { gtin12: code };
+    case 13:
+      return { gtin13: code };
+    case 14:
+      return { gtin14: code };
+    default:
+      return {};
+  }
+}
+
 /** Maps a scraped retailer product URL to the retailer's display name. */
 function sellerFromUrl(url: string | undefined): string | null {
   const host = String(url ?? "");
@@ -45,7 +62,13 @@ export function productLd(p: Product, pageUrl: string) {
     description: p.description,
     url: pageUrl,
     category,
-    ...(p.gtin8 ? { gtin8: p.gtin8 } : {}),
+    // The field is named gtin8 but actually holds whatever barcode the scraper
+    // found: 907 of 1,003 products carry a 13-digit EAN, only 4 a real 8-digit
+    // GTIN-8. Emitting a 13-digit value as `gtin8` is a typed-property mismatch
+    // that Google rejects, taking the identifier with it. Route each length to
+    // the property it actually is, and drop anything that is not a valid GTIN
+    // length rather than asserting a wrong one.
+    ...gtinProperty(p.gtin8),
     ...(p.sku ? { sku: p.sku } : {}),
     ...(keyActives.length > 0 ? { additionalProperty: keyActives } : {}),
     offers: {
@@ -157,7 +180,7 @@ export function concernFaqQas(concern: string, locale: Locale, topProductName: s
     },
     {
       q: `จะรู้ได้อย่างไรว่าผลิตภัณฑ์${label}ไหนดี`,
-      a: `BangkokFillers ให้คะแนนจาก 3 มิติ: ส่วนผสม (45%) — ส่วนผสมออกฤทธิ์มีหลักฐานวิทยาศาสตร์รองรับ, รีวิวจริง (45%) — รวบรวมจาก Konvy และ Pantip, ความคุ้มค่า (10%) — เปรียบเทียบราคาต่อมล`,
+      a: `BangkokFillers ให้คะแนนจาก 3 มิติ: ส่วนผสม (45%) — ส่วนผสมออกฤทธิ์มีหลักฐานวิทยาศาสตร์รองรับ, รีวิวจริง (45%) — คะแนนดาวจากผู้ซื้อจริงบน Konvy และ Boots ถ่วงน้ำหนักด้วยจำนวนรีวิว, ความคุ้มค่า (10%) — เปรียบเทียบราคาต่อมล`,
     },
     {
       q: `${label}กับผิวแพ้ง่ายใช้อะไรได้`,
@@ -182,7 +205,7 @@ export function concernFaqQas(concern: string, locale: Locale, topProductName: s
     },
     {
       q: `How is the ${label} ranking calculated?`,
-      a: `BangkokFillers scores on 3 dimensions: Ingredients (45%) — actives with peer-reviewed evidence; Real Reviews (45%) — aggregated from Konvy and Pantip; Value (10%) — price-per-ml comparison.`,
+      a: `BangkokFillers scores on 3 dimensions: Ingredients (45%) — actives with peer-reviewed evidence; Real Reviews (45%) — buyer star ratings from Konvy and Boots, weighted by review volume; Value (10%) — price-per-ml comparison.`,
     },
     {
       q: `Which ${label} products are safe for sensitive skin?`,

@@ -94,7 +94,18 @@ class Port:
             "node", str(OVPN_CLI),
             str(OVPN_TEMPLATE),
             "--port", str(self.port),
-            "--host", "0.0.0.0",
+            # Bind to loopback only. These are unauthenticated SOCKS5 proxies:
+            # on 0.0.0.0 anything that can reach this machine — every device on
+            # the LAN, plus the internet if a firewall rule or port forward ever
+            # allows node.exe inbound — can route traffic out through the
+            # NordVPN account. That burns exit-IP reputation (the exits are
+            # already being refused by Konvy's WAF), consumes the account's
+            # connection limit, and attributes a stranger's traffic to us.
+            #
+            # Nothing is lost by narrowing it: every consumer connects to
+            # 127.0.0.1 (PROXY_HOST in cosmetics/, bangkok_clinics/,
+            # bangkok_reviews/, cooking_classes/ and petvet/ config.py).
+            "--host", "127.0.0.1",
             "--remote", f"{ip}:{srv_port}",
             "--proto", proto,
             "--auth-file", str(self.auth_file),

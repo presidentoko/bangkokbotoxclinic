@@ -82,7 +82,7 @@ export function GET() {
   // Methodology summary
   sections.push("## Scoring methodology");
   sections.push("Ingredient score (45%): active ingredients matched against peer-reviewed efficacy database.");
-  sections.push("Review score (45%): aggregated star ratings + sentiment from Konvy, Watsons, Boots, Pantip.");
+  sections.push("Review score (45%): buyer star ratings pooled across Konvy and Boots, Bayesian-shrunk toward the corpus mean, combined 75/25 with a review-volume term.");
   sections.push("Value score (10%): price-per-ml/g compared within category.");
   sections.push(`Full methodology: ${BASE}/th/methodology`);
   sections.push("");

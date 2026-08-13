@@ -2005,6 +2005,45 @@ def _already_running() -> bool:
     return False
 
 
+def _acquire_singleton_lock() -> bool:
+    """Atomically claim run/watchdog.pid. False means another live watchdog holds it.
+
+    _already_running() below checks, then main() writes the pid — two separate
+    steps, so two watchdogs launched close together both read "nobody home" and
+    both proceed. That is exactly what happened on 2026-08-13: PID 5148 (.venv
+    python) and PID 8952 (system python) started 62 ms apart and ran as a pair,
+    each supervising the same jobs and racing on the same per-job pid files.
+
+    O_CREAT|O_EXCL makes claim-and-write a single atomic operation, so the loser
+    of the race cannot mistake the gap for an empty slot. A stale lock left by a
+    crashed watchdog is reclaimed once, after verifying its owner is really gone.
+    """
+    RUN.mkdir(exist_ok=True)
+    lock = RUN / "watchdog.pid"
+    self_pid = os.getpid()
+    for _ in range(2):
+        try:
+            fd = os.open(str(lock), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            with os.fdopen(fd, "w") as f:
+                f.write(str(self_pid))
+            return True
+        except FileExistsError:
+            try:
+                prev = int(lock.read_text().strip())
+            except (ValueError, OSError):
+                prev = 0
+            if prev and prev != self_pid and _pid_alive(prev):
+                return False
+            # Stale (owner dead / unreadable) — drop it and retry once.
+            try:
+                lock.unlink()
+            except OSError:
+                return False
+        except OSError:
+            return False
+    return False
+
+
 def _write_self_pid():
     RUN.mkdir(exist_ok=True)
     (RUN / "watchdog.pid").write_text(str(os.getpid()))
@@ -2024,15 +2063,27 @@ def main():
         log(f"venv python 못 찾음: {VENV_PY}")
         return 1
 
-    if _already_running():
-        log("이미 다른 watchdog 인스턴스가 실행 중 — 종료")
+    # Order matters. The process-table scan runs FIRST because it exits via
+    # sys.exit(0) — if it ran after the lock was taken, the departing instance's
+    # atexit would delete the pid file it legitimately owned, and the survivor
+    # would be left running with no lock recorded. (Observed live 2026-08-13:
+    # three launchers — the DeliverableWatchdogCheck scheduled task, the
+    # DeliverableWatchdog.lnk and start_watchdog.vbs startup entries — race at
+    # boot, so this path is exercised constantly.)
+    _singleton_guard()
+
+    # Then the atomic claim, which is the actual authority: the scan above is a
+    # read-then-act check and two instances milliseconds apart can both pass it,
+    # which is how PID 5148 and 8952 ended up supervising the same jobs.
+    if not _acquire_singleton_lock():
+        log("이미 다른 watchdog 인스턴스가 실행 중 — 종료 (lock)")
         return 0
 
-    _write_self_pid()
+    # Registered only after the claim succeeds, so an instance that never owned
+    # the lock can never remove it.
     import atexit
     atexit.register(_clear_self_pid)
 
-    _singleton_guard()
     services = build_services()
 
     # 2026-07-18: 이전 프로세스 수명에서 자연 종료로 영속화된 .disabled 마커를
