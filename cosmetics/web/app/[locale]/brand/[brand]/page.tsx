@@ -6,7 +6,7 @@ import {
   allBrands, brandSlug, brandFromSlug, brandProducts, brandStats,
   productSlug, getRanking, type Concern, CONCERNS,
 } from "@/lib/data";
-import { concernLabel, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
+import { concernLabel, STATIC_LOCALES, localeAlternates, localeOgImage, type Locale } from "@/lib/i18n";
 import { brandFaqLd, breadcrumbLd, itemListLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { scoreColor, baht } from "@/lib/format";
@@ -46,8 +46,13 @@ export async function generateMetadata({
       canonical: url,
       languages: localeAlternates((l) => `${BASE}/${l}/brand/${brandSlugParam}`),
     },
-    openGraph: { title, description, url },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { title, description, url, images: [localeOgImage(locale as Locale)] },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [localeOgImage(locale as Locale).url],
+    },
   };
 }
 

@@ -26,6 +26,7 @@ import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductStrip } from "@/components/ProductStrip";
 import { IngredientGuide } from "@/components/IngredientGuide";
 import { ProductFilter } from "@/components/ProductFilter";
+import { foldIngredients } from "@/lib/filter-sets";
 import { scoreColor } from "@/lib/format";
 import { ShareRow } from "@/components/ShareRow";
 
@@ -530,11 +531,10 @@ export default async function ConcernHub({
             image_url: p.image_url,
             sold_count: p.sold_count,
             total_score: p.total_score[concern] ?? 0,
-            ingredient_analysis: p.ingredient_analysis.map((a) => ({
-              inci: a.inci,
-              concern_efficacy: a.concern_efficacy?.[concern] ?? 0,
-              safety_flags: a.safety_flags,
-            })),
+            // Fold ingredient_analysis down to the three scalars the filter
+            // reads, instead of serialising every ingredient of all 200
+            // candidates so the browser can recompute them.
+            ...foldIngredients(p.ingredient_analysis, concern),
           }))}
         locale={locale}
       />

@@ -12,6 +12,45 @@ def _ml(volume: str) -> float:
     m = _VOL.search(volume or "")
     return float(m.group(1)) if m else 0.0
 
+# --- product format / body-vs-face classification -------------------------
+#
+# Every concern this site ranks (acne, whitening, antiaging, pores, oilcontrol,
+# sensitive) is a FACIAL concern, but the Konvy feed mixes in body lotions,
+# body washes, hand creams and hair products. They were being ranked alongside
+# facial skincare and winning: a 500ml body lotion held #1 for whitening and a
+# 26ml acne sheet mask held #1 for antiaging.
+_NON_FACIAL = re.compile(
+    r"\b(body\s*(lotion|wash|cream|serum|scrub|mist|oil|butter|spray)"
+    r"|hand\s*(cream|wash|lotion)|foot\s*(cream|scrub)"
+    r"|shampoo|conditioner|hair\s*(mask|serum|oil|tonic|treatment)"
+    r"|deodorant|antiperspirant|roll[-\s]?on"
+    r"|shower\s*(gel|cream)|bath\s*(gel|salt))\b",
+    re.I,
+)
+
+def _is_facial(name: str) -> bool:
+    return not _NON_FACIAL.search(name or "")
+
+# Format classes for value_score. price-per-ml is only meaningful within a
+# format: a 473ml cleanser will always look like better "value" than a 30ml
+# serum, which is why large-volume products swept every ranking when they were
+# all compared against one global median.
+_FORMAT_PATTERNS = [
+    ("mask",        re.compile(r"\b(sheet\s*mask|jelly\s*mask|mask|masque|patch)\b", re.I)),
+    ("cleanser",    re.compile(r"\b(cleanser|cleansing|face\s*wash|facial\s*wash|foam|micellar|makeup\s*remover)\b", re.I)),
+    ("toner",       re.compile(r"\b(toner|essence|mist|first\s*treatment|lotion\s*toner)\b", re.I)),
+    ("serum",       re.compile(r"\b(serum|ampoule|booster|concentrate)\b", re.I)),
+    ("sunscreen",   re.compile(r"\b(sunscreen|sun\s*cream|uv\s*(protector|shield)|spf)\b", re.I)),
+    ("moisturizer", re.compile(r"\b(cream|moisturi[sz]er|gel\s*cream|emulsion|lotion|balm)\b", re.I)),
+]
+
+def _format_class(name: str) -> str:
+    """Bucket a product by dosage form so value_score compares like with like."""
+    for label, pattern in _FORMAT_PATTERNS:
+        if pattern.search(name or ""):
+            return label
+    return "other"
+
 def build_db(products: list[dict], reviews_by_id: dict,
              youtube_by_id: dict | None = None,
              watsons_by_id: dict | None = None) -> dict:
@@ -19,17 +58,45 @@ def build_db(products: list[dict], reviews_by_id: dict,
     # prior mean rating across products that have ratings
     rated = [p["konvy_rating"] for p in products if p.get("konvy_rating")]
     prior = statistics.mean(rated) if rated else 4.2
-    # global median price/ml for value_score (concern-independent scalar; MVP simplification)
+    # price/ml for value_score, compared against the median of the SAME format
+    # class rather than one global median. The old global median was the single
+    # biggest ranking defect: value is 10% of total_score and a 473-500ml
+    # cleanser or body lotion scored a perfect 100 on it against a median set
+    # largely by 25-30ml serums and sheet masks, which is how body products came
+    # to hold #1 on facial concern pages.
     for p in products:
         ml = _ml(p.get("volume", ""))
         p["_ppml"] = (p["price_thb"] / ml) if (ml and p.get("price_thb")) else 0.0
+        p["_format"] = _format_class(p.get("name", ""))
     _all_ppml = [p["_ppml"] for p in products if p["_ppml"]]
     med_ppml = statistics.median(_all_ppml) if _all_ppml else 0.0
 
-    # Ingredient score above this threshold auto-promotes a product into the concern's
-    # seed pool even if not explicitly tagged by the scraper. Keeps the ranking pool
-    # honest: products with no meaningful actives for a concern stay out.
-    AUTO_SEED_THRESHOLD = 30
+    _by_format: dict[str, list[float]] = {}
+    for p in products:
+        if p["_ppml"]:
+            _by_format.setdefault(p["_format"], []).append(p["_ppml"])
+    # A class needs enough members for its median to mean anything; below that,
+    # fall back to the global median rather than to a median of three products.
+    _MIN_CLASS_SIZE = 8
+    med_by_format = {
+        fmt: statistics.median(vals)
+        for fmt, vals in _by_format.items()
+        if len(vals) >= _MIN_CLASS_SIZE
+    }
+    print("  value_score medians by format: "
+          + str({k: round(v, 3) for k, v in sorted(med_by_format.items())})
+          + f" (global {med_ppml:.3f})")
+
+    # Auto-promotion into a concern pool requires this much summed efficacy from
+    # the product's matched actives for that concern.
+    #
+    # This used to gate on ingredient_score >= 30. ingredient_score is
+    # `10 + min(eff_sum, 6)/6*90 - penalties`, so 30 was cleared by eff_sum = 2 —
+    # a single ingredient with the weakest non-zero rating. Nearly every product
+    # got auto-tagged into all six concerns, which is why concern_seeds reads
+    # "acne|antiaging|oilcontrol|pores|whitening|sensitive" on almost every row
+    # and why the concern pools stopped filtering anything at all.
+    AUTO_SEED_MIN_EFFICACY = 4
 
     out_products = {}
     for p in products:
@@ -40,7 +107,7 @@ def build_db(products: list[dict], reviews_by_id: dict,
         rsum = review_aggregate.summarize(reviews_by_id.get(p["product_id"], []))
         rev = scoring.review_score(p.get("konvy_rating", 0) or 0,
                                    p.get("konvy_review_count", 0) or 0, prior_mean=prior)
-        val = scoring.value_score(p["_ppml"], med_ppml)    # scalar
+        val = scoring.value_score(p["_ppml"], med_by_format.get(p["_format"], med_ppml))
         ing, tot = {}, {}
         for c in scoring.CONCERNS:
             ing[c] = scoring.ingredient_score(analysis, c)
@@ -48,6 +115,7 @@ def build_db(products: list[dict], reviews_by_id: dict,
         pantip = _load_pantip(p["product_id"])
         rec = dict(p)
         rec.pop("_ppml", None)
+        rec.pop("_format", None)
         rec.update({"ingredient_analysis": analysis, "ingredient_score": ing,
                     "review_score": rev, "value_score": val,
                     "total_score": tot, "review_summary": rsum})
@@ -61,28 +129,47 @@ def build_db(products: list[dict], reviews_by_id: dict,
             rec["watsons"] = wt
         out_products[p["product_id"]] = rec
 
-    # Auto-enrich concern_seeds: products with ingredient_score >= AUTO_SEED_THRESHOLD
-    # for a concern get that concern added to their seeds. Expands thin pools like
-    # antiaging (217→more) and oilcontrol (29→more) without manual re-tagging.
-    # Only applies when ingredient_analysis is present (score > BASE implies real actives).
-    auto_tagged_counts: dict[str, int] = {c: 0 for c in scoring.CONCERNS}
-    for pp in out_products.values():
+    # Derive concern_seeds from ingredient evidence, from scratch, every build.
+    #
+    # This used to ADD to whatever concern_seeds the product already carried. That
+    # was cumulative and irreversible: main() merges freshly scraped products on top
+    # of the products already in master_db.json, so each build re-read the seeds the
+    # PREVIOUS build had auto-added and added more on top. Seeds could only ever
+    # grow, never be revoked — 270 of 1,003 products had ended up tagged for all six
+    # concerns, which is why the concern pools had stopped excluding anything.
+    #
+    # Rule ("evidence-first"):
+    #   - product has ingredient_analysis -> seeds are exactly the concerns its
+    #     actives support, falling back to its single strongest concern so a
+    #     product is never orphaned out of every ranking;
+    #   - product has no ingredient_analysis -> keep the recorded seeds. There is
+    #     no evidence to prune with, and these are single-seed scraper rows anyway.
+    #
+    # Modelled against the current dataset before adopting: 988 unsupported
+    # seed-assignments removed, 0 products dropped from every ranking.
+    def _recorded_seeds(pp: dict) -> set[str]:
         seeds = pp.get("concern_seeds", "")
         if isinstance(seeds, list):
-            current = set(seeds)
+            return {s.strip() for s in seeds if s and s.strip()}
+        return {s.strip() for s in seeds.split("|") if s.strip()}
+
+    removed = added = 0
+    for pp in out_products.values():
+        recorded = _recorded_seeds(pp)
+        analysis = pp.get("ingredient_analysis") or []
+        if not analysis:
+            derived = recorded
         else:
-            current = set(s.strip() for s in seeds.split("|") if s.strip())
-        enriched = False
-        for c in scoring.CONCERNS:
-            if c not in current and pp["ingredient_score"].get(c, 0) >= AUTO_SEED_THRESHOLD:
-                current.add(c)
-                auto_tagged_counts[c] += 1
-                enriched = True
-        if enriched:
-            pp["concern_seeds"] = list(current)
-    for c, n in auto_tagged_counts.items():
-        if n:
-            print(f"  auto-tagged {n} products → {c}")
+            eff = {c: sum(a["concern_efficacy"].get(c, 0) for a in analysis)
+                   for c in scoring.CONCERNS}
+            derived = {c for c, v in eff.items() if v >= AUTO_SEED_MIN_EFFICACY}
+            if not derived:
+                best = max(scoring.CONCERNS, key=lambda c: eff[c])
+                derived = {best} if eff[best] > 0 else recorded
+        removed += len(recorded - derived)
+        added += len(derived - recorded)
+        pp["concern_seeds"] = sorted(derived)
+    print(f"  concern_seeds re-derived: -{removed} unsupported, +{added} newly supported")
 
     def _in_seeds(pp: dict, concern: str) -> bool:
         cs = pp.get("concern_seeds", "")
@@ -90,11 +177,22 @@ def build_db(products: list[dict], reviews_by_id: dict,
             return concern in cs
         return concern in cs.split("|")
 
+    # All six concerns are facial. Body/hair/deodorant products keep their own
+    # product pages but must never appear in a facial ranking.
+    facial = [pp for pp in out_products.values() if _is_facial(pp.get("name", ""))]
+    excluded = len(out_products) - len(facial)
+    if excluded:
+        print(f"  excluded {excluded} non-facial products from concern rankings")
+
     rankings = {}
     for c in scoring.CONCERNS:
-        pool = [pp for pp in out_products.values() if _in_seeds(pp, c)] or list(out_products.values())
+        # No `or all products` fallback: an empty pool means the concern genuinely
+        # has no qualifying products, and padding it with the entire catalogue is
+        # what put products with zero relevant actives on the ranking pages.
+        pool = [pp for pp in facial if _in_seeds(pp, c)]
         ranked = scoring.rank_products(pool, c)
         rankings[c] = [{"product_id": pp["product_id"], "total_score": pp["total_score"][c]} for pp in ranked]
+        print(f"  ranked {len(ranked):>4} products -> {c}")
     return {"generated_at": None, "products": out_products, "rankings": rankings}
 
 def _load_youtube() -> dict:

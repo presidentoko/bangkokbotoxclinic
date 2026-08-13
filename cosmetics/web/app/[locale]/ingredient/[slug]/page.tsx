@@ -8,7 +8,7 @@ import {
   productSlug,
   effectiveConcerns,
 } from "@/lib/data";
-import { STATIC_LOCALES, localeAlternates, t, concernLabel, SAFETY_FLAG_LABELS, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, localeAlternates, localeOgImage, t, concernLabel, SAFETY_FLAG_LABELS, type Locale } from "@/lib/i18n";
 import { ingredientLd, faqLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import Link from "next/link";
@@ -49,7 +49,20 @@ export async function generateMetadata({
       canonical: `${BASE}/${locale}/ingredient/${slug}`,
       languages: localeAlternates((l) => `${BASE}/${l}/ingredient/${slug}`),
     },
-    openGraph: { title, description, url: `${BASE}/${locale}/ingredient/${slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `${BASE}/${locale}/ingredient/${slug}`,
+      images: [localeOgImage(locale)],
+    },
+    // Without an explicit twitter block the card fell back to the root layout's
+    // site-wide title/description, so the OG and Twitter previews disagreed.
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [localeOgImage(locale).url],
+    },
   };
 }
 

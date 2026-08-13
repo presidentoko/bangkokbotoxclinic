@@ -24,6 +24,13 @@ interface FilterState {
 // other 5 values (× every ingredient, × every product) to the browser was
 // pure waste. This was the dominant contributor to concern pages shipping
 // ~1.2MB of JSON to render 12 visible cards.
+//
+// ingredient_analysis is likewise gone. The three fields below are everything
+// this component ever derived from it, so the caller folds it server-side (see
+// lib/filter-sets.ts). Previously a full array of {inci, efficacy, safety_flags}
+// objects was serialised for each of 200 candidate products — and safety_flags
+// was read by nothing at all. On /th/acne the RSC flight payload was 272KB of a
+// 433KB response, which is billed Fast Origin Transfer on every cache miss.
 export interface FilterProduct {
   product_id: string;
   brand: string;
@@ -33,7 +40,12 @@ export interface FilterProduct {
   image_url: string;
   sold_count: number;
   total_score: number;
-  ingredient_analysis: { inci: string; concern_efficacy: number; safety_flags: string[] }[];
+  /** Count of this product's actives that are harsh on sensitive skin. */
+  harshCount: number;
+  /** True when at least one active meaningfully controls sebum. */
+  hasOilControlActive: boolean;
+  /** Up to 2 INCI names with efficacy >= 2 for this page's concern. */
+  topActives: string[];
 }
 
 interface ProductFilterProps {
@@ -50,23 +62,10 @@ const BUDGET_RANGES: Record<Budget, [number, number]> = {
   high: [700,  Infinity],
 };
 
-// Ingredients that are harsh for sensitive skin
-const SENSITIVE_AVOID = new Set(["Alcohol Denat.", "Fragrance", "Benzoyl Peroxide",
-  "Tea Tree Oil", "Salicylic Acid", "Adapalene"]);
-
-// Ingredients that help control oil
-const OILY_GOOD = new Set(["Salicylic Acid", "Zinc PCA", "Niacinamide",
-  "Benzoyl Peroxide", "Adapalene"]);
-
 // ── helpers ──────────────────────────────────────────────────────────────────
-
-function hasFlag(p: FilterProduct, flag: string) {
-  return p.ingredient_analysis?.some((a) => a.safety_flags?.includes(flag));
-}
-
-function hasIngredient(p: FilterProduct, set: Set<string>) {
-  return p.ingredient_analysis?.some((a) => set.has(a.inci));
-}
+//
+// The sensitive/oily ingredient sets now live in lib/filter-sets.ts and are
+// applied server-side (see foldIngredients) — see the note on FilterProduct.
 
 function filterProducts(products: FilterProduct[], f: FilterState): FilterProduct[] {
   const [minP, maxP] = BUDGET_RANGES[f.budget];
@@ -76,26 +75,19 @@ function filterProducts(products: FilterProduct[], f: FilterState): FilterProduc
     if (price < minP || (maxP !== Infinity && price > maxP)) return false;
     // skin type
     if (f.skinType === "sensitive") {
-      // exclude products with multiple harsh flags
-      const harshCount = p.ingredient_analysis?.filter(
-        (a) => SENSITIVE_AVOID.has(a.inci)
-      ).length ?? 0;
-      if (harshCount >= 2) return false;
+      // exclude products with multiple harsh actives
+      if ((p.harshCount ?? 0) >= 2) return false;
     }
     if (f.skinType === "oily") {
       // prefer products with oil-control actives — exclude those with zero relevant actives
-      const hasOilyActive = hasIngredient(p, OILY_GOOD);
-      if (!hasOilyActive && (p.total_score ?? 0) < 60) return false;
+      if (!p.hasOilControlActive && (p.total_score ?? 0) < 60) return false;
     }
     return true;
   });
 }
 
 function whyGood(p: FilterProduct, locale: string): string {
-  const actives = (p.ingredient_analysis ?? [])
-    .filter((a) => (a.concern_efficacy ?? 0) >= 2)
-    .slice(0, 2)
-    .map((a) => a.inci);
+  const actives = p.topActives ?? [];
   const score = Math.round(p.total_score ?? 0);
   const sold = p.sold_count ?? 0;
 

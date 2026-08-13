@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, localeAlternates, localeOgImage, type Locale } from "@/lib/i18n";
 import {
   allBrands,
   brandSlug,
@@ -74,7 +74,13 @@ export async function generateMetadata({
       canonical: pageUrl,
       languages: localeAlternates((l) => `${BASE}/${l}/dupe/${brandSlugParam}`),
     },
-    openGraph: { title, description, url: pageUrl },
+    openGraph: { title, description, url: pageUrl, images: [localeOgImage(loc)] },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [localeOgImage(loc).url],
+    },
   };
 }
 

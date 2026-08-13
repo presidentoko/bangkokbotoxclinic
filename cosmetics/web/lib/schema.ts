@@ -7,6 +7,17 @@ export function itemListLd(pageUrl: string, products: Product[], urlOf: (p: Prod
     itemListElement: products.map((p, i) => ({ "@type": "ListItem", position: i + 1,
       url: urlOf(p), name: p.name })) };
 }
+/** Maps a scraped retailer product URL to the retailer's display name. */
+function sellerFromUrl(url: string | undefined): string | null {
+  const host = String(url ?? "");
+  if (host.includes("konvy.com")) return "Konvy";
+  if (host.includes("watsons.co.th")) return "Watsons Thailand";
+  if (host.includes("boots.co.th")) return "Boots Thailand";
+  if (host.includes("iherb.com")) return "iHerb";
+  if (host.includes("thebeautrium.com")) return "Beautrium";
+  return null;
+}
+
 export function productLd(p: Product, pageUrl: string) {
   // Derive concern-based category
   const concernSeed = Array.isArray(p.concern_seeds)
@@ -43,8 +54,17 @@ export function productLd(p: Product, pageUrl: string) {
       price: String(p.price_thb),
       url: pageUrl,
       availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: "BangkokFillers" },
-      ...(p.list_price_thb > p.price_thb ? { priceValidUntil: new Date(Date.now() + 7*24*3600*1000).toISOString().slice(0,10) } : {}),
+      // BangkokFillers does not sell anything — it aggregates retailer listings.
+      // Naming ourselves as `seller` is a factual misstatement and puts the page
+      // in scope for Google's merchant-listing policies. The real seller is the
+      // retailer the price was scraped from (p.url), so name them instead and
+      // omit the field entirely when the source URL doesn't identify one.
+      ...(sellerFromUrl(p.url) ? { seller: { "@type": "Organization", name: sellerFromUrl(p.url) } } : {}),
+      // No priceValidUntil: these pages are statically prerendered, so any date
+      // derived from Date.now() freezes at build time and silently drifts into
+      // the past — and a past priceValidUntil makes Google treat the offer as
+      // expired and drop the Product rich result. The field is optional; a
+      // stale value is strictly worse than no value.
     },
   };
   if (p.konvy_review_count > 0 && p.konvy_rating > 0) {
@@ -56,15 +76,45 @@ export function productLd(p: Product, pageUrl: string) {
       worstRating: 1,
     };
   }
-  ld.review = (p.review_summary?.samples ?? []).slice(0, 3).map((r) => {
+  // Individual review text. review_summary.samples is empty for every product in
+  // master_db — the Konvy/Boots/iHerb review scrapers currently return 0 snippets
+  // across the board — which was emitting `"review": []` on all ~1,000 product
+  // pages. An empty array is a schema validation error, not a neutral omission.
+  //
+  // Watsons is the one source that does return review text (1,905 snippets across
+  // 166 products), and WatsonsModule already renders those quotes visibly on the
+  // page, so marking them up here describes on-page content rather than inventing
+  // it. They are attributed to Watsons via `publisher`, since BangkokFillers did
+  // not collect them.
+  type Rev = { rating: number; author?: string; body: string; date?: string; fromWatsons: boolean };
+  const fromSamples: Rev[] = (p.review_summary?.samples ?? []).map((r) => {
     const rr = r as typeof r & { body?: string; text?: string };
-    return {
-      "@type": "Review",
-      reviewRating: { "@type": "Rating", ratingValue: r.rating ?? 0, bestRating: 5 },
-      author: { "@type": "Person", name: r.author || "Verified buyer" },
-      reviewBody: rr.body || rr.text || "",
-    };
+    return { rating: r.rating ?? 0, author: r.author, body: rr.body || rr.text || "", fromWatsons: false };
   });
+  const fromWatsons: Rev[] = (p.watsons?.snippets ?? []).map((s) => ({
+    rating: s.rating ?? 0,
+    author: s.author,
+    body: s.text ?? "",
+    date: s.date,
+    fromWatsons: true,
+  }));
+  const reviews = [...fromSamples, ...fromWatsons]
+    .filter((r) => r.body.trim() !== "" && r.rating > 0)
+    // WatsonsModule shows 4; keeping the markup to the same 4 avoids describing
+    // reviews the visitor cannot actually see on the page.
+    .slice(0, 4);
+  if (reviews.length > 0) {
+    ld.review = reviews.map((r) => ({
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+      author: { "@type": "Person", name: r.author || "Verified buyer" },
+      reviewBody: r.body.trim(),
+      ...(r.date ? { datePublished: String(r.date).slice(0, 10) } : {}),
+      ...(r.fromWatsons
+        ? { publisher: { "@type": "Organization", name: "Watsons Thailand" } }
+        : {}),
+    }));
+  }
   return ld;
 }
 

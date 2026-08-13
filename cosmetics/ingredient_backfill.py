@@ -20,6 +20,8 @@ log = logging.getLogger("cosmetics.ingredient_backfill")
 
 CSV_PATH = config.OUTPUT_DIR / "products.csv"
 PATCH_PATH = config.STATE_DIR / "ingredient_patches.json"
+# master_db.json is the only place the full accumulated catalogue lives.
+MASTER_DB = config.OUTPUT_DIR.parent / "web" / "data" / "master_db.json"
 
 
 def _load_patches() -> dict[str, list[str]]:
@@ -69,9 +71,37 @@ def main() -> int:
         print("ERROR: no active VPN ports"); return 1
     port = args.port if args.port else ports[-1]
 
-    # Load products missing ingredients
-    rows = list(csv.DictReader(CSV_PATH.open(encoding="utf-8")))
-    pending = [r for r in rows if not r.get("ingredients", "").strip()]
+    # Load products missing ingredients.
+    #
+    # products.csv only holds the most recent scrape session (23 rows as of
+    # 2026-08-13), so sourcing the worklist from it alone made this script a
+    # near no-op: the 428 products actually missing ingredient data live in
+    # master_db.json, which accumulates across sessions. Take the union of both,
+    # keyed by product_id, so a rebuild-era gap is reachable.
+    rows = list(csv.DictReader(CSV_PATH.open(encoding="utf-8"))) if CSV_PATH.exists() else []
+    by_id: dict[str, dict] = {str(r["product_id"]): r for r in rows}
+
+    if MASTER_DB.exists():
+        try:
+            master = json.loads(MASTER_DB.read_text(encoding="utf-8")).get("products", {})
+        except Exception:
+            master = {}
+        for pid, p in master.items():
+            if str(pid) in by_id:
+                continue
+            ings = p.get("ingredients") or ""
+            if isinstance(ings, list):
+                ings = "|".join(ings)
+            by_id[str(pid)] = {
+                "product_id": str(pid),
+                "url": p.get("url", ""),
+                "name": p.get("name", ""),
+                "ingredients": ings,
+            }
+
+    pending = [r for r in by_id.values() if not (r.get("ingredients") or "").strip()]
+    print(f"worklist: {len(rows)} from products.csv + master_db -> "
+          f"{len(by_id)} products, {len(pending)} missing ingredients")
 
     if args.shard:
         shard_i, shard_n = map(int, args.shard.split("/"))

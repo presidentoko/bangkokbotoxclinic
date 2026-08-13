@@ -18,6 +18,27 @@ export function localeAlternates(pathForLocale: (locale: Locale) => string): Rec
   return out;
 }
 
+// Next.js merges metadata SHALLOWLY: a route whose generateMetadata returns its
+// own `openGraph` object replaces the parent's wholesale — including the image
+// injected by the file-convention app/[locale]/opengraph-image.tsx. Every route
+// that sets openGraph but has no opengraph-image.tsx of its own therefore shipped
+// `twitter:card=summary_large_image` with no image at all (brand, dupe, ingredient,
+// budget and sale pages — ~1,200 URLs). Routes with a real per-page OG image keep
+// using it; the rest fall back to the locale-level one via this helper.
+export function localeOgImage(locale: Locale): {
+  url: string;
+  width: number;
+  height: number;
+  alt: string;
+} {
+  return {
+    url: `https://bangkokfillers.com/${locale}/opengraph-image`,
+    width: 1200,
+    height: 630,
+    alt: "BangkokFillers — Ranked by ingredients + real reviews",
+  };
+}
+
 // RTL locales
 export const RTL_LOCALES: Locale[] = ["ar"];
 export const isRTL = (loc: Locale) => RTL_LOCALES.includes(loc);

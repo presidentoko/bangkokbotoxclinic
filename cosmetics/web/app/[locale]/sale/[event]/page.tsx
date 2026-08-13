@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, STATIC_LOCALES, localeAlternates, type Locale } from "@/lib/i18n";
+import { LOCALES, STATIC_LOCALES, localeAlternates, localeOgImage, type Locale } from "@/lib/i18n";
 import { productSlug } from "@/lib/data";
 import { SALE_EVENTS, getSaleEvent, getSaleRanking, currentSaleEvent } from "@/lib/sale";
 import { JsonLd } from "@/components/JsonLd";
@@ -50,7 +50,18 @@ export async function generateMetadata({
       canonical: pageUrl,
       languages: localeAlternates((l) => `${BASE}/${l}/sale/${event}`),
     },
-    openGraph: { title, description, url: `${BASE}/${locale}/sale/${event}` },
+    openGraph: {
+      title,
+      description,
+      url: `${BASE}/${locale}/sale/${event}`,
+      images: [localeOgImage(loc)],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [localeOgImage(loc).url],
+    },
   };
 }
 

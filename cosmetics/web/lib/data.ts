@@ -22,8 +22,27 @@ export const allIngredients = (): [string, IngredientEntry][] => Object.entries(
 export const ingredientSlug = (inci: string) => slugify(inci);
 
 export const brandSlug = (brand: string) => slugify(brand);
-export const brandFromSlug = (slug: string): string | undefined =>
-  allBrands().find((b) => slugify(b) === slug);
+
+// slugify() keeps Thai characters (see lib/format.ts), so a brand like
+// "Chaonang เจ้านาง" produces a slug that travels the wire percent-encoded.
+// Next.js hands the route param over still encoded, and re-running slugify on
+// "chaonang-%E0%B9%80..." turns every % and hex digit into a separator — the
+// comparison could never match, so /th/brand/chaonang-เจ้านาง 404'd even though
+// it was listed in sitemap.xml. Compare against the decoded form too.
+// (The product route dodged this because productIdFromSlug only reads the
+// trailing numeric id and never round-trips the brand text.)
+export const brandFromSlug = (slug: string): string | undefined => {
+  let decoded = slug;
+  try {
+    decoded = decodeURIComponent(slug);
+  } catch {
+    // Malformed %-sequence — fall back to the raw value.
+  }
+  return allBrands().find((b) => {
+    const s = slugify(b);
+    return s === slug || s === decoded;
+  });
+};
 
 export function allBrands(): string[] {
   const counts: Record<string, number> = {};
