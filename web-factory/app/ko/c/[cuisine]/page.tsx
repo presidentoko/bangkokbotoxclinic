@@ -8,7 +8,9 @@ import { CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
 import { findGuideKo } from "@/lib/guides_ko";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { DbdRegistryTable } from "@/components/DbdRegistryTable";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { TH_CATEGORY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -34,6 +36,10 @@ export async function generateMetadata(
       languages: {
         "ko-KR": `/ko/c/${cuisine}`,
         "en-US": `/c/${cuisine}`,
+        // hreflang 는 상호 참조여야 한다. /c/* 와 /th/c/* 는 이 페이지를 가리키는데
+        // 여기서 태국어판을 안 걸어주면 클러스터가 비대칭이 되고, 구글은 그런 세트를
+        // 통째로 무시한다. /th/c 가 실제로 빌드하는 카테고리일 때만 건다.
+        ...(TH_CATEGORY_VALID.has(cuisine) ? { "th-TH": `/th/c/${cuisine}` } : {}),
         "x-default": `/c/${cuisine}`,
       },
     },
@@ -186,6 +192,8 @@ export default async function KoCategoryPage(
           </p>
         )}
       </section>
+
+      <DbdRegistryTable suppliers={filtered} label={label} locale="ko" />
 
       {intro?.longContext && (
         <section className="mt-12 bg-white border border-[var(--border)] rounded-xl p-6">

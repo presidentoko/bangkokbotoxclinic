@@ -15,6 +15,7 @@ import { MedalWall } from "@/components/MedalWall";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { OverallScore } from "@/components/OverallScore";
 import { computeTrustScore } from "@/lib/trustScore";
+import { isIndexable } from "@/lib/supplierTier";
 import { CapitalHistogram } from "@/components/CapitalHistogram";
 import { PeerCompare } from "@/components/PeerCompare";
 import { industryStatsByTsic, relScore } from "@/lib/industryStats";
@@ -96,7 +97,10 @@ export async function generateMetadata(
       type: "profile",
     },
     twitter: { card: "summary_large_image" },
-    robots: { index: true, follow: true },
+    // follow 는 항상 남긴다 — 이 페이지에서 나가는 카테고리·도시·related 링크의
+    // 신호는 계속 흘러야 하고, 사용자에게는 아무것도 달라지지 않는다.
+    // index 여부만 lib/supplierTier.ts 가 정한다 (E·F 등급 = Maps 사본).
+    robots: { index: isIndexable(r), follow: true },
   };
 }
 

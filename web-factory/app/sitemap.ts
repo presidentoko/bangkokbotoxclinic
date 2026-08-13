@@ -11,6 +11,7 @@ import { POSTS_KO } from "@/lib/posts_ko";
 import { POSTS_TH } from "@/lib/posts_th";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
+import { inSitemap } from "@/lib/supplierTier";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaisupplyhub.com";
 const CATEGORIES = Object.keys(CATEGORY_LABELS);
@@ -127,24 +128,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Supplier pages — quality-gated. Thin pages are still built (static export)
-  // but stay out of the sitemap to protect crawl budget.
+  // Supplier pages — quality-gated by lib/supplierTier.ts (A–C only).
   //
-  // The gate used to be "has phone OR website OR verified OR score>=8", which a
-  // later dead-lead pass on master_db.json made a no-op: every remaining supplier
-  // already cleared it, so all 8,379 went in and the sitemap was 92% supplier
-  // pages. Search Console's verdict on that was 8,216 discovered-but-not-indexed
-  // against 1,647 indexed — Google spending the whole budget on pages that carry
-  // nothing it can't already read off Google Maps.
+  // Every supplier is still built as a static page; the gate only decides what we
+  // ask Google to crawl. Two earlier gates both collapsed into no-ops — first
+  // "phone OR website OR verified OR score>=8" (a later dead-lead pass on
+  // master_db meant every survivor cleared it), then "dbd OR verified OR website
+  // OR scraped_review_count>0", which still let 6,233 of 9,056 through because
+  // `website` alone qualifies 3,873 of them.
   //
-  // The bar is now "something Maps doesn't have": scraped review text, a DBD
-  // registry match, or a website of its own. A phone number alone no longer
-  // qualifies a page for crawl priority.
+  // Search Console on 2026-08-13: ~1,600 indexed, 6,989 discovered-but-not-
+  // indexed and climbing. Submitting 4x what Google will crawl doesn't get more
+  // pages indexed, it just puts the category and city pages behind a queue of
+  // Maps mirrors. supplierTier() draws the line at "has something Maps doesn't".
   for (const r of db.suppliers) {
+    if (!inSitemap(r)) continue;
     const score = r.b2b_score ?? r.trust_score ?? 0;
-    const hasOwnContent =
-      r.dbd || r.verified || r.website || (r.scraped_review_count ?? 0) > 0;
-    if (!hasOwnContent) continue;
     items.push({
       url: `${SITE}/supplier/${r.id}`,
       lastModified: updated,

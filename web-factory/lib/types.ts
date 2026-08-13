@@ -87,6 +87,12 @@ export type Supplier = {
   years_in_business?: number | null;
   is_consumer?: boolean;
 
+  // ── contact-info-scraper 결과 (scripts/merge_contact_emails.py) ──
+  // website 호스트로 매칭해 채운다. 1,193 개 supplier 보유.
+  email?: string | null;
+  emails_all?: string[];
+  linkedin?: string | null;
+
   // ── Future enrichment fields (populated by BOI scraper / manual CSV) ──
   boi_promoted?: boolean | null;
   boi_activity?: string | null;      // e.g. "Electronic components manufacturing"

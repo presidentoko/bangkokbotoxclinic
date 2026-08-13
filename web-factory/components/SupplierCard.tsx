@@ -64,6 +64,11 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
               referrerPolicy="no-referrer"
               sizes="(max-width: 640px) 100vw, 900px"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              // Google 이 서명해 준 사진 URL 은 만료되면 403 을 준다. 빌드 때
+              // scripts/validate_photo_urls.py 가 죽은 건 걸러내지만, 빌드와 조회
+              // 사이에 만료되는 것까지는 못 막는다. 그때 깨진 이미지 아이콘 대신
+              // 이 div 의 회색 배경만 남게 한다.
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
             {r.verified && r.dbd?.match_score !== undefined && r.dbd.match_score >= 90 && (
               <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--gold)] text-white text-[10px] font-bold uppercase tracking-wider shadow">

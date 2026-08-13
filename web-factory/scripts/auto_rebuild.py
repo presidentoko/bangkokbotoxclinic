@@ -134,10 +134,14 @@ def main() -> int:
 
     log(f"new data detected (mtime {cur} > last {last}) — start rebuild")
 
-    # 1. master_db rebuild — CSV (verified/premium) 가 source of truth.
-    # Apify 신규 input 은 future enrichment 용으로 두고 master_db 자체는 CSV 기반.
-    if not run(["python", str(WEB / "scripts" / "build_db_from_csv.py")], cwd=ROOT, timeout=300):
-        log("ABORT — master_db build failed")
+    # 1. master_db rebuild — 전체 파이프라인 (CSV → Apify → 이메일 → dead-lead → 통계).
+    #
+    # 여기는 예전에 build_db_from_csv.py 만 불렀다. 그건 master_db 를 CSV 로 덮어쓰는
+    # 스크립트라, 2026-08-09 이 작업이 처음 성공했을 때 Apify 병합분 5,778 개를 지우고
+    # 그대로 프로덕션에 배포했다. 이제 rebuild_master_db.py 가 순서를 강제하고
+    # supplier 수가 하한 밑으로 떨어지면 스스로 실패한다 — 아래 return 1 이 배포를 막는다.
+    if not run([sys.executable, str(WEB / "scripts" / "rebuild_master_db.py")], cwd=WEB, timeout=1800):
+        log("ABORT — master_db rebuild failed (배포하지 않음)")
         return 1
 
     # 1b. community datasets rebuild — Pantip/Naver/YouTube CSV → JSON.
@@ -145,14 +149,16 @@ def main() -> int:
     if not run(["python", str(WEB / "scripts" / "build_community_data.py")], cwd=WEB, timeout=120):
         log("WARN — community build failed (continuing)")
 
-    # 1c. regenerate canonical-district 301s in public/_redirects (data-derived).
+    # 1c. regenerate the district alias table the Pages middleware reads.
     if not run([NPX, "tsx", "scripts/gen_redirects.mts"], cwd=WEB, timeout=120):
-        log("WARN — gen_redirects failed (continuing with stale _redirects)")
+        log("WARN — gen_redirects failed (continuing with stale aliases)")
 
     # 2. build — via `npm run build`, NOT `next build` directly, so npm's
     # prebuild (compare-index.json / browse-index.json regeneration) and
-    # postbuild (strip_rsc_payloads.mjs) lifecycle hooks actually run.
-    if not run([NPM, "run", "build"], cwd=WEB, timeout=900):
+    # postbuild (strip_rsc_payloads.mjs, fix_html_lang.mjs) lifecycle hooks actually run.
+    # 900s 였는데 supplier 가 3.3k 에서 9k 로 돌아오면서 19,281 페이지 + OG 이미지를
+    # 굽느라 실측 9~12분이 걸린다. 한도에 걸려 죽으면 배포가 통째로 멈춘다.
+    if not run([NPM, "run", "build"], cwd=WEB, timeout=2400):
         log("ABORT — build failed")
         return 1
 

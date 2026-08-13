@@ -57,7 +57,20 @@ export default async function Image({ params }: { params: Promise<{ id: string }
                   display: "flex", alignItems: "center", gap: 8,
                 }}
               >
-                ✓ DBD-VERIFIED
+                {/* 체크마크는 글리프가 아니라 도형으로 그린다. U+2713 을 쓰면
+                    ImageResponse 가 그 문자를 덮는 폰트를 원격으로 받으려 하고,
+                    그 요청이 400 으로 실패해 빌드마다 414 번 에러를 뱉으면서
+                    verified supplier 의 공유 카드가 깨진 글리프로 나갔다. */}
+                <div
+                  style={{
+                    display: "flex", width: 13, height: 8,
+                    borderLeft: "3px solid #065f46",
+                    borderBottom: "3px solid #065f46",
+                    transform: "rotate(-45deg)",
+                    marginBottom: 4,
+                  }}
+                />
+                DBD-VERIFIED
               </div>
             )}
             <div

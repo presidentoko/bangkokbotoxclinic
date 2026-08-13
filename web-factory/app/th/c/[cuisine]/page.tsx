@@ -8,6 +8,7 @@ import { CATEGORY_TO_GUIDE } from "@/lib/categoryIntros";
 import { findGuideTh } from "@/lib/guides_th";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { DbdRegistryTable } from "@/components/DbdRegistryTable";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import { TH_CATEGORY_VALID as TH_VALID, TH_CITY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
@@ -145,7 +146,7 @@ export default async function ThCategoryPage(
       )}
 
       <section>
-        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)} ตามคะแนน</h2>
+        <h2 className="text-xl font-bold mb-4">{Math.min(filtered.length, 100)} อันดับแรก ตามคะแนนความน่าเชื่อถือ</h2>
         <div className="grid gap-3">
           {filtered.slice(0, 10).map((r, i) => (
             <SupplierCard key={r.id} r={r} rank={i + 1} />
@@ -158,6 +159,8 @@ export default async function ThCategoryPage(
           ))}
         </div>
       </section>
+
+      <DbdRegistryTable suppliers={filtered} label={label} locale="th" />
 
       <CollectionPageJsonLd
         name={intro?.metaTitle ?? label}

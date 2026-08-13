@@ -8,6 +8,7 @@ import { findGuide } from "@/lib/guides";
 import { districtCategoryCombos, districtBySlug, MIN_COMBO_SUPPLIERS } from "@/lib/districts";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { DbdRegistryTable } from "@/components/DbdRegistryTable";
 import { computeTrustScore } from "@/lib/trustScore";
 import { SupplierListWithFilter, type FilterableSupplier } from "@/components/SupplierListWithFilter";
 import { SupplierAlertSignup } from "@/components/SupplierAlertSignup";
@@ -284,6 +285,8 @@ export default async function CategoryPage(
           viewAllHref={`/c/${cuisine}`}
         />
       </section>
+
+      <DbdRegistryTable suppliers={filtered} label={label} locale="en" />
 
       {intro?.longContext && (
         <section className="mt-12 bg-white border border-[var(--border)] rounded-xl p-6">

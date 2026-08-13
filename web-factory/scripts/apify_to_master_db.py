@@ -80,6 +80,51 @@ def extract_place_id(url: str) -> str:
     return m.group(1) if m else ""
 
 
+# ── enrichment 보존 ──────────────────────────────────────────
+# Apify export 에 애초에 존재하지 않는 필드들. 다른 파이프라인 단계가 붙인 것이라
+# 겹치는 place_id 를 만나도 무조건 기존 값을 살린다.
+#   build_db_from_csv.py  : verified / dbd / yp / estate / photos / 좌표 / b2b_score
+#   merge_contact_emails.py: email / emails_all / linkedin
+PRESERVE_ALWAYS = (
+    "verified", "dbd", "yp", "halal_certified", "estate_name", "estate_slug",
+    "years_in_business", "is_consumer", "b2b_score", "province_en", "lat", "lng",
+    "hero_image", "photos", "external_reviews", "email", "emails_all", "linkedin",
+)
+# Apify 도 채우긴 하지만 비어서 올 때가 있는 필드 — 비었을 때만 기존 값으로 메운다.
+PRESERVE_IF_EMPTY = ("phone", "website", "address", "district", "business_status")
+# 리뷰 파생값은 한 덩어리로 움직여야 한다. 이번 배치에 리뷰 파일이 없어서
+# scraped_review_count 가 0 으로 나오면 CSV 쪽 리뷰 통계를 통째로 되살린다.
+REVIEW_DERIVED = (
+    "scraped_review_count", "language_breakdown", "mentioned_topics",
+    "sample_reviews_th", "sample_reviews_en", "sample_reviews_ko",
+)
+
+
+def merge_enrichment(new: dict, old: dict) -> bool:
+    """old 의 enrichment 를 new 에 얹는다. 바뀐 게 있으면 True."""
+    changed = False
+    for k in PRESERVE_ALWAYS:
+        v = old.get(k)
+        if v not in (None, "", [], {}) and new.get(k) != v:
+            new[k] = v
+            changed = True
+    for k in PRESERVE_IF_EMPTY:
+        if not new.get(k) and old.get(k):
+            new[k] = old[k]
+            changed = True
+    if not new.get("scraped_review_count") and old.get("scraped_review_count"):
+        for k in REVIEW_DERIVED:
+            if old.get(k) is not None:
+                new[k] = old[k]
+        changed = True
+    # trust_score 는 Apify 가 리뷰 기반으로 다시 계산한다. CSV 의 b2b_score 가 더 많은
+    # 신호(DBD·공단·사진)를 보고 매긴 점수라 그쪽이 있으면 그걸 쓴다 — 사이트의
+    # computeTrustScore 도 b2b_score 를 우선한다.
+    if old.get("b2b_score"):
+        new["trust_score"] = old["b2b_score"]
+    return changed
+
+
 # ── 언어 감지 (review text) ───────────────────────────────────
 _THAI_RE = re.compile(r"[฀-๿]")
 _LATIN_RE = re.compile(r"[A-Za-z]")
@@ -529,17 +574,22 @@ def main():
             "business_status": "",
         })
 
-    # 5. 기존 master_db.json 과 머지 (place_id 기준, 신규 데이터 우선) + 기존 항목도 재필터
+    # 5. 기존 master_db.json 과 머지 (place_id 기준) + 기존 항목도 재필터
+    #
+    # 겹치는 place_id 는 예전엔 기존 레코드를 통째로 버리고 Apify 레코드로 갈아치웠다.
+    # Apify 가 들고 오는 건 rating / review / category 뿐인데, 버려지는 쪽에는
+    # build_db_from_csv.py 가 붙여둔 DBD·사진·공단·좌표와 merge_contact_emails.py 가
+    # 붙여둔 이메일이 들어 있었다. 그래서 rebuild 를 돌릴 때마다 enrichment 가 조용히
+    # 사라졌다 — 실측: verified 853→795, estate_slug 126→44, photos 620→577.
+    # 이제 Apify 값을 기본으로 쓰되 enrichment 필드는 기존 레코드에서 얹어 보존한다.
     if out_path.exists():
         try:
             with open(out_path, "r", encoding="utf-8") as f:
                 existing = json.load(f)
             existing_suppliers = existing.get("suppliers", existing) if isinstance(existing, dict) else existing
-            new_ids = {s["id"] for s in suppliers}
+            by_id = {s["id"]: s for s in suppliers}
 
             def _clean_existing(s: dict) -> bool:
-                if not s.get("id") or s["id"] in new_ids:
-                    return False
                 name_l = (s.get("name") or "").lower()
                 pt_l = (s.get("primary_type") or "").lower()
                 if pt_l in EXCLUDE_CATEGORIES:
@@ -552,12 +602,33 @@ def main():
                             return False
                 return True
 
-            kept = [s for s in existing_suppliers if _clean_existing(s)]
-            removed = len(existing_suppliers) - len(new_ids & {s.get("id") for s in existing_suppliers}) - len(kept)
+            kept, enriched, dropped = [], 0, 0
+            for s in existing_suppliers:
+                sid = s.get("id")
+                if not sid:
+                    continue
+                if not _clean_existing(s):
+                    dropped += 1
+                    continue
+                new = by_id.get(sid)
+                if new is None:
+                    kept.append(s)          # Apify 이번 배치에 없는 기존 supplier — 그대로
+                    continue
+                if merge_enrichment(new, s):
+                    enriched += 1
+
             suppliers = suppliers + kept
-            print(f"Merged with existing: +{len(kept)} kept (filtered {removed} bad) → total {len(suppliers)}")
+            print(f"Merged with existing: +{len(kept)} kept, {enriched} enriched in place, "
+                  f"{dropped} filtered → total {len(suppliers)}")
         except Exception as e:
             print(f"Warning: could not merge existing DB: {e}")
+
+    # hero_image 는 CSV 파이프라인에서만 나온다. Apify 는 같은 사진을 image_url 로 넣는데
+    # SupplierCard / supplier 상세 / estate 페이지는 hero_image 만 읽어서, Apify 로만 들어온
+    # 4,600여 개가 사진이 있는데도 카드에 회색 여백만 나오고 있었다.
+    for s in suppliers:
+        if not s.get("hero_image") and s.get("image_url"):
+            s["hero_image"] = s["image_url"]
 
     # 6. 정렬 (trust_score DESC, total_reviews DESC)
     suppliers.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))

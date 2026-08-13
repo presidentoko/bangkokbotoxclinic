@@ -7,7 +7,7 @@
     "dev": "next dev",
     "prebuild": "tsx scripts/build_db_stats.mts && tsx scripts/build_compare_index.mts && tsx scripts/build_browse_index.mts",
     "build": "next build",
-    "postbuild": "node scripts/strip_rsc_payloads.mjs",
+    "postbuild": "node scripts/strip_rsc_payloads.mjs && node scripts/fix_html_lang.mjs",
     "start": "next start",
     "lint": "next lint"
   },

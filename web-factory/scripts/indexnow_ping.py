@@ -125,9 +125,17 @@ def collect_urls(db: dict) -> list[str]:
         "tier1-bangkok-hq-corporate-office-list",
     ]:
         urls.append(f"{SITE}/ko/blog/{slug}")
-    # supplier (trust >= 55 만 — 빌드와 일치)
+    # supplier — sitemap 과 같은 기준으로 고른다 (lib/supplierTier.ts 의 A~C).
+    #
+    # 예전 기준은 trust_score >= 55 였고 주석엔 "빌드와 일치" 라고 적혀 있었지만
+    # 어느 쪽도 그 값을 쓰지 않는다. 2026-08-09 배포에서 실제로 178 개만 핑이
+    # 나갔다. 사이트맵에 넣지도 않을 URL 을 핑하거나 그 반대가 되지 않도록
+    # 판정을 한 곳에 맞춘다.
     for s in db.get("suppliers", []):
-        if s.get("trust_score", 0) >= 55:
+        has_text = any(s.get(k) for k in
+                       ("external_reviews", "sample_reviews_en",
+                        "sample_reviews_th", "sample_reviews_ko"))
+        if s.get("verified") or has_text or (s.get("website") and s.get("hero_image")):
             urls.append(f"{SITE}/supplier/{s['id']}")
     return urls
 

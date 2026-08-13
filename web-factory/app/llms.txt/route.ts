@@ -67,6 +67,47 @@ export async function GET() {
     "",
   ];
 
+  // 산업별 등기 집계를 먼저 넣는다.
+  //
+  // 답변 엔진이 인용하는 건 회사 목록이 아니라 숫자다 — "태국 물류업체 등록자본금
+  // 중앙값은 얼마인가" 같은 질문에 바로 대응되는 형태여야 한다. 이 수치는
+  // DBD 등기 원문에서 나온 것이라 다른 데서 집계된 적이 없다.
+  const dbdRows = db.suppliers.filter((s) => s.verified && s.dbd?.reg_no);
+  if (dbdRows.length >= 20) {
+    const stats: string[] = [];
+    for (const [cat, label] of Object.entries(CATEGORY_LABELS)) {
+      const rows = dbdRows.filter((s) => s.categories.includes(cat));
+      if (rows.length < 5) continue;
+      const caps = rows.map((s) => s.dbd!.capital_thb ?? 0).filter(Boolean).sort((a, b) => a - b);
+      const years = rows.map((s) => Number(s.dbd!.registered_date?.slice(0, 4))).filter(Boolean);
+      if (!caps.length) continue;
+      const median = caps[Math.floor(caps.length / 2)];
+      const total = caps.reduce((a, b) => a + b, 0);
+      const bits = [
+        `${rows.length} DBD-registered`,
+        `median registered capital ฿${(median / 1_000_000).toFixed(1)}M`,
+        `combined ฿${(total / 1_000_000_000).toFixed(2)}B`,
+      ];
+      if (years.length) {
+        bits.push(`oldest incorporated ${Math.min(...years)}`);
+        bits.push(`median founding year ${years.sort((a, b) => a - b)[Math.floor(years.length / 2)]}`);
+      }
+      stats.push(`- **${label}** — ${bits.join(", ")}. See ${SITE}/c/${cat}`);
+    }
+    if (stats.length) {
+      const allCaps = dbdRows.map((s) => s.dbd!.capital_thb ?? 0).filter(Boolean);
+      lines.splice(
+        lines.length - 2, 0,
+        "## Registered capital by industry (from DBD filings)",
+        "",
+        `Aggregated from the ${dbdRows.length.toLocaleString()} companies matched to Thailand's DBD registry. Registered capital is the amount declared at incorporation and on subsequent capital changes — it is a filed figure, not an estimate or a revenue proxy. Combined registered capital across all matched companies: ฿${(allCaps.reduce((a, b) => a + b, 0) / 1_000_000_000).toFixed(1)}B.`,
+        "",
+        ...stats,
+        "",
+      );
+    }
+  }
+
   for (const r of top) {
     const bits = [
       `[${r.name}](${SITE}/supplier/${r.id})`,

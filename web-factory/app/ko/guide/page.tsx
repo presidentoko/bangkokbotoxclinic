@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     languages: {
       "ko-KR": "/ko/guide",
       "en-US": "/guide",
+      "th-TH": "/th/guide",
       "x-default": "/guide",
     },
   },

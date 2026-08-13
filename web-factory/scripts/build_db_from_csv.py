@@ -127,6 +127,23 @@ def parse_json_field(s: str | None):
         return None
 
 
+def parse_tsic(s: str | None) -> str | None:
+    """TSIC 는 5자리 산업분류 코드지 숫자가 아니다.
+
+    CSV 리더가 "52109" 를 float 로 읽어 "52109.0" 으로 굳는 바람에 847개 전부가
+    소수점을 달고 저장돼 있었고, DBD 검증 supplier 상세 페이지마다 그대로
+    "TSIC 52109.0" 으로 나가고 있었다. 이 사이트가 내세우는 등기 데이터에서
+    가장 눈에 띄는 오류였다.
+    """
+    if not s:
+        return None
+    raw = str(s).strip()
+    if raw.lower() in ("nan", "none", "null", ""):
+        return None
+    digits = re.sub(r"\D", "", raw.split(".")[0])
+    return digits or None
+
+
 def parse_reg_no(s: str | None) -> str | None:
     """13-digit reg_no — CSV 가 float 으로 파싱하면 leading-zero 손실. 13자리로 패딩."""
     if not s or str(s).lower() in ("nan", "none", ""):
@@ -315,7 +332,7 @@ def row_to_supplier(row: dict, is_verified: bool) -> dict | None:
             "legal_name": (row.get("dbd_legal_name") or "").strip() or None,
             "capital_thb": parse_float(row.get("dbd_capital_thb")),
             "registered_date": (row.get("dbd_registered_date") or "").strip() or None,
-            "tsic_code": (row.get("dbd_tsic_code") or "").strip() or None,
+            "tsic_code": parse_tsic(row.get("dbd_tsic_code")),
             "purpose": (row.get("dbd_purpose") or "").strip() or None,
             "address": (row.get("dbd_address") or "").strip() or None,
             "match_score": dbd_match_score,

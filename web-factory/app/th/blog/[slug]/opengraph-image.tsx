@@ -107,7 +107,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             gap: 20,
           }}
         >
-          <div style={{ fontSize: 80 }}>✍️</div>
           <div style={{ color: "#a7f3d0", fontSize: 18, fontWeight: 700, textAlign: "center" }}>
             บทความ B2B ภาษาไทย
           </div>

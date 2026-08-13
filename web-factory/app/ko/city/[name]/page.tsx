@@ -8,6 +8,7 @@ import { findGuideKo } from "@/lib/guides_ko";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { computeTrustScore } from "@/lib/trustScore";
+import { TH_CITY_VALID } from "@/lib/thBuildSets";
 import type { Metadata } from "next";
 
 function citySlug(label: string): string {
@@ -113,6 +114,9 @@ export async function generateMetadata(
       languages: {
         "ko-KR": `/ko/city/${name}`,
         "en-US": `/city/${name}`,
+        // /th/city/* 는 이 페이지를 ko-KR 로 가리킨다. 되받아주지 않으면 클러스터가
+        // 비대칭이 되어 구글이 hreflang 자체를 버린다. 태국어판이 빌드될 때만.
+        ...(TH_CITY_VALID.has(name) ? { "th-TH": `/th/city/${name}` } : {}),
         "x-default": `/city/${name}`,
       },
     },
