@@ -44,11 +44,21 @@ const PAGE = `<!doctype html>
 
 export const onRequest: PagesFunction = async (context) => {
   const response = await context.next();
-  if (response.status === 404) {
-    return new Response(PAGE, {
-      status: 410,
-      headers: { "content-type": "text/html; charset=utf-8" },
-    });
+  if (response.status !== 404) return response;
+
+  // /supplier/{id}/opengraph-image — 전용 공유 카드는 색인되는 supplier 만 굽는다
+  // (app/supplier/[id]/opengraph-image.tsx 의 generateStaticParams 참고: CF Pages
+  // 20,000 파일 한도 때문). 굽지 않은 id 도 페이지 메타에는 이 URL 이 박혀 나가므로
+  // 사이트 공용 카드로 넘긴다. 여기서 410 HTML 을 주면 공유 카드가 깨진다.
+  if (new URL(context.request.url).pathname.endsWith("/opengraph-image")) {
+    return Response.redirect(
+      new URL("/opengraph-image", context.request.url).toString(), 302,
+    );
   }
-  return response;
+
+  // 삭제된 supplier ID — 위 주석대로 301 이 아니라 410.
+  return new Response(PAGE, {
+    status: 410,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
 };

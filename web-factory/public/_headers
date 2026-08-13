@@ -29,6 +29,29 @@
 /city-index.json
   Cache-Control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
 
+# OG 카드 / 파비콘 — Content-Type 을 명시해야 한다.
+#
+# Next.js 의 opengraph-image·icon 파일 규칙은 확장자 없는 파일을 뱉는다
+# (out/opengraph-image, out/supplier/{id}/opengraph-image, …). Cloudflare Pages 는
+# 확장자로 타입을 정하므로 전부 application/octet-stream 으로 나갔고, 위 /* 블록의
+# X-Content-Type-Options: nosniff 때문에 클라이언트가 실제 타입을 추측할 수도 없다.
+# 결과적으로 사이트의 OG 카드 5,075 개가 전부 이미지로 인식되지 않았다 —
+# 페이스북·슬랙·링크드인 미리보기가 통째로 비어서 나간다.
+# (파일은 정상 PNG 다. curl 로 매직바이트 89 50 4E 47 확인.)
+# :placeholder 는 슬래시를 넘지 않는 한 세그먼트라, 경로 깊이별로 한 줄씩 필요하다.
+#   2단계: /supplier/{id}/, /blog/{slug}/, /guide/{slug}/, /best/{slug}/
+#   3단계: /ko/blog/{slug}/, /ko/guide/{slug}/, /th/blog/{slug}/, /th/guide/{slug}/
+/opengraph-image
+  Content-Type: image/png
+/icon
+  Content-Type: image/png
+/:a/opengraph-image
+  Content-Type: image/png
+/:a/:b/opengraph-image
+  Content-Type: image/png
+/:a/:b/:c/opengraph-image
+  Content-Type: image/png
+
 # Course photos — scraped, rarely change
 /course-photos/*
   Cache-Control: public, max-age=2592000, immutable
