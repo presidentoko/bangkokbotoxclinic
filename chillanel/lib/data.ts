@@ -8,10 +8,17 @@ const cache = new Map<string, CityData>();
 
 export function listCities(): string[] {
   if (!fs.existsSync(DATA_DIR)) return [];
+  // .sort() matters here, not just cosmetic: fs.readdirSync's order is
+  // alphabetical on Windows NTFS (where this was always developed/tested)
+  // but unspecified on Linux ext4 (Vercel's build container) -- without
+  // this, cities[0] (the hardcoded per-city fallback used by
+  // service/[theme]/page.tsx and district/[district]/page.tsx) could
+  // silently become a different city on any given deploy.
   return fs
     .readdirSync(DATA_DIR)
     .filter((f) => f.startsWith("clinics.") && f.endsWith(".json"))
-    .map((f) => f.slice("clinics.".length, -".json".length));
+    .map((f) => f.slice("clinics.".length, -".json".length))
+    .sort();
 }
 
 export function loadCity(city: string): CityData {

@@ -163,3 +163,21 @@ const indexPlaces = allCityFiles.flatMap((f) => {
 fs.mkdirSync(path.dirname(INDEX_FILE), { recursive: true });
 fs.writeFileSync(INDEX_FILE, JSON.stringify(indexPlaces), "utf-8");
 console.log(`[build-data] wrote ${indexPlaces.length} places → ${INDEX_FILE} (client index, no review text)`);
+
+// Slim search-only index for SearchBox.tsx — places-index.json above is
+// ~2.5MB (every field but reviews) because favorites/compare need the full
+// Place shape to render PlaceCard. A search box only needs enough to match
+// a query and link to the place, so this is the fields that matter for
+// that, nothing else.
+const SEARCH_INDEX_FILE = path.join(import.meta.dirname, "..", "public", "search-index.json");
+const searchEntries = indexPlaces.map((p) => ({
+  id: p.id,
+  name: p.name,
+  city: p.city,
+  district: p.district,
+  rating: p.rating,
+  reviewCount: p.reviewCount,
+  themes: [...new Set([...p.serviceThemes.map((t) => t.label), ...p.moodKeywords.map((t) => t.label)])],
+}));
+fs.writeFileSync(SEARCH_INDEX_FILE, JSON.stringify(searchEntries), "utf-8");
+console.log(`[build-data] wrote ${searchEntries.length} places → ${SEARCH_INDEX_FILE} (search index)`);

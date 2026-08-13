@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
-import { listCities, loadCity, getAllPlaces } from "@/lib/data";
+import { getAllPlaces } from "@/lib/data";
+import { isRelevantCategory } from "@/lib/categories";
 import { districtLabel, slugifyDistrict, allDistricts } from "@/lib/district-labels";
 import { averageRating } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
@@ -35,8 +36,14 @@ export async function generateMetadata({
   if (!rawDistrict) return {};
   const t = tFor(lang);
   const label = districtLabel(rawDistrict, lang);
-  const cities = listCities();
-  const cityDisplayLabel = cities.length > 0 ? cityLabel(cities[0]) : "";
+  // A district belongs to exactly one city (district clustering runs
+  // per-city -- see extract-district.mjs), so the real answer is whichever
+  // city its actual matching places report, not cities()[0] -- which
+  // silently picked the wrong city's places whenever cities()[0] wasn't
+  // the district's real city (or 404'd all district pages outright if
+  // that city happened to have no districts of its own).
+  const districtCity = getAllPlaces().find(({ place }) => place.district === rawDistrict)?.city;
+  const cityDisplayLabel = districtCity ? cityLabel(districtCity) : "";
   const pageTitle = t.district.listTitle.replace("{district}", label).replace("{city}", cityDisplayLabel);
   return {
     title: `${pageTitle} — ${SITE.name}`,
@@ -45,7 +52,7 @@ export async function generateMetadata({
       canonical: `/${lang}/district/${district}`,
       languages: hreflangAlternates((l) => `/${l}/district/${district}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/district/${district}` },
+    openGraph: { url: `${SITE.origin}/${lang}/district/${district}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -59,18 +66,16 @@ export default async function DistrictPage({
   const rawDistrict = findRawDistrictForSlug(district);
   if (!rawDistrict) notFound();
   const t = tFor(lang);
-  const cities = listCities();
-  if (cities.length === 0) notFound();
-  const cityCode = cities[0];
-  const cityData = loadCity(cityCode);
   const label = districtLabel(rawDistrict, lang);
-  const cityDisplayLabel = cityLabel(cityCode);
-  const pageTitle = t.district.listTitle.replace("{district}", label).replace("{city}", cityDisplayLabel);
 
-  const allMatching = cityData.places
-    .filter((p) => p.district === rawDistrict)
+  const allMatching = getAllPlaces()
+    .map(({ place }) => place)
+    .filter((p) => p.district === rawDistrict && isRelevantCategory(p.primaryType))
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
   if (allMatching.length === 0) notFound();
+  const cityCode = allMatching[0].city;
+  const cityDisplayLabel = cityLabel(cityCode);
+  const pageTitle = t.district.listTitle.replace("{district}", label).replace("{city}", cityDisplayLabel);
   const places = allMatching.slice(0, MAX_SHOWN);
 
   const avgRating = averageRating(allMatching);

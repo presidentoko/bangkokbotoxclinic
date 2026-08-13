@@ -10,6 +10,7 @@ import { themeLabel } from "@/lib/theme-labels";
 import { priceMedian } from "@/lib/summary";
 import { PlaceCard } from "@/components/PlaceCard";
 import { PlaceCardSkeleton } from "@/components/PlaceCardSkeleton";
+import { ArrowRightIcon } from "@/components/Icon";
 
 const SUGGESTION_COUNT = 3;
 
@@ -55,8 +56,8 @@ export function CompareClient({ lang }: { lang: Lang }) {
       <div>
         <div className="text-center py-16">
           <p className="text-muted mb-4">{t.compare.empty}</p>
-          <Link href={`/${lang}`} className="inline-block text-sm font-semibold text-accent hover:underline">
-            {t.compare.browseCta} →
+          <Link href={`/${lang}`} className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline">
+            {t.compare.browseCta} <ArrowRightIcon className="w-3.5 h-3.5" />
           </Link>
         </div>
         {suggestions.length > 0 && (
@@ -112,8 +113,8 @@ export function CompareClient({ lang }: { lang: Lang }) {
             />
             <Row
               values={places.map((p) => (
-                <Link href={`/${lang}/place/${p.id}`} className="inline-block text-xs font-semibold text-accent hover:underline">
-                  {t.compare.viewButton} →
+                <Link href={`/${lang}/place/${p.id}`} className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">
+                  {t.compare.viewButton} <ArrowRightIcon className="w-3 h-3" />
                 </Link>
               ))}
             />

@@ -21,13 +21,19 @@ export function generateStaticParams() {
 // hardcoded to "en" and patched client-side after hydration.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.origin),
-  title: "chillanel — Real massage & spa reviews, therapist-first",
+  title: "chillanel — Find your massage & spa vibe",
   description:
-    "A Thailand massage & spa guide built around the one thing every ranking site ignores: who's actually giving the massage. Real Google reviews, therapist mentions surfaced automatically.",
+    "A Thailand massage & spa guide that reads real Google reviews to surface each place's actual mood — quiet & relaxing, strong pressure, good value — not just a star rating.",
   openGraph: {
     siteName: SITE.name,
     type: "website",
     url: SITE.origin,
+    // Next's metadata objects don't deep-merge across segments — a child
+    // page setting its own `openGraph` replaces this whole object, which
+    // silently drops the image the parent app/opengraph-image.tsx route
+    // would otherwise auto-attach. Every page below re-declares `images`
+    // for that reason (see each page.tsx's openGraph block).
+    images: [`${SITE.origin}/opengraph-image`],
   },
   twitter: {
     card: "summary_large_image",

@@ -46,3 +46,33 @@ scripts/*.pyc
 # README / dev docs
 README.md
 *.md
+
+# 2026-08-01: --archive=tgz 는 이 파일(web/.vercelignore, rootDirectory의
+# "local config")을 실제 적용 규칙으로 쓰면서도 리포 루트 전체를 훑는다.
+# 루트 .vercelignore의 run/, web-factory/, logs/ 등은 여기 없으면 안 먹혀서
+# 무시 안 된 채 걸어들어가다가, watchdog이 살아있는 run/*.pid나 다른
+# 프로젝트(web-factory)가 실시간으로 지웠다 만드는 파일에 걸려
+# ENOENT로 크래시하거나(레이스) 파일 수가 많으면 CPU-bound로 멈췄음
+# (web/.next 7만2천개 파일 사례로 확인). 슬래시 없는 bare 패턴이라야
+# 어느 깊이에서나 매칭되므로 repo-root 형제 폴더들도 여기 추가.
+run
+web-factory
+web-thaigle
+web-restaurants
+web-dental
+web-golf
+web-petbkk
+2nd
+3rd
+chillanel
+thaifacialclinic-portable
+dbd-scraper
+cosmetics
+siamverified-portable
+wiki_generator
+wongnai
+nordvpn
+node-openvpn-socks
+bangkok_clinics
+bangkok_reviews
+logs

@@ -15,6 +15,17 @@ const ROOT = path.join(import.meta.dirname, "..", "..");
 const SPA_OUTPUT_DIR = path.join(ROOT, "spa_output");
 const INTERVAL_MS = 5 * 60 * 1000;
 const VERCEL_SCOPE = "vamoss2";
+// Deploying on every CSV change (old behavior) meant a deploy almost every
+// single 5-min poll during active scraping, since review scrapers append to
+// clinics.csv on every successful collection — 523 deploys in 13 days
+// (2026-08-06 usage check), each rebuilding all ~7,952 static pages, blew
+// through the Vercel plan's ISR-write/CPU/transfer budget. Now: wait for
+// data to go quiet for QUIET_MS before deploying (so a scraping burst
+// collapses into one deploy instead of one per poll), but never let real
+// data sit undeployed longer than MAX_INTERVAL_MS even if scraping never
+// pauses.
+const QUIET_MS = 30 * 60 * 1000;
+const MAX_INTERVAL_MS = 2 * 60 * 60 * 1000;
 
 // watchdog launches this with env_extra={}, so it only inherits whatever env
 // watchdog.py itself started with — no persistent `vercel login` session and
@@ -61,13 +72,31 @@ function deploy(cities) {
   const token = loadVercelToken();
   const args = ["deploy", "--prod", "--yes", "--scope", VERCEL_SCOPE];
   if (token) args.push("--token", token);
-  execFileSync("vercel", args, { cwd: import.meta.dirname + "/..", stdio: "inherit" });
+  // Node refuses to spawn .cmd/.bat via execFile without shell:true since the
+  // CVE-2024-27980 fix — on Windows `vercel` resolves to vercel.cmd, so this
+  // threw ENOENT on every single deploy attempt (silently caught by the
+  // caller's try/catch below, logged, and never retried — see lastSeen fix).
+  execFileSync("vercel", args, {
+    cwd: import.meta.dirname + "/..",
+    stdio: "inherit",
+    shell: process.platform === "win32",
+  });
   log("배포 완료");
 }
 
 let cities = discoverCities();
-let lastSeen = latestMtime(cities);
-log(`감시 시작 — 도시 ${cities.length}개 (${cities.join(", ") || "없음"}), 초기 mtime=${lastSeen}`);
+// lastSeenMtime: latest clinics.csv mtime observed (any city).
+// lastChangeAt: wall-clock time lastSeenMtime last increased — resets the
+//   quiet-period timer on every new write, so a continuously-active scraper
+//   keeps pushing the deploy off until it actually pauses.
+// lastDeployedMtime / lastDeployedAt: what we last actually shipped, and
+//   when — lets us tell "new data waiting" apart from "already deployed"
+//   and enforce the MAX_INTERVAL_MS backstop independent of quiet time.
+let lastSeenMtime = latestMtime(cities);
+let lastChangeAt = Date.now();
+let lastDeployedMtime = lastSeenMtime;
+let lastDeployedAt = Date.now();
+log(`감시 시작 — 도시 ${cities.length}개 (${cities.join(", ") || "없음"}), 초기 mtime=${lastSeenMtime}`);
 
 while (true) {
   // Re-discover every poll so a city that just got enabled in watchdog.py
@@ -75,13 +104,30 @@ while (true) {
   // picked up without restarting this service.
   cities = discoverCities();
   const current = latestMtime(cities);
-  if (current > lastSeen) {
-    lastSeen = current;
+  const now = Date.now();
+  if (current > lastSeenMtime) {
+    lastSeenMtime = current;
+    lastChangeAt = now;
+  }
+
+  const pending = lastSeenMtime > lastDeployedMtime;
+  const quiet = now - lastChangeAt >= QUIET_MS;
+  const overdue = pending && now - lastDeployedAt >= MAX_INTERVAL_MS;
+
+  if (pending && (quiet || overdue)) {
     try {
       deploy(cities);
+      // Only advance the watermark once deploy() actually returns — advancing
+      // it unconditionally meant a single transient failure (network, Vercel
+      // 5xx, the ENOENT above) permanently dropped that data revision, since
+      // the next poll would see current === lastSeen and log "변경 없음" forever.
+      lastDeployedMtime = lastSeenMtime;
+      lastDeployedAt = now;
     } catch (e) {
-      log(`배포 실패: ${e.message}`);
+      log(`배포 실패, 다음 주기 재시도: ${e.message}`);
     }
+  } else if (pending) {
+    log(`변경 대기 중 (안정화까지 ${Math.ceil((QUIET_MS - (now - lastChangeAt)) / 60000)}분 또는 최대 ${Math.ceil((MAX_INTERVAL_MS - (now - lastDeployedAt)) / 60000)}분 내 강제 배포)`);
   } else {
     // Heartbeat so the watchdog's progress_pattern keeps matching during idle
     // polling — without this, 25min of no CSV change looks like a hang.

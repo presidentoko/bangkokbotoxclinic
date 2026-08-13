@@ -1,6 +1,6 @@
 import type { Lang } from "@/lib/site";
 import type { ThemeCount } from "@/lib/types";
-import { themeLabel } from "@/lib/theme-labels";
+import { themeLabel, themeEmoji } from "@/lib/theme-labels";
 
 // Reframes the top mood keywords (already sorted desc by mention count in
 // build-data.mjs) as an explicit "why reviewers like it" bullet list —
@@ -15,17 +15,26 @@ export function ProsList({ items, lang, max = 4 }: { items: ThemeCount[]; lang: 
 
   return (
     <ul className="flex flex-col gap-1.5 mb-6">
-      {top.map((item) => (
-        <li key={item.label} className="flex items-center gap-2 text-sm">
-          <span
-            className="flex items-center justify-center w-4 h-4 rounded-full bg-accent/15 text-accent text-[10px] font-bold shrink-0"
-            aria-hidden="true"
-          >
-            ✓
-          </span>
-          <span>{themeLabel(item.label, lang)}</span>
-        </li>
-      ))}
+      {top.map((item) => {
+        const emoji = themeEmoji(item.label);
+        return (
+          <li key={item.label} className="flex items-center gap-2 text-sm">
+            {emoji ? (
+              <span className="flex items-center justify-center w-5 h-5 shrink-0 text-sm" aria-hidden="true">
+                {emoji}
+              </span>
+            ) : (
+              <span
+                className="flex items-center justify-center w-4 h-4 rounded-full bg-accent/15 text-accent text-[10px] font-bold shrink-0"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+            )}
+            <span>{themeLabel(item.label, lang)}</span>
+          </li>
+        );
+      })}
     </ul>
   );
 }

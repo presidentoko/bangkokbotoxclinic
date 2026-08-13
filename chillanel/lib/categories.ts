@@ -1,34 +1,91 @@
 import type { Lang } from "./site";
 
 // Grid search picks up anything within the search radius, not just
-// massage/spa businesses — these are unrelated categories (transport,
-// retail, repair, pet services, etc.) that leak in as noise and look
-// broken next to real listings. Filtered at display time only — the
-// underlying data/JSON is untouched.
-const EXCLUDED_TYPES = new Set([
-  "Dog park",
-  "Ferry terminal",
-  "Car wash",
-  "Restaurant",
-  "Apartment building",
-  "Cruise line company",
-  "Swimming pool supply store",
-  "Shoe repair shop",
-  "Luggage repair service",
-  "Sanitary ware manufacturer and supplier",
-  "Retail space rental agency",
-  "Repair service",
-  "Environmental health service",
-  "Public health department",
-  "Educational institution",
-  "Shopping mall",
-  "Pet sitter",
-  "Pet groomer",
-  "Cosmetic products manufacturer",
+// massage/spa businesses. A denylist here only ever catches categories
+// someone happened to notice -- the real Bangkok+Pattaya dataset has 221
+// distinct primaryType values (cosmetics stores, a cannabis dispensary, a
+// frozen yogurt shop, a water park, car dealers, ...), so a denylist of
+// ~20 names lets the other ~190 through as noise. Flipped to an allowlist:
+// only categories that are actually a massage/spa/wellness/beauty service
+// a visitor would book render as a real listing. Filtered at display time
+// only -- the underlying data/JSON is untouched.
+//
+// Erotic/adult massage categories (Erotic massage, Soapy massage, Gay
+// sauna, ...) are included deliberately, not an oversight -- they're real
+// grid-scraped Google listings and the site's decision is to surface them
+// as-is (category badge shows the raw label) rather than curate them out.
+const RELEVANT_TYPES = new Set([
+  // core massage & spa
+  "Massage spa",
+  "Spa",
+  "Day spa",
+  "Health spa",
+  "Medical spa",
+  "Spa and health club",
+  "Thai massage therapist",
+  "Thai massage shop",
+  "Massage therapist",
+  "Massage service",
+  "Foot massage parlor",
+  "Sports massage therapist",
+  "Reflexologist",
+  "Reiki therapist",
+  // sauna / bathing
+  "Sauna",
+  "Sauna club",
+  "Gay sauna",
+  "Public sauna",
+  "Onsen",
+  "Day-use onsen",
+  "Public bath",
+  "Outdoor bath",
+  "Hot bedstone spa",
+  // adult massage (see note above)
+  "Erotic massage",
+  "Erotic Massage",
+  "Erotic Massage Parlour",
+  "Soapy massage",
+  // facial / skin / beauty
+  "Facial spa",
+  "Skin care clinic",
+  "Skin care",
+  "Esthetics service",
+  "Beauty salon",
+  "Beautician",
+  "Nail salon",
+  "Hair salon",
+  "Hairdresser",
+  "Barber shop",
+  // wellness / bodywork / traditional medicine
+  "Wellness center",
+  "Aromatherapy service",
+  "Alternative medicine practitioner",
+  "Acupuncture clinic",
+  "Acupuncturist",
+  "Chinese medicine clinic",
+  "Oriental medicine clinic",
+  "Ayurvedic clinic",
+  "Physical therapist",
+  "Physical therapy clinic",
+  "Chiropractor",
+  "Osteopath",
+  "Rehabilitation center",
+  "Hair removal service",
+  "Laser hair removal service",
+  "Waxing hair removal service",
+  "Weight loss service",
+  "Yoga studio",
+  "Pilates studio",
 ]);
 
+// A real fraction of the dataset (84 of 2,556 Bangkok rows) has no
+// primaryType at all -- not noise, real spa businesses Google didn't
+// categorize (e.g. "HISO Bangkok Massage 2", "KLAI Thai Spa"). Excluding
+// blank types would drop genuine listings, so they pass through same as
+// before this allowlist existed.
 export function isRelevantCategory(primaryType: string): boolean {
-  return !EXCLUDED_TYPES.has(primaryType);
+  if (!primaryType) return true;
+  return RELEVANT_TYPES.has(primaryType);
 }
 
 const LABELS: Record<string, Record<Lang, string>> = {

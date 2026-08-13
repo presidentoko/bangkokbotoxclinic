@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import re
 import sys
 import tempfile
@@ -45,6 +46,15 @@ log = logging.getLogger(__name__)
 # ── VPN rotation 정책 ────────────────────────────────────────
 MAX_TASK_RETRIES = 2         # 작업 1건당 최대 재시도 횟수 (초과 시 포기)
 SLOW_THRESHOLD_SEC = 120     # 1건 처리 시간이 이 이상이면 다음 작업 전 VPN 교체
+# 큐가 이만큼 연속으로 비어 있고(진행 중 작업 0건 포함) 새로 들어오는 것도 없으면
+# "할 일이 없다"로 보고 메인 루프를 빠져나간다. 무제한 모드(MAX_RESTAURANTS=None)
+# 에서는 should_stop() 이 영원히 False 라, 이게 없으면 큐가 말라도 종료 라인
+# ("수집 중단/완료 → 워커 정리" = watchdog 의 REVIEW_DONE_MARKER)을 찍을 수가 없다.
+# 그러면 watchdog 은 성공 라인이 안 보이는 걸 "정체"로 오판해 무한 재시작한다.
+# (2026-08-07 bangkok_clinics/scraper.py 에서 실제 발생 — 5시간에 60회 재시작.
+#  같은 구조라 여기에도 선제 적용.) 값은 watchdog 이 kick 하기까지 걸리는
+# 최소 시간(progress_grace_sec)보다 반드시 짧아야 한다.
+IDLE_EXIT_SEC = int(os.environ.get("IDLE_EXIT_SEC", "300"))
 ROTATE_TIMEOUT_SEC = 45      # vpn_runner가 새 터널을 올릴 때까지 최대 대기
 ROTATE_EVERY_TASKS = 15      # 이 주기(성공 건수)마다 워커가 정기적으로 VPN 교체
 
@@ -1061,9 +1071,35 @@ def save_metas_csv(metas: list[ReviewMeta], path: Path):
 
 # ── 병렬 처리 ────────────────────────────────────────────────
 
+class InFlight:
+    """지금 워커가 붙잡고 있는 작업 수.
+
+    task_q.empty() 만으로는 "할 일 없음"을 판정할 수 없다 — 워커가 30초짜리
+    작업을 물고 있는 동안에도 큐는 비어 있기 때문이다. 이걸 안 세면 느린
+    작업 한 건이 진행 중일 때 메인 루프가 큐 고갈로 오판해 종료해버린다.
+    """
+
+    def __init__(self):
+        self._busy: set[int] = set()
+        self._lock = threading.Lock()
+
+    def busy(self, worker_id: int) -> None:
+        with self._lock:
+            self._busy.add(worker_id)
+
+    def idle(self, worker_id: int) -> None:
+        with self._lock:
+            self._busy.discard(worker_id)
+
+    @property
+    def count(self) -> int:
+        with self._lock:
+            return len(self._busy)
+
+
 def worker(
     worker_id: int, task_queue: Queue, result_queue: Queue,
-    proxy_port: int,
+    proxy_port: int, inflight: InFlight,
 ):
     """
     한 워커 스레드:
@@ -1160,6 +1196,10 @@ def worker(
         task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
 
         while True:
+            # get 직전에 idle, 작업을 받으면 busy. 루프 위로 돌아오는 모든
+            # 경로(성공/스킵/예외/재큐잉)가 여기를 다시 지나므로 별도 finally
+            # 없이도 카운트가 새지 않는다.
+            inflight.idle(worker_id)
             try:
                 task = task_queue.get(timeout=2)
             except Empty:
@@ -1168,6 +1208,7 @@ def worker(
                 continue
             if task is None:
                 break
+            inflight.busy(worker_id)
 
             # (idx, href) 또는 (idx, href, retries)
             if len(task) == 2:
@@ -1249,6 +1290,7 @@ def worker(
             browser.close()
         except Exception:
             pass
+    inflight.idle(worker_id)
     log.info(f"[W{worker_id}] 종료")
 
 
@@ -1400,10 +1442,13 @@ def main():
     producer_t = threading.Thread(target=producer_loop, daemon=True)
     producer_t.start()
 
+    inflight = InFlight()
     threads: list[threading.Thread] = []
     for w in range(config.N_WORKERS):
         port = config.PROXY_PORT_BASE + w
-        t = threading.Thread(target=worker, args=(w, task_q, result_q, port), daemon=True)
+        t = threading.Thread(target=worker,
+                             args=(w, task_q, result_q, port, inflight),
+                             daemon=True)
         t.start()
         threads.append(t)
 
@@ -1433,15 +1478,33 @@ def main():
         return target_n is not None and success >= target_n
 
     last_idle_log = 0.0
+    idle_since = 0.0  # 큐가 완전히 마른 시각 (0 = 마르지 않음)
     while not should_stop():
         try:
             status, payload = result_q.get(timeout=3)
         except Empty:
-            # 큐가 비면 producer가 새 작업 가져올 때까지 대기
-            if task_q.empty() and time.time() - last_idle_log > 60:
-                log.info(f"  대기 중… (enqueued {len(enqueued_hrefs)}, success {success})")
-                last_idle_log = time.time()
+            # 큐가 비면 producer가 새 작업 가져올 때까지 대기.
+            # 단 "비었다"는 대기 중인 작업 0건 + 처리 중인 작업 0건 둘 다여야
+            # 한다 — 워커가 한 건 물고 있는 동안에도 task_q 는 비어 있다.
+            drained = task_q.empty() and inflight.count == 0
+            if not drained:
+                idle_since = 0.0
+                continue
+            now = time.time()
+            if idle_since == 0.0:
+                idle_since = now
+            elif now - idle_since >= IDLE_EXIT_SEC:
+                # 할 일이 없다. 여기서 빠져나가야 아래 종료 처리가
+                # REVIEW_DONE_MARKER 를 찍고, watchdog 이 자연 종료로 판정한다.
+                log.info(f"큐 고갈 {int(now - idle_since)}초 — 처리할 신규 항목 없음")
+                break
+            if now - last_idle_log > 60:
+                remain = int(IDLE_EXIT_SEC - (now - idle_since))
+                log.info(f"  대기 중… (enqueued {len(enqueued_hrefs)}, "
+                         f"success {success}, {remain}초 후 종료)")
+                last_idle_log = now
             continue
+        idle_since = 0.0  # 결과가 들어왔으면 마른 상태 아님
 
         if status == "skip":
             skip_count += 1

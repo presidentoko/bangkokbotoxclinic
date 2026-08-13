@@ -48,6 +48,35 @@ MAX_TASK_RETRIES = 2         # 작업 1건당 최대 재시도 횟수 (초과 �
 SLOW_THRESHOLD_SEC = 120     # 1건 처리 시간이 이 이상이면 다음 작업 전 VPN 교체
 ROTATE_TIMEOUT_SEC = 90      # vpn_runner가 새 터널을 올릴 때까지 최대 대기 (45→90, NordVPN 일부 서버 boot 30s+)
 ROTATE_EVERY_TASKS = 15      # 이 주기(성공 건수)마다 워커가 정기적으로 VPN 교체
+# 2026-08-07: 연속 실패/스킵이 이만큼 쌓이면 성공 여부와 무관하게 VPN 교체.
+# 이게 없으면 출구 IP 가 구글에 소프트 차단됐을 때 워커가 영구히 갇힌다 —
+# periodic 교체는 task_success_count(성공 시에만 증가)에 묶여 있어 성공이 0이면
+# 절대 안 돌고, pending_rotate 는 elapsed > SLOW_THRESHOLD_SEC(120s) 조건인데
+# 차단 시 no_name 스킵은 30초 만에 끝나 이것도 안 걸린다. 실제로 방콕 리뷰
+# 2대가 1,223건 전수 실패(성공 0)하는 동안 교체가 한 번도 일어나지 않았고,
+# watchdog 이 600초마다 kick → 재시작만 5시간에 60회 반복했다.
+CONSEC_FAIL_ROTATE = 5
+
+# ── 큐 고갈 시 정상 종료 ──────────────────────────────────────
+# 큐가 이만큼 연속으로 비어 있고(진행 중 작업 0건 포함) 새로 들어오는 것도
+# 없으면 "할 일이 없다"로 보고 메인 루프를 빠져나간다.
+#
+# 2026-08-07: 이게 없어서 방콕 리뷰가 5시간에 60회 재시작했다. 원인 구조는
+#   1) MAX_RESTAURANTS=None(무제한)이면 should_stop() 이 영원히 False —
+#      큐가 다 말라도 메인 루프를 못 벗어난다.
+#   2) 그래서 종료 직전 라인("수집 중단/완료 → 워커 정리")을 찍을 수가 없고,
+#      이 라인을 REVIEW_DONE_MARKER 로 보는 watchdog 의 review_naturally_done()
+#      은 무제한 모드에서 도달 불가능한 죽은 코드가 된다.
+#   3) 남는 건 progress_stale 뿐인데 이건 성공 라인만 센다. 할 일이 없어
+#      성공이 0이면 "행(hang)"으로 오판 → kick → 재시작 → 후보 재계산 →
+#      또 할 일 없음 → kick … 무한 반복. 매 사이클마다 크롬을 새로 띄운다.
+# 즉 "할 일이 없다"와 "멈췄다"를 구별할 방법이 없던 게 문제였다.
+#
+# 값을 300초로 잡은 이유: watchdog 이 kick 하기까지 걸리는 최소 시간
+# (progress_grace_sec 420 / progress_stale_sec 600, 실측 약 7분)보다 반드시
+# 짧아야 kick 보다 정상 종료가 먼저 일어나 마커를 남길 수 있다. 이 값을
+# 올리려면 watchdog 쪽 grace/stale 도 같이 올릴 것.
+IDLE_EXIT_SEC = int(os.environ.get("IDLE_EXIT_SEC", "300"))
 
 CLOSED_STATUSES = ("permanently closed", "temporarily closed")
 
@@ -59,6 +88,13 @@ _OUT_HINT = (os.environ.get("CITY_OUTPUT_DIR", "") + " "
              + os.environ.get("SEARCH_TAG", "")).lower()
 VERTICAL = ("hair" if "hair" in _OUT_HINT
             else "dental" if "dental" in _OUT_HINT
+            # 스파/마사지 버티컬 (2026-07-23 신설) 분기가 없어서 "clinic" 으로
+            # 떨어지고 있었다. 그 결과 아래 OFF_VERTICAL_RE(=클리닉 순수도 필터,
+            # massage/spa/นวด/สปา 를 배제)가 **수집 대상 그 자체**를 걸러냈다.
+            # 2026-08-08 실측: 파타야 발견 2,595곳 중 2,267곳(87.4%)이 이 필터에
+            # 걸려 후보가 213개로 줄었고, clinics.csv 는 114행에 머물렀다.
+            # 방콕도 14,334 → 1,227 로 85% 가 날아가고 있었다.
+            else "spa" if ("spa" in _OUT_HINT or "massage" in _OUT_HINT)
             else "clinic")
 
 # 버티컬 무관 업소 (미용실·스파·네일·안경점 등)
@@ -76,6 +112,15 @@ HAIR_SIGNAL_RE = re.compile(
     r"transplant|graft|\bfue\b|\bdhi\b|restoration|regrow|hair loss|"
     r"hair clinic|hair center|scalp|trichol|"
     r"ปลูกผม|รักษาผมร่วง|모발이식|이식",
+    re.IGNORECASE,
+)
+# 스파/마사지 시그널 — HAIR_SIGNAL_RE 와 같은 역할. OFF_VERTICAL_RE 가
+# massage/spa 를 배제하므로, 스파 버티컬에서는 이 시그널이 있으면 면제해준다.
+# 이게 없으면 스파 스크래퍼가 스파를 걸러낸다(2026-08-08 규명).
+# 면제는 "spa 신호가 있을 때"만이라 식당·카페·안경점·헬스장 등은 그대로 배제된다.
+SPA_SIGNAL_RE = re.compile(
+    r"massage|\bspa\b|wellness|onsen|sauna|therapy|therapist|reflexolog|"
+    r"นวด|สปา|마사지|스파",
     re.IGNORECASE,
 )
 # 치과 시그널 — 덴탈 버티컬은 이게 없으면 수집 안 함 (allowlist)
@@ -99,6 +144,15 @@ def _vertical_reject(name: str, primary_type: str) -> str:
         return ""
     if VERTICAL == "hair":
         if HAIR_SIGNAL_RE.search(blob):
+            return ""
+        if OFF_VERTICAL_RE.search(blob):
+            return f"category:off_vertical:{(primary_type or name)[:40]}"
+        return ""
+    if VERTICAL == "spa":
+        # hair 와 같은 구조 — spa 신호가 있으면 OFF_VERTICAL_RE 를 면제한다.
+        # OFF_VERTICAL_RE 에 massage/spa/นวด/สปา 가 들어 있어서, 면제가 없으면
+        # 스파 버티컬이 수집 대상을 스스로 배제한다(2026-08-08 규명).
+        if SPA_SIGNAL_RE.search(blob):
             return ""
         if OFF_VERTICAL_RE.search(blob):
             return f"category:off_vertical:{(primary_type or name)[:40]}"
@@ -258,6 +312,16 @@ def add_hl_en(url: str) -> str:
     if "hl=" in url:
         return re.sub(r"hl=[a-z-]+", "hl=en", url)
     return url + ("&hl=en" if "?" in url else "?hl=en")
+
+
+# 2026-08-07 조사 기록 (no_name 전수 실패): 저장된 maps_url 형식은 문제가 아니다.
+# 한때 "구글이 /maps/place/{태국어 이름} 세그먼트를 버린다"고 판단했으나, 이는
+# 재현성 있는 규칙이 아니라 그 시점의 상태였다. 스크래퍼 2대를 정지시킨 뒤
+# 같은 URL 을 다시 재보니 원본 그대로 5/5 성공했고, /maps/search 우회는 오히려
+# 3/5 로 더 나빴다(동명 업체 오착지). 실제 원인은 출구 IP 단위 속도 제한으로,
+# 차단되면 구글이 장소를 해석하지 않고 접속 IP 위치 중심의 빈 지도를 준다
+# (h1 없음 → no_name, 지도 하단이 "Map data ©2026 Indonesia" 처럼 프록시 국가).
+# 즉 no_name 이 대량으로 뜨면 셀렉터가 아니라 요청 속도를 의심할 것.
 
 
 def extract_place_id_from_url(url: str) -> str:
@@ -1202,9 +1266,35 @@ def save_metas_csv(metas: list[ReviewMeta], path: Path):
 
 # ── 병렬 처리 ────────────────────────────────────────────────
 
+class InFlight:
+    """지금 워커가 붙잡고 있는 작업 수.
+
+    task_q.empty() 만으로는 "할 일 없음"을 판정할 수 없다 — 워커가 30초짜리
+    작업을 물고 있는 동안에도 큐는 비어 있기 때문이다. 이걸 안 세면 느린
+    작업 한 건이 진행 중일 때 메인 루프가 큐 고갈로 오판해 종료해버린다.
+    """
+
+    def __init__(self):
+        self._busy: set[int] = set()
+        self._lock = threading.Lock()
+
+    def busy(self, worker_id: int) -> None:
+        with self._lock:
+            self._busy.add(worker_id)
+
+    def idle(self, worker_id: int) -> None:
+        with self._lock:
+            self._busy.discard(worker_id)
+
+    @property
+    def count(self) -> int:
+        with self._lock:
+            return len(self._busy)
+
+
 def worker(
     worker_id: int, task_queue: Queue, result_queue: Queue,
-    proxy_port: int,
+    proxy_port: int, inflight: InFlight,
 ):
     """
     한 워커 스레드:
@@ -1302,8 +1392,13 @@ def worker(
                 context, page = _build_context(browser)
                 pending_rotate = False  # 직전 작업이 느렸으면 True → 다음 작업 전 rotate
                 task_success_count = 0  # 이 워커가 성공한 누적 작업 수 (정기 rotate 트리거)
+                consec_fail = 0  # 연속 실패/스킵 — 차단된 출구 IP 탈출용
 
                 while True:
+                    # get 직전에 idle, 작업을 받으면 busy. 루프 위로 돌아오는
+                    # 모든 경로(성공/스킵/예외/재큐잉)가 여기를 다시 지나므로
+                    # 별도 finally 없이도 카운트가 새지 않는다.
+                    inflight.idle(worker_id)
                     try:
                         task = task_queue.get(timeout=2)
                     except Empty:
@@ -1313,6 +1408,7 @@ def worker(
                     if task is None:
                         _worker_done = True
                         break
+                    inflight.busy(worker_id)
 
                     # (idx, href) 또는 (idx, href, retries)
                     if len(task) == 2:
@@ -1324,10 +1420,17 @@ def worker(
                     # 직전 작업이 느렸거나 정기 교체 주기 도달 시 먼저 VPN 교체
                     periodic = (task_success_count > 0
                                 and task_success_count % ROTATE_EVERY_TASKS == 0)
-                    if pending_rotate or periodic:
-                        reason = "느린 작업" if pending_rotate else f"{ROTATE_EVERY_TASKS}건 정기"
+                    stuck = consec_fail >= CONSEC_FAIL_ROTATE
+                    if pending_rotate or periodic or stuck:
+                        if stuck:
+                            reason = f"연속 실패 {consec_fail}건 — 출구 IP 차단 의심"
+                        elif pending_rotate:
+                            reason = "느린 작업"
+                        else:
+                            reason = f"{ROTATE_EVERY_TASKS}건 정기"
                         log.info(f"[W{worker_id}] VPN 교체: {reason}")
                         pending_rotate = False
+                        consec_fail = 0
                         _rotate_vpn_and_wait(_vpn_idx_for(proxy_port))
                         try: context.close()
                         except Exception: pass
@@ -1343,6 +1446,7 @@ def worker(
                             log.info(f"[W{worker_id}] #{idx} 스킵 ({elapsed:.0f}s) — {reason}")
                             if elapsed > SLOW_THRESHOLD_SEC:
                                 pending_rotate = True
+                            consec_fail += 1
                             result_queue.put(("skip", (href, reason)))
                             continue
                         reviews, metas = collect_reviews_for_restaurant(page, rest)
@@ -1353,9 +1457,11 @@ def worker(
                             log.info(f"[W{worker_id}] 느림({elapsed:.0f}s) → 다음 작업 전 VPN 교체")
                             pending_rotate = True
                         task_success_count += 1
+                        consec_fail = 0
                         result_queue.put(("ok", (rest, feats, hours, reviews, metas)))
                     except Exception as e:
                         elapsed = time.time() - t0
+                        consec_fail += 1
                         log.warning(f"[W{worker_id}] #{idx} 실패 ({elapsed:.0f}s): {e}")
                         # SOCKS/프록시 문제로 확인된 경우만 rotate — 타임아웃, 셀렉터
                         # 미스, 파싱 에러 등 VPN과 무관한 실패까지 매번 rotate하면
@@ -1406,6 +1512,9 @@ def worker(
         except BaseException as e:
             # Playwright Node.js 서버 EPIPE 크래시 등 → 워커 자체 재시작
             # SystemExit/KeyboardInterrupt 포함하여 잡아야 함 (Node.js crash → sys.exit 경로)
+            # 작업을 물고 있다가 크래시했을 수 있다 — busy 로 남으면 메인
+            # 루프가 영원히 "진행 중"으로 보고 큐 고갈 판정을 못 한다.
+            inflight.idle(worker_id)
             if isinstance(e, KeyboardInterrupt):
                 break
             log.warning(f"[W{worker_id}] Playwright 충돌 ({e.__class__.__name__}: {e}) → 5초 후 재시작")
@@ -1414,6 +1523,7 @@ def worker(
             except Exception:
                 pass
             time.sleep(5)
+    inflight.idle(worker_id)
     log.info(f"[W{worker_id}] 종료")
 
 
@@ -1449,7 +1559,8 @@ def main():
                     # 적용 안 함 (상세 페이지에서 최종 판정).
                     blob = f"{row.get('name','')} {row.get('primary_type','')}"
                     if OFF_VERTICAL_RE.search(blob) and not (
-                            VERTICAL == "hair" and HAIR_SIGNAL_RE.search(blob)):
+                            (VERTICAL == "hair" and HAIR_SIGNAL_RE.search(blob))
+                            or (VERTICAL == "spa" and SPA_SIGNAL_RE.search(blob))):
                         continue
                     try:
                         rc = int(row.get("review_count") or 0)
@@ -1676,10 +1787,13 @@ def main():
     producer_t = threading.Thread(target=producer_loop, daemon=True)
     producer_t.start()
 
+    inflight = InFlight()
     threads: list[threading.Thread] = []
     for w in range(config.N_WORKERS):
         port = config.PROXY_PORT_BASE + w
-        t = threading.Thread(target=worker, args=(w, task_q, result_q, port), daemon=True)
+        t = threading.Thread(target=worker,
+                             args=(w, task_q, result_q, port, inflight),
+                             daemon=True)
         t.start()
         threads.append(t)
 
@@ -1709,15 +1823,35 @@ def main():
         return target_n is not None and success >= target_n
 
     last_idle_log = 0.0
+    idle_since = 0.0  # 큐가 완전히 마른 시각 (0 = 마르지 않음)
     while not should_stop():
         try:
             status, payload = result_q.get(timeout=3)
         except Empty:
-            # 큐가 비면 producer가 새 작업 가져올 때까지 대기
-            if task_q.empty() and time.time() - last_idle_log > 60:
-                log.info(f"  대기 중… (enqueued {len(enqueued_hrefs)}, success {success})")
-                last_idle_log = time.time()
+            # 큐가 비면 producer가 새 작업 가져올 때까지 대기.
+            # 단 "비었다"는 대기 중인 작업 0건 + 처리 중인 작업 0건 둘 다여야
+            # 한다 — 워커가 한 건 물고 있는 동안에도 task_q 는 비어 있다.
+            drained = task_q.empty() and inflight.count == 0
+            if not drained:
+                idle_since = 0.0
+                continue
+            now = time.time()
+            if idle_since == 0.0:
+                idle_since = now
+            elif now - idle_since >= IDLE_EXIT_SEC:
+                # 할 일이 없다. 여기서 빠져나가야 아래 종료 처리가
+                # REVIEW_DONE_MARKER 를 찍고, watchdog 이 이걸 보고 "자연 종료"
+                # 로 판정해 .disabled 를 걸어준다. 안 그러면 watchdog 이
+                # progress 정체로 오판해 무한 재시작한다 (IDLE_EXIT_SEC 주석 참고).
+                log.info(f"큐 고갈 {int(now - idle_since)}초 — 처리할 신규 항목 없음")
+                break
+            if now - last_idle_log > 60:
+                remain = int(IDLE_EXIT_SEC - (now - idle_since))
+                log.info(f"  대기 중… (enqueued {len(enqueued_hrefs)}, "
+                         f"success {success}, {remain}초 후 종료)")
+                last_idle_log = now
             continue
+        idle_since = 0.0  # 결과가 들어왔으면 마른 상태 아님
 
         if status == "skip":
             skip_count += 1

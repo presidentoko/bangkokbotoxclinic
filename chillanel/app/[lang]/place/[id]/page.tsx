@@ -6,7 +6,7 @@ import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
 import { getAllPlaces, loadCity } from "@/lib/data";
 import { categoryBadgeLabel } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
-import { LocalBusinessJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RatingBars, hasRatingData } from "@/components/RatingBars";
 import { TagCloud } from "@/components/TagCloud";
@@ -15,15 +15,51 @@ import { ProsList } from "@/components/ProsList";
 import { PlaceActions } from "@/components/PlaceActions";
 import { TrustScoreDetail } from "@/components/TrustScoreDetail";
 import { Faq } from "@/components/Faq";
-import { themeLabel } from "@/lib/theme-labels";
+import { CorrectionForm } from "@/components/CorrectionForm";
+import { ArrowRightIcon } from "@/components/Icon";
+import { themeLabel, themeEmoji } from "@/lib/theme-labels";
 import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
-import { placeSummary, priceMedian } from "@/lib/summary";
+import { placeSummary, priceMedian, priceRange } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
 
+// 빌드타임에 미리 만드는 건 리뷰가 충분한 곳만. 나머지는 첫 요청 때 생성해서
+// 캐시한다(아래 dynamicParams=true).
+//
+// 왜 (2026-08-10): 장소 5,183곳 × 언어 3개 = 15,549 페이지가 되면서 Vercel 배포가
+//   Running onBuildComplete from Vercel
+//   Error: Maximum call stack size exceeded
+// 로 죽었다. 빌드 자체(정적 생성 15,681개)는 성공하고 그 다음 Vercel 후처리 훅이
+// 라우트를 재귀 처리하다 스택을 넘겼다. 방콕은 아직 수집 중이라 그대로 두면 계속 는다.
+//
+// 임계값 50의 근거 — 실측 분포:
+//   리뷰  10+ : 4,371곳 → 13,113 페이지
+//   리뷰  50+ : 2,236곳 →  6,708 페이지   ← 채택 (현재의 43%)
+//   리뷰 100+ : 1,461곳 →  4,383 페이지
+// 6,708 이면 터진 지점의 절반 이하라 방콕이 더 쌓여도 여유가 있다.
+//
+// SEO 손실은 없다: 걸러진 롱테일도 dynamicParams 로 접근 가능하고 정상 200 을 낸다.
+// ISR 쓰기 부담도 낮다 — 이 페이지엔 revalidate 가 없어서 한 번 생성되면 다음
+// 배포까지 캐시되므로, 페이지당 쓰기가 1회다 (Hobby ISR Writes 한도에 안전).
+const PRERENDER_MIN_REVIEWS = 50;
+
 export function generateStaticParams() {
-  return getAllPlaces().map(({ place }) => ({ id: place.id }));
+  return getAllPlaces()
+    .filter(({ place }) => (place.reviewCount ?? 0) >= PRERENDER_MIN_REVIEWS)
+    .map(({ place }) => ({ id: place.id }));
 }
-export const dynamicParams = false;
+
+// 프리렌더 목록에 없는 장소도 요청 시 생성한다. 없는 id 는 본문의 notFound()
+// 로 404 를 낸다.
+//
+// ⚠️ 이 라우트는 [lang] 세그먼트에서 유일하게 dynamicParams=true 다. 그래서
+// 여기만 "요청 시 렌더" 경로를 탄다. 상위에 Suspense 경계(loading.tsx)가 있으면
+// 셸이 200 으로 먼저 flush 된 뒤 스트림 안에서 404 UI 만 그려져 soft 404 가
+// 된다 — 로컬 프로덕션 빌드로 실측 확인했다(경계 있음 200 / 없음 404).
+// 그래서 loading.tsx 를 [lang] 루트가 아니라 정적 세그먼트에만 둔다.
+// 이 라우트 위에 loading.tsx / Suspense 를 추가하지 말 것.
+// generateMetadata 에서 notFound() 를 던지는 것으론 해결되지 않는다(검증함) —
+// 메타데이터도 같은 경계 안에서 해소되기 때문이다.
+export const dynamicParams = true;
 
 function findPlace(id: string) {
   return getAllPlaces().find(({ place }) => place.id === id) ?? null;
@@ -50,7 +86,7 @@ export async function generateMetadata({
       canonical: `/${lang}/place/${id}`,
       languages: hreflangAlternates((l) => `/${l}/place/${id}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/place/${id}` },
+    openGraph: { url: `${SITE.origin}/${lang}/place/${id}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -68,6 +104,7 @@ export default async function PlacePage({
   const label = cityLabel(city);
   const badge = categoryBadgeLabel(place.primaryType, lang);
   const priceMedianValue = priceMedian(place.priceMentions);
+  const priceRangeValue = priceRange(place.priceMentions);
   const summary = placeSummary(place, lang);
   const related = relatedPlaces(place, loadCity(city).places);
 
@@ -81,10 +118,12 @@ export default async function PlacePage({
             .replace("{reviewCount}", String(place.reviewCount)),
         }
       : null,
-    {
-      q: t.place.locationFaqQuestion.replace("{name}", place.name),
-      a: t.place.locationFaqAnswer.replace("{name}", place.name).replace("{address}", place.address),
-    },
+    place.address.trim()
+      ? {
+          q: t.place.locationFaqQuestion.replace("{name}", place.name),
+          a: t.place.locationFaqAnswer.replace("{name}", place.name).replace("{address}", place.address),
+        }
+      : null,
     priceMedianValue != null
       ? {
           q: t.place.priceFaqQuestion.replace("{name}", place.name),
@@ -94,9 +133,11 @@ export default async function PlacePage({
   ].filter((item) => item != null);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 pt-10 sm:pt-12 pb-24 sm:pb-12">
+    <div className="max-w-3xl mx-auto px-4 pt-10 sm:pt-12 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:pb-12">
       <LocalBusinessJsonLd place={place} description={summary} />
-      <FaqJsonLd items={faqItems} />
+      {/* FAQPage schema is emitted once, by <Faq> further down -- this used
+          to also call FaqJsonLd here with the same faqItems, emitting the
+          identical FAQPage block twice on the page. */}
       <Breadcrumbs
         items={[
           { name: t.nav.home, href: `/${lang}` },
@@ -134,21 +175,49 @@ export default async function PlacePage({
       )}
 
       <div className="rounded-2xl border border-border bg-bg-elev p-5 mb-8">
-        <div className="text-xs uppercase tracking-wide text-muted mb-1">{t.place.addressLabel}</div>
-        <div className="mb-4">{place.address}</div>
-        {place.mapsUrl && (
-          <a
-            href={place.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-2.5 shadow-md shadow-accent-warm/20 hover:shadow-lg hover:shadow-accent-warm/30 hover:-translate-y-0.5 transition"
-          >
-            {t.place.viewOnMaps} →
-          </a>
+        {place.address.trim() && (
+          <>
+            <div className="text-xs uppercase tracking-wide text-muted mb-1">{t.place.addressLabel}</div>
+            <div className="mb-4">{place.address}</div>
+          </>
         )}
+        <div className="flex flex-wrap gap-2.5">
+          {place.mapsUrl && (
+            <a
+              href={place.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-2.5 min-h-11 shadow-md shadow-accent-warm/20 hover:shadow-lg hover:shadow-accent-warm/30 hover:-translate-y-0.5 transition"
+            >
+              {t.place.viewOnMaps} <ArrowRightIcon className="w-4 h-4" />
+            </a>
+          )}
+          {place.phone && (
+            <a
+              href={`tel:${place.phone.replace(/[^+\d]/g, "")}`}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-bg font-semibold px-5 py-2.5 min-h-11 hover:border-accent transition"
+            >
+              {t.place.callNow}
+            </a>
+          )}
+          {place.website && /^https?:\/\//.test(place.website) && (
+            <a
+              href={place.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-bg font-semibold px-5 py-2.5 min-h-11 hover:border-accent transition"
+            >
+              {t.place.visitWebsite}
+            </a>
+          )}
+        </div>
         {priceMedianValue != null && (
           <p className="text-sm text-muted mt-4 pt-4 border-t border-border">
-            {t.place.priceRangeLabel.replace("{price}", priceMedianValue.toLocaleString())}
+            {priceRangeValue && priceRangeValue.min !== priceRangeValue.max
+              ? t.place.priceRangeLabelRange
+                  .replace("{min}", priceRangeValue.min.toLocaleString())
+                  .replace("{max}", priceRangeValue.max.toLocaleString())
+              : t.place.priceRangeLabel.replace("{price}", priceMedianValue.toLocaleString())}
           </p>
         )}
       </div>
@@ -173,7 +242,7 @@ export default async function PlacePage({
       )}
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold mb-3">{t.place.therapistMentionsTitle}</h2>
+        <h2 className="text-lg font-bold mb-3">🙋 {t.place.therapistMentionsTitle}</h2>
         <TherapistMentions mentions={place.therapistMentions} lang={lang} />
       </section>
 
@@ -191,6 +260,7 @@ export default async function PlacePage({
                 key={theme.label}
                 className="rounded-full border border-accent-warm/30 bg-accent-warm/10 px-3 py-1.5 text-sm text-accent-warm font-medium"
               >
+                {themeEmoji(theme.label) && <span aria-hidden="true">{themeEmoji(theme.label)} </span>}
                 {themeLabel(theme.label, lang)} <span className="font-semibold">{theme.count}</span>
               </span>
             ))}
@@ -213,7 +283,7 @@ export default async function PlacePage({
       )}
 
       <section>
-        <h2 className="text-lg font-bold mb-3">{t.place.reviewsTitle}</h2>
+        <h2 className="text-lg font-bold mb-3">💬 {t.place.reviewsTitle}</h2>
         <div className="space-y-4">
           {place.reviews.slice(0, 10).map((r) => (
             <div key={r.id} className="rounded-xl border border-border bg-bg-elev p-4">
@@ -244,6 +314,8 @@ export default async function PlacePage({
 
       <Faq title={t.place.faqTitle} items={faqItems} />
 
+      <CorrectionForm placeId={place.id} placeName={place.name} lang={lang} />
+
       {place.district && (
         <Link
           href={`/${lang}/district/${slugifyDistrict(place.district)}`}
@@ -258,9 +330,9 @@ export default async function PlacePage({
           href={place.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="sm:hidden fixed bottom-20 left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-3.5 shadow-xl shadow-accent-warm/30"
+          className="sm:hidden fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] left-4 right-4 z-20 flex items-center justify-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-5 py-3.5 shadow-xl shadow-accent-warm/30 active:scale-[0.98] transition-transform"
         >
-          {t.place.viewOnMaps} →
+          {t.place.viewOnMaps} <ArrowRightIcon className="w-4 h-4" />
         </a>
       )}
     </div>

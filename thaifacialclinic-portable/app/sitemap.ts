@@ -17,17 +17,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const { clinics, generated_at } = loadClinics();
   const updated = new Date(generated_at || Date.now());
 
+  // 2026-08-06 감사: /about/ 과 /contact/ 는 lang 접두사 없는 라우트가 존재하지
+  // 않아 라이브에서 404였다 (실제 페이지는 /en/about/, /en/contact/ — 둘 다 200).
+  // 사이트맵이 자기 사이트의 404 두 개를 구글에 제출하고 있던 셈. 루트 `/` 는
+  // 307로 /en/ 에 넘기는 리다이렉트라 이것도 목적지를 직접 제출한다.
   const items: MetadataRoute.Sitemap = [
-    { url: u(""), lastModified: updated, changeFrequency: "daily", priority: 1.0 },
+    { url: u("/en"), lastModified: updated, changeFrequency: "daily", priority: 1.0 },
     { url: u("/for-clinics"), lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
-    { url: u("/about"), lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
-    { url: u("/contact"), lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
+    { url: u("/en/about"), lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
+    { url: u("/en/contact"), lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
     { url: u("/privacy"), lastModified: updated, changeFrequency: "yearly", priority: 0.2 },
     { url: u("/terms"), lastModified: updated, changeFrequency: "yearly", priority: 0.2 },
   ];
 
+  // en 홈은 위에서 이미 priority 1.0 으로 넣었다. 나머지 로케일 홈은 콘텐츠가
+  // 아직 영어 복제본이라 우선순위를 낮춰서만 제출한다 (제목/설명은 2026-08-06에
+  // 로케일별로 분리했지만 본문은 그대로다).
   for (const lang of SUPPORTED_LANGS) {
-    items.push({ url: u(`/${lang}`), lastModified: updated, changeFrequency: "daily", priority: 0.9 });
+    if (lang === "en") continue;
+    items.push({ url: u(`/${lang}`), lastModified: updated, changeFrequency: "daily", priority: 0.5 });
   }
 
   // 시술/가이드/클리닉 세부 페이지는 en만 사이트맵에 제출 — 다른 4개 언어 트리는

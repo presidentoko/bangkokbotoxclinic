@@ -39,6 +39,18 @@ html {
   html {
     scroll-behavior: auto;
   }
+  /* Card hover/tap now bounces (PlaceCard's scale + rotate + spring easing)
+     -- harmless for most visitors but real motion-triggered discomfort for
+     vestibular-disorder users, so it's cut to a plain, instant state change
+     here rather than only slowed down. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

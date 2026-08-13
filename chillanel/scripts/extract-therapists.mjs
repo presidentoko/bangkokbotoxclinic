@@ -7,6 +7,13 @@ const STOPWORDS = new Set([
   "Best", "Great", "Super", "Very", "Highly", "Overall", "Everything",
   "Staff", "Service", "Place", "Massage", "Spa", "Room", "Price", "Ambience",
   "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+  // Found in the live dataset surfacing as fake "therapist names" -- titles,
+  // places, times of day that happen to be capitalized and sit next to one
+  // of the PATTERNS' trigger phrases (e.g. "ask for Location", "thanks to
+  // Bangkok ___").
+  "Mr", "Mrs", "Ms", "Location", "Breakfast", "Lunch", "Dinner",
+  "Morning", "Afternoon", "Evening", "Bangkok", "Pattaya", "Thailand",
+  "Hotel", "Reception", "Wifi", "Pool",
 ]);
 
 const NAME = "([A-Z][a-zA-Z]{1,20})";

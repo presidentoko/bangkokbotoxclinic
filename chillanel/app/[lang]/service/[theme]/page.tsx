@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
-import { listCities, loadCity, getAllPlaces } from "@/lib/data";
+import { getAllPlaces } from "@/lib/data";
+import { isRelevantCategory } from "@/lib/categories";
+import type { Place } from "@/lib/types";
 import { themeLabel, slugifyTheme } from "@/lib/theme-labels";
 import { placeMatchesLabel, averageRating, allThemeAndMoodLabels, isMoodLabel } from "@/lib/theme-stats";
 import { eulReul, eunNeun, euroRo } from "@/lib/korean-particles";
@@ -17,6 +19,34 @@ const MAX_SHOWN = 90; // same payload-size discipline as the city page
 function findLabelForSlug(slug: string): string | null {
   const labels = allThemeAndMoodLabels(getAllPlaces().map(({ place }) => place));
   return labels.find((label) => slugifyTheme(label) === slug) ?? null;
+}
+
+// A theme/mood label can have matching places in more than one city (e.g.
+// "Thai massage" has hits in both Bangkok and Pattaya) -- this used to
+// filter against loadCity(listCities()[0]) only, silently hiding every
+// non-first city's matches. Matches across all cities now; the headline
+// still names one city (the "{city}" placeholder in copy templates is
+// singular), chosen as whichever city actually has the most matches here,
+// not just whichever sorts first alphabetically.
+function matchingPlacesForLabel(rawLabel: string): Place[] {
+  return getAllPlaces()
+    .map(({ place }) => place)
+    .filter((p) => placeMatchesLabel(p, rawLabel) && isRelevantCategory(p.primaryType))
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
+}
+
+function dominantCity(matching: Place[]): string | null {
+  const counts = new Map<string, number>();
+  for (const p of matching) counts.set(p.city, (counts.get(p.city) ?? 0) + 1);
+  let bestCity: string | null = null;
+  let bestCount = -1;
+  for (const [city, count] of counts) {
+    if (count > bestCount) {
+      bestCity = city;
+      bestCount = count;
+    }
+  }
+  return bestCity;
 }
 
 export function generateStaticParams() {
@@ -36,13 +66,14 @@ export async function generateMetadata({
   if (!rawLabel) return {};
   const t = tFor(lang);
   const label = themeLabel(rawLabel, lang);
-  const cities = listCities();
-  const cityDisplayLabel = cities.length > 0 ? cityLabel(cities[0]) : "";
+  const dominant = dominantCity(matchingPlacesForLabel(rawLabel));
+  const cityDisplayLabel = dominant ? cityLabel(dominant) : "";
   const listTitleTemplate = isMoodLabel(rawLabel) ? t.service.moodListTitle : t.service.listTitle;
   const pageTitle = listTitleTemplate.replace("{theme}", label).replace("{city}", cityDisplayLabel);
   // KO's intro template carries no hardcoded particle -- {theme} must
   // already include the grammatically correct one (see lib/korean-particles.ts).
   const themeForIntro = lang === "ko" ? `${label}${eulReul(label)}` : label;
+  const isMood = isMoodLabel(rawLabel);
   return {
     title: `${pageTitle} — ${SITE.name}`,
     description: t.service.intro.replace("{theme}", themeForIntro).replace("{city}", cityDisplayLabel),
@@ -50,7 +81,14 @@ export async function generateMetadata({
       canonical: `/${lang}/service/${theme}`,
       languages: hreflangAlternates((l) => `/${l}/service/${theme}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/service/${theme}` },
+    openGraph: { url: `${SITE.origin}/${lang}/service/${theme}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    // Mood pages ("Clean", "Good value", ...) are the same PlaceCard grid +
+    // FAQ template as service-theme pages ("Thai massage", ...) with a
+    // different filter column -- nobody searches Google for "good value
+    // massage places" the way they search "thai massage bangkok", and 15
+    // near-identical mood-filtered listing pages read as thin/duplicate
+    // content to a crawler. Real service-theme pages stay indexed.
+    ...(isMood ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -64,12 +102,12 @@ export default async function ServiceThemePage({
   const rawLabel = findLabelForSlug(theme);
   if (!rawLabel) notFound();
   const t = tFor(lang);
-  const cities = listCities();
-  if (cities.length === 0) notFound();
-  const cityCode = cities[0];
-  const cityData = loadCity(cityCode);
   const label = themeLabel(rawLabel, lang);
-  const cityDisplayLabel = cityLabel(cityCode);
+  const allMatching = matchingPlacesForLabel(rawLabel);
+  if (allMatching.length === 0) notFound();
+  const dominant = dominantCity(allMatching);
+  const cityCode = dominant ?? "";
+  const cityDisplayLabel = dominant ? cityLabel(dominant) : "";
   const isMood = isMoodLabel(rawLabel);
   const pageTitle = (isMood ? t.service.moodListTitle : t.service.listTitle)
     .replace("{theme}", label)
@@ -82,10 +120,6 @@ export default async function ServiceThemePage({
   const themeForFaqQuestion = lang === "ko" ? `${label}${eunNeun(label)}` : label;
   const themeForFaqAnswer = lang === "ko" ? `${label}${euroRo(label)}` : label;
 
-  const allMatching = cityData.places
-    .filter((p) => placeMatchesLabel(p, rawLabel))
-    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
-  if (allMatching.length === 0) notFound();
   const places = allMatching.slice(0, MAX_SHOWN);
 
   const avgRating = averageRating(allMatching);

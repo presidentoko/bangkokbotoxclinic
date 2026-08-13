@@ -48,7 +48,7 @@ export default function CookieConsent() {
   }
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 p-3 sm:p-4 print:hidden toast-fade-up">
+    <div className="safe-bottom fixed bottom-0 inset-x-0 z-40 p-3 sm:p-4 print:hidden toast-fade-up">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl border-2 border-slate-200 overflow-hidden">
         {!expanded ? (
           <div className="p-4 sm:p-5">

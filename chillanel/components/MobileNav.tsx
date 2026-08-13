@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SUPPORTED_LANGS, type Lang } from "@/lib/site";
@@ -13,9 +13,33 @@ export function MobileNav({ lang, t }: { lang: Lang; t: Dict["nav"] }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() || `/${lang}`;
   const rest = pathname.split("/").slice(2).join("/");
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Drawer lifecycle: previously had no way to close except tapping a
+  // link inside it -- no click-outside, no Escape, and the page behind it
+  // stayed scrollable (so a drag on the drawer's background scrolled the
+  // page under a nav that looked modal but wasn't behaving like one).
+  useEffect(() => {
+    if (!open) return;
+    function onClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
 
   return (
-    <div className="sm:hidden">
+    <div className="sm:hidden" ref={containerRef}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -42,19 +66,19 @@ export function MobileNav({ lang, t }: { lang: Lang; t: Dict["nav"] }) {
             <div className="pb-3 mb-1 border-b border-border">
               <SearchBox lang={lang} />
             </div>
-            <Link href={`/${lang}`} onClick={() => setOpen(false)} className="py-2.5">
+            <Link href={`/${lang}`} onClick={() => setOpen(false)} className="min-h-11 flex items-center py-2.5 active:bg-bg rounded-lg">
               {t.home}
             </Link>
-            <Link href={`/${lang}/guide`} onClick={() => setOpen(false)} className="py-2.5">
+            <Link href={`/${lang}/guide`} onClick={() => setOpen(false)} className="min-h-11 flex items-center py-2.5 active:bg-bg rounded-lg">
               {t.guides}
             </Link>
-            <Link href={`/${lang}/favorites`} onClick={() => setOpen(false)} className="py-2.5">
+            <Link href={`/${lang}/favorites`} onClick={() => setOpen(false)} className="min-h-11 flex items-center py-2.5 active:bg-bg rounded-lg">
               {t.favorites}
             </Link>
-            <Link href={`/${lang}/compare`} onClick={() => setOpen(false)} className="py-2.5">
+            <Link href={`/${lang}/compare`} onClick={() => setOpen(false)} className="min-h-11 flex items-center py-2.5 active:bg-bg rounded-lg">
               {t.compare}
             </Link>
-            <Link href={`/${lang}/about`} onClick={() => setOpen(false)} className="py-2.5">
+            <Link href={`/${lang}/about`} onClick={() => setOpen(false)} className="min-h-11 flex items-center py-2.5 active:bg-bg rounded-lg">
               {t.about}
             </Link>
             <div className="flex gap-2 pt-3 mt-2 border-t border-border">
@@ -63,7 +87,10 @@ export function MobileNav({ lang, t }: { lang: Lang; t: Dict["nav"] }) {
                   key={l}
                   href={`/${l}${rest ? `/${rest}` : ""}`}
                   onClick={() => setOpen(false)}
-                  className={`px-3 py-1.5 rounded-md text-sm ${l === lang ? "bg-accent text-white" : "text-muted"}`}
+                  // dark:text-ink -- see LangSwitcher.tsx: dark mode's --accent
+                  // is bright enough that white text fails WCAG AA (~2.1:1)
+                  // against it, while --ink clears it easily.
+                  className={`px-3 py-1.5 rounded-md text-sm ${l === lang ? "bg-accent text-white dark:text-ink" : "text-muted"}`}
                 >
                   {LANG_LABELS[l]}
                 </Link>

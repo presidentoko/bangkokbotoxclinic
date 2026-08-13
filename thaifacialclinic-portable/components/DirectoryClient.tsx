@@ -139,14 +139,14 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t("search_ph", lang)}
-              className="w-full rounded-xl border bg-[rgb(var(--bg-elev))] py-2.5 pl-9 pr-3 text-sm font-medium placeholder:text-[rgb(var(--muted))] focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20 dark:focus:border-gold-400 dark:focus:ring-gold-400/20"
+              className="w-full rounded-xl border bg-[rgb(var(--bg-elev))] py-2.5 pl-9 pr-3 text-base font-medium placeholder:text-[rgb(var(--muted))] focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20 dark:focus:border-gold-400 dark:focus:ring-gold-400/20"
               style={{ borderColor: "rgb(var(--border))" }}
             />
           </div>
           <select
             value={procFilter}
             onChange={(e) => setProcFilter(e.target.value)}
-            className="rounded-xl border bg-[rgb(var(--bg-elev))] px-3 py-2.5 text-sm font-medium"
+            className="rounded-xl border bg-[rgb(var(--bg-elev))] px-3 py-2.5 text-base font-medium"
             style={{ borderColor: "rgb(var(--border))" }}
             aria-label="Procedure"
           >
@@ -156,7 +156,7 @@ export default function DirectoryClient({ clinics, lang }: { clinics: Clinic[]; 
           <select
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value as SortKey)}
-            className="rounded-xl border bg-[rgb(var(--bg-elev))] px-3 py-2.5 text-sm font-medium"
+            className="rounded-xl border bg-[rgb(var(--bg-elev))] px-3 py-2.5 text-base font-medium"
             style={{ borderColor: "rgb(var(--border))" }}
             aria-label={t("sort_by", lang)}
           >

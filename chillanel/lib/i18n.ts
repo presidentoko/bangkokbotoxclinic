@@ -14,6 +14,7 @@ export type Dict = {
     browse: string;
     searchPlaceholder: string;
     searchNoResults: string;
+    searchLoading: string;
     searchOpen: string;
     searchClose: string;
   };
@@ -33,6 +34,10 @@ export type Dict = {
     faqTitle: string;
     faq: FaqItem[];
     trendingTitle: string;
+    recommendedTitle: string;
+    discoverTitle: string;
+    surpriseMe: string;
+    surpriseLoading: string;
   };
   place: {
     reviewsTitle: string;
@@ -43,18 +48,28 @@ export type Dict = {
     reviewCountLabel: string;
     addressLabel: string;
     viewOnMaps: string;
+    callNow: string;
+    visitWebsite: string;
     /** Template with a "{n}" placeholder, e.g. "{n} named in reviews". */
     namedInReviews: string;
+    /** Template with a "{n}" placeholder — how many times a named therapist was mentioned, shown next to their name. */
+    mentionedCount: string;
     anonymousReviewer: string;
     serviceThemesTitle: string;
     moodKeywordsTitle: string;
     ratingBreakdownTitle: string;
     /** Template with a "{price}" placeholder. */
     priceRangeLabel: string;
+    /** Template with "{min}" and "{max}" placeholders -- used instead of priceRangeLabel when reviewers mention more than one distinct price. */
+    priceRangeLabelRange: string;
     /** Template with a "{theme}" placeholder, used inside the auto-generated summary paragraph. */
+    /** Template with "{rating}" and "{reviewCount}" placeholders. */
+    summaryStatsClause: string;
     summaryThemeClause: string;
     /** Template with a "{mood}" placeholder, used inside the auto-generated summary paragraph. */
     summaryMoodClause: string;
+    /** Template with a "{district}" placeholder, used inside the auto-generated summary paragraph. */
+    summaryDistrictClause: string;
     similarPlacesTitle: string;
     /** Template with a "{district}" placeholder. */
     viewDistrict: string;
@@ -95,6 +110,10 @@ export type Dict = {
     faq: FaqItem[];
     trendingTitle: string;
     browseByAreaTitle: string;
+    /** Template with a "{mood}" placeholder, e.g. "Quiet & relaxing picks". */
+    moodSectionTitle: string;
+    viewAll: string;
+    browseAllTitle: string;
   };
   /** listTitle/intro use "{theme}" and "{city}" placeholders; backToCity uses "{city}". */
   service: {
@@ -139,7 +158,7 @@ export type Dict = {
     breakdownDiversity: string;
     explainer: string;
   };
-  guide: { indexTitle: string };
+  guide: { indexTitle: string; indexDescription: string };
   favorites: {
     title: string;
     intro: string;
@@ -172,6 +191,36 @@ export type Dict = {
   };
   about: { title: string; body: string; trustScoreTitle: string; trustScoreBody: string };
   footer: { rights: string; tagline: string; exploreTitle: string; languageTitle: string };
+  notFound: { title: string; body: string; cta: string };
+  errorPage: { title: string; body: string; retry: string; cta: string };
+  advertise: {
+    title: string;
+    intro: string;
+    nameLabel: string;
+    contactLabel: string;
+    contactPlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submit: string;
+    sending: string;
+    success: string;
+    error: string;
+  };
+  correction: {
+    linkLabel: string;
+    title: string;
+    issueTypeLabel: string;
+    issueTypes: { closed: string; wrongInfo: string; duplicate: string; other: string };
+    detailsLabel: string;
+    detailsPlaceholder: string;
+    contactLabel: string;
+    contactPlaceholder: string;
+    submit: string;
+    sending: string;
+    success: string;
+    error: string;
+    cancel: string;
+  };
 };
 
 const en: Dict = {
@@ -186,16 +235,17 @@ const en: Dict = {
     browse: "Browse",
     searchPlaceholder: "Search places…",
     searchNoResults: "No places found.",
+    searchLoading: "Loading…",
     searchOpen: "Search",
     searchClose: "Close search",
   },
   home: {
-    heroTitle: "It's not the spa. It's the hands.",
+    heroTitle: "Find the vibe, not just the rating.",
     heroSub:
-      "chillanel is a Thailand massage & spa guide built around the one thing every ranking site ignores: who's actually giving the massage.",
+      "chillanel reads real Google reviews to surface the mood of every massage & spa place — quiet and calm, or lively and social — so you know what you're walking into before you book.",
     philosophyTitle: "Why we're different",
     philosophyBody:
-      "A five-star lobby doesn't guarantee a good massage, and a plain shophouse doesn't mean a bad one. We read the reviews for the parts other sites skip — the ones that name names.",
+      "A 4.8-star spa can still feel rushed, and a plain shophouse can feel like your favorite living room. We mine real reviews for the mood words guests actually use — quiet, strong pressure, good value — so you match the vibe, not just the stars.",
     featuredTitle: "Featured places",
     trustBadge: "{count}+ places, built from real Google reviews",
     ctaBrowse: "Browse all places",
@@ -207,18 +257,22 @@ const en: Dict = {
     faq: [
       {
         q: "How is chillanel different from other massage & spa listing sites?",
-        a: "Most sites rank by facility — lobby, decor, price. We read the reviews for the part everyone else skips: which specific therapist people ask for by name. A five-star lobby doesn't guarantee a good massage, and a plain shophouse doesn't mean a bad one.",
+        a: "Most sites rank by facility — lobby, decor, price. We read real Google reviews for the mood words guests actually use — quiet, lively, strong pressure, good value — so you know what a place feels like before you go, not just how many stars it has.",
       },
       {
-        q: "Are the therapist names real?",
-        a: "They're auto-extracted from public Google reviews when 2 or more different reviewers mention the same name — always shown with the original quote. We label them clearly as unverified, and you should confirm availability with the venue directly.",
+        q: "Where do the mood tags come from?",
+        a: "Every mood keyword (quiet & relaxing, strong pressure, good value, and more) is pulled straight from real Google reviews for that place — we don't write or edit them. The more reviews mention a mood, the more prominently it shows.",
       },
       {
         q: "How do I pick a good massage place?",
-        a: "Start with the rating and review count, then check if any therapist is named repeatedly in reviews — that's a stronger signal than the storefront. Read a few recent reviews for context on cleanliness and pressure style.",
+        a: "Start with the rating and review count, then check the mood tags for what regulars actually say it feels like. If a specific therapist is mentioned by name more than once in reviews, that's also a strong signal worth reading.",
       },
     ],
     trendingTitle: "What reviewers say most",
+    recommendedTitle: "Recommended for you",
+    discoverTitle: "Discover something new",
+    surpriseMe: "🎲 Surprise me",
+    surpriseLoading: "Picking…",
   },
   place: {
     reviewsTitle: "What reviewers say",
@@ -230,14 +284,20 @@ const en: Dict = {
     reviewCountLabel: "reviews",
     addressLabel: "Address",
     viewOnMaps: "View on Google Maps",
+    callNow: "Call now",
+    visitWebsite: "Visit website",
     namedInReviews: "{n} named in reviews",
+    mentionedCount: "mentioned {n}x",
     anonymousReviewer: "Anonymous",
     serviceThemesTitle: "Services mentioned in reviews",
     moodKeywordsTitle: "How reviewers describe it",
     ratingBreakdownTitle: "Rating breakdown",
     priceRangeLabel: "~{price}฿ per session, based on reviewer mentions",
+    priceRangeLabelRange: "~{min}–{max}฿ per session, based on reviewer mentions",
+    summaryStatsClause: "Rated {rating} from {reviewCount} reviews.",
     summaryThemeClause: "Reviewers most often mention {theme} here.",
     summaryMoodClause: "Regulars describe the place as {mood}.",
+    summaryDistrictClause: "Located in {district}.",
     similarPlacesTitle: "Similar places nearby",
     viewDistrict: "More places in {district} →",
     prosTitle: "Why reviewers like it",
@@ -261,7 +321,7 @@ const en: Dict = {
   city: {
     listTitle: "Massage & spa in {city}",
     placeCount: "places",
-    intro: "Real Google reviews from {city}, read for the part other sites skip — who's actually behind the massage.",
+    intro: "Real Google reviews from {city}, mined for the mood of each place — quiet, lively, strong pressure, good value — not just a star rating.",
     showingTop: "Showing the top {shown}, sorted by rating.",
     faqTitle: "Massage & spa in {city} — FAQ",
     faq: [
@@ -280,6 +340,9 @@ const en: Dict = {
     ],
     trendingTitle: "What reviewers say most in {city}",
     browseByAreaTitle: "Browse by area",
+    moodSectionTitle: "{mood} picks",
+    viewAll: "View all",
+    browseAllTitle: "Browse all places",
   },
   service: {
     listTitle: "Best {theme} in {city}",
@@ -316,7 +379,11 @@ const en: Dict = {
     explainer:
       "Combines your rating, review volume, and how many distinct things reviewers actually mention into one 0-100 number — a fuller picture than a star rating alone.",
   },
-  guide: { indexTitle: "Guides" },
+  guide: {
+    indexTitle: "Guides",
+    indexDescription:
+      "Straight answers on Thai massage styles, pricing, tipping, and how to spot a legit place — written from real reviews, not marketing copy.",
+  },
   favorites: {
     title: "Your favorites",
     intro: "Saved on this device only — nothing is uploaded, so favorites won't follow you to another browser.",
@@ -347,16 +414,60 @@ const en: Dict = {
   about: {
     title: "About chillanel",
     body:
-      "chillanel is an independent guide to massage and spa places in Thailand. We're not affiliated with any venue. Our angle: therapist quality varies far more than facility quality, so we surface what reviewers say about the people, not just the place.",
+      "chillanel is an independent guide to massage and spa places in Thailand. We're not affiliated with any venue. Our angle: a star rating doesn't tell you what a place actually feels like, so we mine real reviews for the mood words guests use — quiet, lively, strong pressure, good value — and surface that alongside the rating.",
     trustScoreTitle: "How the Trust Score works",
     trustScoreBody:
       "Every place gets a 0-100 Trust Score built from three things we can verify. Half comes from the Google rating itself (50 points). Just over a third comes from how many reviews back that rating up, on a log scale so one viral review can't skew things (35 points). The rest comes from how many distinct things reviewers actually mention about the place — service style, mood, cleanliness — capped at 15 points. A place with no reviewer detail beyond a star rating scores lower on that last part; it isn't a penalty, just an honest reflection of how much we could verify.",
   },
   footer: {
     rights: "Independent guide. Not affiliated with any venue.",
-    tagline: "It's not the spa. It's the hands.",
+    tagline: "Every place has a mood. We help you find yours.",
     exploreTitle: "Explore",
     languageTitle: "Language",
+  },
+  notFound: {
+    title: "Page not found",
+    body: "This page doesn't exist, or the place may have closed or been removed.",
+    cta: "Back to home",
+  },
+  errorPage: {
+    title: "Something went wrong",
+    body: "An unexpected error occurred while loading this page.",
+    retry: "Try again",
+    cta: "Back to home",
+  },
+  advertise: {
+    title: "Advertise with chillanel",
+    intro: "Own a spa or massage place and want more visibility? Tell us a bit about your business and we'll get back to you.",
+    nameLabel: "Your name",
+    contactLabel: "Contact (email, phone, or Line ID)",
+    contactPlaceholder: "you@example.com",
+    messageLabel: "Message",
+    messagePlaceholder: "Tell us about your business and what you're looking for.",
+    submit: "Send inquiry",
+    sending: "Sending…",
+    success: "Thanks — we've received your inquiry and will be in touch.",
+    error: "Something went wrong sending your inquiry. Please try again.",
+  },
+  correction: {
+    linkLabel: "Report incorrect info",
+    title: "Report an issue with this listing",
+    issueTypeLabel: "What's wrong?",
+    issueTypes: {
+      closed: "This place has closed",
+      wrongInfo: "Address, phone, or other info is wrong",
+      duplicate: "This is a duplicate listing",
+      other: "Something else",
+    },
+    detailsLabel: "Details",
+    detailsPlaceholder: "What should we fix?",
+    contactLabel: "Your contact (optional, in case we have questions)",
+    contactPlaceholder: "you@example.com",
+    submit: "Send report",
+    sending: "Sending…",
+    success: "Thanks — we've received your report.",
+    error: "Something went wrong sending your report. Please try again.",
+    cancel: "Cancel",
   },
 };
 
@@ -372,16 +483,17 @@ const th: Dict = {
     browse: "ดูร้าน",
     searchPlaceholder: "ค้นหาร้าน…",
     searchNoResults: "ไม่พบร้านที่ค้นหา",
+    searchLoading: "กำลังโหลด…",
     searchOpen: "ค้นหา",
     searchClose: "ปิดการค้นหา",
   },
   home: {
-    heroTitle: "ไม่ใช่ร้าน แต่เป็นฝีมือคน",
+    heroTitle: "หาบรรยากาศที่ใช่ ไม่ใช่แค่คะแนนดาว",
     heroSub:
-      "chillanel คือคู่มือร้านนวด & สปาในไทย ที่โฟกัสสิ่งที่เว็บจัดอันดับอื่นมองข้าม นั่นคือ ใครเป็นคนนวดจริง ๆ",
+      "chillanel อ่านรีวิว Google จริงเพื่อดึงบรรยากาศของแต่ละร้านนวด & สปา — เงียบสงบผ่อนคลาย หรือคึกคักเป็นกันเอง — ให้คุณรู้ก่อนจองว่าจะเจอกับอะไร",
     philosophyTitle: "ทำไมเราถึงต่าง",
     philosophyBody:
-      "ล็อบบี้ห้าดาวไม่ได้การันตีฝีมือนวดที่ดี และร้านเล็ก ๆ ก็ไม่ได้แปลว่าแย่เสมอไป เราอ่านรีวิวในส่วนที่เว็บอื่นข้ามไป — ส่วนที่เอ่ยชื่อจริง ๆ",
+      "ร้านคะแนน 4.8 ก็ยังรู้สึกเร่งรีบได้ ส่วนร้านเล็ก ๆ ธรรมดาก็อาจรู้สึกอบอุ่นเหมือนบ้านตัวเอง เราขุดรีวิวจริงหาคำที่ลูกค้าใช้บอกบรรยากาศ — เงียบสงบ นวดแรง คุ้มค่า — เพื่อให้คุณเจอบรรยากาศที่ใช่ ไม่ใช่แค่ดูดาว",
     featuredTitle: "ร้านแนะนำ",
     trustBadge: "รวมกว่า {count}+ ร้าน จากรีวิว Google จริง",
     ctaBrowse: "ดูร้านทั้งหมด",
@@ -393,18 +505,22 @@ const th: Dict = {
     faq: [
       {
         q: "chillanel ต่างจากเว็บจัดอันดับร้านนวด/สปาอื่นยังไง?",
-        a: "เว็บส่วนใหญ่จัดอันดับจากหน้าร้าน ล็อบบี้ ราคา แต่เราอ่านรีวิวในส่วนที่เว็บอื่นข้ามไป — คือใครคือหมอนวดที่คนขอชื่อจริง ๆ ล็อบบี้ห้าดาวไม่ได้การันตีฝีมือนวดที่ดี และร้านเล็ก ๆ ก็ไม่ได้แปลว่าแย่เสมอไป",
+        a: "เว็บส่วนใหญ่จัดอันดับจากหน้าร้าน ล็อบบี้ ราคา แต่เราอ่านรีวิว Google จริงหาคำที่ลูกค้าใช้บอกบรรยากาศ — เงียบสงบ คึกคัก นวดแรง คุ้มค่า — ให้คุณรู้ก่อนไปว่าร้านนั้นจะรู้สึกยังไง ไม่ใช่แค่ดูจำนวนดาว",
       },
       {
-        q: "ชื่อหมอนวดที่แสดงเป็นชื่อจริงไหม?",
-        a: "ชื่อเหล่านี้ดึงมาอัตโนมัติจากรีวิว Google สาธารณะ เมื่อมีผู้รีวิวอย่างน้อย 2 คนขึ้นไปเอ่ยชื่อเดียวกัน — พร้อมแสดงข้อความรีวิวต้นฉบับเสมอ เราระบุชัดเจนว่ายังไม่ได้ยืนยัน กรุณาสอบถามร้านโดยตรงก่อนเข้ารับบริการ",
+        q: "แท็กบรรยากาศมาจากไหน?",
+        a: "แท็กบรรยากาศแต่ละอัน (เงียบสงบผ่อนคลาย นวดแรง คุ้มค่า และอื่น ๆ) ดึงมาจากรีวิว Google จริงของร้านนั้นโดยตรง เราไม่ได้เขียนหรือแก้ไขเอง ยิ่งมีรีวิวพูดถึงบรรยากาศนั้นมาก แท็กก็จะยิ่งเด่นขึ้น",
       },
       {
         q: "จะเลือกร้านนวดยังไงดี?",
-        a: "เริ่มจากคะแนนและจำนวนรีวิว จากนั้นดูว่ามีชื่อหมอนวดคนไหนถูกเอ่ยซ้ำ ๆ ในรีวิวไหม นั่นเป็นสัญญาณที่น่าเชื่อถือกว่าหน้าร้าน แล้วอ่านรีวิวล่าสุดสักสองสามอันเพื่อดูความสะอาดและสไตล์การนวด",
+        a: "เริ่มจากคะแนนและจำนวนรีวิว จากนั้นดูแท็กบรรยากาศว่าลูกค้าประจำบอกว่าร้านนี้เป็นยังไง ถ้ามีชื่อหมอนวดคนไหนถูกเอ่ยซ้ำ ๆ ในรีวิว นั่นก็เป็นสัญญาณที่น่าสนใจเช่นกัน",
       },
     ],
     trendingTitle: "รีวิวพูดถึงอะไรมากที่สุด",
+    recommendedTitle: "แนะนำสำหรับคุณ",
+    discoverTitle: "ลองที่ใหม่ดูไหม",
+    surpriseMe: "🎲 สุ่มให้เลย",
+    surpriseLoading: "กำลังสุ่ม…",
   },
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
@@ -416,14 +532,20 @@ const th: Dict = {
     reviewCountLabel: "รีวิว",
     addressLabel: "ที่อยู่",
     viewOnMaps: "ดูใน Google Maps",
+    callNow: "โทรเลย",
+    visitWebsite: "เยี่ยมชมเว็บไซต์",
     namedInReviews: "ถูกเอ่ยชื่อในรีวิว {n} คน",
+    mentionedCount: "ถูกพูดถึง {n} ครั้ง",
     anonymousReviewer: "ไม่ระบุชื่อ",
     serviceThemesTitle: "บริการที่ถูกพูดถึงในรีวิว",
     moodKeywordsTitle: "รีวิวบอกว่าร้านนี้เป็นยังไง",
     ratingBreakdownTitle: "สัดส่วนคะแนนรีวิว",
     priceRangeLabel: "ประมาณ ~{price}฿ ต่อครั้ง (จากรีวิว)",
+    priceRangeLabelRange: "ประมาณ ~{min}–{max}฿ ต่อครั้ง (จากรีวิว)",
+    summaryStatsClause: "ให้คะแนน {rating} จาก {reviewCount} รีวิว",
     summaryThemeClause: "รีวิวพูดถึง{theme}ที่นี่บ่อยที่สุด",
     summaryMoodClause: "ลูกค้าประจำบอกว่าร้านนี้{mood}",
+    summaryDistrictClause: "ตั้งอยู่ใน{district}",
     similarPlacesTitle: "ร้านใกล้เคียงที่คล้ายกัน",
     viewDistrict: "ร้านอื่น ๆ ใน{district} →",
     prosTitle: "ทำไมรีวิวถึงชอบร้านนี้",
@@ -447,7 +569,7 @@ const th: Dict = {
   city: {
     listTitle: "ร้านนวดและสปาใน {city}",
     placeCount: "ร้าน",
-    intro: "รีวิว Google จริงจาก{city} อ่านในมุมที่เว็บอื่นข้ามไป — ใครคือคนที่นวดให้จริง ๆ",
+    intro: "รีวิว Google จริงจาก{city} ขุดหาบรรยากาศของแต่ละร้าน — เงียบสงบ คึกคัก นวดแรง คุ้มค่า — ไม่ใช่แค่ดูคะแนนดาว",
     showingTop: "แสดง {shown} อันดับแรก เรียงตามคะแนน",
     faqTitle: "นวดและสปาใน{city} — คำถามที่พบบ่อย",
     faq: [
@@ -466,6 +588,9 @@ const th: Dict = {
     ],
     trendingTitle: "รีวิวใน{city}พูดถึงอะไรมากที่สุด",
     browseByAreaTitle: "เลือกดูตามโซน",
+    moodSectionTitle: "ร้านแนว{mood}",
+    viewAll: "ดูทั้งหมด",
+    browseAllTitle: "ดูร้านทั้งหมด",
   },
   service: {
     listTitle: "{theme}ที่ดีที่สุดใน{city}",
@@ -502,7 +627,11 @@ const th: Dict = {
     explainer:
       "รวมคะแนนรีวิว จำนวนรีวิว และความหลากหลายของสิ่งที่รีวิวพูดถึงจริง ๆ ไว้ในตัวเลขเดียว 0-100 ให้ภาพที่ครบกว่าคะแนนดาวเพียงอย่างเดียว",
   },
-  guide: { indexTitle: "คู่มือ" },
+  guide: {
+    indexTitle: "คู่มือ",
+    indexDescription:
+      "คำตอบตรงๆ เรื่องสไตล์นวดไทย ราคา ทิป และวิธีสังเกตร้านที่น่าเชื่อถือ เขียนจากรีวิวจริง ไม่ใช่คำโฆษณา",
+  },
   favorites: {
     title: "รายการโปรดของคุณ",
     intro: "บันทึกไว้บนอุปกรณ์นี้เท่านั้น ไม่มีการอัปโหลดข้อมูล ดังนั้นรายการโปรดจะไม่ตามไปที่เบราว์เซอร์อื่น",
@@ -533,16 +662,60 @@ const th: Dict = {
   about: {
     title: "เกี่ยวกับ chillanel",
     body:
-      "chillanel คือคู่มืออิสระสำหรับร้านนวดและสปาในประเทศไทย เราไม่มีส่วนเกี่ยวข้องกับร้านใด ๆ มุมมองของเรา: ฝีมือของพนักงานนวดต่างกันมากกว่าคุณภาพของสถานที่ เราจึงนำเสนอสิ่งที่รีวิวพูดถึงตัวคน ไม่ใช่แค่สถานที่",
+      "chillanel คือคู่มืออิสระสำหรับร้านนวดและสปาในประเทศไทย เราไม่มีส่วนเกี่ยวข้องกับร้านใด ๆ มุมมองของเรา: คะแนนดาวอย่างเดียวบอกไม่ได้ว่าร้านนั้นบรรยากาศเป็นยังไง เราจึงขุดรีวิวจริงหาคำที่ลูกค้าใช้บอกบรรยากาศ — เงียบสงบ คึกคัก นวดแรง คุ้มค่า — มาแสดงคู่กับคะแนน",
     trustScoreTitle: "คะแนนความน่าเชื่อถือคำนวณยังไง",
     trustScoreBody:
       "ทุกร้านจะได้คะแนนความน่าเชื่อถือ 0-100 ที่มาจาก 3 ส่วนที่เราตรวจสอบได้จริง ครึ่งหนึ่งมาจากคะแนนรีวิว Google โดยตรง (50 คะแนน) มากกว่าหนึ่งในสามมาจากจำนวนรีวิวที่รองรับคะแนนนั้น โดยคำนวณแบบ log scale เพื่อไม่ให้รีวิวไวรัลเพียงรีวิวเดียวทำให้ผลเพี้ยน (35 คะแนน) และที่เหลือมาจากจำนวนสิ่งที่แตกต่างกันที่รีวิวพูดถึงจริง ๆ เช่น สไตล์บริการ บรรยากาศ ความสะอาด สูงสุด 15 คะแนน ร้านที่รีวิวไม่ได้ลงรายละเอียดอะไรนอกจากให้ดาวจะได้คะแนนส่วนนี้น้อยกว่า ไม่ใช่การลงโทษ แค่สะท้อนตามจริงว่าเราตรวจสอบได้มากแค่ไหน",
   },
   footer: {
     rights: "คู่มืออิสระ ไม่มีส่วนเกี่ยวข้องกับร้านใด ๆ",
-    tagline: "ไม่ใช่ร้าน แต่เป็นฝีมือคน",
+    tagline: "ทุกร้านมีบรรยากาศของตัวเอง เราช่วยให้คุณเจอร้านที่ใช่",
     exploreTitle: "สำรวจ",
     languageTitle: "ภาษา",
+  },
+  notFound: {
+    title: "ไม่พบหน้านี้",
+    body: "หน้านี้ไม่มีอยู่ หรือร้านอาจปิดตัวหรือถูกลบไปแล้ว",
+    cta: "กลับหน้าแรก",
+  },
+  errorPage: {
+    title: "เกิดข้อผิดพลาด",
+    body: "มีบางอย่างผิดพลาดขณะโหลดหน้านี้",
+    retry: "ลองอีกครั้ง",
+    cta: "กลับหน้าแรก",
+  },
+  advertise: {
+    title: "โฆษณากับ chillanel",
+    intro: "เป็นเจ้าของสปาหรือร้านนวดและอยากให้คนเห็นมากขึ้นไหม? เล่าเกี่ยวกับธุรกิจของคุณให้เราฟัง แล้วเราจะติดต่อกลับ",
+    nameLabel: "ชื่อของคุณ",
+    contactLabel: "ช่องทางติดต่อ (อีเมล เบอร์โทร หรือไลน์ไอดี)",
+    contactPlaceholder: "you@example.com",
+    messageLabel: "ข้อความ",
+    messagePlaceholder: "เล่าเกี่ยวกับธุรกิจของคุณและสิ่งที่คุณต้องการ",
+    submit: "ส่งคำขอ",
+    sending: "กำลังส่ง…",
+    success: "ขอบคุณ เราได้รับคำขอของคุณแล้วและจะติดต่อกลับ",
+    error: "เกิดข้อผิดพลาดในการส่งคำขอ กรุณาลองอีกครั้ง",
+  },
+  correction: {
+    linkLabel: "แจ้งข้อมูลผิดพลาด",
+    title: "แจ้งปัญหาเกี่ยวกับร้านนี้",
+    issueTypeLabel: "ปัญหาคืออะไร?",
+    issueTypes: {
+      closed: "ร้านนี้ปิดแล้ว",
+      wrongInfo: "ที่อยู่ เบอร์โทร หรือข้อมูลอื่นผิด",
+      duplicate: "รายการนี้ซ้ำกัน",
+      other: "อื่นๆ",
+    },
+    detailsLabel: "รายละเอียด",
+    detailsPlaceholder: "เราควรแก้ไขอะไร?",
+    contactLabel: "ช่องทางติดต่อของคุณ (ไม่บังคับ เผื่อเรามีคำถาม)",
+    contactPlaceholder: "you@example.com",
+    submit: "ส่งรายงาน",
+    sending: "กำลังส่ง…",
+    success: "ขอบคุณ เราได้รับรายงานของคุณแล้ว",
+    error: "เกิดข้อผิดพลาดในการส่งรายงาน กรุณาลองอีกครั้ง",
+    cancel: "ยกเลิก",
   },
 };
 
@@ -558,16 +731,17 @@ const ko: Dict = {
     browse: "둘러보기",
     searchPlaceholder: "업체 검색…",
     searchNoResults: "검색 결과가 없어요.",
+    searchLoading: "불러오는 중…",
     searchOpen: "검색",
     searchClose: "검색 닫기",
   },
   home: {
-    heroTitle: "중요한 건 스파가 아니라 손끝이에요.",
+    heroTitle: "별점이 아니라, 분위기로 찾으세요.",
     heroSub:
-      "chillanel은 다른 순위 사이트들이 놓치는 단 하나 — 실제로 누가 마사지를 해주는지에 집중한 태국 마사지·스파 가이드입니다.",
+      "chillanel은 실제 구글 리뷰를 분석해 마사지·스파 업체마다의 분위기를 보여줘요 — 조용하고 차분한 곳인지, 활기차고 편안한 곳인지 — 예약하기 전에 미리 알 수 있게요.",
     philosophyTitle: "우리가 다른 이유",
     philosophyBody:
-      "화려한 로비가 좋은 마사지를 보장하지 않고, 소박한 샵이라고 실력이 없는 것도 아니에요. 저희는 다른 사이트가 건너뛰는 리뷰 부분 — 실명이 언급된 부분을 읽습니다.",
+      "평점 4.8이어도 왠지 서두르는 느낌일 수 있고, 평범한 샵이 오히려 내 집처럼 편안할 수도 있어요. 저희는 실제 리뷰에서 손님들이 쓴 분위기 표현 — 조용함, 강한 압력, 가성비 — 을 모아서, 별점이 아니라 분위기로 맞는 곳을 찾도록 도와드려요.",
     featuredTitle: "추천 업체",
     trustBadge: "실제 구글 리뷰 기반, {count}+개 업체 수록",
     ctaBrowse: "전체 둘러보기",
@@ -579,18 +753,22 @@ const ko: Dict = {
     faq: [
       {
         q: "chillanel은 다른 마사지·스파 순위 사이트랑 뭐가 달라요?",
-        a: "대부분의 사이트는 로비, 인테리어, 가격 같은 시설 기준으로 순위를 매겨요. 저희는 다른 사이트가 건너뛰는 부분 — 실제로 누가 마사지를 해주는지, 리뷰에서 실명이 언급된 부분을 읽습니다. 화려한 로비가 좋은 마사지를 보장하지 않고, 소박한 샵이라고 실력이 없는 것도 아니에요.",
+        a: "대부분의 사이트는 로비, 인테리어, 가격 같은 시설 기준으로 순위를 매겨요. 저희는 실제 구글 리뷰에서 손님들이 쓴 분위기 표현 — 조용함, 활기참, 강한 압력, 가성비 — 을 모아서, 별점만으론 알 수 없는 그 업체의 실제 느낌을 미리 알려드려요.",
       },
       {
-        q: "리뷰에 나온 테라피스트 이름은 실제인가요?",
-        a: "공개된 구글 리뷰에서 2명 이상의 서로 다른 리뷰어가 같은 이름을 언급했을 때 자동으로 추출된 이름이며, 원문 인용과 함께 항상 표시됩니다. 검증되지 않았다는 점을 명확히 표시하니, 방문 전 업체에 직접 확인해 주세요.",
+        q: "분위기 태그는 어디서 나온 건가요?",
+        a: "분위기 태그(조용하고 편안함, 강한 압력, 가성비 좋음 등)는 모두 해당 업체의 실제 구글 리뷰에서 그대로 추출한 거예요. 저희가 임의로 쓰거나 편집하지 않아요. 특정 분위기를 언급하는 리뷰가 많을수록 태그가 더 두드러지게 표시됩니다.",
       },
       {
         q: "좋은 마사지샵은 어떻게 고르나요?",
-        a: "평점과 리뷰 수를 먼저 확인하고, 리뷰에 반복적으로 언급되는 테라피스트 이름이 있는지 살펴보세요. 이는 매장 외관보다 더 신뢰할 수 있는 신호예요. 최근 리뷰 몇 개를 읽으면 청결도나 마사지 스타일도 파악할 수 있습니다.",
+        a: "평점과 리뷰 수를 먼저 확인하고, 분위기 태그를 보면서 단골들이 이곳을 실제로 어떻게 느끼는지 살펴보세요. 리뷰에 특정 테라피스트 이름이 반복해서 언급된다면, 그것도 눈여겨볼 만한 신호예요.",
       },
     ],
     trendingTitle: "리뷰에서 가장 많이 언급된 것",
+    recommendedTitle: "당신을 위한 추천",
+    discoverTitle: "새로운 곳 발견하기",
+    surpriseMe: "🎲 아무거나 추천해줘",
+    surpriseLoading: "고르는 중…",
   },
   place: {
     reviewsTitle: "리뷰어들의 후기",
@@ -602,16 +780,22 @@ const ko: Dict = {
     reviewCountLabel: "리뷰",
     addressLabel: "주소",
     viewOnMaps: "구글맵에서 보기",
+    callNow: "전화하기",
+    visitWebsite: "웹사이트 방문",
     namedInReviews: "리뷰에 이름 언급 {n}명",
+    mentionedCount: "{n}회 언급",
     anonymousReviewer: "익명",
     serviceThemesTitle: "리뷰에서 언급된 서비스",
     moodKeywordsTitle: "리뷰어들이 말하는 이곳의 분위기",
     ratingBreakdownTitle: "평점 분포",
     priceRangeLabel: "리뷰 기준 회당 약 ~{price}฿",
+    priceRangeLabelRange: "리뷰 기준 회당 약 ~{min}–{max}฿",
     // {theme} carries its own subject particle (이/가) appended by the
     // caller via lib/korean-particles.ts -- see lib/summary.ts.
+    summaryStatsClause: "리뷰 {reviewCount}개, 평점 {rating}.",
     summaryThemeClause: "리뷰에서 이곳의 {theme} 가장 많이 언급됩니다.",
     summaryMoodClause: "단골들은 이곳을 {mood} 분위기라고 말합니다.",
+    summaryDistrictClause: "{district}에 위치해 있습니다.",
     similarPlacesTitle: "비슷한 인근 업체",
     viewDistrict: "{district}의 다른 업체 보기 →",
     prosTitle: "리뷰어들이 좋아하는 이유",
@@ -635,7 +819,7 @@ const ko: Dict = {
   city: {
     listTitle: "{city}의 마사지 & 스파",
     placeCount: "곳",
-    intro: "{city}의 실제 구글 리뷰를 다른 사이트가 건너뛰는 부분까지 — 실제로 누가 마사지를 해주는지 읽어드립니다.",
+    intro: "{city}의 실제 구글 리뷰에서 각 업체의 분위기를 뽑아냈어요 — 조용함, 활기참, 강한 압력, 가성비 — 별점만으론 알 수 없는 부분까지.",
     showingTop: "평점순으로 상위 {shown}곳을 보여드려요.",
     faqTitle: "{city} 마사지·스파 — 자주 묻는 질문",
     faq: [
@@ -654,6 +838,9 @@ const ko: Dict = {
     ],
     trendingTitle: "{city} 리뷰에서 가장 많이 언급된 것",
     browseByAreaTitle: "지역별로 보기",
+    moodSectionTitle: "{mood} 분위기 업체",
+    viewAll: "전체 보기",
+    browseAllTitle: "전체 업체 보기",
   },
   service: {
     listTitle: "{city} 베스트 {theme}",
@@ -693,7 +880,10 @@ const ko: Dict = {
     explainer:
       "평점, 리뷰 수, 리뷰에서 실제로 언급된 내용의 다양성을 하나의 0-100 점수로 합친 지표예요 — 별점만 볼 때보다 더 폭넓은 그림을 보여줘요.",
   },
-  guide: { indexTitle: "가이드" },
+  guide: {
+    indexTitle: "가이드",
+    indexDescription: "태국 마사지 스타일·가격·팁 문화, 믿을 만한 곳을 알아보는 법까지. 광고 문구가 아니라 실제 리뷰를 근거로 씁니다.",
+  },
   favorites: {
     title: "찜한 곳",
     intro: "이 기기에만 저장돼요 — 서버에 올라가지 않아서 다른 브라우저에서는 보이지 않아요.",
@@ -724,16 +914,60 @@ const ko: Dict = {
   about: {
     title: "chillanel 소개",
     body:
-      "chillanel은 태국 마사지·스파 업체에 대한 독립 가이드입니다. 특정 업체와 제휴 관계가 없습니다. 저희 관점: 시설보다 테라피스트의 실력 차이가 훨씬 크기 때문에, 장소가 아니라 사람에 대한 리뷰 내용을 보여드립니다.",
+      "chillanel은 태국 마사지·스파 업체에 대한 독립 가이드입니다. 특정 업체와 제휴 관계가 없습니다. 저희 관점: 별점만으로는 그 업체의 실제 분위기를 알 수 없어요. 그래서 실제 리뷰에서 손님들이 쓴 분위기 표현 — 조용함, 활기참, 강한 압력, 가성비 — 을 찾아내 별점과 함께 보여드립니다.",
     trustScoreTitle: "신뢰 점수는 어떻게 계산되나요",
     trustScoreBody:
       "모든 업체는 검증 가능한 3가지 요소로 만든 0-100 신뢰 점수를 받아요. 절반은 구글 평점 자체에서 나오고(50점), 3분의 1 조금 넘게는 그 평점을 뒷받침하는 리뷰 수에서 나오는데 로그 스케일로 계산해서 리뷰 하나가 급증한다고 결과가 왜곡되지 않게 했어요(35점). 나머지는 리뷰에서 실제로 언급된 서로 다른 요소들 — 서비스 스타일, 분위기, 청결도 등 — 의 개수에서 나와요, 최대 15점이에요. 리뷰에 별점 말고 다른 디테일이 없는 곳은 이 마지막 부분에서 낮은 점수를 받는데, 이건 페널티가 아니라 저희가 검증할 수 있었던 만큼만 정직하게 반영한 거예요.",
   },
   footer: {
     rights: "독립 가이드입니다. 특정 업체와 제휴 관계가 없습니다.",
-    tagline: "중요한 건 스파가 아니라 손끝이에요.",
+    tagline: "모든 곳엔 저마다의 분위기가 있어요. 당신에게 맞는 곳을 찾아드릴게요.",
     exploreTitle: "둘러보기",
     languageTitle: "언어",
+  },
+  notFound: {
+    title: "페이지를 찾을 수 없어요",
+    body: "이 페이지는 존재하지 않거나, 업체가 폐업했거나 삭제되었을 수 있어요.",
+    cta: "홈으로 돌아가기",
+  },
+  errorPage: {
+    title: "문제가 발생했어요",
+    body: "페이지를 불러오는 중 예상치 못한 오류가 발생했어요.",
+    retry: "다시 시도",
+    cta: "홈으로 돌아가기",
+  },
+  advertise: {
+    title: "chillanel에 광고 문의하기",
+    intro: "마사지숍이나 스파를 운영하고 계신가요? 노출을 늘리고 싶다면 업체 정보를 남겨주세요. 확인 후 연락드릴게요.",
+    nameLabel: "이름",
+    contactLabel: "연락처 (이메일, 전화번호, 또는 라인 아이디)",
+    contactPlaceholder: "you@example.com",
+    messageLabel: "문의 내용",
+    messagePlaceholder: "업체 소개와 원하시는 내용을 알려주세요.",
+    submit: "문의 보내기",
+    sending: "전송 중…",
+    success: "감사합니다. 문의가 접수되었어요. 곧 연락드릴게요.",
+    error: "문의 전송 중 오류가 발생했어요. 다시 시도해주세요.",
+  },
+  correction: {
+    linkLabel: "정보 오류 제보",
+    title: "이 업체 정보에 문제가 있나요?",
+    issueTypeLabel: "어떤 문제인가요?",
+    issueTypes: {
+      closed: "폐업한 업체예요",
+      wrongInfo: "주소, 전화번호 등 정보가 틀렸어요",
+      duplicate: "중복 등록된 업체예요",
+      other: "기타",
+    },
+    detailsLabel: "상세 내용",
+    detailsPlaceholder: "어떤 부분을 수정해야 할까요?",
+    contactLabel: "연락처 (선택, 확인이 필요할 경우)",
+    contactPlaceholder: "you@example.com",
+    submit: "제보 보내기",
+    sending: "전송 중…",
+    success: "감사합니다. 제보가 접수되었어요.",
+    error: "제보 전송 중 오류가 발생했어요. 다시 시도해주세요.",
+    cancel: "취소",
   },
 };
 

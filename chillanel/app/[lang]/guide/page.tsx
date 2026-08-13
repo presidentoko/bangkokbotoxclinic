@@ -15,11 +15,12 @@ export async function generateMetadata({
   if (!isLang(lang)) return {};
   return {
     title: `${tFor(lang).guide.indexTitle} — ${SITE.name}`,
+    description: tFor(lang).guide.indexDescription,
     alternates: {
       canonical: `/${lang}/guide`,
       languages: hreflangAlternates((l) => `/${l}/guide`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/guide` },
+    openGraph: { url: `${SITE.origin}/${lang}/guide`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

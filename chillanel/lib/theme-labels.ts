@@ -28,6 +28,31 @@ export function themeLabel(rawLabel: string, lang: Lang): string {
   return LABELS[rawLabel]?.[lang] ?? rawLabel;
 }
 
+// One emoji per fixed label, same keys as LABELS above -- purely
+// decorative (never the only signal for anything), so a label without an
+// entry here just renders with no emoji instead of breaking.
+const EMOJI: Record<string, string> = {
+  "Foot massage": "🦶",
+  "Oil massage": "💧",
+  "Thai massage": "🧘",
+  Aromatherapy: "🌸",
+  "Deep tissue": "🙌",
+  "Hot stone": "🔥",
+  Facial: "✨",
+  "Body scrub": "🧴",
+  Clean: "🧼",
+  "Quiet & relaxing": "😌",
+  "Strong pressure": "💪",
+  Gentle: "🤲",
+  "Friendly staff": "😊",
+  "Good value": "💸",
+  "Walk-in friendly": "🚪",
+};
+
+export function themeEmoji(rawLabel: string): string | null {
+  return EMOJI[rawLabel] ?? null;
+}
+
 export function slugifyTheme(rawLabel: string): string {
   return rawLabel
     .toLowerCase()

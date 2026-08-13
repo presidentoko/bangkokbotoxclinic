@@ -8,6 +8,7 @@ import { tFor } from "@/lib/i18n";
 import { getFavoriteIds } from "@/lib/favorites";
 import { PlaceCard } from "@/components/PlaceCard";
 import { PlaceCardSkeleton } from "@/components/PlaceCardSkeleton";
+import { ArrowRightIcon } from "@/components/Icon";
 
 // This whole page has to be client-rendered: favorites live in localStorage
 // (no backend, no per-user data at build time), and the only way to turn a
@@ -57,8 +58,8 @@ export function FavoritesClient({ lang }: { lang: Lang }) {
       <div>
         <div className="text-center py-16">
           <p className="text-muted mb-4">{t.favorites.empty}</p>
-          <Link href={`/${lang}`} className="inline-block text-sm font-semibold text-accent hover:underline">
-            {t.favorites.browseCta} →
+          <Link href={`/${lang}`} className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline">
+            {t.favorites.browseCta} <ArrowRightIcon className="w-3.5 h-3.5" />
           </Link>
         </div>
         {suggestions.length > 0 && (

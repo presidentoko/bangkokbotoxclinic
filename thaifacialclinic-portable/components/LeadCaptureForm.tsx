@@ -90,10 +90,10 @@ export default function LeadCaptureForm({ lang }: { lang: Lang }) {
           ) : (
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-2">
-                <select value={proc} onChange={(e) => setProc(e.target.value)} className="rounded-xl border bg-[rgb(var(--bg))] px-3 py-3 text-sm font-medium" style={{ borderColor: "rgb(var(--border))" }}>
+                <select value={proc} onChange={(e) => setProc(e.target.value)} className="rounded-xl border bg-[rgb(var(--bg))] px-3 py-3 text-base font-medium" style={{ borderColor: "rgb(var(--border))" }}>
                   {PROCS.map((p) => <option key={p}>{p}</option>)}
                 </select>
-                <select value={budget} onChange={(e) => setBudget(e.target.value)} className="rounded-xl border bg-[rgb(var(--bg))] px-3 py-3 text-sm font-medium" style={{ borderColor: "rgb(var(--border))" }}>
+                <select value={budget} onChange={(e) => setBudget(e.target.value)} className="rounded-xl border bg-[rgb(var(--bg))] px-3 py-3 text-base font-medium" style={{ borderColor: "rgb(var(--border))" }}>
                   <option value="<2000">{"<"} $2,000</option>
                   <option value="2000-3000">$2,000 – $3,000</option>
                   <option value="3000-5000">$3,000 – $5,000</option>
@@ -104,7 +104,7 @@ export default function LeadCaptureForm({ lang }: { lang: Lang }) {
                 type="email" required value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={PH_EMAIL[lang]}
-                className="w-full rounded-xl border bg-[rgb(var(--bg))] px-3 py-3 text-sm font-medium placeholder:text-[rgb(var(--muted))]"
+                className="w-full rounded-xl border bg-[rgb(var(--bg))] px-3 py-3 text-base font-medium placeholder:text-[rgb(var(--muted))]"
                 style={{ borderColor: "rgb(var(--border))" }}
               />
               <input type="text" tabIndex={-1} autoComplete="off" value={hp} onChange={(e) => setHp(e.target.value)} className="hidden" aria-hidden="true" />

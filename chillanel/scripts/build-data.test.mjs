@@ -1,11 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 
 const ROOT = import.meta.dirname;
-const OUT_FILE = path.join(ROOT, "..", "data", "clinics.__fixture_test.json");
+// Writes into os.tmpdir(), not the live data/ dir: build-all-cities.mjs's
+// places-index.json/search-index.json generation globs every
+// data/clinics.*.json it finds, so a fixture file left behind here by a
+// crashed test run (before its cleanup unlinkSync calls below) used to
+// risk leaking fixture rows into the real production indexes on the next
+// build.
+const OUT_FILE = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "chillanel-build-data-")), "clinics.__fixture_test.json");
 
 test("build-data pipeline: fixture CSV -> JSON with therapist mention", () => {
   execFileSync(

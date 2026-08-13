@@ -131,7 +131,7 @@ export default function ClinicBookingForm({
     );
   }
 
-  const inputCls = "rounded-xl border bg-[rgb(var(--bg-elev))] px-4 py-3 text-sm font-medium placeholder:text-[rgb(var(--muted))] focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20 dark:focus:border-gold-400 dark:focus:ring-gold-400/20";
+  const inputCls = "rounded-xl border bg-[rgb(var(--bg-elev))] px-4 py-3 text-base font-medium placeholder:text-[rgb(var(--muted))] focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20 dark:focus:border-gold-400 dark:focus:ring-gold-400/20";
 
   return (
     <section className="rounded-[2rem] border-2 bg-[rgb(var(--bg-elev))] p-6 shadow-premium sm:p-8" style={{ borderColor: "rgb(var(--border))" }}>

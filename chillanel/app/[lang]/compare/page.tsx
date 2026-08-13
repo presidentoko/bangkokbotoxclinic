@@ -21,7 +21,7 @@ export async function generateMetadata({
       canonical: `/${lang}/compare`,
       languages: hreflangAlternates((l) => `/${l}/compare`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/compare` },
+    openGraph: { url: `${SITE.origin}/${lang}/compare`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

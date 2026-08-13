@@ -41,3 +41,47 @@ bangkok_clinics
 bangkok_reviews
 logs
 web
+
+# 2026-08-08: 위 목록만으로는 부족했다. --archive=tgz 가 리포 루트를 훑을 때
+# 여기 없는 폴더는 전부 tar 에 들어가는데, 실측 결과 제외 안 된 것만 6.5 GB 였다
+# (korean-data 1.8G / "helath check" 1.8G / _archive 1.3G / hdmall_clinics 579M
+#  / .venv 296M / pantip 227M …). 배포 CLI 가 "Deploying…" 에서 진행이 없는 것처럼
+# 보이다 끊긴 원인이 이것이다 — 죽은 게 아니라 6.5 GB 를 압축하고 있었다.
+# 새 스크래퍼/데이터 폴더를 루트에 만들면 여기에도 추가할 것.
+korean-data
+helath check
+_archive
+hdmall_clinics
+.venv
+pantip
+dental_output
+dental_export
+dental_chiangmai
+dental_pattaya
+spa_output
+hair_bangkok
+hair_output
+hair_phuket
+petfood
+petvet
+clinic-enrichment
+engine
+merge_handoff
+.superpowers
+ayutthaya
+chiang_mai
+chiang_rai
+hat_yai
+hua_hin
+khon_kaen
+koh_samui
+korat
+krabi
+pattaya
+phuket
+udon_thani
+
+# data / docs 는 일부러 넣지 않았다 — thaifacialclinic-portable 자신이
+# 같은 이름의 폴더를 갖고 있고(build-data.mjs 가 data/master.csv 와
+# data/slug_history.json 을 읽는다), 이 파일의 패턴은 슬래시가 없으면
+# 어느 깊이에서나 매칭되므로 자기 데이터까지 지워 빌드가 깨진다.

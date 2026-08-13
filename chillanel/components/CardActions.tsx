@@ -5,6 +5,7 @@ import type { Lang } from "@/lib/site";
 import { tFor } from "@/lib/i18n";
 import { isFavorite, toggleFavorite } from "@/lib/favorites";
 import { isInCompare, toggleCompare, MAX_COMPARE } from "@/lib/compare";
+import { HeartIcon, CheckIcon, PlusIcon } from "./Icon";
 
 // Small client island rendered inside PlaceCard's <Link> — PlaceCard itself
 // stays a plain (server-renderable) component. localStorage doesn't exist
@@ -48,11 +49,11 @@ export function CardActions({ placeId, lang }: { placeId: string; lang: Lang }) 
         onClick={onFavoriteClick}
         aria-label={favorited ? t.place.removeFavorite : t.place.addFavorite}
         aria-pressed={favorited}
-        className={`flex items-center justify-center w-8 h-8 rounded-full shadow-sm backdrop-blur-sm transition-colors ${
+        className={`flex items-center justify-center w-11 h-11 rounded-full shadow-sm backdrop-blur-sm transition-colors active:scale-95 ${
           favorited ? "bg-accent-warm text-ink" : "bg-bg-elev/90 text-muted hover:text-accent-warm"
         }`}
       >
-        <span aria-hidden="true">{favorited ? "♥" : "♡"}</span>
+        <HeartIcon filled={favorited} className="w-4 h-4" />
       </button>
       <button
         type="button"
@@ -60,7 +61,7 @@ export function CardActions({ placeId, lang }: { placeId: string; lang: Lang }) 
         aria-label={compared ? t.place.removeFromCompare : t.place.addToCompare}
         aria-pressed={compared}
         title={compareAtLimit ? t.place.compareLimitReached.replace("{max}", String(MAX_COMPARE)) : undefined}
-        className={`flex items-center justify-center w-8 h-8 rounded-full shadow-sm backdrop-blur-sm text-[11px] font-bold transition-colors ${
+        className={`flex items-center justify-center w-11 h-11 rounded-full shadow-sm backdrop-blur-sm transition-colors active:scale-95 ${
           compared
             ? "bg-accent text-on-ink"
             : compareAtLimit
@@ -68,7 +69,7 @@ export function CardActions({ placeId, lang }: { placeId: string; lang: Lang }) 
               : "bg-bg-elev/90 text-muted hover:text-accent"
         }`}
       >
-        <span aria-hidden="true">{compared ? "✓" : "+"}</span>
+        {compared ? <CheckIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
       </button>
     </div>
   );

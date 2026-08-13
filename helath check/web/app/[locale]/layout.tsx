@@ -4,6 +4,7 @@ import Script from "next/script";
 import "../globals.css";
 import { LOCALES, type Locale, isRTL, t, OG_LOCALE } from "@/lib/i18n";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { MobileMenuButton } from "@/app/components/MobileNav";
 import { WhatsAppCTA } from "@/app/components/WhatsAppCTA";
 import { SiteSearch } from "@/app/components/SiteSearch";
@@ -188,7 +189,24 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  // 알 수 없는 첫 세그먼트는 404 다 (2026-08-08 GSC "Soft 404" 대응).
+  //
+  // 이 가드가 없을 때 `/asdfqwer`, `/admin`, `/login`, `/robots` 같은 아무 경로나
+  // locale="asdfqwer" 로 들어와 영어로 폴백 렌더링되고 **HTTP 200 + 홈페이지**를
+  // 반환했다(실측). 존재하지 않는 URL 이 무한히 200 을 내니 구글이 soft 404 로
+  //판정한다. 두 단계 경로(`/shop/item/123`)는 매칭되는 라우트가 없어 이미
+  // 404 였고, 한 단계 경로만 이 구멍으로 샜다.
+  //
+  // dynamicParams=false 를 쓰지 않는 이유: 이 레이아웃 아래에
+  // checkup/[type], city/[city], for/[slug], compare/[category] 처럼 빌드타임에
+  // 전부 나열되지 않는 동적 라우트가 있어서, 그쪽까지 프리렌더 전용으로
+  // 묶여버린다. 여기서는 로케일 세그먼트만 검증한다.
+  //
+  // 레이아웃이 [locale] 하위 전체를 감싸므로 이 한 곳으로 트리 전체가 보호된다.
+  if (!(LOCALES as readonly string[]).includes(locale)) notFound();
   const loc = locale as Locale;
+
   return (
     <html lang={loc} dir={isRTL(loc) ? "rtl" : "ltr"} className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased font-[var(--font-inter)]">

@@ -24,7 +24,10 @@ export function TherapistMentions({
         {mentions.map((m) => (
           <div key={m.name} className="rounded-xl border border-border p-4">
             <div className="font-bold text-accent mb-2">
-              {m.name} <span className="text-muted font-normal text-xs">· mentioned {m.count}x</span>
+              {m.name}{" "}
+              <span className="text-muted font-normal text-xs">
+                · {t.place.mentionedCount.replace("{n}", String(m.count))}
+              </span>
             </div>
             <ul className="space-y-1.5">
               {m.quotes.map((q, i) => (

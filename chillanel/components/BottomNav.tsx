@@ -27,15 +27,23 @@ export function BottomNav({ lang, browseHref }: { lang: Lang; browseHref: string
   ];
 
   return (
+    // The height and bottom-padding classes below add the safe-area-inset
+    // env variable on top of the normal 4rem bar height: on notched
+    // iPhones, a plain `fixed bottom-0` bar sits directly under the
+    // home-indicator gesture zone, and the inset adds real height so the
+    // icons/labels clear it instead of being crowded against it.
+    // Footer.tsx and the place detail page's own bottom padding add the
+    // same inset so nothing ends up permanently hidden behind the now-
+    // taller bar.
     <nav
-      className="sm:hidden fixed bottom-0 left-0 right-0 z-30 h-16 border-t border-border bg-bg-elev/95 backdrop-blur flex items-stretch"
+      className="sm:hidden fixed bottom-0 left-0 right-0 z-30 h-[calc(4rem+env(safe-area-inset-bottom))] pb-[env(safe-area-inset-bottom)] border-t border-border bg-bg-elev/95 backdrop-blur flex items-stretch"
       aria-label={t.nav.home}
     >
       {items.map((item) => (
         <Link
           key={item.href}
           href={item.href}
-          className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-colors ${
+          className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-colors active:bg-bg ${
             item.active ? "text-accent" : "text-muted"
           }`}
         >

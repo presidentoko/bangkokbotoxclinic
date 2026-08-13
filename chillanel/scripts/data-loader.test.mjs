@@ -1,14 +1,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
-const ROOT = import.meta.dirname;
-const DATA_DIR = path.join(ROOT, "..", "data");
-const FIXTURE_FILE = path.join(DATA_DIR, "clinics.__loader_test.json");
+// Writes into os.tmpdir(), not the live data/ dir: build-all-cities.mjs's
+// places-index.json/search-index.json generation globs every
+// data/clinics.*.json it finds, so a fixture file left behind here by a
+// crashed test run (before its cleanup unlinkSync below) used to risk
+// leaking fixture rows into the real production indexes on the next build.
+const FIXTURE_FILE = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "chillanel-data-loader-")), "clinics.__loader_test.json");
 
 test("loadCity/getPlaceById read the generated JSON shape correctly", () => {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(
     FIXTURE_FILE,
     JSON.stringify({

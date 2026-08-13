@@ -174,18 +174,11 @@ export default function ProcedureExplainer({ lang }: { lang: Lang }) {
           </dl>
         </div>
 
-        {/* JSON-LD for AEO/SEO */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: FAQS.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }),
-        }} />
+        {/* FAQPage JSON-LD 는 여기서 내보내지 않는다 — 이 컴포넌트가 렌더되는
+            홈(app/[lang]/page.tsx)이 이미 HOME_FAQS 로 FAQPage 하나를 내보내고
+            있어서, /en/ · /th/ · /ko/ 전부 한 문서에 FAQPage 가 2개씩 실려
+            있었다 (2026-08-06 감사). 위의 <dl> 가시 Q&A 는 그대로 두므로
+            LLM 크롤러가 읽는 원문은 손실 없다. */}
       </div>
     </section>
   );

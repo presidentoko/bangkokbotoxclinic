@@ -5,6 +5,7 @@ import { SearchBar, type SearchableEntity } from "./SearchBar";
 
 export function HeroSearch({
   entities,
+  entitiesUrl,
   hrefBase,
   hero,
   heroSub,
@@ -14,6 +15,10 @@ export function HeroSearch({
   searchLang = "en",
 }: {
   entities: SearchableEntity[];
+  // 전체 색인을 정적 JSON 으로 분리할 때 쓰는 URL — entities 는 시드로만.
+  // (SearchBar 가 클라이언트 컴포넌트라 배열을 props 로 주면 RSC 페이로드에
+  //  그대로 실린다. 여긴 SearchBar 를 두 번 렌더하므로 두 벌 실렸다.)
+  entitiesUrl?: string;
   hrefBase: string;
   hero?: string;
   heroSub?: string;
@@ -43,6 +48,7 @@ export function HeroSearch({
       <div className="max-w-2xl mx-auto">
         <SearchBar
           entities={entities}
+          entitiesUrl={entitiesUrl}
           hrefBase={hrefBase}
           placeholder={searchPlaceholder}
           lang={searchLang}
@@ -62,6 +68,7 @@ export function HeroSearch({
         <div className="max-w-2xl mx-auto">
           <SearchBar
             entities={entities}
+          entitiesUrl={entitiesUrl}
             hrefBase={hrefBase}
             placeholder={searchPlaceholder}
             lang={searchLang}

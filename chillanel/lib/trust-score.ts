@@ -24,7 +24,13 @@ const MAX_DIVERSITY_LABELS = 15;
 
 function ratingPoints(rating: number | null): number {
   if (rating == null) return 0;
-  return Math.round((rating / 5) * 50);
+  // Google ratings are always 0-5 in practice, but nothing upstream
+  // guarantees it (a scraping glitch or bad CSV row isn't impossible) --
+  // clamped the same way volumePoints() below already clamps its own
+  // output, so the score/breakdown invariant this function's own doc
+  // comment promises (breakdown always sums to exactly `score`, capped at
+  // 100) can't be silently broken by one bad rating value.
+  return Math.round((Math.min(Math.max(rating, 0), 5) / 5) * 50);
 }
 
 function volumePoints(reviewCount: number): number {

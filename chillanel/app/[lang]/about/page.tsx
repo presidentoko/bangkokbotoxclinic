@@ -19,7 +19,7 @@ export async function generateMetadata({
       canonical: `/${lang}/about`,
       languages: hreflangAlternates((l) => `/${l}/about`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/about` },
+    openGraph: { url: `${SITE.origin}/${lang}/about`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

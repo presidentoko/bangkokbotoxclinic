@@ -1,18 +1,18 @@
 {
-  "updated_at": "2026-08-01T05:42:25Z",
+  "updated_at": "2026-08-11T04:38:35Z",
   "pantip": {
     "total": 53,
     "ok": 53,
     "skipped": 0,
     "error": 0
   },
-  "heartbeat_age_sec": 406688,
+  "heartbeat_age_sec": 1266858,
   "rate_per_min_1h": 0.0,
-  "disk_free_gb": 145.1,
+  "disk_free_gb": 160.6,
   "disk_total_gb": 510.7,
   "pids": {
     "watchdog": {
-      "pid": "65404",
+      "pid": "14876",
       "alive": true
     },
     "pantip_scraper": {
@@ -20,71 +20,79 @@
       "alive": false
     },
     "nordvpn_runner": {
-      "pid": "58920",
+      "pid": "16800",
       "alive": true
     },
     "throughput_monitor": {
-      "pid": "65676",
+      "pid": "10916",
       "alive": true
     },
     "auto_push_loop": {
-      "pid": "65164",
+      "pid": "15836",
       "alive": true
     },
     "master_db_builder": {
-      "pid": "27472",
-      "alive": true
+      "pid": null,
+      "alive": false
     }
   },
   "warnings": [
     "pantip_scraper dead (watchdog should respawn)",
-    "pantip heartbeat stale (406688s)",
+    "pantip heartbeat stale (1266858s)",
     "pantip rate too low (0.00/min)"
   ],
   "criticals": [],
   "history": [
     [
-      "2026-08-01T04:44:46Z",
+      "2026-08-11T03:39:21Z",
       53
     ],
     [
-      "2026-08-01T04:52:19Z",
+      "2026-08-11T03:44:23Z",
       53
     ],
     [
-      "2026-08-01T04:57:21Z",
+      "2026-08-11T03:49:25Z",
       53
     ],
     [
-      "2026-08-01T05:02:24Z",
+      "2026-08-11T03:54:27Z",
       53
     ],
     [
-      "2026-08-01T05:07:27Z",
+      "2026-08-11T03:59:28Z",
       53
     ],
     [
-      "2026-08-01T05:15:24Z",
+      "2026-08-11T04:04:30Z",
       53
     ],
     [
-      "2026-08-01T05:20:28Z",
+      "2026-08-11T04:09:32Z",
       53
     ],
     [
-      "2026-08-01T05:25:30Z",
+      "2026-08-11T04:14:33Z",
       53
     ],
     [
-      "2026-08-01T05:32:21Z",
+      "2026-08-11T04:18:29Z",
       53
     ],
     [
-      "2026-08-01T05:37:23Z",
+      "2026-08-11T04:23:30Z",
       53
     ],
     [
-      "2026-08-01T05:42:25Z",
+      "2026-08-11T04:28:32Z",
+      53
+    ],
+    [
+      "2026-08-11T04:33:34Z",
+      53
+    ],
+    [
+      "2026-08-11T04:38:35Z",
       53
     ]
   ]

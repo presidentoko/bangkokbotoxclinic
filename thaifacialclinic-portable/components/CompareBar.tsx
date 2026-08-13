@@ -15,7 +15,9 @@ export default function CompareBar({ clinics, lang }: { clinics: Clinic[]; lang:
   return (
     <>
       {/* Sticky bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t-2 border-gold-400 bg-navy-950 px-4 py-3 text-white shadow-2xl">
+      {/* safe-bottom — 홈 인디케이터가 있는 아이폰에서 py-3 만으로는 하단이
+          인디케이터 밑에 깔린다 (2026-08-06 감사). */}
+      <div className="safe-bottom fixed bottom-0 left-0 right-0 z-30 border-t-2 border-gold-400 bg-navy-950 px-4 py-3 text-white shadow-2xl">
         <div className="mx-auto max-w-6xl flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 overflow-x-auto">
             <span className="hidden sm:inline-block font-display text-sm font-bold whitespace-nowrap">

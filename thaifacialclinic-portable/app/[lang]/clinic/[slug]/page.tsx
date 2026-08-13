@@ -58,12 +58,28 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const c = getClinicBySlug(slug);
   if (!c) return {};
   const url = `${SITE.origin}/${lang}/clinic/${c.slug}/`;
-  const title = `${c.name} — Trust Score ${c.trust_score}/100`;
-  const description = c.top_review_text?.slice(0, 156) ||
-    `${c.name} in ${c.city}. ${c.reviews_scraped_count} reviews · ${c.photos_count} photos · ${c.videos_count} YouTube clips.`;
+  // 2026-08-06 감사:
+  // (1) title 이 absolute 가 아니라서 app/layout.tsx 의 template 이 브랜드명을
+  //     한 번 더 붙였다 — "…— Trust Score 59/100 — Thailand Hair Transplant Guide"
+  //     로 135자가 되어 구글 표시 한도를 한참 넘겼다.
+  // (2) description 이 스크랩한 구글 리뷰 원문(c.top_review_text)을 156자에서
+  //     그대로 잘라 쓰고 있었다. 1인칭이고 단어 중간에서 끊기며 개행까지
+  //     들어간 문장이 725개 클리닉 페이지 전부의 meta description 이었다.
+  //     ("I had my hair transplant done here with Dr. Top. It's been 2 years…")
+  //     리뷰 원문은 검색결과 설명으로 쓰기에 부적절하고, 남의 저작물이기도 하다.
+  const title = `${c.name} — ${c.city} · Trust Score ${c.trust_score}/100`;
+  const procList = (c.procedures ?? []).slice(0, 3).join(", ");
+  const description = [
+    `${c.name} in ${c.city}, Thailand.`,
+    procList ? `Procedures: ${procList}.` : "",
+    `Trust Score ${c.trust_score}/100 from ${c.reviews_scraped_count} analysed reviews`,
+    c.rating ? `· ★${c.rating}` : "",
+    "— independent ranking, no paid placement.",
+  ].filter(Boolean).join(" ").slice(0, 155);
   const og = c.top_photo_url || `${SITE.origin}/opengraph-image`;
   return {
-    title, description,
+    title: { absolute: title },
+    description,
     alternates: {
       canonical: url,
       languages: {
@@ -74,7 +90,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
     openGraph: { title, description, url, type: "article", siteName: SITE.name, images: [{ url: og, width: 1200, height: 630, alt: c.name }] },
     twitter: { card: "summary_large_image", title, description, images: [og] },
     other: { "thaifacial:trust_score": String(c.trust_score), "thaifacial:city": c.city },
-    robots: { index: true, follow: true },
+    // en 외 4개 로케일은 아직 영어 본문을 그대로 복제해 보여준다
+    // (app/sitemap.ts 주석 참조). 145곳 × 5언어 = 725 페이지가 빌드되는데
+    // 그중 580개가 영어와 title·description·H1·본문이 사실상 동일한 중복이라,
+    // 실번역이 들어오기 전까지는 색인 대상에서 빼고 링크만 따라가게 한다.
+    // GSC "색인 안 됨 1.51K" 의 상당 부분이 이 중복이다 (2026-08-06 감사).
+    robots: lang === "en" ? { index: true, follow: true } : { index: false, follow: true },
   };
 }
 

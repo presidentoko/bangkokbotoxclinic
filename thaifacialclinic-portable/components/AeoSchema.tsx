@@ -15,28 +15,55 @@ function fmtAddress(c: Clinic) {
 function buildFaq(c: Clinic): FaqItem[] {
   const reddit = c.reviews_sample.find((r) => /reddit/i.test(r.source || ""));
   const naver = c.reviews_sample.find((r) => /naver/i.test(r.source || ""));
-  return [
-    {
-      q: `Is ${c.name} safe?`,
-      a: `${c.name} has a Trust Score of ${c.trust_score}/100, computed from ${c.reviews_scraped_count} scraped real-user reviews across Google, Bookimed${reddit ? ", Reddit" : ""}${naver ? ", Naver" : ""} and ${c.photos_count} verified photos. ${c.is_suspected_viral ? "However our viral-filter has flagged this listing as a suspected ad/promoted entry — investigate independently." : "Cross-source review patterns appear organic."}`,
-    },
-    {
-      q: `What do real patients say on Reddit about ${c.name}?`,
-      a: reddit
-        ? `A Reddit reviewer wrote: "${reddit.text.slice(0, 240)}…"`
-        : `No first-party Reddit reviews were indexed for ${c.name} at this time. Patient discussion is concentrated on Google reviews and Bookimed testimonials.`,
-    },
-    {
-      q: `What procedures does ${c.name} offer?`,
-      a: c.procedures.length
-        ? `Procedures detected: ${c.procedures.join(", ")}.`
-        : `Specific procedure list not yet verified. Contact via the clinic's LINE or official site for current offerings.`,
-    },
-    {
+  // 2026-08-06 감사에서 이 FAQ 세트가 통째로 문제로 잡혔다:
+  //  - "안전한가?" 라는 의료 질문에 자체 지표(Trust Score)와 "검증된 사진 0장"
+  //    으로 답하고 있었다.
+  //  - "레딧에서 뭐라고 하나?" 는 데이터가 없는 클리닉이 대부분인데도 무조건
+  //    질문을 만들어놓고 "색인된 레딧 후기가 없습니다" 라고 답했다. 답이
+  //    없다고 답하는 Q&A 를 FAQPage 스키마로 내보내는 건 구조화 데이터 품질
+  //    위반에 가깝고, 답변 엔진이 인용할 가능성이 가장 높은 표면이라 더 나쁘다.
+  //  - 주소 끝에 "Thailand, Thailand" 가 중복으로 붙고 앞에 개행이 남아 있었다.
+  // → 데이터가 있을 때만 그 질문을 만들고, 답에는 실제 정보를 담는다.
+  const faqs: { q: string; a: string }[] = [];
+
+  const addr = (c.address || "").replace(/\s+/g, " ").trim().replace(/,?\s*Thailand\s*$/i, "");
+
+  faqs.push({
+    q: `Is ${c.name} a legitimate clinic?`,
+    a: c.is_suspected_viral
+      ? `Our viral-filter flagged this listing as a suspected promoted/ad entry — verify independently before booking. Check the clinic's Thai medical facility licence number and ask to see the surgeon's registration.`
+      : `${c.name} has ${c.reviews_scraped_count} reviews analysed across Google and Bookimed, and the cross-source review pattern looks organic (no burst of short same-day reviews). Before booking, ask for the clinic's Thai medical facility licence number and the operating surgeon's registration — every licensed clinic in Thailand can provide both.`,
+  });
+
+  if (c.procedures.length) {
+    faqs.push({
+      q: `What hair transplant procedures does ${c.name} offer?`,
+      a: `${c.name} offers ${c.procedures.join(", ")}. Ask which technique the surgeon recommends for your specific hairline and donor density — FUE and DHI differ in graft handling and price per graft, not just in name.`,
+    });
+  }
+
+  // 레딧 인용은 실제 인용문이 있을 때만. 없으면 질문 자체를 만들지 않는다.
+  if (reddit?.text) {
+    faqs.push({
+      q: `What do patients say on Reddit about ${c.name}?`,
+      a: `A Reddit reviewer wrote: "${reddit.text.slice(0, 240)}…"`,
+    });
+  }
+  if (naver?.text) {
+    faqs.push({
+      q: `What do Korean patients say about ${c.name}?`,
+      a: `A Naver reviewer wrote: "${naver.text.slice(0, 240)}…"`,
+    });
+  }
+
+  if (addr) {
+    faqs.push({
       q: `Where is ${c.name} located?`,
-      a: `${c.address || c.city}, Thailand. View on Google Maps.`,
-    },
-  ];
+      a: `${addr}, Thailand${c.city && !addr.includes(c.city) ? ` (${c.city})` : ""}. Most Bangkok hair clinics cluster around Sukhumvit and Phrom Phong — confirm the exact branch when booking, since several operate more than one location.`,
+    });
+  }
+
+  return faqs;
 }
 
 export default function AeoSchema({ c, lang }: { c: Clinic; lang: Lang }) {
@@ -91,15 +118,13 @@ export default function AeoSchema({ c, lang }: { c: Clinic; lang: Lang }) {
     })),
   };
 
-  const breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.origin}/${lang}/` },
-      { "@type": "ListItem", position: 2, name: c.city || "Clinics", item: `${SITE.origin}/${lang}/?city=${encodeURIComponent(c.city)}` },
-      { "@type": "ListItem", position: 3, name: c.name, item: url },
-    ],
-  };
+  // BreadcrumbList 는 여기서 내보내지 않는다. 클리닉 페이지
+  // (app/[lang]/clinic/[slug]/page.tsx)가 이미 하나를 내보내고 있어서 한 문서에
+  // BreadcrumbList 가 두 개 실렸고, 심지어 position 2 가 서로 달랐다 —
+  // 페이지 쪽은 /{lang}/city/{slug}/ (실제 존재하는 라우트), 여기 있던 건
+  // /{lang}/?city=... (쿼리스트링, 그런 페이지 없음). 구글에 같은 문서의
+  // 상위 경로를 두 가지로 동시에 주장하던 셈이라 실재하는 쪽만 남긴다
+  // (2026-08-06 감사).
 
   return (
     <>
@@ -110,10 +135,6 @@ export default function AeoSchema({ c, lang }: { c: Clinic; lang: Lang }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
       {/* Plain-text FAQ block. LLM crawlers read raw markdown-ish HTML; ensures Q&A is in DOM (not just JSON-LD). */}
       <section

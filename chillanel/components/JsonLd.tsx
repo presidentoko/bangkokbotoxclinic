@@ -20,7 +20,7 @@ export function WebsiteJsonLd() {
     name: SITE.name,
     url: SITE.origin,
     description:
-      "A Thailand massage & spa guide built around who's actually giving the massage — real Google reviews, therapist mentions surfaced automatically.",
+      "A Thailand massage & spa guide that reads real Google reviews to surface each place's actual mood — quiet & relaxing, strong pressure, good value — not just a star rating.",
   };
   return jsonLdScript(json);
 }
@@ -112,14 +112,18 @@ export function LocalBusinessJsonLd({ place, description }: { place: Place; desc
   // now ingests spa_output/{city}/ for multiple cities (see build-data.mjs
   // --city), and hardcoding "Bangkok" here would emit false structured data
   // for every place scraped from another city.
-  const reviewsWithText = place.reviews.filter((r) => r.text && r.text.trim().length > 0).slice(0, 10);
+  // streetAddress omitted (not emitted as "") for the 8/2,556 Bangkok
+  // places with no scraped address at all -- Google's structured data
+  // validator flags an empty string as an invalid PostalAddress field, and
+  // locality/country are still real/assertable on their own.
+  const addressTrimmed = place.address.trim();
   const json = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
     name: place.name,
     address: {
       "@type": "PostalAddress",
-      streetAddress: place.address.trim(),
+      ...(addressTrimmed ? { streetAddress: addressTrimmed } : {}),
       addressLocality: cityLabel(place.city),
       addressCountry: "TH",
     },
@@ -140,19 +144,15 @@ export function LocalBusinessJsonLd({ place, description }: { place: Place; desc
     ...(place.lat != null && place.lng != null
       ? { geo: { "@type": "GeoCoordinates", latitude: place.lat, longitude: place.lng } }
       : {}),
-    // Capped at the same 10 reviews the page itself renders (place/[id]/page.tsx
-    // does place.reviews.slice(0, 10)) so the schema never claims more than a
-    // reader can actually see and verify on the page.
-    ...(reviewsWithText.length > 0
-      ? {
-          review: reviewsWithText.map((r) => ({
-            "@type": "Review",
-            author: { "@type": "Person", name: r.authorName || "Anonymous" },
-            ...(r.rating != null ? { reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 } } : {}),
-            reviewBody: r.text,
-          })),
-        }
-      : {}),
+    // Deliberately no `review` array: these review texts/author names are
+    // scraped from Google, not authored on chillanel -- emitting them as
+    // schema.org Review objects under this business's own LocalBusiness
+    // markup asserts to Google's structured-data crawler that they're
+    // chillanel's own first-party reviews, which they aren't. aggregateRating
+    // above (a single rolled-up number) is a much smaller version of the same
+    // claim and is kept for the star-rating rich snippet; the individual
+    // review text/author is still shown to human readers on the page itself
+    // (place/[id]/page.tsx), just not asserted as structured data.
   };
   return jsonLdScript(json);
 }

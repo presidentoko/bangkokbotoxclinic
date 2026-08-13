@@ -1,14 +1,16 @@
-// Mentioned topics visual cluster — size/color scale with mention frequency.
+// ⚠️ AUTO-GENERATED from shared/components/TopicCluster.tsx
+// DO NOT edit directly — edit shared/components/TopicCluster.tsx, then run `python scripts/sync_shared.py`.
+
+// Mentioned topics 시각 클러스터 — 빈도에 따라 글자 크기/색상 차이.
 
 import { TOPIC_LABELS } from "@/lib/types";
 
 const POSITIVE = new Set([
-  "fresh", "tasty", "authentic", "fast_service", "affordable", "good_portion",
-  "english_menu", "halal_certified", "vegetarian_friendly", "kid_friendly",
-  "good_atmosphere", "good_view", "live_music", "korean_friendly",
-  "japanese_friendly", "michelin",
+  "genuine_brand", "english_speaking", "clean_facility", "affordable",
+  "professional", "friendly_staff", "results_satisfied", "no_pain",
+  "recommend", "korean_doctor", "premium",
 ]);
-const NEGATIVE = new Set(["long_wait", "expensive", "small_portion", "dirty", "long_lines", "tourist_trap"]);
+const NEGATIVE = new Set(["long_wait", "expensive"]);
 
 export function TopicCluster({ topics }: { topics: { topic: string; count: number }[] }) {
   if (!topics.length) return null;

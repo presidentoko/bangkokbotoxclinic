@@ -35,13 +35,43 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   const { lang } = await params;
   const url = `${SITE.origin}/${lang}/`;
   const { total } = loadClinics();
+
+  // 2026-08-06 감사:
+  // (1) title 이 absolute 가 아니라 app/layout.tsx 의 template 이 브랜드명을 한 번
+  //     더 붙였다 — /en/ 은 113자, 비영어 로케일은 "Thailand Hair Transplant
+  //     Guide — Verified Thai Hair Clinics — Thailand Hair Transplant Guide" 처럼
+  //     브랜드명이 두 번 나오는 92자가 됐다.
+  // (2) en 을 뺀 4개 로케일(th/ko/zh/ar)이 전부 같은 영어 제목을 썼고,
+  //     description 은 SITE.tagline 한 줄(th 50자, ko 31자)뿐이라 키워드도
+  //     시술명도 없었다.
+  // 콘텐츠 자체가 아직 영어 복제본이라 여기서 완전한 현지화까지는 못 하지만,
+  // 최소한 로케일별로 구분되고 검색어를 담은 제목/설명은 낼 수 있다.
+  const LOCALIZED: Partial<Record<Lang, { title: string; desc: string }>> = {
+    th: {
+      title: `ปลูกผมประเทศไทย — เปรียบเทียบคลินิกปลูกผม ${total} แห่ง FUE DHI`,
+      desc: `เปรียบเทียบคลินิกปลูกผมในกรุงเทพฯ และทั่วไทย ${total} แห่ง จัดอันดับด้วยคะแนนความน่าเชื่อถือจากการวิเคราะห์รีวิว Google จริง ครอบคลุม FUE, DHI และ SMP`,
+    },
+    ko: {
+      title: `태국 모발이식 — 방콕 클리닉 ${total}곳 비교 (FUE·DHI)`,
+      desc: `방콕 등 태국 모발이식 클리닉 ${total}곳을 구글 실제 후기 분석 기반 신뢰도 점수로 비교. FUE, DHI, SMP 시술별 정리와 실제 환자 후기 제공.`,
+    },
+    zh: {
+      title: `泰国植发 — 曼谷植发诊所 ${total} 家对比（FUE / DHI）`,
+      desc: `对比曼谷及泰国 ${total} 家植发诊所，依据真实 Google 评价分析的可信度评分排名，涵盖 FUE、DHI 与 SMP。`,
+    },
+    ar: {
+      title: `زراعة الشعر في تايلاند — مقارنة ${total} عيادة في بانكوك`,
+      desc: `قارن ${total} عيادة لزراعة الشعر في بانكوك وتايلاند، مرتبة حسب درجة الثقة المحسوبة من تحليل تقييمات Google الحقيقية. تشمل FUE وDHI وSMP.`,
+    },
+  };
+  const EN_TITLE = "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026";
+  const EN_DESC = `Compare Bangkok hair transplant clinics by Trust Score from ${total} verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis. Free consultation.`;
+  const title = lang === "en" ? EN_TITLE : (LOCALIZED[lang]?.title ?? EN_TITLE);
+  const description = lang === "en" ? EN_DESC : (LOCALIZED[lang]?.desc ?? EN_DESC);
+
   return {
-    title: lang === "en"
-      ? "Hair Transplant Thailand — Bangkok Clinics, FUE, DHI & Verified Reviews 2026"
-      : `${SITE.name} — Verified Thai Hair Clinics`,
-    description: lang === "en"
-      ? `Compare Bangkok hair transplant clinics by Trust Score from ${total} verified clinics. FUE, DHI, SMP specialists ranked by real Google review analysis. Free consultation.`
-      : SITE.tagline[lang],
+    title: { absolute: title },
+    description,
     alternates: {
       canonical: url,
       languages: {

@@ -152,3 +152,40 @@ h1, h2, h3, .font-display {
 /* Scroll-triggered fade-up (apply class .reveal to elements) */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease-out, transform .6s ease-out; }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ── 모바일 안전망 (2026-08-06 감사) ─────────────────────────────────
+   web/ 쪽 globals.css 에는 원래 있던 규칙들인데 이 앱에만 없었다. 그 결과
+   측정된 sub-44px 터치 타겟 30개가 전부 실제로 44px 미만이었고, 그중에는
+   ClinicCard 의 "View clinic" / LINE / Quote 같은 1순위 CTA(약 32px)가
+   포함돼 있었다. */
+html {
+  /* 가로 오버플로 가드. body 가 아니라 html 에 걸어야 sticky 가 안 깨진다. */
+  overflow-x: hidden;
+  /* iOS 가로모드에서 글자만 제멋대로 키우는 것 방지 */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (max-width: 640px) {
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    min-height: 44px;
+  }
+  /* 본문 안에 섞여 있는 인라인 링크까지 44px 로 부풀리면 문단 줄간격이
+     망가진다 — 그건 터치 타겟 규칙의 대상이 아니다. */
+  p a, li a, span > a, .prose a {
+    min-height: auto;
+  }
+  /* 아이콘 전용 정사각 버튼은 높이만 늘리면 여전히 가늘다.
+     web/ 쪽 규칙이 min-height 만 걸어서 남겨둔 구멍을 여기선 같이 막는다. */
+  button[aria-label]:not(:has(> span:not([aria-hidden]))),
+  a[aria-label]:not(:has(> span:not([aria-hidden]))) {
+    min-width: 44px;
+  }
+}
+
+/* 홈 인디케이터가 있는 아이폰에서 하단 고정 요소가 가려지지 않게.
+   app/layout.tsx 에 viewportFit: "cover" 가 이미 있어 env() 가 실제 값을
+   돌려준다(web/ 쪽은 그게 빠져 있어 0px 이었다). */
+.safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}

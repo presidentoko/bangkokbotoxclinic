@@ -308,13 +308,28 @@ class Runner:
         log(f"port {p.port}: rotate (was {old})")
         self.boot_port(p)
 
-    def _cleanup_zombie_listeners(self):
-        """startup 직전에 우리가 쓸 모든 포트(2080+) 위에 listener 있는지 체크.
-        있으면 그건 이전 runner 의 child 좀비 — taskkill /F. 없으면 no-op.
-        Windows: netstat -ano + taskkill 사용. 다른 OS는 no-op."""
+    def _cleanup_zombie_listeners(self, skip_alive: bool = False):
+        """우리가 쓸 포트(2080+) 위에 남의 listener 가 있으면 taskkill /F.
+        Windows: netstat -ano + taskkill 사용. 다른 OS는 no-op.
+
+        skip_alive=False (startup): 아직 아무것도 안 띄운 상태이므로 그 포트
+        위의 listener 는 전부 이전 runner 의 좀비다 — 전 포트 검사.
+
+        skip_alive=True (메인 루프): 살아있는 우리 포트는 검사에서 제외한다.
+        2026-08-07 사고: 루프에서 이 함수를 예외 없이 호출하고 있어서, 우리가
+        방금 띄운 멀쩡한 터널 8개가 매 5분마다 "좀비"로 분류돼 전멸했다.
+        (로그: `zombie listener 감지 → 정리: {2080: 109304, ...}` 직후 8포트
+        전부 `process died → respawn`.) 5분 주기로 전 터널이 40초씩 사라지니
+        스크래퍼가 ERR_PROXY_CONNECTION_FAILED / ERR_SOCKS_CONNECTION_FAILED
+        로 실패율 60%대를 찍었다. 이 함수의 원래 의도는 docstring 대로
+        "죽은 프로세스가 포트를 점유해 rebind 를 막는 경우" 해소이므로,
+        프로세스가 살아있는 포트는 애초에 대상이 아니다."""
         if os.name != "nt":
             return
-        target_ports = {p.port for p in self.ports}
+        target_ports = {p.port for p in self.ports
+                        if not (skip_alive and p.is_alive())}
+        if not target_ports:
+            return
         try:
             out = subprocess.check_output(
                 ["netstat", "-ano", "-p", "TCP"],
@@ -423,9 +438,10 @@ class Runner:
 
             now = time.time()
             # 5분마다 좀비 listener 정리 (죽은 node 프로세스가 포트 점유하는 경우)
+            # skip_alive=True 필수 — 없으면 우리 터널을 우리가 죽인다(위 주석 참고).
             if now - last_zombie_clean > 300:
                 last_zombie_clean = now
-                self._cleanup_zombie_listeners()
+                self._cleanup_zombie_listeners(skip_alive=True)
 
             if now - last_health > 15:
                 last_health = now

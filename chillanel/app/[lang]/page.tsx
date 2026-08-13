@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
-import { listCities, loadCity, getAllPlaces } from "@/lib/data";
+import { listCities, getAllPlaces } from "@/lib/data";
 import { aggregateThemeCounts } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
 import { Faq } from "@/components/Faq";
 import { ReviewQuotes, type QuoteItem } from "@/components/ReviewQuotes";
 import { TagCloud } from "@/components/TagCloud";
+import { ArrowRightIcon } from "@/components/Icon";
+import { RecommendedForYou } from "@/components/RecommendedForYou";
+import { SurpriseMeButton } from "@/components/SurpriseMeButton";
+import { isRelevantCategory } from "@/lib/categories";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -22,7 +26,7 @@ export async function generateMetadata({
     title: `${SITE.name} — ${t.home.heroTitle}`,
     description: t.home.heroSub,
     alternates: { canonical: `/${lang}`, languages: hreflangAlternates((l) => `/${l}`) },
-    openGraph: { url: `${SITE.origin}/${lang}` },
+    openGraph: { url: `${SITE.origin}/${lang}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -39,7 +43,14 @@ export default async function HomePage({
   // alphabetically — chillanel now ingests spa_output/{city}/ for multiple
   // cities, and a Bangkok-only homepage would never surface another city's
   // top places once it has data.
-  const allPlaces = getAllPlaces().map(({ place }) => place);
+  // isRelevantCategory here too, not just city/[city]/page.tsx -- without
+  // it, "Featured places" (sorted purely by rating+reviewCount) surfaced a
+  // Pediatric clinic and a LUSH cosmetics store above real massage/spa
+  // places, since nothing here ever excluded non-massage categories that
+  // grid search picks up as noise.
+  const allPlaces = getAllPlaces()
+    .map(({ place }) => place)
+    .filter((p) => isRelevantCategory(p.primaryType));
   const featured = allPlaces
     .filter((p) => p.rating != null && p.reviewCount >= 10)
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount)
@@ -61,8 +72,12 @@ export default async function HomePage({
     }))
     .filter((q) => Boolean(q.quote));
   const browseHref = cities.length === 1 ? `/${lang}/city/${cities[0]}` : `/${lang}/city`;
+  // Count from the already-filtered allPlaces, not loadCity(city).places.length
+  // (raw, unfiltered) -- otherwise this card said "2,609 places" while
+  // clicking into that city's own page said "2,157 places", the exact
+  // discrepancy a visitor would notice and lose trust over.
   const cityCards = cities
-    .map((city) => ({ city, count: loadCity(city).places.length }))
+    .map((city) => ({ city, count: allPlaces.filter((p) => p.city === city).length }))
     .filter((c) => c.count > 0)
     .sort((a, b) => b.count - a.count);
 
@@ -94,8 +109,9 @@ export default async function HomePage({
                 className="group inline-flex items-center gap-2 rounded-full bg-accent-warm text-ink font-semibold px-7 py-3.5 shadow-lg shadow-accent-warm/20 hover:shadow-xl hover:shadow-accent-warm/30 hover:-translate-y-0.5 transition"
               >
                 {t.home.ctaBrowse}
-                <span className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+                <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
+              <SurpriseMeButton lang={lang} />
               <Link
                 href={`/${lang}/guide`}
                 className="text-sm font-semibold text-on-ink-muted hover:text-on-ink transition-colors underline decoration-white/20 underline-offset-4"
@@ -160,6 +176,8 @@ export default async function HomePage({
             </div>
           </section>
         )}
+
+        <RecommendedForYou lang={lang} />
 
         {cityCards.length > 1 && (
           <section className="mb-16">

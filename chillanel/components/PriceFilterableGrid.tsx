@@ -7,13 +7,14 @@ import { tFor } from "@/lib/i18n";
 import { priceMedian } from "@/lib/summary";
 import { PlaceCard } from "./PlaceCard";
 
-// Reinterprets the "near me, by price" idea from a browser-geolocation
-// feature into a price-bucket filter: the live dataset has 0% lat/lng
-// coverage (Phase 0 finding), so true distance sorting isn't buildable —
-// price filtering on data we do have is the honest substitute.
+// A price-bucket filter, not a distance filter -- lat/lng is actually
+// 100% covered in the live dataset (contrary to an earlier note here),
+// so real "near me" distance sorting is buildable as a future feature;
+// this component just doesn't attempt it yet.
 //
 // Operates on the `places` prop as given (already capped to the city
-// page's MAX_SHOWN=90 "top by rating" slice) rather than the full city
+// page's MAX_SHOWN=90 "top by rating" slice, and stripped of `reviews`
+// before it reaches this client component) rather than the full city
 // dataset, to avoid re-inflating the page payload the MAX_SHOWN cap was
 // added to fix in the first place.
 type Bucket = "all" | "under300" | "300to500" | "500to800" | "over800";

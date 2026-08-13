@@ -80,9 +80,6 @@ export function TrustDonut({ score, breakdown }: {
         <div className="flex-1 min-w-0">
           <div className="text-xs uppercase tracking-wide text-[var(--muted)]">Trust Score</div>
           <div className="text-2xl font-bold" style={{ color }}>{tier}</div>
-          <a href="/about/trust-score" className="text-[10px] text-[var(--muted)] hover:text-[var(--fg)] underline underline-offset-2">
-            How is this calculated? →
-          </a>
           {breakdown && (
             <div className="mt-3 space-y-1.5">
               {breakdown.map((b) => (

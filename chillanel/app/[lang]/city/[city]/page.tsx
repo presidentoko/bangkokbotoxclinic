@@ -7,6 +7,7 @@ import Link from "next/link";
 import { isRelevantCategory } from "@/lib/categories";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
+import { MoodSections } from "@/components/MoodSections";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
 import { ItemListJsonLd } from "@/components/JsonLd";
@@ -33,7 +34,7 @@ export async function generateMetadata({
       canonical: `/${lang}/city/${city}`,
       languages: hreflangAlternates((l) => `/${l}/city/${city}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/city/${city}` },
+    openGraph: { url: `${SITE.origin}/${lang}/city/${city}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -56,6 +57,15 @@ export default async function CityPage({
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
   const places = allRelevant.slice(0, MAX_SHOWN);
   const districts = allDistricts(allRelevant);
+  // PriceFilterableGrid is a client component ("use client"), so every
+  // field on the Place objects passed to it gets serialized into the
+  // page's RSC flight payload -- including `reviews`, which neither it
+  // nor PlaceCard/CardActions/TrustScoreBadge ever read. On Bangkok this
+  // was 662KB (73% of the page's total HTML) of unused review text
+  // shipped to every visitor. Stripped here, at the client boundary, not
+  // in lib/data.ts, so server-rendered pages that do need reviews (the
+  // place detail page) are unaffected.
+  const cardPlaces = places.map((p) => ({ ...p, reviews: [] }));
 
   return (
     <div>
@@ -96,7 +106,10 @@ export default async function CityPage({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
-        <PriceFilterableGrid places={places} lang={lang} />
+        <MoodSections places={allRelevant} moodAggregate={data.moodAggregate} lang={lang} />
+
+        <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.city.browseAllTitle}</h2>
+        <PriceFilterableGrid places={cardPlaces} lang={lang} />
         {data.themeAggregate.length > 0 && (
           <section className="mb-14">
             <h2 className="font-display italic text-2xl sm:text-3xl mb-6">
