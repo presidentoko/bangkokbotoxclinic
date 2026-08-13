@@ -450,11 +450,58 @@ def main():
     district_counter: Counter[str] = Counter()
     lang_total = Counter()
 
+    # 화면과 schema.org Review 마크업에 실릴 리뷰를 고른다.
+    #
+    # 예전 기준은 `60 <= len <= 350 and stars >= 4` 에 별점 내림차순 정렬이었고,
+    # 두 군데가 문제였다.
+    #
+    # 길이 — 태국어는 정보 밀도가 높아서 60자 하한이 실질적인 본문을 잘라냈다.
+    # 수집한 53,427 건 중 통과가 14,836 건뿐이었다. 실제 텍스트를 구간별로 확인해
+    # 보면 15~24자는 "ของดี ราคาถูกครับ"(좋고 쌉니다) 같은 상투구지만, 30자부터는
+    # "เป็นบริษัทผลิตชิ้นส่วนอะไหล่รถยนต์"(자동차 부품 제조사) 처럼 내용이 있다.
+    # 그래서 하한을 30 으로 내리고 상한을 600 으로 올렸다.
+    #
+    # 별점 — 이게 더 큰 문제였다. 이 샘플은 components/JsonLd.tsx 가 reviewRating
+    # 붙은 Review 로 내보내는데, 같은 페이지의 aggregateRating 은 구글 전체 평점을
+    # 쓴다. 전체를 대표한다고 하면서 4★ 이상만 마크업하는 건 구글 리뷰 스니펫
+    # 정책이 금지하는 선별 표시다. 별점 하한을 없앴다.
+    #
+    # 정렬도 별점 내림차순이었다 — 통과한 것 중에서도 좋은 것부터 담으니 같은
+    # 선별이 한 번 더 걸린다.
+    #
+    # 그렇다고 단순히 길이순으로 담으면 반대쪽으로 치우친다. 실측하면 1★ 리뷰는
+    # 평균 153자, 5★ 는 76자다 — 불만은 길게 쓰고 만족은 짧게 쓴다. 길이순 정렬만
+    # 넣었더니 샘플의 1★ 비중이 원본 9.3% 에서 16% 로 뛰었다.
+    #
+    # 그래서 슬롯을 그 supplier 자신의 별점 분포대로 배분하고(최대잉여법), 배분된
+    # 별점 안에서 가장 긴 리뷰를 고른다. 규칙이 별점의 높낮이를 보지 않으므로
+    # 선별이 아니고, 결과가 aggregateRating 과 어긋나지도 않는다.
     def pick_samples(chunks: list[tuple[str, int, str]], n: int = 3):
-        good = [c for c in chunks if 60 <= len(c[0]) <= 350 and c[1] >= 4]
-        good.sort(key=lambda x: -x[1])
+        good = [c for c in chunks if 30 <= len(c[0]) <= 600]
+        if not good:
+            return []
+        by_rating: dict[int, list[tuple[str, int, str]]] = {}
+        for c in good:
+            by_rating.setdefault(c[1], []).append(c)
+        for v in by_rating.values():
+            v.sort(key=lambda x: -len(x[0]))
+
+        # 최대잉여법: 정수 몫을 먼저 주고, 남은 슬롯은 소수부가 큰 순으로.
+        total = len(good)
+        quota = {r: len(v) * n / total for r, v in by_rating.items()}
+        take = {r: min(int(q), len(by_rating[r])) for r, q in quota.items()}
+        left = n - sum(take.values())
+        for r in sorted(quota, key=lambda r: (-(quota[r] - int(quota[r])), -len(by_rating[r]))):
+            if left <= 0:
+                break
+            if take[r] < len(by_rating[r]):
+                take[r] += 1
+                left -= 1
+
+        picked = [c for r, k in take.items() for c in by_rating[r][:k]]
+        picked.sort(key=lambda x: -len(x[0]))
         return [{"text": t, "rating": r, "author": a or "Google reviewer"}
-                for t, r, a in good[:n]]
+                for t, r, a in picked[:n]]
 
     for pid, p in thai_supply.items():
         name = (p.get("title") or "").strip()
