@@ -18,6 +18,10 @@ const HUB_SERVICES = focusValid ? SERVICES.filter((s) => focusValid.has(s)) : SE
 // /sitemap-index.xml (route handler) — index pointing to both.
 // robots.ts → /sitemap-index.xml
 
+// 2026-08-14 감사: revalidate 없으면 빌드 시점에 영구 고정된다 — noindex 게이트를
+// 데이터 변경만으로 재계산하려면 주기 재검증이 필요. (web-cf 원본과 동기)
+export const revalidate = 86400;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = await loadMasterDb();
   const cfg = getSiteConfig();
