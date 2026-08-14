@@ -4,7 +4,7 @@ import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/components/JsonLd";
 import { AffiliateInline } from "@/components/AffiliateSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { ClinicCard } from "@/components/ClinicCard";
-import { applySiteFilter, getSiteConfig, getSiteUrl } from "@/lib/site";
+import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
 import type { Metadata } from "next";
 
 const SITE = getSiteUrl();
@@ -63,10 +63,24 @@ export default async function GuidePage(
     hifu:      "HIFU Skin Lifting",
     hair:      "Hair Transplant",
   };
-  const procedureLinks = proceduresForGuide(g).map((proc) => ({
-    href: `/city/bangkok/${proc}`,
-    label: `${PROC_LABELS[proc] ?? proc} clinics in Bangkok`,
-  }));
+  // 2026-08-14 감사: /city/[city]/[procedure] 는 이 사이트 focus 안 시술만
+  // 프리렌더한다(dynamicParams=false, 그쪽 generateStaticParams 참조). 가이드가
+  // focus 밖 시술 태그를 달고 있으면(예: botox 사이트의 korean-medical-tourism
+  // 가이드가 hair 태그) 존재하지 않는 /city/bangkok/hair-transplant 로 링크돼
+  // 404 였다 — 같은 FOCUS_VALID 기준으로 거른다. 키가 서로 다른 표기임에 주의:
+  // procedure 키 "hair-transplant"(하이픈) ↔ category "hair_transplant"(언더스코어).
+  const PROC_CATEGORY: Record<string, string> = {
+    implants: "dental", veneers: "dental", whitening: "dental",
+    botox: "botox", filler: "filler", hifu: "hifu",
+    "hair-transplant": "hair_transplant",
+  };
+  const guideFocusValid = FOCUS_VALID[cfg.focus];
+  const procedureLinks = proceduresForGuide(g)
+    .filter((proc) => !guideFocusValid || guideFocusValid.has(PROC_CATEGORY[proc] ?? proc))
+    .map((proc) => ({
+      href: `/city/bangkok/${proc}`,
+      label: `${PROC_LABELS[proc] ?? proc} clinics in Bangkok`,
+    }));
 
   const articleSchema = {
     "@context": "https://schema.org",

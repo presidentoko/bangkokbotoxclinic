@@ -1,0 +1,88 @@
+{
+ "site": "facial",
+ "base": "https://www.thaifacialclinic.com",
+ "total_urls": 183,
+ "status_dist": {
+  "200": 183
+ },
+ "redirect_in_sitemap": 0,
+ "noindex_in_sitemap": 0,
+ "canon_mismatch": 0,
+ "missing_title": 0,
+ "missing_desc": 0,
+ "missing_canonical": 0,
+ "missing_og_image": 15,
+ "no_h1": 0,
+ "multi_h1": 0,
+ "no_hreflang": 31,
+ "no_jsonld": 7,
+ "title_too_long": 124,
+ "desc_too_long": 11,
+ "desc_too_short": 2,
+ "thin_pages_lt300w": 6,
+ "dup_title_groups": 0,
+ "dup_title_pages": 0,
+ "dup_title_top": [],
+ "dup_desc_groups": 0,
+ "dup_desc_pages": 0,
+ "ld_coverage": {
+  "FAQPage": 163,
+  "BreadcrumbList": 158,
+  "MedicalBusiness": 145,
+  "Article": 13,
+  "ItemList": 12,
+  "(없음)": 7,
+  "Organization": 5
+ },
+ "orphan_pages": 7,
+ "orphan_sample": [
+  "/ar",
+  "/en/c",
+  "/en/c/stem-cell",
+  "/en/guide",
+  "/ko",
+  "/th",
+  "/zh"
+ ],
+ "internal_links_offsitemap": 194,
+ "broken_internal_links": [
+  [
+   "/c/eyebrow",
+   404
+  ],
+  [
+   "/c/prp",
+   404
+  ],
+  [
+   "/c/smp",
+   404
+  ],
+  [
+   "/cdn-cgi/l/email-protection",
+   404
+  ],
+  [
+   "/r/HairTransplants/comments/1clyrcg/thailand_vs_turkey_fue",
+   404
+  ]
+ ],
+ "ttfb_p50": 0.17,
+ "ttfb_p90": 0.36,
+ "asset_llms_txt": {
+  "status": 200,
+  "bytes": 13265
+ },
+ "asset_llms_full": {
+  "status": 404,
+  "bytes": 0
+ },
+ "asset_robots_txt": {
+  "status": 200,
+  "bytes": 2364
+ },
+ "asset_og_root": {
+  "status": 200,
+  "bytes": 33041
+ }
+}

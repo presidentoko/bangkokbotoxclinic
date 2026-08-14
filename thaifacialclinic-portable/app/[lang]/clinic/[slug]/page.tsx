@@ -67,7 +67,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Lan
   //     들어간 문장이 725개 클리닉 페이지 전부의 meta description 이었다.
   //     ("I had my hair transplant done here with Dr. Top. It's been 2 years…")
   //     리뷰 원문은 검색결과 설명으로 쓰기에 부적절하고, 남의 저작물이기도 하다.
-  const title = `${c.name} — ${c.city} · Trust Score ${c.trust_score}/100`;
+  // 2026-08-14 감사: "Trust Score N/100"(자체 용어, 검색어 아님, ~22자) 대신
+  // 실제 검색 신호(★평점·리뷰수)로. web/ 의 2026-07-31 동일 결론을 따른다.
+  // 이 사이트 title 68%가 60자 초과였던 주범.
+  const title = c.rating
+    ? `${c.name} — ${c.city} · ★${c.rating} (${c.review_count ?? 0})`
+    : `${c.name} — ${c.city} Hair Clinic`;
   const procList = (c.procedures ?? []).slice(0, 3).join(", ");
   const description = [
     `${c.name} in ${c.city}, Thailand.`,
@@ -445,7 +450,7 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
             <CollapsibleSection title="Community & social proof" emoji="💬">
               <TestimonialSubmitForm clinicName={c.name} />
               <QnaCommunity focus="hair" />
-              <AlternativeProcedures focus="hair" />
+              <AlternativeProcedures focus="hair" lang={lang} />
             </CollapsibleSection>
 
             <CollapsibleSection title="Quick actions & sharing" emoji="⚡" defaultOpen>

@@ -8,7 +8,7 @@
 import type { Metadata } from "next";
 import ClinicPage, { generateStaticParams as parentGSP } from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
-import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
+import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl, safeEncodeURIComponent } from "@/lib/site";
 
 const SITE = getSiteUrl();
 
@@ -26,7 +26,9 @@ export async function generateMetadata(
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "ไม่พบคลินิก" };
-  const title = `${c.name} — รีวิว, ราคา, ที่ตั้ง | ${c.district || c.city_label}`;
+  // 2026-08-14 감사: ", ที่ตั้ง"(위치) 제거 — รีวิว(리뷰)·ราคา(가격) 검색어와
+  // 지역명은 유지. TH 클리닉이 60자 초과 최다 그룹(표본 404건)이었다.
+  const title = `${c.name} — รีวิว & ราคา | ${c.district || c.city_label}`;
   const description = c.address
     ? `${c.name} ใน ${c.district || c.city_label} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google. ที่อยู่: ${c.address.slice(0, 80)}.`
     : `${c.name} — คะแนน ${c.rating.toFixed(1)} จาก ${c.total_reviews.toLocaleString()} รีวิว Google.`;
@@ -63,6 +65,14 @@ export async function generateMetadata(
       title,
       description,
       url: `${SITE}/th/clinic/${c.id}`,
+      // 2026-08-14 감사: og:image 누락 1,319건 중 1,166건이 이 라우트였다 —
+      // EN 클리닉 페이지(app/clinic/[id]/page.tsx)와 동일한 /api/og 카드.
+      images: [{
+        url: `${SITE}/api/og?title=${safeEncodeURIComponent(c.name.slice(0, 50))}&sub=${safeEncodeURIComponent(`★${c.rating} · ${c.total_reviews.toLocaleString()} รีวิว · ${c.district ?? c.city_label ?? "Bangkok"}`)}&count=${c.total_reviews}`,
+        width: 1200,
+        height: 630,
+        alt: c.name,
+      }],
     },
   };
 }

@@ -27,7 +27,13 @@ function loadJson<T>(name: string, ref: T[] | null): T[] {
   try { return JSON.parse(fs.readFileSync(p, "utf-8")) as T[]; } catch { return []; }
 }
 
-function reddit(): RedditThread[] { return (_r ??= loadJson<RedditThread>("hair_reddit.json", _r)); }
+function reddit(): RedditThread[] {
+  // 2026-08-14 감사: 레딧 API 가 간혹 절대 URL 대신 permalink("/r/…")만 준다 —
+  // 1,020건 중 6건. href 에 그대로 넣으면 우리 도메인의 /r/… 404 로 렌더된다.
+  // 데이터를 고치는 대신 읽기 시점에 정규화한다 (스크래퍼가 다시 긁어도 재발 방지).
+  return (_r ??= loadJson<RedditThread>("hair_reddit.json", _r)).map((t) =>
+    t.url?.startsWith("/") ? { ...t, url: `https://www.reddit.com${t.url}` } : t);
+}
 function pantip(): PantipTopic[] { return (_p ??= loadJson<PantipTopic>("hair_pantip.json", _p)); }
 function naver(): NaverPost[]   { return (_n ??= loadJson<NaverPost>("hair_naver.json", _n)); }
 

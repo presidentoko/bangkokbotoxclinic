@@ -43,7 +43,10 @@ const CROSS: Partial<Record<SiteFocus, { v: SiteFocus; emoji: string; label: str
   ],
 };
 
-export default function AlternativeProcedures({ focus }: { focus: SiteFocus }) {
+// 2026-08-14 감사: href 가 `/c/${v}` 로 언어 프리픽스 없이 나가 /c/prp·/c/smp·
+// /c/eyebrow 전부 404 였다 (실제 라우트는 /{lang}/c/*). 7-31 에 슬러그는 고쳤지만
+// 프리픽스를 놓친 것. lang 을 받아 `/${lang}/c/${v}/` 로 낸다 (trailingSlash:true).
+export default function AlternativeProcedures({ focus, lang = "en" }: { focus: SiteFocus; lang?: string }) {
   const items = CROSS[focus];
   if (!items || items.length === 0) return null;
 
@@ -55,7 +58,7 @@ export default function AlternativeProcedures({ focus }: { focus: SiteFocus }) {
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
         {items.map((it) => (
-          <a key={it.v} href={`/c/${it.v}`}
+          <a key={it.v} href={`/${lang}/c/${it.v}/`}
             className="flex items-center gap-3 rounded-xl border bg-slate-50 hover:bg-white hover:border-slate-400 p-3 transition"
             style={{ borderColor: "rgb(var(--border))" }}>
             <span className="text-3xl shrink-0">{it.emoji}</span>

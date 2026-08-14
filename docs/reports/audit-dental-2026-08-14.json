@@ -1,0 +1,96 @@
+{
+ "site": "dental",
+ "base": "https://www.bangkokbestclinic.com",
+ "total_urls": 3951,
+ "status_dist": {
+  "200": 3232,
+  "0": 26,
+  "503": 693
+ },
+ "redirect_in_sitemap": 0,
+ "noindex_in_sitemap": 10,
+ "canon_mismatch": 0,
+ "missing_title": 217,
+ "missing_desc": 217,
+ "missing_canonical": 217,
+ "missing_og_image": 1319,
+ "no_h1": 217,
+ "multi_h1": 0,
+ "no_hreflang": 505,
+ "no_jsonld": 217,
+ "title_too_long": 1436,
+ "desc_too_long": 727,
+ "desc_too_short": 0,
+ "thin_pages_lt300w": 259,
+ "dup_title_groups": 2,
+ "dup_title_pages": 4,
+ "dup_title_top": [
+  [
+   "Bangkok specialist doctors — reviews & ratings | Bangkok Best Clinic",
+   2
+  ],
+  [
+   "Saitawan Dental Clinic — รีวิว, ราคา, ที่ตั้ง | Bangkok",
+   2
+  ]
+ ],
+ "dup_desc_groups": 0,
+ "dup_desc_pages": 0,
+ "ld_coverage": {
+  "Organization": 3015,
+  "WebSite": 3015,
+  "BreadcrumbList": 3012,
+  "FAQPage": 2735,
+  "Dentist": 2722,
+  "WebPage": 2722,
+  "(없음)": 217,
+  "ItemList": 65,
+  "CollectionPage": 64,
+  "Physician": 34,
+  "Article": 6,
+  "HowTo": 1
+ },
+ "orphan_pages": 323,
+ "orphan_sample": [
+  "/clinic/0x2f1ca40364177ea5_0xe23e4ace3707323a",
+  "/clinic/0x30da2532261af09f_0xe1027f6ad055a1ef",
+  "/clinic/0x30da2534d5c55f4f_0xbe8cf54ed204bb52",
+  "/clinic/0x30da2558e14fa2d5_0x2e68c4abadf7279b",
+  "/clinic/0x30da259cba369c27_0x43408b66385a58b2",
+  "/clinic/0x30da2f54a1e4f2d1_0x125322a33c51673b",
+  "/clinic/0x30da2f7e639a0939_0xc35aa417fcb20482",
+  "/clinic/0x30da300edf5301f9_0x1f590a79a95bf1ba",
+  "/clinic/0x30da3a7a8ca071f7_0x7435083b7b483463",
+  "/clinic/0x30da3a938c9106f3_0x58b16917699baff7",
+  "/clinic/0x30da3a997bb1666d_0x7bf66ef411a555c9",
+  "/clinic/0x30da3af4e3014a9d_0xac5ae965afc3e9d5",
+  "/clinic/0x30da3bb2188a4ba9_0x1ee49544dba50fbe",
+  "/clinic/0x30da3bb2230b6229_0x95041c6a982c6878",
+  "/clinic/0x30da3bd0d07786d3_0x4d4c7e12f69dff4e"
+ ],
+ "internal_links_offsitemap": 9660,
+ "broken_internal_links": [
+  [
+   "/clinic/0x310296129fd65393_0x848d1b22",
+   404
+  ]
+ ],
+ "ttfb_p50": 0.37,
+ "ttfb_p90": 0.67,
+ "asset_llms_txt": {
+  "status": 200,
+  "bytes": 3701
+ },
+ "asset_llms_full": {
+  "status": 200,
+  "bytes": 88204
+ },
+ "asset_robots_txt": {
+  "status": 200,
+  "bytes": 1836
+ },
+ "asset_og_root": {
+  "status": 503,
+  "bytes": 0
+ }
+}

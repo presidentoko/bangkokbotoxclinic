@@ -197,6 +197,16 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
                 <Link href="/terms/" className="hover:text-[rgb(var(--fg))]">Terms</Link>
                 <Link href="/for-clinics/" className="hover:text-[rgb(var(--fg))]">For Clinics</Link>
               </div>
+              {/* 2026-08-14 감사: 언어 전환이 Header 의 <select>(JS) 뿐이라 크롤러가
+                  로케일 홈으로 가는 <a> 를 한 번도 못 봤다 — /ko /th /zh /ar 가
+                  사이트맵에 있으면서 내부링크 0 인 고아였던 원인. 크롤 가능한
+                  링크를 여기 한 줄 둔다. */}
+              <div className="mt-1.5 flex justify-end gap-2 text-[10px]">
+                {SUPPORTED_LANGS.map((l) => (
+                  <Link key={l} href={`/${l}/`} className="hover:text-[rgb(var(--fg))]"
+                    aria-label={`Switch language to ${l.toUpperCase()}`}>{l.toUpperCase()}</Link>
+                ))}
+              </div>
             </div>
           </div>
         </footer>

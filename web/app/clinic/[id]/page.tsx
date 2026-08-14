@@ -86,7 +86,10 @@ export async function generateMetadata(
   // 문구고 "Trust Score"는 아무도 검색하지 않는 용어 — 대신 실제 검색 신호
   // (평점·리뷰수)로 대체 + 브랜드 접미사는 absolute로 꺼서 60자 내로 유지
   // (2026-07-31 감사, 실측 브랜드 포함 81자 → 잘림).
-  const title = `${c.name} — ★${c.rating} (${c.total_reviews} reviews)`;
+  // 2026-08-14 감사: " reviews" 단어 제거 (8자) — ★ 옆 괄호 숫자는 리뷰수로
+  // 읽히므로 정보 손실 없음. 긴 태국어 상호는 어차피 60자를 넘는데 그건
+  // 자를 수 없는 본질 — 꼬리만 최소화한다.
+  const title = `${c.name} — ★${c.rating} (${c.total_reviews})`;
   const description = `${c.name} in ${c.district || "Bangkok"}: ★${c.rating} rating from ${c.total_reviews} Google reviews. ${cats || "Aesthetic clinic"}. See prices, photos & book a free consult.`;
 
   // 이 사이트 소관이 아닌 클리닉이면 (예: 덴탈 사이트에 뜬 보톡스 전용 클리닉)

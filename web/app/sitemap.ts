@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { loadMasterDb, getAllDoctors } from "@/lib/data";
+import { loadMasterDb, getAllDoctors, filterByDistrict } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { guidesForFocus } from "@/lib/guides";
 import { applySiteFilter, getSiteConfig, getSiteUrl, FOCUS_VALID } from "@/lib/site";
@@ -57,15 +57,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const g of guidesForFocus(cfg.focus)) {
     items.push({ url: `${SITE}/guide/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.85 });
   }
+  // ── noindex 페이지는 사이트맵에서 뺀다 (2026-08-14 감사) ──────────────────
+  // 아래 세 게이트는 각 page.tsx 의 noindex 조건을 **그대로** 복제한 것이다.
+  // 사이트맵은 전 도메인 합산 카운트로 등재하는데 페이지는 scoped 카운트로
+  // noindex 를 걸어서, "사이트맵에 있는데 noindex" 모순이 botox 24 + dental 10
+  // 건 나왔다 (GSC 'noindex 제외'에 쌓임). 기준이 어긋나면 재발한다 —
+  // 조건을 바꿀 땐 반드시 해당 page.tsx 와 같이 바꿀 것.
   for (const s of HUB_SERVICES) {
+    // app/c/[service]/page.tsx:41 — scoped 카테고리 5개 미만이면 noindex
+    if (scoped.filter((c) => c.categories.includes(s)).length < 5) continue;
     items.push({ url: `${SITE}/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
-    // 한국 의료관광 검색 타겟 (2026-07-13 신설). thin-content 방지 위해 EN과
-    // 동일 기준(scoped 카테고리에 5개 이상 클리닉)일 때만 제출.
-    if (scoped.filter((c) => c.categories.includes(s)).length >= 5) {
-      items.push({ url: `${SITE}/ko/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
-    }
+    // 한국 의료관광 검색 타겟 (2026-07-13 신설) — 같은 기준.
+    items.push({ url: `${SITE}/ko/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
   for (const c of BEST_FOR) {
+    // app/best/[criterion]/page.tsx:31 — filterFn 매치 5개 미만이면 noindex
+    // (페이지가 scoped 아닌 db.clinics 전체를 세므로 여기도 동일하게 센다)
+    if (db.clinics.filter((cl) => !c.filterFn || c.filterFn(cl)).length < 5) continue;
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
   for (const cityLabel of cities) {
@@ -74,8 +82,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/city/${slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
   }
   for (const d of districts) {
-    const count = db.district_counts[d];
-    if ((count as number) < 5) continue;
+    // app/d/[district]/page.tsx:45 — scoped 카운트 5개 미만이면 noindex.
+    // db.district_counts(전 도메인 합산)로 걸면 겸업 카운트 때문에 이 사이트
+    // 에선 5개 미만인 지역이 통과된다 — 그게 /d/ 21+8건 모순의 원인이었다.
+    if (filterByDistrict(scoped, d).length < 5) continue;
     const slug = d.toLowerCase().replace(/\s+/g, "-");
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
     for (const s of HUB_SERVICES) {
