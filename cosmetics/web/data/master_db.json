@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T10:55:33Z",
+  "generated_at": "2026-08-14T11:22:51Z",
   "products": {
     "100086": {
       "product_id": "100086",
@@ -129725,10 +129725,10 @@
       "sku": "81108",
       "gtin8": "8857200129961|8859779300277",
       "description": "The skin Collection Acne Pro 30ml เซรั่มบำรุงผิว จากเดอะ สกิน คอลเลคชั่น ช่วยฆ่าเชื้อแบคทีเรียก่อสิว และลดความมันบนใบหน้า อันเป็นสาเหตุหลักของการเกิดสิว และลดการอักเสบของผิว ด้วยสารสกัดจากเปลือกต้นวิลโลว์",
-      "ingredients": "",
-      "ingredient_count": 0,
+      "ingredients": "AQUA|SODIUM HYALURONATE|SALIX ALBA BARK EXTRACT|CAMELLIA SINENSIS LEAF EXTRACT|BUTYLENE GLYCOL|CALENDULA OFFICINALIS EXTRACT|GLYCERIN|BIOSACCHARIDE GUM-1|PROPANEDIOL|PEG/PPG-17/6 COPOLYMER|POLYSORBATE 20|DEHYDROXANTHAN GUM|ETHYLHEXYLGLYCERIN|ANIBA ROSAEODORA WOOD OIL|MELALEUCA ALTERNIFOLIA LEAF OIL|DIMETHYL ISOSORBIDE",
+      "ingredient_count": 16,
       "concern_seeds": [
-        "acne"
+        "sensitive"
       ],
       "konvy_rating": 5.0,
       "konvy_rating_best": 5.0,
@@ -129736,24 +129736,80 @@
       "sold_count": 239,
       "reviews_scraped": 0,
       "fetched_at": "2026-07-31T08:55:03Z",
-      "ingredient_analysis": [],
+      "ingredient_analysis": [
+        {
+          "inci": "Hyaluronic Acid",
+          "role": "humectant",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 2
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Camellia Sinensis Leaf Extract",
+          "role": "active",
+          "concern_efficacy": {
+            "acne": 1,
+            "whitening": 1,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 1,
+            "sensitive": 0
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Glycerin",
+          "role": "humectant",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 2
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Tea Tree Oil",
+          "role": "active",
+          "concern_efficacy": {
+            "acne": 2,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 0
+          },
+          "safety_flags": [
+            "irritant",
+            "fragrance"
+          ]
+        }
+      ],
       "ingredient_score": {
-        "acne": 10.0,
-        "whitening": 10.0,
-        "antiaging": 10.0,
-        "pores": 10.0,
-        "oilcontrol": 10.0,
-        "sensitive": 10.0
+        "acne": 43.0,
+        "whitening": 13.0,
+        "antiaging": 0.0,
+        "pores": 0.0,
+        "oilcontrol": 13.0,
+        "sensitive": 58.0
       },
       "review_score": 60.01023562749123,
       "value_score": 10.36204744069913,
       "total_score": {
-        "acne": 32.54081077644096,
-        "whitening": 32.54081077644096,
-        "antiaging": 32.54081077644096,
-        "pores": 32.54081077644096,
-        "oilcontrol": 32.54081077644096,
-        "sensitive": 32.54081077644096
+        "acne": 47.390810776440965,
+        "whitening": 33.890810776440965,
+        "antiaging": 28.040810776440967,
+        "pores": 28.040810776440967,
+        "oilcontrol": 33.890810776440965,
+        "sensitive": 54.140810776440965
       },
       "review_summary": {
         "count": 0,
@@ -158111,7 +158167,109 @@
       "servings": null,
       "makeup_category": null,
       "spf": null,
-      "makeup_score": null
+      "makeup_score": null,
+      "watsons": {
+        "source": "watsons",
+        "product_name": "3M Nexcare Acne 7 Dots #Standard",
+        "matched_name": "3m nexcare แผ่นแปะสิว 3m nexcare 3เอ็ม เน็กซ์แคร์ แผ่นแปะสิวรุ่นบาง 30 ชิ้น",
+        "similarity": 0.967,
+        "product_count": 1,
+        "review_count": 13,
+        "snippets": [
+          {
+            "text": "เป็นแผ่นแปะสิวที่ดีมากช่วยดูดซับหนองจากหัวสิวที่แตกทำให้สิวยุบดี",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2025-07-26T06:31:36+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ใช้ดีมาก เลยซื้อใช้ทุกคนในบ้าน รวมทั้งซื้อติดบ้านไว้",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2025-01-03T03:19:16+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "แผ่นหนา ไม่แนบผิว เล็กไปนิด",
+            "author": "N**",
+            "rating": 3.0,
+            "date": "2024-04-14T05:15:58+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ซื้อประจำโปร 1บาทคุ้มสุดๆ",
+            "author": "***",
+            "rating": 5.0,
+            "date": "2024-10-02T05:40:33+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ใช้ดี แผลจากสิวหายไว",
+            "author": "s**",
+            "rating": 5.0,
+            "date": "2024-11-03T12:17:20+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ราคาดีคุณภาพดี",
+            "author": "ว**",
+            "rating": 5.0,
+            "date": "2024-04-30T06:11:06+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH25191474",
+            "author": "P**",
+            "rating": 5.0,
+            "date": "2024-09-21T15:31:01+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH26547136",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2024-09-29T03:53:56+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH26520263",
+            "author": "N**",
+            "rating": 5.0,
+            "date": "2024-09-30T09:16:12+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH61670533-2022",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2024-04-25T00:30:41+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH24424995",
+            "author": "C**",
+            "rating": 5.0,
+            "date": "2024-04-28T03:46:23+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH24117337",
+            "author": "B**",
+            "rating": 4.0,
+            "date": "2024-04-28T12:28:09+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH24387640",
+            "author": "K**",
+            "rating": 5.0,
+            "date": "2024-04-29T01:31:05+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          }
+        ],
+        "fetched_at": "2026-08-14T10:59:40Z"
+      }
     },
     "95206": {
       "product_id": "95206",
@@ -158192,7 +158350,109 @@
       "servings": null,
       "makeup_category": null,
       "spf": null,
-      "makeup_score": null
+      "makeup_score": null,
+      "watsons": {
+        "source": "watsons",
+        "product_name": "3M Nexcare Acne 28 Dots #Standard",
+        "matched_name": "3m nexcare แผ่นแปะสิว 3m nexcare 3เอ็ม เน็กซ์แคร์ แผ่นแปะสิวรุ่นบาง 30 ชิ้น",
+        "similarity": 0.957,
+        "product_count": 1,
+        "review_count": 13,
+        "snippets": [
+          {
+            "text": "เป็นแผ่นแปะสิวที่ดีมากช่วยดูดซับหนองจากหัวสิวที่แตกทำให้สิวยุบดี",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2025-07-26T06:31:36+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ใช้ดีมาก เลยซื้อใช้ทุกคนในบ้าน รวมทั้งซื้อติดบ้านไว้",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2025-01-03T03:19:16+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "แผ่นหนา ไม่แนบผิว เล็กไปนิด",
+            "author": "N**",
+            "rating": 3.0,
+            "date": "2024-04-14T05:15:58+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ซื้อประจำโปร 1บาทคุ้มสุดๆ",
+            "author": "***",
+            "rating": 5.0,
+            "date": "2024-10-02T05:40:33+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ใช้ดี แผลจากสิวหายไว",
+            "author": "s**",
+            "rating": 5.0,
+            "date": "2024-11-03T12:17:20+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "ราคาดีคุณภาพดี",
+            "author": "ว**",
+            "rating": 5.0,
+            "date": "2024-04-30T06:11:06+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH25191474",
+            "author": "P**",
+            "rating": 5.0,
+            "date": "2024-09-21T15:31:01+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH26547136",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2024-09-29T03:53:56+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH26520263",
+            "author": "N**",
+            "rating": 5.0,
+            "date": "2024-09-30T09:16:12+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH61670533-2022",
+            "author": "S**",
+            "rating": 5.0,
+            "date": "2024-04-25T00:30:41+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH24424995",
+            "author": "C**",
+            "rating": 5.0,
+            "date": "2024-04-28T03:46:23+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH24117337",
+            "author": "B**",
+            "rating": 4.0,
+            "date": "2024-04-28T12:28:09+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          },
+          {
+            "text": "review-252214-WTCTH24387640",
+            "author": "K**",
+            "rating": 5.0,
+            "date": "2024-04-29T01:31:05+0000",
+            "source_url": "https://www.watsons.co.th/th/3m-nexcare-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7-3m-nexcare-3%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1-%E0%B9%80%E0%B8%99%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B9%81%E0%B8%9C%E0%B9%88%E0%B8%99%E0%B9%81%E0%B8%9B%E0%B8%B0%E0%B8%AA%E0%B8%B4%E0%B8%A7%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%87-30-%E0%B8%8A%E0%B8%B4%E0%B9%89%E0%B8%99/p/BP_252214"
+          }
+        ],
+        "fetched_at": "2026-08-14T11:00:21Z"
+      }
     },
     "95256": {
       "product_id": "95256",
@@ -159351,10 +159611,10 @@
       "sku": "95740",
       "gtin8": "8809838652540",
       "description": "Dr.G R.E.D Blemish Clear Soothing Cream 30ml ครีมบำรุงผิวหน้า จากดร.จี เนื้อเจลบางเบา สบายผิว ซึมไว ช่วยเติมความชุ่มชื้นให้ผิวเนียนนุ่มยาวนาน พร้อมปลอบประโลมผิว เพื่อเสริมให้ผิวแข็งแรงมากขึ้นและป้องกันการเกิดสิวใหม่",
-      "ingredients": "",
-      "ingredient_count": 0,
+      "ingredients": "WATER|BUTYLENE GLYCOL|GLYCERIN|DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE|HOMOSALATE|ETHYLHEXYL SALICYLATE|METHYL TRIMETHICONE|BUTYLOCTYL SALICYLATE|TITANIUM DIOXIDE (NANO)|C12-15 ALKYL BENZOATE|BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE|POLYSILICONE-15|TITANIUM DIOXIDE (CI 77891)|2-HEXANEDIOL|CETEARYL ALCOHOL|SILICA|POLY C10-30 ALKYL ACRYLATE|HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER|ALUMINUM STEARATE|ALUMINA|STEARIC ACID|POLYHYDROXYSTEARIC ACID|ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER|ALLANTOIN|GLYCERYL STEARATE|HYDROGENATED LECITHIN|CAPRYLYL GLYCOL|ETHYLHEXYLGLYCERIN|TROMETHAMINE|ALUMINUM HYDROXIDE|POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE|PALMITIC ACID|DISODIUM EDTA|TRIETHOXYCAPRYLYLSILANE|SORBITAN ISOSTEARATE|IRON OXIDES (CI 77491)|HYDROLYZED HYALURONIC ACID|CERAMIDE NP|IRON OXIDES (CI 77492)|MYRISTIC ACID|LAURIC ACID|TOCOPHEROL",
+      "ingredient_count": 42,
       "concern_seeds": [
-        "acne"
+        "sensitive"
       ],
       "konvy_rating": 4.8,
       "konvy_rating_best": 5.0,
@@ -159362,24 +159622,90 @@
       "sold_count": 22304,
       "reviews_scraped": 0,
       "fetched_at": "2026-06-11T07:37:27Z",
-      "ingredient_analysis": [],
+      "ingredient_analysis": [
+        {
+          "inci": "Glycerin",
+          "role": "humectant",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 2
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Allantoin",
+          "role": "additive",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 3
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Hyaluronic Acid",
+          "role": "humectant",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 2
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Ceramide NP",
+          "role": "emollient",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 0,
+            "antiaging": 0,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 3
+          },
+          "safety_flags": []
+        },
+        {
+          "inci": "Tocopherol",
+          "role": "antioxidant",
+          "concern_efficacy": {
+            "acne": 0,
+            "whitening": 1,
+            "antiaging": 2,
+            "pores": 0,
+            "oilcontrol": 0,
+            "sensitive": 0
+          },
+          "safety_flags": []
+        }
+      ],
       "ingredient_score": {
         "acne": 10.0,
-        "whitening": 10.0,
-        "antiaging": 10.0,
+        "whitening": 25.0,
+        "antiaging": 40.0,
         "pores": 10.0,
         "oilcontrol": 10.0,
-        "sensitive": 10.0
+        "sensitive": 100.0
       },
       "review_score": 61.505462108592084,
       "value_score": 14.492753623188403,
       "total_score": {
         "acne": 33.62673331118528,
-        "whitening": 33.62673331118528,
-        "antiaging": 33.62673331118528,
+        "whitening": 40.37673331118528,
+        "antiaging": 47.12673331118528,
         "pores": 33.62673331118528,
         "oilcontrol": 33.62673331118528,
-        "sensitive": 33.62673331118528
+        "sensitive": 74.12673331118529
       },
       "review_summary": {
         "count": 0,
@@ -159395,7 +159721,25 @@
       "servings": null,
       "makeup_category": null,
       "spf": null,
-      "makeup_score": null
+      "makeup_score": null,
+      "watsons": {
+        "source": "watsons",
+        "product_name": "Dr.G R.E.D Blemish Clear Soothing Cream 30ml",
+        "matched_name": "dr.g ด็อกเตอร์ จี อาร์.อี.ดี เบลมมิช ซูทติ้ง อัพ ซัน spf50 pa 35 มล.",
+        "similarity": 0.664,
+        "product_count": 1,
+        "review_count": 1,
+        "snippets": [
+          {
+            "text": "review-undefined-WTCTH33194061",
+            "author": "M**",
+            "rating": 5.0,
+            "date": "2026-08-11T02:02:23+0000",
+            "source_url": "https://www.watsons.co.th/th/dr.g-%E0%B8%94%E0%B9%87%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C-%E0%B8%88%E0%B8%B5-%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B9%8C.%E0%B8%AD%E0%B8%B5.%E0%B8%94%E0%B8%B5-%E0%B9%80%E0%B8%9A%E0%B8%A5%E0%B8%A1%E0%B8%A1%E0%B8%B4%E0%B8%8A-%E0%B8%8B%E0%B8%B9%E0%B8%97%E0%B8%95%E0%B8%B4%E0%B9%89%E0%B8%87-%E0%B8%AD%E0%B8%B1%E0%B8%9E-%E0%B8%8B%E0%B8%B1%E0%B8%99-spf50-pa-35-%E0%B8%A1%E0%B8%A5./p/BP_329031"
+          }
+        ],
+        "fetched_at": "2026-08-14T11:01:12Z"
+      }
     },
     "95743": {
       "product_id": "95743",
@@ -171123,10 +171467,6 @@
         "total_score": 33.64146408021747
       },
       {
-        "product_id": "95740",
-        "total_score": 33.62673331118528
-      },
-      {
         "product_id": "7961",
         "total_score": 33.58258709263188
       },
@@ -171181,10 +171521,6 @@
       {
         "product_id": "60356",
         "total_score": 32.543084239123885
-      },
-      {
-        "product_id": "81108",
-        "total_score": 32.54081077644096
       },
       {
         "product_id": "109302",
@@ -176329,6 +176665,10 @@
         "total_score": 74.13442048375563
       },
       {
+        "product_id": "95740",
+        "total_score": 74.12673331118529
+      },
+      {
         "product_id": "117843",
         "total_score": 74.12491359433538
       },
@@ -177099,6 +177439,10 @@
       {
         "product_id": "67612",
         "total_score": 54.16897208551034
+      },
+      {
+        "product_id": "81108",
+        "total_score": 54.140810776440965
       },
       {
         "product_id": "123846",
