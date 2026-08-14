@@ -18,6 +18,12 @@ export const allProducts = (): Product[] => Object.values(db.products);
 export const getProduct = (id: string): Product | undefined => db.products[id];
 export const getRanking = (concern: string): RankingEntry[] => db.rankings[concern] ?? [];
 
+/** Oral-supplement ranking for a concern — scored on labelled dose, not just
+ * presence of an active. See scoring.oral_ingredient_score. Empty when the
+ * concern has no supplement with a parseable single-active dose. */
+export const getOralRanking = (concern: string): RankingEntry[] =>
+  db.oral_rankings?.[concern] ?? [];
+
 export const allIngredients = (): [string, IngredientEntry][] => Object.entries(ingDb);
 export const ingredientSlug = (inci: string) => slugify(inci);
 

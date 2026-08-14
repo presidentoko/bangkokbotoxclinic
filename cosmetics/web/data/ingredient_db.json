@@ -153,7 +153,8 @@
     "evidence_note": "Strong brightening evidence.",
     "sources": [
       "https://pubmed.ncbi.nlm.nih.gov/"
-    ]
+    ],
+    "reference_dose_mg": 500.0
   },
   "Sodium Ascorbyl Phosphate": {
     "th_name": "โซเดียมแอสคอร์บิลฟอสเฟต",
@@ -935,7 +936,8 @@
     "evidence_note": "Oral glutathione has brightening evidence; topical penetration is debated.",
     "sources": [
       "https://pubmed.ncbi.nlm.nih.gov/"
-    ]
+    ],
+    "reference_dose_mg": 250.0
   },
   "Glycyrrhiza Glabra Root Extract": {
     "th_name": "สารสกัดชะเอมเทศ",
@@ -1613,6 +1615,81 @@
     "mechanism_th": "ไขมันโครงสร้างผิวชนิดหนึ่งใน 3 ชนิดหลัก ช่วยซ่อมแซมเกราะป้องกันผิวร่วมกับเซราไมด์",
     "mechanism_en": "One of the three physiological barrier lipids; restores the skin barrier alongside ceramides and fatty acids.",
     "typical_pct": "0.5-3%",
+    "sources": []
+  },
+  "Zinc": {
+    "th_name": "สังกะสี",
+    "en_name": "Zinc",
+    "aliases": [
+      "Zinc Gluconate",
+      "Zinc Citrate",
+      "Zinc Picolinate",
+      "Zinc Sulfate"
+    ],
+    "role": "mineral",
+    "concern_efficacy": {
+      "acne": 2,
+      "whitening": 0,
+      "antiaging": 0,
+      "pores": 0,
+      "oilcontrol": 1,
+      "sensitive": 0
+    },
+    "reference_dose_mg": 15.0,
+    "safety_flags": [],
+    "mechanism_th": "แร่ธาตุที่มีฤทธิ์ต้านการอักเสบ ลดการทำงานของต่อมไขมัน ใช้ในการศึกษาด้านสิวแบบรับประทาน",
+    "mechanism_en": "Anti-inflammatory mineral shown in oral studies to reduce sebaceous activity and acne severity.",
+    "typical_pct": "",
+    "sources": []
+  },
+  "Collagen Peptide": {
+    "th_name": "คอลลาเจนเปปไทด์",
+    "en_name": "Collagen Peptide",
+    "aliases": [
+      "Hydrolyzed Collagen",
+      "Collagen Tripeptide",
+      "Fish Collagen",
+      "Marine Collagen",
+      "Collagen Hydrolysate"
+    ],
+    "role": "structural protein",
+    "concern_efficacy": {
+      "acne": 0,
+      "whitening": 0,
+      "antiaging": 3,
+      "pores": 0,
+      "oilcontrol": 0,
+      "sensitive": 1
+    },
+    "reference_dose_mg": 2500.0,
+    "safety_flags": [],
+    "mechanism_th": "เปปไทด์คอลลาเจนที่ผ่านการย่อยแล้ว งานวิจัยแบบสุ่มพบว่าเพิ่มความยืดหยุ่นและความชุ่มชื้นของผิว",
+    "mechanism_en": "Hydrolysed collagen peptides; randomised trials link daily intake to improved skin elasticity and hydration.",
+    "typical_pct": "",
+    "sources": []
+  },
+  "Biotin": {
+    "th_name": "ไบโอติน",
+    "en_name": "Biotin",
+    "aliases": [
+      "Vitamin B7",
+      "Vitamin H",
+      "D-Biotin"
+    ],
+    "role": "vitamin",
+    "concern_efficacy": {
+      "acne": 0,
+      "whitening": 0,
+      "antiaging": 0,
+      "pores": 0,
+      "oilcontrol": 0,
+      "sensitive": 0
+    },
+    "reference_dose_mg": 2.5,
+    "safety_flags": [],
+    "mechanism_th": "วิตามินบีที่เกี่ยวข้องกับการเจริญเติบโตของเส้นผมและเล็บ ไม่มีหลักฐานที่แข็งแรงสำหรับข้อกังวลผิวหน้าที่เว็บนี้จัดอันดับ",
+    "mechanism_en": "B-vitamin linked to hair and nail growth; no strong evidence for the facial-skin concerns ranked on this site.",
+    "typical_pct": "",
     "sources": []
   }
 }

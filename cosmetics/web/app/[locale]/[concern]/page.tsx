@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   CONCERNS,
   getRanking,
+  getOralRanking,
   getProduct,
   productSlug,
   allProducts,
@@ -203,6 +204,33 @@ export default async function ConcernHub({
 
   const top = rows.slice(0, 20);
   const podium = rows.slice(0, 3);
+
+  // Oral supplements, same shape as `rows` so ComparisonTable can render both.
+  // Scored separately (dose-weighted, see oral_ingredient_score) — never mixed
+  // into the topical ranking above.
+  const oralEntries = getOralRanking(concern)
+    .map((e) => ({ e, p: getProduct(e.product_id) }))
+    .filter(
+      (x): x is { e: (typeof x)["e"]; p: NonNullable<(typeof x)["p"]> } =>
+        x.p != null
+    );
+  const oralRows = oralEntries.slice(0, 5).map(({ e, p }, i) => {
+    const key =
+      p.ingredient_analysis.find((a) => a.concern_efficacy[concern] > 0)?.inci ?? "—";
+    return {
+      rank: i + 1,
+      id: p.product_id,
+      slug: productSlug(p),
+      name: p.name,
+      brand: p.brand,
+      score: e.total_score,
+      keyIngredient: key,
+      price: p.price_thb,
+      rating: p.konvy_rating,
+      reviews: p.konvy_review_count,
+      image: p.image_url,
+    };
+  });
   const products = getRanking(concern)
     .slice(0, 20)
     .map((e) => getProduct(e.product_id))
@@ -394,6 +422,27 @@ export default async function ConcernHub({
         </h2>
         <ComparisonTable rows={top} locale={locale} labels={labels} />
       </section>
+
+      {/* Oral supplements — same page, separate section. A search for "ฝ้า" or
+          "whitening" covers both what you apply and what you take, so this
+          shares the page rather than splitting into its own URL (fewer pages
+          to crawl, and the two forms answer the same intent together). Never
+          merged into the topical table above: scoring is not comparable
+          (dose-weighted vs. presence-weighted) and mixing them would silently
+          rank a tablet against a serum on the same 0-100 scale. */}
+      {oralRows.length > 0 && (
+        <section>
+          <h2 className="font-serif-display text-lg font-semibold text-neutral-700 mb-1">
+            {locale === "th" ? "อาหารเสริมกินเสริมผิว" : "Oral supplements"}
+          </h2>
+          <p className="text-xs text-neutral-500 mb-3">
+            {locale === "th"
+              ? "จัดอันดับตามปริมาณสารออกฤทธิ์ที่ระบุฉลาก ไม่ใช่แค่การมีอยู่"
+              : "Ranked by the labelled dose of the active ingredient, not just its presence."}
+          </p>
+          <ComparisonTable rows={oralRows} locale={locale} labels={labels} />
+        </section>
+      )}
 
       {/* ── Sponsored slot — clearly labelled, rankings not affected ── */}
       {featuredProduct && (
@@ -593,6 +642,16 @@ export default async function ConcernHub({
             `https://bangkokfillers.com/${locale}/product/${productSlug(p)}`
         )}
       />
+      {oralRows.length > 0 && (
+        <JsonLd
+          data={itemListLd(
+            `https://bangkokfillers.com/${locale}/${concern}#oral`,
+            oralEntries.map((x) => x.p),
+            (p) =>
+              `https://bangkokfillers.com/${locale}/product/${productSlug(p)}`
+          )}
+        />
+      )}
       <JsonLd data={faqLd(faqQas)} />
       {CONCERN_GUIDE[concern] && (() => {
         const g = CONCERN_GUIDE[concern];

@@ -20,7 +20,17 @@ export interface Product {
   pantip?: PantipData;
   youtube?: YoutubeData;
   watsons?: WatsonsData;
+  /** "topical" (default skincare) or "oral" (supplements). See build_master_db.py. */
+  form?: "topical" | "oral";
+  /** Parsed from the product name for oral products only; null when unparseable. */
+  dose_mg?: number | null;
+  servings?: number | null;
 }
 export interface RankingEntry { product_id: string; total_score: number; }
-export interface MasterDb { generated_at: string; products: Record<string, Product>; rankings: Record<string, RankingEntry[]>; }
+export interface MasterDb {
+  generated_at: string;
+  products: Record<string, Product>;
+  rankings: Record<string, RankingEntry[]>;
+  oral_rankings?: Record<string, RankingEntry[]>;
+}
 export interface IngredientEntry { th_name: string; en_name: string; aliases: string[]; role: string; concern_efficacy: Record<string, number>; safety_flags: string[]; mechanism_th: string; mechanism_en: string; typical_pct: string; evidence_note?: string; sources: string[]; }

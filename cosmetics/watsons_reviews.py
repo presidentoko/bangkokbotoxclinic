@@ -338,6 +338,8 @@ def main() -> int:
     parser.add_argument("--port", type=int, default=None, help="VPN SOCKS5 port to use")
     parser.add_argument("--shard", default=None, help="I/N e.g. 0/4 — worker index / total workers")
     parser.add_argument("--no-proxy", action="store_true", help="Direct connection (no SOCKS5) — use with phone hotspot")
+    parser.add_argument("--missing-ingredients", action="store_true", dest="missing_ingredients",
+                        help="ignore the brand whitelist; target products that lack ingredients")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO,
@@ -361,10 +363,20 @@ def main() -> int:
     # Only scrape brands that are carried by Watsons Thailand.
     # Skipping Konvy-only niche brands cuts pass time 8h → ~1h.
     watsons_brands = {b.lower() for b in _WATSONS_BRANDS}
-    all_products = [
-        p for p in all_products
-        if p.get("brand", "").lower() in watsons_brands
-    ]
+    if getattr(args, "missing_ingredients", False):
+        # The whitelist avoids burning lookups on brands Watsons never stocked,
+        # but it also meant 171 products with no ingredient data were never even
+        # searched. When hunting ingredients (watsons_ingredients.py consumes the
+        # matches this produces), search every product that lacks them regardless
+        # of brand — an unstocked brand just comes back empty, which is cheap and
+        # gets recorded so reruns skip it.
+        all_products = [p for p in all_products if not (p.get("ingredients") or [])]
+        print(f"--missing-ingredients: 화이트리스트 무시, 성분 없는 {len(all_products)}개 대상")
+    else:
+        all_products = [
+            p for p in all_products
+            if p.get("brand", "").lower() in watsons_brands
+        ]
 
     # Build resumable pending list (skip already-done)
     pending = [

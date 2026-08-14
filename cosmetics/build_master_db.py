@@ -31,6 +31,94 @@ _NON_FACIAL = re.compile(
 def _is_facial(name: str) -> bool:
     return not _NON_FACIAL.search(name or "")
 
+# --- oral supplements (2026-08-14 expansion) -------------------------------
+#
+# "form" separates what you swallow from what you apply. A tablet/capsule/
+# lozenge name is the trigger, but that alone is ambiguous: packaging borrows
+# the same words for topical products — "SUISAI Beauty Clear Powder Wash
+# [0.4g x 15 Capsules]" is a face wash sold in single-use pods, and "Puricas
+# Anti Acne Serum Sachet" is a serum sample sachet. A topical product-type word
+# anywhere in the name overrides the oral trigger.
+_ORAL_FORM = re.compile(
+    r"\b(tablets?|capsules?|softgels?|lozenges?|chewables?|effervescent"
+    r"|เม็ด|แคปซูล)\b",
+    re.I,
+)
+_TOPICAL_OVERRIDE = re.compile(
+    r"\b(serum|cream|lotion|gel|toner|cleans(?:er|ing)|foam|mask|jelly|balm"
+    r"|wash|primer|concealer|corrector|essence|sunscreen)\b",
+    re.I,
+)
+
+
+def _form(name: str) -> str:
+    n = name or ""
+    if _ORAL_FORM.search(n) and not _TOPICAL_OVERRIDE.search(n):
+        return "oral"
+    return "topical"
+
+
+_DOSE = re.compile(r"(\d[\d,]*(?:\.\d+)?)\s*(mg|mcg|g|iu)\b", re.I)
+_SERVINGS = re.compile(
+    r"(\d+)\s*(?:tablets?|capsules?|softgels?|lozenges?|เม็ด|แคปซูล)", re.I
+)
+_UNIT_TO_MG = {"mg": 1.0, "mcg": 0.001, "g": 1000.0, "iu": None}  # iu has no fixed mg
+
+
+def _dose_mg(name: str) -> "float | None":
+    """First mg/mcg/g dose mentioned in the name, normalised to mg.
+
+    IU (used for fat-soluble vitamins by potency, not mass) is left unparsed
+    rather than guessed — asserting a wrong mg figure would be worse than no
+    figure, and none of the oral actives this launch scores (vitamin C,
+    collagen, glutathione, biotin, zinc) are normally labelled in IU.
+    """
+    m = _DOSE.search(name or "")
+    if not m:
+        return None
+    unit = m.group(2).lower()
+    factor = _UNIT_TO_MG.get(unit)
+    if factor is None:
+        return None
+    return float(m.group(1).replace(",", "")) * factor
+
+
+def _servings(name: str) -> "int | None":
+    m = _SERVINGS.search(name or "")
+    return int(m.group(1)) if m else None
+
+
+# Supplement packaging states its active on the front of the box — "Vitamin C
+# 1000mg", "Collagen Tripeptide" — it does not carry an INCI ingredient list,
+# which is what ingredients.match() needs. So for oral products the active is
+# read off the product name instead. This is reading the label, not guessing:
+# the name IS the declared content, the way "1000mg" IS the declared dose.
+# Scoped to the five actives this launch approved (see design notes); nothing
+# outside that set is scored, so a general "Multivitamin" or "B-complex"
+# correctly stays unmatched and out of the oral rankings.
+_ORAL_ACTIVE_NAME_MAP = [
+    (re.compile(r"\bvitamin\s*c\b|ascorbic\s*acid|\bbio\s*c\b|\bacerola\b", re.I), "Ascorbic Acid"),
+    (re.compile(r"\bcollagen\b", re.I), "Collagen Peptide"),
+    (re.compile(r"\bglutathion", re.I), "Glutathione"),
+    (re.compile(r"\bzinc\b", re.I), "Zinc"),
+    (re.compile(r"\bbiotin\b", re.I), "Biotin"),
+]
+
+
+def _oral_name_actives(name: str, ing_db: dict) -> list[dict]:
+    out = []
+    for pattern, key in _ORAL_ACTIVE_NAME_MAP:
+        if key in ing_db and pattern.search(name or ""):
+            e = ing_db[key]
+            entry = {"inci": key, "role": e["role"],
+                     "concern_efficacy": e["concern_efficacy"],
+                     "safety_flags": e["safety_flags"]}
+            if e.get("reference_dose_mg"):
+                entry["reference_dose_mg"] = e["reference_dose_mg"]
+            out.append(entry)
+    return out
+
+
 # Format classes for value_score. price-per-ml is only meaningful within a
 # format: a 473ml cleanser will always look like better "value" than a 30ml
 # serum, which is why large-volume products swept every ranking when they were
@@ -66,15 +154,23 @@ def build_db(products: list[dict], reviews_by_id: dict,
     # largely by 25-30ml serums and sheet masks, which is how body products came
     # to hold #1 on facial concern pages.
     for p in products:
-        ml = _ml(p.get("volume", ""))
-        p["_ppml"] = (p["price_thb"] / ml) if (ml and p.get("price_thb")) else 0.0
-        p["_format"] = _format_class(p.get("name", ""))
-    _all_ppml = [p["_ppml"] for p in products if p["_ppml"]]
+        name = p.get("name", "")
+        p["_form"] = _form(name)
+        if p["_form"] == "oral":
+            p["_dose_mg"] = _dose_mg(name)
+            p["_servings"] = _servings(name)
+            p["_ppml"] = 0.0
+            p["_format"] = "oral"
+        else:
+            ml = _ml(p.get("volume", ""))
+            p["_ppml"] = (p["price_thb"] / ml) if (ml and p.get("price_thb")) else 0.0
+            p["_format"] = _format_class(name)
+    _all_ppml = [p["_ppml"] for p in products if p["_form"] == "topical" and p["_ppml"]]
     med_ppml = statistics.median(_all_ppml) if _all_ppml else 0.0
 
     _by_format: dict[str, list[float]] = {}
     for p in products:
-        if p["_ppml"]:
+        if p["_form"] == "topical" and p["_ppml"]:
             _by_format.setdefault(p["_format"], []).append(p["_ppml"])
     # A class needs enough members for its median to mean anything; below that,
     # fall back to the global median rather than to a median of three products.
@@ -87,6 +183,20 @@ def build_db(products: list[dict], reviews_by_id: dict,
     print("  value_score medians by format: "
           + str({k: round(v, 3) for k, v in sorted(med_by_format.items())})
           + f" (global {med_ppml:.3f})")
+
+    # Oral products compare on ฿/serving, never against topical ฿/ml — a tablet
+    # has no meaningful volume, and _ml() already returns 0 for one so this
+    # would otherwise silently default every supplement's value_score to 50.
+    _oral_pps = []
+    for p in products:
+        if p["_form"] == "oral" and p.get("_servings") and p.get("price_thb"):
+            p["_price_per_serving"] = p["price_thb"] / p["_servings"]
+            _oral_pps.append(p["_price_per_serving"])
+        else:
+            p["_price_per_serving"] = 0.0
+    med_pps = statistics.median(_oral_pps) if _oral_pps else 0.0
+    if _oral_pps:
+        print(f"  oral value_score median: ฿{med_pps:.2f}/serving (n={len(_oral_pps)})")
 
     # Auto-promotion into a concern pool requires this much summed efficacy from
     # the product's matched actives for that concern.
@@ -129,6 +239,10 @@ def build_db(products: list[dict], reviews_by_id: dict,
         if isinstance(ing_list, str):                      # scraper stores "|"-joined string
             ing_list = [x for x in ing_list.split("|") if x]
         analysis = ingredients.match(ing_list, db)
+        if p["_form"] == "oral":
+            have = {a["inci"] for a in analysis}
+            analysis = analysis + [a for a in _oral_name_actives(p.get("name", ""), db)
+                                   if a["inci"] not in have]
         rsum = review_aggregate.summarize(reviews_by_id.get(p["product_id"], []))
 
         # Review score pools every retailer that reports an aggregate rating.
@@ -139,18 +253,29 @@ def build_db(products: list[dict], reviews_by_id: dict,
         bt = (boots_by_id or {}).get(p["product_id"]) or {}
         rev = scoring.review_score_scaled(_rating_sources(p), review_band,
                                           prior_mean=prior, max_count=_max_count)
-        val = scoring.value_score(p["_ppml"], med_by_format.get(p["_format"], med_ppml))
         ing, tot = {}, {}
-        for c in scoring.CONCERNS:
-            ing[c] = scoring.ingredient_score(analysis, c)
-            tot[c] = scoring.total_score(ing[c], rev, val)
+        if p["_form"] == "oral":
+            val = scoring.value_score(p["_price_per_serving"], med_pps)
+            for c in scoring.CONCERNS:
+                ing[c] = scoring.oral_ingredient_score(analysis, c, p.get("_dose_mg"))
+                tot[c] = scoring.total_score(ing[c], rev, val)
+        else:
+            val = scoring.value_score(p["_ppml"], med_by_format.get(p["_format"], med_ppml))
+            for c in scoring.CONCERNS:
+                ing[c] = scoring.ingredient_score(analysis, c)
+                tot[c] = scoring.total_score(ing[c], rev, val)
         pantip = _load_pantip(p["product_id"])
         rec = dict(p)
+        form = rec.pop("_form")
+        dose_mg = rec.pop("_dose_mg", None)
+        servings = rec.pop("_servings", None)
+        rec.pop("_price_per_serving", None)
         rec.pop("_ppml", None)
         rec.pop("_format", None)
         rec.update({"ingredient_analysis": analysis, "ingredient_score": ing,
                     "review_score": rev, "value_score": val,
-                    "total_score": tot, "review_summary": rsum})
+                    "total_score": tot, "review_summary": rsum,
+                    "form": form, "dose_mg": dose_mg, "servings": servings})
         if pantip is not None:
             rec["pantip"] = pantip
         yt = (youtube_by_id or {}).get(p["product_id"])
@@ -217,11 +342,14 @@ def build_db(products: list[dict], reviews_by_id: dict,
         return concern in cs.split("|")
 
     # All six concerns are facial. Body/hair/deodorant products keep their own
-    # product pages but must never appear in a facial ranking.
-    facial = [pp for pp in out_products.values() if _is_facial(pp.get("name", ""))]
+    # product pages but must never appear in a facial ranking, and neither
+    # should oral supplements — they get their own parallel ranking below,
+    # scored on dose rather than presence.
+    facial = [pp for pp in out_products.values()
+             if pp.get("form") == "topical" and _is_facial(pp.get("name", ""))]
     excluded = len(out_products) - len(facial)
     if excluded:
-        print(f"  excluded {excluded} non-facial products from concern rankings")
+        print(f"  excluded {excluded} non-topical-facial products from concern rankings")
 
     rankings = {}
     for c in scoring.CONCERNS:
@@ -232,7 +360,24 @@ def build_db(products: list[dict], reviews_by_id: dict,
         ranked = scoring.rank_products(pool, c)
         rankings[c] = [{"product_id": pp["product_id"], "total_score": pp["total_score"][c]} for pp in ranked]
         print(f"  ranked {len(ranked):>4} products -> {c}")
-    return {"generated_at": None, "products": out_products, "rankings": rankings}
+
+    # Oral rankings, parallel to the topical ones. A product qualifies only when
+    # oral_ingredient_score actually produced a number above the floor — no
+    # dose parsed, or a multi-active blend where the dose is ambiguous, both
+    # score 0 for every concern and are correctly absent from every list here
+    # (they still get a product page; see form/dose_mg/servings on the record).
+    oral = [pp for pp in out_products.values() if pp.get("form") == "oral"]
+    oral_rankings = {}
+    for c in scoring.CONCERNS:
+        pool = [pp for pp in oral if pp["ingredient_score"].get(c, 0) > 0]
+        ranked = scoring.rank_products(pool, c)
+        oral_rankings[c] = [{"product_id": pp["product_id"], "total_score": pp["total_score"][c]}
+                            for pp in ranked]
+    ranked_oral_total = sum(len(v) for v in oral_rankings.values())
+    print(f"  oral supplements: {len(oral)} products, {ranked_oral_total} concern-ranking slots filled")
+
+    return {"generated_at": None, "products": out_products,
+            "rankings": rankings, "oral_rankings": oral_rankings}
 
 def _load_youtube() -> dict:
     out = {}

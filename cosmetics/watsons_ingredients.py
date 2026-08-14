@@ -94,6 +94,32 @@ def _watsons_urls_by_pid() -> dict[str, str]:
     return out
 
 
+# Attempts are tracked per source, not in the shared patch file.
+#
+# Both recovery scrapers used to write `patches[pid] = []` on a miss and skip any
+# pid already present. Because the patch file is shared, a miss in one retailer
+# silently blocked every other retailer from ever trying that product — the
+# EVEANDBOY pass recorded 238 misses, which left the later Watsons pass with 2
+# candidates instead of 76. The patch file now holds successes only.
+ATTEMPTED_PATH = config.STATE_DIR / "attempted_{src}.json"
+
+
+def _load_attempted(src: str) -> set:
+    p = Path(str(ATTEMPTED_PATH).format(src=src))
+    if p.exists():
+        try:
+            return set(json.loads(p.read_text(encoding="utf-8")))
+        except Exception:
+            return set()
+    return set()
+
+
+def _save_attempted(src: str, s: set) -> None:
+    config.STATE_DIR.mkdir(parents=True, exist_ok=True)
+    p = Path(str(ATTEMPTED_PATH).format(src=src))
+    p.write_text(json.dumps(sorted(s)), encoding="utf-8")
+
+
 def _load_patches() -> dict:
     if PATCH_PATH.exists():
         try:
@@ -122,6 +148,7 @@ def main() -> int:
     products = json.loads(MASTER_DB.read_text(encoding="utf-8"))["products"]
     urls = _watsons_urls_by_pid()
     patches = _load_patches()
+    attempted = _load_attempted("watsons_ing")
 
     pending = []
     for pid, p in products.items():
@@ -130,8 +157,8 @@ def main() -> int:
             ings = [x for x in ings.split("|") if x]
         if ings:
             continue                      # already has ingredients
-        if str(pid) in patches:
-            continue                      # already attempted
+        if patches.get(str(pid)) or str(pid) in attempted:
+            continue                      # already recovered, or tried here before
         u = urls.get(str(pid))
         if u:
             pending.append((str(pid), p.get("name", ""), u))

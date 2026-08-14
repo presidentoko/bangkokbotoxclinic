@@ -77,6 +77,32 @@ def _extract(payload: dict) -> list[str]:
     return parse_inci(text)
 
 
+# Attempts are tracked per source, not in the shared patch file.
+#
+# Both recovery scrapers used to write `patches[pid] = []` on a miss and skip any
+# pid already present. Because the patch file is shared, a miss in one retailer
+# silently blocked every other retailer from ever trying that product — the
+# EVEANDBOY pass recorded 238 misses, which left the later Watsons pass with 2
+# candidates instead of 76. The patch file now holds successes only.
+ATTEMPTED_PATH = config.STATE_DIR / "attempted_{src}.json"
+
+
+def _load_attempted(src: str) -> set:
+    p = Path(str(ATTEMPTED_PATH).format(src=src))
+    if p.exists():
+        try:
+            return set(json.loads(p.read_text(encoding="utf-8")))
+        except Exception:
+            return set()
+    return set()
+
+
+def _save_attempted(src: str, s: set) -> None:
+    config.STATE_DIR.mkdir(parents=True, exist_ok=True)
+    p = Path(str(ATTEMPTED_PATH).format(src=src))
+    p.write_text(json.dumps(sorted(s)), encoding="utf-8")
+
+
 def _load_patches() -> dict:
     if PATCH_PATH.exists():
         try:
@@ -103,13 +129,14 @@ def main() -> int:
         return 1
     products = json.loads(MASTER_DB.read_text(encoding="utf-8"))["products"]
     patches = _load_patches()
+    attempted = _load_attempted("eveandboy_ing")
 
     pending = []
     for pid, p in products.items():
         ings = p.get("ingredients") or []
         if isinstance(ings, str):
             ings = [x for x in ings.split("|") if x]
-        if ings or str(pid) in patches:
+        if ings or patches.get(str(pid)) or str(pid) in attempted:
             continue
         ean = re.sub(r"\D", "", str(p.get("gtin8") or ""))
         if len(ean) in (12, 13):
@@ -177,16 +204,17 @@ def main() -> int:
                     toks = _extract(payload)
                     if toks:
                         break
+                attempted.add(pid)
                 if toks:
                     patches[pid] = toks
                     found += 1
                     print(f"  [{i}/{len(pending)}] {pid} {name[:36]:<36} → {len(toks)} ingredients")
+                    _save_patches(patches)
                 else:
-                    # Either this retailer doesn't carry the product or it
-                    # publishes no list; record the attempt so reruns skip it.
-                    patches[pid] = []
+                    # This retailer doesn't carry it, or publishes no list.
+                    # Recorded per-source so other retailers still get a turn.
                     empty += 1
-                _save_patches(patches)
+                _save_attempted("eveandboy_ing", attempted)
                 if i % 25 == 0:
                     print(f"  [{i}/{len(pending)}] found={found} none={empty} fail={fail}")
                 time.sleep(args.delay)

@@ -34,7 +34,14 @@ def match(product_ingredients: list[str], db: dict) -> list[dict]:
         if inci and inci not in seen:
             seen.add(inci)
             e = db[inci]
-            out.append({"inci": inci, "role": e["role"],
-                        "concern_efficacy": e["concern_efficacy"],
-                        "safety_flags": e["safety_flags"]})
+            entry = {"inci": inci, "role": e["role"],
+                     "concern_efficacy": e["concern_efficacy"],
+                     "safety_flags": e["safety_flags"]}
+            # Set only for actives with a labelled reference oral dose (vitamin C,
+            # glutathione, zinc, collagen peptide, biotin) — used to scale
+            # oral-supplement scoring by how much of that dose a product actually
+            # delivers. Absent for everything else, topical or oral.
+            if e.get("reference_dose_mg"):
+                entry["reference_dose_mg"] = e["reference_dose_mg"]
+            out.append(entry)
     return out

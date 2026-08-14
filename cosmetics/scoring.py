@@ -115,6 +115,34 @@ def review_score_scaled(sources: list[tuple[float, int]], band: tuple[float, flo
     return max(0.0, min(100.0, score))
 
 
+# --- oral supplements (2026-08-14 expansion) -------------------------------
+#
+# ingredient_score works on "is this active present" — right for topical
+# products, where any measurable concentration does something. Supplements
+# don't work that way: a 1000mg vitamin C tablet and a 100mg one are different
+# products, so scoring both as "contains vitamin C" would repeat the mistake
+# review_score made when every rating between 4.5 and 5.0 scored the same.
+#
+# Scored only when exactly one dose-relevant active is matched. Multi-active
+# blends ("Vitamin C 1000mg Plus Vitamin D And Zinc") have only one dose
+# number in the product name, and there is no reliable way to tell which
+# active it belongs to — guessing would misattribute it, so those are left
+# unscored (dose_mg parses, but oral_ingredient_score returns 0 and the
+# product is excluded from concern rankings, same treatment as no dose at all).
+def oral_ingredient_score(analysis: list[dict], concern: str, dose_mg: "float | None") -> float:
+    if dose_mg is None:
+        return 0.0
+    dosed = [a for a in analysis
+             if a.get("reference_dose_mg") and a["concern_efficacy"].get(concern, 0) > 0]
+    if len(dosed) != 1:
+        return 0.0
+    a = dosed[0]
+    ratio = min(dose_mg / a["reference_dose_mg"], 1.0)
+    efficacy = a["concern_efficacy"][concern]        # 0-3, same scale as topical
+    reward = ratio * (efficacy / 3.0) * (100 - _BASE)
+    return max(0.0, min(100.0, _BASE + reward))
+
+
 def value_score(price_per_ml: float, median_per_ml: float) -> float:
     """0-100; at/above 2x median -> 0, at/below ~0 -> 100, median -> 50."""
     if not price_per_ml or not median_per_ml or price_per_ml <= 0:
