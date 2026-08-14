@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel, localeFor } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, localeFor, ogLocale } from "@/lib/site";
 import { getAllPlaces, loadCity, findPlaceByIdFast } from "@/lib/data";
 import { categoryBadgeLabel, isRelevantCategory } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
@@ -23,6 +23,23 @@ import { themeLabel, themeEmoji } from "@/lib/theme-labels";
 import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
 import { placeSummary, priceMedian, priceRange } from "@/lib/summary";
 import { relatedPlaces } from "@/lib/related";
+import type { Review } from "@/lib/types";
+
+function ReviewItem({ review, anonymousLabel }: { review: Review; anonymousLabel: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-bg-elev p-4">
+      <div className="flex items-center gap-2.5 mb-1.5">
+        <div className="flex items-center justify-center w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-bold shrink-0">
+          {(review.authorName || anonymousLabel).charAt(0).toUpperCase()}
+        </div>
+        <span className="font-semibold text-sm">{review.authorName || anonymousLabel}</span>
+        {review.rating != null && <span className="text-xs text-accent font-bold">★ {review.rating}</span>}
+        <span className="text-muted text-xs">{review.relativeDate}</span>
+      </div>
+      <p className="text-sm text-muted leading-relaxed">{review.text}</p>
+    </div>
+  );
+}
 
 // 빌드타임에 미리 만드는 건 리뷰가 충분한 곳만. 나머지는 첫 요청 때 생성해서
 // 캐시한다(아래 dynamicParams=true).
@@ -94,7 +111,7 @@ export async function generateMetadata({
       canonical: `/${lang}/place/${id}`,
       languages: hreflangAlternates((l) => `/${l}/place/${id}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/place/${id}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/place/${id}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -114,7 +131,10 @@ export default async function PlacePage({
   const priceMedianValue = priceMedian(place.priceMentions);
   const priceRangeValue = priceRange(place.priceMentions);
   const summary = placeSummary(place, lang);
-  const related = relatedPlaces(place, loadCity(city).places);
+  const cityData = loadCity(city);
+  const related = relatedPlaces(place, cityData.places);
+  const visibleReviews = place.reviews.slice(0, 10);
+  const moreReviews = place.reviews.slice(10, 20);
 
   const faqItems = [
     place.rating != null
@@ -174,7 +194,7 @@ export default async function PlacePage({
 
       <TrustScoreDetail place={place} lang={lang} />
 
-      <PlaceActions placeId={place.id} lang={lang} />
+      <PlaceActions placeId={place.id} t={t.place} />
 
       {summary && <p className="text-muted leading-relaxed mb-6 max-w-2xl">{summary}</p>}
 
@@ -232,6 +252,16 @@ export default async function PlacePage({
               : t.place.priceRangeLabel.replace("{price}", priceMedianValue.toLocaleString(localeFor(lang)))}
           </p>
         )}
+        {/* generatedAt was already computed at build time (scripts/build-data.mjs)
+            and used for the sitemap's lastModified, but never shown to a
+            human -- a visitor deciding whether to trust this listing has no
+            way to tell if it's from last week or six months ago. */}
+        <p className="text-xs text-muted mt-3 pt-3 border-t border-border">
+          {t.place.dataUpdatedLabel.replace(
+            "{date}",
+            new Date(cityData.generatedAt).toLocaleDateString(localeFor(lang), { year: "numeric", month: "long", day: "numeric" })
+          )}
+        </p>
       </div>
 
       {/* Rating breakdown / service tags / mood tags are supplementary --
@@ -297,20 +327,31 @@ export default async function PlacePage({
       <section>
         <h2 className="text-lg font-bold mb-3">💬 {t.place.reviewsTitle}</h2>
         <div className="space-y-4">
-          {place.reviews.slice(0, 10).map((r) => (
-            <div key={r.id} className="rounded-xl border border-border bg-bg-elev p-4">
-              <div className="flex items-center gap-2.5 mb-1.5">
-                <div className="flex items-center justify-center w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-bold shrink-0">
-                  {(r.authorName || t.place.anonymousReviewer).charAt(0).toUpperCase()}
-                </div>
-                <span className="font-semibold text-sm">{r.authorName || t.place.anonymousReviewer}</span>
-                {r.rating != null && <span className="text-xs text-accent font-bold">★ {r.rating}</span>}
-                <span className="text-muted text-xs">{r.relativeDate}</span>
-              </div>
-              <p className="text-sm text-muted leading-relaxed">{r.text}</p>
-            </div>
+          {visibleReviews.map((r) => (
+            <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} />
           ))}
         </div>
+        {/* build-data.mjs stores up to 20 reviews per place, but this only
+            ever rendered the first 10 -- the other half sat in the data
+            unused. Same zero-JS <details> pattern as the rating
+            breakdown/service themes sections above, not a client
+            component, since this is just more static markup, not
+            interactive state. */}
+        {moreReviews.length > 0 && (
+          <details className="group mt-4">
+            <summary className="cursor-pointer list-none text-sm font-semibold text-accent hover:underline flex items-center gap-1">
+              {t.place.showMoreReviews.replace("{n}", String(moreReviews.length))}
+              <span className="text-muted transition-transform group-open:rotate-180" aria-hidden="true">
+                ▾
+              </span>
+            </summary>
+            <div className="space-y-4 mt-4">
+              {moreReviews.map((r) => (
+                <ReviewItem key={r.id} review={r} anonymousLabel={t.place.anonymousReviewer} />
+              ))}
+            </div>
+          </details>
+        )}
       </section>
 
       {related.length > 0 && (

@@ -7,9 +7,15 @@ import { FooterYear } from "./FooterYear";
 export function Footer({ lang }: { lang: Lang }) {
   const t = tFor(lang);
   return (
-    // pb matches BottomNav.tsx's real height (4rem + safe-area-inset-bottom)
-    // on mobile, so the footer's last line always scrolls clear of it.
-    <footer className="border-t border-border mt-16 pb-[calc(4rem+env(safe-area-inset-bottom))] sm:pb-0">
+    // pb clears BottomNav.tsx's real height (4rem) plus, on mobile, place
+    // detail pages' floating "View on Maps" CTA (bottom-5rem to ~8.25rem --
+    // see place/[id]/page.tsx) which sits above the tab bar. Footer is
+    // shared across every route via [lang]/layout.tsx and has no way to
+    // know which page rendered it, so this pads for the tallest floating
+    // element on mobile everywhere rather than only on place pages -- a
+    // little extra whitespace above the footer elsewhere, in exchange for
+    // the CTA never actually overlapping footer text at max scroll.
+    <footer className="border-t border-border mt-16 pb-[calc(8.5rem+env(safe-area-inset-bottom))] sm:pb-0">
       <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
         <div className="col-span-2 sm:col-span-1">
           <div className="font-black text-accent mb-2">chillanel</div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel, localeFor } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, localeFor, ogLocale } from "@/lib/site";
 import { listCities, loadCity } from "@/lib/data";
 import { priceGlossaryForCity } from "@/lib/price-glossary";
 import { themeLabel } from "@/lib/theme-labels";
@@ -23,7 +23,7 @@ export async function generateMetadata({
       canonical: `/${lang}/prices`,
       languages: hreflangAlternates((l) => `/${l}/prices`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/prices`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/prices`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

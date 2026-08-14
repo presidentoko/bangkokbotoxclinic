@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, ogLocale } from "@/lib/site";
 import { getAllPlaces } from "@/lib/data";
 import { isRelevantCategory } from "@/lib/categories";
 import { districtLabel, slugifyDistrict, allDistricts } from "@/lib/district-labels";
@@ -12,6 +12,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq } from "@/components/Faq";
 import { ItemListJsonLd } from "@/components/JsonLd";
 import { LoadMorePlaces } from "@/components/LoadMorePlaces";
+import { CityMap } from "@/components/CityMap";
 
 const MAX_SHOWN = 90; // same payload-size discipline as the city page
 
@@ -53,7 +54,7 @@ export async function generateMetadata({
       canonical: `/${lang}/district/${district}`,
       languages: hreflangAlternates((l) => `/${l}/district/${district}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/district/${district}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/district/${district}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -139,6 +140,14 @@ export default async function DistrictPage({
             answer without a click. The FAQPage schema + collapsed detail
             stays for the structured-data half of that. */}
         {faqAnswer && <p className="text-muted leading-relaxed mb-8 max-w-2xl">{faqAnswer}</p>}
+        <div className="mb-8">
+          <CityMap
+            places={allMatching.map((p) => ({ id: p.id, name: p.name, lat: p.lat, lng: p.lng, rating: p.rating }))}
+            lang={lang}
+            showLabel={t.city.showMapLabel}
+            viewLabel={t.compare.viewButton}
+          />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {places.map((place, i) => (
             <PlaceCard

@@ -10,14 +10,16 @@ export type Guide = {
   title: Record<Lang, string>;
   // Lede paragraph -- always present for every language, used for
   // metaDescription and as the opening paragraph. `sections`/`faq` are
-  // optional PER LANGUAGE (Partial, not Record): English guides were
+  // optional PER LANGUAGE (Partial, not Record): every guide was
   // restructured into real h2 sections + FAQ items for AEO (see the
   // 2026-08-14 audit -- guides were the thinnest, most dead-end pages on
-  // the site), but th/ko translations of that new structure need a native
-  // speaker's review before publishing, so they're deliberately left
-  // rendering the original single-paragraph body until that happens
-  // rather than shipping unreviewed machine-translated section copy on a
-  // live commercial site.
+  // the site), en/th/ko all included. The th/ko section+FAQ copy is
+  // AI-translated (matching the tone of this file's original human-written
+  // th/ko body paragraphs, not machine-literal) and hasn't had a native
+  // speaker's pass yet -- worth a review before treating it as final, but
+  // it ships rather than falling back to the old single-paragraph body,
+  // since thin/dead-end content was the worse default. The Partial type
+  // stays in case a future guide ships English-only before translation.
   body: Record<Lang, string>;
   sections?: Partial<Record<Lang, GuideSection[]>>;
   faq?: Partial<Record<Lang, GuideFaqItem[]>>;

@@ -58,6 +58,16 @@ body {
   color: rgb(var(--fg));
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   line-height: 1.55;
+  /* Full-bleed hero sections (home/city/district/service) break out of
+     their container with `sm:mx-[calc(50%-50vw)]` -- 100vw includes the
+     scrollbar's own track width on desktop browsers that reserve one
+     (Windows Chrome/Firefox/Edge; macOS overlay scrollbars are
+     unaffected), so the hero rendered ~15px wider than the viewport and
+     the page picked up a permanent horizontal scrollbar. This trims that
+     sliver at the body level -- the standard place for this fix -- while
+     Header's `sticky top-0` keeps working normally (the viewport, not
+     body, is still what it sticks against). */
+  overflow-x: clip;
 }
 
 /* next/font can't subset Korean/Thai glyphs into the Latin font, so the

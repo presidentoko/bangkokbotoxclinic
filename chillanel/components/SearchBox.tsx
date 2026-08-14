@@ -20,14 +20,26 @@ type SearchEntry = {
   themes: string[];
 };
 
-// Module-level cache: search-index.json is a slim, search-only projection
-// of places-index.json (id/name/city/district/rating/reviewCount/themes,
-// no address/phone/lat-lng/reviews) -- a search box gets touched far more
-// often per session than favorites/compare, so it gets its own smaller
-// asset instead of sharing the full-fidelity one. Caching after the first
-// fetch avoids re-downloading it on every open.
+// Module-level cache: search-index.<city>.json files are a slim,
+// search-only projection of places-index.json (id/name/city/district/
+// rating/reviewCount/themes, no address/phone/lat-lng/reviews) -- a search
+// box gets touched far more often per session than favorites/compare, so
+// it gets its own smaller asset instead of sharing the full-fidelity one.
+// Split per city (see scripts/build-data.mjs) rather than one combined
+// file: search still needs every city (a Phuket visitor can search for a
+// Bangkok place), so this doesn't cut total bytes, but the browser fetches
+// several small files in parallel instead of one ~1.5MB blob. The manifest
+// lists which per-city files actually exist so this doesn't need its own
+// copy of the city-discovery logic. Caching after the first fetch avoids
+// re-downloading on every open.
 let cachedEntries: SearchEntry[] | null = null;
 let inFlight: Promise<SearchEntry[]> | null = null;
+
+async function fetchJson<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+  return res.json() as Promise<T>;
+}
 
 function loadEntries(): Promise<SearchEntry[]> {
   if (cachedEntries) return Promise.resolve(cachedEntries);
@@ -35,12 +47,10 @@ function loadEntries(): Promise<SearchEntry[]> {
     // See lib/places-index-client.ts for why inFlight must reset on
     // failure: without it, one transient network error leaves every future
     // keystroke stuck on the loading state for the rest of the session.
-    inFlight = fetch("/search-index.json")
-      .then((res) => {
-        if (!res.ok) throw new Error(`search-index.json: HTTP ${res.status}`);
-        return res.json() as Promise<SearchEntry[]>;
-      })
-      .then((all) => {
+    inFlight = fetchJson<string[]>("/search-index-manifest.json")
+      .then((cities) => Promise.all(cities.map((c) => fetchJson<SearchEntry[]>(`/search-index.${c}.json`))))
+      .then((perCity) => {
+        const all = perCity.flat();
         cachedEntries = all;
         return all;
       })

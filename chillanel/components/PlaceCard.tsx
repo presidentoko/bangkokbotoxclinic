@@ -30,6 +30,7 @@ export function PlaceCard({
   editorsPick = false,
   badgeLabel,
   size = "default",
+  distanceLabel,
 }: {
   place: Place;
   lang: Lang;
@@ -37,6 +38,8 @@ export function PlaceCard({
   /** Overrides the badge text shown when editorsPick is true — defaults to t.home.editorsPick (e.g. service/district pages use this to label the actual #1-ranked place instead of a generic "editor's pick"). */
   badgeLabel?: string;
   size?: "default" | "large";
+  /** Pre-formatted "1.2 km away" style string — set only by NearMeSort.tsx when the visitor has granted location access. */
+  distanceLabel?: string;
 }) {
   const t = tFor(lang);
   const badge = categoryBadgeLabel(place.primaryType, lang);
@@ -62,10 +65,10 @@ export function PlaceCard({
     <div
       className={`group relative flex flex-col h-full rounded-[28px] border border-border bg-bg-elev overflow-hidden shadow-sm shadow-ink/[0.03] hover:shadow-xl hover:shadow-ink/5 hover:-translate-y-1.5 hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${large ? "sm:col-span-2 sm:row-span-2" : ""}`}
     >
-      <CardActions placeId={place.id} lang={lang} />
+      <CardActions placeId={place.id} t={t.place} />
       <Link href={`/${lang}/place/${place.id}`} className="flex flex-col h-full">
         {editorsPick && (
-          <div className="absolute top-3 right-3 z-10 rotate-3 group-hover:rotate-6 bg-gradient-to-r from-accent-warm to-amber-500 text-ink text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md shadow-accent-warm/30 transition-transform duration-300">
+          <div className="absolute top-3 right-3 z-10 rotate-3 group-hover:rotate-6 bg-gradient-to-r from-accent-warm to-amber-500 text-ink text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md shadow-accent-warm/30 transition-transform duration-300">
             {badgeLabel ?? t.home.editorsPick}
           </div>
         )}
@@ -110,6 +113,11 @@ export function PlaceCard({
             <span className="text-muted">
               {place.reviewCount} {t.place.reviewCountLabel}
             </span>
+            {distanceLabel && (
+              <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-accent font-medium">
+                📍 {distanceLabel}
+              </span>
+            )}
           </div>
           {mentionCount > 0 && (
             <div className="mt-3 flex items-center gap-2 rounded-xl bg-accent-warm/10 px-3 py-2 w-fit">

@@ -169,18 +169,42 @@ console.log(`[build-data] wrote ${indexPlaces.length} places → ${INDEX_FILE} (
 // Place shape to render PlaceCard. A search box only needs enough to match
 // a query and link to the place, so this is the fields that matter for
 // that, nothing else.
-const SEARCH_INDEX_FILE = path.join(import.meta.dirname, "..", "public", "search-index.json");
-const searchEntries = indexPlaces.map((p) => ({
-  id: p.id,
-  name: p.name,
-  city: p.city,
-  district: p.district,
-  rating: p.rating,
-  reviewCount: p.reviewCount,
-  themes: [...new Set([...p.serviceThemes.map((t) => t.label), ...p.moodKeywords.map((t) => t.label)])],
-}));
-fs.writeFileSync(SEARCH_INDEX_FILE, JSON.stringify(searchEntries), "utf-8");
-console.log(`[build-data] wrote ${searchEntries.length} places → ${SEARCH_INDEX_FILE} (search index)`);
+//
+// Split one file per city (search-index.<city>.json) instead of one combined
+// blob: SearchBox still needs every city for a global search (a Phuket
+// visitor can search for a Bangkok place), so this doesn't cut total bytes
+// downloaded, but the browser fetches several small files in parallel over
+// HTTP/2 instead of one ~1.5MB blob, and it's the shape needed for a future
+// "search this city first" fast path without a rewrite. search-index-
+// manifest.json lists which per-city files exist so the client doesn't need
+// its own copy of listCities() logic.
+const PUBLIC_DIR = path.join(import.meta.dirname, "..", "public");
+const searchEntriesByCity = new Map();
+for (const p of indexPlaces) {
+  const entry = {
+    id: p.id,
+    name: p.name,
+    city: p.city,
+    district: p.district,
+    rating: p.rating,
+    reviewCount: p.reviewCount,
+    themes: [...new Set([...p.serviceThemes.map((t) => t.label), ...p.moodKeywords.map((t) => t.label)])],
+  };
+  if (!searchEntriesByCity.has(p.city)) searchEntriesByCity.set(p.city, []);
+  searchEntriesByCity.get(p.city).push(entry);
+}
+const searchCities = [...searchEntriesByCity.keys()].sort();
+for (const c of searchCities) {
+  fs.writeFileSync(
+    path.join(PUBLIC_DIR, `search-index.${c}.json`),
+    JSON.stringify(searchEntriesByCity.get(c)),
+    "utf-8"
+  );
+}
+fs.writeFileSync(path.join(PUBLIC_DIR, "search-index-manifest.json"), JSON.stringify(searchCities), "utf-8");
+console.log(
+  `[build-data] wrote ${indexPlaces.length} places across ${searchCities.length} city files → search-index.<city>.json (search index)`
+);
 
 // id -> city lookup, server-side only (under data/, not public/ -- this is
 // an internal fast-path, not something a client ever needs to fetch).

@@ -46,6 +46,10 @@ export type Dict = {
   };
   place: {
     reviewsTitle: string;
+    /** Template with an "{n}" placeholder, e.g. "Show {n} more reviews". */
+    showMoreReviews: string;
+    /** Template with a "{date}" placeholder, e.g. "Data updated {date}". */
+    dataUpdatedLabel: string;
     therapistMentionsTitle: string;
     therapistDisclaimer: string;
     noMentions: string;
@@ -140,6 +144,13 @@ export type Dict = {
     showingTop: string;
     loadMore: string;
     loadMoreLoading: string;
+    showMapLabel: string;
+    nearMeLabel: string;
+    nearMeLoading: string;
+    nearMeDenied: string;
+    nearMeUnavailable: string;
+    /** Template with a "{km}" placeholder, e.g. "{km} km away". */
+    nearMeDistance: string;
     faqTitle: string;
     faq: FaqItem[];
     trendingTitle: string;
@@ -322,6 +333,8 @@ const en: Dict = {
   },
   place: {
     reviewsTitle: "What reviewers say",
+    showMoreReviews: "Show {n} more reviews",
+    dataUpdatedLabel: "Data updated {date}",
     therapistMentionsTitle: "Reviewers mentioned",
     therapistDisclaimer:
       "These names are auto-extracted from public reviews and are unverified — always confirm availability with the venue.",
@@ -391,6 +404,12 @@ const en: Dict = {
     showingTop: "Showing the top {shown}, sorted by rating.",
     loadMore: "Show more places",
     loadMoreLoading: "Loading…",
+    showMapLabel: "Show map",
+    nearMeLabel: "Near me",
+    nearMeLoading: "Locating…",
+    nearMeDenied: "Location access denied — enable it in your browser settings to sort by distance.",
+    nearMeUnavailable: "Location isn't available on this device.",
+    nearMeDistance: "{km} km away",
     faqTitle: "Massage & spa in {city} — FAQ",
     faq: [
       {
@@ -606,6 +625,8 @@ const th: Dict = {
   },
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
+    showMoreReviews: "ดูอีก {n} รีวิว",
+    dataUpdatedLabel: "อัปเดตข้อมูลล่าสุด {date}",
     therapistMentionsTitle: "ชื่อที่ถูกกล่าวถึงในรีวิว",
     therapistDisclaimer:
       "ชื่อเหล่านี้ดึงมาจากรีวิวสาธารณะโดยอัตโนมัติและยังไม่ได้ยืนยัน — กรุณาสอบถามร้านโดยตรงก่อนเข้ารับบริการ",
@@ -674,6 +695,12 @@ const th: Dict = {
     showingTop: "แสดง {shown} อันดับแรก เรียงตามคะแนน",
     loadMore: "ดูร้านเพิ่มเติม",
     loadMoreLoading: "กำลังโหลด…",
+    showMapLabel: "แสดงแผนที่",
+    nearMeLabel: "ใกล้ฉัน",
+    nearMeLoading: "กำลังหาตำแหน่ง…",
+    nearMeDenied: "ไม่ได้รับอนุญาตให้เข้าถึงตำแหน่ง — เปิดสิทธิ์ในเบราว์เซอร์เพื่อเรียงตามระยะทาง",
+    nearMeUnavailable: "อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง",
+    nearMeDistance: "ห่าง {km} กม.",
     faqTitle: "นวดและสปาใน{city} — คำถามที่พบบ่อย",
     faq: [
       {
@@ -889,6 +916,8 @@ const ko: Dict = {
   },
   place: {
     reviewsTitle: "리뷰어들의 후기",
+    showMoreReviews: "리뷰 {n}개 더 보기",
+    dataUpdatedLabel: "{date} 기준 데이터 업데이트",
     therapistMentionsTitle: "리뷰에서 언급된 이름",
     therapistDisclaimer:
       "이 이름들은 공개 리뷰에서 자동으로 추출된 것으로 검증되지 않았습니다 — 방문 전 업체에 직접 확인하세요.",
@@ -959,6 +988,12 @@ const ko: Dict = {
     showingTop: "평점순으로 상위 {shown}곳을 보여드려요.",
     loadMore: "더 보기",
     loadMoreLoading: "불러오는 중…",
+    showMapLabel: "지도 보기",
+    nearMeLabel: "내 근처",
+    nearMeLoading: "위치 확인 중…",
+    nearMeDenied: "위치 접근이 거부됐어요 — 브라우저 설정에서 권한을 켜면 거리순으로 볼 수 있어요.",
+    nearMeUnavailable: "이 기기에서는 위치 확인을 할 수 없어요.",
+    nearMeDistance: "{km}km 거리",
     faqTitle: "{city} 마사지·스파 — 자주 묻는 질문",
     faq: [
       {

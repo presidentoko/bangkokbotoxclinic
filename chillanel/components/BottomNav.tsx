@@ -49,7 +49,7 @@ export function BottomNav({ lang, browseHref, t }: { lang: Lang; browseHref: str
         <Link
           key={item.href}
           href={item.href}
-          className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[10px] font-semibold transition-colors active:bg-bg ${
+          className={`flex-1 flex flex-col items-center justify-center gap-0.5 text-[11px] font-semibold transition-colors active:bg-bg ${
             item.active ? "text-accent" : "text-muted"
           }`}
         >

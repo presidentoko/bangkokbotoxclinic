@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel, localeFor } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, localeFor, ogLocale } from "@/lib/site";
 import { listCities, getAllPlaces } from "@/lib/data";
 import { aggregateThemeCounts } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
@@ -27,7 +27,7 @@ export async function generateMetadata({
     title: `${SITE.name} — ${t.home.heroTitle}`,
     description: t.home.heroSub,
     alternates: { canonical: `/${lang}`, languages: hreflangAlternates((l) => `/${l}`) },
-    openGraph: { url: `${SITE.origin}/${lang}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

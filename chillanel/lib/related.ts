@@ -6,21 +6,7 @@ import type { Place } from "./types";
 // runtime ones. Next.js/webpack/tsc all resolve either form fine, which is
 // why this only surfaced by running the test suite, not tsc --noEmit.
 import { isRelevantCategory } from "./categories.ts";
-
-const EARTH_RADIUS_KM = 6371;
-
-function toRad(deg: number): number {
-  return (deg * Math.PI) / 180;
-}
-
-function distanceKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
-  const dLat = toRad(b.lat - a.lat);
-  const dLng = toRad(b.lng - a.lng);
-  const sinLat = Math.sin(dLat / 2);
-  const sinLng = Math.sin(dLng / 2);
-  const h = sinLat * sinLat + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * sinLng * sinLng;
-  return 2 * EARTH_RADIUS_KM * Math.asin(Math.min(1, Math.sqrt(h)));
-}
+import { distanceKm } from "./geo.ts";
 
 // Picks up to `max` other places in the same city that share the place's
 // top service-theme label — falls back to matching primaryType when the

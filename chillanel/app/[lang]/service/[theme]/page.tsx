@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, ogLocale } from "@/lib/site";
 import { getAllPlaces } from "@/lib/data";
 import { isRelevantCategory } from "@/lib/categories";
 import type { Place } from "@/lib/types";
@@ -82,7 +82,7 @@ export async function generateMetadata({
       canonical: `/${lang}/service/${theme}`,
       languages: hreflangAlternates((l) => `/${l}/service/${theme}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/service/${theme}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/service/${theme}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
     // Mood pages ("Clean", "Good value", ...) are the same PlaceCard grid +
     // FAQ template as service-theme pages ("Thai massage", ...) with a
     // different filter column -- nobody searches Google for "good value

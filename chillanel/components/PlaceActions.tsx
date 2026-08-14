@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Lang } from "@/lib/site";
-import { tFor } from "@/lib/i18n";
+import type { Dict } from "@/lib/i18n";
 import { isFavorite, toggleFavorite } from "@/lib/favorites";
 import { isInCompare, toggleCompare, MAX_COMPARE } from "@/lib/compare";
 
+type PlaceActionsStrings = Pick<
+  Dict["place"],
+  "addFavorite" | "removeFavorite" | "addToCompare" | "removeFromCompare" | "compareLimitReached"
+>;
+
 // Labeled version of CardActions for the place detail page — same
 // localStorage-backed logic, bigger buttons with text since there's no
-// tight card layout to fit into here.
-export function PlaceActions({ placeId, lang }: { placeId: string; lang: Lang }) {
-  const t = tFor(lang);
+// tight card layout to fit into here. See CardActions.tsx for why this
+// takes strings as a prop instead of calling tFor(lang) itself.
+export function PlaceActions({ placeId, t }: { placeId: string; t: PlaceActionsStrings }) {
   const [favorited, setFavorited] = useState(false);
   const [compared, setCompared] = useState(false);
   const [limitMessage, setLimitMessage] = useState(false);
@@ -33,7 +37,7 @@ export function PlaceActions({ placeId, lang }: { placeId: string; lang: Lang })
         }`}
       >
         <span aria-hidden="true">{favorited ? "♥" : "♡"}</span>
-        {favorited ? t.place.removeFavorite : t.place.addFavorite}
+        {favorited ? t.removeFavorite : t.addFavorite}
       </button>
       <button
         type="button"
@@ -53,11 +57,11 @@ export function PlaceActions({ placeId, lang }: { placeId: string; lang: Lang })
         }`}
       >
         <span aria-hidden="true">{compared ? "✓" : "+"}</span>
-        {compared ? t.place.removeFromCompare : t.place.addToCompare}
+        {compared ? t.removeFromCompare : t.addToCompare}
       </button>
       {limitMessage && (
         <span className="text-xs text-red-500 font-medium">
-          {t.place.compareLimitReached.replace("{max}", String(MAX_COMPARE))}
+          {t.compareLimitReached.replace("{max}", String(MAX_COMPARE))}
         </span>
       )}
     </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, ogLocale } from "@/lib/site";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CompareClient } from "@/components/CompareClient";
 import { PlaceCardSkeleton } from "@/components/PlaceCardSkeleton";
@@ -23,7 +23,7 @@ export async function generateMetadata({
       canonical: `/${lang}/compare`,
       languages: hreflangAlternates((l) => `/${l}/compare`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/compare`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/compare`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

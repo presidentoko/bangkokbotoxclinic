@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, ogLocale } from "@/lib/site";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export async function generateMetadata({
@@ -19,7 +19,7 @@ export async function generateMetadata({
       canonical: `/${lang}/about`,
       languages: hreflangAlternates((l) => `/${l}/about`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/about`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/about`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 

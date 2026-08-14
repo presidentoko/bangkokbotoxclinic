@@ -26,6 +26,15 @@ export function localeFor(lang: Lang): string {
   return LOCALE_FOR_LANG[lang];
 }
 
+// og:locale (and its underscore-joined og:locale:alternate siblings) tell a
+// crawler which language a shared link's preview card is actually in --
+// every page's openGraph block set siteName/type/images but never this, so
+// a th/ko page shared on Facebook/LINE/KakaoTalk had no locale hint at all.
+const OG_LOCALE_FOR_LANG: Record<Lang, string> = { en: "en_US", th: "th_TH", ko: "ko_KR" };
+export function ogLocale(lang: Lang): string {
+  return OG_LOCALE_FOR_LANG[lang];
+}
+
 // City slugs come straight from spa_output/{slug}/ folder names, which
 // mirror watchdog.py's city_tag convention — multi-word cities use
 // underscores ("chiang_mai", "koh_samui", "hua_hin"), not hyphens. Title-case

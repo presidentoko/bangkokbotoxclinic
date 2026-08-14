@@ -29,12 +29,12 @@ export function RatingBars({
         const count = distribution[star];
         const pct = (count / total) * 100;
         return (
-          <div key={star} className="flex items-center gap-1.5 text-[10px]">
+          <div key={star} className="flex items-center gap-1.5 text-[11px]">
             <span className="w-2 text-muted tabular-nums shrink-0">{star}</span>
             <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
               <div className="h-full bg-accent-warm rounded-full" style={{ width: `${pct}%` }} />
             </div>
-            {!compact && <span className="w-6 text-right text-muted tabular-nums shrink-0">{count}</span>}
+            {!compact && <span className="w-7 text-right text-muted tabular-nums shrink-0">{count}</span>}
           </div>
         );
       })}

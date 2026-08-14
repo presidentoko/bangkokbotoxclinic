@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, ogLocale } from "@/lib/site";
 import { listCities, loadCity } from "@/lib/data";
 import Link from "next/link";
 import { isRelevantCategory } from "@/lib/categories";
@@ -9,6 +9,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
 import { LoadMorePlaces } from "@/components/LoadMorePlaces";
 import { MoodSections } from "@/components/MoodSections";
+import { CityMap } from "@/components/CityMap";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
 import { ItemListJsonLd } from "@/components/JsonLd";
@@ -35,7 +36,7 @@ export async function generateMetadata({
       canonical: `/${lang}/city/${city}`,
       languages: hreflangAlternates((l) => `/${l}/city/${city}`),
     },
-    openGraph: { url: `${SITE.origin}/${lang}/city/${city}`, siteName: SITE.name, type: "website", images: [`${SITE.origin}/opengraph-image`] },
+    openGraph: { url: `${SITE.origin}/${lang}/city/${city}`, siteName: SITE.name, locale: ogLocale(lang), type: "website", images: [`${SITE.origin}/opengraph-image`] },
   };
 }
 
@@ -108,6 +109,15 @@ export default async function CityPage({
 
       <div className="max-w-5xl mx-auto px-4 py-12 sm:py-14">
         <MoodSections places={allRelevant} moodAggregate={data.moodAggregate} lang={lang} />
+
+        <div className="mb-14">
+          <CityMap
+            places={allRelevant.map((p) => ({ id: p.id, name: p.name, lat: p.lat, lng: p.lng, rating: p.rating }))}
+            lang={lang}
+            showLabel={t.city.showMapLabel}
+            viewLabel={t.compare.viewButton}
+          />
+        </div>
 
         <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.city.browseAllTitle}</h2>
         <PriceFilterableGrid places={cardPlaces} lang={lang} />
