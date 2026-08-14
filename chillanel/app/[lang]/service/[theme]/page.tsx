@@ -13,6 +13,7 @@ import { PlaceCard } from "@/components/PlaceCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq } from "@/components/Faq";
 import { ItemListJsonLd } from "@/components/JsonLd";
+import { LoadMorePlaces } from "@/components/LoadMorePlaces";
 
 const MAX_SHOWN = 90; // same payload-size discipline as the city page
 
@@ -178,6 +179,12 @@ export default async function ServiceThemePage({
         >
           {t.service.backToCity.replace("{city}", cityDisplayLabel)}
         </Link>
+        {/* Same sentence that used to only exist inside the collapsed FAQ
+            below -- surfaced here as visible prose so an answer engine (or
+            a human skimming) gets the direct "what's the best place for
+            this" answer without a click. The FAQPage schema + collapsed
+            detail stays for the structured-data half of that. */}
+        {faqAnswer && <p className="text-muted leading-relaxed mb-8 max-w-2xl">{faqAnswer}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {places.map((place, i) => (
             <PlaceCard
@@ -190,6 +197,12 @@ export default async function ServiceThemePage({
             />
           ))}
         </div>
+        <LoadMorePlaces
+          filter={{ type: "theme", label: rawLabel }}
+          alreadyShownIds={places.map((p) => p.id)}
+          totalCount={allMatching.length}
+          lang={lang}
+        />
         <Faq title={t.service.faqTitle} items={faqItems} />
       </div>
     </div>

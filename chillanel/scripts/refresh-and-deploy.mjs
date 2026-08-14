@@ -25,7 +25,13 @@ const VERCEL_SCOPE = "vamoss2";
 // data sit undeployed longer than MAX_INTERVAL_MS even if scraping never
 // pauses.
 const QUIET_MS = 30 * 60 * 1000;
-const MAX_INTERVAL_MS = 2 * 60 * 60 * 1000;
+// Was 2h — during continuous scraping (QUIET_MS never reached) that forces up
+// to 12 deploys/day, each re-touching every prerendered page (~7,400) plus
+// invalidating every on-demand place page, which Googlebot then re-fills one
+// ISR write at a time. 12/day projects to ~2.6M ISR writes/mo against the
+// Hobby plan's 200K cap (see 2026-08-14 audit). 24h caps it at ~65K/mo while
+// still deploying same-day for anything that actually goes quiet.
+const MAX_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
 // watchdog launches this with env_extra={}, so it only inherits whatever env
 // watchdog.py itself started with — no persistent `vercel login` session and

@@ -25,8 +25,12 @@ export function TagCloud({
         const scale = 0.85 + ratio * 0.5;
         const label = themeLabel(item.label, lang);
         const emoji = themeEmoji(item.label);
+        // min-h-11 keeps the tappable pill at the 44px touch-target
+        // baseline even though the font itself is intentionally sized
+        // down for less-frequent labels -- the pill's own font-size used
+        // to be the only thing driving its height (as low as ~26px).
         const pillClass =
-          "inline-block rounded-full border border-border px-3 py-1 text-muted font-medium transition-colors" +
+          "inline-flex items-center min-h-11 rounded-full border border-border px-3 text-muted font-medium transition-colors" +
           (linkToService ? " hover:border-accent-warm hover:text-accent-warm" : "");
         const content = (
           <span className={pillClass} style={{ fontSize: `${scale * 0.8125}rem` }}>

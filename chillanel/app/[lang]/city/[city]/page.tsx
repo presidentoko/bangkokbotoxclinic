@@ -7,6 +7,7 @@ import Link from "next/link";
 import { isRelevantCategory } from "@/lib/categories";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceFilterableGrid } from "@/components/PriceFilterableGrid";
+import { LoadMorePlaces } from "@/components/LoadMorePlaces";
 import { MoodSections } from "@/components/MoodSections";
 import { Faq } from "@/components/Faq";
 import { TagCloud } from "@/components/TagCloud";
@@ -110,6 +111,18 @@ export default async function CityPage({
 
         <h2 className="font-display italic text-2xl sm:text-3xl mb-6">{t.city.browseAllTitle}</h2>
         <PriceFilterableGrid places={cardPlaces} lang={lang} />
+        {/* The price-bucket filter above only ever operates on the
+            server-rendered top MAX_SHOWN=90 -- this picks up past that cap
+            so the other ~97% of the city's places (search/sitemap-only
+            until now) are reachable by browsing. Deliberately outside the
+            price filter's scope for now: loaded places always show
+            unfiltered by price bucket. */}
+        <LoadMorePlaces
+          filter={{ type: "city", city }}
+          alreadyShownIds={places.map((p) => p.id)}
+          totalCount={allRelevant.length}
+          lang={lang}
+        />
         {data.themeAggregate.length > 0 && (
           <section className="mb-14">
             <h2 className="font-display italic text-2xl sm:text-3xl mb-6">

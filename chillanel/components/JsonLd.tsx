@@ -1,5 +1,6 @@
 import type { Place } from "@/lib/types";
 import type { FaqItem } from "@/lib/i18n";
+import type { Lang } from "@/lib/site";
 import { SITE, cityLabel } from "@/lib/site";
 import { priceMedian } from "@/lib/summary";
 
@@ -101,7 +102,15 @@ export function FaqJsonLd({ items }: { items: FaqItem[] }) {
   return jsonLdScript(json);
 }
 
-export function LocalBusinessJsonLd({ place, description }: { place: Place; description?: string | null }) {
+export function LocalBusinessJsonLd({
+  place,
+  lang,
+  description,
+}: {
+  place: Place;
+  lang: Lang;
+  description?: string | null;
+}) {
   const median = priceMedian(place.priceMentions);
   // place.address is one unstructured scraped string (already ends in
   // "<city> NNNNN, Thailand" for the large majority of places) rather than
@@ -127,7 +136,11 @@ export function LocalBusinessJsonLd({ place, description }: { place: Place; desc
       addressLocality: cityLabel(place.city),
       addressCountry: "TH",
     },
-    url: `${SITE.origin}/en/place/${place.id}`,
+    // Must match this page's own canonical (place/[id]/page.tsx's
+    // alternates.canonical: `/${lang}/place/${id}`) -- this used to be
+    // hardcoded to /en on every language, so the th/ko pages emitted
+    // structured data whose declared URL contradicted their own canonical.
+    url: `${SITE.origin}/${lang}/place/${place.id}`,
     ...(description ? { description } : {}),
     ...(place.phone ? { telephone: place.phone } : {}),
     ...(place.website ? { sameAs: [place.website] } : {}),

@@ -2,30 +2,43 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
-import type { Lang } from "@/lib/site";
+import { useSearchParams } from "next/navigation";
+import { SITE, localeFor, type Lang } from "@/lib/site";
 import type { Place } from "@/lib/types";
 import { tFor } from "@/lib/i18n";
 import { getCompareIds, clearCompare } from "@/lib/compare";
 import { themeLabel } from "@/lib/theme-labels";
 import { priceMedian } from "@/lib/summary";
+import { loadPlacesIndex } from "@/lib/places-index-client";
 import { PlaceCard } from "@/components/PlaceCard";
 import { PlaceCardSkeleton } from "@/components/PlaceCardSkeleton";
+import { ShareButton } from "@/components/ShareButton";
 import { ArrowRightIcon } from "@/components/Icon";
 
 const SUGGESTION_COUNT = 3;
 
 export function CompareClient({ lang }: { lang: Lang }) {
   const t = tFor(lang);
+  // A `?ids=a,b,c` link (built by the Share button below) shows that exact
+  // comparison read-only, regardless of the viewer's own saved selection --
+  // opening a link a friend sent you shouldn't silently overwrite what you
+  // already had picked yourself in localStorage.
+  const searchParams = useSearchParams();
+  const sharedIds = searchParams.get("ids")?.split(",").filter(Boolean) ?? null;
   const [places, setPlaces] = useState<Place[] | null>(null);
   // Populated only when nothing is selected yet, so the empty state isn't a
   // dead end — real top-rated places, not placeholder content.
   const [suggestions, setSuggestions] = useState<Place[]>([]);
+  // See FavoritesClient — a network failure must not render as "nothing
+  // selected", or a saved comparison looks like it silently vanished.
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const ids = getCompareIds();
-    fetch("/places-index.json")
-      .then((res) => res.json())
-      .then((all: Place[]) => {
+  function load() {
+    setError(false);
+    setPlaces(null);
+    const ids = sharedIds ?? getCompareIds();
+    loadPlacesIndex()
+      .then((all) => {
         const byId = new Map(all.map((p) => [p.id, p]));
         setPlaces(ids.map((id) => byId.get(id)).filter((p): p is Place => Boolean(p)));
         if (ids.length === 0) {
@@ -36,8 +49,26 @@ export function CompareClient({ lang }: { lang: Lang }) {
           );
         }
       })
-      .catch(() => setPlaces([]));
-  }, []);
+      .catch(() => setError(true));
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(load, [sharedIds?.join(",")]);
+
+  if (error) {
+    return (
+      <div className="text-center py-16">
+        <p className="text-muted mb-4">{t.compare.loadError}</p>
+        <button
+          type="button"
+          onClick={load}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
+        >
+          {t.compare.retry}
+        </button>
+      </div>
+    );
+  }
 
   if (places === null) {
     return (
@@ -76,19 +107,30 @@ export function CompareClient({ lang }: { lang: Lang }) {
     );
   }
 
+  const shareUrl = `${SITE.origin}/${lang}/compare?ids=${places.map((p) => p.id).join(",")}`;
+
   return (
     <div>
-      <div className="flex justify-end mb-4">
-        <button
-          type="button"
-          onClick={() => {
-            clearCompare();
-            setPlaces([]);
-          }}
-          className="text-xs text-muted hover:text-red-500 font-medium"
-        >
-          {t.compare.clearAll}
-        </button>
+      <div className="flex justify-end items-center gap-3 mb-4">
+        <ShareButton
+          lang={lang}
+          url={shareUrl}
+          title={t.compare.title}
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
+          iconClassName="w-3.5 h-3.5"
+        />
+        {!sharedIds && (
+          <button
+            type="button"
+            onClick={() => {
+              clearCompare();
+              setPlaces([]);
+            }}
+            className="text-xs text-muted hover:text-red-500 font-medium"
+          >
+            {t.compare.clearAll}
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto rounded-2xl border border-border">
         <table className="w-full border-collapse text-sm min-w-[480px]">
@@ -100,7 +142,7 @@ export function CompareClient({ lang }: { lang: Lang }) {
               label={t.compare.priceLabel}
               values={places.map((p) => {
                 const median = priceMedian(p.priceMentions);
-                return median != null ? `~${median.toLocaleString()}฿` : t.priceFilter.noPriceData;
+                return median != null ? `~${median.toLocaleString(localeFor(lang))}฿` : t.priceFilter.noPriceData;
               })}
             />
             <Row

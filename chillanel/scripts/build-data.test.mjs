@@ -55,7 +55,12 @@ test("build-data pipeline: wires theme/mood/rating/price/district extractors int
       path.join(ROOT, "build-data.mjs"),
       "--clinics-csv", path.join(ROOT, "__fixtures__", "clinics.csv"),
       "--reviews-dir", path.join(ROOT, "__fixtures__", "reviews"),
-      "--city", "__fixture_test",
+      // "bangkok", not an arbitrary fixture label, because the district
+      // assertion below depends on nearestDistrict() clustering against
+      // Bangkok's own centroid table (extract-district.mjs now has one
+      // table per real city; an unrecognized city name returns
+      // district=null instead of ever guessing).
+      "--city", "bangkok",
       "--out", OUT_FILE,
     ],
     { stdio: "pipe" }
@@ -95,7 +100,8 @@ test("build-data pipeline: falls back to parsing lat/lng from maps_url when the 
       path.join(ROOT, "build-data.mjs"),
       "--clinics-csv", path.join(ROOT, "__fixtures__", "clinics-no-csv-coords.csv"),
       "--reviews-dir", path.join(ROOT, "__fixtures__", "reviews"),
-      "--city", "__fixture_test",
+      // "bangkok" -- see the district-extractors test above for why.
+      "--city", "bangkok",
       "--out", OUT_FILE,
     ],
     { stdio: "pipe" }

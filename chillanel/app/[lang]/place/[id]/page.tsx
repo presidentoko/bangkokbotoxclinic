@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
-import { getAllPlaces, loadCity } from "@/lib/data";
-import { categoryBadgeLabel } from "@/lib/categories";
+import { isLang, SITE, hreflangAlternates, cityLabel, localeFor } from "@/lib/site";
+import { getAllPlaces, loadCity, findPlaceByIdFast } from "@/lib/data";
+import { categoryBadgeLabel, isRelevantCategory } from "@/lib/categories";
 import { TherapistMentions } from "@/components/TherapistMentions";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -16,6 +16,8 @@ import { PlaceActions } from "@/components/PlaceActions";
 import { TrustScoreDetail } from "@/components/TrustScoreDetail";
 import { Faq } from "@/components/Faq";
 import { CorrectionForm } from "@/components/CorrectionForm";
+import { RecordView } from "@/components/RecordView";
+import { ShareButton } from "@/components/ShareButton";
 import { ArrowRightIcon } from "@/components/Icon";
 import { themeLabel, themeEmoji } from "@/lib/theme-labels";
 import { districtLabel, slugifyDistrict } from "@/lib/district-labels";
@@ -44,7 +46,7 @@ const PRERENDER_MIN_REVIEWS = 50;
 
 export function generateStaticParams() {
   return getAllPlaces()
-    .filter(({ place }) => (place.reviewCount ?? 0) >= PRERENDER_MIN_REVIEWS)
+    .filter(({ place }) => isRelevantCategory(place.primaryType) && (place.reviewCount ?? 0) >= PRERENDER_MIN_REVIEWS)
     .map(({ place }) => ({ id: place.id }));
 }
 
@@ -61,8 +63,14 @@ export function generateStaticParams() {
 // 메타데이터도 같은 경계 안에서 해소되기 때문이다.
 export const dynamicParams = true;
 
+// Must agree with app/sitemap.ts's relevantPlaces filter: an off-topic
+// place (pediatric clinic, cosmetics store, etc. -- present in the raw
+// Google Places scrape but excluded from home/city listings) is excluded
+// from the sitemap, so it must also 404 here rather than serve a page the
+// sitemap doesn't advertise.
 function findPlace(id: string) {
-  return getAllPlaces().find(({ place }) => place.id === id) ?? null;
+  const found = findPlaceByIdFast(id);
+  return found && isRelevantCategory(found.place.primaryType) ? found : null;
 }
 
 export async function generateMetadata({
@@ -127,14 +135,17 @@ export default async function PlacePage({
     priceMedianValue != null
       ? {
           q: t.place.priceFaqQuestion.replace("{name}", place.name),
-          a: t.place.priceFaqAnswer.replace("{name}", place.name).replace("{price}", priceMedianValue.toLocaleString()),
+          a: t.place.priceFaqAnswer
+            .replace("{name}", place.name)
+            .replace("{price}", priceMedianValue.toLocaleString(localeFor(lang))),
         }
       : null,
   ].filter((item) => item != null);
 
   return (
     <div className="max-w-3xl mx-auto px-4 pt-10 sm:pt-12 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:pb-12">
-      <LocalBusinessJsonLd place={place} description={summary} />
+      <LocalBusinessJsonLd place={place} lang={lang} description={summary} />
+      <RecordView placeId={place.id} />
       {/* FAQPage schema is emitted once, by <Faq> further down -- this used
           to also call FaqJsonLd here with the same faqItems, emitting the
           identical FAQPage block twice on the page. */}
@@ -210,14 +221,15 @@ export default async function PlacePage({
               {t.place.visitWebsite}
             </a>
           )}
+          <ShareButton lang={lang} url={`${SITE.origin}/${lang}/place/${place.id}`} title={place.name} />
         </div>
         {priceMedianValue != null && (
           <p className="text-sm text-muted mt-4 pt-4 border-t border-border">
             {priceRangeValue && priceRangeValue.min !== priceRangeValue.max
               ? t.place.priceRangeLabelRange
-                  .replace("{min}", priceRangeValue.min.toLocaleString())
-                  .replace("{max}", priceRangeValue.max.toLocaleString())
-              : t.place.priceRangeLabel.replace("{price}", priceMedianValue.toLocaleString())}
+                  .replace("{min}", priceRangeValue.min.toLocaleString(localeFor(lang)))
+                  .replace("{max}", priceRangeValue.max.toLocaleString(localeFor(lang)))
+              : t.place.priceRangeLabel.replace("{price}", priceMedianValue.toLocaleString(localeFor(lang)))}
           </p>
         )}
       </div>

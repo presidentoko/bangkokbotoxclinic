@@ -18,7 +18,7 @@ export function Header({ lang }: { lang: Lang }) {
           chillanel
         </Link>
         <div className="hidden sm:block flex-1 max-w-[240px]">
-          <SearchBox lang={lang} />
+          <SearchBox lang={lang} t={t.nav} />
         </div>
         <nav className="hidden sm:flex items-center gap-6 text-sm font-medium shrink-0">
           <HeaderNavLink href={`/${lang}`}>{t.nav.home}</HeaderNavLink>

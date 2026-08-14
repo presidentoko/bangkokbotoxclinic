@@ -55,7 +55,7 @@ export function PriceFilterableGrid({ places, lang }: { places: Place[]; lang: L
             type="button"
             onClick={() => setBucket(key)}
             aria-pressed={bucket === key}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
+            className={`min-h-11 rounded-full border px-3.5 text-xs font-semibold transition-colors ${
               bucket === key ? "border-accent bg-accent/10 text-accent" : "border-border text-muted hover:border-accent/40"
             }`}
           >

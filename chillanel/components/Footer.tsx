@@ -2,6 +2,7 @@ import Link from "next/link";
 import { tFor } from "@/lib/i18n";
 import type { Lang } from "@/lib/site";
 import { FooterLangLinks } from "./FooterLangLinks";
+import { FooterYear } from "./FooterYear";
 
 export function Footer({ lang }: { lang: Lang }) {
   const t = tFor(lang);
@@ -25,6 +26,9 @@ export function Footer({ lang }: { lang: Lang }) {
             <Link href={`/${lang}/guide`} className="hover:text-accent transition-colors">
               {t.nav.guides}
             </Link>
+            <Link href={`/${lang}/prices`} className="hover:text-accent transition-colors">
+              {t.prices.title}
+            </Link>
             <Link href={`/${lang}/about`} className="hover:text-accent transition-colors">
               {t.nav.about}
             </Link>
@@ -44,7 +48,7 @@ export function Footer({ lang }: { lang: Lang }) {
       </div>
       <div className="border-t border-border">
         <div className="max-w-5xl mx-auto px-4 py-4 text-xs text-muted">
-          © {new Date().getFullYear()} chillanel. {t.footer.rights}
+          © <FooterYear buildYear={new Date().getFullYear()} /> chillanel. {t.footer.rights}
         </div>
       </div>
     </footer>

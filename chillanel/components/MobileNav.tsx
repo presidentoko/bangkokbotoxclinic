@@ -60,11 +60,16 @@ export function MobileNav({ lang, t }: { lang: Lang; t: Dict["nav"] }) {
       {open && (
         <div
           id="mobile-nav-panel"
-          className="absolute left-0 right-0 top-14 border-b border-border bg-bg-elev shadow-lg"
+          // Landscape phones (~360-400px viewport height) clip the drawer's
+          // content -- search + 5 links + language row runs ~420px tall --
+          // while body scroll is locked (see the effect above), leaving the
+          // language row unreachable. max-h + overflow-y-auto lets the
+          // panel itself scroll instead of assuming it always fits.
+          className="absolute left-0 right-0 top-14 max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain border-b border-border bg-bg-elev shadow-lg"
         >
           <nav className="max-w-5xl mx-auto px-4 py-4 flex flex-col gap-1 text-base font-medium">
             <div className="pb-3 mb-1 border-b border-border">
-              <SearchBox lang={lang} />
+              <SearchBox lang={lang} t={t} />
             </div>
             <Link href={`/${lang}`} onClick={() => setOpen(false)} className="min-h-11 flex items-center py-2.5 active:bg-bg rounded-lg">
               {t.home}

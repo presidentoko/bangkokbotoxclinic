@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { tFor } from "@/lib/i18n";
-import { isLang, SITE, hreflangAlternates, cityLabel } from "@/lib/site";
+import { isLang, SITE, hreflangAlternates, cityLabel, localeFor } from "@/lib/site";
 import { listCities, getAllPlaces } from "@/lib/data";
 import { aggregateThemeCounts } from "@/lib/theme-stats";
 import { PlaceCard } from "@/components/PlaceCard";
@@ -10,6 +10,7 @@ import { ReviewQuotes, type QuoteItem } from "@/components/ReviewQuotes";
 import { TagCloud } from "@/components/TagCloud";
 import { ArrowRightIcon } from "@/components/Icon";
 import { RecommendedForYou } from "@/components/RecommendedForYou";
+import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { SurpriseMeButton } from "@/components/SurpriseMeButton";
 import { isRelevantCategory } from "@/lib/categories";
 import { notFound } from "next/navigation";
@@ -136,7 +137,7 @@ export default async function HomePage({
             ].map((s) => (
               <div key={s.label} className="px-3 py-6 sm:py-8 text-center">
                 <div className="font-display text-2xl sm:text-4xl font-semibold tabular-nums text-accent">
-                  {s.value.toLocaleString()}+
+                  {s.value.toLocaleString(localeFor(lang))}+
                 </div>
                 <div className="text-[11px] sm:text-xs text-muted mt-1.5 leading-snug">{s.label}</div>
               </div>
@@ -177,6 +178,8 @@ export default async function HomePage({
           </section>
         )}
 
+        <RecentlyViewed lang={lang} />
+
         <RecommendedForYou lang={lang} />
 
         {cityCards.length > 1 && (
@@ -191,7 +194,7 @@ export default async function HomePage({
                 >
                   <span className="font-display italic text-xl font-semibold">{cityLabel(city)}</span>
                   <span className="text-sm text-muted tabular-nums">
-                    {count.toLocaleString()} {t.city.placeCount}
+                    {count.toLocaleString(localeFor(lang))} {t.city.placeCount}
                   </span>
                 </Link>
               ))}

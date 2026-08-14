@@ -99,7 +99,7 @@ function buildPlaces() {
         moodKeywords: extractThemeCounts(reviews, MOOD_KEYWORDS),
         ratingDistribution: ratingDistribution(reviews),
         priceMentions: extractPriceMentions(reviews),
-        district: nearestDistrict(lat, lng),
+        district: nearestDistrict(lat, lng, CITY),
       };
     })
     .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || b.reviewCount - a.reviewCount);
@@ -181,3 +181,16 @@ const searchEntries = indexPlaces.map((p) => ({
 }));
 fs.writeFileSync(SEARCH_INDEX_FILE, JSON.stringify(searchEntries), "utf-8");
 console.log(`[build-data] wrote ${searchEntries.length} places → ${SEARCH_INDEX_FILE} (search index)`);
+
+// id -> city lookup, server-side only (under data/, not public/ -- this is
+// an internal fast-path, not something a client ever needs to fetch).
+// place/[id]/page.tsx's on-demand route (dynamicParams=true, the only one
+// in [lang]) used to find a place by scanning every city's *full* parsed
+// JSON (lib/data.ts's getAllPlaces(), 44MB+ combined and growing with
+// Bangkok collection) on every cold start, even for a Pattaya/Phuket place
+// that only ever needed its own city's data. This tiny id->city map lets
+// lib/data.ts load exactly one city's file instead of all three.
+const CITY_INDEX_FILE = path.join(DATA_DIR, "place-city-index.json");
+const cityIndex = Object.fromEntries(indexPlaces.map((p) => [p.id, p.city]));
+fs.writeFileSync(CITY_INDEX_FILE, JSON.stringify(cityIndex), "utf-8");
+console.log(`[build-data] wrote ${Object.keys(cityIndex).length} entries → ${CITY_INDEX_FILE} (id->city index)`);

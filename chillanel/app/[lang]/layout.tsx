@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { isLang, SITE } from "@/lib/site";
+import { tFor } from "@/lib/i18n";
 import { fontVariables } from "@/lib/fonts";
 import { listCities } from "@/lib/data";
 import { WebsiteJsonLd } from "@/components/JsonLd";
@@ -14,6 +15,18 @@ import "../globals.css";
 export function generateStaticParams() {
   return [{ lang: "en" }, { lang: "th" }, { lang: "ko" }];
 }
+
+// Every route under this layout (home, city/district/service indexes, guide
+// index, about, advertise, compare, favorites — anything without its own
+// nested dynamic segment) shares this [lang] segment as its only dynamic
+// param. Without this, a lang value outside en/th/ko/isLang() still gets
+// on-demand rendered (function invocation + ISR write) before the page's own
+// isLang()+notFound() check runs — every bot probe (/wp-login.php, /fr, /de,
+// random slugs) burns one, repeated after every deploy. false makes it a
+// free edge 404 with zero function invocation. Nested dynamic segments
+// (city/[city], place/[id], etc.) set their own dynamicParams independently
+// and are unaffected by this.
+export const dynamicParams = false;
 
 // This is the real root layout for every content page (everything except
 // the bare "/" redirect -- see app/(root)/layout.tsx). Owning <html> here
@@ -55,6 +68,7 @@ export default async function LangLayout({
   // unless there's genuinely only one city (skip the extra tap in that case).
   const cities = listCities();
   const browseHref = cities.length === 1 ? `/${lang}/city/${cities[0]}` : `/${lang}/city`;
+  const t = tFor(lang);
   return (
     <html lang={lang} className={fontVariables}>
       <body>
@@ -62,7 +76,7 @@ export default async function LangLayout({
         <Header lang={lang} />
         <main>{children}</main>
         <Footer lang={lang} />
-        <BottomNav lang={lang} browseHref={browseHref} />
+        <BottomNav lang={lang} browseHref={browseHref} t={t.nav} />
         <Analytics />
         <SpeedInsights />
       </body>

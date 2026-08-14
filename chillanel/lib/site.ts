@@ -14,6 +14,18 @@ export function isLang(v: string): v is Lang {
   return (SUPPORTED_LANGS as readonly string[]).includes(v);
 }
 
+// Number formatting (price/count digit grouping) used to call
+// .toLocaleString() with no argument, which resolves to the build
+// machine's ICU default (en-US) baked into the static HTML on every
+// language variant -- th/ko pages showed English digit grouping. Pass this
+// explicitly everywhere a number is formatted for display; never call
+// toLocaleString() bare, since the "default" isn't actually deterministic
+// across environments.
+const LOCALE_FOR_LANG: Record<Lang, string> = { en: "en-US", th: "th-TH", ko: "ko-KR" };
+export function localeFor(lang: Lang): string {
+  return LOCALE_FOR_LANG[lang];
+}
+
 // City slugs come straight from spa_output/{slug}/ folder names, which
 // mirror watchdog.py's city_tag convention — multi-word cities use
 // underscores ("chiang_mai", "koh_samui", "hua_hin"), not hyphens. Title-case

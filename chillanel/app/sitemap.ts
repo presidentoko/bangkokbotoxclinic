@@ -5,9 +5,17 @@ import { allThemeAndMoodLabels, isMoodLabel } from "@/lib/theme-stats";
 import { listGuides } from "@/lib/guides";
 import { slugifyTheme } from "@/lib/theme-labels";
 import { allDistricts, slugifyDistrict } from "@/lib/district-labels";
+import { isRelevantCategory } from "@/lib/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
+  // Home/city pages already filter to isRelevantCategory (pediatric clinics,
+  // cosmetics stores, etc. that show up in the raw Google Places scrape
+  // alongside real massage/spa listings get excluded there) -- the place
+  // loop below must apply the same filter, or the sitemap advertises
+  // (and place/[id]/page.tsx serves) thousands of off-topic URLs that dilute
+  // this directory's topical relevance for the niche it's actually about.
+  const relevantPlaces = getAllPlaces().filter(({ place }) => isRelevantCategory(place.primaryType));
 
   // Google mostly ignores changeFrequency/priority but does use lastModified
   // for crawl scheduling — CityData.generatedAt (set at build-data.mjs time)
@@ -19,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({ url: `${SITE.origin}/${lang}/about`, changeFrequency: "monthly", priority: 0.3 });
     entries.push({ url: `${SITE.origin}/${lang}/guide`, changeFrequency: "monthly", priority: 0.5 });
     entries.push({ url: `${SITE.origin}/${lang}/city`, changeFrequency: "weekly", priority: 0.6 });
+    entries.push({ url: `${SITE.origin}/${lang}/prices`, changeFrequency: "weekly", priority: 0.6 });
 
     for (const city of listCities()) {
       entries.push({
@@ -41,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // whenever any place in it is added/updated, so a city-level rebuild
     // date is an honest signal there in a way it isn't for 7,800 individual
     // place URLs.
-    for (const { place } of getAllPlaces()) {
+    for (const { place } of relevantPlaces) {
       entries.push({
         url: `${SITE.origin}/${lang}/place/${place.id}`,
         changeFrequency: "weekly",
@@ -53,7 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // service/[theme]/page.tsx as thin/duplicate content -- excluded here
     // too so the sitemap doesn't advertise URLs the page itself tells
     // Google not to index.
-    const serviceLabels = allThemeAndMoodLabels(getAllPlaces().map(({ place }) => place)).filter(
+    const serviceLabels = allThemeAndMoodLabels(relevantPlaces.map(({ place }) => place)).filter(
       (label) => !isMoodLabel(label)
     );
     for (const label of serviceLabels) {
@@ -64,7 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
 
-    const districts = allDistricts(getAllPlaces().map(({ place }) => place));
+    const districts = allDistricts(relevantPlaces.map(({ place }) => place));
     for (const d of districts) {
       entries.push({
         url: `${SITE.origin}/${lang}/district/${slugifyDistrict(d)}`,

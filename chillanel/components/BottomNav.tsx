@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Lang } from "@/lib/site";
-import { tFor } from "@/lib/i18n";
+import type { Dict } from "@/lib/i18n";
 
 // Fixed mobile tab bar — the single biggest lever for the site to *feel*
 // like an app rather than a website (a persistent bottom bar reads as
@@ -13,17 +13,23 @@ import { tFor } from "@/lib/i18n";
 // to <main> on mobile so this bar never covers page content, and the
 // place detail page's floating "View on Maps" CTA sits above it
 // (bottom-20 instead of bottom-4) to avoid overlapping.
-export function BottomNav({ lang, browseHref }: { lang: Lang; browseHref: string }) {
-  const t = tFor(lang);
+// Takes the nav dict slice as a prop instead of calling tFor(lang) itself --
+// this bar is mounted on every single page ([lang]/layout.tsx renders it
+// unconditionally), so pulling in lib/i18n's full ~56KB (all 3 languages)
+// here means every page's client bundle carries it regardless of which one
+// language it actually needs. The layout is a Server Component that already
+// resolves the dict server-side for MobileNav; reusing that here too costs
+// nothing extra server-side and removes lib/i18n from this client chunk.
+export function BottomNav({ lang, browseHref, t }: { lang: Lang; browseHref: string; t: Dict["nav"] }) {
   const pathname = usePathname() || `/${lang}`;
   const segment = pathname.split("/")[2] ?? "";
 
   const items: { href: string; label: string; icon: string; active: boolean }[] = [
-    { href: `/${lang}`, label: t.nav.home, icon: "⌂", active: segment === "" },
-    { href: browseHref, label: t.nav.browse, icon: "☰", active: segment === "city" },
-    { href: `/${lang}/favorites`, label: t.nav.favorites, icon: "♡", active: segment === "favorites" },
-    { href: `/${lang}/compare`, label: t.nav.compare, icon: "⇄", active: segment === "compare" },
-    { href: `/${lang}/guide`, label: t.nav.guides, icon: "▤", active: segment === "guide" },
+    { href: `/${lang}`, label: t.home, icon: "⌂", active: segment === "" },
+    { href: browseHref, label: t.browse, icon: "☰", active: segment === "city" },
+    { href: `/${lang}/favorites`, label: t.favorites, icon: "♡", active: segment === "favorites" },
+    { href: `/${lang}/compare`, label: t.compare, icon: "⇄", active: segment === "compare" },
+    { href: `/${lang}/guide`, label: t.guides, icon: "▤", active: segment === "guide" },
   ];
 
   return (
@@ -37,7 +43,7 @@ export function BottomNav({ lang, browseHref }: { lang: Lang; browseHref: string
     // taller bar.
     <nav
       className="sm:hidden fixed bottom-0 left-0 right-0 z-30 h-[calc(4rem+env(safe-area-inset-bottom))] pb-[env(safe-area-inset-bottom)] border-t border-border bg-bg-elev/95 backdrop-blur flex items-stretch"
-      aria-label={t.nav.home}
+      aria-label={t.home}
     >
       {items.map((item) => (
         <Link

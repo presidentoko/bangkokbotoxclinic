@@ -15,6 +15,9 @@ export type Dict = {
     searchPlaceholder: string;
     searchNoResults: string;
     searchLoading: string;
+    searchError: string;
+    /** Template with a "{query}" placeholder, e.g. "See all results for "{query}"". */
+    searchSeeAllResults: string;
     searchOpen: string;
     searchClose: string;
   };
@@ -36,8 +39,10 @@ export type Dict = {
     trendingTitle: string;
     recommendedTitle: string;
     discoverTitle: string;
+    recentlyViewedTitle: string;
     surpriseMe: string;
     surpriseLoading: string;
+    surpriseError: string;
   };
   place: {
     reviewsTitle: string;
@@ -94,6 +99,33 @@ export type Dict = {
     /** Template with "{name}" and "{price}" placeholders. */
     priceFaqAnswer: string;
   };
+  /** Full-text search results at /[lang]/search?q=... */
+  search: {
+    title: string;
+    /** Template with a "{query}" placeholder. */
+    resultsForQuery: string;
+    /** Template with an "{n}" placeholder. */
+    resultCount: string;
+    /** Template with a "{query}" placeholder. */
+    noResults: string;
+    noResultsHint: string;
+    suggestedTitle: string;
+  };
+  /** Price glossary at /[lang]/prices — median price per service theme, per city, mined from review text. */
+  prices: {
+    title: string;
+    intro: string;
+    themeColumnLabel: string;
+    priceColumnLabel: string;
+    /** Template with a "{n}" placeholder, e.g. "Based on {n} places". */
+    sampleSizeLabel: string;
+    /** Template with a "{city}" placeholder. */
+    noDataForCity: string;
+    faqTitle: string;
+    faqQuestion: string;
+    /** Template with "{theme}", "{city}", "{price}" placeholders. */
+    faqAnswer: string;
+  };
   /** City chooser index at /[lang]/city — lists every city with data. */
   cities: {
     title: string;
@@ -106,6 +138,8 @@ export type Dict = {
     intro: string;
     /** Template with a "{shown}" placeholder, e.g. "Showing the top {shown} by rating.". */
     showingTop: string;
+    loadMore: string;
+    loadMoreLoading: string;
     faqTitle: string;
     faq: FaqItem[];
     trendingTitle: string;
@@ -158,13 +192,15 @@ export type Dict = {
     breakdownDiversity: string;
     explainer: string;
   };
-  guide: { indexTitle: string; indexDescription: string };
+  guide: { indexTitle: string; indexDescription: string; relatedGuidesTitle: string; browseLinksTitle: string };
   favorites: {
     title: string;
     intro: string;
     empty: string;
     browseCta: string;
     suggestedTitle: string;
+    loadError: string;
+    retry: string;
   };
   compare: {
     title: string;
@@ -177,6 +213,12 @@ export type Dict = {
     priceLabel: string;
     viewButton: string;
     suggestedTitle: string;
+    loadError: string;
+    retry: string;
+  };
+  share: {
+    button: string;
+    copied: string;
   };
   priceFilter: {
     label: string;
@@ -236,6 +278,8 @@ const en: Dict = {
     searchPlaceholder: "Search places…",
     searchNoResults: "No places found.",
     searchLoading: "Loading…",
+    searchError: "Couldn't load search. Tap to retry.",
+    searchSeeAllResults: 'See all results for "{query}"',
     searchOpen: "Search",
     searchClose: "Close search",
   },
@@ -271,8 +315,10 @@ const en: Dict = {
     trendingTitle: "What reviewers say most",
     recommendedTitle: "Recommended for you",
     discoverTitle: "Discover something new",
+    recentlyViewedTitle: "Recently viewed",
     surpriseMe: "🎲 Surprise me",
     surpriseLoading: "Picking…",
+    surpriseError: "Couldn't pick a place — check your connection and try again.",
   },
   place: {
     reviewsTitle: "What reviewers say",
@@ -314,6 +360,26 @@ const en: Dict = {
     priceFaqQuestion: "How much does {name} cost?",
     priceFaqAnswer: "Based on reviewer mentions, a session at {name} costs around ~{price}฿.",
   },
+  search: {
+    title: "Search",
+    resultsForQuery: 'Results for "{query}"',
+    resultCount: "{n} places found",
+    noResults: 'No places matched "{query}".',
+    noResultsHint: "Try a different spelling, or browse by city instead.",
+    suggestedTitle: "Popular right now",
+  },
+  prices: {
+    title: "Massage & spa pricing guide",
+    intro:
+      "Median prices mined from real reviewer mentions, by service and city — what people actually said they paid, not a rate card.",
+    themeColumnLabel: "Service",
+    priceColumnLabel: "Median price",
+    sampleSizeLabel: "Based on {n} places",
+    noDataForCity: "Not enough price data yet for {city}.",
+    faqTitle: "Pricing FAQ",
+    faqQuestion: "What's the median price for {theme} in {city}?",
+    faqAnswer: "Based on reviewer mentions across {city}, {theme} runs around ~{price}฿.",
+  },
   cities: {
     title: "Cities",
     intro: "Pick a city to browse real, review-backed massage & spa listings.",
@@ -323,6 +389,8 @@ const en: Dict = {
     placeCount: "places",
     intro: "Real Google reviews from {city}, mined for the mood of each place — quiet, lively, strong pressure, good value — not just a star rating.",
     showingTop: "Showing the top {shown}, sorted by rating.",
+    loadMore: "Show more places",
+    loadMoreLoading: "Loading…",
     faqTitle: "Massage & spa in {city} — FAQ",
     faq: [
       {
@@ -383,6 +451,8 @@ const en: Dict = {
     indexTitle: "Guides",
     indexDescription:
       "Straight answers on Thai massage styles, pricing, tipping, and how to spot a legit place — written from real reviews, not marketing copy.",
+    relatedGuidesTitle: "Related guides",
+    browseLinksTitle: "Keep exploring",
   },
   favorites: {
     title: "Your favorites",
@@ -390,6 +460,8 @@ const en: Dict = {
     empty: "No favorites yet. Tap the heart on any place to save it here.",
     browseCta: "Browse places",
     suggestedTitle: "Popular right now",
+    loadError: "Couldn't load your favorites — your saved places are safe, this was just a connection hiccup.",
+    retry: "Try again",
   },
   compare: {
     title: "Compare places",
@@ -400,8 +472,14 @@ const en: Dict = {
     themesLabel: "Top services",
     moodsLabel: "Reviewers say",
     priceLabel: "Typical price",
+    loadError: "Couldn't load your comparison — your selection is safe, this was just a connection hiccup.",
+    retry: "Try again",
     viewButton: "View",
     suggestedTitle: "Popular right now",
+  },
+  share: {
+    button: "Share",
+    copied: "Link copied",
   },
   priceFilter: {
     label: "Price",
@@ -484,6 +562,8 @@ const th: Dict = {
     searchPlaceholder: "ค้นหาร้าน…",
     searchNoResults: "ไม่พบร้านที่ค้นหา",
     searchLoading: "กำลังโหลด…",
+    searchError: "โหลดการค้นหาไม่สำเร็จ แตะเพื่อลองอีกครั้ง",
+    searchSeeAllResults: 'ดูผลลัพธ์ทั้งหมดสำหรับ "{query}"',
     searchOpen: "ค้นหา",
     searchClose: "ปิดการค้นหา",
   },
@@ -519,8 +599,10 @@ const th: Dict = {
     trendingTitle: "รีวิวพูดถึงอะไรมากที่สุด",
     recommendedTitle: "แนะนำสำหรับคุณ",
     discoverTitle: "ลองที่ใหม่ดูไหม",
+    recentlyViewedTitle: "ดูล่าสุด",
     surpriseMe: "🎲 สุ่มให้เลย",
     surpriseLoading: "กำลังสุ่ม…",
+    surpriseError: "สุ่มร้านไม่สำเร็จ — ลองตรวจสอบการเชื่อมต่อแล้วลองใหม่",
   },
   place: {
     reviewsTitle: "รีวิวจากผู้ใช้บริการ",
@@ -562,6 +644,25 @@ const th: Dict = {
     priceFaqQuestion: "{name} ราคาเท่าไหร่",
     priceFaqAnswer: "จากรีวิวของลูกค้า ราคาที่ {name} อยู่ที่ประมาณ ~{price}฿ ต่อครั้ง",
   },
+  search: {
+    title: "ค้นหา",
+    resultsForQuery: 'ผลการค้นหาสำหรับ "{query}"',
+    resultCount: "พบ {n} ร้าน",
+    noResults: 'ไม่พบร้านที่ตรงกับ "{query}"',
+    noResultsHint: "ลองสะกดคำใหม่ หรือเลือกดูตามเมืองแทน",
+    suggestedTitle: "กำลังได้รับความนิยม",
+  },
+  prices: {
+    title: "คู่มือราคาร้านนวดและสปา",
+    intro: "ราคากลางที่รวบรวมจากรีวิวจริง แยกตามบริการและเมือง — ไม่ใช่ราคาป้าย แต่เป็นราคาที่ลูกค้าบอกว่าจ่ายจริง",
+    themeColumnLabel: "บริการ",
+    priceColumnLabel: "ราคากลาง",
+    sampleSizeLabel: "จากข้อมูล {n} ร้าน",
+    noDataForCity: "ยังมีข้อมูลราคาไม่พอสำหรับ {city}",
+    faqTitle: "คำถามที่พบบ่อยเรื่องราคา",
+    faqQuestion: "{theme}ใน{city}ราคาเท่าไหร่โดยเฉลี่ย",
+    faqAnswer: "จากรีวิวใน{city} {theme}มีราคาเฉลี่ยประมาณ ~{price}฿",
+  },
   cities: {
     title: "เลือกเมือง",
     intro: "เลือกเมืองเพื่อดูรายชื่อร้านนวดและสปาที่รวบรวมจากรีวิว Google จริง",
@@ -571,6 +672,8 @@ const th: Dict = {
     placeCount: "ร้าน",
     intro: "รีวิว Google จริงจาก{city} ขุดหาบรรยากาศของแต่ละร้าน — เงียบสงบ คึกคัก นวดแรง คุ้มค่า — ไม่ใช่แค่ดูคะแนนดาว",
     showingTop: "แสดง {shown} อันดับแรก เรียงตามคะแนน",
+    loadMore: "ดูร้านเพิ่มเติม",
+    loadMoreLoading: "กำลังโหลด…",
     faqTitle: "นวดและสปาใน{city} — คำถามที่พบบ่อย",
     faq: [
       {
@@ -631,6 +734,8 @@ const th: Dict = {
     indexTitle: "คู่มือ",
     indexDescription:
       "คำตอบตรงๆ เรื่องสไตล์นวดไทย ราคา ทิป และวิธีสังเกตร้านที่น่าเชื่อถือ เขียนจากรีวิวจริง ไม่ใช่คำโฆษณา",
+    relatedGuidesTitle: "คู่มือที่เกี่ยวข้อง",
+    browseLinksTitle: "สำรวจเพิ่มเติม",
   },
   favorites: {
     title: "รายการโปรดของคุณ",
@@ -638,6 +743,8 @@ const th: Dict = {
     empty: "ยังไม่มีรายการโปรด กดรูปหัวใจที่ร้านไหนก็ได้เพื่อบันทึกไว้ที่นี่",
     browseCta: "ดูร้านทั้งหมด",
     suggestedTitle: "กำลังได้รับความนิยม",
+    loadError: "โหลดรายการโปรดไม่สำเร็จ — ข้อมูลที่บันทึกไว้ยังปลอดภัย แค่เชื่อมต่อสะดุดชั่วคราว",
+    retry: "ลองอีกครั้ง",
   },
   compare: {
     title: "เปรียบเทียบร้าน",
@@ -645,11 +752,17 @@ const th: Dict = {
     empty: "ยังไม่ได้เลือกร้าน กดปุ่ม + ที่ร้านไหนก็ได้เพื่อเพิ่มที่นี่",
     browseCta: "ดูร้านทั้งหมด",
     clearAll: "ล้างทั้งหมด",
+    loadError: "โหลดการเปรียบเทียบไม่สำเร็จ — รายการที่เลือกไว้ยังปลอดภัย แค่เชื่อมต่อสะดุดชั่วคราว",
+    retry: "ลองอีกครั้ง",
     themesLabel: "บริการเด่น",
     moodsLabel: "รีวิวบอกว่า",
     priceLabel: "ราคาโดยประมาณ",
     viewButton: "ดูรายละเอียด",
     suggestedTitle: "กำลังได้รับความนิยม",
+  },
+  share: {
+    button: "แชร์",
+    copied: "คัดลอกลิงก์แล้ว",
   },
   priceFilter: {
     label: "ราคา",
@@ -732,6 +845,8 @@ const ko: Dict = {
     searchPlaceholder: "업체 검색…",
     searchNoResults: "검색 결과가 없어요.",
     searchLoading: "불러오는 중…",
+    searchError: "검색을 불러오지 못했어요. 눌러서 다시 시도하세요.",
+    searchSeeAllResults: '"{query}" 검색 결과 모두 보기',
     searchOpen: "검색",
     searchClose: "검색 닫기",
   },
@@ -767,8 +882,10 @@ const ko: Dict = {
     trendingTitle: "리뷰에서 가장 많이 언급된 것",
     recommendedTitle: "당신을 위한 추천",
     discoverTitle: "새로운 곳 발견하기",
+    recentlyViewedTitle: "최근 본 곳",
     surpriseMe: "🎲 아무거나 추천해줘",
     surpriseLoading: "고르는 중…",
+    surpriseError: "장소를 고르지 못했어요 — 연결 상태를 확인하고 다시 시도해주세요.",
   },
   place: {
     reviewsTitle: "리뷰어들의 후기",
@@ -812,6 +929,25 @@ const ko: Dict = {
     priceFaqQuestion: "{name}의 가격은 얼마인가요?",
     priceFaqAnswer: "리뷰 기준으로 {name}의 1회 이용 가격은 약 ~{price}฿입니다.",
   },
+  search: {
+    title: "검색",
+    resultsForQuery: '"{query}" 검색 결과',
+    resultCount: "{n}곳 찾음",
+    noResults: '"{query}"와(과) 일치하는 곳이 없어요.',
+    noResultsHint: "다른 철자로 검색하거나 도시별로 둘러보세요.",
+    suggestedTitle: "지금 인기 있는 곳",
+  },
+  prices: {
+    title: "마사지·스파 가격 가이드",
+    intro: "실제 리뷰에서 뽑아낸 서비스별·도시별 평균 가격이에요 — 정가표가 아니라 이용객들이 실제로 냈다고 말한 가격이에요.",
+    themeColumnLabel: "서비스",
+    priceColumnLabel: "평균 가격",
+    sampleSizeLabel: "{n}곳 데이터 기준",
+    noDataForCity: "{city}은(는) 아직 가격 데이터가 충분하지 않아요.",
+    faqTitle: "가격 관련 자주 묻는 질문",
+    faqQuestion: "{city}에서 {theme} 평균 가격은 얼마인가요?",
+    faqAnswer: "{city} 리뷰 기준으로 {theme} 가격은 약 ~{price}฿ 수준이에요.",
+  },
   cities: {
     title: "도시 선택",
     intro: "실제 구글 리뷰 기반 마사지·스파 업체를 도시별로 둘러보세요.",
@@ -821,6 +957,8 @@ const ko: Dict = {
     placeCount: "곳",
     intro: "{city}의 실제 구글 리뷰에서 각 업체의 분위기를 뽑아냈어요 — 조용함, 활기참, 강한 압력, 가성비 — 별점만으론 알 수 없는 부분까지.",
     showingTop: "평점순으로 상위 {shown}곳을 보여드려요.",
+    loadMore: "더 보기",
+    loadMoreLoading: "불러오는 중…",
     faqTitle: "{city} 마사지·스파 — 자주 묻는 질문",
     faq: [
       {
@@ -883,6 +1021,8 @@ const ko: Dict = {
   guide: {
     indexTitle: "가이드",
     indexDescription: "태국 마사지 스타일·가격·팁 문화, 믿을 만한 곳을 알아보는 법까지. 광고 문구가 아니라 실제 리뷰를 근거로 씁니다.",
+    relatedGuidesTitle: "관련 가이드",
+    browseLinksTitle: "더 둘러보기",
   },
   favorites: {
     title: "찜한 곳",
@@ -890,6 +1030,8 @@ const ko: Dict = {
     empty: "아직 찜한 곳이 없어요. 원하는 곳의 하트를 눌러 저장해보세요.",
     browseCta: "업체 둘러보기",
     suggestedTitle: "지금 인기 있는 곳",
+    loadError: "찜한 곳을 불러오지 못했어요 — 저장된 데이터는 안전해요, 잠깐 연결이 끊겼을 뿐이에요.",
+    retry: "다시 시도",
   },
   compare: {
     title: "업체 비교하기",
@@ -902,6 +1044,12 @@ const ko: Dict = {
     moodsLabel: "리뷰 키워드",
     priceLabel: "대략적인 가격",
     viewButton: "자세히 보기",
+    loadError: "비교 목록을 불러오지 못했어요 — 선택한 항목은 안전해요, 잠깐 연결이 끊겼을 뿐이에요.",
+    retry: "다시 시도",
+  },
+  share: {
+    button: "공유",
+    copied: "링크가 복사됐어요",
   },
   priceFilter: {
     label: "가격",

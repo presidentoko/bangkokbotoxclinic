@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { tFor } from "@/lib/i18n";
 import { isLang, SITE, hreflangAlternates } from "@/lib/site";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CompareClient } from "@/components/CompareClient";
+import { PlaceCardSkeleton } from "@/components/PlaceCardSkeleton";
 
 export async function generateMetadata({
   params,
@@ -39,7 +41,22 @@ export default async function ComparePage({
       <Breadcrumbs items={[{ name: t.nav.home, href: `/${lang}` }, { name: t.compare.title, href: `/${lang}/compare` }]} />
       <h1 className="font-display italic text-3xl sm:text-4xl font-semibold tracking-tight mb-2">{t.compare.title}</h1>
       <p className="text-muted mb-8 max-w-xl">{t.compare.intro}</p>
-      <CompareClient lang={lang} />
+      {/* CompareClient reads ?ids= via useSearchParams (for shared
+          comparison links) -- that requires a Suspense boundary or the
+          static build errors, since the search params can only resolve on
+          the client at that point. */}
+      <Suspense
+        fallback={
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {Array.from({ length: 3 }, (_, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <PlaceCardSkeleton key={i} />
+            ))}
+          </div>
+        }
+      >
+        <CompareClient lang={lang} />
+      </Suspense>
     </div>
   );
 }
