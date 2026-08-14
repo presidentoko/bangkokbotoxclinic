@@ -25,6 +25,15 @@ export interface Product {
   /** Parsed from the product name for oral products only; null when unparseable. */
   dose_mg?: number | null;
   servings?: number | null;
+  /** "concealer" | "cushion" | "foundation" | "powder" | ... — set only when
+   * form is "topical" and the name matched a makeup category. See
+   * build_master_db.py's _makeup_category(). */
+  makeup_category?: string | null;
+  spf?: number | null;
+  /** 0-100, review+value+SPF-bonus. Only set when makeup_category is set;
+   * total_score/ingredient_score stay at 0 for makeup products since they
+   * never enter a concern ranking. See scoring.makeup_score(). */
+  makeup_score?: number | null;
 }
 export interface RankingEntry { product_id: string; total_score: number; }
 export interface MasterDb {
@@ -32,5 +41,6 @@ export interface MasterDb {
   products: Record<string, Product>;
   rankings: Record<string, RankingEntry[]>;
   oral_rankings?: Record<string, RankingEntry[]>;
+  makeup_rankings?: Record<string, RankingEntry[]>;
 }
 export interface IngredientEntry { th_name: string; en_name: string; aliases: string[]; role: string; concern_efficacy: Record<string, number>; safety_flags: string[]; mechanism_th: string; mechanism_en: string; typical_pct: string; evidence_note?: string; sources: string[]; }

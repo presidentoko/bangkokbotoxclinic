@@ -24,6 +24,21 @@ export const getRanking = (concern: string): RankingEntry[] => db.rankings[conce
 export const getOralRanking = (concern: string): RankingEntry[] =>
   db.oral_rankings?.[concern] ?? [];
 
+/** Categories with a live ranking page. A category only appears here once the
+ * pipeline finds >=8 listings to build a price median from — see
+ * build_master_db.py's med_by_makeup_cat. */
+export const MAKEUP_CATEGORIES = Object.keys(db.makeup_rankings ?? {});
+
+export const getMakeupRanking = (category: string): RankingEntry[] =>
+  db.makeup_rankings?.[category] ?? [];
+
+export const MAKEUP_CATEGORY_META: Record<string, { th: string; en: string; emoji: string }> = {
+  concealer:  { th: "คอนซีลเลอร์",     en: "Concealer",  emoji: "🩹" },
+  cushion:    { th: "คุชชั่น",         en: "Cushion",    emoji: "💧" },
+  foundation: { th: "รองพื้น",         en: "Foundation", emoji: "🎨" },
+  powder:     { th: "แป้ง",            en: "Powder",     emoji: "🌸" },
+};
+
 export const allIngredients = (): [string, IngredientEntry][] => Object.entries(ingDb);
 export const ingredientSlug = (inci: string) => slugify(inci);
 

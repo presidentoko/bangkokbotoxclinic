@@ -4,6 +4,7 @@ import {
   allProducts,
   productSlug,
   CONCERN_FILTER_SLUGS,
+  MAKEUP_CATEGORIES,
   allIngredients,
   ingredientSlug,
   allBrands,
@@ -58,6 +59,11 @@ function coreEntries(): MetadataRoute.Sitemap {
   // Budget ranges
   for (const range of ["under-300", "under-500", "under-1000"]) {
     out.push(entry(`${BASE}/th/budget/${range}`, 0.7, "weekly"));
+  }
+
+  // Makeup categories — only ones with a live ranking page (>=8 listings)
+  for (const category of MAKEUP_CATEGORIES) {
+    out.push(entry(`${BASE}/th/makeup/${category}`, 0.8, "weekly"));
   }
 
   return out;

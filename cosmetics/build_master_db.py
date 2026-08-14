@@ -119,6 +119,52 @@ def _oral_name_actives(name: str, ing_db: dict) -> list[dict]:
     return out
 
 
+# --- makeup (2026-08-14 expansion) ------------------------------------------
+#
+# Buying intent for makeup is category-driven ("best concealer") rather than
+# concern-driven ("best product for acne") the way skincare and supplements
+# are, so makeup gets its own /makeup/{category} pages instead of a section on
+# the concern pages — folding it in would mean sparse, oddly-framed sections
+# on most concern pages, since most makeup carries no active ingredients to
+# match a concern with.
+#
+# Only categories with enough population for a median to mean anything get a
+# ranking page (the same >=8 threshold value_score's format classes use).
+# BB/CC cream are folded into "foundation" — same face-base shopping intent,
+# too few standalone listings (1 and 3) to need their own page.
+_MAKEUP_PATTERNS = [
+    ("concealer",  re.compile(r"\bconcealer\b", re.I)),
+    ("cushion",    re.compile(r"\bcushion\b", re.I)),
+    ("foundation", re.compile(r"\bfoundation\b|\bbb\s*cream\b|\bcc\s*cream\b", re.I)),
+    ("powder",     re.compile(r"\bpowder\b", re.I)),
+]
+# Category keywords collide with non-makeup products: a folding comb has
+# "cushion" in its name, an enzyme face-wash comes in powder form, a Thai
+# herbal cooling powder (แป้งเย็น) is a skincare product despite "powder" in
+# its name, and a body lotion can be named "powder lotion" for its finish.
+_MAKEUP_OVERRIDE = re.compile(
+    r"\b(comb|mirror|brush|sponge|puff|applicator|holder|case"
+    r"|wash|herbal|body|lotion|fragrance\s*of)\b",
+    re.I,
+)
+_SPF = re.compile(r"\bspf\s*(\d+)", re.I)
+
+
+def _makeup_category(name: str) -> "str | None":
+    n = name or ""
+    if _MAKEUP_OVERRIDE.search(n):
+        return None
+    for label, pattern in _MAKEUP_PATTERNS:
+        if pattern.search(n):
+            return label
+    return None
+
+
+def _spf(name: str) -> "int | None":
+    m = _SPF.search(name or "")
+    return int(m.group(1)) if m else None
+
+
 # Format classes for value_score. price-per-ml is only meaningful within a
 # format: a 473ml cleanser will always look like better "value" than a 30ml
 # serum, which is why large-volume products swept every ranking when they were
@@ -156,11 +202,16 @@ def build_db(products: list[dict], reviews_by_id: dict,
     for p in products:
         name = p.get("name", "")
         p["_form"] = _form(name)
+        p["_makeup_cat"] = _makeup_category(name) if p["_form"] == "topical" else None
+        p["_spf"] = _spf(name) if p["_makeup_cat"] else None
         if p["_form"] == "oral":
             p["_dose_mg"] = _dose_mg(name)
             p["_servings"] = _servings(name)
             p["_ppml"] = 0.0
             p["_format"] = "oral"
+        elif p["_makeup_cat"]:
+            p["_ppml"] = 0.0
+            p["_format"] = "makeup:" + p["_makeup_cat"]
         else:
             ml = _ml(p.get("volume", ""))
             p["_ppml"] = (p["price_thb"] / ml) if (ml and p.get("price_thb")) else 0.0
@@ -197,6 +248,25 @@ def build_db(products: list[dict], reviews_by_id: dict,
     med_pps = statistics.median(_oral_pps) if _oral_pps else 0.0
     if _oral_pps:
         print(f"  oral value_score median: ฿{med_pps:.2f}/serving (n={len(_oral_pps)})")
+
+    # Makeup compares whole-item price within its own category — a concealer
+    # and a loose powder aren't sold or priced by weight the way skincare is,
+    # so ฿/g would compare unlike things the same way ฿/ml did for body lotions
+    # vs. serums before that got fixed. Needs >=8 listings, same threshold as
+    # every other median in this file, or the category isn't ranked (see the
+    # empty-pool handling in the ranking loop below).
+    _by_makeup_cat: dict[str, list[float]] = {}
+    for p in products:
+        if p.get("_makeup_cat") and p.get("price_thb"):
+            _by_makeup_cat.setdefault(p["_makeup_cat"], []).append(p["price_thb"])
+    med_by_makeup_cat = {
+        cat: statistics.median(prices)
+        for cat, prices in _by_makeup_cat.items()
+        if len(prices) >= _MIN_CLASS_SIZE
+    }
+    if med_by_makeup_cat:
+        print("  makeup value_score medians by category: "
+              + str({k: round(v, 1) for k, v in sorted(med_by_makeup_cat.items())}))
 
     # Auto-promotion into a concern pool requires this much summed efficacy from
     # the product's matched actives for that concern.
@@ -254,11 +324,21 @@ def build_db(products: list[dict], reviews_by_id: dict,
         rev = scoring.review_score_scaled(_rating_sources(p), review_band,
                                           prior_mean=prior, max_count=_max_count)
         ing, tot = {}, {}
+        makeup_score = None
         if p["_form"] == "oral":
             val = scoring.value_score(p["_price_per_serving"], med_pps)
             for c in scoring.CONCERNS:
                 ing[c] = scoring.oral_ingredient_score(analysis, c, p.get("_dose_mg"))
                 tot[c] = scoring.total_score(ing[c], rev, val)
+        elif p.get("_makeup_cat"):
+            # No ingredient axis and no concern dimension — makeup never enters
+            # a concern ranking, so ing/tot stay at 0 for shape-compatibility
+            # with every other product record rather than being absent.
+            val = scoring.value_score(p["price_thb"], med_by_makeup_cat.get(p["_makeup_cat"], 0.0))
+            for c in scoring.CONCERNS:
+                ing[c] = 0.0
+                tot[c] = 0.0
+            makeup_score = scoring.makeup_score(rev, val, p.get("_spf"))
         else:
             val = scoring.value_score(p["_ppml"], med_by_format.get(p["_format"], med_ppml))
             for c in scoring.CONCERNS:
@@ -269,13 +349,17 @@ def build_db(products: list[dict], reviews_by_id: dict,
         form = rec.pop("_form")
         dose_mg = rec.pop("_dose_mg", None)
         servings = rec.pop("_servings", None)
+        makeup_category = rec.pop("_makeup_cat", None)
+        spf = rec.pop("_spf", None)
         rec.pop("_price_per_serving", None)
         rec.pop("_ppml", None)
         rec.pop("_format", None)
         rec.update({"ingredient_analysis": analysis, "ingredient_score": ing,
                     "review_score": rev, "value_score": val,
                     "total_score": tot, "review_summary": rsum,
-                    "form": form, "dose_mg": dose_mg, "servings": servings})
+                    "form": form, "dose_mg": dose_mg, "servings": servings,
+                    "makeup_category": makeup_category, "spf": spf,
+                    "makeup_score": makeup_score})
         if pantip is not None:
             rec["pantip"] = pantip
         yt = (youtube_by_id or {}).get(p["product_id"])
@@ -343,10 +427,15 @@ def build_db(products: list[dict], reviews_by_id: dict,
 
     # All six concerns are facial. Body/hair/deodorant products keep their own
     # product pages but must never appear in a facial ranking, and neither
-    # should oral supplements — they get their own parallel ranking below,
-    # scored on dose rather than presence.
+    # should oral supplements or makeup — each gets its own parallel ranking
+    # below, scored on what actually distinguishes it (dose, or review+value).
+    # Before the makeup_category check was added here, an "Acne Care
+    # Concealer" with a matched active could leak into the acne ranking
+    # alongside actual treatment serums — a concealer is not a treatment no
+    # matter what its ingredient list says.
     facial = [pp for pp in out_products.values()
-             if pp.get("form") == "topical" and _is_facial(pp.get("name", ""))]
+             if pp.get("form") == "topical" and pp.get("makeup_category") is None
+             and _is_facial(pp.get("name", ""))]
     excluded = len(out_products) - len(facial)
     if excluded:
         print(f"  excluded {excluded} non-topical-facial products from concern rankings")
@@ -376,8 +465,26 @@ def build_db(products: list[dict], reviews_by_id: dict,
     ranked_oral_total = sum(len(v) for v in oral_rankings.values())
     print(f"  oral supplements: {len(oral)} products, {ranked_oral_total} concern-ranking slots filled")
 
+    # Makeup rankings, one list per category — not per concern, since makeup
+    # is shopped by product type ("best concealer"), not skin concern. Only
+    # categories that cleared the >=8-listing median threshold get ranked; a
+    # category below that has no meaningful "value" comparison to rank on
+    # (same empty-pool-means-no-page rule as the concern rankings above).
+    makeup = [pp for pp in out_products.values() if pp.get("makeup_category")]
+    makeup_rankings: dict[str, list[dict]] = {}
+    for cat in med_by_makeup_cat:
+        pool = sorted(
+            (pp for pp in makeup if pp["makeup_category"] == cat),
+            key=lambda pp: (pp["makeup_score"] or 0.0, pp.get("sold_count", 0)),
+            reverse=True,
+        )
+        makeup_rankings[cat] = [{"product_id": pp["product_id"], "total_score": pp["makeup_score"]}
+                                for pp in pool]
+        print(f"  ranked {len(pool):>4} products -> makeup/{cat}")
+
     return {"generated_at": None, "products": out_products,
-            "rankings": rankings, "oral_rankings": oral_rankings}
+            "rankings": rankings, "oral_rankings": oral_rankings,
+            "makeup_rankings": makeup_rankings}
 
 def _load_youtube() -> dict:
     out = {}

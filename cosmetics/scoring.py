@@ -143,6 +143,26 @@ def oral_ingredient_score(analysis: list[dict], concern: str, dose_mg: "float | 
     return max(0.0, min(100.0, _BASE + reward))
 
 
+# --- makeup (2026-08-14 expansion) -------------------------------------------
+#
+# No ingredient axis: makeup's INCI list is mostly pigments and film-formers
+# that say nothing about coverage or wear — scoring "contains talc" the way
+# ingredient_score scores "contains niacinamide" would be inventing evidence
+# the site otherwise refuses to invent. Review + value only, reweighted to
+# 70/30 since there is no third axis to absorb the other 45%. SPF gets a small
+# flat bonus rather than a weighted axis of its own — sun protection matters
+# for a face base, but it is a single yes/no fact, not a graded one the way
+# "1000mg vs 100mg" is for a supplement.
+MAKEUP_WEIGHTS = {"review": 0.70, "value": 0.30}
+_SPF_BONUS = 5.0
+
+
+def makeup_score(review: float, value: float, spf: "int | None") -> float:
+    base = MAKEUP_WEIGHTS["review"] * review + MAKEUP_WEIGHTS["value"] * value
+    bonus = _SPF_BONUS if (spf or 0) > 0 else 0.0
+    return max(0.0, min(100.0, base + bonus))
+
+
 def value_score(price_per_ml: float, median_per_ml: float) -> float:
     """0-100; at/above 2x median -> 0, at/below ~0 -> 100, median -> 50."""
     if not price_per_ml or not median_per_ml or price_per_ml <= 0:
