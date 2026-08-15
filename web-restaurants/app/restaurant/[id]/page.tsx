@@ -171,6 +171,32 @@ export default async function RestaurantPage(
         </div>
       )}
 
+      {r.photos.length > 0 && (
+        <div className="mb-4 space-y-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={r.photos[0].url}
+            alt={r.photos[0].alt || r.name}
+            loading="eager"
+            className="w-full h-[260px] sm:h-[340px] object-cover rounded-2xl bg-[var(--bg)]"
+          />
+          {r.photos.length > 1 && (
+            <div className="grid grid-cols-3 gap-2">
+              {r.photos.slice(1, 4).map((p, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={i}
+                  src={p.url}
+                  alt={p.alt || `${r.name} photo ${i + 2}`}
+                  loading="lazy"
+                  className="w-full h-[90px] object-cover rounded-xl bg-[var(--bg)]"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       <header className="mb-8">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="min-w-0 flex-1">
@@ -190,7 +216,7 @@ export default async function RestaurantPage(
               )}
               {r.price_symbol && <span className="text-[var(--muted)]">· {r.price_symbol}</span>}
             </p>
-            {r.maps_url && (
+            {r.maps_url && r.photos.length === 0 && (
               <a
                 href={r.maps_url}
                 target="_blank"

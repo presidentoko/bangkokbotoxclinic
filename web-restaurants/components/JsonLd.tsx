@@ -68,7 +68,11 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
     "@id": `${SITE}/restaurant/${r.id}`,
     name: r.name,
     url: `${SITE}/restaurant/${r.id}`,
-    image: `${SITE}/restaurant/${r.id}/opengraph-image`,
+    // Real venue photos outrank our generated OG card for rich-result
+    // eligibility when we have them; fall back to the generated card.
+    image: r.photos.length > 0
+      ? r.photos.slice(0, 6).map((p) => p.url)
+      : `${SITE}/restaurant/${r.id}/opengraph-image`,
     address: {
       "@type": "PostalAddress",
       streetAddress: r.address,

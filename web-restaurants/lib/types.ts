@@ -50,6 +50,7 @@ export type Restaurant = {
   sample_reviews_ko: SampleReview[];
   business_status: string;
   maps_url: string;
+  photos: { url: string; alt: string }[];
 };
 
 export type MasterDb = {

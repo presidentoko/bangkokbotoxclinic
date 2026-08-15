@@ -17,8 +17,11 @@ export async function loadMasterDb(): Promise<MasterDb> {
   const db = JSON.parse(raw) as MasterDb;
   // Pipeline occasionally emits scores slightly above 100 — clamp once here so
   // every consumer (titles, OG images, feed.xml, cards) gets a sane 0-100 value.
+  // `photos` defaults to [] for any snapshot built before the photo backfill
+  // shipped, so consumers never need an undefined-check.
   for (const r of db.restaurants) {
     r.trust_score = Math.max(0, Math.min(100, r.trust_score));
+    r.photos = r.photos ?? [];
   }
   _cache = db;
   return _cache;

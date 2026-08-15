@@ -286,6 +286,28 @@ def coords_from_maps_url(url: str) -> tuple[float | None, float | None]:
     return None, None
 
 
+def load_photos(photos_dir: Path, place_id: str) -> list[dict]:
+    """Read `bangkok_reviews/photo_scraper.py`'s per-restaurant output CSV.
+
+    Missing file = not scraped yet. Existing-but-empty file = scraped, no
+    photos found (genuine zero, not a gap) — both return [].
+    """
+    fn = place_id.replace(":", "_")
+    p = photos_dir / f"{fn}.csv"
+    if not p.exists():
+        return []
+    photos: list[dict] = []
+    try:
+        with open(p, encoding="utf-8-sig", errors="replace", newline="") as f:
+            for row in csv.DictReader(f):
+                url = (row.get("url_medium") or row.get("url_thumb") or "").strip()
+                if url:
+                    photos.append({"url": url, "alt": (row.get("alt") or "").strip()})
+    except Exception:
+        return []
+    return photos
+
+
 def analyze_reviews(reviews_dir: Path, place_id: str) -> dict:
     fn = place_id.replace(":", "_")
     p = reviews_dir / f"{fn}_reviews.csv"
@@ -377,6 +399,7 @@ def main():
     for city_id, output_dir, display_name in CITIES:
         rest_csv = output_dir / "restaurants.csv"
         reviews_dir = output_dir / "reviews"
+        photos_dir = output_dir / "photos"
         if not rest_csv.exists():
             print(f"[skip] {city_id}: {rest_csv} not found")
             continue
@@ -470,6 +493,7 @@ def main():
                     "sample_reviews_en": review_sig["sample_reviews_en"],
                     "business_status": row.get("business_status", ""),
                     "maps_url": row.get("maps_url", ""),
+                    "photos": load_photos(photos_dir, place_id),
                 })
 
     restaurants.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))
@@ -481,6 +505,7 @@ def main():
         "with_district": sum(1 for c in restaurants if c["district"]),
         "with_cuisines": sum(1 for c in restaurants if c["cuisines"]),
         "with_reviews_scraped": sum(1 for c in restaurants if c["scraped_review_count"] > 0),
+        "with_photos": sum(1 for c in restaurants if c["photos"]),
         "language_total": dict(lang_total),
         "district_counts": dict(district_counter.most_common()),
         "cuisine_counts": dict(cuisine_counter.most_common()),
@@ -494,6 +519,7 @@ def main():
     print(f"  by city: {dict(city_counter.most_common())}")
     print(f"  cuisines (top): {dict(cuisine_counter.most_common(10))}")
     print(f"  with reviews scraped: {payload['with_reviews_scraped']}")
+    print(f"  with photos: {payload['with_photos']}")
 
 
 if __name__ == "__main__":

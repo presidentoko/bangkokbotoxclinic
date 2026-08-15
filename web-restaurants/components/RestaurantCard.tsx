@@ -32,6 +32,18 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
 
       <Link href={`/restaurant/${r.id}`} prefetch={false} className="block p-5 pb-3">
         <div className="flex items-start justify-between gap-3 mb-2">
+          {r.photos[0] && (
+            // Pre-sized by the scraper (w800xh600 Google CDN suffix) — plain
+            // <img> deliberately, so we don't pay for next/image's
+            // per-source-image optimization on 2,000+ external URLs.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={r.photos[0].url}
+              alt={r.photos[0].alt || r.name}
+              loading="lazy"
+              className="w-16 h-16 rounded-2xl object-cover shrink-0 bg-[var(--bg)]"
+            />
+          )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-1 flex-wrap">
               {rank !== undefined && (
