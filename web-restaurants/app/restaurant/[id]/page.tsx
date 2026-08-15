@@ -190,6 +190,16 @@ export default async function RestaurantPage(
               )}
               {r.price_symbol && <span className="text-[var(--muted)]">· {r.price_symbol}</span>}
             </p>
+            {r.maps_url && (
+              <a
+                href={r.maps_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[var(--accent)] hover:underline"
+              >
+                📷 See real photos on Google Maps →
+              </a>
+            )}
           </div>
           <div className="text-right">
             <div className="bg-yellow-50 text-yellow-900 px-4 py-2 rounded-lg text-2xl font-bold">

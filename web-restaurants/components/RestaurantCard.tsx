@@ -106,8 +106,8 @@ export function RestaurantCard({ r, rank }: { r: Restaurant; rank?: number }) {
           target="_blank"
           rel="noopener noreferrer"
           className="min-h-[44px] min-w-[44px] py-2.5 px-3 rounded-xl bg-[var(--card)] border border-[var(--border)] text-xs font-bold hover:border-[var(--accent)] transition flex items-center justify-center"
-          title="View on Google Maps"
-          aria-label="View on Google Maps"
+          title="Directions & photos on Google Maps"
+          aria-label="Directions and photos on Google Maps"
         >
           📍
         </a>
