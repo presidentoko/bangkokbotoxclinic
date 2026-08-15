@@ -1,4 +1,4 @@
-import { loadMasterDb, topByTrust } from "@/lib/data";
+import { loadMasterDb, topByTrust, slugify } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -17,6 +17,7 @@ import { EmailSignup } from "@/components/EmailSignup";
 import { CommunityLeaderboard } from "@/components/CommunityLeaderboard";
 import { SurpriseMeButton } from "@/components/SurpriseMeButton";
 import { RecentlyViewedStrip } from "@/components/RecentlyViewedStrip";
+import Link from "next/link";
 
 export const dynamic = "force-static";
 
@@ -291,7 +292,7 @@ export default async function HomePage() {
             {districts.map(([d, count]) => (
               <a
                 key={d}
-                href={`/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                href={`/d/${encodeURIComponent(slugify(d))}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-[var(--card)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>
@@ -322,6 +323,32 @@ export default async function HomePage() {
                   {b.title.replace(/^(Best Bangkok |Bangkok's Top |Most |Bangkok )/i, "")}
                 </div>
               </a>
+            ))}
+          </div>
+        </section>
+
+        {/* BEST OF PATTAYA — discovery grid (1,135 restaurants, more than Bangkok) */}
+        <section className="mb-12">
+          <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight">Best of Pattaya</h2>
+              <p className="text-sm text-[var(--muted)] mt-1">Curated lists ranked by Trust Score, not follower count.</p>
+            </div>
+            <Link href="/best/highly-recommended-pattaya" className="text-sm text-[var(--accent)] hover:underline font-medium">
+              See all →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {BEST_FOR.filter((b) => b.city === "pattaya").slice(0, 12).map((b) => (
+              <Link
+                key={b.slug}
+                href={`/best/${b.slug}`}
+                className="group block bg-white border border-[var(--border)] rounded-xl p-4 hover:border-[var(--accent)] hover:shadow-md transition"
+              >
+                <div className="font-semibold text-sm leading-tight group-hover:text-[var(--accent)] transition line-clamp-2">
+                  {b.title.replace(/^(Best Pattaya |Pattaya's Top |Most |Pattaya )/i, "")}
+                </div>
+              </Link>
             ))}
           </div>
         </section>

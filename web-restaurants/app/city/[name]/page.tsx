@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, filterByCity } from "@/lib/data";
+import { loadMasterDb, filterByCity, slugify } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -104,7 +104,7 @@ export default async function CityPage(
             {districts.map(([d, n]) => (
               <a
                 key={d}
-                href={`/d/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/d/${slugify(d)}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)]">{n}</span>

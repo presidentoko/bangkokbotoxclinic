@@ -63,7 +63,7 @@ export default async function BestForPage(
         <span className="mx-2">›</span>
         <span>Best</span>
         <span className="mx-2">›</span>
-        <span>{cfg.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's /, "")}</span>
+        <span>{cfg.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's |^Best Pattaya |^Pattaya |^Pattaya's /, "")}</span>
       </nav>
 
       <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">{cfg.title}</h1>
@@ -108,13 +108,13 @@ export default async function BestForPage(
               Other ways to find a restaurant
             </h2>
             <div className="flex flex-wrap gap-2">
-              {BEST_FOR.filter((x) => x.slug !== cfg.slug).map((x) => (
+              {BEST_FOR.filter((x) => x.slug !== cfg.slug && x.city === cfg.city).map((x) => (
                 <a
                   key={x.slug}
                   href={`/best/${x.slug}`}
                   className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
-                  {x.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's /, "").replace(/Restaurants?/, "").trim()}
+                  {x.title.replace(/^Best Bangkok |^Bangkok |^Most |^Bangkok's |^Best Pattaya |^Pattaya |^Pattaya's /, "").replace(/Restaurants?/, "").trim()}
                 </a>
               ))}
             </div>

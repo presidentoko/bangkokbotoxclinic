@@ -1,4 +1,4 @@
-import { loadMasterDb, topByTrust } from "@/lib/data";
+import { loadMasterDb, topByTrust, slugify } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_ICONS } from "@/lib/types";
@@ -122,7 +122,7 @@ export default async function KoHomePage() {
             {districts.map(([d, count]) => (
               <a
                 key={d}
-                href={`/ko/d/${encodeURIComponent(d.toLowerCase().replace(/\s+/g, "-"))}`}
+                href={`/ko/d/${encodeURIComponent(slugify(d))}`}
                 className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
               >
                 📍 {d} <span className="text-[var(--muted)] tabular-nums">{count}</span>

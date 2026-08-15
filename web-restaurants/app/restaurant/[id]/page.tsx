@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { loadMasterDb, getRestaurantById, topByTrust } from "@/lib/data";
+import { loadMasterDb, getRestaurantById, topByTrust, slugify } from "@/lib/data";
+import { deriveLocalityFromAddress } from "@/lib/locality";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import type { Restaurant } from "@/lib/types";
 import { BreadcrumbJsonLd, RestaurantJsonLd } from "@/components/JsonLd";
@@ -42,7 +43,8 @@ export async function generateMetadata(
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
   const primaryCuisine = r.cuisines[0] ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : null;
   const city = r.city_label || "Bangkok";
-  const place = r.district ? `${r.district}, ${city}` : city;
+  const locality = r.district || deriveLocalityFromAddress(r.address);
+  const place = locality ? `${locality}, ${city}` : city;
   const kind = primaryCuisine ? `${primaryCuisine} Restaurant` : "Restaurant";
   // Lead with the keywords people actually search — name, cuisine, area —
   // instead of burying them behind our own "Trust Score" jargon. The layout
@@ -54,7 +56,15 @@ export async function generateMetadata(
   return {
     title,
     description,
-    alternates: { canonical: `/restaurant/${id}` },
+    alternates: {
+      canonical: `/restaurant/${id}`,
+      languages: {
+        en: `/restaurant/${id}`,
+        th: `/th/restaurant/${id}`,
+        ko: `/ko/restaurant/${id}`,
+        "x-default": `/restaurant/${id}`,
+      },
+    },
     openGraph: {
       title: `${r.name} — ${kind} in ${place}`,
       description,
@@ -71,12 +81,14 @@ export async function generateMetadata(
 }
 
 export default async function RestaurantPage(
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
+  locale: "en" | "th" | "ko" = "en"
 ) {
   const { id } = await params;
   const db = await loadMasterDb();
   const r = getRestaurantById(db.restaurants, id);
   if (!r) notFound();
+  const locality = r.district || deriveLocalityFromAddress(r.address);
 
   const tier = sponsoredTier(r.id);
   const trend = r.rating_trend.trend;
@@ -132,7 +144,7 @@ export default async function RestaurantPage(
   const seedMatch = igSeeds.find((s) => s.place_id === r.place_id);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 pb-28 sm:pb-8">
+    <div lang={locale} className="max-w-6xl mx-auto px-4 py-8 pb-28 sm:pb-8">
       <RecentlyViewedTracker id={r.id} />
       <nav className="text-sm text-[var(--muted)] mb-4">
         <Link href="/" className="hover:text-[var(--fg)]">Home</Link>
@@ -142,7 +154,7 @@ export default async function RestaurantPage(
           <>
             <span className="mx-2">›</span>
             <Link
-              href={`/d/${r.district.toLowerCase().replace(/\s+/g, "-")}`}
+              href={`/d/${slugify(r.district)}`}
               className="hover:text-[var(--fg)]"
             >
               {r.district}
@@ -165,10 +177,10 @@ export default async function RestaurantPage(
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1">{r.name}</h1>
             <p className="text-[var(--muted)] flex items-center gap-2 flex-wrap">
               <span>{r.primary_type}</span>
-              {r.district && (
+              {locality && (
                 <>
                   <span>·</span>
-                  <span className="flex items-center gap-1">📍 {r.district}, {r.city_label}</span>
+                  <span className="flex items-center gap-1">📍 {locality}, {r.city_label}</span>
                 </>
               )}
               {r.business_status === "Open" && (
@@ -347,7 +359,7 @@ export default async function RestaurantPage(
                 <h2 className="text-lg font-bold">More like this</h2>
                 {r.district && r.cuisines[0] && (
                   <Link
-                    href={`/c/${r.cuisines[0]}/${r.district.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/c/${r.cuisines[0]}/${slugify(r.district)}`}
                     className="text-sm text-[var(--accent)] font-medium hover:underline"
                   >
                     All {CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]} in {r.district} →
@@ -472,7 +484,7 @@ export default async function RestaurantPage(
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: r.city_label, url: `/city/${r.city}` },
-        ...(r.district ? [{ name: r.district, url: `/d/${r.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
+        ...(r.district ? [{ name: r.district, url: `/d/${slugify(r.district)}` }] : []),
         { name: r.name, url: `/restaurant/${r.id}` },
       ]} />
     </div>

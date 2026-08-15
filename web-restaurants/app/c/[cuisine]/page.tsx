@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, filterByCuisine } from "@/lib/data";
+import { loadMasterDb, filterByCuisine, slugify } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
@@ -121,7 +121,7 @@ export default async function CuisinePage(
               {districts.map(([d, n]) => (
                 <a
                   key={d}
-                  href={`/c/${cuisine}/${d.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/c/${cuisine}/${slugify(d)}`}
                   className="px-3 py-1.5 rounded-full border border-[var(--border)] text-sm bg-white hover:border-[var(--accent)] hover:text-[var(--accent)] transition"
                 >
                   {label} in {d} <span className="text-[var(--muted)]">{n}</span>
@@ -157,7 +157,7 @@ export default async function CuisinePage(
                   {districts.slice(0, 3).map((d, i) => (
                     <span key={d[0]}>
                       {i > 0 && ", "}
-                      <a href={`/c/${cuisine}/${d[0].toLowerCase().replace(/\s+/g, "-")}`} className="underline hover:text-[var(--accent)]">
+                      <a href={`/c/${cuisine}/${slugify(d[0])}`} className="underline hover:text-[var(--accent)]">
                         {d[0]}
                       </a>
                     </span>

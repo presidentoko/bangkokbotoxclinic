@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
+import { loadMasterDb, filterByCuisine, filterByDistrict, slugify } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -11,7 +11,7 @@ const VALID_CUISINES = new Set(Object.keys(CUISINE_LABELS));
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
-  return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
+  return all.find((d) => slugify(d) === target) ?? null;
 }
 
 export const dynamicParams = false;
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
   const params: { cuisine: string; district: string }[] = [];
   for (const cuisine of VALID_CUISINES) {
     for (const d of districts) {
-      params.push({ cuisine, district: d.toLowerCase().replace(/\s+/g, "-") });
+      params.push({ cuisine, district: slugify(d) });
     }
   }
   return params;

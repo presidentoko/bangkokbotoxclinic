@@ -1,4 +1,4 @@
-import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
+import { loadMasterDb, filterByCuisine, filterByDistrict, slugify } from "@/lib/data";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
@@ -76,7 +76,7 @@ export async function GET() {
   // restaurants in a given district — submit only combos with a real match.
   const cuisineRestaurants = new Map(CUISINES.map((c) => [c, filterByCuisine(db.restaurants, c)]));
   for (const d of districts) {
-    const slug = d.toLowerCase().replace(/\s+/g, "-");
+    const slug = slugify(d);
     items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
     items.push({ url: `${SITE}/th/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 });
     items.push({ url: `${SITE}/ko/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 });
@@ -88,12 +88,10 @@ export async function GET() {
   }
 
   for (const r of db.restaurants) {
-    items.push({
-      url: `${SITE}/restaurant/${r.id}`,
-      lastModified: updated,
-      changeFrequency: "weekly",
-      priority: r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4,
-    });
+    const priority = r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4;
+    items.push({ url: `${SITE}/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority });
+    items.push({ url: `${SITE}/th/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
+    items.push({ url: `${SITE}/ko/restaurant/${r.id}`, lastModified: updated, changeFrequency: "weekly", priority: priority - 0.1 });
   }
 
   return new Response(xmlFor(items), {

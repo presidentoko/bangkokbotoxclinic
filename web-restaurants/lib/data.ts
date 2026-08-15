@@ -3,6 +3,9 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { MasterDb, Restaurant } from "./types";
+import { slugify } from "./slug";
+
+export { slugify };
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 
@@ -19,13 +22,6 @@ export async function loadMasterDb(): Promise<MasterDb> {
   }
   _cache = db;
   return _cache;
-}
-
-export function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9฀-๿]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 export function filterByCuisine(restaurants: Restaurant[], cuisine: string): Restaurant[] {

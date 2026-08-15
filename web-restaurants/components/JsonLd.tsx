@@ -3,6 +3,7 @@
 import type { Restaurant } from "@/lib/types";
 import { getSiteConfig } from "@/lib/site";
 import { CUISINE_LABELS } from "@/lib/types";
+import { deriveLocalityFromAddress } from "@/lib/locality";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://www.snsstopper.com";
 const BRAND = getSiteConfig().brand;
@@ -60,6 +61,7 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
 }
 
 export function RestaurantJsonLd({ r }: { r: Restaurant }) {
+  const locality = r.district || deriveLocalityFromAddress(r.address);
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -70,7 +72,7 @@ export function RestaurantJsonLd({ r }: { r: Restaurant }) {
     address: {
       "@type": "PostalAddress",
       streetAddress: r.address,
-      addressLocality: r.district || r.city_label || "Bangkok",
+      addressLocality: locality || r.city_label || "Bangkok",
       addressRegion: r.city_label || "Bangkok",
       addressCountry: "TH",
     },

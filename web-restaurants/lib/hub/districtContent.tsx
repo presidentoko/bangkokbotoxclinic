@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb, filterByDistrict } from "@/lib/data";
+import { loadMasterDb, filterByDistrict, slugify } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
-  return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
+  return all.find((d) => slugify(d) === target) ?? null;
 }
 
 export async function districtStaticParams() {
@@ -17,7 +17,7 @@ export async function districtStaticParams() {
   const districts = Array.from(new Set(
     Object.keys(db.district_counts).map((k) => k.split("/")[1])
   ));
-  return districts.map((d) => ({ district: d.toLowerCase().replace(/\s+/g, "-") }));
+  return districts.map((d) => ({ district: slugify(d) }));
 }
 
 export async function districtMetadata(

@@ -4,6 +4,7 @@ import { useLocale } from "@/hooks/useLocale";
 import { strings, tr } from "@/lib/strings";
 import { CUISINE_LABELS } from "@/lib/types";
 import { localizedHubHref } from "@/lib/localizedHref";
+import { slugify } from "@/lib/slug";
 
 export function ClientFooter({
   brand,
@@ -50,7 +51,7 @@ export function ClientFooter({
                 <div className="text-[10px] uppercase tracking-wide font-bold mb-2">Popular areas</div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                   {topDistricts.map((d) => (
-                    <Link key={d} href={localizedHubHref(`/d/${d.toLowerCase().replace(/\s+/g, "-")}`, locale)} className="hover:text-[var(--fg)]">
+                    <Link key={d} href={localizedHubHref(`/d/${slugify(d)}`, locale)} className="hover:text-[var(--fg)]">
                       {d}
                     </Link>
                   ))}
