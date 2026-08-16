@@ -21,6 +21,28 @@ const INDEXNOW_KEY = "5a0f5c4a831c592c1e29749b83d79299";
  *
  * Ported from cosmetics/web, which has run this shape for months.
  */
+/**
+ * Report the run to Telegram, where the site's other operational messages
+ * already go. A cron's result is otherwise only visible in Vercel's log
+ * viewer, which means noticing a silent failure requires remembering to look
+ * — this way a broken run announces itself. Never throws: a failed
+ * notification must not turn a successful submission into a 500.
+ */
+async function notify(text: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+    });
+  } catch (err) {
+    console.error("[thaigle-indexnow] telegram delivery threw", err);
+  }
+}
+
 export async function GET(req: NextRequest) {
   if (!process.env.CRON_SECRET) {
     return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
@@ -31,11 +53,13 @@ export async function GET(req: NextRequest) {
 
   const sitemapRes = await fetch(`${BASE}/sitemap.xml`, { cache: "no-store" });
   if (!sitemapRes.ok) {
+    await notify(`⚠️ <b>Thaigle IndexNow</b>\nsitemap.xml returned ${sitemapRes.status} — nothing submitted.`);
     return NextResponse.json({ error: `sitemap ${sitemapRes.status}` }, { status: 502 });
   }
   const xml = await sitemapRes.text();
   const urlList = Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g)).map((m) => m[1]);
   if (urlList.length === 0) {
+    await notify("⚠️ <b>Thaigle IndexNow</b>\nsitemap.xml parsed to 0 URLs — nothing submitted.");
     return NextResponse.json({ error: "No URLs found in sitemap" }, { status: 500 });
   }
 
@@ -55,6 +79,16 @@ export async function GET(req: NextRequest) {
     });
     results.push({ status: res.status, count: batch.length });
   }
+
+  // IndexNow answers 200 or 202 on acceptance; 403 means the key file no
+  // longer matches, 422 that the host/URL set was rejected. Those are the
+  // failures worth being told about.
+  const bad = results.filter((r) => r.status !== 200 && r.status !== 202);
+  await notify(
+    bad.length === 0
+      ? `✅ <b>Thaigle IndexNow</b>\n${urlList.length.toLocaleString()} URLs submitted to Bing / Yandex / Naver / Seznam in ${results.length} batch(es).`
+      : `⚠️ <b>Thaigle IndexNow</b>\n${urlList.length.toLocaleString()} URLs attempted — ${bad.length} batch(es) rejected: ${bad.map((r) => r.status).join(", ")}`,
+  );
 
   return NextResponse.json({ submitted: urlList.length, batches: results });
 }
