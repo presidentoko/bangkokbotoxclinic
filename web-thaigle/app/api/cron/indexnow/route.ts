@@ -20,6 +20,10 @@ const INDEXNOW_KEY = "5a0f5c4a831c592c1e29749b83d79299";
  *  - Naver, for the /ko tree.
  *
  * Ported from cosmetics/web, which has run this shape for months.
+ *
+ * Scheduled 21:00 UTC in vercel.json, which is 04:00 Asia/Bangkok — the site's
+ * own timezone, and the quietest hour for it. Vercel cron schedules are always
+ * UTC, so the two never read the same.
  */
 /**
  * Report the run to Telegram, where the site's other operational messages
