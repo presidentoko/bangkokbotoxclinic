@@ -189,9 +189,59 @@ export function NicheItemListJsonLd({ name, items, url }: {
   });
 }
 
-export function LocalBusinessJsonLd({ name, address, phone, website, rating, reviewCount, category, imageUrl, url, priceMin, priceMax, priceBand }: {
+const DAY_NAMES: Record<string, string> = {
+  Monday: "Monday", Tuesday: "Tuesday", Wednesday: "Wednesday",
+  Thursday: "Thursday", Friday: "Friday", Saturday: "Saturday", Sunday: "Sunday",
+};
+
+// Google writes hours as "10 AM to 10 PM" (with a narrow no-break space),
+// "Open 24 hours", or "Closed". Those three shapes cover 96% of the 12,684
+// day-entries we hold; anything else is skipped rather than guessed at, since
+// a wrong opening time is worse than no opening time.
+const HOURS_RE = /^\s*(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?\s*(?:to|–|-|—)\s*(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?\s*$/i;
+
+function to24(hour: number, minute: number, meridiem?: string): string {
+  let h = hour;
+  const m = meridiem?.toUpperCase();
+  if (m === "PM" && h !== 12) h += 12;
+  if (m === "AM" && h === 12) h = 0;
+  return `${String(h).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+}
+
+export function openingHoursSpec(openingHoursJson?: string | null): Record<string, unknown>[] {
+  if (!openingHoursJson) return [];
+  let parsed: Record<string, string>;
+  try {
+    parsed = JSON.parse(openingHoursJson);
+  } catch {
+    return [];
+  }
+  const out: Record<string, unknown>[] = [];
+  for (const [day, raw] of Object.entries(parsed)) {
+    const dayOfWeek = DAY_NAMES[day];
+    if (!dayOfWeek || typeof raw !== "string") continue;
+    if (/^\s*closed\s*$/i.test(raw)) continue;   // omitted, not asserted shut
+    if (/24\s*hours/i.test(raw)) {
+      out.push({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "00:00", closes: "23:59" });
+      continue;
+    }
+    const m = HOURS_RE.exec(raw);
+    if (!m) continue;
+    out.push({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek,
+      opens: to24(Number(m[1]), Number(m[2] ?? 0), m[3]),
+      closes: to24(Number(m[4]), Number(m[5] ?? 0), m[6]),
+    });
+  }
+  return out;
+}
+
+export function LocalBusinessJsonLd({ name, address, city, phone, website, rating, reviewCount, category, imageUrl, url, priceMin, priceMax, priceBand, openingHoursJson, reviews }: {
   name: string;
   address: string;
+  /** Venue's own city. 35% of ranked venues are not in Bangkok. */
+  city?: string;
   phone?: string;
   website?: string;
   rating?: number | null;
@@ -202,6 +252,8 @@ export function LocalBusinessJsonLd({ name, address, phone, website, rating, rev
   priceMin?: number;
   priceMax?: number;
   priceBand?: string;
+  openingHoursJson?: string | null;
+  reviews?: { reviewer?: string; rating?: number | null; text?: string }[];
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
   const data: Record<string, unknown> = {
@@ -212,7 +264,10 @@ export function LocalBusinessJsonLd({ name, address, phone, website, rating, rev
     address: {
       "@type": "PostalAddress",
       streetAddress: address,
-      addressLocality: "Bangkok",
+      // Was hardcoded "Bangkok", which mislabelled 748 of 2,124 ranked venues
+      // — every Chiang Mai, Phuket, Pattaya and Krabi page asserted the wrong
+      // city to every consumer of this markup.
+      addressLocality: city || "Bangkok",
       addressCountry: "TH",
     },
   };
@@ -236,6 +291,21 @@ export function LocalBusinessJsonLd({ name, address, phone, website, rating, rev
       bestRating: 5,
       worstRating: 1,
     };
+  }
+  const hours = openingHoursSpec(openingHoursJson);
+  if (hours.length) data.openingHoursSpecification = hours;
+
+  // The scraped review samples, which the detail page already renders as
+  // visible text. Markup that isn't on the page is a structured-data
+  // violation, so this stays in step with what the page shows.
+  const usable = (reviews ?? []).filter((r) => r.text && r.rating);
+  if (usable.length) {
+    data.review = usable.slice(0, 3).map((r) => ({
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+      author: { "@type": "Person", name: r.reviewer || "Google reviewer" },
+      reviewBody: r.text,
+    }));
   }
   return tag(data);
 }

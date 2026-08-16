@@ -11,6 +11,7 @@ import {
   nicheCityCounts,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
+import { nicheAreaCounts } from "@/lib/areas";
 import { AdSlot } from "@/components/AffiliateSlot";
 import { NicheGrid } from "@/components/NicheGrid";
 import { ShareButton } from "@/components/ShareButton";
@@ -364,6 +365,11 @@ export default async function NichePage({
   const scope = cityScopeLabel(top);
   const klookMap = await buildKlookIndex(top.map((p) => p.id));
   const cityLinks = nicheCityCounts(niche, db.places);
+  // Bangkok areas sit a level below the city split. They carry the bulk of the
+  // impressions this niche already earns ("wellness spa sukhumvit" alone drew
+  // 667 in three months) and they are the shorter path to the ~850 venue pages
+  // that otherwise hang off /all alone.
+  const areaLinks = nicheAreaCounts(niche, db.places);
   // See generateMetadata above — db.total is the raw scraped count and can
   // wildly overstate how many pages actually exist for thin-data niches.
   const rankedCount = qualifyingNichePlaces(niche, db.places).length;
@@ -442,6 +448,23 @@ export default async function NichePage({
             >
               {c.city}
               <span className="text-[var(--muted)] tabular-nums text-xs">{c.count}</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Browse by Bangkok area — the level below city. */}
+      {areaLinks.length > 0 && (
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-sm text-[var(--muted)]">Browse by Bangkok area:</span>
+          {areaLinks.map(({ area, count }) => (
+            <a
+              key={area.slug}
+              href={`/activities/${niche}/area/${area.slug}`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm font-medium hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
+            >
+              {area.label}
+              <span className="text-[var(--muted)] tabular-nums text-xs">{count}</span>
             </a>
           ))}
         </div>

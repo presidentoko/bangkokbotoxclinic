@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import {
   NICHES,
@@ -105,6 +106,26 @@ const LANG_LABELS: Record<string, string> = {
   ar: "🇸🇦 Arabic",
 };
 
+const DAY_ORDER = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+/**
+ * Opening hours for display, in week order rather than whatever order the
+ * scrape happened to store. Values are shown as Google worded them
+ * ("10 AM to 10 PM", "Open 24 hours", "Closed") — openingHoursSpecification
+ * in the markup normalises the same strings to 24-hour times.
+ */
+function readOpeningHours(json?: string | null): { day: string; hours: string }[] {
+  if (!json) return [];
+  let parsed: Record<string, string>;
+  try {
+    parsed = JSON.parse(json);
+  } catch {
+    return [];
+  }
+  return DAY_ORDER.filter((d) => typeof parsed[d] === "string" && parsed[d].trim())
+    .map((d) => ({ day: d, hours: parsed[d].replace(/ /g, " ").trim() }));
+}
+
 export default async function PlaceDetailPage({
   params,
 }: {
@@ -148,6 +169,7 @@ export default async function PlaceDetailPage({
     : [];
 
   const pageUrl = `${SITE}/activities/${niche}/${encodeURIComponent(slug)}`;
+  const openingHours = readOpeningHours(place.opening_hours_json);
 
   const hasStickyBooking = !!(klook?.products?.[0] || place.affiliate?.viator || place.affiliate?.getyourguide || fallback);
 
@@ -278,6 +300,26 @@ export default async function PlaceDetailPage({
             </a>
           )}
         </div>
+      )}
+
+      {/* Opening hours. 85% of ranked venues have them and none of them were
+          shown — "is it open?" is the question a visitor arrives with, and
+          it's also what openingHoursSpecification in the markup below claims.
+          Markup and page have to say the same thing. */}
+      {openingHours.length > 0 && (
+        <section className="mb-5">
+          <h2 className="font-black text-lg mb-3">Opening hours</h2>
+          <div className="bg-white border border-[var(--border)] rounded-2xl p-4">
+            <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+              {openingHours.map(({ day, hours }) => (
+                <Fragment key={day}>
+                  <dt className="font-medium">{day}</dt>
+                  <dd className={hours === "Closed" ? "text-[var(--muted)]" : ""}>{hours}</dd>
+                </Fragment>
+              ))}
+            </dl>
+          </div>
+        </section>
       )}
 
       {/* Review samples */}
@@ -459,6 +501,9 @@ export default async function PlaceDetailPage({
       <LocalBusinessJsonLd
         name={place.name}
         address={place.address}
+        city={place.city}
+        openingHoursJson={place.opening_hours_json}
+        reviews={place.reviews_sample}
         phone={place.phone}
         website={place.website}
         rating={place.rating}

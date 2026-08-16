@@ -5,6 +5,7 @@ import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { GUIDES } from "@/lib/guides";
 import { NICHES, loadNicheDb, qualifyingNichePlaces, nicheCityCounts } from "@/lib/niches";
+import { nicheAreaCounts } from "@/lib/areas";
 import type { NicheSlug } from "@/lib/niches";
 import { allDayPlanParams, buildDayPlan, AREA_DEFS, THEME_DEFS } from "@/lib/day-plans";
 import type { AreaSlug, ThemeSlug } from "@/lib/day-plans";
@@ -103,6 +104,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const c of nicheCityLinks[i]) {
       items.push({
         url: `${SITE}/activities/${NICHES[i].slug}/city/${c.slug}`,
+        lastModified: updated,
+        changeFrequency: "weekly",
+        priority: 0.8,
+      });
+    }
+  }
+  // Niche×Bangkok-area pages (app/activities/[niche]/area/[area]) — same
+  // AREA_MIN_VENUES gate as generateStaticParams there. Ranked above the city
+  // pages because these carry the area-qualified queries that already earn
+  // impressions, and because they are the short crawl path to the venue tail.
+  const nicheAreaLinks = await Promise.all(
+    NICHES.map(async (n) => nicheAreaCounts(n.slug, (await loadNicheDb(n.slug as NicheSlug)).places))
+  );
+  for (let i = 0; i < NICHES.length; i++) {
+    for (const { area } of nicheAreaLinks[i]) {
+      items.push({
+        url: `${SITE}/activities/${NICHES[i].slug}/area/${area.slug}`,
         lastModified: updated,
         changeFrequency: "weekly",
         priority: 0.8,
