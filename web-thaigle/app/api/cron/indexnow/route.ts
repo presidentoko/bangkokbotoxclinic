@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import sitemap from "@/app/sitemap";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -55,15 +56,22 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const sitemapRes = await fetch(`${BASE}/sitemap.xml`, { cache: "no-store" });
-  if (!sitemapRes.ok) {
-    await notify(`⚠️ <b>Thaigle IndexNow</b>\nsitemap.xml returned ${sitemapRes.status} — nothing submitted.`);
-    return NextResponse.json({ error: `sitemap ${sitemapRes.status}` }, { status: 502 });
+  // Call the sitemap builder in-process rather than fetching /sitemap.xml over
+  // HTTP. The first version did fetch it and the very first real run came back
+  // 502 — a function reaching back through the edge for a page it can generate
+  // itself has to clear the CDN, the firewall and the alias, and any one of
+  // those saying no looks like "the sitemap is broken". None of that is in the
+  // way of a direct call, and it is faster besides.
+  let urlList: string[];
+  try {
+    urlList = (await sitemap()).map((e) => e.url);
+  } catch (err) {
+    console.error("[thaigle-indexnow] sitemap build threw", err);
+    await notify("⚠️ <b>Thaigle IndexNow</b>\nsitemap build failed — nothing submitted.");
+    return NextResponse.json({ error: "sitemap build failed" }, { status: 500 });
   }
-  const xml = await sitemapRes.text();
-  const urlList = Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g)).map((m) => m[1]);
   if (urlList.length === 0) {
-    await notify("⚠️ <b>Thaigle IndexNow</b>\nsitemap.xml parsed to 0 URLs — nothing submitted.");
+    await notify("⚠️ <b>Thaigle IndexNow</b>\nsitemap built 0 URLs — nothing submitted.");
     return NextResponse.json({ error: "No URLs found in sitemap" }, { status: 500 });
   }
 
