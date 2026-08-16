@@ -10,6 +10,7 @@ import {
   nicheCityCounts,
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
+import { nicheAreaCounts } from "@/lib/areas";
 import { NicheGrid } from "@/components/NicheGrid";
 import { NicheItemListJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
@@ -84,6 +85,7 @@ export default async function NicheCityPage({ params }: Props) {
 
   const klookMap = await buildKlookIndex(cityPlaces.map((p) => p.id));
   const pageUrl = `${SITE}/activities/${niche}/city/${citySlug}`;
+  const areaLinks = city === "Bangkok" ? nicheAreaCounts(niche, db.places) : [];
 
   const faqs = [
     {
@@ -141,6 +143,25 @@ export default async function NicheCityPage({ params }: Props) {
           See all {info.label} across Thailand →
         </a>
       </div>
+
+      {/* Narrow down to an area. Only Bangkok has them — the area names are
+          Bangkok's — and this is the step that keeps the city page from being
+          a dead end between the hub and 150-odd venue pages. */}
+      {areaLinks.length > 0 && (
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-sm text-[var(--muted)]">Narrow down by area:</span>
+          {areaLinks.map(({ area, count }) => (
+            <a
+              key={area.slug}
+              href={`/activities/${niche}/area/${area.slug}`}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white text-sm font-medium hover:border-orange-400 hover:bg-orange-50 hover:text-orange-700 transition"
+            >
+              {area.label}
+              <span className="text-[var(--muted)] tabular-nums text-xs">{count}</span>
+            </a>
+          ))}
+        </div>
+      )}
 
       <NicheGrid
         places={cityPlaces}
