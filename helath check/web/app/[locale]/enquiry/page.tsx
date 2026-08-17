@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { ContactForm } from "@/app/components/ContactForm";
 
 const BASE = "https://www.bangkoktopclinic.com";
@@ -15,10 +15,7 @@ export async function generateMetadata({
   return {
     title: "Book a Health Check-Up in Bangkok — Free Enquiry",
     description: "Get personalised help booking a health check-up at a Bangkok hospital. Tell us your age, concerns, and budget — we'll find the best package. Free, no obligation.",
-    alternates: {
-      canonical: `${BASE}/${locale}/enquiry`,
-      languages: hreflangMap(`/enquiry`),
-    },
+    alternates: localeAlternates(locale, `/enquiry`),
   };
 }
 

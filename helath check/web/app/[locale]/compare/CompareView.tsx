@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
 import { compareT } from "@/lib/compare-i18n";
-import { getPackagesByCategory, type PackageRow } from "@/lib/db";
+import { getCheckupCombos, getPackagesByCategory, type PackageRow } from "@/lib/db";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import { RecentlyViewedBar } from "@/app/components/RecentlyViewed";
@@ -118,6 +118,9 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
   // Throwing yields a 500 instead: never cached, and crawlers come back.
   // See hospital/[slug]/page.tsx for the full reasoning.
   const rows: PackageRow[] = await getPackagesByCategory(activeCat, "price");
+  const liveCategories = new Set(
+    (await getCheckupCombos().catch(() => [])).map((c) => c.category),
+  );
 
   const aeoSummary = buildAeoSummary(loc, activeCat, rows);
   const faqs = activeCat === "executive" ? cc.executiveFaqs : (CATEGORY_FAQS[activeCat] ?? []);
@@ -146,9 +149,11 @@ export async function CompareView({ locale, activeCat }: { locale: string; activ
         </div>
       </div>
 
-      {/* Category tabs */}
+      {/* Category tabs — only the ones with packages. CATEGORIES still holds
+          eight importer staging names with zero rows, and linking them from
+          every compare page pointed a crawler at eight empty tables. */}
       <div className="flex flex-wrap gap-2 mb-5">
-        {CATEGORIES.map((cat) => (
+        {CATEGORIES.filter((cat) => liveCategories.has(cat)).map((cat) => (
           <Link key={cat} href={categoryHref(locale, cat)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
               cat === activeCat

@@ -1,16 +1,29 @@
 import type { Metadata } from "next";
 import { CATEGORIES } from "@/lib/i18n";
+import { getCheckupCombos } from "@/lib/db";
 import { CompareView, buildCompareMetadata } from "../CompareView";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
 
-export function generateStaticParams() {
-  return CATEGORIES.map((category) => ({ category }));
+export async function generateStaticParams() {
+  // Categories with packages only — see the same note in
+  // app/[locale]/checkup/[type]/page.tsx. CATEGORIES still lists eight
+  // staging names that hold zero rows.
+  try {
+    const real = new Set((await getCheckupCombos()).map((c) => c.category));
+    return CATEGORIES.filter((c) => real.has(c)).map((category) => ({ category }));
+  } catch {
+    return CATEGORIES.map((category) => ({ category }));
+  }
 }
 
-// CATEGORIES is the complete param space — unknown categories 404 at the
-// router without a function invocation or ISR write.
+// The live categories above are the whole param space. Names that used to
+// hold rows ("comprehensive", "cardiac", ...) are 308'd to /compare by
+// next.config.ts before they ever reach the router; anything else is a real
+// 404. Leaving dynamicParams on meant /en/compare/totalnonsense answered 200
+// with an empty table, because compare/loading.tsx streams the shell before
+// the component can set a status.
 export const dynamicParams = false;
 
 export async function generateMetadata({

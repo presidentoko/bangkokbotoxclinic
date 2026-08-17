@@ -1,4 +1,28 @@
 import type { NextConfig } from "next";
+import data from "./data/checkup_db.json";
+import { CATEGORIES } from "./lib/i18n";
+
+/**
+ * Category names with no priced package behind them.
+ *
+ * The importers write everything as "comprehensive" or "age" and
+ * fix_all_data.py redistributes those into the real categories, so eight of
+ * the sixteen names in CATEGORIES end up holding zero rows. Google has the
+ * URLs indexed from when they did hold rows, and an empty comparison table
+ * served as a 200 is a soft 404.
+ *
+ * The redirect has to live here rather than in the page. `compare/loading.tsx`
+ * puts a Suspense boundary above that route, so the shell is flushed with a
+ * 200 before the component runs — neither `redirect()` in the body nor one in
+ * `generateMetadata` (which streams alongside the body) can change the status
+ * after that. next.config redirects are applied before routing, which is the
+ * only place left that still owns the response line.
+ */
+const EMPTY_CATEGORIES = CATEGORIES.filter((cat) => {
+  return !data.packages.some(
+    (p) => p.category === cat && p.price != null && parseFloat(p.price) > 0,
+  );
+});
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -14,7 +38,12 @@ const nextConfig: NextConfig = {
   staticPageGenerationTimeout: 120,
   async redirects() {
     return [
-      { source: "/", destination: "/en", permanent: false },
+      // 308, not 307. The site has no locale detection and never will resolve
+      // "/" to anything but "/en", so a temporary redirect understates it:
+      // Google keeps re-checking the origin and passes no signal through to
+      // the target. `permanent: false` here was the site's single
+      // highest-authority URL leaking its authority on every crawl.
+      { source: "/", destination: "/en", permanent: true },
       // Legacy compare URLs used ?category= query params, which forced the
       // page into per-request SSR. Categories are now path segments
       // (/compare/[category], SSG). The alternation is the exact CATEGORIES
@@ -30,6 +59,11 @@ const nextConfig: NextConfig = {
         destination: "/:locale/compare/:category",
         permanent: true,
       },
+      // Categories that no longer hold anything — see EMPTY_CATEGORIES above.
+      ...EMPTY_CATEGORIES.flatMap((cat) => [
+        { source: `/:locale/compare/${cat}`, destination: "/:locale/compare", permanent: true },
+        { source: `/:locale/checkup/${cat}`, destination: "/:locale/compare", permanent: true },
+      ]),
     ];
   },
   async headers() {

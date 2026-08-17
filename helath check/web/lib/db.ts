@@ -517,10 +517,19 @@ export async function getStatsForHome(): Promise<{
   packageCount: number;
   hospitalCount: number;
 }> {
+  // Count what a visitor can actually see. `data.hospitals.length` includes
+  // rows whose only listings were dropped as non-diagnostic, and
+  // `data.packages.length` includes price-on-request rows — advertising those
+  // in the hero counter is a number the site cannot show you.
+  const priced = allRows.filter((r) => {
+    const p = num(r.price);
+    return p !== null && p > 0;
+  });
+  const hospitalsWithPrices = new Set(priced.map((r) => r.hospital_slug));
   return {
     jciCount: data.hospitals.filter((h) => h.jci === 1).length,
-    packageCount: data.packages.length,
-    hospitalCount: data.hospitals.length,
+    packageCount: priced.length,
+    hospitalCount: hospitalsWithPrices.size,
   };
 }
 

@@ -1,25 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
-import { getPackage, getAllHospitalSlugs, getPackagesByCategory, type PackageRow } from "@/lib/db";
+import { notFound, permanentRedirect } from "next/navigation";
+import { type Locale, catLabel, CATEGORIES, localeAlternates } from "@/lib/i18n";
+import {
+  getPackage,
+  getAllHospitalSlugs,
+  getCheckupCombos,
+  getPackagesByCategory,
+  type PackageRow,
+} from "@/lib/db";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
 
 export async function generateStaticParams() {
-  // Pre-render top 30 hospitals × top 6 categories = 180 combos per locale
-  // Remaining pages generated on-demand via ISR fallback
-  const TOP_CATEGORIES = ["comprehensive", "executive", "standard", "cancer", "cardiac", "women"];
+  // Every (category, hospital) pair that has a package behind it — nothing
+  // else. The previous version took a cartesian product of six hard-coded
+  // category names and the first 30 hospital slugs, which pre-rendered 180
+  // pages per locale of which most had no matching row and so were *built* as
+  // 404s. Two of those category names ("comprehensive", "cardiac") do not even
+  // survive fix_all_data.py's redistribution, so every one of their combos was
+  // a guaranteed miss. Search Console reported 1,306 such URLs.
   try {
-    const slugs = (await getAllHospitalSlugs()).slice(0, 30);
-    const params: { type: string; hospital: string }[] = [];
-    for (const type of TOP_CATEGORIES) {
-      for (const hospital of slugs) {
-        params.push({ type, hospital });
-      }
-    }
-    return params;
+    return (await getCheckupCombos()).map((c) => ({
+      type: c.category,
+      hospital: c.hospital_slug,
+    }));
   } catch {
     return [];
   }
@@ -34,17 +40,28 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, type, hospital } = await params;
   const label = catLabel(locale as Locale, type);
-  const hospitalName = hospital.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  // Title-casing the slug produced "Hdm 120 Wellness Villa" and, before the
+  // 2026-08 re-slug, strings of percent escapes. The row is a local JSON read,
+  // so there is no reason not to use the hospital's real name.
+  const pkg = await getPackage(type, hospital).catch(() => null);
+  const hospitalName =
+    pkg?.hospital_name ??
+    hospital.replace(/^hdm-/, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const price = pkg?.price ? `฿${parseFloat(pkg.price).toLocaleString()}` : null;
   return {
     // Hospital names run long ("Bangkok Hospital Nakhon Si Thammarat"), so the
     // trailing qualifier is kept short and the searchable words come first —
-    // Google renders roughly 60 characters and cuts the rest.
-    title: `${label} Check-Up at ${hospitalName} — Price 2026`,
-    description: `${label} check-up package at ${hospitalName}, Thailand. Real price, inclusions (blood, ultrasound, MRI, cancer markers), results timeline, and booking info.`,
-    alternates: {
-      canonical: `${BASE}/${locale}/checkup/${type}/${hospital}`,
-      languages: hreflangMap(`/checkup/${type}/${hospital}`),
-    },
+    // Google renders roughly 60 characters and cuts the rest. The price goes
+    // in the title because that is the query: people search "bumrungrad
+    // check-up price", and a number in the SERP is the only differentiator
+    // between 360 otherwise identically-shaped pages.
+    title: price
+      ? `${hospitalName} ${label} Check-Up — ${price}`
+      : `${label} Check-Up at ${hospitalName} — Price 2026`,
+    description: pkg
+      ? `${pkg.package_name} at ${hospitalName}, ${pkg.city ?? "Thailand"}.${price ? ` ${price}.` : ""} What is included, results timeline, and how to book — no booking fee, no mark-up.`
+      : `${label} check-up package at ${hospitalName}, Thailand. Real price, inclusions (blood, ultrasound, MRI, cancer markers), results timeline, and booking info.`,
+    alternates: localeAlternates(locale, `/checkup/${type}/${hospital}`),
   };
 }
 
@@ -75,7 +92,20 @@ export default async function PackageDetailPage({
   // back empty, which is the only real "this package doesn't exist" signal.
   if (pkgResult.status === "rejected") throw pkgResult.reason;
   const pkg = pkgResult.value;
-  if (!pkg) notFound();
+  // No package for this pair. Google knows ~1,300 of these URLs from the
+  // cartesian-product sitemap this site used to publish, and answering all of
+  // them with 404 throws away the crawl signal and drops anyone arriving from
+  // a stale SERP on the floor. If the hospital is real, its own page is the
+  // nearest true answer; failing that, the category listing is. Only a URL
+  // where neither half exists is genuinely not found.
+  if (!pkg) {
+    const slugs = await getAllHospitalSlugs().catch(() => [] as string[]);
+    if (slugs.includes(hospital)) permanentRedirect(`/${locale}/hospital/${hospital}`);
+    if ((CATEGORIES as readonly string[]).includes(type)) {
+      permanentRedirect(`/${locale}/checkup/${type}`);
+    }
+    notFound();
+  }
 
   // The "similar packages" rail is decorative — degrade it to empty rather
   // than take down a page that already has its primary content.

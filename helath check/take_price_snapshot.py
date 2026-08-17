@@ -22,12 +22,12 @@ with conn.cursor() as c:
         UNIQUE KEY uq_pkg_date (package_id, snapshot_date)
     ) ENGINE=InnoDB""")
 
-    # Skip if already ran today
-    c.execute("SELECT COUNT(*) n FROM package_price_snapshots WHERE snapshot_date=%s", (today,))
-    if c.fetchone()['n'] > 0:
-        print(f"Snapshot already exists for {today} — skipping.")
-        conn.close()
-        sys.exit(0)
+    # No "already ran today, skip" guard. The UNIQUE (package_id,
+    # snapshot_date) key plus INSERT IGNORE below already makes a second run
+    # idempotent, and the guard's only real effect was that any package added
+    # after the day's first run never got a snapshot at all — which is exactly
+    # what happened when hdmall_reparse.py replaced 607 rows on 2026-08-17 and
+    # left every one of them with no price history.
 
     # Insert current prices (only priced packages)
     c.execute("""INSERT IGNORE INTO package_price_snapshots (package_id, snapshot_date, price)

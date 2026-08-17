@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getPackagesByCity } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 import type { PackageRow } from "@/lib/db";
@@ -51,10 +51,7 @@ export async function generateMetadata({
     title: `Health Check-Up Packages in ${cityName} — Compare Prices`,
     description: `Compare health check-up packages at hospitals in ${cityName}, Thailand. Real prices, all hospitals, all package types. Find the best value health screening in ${cityName}.`,
     keywords: [`health checkup ${cityName}`, `health screening ${cityName}`, `hospital ${cityName} health package`, `ตรวจสุขภาพ${cityName}`],
-    alternates: {
-      canonical: `${BASE}/${locale}/city/${city}`,
-      languages: hreflangMap(`/city/${city}`),
-    },
+    alternates: localeAlternates(locale, `/city/${city}`),
   };
 }
 

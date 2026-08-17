@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
@@ -17,10 +17,7 @@ export async function generateMetadata({
   return {
     title: "Health Check-Up Guides — Thailand Medical Tourism",
     description: "Expert guides to health check-ups in Thailand. Bangkok, Chiang Mai, Phuket, senior health, expat health, cancer screening, JCI hospitals and more.",
-    alternates: {
-      canonical: `${BASE}/${locale}/guide`,
-      languages: hreflangMap(`/guide`),
-    },
+    alternates: localeAlternates(locale, `/guide`),
   };
 }
 

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { type Locale, catLabel, hreflangMap } from "@/lib/i18n";
+import { notFound, permanentRedirect } from "next/navigation";
+import { type Locale, catLabel, localeAlternates } from "@/lib/i18n";
 import { getHospital, getAllHospitalSlugs, getHospitalReviews, getPriceHistoryBatch, type PackageRow, type ReviewRow } from "@/lib/db";
+import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
 import { Sparkline } from "@/app/components/Sparkline";
 import { ShareButtons } from "@/app/components/ShareButtons";
 import { ReportButton } from "@/app/components/ReportButton";
@@ -14,15 +15,23 @@ export const revalidate = false;
 const BASE = "https://www.bangkoktopclinic.com";
 
 export async function generateStaticParams() {
-  // Pre-render the top 50 hospitals; the rest render on first visit and
-  // are then cached for `revalidate` seconds (ISR fallback).
   try {
-    const slugs = (await getAllHospitalSlugs()).slice(0, 50);
-    return slugs.map((slug) => ({ slug }));
+    return (await getAllHospitalSlugs()).map((slug) => ({ slug }));
   } catch {
     return [];
   }
 }
+
+// The full slug list above is the complete param space, so an unknown slug is
+// rejected by the router with a real 404.
+//
+// This is not a micro-optimisation. With dynamicParams left on, notFound()
+// from this page rendered the not-found boundary but answered **200** —
+// /en/hospital/anything-at-all returned a "Page not found" page that Google
+// reads as a real page. That is an unbounded soft-404 space hanging off a site
+// whose Search Console problem is too many low-value URLs. Renaming a slug now
+// requires an entry in SLUG_REDIRECTS (below), which is the correct trade.
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -38,10 +47,7 @@ export async function generateMetadata({
     return {
       title: `${hospital.name} Health Check-Up Packages & Prices — ${cityLabel}`,
       description: `Compare all health check-up packages at ${hospital.name}, ${cityLabel}, Thailand.${hospital.jci ? " JCI accredited." : ""}${minPrice} ${hospital.package_count} packages compared.`,
-      alternates: {
-        canonical: `${BASE}/${locale}/hospital/${slug}`,
-        languages: hreflangMap(`/hospital/${slug}`),
-      },
+      alternates: localeAlternates(locale, `/hospital/${slug}`),
       openGraph: {
         title: `${hospital.name} — ${cityLabel} Health Check-Up Packages`,
         description: `Real prices for ${hospital.name} health check-up packages in ${cityLabel}. ${hospital.jci ? "JCI accredited hospital." : ""}`,
@@ -57,6 +63,48 @@ function Flag({ val }: { val: number | null }) {
   if (val === 1) return <span className="text-emerald-600 font-bold">✓</span>;
   if (val === 0) return <span className="text-slate-300">✗</span>;
   return <span className="text-amber-400">?</span>;
+}
+
+/**
+ * Google Places writes opening hours as prose ("11 AM to 8 PM", "9:30 AM to
+ * 6:30 PM", "Open 24 hours", "Closed"). schema.org wants 24-hour times, and a
+ * Hospital without openingHoursSpecification loses the hours panel in a rich
+ * result even though the page displays them. Anything that does not parse is
+ * dropped rather than guessed — a wrong opening time sends someone to a closed
+ * clinic.
+ */
+function openingHoursSchema(hours: { day: string; hours: string }[] | null) {
+  if (!hours?.length) return [];
+  const to24 = (raw: string, fallbackMeridiem?: string): string | null => {
+    const m = /^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?$/i.exec(raw.trim());
+    if (!m) return null;
+    let h = Number(m[1]);
+    const min = m[2] ?? "00";
+    const mer = (m[3] ?? fallbackMeridiem ?? "").toUpperCase();
+    if (h < 1 || h > 12) return null;
+    if (mer === "PM" && h !== 12) h += 12;
+    if (mer === "AM" && h === 12) h = 0;
+    if (!mer) return null;
+    return `${String(h).padStart(2, "0")}:${min}`;
+  };
+  const out: Record<string, unknown>[] = [];
+  for (const { day, hours: text } of hours) {
+    const t = text.trim();
+    if (/^closed$/i.test(t)) continue;
+    if (/24\s*hours/i.test(t)) {
+      out.push({ "@type": "OpeningHoursSpecification", dayOfWeek: day, opens: "00:00", closes: "23:59" });
+      continue;
+    }
+    // "12 to 8 PM" leaves the opening meridiem implied by the closing one.
+    const parts = /^(.+?)\s+to\s+(.+)$/i.exec(t);
+    if (!parts) continue;
+    const closeMer = /PM/i.test(parts[2]) ? "PM" : /AM/i.test(parts[2]) ? "AM" : undefined;
+    const opens = to24(parts[1], closeMer);
+    const closes = to24(parts[2]);
+    if (!opens || !closes) continue;
+    out.push({ "@type": "OpeningHoursSpecification", dayOfWeek: day, opens, closes });
+  }
+  return out;
 }
 
 function PackageCard({ pkg, locale, history }: { pkg: PackageRow; locale: string; history?: number[] }) {
@@ -138,7 +186,14 @@ export default async function HospitalPage({
   // cached 404 tells Google to delete a hospital page that really exists, and
   // `revalidate` keeps it wrong for a full day.
   const hospital = await getHospital(slug);
-  if (!hospital) notFound();
+  // The 2026-08 re-slug replaced 32 percent-encoded slugs with readable ASCII
+  // ones. Google still has the old URLs, so honour them with a 308 rather than
+  // adding to the 404 pile.
+  if (!hospital) {
+    const moved = SLUG_REDIRECTS[slug];
+    if (moved) permanentRedirect(`/${locale}/hospital/${moved}`);
+    notFound();
+  }
 
   // Reviews and sparklines are supplementary — let them degrade to empty
   // instead of failing a page whose main content already loaded.
@@ -160,6 +215,7 @@ export default async function HospitalPage({
     grouped[cat].push(pkg);
   }
 
+  const openingHoursSpec = openingHoursSchema(hospital.opening_hours);
   const shareUrl = `${BASE}/${locale}/hospital/${slug}`;
   const shareTitle = `${hospital.name} Health Check-Up Packages — Bangkok`;
 
@@ -415,22 +471,6 @@ export default async function HospitalPage({
         </div>
       )}
 
-      {/* Individual reviews schema */}
-      {reviews.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Hospital",
-          name: hospital.name,
-          review: reviews.map((r) => ({
-            "@type": "Review",
-            author: { "@type": "Person", name: r.author_name ?? "Patient" },
-            datePublished: r.review_date?.slice(0, 10),
-            reviewRating: r.rating ? { "@type": "Rating", ratingValue: r.rating, bestRating: 5 } : undefined,
-            reviewBody: r.review_text,
-          })),
-        }) }} />
-      )}
-
       {/* BreadcrumbList */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
@@ -443,34 +483,72 @@ export default async function HospitalPage({
         ],
       }) }} />
 
-      {/* Schema.org */}
+      {/*
+        One Hospital node, not two. The page used to emit a second, near-empty
+        Hospital just to carry the review list, which leaves a validator (and
+        an answer engine) to guess which of two same-named entities is the real
+        one. Reviews, opening hours and the priced catalogue all hang off the
+        single node now, keyed by @id so other pages can reference it.
+      */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Hospital",
+            "@id": `${shareUrl}#hospital`,
             name: hospital.name,
+            mainEntityOfPage: shareUrl,
             ...(hospital.address ? {
               address: { "@type": "PostalAddress", streetAddress: hospital.address, addressLocality: hospital.city || hospital.area || "Bangkok", addressCountry: "TH" }
             } : hospital.area ? {
               address: { "@type": "PostalAddress", addressLocality: hospital.area, addressRegion: hospital.city || "Bangkok", addressCountry: "TH" }
             } : {}),
             ...(hospital.phone ? { telephone: hospital.phone } : {}),
-            ...(hospital.checkup_url ? { url: hospital.checkup_url } : {}),
             ...(hospital.lat && hospital.lng ? { geo: { "@type": "GeoCoordinates", latitude: hospital.lat, longitude: hospital.lng } } : {}),
             ...(hospital.rating ? { aggregateRating: { "@type": "AggregateRating", ratingValue: parseFloat(hospital.rating), bestRating: 5, reviewCount: hospital.review_count ?? 1 } } : {}),
+            ...(reviews.length ? {
+              review: reviews.map((r) => ({
+                "@type": "Review",
+                author: { "@type": "Person", name: r.author_name ?? "Patient" },
+                ...(r.review_date ? { datePublished: r.review_date.slice(0, 10) } : {}),
+                ...(r.rating ? { reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 } } : {}),
+                ...(r.review_text ? { reviewBody: r.review_text } : {}),
+              })),
+            } : {}),
+            ...(openingHoursSpec.length ? { openingHoursSpecification: openingHoursSpec } : {}),
             ...(hospital.jci ? { accreditedBy: { "@type": "Organization", name: "Joint Commission International (JCI)" } } : {}),
             ...(hospital.description ? { description: hospital.description } : {}),
+            // The hospital's own site is the entity's `url`; the booking page
+            // is a sameAs at best. Setting both to `url` silently kept
+            // whichever spread ran last.
             ...(hospital.website ? { url: hospital.website } : {}),
+            ...(hospital.checkup_url || hospital.google_maps_url ? {
+              sameAs: [hospital.checkup_url, hospital.google_maps_url].filter(Boolean),
+            } : {}),
             ...(hospital.email ? { email: hospital.email } : {}),
             ...(hospital.founded_year ? { foundingDate: String(hospital.founded_year) } : {}),
-            ...(hospital.bed_count ? { numberOfBeds: { "@type": "QuantitativeValue", value: hospital.bed_count } } : {}),
             ...(hospital.specialties ? { medicalSpecialty: hospital.specialties } : {}),
             hasOfferCatalog: {
               "@type": "OfferCatalog",
               name: `Health Check-Up Packages at ${hospital.name}`,
               numberOfItems: hospital.package_count,
+              // The prices are the whole reason this site exists; leaving the
+              // catalogue as a bare count told an answer engine nothing it
+              // could quote.
+              itemListElement: hospital.packages
+                .filter((p) => p.price)
+                .slice(0, 40)
+                .map((p, i) => ({
+                  "@type": "Offer",
+                  position: i + 1,
+                  name: p.package_name,
+                  price: parseFloat(p.price as string),
+                  priceCurrency: "THB",
+                  availability: "https://schema.org/InStock",
+                  url: `${shareUrl}#pkg-${p.package_id}`,
+                  ...(p.category ? { category: p.category } : {}),
+                })),
             },
           }),
         }}

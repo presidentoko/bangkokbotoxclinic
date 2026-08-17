@@ -1,18 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
-import { getPackagesByCategory, type PackageRow } from "@/lib/db";
+import { type Locale, catLabel, CATEGORIES, localeAlternates } from "@/lib/i18n";
+import { permanentRedirect } from "next/navigation";
+import { getCheckupCombos, getPackagesByCategory, type PackageRow } from "@/lib/db";
 // PackageRow used for type annotation below
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
 
-export function generateStaticParams() {
-  return CATEGORIES.map((type) => ({ type }));
+export async function generateStaticParams() {
+  // Only the categories that have priced packages behind them. CATEGORIES
+  // still lists names the importers use as staging values ("comprehensive",
+  // "cardiac", "diabetes", "eye", ...) which fix_all_data.py redistributes to
+  // zero; pre-rendering those built pages with an empty table and a
+  // "0 packages" heading, which is what Search Console calls a soft 404.
+  try {
+    const combos = await getCheckupCombos();
+    const real = Array.from(new Set(combos.map((c) => c.category)));
+    return real.map((type) => ({ type }));
+  } catch {
+    return CATEGORIES.map((type) => ({ type }));
+  }
 }
 
-// CATEGORIES is the complete param space — unknown types 404 at the router
-// without a function invocation or ISR write.
+// The live categories above are the whole param space. The eight staging
+// names that no longer hold rows are 308'd to /compare by next.config.ts
+// before routing, so an unknown type here really is not found.
 export const dynamicParams = false;
 
 const BASE = "https://www.bangkoktopclinic.com";
@@ -27,10 +40,7 @@ export async function generateMetadata({
   return {
     title: `${label} Health Check-Up in Thailand — Compare Prices (2026)`,
     description: `Compare ${label.toLowerCase()} health check-up packages across Thailand. Real prices from 235+ hospitals in Bangkok, Chiang Mai, Phuket and more. JCI-accredited options available.`,
-    alternates: {
-      canonical: `${BASE}/${locale}/checkup/${type}`,
-      languages: hreflangMap(`/checkup/${type}`),
-    },
+    alternates: localeAlternates(locale, `/checkup/${type}`),
   };
 }
 
@@ -107,6 +117,11 @@ export default async function CheckupTypePage({
   // Unguarded on purpose: an empty listing cached as a 200 is worse than a
   // 500. See hospital/[slug]/page.tsx.
   const rows: PackageRow[] = await getPackagesByCategory(type, "price");
+
+  // Belt and braces: next.config.ts already 308s the known-empty categories
+  // to /compare before routing. This catches a category that empties out
+  // between deploys, where a 200 saying "0 packages" would be a soft 404.
+  if (rows.length === 0) permanentRedirect(`/${locale}/compare`);
 
   const label = catLabel(loc, type);
 

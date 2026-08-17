@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { notFound } from "next/navigation";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getAllPackages, type PackageRow } from "@/lib/db";
 import { FilteredPackageGrid } from "@/app/components/FilteredPackageGrid";
 
@@ -309,10 +310,7 @@ export async function generateMetadata({
     title: seg.title,
     description: seg.description,
     keywords: seg.h1.split(" "),
-    alternates: {
-      canonical: `${BASE}/${locale}/for/${slug}`,
-      languages: hreflangMap(`/for/${slug}`),
-    },
+    alternates: localeAlternates(locale, `/for/${slug}`),
   };
 }
 
@@ -325,14 +323,11 @@ export default async function LongtailPage({
   const loc = locale as Locale;
   const seg = SEGMENTS[slug];
 
-  if (!seg) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-slate-800 mb-3">Page not found</h1>
-        <Link href={`/${locale}`} className="text-blue-600 hover:underline">← Back to home</Link>
-      </div>
-    );
-  }
+  // notFound(), not a 200 that says "Page not found" — a soft 404 keeps the URL
+  // alive in the index and tells a crawler the page exists. dynamicParams is
+  // false so this is unreachable in production, but the fallback should still
+  // be the right status.
+  if (!seg) notFound();
 
   // Unguarded on purpose: an empty listing cached as a 200 is worse than a
   // 500. See hospital/[slug]/page.tsx.
@@ -456,6 +451,42 @@ export default async function LongtailPage({
           acceptedAnswer: { "@type": "Answer", text: faq.a },
         })),
       }) }} />
+      {/*
+        The page's whole point is the shortlist it filters down to, but the
+        only structured data it emitted was the breadcrumb and the FAQ — so an
+        answer engine could read the questions and nothing about the packages
+        being recommended. ItemList makes the shortlist itself quotable.
+      */}
+      {rows.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: seg.h1,
+          description: seg.intro,
+          numberOfItems: rows.length,
+          itemListOrder: "https://schema.org/ItemListOrderAscending",
+          itemListElement: rows.slice(0, 30).map((r, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Product",
+              name: r.package_name,
+              url: `${BASE}/${locale}/hospital/${r.hospital_slug}`,
+              brand: { "@type": "MedicalOrganization", name: r.hospital_name },
+              ...(r.price
+                ? {
+                    offers: {
+                      "@type": "Offer",
+                      price: parseFloat(r.price),
+                      priceCurrency: r.currency || "THB",
+                      availability: "https://schema.org/InStock",
+                    },
+                  }
+                : {}),
+            },
+          })),
+        }) }} />
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getHospital, type HospitalDetail, type PackageRow } from "@/lib/db";
 
 // Static — see the note in app/[locale]/page.tsx.
@@ -16,10 +16,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const { a, b } = await searchParams;
-  const languages = hreflangMap(`/compare-hospitals`);
+  const alternates = localeAlternates(locale, `/compare-hospitals`);
   if (!a || !b) return {
     title: "Compare Hospitals — BangkokCheckup",
-    alternates: { canonical: `${BASE}/${locale}/compare-hospitals`, languages },
+    alternates,
   };
   // A comparison of any two hospitals is 241 x 241 x 6 locales — over 300,000
   // URLs, each of which used to self-canonicalise and so read as its own
@@ -31,7 +31,7 @@ export async function generateMetadata({
     title: `Compare ${a} vs ${b} — Health Check-Up Packages Bangkok`,
     description: `Side-by-side comparison of health check-up packages, prices, and inclusions at ${a} vs ${b} in Thailand. JCI status, MRI, cancer markers.`,
     robots: { index: false, follow: true },
-    alternates: { canonical: `${BASE}/${locale}/compare-hospitals`, languages },
+    alternates,
   };
 }
 

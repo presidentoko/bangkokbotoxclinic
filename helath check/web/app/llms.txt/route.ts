@@ -1,32 +1,75 @@
 import { NextResponse } from "next/server";
-import { getAllHospitalSlugs } from "@/lib/db";
+import { getCheckupCombos, getPackagesByCategory, getCities } from "@/lib/db";
 
 const BASE = "https://www.bangkoktopclinic.com";
 
 // Static — see the note in app/[locale]/page.tsx.
 export const revalidate = false;
 
+const CAT_LABEL: Record<string, string> = {
+  executive: "Executive", standard: "Standard", basic: "Basic",
+  cancer: "Cancer screening", heart: "Cardiac", women: "Women's",
+  men: "Men's", senior: "Senior",
+};
+
 export async function GET() {
-  let hospitalSlugs: string[] = [];
+  // Everything countable here is read from the data rather than typed into the
+  // prose. The previous version advertised "235+ hospitals", six languages and
+  // ten package categories including three ("comprehensive", "cardiac",
+  // "diabetes") that hold zero rows — an answer engine that quotes a figure
+  // this file invented is worse than one that never read the file.
+  let combos: { category: string; hospital_slug: string }[] = [];
+  let cities: { city: string; count: number }[] = [];
+  const priceByCategory: { cat: string; n: number; min: number; max: number; median: number }[] = [];
   try {
-    hospitalSlugs = await getAllHospitalSlugs();
+    [combos, cities] = await Promise.all([getCheckupCombos(), getCities()]);
+    for (const cat of Array.from(new Set(combos.map((c) => c.category))).sort()) {
+      const rows = await getPackagesByCategory(cat, "price");
+      const prices = rows
+        .map((r) => (r.price ? parseFloat(r.price) : NaN))
+        .filter((n) => Number.isFinite(n) && n > 0)
+        .sort((a, b) => a - b);
+      if (!prices.length) continue;
+      priceByCategory.push({
+        cat,
+        n: prices.length,
+        min: prices[0],
+        max: prices[prices.length - 1],
+        median: prices[Math.floor(prices.length / 2)],
+      });
+    }
   } catch {
-    // DB down
+    // Data unavailable — the rest of the file is still useful.
   }
+  const hospitalSlugs = Array.from(new Set(combos.map((c) => c.hospital_slug)));
+  const baht = (n: number) => `฿${Math.round(n).toLocaleString("en-US")}`;
 
   const content = `# BangkokCheckup — Thailand Health Check-Up Price Comparison
 
-> BangkokCheckup is a real-time, scraper-powered comparison of health check-up packages across 235+ hospitals in Thailand. We track prices, inclusions, and JCI status — with no paid rankings.
+> BangkokCheckup compares health check-up package prices across Thai hospitals and clinics. Prices are transcribed from hospital and marketplace listings, not supplied by the hospitals. Nothing on the site is paid placement and no ranking is sold.
 
 ## What we cover
 
-- **235+ hospitals** across 22 Thai cities
-- **6 languages**: English, Chinese (Simplified), Japanese, Thai, Korean, Arabic
-- **Package categories**: executive, comprehensive, standard, basic, cancer, cardiac, women's, men's, senior, diabetes
+- **${hospitalSlugs.length} hospitals and clinics** with at least one priced check-up package, across ${cities.length} Thai cities
+- **${combos.length} hospital x category listings** with a real published price
+- **Content language: English.** The site serves six locale URLs (en, zh, ja, th, ko, ar) but only the home page and FAQ are translated; every other page is English and canonicalises to its /en URL.
+- **Package categories**: ${priceByCategory.map((p) => CAT_LABEL[p.cat] ?? p.cat).join(", ") || "executive, standard, basic, cancer, cardiac, women's, men's, senior"}
 - **Package inclusions tracked**: blood tests, X-ray, ultrasound, CT scan, MRI, cancer markers, ECG, doctor consultation, interpreter service
 - **JCI accreditation** status for all major hospitals
-- **120+ editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
+- **119 editorial guides** covering cities, specialties, nationalities, country comparisons, hospital reviews, specialist tests, and practical topics
 - **16 audience segments** including by nationality (Japanese, Korean, Arabic, Chinese), by condition (diabetes, cardiac, cancer), by lifestyle (expat, digital nomad), and by budget
+
+## Price ranges by category (THB, current data)
+
+${priceByCategory.length
+  ? priceByCategory
+      .map((p) => `- **${CAT_LABEL[p.cat] ?? p.cat}** — ${p.n} packages, ${baht(p.min)}–${baht(p.max)}, median ${baht(p.median)}`)
+      .join("\n")
+  : "- (price data unavailable)"}
+
+## Cities with priced packages
+
+${cities.length ? cities.map((c) => `- ${c.city} — ${c.count} listings`).join("\n") : "- (unavailable)"}
 
 ## Key pages
 
@@ -38,13 +81,9 @@ export async function GET() {
 - FAQ: ${BASE}/en/faq
 - Hospital comparison tool: ${BASE}/en/compare-hospitals
 
-## Cities covered
+## Hospitals with priced packages
 
-Bangkok, Chiang Mai, Phuket, Pattaya, Hua Hin, Ko Samui, Krabi, Chiang Rai, Hat Yai, Khon Kaen, Udon Thani, Korat, Ayutthaya, Chon Buri, Nakhon Si Thammarat, Rayong, Surat Thani, Phitsanulok, Trang, Lampang, Nakhon Pathom, Koh Chang
-
-## Top hospitals (sample)
-
-${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")}
+${hospitalSlugs.map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")}
 
 ## City Guides
 
@@ -189,7 +228,7 @@ ${hospitalSlugs.slice(0, 30).map((s) => `- ${BASE}/en/hospital/${s}`).join("\n")
 
 ## Data freshness
 
-Prices are scraped weekly from hospital websites. The \`package_price_snapshots\` table records daily snapshots so historical price trends are available at ${BASE}/en/trends
+Prices are re-read from hospital and marketplace listings and re-published with each deploy; a daily snapshot is kept so historical movement is visible at ${BASE}/en/trends. Prices are indicative — confirm with the hospital before travelling. Where a listing shows both a list price and a promotional price, the promotional price is the one recorded.
 
 ## API
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { faqT } from "@/lib/faq-i18n";
 
 // Static — see the note in app/[locale]/page.tsx.
@@ -18,10 +18,7 @@ export async function generateMetadata({
   return {
     title: fc.pageTitle,
     description: fc.pageIntro,
-    alternates: {
-      canonical: `${BASE}/${locale}/faq`,
-      languages: hreflangMap(`/faq`),
-    },
+    alternates: localeAlternates(locale, `/faq`, { translated: true }),
   };
 }
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getRecentPriceChanges, type PriceTrendRow } from "@/lib/db";
 
 // Static — see the note in app/[locale]/page.tsx.
@@ -18,10 +18,7 @@ export async function generateMetadata({
   return {
     title: "Health Checkup Price Trends — Which Packages Got Cheaper?",
     description: "See which health check-up packages in Thailand have recently changed price. Track price drops and increases across Bangkok, Phuket, Chiang Mai hospitals.",
-    alternates: {
-      canonical: `${BASE}/${locale}/trends`,
-      languages: hreflangMap(`/trends`),
-    },
+    alternates: localeAlternates(locale, `/trends`),
   };
 }
 

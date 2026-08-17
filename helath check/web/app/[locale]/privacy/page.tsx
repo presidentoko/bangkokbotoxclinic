@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { hreflangMap } from "@/lib/i18n";
+import { localeAlternates } from "@/lib/i18n";
 
 export const revalidate = 2592000;
 
@@ -16,10 +16,7 @@ export async function generateMetadata({
   return {
     title: "Privacy Policy — BangkokCheckup",
     description: "BangkokCheckup privacy policy. How we handle your data when you use our health check-up comparison tool.",
-    alternates: {
-      canonical: `${BASE}/${locale}/privacy`,
-      languages: hreflangMap(`/privacy`),
-    },
+    alternates: localeAlternates(locale, `/privacy`),
     robots: { index: false, follow: true },
   };
 }

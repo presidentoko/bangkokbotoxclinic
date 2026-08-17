@@ -22,17 +22,64 @@ export const SITE_URL = "https://www.bangkoktopclinic.com";
  * slugs still carry raw Thai characters from the scraper.
  */
 export function hreflangMap(path: string | ((loc: Locale) => string)): Record<string, string> {
-  const at = (loc: Locale) => {
-    const p = typeof path === "function" ? path(loc) : path;
-    // Encode each segment individually so the "/" separators survive.
-    const encoded = p.split("/").map(encodeURIComponent).join("/");
-    return `${SITE_URL}/${loc}${encoded}`;
-  };
+  const at = (loc: Locale) => `${SITE_URL}/${loc}${localePath(path, loc)}`;
   const map: Record<string, string> = {};
   for (const l of LOCALES) map[l] = at(l);
   map["x-default"] = at("en");
   return map;
 }
+
+function localePath(path: string | ((loc: Locale) => string), loc: Locale): string {
+  const p = typeof path === "function" ? path(loc) : path;
+  // Encode each segment individually so the "/" separators survive. Hospital
+  // slugs are plain ASCII since the 2026-08 re-slug, but a scraper run can
+  // reintroduce a stray character and a malformed <loc> is dropped silently.
+  return p.split("/").map(encodeURIComponent).join("/");
+}
+
+/**
+ * The `alternates` block for a page, given whether its body is actually
+ * translated.
+ *
+ * Six locale copies of an English body is not internationalisation, it is six
+ * duplicates. The site ships translations for the home page, the FAQ and the
+ * comparison tables; every other route renders the same English prose under
+ * `lang="ja"`, `lang="ar"` and the rest. Declaring an hreflang cluster over
+ * those told Google six distinct pages existed, and 2,740 of them sat in
+ * "Discovered — currently not indexed" while consuming the crawl budget that
+ * the English originals needed.
+ *
+ * `translated: false` points every locale's canonical at the English URL, so
+ * the copies consolidate into one indexable page instead of competing. They
+ * stay reachable and crawlable — the language switcher still works — they just
+ * stop asking to be indexed separately. No `noindex` here on purpose: a
+ * canonical to another URL and a noindex on the same page are contradictory
+ * instructions, and Google resolves that conflict by ignoring the canonical.
+ *
+ * When a route is genuinely translated, flip it back to `translated: true`.
+ */
+export function localeAlternates(
+  locale: string,
+  path: string | ((loc: Locale) => string),
+  { translated = false }: { translated?: boolean } = {},
+) {
+  if (!translated) {
+    return { canonical: `${SITE_URL}/en${localePath(path, "en")}` };
+  }
+  return {
+    canonical: `${SITE_URL}/${locale}${localePath(path, locale as Locale)}`,
+    languages: hreflangMap(path),
+  };
+}
+
+/**
+ * Routes whose body is translated, and so earn a locale URL of their own.
+ * `app/sitemap.ts` reads this to decide how many locales to submit; keep the
+ * two in step.
+ */
+export const TRANSLATED_PATHS = new Set(["", "/faq", "/compare"]);
+export const isTranslatedPath = (path: string) =>
+  TRANSLATED_PATHS.has(path) || path.startsWith("/compare/");
 
 const STRINGS: Record<string, Record<Locale, string>> = {
   site_name: {

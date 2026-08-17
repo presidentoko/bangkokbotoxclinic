@@ -32,10 +32,16 @@ export default function robots(): MetadataRoute.Robots {
       // /llms.txt for AI crawlers) — every other /api/* route is a functional
       // endpoint (contact form, click tracking, search, saved-packages lookup)
       // with no indexable content, so those stay blocked.
+      // /*/saved used to be disallowed. It is linked from the header of every
+      // page, so blocking it did not stop Google queuing it — it stopped
+      // Google reading the `noindex` on it, and the URL sat in "Blocked by
+      // robots.txt" (381 pages) indefinitely. A crawlable page carrying
+      // noindex gets dropped cleanly instead; the same is true of
+      // /for-clinics. Blocking is only right for URLs nothing links to.
       {
         userAgent: "*",
         allow: ["/", "/api/prices"],
-        disallow: ["/api/contact", "/api/track", "/api/search", "/api/packages", "/*/saved"],
+        disallow: ["/api/contact", "/api/track", "/api/search", "/api/packages"],
       },
     ],
     sitemap: "https://www.bangkoktopclinic.com/sitemap.xml",

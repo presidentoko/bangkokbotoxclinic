@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, t, catLabel, CATEGORIES, hreflangMap } from "@/lib/i18n";
+import { type Locale, t, catLabel, CATEGORIES, localeAlternates } from "@/lib/i18n";
 import { homeT } from "@/lib/home-i18n";
 import { getStatsForHome, getPackagesByCategory, getCategories, getRecentPriceChanges, type PackageRow, type CategoryCount } from "@/lib/db";
 
@@ -18,10 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     // keywords people actually search, and pushed the title to 85 characters.
     title: hc.ogTitle,
     description: hc.metaDescription,
-    alternates: {
-      canonical: `${BASE}/${locale}`,
-      languages: hreflangMap(``),
-    },
+    alternates: localeAlternates(locale, ``, { translated: true }),
     openGraph: {
       title: hc.ogTitle,
       description: hc.ogDescription,
@@ -130,7 +127,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-6xl px-4 py-10 md:py-14">
         <h2 className="text-xl font-bold text-slate-800 mb-6">{hc.browseByType}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-          {CATEGORIES.map((cat) => (
+          {/*
+            Only categories that have packages. CATEGORIES still carries the
+            importers' staging names ("comprehensive", "cardiac", "diabetes",
+            "eye", "liver", "kidney", "brain", "dental"), all of which hold
+            zero rows after fix_all_data.py redistributes them — so the home
+            page, the site's highest-authority page, was linking nine empty
+            comparison tables and inviting Google to crawl them.
+          */}
+          {CATEGORIES.filter((cat) => catCountMap[cat] > 0).map((cat) => (
             <Link key={cat} href={`${base}/compare/${cat}`}
               className="bg-white rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:shadow-md transition-all group active:scale-95">
               <div className="text-2xl mb-2">{CAT_ICONS[cat]}</div>

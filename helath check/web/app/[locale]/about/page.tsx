@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { hreflangMap } from "@/lib/i18n";
+import { localeAlternates } from "@/lib/i18n";
 import { getStatsForHome } from "@/lib/db";
 
 // Static — see the note in app/[locale]/page.tsx.
@@ -17,11 +17,8 @@ export async function generateMetadata({
   void locale;
   return {
     title: "About BangkokCheckup — How We Compare Hospital Prices",
-    description: "BangkokCheckup scrapes health check-up prices directly from hospital websites in Thailand. No paid rankings, no ads, no middlemen. Learn how our comparison tool works.",
-    alternates: {
-      canonical: `${BASE}/${locale}/about`,
-      languages: hreflangMap(`/about`),
-    },
+    description: "How BangkokCheckup collects Thai health check-up prices: which sources, how often, and what the numbers do and do not mean. No paid rankings, no ads, no booking fee.",
+    alternates: localeAlternates(locale, `/about`),
   };
 }
 
@@ -52,8 +49,8 @@ export default async function AboutPage({
       </h1>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-8 text-slate-700 leading-relaxed">
-        BangkokCheckup is an independent, ad-free price comparison tool for health check-up packages at hospitals across Thailand.
-        We scrape prices directly from hospital websites — no paid placements, no affiliate fees influencing rankings.
+        BangkokCheckup is an independent, ad-free price comparison tool for health check-up packages at hospitals and clinics across Thailand.
+        Prices are machine-read from published listings — no paid placements, no affiliate fees influencing rankings, and no fee for using the site.
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-10">
@@ -73,12 +70,18 @@ export default async function AboutPage({
         <section>
           <h2 className="text-lg font-bold text-slate-900 mb-3">How we collect prices</h2>
           <p>
-            Our web scrapers run weekly and pull current prices directly from each hospital&apos;s official health check-up pages.
-            We parse the package name, price, and inclusions (blood tests, X-ray, ultrasound, MRI, cancer markers, etc.) and store them in our database.
-            No manual entry — prices are machine-read from the source.
+            Prices come from two kinds of source: the hospital&apos;s own health check-up pages, and Thai medical booking
+            platforms — chiefly HDmall — where clinics publish a package and its current selling price. Most of the
+            smaller Bangkok clinics on this site list their packages only on those platforms, which is why they are
+            included; the large private hospitals are read from their own sites.
           </p>
           <p className="mt-3">
-            When a hospital updates its prices on their website, our next scrape run picks up the change. The &quot;last updated&quot; timestamp on each package reflects when our system last confirmed the price was current.
+            We parse the package name, price, and inclusions (blood tests, X-ray, ultrasound, MRI, cancer markers, and so on).
+            No manual entry — prices are machine-read from the source. Where a listing shows both a struck-through list
+            price and a promotional price, we record the promotional price, because that is what a patient pays today.
+          </p>
+          <p className="mt-3">
+            The &quot;last updated&quot; timestamp on each package reflects when our system last confirmed the price.
           </p>
         </section>
 
@@ -93,7 +96,7 @@ export default async function AboutPage({
         <section>
           <h2 className="text-lg font-bold text-slate-900 mb-3">Accuracy disclaimer</h2>
           <p>
-            Prices are scraped from public hospital websites and are as accurate as those pages. Hospitals may update prices between our scrape cycles, offer promotions not reflected on their website, or have different pricing for walk-ins vs. bookings.
+            Prices are read from public listings and are only as accurate as those listings. Hospitals may change prices between our runs, run promotions that never reach their website, price walk-ins differently from bookings, or add fees for extra tests once you are there. A promotional price in particular can expire without notice.
             <strong> Always confirm the final price directly with the hospital before booking.</strong>
           </p>
           <p className="mt-3">
@@ -129,7 +132,7 @@ export default async function AboutPage({
           "@type": "Organization",
           name: "BangkokCheckup",
           url: BASE,
-          description: "Independent health check-up price comparison for Thailand hospitals. Prices scraped from hospital websites. No paid rankings.",
+          description: "Independent health check-up price comparison for Thai hospitals and clinics. Prices machine-read from published listings. No paid rankings.",
           foundingDate: "2024",
           knowsAbout: ["Health check-up prices Thailand", "Bangkok hospitals", "Medical tourism Thailand"],
         },

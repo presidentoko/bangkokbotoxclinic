@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { getHospitals, type HospitalSummary } from "@/lib/db";
 import { HospitalSearch } from "@/app/components/HospitalSearch";
 
@@ -19,10 +19,7 @@ export async function generateMetadata({
   return {
     title: "Health Check-Up Hospitals in Thailand — Bangkok, Phuket, Chiang Mai",
     description: "Compare all hospitals offering health check-up packages across Thailand. Bangkok, Phuket, Chiang Mai and 19 more cities. Real prices, JCI-accredited hospitals listed.",
-    alternates: {
-      canonical: `${BASE}/${locale}/hospital`,
-      languages: hreflangMap(`/hospital`),
-    },
+    alternates: localeAlternates(locale, `/hospital`),
   };
 }
 

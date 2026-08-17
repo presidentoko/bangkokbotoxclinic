@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { type Locale, hreflangMap } from "@/lib/i18n";
+import { type Locale, localeAlternates } from "@/lib/i18n";
 import { guideT } from "@/lib/guide-i18n";
 import { ShareButtons } from "@/app/components/ShareButtons";
 
@@ -7130,10 +7130,7 @@ export async function generateMetadata({
   return {
     title: guide.title,
     description: guide.description,
-    alternates: {
-      canonical: `${BASE}/${locale}/guide/${slug}`,
-      languages: hreflangMap(`/guide/${slug}`),
-    },
+    alternates: localeAlternates(locale, `/guide/${slug}`),
     openGraph: {
       title: guide.title,
       description: guide.description,

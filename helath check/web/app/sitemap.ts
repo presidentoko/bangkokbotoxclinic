@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LOCALES, CATEGORIES } from "@/lib/i18n";
+import { LOCALES, CATEGORIES, isTranslatedPath } from "@/lib/i18n";
 
 const BASE = "https://www.bangkoktopclinic.com";
 
@@ -13,19 +13,22 @@ export const revalidate = false;
 // around them are already ASCII.
 const enc = encodeURIComponent;
 
-// Checkup combo pages (/checkup/[cat]/[hospital]) render an English body in
-// every locale, so six locale copies were ~6,800 near-identical URLs — 71% of
-// the sitemap, and the bulk of the "Discovered – currently not indexed" pile
-// in Search Console. Submit the English set only. The other locales stay
-// crawlable through internal links and keep their hreflang cluster; they just
-// stop competing with the pages that actually rank for the crawl budget.
-const COMBO_LOCALES: readonly string[] = ["en"];
+// Which locales a page is submitted in is decided by whether its body is
+// actually translated — see `isTranslatedPath` in lib/i18n.ts, which the
+// pages' canonical tags read from the same source. Measured against the live
+// site in 2026-08: outside the home page, the FAQ and the comparison tables,
+// every route renders byte-identical English under all six `lang` attributes.
+// Submitting six copies of one English page is what put 2,740 URLs in
+// "Discovered — currently not indexed"; the copies stay crawlable through the
+// language switcher, they just canonicalise to the English original.
+const localesFor = (path: string): readonly string[] =>
+  isTranslatedPath(path) ? LOCALES : ["en"];
 
 const CITY_SLUGS = [
   "bangkok", "chiang-mai", "phuket", "pattaya", "hua-hin", "ko-samui",
   "krabi", "chiang-rai", "hat-yai", "khon-kaen", "koh-chang", "udon-thani",
   "korat", "ayutthaya", "chon-buri", "nakhon-si-thammarat", "lampang", "nakhon-pathom",
-  "rayong", "surat-thani", "phitsanulok", "trang",
+  "rayong", "surat-thani", "phitsanulok", "trang", "samut-sakhon",
 ];
 
 const SEGMENT_SLUGS = [
@@ -287,7 +290,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     specs.push({ path: `/guide/${enc(guideSlug)}`, priority: 0.7, changeFrequency: "monthly" });
   }
 
-  // English-only — see COMBO_LOCALES.
   for (const cat of CATEGORIES) {
     if (!realCategories.has(cat)) continue;
     for (const slug of slugs) {
@@ -296,7 +298,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         path: `/checkup/${enc(cat)}/${enc(slug)}`,
         priority: 0.6,
         changeFrequency: "weekly",
-        locales: COMBO_LOCALES,
       });
     }
   }
@@ -307,7 +308,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // report.
   const entries: MetadataRoute.Sitemap = [];
   for (const spec of specs) {
-    const locales = spec.locales ?? LOCALES;
+    const locales = spec.locales ?? localesFor(spec.path);
     // Declaring the locale cluster inline is what stops Google from picking
     // its own canonical among six near-identical URLs — the "Alternate page
     // with proper canonical tag" and "Duplicate, Google chose different
