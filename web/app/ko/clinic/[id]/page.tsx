@@ -4,6 +4,7 @@
 // 한국 의료관광 검색 트래픽 타겟 (2026-07-12 SEO 감사: ko clinic 페이지 부재로
 // layout의 ko hreflang 광고와 실제 페이지 존재가 불일치했던 문제 해결).
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import ClinicPage from "../../../clinic/[id]/page";
 import { loadMasterDb, getClinicById } from "@/lib/data";
 import { getSiteUrl, getSiteConfig, applySiteFilter, resolveOwnerUrl } from "@/lib/site";
@@ -13,7 +14,6 @@ const SITE = getSiteUrl();
 // route segment config 는 직접 선언 — Turbopack 이 `export { ... } from` 재export 를
 // route config 로 인식하지 못해 빌드 실패하므로 부모와 동일 값으로 명시.
 export const revalidate = 2592000;
-export const dynamicParams = false;
 
 // 2026-08-06: 예전엔 EN 라우트의 generateStaticParams 를 그대로 재export 해서
 // 영어와 "완전히 같은" 클리닉 집합을 prerender 했다. /th 도 마찬가지라 배포 1회당
@@ -22,10 +22,18 @@ export const dynamicParams = false;
 //
 // /th 는 유지한다 — 이 사이트의 GSC 상위 검색어가 전부 태국어라 실익이 크다.
 // 반면 /ko 는 사이트맵에 홈 1개만 올라가 있었고 트래픽도 미미했다. 그래서
-// 상위 KO_PRERENDER 개만 빌드하고 나머지는 dynamicParams=false 에 따라 404 로 둔다
-// — 어차피 색인된 적이 없어 잃을 순위가 없고, 봇이 무작위 id 를 두드려도
-// ISR write 가 생기지 않는다(그게 dynamicParams=false 를 쓰는 이유다).
+// 상위 KO_PRERENDER 개만 빌드하고 나머지는 요청 시점에 판단한다(아래 참고).
 const KO_PRERENDER = 200;
+
+// 2026-08-17 GSC 감사: KO_PRERENDER 밖 클리닉은 실재하는데(영문판 200 정상)
+// 404였다 — 예전엔 색인된 적 있던 페이지들이라 next.config.ts에 정적
+// 리다이렉트 441개를 추가했는데, 그게 Vercel "배포당 라우트 2,048개" 상한을
+// 넘겨버렸다(web/ 전체 2,341개). 정적 리다이렉트 테이블 대신 여기서 요청 시점에
+// 판단: 유효한 클리닉인데 캡 밖이면 /clinic/{id}로 redirect(), 아예 없는 id면
+// notFound(). dynamicParams=true로 바꿨지만 렌더링 전에 즉시 redirect/notFound로
+// 빠지므로 무작위 id를 두드리는 봇에 대한 ISR 비용은 여전히 거의 없다
+// (KO 본문 렌더링까지 가는 건 실제로 캡 안에 든 요청뿐).
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
@@ -37,10 +45,24 @@ export async function generateStaticParams() {
     .map((c) => ({ id: c.id }));
 }
 
+async function koCapRedirectTarget(id: string): Promise<string | null> {
+  const db = await loadMasterDb();
+  const cfg = getSiteConfig();
+  const scoped = applySiteFilter(db.clinics, cfg)
+    .slice()
+    .sort((a, b) => b.trust_score - a.trust_score);
+  const inCap = new Set(scoped.slice(0, KO_PRERENDER).map((c) => c.id));
+  if (inCap.has(id)) return null; // 정상 렌더 대상
+  const stillScoped = scoped.some((c) => c.id === id);
+  return stillScoped ? `/clinic/${id}` : null; // 소관 밖/미존재는 아래 getClinicById가 처리
+}
+
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata> {
   const { id } = await params;
+  const redirectTo = await koCapRedirectTarget(id);
+  if (redirectTo) redirect(redirectTo);
   const db = await loadMasterDb();
   const c = getClinicById(db.clinics, id);
   if (!c) return { title: "클리닉을 찾을 수 없습니다" };
@@ -86,6 +108,9 @@ export async function generateMetadata(
 // 넘어갔다. 그 결과 canonical 은 /ko/clinic/{id} 인데 JSON-LD 의 url·breadcrumb·
 // speakable 은 전부 영어 경로를 뱉어, 같은 문서가 자기 자신을 서로 다른 두 URL
 // 이라고 주장했다. /th 는 2026-07-31에 같은 수정을 받았지만 /ko 는 누락됐었다.
-export default function KoClinicPage(props: { params: Promise<{ id: string }> }) {
+export default async function KoClinicPage(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
+  const redirectTo = await koCapRedirectTarget(id);
+  if (redirectTo) redirect(redirectTo);
   return ClinicPage({ ...props, lang: "ko" });
 }
