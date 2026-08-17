@@ -26,6 +26,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import math
 from pathlib import Path
@@ -140,6 +141,17 @@ def main() -> int:
         if touched:
             print(f"[apify] {path.stem}: {touched} venues updated")
             if not args.dry_run:
+                # Stamp the file we just rewrote. Without this the field keeps
+                # the original scrape's date forever, and sitemap.ts — which
+                # reads it as <lastmod> — tells Google the venue data hasn't
+                # moved since June while it has been rewritten twice. The
+                # 2026-08 backfill changed 1,600 records and left the date at
+                # 2026-06-20, which is what pushed sitemap.ts into using build
+                # time instead: a value that changes on every deploy and that
+                # Google therefore learns to ignore.
+                db["generated_at"] = (
+                    dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00", "Z")
+                )
                 path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"\n[apify] filled — photos {totals['photos']}, rating {totals['rating']}, "

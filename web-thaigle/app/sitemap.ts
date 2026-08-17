@@ -23,15 +23,31 @@ export const dynamic = "force-static";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
   const cities = Object.keys(db.city_counts);
-  // db.generated_at is the scrape timestamp, which has been frozen at
-  // 2026-06-19 while the site itself shipped weeks of content and template
-  // changes — every <lastmod> in the sitemap was telling Google "nothing has
-  // changed here since June", which suppresses recrawl. The build time is the
-  // honest answer: these are fully static pages, so the deploy IS the last
-  // time their HTML changed. Falls back to the data date if it's newer.
-  const dataDate = new Date(db.generated_at);
-  const buildDate = new Date();
-  const updated = dataDate > buildDate ? dataDate : buildDate;
+  // <lastmod> has to move when the content moves and stay put when it doesn't.
+  //
+  // This used to be `new Date()` — the build time — because db.generated_at
+  // was frozen at 2026-06-19 and every URL was claiming nothing had changed
+  // since June. But build time has the opposite failure: this repo redeploys
+  // whenever any dataset updates, so all 7,523 URLs got a fresh lastmod
+  // several times a week, and Google's documented response to a sitemap that
+  // restamps everything on every generation is to stop trusting lastmod at
+  // all. That costs exactly the recrawl the field exists to buy.
+  //
+  // The real bug was upstream: the enrichment scripts rewrote the niche files
+  // without restamping generated_at. Fixed there and backfilled from git, so
+  // these dates are now what they always claimed to be — the date that data
+  // last changed. Restaurant and activity data move independently, so they
+  // get separate values rather than one shared maximum.
+  const restaurantsUpdated = new Date(db.generated_at);
+  const nicheDates = await Promise.all(
+    NICHES.map(async (n) => new Date((await loadNicheDb(n.slug as NicheSlug)).generated_at)),
+  );
+  const activitiesUpdated = new Date(Math.max(...nicheDates.map((d) => d.getTime())));
+  // Editorial and template-driven pages have no dataset behind them; the most
+  // recent of the two is the closest honest answer for those.
+  const updated = new Date(
+    Math.max(restaurantsUpdated.getTime(), activitiesUpdated.getTime()),
+  );
 
   const items: MetadataRoute.Sitemap = [
     { url: SITE, lastModified: updated, changeFrequency: "daily", priority: 1.0 },
@@ -211,7 +227,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   for (const nd of nicheDbs) {
     for (const p of nd.places) {
-      items.push({ url: `${SITE}/activities/${nd.slug}/${encodeURIComponent(p.slug)}`, lastModified: updated, changeFrequency: "weekly", priority: 0.75 });
+      items.push({ url: `${SITE}/activities/${nd.slug}/${encodeURIComponent(p.slug)}`, lastModified: activitiesUpdated, changeFrequency: "weekly", priority: 0.75 });
     }
   }
 
@@ -308,7 +324,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (!r) continue;
     items.push({
       url: `${SITE}${restaurantUrl(entry)}`,
-      lastModified: updated,
+      lastModified: restaurantsUpdated,
       changeFrequency: "weekly",
       priority: r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4,
     });
