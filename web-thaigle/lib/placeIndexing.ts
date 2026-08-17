@@ -52,6 +52,20 @@ export const BLOCKED_PLACE_PATHS: string[] = BLOCKED_PLACE_LANGS.map(
  * never resolved change, and they keep their trailing unique id, so an
  * all-Thai name degrades to "{category}-{id}" — verified 0 collisions.
  */
+/**
+ * Build a link to a place detail page, falling back to "en" for any lang
+ * outside PLACE_LANGS (ja/ru/ar) — those homepages exist (SUPPORTED_LANGS in
+ * app/[lang]/page.tsx) but /{lang}/place/* is only statically generated for
+ * th/en/ko (dynamicParams=false), so linking with the raw lang 404s. Every
+ * place-linking call site should go through this instead of hand-rolling
+ * `/${lang}/place/${slug}` — that pattern has recurred bug-for-bug in five
+ * different files.
+ */
+export function placeHref(lang: string, slug: string): string {
+  const safeLang = (PLACE_LANGS as readonly string[]).includes(lang) ? lang : "en";
+  return `/${safeLang}/place/${encodeURIComponent(slug)}`;
+}
+
 export function asciiSlug(slug: string): string {
   if (!/[^\x00-\x7F]/.test(slug)) return slug;
   return slug

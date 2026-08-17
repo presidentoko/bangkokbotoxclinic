@@ -6,15 +6,14 @@ import { plannerStore, CATEGORY_COLORS } from "@/lib/plan/store";
 import type { PlanItem, TravelSegment } from "@/lib/plan/store";
 import { trackShare } from "@/lib/track";
 import { localsScoreColor } from "@/lib/localsScoreColor";
-
-const SUPPORTED_LANGS = ["th", "en", "ko"];
+import { PLACE_LANGS, placeHref } from "@/lib/placeIndexing";
 
 // Reads the current /[lang]/... segment so place links + the share URL stay
 // in the visitor's language instead of always bouncing to /en/.
 function useCurrentLang(): string {
   const pathname = usePathname();
   const seg = pathname.split("/")[1];
-  return SUPPORTED_LANGS.includes(seg) ? seg : "en";
+  return (PLACE_LANGS as readonly string[]).includes(seg) ? seg : "en";
 }
 
 const TRAVEL_ICON: Record<string, string> = {
@@ -51,7 +50,7 @@ function SlotCard({ item, onRemove }: { item: PlanItem; onRemove: () => void }) 
         {/* Name + score */}
         <div className="flex items-center justify-between gap-2 mb-1">
           <a
-            href={`/${lang}/place/${item.slug}`}
+            href={placeHref(lang, item.slug)}
             className="font-black text-sm leading-tight hover:text-orange-700 transition truncate"
           >
             {item.name}

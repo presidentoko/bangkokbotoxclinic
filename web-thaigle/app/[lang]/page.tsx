@@ -5,6 +5,7 @@ import { HomeSearch } from "@/components/HomeSearch";
 import { CATEGORY_COLORS } from "@/lib/plan/store";
 import type { Category } from "@/lib/plan/store";
 import { localsScoreColor } from "@/lib/localsScoreColor";
+import { placeHref } from "@/lib/placeIndexing";
 
 export const dynamic = "force-static";
 
@@ -111,7 +112,7 @@ export default async function LangHomePage({
               return (
                 <a
                   key={place.slug}
-                  href={`/${lang}/place/${place.slug}`}
+                  href={placeHref(lang, place.slug)}
                   className="block bg-white border border-[var(--border)] rounded-2xl p-4 hover:border-orange-300 hover:shadow-sm transition group"
                 >
                   <div className="flex items-start gap-3 mb-2">

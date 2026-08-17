@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { isUrl, detectPlatform } from "@/lib/searchUtils";
 import type { SearchResult } from "@/lib/searchUtils";
+import { placeHref } from "@/lib/placeIndexing";
 
 // lib/search.ts carries a ~324KB search index — loaded on demand the first
 // time someone actually types a text query, not on every visit to a page
@@ -90,7 +91,7 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
     // Text search — single match → direct navigate
     const found = await searchPlaces(val, 1);
     if (found.length === 1) {
-      router.push(`/${lang}/place/${found[0].slug}`);
+      router.push(placeHref(lang, found[0].slug));
     } else if (found.length > 1) {
       setResults(found);
       setMode("searching");
@@ -112,7 +113,7 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
       setLinkResult(data);
 
       if (data.status === "matched" && !data.needsConfirmation && data.matches?.[0]) {
-        router.push(`/${lang}/place/${data.matches[0].slug}`);
+        router.push(placeHref(lang, data.matches[0].slug));
       } else {
         setMode("confirm-match");
       }
@@ -195,7 +196,7 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
             return (
               <a
                 key={r.slug}
-                href={`/${lang}/place/${r.slug}`}
+                href={placeHref(lang, r.slug)}
                 className="flex items-center gap-3 px-4 py-3 hover:bg-orange-50 transition border-b border-[var(--border)] last:border-b-0"
               >
                 <span
@@ -248,7 +249,7 @@ export function HomeSearch({ lang = "en" }: { lang?: string }) {
               {linkResult.matches.map((m) => (
                 <a
                   key={m.slug}
-                  href={`/${lang}/place/${m.slug}`}
+                  href={placeHref(lang, m.slug)}
                   className="flex items-center gap-3 p-3 rounded-xl hover:bg-orange-50 transition mb-2 border border-[var(--border)]"
                 >
                   <div className="flex-1 min-w-0">
