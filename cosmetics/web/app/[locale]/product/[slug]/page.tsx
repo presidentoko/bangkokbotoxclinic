@@ -11,7 +11,7 @@ import {
   keyIngredients,
   cheaperAlternatives,
 } from "@/lib/data";
-import { STATIC_LOCALES, localeAlternates, t, toBaseLocale, type Locale } from "@/lib/i18n";
+import { STATIC_LOCALES, thaiOnlyAlternates, t, toBaseLocale, type Locale } from "@/lib/i18n";
 import { productLd, breadcrumbLd } from "@/lib/schema";
 import { JsonLd } from "@/components/JsonLd";
 import { AffiliateButton } from "@/components/AffiliateButton";
@@ -44,10 +44,15 @@ const BASE = "https://bangkokfillers.com";
 // permanently 404 those products, not "render on-demand" as the old comment
 // claimed — if a future selective filter is reintroduced, make sure excluded
 // products are also dropped from app/sitemap.ts.)
+// Thai only. The /en product pages were `noindex` for every product (no
+// llm_summary.en exists, so the body reused the Thai copy verbatim), which made
+// 1,003 pages plus 1,003 generated OG images permanently unable to rank while
+// still costing a crawl each — on a site where Google indexes 548 pages total.
+// middleware.ts now 308s /en/product/* onto the Thai URL. Restore
+// STATIC_LOCALES.flatMap here, the "en" hreflang entry below, and remove the
+// middleware block once the pipeline produces real English summaries.
 export function generateStaticParams() {
-  return STATIC_LOCALES.flatMap((locale) =>
-    allProducts().map((p) => ({ locale, slug: productSlug(p) }))
-  );
+  return allProducts().map((p) => ({ locale: "th", slug: productSlug(p) }));
 }
 
 export async function generateMetadata({
@@ -94,7 +99,7 @@ export async function generateMetadata({
       : {}),
     alternates: {
       canonical: `${BASE}/${locale}/product/${slug}`,
-      languages: localeAlternates((l) => `${BASE}/${l}/product/${slug}`),
+      languages: thaiOnlyAlternates(`${BASE}/th/product/${slug}`),
     },
     openGraph: {
       title,

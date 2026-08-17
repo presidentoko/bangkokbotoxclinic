@@ -25,6 +25,7 @@ import routeIndex from "@/data/route-index.json";
 
 const PRODUCT_IDS = new Set(routeIndex.productIds);
 const BRAND_SLUGS = new Set(routeIndex.brandSlugs);
+const THIN_BRAND_SLUGS = new Set(routeIndex.thinBrandSlugs ?? []);
 
 // Mirrors productIdFromSlug() in lib/format.ts.
 function idFromSlug(slug: string): string {
@@ -47,13 +48,56 @@ function brandSlugFromProductSlug(slug: string): string | null {
   return null;
 }
 
+function permanentRedirect(request: NextRequest, pathname: string) {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  url.search = "";
+  return NextResponse.redirect(url, 308);
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Thin brands have fewer than three products, so their dupe page has nothing
+  // to compare against. Those pages already carried noindex, meaning they were
+  // costing a crawl each while being ineligible to rank — 318 across both
+  // locales, on a site where Google is currently indexing 548 pages total.
+  // Send them to the brand page, which shows the same products with real
+  // content around them.
+  const dupeMatch = /^\/(th|en)\/dupe\/([^/]+)$/.exec(pathname);
+  if (dupeMatch) {
+    const [, locale, rawBrand] = dupeMatch;
+    let brand = rawBrand;
+    try {
+      brand = decodeURIComponent(rawBrand);
+    } catch {
+      // Malformed %-sequence — compare the raw value.
+    }
+    if (THIN_BRAND_SLUGS.has(brand) || THIN_BRAND_SLUGS.has(rawBrand)) {
+      return permanentRedirect(request, `/${locale}/brand/${rawBrand}`);
+    }
+    return NextResponse.next();
+  }
 
   const match = /^\/(th|en)\/product\/([^/]+)$/.exec(pathname);
   if (!match) return NextResponse.next();
 
   const [, locale, rawSlug] = match;
+
+  // Every /en product page carried `noindex` because none of them has an
+  // English body: llm_summary.en is empty for all 1,003 products, so the page
+  // reused the Thai description verbatim. That made 1,003 pages (plus 1,003
+  // generated OG images) permanently ineligible to rank while still consuming
+  // crawl budget. Consolidating them onto the Thai URL removes ~2,000 pages
+  // from the crawl surface and loses no search value, since none of them could
+  // ever appear in results.
+  //
+  // To reinstate the English product pages, delete this block and restore the
+  // "en" entry in localeAlternates for the product route — the pages become
+  // worth having again once the pipeline produces real English summaries.
+  if (locale === "en") {
+    return permanentRedirect(request, `/th/product/${rawSlug}`);
+  }
 
   // Live product — hand straight to the prerendered page.
   if (PRODUCT_IDS.has(idFromSlug(rawSlug))) return NextResponse.next();
@@ -63,16 +107,11 @@ export function middleware(request: NextRequest) {
   // gone too. 308 (not 307) so the redirect is cacheable and Google treats it as
   // permanent — these products are not coming back under the same id.
   const brand = brandSlugFromProductSlug(rawSlug);
-  const target = brand ? `/${locale}/brand/${brand}` : `/${locale}`;
-
-  const url = request.nextUrl.clone();
-  url.pathname = target;
-  url.search = "";
-  return NextResponse.redirect(url, 308);
+  return permanentRedirect(request, brand ? `/${locale}/brand/${brand}` : `/${locale}`);
 }
 
 export const config = {
-  // Only product detail URLs reach this. Everything else — static assets, the
-  // sitemap, every other route — skips middleware entirely.
-  matcher: ["/:locale(th|en)/product/:slug"],
+  // Only product and dupe detail URLs reach this. Everything else — static
+  // assets, the sitemap, every other route — skips middleware entirely.
+  matcher: ["/:locale(th|en)/product/:slug", "/:locale(th|en)/dupe/:brand"],
 };

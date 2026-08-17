@@ -18,6 +18,19 @@ export function localeAlternates(pathForLocale: (locale: Locale) => string): Rec
   return out;
 }
 
+/**
+ * hreflang for routes that only exist in Thai.
+ *
+ * Product pages are Thai-only: the /en versions were noindex for every product
+ * and now 308 onto the Thai URL (see middleware.ts). Listing an "en" alternate
+ * that redirects would make the whole hreflang cluster invalid — an alternate
+ * has to be a self-canonical page that points back, and a redirect target
+ * cannot.
+ */
+export function thaiOnlyAlternates(path: string): Record<string, string> {
+  return { th: path, "x-default": path };
+}
+
 // Next.js merges metadata SHALLOWLY: a route whose generateMetadata returns its
 // own `openGraph` object replaces the parent's wholesale — including the image
 // injected by the file-convention app/[locale]/opengraph-image.tsx. Every route

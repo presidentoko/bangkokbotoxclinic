@@ -33,8 +33,13 @@ function primaryConcern(seeds: string | string[]): Concern {
   return "acne";
 }
 
+// Brands with fewer than three products have nothing to build a dupe
+// comparison from, so their pages already emitted noindex — 318 pages across
+// both locales that could never rank but still cost a crawl each. They are no
+// longer generated; middleware.ts 308s those URLs to the brand page, which
+// shows the same products with real content around them.
 export async function generateStaticParams() {
-  const brands = allBrands();
+  const brands = allBrands().filter((brand) => brandProducts(brand).length >= 3);
   return STATIC_LOCALES.flatMap((locale) =>
     brands.map((brand) => ({
       locale,
