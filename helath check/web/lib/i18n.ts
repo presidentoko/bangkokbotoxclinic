@@ -105,6 +105,11 @@ const STRINGS: Record<string, Record<Locale, string>> = {
   nav_hospitals: { en: "Hospitals", zh: "医院",   ar: "مستشفيات", ja: "病院",      th: "โรงพยาบาล",   ko: "병원" },
   nav_guide:     { en: "Guide",     zh: "指南",   ar: "دليل",     ja: "ガイド",    th: "คู่มือ",       ko: "가이드" },
   nav_enquiry:   { en: "Enquiry",   zh: "和询",   ar: "استفسار",  ja: "お問合せ",  th: "สอบถาม",       ko: "문의" },
+  // These two were referenced by NavBar but never defined, so t() fell back to
+  // returning the key: every page in every language showed the literal strings
+  // "nav_trends" and "nav_saved" in its main navigation.
+  nav_trends:    { en: "Price trends", zh: "价格走势", ar: "اتجاهات الأسعار", ja: "価格推移", th: "แนวโน้มราคา", ko: "가격 추이" },
+  nav_saved:     { en: "Saved",     zh: "已收藏", ar: "المحفوظة",  ja: "保存済み",  th: "ที่บันทึกไว้",  ko: "저장됨" },
   // categories
   cat_comprehensive: { en: "Comprehensive", zh: "全面体检", ar: "شامل",         ja: "総合健診",       th: "ครบวงจร",         ko: "종합검진" },
   cat_executive:     { en: "Executive",     zh: "高管体检", ar: "تنفيذي",       ja: "エグゼクティブ", th: "เอ็กเซกคิวทีฟ",  ko: "프리미엄검진" },

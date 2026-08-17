@@ -144,7 +144,11 @@ function Footer({ locale }: { locale: Locale }) {
         </div>
         <div>
           <p className="font-semibold text-slate-800 mb-2">Compare</p>
-          {["executive", "comprehensive", "cancer", "cardiac", "women", "men"].map((c) => (
+          {/* "comprehensive" and "cardiac" hold zero packages since
+              fix_all_data.py redistributes the importers' staging categories,
+              and next.config.ts now 308s both to /compare — so every page on
+              the site was linking two redirects from its footer. */}
+          {["executive", "standard", "basic", "cancer", "heart", "women", "men", "senior"].map((c) => (
             <Link key={c} href={`${base}/compare/${c}`} className="block hover:text-blue-600 capitalize py-0.5">{c}</Link>
           ))}
         </div>
