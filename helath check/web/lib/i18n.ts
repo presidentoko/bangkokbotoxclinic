@@ -77,7 +77,25 @@ export function localeAlternates(
  * `app/sitemap.ts` reads this to decide how many locales to submit; keep the
  * two in step.
  */
-export const TRANSLATED_PATHS = new Set(["", "/faq", "/compare"]);
+export const TRANSLATED_PATHS = new Set([
+  "",
+  "/faq",
+  "/compare",
+  "/for/japanese-health-checkup-bangkok",
+  "/for/korean-health-checkup-bangkok",
+  "/for/chinese-health-checkup-bangkok",
+  "/for/arabic-health-checkup-bangkok",
+  "/guide/best-hospitals-japanese-tourists",
+  "/guide/best-hospitals-korean-tourists",
+  "/guide/best-hospitals-chinese-speakers",
+  "/guide/best-hospitals-arabic-speakers",
+  "/guide/health-checkup-japan-vs-thailand",
+  "/guide/health-checkup-south-korea-vs-thailand",
+  "/guide/health-checkup-taiwan-vs-thailand",
+  "/guide/health-checkup-uae-vs-thailand",
+  "/guide/health-checkup-saudi-arabia-vs-thailand",
+  "/guide/health-checkup-egypt-vs-thailand",
+]);
 export const isTranslatedPath = (path: string) =>
   TRANSLATED_PATHS.has(path) || path.startsWith("/compare/");
 
