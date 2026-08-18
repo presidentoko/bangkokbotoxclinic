@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { loadFoods, foodSlug } from '@/lib/petfood'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
+import { getIndexableDistricts } from '@/lib/districts'
 import { BREEDS } from '@/lib/breeds'
 
 const BASE = 'https://www.thailandpethub.com'
@@ -108,6 +109,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'weekly',
   }))
 
+  const districtPages: MetadataRoute.Sitemap = getIndexableDistricts().map(d => ({
+    url: `${BASE}/hospital/area/${d.district.slug}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'weekly' as const,
+    // Above the individual clinic pages: these target the query class that
+    // actually converts, and each one links onward to its clinics.
+    priority: 0.85,
+  }))
+
   const hospitalPages: MetadataRoute.Sitemap = hospitals.map(h => ({
     url: `${BASE}/hospital/${hospitalSlug(h)}`,
     lastModified: parsedDate(h.updated_at),
@@ -125,6 +135,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPages.map(p => ({ lastModified: BUILD_DATE, ...p })),
     ...foodPages,
+    ...districtPages,
     ...hospitalPages,
     ...breedPages,
   ]

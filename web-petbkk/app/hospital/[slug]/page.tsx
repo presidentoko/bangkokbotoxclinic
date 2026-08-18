@@ -7,6 +7,7 @@ import PantipReviews from '@/components/PantipReviews'
 import RelatedGuides from '@/components/RelatedGuides'
 import type { Metadata } from 'next'
 import type { Hospital } from '@/lib/types'
+import { districtForHospital } from '@/lib/districts'
 
 export const dynamicParams = false
 
@@ -161,14 +162,17 @@ function HospitalFaqJsonLd({ h }: { h: Hospital }) {
   )
 }
 
-function BreadcrumbJsonLd({ name }: { name: string }) {
+function BreadcrumbJsonLd({ name, district }: { name: string; district: { th: string; slug: string } | null }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: 'https://www.thailandpethub.com' },
       { '@type': 'ListItem', position: 2, name: 'โรงพยาบาลสัตว์', item: 'https://www.thailandpethub.com/hospital' },
-      { '@type': 'ListItem', position: 3, name },
+      ...(district
+        ? [{ '@type': 'ListItem', position: 3, name: `เขต${district.th}`, item: `https://www.thailandpethub.com/hospital/area/${district.slug}` }]
+        : []),
+      { '@type': 'ListItem', position: district ? 4 : 3, name },
     ],
   }
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -202,10 +206,13 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
       '@type': 'PostalAddress',
       ...(h.address ? { streetAddress: h.address } : {}),
       addressCountry: 'TH',
-      addressLocality: 'Bangkok',
-      addressRegion: 'Bangkok',
+      addressLocality: h.district ? `เขต${h.district}` : 'Bangkok',
+      addressRegion: 'กรุงเทพมหานคร',
     },
-    areaServed: { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+    areaServed: h.district
+      ? { '@type': 'Place', name: `เขต${h.district} กรุงเทพมหานคร` }
+      : { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+    ...(h.website ? { sameAs: [h.website] } : {}),
     // Only published for the 40 records with a coordinate of their own. The
     // other 463 carry the grid probe point, and feeding Google a GeoCoordinates
     // that puts a Thonburi clinic in Pathum Wan is worse than sending none.
@@ -258,6 +265,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   // to the grid probe point instead. Falling back to a name+address text query
   // lets Google resolve the business itself, which it does reliably for a named
   // clinic — a lookup, rather than a confidently wrong pin.
+  const district = districtForHospital(h)
   const precise = hasPreciseCoord(h)
   const mapsQuery = precise
     ? `${h.lat},${h.lng}`
@@ -345,10 +353,26 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
           <span className="mt-0.5 text-gray-400">📍</span>
           <span className="text-gray-700">{h.address}</span>
         </div>
+        {district && (
+          <div className="flex items-center gap-2">
+            <span className="text-gray-400">🗺️</span>
+            <a href={`/hospital/area/${district.slug}`} className="text-blue-600 hover:underline">
+              ดูโรงพยาบาลสัตว์อื่นในเขต{district.th}
+            </a>
+          </div>
+        )}
         {h.phone && (
           <div className="flex items-center gap-2">
             <span className="text-gray-400">📞</span>
             <a href={`tel:${h.phone}`} className="text-gray-700 hover:text-green-600">{h.phone}</a>
+          </div>
+        )}
+        {h.website && (
+          <div className="flex items-center gap-2">
+            <span className="text-gray-400">🌐</span>
+            <a href={h.website} target="_blank" rel="noopener noreferrer nofollow" className="text-blue-600 hover:underline truncate">
+              เว็บไซต์ทางการ
+            </a>
           </div>
         )}
         {h.price_consult != null && (
@@ -468,7 +492,7 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
 
       <HospitalFaqJsonLd h={h} />
 
-      <BreadcrumbJsonLd name={h.name_th} />
+      <BreadcrumbJsonLd name={h.name_th} district={district} />
       <LocalBusinessJsonLd h={h} slug={slug} />
     </main>
   )

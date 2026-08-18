@@ -21,7 +21,7 @@ const HOSPITAL_CHIPS = [
 
 const STATS = [
   { num: '986', label: 'อาหารที่ตรวจสอบแล้ว', icon: '🍖' },
-  { num: '503', label: 'โรงพยาบาลสัตว์', icon: '🏥' },
+  { num: '496', label: 'โรงพยาบาลสัตว์', icon: '🏥' },
   { num: '฿0', label: 'ค่าบริการ ฟรีตลอด', icon: '💝' },
 ]
 
@@ -96,7 +96,7 @@ export default function HomePage() {
             ตรวจสอบอาหารสัตว์เลี้ยง · หาโรงพยาบาลสัตว์ใกล้คุณ
           </h1>
           <p className="text-white/85 text-base sm:text-lg font-medium mb-8 leading-relaxed">
-            เช็คส่วนผสมและเกรด A–F ของอาหาร 986 รายการ ค้นโรงพยาบาลสัตว์ 503 แห่งในกรุงเทพ<br/>
+            เช็คส่วนผสมและเกรด A–F ของอาหาร 986 รายการ ค้นโรงพยาบาลสัตว์ 496 แห่งในกรุงเทพ<br/>
             <span className="text-white/70 text-sm sm:text-base">ดูแลน้องได้ครบ ฟรี 100%</span>
           </p>
 
