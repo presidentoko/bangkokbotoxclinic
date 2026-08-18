@@ -69,9 +69,65 @@ export function filterHospitals(filters: HospitalFilters = {}): Hospital[] {
   return list
 }
 
-export function getNearbyHospitals(hospital: Hospital, count = 3): Array<{ hospital: Hospital; distKm: number }> {
-  return loadHospitals()
-    .filter(h => h.id !== hospital.id)
+/**
+ * 463 of the 503 records (92%) sit on a coordinate shared with at least one
+ * other hospital, because `petvet/transform.py` writes `first_seen_lat/lng` —
+ * the grid *probe point* the clinic was discovered from — as the clinic's own
+ * location. 99 records share the grid centre 13.74629,100.53005 alone, among
+ * them clinics that are genuinely in Thonburi, Pathum Wan and Bangkok Noi.
+ *
+ * A shared coordinate is therefore a reliable "this is the grid cell, not the
+ * clinic" marker. Everything that would otherwise assert a location — the
+ * GeoCoordinates JSON-LD, the map link, the "0.0 km away" labels — checks this
+ * first, so the site stays silent about a location rather than stating a wrong
+ * one. Real coordinates need a Places API (New) backfill keyed on place_id.
+ */
+let preciseIds: Set<string> | null = null
+
+function getPreciseIds(): Set<string> {
+  if (preciseIds) return preciseIds
+  const counts = new Map<string, number>()
+  for (const h of loadHospitals()) {
+    const key = `${h.lat.toFixed(5)},${h.lng.toFixed(5)}`
+    counts.set(key, (counts.get(key) ?? 0) + 1)
+  }
+  preciseIds = new Set(
+    loadHospitals()
+      .filter(h => counts.get(`${h.lat.toFixed(5)},${h.lng.toFixed(5)}`) === 1)
+      .map(h => h.id)
+  )
+  return preciseIds
+}
+
+export function hasPreciseCoord(h: Hospital): boolean {
+  return Boolean(h.lat && h.lng) && getPreciseIds().has(h.id)
+}
+
+/**
+ * Related hospitals. `distKm` is only returned when *both* endpoints have a
+ * trustworthy coordinate — otherwise the caller gets null and renders the card
+ * without a distance, instead of the "0.0 km" that 99 co-located records used
+ * to produce.
+ */
+export function getNearbyHospitals(
+  hospital: Hospital,
+  count = 3,
+): Array<{ hospital: Hospital; distKm: number | null }> {
+  const anchorPrecise = hasPreciseCoord(hospital)
+  const others = loadHospitals().filter(h => h.id !== hospital.id)
+
+  if (!anchorPrecise) {
+    // No usable origin, so "nearby" is unknowable. Fall back to the strongest
+    // alternatives by rating — still a useful card, just not a distance claim.
+    return others
+      .filter(h => h.google_rating != null)
+      .sort((a, b) => (b.google_rating ?? 0) - (a.google_rating ?? 0))
+      .slice(0, count)
+      .map(h => ({ hospital: h, distKm: null }))
+  }
+
+  return others
+    .filter(h => hasPreciseCoord(h))
     .map(h => ({ hospital: h, distKm: haversineKm(hospital.lat, hospital.lng, h.lat, h.lng) }))
     .sort((a, b) => a.distKm - b.distKm)
     .slice(0, count)

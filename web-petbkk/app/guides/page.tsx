@@ -110,7 +110,7 @@ const CATEGORIES = [
     color: 'border-gray-200 bg-gray-50',
     headerColor: 'text-gray-600',
     guides: [
-      { href: '/hospital',    icon: '🏥', title: 'หาโรงพยาบาล',    desc: '503 แห่งทั่วไทย' },
+      { href: '/hospital',    icon: '🏥', title: 'หาโรงพยาบาล',    desc: '503 แห่งในกรุงเทพ' },
       { href: '/adopt',       icon: '💚', title: 'รับเลี้ยงแทนซื้อ', desc: 'องค์กรช่วยสัตว์' },
       { href: '/cost',        icon: '💰', title: 'ค่าใช้จ่าย',       desc: 'ประมาณรายเดือน' },
       { href: '/compare',     icon: '⚖️', title: 'เปรียบเทียบอาหาร', desc: 'เทียบ 3 ยี่ห้อ' },

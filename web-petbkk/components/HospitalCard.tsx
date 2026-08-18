@@ -53,14 +53,13 @@ export default function HospitalCard({ hospital: h, distanceKm }: Props) {
             24 ชม.
           </span>
         )}
-        {h.has_emergency && (
-          <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-[11px] font-semibold">
-            ฉุกเฉิน
-          </span>
-        )}
-        {h.has_surgery && (
-          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-[11px] font-semibold">
-            ผ่าตัด
+        {/* `has_emergency` is false on all 503 records and `has_surgery` true on
+            all 503, so these two badges were pure noise: one never showed, the
+            other showed on every card and carried no information. Review volume
+            actually differs between clinics. */}
+        {h.google_review_count != null && h.google_review_count >= 500 && (
+          <span className="px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full text-[11px] font-semibold">
+            {h.google_review_count.toLocaleString()} รีวิว
           </span>
         )}
         {distanceKm != null && (

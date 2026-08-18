@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: 'โปรไฟล์น้อง — ติดตามวัคซีน ถ่ายพยาธิ และสุขภาพ',
   description: 'บันทึกข้อมูลน้องของคุณ ติดตามวันครบกำหนดวัคซีน ถ่ายพยาธิ และยาหมัดเห็บ ไม่ต้องสมัครสมาชิก เก็บในอุปกรณ์ของคุณ',
   alternates: { canonical: 'https://www.thailandpethub.com/my-pet' },
+  // PetProfile holds back its render until localStorage has loaded
+  // (`if (!loaded) return null`), so this route prerenders to an empty document.
+  // Googlebot carries no localStorage, so there is no state under which this
+  // page has content for it — the same reason /saved is excluded.
+  robots: { index: false, follow: true },
   keywords: ['โปรไฟล์สัตว์เลี้ยง', 'ติดตามวัคซีน', 'ปฏิทินสัตว์เลี้ยง', 'บันทึกสุขภาพน้อง'],
   openGraph: {
     title: 'โปรไฟล์น้อง — ติดตามวัคซีน ถ่ายพยาธิ ยาหมัด',

@@ -59,7 +59,9 @@ export default async function og({ params }: { params: Promise<{ slug: string }>
   // Build badge labels as a plain string to avoid conditional children
   const badgeParts: string[] = []
   if (h.is_24h) badgeParts.push('24 ชม.')
-  if (h.has_surgery) badgeParts.push('ผ่าตัด')
+  // `has_surgery` is hardcoded true upstream, so the "ผ่าตัด" badge appeared on
+  // every one of the 503 share images and distinguished nothing.
+  if (h.google_rating != null && h.google_rating >= 4.5) badgeParts.push('คะแนน 4.5+')
   const badgeText = badgeParts.join('  ·  ')
 
   return new ImageResponse(

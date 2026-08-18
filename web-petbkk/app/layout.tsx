@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.thailandpethub.com'),
   title: {
-    default: 'PetBKK — ตรวจสอบอาหารและโรงพยาบาลสัตว์เลี้ยงในไทย',
+    default: 'ThailandPetHub — ตรวจสอบอาหารสัตว์เลี้ยงและหาโรงพยาบาลสัตว์ในกรุงเทพ',
     template: '%s | ThailandPetHub',
   },
   description: 'ตรวจสอบส่วนประกอบอาหารสัตว์เลี้ยง เกรด A-F ค้นหาโรงพยาบาลสัตว์ 24 ชั่วโมงใกล้คุณ เครื่องมือครบครันสำหรับเจ้าของสัตว์เลี้ยง ฟรี 100%',
@@ -65,20 +65,58 @@ export const metadata: Metadata = {
   },
 }
 
-function WebSiteJsonLd() {
+const SITE_URL = 'https://www.thailandpethub.com'
+
+/**
+ * One @graph rather than three loose blobs, so the Organization, the WebSite
+ * and the search action resolve to each other by @id. Answer engines lean on
+ * the publisher entity to decide whether a directory is worth citing, and the
+ * site previously declared no publisher at all.
+ */
+function SiteJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'ThailandPetHub',
-    url: 'https://www.thailandpethub.com',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://www.thailandpethub.com/food?q={search_term_string}',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
+        name: 'ThailandPetHub',
+        alternateName: 'PetBKK',
+        url: SITE_URL,
+        logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon.svg` },
+        description:
+          'ฐานข้อมูลอาหารสัตว์เลี้ยงและโรงพยาบาลสัตว์ในกรุงเทพ พร้อมการวิเคราะห์ส่วนผสมและเกรดอาหาร',
+        areaServed: { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+        knowsAbout: [
+          'อาหารสัตว์เลี้ยง', 'ส่วนผสมอาหารสุนัข', 'ส่วนผสมอาหารแมว',
+          'โรงพยาบาลสัตว์กรุงเทพ', 'คลินิกสัตว์ 24 ชั่วโมง',
+          'วัคซีนสัตว์เลี้ยง', 'ค่ารักษาสัตว์เลี้ยง',
+        ],
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'customer support',
+          url: `${SITE_URL}/contact`,
+          availableLanguage: ['th', 'en'],
+        },
       },
-      'query-input': 'required name=search_term_string',
-    },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        name: 'ThailandPetHub',
+        alternateName: 'PetBKK',
+        url: SITE_URL,
+        inLanguage: 'th-TH',
+        publisher: { '@id': `${SITE_URL}/#organization` },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${SITE_URL}/food?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
   }
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
@@ -87,7 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="th">
       <body className="bg-[#FFF8F0] text-gray-900 antialiased">
-        <WebSiteJsonLd />
+        <SiteJsonLd />
         <header className="bg-white/95 backdrop-blur-sm border-b border-orange-100 px-4 py-3 sticky top-0 z-40 shadow-sm">
           <div className="max-w-5xl mx-auto">
             {/* Brand + primary nav */}

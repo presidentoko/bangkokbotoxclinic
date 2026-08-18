@@ -48,6 +48,13 @@ const index = foods.map(f => {
     fat_pct: f.fat_pct,
     fiber_pct: f.fiber_pct,
     moisture_pct: f.moisture_pct,
+    // protein_dm / fat_dm / updated_at are declared on PetFoodLight but were
+    // never copied here, so every consumer of the light index read `undefined`
+    // through a type that promised a number — ShareCard rendered
+    // "โปรตีน undefined%" on any food with a protein figure.
+    protein_dm: f.protein_dm,
+    fat_dm: f.fat_dm,
+    updated_at: f.updated_at,
     aafco_meets: f.aafco_meets,
     green_count: f.green_count,
     yellow_count: f.yellow_count,

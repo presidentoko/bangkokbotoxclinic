@@ -6,12 +6,12 @@ import RelatedGuides from '@/components/RelatedGuides'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'อาหารสัตว์เลี้ยง Grade A — เกรดดีที่สุด | PetBKK',
+  title: 'อาหารสัตว์เลี้ยง Grade A — เกรดดีที่สุด',
   description: 'รายชื่ออาหารสัตว์เลี้ยงที่ได้เกรด A — ส่วนประกอบดีเยี่ยม คุ้มค่าที่สุด',
   alternates: { canonical: 'https://www.thailandpethub.com/food/best' },
   openGraph: {
     title: 'อาหารสัตว์เลี้ยงเกรดดีที่สุด — A ถึง B',
-    description: 'รายชื่ออาหารสัตว์เลี้ยงที่ได้เกรด A และ B เรียงตามราคาต่อกิโลกรัม',
+    description: 'รายชื่ออาหารสัตว์เลี้ยงที่ได้เกรด A และ B เรียงตามคุณภาพส่วนประกอบ',
     url: 'https://www.thailandpethub.com/food/best',
   },
 }
@@ -62,7 +62,9 @@ export default function BestFoodsPage() {
     .filter(x => x.g === 'A' || x.g === 'B')
     .sort((a, b) => {
       if (a.g !== b.g) return a.g === 'A' ? -1 : 1
-      return a.f.price_per_kg - b.f.price_per_kg
+      // price_per_kg is 0 on every record, so this comparator was a no-op and
+      // the "sorted by price" promise in the heading was never met.
+      return b.f.green_count - a.f.green_count
     })
 
   const aFoods = graded.filter(x => x.g === 'A')
@@ -83,7 +85,7 @@ export default function BestFoodsPage() {
 
       <h1 className="text-2xl font-bold mb-2">อาหารสัตว์เลี้ยงเกรดดีที่สุด</h1>
       <p className="text-sm text-gray-400 mb-8">
-        เรียงตามราคาต่อกิโลกรัม — อาหารที่คุ้มค่าที่สุดสำหรับน้อง
+        เรียงตามจำนวนส่วนประกอบคุณภาพดีที่ตรวจพบบนฉลาก
       </p>
 
       {aFoods.length > 0 && (

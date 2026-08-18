@@ -50,26 +50,24 @@ export default function CompareContent() {
 
   if (foods.length === 0) {
     return (
-      <main className="max-w-3xl mx-auto text-center py-20">
+      <div className="text-center py-10 border border-dashed border-gray-200 rounded-2xl">
         <p className="text-4xl mb-4">⚖️</p>
         <p className="text-gray-500 mb-2 font-medium">ยังไม่มีรายการที่เลือก</p>
         <p className="text-sm text-gray-400 mb-6">ไปที่หน้าอาหาร แล้วกดปุ่ม <span className="font-bold text-orange-500">+</span> บนการ์ดอาหารที่ต้องการเปรียบเทียบ</p>
         <a href="/food" className="inline-block px-6 py-2.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors">
           ไปเลือกอาหาร →
         </a>
-      </main>
+      </div>
     )
   }
 
   const cols = foods.length
 
   return (
-    <main className="max-w-5xl mx-auto">
-      <div className="flex items-center gap-3 mb-1">
-        <a href="/food" className="text-sm text-gray-400 hover:text-gray-600">← กลับ</a>
+    <div>
+      <div className="flex items-center gap-3 mb-4">
+        <a href="/food" className="text-sm text-gray-400 hover:text-gray-600">← กลับไปเลือกอาหาร</a>
       </div>
-      <h1 className="text-2xl font-black text-gray-900 mb-1">⚖️ เปรียบเทียบอาหาร</h1>
-      <p className="text-sm text-gray-400 mb-6">เปรียบเทียบโภชนาการสูงสุด 3 ชนิด</p>
 
       <div className="overflow-x-auto -mx-4 px-4">
         <table className="w-full min-w-[400px]">
@@ -129,6 +127,6 @@ export default function CompareContent() {
       )}
 
       {foods.length > 0 && <SocialShare title="เปรียบเทียบอาหารสัตว์เลี้ยง — ThailandPetHub" />}
-    </main>
+    </div>
   )
 }

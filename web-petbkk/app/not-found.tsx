@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 const POPULAR_LINKS = [
   { href: '/food',     label: '🍖 ตรวจสอบอาหาร',     desc: 'เกรด A-F จากส่วนประกอบจริง' },
-  { href: '/hospital', label: '🏥 หาโรงพยาบาลสัตว์',  desc: '503 แห่งทั่วไทย' },
+  { href: '/hospital', label: '🏥 หาโรงพยาบาลสัตว์',  desc: '503 แห่งในกรุงเทพ' },
   { href: '/guides',   label: '📚 คู่มือทั้งหมด',      desc: 'เคล็ดลับดูแลสัตว์เลี้ยง 60+ หัวข้อ' },
   { href: '/emergency', label: '🚨 คู่มือฉุกเฉิน',     desc: 'อาการที่ต้องไปหาหมอทันที' },
 ]

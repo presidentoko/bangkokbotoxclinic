@@ -24,7 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const grade = getFoodGrade(food)
   const name = food.name_th || food.name_en
   return {
-    title: `${food.brand} ${food.name_en} ${grade ? `— เกรด ${grade}` : ''} | PetBKK`,
+    // The root layout's title template already appends "| ThailandPetHub";
+    // hardcoding a second brand here produced "… | PetBKK | ThailandPetHub",
+    // which pushed the product name out of the truncated SERP title.
+    title: `${food.brand} ${food.name_en}${grade ? ` — เกรด ${grade}` : ''}`,
     description: `ตรวจสอบส่วนประกอบ ${name} พร้อมเกรดคุณภาพ เปรียบเทียบโปรตีน ไขมัน และส่วนประกอบแต่ละชนิด`,
     alternates: {
       canonical: `https://www.thailandpethub.com/food/${slug}`,
@@ -58,16 +61,35 @@ function FoodProductJsonLd({ food, grade, slug }: { food: PetFood; grade: FoodGr
         availability: 'https://schema.org/InStock',
       },
     }),
+    // This used to be an `aggregateRating` with `reviewCount: 1`. There are no
+    // user reviews behind it — the value is this site's own ingredient grade —
+    // and Google's review-snippet policy treats a self-assigned score published
+    // as an aggregate of reviews as spammy structured markup, which is a manual
+    // action risk across all 986 product pages.
+    //
+    // The same fact is legitimate as a single editorial `review` authored by the
+    // publisher, which is what it actually is.
     ...(grade && {
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue,
-        bestRating: 5,
-        worstRating: 1,
-        reviewCount: 1,
-        ratingExplanation: `เกรด ${grade} จากการวิเคราะห์ส่วนประกอบ`,
+      review: {
+        '@type': 'Review',
+        author: { '@type': 'Organization', name: 'ThailandPetHub' },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue,
+          bestRating: 5,
+          worstRating: 1,
+        },
+        reviewBody: `เกรด ${grade} จากการวิเคราะห์ส่วนประกอบที่ระบุบนฉลาก โดยให้น้ำหนักกับลำดับและชนิดของแหล่งโปรตีน`,
       },
     }),
+    ...(food.protein_dm > 0 || food.fat_dm > 0 ? {
+      additionalProperty: [
+        food.protein_dm > 0 ? { '@type': 'PropertyValue', name: 'โปรตีน (dry matter)', value: `${food.protein_dm.toFixed(1)}%` } : null,
+        food.fat_dm > 0 ? { '@type': 'PropertyValue', name: 'ไขมัน (dry matter)', value: `${food.fat_dm.toFixed(1)}%` } : null,
+        food.weight_kg > 0 ? { '@type': 'PropertyValue', name: 'น้ำหนักบรรจุ', value: `${food.weight_kg} กก.` } : null,
+        food.price_per_kg > 0 ? { '@type': 'PropertyValue', name: 'ราคาต่อกิโลกรัม', value: `${Math.round(food.price_per_kg)} บาท` } : null,
+      ].filter(Boolean),
+    } : {}),
   }
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }

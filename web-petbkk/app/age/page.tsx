@@ -78,11 +78,82 @@ const SIZE_LABELS: Record<Size, string> = {
   large:  'ใหญ่ (> 25 กก.)',
 }
 
+/**
+ * A static conversion table, rendered outside the Suspense boundary.
+ *
+ * `AgePageInner` calls `useSearchParams()`, which forces its entire boundary to
+ * client-side rendering — and the fallback was `null`, so the prerendered HTML
+ * for this route contained zero visible text. The route sat in the sitemap
+ * advertising a page that, to a crawler, was blank.
+ *
+ * "อายุสุนัข 3 ปี เท่ากับกี่ปีคน" is a lookup question, and a table is the
+ * answer format both featured snippets and answer engines prefer. The numbers
+ * come from `petAgeToHuman`, so the table cannot drift from the calculator.
+ */
+function AgeConversionTable() {
+  const ages = [1, 2, 3, 5, 7, 10, 13, 15, 20]
+  const cols: Array<{ label: string; species: Species; size: Size }> = [
+    { label: 'สุนัขพันธุ์เล็ก', species: 'dog', size: 'small' },
+    { label: 'สุนัขพันธุ์กลาง', species: 'dog', size: 'medium' },
+    { label: 'สุนัขพันธุ์ใหญ่', species: 'dog', size: 'large' },
+    { label: 'แมว', species: 'cat', size: 'small' },
+  ]
+
+  return (
+    <section className="mt-10">
+      <h2 className="text-base font-bold text-gray-800 mb-1">ตารางเทียบอายุสุนัขและแมวเป็นอายุคน</h2>
+      <p className="text-xs text-gray-400 mb-3">
+        สองปีแรกนับเป็นปีละ 15 ปีคน หลังจากนั้นสุนัขพันธุ์เล็กปีละ 4 ปี พันธุ์กลางปีละ 5 ปี
+        พันธุ์ใหญ่ปีละ 6 ปี และแมวปีละ 4 ปี
+      </p>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="bg-orange-50">
+              <th scope="col" className="text-left px-3 py-2 font-semibold text-gray-700 rounded-l-lg">อายุจริง</th>
+              {cols.map(c => (
+                <th key={c.label} scope="col" className="text-right px-3 py-2 font-semibold text-gray-700 last:rounded-r-lg whitespace-nowrap">
+                  {c.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {ages.map(a => (
+              <tr key={a} className="border-b border-gray-100">
+                <th scope="row" className="text-left px-3 py-2 font-medium text-gray-600 whitespace-nowrap">{a} ปี</th>
+                {cols.map(c => (
+                  <td key={c.label} className="text-right px-3 py-2 text-gray-700 tabular-nums">
+                    {petAgeToHuman(c.species, c.size, a)} ปีคน
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="text-xs text-gray-400 mt-3">
+        ตัวเลขเป็นค่าประมาณเพื่อการเปรียบเทียบ อัตราการแก่ของแต่ละตัวขึ้นอยู่กับสายพันธุ์ น้ำหนัก
+        และสุขภาพโดยรวม — <a href="/senior-care" className="text-orange-600 hover:underline">ดูคู่มือดูแลสัตว์เลี้ยงสูงวัย</a>
+      </p>
+    </section>
+  )
+}
+
 export default function AgePage() {
   return (
-    <Suspense fallback={null}>
-      <AgePageInner />
-    </Suspense>
+    <main className="max-w-xl mx-auto">
+      <AgeSchemaLd />
+      <h1 className="text-2xl font-black text-gray-900 mb-1">🎂 คำนวณอายุน้องหมาน้องแมวเป็นอายุคน</h1>
+      <p className="text-sm text-gray-500 mb-6">
+        กรอกอายุจริงของสุนัขหรือแมว แล้วดูว่าเทียบเท่าอายุคนกี่ปี
+        รองรับสุนัขพันธุ์เล็ก กลาง ใหญ่ และแมวทุกสายพันธุ์ ใช้ฟรี ไม่ต้องสมัครสมาชิก
+      </p>
+      <Suspense fallback={null}>
+        <AgePageInner />
+      </Suspense>
+      <AgeConversionTable />
+    </main>
   )
 }
 
@@ -114,10 +185,7 @@ function AgePageInner() {
   const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}`
 
   return (
-    <main className="max-w-xl mx-auto">
-      <AgeSchemaLd />
-      <h1 className="text-2xl font-black text-gray-900 mb-1">🎂 คำนวณอายุน้อง</h1>
-      <p className="text-sm text-gray-400 mb-6">อายุน้องเทียบเท่ามนุษย์กี่ปี?</p>
+    <>
 
       <div className="bg-white rounded-2xl border p-6 mb-6 space-y-6">
         {/* Species */}
@@ -215,6 +283,6 @@ function AgePageInner() {
           <li className="flex items-start gap-2"><span>💉</span><span>การทำหมัน วัคซีน และอาหารดีช่วยเพิ่มอายุขัยสัตว์เลี้ยงได้อย่างมีนัยสำคัญ</span></li>
         </ul>
       </div>
-    </main>
+    </>
   )
 }

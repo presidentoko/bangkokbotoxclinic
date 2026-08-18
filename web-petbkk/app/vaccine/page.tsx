@@ -1,183 +1,139 @@
-'use client'
-import React, { useState, useMemo } from 'react'
-import VaccineReminderButton from '@/components/VaccineReminderButton'
+import VaccineCalculator from './VaccineCalculator'
+import { DOG_VACCINES, CAT_VACCINES, type VaxItem } from './vaccines'
 
-type Species = 'dog' | 'cat'
+const SITE = 'https://www.thailandpethub.com'
 
-interface VaxItem {
-  name: string
-  ageMonths: number[]  // months at which to give this vaccine
-  note: string
-  recurring?: number   // months between boosters after initial series (12 = annual)
-}
-
-const DOG_VACCINES: VaxItem[] = [
-  { name: 'DHPPiL ครั้งที่ 1', ageMonths: [6], note: 'ไข้หัดสุนัข, ตับอักเสบ, พาร์โวไวรัส, เลปโตสไปโรซิส' },
-  { name: 'DHPPiL ครั้งที่ 2', ageMonths: [9], note: 'กระตุ้นครั้งที่ 2' },
-  { name: 'DHPPiL ครั้งที่ 3', ageMonths: [12], note: 'กระตุ้นครั้งที่ 3' },
-  { name: 'วัคซีนพิษสุนัขบ้า', ageMonths: [14], note: 'บังคับตามกฎหมาย ต่ออายุทุกปี', recurring: 12 },
-  { name: 'DHPPiL กระตุ้นประจำปี', ageMonths: [24], note: 'กระตุ้นทุกปีตลอดชีวิต', recurring: 12 },
-  { name: 'วัคซีนไข้หวัดสุนัข (Bordetella)', ageMonths: [12], note: 'แนะนำสำหรับสุนัขที่เข้าฝึกอบรมหรืออยู่รวมกลุ่ม', recurring: 12 },
-]
-
-const CAT_VACCINES: VaxItem[] = [
-  { name: 'FVRCP ครั้งที่ 1', ageMonths: [6], note: 'ไข้หวัดแมว, คาลิซิไวรัส, แพนลูโคพีเนีย' },
-  { name: 'FVRCP ครั้งที่ 2', ageMonths: [9], note: 'กระตุ้นครั้งที่ 2' },
-  { name: 'FVRCP ครั้งที่ 3', ageMonths: [12], note: 'กระตุ้นครั้งที่ 3' },
-  { name: 'วัคซีนพิษสุนัขบ้า (แมว)', ageMonths: [14], note: 'แนะนำโดยเฉพาะแมวที่ออกนอกบ้าน', recurring: 12 },
-  { name: 'FVRCP กระตุ้นประจำปี/3ปี', ageMonths: [24], note: 'กระตุ้นทุก 1–3 ปีตามชนิดวัคซีน', recurring: 12 },
-  { name: 'FeLV (มะเร็งเม็ดเลือดขาวแมว)', ageMonths: [8], note: 'แนะนำสำหรับแมวที่ออกนอกบ้านหรืออยู่รวมหลายตัว', recurring: 12 },
-]
-
-interface ScheduleItem extends VaxItem {
-  dueDate: Date
-  status: 'overdue' | 'due-soon' | 'upcoming' | 'done'
-  daysFromNow: number
-}
-
-function computeSchedule(species: Species, birthDate: Date): ScheduleItem[] {
-  const vaccines = species === 'dog' ? DOG_VACCINES : CAT_VACCINES
-  const now = new Date()
-  const result: ScheduleItem[] = []
-
-  for (const v of vaccines) {
-    for (const monthOffset of v.ageMonths) {
-      const dueDate = new Date(birthDate)
-      dueDate.setMonth(dueDate.getMonth() + monthOffset)
-      const daysFromNow = Math.round((dueDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-      const status: ScheduleItem['status'] =
-        daysFromNow < -30 ? 'done' :
-        daysFromNow < 0   ? 'overdue' :
-        daysFromNow < 30  ? 'due-soon' :
-        'upcoming'
-      result.push({ ...v, dueDate, status, daysFromNow })
-    }
+/**
+ * The whole route used to be one `'use client'` calculator that renders nothing
+ * until a birth date is entered, so it prerendered to ~170 characters. But
+ * "ตารางวัคซีนสุนัข" is a lookup query, and the schedule itself is static — it
+ * does not depend on any particular pet's birthday. Rendering it server-side
+ * gives the page a real answer for a crawler, an answer engine, and anyone who
+ * just wants the standard schedule without filling in a form.
+ *
+ * Both tables read the same DOG_VACCINES / CAT_VACCINES arrays the calculator
+ * uses, so the published schedule cannot drift from the computed one.
+ */
+function weeksLabel(weeks: number): string {
+  if (weeks >= 52) {
+    const years = weeks / 52
+    return years === 1 ? '1 ปี' : `${years} ปี`
   }
-
-  return result.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime())
+  const months = weeks / 4.345
+  return months >= 3 ? `${weeks} สัปดาห์ (~${months.toFixed(1)} เดือน)` : `${weeks} สัปดาห์`
 }
 
-function fmtDate(d: Date): string {
-  return d.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })
+function ScheduleTable({ title, vaccines }: { title: string; vaccines: VaxItem[] }) {
+  const rows = [...vaccines].sort((a, b) => a.ageWeeks[0] - b.ageWeeks[0])
+  return (
+    <section className="mb-8">
+      <h2 className="text-base font-bold text-gray-800 mb-3">{title}</h2>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="bg-orange-50">
+              <th scope="col" className="text-left px-3 py-2 font-semibold text-gray-700 rounded-l-lg whitespace-nowrap">อายุ</th>
+              <th scope="col" className="text-left px-3 py-2 font-semibold text-gray-700">วัคซีน</th>
+              <th scope="col" className="text-left px-3 py-2 font-semibold text-gray-700 rounded-r-lg">รายละเอียด</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(v => (
+              <tr key={v.name} className="border-b border-gray-100 align-top">
+                <td className="px-3 py-2 text-gray-600 whitespace-nowrap">{weeksLabel(v.ageWeeks[0])}</td>
+                <th scope="row" className="text-left px-3 py-2 font-medium text-gray-800">{v.name}</th>
+                <td className="px-3 py-2 text-gray-600">
+                  {v.note}
+                  {v.recurring ? <span className="text-gray-400"> · กระตุ้นทุก {v.recurring} เดือน</span> : null}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )
 }
 
-const STATUS_CARD_CLASS: Record<ScheduleItem['status'], string> = {
-  'done':     'bg-gray-50 border-gray-200 opacity-75',
-  'overdue':  'bg-red-50 border-red-200',
-  'due-soon': 'bg-orange-50 border-orange-200',
-  'upcoming': 'bg-blue-50 border-blue-100',
-}
+const FAQS: Array<[string, string]> = [
+  [
+    'ลูกสุนัขต้องฉีดวัคซีนเข็มแรกตอนอายุเท่าไหร่?',
+    'ลูกสุนัขเริ่มวัคซีนรวม DHPPiL เข็มแรกได้ตั้งแต่อายุประมาณ 6 สัปดาห์ แล้วกระตุ้นอีก 2 ครั้งห่างกันครั้งละ 3–4 สัปดาห์ จนครบเมื่ออายุราว 14 สัปดาห์ ส่วนวัคซีนพิษสุนัขบ้าฉีดได้เมื่ออายุประมาณ 14 สัปดาห์ และต้องต่ออายุทุกปีตามกฎหมาย',
+  ],
+  [
+    'ลูกแมวต้องฉีดวัคซีนอะไรบ้าง?',
+    'ลูกแมวเริ่มวัคซีนรวม FVRCP (ไข้หวัดแมว คาลิซิไวรัส และแพนลูโคพีเนีย) เข็มแรกเมื่ออายุประมาณ 6 สัปดาห์ กระตุ้นอีก 2 ครั้งจนครบราว 14 สัปดาห์ แมวที่ออกนอกบ้านหรืออยู่รวมหลายตัวควรได้ FeLV เพิ่ม และวัคซีนพิษสุนัขบ้าเมื่ออายุประมาณ 14 สัปดาห์',
+  ],
+  [
+    'วัคซีนสัตว์เลี้ยงต้องกระตุ้นบ่อยแค่ไหน?',
+    'หลังชุดวัคซีนวัยเด็กครบแล้ว ให้กระตุ้นเข็มแรกเมื่ออายุ 1 ปี จากนั้นวัคซีนพิษสุนัขบ้ากระตุ้นทุกปี ส่วนวัคซีนรวมกระตุ้นทุก 1–3 ปีขึ้นอยู่กับชนิดวัคซีนและคำแนะนำของสัตวแพทย์',
+  ],
+  [
+    'ถ้าฉีดวัคซีนช้ากว่ากำหนดต้องเริ่มใหม่ไหม?',
+    'ส่วนใหญ่ไม่ต้องเริ่มนับหนึ่งใหม่ แต่ถ้าเว้นช่วงนานเกินไปสัตวแพทย์อาจให้ฉีดกระตุ้นเพิ่มเพื่อให้ภูมิคุ้มกันขึ้นครบ ควรพาไปพบสัตวแพทย์เพื่อประเมินเป็นรายตัว',
+  ],
+]
 
-const STATUS_BADGES: Record<ScheduleItem['status'], React.JSX.Element> = {
-  'done':     <span className="px-2 py-0.5 bg-gray-200 text-gray-500 rounded-full text-[11px] font-medium">✓ ฉีดแล้ว</span>,
-  'overdue':  <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[11px] font-medium">⚠️ เกินกำหนด</span>,
-  'due-soon': <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-[11px] font-medium">🔔 ใกล้ถึงกำหนด</span>,
-  'upcoming': <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-[11px] font-medium">📅 กำหนดการ</span>,
-}
+function VaccineJsonLd() {
+  const graph = [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: SITE },
+        { '@type': 'ListItem', position: 2, name: 'ตารางวัคซีนสัตว์เลี้ยง' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ]
 
-const chipCls = (active: boolean) =>
-  `px-4 py-2 rounded-full border text-sm transition-colors cursor-pointer ${
-    active ? 'bg-orange-500 text-white border-orange-500' : 'bg-white border-gray-200 hover:border-orange-300'
-  }`
-
-// toISOString() is UTC, so in Thailand (UTC+7) it reports yesterday until 07:00
-// local and blocks picking today's date. Build the cap from local parts instead.
-function todayLocalIso(): string {
-  const d = new Date()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${d.getFullYear()}-${m}-${day}`
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }) }}
+    />
+  )
 }
 
 export default function VaccinePage() {
-  const [species, setSpecies] = useState<Species>('dog')
-  const [birthStr, setBirthStr] = useState('')
-
-  const birthDate = useMemo(() => {
-    if (!birthStr) return null
-    const d = new Date(birthStr)
-    return isNaN(d.getTime()) ? null : d
-  }, [birthStr])
-
-  const schedule = useMemo(() =>
-    birthDate ? computeSchedule(species, birthDate) : [],
-    [species, birthDate]
-  )
-
-  const hasUrgent = schedule.some(s => s.status === 'overdue' || s.status === 'due-soon')
-
   return (
     <main className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-black text-gray-900 mb-1">💉 ตารางวัคซีน</h1>
-      <p className="text-sm text-gray-400 mb-6">คำนวณตารางวัคซีนจากวันเกิดของน้อง</p>
+      <VaccineJsonLd />
+      <h1 className="text-2xl font-black text-gray-900 mb-1">💉 ตารางวัคซีนสุนัขและแมว</h1>
+      <p className="text-sm text-gray-500 mb-6">
+        ตารางวัคซีนมาตรฐานสำหรับลูกสุนัขและลูกแมว พร้อมเครื่องมือคำนวณวันครบกำหนดจากวันเกิดของน้อง
+      </p>
 
-      <div className="bg-white rounded-2xl border p-6 mb-6 space-y-5">
-        {/* Species */}
-        <div>
-          <p className="text-sm font-semibold text-gray-700 mb-3">ประเภทสัตว์เลี้ยง</p>
-          <div className="flex gap-2">
-            <button className={chipCls(species === 'dog')} onClick={() => setSpecies('dog')}>🐕 สุนัข</button>
-            <button className={chipCls(species === 'cat')} onClick={() => setSpecies('cat')}>🐈 แมว</button>
-          </div>
-        </div>
+      <VaccineCalculator />
 
-        {/* Birth date */}
-        <div>
-          <p className="text-sm font-semibold text-gray-700 mb-2">วันเกิดน้อง</p>
-          <input
-            type="date"
-            value={birthStr}
-            onChange={e => setBirthStr(e.target.value)}
-            max={todayLocalIso()}
-            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-          />
-          <p className="text-xs text-gray-400 mt-1">ถ้าไม่แน่ใจวันเกิด ประมาณปีได้เลย</p>
-        </div>
+      <div className="mt-10">
+        <ScheduleTable title="ตารางวัคซีนสุนัข" vaccines={DOG_VACCINES} />
+        <ScheduleTable title="ตารางวัคซีนแมว" vaccines={CAT_VACCINES} />
       </div>
 
-      {/* Results */}
-      {schedule.length > 0 && (
-        <>
-          {hasUrgent && (
-            <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-4 flex items-center gap-2 text-sm text-red-700">
-              <span>⚠️</span>
-              <span className="font-medium">น้องมีวัคซีนที่ใกล้ถึงหรือเลยกำหนดแล้ว กรุณานัดสัตวแพทย์</span>
+      <section className="bg-white border rounded-2xl p-5 mb-6">
+        <h2 className="text-base font-bold text-gray-900 mb-3">คำถามที่พบบ่อยเรื่องวัคซีนสัตว์เลี้ยง</h2>
+        <div className="space-y-3 divide-y divide-gray-100">
+          {FAQS.map(([q, a], i) => (
+            <div key={q} className={i > 0 ? 'pt-3' : ''}>
+              <h3 className="font-semibold text-sm text-gray-800 mb-1">{q}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">{a}</p>
             </div>
-          )}
-
-          <div className="space-y-3">
-            {schedule.map((item, i) => (
-              <div key={i} className={`rounded-xl border p-4 ${STATUS_CARD_CLASS[item.status]}`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex-1">
-                    <p className="font-semibold text-sm text-gray-900">{item.name}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">{item.note}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs text-gray-500">{fmtDate(item.dueDate)}</p>
-                      {STATUS_BADGES[item.status]}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 bg-orange-50 border border-orange-100 rounded-2xl p-5 text-center">
-            <p className="text-sm text-gray-600 mb-3">หาโรงพยาบาลสัตว์เพื่อนัดวัคซีน</p>
-            <a href="/hospital" className="inline-block px-5 py-2.5 bg-orange-500 text-white font-semibold rounded-xl hover:bg-orange-600 transition-colors text-sm">
-              ค้นหาโรงพยาบาลใกล้บ้าน →
-            </a>
-            <VaccineReminderButton items={schedule} />
-          </div>
-        </>
-      )}
-
-      {!birthDate && (
-        <div className="text-center text-gray-400 py-12">
-          <p className="text-4xl mb-3">💉</p>
-          <p>ใส่วันเกิดน้องด้านบนเพื่อดูตารางวัคซีน</p>
+          ))}
         </div>
-      )}
+      </section>
+
+      <p className="text-xs text-gray-400 leading-relaxed mb-6">
+        ตารางนี้เป็นแนวทางมาตรฐานเพื่อการศึกษา ไม่ใช่คำแนะนำทางสัตวแพทย์
+        กำหนดการจริงขึ้นอยู่กับชนิดวัคซีน สุขภาพ และประวัติของสัตว์เลี้ยงแต่ละตัว
+        กรุณาปรึกษาสัตวแพทย์ก่อนเสมอ — <a href="/hospital" className="text-orange-600 hover:underline">ค้นหาโรงพยาบาลสัตว์ในกรุงเทพ</a>
+      </p>
     </main>
   )
 }

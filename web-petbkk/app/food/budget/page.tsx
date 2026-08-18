@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description: 'รวมอาหารสุนัขและแมวคุณภาพดี (เกรด A-B) ในราคาที่จับต้องได้ วิเคราะห์ส่วนประกอบจริง ฟรี 100% ไม่ต้องจ่ายแพงเพื่อคุณภาพที่ดี',
   alternates: { canonical: 'https://www.thailandpethub.com/food/budget' },
   keywords: ['อาหารสัตว์เลี้ยงราคาถูก', 'อาหารหมาราคาประหยัด', 'อาหารแมวราคาถูก', 'อาหารสัตว์คุ้มค่า', 'อาหารสัตว์เลี้ยงราคาดี'],
+  // `price_thb` and `price_per_kg` are 0 on all 986 records, so the price filter
+  // this page is built on matched nothing and it shipped an empty list under a
+  // "cheap pet food" title. Kept reachable and crawlable (so it keeps passing
+  // links on) but out of the index until the scraper actually collects prices.
+  robots: { index: false, follow: true },
   openGraph: {
     title: 'อาหารสัตว์เลี้ยงราคาถูก คุณภาพดี — เกรด A-B',
     description: 'อาหารสุนัขและแมวคุณภาพดีราคาประหยัด วิเคราะห์ส่วนประกอบจริง ฟรี',
@@ -41,20 +46,26 @@ function FaqJsonLd() {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
-const BUDGET_THRESHOLD = 400 // THB per kg
+const BUDGET_THRESHOLD = 400 // THB per kg — unusable until prices are scraped
 
 export default function BudgetFoodPage() {
   const allFoods = loadFoods()
+  // The price gate (`price_per_kg > 0 && <= BUDGET_THRESHOLD`) excluded every
+  // record, because no record has a price. Falling back to grade keeps the page
+  // useful — quality is the half of "cheap but good" the data can actually
+  // answer — and the price ordering returns once prices exist.
   const budgetFoods = allFoods
     .filter(f => {
       const grade = getFoodGrade(f)
-      return (grade === 'A' || grade === 'B') && f.price_per_kg > 0 && f.price_per_kg <= BUDGET_THRESHOLD
+      const withinBudget = f.price_per_kg > 0 ? f.price_per_kg <= BUDGET_THRESHOLD : true
+      return (grade === 'A' || grade === 'B') && withinBudget
     })
     .sort((a, b) => {
       const ga = getFoodGrade(a) ?? 'Z'
       const gb = getFoodGrade(b) ?? 'Z'
       if (ga !== gb) return ga.localeCompare(gb)
-      return a.price_per_kg - b.price_per_kg
+      if (a.price_per_kg > 0 && b.price_per_kg > 0) return a.price_per_kg - b.price_per_kg
+      return b.green_count - a.green_count
     })
 
   const dogBudget = budgetFoods.filter(f => f.animal === 'dog')

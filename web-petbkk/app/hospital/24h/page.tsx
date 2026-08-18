@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { filterHospitals } from '@/lib/hospitals'
+import { filterHospitals, hospitalSlug } from '@/lib/hospitals'
+import type { Hospital } from '@/lib/types'
 import HospitalCard from '@/components/HospitalCard'
 import RelatedGuides from '@/components/RelatedGuides'
 
@@ -15,9 +16,17 @@ export const metadata: Metadata = {
   },
 }
 
-function FaqJsonLd({ count }: { count: number }) {
-  const schema = {
-    '@context': 'https://schema.org',
+const SITE = 'https://www.thailandpethub.com'
+
+/**
+ * "โรงพยาบาลสัตว์ 24 ชั่วโมง" is a list question, and an answer engine can only
+ * cite a list it can read as one. The page rendered 79 cards with no ItemList
+ * tying them together, and the visible breadcrumb had no BreadcrumbList behind
+ * it — both are added here alongside the existing FAQ.
+ */
+function Hospital24hJsonLd({ hospitals }: { hospitals: Hospital[] }) {
+  const count = hospitals.length
+  const faq = {
     '@type': 'FAQPage',
     mainEntity: [
       {
@@ -41,12 +50,42 @@ function FaqJsonLd({ count }: { count: number }) {
         name: 'ค่าบริการโรงพยาบาลสัตว์ 24 ชั่วโมงแพงกว่าปกติไหม?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'โรงพยาบาลสัตว์ 24 ชั่วโมงมักมีค่าบริการนอกเวลา (after-hours surcharge) เพิ่มจากค่าตรวจปกติ โดยเฉลี่ยอยู่ที่ 200-500 บาทต่อครั้ง ขึ้นอยู่กับแต่ละสถานที่',
+          text: 'โรงพยาบาลสัตว์ 24 ชั่วโมงส่วนใหญ่คิดค่าบริการนอกเวลา (after-hours surcharge) เพิ่มจากค่าตรวจปกติ อัตราแตกต่างกันไปในแต่ละแห่ง แนะนำให้โทรสอบถามก่อนเดินทาง',
         },
       },
     ],
   }
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+  const itemList = {
+    '@type': 'ItemList',
+    '@id': `${SITE}/hospital/24h#list`,
+    name: 'โรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงในกรุงเทพ',
+    numberOfItems: count,
+    itemListElement: hospitals.map((h, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE}/hospital/${hospitalSlug(h)}`,
+      name: h.name_th,
+    })),
+  }
+
+  const breadcrumb = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'หน้าหลัก', item: SITE },
+      { '@type': 'ListItem', position: 2, name: 'โรงพยาบาลสัตว์', item: `${SITE}/hospital` },
+      { '@type': 'ListItem', position: 3, name: '24 ชั่วโมง' },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({ '@context': 'https://schema.org', '@graph': [breadcrumb, itemList, faq] }),
+      }}
+    />
+  )
 }
 
 export default function Hospital24hPage() {
@@ -54,7 +93,7 @@ export default function Hospital24hPage() {
 
   return (
     <main className="max-w-4xl mx-auto">
-      <FaqJsonLd count={hospitals.length} />
+      <Hospital24hJsonLd hospitals={hospitals} />
 
       <nav className="text-xs text-gray-400 mb-4">
         <a href="/" className="hover:text-orange-600">หน้าหลัก</a>
@@ -71,7 +110,7 @@ export default function Hospital24hPage() {
       </p>
       <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-2xl">
         เมื่อสัตว์เลี้ยงเจ็บป่วยกลางดึกหรือช่วงวันหยุด โรงพยาบาลสัตว์ 24 ชั่วโมงพร้อมรับฉุกเฉินตลอดเวลา
-        หลายแห่งมีทีมสัตวแพทย์เฉพาะทางและอุปกรณ์ผ่าตัด
+        แนะนำให้โทรแจ้งอาการล่วงหน้าระหว่างเดินทาง เพื่อให้ทีมเตรียมรับเคสไว้ก่อน
       </p>
 
       <div className="bg-red-50 border border-red-100 rounded-2xl p-4 mb-6 flex items-start gap-3">
@@ -93,7 +132,7 @@ export default function Hospital24hPage() {
           {[
             { q: 'โรงพยาบาลสัตว์ 24 ชั่วโมงในกรุงเทพมีกี่แห่ง?', a: `ThailandPetHub รวบรวมข้อมูลโรงพยาบาลสัตว์ที่เปิด 24 ชั่วโมงในกรุงเทพและปริมณฑลจำนวน ${hospitals.length} แห่ง พร้อมที่อยู่ เบอร์โทร และคะแนน Google` },
             { q: 'ต้องทำอย่างไรเมื่อสัตว์เลี้ยงเจ็บป่วยฉุกเฉินกลางดึก?', a: 'โทรหาโรงพยาบาลสัตว์ 24 ชั่วโมงที่ใกล้ที่สุดก่อน อธิบายอาการเบื้องต้น หากสัตว์เลี้ยงหายใจไม่ออก ชัก หมดสติ หรือมีเลือดออกมาก ควรไปทันที' },
-            { q: 'ค่าบริการโรงพยาบาลสัตว์ 24 ชั่วโมงแพงกว่าปกติไหม?', a: 'มักมีค่าบริการนอกเวลา (after-hours surcharge) เพิ่มจากค่าตรวจปกติ โดยเฉลี่ยอยู่ที่ 200-500 บาทต่อครั้ง ขึ้นอยู่กับแต่ละสถานที่' },
+            { q: 'ค่าบริการโรงพยาบาลสัตว์ 24 ชั่วโมงแพงกว่าปกติไหม?', a: 'มักมีค่าบริการนอกเวลา (after-hours surcharge) เพิ่มจากค่าตรวจปกติ อัตราแตกต่างกันไปในแต่ละแห่ง แนะนำให้โทรสอบถามก่อนเดินทาง' },
           ].map((item, i) => (
             <div key={i} className={i > 0 ? 'pt-4' : ''}>
               <h3 className="font-semibold text-gray-800 mb-1">{item.q}</h3>

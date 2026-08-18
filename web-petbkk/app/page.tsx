@@ -41,7 +41,7 @@ const TOOLS = [
   { href: '/dental',        icon: '🦷', title: 'ดูแลฟัน',            desc: 'แปรง/สเกลฟัน' },
   { href: '/deworming',     icon: '🪱', title: 'ถ่ายพยาธิ',          desc: 'ตารางและวิธีการ' },
   { href: '/checklist',     icon: '✅', title: 'เช็คลิสต์รายสัปดาห์',desc: 'ติดตามการดูแลน้อง' },
-  { href: '/hospital/surgery', icon: '🔪', title: 'ผ่าตัด/ทำหมัน',   desc: 'โรงพยาบาลที่มีห้องผ่าตัด' },
+  { href: '/neutering', icon: '🔪', title: 'ทำหมัน',   desc: 'ราคา อายุที่เหมาะ และการดูแลหลังผ่าตัด' },
   { href: '/flea',             icon: '🦟', title: 'กำจัดหมัด/เห็บ',  desc: 'ยา วิธีกำจัด ป้องกัน' },
   { href: '/grooming',         icon: '🪮', title: 'ดูแลขน/Grooming', desc: 'อาบน้ำ แปรงขน ตัดเล็บ' },
   { href: '/food/puppy',       icon: '🐶', title: 'อาหาร Puppy',      desc: 'ลูกสุนัข/ลูกแมว' },
@@ -96,7 +96,7 @@ export default function HomePage() {
             ตรวจสอบอาหารสัตว์เลี้ยง · หาโรงพยาบาลสัตว์ใกล้คุณ
           </h1>
           <p className="text-white/85 text-base sm:text-lg font-medium mb-8 leading-relaxed">
-            เช็คส่วนผสมและเกรด A–F ของอาหาร 986 รายการ ค้นโรงพยาบาลสัตว์ 503 แห่งทั่วไทย<br/>
+            เช็คส่วนผสมและเกรด A–F ของอาหาร 986 รายการ ค้นโรงพยาบาลสัตว์ 503 แห่งในกรุงเทพ<br/>
             <span className="text-white/70 text-sm sm:text-base">ดูแลน้องได้ครบ ฟรี 100%</span>
           </p>
 

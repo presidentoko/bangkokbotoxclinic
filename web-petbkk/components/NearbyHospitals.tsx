@@ -17,9 +17,15 @@ export default function NearbyHospitals({ hospital }: Props) {
   const nearby = getNearbyHospitals(hospital, 3)
   if (!nearby.length) return null
 
+  // Without a trustworthy origin coordinate the list is ranked by rating, not
+  // proximity, so the heading has to say so rather than promise "ใกล้เคียง".
+  const isProximity = nearby.some(n => n.distKm != null)
+
   return (
     <section>
-      <h2 className="font-semibold mb-3">โรงพยาบาลใกล้เคียง</h2>
+      <h2 className="font-semibold mb-3">
+        {isProximity ? 'โรงพยาบาลใกล้เคียง' : 'โรงพยาบาลสัตว์อื่นที่คะแนนรีวิวสูง'}
+      </h2>
       <div className="flex gap-3 overflow-x-auto pb-2">
         {nearby.map(({ hospital: h, distKm }) => {
           const ratingColor = getRatingColor(h.google_rating)
@@ -50,8 +56,13 @@ export default function NearbyHospitals({ hospital }: Props) {
                       24 ชม.
                     </span>
                   )}
-                  {/* Distance */}
-                  <p className="text-xs text-gray-400">{distKm.toFixed(1)} km</p>
+                  {/* Distance — omitted when the coordinate is a grid artefact */}
+                  {distKm != null && (
+                    <p className="text-xs text-gray-400">{distKm.toFixed(1)} km</p>
+                  )}
+                  {distKm == null && h.google_review_count != null && h.google_review_count > 0 && (
+                    <p className="text-xs text-gray-400">{h.google_review_count.toLocaleString()} รีวิว</p>
+                  )}
                 </div>
               </div>
             </a>

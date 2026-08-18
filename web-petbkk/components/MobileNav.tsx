@@ -27,7 +27,7 @@ const GROUPS: { title: string; items: { href: string; label: string }[] }[] = [
   {
     title: 'ดูแลสุขภาพ',
     items: [
-      { href: '/hospital/surgery', label: '🔪 ทำหมัน/ผ่าตัด' },
+      { href: '/neutering', label: '🔪 ทำหมัน' },
       { href: '/dental',           label: '🦷 ดูแลฟัน' },
       { href: '/deworming',        label: '🪱 ถ่ายพยาธิ' },
       { href: '/flea',             label: '🦟 หมัด/เห็บ' },

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getHospitalBySlug, loadHospitals, hospitalSlug } from '@/lib/hospitals'
+import { getHospitalBySlug, loadHospitals, hospitalSlug, hasPreciseCoord } from '@/lib/hospitals'
 import { getHospitalReviews } from '@/lib/petreviews'
 import NearbyHospitals from '@/components/NearbyHospitals'
 import HospitalShareButtons from '@/components/HospitalShareButtons'
@@ -102,10 +102,18 @@ function HospitalFaqJsonLd({ h }: { h: Hospital }) {
     },
   ]
 
-  if (h.has_surgery) {
+  // A "ใช่ …มีบริการผ่าตัด" FAQ used to be emitted here on every page, gated on
+  // `has_surgery` — which petvet/transform.py hardcodes to True. It asserted an
+  // unverified service in FAQPage markup 503 times over. Only the neuter price,
+  // which is a real scraped value when present, survives.
+  if (h.price_neuter_male != null || h.price_neuter_female != null) {
+    const prices = [
+      h.price_neuter_male != null ? `เพศผู้ ${h.price_neuter_male.toLocaleString()} บาท` : null,
+      h.price_neuter_female != null ? `เพศเมีย ${h.price_neuter_female.toLocaleString()} บาท` : null,
+    ].filter(Boolean).join(' · ')
     faqs.push({
-      q: `${h.name_th} มีบริการผ่าตัดสัตว์เลี้ยงไหม?`,
-      a: `ใช่ ${h.name_th} มีบริการผ่าตัดสัตว์เลี้ยง${h.price_neuter_male != null ? ` ราคาทำหมันสุนัขผู้เริ่มต้นที่ ${h.price_neuter_male.toLocaleString()} บาท` : ' กรุณาสอบถามราคาโดยตรง'}`,
+      q: `${h.name_th} ราคาทำหมันเท่าไหร่?`,
+      a: `ราคาทำหมันเริ่มต้นที่ ${prices}`,
     })
   }
 
@@ -168,8 +176,11 @@ function BreadcrumbJsonLd({ name }: { name: string }) {
 
 function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
   const availableService = []
-  if (h.has_surgery) availableService.push({ '@type': 'MedicalProcedure', name: 'ผ่าตัดสัตว์เลี้ยง' })
-  if (h.has_emergency) availableService.push({ '@type': 'MedicalProcedure', name: 'บริการฉุกเฉินสัตว์' })
+  // `has_surgery` is hardcoded `True` for every row in petvet/transform.py, so
+  // emitting it declared "this clinic performs surgery" to Google on all 503
+  // pages without a single record backing the claim. Same story for
+  // `has_emergency`, which is false on every row. Only `is_24h` is derived from
+  // a real signal (the "Open 24 hours" line on the source listing card).
   if (h.is_24h) availableService.push({ '@type': 'MedicalProcedure', name: 'บริการตลอด 24 ชั่วโมง' })
 
   const priceRange = h.price_consult
@@ -179,6 +190,7 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
     : undefined
 
   const hasEnName = h.name_en && h.name_en !== h.name_th
+  const precise = hasPreciseCoord(h)
 
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -188,18 +200,31 @@ function LocalBusinessJsonLd({ h, slug }: { h: Hospital; slug: string }) {
     url: `https://www.thailandpethub.com/hospital/${slug}`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: h.address,
+      ...(h.address ? { streetAddress: h.address } : {}),
       addressCountry: 'TH',
       addressLocality: 'Bangkok',
+      addressRegion: 'Bangkok',
     },
-    geo: h.lat && h.lng ? {
+    areaServed: { '@type': 'City', name: 'Bangkok', alternateName: 'กรุงเทพมหานคร' },
+    // Only published for the 40 records with a coordinate of their own. The
+    // other 463 carry the grid probe point, and feeding Google a GeoCoordinates
+    // that puts a Thonburi clinic in Pathum Wan is worse than sending none.
+    geo: precise ? {
       '@type': 'GeoCoordinates',
       latitude: h.lat,
       longitude: h.lng,
     } : undefined,
-    hasMap: h.lat && h.lng ? `https://www.google.com/maps?q=${h.lat},${h.lng}` : undefined,
+    hasMap: precise ? `https://www.google.com/maps?q=${h.lat},${h.lng}` : undefined,
     telephone: h.phone || undefined,
     openingHours: h.is_24h ? 'Mo-Su 00:00-24:00' : undefined,
+    ...(h.is_24h ? { openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    } } : {}),
+    isAccessibleForFree: false,
+    currenciesAccepted: 'THB',
     ...(priceRange ? { priceRange } : {}),
     ...(availableService.length > 0 ? { availableService } : {}),
     // Google forbids inventing a reviewCount, so omit aggregateRating entirely
@@ -228,7 +253,17 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
   if (!h) notFound()
 
   const ratingColor = getRatingColor(h.google_rating)
-  const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${h.lat},${h.lng}`
+  // Routing by coordinate only works for the 40 records that own their
+  // coordinate; for the rest it used to send someone chasing an emergency vet
+  // to the grid probe point instead. Falling back to a name+address text query
+  // lets Google resolve the business itself, which it does reliably for a named
+  // clinic — a lookup, rather than a confidently wrong pin.
+  const precise = hasPreciseCoord(h)
+  const mapsQuery = precise
+    ? `${h.lat},${h.lng}`
+    : encodeURIComponent([h.name_en || h.name_th, h.address, 'Bangkok'].filter(Boolean).join(' '))
+  const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${mapsQuery}&z=${precise ? 16 : 15}&output=embed`
   const pantipReview = getHospitalReviews(h.id)
   const reviewUrl = h.google_place_id
     ? `https://search.google.com/local/reviews?placeid=${h.google_place_id}`
@@ -287,14 +322,17 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
                 เปิด 24 ชม.
               </span>
             )}
-            {h.has_emergency && (
-              <span className="px-2.5 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
-                ฉุกเฉิน
+            {/* The "ผ่าตัดได้" and "ฉุกเฉิน" badges are gone: `has_surgery` is
+                hardcoded true and `has_emergency` is false on all 503 records,
+                so one rendered on every page and the other on none. */}
+            {h.google_review_count != null && h.google_review_count >= 500 && (
+              <span className="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
+                รีวิวเยอะ {h.google_review_count.toLocaleString()}+
               </span>
             )}
-            {h.has_surgery && (
-              <span className="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
-                ผ่าตัดได้
+            {h.google_rating != null && h.google_rating >= 4.5 && (
+              <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                คะแนนสูง {h.google_rating.toFixed(1)}
               </span>
             )}
           </div>
@@ -354,11 +392,11 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       </div>
 
       {/* Embedded map */}
-      {h.lat && h.lng && (
+      {(precise || h.address) && (
         <div className="mb-4 rounded-xl overflow-hidden border">
           <iframe
             title={`แผนที่ ${h.name_th}`}
-            src={`https://maps.google.com/maps?q=${h.lat},${h.lng}&z=16&output=embed`}
+            src={mapEmbedUrl}
             width="100%"
             height="260"
             style={{ border: 0, display: 'block' }}
@@ -420,9 +458,8 @@ export default async function HospitalDetailPage({ params }: { params: Promise<{
       {/* Related guides */}
       <div className="flex flex-wrap gap-2 mt-6">
         <a href="/emergency" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🚨 คู่มือฉุกเฉิน</a>
-        {h.has_surgery && (
-          <a href="/neutering" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✂️ ทำหมัน</a>
-        )}
+        <a href="/neutering" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">✂️ ทำหมัน</a>
+        <a href="/cost" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💰 ค่ารักษา</a>
         <a href="/vaccine" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">💉 ตารางวัคซีน</a>
         <a href="/insurance" className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-semibold text-gray-600 hover:border-orange-200 hover:text-orange-600 transition-colors">🛡️ ประกันสัตว์เลี้ยง</a>
       </div>
