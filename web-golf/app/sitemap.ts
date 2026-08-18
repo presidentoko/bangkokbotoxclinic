@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { loadMasterDb } from "@/lib/data";
-import { indexableCategoryDistricts, districtSlug } from "@/lib/crawlGate";
+import { loadMasterDb, filterByCityOrAlias, golfOnly } from "@/lib/data";
+import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
+import { indexableCategoryDistricts, indexableDistricts, indexableCities } from "@/lib/crawlGate";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { buildComparePairs } from "@/lib/comparePairs";
@@ -160,8 +161,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const c of cities) {
+  // 목적지 별칭(/city/hua_hin 등)을 포함하고, 별칭에 코스를 다 빼앗겨 비어버린 도(道)는 뺀다.
+  const citySlugs = indexableCities(db.restaurants, Object.keys(db.city_counts));
+  for (const c of citySlugs) {
     items.push({ url: `${SITE}/city/${c}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
+  }
+
+  // /green-fees/[city] — "hua hin golf green fees" 류의 상업적 의도 쿼리를 노린다.
+  // 가격이 실린 코스가 하나도 없는 도시는 그 라우트가 발행하지 않으므로 여기서도 뺀다
+  // (조건이 어긋나면 sitemap 이 404 를 가리킨다).
+  const pricedIds = new Set(
+    toPriceRows(await loadPriceMatrix())
+      .filter((r) => r.weekday_morning_total !== null || r.weekend_morning_total !== null)
+      .map((r) => r.course_id),
+  );
+  const golf = golfOnly(db.restaurants);
+  for (const c of citySlugs) {
+    if (!filterByCityOrAlias(golf, c).some((r) => pricedIds.has(r.id))) continue;
+    items.push({ url: `${SITE}/green-fees/${c}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }
 
   for (const c of CUISINES) {
@@ -187,9 +204,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const d of districts) {
+  // /d/[district] — 150개 중 68개가 코스 1개, 100개가 2개 이하였다. 그 한 코스는 이미
+  // 자기 상세 페이지와 도시 페이지에 실려 있어 색인될 수 없었다. 태국어 지역명
+  // (/d/เมือง 같은 퍼센트 인코딩 URL)도 여기서 함께 걸러진다.
+  for (const d of indexableDistricts(db.restaurants, districts)) {
     items.push({
-      url: `${SITE}/d/${districtSlug(d)}`,
+      url: `${SITE}/d/${d.slug}`,
       lastModified: updated, changeFrequency: "weekly", priority: 0.7,
     });
   }

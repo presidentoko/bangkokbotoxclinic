@@ -1,6 +1,10 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { MasterDb, Course } from "./types";
+import {
+  findDestination, belongsToDestination, claimedByDestination,
+  type CityDestination,
+} from "./cityAliases";
 
 const DATA_PATH = path.join(process.cwd(), "data", "master_db.json");
 const PHOTOS_PATH = path.join(process.cwd(), "data", "course_photos.json");
@@ -79,6 +83,45 @@ export function filterByDistrict(courses: Course[], district: string, city?: str
 
 export function filterByCity(courses: Course[], city: string): Course[] {
   return courses.filter((c) => c.city === city);
+}
+
+/**
+ * 골프 본연의 시설만 남긴다. master_db 에는 미니골프·골프연습장 부대시설·골프용품점처럼
+ * "green fee" 개념이 없는 항목도 섞여 있어서, 가격 비교 같은 화면에서 걸러내야 한다.
+ */
+export function golfOnly(courses: Course[]): Course[] {
+  return courses.filter((c) => {
+    if (c.is_golf_filtered === false) return false;
+    const cats = c.categories ?? [];
+    if (cats.length && !cats.some((k) => GOLF_CATEGORIES.has(k))) return false;
+    return !NON_GOLF_NAME.test(c.name ?? "");
+  });
+}
+
+const GOLF_CATEGORIES = new Set(["course", "club", "resort", "driving_range", "indoor"]);
+const NON_GOLF_NAME = /\b(mini[\s-]?golf|foot[\s-]?golf|golf\s*(shop|store|shack)|pro\s*shop)\b/i;
+
+/**
+ * 슬러그가 목적지 별칭인지 해석한다.
+ * 별칭이면 CityDestination, 아니면 undefined — 호출부는 진리값으로 써도 된다.
+ */
+export function resolveCityAlias(slug: string): CityDestination | undefined {
+  return findDestination(slug);
+}
+
+/**
+ * 도시 슬러그로 코스를 고르되, 목적지 별칭을 함께 해석한다.
+ *
+ *  · 목적지 슬러그(hua_hin 등)  → 그 목적지에 속하는 코스 전부 (상위 도에서 흡수한 것 포함)
+ *  · 그 밖의 도시 슬러그        → 그 도시의 코스 중 더 구체적인 목적지에 빼앗기지 않은 것만
+ *
+ * 두 번째 규칙이 배타성을 만든다. 이게 없으면 /city/hua_hin 과
+ * /city/prachuap_khiri_khan 이 거의 같은 목록이 되어 중복 콘텐츠가 된다.
+ */
+export function filterByCityOrAlias(courses: Course[], slug: string): Course[] {
+  const dest = findDestination(slug);
+  if (dest) return courses.filter((c) => belongsToDestination(c, dest));
+  return courses.filter((c) => c.city === slug && !claimedByDestination(c));
 }
 
 export function topByTrust(courses: Course[], n: number): Course[] {

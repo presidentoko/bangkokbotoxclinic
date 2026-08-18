@@ -30,7 +30,8 @@ export async function generateMetadata(
   return {
     title: isCourse
       ? `Golf Courses in Thailand 2026 — ${count2 || "600"}+ Ranked by Real Reviews`
-      : `Best ${label}s in Thailand 2026${count2 ? ` — ${count2} Ranked` : ""} | Thailand Golf Guide`,
+      // 브랜드명은 app/layout.tsx 의 title.template 이 붙인다 — 여기서 또 붙이면 중복된다.
+      : `Best ${label}s in Thailand 2026${count2 ? ` — ${count2} Ranked` : ""}`,
     description: isCourse
       ? `Compare ${count2 || "600"}+ golf courses in Thailand ranked by real Google reviews. Bangkok, Pattaya, Hua Hin, Phuket — caddy quality, green fees & conditions verified by golfers.`
       : `Best ${label.toLowerCase()}s across Thailand ranked by Trust Score from real Google reviews. Caddy quality, course conditions, English/Korean support — verified.`,

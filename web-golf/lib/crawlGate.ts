@@ -14,11 +14,18 @@
 // 반대로 sitemap에서 빠졌는데 링크는 살아 있어 크롤 예산을 계속 먹는다.
 
 import type { Course } from "./types";
-import { filterByCuisine, filterByDistrict } from "./data";
+import { filterByCuisine, filterByDistrict, filterByCityOrAlias } from "./data";
+import { CITY_DESTINATIONS } from "./cityAliases";
 
-// 이 수 미만의 코스를 가진 category × district 페이지는 발행하지 않는다.
-// 3으로 잡으면 304개 → 약 50개만 남아 크롤 표면이 250페이지 줄어든다.
+// 이 수 미만의 코스를 가진 필터 페이지는 발행하지 않는다.
+// 3으로 잡으면 category × district 304개 → 약 50개, /d/ 150개 → 약 50개가 되어
+// 크롤 표면이 350페이지 가까이 줄어든다.
 export const MIN_DISTRICT_COURSES = 3;
+
+/** 라틴 문자가 없는 슬러그 — 태국어 지역명은 퍼센트 인코딩된 URL이 되고 검색 대상 언어도 아니다. */
+function isNonLatinSlug(slug: string): boolean {
+  return !/[a-z0-9]/i.test(slug);
+}
 
 export function districtSlug(district: string): string {
   return district.toLowerCase().replace(/\s+/g, "-");
@@ -47,12 +54,51 @@ export function indexableCategoryDistricts(
     const inCategory = filterByCuisine(courses, category);
     if (inCategory.length === 0) continue;
     for (const district of districts) {
+      const slug = districtSlug(district);
+      if (isNonLatinSlug(slug)) continue;
       const count = filterByDistrict(inCategory, district).length;
       if (count < MIN_DISTRICT_COURSES) continue;
-      out.push({ category, district, slug: districtSlug(district), count });
+      out.push({ category, district, slug, count });
     }
   }
   return out;
+}
+
+/**
+ * 발행할 /d/[district] 목록. 150개 중 68개가 코스 1개, 100개가 2개 이하였고
+ * 그 한 코스는 이미 자기 상세 페이지와 도시 페이지에 실려 있다 — 색인될 수 없는 페이지다.
+ * 태국어 지역명도 여기서 걸러진다(/d/เมือง 같은 퍼센트 인코딩 URL).
+ */
+export function indexableDistricts(
+  courses: Course[],
+  districts: string[],
+): { district: string; slug: string; count: number }[] {
+  const out: { district: string; slug: string; count: number }[] = [];
+  for (const district of districts) {
+    const slug = districtSlug(district);
+    if (isNonLatinSlug(slug)) continue;
+    const count = filterByDistrict(courses, district).length;
+    if (count < MIN_DISTRICT_COURSES) continue;
+    out.push({ district, slug, count });
+  }
+  return out;
+}
+
+/**
+ * 발행할 /city/[name] 목록 — 목적지 별칭(hua_hin 등)을 포함하고,
+ * 별칭에 코스를 빼앗겨 비어버린 도(道)는 제외한다. (예: songkhla 3 → 0)
+ * 도시는 실제 검색 대상이라 임계치를 1로 두되, 0개짜리 빈 페이지만은 반드시 막는다.
+ */
+export function indexableCities(courses: Course[], cityLabels: string[]): string[] {
+  const slugs = new Set<string>();
+  for (const label of cityLabels) {
+    slugs.add(label.toLowerCase().replace(/\s+/g, "_"));
+  }
+  for (const d of CITY_DESTINATIONS) slugs.add(d.slug);
+  return Array.from(slugs)
+    .filter((s) => !isNonLatinSlug(s))
+    .filter((s) => filterByCityOrAlias(courses, s).length > 0)
+    .sort();
 }
 
 /** master_db.district_counts 의 "City/District" 키에서 지역명만 뽑아낸다. */

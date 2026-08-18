@@ -4,6 +4,7 @@ import { RestaurantCard } from "@/components/RestaurantCard";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { indexableDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 export const revalidate = 604800; // 7 days
@@ -17,12 +18,12 @@ function districtFromSlug(slug: string, all: string[]): string | null {
   return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
 }
 
+// sitemap 과 반드시 같은 게이트를 써야 한다 — 어긋나면 sitemap 이 404 를 가리키거나,
+// 반대로 발행됐는데 아무도 모르는 페이지가 크롤 예산만 먹는다.
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  const districts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1])
-  ));
-  return districts.map((d) => ({ district: d.toLowerCase().replace(/\s+/g, "-") }));
+  return indexableDistricts(db.restaurants, allDistricts(db.district_counts))
+    .map((d) => ({ district: d.slug }));
 }
 
 export async function generateMetadata(
