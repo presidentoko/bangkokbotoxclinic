@@ -61,6 +61,31 @@ SITES = {
             "https://snsstopper.com/c/noodles",
         ],
     },
+    # thailandgolfguide.com — 한국 골퍼가 주 타깃이라 Naver 즉시 색인이 특히 유효하다.
+    # URL 목록은 2026-08-18 색인 재건에서 새로 생기거나 크게 바뀐 페이지 위주.
+    "golf": {
+        "host": "www.thailandgolfguide.com",
+        "key": "c86f7edf50b24a9bb6599e09ca82cf68",
+        "key_location": "https://www.thailandgolfguide.com/c86f7edf50b24a9bb6599e09ca82cf68.txt",
+        "urls": [
+            "https://www.thailandgolfguide.com/",
+            "https://www.thailandgolfguide.com/sitemap.xml",
+            # 목적지 별칭으로 되살아난 도시 페이지 (hua_hin 은 코스 1개 -> 24개)
+            "https://www.thailandgolfguide.com/city/hua_hin",
+            "https://www.thailandgolfguide.com/city/pattaya",
+            "https://www.thailandgolfguide.com/city/koh_samui",
+            "https://www.thailandgolfguide.com/city/bangkok",
+            "https://www.thailandgolfguide.com/city/phuket",
+            "https://www.thailandgolfguide.com/city/chiang_mai",
+            # 새로 발행된 상업적 의도 페이지
+            "https://www.thailandgolfguide.com/green-fees/bangkok",
+            "https://www.thailandgolfguide.com/green-fees/chon_buri",
+            "https://www.thailandgolfguide.com/green-fees/phuket",
+            "https://www.thailandgolfguide.com/price-compare",
+            "https://www.thailandgolfguide.com/c/course",
+            "https://www.thailandgolfguide.com/ko",
+        ],
+    },
 }
 
 
