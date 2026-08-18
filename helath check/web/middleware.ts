@@ -15,10 +15,13 @@ import { SLUG_REDIRECTS } from "@/lib/slug-redirects";
  * It has to be middleware: the failure happens during routing, so no
  * `generateStaticParams` entry, `notFound()` or in-page lookup can ever run.
  *
- * The matcher only fires on hospital URLs containing a "%", which no current
- * slug does — normal traffic and the ~1,500 prerendered hospital pages never
- * invoke this, so it costs nothing against the Edge quota that this site has
- * already blown once.
+ * Cost: the matcher is a path shape, not a content test, so this function does
+ * run on every /:locale/hospital/* request — roughly 1,500 prerendered pages
+ * plus crawls. It exits on the first line for anything without a "%", and the
+ * page itself is still served from the edge cache, so the only charge is one
+ * Edge invocation. At this site's traffic that is a rounding error against the
+ * 1M/month allowance, but it is not zero: narrow the matcher before extending
+ * this to a busier path.
  */
 export const config = {
   matcher: "/:locale/hospital/:slug*",
