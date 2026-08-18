@@ -170,8 +170,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // /green-fees/[city] — "hua hin golf green fees" 류의 상업적 의도 쿼리를 노린다.
   // 가격이 실린 코스가 하나도 없는 도시는 그 라우트가 발행하지 않으므로 여기서도 뺀다
   // (조건이 어긋나면 sitemap 이 404 를 가리킨다).
+  const priceMatrix = await loadPriceMatrix();
   const pricedIds = new Set(
-    toPriceRows(await loadPriceMatrix())
+    toPriceRows(priceMatrix)
       .filter((r) => r.weekday_morning_total !== null || r.weekend_morning_total !== null)
       .map((r) => r.course_id),
   );
@@ -225,6 +226,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
+  // lastmod 는 실제로 바뀐 페이지에만 새 시각을 준다.
+  // master_db.generated_at 은 2026-05-13 에 멈춰 있는데 이건 버그가 아니라 사실이다 —
+  // 매일 갱신되는 건 price_matrix / tee_times / drainage 이고 리뷰 코퍼스는 그때가 마지막이다.
+  // 전 URL 에 빌드 시각을 찍으면 "매일 전부 바뀐다"는 거짓 신호가 되어 구글이 lastmod 자체를
+  // 무시하기 시작한다. 그래서 가격이 재수집된 코스만 그 시각을 쓴다.
+  const priceScrapedAt = new Map<string, string>();
+  for (const e of priceMatrix) {
+    if (!e.scraped_at) continue;
+    const prev = priceScrapedAt.get(e.course_id);
+    if (!prev || e.scraped_at > prev) priceScrapedAt.set(e.course_id, e.scraped_at);
+  }
+
   for (const r of db.restaurants) {
     // Skip stub courses (no image / reviews / topics) — they are noindexed
     const isStub =
@@ -235,7 +248,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (isStub) continue;
     items.push({
       url: `${SITE}/course/${r.id}`,
-      lastModified: updated,
+      lastModified: priceScrapedAt.get(r.id) ? isoNoMs(priceScrapedAt.get(r.id)!) : updated,
       changeFrequency: "weekly",
       priority: r.trust_score >= 70 ? 0.8 : r.trust_score >= 50 ? 0.6 : 0.4,
     });
