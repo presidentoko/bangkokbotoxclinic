@@ -70,7 +70,23 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: securityHeaders,
+        headers: [
+          ...securityHeaders,
+          // Cloudflare fronts Vercel here and every HTML response comes back
+          // `cf-cache-status: DYNAMIC` — the edge passes it through, so every
+          // crawler hit reaches Vercel and bills an ISR read against the Hobby
+          // quota shared with secondluxuryitems and chicpreowned, even though
+          // `x-vercel-cache` says HIT. This site has ~2,600 prerendered pages,
+          // far more than the other two, so it dominates that bill.
+          //
+          // Next's default `public, max-age=0, must-revalidate` reads to a
+          // shared cache as "do not store". `max-age=0` stays so browsers keep
+          // revalidating — package prices are refreshed daily.
+          //
+          // Only half the fix lives here: responses stay DYNAMIC until a
+          // Cloudflare Cache Rule marks HTML eligible for cache.
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=604800" },
+        ],
       },
       {
         source: "/api/(.*)",
