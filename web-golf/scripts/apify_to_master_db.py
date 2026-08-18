@@ -368,6 +368,39 @@ def main():
     # 정렬 (sponsored 가 sort 시 적용됨)
     courses.sort(key=lambda c: (-c["trust_score"], -c["total_reviews"]))
 
+    # --- 삭제 가드 -------------------------------------------------------
+    # 이 스크립트는 master_db 를 Apify export 로부터 통째로 새로 쓴다. 그래서 export 가
+    # 한 코스라도 빠뜨리면 그 코스는 조용히 사라진다. web-golf 는 /course/[id] 를
+    # dynamicParams = false 로 잠가놨기 때문에 사라진 코스는 곧바로 하드 404 가 되고,
+    # 색인돼 있던 페이지라면 그대로 색인에서 떨어진다.
+    #
+    # Apify export 는 "어떤 코스가 존재하는가"의 정답이 아니라 리뷰 데이터의 갱신본이다.
+    # (액터가 조기 종료하거나, 크레딧이 떨어지거나, 검색 반경이 달라지면 얼마든지 줄어든다.)
+    # 그래서 이전 master_db 에만 있는 코스는 지우지 않고 그대로 물려준다. 진짜로 폐업한
+    # 코스를 빼는 건 의도적으로 해야 하는 일이지, 스크랩 사고의 부작용이면 안 된다.
+    carried_over = 0
+    if out_path.exists():
+        try:
+            with open(out_path, "r", encoding="utf-8") as f:
+                prev = json.load(f)
+            prev_courses = prev.get("courses", prev.get("restaurants", []))
+            fresh_ids = {c.get("place_id") or c.get("id") for c in courses}
+            for pc in prev_courses:
+                pid = pc.get("place_id") or pc.get("id")
+                if pid and pid not in fresh_ids:
+                    pc["_carried_over_from"] = prev.get("generated_at")
+                    courses.append(pc)
+                    carried_over += 1
+            if carried_over:
+                print(f"\n[guard] 이번 export 에 없는 기존 코스 {carried_over}개를 유지했다.")
+                print("        (지우려면 의도적으로 처리할 것 — 삭제는 곧 하드 404다)")
+                # 재계산이 필요한 집계는 아래에서 courses 로부터 다시 구한다.
+                state_counter = Counter(c.get("city_label") or c.get("city") or "" for c in courses)
+                state_counter.pop("", None)
+                category_counter = Counter(k for c in courses for k in (c.get("categories") or []))
+        except (OSError, ValueError) as e:
+            print(f"[guard] 이전 master_db 를 읽지 못해 가드를 건너뛴다: {e}")
+
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "total_courses": len(courses),
