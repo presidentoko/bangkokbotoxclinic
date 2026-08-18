@@ -8,6 +8,7 @@ import json
 import time
 import random
 import subprocess
+import sys
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -158,6 +159,13 @@ def run():
         subprocess.run(['git', 'stash', 'pop'], capture_output=True)
     subprocess.run(['git', 'push'], check=True)
     print('Pushed.')
+
+    # A push is not a deploy: the Vercel project has no git connection, so
+    # nothing builds unless we ask it to. Skipping this is how the site served
+    # a month-old build while this script reported success every day.
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+    from scripts.deploy_after_data import deploy
+    deploy('3rd')
 
 
 if __name__ == '__main__':
