@@ -26,14 +26,18 @@ export const revalidate = 2592000;
 const KO_PRERENDER = 200;
 
 // 2026-08-17 GSC 감사: KO_PRERENDER 밖 클리닉은 실재하는데(영문판 200 정상)
-// 404였다 — 예전엔 색인된 적 있던 페이지들이라 next.config.ts에 정적
-// 리다이렉트 441개를 추가했는데, 그게 Vercel "배포당 라우트 2,048개" 상한을
-// 넘겨버렸다(web/ 전체 2,341개). 정적 리다이렉트 테이블 대신 여기서 요청 시점에
-// 판단: 유효한 클리닉인데 캡 밖이면 /clinic/{id}로 redirect(), 아예 없는 id면
-// notFound(). dynamicParams=true로 바꿨지만 렌더링 전에 즉시 redirect/notFound로
-// 빠지므로 무작위 id를 두드리는 봇에 대한 ISR 비용은 여전히 거의 없다
-// (KO 본문 렌더링까지 가는 건 실제로 캡 안에 든 요청뿐).
-export const dynamicParams = true;
+// 404였다 — dynamicParams=true + 요청 시점 redirect()로 고치려 했으나
+// 2026-08-18 실측: "렌더 전에 즉시 redirect로 빠지니 ISR 비용 거의 없다"는
+// 가정이 틀렸다. redirect() 결과 자체가 ISR 캐시 write 대상이라, 캡 밖 클리닉
+// (덴탈 ~1,600 + 보톡스 ~500)마다 봇이 처음 두드릴 때 write가 하나씩 발생 —
+// 배포 하루 만에 ISR Writes 가 200K 한도의 955K(4.7배)까지 치솟았고, Hobby
+// 플랜이 한도 초과 시 새 write 를 조용히 거부하면서 함수는 "success"로
+// 찍히는데 응답은 엉뚱한 폴백(루트 레이아웃 기본 메타)이 404로 나가는
+// 사이트 전역 장애로 번졌다. dynamicParams=false 로 되돌려 write 발생을
+// 원천 차단 — 캡 밖 ko 클리닉은 다시 플레인 404 (이 감사 이전 상태와 동일,
+// 최소한 새로 나빠지진 않는다). 리다이렉트가 필요하면 ISR write 를 거치지
+// 않는 middleware 단에서 다시 설계할 것.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await loadMasterDb();
