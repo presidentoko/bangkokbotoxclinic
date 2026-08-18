@@ -15,6 +15,10 @@ export async function generateStaticParams() {
   return GUIDES.map((g) => ({ slug: g.slug }));
 }
 
+// GUIDES 는 고정 목록 — 그 외는 봇/스캐너 probe. false = 즉시 404, ISR write 없음.
+// (/guide/korean-golfer-blogs, /guide/pantip-golf-threads 는 별도 정적 라우트라 영향 없음.)
+export const dynamicParams = false;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {

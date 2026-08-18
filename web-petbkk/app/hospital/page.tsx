@@ -3,19 +3,26 @@ import type { Metadata } from 'next'
 import HospitalListClient from '@/components/HospitalListClient'
 import RelatedGuides from '@/components/RelatedGuides'
 import { loadHospitals, hospitalSlug } from '@/lib/hospitals'
+import { getIndexableDistricts } from '@/lib/districts'
 import type { Hospital } from '@/lib/types'
 
 const SITE = 'https://www.thailandpethub.com'
 
+// Counted from the dataset rather than typed in: the hardcoded "503 แห่ง"
+// survived a backfill that dropped 7 permanently-closed and delisted clinics,
+// and a title that overstates the list is the kind of mismatch Google notices.
+const TOTAL = loadHospitals().length
+const OPEN_24H = loadHospitals().filter(h => h.is_24h).length
+
 export const metadata: Metadata = {
-  title: 'โรงพยาบาลสัตว์ในกรุงเทพ — 503 แห่ง ค้นหาใกล้คุณ เปิด 24 ชม.',
+  title: `โรงพยาบาลสัตว์ในกรุงเทพ — ${TOTAL} แห่ง ค้นหาใกล้คุณ เปิด 24 ชม.`,
   description:
-    'รายชื่อโรงพยาบาลสัตว์และคลินิกสัตว์ในกรุงเทพ 503 แห่ง พร้อมคะแนน Google จำนวนรีวิว เบอร์โทร ที่อยู่ และรายชื่อที่เปิด 24 ชั่วโมง 79 แห่ง',
+    `รายชื่อโรงพยาบาลสัตว์และคลินิกสัตว์ในกรุงเทพ ${TOTAL} แห่ง แยกตามเขต พร้อมคะแนน Google จำนวนรีวิว เบอร์โทร ที่อยู่ และรายชื่อที่เปิด 24 ชั่วโมง ${OPEN_24H} แห่ง`,
   keywords: ['โรงพยาบาลสัตว์', 'สัตวแพทย์ใกล้ฉัน', 'คลินิกสัตว์ใกล้ฉัน', 'คลินิกสัตว์เลี้ยง', 'สัตวแพทย์ 24 ชั่วโมง', 'vet Bangkok', 'โรงพยาบาลสัตว์กรุงเทพ'],
   alternates: { canonical: `${SITE}/hospital` },
   openGraph: {
-    title: 'โรงพยาบาลสัตว์ในกรุงเทพ — 503 แห่ง ค้นหาใกล้คุณ',
-    description: 'คะแนน Google รีวิว เบอร์โทร และรายชื่อที่เปิด 24 ชั่วโมง',
+    title: `โรงพยาบาลสัตว์ในกรุงเทพ — ${TOTAL} แห่ง ค้นหาใกล้คุณ`,
+    description: 'คะแนน Google รีวิว เบอร์โทร และรายชื่อที่เปิด 24 ชั่วโมง แยกตามเขต',
     url: `${SITE}/hospital`,
     type: 'website',
   },
@@ -157,6 +164,33 @@ function KeyFacts({ all }: { all: Hospital[] }) {
   )
 }
 
+/**
+ * District entry points. "คลินิกสัตว์ใกล้ฉัน" converts at roughly 11% CTR here
+ * while the clinic brand names that supply most impressions convert under 0.2%,
+ * and until now there was no page for that intent to land on.
+ */
+function DistrictIndex() {
+  const districts = getIndexableDistricts()
+  if (!districts.length) return null
+  return (
+    <section className="mb-8">
+      <h2 className="text-base font-bold text-gray-800 mb-1">ค้นหาตามเขต</h2>
+      <p className="text-xs text-gray-400 mb-3">{districts.length} เขตในกรุงเทพที่มีข้อมูลโรงพยาบาลสัตว์</p>
+      <div className="flex flex-wrap gap-2">
+        {districts.map(d => (
+          <a
+            key={d.district.slug}
+            href={`/hospital/area/${d.district.slug}`}
+            className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-700 hover:border-orange-300 hover:text-orange-600 transition-colors"
+          >
+            เขต{d.district.th} <span className="text-gray-400">{d.hospitals.length}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 /** Ranked shortlist, server-rendered so it is visible to crawlers and to models. */
 function TopRatedList({ all }: { all: Hospital[] }) {
   const top = topRated(all, 10)
@@ -226,6 +260,7 @@ export default function HospitalPage() {
         ค้นหาโรงพยาบาลสัตว์และคลินิกสัตว์ใกล้คุณ — {all.length} แห่งในกรุงเทพ
       </p>
       <KeyFacts all={all} />
+      <DistrictIndex />
       <Suspense fallback={null}>
         <HospitalListClient />
       </Suspense>

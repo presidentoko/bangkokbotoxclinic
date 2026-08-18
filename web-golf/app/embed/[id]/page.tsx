@@ -18,6 +18,10 @@ export async function generateStaticParams() {
     .map((r) => ({ id: r.id }));
 }
 
+// 의도적으로 일부만 발행한다 — 신뢰도 임계 미만 코스는 배지를 주지 않는다.
+// false = 그 외 id 는 즉시 404 (on-demand 렌더 없음).
+export const dynamicParams = false;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata> {

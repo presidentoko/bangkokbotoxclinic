@@ -86,6 +86,11 @@ export interface Hospital {
   google_review_count: number | null
   google_place_id: string
   updated_at: string
+  /** Thai khet parsed out of the Places API address. Present on 342 of 496. */
+  district?: string
+  website?: string
+  /** Real `ChIJ…` place id, computed from the ftid stored in google_place_id. */
+  google_place_id_new?: string
 }
 
 export interface FoodFilters {

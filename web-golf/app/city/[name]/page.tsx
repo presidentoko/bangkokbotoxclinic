@@ -21,6 +21,10 @@ export async function generateStaticParams() {
   return Object.keys(db.city_counts).map((label) => ({ name: citySlug(label) }));
 }
 
+// force-static 만으로는 Next 가 미열거 param 을 on-demand 생성하는 걸 못 막는다 —
+// 명시적 false 가 필요. city_counts 가 sitemap 과 같은 소스라 죽는 URL 은 없다.
+export const dynamicParams = false;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ name: string }> }
 ): Promise<Metadata> {

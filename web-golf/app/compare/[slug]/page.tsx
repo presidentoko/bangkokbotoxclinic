@@ -14,6 +14,10 @@ export async function generateStaticParams() {
   return buildComparePairs(db.restaurants).map((p) => ({ slug: p.slug }));
 }
 
+// buildComparePairs 가 고정 집합을 만든다 — sitemap 도 같은 함수를 쓴다.
+// 그 외 슬러그는 봇/스캐너 probe. false = 즉시 404, ISR write 없음.
+export const dynamicParams = false;
+
 async function getPair(slug: string) {
   const db = await loadMasterDb();
   const pair = buildComparePairs(db.restaurants).find((p) => p.slug === slug);

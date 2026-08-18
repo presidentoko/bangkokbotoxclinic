@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { loadMasterDb, filterByCuisine, filterByDistrict } from "@/lib/data";
+import { loadMasterDb } from "@/lib/data";
+import { indexableCategoryDistricts, districtSlug } from "@/lib/crawlGate";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { buildComparePairs } from "@/lib/comparePairs";
@@ -186,19 +187,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  // /c/[category]/[district] pages render a 200 "no matches" empty state
-  // (not notFound()) when a category has zero courses in a given district,
-  // so submit only combos with a real match — a naive category x district
-  // cartesian product here soft-404s for most combos.
-  const categoryCourses = new Map(CUISINES.map((c) => [c, filterByCuisine(db.restaurants, c)]));
   for (const d of districts) {
-    const slug = d.toLowerCase().replace(/\s+/g, "-");
-    items.push({ url: `${SITE}/d/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
-    for (const c of CUISINES) {
-      const matches = filterByDistrict(categoryCourses.get(c)!, d);
-      if (matches.length === 0) continue;
-      items.push({ url: `${SITE}/c/${c}/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
-    }
+    items.push({
+      url: `${SITE}/d/${districtSlug(d)}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.7,
+    });
+  }
+
+  // /c/[category]/[district] — 예전엔 "코스가 1개라도 있으면" 제출했더니 304개 중 203개가
+  // 코스 1개짜리였고, 구글이 전부 색인 거부(Crawled - currently not indexed)했다.
+  // 이제 lib/crawlGate 의 임계치를 넘는 조합만 제출한다. 같은 함수를 그 라우트의
+  // generateStaticParams 와 /c/[cuisine] 의 지역 링크도 쓰므로 세 곳이 절대 어긋나지 않는다.
+  for (const combo of indexableCategoryDistricts(db.restaurants, CUISINES, districts)) {
+    items.push({
+      url: `${SITE}/c/${combo.category}/${combo.slug}`,
+      lastModified: updated, changeFrequency: "weekly", priority: 0.8,
+    });
   }
 
   for (const r of db.restaurants) {

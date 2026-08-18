@@ -15,16 +15,21 @@ import { TravelStackAffiliate } from "@/components/TravelStackAffiliate";
 import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
 import type { Metadata } from "next";
 
-// 비용 최소화: top 80 골프장만 pre-build, 나머지 on-demand + 7일 캐시.
 export const revalidate = 604800;
-export const dynamicParams = true;
+
+// 전량 pre-build + dynamicParams=false.
+// 이전엔 리뷰수 top 80만 pre-build 하고 나머지 559개는 on-demand 였는데, 그 결과:
+//   1) 봇/스캐너가 임의 id 로 찔러도 notFound() 결과까지 ISR 캐시에 write 되면서
+//      ISR Writes 가 월 367K(할당량 200K)까지 치솟았다.
+//   2) sitemap 에는 578개 코스가 실려 있는데 pre-build 는 80개뿐이라, 구글이 나머지를
+//      크롤할 때마다 콜드 렌더를 맞았다. 같은 라우트의 opengraph-image.tsx 는 이미
+//      전량을 pre-build 하고 있어서 페이지 쪽만 불일치한 상태이기도 했다.
+// 전량 정적화하면 봇 probe 는 정적 404 로 끝나고 ISR write 자체가 사라진다.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  const ranked = [...db.restaurants].sort((a, b) =>
-    (b.total_reviews || 0) - (a.total_reviews || 0)
-  );
-  return ranked.slice(0, 80).map((r) => ({ id: r.id }));
+  return db.restaurants.map((r) => ({ id: r.id }));
 }
 
 // Detect if a string is "mostly Latin" — used to decide whether top_review_text
@@ -619,8 +624,13 @@ export default async function CoursePage(
             >
               Claim this listing →
             </a>
+            {/* rel="nofollow" 필수: /embed/[id] 는 noindex 인데 541개 코스 전부가 여기서
+                링크를 쏘고 있었다. 도메인 권위가 0인 상태에서 구글은 "색인하지 말라"고
+                시킨 541페이지를 크롤하느라 예산을 태웠고(GSC 'Excluded by noindex' 136건,
+                계속 증가 중), 정작 코스 페이지는 색인되지 못했다. robots.txt 의
+                Disallow: /embed/ 와 한 쌍으로 동작한다. */}
             <div className="text-[11px] text-emerald-800 mt-2 leading-tight">
-              Or grab the <a href={`/embed/${r.id}`} target="_blank" rel="noopener" className="underline font-medium">Trust Score badge</a> for your site.
+              Or grab the <a href={`/embed/${r.id}`} target="_blank" rel="nofollow noopener" className="underline font-medium">Trust Score badge</a> for your site.
             </div>
           </div>
 

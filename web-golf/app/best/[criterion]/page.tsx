@@ -13,6 +13,9 @@ export async function generateStaticParams() {
   return BEST_FOR.map((c) => ({ criterion: c.slug }));
 }
 
+// BEST_FOR 는 고정 목록 — 유효 슬러그를 전부 열거한다. 그 외는 봇/스캐너 probe.
+export const dynamicParams = false;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ criterion: string }> }
 ): Promise<Metadata> {
