@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { filterFoods, toLightFood } from '@/lib/petfood'
 import FoodCard from '@/components/FoodCard'
+import CompactFoodList from '@/components/CompactFoodList'
 import RelatedGuides from '@/components/RelatedGuides'
 
 export const metadata: Metadata = {
@@ -49,6 +50,12 @@ function FaqJsonLd() {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 }
 
+
+// Cards are expensive markup (~1.6 KB each, and again in the RSC payload), so
+// only the strongest of each life stage get one. The rest keep a text link, so
+// every product still has an inbound link from its category page.
+const CARD_LIMIT = 24
+
 export default function DogFoodPage() {
   const allDog = filterFoods({ animal: 'dog', sort: 'score' })
   const puppyFoods = allDog.filter(f => f.life_stage === 'puppy')
@@ -81,8 +88,9 @@ export default function DogFoodPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4">🐶 อาหารลูกสุนัข ({puppyFoods.length} รายการ)</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {puppyFoods.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
+            {puppyFoods.slice(0, CARD_LIMIT).map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
+          <CompactFoodList foods={puppyFoods.slice(CARD_LIMIT).map(toLightFood)} title="อาหารลูกสุนัข รายการอื่น" />
         </section>
       )}
 
@@ -90,8 +98,9 @@ export default function DogFoodPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4">🐕 อาหารสุนัขผู้ใหญ่ ({adultFoods.length} รายการ)</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {adultFoods.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
+            {adultFoods.slice(0, CARD_LIMIT).map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
+          <CompactFoodList foods={adultFoods.slice(CARD_LIMIT).map(toLightFood)} title="อาหารสุนัขผู้ใหญ่ รายการอื่น" />
         </section>
       )}
 
@@ -99,8 +108,9 @@ export default function DogFoodPage() {
         <section className="mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4">🐕 อาหารสุนัขสูงวัย ({seniorFoods.length} รายการ)</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {seniorFoods.map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
+            {seniorFoods.slice(0, CARD_LIMIT).map(food => <FoodCard key={food.id} food={toLightFood(food)} />)}
           </div>
+          <CompactFoodList foods={seniorFoods.slice(CARD_LIMIT).map(toLightFood)} title="อาหารสุนัขสูงวัย รายการอื่น" />
         </section>
       )}
 

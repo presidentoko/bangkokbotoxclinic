@@ -3,7 +3,6 @@ import FoodListClient from '@/components/FoodListClient'
 import RecentFoods from '@/components/RecentFoods'
 import RelatedGuides from '@/components/RelatedGuides'
 import { loadFoodsLight, getFoodGrade } from '@/lib/petfood'
-import type { PetFoodLight } from '@/lib/types'
 
 const FOOD_CATEGORIES = [
   { href: '/food/best',   name: 'อาหารเกรด A' },
@@ -113,44 +112,6 @@ function TopGradedFoods() {
   )
 }
 
-/**
- * The catalogue is client-rendered, so before this the hub emitted no crawlable
- * link to any of the 986 detail pages — which is exactly how they ended up as
- * "Discovered - currently not indexed". Grouped by brand to stay navigable.
- */
-function FoodDirectory() {
-  const byBrand = new Map<string, PetFoodLight[]>()
-  for (const f of loadFoodsLight()) {
-    const list = byBrand.get(f.brand)
-    if (list) list.push(f)
-    else byBrand.set(f.brand, [f])
-  }
-  const brands = [...byBrand.entries()].sort((a, b) => a[0].localeCompare(b[0], 'th'))
-
-  return (
-    <section className="mt-12 border-t border-gray-100 pt-6">
-      <h2 className="text-base font-bold text-gray-800 mb-1">รายชื่ออาหารสัตว์เลี้ยงทั้งหมดตามแบรนด์</h2>
-      <p className="text-xs text-gray-400 mb-4">{brands.length} แบรนด์ · {loadFoodsLight().length} รายการ</p>
-      <div className="space-y-4">
-        {brands.map(([brand, items]) => (
-          <div key={brand}>
-            <h3 className="text-xs font-bold text-gray-600 mb-1">{brand} <span className="font-normal text-gray-400">({items.length})</span></h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1">
-              {items.map(f => (
-                <li key={f.id}>
-                  <a href={`/food/${f.slug}`} className="text-xs text-gray-500 hover:text-orange-600 hover:underline line-clamp-1">
-                    {f.name_en}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 // No searchParams here — FoodListClient reads them client-side, which keeps this
 // shell statically rendered instead of forcing the whole route dynamic.
 export default function FoodPage() {
@@ -184,7 +145,16 @@ export default function FoodPage() {
         <FoodListClient />
       </Suspense>
       <TopGradedFoods />
-      <FoodDirectory />
+      {/* The full A-Z directory used to sit here, but /food/dog and /food/cat
+          between them already link all 986 products (470 + 516), so it was
+          986 duplicate links adding ~380 KB to the most-crawled page on the
+          site while both Vercel quotas were at their cap. */}
+      <p className="mt-8 text-sm text-gray-500">
+        ดูรายการทั้งหมดแยกตามสัตว์:{' '}
+        <a href="/food/dog" className="text-orange-600 hover:underline">อาหารสุนัขทั้งหมด</a>
+        {' · '}
+        <a href="/food/cat" className="text-orange-600 hover:underline">อาหารแมวทั้งหมด</a>
+      </p>
       <RelatedGuides current="food" count={4} />
     </main>
   )

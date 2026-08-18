@@ -1,6 +1,39 @@
 import type { NextConfig } from 'next'
 
 const config: NextConfig = {
+  /**
+   * Next serves prerendered pages with `Cache-Control: public, max-age=0,
+   * must-revalidate`, which reads to every shared cache as "do not store".
+   * Cloudflare sits in front of this site and duly reports
+   * `cf-cache-status: DYNAMIC` on every HTML response, so all 1,590 pages are
+   * proxied straight through to Vercel — each crawler hit billing an ISR read
+   * and its full weight in Fast Origin Transfer. Both quotas are at their cap.
+   *
+   * Nothing here is per-user or time-sensitive: the datasets only change when a
+   * deploy replaces them, so a shared cache can hold a page for an hour and
+   * serve it stale for a week while refetching. `max-age=0` is kept so browsers
+   * still revalidate and a visitor never sees a stale page from their own disk.
+   *
+   * Note this only makes the responses *eligible*. Cloudflare does not cache
+   * HTML by default whatever the origin says — that needs a Cache Rule set to
+   * "Eligible for cache" for this host, which is a dashboard change.
+   */
+  async headers() {
+    const cacheable = 'public, max-age=0, s-maxage=3600, stale-while-revalidate=604800'
+    return [
+      {
+        // Everything except the API surface and Next's own fingerprinted
+        // assets, which already carry immutable caching of their own.
+        source: '/:path((?!api/).*)',
+        headers: [{ key: 'Cache-Control', value: cacheable }],
+      },
+      {
+        source: '/:path*.(png|jpg|jpeg|svg|webp|ico|woff2)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+    ]
+  },
+
   async redirects() {
     return [
       // /hospital/surgery listed all 503 hospitals, because `has_surgery` is
