@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Balenciaga in Thailand 2025: Triple S, City Bag | ChicPreowned'
-      : 'วิธีตรวจสอบ Balenciaga ของแท้ในไทย 2025: Triple S, City Bag | ChicPreowned',
+      ? `How to Authenticate Balenciaga in Thailand ${PRICE_YEAR}: Triple S, City Bag | ChicPreowned`
+      : `วิธีตรวจสอบ Balenciaga ของแท้ในไทย ${PRICE_YEAR}: Triple S, City Bag | ChicPreowned`,
     description: isEn
-      ? 'Authenticate Balenciaga in Thailand — City bag hardware engraving, Triple S sole layers, Cagole weight, interior stamp, arena leather texture. Bangkok buyers guide 2025.'
-      : 'ตรวจสอบ Balenciaga ในไทย — การแกะสลัก hardware กระเป๋า City ชั้น sole ของ Triple S น้ำหนัก Cagole ตราประทับภายใน ผิว arena leather คู่มือผู้ซื้อกรุงเทพ 2025',
+      ? `Authenticate Balenciaga in Thailand — City bag hardware engraving, Triple S sole layers, Cagole weight, interior stamp, arena leather texture. Bangkok buyers guide ${PRICE_YEAR}.`
+      : `ตรวจสอบ Balenciaga ในไทย — การแกะสลัก hardware กระเป๋า City ชั้น sole ของ Triple S น้ำหนัก Cagole ตราประทับภายใน ผิว arena leather คู่มือผู้ซื้อกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -51,7 +52,7 @@ export default async function AuthenticateBalenciagaTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'How to Authenticate Balenciaga 2025' : 'วิธีตรวจสอบ Balenciaga ของแท้ 2025'}
+        {isEn ? 'How to Authenticate Balenciaga {PRICE_YEAR}' : 'วิธีตรวจสอบ Balenciaga ของแท้ {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

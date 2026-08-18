@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsUnderBudget } from '@/lib/data'
+import { getItemsUnderBudget, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function Under2000Page() {
         Full handbag range including Chanel Classic Flap, LV Neverfull, and watch entry points.
         At this budget, the entire pre-owned luxury market opens up — from iconic totes to entry dress watches.
       </p>
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "FAQPage",

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Tiffany vs Van Cleef & Arpels Thailand 2025: Which Jewelry? | ChicPreowned'
-      : 'Tiffany vs Van Cleef & Arpels ไทย 2025: ควรซื้ออันไหน? | ChicPreowned',
+      ? `Tiffany vs Van Cleef & Arpels Thailand ${PRICE_YEAR}: Which Jewelry? | ChicPreowned`
+      : `Tiffany vs Van Cleef & Arpels ไทย ${PRICE_YEAR}: ควรซื้ออันไหน? | ChicPreowned`,
     description: isEn
-      ? 'Tiffany vs VCA for Bangkok buyers — THB prices, resale value, Alhambra vs HardWear, investment case. Which jewelry brand to buy pre-owned in Thailand 2025?'
-      : 'Tiffany vs VCA สำหรับผู้ซื้อกรุงเทพ ราคาบาท มูลค่าขายต่อ Alhambra vs HardWear คุณค่าการลงทุน ควรซื้อแบรนด์เครื่องประดับอะไรมือสองในไทย 2025?',
+      ? `Tiffany vs VCA for Bangkok buyers — THB prices, resale value, Alhambra vs HardWear, investment case. Which jewelry brand to buy pre-owned in Thailand ${PRICE_YEAR}?`
+      : `Tiffany vs VCA สำหรับผู้ซื้อกรุงเทพ ราคาบาท มูลค่าขายต่อ Alhambra vs HardWear คุณค่าการลงทุน ควรซื้อแบรนด์เครื่องประดับอะไรมือสองในไทย ${PRICE_YEAR}?`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function TiffanyVsVCATH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Tiffany & Co vs Van Cleef & Arpels 2025' : 'Tiffany & Co vs Van Cleef & Arpels 2025'}
+        {isEn ? 'Tiffany & Co vs Van Cleef & Arpels {PRICE_YEAR}' : 'Tiffany & Co vs Van Cleef & Arpels {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Chanel Classic Flap vs 2.55 Reissue: Differences & Prices Thailand 2025 | ChicPreowned'
-      : 'Chanel Classic Flap vs 2.55 Reissue: ความแตกต่างและราคาในไทย 2025 | ChicPreowned',
+      ? `Chanel Classic Flap vs 2.55 Reissue: Differences & Prices Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Chanel Classic Flap vs 2.55 Reissue: ความแตกต่างและราคาในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Classic Flap vs 2.55 Reissue differences for Bangkok buyers — CC lock vs Mademoiselle lock, THB prices, resale value, which to buy 2025.'
-      : 'ความแตกต่าง Classic Flap vs 2.55 Reissue สำหรับผู้ซื้อกรุงเทพ ล็อค CC vs ล็อค Mademoiselle ราคาบาท มูลค่าขายต่อ ควรซื้ออันไหน 2025',
+      ? `Classic Flap vs 2.55 Reissue differences for Bangkok buyers — CC lock vs Mademoiselle lock, THB prices, resale value, which to buy ${PRICE_YEAR}.`
+      : `ความแตกต่าง Classic Flap vs 2.55 Reissue สำหรับผู้ซื้อกรุงเทพ ล็อค CC vs ล็อค Mademoiselle ราคาบาท มูลค่าขายต่อ ควรซื้ออันไหน ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

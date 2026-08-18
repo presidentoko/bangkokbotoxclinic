@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Fendi vs Gucci Thailand 2025: Which Italian House Holds Value? | ChicPreowned'
-      : 'Fendi vs Gucci ในไทย 2025: บ้านอิตาลีไหนรักษามูลค่าได้ดีกว่า? | ChicPreowned',
+      ? `Fendi vs Gucci Thailand ${PRICE_YEAR}: Which Italian House Holds Value? | ChicPreowned`
+      : `Fendi vs Gucci ในไทย ${PRICE_YEAR}: บ้านอิตาลีไหนรักษามูลค่าได้ดีกว่า? | ChicPreowned`,
     description: isEn
-      ? 'Fendi vs Gucci for Thailand buyers 2025 — Roman architecture vs Florentine eclecticism, resale retention, THB prices, Gucci creative director volatility, and which Italian luxury brand to buy pre-owned.'
-      : 'Fendi vs Gucci สำหรับผู้ซื้อในไทย 2025 สถาปัตยกรรมโรมัน vs ผสมผสานฟลอเรนซ์ อัตราการรักษามูลค่า ราคาบาท ความผันผวนของผู้อำนวยการสร้างสรรค์ Gucci และควรซื้อแบรนด์หรูอิตาลีไหนมือสอง',
+      ? `Fendi vs Gucci for Thailand buyers ${PRICE_YEAR} — Roman architecture vs Florentine eclecticism, resale retention, THB prices, Gucci creative director volatility, and which Italian luxury brand to buy pre-owned.`
+      : `Fendi vs Gucci สำหรับผู้ซื้อในไทย ${PRICE_YEAR} สถาปัตยกรรมโรมัน vs ผสมผสานฟลอเรนซ์ อัตราการรักษามูลค่า ราคาบาท ความผันผวนของผู้อำนวยการสร้างสรรค์ Gucci และควรซื้อแบรนด์หรูอิตาลีไหนมือสอง`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -61,7 +62,7 @@ export default async function FendiVsGucciTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Fendi vs Gucci (2025): Which Italian House Holds Value Better?' : 'Fendi vs Gucci (2025): บ้านอิตาลีไหนรักษามูลค่าได้ดีกว่า?'}
+        {isEn ? 'Fendi vs Gucci ({PRICE_YEAR}): Which Italian House Holds Value Better?' : 'Fendi vs Gucci ({PRICE_YEAR}): บ้านอิตาลีไหนรักษามูลค่าได้ดีกว่า?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

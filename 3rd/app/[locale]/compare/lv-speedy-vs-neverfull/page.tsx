@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'LV Speedy vs Neverfull Thailand 2025: Which Pre-Owned? | ChicPreowned'
-      : 'LV Speedy vs Neverfull ในไทย 2025: มือสองอันไหนน่าซื้อ? | ChicPreowned',
+      ? `LV Speedy vs Neverfull Thailand ${PRICE_YEAR}: Which Pre-Owned? | ChicPreowned`
+      : `LV Speedy vs Neverfull ในไทย ${PRICE_YEAR}: มือสองอันไหนน่าซื้อ? | ChicPreowned`,
     description: isEn
-      ? 'Louis Vuitton Speedy vs Neverfull for Bangkok buyers 2025 — resale retention, THB prices, security considerations, and which LV is the better pre-owned investment in Thailand.'
-      : 'Louis Vuitton Speedy vs Neverfull สำหรับผู้ซื้อกรุงเทพ 2025 อัตราการรักษามูลค่า ราคาบาท ข้อพิจารณาด้านความปลอดภัย และ LV ไหนลงทุนมือสองได้ดีกว่าในไทย',
+      ? `Louis Vuitton Speedy vs Neverfull for Bangkok buyers ${PRICE_YEAR} — resale retention, THB prices, security considerations, and which LV is the better pre-owned investment in Thailand.`
+      : `Louis Vuitton Speedy vs Neverfull สำหรับผู้ซื้อกรุงเทพ ${PRICE_YEAR} อัตราการรักษามูลค่า ราคาบาท ข้อพิจารณาด้านความปลอดภัย และ LV ไหนลงทุนมือสองได้ดีกว่าในไทย`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -61,7 +62,7 @@ export default async function LvSpeedyVsNeverfullTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'LV Speedy vs Neverfull (2025): Which Pre-Owned to Buy?' : 'LV Speedy vs Neverfull (2025): มือสองอันไหนน่าซื้อ?'}
+        {isEn ? 'LV Speedy vs Neverfull ({PRICE_YEAR}): Which Pre-Owned to Buy?' : 'LV Speedy vs Neverfull ({PRICE_YEAR}): มือสองอันไหนน่าซื้อ?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

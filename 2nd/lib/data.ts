@@ -35,6 +35,30 @@ export interface BrandSummary {
   categories: Category[]
 }
 
+/** Slim shape for the client-side sortable grid. The grid only ever reads
+ * these six fields, but a full `Item` carries ~90 `price_samples` — passing
+ * those across the server/client boundary serialised 1.7 MB of dead JSON into
+ * /handbags alone. Project before handing items to a client component. */
+export interface GridItem {
+  id: string
+  brand: string
+  model: string
+  slug: string
+  retail: number
+  vg: PriceRange | null
+}
+
+export function toGridItems(items: Item[]): GridItem[] {
+  return items.map(i => ({
+    id: i.id,
+    brand: i.brand,
+    model: i.model,
+    slug: i.slug,
+    retail: i.retail_price_usd,
+    vg: i.price_ranges.very_good ?? null,
+  }))
+}
+
 /** Slim shape for client-side search/filtering — avoids serializing full
  * items (with price_samples etc) into every page. */
 export interface SearchIndexItem {

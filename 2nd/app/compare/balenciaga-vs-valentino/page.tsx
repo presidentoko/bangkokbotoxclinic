@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Balenciaga vs Valentino: Pre-Owned Bags 2025 | SecondLuxuryItems',
-  description: 'Balenciaga vs Valentino pre-owned compared — City vs Rockstud, retention rates, and which brand is the better buy in 2025.',
+  title: `Balenciaga vs Valentino: Pre-Owned Bags ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Balenciaga vs Valentino pre-owned compared — City vs Rockstud, retention rates, and which brand is the better buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/balenciaga-vs-valentino` },
 }
 
@@ -28,7 +29,7 @@ export default function BalenciagaVsValentinoPage() {
         <span>Balenciaga vs Valentino</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Balenciaga vs Valentino: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Balenciaga vs Valentino: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two fashion powerhouses at similar price points — deconstruction vs Roman glamour.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

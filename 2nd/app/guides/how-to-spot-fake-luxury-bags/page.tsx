@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Spot a Fake Luxury Bag: 2025 Authentication Guide',
+  title: `How to Spot a Fake Luxury Bag: ${PRICE_YEAR} Authentication Guide`,
   description: 'Learn how to spot counterfeit luxury bags. Chanel, Louis Vuitton, Hermès, and Gucci authentication tells — stitching, hardware, date codes, and more.',
   alternates: { canonical: `${BASE}/guides/how-to-spot-fake-luxury-bags` },
 }
@@ -94,9 +95,9 @@ export default function HowToSpotFakeLuxuryBagsPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        How to Spot a Fake Luxury Bag (2025 Guide)
+        How to Spot a Fake Luxury Bag ({PRICE_YEAR} Guide)
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Covers Chanel, LV, Hermès, Gucci</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Covers Chanel, LV, Hermès, Gucci</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

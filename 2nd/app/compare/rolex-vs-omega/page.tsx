@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Rolex vs Omega Pre-Owned Price Guide 2025 | SecondLuxuryItems',
+  title: `Rolex vs Omega Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description:
     'Rolex vs Omega: which holds value better pre-owned? Compare resale prices, retention rates, and the best models to buy second-hand.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/rolex-vs-omega' },
@@ -84,9 +85,9 @@ export default function RolexVsOmegaPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Rolex vs Omega: Pre-Owned Price Guide 2025
+        Rolex vs Omega: Pre-Owned Price Guide {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

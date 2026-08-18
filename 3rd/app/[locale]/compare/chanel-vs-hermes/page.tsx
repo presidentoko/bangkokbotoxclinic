@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Chanel vs Hermès Pre-Owned in Thailand 2025 | ChicPreowned'
+      ? `Chanel vs Hermès Pre-Owned in Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Chanel vs Hermès: ซื้อมือสองอันไหนดีกว่าในไทย? | ChicPreowned',
     description: isEn
       ? 'Both trade above retail. Chanel from ฿80k, Hermès Birkin from ฿250k used. Compare the two strongest luxury resale brands in Thailand.'
@@ -139,7 +140,7 @@ export default async function ChanelVsHermesPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Chanel vs Hermès Pre-Owned in Thailand 2025'
+          ? 'Chanel vs Hermès Pre-Owned in Thailand {PRICE_YEAR}'
           : 'Chanel vs Hermès: ซื้อมือสองอันไหนดีกว่าในไทย?'}
       </h1>
 

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Prada vs Gucci Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'Prada vs Gucci pre-owned: which is worth buying used? Compare resale value, durability, and best models for 2025.',
+  title: `Prada vs Gucci Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Prada vs Gucci pre-owned: which is worth buying used? Compare resale value, durability, and best models for ${PRICE_YEAR}.`,
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/prada-vs-gucci' },
 }
 
@@ -106,7 +107,7 @@ export default function PradaVsGucciPage() {
       <h1 className="text-4xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
         Prada vs Gucci Pre-Owned: Which Is Worth Buying Used?
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

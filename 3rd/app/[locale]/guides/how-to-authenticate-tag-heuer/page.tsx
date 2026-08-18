@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate TAG Heuer in Thailand: 7 Checks (2025) | ChicPreowned'
-      : 'วิธียืนยันความถูกต้องของ TAG Heuer ในไทย: 7 จุดตรวจสอบ (2025) | ChicPreowned',
+      ? `How to Authenticate TAG Heuer in Thailand: 7 Checks (${PRICE_YEAR}) | ChicPreowned`
+      : `วิธียืนยันความถูกต้องของ TAG Heuer ในไทย: 7 จุดตรวจสอบ (${PRICE_YEAR}) | ChicPreowned`,
     description: isEn
       ? 'Authenticate any TAG Heuer watch in Thailand with 7 checks: caseback engraving, dial text, movement, crown, serial, clasp, and crystal. Covers Aquaracer, Carrera, Monaco.'
       : 'ยืนยันความถูกต้องของนาฬิกา TAG Heuer ในไทยด้วย 7 จุดตรวจ: การแกะสลักฝาหลัง, ตัวหน้าปัด, จักรกล, มงกุฎ, ซีเรียล, คลิป และกระจก ครอบคลุม Aquaracer, Carrera, Monaco',

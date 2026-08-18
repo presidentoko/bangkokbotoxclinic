@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Pre-Owned vs New Luxury: Is It Worth It? 2025 Guide | SecondLuxuryItems',
+  title: `Pre-Owned vs New Luxury: Is It Worth It? ${PRICE_YEAR} Guide | SecondLuxuryItems`,
   description: 'Pre-owned vs new luxury bags and watches — price difference, condition risks, authentication, savings calculation. When to buy pre-owned and when not to.',
   alternates: { canonical: `${BASE}/guides/pre-owned-vs-new-luxury` },
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -49,7 +50,7 @@ export default async function ChanelVsBVTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel vs Bottega Veneta: Pre-Owned Thailand 2025' : 'Chanel vs Bottega Veneta: มือสองในไทย 2025'}
+        {isEn ? 'Chanel vs Bottega Veneta: Pre-Owned Thailand {PRICE_YEAR}' : 'Chanel vs Bottega Veneta: มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Loud vs quiet luxury — maximum recognition vs no-logo intrecciato weave. Which is the better pre-owned buy for Thai buyers?'

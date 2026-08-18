@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Best Pre-Owned Luxury Watches Under $5,000 Thailand 2025 | ChicPreowned'
-      : 'นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 ในไทย 2025 | ChicPreowned',
+      ? `Best Pre-Owned Luxury Watches Under $5,000 Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Best pre-owned luxury watches under $5,000 for Bangkok buyers — Rolex Datejust, Omega Speedmaster, TAG Heuer, IWC, Cartier Santos. THB prices included.'
       : 'นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 สำหรับผู้ซื้อกรุงเทพ Rolex Datejust, Omega Speedmaster, TAG Heuer, IWC, Cartier Santos รวมราคาบาท',
@@ -54,7 +55,7 @@ export default async function WatchesUnder5kTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Best Pre-Owned Luxury Watches Under $5,000 (2025)' : 'นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 (2025)'}
+        {isEn ? 'Best Pre-Owned Luxury Watches Under $5,000 ({PRICE_YEAR})' : 'นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 ({PRICE_YEAR})'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

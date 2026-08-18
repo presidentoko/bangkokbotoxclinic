@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Luxury Jewelry Buying Guide Thailand 2025: Cartier, Tiffany, Van Cleef | ChicPreowned'
-      : 'คู่มือซื้อเครื่องประดับหรูในไทย 2025: Cartier Tiffany Van Cleef | ChicPreowned',
+      ? `Luxury Jewelry Buying Guide Thailand ${PRICE_YEAR}: Cartier, Tiffany, Van Cleef | ChicPreowned`
+      : `คู่มือซื้อเครื่องประดับหรูในไทย ${PRICE_YEAR}: Cartier Tiffany Van Cleef | ChicPreowned`,
     description: isEn
       ? 'Pre-owned luxury jewelry guide for Thai buyers — Cartier Love, Tiffany T, VCA Alhambra. THB prices, resale retention, authentication tips.'
       : 'คู่มือซื้อเครื่องประดับหรูมือสองสำหรับผู้ซื้อชาวไทย — Cartier Love Tiffany T VCA Alhambra ราคาบาท การคงมูลค่า เคล็ดลับตรวจสอบ',
@@ -108,7 +109,7 @@ export default async function JewelryGuideTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Luxury Jewelry Buying Guide 2025' : 'คู่มือซื้อเครื่องประดับหรู 2025'}
+        {isEn ? 'Luxury Jewelry Buying Guide {PRICE_YEAR}' : 'คู่มือซื้อเครื่องประดับหรู {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

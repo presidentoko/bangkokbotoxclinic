@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Prada vs Miu Miu: Which Pre-Owned Bag 2025 | SecondLuxuryItems',
+  title: `Prada vs Miu Miu: Which Pre-Owned Bag ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Prada vs Miu Miu — sister brands from the same group but very different pre-owned markets. Re Nylon vs Wander Bag, value retention, which to buy.',
   alternates: { canonical: `${BASE}/compare/prada-vs-miu-miu` },
 }
@@ -34,7 +35,7 @@ export default function PradaVsMiuMiuPage() {
         <span>Prada vs Miu Miu</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Prada vs Miu Miu: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Prada vs Miu Miu: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Same designer, same group — but very different identities. Intellectual minimalism vs playful excess. Which is the better pre-owned buy right now?</p>
 
       <div className="overflow-x-auto mb-10">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Omega Seamaster vs Constellation Thailand 2025: Which Pre-Owned? | ChicPreowned'
-      : 'Omega Seamaster vs Constellation ในไทย 2025: มือสองอันไหนดีกว่า? | ChicPreowned',
+      ? `Omega Seamaster vs Constellation Thailand ${PRICE_YEAR}: Which Pre-Owned? | ChicPreowned`
+      : `Omega Seamaster vs Constellation ในไทย ${PRICE_YEAR}: มือสองอันไหนดีกว่า? | ChicPreowned`,
     description: isEn
-      ? 'Omega Seamaster vs Constellation for Bangkok buyers 2025 — resale retention, THB prices, dive watch vs dress watch, and which Omega is the better pre-owned buy.'
-      : 'Omega Seamaster vs Constellation สำหรับผู้ซื้อกรุงเทพ 2025 การรักษามูลค่า ราคาบาท นาฬิกาดำน้ำ vs นาฬิกาชุด และ Omega ไหนลงทุนมือสองได้ดีกว่า',
+      ? `Omega Seamaster vs Constellation for Bangkok buyers ${PRICE_YEAR} — resale retention, THB prices, dive watch vs dress watch, and which Omega is the better pre-owned buy.`
+      : `Omega Seamaster vs Constellation สำหรับผู้ซื้อกรุงเทพ ${PRICE_YEAR} การรักษามูลค่า ราคาบาท นาฬิกาดำน้ำ vs นาฬิกาชุด และ Omega ไหนลงทุนมือสองได้ดีกว่า`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -61,7 +62,7 @@ export default async function OmegaSeamasterVsConstellationTH({ params }: Props)
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Omega Seamaster vs Constellation (2025): Which Pre-Owned?' : 'Omega Seamaster vs Constellation (2025): มือสองอันไหนดีกว่า?'}
+        {isEn ? 'Omega Seamaster vs Constellation ({PRICE_YEAR}): Which Pre-Owned?' : 'Omega Seamaster vs Constellation ({PRICE_YEAR}): มือสองอันไหนดีกว่า?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

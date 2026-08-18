@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès vs Bottega Veneta Pre-Owned 2025 | SecondLuxuryItems',
+  title: `Hermès vs Bottega Veneta Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Hermès vs Bottega Veneta: the two quiet luxury leaders compared. Pre-owned prices, value retention, and which brand holds its value better on the secondary market.',
   alternates: { canonical: `${BASE}/compare/hermes-vs-bottega-veneta` },
 }
@@ -80,9 +81,9 @@ export default function HermesVsBottegaVenetaPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Hermès vs Bottega Veneta Pre-Owned 2025
+        Hermès vs Bottega Veneta Pre-Owned {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Quiet luxury compared</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Quiet luxury compared</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

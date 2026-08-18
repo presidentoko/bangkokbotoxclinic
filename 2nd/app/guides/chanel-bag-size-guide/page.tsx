@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel Classic Flap Size Guide 2025 | SecondLuxuryItems',
-  description: 'Chanel Classic Flap size guide — Mini, Small, Medium/Large, Maxi. Dimensions, capacity, pre-owned prices, and which size to buy in 2025.',
+  title: `Chanel Classic Flap Size Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Chanel Classic Flap size guide — Mini, Small, Medium/Large, Maxi. Dimensions, capacity, pre-owned prices, and which size to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/chanel-bag-size-guide` },
 }
 
@@ -20,7 +21,7 @@ export default function ChanelSizeGuidePage() {
         <span>Chanel Size Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel Classic Flap Size Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel Classic Flap Size Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Mini vs Small vs Medium/Large vs Maxi — dimensions, capacity, and pre-owned prices compared.</p>
 
       <section className="mb-10">

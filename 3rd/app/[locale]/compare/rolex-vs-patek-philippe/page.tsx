@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,10 +12,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Rolex vs Patek Philippe: Pre-Owned Watches in Thailand 2025'
-      : 'Rolex vs Patek Philippe: นาฬิกามือสองในไทย 2025',
+      ? `Rolex vs Patek Philippe: Pre-Owned Watches in Thailand ${PRICE_YEAR}`
+      : `Rolex vs Patek Philippe: นาฬิกามือสองในไทย ${PRICE_YEAR}`,
     description: isEn
-      ? 'Rolex vs Patek Philippe investment comparison. Submariner vs Nautilus — which is the better pre-owned watch buy in Thailand in 2025?'
+      ? `Rolex vs Patek Philippe investment comparison. Submariner vs Nautilus — which is the better pre-owned watch buy in Thailand in ${PRICE_YEAR}?`
       : 'เปรียบเทียบ Rolex vs Patek Philippe เพื่อการลงทุน Submariner vs Nautilus — อะไรน่าซื้อมือสองในไทยปี 2568?',
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
@@ -58,7 +59,7 @@ export default async function RolexVsPatekPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Patek Philippe: Which to Buy Pre-Owned in Thailand 2025?' : 'Rolex vs Patek Philippe: ซื้อมือสองอะไรดีในไทย 2568?'}
+        {isEn ? 'Rolex vs Patek Philippe: Which to Buy Pre-Owned in Thailand {PRICE_YEAR}?' : 'Rolex vs Patek Philippe: ซื้อมือสองอะไรดีในไทย 2568?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

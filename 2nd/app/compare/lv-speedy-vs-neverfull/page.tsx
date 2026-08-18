@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'LV Speedy vs Neverfull 2025: Which Pre-Owned Bag to Buy? | SecondLuxuryItems',
-  description: 'Louis Vuitton Speedy vs Neverfull — structured vs tote, resale retention, which LV is the better investment, and pre-owned price comparison for 2025.',
+  title: `LV Speedy vs Neverfull ${PRICE_YEAR}: Which Pre-Owned Bag to Buy? | SecondLuxuryItems`,
+  description: `Louis Vuitton Speedy vs Neverfull — structured vs tote, resale retention, which LV is the better investment, and pre-owned price comparison for ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/lv-speedy-vs-neverfull` },
 }
 
@@ -33,7 +34,7 @@ export default function LvSpeedyVsNeverfull() {
         <span>LV Speedy vs Neverfull</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">LV Speedy vs Neverfull (2025): Which Pre-Owned to Buy?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">LV Speedy vs Neverfull ({PRICE_YEAR}): Which Pre-Owned to Buy?</h1>
       <p className="text-gray-500 mb-10">The two most recognisable Louis Vuitton bags in the world — and both excellent pre-owned investments. The Speedy is a structured handheld; the Neverfull is the definitive open tote. The choice comes down to how you carry and whether security matters.</p>
 
       <div className="overflow-x-auto mb-10">

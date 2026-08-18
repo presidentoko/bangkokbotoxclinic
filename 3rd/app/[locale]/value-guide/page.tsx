@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getAllItems, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Luxury Resale Value Guide Thailand 2025 | ChicPreowned'
-      : 'คู่มือมูลค่าการขายต่อ Luxury ในไทย 2025 | ChicPreowned',
+      ? `Luxury Resale Value Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `คู่มือมูลค่าการขายต่อ Luxury ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Which luxury items retain value best in Thailand? See resale retention rankings and biggest savings vs retail for Chanel, LV, Hermès, Gucci and more.'
       : 'สินค้า Luxury ชิ้นไหนรักษามูลค่าได้ดีที่สุดในไทย? ดูอันดับการรักษามูลค่าและส่วนลดสูงสุดจากราคาใหม่',
@@ -96,8 +97,8 @@ export default async function ValueGuidePage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Luxury Resale Value Guide Thailand 2025'
-          : 'คู่มือมูลค่าการขายต่อ Luxury ในไทย 2025'}
+          ? 'Luxury Resale Value Guide Thailand {PRICE_YEAR}'
+          : 'คู่มือมูลค่าการขายต่อ Luxury ในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-[#6B6052] mb-2 leading-relaxed">
         {isEn

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Chanel Bag Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบกระเป๋า Chanel แท้ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Chanel Bag Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบกระเป๋า Chanel แท้ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Authenticate Chanel bags in Thailand — serial numbers, CC hardware alignment, stitching, dust bag. 2025 guide with Thai market tips.'
-      : 'ตรวจสอบกระเป๋า Chanel แท้ในไทย — เลขซีเรียล โลโก้ CC การเย็บ ถุงผ้า คู่มือ 2025 พร้อมเคล็ดลับตลาดไทย',
+      ? `Authenticate Chanel bags in Thailand — serial numbers, CC hardware alignment, stitching, dust bag. ${PRICE_YEAR} guide with Thai market tips.`
+      : `ตรวจสอบกระเป๋า Chanel แท้ในไทย — เลขซีเรียล โลโก้ CC การเย็บ ถุงผ้า คู่มือ ${PRICE_YEAR} พร้อมเคล็ดลับตลาดไทย`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

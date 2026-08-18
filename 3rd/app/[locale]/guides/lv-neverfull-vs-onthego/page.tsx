@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'LV Neverfull vs OnTheGo Thailand 2025: Which Tote? | ChicPreowned'
-      : 'LV Neverfull vs OnTheGo ไทย 2025: กระเป๋าโท้ทอันไหน? | ChicPreowned',
+      ? `LV Neverfull vs OnTheGo Thailand ${PRICE_YEAR}: Which Tote? | ChicPreowned`
+      : `LV Neverfull vs OnTheGo ไทย ${PRICE_YEAR}: กระเป๋าโท้ทอันไหน? | ChicPreowned`,
     description: isEn
-      ? 'Neverfull MM vs OnTheGo MM for Bangkok buyers — THB prices, capacity, strap options, zip vs open top, pre-owned value comparison 2025.'
-      : 'Neverfull MM vs OnTheGo MM สำหรับผู้ซื้อกรุงเทพ ราคาบาท ความจุ ตัวเลือกสาย ซิปกับปิดบนแบบเปิด เปรียบเทียบมูลค่ามือสอง 2025',
+      ? `Neverfull MM vs OnTheGo MM for Bangkok buyers — THB prices, capacity, strap options, zip vs open top, pre-owned value comparison ${PRICE_YEAR}.`
+      : `Neverfull MM vs OnTheGo MM สำหรับผู้ซื้อกรุงเทพ ราคาบาท ความจุ ตัวเลือกสาย ซิปกับปิดบนแบบเปิด เปรียบเทียบมูลค่ามือสอง ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function NeverFullVsOnTheGoTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'LV Neverfull vs OnTheGo 2025' : 'LV Neverfull vs OnTheGo 2025'}
+        {isEn ? 'LV Neverfull vs OnTheGo {PRICE_YEAR}' : 'LV Neverfull vs OnTheGo {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -51,7 +52,7 @@ export default async function HermesVsLVPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Hermès vs Louis Vuitton: Pre-Owned in Thailand 2025' : 'Hermès vs Louis Vuitton: มือสองในไทย 2025'}
+        {isEn ? 'Hermès vs Louis Vuitton: Pre-Owned in Thailand {PRICE_YEAR}' : 'Hermès vs Louis Vuitton: มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? "The world's most exclusive bag vs the world's most recognisable — two entirely different markets."

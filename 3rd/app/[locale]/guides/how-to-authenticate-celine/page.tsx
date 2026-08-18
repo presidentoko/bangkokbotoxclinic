@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Celine Bags Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบกระเป๋า Celine แท้ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Celine Bags Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบกระเป๋า Celine แท้ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'How to spot fake Celine in Thailand — Triomphe canvas, interior stamp, turn-lock, zipper, leather, serial tag. Authenticate Celine pre-owned Bangkok 2025.'
-      : 'วิธีสังเกตกระเป๋า Celine ปลอมในไทย — canvas Triomphe ตราประทับภายใน turn-lock ซิป หนัง แท็ก serial ตรวจสอบ Celine มือสองในกรุงเทพ 2025',
+      ? `How to spot fake Celine in Thailand — Triomphe canvas, interior stamp, turn-lock, zipper, leather, serial tag. Authenticate Celine pre-owned Bangkok ${PRICE_YEAR}.`
+      : `วิธีสังเกตกระเป๋า Celine ปลอมในไทย — canvas Triomphe ตราประทับภายใน turn-lock ซิป หนัง แท็ก serial ตรวจสอบ Celine มือสองในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -51,7 +52,7 @@ export default async function AuthenticateCelineTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'How to Authenticate Celine Bags 2025' : 'วิธีตรวจสอบกระเป๋า Celine แท้ 2025'}
+        {isEn ? 'How to Authenticate Celine Bags {PRICE_YEAR}' : 'วิธีตรวจสอบกระเป๋า Celine แท้ {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

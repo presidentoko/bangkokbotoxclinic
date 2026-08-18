@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Saint Laurent vs Dior: Pre-Owned Bags 2025 | SecondLuxuryItems',
-  description: 'Saint Laurent vs Dior compared — Sac de Jour vs Lady Dior, Loulou vs Saddle. Which Parisian house holds value better pre-owned in 2025.',
+  title: `Saint Laurent vs Dior: Pre-Owned Bags ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Saint Laurent vs Dior compared — Sac de Jour vs Lady Dior, Loulou vs Saddle. Which Parisian house holds value better pre-owned in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/saint-laurent-vs-dior` },
 }
 
@@ -33,7 +34,7 @@ export default function SaintLaurentVsDiorPage() {
         <span>Saint Laurent vs Dior</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Saint Laurent vs Dior: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Saint Laurent vs Dior: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two iconic Parisian houses — very different aesthetics, similar price points. Which is the smarter pre-owned buy?</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

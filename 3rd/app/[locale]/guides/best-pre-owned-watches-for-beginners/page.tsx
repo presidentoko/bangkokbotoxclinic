@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Best Pre-Owned Luxury Watches for Beginners Thailand 2025 | ChicPreowned'
-      : 'นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ในไทย 2025 | ChicPreowned',
+      ? `Best Pre-Owned Luxury Watches for Beginners Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Best first luxury watch to buy pre-owned in Thailand — Omega Seamaster, Cartier Tank, Rolex Datejust. Entry prices in USD and THB, what to check, Bangkok boutique context.'
       : 'นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ในไทย Omega Seamaster, Cartier Tank, Rolex Datejust ราคาเป็น USD และบาท สิ่งที่ต้องตรวจสอบ บริบทบูทีคกรุงเทพ',
@@ -115,7 +116,7 @@ export default async function WatchesForBeginnersTH({ params }: Props) {
 
       <p className="text-xs tracking-widest uppercase text-amber-600 mb-2">{isEn ? "Buyer's Guide" : 'คู่มือผู้ซื้อ'}</p>
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Best Pre-Owned Luxury Watches for Beginners 2025' : 'นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ 2025'}
+        {isEn ? 'Best Pre-Owned Luxury Watches for Beginners {PRICE_YEAR}' : 'นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Dior vs Louis Vuitton: Pre-Owned Bags 2025 | SecondLuxuryItems',
-  description: 'Dior vs Louis Vuitton compared for pre-owned buyers — Lady Dior vs Neverfull, Saddle vs Speedy, value retention, and which LVMH brand to buy in 2025.',
+  title: `Dior vs Louis Vuitton: Pre-Owned Bags ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Dior vs Louis Vuitton compared for pre-owned buyers — Lady Dior vs Neverfull, Saddle vs Speedy, value retention, and which LVMH brand to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/dior-vs-louis-vuitton` },
 }
 
@@ -33,7 +34,7 @@ export default function DiorVsLouisVuittonPage() {
         <span>Dior vs Louis Vuitton</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Louis Vuitton: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Louis Vuitton: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two of LVMH's biggest houses — same parent company, very different pre-owned dynamics.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

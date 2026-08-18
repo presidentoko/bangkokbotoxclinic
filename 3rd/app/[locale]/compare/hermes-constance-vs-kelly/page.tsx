@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Hermès Constance vs Kelly Thailand 2025: Investment & Pre-Owned | ChicPreowned'
-      : 'Hermès Constance vs Kelly ในไทย 2025: การลงทุน & มือสอง | ChicPreowned',
+      ? `Hermès Constance vs Kelly Thailand ${PRICE_YEAR}: Investment & Pre-Owned | ChicPreowned`
+      : `Hermès Constance vs Kelly ในไทย ${PRICE_YEAR}: การลงทุน & มือสอง | ChicPreowned`,
     description: isEn
-      ? 'Hermès Constance vs Kelly for Thailand buyers 2025 — H clasp crossbody vs structured frame, THB prices, Kelly 25 Sellier investment case, and which Hermès pre-owned to choose.'
-      : 'Hermès Constance vs Kelly สำหรับผู้ซื้อในไทย 2025 สายสะพาย H clasp vs กรอบมีโครงสร้าง ราคาบาท เหตุผลการลงทุน Kelly 25 Sellier และ Hermès มือสองไหนควรเลือก',
+      ? `Hermès Constance vs Kelly for Thailand buyers ${PRICE_YEAR} — H clasp crossbody vs structured frame, THB prices, Kelly 25 Sellier investment case, and which Hermès pre-owned to choose.`
+      : `Hermès Constance vs Kelly สำหรับผู้ซื้อในไทย ${PRICE_YEAR} สายสะพาย H clasp vs กรอบมีโครงสร้าง ราคาบาท เหตุผลการลงทุน Kelly 25 Sellier และ Hermès มือสองไหนควรเลือก`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -63,7 +64,7 @@ export default async function HermesConstanceVsKellyTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Hermès Constance vs Kelly (2025): Which Is the Better Investment?' : 'Hermès Constance vs Kelly (2025): อันไหนลงทุนได้ดีกว่า?'}
+        {isEn ? 'Hermès Constance vs Kelly ({PRICE_YEAR}): Which Is the Better Investment?' : 'Hermès Constance vs Kelly ({PRICE_YEAR}): อันไหนลงทุนได้ดีกว่า?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

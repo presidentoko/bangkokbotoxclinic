@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Hermès Bag Size Guide Thailand 2025: Birkin, Kelly, Constance | ChicPreowned'
-      : 'คู่มือขนาดกระเป๋า Hermès ในไทย 2025: Birkin, Kelly, Constance | ChicPreowned',
+      ? `Hermès Bag Size Guide Thailand ${PRICE_YEAR}: Birkin, Kelly, Constance | ChicPreowned`
+      : `คู่มือขนาดกระเป๋า Hermès ในไทย ${PRICE_YEAR}: Birkin, Kelly, Constance | ChicPreowned`,
     description: isEn
       ? 'Hermès bag size guide for Thai buyers — Birkin 25/30/35, Kelly 25/28/32/35, Constance 14/18/24. Which size holds value best? THB prices.'
       : 'คู่มือขนาดกระเป๋า Hermès สำหรับผู้ซื้อชาวไทย — Birkin 25/30/35 Kelly 25/28/32/35 Constance 14/18/24 ขนาดไหนคงมูลค่าดีที่สุด ราคาบาท',

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Dior vs Gucci Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Dior vs Gucci มือสองในไทย 2025 | ChicPreowned',
+      ? `Dior vs Gucci Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Dior vs Gucci มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Dior vs Gucci for Thai buyers — Lady Dior vs Marmont, THB prices, investment case, which French-Italian house to buy pre-owned in Bangkok 2025.'
-      : 'เปรียบ Dior กับ Gucci สำหรับผู้ซื้อชาวไทย — Lady Dior vs Marmont ราคาบาท กรณีลงทุน อันไหนควรซื้อมือสองในกรุงเทพ 2025',
+      ? `Dior vs Gucci for Thai buyers — Lady Dior vs Marmont, THB prices, investment case, which French-Italian house to buy pre-owned in Bangkok ${PRICE_YEAR}.`
+      : `เปรียบ Dior กับ Gucci สำหรับผู้ซื้อชาวไทย — Lady Dior vs Marmont ราคาบาท กรณีลงทุน อันไหนควรซื้อมือสองในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function DiorVsGucciTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Dior vs Gucci Pre-Owned 2025' : 'Dior vs Gucci มือสอง 2025'}
+        {isEn ? 'Dior vs Gucci Pre-Owned {PRICE_YEAR}' : 'Dior vs Gucci มือสอง {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

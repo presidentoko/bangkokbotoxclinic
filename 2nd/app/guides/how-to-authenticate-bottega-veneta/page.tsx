@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Bottega Veneta Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'Authenticate Bottega Veneta bags — Jodie, Arco, Cassette. Check the intrecciato weave, leather quality, hardware, and stitching. Complete 2025 guide.',
+  title: `How to Authenticate Bottega Veneta Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Authenticate Bottega Veneta bags — Jodie, Arco, Cassette. Check the intrecciato weave, leather quality, hardware, and stitching. Complete ${PRICE_YEAR} guide.`,
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-bottega-veneta` },
 }
 

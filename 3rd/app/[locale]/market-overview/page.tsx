@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getAllItems, getAllBrands, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -25,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const otherLocale = isEn ? 'th' : 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Luxury Market Prices in Thailand 2025 | ChicPreowned'
-      : 'ภาพรวมตลาด Luxury มือสองในไทย 2025 | ChicPreowned',
+      ? `Pre-Owned Luxury Market Prices in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `ภาพรวมตลาด Luxury มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Thailand pre-owned luxury market overview — prices by category, best value items, and top brands. Updated weekly.'
       : 'ภาพรวมตลาด luxury มือสองในไทย — ราคาตามหมวดหมู่ รายการที่คุ้มค่าที่สุด และแบรนด์ยอดนิยม อัปเดตทุกสัปดาห์',
@@ -94,8 +95,8 @@ export default async function MarketOverviewPage({ params }: Props) {
       </p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Pre-Owned Luxury Market: Thailand Price Overview 2025'
-          : 'ภาพรวมตลาด Luxury มือสองในไทยปี 2025'}
+          ? 'Pre-Owned Luxury Market: Thailand Price Overview {PRICE_YEAR}'
+          : 'ภาพรวมตลาด Luxury มือสองในไทยปี {PRICE_YEAR}'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn

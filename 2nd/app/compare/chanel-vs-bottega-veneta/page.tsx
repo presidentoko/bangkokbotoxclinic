@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel vs Bottega Veneta: Which Pre-Owned Bag 2025 | SecondLuxuryItems',
+  title: `Chanel vs Bottega Veneta: Which Pre-Owned Bag ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Chanel vs Bottega Veneta compared — Classic Flap vs Jodie, value retention, investment potential. Which should you buy pre-owned?',
   alternates: { canonical: `${BASE}/compare/chanel-vs-bottega-veneta` },
 }
@@ -34,7 +35,7 @@ export default function ChanelVsBottegaPage() {
         <span>Chanel vs Bottega Veneta</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel vs Bottega Veneta: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel vs Bottega Veneta: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Maximum recognition vs quiet luxury with no logo. Two very different approaches — which pre-owned buy makes more sense?</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

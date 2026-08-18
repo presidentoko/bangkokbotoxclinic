@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Best Pre-Owned Luxury Bags Under $3,000 in 2025 | SecondLuxuryItems',
-  description: 'The best pre-owned luxury handbags under $3,000 in 2025 — Louis Vuitton, Gucci, Prada, Celine, Dior picks with resale data and what to look for.',
+  title: `Best Pre-Owned Luxury Bags Under $3,000 in ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `The best pre-owned luxury handbags under $3,000 in ${PRICE_YEAR} — Louis Vuitton, Gucci, Prada, Celine, Dior picks with resale data and what to look for.`,
   alternates: { canonical: `${BASE}/guides/best-luxury-bags-under-3000` },
 }
 
@@ -71,7 +72,7 @@ export default function BestBagsUnder3000() {
         <span>Best Luxury Bags Under $3,000</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Best Pre-Owned Luxury Bags Under $3,000 in 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Best Pre-Owned Luxury Bags Under $3,000 in {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The most expensive bags get the most attention, but pre-owned luxury under $3,000 is where the best value-to-prestige ratio lives. These six picks are ranked for brand recognition, resale flexibility, and why they make sense as your first or next pre-owned purchase in 2025.</p>
 
       <div className="space-y-5 mb-10">

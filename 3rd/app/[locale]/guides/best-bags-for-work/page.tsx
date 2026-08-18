@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemBySlug, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Best Pre-Owned Luxury Work Bags in Thailand 2025 | ChicPreowned'
-      : 'กระเป๋า Luxury มือสองสำหรับทำงานที่ดีที่สุดในไทย 2025 | ChicPreowned',
+      ? `Best Pre-Owned Luxury Work Bags in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `กระเป๋า Luxury มือสองสำหรับทำงานที่ดีที่สุดในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Structured, professional, and below retail. The best pre-owned luxury bags for the Bangkok office — totes, satchels, and structured classics.'
       : 'มีโครงสร้าง ดูเป็นมืออาชีพ และราคาต่ำกว่าราคาใหม่ กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับออฟฟิศในกรุงเทพฯ',
@@ -151,8 +152,8 @@ export default async function BestBagsForWorkPage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Best Pre-Owned Luxury Work Bags in Thailand 2025'
-          : 'กระเป๋า Luxury มือสองสำหรับทำงานที่ดีที่สุดในไทย 2025'}
+          ? 'Best Pre-Owned Luxury Work Bags in Thailand {PRICE_YEAR}'
+          : 'กระเป๋า Luxury มือสองสำหรับทำงานที่ดีที่สุดในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-[#6B6052] mb-2">
         {isEn
@@ -160,7 +161,7 @@ export default async function BestBagsForWorkPage({ params }: Props) {
           : 'มีโครงสร้าง ดูเป็นมืออาชีพ และราคาต่ำกว่าราคาใหม่ กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับออฟฟิศในกรุงเทพฯ'}
       </p>
       <p className="text-sm text-[#8C7355] mb-12">
-        {isEn ? 'Updated June 2025' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       <section className="mb-12">

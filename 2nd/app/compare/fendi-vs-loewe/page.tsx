@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Fendi vs Loewe: Pre-Owned Bags 2025 | SecondLuxuryItems',
-  description: 'Fendi Baguette vs Loewe Puzzle — which brand holds value better? Pre-owned price comparison, resale rates, and which to buy in 2025.',
+  title: `Fendi vs Loewe: Pre-Owned Bags ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Fendi Baguette vs Loewe Puzzle — which brand holds value better? Pre-owned price comparison, resale rates, and which to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/fendi-vs-loewe` },
 }
 
@@ -33,7 +34,7 @@ export default function FendiVsLoewePage() {
         <span>Fendi vs Loewe</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Loewe: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Loewe: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Italian nostalgia vs Spanish craft — Baguette vs Puzzle for pre-owned buyers.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

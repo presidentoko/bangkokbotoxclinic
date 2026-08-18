@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: '10 Most Iconic Luxury Bags to Buy Pre-Owned in 2025 | SecondLuxuryItems',
+  title: `10 Most Iconic Luxury Bags to Buy Pre-Owned in ${PRICE_YEAR} | SecondLuxuryItems`,
   description:
     'The 10 most iconic designer bags to buy pre-owned: Chanel Classic Flap, Hermès Birkin, LV Neverfull. Pre-owned prices, savings vs retail, and why each is iconic.',
   alternates: {
@@ -97,9 +98,9 @@ export default function MostIconicBagsPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        10 Most Iconic Luxury Bags to Buy Pre-Owned in 2025
+        10 Most Iconic Luxury Bags to Buy Pre-Owned in {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · 9 min read</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 9 min read</p>
 
       <p className="text-[#6B6052] leading-relaxed mb-10">
         Certain bags transcend seasons. They defined decades, carried by cultural figures who made

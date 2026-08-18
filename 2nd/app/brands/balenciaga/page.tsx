@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Pre-Owned Balenciaga 2025 | SecondLuxuryItems',
+  title: `Pre-Owned Balenciaga ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Balenciaga City, Le Cagole, Hourglass pre-owned prices. Save 40-55% vs retail. Demna era collections and buying guide for pre-owned Balenciaga.',
   alternates: { canonical: `${BASE}/brands/balenciaga` },
 }
@@ -20,7 +21,7 @@ export default function BalenciagaBrandPage() {
         <span>Balenciaga</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Balenciaga 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Balenciaga {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">City Bag · Le Cagole · Hourglass · Save 40–55% vs retail · Demna era guide</p>
 
       <div className="bg-gray-900 text-gray-100 rounded-xl p-5 mb-8 text-sm">

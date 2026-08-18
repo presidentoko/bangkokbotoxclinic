@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Fendi vs Gucci 2025: Italian Luxury Comparison & Pre-Owned Investment | SecondLuxuryItems',
-  description: 'Fendi vs Gucci — Roman heritage vs Florentine craft, Baguette vs Bamboo/Jackie, resale retention, investment tier, and which Italian house holds value better pre-owned in 2025.',
+  title: `Fendi vs Gucci ${PRICE_YEAR}: Italian Luxury Comparison & Pre-Owned Investment | SecondLuxuryItems`,
+  description: `Fendi vs Gucci — Roman heritage vs Florentine craft, Baguette vs Bamboo/Jackie, resale retention, investment tier, and which Italian house holds value better pre-owned in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/fendi-vs-gucci` },
 }
 
@@ -33,7 +34,7 @@ export default function FendiVsGucci() {
         <span>Fendi vs Gucci</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Gucci (2025): Which Italian House Holds Value Better?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Gucci ({PRICE_YEAR}): Which Italian House Holds Value Better?</h1>
       <p className="text-gray-500 mb-10">Both are Italian luxury giants with century-long histories — Fendi Roman architecture vs Gucci Florentine eclecticism. In the pre-owned market, Fendi's more consistent LVMH-era positioning gives it a slight edge over Gucci, which has been volatile through creative director changes since 2019.</p>
 
       <div className="overflow-x-auto mb-10">

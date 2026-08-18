@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Pre-Owned Luxury Jewelry Buying Guide 2025 | SecondLuxuryItems',
-  description: 'How to buy pre-owned Cartier, Van Cleef & Arpels, Bulgari and Tiffany jewelry. Authentication, value retention, and price guide for 2025.',
+  title: `Pre-Owned Luxury Jewelry Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `How to buy pre-owned Cartier, Van Cleef & Arpels, Bulgari and Tiffany jewelry. Authentication, value retention, and price guide for ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/luxury-jewelry-buying-guide` },
 }
 
@@ -20,7 +21,7 @@ export default function JewelryBuyingGuidePage() {
         <span>Luxury Jewelry Buying Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Pre-Owned Luxury Jewelry Buying Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Pre-Owned Luxury Jewelry Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">How to buy Cartier, Van Cleef, Bulgari and Tiffany pre-owned — authentication, pricing, and what retains value.</p>
 
       <section className="mb-10">

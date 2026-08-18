@@ -2,7 +2,15 @@ import { MetadataRoute } from 'next'
 import { getAllItems, getAllBrands } from '@/lib/data'
 
 const BASE = 'https://www.secondluxuryitems.com'
-const TODAY = new Date().toISOString().split('T')[0]
+
+/** Newest price date in the dataset. Used as `lastmod` instead of the build
+ * date: stamping every URL with "now" on each deploy makes lastmod noise, and
+ * crawlers learn to ignore it. This changes only when the prices actually do. */
+const TODAY = getAllItems()
+  .map(i => i.last_updated)
+  .filter(Boolean)
+  .sort()
+  .pop() ?? new Date().toISOString().split('T')[0]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const items = getAllItems()
@@ -192,10 +200,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const modelRoutes: MetadataRoute.Sitemap = items.map(item => ({
     url: `${BASE}/${item.slug}`,
-    lastModified: TODAY,
+    lastModified: item.last_updated || TODAY,
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }))
 
-  return [...staticRoutes, ...brandRoutes, ...modelRoutes]
+  // The static list is hand-maintained and has picked up duplicates
+  // (e.g. /compare/balenciaga-vs-valentino was listed twice). A sitemap that
+  // repeats URLs is a quality signal against itself, so collapse by URL and
+  // keep the first entry for each.
+  const seen = new Set<string>()
+  return [...staticRoutes, ...brandRoutes, ...modelRoutes].filter(entry => {
+    if (seen.has(entry.url)) return false
+    seen.add(entry.url)
+    return true
+  })
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'LV Monogram vs Damier Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'LV Monogram vs Damier มือสองในไทย 2025 | ChicPreowned',
+      ? `LV Monogram vs Damier Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `LV Monogram vs Damier มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Louis Vuitton Monogram vs Damier Ebene vs Azur — which canvas holds value better? Pre-owned price comparison and guide for Thai buyers.'
       : 'Louis Vuitton Monogram vs Damier Ebene vs Azur — ผ้าไหนคงมูลค่าดีกว่า? เปรียบราคามือสองและคู่มือสำหรับผู้ซื้อชาวไทย',

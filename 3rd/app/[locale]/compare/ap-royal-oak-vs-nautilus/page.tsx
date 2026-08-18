@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'AP Royal Oak vs Patek Nautilus Thailand 2025 | ChicPreowned'
-      : 'AP Royal Oak vs Patek Nautilus ในไทย 2025 | ChicPreowned',
+      ? `AP Royal Oak vs Patek Nautilus Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `AP Royal Oak vs Patek Nautilus ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Audemars Piguet Royal Oak vs Patek Nautilus for Thailand buyers 2025 — Gerald Genta legacy, investment tiers, THB prices, production status, and which steel sports watch to buy pre-owned.'
-      : 'AP Royal Oak vs Patek Nautilus สำหรับผู้ซื้อในไทย 2025 มรดก Gerald Genta ระดับการลงทุน ราคาบาท สถานะการผลิต และควรซื้อนาฬิกา steel sports ไหนมือสอง',
+      ? `Audemars Piguet Royal Oak vs Patek Nautilus for Thailand buyers ${PRICE_YEAR} — Gerald Genta legacy, investment tiers, THB prices, production status, and which steel sports watch to buy pre-owned.`
+      : `AP Royal Oak vs Patek Nautilus สำหรับผู้ซื้อในไทย ${PRICE_YEAR} มรดก Gerald Genta ระดับการลงทุน ราคาบาท สถานะการผลิต และควรซื้อนาฬิกา steel sports ไหนมือสอง`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -61,7 +62,7 @@ export default async function ApRoyalOakVsNautilusTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'AP Royal Oak vs Patek Nautilus (2025): Which Watch to Buy?' : 'AP Royal Oak vs Patek Nautilus (2025): ควรซื้อนาฬิกาไหน?'}
+        {isEn ? 'AP Royal Oak vs Patek Nautilus ({PRICE_YEAR}): Which Watch to Buy?' : 'AP Royal Oak vs Patek Nautilus ({PRICE_YEAR}): ควรซื้อนาฬิกาไหน?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

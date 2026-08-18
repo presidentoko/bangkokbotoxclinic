@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Prada Bags 2025: Galleria, Re-Edition | SecondLuxuryItems',
-  description: 'How to spot fake Prada bags — triangle logo plate, serial tag, zipper quality, nylon vs fabric stitching, interior label. Authenticate Prada pre-owned 2025.',
+  title: `How to Authenticate Prada Bags ${PRICE_YEAR}: Galleria, Re-Edition | SecondLuxuryItems`,
+  description: `How to spot fake Prada bags — triangle logo plate, serial tag, zipper quality, nylon vs fabric stitching, interior label. Authenticate Prada pre-owned ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-prada` },
 }
 
@@ -29,7 +30,7 @@ export default function AuthenticatePrada() {
         <span>How to Authenticate Prada</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Prada Bags 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Prada Bags {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Prada is one of the most counterfeited luxury brands in Asia. The Re-Edition 2000 and Galleria are both high-risk. Six checks that identify authentic Prada — checking all six takes under two minutes.</p>
 
       <div className="space-y-4 mb-10">

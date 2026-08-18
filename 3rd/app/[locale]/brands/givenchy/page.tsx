@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Givenchy Pre-Owned Thailand 2025: Antigona, Pandora | ChicPreowned'
-      : 'Givenchy มือสองในไทย 2025: Antigona Pandora | ChicPreowned',
+      ? `Givenchy Pre-Owned Thailand ${PRICE_YEAR}: Antigona, Pandora | ChicPreowned`
+      : `Givenchy มือสองในไทย ${PRICE_YEAR}: Antigona Pandora | ChicPreowned`,
     description: isEn
       ? 'Givenchy pre-owned bags Thailand — Antigona Medium, Small, Pandora Satchel. THB prices, resale values, best Givenchy to buy used.'
       : 'กระเป๋า Givenchy มือสองในไทย — Antigona Medium Small Pandora Satchel ราคาบาท มูลค่าขายต่อ Givenchy ที่ดีที่สุดที่ควรซื้อมือสอง',

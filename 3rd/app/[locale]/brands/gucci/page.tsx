@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Gucci in Thailand 2025 | ChicPreowned'
+      ? `Pre-Owned Gucci in Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Gucci มือสองในไทย — ราคาและรุ่นที่น่าซื้อในตลาดไทย | ChicPreowned',
     description: isEn
       ? 'Pre-owned Gucci prices in Thailand (THB). GG Marmont, Horsebit 1955, Ophidia — compare second-hand values by condition.'
@@ -107,10 +108,10 @@ export default async function GucciBrandPage({ params }: Props) {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">{isEn ? 'Brand Price Guide' : 'ราคาแบรนด์'}</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Pre-Owned Gucci in Thailand 2025' : 'Gucci มือสองในไทย — ราคาและรุ่นที่น่าซื้อในตลาดไทย'}
+        {isEn ? 'Pre-Owned Gucci in Thailand {PRICE_YEAR}' : 'Gucci มือสองในไทย — ราคาและรุ่นที่น่าซื้อในตลาดไทย'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">
-        {isEn ? `Updated 2025 · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
+        {isEn ? `Updated {PRICE_YEAR} · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
       </p>
 
       <section className="mb-10">

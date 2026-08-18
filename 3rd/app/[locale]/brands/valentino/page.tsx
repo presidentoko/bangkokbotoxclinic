@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -36,7 +37,7 @@ export default async function ValentinoBrandTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Valentino Pre-Owned in Thailand 2025' : 'Valentino มือสองในไทย 2025'}
+        {isEn ? 'Valentino Pre-Owned in Thailand {PRICE_YEAR}' : 'Valentino มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Founded 1960 in Rome. Iconic for Rockstud hardware (2010–). Piccioli era (2016–2023) defined the modern aesthetic. Alessandro Michele joined 2023.'

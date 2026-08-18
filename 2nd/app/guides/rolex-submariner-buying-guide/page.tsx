@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Rolex Submariner Buying Guide 2025: Pre-Owned Prices | SecondLuxuryItems',
-  description: 'Complete Rolex Submariner buying guide — 5513, 14060, 114060, 124060 references, pre-owned prices, what to look for, how to avoid fakes 2025.',
+  title: `Rolex Submariner Buying Guide ${PRICE_YEAR}: Pre-Owned Prices | SecondLuxuryItems`,
+  description: `Complete Rolex Submariner buying guide — 5513, 14060, 114060, 124060 references, pre-owned prices, what to look for, how to avoid fakes ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/rolex-submariner-buying-guide` },
 }
 
@@ -28,7 +29,7 @@ export default function RolexSubPage() {
         <span>Rolex Submariner Buying Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex Submariner Buying Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex Submariner Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The Rolex Submariner is the most recognizable luxury sports watch in the world and the most traded on the secondary market. Understanding the five key references and their pre-owned premiums protects you from overpaying and helps you find the best entry point.</p>
 
       <div className="space-y-4 mb-10">

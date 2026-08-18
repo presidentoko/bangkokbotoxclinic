@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getItemsByCategory } from '@/lib/data'
+import { getItemsByCategory, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 interface Props { params: Promise<{ locale: string }> }
@@ -35,7 +35,7 @@ export default async function ClothingPage({ params }: Props) {
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-8" style={{ fontFamily: 'var(--font-playfair)' }}>
         {t('page_title_clothing')}
       </h1>
-      <SortableItemGrid items={items} locale={locale} />
+      <SortableItemGrid items={toGridItems(items)} locale={locale} />
     </>
   )
 }

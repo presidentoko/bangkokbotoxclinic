@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'LV Neverfull vs OnTheGo 2025: Which Tote to Buy? | SecondLuxuryItems',
-  description: 'Louis Vuitton Neverfull MM vs OnTheGo MM compared — size, capacity, price, resale, canvas vs leather, convertible strap. Which LV tote is better for pre-owned buyers in 2025?',
+  title: `LV Neverfull vs OnTheGo ${PRICE_YEAR}: Which Tote to Buy? | SecondLuxuryItems`,
+  description: `Louis Vuitton Neverfull MM vs OnTheGo MM compared — size, capacity, price, resale, canvas vs leather, convertible strap. Which LV tote is better for pre-owned buyers in ${PRICE_YEAR}?`,
   alternates: { canonical: `${BASE}/guides/lv-neverfull-vs-onthego` },
 }
 
@@ -32,7 +33,7 @@ export default function NeverFullVsOnTheGo() {
         <span>Neverfull vs OnTheGo</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">LV Neverfull vs OnTheGo 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">LV Neverfull vs OnTheGo {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The Neverfull has been LV's bestselling bag since 2007. The OnTheGo launched in 2020 as an elevated alternative with a zipper and a crossbody strap. Both are large totes in Monogram canvas. The key decision: do you need the extra security of a zip and the flexibility of a crossbody strap (OnTheGo), or do you want the open-top convenience and removable pouch of the Neverfull?</p>
 
       <div className="overflow-x-auto mb-10">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Rolex vs Cartier Pre-Owned Thailand 2025: Submariner vs Santos | ChicPreowned'
-      : 'Rolex vs Cartier มือสองในไทย 2025: Submariner vs Santos | ChicPreowned',
+      ? `Rolex vs Cartier Pre-Owned Thailand ${PRICE_YEAR}: Submariner vs Santos | ChicPreowned`
+      : `Rolex vs Cartier มือสองในไทย ${PRICE_YEAR}: Submariner vs Santos | ChicPreowned`,
     description: isEn
-      ? 'Rolex vs Cartier for Thai buyers — Submariner vs Santos, THB prices, investment case, which Swiss watchmaker to buy pre-owned in Bangkok 2025.'
-      : 'Rolex vs Cartier สำหรับผู้ซื้อชาวไทย — Submariner vs Santos ราคาบาท กรณีลงทุน นาฬิกาสวิสแบรนด์ไหนควรซื้อมือสองในกรุงเทพ 2025',
+      ? `Rolex vs Cartier for Thai buyers — Submariner vs Santos, THB prices, investment case, which Swiss watchmaker to buy pre-owned in Bangkok ${PRICE_YEAR}.`
+      : `Rolex vs Cartier สำหรับผู้ซื้อชาวไทย — Submariner vs Santos ราคาบาท กรณีลงทุน นาฬิกาสวิสแบรนด์ไหนควรซื้อมือสองในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function RolexVsCartierTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Cartier Pre-Owned 2025' : 'Rolex vs Cartier มือสอง 2025'}
+        {isEn ? 'Rolex vs Cartier Pre-Owned {PRICE_YEAR}' : 'Rolex vs Cartier มือสอง {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

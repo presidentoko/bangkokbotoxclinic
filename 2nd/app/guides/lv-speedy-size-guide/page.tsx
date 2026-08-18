@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'LV Speedy Size Guide: 20 vs 25 vs 30 vs 35 — Which to Buy Pre-Owned?',
@@ -93,7 +94,7 @@ export default function LvSpeedySizeGuidePage() {
       >
         LV Speedy Size Guide for Pre-Owned Buyers
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Speedy 20, 25, 30 &amp; 35 compared</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Speedy 20, 25, 30 &amp; 35 compared</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

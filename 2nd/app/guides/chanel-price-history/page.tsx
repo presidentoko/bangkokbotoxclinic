@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel Price History 2019–2025: How Much Have Prices Gone Up? | SecondLuxuryItems',
-  description: 'Chanel Classic Flap price hike timeline 2019–2025. From $5,900 to $10,800 — a 83% increase. How it affects pre-owned value and what to buy instead.',
+  title: `Chanel Price History 2019–${PRICE_YEAR}: How Much Have Prices Gone Up? | SecondLuxuryItems`,
+  description: `Chanel Classic Flap price hike timeline 2019–${PRICE_YEAR}. From $5,900 to $10,800 — a 83% increase. How it affects pre-owned value and what to buy instead.`,
   alternates: { canonical: `${BASE}/guides/chanel-price-history` },
 }
 
@@ -30,7 +31,7 @@ export default function ChanelPriceHistoryPage() {
         <span>Chanel Price History</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel Price History 2019–2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel Price History 2019–{PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The Classic Flap M/L went from $5,900 in 2019 to $10,800 in 2025 — an 83% increase in 6 years. Here's every hike and what it means for pre-owned buyers.</p>
 
       <section className="mb-10">

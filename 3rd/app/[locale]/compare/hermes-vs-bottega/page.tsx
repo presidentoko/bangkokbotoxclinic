@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Hermès vs Bottega Veneta Pre-Owned Thailand 2025 | ChicPreowned'
+      ? `Hermès vs Bottega Veneta Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Hermès vs Bottega Veneta: Quiet Luxury อันไหนคุ้มค่ากว่า? | ChicPreowned',
     description: isEn
       ? 'Hermès trades above retail; Bottega Veneta below. Compare quiet luxury pre-owned values in Thailand for both brands.'
@@ -139,7 +140,7 @@ export default async function HermesVsBottegaPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Hermès vs Bottega Veneta Pre-Owned Thailand 2025'
+          ? 'Hermès vs Bottega Veneta Pre-Owned Thailand {PRICE_YEAR}'
           : 'Hermès vs Bottega Veneta: Quiet Luxury อันไหนคุ้มค่ากว่า?'}
       </h1>
 

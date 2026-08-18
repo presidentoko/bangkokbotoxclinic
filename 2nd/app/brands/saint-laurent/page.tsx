@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Saint Laurent Pre-Owned Price Guide 2025 | SecondLuxuryItems',
+  title: `Saint Laurent Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Saint Laurent prices for Loulou, Kate, Jamie, Sunset and more. Save 30–50% vs retail on pre-owned YSL. Updated weekly.',
   alternates: { canonical: `${BASE}/brands/saint-laurent` },
 }
@@ -38,7 +39,7 @@ export default function SaintLaurentBrandPage() {
         __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: 'Pre-Owned Saint Laurent Price Guide 2025',
+          name: `Pre-Owned Saint Laurent Price Guide ${PRICE_YEAR}`,
           url: `${BASE}/brands/saint-laurent`,
           numberOfItems: items.length,
           itemListElement: items.map((item, idx) => ({
@@ -57,7 +58,7 @@ export default function SaintLaurentBrandPage() {
         <span className="text-gray-800">Saint Laurent</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Saint Laurent Price Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Saint Laurent Price Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">{items.length} models · save 35–55% vs retail</p>
 
       <section className="mb-12">

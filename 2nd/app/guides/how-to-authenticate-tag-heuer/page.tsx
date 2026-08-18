@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate TAG Heuer: 7 Checks (2025 Guide) | SecondLuxuryItems',
+  title: `How to Authenticate TAG Heuer: 7 Checks (${PRICE_YEAR} Guide) | SecondLuxuryItems`,
   description: 'Authenticate any TAG Heuer watch with 7 checks: case engraving, dial text, movement finish, crown logo, serial format, clasp, and bezel. Covers Aquaracer, Carrera, Monaco.',
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-tag-heuer` },
 }

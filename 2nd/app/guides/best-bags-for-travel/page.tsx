@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Best Pre-Owned Luxury Bags for Travel 2025 | SecondLuxuryItems',
+  title: `Best Pre-Owned Luxury Bags for Travel ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Which luxury bags survive travel? Pre-owned picks for carry-on, weekender, and everyday travel — with real price data.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/guides/best-bags-for-travel' },
 }
@@ -87,9 +88,9 @@ export default function BestBagsForTravelPage() {
         className="font-serif text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Best Pre-Owned Luxury Bags for Travel (2025)
+        Best Pre-Owned Luxury Bags for Travel ({PRICE_YEAR})
       </h1>
-      <p className="text-[#8C7355] text-sm mb-6">Updated June 2025 · 7 min read</p>
+      <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · 7 min read</p>
 
       <p className="text-[#6B6052] leading-relaxed mb-10">
         Not all luxury bags are built for travel. The best travel companions are durable, easy to clean,

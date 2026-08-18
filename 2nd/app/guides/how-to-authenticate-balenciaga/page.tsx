@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Balenciaga Bags 2025: Triple S, City Bag | SecondLuxuryItems',
-  description: 'How to spot fake Balenciaga bags — City bag hardware, Triple S sole construction, Cagole zip, interior stamp, leather texture. Authenticate Balenciaga pre-owned 2025.',
+  title: `How to Authenticate Balenciaga Bags ${PRICE_YEAR}: Triple S, City Bag | SecondLuxuryItems`,
+  description: `How to spot fake Balenciaga bags — City bag hardware, Triple S sole construction, Cagole zip, interior stamp, leather texture. Authenticate Balenciaga pre-owned ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-balenciaga` },
 }
 
@@ -29,7 +30,7 @@ export default function AuthenticateBalenciaga() {
         <span>How to Authenticate Balenciaga</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Balenciaga Bags 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Balenciaga Bags {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Balenciaga is one of the most counterfeited brands in Asia, particularly the Triple S sneaker and City bag. The City bag (Nicolas Ghesquière era, pre-2012) is heavily faked due to its iconic status. The Triple S is one of the most counterfeited sneakers globally. Six checks for bags and footwear.</p>
 
       <div className="space-y-4 mb-10">

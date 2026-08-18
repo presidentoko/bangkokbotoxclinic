@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Bottega Veneta vs Loewe Pre-Owned Thailand 2025 | ChicPreowned'
+      ? `Bottega Veneta vs Loewe Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Bottega Veneta vs Loewe: Quiet Luxury ตัวไหนดีกว่า? | ChicPreowned',
     description: isEn
-      ? 'Bottega Veneta vs Loewe pre-owned in Thailand 2025: intrecciato vs Puzzle — two quiet luxury giants compared.'
-      : 'Bottega Veneta vs Loewe มือสองในไทย 2025: intrecciato vs Puzzle — สอง quiet luxury giants เปรียบเทียบกัน',
+      ? `Bottega Veneta vs Loewe pre-owned in Thailand ${PRICE_YEAR}: intrecciato vs Puzzle — two quiet luxury giants compared.`
+      : `Bottega Veneta vs Loewe มือสองในไทย ${PRICE_YEAR}: intrecciato vs Puzzle — สอง quiet luxury giants เปรียบเทียบกัน`,
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
       languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
@@ -150,9 +151,9 @@ export default async function BottegaVsLoeweThPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Bottega Veneta vs Loewe Pre-Owned Thailand 2025' : 'Bottega Veneta vs Loewe: Quiet Luxury ตัวไหนดีกว่า?'}
+        {isEn ? 'Bottega Veneta vs Loewe Pre-Owned Thailand {PRICE_YEAR}' : 'Bottega Veneta vs Loewe: Quiet Luxury ตัวไหนดีกว่า?'}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated 2025 · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
+      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated {PRICE_YEAR} · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
 
       <p className="text-[#6B6052] mb-10 leading-relaxed max-w-2xl">
         {isEn

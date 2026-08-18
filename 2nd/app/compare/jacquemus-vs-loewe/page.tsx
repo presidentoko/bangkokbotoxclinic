@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Jacquemus vs Loewe: Which Design-Forward Brand Holds Value? (2025) | SecondLuxuryItems',
-  description: 'Jacquemus vs Loewe 2025 — Le Bambino vs Puzzle, aesthetics, resale retention, and which brand is the better pre-owned investment for younger luxury buyers.',
+  title: `Jacquemus vs Loewe: Which Design-Forward Brand Holds Value? (${PRICE_YEAR}) | SecondLuxuryItems`,
+  description: `Jacquemus vs Loewe ${PRICE_YEAR} — Le Bambino vs Puzzle, aesthetics, resale retention, and which brand is the better pre-owned investment for younger luxury buyers.`,
   alternates: { canonical: `${BASE}/compare/jacquemus-vs-loewe` },
 }
 
@@ -31,7 +32,7 @@ export default function JacquemusVsLoewe() {
         <span>Jacquemus vs Loewe</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Jacquemus vs Loewe (2025): The Design-Forward Comparison</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Jacquemus vs Loewe ({PRICE_YEAR}): The Design-Forward Comparison</h1>
       <p className="text-gray-500 mb-10">Two of the most photographed brands of the last five years — but from very different positions. Jacquemus is a viral sensation built on social media; Loewe is a 180-year-old Spanish house experiencing its greatest commercial moment. The pre-owned market treats them very differently.</p>
 
       <div className="overflow-x-auto mb-10">

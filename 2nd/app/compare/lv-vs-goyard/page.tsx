@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Louis Vuitton vs Goyard Pre-Owned 2025 | SecondLuxuryItems',
+  title: `Louis Vuitton vs Goyard Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'LV vs Goyard pre-owned: which holds value better? Monogram canvas vs Goyardine coated canvas. Resale prices, market depth, and which to buy second-hand.',
   alternates: { canonical: `${BASE}/compare/lv-vs-goyard` },
 }
@@ -63,9 +64,9 @@ export default function LvVsGoyardPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Louis Vuitton vs Goyard Pre-Owned 2025
+        Louis Vuitton vs Goyard Pre-Owned {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Market data comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Market data comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

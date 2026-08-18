@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Rolex vs Cartier Pre-Owned 2025: Submariner vs Santos | SecondLuxuryItems',
-  description: 'Rolex vs Cartier pre-owned comparison — Submariner vs Santos, investment case, resale values, movement quality, which Swiss watchmaker to buy 2025.',
+  title: `Rolex vs Cartier Pre-Owned ${PRICE_YEAR}: Submariner vs Santos | SecondLuxuryItems`,
+  description: `Rolex vs Cartier pre-owned comparison — Submariner vs Santos, investment case, resale values, movement quality, which Swiss watchmaker to buy ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/rolex-vs-cartier` },
 }
 
@@ -31,7 +32,7 @@ export default function RolexVsCartier() {
         <span>Rolex vs Cartier</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex vs Cartier Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex vs Cartier Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Rolex is the world's most recognized watch brand — precision, status, and investment-grade resale. Cartier is a jewelry house that invented the wristwatch — elegance, heritage, and jewelry-adjacent prestige. Both are Swiss. Both have extraordinary resale. The choice comes down to whether you prioritize sports watch utility (Rolex) or dress watch heritage (Cartier).</p>
 
       <div className="overflow-x-auto mb-10">

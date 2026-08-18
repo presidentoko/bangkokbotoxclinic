@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Cartier vs Bulgari: Pre-Owned Jewelry 2025 | SecondLuxuryItems',
-  description: 'Cartier vs Bulgari compared for pre-owned jewelry buyers — Love vs B.zero1, value retention, resale rates, and which brand to buy in 2025.',
+  title: `Cartier vs Bulgari: Pre-Owned Jewelry ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Cartier vs Bulgari compared for pre-owned jewelry buyers — Love vs B.zero1, value retention, resale rates, and which brand to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/cartier-vs-bulgari` },
 }
 
@@ -29,7 +30,7 @@ export default function CartierVsBvlgariPage() {
         <span>Cartier vs Bulgari</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Cartier vs Bulgari: Pre-Owned Jewelry 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Cartier vs Bulgari: Pre-Owned Jewelry {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Love Bracelet vs B.zero1 — the two most recognizable fine jewelry brands for pre-owned buyers.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

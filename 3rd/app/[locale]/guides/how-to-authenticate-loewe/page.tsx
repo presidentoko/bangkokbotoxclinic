@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Loewe in Thailand: 7 Checks (2025) | ChicPreowned'
-      : 'วิธียืนยันความถูกต้องของ Loewe ในไทย: 7 จุดตรวจสอบ (2025) | ChicPreowned',
+      ? `How to Authenticate Loewe in Thailand: 7 Checks (${PRICE_YEAR}) | ChicPreowned`
+      : `วิธียืนยันความถูกต้องของ Loewe ในไทย: 7 จุดตรวจสอบ (${PRICE_YEAR}) | ChicPreowned`,
     description: isEn
       ? 'Authenticate any Loewe bag in Thailand — Anagram emboss, Puzzle panel construction, LOEWE hardware engraving, nappa leather quality, interior Made in Spain stamp, stitching, and hardware weight.'
       : 'ยืนยันความถูกต้องของกระเป๋า Loewe ใดก็ตามในไทย การนูน Anagram โครงสร้างแผง Puzzle การแกะสลักฮาร์ดแวร์ LOEWE คุณภาพหนัง nappa ตราประทับ Made in Spain ภายใน การเย็บ และน้ำหนักฮาร์ดแวร์',

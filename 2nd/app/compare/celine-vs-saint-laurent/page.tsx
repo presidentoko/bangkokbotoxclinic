@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Celine vs Saint Laurent Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'Celine vs YSL Saint Laurent pre-owned: Philo-era Celine vs LouLou — which holds value and which offers better entry price in 2025?',
+  title: `Celine vs Saint Laurent Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Celine vs YSL Saint Laurent pre-owned: Philo-era Celine vs LouLou — which holds value and which offers better entry price in ${PRICE_YEAR}?`,
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/celine-vs-saint-laurent' },
 }
 
@@ -100,9 +101,9 @@ export default function CelineVsSaintLaurentPage() {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">Brand Comparison</p>
       <h1 className="text-4xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
-        Celine vs Saint Laurent Pre-Owned 2025
+        Celine vs Saint Laurent Pre-Owned {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

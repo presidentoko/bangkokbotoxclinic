@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Fendi: 7 Checks for Baguette, Peekaboo & More (2025) | SecondLuxuryItems',
+  title: `How to Authenticate Fendi: 7 Checks for Baguette, Peekaboo & More (${PRICE_YEAR}) | SecondLuxuryItems`,
   description: 'Authenticate any Fendi bag with 7 checks: FF logo stitching, Zucca canvas, interior serial, hardware quality, lining, zipper, and stitching consistency. Covers Baguette, Peekaboo, Kan I.',
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-fendi` },
 }

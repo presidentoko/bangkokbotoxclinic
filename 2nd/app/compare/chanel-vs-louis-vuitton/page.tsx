@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Chanel vs Louis Vuitton: Pre-Owned Value Comparison 2025 | SecondLuxuryItems',
+  title: `Chanel vs Louis Vuitton: Pre-Owned Value Comparison ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Which holds value better — Chanel or Louis Vuitton? Data-driven comparison of resale prices, savings, and investment potential.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/chanel-vs-louis-vuitton' },
 }
@@ -86,7 +87,7 @@ export default function ChanelVsLouisVuittonPage() {
       >
         Chanel vs Louis Vuitton: Which Holds Its Value Better?
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Tag Heuer Pre-Owned 2025: Carrera, Aquaracer, Monaco | SecondLuxuryItems',
-  description: 'Tag Heuer pre-owned watches — Carrera, Aquaracer, Monaco, Formula 1. Prices, resale values, which model to buy used in 2025.',
+  title: `Tag Heuer Pre-Owned ${PRICE_YEAR}: Carrera, Aquaracer, Monaco | SecondLuxuryItems`,
+  description: `Tag Heuer pre-owned watches — Carrera, Aquaracer, Monaco, Formula 1. Prices, resale values, which model to buy used in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/brands/tag-heuer` },
 }
 

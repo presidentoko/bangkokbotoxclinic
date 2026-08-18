@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Balenciaga vs Valentino Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Balenciaga vs Valentino มือสองในไทย 2025 | ChicPreowned',
+      ? `Balenciaga vs Valentino Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Balenciaga vs Valentino มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Balenciaga vs Valentino comparison — resale value, City Bag vs Rockstud, Thailand pre-owned market. THB prices.'
       : 'เปรียบ Balenciaga กับ Valentino — มูลค่าขายต่อ City Bag vs Rockstud ตลาดมือสองไทย ราคาบาท',

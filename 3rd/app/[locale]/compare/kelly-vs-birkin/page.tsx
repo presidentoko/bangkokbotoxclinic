@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Hermès Kelly vs Birkin Thailand 2025: Which to Buy? | ChicPreowned'
-      : 'Hermès Kelly vs Birkin ไทย 2025: ควรซื้ออันไหน? | ChicPreowned',
+      ? `Hermès Kelly vs Birkin Thailand ${PRICE_YEAR}: Which to Buy? | ChicPreowned`
+      : `Hermès Kelly vs Birkin ไทย ${PRICE_YEAR}: ควรซื้ออันไหน? | ChicPreowned`,
     description: isEn
-      ? 'Kelly vs Birkin comparison for Bangkok buyers — THB prices, waitlist reality in Thailand, investment value, pre-owned market. Which Hermès to buy first in 2025?'
-      : 'เปรียบเทียบ Kelly vs Birkin สำหรับผู้ซื้อกรุงเทพ ราคาบาท ความจริงของรายชื่อรอในไทย มูลค่าการลงทุน ตลาดมือสอง ควรซื้อ Hermès อันไหนก่อนในปี 2025?',
+      ? `Kelly vs Birkin comparison for Bangkok buyers — THB prices, waitlist reality in Thailand, investment value, pre-owned market. Which Hermès to buy first in ${PRICE_YEAR}?`
+      : `เปรียบเทียบ Kelly vs Birkin สำหรับผู้ซื้อกรุงเทพ ราคาบาท ความจริงของรายชื่อรอในไทย มูลค่าการลงทุน ตลาดมือสอง ควรซื้อ Hermès อันไหนก่อนในปี ${PRICE_YEAR}?`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -62,7 +63,7 @@ export default async function KellyVsBirkinTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Hermès Kelly vs Birkin 2025' : 'Hermès Kelly vs Birkin 2025'}
+        {isEn ? 'Hermès Kelly vs Birkin {PRICE_YEAR}' : 'Hermès Kelly vs Birkin {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

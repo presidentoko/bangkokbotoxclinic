@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Jacquemus vs Loewe Thailand 2025: Which Design Brand for Bangkok? | ChicPreowned'
-      : 'Jacquemus vs Loewe ในไทย 2025: แบรนด์ดีไซน์ไหนสำหรับกรุงเทพ? | ChicPreowned',
+      ? `Jacquemus vs Loewe Thailand ${PRICE_YEAR}: Which Design Brand for Bangkok? | ChicPreowned`
+      : `Jacquemus vs Loewe ในไทย ${PRICE_YEAR}: แบรนด์ดีไซน์ไหนสำหรับกรุงเทพ? | ChicPreowned`,
     description: isEn
-      ? 'Jacquemus vs Loewe for Bangkok buyers — Le Bambino vs Puzzle, resale retention, THB prices, and which is the better pre-owned investment in Thailand 2025.'
-      : 'Jacquemus vs Loewe สำหรับผู้ซื้อกรุงเทพ Le Bambino vs Puzzle อัตราการรักษามูลค่า ราคาบาท และอันไหนลงทุนมือสองได้ดีกว่าในไทย 2025',
+      ? `Jacquemus vs Loewe for Bangkok buyers — Le Bambino vs Puzzle, resale retention, THB prices, and which is the better pre-owned investment in Thailand ${PRICE_YEAR}.`
+      : `Jacquemus vs Loewe สำหรับผู้ซื้อกรุงเทพ Le Bambino vs Puzzle อัตราการรักษามูลค่า ราคาบาท และอันไหนลงทุนมือสองได้ดีกว่าในไทย ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -59,7 +60,7 @@ export default async function JacquemusVsLoeweTH({ params }: Props) {
         <span>Jacquemus vs Loewe</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Jacquemus vs Loewe (2025)</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Jacquemus vs Loewe ({PRICE_YEAR})</h1>
       <p className="text-gray-500 mb-10">
         {isEn
           ? 'Two of the most photographed brands of the last five years — but from very different positions. Jacquemus is a viral social-media sensation; Loewe is 180 years of Spanish leather heritage experiencing its greatest commercial moment. Bangkok context and THB prices included.'

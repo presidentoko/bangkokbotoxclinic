@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel vs Dior: Pre-Owned Comparison 2025 | SecondLuxuryItems',
-  description: 'Chanel vs Dior pre-owned bags compared. Classic Flap vs Lady Dior, price, value retention, resale — which is the better buy in 2025?',
+  title: `Chanel vs Dior: Pre-Owned Comparison ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Chanel vs Dior pre-owned bags compared. Classic Flap vs Lady Dior, price, value retention, resale — which is the better buy in ${PRICE_YEAR}?`,
   alternates: { canonical: `${BASE}/compare/chanel-vs-dior` },
 }
 
@@ -35,7 +36,7 @@ export default function ChanelVsDiorPage() {
         <span className="text-gray-800">Chanel vs Dior</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel vs Dior: Pre-Owned Comparison 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel vs Dior: Pre-Owned Comparison {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two pillars of French fashion — Chanel's investment-grade price hikes vs Dior's accessible luxury.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

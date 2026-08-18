@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsUnderBudget } from '@/lib/data'
+import { getItemsUnderBudget, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 interface Props { params: Promise<{ locale: string }> }
@@ -84,7 +84,7 @@ export default async function Under15000Page({ params }: Props) {
       </p>
 
       {items.length > 0 ? (
-        <SortableItemGrid items={items} locale={locale} />
+        <SortableItemGrid items={toGridItems(items)} locale={locale} />
       ) : (
         <p className="text-[#8C7355] py-8">
           {isEn

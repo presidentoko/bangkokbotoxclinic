@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Rolex in Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบ Rolex แท้ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Rolex in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบ Rolex แท้ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Authenticate Rolex watches in Thailand — Cyclops lens, sweep seconds, case back engravings, crown guards. 2025 guide for Thai buyers.'
-      : 'ตรวจสอบ Rolex แท้ในไทย — เลนส์ Cyclops เข็มวินาที การแกะสลักหลังเคส crown guards คู่มือ 2025',
+      ? `Authenticate Rolex watches in Thailand — Cyclops lens, sweep seconds, case back engravings, crown guards. ${PRICE_YEAR} guide for Thai buyers.`
+      : `ตรวจสอบ Rolex แท้ในไทย — เลนส์ Cyclops เข็มวินาที การแกะสลักหลังเคส crown guards คู่มือ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

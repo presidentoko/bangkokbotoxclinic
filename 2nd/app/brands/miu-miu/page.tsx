@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Miu Miu Pre-Owned Bags & Shoes 2025 | SecondLuxuryItems',
+  title: `Miu Miu Pre-Owned Bags & Shoes ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Buy pre-owned Miu Miu bags and shoes — Matelassé, Wander, Arqué and more. USD prices, condition ratings, value retention analysis.',
   alternates: { canonical: `${BASE}/brands/miu-miu` },
 }

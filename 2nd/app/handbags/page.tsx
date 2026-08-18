@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsByCategory } from '@/lib/data'
+import { getItemsByCategory, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.secondluxuryitems.com'
@@ -41,7 +41,7 @@ export default function HandbagsPage() {
         fair market value before buying.
       </p>
       <p className="text-sm text-[#9C8B7A] mb-8">Tracking {items.length} handbag models</p>
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
       {/* FAQ Section */}
       {(() => {
         const faqSchema = {

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès Constance vs Kelly 2025: Investment Tier & Pre-Owned Guide | SecondLuxuryItems',
-  description: 'Hermès Constance vs Kelly — H clasp flap vs structured frame, size comparison, resale retention, investment tier, and which Hermès pre-owned bag is the better buy in 2025.',
+  title: `Hermès Constance vs Kelly ${PRICE_YEAR}: Investment Tier & Pre-Owned Guide | SecondLuxuryItems`,
+  description: `Hermès Constance vs Kelly — H clasp flap vs structured frame, size comparison, resale retention, investment tier, and which Hermès pre-owned bag is the better buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/hermes-constance-vs-kelly` },
 }
 
@@ -33,7 +34,7 @@ export default function HermesConstanceVsKelly() {
         <span>Hermès Constance vs Kelly</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Hermès Constance vs Kelly (2025): Which Is the Better Investment?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Hermès Constance vs Kelly ({PRICE_YEAR}): Which Is the Better Investment?</h1>
       <p className="text-gray-500 mb-10">Both are S-Tier Hermès investments that consistently trade at or above retail pre-owned. The Constance wins on wearability and crossbody freedom; the Kelly 25 Sellier is arguably the single best investment bag in the luxury market, period. Your lifestyle determines which makes more sense.</p>
 
       <div className="overflow-x-auto mb-10">

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Dior vs Céline: Pre-Owned Comparison 2025 | SecondLuxuryItems',
-  description: 'Dior vs Céline — Lady Dior vs Luggage/16, value retention, resale. Two leading Parisian houses compared for pre-owned buyers in 2025.',
+  title: `Dior vs Céline: Pre-Owned Comparison ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Dior vs Céline — Lady Dior vs Luggage/16, value retention, resale. Two leading Parisian houses compared for pre-owned buyers in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/dior-vs-celine` },
 }
 
@@ -33,7 +34,7 @@ export default function DiorVsCelinePage() {
         <span>Dior vs Céline</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Céline Pre-Owned: 2025 Comparison</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Céline Pre-Owned: {PRICE_YEAR} Comparison</h1>
       <p className="text-gray-500 mb-10">Two Parisian giants with very different aesthetics. Dior is romantic and embellished; Céline (under Phoebe Philo) built a cult following for minimalism. Here's how they compare pre-owned.</p>
 
       <div className="overflow-x-auto mb-12">

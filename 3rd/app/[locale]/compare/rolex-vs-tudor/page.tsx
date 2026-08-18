@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Rolex vs Tudor in Thailand 2025: Sister Brands Compared | ChicPreowned'
-      : 'Rolex vs Tudor ในไทย 2025: เปรียบเทียบแบรนด์พี่น้อง | ChicPreowned',
+      ? `Rolex vs Tudor in Thailand ${PRICE_YEAR}: Sister Brands Compared | ChicPreowned`
+      : `Rolex vs Tudor ในไทย ${PRICE_YEAR}: เปรียบเทียบแบรนด์พี่น้อง | ChicPreowned`,
     description: isEn
       ? 'Rolex vs Tudor comparison for Bangkok buyers — Black Bay vs Submariner, THB prices, resale retention, and whether Tudor is worth it at Bangkok boutique prices.'
       : 'เปรียบเทียบ Rolex vs Tudor สำหรับผู้ซื้อกรุงเทพ Black Bay vs Submariner ราคาบาท อัตราการรักษามูลค่า และ Tudor คุ้มค่าที่ราคาบูทีคกรุงเทพหรือไม่',
@@ -60,7 +61,7 @@ export default async function RolexVsTudorTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Tudor (2025): Sister Brands Compared' : 'Rolex vs Tudor (2025): เปรียบเทียบแบรนด์พี่น้อง'}
+        {isEn ? 'Rolex vs Tudor ({PRICE_YEAR}): Sister Brands Compared' : 'Rolex vs Tudor ({PRICE_YEAR}): เปรียบเทียบแบรนด์พี่น้อง'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

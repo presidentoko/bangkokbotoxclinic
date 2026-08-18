@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemBySlug, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Best First Pre-Owned Luxury Bag in Thailand (2025 Guide) | ChicPreowned'
-      : 'กระเป๋า Luxury มือสองใบแรก — คู่มือฉบับสมบูรณ์ (2025) | ChicPreowned',
+      ? `Best First Pre-Owned Luxury Bag in Thailand (${PRICE_YEAR} Guide) | ChicPreowned`
+      : `กระเป๋า Luxury มือสองใบแรก — คู่มือฉบับสมบูรณ์ (${PRICE_YEAR}) | ChicPreowned`,
     description: isEn
       ? 'Which pre-owned luxury bag should you buy first in Thailand? Expert guide covering LV Neverfull, Gucci Marmont, LV Speedy and Chanel WOC with real THB prices.'
       : 'กระเป๋า Luxury มือสองใบแรกควรซื้ออะไรดี? คู่มือครบถ้วน LV Neverfull, Gucci Marmont, LV Speedy, Chanel WOC พร้อมราคา THB จริง',
@@ -141,11 +142,11 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Best First Pre-Owned Luxury Bag in Thailand (2025 Guide)'
-          : 'กระเป๋า Luxury มือสองใบแรก — คู่มือฉบับสมบูรณ์ (2025)'}
+          ? 'Best First Pre-Owned Luxury Bag in Thailand ({PRICE_YEAR} Guide)'
+          : 'กระเป๋า Luxury มือสองใบแรก — คู่มือฉบับสมบูรณ์ ({PRICE_YEAR})'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-12">
-        {isEn ? 'Updated June 2025' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       {/* Section 1: Why buy pre-owned */}

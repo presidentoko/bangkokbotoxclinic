@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Louis Vuitton vs Céline: Pre-Owned Comparison 2025 | SecondLuxuryItems',
+  title: `Louis Vuitton vs Céline: Pre-Owned Comparison ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'LV vs Céline — Neverfull vs Luggage Tote, value retention, resale. Two very different French luxury houses compared for pre-owned buyers.',
   alternates: { canonical: `${BASE}/compare/lv-vs-celine` },
 }
@@ -32,7 +33,7 @@ export default function LVVsCelinePage() {
         <span>LV vs Céline</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Louis Vuitton vs Céline Pre-Owned: 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Louis Vuitton vs Céline Pre-Owned: {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two very different French houses — LV is monogram-forward with massive global recognition; Céline (Philo era) is the cultured minimalist. Both have active pre-owned markets, but very different dynamics.</p>
 
       <div className="overflow-x-auto mb-10">

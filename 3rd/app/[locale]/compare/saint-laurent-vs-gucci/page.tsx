@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Saint Laurent vs Gucci Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Saint Laurent vs Gucci มือสองในไทย 2025 | ChicPreowned',
+      ? `Saint Laurent vs Gucci Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Saint Laurent vs Gucci มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Saint Laurent vs Gucci comparison for Thai buyers — Lou Lou vs Dionysus, Sac de Jour vs Marmont. THB prices and resale values.'
       : 'เปรียบ Saint Laurent กับ Gucci สำหรับผู้ซื้อชาวไทย — Lou Lou vs Dionysus Sac de Jour vs Marmont ราคาบาทและมูลค่าขายต่อ',

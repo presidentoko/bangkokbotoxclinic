@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
@@ -76,7 +77,7 @@ export default function MarketOverviewPage() {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">Data Report</p>
       <h1 className="font-serif text-4xl sm:text-5xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
-        Pre-Owned Luxury Market: Price Overview 2025
+        Pre-Owned Luxury Market: Price Overview {PRICE_YEAR}
       </h1>
       <p className="text-[#6B6052] text-lg leading-relaxed mb-12 max-w-2xl">
         Live price data from 200+ pre-owned luxury items across 8 categories.

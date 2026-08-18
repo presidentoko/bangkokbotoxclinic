@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Van Cleef & Arpels Jewelry 2025: Alhambra | SecondLuxuryItems',
-  description: 'How to spot fake Van Cleef & Arpels — Alhambra motif size, metal quality, signature engraving, stone setting, clasp system, certificate. Authenticate VCA pre-owned 2025.',
+  title: `How to Authenticate Van Cleef & Arpels Jewelry ${PRICE_YEAR}: Alhambra | SecondLuxuryItems`,
+  description: `How to spot fake Van Cleef & Arpels — Alhambra motif size, metal quality, signature engraving, stone setting, clasp system, certificate. Authenticate VCA pre-owned ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-van-cleef` },
 }
 
@@ -29,7 +30,7 @@ export default function AuthenticateVCA() {
         <span>Authenticate Van Cleef & Arpels</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Van Cleef & Arpels 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Van Cleef & Arpels {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Van Cleef & Arpels Alhambra is one of the most counterfeited jewelry pieces globally. The motif is simple enough that high-quality replicas exist at every price point. Six checks focusing on the Alhambra necklace and bracelet — the most commonly faked VCA pieces.</p>
 
       <div className="space-y-4 mb-10">

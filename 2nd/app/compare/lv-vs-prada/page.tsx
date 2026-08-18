@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Louis Vuitton vs Prada Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'LV vs Prada pre-owned comparison — Neverfull vs Galleria, canvas vs leather, resale values, which is the better investment in 2025.',
+  title: `Louis Vuitton vs Prada Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `LV vs Prada pre-owned comparison — Neverfull vs Galleria, canvas vs leather, resale values, which is the better investment in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/lv-vs-prada` },
 }
 

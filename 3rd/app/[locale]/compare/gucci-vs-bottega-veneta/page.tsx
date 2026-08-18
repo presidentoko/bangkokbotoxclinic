@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Gucci vs Bottega Veneta Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Gucci vs Bottega Veneta มือสองในไทย 2025 | ChicPreowned',
+      ? `Gucci vs Bottega Veneta Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Gucci vs Bottega Veneta มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Gucci vs Bottega Veneta for Thai buyers — logo vs no-logo, investment case, THB resale prices, which Italian luxury holds better in Bangkok 2025.'
-      : 'เปรียบ Gucci กับ Bottega Veneta สำหรับผู้ซื้อชาวไทย — โลโก้ vs ไม่มีโลโก้ กรณีลงทุน ราคาขายต่อบาท อันไหนคงมูลค่าดีกว่าในกรุงเทพ 2025',
+      ? `Gucci vs Bottega Veneta for Thai buyers — logo vs no-logo, investment case, THB resale prices, which Italian luxury holds better in Bangkok ${PRICE_YEAR}.`
+      : `เปรียบ Gucci กับ Bottega Veneta สำหรับผู้ซื้อชาวไทย — โลโก้ vs ไม่มีโลโก้ กรณีลงทุน ราคาขายต่อบาท อันไหนคงมูลค่าดีกว่าในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

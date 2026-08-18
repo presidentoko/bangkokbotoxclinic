@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Saint Laurent vs Celine: Which to Buy Pre-Owned? 2025 Guide',
+  title: `Saint Laurent vs Celine: Which to Buy Pre-Owned? ${PRICE_YEAR} Guide`,
   description: 'Saint Laurent vs Celine pre-owned price comparison. Loulou vs Belt Bag, resale value, authentication tips and which is right for your style.',
   alternates: { canonical: `${BASE}/compare/saint-laurent-vs-celine` },
 }
@@ -35,7 +36,7 @@ export default function SaintLaurentVsCelinePage() {
         <span className="text-gray-800">Saint Laurent vs Celine</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Saint Laurent vs Celine: Pre-Owned Comparison 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Saint Laurent vs Celine: Pre-Owned Comparison {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two distinct visions of French fashion — both strong performers on the secondary market.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

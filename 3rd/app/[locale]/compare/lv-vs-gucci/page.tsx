@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Louis Vuitton vs Gucci Pre-Owned Value in Thailand 2025 | ChicPreowned'
+      ? `Louis Vuitton vs Gucci Pre-Owned Value in Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Louis Vuitton กับ Gucci มือสอง — อันไหนคุ้มกว่า? | ChicPreowned',
     description: isEn
       ? 'LV retains 65–75% of retail value, Gucci 50–65%. Compare pre-owned prices for both brands in Thailand and decide which is worth buying first.'
@@ -129,7 +130,7 @@ export default async function LvVsGucciPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Louis Vuitton vs Gucci Pre-Owned Value in Thailand 2025'
+          ? 'Louis Vuitton vs Gucci Pre-Owned Value in Thailand {PRICE_YEAR}'
           : 'Louis Vuitton กับ Gucci มือสอง — อันไหนคุ้มกว่า?'}
       </h1>
 

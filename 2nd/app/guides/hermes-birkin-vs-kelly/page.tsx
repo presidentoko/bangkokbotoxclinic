@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès Birkin vs Kelly: Which to Buy Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'Hermès Birkin vs Kelly — size, structure, value retention, resale. Which Hermès bag holds value better pre-owned? Complete 2025 comparison.',
+  title: `Hermès Birkin vs Kelly: Which to Buy Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Hermès Birkin vs Kelly — size, structure, value retention, resale. Which Hermès bag holds value better pre-owned? Complete ${PRICE_YEAR} comparison.`,
   alternates: { canonical: `${BASE}/guides/hermes-birkin-vs-kelly` },
 }
 

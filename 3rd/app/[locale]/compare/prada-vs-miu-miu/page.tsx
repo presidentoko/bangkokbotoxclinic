@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -49,7 +50,7 @@ export default async function PradaVsMiuMiuTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Prada vs Miu Miu: Pre-Owned Thailand 2025' : 'Prada vs Miu Miu: มือสองในไทย 2025'}
+        {isEn ? 'Prada vs Miu Miu: Pre-Owned Thailand {PRICE_YEAR}' : 'Prada vs Miu Miu: มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Same designer, same parent group — but very different audiences. Which is the better pre-owned buy for Thai buyers in 2025?'

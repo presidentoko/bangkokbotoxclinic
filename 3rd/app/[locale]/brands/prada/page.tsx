@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Prada in Thailand 2025 | ChicPreowned'
-      : 'Prada มือสองในไทย: ราคาและแหล่งซื้อ 2025 | ChicPreowned',
+      ? `Pre-Owned Prada in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Prada มือสองในไทย: ราคาและแหล่งซื้อ ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Prada prices in Thailand (THB). Galleria, Re-Edition 2000, Cleo — compare second-hand Prada prices by condition.'
       : 'ราคา Prada มือสองในไทย (บาท) Galleria, Re-Edition 2000, Cleo เปรียบเทียบราคาตามสภาพ',
@@ -90,10 +91,10 @@ export default async function PradaThPage({ params }: Props) {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">{isEn ? 'Brand Price Guide' : 'ราคาแบรนด์'}</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Pre-Owned Prada in Thailand 2025' : 'Prada มือสองในไทย: ราคาและแหล่งซื้อ 2025'}
+        {isEn ? 'Pre-Owned Prada in Thailand {PRICE_YEAR}' : 'Prada มือสองในไทย: ราคาและแหล่งซื้อ {PRICE_YEAR}'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">
-        {isEn ? `Updated 2025 · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
+        {isEn ? `Updated {PRICE_YEAR} · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
       </p>
 
       <section className="mb-10">

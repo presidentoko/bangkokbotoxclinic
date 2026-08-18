@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getItemsByCategory } from '@/lib/data'
+import { getItemsByCategory, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 interface Props { params: Promise<{ locale: string }> }
@@ -37,7 +37,7 @@ export default async function HandbagsPage({ params }: Props) {
       </h1>
       <p className="text-[#6B6052] mb-2">{t('category_intro_handbags')}</p>
       <p className="text-sm text-[#9C8B7A] mb-10">{t('tracking_x_models', { count: items.length })}</p>
-      <SortableItemGrid items={items} locale={locale} />
+      <SortableItemGrid items={toGridItems(items)} locale={locale} />
     </>
   )
 }

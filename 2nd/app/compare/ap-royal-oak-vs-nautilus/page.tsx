@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'AP Royal Oak vs Patek Nautilus 2025: The Ultimate Watch Comparison | SecondLuxuryItems',
+  title: `AP Royal Oak vs Patek Nautilus ${PRICE_YEAR}: The Ultimate Watch Comparison | SecondLuxuryItems`,
   description: 'Audemars Piguet Royal Oak vs Patek Philippe Nautilus — both steel sports luxury icons by Gerald Genta, investment tiers, resale retention, and which is the better pre-owned watch investment.',
   alternates: { canonical: `${BASE}/compare/ap-royal-oak-vs-nautilus` },
 }
@@ -33,7 +34,7 @@ export default function ApRoyalOakVsNautilus() {
         <span>AP Royal Oak vs Nautilus</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">AP Royal Oak vs Patek Nautilus (2025): Which Watch to Buy?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">AP Royal Oak vs Patek Nautilus ({PRICE_YEAR}): Which Watch to Buy?</h1>
       <p className="text-gray-500 mb-10">Both were designed by the same man (Gerald Genta) and both define the "integrated bracelet steel sports luxury" category. But they serve slightly different buyers — and their investment profiles are different. The Nautilus 5711/1A is arguably the single most valuable production watch of the modern era; the Royal Oak is the category inventor.</p>
 
       <div className="overflow-x-auto mb-10">

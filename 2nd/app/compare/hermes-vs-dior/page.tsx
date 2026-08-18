@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès vs Dior Pre-Owned 2025: Investment vs Fashion | SecondLuxuryItems',
-  description: 'Hermès vs Dior pre-owned comparison — Birkin vs Lady Dior investment case, resale values, price tiers, which to buy used in 2025.',
+  title: `Hermès vs Dior Pre-Owned ${PRICE_YEAR}: Investment vs Fashion | SecondLuxuryItems`,
+  description: `Hermès vs Dior pre-owned comparison — Birkin vs Lady Dior investment case, resale values, price tiers, which to buy used in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/hermes-vs-dior` },
 }
 

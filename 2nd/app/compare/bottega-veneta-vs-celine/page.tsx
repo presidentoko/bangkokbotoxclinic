@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Bottega Veneta vs Celine 2025: Which Quiet Luxury Brand Holds Value? | SecondLuxuryItems',
+  title: `Bottega Veneta vs Celine ${PRICE_YEAR}: Which Quiet Luxury Brand Holds Value? | SecondLuxuryItems`,
   description: 'Bottega Veneta vs Celine — Jodie vs Triomphe, intrecciato weave vs structured leather, resale retention, and which quiet luxury brand is the better pre-owned investment.',
   alternates: { canonical: `${BASE}/compare/bottega-veneta-vs-celine` },
 }
@@ -32,7 +33,7 @@ export default function BottegaVenataVsCeline() {
         <span>Bottega Veneta vs Celine</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Bottega Veneta vs Celine (2025): The Quiet Luxury Showdown</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Bottega Veneta vs Celine ({PRICE_YEAR}): The Quiet Luxury Showdown</h1>
       <p className="text-gray-500 mb-10">Both Bottega Veneta and Celine became synonymous with the "quiet luxury" movement — no visible logos, high craft, understated status. Both have exceptional resale performance on their hero pieces. The question is which brand's pre-owned market is stronger and which fits your aesthetic.</p>
 
       <div className="overflow-x-auto mb-10">

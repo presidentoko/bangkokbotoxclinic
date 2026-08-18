@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Louis Vuitton vs Goyard Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Louis Vuitton vs Goyard มือสองในไทย 2025 | ChicPreowned',
+      ? `Louis Vuitton vs Goyard Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Louis Vuitton vs Goyard มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'LV vs Goyard comparison — canvas bags, resale value, availability in Thailand. THB prices and which is the better buy.'
       : 'เปรียบ LV กับ Goyard — กระเป๋าผ้า มูลค่าขายต่อ หาง่ายแค่ไหนในไทย ราคาบาทและอันไหนคุ้มกว่า',

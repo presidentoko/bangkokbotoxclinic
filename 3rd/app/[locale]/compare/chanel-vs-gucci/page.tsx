@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Chanel vs Gucci Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Chanel vs Gucci มือสองในไทย 2025 | ChicPreowned',
+      ? `Chanel vs Gucci Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Chanel vs Gucci มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Chanel vs Gucci comparison for Thai buyers — Classic Flap vs Dionysus, investment value, resale retention. THB prices and buying guide.'
       : 'เปรียบ Chanel กับ Gucci สำหรับผู้ซื้อชาวไทย — Classic Flap vs Dionysus มูลค่าการลงทุน การคงมูลค่าขายต่อ ราคาบาทและคู่มือซื้อ',

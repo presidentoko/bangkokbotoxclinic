@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Loewe Pre-Owned Price Guide 2025 | SecondLuxuryItems',
+  title: `Loewe Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Loewe Puzzle, Hammock, Flamenco and Basket prices. Save 35–50% vs retail. Jonathan Anderson era designs hold strong resale value.',
   alternates: { canonical: `${BASE}/brands/loewe` },
 }
@@ -23,7 +24,7 @@ export default function LoeweBrandPage() {
         <span className="text-gray-800">Loewe</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Loewe Price Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Loewe Price Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">{items.length} models tracked · save 35–50% vs retail · Spain's finest leather house since 1846</p>
 
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8 text-sm text-gray-700">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Dior vs Céline Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Dior vs Céline มือสองในไทย 2025 | ChicPreowned',
+      ? `Dior vs Céline Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Dior vs Céline มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Dior vs Céline for Thai buyers — Lady Dior vs Luggage price comparison in THB, value retention, Philo era explained.'
       : 'Dior vs Céline สำหรับคนไทย — เปรียบ Lady Dior กับ Luggage ราคาบาท รักษามูลค่า อธิบายยุค Philo',

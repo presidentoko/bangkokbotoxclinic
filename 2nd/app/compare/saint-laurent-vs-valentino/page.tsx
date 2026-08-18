@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Saint Laurent vs Valentino 2025: Pre-Owned Bags & Investment Tier | SecondLuxuryItems',
-  description: 'Saint Laurent vs Valentino — Parisian cool vs Roman romance. Compare resale retention, investment tier, signature bags, and which brand holds value better pre-owned in 2025.',
+  title: `Saint Laurent vs Valentino ${PRICE_YEAR}: Pre-Owned Bags & Investment Tier | SecondLuxuryItems`,
+  description: `Saint Laurent vs Valentino — Parisian cool vs Roman romance. Compare resale retention, investment tier, signature bags, and which brand holds value better pre-owned in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/saint-laurent-vs-valentino` },
 }
 
@@ -33,7 +34,7 @@ export default function SaintLaurentVsValentino() {
         <span>Saint Laurent vs Valentino</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Saint Laurent vs Valentino (2025): Which Holds Value Better?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Saint Laurent vs Valentino ({PRICE_YEAR}): Which Holds Value Better?</h1>
       <p className="text-gray-500 mb-10">Both are Kering/European luxury with global recognition, but they serve very different aesthetics — and have very different resale trajectories. Saint Laurent's Parisian minimalism ages gracefully; Valentino's Rockstud era peaked around 2019 and is slowly declining in pre-owned markets.</p>
 
       <div className="overflow-x-auto mb-10">

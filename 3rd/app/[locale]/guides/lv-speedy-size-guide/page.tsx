@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -14,8 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? 'LV Speedy Size Guide: 20, 25, 30, 35, 40 Thailand | ChicPreowned'
       : 'คู่มือขนาด LV Speedy: 20, 25, 30, 35, 40 ในไทย | ChicPreowned',
     description: isEn
-      ? 'Louis Vuitton Speedy size guide for Thailand — dimensions, what fits inside, which holds value best. THB prices 2025.'
-      : 'คู่มือขนาด Louis Vuitton Speedy สำหรับคนไทย — ขนาด จุของได้แค่ไหน ขนาดไหนคงมูลค่าดีที่สุด ราคาบาท 2025',
+      ? `Louis Vuitton Speedy size guide for Thailand — dimensions, what fits inside, which holds value best. THB prices ${PRICE_YEAR}.`
+      : `คู่มือขนาด Louis Vuitton Speedy สำหรับคนไทย — ขนาด จุของได้แค่ไหน ขนาดไหนคงมูลค่าดีที่สุด ราคาบาท ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Prada vs Bottega Veneta Pre-Owned 2025: Galleria vs Cassette | SecondLuxuryItems',
-  description: 'Prada vs Bottega Veneta pre-owned — Galleria vs Cassette, Re-Edition vs Jodie, investment case, logo vs no-logo. Which Italian quiet luxury house to buy 2025.',
+  title: `Prada vs Bottega Veneta Pre-Owned ${PRICE_YEAR}: Galleria vs Cassette | SecondLuxuryItems`,
+  description: `Prada vs Bottega Veneta pre-owned — Galleria vs Cassette, Re-Edition vs Jodie, investment case, logo vs no-logo. Which Italian quiet luxury house to buy ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/prada-vs-bottega-veneta` },
 }
 
@@ -31,7 +32,7 @@ export default function PradaVsBV() {
         <span>Prada vs Bottega Veneta</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Prada vs Bottega Veneta Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Prada vs Bottega Veneta Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Both are Italian luxury houses that champion restraint over logos — but in completely different ways. Prada has the triangle plate and intellectual reputation. Bottega Veneta has the Intrecciato weave and zero branding. Prada goes lower on entry price; Bottega Veneta holds stronger resale value. Two of the best pre-owned value plays in Italian luxury.</p>
 
       <div className="overflow-x-auto mb-10">

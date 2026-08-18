@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getItemsByBrand, getAllBrands } from '@/lib/data'
+import { getItemsByBrand, getAllBrands, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.chicpreowned.com'
@@ -265,7 +265,7 @@ export default async function BrandPage({ params }: Props) {
           </div>
         )
       })()}
-      <SortableItemGrid items={items} locale={locale} />
+      <SortableItemGrid items={toGridItems(items)} locale={locale} />
     </>
   )
 }

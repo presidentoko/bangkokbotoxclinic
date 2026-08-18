@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Cartier vs Van Cleef & Arpels: Pre-Owned Price Comparison 2025',
+  title: `Cartier vs Van Cleef & Arpels: Pre-Owned Price Comparison ${PRICE_YEAR}`,
   description: 'Compare pre-owned Cartier vs Van Cleef & Arpels jewelry prices. Love Bracelet vs Alhambra, Trinity vs Perlée — value, resale, and investment compared.',
   alternates: { canonical: `${BASE}/compare/cartier-vs-van-cleef` },
 }

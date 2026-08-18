@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Cartier vs Tiffany Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Cartier vs Tiffany มือสองในไทย 2025 | ChicPreowned',
+      ? `Cartier vs Tiffany Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Cartier vs Tiffany มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Cartier vs Tiffany comparison — Love Bracelet vs T1 bangle, resale value, jewelry investment in Thailand. THB prices.'
       : 'เปรียบ Cartier กับ Tiffany — Love Bracelet vs T1 bangle มูลค่าขายต่อ การลงทุนเครื่องประดับในไทย ราคาบาท',

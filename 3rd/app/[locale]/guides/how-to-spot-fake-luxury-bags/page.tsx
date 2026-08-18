@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -10,8 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Spot a Fake Luxury Bag in Thailand 2025 | ChicPreowned'
-      : 'วิธีดูกระเป๋า Luxury ของแท้ vs ของก็อป — คู่มือ 2025 | ChicPreowned',
+      ? `How to Spot a Fake Luxury Bag in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีดูกระเป๋า Luxury ของแท้ vs ของก็อป — คู่มือ ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Brand-by-brand authentication guide for Chanel, Louis Vuitton, Hermès and Gucci pre-owned bags in Thailand. Key tells and verification tips.'
       : 'คู่มือตรวจสอบความแท้ทีละแบรนด์ Chanel, Louis Vuitton, Hermès และ Gucci มือสองในไทย',
@@ -166,7 +167,7 @@ export default async function HowToSpotFakePage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'How to Spot a Fake Luxury Bag in Thailand 2025' : 'วิธีดูกระเป๋า Luxury ของแท้ vs ของก็อป — คู่มือ 2025'}
+        {isEn ? 'How to Spot a Fake Luxury Bag in Thailand {PRICE_YEAR}' : 'วิธีดูกระเป๋า Luxury ของแท้ vs ของก็อป — คู่มือ {PRICE_YEAR}'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? 'Brand-specific authentication guide for pre-owned buyers in Thailand' : 'คู่มือตรวจสอบความแท้รายแบรนด์สำหรับผู้ซื้อมือสองในไทย'}

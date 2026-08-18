@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsByCategory } from '@/lib/data'
+import { getItemsByCategory, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.secondluxuryitems.com'
@@ -36,7 +36,7 @@ export default function JewelryPage() {
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>Used Luxury Jewelry — Price Guide</h1>
       <p className="text-[#6B6052] mb-4">Fine jewelry retains value exceptionally well. Cartier and Van Cleef pieces often sell above retail.</p>
       <p className="text-sm text-[#9C8B7A] mb-8">Tracking {items.length} jewelry pieces</p>
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
       {/* FAQ Section */}
       {(() => {
         const faqSchema = {

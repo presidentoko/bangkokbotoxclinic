@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -10,8 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Where to Sell Pre-Owned Luxury Bags in Thailand 2025 | ChicPreowned'
-      : 'ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย 2025 | ChicPreowned',
+      ? `Where to Sell Pre-Owned Luxury Bags in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Platform comparison for Thai luxury sellers: Carousell TH, LINE Shopping, Shopee, Vestiaire Collective, LuxeStreet TH — fees, reach, and payout compared.'
       : 'เปรียบเทียบแพลตฟอร์มสำหรับผู้ขาย luxury ในไทย: Carousell, LINE Shopping, Shopee, Vestiaire, LuxeStreet TH — ค่าธรรมเนียม, การเข้าถึง และรายได้',
@@ -176,7 +177,7 @@ export default async function WhereToSellPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Where to Sell Pre-Owned Luxury Bags in Thailand 2025' : 'ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย 2025'}
+        {isEn ? 'Where to Sell Pre-Owned Luxury Bags in Thailand {PRICE_YEAR}' : 'ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? 'Platform comparison for Thai sellers — fees, reach, and payout' : 'เปรียบเทียบแพลตฟอร์มสำหรับผู้ขายในไทย — ค่าธรรมเนียม การเข้าถึง และรายได้'}

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Gucci Dionysus vs GG Marmont: Which to Buy Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'Gucci Dionysus vs GG Marmont — value retention comparison, which holds resale better. Complete 2025 guide for pre-owned buyers.',
+  title: `Gucci Dionysus vs GG Marmont: Which to Buy Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Gucci Dionysus vs GG Marmont — value retention comparison, which holds resale better. Complete ${PRICE_YEAR} guide for pre-owned buyers.`,
   alternates: { canonical: `${BASE}/guides/gucci-dionysus-vs-marmont` },
 }
 

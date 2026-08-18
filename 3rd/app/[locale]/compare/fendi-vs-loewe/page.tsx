@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -13,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? 'Fendi vs Loewe: Pre-Owned Bags Thailand 2025 | ChicPreowned' : 'Fendi vs Loewe: กระเป๋ามือสองในไทย 2025 | ChicPreowned',
     description: isEn
-      ? 'Fendi Baguette vs Loewe Puzzle for Thai buyers — THB pre-owned prices, value retention, and which to buy in Bangkok 2025.'
-      : 'Fendi Baguette vs Loewe Puzzle สำหรับผู้ซื้อชาวไทย — ราคามือสองบาท อัตราการรักษามูลค่า และซื้ออะไรดีในกรุงเทพ 2025',
+      ? `Fendi Baguette vs Loewe Puzzle for Thai buyers — THB pre-owned prices, value retention, and which to buy in Bangkok ${PRICE_YEAR}.`
+      : `Fendi Baguette vs Loewe Puzzle สำหรับผู้ซื้อชาวไทย — ราคามือสองบาท อัตราการรักษามูลค่า และซื้ออะไรดีในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -53,7 +54,7 @@ export default async function FendiVsLoeweTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Fendi vs Loewe: Pre-Owned Bags in Thailand 2025' : 'Fendi vs Loewe: กระเป๋ามือสองในไทย 2025'}
+        {isEn ? 'Fendi vs Loewe: Pre-Owned Bags in Thailand {PRICE_YEAR}' : 'Fendi vs Loewe: กระเป๋ามือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Baguette vs Puzzle — which is the better pre-owned buy for the Thai market?'

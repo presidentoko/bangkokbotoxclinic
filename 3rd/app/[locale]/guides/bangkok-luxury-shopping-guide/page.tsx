@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? 'Bangkok Luxury Pre-Owned Shopping Guide 2025 | ChicPreowned' : 'คู่มือช้อปปิ้ง Luxury มือสองในกรุงเทพ 2025 | ChicPreowned',
     description: isEn
-      ? 'Where to buy pre-owned luxury bags and watches in Bangkok 2025 — Carousell, Line Market, Chatuchak, Siam, and trusted dealers.'
-      : 'ที่ซื้อกระเป๋าและนาฬิกา luxury มือสองในกรุงเทพ 2025 — Carousell, Line Market, จตุจักร, สยาม และดีลเลอร์ที่น่าเชื่อถือ',
+      ? `Where to buy pre-owned luxury bags and watches in Bangkok ${PRICE_YEAR} — Carousell, Line Market, Chatuchak, Siam, and trusted dealers.`
+      : `ที่ซื้อกระเป๋าและนาฬิกา luxury มือสองในกรุงเทพ ${PRICE_YEAR} — Carousell, Line Market, จตุจักร, สยาม และดีลเลอร์ที่น่าเชื่อถือ`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -33,7 +34,7 @@ export default async function BangkokLuxuryShoppingGuide({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Bangkok Luxury Pre-Owned Shopping Guide 2025' : 'คู่มือช้อปปิ้ง Luxury มือสองในกรุงเทพ 2025'}
+        {isEn ? 'Bangkok Luxury Pre-Owned Shopping Guide {PRICE_YEAR}' : 'คู่มือช้อปปิ้ง Luxury มือสองในกรุงเทพ {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Where to find authentic pre-owned luxury in Bangkok — online platforms, physical markets, and trusted dealers.'

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Omega vs TAG Heuer: Pre-Owned Watches 2025 | SecondLuxuryItems',
-  description: 'Omega vs TAG Heuer pre-owned watches compared. Speedmaster vs Carrera — which brand holds value better and what to buy in 2025.',
+  title: `Omega vs TAG Heuer: Pre-Owned Watches ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Omega vs TAG Heuer pre-owned watches compared. Speedmaster vs Carrera — which brand holds value better and what to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/omega-vs-tag-heuer` },
 }
 
@@ -32,7 +33,7 @@ export default function OmegaVsTagHPage() {
         <span>Omega vs TAG Heuer</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Omega vs TAG Heuer: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Omega vs TAG Heuer: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The two most popular pre-owned Swiss watches under $5,000 — space heritage vs motorsport history.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

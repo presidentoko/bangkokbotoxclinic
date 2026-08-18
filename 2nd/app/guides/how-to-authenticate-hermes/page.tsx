@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'How to Authenticate a Pre-Owned Hermès Scarf or Bag | SecondLuxuryItems',
@@ -126,7 +127,7 @@ export default function HowToAuthenticateHermesPage() {
       >
         How to Authenticate a Pre-Owned Hermès Scarf or Bag
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · 8 min read</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 8 min read</p>
 
       <nav className="mb-10 p-5 border border-[#E8E2D9] bg-[#F5F0E8]">
         <p className="text-xs uppercase tracking-wider text-[#9C8B7A] mb-3">In this guide</p>

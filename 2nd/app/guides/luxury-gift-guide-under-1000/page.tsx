@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsUnderBudget, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Best Pre-Owned Luxury Gifts Under $1,000 (2025) | SecondLuxuryItems',
+  title: `Best Pre-Owned Luxury Gifts Under $1,000 (${PRICE_YEAR}) | SecondLuxuryItems`,
   description: 'The best second-hand luxury gifts under $1,000 — LV Speedy, Gucci Marmont, Hermès belts. Authenticated and updated weekly.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/guides/luxury-gift-guide-under-1000' },
 }
@@ -70,7 +71,7 @@ export default function LuxuryGiftGuideUnder1000Page() {
       >
         Best Pre-Owned Luxury Gifts Under $1,000
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Authenticated weekly</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Authenticated weekly</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

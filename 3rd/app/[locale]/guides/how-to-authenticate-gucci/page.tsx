@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Gucci Bags Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบความแท้กระเป๋า Gucci ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Gucci Bags Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบความแท้กระเป๋า Gucci ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Gucci authentication guide for Thailand buyers — GG logo alignment, hardware, serial, stitching. Spot fakes before you buy.'
       : 'คู่มือตรวจสอบ Gucci สำหรับผู้ซื้อในไทย — โลโก้ GG hardware serial การเย็บ หาของปลอมก่อนซื้อ',

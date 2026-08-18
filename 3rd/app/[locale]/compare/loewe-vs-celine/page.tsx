@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Loewe vs Celine Thailand 2025: Puzzle vs Triomphe | ChicPreowned'
-      : 'Loewe vs Celine ไทย 2025: Puzzle vs Triomphe | ChicPreowned',
+      ? `Loewe vs Celine Thailand ${PRICE_YEAR}: Puzzle vs Triomphe | ChicPreowned`
+      : `Loewe vs Celine ไทย ${PRICE_YEAR}: Puzzle vs Triomphe | ChicPreowned`,
     description: isEn
-      ? 'Loewe vs Celine for Bangkok buyers — Puzzle bag vs Triomphe, Philo vs Slimane era, THB prices, resale, quiet luxury comparison 2025.'
-      : 'Loewe vs Celine สำหรับผู้ซื้อกรุงเทพ Puzzle bag vs Triomphe ยุค Philo vs Slimane ราคาบาท การขายต่อ เปรียบเทียบ quiet luxury 2025',
+      ? `Loewe vs Celine for Bangkok buyers — Puzzle bag vs Triomphe, Philo vs Slimane era, THB prices, resale, quiet luxury comparison ${PRICE_YEAR}.`
+      : `Loewe vs Celine สำหรับผู้ซื้อกรุงเทพ Puzzle bag vs Triomphe ยุค Philo vs Slimane ราคาบาท การขายต่อ เปรียบเทียบ quiet luxury ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function LoeweVsCelineTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Loewe vs Celine 2025' : 'Loewe vs Celine 2025'}
+        {isEn ? 'Loewe vs Celine {PRICE_YEAR}' : 'Loewe vs Celine {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Hermès in Thailand 2025 | ChicPreowned'
-      : 'Hermès มือสองในไทย 2025 — ราคา Birkin Kelly และอื่นๆ | ChicPreowned',
+      ? `Pre-Owned Hermès in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Hermès มือสองในไทย ${PRICE_YEAR} — ราคา Birkin Kelly และอื่นๆ | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Hermès prices in Thailand (THB). Birkin, Kelly, Constance — many trade above retail. Compare by condition on the Thai secondary market.'
       : 'ราคา Hermès มือสองในไทย (บาท) Birkin, Kelly, Constance — หลายรุ่นราคาเกินของใหม่ เปรียบเทียบตามสภาพ',
@@ -111,10 +112,10 @@ export default async function HermesBrandPage({ params }: Props) {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">{isEn ? 'Brand Price Guide' : 'ราคาแบรนด์'}</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Pre-Owned Hermès in Thailand 2025' : 'Hermès มือสองในไทย 2025 — ราคา Birkin Kelly และอื่นๆ'}
+        {isEn ? 'Pre-Owned Hermès in Thailand {PRICE_YEAR}' : 'Hermès มือสองในไทย {PRICE_YEAR} — ราคา Birkin Kelly และอื่นๆ'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">
-        {isEn ? `Updated 2025 · ${allItems.length} models tracked` : `อัปเดต 2025 · ติดตาม ${allItems.length} รุ่น`}
+        {isEn ? `Updated {PRICE_YEAR} · ${allItems.length} models tracked` : `อัปเดต 2025 · ติดตาม ${allItems.length} รุ่น`}
       </p>
 
       <section className="mb-10">

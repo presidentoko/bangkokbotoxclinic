@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Chanel 19 vs Classic Flap Thailand 2025: Which Pre-Owned to Buy? | ChicPreowned'
-      : 'Chanel 19 vs Classic Flap ในไทย 2025: มือสองอันไหนน่าซื้อ? | ChicPreowned',
+      ? `Chanel 19 vs Classic Flap Thailand ${PRICE_YEAR}: Which Pre-Owned to Buy? | ChicPreowned`
+      : `Chanel 19 vs Classic Flap ในไทย ${PRICE_YEAR}: มือสองอันไหนน่าซื้อ? | ChicPreowned`,
     description: isEn
-      ? 'Chanel 19 vs Classic Flap for Bangkok buyers — resale retention, THB prices, which holds value better, and which Chanel is the better pre-owned investment in Thailand 2025.'
-      : 'Chanel 19 vs Classic Flap สำหรับผู้ซื้อกรุงเทพ อัตราการรักษามูลค่า ราคาบาท อันไหนรักษามูลค่าได้ดีกว่า และ Chanel ไหนลงทุนมือสองได้ดีกว่าในไทย 2025',
+      ? `Chanel 19 vs Classic Flap for Bangkok buyers — resale retention, THB prices, which holds value better, and which Chanel is the better pre-owned investment in Thailand ${PRICE_YEAR}.`
+      : `Chanel 19 vs Classic Flap สำหรับผู้ซื้อกรุงเทพ อัตราการรักษามูลค่า ราคาบาท อันไหนรักษามูลค่าได้ดีกว่า และ Chanel ไหนลงทุนมือสองได้ดีกว่าในไทย ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -61,7 +62,7 @@ export default async function Chanel19VsClassicFlapTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel 19 vs Classic Flap (2025): Which Pre-Owned to Buy?' : 'Chanel 19 vs Classic Flap (2025): มือสองอันไหนน่าซื้อ?'}
+        {isEn ? 'Chanel 19 vs Classic Flap ({PRICE_YEAR}): Which Pre-Owned to Buy?' : 'Chanel 19 vs Classic Flap ({PRICE_YEAR}): มือสองอันไหนน่าซื้อ?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Rolex vs Patek Philippe Pre-Owned Value 2025 | SecondLuxuryItems',
+  title: `Rolex vs Patek Philippe Pre-Owned Value ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Rolex vs Patek Philippe: which holds value better pre-owned? Rolex sports often trade at 120-200%+ of retail. Patek complications at 90-150%+.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/rolex-vs-patek-philippe' },
 }
@@ -85,9 +86,9 @@ export default function RolexVsPatekPhilippePage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Rolex vs Patek Philippe: Pre-Owned Watch Value 2025
+        Rolex vs Patek Philippe: Pre-Owned Watch Value {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

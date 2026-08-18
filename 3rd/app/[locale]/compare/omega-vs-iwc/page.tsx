@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Omega vs IWC Thailand 2025: Which Swiss Watch? | ChicPreowned'
-      : 'Omega vs IWC ไทย 2025: นาฬิกาสวิสอันไหน? | ChicPreowned',
+      ? `Omega vs IWC Thailand ${PRICE_YEAR}: Which Swiss Watch? | ChicPreowned`
+      : `Omega vs IWC ไทย ${PRICE_YEAR}: นาฬิกาสวิสอันไหน? | ChicPreowned`,
     description: isEn
-      ? 'Omega vs IWC for Bangkok buyers — Seamaster vs Pilot Watch, THB prices, resale value, investment case. Which Swiss watch to buy pre-owned in Thailand 2025?'
-      : 'Omega vs IWC สำหรับผู้ซื้อกรุงเทพ Seamaster vs Pilot Watch ราคาบาท มูลค่าขายต่อ คุณค่าการลงทุน ควรซื้อนาฬิกาสวิสอันไหนมือสองในไทย 2025?',
+      ? `Omega vs IWC for Bangkok buyers — Seamaster vs Pilot Watch, THB prices, resale value, investment case. Which Swiss watch to buy pre-owned in Thailand ${PRICE_YEAR}?`
+      : `Omega vs IWC สำหรับผู้ซื้อกรุงเทพ Seamaster vs Pilot Watch ราคาบาท มูลค่าขายต่อ คุณค่าการลงทุน ควรซื้อนาฬิกาสวิสอันไหนมือสองในไทย ${PRICE_YEAR}?`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function OmegaVsIWCTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Omega vs IWC 2025' : 'Omega vs IWC 2025'}
+        {isEn ? 'Omega vs IWC {PRICE_YEAR}' : 'Omega vs IWC {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

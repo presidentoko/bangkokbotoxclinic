@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
   title: 'Chanel Classic Flap vs 2.55 Reissue: What Is the Difference? | SecondLuxuryItems',
-  description: 'Classic Flap vs 2.55 Reissue — hardware differences, closure type, chain type, interior layout, price, resale. The definitive Chanel guide 2025.',
+  description: `Classic Flap vs 2.55 Reissue — hardware differences, closure type, chain type, interior layout, price, resale. The definitive Chanel guide ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/chanel-classic-flap-vs-2-55` },
 }
 

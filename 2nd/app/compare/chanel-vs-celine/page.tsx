@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel vs Celine Pre-Owned 2025: Classic vs Quiet Luxury | SecondLuxuryItems',
-  description: 'Chanel vs Celine pre-owned comparison — Classic Flap vs Luggage, investment case, resale values, which French house to buy pre-owned in 2025.',
+  title: `Chanel vs Celine Pre-Owned ${PRICE_YEAR}: Classic vs Quiet Luxury | SecondLuxuryItems`,
+  description: `Chanel vs Celine pre-owned comparison — Classic Flap vs Luggage, investment case, resale values, which French house to buy pre-owned in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/chanel-vs-celine` },
 }
 

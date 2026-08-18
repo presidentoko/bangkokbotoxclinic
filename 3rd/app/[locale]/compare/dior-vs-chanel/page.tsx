@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Dior vs Chanel Pre-Owned in Thailand 2025 | ChicPreowned'
+      ? `Dior vs Chanel Pre-Owned in Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'ไดออร์ vs ชาแนล มือสองในไทย: อันไหนคุ้มค่ากว่า? | ChicPreowned',
     description: isEn
-      ? 'Dior vs Chanel pre-owned in Thailand: price comparison, value retention, and which brand suits your budget in 2025.'
-      : 'Dior vs Chanel มือสองในไทย: เปรียบเทียบราคา การรักษามูลค่า และแบรนด์ไหนเหมาะกับงบของคุณในปี 2025',
+      ? `Dior vs Chanel pre-owned in Thailand: price comparison, value retention, and which brand suits your budget in ${PRICE_YEAR}.`
+      : `Dior vs Chanel มือสองในไทย: เปรียบเทียบราคา การรักษามูลค่า และแบรนด์ไหนเหมาะกับงบของคุณในปี ${PRICE_YEAR}`,
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
       languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
@@ -148,9 +149,9 @@ export default async function DiorVsChanelThPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Dior vs Chanel Pre-Owned in Thailand 2025' : 'ไดออร์ vs ชาแนล: อันไหนคุ้มค่ากว่า?'}
+        {isEn ? 'Dior vs Chanel Pre-Owned in Thailand {PRICE_YEAR}' : 'ไดออร์ vs ชาแนล: อันไหนคุ้มค่ากว่า?'}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated 2025 · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
+      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated {PRICE_YEAR} · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
 
       <p className="text-[#6B6052] mb-10 leading-relaxed max-w-2xl">
         {isEn

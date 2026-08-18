@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Prada vs Bottega Veneta Thailand 2025: Galleria vs Cassette | ChicPreowned'
-      : 'Prada vs Bottega Veneta ในไทย 2025: Galleria vs Cassette | ChicPreowned',
+      ? `Prada vs Bottega Veneta Thailand ${PRICE_YEAR}: Galleria vs Cassette | ChicPreowned`
+      : `Prada vs Bottega Veneta ในไทย ${PRICE_YEAR}: Galleria vs Cassette | ChicPreowned`,
     description: isEn
-      ? 'Prada vs Bottega Veneta for Thai buyers — Galleria vs Cassette, THB prices, quiet luxury comparison, which Italian house to buy pre-owned in Bangkok 2025.'
-      : 'เปรียบ Prada กับ Bottega Veneta สำหรับผู้ซื้อชาวไทย — Galleria vs Cassette ราคาบาท เปรียบ quiet luxury อันไหนควรซื้อมือสองในกรุงเทพ 2025',
+      ? `Prada vs Bottega Veneta for Thai buyers — Galleria vs Cassette, THB prices, quiet luxury comparison, which Italian house to buy pre-owned in Bangkok ${PRICE_YEAR}.`
+      : `เปรียบ Prada กับ Bottega Veneta สำหรับผู้ซื้อชาวไทย — Galleria vs Cassette ราคาบาท เปรียบ quiet luxury อันไหนควรซื้อมือสองในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -58,7 +59,7 @@ export default async function PradaVsBVTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Prada vs Bottega Veneta Pre-Owned 2025' : 'Prada vs Bottega Veneta มือสอง 2025'}
+        {isEn ? 'Prada vs Bottega Veneta Pre-Owned {PRICE_YEAR}' : 'Prada vs Bottega Veneta มือสอง {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Omega vs IWC 2025: Seamaster vs Pilot Watch Comparison | SecondLuxuryItems',
-  description: 'Omega vs IWC compared — Seamaster vs Pilot\'s Watch, price range, movement quality, resale value, investment case. Which Swiss watch to buy pre-owned in 2025?',
+  title: `Omega vs IWC ${PRICE_YEAR}: Seamaster vs Pilot Watch Comparison | SecondLuxuryItems`,
+  description: `Omega vs IWC compared — Seamaster vs Pilot's Watch, price range, movement quality, resale value, investment case. Which Swiss watch to buy pre-owned in ${PRICE_YEAR}?`,
   alternates: { canonical: `${BASE}/compare/omega-vs-iwc` },
 }
 
@@ -31,7 +32,7 @@ export default function OmegaVsIWC() {
         <span>Omega vs IWC</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Omega vs IWC 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Omega vs IWC {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two Swiss icons with very different identities. Omega is the most commercially successful prestige watch brand in the world — Bond's watch, the moon watch, the Seamaster on every wrist. IWC is the watchmaker for pilot and aviation heritage — understated, German-speaking Swiss, and more of an insider's choice. Both are legitimate luxury watches; the investment case tilts heavily toward Omega.</p>
 
       <div className="overflow-x-auto mb-10">

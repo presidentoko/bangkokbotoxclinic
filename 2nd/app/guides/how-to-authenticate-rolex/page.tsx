@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate a Rolex: 8-Point Check 2025 | SecondLuxuryItems',
-  description: 'Authenticate a pre-owned Rolex before buying — rehaut engraving, serial weight, movement sweep, dial printing, crown, clasp, and more. 2025 guide.',
+  title: `How to Authenticate a Rolex: 8-Point Check ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Authenticate a pre-owned Rolex before buying — rehaut engraving, serial weight, movement sweep, dial printing, crown, clasp, and more. ${PRICE_YEAR} guide.`,
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-rolex` },
 }
 

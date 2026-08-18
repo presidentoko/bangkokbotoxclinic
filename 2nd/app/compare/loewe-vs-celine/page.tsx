@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Loewe vs Celine 2025: Puzzle vs Triomphe, Quiet Luxury | SecondLuxuryItems',
-  description: 'Loewe vs Celine compared — Puzzle vs Triomphe, leather quality, quiet luxury appeal, resale value, investment case. Which to buy pre-owned in 2025?',
+  title: `Loewe vs Celine ${PRICE_YEAR}: Puzzle vs Triomphe, Quiet Luxury | SecondLuxuryItems`,
+  description: `Loewe vs Celine compared — Puzzle vs Triomphe, leather quality, quiet luxury appeal, resale value, investment case. Which to buy pre-owned in ${PRICE_YEAR}?`,
   alternates: { canonical: `${BASE}/compare/loewe-vs-celine` },
 }
 
@@ -31,7 +32,7 @@ export default function LoeweVsCeline() {
         <span>Loewe vs Celine</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Loewe vs Celine 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Loewe vs Celine {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two quiet luxury powerhouses — both LVMH, both minimal, both more interesting to know about than to wear loudly. Loewe under Jonathan Anderson has become the brand for people who care about craft. Celine under Phoebe Philo (2008–2018) defined effortless minimalism; the Slimane era shifted it toward logomania. Era matters enormously when buying Celine pre-owned.</p>
 
       <div className="overflow-x-auto mb-10">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Prada vs Gucci Pre-Owned in Thailand 2025 | ChicPreowned'
+      ? `Prada vs Gucci Pre-Owned in Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Prada vs Gucci: ซื้อมือสองอันไหนดีกว่า? | ChicPreowned',
     description: isEn
-      ? 'Prada vs Gucci pre-owned in Thailand: durability, resale value and best models compared for 2025.'
-      : 'Prada vs Gucci มือสองในไทย: ความทนทาน มูลค่าการขายต่อ และรุ่นที่ดีที่สุด เปรียบเทียบสำหรับปี 2025',
+      ? `Prada vs Gucci pre-owned in Thailand: durability, resale value and best models compared for ${PRICE_YEAR}.`
+      : `Prada vs Gucci มือสองในไทย: ความทนทาน มูลค่าการขายต่อ และรุ่นที่ดีที่สุด เปรียบเทียบสำหรับปี ${PRICE_YEAR}`,
     alternates: {
       canonical: `${BASE}/${locale}/${SLUG}`,
       languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` },
@@ -148,9 +149,9 @@ export default async function PradaVsGucciThPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Prada vs Gucci Pre-Owned in Thailand 2025' : 'Prada vs Gucci: ซื้อมือสองอันไหนดีกว่า?'}
+        {isEn ? 'Prada vs Gucci Pre-Owned in Thailand {PRICE_YEAR}' : 'Prada vs Gucci: ซื้อมือสองอันไหนดีกว่า?'}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated 2025 · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
+      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated {PRICE_YEAR} · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
 
       <p className="text-[#6B6052] mb-10 leading-relaxed max-w-2xl">
         {isEn

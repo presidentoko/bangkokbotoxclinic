@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Saint Laurent in Thailand 2025 | ChicPreowned'
-      : 'Saint Laurent มือสองในไทย 2025 — Loulou, Kate, Sunset | ChicPreowned',
+      ? `Pre-Owned Saint Laurent in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Saint Laurent มือสองในไทย ${PRICE_YEAR} — Loulou, Kate, Sunset | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Saint Laurent (YSL) prices in Thailand (THB). Loulou, Kate Tassel, Sunset, Jamie — save 35–50% vs retail. Compare by condition.'
       : 'ราคา Saint Laurent (YSL) มือสองในไทย (บาท) Loulou, Kate Tassel, Sunset, Jamie — ประหยัดได้ 35–50%',
@@ -95,7 +96,7 @@ export default async function SaintLaurentBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Saint Laurent in Thailand 2025' : 'Saint Laurent มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Saint Laurent in Thailand {PRICE_YEAR}' : 'Saint Laurent มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? `${items.length} models · save 35–50% vs retail` : `${items.length} รุ่น · ประหยัดได้ 35–50%`}

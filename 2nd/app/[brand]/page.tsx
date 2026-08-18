@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getItemsByBrand, getAllBrands } from '@/lib/data'
+import { getItemsByBrand, getAllBrands, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.secondluxuryitems.com'
@@ -232,7 +232,7 @@ export default async function BrandPage({ params }: Props) {
           </div>
         )
       })()}
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
     </>
   )
 }

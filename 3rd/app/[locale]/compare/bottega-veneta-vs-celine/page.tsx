@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Bottega Veneta vs Celine Thailand 2025: Quiet Luxury Showdown | ChicPreowned'
-      : 'Bottega Veneta vs Celine ในไทย 2025: การดวลหรูเงียบ | ChicPreowned',
+      ? `Bottega Veneta vs Celine Thailand ${PRICE_YEAR}: Quiet Luxury Showdown | ChicPreowned`
+      : `Bottega Veneta vs Celine ในไทย ${PRICE_YEAR}: การดวลหรูเงียบ | ChicPreowned`,
     description: isEn
-      ? 'Bottega Veneta vs Celine for Bangkok buyers 2025 — Jodie vs Triomphe, THB prices, resale retention, and which quiet luxury brand is the better pre-owned investment in Thailand.'
-      : 'Bottega Veneta vs Celine สำหรับผู้ซื้อกรุงเทพ 2025 Jodie vs Triomphe ราคาบาท อัตราการรักษามูลค่า และแบรนด์ quiet luxury ไหนลงทุนมือสองได้ดีกว่าในไทย',
+      ? `Bottega Veneta vs Celine for Bangkok buyers ${PRICE_YEAR} — Jodie vs Triomphe, THB prices, resale retention, and which quiet luxury brand is the better pre-owned investment in Thailand.`
+      : `Bottega Veneta vs Celine สำหรับผู้ซื้อกรุงเทพ ${PRICE_YEAR} Jodie vs Triomphe ราคาบาท อัตราการรักษามูลค่า และแบรนด์ quiet luxury ไหนลงทุนมือสองได้ดีกว่าในไทย`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -59,7 +60,7 @@ export default async function BottegaVsCelineTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Bottega Veneta vs Celine (2025): The Quiet Luxury Showdown' : 'Bottega Veneta vs Celine (2025): การดวลหรูเงียบ'}
+        {isEn ? 'Bottega Veneta vs Celine ({PRICE_YEAR}): The Quiet Luxury Showdown' : 'Bottega Veneta vs Celine ({PRICE_YEAR}): การดวลหรูเงียบ'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

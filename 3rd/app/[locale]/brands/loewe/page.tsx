@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -47,7 +48,7 @@ export default async function LoeweBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Loewe Bags in Thailand 2025' : 'กระเป๋า Loewe มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Loewe Bags in Thailand {PRICE_YEAR}' : 'กระเป๋า Loewe มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? 'Puzzle · Hammock · Gate · Basket · Save 25–50% vs new Thai retail prices'

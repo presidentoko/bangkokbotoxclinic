@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -10,9 +11,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const isEn = locale === 'en'
   return {
-    title: isEn ? 'Rolex Reference Number Guide Thailand 2025 | ChicPreowned' : 'คู่มือเลขอ้างอิง Rolex ในไทย 2025 | ChicPreowned',
+    title: isEn ? `Rolex Reference Number Guide Thailand ${PRICE_YEAR} | ChicPreowned` : `คู่มือเลขอ้างอิง Rolex ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'How to read Rolex reference numbers and what each trades for in Thailand. THB prices for Sub, GMT, Daytona and Datejust in 2025.'
+      ? `How to read Rolex reference numbers and what each trades for in Thailand. THB prices for Sub, GMT, Daytona and Datejust in ${PRICE_YEAR}.`
       : 'วิธีอ่านเลขอ้างอิง Rolex และราคาซื้อขายในไทย ราคาบาทสำหรับ Sub, GMT, Daytona และ Datejust ปี 2568',
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
@@ -49,7 +50,7 @@ export default async function RolexRefGuideThailand({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex Reference Guide for Thai Buyers 2025' : 'คู่มือเลขอ้างอิง Rolex สำหรับผู้ซื้อชาวไทย 2025'}
+        {isEn ? 'Rolex Reference Guide for Thai Buyers {PRICE_YEAR}' : 'คู่มือเลขอ้างอิง Rolex สำหรับผู้ซื้อชาวไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Decode any Rolex reference and find the current THB market price for each.'

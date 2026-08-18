@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Rolex vs Audemars Piguet: Pre-Owned Watches in Thailand 2025'
-      : 'Rolex vs Audemars Piguet: นาฬิกามือสองในไทย 2025',
+      ? `Rolex vs Audemars Piguet: Pre-Owned Watches in Thailand ${PRICE_YEAR}`
+      : `Rolex vs Audemars Piguet: นาฬิกามือสองในไทย ${PRICE_YEAR}`,
     description: isEn
       ? 'Compare Rolex vs Audemars Piguet pre-owned in Thailand. Royal Oak vs Submariner — price, investment potential, resale value and which to buy.'
       : 'เปรียบเทียบ Rolex vs Audemars Piguet มือสองในไทย Royal Oak vs Submariner — ราคา การลงทุน และอะไรน่าซื้อกว่า',
@@ -58,7 +59,7 @@ export default async function RolexVsAPPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Audemars Piguet: Pre-Owned in Thailand 2025' : 'Rolex vs Audemars Piguet: มือสองในไทย 2025'}
+        {isEn ? 'Rolex vs Audemars Piguet: Pre-Owned in Thailand {PRICE_YEAR}' : 'Rolex vs Audemars Piguet: มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

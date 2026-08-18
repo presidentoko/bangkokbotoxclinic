@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Bottega Veneta Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบ Bottega Veneta มือสองในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Bottega Veneta Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบ Bottega Veneta มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Authenticate Bottega Veneta bags in Thailand — check the intrecciato weave, leather, hardware. 6-step guide with Thai authentication options.'
       : 'ตรวจสอบ Bottega Veneta ในไทย — เช็คการถัก intrecciato หนัง hardware คู่มือ 6 ขั้นตอน พร้อมตัวเลือกตรวจสอบในไทย',

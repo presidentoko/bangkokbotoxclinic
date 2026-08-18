@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Where to Sell Pre-Owned Luxury Bags in 2025 | SecondLuxuryItems',
+  title: `Where to Sell Pre-Owned Luxury Bags in ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Vestiaire vs TheRealReal vs eBay vs Fashionphile: platform fees, authentication, and payout speed compared. Where to get the most for your luxury bag.',
   alternates: { canonical: `${BASE}/guides/where-to-sell-luxury-bags` },
 }
@@ -94,9 +95,9 @@ export default function WhereToSellLuxuryBagsPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Where to Sell Your Luxury Bag in 2025: Platform Comparison
+        Where to Sell Your Luxury Bag in {PRICE_YEAR}: Platform Comparison
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · 5 platforms compared</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 5 platforms compared</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

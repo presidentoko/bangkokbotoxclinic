@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Rolex vs Audemars Piguet Royal Oak: Pre-Owned Comparison 2025',
-  description: 'Rolex vs Audemars Piguet pre-owned price comparison. Submariner vs Royal Oak, investment value, resale liquidity, and which to buy in 2025.',
+  title: `Rolex vs Audemars Piguet Royal Oak: Pre-Owned Comparison ${PRICE_YEAR}`,
+  description: `Rolex vs Audemars Piguet pre-owned price comparison. Submariner vs Royal Oak, investment value, resale liquidity, and which to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/rolex-vs-audemars-piguet` },
 }
 
@@ -32,7 +33,7 @@ export default function RolexVsAPPage() {
         <span className="text-gray-800">Rolex vs Audemars Piguet</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex vs Audemars Piguet: Pre-Owned Comparison 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex vs Audemars Piguet: Pre-Owned Comparison {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Both command massive grey market premiums — the difference is price tier and collectibility.</p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-12">

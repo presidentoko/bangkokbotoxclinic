@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsByCategory } from '@/lib/data'
+import { getItemsByCategory, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.secondluxuryitems.com'
@@ -36,7 +36,7 @@ export default function ShoesPage() {
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>Used Designer Shoes — Price Guide</h1>
       <p className="text-[#6B6052] mb-4">Pre-owned designer shoes up to 50% off retail. All prices from authenticated listings, updated weekly.</p>
       <p className="text-sm text-[#9C8B7A] mb-8">Tracking {items.length} shoe models</p>
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
       {/* FAQ Section */}
       {(() => {
         const faqSchema = {

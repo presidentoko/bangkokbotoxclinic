@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemBySlug, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Best Pre-Owned Luxury Bags for Travel in Thailand 2025 | ChicPreowned'
-      : 'กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับการเดินทาง 2025 | ChicPreowned',
+      ? `Best Pre-Owned Luxury Bags for Travel in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับการเดินทาง ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? "Thailand's airports and temples demand a bag that survives both. The best pre-owned travel luxury picks — durable, beautiful, and below retail."
       : 'การเดินทางในไทยต้องการกระเป๋าที่ทนทาน สวยงาม และราคาไม่แพงเกินไป Luxury มือสองคือคำตอบ',
@@ -154,8 +155,8 @@ export default async function BestBagsForTravelPage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Best Pre-Owned Luxury Bags for Travel in Thailand 2025'
-          : 'กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับการเดินทาง 2025'}
+          ? 'Best Pre-Owned Luxury Bags for Travel in Thailand {PRICE_YEAR}'
+          : 'กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับการเดินทาง {PRICE_YEAR}'}
       </h1>
       <p className="text-[#6B6052] mb-2">
         {isEn
@@ -163,7 +164,7 @@ export default async function BestBagsForTravelPage({ params }: Props) {
           : 'การเดินทางในไทยต้องการกระเป๋าที่ทนทาน สวยงาม และราคาไม่แพงเกินไป Luxury มือสองคือคำตอบ'}
       </p>
       <p className="text-sm text-[#8C7355] mb-12">
-        {isEn ? 'Updated June 2025' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       <section className="mb-12">

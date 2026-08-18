@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'LV Alma vs Speedy 2025: Size Guide & Which to Buy Pre-Owned | SecondLuxuryItems',
-  description: 'LV Alma vs Speedy — arch shape vs barrel shape, BB/PM/MM vs B20/25/30, resale retention, and which Louis Vuitton is the better pre-owned investment in 2025.',
+  title: `LV Alma vs Speedy ${PRICE_YEAR}: Size Guide & Which to Buy Pre-Owned | SecondLuxuryItems`,
+  description: `LV Alma vs Speedy — arch shape vs barrel shape, BB/PM/MM vs B20/25/30, resale retention, and which Louis Vuitton is the better pre-owned investment in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/lv-alma-vs-speedy` },
 }
 
@@ -33,7 +34,7 @@ export default function LvAlmaVsSpeedy() {
         <span>LV Alma vs Speedy</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">LV Alma vs Speedy (2025): Size Guide & Which to Buy Pre-Owned</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">LV Alma vs Speedy ({PRICE_YEAR}): Size Guide & Which to Buy Pre-Owned</h1>
       <p className="text-gray-500 mb-10">Both are Louis Vuitton icons with nearly a century of history — but they feel completely different to carry. The Alma is rigid Art Deco architecture; the Speedy is relaxed barrel freedom. The decision ultimately comes down to structure preference and whether you want a shoulder strap.</p>
 
       <div className="overflow-x-auto mb-10">

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Gucci vs Bottega Veneta Pre-Owned 2025: Logo vs No-Logo | SecondLuxuryItems',
-  description: 'Gucci vs Bottega Veneta pre-owned comparison — logo visibility, investment case, resale values, which Italian luxury house holds value better in 2025.',
+  title: `Gucci vs Bottega Veneta Pre-Owned ${PRICE_YEAR}: Logo vs No-Logo | SecondLuxuryItems`,
+  description: `Gucci vs Bottega Veneta pre-owned comparison — logo visibility, investment case, resale values, which Italian luxury house holds value better in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/gucci-vs-bottega-veneta` },
 }
 

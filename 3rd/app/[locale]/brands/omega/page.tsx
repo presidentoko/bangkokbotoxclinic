@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Omega Prices in Thailand 2025 | ChicPreowned'
-      : 'ราคา Omega มือสองในไทย 2025 | ChicPreowned',
+      ? `Pre-Owned Omega Prices in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `ราคา Omega มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Omega Speedmaster, Seamaster and Constellation prices in Thailand. Save 25–35% vs retail. Updated weekly.'
       : 'ราคา Omega Speedmaster, Seamaster, Constellation มือสองในไทย ประหยัด 25–35% จากราคาปลีก อัปเดตรายสัปดาห์',
@@ -80,7 +81,7 @@ export default async function OmegaBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Omega Prices in Thailand 2025' : 'ราคา Omega มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Omega Prices in Thailand {PRICE_YEAR}' : 'ราคา Omega มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? 'Save 25–35% vs retail · Swiss-made precision · strong value retention'

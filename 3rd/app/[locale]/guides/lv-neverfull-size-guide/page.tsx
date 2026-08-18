@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'LV Neverfull PM vs MM vs GM: Thailand Size Guide 2025 | ChicPreowned'
-      : 'LV Neverfull PM vs MM vs GM: คู่มือขนาดในไทย 2025 | ChicPreowned',
+      ? `LV Neverfull PM vs MM vs GM: Thailand Size Guide ${PRICE_YEAR} | ChicPreowned`
+      : `LV Neverfull PM vs MM vs GM: คู่มือขนาดในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Louis Vuitton Neverfull size guide for Thai buyers — PM vs MM vs GM dimensions, THB prices, which size to buy pre-owned in Thailand.'
       : 'คู่มือขนาด LV Neverfull สำหรับคนไทย — PM vs MM vs GM ขนาด ราคาบาท ซื้อขนาดไหนมือสองในไทย',

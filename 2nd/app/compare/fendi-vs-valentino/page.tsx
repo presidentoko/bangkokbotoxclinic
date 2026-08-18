@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Fendi vs Valentino: Which Italian Brand Holds Value? (2025) | SecondLuxuryItems',
-  description: 'Fendi vs Valentino 2025 comparison — Baguette vs Rockstud, resale retention, investment case, and which Italian house is worth buying pre-owned.',
+  title: `Fendi vs Valentino: Which Italian Brand Holds Value? (${PRICE_YEAR}) | SecondLuxuryItems`,
+  description: `Fendi vs Valentino ${PRICE_YEAR} comparison — Baguette vs Rockstud, resale retention, investment case, and which Italian house is worth buying pre-owned.`,
   alternates: { canonical: `${BASE}/compare/fendi-vs-valentino` },
 }
 
@@ -31,7 +32,7 @@ export default function FendiVsValentinoPage() {
         <span>Fendi vs Valentino</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Valentino (2025)</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Valentino ({PRICE_YEAR})</h1>
       <p className="text-gray-500 mb-10">Two Italian fashion powerhouses in the same luxury tier. Fendi edges ahead on resale thanks to the Baguette, but neither brand is an investment buy — you're here for Italian craftsmanship and style.</p>
 
       <div className="overflow-x-auto mb-10">

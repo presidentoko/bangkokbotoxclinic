@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -47,7 +48,7 @@ export default async function ChanelSizeGuideThailand({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel Classic Flap Size Guide for Thailand 2025' : 'คู่มือขนาด Chanel Classic Flap ในไทย 2025'}
+        {isEn ? 'Chanel Classic Flap Size Guide for Thailand {PRICE_YEAR}' : 'คู่มือขนาด Chanel Classic Flap ในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Mini vs Small vs M/L vs Maxi — THB prices, dimensions, and which size works best in Bangkok\'s heat.'

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Chanel Classic Flap vs Boy Bag Thailand 2025 | ChicPreowned'
-      : 'Chanel Classic Flap vs Boy Bag ในไทย 2025 | ChicPreowned',
+      ? `Chanel Classic Flap vs Boy Bag Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Chanel Classic Flap vs Boy Bag ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Chanel Classic Flap vs Boy Bag for Thai buyers — which holds value better, THB prices, caviar vs lambskin, Bangkok buying tips.'
       : 'Chanel Classic Flap vs Boy Bag สำหรับคนไทย — อันไหนรักษามูลค่าดีกว่า ราคาบาท caviar vs lambskin เคล็ดลับซื้อในกรุงเทพ',

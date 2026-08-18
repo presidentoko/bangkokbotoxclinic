@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsUnderBudget } from '@/lib/data'
+import { getItemsUnderBudget, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function Under500Page() {
         The most accessible entry points to designer fashion — scarves, belts, wallets,
         and shoes from top luxury houses, all under $500 in very good condition.
       </p>
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "FAQPage",

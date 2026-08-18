@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Loewe: Puzzle, Hammock & Cubi (2025) | SecondLuxuryItems',
+  title: `How to Authenticate Loewe: Puzzle, Hammock & Cubi (${PRICE_YEAR}) | SecondLuxuryItems`,
   description: 'Authenticate any Loewe bag with 7 checks: Anagram logo emboss, nappa leather quality, single-hide Puzzle panel construction, hardware engraving, interior stamp, stitching, and Made in Spain.',
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-loewe` },
 }

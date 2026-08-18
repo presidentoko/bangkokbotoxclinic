@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Audemars Piguet vs Patek Philippe: Which Watch 2025 | SecondLuxuryItems',
+  title: `Audemars Piguet vs Patek Philippe: Which Watch ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'AP vs Patek Philippe pre-owned comparison — Royal Oak vs Nautilus, value retention, price history. The two most prestigious Swiss watchmakers compared.',
   alternates: { canonical: `${BASE}/compare/ap-vs-patek-philippe` },
 }
@@ -34,7 +35,7 @@ export default function APvsPatekPage() {
         <span>AP vs Patek Philippe</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Audemars Piguet vs Patek Philippe: Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Audemars Piguet vs Patek Philippe: Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two of the three great Swiss watchmaking houses — Royal Oak vs Nautilus. Both designed by Gerald Genta, both worth more pre-owned than retail.</p>
 
       <div className="overflow-x-auto mb-12">

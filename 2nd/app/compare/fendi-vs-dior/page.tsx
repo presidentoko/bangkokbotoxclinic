@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Fendi vs Dior Pre-Owned 2025: Baguette vs Lady Dior | SecondLuxuryItems',
-  description: 'Fendi vs Dior pre-owned comparison — Baguette vs Lady Dior, price ranges, investment case, which to buy used in 2025.',
+  title: `Fendi vs Dior Pre-Owned ${PRICE_YEAR}: Baguette vs Lady Dior | SecondLuxuryItems`,
+  description: `Fendi vs Dior pre-owned comparison — Baguette vs Lady Dior, price ranges, investment case, which to buy used in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/fendi-vs-dior` },
 }
 

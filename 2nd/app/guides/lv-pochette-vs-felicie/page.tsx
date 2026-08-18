@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'LV Pochette Métis vs Félicie Pochette: Which to Buy Pre-Owned? (2025) | SecondLuxuryItems',
+  title: `LV Pochette Métis vs Félicie Pochette: Which to Buy Pre-Owned? (${PRICE_YEAR}) | SecondLuxuryItems`,
   description: 'Louis Vuitton Pochette Métis vs Félicie Pochette — size, structure, monogram vs chain, pre-owned prices, resale retention, and which LV is the better buy.',
   alternates: { canonical: `${BASE}/guides/lv-pochette-vs-felicie` },
 }

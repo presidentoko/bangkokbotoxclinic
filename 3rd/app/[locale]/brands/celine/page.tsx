@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Celine in Thailand 2025 | ChicPreowned'
-      : 'Celine มือสองในไทย 2025 — ราคาและรุ่นยอดนิยม | ChicPreowned',
+      ? `Pre-Owned Celine in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Celine มือสองในไทย ${PRICE_YEAR} — ราคาและรุ่นยอดนิยม | ChicPreowned`,
     description: isEn
       ? "Pre-owned Celine prices in Thailand (THB). Luggage, Classic Box, Phantom — compare Philo-era vs Slimane-era values on the Thai secondary market."
       : 'ราคา Celine มือสองในไทย (บาท) เปรียบเทียบยุค Philo กับยุค Slimane Luggage, Classic Box, Phantom',
@@ -107,10 +108,10 @@ export default async function CelineBrandPage({ params }: Props) {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">{isEn ? 'Brand Price Guide' : 'ราคาแบรนด์'}</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Pre-Owned Celine in Thailand 2025' : 'Celine มือสองในไทย 2025 — ราคาและรุ่นยอดนิยม'}
+        {isEn ? 'Pre-Owned Celine in Thailand {PRICE_YEAR}' : 'Celine มือสองในไทย {PRICE_YEAR} — ราคาและรุ่นยอดนิยม'}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">
-        {isEn ? `Updated 2025 · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
+        {isEn ? `Updated {PRICE_YEAR} · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
       </p>
 
       <section className="mb-10">

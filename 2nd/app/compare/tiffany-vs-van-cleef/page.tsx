@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Tiffany & Co vs Van Cleef & Arpels 2025: Which to Buy? | SecondLuxuryItems',
-  description: 'Tiffany vs Van Cleef comparison — HardWear vs Alhambra, entry price, resale value, investment case, celebrity factor. Two jewelry giants compared for pre-owned buyers 2025.',
+  title: `Tiffany & Co vs Van Cleef & Arpels ${PRICE_YEAR}: Which to Buy? | SecondLuxuryItems`,
+  description: `Tiffany vs Van Cleef comparison — HardWear vs Alhambra, entry price, resale value, investment case, celebrity factor. Two jewelry giants compared for pre-owned buyers ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/tiffany-vs-van-cleef` },
 }
 
@@ -31,7 +32,7 @@ export default function TiffanyVsVCA() {
         <span>Tiffany vs Van Cleef</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Tiffany & Co vs Van Cleef & Arpels 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Tiffany & Co vs Van Cleef & Arpels {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">American confidence vs French delicacy. Tiffany and Van Cleef represent two completely different luxury jewelry philosophies — Tiffany's bold HardWear chain vs VCA's delicate Alhambra clover. Both are investment pieces; the resale dynamics are notably different. Here is the breakdown.</p>
 
       <div className="overflow-x-auto mb-10">

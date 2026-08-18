@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Dior vs Louis Vuitton Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Dior vs Louis Vuitton มือสองในไทย 2025 | ChicPreowned',
+      ? `Dior vs Louis Vuitton Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Dior vs Louis Vuitton มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Dior vs Louis Vuitton for Thai buyers — Lady Dior vs Neverfull, resale values, which is the better pre-owned buy. THB prices 2025.'
-      : 'เปรียบ Dior กับ Louis Vuitton สำหรับผู้ซื้อชาวไทย — Lady Dior vs Neverfull มูลค่าขายต่อ อันไหนซื้อมือสองได้ดีกว่า ราคาบาท 2025',
+      ? `Dior vs Louis Vuitton for Thai buyers — Lady Dior vs Neverfull, resale values, which is the better pre-owned buy. THB prices ${PRICE_YEAR}.`
+      : `เปรียบ Dior กับ Louis Vuitton สำหรับผู้ซื้อชาวไทย — Lady Dior vs Neverfull มูลค่าขายต่อ อันไหนซื้อมือสองได้ดีกว่า ราคาบาท ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

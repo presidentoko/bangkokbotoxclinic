@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Buy Pre-Owned Luxury Online Safely 2025 | SecondLuxuryItems',
-  description: 'Complete guide to buying pre-owned luxury bags and watches online safely — authentication, payment, condition grades, red flags. Avoid scams in 2025.',
+  title: `How to Buy Pre-Owned Luxury Online Safely ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Complete guide to buying pre-owned luxury bags and watches online safely — authentication, payment, condition grades, red flags. Avoid scams in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/how-to-buy-pre-owned-luxury-online` },
 }
 

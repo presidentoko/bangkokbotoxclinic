@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès Kelly vs Birkin 2025: Price, Investment, Differences | SecondLuxuryItems',
-  description: 'Kelly vs Birkin compared: price ranges, size options, investment value, resale %, waitlist reality, which to buy first. Pre-owned Hermès guide 2025.',
+  title: `Hermès Kelly vs Birkin ${PRICE_YEAR}: Price, Investment, Differences | SecondLuxuryItems`,
+  description: `Kelly vs Birkin compared: price ranges, size options, investment value, resale %, waitlist reality, which to buy first. Pre-owned Hermès guide ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/kelly-vs-birkin` },
 }
 
@@ -34,7 +35,7 @@ export default function KellyVsBirkin() {
       </nav>
 
       <div className="flex items-center gap-4 mb-4">
-        <h1 className="text-3xl font-bold text-gray-900">Hermès Kelly vs Birkin 2025</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Hermès Kelly vs Birkin {PRICE_YEAR}</h1>
       </div>
       <p className="text-gray-500 mb-10">Two Hermès icons, one decision. The Kelly and Birkin dominate the secondary luxury market and both appreciate far above retail. The difference: structure vs openness, formality vs casual, and slightly different waitlist dynamics at the boutique. Here is how to choose.</p>
 

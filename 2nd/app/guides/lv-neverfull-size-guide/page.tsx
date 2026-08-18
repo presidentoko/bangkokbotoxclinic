@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'LV Neverfull Size Guide: PM vs MM vs GM Pre-Owned 2025 | SecondLuxuryItems',
+  title: `LV Neverfull Size Guide: PM vs MM vs GM Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Louis Vuitton Neverfull PM vs MM vs GM — dimensions, what fits, pre-owned prices, which size to buy. The complete buying guide for used Neverfull.',
   alternates: { canonical: `${BASE}/guides/lv-neverfull-size-guide` },
 }

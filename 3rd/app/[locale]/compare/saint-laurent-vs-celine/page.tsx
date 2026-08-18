@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Saint Laurent vs Celine: Which to Buy Pre-Owned in Thailand 2025?'
-      : 'Saint Laurent vs Celine: ซื้อมือสองอันไหนดีในไทย 2025?',
+      ? `Saint Laurent vs Celine: Which to Buy Pre-Owned in Thailand ${PRICE_YEAR}?`
+      : `Saint Laurent vs Celine: ซื้อมือสองอันไหนดีในไทย ${PRICE_YEAR}?`,
     description: isEn
       ? 'Compare pre-owned Saint Laurent vs Celine in Thailand. Price, value retention, resale, and style — which is right for your lifestyle and budget?'
       : 'เปรียบเทียบ Saint Laurent vs Celine มือสองในไทย ราคา มูลค่า และสไตล์ — อะไรเหมาะกับไลฟ์สไตล์และงบของคุณ?',
@@ -58,7 +59,7 @@ export default async function SaintLaurentVsCelinePage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Saint Laurent vs Celine: Pre-Owned in Thailand 2025' : 'Saint Laurent vs Celine: มือสองในไทย 2025'}
+        {isEn ? 'Saint Laurent vs Celine: Pre-Owned in Thailand {PRICE_YEAR}' : 'Saint Laurent vs Celine: มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

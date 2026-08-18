@@ -123,6 +123,30 @@ export function getPriceVsRetail(range: PriceRange, retail: number): string {
   return pct > 0 ? `+${pct}%` : `${pct}%`
 }
 
+/** Slim shape for the client-side sortable grid. The grid only ever reads
+ * these six fields, but a full `Item` carries its whole `price_samples`
+ * history — passing those across the server/client boundary serialises
+ * hundreds of KB of dead JSON into every category page. Project first. */
+export interface GridItem {
+  id: string
+  brand: string
+  model: string
+  slug: string
+  retail: number
+  vg: PriceRange | null
+}
+
+export function toGridItems(items: Item[]): GridItem[] {
+  return items.map(i => ({
+    id: i.id,
+    brand: i.brand,
+    model: i.model,
+    slug: i.slug,
+    retail: i.retail_price_thb,
+    vg: i.price_ranges?.very_good ?? null,
+  }))
+}
+
 export function getSearchIndex(): SearchIndexEntry[] {
   return items.map(i => ({
     id: i.id,

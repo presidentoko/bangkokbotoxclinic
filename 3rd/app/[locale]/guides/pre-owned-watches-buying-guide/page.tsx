@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -10,7 +11,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const isEn = locale === 'en'
   return {
-    title: isEn ? 'Pre-Owned Luxury Watches Buying Guide Thailand 2025 | ChicPreowned' : 'คู่มือซื้อนาฬิกา Luxury มือสองในไทย 2025 | ChicPreowned',
+    title: isEn ? `Pre-Owned Luxury Watches Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned` : `คู่มือซื้อนาฬิกา Luxury มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'How to buy pre-owned Rolex, Omega, Patek Philippe in Thailand. THB prices, authentication tips, where to buy in Bangkok.'
       : 'คู่มือซื้อนาฬิกา Rolex, Omega, Patek Philippe มือสองในไทย ราคาบาท วิธีตรวจสอบความแท้ และที่ซื้อในกรุงเทพ',
@@ -33,7 +34,7 @@ export default async function WatchGuideThailandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Pre-Owned Luxury Watches in Thailand 2025' : 'นาฬิกา Luxury มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Luxury Watches in Thailand {PRICE_YEAR}' : 'นาฬิกา Luxury มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Complete buying guide — authentication, pricing in THB, and where to find good deals in Bangkok.'

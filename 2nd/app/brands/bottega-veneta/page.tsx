@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Bottega Veneta Pre-Owned Price Guide 2025 | SecondLuxuryItems',
+  title: `Bottega Veneta Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Bottega Veneta prices for the Jodie, Cassette, Arco and more. Compare second-hand BV prices by condition, updated weekly.',
   alternates: { canonical: `${BASE}/brands/bottega-veneta` },
 }
@@ -35,7 +36,7 @@ export default function BottegaVenetaBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Pre-Owned Bottega Veneta Price Guide 2025',
+    name: `Pre-Owned Bottega Veneta Price Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/bottega-veneta`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -68,9 +69,9 @@ export default function BottegaVenetaBrandPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Pre-Owned Bottega Veneta: Price Guide 2025
+        Pre-Owned Bottega Veneta: Price Guide {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-6">Updated 2025 · {items.length} models tracked</p>
+      <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · {items.length} models tracked</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

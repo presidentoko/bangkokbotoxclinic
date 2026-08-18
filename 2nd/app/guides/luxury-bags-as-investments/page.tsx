@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Are Luxury Bags Good Investments? 2025 Data | SecondLuxuryItems',
-  description: 'Do luxury bags appreciate in value? 2025 data on Hermès Birkin, Chanel Classic Flap, and Rolex resale returns vs retail. Honest analysis.',
+  title: `Are Luxury Bags Good Investments? ${PRICE_YEAR} Data | SecondLuxuryItems`,
+  description: `Do luxury bags appreciate in value? ${PRICE_YEAR} data on Hermès Birkin, Chanel Classic Flap, and Rolex resale returns vs retail. Honest analysis.`,
   alternates: { canonical: `${BASE}/guides/luxury-bags-as-investments` },
 }
 
@@ -64,9 +65,9 @@ export default function LuxuryBagsAsInvestmentsPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Are Pre-Owned Luxury Bags Good Investments? (2025 Data)
+        Are Pre-Owned Luxury Bags Good Investments? ({PRICE_YEAR} Data)
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Based on live market data</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Based on live market data</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

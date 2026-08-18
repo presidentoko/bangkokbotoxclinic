@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Celine Bags 2025: Classic, Triomphe | SecondLuxuryItems',
-  description: 'How to spot fake Celine bags — Triomphe canvas print, interior stamp, zipper hardware, classic box hardware. Authenticate Celine Luggage, Classic, Triomphe 2025.',
+  title: `How to Authenticate Celine Bags ${PRICE_YEAR}: Classic, Triomphe | SecondLuxuryItems`,
+  description: `How to spot fake Celine bags — Triomphe canvas print, interior stamp, zipper hardware, classic box hardware. Authenticate Celine Luggage, Classic, Triomphe ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-celine` },
 }
 
@@ -29,7 +30,7 @@ export default function AuthenticateCeline() {
         <span>How to Authenticate Celine</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Celine Bags 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate Celine Bags {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Celine counterfeits have become more sophisticated since the Triomphe canvas trend. The Luggage and Classic Box are heavily faked. The post-2018 transition from "CÉLINE" (with accent) to "CELINE" (without) is the most common era confusion in fakes. Six checks that work across Celine generations.</p>
 
       <div className="space-y-4 mb-10">

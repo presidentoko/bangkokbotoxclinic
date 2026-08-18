@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Best Pre-Owned Luxury Watches for Beginners 2025 | SecondLuxuryItems',
+  title: `Best Pre-Owned Luxury Watches for Beginners ${PRICE_YEAR} | SecondLuxuryItems`,
   description:
     'The best luxury watches to buy pre-owned as a first watch. Omega Seamaster, Cartier Tank, Rolex Datejust — entry prices, value retention, and what to know.',
   alternates: {
@@ -121,9 +122,9 @@ export default function BestPreOwnedWatchesForBeginnersPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Best Pre-Owned Luxury Watches for Beginners 2025
+        Best Pre-Owned Luxury Watches for Beginners {PRICE_YEAR}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · 8 min read</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 8 min read</p>
 
       <p className="text-[#6B6052] leading-relaxed mb-10">
         A first luxury watch should be one you wear daily for years, not one that sits in a drawer.

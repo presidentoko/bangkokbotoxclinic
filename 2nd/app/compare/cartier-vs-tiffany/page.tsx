@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Cartier vs Tiffany & Co. Pre-Owned Jewelry Value 2025 | SecondLuxuryItems',
+  title: `Cartier vs Tiffany & Co. Pre-Owned Jewelry Value ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Cartier vs Tiffany: which jewelry brand holds value better pre-owned? Cartier retains 70-85% (Love Bracelet is iconic). Tiffany retains 40-60%.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/cartier-vs-tiffany' },
 }
@@ -87,7 +88,7 @@ export default function CartierVsTiffanyPage() {
       >
         Cartier vs Tiffany &amp; Co.: Pre-Owned Jewelry Value Guide
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

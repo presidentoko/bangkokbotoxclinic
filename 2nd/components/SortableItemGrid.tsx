@@ -1,7 +1,7 @@
 'use client'
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import type { Item } from '@/lib/data'
+import type { GridItem } from '@/lib/data'
 import { formatPrice, getAvgPrice } from '@/lib/data'
 
 type SortKey = 'savings' | 'price_low' | 'price_high' | 'name'
@@ -13,25 +13,15 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
   { key: 'name', label: 'Brand A–Z' },
 ]
 
-export function SortableItemGrid({ items }: { items: Item[] }) {
+export function SortableItemGrid({ items }: { items: GridItem[] }) {
   const [sort, setSort] = useState<SortKey>('savings')
 
   const sorted = useMemo(() => {
     return [...items].sort((a, b) => {
-      const avgA = a.price_ranges.very_good
-        ? (a.price_ranges.very_good.min + a.price_ranges.very_good.max) / 2
-        : Infinity
-      const avgB = b.price_ranges.very_good
-        ? (b.price_ranges.very_good.min + b.price_ranges.very_good.max) / 2
-        : Infinity
-      const savA =
-        a.retail_price_usd > 0 && a.price_ranges.very_good
-          ? ((a.retail_price_usd - avgA) / a.retail_price_usd) * 100
-          : 0
-      const savB =
-        b.retail_price_usd > 0 && b.price_ranges.very_good
-          ? ((b.retail_price_usd - avgB) / b.retail_price_usd) * 100
-          : 0
+      const avgA = a.vg ? (a.vg.min + a.vg.max) / 2 : Infinity
+      const avgB = b.vg ? (b.vg.min + b.vg.max) / 2 : Infinity
+      const savA = a.retail > 0 && a.vg ? ((a.retail - avgA) / a.retail) * 100 : 0
+      const savB = b.retail > 0 && b.vg ? ((b.retail - avgB) / b.retail) * 100 : 0
       if (sort === 'savings') return savB - savA
       if (sort === 'price_low') return avgA - avgB
       if (sort === 'price_high') return avgB - avgA
@@ -48,6 +38,7 @@ export function SortableItemGrid({ items }: { items: Item[] }) {
           <button
             key={o.key}
             onClick={() => setSort(o.key)}
+            aria-pressed={sort === o.key}
             className={`text-xs px-3 py-1.5 border transition-colors ${
               sort === o.key
                 ? 'border-[#B8954A] bg-[#B8954A] text-white'
@@ -61,14 +52,10 @@ export function SortableItemGrid({ items }: { items: Item[] }) {
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {sorted.map(item => {
-          const vg = item.price_ranges.very_good
+          const vg = item.vg
           const savingsPct =
-            vg && item.retail_price_usd > 0
-              ? Math.round(
-                  ((item.retail_price_usd - (vg.min + vg.max) / 2) /
-                    item.retail_price_usd) *
-                    100,
-                )
+            vg && item.retail > 0
+              ? Math.round(((item.retail - (vg.min + vg.max) / 2) / item.retail) * 100)
               : null
           return (
             <Link

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Bulgari Pre-Owned: Serpenti, B.zero1, Diva 2025 | SecondLuxuryItems',
-  description: 'Buy pre-owned Bulgari jewelry and bags — Serpenti, B.zero1, Diva\'s Dream. USD prices, value retention, best pieces to buy used in 2025.',
+  title: `Bulgari Pre-Owned: Serpenti, B.zero1, Diva ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Buy pre-owned Bulgari jewelry and bags — Serpenti, B.zero1, Diva's Dream. USD prices, value retention, best pieces to buy used in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/brands/bulgari` },
 }
 

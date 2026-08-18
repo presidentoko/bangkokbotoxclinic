@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Valentino: Rockstud, Roman Stud & Garavani (2025) | SecondLuxuryItems',
+  title: `How to Authenticate Valentino: Rockstud, Roman Stud & Garavani (${PRICE_YEAR}) | SecondLuxuryItems`,
   description: 'Authenticate any Valentino bag with 7 checks: Rockstud pyramid studs, "VALENTINO GARAVANI" hardware, leather quality, interior serial, stitching, lining, and Made in Italy stamp.',
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-valentino` },
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Most Iconic Luxury Bags to Buy Pre-Owned in Thailand 2025 | ChicPreowned'
-      : '10 กระเป๋าหรูไอคอนที่ควรซื้อมือสองในไทย 2025 | ChicPreowned',
+      ? `Most Iconic Luxury Bags to Buy Pre-Owned in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `10 กระเป๋าหรูไอคอนที่ควรซื้อมือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Top 10 iconic luxury bags worth buying pre-owned in Thailand — Chanel Classic, Hermès Birkin, LV Neverfull, Gucci Dionysus. THB prices.'
       : '10 อันดับกระเป๋าหรูไอคอนที่คุ้มค่าซื้อมือสองในไทย — Chanel Classic, Hermès Birkin, LV Neverfull, Gucci Dionysus ราคาบาท',

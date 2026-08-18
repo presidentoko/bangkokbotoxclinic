@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Fendi in Thailand: 7 Checks (2025) | ChicPreowned'
-      : 'วิธียืนยันความถูกต้องของ Fendi ในไทย: 7 จุดตรวจสอบ (2025) | ChicPreowned',
+      ? `How to Authenticate Fendi in Thailand: 7 Checks (${PRICE_YEAR}) | ChicPreowned`
+      : `วิธียืนยันความถูกต้องของ Fendi ในไทย: 7 จุดตรวจสอบ (${PRICE_YEAR}) | ChicPreowned`,
     description: isEn
       ? 'Authenticate any Fendi bag in Thailand — FF canvas alignment, serial number, hardware engraving, stitching, leather, lining, and Made in Italy stamp. Baguette, Peekaboo, Kan I covered.'
       : 'ยืนยันความถูกต้องของกระเป๋า Fendi ใดก็ตามในไทย การจัดแนว FF canvas ซีเรียลนัมเบอร์ การแกะสลักฮาร์ดแวร์ การเย็บ หนัง ซับใน และตราประทับ Made in Italy ครอบคลุม Baguette, Peekaboo, Kan I',

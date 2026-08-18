@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Cartier Love Bracelet & Jewelry 2025 | ChicPreowned Thailand'
-      : 'วิธีตรวจสอบความแท้กำไล Cartier Love และเครื่องประดับ 2025 | ChicPreowned ไทย',
+      ? `How to Authenticate Cartier Love Bracelet & Jewelry ${PRICE_YEAR} | ChicPreowned Thailand`
+      : `วิธีตรวจสอบความแท้กำไล Cartier Love และเครื่องประดับ ${PRICE_YEAR} | ChicPreowned ไทย`,
     description: isEn
       ? 'Cartier authentication guide — Love bracelet screw details, hallmarks, serial numbers, weight, engravings. Buy authentic pre-owned Cartier in Thailand.'
       : 'คู่มือตรวจสอบ Cartier — รายละเอียดสกรู Love bracelet hallmark หมายเลขซีเรียล น้ำหนัก การแกะสลัก ซื้อ Cartier มือสองของแท้ในไทย',

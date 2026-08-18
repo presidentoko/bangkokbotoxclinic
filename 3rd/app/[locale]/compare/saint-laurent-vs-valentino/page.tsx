@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Saint Laurent vs Valentino Thailand 2025: Which Holds Value? | ChicPreowned'
-      : 'Saint Laurent vs Valentino ในไทย 2025: อันไหนรักษามูลค่าได้ดีกว่า? | ChicPreowned',
+      ? `Saint Laurent vs Valentino Thailand ${PRICE_YEAR}: Which Holds Value? | ChicPreowned`
+      : `Saint Laurent vs Valentino ในไทย ${PRICE_YEAR}: อันไหนรักษามูลค่าได้ดีกว่า? | ChicPreowned`,
     description: isEn
-      ? 'Saint Laurent vs Valentino for Thailand buyers 2025 — Parisian cool vs Roman romance, resale retention, THB prices, Rockstud caution, and investment tier comparison.'
-      : 'Saint Laurent vs Valentino สำหรับผู้ซื้อในไทย 2025 ความเก๋แบบปารีส vs โรแมนติกแบบโรมัน อัตราการรักษามูลค่า ราคาบาท คำเตือน Rockstud และการเปรียบเทียบระดับการลงทุน',
+      ? `Saint Laurent vs Valentino for Thailand buyers ${PRICE_YEAR} — Parisian cool vs Roman romance, resale retention, THB prices, Rockstud caution, and investment tier comparison.`
+      : `Saint Laurent vs Valentino สำหรับผู้ซื้อในไทย ${PRICE_YEAR} ความเก๋แบบปารีส vs โรแมนติกแบบโรมัน อัตราการรักษามูลค่า ราคาบาท คำเตือน Rockstud และการเปรียบเทียบระดับการลงทุน`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -61,7 +62,7 @@ export default async function SaintLaurentVsValentinoTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Saint Laurent vs Valentino (2025): Which Holds Value Better?' : 'Saint Laurent vs Valentino (2025): อันไหนรักษามูลค่าได้ดีกว่า?'}
+        {isEn ? 'Saint Laurent vs Valentino ({PRICE_YEAR}): Which Holds Value Better?' : 'Saint Laurent vs Valentino ({PRICE_YEAR}): อันไหนรักษามูลค่าได้ดีกว่า?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Hermès vs Goyard Pre-Owned Thailand 2025 | ChicPreowned'
-      : 'Hermès vs Goyard มือสองในไทย 2025 | ChicPreowned',
+      ? `Hermès vs Goyard Pre-Owned Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Hermès vs Goyard มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Hermès vs Goyard comparison — resale value, canvas vs leather, Thailand availability. Which is the better pre-owned buy?'
       : 'เปรียบ Hermès กับ Goyard — มูลค่าขายต่อ ผ้า vs หนัง หาง่ายแค่ไหนในไทย อันไหนซื้อมือสองคุ้มกว่า?',

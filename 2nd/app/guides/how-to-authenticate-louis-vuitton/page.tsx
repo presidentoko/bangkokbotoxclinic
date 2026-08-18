@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate a Pre-Owned Louis Vuitton Bag 2025',
+  title: `How to Authenticate a Pre-Owned Louis Vuitton Bag ${PRICE_YEAR}`,
   description:
     'How to spot a fake Louis Vuitton bag. Check date codes, Monogram canvas, hardware, stitching, and heat stamps before buying pre-owned LV.',
   alternates: {
@@ -106,9 +107,9 @@ export default function HowToAuthenticateLouisVuittonPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        How to Authenticate a Pre-Owned Louis Vuitton Bag (2025 Guide)
+        How to Authenticate a Pre-Owned Louis Vuitton Bag ({PRICE_YEAR} Guide)
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · 6 min read</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 6 min read</p>
 
       <nav className="mb-10 p-5 border border-[#E8E2D9] bg-[#F5F0E8]">
         <p className="text-xs uppercase tracking-wider text-[#9C8B7A] mb-3">In this guide</p>

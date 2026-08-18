@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
   title: 'LV Monogram vs Damier: Which Canvas to Buy Pre-Owned | SecondLuxuryItems',
-  description: 'Louis Vuitton Monogram vs Damier Ebène vs Damier Azur — which canvas holds value better, which is more practical, and pre-owned price comparison 2025.',
+  description: `Louis Vuitton Monogram vs Damier Ebène vs Damier Azur — which canvas holds value better, which is more practical, and pre-owned price comparison ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/lv-monogram-vs-damier` },
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Miu Miu in Thailand: 7 Checks (2025) | ChicPreowned'
-      : 'วิธียืนยันความถูกต้องของ Miu Miu ในไทย: 7 จุดตรวจสอบ (2025) | ChicPreowned',
+      ? `How to Authenticate Miu Miu in Thailand: 7 Checks (${PRICE_YEAR}) | ChicPreowned`
+      : `วิธียืนยันความถูกต้องของ Miu Miu ในไทย: 7 จุดตรวจสอบ (${PRICE_YEAR}) | ChicPreowned`,
     description: isEn
       ? 'Authenticate any Miu Miu bag in Thailand — MIU MIU interior emboss, serial format (2 letters + 4 digits), washed nappa texture, matelassé quilting, bow clasp weight, stitching, and Made in Italy stamp.'
       : 'ยืนยันความถูกต้องของกระเป๋า Miu Miu ในไทย การนูน MIU MIU ภายใน รูปแบบซีเรียล (2 ตัวอักษร + 4 หลัก) เนื้อสัมผัส nappa ที่ถูกล้าง การเย็บ matelassé น้ำหนักตัวล็อคโบว์ การเย็บ และตราประทับ Made in Italy',

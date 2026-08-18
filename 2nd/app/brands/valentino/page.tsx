@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Pre-Owned Valentino Bags 2025 | SecondLuxuryItems',
+  title: `Pre-Owned Valentino Bags ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Valentino Garavani Rockstud, VLogo & Locò pre-owned prices. Save 40-55% vs retail. Piccioli vs Alessandro Michele era guide.',
   alternates: { canonical: `${BASE}/brands/valentino` },
 }
@@ -20,7 +21,7 @@ export default function ValentinoPage() {
         <span>Valentino</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Valentino Garavani 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Valentino Garavani {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">Rockstud · VLogo · Locò · Roman Stud · Save 40–55% vs retail</p>
 
       <section className="mb-10">

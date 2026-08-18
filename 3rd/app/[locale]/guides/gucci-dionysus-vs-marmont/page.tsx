@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Gucci Dionysus vs GG Marmont Thailand 2025 | ChicPreowned'
-      : 'Gucci Dionysus vs GG Marmont ในไทย 2025 | ChicPreowned',
+      ? `Gucci Dionysus vs GG Marmont Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Gucci Dionysus vs GG Marmont ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Gucci Dionysus vs GG Marmont for Thai buyers — THB prices, which holds value better, tiger vs chevron quilting, Bangkok resale tips.'
       : 'Gucci Dionysus vs GG Marmont สำหรับคนไทย — ราคาบาท อันไหน resale ดีกว่า tiger vs chevron quilting เคล็ดลับ resale กรุงเทพ',

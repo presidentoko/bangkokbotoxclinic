@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel Mini Flap vs Small Classic Flap 2025: Size Guide | SecondLuxuryItems',
-  description: 'Chanel Mini Flap vs Classic Flap Small 2025 — dimensions, what fits, price difference, which size to buy pre-owned. Mini Square vs Mini Rectangular vs Small.',
+  title: `Chanel Mini Flap vs Small Classic Flap ${PRICE_YEAR}: Size Guide | SecondLuxuryItems`,
+  description: `Chanel Mini Flap vs Classic Flap Small ${PRICE_YEAR} — dimensions, what fits, price difference, which size to buy pre-owned. Mini Square vs Mini Rectangular vs Small.`,
   alternates: { canonical: `${BASE}/guides/chanel-mini-vs-small-flap` },
 }
 
@@ -26,7 +27,7 @@ export default function ChanelMiniVsSmall() {
         <span>Chanel Mini vs Small Flap</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel Mini Flap vs Small Classic Flap 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel Mini Flap vs Small Classic Flap {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The most common Chanel size question. The Mini (Rectangular or Square) is the bag you photograph. The Small is the bag you carry. They look similar but serve completely different purposes. The price difference is $2,000–$4,000 pre-owned.</p>
 
       <div className="space-y-4 mb-10">

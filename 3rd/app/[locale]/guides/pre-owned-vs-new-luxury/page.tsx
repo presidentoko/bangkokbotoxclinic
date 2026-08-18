@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -10,7 +11,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const isEn = locale === 'en'
   return {
-    title: isEn ? 'Pre-Owned vs New Luxury in Thailand: Worth It? 2025 | ChicPreowned' : 'มือสองกับของใหม่ Luxury ในไทย: คุ้มไหม? 2025 | ChicPreowned',
+    title: isEn ? `Pre-Owned vs New Luxury in Thailand: Worth It? ${PRICE_YEAR} | ChicPreowned` : `มือสองกับของใหม่ Luxury ในไทย: คุ้มไหม? ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Pre-owned vs new luxury bags in Thailand — THB price comparisons, duty considerations, when pre-owned wins, authentication tips for Thai buyers.'
       : 'มือสองกับ luxury ใหม่ในไทย — เปรียบราคาบาท ภาษีนำเข้า เมื่อไหรที่มือสองชนะ เคล็ดลับตรวจสอบสำหรับคนไทย',
@@ -47,7 +48,7 @@ export default async function PreOwnedVsNewTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Pre-Owned vs New Luxury in Thailand 2025' : 'มือสองกับ Luxury ใหม่ในไทย 2025'}
+        {isEn ? 'Pre-Owned vs New Luxury in Thailand {PRICE_YEAR}' : 'มือสองกับ Luxury ใหม่ในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Thailand\'s luxury market is unique — import duty on new goods, strong grey market, and a very active pre-owned community. Here\'s when pre-owned wins.'

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getItemsUnderBudget } from '@/lib/data'
+import { getItemsUnderBudget, toGridItems } from '@/lib/data'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function Under1000Page() {
         The sweet spot for pre-owned designer bags — entry Chanel, LV, and Gucci pieces.
         From structured mini bags to iconic monogram accessories, all under $1,000 in very good condition.
       </p>
-      <SortableItemGrid items={items} />
+      <SortableItemGrid items={toGridItems(items)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "FAQPage",

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getItemsByBrand, getAvgPrice, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Rolex vs Omega Pre-Owned Prices in Thailand 2025 | ChicPreowned'
+      ? `Rolex vs Omega Pre-Owned Prices in Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Rolex กับ Omega มือสอง ในไทย — ราคาและความคุ้มค่า | ChicPreowned',
     description: isEn
       ? 'Rolex often trades above retail in Thailand. Omega offers 40–60% savings pre-owned. Compare both brands and decide which watch to buy first.'
@@ -133,7 +134,7 @@ export default async function RolexVsOmegaPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Rolex vs Omega Pre-Owned Prices in Thailand 2025'
+          ? 'Rolex vs Omega Pre-Owned Prices in Thailand {PRICE_YEAR}'
           : 'Rolex กับ Omega มือสอง ในไทย — ราคาและความคุ้มค่า'}
       </h1>
 

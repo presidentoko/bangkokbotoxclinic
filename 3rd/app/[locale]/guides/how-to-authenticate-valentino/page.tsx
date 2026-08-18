@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Valentino in Thailand: 7 Checks (2025) | ChicPreowned'
-      : 'วิธียืนยันความถูกต้องของ Valentino ในไทย: 7 จุดตรวจสอบ (2025) | ChicPreowned',
+      ? `How to Authenticate Valentino in Thailand: 7 Checks (${PRICE_YEAR}) | ChicPreowned`
+      : `วิธียืนยันความถูกต้องของ Valentino ในไทย: 7 จุดตรวจสอบ (${PRICE_YEAR}) | ChicPreowned`,
     description: isEn
       ? 'Authenticate any Valentino bag in Thailand — Rockstud pyramid attachment, VALENTINO GARAVANI hardware engraving, serial number, leather quality, stitching, lining, and Made in Italy stamp.'
       : 'ยืนยันความถูกต้องของกระเป๋า Valentino ใดก็ตามในไทย การยึดหมุด Rockstud การแกะสลักฮาร์ดแวร์ VALENTINO GARAVANI ซีเรียลนัมเบอร์ คุณภาพหนัง การเย็บ ซับใน และตราประทับ Made in Italy',

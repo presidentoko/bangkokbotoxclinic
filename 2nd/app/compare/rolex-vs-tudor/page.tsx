@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Rolex vs Tudor: Which Brand Is Better Value? (2025) | SecondLuxuryItems',
-  description: 'Rolex vs Tudor comparison 2025 — Black Bay vs Submariner, movements, value retention, and whether Tudor is "just a cheaper Rolex" or a genuine alternative.',
+  title: `Rolex vs Tudor: Which Brand Is Better Value? (${PRICE_YEAR}) | SecondLuxuryItems`,
+  description: `Rolex vs Tudor comparison ${PRICE_YEAR} — Black Bay vs Submariner, movements, value retention, and whether Tudor is "just a cheaper Rolex" or a genuine alternative.`,
   alternates: { canonical: `${BASE}/compare/rolex-vs-tudor` },
 }
 
@@ -32,7 +33,7 @@ export default function RolexVsTudorPage() {
         <span>Rolex vs Tudor</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex vs Tudor (2025): Sister Brands Compared</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex vs Tudor ({PRICE_YEAR}): Sister Brands Compared</h1>
       <p className="text-gray-500 mb-10">Tudor was created by Rolex's founder Hans Wilsdorf in 1926 as an accessible alternative. Both brands use the same Oystersteel and share manufacturing infrastructure — but the similarities end there in terms of resale value. Tudor is a genuine luxury watch brand, not a budget Rolex replica. But if investment performance matters, the gap is enormous.</p>
 
       <div className="overflow-x-auto mb-10">

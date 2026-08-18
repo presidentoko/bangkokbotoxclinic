@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Fendi vs Valentino: Which Italian Brand for Bangkok Buyers 2025? | ChicPreowned'
-      : 'Fendi vs Valentino: แบรนด์อิตาลีไหนดีกว่าสำหรับผู้ซื้อกรุงเทพ 2025? | ChicPreowned',
+      ? `Fendi vs Valentino: Which Italian Brand for Bangkok Buyers ${PRICE_YEAR}? | ChicPreowned`
+      : `Fendi vs Valentino: แบรนด์อิตาลีไหนดีกว่าสำหรับผู้ซื้อกรุงเทพ ${PRICE_YEAR}? | ChicPreowned`,
     description: isEn
-      ? 'Fendi vs Valentino 2025 — Baguette vs Rockstud, resale retention, THB prices, Bangkok boutique context. Which Italian house is worth buying pre-owned in Thailand?'
-      : 'Fendi vs Valentino 2025 — Baguette vs Rockstud อัตราการรักษามูลค่า ราคาบาท บริบทบูทีคกรุงเทพ แบรนด์อิตาลีไหนคุ้มกว่าในการซื้อมือสองในไทย?',
+      ? `Fendi vs Valentino ${PRICE_YEAR} — Baguette vs Rockstud, resale retention, THB prices, Bangkok boutique context. Which Italian house is worth buying pre-owned in Thailand?`
+      : `Fendi vs Valentino ${PRICE_YEAR} — Baguette vs Rockstud อัตราการรักษามูลค่า ราคาบาท บริบทบูทีคกรุงเทพ แบรนด์อิตาลีไหนคุ้มกว่าในการซื้อมือสองในไทย?`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -59,7 +60,7 @@ export default async function FendiVsValentinoTH({ params }: Props) {
         <span>Fendi vs Valentino</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Valentino (2025)</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Fendi vs Valentino ({PRICE_YEAR})</h1>
       <p className="text-gray-500 mb-10">
         {isEn
           ? 'Two Italian fashion powerhouses in the same luxury tier. Fendi edges ahead on resale thanks to the Baguette — but both are style buys, not investment plays. Bangkok context and THB prices included.'

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Hermès vs Chanel Pre-Owned Value 2025 | SecondLuxuryItems',
+  title: `Hermès vs Chanel Pre-Owned Value ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Hermès vs Chanel: the two top-tier resale brands compared. Birkin/Kelly often exceed retail; Chanel Classic Flap retains 80-95%. Data-driven guide.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/hermes-vs-chanel' },
 }
@@ -86,7 +87,7 @@ export default function HermesVsChanelPage() {
       >
         Hermès vs Chanel: The Ultimate Pre-Owned Value Comparison
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

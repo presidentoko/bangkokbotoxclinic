@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Dior Bags: Lady Dior & Saddle Guide 2025 | SecondLuxuryItems',
+  title: `How to Authenticate Dior Bags: Lady Dior & Saddle Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Authenticate a Dior Lady Dior or Saddle Bag — stitching, cannage pattern, hardware, date code, and dust bag checks explained for pre-owned buyers.',
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-dior` },
 }
@@ -20,7 +21,7 @@ export default function AuthenticateDiorPage() {
         <span>Authenticate Dior</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate a Dior Bag 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Authenticate a Dior Bag {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Dior Lady Dior and Saddle authentication checklist — what to check before buying pre-owned.</p>
 
       <section className="mb-10">

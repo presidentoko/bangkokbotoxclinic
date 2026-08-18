@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'How to Authenticate Miu Miu: Wander, Arcadie & Matelassé (2025) | SecondLuxuryItems',
+  title: `How to Authenticate Miu Miu: Wander, Arcadie & Matelassé (${PRICE_YEAR}) | SecondLuxuryItems`,
   description: 'Authenticate any Miu Miu bag with 7 checks: "MIU MIU" emboss on interior tab, serial format, hardware, washed nappa texture, matelassé quilting, stitching, and Made in Italy verification.',
   alternates: { canonical: `${BASE}/guides/how-to-authenticate-miu-miu` },
 }

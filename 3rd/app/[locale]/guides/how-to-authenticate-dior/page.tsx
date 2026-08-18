@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Dior Bags Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบความแท้กระเป๋า Dior ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Dior Bags Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบความแท้กระเป๋า Dior ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Dior bag authentication guide for Thai buyers — Lady Dior charms, saddle stitching, serial codes, CD logo, cannage stitching. Spot fakes.'
       : 'คู่มือตรวจสอบ Dior สำหรับผู้ซื้อชาวไทย — จี้ Lady Dior การเย็บ saddle รหัสซีเรียล โลโก้ CD การเย็บ cannage',

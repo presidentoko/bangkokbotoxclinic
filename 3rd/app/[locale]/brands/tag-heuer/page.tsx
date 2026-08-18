@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Tag Heuer Pre-Owned Thailand 2025: Carrera, Monaco | ChicPreowned'
-      : 'Tag Heuer มือสองในไทย 2025: Carrera Monaco | ChicPreowned',
+      ? `Tag Heuer Pre-Owned Thailand ${PRICE_YEAR}: Carrera, Monaco | ChicPreowned`
+      : `Tag Heuer มือสองในไทย ${PRICE_YEAR}: Carrera Monaco | ChicPreowned`,
     description: isEn
-      ? 'Tag Heuer pre-owned watches Thailand — Carrera, Aquaracer, Monaco. THB prices, which model to buy used in Bangkok 2025.'
-      : 'Tag Heuer มือสองในไทย — Carrera Aquaracer Monaco ราคาบาท รุ่นไหนควรซื้อมือสองในกรุงเทพ 2025',
+      ? `Tag Heuer pre-owned watches Thailand — Carrera, Aquaracer, Monaco. THB prices, which model to buy used in Bangkok ${PRICE_YEAR}.`
+      : `Tag Heuer มือสองในไทย — Carrera Aquaracer Monaco ราคาบาท รุ่นไหนควรซื้อมือสองในกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

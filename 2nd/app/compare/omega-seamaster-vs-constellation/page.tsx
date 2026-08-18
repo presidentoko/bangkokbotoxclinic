@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Omega Seamaster vs Constellation 2025: Which Pre-Owned Watch to Buy? | SecondLuxuryItems',
-  description: 'Omega Seamaster vs Constellation — dive watch vs dress watch, resale retention, pre-owned prices, and which Omega is the better buy in 2025.',
+  title: `Omega Seamaster vs Constellation ${PRICE_YEAR}: Which Pre-Owned Watch to Buy? | SecondLuxuryItems`,
+  description: `Omega Seamaster vs Constellation — dive watch vs dress watch, resale retention, pre-owned prices, and which Omega is the better buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/omega-seamaster-vs-constellation` },
 }
 
@@ -33,7 +34,7 @@ export default function OmegaSeamasterVsConstellation() {
         <span>Omega Seamaster vs Constellation</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Omega Seamaster vs Constellation (2025): Which Pre-Owned Watch to Buy?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Omega Seamaster vs Constellation ({PRICE_YEAR}): Which Pre-Owned Watch to Buy?</h1>
       <p className="text-gray-500 mb-10">Two of Omega's flagship lines — each with 70+ year histories, both using co-axial movements, but serving fundamentally different buyers. The Seamaster dominates pre-owned liquidity; the Constellation is the refined under-the-radar choice. Here's the complete comparison for 2025 pre-owned buyers.</p>
 
       <div className="overflow-x-auto mb-10">

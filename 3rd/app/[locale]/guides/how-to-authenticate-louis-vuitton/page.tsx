@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Louis Vuitton in Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบ Louis Vuitton แท้ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Louis Vuitton in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบ Louis Vuitton แท้ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Authenticate Louis Vuitton bags in Thailand — date codes, monogram alignment, heat stamps, stitching. Full 2025 guide.'
-      : 'ตรวจสอบ Louis Vuitton ในไทย — date codes การเรียงลาย โมโนแกรม heat stamp การเย็บ คู่มือ 2025',
+      ? `Authenticate Louis Vuitton bags in Thailand — date codes, monogram alignment, heat stamps, stitching. Full ${PRICE_YEAR} guide.`
+      : `ตรวจสอบ Louis Vuitton ในไทย — date codes การเรียงลาย โมโนแกรม heat stamp การเย็บ คู่มือ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

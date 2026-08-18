@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Cartier Love Bracelet Buying Guide Thailand 2025 | ChicPreowned'
-      : 'คู่มือซื้อกำไล Cartier Love ในไทย 2025 | ChicPreowned',
+      ? `Cartier Love Bracelet Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `คู่มือซื้อกำไล Cartier Love ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Cartier Love Bracelet guide for Thai buyers — sizes, metals, THB prices, authentication. How much to pay for pre-owned Cartier Love in Bangkok 2025.'
-      : 'คู่มือกำไล Cartier Love สำหรับผู้ซื้อชาวไทย — ไซส์ โลหะ ราคาบาท การตรวจสอบ ซื้อ Cartier Love มือสองในกรุงเทพราคาเท่าไหร่ 2025',
+      ? `Cartier Love Bracelet guide for Thai buyers — sizes, metals, THB prices, authentication. How much to pay for pre-owned Cartier Love in Bangkok ${PRICE_YEAR}.`
+      : `คู่มือกำไล Cartier Love สำหรับผู้ซื้อชาวไทย — ไซส์ โลหะ ราคาบาท การตรวจสอบ ซื้อ Cartier Love มือสองในกรุงเทพราคาเท่าไหร่ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -54,7 +55,7 @@ export default async function CartierLoveTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Cartier Love Bracelet Buying Guide 2025' : 'คู่มือซื้อกำไล Cartier Love 2025'}
+        {isEn ? 'Cartier Love Bracelet Buying Guide {PRICE_YEAR}' : 'คู่มือซื้อกำไล Cartier Love {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

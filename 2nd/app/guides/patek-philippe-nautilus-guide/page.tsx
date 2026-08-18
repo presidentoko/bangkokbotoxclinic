@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Patek Philippe Nautilus Buying Guide 2025 — Pre-Owned Prices | SecondLuxuryItems',
-  description: 'Complete Nautilus buying guide — 5711, 5712, 5726, 5740 models. Pre-owned prices, market trends, authentication basics. Should you buy Nautilus in 2025?',
+  title: `Patek Philippe Nautilus Buying Guide ${PRICE_YEAR} — Pre-Owned Prices | SecondLuxuryItems`,
+  description: `Complete Nautilus buying guide — 5711, 5712, 5726, 5740 models. Pre-owned prices, market trends, authentication basics. Should you buy Nautilus in ${PRICE_YEAR}?`,
   alternates: { canonical: `${BASE}/guides/patek-philippe-nautilus-guide` },
 }
 
@@ -60,7 +61,7 @@ export default function PatekNautilusPage() {
         <span>Patek Nautilus Buying Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Patek Philippe Nautilus Buying Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Patek Philippe Nautilus Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The Nautilus redefined what a luxury sports watch could be in 1976 — and it still does. Since Patek discontinued the 5711 in 2021, the pre-owned market has been the only source. Here is what to look for, what to pay, and what to avoid.</p>
 
       <div className="space-y-4 mb-10">

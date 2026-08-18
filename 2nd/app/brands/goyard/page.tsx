@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Goyard Pre-Owned: Saint-Louis, Anjou, Artois 2025 | SecondLuxuryItems',
+  title: `Goyard Pre-Owned: Saint-Louis, Anjou, Artois ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Buy pre-owned Goyard — Saint-Louis Tote, Anjou reversible, Artois. USD prices, value retention, and why Goyard resale is strong despite limited availability.',
   alternates: { canonical: `${BASE}/brands/goyard` },
 }

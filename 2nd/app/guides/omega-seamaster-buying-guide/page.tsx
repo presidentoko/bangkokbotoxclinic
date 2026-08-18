@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Omega Seamaster Pre-Owned Buying Guide 2025 | SecondLuxuryItems',
-  description: 'Buy Omega Seamaster pre-owned — 300M vs Planet Ocean vs Aqua Terra. USD prices, reference numbers, what to check. 2025 guide.',
+  title: `Omega Seamaster Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Buy Omega Seamaster pre-owned — 300M vs Planet Ocean vs Aqua Terra. USD prices, reference numbers, what to check. ${PRICE_YEAR} guide.`,
   alternates: { canonical: `${BASE}/guides/omega-seamaster-buying-guide` },
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Van Cleef & Arpels in Thailand 2025: Alhambra | ChicPreowned'
-      : 'วิธีตรวจสอบ Van Cleef & Arpels ของแท้ในไทย 2025: Alhambra | ChicPreowned',
+      ? `How to Authenticate Van Cleef & Arpels in Thailand ${PRICE_YEAR}: Alhambra | ChicPreowned`
+      : `วิธีตรวจสอบ Van Cleef & Arpels ของแท้ในไทย ${PRICE_YEAR}: Alhambra | ChicPreowned`,
     description: isEn
-      ? 'Authenticate Van Cleef & Arpels in Thailand — Alhambra size, VCA clasp engraving (not "VCA"), milled petal edge, MOP quality, hallmarks. Bangkok buyers guide 2025.'
-      : 'ตรวจสอบ Van Cleef & Arpels ในไทย — ขนาด Alhambra การแกะสลัก VCA clasp (ไม่ใช่ "VCA") ขอบกลีบดอก ไม้ MOP hallmarks คู่มือผู้ซื้อกรุงเทพ 2025',
+      ? `Authenticate Van Cleef & Arpels in Thailand — Alhambra size, VCA clasp engraving (not "VCA"), milled petal edge, MOP quality, hallmarks. Bangkok buyers guide ${PRICE_YEAR}.`
+      : `ตรวจสอบ Van Cleef & Arpels ในไทย — ขนาด Alhambra การแกะสลัก VCA clasp (ไม่ใช่ "VCA") ขอบกลีบดอก ไม้ MOP hallmarks คู่มือผู้ซื้อกรุงเทพ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -51,7 +52,7 @@ export default async function AuthenticateVCATH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'How to Authenticate Van Cleef & Arpels 2025' : 'วิธีตรวจสอบ Van Cleef & Arpels ของแท้ 2025'}
+        {isEn ? 'How to Authenticate Van Cleef & Arpels {PRICE_YEAR}' : 'วิธีตรวจสอบ Van Cleef & Arpels ของแท้ {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

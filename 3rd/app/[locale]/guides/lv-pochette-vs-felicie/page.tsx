@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'LV Pochette Métis vs Félicie Thailand 2025: Which Pre-Owned to Buy? | ChicPreowned'
-      : 'LV Pochette Métis vs Félicie ในไทย 2025: มือสองอันไหนน่าซื้อ? | ChicPreowned',
+      ? `LV Pochette Métis vs Félicie Thailand ${PRICE_YEAR}: Which Pre-Owned to Buy? | ChicPreowned`
+      : `LV Pochette Métis vs Félicie ในไทย ${PRICE_YEAR}: มือสองอันไหนน่าซื้อ? | ChicPreowned`,
     description: isEn
-      ? 'Louis Vuitton Pochette Métis vs Félicie for Bangkok buyers — size, structure, resale retention, THB prices, and which LV pochette is the better pre-owned buy in Thailand 2025.'
-      : 'Louis Vuitton Pochette Métis vs Félicie สำหรับผู้ซื้อกรุงเทพ ขนาด โครงสร้าง อัตราการรักษามูลค่า ราคาบาท และ LV pochette ไหนน่าซื้อมือสองในไทย 2025 มากกว่า',
+      ? `Louis Vuitton Pochette Métis vs Félicie for Bangkok buyers — size, structure, resale retention, THB prices, and which LV pochette is the better pre-owned buy in Thailand ${PRICE_YEAR}.`
+      : `Louis Vuitton Pochette Métis vs Félicie สำหรับผู้ซื้อกรุงเทพ ขนาด โครงสร้าง อัตราการรักษามูลค่า ราคาบาท และ LV pochette ไหนน่าซื้อมือสองในไทย ${PRICE_YEAR} มากกว่า`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

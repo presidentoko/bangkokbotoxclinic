@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Louis Vuitton vs Gucci Pre-Owned Value 2025 | SecondLuxuryItems',
+  title: `Louis Vuitton vs Gucci Pre-Owned Value ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Louis Vuitton vs Gucci: resale value comparison. LV retains 65-75%, Gucci 50-65%. Data-driven guide to buying pre-owned.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/compare/louis-vuitton-vs-gucci' },
 }
@@ -86,7 +87,7 @@ export default function LouisVuittonVsGucciPage() {
       >
         Louis Vuitton vs Gucci: Which Holds Its Value Better?
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · Data-driven comparison</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · Data-driven comparison</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

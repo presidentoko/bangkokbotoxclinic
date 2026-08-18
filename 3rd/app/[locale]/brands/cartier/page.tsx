@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Cartier in Thailand 2025 | ChicPreowned'
-      : 'Cartier มือสองในไทย 2025 — Love Bracelet, Juste un Clou | ChicPreowned',
+      ? `Pre-Owned Cartier in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Cartier มือสองในไทย ${PRICE_YEAR} — Love Bracelet, Juste un Clou | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Cartier jewelry and watch prices in Thailand (THB). Love Bracelet, Juste un Clou, Trinity, Tank — strong resale, 70–90% value retention.'
       : 'ราคา Cartier มือสองในไทย (บาท) Love Bracelet, Juste un Clou, Trinity, Tank — รักษามูลค่าได้ 70–90%',
@@ -95,7 +96,7 @@ export default async function CartierBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Cartier in Thailand 2025' : 'Cartier มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Cartier in Thailand {PRICE_YEAR}' : 'Cartier มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? `${items.length} models · 70–90% value retention` : `${items.length} รุ่น · รักษามูลค่า 70–90%`}

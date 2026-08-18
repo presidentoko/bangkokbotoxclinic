@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Patek Philippe Prices in Thailand 2025 | ChicPreowned'
-      : 'ราคา Patek Philippe มือสองในไทย 2025 | ChicPreowned',
+      ? `Pre-Owned Patek Philippe Prices in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `ราคา Patek Philippe มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Patek Philippe Nautilus, Aquanaut, Calatrava pre-owned prices in Thailand. Sports models trade 3–5× retail. Updated weekly.'
       : 'ราคา Patek Philippe Nautilus, Aquanaut, Calatrava มือสองในไทย รุ่นกีฬาซื้อขายที่ 3–5 เท่าราคาปลีก',
@@ -80,7 +81,7 @@ export default async function PatekPhilippeBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Patek Philippe Prices in Thailand 2025' : 'ราคา Patek Philippe มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Patek Philippe Prices in Thailand {PRICE_YEAR}' : 'ราคา Patek Philippe มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? 'Sports models 3–5× retail · dress models retain 85–95%'

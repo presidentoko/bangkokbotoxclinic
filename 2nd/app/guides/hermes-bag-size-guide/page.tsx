@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès Birkin & Kelly Size Guide 2025 | SecondLuxuryItems',
+  title: `Hermès Birkin & Kelly Size Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Complete Hermès Birkin and Kelly size guide — 25 vs 30 vs 35, which size to buy pre-owned, and how size affects resale value.',
   alternates: { canonical: `${BASE}/guides/hermes-bag-size-guide` },
 }
@@ -20,7 +21,7 @@ export default function HermesSizeGuidePage() {
         <span>Hermès Size Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Hermès Birkin & Kelly Size Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Hermès Birkin & Kelly Size Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Which size to buy, how size affects price, and what resells best pre-owned.</p>
 
       <section className="mb-10">

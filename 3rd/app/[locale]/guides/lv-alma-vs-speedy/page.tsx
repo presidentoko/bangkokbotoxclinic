@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'LV Alma vs Speedy Thailand 2025: Size Guide & Pre-Owned | ChicPreowned'
-      : 'LV Alma vs Speedy ในไทย 2025: คู่มือขนาด & มือสอง | ChicPreowned',
+      ? `LV Alma vs Speedy Thailand ${PRICE_YEAR}: Size Guide & Pre-Owned | ChicPreowned`
+      : `LV Alma vs Speedy ในไทย ${PRICE_YEAR}: คู่มือขนาด & มือสอง | ChicPreowned`,
     description: isEn
-      ? 'LV Alma vs Speedy for Bangkok buyers 2025 — arch shape vs barrel, size comparison, THB prices, Vernis Alma investment tip, and which to buy pre-owned in Thailand.'
-      : 'LV Alma vs Speedy สำหรับผู้ซื้อกรุงเทพ 2025 ทรงโค้งvs ทรงถัง เปรียบเทียบขนาด ราคาบาท เคล็ดลับการลงทุน Vernis Alma และควรซื้อมือสองอันไหนในไทย',
+      ? `LV Alma vs Speedy for Bangkok buyers ${PRICE_YEAR} — arch shape vs barrel, size comparison, THB prices, Vernis Alma investment tip, and which to buy pre-owned in Thailand.`
+      : `LV Alma vs Speedy สำหรับผู้ซื้อกรุงเทพ ${PRICE_YEAR} ทรงโค้งvs ทรงถัง เปรียบเทียบขนาด ราคาบาท เคล็ดลับการลงทุน Vernis Alma และควรซื้อมือสองอันไหนในไทย`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -85,7 +86,7 @@ export default async function LvAlmaVsSpeedyTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'LV Alma vs Speedy (2025): Size Guide & Which to Buy Pre-Owned' : 'LV Alma vs Speedy (2025): คู่มือขนาด & ควรซื้อมือสองอันไหน'}
+        {isEn ? 'LV Alma vs Speedy ({PRICE_YEAR}): Size Guide & Which to Buy Pre-Owned' : 'LV Alma vs Speedy ({PRICE_YEAR}): คู่มือขนาด & ควรซื้อมือสองอันไหน'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

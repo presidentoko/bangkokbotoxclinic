@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Rolex Reference Number Guide 2025 | SecondLuxuryItems',
+  title: `Rolex Reference Number Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'How to read Rolex reference numbers — decode 126610LN, 126234, 116500LN and every modern Rolex ref. Pre-owned price guide by reference.',
   alternates: { canonical: `${BASE}/guides/rolex-reference-guide` },
 }
@@ -20,7 +21,7 @@ export default function RolexReferenceGuidePage() {
         <span>Rolex Reference Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex Reference Number Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Rolex Reference Number Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">How to decode any Rolex reference number, and what each ref trades for pre-owned in 2025.</p>
 
       <section className="mb-10">

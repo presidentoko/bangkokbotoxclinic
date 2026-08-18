@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Authenticate Hermès Bags Thailand 2025 | ChicPreowned'
-      : 'วิธีตรวจสอบกระเป๋า Hermès แท้ในไทย 2025 | ChicPreowned',
+      ? `How to Authenticate Hermès Bags Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีตรวจสอบกระเป๋า Hermès แท้ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Authenticate Hermès Birkin and Kelly in Thailand — blind stamps, leather types, hardware, stitching. 2025 guide.'
-      : 'ตรวจสอบ Hermès Birkin และ Kelly ในไทย — ตราประทับ ประเภทหนัง hardware การเย็บ คู่มือ 2025',
+      ? `Authenticate Hermès Birkin and Kelly in Thailand — blind stamps, leather types, hardware, stitching. ${PRICE_YEAR} guide.`
+      : `ตรวจสอบ Hermès Birkin และ Kelly ในไทย — ตราประทับ ประเภทหนัง hardware การเย็บ คู่มือ ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

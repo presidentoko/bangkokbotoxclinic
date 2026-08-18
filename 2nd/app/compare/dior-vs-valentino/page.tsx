@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Dior vs Valentino 2025: Lady Dior vs Rockstud, Investment Case | SecondLuxuryItems',
-  description: 'Dior vs Valentino compared — Lady Dior vs Roman Stud, heritage, resale value, investment case, price ranges. Two Paris luxury houses for pre-owned buyers 2025.',
+  title: `Dior vs Valentino ${PRICE_YEAR}: Lady Dior vs Rockstud, Investment Case | SecondLuxuryItems`,
+  description: `Dior vs Valentino compared — Lady Dior vs Roman Stud, heritage, resale value, investment case, price ranges. Two Paris luxury houses for pre-owned buyers ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/dior-vs-valentino` },
 }
 
@@ -31,7 +32,7 @@ export default function DiorVsValentino() {
         <span>Dior vs Valentino</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Valentino 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Valentino {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Two European luxury houses with completely different commercial profiles. Dior is one of the most commercially dominant luxury brands globally — the Lady Dior alone outsells most competitors. Valentino is the insider choice: deep couture heritage, Alessandro Michele's new direction in 2023, and shoes that may be more investable than the bags. The investment case diverges sharply here.</p>
 
       <div className="overflow-x-auto mb-10">

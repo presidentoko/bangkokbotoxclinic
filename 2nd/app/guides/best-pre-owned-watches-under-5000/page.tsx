@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Best Pre-Owned Luxury Watches Under $5,000 (2025) | SecondLuxuryItems',
-  description: 'Best pre-owned luxury watches under $5,000. Rolex Datejust, Omega Speedmaster, Tag Heuer Carrera — top picks and what to avoid in 2025.',
+  title: `Best Pre-Owned Luxury Watches Under $5,000 (${PRICE_YEAR}) | SecondLuxuryItems`,
+  description: `Best pre-owned luxury watches under $5,000. Rolex Datejust, Omega Speedmaster, Tag Heuer Carrera — top picks and what to avoid in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/best-pre-owned-watches-under-5000` },
 }
 
@@ -63,7 +64,7 @@ export default function WatchesUnder5kPage() {
         <span>Best Pre-Owned Watches Under $5,000</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Best Pre-Owned Luxury Watches Under $5,000 (2025)</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Best Pre-Owned Luxury Watches Under $5,000 ({PRICE_YEAR})</h1>
       <p className="text-gray-500 mb-10">The sweet spot for pre-owned — significant retail savings, accessible prices, proven movements.</p>
 
       <div className="space-y-8">

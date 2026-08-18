@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice, toBrandSlug } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Luxury Resale Value Guide 2025 — Which Bags Hold Value? | SecondLuxuryItems',
@@ -111,7 +112,7 @@ export default function ValueGuidePage() {
       <div className="mb-12">
         <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">Value Guide</p>
         <h1 className="font-serif text-4xl sm:text-5xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
-          Luxury Resale Value Guide 2025
+          Luxury Resale Value Guide {PRICE_YEAR}
         </h1>
         <p className="text-[#6B6052] text-lg max-w-xl leading-relaxed">
           Which pre-owned luxury items hold their value — and which give you the biggest discount vs retail?

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Pre-Owned Rolex in Thailand 2025 | ChicPreowned'
-      : 'Rolex มือสองในไทย 2025 — Submariner, Datejust, GMT | ChicPreowned',
+      ? `Pre-Owned Rolex in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Rolex มือสองในไทย ${PRICE_YEAR} — Submariner, Datejust, GMT | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Rolex prices in Thailand (THB). Submariner, GMT-Master II, Datejust, Daytona — sports models often above retail. Updated weekly.'
       : 'ราคา Rolex มือสองในไทย (บาท) Submariner, GMT-Master II, Datejust, Daytona — รุ่น sports มักราคาเกินของใหม่',
@@ -95,7 +96,7 @@ export default async function RolexBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Rolex in Thailand 2025' : 'Rolex มือสองในไทย 2025'}
+        {isEn ? 'Pre-Owned Rolex in Thailand {PRICE_YEAR}' : 'Rolex มือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? `${items.length} references · sports models often above retail` : `${items.length} รุ่น · รุ่น sports มักราคาเกินของใหม่`}

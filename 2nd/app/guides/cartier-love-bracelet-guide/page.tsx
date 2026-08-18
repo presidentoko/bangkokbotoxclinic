@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Cartier Love Bracelet Buying Guide 2025 | SecondLuxuryItems',
-  description: 'Complete Cartier Love Bracelet buying guide — sizes, metals, pre-owned prices, authentication. How much to pay for a pre-owned Cartier Love in 2025.',
+  title: `Cartier Love Bracelet Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Complete Cartier Love Bracelet buying guide — sizes, metals, pre-owned prices, authentication. How much to pay for a pre-owned Cartier Love in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/cartier-love-bracelet-guide` },
 }
 
@@ -28,7 +29,7 @@ export default function CartierLovePage() {
         <span>Cartier Love Bracelet Guide</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Cartier Love Bracelet Buying Guide 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Cartier Love Bracelet Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The Cartier Love Bracelet is the most recognized luxury jewelry piece in Southeast Asia. Understanding sizes, metals, and condition grades before buying pre-owned saves thousands. Yellow gold remains the strongest investment; ceramic is the daily-wear pick.</p>
 
       <div className="space-y-4 mb-10">

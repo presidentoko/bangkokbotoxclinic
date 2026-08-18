@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Hermès vs Louis Vuitton: Pre-Owned Comparison 2025 | SecondLuxuryItems',
-  description: 'Hermès vs Louis Vuitton pre-owned bags compared. Birkin vs Neverfull — price, value retention, investment potential and which to buy in 2025.',
+  title: `Hermès vs Louis Vuitton: Pre-Owned Comparison ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Hermès vs Louis Vuitton pre-owned bags compared. Birkin vs Neverfull — price, value retention, investment potential and which to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/hermes-vs-louis-vuitton` },
 }
 
@@ -35,7 +36,7 @@ export default function HermesVsLVPage() {
         <span className="text-gray-800">Hermès vs Louis Vuitton</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Hermès vs Louis Vuitton: Pre-Owned Comparison 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Hermès vs Louis Vuitton: Pre-Owned Comparison {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">The oldest luxury house vs the biggest — a comparison of two entirely different markets.</p>
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-8 text-sm text-amber-900">

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllItems, getAvgPrice, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Best First Luxury Bag to Buy Pre-Owned in 2025 | SecondLuxuryItems',
+  title: `Best First Luxury Bag to Buy Pre-Owned in ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'The definitive guide to buying your first designer bag second-hand. Resale value, price data, and which bags hold their value best.',
   alternates: { canonical: 'https://www.secondluxuryitems.com/guides/first-luxury-bag' },
 }
@@ -58,9 +59,9 @@ export default function FirstLuxuryBagPage() {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">Buyer&apos;s Guide</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] leading-tight mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
-        Your First Pre-Owned Luxury Bag: The Complete Guide (2025)
+        Your First Pre-Owned Luxury Bag: The Complete Guide ({PRICE_YEAR})
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated June 2025 · 8 min read</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 8 min read</p>
 
       <section className="mb-10">
         <h2 className="font-serif text-2xl text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>Why Pre-Owned?</h2>

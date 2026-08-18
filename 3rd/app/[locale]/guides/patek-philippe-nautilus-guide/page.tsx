@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Patek Philippe Nautilus Buying Guide Thailand 2025 | ChicPreowned'
-      : 'คู่มือซื้อ Patek Philippe Nautilus ในไทย 2025 | ChicPreowned',
+      ? `Patek Philippe Nautilus Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `คู่มือซื้อ Patek Philippe Nautilus ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Nautilus buying guide for Thai buyers — 5711, 5712, 5726. THB prices, market trends, authentication. Pre-owned Patek in Thailand 2025.'
-      : 'คู่มือซื้อ Nautilus สำหรับผู้ซื้อชาวไทย — 5711 5712 5726 ราคาบาท แนวโน้มตลาด การตรวจสอบ Patek มือสองในไทย 2025',
+      ? `Nautilus buying guide for Thai buyers — 5711, 5712, 5726. THB prices, market trends, authentication. Pre-owned Patek in Thailand ${PRICE_YEAR}.`
+      : `คู่มือซื้อ Nautilus สำหรับผู้ซื้อชาวไทย — 5711 5712 5726 ราคาบาท แนวโน้มตลาด การตรวจสอบ Patek มือสองในไทย ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -50,7 +51,7 @@ export default async function NautilusTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Patek Philippe Nautilus Buying Guide 2025' : 'คู่มือซื้อ Patek Philippe Nautilus 2025'}
+        {isEn ? 'Patek Philippe Nautilus Buying Guide {PRICE_YEAR}' : 'คู่มือซื้อ Patek Philippe Nautilus {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

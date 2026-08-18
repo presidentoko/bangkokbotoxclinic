@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'Best Pre-Owned Luxury Bags Under ฿108,000 in Thailand 2025 | ChicPreowned'
-      : 'กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 ในไทย 2025 | ChicPreowned',
+      ? `Best Pre-Owned Luxury Bags Under ฿108,000 in Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 ในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Best pre-owned luxury bags under $3,000 / ฿108,000 for Thai buyers 2025 — Louis Vuitton, Prada, Celine, Gucci, Bottega picks with THB prices and Bangkok market context.'
-      : 'กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 สำหรับผู้ซื้อชาวไทย 2025 ราคาบาทและบริบทตลาดกรุงเทพ',
+      ? `Best pre-owned luxury bags under $3,000 / ฿108,000 for Thai buyers ${PRICE_YEAR} — Louis Vuitton, Prada, Celine, Gucci, Bottega picks with THB prices and Bangkok market context.`
+      : `กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 สำหรับผู้ซื้อชาวไทย ${PRICE_YEAR} ราคาบาทและบริบทตลาดกรุงเทพ`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }
@@ -56,7 +57,7 @@ export default async function BestBagsUnder3000TH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Best Pre-Owned Luxury Bags Under $3,000 (฿108,000) in 2025' : 'กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 ในปี 2025'}
+        {isEn ? 'Best Pre-Owned Luxury Bags Under $3,000 (฿108,000) in {PRICE_YEAR}' : 'กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 ในปี {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

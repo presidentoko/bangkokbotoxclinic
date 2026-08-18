@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPrice } from '@/lib/data'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Van Cleef & Arpels Pre-Owned: Alhambra, Perlee 2025 | SecondLuxuryItems',
-  description: 'Buy pre-owned Van Cleef & Arpels — Alhambra, Perlee, Vintage Alhambra. USD prices, value retention, best VCA pieces to buy used in 2025.',
+  title: `Van Cleef & Arpels Pre-Owned: Alhambra, Perlee ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Buy pre-owned Van Cleef & Arpels — Alhambra, Perlee, Vintage Alhambra. USD prices, value retention, best VCA pieces to buy used in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/brands/van-cleef` },
 }
 

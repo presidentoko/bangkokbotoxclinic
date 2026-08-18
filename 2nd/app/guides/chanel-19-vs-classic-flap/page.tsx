@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel 19 vs Classic Flap 2025: Which Pre-Owned Bag to Buy? | SecondLuxuryItems',
-  description: 'Chanel 19 vs Classic Flap — resale retention, which holds value better, pre-owned price comparison, and which Chanel is the better investment in 2025.',
+  title: `Chanel 19 vs Classic Flap ${PRICE_YEAR}: Which Pre-Owned Bag to Buy? | SecondLuxuryItems`,
+  description: `Chanel 19 vs Classic Flap — resale retention, which holds value better, pre-owned price comparison, and which Chanel is the better investment in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/guides/chanel-19-vs-classic-flap` },
 }
 
@@ -33,7 +34,7 @@ export default function Chanel19VsClassicFlap() {
         <span>Chanel 19 vs Classic Flap</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel 19 vs Classic Flap (2025): Which to Buy Pre-Owned?</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Chanel 19 vs Classic Flap ({PRICE_YEAR}): Which to Buy Pre-Owned?</h1>
       <p className="text-gray-500 mb-10">The Chanel 19 and Classic Flap are both extraordinary investments — but they serve different buyers and have very different market dynamics. The Classic Flap is the more established investment; the Chanel 19 is a newer piece with exceptional early-stage retention. Here's the complete comparison.</p>
 
       <div className="overflow-x-auto mb-10">

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Chanel Classic Flap vs Boy Bag: Which to Buy Pre-Owned 2025 | SecondLuxuryItems',
-  description: 'Chanel Classic Flap vs Boy Bag — value retention, resale, practical differences. Which Chanel holds value better pre-owned? Complete 2025 comparison.',
+  title: `Chanel Classic Flap vs Boy Bag: Which to Buy Pre-Owned ${PRICE_YEAR} | SecondLuxuryItems`,
+  description: `Chanel Classic Flap vs Boy Bag — value retention, resale, practical differences. Which Chanel holds value better pre-owned? Complete ${PRICE_YEAR} comparison.`,
   alternates: { canonical: `${BASE}/guides/chanel-classic-vs-boy` },
 }
 

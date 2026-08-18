@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -11,11 +12,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? 'How to Buy Pre-Owned Luxury Online Thailand 2025 | ChicPreowned'
-      : 'วิธีซื้อของหรูมือสองออนไลน์อย่างปลอดภัยในไทย 2025 | ChicPreowned',
+      ? `How to Buy Pre-Owned Luxury Online Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `วิธีซื้อของหรูมือสองออนไลน์อย่างปลอดภัยในไทย ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
-      ? 'Complete guide to buying pre-owned luxury bags and watches online safely in Thailand — authentication, payment, condition grades, red flags 2025.'
-      : 'คู่มือซื้อกระเป๋าและนาฬิกาหรูมือสองออนไลน์อย่างปลอดภัยในไทย — การตรวจสอบ การชำระเงิน เกรดสภาพ สัญญาณเตือน 2025',
+      ? `Complete guide to buying pre-owned luxury bags and watches online safely in Thailand — authentication, payment, condition grades, red flags ${PRICE_YEAR}.`
+      : `คู่มือซื้อกระเป๋าและนาฬิกาหรูมือสองออนไลน์อย่างปลอดภัยในไทย — การตรวจสอบ การชำระเงิน เกรดสภาพ สัญญาณเตือน ${PRICE_YEAR}`,
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
 }

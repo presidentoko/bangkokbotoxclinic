@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? 'Chanel Price History 2019–2025 Thailand | ChicPreowned' : 'ประวัติราคา Chanel 2019–2568 ในไทย | ChicPreowned',
     description: isEn
-      ? 'Chanel Classic Flap price hike history 2019–2025 in Thailand. From ฿195,000 to ฿350,000 — and why pre-owned is now the smarter buy.'
+      ? `Chanel Classic Flap price hike history 2019–${PRICE_YEAR} in Thailand. From ฿195,000 to ฿350,000 — and why pre-owned is now the smarter buy.`
       : 'ประวัติการขึ้นราคา Chanel Classic Flap 2562–2568 ในไทย จาก 195,000 บาท เป็น 350,000 บาท — และทำไมมือสองถึงเป็นทางเลือกที่ฉลาดกว่า',
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
@@ -51,7 +52,7 @@ export default async function ChanelPriceHistoryTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel Price History 2019–2025 in Thailand' : 'ประวัติราคา Chanel ในไทย 2562–2568'}
+        {isEn ? 'Chanel Price History 2019–{PRICE_YEAR} in Thailand' : 'ประวัติราคา Chanel ในไทย 2562–2568'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Pre-Owned Luxury Condition Guide: Excellent vs Very Good vs Good | SecondLuxuryItems',
@@ -100,7 +101,7 @@ export default function LuxuryConditionGuidePage() {
       >
         Pre-Owned Luxury Condition Guide: What the Grades Actually Mean
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">Updated 2025 · 5 min read</p>
+      <p className="text-[#8C7355] text-sm mb-10">Updated {PRICE_YEAR} · 5 min read</p>
 
       <section className="mb-10">
         <p className="text-[#6B6052] leading-relaxed">

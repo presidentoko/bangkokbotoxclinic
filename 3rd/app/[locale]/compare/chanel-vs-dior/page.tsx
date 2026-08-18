@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? 'Chanel vs Dior: Pre-Owned Bags in Thailand 2025 | ChicPreowned' : 'Chanel vs Dior: กระเป๋ามือสองในไทย 2025 | ChicPreowned',
     description: isEn
-      ? 'Chanel vs Dior pre-owned in Thailand — Classic Flap vs Lady Dior. Price in THB, value retention, which to buy in 2025.'
+      ? `Chanel vs Dior pre-owned in Thailand — Classic Flap vs Lady Dior. Price in THB, value retention, which to buy in ${PRICE_YEAR}.`
       : 'Chanel vs Dior มือสองในไทย — Classic Flap vs Lady Dior ราคาเป็นบาท การรักษามูลค่า และอะไรน่าซื้อในปี 2568',
     alternates: { canonical: `${BASE}/${locale}/${SLUG}`, languages: { en: `${BASE}/en/${SLUG}`, th: `${BASE}/th/${SLUG}`, 'x-default': `${BASE}/en/${SLUG}` } },
   }
@@ -49,7 +50,7 @@ export default async function ChanelVsDiorPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel vs Dior: Pre-Owned Bags in Thailand 2025' : 'Chanel vs Dior: กระเป๋ามือสองในไทย 2025'}
+        {isEn ? 'Chanel vs Dior: Pre-Owned Bags in Thailand {PRICE_YEAR}' : 'Chanel vs Dior: กระเป๋ามือสองในไทย {PRICE_YEAR}'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Two pillars of French fashion — Chanel\'s investment-grade pricing vs Dior\'s accessible luxury.'

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { PRICE_YEAR } from '@/lib/site'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: 'Dior vs Gucci Pre-Owned 2025: Lady Dior vs Marmont | SecondLuxuryItems',
-  description: 'Dior vs Gucci pre-owned comparison — Lady Dior vs Dionysus and Marmont, resale value, authentication, investment case. Which French-Italian house to buy in 2025.',
+  title: `Dior vs Gucci Pre-Owned ${PRICE_YEAR}: Lady Dior vs Marmont | SecondLuxuryItems`,
+  description: `Dior vs Gucci pre-owned comparison — Lady Dior vs Dionysus and Marmont, resale value, authentication, investment case. Which French-Italian house to buy in ${PRICE_YEAR}.`,
   alternates: { canonical: `${BASE}/compare/dior-vs-gucci` },
 }
 
@@ -31,7 +32,7 @@ export default function DiorVsGucci() {
         <span>Dior vs Gucci</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Gucci Pre-Owned 2025</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Dior vs Gucci Pre-Owned {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-10">Dior is Parisian couture — the Lady Dior is the best-known French bag after Chanel. Gucci is Florentine heritage and creative maximalism — from the Bamboo bag to the Marmont and beyond. Both houses are investment-grade in their icons, but Dior edges Gucci on consistent resale. The entry price gap is significant: Gucci goes much lower.</p>
 
       <div className="overflow-x-auto mb-10">
