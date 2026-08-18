@@ -86,6 +86,58 @@ SITES = {
             "https://www.thailandgolfguide.com/ko",
         ],
     },
+    # secondluxuryitems.com — GSC 기준 색인 1페이지 / 인지 URL 19개뿐인데
+    # 사이트맵에는 468개가 있다. 구글이 아직 안 온 상태라 최소한 Bing/Yandex
+    # 쪽이라도 허브부터 밀어넣는다. 전체 사이트맵 투척은 스팸 취급이라 안 함.
+    "luxury2nd": {
+        "host": "www.secondluxuryitems.com",
+        "key": "cfa6e36624ce9ec9194f4829dbf961a3",
+        "key_location": "https://www.secondluxuryitems.com/cfa6e36624ce9ec9194f4829dbf961a3.txt",
+        "urls": [
+            "https://www.secondluxuryitems.com/",
+            "https://www.secondluxuryitems.com/sitemap.xml",
+            "https://www.secondluxuryitems.com/handbags",
+            "https://www.secondluxuryitems.com/watches",
+            "https://www.secondluxuryitems.com/brands",
+            "https://www.secondluxuryitems.com/guides",
+            "https://www.secondluxuryitems.com/compare",
+            "https://www.secondluxuryitems.com/value-guide",
+            "https://www.secondluxuryitems.com/market-overview",
+            # 브랜드 허브 — 여기서 모델 페이지 전부로 뻗어나간다
+            "https://www.secondluxuryitems.com/chanel",
+            "https://www.secondluxuryitems.com/rolex",
+            "https://www.secondluxuryitems.com/louis-vuitton",
+            "https://www.secondluxuryitems.com/hermes",
+            "https://www.secondluxuryitems.com/dior",
+            "https://www.secondluxuryitems.com/gucci",
+        ],
+    },
+    # chicpreowned.com — 노출은 나오는데 순위가 25위권이라 페이지2~3에 갇혀 있다.
+    # GSC 상위 쿼리(patek philippe / omega 태국 가격)가 실제로 착지하는 페이지를
+    # 양 로케일로 밀어준다. apex -> www 리다이렉트가 붙은 직후라 재크롤도 필요.
+    "chicpreowned": {
+        "host": "www.chicpreowned.com",
+        "key": "88a93f35a6ee072c944cf2327d46acb7",
+        "key_location": "https://www.chicpreowned.com/88a93f35a6ee072c944cf2327d46acb7.txt",
+        "urls": [
+            "https://www.chicpreowned.com/en",
+            "https://www.chicpreowned.com/th",
+            "https://www.chicpreowned.com/sitemap.xml",
+            "https://www.chicpreowned.com/en/brands",
+            "https://www.chicpreowned.com/th/brands",
+            "https://www.chicpreowned.com/en/watches",
+            "https://www.chicpreowned.com/th/watches",
+            "https://www.chicpreowned.com/en/handbags",
+            "https://www.chicpreowned.com/th/handbags",
+            # 노출 1~3위 쿼리 착지 페이지
+            "https://www.chicpreowned.com/en/patek-philippe",
+            "https://www.chicpreowned.com/th/patek-philippe",
+            "https://www.chicpreowned.com/en/brands/patek-philippe",
+            "https://www.chicpreowned.com/en/omega",
+            "https://www.chicpreowned.com/th/omega",
+            "https://www.chicpreowned.com/en/brands/omega",
+        ],
+    },
 }
 
 
