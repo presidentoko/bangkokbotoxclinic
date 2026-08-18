@@ -36,6 +36,12 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   turbopack: { root: __dirname },
   staticPageGenerationTimeout: 120,
+  compress: true,
+  generateEtags: true,
+  productionBrowserSourceMaps: false,
+  experimental: {
+    optimizePackageImports: ["react", "react-dom"],
+  },
   async redirects() {
     return [
       // 308, not 307. The site has no locale detection and never will resolve

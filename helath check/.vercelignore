@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.next/
+.turbo/
+
+# Environment
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+*.cache
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build
+dist/
+build/
+
+# Data files (not needed for deployment)
+*.csv
+*.json.gz
+hdmall_cache/
+merge_handoff/
+
+# Archives
+*.tar.gz
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
