@@ -61,7 +61,6 @@ export interface PetFoodLight {
   yellow_count: number
   red_count: number
   black_count: number
-  updated_at: string
   slug: string
   has_ingredients: boolean
 }
@@ -89,8 +88,6 @@ export interface Hospital {
   /** Thai khet parsed out of the Places API address. Present on 342 of 496. */
   district?: string
   website?: string
-  /** Real `ChIJ…` place id, computed from the ftid stored in google_place_id. */
-  google_place_id_new?: string
 }
 
 export interface FoodFilters {
