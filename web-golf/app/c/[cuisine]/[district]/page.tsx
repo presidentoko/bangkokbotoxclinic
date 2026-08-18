@@ -5,6 +5,7 @@ import { CATEGORY_LABELS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { indexableCategoryDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 const VALID_CUISINES = new Set(Object.keys(CATEGORY_LABELS));
@@ -14,19 +15,21 @@ function districtFromSlug(slug: string, all: string[]): string | null {
   return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;
 }
 
+// 이전엔 category × district 전량(304개)을 pre-build 했는데 그중 203개가 코스 1개짜리였고,
+// 구글은 그걸 전부 "Crawled - currently not indexed"로 버렸다. 이제 lib/crawlGate 의
+// 임계치를 넘는 조합만 발행한다 — sitemap 과 /c/[cuisine] 의 지역 링크도 같은 함수를 쓴다.
 export async function generateStaticParams() {
   const db = await (await import("@/lib/data")).loadMasterDb();
-  const districts = Array.from(new Set(
-    Object.keys(db.district_counts).map((k) => k.split("/")[1])
-  ));
-  const params: { cuisine: string; district: string }[] = [];
-  for (const cuisine of VALID_CUISINES) {
-    for (const d of districts) {
-      params.push({ cuisine, district: d.toLowerCase().replace(/\s+/g, "-") });
-    }
-  }
-  return params;
+  return indexableCategoryDistricts(
+    db.restaurants,
+    Array.from(VALID_CUISINES),
+    allDistricts(db.district_counts),
+  ).map((c) => ({ cuisine: c.category, district: c.slug }));
 }
+
+// 위에서 발행 대상을 전부 열거하므로 나머지는 봇/스캐너이거나 게이트에 걸린 얇은 조합이다.
+// false = 즉시 404, on-demand 렌더도 ISR write 도 없음.
+export const dynamicParams = false;
 
 export async function generateMetadata(
   { params }: { params: Promise<{ cuisine: string; district: string }> }

@@ -12,6 +12,9 @@ export async function generateStaticParams() {
   return GUIDES_TH.map((g) => ({ slug: g.slug }));
 }
 
+// 고정 목록 — 그 외는 봇/스캐너 probe. false = 즉시 404, ISR write 없음.
+export const dynamicParams = false;
+
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {

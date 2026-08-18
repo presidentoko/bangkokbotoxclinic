@@ -8,6 +8,10 @@ import type { Metadata } from "next";
 
 export const revalidate = 604800; // 7 days
 
+// district_counts 의 모든 지역을 아래 generateStaticParams 가 열거한다 — sitemap 도 같은 소스.
+// false = 봇/스캐너 probe(/d/wp-admin 류)가 즉시 404, on-demand 렌더도 ISR write 도 없음.
+export const dynamicParams = false;
+
 function districtFromSlug(slug: string, all: string[]): string | null {
   const target = slug.toLowerCase();
   return all.find((d) => d.toLowerCase().replace(/\s+/g, "-") === target) ?? null;

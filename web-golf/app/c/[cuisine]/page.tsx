@@ -7,6 +7,7 @@ import { CUISINE_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { sortWithSponsored } from "@/lib/sponsored";
+import { indexableCategoryDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -14,6 +15,9 @@ const VALID = new Set(Object.keys(CATEGORY_LABELS));
 export async function generateStaticParams() {
   return Array.from(VALID).map((cuisine) => ({ cuisine }));
 }
+
+// CATEGORY_LABELS 는 고정 enum — 위에서 전부 열거된다. 나머지는 봇/스캐너 probe.
+export const dynamicParams = false;
 
 export async function generateMetadata(
   { params }: { params: Promise<{ cuisine: string }> }
@@ -50,14 +54,15 @@ export default async function CategoryPage(
   for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
   const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
 
-  // District breakdown (Bangkok 위주)
-  const byDistrict = new Map<string, number>();
-  for (const r of filtered) {
-    if (!r.district) continue;
-    byDistrict.set(r.district, (byDistrict.get(r.district) ?? 0) + 1);
-  }
-  const districts = Array.from(byDistrict.entries())
-    .filter(([, n]) => n >= 2)
+  // District breakdown (Bangkok 위주).
+  // 게이트를 통과해 실제로 발행되는 조합만 링크한다 — 여기서 자체 임계치(예전엔 n >= 2)를
+  // 쓰면 sitemap/generateStaticParams 와 어긋나 링크가 404를 가리키게 된다.
+  const districts = indexableCategoryDistricts(
+    db.restaurants,
+    [cuisine],
+    allDistricts(db.district_counts),
+  )
+    .map((c) => [c.district, c.count] as const)
     .sort((a, b) => b[1] - a[1]);
 
   const totalReviews = filtered.reduce((s, r) => s + r.total_reviews, 0);

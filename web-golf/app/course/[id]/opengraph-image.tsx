@@ -14,6 +14,10 @@ export async function generateStaticParams() {
   return db.restaurants.map((r) => ({ id: r.id }));
 }
 
+// 전 코스를 위에서 열거한다. false 로 잠가야 봇이 임의 id 를 찔렀을 때
+// Satori 렌더(비싼 연산)가 on-demand 로 돌지 않는다.
+export const dynamicParams = false;
+
 export default async function CourseOG({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const db = await loadMasterDb();
