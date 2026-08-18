@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllBrands, getItemsByBrand } from '@/lib/data'
-import { hasBrandGuide } from '@/lib/brand-guides'
+import { hasBrandGuide, BRAND_GUIDES } from '@/lib/brand-guides'
 
 const BASE = 'https://www.secondluxuryitems.com'
 
@@ -110,6 +110,31 @@ export default function BrandsPage() {
       </div>
       <RankList items={handbags} label="Handbags" />
       <RankList items={watches} label="Watches" />
+      {/* The ranked lists only cover handbags and watches, so jewellery brands'
+          buying guides would still have no link from this hub. Catch the rest. */}
+      {(() => {
+        const ranked = new Set([...handbags, ...watches].map(b => b.slug))
+        const rest = BRAND_GUIDES.filter(g => !ranked.has(g.slug))
+        if (!rest.length) return null
+        return (
+          <section className="mb-14">
+            <h2 className="font-serif text-2xl text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
+              More Buying Guides
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {rest.map(b => (
+                <Link
+                  key={b.slug}
+                  href={`/brands/${b.slug}`}
+                  className="text-sm bg-white border border-[#E8E2D9] px-4 py-2 text-[#6B6052] hover:border-[#B8954A] hover:text-[#B8954A] transition-colors"
+                >
+                  {b.name} buying guide →
+                </Link>
+              ))}
+            </div>
+          </section>
+        )
+      })()}
       <div className="mt-4 p-4 bg-[#F5F0E8] border border-[#E8E2D9] text-xs text-[#6B6052] leading-relaxed">
         Value retention calculated as: average resale price (Very Good condition) ÷ retail price × 100.
         Updated weekly from real market listings.
