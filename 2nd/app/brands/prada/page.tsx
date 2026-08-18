@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Prada Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Prada Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Prada prices for Galleria, Re-Edition 2000, Cleo and more. Compare second-hand Prada prices by condition, updated weekly.',
   alternates: { canonical: `${BASE}/brands/prada` },
 }
@@ -36,7 +36,7 @@ export default function PradaBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `Pre-Owned Prada Price Guide ${PRICE_YEAR}`,
+    name: `Pre-Owned Prada Buying Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/prada`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -69,7 +69,7 @@ export default function PradaBrandPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Pre-Owned Prada: Price Guide {PRICE_YEAR}
+        Pre-Owned Prada: Buying Guide {PRICE_YEAR}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · {items.length} models tracked</p>
 

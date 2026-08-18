@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Bottega Veneta Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Bottega Veneta Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Bottega Veneta prices for the Jodie, Cassette, Arco and more. Compare second-hand BV prices by condition, updated weekly.',
   alternates: { canonical: `${BASE}/brands/bottega-veneta` },
 }
@@ -36,7 +36,7 @@ export default function BottegaVenetaBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `Pre-Owned Bottega Veneta Price Guide ${PRICE_YEAR}`,
+    name: `Pre-Owned Bottega Veneta Buying Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/bottega-veneta`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -69,7 +69,7 @@ export default function BottegaVenetaBrandPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Pre-Owned Bottega Veneta: Price Guide {PRICE_YEAR}
+        Pre-Owned Bottega Veneta: Buying Guide {PRICE_YEAR}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · {items.length} models tracked</p>
 

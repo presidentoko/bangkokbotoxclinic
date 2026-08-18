@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Louis Vuitton Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Louis Vuitton Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Current pre-owned Louis Vuitton prices for Neverfull, Speedy, Alma and more. LV holds 60-80% of retail. Compare second-hand LV prices by condition.',
   alternates: { canonical: `${BASE}/brands/louis-vuitton` },
 }
@@ -37,7 +37,7 @@ export default function LouisVuittonBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `Pre-Owned Louis Vuitton Price Guide ${PRICE_YEAR}`,
+    name: `Pre-Owned Louis Vuitton Buying Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/louis-vuitton`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -70,7 +70,7 @@ export default function LouisVuittonBrandPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Pre-Owned Louis Vuitton: Price Guide {PRICE_YEAR}
+        Pre-Owned Louis Vuitton: Buying Guide {PRICE_YEAR}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · {items.length} models tracked</p>
 

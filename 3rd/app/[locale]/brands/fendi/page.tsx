@@ -66,7 +66,7 @@ export default async function FendiBrandPage({ params }: Props) {
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {isEn ? 'Fendi Pre-Owned Prices in Thailand' : 'ราคา Fendi มือสองในไทย'}
+          {isEn ? 'Fendi Pre-Owned Buying Guide Thailand' : 'ราคา Fendi มือสองในไทย'}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">

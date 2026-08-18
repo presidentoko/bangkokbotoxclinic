@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Louis Vuitton in Thailand ${PRICE_YEAR} | ChicPreowned`
+      ? `Pre-Owned Louis Vuitton Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
       : `Louis Vuitton มือสองในไทย — ราคาและรุ่นที่คุ้มค่าในปี ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Louis Vuitton prices in Thailand (THB). Neverfull, Speedy, Alma and more — compare second-hand values by condition.'

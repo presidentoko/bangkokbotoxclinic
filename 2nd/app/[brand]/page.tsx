@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getItemsByBrand, getAllBrands, toGridItems } from '@/lib/data'
+import { hasBrandGuide } from '@/lib/brand-guides'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.secondluxuryitems.com'
@@ -232,6 +233,17 @@ export default async function BrandPage({ params }: Props) {
           </div>
         )
       })()}
+      {hasBrandGuide(brand) && (
+        <Link
+          href={`/brands/${brand}`}
+          className="block mb-6 p-4 border border-[#E8E2D9] bg-white hover:border-[#B8954A] transition-colors"
+        >
+          <p className="text-xs tracking-[0.15em] uppercase text-[#B8954A] mb-1">Buying guide</p>
+          <p className="text-sm text-[#4A3F35]">
+            How to authenticate {brandName}, which era holds value, and what to check before you buy →
+          </p>
+        </Link>
+      )}
       <SortableItemGrid items={toGridItems(items)} />
     </>
   )

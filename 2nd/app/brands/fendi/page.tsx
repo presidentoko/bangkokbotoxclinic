@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Fendi Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Fendi Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Fendi Baguette, Peekaboo, First and more. Save 35–55% vs retail. Fendi price guide updated weekly with real market data.',
   alternates: { canonical: `${BASE}/brands/fendi` },
 }
@@ -24,7 +24,7 @@ export default function FendiBrandPage() {
         <span className="text-gray-800">Fendi</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Fendi Price Guide {PRICE_YEAR}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Fendi Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">{items.length} models tracked · save 35–55% vs retail · Est. Rome 1925</p>
 
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8 text-sm text-gray-700">

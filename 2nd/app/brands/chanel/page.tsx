@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Chanel Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Chanel Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Current pre-owned Chanel prices for Classic Flap, Boy Bag, 2.55, Coco Handle and more. Chanel raises prices 2–3× per year — pre-owned often beats retail. Updated weekly.',
   alternates: { canonical: `${BASE}/brands/chanel` },
 }
@@ -37,7 +37,7 @@ export default function ChanelBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `Pre-Owned Chanel Price Guide ${PRICE_YEAR}`,
+    name: `Pre-Owned Chanel Buying Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/chanel`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -71,7 +71,7 @@ export default function ChanelBrandPage() {
         <span className="text-gray-800">Chanel</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Chanel Price Guide {PRICE_YEAR}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Chanel Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">
         {pricedItems.length} models tracked · prices updated weekly from Vestiaire Collective &amp; global resale markets
       </p>

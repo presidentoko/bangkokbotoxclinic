@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Saint Laurent in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Saint Laurent มือสองในไทย ${PRICE_YEAR} — Loulou, Kate, Sunset | ChicPreowned`,
+      ? `Pre-Owned Saint Laurent Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Saint Laurent มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ — Loulou, Kate, Sunset | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Saint Laurent (YSL) prices in Thailand (THB). Loulou, Kate Tassel, Sunset, Jamie — save 35–50% vs retail. Compare by condition.'
       : 'ราคา Saint Laurent (YSL) มือสองในไทย (บาท) Loulou, Kate Tassel, Sunset, Jamie — ประหยัดได้ 35–50%',

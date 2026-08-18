@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Prada in Thailand ${PRICE_YEAR} | ChicPreowned`
+      ? `Pre-Owned Prada Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
       : `Prada มือสองในไทย: ราคาและแหล่งซื้อ ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Prada prices in Thailand (THB). Galleria, Re-Edition 2000, Cleo — compare second-hand Prada prices by condition.'

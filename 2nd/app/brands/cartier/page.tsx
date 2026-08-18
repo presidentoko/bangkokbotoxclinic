@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Cartier Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Cartier Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Cartier prices for Love Bracelet, Juste un Clou, Trinity, Panthère watch, Tank and more. Strong resale market for Cartier fine jewelry and watches. Updated weekly.',
   alternates: { canonical: `${BASE}/brands/cartier` },
 }
@@ -45,7 +45,7 @@ export default function CartierBrandPage() {
         __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: `Pre-Owned Cartier Price Guide ${PRICE_YEAR}`,
+          name: `Pre-Owned Cartier Buying Guide ${PRICE_YEAR}`,
           url: `${BASE}/brands/cartier`,
           numberOfItems: items.length,
           itemListElement: items.map((item, idx) => ({
@@ -64,7 +64,7 @@ export default function CartierBrandPage() {
         <span className="text-gray-800">Cartier</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Cartier Price Guide {PRICE_YEAR}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Cartier Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">{items.length} models · jewelry, watches & accessories</p>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-8 text-sm text-blue-900">

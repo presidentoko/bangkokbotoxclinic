@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Hermès in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Hermès มือสองในไทย ${PRICE_YEAR} — ราคา Birkin Kelly และอื่นๆ | ChicPreowned`,
+      ? `Pre-Owned Hermès Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Hermès มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ — ราคา Birkin Kelly และอื่นๆ | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Hermès prices in Thailand (THB). Birkin, Kelly, Constance — many trade above retail. Compare by condition on the Thai secondary market.'
       : 'ราคา Hermès มือสองในไทย (บาท) Birkin, Kelly, Constance — หลายรุ่นราคาเกินของใหม่ เปรียบเทียบตามสภาพ',

@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Gucci Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Gucci Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Current pre-owned Gucci prices for GG Marmont, Dionysus, Horsebit 1955 and more. Compare second-hand Gucci prices by condition, updated weekly.',
   alternates: { canonical: `${BASE}/brands/gucci` },
 }
@@ -37,7 +37,7 @@ export default function GucciBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `Pre-Owned Gucci Price Guide ${PRICE_YEAR}`,
+    name: `Pre-Owned Gucci Buying Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/gucci`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -70,7 +70,7 @@ export default function GucciBrandPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Pre-Owned Gucci: Price Guide {PRICE_YEAR}
+        Pre-Owned Gucci: Buying Guide {PRICE_YEAR}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · {items.length} models tracked</p>
 

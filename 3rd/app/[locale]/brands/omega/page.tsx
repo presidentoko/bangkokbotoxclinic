@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Omega Prices in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `ราคา Omega มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
+      ? `Pre-Owned Omega Prices Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `ราคา Omega มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Omega Speedmaster, Seamaster and Constellation prices in Thailand. Save 25–35% vs retail. Updated weekly.'
       : 'ราคา Omega Speedmaster, Seamaster, Constellation มือสองในไทย ประหยัด 25–35% จากราคาปลีก อัปเดตรายสัปดาห์',

@@ -66,7 +66,7 @@ export default async function APBrandPage({ params }: Props) {
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {isEn ? 'AP Pre-Owned Prices in Thailand' : 'ราคา AP มือสองในไทย'}
+          {isEn ? 'AP Pre-Owned Buying Guide Thailand' : 'ราคา AP มือสองในไทย'}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">

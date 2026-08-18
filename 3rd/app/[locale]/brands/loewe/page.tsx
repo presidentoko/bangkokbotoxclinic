@@ -66,7 +66,7 @@ export default async function LoeweBrandPage({ params }: Props) {
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {isEn ? 'Loewe Pre-Owned Prices in Thailand' : 'ราคา Loewe มือสองในไทย'}
+          {isEn ? 'Loewe Pre-Owned Buying Guide Thailand' : 'ราคา Loewe มือสองในไทย'}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">

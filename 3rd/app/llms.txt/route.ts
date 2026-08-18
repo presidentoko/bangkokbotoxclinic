@@ -1,10 +1,14 @@
-import { getAllItems, formatPriceTHB, getAvgPrice } from '@/lib/data'
+import { getAllItems, getAllBrands, formatPriceTHB, getAvgPrice } from '@/lib/data'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-static'
 
 export function GET() {
   const items = getAllItems()
+  const brands = getAllBrands()
+  // Answer engines lead with recency when they cite a price, so state the real
+  // data date rather than a vague "weekly".
+  const dataDate = items.map(i => i.last_updated).filter(Boolean).sort().pop() ?? ''
   const lines = [
     '# chicpreowned.com',
     '# Second-hand luxury goods price guide for Thailand market — prices in Thai Baht (THB)',
@@ -13,6 +17,8 @@ export function GET() {
     'chicpreowned.com is a free, independent price guide for pre-owned luxury goods in Thailand.',
     'Available in English (/en/) and Thai (/th/). Prices tracked weekly from Vestiaire Collective',
     'and Thai resale platforms. No affiliate bias. Prices shown by condition grade.',
+    `Coverage: ${items.length} models across ${brands.length} brands. Prices last updated ${dataDate}.`,
+    'Currency: THB. Prices are market estimates from observed listings, not offers for sale.',
     '',
     '## Features',
     '- Price ranges in THB by condition: Excellent, Very Good, Good',
@@ -35,7 +41,14 @@ export function GET() {
     '- https://www.chicpreowned.com/th/brands — same in Thai',
     '- https://www.chicpreowned.com/en/handbags — all handbag prices in English',
     '- https://www.chicpreowned.com/th/handbags — all handbag prices in Thai',
+    '- https://www.chicpreowned.com/en/watches — watch prices in Thailand',
+    '- https://www.chicpreowned.com/en/value-guide — how resale value is calculated',
+    '- https://www.chicpreowned.com/en/market-overview — Thai market price movement',
+    '- https://www.chicpreowned.com/en/guides — authentication and buying guides',
+    '- https://www.chicpreowned.com/en/compare — head-to-head brand comparisons',
+    ...brands.map(b => `- https://www.chicpreowned.com/en/${b.slug} — ${b.brand} prices in Thailand (${b.count} models)`),
     ...items.map(item => `- https://www.chicpreowned.com/en/${item.slug}`),
+    ...items.map(item => `- https://www.chicpreowned.com/th/${item.slug}`),
   ]
   return new NextResponse(lines.join('\n'), {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

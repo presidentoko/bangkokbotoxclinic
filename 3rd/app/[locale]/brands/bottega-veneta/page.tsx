@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Bottega Veneta in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Bottega Veneta มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
+      ? `Pre-Owned Bottega Veneta Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Bottega Veneta มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Bottega Veneta prices in Thailand (THB). Jodie, Cassette, Arco Tote — compare second-hand BV prices by condition.'
       : 'ราคา Bottega Veneta มือสองในไทย (บาท) Jodie, Cassette, Arco Tote เปรียบเทียบราคาตามสภาพ',

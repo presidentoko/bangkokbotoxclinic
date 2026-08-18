@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getItemsByBrand, getAllBrands, toGridItems } from '@/lib/data'
+import { hasBrandGuide } from '@/lib/brand-guides'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.chicpreowned.com'
@@ -265,6 +266,21 @@ export default async function BrandPage({ params }: Props) {
           </div>
         )
       })()}
+      {hasBrandGuide(brand) && (
+        <Link
+          href={`/${locale}/brands/${brand}`}
+          className="block mb-6 p-4 border border-[#E8E2D9] bg-white hover:border-[#B8954A] transition-colors"
+        >
+          <p className="text-xs tracking-[0.15em] uppercase text-[#B8954A] mb-1">
+            {locale === 'th' ? 'คู่มือซื้อ' : 'Buying guide'}
+          </p>
+          <p className="text-sm text-[#4A3F35]">
+            {locale === 'th'
+              ? `วิธีเช็ก ${brandName} ของแท้ รุ่นไหนรักษามูลค่า และต้องดูอะไรก่อนซื้อ →`
+              : `How to authenticate ${brandName}, which era holds value, and what to check before you buy →`}
+          </p>
+        </Link>
+      )}
       <SortableItemGrid items={toGridItems(items)} locale={locale} />
     </>
   )

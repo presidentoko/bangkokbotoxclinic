@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Omega Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Omega Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Omega prices for Speedmaster Moonwatch, Seamaster 300M, Constellation, De Ville and more. Save 25–40% vs retail on pre-owned Omega watches.',
   alternates: { canonical: `${BASE}/brands/omega` },
 }
@@ -39,7 +39,7 @@ export default function OmegaBrandPage() {
         __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: `Pre-Owned Omega Price Guide ${PRICE_YEAR}`,
+          name: `Pre-Owned Omega Buying Guide ${PRICE_YEAR}`,
           url: `${BASE}/brands/omega`,
           numberOfItems: items.length,
           itemListElement: items.map((item, idx) => ({
@@ -58,7 +58,7 @@ export default function OmegaBrandPage() {
         <span className="text-gray-800">Omega</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Omega Price Guide {PRICE_YEAR}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Omega Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">{items.length} references · save 25–40% vs retail · strong value retention</p>
 
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-8 text-sm text-blue-900">

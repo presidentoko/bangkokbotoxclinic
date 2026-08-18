@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn
       ? `Tag Heuer Pre-Owned Thailand ${PRICE_YEAR}: Carrera, Monaco | ChicPreowned`
-      : `Tag Heuer มือสองในไทย ${PRICE_YEAR}: Carrera Monaco | ChicPreowned`,
+      : `Tag Heuer มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ: Carrera Monaco | ChicPreowned`,
     description: isEn
       ? `Tag Heuer pre-owned watches Thailand — Carrera, Aquaracer, Monaco. THB prices, which model to buy used in Bangkok ${PRICE_YEAR}.`
       : `Tag Heuer มือสองในไทย — Carrera Aquaracer Monaco ราคาบาท รุ่นไหนควรซื้อมือสองในกรุงเทพ ${PRICE_YEAR}`,

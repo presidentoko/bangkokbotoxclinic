@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Dior in Thailand: Price Guide ${PRICE_YEAR} | ChicPreowned`
+      ? `Pre-Owned Dior Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
       : `ไดออร์มือสองในไทย: ราคากระเป๋าและสินค้า ${PRICE_YEAR} | ChicPreowned`,
     description: isEn
       ? 'Current pre-owned Dior prices in Thailand (THB). Lady Dior, Saddle Bag, Book Tote — compare second-hand prices by condition.'

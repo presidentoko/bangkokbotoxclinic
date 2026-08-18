@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Patek Philippe Prices in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `ราคา Patek Philippe มือสองในไทย ${PRICE_YEAR} | ChicPreowned`,
+      ? `Pre-Owned Patek Philippe Prices Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `ราคา Patek Philippe มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ | ChicPreowned`,
     description: isEn
       ? 'Patek Philippe Nautilus, Aquanaut, Calatrava pre-owned prices in Thailand. Sports models trade 3–5× retail. Updated weekly.'
       : 'ราคา Patek Philippe Nautilus, Aquanaut, Calatrava มือสองในไทย รุ่นกีฬาซื้อขายที่ 3–5 เท่าราคาปลีก',
@@ -99,7 +99,7 @@ export default async function PatekPhilippeBrandPage({ params }: Props) {
 
       <section className="mb-10">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {isEn ? 'Patek Philippe Pre-Owned Prices in Thailand' : 'ราคา Patek Philippe มือสองในไทย'}
+          {isEn ? 'Patek Philippe Pre-Owned Buying Guide Thailand' : 'ราคา Patek Philippe มือสองในไทย'}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">

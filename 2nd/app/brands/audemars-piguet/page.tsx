@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Audemars Piguet Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Audemars Piguet Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: 'Pre-owned Audemars Piguet prices. Royal Oak 15500ST trades 150–300% above retail. AP Offshore, Royal Oak Concept and more — updated weekly.',
   alternates: { canonical: `${BASE}/brands/audemars-piguet` },
 }
@@ -39,7 +39,7 @@ export default function AudemarsPiguetBrandPage() {
         __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: `Pre-Owned Audemars Piguet Price Guide ${PRICE_YEAR}`,
+          name: `Pre-Owned Audemars Piguet Buying Guide ${PRICE_YEAR}`,
           url: `${BASE}/brands/audemars-piguet`,
           numberOfItems: items.length,
           itemListElement: items.map((item, idx) => ({
@@ -58,7 +58,7 @@ export default function AudemarsPiguetBrandPage() {
         <span className="text-gray-800">Audemars Piguet</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Audemars Piguet Price Guide {PRICE_YEAR}</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Pre-Owned Audemars Piguet Buying Guide {PRICE_YEAR}</h1>
       <p className="text-gray-500 mb-8">{items.length} references tracked · Royal Oak 15500ST trades 3–5× retail · Est. 1875</p>
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-8 text-sm text-amber-900">

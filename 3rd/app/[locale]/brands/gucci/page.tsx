@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Gucci in Thailand ${PRICE_YEAR} | ChicPreowned`
+      ? `Pre-Owned Gucci Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
       : 'Gucci มือสองในไทย — ราคาและรุ่นที่น่าซื้อในตลาดไทย | ChicPreowned',
     description: isEn
       ? 'Pre-owned Gucci prices in Thailand (THB). GG Marmont, Horsebit 1955, Ophidia — compare second-hand values by condition.'

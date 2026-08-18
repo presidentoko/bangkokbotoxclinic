@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Cartier in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Cartier มือสองในไทย ${PRICE_YEAR} — Love Bracelet, Juste un Clou | ChicPreowned`,
+      ? `Pre-Owned Cartier Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Cartier มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ — Love Bracelet, Juste un Clou | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Cartier jewelry and watch prices in Thailand (THB). Love Bracelet, Juste un Clou, Trinity, Tank — strong resale, 70–90% value retention.'
       : 'ราคา Cartier มือสองในไทย (บาท) Love Bracelet, Juste un Clou, Trinity, Tank — รักษามูลค่าได้ 70–90%',

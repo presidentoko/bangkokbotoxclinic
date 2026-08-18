@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllBrands, getItemsByBrand } from '@/lib/data'
+import { hasBrandGuide } from '@/lib/brand-guides'
 
 const BASE = 'https://www.chicpreowned.com'
 
@@ -64,8 +65,9 @@ export default async function BrandsPage({ params }: Props) {
         <h2 className="font-serif text-2xl text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>{label}</h2>
         <div className="space-y-3">
           {items.map((b, i) => (
-            <Link key={b.slug} href={`/${locale}/${b.slug}`}
-              className="group flex items-center gap-4 p-4 bg-white border border-[#E8E2D9] hover:border-[#B8954A] transition-all duration-200"
+            <div key={b.slug} className="bg-white border border-[#E8E2D9] hover:border-[#B8954A] transition-all duration-200">
+            <Link href={`/${locale}/${b.slug}`}
+              className="group flex items-center gap-4 p-4"
             >
               <span className="font-serif text-2xl text-[#E8E2D9] w-8 shrink-0 text-center" style={{ fontFamily: 'var(--font-playfair)' }}>
                 {i + 1}
@@ -97,6 +99,17 @@ export default async function BrandsPage({ params }: Props) {
                 </div>
               </div>
             </Link>
+            {hasBrandGuide(b.slug) && (
+              <Link
+                href={`/${locale}/brands/${b.slug}`}
+                className="block px-4 pb-3 -mt-1 text-xs text-[#B8954A] hover:text-[#8C7355] transition-colors"
+              >
+                {locale === 'th'
+                  ? `คู่มือซื้อ ${b.brand} มือสอง — วิธีเช็กของแท้ →`
+                  : `${b.brand} buying guide — authentication & what to look for →`}
+              </Link>
+            )}
+            </div>
           ))}
         </div>
       </section>

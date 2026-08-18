@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Chanel in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Chanel มือสองในไทย ${PRICE_YEAR} — Classic Flap, Boy Bag, WOC | ChicPreowned`,
+      ? `Pre-Owned Chanel Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Chanel มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ — Classic Flap, Boy Bag, WOC | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Chanel prices in Thailand (THB). Classic Flap, Boy Bag, 2.55, Wallet on Chain — save up to 40% vs current retail. Compare by condition.'
       : 'ราคา Chanel มือสองในไทย (บาท) Classic Flap, Boy Bag, 2.55, WOC — ประหยัดได้ถึง 40% เทียบกับราคาใหม่ เปรียบเทียบตามสภาพ',

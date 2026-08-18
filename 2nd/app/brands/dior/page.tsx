@@ -6,7 +6,7 @@ import { PRICE_YEAR } from '@/lib/site'
 const BASE = 'https://www.secondluxuryitems.com'
 
 export const metadata: Metadata = {
-  title: `Christian Dior Pre-Owned Price Guide ${PRICE_YEAR} | SecondLuxuryItems`,
+  title: `Christian Dior Pre-Owned Buying Guide ${PRICE_YEAR} | SecondLuxuryItems`,
   description: "Current pre-owned Dior prices for Lady Dior, Saddle Bag, Book Tote and more. Compare second-hand Dior prices by condition, updated weekly.",
   alternates: { canonical: `${BASE}/brands/dior` },
 }
@@ -36,7 +36,7 @@ export default function DiorBrandPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `Pre-Owned Dior Price Guide ${PRICE_YEAR}`,
+    name: `Pre-Owned Dior Buying Guide ${PRICE_YEAR}`,
     url: `${BASE}/brands/dior`,
     numberOfItems: items.length,
     itemListElement: items.map((item, idx) => ({
@@ -69,7 +69,7 @@ export default function DiorBrandPage() {
         className="text-4xl text-[#1A1A1A] leading-tight mb-4"
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
-        Pre-Owned Dior: Price Guide {PRICE_YEAR}
+        Pre-Owned Dior: Buying Guide {PRICE_YEAR}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">Updated {PRICE_YEAR} · {items.length} models tracked</p>
 

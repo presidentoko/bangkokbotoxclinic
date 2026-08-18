@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Celine in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Celine มือสองในไทย ${PRICE_YEAR} — ราคาและรุ่นยอดนิยม | ChicPreowned`,
+      ? `Pre-Owned Celine Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Celine มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ — ราคาและรุ่นยอดนิยม | ChicPreowned`,
     description: isEn
       ? "Pre-owned Celine prices in Thailand (THB). Luggage, Classic Box, Phantom — compare Philo-era vs Slimane-era values on the Thai secondary market."
       : 'ราคา Celine มือสองในไทย (บาท) เปรียบเทียบยุค Philo กับยุค Slimane Luggage, Classic Box, Phantom',

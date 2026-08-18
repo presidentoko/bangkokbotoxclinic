@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isEn = locale === 'en'
   return {
     title: isEn
-      ? `Pre-Owned Rolex in Thailand ${PRICE_YEAR} | ChicPreowned`
-      : `Rolex มือสองในไทย ${PRICE_YEAR} — Submariner, Datejust, GMT | ChicPreowned`,
+      ? `Pre-Owned Rolex Buying Guide Thailand ${PRICE_YEAR} | ChicPreowned`
+      : `Rolex มือสองในไทย ${PRICE_YEAR} — คู่มือซื้อ — Submariner, Datejust, GMT | ChicPreowned`,
     description: isEn
       ? 'Pre-owned Rolex prices in Thailand (THB). Submariner, GMT-Master II, Datejust, Daytona — sports models often above retail. Updated weekly.'
       : 'ราคา Rolex มือสองในไทย (บาท) Submariner, GMT-Master II, Datejust, Daytona — รุ่น sports มักราคาเกินของใหม่',
