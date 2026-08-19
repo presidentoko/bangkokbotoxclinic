@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/ko",
     languages: { "ko-KR": "/ko", "th-TH": "/th", "en-US": "/" },
+    // 네이버 서치어드바이저가 RSS 를 자동으로 찾아가도록 <link rel="alternate"> 로 건다.
+    types: { "application/rss+xml": [{ url: "/ko/feed.xml", title: "태국 골프 가이드 - 한국어" }] },
   },
   openGraph: { locale: "ko_KR" },
 };
