@@ -31,7 +31,8 @@ OUT_DIR = Path.home() / "Desktop" / "apify_golf_refresh"
 
 # 코스당 최대 리뷰 수. 비용을 직접 좌우한다 — 안 걸면 리뷰 3,692개짜리 Topgolf
 # 하나가 $5 계정을 통째로 태운다.
-MAX_REVIEWS = 20
+# 20으로 170개 코스를 돌렸을 때 $1 미만이었으므로 40까지 올려도 여유가 있다.
+MAX_REVIEWS = 40
 
 
 def main() -> int:
@@ -109,19 +110,28 @@ def main() -> int:
 
     # 크레딧이 유한하므로 ROI 순으로 티어를 나눈다. 삭제 가드(apify_to_master_db.py) 덕에
     # 일부만 수집해도 나머지 코스는 master_db 에 그대로 남으므로 나눠 돌려도 안전하다.
-    scraped = lambda c: len(c.get("scraped_reviews") or [])
+    # ⚠️ scraped_reviews 로 고르면 안 된다. 그건 구 파이프라인 잔재이고 사이트가 실제로
+    # 읽는 건 sample_reviews_* 다. 2026-08-19 에 scraped_reviews==0 으로 170개를 골랐더니
+    # 그중 168개가 이미 샘플을 갖고 있어서 사실상 헛돈이었다.
+    samples = lambda c: sum(len(c.get(f"sample_reviews_{l}") or []) for l in ("en", "th", "ko"))
     total = lambda c: c.get("total_reviews") or 0
+    # 이번 수집분인지 (아니면 아직 옛 데이터인지)
+    is_stale = lambda c: bool(c.get("_carried_over_from"))
 
-    tier1 = sorted([c for c in rows if scraped(c) == 0 and total(c) >= 50], key=total, reverse=True)
-    tier2 = sorted([c for c in rows if scraped(c) == 0 and 1 <= total(c) < 50], key=total, reverse=True)
-    tier3 = sorted([c for c in rows if scraped(c) > 0], key=total, reverse=True)
-    skip = [c for c in rows if scraped(c) == 0 and total(c) == 0]
+    # 아직 갱신 안 됐고 구글 리뷰가 많은 코스 = 남은 크레딧의 최우선 대상.
+    tier1 = sorted([c for c in rows if is_stale(c) and total(c) >= 50], key=total, reverse=True)
+    # 갱신 안 됐고 리뷰가 적은 코스.
+    tier2 = sorted([c for c in rows if is_stale(c) and 1 <= total(c) < 50], key=total, reverse=True)
+    # 이미 갱신된 코스 — 더 깊게 파고 싶을 때만.
+    tier3 = sorted([c for c in rows if not is_stale(c)], key=total, reverse=True)
+    skip = [c for c in rows if total(c) == 0]
 
     print("\n=== 티어 (위에서부터 돌릴 것) ===")
-    write_tier("tier1_empty_popular", tier1)
-    write_tier("tier2_empty_small", tier2)
-    write_tier("tier3_refresh_existing", tier3)
+    write_tier("tier1_stale_popular", tier1)
+    write_tier("tier2_stale_small", tier2)
+    write_tier("tier3_deepen_refreshed", tier3)
     print(f"  {'(제외) 리뷰 자체가 없음':<22} {len(skip):>4} 코스")
+    print(f"  {'샘플 총계':<22} {sum(samples(c) for c in rows):>4}건 보유 중")
 
     # tier1 은 계정당 크레딧에 맞춰 반씩 나눠 돌릴 수 있게 분할본도 같이 낸다.
     half = (len(tier1) + 1) // 2
