@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getItemsByBrand, formatPriceTHB } from '@/lib/data'
 import { PRICE_YEAR } from '@/lib/site'
+import { BrandSchema } from '@/components/BrandSchema'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -72,6 +73,7 @@ export default async function ChanelBrandPage({ params }: Props) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <BrandSchema brandSlug="chanel" locale={locale} path={`brands/chanel`} faqs={faqs} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           '@context': 'https://schema.org',

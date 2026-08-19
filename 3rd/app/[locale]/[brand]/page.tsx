@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getItemsByBrand, getAllBrands, toGridItems } from '@/lib/data'
 import { hasBrandGuide } from '@/lib/brand-guides'
+import { BrandPriceSummary } from '@/components/BrandPriceSummary'
+import { BrandSchema } from '@/components/BrandSchema'
 import { SortableItemGrid } from '@/components/SortableItemGrid'
 
 const BASE = 'https://www.chicpreowned.com'
@@ -224,6 +226,7 @@ export default async function BrandPage({ params }: Props) {
 
   return (
     <>
+      <BrandSchema brandSlug={brand} locale={locale} path={brand} />
       <p className="text-sm text-[#9C8B7A] mb-2">
         <Link href={`/${locale}`}>{t('home')}</Link> › {brandName}
       </p>
@@ -266,6 +269,7 @@ export default async function BrandPage({ params }: Props) {
           </div>
         )
       })()}
+      <BrandPriceSummary brandSlug={brand} locale={locale} />
       {hasBrandGuide(brand) && (
         <Link
           href={`/${locale}/brands/${brand}`}
