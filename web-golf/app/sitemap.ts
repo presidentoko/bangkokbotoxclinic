@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { loadMasterDb, filterByCityOrAlias, golfOnly } from "@/lib/data";
 import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
 import { indexableCategoryDistricts, indexableDistricts, indexableCities } from "@/lib/crawlGate";
+import { isIndexableCourse } from "@/lib/indexable";
 import { BEST_FOR } from "@/lib/bestFor";
 import { CUISINE_LABELS } from "@/lib/types";
 import { buildComparePairs } from "@/lib/comparePairs";
@@ -239,13 +240,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   for (const r of db.restaurants) {
-    // Skip stub courses (no image / reviews / topics) — they are noindexed
-    const isStub =
-      !r.hero_image && !r.top_photo_url && !(r.photos && r.photos.length) &&
-      !(r.sample_reviews_en?.length) && !(r.sample_reviews_th?.length) &&
-      !(r.sample_reviews_ko?.length) && !(r.scraped_reviews?.length) &&
-      !(r.mentioned_topics?.length);
-    if (isStub) continue;
+    // 색인 자격은 lib/indexable 에서만 판단한다 — 코스 페이지의 robots 메타도 같은
+    // 함수를 쓰므로 sitemap 이 noindex 페이지를 가리키는 일이 생기지 않는다.
+    if (!isIndexableCourse(r)) continue;
     items.push({
       url: `${SITE}/course/${r.id}`,
       lastModified: priceScrapedAt.get(r.id) ? isoNoMs(priceScrapedAt.get(r.id)!) : updated,
