@@ -139,10 +139,9 @@ def run():
         json.dump(db, f, indent=2, ensure_ascii=False)
     print('items_db.json updated')
 
-    subprocess.run(['git', 'add', str(DB_PATH)], check=True)
-    subprocess.run(['git', 'commit', '-m', f'chore(data): price update {datetime.now():%Y-%m-%d}'], check=True)
-    subprocess.run(['git', 'push'], check=True)
-    print('Pushed.')
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+    from scripts.git_sync import commit_and_push
+    commit_and_push(DB_PATH, f'chore(data): price update {datetime.now():%Y-%m-%d}')
 
     # A push is not a deploy: the Vercel project has no git connection, so
     # nothing builds unless we ask it to. Skipping this is how the site served
