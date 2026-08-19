@@ -26,12 +26,17 @@ export default function OpengraphImage() {
     ),
     {
       ...size,
-      // Next stamps metadata images with `public, max-age=0, must-revalidate`
-      // and that wins over next.config's headers(), so Cloudflare held these
-      // as EXPIRED and revalidated against the origin on every single request.
-      // There are ~300 of these across the brand and model routes; social
-      // unfurls and crawlers hit them constantly. The art is generated from
-      // build-time data, so a day at the edge is safe.
+      // Intent: a day at the edge. The art comes from build-time data, so it
+      // cannot go stale sooner.
+      //
+      // NOTE: on Vercel this is currently overridden for routes under a
+      // dynamic segment — they are served as bare `public, max-age=0` no
+      // matter what is set here or in `revalidate` below, no ETag, and a
+      // conditional request still returns the full 50 KB body. The edge TTL
+      // that actually holds is enforced by a Cloudflare Cache Rule on
+      // /*opengraph-image*. Keep this header: it is correct, it works for the
+      // static root routes, and it is what should apply if Vercel stops
+      // rewriting it.
       headers: {
         'Cache-Control': 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
       },
