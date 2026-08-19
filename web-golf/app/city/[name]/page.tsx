@@ -3,6 +3,7 @@ import { loadMasterDb, filterByCityOrAlias, resolveCityAlias, golfOnly } from "@
 import { loadPriceMatrix, toPriceRows } from "@/lib/priceMatrix";
 import { indexableCities, indexableDistricts, allDistricts } from "@/lib/crawlGate";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { CompactCourseList } from "@/components/CompactCourseList";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { sortWithSponsored } from "@/lib/sponsored";
@@ -13,6 +14,9 @@ import { BEST_FOR } from "@/lib/bestFor";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
+
+// 카드로 렌더할 개수. 나머지는 경량 목록으로 링크만 유지한다.
+const CARD_COUNT = 24;
 
 function citySlug(label: string): string {
   return label.toLowerCase().replace(/\s+/g, "_");
@@ -228,13 +232,27 @@ export default async function CityPage(
 
       <AdSlot slot="city-mid" />
 
+      {/* 카드 24장 + 나머지는 경량 목록. 100장을 깔았더니 /city/bangkok 이 972KB 였다. */}
       <section>
-        <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
+        <h2 className="text-xl font-bold mb-4">
+          Top {Math.min(filtered.length, CARD_COUNT)} in {display}
+        </h2>
         <div className="grid gap-3">
-          {filtered.slice(0, 100).map((r, i) => (
+          {filtered.slice(0, CARD_COUNT).map((r, i) => (
             <RestaurantCard key={r.id} r={r} rank={i + 1} />
           ))}
         </div>
+        {filtered.length > CARD_COUNT && (
+          <div className="mt-10">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-1">
+              Every other course in {display}
+            </h3>
+            <p className="text-xs text-[var(--muted)] mb-2">
+              {filtered.length - CARD_COUNT} more, same Trust Score ranking.
+            </p>
+            <CompactCourseList courses={filtered.slice(CARD_COUNT)} startRank={CARD_COUNT + 1} />
+          </div>
+        )}
       </section>
 
       {content.faqs.length > 0 && (

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByDistrict } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { CompactCourseList } from "@/components/CompactCourseList";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { sortWithSponsored } from "@/lib/sponsored";
@@ -8,6 +9,9 @@ import { indexableDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 export const revalidate = 604800; // 7 days
+
+// 카드로 렌더할 개수. 나머지는 경량 목록으로 링크만 유지한다.
+const CARD_COUNT = 24;
 
 // district_counts 의 모든 지역을 아래 generateStaticParams 가 열거한다 — sitemap 도 같은 소스.
 // false = 봇/스캐너 probe(/d/wp-admin 류)가 즉시 404, on-demand 렌더도 ISR write 도 없음.
@@ -77,14 +81,20 @@ export default async function DistrictPage(
       <AffiliateInline district={districtName} />
       <AdSlot slot="district-mid" />
       <div className="grid gap-3 mt-3">
-        {filtered.slice(10, 200).map((r, i) => (
+        {filtered.slice(10, CARD_COUNT).map((r, i) => (
           <RestaurantCard key={r.id} r={r} rank={i + 11} />
         ))}
       </div>
-      {filtered.length > 200 && (
-        <p className="mt-6 text-sm text-[var(--muted)]">
-          Showing top 200 of {filtered.length}. Use category filters to narrow.
-        </p>
+      {filtered.length > CARD_COUNT && (
+        <div className="mt-10">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-1">
+            Every other course in {districtName}
+          </h3>
+          <p className="text-xs text-[var(--muted)] mb-2">
+            {filtered.length - CARD_COUNT} more, same Trust Score ranking.
+          </p>
+          <CompactCourseList courses={filtered.slice(CARD_COUNT)} startRank={CARD_COUNT + 1} />
+        </div>
       )}
 
       <BreadcrumbJsonLd items={[
