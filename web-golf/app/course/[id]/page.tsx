@@ -7,6 +7,7 @@ import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
 import { TeeTimePlanner } from "@/components/TeeTimePlanner";
 import { buildCourseSummary } from "@/lib/courseSummary";
+import { isIndexableCourse } from "@/lib/indexable";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
@@ -75,12 +76,9 @@ export async function generateMetadata(
     ? `${englishReview.slice(0, 140).trim()}${englishReview.length > 140 ? "…" : ""} · ★${r.rating} · ${where}`
     : generic;
 
-  // Stub courses (no image, no reviews, no topics) — noindex to avoid thin pages
-  const isStub =
-    !r.hero_image && !r.top_photo_url && !(r.photos && r.photos.length) &&
-    !(r.sample_reviews_en?.length) && !(r.sample_reviews_th?.length) &&
-    !(r.sample_reviews_ko?.length) && !(r.scraped_reviews?.length) &&
-    !(r.mentioned_topics?.length);
+  // 색인 자격 판단은 lib/indexable 한 곳에서만 — sitemap 도 같은 함수를 쓴다.
+  // 구글 리뷰가 0건이면 쓸 말이 없어 영원히 색인되지 않으므로 noindex 로 내보낸다.
+  const indexable = isIndexableCourse(r);
 
   // og:image is auto-supplied by app/course/[id]/opengraph-image.tsx — we only
   // set title/description here so og:image stays the dynamic per-course PNG.
@@ -88,7 +86,7 @@ export async function generateMetadata(
     title: `${r.name} — Reviews & Trust Score`,
     description,
     alternates: { canonical: `/course/${id}` },
-    robots: isStub ? { index: false, follow: true } : undefined,
+    robots: indexable ? undefined : { index: false, follow: true },
     openGraph: {
       title: `${r.name} - Thailand Golf Guide`,
       description,
