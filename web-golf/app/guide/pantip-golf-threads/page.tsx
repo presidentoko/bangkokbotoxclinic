@@ -1,3 +1,5 @@
+import { loadMasterDb } from "@/lib/data";
+import { indexableCities } from "@/lib/crawlGate";
 import { loadPantipCommunity } from "@/lib/community";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { AdSlot } from "@/components/AffiliateSlot";
@@ -21,6 +23,9 @@ export const metadata: Metadata = {
 
 export default async function PantipThreadsPage() {
   const { groups, generated_at } = await loadPantipCommunity();
+  // 발행되지 않는 도시(별칭에 코스를 빼앗긴 도 등)를 링크하면 404 가 된다.
+  const db = await loadMasterDb();
+  const publishedCities = new Set(indexableCities(db.restaurants, Object.keys(db.city_counts)));
   const totalEntries = groups.reduce((s, g) => s + g.count, 0);
 
   return (
@@ -54,7 +59,7 @@ export default async function PantipThreadsPage() {
             <h2 className="text-xl font-bold tracking-tight mb-3 flex items-baseline gap-3 flex-wrap">
               <span>&quot;{g.query}&quot;</span>
               <span className="text-xs text-[var(--muted)] font-normal">({g.count} threads)</span>
-              {g.city_slug && (
+              {g.city_slug && publishedCities.has(g.city_slug) && (
                 <a
                   href={`/city/${g.city_slug}`}
                   className="text-xs text-[var(--accent)] hover:underline font-normal"
