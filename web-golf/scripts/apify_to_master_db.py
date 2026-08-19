@@ -48,8 +48,18 @@ def find_files(pattern: str) -> list[Path]:
     return sorted(out)
 
 
-PLACE_FILES = find_files("dataset_crawler-google-places_*.json")
-REVIEW_FILES = find_files("dataset_Google-Maps-Reviews-Scraper_*.json")
+# Apify 다운로드 파일명은 액터 이름에서 나온다. "Google Maps Scraper" 는
+# crawler-google-places / google-maps-scraper 등으로 떨어지므로 둘 다 받는다.
+# 패턴이 안 맞으면 "0 files found" 로 조용히 지나가 빈 master_db 를 쓰게 된다.
+PLACE_FILES = (
+    find_files("dataset_crawler-google-places_*.json")
+    + find_files("dataset_google-maps-scraper*.json")
+    + find_files("dataset_Google-Maps-Scraper*.json")
+)
+REVIEW_FILES = (
+    find_files("dataset_Google-Maps-Reviews-Scraper_*.json")
+    + find_files("dataset_google-maps-reviews-scraper*.json")
+)
 
 
 # ── Place ID 추출 ─────────────────────────────────────────────
@@ -181,9 +191,17 @@ def trust_score(rating: float, total_reviews: int,
 
 
 # ── 메인 변환 ─────────────────────────────────────────────────
-def main():
+def main() -> int:
     WEB_DATA.mkdir(parents=True, exist_ok=True)
     out_path = WEB_DATA / "master_db.json"
+
+    # 0. 입력이 없으면 즉시 중단. 없는 채로 진행하면 코스 0개짜리 master_db 를 써서
+    # 639개 페이지가 통째로 사라진다 (/course/[id] 는 dynamicParams=false 라 전부 하드 404).
+    if not PLACE_FILES:
+        print("[abort] place export 를 못 찾았다. Desktop / Downloads 에")
+        print("        dataset_crawler-google-places_*.json (또는 dataset_google-maps-scraper*.json)")
+        print("        을 두고 다시 실행할 것. master_db 는 건드리지 않았다.")
+        return 1
 
     # 1. Places 로드 + dedupe
     print(f"Place files found: {len(PLACE_FILES)}")
@@ -245,6 +263,25 @@ def main():
         pid = extract_place_id(url)
         if pid:
             reviews_by_pid[pid].extend(revs)
+
+    # 4b. Google Maps Scraper 를 maxReviews > 0 으로 돌리면 리뷰가 별도 데이터셋이 아니라
+    # place 레코드의 reviews[] 안에 실려 온다. 액터를 하나만 돌리는 경우가 그렇다.
+    # 그때도 리뷰를 살리려면 여기서 꺼내야 한다 — 안 그러면 리뷰를 돈 주고 긁어놓고
+    # 전부 버리게 된다. dedupe 키는 위와 같은 (place, stars, text) 조합을 쓴다.
+    embedded = 0
+    for pid, p in thai_places.items():
+        for r in (p.get("reviews") or []):
+            text = (r.get("text") or "")[:100]
+            key = (pid, r.get("stars"), text)
+            if key in seen_review_keys:
+                continue
+            seen_review_keys.add(key)
+            reviews_by_pid[pid].append(r)
+            embedded += 1
+    if embedded:
+        print(f"Reviews embedded in place records: {embedded}")
+    print(f"Reviews attached to places: {sum(len(v) for v in reviews_by_pid.values())} "
+          f"across {len(reviews_by_pid)} places")
 
     # 5. Build records
     courses: list[dict] = []
@@ -439,6 +476,8 @@ def main():
         except subprocess.CalledProcessError as e:
             print(f"  [warn] {script} failed: {e}")
 
+    return 0
+
 
 if __name__ == "__main__":
     # Windows console UTF-8
@@ -446,4 +485,4 @@ if __name__ == "__main__":
     if hasattr(sys.stdout, "buffer"):
         sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
-    main()
+    raise SystemExit(main())

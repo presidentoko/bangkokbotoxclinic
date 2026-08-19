@@ -29,6 +29,10 @@ ROOT = Path(__file__).resolve().parents[2]
 MASTER_DB = ROOT / "web-golf" / "data" / "master_db.json"
 OUT_DIR = Path.home() / "Desktop" / "apify_golf_refresh"
 
+# 코스당 최대 리뷰 수. 비용을 직접 좌우한다 — 안 걸면 리뷰 3,692개짜리 Topgolf
+# 하나가 $5 계정을 통째로 태운다.
+MAX_REVIEWS = 20
+
 
 def main() -> int:
     if not MASTER_DB.exists():
@@ -56,8 +60,25 @@ def main() -> int:
         # (apify_exports/ 의 기존 결과에 searchString: "place_id:..." 로 남아 있다).
         # maxCrawledPlacesPerSearch=1 이 없으면 place_id 하나가 검색 페이지 전체를
         # 긁어와 크레딧을 태운다.
+        place_ids = [f"place_id:{c['place_id']}" for c in items]
+
+        # 액터 하나(Google Maps Scraper)로 장소 + 리뷰를 한 번에 끝내는 입력.
+        # maxReviews > 0 이면 리뷰가 place 레코드의 reviews[] 안에 실려 오고,
+        # apify_to_master_db.py 가 거기서 꺼내 쓴다(4b 단계).
+        (OUT_DIR / f"{name}__INPUT_all_in_one.json").write_text(
+            json.dumps({
+                "searchStringsArray": place_ids,
+                "maxCrawledPlacesPerSearch": 1,
+                "language": "en",
+                "maxReviews": MAX_REVIEWS,
+                "reviewsSort": "newest",
+                "scrapePlaceDetailPage": True,
+            }, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+        # 액터를 나눠 돌릴 때 쓰는 장소 전용 입력 (리뷰는 별도 액터로).
         places_input = {
-            "searchStringsArray": [f"place_id:{c['place_id']}" for c in items],
+            "searchStringsArray": place_ids,
             "maxCrawledPlacesPerSearch": 1,
             "language": "en",
             "maxReviews": 0,
@@ -71,7 +92,7 @@ def main() -> int:
         # 반드시 명시한다 — 안 걸면 리뷰 3,600개짜리 코스 하나가 크레딧을 다 먹는다.
         reviews_input = {
             "startUrls": [place_url(c) for c in items],
-            "maxReviews": 20,
+            "maxReviews": MAX_REVIEWS,
             "reviewsSort": "newest",
             "language": "en",
         }
@@ -83,8 +104,8 @@ def main() -> int:
             "\n".join(c["place_id"] for c in items), encoding="utf-8"
         )
         avail = sum(c.get("total_reviews") or 0 for c in items)
-        capped = sum(min(c.get("total_reviews") or 0, 20) for c in items)
-        print(f"  {name:<22} {len(items):>4} 코스 | 보유 {avail:>7,} | maxReviews=20 이면 {capped:>6,}건 수집")
+        capped = sum(min(c.get("total_reviews") or 0, MAX_REVIEWS) for c in items)
+        print(f"  {name:<22} {len(items):>4} 코스 | 보유 {avail:>7,} | maxReviews 적용 시 {capped:>6,}건 수집")
 
     # 크레딧이 유한하므로 ROI 순으로 티어를 나눈다. 삭제 가드(apify_to_master_db.py) 덕에
     # 일부만 수집해도 나머지 코스는 master_db 에 그대로 남으므로 나눠 돌려도 안전하다.
