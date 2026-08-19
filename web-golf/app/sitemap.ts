@@ -122,6 +122,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     });
   }
+  // 한국어 RSS — 네이버 서치어드바이저 제출용. sitemap 에도 실어 발견 가능하게 한다.
+  items.push({ url: `${SITE}/ko/feed.xml`, lastModified: updated, changeFrequency: "daily", priority: 0.6 });
+
   // Korean blog — Naver SEO long-tail capture
   items.push({
     url: `${SITE}/ko/blog`, lastModified: updated, changeFrequency: "weekly", priority: 0.85,
