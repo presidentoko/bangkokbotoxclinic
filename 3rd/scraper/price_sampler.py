@@ -6,6 +6,8 @@ Run from repo root: python 3rd/scraper/price_sampler.py
 """
 import json
 import math
+import re
+import unicodedata
 import statistics
 import time
 import random
@@ -180,7 +182,45 @@ def trim_samples(samples: list, keep: int = 30) -> list:
     return sorted(samples, key=lambda s: s['date'])[-keep:]
 
 
-def fetch_prices(query: str, rate: float) -> list:
+def _norm(s: str) -> str:
+    s = unicodedata.normalize('NFD', s or '')
+    s = ''.join(c for c in s if unicodedata.category(c) != 'Mn')
+    return re.sub(r'[^a-z0-9]', '', s.lower())
+
+
+def _same_brand(result: dict, brand: str) -> bool:
+    return _norm((result.get('brand') or {}).get('name')) == _norm(brand)
+
+
+def _same_model(result: dict, model: str) -> bool:
+    """Vestiaire's model is a family name ("Aquanaut") against our reference
+    ("Aquanaut 5167A"), so match by containment rather than equality."""
+    theirs = _norm((result.get('model') or {}).get('name'))
+    ours = _norm(model)
+    return bool(theirs) and (theirs in ours or ours.startswith(theirs))
+
+
+def fetch_prices(query: str, rate: float, brand: str = '', model: str = '') -> list:
+    """Search, then keep only results that are actually the product asked for.
+
+    The API answers an over-specific query by exhausting its exact matches and
+    then padding to 30 with generic "watch" relevance. A search for
+    "Patek Philippe Aquanaut 5168G Green Dial" came back with 7 Patek watches
+    and 23 others — Michael Kors, Gucci Grip, Orient, Longines. Their prices
+    were being recorded as Patek prices, which is how a ฿3,000 "Patek Aquanaut"
+    reached the site: it was a Michael Kors.
+
+    The response carries structured `brand` and `model`, which the old code
+    requested and then never read. Filtering on brand alone takes the Aquanaut
+    5168G's spread from 1283x to 7.9x and the Speedmaster's from 32x to 2.8x;
+    adding the model check takes the 5168G to 3.5x. The model check is skipped
+    when it would leave too little to work with — some listings carry no model
+    at all, and thin real data beats none.
+
+    Note this cannot repair what is already stored: samples keep only a price,
+    condition and date, with nothing to re-check a brand against. Old samples
+    age out through trim_samples over subsequent runs.
+    """
     payload = {
         'pagination': {'offset': 0, 'limit': 30},
         'fields': ['name', 'price', 'condition', 'brand', 'model'],
@@ -203,6 +243,16 @@ def fetch_prices(query: str, rate: float) -> list:
     except Exception as e:
         print(f'  [warn] {e}')
         return []
+
+    total = len(items)
+    if brand:
+        items = [p for p in items if _same_brand(p, brand)]
+    if model:
+        narrowed = [p for p in items if _same_model(p, model)]
+        if len(narrowed) >= MIN_SAMPLES:
+            items = narrowed
+    if total and len(items) < total:
+        print(f'  filtered {total - len(items)}/{total} off-target results')
 
     results = []
     for p in items:
@@ -232,7 +282,7 @@ def run():
     for item in db['items']:
         query = f"{item['brand']} {item['model']}"
         print(f'Fetching: {query}')
-        new_samples = fetch_prices(query, rate)
+        new_samples = fetch_prices(query, rate, item['brand'], item['model'])
         print(f'  Got {len(new_samples)} samples')
 
         if new_samples:
