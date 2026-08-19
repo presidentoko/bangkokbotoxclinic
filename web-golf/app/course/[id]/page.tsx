@@ -8,6 +8,7 @@ import { MapEmbed } from "@/components/MapEmbed";
 import { TeeTimePlanner } from "@/components/TeeTimePlanner";
 import { buildCourseSummary } from "@/lib/courseSummary";
 import { isIndexableCourse } from "@/lib/indexable";
+import { indexableDistricts, allDistricts } from "@/lib/crawlGate";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
@@ -141,6 +142,18 @@ export default async function CoursePage(
     ? `${CATEGORY_LABELS[r.categories[0]] ?? r.categories[0]} (${r.city_label})`
     : r.city_label;
 
+  // 이 코스의 지역 페이지가 실제로 발행되는지. 지역 게이트(코스 3개 미만 제외) 때문에
+  // 482개 중 135개(28%)의 breadcrumb 가 404 를 가리키고 있었다.
+  const districtSlug = r.district ? r.district.toLowerCase().replace(/\s+/g, "-") : "";
+  const districtPublished =
+    !!r.district &&
+    indexableDistricts(db.restaurants, allDistricts(db.district_counts))
+      .some((d) => d.district === r.district);
+
+  // /embed/[id] 는 trust >= 50 && rating > 0 인 코스만 발행된다. 조건을 안 보고
+  // 링크하면 99개 코스에서 404 로 이어진다.
+  const embedPublished = r.trust_score >= 50 && r.rating > 0;
+
   // 코스 페이지 고유 텍스트 보강 — 색인 거부(Crawled, not indexed)의 직접 원인이었다.
   const summary = buildCourseSummary(r, cohort);
 
@@ -168,12 +181,11 @@ export default async function CoursePage(
         {r.district && (
           <>
             <span className="mx-2">›</span>
-            <a
-              href={`/d/${r.district.toLowerCase().replace(/\s+/g, "-")}`}
-              className="hover:text-[var(--fg)]"
-            >
-              {r.district}
-            </a>
+            {districtPublished ? (
+              <a href={`/d/${districtSlug}`} className="hover:text-[var(--fg)]">{r.district}</a>
+            ) : (
+              <span>{r.district}</span>
+            )}
           </>
         )}
         <span className="mx-2">›</span>
@@ -645,9 +657,11 @@ export default async function CoursePage(
                 시킨 541페이지를 크롤하느라 예산을 태웠고(GSC 'Excluded by noindex' 136건,
                 계속 증가 중), 정작 코스 페이지는 색인되지 못했다. robots.txt 의
                 Disallow: /embed/ 와 한 쌍으로 동작한다. */}
-            <div className="text-[11px] text-emerald-800 mt-2 leading-tight">
-              Or grab the <a href={`/embed/${r.id}`} target="_blank" rel="nofollow noopener" className="underline font-medium">Trust Score badge</a> for your site.
-            </div>
+            {embedPublished && (
+              <div className="text-[11px] text-emerald-800 mt-2 leading-tight">
+                Or grab the <a href={`/embed/${r.id}`} target="_blank" rel="nofollow noopener" className="underline font-medium">Trust Score badge</a> for your site.
+              </div>
+            )}
           </div>
 
           {compareLinks.length > 0 && (
@@ -756,7 +770,7 @@ export default async function CoursePage(
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
         { name: r.city_label, url: `/city/${r.city}` },
-        ...(r.district ? [{ name: r.district, url: `/d/${r.district.toLowerCase().replace(/\s+/g, "-")}` }] : []),
+        ...(districtPublished ? [{ name: r.district!, url: `/d/${districtSlug}` }] : []),
         { name: r.name, url: `/course/${r.id}` },
       ]} />
       <FaqJsonLd faqs={[

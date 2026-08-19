@@ -8,7 +8,7 @@ import { CUISINE_FAQS } from "@/lib/faq";
 import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { sortWithSponsored } from "@/lib/sponsored";
-import { indexableCategoryDistricts, allDistricts } from "@/lib/crawlGate";
+import { indexableCategoryDistricts, allDistricts, indexableCities } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
@@ -54,10 +54,14 @@ export default async function CategoryPage(
   const label = CATEGORY_LABELS[cuisine] ?? cuisine;
   const icon = CATEGORY_ICONS[cuisine] ?? "⛳";
 
-  // City-level breakdown
+  // City-level breakdown — 실제로 발행되는 도시만. city_label 을 그대로 슬러그화하면
+  // 별칭에 코스를 다 빼앗겨 사라진 도(道)(예: songkhla)를 링크해 404 가 된다.
+  const publishedCities = new Set(indexableCities(db.restaurants, Object.keys(db.city_counts)));
   const byCity = new Map<string, number>();
   for (const r of filtered) byCity.set(r.city_label, (byCity.get(r.city_label) ?? 0) + 1);
-  const cities = Array.from(byCity.entries()).sort((a, b) => b[1] - a[1]);
+  const cities = Array.from(byCity.entries())
+    .filter(([label]) => publishedCities.has(label.toLowerCase().replace(/\s+/g, "_")))
+    .sort((a, b) => b[1] - a[1]);
 
   // District breakdown (Bangkok 위주).
   // 게이트를 통과해 실제로 발행되는 조합만 링크한다 — 여기서 자체 임계치(예전엔 n >= 2)를
