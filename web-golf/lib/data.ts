@@ -56,9 +56,16 @@ export async function loadMasterDb(): Promise<MasterDb> {
   }
   db.city_counts = normCityCounts;
 
-  // Normalize city_label on each course
+  // Normalize city_label on each course.
+  // city 슬러그도 같이 고쳐야 한다 — city_label 만 바꾸면 "นครพนม" 이 라벨은
+  // "Nakhon Phanom" 이 되는데 슬러그는 태국어로 남아, 홈에서 /city/nakhon_phanom 을
+  // 링크하고 페이지는 c.city === "นครพนม" 로 찾다가 404 가 났다.
   for (const c of courses) {
-    if (CITY_NORM[c.city_label]) c.city_label = CITY_NORM[c.city_label];
+    const canon = CITY_NORM[c.city_label];
+    if (canon) {
+      c.city_label = canon;
+      c.city = canon.toLowerCase().replace(/\s+/g, "_");
+    }
   }
 
   _cache = db;

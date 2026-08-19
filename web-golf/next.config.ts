@@ -11,12 +11,12 @@ const config: NextConfig = {
         destination: "https://www.thailandgolfguide.com/:path*",
         permanent: true,
       },
-      // City alias — Pattaya is within Chon Buri province; merge page authority
-      {
-        source: "/city/pattaya",
-        destination: "/city/chon_buri",
-        permanent: true,
-      },
+      // 여기 있던 /city/pattaya -> /city/chon_buri 리다이렉트는 제거했다.
+      // 붙일 당시엔 맞는 판단이었다 — 파타야 페이지에 코스가 18개뿐이었고 촌부리와
+      // 목록이 거의 겹쳐서 중복 콘텐츠였다. lib/cityAliases 의 배타 배정이 들어간 뒤로는
+      // 파타야 32개 / 촌부리 61개로 서로 겹치지 않는 목록이 됐다. 중복이 아니라 정상 분할인데
+      // 리다이렉트가 남아 "pattaya golf"(촌부리보다 검색량이 훨씬 큰 쿼리)를 도(道) 페이지로
+      // 흘려보내고 있었다.
     ];
   },
   images: {
