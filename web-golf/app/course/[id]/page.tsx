@@ -6,6 +6,7 @@ import { buildComparePairs } from "@/lib/comparePairs";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
 import { TeeTimePlanner } from "@/components/TeeTimePlanner";
+import { buildCourseSummary } from "@/lib/courseSummary";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
@@ -141,6 +142,9 @@ export default async function CoursePage(
   const rankingLabel = r.categories.length > 0
     ? `${CATEGORY_LABELS[r.categories[0]] ?? r.categories[0]} (${r.city_label})`
     : r.city_label;
+
+  // 코스 페이지 고유 텍스트 보강 — 색인 거부(Crawled, not indexed)의 직접 원인이었다.
+  const summary = buildCourseSummary(r, cohort);
 
   const similar = db.restaurants
     .filter((other) => other.id !== r.id &&
@@ -419,6 +423,17 @@ export default async function CoursePage(
                       {b.date && <span>· {b.date}</span>}
                     </div>
                   </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {summary.length > 0 && (
+            <section>
+              <h2 className="text-lg font-bold mb-3">What the reviews actually say</h2>
+              <div className="space-y-3 text-[15px] leading-relaxed text-[var(--fg)]">
+                {summary.map((p, i) => (
+                  <p key={i}>{p}</p>
                 ))}
               </div>
             </section>
