@@ -9,14 +9,22 @@ The Vercel token is read automatically from the CLI's local auth file —
 no manual login or env var needed as long as `vercel login` was done once.
 
 Free plan optimization:
-  - Only deploys when NEW_PRODUCTS_THRESHOLD or more new products accumulate
-    (avoids wasting the 100 deployments/day limit on tiny batches)
+  - Only deploys when MIN_NEW_PRODUCTS or more new products accumulate, AND at
+    least MIN_INTERVAL_HOURS have passed since the last deploy.
   - git commit still runs every cycle so data is versioned regardless
 
+  Why both gates: a deploy rebuilds every prerendered page (~3,555 of them as
+  of 2026-08-19), and Next writes several cache objects per route, so one
+  deploy costs on the order of 14K ISR writes. The Hobby budget is 200K/month
+  — roughly 14 deploys. The old settings (5 new products, no interval) let the
+  scraper trigger a deploy every few hours and put ISR Writes at 406K/200K.
+  Deploying is now the scarce resource, not the product count.
+
 Optional env vars:
-  ANTHROPIC_API_KEY          — enables gen_summaries for new products
-  COSMETICS_DEPLOY_POLL      — poll interval in seconds (default: 300)
-  COSMETICS_MIN_NEW_PRODUCTS — min new products before deploying (default: 5)
+  ANTHROPIC_API_KEY            — enables gen_summaries for new products
+  COSMETICS_DEPLOY_POLL        — poll interval in seconds (default: 300)
+  COSMETICS_MIN_NEW_PRODUCTS   — min new products before deploying (default: 40)
+  COSMETICS_MIN_INTERVAL_HOURS — min hours between deploys (default: 72)
 
 Run via ensure_collector.ps1 (auto-started) or manually:
   python -m cosmetics.auto_deploy
@@ -32,8 +40,10 @@ WEB_DIR   = WT / "cosmetics" / "web"
 STOP_FILE = STATE_DIR / "STOP"
 PY        = sys.executable
 
-POLL      = int(os.getenv("COSMETICS_DEPLOY_POLL", "300"))        # 5 min
-MIN_NEW   = int(os.getenv("COSMETICS_MIN_NEW_PRODUCTS", "5"))     # free plan guard
+POLL      = int(os.getenv("COSMETICS_DEPLOY_POLL", "300"))         # 5 min
+MIN_NEW   = int(os.getenv("COSMETICS_MIN_NEW_PRODUCTS", "40"))    # ISR write guard
+MIN_HOURS = int(os.getenv("COSMETICS_MIN_INTERVAL_HOURS", "72"))  # ISR write guard
+LAST_DEPLOY = STATE_DIR / "last_deploy.json"
 
 # Vercel CLI auth file — written by `vercel login`
 _VERCEL_AUTH = Path(os.getenv("APPDATA", "")) / "com.vercel.cli" / "Data" / "auth.json"
@@ -47,6 +57,27 @@ log = logging.getLogger(__name__)
 
 def product_count() -> int:
     return len(list(PROD_DIR.glob("*.json"))) if PROD_DIR.exists() else 0
+
+
+def _hours_since_last_deploy() -> float:
+    """Hours since the last successful deploy, or a large number if unknown.
+
+    Survives a restart of this loop: without the file the first deploy after a
+    restart would always be allowed, which is how the interval gate would get
+    silently bypassed by a watchdog restart cycle.
+    """
+    try:
+        ts = json.loads(LAST_DEPLOY.read_text(encoding="utf-8"))["ts"]
+    except Exception:
+        return 1e9
+    return (time.time() - float(ts)) / 3600.0
+
+
+def _record_deploy() -> None:
+    try:
+        LAST_DEPLOY.write_text(json.dumps({"ts": time.time()}), encoding="utf-8")
+    except Exception as exc:
+        log.warning(f"could not record deploy time: {exc}")
 
 
 def _vercel_token() -> str:
@@ -126,7 +157,7 @@ def build_and_deploy(prev_count: int, new_count: int) -> bool:
 
 def main() -> None:
     STATE_DIR.mkdir(parents=True, exist_ok=True)
-    log.info(f"start PID={os.getpid()} poll={POLL}s min_new={MIN_NEW}")
+    log.info(f"start PID={os.getpid()} poll={POLL}s min_new={MIN_NEW} min_interval={MIN_HOURS}h")
 
     last_count   = product_count()
     pending_new  = 0   # accumulated new products not yet deployed
@@ -142,7 +173,13 @@ def main() -> None:
             log.info(f"+{delta} new products (pending={pending_new}/{MIN_NEW})")
 
             if pending_new >= MIN_NEW:
-                if build_and_deploy(last_count, cur):
+                waited = _hours_since_last_deploy()
+                if waited < MIN_HOURS:
+                    log.info(f"{pending_new} new products ready but only "
+                             f"{waited:.1f}h since last deploy (need {MIN_HOURS}h) "
+                             f"— holding")
+                elif build_and_deploy(last_count, cur):
+                    _record_deploy()
                     last_count  = cur
                     pending_new = 0
                 else:
