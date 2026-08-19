@@ -2,6 +2,11 @@ import { ImageResponse } from 'next/og'
 import { getItemsByCategory } from '@/lib/data'
 
 export const runtime = 'nodejs'
+// Vercel derives the edge Cache-Control for a prerendered route from its
+// `revalidate`. Without one it serves these images as `public, max-age=0`,
+// stripping the s-maxage set on the ImageResponse, and Cloudflare goes back to
+// the origin on every unfurl — the routes showed EXPIRED on every request.
+export const revalidate = 86400
 export const alt = 'ราคานาฬิกาแบรนด์เนมมือสองในไทย'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
