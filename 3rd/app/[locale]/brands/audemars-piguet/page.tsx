@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { BrandPriceTable } from '@/components/BrandPriceTable'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -23,19 +24,6 @@ export default async function APBrandPage({ params }: Props) {
   const { locale } = await params
   const isEn = locale === 'en'
 
-  const models = isEn ? [
-    { name: 'Royal Oak 15500ST (41mm, blue dial)', retail: '฿800,000', preowned: '฿2,000,000–3,500,000', badge: 'Above Retail ×2.5–4' },
-    { name: 'Royal Oak 15400ST (41mm)', retail: '฿700,000', preowned: '฿1,400,000–2,200,000', badge: 'Above Retail ×2–3' },
-    { name: 'Royal Oak Offshore 42mm Steel', retail: '฿750,000', preowned: '฿650,000–950,000', badge: null },
-    { name: 'Royal Oak Offshore Chronograph 44mm', retail: '฿1,100,000', preowned: '฿850,000–1,200,000', badge: null },
-    { name: 'Millenary 4101 (skeleton)', retail: '฿650,000', preowned: '฿480,000–620,000', badge: null },
-  ] : [
-    { name: 'Royal Oak 15500ST (41mm, หน้าปัดน้ำเงิน)', retail: '800,000 บาท', preowned: '2,000,000–3,500,000 บาท', badge: 'สูงกว่าราคาปลีก ×2.5–4' },
-    { name: 'Royal Oak 15400ST (41mm)', retail: '700,000 บาท', preowned: '1,400,000–2,200,000 บาท', badge: 'สูงกว่าราคาปลีก ×2–3' },
-    { name: 'Royal Oak Offshore 42mm สแตนเลส', retail: '750,000 บาท', preowned: '650,000–950,000 บาท', badge: null },
-    { name: 'Royal Oak Offshore Chronograph 44mm', retail: '1,100,000 บาท', preowned: '850,000–1,200,000 บาท', badge: null },
-    { name: 'Millenary 4101 (skeleton)', retail: '650,000 บาท', preowned: '480,000–620,000 บาท', badge: null },
-  ]
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -68,29 +56,7 @@ export default async function APBrandPage({ params }: Props) {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           {isEn ? 'AP Pre-Owned Buying Guide Thailand' : 'ราคา AP มือสองในไทย'}
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">{isEn ? 'Model' : 'รุ่น'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Retail (THB)' : 'ราคาใหม่ (บาท)'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Pre-owned (THB)' : 'มือสอง (บาท)'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {models.map((m, i) => (
-                <tr key={i} className="border-b border-gray-100">
-                  <td className="py-3 px-4">
-                    <div className="font-medium text-gray-900">{m.name}</div>
-                    {m.badge && <span className="inline-block mt-1 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">{m.badge}</span>}
-                  </td>
-                  <td className="text-right py-3 px-4 text-gray-500">{m.retail}</td>
-                  <td className={`text-right py-3 px-4 font-medium ${m.badge ? 'text-amber-600' : ''}`}>{m.preowned}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <BrandPriceTable brandSlug="audemars-piguet" locale={locale} />
       </section>
 
       <div className="flex gap-3 flex-wrap">

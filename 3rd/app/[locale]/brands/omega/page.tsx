@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { BrandPriceTable } from '@/components/BrandPriceTable'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -28,19 +29,6 @@ export default async function OmegaBrandPage({ params }: Props) {
   const { locale } = await params
   const isEn = locale === 'en'
 
-  const models = isEn ? [
-    { name: 'Speedmaster Moonwatch Professional (Cal. 3861)', retail: '$7,400', preowned: '฿170,000–220,000', note: 'NASA Moon watch heritage' },
-    { name: 'Seamaster 300M', retail: '$5,800', preowned: '฿130,000–180,000', note: 'James Bond watch' },
-    { name: 'Seamaster Aqua Terra 38.5mm', retail: '$5,500', preowned: '฿110,000–155,000', note: 'Dress-sport hybrid' },
-    { name: 'Constellation 39mm', retail: '$4,800', preowned: '฿90,000–125,000', note: 'Distinctive claw lugs' },
-    { name: 'De Ville Trésor', retail: '$5,000', preowned: '฿85,000–120,000', note: 'Ultra-slim dress watch' },
-  ] : [
-    { name: 'Speedmaster Moonwatch Professional (Cal. 3861)', retail: '7,400 USD', preowned: '170,000–220,000 บาท', note: 'นาฬิกา NASA สำหรับภารกิจบนดวงจันทร์' },
-    { name: 'Seamaster 300M', retail: '5,800 USD', preowned: '130,000–180,000 บาท', note: 'นาฬิกาของ James Bond' },
-    { name: 'Seamaster Aqua Terra 38.5mm', retail: '5,500 USD', preowned: '110,000–155,000 บาท', note: 'ผสม sporty และ dressy' },
-    { name: 'Constellation 39mm', retail: '4,800 USD', preowned: '90,000–125,000 บาท', note: 'ขาล็อคที่โดดเด่น' },
-    { name: 'De Ville Trésor', retail: '5,000 USD', preowned: '85,000–120,000 บาท', note: 'นาฬิกาชุดสลิมสุดหรู' },
-  ]
 
   const faqs = isEn ? [
     {
@@ -101,29 +89,7 @@ export default async function OmegaBrandPage({ params }: Props) {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           {isEn ? 'Omega Pre-Owned Prices' : 'ราคา Omega มือสอง'}
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">{isEn ? 'Model' : 'รุ่น'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Retail' : 'ราคาใหม่'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Pre-owned (THB)' : 'มือสอง (บาท)'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {models.map((m, i) => (
-                <tr key={i} className="border-b border-gray-100">
-                  <td className="py-3 px-4">
-                    <div className="font-medium text-gray-900">{m.name}</div>
-                    <div className="text-xs text-gray-400 mt-0.5">{m.note}</div>
-                  </td>
-                  <td className="text-right py-3 px-4 text-gray-500">{m.retail}</td>
-                  <td className="text-right py-3 px-4 font-medium">{m.preowned}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <BrandPriceTable brandSlug="omega" locale={locale} />
       </section>
 
       <section className="mb-10">

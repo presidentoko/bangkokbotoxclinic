@@ -6,7 +6,16 @@ export type Category = 'handbags' | 'watches' | 'clothing' | 'shoes' | 'jewelry'
 export interface PriceRange {
   min: number
   max: number
+  /** Median of the credible listings. Absent on data written before the
+   *  scraper started recording it — fall back to the midpoint. */
+  median?: number
 }
+
+/** A band this wide no longer describes one product. The scraper's query
+ *  matches a model family rather than a reference, so diamond and gold
+ *  variants land in the same set as the steel one. Surfaced in the UI so a
+ *  page never presents a confident number it does not have. */
+export const WIDE_SPREAD = 8
 
 export interface PriceSample {
   price: number
@@ -112,8 +121,16 @@ export function formatPriceTHB(price: number): string {
   return '฿' + new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(price)
 }
 
-export function getAvgPrice(range: { min: number; max: number }): number {
+export function getAvgPrice(range: PriceRange): number {
+  // Prefer the median: on a wide band the midpoint describes nothing. The
+  // Twenty~4's midpoint came to ฿714,000 against a real market near ฿250-380k,
+  // where the median sits at ฿236,000.
+  if (range.median) return range.median
   return Math.round((range.min + range.max) / 2)
+}
+
+export function isWideSpread(range: PriceRange | null | undefined): boolean {
+  return !!range && range.min > 0 && range.max / range.min >= WIDE_SPREAD
 }
 
 export function getPriceVsRetail(range: PriceRange, retail: number): string {

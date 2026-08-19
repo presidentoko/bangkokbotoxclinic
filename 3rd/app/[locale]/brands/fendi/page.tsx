@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { BrandPriceTable } from '@/components/BrandPriceTable'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -23,19 +24,6 @@ export default async function FendiBrandPage({ params }: Props) {
   const { locale } = await params
   const isEn = locale === 'en'
 
-  const models = isEn ? [
-    { name: 'Baguette Medium Leather', retail: '฿95,000', preowned: '฿45,000–68,000', save: 'Save 28–53%' },
-    { name: 'Baguette Small FF Canvas', retail: '฿78,000', preowned: '฿35,000–52,000', save: 'Save 33–55%' },
-    { name: 'Peekaboo Mini', retail: '฿165,000', preowned: '฿82,000–120,000', save: 'Save 27–50%' },
-    { name: 'Peekaboo Regular', retail: '฿215,000', preowned: '฿105,000–155,000', save: 'Save 28–51%' },
-    { name: 'First Small', retail: '฿125,000', preowned: '฿68,000–95,000', save: 'Save 24–46%' },
-  ] : [
-    { name: 'Baguette Medium หนัง', retail: '95,000 บาท', preowned: '45,000–68,000 บาท', save: 'ประหยัด 28–53%' },
-    { name: 'Baguette Small FF Canvas', retail: '78,000 บาท', preowned: '35,000–52,000 บาท', save: 'ประหยัด 33–55%' },
-    { name: 'Peekaboo Mini', retail: '165,000 บาท', preowned: '82,000–120,000 บาท', save: 'ประหยัด 27–50%' },
-    { name: 'Peekaboo Regular', retail: '215,000 บาท', preowned: '105,000–155,000 บาท', save: 'ประหยัด 28–51%' },
-    { name: 'First Small', retail: '125,000 บาท', preowned: '68,000–95,000 บาท', save: 'ประหยัด 24–46%' },
-  ]
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -68,30 +56,7 @@ export default async function FendiBrandPage({ params }: Props) {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           {isEn ? 'Fendi Pre-Owned Buying Guide Thailand' : 'ราคา Fendi มือสองในไทย'}
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">{isEn ? 'Model' : 'รุ่น'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Retail (THB)' : 'ราคาใหม่ (บาท)'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Pre-owned (THB)' : 'มือสอง (บาท)'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Saving' : 'ประหยัด'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {models.map((m, i) => (
-                <tr key={i} className="border-b border-gray-100">
-                  <td className="py-3 px-4 font-medium text-gray-900">{m.name}</td>
-                  <td className="text-right py-3 px-4 text-gray-500">{m.retail}</td>
-                  <td className="text-right py-3 px-4 text-green-700 font-medium">{m.preowned}</td>
-                  <td className="text-right py-3 px-4">
-                    <span className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">{m.save}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <BrandPriceTable brandSlug="fendi" locale={locale} />
       </section>
 
       <section className="mb-10">
