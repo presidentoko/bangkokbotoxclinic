@@ -343,9 +343,13 @@ def main() -> int:
             lang_total[k] += v
 
         # Sample reviews (4-5점 + 80-300자)
-        def pick_samples(chunks: list[tuple[str, int, str]], n: int = 3):
-            good = [c for c in chunks if 80 <= len(c[0]) <= 300 and c[1] >= 4]
-            good.sort(key=lambda x: -x[1])
+        def pick_samples(chunks: list[tuple[str, int, str]], n: int = 5):
+            # 상한이 300자였는데, 그게 가장 자세히 쓴 리뷰만 골라서 버리고 있었다.
+            # 이번 수집분 2,066건 기준 301자 이상 고평점 리뷰 208건(13%)이 그렇게 날아갔다 —
+            # 코스 페이지에 실릴 고유 텍스트가 곧 색인 여부를 가르는 상황에서 정반대로 가는 필터다.
+            # 길이순이 아니라 길이 하한만 두고, 같은 별점이면 긴 쪽을 먼저 쓴다.
+            good = [c for c in chunks if 80 <= len(c[0]) <= 1200 and c[1] >= 4]
+            good.sort(key=lambda x: (-x[1], -len(x[0])))
             return [{"text": t, "rating": r, "author": a or "Google reviewer"}
                     for t, r, a in good[:n]]
 
@@ -415,13 +419,54 @@ def main() -> int:
     # (액터가 조기 종료하거나, 크레딧이 떨어지거나, 검색 반경이 달라지면 얼마든지 줄어든다.)
     # 그래서 이전 master_db 에만 있는 코스는 지우지 않고 그대로 물려준다. 진짜로 폐업한
     # 코스를 빼는 건 의도적으로 해야 하는 일이지, 스크랩 사고의 부작용이면 안 된다.
+    #
+    # 같은 코스가 양쪽에 다 있을 때도 통째로 덮어쓰면 안 된다. 한 번의 수집은 코스당
+    # maxReviews 만큼만 가져오므로, 이전에 다른 각도로 모아둔 샘플보다 적을 수 있다.
+    # 실제로 2026-08-19 갱신에서 170개 코스를 새로 긁었더니 샘플이 1,534 -> 1,441 로
+    # 줄었다. 평점/리뷰수 같은 스칼라는 새 값이 맞지만, 리뷰 샘플과 토픽은 합쳐야 한다.
     carried_over = 0
+    merged_back = 0
     if out_path.exists():
         try:
             with open(out_path, "r", encoding="utf-8") as f:
                 prev = json.load(f)
             prev_courses = prev.get("courses", prev.get("restaurants", []))
+            prev_by_id = {(c.get("place_id") or c.get("id")): c for c in prev_courses}
             fresh_ids = {c.get("place_id") or c.get("id") for c in courses}
+
+            def union_samples(new_list, old_list, cap=5):
+                out, seen = [], set()
+                for s in list(new_list or []) + list(old_list or []):
+                    t = (s.get("text") or "").strip()
+                    if not t or t in seen:
+                        continue
+                    seen.add(t)
+                    out.append(s)
+                return out[:cap]
+
+            for c in courses:
+                pc = prev_by_id.get(c.get("place_id") or c.get("id"))
+                if not pc:
+                    continue
+                before = sum(len(c.get(f"sample_reviews_{l}") or []) for l in ("en", "th", "ko"))
+                for lang in ("en", "th", "ko"):
+                    key = f"sample_reviews_{lang}"
+                    c[key] = union_samples(c.get(key), pc.get(key))
+                after = sum(len(c.get(f"sample_reviews_{l}") or []) for l in ("en", "th", "ko"))
+                if after > before:
+                    merged_back += after - before
+                # 토픽도 마찬가지 — 새 수집이 못 잡은 토픽을 지울 이유가 없다.
+                if not c.get("mentioned_topics") and pc.get("mentioned_topics"):
+                    c["mentioned_topics"] = pc["mentioned_topics"]
+                # 구 파이프라인이 남긴 전체 리뷰 배열은 새 수집엔 없으므로 보존한다.
+                if not c.get("scraped_reviews") and pc.get("scraped_reviews"):
+                    c["scraped_reviews"] = pc["scraped_reviews"]
+                for k in ("hero_image", "top_photo_url", "photos", "lat", "lng", "website"):
+                    if not c.get(k) and pc.get(k):
+                        c[k] = pc[k]
+            if merged_back:
+                print(f"[guard] 이전 데이터에서 되살린 리뷰 샘플: {merged_back}건")
+
             for pc in prev_courses:
                 pid = pc.get("place_id") or pc.get("id")
                 if pid and pid not in fresh_ids:
