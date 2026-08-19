@@ -109,7 +109,7 @@ export default async function JewelryGuideTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Luxury Jewelry Buying Guide {PRICE_YEAR}' : 'คู่มือซื้อเครื่องประดับหรู {PRICE_YEAR}'}
+        {isEn ? `Luxury Jewelry Buying Guide ${PRICE_YEAR}` : `คู่มือซื้อเครื่องประดับหรู ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

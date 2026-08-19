@@ -109,7 +109,7 @@ export default async function LuxuryBagsAsInvestmentsPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Are Luxury Bags Good Investments in Thailand? {PRICE_YEAR}' : 'กระเป๋า Luxury เป็นการลงทุนที่ดีไหม? ข้อมูลปี {PRICE_YEAR}'}
+        {isEn ? `Are Luxury Bags Good Investments in Thailand? ${PRICE_YEAR}` : `กระเป๋า Luxury เป็นการลงทุนที่ดีไหม? ข้อมูลปี ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? `Based on ${rankedItems.length} tracked models with live price data` : `จากข้อมูล ${rankedItems.length} รุ่นที่ติดตามราคาจริง`}

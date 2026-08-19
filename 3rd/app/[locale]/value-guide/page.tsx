@@ -97,8 +97,8 @@ export default async function ValueGuidePage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Luxury Resale Value Guide Thailand {PRICE_YEAR}'
-          : 'คู่มือมูลค่าการขายต่อ Luxury ในไทย {PRICE_YEAR}'}
+          ? `Luxury Resale Value Guide Thailand ${PRICE_YEAR}`
+          : `คู่มือมูลค่าการขายต่อ Luxury ในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#6B6052] mb-2 leading-relaxed">
         {isEn

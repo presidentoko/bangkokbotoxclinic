@@ -53,7 +53,7 @@ export default async function OmegaVsTagTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Omega vs TAG Heuer: Pre-Owned Watches in Thailand {PRICE_YEAR}' : 'Omega vs TAG Heuer: นาฬิกามือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Omega vs TAG Heuer: Pre-Owned Watches in Thailand ${PRICE_YEAR}` : `Omega vs TAG Heuer: นาฬิกามือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Moon heritage vs motorsport history — which Swiss brand is the better pre-owned buy in Thailand?'

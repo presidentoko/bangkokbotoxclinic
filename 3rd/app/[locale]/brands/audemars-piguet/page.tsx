@@ -36,7 +36,7 @@ export default async function APBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Audemars Piguet in Thailand {PRICE_YEAR}' : 'Audemars Piguet มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Audemars Piguet in Thailand ${PRICE_YEAR}` : `Audemars Piguet มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? 'Royal Oak 15500ST: 2.5–4× retail · Est. 1875 · The original luxury sports watch'

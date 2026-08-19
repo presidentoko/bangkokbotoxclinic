@@ -155,8 +155,8 @@ export default async function BestBagsForTravelPage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Best Pre-Owned Luxury Bags for Travel in Thailand {PRICE_YEAR}'
-          : 'กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับการเดินทาง {PRICE_YEAR}'}
+          ? `Best Pre-Owned Luxury Bags for Travel in Thailand ${PRICE_YEAR}`
+          : `กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับการเดินทาง ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#6B6052] mb-2">
         {isEn
@@ -164,7 +164,7 @@ export default async function BestBagsForTravelPage({ params }: Props) {
           : 'การเดินทางในไทยต้องการกระเป๋าที่ทนทาน สวยงาม และราคาไม่แพงเกินไป Luxury มือสองคือคำตอบ'}
       </p>
       <p className="text-sm text-[#8C7355] mb-12">
-        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       <section className="mb-12">

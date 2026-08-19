@@ -54,7 +54,7 @@ export default async function FendiVsLoeweTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Fendi vs Loewe: Pre-Owned Bags in Thailand {PRICE_YEAR}' : 'Fendi vs Loewe: กระเป๋ามือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Fendi vs Loewe: Pre-Owned Bags in Thailand ${PRICE_YEAR}` : `Fendi vs Loewe: กระเป๋ามือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Baguette vs Puzzle — which is the better pre-owned buy for the Thai market?'

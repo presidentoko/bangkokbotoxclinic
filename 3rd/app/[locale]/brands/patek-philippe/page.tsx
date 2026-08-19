@@ -69,7 +69,7 @@ export default async function PatekPhilippeBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Patek Philippe Prices in Thailand {PRICE_YEAR}' : 'ราคา Patek Philippe มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Patek Philippe Prices in Thailand ${PRICE_YEAR}` : `ราคา Patek Philippe มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? 'Sports models 3–5× retail · dress models retain 85–95%'

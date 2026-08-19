@@ -48,7 +48,7 @@ export default async function ChanelSizeGuideThailand({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel Classic Flap Size Guide for Thailand {PRICE_YEAR}' : 'คู่มือขนาด Chanel Classic Flap ในไทย {PRICE_YEAR}'}
+        {isEn ? `Chanel Classic Flap Size Guide for Thailand ${PRICE_YEAR}` : `คู่มือขนาด Chanel Classic Flap ในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Mini vs Small vs M/L vs Maxi — THB prices, dimensions, and which size works best in Bangkok\'s heat.'

@@ -134,7 +134,7 @@ export default async function RolexVsOmegaPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Rolex vs Omega Pre-Owned Prices in Thailand {PRICE_YEAR}'
+          ? `Rolex vs Omega Pre-Owned Prices in Thailand ${PRICE_YEAR}`
           : 'Rolex กับ Omega มือสอง ในไทย — ราคาและความคุ้มค่า'}
       </h1>
 

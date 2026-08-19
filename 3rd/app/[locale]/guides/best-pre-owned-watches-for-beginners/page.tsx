@@ -116,7 +116,7 @@ export default async function WatchesForBeginnersTH({ params }: Props) {
 
       <p className="text-xs tracking-widest uppercase text-amber-600 mb-2">{isEn ? "Buyer's Guide" : 'คู่มือผู้ซื้อ'}</p>
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Best Pre-Owned Luxury Watches for Beginners {PRICE_YEAR}' : 'นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ {PRICE_YEAR}'}
+        {isEn ? `Best Pre-Owned Luxury Watches for Beginners ${PRICE_YEAR}` : `นาฬิกาหรูมือสองที่ดีที่สุดสำหรับมือใหม่ ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

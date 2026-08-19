@@ -96,7 +96,7 @@ export default async function CartierBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Cartier in Thailand {PRICE_YEAR}' : 'Cartier มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Cartier in Thailand ${PRICE_YEAR}` : `Cartier มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? `${items.length} models · 70–90% value retention` : `${items.length} รุ่น · รักษามูลค่า 70–90%`}

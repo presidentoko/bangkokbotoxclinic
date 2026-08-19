@@ -142,11 +142,11 @@ export default async function FirstLuxuryBagPage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Best First Pre-Owned Luxury Bag in Thailand ({PRICE_YEAR} Guide)'
-          : 'กระเป๋า Luxury มือสองใบแรก — คู่มือฉบับสมบูรณ์ ({PRICE_YEAR})'}
+          ? `Best First Pre-Owned Luxury Bag in Thailand (${PRICE_YEAR} Guide)`
+          : `กระเป๋า Luxury มือสองใบแรก — คู่มือฉบับสมบูรณ์ (${PRICE_YEAR})`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-12">
-        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       {/* Section 1: Why buy pre-owned */}

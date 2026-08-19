@@ -59,7 +59,7 @@ export default async function RolexVsAPPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Audemars Piguet: Pre-Owned in Thailand {PRICE_YEAR}' : 'Rolex vs Audemars Piguet: มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Rolex vs Audemars Piguet: Pre-Owned in Thailand ${PRICE_YEAR}` : `Rolex vs Audemars Piguet: มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -62,7 +62,7 @@ export default async function SaintLaurentVsValentinoTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Saint Laurent vs Valentino ({PRICE_YEAR}): Which Holds Value Better?' : 'Saint Laurent vs Valentino ({PRICE_YEAR}): อันไหนรักษามูลค่าได้ดีกว่า?'}
+        {isEn ? `Saint Laurent vs Valentino (${PRICE_YEAR}): Which Holds Value Better?` : `Saint Laurent vs Valentino (${PRICE_YEAR}): อันไหนรักษามูลค่าได้ดีกว่า?`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

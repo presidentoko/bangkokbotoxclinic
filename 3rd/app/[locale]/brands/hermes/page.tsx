@@ -112,10 +112,10 @@ export default async function HermesBrandPage({ params }: Props) {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">{isEn ? 'Brand Price Guide' : 'ราคาแบรนด์'}</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Pre-Owned Hermès in Thailand {PRICE_YEAR}' : 'Hermès มือสองในไทย {PRICE_YEAR} — ราคา Birkin Kelly และอื่นๆ'}
+        {isEn ? `Pre-Owned Hermès in Thailand ${PRICE_YEAR}` : `Hermès มือสองในไทย ${PRICE_YEAR} — ราคา Birkin Kelly และอื่นๆ`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">
-        {isEn ? `Updated {PRICE_YEAR} · ${allItems.length} models tracked` : `อัปเดต 2025 · ติดตาม ${allItems.length} รุ่น`}
+        {isEn ? `Updated ${PRICE_YEAR} · ${allItems.length} models tracked` : `อัปเดต ${PRICE_YEAR} · ติดตาม ${allItems.length} รุ่น`}
       </p>
 
       <section className="mb-10">

@@ -50,7 +50,7 @@ export default async function CartierVsBvlgariTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Cartier vs Bulgari: Pre-Owned Jewelry in Thailand {PRICE_YEAR}' : 'Cartier vs Bulgari: เครื่องประดับมือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Cartier vs Bulgari: Pre-Owned Jewelry in Thailand ${PRICE_YEAR}` : `Cartier vs Bulgari: เครื่องประดับมือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Love Bracelet vs B.zero1 — which fine jewelry brand is the better pre-owned buy for Thai buyers?'

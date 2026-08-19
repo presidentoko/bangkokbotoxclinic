@@ -149,9 +149,9 @@ export default async function PradaVsGucciThPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Prada vs Gucci Pre-Owned in Thailand {PRICE_YEAR}' : 'Prada vs Gucci: ซื้อมือสองอันไหนดีกว่า?'}
+        {isEn ? `Prada vs Gucci Pre-Owned in Thailand ${PRICE_YEAR}` : 'Prada vs Gucci: ซื้อมือสองอันไหนดีกว่า?'}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated {PRICE_YEAR} · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
+      <p className="text-[#8C7355] text-sm mb-10">{isEn ? `Updated ${PRICE_YEAR} · Thailand market` : 'อัปเดต 2025 · ตลาดไทย'}</p>
 
       <p className="text-[#6B6052] mb-10 leading-relaxed max-w-2xl">
         {isEn

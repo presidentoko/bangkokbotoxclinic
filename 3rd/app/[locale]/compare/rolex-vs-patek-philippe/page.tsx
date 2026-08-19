@@ -59,7 +59,7 @@ export default async function RolexVsPatekPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Patek Philippe: Which to Buy Pre-Owned in Thailand {PRICE_YEAR}?' : 'Rolex vs Patek Philippe: ซื้อมือสองอะไรดีในไทย 2568?'}
+        {isEn ? `Rolex vs Patek Philippe: Which to Buy Pre-Owned in Thailand ${PRICE_YEAR}?` : 'Rolex vs Patek Philippe: ซื้อมือสองอะไรดีในไทย 2568?'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

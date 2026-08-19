@@ -51,7 +51,7 @@ export default async function NautilusTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Patek Philippe Nautilus Buying Guide {PRICE_YEAR}' : 'คู่มือซื้อ Patek Philippe Nautilus {PRICE_YEAR}'}
+        {isEn ? `Patek Philippe Nautilus Buying Guide ${PRICE_YEAR}` : `คู่มือซื้อ Patek Philippe Nautilus ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

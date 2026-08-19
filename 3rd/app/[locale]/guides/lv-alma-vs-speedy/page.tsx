@@ -86,7 +86,7 @@ export default async function LvAlmaVsSpeedyTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'LV Alma vs Speedy ({PRICE_YEAR}): Size Guide & Which to Buy Pre-Owned' : 'LV Alma vs Speedy ({PRICE_YEAR}): คู่มือขนาด & ควรซื้อมือสองอันไหน'}
+        {isEn ? `LV Alma vs Speedy (${PRICE_YEAR}): Size Guide & Which to Buy Pre-Owned` : `LV Alma vs Speedy (${PRICE_YEAR}): คู่มือขนาด & ควรซื้อมือสองอันไหน`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

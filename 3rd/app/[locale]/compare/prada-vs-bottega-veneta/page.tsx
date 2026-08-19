@@ -59,7 +59,7 @@ export default async function PradaVsBVTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Prada vs Bottega Veneta Pre-Owned {PRICE_YEAR}' : 'Prada vs Bottega Veneta มือสอง {PRICE_YEAR}'}
+        {isEn ? `Prada vs Bottega Veneta Pre-Owned ${PRICE_YEAR}` : `Prada vs Bottega Veneta มือสอง ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

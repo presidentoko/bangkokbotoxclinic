@@ -55,7 +55,7 @@ export default async function CartierLoveTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Cartier Love Bracelet Buying Guide {PRICE_YEAR}' : 'คู่มือซื้อกำไล Cartier Love {PRICE_YEAR}'}
+        {isEn ? `Cartier Love Bracelet Buying Guide ${PRICE_YEAR}` : `คู่มือซื้อกำไล Cartier Love ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

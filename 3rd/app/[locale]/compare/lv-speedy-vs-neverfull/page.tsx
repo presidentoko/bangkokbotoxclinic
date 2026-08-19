@@ -62,7 +62,7 @@ export default async function LvSpeedyVsNeverfullTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'LV Speedy vs Neverfull ({PRICE_YEAR}): Which Pre-Owned to Buy?' : 'LV Speedy vs Neverfull ({PRICE_YEAR}): มือสองอันไหนน่าซื้อ?'}
+        {isEn ? `LV Speedy vs Neverfull (${PRICE_YEAR}): Which Pre-Owned to Buy?` : `LV Speedy vs Neverfull (${PRICE_YEAR}): มือสองอันไหนน่าซื้อ?`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

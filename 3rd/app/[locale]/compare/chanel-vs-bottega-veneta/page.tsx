@@ -50,7 +50,7 @@ export default async function ChanelVsBVTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel vs Bottega Veneta: Pre-Owned Thailand {PRICE_YEAR}' : 'Chanel vs Bottega Veneta: มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Chanel vs Bottega Veneta: Pre-Owned Thailand ${PRICE_YEAR}` : `Chanel vs Bottega Veneta: มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Loud vs quiet luxury — maximum recognition vs no-logo intrecciato weave. Which is the better pre-owned buy for Thai buyers?'

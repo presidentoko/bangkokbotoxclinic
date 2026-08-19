@@ -96,7 +96,7 @@ export default async function RolexBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Rolex in Thailand {PRICE_YEAR}' : 'Rolex มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Rolex in Thailand ${PRICE_YEAR}` : `Rolex มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? `${items.length} references · sports models often above retail` : `${items.length} รุ่น · รุ่น sports มักราคาเกินของใหม่`}

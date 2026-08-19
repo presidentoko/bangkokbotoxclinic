@@ -48,7 +48,7 @@ export default async function PreOwnedVsNewTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Pre-Owned vs New Luxury in Thailand {PRICE_YEAR}' : 'มือสองกับ Luxury ใหม่ในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned vs New Luxury in Thailand ${PRICE_YEAR}` : `มือสองกับ Luxury ใหม่ในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Thailand\'s luxury market is unique — import duty on new goods, strong grey market, and a very active pre-owned community. Here\'s when pre-owned wins.'

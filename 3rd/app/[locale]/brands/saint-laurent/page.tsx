@@ -96,7 +96,7 @@ export default async function SaintLaurentBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Saint Laurent in Thailand {PRICE_YEAR}' : 'Saint Laurent มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Saint Laurent in Thailand ${PRICE_YEAR}` : `Saint Laurent มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? `${items.length} models · save 35–50% vs retail` : `${items.length} รุ่น · ประหยัดได้ 35–50%`}

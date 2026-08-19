@@ -37,7 +37,7 @@ export default async function BalenciagaBrandTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Balenciaga Pre-Owned in Thailand {PRICE_YEAR}' : 'Balenciaga มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Balenciaga Pre-Owned in Thailand ${PRICE_YEAR}` : `Balenciaga มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Founded 1917 in Spain. The City Bag launched in 2001 defined a generation. Demna era (2015–) redefined street luxury. Here\'s what trades in Thailand.'

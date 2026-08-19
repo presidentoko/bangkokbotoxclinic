@@ -50,7 +50,7 @@ export default async function RolexRefGuideThailand({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex Reference Guide for Thai Buyers {PRICE_YEAR}' : 'คู่มือเลขอ้างอิง Rolex สำหรับผู้ซื้อชาวไทย {PRICE_YEAR}'}
+        {isEn ? `Rolex Reference Guide for Thai Buyers ${PRICE_YEAR}` : `คู่มือเลขอ้างอิง Rolex สำหรับผู้ซื้อชาวไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Decode any Rolex reference and find the current THB market price for each.'

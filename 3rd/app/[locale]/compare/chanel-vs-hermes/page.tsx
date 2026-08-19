@@ -140,7 +140,7 @@ export default async function ChanelVsHermesPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Chanel vs Hermès Pre-Owned in Thailand {PRICE_YEAR}'
+          ? `Chanel vs Hermès Pre-Owned in Thailand ${PRICE_YEAR}`
           : 'Chanel vs Hermès: ซื้อมือสองอันไหนดีกว่าในไทย?'}
       </h1>
 
