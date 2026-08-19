@@ -2,10 +2,9 @@ import { ImageResponse } from 'next/og'
 import { getItemsByCategory } from '@/lib/data'
 
 export const runtime = 'nodejs'
-// Vercel derives the edge Cache-Control for a prerendered route from its
-// `revalidate`. Without one it serves these images as `public, max-age=0`,
-// stripping the s-maxage set on the ImageResponse, and Cloudflare goes back to
-// the origin on every unfurl — the routes showed EXPIRED on every request.
+// How often the image may be regenerated. Does not currently affect the
+// Cache-Control Vercel emits for dynamic-segment metadata routes — see the
+// note on the ImageResponse headers below.
 export const revalidate = 86400
 export const alt = 'Pre-owned luxury watch prices — Rolex, Patek Philippe, AP'
 export const size = { width: 1200, height: 630 }
@@ -41,12 +40,17 @@ export default function Image() {
     ),
     {
       ...size,
-      // Next stamps metadata images with `public, max-age=0, must-revalidate`
-      // and that wins over next.config's headers(), so Cloudflare held these
-      // as EXPIRED and revalidated against the origin on every single request.
-      // There are ~300 of these across the brand and model routes; social
-      // unfurls and crawlers hit them constantly. The art is generated from
-      // build-time data, so a day at the edge is safe.
+      // Intent: a day at the edge. The art comes from build-time data, so it
+      // cannot go stale sooner.
+      //
+      // NOTE: on Vercel this is currently overridden for routes under a
+      // dynamic segment — they are served as bare `public, max-age=0` no
+      // matter what is set here or in `revalidate` below, no ETag, and a
+      // conditional request still returns the full 50 KB body. The edge TTL
+      // that actually holds is enforced by a Cloudflare Cache Rule on
+      // /*opengraph-image*. Keep this header: it is correct, it works for the
+      // static root routes, and it is what should apply if Vercel stops
+      // rewriting it.
       headers: {
         'Cache-Control': 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800',
       },
