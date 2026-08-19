@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { loadMasterDb, topByTrust } from "@/lib/data";
+import { loadMasterDb, topByTrust, filterByCityOrAlias, resolveCityAlias } from "@/lib/data";
+import { indexableCities, indexableDistricts, allDistricts } from "@/lib/crawlGate";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -29,20 +30,39 @@ export default async function HomePage() {
   const withPhotos = db.restaurants.filter((c) => (c.photos && c.photos.length > 0) || c.hero_image || c.top_photo_url).length;
   const provinces = Object.keys(db.city_counts).length;
 
-  const cities = Object.entries(db.city_counts).sort((a, b) => b[1] - a[1]);
+  // 홈도 sitemap / generateStaticParams 와 같은 게이트를 써야 한다. 안 쓰면 홈이
+  // 발행되지 않는 페이지를 링크한다 — 실제로 /city/songkhla(별칭이 코스를 다 가져감),
+  // /d/เมือง(태국어 슬러그라 제외됨) 이 홈에서 404 를 가리키고 있었다.
+  // 목적지 별칭(hua_hin, pattaya …)도 여기서 함께 노출된다.
+  const citySlugs = indexableCities(db.restaurants, Object.keys(db.city_counts));
+  const cities: [string, number][] = citySlugs
+    .map((slug) => {
+      const matched = filterByCityOrAlias(db.restaurants, slug);
+      const label = resolveCityAlias(slug)?.label ?? matched[0]?.city_label ?? slug.replace(/_/g, " ");
+      return [label, matched.length, slug] as [string, number, string];
+    })
+    .sort((a, b) => b[1] - a[1])
+    .map(([label, n]) => [label, n]);
 
+  const publishableDistricts = new Set(
+    indexableDistricts(db.restaurants, allDistricts(db.district_counts)).map((d) => d.district),
+  );
   const districtMap = new Map<string, number>();
   for (const r of db.restaurants) {
-    if (r.district) districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+    if (r.district && publishableDistricts.has(r.district)) {
+      districtMap.set(r.district, (districtMap.get(r.district) ?? 0) + 1);
+    }
   }
   const districts = [...districtMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
 
   const categories = Object.entries(db.cuisine_counts).sort((a, b) => b[1] - a[1]);
 
+  // 목적지 페이지가 생기기 전엔 파타야/후아힌을 도(道) 페이지로 보낼 수밖에 없었다.
+  // 이제 각자 자기 페이지가 있다 — 후아힌은 코스 1개에서 24개가 됐다.
   const popularSearches = [
     { label: "Bangkok", href: "/city/bangkok" },
-    { label: "Pattaya", href: "/city/chon_buri" },
-    { label: "Hua Hin", href: "/city/prachuap_khiri_khan" },
+    { label: "Pattaya", href: "/city/pattaya" },
+    { label: "Hua Hin", href: "/city/hua_hin" },
     { label: "Korean caddy", href: "/best/korean-friendly" },
   ];
 
