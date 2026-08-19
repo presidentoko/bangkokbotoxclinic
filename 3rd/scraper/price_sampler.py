@@ -5,6 +5,8 @@ Exchange rate from frankfurter.app (free, no key); falls back to 35.0.
 Run from repo root: python 3rd/scraper/price_sampler.py
 """
 import json
+import math
+import statistics
 import time
 import random
 import subprocess
@@ -59,15 +61,110 @@ def normalize_condition(raw) -> str:
     return 'good'
 
 
-def recalculate_ranges(samples: list) -> dict:
+# --- price range derivation ------------------------------------------------
+#
+# The search results are not all the product we asked for. A query for
+# "Patek Philippe Aquanaut 5167A" returns straps, boxes, service parts and
+# outright fakes alongside the watches, and taking a raw min()/max() over that
+# let a single 8,500 THB listing set the floor for a 915,000 THB watch — the
+# published range read 8,500-4,594,500. A quarter of the catalogue (49 of 190
+# items) was showing a range wider than 8x, on a site whose entire purpose is
+# telling people what something costs.
+#
+# Three stages, each aimed at a failure seen in the data:
+#   1. Retail window   — drop anything outside 0.2x-5x of retail. Kills the
+#                        accessories and the "call for price" artifacts.
+#   2. Cluster split   — the survivors are often still bimodal (junk at 200k,
+#                        real watches at 1.6M+). Split on the largest >=3x gap
+#                        between neighbouring prices and keep the cluster whose
+#                        geometric centre sits closest to retail in log space.
+#                        Not "the biggest cluster": for the Aquanaut the junk
+#                        outnumbered the watches 19 to 11.
+#   3. p10-p90 band    — report the middle of what is left rather than its
+#                        extremes, so one mispriced listing cannot define the
+#                        range.
+#
+# Anything left whose centre is still 10x off retail is not published at all.
+# A missing price is recoverable; a wrong one is what the site exists to avoid.
+
+RETAIL_WINDOW = (0.20, 5.0)
+CLUSTER_GAP = 3.0
+MIN_SAMPLES = 3
+SANITY_WINDOW = (0.10, 10.0)
+
+
+def _geometric_mean(values: list) -> float:
+    return math.exp(sum(math.log(v) for v in values) / len(values))
+
+
+def _clusters(prices: list) -> list:
+    """Split a sorted price list wherever consecutive values jump >= CLUSTER_GAP."""
+    prices = sorted(prices)
+    out, current = [], [prices[0]]
+    for lower, upper in zip(prices, prices[1:]):
+        if lower > 0 and upper / lower >= CLUSTER_GAP:
+            out.append(current)
+            current = [upper]
+        else:
+            current.append(upper)
+    out.append(current)
+    return out
+
+
+def _band(prices: list) -> dict | None:
+    prices = sorted(prices)
+    if len(prices) < MIN_SAMPLES:
+        return None
+    if len(prices) < 4:
+        return {'min': int(prices[0]), 'max': int(prices[-1])}
+    q = statistics.quantiles(prices, n=10)
+    # quantiles() interpolates and will run outside the observed data on small
+    # samples — unclamped it produced a -9,500 THB "price". Clamp to what was seen.
+    return {'min': int(max(prices[0], q[0])), 'max': int(min(prices[-1], q[8]))}
+
+
+def credible_prices(prices: list, retail: float) -> set:
+    """The subset of `prices` that plausibly describes this exact product."""
+    prices = [p for p in prices if p > 0]
+    if not prices:
+        return set()
+
+    if retail and retail > 0:
+        low, high = retail * RETAIL_WINDOW[0], retail * RETAIL_WINDOW[1]
+        windowed = [p for p in prices if low <= p <= high]
+        # Only trust the window if it left enough to work with; otherwise the
+        # retail figure itself is probably wrong and we fall back to the shape
+        # of the data.
+        if len(windowed) >= MIN_SAMPLES:
+            prices = windowed
+
+    groups = _clusters(prices)
+    if len(groups) > 1:
+        if retail and retail > 0:
+            prices = min(groups, key=lambda g: abs(math.log(_geometric_mean(g) / retail)))
+        else:
+            prices = max(groups, key=len)
+
+    if retail and retail > 0 and prices:
+        centre = _geometric_mean(prices)
+        if not (SANITY_WINDOW[0] * retail <= centre <= SANITY_WINDOW[1] * retail):
+            return set()
+
+    return set(prices)
+
+
+def recalculate_ranges(samples: list, retail: float = 0) -> dict:
+    keep = credible_prices([s['price'] for s in samples], retail)
     by_cond: dict = {}
     for s in samples:
-        by_cond.setdefault(s['condition'], []).append(s['price'])
-    return {
-        cond: {'min': int(min(prices)), 'max': int(max(prices))}
-        for cond, prices in by_cond.items()
-        if prices
-    }
+        if s['price'] in keep:
+            by_cond.setdefault(s['condition'], []).append(s['price'])
+    ranges = {}
+    for cond, prices in by_cond.items():
+        band = _band(prices)
+        if band:
+            ranges[cond] = band
+    return ranges
 
 
 def trim_samples(samples: list, keep: int = 30) -> list:
@@ -133,7 +230,7 @@ def run():
             item['price_samples'] = trim_samples(
                 item.get('price_samples', []) + new_samples
             )
-            item['price_ranges'] = recalculate_ranges(item['price_samples'])
+            item['price_ranges'] = recalculate_ranges(item['price_samples'], item.get('retail_price_thb', 0))
             item['last_updated'] = datetime.now().strftime('%Y-%m-%d')
 
         time.sleep(random.uniform(2, 5))

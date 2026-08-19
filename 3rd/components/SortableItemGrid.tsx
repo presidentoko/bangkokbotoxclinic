@@ -1,10 +1,18 @@
 'use client'
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import type { GridItem } from '@/lib/data'
+import type { Condition, GridItem } from '@/lib/data'
 import { formatPriceTHB, getAvgPrice } from '@/lib/data'
 
 type SortKey = 'savings' | 'price_low' | 'price_high' | 'name'
+
+// The headline price is not always Very Good — Patek Philippe, for one, only
+// has credible Excellent listings. Label whichever grade is actually shown.
+const CONDITION_LABELS: Record<Condition, { en: string; th: string }> = {
+  excellent: { en: 'Excellent', th: 'สภาพดีเยี่ยม' },
+  very_good: { en: 'Very Good', th: 'สภาพดีมาก' },
+  good: { en: 'Good', th: 'สภาพดี' },
+}
 
 export function SortableItemGrid({ items, locale }: { items: GridItem[]; locale: string }) {
   const [sort, setSort] = useState<SortKey>('savings')
@@ -75,7 +83,7 @@ export function SortableItemGrid({ items, locale }: { items: GridItem[]; locale:
                 {vg ? (
                   <div>
                     <p className="text-xs text-[#9C8B7A] mb-0.5">
-                      {locale === 'th' ? 'สภาพดีมาก' : 'Very Good'}
+                      {CONDITION_LABELS[item.condition ?? 'very_good'][locale === 'th' ? 'th' : 'en']}
                     </p>
                     <p className="text-xl font-medium text-[#1A1A1A] mb-1">{formatPriceTHB(getAvgPrice(vg))}</p>
                     {savingsPct !== null && savingsPct > 0 && (
