@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import {
+  headlinePrice,
   getItemBySlug,
   getAllItems,
   formatPriceTHB,
@@ -11,6 +12,7 @@ import {
   getItemsByBrand,
   Item,
   PriceRange,
+  Condition,
 } from '@/lib/data'
 import { PriceTable } from '@/components/PriceTable'
 import { PriceHistory } from '@/components/PriceHistory'
@@ -41,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = getItemBySlug(brand, model)
   if (!item) return {}
   const t = await getTranslations({ locale, namespace: 'common' })
-  const vg = item.price_ranges.very_good
+  const vg = headlinePrice(item.price_ranges)?.range ?? null
   const otherLocale = locale === 'en' ? 'th' : 'en'
   const title = t('page_title_model', { brand: item.brand, model: item.model, year: YEAR })
   const description = t('page_meta_model', {
@@ -72,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function getFAQs(item: Item, locale: string) {
   const isTh = locale === 'th'
-  const vg = item.price_ranges.very_good
+  const vg = headlinePrice(item.price_ranges)?.range ?? null
   const savingsPct = vg && item.retail_price_thb > 0
     ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
     : null
@@ -335,7 +337,7 @@ export default async function ModelPage({ params }: Props) {
 
   // Share data
   const pageUrl = `${BASE}/${locale}/${item.slug}`
-  const vg = item.price_ranges.very_good
+  const vg = headlinePrice(item.price_ranges)?.range ?? null
   const metaDescription = tCommon('page_meta_model', {
     brand: item.brand,
     model: item.model,
@@ -402,13 +404,24 @@ export default async function ModelPage({ params }: Props) {
 
       {/* Price Hero */}
       {(() => {
-        const vg = item.price_ranges.very_good
+        const headline = headlinePrice(item.price_ranges)
+        const vg = headline?.range ?? null
         const savingsPct = vg && item.retail_price_thb > 0
           ? Math.round(((item.retail_price_thb - (vg.min + vg.max) / 2) / item.retail_price_thb) * 100)
           : null
         const vestiaire = `https://www.vestiairecollective.com/search/?q=${encodeURIComponent(item.brand + ' ' + item.model)}`
         const ebay = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(item.brand + ' ' + item.model)}`
-        const priceLabel = locale === 'th' ? 'ราคาตลาดปัจจุบัน — สภาพดีมาก' : 'Current Market Price — Very Good Condition'
+        // Label the grade actually being priced. Patek Philippe has no
+        // credible Very Good listings, so claiming that here would be a lie.
+        const gradeLabel: Record<Condition, string> = {
+          excellent: locale === 'th' ? 'สภาพดีเยี่ยม' : 'Excellent',
+          very_good: locale === 'th' ? 'สภาพดีมาก' : 'Very Good',
+          good: locale === 'th' ? 'สภาพดี' : 'Good',
+        }
+        const gradeText = gradeLabel[headline?.condition ?? 'very_good']
+        const priceLabel = locale === 'th'
+          ? `ราคาตลาดปัจจุบัน — ${gradeText}`
+          : `Current Market Price — ${gradeText} Condition`
         const shopLabel = locale === 'th' ? 'ช้อปบน Vestiaire →' : 'Shop on Vestiaire →'
         const searchLabel = locale === 'th' ? 'ค้นหาบน eBay' : 'Search eBay'
         const savingsLabel = (pct: number) => locale === 'th' ? `ประหยัด ~${pct}% จากราคาใหม่` : `~${pct}% below retail`

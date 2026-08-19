@@ -133,18 +133,48 @@ export interface GridItem {
   model: string
   slug: string
   retail: number
+  /** Headline range — see `headlinePrice`. Not necessarily Very Good. */
   vg: PriceRange | null
+  /** Which grade `vg` describes, so the card can label it honestly. */
+  condition: Condition | null
 }
 
 export function toGridItems(items: Item[]): GridItem[] {
-  return items.map(i => ({
-    id: i.id,
-    brand: i.brand,
-    model: i.model,
-    slug: i.slug,
-    retail: i.retail_price_thb,
-    vg: i.price_ranges?.very_good ?? null,
-  }))
+  return items.map(i => {
+    const headline = headlinePrice(i.price_ranges)
+    return {
+      id: i.id,
+      brand: i.brand,
+      model: i.model,
+      slug: i.slug,
+      retail: i.retail_price_thb,
+      vg: headline?.range ?? null,
+      condition: headline?.condition ?? null,
+    }
+  })
+}
+
+/**
+ * The price to lead with, and which condition it describes.
+ *
+ * Every headline on the site read `price_ranges.very_good` and showed nothing
+ * when it was absent — so the three Patek Philippe pages, which between them
+ * draw the largest share of the site's impressions, displayed no price at all
+ * despite having a tight, credible `excellent` range. Fall back through the
+ * grades, and return the grade so the label can say which one it is rather
+ * than claiming "Very Good" over an Excellent price.
+ */
+export const CONDITION_PREFERENCE: Condition[] = ['very_good', 'excellent', 'good']
+
+export function headlinePrice(
+  ranges: Partial<Record<Condition, PriceRange>> | undefined
+): { range: PriceRange; condition: Condition } | null {
+  if (!ranges) return null
+  for (const condition of CONDITION_PREFERENCE) {
+    const range = ranges[condition]
+    if (range) return { range, condition }
+  }
+  return null
 }
 
 export function getSearchIndex(): SearchIndexEntry[] {
@@ -153,7 +183,7 @@ export function getSearchIndex(): SearchIndexEntry[] {
     brand: i.brand,
     model: i.model,
     slug: i.slug,
-    avg_price: i.price_ranges?.very_good ? getAvgPrice(i.price_ranges.very_good) : undefined,
+    avg_price: (r => (r ? getAvgPrice(r.range) : undefined))(headlinePrice(i.price_ranges)),
   }))
 }
 
@@ -168,8 +198,8 @@ export function normalizeForSearch(s: string): string {
 
 export function getItemsUnderBudget(maxThb: number): Item[] {
   return items.filter(i => {
-    const vg = i.price_ranges?.very_good
-    if (!vg) return false
-    return getAvgPrice(vg) <= maxThb
+    const headline = headlinePrice(i.price_ranges)
+    if (!headline) return false
+    return getAvgPrice(headline.range) <= maxThb
   })
 }
