@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { BrandPriceTable } from '@/components/BrandPriceTable'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -28,19 +29,6 @@ export default async function PatekPhilippeBrandPage({ params }: Props) {
   const { locale } = await params
   const isEn = locale === 'en'
 
-  const models = isEn ? [
-    { name: 'Nautilus 5711/1A (discontinued)', retail: '฿1,250,000', preowned: '฿3,500,000–5,500,000', badge: 'Above Retail ×3–5', abv: true },
-    { name: 'Aquanaut 5167A', retail: '฿900,000', preowned: '฿2,000,000–3,500,000', badge: 'Above Retail ×2–4', abv: true },
-    { name: 'Calatrava 5196P', retail: '฿750,000', preowned: '฿650,000–900,000', badge: null, abv: false },
-    { name: 'Calatrava 5119G', retail: '฿550,000', preowned: '฿450,000–620,000', badge: null, abv: false },
-    { name: 'Twenty~4 4910/1200A', retail: '฿380,000', preowned: '฿280,000–380,000', badge: null, abv: false },
-  ] : [
-    { name: 'Nautilus 5711/1A (ยุติการผลิตแล้ว)', retail: '1,250,000 บาท', preowned: '3,500,000–5,500,000 บาท', badge: 'สูงกว่าราคาปลีก ×3–5', abv: true },
-    { name: 'Aquanaut 5167A', retail: '900,000 บาท', preowned: '2,000,000–3,500,000 บาท', badge: 'สูงกว่าราคาปลีก ×2–4', abv: true },
-    { name: 'Calatrava 5196P', retail: '750,000 บาท', preowned: '650,000–900,000 บาท', badge: null, abv: false },
-    { name: 'Calatrava 5119G', retail: '550,000 บาท', preowned: '450,000–620,000 บาท', badge: null, abv: false },
-    { name: 'Twenty~4 4910/1200A', retail: '380,000 บาท', preowned: '280,000–380,000 บาท', badge: null, abv: false },
-  ]
 
   const faqs = isEn ? [
     {
@@ -101,29 +89,7 @@ export default async function PatekPhilippeBrandPage({ params }: Props) {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           {isEn ? 'Patek Philippe Pre-Owned Buying Guide Thailand' : 'ราคา Patek Philippe มือสองในไทย'}
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">{isEn ? 'Model' : 'รุ่น'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Retail (THB)' : 'ราคาใหม่ (บาท)'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Pre-owned (THB)' : 'มือสอง (บาท)'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {models.map((m, i) => (
-                <tr key={i} className="border-b border-gray-100">
-                  <td className="py-3 px-4">
-                    <div className="font-medium text-gray-900">{m.name}</div>
-                    {m.badge && <span className="inline-block mt-1 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">{m.badge}</span>}
-                  </td>
-                  <td className="text-right py-3 px-4 text-gray-500">{m.retail}</td>
-                  <td className={`text-right py-3 px-4 font-medium ${m.abv ? 'text-amber-600' : ''}`}>{m.preowned}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <BrandPriceTable brandSlug="patek-philippe" locale={locale} />
       </section>
 
       <section className="mb-10">

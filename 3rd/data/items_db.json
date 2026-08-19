@@ -10,11 +10,13 @@
       "price_ranges": {
         "very_good": {
           "min": 117800,
-          "max": 281100
+          "max": 281100,
+          "median": 185000
         },
         "good": {
           "min": 150150,
-          "max": 341300
+          "max": 341300,
+          "median": 275250
         }
       },
       "price_samples": [
@@ -214,11 +216,13 @@
       "price_ranges": {
         "very_good": {
           "min": 93000,
-          "max": 184900
+          "max": 184900,
+          "median": 146000
         },
         "good": {
           "min": 68500,
-          "max": 139500
+          "max": 139500,
+          "median": 119000
         }
       },
       "price_samples": [
@@ -418,7 +422,8 @@
       "price_ranges": {
         "very_good": {
           "min": 26300,
-          "max": 93500
+          "max": 93500,
+          "median": 41000
         }
       },
       "price_samples": [
@@ -618,11 +623,13 @@
       "price_ranges": {
         "very_good": {
           "min": 23900,
-          "max": 85200
+          "max": 85200,
+          "median": 71000
         },
         "good": {
           "min": 16000,
-          "max": 94500
+          "max": 94500,
+          "median": 19000
         }
       },
       "price_samples": [
@@ -822,11 +829,13 @@
       "price_ranges": {
         "good": {
           "min": 351000,
-          "max": 942000
+          "max": 942000,
+          "median": 543000
         },
         "very_good": {
           "min": 470200,
-          "max": 927100
+          "max": 927100,
+          "median": 641000
         }
       },
       "price_samples": [
@@ -1026,11 +1035,13 @@
       "price_ranges": {
         "very_good": {
           "min": 483600,
-          "max": 950950
+          "max": 950950,
+          "median": 681250
         },
         "good": {
           "min": 314500,
-          "max": 563000
+          "max": 563000,
+          "median": 341000
         }
       },
       "price_samples": [
@@ -1230,11 +1241,13 @@
       "price_ranges": {
         "very_good": {
           "min": 30550,
-          "max": 60450
+          "max": 60450,
+          "median": 48250
         },
         "good": {
           "min": 34500,
-          "max": 63000
+          "max": 63000,
+          "median": 56500
         }
       },
       "price_samples": [
@@ -1434,7 +1447,8 @@
       "price_ranges": {
         "very_good": {
           "min": 42900,
-          "max": 135200
+          "max": 135200,
+          "median": 84000
         }
       },
       "price_samples": [
@@ -1634,15 +1648,18 @@
       "price_ranges": {
         "very_good": {
           "min": 20300,
-          "max": 81800
+          "max": 81800,
+          "median": 36250
         },
         "excellent": {
           "min": 29000,
-          "max": 82500
+          "max": 82500,
+          "median": 40000
         },
         "good": {
           "min": 26500,
-          "max": 85500
+          "max": 85500,
+          "median": 54250
         }
       },
       "price_samples": [
@@ -1842,11 +1859,13 @@
       "price_ranges": {
         "very_good": {
           "min": 435900,
-          "max": 682100
+          "max": 682100,
+          "median": 530000
         },
         "good": {
           "min": 447500,
-          "max": 681500
+          "max": 681500,
+          "median": 486000
         }
       },
       "price_samples": [
@@ -2046,11 +2065,13 @@
       "price_ranges": {
         "very_good": {
           "min": 436900,
-          "max": 1001700
+          "max": 1001700,
+          "median": 565500
         },
         "excellent": {
           "min": 503800,
-          "max": 1008900
+          "max": 1008900,
+          "median": 739500
         }
       },
       "price_samples": [
@@ -2250,7 +2271,8 @@
       "price_ranges": {
         "excellent": {
           "min": 9079000,
-          "max": 9463150
+          "max": 9463150,
+          "median": 9103000
         }
       },
       "price_samples": [
@@ -2450,7 +2472,8 @@
       "price_ranges": {
         "very_good": {
           "min": 1120900,
-          "max": 1606100
+          "max": 1606100,
+          "median": 1436000
         }
       },
       "price_samples": [
@@ -2650,7 +2673,8 @@
       "price_ranges": {
         "very_good": {
           "min": 130150,
-          "max": 195100
+          "max": 195100,
+          "median": 162750
         }
       },
       "price_samples": [
@@ -2850,11 +2874,13 @@
       "price_ranges": {
         "excellent": {
           "min": 4000,
-          "max": 8700
+          "max": 8700,
+          "median": 4500
         },
         "very_good": {
           "min": 2650,
-          "max": 12050
+          "max": 12050,
+          "median": 4000
         }
       },
       "price_samples": [
@@ -3054,15 +3080,18 @@
       "price_ranges": {
         "very_good": {
           "min": 2900,
-          "max": 6500
+          "max": 6500,
+          "median": 4000
         },
         "good": {
           "min": 2500,
-          "max": 6500
+          "max": 6500,
+          "median": 6250
         },
         "excellent": {
           "min": 3500,
-          "max": 7000
+          "max": 7000,
+          "median": 6500
         }
       },
       "price_samples": [
@@ -3262,15 +3291,18 @@
       "price_ranges": {
         "good": {
           "min": 4550,
-          "max": 17250
+          "max": 17250,
+          "median": 10250
         },
         "very_good": {
           "min": 7500,
-          "max": 41250
+          "max": 41250,
+          "median": 12250
         },
         "excellent": {
           "min": 16000,
-          "max": 28000
+          "max": 28000,
+          "median": 18250
         }
       },
       "price_samples": [
@@ -3470,11 +3502,13 @@
       "price_ranges": {
         "very_good": {
           "min": 6500,
-          "max": 17500
+          "max": 17500,
+          "median": 12000
         },
         "excellent": {
           "min": 10700,
-          "max": 22000
+          "max": 22000,
+          "median": 13500
         }
       },
       "price_samples": [
@@ -3674,15 +3708,18 @@
       "price_ranges": {
         "very_good": {
           "min": 17000,
-          "max": 59500
+          "max": 59500,
+          "median": 27000
         },
         "good": {
           "min": 9500,
-          "max": 18000
+          "max": 18000,
+          "median": 10500
         },
         "excellent": {
           "min": 21000,
-          "max": 55500
+          "max": 55500,
+          "median": 34500
         }
       },
       "price_samples": [
@@ -3882,15 +3919,18 @@
       "price_ranges": {
         "very_good": {
           "min": 11800,
-          "max": 98900
+          "max": 98900,
+          "median": 20000
         },
         "good": {
           "min": 10500,
-          "max": 28000
+          "max": 28000,
+          "median": 16500
         },
         "excellent": {
           "min": 17500,
-          "max": 31000
+          "max": 31000,
+          "median": 23000
         }
       },
       "price_samples": [
@@ -4090,15 +4130,18 @@
       "price_ranges": {
         "good": {
           "min": 14000,
-          "max": 135000
+          "max": 135000,
+          "median": 28000
         },
         "very_good": {
           "min": 18000,
-          "max": 88600
+          "max": 88600,
+          "median": 41000
         },
         "excellent": {
           "min": 47000,
-          "max": 62000
+          "max": 62000,
+          "median": 53000
         }
       },
       "price_samples": [
@@ -4298,15 +4341,18 @@
       "price_ranges": {
         "very_good": {
           "min": 9000,
-          "max": 31000
+          "max": 31000,
+          "median": 18000
         },
         "excellent": {
           "min": 14000,
-          "max": 30000
+          "max": 30000,
+          "median": 26000
         },
         "good": {
           "min": 8500,
-          "max": 26500
+          "max": 26500,
+          "median": 17500
         }
       },
       "price_samples": [
@@ -4506,15 +4552,18 @@
       "price_ranges": {
         "very_good": {
           "min": 56300,
-          "max": 265450
+          "max": 265450,
+          "median": 130750
         },
         "excellent": {
           "min": 78000,
-          "max": 181500
+          "max": 181500,
+          "median": 83500
         },
         "good": {
           "min": 77000,
-          "max": 186000
+          "max": 186000,
+          "median": 100500
         }
       },
       "price_samples": [
@@ -4712,11 +4761,13 @@
       "price_ranges": {
         "very_good": {
           "min": 81800,
-          "max": 347350
+          "max": 347350,
+          "median": 147750
         },
         "good": {
           "min": 70300,
-          "max": 389300
+          "max": 389300,
+          "median": 181000
         }
       },
       "price_samples": [
@@ -4914,11 +4965,13 @@
       "price_ranges": {
         "very_good": {
           "min": 109900,
-          "max": 288450
+          "max": 288450,
+          "median": 182250
         },
         "good": {
           "min": 147200,
-          "max": 376700
+          "max": 376700,
+          "median": 259250
         }
       },
       "price_samples": [
@@ -5116,15 +5169,18 @@
       "price_ranges": {
         "excellent": {
           "min": 132500,
-          "max": 203500
+          "max": 203500,
+          "median": 155750
         },
         "very_good": {
           "min": 77500,
-          "max": 161000
+          "max": 161000,
+          "median": 113500
         },
         "good": {
           "min": 23000,
-          "max": 116000
+          "max": 116000,
+          "median": 55000
         }
       },
       "price_samples": [
@@ -5322,11 +5378,13 @@
       "price_ranges": {
         "very_good": {
           "min": 85700,
-          "max": 232000
+          "max": 232000,
+          "median": 165500
         },
         "good": {
           "min": 29500,
-          "max": 116000
+          "max": 116000,
+          "median": 62750
         }
       },
       "price_samples": [
@@ -5524,11 +5582,13 @@
       "price_ranges": {
         "very_good": {
           "min": 118400,
-          "max": 201900
+          "max": 201900,
+          "median": 168500
         },
         "excellent": {
           "min": 122500,
-          "max": 255500
+          "max": 255500,
+          "median": 197000
         }
       },
       "price_samples": [
@@ -5726,11 +5786,13 @@
       "price_ranges": {
         "very_good": {
           "min": 56900,
-          "max": 134500
+          "max": 134500,
+          "median": 99000
         },
         "good": {
           "min": 51150,
-          "max": 124900
+          "max": 124900,
+          "median": 95250
         }
       },
       "price_samples": [
@@ -5928,11 +5990,13 @@
       "price_ranges": {
         "very_good": {
           "min": 76000,
-          "max": 156750
+          "max": 156750,
+          "median": 117750
         },
         "good": {
           "min": 49500,
-          "max": 123500
+          "max": 123500,
+          "median": 92750
         }
       },
       "price_samples": [
@@ -6130,11 +6194,13 @@
       "price_ranges": {
         "good": {
           "min": 21000,
-          "max": 74500
+          "max": 74500,
+          "median": 35750
         },
         "very_good": {
           "min": 33800,
-          "max": 113100
+          "max": 113100,
+          "median": 62750
         }
       },
       "price_samples": [
@@ -6332,11 +6398,13 @@
       "price_ranges": {
         "very_good": {
           "min": 23900,
-          "max": 82500
+          "max": 82500,
+          "median": 49000
         },
         "good": {
           "min": 21000,
-          "max": 94500
+          "max": 94500,
+          "median": 44500
         }
       },
       "price_samples": [
@@ -6534,15 +6602,18 @@
       "price_ranges": {
         "excellent": {
           "min": 76000,
-          "max": 192000
+          "max": 192000,
+          "median": 124250
         },
         "very_good": {
           "min": 36200,
-          "max": 88900
+          "max": 88900,
+          "median": 68000
         },
         "good": {
           "min": 15500,
-          "max": 72500
+          "max": 72500,
+          "median": 39250
         }
       },
       "price_samples": [
@@ -6740,11 +6811,13 @@
       "price_ranges": {
         "very_good": {
           "min": 17200,
-          "max": 75700
+          "max": 75700,
+          "median": 36000
         },
         "good": {
           "min": 29500,
-          "max": 83500
+          "max": 83500,
+          "median": 41750
         }
       },
       "price_samples": [
@@ -6942,11 +7015,13 @@
       "price_ranges": {
         "very_good": {
           "min": 22850,
-          "max": 52200
+          "max": 52200,
+          "median": 39500
         },
         "good": {
           "min": 18500,
-          "max": 22500
+          "max": 22500,
+          "median": 21500
         }
       },
       "price_samples": [
@@ -7144,15 +7219,18 @@
       "price_ranges": {
         "good": {
           "min": 13500,
-          "max": 38000
+          "max": 38000,
+          "median": 36500
         },
         "very_good": {
           "min": 61300,
-          "max": 106600
+          "max": 106600,
+          "median": 101000
         },
         "excellent": {
           "min": 76000,
-          "max": 93000
+          "max": 93000,
+          "median": 91000
         }
       },
       "price_samples": [
@@ -7350,11 +7428,13 @@
       "price_ranges": {
         "very_good": {
           "min": 87000,
-          "max": 195300
+          "max": 195300,
+          "median": 117500
         },
         "excellent": {
           "min": 139000,
-          "max": 334500
+          "max": 334500,
+          "median": 175500
         }
       },
       "price_samples": [
@@ -7552,11 +7632,13 @@
       "price_ranges": {
         "very_good": {
           "min": 63500,
-          "max": 123000
+          "max": 123000,
+          "median": 90000
         },
         "good": {
           "min": 55500,
-          "max": 90500
+          "max": 90500,
+          "median": 79250
         }
       },
       "price_samples": [
@@ -7754,15 +7836,18 @@
       "price_ranges": {
         "good": {
           "min": 66000,
-          "max": 104500
+          "max": 104500,
+          "median": 93500
         },
         "excellent": {
           "min": 89000,
-          "max": 174000
+          "max": 174000,
+          "median": 126000
         },
         "very_good": {
           "min": 76000,
-          "max": 135150
+          "max": 135150,
+          "median": 97750
         }
       },
       "price_samples": [
@@ -7960,11 +8045,13 @@
       "price_ranges": {
         "very_good": {
           "min": 607700,
-          "max": 1068900
+          "max": 1068900,
+          "median": 828500
         },
         "excellent": {
           "min": 838000,
-          "max": 1042500
+          "max": 1042500,
+          "median": 904000
         }
       },
       "price_samples": [
@@ -8162,11 +8249,13 @@
       "price_ranges": {
         "very_good": {
           "min": 359800,
-          "max": 788650
+          "max": 788650,
+          "median": 571000
         },
         "good": {
           "min": 355500,
-          "max": 510000
+          "max": 510000,
+          "median": 417500
         }
       },
       "price_samples": [
@@ -8364,15 +8453,18 @@
       "price_ranges": {
         "very_good": {
           "min": 629300,
-          "max": 1139600
+          "max": 1139600,
+          "median": 810500
         },
         "good": {
           "min": 260500,
-          "max": 757000
+          "max": 757000,
+          "median": 484000
         },
         "excellent": {
           "min": 110000,
-          "max": 1109500
+          "max": 1109500,
+          "median": 119000
         }
       },
       "price_samples": [
@@ -8570,11 +8662,13 @@
       "price_ranges": {
         "good": {
           "min": 115100,
-          "max": 583700
+          "max": 583700,
+          "median": 303500
         },
         "very_good": {
           "min": 325700,
-          "max": 785400
+          "max": 785400,
+          "median": 547750
         }
       },
       "price_samples": [
@@ -8772,15 +8866,18 @@
       "price_ranges": {
         "very_good": {
           "min": 279300,
-          "max": 515200
+          "max": 515200,
+          "median": 361000
         },
         "excellent": {
           "min": 477000,
-          "max": 1646500
+          "max": 1646500,
+          "median": 780250
         },
         "good": {
           "min": 300000,
-          "max": 497000
+          "max": 497000,
+          "median": 356500
         }
       },
       "price_samples": [
@@ -8978,11 +9075,13 @@
       "price_ranges": {
         "very_good": {
           "min": 170100,
-          "max": 528500
+          "max": 528500,
+          "median": 273000
         },
         "excellent": {
           "min": 299000,
-          "max": 515500
+          "max": 515500,
+          "median": 430500
         }
       },
       "price_samples": [
@@ -9180,7 +9279,8 @@
       "price_ranges": {
         "very_good": {
           "min": 31950,
-          "max": 66300
+          "max": 66300,
+          "median": 53250
         }
       },
       "price_samples": [
@@ -9378,11 +9478,13 @@
       "price_ranges": {
         "very_good": {
           "min": 16100,
-          "max": 109000
+          "max": 109000,
+          "median": 28000
         },
         "excellent": {
           "min": 19650,
-          "max": 84050
+          "max": 84050,
+          "median": 38000
         }
       },
       "price_samples": [
@@ -9580,15 +9682,18 @@
       "price_ranges": {
         "good": {
           "min": 16000,
-          "max": 57500
+          "max": 57500,
+          "median": 35500
         },
         "excellent": {
           "min": 42000,
-          "max": 106000
+          "max": 106000,
+          "median": 53000
         },
         "very_good": {
           "min": 17700,
-          "max": 65600
+          "max": 65600,
+          "median": 44500
         }
       },
       "price_samples": [
@@ -9786,15 +9891,18 @@
       "price_ranges": {
         "excellent": {
           "min": 27500,
-          "max": 71000
+          "max": 71000,
+          "median": 64000
         },
         "very_good": {
           "min": 31500,
-          "max": 125000
+          "max": 125000,
+          "median": 50500
         },
         "good": {
           "min": 19500,
-          "max": 65000
+          "max": 65000,
+          "median": 54500
         }
       },
       "price_samples": [
@@ -9992,11 +10100,13 @@
       "price_ranges": {
         "good": {
           "min": 12150,
-          "max": 44950
+          "max": 44950,
+          "median": 21750
         },
         "very_good": {
           "min": 16500,
-          "max": 38500
+          "max": 38500,
+          "median": 30000
         }
       },
       "price_samples": [
@@ -10194,15 +10304,18 @@
       "price_ranges": {
         "excellent": {
           "min": 33000,
-          "max": 175500
+          "max": 175500,
+          "median": 82500
         },
         "very_good": {
           "min": 36000,
-          "max": 157050
+          "max": 157050,
+          "median": 62000
         },
         "good": {
           "min": 30500,
-          "max": 74000
+          "max": 74000,
+          "median": 51500
         }
       },
       "price_samples": [
@@ -10400,15 +10513,18 @@
       "price_ranges": {
         "very_good": {
           "min": 50950,
-          "max": 173550
+          "max": 173550,
+          "median": 90000
         },
         "good": {
           "min": 32000,
-          "max": 97500
+          "max": 97500,
+          "median": 68500
         },
         "excellent": {
           "min": 76000,
-          "max": 125500
+          "max": 125500,
+          "median": 98250
         }
       },
       "price_samples": [
@@ -10606,11 +10722,13 @@
       "price_ranges": {
         "very_good": {
           "min": 65800,
-          "max": 113800
+          "max": 113800,
+          "median": 91750
         },
         "good": {
           "min": 71500,
-          "max": 91000
+          "max": 91000,
+          "median": 75000
         }
       },
       "price_samples": [
@@ -10808,11 +10926,13 @@
       "price_ranges": {
         "very_good": {
           "min": 31800,
-          "max": 118800
+          "max": 118800,
+          "median": 66500
         },
         "good": {
           "min": 46500,
-          "max": 176000
+          "max": 176000,
+          "median": 63500
         }
       },
       "price_samples": [
@@ -11010,15 +11130,18 @@
       "price_ranges": {
         "very_good": {
           "min": 20800,
-          "max": 84450
+          "max": 84450,
+          "median": 37250
         },
         "excellent": {
           "min": 37500,
-          "max": 142500
+          "max": 142500,
+          "median": 96000
         },
         "good": {
           "min": 17000,
-          "max": 72000
+          "max": 72000,
+          "median": 46000
         }
       },
       "price_samples": [
@@ -11216,11 +11339,13 @@
       "price_ranges": {
         "very_good": {
           "min": 25300,
-          "max": 51900
+          "max": 51900,
+          "median": 44500
         },
         "good": {
           "min": 26500,
-          "max": 45000
+          "max": 45000,
+          "median": 30500
         }
       },
       "price_samples": [
@@ -11418,11 +11543,13 @@
       "price_ranges": {
         "very_good": {
           "min": 15400,
-          "max": 51200
+          "max": 51200,
+          "median": 24000
         },
         "good": {
           "min": 11500,
-          "max": 23000
+          "max": 23000,
+          "median": 17250
         }
       },
       "price_samples": [
@@ -11620,11 +11747,13 @@
       "price_ranges": {
         "very_good": {
           "min": 13250,
-          "max": 73250
+          "max": 73250,
+          "median": 23750
         },
         "good": {
           "min": 17500,
-          "max": 25000
+          "max": 25000,
+          "median": 24500
         }
       },
       "price_samples": [
@@ -11822,15 +11951,18 @@
       "price_ranges": {
         "excellent": {
           "min": 35000,
-          "max": 89000
+          "max": 89000,
+          "median": 56000
         },
         "good": {
           "min": 28500,
-          "max": 107000
+          "max": 107000,
+          "median": 60500
         },
         "very_good": {
           "min": 44750,
-          "max": 110750
+          "max": 110750,
+          "median": 60500
         }
       },
       "price_samples": [
@@ -12028,15 +12160,18 @@
       "price_ranges": {
         "excellent": {
           "min": 35000,
-          "max": 89000
+          "max": 89000,
+          "median": 56000
         },
         "good": {
           "min": 28500,
-          "max": 107000
+          "max": 107000,
+          "median": 60500
         },
         "very_good": {
           "min": 44750,
-          "max": 110750
+          "max": 110750,
+          "median": 60500
         }
       },
       "price_samples": [
@@ -12234,11 +12369,13 @@
       "price_ranges": {
         "good": {
           "min": 44800,
-          "max": 95000
+          "max": 95000,
+          "median": 64000
         },
         "very_good": {
           "min": 32900,
-          "max": 83400
+          "max": 83400,
+          "median": 61000
         }
       },
       "price_samples": [
@@ -12436,7 +12573,8 @@
       "price_ranges": {
         "very_good": {
           "min": 55250,
-          "max": 97950
+          "max": 97950,
+          "median": 77750
         }
       },
       "price_samples": [
@@ -12634,15 +12772,18 @@
       "price_ranges": {
         "very_good": {
           "min": 51350,
-          "max": 133300
+          "max": 133300,
+          "median": 73750
         },
         "good": {
           "min": 45500,
-          "max": 86000
+          "max": 86000,
+          "median": 67000
         },
         "excellent": {
           "min": 60500,
-          "max": 199500
+          "max": 199500,
+          "median": 137500
         }
       },
       "price_samples": [
@@ -12840,15 +12981,18 @@
       "price_ranges": {
         "excellent": {
           "min": 27000,
-          "max": 106000
+          "max": 106000,
+          "median": 45500
         },
         "good": {
           "min": 28500,
-          "max": 63500
+          "max": 63500,
+          "median": 41250
         },
         "very_good": {
           "min": 28200,
-          "max": 98650
+          "max": 98650,
+          "median": 49000
         }
       },
       "price_samples": [
@@ -13046,15 +13190,18 @@
       "price_ranges": {
         "very_good": {
           "min": 33500,
-          "max": 85000
+          "max": 85000,
+          "median": 57500
         },
         "excellent": {
           "min": 40000,
-          "max": 93500
+          "max": 93500,
+          "median": 80000
         },
         "good": {
           "min": 41000,
-          "max": 42000
+          "max": 42000,
+          "median": 42000
         }
       },
       "price_samples": [
@@ -13252,11 +13399,13 @@
       "price_ranges": {
         "very_good": {
           "min": 25200,
-          "max": 74600
+          "max": 74600,
+          "median": 40000
         },
         "excellent": {
           "min": 33500,
-          "max": 119000
+          "max": 119000,
+          "median": 45250
         }
       },
       "price_samples": [
@@ -13454,11 +13603,13 @@
       "price_ranges": {
         "very_good": {
           "min": 40300,
-          "max": 76050
+          "max": 76050,
+          "median": 53250
         },
         "good": {
           "min": 43500,
-          "max": 67500
+          "max": 67500,
+          "median": 62500
         }
       },
       "price_samples": [
@@ -13656,11 +13807,13 @@
       "price_ranges": {
         "very_good": {
           "min": 26500,
-          "max": 63250
+          "max": 63250,
+          "median": 45500
         },
         "excellent": {
           "min": 45500,
-          "max": 59000
+          "max": 59000,
+          "median": 50500
         }
       },
       "price_samples": [
@@ -13858,11 +14011,13 @@
       "price_ranges": {
         "excellent": {
           "min": 70000,
-          "max": 249500
+          "max": 249500,
+          "median": 120250
         },
         "very_good": {
           "min": 33000,
-          "max": 253400
+          "max": 253400,
+          "median": 78000
         }
       },
       "price_samples": [
@@ -14060,11 +14215,13 @@
       "price_ranges": {
         "very_good": {
           "min": 26600,
-          "max": 77000
+          "max": 77000,
+          "median": 43000
         },
         "excellent": {
           "min": 34000,
-          "max": 65500
+          "max": 65500,
+          "median": 36250
         }
       },
       "price_samples": [
@@ -14262,11 +14419,13 @@
       "price_ranges": {
         "very_good": {
           "min": 556000,
-          "max": 1136000
+          "max": 1136000,
+          "median": 813500
         },
         "excellent": {
           "min": 468500,
-          "max": 1196500
+          "max": 1196500,
+          "median": 1042000
         }
       },
       "price_samples": [
@@ -14464,15 +14623,18 @@
       "price_ranges": {
         "very_good": {
           "min": 296250,
-          "max": 691850
+          "max": 691850,
+          "median": 434250
         },
         "excellent": {
           "min": 454500,
-          "max": 507000
+          "max": 507000,
+          "median": 491500
         },
         "good": {
           "min": 247500,
-          "max": 606000
+          "max": 606000,
+          "median": 459750
         }
       },
       "price_samples": [
@@ -14670,15 +14832,18 @@
       "price_ranges": {
         "very_good": {
           "min": 793750,
-          "max": 1480800
+          "max": 1480800,
+          "median": 1103000
         },
         "good": {
           "min": 883500,
-          "max": 1439000
+          "max": 1439000,
+          "median": 1274000
         },
         "excellent": {
           "min": 1136000,
-          "max": 2019500
+          "max": 2019500,
+          "median": 1328000
         }
       },
       "price_samples": [
@@ -14876,7 +15041,8 @@
       "price_ranges": {
         "excellent": {
           "min": 2524500,
-          "max": 3969500
+          "max": 3969500,
+          "median": 2886500
         }
       },
       "price_samples": [
@@ -15074,11 +15240,13 @@
       "price_ranges": {
         "very_good": {
           "min": 133900,
-          "max": 495300
+          "max": 495300,
+          "median": 203500
         },
         "good": {
           "min": 92000,
-          "max": 182500
+          "max": 182500,
+          "median": 97000
         }
       },
       "price_samples": [
@@ -15276,7 +15444,8 @@
       "price_ranges": {
         "very_good": {
           "min": 167500,
-          "max": 311000
+          "max": 311000,
+          "median": 208000
         }
       },
       "price_samples": [
@@ -15474,11 +15643,13 @@
       "price_ranges": {
         "very_good": {
           "min": 81050,
-          "max": 389300
+          "max": 389300,
+          "median": 206250
         },
         "good": {
           "min": 149500,
-          "max": 330000
+          "max": 330000,
+          "median": 233250
         }
       },
       "price_samples": [
@@ -15676,15 +15847,18 @@
       "price_ranges": {
         "very_good": {
           "min": 203000,
-          "max": 557100
+          "max": 557100,
+          "median": 339000
         },
         "good": {
           "min": 209500,
-          "max": 499500
+          "max": 499500,
+          "median": 275500
         },
         "excellent": {
           "min": 293000,
-          "max": 424500
+          "max": 424500,
+          "median": 397750
         }
       },
       "price_samples": [
@@ -15882,11 +16056,13 @@
       "price_ranges": {
         "very_good": {
           "min": 45400,
-          "max": 219500
+          "max": 219500,
+          "median": 101000
         },
         "good": {
           "min": 73500,
-          "max": 101000
+          "max": 101000,
+          "median": 87250
         }
       },
       "price_samples": [
@@ -16084,11 +16260,13 @@
       "price_ranges": {
         "excellent": {
           "min": 10800,
-          "max": 33500
+          "max": 33500,
+          "median": 23000
         },
         "very_good": {
           "min": 8500,
-          "max": 18500
+          "max": 18500,
+          "median": 12500
         }
       },
       "price_samples": [
@@ -16286,11 +16464,13 @@
       "price_ranges": {
         "very_good": {
           "min": 9500,
-          "max": 59100
+          "max": 59100,
+          "median": 13000
         },
         "excellent": {
           "min": 19000,
-          "max": 94500
+          "max": 94500,
+          "median": 27250
         }
       },
       "price_samples": [
@@ -16488,15 +16668,18 @@
       "price_ranges": {
         "excellent": {
           "min": 10500,
-          "max": 18500
+          "max": 18500,
+          "median": 14500
         },
         "very_good": {
           "min": 6500,
-          "max": 15000
+          "max": 15000,
+          "median": 8500
         },
         "good": {
           "min": 5500,
-          "max": 19500
+          "max": 19500,
+          "median": 7500
         }
       },
       "price_samples": [
@@ -16694,7 +16877,8 @@
       "price_ranges": {
         "very_good": {
           "min": 6900,
-          "max": 45400
+          "max": 45400,
+          "median": 18500
         }
       },
       "price_samples": [
@@ -16892,15 +17076,18 @@
       "price_ranges": {
         "very_good": {
           "min": 4250,
-          "max": 35250
+          "max": 35250,
+          "median": 11750
         },
         "good": {
           "min": 2000,
-          "max": 9900
+          "max": 9900,
+          "median": 2500
         },
         "excellent": {
           "min": 9000,
-          "max": 19000
+          "max": 19000,
+          "median": 16000
         }
       },
       "price_samples": [
@@ -17098,15 +17285,18 @@
       "price_ranges": {
         "very_good": {
           "min": 14100,
-          "max": 43400
+          "max": 43400,
+          "median": 25000
         },
         "good": {
           "min": 4500,
-          "max": 30500
+          "max": 30500,
+          "median": 11500
         },
         "excellent": {
           "min": 18500,
-          "max": 87500
+          "max": 87500,
+          "median": 30500
         }
       },
       "price_samples": [
@@ -17304,15 +17494,18 @@
       "price_ranges": {
         "good": {
           "min": 232000,
-          "max": 293000
+          "max": 293000,
+          "median": 280750
         },
         "very_good": {
           "min": 68500,
-          "max": 303000
+          "max": 303000,
+          "median": 177000
         },
         "excellent": {
           "min": 219200,
-          "max": 326500
+          "max": 326500,
+          "median": 297500
         }
       },
       "price_samples": [
@@ -17510,15 +17703,18 @@
       "price_ranges": {
         "very_good": {
           "min": 41250,
-          "max": 163800
+          "max": 163800,
+          "median": 153000
         },
         "good": {
           "min": 28500,
-          "max": 155000
+          "max": 155000,
+          "median": 84500
         },
         "excellent": {
           "min": 55000,
-          "max": 70000
+          "max": 70000,
+          "median": 70000
         }
       },
       "price_samples": [
@@ -17716,7 +17912,8 @@
       "price_ranges": {
         "very_good": {
           "min": 105000,
-          "max": 174000
+          "max": 174000,
+          "median": 154000
         }
       },
       "price_samples": [
@@ -17914,15 +18111,18 @@
       "price_ranges": {
         "very_good": {
           "min": 92700,
-          "max": 346400
+          "max": 346400,
+          "median": 205500
         },
         "excellent": {
           "min": 172000,
-          "max": 722000
+          "max": 722000,
+          "median": 494750
         },
         "good": {
           "min": 70500,
-          "max": 316000
+          "max": 316000,
+          "median": 155000
         }
       },
       "price_samples": [
@@ -18120,15 +18320,18 @@
       "price_ranges": {
         "very_good": {
           "min": 8500,
-          "max": 38000
+          "max": 38000,
+          "median": 16000
         },
         "good": {
           "min": 6000,
-          "max": 21000
+          "max": 21000,
+          "median": 8250
         },
         "excellent": {
           "min": 20050,
-          "max": 55150
+          "max": 55150,
+          "median": 32500
         }
       },
       "price_samples": [
@@ -18326,15 +18529,18 @@
       "price_ranges": {
         "very_good": {
           "min": 6500,
-          "max": 18000
+          "max": 18000,
+          "median": 15000
         },
         "excellent": {
           "min": 17400,
-          "max": 25400
+          "max": 25400,
+          "median": 19500
         },
         "good": {
           "min": 6500,
-          "max": 22500
+          "max": 22500,
+          "median": 10500
         }
       },
       "price_samples": [
@@ -18532,15 +18738,18 @@
       "price_ranges": {
         "very_good": {
           "min": 16600,
-          "max": 81400
+          "max": 81400,
+          "median": 21000
         },
         "good": {
           "min": 13000,
-          "max": 77500
+          "max": 77500,
+          "median": 19250
         },
         "excellent": {
           "min": 29300,
-          "max": 117500
+          "max": 117500,
+          "median": 96000
         }
       },
       "price_samples": [
@@ -18738,15 +18947,18 @@
       "price_ranges": {
         "excellent": {
           "min": 46000,
-          "max": 169000
+          "max": 169000,
+          "median": 96000
         },
         "very_good": {
           "min": 19750,
-          "max": 54000
+          "max": 54000,
+          "median": 31000
         },
         "good": {
           "min": 15000,
-          "max": 31000
+          "max": 31000,
+          "median": 21500
         }
       },
       "price_samples": [
@@ -18944,15 +19156,18 @@
       "price_ranges": {
         "excellent": {
           "min": 11800,
-          "max": 30700
+          "max": 30700,
+          "median": 14500
         },
         "very_good": {
           "min": 7600,
-          "max": 28600
+          "max": 28600,
+          "median": 13000
         },
         "good": {
           "min": 6500,
-          "max": 10000
+          "max": 10000,
+          "median": 7500
         }
       },
       "price_samples": [
@@ -19150,15 +19365,18 @@
       "price_ranges": {
         "very_good": {
           "min": 6450,
-          "max": 22650
+          "max": 22650,
+          "median": 12000
         },
         "excellent": {
           "min": 13000,
-          "max": 38000
+          "max": 38000,
+          "median": 19000
         },
         "good": {
           "min": 9500,
-          "max": 12500
+          "max": 12500,
+          "median": 11500
         }
       },
       "price_samples": [
@@ -19356,15 +19574,18 @@
       "price_ranges": {
         "good": {
           "min": 7000,
-          "max": 30000
+          "max": 30000,
+          "median": 23000
         },
         "excellent": {
           "min": 23700,
-          "max": 44800
+          "max": 44800,
+          "median": 34000
         },
         "very_good": {
           "min": 17500,
-          "max": 45500
+          "max": 45500,
+          "median": 26500
         }
       },
       "price_samples": [
@@ -19562,15 +19783,18 @@
       "price_ranges": {
         "excellent": {
           "min": 7500,
-          "max": 35000
+          "max": 35000,
+          "median": 13750
         },
         "very_good": {
           "min": 5600,
-          "max": 16800
+          "max": 16800,
+          "median": 10000
         },
         "good": {
           "min": 5000,
-          "max": 16500
+          "max": 16500,
+          "median": 10500
         }
       },
       "price_samples": [
@@ -19768,15 +19992,18 @@
       "price_ranges": {
         "excellent": {
           "min": 11000,
-          "max": 18000
+          "max": 18000,
+          "median": 16000
         },
         "very_good": {
           "min": 10000,
-          "max": 29000
+          "max": 29000,
+          "median": 15500
         },
         "good": {
           "min": 4500,
-          "max": 19000
+          "max": 19000,
+          "median": 11000
         }
       },
       "price_samples": [
@@ -19974,11 +20201,13 @@
       "price_ranges": {
         "good": {
           "min": 46900,
-          "max": 164500
+          "max": 164500,
+          "median": 89000
         },
         "very_good": {
           "min": 44500,
-          "max": 166000
+          "max": 166000,
+          "median": 117250
         }
       },
       "price_samples": [
@@ -20176,11 +20405,13 @@
       "price_ranges": {
         "excellent": {
           "min": 14500,
-          "max": 53500
+          "max": 53500,
+          "median": 27000
         },
         "very_good": {
           "min": 14500,
-          "max": 57000
+          "max": 57000,
+          "median": 26500
         }
       },
       "price_samples": [
@@ -20378,11 +20609,13 @@
       "price_ranges": {
         "excellent": {
           "min": 49300,
-          "max": 236200
+          "max": 236200,
+          "median": 69000
         },
         "very_good": {
           "min": 109500,
-          "max": 132500
+          "max": 132500,
+          "median": 115500
         }
       },
       "price_samples": [
@@ -20580,15 +20813,18 @@
       "price_ranges": {
         "very_good": {
           "min": 12600,
-          "max": 52400
+          "max": 52400,
+          "median": 30500
         },
         "good": {
           "min": 14500,
-          "max": 24500
+          "max": 24500,
+          "median": 15000
         },
         "excellent": {
           "min": 24150,
-          "max": 62650
+          "max": 62650,
+          "median": 48000
         }
       },
       "price_samples": [
@@ -20786,11 +21022,13 @@
       "price_ranges": {
         "excellent": {
           "min": 11700,
-          "max": 37500
+          "max": 37500,
+          "median": 22500
         },
         "very_good": {
           "min": 11500,
-          "max": 30500
+          "max": 30500,
+          "median": 24000
         }
       },
       "price_samples": [
@@ -20988,11 +21226,13 @@
       "price_ranges": {
         "very_good": {
           "min": 101500,
-          "max": 263550
+          "max": 263550,
+          "median": 137250
         },
         "good": {
           "min": 82000,
-          "max": 219100
+          "max": 219100,
+          "median": 136750
         }
       },
       "price_samples": [
@@ -21190,11 +21430,13 @@
       "price_ranges": {
         "good": {
           "min": 461000,
-          "max": 1759500
+          "max": 1759500,
+          "median": 1262000
         },
         "very_good": {
           "min": 651900,
-          "max": 2250050
+          "max": 2250050,
+          "median": 1604250
         }
       },
       "price_samples": [
@@ -21392,11 +21634,13 @@
       "price_ranges": {
         "very_good": {
           "min": 44250,
-          "max": 164000
+          "max": 164000,
+          "median": 103000
         },
         "good": {
           "min": 73500,
-          "max": 101000
+          "max": 101000,
+          "median": 87250
         }
       },
       "price_samples": [
@@ -21594,15 +21838,18 @@
       "price_ranges": {
         "very_good": {
           "min": 52350,
-          "max": 139600
+          "max": 139600,
+          "median": 73250
         },
         "excellent": {
           "min": 49500,
-          "max": 192500
+          "max": 192500,
+          "median": 98000
         },
         "good": {
           "min": 60500,
-          "max": 126500
+          "max": 126500,
+          "median": 102000
         }
       },
       "price_samples": [
@@ -21800,7 +22047,8 @@
       "price_ranges": {
         "very_good": {
           "min": 11550,
-          "max": 110950
+          "max": 110950,
+          "median": 17250
         }
       },
       "price_samples": [
@@ -21998,15 +22246,18 @@
       "price_ranges": {
         "very_good": {
           "min": 19000,
-          "max": 98100
+          "max": 98100,
+          "median": 22000
         },
         "good": {
           "min": 19000,
-          "max": 95000
+          "max": 95000,
+          "median": 22250
         },
         "excellent": {
           "min": 53500,
-          "max": 99000
+          "max": 99000,
+          "median": 65500
         }
       },
       "price_samples": [
@@ -22204,11 +22455,13 @@
       "price_ranges": {
         "very_good": {
           "min": 9500,
-          "max": 80900
+          "max": 80900,
+          "median": 28000
         },
         "excellent": {
           "min": 13200,
-          "max": 95950
+          "max": 95950,
+          "median": 26250
         }
       },
       "price_samples": [
@@ -22406,15 +22659,18 @@
       "price_ranges": {
         "excellent": {
           "min": 35000,
-          "max": 89000
+          "max": 89000,
+          "median": 56000
         },
         "good": {
           "min": 29050,
-          "max": 102650
+          "max": 102650,
+          "median": 59750
         },
         "very_good": {
           "min": 45000,
-          "max": 108000
+          "max": 108000,
+          "median": 58000
         }
       },
       "price_samples": [
@@ -22612,11 +22868,13 @@
       "price_ranges": {
         "very_good": {
           "min": 67300,
-          "max": 188000
+          "max": 188000,
+          "median": 114500
         },
         "good": {
           "min": 54500,
-          "max": 134500
+          "max": 134500,
+          "median": 82000
         }
       },
       "price_samples": [
@@ -22814,15 +23072,18 @@
       "price_ranges": {
         "excellent": {
           "min": 78500,
-          "max": 139000
+          "max": 139000,
+          "median": 106000
         },
         "very_good": {
           "min": 64700,
-          "max": 119000
+          "max": 119000,
+          "median": 91500
         },
         "good": {
           "min": 68500,
-          "max": 181500
+          "max": 181500,
+          "median": 94000
         }
       },
       "price_samples": [
@@ -23020,11 +23281,13 @@
       "price_ranges": {
         "very_good": {
           "min": 35200,
-          "max": 141100
+          "max": 141100,
+          "median": 109500
         },
         "good": {
           "min": 34500,
-          "max": 131500
+          "max": 131500,
+          "median": 108000
         }
       },
       "price_samples": [
@@ -23222,11 +23485,13 @@
       "price_ranges": {
         "excellent": {
           "min": 64500,
-          "max": 225000
+          "max": 225000,
+          "median": 169500
         },
         "very_good": {
           "min": 102500,
-          "max": 184000
+          "max": 184000,
+          "median": 121000
         }
       },
       "price_samples": [
@@ -23424,11 +23689,13 @@
       "price_ranges": {
         "very_good": {
           "min": 47950,
-          "max": 126800
+          "max": 126800,
+          "median": 100750
         },
         "good": {
           "min": 56000,
-          "max": 138500
+          "max": 138500,
+          "median": 108250
         }
       },
       "price_samples": [
@@ -23626,15 +23893,18 @@
       "price_ranges": {
         "very_good": {
           "min": 118100,
-          "max": 182450
+          "max": 182450,
+          "median": 167250
         },
         "excellent": {
           "min": 109500,
-          "max": 208000
+          "max": 208000,
+          "median": 128500
         },
         "good": {
           "min": 144500,
-          "max": 167500
+          "max": 167500,
+          "median": 149500
         }
       },
       "price_samples": [
@@ -23832,15 +24102,18 @@
       "price_ranges": {
         "very_good": {
           "min": 26000,
-          "max": 98800
+          "max": 98800,
+          "median": 54500
         },
         "good": {
           "min": 30000,
-          "max": 52500
+          "max": 52500,
+          "median": 43000
         },
         "excellent": {
           "min": 42000,
-          "max": 88500
+          "max": 88500,
+          "median": 73000
         }
       },
       "price_samples": [
@@ -24038,11 +24311,13 @@
       "price_ranges": {
         "very_good": {
           "min": 29900,
-          "max": 89900
+          "max": 89900,
+          "median": 57000
         },
         "good": {
           "min": 67000,
-          "max": 92500
+          "max": 92500,
+          "median": 71750
         }
       },
       "price_samples": [
@@ -24240,11 +24515,13 @@
       "price_ranges": {
         "very_good": {
           "min": 275150,
-          "max": 494700
+          "max": 494700,
+          "median": 415000
         },
         "good": {
           "min": 294400,
-          "max": 617800
+          "max": 617800,
+          "median": 408000
         }
       },
       "price_samples": [
@@ -24442,7 +24719,8 @@
       "price_ranges": {
         "very_good": {
           "min": 81500,
-          "max": 286100
+          "max": 286100,
+          "median": 149500
         }
       },
       "price_samples": [
@@ -24640,15 +24918,18 @@
       "price_ranges": {
         "very_good": {
           "min": 92550,
-          "max": 183500
+          "max": 183500,
+          "median": 153750
         },
         "good": {
           "min": 71000,
-          "max": 189500
+          "max": 189500,
+          "median": 162000
         },
         "excellent": {
           "min": 101000,
-          "max": 221500
+          "max": 221500,
+          "median": 196500
         }
       },
       "price_samples": [
@@ -24846,15 +25127,18 @@
       "price_ranges": {
         "very_good": {
           "min": 38500,
-          "max": 123500
+          "max": 123500,
+          "median": 90750
         },
         "excellent": {
           "min": 55500,
-          "max": 65000
+          "max": 65000,
+          "median": 55500
         },
         "good": {
           "min": 81500,
-          "max": 96000
+          "max": 96000,
+          "median": 85000
         }
       },
       "price_samples": [
@@ -25052,11 +25336,13 @@
       "price_ranges": {
         "very_good": {
           "min": 6400,
-          "max": 22200
+          "max": 22200,
+          "median": 14250
         },
         "excellent": {
           "min": 15550,
-          "max": 38000
+          "max": 38000,
+          "median": 24750
         }
       },
       "price_samples": [
@@ -25254,15 +25540,18 @@
       "price_ranges": {
         "very_good": {
           "min": 4500,
-          "max": 24300
+          "max": 24300,
+          "median": 10000
         },
         "good": {
           "min": 5000,
-          "max": 12500
+          "max": 12500,
+          "median": 8750
         },
         "excellent": {
           "min": 6100,
-          "max": 34000
+          "max": 34000,
+          "median": 12000
         }
       },
       "price_samples": [
@@ -25460,15 +25749,18 @@
       "price_ranges": {
         "very_good": {
           "min": 10450,
-          "max": 28800
+          "max": 28800,
+          "median": 17750
         },
         "good": {
           "min": 7500,
-          "max": 21500
+          "max": 21500,
+          "median": 11500
         },
         "excellent": {
           "min": 20500,
-          "max": 48500
+          "max": 48500,
+          "median": 48500
         }
       },
       "price_samples": [
@@ -25666,15 +25958,18 @@
       "price_ranges": {
         "very_good": {
           "min": 4000,
-          "max": 11500
+          "max": 11500,
+          "median": 7000
         },
         "excellent": {
           "min": 10700,
-          "max": 17000
+          "max": 17000,
+          "median": 13000
         },
         "good": {
           "min": 3500,
-          "max": 9500
+          "max": 9500,
+          "median": 8000
         }
       },
       "price_samples": [
@@ -25872,11 +26167,13 @@
       "price_ranges": {
         "very_good": {
           "min": 944200,
-          "max": 1689150
+          "max": 1689150,
+          "median": 1175500
         },
         "excellent": {
           "min": 1093000,
-          "max": 1666500
+          "max": 1666500,
+          "median": 1363000
         }
       },
       "price_samples": [
@@ -26074,15 +26371,18 @@
       "price_ranges": {
         "very_good": {
           "min": 149250,
-          "max": 274150
+          "max": 274150,
+          "median": 211500
         },
         "excellent": {
           "min": 170500,
-          "max": 244500
+          "max": 244500,
+          "median": 204500
         },
         "good": {
           "min": 102000,
-          "max": 283500
+          "max": 283500,
+          "median": 182750
         }
       },
       "price_samples": [
@@ -26280,11 +26580,13 @@
       "price_ranges": {
         "very_good": {
           "min": 118250,
-          "max": 240250
+          "max": 240250,
+          "median": 167500
         },
         "good": {
           "min": 57000,
-          "max": 163000
+          "max": 163000,
+          "median": 125500
         }
       },
       "price_samples": [
@@ -26482,11 +26784,13 @@
       "price_ranges": {
         "very_good": {
           "min": 47550,
-          "max": 147550
+          "max": 147550,
+          "median": 119250
         },
         "good": {
           "min": 35500,
-          "max": 164000
+          "max": 164000,
+          "median": 124000
         }
       },
       "price_samples": [
@@ -26684,11 +26988,13 @@
       "price_ranges": {
         "very_good": {
           "min": 36400,
-          "max": 122200
+          "max": 122200,
+          "median": 59000
         },
         "good": {
           "min": 21000,
-          "max": 128000
+          "max": 128000,
+          "median": 97500
         }
       },
       "price_samples": [
@@ -26886,15 +27192,18 @@
       "price_ranges": {
         "very_good": {
           "min": 15100,
-          "max": 53700
+          "max": 53700,
+          "median": 36000
         },
         "good": {
           "min": 22000,
-          "max": 34500
+          "max": 34500,
+          "median": 29750
         },
         "excellent": {
           "min": 26500,
-          "max": 42000
+          "max": 42000,
+          "median": 34500
         }
       },
       "price_samples": [
@@ -27092,15 +27401,18 @@
       "price_ranges": {
         "very_good": {
           "min": 27600,
-          "max": 111700
+          "max": 111700,
+          "median": 54000
         },
         "good": {
           "min": 10500,
-          "max": 74500
+          "max": 74500,
+          "median": 25000
         },
         "excellent": {
           "min": 38000,
-          "max": 106000
+          "max": 106000,
+          "median": 46000
         }
       },
       "price_samples": [
@@ -27298,7 +27610,8 @@
       "price_ranges": {
         "very_good": {
           "min": 27300,
-          "max": 100350
+          "max": 100350,
+          "median": 65750
         }
       },
       "price_samples": [
@@ -27689,15 +28002,18 @@
       "price_ranges": {
         "very_good": {
           "min": 238450,
-          "max": 435000
+          "max": 435000,
+          "median": 299000
         },
         "good": {
           "min": 214000,
-          "max": 527500
+          "max": 527500,
+          "median": 302000
         },
         "excellent": {
           "min": 309500,
-          "max": 448500
+          "max": 448500,
+          "median": 437000
         }
       },
       "price_samples": [
@@ -27895,7 +28211,8 @@
       "price_ranges": {
         "very_good": {
           "min": 167500,
-          "max": 311000
+          "max": 311000,
+          "median": 208000
         }
       },
       "price_samples": [
@@ -28093,11 +28410,13 @@
       "price_ranges": {
         "very_good": {
           "min": 203250,
-          "max": 589250
+          "max": 589250,
+          "median": 298000
         },
         "excellent": {
           "min": 207000,
-          "max": 434000
+          "max": 434000,
+          "median": 306500
         }
       },
       "price_samples": [
@@ -28295,11 +28614,13 @@
       "price_ranges": {
         "very_good": {
           "min": 105750,
-          "max": 359500
+          "max": 359500,
+          "median": 163500
         },
         "good": {
           "min": 153700,
-          "max": 182700
+          "max": 182700,
+          "median": 164000
         }
       },
       "price_samples": [
@@ -28497,15 +28818,18 @@
       "price_ranges": {
         "excellent": {
           "min": 11650,
-          "max": 29300
+          "max": 29300,
+          "median": 22500
         },
         "good": {
           "min": 7500,
-          "max": 26000
+          "max": 26000,
+          "median": 15500
         },
         "very_good": {
           "min": 9700,
-          "max": 24600
+          "max": 24600,
+          "median": 15000
         }
       },
       "price_samples": [
@@ -28703,11 +29027,13 @@
       "price_ranges": {
         "very_good": {
           "min": 424550,
-          "max": 2178250
+          "max": 2178250,
+          "median": 790500
         },
         "excellent": {
           "min": 1969000,
-          "max": 3019000
+          "max": 3019000,
+          "median": 2380250
         }
       },
       "price_samples": [
@@ -28904,11 +29230,13 @@
       "price_ranges": {
         "excellent": {
           "min": 586500,
-          "max": 629550
+          "max": 629550,
+          "median": 613500
         },
         "very_good": {
           "min": 512000,
-          "max": 563000
+          "max": 563000,
+          "median": 538500
         }
       },
       "price_samples": [
@@ -29105,11 +29433,13 @@
       "price_ranges": {
         "very_good": {
           "min": 1461500,
-          "max": 2838000
+          "max": 2838000,
+          "median": 2330750
         },
         "excellent": {
           "min": 1932000,
-          "max": 3887550
+          "max": 3887550,
+          "median": 2328750
         }
       },
       "price_samples": [
@@ -29306,7 +29636,8 @@
       "price_ranges": {
         "very_good": {
           "min": 365600,
-          "max": 536500
+          "max": 536500,
+          "median": 381000
         }
       },
       "price_samples": [
@@ -29503,11 +29834,13 @@
       "price_ranges": {
         "good": {
           "min": 558000,
-          "max": 1759500
+          "max": 1759500,
+          "median": 1262000
         },
         "very_good": {
           "min": 667200,
-          "max": 2662300
+          "max": 2662300,
+          "median": 1621500
         }
       },
       "price_samples": [
@@ -29704,15 +30037,18 @@
       "price_ranges": {
         "very_good": {
           "min": 1053400,
-          "max": 2365600
+          "max": 2365600,
+          "median": 1186500
         },
         "good": {
           "min": 825000,
-          "max": 873500
+          "max": 873500,
+          "median": 825000
         },
         "excellent": {
           "min": 2569500,
-          "max": 2720500
+          "max": 2720500,
+          "median": 2572000
         }
       },
       "price_samples": [
@@ -29909,7 +30245,8 @@
       "price_ranges": {
         "very_good": {
           "min": 286100,
-          "max": 2400250
+          "max": 2400250,
+          "median": 1169750
         }
       },
       "price_samples": [
@@ -30106,7 +30443,8 @@
       "price_ranges": {
         "excellent": {
           "min": 3875500,
-          "max": 4103000
+          "max": 4103000,
+          "median": 3961500
         }
       },
       "price_samples": [
@@ -30303,11 +30641,13 @@
       "price_ranges": {
         "very_good": {
           "min": 444500,
-          "max": 4291000
+          "max": 4291000,
+          "median": 795500
         },
         "excellent": {
           "min": 344500,
-          "max": 3883000
+          "max": 3883000,
+          "median": 797500
         }
       },
       "price_samples": [
@@ -30504,11 +30844,13 @@
       "price_ranges": {
         "very_good": {
           "min": 97500,
-          "max": 1330500
+          "max": 1330500,
+          "median": 307000
         },
         "good": {
           "min": 149000,
-          "max": 197500
+          "max": 197500,
+          "median": 154500
         }
       },
       "price_samples": [
@@ -30705,11 +31047,13 @@
       "price_ranges": {
         "very_good": {
           "min": 38750,
-          "max": 100750
+          "max": 100750,
+          "median": 69250
         },
         "excellent": {
           "min": 74000,
-          "max": 399000
+          "max": 399000,
+          "median": 119250
         }
       },
       "price_samples": [
@@ -30906,11 +31250,13 @@
       "price_ranges": {
         "very_good": {
           "min": 23000,
-          "max": 98500
+          "max": 98500,
+          "median": 68500
         },
         "good": {
           "min": 37000,
-          "max": 70500
+          "max": 70500,
+          "median": 56750
         }
       },
       "price_samples": [
@@ -31107,15 +31453,18 @@
       "price_ranges": {
         "very_good": {
           "min": 50350,
-          "max": 123250
+          "max": 123250,
+          "median": 64500
         },
         "good": {
           "min": 67500,
-          "max": 128000
+          "max": 128000,
+          "median": 94500
         },
         "excellent": {
           "min": 96000,
-          "max": 321500
+          "max": 321500,
+          "median": 139000
         }
       },
       "price_samples": [
@@ -31312,15 +31661,18 @@
       "price_ranges": {
         "very_good": {
           "min": 42900,
-          "max": 110200
+          "max": 110200,
+          "median": 86750
         },
         "excellent": {
           "min": 52000,
-          "max": 109500
+          "max": 109500,
+          "median": 89500
         },
         "good": {
           "min": 46500,
-          "max": 92000
+          "max": 92000,
+          "median": 81000
         }
       },
       "price_samples": [
@@ -31517,15 +31869,18 @@
       "price_ranges": {
         "very_good": {
           "min": 48300,
-          "max": 119900
+          "max": 119900,
+          "median": 74000
         },
         "good": {
           "min": 59000,
-          "max": 128000
+          "max": 128000,
+          "median": 88250
         },
         "excellent": {
           "min": 74500,
-          "max": 116000
+          "max": 116000,
+          "median": 76000
         }
       },
       "price_samples": [
@@ -31722,11 +32077,13 @@
       "price_ranges": {
         "very_good": {
           "min": 30500,
-          "max": 126700
+          "max": 126700,
+          "median": 60500
         },
         "good": {
           "min": 57000,
-          "max": 110500
+          "max": 110500,
+          "median": 81000
         }
       },
       "price_samples": [
@@ -31923,11 +32280,13 @@
       "price_ranges": {
         "very_good": {
           "min": 36250,
-          "max": 99000
+          "max": 99000,
+          "median": 56000
         },
         "excellent": {
           "min": 92500,
-          "max": 102500
+          "max": 102500,
+          "median": 99500
         }
       },
       "price_samples": [
@@ -32124,11 +32483,13 @@
       "price_ranges": {
         "very_good": {
           "min": 21850,
-          "max": 40300
+          "max": 40300,
+          "median": 31250
         },
         "excellent": {
           "min": 24500,
-          "max": 63500
+          "max": 63500,
+          "median": 39000
         }
       },
       "price_samples": [
@@ -32325,15 +32686,18 @@
       "price_ranges": {
         "good": {
           "min": 52500,
-          "max": 86500
+          "max": 86500,
+          "median": 67000
         },
         "very_good": {
           "min": 51300,
-          "max": 161200
+          "max": 161200,
+          "median": 87500
         },
         "excellent": {
           "min": 69000,
-          "max": 227000
+          "max": 227000,
+          "median": 151500
         }
       },
       "price_samples": [
@@ -32530,15 +32894,18 @@
       "price_ranges": {
         "excellent": {
           "min": 275000,
-          "max": 479500
+          "max": 479500,
+          "median": 407500
         },
         "very_good": {
           "min": 43900,
-          "max": 371150
+          "max": 371150,
+          "median": 76250
         },
         "good": {
           "min": 56500,
-          "max": 192000
+          "max": 192000,
+          "median": 68000
         }
       },
       "price_samples": [
@@ -32735,15 +33102,18 @@
       "price_ranges": {
         "very_good": {
           "min": 25500,
-          "max": 52000
+          "max": 52000,
+          "median": 36000
         },
         "good": {
           "min": 18000,
-          "max": 42000
+          "max": 42000,
+          "median": 38000
         },
         "excellent": {
           "min": 22500,
-          "max": 66500
+          "max": 66500,
+          "median": 33000
         }
       },
       "price_samples": [
@@ -32940,11 +33310,13 @@
       "price_ranges": {
         "very_good": {
           "min": 52550,
-          "max": 91200
+          "max": 91200,
+          "median": 75500
         },
         "good": {
           "min": 64000,
-          "max": 79500
+          "max": 79500,
+          "median": 69750
         }
       },
       "price_samples": [
@@ -33141,11 +33513,13 @@
       "price_ranges": {
         "very_good": {
           "min": 22900,
-          "max": 74000
+          "max": 74000,
+          "median": 60500
         },
         "excellent": {
           "min": 37000,
-          "max": 53500
+          "max": 53500,
+          "median": 48750
         }
       },
       "price_samples": [
@@ -33342,11 +33716,13 @@
       "price_ranges": {
         "very_good": {
           "min": 57900,
-          "max": 103600
+          "max": 103600,
+          "median": 83000
         },
         "excellent": {
           "min": 61000,
-          "max": 112000
+          "max": 112000,
+          "median": 74000
         }
       },
       "price_samples": [
@@ -33543,11 +33919,13 @@
       "price_ranges": {
         "very_good": {
           "min": 41400,
-          "max": 79700
+          "max": 79700,
+          "median": 67000
         },
         "good": {
           "min": 32000,
-          "max": 176000
+          "max": 176000,
+          "median": 64000
         }
       },
       "price_samples": [
@@ -33744,15 +34122,18 @@
       "price_ranges": {
         "good": {
           "min": 44550,
-          "max": 88100
+          "max": 88100,
+          "median": 71000
         },
         "very_good": {
           "min": 58950,
-          "max": 105650
+          "max": 105650,
+          "median": 87750
         },
         "excellent": {
           "min": 79500,
-          "max": 109500
+          "max": 109500,
+          "median": 86000
         }
       },
       "price_samples": [
@@ -33949,15 +34330,18 @@
       "price_ranges": {
         "very_good": {
           "min": 27000,
-          "max": 121750
+          "max": 121750,
+          "median": 45500
         },
         "excellent": {
           "min": 21300,
-          "max": 56700
+          "max": 56700,
+          "median": 34000
         },
         "good": {
           "min": 23000,
-          "max": 61000
+          "max": 61000,
+          "median": 28500
         }
       },
       "price_samples": [
@@ -34154,11 +34538,13 @@
       "price_ranges": {
         "good": {
           "min": 34000,
-          "max": 94500
+          "max": 94500,
+          "median": 63000
         },
         "very_good": {
           "min": 30000,
-          "max": 115500
+          "max": 115500,
+          "median": 71000
         }
       },
       "price_samples": [
@@ -34355,11 +34741,13 @@
       "price_ranges": {
         "very_good": {
           "min": 23500,
-          "max": 92000
+          "max": 92000,
+          "median": 36000
         },
         "excellent": {
           "min": 28000,
-          "max": 159000
+          "max": 159000,
+          "median": 48250
         }
       },
       "price_samples": [
@@ -34556,11 +34944,13 @@
       "price_ranges": {
         "very_good": {
           "min": 16500,
-          "max": 45250
+          "max": 45250,
+          "median": 21250
         },
         "excellent": {
           "min": 25000,
-          "max": 32000
+          "max": 32000,
+          "median": 31000
         }
       },
       "price_samples": [
@@ -34757,11 +35147,13 @@
       "price_ranges": {
         "excellent": {
           "min": 32750,
-          "max": 125700
+          "max": 125700,
+          "median": 54250
         },
         "very_good": {
           "min": 25000,
-          "max": 93000
+          "max": 93000,
+          "median": 65000
         }
       },
       "price_samples": [
@@ -34958,11 +35350,13 @@
       "price_ranges": {
         "very_good": {
           "min": 30000,
-          "max": 65900
+          "max": 65900,
+          "median": 38000
         },
         "excellent": {
           "min": 38500,
-          "max": 81000
+          "max": 81000,
+          "median": 55000
         }
       },
       "price_samples": [
@@ -35159,7 +35553,8 @@
       "price_ranges": {
         "very_good": {
           "min": 23400,
-          "max": 66150
+          "max": 66150,
+          "median": 38750
         }
       },
       "price_samples": [
@@ -35356,11 +35751,13 @@
       "price_ranges": {
         "excellent": {
           "min": 23500,
-          "max": 96000
+          "max": 96000,
+          "median": 82000
         },
         "very_good": {
           "min": 32000,
-          "max": 131000
+          "max": 131000,
+          "median": 62000
         }
       },
       "price_samples": [
@@ -35557,11 +35954,13 @@
       "price_ranges": {
         "very_good": {
           "min": 90700,
-          "max": 217000
+          "max": 217000,
+          "median": 121000
         },
         "good": {
           "min": 72000,
-          "max": 101000
+          "max": 101000,
+          "median": 99500
         }
       },
       "price_samples": [
@@ -35758,11 +36157,13 @@
       "price_ranges": {
         "good": {
           "min": 65000,
-          "max": 404000
+          "max": 404000,
+          "median": 106750
         },
         "very_good": {
           "min": 75700,
-          "max": 378500
+          "max": 378500,
+          "median": 210750
         }
       },
       "price_samples": [
@@ -35959,15 +36360,18 @@
       "price_ranges": {
         "excellent": {
           "min": 19500,
-          "max": 59000
+          "max": 59000,
+          "median": 35500
         },
         "very_good": {
           "min": 19100,
-          "max": 43200
+          "max": 43200,
+          "median": 33000
         },
         "good": {
           "min": 25000,
-          "max": 49500
+          "max": 49500,
+          "median": 30250
         }
       },
       "price_samples": [
@@ -36164,11 +36568,13 @@
       "price_ranges": {
         "very_good": {
           "min": 103500,
-          "max": 1161000
+          "max": 1161000,
+          "median": 181500
         },
         "good": {
           "min": 153500,
-          "max": 183000
+          "max": 183000,
+          "median": 167000
         }
       },
       "price_samples": [
@@ -36365,11 +36771,13 @@
       "price_ranges": {
         "very_good": {
           "min": 206750,
-          "max": 622500
+          "max": 622500,
+          "median": 265000
         },
         "good": {
           "min": 234000,
-          "max": 358000
+          "max": 358000,
+          "median": 265250
         }
       },
       "price_samples": [
@@ -36566,15 +36974,18 @@
       "price_ranges": {
         "very_good": {
           "min": 92850,
-          "max": 374750
+          "max": 374750,
+          "median": 243500
         },
         "good": {
           "min": 92000,
-          "max": 232000
+          "max": 232000,
+          "median": 192750
         },
         "excellent": {
           "min": 97500,
-          "max": 347000
+          "max": 347000,
+          "median": 200500
         }
       },
       "price_samples": [
@@ -36771,11 +37182,13 @@
       "price_ranges": {
         "good": {
           "min": 141500,
-          "max": 415000
+          "max": 415000,
+          "median": 345500
         },
         "very_good": {
           "min": 148900,
-          "max": 380300
+          "max": 380300,
+          "median": 203500
         }
       },
       "price_samples": [
@@ -36972,11 +37385,13 @@
       "price_ranges": {
         "good": {
           "min": 31500,
-          "max": 182500
+          "max": 182500,
+          "median": 83500
         },
         "very_good": {
           "min": 73100,
-          "max": 146900
+          "max": 146900,
+          "median": 100000
         }
       },
       "price_samples": [
@@ -37173,15 +37588,18 @@
       "price_ranges": {
         "very_good": {
           "min": 74650,
-          "max": 143950
+          "max": 143950,
+          "median": 115500
         },
         "excellent": {
           "min": 88500,
-          "max": 149000
+          "max": 149000,
+          "median": 111000
         },
         "good": {
           "min": 83000,
-          "max": 95500
+          "max": 95500,
+          "median": 83000
         }
       },
       "price_samples": [
@@ -37378,11 +37796,13 @@
       "price_ranges": {
         "very_good": {
           "min": 874900,
-          "max": 1790800
+          "max": 1790800,
+          "median": 1192000
         },
         "excellent": {
           "min": 1012450,
-          "max": 1650800
+          "max": 1650800,
+          "median": 1360750
         }
       },
       "price_samples": [
@@ -37579,15 +37999,18 @@
       "price_ranges": {
         "excellent": {
           "min": 573000,
-          "max": 749500
+          "max": 749500,
+          "median": 661250
         },
         "good": {
           "min": 105000,
-          "max": 527000
+          "max": 527000,
+          "median": 365000
         },
         "very_good": {
           "min": 287500,
-          "max": 635500
+          "max": 635500,
+          "median": 454500
         }
       },
       "price_samples": [
@@ -37784,15 +38207,18 @@
       "price_ranges": {
         "very_good": {
           "min": 59700,
-          "max": 249800
+          "max": 249800,
+          "median": 145000
         },
         "excellent": {
           "min": 78000,
-          "max": 265000
+          "max": 265000,
+          "median": 132500
         },
         "good": {
           "min": 77000,
-          "max": 186000
+          "max": 186000,
+          "median": 100500
         }
       },
       "price_samples": [
@@ -37989,7 +38415,8 @@
       "price_ranges": {
         "very_good": {
           "min": 119500,
-          "max": 331050
+          "max": 331050,
+          "median": 204750
         }
       },
       "price_samples": [
@@ -38186,11 +38613,13 @@
       "price_ranges": {
         "very_good": {
           "min": 8500,
-          "max": 19800
+          "max": 19800,
+          "median": 12000
         },
         "excellent": {
           "min": 16500,
-          "max": 17500
+          "max": 17500,
+          "median": 16500
         }
       },
       "price_samples": [
@@ -38387,15 +38816,18 @@
       "price_ranges": {
         "excellent": {
           "min": 25500,
-          "max": 79500
+          "max": 79500,
+          "median": 45500
         },
         "very_good": {
           "min": 35500,
-          "max": 58300
+          "max": 58300,
+          "median": 45500
         },
         "good": {
           "min": 20000,
-          "max": 35500
+          "max": 35500,
+          "median": 28250
         }
       },
       "price_samples": [

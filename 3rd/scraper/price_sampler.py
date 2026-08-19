@@ -115,12 +115,21 @@ def _band(prices: list) -> dict | None:
     prices = sorted(prices)
     if len(prices) < MIN_SAMPLES:
         return None
+    # The median is the number to lead with. The midpoint of the band describes
+    # nothing once the band is wide: the Twenty~4's (min+max)/2 came to 714,000
+    # THB against a real market around 250-380k, where the median lands at
+    # 236,000.
+    median = int(statistics.median(prices))
     if len(prices) < 4:
-        return {'min': int(prices[0]), 'max': int(prices[-1])}
+        return {'min': int(prices[0]), 'max': int(prices[-1]), 'median': median}
     q = statistics.quantiles(prices, n=10)
     # quantiles() interpolates and will run outside the observed data on small
     # samples — unclamped it produced a -9,500 THB "price". Clamp to what was seen.
-    return {'min': int(max(prices[0], q[0])), 'max': int(min(prices[-1], q[8]))}
+    return {
+        'min': int(max(prices[0], q[0])),
+        'max': int(min(prices[-1], q[8])),
+        'median': median,
+    }
 
 
 def credible_prices(prices: list, retail: float) -> set:

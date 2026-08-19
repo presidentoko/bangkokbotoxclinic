@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PRICE_YEAR } from '@/lib/site'
+import { BrandPriceTable } from '@/components/BrandPriceTable'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -23,19 +24,6 @@ export default async function LoeweBrandPage({ params }: Props) {
   const { locale } = await params
   const isEn = locale === 'en'
 
-  const models = isEn ? [
-    { name: 'Puzzle Small', retail: '฿145,000', preowned: '฿78,000–110,000', save: 'Save 24–46%' },
-    { name: 'Puzzle Medium', retail: '฿165,000', preowned: '฿88,000–125,000', save: 'Save 24–47%' },
-    { name: 'Hammock Small', retail: '฿128,000', preowned: '฿65,000–92,000', save: 'Save 28–49%' },
-    { name: 'Gate Small', retail: '฿98,000', preowned: '฿52,000–72,000', save: 'Save 27–47%' },
-    { name: 'Basket Bag (Palm Leaf)', retail: '฿89,000', preowned: '฿48,000–68,000', save: 'Save 24–46%' },
-  ] : [
-    { name: 'Puzzle Small', retail: '145,000 บาท', preowned: '78,000–110,000 บาท', save: 'ประหยัด 24–46%' },
-    { name: 'Puzzle Medium', retail: '165,000 บาท', preowned: '88,000–125,000 บาท', save: 'ประหยัด 24–47%' },
-    { name: 'Hammock Small', retail: '128,000 บาท', preowned: '65,000–92,000 บาท', save: 'ประหยัด 28–49%' },
-    { name: 'Gate Small', retail: '98,000 บาท', preowned: '52,000–72,000 บาท', save: 'ประหยัด 27–47%' },
-    { name: 'Basket Bag (ใบปาล์มและหนัง)', retail: '89,000 บาท', preowned: '48,000–68,000 บาท', save: 'ประหยัด 24–46%' },
-  ]
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -68,30 +56,7 @@ export default async function LoeweBrandPage({ params }: Props) {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           {isEn ? 'Loewe Pre-Owned Buying Guide Thailand' : 'ราคา Loewe มือสองในไทย'}
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left py-3 px-4 font-semibold">{isEn ? 'Model' : 'รุ่น'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Retail (THB)' : 'ราคาใหม่ (บาท)'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Pre-owned (THB)' : 'มือสอง (บาท)'}</th>
-                <th className="text-right py-3 px-4 font-semibold">{isEn ? 'Saving' : 'ประหยัด'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {models.map((m, i) => (
-                <tr key={i} className="border-b border-gray-100">
-                  <td className="py-3 px-4 font-medium text-gray-900">{m.name}</td>
-                  <td className="text-right py-3 px-4 text-gray-500">{m.retail}</td>
-                  <td className="text-right py-3 px-4 text-green-700 font-medium">{m.preowned}</td>
-                  <td className="text-right py-3 px-4">
-                    <span className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">{m.save}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <BrandPriceTable brandSlug="loewe" locale={locale} />
       </section>
 
       <section className="mb-10">
