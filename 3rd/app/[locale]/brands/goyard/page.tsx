@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { BrandSchema } from '@/components/BrandSchema'
 
 interface Props { params: Promise<{ locale: string }> }
 
@@ -39,6 +40,7 @@ export default async function GoyardTH({ params }: Props) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <BrandSchema brandSlug="goyard" locale={locale} path={`brands/goyard`} />
       <nav className="text-sm text-gray-500 mb-6">
         <Link href={`/${locale}`} className="hover:text-gray-800">{isEn ? 'Home' : 'หน้าแรก'}</Link>
         <span className="mx-2">/</span>
