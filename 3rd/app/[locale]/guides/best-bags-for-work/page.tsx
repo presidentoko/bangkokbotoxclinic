@@ -152,8 +152,8 @@ export default async function BestBagsForWorkPage({ params }: Props) {
         style={{ fontFamily: 'var(--font-playfair)' }}
       >
         {isEn
-          ? 'Best Pre-Owned Luxury Work Bags in Thailand {PRICE_YEAR}'
-          : 'กระเป๋า Luxury มือสองสำหรับทำงานที่ดีที่สุดในไทย {PRICE_YEAR}'}
+          ? `Best Pre-Owned Luxury Work Bags in Thailand ${PRICE_YEAR}`
+          : `กระเป๋า Luxury มือสองสำหรับทำงานที่ดีที่สุดในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#6B6052] mb-2">
         {isEn
@@ -161,7 +161,7 @@ export default async function BestBagsForWorkPage({ params }: Props) {
           : 'มีโครงสร้าง ดูเป็นมืออาชีพ และราคาต่ำกว่าราคาใหม่ กระเป๋า Luxury มือสองที่ดีที่สุดสำหรับออฟฟิศในกรุงเทพฯ'}
       </p>
       <p className="text-sm text-[#8C7355] mb-12">
-        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       <section className="mb-12">

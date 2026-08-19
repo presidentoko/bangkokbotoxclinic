@@ -108,10 +108,10 @@ export default async function DiorBrandThPage({ params }: Props) {
 
       <p className="text-xs tracking-[0.2em] uppercase text-[#B8954A] mb-3">{isEn ? 'Brand Price Guide' : 'ราคาแบรนด์'}</p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Pre-Owned Dior in Thailand: Price Guide {PRICE_YEAR}' : 'ไดออร์มือสองในไทย: ราคากระเป๋าและสินค้า {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Dior in Thailand: Price Guide ${PRICE_YEAR}` : `ไดออร์มือสองในไทย: ราคากระเป๋าและสินค้า ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-6">
-        {isEn ? `Updated {PRICE_YEAR} · ${items.length} models tracked` : `อัปเดต 2025 · ติดตาม ${items.length} รุ่น`}
+        {isEn ? `Updated ${PRICE_YEAR} · ${items.length} models tracked` : `อัปเดต ${PRICE_YEAR} · ติดตาม ${items.length} รุ่น`}
       </p>
 
       <section className="mb-10">

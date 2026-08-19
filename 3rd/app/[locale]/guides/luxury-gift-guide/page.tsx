@@ -139,8 +139,8 @@ export default async function LuxuryGiftGuidePage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Best Pre-Owned Luxury Gifts in Thailand {PRICE_YEAR}'
-          : 'ของขวัญ Luxury มือสองที่ดีที่สุดในไทย {PRICE_YEAR}'}
+          ? `Best Pre-Owned Luxury Gifts in Thailand ${PRICE_YEAR}`
+          : `ของขวัญ Luxury มือสองที่ดีที่สุดในไทย ${PRICE_YEAR}`}
       </h1>
 
       <p className="text-[#6B6052] mb-2 leading-relaxed max-w-2xl">
@@ -149,7 +149,7 @@ export default async function LuxuryGiftGuidePage({ params }: Props) {
           : 'ของขวัญ Luxury ที่ผ่านการตรวจสอบแล้ว ราคาต่ำกว่าบูติคในกรุงเทพฯ 30–50% สินค้าเหมือนกัน คุณภาพเหมือนกัน'}
       </p>
       <p className="text-sm text-[#8C7355] mb-12">
-        {isEn ? 'Updated {PRICE_YEAR}' : 'อัปเดตมิถุนายน 2025'}
+        {isEn ? `Updated ${PRICE_YEAR}` : 'อัปเดตมิถุนายน 2025'}
       </p>
 
       {tier1.length > 0 && (

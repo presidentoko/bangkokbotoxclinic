@@ -140,7 +140,7 @@ export default async function HermesVsBottegaPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Hermès vs Bottega Veneta Pre-Owned Thailand {PRICE_YEAR}'
+          ? `Hermès vs Bottega Veneta Pre-Owned Thailand ${PRICE_YEAR}`
           : 'Hermès vs Bottega Veneta: Quiet Luxury อันไหนคุ้มค่ากว่า?'}
       </h1>
 

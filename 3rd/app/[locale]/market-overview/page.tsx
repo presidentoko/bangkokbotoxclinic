@@ -95,8 +95,8 @@ export default async function MarketOverviewPage({ params }: Props) {
       </p>
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Pre-Owned Luxury Market: Thailand Price Overview {PRICE_YEAR}'
-          : 'ภาพรวมตลาด Luxury มือสองในไทยปี {PRICE_YEAR}'}
+          ? `Pre-Owned Luxury Market: Thailand Price Overview ${PRICE_YEAR}`
+          : `ภาพรวมตลาด Luxury มือสองในไทยปี ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn

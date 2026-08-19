@@ -130,7 +130,7 @@ export default async function LvVsGucciPage({ params }: Props) {
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
         {isEn
-          ? 'Louis Vuitton vs Gucci Pre-Owned Value in Thailand {PRICE_YEAR}'
+          ? `Louis Vuitton vs Gucci Pre-Owned Value in Thailand ${PRICE_YEAR}`
           : 'Louis Vuitton กับ Gucci มือสอง — อันไหนคุ้มกว่า?'}
       </h1>
 

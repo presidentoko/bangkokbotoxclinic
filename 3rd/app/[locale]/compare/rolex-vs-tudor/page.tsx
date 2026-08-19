@@ -61,7 +61,7 @@ export default async function RolexVsTudorTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Tudor ({PRICE_YEAR}): Sister Brands Compared' : 'Rolex vs Tudor ({PRICE_YEAR}): เปรียบเทียบแบรนด์พี่น้อง'}
+        {isEn ? `Rolex vs Tudor (${PRICE_YEAR}): Sister Brands Compared` : `Rolex vs Tudor (${PRICE_YEAR}): เปรียบเทียบแบรนด์พี่น้อง`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -59,7 +59,7 @@ export default async function RolexVsCartierTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Rolex vs Cartier Pre-Owned {PRICE_YEAR}' : 'Rolex vs Cartier มือสอง {PRICE_YEAR}'}
+        {isEn ? `Rolex vs Cartier Pre-Owned ${PRICE_YEAR}` : `Rolex vs Cartier มือสอง ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

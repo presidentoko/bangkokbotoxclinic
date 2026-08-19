@@ -50,7 +50,7 @@ export default async function ChanelVsDiorPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel vs Dior: Pre-Owned Bags in Thailand {PRICE_YEAR}' : 'Chanel vs Dior: กระเป๋ามือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Chanel vs Dior: Pre-Owned Bags in Thailand ${PRICE_YEAR}` : `Chanel vs Dior: กระเป๋ามือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Two pillars of French fashion — Chanel\'s investment-grade pricing vs Dior\'s accessible luxury.'

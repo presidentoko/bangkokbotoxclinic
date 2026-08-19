@@ -50,7 +50,7 @@ export default async function YSLvsDiorTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Saint Laurent vs Dior: Pre-Owned in Thailand {PRICE_YEAR}' : 'Saint Laurent vs Dior: มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Saint Laurent vs Dior: Pre-Owned in Thailand ${PRICE_YEAR}` : `Saint Laurent vs Dior: มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Two iconic Parisian houses — rock-chic vs romantic elegance. Which is the better pre-owned choice for Thai buyers?'

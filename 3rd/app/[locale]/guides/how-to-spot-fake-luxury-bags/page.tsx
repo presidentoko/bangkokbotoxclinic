@@ -167,7 +167,7 @@ export default async function HowToSpotFakePage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'How to Spot a Fake Luxury Bag in Thailand {PRICE_YEAR}' : 'วิธีดูกระเป๋า Luxury ของแท้ vs ของก็อป — คู่มือ {PRICE_YEAR}'}
+        {isEn ? `How to Spot a Fake Luxury Bag in Thailand ${PRICE_YEAR}` : `วิธีดูกระเป๋า Luxury ของแท้ vs ของก็อป — คู่มือ ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? 'Brand-specific authentication guide for pre-owned buyers in Thailand' : 'คู่มือตรวจสอบความแท้รายแบรนด์สำหรับผู้ซื้อมือสองในไทย'}

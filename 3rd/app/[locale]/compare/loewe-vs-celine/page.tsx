@@ -59,7 +59,7 @@ export default async function LoeweVsCelineTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Loewe vs Celine {PRICE_YEAR}' : 'Loewe vs Celine {PRICE_YEAR}'}
+        {isEn ? `Loewe vs Celine ${PRICE_YEAR}` : `Loewe vs Celine ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

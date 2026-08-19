@@ -64,7 +64,7 @@ export default async function HermesConstanceVsKellyTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Hermès Constance vs Kelly ({PRICE_YEAR}): Which Is the Better Investment?' : 'Hermès Constance vs Kelly ({PRICE_YEAR}): อันไหนลงทุนได้ดีกว่า?'}
+        {isEn ? `Hermès Constance vs Kelly (${PRICE_YEAR}): Which Is the Better Investment?` : `Hermès Constance vs Kelly (${PRICE_YEAR}): อันไหนลงทุนได้ดีกว่า?`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

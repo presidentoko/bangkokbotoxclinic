@@ -57,7 +57,7 @@ export default async function BestBagsUnder3000TH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Best Pre-Owned Luxury Bags Under $3,000 (฿108,000) in {PRICE_YEAR}' : 'กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 ในปี {PRICE_YEAR}'}
+        {isEn ? `Best Pre-Owned Luxury Bags Under $3,000 (฿108,000) in ${PRICE_YEAR}` : `กระเป๋าหรูมือสองที่ดีที่สุดต่ำกว่า ฿108,000 ในปี ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

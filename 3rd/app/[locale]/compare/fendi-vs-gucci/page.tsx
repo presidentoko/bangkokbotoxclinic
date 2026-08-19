@@ -62,7 +62,7 @@ export default async function FendiVsGucciTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Fendi vs Gucci ({PRICE_YEAR}): Which Italian House Holds Value Better?' : 'Fendi vs Gucci ({PRICE_YEAR}): บ้านอิตาลีไหนรักษามูลค่าได้ดีกว่า?'}
+        {isEn ? `Fendi vs Gucci (${PRICE_YEAR}): Which Italian House Holds Value Better?` : `Fendi vs Gucci (${PRICE_YEAR}): บ้านอิตาลีไหนรักษามูลค่าได้ดีกว่า?`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -69,7 +69,7 @@ export default async function OmegaBrandPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">
-        {isEn ? 'Pre-Owned Omega Prices in Thailand {PRICE_YEAR}' : 'ราคา Omega มือสองในไทย {PRICE_YEAR}'}
+        {isEn ? `Pre-Owned Omega Prices in Thailand ${PRICE_YEAR}` : `ราคา Omega มือสองในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-8">
         {isEn ? 'Save 25–35% vs retail · Swiss-made precision · strong value retention'

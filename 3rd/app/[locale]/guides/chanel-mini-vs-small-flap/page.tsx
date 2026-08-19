@@ -51,7 +51,7 @@ export default async function ChanelMiniVsSmallTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel Mini Flap vs Small Classic Flap {PRICE_YEAR}' : 'Chanel Mini Flap vs Small Classic Flap {PRICE_YEAR}'}
+        {isEn ? `Chanel Mini Flap vs Small Classic Flap ${PRICE_YEAR}` : `Chanel Mini Flap vs Small Classic Flap ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

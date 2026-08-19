@@ -52,7 +52,7 @@ export default async function AuthenticateVCATH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'How to Authenticate Van Cleef & Arpels {PRICE_YEAR}' : 'วิธีตรวจสอบ Van Cleef & Arpels ของแท้ {PRICE_YEAR}'}
+        {isEn ? `How to Authenticate Van Cleef & Arpels ${PRICE_YEAR}` : `วิธีตรวจสอบ Van Cleef & Arpels ของแท้ ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

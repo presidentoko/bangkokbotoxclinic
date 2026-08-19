@@ -55,7 +55,7 @@ export default async function WatchesUnder5kTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Best Pre-Owned Luxury Watches Under $5,000 ({PRICE_YEAR})' : 'นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 ({PRICE_YEAR})'}
+        {isEn ? `Best Pre-Owned Luxury Watches Under $5,000 (${PRICE_YEAR})` : `นาฬิกาหรูมือสองที่ดีที่สุดต่ำกว่า $5,000 (${PRICE_YEAR})`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

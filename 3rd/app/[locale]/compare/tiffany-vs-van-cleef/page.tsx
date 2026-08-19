@@ -59,7 +59,7 @@ export default async function TiffanyVsVCATH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Tiffany & Co vs Van Cleef & Arpels {PRICE_YEAR}' : 'Tiffany & Co vs Van Cleef & Arpels {PRICE_YEAR}'}
+        {isEn ? `Tiffany & Co vs Van Cleef & Arpels ${PRICE_YEAR}` : `Tiffany & Co vs Van Cleef & Arpels ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

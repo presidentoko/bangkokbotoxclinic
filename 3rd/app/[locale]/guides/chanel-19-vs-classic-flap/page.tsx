@@ -62,7 +62,7 @@ export default async function Chanel19VsClassicFlapTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel 19 vs Classic Flap ({PRICE_YEAR}): Which Pre-Owned to Buy?' : 'Chanel 19 vs Classic Flap ({PRICE_YEAR}): มือสองอันไหนน่าซื้อ?'}
+        {isEn ? `Chanel 19 vs Classic Flap (${PRICE_YEAR}): Which Pre-Owned to Buy?` : `Chanel 19 vs Classic Flap (${PRICE_YEAR}): มือสองอันไหนน่าซื้อ?`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

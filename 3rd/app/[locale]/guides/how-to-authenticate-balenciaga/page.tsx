@@ -52,7 +52,7 @@ export default async function AuthenticateBalenciagaTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'How to Authenticate Balenciaga {PRICE_YEAR}' : 'วิธีตรวจสอบ Balenciaga ของแท้ {PRICE_YEAR}'}
+        {isEn ? `How to Authenticate Balenciaga ${PRICE_YEAR}` : `วิธีตรวจสอบ Balenciaga ของแท้ ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

@@ -177,7 +177,7 @@ export default async function WhereToSellPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Where to Sell Pre-Owned Luxury Bags in Thailand {PRICE_YEAR}' : 'ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย {PRICE_YEAR}'}
+        {isEn ? `Where to Sell Pre-Owned Luxury Bags in Thailand ${PRICE_YEAR}` : `ขายกระเป๋า Luxury มือสองที่ไหนดีในไทย ${PRICE_YEAR}`}
       </h1>
       <p className="text-[#8C7355] text-sm mb-10">
         {isEn ? 'Platform comparison for Thai sellers — fees, reach, and payout' : 'เปรียบเทียบแพลตฟอร์มสำหรับผู้ขายในไทย — ค่าธรรมเนียม การเข้าถึง และรายได้'}

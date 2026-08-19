@@ -60,7 +60,7 @@ export default async function BottegaVsCelineTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Bottega Veneta vs Celine ({PRICE_YEAR}): The Quiet Luxury Showdown' : 'Bottega Veneta vs Celine ({PRICE_YEAR}): การดวลหรูเงียบ'}
+        {isEn ? `Bottega Veneta vs Celine (${PRICE_YEAR}): The Quiet Luxury Showdown` : `Bottega Veneta vs Celine (${PRICE_YEAR}): การดวลหรูเงียบ`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

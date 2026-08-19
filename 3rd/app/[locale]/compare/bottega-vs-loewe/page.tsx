@@ -151,9 +151,9 @@ export default async function BottegaVsLoeweThPage({ params }: Props) {
       </p>
 
       <h1 className="font-serif text-4xl text-[#1A1A1A] mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-        {isEn ? 'Bottega Veneta vs Loewe Pre-Owned Thailand {PRICE_YEAR}' : 'Bottega Veneta vs Loewe: Quiet Luxury ตัวไหนดีกว่า?'}
+        {isEn ? `Bottega Veneta vs Loewe Pre-Owned Thailand ${PRICE_YEAR}` : 'Bottega Veneta vs Loewe: Quiet Luxury ตัวไหนดีกว่า?'}
       </h1>
-      <p className="text-[#8C7355] text-sm mb-10">{isEn ? 'Updated {PRICE_YEAR} · Thailand market' : 'อัปเดต 2025 · ตลาดไทย'}</p>
+      <p className="text-[#8C7355] text-sm mb-10">{isEn ? `Updated ${PRICE_YEAR} · Thailand market` : 'อัปเดต 2025 · ตลาดไทย'}</p>
 
       <p className="text-[#6B6052] mb-10 leading-relaxed max-w-2xl">
         {isEn

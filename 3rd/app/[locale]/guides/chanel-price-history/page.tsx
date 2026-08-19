@@ -52,7 +52,7 @@ export default async function ChanelPriceHistoryTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Chanel Price History 2019–{PRICE_YEAR} in Thailand' : 'ประวัติราคา Chanel ในไทย 2562–2568'}
+        {isEn ? `Chanel Price History 2019–${PRICE_YEAR} in Thailand` : 'ประวัติราคา Chanel ในไทย 2562–2568'}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn

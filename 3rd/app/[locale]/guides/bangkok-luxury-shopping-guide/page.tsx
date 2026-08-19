@@ -34,7 +34,7 @@ export default async function BangkokLuxuryShoppingGuide({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Bangkok Luxury Pre-Owned Shopping Guide {PRICE_YEAR}' : 'คู่มือช้อปปิ้ง Luxury มือสองในกรุงเทพ {PRICE_YEAR}'}
+        {isEn ? `Bangkok Luxury Pre-Owned Shopping Guide ${PRICE_YEAR}` : `คู่มือช้อปปิ้ง Luxury มือสองในกรุงเทพ ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn ? 'Where to find authentic pre-owned luxury in Bangkok — online platforms, physical markets, and trusted dealers.'

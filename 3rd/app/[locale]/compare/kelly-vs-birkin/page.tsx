@@ -63,7 +63,7 @@ export default async function KellyVsBirkinTH({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-4">
-        {isEn ? 'Hermès Kelly vs Birkin {PRICE_YEAR}' : 'Hermès Kelly vs Birkin {PRICE_YEAR}'}
+        {isEn ? `Hermès Kelly vs Birkin ${PRICE_YEAR}` : `Hermès Kelly vs Birkin ${PRICE_YEAR}`}
       </h1>
       <p className="text-gray-500 mb-10">
         {isEn
