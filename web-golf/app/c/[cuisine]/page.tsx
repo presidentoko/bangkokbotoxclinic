@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { loadMasterDb, filterByCuisine } from "@/lib/data";
 import { RestaurantCard } from "@/components/RestaurantCard";
+import { CompactCourseList } from "@/components/CompactCourseList";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { CUISINE_FAQS } from "@/lib/faq";
@@ -11,6 +12,9 @@ import { indexableCategoryDistricts, allDistricts } from "@/lib/crawlGate";
 import type { Metadata } from "next";
 
 const VALID = new Set(Object.keys(CATEGORY_LABELS));
+
+// 카드로 렌더할 개수. 나머지는 경량 목록으로 링크만 유지한다.
+const CARD_COUNT = 24;
 
 export async function generateStaticParams() {
   return Array.from(VALID).map((cuisine) => ({ cuisine }));
@@ -134,8 +138,13 @@ export default async function CategoryPage(
           </section>
         )}
 
+        {/* 카드는 상위 24장까지만. 100장을 깔면 HTML 과 RSC payload 에 렌더 결과가
+            두 번 실려 페이지가 1MB 가 됐다. 나머지는 CompactCourseList 로 링크를
+            전부 유지한다 — 무게는 카드의 약 2%. */}
         <section>
-          <h2 className="text-xl font-bold mb-4">Top {Math.min(filtered.length, 100)}</h2>
+          <h2 className="text-xl font-bold mb-4">
+            Top {Math.min(filtered.length, CARD_COUNT)} by Trust Score
+          </h2>
           <div className="grid gap-3">
             {filtered.slice(0, 10).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 1} />
@@ -146,15 +155,21 @@ export default async function CategoryPage(
           <AdSlot slot="cuisine-mid" />
 
           <div className="grid gap-3 mt-3">
-            {filtered.slice(10, 100).map((r, i) => (
+            {filtered.slice(10, CARD_COUNT).map((r, i) => (
               <RestaurantCard key={r.id} r={r} rank={i + 11} />
             ))}
           </div>
 
-          {filtered.length > 100 && (
-            <p className="mt-6 text-sm text-[var(--muted)]">
-              {filtered.length - 100} more {label.toLowerCase()}s — visit region or district pages to explore.
-            </p>
+          {filtered.length > CARD_COUNT && (
+            <div className="mt-10">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)] mb-1">
+                Every other {label.toLowerCase()} in Thailand
+              </h3>
+              <p className="text-xs text-[var(--muted)] mb-2">
+                {filtered.length - CARD_COUNT} more, same Trust Score ranking.
+              </p>
+              <CompactCourseList courses={filtered.slice(CARD_COUNT)} startRank={CARD_COUNT + 1} />
+            </div>
           )}
         </section>
 

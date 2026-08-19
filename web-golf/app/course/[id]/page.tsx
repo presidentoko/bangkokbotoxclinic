@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd, RestaurantJsonLd, CourseVideosJsonLd, FaqJsonLd, Cour
 import { buildComparePairs } from "@/lib/comparePairs";
 import { TrustDonut } from "@/components/TrustBadge";
 import { MapEmbed } from "@/components/MapEmbed";
+import { TeeTimePlanner } from "@/components/TeeTimePlanner";
 import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
@@ -422,6 +423,8 @@ export default async function CoursePage(
               </div>
             </section>
           )}
+
+          <TeeTimePlanner course={r} />
 
           {samples.length > 0 && (
             <section>

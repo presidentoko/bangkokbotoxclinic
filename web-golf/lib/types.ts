@@ -79,6 +79,11 @@ export type Course = {
   booking_links?: { href: string; label: string }[];
   // Photo scraped from course's own website (data/course_photos.json — merged in data.ts)
   hero_image?: string | null;
+  /** Apify export 에 계속 들어 있었지만 ingest 가 버리던 필드들 (2026-08-19 부터 사용). */
+  opening_hours?: { day: string; hours: string }[];
+  /** 요일 약어("Su","Mo"…) → 시간대별 혼잡도. 티타임 잡을 때 쓰는 정보. */
+  popular_times?: Record<string, { hour: number; occupancyPercent: number }[]>;
+  reviews_distribution?: Record<string, number>;
 
   // ── CSV enrichment (merge_master_csv.py) ─────────────────
   golf_score?: number;

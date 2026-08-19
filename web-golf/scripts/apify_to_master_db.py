@@ -359,8 +359,21 @@ def main() -> int:
 
         ts = trust_score(rating, total_reviews, scraped_count, avg_len)
 
-        # 좌표 (없음 — 향후 enrichment)
-        lat, lng = None, None
+        # 좌표 — export 의 location 에 100% 들어 있는데 그동안 버리고 있었다.
+        # 좌표가 없으면 코스 페이지에 지도가 안 뜬다 (2026-08-19 기준 58% 만 보유).
+        loc = p.get("location") or {}
+        lat = loc.get("lat")
+        lng = loc.get("lng")
+
+        # 대표 사진. imageUrl 도 export 에 100% 있는데 안 쓰고 있었다 (히어로 49%).
+        hero = (p.get("imageUrl") or "").strip() or None
+
+        # 영업시간 / 혼잡 시간대 — 골퍼가 티타임 잡을 때 실제로 보는 정보인데
+        # 지금까지 통째로 버려졌다. [{day, hours}], {"Su":[{hour,occupancyPercent}...]}
+        opening_hours = p.get("openingHours") or []
+        popular_times = p.get("popularTimesHistogram") or {}
+        reviews_dist = p.get("reviewsDistribution") or {}
+
 
         # Maps URL — Apify가 search URL 줬으니 그대로 (place_id 포함되어 deep link 가능)
         maps_url = p.get("url", "")
@@ -378,6 +391,10 @@ def main() -> int:
             "website": (p.get("website") or "").strip(),
             "lat": lat,
             "lng": lng,
+            "hero_image": hero,
+            "opening_hours": opening_hours,
+            "popular_times": popular_times,
+            "reviews_distribution": reviews_dist,
             "rating": rating,
             "total_reviews": total_reviews,
             "trust_score": ts,
@@ -461,7 +478,8 @@ def main() -> int:
                 # 구 파이프라인이 남긴 전체 리뷰 배열은 새 수집엔 없으므로 보존한다.
                 if not c.get("scraped_reviews") and pc.get("scraped_reviews"):
                     c["scraped_reviews"] = pc["scraped_reviews"]
-                for k in ("hero_image", "top_photo_url", "photos", "lat", "lng", "website"):
+                for k in ("hero_image", "top_photo_url", "photos", "lat", "lng", "website",
+                          "opening_hours", "popular_times", "reviews_distribution"):
                     if not c.get(k) and pc.get(k):
                         c[k] = pc[k]
             if merged_back:
