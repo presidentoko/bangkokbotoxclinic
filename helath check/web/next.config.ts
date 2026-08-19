@@ -101,6 +101,21 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, s-maxage=3600, stale-while-revalidate=86400" },
         ],
       },
+      // Must come after /api/(.*) — later rules win on a duplicate key.
+      //
+      // /api/track is a GET that logs an affiliate click and 302s onward. The
+      // blanket /api/ rule above hands it `public, s-maxage=3600`, so a shared
+      // cache would serve the first click's redirect to everyone for an hour
+      // and logClick would never run again. Nothing has caught it because
+      // Cloudflare returns DYNAMIC for this zone today — the moment a Cache
+      // Rule makes HTML eligible, outbound click tracking silently zeroes out.
+      {
+        source: "/api/track",
+        headers: [
+          ...securityHeaders,
+          { key: "Cache-Control", value: "no-store, must-revalidate" },
+        ],
+      },
     ];
   },
 };
