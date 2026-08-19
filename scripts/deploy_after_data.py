@@ -12,9 +12,16 @@ So a push is not a deploy here. Call this right after the push.
     from scripts.deploy_after_data import deploy
     deploy("2nd")          # or "3rd"
 
-Requires VERCEL_TOKEN in the environment. Without it this prints a loud warning
-and returns False rather than raising — a failed deploy must not take the
-scraper down with it, but it must never look like a success either.
+Needs a Vercel token for the *yunmin* team (both projects live there). Reads
+VERCEL_TOKEN_YUNMIN from the repo-root .env, falling back to the environment.
+The name is deliberately not plain VERCEL_TOKEN: .env already holds several
+account-scoped tokens, and the bare one belongs to a different account that
+gets 403 on these two projects — silently deploying nothing, or worse, to the
+wrong place.
+
+Without a token this prints a loud warning and returns False rather than
+raising — a failed deploy must not take the scraper down with it, but it must
+never look like a success either.
 """
 from __future__ import annotations
 
@@ -24,6 +31,15 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# The samplers are launched by watchdog.py, which just copies os.environ and
+# never loads .env — so read it here rather than assuming the parent shell did.
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(ROOT / ".env")
+except ImportError:
+    pass
 
 # site key -> (directory under ROOT, indexnow_ping.py site id)
 SITES = {
@@ -39,11 +55,12 @@ def deploy(site: str) -> bool:
         return False
     subdir, indexnow_id = entry
 
-    token = os.environ.get("VERCEL_TOKEN")
+    token = os.environ.get("VERCEL_TOKEN_YUNMIN")
     if not token:
         print(
-            "[deploy] VERCEL_TOKEN not set — data is committed and pushed but "
-            "NOT deployed. The live site still serves the previous build.",
+            "[deploy] VERCEL_TOKEN_YUNMIN not set (add it to the repo-root "
+            ".env) — data is committed and pushed but NOT deployed. The live "
+            "site still serves the previous build.",
             file=sys.stderr,
         )
         return False
