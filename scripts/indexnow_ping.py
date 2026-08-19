@@ -11,6 +11,8 @@ Usage:
     python scripts/indexnow_ping.py restaurants
     # Both
     python scripts/indexnow_ping.py both
+    # 사이트 전역이 실제로 바뀐 날 — 사이트맵 전체를 제출
+    python scripts/indexnow_ping.py golf --full
 
 Auto: hook into auto_push_loop.py after a successful push so every data
 update triggers an IndexNow ping.
@@ -23,6 +25,7 @@ Body: { host, key, keyLocation, urlList }
 from __future__ import annotations
 
 import json
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -141,17 +144,39 @@ SITES = {
 }
 
 
-def ping(site_id: str) -> int:
+def sitemap_urls(host: str) -> list[str]:
+    """사이트맵의 URL 전체. 대규모 개편 직후 한 번 밀어넣을 때 쓴다."""
+    req = urllib.request.Request(
+        f"https://{host}/sitemap.xml",
+        headers={"User-Agent": "indexnow-ping/1.0"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        xml = r.read().decode("utf-8", errors="replace")
+    return re.findall(r"<loc>([^<]+)</loc>", xml)
+
+
+def ping(site_id: str, full: bool = False) -> int:
     cfg = SITES.get(site_id)
     if not cfg:
         print(f"unknown site: {site_id}")
         return 1
 
+    urls = cfg["urls"]
+    if full:
+        # 평소에는 바뀐 몇 개만 보낸다 — 안 바뀐 URL 을 반복 제출하면 스팸으로 취급된다.
+        # full 은 실제로 사이트 전역이 바뀐 날에만 쓴다. 2026-08-19 가 그런 날이었다:
+        # 전 코스 페이지에 요약 문단이 새로 붙었고 리뷰/좌표/영업시간/가격이 갱신됐다.
+        try:
+            urls = sitemap_urls(cfg["host"])[:10000]  # 요청당 상한
+            print(f"  sitemap 에서 {len(urls)} URL 수집")
+        except Exception as e:
+            print(f"  sitemap 읽기 실패, 기본 목록으로 진행: {e}")
+
     body = {
         "host": cfg["host"],
         "key": cfg["key"],
         "keyLocation": cfg["key_location"],
-        "urlList": cfg["urls"],
+        "urlList": urls,
     }
     req = urllib.request.Request(
         "https://api.indexnow.org/indexnow",
@@ -163,7 +188,7 @@ def ping(site_id: str) -> int:
         with urllib.request.urlopen(req, timeout=20) as r:
             code = r.status
             text = r.read().decode("utf-8", errors="replace")
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] {site_id}: HTTP {code} — pinged {len(cfg['urls'])} URLs")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] {site_id}: HTTP {code} — pinged {len(urls)} URLs")
         if text.strip():
             print(f"  body: {text[:200]}")
         return 0
@@ -178,11 +203,12 @@ def ping(site_id: str) -> int:
 
 
 def main() -> int:
-    target = sys.argv[1] if len(sys.argv) > 1 else "both"
+    args = [a for a in sys.argv[1:] if not a.startswith("-")]
+    full = "--full" in sys.argv          # 사이트 전역이 바뀐 날에만
+    target = args[0] if args else "both"
     if target == "both":
-        rc = ping("clinic") | ping("restaurants")
-        return rc
-    return ping(target)
+        return ping("clinic", full) | ping("restaurants", full)
+    return ping(target, full)
 
 
 if __name__ == "__main__":
