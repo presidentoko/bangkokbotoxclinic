@@ -46,6 +46,38 @@ CART_DEFAULT      = 800
 WEEKEND_MULTIPLIER = 1.30  # 주말 가격 ≈ 주중 × 1.30
 
 
+# 골프장 이름에서 정보가 없는 공통어. 이걸 걷어내야 고유 부분끼리 비교가 된다.
+_GENERIC_TOKENS = {
+    "golf", "club", "clubs", "country", "resort", "international", "course",
+    "courses", "and", "the", "co", "ltd", "สนามกอล์ฟ",
+}
+
+
+def name_core(s: str) -> str:
+    """공통어를 뺀 고유 부분만 남긴다. 'Bangpra International Golf Club' -> 'bangpra'."""
+    s = re.sub(r"[^\w\s]", " ", s.lower())
+    return " ".join(t for t in s.split() if t not in _GENERIC_TOKENS)
+
+
+def _fallback_match(name_clean: str, core_names: dict[str, str]):
+    """고유 부분끼리 비교하는 2차 매칭. 실패하면 None."""
+    core = name_core(name_clean)
+    if len(core.replace(" ", "")) < 3:
+        return None
+    hit = process.extractOne(core, list(core_names.keys()),
+                             scorer=fuzz.token_set_ratio,
+                             processor=rfutils.default_process)
+    if hit and hit[1] >= 90:
+        return (core_names[hit[0]], hit[1])
+    # 띄어쓰기만 다른 경우 ("Kabinburi" vs "Kabin Buri") — 공백을 지우고 한 번 더.
+    squashed = {k.replace(" ", ""): v for k, v in core_names.items()}
+    hit = process.extractOne(core.replace(" ", ""), list(squashed.keys()),
+                             scorer=fuzz.ratio)
+    if hit and hit[1] >= 92:
+        return (squashed[hit[0]], hit[1])
+    return None
+
+
 def fetch_soup(url: str) -> BeautifulSoup | None:
     try:
         r = requests.get(url, headers=HEADERS, timeout=20)
@@ -66,7 +98,8 @@ def parse_baht(text: str) -> int | None:
     return val if val >= 100 else None  # 100 미만은 파싱 오류로 간주
 
 
-def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unmatched: list) -> list[dict]:
+def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unmatched: list,
+                     core_names: dict[str, str] | None = None) -> list[dict]:
     """Golfdigg 지역 페이지에서 코스 카드 파싱.
 
     Golfdigg는 CSS Module 클래스를 사용:
@@ -74,6 +107,7 @@ def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unma
       - 코스명: p.line-clamp-1
       - 가격: h5 (첫 번째)
     """
+    core_names = core_names if core_names is not None else {name_core(n): n for n in master_names}
     url  = page["url"]
     area = page["area"]
     soup = fetch_soup(url)
@@ -130,6 +164,19 @@ def scrape_area_page(page: dict, master_names: list[str], name_to_id: dict, unma
             (m for m in top if m[1] >= MATCH_THRESHOLD and len(m[0]) >= MIN_MATCH_LEN),
             None,
         )
+        # 1차가 실패했을 때만 도는 폴백. Golfdigg 와 Google 의 표기가 갈리는 대부분은
+        # "Golf / Club / Country / Resort / International" 같은 공통어 구성만 다르고
+        # 고유 부분은 같다. token_sort_ratio 는 그 공통어에 눌려 82 를 못 넘는다:
+        #   Pinehurst Golf & Country Club   vs  Pinehurst golf club and hotel
+        #   Bangpra International Golf Club vs  Bangpra Golf Club
+        #   Pattana Golf Club & Resort      vs  Pattana Sports Resort
+        # 공통어를 걷어낸 뒤 고유 부분끼리 90 이상일 때만 받는다. 가격 오매칭은
+        # 가격 누락보다 나쁘므로(골퍼가 돈을 잘못 안다) 임계를 높게 잡았다.
+        if not match:
+            fb = _fallback_match(name_clean, core_names)
+            if fb:
+                match = fb
+                print(f"  MATCH~ ({area}): '{name_text}' → '{fb[0]}' (core {fb[1]:.0f}%)")
         if not match:
             print(f"  NO MATCH ({area}): '{name_text}'")
             unmatched.append({"area": area, "name": name_text, "price_text": price_text})
@@ -169,6 +216,8 @@ def main():
     courses = db.get("courses") or db.get("restaurants") or []
     master_names = [c["name"] for c in courses]
     name_to_id   = {c["name"]: c["id"] for c in courses}
+    # 공통어를 뺀 이름 -> 원래 이름. 2차 폴백 매칭용.
+    core_names   = {name_core(n): n for n in master_names if name_core(n)}
 
     all_results: list[dict] = []
     seen_ids: set[str] = set()
@@ -177,7 +226,7 @@ def main():
     for page in GOLFDIGG_AREA_PAGES:
         print(f"\nScraping {page['area']}...")
         try:
-            scraped = scrape_area_page(page, master_names, name_to_id, unmatched)
+            scraped = scrape_area_page(page, master_names, name_to_id, unmatched, core_names)
             for entry in scraped:
                 if entry["course_id"] not in seen_ids:
                     all_results.append(entry)
