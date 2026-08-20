@@ -127,47 +127,51 @@ csv.field_size_limit(min(2**31 - 1, sys.maxsize))
 
 # ── District 추출 ─────────────────────────────────────────────
 _DISTRICT_KEYS: list[tuple[str, list[str]]] = [
-    ("Pathum Wan", ["pathum wan", "pathumwan", "siam"]),
-    ("Watthana", ["watthana", "wattana", "thong lor", "thonglor", "ekkamai",
+    # 2026-08-20: 태국어 표기 주소용 별칭(เขต… = 방콕 구)을 기존 항목에 얹었다.
+    # 새 district 이름을 만들지 않고 별칭만 늘리는 방식이라 /d/ 페이지가 쪼개지지
+    # 않는다. 실제 데이터에 나타난 토큰만 넣었고, 관측된 오타 표기
+    # (วัตนา←วัฒนา, หนองเเขม←หนองแขม)도 그대로 포함한다.
+    ("Pathum Wan", ["pathum wan", "pathumwan", "siam", "ปทุมวัน"]),
+    ("Watthana", ["watthana", "wattana", "วัฒนา", "วัตนา", "thong lor", "thonglor", "ekkamai",
                   "asok", "asoke", "phrom phong", "promphong", "nana"]),
     ("Khlong Toei", ["khlong toei", "klongtoey", "klong toey"]),
     ("Bang Rak", ["bang rak", "bangrak", "silom", "sala daeng"]),
     ("Sathon", ["sathon", "sathorn"]),
-    ("Phaya Thai", ["phaya thai", "phayathai", "ari", "saphan khwai"]),
-    ("Ratchathewi", ["ratchathewi", "victory monument"]),
-    ("Huai Khwang", ["huai khwang", "huaykhwang", "ratchada"]),
+    ("Phaya Thai", ["phaya thai", "phayathai", "ari", "saphan khwai", "พญาไท"]),
+    ("Ratchathewi", ["ratchathewi", "victory monument", "ราชเทวี"]),
+    ("Huai Khwang", ["huai khwang", "huaykhwang", "ratchada", "ห้วยขวาง"]),
     ("Din Daeng", ["din daeng"]),
     ("Chatuchak", ["chatuchak", "lat yao", "phahonyothin"]),
     ("Bang Kapi", ["bang kapi"]),
     ("Lat Phrao", ["lat phrao", "latphrao"]),
     ("Wang Thonglang", ["wang thonglang"]),
-    ("Phra Khanong", ["phra khanong", "prakhanong", "on nut", "onnut"]),
+    ("Phra Khanong", ["phra khanong", "prakhanong", "on nut", "onnut", "พระโขนง"]),
     ("Bang Na", ["bang na", "bangna"]),
     ("Suan Luang", ["suan luang"]),
-    ("Yan Nawa", ["yan nawa", "yannawa"]),
+    ("Yan Nawa", ["yan nawa", "yannawa", "ยานนาวา"]),
     ("Bang Kho Laem", ["bang kho laem"]),
     ("Khlong San", ["khlong san"]),
     ("Thon Buri", ["thon buri", "thonburi"]),
-    ("Bang Phlat", ["bang phlat"]),
+    ("Bang Phlat", ["bang phlat", "บางพลัด"]),
     ("Phasi Charoen", ["phasi charoen"]),
     ("Bangkok Noi", ["bangkok noi"]),
     ("Bangkok Yai", ["bangkok yai"]),
-    ("Don Mueang", ["don mueang", "donmueang"]),
-    ("Lak Si", ["lak si"]),
+    ("Don Mueang", ["don mueang", "donmueang", "ดอนเมือง"]),
+    ("Lak Si", ["lak si", "หลักสี่"]),
     ("Bang Sue", ["bang sue"]),
-    ("Dusit", ["dusit"]),
+    ("Dusit", ["dusit", "ดุสิต"]),
     ("Pom Prap Sattru Phai", ["pom prap"]),
     ("Samphanthawong", ["samphanthawong", "yaowarat", "chinatown"]),
     ("Phra Nakhon", ["phra nakhon", "rattanakosin"]),
     ("Min Buri", ["min buri", "minburi"]),
-    ("Nong Chok", ["nong chok"]),
+    ("Nong Chok", ["nong chok", "หนองจอก"]),
     ("Khan Na Yao", ["khan na yao"]),
     ("Saphan Sung", ["saphan sung"]),
     ("Bueng Kum", ["bueng kum"]),
     ("Lat Krabang", ["lat krabang", "latkrabang"]),
     ("Prawet", ["prawet"]),
     ("Bang Bon", ["bang bon"]),
-    ("Nong Khaem", ["nong khaem"]),
+    ("Nong Khaem", ["nong khaem", "หนองแขม", "หนองเเขม"]),
     ("Bang Khae", ["bang khae"]),
     ("Taling Chan", ["taling chan"]),
     ("Thawi Watthana", ["thawi watthana"]),
@@ -257,6 +261,38 @@ _DISTRICTS_BY_CITY: dict[str, list[tuple[str, list[str]]]] = {
 
 _DISTRICT_SUFFIX_RE = re.compile(r"([A-Za-z][A-Za-z\-' ]{2,30}?)\s+[Dd]istrict\b")
 
+# 2026-08-20: 태국어 주소의 "เมือง(=อำเภอเมือง, 도청 소재 군)" 처리용.
+# 남은 미할당 182건 중 95건이 "…เมือง Chiang Mai 50200" / "…อำเภอเมือง, Samut
+# Sakhon 74000" 형태였다. 이건 이미 존재하는 "Mueang {도}" 와 같은 대상이므로,
+# 새 이름을 만들지 않고 그 표기로 정규화해야 /d/ 페이지가 쪼개지지 않는다
+# (실측: 93건이 전부 기존 district 로 흡수됨).
+# 도 이름은 보통 우편번호 5자리 바로 앞의 라틴 토큰이다.
+_TH_PROVINCE_BEFORE_ZIP_RE = re.compile(r"([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)\s+\d{5}\b")
+# 순수 태국어 주소용 최소 매핑(관측된 것만).
+_TH_PROVINCE_NAMES = {
+    "เชียงใหม่": "Chiang Mai", "นนทบุรี": "Nonthaburi", "สมุทรปราการ": "Samut Prakan",
+    "สมุทรสาคร": "Samut Sakhon", "ปทุมธานี": "Pathum Thani", "ภูเก็ต": "Phuket",
+    "กระบี่": "Krabi", "ชลบุรี": "Chon Buri", "นครปฐม": "Nakhon Pathom",
+}
+
+
+def _mueang_district(address: str) -> str:
+    """"เมือง" 가 있으면 "Mueang {도}" 로 정규화. 못 찾으면 빈 문자열."""
+    if "เมือง" not in address:
+        return ""
+    m = _TH_PROVINCE_BEFORE_ZIP_RE.search(address)
+    prov = m.group(1).strip() if m else ""
+    # "จังหวัด"(=Province) 가 라틴으로 섞여 들어오면 이름이 아니라 라벨이다.
+    for label in ("Chang Wat ", "Changwat ", "Province "):
+        if prov.startswith(label):
+            prov = prov[len(label):].strip()
+    if not prov:
+        for th, en in _TH_PROVINCE_NAMES.items():
+            if th in address:
+                prov = en
+                break
+    return f"Mueang {prov}" if prov else ""
+
 
 def extract_district(address: str, city_label: str = "Bangkok") -> str:
     """주소에서 도시별 district 추출. 도시 매핑 없으면 빈 문자열.
@@ -283,7 +319,10 @@ def extract_district(address: str, city_label: str = "Bangkok") -> str:
     m = _DISTRICT_SUFFIX_RE.search(address)
     if m:
         return m.group(1).strip()
-    return ""
+    # 태국어 "เมือง" 폴백은 마지막이다 — 위 키워드 패스가 먼저 돌아야
+    # "ดอนเมือง"(방콕 돈므앙, 이름 안에 เมือง 가 들어있다)이 "Mueang …" 로
+    # 오분류되지 않는다.
+    return _mueang_district(address)
 
 
 # ── 언어 감지 (TH / EN / other) ───────────────────────────────
