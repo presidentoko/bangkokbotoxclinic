@@ -135,8 +135,11 @@ export async function generateMetadata(
     description: `방콕 ${label} 클리닉 ${count}곳을 구글 리뷰 ${totalReviews.toLocaleString()}건 기반 신뢰도 점수로 순위화.${priceHint ? ` ${priceHint}.` : ""} 한국·미국 대비 최대 70% 저렴.`,
     alternates: {
       canonical: `${SITE}/ko/c/${service}`,
+      // 2026-08-20: th-TH 누락으로 태국어 hreflang 클러스터가 단방향이었다
+      // (/th/c/[service] 만 셋을 다 선언). 아래 en 쪽 주석 참조.
       languages: {
         "en-US": `${SITE}/c/${service}`,
+        "th-TH": `${SITE}/th/c/${service}`,
         "ko-KR": `${SITE}/ko/c/${service}`,
         "x-default": `${SITE}/c/${service}`,
       },

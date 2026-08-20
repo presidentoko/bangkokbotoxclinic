@@ -27,7 +27,12 @@ export async function generateMetadata(
   const cfg = findBestFor(criterion);
   if (!cfg) return { title: "Not found" };
   const db2 = await loadMasterDb();
-  const count2 = db2.clinics.filter((c) => !cfg.filterFn || cfg.filterFn(c)).length;
+  // 2026-08-20: 예전엔 db2.clinics(전 도메인 합산)를 셌다. 그런데 아래 본문은
+  // applySiteFilter 로 이 사이트 소관만 렌더한다 — 즉 덴탈 사이트에서 클리닉이
+  // 0~2곳뿐인 /best/ 페이지가, 보톡스 사이트 클리닉 덕분에 합산 5를 넘겨
+  // 색인 가능으로 통과하고 있었다. 게이트를 본문과 같은 기준으로 맞춘다.
+  const scoped2 = applySiteFilter(db2.clinics, getSiteConfig());
+  const count2 = scoped2.filter((c) => !cfg.filterFn || cfg.filterFn(c)).length;
   const robots = count2 < 5 ? { index: false, follow: true } : undefined;
   return {
     title: cfg.metaTitle,

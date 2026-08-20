@@ -251,12 +251,22 @@ export default async function ClinicPage({ params }: { params: Promise<{ lang: L
                 Request consultation
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
-              {c.website_line_id && (
+              {/* 2026-08-20: website_line_id 는 public/data/clinics.json 145곳 전부
+                  빈 값이다(실측 0%) — 즉 이 LINE 버튼은 어느 페이지에도 뜬 적이
+                  없고, 최상단 CTA 줄에 실제로 연결되는 연락 수단이 하나도 없었다.
+                  phone 은 141곳(97%)이 갖고 있으므로 LINE 이 없을 때 통화 버튼으로
+                  대체한다. LINE ID 가 채워지면 자동으로 LINE 이 우선한다. */}
+              {c.website_line_id ? (
                 <a href={`https://line.me/R/ti/p/@${c.website_line_id}`} target="_blank" rel="nofollow noopener"
                   className="inline-flex items-center gap-2 rounded-xl bg-mint-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-mint-700">
                   Contact via LINE
                 </a>
-              )}
+              ) : c.phone ? (
+                <a href={`tel:${c.phone.replace(/[^+\d]/g, "")}`}
+                  className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-black">
+                  Call {c.phone}
+                </a>
+              ) : null}
               {c.bookimed_url && showAffiliateLink(c) && (
                 <a href={c.bookimed_url} target="_blank" rel="nofollow sponsored noopener" className="btn-ghost">
                   Bookimed Quote ↗

@@ -1,17 +1,185 @@
 {
   "place_id": "0x30e29e5b7989ef8b:0xc3da9a922b9e237",
   "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/health-checkup/bangkok-sleep-center",
-  "hdmall_name": "Bangkok Sleep Center",
+  "hdmall_url": "https://hdmall.co.th/health-checkup/luxe-bangkok-clinic-(%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%8B%E0%B9%8C-%E0%B9%81%E0%B8%9A%E0%B8%87%E0%B8%84%E0%B8%AD%E0%B8%81-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
+  "hdmall_name": "Luxe Bangkok Clinic (ลักซ์ แบงคอก คลินิกเวชกรรม)",
   "packages": [
     {
-      "sku": "33524",
-      "name": "ตรวจการนอนหลับ Full Sleep Test แบบตรวจที่ศูนย์ตรวจ (Sleep Lab) 1 คืน สำหรับ 1 ท่าน",
-      "current_price": 14550.0,
-      "original_price": 14550.0,
-      "url_slug": "health-checkup/full-sleep-test-sleep-lab-1-night-for-1-person-bangkok-sleep-center",
+      "sku": "58795",
+      "name": "ตรวจหาสารก่อภูมิแพ้อาหารและสิ่งแวดล้อม 107 ชนิด (IgE Test) ด้วยวิธีเจาะเลือด",
+      "current_price": 3100.0,
+      "original_price": 3100.0,
+      "url_slug": "health-checkup/testing-environmental-food-and-allergy-107-types-ige-test-blood-test-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58796",
+      "name": "ตรวจฮอร์โมนพื้นฐาน 5 รายการ",
+      "current_price": 1990.0,
+      "original_price": 1990.0,
+      "url_slug": "health-checkup/check-hormone-basic-5-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58797",
+      "name": "ตรวจฮอร์โมนสำหรับคนที่มีปัญหาการนอนและความเครียด 7 รายการ",
+      "current_price": 3990.0,
+      "original_price": 3990.0,
+      "url_slug": "health-checkup/check-hormone-problem-sleeping-and-stress-7-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58798",
+      "name": "ตรวจฮอร์โมนสำหรับคนที่มีปัญหาระบบเผาผลาญ 8 รายการ",
+      "current_price": 3890.0,
+      "original_price": 3890.0,
+      "url_slug": "health-checkup/check-hormone-problem-metabolic-8-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58799",
+      "name": "ตรวจฮอร์โมนสำหรับคนที่มีปัญหาสิวเรื้อรังและประจำเดือน 9 รายการ",
+      "current_price": 3690.0,
+      "original_price": 3690.0,
+      "url_slug": "health-checkup/check-hormone-basic-and-hormones-acne-and-menstruation-9-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58800",
+      "name": "ตรวจฮอร์โมนแบบเจาะลึก 14 รายการ",
+      "current_price": 6790.0,
+      "original_price": 6790.0,
+      "url_slug": "health-checkup/check-hormone-indepth-14-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58801",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด",
+      "current_price": 2000.0,
+      "original_price": 2000.0,
+      "url_slug": "health-checkup/check-sexually-transmitted-diseases-14-types-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58802",
+      "name": "ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 2000.0,
+      "original_price": 2000.0,
+      "url_slug": "health-checkup/check-hpv-dna-29-species-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58803",
+      "name": "ตรวจ HPV DNA 14 สายพันธุ์",
+      "current_price": 1400.0,
+      "original_price": 1400.0,
+      "url_slug": "health-checkup/check-hpv-dna-14-species-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58804",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo)",
+      "current_price": 2400.0,
+      "original_price": 2400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hiv-indepth-ag-ab-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58805",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 3950.0,
+      "original_price": 3950.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hpv-dna-29-species-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58806",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo) + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 4400.0,
+      "original_price": 4400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-hiv-indepth-ag-ab-hpv-dna-29-species-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58817",
+      "name": "ตรวจคัดกรอง HIV แบบพื้นฐาน รู้ผลใน 1-2 วัน (Ab)",
+      "current_price": 250.0,
+      "original_price": 250.0,
+      "url_slug": "health-checkup/screening-test-hiv-basic-type-know-results-1-2-days-ab-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58818",
+      "name": "ตรวจคัดกรอง HIV แบบเจาะลึก รู้ผลใน 1-2 วัน (Ag/Ab Combo)",
+      "current_price": 450.0,
+      "original_price": 450.0,
+      "url_slug": "health-checkup/screening-test-hiv-indepth-know-results-1-2-days-ag-ab-combo-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58819",
+      "name": "ตรวจคัดกรองไวรัสตับอักเสบ 4 รายการ",
+      "current_price": 1050.0,
+      "original_price": 1050.0,
+      "url_slug": "health-checkup/screening-hepatitis-4-items-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58820",
+      "name": "ตรวจสารบ่งชี้มะเร็งชาย Tumor Marker 4 รายการ",
+      "current_price": 1490.0,
+      "original_price": 1490.0,
+      "url_slug": "health-checkup/check-indicators-male-cancer-tumor-marker-4-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58821",
+      "name": "ตรวจสารบ่งชี้มะเร็งหญิง Tumor Marker 5 รายการ",
+      "current_price": 1990.0,
+      "original_price": 1990.0,
+      "url_slug": "health-checkup/check-indicators-female-cancer-tumor-marker-5-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58822",
+      "name": "ตรวจคัดกรองความเสี่ยงโรคหัวใจและหลอดเลือดเบื้องต้น (ตรวจค่า TMAO)",
+      "current_price": 6900.0,
+      "original_price": 6900.0,
+      "url_slug": "health-checkup/check-heart-and-blood-vessels-basic-tmao-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58823",
+      "name": "ตรวจคัดกรองความเสี่ยงโรคหัวใจและหลอดเลือดแบบเจาะลึก (ตรวจค่า TMAO + Cardiovascular Panel 7 รายการ)",
+      "current_price": 9900.0,
+      "original_price": 9900.0,
+      "url_slug": "health-checkup/check-heart-and-blood-vessels-indepth-tmao-cardiovascular-panel-7-items-hdmall-plus-lab-pl-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58824",
+      "name": "ตรวจสุขภาพ 43 รายการ โปรแกรม Basic Lab",
+      "current_price": 690.0,
+      "original_price": 690.0,
+      "url_slug": "health-checkup/health-check-up-43-items-program-basic-lab-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58825",
+      "name": "ตรวจสุขภาพ 47 รายการ โปรแกรม Basic Lab + Cancer Marker",
+      "current_price": 1790.0,
+      "original_price": 1790.0,
+      "url_slug": "health-checkup/health-check-up-47-items-program-basic-lab-plus-cancer-marker-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58826",
+      "name": "ตรวจสุขภาพ 59 รายการ โปรแกรม Full Lab",
+      "current_price": 3590.0,
+      "original_price": 3590.0,
+      "url_slug": "health-checkup/health-check-up-59-items-program-full-lab-hdmall-plus-lab-ml-luxe-bangkok-medical-clinic",
       "category": "health-checkup"
     }
   ],
-  "scraped_at": "2026-05-18T02:35:10Z"
+  "scraped_at": "2026-08-20T12:01:38Z"
 }

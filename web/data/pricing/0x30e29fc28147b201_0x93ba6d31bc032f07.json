@@ -1,18 +1,201 @@
-[
-  {
-    "service": "hair_transplant",
-    "unit_label": "per session",
-    "price_min_thb": 1200,
-    "price_max_thb": 1200,
-    "source_url": "https://wellmedbangkok.com/wellmed-clinic-Asoke",
-    "last_checked": "2026-05-11T12:26:59.961197+00:00"
-  },
-  {
-    "service": "eye",
-    "unit_label": "per session",
-    "price_min_thb": 1200,
-    "price_max_thb": 1200,
-    "source_url": "https://wellmedbangkok.com/wellmed-clinic-Asoke",
-    "last_checked": "2026-05-11T12:26:59.961197+00:00"
-  }
-]
+{
+  "place_id": "0x30e29fc28147b201:0x93ba6d31bc032f07",
+  "source": "hdmall",
+  "hdmall_url": "https://hdmall.co.th/health-checkup/wellmed-bangkok-clinic",
+  "hdmall_name": "Wellmed Bangkok Clinic",
+  "packages": [
+    {
+      "sku": "10351",
+      "name": "ฉีดวัคซีนป้องกันไวรัสตับอักเสบเอ 1 เข็ม",
+      "current_price": 1612.0,
+      "original_price": 1612.0,
+      "url_slug": "health-checkup/vaccination-hepatitis-a-1-needle-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "10353",
+      "name": "ตรวจหาโรคติดต่อทางเพศสัมพันธ์ 11 ชนิด โดยการตรวจปัสสาวะ ลำคอ หรือภายในช่องคลอด พร้อมเจาะเลือดตรวจ HIV",
+      "current_price": 4074.0,
+      "original_price": 4074.0,
+      "url_slug": "health-checkup/urine-test-sexually-11-type-pcr-test-blood-test-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "36474",
+      "name": "เจาะเลือดตรวจหาเชื้อ HIV",
+      "current_price": 631.0,
+      "original_price": 631.0,
+      "url_slug": "health-checkup/blood-test-check-hiv-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "10334",
+      "name": "ตรวจหาเชื้อ COVID-19 เทคนิค Real Time - PCR",
+      "current_price": 3498.0,
+      "original_price": 3498.0,
+      "url_slug": "health-checkup/covid-19-realtime-pcr-examination-1-person-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "11716",
+      "name": "ตรวจสุขภาพก่อนแต่งงานหรือก่อนมีบุตร 14 รายการ สำหรับผู้หญิง",
+      "current_price": 2960.0,
+      "original_price": 2960.0,
+      "url_slug": "health-checkup/health-check-before-getting-married-or-having-a-child-before-14-for-women-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "53469",
+      "name": "ฉีดวัคซีน HPV ป้องกันมะเร็งปากมดลูก ชนิด 4 สายพันธุ์ 1 เข็ม (9 ปีขึ้นไป)",
+      "current_price": 2597.0,
+      "original_price": 2597.0,
+      "url_slug": "health-checkup/cervical-cancer-vaccine-hpv-4-species-1-needle-aged-9-years-over-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57348",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo)",
+      "current_price": 2400.0,
+      "original_price": 2400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hiv-indepth-ag-ab-hdmall-plus-lab-ml-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "33450",
+      "name": "ตรวจเลือดหาเชื้อ HIV + รับยาต้านไวรัส PEP 30 เม็ด สำหรับผู้ที่มีโอกาสสัมผัสเชื้อ HIV ไม่เกิน 72 ชม.",
+      "current_price": 3735.0,
+      "original_price": 3735.0,
+      "url_slug": "health-checkup/blood-test-for-hiv-get-30-pep-for-who-likely-to-be-exposed-to-hiv-in-72-hrs-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "12053",
+      "name": "ฉีดวัคซีน DTP ป้องกันบาดทะยัก คอตีบ ไอกรน 1 เข็ม สำหรับเด็กที่มีอายุต่ำกว่า 7 ปี",
+      "current_price": 650.0,
+      "original_price": 650.0,
+      "url_slug": "health-checkup/vaccination-dtp-tetanus-diphtheria-whooping-cough-1-needle-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "41202",
+      "name": "ตรวจสุขภาพเพื่อขอใบรับรองแพทย์ 5 โรคทั่วไป (คนไทย)",
+      "current_price": 198.0,
+      "original_price": 198.0,
+      "url_slug": "health-checkup/health-check-to-request-5-general-medical-certificates-for-thai-people-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "42922",
+      "name": "ตรวจภูมิแพ้อาหารและสิ่งแวดล้อม 107 ชนิด ด้วยวิธีเจาะเลือด",
+      "current_price": 3366.0,
+      "original_price": 3366.0,
+      "url_slug": "health-checkup/107-types-of-food-and-environmental-allergies-with-blood-drawing-methods-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "37201",
+      "name": "ตรวจระดับฮอร์โมน 9 รายการ สำหรับผู้หญิง",
+      "current_price": 5880.0,
+      "original_price": 5880.0,
+      "url_slug": "health-checkup/check-levels-hormone-9-item-for-women-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "10346",
+      "name": "ฉีดวัคซีนป้องกันไข้หวัดใหญ่ 2026 4 สายพันธุ์ 1 เข็ม",
+      "current_price": 630.0,
+      "original_price": 630.0,
+      "url_slug": "health-checkup/vaccination-influenza-2020-4-species-1-needle-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "11718",
+      "name": "ตรวจสุขภาพ 31 รายการ (Advance Health Checkup Package) (35 ปีขึ้นไป)",
+      "current_price": 3653.0,
+      "original_price": 3653.0,
+      "url_slug": "health-checkup/health-check-31-advance-health-checkup-package-for-women-or-men-aged-35-years-and-over-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "36475",
+      "name": "ตรวจการทำงานของต่อมไทรอยด์ ด้วยวิธีการเจาะเลือด",
+      "current_price": 1504.0,
+      "original_price": 1504.0,
+      "url_slug": "health-checkup/check-thyroid-function-blood-test-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "33532",
+      "name": "ตรวจเลือดหาเชื้อ HIV + รับยา PrEP 30 เม็ด สำหรับผู้ที่ไม่มีเชื้อ HIV",
+      "current_price": 2716.0,
+      "original_price": 2716.0,
+      "url_slug": "health-checkup/blood-test-for-hiv-receive-30-prep-pills-for-people-without-hiv-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "13499",
+      "name": "ตรวจสุขภาพก่อนแต่งงานหรือก่อนมีบุตร 9 รายการ สำหรับผู้ชาย",
+      "current_price": 1733.0,
+      "original_price": 1733.0,
+      "url_slug": "health-checkup/medical-examinations-before-marriage-or-having-children-before-9-items-for-men-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "36476",
+      "name": "ตรวจคัดกรองโรคเบาหวาน ด้วยวิธีการเจาะเลือด",
+      "current_price": 1649.0,
+      "original_price": 1649.0,
+      "url_slug": "health-checkup/screening-diabetes-blood-test-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "10350",
+      "name": "ฉีดวัคซีนป้องกันไวรัสตับอักเสบบี 1 เข็ม",
+      "current_price": 553.0,
+      "original_price": 553.0,
+      "url_slug": "health-checkup/vaccination-hepatitis-b-1-needle-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "32489",
+      "name": "ฉีดวัคซีนป้องกันบาดทะยัก 1 เข็ม สำหรับทุกช่วงวัย",
+      "current_price": 437.0,
+      "original_price": 437.0,
+      "url_slug": "health-checkup/one-dose-of-tetanus-immunization-for-all-ages-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "10345",
+      "name": "ฉีดวัคซีนป้องกันปอดอักเสบ IPD 23 สายพันธุ์ 1 เข็ม",
+      "current_price": 1746.0,
+      "original_price": 1746.0,
+      "url_slug": "health-checkup/vaccination-pneumonia-ipd-23-species-1-needle-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57350",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo) + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 4400.0,
+      "original_price": 4400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-hiv-indepth-ag-ab-hpv-dna-29-species-hdmall-plus-lab-ml-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "12052",
+      "name": "ฉีดวัคซีน MMR ป้องกันหัด คางทูม หัดเยอรมัน 1 เข็ม",
+      "current_price": 861.0,
+      "original_price": 861.0,
+      "url_slug": "health-checkup/vaccination-mmr-measles-mumps-rubella-1-needle-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "32404",
+      "name": "ตรวจหาสารบ่งชี้มะเร็งรังไข่ CA 125 ด้วยวิธีตรวจเลือด",
+      "current_price": 990.0,
+      "original_price": 990.0,
+      "url_slug": "health-checkup/screening-for-ovarian-cancer-marker-ca-125-by-blood-test-wellmed-bangkok-clinic",
+      "category": "health-checkup"
+    }
+  ],
+  "scraped_at": "2026-08-20T12:01:38Z"
+}

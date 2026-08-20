@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29f09709a1bb7:0xfa165aa2d4749522",
-  "sources": [
-    "hdmall"
-  ],
+  "source": "hdmall",
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/mos-dental-clinic",
+  "hdmall_name": "MOS Dental Clinic",
   "packages": [
     {
       "sku": "12116",
@@ -61,38 +61,5 @@
       "category": "dental-clinics"
     }
   ],
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/mos-dental-clinic",
-  "hdmall_name": "MOS Dental Clinic",
-  "prices": [
-    {
-      "service": "dental_whitening",
-      "unit_label": "per session",
-      "price_min_thb": 3861,
-      "price_max_thb": 3861,
-      "source_url": "",
-      "last_checked": "2026-05-18",
-      "source": "hdmall",
-      "sample_count": 1
-    },
-    {
-      "service": "dental_general",
-      "unit_label": "per session",
-      "price_min_thb": 735,
-      "price_max_thb": 882,
-      "source_url": "",
-      "last_checked": "2026-05-18",
-      "source": "hdmall",
-      "sample_count": 2
-    },
-    {
-      "service": "dental_braces",
-      "unit_label": "per session",
-      "price_min_thb": 1176,
-      "price_max_thb": 1176,
-      "source_url": "",
-      "last_checked": "2026-05-18",
-      "source": "hdmall",
-      "sample_count": 1
-    }
-  ]
+  "scraped_at": "2026-08-20T12:01:38Z"
 }

@@ -1,17 +1,201 @@
 {
   "place_id": "0x30e2955c835bebbf:0xfde9753b9f4209fa",
   "source": "hdmall",
-  "hdmall_url": "https://hdmall.co.th/health-checkup/saensuk-medical-clinic-(%E0%B9%81%E0%B8%AA%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%A7%E0%B8%8A%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1)",
-  "hdmall_name": "Saensuk Medical Clinic (แสนสุขคลินิกเวชกรรม)",
+  "hdmall_url": "https://hdmall.co.th/health-checkup/ql-healthcare-medical-laboratory-clinic-(%E0%B8%84%E0%B8%B4%E0%B8%A7%E0%B9%81%E0%B8%AD%E0%B8%A5-%E0%B9%80%E0%B8%AE%E0%B8%A5%E0%B8%97%E0%B9%8C%E0%B9%81%E0%B8%84%E0%B8%A3%E0%B9%8C-%E0%B8%84%E0%B8%A5%E0%B8%B4%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B9%80%E0%B8%97%E0%B8%84%E0%B8%99%E0%B8%B4%E0%B8%84%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%9E%E0%B8%97%E0%B8%A2%E0%B9%8C)",
+  "hdmall_name": "QL Healthcare Medical Laboratory Clinic (คิวแอล เฮลท์แคร์ คลินิกเทคนิคการแพทย์)",
   "packages": [
     {
-      "sku": "54990",
+      "sku": "55266",
       "name": "ตรวจหาสารก่อภูมิแพ้อาหารและสิ่งแวดล้อม 107 ชนิด (IgE Test) ด้วยวิธีเจาะเลือด",
       "current_price": 3100.0,
       "original_price": 3100.0,
-      "url_slug": "health-checkup/testing-environmental-food-and-allergy-107-types-ige-test-blood-test-hdmall-plus-saensuk-medical-clinic",
+      "url_slug": "health-checkup/testing-environmental-food-and-allergy-107-types-ige-test-blood-test-hdmall-plus-lab-mic-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55263",
+      "name": "ตรวจคัดกรอง HIV แบบพื้นฐาน รู้ผลใน 1-2 วัน (Ab)",
+      "current_price": 250.0,
+      "original_price": 250.0,
+      "url_slug": "health-checkup/screening-test-hiv-basic-type-know-results-1-2-days-ab-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55264",
+      "name": "ตรวจคัดกรอง HIV แบบเจาะลึก รู้ผลใน 1-2 วัน (Ag/Ab Combo)",
+      "current_price": 450.0,
+      "original_price": 450.0,
+      "url_slug": "health-checkup/screening-test-hiv-indepth-know-results-1-2-days-ag-ab-combo-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55265",
+      "name": "ตรวจคัดกรองไวรัสตับอักเสบ 4 รายการ",
+      "current_price": 1050.0,
+      "original_price": 1050.0,
+      "url_slug": "health-checkup/screening-hepatitis-4-items-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55640",
+      "name": "ตรวจสุขภาพก่อนเข้าทำงาน 6 รายการ (ผู้หญิง 15 ปีขึ้นไป)",
+      "current_price": 960.0,
+      "original_price": 960.0,
+      "url_slug": "health-checkup/health-check-up-before-starting-work-6-items-women-aged-15-years-over-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56818",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด",
+      "current_price": 2000.0,
+      "original_price": 2000.0,
+      "url_slug": "health-checkup/check-sexually-transmitted-diseases-14-types-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56821",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo)",
+      "current_price": 2400.0,
+      "original_price": 2400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hiv-indepth-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56822",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 3950.0,
+      "original_price": 3950.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hpv-dna-29-species-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56823",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo) + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 4400.0,
+      "original_price": 4400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-hiv-indepth-hpv-dna-29-species-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55638",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 4 รายการ (เจาะเลือด)",
+      "current_price": 969.0,
+      "original_price": 969.0,
+      "url_slug": "health-checkup/sexually-transmitted-disease-screening-4-items-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58544",
+      "name": "ตรวจคัดกรองความเสี่ยงโรคหลอดเลือดสมอง 12 รายการ (Stroke Screening) (55 ปีขึ้นไป)",
+      "current_price": 2225.0,
+      "original_price": 2225.0,
+      "url_slug": "health-checkup/screening-stroke-risk-12-items-stroke-screening-aged-55-years-over-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55629",
+      "name": "ตรวจหาเชื้อไวรัสตับอักเสบบี (HBsAg) (เจาะเลือด)",
+      "current_price": 291.0,
+      "original_price": 291.0,
+      "url_slug": "health-checkup/hepatitis-b-virus-test-hbsag-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55633",
+      "name": "ตรวจการทำงานของตับ 8 รายการ (เจาะเลือด)",
+      "current_price": 883.0,
+      "original_price": 883.0,
+      "url_slug": "health-checkup/liver-function-test-8-items-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56820",
+      "name": "ตรวจ HPV DNA 14 สายพันธุ์",
+      "current_price": 1400.0,
+      "original_price": 1400.0,
+      "url_slug": "health-checkup/check-hpv-dna-14-species-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55643",
+      "name": "ตรวจสุขภาพ 29 รายการ (ผู้หญิง 15 ปีขึ้นไป)",
+      "current_price": 2178.0,
+      "original_price": 2178.0,
+      "url_slug": "health-checkup/health-check-up-29-items-women-aged-15-years-over-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58546",
+      "name": "ตรวจคัดกรองโรคเครียด 6 รายการ (ทุกช่วงวัย)",
+      "current_price": 2426.0,
+      "original_price": 2426.0,
+      "url_slug": "health-checkup/screening-stressrelated-disorders-6-items-all-ages-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55632",
+      "name": "ตรวจหาสารบ่งชี้มะเร็งตับ (AFP) (เจาะเลือด)",
+      "current_price": 388.0,
+      "original_price": 388.0,
+      "url_slug": "health-checkup/liver-cancer-marker-test-afp-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58540",
+      "name": "ตรวจภาวะไวต่ออาหาร 60 รายการ (ทุกช่วงวัย เจาะเลือด)",
+      "current_price": 3861.0,
+      "original_price": 3861.0,
+      "url_slug": "health-checkup/food-sensitivity-test-60-items-all-ages-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56819",
+      "name": "ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 2000.0,
+      "original_price": 2000.0,
+      "url_slug": "health-checkup/check-hpv-dna-29-species-hdmall-plus-lab-ml-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55645",
+      "name": "ตรวจสุขภาพ 39 รายการ (ผู้หญิง 15 ปีขึ้นไป)",
+      "current_price": 4455.0,
+      "original_price": 4455.0,
+      "url_slug": "health-checkup/health-check-up-39-items-women-aged-15-years-over-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55637",
+      "name": "ตรวจระดับฮอร์โมน 9 รายการ (เจาะเลือด)",
+      "current_price": 5390.0,
+      "original_price": 5390.0,
+      "url_slug": "health-checkup/check-hormone-levels-9-items-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55634",
+      "name": "ตรวจหาภูมิคุ้มกันไวรัสตับอักเสบซี (Anti-HCV) (เจาะเลือด)",
+      "current_price": 291.0,
+      "original_price": 291.0,
+      "url_slug": "health-checkup/hepatitis-c-virus-immunity-test-anti-hcv-blood-test-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55642",
+      "name": "ตรวจสุขภาพ 29 รายการ (ผู้ชาย 15 ปีขึ้นไป)",
+      "current_price": 1980.0,
+      "original_price": 1980.0,
+      "url_slug": "health-checkup/health-check-up-29-items-men-aged-15-years-over-ql-healthcare-medical-laboratory-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "58545",
+      "name": "ตรวจคัดกรองโรคไต 6 รายการ (ทุกช่วงวัย)",
+      "current_price": 1683.0,
+      "original_price": 1683.0,
+      "url_slug": "health-checkup/check-kidney-disease-6-items-all-ages-ql-healthcare-medical-laboratory-clinic",
       "category": "health-checkup"
     }
   ],
-  "scraped_at": "2026-05-18T02:35:10Z"
+  "scraped_at": "2026-08-20T12:01:38Z"
 }

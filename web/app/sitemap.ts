@@ -54,6 +54,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/for-clinics`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/guide`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/doctors`, lastModified: updated, changeFrequency: "daily", priority: 0.85 },
+    // 2026-08-20: 아래 8개는 색인 가능한(noindex 없는) 공개 페이지인데 사이트맵에
+    // 한 번도 없었다. /methodology·/about/trust-score 는 E-E-A-T 근거 페이지고
+    // /c 는 시술 허브의 인덱스라, 크롤러가 다른 허브로 넘어가는 진입점이다.
+    // 제외한 것: /admin·/dashboard·/onboarding·/pay·/saved(비공개·개인화),
+    // /compare(robots.ts 에서 Disallow — 제출하면 서로 모순되는 지시가 된다).
+    { url: `${SITE}/c`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE}/methodology`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/about/trust-score`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE}/insights`, lastModified: updated, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${SITE}/corrections`, lastModified: updated, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${SITE}/disclaimer`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE}/privacy`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE}/terms`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   // focus 태그 있는 가이드는 그 사이트에서만 제출 — 안 그러면 타 도메인
@@ -73,11 +86,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     items.push({ url: `${SITE}/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
     // 한국 의료관광 검색 타겟 (2026-07-13 신설) — 같은 기준.
     items.push({ url: `${SITE}/ko/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
+    // 2026-08-20: /th/c/[service] 는 2026-08-06 에 만들어졌는데 사이트맵에
+    // 한 번도 오르지 않아 완전한 고아였다. 이 사이트의 GSC 상위 쿼리는 전부
+    // 태국어인데(คลินิกทำฟันใกล้ฉัน 등) 정작 그 착지 페이지들이 제출조차 안 된
+    // 상태 — ko 보다 트래픽이 큰 언어라 우선순위도 ko 위로 둔다.
+    items.push({ url: `${SITE}/th/c/${s}`, lastModified: updated, changeFrequency: "daily", priority: 0.9 });
   }
   for (const c of BEST_FOR) {
-    // app/best/[criterion]/page.tsx:31 — filterFn 매치 5개 미만이면 noindex
-    // (페이지가 scoped 아닌 db.clinics 전체를 세므로 여기도 동일하게 센다)
-    if (db.clinics.filter((cl) => !c.filterFn || c.filterFn(cl)).length < 5) continue;
+    // app/best/[criterion]/page.tsx — filterFn 매치 5개 미만이면 noindex.
+    // 2026-08-20: 양쪽 다 db.clinics(전 도메인 합산)를 세고 있었다. 기준끼리는
+    // 일치했지만 본문 렌더(applySiteFilter)와 어긋나서, 이 사이트엔 거의 비어
+    // 있는 /best/ 페이지를 색인 요청까지 하고 있었다. 페이지와 함께 scoped 로
+    // 옮긴다 — 두 곳의 기준은 앞으로도 반드시 같이 움직여야 한다.
+    if (scoped.filter((cl) => !c.filterFn || c.filterFn(cl)).length < 5) continue;
     items.push({ url: `${SITE}/best/${c.slug}`, lastModified: updated, changeFrequency: "daily", priority: 0.85 });
   }
   for (const cityLabel of cities) {

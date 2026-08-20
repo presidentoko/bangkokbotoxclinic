@@ -87,10 +87,25 @@ export async function POST(req: Request) {
       }).catch((e) => console.error("[lead] legacy webhook err", e))
     );
   }
-  await Promise.allSettled(tasks);
+  // 2026-08-20: 예전엔 allSettled 결과를 버리고 무조건 ok:true 를 돌려줬다.
+  // 이메일과 Telegram 이 둘 다 실패해도(키 만료, Resend 장애 등) 방문자에겐
+  // 성공으로 보이고 클리닉은 문의가 온 사실 자체를 모른다 — 리드는 Redis 에
+  // 남으니 유실은 아니지만, 누가 보기 전까진 없는 것과 같다.
+  // 응답은 200 을 유지한다: 저장은 실제로 성공했으므로 "실패했다"고 알리면
+  // 방문자가 멀쩡히 접수된 문의를 다시 넣거나 경쟁 사이트로 간다.
+  // 대신 채널 전멸은 눈에 띄는 한 줄로 남겨 추적/알림을 걸 수 있게 한다.
+  const results = await Promise.allSettled(tasks);
+  const delivered = results.some((r) => r.status === "fulfilled");
+  if (!delivered) {
+    console.error(
+      `[lead][NOTIFY-ALL-FAILED] ${lead.id} clinic=${clinicId || "(none)"} email=${recipientEmail} — ` +
+        `저장은 됨(clinic:${clinicId || "general"}:leads), 알림 채널 전멸`,
+      results.map((r) => (r.status === "rejected" ? r.reason : null)).filter(Boolean),
+    );
+  }
 
-  console.log(`[lead] ${lead.id} clinic=${clinicId || "(none)"} → ${recipientEmail}${partner ? " (partner)" : ""}`);
-  return Response.json({ ok: true, lead_id: lead.id });
+  console.log(`[lead] ${lead.id} clinic=${clinicId || "(none)"} → ${recipientEmail}${partner ? " (partner)" : ""}${delivered ? "" : " [NOTIFY FAILED]"}`);
+  return Response.json({ ok: true, lead_id: lead.id, notified: delivered });
 }
 
 function formatTextSummary(l: LeadRecord): string {

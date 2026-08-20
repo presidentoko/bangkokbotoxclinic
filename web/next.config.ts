@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import fs from "fs";
+import path from "path";
 import { loadMasterDb } from "./lib/data";
 import {
   applySiteFilter,
@@ -194,6 +196,73 @@ async function legacyDoctorSlugRedirects() {
   return out;
 }
 
+// 2026-08-20: 이 함수가 web-cf 에만 있고 web 에는 없었다. web 은 봇/덴탈
+// 두 Vercel 프로젝트가 공유하는 코드베이스이므로, bangkokbotoxclinic.com 은
+// data/slug_history.json(669KB, 매일 갱신됨)을 배포에 싣고도 죽은 doctor
+// 슬러그를 전부 404 로 흘리고 있었다 — 데이터는 있는데 배선만 없던 상태.
+// 2026-08-17 GSC 감사(web/next.config.ts 이식, 2026-08-18): doctor URL 404 —
+// legacyDoctorSlugRedirects()는 "이름 기반 → place_id 기반" 한 번의 포맷
+// 전환만 커버한다. composite_slug의 의사명 부분은 재스크랩마다 바뀔 수 있고,
+// 그때마다 옛 색인 URL이 404가 된다. build_master_db.py의
+// update_slug_history()가 클리닉별 모든 composite_slug 이력을
+// data/slug_history.json에 append-only로 남기고, 여기서 죽은 슬러그를 그
+// 클리닉 페이지로 301 — 어떤 의사였는지 재식별하지 않고 "가장 가까운 살아있는
+// 페이지"로 보낸다.
+async function staleDoctorSlugRedirects() {
+  const cfg = getSiteConfig();
+  const db = await loadMasterDb();
+  const scopedIds = new Set(applySiteFilter(db.clinics, cfg).map((c) => c.id));
+  const clinicById = new Map(db.clinics.map((c) => [c.id, c]));
+
+  const historyPath = path.join(process.cwd(), "data", "slug_history.json");
+  if (!fs.existsSync(historyPath)) return [];
+  let history: Record<string, { all_slugs?: string[]; active_slugs?: string[] }>;
+  try {
+    history = JSON.parse(fs.readFileSync(historyPath, "utf-8"));
+  } catch {
+    return [];
+  }
+
+  const targetScoped = new Map<SiteFocus, Set<string>>();
+  const scopedIdsFor = (focus: SiteFocus) => {
+    let s = targetScoped.get(focus);
+    if (!s) {
+      s = new Set(applySiteFilter(db.clinics, configForFocus(focus)).map((c) => c.id));
+      targetScoped.set(focus, s);
+    }
+    return s;
+  };
+
+  const out: { source: string; destination: string; permanent: boolean }[] = [];
+  for (const [cid, entry] of Object.entries(history)) {
+    const activeSet = new Set(entry.active_slugs || []);
+    const staleSlugs = (entry.all_slugs || []).filter((s) => !activeSet.has(s));
+    if (staleSlugs.length === 0) continue;
+
+    let destination: string | null = null;
+    if (scopedIds.has(cid)) {
+      destination = `/clinic/${cid}`;
+    } else {
+      const clinic = clinicById.get(cid);
+      if (clinic) {
+        const candidates = resolveOwnerFocusCandidates(clinic.categories).filter((focus) => {
+          if (focus === cfg.focus) return false;
+          if (focus === "hair") return false;
+          return scopedIdsFor(focus).has(cid);
+        });
+        const ownerFocus = candidates[0];
+        if (ownerFocus) destination = `${urlForFocus(ownerFocus)}/clinic/${cid}`;
+      }
+    }
+    if (!destination) continue;
+
+    for (const slug of staleSlugs) {
+      out.push({ source: `/doctor/${encodeURI(slug)}`, destination, permanent: true });
+    }
+  }
+  return out;
+}
+
 const config: NextConfig = {
   // master_db.json 큰 사이즈 대비 Edge 런타임 안 씀
   experimental: {
@@ -214,10 +283,11 @@ const config: NextConfig = {
   compress: true,
   poweredByHeader: false,
   async redirects() {
-    const [serviceRedirects, clinicRedirects, doctorRedirects] = await Promise.all([
+    const [serviceRedirects, clinicRedirects, doctorRedirects, staleDoctorRedirects] = await Promise.all([
       offFocusServiceRedirects(),
       offScopeClinicRedirects(),
       legacyDoctorSlugRedirects(),
+      staleDoctorSlugRedirects(),
     ]);
     return [
       ...wpRedirects,
@@ -234,6 +304,7 @@ const config: NextConfig = {
       ...serviceRedirects,
       ...clinicRedirects,
       ...doctorRedirects,
+      ...staleDoctorRedirects,
     ];
   },
 };

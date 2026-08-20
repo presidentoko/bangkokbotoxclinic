@@ -60,9 +60,14 @@ export async function generateMetadata(
       canonical: `/c/${service}`,
       // ko/c/[service]는 이 페이지로 되돌아오는 languages를 이미 선언하는데
       // 이쪽엔 상호 선언이 없어 hreflang이 단방향이라 구글이 무시하던 문제
-      // (2026-07-31 감사). th는 아직 /th/c/[service] 자체가 없어 제외.
+      // (2026-07-31 감사).
+      // 2026-08-20: th 도 같은 상태였다 — /th/c/[service] 는 2026-08-06 에
+      // 생겼고 자기 쪽에서 th-TH 를 선언하는데, en/ko 쪽이 th 를 빼놓아서
+      // 다시 단방향이 됐다. hreflang 은 클러스터 전원이 서로를 가리켜야
+      // 인정되므로, 셋 중 하나라도 빠지면 태국어 페이지 전체가 무시된다.
       languages: {
         "en-US": `/c/${service}`,
+        "th-TH": `/th/c/${service}`,
         "ko-KR": `/ko/c/${service}`,
         "x-default": `/c/${service}`,
       },

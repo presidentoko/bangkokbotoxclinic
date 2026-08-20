@@ -40,7 +40,10 @@ export function buildReportData(
     districtService: "hair",
     negativeCount,
     intlPct: 0,
-    reportUrl: `${baseUrl}/report/${clinic.id}`,
-    demoUrl: `${baseUrl}/dashboard/${clinic.id}`,
+    // 2026-08-20: next.config 의 trailingSlash:true 때문에 슬래시 없는 이 URL 들은
+    // 매번 308 을 한 번 거친다. 아웃리치 메일에 그대로 박히는 링크라 리다이렉트
+    // 홉이 붙으면 링크 검사기가 걸고 클릭 추적도 어긋난다 — 최종 형태로 적는다.
+    reportUrl: `${baseUrl}/report/${clinic.id}/`,
+    demoUrl: `${baseUrl}/dashboard/${clinic.id}/`,
   };
 }

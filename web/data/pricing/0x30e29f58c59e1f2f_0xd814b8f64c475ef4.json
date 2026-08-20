@@ -1,8 +1,8 @@
 {
   "place_id": "0x30e29f58c59e1f2f:0xd814b8f64c475ef4",
-  "sources": [
-    "hdmall"
-  ],
+  "source": "hdmall",
+  "hdmall_url": "https://hdmall.co.th/dental-clinics/smile-works-dental-clinic",
+  "hdmall_name": "Smile Works Dental Clinic",
   "packages": [
     {
       "sku": "25028",
@@ -45,28 +45,5 @@
       "category": "dental-clinics"
     }
   ],
-  "hdmall_url": "https://hdmall.co.th/dental-clinics/smile-works-dental-clinic",
-  "hdmall_name": "Smile Works Dental Clinic",
-  "prices": [
-    {
-      "service": "dental_whitening",
-      "unit_label": "per session",
-      "price_min_thb": 4445,
-      "price_max_thb": 4752,
-      "source_url": "",
-      "last_checked": "2026-05-18",
-      "source": "hdmall",
-      "sample_count": 2
-    },
-    {
-      "service": "dental_braces",
-      "unit_label": "per session",
-      "price_min_thb": 39200,
-      "price_max_thb": 39200,
-      "source_url": "",
-      "last_checked": "2026-05-18",
-      "source": "hdmall",
-      "sample_count": 1
-    }
-  ]
+  "scraped_at": "2026-08-20T12:01:38Z"
 }

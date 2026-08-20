@@ -81,14 +81,21 @@ export function makeLeadId(): string {
   return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 }
 
+// 2026-08-20: clinic_id 가 빈 리드(지역/서비스 허브 폼, 홈 문의)는 `clinic::leads`
+// 라는 키로 들어갔다 — 라우트 주석은 "공용 버킷에 반드시 저장"이라고 적혀 있지만
+// getRecentLeads 는 clinicId 를 받아 조회하므로 그 키를 부를 호출자가 없다.
+// 저장은 됐는데 아무도 못 읽는 상태였다. 명시적인 "general" 버킷으로 모은다.
+const GENERAL_BUCKET = "general";
+
 export async function storeLead(rec: LeadRecord): Promise<void> {
-  const key = `clinic:${rec.clinic_id}:leads`;
+  const bucket = rec.clinic_id || GENERAL_BUCKET;
+  const key = `clinic:${bucket}:leads`;
   // 4 commands → 1 round trip (4× faster + 4× cheaper on Upstash quota)
   await upstashPipeline([
     ["LPUSH", key, JSON.stringify(rec)],
     ["LTRIM", key, 0, 199],                  // 최근 200건만 보존
     ["EXPIRE", key, 60 * 60 * 24 * 90],      // 90일 TTL
-    ["INCR", `clinic:${rec.clinic_id}:lead_count`],
+    ["INCR", `clinic:${bucket}:lead_count`],
   ]);
 }
 

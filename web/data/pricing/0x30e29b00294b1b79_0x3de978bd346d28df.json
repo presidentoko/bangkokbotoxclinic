@@ -5,14 +5,6 @@
   "hdmall_name": "PB Medtechcare Clinic (พีบี เมดเทคแคร์ คลินิกเทคนิคการแพทย์)",
   "packages": [
     {
-      "sku": "55422",
-      "name": "ตรวจคัดกรองมะเร็ง 6 รายการ (ผู้หญิง)",
-      "current_price": 5148.0,
-      "original_price": 5148.0,
-      "url_slug": "health-checkup/screening-cancer-6-items-women-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
       "sku": "55317",
       "name": "ตรวจคัดกรอง HIV แบบพื้นฐาน รู้ผลใน 1-2 วัน (Ab)",
       "current_price": 250.0,
@@ -37,115 +29,19 @@
       "category": "health-checkup"
     },
     {
-      "sku": "55659",
-      "name": "ตรวจฮอร์โมนสำหรับคนที่มีปัญหาระบบเผาผลาญ 8 รายการ",
-      "current_price": 3890.0,
-      "original_price": 3890.0,
-      "url_slug": "health-checkup/check-hormone-problem-metabolic-8-items-hdmall-plus-lab-pl-pb-medtechcare-clinic",
+      "sku": "57706",
+      "name": "ตรวจวัดระดับน้ำตาลและไขมัน 6 รายการ (ทุกช่วงวัย)",
+      "current_price": 1584.0,
+      "original_price": 1584.0,
+      "url_slug": "health-checkup/check-blood-sugar-and-cholesterol-levels-6-items-all-ages-pb-medtechcare-clinic",
       "category": "health-checkup"
     },
     {
-      "sku": "55657",
-      "name": "ตรวจฮอร์โมนพื้นฐาน 5 รายการ",
-      "current_price": 1990.0,
-      "original_price": 1990.0,
-      "url_slug": "health-checkup/check-hormone-basic-5-items-hdmall-plus-lab-pl-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "57171",
-      "name": "ตรวจสุขภาพ 67 รายการ (โปรแกรม Premium) (ผู้ชายทุกช่วงวัย)",
-      "current_price": 14849.0,
-      "original_price": 14849.0,
-      "url_slug": "health-checkup/health-check-up-67-items-program-premium-men-all-ages-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "56139",
-      "name": "ตรวจฮอร์โมนไทรอยด์ คัดกรองความเสี่ยงโรคไทรอยด์ 3 รายการ (Thyroid)",
-      "current_price": 1454.0,
-      "original_price": 1454.0,
-      "url_slug": "health-checkup/check-hormone-thyroid-risk-screening-3-items-thyroid-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "57075",
-      "name": "ตรวจหาปริมาณกรดอินทรีย์ในปัสสาวะ และตรวจการเผาผลาญของร่างกาย (Urine Organic Test) (ทุกช่วงวัย)",
-      "current_price": 13859.0,
-      "original_price": 13859.0,
-      "url_slug": "health-checkup/check-urine-organic-test-check-your-bodys-metabolism-all-ages-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "57074",
-      "name": "ตรวจคัดกรองโรคภูมิแพ้ตัวเอง (Autoimmune : SLE) ด้วยการตรวจ ANA Profile (ทุกช่วงวัย)",
-      "current_price": 4752.0,
-      "original_price": 4752.0,
-      "url_slug": "health-checkup/check-diseases-autoimmune-sle-check-ana-profile-all-ages-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55656",
-      "name": "ตรวจคัดกรองความเสี่ยงโรคหัวใจและหลอดเลือดแบบเจาะลึก (ตรวจค่า TMAO + Cardiovascular Panel 7 รายการ)",
-      "current_price": 9900.0,
-      "original_price": 9900.0,
-      "url_slug": "health-checkup/check-heart-and-blood-vessels-indepth-tmao-cardiovascular-panel-7-items-hdmall-plus-lab-pl-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55660",
-      "name": "ตรวจฮอร์โมนสำหรับคนที่มีปัญหาสิวเรื้อรังและประจำเดือน 9 รายการ",
-      "current_price": 3690.0,
-      "original_price": 3690.0,
-      "url_slug": "health-checkup/check-hormone-basic-and-hormones-acne-and-menstruation-9-items-hdmall-plus-lab-pl-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55320",
-      "name": "ตรวจหาสารก่อภูมิแพ้อาหารและสิ่งแวดล้อม 107 ชนิด (IgE Test) ด้วยวิธีเจาะเลือด",
-      "current_price": 3100.0,
-      "original_price": 3100.0,
-      "url_slug": "health-checkup/testing-environmental-food-and-allergy-107-types-ige-test-blood-test-hdmall-plus-lab-ml-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55424",
-      "name": "ตรวจความยาวเทโลเมียร์ (Telomere Length)",
-      "current_price": 15423.0,
-      "original_price": 15423.0,
-      "url_slug": "health-checkup/check-telomere-length-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55423",
-      "name": "ตรวจคัดกรองโรคสมองเสื่อม (Dementia) และโรคอัลไซเมอร์ (Alzheimer)",
-      "current_price": 4998.0,
-      "original_price": 4998.0,
-      "url_slug": "health-checkup/screening-dementia-and-alzheimer-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55425",
-      "name": "ตรวจคลื่นไฟฟ้าหัวใจ (EKG)",
-      "current_price": 764.0,
-      "original_price": 764.0,
-      "url_slug": "health-checkup/electrocardiogram-ekg-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55655",
-      "name": "ตรวจคัดกรองความเสี่ยงโรคหัวใจและหลอดเลือดเบื้องต้น (ตรวจค่า TMAO)",
-      "current_price": 6900.0,
-      "original_price": 6900.0,
-      "url_slug": "health-checkup/check-heart-and-blood-vessels-basic-tmao-hdmall-plus-lab-pl-pb-medtechcare-clinic",
-      "category": "health-checkup"
-    },
-    {
-      "sku": "55323",
-      "name": "ตรวจสุขภาพ 61 รายการ โปรแกรม Full Lab",
-      "current_price": 3590.0,
-      "original_price": 3590.0,
-      "url_slug": "health-checkup/health-check-up-61-items-program-full-lab-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "sku": "57837",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo) + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 4400.0,
+      "original_price": 4400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-hiv-indepth-ag-ab-hpv-dna-29-species-hdmall-plus-lab-ml-pb-medtechcare-clinic",
       "category": "health-checkup"
     },
     {
@@ -157,11 +53,11 @@
       "category": "health-checkup"
     },
     {
-      "sku": "55321",
-      "name": "ตรวจสุขภาพ 45 รายการ โปรแกรม Basic Lab",
-      "current_price": 690.0,
-      "original_price": 690.0,
-      "url_slug": "health-checkup/health-check-up-45-items-program-basic-lab-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "sku": "57836",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 3950.0,
+      "original_price": 3950.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hpv-dna-29-species-hdmall-plus-lab-ml-pb-medtechcare-clinic",
       "category": "health-checkup"
     },
     {
@@ -173,6 +69,38 @@
       "category": "health-checkup"
     },
     {
+      "sku": "55424",
+      "name": "ตรวจความยาวเทโลเมียร์ (Telomere Length)",
+      "current_price": 15423.0,
+      "original_price": 15423.0,
+      "url_slug": "health-checkup/check-telomere-length-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55660",
+      "name": "ตรวจฮอร์โมนสำหรับคนที่มีปัญหาสิวเรื้อรังและประจำเดือน 9 รายการ",
+      "current_price": 3690.0,
+      "original_price": 3690.0,
+      "url_slug": "health-checkup/check-hormone-basic-and-hormones-acne-and-menstruation-9-items-hdmall-plus-lab-pl-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57832",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด",
+      "current_price": 2000.0,
+      "original_price": 2000.0,
+      "url_slug": "health-checkup/check-sexually-transmitted-diseases-14-types-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57707",
+      "name": "ตรวจการทำงานของตับและไต 12 รายการ (ทุกช่วงวัย)",
+      "current_price": 2134.0,
+      "original_price": 2134.0,
+      "url_slug": "health-checkup/check-liver-and-kidney-function-12-items-all-ages-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
       "sku": "55661",
       "name": "ตรวจฮอร์โมนแบบเจาะลึก 14 รายการ",
       "current_price": 6790.0,
@@ -181,11 +109,43 @@
       "category": "health-checkup"
     },
     {
-      "sku": "55322",
-      "name": "ตรวจสุขภาพ 49 รายการ โปรแกรม Basic Lab + Cancer Marker",
-      "current_price": 1790.0,
-      "original_price": 1790.0,
-      "url_slug": "health-checkup/health-check-up-49-items-program-basic-lab-plus-cancer-marker-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "sku": "55655",
+      "name": "ตรวจคัดกรองความเสี่ยงโรคหัวใจและหลอดเลือดเบื้องต้น (ตรวจค่า TMAO)",
+      "current_price": 6900.0,
+      "original_price": 6900.0,
+      "url_slug": "health-checkup/check-heart-and-blood-vessels-basic-tmao-hdmall-plus-lab-pl-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57835",
+      "name": "ตรวจ HPV DNA 29 สายพันธุ์",
+      "current_price": 2000.0,
+      "original_price": 2000.0,
+      "url_slug": "health-checkup/check-hpv-dna-29-species-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55656",
+      "name": "ตรวจคัดกรองความเสี่ยงโรคหัวใจและหลอดเลือดแบบเจาะลึก (ตรวจค่า TMAO + Cardiovascular Panel 7 รายการ)",
+      "current_price": 9900.0,
+      "original_price": 9900.0,
+      "url_slug": "health-checkup/check-heart-and-blood-vessels-indepth-tmao-cardiovascular-panel-7-items-hdmall-plus-lab-pl-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57461",
+      "name": "ตรวจหาสารเสพติด Amphetamine Test (ตรวจปัสสาวะ)",
+      "current_price": 281.0,
+      "original_price": 281.0,
+      "url_slug": "health-checkup/check-drug-amphetamine-test-urine-test-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55422",
+      "name": "ตรวจคัดกรองมะเร็ง 6 รายการ (ผู้หญิง)",
+      "current_price": 5148.0,
+      "original_price": 5148.0,
+      "url_slug": "health-checkup/screening-cancer-6-items-women-pb-medtechcare-clinic",
       "category": "health-checkup"
     },
     {
@@ -195,7 +155,47 @@
       "original_price": 3056.0,
       "url_slug": "health-checkup/screening-cancer-4-items-men-pb-medtechcare-clinic",
       "category": "health-checkup"
+    },
+    {
+      "sku": "57075",
+      "name": "ตรวจหาปริมาณกรดอินทรีย์ในปัสสาวะ และตรวจการเผาผลาญของร่างกาย (Urine Organic Test) (ทุกช่วงวัย)",
+      "current_price": 13859.0,
+      "original_price": 13859.0,
+      "url_slug": "health-checkup/check-urine-organic-test-check-your-bodys-metabolism-all-ages-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "55320",
+      "name": "ตรวจหาสารก่อภูมิแพ้อาหารและสิ่งแวดล้อม 107 ชนิด (IgE Test) ด้วยวิธีเจาะเลือด",
+      "current_price": 3100.0,
+      "original_price": 3100.0,
+      "url_slug": "health-checkup/testing-environmental-food-and-allergy-107-types-ige-test-blood-test-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57074",
+      "name": "ตรวจคัดกรองโรคภูมิแพ้ตัวเอง (Autoimmune : SLE) ด้วยการตรวจ ANA Profile (ทุกช่วงวัย)",
+      "current_price": 4752.0,
+      "original_price": 4752.0,
+      "url_slug": "health-checkup/check-diseases-autoimmune-sle-check-ana-profile-all-ages-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "56139",
+      "name": "ตรวจฮอร์โมนไทรอยด์ คัดกรองความเสี่ยงโรคไทรอยด์ 3 รายการ (Thyroid)",
+      "current_price": 1454.0,
+      "original_price": 1454.0,
+      "url_slug": "health-checkup/check-hormone-thyroid-risk-screening-3-items-thyroid-pb-medtechcare-clinic",
+      "category": "health-checkup"
+    },
+    {
+      "sku": "57834",
+      "name": "ตรวจโรคติดต่อทางเพศสัมพันธ์ 14 ชนิด + ตรวจคัดกรอง HIV แบบเจาะลึก (Ag/Ab Combo)",
+      "current_price": 2400.0,
+      "original_price": 2400.0,
+      "url_slug": "health-checkup/sexually-transmitted-diseases-14-types-and-hiv-indepth-ag-ab-hdmall-plus-lab-ml-pb-medtechcare-clinic",
+      "category": "health-checkup"
     }
   ],
-  "scraped_at": "2026-05-18T02:35:10Z"
+  "scraped_at": "2026-08-20T12:01:38Z"
 }

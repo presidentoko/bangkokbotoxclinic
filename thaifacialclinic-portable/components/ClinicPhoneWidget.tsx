@@ -47,11 +47,15 @@ export default function ClinicPhoneWidget({ clinic }: { clinic: Clinic }) {
             <span className="text-xs">Call</span>
           </a>
         )}
-        <a href={`https://wa.me/${phoneStripped}`} target="_blank" rel="noopener noreferrer"
-          className="flex flex-col items-center justify-center rounded-xl bg-[#25d366] text-white px-3 py-3 font-bold hover:opacity-90 transition">
-          <span className="text-xl mb-0.5">📱</span>
-          <span className="text-xs">WhatsApp</span>
-        </a>
+        {/* 2026-08-20: phone 가드가 없어서 번호 없는 클리닉에선 https://wa.me/ 로
+            링크가 나갔다 — WhatsApp 홈으로 튕기는 죽은 버튼이다. */}
+        {phone && (
+          <a href={`https://wa.me/${phoneStripped}`} target="_blank" rel="noopener noreferrer"
+            className="flex flex-col items-center justify-center rounded-xl bg-[#25d366] text-white px-3 py-3 font-bold hover:opacity-90 transition">
+            <span className="text-xl mb-0.5">📱</span>
+            <span className="text-xs">WhatsApp</span>
+          </a>
+        )}
         <a href="#booking"
           className="flex flex-col items-center justify-center rounded-xl bg-[#06c755] text-white px-3 py-3 font-bold hover:opacity-90 transition">
           <span className="text-xl mb-0.5">💬</span>
