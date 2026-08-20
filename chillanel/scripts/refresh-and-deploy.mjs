@@ -98,11 +98,40 @@ let cities = discoverCities();
 // lastDeployedMtime / lastDeployedAt: what we last actually shipped, and
 //   when — lets us tell "new data waiting" apart from "already deployed"
 //   and enforce the MAX_INTERVAL_MS backstop independent of quiet time.
+// 2026-08-20: lastDeployedMtime 을 파일로 영속화한다.
+// 예전엔 기동 시 `lastDeployedMtime = lastSeenMtime` 이었다. 즉 아직 배포되지
+// 않은 데이터를 "이미 배포한 것"으로 간주하고 시작했다. 이 서비스는 watchdog
+// 이 progress 정체로 자주 재시작시키는데(2026-08-20 하루 206회), 재시작마다
+// 워터마크가 현재 시각으로 밀려서 pending 이 영원히 false 가 됐다 — 그 결과
+// 6일간 배포 0회, 수집한 데이터의 절반이 미공개 상태로 남았다.
+// 파일에 남겨두면 재시작해도 "무엇까지 실제로 내보냈는지"가 보존된다.
+const WATERMARK = import.meta.dirname + "/../.last-deployed";
+function readWatermark() {
+  try {
+    const v = Number(fs.readFileSync(WATERMARK, "utf8").trim());
+    return Number.isFinite(v) ? v : 0;
+  } catch {
+    return 0;
+  }
+}
+function writeWatermark(v) {
+  try {
+    fs.writeFileSync(WATERMARK, String(v));
+  } catch (e) {
+    log(`워터마크 저장 실패(무시): ${e.message}`);
+  }
+}
+
 let lastSeenMtime = latestMtime(cities);
 let lastChangeAt = Date.now();
-let lastDeployedMtime = lastSeenMtime;
+// 0 이면(최초 실행) 현재를 기준으로 잡아 첫 기동에 불필요한 배포를 하지 않는다.
+let lastDeployedMtime = readWatermark() || lastSeenMtime;
 let lastDeployedAt = Date.now();
-log(`감시 시작 — 도시 ${cities.length}개 (${cities.join(", ") || "없음"}), 초기 mtime=${lastSeenMtime}`);
+log(
+  `감시 시작 — 도시 ${cities.length}개 (${cities.join(", ") || "없음"}), ` +
+  `초기 mtime=${lastSeenMtime}, 배포워터마크=${lastDeployedMtime}` +
+  (lastSeenMtime > lastDeployedMtime ? " (미배포 데이터 있음)" : ""),
+);
 
 while (true) {
   // Re-discover every poll so a city that just got enabled in watchdog.py
@@ -129,6 +158,8 @@ while (true) {
       // the next poll would see current === lastSeen and log "변경 없음" forever.
       lastDeployedMtime = lastSeenMtime;
       lastDeployedAt = now;
+      // 재시작해도 "여기까지 실제로 배포했다" 가 남도록 디스크에 기록.
+      writeWatermark(lastDeployedMtime);
     } catch (e) {
       log(`배포 실패, 다음 주기 재시도: ${e.message}`);
     }

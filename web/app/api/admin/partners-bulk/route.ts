@@ -20,7 +20,7 @@ type BulkRow = {
 };
 
 export async function POST(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json()) as { rows?: BulkRow[] };
   if (!Array.isArray(body.rows) || body.rows.length === 0) {
     return NextResponse.json({ error: "rows required" }, { status: 400 });

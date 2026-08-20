@@ -101,6 +101,47 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
     .sort((a, b) => b.trust_score - a.trust_score)
     .slice(0, 6);
 
+  // 2026-08-20 홈 페이로드 다이어트(재발 방지).
+  // 클리닉 1건 3,480B 중 reviews_sample 이 1,822B(52%)다. 이걸 145건 × 7개
+  // 클라이언트 컴포넌트에 그대로 넘기면서 RSC 페이로드가 710KB, 홈 HTML 이
+  // 1.1MB 까지 부풀었다. reviews_sample 을 쓰는 건 TestimonialMarquee 하나뿐이고
+  // 그마저 30개에서 끊으므로, 서버에서 미리 추려 그 컴포넌트에만 넘긴다.
+  // 나머지는 전부 slim 배열을 받는다.
+  // allowlist — 컴포넌트가 실제로 읽는 필드만. (드롭 대상: reviews_sample,
+  // videos_sample, top_video_*, website_email/facebook/instagram,
+  // google_maps_url, top_review_source, source_badges — 145건 × 전부 미사용)
+  // address 는 DirectoryClient 의 Fuse 검색 키(weight 0.5)라 반드시 남긴다.
+  const slimClinics = clinics.map((c) => ({
+    id: c.id, slug: c.slug, name: c.name, city: c.city, category: c.category,
+    address: c.address,
+    rating: c.rating, review_count: c.review_count,
+    reviews_scraped_count: c.reviews_scraped_count, trust_score: c.trust_score,
+    procedures: c.procedures, languages: c.languages,
+    photos_count: c.photos_count, top_photo_url: c.top_photo_url,
+    photos_sample: c.photos_sample, videos_count: c.videos_count,
+    top_review_text: c.top_review_text,
+    bookimed_price_from: c.bookimed_price_from, bookimed_slug: c.bookimed_slug,
+    bookimed_url: c.bookimed_url,
+    is_hair_relevant: c.is_hair_relevant, is_partner: c.is_partner,
+    is_suspected_viral: c.is_suspected_viral,
+    website_line_id: c.website_line_id,
+  })) as unknown as typeof clinics;
+
+  // TestimonialMarquee 의 필터(4점 이상·60~240자·최대 30개)를 서버에서 선적용.
+  // 컴포넌트 시그니처는 그대로 두고 입력만 줄여 회귀 위험을 없앤다.
+  const testimonialClinics: typeof clinics = [];
+  let pickedReviews = 0;
+  for (const c of clinics) {
+    const usable = (c.reviews_sample || []).filter(
+      (r) => r.text && r.text.length >= 60 && r.text.length <= 240 && (r.rating === null || r.rating >= 4),
+    );
+    if (!usable.length) continue;
+    const take = usable.slice(0, Math.max(0, 31 - pickedReviews));
+    testimonialClinics.push({ ...c, reviews_sample: take });
+    pickedReviews += take.length;
+    if (pickedReviews > 30) break;
+  }
+
   const noFouc = `(function(){try{var s=localStorage.getItem('theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})();`;
 
   const faqSchema = {
@@ -151,16 +192,16 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
           <PressStrip />
           <WhyUs lang={lang} />
           <HowItWorks lang={lang} />
-          <FeaturedClinics clinics={clinics} lang={lang} />
+          <FeaturedClinics clinics={slimClinics} lang={lang} />
           <CostCalculator lang={lang} />
-          <PhotoShowcase clinics={clinics} lang={lang} />
+          <PhotoShowcase clinics={slimClinics} lang={lang} />
           <ProcedureExplainer lang={lang} />
-          <CuratedCollections clinics={clinics} lang={lang} />
+          <CuratedCollections clinics={slimClinics} lang={lang} />
 
-          <TestimonialMarquee clinics={clinics} lang={lang} />
+          <TestimonialMarquee clinics={testimonialClinics} lang={lang} />
           <LeadCaptureForm lang={lang} />
           <AfterSubmitFlow lang={lang} />
-          <SocialProof clinics={clinics} lang={lang} />
+          <SocialProof clinics={slimClinics} lang={lang} />
           <section id="directory" className="space-y-6">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
@@ -174,11 +215,11 @@ export default async function Page({ params }: { params: Promise<{ lang: Lang }>
                 Updated {new Date(generated_at).toISOString().slice(0, 10)}
               </span>
             </div>
-            <DirectoryClient clinics={clinics} lang={lang} />
+            <DirectoryClient clinics={slimClinics} lang={lang} />
           </section>
           <NewsletterSignup lang={lang} />
         </main>
-        <CompareBar clinics={clinics} lang={lang} />
+        <CompareBar clinics={slimClinics} lang={lang} />
         <footer className="mt-20 border-t pt-8 text-xs muted" style={{ borderColor: "rgb(var(--border))" }}>
           <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
             <div className="flex items-center gap-3">

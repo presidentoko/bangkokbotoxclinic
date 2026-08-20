@@ -13,7 +13,7 @@ import type { Clinic } from "@/lib/types";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const url = new URL(req.url);
   const minTrust = Math.max(0, parseInt(url.searchParams.get("min_trust") ?? "75", 10) || 75);

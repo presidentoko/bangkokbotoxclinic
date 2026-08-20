@@ -11,7 +11,7 @@ export const maxDuration = 30;
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const records = await listOutreach();
 
   // Enrich with current clinic context — trust score, district rank, unanswered negs.
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json()) as Omit<OutreachRecord, "last_updated">;
   if (!body.clinic_id || !body.outcome) {
     return NextResponse.json({ error: "clinic_id and outcome required" }, { status: 400 });
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const { clinic_id } = (await req.json()) as { clinic_id?: string };
   if (!clinic_id) return NextResponse.json({ error: "clinic_id required" }, { status: 400 });
   const ok = await deleteOutreach(clinic_id);

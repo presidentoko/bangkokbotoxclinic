@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { storeLead, rateLimitOk, makeLeadId, type LeadRecord } from "@/lib/leadStore";
 import { listPartners } from "@/lib/partnerStore";
 import { notifyNewLead } from "@/lib/notify";
@@ -78,10 +79,17 @@ export async function POST(req: Request) {
     at: new Date().toISOString(),
   };
 
-  if (clinicId) await storeLead(lead);
+  // 2026-08-20: 예전엔 `if (clinicId)` 가드가 있었다. 그런데 홈 히어로의
+  // LeadCaptureForm, PartnerInquiryForm(=광고주 문의), PartnerOnboardingForm,
+  // TestimonialSubmitForm 은 clinicId 를 보내지 않는다 — 즉 그 폼들의 제출이
+  // 전부 조용히 버려지고 있었다(광고를 팔려고 만든 문의 폼이 정작 유실).
+  // clinic_id 가 비면 storeLead 쪽에서 "general" 버킷으로 들어간다.
+  await storeLead(lead);
 
-  // Fire Discord + Telegram notifications (configured via env, silent skip if not set)
-  notifyNewLead(lead);
+  // 2026-08-20: await 없이 호출하면 서버리스 함수가 응답 직후 동결되면서
+  // Resend/Telegram/Discord 전송이 중간에 끊긴다. Next 의 after() 로 감싸
+  // 응답은 즉시 돌려주되 전송은 끝까지 보장한다.
+  after(() => notifyNewLead(lead));
 
   const summary = formatSummary(lead);
 

@@ -19,6 +19,7 @@ export default function PromptPayQR({
   clinicId?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [qrFailed, setQrFailed] = useState(false);
   const [payer, setPayer] = useState("");
   const [email, setEmail] = useState("");
   const [note, setNote] = useState("");
@@ -63,9 +64,33 @@ export default function PromptPayQR({
 
       <div className="grid sm:grid-cols-[auto_1fr] gap-6 items-center">
         <div className="mx-auto">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={QR_SRC} alt="PromptPay QR for MR YUNMIN SHIN" width={240} height={300}
-            className="rounded-xl border-2 border-emerald-200 max-w-full h-auto" />
+          {/* 2026-08-20: public/promptpay-static.png 이 존재하지 않아 라이브에서
+              404 였다 — 결제 안내의 핵심인 QR 자리에 깨진 이미지가 떠서 결제
+              경로가 사실상 죽어 있었다. 이미지가 없을 때 깨진 아이콘 대신
+              "송금처 이름을 직접 입력" 안내로 대체한다(PromptPay 는 수취인명
+              검색으로도 송금 가능). QR 파일을 넣으면 자동으로 다시 노출된다. */}
+          {!qrFailed ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={QR_SRC} alt="PromptPay QR for MR YUNMIN SHIN" width={240} height={300}
+              onError={() => setQrFailed(true)}
+              className="rounded-xl border-2 border-emerald-200 max-w-full h-auto" />
+          ) : (
+            <div
+              className="rounded-xl border-2 border-dashed border-emerald-300 bg-emerald-50 p-5 text-center"
+              style={{ width: 240 }}
+            >
+              <div className="text-3xl mb-2">🏦</div>
+              <div className="text-sm font-black text-emerald-900">Transfer by recipient name</div>
+              <p className="mt-2 text-xs text-emerald-900/80 leading-relaxed">
+                In your bank app choose <strong>PromptPay → Transfer</strong> and enter the
+                recipient below, then continue from step 4.
+              </p>
+              <p className="mt-2 text-xs font-bold text-emerald-900">{BENEFICIARY}</p>
+              <p className="mt-3 text-[11px] text-emerald-900/70">
+                Need the QR? Message us and we&apos;ll send it directly.
+              </p>
+            </div>
+          )}
         </div>
         <ol className="space-y-2 text-sm">
           <li className="flex gap-2"><span className="font-black text-emerald-700">1.</span>Open any Thai bank app (Kbank, SCB, BBL, KTB, TTB…)</li>

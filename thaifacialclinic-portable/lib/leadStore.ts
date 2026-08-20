@@ -21,8 +21,14 @@ export function makeLeadId(): string {
   return makeId(16);
 }
 
+// 2026-08-20: clinic_id 가 빈 리드(홈 히어로 폼, 광고주 문의, 온보딩, 후기)는
+// 예전엔 `clinic::leads` 라는 아무도 조회하지 않는 키로 들어갔다. 사실상 유실이라
+// "general" 버킷으로 모아 관리 UI 가 읽을 수 있게 한다.
+const GENERAL_BUCKET = "general";
+
 export async function storeLead(rec: LeadRecord): Promise<void> {
-  const key = `clinic:${rec.clinic_id}:leads`;
+  const bucket = rec.clinic_id || GENERAL_BUCKET;
+  const key = `clinic:${bucket}:leads`;
   await rpipeline([
     ["LPUSH", key, JSON.stringify(rec)],
     ["LTRIM", key, 0, 199],

@@ -7,13 +7,13 @@ import { isAdminAuthed } from "@/lib/adminAuth";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const sponsored = await listSponsored();
   return NextResponse.json({ sponsored });
 }
 
 export async function PUT(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json()) as Partial<SponsoredMap>;
   const next: SponsoredMap = {
     editors_pick: body.editors_pick ?? [],

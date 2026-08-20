@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   if (!Number.isFinite(amount) || amount <= 0 || amount > 1_000_000)
     return new Response("invalid amount", { status: 400 });
 
-  notifyPaymentClaim({
+  const claim = {
     clinic_name,
     clinic_id: String(body.clinic_id || "").slice(0, 100) || undefined,
     amount_thb: Math.round(amount),
@@ -32,7 +32,19 @@ export async function POST(req: Request) {
     partner_email: String(body.partner_email || "").slice(0, 200) || undefined,
     note: String(body.note || "").slice(0, 1000) || undefined,
     at: new Date().toISOString(),
-  });
+  };
+
+  // 2026-08-20: 예전엔 await 없이 알림만 쏘고 곧바로 200 을 돌려줬다. 서버리스
+  // 함수는 응답 직후 동결될 수 있어 Telegram/Discord 전송이 끊길 수 있는데,
+  // UI 는 "✅ 알림 완료" 라고 표시한다 — 돈은 들어왔는데 아무도 모르는 상태가
+  // 만들어진다. 전송을 기다리고, 전부 실패하면 실패로 응답해서 파트너가
+  // 다른 경로로 알릴 수 있게 한다.
+  try {
+    await notifyPaymentClaim(claim);
+  } catch (e) {
+    console.error("[payment-claim] notify failed", claim.reference || claim.clinic_name, e);
+    return new Response("notify failed", { status: 502 });
+  }
 
   return Response.json({ ok: true });
 }

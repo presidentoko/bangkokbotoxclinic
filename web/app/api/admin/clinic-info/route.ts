@@ -8,7 +8,7 @@ import { getSiteConfig, applySiteFilter } from "@/lib/site";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   const url = new URL(req.url);
   const clinicId = url.searchParams.get("clinic_id");

@@ -13,7 +13,7 @@ import { createAccess, getAccess, revokeAccess } from "@/lib/dashboardAccessStor
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const clinicId = req.nextUrl.searchParams.get("clinic_id");
   if (!clinicId) return NextResponse.json({ error: "clinic_id required" }, { status: 400 });
   const token = await getAccess(clinicId);
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json().catch(() => ({}))) as { clinic_id?: string };
   if (!body.clinic_id) return NextResponse.json({ error: "clinic_id required" }, { status: 400 });
   const token = await createAccess(body.clinic_id);
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  if (!isAdminAuthed(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthed(req))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const body = (await req.json().catch(() => ({}))) as { clinic_id?: string };
   if (!body.clinic_id) return NextResponse.json({ error: "clinic_id required" }, { status: 400 });
   await revokeAccess(body.clinic_id);
