@@ -12,7 +12,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const ALLOWED_AMOUNTS = new Set([5000, 8000, 15000]);
+// 2026-08-20: 예전엔 5,000/8,000/15,000 세 금액만 허용하는 고정 allowlist 였다.
+// 광고 단가는 문의가 올 때마다 건별로 정하는데, 그 목록에 없는 금액(예 ฿10,000)
+// 으로 링크를 보내면 광고주가 "Payment link invalid" 화면을 보게 된다 — 합의까지
+// 끝난 거래가 마지막 단계에서 막히는 셈이다.
+// allowlist 를 없애되 검증은 남긴다: 정수, 그리고 오타·장난 링크를 거르는 범위.
+const MIN_AMOUNT_THB = 500;
+const MAX_AMOUNT_THB = 500000;
+function validAmount(n: number): boolean {
+  return Number.isInteger(n) && n >= MIN_AMOUNT_THB && n <= MAX_AMOUNT_THB;
+}
 const PLAN_LABELS: Record<string, string> = {
   cpl: "CPL Leads — ฿50/lead",
   featured: "Featured Listing",
@@ -29,7 +38,7 @@ export default async function PayPage({
   const params = await searchParams;
   const cfg = getSiteConfig();
   const rawAmount = Number(params.amount) || 0;
-  const amount = ALLOWED_AMOUNTS.has(rawAmount) ? rawAmount : 0;
+  const amount = validAmount(rawAmount) ? rawAmount : 0;
   const rawPlan = params.plan || "";
   const plan = ALLOWED_PLANS.has(rawPlan) ? rawPlan : "";
   const planLabel = PLAN_LABELS[plan] || "";
@@ -42,8 +51,8 @@ export default async function PayPage({
       <div className="max-w-md mx-auto px-4 py-16 text-center">
         <h1 className="text-2xl font-bold mb-3">Payment link invalid</h1>
         <p className="text-sm text-[var(--muted)] mb-6">
-          This link has an invalid or missing amount. Allowed amounts:{" "}
-          {Array.from(ALLOWED_AMOUNTS).sort((a, b) => a - b).map((a) => `฿${a.toLocaleString()}`).join(" · ")}.
+          This link is missing a valid amount (it must be a whole number between
+          ฿{MIN_AMOUNT_THB.toLocaleString()} and ฿{MAX_AMOUNT_THB.toLocaleString()}).
           Please request a fresh payment link from {cfg.brand}.
         </p>
         <a href="/for-clinics#plans" className="inline-block rounded-lg bg-emerald-600 text-white px-5 py-2.5 font-bold">View plans</a>
