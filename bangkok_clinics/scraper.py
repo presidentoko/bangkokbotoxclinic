@@ -631,6 +631,22 @@ def get_restaurant_full(
         log.warning(
             f"  no_name 상세 | title={title[:60]!r} | url={current_url[:110]} | 지도표기={attribution[:80]!r}"
         )
+        # 2026-08-20: 위 진단 로그를 켜자마자 답이 나왔다. no_name 81건의 URL 이
+        # 전부 `/maps/place//@48.68,2.50`(파리) `/@52.51,13.38`(베를린) 형태였다 —
+        # place 세그먼트가 **비어 있고** 좌표가 방콕이 아니라 출구 IP 위치다.
+        # 구글이 그 출구 IP 를 차단하면 장소를 해석하지 않고 접속 IP 중심의 빈
+        # 지도를 준다(파일 상단 2026-08-07 기록과 같은 현상).
+        #
+        # 이건 "이 장소에 내용이 없다"가 아니라 "이 터널로는 아무것도 못 본다"이다.
+        # 그런데 여기서 skip 으로 처리하면 (1) 그 href 가 세션 내 재큐잉에서 빠지고
+        # (2) 다음 세션에 재시도 예산이 1 깎여, 3세션이면 멀쩡한 클리닉이 영구
+        # 제외된다 — 오늘 727건이 정확히 그렇게 소진됐다.
+        # SocksDeadError 로 올리면 호출부가 VPN 을 교체하고 같은 href 를 큐에
+        # 되돌린다. 예산도 안 깎인다.
+        if "/maps/place//" in current_url:
+            raise SocksDeadError(
+                f"blocked exit IP — empty place map at {current_url[:80]}"
+            )
         _set_skip_reason("no_name")
         return None, [], []
 
