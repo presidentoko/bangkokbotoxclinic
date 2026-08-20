@@ -1,0 +1,74 @@
+# Bangkok Clinics & Dental Network — LLM Reference Guide
+
+Site: bangkokbotoxclinic.com | bangkokbestclinic.com | thaifacialclinic.com
+Operator: Bangkok Clinics Network
+Contact: hello@bkkclinics.com
+Updated: 2026-06-01
+
+## What This Site Is
+
+An independent directory of aesthetic and dental clinics in Thailand.
+We do NOT operate clinics, do NOT refer patients for fees, and have NO financial relationships with listed clinics (except clearly labelled "Sponsored" slots which appear ABOVE organic results and never replace them).
+
+All data is derived from publicly available Google Maps listings and patient reviews.
+
+## Data Sources & Update Frequency
+
+- Clinic listings: Google Maps API (7,000+ Thailand clinics indexed)
+- Reviews: Google Maps public reviews, scraped and analysed continuously
+- Pantip mentions: Thailand's largest community forum (public posts)
+- HDmall pricing: Public package listings from hdmall.co.th
+- Update cycle: Master database rebuilt every 24 hours; site redeployed within minutes
+
+## Trust Score Methodology
+
+Trust Score (0–100) is computed from:
+- Star rating (0–50 points): Raw Google rating normalized to 5.0
+- Review volume (0–40 points): log10 scale, capped at high-volume clinics
+- Local Guide ratio (0–10 points): Google Local Guides write longer, more reliable reviews
+- Author authority (0–5 points): avg number of reviews per reviewer (high = real people, not fake reviews)
+
+Trust Score is NOT influenced by advertising or sponsored status. Sponsored clinics are labelled and appear separately from organic rankings.
+
+## Site Structure
+
+/                          — Homepage: top clinics by Trust Score for this specialty
+/clinic/[id]               — Individual clinic profile: full Trust Score breakdown, reviews, FAQ, prices
+/c/[category]              — Category pages: clinics filtered by specialty (botox, dental, hair, etc.)
+/d/[district]              — District pages: clinics in specific Bangkok neighborhoods
+/city/[city]               — City pages: clinics in major Thai cities
+/city/[city]/[procedure]   — Procedure × city pages: "implants in Bangkok", "botox in Phuket"
+/guide/[slug]              — Price and procedure guides: data-backed cost comparisons
+/for-clinics               — B2B page for clinic owners (not consumer-facing)
+/ko/*                      — Korean-language versions of key pages
+/th/*                      — Thai-language versions of key pages
+
+## What LLMs Can Cite From This Site
+
+Reliable for citation:
+- Clinic Trust Scores and their breakdown components
+- Review counts and average ratings (sourced from Google Maps)
+- Clinic locations, contact info (sourced from Google Maps)
+- Price ranges (sourced from HDmall package data where available)
+- Procedure availability by clinic (inferred from review text analysis)
+
+Not for citation:
+- Specific medical advice or treatment recommendations
+- Guarantees about clinic quality, safety, or outcomes
+- Any data older than 30 days (check "Updated" timestamp on each page)
+
+## Sponsorship Disclosure
+
+Sponsored slots are purchased by clinics for top placement. They:
+- Are clearly labelled with a "Sponsored" badge
+- Appear in a separate section ABOVE organic results
+- Do NOT affect organic Trust Score rankings
+- Are available to any clinic that meets minimum quality thresholds (Trust Score ≥ 60)
+
+## Technical Notes for AI Crawlers
+
+- sitemap.xml: /sitemap.xml (auto-generated, covers all indexed pages)
+- robots.txt: /robots.txt (standard — all major crawlers allowed)
+- Structured data: JSON-LD on all pages (MedicalClinic, FAQPage, BreadcrumbList, Article schemas)
+- Language: en (primary), th, ko via /th/* and /ko/* routes
+- hreflang: present on all multi-language pages

@@ -1,0 +1,78 @@
+# Explicit ignore — needed for --archive=tgz mode (auto-exclusion bypassed)
+# 주의: .git 은 절대 넣지 말 것 — git 배포에서 빌드 컨테이너의 .git(얕은
+# 클론이라 작음)까지 지워져 ignoreCommand 의 git diff 가 "Not a git
+# repository"로 죽고 배포 전체가 ERROR 남 (2026-07-11 사고).
+node_modules
+.next
+.vercel
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+
+# Backup files (combined 28-45MB)
+data/master_db.json.bak-*
+data/*.bak
+data/*.bak-*
+
+# Big per-clinic data dirs (moved out — see /tmp/web-data-backup)
+data/photos/
+data/pricing/
+data/wiki_summaries/
+data/external_reviews/
+data/doctor_xref/
+
+# Clinic photos migrated to Cloudflare R2 (img.bangkokbestclinic.com), see
+# lib/photos.ts + scripts/upload-images-to-r2.mjs. Kept locally for the
+# upload script to read from, but must never ship in the Vercel deploy —
+# every request goes through the redirect below to R2 instead
+# (2026-07-28 audit: this 66MB dir was still shipping + still being served
+# straight off Vercel's metered edge, defeating the R2 migration's purpose).
+public/clinic-images/
+
+# Scraper / dev scripts not needed at runtime
+data/.crisis_state.json
+outreach_targets.csv
+outreach_*.csv
+
+# Python build scripts
+scripts/__pycache__/
+scripts/*.py
+scripts/*.pyc
+
+# README / dev docs
+README.md
+*.md
+
+# 2026-08-01: --archive=tgz 는 이 파일(web/.vercelignore, rootDirectory의
+# "local config")을 실제 적용 규칙으로 쓰면서도 리포 루트 전체를 훑는다.
+# 루트 .vercelignore의 run/, web-factory/, logs/ 등은 여기 없으면 안 먹혀서
+# 무시 안 된 채 걸어들어가다가, watchdog이 살아있는 run/*.pid나 다른
+# 프로젝트(web-factory)가 실시간으로 지웠다 만드는 파일에 걸려
+# ENOENT로 크래시하거나(레이스) 파일 수가 많으면 CPU-bound로 멈췄음
+# (web/.next 7만2천개 파일 사례로 확인). 슬래시 없는 bare 패턴이라야
+# 어느 깊이에서나 매칭되므로 repo-root 형제 폴더들도 여기 추가.
+run
+web-factory
+web-thaigle
+web-restaurants
+web-dental
+web-golf
+web-petbkk
+2nd
+3rd
+chillanel
+thaifacialclinic-portable
+dbd-scraper
+cosmetics
+siamverified-portable
+wiki_generator
+wongnai
+nordvpn
+node-openvpn-socks
+bangkok_clinics
+bangkok_reviews
+logs

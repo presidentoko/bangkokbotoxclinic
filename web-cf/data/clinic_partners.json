@@ -1,0 +1,13 @@
+{
+  "_comment": "Pilot 클리닉 routing config. clinic_id 는 master_db의 id 사용. 신규 partner 추가 시 여기에 등록.",
+  "_schema": {
+    "clinic_id": "master_db id",
+    "contact_email": "lead 이메일 받을 주소",
+    "line_user_id": "LINE Messaging API push 대상 (선택, line_bot_token도 필요)",
+    "line_bot_token": "이 클리닉 전용 LINE bot token (선택, 없으면 default bot 사용)",
+    "plan_tier": "trial | pilot | paid",
+    "monthly_ticket_avg_thb": "ROI 계산용 평균 procedure ticket",
+    "started_at": "pilot 시작일"
+  },
+  "partners": []
+}

@@ -111,6 +111,19 @@ _archive/node-openvpn-socks/
 .env*
 .superpowers/
 
-# Cloudflare 이전 스파이크용 web/ 격리 사본 (2026-08-08). 실험이 끝나면 지운다.
-# auto_push_loop 이 자동 커밋하므로 반드시 제외.
-web-cf/
+# web-cf/ — 2026-08-08 에 "Cloudflare 이전 스파이크용 격리 사본, 실험 끝나면
+# 지운다" 로 시작했지만 실험이 아니라 bangkokbestclinic.com 의 실제 프로덕션이
+# 됐다(덴탈은 Vercel 이 아니라 Cloudflare Workers 로 서빙된다). 통째로 ignore 된
+# 탓에 여기 들어간 수정은 전부 버전관리 밖이었고, 이 레포의 자동 git 동기화가
+# 워킹트리를 stash 로 밀 때 조용히 사라질 수 있는 상태였다(2026-08-20).
+# 소스는 추적하고, 빌드 산출물만 제외한다.
+web-cf/node_modules/
+web-cf/.next/
+web-cf/.open-next/
+web-cf/.wrangler/
+web-cf/.vercel/
+web-cf/*.tsbuildinfo
+web-cf/next-env.d.ts
+web-cf/.env*.local
+web-cf/outreach_*.csv
+web-cf/data/.crisis_state.json

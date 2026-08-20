@@ -1,0 +1,69 @@
+{
+  // Cloudflare 이전 스파이크 (2026-08-08). 여기는 web/ 의 격리 사본이라
+  // 라이브 dental/botox 빌드에 영향이 없다. 검증 끝나기 전까지 도메인은
+  // 붙이지 않는다 — *.workers.dev 임시 URL 로만 확인한다.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bangkokbestclinic-cf",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-08-01",
+
+  // nodejs_compat 필수: 이 앱의 라우트 7개가 runtime="nodejs" 이고
+  // lib/ 여러 곳이 node:fs / node:crypto 를 import 한다.
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    // 프리렌더된 5,015 페이지는 Worker 스크립트가 아니라 정적 자산으로 나간다.
+    // 이게 이번 이전의 핵심 — Vercel 에서 "Deploying outputs" 로 죽던 1.48 GB
+    // 산출물이 Workers 스크립트 크기 한도(압축 후 3MB/10MB)와 무관해진다.
+    //
+    // 여기엔 증분 캐시도 함께 들어간다. populateCache 가 .open-next/cache 의
+    // 5,083개 프리렌더 결과를 cdn-cgi/_next_cache 아래로 복사하고, 그 경로는
+    // Worker 만 읽을 수 있다(외부 직접 접근 불가). 이게 없으면 Worker 는 뜨지만
+    // 페이지가 없어서 / → 500, /clinic/{id} → 404 가 난다(2026-08-08 실측).
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  // r2_buckets 바인딩은 의도적으로 없다. R2 는 계정에 활성화되어 있지 않고
+  // static assets 증분 캐시로 대체했다 — 사유는 open-next.config.ts 주석 참조.
+  // 없는 버킷을 바인딩해두면 deploy 자체가 실패하므로 남겨두면 안 된다.
+
+  // 계정 (2026-08-08).
+  //
+  // 이 Worker 는 **덴탈 도메인을 보유한 계정**(3d28cf6f… / Yunmincandoit@gmail.com)에
+  // 배포해야 한다. 처음엔 다른 계정(422d8366… = botox/topclinic 보유)에 배포해
+  // 놓고 라우트를 걸려다 실패했다:
+  //   "The zone bangkokbestclinic.com does not exist on your account [code 10083]"
+  // 다른 계정의 Worker 로는 그 도메인을 서빙할 수 없다.
+  // 배포 시 CLOUDFLARE_API_TOKEN_DENTAL / CLOUDFLARE_ACCOUNT_ID_DENTAL 을 쓸 것.
+  //
+  // ⚠️ `routes` 를 명시하면 workers_dev 가 기본 false 가 되어 *.workers.dev 가
+  // 404 로 죽는다. 라우트 적용이 실패해도 이 부분은 적용된 채 남는다
+  // ("Successful trigger changes were not rolled back") — 실제로 한 번 당했다.
+  // 그래서 라우트를 넣을 때도 workers_dev 는 명시적으로 true 로 둔다.
+  "workers_dev": true,
+
+  // 프로덕션 전환 (2026-08-08). workers.dev 에서 50/50 통과 후 켰다:
+  // 정적 50개, soft 404 6종 404, robots 수정 반영, /compare noindex,
+  // 리드 수집 404 정상, DB 외부 노출 없음.
+  //
+  // Custom Domain 이 아니라 Route 를 쓴다 — DNS 가 이미 Cloudflare 프록시를
+  // 지나므로 Route 는 DNS 를 그대로 두고 요청만 Worker 로 보낸다.
+  // 롤백은 이 항목을 지우고 재배포하면 끝이고, 그 순간 트래픽이 다시
+  // Vercel 오리진으로 간다. DNS 를 되돌릴 필요가 없다.
+  //
+  // apex(bangkokbestclinic.com)는 붙이지 않는다 — 이미 www 로 307 을 내고 있고
+  // (실측) 캐노니컬도 전부 www 다. 리다이렉트 대상이 그대로라 건드릴 이유가 없다.
+  "routes": [
+    { "pattern": "www.bangkokbestclinic.com/*", "zone_name": "bangkokbestclinic.com" }
+  ],
+
+  "observability": { "enabled": true }
+
+  // TODO(검증 후): vercel.json 의 crons 2개를 여기 triggers 로 옮긴다.
+  //   /api/cron/welcome-emails  (0 9 * * *)
+  //   /api/cron/keepalive       (0 6 * * *)
+  // TODO(검증 후): master_db.json(22.7MB) 을 읽는 런타임 라우트 3개 처리.
+  //   api/admin/clinic-info, api/admin/outreach, api/partner-signup
+  //   → R2 버킷 바인딩 후 fetch 로 바꾸는 안이 유력.
+}

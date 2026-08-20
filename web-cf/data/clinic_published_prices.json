@@ -1,0 +1,5642 @@
+{
+ "generatedAt": "2026-08-12",
+ "source": "clinic own published price pages",
+ "note": "Direct table matches only; ancillary and inherited rows excluded.",
+ "benchmarks": {
+  "crown": {
+   "label": "Crown",
+   "clinics": 53,
+   "samples": 152,
+   "median": 15000,
+   "p25": 12250,
+   "p75": 18000
+  },
+  "braces": {
+   "label": "Braces / orthodontics",
+   "clinics": 49,
+   "samples": 214,
+   "median": 69000,
+   "p25": 39375,
+   "p75": 90000
+  },
+  "veneer": {
+   "label": "Veneer",
+   "clinics": 46,
+   "samples": 57,
+   "median": 13000,
+   "p25": 12000,
+   "p75": 15000
+  },
+  "implant": {
+   "label": "Dental implant",
+   "clinics": 42,
+   "samples": 102,
+   "median": 50000,
+   "p25": 38750,
+   "p75": 75000
+  },
+  "filling": {
+   "label": "Filling",
+   "clinics": 40,
+   "samples": 78,
+   "median": 700,
+   "p25": 500,
+   "p75": 800
+  },
+  "scaling": {
+   "label": "Scaling & polishing",
+   "clinics": 37,
+   "samples": 50,
+   "median": 800,
+   "p25": 500,
+   "p75": 900
+  },
+  "xray": {
+   "label": "X-ray",
+   "clinics": 36,
+   "samples": 60,
+   "median": 300,
+   "p25": 200,
+   "p75": 500
+  },
+  "extraction": {
+   "label": "Tooth extraction",
+   "clinics": 35,
+   "samples": 33,
+   "median": 800,
+   "p25": 700,
+   "p75": 800
+  },
+  "fluoride": {
+   "label": "Fluoride treatment",
+   "clinics": 34,
+   "samples": 46,
+   "median": 500,
+   "p25": 500,
+   "p75": 725
+  },
+  "root_canal": {
+   "label": "Root canal",
+   "clinics": 30,
+   "samples": 56,
+   "median": 10250,
+   "p25": 10000,
+   "p75": 12000
+  },
+  "sealant": {
+   "label": "Sealant",
+   "clinics": 28,
+   "samples": 24,
+   "median": 525,
+   "p25": 500,
+   "p75": 600
+  },
+  "bone_graft": {
+   "label": "Bone graft / sinus lift",
+   "clinics": 22,
+   "samples": 38,
+   "median": 20000,
+   "p25": 14250,
+   "p75": 30000
+  },
+  "extract_milk": {
+   "label": "Baby tooth extraction",
+   "clinics": 16,
+   "samples": 17,
+   "median": 600,
+   "p25": 500,
+   "p75": 750
+  },
+  "checkup": {
+   "label": "Check-up & consultation",
+   "clinics": 13,
+   "samples": 14,
+   "median": 500,
+   "p25": 300,
+   "p75": 500
+  },
+  "wisdom_tooth": {
+   "label": "Wisdom tooth surgery",
+   "clinics": 12,
+   "samples": 14,
+   "median": 8211,
+   "p25": 3225,
+   "p75": 8211
+  },
+  "bridge": {
+   "label": "Dental bridge",
+   "clinics": 11,
+   "samples": 12,
+   "median": 12000,
+   "p25": 10500,
+   "p75": 27000
+  }
+ },
+ "clinics": {
+  "0x311d672186f06fd3_0x6ac4fc72b5df3633": {
+   "domain": "32dentalclinic.co.th",
+   "items": [
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน",
+     "unit": "ซี่ละ",
+     "min": 12000,
+     "max": 20000,
+     "sourceUrl": "https://32dentalclinic.co.th/price/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามน้อย",
+     "unit": "ซี่ละ",
+     "min": 10500,
+     "max": 10500,
+     "sourceUrl": "https://32dentalclinic.co.th/price/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์เซรามิก",
+     "unit": "ซี่ละ",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://32dentalclinic.co.th/price/"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ถอนฟันคุด",
+     "unit": "ซี่ละ",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://32dentalclinic.co.th/price/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "X-ray ฟิล์มเล็ก",
+     "unit": "ฟิล์มละ",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://32dentalclinic.co.th/price/"
+    }
+   ]
+  },
+  "0x305039b7c32f27ef_0x9b99b5324c18b44": {
+   "domain": "abdentalphuket.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone graft",
+     "unit": "",
+     "min": 20000,
+     "max": 30000,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Fixed metal braces (payment plan available)",
+     "unit": "",
+     "min": 45000,
+     "max": 60000,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Fix temporary crown",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Mini implant",
+     "unit": "",
+     "min": 35000,
+     "max": 35000,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Fluoride gel",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Ceramic Veneer",
+     "unit": "",
+     "min": 14000,
+     "max": 16000,
+     "sourceUrl": "https://abdentalphuket.com/fees"
+    }
+   ]
+  },
+  "0x311d5db708360187_0x904c6e3256377a4b": {
+   "domain": "aurawhitedc.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "ติดเครื่องมือจัดฟัน (กรณีหลุด)",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะ",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "สะพานฟัน",
+     "unit": "",
+     "min": 30000,
+     "max": 30000,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยโลหะอมัลกัม",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามใหญ่",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขจัดคราบฝังลึกด้วยเครื่อง AIR FLOW",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิกวีเนียร์",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ถอนฟันคุด",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอกซเรย์แบบพาโนรามิก/ เซพฟาโรเมตริก",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://aurawhitedc.com/service-fee/"
+    }
+   ]
+  },
+  "0x30502f2af478c4a5_0x6cdff1399817cea": {
+   "domain": "baansomdentalclinic.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟัน เครื่องมือมาตรฐาน",
+     "unit": "",
+     "min": 80000,
+     "max": 80000,
+     "sourceUrl": "https://baansomdentalclinic.com/th/fee.php"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน",
+     "unit": "",
+     "min": 12000,
+     "max": 18000,
+     "sourceUrl": "https://baansomdentalclinic.com/th/fee.php"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟัน",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://baansomdentalclinic.com/th/fee.php"
+    }
+   ]
+  },
+  "0x30e29fb73001eab7_0x85a22bf90d3efcb6": {
+   "domain": "bangkokdentalspa.com",
+   "items": [
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Porcelain Veneer",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://bangkokdentalspa.com/price-list/"
+    }
+   ]
+  },
+  "0x30e29facb7e28c31_0xbcb78e5cd1454ce2": {
+   "domain": "bangkokperiodontist.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone graft per quadrant (grafting materials not included)",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Periodic oral examination",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Crown lengthening procedure first tooth",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Composite filling per surface – primary",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Topical Fluoride Application (polishing included) – child",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "Periodontal procedures :follow-up, wound irrigation",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Pit &amp;Fissure Sealant per tooth Child (Baby teeth)",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Extraction of hard tissue impacting tooth with Piezosurgery",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Labial veneer-composite (in-house) per tooth",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.bangkokperiodontist.com/price-list"
+    }
+   ]
+  },
+  "0x30e29909061f0847_0xd8e1350ebd465321": {
+   "domain": "bangmoddental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม (Primary Tooth Extraction)",
+     "unit": "ซี่",
+     "min": 700,
+     "max": 900,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก (Bone Graft)",
+     "unit": "ซี่",
+     "min": 10000,
+     "max": 25000,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "เครื่องมือจัดฟันหลุด (จัดฟันโลหะ)",
+     "unit": "ตัว",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะ / สะพานฟันโลหะ (Full Metal Crown / Bridge Price Per Tooth)",
+     "unit": "ซี่",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "ใช้ยาชาร่วมกับการอุดฟัน (Local Anesthesia for Filling or Restoration)",
+     "unit": "ครั้ง",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์ป้องกันฟันผุ (Fluoride Apply)",
+     "unit": "ครั้ง",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "ปลูกเหงือกเพื่อทำรากเทียม ใช้เหงือกสังเคราะห์",
+     "unit": "ซี่",
+     "min": 10000,
+     "max": 15000,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "post_core",
+     "label": "Post & core",
+     "labelKo": "포스트·코어",
+     "rawName": "เดือยฟัน",
+     "unit": "ซี่",
+     "min": 4000,
+     "max": 4000,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามใหญ่ (Molar Root Canal Treatment)",
+     "unit": "ซี่",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน รักษาเหงือกอักเสบ รักษาโรคปริทันต์ (Periodontitist Treatment)",
+     "unit": "ซี่",
+     "min": 400,
+     "max": 500,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟันแท้ (Sealant)",
+     "unit": "ซี่",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน (Tooth Extraction)",
+     "unit": "ซี่",
+     "min": 700,
+     "max": 900,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์เซรามิก (Veneer Ceramic)",
+     "unit": "ซี่",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอกซเรย์ฟิล์มเล็ก (Tooth X-ray)",
+     "unit": "ฟิล์ม",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://bangmoddental.com/price/"
+    }
+   ]
+  },
+  "0x311d60734bf0002d_0xbfeb18716f86b4": {
+   "domain": "bfcdental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 400,
+     "max": 900,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันโลหะ",
+     "unit": "",
+     "min": 35000,
+     "max": 35000,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะเคลือบพอร์ซเลน (PFM)",
+     "unit": "",
+     "min": 18000,
+     "max": 18000,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "สะพานฟันติดแน่น",
+     "unit": "",
+     "min": 12000,
+     "max": 28000,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากเทียม + ครอบฟันเซรามิก ยี่ห้อ Neodent by Straumann (Implant + Cermaic crown)",
+     "unit": "",
+     "min": 49000,
+     "max": 49000,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันน้ำนม + เคลือบร่องฟัน",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 400,
+     "max": 900,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน",
+     "unit": "",
+     "min": 400,
+     "max": 800,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน",
+     "unit": "",
+     "min": 400,
+     "max": 800,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิกวีเนียร์ (กรณีทำ 8 ซี่ขึ้นไป 11,000 บาท / ซี่)",
+     "unit": "",
+     "min": 12000,
+     "max": 14000,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอกซเรย์ฟิล์มเล็ก (Periapical)",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://www.bfcdental.com/price/"
+    }
+   ]
+  },
+  "0x30e29c1771245b43_0x990a9cdb21c76e2e": {
+   "domain": "bkk-dental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันแท้ , ถอนฟันน้ำนม",
+     "unit": "ซี่ละ",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก (Bone graft). ไม่รวมค่ากระดูก และ membrane",
+     "unit": "ตำแหน่งละ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Orthodontic Mini Screw",
+     "unit": "ตัวละ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Esthetic Crown lengthening ( 6 ซี่หน้า )",
+     "unit": "ซี่ละ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม Implant",
+     "unit": "Korea ซี่ละ",
+     "min": 39000,
+     "max": 39000,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันชั่วคราว",
+     "unit": "ซี่ละ",
+     "min": 400,
+     "max": 600,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "รักษาโรคเหงือก Periodontal treatment",
+     "unit": "ครั้งละ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันหน้า Anterior teeth RCT",
+     "unit": "ซี่ละ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "รักษาโรคเหงือก เกลารากฟัน Root Planing เฉพาะซี่",
+     "unit": "ซี่ละ",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน Sealant",
+     "unit": "ซี่ละ",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟันแท้ ยาก หรือรวมเย็บแผล",
+     "unit": "ซี่ละ",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เคลือบฟันด้วย Composite Veneer",
+     "unit": "ซี่ละ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอ็กซเรย์ ฟิล์มเล็ก X-ray Periapical",
+     "unit": "ฟิล์มละ",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://www.bkk-dental.com/service-rates/"
+    }
+   ]
+  },
+  "0x30e29d696e79b043_0x917e9d02c8ba0877": {
+   "domain": "casadentclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก (Bone Grafting)",
+     "unit": "",
+     "min": 10000,
+     "max": 20000,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันโลหะ (Metal Braces)",
+     "unit": "",
+     "min": 38000,
+     "max": 45000,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ยึดครอบฟัน ชั่วคราว/ถาวร (Cementation : Temporary/Permanent)",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันชั่วคราว (Temporary Filling)",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์ (Fluoride Application)",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน (Root Planning)",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน (Sealant)",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน (Simple Extraction)",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิควีเนียร์ (Ceramic veneer)",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://casadentclinic.com/pricing/"
+    }
+   ]
+  },
+  "0x30e29fa08c614af3_0x422a2d2abb73770c": {
+   "domain": "chidlomdentalclinic.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันแบบเหล็กติดแน่น (TOMY,Japan/ 3M,USA) (3,000 x 2 ครั้ง/1,500 x 24 ครั้ง) *กรณีเคสยากตั้งแต่เดือนที่ 27 เดือนละ 1,00",
+     "unit": "",
+     "min": 42000,
+     "max": 42000,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน เซรามิกล้วน (Emax, Zirconia) (All ceramic crown)",
+     "unit": "",
+     "min": 18000,
+     "max": 18000,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม Osstem, Dentium, Neobiotech (Implant)",
+     "unit": "",
+     "min": 55000,
+     "max": 55000,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันน้ำนม (Pulpotomy/Pulpectomy)",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน ขัดฟัน (Cleaning polishing)",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน (Sealant)",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์ (Emax, Hass ) (Veneers)",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "X-Ray Intra Oral",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://chidlomdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%97%e0%b8%b2%e0%b8%87%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3/"
+    }
+   ]
+  },
+  "0x311d615b15775681_0xed3cc6875280e00f": {
+   "domain": "classdentalclinic.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 600,
+     "max": 800,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "ติดเครื่องมือจัดฟัน (กรณีหลุด)",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะ (SSC)",
+     "unit": "",
+     "min": 3500,
+     "max": 3500,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยวัสดุสีเหมือนฟัน (แบรนด์ 3M จาก USA)",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันน้ำนม (Pulpectomy)",
+     "unit": "",
+     "min": 4000,
+     "max": 4000,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน และขัดฟันเด็ก",
+     "unit": "",
+     "min": 700,
+     "max": 900,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน (3M)",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิกวีเนียร์",
+     "unit": "",
+     "min": 13000,
+     "max": 13000,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอ็กซเรย์ฟิลม์เล็ก (Periapical/ Bitewing)",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://classdentalclinic.com/service-fee/"
+    }
+   ]
+  },
+  "0x311d63fd5d204f5f_0x6e20ab55fb8e5c09": {
+   "domain": "cornerclinic101.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันลวดเหล็กปกติ Orthodontics (1st)",
+     "unit": "",
+     "min": 40500,
+     "max": 40500,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ฟันปลอมครอบฟันสีเหล็กล้วน ซี่ละ",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "เติมกระดูกสำหรับรากฟันเทียม GBR Collagen Membrane ตำแหน่งละ",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันชั่วคราว Temporary Fillings ตำแหน่งละ",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์เจล Fluoride gel ทั้งปาก",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน Scaling",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟันแบบปกติ Simple extraction",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Veneers Ceramic Veneers ซี่ละ",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ถอนฟันกรามใหญ่หลังสุด/ฟันคุด Second molar, Third molar extraction",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "PA ฟิล์มเล็ก 1 ฟิล์ม",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://cornerclinic101.com/dental-services-price"
+    }
+   ]
+  },
+  "0x30e2bd83f6312f25_0x8a5e137b2e91a3e0": {
+   "domain": "dentalimageclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก (Bone Graft)",
+     "unit": "ต่อตำแหน่ง (Area)",
+     "min": 30000,
+     "max": 30000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/dental-implant-cost/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันปกติ (Orthodontic)",
+     "unit": "ทั้งปาก (Full Mouth)",
+     "min": 36000,
+     "max": 36000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/orthodontic-treatment-cost/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน/สะพานฟัน Empress E-Max",
+     "unit": "ต่อซี่",
+     "min": 13000,
+     "max": 13000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/crowns-bridges-cosmetic-cost/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "ฟันปลอมแบบสะพานฟัน (Removable Bridge – Metal framework)",
+     "unit": "ต่อชิ้น",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/removable-denture-cost/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม Osstem (Osstem System)",
+     "unit": "ต่อซี่ (Per Tooth)",
+     "min": 40000,
+     "max": 40000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/dental-implant-cost/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันชั่วคราว (Temporary Filling)",
+     "unit": "ต่อซี่ (Per Tooth)",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/scaling-filling-cost/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามใหญ่ (Molar)",
+     "unit": "ต่อซี่",
+     "min": 12000,
+     "max": 13000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/root-canal-treatment-cost/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน (Root Planing)",
+     "unit": "ต่อซี่",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/periodontics-dental-cost/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์ (Veneer)",
+     "unit": "ต่อซี่",
+     "min": 12000,
+     "max": 14000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/crowns-bridges-cosmetic-cost/"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันฝัง (Embedded Tooth)",
+     "unit": "ต่อซี่",
+     "min": 10000,
+     "max": 13000,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/extraction-impacted-tooth-cost/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "การเอกซเรย์ในช่องปาก (Intraoral X-Ray)",
+     "unit": "ฟิล์ม (Film)",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://www.dentalimageclinic.com/price/dental-x-ray-cost/"
+    }
+   ]
+  },
+  "0x30e29d89416e45c5_0x93c618bbe3876567": {
+   "domain": "dentalmasterclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone graft (small)",
+     "unit": "THB",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Initial Examination/Consultation",
+     "unit": "THB",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Porcelain Fused to Metal Crown (standard alloy)",
+     "unit": "THB",
+     "min": 12000,
+     "max": 16000,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Mini Implant",
+     "unit": "-",
+     "min": 202,
+     "max": 202,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Root canal (any tooth)",
+     "unit": "THB",
+     "min": 10000,
+     "max": 15000,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Deep Cleaning, Scaling &amp; Root Planing (per quadrant)",
+     "unit": "THB",
+     "min": 101,
+     "max": 101,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Extraction (surgical or impacted)",
+     "unit": "THB",
+     "min": 236,
+     "max": 236,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Composite Veneer (direct bonding)",
+     "unit": "THB",
+     "min": 169,
+     "max": 169,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Single X-Ray (bitewing or periapical)",
+     "unit": "THB",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://dentalmasterclinic.com/fee-and-promotion/"
+    }
+   ]
+  },
+  "0x3102be55ed3ed2bb_0x641326246a1ecab6": {
+   "domain": "dentalsmilepattaya.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Metal Brace",
+     "unit": "",
+     "min": 35000,
+     "max": 40000,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Zirconia Crown",
+     "unit": "",
+     "min": 15000,
+     "max": 17000,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Single Implant with zirconia crown",
+     "unit": "",
+     "min": 45000,
+     "max": 45000,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Amalgam",
+     "unit": "",
+     "min": 800,
+     "max": 2000,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Cleaning &amp; Scaling",
+     "unit": "",
+     "min": 1000,
+     "max": 1800,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Tooth Extraction",
+     "unit": "",
+     "min": 900,
+     "max": 2000,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Porcelain Veneer (Empress Emax)",
+     "unit": "",
+     "min": 13000,
+     "max": 16000,
+     "sourceUrl": "https://www.dentalsmilepattaya.com/prices/"
+    }
+   ]
+  },
+  "0x30e298ea61fba079_0x150f346dc48849a3": {
+   "domain": "dinersdental.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันแบบใสแลปไทย",
+     "unit": "",
+     "min": 39000,
+     "max": 49000,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน",
+     "unit": "",
+     "min": 11000,
+     "max": 32500,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียมหนึ่งซี่",
+     "unit": "",
+     "min": 45000,
+     "max": 89000,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "post_core",
+     "label": "Post & core",
+     "labelKo": "포스트·코어",
+     "rawName": "เดือยฟัน",
+     "unit": "",
+     "min": 5000,
+     "max": 6000,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน",
+     "unit": "",
+     "min": 1800,
+     "max": 1800,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "1,000-2,500 / ต่อซี่",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เคลือบฟันวีเนียร์คอมโพสิต",
+     "unit": "",
+     "min": 4500,
+     "max": 4500,
+     "sourceUrl": "https://dinersdental.com/price"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันคุด",
+     "unit": "",
+     "min": 4000,
+     "max": 6000,
+     "sourceUrl": "https://dinersdental.com/price"
+    }
+   ]
+  },
+  "0x310295fbc650766d_0xa09aebc7a26757ce": {
+   "domain": "dppattaya.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันแบบใสเฉพาะฟันหน้า (clear aligner)",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน วัสดุนิเกิล Non-precious Crown",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันหน้า Root Canal Treatment [Anterior Tooth]",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน Cleaning [Scaling &amp; Polishing]",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน Normal Extraction",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เคลือบฟันเทียม วัสดุพอร์ซเลนเซรามิกส์ Porcelain Veneers",
+     "unit": "",
+     "min": 13000,
+     "max": 13000,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันคุด Impaction",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://dppattaya.com/%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5_old"
+    }
+   ]
+  },
+  "0x310296129fd65393_0x848d1b22e9ec91a1": {
+   "domain": "doctorsmilepattaya.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Metal braces",
+     "unit": "",
+     "min": 35000,
+     "max": 40000,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Cool &#8211; Light with Cleaing &amp; checkup",
+     "unit": "3,900",
+     "min": 120,
+     "max": 120,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Dental Implant with a crown",
+     "unit": "",
+     "min": 30000,
+     "max": 50000,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Tooth Colored Filling &#8211; 1 Surface",
+     "unit": "",
+     "min": 900,
+     "max": 1300,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Cleaning and Polishing",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Composite Resin veneer",
+     "unit": "3,000–5,000",
+     "min": 105,
+     "max": 105,
+     "sourceUrl": "https://www.doctorsmilepattaya.com/price-list.html"
+    }
+   ]
+  },
+  "0x30e29fd206e19ee5_0x6b7fbff70733c7b0": {
+   "domain": "drsunildental.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Ceramic Braces (Clarity Sl)",
+     "unit": "",
+     "min": 80000,
+     "max": 100000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Checkup (Consultation)",
+     "unit": "15",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Full Ceramic Zirconia Crown",
+     "unit": "",
+     "min": 18000,
+     "max": 18000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "Bridge (1 Unit)",
+     "unit": "",
+     "min": 12000,
+     "max": 25000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Crown on Implant",
+     "unit": "",
+     "min": 20000,
+     "max": 25000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Filling with Composite Resin (Per Surface)",
+     "unit": "",
+     "min": 800,
+     "max": 4000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Fluoride Varnish",
+     "unit": "30",
+     "min": 1000,
+     "max": 1000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "Gums Treatment / Deep Cleaning / Root Planning",
+     "unit": "",
+     "min": 5000,
+     "max": 40000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Endodontics (One Visit by Root Canal Specialist)",
+     "unit": "",
+     "min": 12000,
+     "max": 16000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Cleaning + Polishing with Airflow",
+     "unit": "54",
+     "min": 1800,
+     "max": 1800,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Simple Tooth Extraction",
+     "unit": "2000-6000 94-282",
+     "min": 180,
+     "max": 180,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Composite Veneers, Bonding, Diastema",
+     "unit": "",
+     "min": 8000,
+     "max": 8000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "Extraction Wisdom Tooth",
+     "unit": "",
+     "min": 6000,
+     "max": 12000,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Panoramic (Big full mouth x-ray digital, available in CD)",
+     "unit": "36",
+     "min": 1200,
+     "max": 1200,
+     "sourceUrl": "https://www.drsunildental.com/dental-price.php"
+    }
+   ]
+  },
+  "0x30e29f3f1eecb53b_0x60e45896c5155392": {
+   "domain": "edelweissdentalhouse.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันด้วยเครื่องมือโลหะ",
+     "unit": "",
+     "min": 40000,
+     "max": 40000,
+     "sourceUrl": "https://www.edelweissdentalhouse.com/th/treatmentfee/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะ",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://www.edelweissdentalhouse.com/th/treatmentfee/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟัน (ฟันหน้า)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.edelweissdentalhouse.com/th/treatmentfee/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://www.edelweissdentalhouse.com/th/treatmentfee/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอกซเรย์ดิจิตอล ฟิล์มเล็ก",
+     "unit": "",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://www.edelweissdentalhouse.com/th/treatmentfee/"
+    }
+   ]
+  },
+  "0x30da307b04fd282d_0xd3f8f83320d1e37d": {
+   "domain": "granddentdental.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Sinus Lift",
+     "unit": "",
+     "min": 20000,
+     "max": 20000,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Conventional orthodontic treatment",
+     "unit": "",
+     "min": 45000,
+     "max": 45000,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Dental examination",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "All ceramic crown",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Implant",
+     "unit": "",
+     "min": 50000,
+     "max": 70000,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Filling 1 surface",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Primary tooth extraction",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Ceramic veneer",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "PA or Bitewing X-ray",
+     "unit": "",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://www.granddentdental.com/price-list/"
+    }
+   ]
+  },
+  "0x30e2a146a4a98075_0x8fc3ed1279b64b29": {
+   "domain": "hachidental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ราคา ถอนฟันน้ำนม",
+     "unit": "ซี่ละ",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จองโปรโมชั่นจัดฟัน รับของแถม 7 รายการ",
+     "unit": "รายละ",
+     "min": 777,
+     "max": 777,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ราคา ครอบฟัน วัสดุ P orcelain เสริมโลหะ",
+     "unit": "ซี่ละ",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "ราคา สะพานฟัน (1ชุด=3ซี่)",
+     "unit": "ชุดละ",
+     "min": 39000,
+     "max": 39000,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "ราคา อุดฟัน ด้วยวัสดุอะมัลกัม (AmalgamFillimg)",
+     "unit": "ด้านละ",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "ราคา เคลือบฟลูออไรด์ ( Fluoride varnish )",
+     "unit": "ทั้งปาก",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "ราคา เกลารากฟัน ( Root canal )",
+     "unit": "ซี่ละ",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ราคา ขูดหินปูน ( Scaling )",
+     "unit": "ทั้งปาก",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "ราคา เคลือบหลุมร่องฟัน ( Sealant )",
+     "unit": "ซี่ละ",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ราคา ถอนฟันทั่วไป เคสปกติ",
+     "unit": "ซี่ละ",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิกวีเนียร์ “หมอคุนนะ”",
+     "unit": "ซี่ละ",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "ราคา X-ray ฟิล์มเล็ก Periapical",
+     "unit": "รายละ",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://www.hachidental.com/pricing/"
+    }
+   ]
+  },
+  "0x311d7f08454ec98b_0x4b9e12b6f6f7be40": {
+   "domain": "hellosmiledent.com",
+   "items": [
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันชั่วคราว / Temporary Crown",
+     "unit": "ซี่ / Tooth",
+     "min": 1000,
+     "max": 1000,
+     "sourceUrl": "https://hellosmiledent.com/price/"
+    },
+    {
+     "procedure": "post_core",
+     "label": "Post & core",
+     "labelKo": "포스트·코어",
+     "rawName": "เดือยฟัน",
+     "unit": "ฟันเดือยสำเร็จรูป / ",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://hellosmiledent.com/price/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์ / แปะฟันขาว",
+     "unit": "ซี่ / Tooth",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://hellosmiledent.com/price/"
+    }
+   ]
+  },
+  "0xaea388ba133c3a83_0x8c94254216211c0e": {
+   "domain": "heysmiledental.com",
+   "items": [
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะล้วน (Base Metal)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://heysmiledental.com/th/%e0%b8%97%e0%b8%b3%e0%b8%84%e0%b8%a3%e0%b8%ad%e0%b8%9a%e0%b8%9f%e0%b8%b1%e0%b8%99-%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b8%b2-%e0%b9%81%e0%b8%95%e0%b8%81%e0%b8%95%e0%b9%88%e0%b8%b2%e0%b8%87%e0%b8%81%e0%b8%b1/"
+    }
+   ]
+  },
+  "0x30e299b960526a19_0xd2172f0614ca5ceb": {
+   "domain": "iconicdental.co.th",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 600,
+     "max": 800,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันแบบโลหะ",
+     "unit": "",
+     "min": 40000,
+     "max": 45000,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะเคลือบเซรามิก",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียมพร้อมครอบฟัน",
+     "unit": "",
+     "min": 45000,
+     "max": 45000,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยวัสดุสีเหมือนฟัน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามน้อย",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.iconicdental.co.th/price-2/"
+    }
+   ]
+  },
+  "0x3050258548c047f9_0xfd9e4cd5bfc646dc": {
+   "domain": "katabeachdental.com",
+   "items": [
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Root Canal Treatment ( By Endodontist : Specialist doctor for canal ) Anterior teeth",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.katabeachdental.com/phuketdentist-phuketdental-services/"
+    }
+   ]
+  },
+  "0x6fe335a9933f3423_0x581f8a606c9c4a14": {
+   "domain": "konvydental.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone graft",
+     "unit": "",
+     "min": 15000,
+     "max": 25000,
+     "sourceUrl": "https://konvydental.com/price-promotion/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Metal braces (from)",
+     "unit": "",
+     "min": 39500,
+     "max": 39500,
+     "sourceUrl": "https://konvydental.com/price-promotion/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Composite / resin crown",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://konvydental.com/price-promotion/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "Bridge (per unit)",
+     "unit": "",
+     "min": 10000,
+     "max": 25000,
+     "sourceUrl": "https://konvydental.com/price-promotion/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Dental implant (depending on materials)",
+     "unit": "",
+     "min": 50000,
+     "max": 85000,
+     "sourceUrl": "https://konvydental.com/price-promotion/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "Gum tissue graft",
+     "unit": "",
+     "min": 15000,
+     "max": 25000,
+     "sourceUrl": "https://konvydental.com/price-promotion/"
+    }
+   ]
+  },
+  "0x311d603c30a0eb9b_0x3bf7d305b40507e": {
+   "domain": "ldcdental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "ปรับรอยยิ้มฟันหน้าด้วย (INVISALIGN GO)",
+     "unit": "",
+     "min": 60000,
+     "max": 98000,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน / สะพานฟัน",
+     "unit": "",
+     "min": 15000,
+     "max": 35000,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "ราคารากฟันเทียมพร้อมครอบฟัน",
+     "unit": "",
+     "min": 55000,
+     "max": 85000,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "ขัดฟันและเคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามน้อย",
+     "unit": "",
+     "min": 11000,
+     "max": 12000,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูนและขัดฟัน",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิกวีเนียร์ (มากกว่า 8 ซี่) ซี่ละ",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "X-Ray ฟิล์มเล็ก",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://www.ldcdental.com/price-list"
+    }
+   ]
+  },
+  "0x311d43ca592b0a2d_0x29b2e97f1dcd7e9": {
+   "domain": "mosdentalclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูกสำหรับการใส่รากเทียม ( Bone Augmentation )",
+     "unit": "",
+     "min": 15000,
+     "max": 25000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "รีเทนเนอร์แบบใส Invisalign vivera retainer 3 sets",
+     "unit": "",
+     "min": 25000,
+     "max": 25000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน/สะพานฟัน โลหะธรรมดา ( Full metal crown/bridge price/tooth )",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "ยกไซนัสเพื่อการใส่รากฟันเทียม ( Sinus lift )",
+     "unit": "",
+     "min": 25000,
+     "max": 25000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "ใช้ยาชาร่วมกับการอุดฟัน ( Local Anesthesia for Filling or restoration )",
+     "unit": "",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์ ( Fluoride apply )",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "ปลูกเหงือกสำหรับการใส่รากเทียม ( Soft tissue Augmentation )",
+     "unit": "",
+     "min": 15000,
+     "max": 25000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันหน้า ( Anterior Root Canal Treatment)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟันรักษาโรคปริทันต์ ขึ้นกับจำนวนซี่ฟัน ( Periodontitist treatment depend on tooth number )",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน (Sealant)",
+     "unit": "",
+     "min": 550,
+     "max": 550,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน (Tooth Extraction)",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เคลือบฟันเทียมเซรามิก ( Ceramic veneer) price/tooth",
+     "unit": "",
+     "min": 14000,
+     "max": 16000,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอ็กซเรย์ฟัน ( Tooth X-ray )",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://www.mosdentalclinic.com/%e0%b8%ad%e0%b8%b1%e0%b8%95%e0%b8%a3%e0%b8%b2%e0%b8%84%e0%b9%88%e0%b8%b2%e0%b8%a3%e0%b8%b1%e0%b8%81%e0%b8%a9%e0%b8%b2%e0%b8%9e%e0%b8%a2%e0%b8%b2%e0%b8%9a%e0%b8%b2%e0%b8%a5/"
+    }
+   ]
+  },
+  "0x30503ab756c18ceb_0x9992813465deff99": {
+   "domain": "newsmiledentists.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Sinus lift",
+     "unit": "",
+     "min": 25000,
+     "max": 30000,
+     "sourceUrl": "https://www.newsmiledentists.com/cost-of-dental-treatment-in-phuket-thailand/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Examination &amp; Treatment Plan",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.newsmiledentists.com/cost-of-dental-treatment-in-phuket-thailand/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Metal-Free Crown ( Zirconia /E-Max/Cerec )",
+     "unit": "",
+     "min": 16000,
+     "max": 20000,
+     "sourceUrl": "https://www.newsmiledentists.com/cost-of-dental-treatment-in-phuket-thailand/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Single Implant (Neodent)",
+     "unit": "",
+     "min": 60000,
+     "max": 60000,
+     "sourceUrl": "https://www.newsmiledentists.com/cost-of-dental-treatment-in-phuket-thailand/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Porcelain veneer",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.newsmiledentists.com/cost-of-dental-treatment-in-phuket-thailand/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Periapical / Bite wing view",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://www.newsmiledentists.com/cost-of-dental-treatment-in-phuket-thailand/"
+    }
+   ]
+  },
+  "0x30e29ef9b553df39_0x3aaad92e642ee793": {
+   "domain": "pacificdentalbangkok.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Orthodontics (Braces)",
+     "unit": "",
+     "min": 70000,
+     "max": 70000,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Examination",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Crown: Porcelain/Ceramic",
+     "unit": "",
+     "min": 23000,
+     "max": 23000,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Implants",
+     "unit": "",
+     "min": 95000,
+     "max": 95000,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Amalgam Filling",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Checkup &amp; Fluoride Application",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Root Canal Treatment",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Composite Veneer",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "X-ray (Periapical / Bitewing)",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://www.pacificdentalbangkok.com/fees/"
+    }
+   ]
+  },
+  "0x305030f213e8fec5_0x5463bc6a7cffdf8a": {
+   "domain": "phuketaestheticsurgery.com",
+   "items": [
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Augmentation Rhinoplasty with Soft Silicone Implant from USA and Korea",
+     "unit": "",
+     "min": 30000,
+     "max": 30000,
+     "sourceUrl": "https://phuketaestheticsurgery.com/price.htm"
+    }
+   ]
+  },
+  "0x30503be4dcea1fc1_0x1e575d4c301afc7": {
+   "domain": "phuketdentalplus.com",
+   "items": [
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Crown-all ceramic Porcelain-fused-to-metal (nonprecious) Porcelain-fused-to-metal (PFM-50%semiprecious) Porcelain-fused-",
+     "unit": "Tooth Tooth Tooth To",
+     "min": 14000,
+     "max": 16000,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Dental implant (include of crown on implant)",
+     "unit": "",
+     "min": 60000,
+     "max": 80000,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Amalgam Filling",
+     "unit": "Tooth",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Fluoride application",
+     "unit": "Full mouth",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant",
+     "unit": "Tooth",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Ceramic veneer",
+     "unit": "Tooth",
+     "min": 11000,
+     "max": 12000,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "x-ray (Periapical film)",
+     "unit": "Film",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://phuketdentalplus.com/price-list.html"
+    }
+   ]
+  },
+  "0x3050305db5b3752f_0x5764e1589bd45146": {
+   "domain": "phuketdentalstudio.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone Graft / Sinus Lift",
+     "unit": "",
+     "min": 25000,
+     "max": 40000,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Orthodontics/Braces (Invisalign / Damon / Metal)",
+     "unit": "",
+     "min": 69999,
+     "max": 180000,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Oral Examination and consultation (General Dentist)",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Ceramic Non-Precious Crown",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Tooth Implant (Osstem / Zimmer / Straumann / Neo Biotech)",
+     "unit": "",
+     "min": 55000,
+     "max": 55000,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Base/Sub-base or Local Anesthesia for Filling",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Prophylaxis and Fluoride",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "post_core",
+     "label": "Post & core",
+     "labelKo": "포스트·코어",
+     "rawName": "Dental Post and Core (Metal Pin)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Root Canal Treatment (Anterior / Pre-Molar / Molar)",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Regular cleaning scaling and polishing",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Primary Tooth Extraction",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Intraoral X-ray (Periapical / Bite wing)",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://phuketdentalstudio.com/price.html"
+    }
+   ]
+  },
+  "0x30503196f6c5b019_0x5cb1070469c2cc3a": {
+   "domain": "phuketdentalcenter.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Simple Orthodontics (2 years)",
+     "unit": "",
+     "min": 50000,
+     "max": 55000,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Oral Examination and Treatment Plan",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Full Ceramic Crown",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant and PRR",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Single Tooth Extraction",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Porcelain Veneer (Tooth 5 th ++)",
+     "unit": "8,000",
+     "min": 247,
+     "max": 247,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "Wisdom Tooth Extraction",
+     "unit": "1,500 - 4,500",
+     "min": 139,
+     "max": 139,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Single X-ray",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://phuketdentalcenter.com/pricelist.php"
+    }
+   ]
+  },
+  "0x30503762280b18d3_0xba12d598ca60b256": {
+   "domain": "phuketdentaldesign.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก Bone grafting",
+     "unit": "",
+     "min": 20000,
+     "max": 40000,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "ค่าสเตอไรด์เครื่องมือจัดฟัน",
+     "unit": "",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะผสม (PFM non precious)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Straumann implant",
+     "unit": "",
+     "min": 70000,
+     "max": 70000,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันชั่วคราว",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน ซี่ละ",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน Extraction",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิค วีเนียร์ Ceramic veneer",
+     "unit": "",
+     "min": 16000,
+     "max": 16000,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอ็กซเรย์ฟัน X-ray",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://phuketdentaldesign.com/th-fees.html"
+    }
+   ]
+  },
+  "0x30503abb29999669_0xdd4e55e3700e694b": {
+   "domain": "phuketdentalsignature.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Fix Metal Braces",
+     "unit": "case",
+     "min": 60000,
+     "max": 75000,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "NeoDent All-on-4 + all acrylic bridge",
+     "unit": "Jaw",
+     "min": 250000,
+     "max": 250000,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "2 Dental Implants + Overdentures (SIC Swiss Invent)",
+     "unit": "Jaw",
+     "min": 141000,
+     "max": 141000,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Composite resin : Next surface",
+     "unit": "surface",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Tooth Extraction – Standard",
+     "unit": "tooth",
+     "min": 103,
+     "max": 103,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Composite Veneer",
+     "unit": "veneer",
+     "min": 147,
+     "max": 203,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Periapical film (small dental film)",
+     "unit": "film",
+     "min": 220,
+     "max": 220,
+     "sourceUrl": "https://phuketdentalsignature.com/phuket-dental-fees.html"
+    }
+   ]
+  },
+  "0x3102967c006afda3_0xd99b475a54a6d3af": {
+   "domain": "pidcdental.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone Graft (BlockGraft)",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Invisalign",
+     "unit": "",
+     "min": 180000,
+     "max": 180000,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Oral Examination",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Non Precious Crown",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Crown on Implant (Fixture was done from others)",
+     "unit": "",
+     "min": 25000,
+     "max": 25000,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Temporary Filling",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Fluoride Application",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Root Canal Treatment Anterior/Premolar/Molar",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Extraction",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Porcelain Veneer Emax",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "X-Ray PA/WB",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://pidcdental.com/dental-fee/"
+    }
+   ]
+  },
+  "0x311d611bc5be4c4d_0x571e01ec533f054a": {
+   "domain": "poshsmileclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "การปลูกกระดูก เนื้อเยื่อเทียม Bone Graft/Membrane 骨粉",
+     "unit": "",
+     "min": 10000,
+     "max": 20000,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันโลหะธรรมดา Traditional 传统矫正",
+     "unit": "",
+     "min": 36000,
+     "max": 74000,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะ Metal Crown 金属牙冠",
+     "unit": "",
+     "min": 13000,
+     "max": 50000,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "ครอบบนรากเทียม Implant Crown - All Ceramic Zirconia - Abutment 植牙牙冠 全瓷冠 支台",
+     "unit": "",
+     "min": 20000,
+     "max": 20000,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟัน/ 1 ด้าน Filling / 1 Side 補牙 一面",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์ Fluoride Gel 涂氟",
+     "unit": "",
+     "min": 500,
+     "max": 800,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "การรักษารากฟัน Root Canal Treatment 根管治療",
+     "unit": "",
+     "min": 13500,
+     "max": 13500,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินน้ำลายสำหรับเด็ก Full Mouth Scaling 全口洗牙",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "การเคลือบหลุมร่องฟัน Sealant 窝溝封填",
+     "unit": "",
+     "min": 500,
+     "max": 800,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน Tooth Extraction 拔牙",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิควีเนียร์ All Ceramic Veneer 矽酸鋰 陶瓷贴片 1片",
+     "unit": "",
+     "min": 13500,
+     "max": 22000,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "ภาพถ่ายรังสีภายในช่องปาก (ฟิล์มเล็ก) Periapical Film (PA) 牙根尖片",
+     "unit": "",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://www.poshsmileclinic.com/rates"
+    }
+   ]
+  },
+  "0x311d5d97ff888615_0xcce33fb908c76b7a": {
+   "domain": "prodent-dental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "4.1 ถอนฟันน้ำนม",
+     "unit": "ซี่ละ",
+     "min": 400,
+     "max": 500,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "7.2 ครอบฟัน ( Paladium )",
+     "unit": "ซี่ละ",
+     "min": 14000,
+     "max": 14000,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "5.1 อุดฟันด้วยวัสดุอมัลกัม",
+     "unit": "ซี่ละ",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "2.1 ขัดฟันและเคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "3.1 ขูดหินปูนและขัดฟันทั้งปาก",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "2.2 เคลือบหลุมร่องฟัน",
+     "unit": "ซี่ละ",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "4.2 ถอนฟันแท้",
+     "unit": "ซี่ละ",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "1.1 X-ray / 1 Film",
+     "unit": "",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://prodent-dental.com/dental-price/"
+    }
+   ]
+  },
+  "0x311d6713f65fa129_0xd50c646a26a27e19": {
+   "domain": "pridesmiledentalclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก + ยกไซนัส (Bone Graft &amp; Sinus Lift)",
+     "unit": "ต่อตำแหน่ง (Area)",
+     "min": 20000,
+     "max": 30000,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "รีเทนเนอร์ใส Vivera by Invisalign",
+     "unit": "คู่ละ",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน/สะพานฟัน All Ceramic Zirconia",
+     "unit": "ต่อซี่",
+     "min": 14000,
+     "max": 14000,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม Biotem (Korean System) รวมครอบฟันโลหะเคลือบกระเบื้อง",
+     "unit": "ต่อซี่ (Per Tooth)",
+     "min": 37000,
+     "max": 37000,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันชั่วคราว (Temporary Filling)",
+     "unit": "ต่อซี่ (Per Tooth)",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกรามใหญ่ (Molar)",
+     "unit": "ต่อซี่",
+     "min": 12000,
+     "max": 13000,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน (Root Planning)",
+     "unit": "ต่อซี่",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน (Extraction)",
+     "unit": "ต่อซี่",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์เซรามิก (Ceramic Veneer)",
+     "unit": "ต่อซี่",
+     "min": 14000,
+     "max": 14000,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "การเอกซเรย์ในช่องปาก (Intraoral X-Ray)",
+     "unit": "ฟิล์ม (Film)",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://www.pridesmiledentalclinic.com/service-rates/"
+    }
+   ]
+  },
+  "0x305031e53d641c2b_0xd501c53a8feb874a": {
+   "domain": "ranghillsmile.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "Filling on deciduous tooth",
+     "unit": "1 surface",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone graft",
+     "unit": "",
+     "min": 20000,
+     "max": 30000,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Invisalign appliance",
+     "unit": "",
+     "min": 70000,
+     "max": 220000,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Consultation + Treatment Plan",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "– Prosthetic part, Abutment & Crown",
+     "unit": "",
+     "min": 27500,
+     "max": 27500,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Filling",
+     "unit": "1 surface",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Fluoride protection",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "Periodontal treatment and oral hygiene instruction",
+     "unit": "Tooth",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Root canal treatment",
+     "unit": "Anterior tooth",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Scaling and polishing",
+     "unit": "Less than 12 years o",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Pit and fissure sealant",
+     "unit": "Deciduous tooth",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Extraction: primary teeth",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "X-ray",
+     "unit": "Periapical X-ray",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://ranghillsmile.com/pricelist/"
+    }
+   ]
+  },
+  "0x30e2a27b92125829_0x6ccbf8ea0ff4965f": {
+   "domain": "ruamdental.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันโลหะ รอบสอง",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันเซรามิก",
+     "unit": "",
+     "min": 12000,
+     "max": 15000,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Korea implant",
+     "unit": "",
+     "min": 30000,
+     "max": 30000,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟัน",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "ขัดฟัน ขูดหินปูน พร้อมเคลือบฟลูออไรด์ทั้งปาก",
+     "unit": "",
+     "min": 500,
+     "max": 900,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟันทั้งซี่",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟันปกติ",
+     "unit": "",
+     "min": 500,
+     "max": 800,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์เซรามิก 6 ซี่ขึ้นไป",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.ruamdental.com/pricing/"
+    }
+   ]
+  },
+  "0x30e298d2ded84aed_0x4ae0a75bebfd825a": {
+   "domain": "silomdental.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Metal Braces",
+     "unit": "",
+     "min": 60000,
+     "max": 60000,
+     "sourceUrl": "http://www.silomdental.com/dental_bangkok/price&duration.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Dental Implant Treatment",
+     "unit": "",
+     "min": 55000,
+     "max": 55000,
+     "sourceUrl": "http://www.silomdental.com/dental_bangkok/promotion.html"
+    }
+   ]
+  },
+  "0x30e29f1057505317_0xdb022570a58006e1": {
+   "domain": "smartdental2015.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://smartdental2015.com/price-case-child.html"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "ค่า X-Ray จัดฟัน",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://smartdental2015.com/price-case-general.html"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันเซรามิก All - Ceramic Crown",
+     "unit": "",
+     "min": 13000,
+     "max": 15000,
+     "sourceUrl": "https://smartdental2015.com/price-case-prostheses.html"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "Resin Bond Bridge",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://smartdental2015.com/price-case-prostheses.html"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Implant",
+     "unit": "",
+     "min": 45900,
+     "max": 68000,
+     "sourceUrl": "https://smartdental2015.com/price-case-prostheses.html"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยอมัลกัม",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://smartdental2015.com/price-case-general.html"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "PPF ขัดฟันและเคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://smartdental2015.com/price-case-child.html"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟันกราม",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://smartdental2015.com/price-case-root-canal.html"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟันเฉพาะซี่ รวมยาชา",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://smartdental2015.com/price-case-general.html"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน sealant",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://smartdental2015.com/price-case-child.html"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เคลือบฟันพอร์ชเลน Porcelain Veneer",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://smartdental2015.com/price-case-prostheses.html"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "ค่า X-Ray",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://smartdental2015.com/price-case-general.html"
+    }
+   ]
+  },
+  "0x30e29f46682a2015_0xf3a3841789d66c75": {
+   "domain": "skytraindental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 600,
+     "max": 800,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "6.ฟรี เอ็กซเรย์ เช็คฟันผุ ก่อนติดเครื่องมือจัดฟัน",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.skytraindental.com/th/%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%9F%E0%B8%B1%E0%B8%99-%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันเซรามิกฐานโลหะ (Base Metal)",
+     "unit": "",
+     "min": 10000,
+     "max": 14000,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม-ขึ้นกับระบบที่ใช้ทำรากเทียม",
+     "unit": "",
+     "min": 45000,
+     "max": 60000,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "รองพื้นก่อนอุดฟัน",
+     "unit": "",
+     "min": 100,
+     "max": 200,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์ทั้งปาก",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "การขูดหินปูน/รักษาเหงือกอักเสบ",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.skytraindental.com/th/%E0%B8%A7%E0%B8%B5%E0%B9%80%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C-%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%97%E0%B9%88%E0%B8%B2%E0%B9%84%E0%B8%AB%E0%B8%A3%E0%B9%88/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟันหน้า",
+     "unit": "",
+     "min": 800,
+     "max": 900,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เซรามิกวีเนียร์ (CERAMIC VENEER)",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.skytraindental.com/th/dental-fees/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "การเอกซเรย์/พิมพ์ปากเพื่อวิเคราะห์",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.skytraindental.com/th/%E0%B8%A7%E0%B8%B5%E0%B9%80%E0%B8%99%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C-%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%97%E0%B9%88%E0%B8%B2%E0%B9%84%E0%B8%AB%E0%B8%A3%E0%B9%88/"
+    }
+   ]
+  },
+  "0x30e29f5f6450b3b7_0x628f01f21d564c90": {
+   "domain": "smileandshine.co.th",
+   "items": [
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียมเกาหลี",
+     "unit": "Neobiotech / Dentium",
+     "min": 35000,
+     "max": 35000,
+     "sourceUrl": "https://smileandshine.co.th/dental-implant-price/"
+    }
+   ]
+  },
+  "0x30e2992ff7e08d49_0xe93055befbfc8cf0": {
+   "domain": "smileboxclinic.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "12. ถอนฟันน้ำนม Deciduous Tooth Extraction",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "17. ปลูกกระดูก Surgical Block Graft / Bone Graft / Sinus Lift (Size S)",
+     "unit": "",
+     "min": 15000,
+     "max": 25000,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "42. Orthodontic Initial Consultation",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "1. Initial Consultation",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "7. Acrylic Temporary Crown / Adoro Temporary Crown",
+     "unit": "",
+     "min": 11000,
+     "max": 11000,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "10. รื้อสะพานฟัน (Removal of Defected Bridge)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "7. รากฟันเทียมและครอบฟัน Splash Implant & Crown",
+     "unit": "",
+     "min": 39000,
+     "max": 45000,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "6. อุดฟันชั่วคราวด้วยเควิท 1 ด้าน (Temporary Filling w/ Cavit - 1 Surface)",
+     "unit": "",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "2. ขัดฟันและเคลือบฟลูออไรด์ Prophylaxis & Fluoride Gel Therapy",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "5. รักษารากฟัน - ฟันหน้า Root Canal Treatment - Anterior Teeth",
+     "unit": "",
+     "min": 11000,
+     "max": 11000,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "38. Occlusal Adjustment by Tooth Polishing",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "3. เคลือบหลุมร่องฟัน Fissure Sealants",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "15. ปิดผิวฟันด้วยพอร์ซเลน (Direct Porcelain / Ceramic Veneer)",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "4. ถ่ายภาพรังสีฟิล์มไบท์วิง (Bitewing X-ray) Modal 4 -->",
+     "unit": "",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://smileboxclinic.com/price"
+    }
+   ]
+  },
+  "0x30e29f8770b1387f_0x1650970a7e7d737b": {
+   "domain": "smilecenterdentalclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "Bone graft (per area, excluding cost of bone)",
+     "unit": "",
+     "min": 36000,
+     "max": 36000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Invisalign – i7 (by Invisalign Certified Provider)",
+     "unit": "",
+     "min": 69000,
+     "max": 79000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "checkup",
+     "label": "Check-up & consultation",
+     "labelKo": "검진·상담",
+     "rawName": "Professional Consultation/Diagnostic Service Provided By Dentist",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Porcelain fused to non-precious metal crown",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "Removable bridge",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "Pink Gum Laser Treatment (per area)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "post_core",
+     "label": "Post & core",
+     "labelKo": "포스트·코어",
+     "rawName": "Cast post and core in addition to crown",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "Endodontic therapy on permanent tooth (anterior)",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Labial veneer (porcelain laminate) – Empress",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Digital Periapical/Bitewing X-ray",
+     "unit": "",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://smilecenterdentalclinic.com/prices/"
+    }
+   ]
+  },
+  "0x30e29eb5e4b8deef_0x7ed6f4b8a49d3e5a": {
+   "domain": "smileandcodentalclinic.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "invisalign i7 (7 ชิ้น)",
+     "unit": "",
+     "min": 70000,
+     "max": 70000,
+     "sourceUrl": "https://smileandcodentalclinic.com/invisalign-cost/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "Hiossen + ครอบฟันชนิด all ceramic (อเมริกา)",
+     "unit": "",
+     "min": 39000,
+     "max": 39000,
+     "sourceUrl": "https://smileandcodentalclinic.com/prices/prices-dental-implant-cases/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Ceramic Veneer: Emax 8 ซี่ขึ้นไป",
+     "unit": "",
+     "min": 12500,
+     "max": 12500,
+     "sourceUrl": "https://smileandcodentalclinic.com/veneers-cost/"
+    }
+   ]
+  },
+  "0x30e29deb0278b7e5_0x7125296b0983b9b9": {
+   "domain": "smilecreationsdc.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟัน (Orthodontic)",
+     "unit": "",
+     "min": 36000,
+     "max": 36000,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน (Crown)",
+     "unit": "",
+     "min": 15000,
+     "max": 25000,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม Dental Implant (Dentium)",
+     "unit": "",
+     "min": 40000,
+     "max": 40000,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟัน (Fillings)",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน (Cleansing)",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน (Extraction)",
+     "unit": "",
+     "min": 700,
+     "max": 1500,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์ Veneer (Ceramic)",
+     "unit": "",
+     "min": 14000,
+     "max": 14000,
+     "sourceUrl": "https://smilecreationsdc.com/servicefees/"
+    }
+   ]
+  },
+  "0x30e29902fdebf1bb_0x13e6a639a91d7110": {
+   "domain": "tcsmiledental.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟัน Damon, Innovation-R",
+     "unit": "",
+     "min": 99000,
+     "max": 99000,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-braces/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "รื้อครอบฟัน",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-crown/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียมขนาดเล็ก Mini Implant",
+     "unit": "",
+     "min": 20000,
+     "max": 20000,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-implant-digital/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยวัสดุอะมัลกัม (ฟันน้ำนม)",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-pedodontics/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-pedodontics/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-pedodontics/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-pedodontics/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน (ฟันน้ำนม)",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-pedodontics/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Ceramic Veneer Empress Esthetics",
+     "unit": "",
+     "min": 18000,
+     "max": 18000,
+     "sourceUrl": "https://tcsmiledental.com/price-dental-veneer/"
+    }
+   ]
+  },
+  "0x30e29f81fca36dcb_0x24fd1ecaa6c4a461": {
+   "domain": "tealdental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันแบบโลหะ",
+     "unit": "",
+     "min": 45000,
+     "max": 45000,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันและสะพานฟัน",
+     "unit": "9,000/ซี่",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยวัสดุอะมัลกัม (ฟันน้ำนม)",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟัน (ฟันหน้า)",
+     "unit": "6,000/ซี่",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูนและขัดฟัน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "1,000/ซี่",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "วีเนียร์",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันคุด",
+     "unit": "2,500/ซี่",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอกซเรย์ฟันเฉพาะที่ (ฟิล์มเล็ก)",
+     "unit": "",
+     "min": 200,
+     "max": 200,
+     "sourceUrl": "https://www.tealdental.com/rate"
+    }
+   ]
+  },
+  "0x30e29d61c8a81fd3_0x4161878916261b1d": {
+   "domain": "teethtalk-clinic.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "Invisalign Express",
+     "unit": "",
+     "min": 49000,
+     "max": 49000,
+     "sourceUrl": "https://www.teethtalk-clinic.com/new-promotion-clear-braces-price/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟัน",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.teethtalk-clinic.com/new-promotion-clear-braces-price/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://www.teethtalk-clinic.com/new-promotion-clear-braces-price/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://www.teethtalk-clinic.com/new-promotion-clear-braces-price/"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันคุด",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://www.teethtalk-clinic.com/new-promotion-clear-braces-price/"
+    }
+   ]
+  },
+  "0x30e29edea2810a4f_0x22ec63e7da186646": {
+   "domain": "thantakit.com",
+   "items": [
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Dynamic Computer Aided Navigation Implant Surgery by NAVIDENT",
+     "unit": "THB 7,000 per implan",
+     "min": 213,
+     "max": 213,
+     "sourceUrl": "https://www.thantakit.com/prices"
+    }
+   ]
+  },
+  "0x30e29d794aa17347_0x1a447b2e6d82796d": {
+   "domain": "thearch.co.th",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันด้านนอกด้วยโลหะ รุ่น Master",
+     "unit": "เคส",
+     "min": 53600,
+     "max": 53600,
+     "sourceUrl": "https://www.thearch.co.th/price-duration/%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3%e0%b8%a3%e0%b8%a1%e0%b8%88%e0%b8%b1%e0%b8%94%e0%b8%9f%e0%b8%b1%e0%b8%99/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันสีเหมือนฟันด้วยวัสดุคอมโพสิต",
+     "unit": "ซี่",
+     "min": 100,
+     "max": 100,
+     "sourceUrl": "https://www.thearch.co.th/price-duration/%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3%e0%b8%a3%e0%b8%a1%e0%b8%97%e0%b8%b1%e0%b9%88%e0%b8%a7%e0%b9%84%e0%b8%9b/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "ครั้ง",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.thearch.co.th/price-duration/%e0%b8%97%e0%b8%b1%e0%b8%99%e0%b8%95%e0%b8%81%e0%b8%a3%e0%b8%a3%e0%b8%a1%e0%b8%97%e0%b8%b1%e0%b9%88%e0%b8%a7%e0%b9%84%e0%b8%9b/"
+    }
+   ]
+  },
+  "0x305031b061d33f1f_0x364d1e962a23f7": {
+   "domain": "tcdc.in.th",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "การจัดฟันที่ฟันอยู่ผิดตำแหน่ง ✓ ฟันฝังอยู่ในเหงือก ✓ ฟันอยู่สลับตำแหน่งกัน",
+     "unit": "48 เดือน",
+     "min": 72000,
+     "max": 72000,
+     "sourceUrl": "https://www.tcdc.in.th/%e0%b9%82%e0%b8%9b%e0%b8%a3%e0%b9%82%e0%b8%a1%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%88%e0%b8%b1%e0%b8%94%e0%b8%9f%e0%b8%b1%e0%b8%99/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "การจัดฟันทั่วไป ✓ ไม่ถอนฟัน ✓ ฟันห่างเล็กน้อย ✓ ฟันซ้อนเกเล็กน้อย",
+     "unit": "24 เดือน",
+     "min": 36000,
+     "max": 36000,
+     "sourceUrl": "https://www.tcdc.in.th/%e0%b9%82%e0%b8%9b%e0%b8%a3%e0%b9%82%e0%b8%a1%e0%b8%8a%e0%b8%b1%e0%b9%88%e0%b8%99%e0%b8%88%e0%b8%b1%e0%b8%94%e0%b8%9f%e0%b8%b1%e0%b8%99/"
+    }
+   ]
+  },
+  "0x30e29ba3bbbac9fb_0x7f868175a9a127ac": {
+   "domain": "theorange-dentalclinic.in.th",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก/ยกไซนัส",
+     "unit": "",
+     "min": 50000,
+     "max": 50000,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันโลหะธรรมดา",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียมรวมครอบฟันเซอร์โคเนีย 1 ซี่",
+     "unit": "",
+     "min": 29000,
+     "max": 29000,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "PRR อุดฟันด้วยวัสดุสีเหมือนฟัน",
+     "unit": "",
+     "min": 500,
+     "max": 800,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "gum",
+     "label": "Gum treatment",
+     "labelKo": "잇몸치료",
+     "rawName": "ปลูกเหงือก",
+     "unit": "",
+     "min": 10000,
+     "max": 20000,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟัน ฟันกรามใหญ่",
+     "unit": "",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant (เคลือบหลุมร่องฟัน)",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟัน",
+     "unit": "",
+     "min": 500,
+     "max": 800,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันคุดอย่างยาก / ผ่าฟันผัง",
+     "unit": "",
+     "min": 8211,
+     "max": 8211,
+     "sourceUrl": "https://theorange-dentalclinic.in.th/price/"
+    }
+   ]
+  },
+  "0x30e2a0029d937373_0xd3f369cc234e950b": {
+   "domain": "thonglordentalhospital.com",
+   "items": [
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "เครื่องมือขยายขากรรไกร Invisalign Palatal Expander",
+     "unit": "",
+     "min": 35000,
+     "max": 35000,
+     "sourceUrl": "https://www.thonglordentalhospital.com/price-dental/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน",
+     "unit": "",
+     "min": 22000,
+     "max": 30000,
+     "sourceUrl": "https://www.thonglordentalhospital.com/price-dental/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม และครอบฟัน Hiossen",
+     "unit": "",
+     "min": 59000,
+     "max": 59000,
+     "sourceUrl": "https://www.thonglordentalhospital.com/price-dental/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "ค่าเคลือบฟลูออไรด์ (แบบกัด)",
+     "unit": "",
+     "min": 900,
+     "max": 900,
+     "sourceUrl": "https://www.thonglordentalhospital.com/price-dental/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟัน - ฟันกรามน้อย",
+     "unit": "",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://www.thonglordentalhospital.com/price-dental/"
+    },
+    {
+     "procedure": "wisdom_tooth",
+     "label": "Wisdom tooth surgery",
+     "labelKo": "사랑니 발치",
+     "rawName": "ผ่าฟันคุด",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.thonglordentalhospital.com/price-dental/"
+    }
+   ]
+  },
+  "0x30e2a3fa98019235_0x8010f5628656c9f9": {
+   "domain": "umedentalclinic.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "ซี่",
+     "min": 400,
+     "max": 400,
+     "sourceUrl": "https://umedentalclinic.com/price/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "ติดเครื่องมือจัดฟัน ครั้งที่ 1-2",
+     "unit": "arch",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://umedentalclinic.com/price/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม",
+     "unit": "ซี่",
+     "min": 26990,
+     "max": 26990,
+     "sourceUrl": "https://umedentalclinic.com/price/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟัน สีเหมือนฟัน",
+     "unit": "ด้าน",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://umedentalclinic.com/price/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "ขูดหินปูน",
+     "unit": "ครั้ง",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://umedentalclinic.com/price/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "ถอนฟันแท้",
+     "unit": "ซี่",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://umedentalclinic.com/price/"
+    }
+   ]
+  },
+  "0x311d61f4b6088b25_0xb2e95d01c988c646": {
+   "domain": "vanaromdental.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "ถอนฟันน้ำนม",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ปลูกกระดูก (Bone graft)",
+     "unit": "",
+     "min": 20000,
+     "max": 20000,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟันแบบติดแน่นโลหะ (Metal Bracket)",
+     "unit": "",
+     "min": 40000,
+     "max": 40000,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันติดแน่นชนิดNon-precious (โลหะธรรมดา)",
+     "unit": "",
+     "min": 10000,
+     "max": 10000,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม (ราคารวม ทั้งส่วนรากฟันและส่วนครอบฟัน)",
+     "unit": "",
+     "min": 50000,
+     "max": 50000,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟันด้วยวัสดุสีเงิน",
+     "unit": "",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "ขัดฟัน เคลือบฟลูออไรด์",
+     "unit": "",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "เคลือบหลุมร่องฟัน",
+     "unit": "",
+     "min": 600,
+     "max": 600,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "เคลือบหน้าฟันสีขาว (Porcelain Veneer)",
+     "unit": "",
+     "min": 15000,
+     "max": 15000,
+     "sourceUrl": "https://www.vanaromdental.com/pricing"
+    }
+   ]
+  },
+  "0x30e29ea7c8671115_0xd21e599b050eec82": {
+   "domain": "wecaredentalbangkok.com",
+   "items": [
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟัน (Crown)",
+     "unit": "ต่อซี่",
+     "min": 16000,
+     "max": 26000,
+     "sourceUrl": "https://wecaredentalbangkok.com/th/dental-treatment-costs-bangkok-th/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "ศัลยกรรมช่องปากและรากฟันเทียม",
+     "unit": "",
+     "min": 89000,
+     "max": 89000,
+     "sourceUrl": "https://wecaredentalbangkok.com/th/dental-treatment-costs-bangkok-th/"
+    },
+    {
+     "procedure": "root_canal",
+     "label": "Root canal",
+     "labelKo": "신경치료",
+     "rawName": "รักษารากฟัน (Root Canal)",
+     "unit": "ต่อซี่",
+     "min": 11000,
+     "max": 16000,
+     "sourceUrl": "https://wecaredentalbangkok.com/th/dental-treatment-costs-bangkok-th/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "การขจัด Biofilm และคราบสีภายนอกด้วย EMS Airflow",
+     "unit": "ต่อครั้ง",
+     "min": 800,
+     "max": 800,
+     "sourceUrl": "https://wecaredentalbangkok.com/th/dental-treatment-costs-bangkok-th/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "เอกซเรย์เฉพาะจุด (Periapical / Bitewing)",
+     "unit": "ต่อฟิล์ม",
+     "min": 250,
+     "max": 250,
+     "sourceUrl": "https://wecaredentalbangkok.com/th/dental-treatment-costs-bangkok-th/"
+    }
+   ]
+  },
+  "0x30e2a3ed97859e83_0x2bfd926a70993051": {
+   "domain": "yimpimjaiclinic.com",
+   "items": [
+    {
+     "procedure": "bone_graft",
+     "label": "Bone graft / sinus lift",
+     "labelKo": "골이식",
+     "rawName": "ยกโพรงอากาศ (Sinus lift)",
+     "unit": "ตำแหน่ง",
+     "min": 15000,
+     "max": 20000,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "braces",
+     "label": "Braces / orthodontics",
+     "labelKo": "교정",
+     "rawName": "จัดฟัน",
+     "unit": "เครื่องมือติดแน่นแบบ",
+     "min": 42000,
+     "max": 42000,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "ครอบฟันเซรามิก ผสมโลหะ",
+     "unit": "โลหะไทเทเนียม",
+     "min": 12000,
+     "max": 12000,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "รากฟันเทียม",
+     "unit": "รากฟันเทียม Osstem ร",
+     "min": 50000,
+     "max": 50000,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "อุดฟัน",
+     "unit": "วัสดุอมัลกัม (สีเงิน",
+     "min": 700,
+     "max": 1200,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "เคลือบฟลูออไรด์",
+     "unit": "ครั้ง",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "เกลารากฟัน",
+     "unit": "ซี่",
+     "min": 500,
+     "max": 500,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Veneer (เคลือบผิวฟัน)",
+     "unit": "Ceramic E-max",
+     "min": 13000,
+     "max": 13000,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "x-ray (ฟิล์มเล็ก)",
+     "unit": "ฟิล์ม",
+     "min": 150,
+     "max": 150,
+     "sourceUrl": "https://yimpimjaiclinic.com/pricing/"
+    }
+   ]
+  },
+  "0x30da3a68127f4409_0xd274c744f2c3ca90": {
+   "domain": "yandbdentalclinic.com",
+   "items": [
+    {
+     "procedure": "extract_milk",
+     "label": "Baby tooth extraction",
+     "labelKo": "유치 발치",
+     "rawName": "Extraction Deciduous ถอนฟันน้ำนม",
+     "unit": "Tooth",
+     "min": 500,
+     "max": 600,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "crown",
+     "label": "Crown",
+     "labelKo": "크라운",
+     "rawName": "- Full metal : Non-Nikle ครอบฟันโลหะ วัสดุNon-Nikle",
+     "unit": "Tooth",
+     "min": 10000,
+     "max": 12000,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "bridge",
+     "label": "Dental bridge",
+     "labelKo": "브릿지",
+     "rawName": "Bridge สะพานฟัน",
+     "unit": "Unit",
+     "min": 16000,
+     "max": 20000,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "implant",
+     "label": "Dental implant",
+     "labelKo": "임플란트",
+     "rawName": "Implant with Crown (Neo-Biotech) รากฟันเทียม",
+     "unit": "Tooth",
+     "min": 55000,
+     "max": 55000,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "filling",
+     "label": "Filling",
+     "labelKo": "충전",
+     "rawName": "Resin Composite Filling อุดฟัน",
+     "unit": "Surface",
+     "min": 700,
+     "max": 3500,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "fluoride",
+     "label": "Fluoride treatment",
+     "labelKo": "불소도포",
+     "rawName": "Fluoride Application เคลือบฟลูออไรด์",
+     "unit": "Full mouth",
+     "min": 500,
+     "max": 600,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "scaling",
+     "label": "Scaling & polishing",
+     "labelKo": "스케일링",
+     "rawName": "Scaling and polishing ขูดหินปูนขัดฟัน",
+     "unit": "full mouth",
+     "min": 700,
+     "max": 700,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "sealant",
+     "label": "Sealant",
+     "labelKo": "실란트",
+     "rawName": "Sealant เคลือบหลุมร่องฟัน",
+     "unit": "Tooth",
+     "min": 400,
+     "max": 600,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "extraction",
+     "label": "Tooth extraction",
+     "labelKo": "발치",
+     "rawName": "Extraction ถอนฟัน",
+     "unit": "Tooth",
+     "min": 800,
+     "max": 1500,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "veneer",
+     "label": "Veneer",
+     "labelKo": "베니어",
+     "rawName": "Veneer (Resin) การเคลือบผิวฟัน",
+     "unit": "Tooth",
+     "min": 3500,
+     "max": 5000,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    },
+    {
+     "procedure": "xray",
+     "label": "X-ray",
+     "labelKo": "엑스레이",
+     "rawName": "Periapical(Pa) / Bite wings เอ็กซเรย์ฟิล์มเล็ก",
+     "unit": "Film",
+     "min": 300,
+     "max": 300,
+     "sourceUrl": "https://yandbdentalclinic.com/prices/"
+    }
+   ]
+  }
+ }
+}

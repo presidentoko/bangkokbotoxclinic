@@ -1,0 +1,63 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "ignoreCommand": "S=$VERCEL_GIT_PREVIOUS_SHA;[ -z \"$S\" ]&&exit 1;git diff --quiet $S HEAD -- ./ \":(exclude)data\"||exit 1;git diff --quiet $S HEAD -- ./&&exit 0;[ $(($(git log -1 --format=%ct HEAD)-$(git log -1 --format=%ct $S))) -ge 604800 ]&&exit 1||exit 0",
+  "buildCommand": "next build",
+  "framework": "nextjs",
+  "regions": ["sin1"],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "bangkokbotoxclinic.com" }],
+      "destination": "https://www.bangkokbotoxclinic.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "bangkokbestclinic.com" }],
+      "destination": "https://www.bangkokbestclinic.com/:path*",
+      "permanent": true
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/welcome-emails",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/keepalive",
+      "schedule": "0 6 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/llms.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=1800, s-maxage=1800" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/google(.*).html",
+      "headers": [
+        { "key": "Content-Type", "value": "text/html; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}
