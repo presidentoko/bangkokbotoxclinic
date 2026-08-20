@@ -797,7 +797,19 @@ def build_services() -> list[Service]:
         # 보류됨). 하나를 통째로 끄는 대신 양쪽을 반으로 줄여서 두 파이프라인을
         # 다 살린다. 포트 점유도 2080-2083 → 2080-2081 로 줄어 터널 부하가 준다.
         "N_WORKERS": "2",
-        "PROXY_PORT_BASE": "2080",
+        # 2026-08-20 터널 재배치: 2080 → 2084.
+        # _validate_proxy_ports 는 "터널 범위(2080-2087) 안인가"만 보고 서비스
+        # 간 충돌은 검사하지 않아서, 서비스가 켜지고 꺼지길 반복하는 사이
+        # 배치가 조용히 겹쳐 있었다. 재배치 직전 실측:
+        #   clinics(3) 2080-2082 / spa(2) 2080-2081 / dental(1) 2082 /
+        #   massage(2) 2084-2085  → 워커 8개가 터널 5개에 몰리고
+        #   2083/2086/2087 3개는 완전히 유휴.
+        # 같은 터널 공유 = 그 출구 IP 의 요청률이 2~3배 = 구글 앱레벨 차단
+        # (place//@ 빈 지도 → no_name) 가속. 워커를 늘리면 chrome/RAM 이
+        # 터지므로(4→2 로 낮춘 이력) 수는 그대로 두고 배치만 1워커=1터널로
+        # 편다: clinics 2080-2082 / dental 2083 / spa 2084-2085 /
+        # massage 2086-2087 = 워커 8 : 터널 8.
+        "PROXY_PORT_BASE": "2084",
         # 그리드 단계는 review 아직 안 도는 동안 포트가 노는 게 아까워서
         # 2→3워커로 증설 (2026-07-23, RAM 여유 보고 절반만 증설 — 8개 풀로
         # 가면 chrome이 ram-guard 하드리밋 90 근처까지 가서 위험).
@@ -811,8 +823,10 @@ def build_services() -> list[Service]:
         "CITY_LNG": "100.5346890",
         "CITY_RADIUS_M": "30000",
         "CITY_OUTPUT_DIR": "../spa_output/bangkok",
-        "N_WORKERS": "2",  # 2026-08-07: 4→2 (spa_bangkok_env 주석 참고). 2084-2085
-        "PROXY_PORT_BASE": "2084",
+        "N_WORKERS": "2",  # 2026-08-07: 4→2 (spa_bangkok_env 주석 참고).
+        # 2026-08-20: 2084 → 2086. spa_review_bangkok 이 2084-2085 로 옮겨오면서
+        # 비켜준다 — 1워커=1터널 배치 (spa_bangkok_env 주석에 전체 표 있음).
+        "PROXY_PORT_BASE": "2086",
         "GRID_PROXY_PORT": "2082",
         "GRID_N_WORKERS": "2",
     }
@@ -1081,7 +1095,10 @@ def build_services() -> list[Service]:
                 # 1로 낮춤 (pattaya_clinics_env 주석 참고, 근본 원인은 포트가 아니라
                 # Windows Playwright sync API 멀티스레드 launch 로 추정).
                 "N_WORKERS": "1",
-                "PROXY_PORT_BASE": "2082",
+                # 2026-08-20: 2082 → 2083. 2082 는 bangkok_clinics_review 의
+                # 3번째 워커와 겹쳐 있었다 — 1워커=1터널 배치로 이동
+                # (spa_bangkok_env 주석에 전체 표 있음).
+                "PROXY_PORT_BASE": "2083",
             },
             log_file=LOGS / "dental_review_bangkok.log",
             chrome_heavy=True,

@@ -174,6 +174,11 @@ _DISTRICT_KEYS: list[tuple[str, list[str]]] = [
     ("Khlong Sam Wa", ["khlong sam wa"]),
     ("Sai Mai", ["sai mai"]),
     ("Bang Khen", ["bang khen"]),
+    # 2026-08-20: 방콕 50개 khet 중 누락돼 있던 4개.
+    ("Bang Khun Thian", ["bang khun thian"]),
+    ("Rat Burana", ["rat burana"]),
+    ("Chom Thong", ["chom thong"]),
+    ("Thung Khru", ["thung khru"]),
 ]
 
 # 다른 도시의 district / 관광지 키워드. 외국인 인기 도시 위주.
@@ -250,8 +255,23 @@ _DISTRICTS_BY_CITY: dict[str, list[tuple[str, list[str]]]] = {
 }
 
 
+_DISTRICT_SUFFIX_RE = re.compile(r"([A-Za-z][A-Za-z\-' ]{2,30}?)\s+[Dd]istrict\b")
+
+
 def extract_district(address: str, city_label: str = "Bangkok") -> str:
-    """주소에서 도시별 district 추출. 도시 매핑 없으면 빈 문자열."""
+    """주소에서 도시별 district 추출. 도시 매핑 없으면 빈 문자열.
+
+    2026-08-20 감사: dental 클리닉 742곳(34%)이 district 미할당 → /d/[district]
+    페이지에 실릴 수 없어 내부링크가 하나도 없는 고아가 됐다(filterByDistrict 는
+    c.district 정확매칭). 원인 두 가지:
+      (1) 방콕 50개 khet 중 4개가 위 목록에서 빠져 있었다.
+      (2) 방콕 그리드 검색이 인접 도(Nonthaburi/Samut Sakhon/Pathum Thani/
+          Samut Prakan)나 타 도시(Phuket/Krabi)로 새서, city_label 매핑에 없는
+          "<이름> District" 형식 주소가 대량으로 들어왔다.
+    알려진 키워드에서 못 찾으면 이 접미사 패턴으로 한 번 더 시도한다 —
+    "Thalang District" 같은 걸 일일이 열거하지 않고 일반적으로 복구한다.
+    실측 복구율 75%(742 → 181).
+    """
     if not address:
         return ""
     a = address.lower()
@@ -260,6 +280,9 @@ def extract_district(address: str, city_label: str = "Bangkok") -> str:
         for alias in aliases:
             if alias in a:
                 return canonical
+    m = _DISTRICT_SUFFIX_RE.search(address)
+    if m:
+        return m.group(1).strip()
     return ""
 
 

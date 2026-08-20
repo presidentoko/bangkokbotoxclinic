@@ -1108,14 +1108,29 @@ class _FileLock:
 
 
 def _atomic_write_csv(path: Path, header: list[str], rows: list[list]):
-    """tmp → rename atomic. 부분-쓰기 상태에서 reader 가 truncated CSV 보는 거 방지."""
+    """tmp → rename atomic. 부분-쓰기 상태에서 reader 가 truncated CSV 보는 거 방지.
+
+    _FileLock 은 이 스크립트의 다른 인스턴스끼리만 서로 보호한다 — 백신
+    실시간 검사, OneDrive 동기화 등 외부 프로세스가 찰나 파일을 열어두면
+    os.replace 가 WinError 5(Access is denied)로 죽는다. 이 예외가 main()
+    까지 안 잡혀서 스크래퍼 프로세스 전체가 죽는 사고가 있었다(2026-08-19,
+    bangkok_clinics_review — 재시작 폭주 → ram_manager 가 자원 소모로 오인해
+    일시정지). 외부 프로세스의 파일 오픈은 보통 수십 ms 안에 끝나므로 짧은
+    재시도로 대부분 회복된다."""
     tmp = path.with_suffix(path.suffix + f".tmp.{os.getpid()}")
     with open(tmp, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         w.writerow(header)
         for r in rows:
             w.writerow(r)
-    os.replace(str(tmp), str(path))  # POSIX + Windows atomic
+    for attempt in range(5):
+        try:
+            os.replace(str(tmp), str(path))  # POSIX + Windows atomic
+            return
+        except PermissionError:
+            if attempt == 4:
+                raise
+            time.sleep(0.2 * (attempt + 1))
 
 
 def _merge_and_save_restaurants(

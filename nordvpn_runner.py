@@ -44,6 +44,19 @@ HEALTH_URL = "https://api.ipify.org?format=json"  # httpbin.org 불안정 → ip
 REFRESH_INTERVAL = 900  # 15분마다 리스트 재조회
 TUNNEL_UP_TIMEOUT = 15  # 정상 노드는 4-8s 안에 뜸; 15s→실패로 간주 (45→15→10→15)
 FAILED_HOST_COOLDOWN = 15  # 45→15s: rotate 90s 안에 5+ 서버 시도 가능
+# 2026-08-20: rotate 로 놓아준 서버를 이 시간 동안 재선택에서 뺀다.
+# 왜 필요한가 — pick_server() 는 servers 리스트를 **앞에서부터** 훑어 첫 적격
+# 서버를 준다. used_ips 에는 활성 터널 8개뿐이고 FAILED_HOST_COOLDOWN 은
+# "연결 실패" 에만 걸린다. 그런데 구글이 출구 IP 를 앱레벨 차단해도 터널 연결
+# 자체는 멀쩡하므로 실패로 기록되지 않는다 → boot_port 가 used_ips 에서 옛 IP 를
+# 즉시 빼면, 리스트 상단에 있던 그 서버가 곧바로 다시 뽑힌다. 차단된 출구를
+# 계속 되돌려 받는 오실레이션이고, 로테이션이 잦은 서비스일수록 심하다
+# (2026-08-20 실측: bangkok_clinics_review 1.3건/h/워커 vs 나머지 14.7~16,
+#  no_name 94%. 같은 URL 을 건강한 터널로 재시도하면 5/6 성공 — URL·대상·설정이
+#  아니라 출구 IP 가 원인임이 확인됐다).
+# 풀은 8,650 서버이고 로테이션은 시간당 ~200회라, 30분 쿨다운이 잡아두는 건
+# 최대 ~100개다. 고갈 위험이 없다(pick_server 에 고갈 시 무시 경로도 이미 있다).
+ROTATED_HOST_COOLDOWN = 1800
 SOCKS_HEALTH_INTERVAL = 300  # 5분마다 살아있는 포트도 SOCKS 실제 동작 확인
 
 # 태국에서 잘 연결되는 서버 우선. hostname 앞 2자리 국가코드 기준.
@@ -272,6 +285,13 @@ class Runner:
     def boot_port(self, p: Port, max_attempts: int = 3) -> bool:
         if p.server_ip:
             self.used_ips.discard(p.server_ip)
+            # 방금 놓아준 서버를 즉시 다시 뽑지 않도록 쿨다운 (ROTATED_HOST_COOLDOWN
+            # 주석 참고). rotate 사유가 "구글 차단 의심" 인지 여기선 알 수 없으므로
+            # 사유를 가리지 않고 건다 — 정기 교체로 놓아준 멀쩡한 서버까지 30분
+            # 쉬게 되지만, 8,650 풀에서 그 대가는 무시할 수준이고 차단된 출구를
+            # 되돌려 받는 쪽이 훨씬 비싸다.
+            if p.server_host:
+                self.failed_until[p.server_host] = time.time() + ROTATED_HOST_COOLDOWN
         for attempt in range(max_attempts):
             s = self.pick_server()
             if not s:
