@@ -47,6 +47,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   entries.push(...entriesFor((l) => `/${l}/guide`, { changeFrequency: "monthly", priority: 0.5 }));
   entries.push(...entriesFor((l) => `/${l}/city`, { changeFrequency: "weekly", priority: 0.6 }));
   entries.push(...entriesFor((l) => `/${l}/prices`, { changeFrequency: "weekly", priority: 0.6 }));
+  // Low priority but they do belong here: ad networks (and anyone auditing
+  // the site) expect the privacy policy and terms to be publicly crawlable.
+  entries.push(...entriesFor((l) => `/${l}/privacy`, { changeFrequency: "yearly", priority: 0.2 }));
+  entries.push(...entriesFor((l) => `/${l}/terms`, { changeFrequency: "yearly", priority: 0.2 }));
+  // /advertise 는 2026-08-20 에 noindex 를 뗐다 — 이 사이트에서 돈이 들어오는
+  // 유일한 페이지이고, 광고 네트워크 심사도 광고주 안내를 크롤해서 본다.
+  // 중복 보일러플레이트 우려는 우선순위를 낮게 유지하는 것으로 갈음한다.
+  entries.push(...entriesFor((l) => `/${l}/advertise`, { changeFrequency: "monthly", priority: 0.4 }));
 
   for (const city of listCities()) {
     entries.push(

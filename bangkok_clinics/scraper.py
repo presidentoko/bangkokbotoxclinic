@@ -609,6 +609,28 @@ def get_restaurant_full(
     if is_dead_tunnel_page_name(name):
         raise SocksDeadError(f"dead tunnel page detected: {name[:80]!r}")
     if not name or name == "Results":
+        # 2026-08-20: no_name 이 대량으로 뜰 때(오늘 17:36 이후 100%) 로그만 봐서는
+        # "출구 IP 가 차단돼 빈 지도를 받았다"와 "터널이 끊겨 페이지가 안 떴다"를
+        # 구분할 수 없었다. 위 2026-08-07 기록이 말하는 판별 근거는 지도 하단
+        # 저작권 표기의 국가명(차단이면 프록시 국가가 찍힌다)인데, 그걸 아무도
+        # 안 찍고 있었다. 진단은 이 한 줄이면 끝나므로 상시로 남긴다.
+        try:
+            attribution = page.locator("div.gb_Ic, .gmnoprint, [jsaction*='copyright']").first.inner_text(timeout=1500).strip()
+        except Exception:
+            attribution = ""
+        if not attribution:
+            try:
+                body = page.locator("body").inner_text(timeout=1500)
+                attribution = next((ln.strip() for ln in body.splitlines() if "Map data" in ln or "©" in ln), "")
+            except Exception:
+                attribution = ""
+        try:
+            title = page.title()
+        except Exception:
+            title = ""
+        log.warning(
+            f"  no_name 상세 | title={title[:60]!r} | url={current_url[:110]} | 지도표기={attribution[:80]!r}"
+        )
         _set_skip_reason("no_name")
         return None, [], []
 

@@ -2,6 +2,29 @@ import type { Lang } from "./site";
 
 export type FaqItem = { q: string; a: string };
 
+/**
+ * Shared shape for the two long-form legal pages (privacy, terms). Both are
+ * an intro plus an ordered list of headed sections, then a closing "how to
+ * reach us" block -- kept as one type so the two page.tsx files can render
+ * identically instead of duplicating markup for near-identical content.
+ *
+ * `contactBody` deliberately carries no contact address: this site has no
+ * mailbox. The only inbound channels are the advertise form (linked via
+ * `contactCta` -> /{lang}/advertise) and the per-place "report incorrect
+ * info" form, both of which POST to app/api/contact/route.ts.
+ */
+export type LegalPage = {
+  title: string;
+  /** Human-readable effective date, already formatted per language. */
+  updated: string;
+  intro: string;
+  sections: { heading: string; body: string }[];
+  contactHeading: string;
+  contactBody: string;
+  /** Label for the link to /{lang}/advertise. */
+  contactCta: string;
+};
+
 export type Dict = {
   nav: {
     home: string;
@@ -243,6 +266,8 @@ export type Dict = {
     noPriceData: string;
   };
   about: { title: string; body: string; trustScoreTitle: string; trustScoreBody: string };
+  privacy: LegalPage;
+  terms: LegalPage;
   footer: { rights: string; tagline: string; exploreTitle: string; languageTitle: string };
   notFound: { title: string; body: string; cta: string };
   errorPage: { title: string; body: string; retry: string; cta: string };
@@ -515,6 +540,118 @@ const en: Dict = {
     trustScoreTitle: "How the Trust Score works",
     trustScoreBody:
       "Every place gets a 0-100 Trust Score built from three things we can verify. Half comes from the Google rating itself (50 points). Just over a third comes from how many reviews back that rating up, on a log scale so one viral review can't skew things (35 points). The rest comes from how many distinct things reviewers actually mention about the place — service style, mood, cleanliness — capped at 15 points. A place with no reviewer detail beyond a star rating scores lower on that last part; it isn't a penalty, just an honest reflection of how much we could verify.",
+  },
+  privacy: {
+    title: "Privacy Policy",
+    updated: "Last updated: 20 August 2026",
+    intro:
+      "chillanel is an independent guide to massage and spa places in Thailand, published at chillanel.com. This page explains exactly what happens to information when you use the site. It is short because the site does very little with your data.",
+    sections: [
+      {
+        heading: "No accounts, no user database",
+        body: "There is no sign-up, no login, and no user profile on chillanel. You can browse every page, search, and use every feature without telling us who you are. We do not keep a database of visitors.",
+      },
+      {
+        heading: "What stays in your browser",
+        body: "Your saved favourites, your compare list, and your recently-viewed places are stored by your browser in localStorage on your own device, under keys beginning with \"chillanel:\". They are never sent to us or to anyone else — they exist only on the device you used them on. Clearing your browser's site data for chillanel.com deletes them for good, and we have no copy to restore.",
+      },
+      {
+        heading: "What you send us through the forms",
+        body: "This site has two forms, and they are the only way information reaches us. The advertising enquiry form asks for your name, a contact detail of your choosing, and your message. The \"Report incorrect info\" form on a place page sends which place you are reporting, the type of issue, the details you write, and — optionally — a contact detail. Both are delivered as a message to a private Telegram chat belonging to the site operator, using the Telegram Bot API. They are not written to a database on this site. Please include only contact details you are comfortable sending.",
+      },
+      {
+        heading: "IP addresses",
+        body: "When a form is submitted, the server briefly reads the IP address the request came from, for one purpose only: rate limiting, which blocks more than five submissions from the same address within ten minutes so the form cannot be flooded. That count is held in the memory of the running server process and disappears when the process stops. It is not written to a database, not written to a log file, and not included in the message forwarded to Telegram. Simply browsing the site does not trigger any of this.",
+      },
+      {
+        heading: "Analytics",
+        body: "We use Vercel Web Analytics and Vercel Speed Insights to see which pages get visited and how fast they load. Both are cookieless and report aggregate figures only — page counts, referrers, loading times. They set no cookies, do not follow you to other websites, and do not build a profile of you as an individual.",
+      },
+      {
+        heading: "Cookies",
+        body: "chillanel sets no cookies of its own. That is why there is no cookie consent banner.",
+      },
+      {
+        heading: "Maps",
+        body: "Place and city maps are drawn with map tiles from OpenStreetMap. When a map loads, your browser requests those tiles directly from OpenStreetMap's servers, which means your IP address is visible to them in the same way it is to any website you visit. That request is governed by OpenStreetMap's own policies, and we receive nothing back from it.",
+      },
+      {
+        heading: "Hosting",
+        body: "The site is hosted on Vercel. As with any web host, the requests that deliver these pages to you pass through Vercel's infrastructure.",
+      },
+      {
+        heading: "Where the listing data comes from",
+        body: "Every listing here comes from real, public Google Maps data: name, address, rating, and reviews. Review text and the public display name the reviewer chose on Google are shown as they were published — we do not write, edit, or invent them. If you are a reviewer or a venue and you want something on a page corrected or taken down, use the \"Report incorrect info\" form on that place's page and tell us which listing it is.",
+      },
+      {
+        heading: "Advertising",
+        body: "chillanel currently carries no third-party advertising, and no advertising or ad-network scripts are loaded on this site. If that changes, this page will be updated first to name the provider and say what it collects.",
+      },
+      {
+        heading: "Changes to this policy",
+        body: "If what the site does with data changes, this page changes with it, and the date at the top is updated.",
+      },
+    ],
+    contactHeading: "Questions",
+    contactBody:
+      "There is no separate contact address for this site. For anything about a specific listing — including a correction or a removal request — use the \"Report incorrect info\" form at the bottom of that place's page. For anything else, including questions about this policy, use the advertising enquiry form; it reaches the same person.",
+    contactCta: "Open the enquiry form",
+  },
+  terms: {
+    title: "Terms of Use",
+    updated: "Last updated: 20 August 2026",
+    intro:
+      "These terms cover your use of chillanel.com. By using the site you accept them. If you don't, please don't use the site.",
+    sections: [
+      {
+        heading: "What chillanel is",
+        body: "chillanel is an independent guide to massage and spa places in Thailand. We are not affiliated with, owned by, or paid by any venue listed here. There are no paid placements and no sponsored ranks — a place cannot buy its way up the list.",
+      },
+      {
+        heading: "What chillanel is not",
+        body: "It is not a booking platform and not an agent. We take no bookings, handle no payments, and are not a party to anything you arrange with a venue. Contact details and map links are here so you can deal with a venue directly; whatever happens between you and that venue is between you and that venue.",
+      },
+      {
+        heading: "Accuracy",
+        body: "Listings are built from public Google Maps data collected before the site is published, so what you see is a snapshot, not a live feed. Places close, move, change their hours, and change their prices, and a page here can go out of date without us knowing. Treat everything you read here as a starting point and confirm the details with the venue before you travel or book. The site is offered as it is, with no guarantee that any particular listing is current, complete, or correct.",
+      },
+      {
+        heading: "Reviews and mood keywords",
+        body: "Review text is quoted from public Google reviews and belongs to the people who wrote it — those are their opinions, not ours, and we do not edit them. The mood and service keywords on each page are extracted automatically from that review text by software. Automatic extraction can misread a review, so read those keywords as a summary of what reviewers tended to mention, not as a verified fact about a venue.",
+      },
+      {
+        heading: "About the Trust Score",
+        body: "The Trust Score is our own calculation from the Google rating, the number of reviews behind it, and how much detail reviewers gave. It is a reading of the public evidence available about a place — not an inspection, not a certification, and not an endorsement. A high score does not mean we have visited or vetted a venue, and a low score is not an accusation.",
+      },
+      {
+        heading: "Prices",
+        body: "Price figures shown are amounts mentioned in review text, not quotes from the venue. They can be old, they can refer to a different service than the one you want, and they are binding on nobody. Ask the venue for its current price.",
+      },
+      {
+        heading: "Using the site fairly",
+        body: "Please use chillanel as an ordinary visitor would. Do not bulk-copy or scrape the site's listings, do not use the forms to send spam or anything abusive, and do not try to disrupt the site or work around the submission limits on the forms.",
+      },
+      {
+        heading: "Content and ownership",
+        body: "The site's design, the copy we wrote, its category and mood groupings, and the Trust Score calculation are chillanel's. Place names, addresses, ratings, and review text belong to their respective owners and are shown here as public information about those businesses. Google and Google Maps are trademarks of Google LLC; map data is © OpenStreetMap contributors.",
+      },
+      {
+        heading: "Corrections and removals",
+        body: "Every place page has a \"Report incorrect info\" form. Use it to tell us that a place has closed, that its details are wrong, that a listing is duplicated, or that something should be taken down. It reaches us directly and it is the fastest way to get a page fixed.",
+      },
+      {
+        heading: "Advertising enquiries",
+        body: "Venue owners who want more visibility can use the advertising enquiry form. To be clear about what that does: sending an enquiry does not change a place's position in any ranking or its Trust Score. Neither of those is for sale.",
+      },
+      {
+        heading: "Changes to these terms",
+        body: "These terms may change as the site changes. The current version is always the one on this page, with its date at the top.",
+      },
+    ],
+    contactHeading: "Questions",
+    contactBody:
+      "For anything about a specific listing, use the \"Report incorrect info\" form on that place's page. For anything else, including questions about these terms, use the advertising enquiry form. Both reach the same person.",
+    contactCta: "Open the enquiry form",
   },
   footer: {
     rights: "Independent guide. Not affiliated with any venue.",
@@ -806,6 +943,118 @@ const th: Dict = {
     trustScoreTitle: "คะแนนความน่าเชื่อถือคำนวณยังไง",
     trustScoreBody:
       "ทุกร้านจะได้คะแนนความน่าเชื่อถือ 0-100 ที่มาจาก 3 ส่วนที่เราตรวจสอบได้จริง ครึ่งหนึ่งมาจากคะแนนรีวิว Google โดยตรง (50 คะแนน) มากกว่าหนึ่งในสามมาจากจำนวนรีวิวที่รองรับคะแนนนั้น โดยคำนวณแบบ log scale เพื่อไม่ให้รีวิวไวรัลเพียงรีวิวเดียวทำให้ผลเพี้ยน (35 คะแนน) และที่เหลือมาจากจำนวนสิ่งที่แตกต่างกันที่รีวิวพูดถึงจริง ๆ เช่น สไตล์บริการ บรรยากาศ ความสะอาด สูงสุด 15 คะแนน ร้านที่รีวิวไม่ได้ลงรายละเอียดอะไรนอกจากให้ดาวจะได้คะแนนส่วนนี้น้อยกว่า ไม่ใช่การลงโทษ แค่สะท้อนตามจริงว่าเราตรวจสอบได้มากแค่ไหน",
+  },
+  privacy: {
+    title: "นโยบายความเป็นส่วนตัว",
+    updated: "อัปเดตล่าสุด: 20 สิงหาคม 2026",
+    intro:
+      "chillanel คือคู่มืออิสระสำหรับร้านนวดและสปาในประเทศไทย เผยแพร่ที่ chillanel.com หน้านี้อธิบายว่าข้อมูลของคุณถูกจัดการอย่างไรเมื่อคุณใช้งานเว็บไซต์ เนื้อหาสั้นเพราะเราทำอะไรกับข้อมูลของคุณน้อยมาก",
+    sections: [
+      {
+        heading: "ไม่มีบัญชีผู้ใช้ ไม่มีฐานข้อมูลสมาชิก",
+        body: "chillanel ไม่มีการสมัครสมาชิก ไม่มีการเข้าสู่ระบบ และไม่มีโปรไฟล์ผู้ใช้ คุณเปิดดูทุกหน้า ค้นหา และใช้ทุกฟีเจอร์ได้โดยไม่ต้องบอกว่าคุณเป็นใคร เราไม่ได้เก็บฐานข้อมูลผู้เข้าชมไว้เลย",
+      },
+      {
+        heading: "สิ่งที่อยู่ในเบราว์เซอร์ของคุณเท่านั้น",
+        body: "ร้านที่คุณบันทึกไว้ รายการเปรียบเทียบ และร้านที่ดูล่าสุด ถูกเก็บโดยเบราว์เซอร์ไว้ใน localStorage บนเครื่องของคุณเอง ภายใต้คีย์ที่ขึ้นต้นด้วย \"chillanel:\" ข้อมูลเหล่านี้ไม่เคยถูกส่งมาที่เราหรือที่ใดทั้งสิ้น — มันอยู่เฉพาะบนเครื่องที่คุณใช้ ถ้าคุณล้างข้อมูลเว็บไซต์ของ chillanel.com ในเบราว์เซอร์ ข้อมูลจะหายไปถาวร และเราไม่มีสำเนาไว้กู้คืนให้",
+      },
+      {
+        heading: "ข้อมูลที่คุณส่งผ่านแบบฟอร์ม",
+        body: "เว็บไซต์นี้มีแบบฟอร์มอยู่สองแบบ และเป็นช่องทางเดียวที่ข้อมูลจะมาถึงเรา แบบฟอร์มติดต่อลงโฆษณาจะถามชื่อของคุณ ช่องทางติดต่อที่คุณเลือกเอง และข้อความ ส่วนแบบฟอร์ม \"แจ้งข้อมูลผิดพลาด\" ในหน้าร้านจะส่งว่าคุณแจ้งร้านไหน ประเภทของปัญหา รายละเอียดที่คุณเขียน และช่องทางติดต่อซึ่งไม่บังคับ ทั้งสองแบบฟอร์มจะถูกส่งเป็นข้อความไปยังแชท Telegram ส่วนตัวของผู้ดูแลเว็บไซต์ผ่าน Telegram Bot API และไม่ได้ถูกบันทึกลงฐานข้อมูลใดของเว็บไซต์นี้ กรุณากรอกเฉพาะช่องทางติดต่อที่คุณสบายใจจะส่งให้เท่านั้น",
+      },
+      {
+        heading: "หมายเลข IP",
+        body: "เมื่อมีการส่งแบบฟอร์ม เซิร์ฟเวอร์จะอ่านหมายเลข IP ที่คำขอส่งมาเพียงชั่วครู่ เพื่อวัตถุประสงค์เดียวคือการจำกัดอัตราการส่ง ซึ่งบล็อกไม่ให้ส่งเกินห้าครั้งจากหมายเลขเดียวกันภายในสิบนาที เพื่อไม่ให้ใครถล่มแบบฟอร์มได้ ตัวนับนี้อยู่ในหน่วยความจำของโปรเซสเซิร์ฟเวอร์ที่กำลังทำงานอยู่ และหายไปเมื่อโปรเซสหยุดทำงาน ไม่ได้ถูกเขียนลงฐานข้อมูล ไม่ได้ถูกเขียนลงไฟล์ล็อก และไม่ได้ถูกใส่ไปในข้อความที่ส่งต่อไปยัง Telegram การเปิดดูเว็บไซต์เฉย ๆ ไม่ทำให้เกิดขั้นตอนนี้เลย",
+      },
+      {
+        heading: "การวิเคราะห์การเข้าชม",
+        body: "เราใช้ Vercel Web Analytics และ Vercel Speed Insights เพื่อดูว่าหน้าไหนถูกเปิดบ้างและโหลดเร็วแค่ไหน ทั้งสองตัวไม่ใช้คุกกี้และรายงานเป็นตัวเลขรวมเท่านั้น เช่น จำนวนการเข้าชม แหล่งที่มา และเวลาโหลด ไม่มีการวางคุกกี้ ไม่ตามคุณไปยังเว็บไซต์อื่น และไม่สร้างโปรไฟล์รายบุคคลของคุณ",
+      },
+      {
+        heading: "คุกกี้",
+        body: "chillanel ไม่ได้ตั้งคุกกี้ของตัวเองเลย ด้วยเหตุนี้จึงไม่มีแบนเนอร์ขอความยินยอมเรื่องคุกกี้",
+      },
+      {
+        heading: "แผนที่",
+        body: "แผนที่ร้านและแผนที่เมืองวาดด้วยไทล์แผนที่จาก OpenStreetMap เมื่อแผนที่โหลด เบราว์เซอร์ของคุณจะขอไทล์เหล่านั้นจากเซิร์ฟเวอร์ของ OpenStreetMap โดยตรง ซึ่งหมายความว่าหมายเลข IP ของคุณจะปรากฏต่อเขา เช่นเดียวกับเวลาที่คุณเข้าเว็บไซต์ใด ๆ คำขอนั้นอยู่ภายใต้นโยบายของ OpenStreetMap เอง และเราไม่ได้รับอะไรกลับมาจากมัน",
+      },
+      {
+        heading: "การโฮสต์",
+        body: "เว็บไซต์นี้โฮสต์อยู่บน Vercel เช่นเดียวกับผู้ให้บริการโฮสต์ทั่วไป คำขอที่ส่งหน้าเว็บเหล่านี้ถึงคุณจะผ่านโครงสร้างพื้นฐานของ Vercel",
+      },
+      {
+        heading: "ข้อมูลร้านมาจากไหน",
+        body: "ทุกร้านที่แสดงมาจากข้อมูล Google Maps สาธารณะจริง ทั้งชื่อ ที่อยู่ คะแนน และรีวิว ข้อความรีวิวและชื่อที่ผู้รีวิวตั้งแสดงเป็นสาธารณะไว้บน Google จะแสดงตามที่เผยแพร่ไว้ เราไม่ได้เขียน แก้ไข หรือสร้างขึ้นเอง ถ้าคุณเป็นผู้รีวิวหรือเป็นทางร้าน และต้องการให้แก้ไขหรือนำบางอย่างออกจากหน้านั้น กรุณาใช้แบบฟอร์ม \"แจ้งข้อมูลผิดพลาด\" ในหน้าของร้านนั้น แล้วบอกเราว่าเป็นรายการไหน",
+      },
+      {
+        heading: "โฆษณา",
+        body: "ขณะนี้ chillanel ไม่ได้แสดงโฆษณาจากบุคคลที่สาม และไม่ได้โหลดสคริปต์โฆษณาหรือเครือข่ายโฆษณาใด ๆ บนเว็บไซต์นี้ หากเรื่องนี้เปลี่ยนไป เราจะอัปเดตหน้านี้ก่อน เพื่อระบุว่าใช้ผู้ให้บริการรายใดและเก็บข้อมูลอะไรบ้าง",
+      },
+      {
+        heading: "การเปลี่ยนแปลงนโยบาย",
+        body: "ถ้าสิ่งที่เว็บไซต์ทำกับข้อมูลเปลี่ยนไป หน้านี้จะเปลี่ยนตาม และวันที่ด้านบนจะถูกอัปเดต",
+      },
+    ],
+    contactHeading: "มีคำถาม",
+    contactBody:
+      "เว็บไซต์นี้ไม่มีที่อยู่ติดต่อแยกต่างหาก เรื่องที่เกี่ยวกับร้านใดร้านหนึ่งโดยเฉพาะ — รวมถึงการขอแก้ไขหรือขอให้นำข้อมูลออก — กรุณาใช้แบบฟอร์ม \"แจ้งข้อมูลผิดพลาด\" ที่ด้านล่างของหน้าร้านนั้น เรื่องอื่น ๆ รวมถึงคำถามเกี่ยวกับนโยบายนี้ กรุณาใช้แบบฟอร์มติดต่อลงโฆษณา ซึ่งไปถึงคนเดียวกัน",
+    contactCta: "เปิดแบบฟอร์มติดต่อ",
+  },
+  terms: {
+    title: "ข้อกำหนดการใช้งาน",
+    updated: "อัปเดตล่าสุด: 20 สิงหาคม 2026",
+    intro:
+      "ข้อกำหนดเหล่านี้ใช้กับการใช้งาน chillanel.com การใช้งานเว็บไซต์ถือว่าคุณยอมรับข้อกำหนดนี้ ถ้าคุณไม่ยอมรับ กรุณาอย่าใช้งานเว็บไซต์",
+    sections: [
+      {
+        heading: "chillanel คืออะไร",
+        body: "chillanel คือคู่มืออิสระสำหรับร้านนวดและสปาในประเทศไทย เราไม่มีส่วนเกี่ยวข้อง ไม่ได้ถูกถือครอง และไม่ได้รับเงินจากร้านใดที่แสดงอยู่ที่นี่ ไม่มีการจ่ายเงินเพื่อขึ้นอันดับและไม่มีอันดับสปอนเซอร์ — ร้านไม่สามารถซื้อตำแหน่งที่สูงขึ้นในรายการได้",
+      },
+      {
+        heading: "chillanel ไม่ใช่อะไร",
+        body: "ที่นี่ไม่ใช่แพลตฟอร์มจองคิวและไม่ใช่ตัวแทน เราไม่รับจอง ไม่รับชำระเงิน และไม่ได้เป็นคู่สัญญาในสิ่งที่คุณตกลงกับทางร้าน ข้อมูลติดต่อและลิงก์แผนที่มีไว้ให้คุณติดต่อร้านโดยตรง เรื่องที่เกิดขึ้นระหว่างคุณกับร้านเป็นเรื่องระหว่างคุณกับร้าน",
+      },
+      {
+        heading: "ความถูกต้องของข้อมูล",
+        body: "รายชื่อร้านสร้างจากข้อมูล Google Maps สาธารณะที่เก็บรวบรวมไว้ก่อนเผยแพร่เว็บไซต์ สิ่งที่คุณเห็นจึงเป็นภาพนิ่ง ณ ช่วงเวลาหนึ่ง ไม่ใช่ข้อมูลสด ร้านปิดตัว ย้ายที่ เปลี่ยนเวลาทำการ และเปลี่ยนราคาได้ หน้าเว็บที่นี่จึงอาจล้าสมัยโดยที่เราไม่รู้ กรุณาถือทุกอย่างที่อ่านที่นี่เป็นจุดตั้งต้น และยืนยันรายละเอียดกับทางร้านก่อนเดินทางหรือจอง เว็บไซต์นี้ให้บริการตามสภาพที่เป็นอยู่ โดยไม่รับประกันว่าข้อมูลของร้านใดเป็นปัจจุบัน ครบถ้วน หรือถูกต้อง",
+      },
+      {
+        heading: "รีวิวและแท็กบรรยากาศ",
+        body: "ข้อความรีวิวยกมาจากรีวิว Google สาธารณะและเป็นของผู้ที่เขียนไว้ — เป็นความเห็นของเขา ไม่ใช่ของเรา และเราไม่ได้แก้ไข แท็กบรรยากาศและบริการในแต่ละหน้าถูกดึงออกมาจากข้อความรีวิวโดยอัตโนมัติด้วยซอฟต์แวร์ การดึงอัตโนมัติอาจตีความรีวิวผิดได้ จึงควรอ่านแท็กเหล่านี้เป็นบทสรุปว่ารีวิวมักพูดถึงอะไร ไม่ใช่ข้อเท็จจริงที่ผ่านการตรวจสอบเกี่ยวกับร้าน",
+      },
+      {
+        heading: "เกี่ยวกับคะแนนความน่าเชื่อถือ",
+        body: "คะแนนความน่าเชื่อถือเป็นการคำนวณของเราเองจากคะแนน Google จำนวนรีวิวที่รองรับคะแนนนั้น และปริมาณรายละเอียดที่ผู้รีวิวให้ไว้ มันคือการอ่านหลักฐานสาธารณะที่มีอยู่ของร้านหนึ่ง ไม่ใช่การตรวจสอบหน้างาน ไม่ใช่การรับรอง และไม่ใช่การแนะนำ คะแนนสูงไม่ได้แปลว่าเราไปเยี่ยมหรือตรวจสอบร้านนั้นมาแล้ว และคะแนนต่ำก็ไม่ใช่การกล่าวหา",
+      },
+      {
+        heading: "ข้อมูลราคา",
+        body: "ตัวเลขราคาที่แสดงคือจำนวนเงินที่ถูกพูดถึงในข้อความรีวิว ไม่ใช่ราคาที่ทางร้านเสนอ อาจเป็นราคาเก่า อาจเป็นคนละบริการกับที่คุณต้องการ และไม่มีผลผูกพันกับใครทั้งสิ้น กรุณาสอบถามราคาปัจจุบันกับทางร้านโดยตรง",
+      },
+      {
+        heading: "การใช้งานอย่างเหมาะสม",
+        body: "กรุณาใช้ chillanel อย่างผู้เข้าชมทั่วไป อย่าคัดลอกหรือดึงข้อมูลรายชื่อร้านจำนวนมากจากเว็บไซต์ อย่าใช้แบบฟอร์มส่งสแปมหรือข้อความที่ไม่เหมาะสม และอย่าพยายามรบกวนการทำงานของเว็บไซต์หรือหลบเลี่ยงการจำกัดจำนวนการส่งแบบฟอร์ม",
+      },
+      {
+        heading: "เนื้อหาและสิทธิ์",
+        body: "การออกแบบเว็บไซต์ ข้อความที่เราเขียนเอง การจัดกลุ่มหมวดหมู่และบรรยากาศ รวมถึงวิธีคำนวณคะแนนความน่าเชื่อถือ เป็นของ chillanel ชื่อร้าน ที่อยู่ คะแนน และข้อความรีวิว เป็นของเจ้าของสิทธิ์แต่ละราย และแสดงที่นี่ในฐานะข้อมูลสาธารณะเกี่ยวกับธุรกิจเหล่านั้น Google และ Google Maps เป็นเครื่องหมายการค้าของ Google LLC ส่วนข้อมูลแผนที่เป็นลิขสิทธิ์ของผู้ร่วมสร้าง OpenStreetMap",
+      },
+      {
+        heading: "การขอแก้ไขและนำข้อมูลออก",
+        body: "ทุกหน้าร้านมีแบบฟอร์ม \"แจ้งข้อมูลผิดพลาด\" ใช้แจ้งเราได้เลยว่าร้านปิดแล้ว ข้อมูลผิด เป็นรายการซ้ำ หรือมีบางอย่างที่ควรถูกนำออก แบบฟอร์มนี้ส่งถึงเราโดยตรงและเป็นวิธีที่เร็วที่สุดในการแก้หน้านั้น",
+      },
+      {
+        heading: "การติดต่อลงโฆษณา",
+        body: "เจ้าของร้านที่อยากให้คนเห็นมากขึ้นสามารถใช้แบบฟอร์มติดต่อลงโฆษณาได้ แต่ขอให้ชัดเจนว่า การติดต่อเข้ามาไม่ได้ทำให้อันดับของร้านหรือคะแนนความน่าเชื่อถือเปลี่ยนไป สองอย่างนี้ไม่ได้มีไว้ขาย",
+      },
+      {
+        heading: "การเปลี่ยนแปลงข้อกำหนด",
+        body: "ข้อกำหนดอาจเปลี่ยนไปตามการเปลี่ยนแปลงของเว็บไซต์ ฉบับปัจจุบันคือฉบับที่อยู่ในหน้านี้เสมอ พร้อมวันที่กำกับไว้ด้านบน",
+      },
+    ],
+    contactHeading: "มีคำถาม",
+    contactBody:
+      "เรื่องที่เกี่ยวกับร้านใดร้านหนึ่งโดยเฉพาะ กรุณาใช้แบบฟอร์ม \"แจ้งข้อมูลผิดพลาด\" ในหน้าของร้านนั้น เรื่องอื่น ๆ รวมถึงคำถามเกี่ยวกับข้อกำหนดนี้ กรุณาใช้แบบฟอร์มติดต่อลงโฆษณา ทั้งสองแบบฟอร์มไปถึงคนเดียวกัน",
+    contactCta: "เปิดแบบฟอร์มติดต่อ",
   },
   footer: {
     rights: "คู่มืออิสระ ไม่มีส่วนเกี่ยวข้องกับร้านใด ๆ",
@@ -1101,6 +1350,118 @@ const ko: Dict = {
     trustScoreTitle: "신뢰 점수는 어떻게 계산되나요",
     trustScoreBody:
       "모든 업체는 검증 가능한 3가지 요소로 만든 0-100 신뢰 점수를 받아요. 절반은 구글 평점 자체에서 나오고(50점), 3분의 1 조금 넘게는 그 평점을 뒷받침하는 리뷰 수에서 나오는데 로그 스케일로 계산해서 리뷰 하나가 급증한다고 결과가 왜곡되지 않게 했어요(35점). 나머지는 리뷰에서 실제로 언급된 서로 다른 요소들 — 서비스 스타일, 분위기, 청결도 등 — 의 개수에서 나와요, 최대 15점이에요. 리뷰에 별점 말고 다른 디테일이 없는 곳은 이 마지막 부분에서 낮은 점수를 받는데, 이건 페널티가 아니라 저희가 검증할 수 있었던 만큼만 정직하게 반영한 거예요.",
+  },
+  privacy: {
+    title: "개인정보 처리방침",
+    updated: "최종 수정일: 2026년 8월 20일",
+    intro:
+      "chillanel은 태국 마사지·스파 업체를 소개하는 독립 가이드로, chillanel.com에서 운영됩니다. 이 페이지는 사이트를 이용하실 때 정보가 어떻게 다뤄지는지 설명해요. 저희가 데이터로 하는 일이 거의 없어서 내용도 짧습니다.",
+    sections: [
+      {
+        heading: "계정도, 회원 데이터베이스도 없어요",
+        body: "chillanel에는 회원가입도 로그인도 없고, 이용자 프로필도 없습니다. 누구인지 밝히지 않고도 모든 페이지를 보고, 검색하고, 모든 기능을 쓸 수 있어요. 방문자 정보를 담은 데이터베이스 자체를 운영하지 않습니다.",
+      },
+      {
+        heading: "브라우저 안에만 남는 것",
+        body: "저장한 즐겨찾기, 비교 목록, 최근 본 업체는 여러분 기기의 브라우저 localStorage에 \"chillanel:\"로 시작하는 키로 저장됩니다. 저희에게도, 다른 어디에도 전송되지 않아요 — 사용하신 그 기기에만 존재합니다. 브라우저에서 chillanel.com의 사이트 데이터를 지우면 완전히 사라지고, 저희에게는 복구해 드릴 사본이 없습니다.",
+      },
+      {
+        heading: "양식으로 보내주시는 정보",
+        body: "이 사이트에는 양식이 두 개뿐이고, 정보가 저희에게 닿는 경로도 그 둘뿐이에요. 광고 문의 양식은 이름, 원하시는 연락처, 문의 내용을 받습니다. 업체 페이지의 \"정보 오류 제보\" 양식은 어느 업체에 대한 제보인지, 문제 유형, 적어주신 상세 내용, 그리고 선택 사항으로 연락처를 보냅니다. 두 양식 모두 텔레그램 봇 API를 통해 운영자의 비공개 텔레그램 대화방으로 메시지가 전달되며, 이 사이트의 데이터베이스에는 저장되지 않아요. 연락처는 보내도 괜찮다고 생각하시는 것만 적어 주세요.",
+      },
+      {
+        heading: "IP 주소",
+        body: "양식을 제출하면 서버가 요청이 들어온 IP 주소를 잠깐 읽는데, 용도는 단 하나 — 같은 주소에서 10분 안에 5건을 넘겨 제출하지 못하게 막는 요청 제한입니다. 누군가 양식을 무차별로 보내는 것을 막기 위한 것이에요. 이 횟수는 실행 중인 서버 프로세스의 메모리에만 있고 프로세스가 멈추면 사라집니다. 데이터베이스에 기록하지 않고, 로그 파일에도 남기지 않으며, 텔레그램으로 전달되는 메시지에도 포함하지 않아요. 사이트를 그냥 둘러보는 것만으로는 이 과정이 전혀 일어나지 않습니다.",
+      },
+      {
+        heading: "분석 도구",
+        body: "어떤 페이지가 많이 열리고 얼마나 빨리 로드되는지 보기 위해 Vercel Web Analytics와 Vercel Speed Insights를 사용합니다. 둘 다 쿠키를 쓰지 않고 집계된 수치만 보고해요 — 페이지 조회 수, 유입 경로, 로딩 시간 정도입니다. 쿠키를 심지 않고, 다른 사이트까지 따라다니지 않으며, 개인별 프로필을 만들지 않습니다.",
+      },
+      {
+        heading: "쿠키",
+        body: "chillanel은 자체 쿠키를 전혀 설정하지 않습니다. 쿠키 동의 배너가 없는 것도 그 때문이에요.",
+      },
+      {
+        heading: "지도",
+        body: "업체와 도시 지도는 OpenStreetMap의 지도 타일로 그립니다. 지도가 로드될 때 브라우저가 OpenStreetMap 서버에 타일을 직접 요청하기 때문에, 다른 웹사이트를 방문할 때와 마찬가지로 IP 주소가 그쪽에 보이게 돼요. 그 요청에는 OpenStreetMap의 자체 정책이 적용되며, 저희는 그로부터 아무것도 돌려받지 않습니다.",
+      },
+      {
+        heading: "호스팅",
+        body: "이 사이트는 Vercel에 호스팅되어 있습니다. 다른 웹 호스트와 마찬가지로, 이 페이지들을 전달하는 요청은 Vercel의 인프라를 거칩니다.",
+      },
+      {
+        heading: "업체 정보의 출처",
+        body: "여기 수록된 모든 업체는 실제 공개 구글맵 데이터에서 옵니다: 이름, 주소, 평점, 리뷰. 리뷰 본문과 작성자가 구글에서 공개로 쓰던 표시 이름은 게시된 그대로 보여드리며, 저희가 쓰거나 편집하거나 지어내지 않아요. 리뷰 작성자나 업체 관계자로서 페이지의 내용을 수정하거나 내리고 싶으시면, 해당 업체 페이지의 \"정보 오류 제보\" 양식으로 어느 항목인지 알려주세요.",
+      },
+      {
+        heading: "광고",
+        body: "chillanel은 현재 제3자 광고를 게재하지 않으며, 광고나 광고 네트워크 스크립트를 전혀 불러오지 않습니다. 이 점이 바뀐다면 어떤 사업자를 쓰고 무엇을 수집하는지 이 페이지에 먼저 밝히겠습니다.",
+      },
+      {
+        heading: "방침 변경",
+        body: "사이트가 데이터를 다루는 방식이 바뀌면 이 페이지도 함께 바뀌고, 상단의 날짜를 갱신합니다.",
+      },
+    ],
+    contactHeading: "문의",
+    contactBody:
+      "이 사이트에는 별도의 연락용 주소가 없어요. 특정 업체에 관한 일 — 정보 수정이나 삭제 요청을 포함해서 — 은 해당 업체 페이지 아래쪽의 \"정보 오류 제보\" 양식을 이용해 주세요. 이 방침에 대한 질문을 포함한 그 밖의 용건은 광고 문의 양식으로 보내주시면 같은 사람에게 전달됩니다.",
+    contactCta: "문의 양식 열기",
+  },
+  terms: {
+    title: "이용약관",
+    updated: "최종 수정일: 2026년 8월 20일",
+    intro:
+      "이 약관은 chillanel.com 이용에 적용됩니다. 사이트를 이용하시면 약관에 동의하신 것으로 봅니다. 동의하지 않으신다면 이용을 삼가 주세요.",
+    sections: [
+      {
+        heading: "chillanel은 어떤 곳인가요",
+        body: "chillanel은 태국 마사지·스파 업체를 소개하는 독립 가이드입니다. 여기 실린 어떤 업체와도 제휴 관계가 없고, 소유 관계도 없으며, 대가를 받지도 않아요. 돈을 받고 자리를 파는 유료 노출도, 스폰서 순위도 없습니다 — 돈으로 목록 위쪽에 올라갈 수 없어요.",
+      },
+      {
+        heading: "chillanel이 아닌 것",
+        body: "예약 플랫폼도 아니고 중개인도 아닙니다. 예약을 받지 않고, 결제를 처리하지 않으며, 여러분이 업체와 정하는 일에 당사자로 끼지 않아요. 연락처와 지도 링크는 업체와 직접 소통하시라고 제공하는 것이고, 여러분과 업체 사이의 일은 두 분 사이의 일입니다.",
+      },
+      {
+        heading: "정보의 정확성",
+        body: "목록은 사이트를 배포하기 전에 수집한 공개 구글맵 데이터로 만들어집니다. 즉 보고 계신 것은 실시간 정보가 아니라 특정 시점의 스냅숏이에요. 업체는 문을 닫기도 하고, 자리를 옮기고, 영업시간과 가격을 바꾸기도 하는데 저희가 모르는 사이에 페이지가 낡을 수 있습니다. 여기 적힌 내용은 출발점으로만 보시고, 이동하거나 예약하기 전에 업체에 직접 확인해 주세요. 이 사이트는 있는 그대로 제공되며, 개별 항목이 최신이거나 완전하거나 정확하다고 보장하지 않습니다.",
+      },
+      {
+        heading: "리뷰와 분위기 키워드",
+        body: "리뷰 본문은 공개된 구글 리뷰에서 인용한 것으로, 그 글을 쓴 분들의 것입니다 — 저희 의견이 아니고 저희가 손대지도 않아요. 각 페이지의 분위기·서비스 키워드는 그 리뷰 본문에서 소프트웨어가 자동으로 뽑아낸 것입니다. 자동 추출은 리뷰를 잘못 읽을 수 있으니, 키워드는 업체에 대해 검증된 사실이 아니라 리뷰에서 자주 언급된 내용의 요약으로 받아들여 주세요.",
+      },
+      {
+        heading: "신뢰 점수에 대하여",
+        body: "신뢰 점수는 구글 평점, 그 평점을 뒷받침하는 리뷰 수, 리뷰에 담긴 디테일의 양을 저희가 직접 계산한 값입니다. 어떤 업체에 대해 공개적으로 확인할 수 있는 근거를 읽어낸 수치일 뿐, 실사도 인증도 추천도 아니에요. 점수가 높다고 저희가 방문했거나 검증했다는 뜻이 아니고, 낮다고 해서 문제가 있다는 지적도 아닙니다.",
+      },
+      {
+        heading: "가격 정보",
+        body: "표시되는 가격은 업체가 제시한 견적이 아니라 리뷰 본문에서 언급된 금액입니다. 오래된 금액일 수도 있고, 원하시는 것과 다른 서비스의 가격일 수도 있으며, 누구에게도 구속력이 없어요. 현재 가격은 업체에 직접 물어봐 주세요.",
+      },
+      {
+        heading: "이용 시 지켜주실 것",
+        body: "평범한 방문자처럼 이용해 주세요. 사이트의 목록을 대량으로 복사하거나 크롤링하지 말아 주시고, 양식으로 스팸이나 악의적인 내용을 보내지 말아 주시고, 사이트를 방해하거나 양식의 제출 제한을 우회하려 하지 말아 주세요.",
+      },
+      {
+        heading: "콘텐츠와 권리",
+        body: "사이트의 디자인, 저희가 직접 쓴 문구, 분류와 분위기 묶음, 신뢰 점수 계산 방식은 chillanel의 것입니다. 업체명, 주소, 평점, 리뷰 본문은 각 권리자에게 속하며 해당 업체에 관한 공개 정보로서 이곳에 표시됩니다. Google과 Google Maps는 Google LLC의 상표이고, 지도 데이터의 저작권은 © OpenStreetMap 기여자에게 있습니다.",
+      },
+      {
+        heading: "수정과 삭제 요청",
+        body: "모든 업체 페이지에는 \"정보 오류 제보\" 양식이 있습니다. 폐업했다거나, 정보가 틀렸다거나, 중복 등록이라거나, 무언가를 내려달라는 이야기를 이 양식으로 알려주세요. 저희에게 바로 전달되고, 페이지를 고치는 가장 빠른 방법입니다.",
+      },
+      {
+        heading: "광고 문의",
+        body: "노출을 늘리고 싶은 업체 사장님은 광고 문의 양식을 이용하실 수 있습니다. 다만 분명히 해두자면, 문의를 주셨다고 해서 업체의 순위나 신뢰 점수가 달라지지는 않습니다. 그 둘은 판매 대상이 아니에요.",
+      },
+      {
+        heading: "약관 변경",
+        body: "사이트가 바뀌면 약관도 바뀔 수 있습니다. 언제나 이 페이지에 있는 것이 현재 버전이고, 상단에 날짜가 적혀 있습니다.",
+      },
+    ],
+    contactHeading: "문의",
+    contactBody:
+      "특정 업체에 관한 일은 해당 업체 페이지의 \"정보 오류 제보\" 양식을, 이 약관에 대한 질문을 포함한 그 밖의 용건은 광고 문의 양식을 이용해 주세요. 두 양식 모두 같은 사람에게 전달됩니다.",
+    contactCta: "문의 양식 열기",
   },
   footer: {
     rights: "독립 가이드입니다. 특정 업체와 제휴 관계가 없습니다.",
