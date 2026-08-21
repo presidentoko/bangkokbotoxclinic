@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { isRealEstateSlug } from "@/lib/estates";
+import { Photo } from "@/components/Photo";
 import { loadMasterDb } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
@@ -12,7 +14,7 @@ export async function generateStaticParams() {
   const db = await loadMasterDb();
   const slugs = new Set<string>();
   for (const s of db.suppliers) {
-    if (s.estate_slug) slugs.add(s.estate_slug);
+    if (isRealEstateSlug(s.estate_slug)) slugs.add(s.estate_slug!);
   }
   return Array.from(slugs).map((slug) => ({ slug }));
 }
@@ -26,7 +28,10 @@ export async function generateMetadata(
   if (matches.length === 0) return { title: "Estate not found" };
   const name = matches[0].estate_name || slug;
   return {
-    title: `Suppliers in ${name} Industrial Estate — Thai Supply Hub`,
+    // layout.tsx 의 title.template 이 "| Thai Supply Hub" 를 자동으로 붙인다.
+    // 여기서 또 적으면 "… — Thai Supply Hub | Thai Supply Hub" 가 되고,
+    // 이름이 "Industrial Estate" 인 슬러그에서는 그 단어까지 두 번 나왔다.
+    title: `Suppliers in ${name} Industrial Estate`,
     description: `${matches.length} verified Thai manufacturers and B2B suppliers based in ${name} industrial estate. Capital, registered date, TSIC codes — sourced from official DBD registry.`,
     alternates: { canonical: `/estate/${slug}` },
     robots: matches.length < 3 ? { index: false, follow: true } : { index: true, follow: true },
@@ -47,7 +52,7 @@ export default async function EstatePage(
   const { slug } = await params;
   const db = await loadMasterDb();
   const tenants = db.suppliers.filter((s) => s.estate_slug === slug);
-  if (tenants.length === 0) notFound();
+  if (tenants.length === 0 || !isRealEstateSlug(slug)) notFound();
 
   const name = tenants[0].estate_name || slug;
   const verifiedTenants = tenants.filter((s) => s.verified);
@@ -116,9 +121,8 @@ export default async function EstatePage(
                className="group block bg-white border border-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-emerald-300 hover:-translate-y-0.5 transition">
               {s.hero_image && (
                 <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={photoUrl(s.hero_image)} alt={s.name} loading="lazy" referrerPolicy="no-referrer"
-                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                  <Photo src={photoUrl(s.hero_image)} alt={s.name}
+                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
                   {s.verified && (
                     <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider">
                       ✓ Verified

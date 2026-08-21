@@ -4,6 +4,7 @@ import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 import { RfqForm } from "@/components/RfqForm";
+import { SupplierVerifiedCTA } from "@/components/SupplierVerifiedCTA";
 
 export const metadata: Metadata = {
   title: "공급사 등록 및 노출 — 한국 buyer 채널",
@@ -62,7 +63,7 @@ export default async function KoForSuppliersPage() {
           bullets={[
             "관련 리스트 최상단 + 금색 배지",
             "특정 지역 × 카테고리에 핀 가능",
-            "일반 대비 클릭률 평균 3-5배",
+            "슬롯 성과는 매월 애널리틱스 기준으로 리포트",
             "월 단위 해지 가능",
           ]}
           accent="#ca8a04"
@@ -104,7 +105,7 @@ export default async function KoForSuppliersPage() {
           bullets={[
             "buyer 카테고리 + 발주량 사전 검증",
             "한국어 / 영어 / 태국어 분리",
-            "이메일 또는 CRM 웹훅 전달",
+            "영업일 기준 1일 이내 이메일 전달",
             "유효 리드만 과금",
           ]}
           accent="#16a34a"
@@ -144,7 +145,11 @@ export default async function KoForSuppliersPage() {
         <p className="text-[var(--muted)] text-sm mb-6">
           회사명과 원하는 티어를 폼으로 보내주세요. 영업일 1일 안에 답변합니다.
         </p>
-        <RfqForm locale="ko" />
+        <SupplierVerifiedCTA locale="ko" />
+
+        <div className="mt-8">
+          <RfqForm locale="ko" />
+        </div>
       </section>
 
       <BreadcrumbJsonLd items={[

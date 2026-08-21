@@ -4,6 +4,7 @@ import { getSiteConfig } from "@/lib/site";
 import type { Metadata } from "next";
 
 import { RfqForm } from "@/components/RfqForm";
+import { SupplierVerifiedCTA } from "@/components/SupplierVerifiedCTA";
 
 export const metadata: Metadata = {
   title: "สำหรับซัพพลายเออร์ — ลงประกาศพิเศษและรับลีด",
@@ -55,7 +56,11 @@ export default async function ThForSuppliersPage() {
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-4">เริ่มต้น</h2>
         <p className="text-[var(--muted)] text-sm mb-6">กรอกแบบฟอร์มพร้อมชื่อบริษัทและระดับที่ต้องการ — ตอบกลับภายใน 1 วันทำการ</p>
-        <RfqForm locale="th" />
+        <SupplierVerifiedCTA locale="th" />
+
+        <div className="mt-8">
+          <RfqForm locale="th" />
+        </div>
       </section>
 
       <BreadcrumbJsonLd items={[

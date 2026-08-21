@@ -12,10 +12,17 @@ import { computeTrustScore } from "@/lib/trustScore";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+// 숫자를 하드코딩하지 않는다. 예전 설명문은 "검증 849 + B2B 3,300" 이었는데
+// 실제 데이터는 851 / 8,087 이었다 — 이 문자열이 그대로 태국어 SERP 스니펫으로
+// 나가므로, 데이터가 늘 때마다 검색결과가 거짓말을 하게 된다.
+export async function generateMetadata(): Promise<Metadata> {
+  const db = await loadMasterDb();
+  const verified = db.verified_count ?? 0;
+  const rest = db.total_suppliers - verified;
+  return {
   title: "ไดเรกทอรีผู้ผลิตและนิคมอุตสาหกรรมไทย — ติดต่อตรง",
   description:
-    "ไดเรกทอรีผู้ผลิต 849 รายที่ผ่านการตรวจสอบกับกรมพัฒนาธุรกิจการค้า (DBD) + ซัพพลายเออร์ B2B 3,300+ ราย ทุนจดทะเบียน วันก่อตั้ง รหัส TSIC — ติดต่อโดยตรง ไม่ผ่านนายหน้า",
+    `ไดเรกทอรีผู้ผลิต ${verified.toLocaleString()} รายที่ผ่านการตรวจสอบกับกรมพัฒนาธุรกิจการค้า (DBD) + ซัพพลายเออร์ B2B อีก ${rest.toLocaleString()} ราย ทุนจดทะเบียน วันก่อตั้ง รหัส TSIC — ติดต่อโดยตรง ไม่ผ่านนายหน้า`,
   alternates: {
     canonical: "/th",
     languages: {
@@ -26,7 +33,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: { locale: "th_TH" },
-};
+  };
+}
 
 const TH_FAQS = [
   {
@@ -91,15 +99,15 @@ export default async function ThHomePage() {
             <span className="text-emerald-700">ไม่ผ่านนายหน้า.</span>
           </h1>
           <p className="text-base md:text-lg text-[var(--muted)] mb-7 max-w-2xl mx-auto text-balance">
-            ผู้ผลิต <b>{db.total_suppliers.toLocaleString()}</b> แห่ง · เปิดเผยเว็บไซต์ <b>{withWebsite.toLocaleString()}</b> ราย · ผู้ผลิตชิ้นส่วนยานยนต์ 73 ราย, นิคมอุตสาหกรรม 8 แห่ง, คลังสินค้า 55 แห่ง. ข้อมูลทั้งหมดจาก Google Maps Business Profile สาธารณะ ไม่มีค่านายหน้า ไม่มีรีวิวที่จ่ายเงิน
+            ผู้ผลิต <b>{db.total_suppliers.toLocaleString()}</b> แห่ง · เปิดเผยเว็บไซต์ <b>{withWebsite.toLocaleString()}</b> ราย · ผู้ผลิตชิ้นส่วนยานยนต์ <b>{(db.category_counts.auto_parts ?? 0).toLocaleString()}</b> ราย, นิคมอุตสาหกรรม <b>{(db.category_counts.industrial_estate ?? 0).toLocaleString()}</b> แห่ง, คลังสินค้า <b>{(db.category_counts.warehouse ?? 0).toLocaleString()}</b> แห่ง. ข้อมูลทั้งหมดจาก Google Maps Business Profile สาธารณะ ไม่มีค่านายหน้า ไม่มีรีวิวที่จ่ายเงิน
           </p>
           <LazyHeroSearch
-            hrefBase="/course"
+            hrefBase="/supplier"
             popularSearches={[
-              { label: "ผู้ผลิต", href: "/c/manufacturer" },
-              { label: "นิคมอุตสาหกรรม", href: "/c/industrial_estate" },
-              { label: "คลังสินค้า", href: "/c/warehouse" },
-              { label: "ชลบุรี", href: "/city/chon_buri" },
+              { label: "ผู้ผลิต", href: "/th/c/manufacturer" },
+              { label: "นิคมอุตสาหกรรม", href: "/th/c/industrial_estate" },
+              { label: "คลังสินค้า", href: "/th/c/warehouse" },
+              { label: "ชลบุรี", href: "/th/city/chon_buri" },
             ]}
             popularLabel="ค้นหายอดนิยม"
             searchLang="th"
@@ -126,7 +134,7 @@ export default async function ThHomePage() {
                   Pinthong / Amata / WHA / Rojana — เปรียบเทียบนิคมที่เหมาะกับธุรกิจ จัดอันดับด้วย Trust Score
                 </p>
               </div>
-              <a href="/c/industrial_estate" className="text-sm font-bold hover:text-emerald-700 hover:underline">ดูทั้งหมด →</a>
+              <a href="/th/c/industrial_estate" className="text-sm font-bold hover:text-emerald-700 hover:underline">ดูทั้งหมด →</a>
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {estatesTop.map((r, i) => (

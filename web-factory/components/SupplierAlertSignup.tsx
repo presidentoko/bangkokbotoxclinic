@@ -13,6 +13,9 @@ type Status = "idle" | "submitting" | "done" | "error";
 export function SupplierAlertSignup({ category, city, compact = false }: Props) {
   const [status, setStatus] = useState<Status>("idle");
   const [email, setEmail] = useState("");
+  // 허니팟. 이 폼은 FormData 를 form 엘리먼트가 아니라 손으로 만들기 때문에
+  // 숨김 input 을 그냥 두면 전송조차 안 된다 — 상태로 들고 있다가 실어 보낸다.
+  const [trap, setTrap] = useState("");
 
   const context = [category, city].filter(Boolean).join(" · ") || "Thailand";
 
@@ -24,7 +27,16 @@ export function SupplierAlertSignup({ category, city, compact = false }: Props) 
     const fd = new FormData();
     fd.set("name", "Alert subscriber");
     fd.set("email", email);
-    fd.set("message", `🔔 New supplier alert signup\nCategory: ${category || "any"}\nCity: ${city || "any"}`);
+    // 이 신청은 어디에도 저장되지 않는다 — 텔레그램 알림 한 통이 전부다.
+    // 그래서 본문에 "수동으로 리스트에 추가" 라고 명시해 둔다. 자동 발송
+    // 수단이 생기기 전까지는 이 메시지가 곧 구독자 명단이다.
+    fd.set(
+      "message",
+      `🔔 ALERT SIGNUP — add to mailing list manually\n` +
+      `Category: ${category || "any"}\nCity: ${city || "any"}`,
+    );
+    fd.set("_gotcha", trap);
+    fd.set("_locale", "en");
 
     try {
       const res = await fetch("/api/inquiry", { method: "POST", body: fd });
@@ -57,6 +69,7 @@ export function SupplierAlertSignup({ category, city, compact = false }: Props) 
           placeholder="your@email.com"
           className="flex-1 min-w-[160px] px-3 py-1.5 rounded-lg border border-stone-300 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100"
         />
+        <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" value={trap} onChange={(e) => setTrap(e.target.value)} className="absolute left-[-9999px] w-px h-px opacity-0" />
         <button
           type="submit"
           disabled={status === "submitting"}
@@ -89,6 +102,7 @@ export function SupplierAlertSignup({ category, city, compact = false }: Props) 
               placeholder="your@email.com"
               className="flex-1 px-3 py-2 rounded-lg border border-stone-300 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100"
             />
+            <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" value={trap} onChange={(e) => setTrap(e.target.value)} className="absolute left-[-9999px] w-px h-px opacity-0" />
             <button
               type="submit"
               disabled={status === "submitting"}

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics, AdSenseLoader } from "@/components/Analytics";
 import "./globals.css";
 import { OrgJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 import { getSiteConfig } from "@/lib/site";
@@ -66,6 +67,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Analytics />
+        <AdSenseLoader />
         <OrgJsonLd />
         <WebsiteJsonLd />
         <header className="border-b border-[var(--border)] bg-white sticky top-0 z-30 shadow-sm">
@@ -131,6 +134,8 @@ export default function RootLayout({
                   <li><a href="/compare" className="hover:text-black">Compare Suppliers</a></li>
                   <li><a href="/favorites" className="hover:text-black">Saved Suppliers</a></li>
                   <li><a href="/trust-score" className="hover:text-black">Trust Score Methodology</a></li>
+                  <li><a href="/privacy" className="hover:text-black">Privacy</a></li>
+                  <li><a href="/terms" className="hover:text-black">Terms &amp; Ad Policy</a></li>
                   <li><a href="/sitemap.xml" className="hover:text-black">Sitemap</a></li>
                   <li className="pt-1.5 mt-1.5 border-t border-[var(--border)]/60">
                     <a href="/" className="text-xs hover:text-black mr-2">EN</a>

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isRealEstateSlug } from "@/lib/estates";
 import { loadMasterDb } from "@/lib/data";
 import { districtsForBuild, suppliersInDistrict } from "@/lib/districts";
 import { BEST_FOR } from "@/lib/bestFor";
@@ -39,6 +40,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/ko/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.55 },
     { url: `${SITE}/th/about`, lastModified: updated, changeFrequency: "monthly", priority: 0.55 },
     { url: `${SITE}/contact`, lastModified: updated, changeFrequency: "monthly", priority: 0.5 },
+    // 광고주·광고 네트워크가 계약 전에 확인하는 페이지다. 색인되어 있어야
+    // "이 사이트는 정책이 있는 곳" 으로 읽힌다.
+    { url: `${SITE}/privacy`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE}/terms`, lastModified: updated, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE}/for-suppliers`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/ko/for-suppliers`, lastModified: updated, changeFrequency: "monthly", priority: 0.65 },
     { url: `${SITE}/th/for-suppliers`, lastModified: updated, changeFrequency: "monthly", priority: 0.65 },
@@ -106,7 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Industrial estate index + 페이지별 — DBD-verified 차별화 surface
   items.push({ url: `${SITE}/estate`, lastModified: updated, changeFrequency: "weekly", priority: 0.85 });
   const estateSlugs = new Set<string>();
-  for (const s of db.suppliers) if (s.estate_slug) estateSlugs.add(s.estate_slug);
+  for (const s of db.suppliers) if (isRealEstateSlug(s.estate_slug)) estateSlugs.add(s.estate_slug!);
   for (const slug of estateSlugs) {
     items.push({ url: `${SITE}/estate/${slug}`, lastModified: updated, changeFrequency: "weekly", priority: 0.8 });
   }

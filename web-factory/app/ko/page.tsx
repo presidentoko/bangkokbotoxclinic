@@ -12,10 +12,16 @@ import { computeTrustScore } from "@/lib/trustScore";
 import { citySlugFromDisplay } from "@/lib/cityNorm";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+// 숫자는 데이터에서 읽는다 — 하드코딩된 "849 / 3,300" 이 실제 851 / 8,087 과
+// 어긋난 채 한국어 SERP 스니펫으로 나가고 있었다.
+export async function generateMetadata(): Promise<Metadata> {
+  const db = await loadMasterDb();
+  const verified = db.verified_count ?? 0;
+  const rest = db.total_suppliers - verified;
+  return {
   title: "태국 공급사 디렉토리 — DBD 등기 검증 + 에이전트 마진 빼고 공장 직거래",
   description:
-    "태국 상무부(DBD) 법인 등기 검증된 제조사 849곳 + B2B 공급사 3,300곳. 정식 법인명·등록자본금·설립연도·TSIC 산업코드 공개. Pinthong, Amata, WHA, Rojana 입주 일본계·한국계 OEM 직접 연락처. 소싱 에이전트 15-30% 마진 빼고 시작하세요.",
+    `태국 상무부(DBD) 법인 등기 검증된 제조사 ${verified.toLocaleString()}곳 + B2B 공급사 ${rest.toLocaleString()}곳. 정식 법인명·등록자본금·설립연도·TSIC 산업코드 공개. Pinthong, Amata, WHA, Rojana 입주 일본계·한국계 OEM 직접 연락처. 소싱 에이전트 15-30% 마진 빼고 시작하세요.`,
   alternates: {
     canonical: "/ko",
     languages: {
@@ -26,12 +32,13 @@ export const metadata: Metadata = {
     },
   },
   openGraph: { locale: "ko_KR" },
-};
+  };
+}
 
 const KO_FAQS = [
   {
     q: "DBD 검증 (DBD-verified) 이 뭔가요?",
-    a: "태국 상무부(Department of Business Development, DBD)는 모든 법인의 정식 등기를 관리하는 한국의 등기소+공정위 같은 기관입니다. DBD-verified 라벨이 붙은 공급사 849곳은 DataWarehouse+ 시스템에서 회사명 매칭 신뢰도 80%+로 검증된 곳으로, 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금, 설립일, TSIC 산업분류 코드, 사업목적 텍스트까지 표시됩니다. 알리바바 등 글로벌 마켓플레이스와의 가장 큰 차이는 — 알리바바는 '뱃지를 믿어라' 모델이지만 여기는 등기소 데이터 자체를 보여줍니다. 매칭 신뢰도 90%+는 'DBD Verified' 진한 라벨, 80-89%는 'DBD-listed · Likely match' 톤다운 라벨로 구분합니다.",
+    a: "태국 상무부(Department of Business Development, DBD)는 모든 법인의 정식 등기를 관리하는 한국의 등기소+공정위 같은 기관입니다. DBD-verified 라벨이 붙은 공급사는 DataWarehouse+ 시스템에서 회사명 매칭 신뢰도 80%+로 검증된 곳으로, 정식 법인명(บริษัท ... จำกัด), 13자리 등록번호, 등록자본금, 설립일, TSIC 산업분류 코드, 사업목적 텍스트까지 표시됩니다. 알리바바 등 글로벌 마켓플레이스와의 가장 큰 차이는 — 알리바바는 '뱃지를 믿어라' 모델이지만 여기는 등기소 데이터 자체를 보여줍니다. 매칭 신뢰도 90%+는 'DBD Verified' 진한 라벨, 80-89%는 'DBD-listed · Likely match' 톤다운 라벨로 구분합니다.",
   },
   {
     q: "신뢰도 점수(b2b score)는 어떻게 계산되나요?",
@@ -116,12 +123,12 @@ export default async function KoHomePage() {
             <b>{verifiedCount.toLocaleString()}곳</b>은 태국 <b>상무부(DBD) 법인 등기</b>로 검증 — 정식 법인명·등록번호·등록자본금·설립일·TSIC 산업코드 공개. 추가 <b>{(db.total_suppliers - verifiedCount).toLocaleString()}곳</b>은 매칭 진행 중 B2B 공급사. 소싱 에이전트 15-30% 마크업 빼고 직접 RFQ.
           </p>
           <LazyHeroSearch
-            hrefBase="/course"
+            hrefBase="/supplier"
             popularSearches={[
-              { label: "자동차 부품", href: "/c/auto_parts" },
-              { label: "산업단지", href: "/c/industrial_estate" },
-              { label: "창고", href: "/c/warehouse" },
-              { label: "Chon Buri", href: "/city/chon_buri" },
+              { label: "자동차 부품", href: "/ko/c/auto_parts" },
+              { label: "산업단지", href: "/ko/c/industrial_estate" },
+              { label: "창고", href: "/ko/c/warehouse" },
+              { label: "촌부리", href: "/ko/city/chon_buri" },
             ]}
             popularLabel="인기 검색"
             searchLang="ko"
@@ -149,7 +156,7 @@ export default async function KoHomePage() {
                   Pinthong / Amata / WHA / Rojana — 한국 SME가 태국 진출할 때 가장 먼저 비교하는 4대 산단. 신뢰도 점수 + 입주 규모 기준.
                 </p>
               </div>
-              <a href="/c/industrial_estate" className="text-sm font-bold hover:text-emerald-700 hover:underline">전체 →</a>
+              <a href="/ko/c/industrial_estate" className="text-sm font-bold hover:text-emerald-700 hover:underline">전체 →</a>
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {estatesTop.map((r, i) => (
@@ -176,7 +183,7 @@ export default async function KoHomePage() {
                   AISIN(Toyota 그룹) · AGC Automotive(아사히글래스) · Toyoda Gosei · Mitsubishi Motors Engine — 태국이 일본계 자동차 클러스터의 동남아 본진인 이유.
                 </p>
               </div>
-              <a href="/c/auto_parts" className="text-sm font-bold hover:text-emerald-700 hover:underline">전체 →</a>
+              <a href="/ko/c/auto_parts" className="text-sm font-bold hover:text-emerald-700 hover:underline">전체 →</a>
             </div>
             <div className="grid gap-3">
               {autoPartsTop.map((r, i) => (

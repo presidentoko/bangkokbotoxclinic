@@ -51,6 +51,9 @@ def collect_urls(db: dict) -> list[str]:
         f"{SITE}/about",
         f"{SITE}/contact",
         f"{SITE}/for-suppliers",
+        # 광고주·광고 네트워크가 계약 전 확인하는 페이지 — 빨리 색인되어야 한다.
+        f"{SITE}/privacy",
+        f"{SITE}/terms",
         f"{SITE}/ko/about",
         f"{SITE}/ko/contact",
         f"{SITE}/ko/for-suppliers",

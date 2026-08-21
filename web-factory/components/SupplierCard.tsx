@@ -17,6 +17,7 @@
 // sample_reviews_*, raw_categories, language_breakdown, mentioned_topics), not
 // to move the render to the server.
 import type { Supplier } from "@/lib/types";
+import { isRealEstateSlug } from "@/lib/estates";
 import { CATEGORY_LABELS, CATEGORY_ICONS } from "@/lib/types";
 import { TrustBadge } from "./TrustBadge";
 import { AIVerifiedBadge } from "./Badges";
@@ -132,7 +133,7 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                   ) : null}
                 </p>
               )}
-              {r.estate_name && r.estate_slug && (
+              {r.estate_name && isRealEstateSlug(r.estate_slug) && (
                 <a
                   href={`/estate/${r.estate_slug}`}
                   onClick={(e) => e.stopPropagation()}
@@ -142,13 +143,25 @@ export function SupplierCard({ r, rank }: { r: Supplier; rank?: number }) {
                 </a>
               )}
             </div>
+            {/* 리뷰가 없는 공급사(전체의 33%, 2,939곳)를 "★ 0.0 / 0 reviews" 로
+                그리면 바이어는 "평점 0점" 으로 읽는다 — 아직 평가가 없는 것과
+                최악의 평가를 받은 것은 완전히 다른 뜻이다. 상세 페이지는 이미
+                "no reviews" 로 구분해서 그리고 있었고 카드만 어긋나 있었다. */}
             <div className="text-right shrink-0">
-              <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">
-                ★ {r.rating.toFixed(1)}
-              </div>
-              <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
-                {r.total_reviews.toLocaleString()} reviews
-              </div>
+              {r.total_reviews > 0 && r.rating > 0 ? (
+                <>
+                  <div className="bg-yellow-50 text-yellow-900 px-2.5 py-1 rounded-md text-sm font-bold whitespace-nowrap">
+                    ★ {r.rating.toFixed(1)}
+                  </div>
+                  <div className="text-xs text-[var(--muted)] mt-1 tabular-nums">
+                    {r.total_reviews.toLocaleString()} reviews
+                  </div>
+                </>
+              ) : (
+                <div className="bg-stone-100 text-stone-500 px-2.5 py-1 rounded-md text-xs font-bold whitespace-nowrap">
+                  No reviews yet
+                </div>
+              )}
             </div>
           </div>
         </div>

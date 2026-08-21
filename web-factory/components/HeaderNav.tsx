@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { detectLang, switchLangHref, type Lang } from "@/lib/localeRoutes";
 
 // 헤더 네비 — 모바일 햄버거 + 언어 스위처 통합.
 // 언어 스위처: 현재 path 보존하면서 prefix 만 변경 (/about → /ko/about → /th/about).
@@ -12,44 +13,12 @@ const NAV = [
   { en: "Warehouses",         ko: "창고",            th: "คลังสินค้า",       href: "/c/warehouse",    hrefKo: "/ko/c/warehouse",    hrefTh: "/th/c/warehouse" },
   { en: "Compare",            ko: "비교하기",        th: "เปรียบเทียบ",      href: "/compare",        hrefKo: "/compare",           hrefTh: "/compare" },
   { en: "Guides",             ko: "가이드",          th: "คู่มือ",           href: "/guide",          hrefKo: "/ko/guide",          hrefTh: "/th/guide" },
-  { en: "Blog",               ko: "블로그",          th: "บล็อก",            href: "/blog",           hrefKo: "/blog",              hrefTh: "/blog" },
-  { en: "For Buyers",         ko: "바이어용",        th: "สำหรับผู้ซื้อ",     href: "/for-buyers",     hrefKo: "/for-buyers",        hrefTh: "/for-buyers" },
+  { en: "Blog",               ko: "블로그",          th: "บล็อก",            href: "/blog",           hrefKo: "/ko/blog",           hrefTh: "/th/blog" },
+  { en: "For Buyers",         ko: "바이어용",        th: "สำหรับผู้ซื้อ",     href: "/for-buyers",     hrefKo: "/ko/for-buyers",     hrefTh: "/th/for-buyers" },
   { en: "Best of",            ko: "테마별 추천",     th: "Best of",          href: "/best", hrefKo: "/best", hrefTh: "/best" },
   { en: "Community",          ko: "커뮤니티",        th: "คอมมูนิตี้",        href: "/community",      hrefKo: "/community",         hrefTh: "/community" },
   { en: "About",              ko: "소개",            th: "เกี่ยวกับ",        href: "/about",          hrefKo: "/ko/about",          hrefTh: "/th/about" },
 ];
-
-type Lang = "en" | "ko" | "th";
-
-function detectLang(path: string): Lang {
-  if (path.startsWith("/ko")) return "ko";
-  if (path.startsWith("/th")) return "th";
-  return "en";
-}
-
-// 같은 페이지를 다른 언어로 보는 URL.
-function switchLangHref(currentPath: string, target: Lang): string {
-  let p = currentPath;
-  if (p.startsWith("/ko")) p = p.slice(3) || "/";
-  else if (p.startsWith("/th")) p = p.slice(3) || "/";
-  if (target === "en") return p;
-  // ko/th 페이지가 존재하지 않는 라우트는 / 또는 /ko 또는 /th 홈으로 폴백.
-  // 상위 라우트 보존 시도: 카테고리/도시/about/contact/for-suppliers/guide 만 ko/th 라우트 있음.
-  const validKoTh = (
-    p === "/" ||
-    p.startsWith("/c/") ||
-    p.startsWith("/city/") ||
-    p === "/about" ||
-    p === "/contact" ||
-    p === "/for-suppliers" ||
-    p === "/guide" ||
-    p.startsWith("/guide/") ||
-    p === "/compare"
-  );
-  // /supplier/*, /best/*, /d/*, /blog 등은 영어판만 → ko/th 클릭 시 ko/th 홈으로.
-  if (!validKoTh) return target === "ko" ? "/ko" : "/th";
-  return target === "ko" ? `/ko${p === "/" ? "" : p}` : `/th${p === "/" ? "" : p}`;
-}
 
 export function HeaderNav() {
   const [open, setOpen] = useState(false);

@@ -17,13 +17,33 @@ export function HeaderQuickAccess() {
   // Drop entries for suppliers no longer in the current dataset (e.g. removed
   // in a data refresh) — otherwise a stale id lingers here forever and
   // clicking it just hits the /supplier/* catch-all redirect to the homepage.
+  //
+  // 이 컴포넌트는 루트 레이아웃에 있어서 사이트 전 페이지에서 마운트된다.
+  // 예전에는 마운트 즉시 loadValidIds() → browse-index.json(2.0MB, 8,938건)을
+  // 무조건 받았다. localStorage 가 빈 첫 방문자는 지울 게 없는데도 2MB 다운로드와
+  // JSON.parse 를 전부 부담했다 — 모바일 첫 화면에서 가장 큰 비용이었다.
+  // 이제 지울 대상이 실제로 있을 때만, 그것도 브라우저가 한가할 때 받는다.
+  const storedCount = recent.length + shortlist.length;
+  const pruned = useRef(false);
   useEffect(() => {
-    loadValidIds().then((validIds) => {
-      if (validIds.size === 0) return;
-      pruneStaleRecent(validIds);
-      pruneStaleShortlist(validIds);
-    });
-  }, []);
+    if (storedCount === 0 || pruned.current) return;
+    pruned.current = true;
+    const run = () =>
+      loadValidIds().then((validIds) => {
+        if (validIds.size === 0) return;
+        pruneStaleRecent(validIds);
+        pruneStaleShortlist(validIds);
+      });
+    const ric = (window as unknown as {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+    }).requestIdleCallback;
+    if (ric) {
+      ric(run, { timeout: 5000 });
+    } else {
+      const t = setTimeout(run, 1500);
+      return () => clearTimeout(t);
+    }
+  }, [storedCount]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {

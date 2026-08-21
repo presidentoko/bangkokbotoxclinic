@@ -1,4 +1,6 @@
 import { loadMasterDb } from "@/lib/data";
+import { isRealEstateSlug } from "@/lib/estates";
+import { Photo } from "@/components/Photo";
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from "@/components/JsonLd";
 import { photoUrl } from "@/lib/photoUrl";
 import type { Metadata } from "next";
@@ -24,6 +26,8 @@ export default async function EstateIndexPage() {
   const map = new Map<string, EstateEntry>();
   for (const s of db.suppliers) {
     if (!s.estate_slug || !s.estate_name) continue;
+    // 주소 조각에서 뽑힌 가짜 단지는 목록에서 뺀다 (lib/estates.ts 참고).
+    if (!isRealEstateSlug(s.estate_slug)) continue;
     let e = map.get(s.estate_slug);
     if (!e) {
       e = { slug: s.estate_slug, name: s.estate_name, totalCount: 0, verifiedCount: 0, sampleTenants: [], photo: null };
@@ -73,9 +77,8 @@ export default async function EstateIndexPage() {
              className="group block bg-white border border-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-emerald-300 hover:-translate-y-0.5 transition">
             {e.photo && (
               <div className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={photoUrl(e.photo)} alt={e.name} loading="lazy" referrerPolicy="no-referrer"
-                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                <Photo src={photoUrl(e.photo)} alt={e.name}
+                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
                   <div className="text-white font-bold text-lg leading-tight">{e.name}</div>
                 </div>

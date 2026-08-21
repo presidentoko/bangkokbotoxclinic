@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import { citySlugFromDisplay } from "@/lib/cityNorm";
+import { isRealEstateSlug } from "@/lib/estates";
+import { Photo } from "@/components/Photo";
 import { loadMasterDb, getSupplierById } from "@/lib/data";
 import { CATEGORY_LABELS, CATEGORY_ICONS, type Supplier } from "@/lib/types";
 import { BreadcrumbJsonLd, SupplierJsonLd, ProfilePageJsonLd } from "@/components/JsonLd";
@@ -130,6 +133,11 @@ export default async function SupplierPage(
   if (!r) notFound();
 
   const tier = sponsoredTier(r.id);
+  // /city/[name] 은 citySlugFromDisplay(city_label) 로 슬러그를 만든다. 예전에는
+  // 여기서 원시 필드 r.city 를 그대로 링크에 써서, 두 값이 다른 공급사 22곳의
+  // 빵부스러기가 404 였다 (city="thailand" 20곳, "city" 1곳, "pathumthanee" 1곳).
+  // 빵부스러기 404 는 구글이 구조화 내비게이션 오류로 읽는다.
+  const cityHref = `/city/${citySlugFromDisplay(r.city_label || "") || r.city}`;
   const photos = (r.photos && r.photos.length > 0)
     ? r.photos
     : (r.hero_image ? [r.hero_image] : []);
@@ -357,7 +365,7 @@ export default async function SupplierPage(
             <span className="mx-2">›</span>
             {r.city_label && (
               <>
-                <a href={`/city/${r.city}`} className="hover:text-stone-900">{r.city_label}</a>
+                <a href={cityHref} className="hover:text-stone-900">{r.city_label}</a>
                 <span className="mx-2">›</span>
               </>
             )}
@@ -508,10 +516,9 @@ export default async function SupplierPage(
               {photos.slice(0, 8).map((url, i) => (
                 <a key={i} href={photoUrl(url)} target="_blank" rel="noopener noreferrer"
                    className="relative block rounded-xl overflow-hidden bg-stone-100 group" style={{ aspectRatio: "4/3" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={photoUrl(url)} alt={`${r.name} — photo ${i + 1}`} loading="lazy" referrerPolicy="no-referrer"
-                       sizes="(max-width: 768px) 50vw, 256px"
-                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <Photo src={photoUrl(url)} alt={`${r.name} — photo ${i + 1}`}
+                         sizes="(max-width: 768px) 50vw, 256px"
+                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </a>
               ))}
             </div>
@@ -561,7 +568,7 @@ export default async function SupplierPage(
                   )}
                   {r.estate_name && (
                     <Detail label="Industrial estate">
-                      {r.estate_slug
+                      {isRealEstateSlug(r.estate_slug)
                         ? <a href={`/estate/${r.estate_slug}`} className="text-amber-800 font-bold hover:underline">{r.estate_name}</a>
                         : r.estate_name}
                     </Detail>
@@ -743,14 +750,14 @@ export default async function SupplierPage(
                 {CATEGORY_ICONS[c] ?? "🏭"} All {CATEGORY_LABELS[c] ?? c} in Thailand
               </a>
             ))}
-            {r.estate_slug && r.estate_name && (
+            {r.estate_name && isRealEstateSlug(r.estate_slug) && (
               <a href={`/estate/${r.estate_slug}`}
                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-amber-400 rounded-full text-sm hover:border-amber-700 font-bold text-amber-900">
                 🏘 All suppliers in {r.estate_name}
               </a>
             )}
             {r.city_label && (
-              <a href={`/city/${r.city}`}
+              <a href={cityHref}
                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-stone-300 rounded-full text-sm hover:border-stone-900 font-bold">
                 📍 Suppliers in {r.city_label}
               </a>
@@ -828,7 +835,7 @@ export default async function SupplierPage(
       <ProfilePageJsonLd r={r} />
       <BreadcrumbJsonLd items={[
         { name: "Home", url: "/" },
-        ...(r.city_label ? [{ name: r.city_label, url: `/city/${r.city}` }] : []),
+        ...(r.city_label ? [{ name: r.city_label, url: cityHref }] : []),
         { name: r.name, url: `/supplier/${r.id}` },
       ]} />
     </article>

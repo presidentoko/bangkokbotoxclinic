@@ -53,7 +53,7 @@ export default async function ForSuppliersPage() {
       <section className="grid sm:grid-cols-3 gap-4 mb-16">
         <Stat n={db.total_suppliers.toLocaleString()} label="Suppliers indexed" />
         <Stat n={db.with_website.toLocaleString()} label="With direct website" />
-        <Stat n="< 30 min" label="Update latency" />
+        <Stat n="Twice daily" label="Data refresh" />
       </section>
 
       <section className="space-y-8 mb-16">
@@ -80,7 +80,7 @@ export default async function ForSuppliersPage() {
           bullets={[
             "Top of every relevant list with gold badge",
             "Pin to specific province × category",
-            "Average click-through 3-5x baseline",
+            "Slot performance reported monthly from our analytics",
             "Cancel anytime",
           ]}
           accent="#ca8a04"
@@ -122,7 +122,7 @@ export default async function ForSuppliersPage() {
           bullets={[
             "Pre-qualified by buyer category + volume filters",
             "Korean / English / Thai language segmentation",
-            "Webhook delivery to your CRM or email",
+            "Delivered by email within one business day",
             "Pay only for delivered leads",
           ]}
           accent="#16a34a"
@@ -152,7 +152,7 @@ export default async function ForSuppliersPage() {
           <Why
             icon="⚡"
             title="Continuous freshness"
-            body="New supplier reviews and profile changes propagate within 30 minutes of our next data rebuild. No slow batch refreshes."
+            body="Listings rebuild from source twice a day, so new reviews, phone/website changes, and newly registered companies show up within hours — not in a quarterly batch."
           />
         </div>
       </section>

@@ -5,10 +5,12 @@ import { photoUrl } from "@/lib/photoUrl";
 
 type Props = {
   photos: string[];      // 정렬된 사진 URL (앞쪽이 hero)
-  ariaLabel: string;
+  // 이 콜라주 전체가 aria-hidden 이라 alt 텍스트는 쓰이지 않는다. 모든 img 를
+  // alt="" 로 두면 만료된 사진(403)이 깨진 아이콘 대신 조용히 사라진다.
+  ariaLabel?: string;
 };
 
-export function HeroPhotoCollage({ photos, ariaLabel }: Props) {
+export function HeroPhotoCollage({ photos }: Props) {
   if (!photos.length) return null;
   // up to 5 photos
   const p = photos.slice(0, 5);
@@ -19,7 +21,7 @@ export function HeroPhotoCollage({ photos, ariaLabel }: Props) {
       {/* big left */}
       <div className="col-span-7 row-span-6 relative bg-stone-800">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photoUrl(p[0])} alt={ariaLabel} referrerPolicy="no-referrer"
+        <img src={photoUrl(p[0])} alt="" referrerPolicy="no-referrer"
              className="absolute inset-0 w-full h-full object-cover" />
       </div>
       {/* top-right */}

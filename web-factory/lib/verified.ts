@@ -11,12 +11,20 @@
 //   verified_premium    → + 인증서 (ISO 9001 / IATF 16949 / HACCP) 검증
 //   verified_enterprise → + 본사 실사 + reference call
 
+//
+// ⚠️ 환경변수는 반드시 NEXT_PUBLIC_ 접두사로 설정할 것.
+// 이 목록을 읽는 SupplierCard / Badges 는 "use client" 컴포넌트다. Next 는
+// NEXT_PUBLIC_ 이 붙은 값만 클라이언트 번들에 인라인하므로, 접두사 없는 변수는
+// 브라우저에서 undefined 가 된다 — 서버가 그린 배지가 하이드레이션 직후
+// 사라진다("1등인데 배지가 없다"). 접두사 없는 이름도 아래에서 함께 읽지만
+// 그건 서버 렌더/정렬 전용 폴백이다.
+
 export type VerifiedTier = "verified" | "verified_premium" | "verified_enterprise";
 
 const TIERS: Record<VerifiedTier, string[]> = {
-  verified:            parseList(process.env.VERIFIED_SUPPLIERS),
-  verified_premium:    parseList(process.env.VERIFIED_PREMIUM_SUPPLIERS),
-  verified_enterprise: parseList(process.env.VERIFIED_ENTERPRISE_SUPPLIERS),
+  verified:            parseList((process.env.NEXT_PUBLIC_VERIFIED_SUPPLIERS || process.env.VERIFIED_SUPPLIERS)),
+  verified_premium:    parseList((process.env.NEXT_PUBLIC_VERIFIED_PREMIUM_SUPPLIERS || process.env.VERIFIED_PREMIUM_SUPPLIERS)),
+  verified_enterprise: parseList((process.env.NEXT_PUBLIC_VERIFIED_ENTERPRISE_SUPPLIERS || process.env.VERIFIED_ENTERPRISE_SUPPLIERS)),
 };
 
 function parseList(s: string | undefined): string[] {

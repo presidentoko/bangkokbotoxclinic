@@ -54,7 +54,7 @@ export default async function RedditPage() {
               <span className="text-xs text-[var(--muted)] font-normal">({g.count} threads)</span>
               {g.city_slug && (
                 <a
-                  href={`/c/${g.city_slug}`}
+                  href={`/city/${g.city_slug}`}
                   className="text-xs text-[var(--accent)] hover:underline font-normal"
                 >
                   → {g.city_label} suppliers

@@ -13,9 +13,15 @@ const VERIF_LABEL: Record<keyof CompareEntry["verifications"], string> = {
   tsic: "TSIC code",
 };
 
-function useCopyShareLink(ids: string[]) {
+// ids 는 훅 인자가 아니라 copy() 인자로 받는다. 이 훅을 호출하는 지점이
+// rows 계산 이후여야 했던 탓에, 예전 구조에서는 조건부 early return 네 개
+// 뒤에서 useState 가 호출됐다. mounted=false 인 첫 렌더는 항상 그 위에서
+// 빠져나가므로, 쇼트리스트가 로드된 다음 렌더에서 훅 개수가 4→5 로 늘어
+// React 가 "Rendered more hooks than during the previous render" 로 죽었다.
+// 즉 쇼트리스트를 담은 사용자에게만 /compare 가 백지가 됐다.
+function useCopyShareLink() {
   const [copied, setCopied] = useState(false);
-  function copy() {
+  function copy(ids: string[]) {
     if (ids.length === 0) return;
     const url = `${window.location.origin}/compare?ids=${ids.join(",")}`;
     navigator.clipboard.writeText(url).then(() => {
@@ -39,6 +45,7 @@ export function CompareClient() {
   const { items, mounted } = useShortlist();
   const [index, setIndex] = useState<CompareIndex | null>(null);
   const [failed, setFailed] = useState(false);
+  const { copy, copied } = useCopyShareLink();
 
   // Single fetch: load index + optionally hydrate from ?ids= param
   useEffect(() => {
@@ -104,14 +111,17 @@ export function CompareClient() {
   const maxReviews = Math.max(...rows.map((r) => r.reviews));
   const best = "font-bold text-emerald-800";
 
-  const { copy, copied } = useCopyShareLink(rows.map((r) => r.id));
-
   const emailHref = (() => {
     const shareUrl = `https://thaisupplyhub.com/compare?ids=${rows.map((r) => r.id).join(",")}`;
     const subject = encodeURIComponent(`Thai Supplier Comparison — ${rows.map((r) => r.name).join(" vs ")}`);
     const body = encodeURIComponent(
       `Hi,\n\nI compared these Thai suppliers on Thai Supply Hub:\n\n` +
-      rows.map((r) => `• ${r.name} (${r.cityLabel || "Thailand"})\n  Trust Score: ${r.trust.overall} · Rating: ★ ${r.rating.toFixed(1)} · ${r.reviews.toLocaleString()} reviews`).join("\n") +
+      rows.map((r) => {
+        const rating = r.reviews > 0 && r.rating > 0
+          ? `★ ${r.rating.toFixed(1)} · ${r.reviews.toLocaleString()} reviews`
+          : "no Google reviews yet";
+        return `• ${r.name} (${r.cityLabel || "Thailand"})\n  Trust Score: ${r.trust.overall} · ${rating}`;
+      }).join("\n") +
       `\n\nFull comparison: ${shareUrl}\n\nBest`
     );
     return `mailto:?subject=${subject}&body=${body}`;
@@ -124,7 +134,7 @@ export function CompareClient() {
         <div className="flex gap-2 flex-wrap">
           <button
             type="button"
-            onClick={copy}
+            onClick={() => copy(rows.map((r) => r.id))}
             className={`py-1.5 px-3 rounded-lg text-xs font-bold border transition ${
               copied
                 ? "bg-emerald-50 border-emerald-400 text-emerald-800"
