@@ -305,6 +305,13 @@ def main() -> None:
     ap.add_argument("--delay", type=float, default=8.0)
     ap.add_argument("--proxy-ports", default="",
                     help="comma-separated local SOCKS5 ports to rotate through")
+    # A block is a wait, not a failure. Doubling per consecutive block keeps a
+    # short throttle cheap while still backing right off from a long one.
+    ap.add_argument("--block-cooldown", type=float, default=1800.0,
+                    help="seconds to wait after the first block (doubles each time)")
+    ap.add_argument("--max-cooldown", type=float, default=7200.0)
+    ap.add_argument("--max-blocks", type=int, default=6,
+                    help="consecutive blocks before the run gives up")
     ap.add_argument("--ids", nargs="*")
     args = ap.parse_args()
 
@@ -328,42 +335,77 @@ def main() -> None:
     hit = miss = 0
     with sync_playwright() as pw:
         ports = [int(p) for p in args.proxy_ports.split(",") if p.strip()]
-        launch_kwargs = {"headless": True}
-        if ports:
-            launch_kwargs["proxy"] = {"server": f"socks5://127.0.0.1:{ports[0]}"}
-            print(f"routing through socks5://127.0.0.1:{ports[0]}")
-        browser = pw.chromium.launch(**launch_kwargs)
-        ctx = browser.new_context(user_agent=UA, locale="th-TH")
-        page = ctx.new_page()
-        # Images and fonts are a large share of the bytes and none of the data.
-        page.route(
-            re.compile(r"\.(png|jpe?g|webp|gif|svg|woff2?|mp4)(\?|$)"),
-            lambda route: route.abort(),
-        )
+        session = {"ctx": None, "page": None, "port": 0}
 
-        for i, food in enumerate(targets, 1):
+        def open_session() -> None:
+            """Start a browser with a clean cookie jar.
+
+            Called again after every block. The WAF's decision travels partly in
+            session cookies, so reusing the context after a cooldown walks
+            straight back into the same verdict; and when SOCKS exits are
+            supplied, this is where the run moves to the next one.
+            """
+            if session["ctx"] is not None:
+                try:
+                    session["ctx"].browser.close()
+                except Exception:
+                    pass
+            launch: dict = {"headless": True}
+            if ports:
+                port = ports[session["port"] % len(ports)]
+                session["port"] += 1
+                launch["proxy"] = {"server": f"socks5://127.0.0.1:{port}"}
+                print(f"  session via socks5://127.0.0.1:{port}")
+            browser = pw.chromium.launch(**launch)
+            ctx = browser.new_context(user_agent=UA, locale="th-TH")
+            page = ctx.new_page()
+            # Images and fonts are most of the bytes and none of the data.
+            page.route(
+                re.compile(r"\.(png|jpe?g|webp|gif|svg|woff2?|mp4)(\?|$)"),
+                lambda route: route.abort(),
+            )
+            session["ctx"], session["page"] = ctx, page
+
+        open_session()
+
+        i = 0
+        blocks = 0
+        while i < len(targets):
+            food = targets[i]
             query = build_query(food)
             brands, models = brand_tokens(food["brand"]), model_tokens(food)
             animal = "dog" if food.get("animal") == "dog" else "cat"
+            page = session["page"]
             try:
                 page.goto(SEARCH.format(quote_plus(query)),
                           wait_until="domcontentloaded", timeout=40000)
                 page.wait_for_timeout(2200)
                 if any(m in page.url for m in BLOCK_MARKERS):
-                    raise Blocked(page.url[:120])
+                    raise Blocked(page.url[:100])
                 listings = parse_cards(page, brands, models, animal)
             except Blocked as exc:
+                # Wait it out rather than stop. A block clears on its own, and a
+                # run spanning hours will meet several; exiting on the first one
+                # turns an unattended job into one that needs a babysitter. The
+                # product is *not* recorded as a miss — it was never searched.
+                blocks += 1
                 CHECKPOINT.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
-                print(f"\n  [{i}] BLOCKED by the marketplace WAF: {exc}")
-                print("  Stopping so the address is not burned further. Progress is"
-                      f" saved in {CHECKPOINT.name}; re-run later to resume.")
-                print("  A block usually clears in hours. Raise --delay, or supply"
-                      " residential exits with --proxy-ports.")
-                break
+                if blocks > args.max_blocks:
+                    print(f"\n  BLOCKED {blocks} times in a row — giving up for now.")
+                    print(f"  {len(done)} products saved in {CHECKPOINT.name}; re-run to resume.")
+                    break
+                cooldown = min(args.block_cooldown * 2 ** (blocks - 1), args.max_cooldown)
+                print(f"\n  [{i+1}/{len(targets)}] BLOCKED ({blocks}/{args.max_blocks}): {exc}")
+                print(f"  cooling down {cooldown/60:.0f} min, then retrying this product")
+                open_session()
+                time.sleep(cooldown)
+                continue
             except Exception as exc:
-                print(f"  [{i}] ERROR {type(exc).__name__} {query[:40]}")
+                print(f"  [{i+1}] ERROR {type(exc).__name__} {query[:40]}")
                 listings = []
 
+            blocks = 0
+            i += 1
             result = summarize(listings)
             if result:
                 hit += 1
@@ -371,9 +413,6 @@ def main() -> None:
                 if args.verbose:
                     print(f"  [{i}] ✓ {query[:44]:46} ฿{result['price_per_kg']}/kg "
                           f"from {result['matched']} listings (spread x{result['spread']})")
-                    for l in listings[:4]:
-                        print(f"        {l['weight_kg']:>5}kg ฿{l['price_thb']:>8.0f} "
-                              f"= ฿{l['price_per_kg']:>7.1f}/kg  {l['title'][:62]}")
             else:
                 miss += 1
                 done[food["id"]] = {"price_per_kg": 0, "matched": len(listings)}
@@ -382,10 +421,13 @@ def main() -> None:
 
             if i % 20 == 0 or i == len(targets):
                 CHECKPOINT.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
-                print(f"  … {i}/{len(targets)}  hit={hit} miss={miss}")
+                print(f"  … {i}/{len(targets)}  hit={hit} miss={miss}", flush=True)
             time.sleep(args.delay)
 
-        browser.close()
+        try:
+            session["ctx"].browser.close()
+        except Exception:
+            pass
 
     CHECKPOINT.write_text(json.dumps(done, ensure_ascii=False), encoding="utf-8")
     print(f"\nhit {hit} / miss {miss}  -> {CHECKPOINT.name}")
