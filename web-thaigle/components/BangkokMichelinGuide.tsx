@@ -16,9 +16,9 @@ const BIB_GOURMAND = [
 export function BangkokMichelinGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         ⭐ Bangkok Michelin Guide 2024/25
-      </div>
+      </h2>
       <div className="text-xs font-bold mb-2">Starred restaurants</div>
       <div className="space-y-1.5 mb-3">
         {STARRED.map((r) => (
@@ -33,7 +33,7 @@ export function BangkokMichelinGuide() {
                 <span className="font-bold text-xs">{r.name}</span>
                 <span className="text-[10px] text-[var(--muted)]"> · {r.cuisine}</span>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{r.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{r.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{r.why}</div>
             <div className="text-[10px] text-orange-600">📅 Book: {r.book}</div>
@@ -50,7 +50,7 @@ export function BangkokMichelinGuide() {
               <span className="text-[10px] text-[var(--muted)]"> · {b.cuisine}</span>
               <div className="text-[10px] text-[var(--muted)]">{b.note}</div>
             </div>
-            <span className="shrink-0 text-[10px] font-mono text-green-700">{b.price}</span>
+            <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{b.price}</span>
           </div>
         ))}
       </div>

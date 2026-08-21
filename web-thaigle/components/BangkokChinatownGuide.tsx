@@ -36,9 +36,9 @@ const SECTIONS = [
 export function BangkokChinatownGuide() {
   return (
     <div className="rounded-2xl border border-red-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🏮 Chinatown Bangkok — complete area guide
-      </div>
+      </h2>
       <div className="space-y-3">
         {SECTIONS.map((s) => (
           <div key={s.section} className="border border-red-100 rounded-xl p-3">

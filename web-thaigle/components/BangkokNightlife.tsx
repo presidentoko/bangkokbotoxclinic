@@ -44,9 +44,9 @@ const VENUES = [
 export function BangkokNightlife() {
   return (
     <div className="rounded-2xl border border-violet-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
         🎶 Bangkok nightlife — best clubs & bars by vibe
-      </div>
+      </h2>
       <div className="text-[10px] bg-violet-50 rounded-xl p-2.5 mb-3 text-violet-800">
         <strong>Closing times:</strong> Bangkok nightlife closes at 2am legally (1am in some areas). RCA has special 2am+ extensions. Plan arrivals accordingly — places get good around 11pm–midnight.
       </div>
@@ -56,10 +56,10 @@ export function BangkokNightlife() {
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-violet-50 transition">
               <span className="text-xl shrink-0">{v.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{v.name}</div>
+                <h3 className="font-bold text-xs">{v.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{v.vibe} · {v.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{v.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{v.price}</span>
             </summary>
             <div className="px-3 pb-3 space-y-1 border-t border-violet-100 pt-2">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{v.why}</div>

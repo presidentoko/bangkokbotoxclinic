@@ -28,16 +28,16 @@ const SPOTS = [
 export function BangkokHalalFood() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         🌙 Halal food in Bangkok — Muslim-friendly restaurants
-      </div>
+      </h2>
       <div className="space-y-3">
         {SPOTS.map((s) => (
           <div key={s.name} className="border border-emerald-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{s.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {s.area}</div>
               </div>
             </div>

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: "Where does this data come from?",
-    a: "All restaurant listings, ratings, reviews, and metadata are sourced from public Google Maps listings. We do not edit, hide, or selectively filter any restaurant. Data refreshes every 30 minutes.",
+    a: "All restaurant listings, ratings, reviews, and metadata are sourced from public Google Maps listings. We do not edit, hide, or selectively filter any restaurant. Data is refreshed in batches; every listing page shows when its own data was last updated.",
   },
   {
     q: "How is the Trust Score calculated?",
@@ -37,7 +37,7 @@ const FAQS = [
   },
   {
     q: "How fresh is the data?",
-    a: "Continuously. Scrapers run 24/7, master dataset rebuilds every 5 minutes, the website redeploys when data changes. New public reviews of a listed restaurant typically appear within 30 minutes.",
+    a: "In batches, not continuously. Collection runs on a schedule and the dataset is rebuilt and redeployed when a run completes, so a given listing is typically weeks rather than minutes old. The exact date for each listing is shown on its own page — that timestamp is the authoritative one.",
   },
   {
     q: "What are 'mentioned topics'?",

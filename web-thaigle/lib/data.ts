@@ -13,7 +13,11 @@ export async function loadMasterDb(): Promise<MasterDb> {
   const raw = await fs.readFile(DATA_PATH, "utf-8");
   const db = JSON.parse(raw) as MasterDb;
   for (const r of db.restaurants) {
-    r.trust_score = Math.max(0, Math.min(100, r.trust_score));
+    // Round once, here. trust_score is fractional in 2,873 of 3,269 rows and
+    // was printed raw in the lists ("Trust 87.3") while TrustDonut rendered
+    // Math.round of the same number ("87") a few hundred pixels away on the
+    // same page. One value, one rounding.
+    r.trust_score = Math.round(Math.max(0, Math.min(100, r.trust_score)));
   }
   _cache = db;
   return _cache;
@@ -27,17 +31,17 @@ export function slugify(s: string): string {
 }
 
 export function filterByCuisine(restaurants: Restaurant[], cuisine: string): Restaurant[] {
-  return restaurants.filter((r) => r.cuisines.includes(cuisine));
+  return restaurants.filter((r) => isListable(r) && r.cuisines.includes(cuisine));
 }
 
 export function filterByDistrict(
   restaurants: Restaurant[], district: string, city?: string
 ): Restaurant[] {
-  return restaurants.filter((r) => r.district === district && (!city || r.city === city));
+  return restaurants.filter((r) => isListable(r) && r.district === district && (!city || r.city === city));
 }
 
 export function filterByCity(restaurants: Restaurant[], city: string): Restaurant[] {
-  return restaurants.filter((r) => r.city === city);
+  return restaurants.filter((r) => isListable(r) && r.city === city);
 }
 
 const NON_FOOD_TYPES = [
@@ -48,6 +52,28 @@ const NON_FOOD_TYPES = [
 export function isFood(r: Restaurant): boolean {
   const cat = (r.primary_type || "").toLowerCase();
   return !NON_FOOD_TYPES.some((t) => cat.includes(t));
+}
+
+/**
+ * Permanently-closed venues, per Google. Temporarily-closed ones deliberately
+ * stay: they reopen, and the detail page warns about it.
+ */
+export function isOpen(r: Restaurant): boolean {
+  return !/^Permanently closed$/i.test((r.business_status || "").trim());
+}
+
+/**
+ * Whether a venue belongs in a ranked list at all.
+ *
+ * isFood existed and nothing in the restaurant tree called it, so
+ * /restaurants/cuisine/halal opened with "Central Pinklao" — a shopping
+ * centre — at #1 of 103, and a trampoline park had a full restaurant page.
+ * business_status was read only by the listing card, never by the ranking,
+ * so a permanently-closed venue could hold a Trust Score of 92 on a hub.
+ * Both gates belong at the same place: the point where a list is built.
+ */
+export function isListable(r: Restaurant): boolean {
+  return isFood(r) && isOpen(r);
 }
 
 export function topByTrust(restaurants: Restaurant[], n: number): Restaurant[] {

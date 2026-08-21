@@ -44,9 +44,9 @@ const TIMELINE = [
 export function BangkokHistoryGuide() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
         🏛️ Bangkok history — key moments in 10 minutes
-      </div>
+      </h2>
       <div className="relative">
         <div className="absolute left-6 top-0 bottom-0 w-px bg-amber-200" />
         <div className="space-y-3">

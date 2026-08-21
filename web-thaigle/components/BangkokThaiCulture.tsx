@@ -28,9 +28,9 @@ const TOPICS = [
 export function BangkokThaiCulture() {
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         🙏 Thai culture decoded — sanuk, kreng jai, saving face & the wai greeting
-      </div>
+      </h2>
       <div className="space-y-1">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-yellow-100 rounded-xl">

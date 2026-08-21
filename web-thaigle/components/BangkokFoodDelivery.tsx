@@ -44,19 +44,19 @@ const APPS = [
 export function BangkokFoodDelivery() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         📱 Bangkok food delivery apps — comparison
-      </div>
+      </h2>
       <div className="space-y-2">
         {APPS.map((a) => (
           <div key={a.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="text-xl shrink-0">{a.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{a.name}</div>
+                <h3 className="font-bold text-xs">{a.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{a.market}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{a.deliveryFee}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{a.deliveryFee}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5">{a.selection}</div>
             <div className="text-[10px] text-blue-700 mb-0.5">💳 {a.payment}</div>

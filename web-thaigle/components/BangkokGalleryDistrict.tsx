@@ -24,16 +24,16 @@ const GALLERIES = [
 export function BangkokGalleryDistrict() {
   return (
     <div className="rounded-2xl border border-violet-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
         🖼️ Bangkok gallery districts — art & design scenes
-      </div>
+      </h2>
       <div className="space-y-3">
         {GALLERIES.map((g) => (
           <div key={g.name} className="border border-violet-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{g.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{g.name}</div>
+                <h3 className="font-bold text-xs">{g.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{g.type} · {g.area}</div>
               </div>
             </div>

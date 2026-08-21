@@ -40,9 +40,9 @@ const WALKS = [
 export function BangkokPhotographyWalks() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         📸 Bangkok photography walks — best spots + timing
-      </div>
+      </h2>
       <div className="space-y-3">
         {WALKS.map((w) => (
           <details key={w.name} className="border border-indigo-100 rounded-xl group">

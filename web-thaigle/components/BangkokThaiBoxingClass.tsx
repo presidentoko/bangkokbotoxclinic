@@ -44,9 +44,9 @@ const GYMS = [
 export function BangkokThaiBoxingClass() {
   return (
     <div className="rounded-2xl border border-red-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🥊 Muay Thai training in Bangkok — gyms for all levels
-      </div>
+      </h2>
       <div className="text-[10px] bg-red-50 rounded-xl p-2.5 mb-3 text-red-800">
         <strong>What to bring:</strong> Shorts (Thai boxing or regular sports), T-shirt or tank. Most gyms provide gloves, hand wraps, shin guards for rental (฿100–200). Water essential — Bangkok heat + intense training = very sweaty.
       </div>
@@ -56,10 +56,10 @@ export function BangkokThaiBoxingClass() {
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{g.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{g.name}</div>
+                <h3 className="font-bold text-xs">{g.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{g.type} · {g.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{g.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{g.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{g.why}</div>
             <div className="text-[10px] text-orange-600 mb-0.5">👤 Best for: {g.for}</div>

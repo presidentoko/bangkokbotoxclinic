@@ -54,9 +54,9 @@ const AREAS = [
 export function BangkokNightlifeAreas() {
   return (
     <div className="rounded-2xl border border-purple-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         🌙 Bangkok nightlife areas — which scene is yours?
-      </div>
+      </h2>
       <div className="space-y-2">
         {AREAS.map((a) => (
           <div key={a.area} className="border border-purple-100 rounded-xl p-3">

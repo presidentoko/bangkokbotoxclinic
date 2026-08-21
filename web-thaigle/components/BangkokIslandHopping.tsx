@@ -48,9 +48,9 @@ const ISLANDS = [
 export function BangkokIslandHopping() {
   return (
     <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
         🏝️ Island hopping from Bangkok — Gulf vs Andaman
-      </div>
+      </h2>
       <div className="space-y-2">
         {ISLANDS.map((is) => (
           <details key={is.name} className="border border-cyan-100 rounded-xl group">

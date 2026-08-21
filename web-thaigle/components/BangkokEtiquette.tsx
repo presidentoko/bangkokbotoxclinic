@@ -10,9 +10,9 @@ const TIPS = [
 export function BangkokEtiquette() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-800 mb-4">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-800 mb-4">
         🇹🇭 Bangkok Etiquette
-      </div>
+      </h2>
       <div className="grid sm:grid-cols-2 gap-3">
         {TIPS.map((t) => (
           <div key={t.title} className="flex gap-3 items-start">

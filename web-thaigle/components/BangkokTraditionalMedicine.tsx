@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokTraditionalMedicine() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         🌿 Bangkok wellness — Thai traditional medicine, spa culture & medical aesthetics
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-teal-100 rounded-xl">

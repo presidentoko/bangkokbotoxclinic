@@ -36,15 +36,15 @@ const WIFI_TIPS = [
 export function BangkokWifiSIM() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         📶 Bangkok SIM cards & WiFi — tourist connectivity guide
-      </div>
+      </h2>
       <div className="space-y-2 mb-4">
         {SIM_OPTIONS.map((s) => (
           <div key={s.provider} className="border border-teal-100 rounded-xl p-3">
             <div className="flex items-start justify-between gap-2 mb-1">
               <div className="font-bold text-xs">{s.provider}</div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{s.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{s.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5">📡 {s.data}</div>
             <div className="text-[10px] text-[var(--muted)] mb-0.5">⚡ {s.speed}</div>

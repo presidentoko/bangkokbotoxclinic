@@ -44,9 +44,9 @@ const RESTAURANTS = [
 export function BangkokVegetarianRestaurants() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         🌿 Vegetarian & vegan restaurants in Bangkok
-      </div>
+      </h2>
       <div className="text-[10px] bg-emerald-50 rounded-xl p-2.5 mb-3 text-emerald-800">
         <strong>Thai tip:</strong> Say <strong>"gin jay"</strong> (กินเจ) for Buddhist-style vegan (no animal products, garlic or onion). Say <strong>"gin mangsawirat"</strong> (กินมังสวิรัติ) for vegetarian with eggs/dairy OK.
       </div>
@@ -56,10 +56,10 @@ export function BangkokVegetarianRestaurants() {
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{r.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{r.name}</div>
+                <h3 className="font-bold text-xs">{r.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{r.type} · {r.area} · {r.hours}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{r.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{r.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{r.why}</div>
             <div className="text-[10px] text-orange-600">⭐ Order: {r.must}</div>

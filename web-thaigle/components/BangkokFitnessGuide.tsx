@@ -54,16 +54,16 @@ const GYMS = [
 export function BangkokFitnessGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         💪 Bangkok fitness guide — gyms & workouts
-      </div>
+      </h2>
       <div className="space-y-2">
         {GYMS.map((g) => (
           <div key={g.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-xl shrink-0">{g.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{g.name}</div>
+                <h3 className="font-bold text-xs">{g.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{g.type} · {g.locations}</div>
               </div>
               <div className="shrink-0 text-right">

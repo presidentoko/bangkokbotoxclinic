@@ -35,9 +35,9 @@ const AREAS = [
 export function BangkokSeniorTravel() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         🧓 Senior travel Bangkok — practical guide for 60+ visitors
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {TIPS.map((t) => (
           <div key={t.title} className="border border-teal-100 rounded-xl p-3">

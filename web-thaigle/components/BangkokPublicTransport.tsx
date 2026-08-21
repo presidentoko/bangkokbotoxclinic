@@ -49,9 +49,9 @@ const TRANSPORT = [
 export function BangkokPublicTransport() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         🚇 Bangkok public transport — complete guide
-      </div>
+      </h2>
       <div className="text-[10px] bg-blue-50 rounded-xl p-2.5 mb-3 text-blue-800">
         <strong>Bangkok transport tip:</strong> Combine BTS+MRT for cross-city trips. Use river boat for Old City. Use Grab for anywhere public transit doesn't reach. Avoid taxis in rush hour (7–9am, 5–7pm).
       </div>
@@ -61,10 +61,10 @@ export function BangkokPublicTransport() {
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-blue-50 transition">
               <span className="text-xl shrink-0">{t.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{t.name}</div>
+                <h3 className="font-bold text-xs">{t.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{t.hours} · {t.coverage}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{t.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{t.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-blue-100 pt-2 space-y-1">
               <div className="text-[10px] text-orange-600">💡 {t.tip}</div>

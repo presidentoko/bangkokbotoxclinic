@@ -120,7 +120,7 @@ export default async function CityHub(
           {restaurants.length.toLocaleString()} restaurants ranked by Trust Score — real Google reviews, no influencer hype
         </p>
         <p className="text-sm text-[var(--muted)] mb-8 leading-relaxed max-w-2xl">
-          Trust Score combines Google rating, review volume, Local Guide ratio, and reviewer authority. No restaurant pays to appear here. Rankings are data-driven and update every 30 minutes.
+          Trust Score combines Google rating, review volume, Local Guide ratio, and reviewer authority. No restaurant pays to appear here. Rankings are data-driven and rebuild whenever the dataset is refreshed.
         </p>
 
         {topCuisines.length > 0 && (

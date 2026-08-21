@@ -40,9 +40,9 @@ const STYLES = [
 export function BangkokYogaStyles() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🧘 Bangkok yoga styles — which is right for you?
-      </div>
+      </h2>
       <div className="space-y-2">
         {STYLES.map((s) => (
           <div key={s.style} className="border border-[var(--border)] rounded-xl p-3">

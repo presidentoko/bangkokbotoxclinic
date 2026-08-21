@@ -13,7 +13,7 @@ import { OCCASIONS } from "@/lib/occasions";
 import { NEIGHBORHOODS } from "@/lib/neighborhoods";
 import { GUIDE_TOPICS } from "@/lib/guideTopics";
 import { getAllPlaceSlugsServer } from "@/lib/places-server";
-import { INDEXABLE_PLACE_LANGS } from "@/lib/placeIndexing";
+import { INDEXABLE_PLACE_LANGS, PLACE_TREE_INDEXABLE } from "@/lib/placeIndexing";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const CUISINES = Object.keys(CUISINE_LABELS);
@@ -82,26 +82,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  // /{lang}/place/* is 1,647 places × 3 langs. Dropping all 4,941 from the
-  // sitemap (2026-07-17) and then blocking them in robots.txt (2026-07-26)
-  // together removed every discovery path this cluster had — the only page
-  // that links into it is /en, which is itself noindex. Re-listing the
-  // English third (the hreflang x-default) gives the robots.txt reopening
-  // something to act on; th/ko stay out of both the sitemap and robots.
-  //
-  // Priority 0.5 deliberately sits below every other content page here: the
-  // original complaint was that this tree crowded out the money pages, and
-  // priority is the lever for that, not omission.
-  items.push({ url: `${SITE}/en/place`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
-  const placeSlugs = await getAllPlaceSlugsServer();
-  for (const { lang, slug } of placeSlugs) {
-    if (!INDEXABLE_PLACE_LANGS.includes(lang)) continue;
-    items.push({
-      url: `${SITE}/en/place/${encodeURIComponent(slug)}`,
-      lastModified: updated,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    });
+  // /{lang}/place/* is withdrawn from the sitemap, matching the noindex the
+  // route now emits — see PLACE_TREE_INDEXABLE in lib/placeIndexing.ts for
+  // why (~137 characters of page-unique text, 9 sentence templates across
+  // 1,647 pages). Submitting a URL while telling Google not to index it is a
+  // contradiction GSC reports back as an error, so the two have to move
+  // together. Kept behind the flag rather than deleted: if the tree ever gets
+  // real content, flipping one boolean restores it.
+  if (PLACE_TREE_INDEXABLE) {
+    items.push({ url: `${SITE}/en/place`, lastModified: updated, changeFrequency: "weekly", priority: 0.7 });
+    const placeSlugs = await getAllPlaceSlugsServer();
+    for (const { lang, slug } of placeSlugs) {
+      if (!INDEXABLE_PLACE_LANGS.includes(lang)) continue;
+      items.push({
+        url: `${SITE}/en/place/${encodeURIComponent(slug)}`,
+        lastModified: updated,
+        changeFrequency: "monthly",
+        priority: 0.5,
+      });
+    }
   }
 
   // Matches the uncapped generateStaticParams() in activities/[niche]/[slug]

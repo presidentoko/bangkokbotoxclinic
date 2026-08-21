@@ -54,16 +54,16 @@ const MUSEUMS = [
 export function BangkokMuseumGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🏛️ Bangkok museums — ranked & reviewed
-      </div>
+      </h2>
       <div className="space-y-2">
         {MUSEUMS.map((m) => (
           <div key={m.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-xl shrink-0">{m.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{m.name}</div>
+                <h3 className="font-bold text-xs">{m.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {m.area} · {m.hours}</div>
               </div>
               <div className="shrink-0 text-right">

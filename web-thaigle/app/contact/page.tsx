@@ -50,11 +50,11 @@ export default function ContactPage() {
           Include the relevant restaurant name or page URL when applicable.
         </p>
         <a
-          href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg"}`}
+          href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chillanel22@gmail.com"}`}
           className="inline-flex items-center gap-2 bg-black text-white py-3 px-5 rounded-lg font-bold hover:bg-gray-800 text-base"
         >
           <span aria-hidden>✉</span>
-          {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "umma@xx.gg"}
+          {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chillanel22@gmail.com"}
         </a>
       </div>
 

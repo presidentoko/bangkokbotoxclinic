@@ -32,9 +32,9 @@ const IDEAS = [
 export function BangkokCelebration() {
   return (
     <div className="rounded-2xl border border-rose-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
         🥂 Celebrations in Bangkok — unique experiences for special occasions
-      </div>
+      </h2>
       <div className="space-y-2">
         {IDEAS.map((idea) => (
           <div key={idea.title} className="border border-rose-100 rounded-xl p-3">
@@ -43,7 +43,7 @@ export function BangkokCelebration() {
               <div className="flex-1 min-w-0">
                 <div className="font-bold text-xs">{idea.title}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{idea.budget}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{idea.budget}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{idea.why}</div>
             <div className="text-[10px] text-rose-700">💡 {idea.tip}</div>

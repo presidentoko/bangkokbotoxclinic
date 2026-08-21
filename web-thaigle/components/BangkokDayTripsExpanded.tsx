@@ -49,9 +49,9 @@ const TRIPS = [
 export function BangkokDayTripsExpanded() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🗺️ Day trips from Bangkok — 5 more options
-      </div>
+      </h2>
       <div className="space-y-2">
         {TRIPS.map((t) => (
           <div key={t.dest} className="border border-[var(--border)] rounded-xl p-3">

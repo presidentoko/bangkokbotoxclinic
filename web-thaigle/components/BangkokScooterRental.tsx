@@ -29,9 +29,9 @@ const INFO = [
 export function BangkokScooterRental() {
   return (
     <div className="rounded-2xl border border-orange-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
         🏍️ Scooter rental near Bangkok — where to ride, rental process & safety
-      </div>
+      </h2>
       <div className="space-y-2">
         {INFO.map((i) => (
           <div key={i.heading} className="border border-orange-100 rounded-xl p-3">

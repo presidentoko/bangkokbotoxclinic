@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokFoodAllergy() {
   return (
     <div className="rounded-2xl border border-orange-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
         🚨 Bangkok dietary needs — food allergy navigation, Thai vegetarian culture & diabetes management
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-orange-100 rounded-xl">

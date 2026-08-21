@@ -3,11 +3,12 @@ import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AdSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored } from "@/lib/sponsored";
-import { NICHES, loadNicheDb } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import type { Metadata } from "next";
 
@@ -61,7 +62,7 @@ export default async function ArHomePage() {
   const [db, slugMap, nicheResults] = await Promise.all([
     loadMasterDb(),
     getSlugMap(),
-    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ slug: n.slug, icon: n.icon, label: n.label, total: d.total })).catch(() => ({ slug: n.slug, icon: n.icon, label: n.label, total: 0 })))),
+    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ slug: n.slug, icon: n.icon, label: n.label, total: qualifyingNichePlaces(n.slug, d.places).length })).catch(() => ({ slug: n.slug, icon: n.icon, label: n.label, total: 0 })))),
   ]);
   const nicheCounts = nicheResults;
   const top = sortWithSponsored(topByTrust(db.restaurants, 30));
@@ -182,7 +183,7 @@ export default async function ArHomePage() {
           </div>
         </section>
 
-        <AdSlot slot="ar-home-mid" />
+        <AdSlot name="listInline" />
 
         <section>
           <h2 className="text-xl font-bold mb-4">أفضل {Math.min(top.length, 30)} مطعم بحسب درجة الثقة</h2>

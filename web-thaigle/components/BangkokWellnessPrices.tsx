@@ -12,9 +12,9 @@ const SERVICES = [
 export function BangkokWellnessPrices() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         💰 Bangkok wellness prices — street vs mid vs luxury
-      </div>
+      </h2>
       <div className="overflow-x-auto">
         <table className="w-full text-[10px]">
           <thead>

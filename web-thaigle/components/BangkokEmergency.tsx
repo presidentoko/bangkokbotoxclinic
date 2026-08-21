@@ -28,9 +28,9 @@ const TOPICS = [
 export function BangkokEmergency() {
   return (
     <div className="rounded-2xl border border-red-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🆘 Bangkok emergency guide — hospitals, safety, natural hazards & avoiding scams
-      </div>
+      </h2>
       <div className="space-y-1">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-red-100 rounded-xl">

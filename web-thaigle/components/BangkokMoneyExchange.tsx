@@ -40,9 +40,9 @@ const METHODS = [
 export function BangkokMoneyExchange() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         💱 Bangkok money exchange — best rates & where to go
-      </div>
+      </h2>
       <div className="space-y-2">
         {METHODS.map((m) => (
           <div key={m.method} className="border border-green-100 rounded-xl p-3">

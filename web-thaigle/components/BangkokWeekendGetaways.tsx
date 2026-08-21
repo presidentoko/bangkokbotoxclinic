@@ -40,9 +40,9 @@ const GETAWAYS = [
 export function BangkokWeekendGetaways() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🚌 Weekend getaways from Bangkok — best destinations 2–3 hours out
-      </div>
+      </h2>
       <div className="space-y-2">
         {GETAWAYS.map((g) => (
           <details key={g.destination} className="border border-green-100 rounded-xl overflow-hidden group">

@@ -67,7 +67,11 @@ export function RelativeRanking({ percentile, label }: {
   percentile: number;
   label: string;
 }) {
-  const top = Math.max(1, Math.round((1 - percentile / 100) * 100));
+  // `percentile` arrives as rank-from-the-top over a descending list, so it
+  // already *is* the "top N%" figure: the best venue is index 0 → 0 → 1%.
+  // Inverting it here printed "Top 100%" on every category leader and
+  // "Top 1%" on the worst entry — on all 3,269 restaurant pages.
+  const top = Math.max(1, Math.min(100, Math.round(percentile)));
   return (
     <span
       className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap"

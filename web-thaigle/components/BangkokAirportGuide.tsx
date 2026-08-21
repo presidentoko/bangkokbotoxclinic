@@ -24,9 +24,9 @@ const AIRPORTS = [
 export function BangkokAirportGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         ✈️ Getting from Bangkok airports to the city
-      </div>
+      </h2>
       <div className="space-y-4">
         {AIRPORTS.map((airport) => (
           <div key={airport.code}>
@@ -44,7 +44,7 @@ export function BangkokAirportGuide() {
                     </div>
                     <div className="text-[10px] text-[var(--muted)] leading-snug">{opt.notes}</div>
                   </div>
-                  <span className="shrink-0 text-[10px] font-mono font-bold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">{opt.cost}</span>
+                  <span className="min-w-0 break-words text-right text-[10px] font-mono font-bold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">{opt.cost}</span>
                 </div>
               ))}
             </div>

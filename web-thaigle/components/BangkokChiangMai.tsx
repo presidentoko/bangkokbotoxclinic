@@ -24,19 +24,19 @@ const SPOTS = [
 export function BangkokChiangMai() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         🏔️ Bangkok to Thailand's top destinations — Chiang Mai north, Phuket Andaman & Ko Samui Gulf
-      </div>
+      </h2>
       <div className="space-y-2">
         {SPOTS.map((s) => (
           <div key={s.name} className="border border-emerald-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{s.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{s.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-emerald-700">{s.price}</span>
+              <span className="min-w-0 break-words text-[10px] font-mono text-emerald-700 text-right">{s.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{s.why}</div>
             <div className="text-[10px] text-emerald-700">💡 {s.tip}</div>

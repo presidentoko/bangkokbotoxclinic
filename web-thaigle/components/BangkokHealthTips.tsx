@@ -48,9 +48,9 @@ const TIPS = [
 export function BangkokHealthTips() {
   return (
     <div className="rounded-2xl border border-red-100 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🏥 Bangkok health & safety — what you need to know
-      </div>
+      </h2>
       <div className="space-y-3">
         {TIPS.map((t) => (
           <div key={t.category} className="border border-red-100 rounded-xl p-3">

@@ -50,6 +50,14 @@ export type Restaurant = {
   sample_reviews_ko: SampleReview[];
   business_status: string;
   maps_url: string;
+  /**
+   * Day -> hours text, weekday-ordered, as scraped by bangkok_reviews and
+   * pattaya. Present on 2,282 of 3,269; absent means never collected, not
+   * "no fixed hours".
+   */
+  opening_hours?: Record<string, string>;
+  /** Google-hosted photo URLs, widest variant first. Present on 243. */
+  photos?: { url: string; alt?: string }[];
 };
 
 export type MasterDb = {

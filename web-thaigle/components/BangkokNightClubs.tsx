@@ -44,19 +44,19 @@ const CLUBS = [
 export function BangkokNightClubs() {
   return (
     <div className="rounded-2xl border border-violet-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
         🎵 Bangkok nightclubs — from underground to mainstream
-      </div>
+      </h2>
       <div className="space-y-2">
         {CLUBS.map((c) => (
           <details key={c.name} className="border border-violet-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-violet-50 transition">
               <span className="text-2xl shrink-0">{c.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{c.name}</div>
+                <h3 className="font-bold text-xs">{c.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{c.music} · {c.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{c.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{c.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-violet-100 pt-2 space-y-1">
               <div className="text-[10px] text-violet-700">👥 {c.crowd}</div>

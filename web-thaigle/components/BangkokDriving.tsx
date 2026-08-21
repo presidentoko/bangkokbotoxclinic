@@ -34,9 +34,9 @@ const ESSENTIALS = [
 export function BangkokDriving() {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-gray-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-gray-700 mb-3">
         🚗 Driving in Bangkok — IDP, expressways, parking & Thai traffic rules
-      </div>
+      </h2>
       <div className="space-y-2">
         {ESSENTIALS.map((e) => (
           <div key={e.title} className="border border-gray-100 rounded-xl p-3">

@@ -24,9 +24,9 @@ const FACTS = [
 export function BangkokTukTukGuide() {
   return (
     <div className="rounded-2xl border border-yellow-300 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         🛺 Tuk-tuk guide — pricing, scams & when to use one
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {FACTS.map((f) => (
           <details key={f.q} className="border border-yellow-200 rounded-xl group">

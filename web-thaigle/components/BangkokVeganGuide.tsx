@@ -44,9 +44,9 @@ const PHRASES = [
 export function BangkokVeganGuide() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🌱 Vegan & vegetarian in Bangkok
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {SPOTS.map((s) => (
           <div key={s.name} className="flex gap-3 border border-green-100 rounded-xl p-3">

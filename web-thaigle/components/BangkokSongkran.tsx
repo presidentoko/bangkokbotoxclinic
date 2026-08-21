@@ -37,16 +37,16 @@ const RULES = [
 export function BangkokSongkran() {
   return (
     <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
         💦 Bangkok Songkran (Thai New Year) — best spots + survival guide
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {SPOTS.map((s) => (
           <div key={s.name} className="border border-cyan-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{s.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{s.vibe} · {s.area}</div>
               </div>
             </div>

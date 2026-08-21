@@ -27,9 +27,9 @@ export function BangkokBuddhistCalendar() {
 
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         🪔 Bangkok Buddhist & cultural calendar
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {EVENTS.map((e) => (
           <div key={`${e.month}-${e.event}`} className={`flex gap-2 items-start rounded-xl px-3 py-2 border ${e.month === currentMonthShort ? "border-orange-400 bg-orange-50" : "border-yellow-100"}`}>

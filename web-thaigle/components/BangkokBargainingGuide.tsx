@@ -19,9 +19,9 @@ const RULES = [
 export function BangkokBargainingGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🤝 Bargaining in Bangkok — how to do it right
-      </div>
+      </h2>
       <div className="grid grid-cols-2 gap-2 mb-3">
         {RULES.map((r) => (
           <div key={r.rule} className={`text-[10px] flex gap-1.5 items-start p-2 rounded-xl border ${r.ok ? "border-green-200 bg-green-50" : "border-red-100 bg-red-50"}`}>

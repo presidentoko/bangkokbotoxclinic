@@ -40,15 +40,15 @@ const RESTAURANTS = [
 export function BangkokItalianFood() {
   return (
     <div className="rounded-2xl border border-red-100 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🍝 Italian restaurants in Bangkok — pasta, pizza, and wine
-      </div>
+      </h2>
       <div className="space-y-2">
         {RESTAURANTS.map((r) => (
           <div key={r.name} className="border border-red-100 rounded-xl p-3">
             <div className="flex items-start justify-between gap-2 mb-1">
               <div>
-                <div className="font-bold text-xs">{r.name}</div>
+                <h3 className="font-bold text-xs">{r.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{r.cuisine} · {r.area}</div>
               </div>
               <div className="flex flex-col items-end shrink-0 gap-0.5">

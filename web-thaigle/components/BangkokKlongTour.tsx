@@ -36,19 +36,19 @@ const ETIQUETTE = [
 export function BangkokKlongTour() {
   return (
     <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
         ⛵ Bangkok canal tours (klong) — boat trips through the Venice of Asia
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {TOURS.map((t) => (
           <div key={t.name} className="border border-cyan-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{t.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{t.name}</div>
+                <h3 className="font-bold text-xs">{t.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{t.route}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{t.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{t.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{t.why}</div>
             <div className="text-[10px] text-cyan-700">💡 {t.tip}</div>

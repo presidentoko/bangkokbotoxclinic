@@ -40,19 +40,19 @@ const OPTIONS = [
 export function BangkokSushiGuide() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         🍣 Sushi in Bangkok — from omakase to conveyor belt, all tiers
-      </div>
+      </h2>
       <div className="space-y-2">
         {OPTIONS.map((o) => (
           <div key={o.name} className="border border-blue-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{o.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{o.name}</div>
+                <h3 className="font-bold text-xs">{o.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{o.area} · {o.style}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{o.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{o.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{o.why}</div>
             <div className="text-[10px] text-blue-700">💡 {o.tip}</div>

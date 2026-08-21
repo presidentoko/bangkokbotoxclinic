@@ -34,19 +34,19 @@ const ROOMS = [
 export function BangkokEscapeRooms() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         🔒 Escape rooms in Bangkok — best rooms & how to book
-      </div>
+      </h2>
       <div className="space-y-2">
         {ROOMS.map((r) => (
           <details key={r.name} className="border border-indigo-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-indigo-50 transition">
               <span className="text-2xl shrink-0">{r.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{r.name}</div>
+                <h3 className="font-bold text-xs">{r.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{r.area} · {r.difficulty}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{r.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{r.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-indigo-100 pt-2 space-y-1.5">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{r.why}</div>

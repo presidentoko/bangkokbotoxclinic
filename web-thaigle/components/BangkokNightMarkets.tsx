@@ -54,16 +54,16 @@ const MARKETS = [
 export function BangkokNightMarkets() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🛍️ Bangkok markets — the complete guide
-      </div>
+      </h2>
       <div className="space-y-3">
         {MARKETS.map((m) => (
           <div key={m.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{m.emoji}</span>
               <div className="min-w-0">
-                <div className="font-bold text-xs">{m.name}</div>
+                <h3 className="font-bold text-xs">{m.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">🕐 {m.when}</div>
                 <div className="text-[10px] text-[var(--muted)]">📍 {m.area} · {m.cost}</div>
               </div>

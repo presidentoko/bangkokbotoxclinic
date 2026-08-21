@@ -49,9 +49,9 @@ const INDOOR_ACTIVITIES = [
 export function BangkokRainyDayGuide() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         🌧️ Rainy day in Bangkok — best indoor activities
-      </div>
+      </h2>
       <div className="text-[10px] bg-blue-50 rounded-xl p-2.5 mb-3 text-blue-800">
         Bangkok rainy season: <strong>May–October</strong>. Showers typically 2–3pm for 30–90 min, then clear. Plan indoor activities around this window.
       </div>
@@ -61,10 +61,10 @@ export function BangkokRainyDayGuide() {
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{a.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{a.name}</div>
+                <h3 className="font-bold text-xs">{a.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {a.location} · 🕐 {a.hours}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{a.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{a.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{a.why}</div>
             <div className="text-[10px] text-orange-600">💡 {a.tip}</div>

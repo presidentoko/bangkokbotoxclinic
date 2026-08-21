@@ -54,7 +54,7 @@ export async function GET() {
     "## Editorial policy",
     "",
     "- All data from public Google Maps listings. Never edited.",
-    `- Data refreshes every 24h. Last update: ${db.generated_at}`,
+    `- Data is refreshed in batches. Last update: ${db.generated_at}`,
     `- ${db.total_restaurants} restaurants indexed. ${db.with_reviews_scraped} with full review analysis.`,
     "- Sponsored/featured slots exist but are clearly labelled. No organic listing is ever hidden, downranked, or removed for payment.",
     "- We do not accept payment for Trust Score manipulation.",

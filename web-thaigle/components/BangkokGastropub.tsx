@@ -28,19 +28,19 @@ const PUBS = [
 export function BangkokGastropub() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
         🍺 Gastropubs & craft beer in Bangkok — British pubs, tap rooms & sports bars
-      </div>
+      </h2>
       <div className="space-y-2">
         {PUBS.map((p) => (
           <div key={p.name} className="border border-amber-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{p.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{p.name}</div>
+                <h3 className="font-bold text-xs">{p.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{p.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{p.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{p.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{p.why}</div>
             <div className="text-[10px] text-amber-700">💡 {p.tip}</div>

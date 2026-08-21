@@ -4,7 +4,8 @@ import { GUIDE_TOPICS, findGuideTopic } from "@/lib/guideTopics";
 import { GUIDE_TOPIC_LOADERS } from "@/lib/guideTopicLoaders";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
-import { AdSlot } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AdSlot";
+import { venuesForTopic } from "@/lib/guideCommerce";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 
@@ -63,6 +64,7 @@ export default async function GuideTopicPage(
   // Neighbours in the alphabetical registry are unrelated, so "related" is a
   // small rotating slice instead — enough internal linking for crawl depth
   // without pretending at topical relevance.
+  const venues = await venuesForTopic(t.slug, t.title);
   const related = [...GUIDE_TOPICS.slice(idx + 1), ...GUIDE_TOPICS.slice(0, idx)]
     .filter((x) => x.emoji === t.emoji)
     .slice(0, 6);
@@ -104,7 +106,66 @@ export default async function GuideTopicPage(
 
         <Block />
 
-        <AdSlot slot="guide-topic" />
+        {venues.length > 0 ? (
+          <section className="mt-10 border border-[var(--border)] rounded-2xl p-5 bg-gradient-to-br from-orange-50 to-white">
+            <h2 className="text-lg font-bold mb-1">Places for this in Bangkok</h2>
+            <p className="text-sm text-[var(--muted)] mb-4">
+              Ranked by Trust Score from real Google reviews &mdash; not paid placements.
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-2">
+              {venues.map((v) => (
+                <li key={v.slug}>
+                  <a
+                    href={`/activities/${v.niche}/${encodeURIComponent(v.slug)}`}
+                    className="flex items-baseline justify-between gap-3 p-3 rounded-xl bg-white border border-[var(--border)] hover:border-orange-400 transition min-w-0"
+                  >
+                    <span className="font-semibold text-sm truncate">{v.name}</span>
+                    <span className="shrink-0 text-xs text-[var(--muted)] tabular-nums">
+                      {v.rating ? `★${v.rating}` : ""} &middot; {v.trustScore}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={`/activities/${venues[0].niche}`}
+              className="inline-block mt-4 text-sm font-bold text-orange-700 hover:underline"
+            >
+              See all {venues[0].nicheLabel} in Bangkok &rarr;
+            </a>
+          </section>
+        ) : (
+          /* Fallback for the ~187 topics whose subject maps to no venue niche
+             (visas, banking, language, festivals). They still need a way out
+             of the guide cluster: without one, 253 long-dwell pages link only
+             to each other and pass nothing to the pages that carry the
+             booking links. Generic, but a real onward path. */
+          <section className="mt-10 border border-[var(--border)] rounded-2xl p-5 bg-gradient-to-br from-orange-50 to-white">
+            <h2 className="text-lg font-bold mb-1">Plan the rest of your Bangkok trip</h2>
+            <p className="text-sm text-[var(--muted)] mb-4">
+              Venues ranked by Trust Score from real Google reviews.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {[
+                { href: "/activities", label: "Things to do", icon: "✨" },
+                { href: "/restaurants", label: "Restaurants", icon: "🍽️" },
+                { href: "/day-plan", label: "Day plans", icon: "🗺️" },
+                { href: "/local-tips", label: "Local tips", icon: "💡" },
+              ].map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-white border border-[var(--border)] hover:border-orange-400 transition text-center"
+                >
+                  <span className="text-xl" aria-hidden>{l.icon}</span>
+                  <span className="text-xs font-bold leading-tight">{l.label}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <AdSlot name="articleMid" />
 
         {related.length > 0 && (
           <section className="mt-10">

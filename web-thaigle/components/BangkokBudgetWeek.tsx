@@ -53,9 +53,9 @@ const DAYS = [
 export function BangkokBudgetWeek() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         💰 7-day Bangkok budget itinerary — ฿5,000–7,000 total
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {DAYS.map((d) => (
           <details key={d.day} className="border border-[var(--border)] rounded-xl group">

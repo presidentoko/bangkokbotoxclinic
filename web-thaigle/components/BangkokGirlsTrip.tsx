@@ -36,9 +36,9 @@ const IDEAS = [
 export function BangkokGirlsTrip() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         👯‍♀️ Bangkok girls trip ideas — spa, shopping & nightlife
-      </div>
+      </h2>
       <div className="space-y-2">
         {IDEAS.map((idea) => (
           <details key={idea.title} className="border border-pink-100 rounded-xl overflow-hidden group">
@@ -47,7 +47,7 @@ export function BangkokGirlsTrip() {
               <div className="flex-1 min-w-0">
                 <div className="font-bold text-xs">{idea.title}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{idea.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{idea.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-pink-100 pt-2 space-y-1">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{idea.why}</div>

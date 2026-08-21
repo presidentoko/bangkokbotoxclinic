@@ -36,9 +36,9 @@ const REGIONS = [
 export function BangkokThaiCuisineRegional() {
   return (
     <div className="rounded-2xl border border-orange-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
         🍛 Thai cuisine by region — what to eat and where to find it
-      </div>
+      </h2>
       <div className="space-y-2">
         {REGIONS.map((r) => (
           <details key={r.region} className="border border-orange-100 rounded-xl overflow-hidden group">

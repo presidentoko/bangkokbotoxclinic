@@ -44,9 +44,9 @@ const TYPES = [
 export function BangkokThaiMassageTypes() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         💆 Thai massage types — which one is right for you?
-      </div>
+      </h2>
       <div className="space-y-2">
         {TYPES.map((t) => (
           <details key={t.name} className="border border-pink-100 rounded-xl group">

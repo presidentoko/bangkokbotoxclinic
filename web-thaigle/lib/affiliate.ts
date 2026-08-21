@@ -16,6 +16,34 @@ function addUtm(url: string, activityType: string): string {
   return `${url}${sep}${qs}`;
 }
 
+/**
+ * Resolve an affiliate URL that was written by the scraper with a placeholder
+ * ID in it.
+ *
+ * All 19,730 affiliate URLs in data/by-niche/*.json carry literal
+ * `PLACEHOLDER_KLOOK_AID` / `PLACEHOLDER_VIATOR_AID` / `PLACEHOLDER_GYG_AID`
+ * query values. Rendered as-is they are unattributed clicks: the visitor
+ * reaches the partner, books, and no commission is recorded.
+ *
+ * Worse, their mere presence broke the fallback path. Every place has a
+ * non-empty `viator` and `getyourguide` string, so `hasDirectBooking` was
+ * true for all of them, so getAffiliateLink() — the one code path that
+ * inserts the real IDs from the environment — never ran on any venue page.
+ *
+ * Returning null when no real ID is configured is what re-arms that path.
+ */
+export function resolveAffiliateUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  if (!url.includes("PLACEHOLDER_")) return url;
+  const filled = url
+    .replace("PLACEHOLDER_KLOOK_AID", KLOOK_AID)
+    .replace("PLACEHOLDER_VIATOR_AID", VIATOR_PID)
+    .replace("PLACEHOLDER_GYG_AID", GYG_PARTNER_ID);
+  // A still-unfilled placeholder means that provider has no ID configured.
+  // Treat the link as absent so the caller falls back to a built one.
+  return filled.includes("PLACEHOLDER_") ? null : filled;
+}
+
 // Appends our Klook affiliate ID to a direct product URL scraped without one.
 export function withKlookAid(url: string): string {
   if (!KLOOK_AID || !url) return url;
@@ -112,15 +140,23 @@ export function getAffiliateLink({
     viator: `${activityType} ${city}`,
   };
 
-  // Direct venue affiliate URL first
+  // Direct venue affiliate URL first — but only one that resolves to a real
+  // affiliate ID. The scraped URLs all carry PLACEHOLDER_* values; taking one
+  // of those here would return an unattributed link *and* skip the category
+  // search below, which is the branch that actually inserts our IDs.
+  const direct = {
+    klook: resolveAffiliateUrl(venue?.affiliate?.klook),
+    getyourguide: resolveAffiliateUrl(venue?.affiliate?.getyourguide),
+    viator: resolveAffiliateUrl(venue?.affiliate?.viator),
+  };
   if (venue?.affiliate) {
     for (const provider of order) {
-      if (provider === "klook" && venue.affiliate.klook)
-        return { url: addUtm(venue.affiliate.klook, activityType), provider: "Klook", label: "Book on Klook", isDirect: true };
-      if (provider === "gyg" && venue.affiliate.getyourguide)
-        return { url: addUtm(venue.affiliate.getyourguide, activityType), provider: "GetYourGuide", label: "Book on GetYourGuide", isDirect: true };
-      if (provider === "viator" && venue.affiliate.viator)
-        return { url: addUtm(venue.affiliate.viator, activityType), provider: "Viator", label: "Book on Viator", isDirect: true };
+      if (provider === "klook" && direct.klook)
+        return { url: addUtm(direct.klook, activityType), provider: "Klook", label: "Book on Klook", isDirect: true };
+      if (provider === "gyg" && direct.getyourguide)
+        return { url: addUtm(direct.getyourguide, activityType), provider: "GetYourGuide", label: "Book on GetYourGuide", isDirect: true };
+      if (provider === "viator" && direct.viator)
+        return { url: addUtm(direct.viator, activityType), provider: "Viator", label: "Book on Viator", isDirect: true };
     }
   }
 

@@ -68,11 +68,11 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Can tourists do Muay Thai training in Bangkok?",
-    a: "Yes — Bangkok has over 381 Muay Thai gyms, many welcoming tourists daily. A typical 90-minute beginner session (฿300–฿800) covers pad work, bag work, and basic technique drills with an English-speaking trainer. No experience needed. Look for gyms marked 'Beginner Friendly' on Thaigle. For a one-off experience, Klook-bookable gyms (฿600–฿1,200) include equipment. For serious training, book a training camp with morning and afternoon sessions.",
+    a: "Yes — Bangkok has over 270 ranked Muay Thai gyms, many welcoming tourists daily. A typical 90-minute beginner session (฿300–฿800) covers pad work, bag work, and basic technique drills with an English-speaking trainer. No experience needed. Look for gyms marked 'Beginner Friendly' on Thaigle. For a one-off experience, Klook-bookable gyms (฿600–฿1,200) include equipment. For serious training, book a training camp with morning and afternoon sessions.",
   },
   {
     q: "What cooking classes are available in Bangkok for tourists?",
-    a: "Bangkok has 296+ ranked cooking schools. Most offer half-day classes (3–4 hours, ฿800–฿1,800) teaching 3–5 Thai dishes — Pad Thai, Tom Yum, Green Curry, and Mango Sticky Rice are standard. Full-day classes (฿1,500–฿3,500) add a market tour at Or Tor Kor or a local wet market. Private classes for 1–2 people run ฿2,500–฿6,000. Most schools accommodate vegetarians with advance notice. Classes can be booked directly or via Klook.",
+    a: "Bangkok has 100+ ranked cooking schools. Most offer half-day classes (3–4 hours, ฿800–฿1,800) teaching 3–5 Thai dishes — Pad Thai, Tom Yum, Green Curry, and Mango Sticky Rice are standard. Full-day classes (฿1,500–฿3,500) add a market tour at Or Tor Kor or a local wet market. Private classes for 1–2 people run ฿2,500–฿6,000. Most schools accommodate vegetarians with advance notice. Classes can be booked directly or via Klook.",
   },
   {
     q: "What are the best areas to eat in Bangkok?",
@@ -80,7 +80,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "Is there yoga in Bangkok? What do yoga studios cost?",
-    a: "Bangkok has 284+ yoga and Pilates studios, particularly in Thong Lor, Ari, and Sukhumvit. Drop-in classes cost ฿400–฿800. A 7-day tourist intro pass (unlimited classes) is ฿800–฿1,500 — best value for short stays. Monthly memberships range from ฿2,500–฿8,000. Hot yoga is extremely popular in Bangkok. Reformer Pilates (฿600–฿1,200/session) has grown rapidly in 2024–2026. Most studios teach in English.",
+    a: "Bangkok has 70+ ranked yoga and Pilates studios, particularly in Thong Lor, Ari, and Sukhumvit. Drop-in classes cost ฿400–฿800. A 7-day tourist intro pass (unlimited classes) is ฿800–฿1,500 — best value for short stays. Monthly memberships range from ฿2,500–฿8,000. Hot yoga is extremely popular in Bangkok. Reformer Pilates (฿600–฿1,200/session) has grown rapidly in 2024–2026. Most studios teach in English.",
   },
   {
     q: "What cheap activities can tourists do in Bangkok?",
@@ -88,7 +88,7 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How is the Trust Score calculated?",
-    a: "Trust Score (0-100) is built from four components: Google star rating (max 50 pts), review volume on a log scale (max 40 pts), Local Guide reviewer ratio (max 10 pts), and reviewer authority (max 5 pts). Raw score is capped at 100. Updated every 30 minutes from public Google Maps data — not a Google ranking.",
+    a: "Trust Score (0-100) is built from four components: Google star rating (max 50 pts), review volume on a log scale (max 40 pts), Local Guide reviewer ratio (max 10 pts), and reviewer authority (max 5 pts). Raw score is capped at 100. Recomputed from public Google Maps data each time the dataset is refreshed — not a Google ranking.",
   },
   {
     q: "Are the listings on Thaigle sponsored?",
@@ -96,6 +96,6 @@ export const HOME_FAQS: Faq[] = [
   },
   {
     q: "How current is the Bangkok restaurant and activity data?",
-    a: "Listings and Trust Scores rebuild approximately every 30 minutes from continuous Google Maps data. Sample reviews on each page are real, recent excerpts from public Google reviews. Data freshness is shown on each listing page.",
+    a: "Listings and Trust Scores are rebuilt each time the dataset is refreshed, which happens in batches rather than continuously. Sample reviews on each page are real excerpts from public Google reviews. The freshness date shown on each listing page is the authoritative one.",
   },
 ];

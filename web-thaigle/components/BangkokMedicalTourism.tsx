@@ -44,9 +44,9 @@ const HOSPITALS = [
 export function BangkokMedicalTourism() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         🏥 Bangkok medical tourism — hospitals & procedures
-      </div>
+      </h2>
       <div className="text-[10px] bg-blue-50 rounded-xl p-2.5 mb-3 text-blue-800">
         Thailand is one of Asia's top medical tourism destinations. All major private hospitals have international patient departments with English-speaking staff and medical records coordination with home-country hospitals.
       </div>
@@ -56,7 +56,7 @@ export function BangkokMedicalTourism() {
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-blue-50 transition">
               <span className="text-2xl shrink-0">{h.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{h.name}</div>
+                <h3 className="font-bold text-xs">{h.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{h.specialty} · {h.area}</div>
               </div>
             </summary>

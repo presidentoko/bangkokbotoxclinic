@@ -20,6 +20,28 @@ import type { Lang } from "@/lib/places";
  */
 export const PLACE_LANGS: Lang[] = ["th", "en", "ko"];
 
+/**
+ * Whether /{lang}/place/* may be indexed at all.
+ *
+ * Set false 2026-08-21. These 1,647 pages carry a median of ~137 characters
+ * of text unique to the page: `feedSays` has 7 distinct values across all
+ * 1,647 (339 places share one sentence verbatim), `dataSays` reduces to 9
+ * templates, and 99.3% of them end with the identical clause "below category
+ * average". That is thin, templated content at scale, which is the single
+ * most common reason an AdSense application is refused — and it is judged
+ * against the whole account, so these pages put the rest of the site's
+ * monetisation at risk while earning nothing themselves.
+ *
+ * They stay crawlable on purpose. A robots.txt Disallow would stop Google
+ * fetching them, and a page Google cannot fetch is a page whose noindex it
+ * cannot read — the already-indexed ones would simply stay indexed. Letting
+ * the crawler in to see the noindex is what actually removes them.
+ *
+ * The pages themselves remain: they still serve visitors who land on them and
+ * they still pass internal links. Only the invitation to rank is withdrawn.
+ */
+export const PLACE_TREE_INDEXABLE = false;
+
 export const INDEXABLE_PLACE_LANGS: Lang[] = ["en"];
 
 export const BLOCKED_PLACE_LANGS: Lang[] = PLACE_LANGS.filter(

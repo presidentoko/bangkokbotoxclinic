@@ -44,9 +44,9 @@ const FOOD_COURTS = [
 export function BangkokShoppingMallFood() {
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         🏬 Bangkok mall food courts — best cheap eats inside malls
-      </div>
+      </h2>
       <div className="space-y-2.5">
         {FOOD_COURTS.map((f) => (
           <div key={f.mall} className="border border-yellow-100 rounded-xl p-3">
@@ -56,7 +56,7 @@ export function BangkokShoppingMallFood() {
                 <div className="font-bold text-xs">{f.mall}</div>
                 <div className="text-[10px] text-[var(--muted)]">Floor {f.floor} · {f.bts} · {f.bestFor}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{f.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{f.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-1.5 leading-snug">{f.why}</div>
             <div className="flex flex-wrap gap-1">

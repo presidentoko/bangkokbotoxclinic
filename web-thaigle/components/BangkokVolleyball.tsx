@@ -28,9 +28,9 @@ const INFO = [
 export function BangkokVolleyball() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         🏐 Volleyball in Bangkok — park courts, beach volleyball & Thai national team
-      </div>
+      </h2>
       <div className="space-y-2">
         {INFO.map((i) => (
           <div key={i.heading} className="border border-blue-100 rounded-xl p-3">
@@ -40,7 +40,7 @@ export function BangkokVolleyball() {
                 <div className="font-bold text-xs">{i.heading}</div>
                 <div className="text-[10px] text-[var(--muted)]">{i.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{i.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{i.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{i.why}</div>
             <div className="text-[10px] text-blue-700">💡 {i.tip}</div>

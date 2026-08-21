@@ -40,9 +40,9 @@ const CATEGORIES = [
 export function BangkokShopping() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🛍️ Bangkok shopping guide by category
-      </div>
+      </h2>
       <div className="space-y-3">
         {CATEGORIES.map((c) => (
           <div key={c.type} className="border border-[var(--border)] rounded-xl p-3">

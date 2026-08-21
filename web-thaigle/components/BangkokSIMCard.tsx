@@ -31,9 +31,9 @@ const PRACTICAL = [
 export function BangkokSIMCard() {
   return (
     <div className="rounded-2xl border border-sky-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-sky-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-sky-700 mb-3">
         📱 SIM cards in Bangkok — AIS, DTAC & True Move H tourist & monthly plans
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {CARRIERS.map((c) => (
           <details key={c.name} className="border border-sky-100 rounded-xl p-3">
@@ -41,7 +41,7 @@ export function BangkokSIMCard() {
               <div className="flex items-center gap-2">
                 <span className="text-xl shrink-0">{c.emoji}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-xs">{c.name}</div>
+                  <h3 className="font-bold text-xs">{c.name}</h3>
                   <div className="text-[10px] text-[var(--muted)]">{c.plans}</div>
                 </div>
               </div>

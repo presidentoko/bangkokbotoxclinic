@@ -34,9 +34,9 @@ const TIPS = [
 export function BangkokBankAccount() {
   return (
     <div className="rounded-2xl border border-purple-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         🏦 Opening a bank account in Bangkok — Bangkok Bank, KBank & SCB guide
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {BANKS.map((b) => (
           <details key={b.name} className="border border-purple-100 rounded-xl p-3">
@@ -44,10 +44,10 @@ export function BangkokBankAccount() {
               <div className="flex items-center gap-2">
                 <span className="text-xl shrink-0">{b.emoji}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-xs">{b.name}</div>
+                  <h3 className="font-bold text-xs">{b.name}</h3>
                   <div className="text-[10px] text-[var(--muted)]">{b.accounts}</div>
                 </div>
-                <span className="shrink-0 text-[10px] font-mono text-purple-700">{b.min_deposit}</span>
+                <span className="min-w-0 break-words text-right text-[10px] font-mono text-purple-700">{b.min_deposit}</span>
               </div>
             </summary>
             <div className="mt-2 text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{b.why}</div>

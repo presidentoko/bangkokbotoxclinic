@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokModernArt() {
   return (
     <div className="rounded-2xl border border-fuchsia-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-fuchsia-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-fuchsia-700 mb-3">
         🎨 Bangkok arts & culture — contemporary art galleries, Thai cinema history & live music scene
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-fuchsia-100 rounded-xl">

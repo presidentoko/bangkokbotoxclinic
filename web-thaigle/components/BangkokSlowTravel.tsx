@@ -32,9 +32,9 @@ const PRACTICES = [
 export function BangkokSlowTravel() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         🌿 Slow travel Bangkok — morning markets, river boats & neighborhood walks
-      </div>
+      </h2>
       <div className="space-y-2">
         {PRACTICES.map((p) => (
           <div key={p.title} className="border border-teal-100 rounded-xl p-3">

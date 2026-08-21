@@ -34,9 +34,9 @@ const TIPS = [
 export function BangkokJetLagTips() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         😴 Jet lag in Bangkok — how to recover fast
-      </div>
+      </h2>
       <div className="text-[10px] bg-indigo-50 rounded-xl p-2.5 mb-3 text-indigo-800">
         Bangkok is <strong>GMT+7</strong>. Coming from Europe: +6–7hrs behind. From US West Coast: +14–15hrs. Worst jet lag is usually from Pacific crossings. Recovery time: 2–3 days typically.
       </div>

@@ -34,7 +34,7 @@ export async function GET() {
     `- Cities: ${cityList.map(([c, n]) => `${c} (${n})`).join(", ")}`,
     `- Cuisines tracked: ${Object.keys(db.cuisine_counts ?? {}).join(", ")}`,
     `- Last refreshed: ${db.generated_at}`,
-    `- Refresh cadence: ~ every 30 minutes`,
+    `- Refresh cadence: batched; see the generated_at timestamp on each dataset`,
     "",
     "## Methodology",
     "",
@@ -141,7 +141,7 @@ export async function GET() {
       const top10 = qualifyingNichePlaces(niche.slug, nicheDb.places).slice(0, 10);
       if (top10.length === 0) continue;
       lines.push(`### ${niche.icon} ${niche.label} — ${SITE}/activities/${niche.slug}`);
-      lines.push(`Total listings: ${nicheDb.total}`);
+      lines.push(`Total listings: ${qualifyingNichePlaces(niche.slug, nicheDb.places).length}`);
       for (const a of top10) {
         lines.push(`- [${a.name}](${SITE}/activities/${niche.slug}/${a.slug}) — Trust ${a.trust_score}, ★${a.rating ?? "n/a"} (${(a.review_count ?? 0).toLocaleString()} reviews)`);
       }

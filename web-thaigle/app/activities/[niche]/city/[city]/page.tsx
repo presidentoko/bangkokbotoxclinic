@@ -12,6 +12,7 @@ import {
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
 import { NicheGrid } from "@/components/NicheGrid";
+import { toGridPlace, toGridKlook } from "@/lib/gridPlace";
 import { NicheItemListJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
 
@@ -164,8 +165,8 @@ export default async function NicheCityPage({ params }: Props) {
       )}
 
       <NicheGrid
-        places={cityPlaces}
-        klookData={[...klookMap.entries()]}
+        places={cityPlaces.map(toGridPlace)}
+        klookData={toGridKlook([...klookMap.entries()])}
         nicheSlug={niche}
         nicheIcon={info.icon}
         planType={info.planType}
@@ -181,6 +182,7 @@ export default async function NicheCityPage({ params }: Props) {
           rating: p.rating,
           review_count: p.review_count,
           address: p.address,
+          city: p.city,
         }))}
         url={`/activities/${niche}/city/${citySlug}`}
       />

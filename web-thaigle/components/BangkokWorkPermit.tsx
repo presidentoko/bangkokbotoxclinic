@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokWorkPermit() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         📋 Bangkok legal residency — work permits, SMART/LTR visas & retirement O-A requirements
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-blue-100 rounded-xl">

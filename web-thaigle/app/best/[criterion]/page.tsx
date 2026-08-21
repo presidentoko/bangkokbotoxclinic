@@ -3,9 +3,10 @@ import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { BreadcrumbJsonLd, ItemListJsonLd } from "@/components/JsonLd";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AdSlot";
 import { BEST_FOR, findBestFor } from "@/lib/bestFor";
-import { isFood } from "@/lib/data";
+import { isListable } from "@/lib/data";
 import { sortWithSponsored } from "@/lib/sponsored";
 import { VersusVote } from "@/components/VersusVote";
 import { ShareButton } from "@/components/ShareButton";
@@ -48,13 +49,16 @@ export default async function BestForPage(
   if (!cfg) notFound();
 
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
-  const filtered = sortWithSponsored(
-    db.restaurants
-      .filter((r) => isFood(r) && (!cfg.filterFn || cfg.filterFn(r)))
-      .map((r) => ({ ...r, _score: cfg.scoreFn(r) }))
-      .sort((a, b) => b._score - a._score)
-      .slice(0, 50)
-  );
+  // Keep the pre-truncation size. `filtered.length` is the length *after*
+  // slice(0, 50), so every one of these pages announced "50 restaurants
+  // matched" regardless of the real figure — 2,348 for affordable, 2,782 for
+  // highly-recommended.
+  const matching = db.restaurants
+    .filter((r) => isListable(r) && (!cfg.filterFn || cfg.filterFn(r)))
+    .map((r) => ({ ...r, _score: cfg.scoreFn(r) }))
+    .sort((a, b) => b._score - a._score);
+  const matchCount = matching.length;
+  const filtered = sortWithSponsored(matching.slice(0, 50));
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -72,7 +76,7 @@ export default async function BestForPage(
       </div>
       <p className="text-[var(--muted)] mb-2">{cfg.intro}</p>
       <p className="text-xs text-[var(--muted)] mb-8 italic">
-        {filtered.length} restaurants matched. Refreshed continuously from public Google reviews.
+        {matchCount.toLocaleString()} restaurants matched — showing the top {filtered.length}.
       </p>
 
       {filtered.length === 0 ? (
@@ -86,7 +90,7 @@ export default async function BestForPage(
               ))}
             </div>
             <AffiliateInline />
-            <AdSlot slot="best-for-mid" />
+            <AdSlot name="listInline" />
             <div className="grid gap-3 mt-3">
               {filtered.slice(10).map((r, i) => (
                 <RestaurantCard key={r.id} r={r} rank={i + 11} slugMap={slugMap} />

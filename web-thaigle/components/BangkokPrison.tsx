@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokPrison() {
   return (
     <div className="rounded-2xl border border-stone-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-stone-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-stone-700 mb-3">
         ⚖️ Bangkok law & medicine — legal system for foreigners, dark tourism sites & medical tourism guide
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-stone-100 rounded-xl">

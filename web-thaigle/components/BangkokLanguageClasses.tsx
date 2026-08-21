@@ -44,9 +44,9 @@ const CLASSES = [
 export function BangkokLanguageClasses() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         📚 Language classes in Bangkok — learn Thai and more
-      </div>
+      </h2>
       <div className="space-y-2">
         {CLASSES.map((c) => (
           <details key={c.language} className="border border-blue-100 rounded-xl overflow-hidden group">
@@ -56,7 +56,7 @@ export function BangkokLanguageClasses() {
                 <div className="font-bold text-xs">{c.language}</div>
                 <div className="text-[10px] text-[var(--muted)]">{c.level}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{c.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{c.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-blue-100 pt-2 space-y-1">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{c.why}</div>

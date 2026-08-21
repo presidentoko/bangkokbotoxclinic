@@ -46,9 +46,9 @@ const STATIONS = [
 export function BangkokThingsNearBTS() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🚉 Things to do near major BTS stations
-      </div>
+      </h2>
       <div className="space-y-2">
         {STATIONS.map((s) => (
           <details key={s.station} className="border border-[var(--border)] rounded-xl group">

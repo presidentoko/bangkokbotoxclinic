@@ -32,9 +32,9 @@ const IDEAS = [
 export function BangkokBachelorParty() {
   return (
     <div className="rounded-2xl border border-purple-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         🎉 Bangkok bachelor / bachelorette party ideas
-      </div>
+      </h2>
       <div className="space-y-2">
         {IDEAS.map((idea) => (
           <details key={idea.type} className="border border-purple-100 rounded-xl overflow-hidden group">
@@ -43,7 +43,7 @@ export function BangkokBachelorParty() {
               <div className="flex-1 min-w-0">
                 <div className="font-bold text-xs">{idea.type}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{idea.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{idea.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-purple-100 pt-2 space-y-1.5">
               <ul className="space-y-0.5">

@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokPropertyGuide() {
   return (
     <div className="rounded-2xl border border-stone-300 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-stone-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-stone-700 mb-3">
         🏢 Renting & buying property in Bangkok — expat condo guide, foreign ownership rules
-      </div>
+      </h2>
       <div className="space-y-2">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-stone-100 rounded-xl p-3 group">

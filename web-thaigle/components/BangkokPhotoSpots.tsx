@@ -52,9 +52,9 @@ const SPOTS = [
 export function BangkokPhotoSpots() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         📸 Best Bangkok photo spots
-      </div>
+      </h2>
       <div className="grid gap-2">
         {SPOTS.map((s) => (
           <div key={s.name} className="flex gap-3 border border-[var(--border)] rounded-xl p-3">

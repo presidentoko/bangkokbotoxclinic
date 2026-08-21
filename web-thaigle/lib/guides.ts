@@ -165,10 +165,10 @@ export const GUIDES: Guide[] = [
     title: "Best Muay Thai Gyms in Bangkok (2026 Guide)",
     metaTitle: "Best Muay Thai Gyms Bangkok 2026 — Ranked by Real Reviews",
     metaDescription:
-      "Where to train Muay Thai in Bangkok — ranked by Trust Score from 381 real Google-reviewed gyms. Beginner tips, prices, and what to expect.",
+      "Where to train Muay Thai in Bangkok — ranked by Trust Score from 270+ real Google-reviewed Bangkok gyms. Beginner tips, prices, and what to expect.",
     updated: "2026-06-22",
     intro:
-      "Bangkok is the world capital of Muay Thai. With over 381 gyms across the city, the challenge isn't finding a gym — it's finding one that's right for you. This guide breaks down what separates the tourist-friendly gyms from the serious training camps, and how to pick based on your goals.",
+      "Bangkok is the world capital of Muay Thai. With over 270 ranked gyms across the city, the challenge isn't finding a gym — it's finding one that's right for you. This guide breaks down what separates the tourist-friendly gyms from the serious training camps, and how to pick based on your goals.",
     sections: [
       {
         heading: "Tourist gym vs. training camp — what's the difference?",
@@ -213,7 +213,7 @@ export const GUIDES: Guide[] = [
     title: "Best Thai Massage & Spas in Bangkok (2026 Guide)",
     metaTitle: "Best Thai Massage Bangkok 2026 — Verified Spa Rankings",
     metaDescription:
-      "Where to get the best Thai massage in Bangkok. 2,000+ spas ranked by real Google reviews. Prices, what to expect, and how to avoid tourist traps.",
+      "Where to get the best Thai massage in Bangkok. 500+ spas ranked by real Google reviews. Prices, what to expect, and how to avoid tourist traps.",
     updated: "2026-06-22",
     intro:
       "Thai massage is the best value wellness experience in Bangkok — a 2-hour full-body session costs less than a cocktail at a rooftop bar. But with thousands of massage shops across the city, quality varies enormously. This guide breaks down what to look for, where to go, and what to pay.",

@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokInfluencerLife() {
   return (
     <div className="rounded-2xl border border-rose-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
         📱 Bangkok creator economy — content creation hub, photography locations & YouTube production
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-rose-100 rounded-xl">

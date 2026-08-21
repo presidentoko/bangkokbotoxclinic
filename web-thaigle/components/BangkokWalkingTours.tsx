@@ -34,16 +34,16 @@ const TOURS = [
 export function BangkokWalkingTours() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         🚶 Bangkok walking tours — self-guided routes & what to see
-      </div>
+      </h2>
       <div className="space-y-2">
         {TOURS.map((t) => (
           <details key={t.name} className="border border-teal-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-teal-50 transition">
               <span className="text-2xl shrink-0">{t.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{t.name}</div>
+                <h3 className="font-bold text-xs">{t.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{t.duration} · {t.price}</div>
               </div>
             </summary>

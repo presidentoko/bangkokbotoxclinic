@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Fragment } from "react";
+import { AdSlot } from "@/components/AdSlot";
+import { resolveAffiliateUrl } from "@/lib/affiliate";
 import { notFound } from "next/navigation";
 import {
   NICHES,
@@ -146,7 +148,12 @@ export default async function PlaceDetailPage({
   const klook = klookMap.get(place.id);
   const planType = info.planType as PlanItemType;
 
-  const hasDirectBooking = !!(klook?.products?.[0] || place.affiliate?.viator || place.affiliate?.getyourguide);
+  // Resolve the scraper's placeholder-bearing URLs once. Anything that comes
+  // back null had no real affiliate ID and is treated as if the provider had
+  // no link at all, which is what lets the fallback below actually run.
+  const viatorUrl = resolveAffiliateUrl(place.affiliate?.viator);
+  const gygUrl = resolveAffiliateUrl(place.affiliate?.getyourguide);
+  const hasDirectBooking = !!(klook?.products?.[0] || viatorUrl || gygUrl);
   const fallback = hasDirectBooking ? null : getAffiliateLink({
     venue: { name: place.name, affiliate: place.affiliate },
     activityType: niche,
@@ -171,7 +178,24 @@ export default async function PlaceDetailPage({
   const pageUrl = `${SITE}/activities/${niche}/${encodeURIComponent(slug)}`;
   const openingHours = readOpeningHours(place.opening_hours_json);
 
-  const hasStickyBooking = !!(klook?.products?.[0] || place.affiliate?.viator || place.affiliate?.getyourguide || fallback);
+  // Whether this page has enough of its own substance to carry an ad.
+  //
+  // A page that is a name, an address and a map link, wrapped around two ad
+  // units, is the definition of a made-for-advertising page and it is a
+  // documented AdSense rejection reason — one that gets judged at the account
+  // level, so a few thousand thin pages put the whole site's approval at
+  // risk, not just their own impressions. Thin venues keep their page (they
+  // still answer a real search and still pass internal link equity) and
+  // simply carry no ad.
+  const contentDepth =
+    (place.top_photo_url ? 1 : 0) +
+    (place.reviews_sample && place.reviews_sample.length > 0 ? 1 : 0) +
+    (openingHours.length > 0 ? 1 : 0) +
+    (place.address ? 1 : 0) +
+    (similarInNiche.length >= 3 ? 1 : 0);
+  const showAds = contentDepth >= 3;
+
+  const hasStickyBooking = !!(klook?.products?.[0] || viatorUrl || gygUrl || fallback);
 
   return (
     <div className={`max-w-3xl mx-auto px-4 py-6${hasStickyBooking ? " pb-24 md:pb-6" : ""}`}>
@@ -258,8 +282,8 @@ export default async function PlaceDetailPage({
         placeId={place.id}
         placeName={place.name}
         klookProduct={klook?.products?.[0] ?? null}
-        viatorUrl={place.affiliate?.viator ?? null}
-        gygUrl={place.affiliate?.getyourguide ?? null}
+        viatorUrl={viatorUrl}
+        gygUrl={gygUrl}
         googleMapsUrl={place.google_maps_url ?? null}
         fallbackUrl={fallback?.url ?? null}
         fallbackLabel={fallback?.label ?? null}
@@ -321,6 +345,11 @@ export default async function PlaceDetailPage({
           </div>
         </section>
       )}
+
+      {/* First ad sits below the venue's own facts and above the reviews:
+          past the point where a search visitor has been answered, so it
+          never stands between them and what they came for. */}
+      {showAds && <AdSlot name="detailMid" />}
 
       {/* Review samples */}
       {place.reviews_sample && place.reviews_sample.length > 0 && (
@@ -484,6 +513,8 @@ export default async function PlaceDetailPage({
         </a>
       </div>
 
+      {showAds && <AdSlot name="detailFoot" />}
+
       {/* Back link + report */}
       <div className="flex items-center justify-between text-sm flex-wrap gap-2">
         <a href={`/activities/${niche}`} className="text-[var(--muted)] hover:text-black">
@@ -525,28 +556,28 @@ export default async function PlaceDetailPage({
       {/* Mobile sticky bar: Book + Add to plan — mirrors BookingCTAs' klook
           > viator > gyg > fallback priority so venues without a Klook match
           (most of them) still get a sticky booking CTA instead of none. */}
-      {(klook?.products?.[0] || place.affiliate?.viator || place.affiliate?.getyourguide || fallback) && (
+      {(klook?.products?.[0] || viatorUrl || gygUrl || fallback) && (
         <MobileStickyBar
           bookingUrl={
             klook?.products?.[0]
               ? withKlookAid(klook.products[0].product_url)
-              : place.affiliate?.viator || place.affiliate?.getyourguide || fallback!.url
+              : viatorUrl || gygUrl || fallback!.url
           }
           bookingProvider={
             klook?.products?.[0]
               ? "Klook"
-              : place.affiliate?.viator
+              : viatorUrl
               ? "Viator"
-              : place.affiliate?.getyourguide
+              : gygUrl
               ? "GetYourGuide"
               : fallback!.provider ?? "Klook"
           }
           bookingLabel={
             klook?.products?.[0]
               ? "Book on Klook"
-              : place.affiliate?.viator
+              : viatorUrl
               ? "Search on Viator"
-              : place.affiliate?.getyourguide
+              : gygUrl
               ? "GetYourGuide"
               : fallback!.label ?? "Find & book similar"
           }

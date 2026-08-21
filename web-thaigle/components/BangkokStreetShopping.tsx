@@ -44,16 +44,16 @@ const ZONES = [
 export function BangkokStreetShopping() {
   return (
     <div className="rounded-2xl border border-violet-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-violet-700 mb-3">
         🛍️ Bangkok street shopping zones — what to buy where
-      </div>
+      </h2>
       <div className="space-y-2">
         {ZONES.map((z) => (
           <details key={z.name} className="border border-violet-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-violet-50 transition">
               <span className="text-2xl shrink-0">{z.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{z.name}</div>
+                <h3 className="font-bold text-xs">{z.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{z.area} · {z.hours}</div>
               </div>
             </summary>

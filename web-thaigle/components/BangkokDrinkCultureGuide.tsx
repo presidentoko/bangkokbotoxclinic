@@ -34,9 +34,9 @@ const SECTIONS = [
 export function BangkokDrinkCultureGuide() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
         🍻 Bangkok drink culture — beers, spirits & nightlife rules
-      </div>
+      </h2>
       <div className="space-y-3">
         {SECTIONS.map((s) => (
           <div key={s.title} className="border border-amber-100 rounded-xl p-3">

@@ -40,16 +40,16 @@ const ACTIVITIES = [
 export function BangkokSundayActivities() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         ☀️ Bangkok Sunday activities — how to spend the day
-      </div>
+      </h2>
       <div className="space-y-2">
         {ACTIVITIES.map((a) => (
           <details key={a.name} className="border border-emerald-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-emerald-50 transition">
               <span className="text-2xl shrink-0">{a.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{a.name}</div>
+                <h3 className="font-bold text-xs">{a.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{a.time} · {a.effort}</div>
               </div>
             </summary>

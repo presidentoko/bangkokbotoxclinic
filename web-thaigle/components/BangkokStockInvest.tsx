@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokStockInvest() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         📈 Bangkok investing — SET stock market, condo real estate & Thai gold market
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-emerald-100 rounded-xl">

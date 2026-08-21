@@ -25,9 +25,9 @@ const INFO = [
 export function BangkokRugby() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🏉 Rugby in Bangkok — expat clubs, tournaments & touch rugby
-      </div>
+      </h2>
       <div className="space-y-2">
         {INFO.map((i) => (
           <div key={i.heading} className="border border-green-100 rounded-xl p-3">

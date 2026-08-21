@@ -56,9 +56,9 @@ export function BangkokCountdown() {
 
   return (
     <div className="rounded-2xl border border-purple-200 bg-purple-50 p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         📅 Next Bangkok event
-      </div>
+      </h2>
       <div className="flex items-center gap-3">
         <span className="text-3xl">{event.entry.emoji}</span>
         <div className="flex-1 min-w-0">

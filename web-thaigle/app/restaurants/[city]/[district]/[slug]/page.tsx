@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
+import { AdSlot } from "@/components/AdSlot";
 import { loadMasterDb } from "@/lib/data";
 import { getSlugMap, getRestaurantBySlug, getAllRestaurantParams, restaurantUrl } from "@/lib/restaurants";
 import { isThaiScript } from "@/lib/thaiName";
@@ -11,7 +13,7 @@ import { RatingChart } from "@/components/RatingChart";
 import { TopicCluster } from "@/components/TopicCluster";
 import { AIVerifiedBadge, SponsoredBadge, Freshness, RelativeRanking } from "@/components/Badges";
 import { sponsoredTier } from "@/lib/sponsored";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AffiliateInline } from "@/components/AffiliateSlot";
 import { ReportButton } from "@/components/ReportButton";
 import { ShareButton } from "@/components/ShareButton";
 import { SaveButton } from "@/components/SaveButton";
@@ -21,6 +23,7 @@ import { BangkokChallenge } from "@/components/BangkokChallenge";
 import { VenueStamp } from "@/components/VenueStamp";
 import { PopularTimes } from "@/components/PopularTimes";
 import { QuickFacts } from "@/components/QuickFacts";
+import { CardImage } from "@/components/CardImage";
 import type { Metadata } from "next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
@@ -51,10 +54,17 @@ export async function generateMetadata(
   // volume decoration — Google/Maps/TripAdvisor already own the brand-name
   // query. Leading with the cuisine targets what people actually search
   // ("mookata thonglor", "korean bbq sukhumvit").
-  const cuisineFragment = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "Restaurant";
-  const title = `${r.name} — ${cuisineFragment} Restaurant in ${districtName}, ${cityLabel} (Menu, Prices & Reviews)`;
+  // 567 venues have no cuisine, where the old fallback "Restaurant" met the
+  // literal " Restaurant in " and produced "Restaurant Restaurant in ...".
+  // 937 have no district, where districtName falls back to cityLabel and gave
+  // "Bangkok, Bangkok". 211 hit both. Building the phrase from the parts that
+  // exist avoids all three without a special case per combination.
+  const cuisineFragment = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "";
+  const kind = cuisineFragment ? `${cuisineFragment} Restaurant` : "Restaurant";
+  const where = r.district && r.district !== cityLabel ? `${r.district}, ${cityLabel}` : cityLabel;
+  const title = `${r.name} — ${kind} in ${where} (Menu, Prices & Reviews)`;
   const trustLabel = trustTierLong(r.trust_score);
-  const description = `${r.name} in ${districtName}, ${cityLabel}: ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews. Trust Score ${r.trust_score}/100 (${trustLabel}). ${cuisines || "Restaurant"}. View reviews, address & photos.`;
+  const description = `${r.name} in ${where}: ★${r.rating} from ${r.total_reviews.toLocaleString()} Google reviews. Trust Score ${r.trust_score}/100 (${trustLabel}). ${cuisines || "Restaurant"}. View reviews, address & photos.`;
   const canonical = restaurantUrl({ city, district, slug });
 
   return {
@@ -117,6 +127,24 @@ export default async function RestaurantPage(
   const idx = sortedTrust.indexOf(r.trust_score);
   const percentile = sortedTrust.length > 0 ? Math.round((idx / sortedTrust.length) * 100) : 100;
 
+  // See the activity detail template for why this gate exists: a page with
+  // no reviews and nothing to compare against is a thin page, and thin pages
+  // wrapped in ads are judged at the account level. Restaurants carry no
+  // photo field at all, so the substance here is reviews plus the comparison
+  // set rather than imagery.
+  // business_status was in the data all along and rendered nowhere: 137
+  // venues that Google reports shut still showed a rating, a Trust Score and
+  // a prominent "Directions" button, sending people to a closed door. The
+  // card component already got this right; the page it links to did not.
+  const closure = /^(Temporarily|Permanently) closed$|^Closed$/.test(r.business_status || "")
+    ? r.business_status
+    : null;
+  const permanentlyClosed = /^Permanently/.test(r.business_status || "");
+  const hero = r.photos?.[0];
+  const hoursEntries = Object.entries(r.opening_hours ?? {});
+
+  const showAds = samples.length >= 2 && similar.length >= 2;
+
   const cuisineLabel = r.cuisines.length > 0 ? (CUISINE_LABELS[r.cuisines[0]] ?? r.cuisines[0]) : "restaurant";
   const cuisines = r.cuisines.map((c) => CUISINE_LABELS[c] ?? c).join(", ");
   const aeoSummary = `${r.name} is a ${cuisineLabel.toLowerCase()} in ${districtLabel}, ${cityLabel} — Trust Score ${r.trust_score}/100 based on ${r.total_reviews} verified Google reviews (${Math.round(lgRatio * 100)}% real-reviewer ratio).`;
@@ -148,6 +176,39 @@ export default async function RestaurantPage(
           <span>›</span>
           <span className="text-[var(--fg)] truncate max-w-[200px]">{r.name}</span>
         </nav>
+
+        {closure && (
+          <div
+            role="status"
+            className={`mb-4 rounded-2xl border p-4 ${
+              permanentlyClosed
+                ? "border-red-300 bg-red-50 text-red-900"
+                : "border-amber-300 bg-amber-50 text-amber-900"
+            }`}
+          >
+            <div className="font-black text-sm mb-0.5">
+              {permanentlyClosed ? "Permanently closed" : "Temporarily closed"}
+            </div>
+            <div className="text-xs leading-relaxed">
+              Google reports this venue as {permanentlyClosed ? "permanently" : "temporarily"} closed
+              {permanentlyClosed ? ". The details below are kept for reference." : ". Call before travelling."}{" "}
+              <a href="/takedown" className="underline">Tell us if this is wrong</a>.
+            </div>
+          </div>
+        )}
+
+        {hero && (
+          <div className="rounded-2xl overflow-hidden mb-5 h-52 md:h-72 bg-gray-100">
+            <CardImage
+              src={hero.url}
+              alt={hero.alt || r.name}
+              className="w-full h-full"
+              fallbackIcon="🍽️"
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
+        )}
 
         {tier && <SponsoredBadge id={r.id} />}
         <div className="flex items-start justify-between gap-3 mb-1 flex-wrap">
@@ -227,6 +288,22 @@ export default async function RestaurantPage(
           </div>
         </div>
 
+        {hoursEntries.length > 0 && (
+          <section className="mb-5">
+            <h2 className="font-black text-lg mb-3">Opening hours</h2>
+            <div className="bg-white border border-[var(--border)] rounded-2xl p-4">
+              <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-sm">
+                {hoursEntries.map(([day, hours]) => (
+                  <Fragment key={day}>
+                    <dt className="text-[var(--muted)]">{day}</dt>
+                    <dd className="text-right font-medium">{hours}</dd>
+                  </Fragment>
+                ))}
+              </dl>
+            </div>
+          </section>
+        )}
+
         <QuickFacts priceRange={priceLevel} />
         <RatingChart trend={r.rating_trend} />
         <PopularTimes type="restaurant" />
@@ -246,7 +323,6 @@ export default async function RestaurantPage(
           </section>
         )}
 
-        <AdSlot slot="restaurant-bottom" />
         <AffiliateInline district={r.district || cityLabel} />
 
         <section className="mt-6 border border-[var(--border)] rounded-xl p-4 bg-white">
@@ -296,6 +372,8 @@ export default async function RestaurantPage(
           <ReportButton venueName={r.name} venueUrl={`${SITE}${restaurantUrl(slugMap[r.id] ?? { city, district, slug })}`} />
         </div>
 
+        {showAds && <AdSlot name="detailMid" />}
+
         {/* Similar restaurants */}
         {similar.length > 0 && (
           <section className="mt-8">
@@ -330,6 +408,8 @@ export default async function RestaurantPage(
             />
           </div>
         )}
+
+        {showAds && <AdSlot name="detailFoot" />}
 
         {/* Quiz CTA */}
         <div className="mt-4 p-4 rounded-2xl bg-orange-50 border border-orange-200 text-center">

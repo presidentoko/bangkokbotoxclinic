@@ -28,19 +28,19 @@ const SPOTS = [
 export function BangkokTextiles() {
   return (
     <div className="rounded-2xl border border-purple-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         🧵 Bangkok textiles & fabric arts — Thai silk, traditional weaving & indigo dyeing
-      </div>
+      </h2>
       <div className="space-y-2">
         {SPOTS.map((s) => (
           <div key={s.name} className="border border-purple-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{s.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{s.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{s.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{s.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{s.why}</div>
             <div className="text-[10px] text-purple-700">💡 {s.tip}</div>

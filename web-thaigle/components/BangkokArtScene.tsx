@@ -49,16 +49,16 @@ const SPACES = [
 export function BangkokArtScene() {
   return (
     <div className="rounded-2xl border border-purple-100 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         🎨 Bangkok art scene — galleries & creative spaces
-      </div>
+      </h2>
       <div className="space-y-2">
         {SPACES.map((s) => (
           <div key={s.name} className="border border-purple-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-xl shrink-0">{s.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {s.area} · {s.hours}</div>
               </div>
               <span className="shrink-0 text-[10px] font-bold text-green-700">{s.admission}</span>

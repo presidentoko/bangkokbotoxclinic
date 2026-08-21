@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NICHES, loadNicheDb } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { BangkokBingo } from "@/components/BangkokBingo";
@@ -120,7 +120,7 @@ export default async function FirstTimeBangkokPage() {
           slug: n.slug,
           icon: n.icon,
           label: n.label,
-          total: d.total,
+          total: qualifyingNichePlaces(n.slug, d.places).length,
           firstTimerTip: FIRST_TIMER_TIPS[n.slug]?.tip ?? "",
           priceFrom: FIRST_TIMER_TIPS[n.slug]?.priceFrom ?? "",
         }))

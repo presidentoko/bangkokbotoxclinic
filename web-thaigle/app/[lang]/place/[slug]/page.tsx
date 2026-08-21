@@ -7,7 +7,7 @@ import {
 } from "@/lib/places";
 import type { Lang, Place } from "@/lib/places";
 import { getPlaceServer, getAllPlaceSlugsServer } from "@/lib/places-server";
-import { INDEXABLE_PLACE_LANGS } from "@/lib/placeIndexing";
+import { INDEXABLE_PLACE_LANGS, PLACE_TREE_INDEXABLE } from "@/lib/placeIndexing";
 import { AddToPlanButton } from "@/components/AddToPlanButton";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { PopularTimes } from "@/components/PopularTimes";
@@ -52,6 +52,7 @@ export async function generateMetadata({
   return {
     title: `${t.name} — ${place.subtype} · ${place.area}`,
     description: desc,
+    ...(PLACE_TREE_INDEXABLE ? {} : { robots: { index: false, follow: true } }),
     alternates: {
       canonical,
       // Only the language trees robots.txt actually lets Google fetch —

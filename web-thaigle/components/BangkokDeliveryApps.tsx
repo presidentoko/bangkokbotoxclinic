@@ -17,9 +17,9 @@ const HACKS = [
 export function BangkokDeliveryApps() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         📱 Bangkok food delivery apps compared — Grab vs LINE MAN vs Food Panda
-      </div>
+      </h2>
       <div className="space-y-1.5 mb-3">
         {COMPARISONS.map((c) => (
           <div key={c.app} className="border border-emerald-100 rounded-xl p-2.5 flex items-center gap-2">

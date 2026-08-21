@@ -293,6 +293,7 @@ export default async function NicheTop10Page({
           rating: p.rating,
           review_count: p.review_count,
           address: p.address,
+          city: p.city,
         }))}
         url={`/activities/${niche}/top-10`}
       />

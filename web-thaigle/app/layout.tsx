@@ -13,6 +13,9 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { BackToTop } from "@/components/BackToTop";
 import { HeaderNav } from "@/components/HeaderNav";
 import { HtmlLangSync } from "@/components/HtmlLangSync";
+import { ConsentMode } from "@/components/ConsentMode";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { GoogleAdsense } from "@/components/GoogleAdsense";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://thaigle.com";
 const cfg = getSiteConfig();
@@ -80,6 +83,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* Consent defaults first: a consent signal that lands after the tag
+            has already fired has done nothing. */}
+        <ConsentMode />
         <PlannerProvider>
           <HtmlLangSync />
           <TikTokGuard />
@@ -97,7 +103,11 @@ export default function RootLayout({
           <BackToTop />
           <PlannerBar />
           <StickyBottomNav />
-          <footer className="border-t border-[var(--border)] mt-16 bg-white">
+          {/* pb-24: StickyBottomNav is fixed at ~56px, plus env(safe-area-inset-bottom)
+              (~34px on notched iPhones). main's pb-16 was 64px — short of that on
+              every notched device, so the copyright line and the Privacy link sat
+              permanently behind the nav on mobile. */}
+          <footer className="border-t border-[var(--border)] mt-16 bg-white pb-24 md:pb-0">
             <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-[var(--muted)]">
               <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4">
                 <a href="/about" className="hover:text-black">About</a>
@@ -133,6 +143,8 @@ export default function RootLayout({
           <CookieConsent />
           <Analytics />
           <SpeedInsights />
+          <GoogleAnalytics />
+          <GoogleAdsense />
         </PlannerProvider>
       </body>
     </html>

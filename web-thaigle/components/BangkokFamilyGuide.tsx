@@ -52,15 +52,15 @@ const ACTIVITIES = [
 export function BangkokFamilyGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         👨‍👩‍👧 Bangkok with kids — best family activities
-      </div>
+      </h2>
       <div className="space-y-2">
         {ACTIVITIES.map((a) => (
           <div key={a.name} className="flex gap-3 border border-[var(--border)] rounded-xl p-3">
             <span className="text-2xl shrink-0">{a.emoji}</span>
             <div className="min-w-0">
-              <div className="font-bold text-xs">{a.name}</div>
+              <h3 className="font-bold text-xs">{a.name}</h3>
               <div className="text-[10px] text-[var(--muted)] mb-0.5">📍 {a.location} · 👶 Age {a.age}</div>
               <div className="text-[10px] text-green-700 mb-0.5">💰 {a.cost}</div>
               <div className="text-[10px] text-[var(--muted)] leading-snug">💡 {a.tip}</div>

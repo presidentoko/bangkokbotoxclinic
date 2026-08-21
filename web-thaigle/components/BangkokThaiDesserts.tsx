@@ -58,19 +58,19 @@ const DESSERTS = [
 export function BangkokThaiDesserts() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         🍡 Thai desserts guide — sweet Bangkok
-      </div>
+      </h2>
       <div className="grid grid-cols-1 gap-1.5">
         {DESSERTS.map((d) => (
           <div key={d.name} className="border border-pink-100 rounded-xl px-3 py-2.5 flex items-start gap-2">
             <span className="text-2xl shrink-0">{d.emoji}</span>
             <div className="flex-1 min-w-0">
-              <div className="font-bold text-xs">{d.name}</div>
+              <h3 className="font-bold text-xs">{d.name}</h3>
               <div className="text-[10px] text-[var(--muted)]">{d.thai} · {d.season} · {d.where}</div>
               <div className="text-[10px] text-[var(--fg)] mt-0.5 leading-snug">{d.why}</div>
             </div>
-            <span className="shrink-0 text-[10px] font-mono text-green-700">{d.price}</span>
+            <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{d.price}</span>
           </div>
         ))}
       </div>

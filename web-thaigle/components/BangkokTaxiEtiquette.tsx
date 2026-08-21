@@ -39,9 +39,9 @@ const RULES = [
 export function BangkokTaxiEtiquette() {
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         🚕 Bangkok taxi guide — meter rules, Grab tips & avoiding scams
-      </div>
+      </h2>
       <div className="space-y-2">
         {RULES.map((r) => (
           <div key={r.rule} className="border border-yellow-100 rounded-xl p-3">

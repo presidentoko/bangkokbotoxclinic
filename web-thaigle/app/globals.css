@@ -21,6 +21,15 @@
 }
 
 body {
+  /* Thai has no spaces between words, so a venue name is one token. 36 spa
+     venues carry an unbroken 25-38 character run, which at the h1 size is
+     ~490px inside a 328px phone content box — the page then scrolls sideways
+     and the sticky header scrolls with it. Breaking anywhere is the right
+     trade for a script that has no break opportunities of its own, and doing
+     it on body fixes every template at once rather than per-heading. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
   background: var(--bg);
   color: var(--fg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
@@ -45,7 +54,8 @@ body {
    2–3px reflows rather than overflowing. */
 @media (max-width: 640px) {
   .text-\[9px\],
-  .text-\[10px\] {
+  .text-\[10px\],
+  .text-\[11px\] {
     font-size: 12px;
     line-height: 1.45;
   }
@@ -57,4 +67,23 @@ body {
 
 @utility safe-area-inset-bottom {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Ad slot height reservation.
+   The <ins> AdSense injects starts at zero height and grows when the creative
+   loads, shoving everything below it down — the single worst CLS pattern, and
+   this site's ranking is the thing that produces the ad impressions in the
+   first place. The box is sized before any script runs, so the ad drops into
+   a hole that was always there. Heights come from AD_HEIGHTS in lib/ads.ts,
+   passed in as custom properties by AdSlot; the media query is here because
+   deciding it in JS would require measuring the viewport client-side, which
+   is itself a shift. */
+[data-ad-reserved] > ins {
+  min-height: var(--ad-h-mobile);
+}
+
+@media (min-width: 768px) {
+  [data-ad-reserved] > ins {
+    min-height: var(--ad-h-desktop);
+  }
 }

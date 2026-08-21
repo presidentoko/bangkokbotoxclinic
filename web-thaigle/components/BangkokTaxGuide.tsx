@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokTaxGuide() {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-gray-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-gray-700 mb-3">
         🧾 Thai income tax guide — expat residency rules, 2024 foreign income changes & filing
-      </div>
+      </h2>
       <div className="space-y-2">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-gray-100 rounded-xl p-3 group">

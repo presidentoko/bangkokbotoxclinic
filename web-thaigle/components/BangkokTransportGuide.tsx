@@ -44,9 +44,9 @@ const TRANSPORT = [
 export function BangkokTransportGuide() {
   return (
     <div className="rounded-2xl border border-sky-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-sky-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-sky-700 mb-3">
         🗺️ Getting around Bangkok — all transport modes explained
-      </div>
+      </h2>
       <div className="space-y-2">
         {TRANSPORT.map((t) => (
           <details key={t.mode} className="border border-sky-100 rounded-xl overflow-hidden group">
@@ -56,7 +56,7 @@ export function BangkokTransportGuide() {
                 <div className="font-bold text-xs">{t.mode}</div>
                 <div className="text-[10px] text-[var(--muted)] truncate">{t.best_for}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{t.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{t.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-sky-100 pt-2 space-y-1">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{t.coverage}</div>

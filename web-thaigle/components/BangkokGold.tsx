@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokGold() {
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         🪙 Bangkok shopping gems — gold in Yaowarat, gem trade & quality Thai souvenirs
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-yellow-100 rounded-xl">

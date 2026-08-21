@@ -30,9 +30,9 @@ export function BangkokMonthlyCalendar() {
 
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         📅 Bangkok this month — {monthName}
-      </div>
+      </h2>
       {events.length > 0 ? (
         <div className="space-y-2">
           {events.map((e) => (

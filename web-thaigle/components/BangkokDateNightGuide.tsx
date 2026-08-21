@@ -44,9 +44,9 @@ const DATE_IDEAS = [
 export function BangkokDateNightGuide() {
   return (
     <div className="rounded-2xl border border-rose-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
         💑 Date night in Bangkok — ideas for every budget
-      </div>
+      </h2>
       <div className="space-y-2">
         {DATE_IDEAS.map((d) => (
           <details key={d.idea} className="border border-rose-100 rounded-xl group">

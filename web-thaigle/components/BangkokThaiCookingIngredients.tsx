@@ -52,9 +52,9 @@ const INGREDIENTS = [
 export function BangkokThaiCookingIngredients() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🌿 Thai cooking ingredients — what to buy and use
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {INGREDIENTS.map((i) => (
           <div key={i.eng} className="border border-green-100 rounded-xl px-3 py-2 flex items-start gap-2">
@@ -67,7 +67,7 @@ export function BangkokThaiCookingIngredients() {
               <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{i.use}</div>
               <div className="text-[10px] text-green-700">Where: {i.where}</div>
             </div>
-            <span className="shrink-0 text-[10px] font-mono text-green-700">{i.price}</span>
+            <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{i.price}</span>
           </div>
         ))}
       </div>

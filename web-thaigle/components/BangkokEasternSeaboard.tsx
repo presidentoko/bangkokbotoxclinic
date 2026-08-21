@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokEasternSeaboard() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         🏭 Bangkok regional context — Eastern Seaboard industry, Gulf islands & HSR future transport
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-blue-100 rounded-xl">

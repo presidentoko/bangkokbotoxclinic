@@ -34,16 +34,16 @@ const TRIPS = [
 export function BangkokWaterfallsDayTrips() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🌿 Nature day trips from Bangkok
-      </div>
+      </h2>
       <div className="space-y-3">
         {TRIPS.map((t) => (
           <div key={t.name} className="border border-green-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{t.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{t.name}</div>
+                <h3 className="font-bold text-xs">{t.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {t.distance} · {t.admission}</div>
               </div>
             </div>

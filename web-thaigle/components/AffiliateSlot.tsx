@@ -78,17 +78,10 @@ export function AffiliateInline({ category, district }: {
   );
 }
 
-export function AdSlot({ slot }: { slot: string }) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-  if (!client) return null;
-  return (
-    <ins
-      className="adsbygoogle block my-4"
-      style={{ display: "block" }}
-      data-ad-client={client}
-      data-ad-slot={slot}
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    />
-  );
-}
+/* AdSlot used to live here. It rendered an <ins> and nothing else: no
+   adsbygoogle.push(), no loader script, and a `slot` prop carrying labels
+   like "home-mid" where AdSense requires the numeric slot ID issued by the
+   dashboard. It could never have served an impression. Replaced by
+   components/AdSlot.tsx, which pushes exactly once per mount, reserves its
+   height so the creative does not shift the page, and takes a named
+   placement resolved to a real slot ID through lib/ads.ts. */

@@ -11,9 +11,9 @@ const DAYS = [
 export function BangkokThaiBoxingWeek() {
   return (
     <div className="rounded-2xl border border-red-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🥊 7-day Muay Thai immersion plan
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {DAYS.map((d) => (
           <div key={d.day} className="border border-red-100 rounded-xl p-3">

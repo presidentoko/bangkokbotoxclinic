@@ -39,16 +39,16 @@ const GEMS = [
 export function BangkokHiddenGems() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         💎 Bangkok hidden gems — places most tourists never discover
-      </div>
+      </h2>
       <div className="space-y-2">
         {GEMS.map((g) => (
           <div key={g.name} className="border border-teal-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{g.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{g.name}</div>
+                <h3 className="font-bold text-xs">{g.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{g.area}</div>
               </div>
             </div>

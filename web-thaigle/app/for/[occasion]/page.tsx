@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadMasterDb } from "@/lib/data";
+import { loadMasterDb, isListable } from "@/lib/data";
 import { getSlugMap, restaurantUrl } from "@/lib/restaurants";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { OCCASIONS, OCCASION_NAV, findOccasion } from "@/lib/occasions";
@@ -130,11 +130,15 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
 
   const [db, slugMap] = await Promise.all([loadMasterDb(), getSlugMap()]);
 
-  const filtered = db.restaurants
-    .filter((r) => occ.filterFn(r))
+  const ranked = db.restaurants
+    .filter((r) => isListable(r) && occ.filterFn(r))
     .map((r) => ({ ...r, _score: r.trust_score + (occ.sortBonus?.(r) ?? 0) }))
-    .sort((a, b) => b._score - a._score)
-    .slice(0, 40);
+    .sort((a, b) => b._score - a._score);
+  // Pre-truncation count. The figure below is also published as FAQPage
+  // structured data, so "40 venues" was a claim made to Google as well as to
+  // the reader — against real totals of 2,523 (budget) and 2,365 (healthy).
+  const matchCount = ranked.length;
+  const filtered = ranked.slice(0, 40);
 
   // Load related activity niches if any
   const nicheData = occ.relatedNiches
@@ -151,11 +155,11 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
   const faqs = [
     {
       q: `What are the best places for ${occ.title.toLowerCase()}?`,
-      a: `We've ranked ${filtered.length} venues for ${occ.title.toLowerCase()} based on real Google review data. The top picks are ${filtered.slice(0, 3).map((r) => r.name).join(", ")} — all with Trust Scores above 60 from thousands of verified reviews.`,
+      a: `We've ranked ${matchCount.toLocaleString()} venues for ${occ.title.toLowerCase()} based on real Google review data. The top picks are ${filtered.slice(0, 3).map((r) => r.name).join(", ")} — all with Trust Scores above 60 from thousands of verified reviews.`,
     },
     {
       q: `How do I find the best spots for ${occ.slug.replace(/-/g, " ")} in Bangkok?`,
-      a: occ.tip ?? `Thaigle ranks venues by Trust Score — a metric combining Google rating, review volume, Local Guide ratio, and reviewer authority. All ${filtered.length} results here are filtered specifically for ${occ.title.toLowerCase()}.`,
+      a: occ.tip ?? `Thaigle ranks venues by Trust Score — a metric combining Google rating, review volume, Local Guide ratio, and reviewer authority. All ${matchCount.toLocaleString()} results here are filtered specifically for ${occ.title.toLowerCase()}.`,
     },
   ];
 
@@ -236,7 +240,7 @@ export default async function OccasionPage({ params }: { params: Promise<{ occas
         <section className="mb-10">
           <div className="flex items-baseline justify-between mb-4">
             <h2 className="text-xl font-black">
-              {filtered.length} restaurants · ranked by Trust Score
+              {matchCount.toLocaleString()} restaurants · top {filtered.length} by Trust Score
             </h2>
           </div>
           <div className="space-y-2">

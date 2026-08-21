@@ -55,9 +55,9 @@ const EVENTS = [
 export function BangkokSeasonalEvents() {
   return (
     <div className="rounded-2xl border border-yellow-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-yellow-700 mb-3">
         📅 Bangkok seasonal events calendar — month by month
-      </div>
+      </h2>
       <div className="space-y-2">
         {EVENTS.map((e) => (
           <details key={e.month} className="border border-yellow-100 rounded-xl overflow-hidden group">

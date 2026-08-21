@@ -21,9 +21,9 @@ const PHRASES = [
 export function BangkokThaiLanguage() {
   return (
     <div className="rounded-2xl border border-purple-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-purple-700 mb-3">
         🇹🇭 Thai language basics — essential phrases
-      </div>
+      </h2>
       <div className="space-y-3">
         {PHRASES.map((section) => (
           <div key={section.category}>

@@ -34,9 +34,9 @@ const TIPS = [
 export function BangkokSoloTravelGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🧳 Bangkok solo travel guide
-      </div>
+      </h2>
       <div className="space-y-3">
         {TIPS.map((section) => (
           <div key={section.category}>

@@ -49,9 +49,9 @@ const IDEAS = [
 export function BangkokBirthdayGuide() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         🎂 Birthday celebrations in Bangkok — ideas by vibe
-      </div>
+      </h2>
       <div className="space-y-2">
         {IDEAS.map((idea) => (
           <details key={idea.title} className="border border-pink-100 rounded-xl overflow-hidden group">

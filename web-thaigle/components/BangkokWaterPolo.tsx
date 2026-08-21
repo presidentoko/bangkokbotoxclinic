@@ -28,19 +28,19 @@ const INFO = [
 export function BangkokWaterPolo() {
   return (
     <div className="rounded-2xl border border-blue-300 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-800 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-800 mb-3">
         🏊 Water polo & competitive swimming in Bangkok — Huamark pool, club teams & leagues
-      </div>
+      </h2>
       <div className="space-y-2">
         {INFO.map((i) => (
           <div key={i.name} className="border border-blue-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{i.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{i.name}</div>
+                <h3 className="font-bold text-xs">{i.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{i.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{i.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{i.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{i.why}</div>
             <div className="text-[10px] text-blue-800">💡 {i.tip}</div>

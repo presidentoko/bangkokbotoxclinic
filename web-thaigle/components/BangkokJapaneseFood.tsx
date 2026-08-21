@@ -32,9 +32,9 @@ const SPOTS = [
 export function BangkokJapaneseFood() {
   return (
     <div className="rounded-2xl border border-rose-100 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-rose-700 mb-3">
         🇯🇵 Japanese food in Bangkok — where to go
-      </div>
+      </h2>
       <div className="space-y-2">
         {SPOTS.map((s) => (
           <div key={s.area} className="border border-rose-100 rounded-xl p-3">

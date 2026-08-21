@@ -28,9 +28,9 @@ const TOPICS = [
 export function BangkokSleepClinic() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         😴 Bangkok sleep medicine — sleep studies, jet lag recovery & CPAP equipment
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-indigo-100 rounded-xl">

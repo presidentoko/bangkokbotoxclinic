@@ -5,12 +5,13 @@ import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
 import { HOME_FAQS } from "@/lib/faq";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AdSlot";
 import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored, sponsoredTier } from "@/lib/sponsored";
 import { SponsoredHero } from "@/components/SponsoredHero";
 import { GUIDES } from "@/lib/guides";
-import { NICHES, loadNicheDb } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { SurpriseMe } from "@/components/SurpriseMe";
 import type { SurpriseVenue } from "@/components/SurpriseMe";
@@ -84,7 +85,11 @@ export default async function HomePage() {
     getSlugMap(),
     Promise.all(NICHES.map(async (n) => {
       const nd = await loadNicheDb(n.slug as NicheSlug);
-      return { slug: n.slug, label: n.label, icon: n.icon, total: nd.total };
+      // qualifyingNichePlaces, not nd.total: the raw scrape count is 3,946
+      // while 2,124 venues actually have a page. Printing the former as
+      // "Activity venues" overstated the site by 86%, and /activities/spa
+      // contradicted the homepage two clicks away (589 vs 2,311).
+      return { slug: n.slug, label: n.label, icon: n.icon, total: qualifyingNichePlaces(n.slug, nd.places).length };
     })),
     Promise.all(NICHES.map(async (n) => {
       const { qualifyingNichePlaces } = await import("@/lib/niches");
@@ -594,7 +599,7 @@ export default async function HomePage() {
           </section>
         )}
 
-        <AdSlot slot="home-mid" />
+        <AdSlot name="listInline" />
 
         <TopSearched />
         <BangkokMonthlyCalendar />

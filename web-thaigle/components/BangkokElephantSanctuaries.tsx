@@ -42,16 +42,16 @@ const ETHICS = [
 export function BangkokElephantSanctuaries() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🐘 Elephant sanctuaries near Bangkok — ethical options only
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {SANCTUARIES.map((s) => (
           <details key={s.name} className="border border-green-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-green-50 transition">
               <span className="text-2xl shrink-0">{s.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{s.distance} · {s.price}</div>
               </div>
             </summary>

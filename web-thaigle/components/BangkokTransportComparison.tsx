@@ -58,9 +58,9 @@ const METHODS = [
 export function BangkokTransportComparison() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🚌 Bangkok transport — which to use when
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {METHODS.map((m) => (
           <details key={m.method} className="border border-[var(--border)] rounded-xl group">

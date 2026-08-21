@@ -12,8 +12,8 @@ import {
 } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import { nicheAreaCounts } from "@/lib/areas";
-import { AdSlot } from "@/components/AffiliateSlot";
 import { NicheGrid } from "@/components/NicheGrid";
+import { toGridPlace, toGridKlook } from "@/lib/gridPlace";
 import { ShareButton } from "@/components/ShareButton";
 import { NicheItemListJsonLd, FaqJsonLd, BreadcrumbJsonLd, TouristAttractionJsonLd, ActivityServiceJsonLd, SpeakableJsonLd } from "@/components/JsonLd";
 import { NICHE_FAQS, NICHE_INTRO } from "@/lib/niche-content";
@@ -484,15 +484,13 @@ export default async function NichePage({
       </div>
 
       <NicheGrid
-        places={top}
-        klookData={[...klookMap.entries()]}
+        places={top.map(toGridPlace)}
+        klookData={toGridKlook([...klookMap.entries()])}
         nicheSlug={niche}
         nicheIcon={info.icon}
         planType={planType}
         PRICE_BAND_LABELS={PRICE_BAND_LABELS}
       />
-
-      <AdSlot slot={`activities-${niche}-mid`} />
 
       {/* Community discussions */}
       {(topReddit.length > 0 || topNaver.length > 0) && (
@@ -948,6 +946,7 @@ export default async function NichePage({
           rating: p.rating,
           review_count: p.review_count,
           address: p.address,
+          city: p.city,
         }))}
         url={`/activities/${niche}`}
       />
@@ -967,6 +966,7 @@ export default async function NichePage({
           rating: p.rating,
           reviewCount: p.review_count,
           address: p.address,
+          city: p.city,
         }))}
       />
       <ActivityServiceJsonLd

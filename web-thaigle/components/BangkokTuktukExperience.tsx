@@ -37,9 +37,9 @@ const SCAM = [
 export function BangkokTuktukExperience() {
   return (
     <div className="rounded-2xl border border-orange-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
         🛺 Bangkok tuk-tuk guide — when to ride, price to pay, scams to avoid
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {ROUTES.map((r) => (
           <div key={r.route} className="border border-orange-100 rounded-xl p-3">
@@ -49,7 +49,7 @@ export function BangkokTuktukExperience() {
                 <div className="font-bold text-xs">{r.route}</div>
                 <div className="text-[10px] text-[var(--muted)]">{r.best} · Best time: {r.when}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{r.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{r.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{r.why}</div>
             <div className="text-[10px] text-orange-600 mb-0.5">✅ How: {r.howTo}</div>

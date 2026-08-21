@@ -3,11 +3,12 @@ import { getSlugMap, restaurantUrl, slugifySegment } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { CUISINE_LABELS, CUISINE_ICONS } from "@/lib/types";
 import { FaqJsonLd, ItemListJsonLd } from "@/components/JsonLd";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AdSlot";
 import { StatsBar } from "@/components/StatsBar";
 import { HeroSearch } from "@/components/HeroSearch";
 import { sortWithSponsored } from "@/lib/sponsored";
-import { NICHES, loadNicheDb } from "@/lib/niches";
+import { NICHES, loadNicheDb, qualifyingNichePlaces } from "@/lib/niches";
 import type { NicheSlug } from "@/lib/niches";
 import type { Metadata } from "next";
 
@@ -25,7 +26,7 @@ const TH_FAQS = [
   },
   {
     q: "ข้อมูลอัปเดตบ่อยแค่ไหน?",
-    a: "ทุก 30 นาที สแครเปอร์ทำงาน 24/7",
+    a: "เป็นรอบ ๆ ไม่ใช่แบบเรียลไทม์ — วันที่อัปเดตล่าสุดแสดงอยู่บนหน้าของแต่ละร้าน",
   },
   {
     q: "ร้านที่แสดงเป็นโฆษณาหรือไม่?",
@@ -37,7 +38,7 @@ export default async function ThHomePage() {
   const [db, slugMap, nicheResults] = await Promise.all([
     loadMasterDb(),
     getSlugMap(),
-    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ slug: n.slug, icon: n.icon, label: n.label, total: d.total })).catch(() => ({ slug: n.slug, icon: n.icon, label: n.label, total: 0 })))),
+    Promise.all(NICHES.map((n) => loadNicheDb(n.slug as NicheSlug).then((d) => ({ slug: n.slug, icon: n.icon, label: n.label, total: qualifyingNichePlaces(n.slug, d.places).length })).catch(() => ({ slug: n.slug, icon: n.icon, label: n.label, total: 0 })))),
   ]);
   const nicheCounts = nicheResults;
   const top = sortWithSponsored(topByTrust(db.restaurants, 30));
@@ -157,7 +158,7 @@ export default async function ThHomePage() {
           </div>
         </section>
 
-        <AdSlot slot="th-home-mid" />
+        <AdSlot name="listInline" />
 
         <section>
           <h2 className="text-xl font-bold mb-4">อันดับ {Math.min(top.length, 30)} ตามคะแนน</h2>

@@ -19,9 +19,9 @@ export function BangkokBudgetCalc() {
 
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🧮 Bangkok trip budget calculator
-      </div>
+      </h2>
       <div className="flex gap-2 mb-4">
         {PRESETS.map((pr, i) => (
           <button

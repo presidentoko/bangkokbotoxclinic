@@ -28,9 +28,9 @@ const STEPS = [
 export function BangkokMovingGuide() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         📦 Moving to Bangkok — visa, apartment, bank account & health insurance checklist
-      </div>
+      </h2>
       <div className="space-y-2">
         {STEPS.map((s) => (
           <div key={s.step} className="border border-indigo-100 rounded-xl p-3">

@@ -40,9 +40,9 @@ const ZONES = [
 export function BangkokFashionShopping() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         👗 Bangkok fashion & shopping — where to find what
-      </div>
+      </h2>
       <div className="space-y-2">
         {ZONES.map((z) => (
           <details key={z.zone} className="border border-pink-100 rounded-xl overflow-hidden group">

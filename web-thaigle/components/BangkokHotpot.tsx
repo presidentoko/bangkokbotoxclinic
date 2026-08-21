@@ -40,19 +40,19 @@ const OPTIONS = [
 export function BangkokHotpot() {
   return (
     <div className="rounded-2xl border border-red-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🫕 Hotpot & shabu-shabu in Bangkok — suki, mala, mu kata
-      </div>
+      </h2>
       <div className="space-y-2">
         {OPTIONS.map((o) => (
           <details key={o.name} className="border border-red-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-red-50 transition">
               <span className="text-2xl shrink-0">{o.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{o.name}</div>
+                <h3 className="font-bold text-xs">{o.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{o.type} · {o.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{o.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{o.price}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-red-100 pt-2 space-y-1">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{o.why}</div>

@@ -31,9 +31,9 @@ const IDEAS = [
 export function BangkokCoupleTips() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-pink-50 p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         ❤️ Bangkok for couples — romantic ideas
-      </div>
+      </h2>
       <div className="space-y-4">
         {IDEAS.map((cat) => (
           <div key={cat.category}>
@@ -45,7 +45,7 @@ export function BangkokCoupleTips() {
               {cat.spots.map((s) => (
                 <div key={s.name} className="bg-white border border-pink-100 rounded-xl p-2.5 flex gap-2.5 items-start">
                   <div className="flex-1 min-w-0">
-                    <div className="font-bold text-xs">{s.name}</div>
+                    <h3 className="font-bold text-xs">{s.name}</h3>
                     <div className="text-[10px] text-[var(--muted)] leading-snug mt-0.5">{s.why}</div>
                   </div>
                   <span className="shrink-0 text-xs text-pink-600 font-mono font-black">{s.cost}</span>

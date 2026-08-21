@@ -32,16 +32,16 @@ const HIGHLIGHTS = [
 export function BangkokArchitecture() {
   return (
     <div className="rounded-2xl border border-stone-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-stone-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-stone-700 mb-3">
         🏛️ Bangkok architecture tour — from gilded temples to robot buildings
-      </div>
+      </h2>
       <div className="space-y-2">
         {HIGHLIGHTS.map((h) => (
           <div key={h.name} className="border border-stone-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{h.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{h.name}</div>
+                <h3 className="font-bold text-xs">{h.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{h.era}</div>
               </div>
             </div>

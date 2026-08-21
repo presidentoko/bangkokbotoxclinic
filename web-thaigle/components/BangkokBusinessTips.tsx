@@ -34,9 +34,9 @@ const TIPS = [
 export function BangkokBusinessTips() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-slate-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-slate-700 mb-3">
         💼 Bangkok business travel — culture & etiquette guide
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TIPS.map((t) => (
           <div key={t.topic} className="border border-slate-100 rounded-xl px-3 py-2 flex items-start gap-2">

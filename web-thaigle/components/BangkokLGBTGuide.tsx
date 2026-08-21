@@ -22,9 +22,9 @@ const INFO = {
 export function BangkokLGBTGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-2">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-2">
         🏳️‍🌈 Bangkok for LGBTQ+ travelers
-      </div>
+      </h2>
       <p className="text-[10px] text-[var(--muted)] leading-relaxed mb-3">{INFO.overview}</p>
       <div className="space-y-1.5 mb-3">
         {INFO.areas.map((a) => (

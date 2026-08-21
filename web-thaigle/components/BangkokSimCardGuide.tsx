@@ -39,9 +39,9 @@ const TIPS = [
 export function BangkokSimCardGuide() {
   return (
     <div className="rounded-2xl border border-blue-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         📱 Thai SIM card guide — which to buy & where
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {PLANS.map((p) => (
           <div key={p.carrier} className="border border-blue-100 rounded-xl p-3">
@@ -51,7 +51,7 @@ export function BangkokSimCardGuide() {
                 <div className="font-bold text-xs">{p.carrier}</div>
                 <div className="text-[10px] text-[var(--muted)]">{p.type}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{p.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{p.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{p.why}</div>
             <div className="text-[10px] text-blue-700">💡 {p.tip}</div>

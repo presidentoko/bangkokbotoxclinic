@@ -44,9 +44,9 @@ const FESTIVALS = [
 export function BangkokFestivalsCalendar() {
   return (
     <div className="rounded-2xl border border-orange-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-orange-700 mb-3">
         🎉 Bangkok festivals — major events throughout the year
-      </div>
+      </h2>
       <div className="space-y-2">
         {FESTIVALS.map((f) => (
           <details key={f.name} className="border border-orange-100 rounded-xl overflow-hidden group">

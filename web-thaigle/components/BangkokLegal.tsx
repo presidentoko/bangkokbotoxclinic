@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokLegal() {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-gray-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-gray-700 mb-3">
         ⚖️ Bangkok legal essentials — drug laws, traffic rules, nightlife regulations & what visitors must know
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-gray-100 rounded-xl">

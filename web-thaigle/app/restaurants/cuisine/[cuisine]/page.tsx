@@ -156,6 +156,13 @@ export async function generateMetadata(
   };
 }
 
+// Cards are capped and the remainder is listed as plain links below.
+// /restaurants/cuisine/western has 1,091 venues and rendered 50 — the other
+// 1,041 had no inbound link from anywhere on the site, so nothing crawled
+// them and nothing could rank. A text link costs ~100 bytes against a card's
+// ~2 KB, so the whole set fits without the page becoming a megabyte.
+const CARD_CAP = 50;
+
 export default async function CuisineHub(
   { params }: { params: Promise<{ cuisine: string }> }
 ) {
@@ -212,7 +219,7 @@ export default async function CuisineHub(
           Rankings are built from real Google review data — rating, volume, Local Guide ratio, and reviewer authority. No restaurant pays to appear here.
         </p>
         <div className="space-y-2 mb-10">
-          {sorted.slice(0, 50).map((r, i) => {
+          {sorted.slice(0, CARD_CAP).map((r, i) => {
             const entry = slugMap[r.id];
             if (!entry) return null;
             return (
@@ -228,6 +235,32 @@ export default async function CuisineHub(
             );
           })}
         </div>
+        {sorted.length > CARD_CAP && (
+          <section className="mb-10">
+            <h2 className="text-lg font-black mb-2">
+              All {sorted.length.toLocaleString()} {label} restaurants in {scope}
+            </h2>
+            <p className="text-sm text-[var(--muted)] mb-3">
+              Ranked {CARD_CAP + 1}&ndash;{sorted.length.toLocaleString()} by Trust Score.
+            </p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
+              {sorted.slice(CARD_CAP).map((r) => {
+                const entry = slugMap[r.id];
+                if (!entry) return null;
+                return (
+                  <li key={r.id} className="flex items-baseline gap-2 min-w-0">
+                    <a href={restaurantUrl(entry)} className="truncate hover:text-orange-600 hover:underline">
+                      {r.name}
+                    </a>
+                    <span className="shrink-0 text-xs text-[var(--muted)] tabular-nums">
+                      &#9733;{r.rating}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
         {faqs.length > 0 && (
           <section className="mt-6">
             <h2 className="text-xl font-black mb-4">Frequently Asked About {label} Food in {scope}</h2>

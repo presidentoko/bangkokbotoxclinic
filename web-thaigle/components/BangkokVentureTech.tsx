@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokVentureTech() {
   return (
     <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
         🚀 Bangkok tech economy — startup ecosystem, e-commerce platforms & creative industry
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-cyan-100 rounded-xl">

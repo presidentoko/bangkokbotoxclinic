@@ -32,9 +32,9 @@ const TIPS = [
 export function BangkokGrabTips() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         🚕 Bangkok taxis & Grab — complete transport guide
-      </div>
+      </h2>
       <div className="space-y-2">
         {TIPS.map((t) => (
           <details key={t.topic} className="border border-green-100 rounded-xl overflow-hidden group">

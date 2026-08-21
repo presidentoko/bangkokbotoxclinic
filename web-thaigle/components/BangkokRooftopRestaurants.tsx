@@ -48,19 +48,19 @@ const SPOTS = [
 export function BangkokRooftopRestaurants() {
   return (
     <div className="rounded-2xl border border-indigo-100 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         🌆 Bangkok rooftop dining — where to eat in the sky
-      </div>
+      </h2>
       <div className="space-y-2">
         {SPOTS.map((s) => (
           <div key={s.name} className="border border-indigo-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-xl shrink-0">{s.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{s.name}</div>
+                <h3 className="font-bold text-xs">{s.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">Floor {s.floor} · {s.cuisine} · Dress: {s.dress}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono font-black text-green-700">{s.pricepp}/pp</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono font-black text-green-700">{s.pricepp}/pp</span>
             </div>
             <div className="text-[10px] text-blue-700 mb-0.5">🕐 {s.hours} · 📅 Book: {s.bookAhead}</div>
             <div className="text-[10px] text-orange-600">💡 {s.tip}</div>

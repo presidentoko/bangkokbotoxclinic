@@ -49,9 +49,9 @@ const CATEGORIES = [
 export function BangkokBudgetTravel() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         💰 Bangkok on a budget — how to do it properly (not rough)
-      </div>
+      </h2>
       <div className="space-y-2">
         {CATEGORIES.map((c) => (
           <details key={c.title} className="border border-green-100 rounded-xl overflow-hidden group">

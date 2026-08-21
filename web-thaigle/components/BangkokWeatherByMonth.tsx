@@ -27,9 +27,9 @@ export function BangkokWeatherByMonth() {
 
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🌡️ Bangkok weather — month by month
-      </div>
+      </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
         {MONTHS.map((m, i) => (
           <div

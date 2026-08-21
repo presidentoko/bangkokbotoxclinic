@@ -49,9 +49,9 @@ const DISHES = [
 export function BangkokIsaanFood() {
   return (
     <div className="rounded-2xl border border-red-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         🌶️ Isaan cuisine in Bangkok — northeastern Thai food guide
-      </div>
+      </h2>
       <div className="text-[10px] bg-red-50 rounded-xl p-2.5 mb-3 text-red-800">
         Isaan (northeastern) cuisine is what most Thais eat daily. Spicier, more sour, uses fermented fish sauce (pla ra). Always eaten with sticky rice — hands are fine.
       </div>

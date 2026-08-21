@@ -52,9 +52,9 @@ const RISK_COLOR: Record<string, string> = {
 export function BangkokScamAlert() {
   return (
     <div className="rounded-2xl border border-red-300 bg-red-50 p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-red-700 mb-3">
         ⚠️ Bangkok tourist scams to avoid
-      </div>
+      </h2>
       <div className="space-y-2">
         {SCAMS.map((s) => (
           <div key={s.name} className="bg-white border border-red-100 rounded-xl p-3">

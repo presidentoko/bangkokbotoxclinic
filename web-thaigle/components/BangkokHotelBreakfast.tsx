@@ -36,9 +36,9 @@ const BREAKFASTS = [
 export function BangkokHotelBreakfast() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
         🍳 Bangkok hotel breakfast guide — from budget to luxury brunch
-      </div>
+      </h2>
       <div className="space-y-2">
         {BREAKFASTS.map((b) => (
           <div key={b.hotel} className="border border-amber-100 rounded-xl p-3">
@@ -48,7 +48,7 @@ export function BangkokHotelBreakfast() {
                 <div className="font-bold text-xs">{b.hotel}</div>
                 <div className="text-[10px] text-[var(--muted)]">{b.type} · {b.when}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{b.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{b.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{b.highlights}</div>
             <div className="text-[10px] text-amber-700">💡 {b.tip}</div>

@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { GUIDES, findGuide } from "@/lib/guides";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
-import { AffiliateInline, AdSlot } from "@/components/AffiliateSlot";
+import { AffiliateInline } from "@/components/AffiliateSlot";
+import { AdSlot } from "@/components/AdSlot";
 import { loadMasterDb, topByTrust } from "@/lib/data";
 import { getSlugMap } from "@/lib/restaurants";
 import { RestaurantCard } from "@/components/RestaurantCard";
@@ -66,7 +67,18 @@ export default async function GuidePage(
 
   // Load niche places if this guide is linked to an activity niche
   const nicheInfo = g.nicheSlug ? NICHES.find(n => n.slug === g.nicheSlug) : null;
-  const nichePlaces = g.nicheSlug ? await loadNicheDb(g.nicheSlug as NicheSlug).then(db => qualifyingNichePlaces(g.nicheSlug as string, db.places).slice(0, 5)) : [];
+  // Scoped to Bangkok before the slice. The heading below reads "Top-rated X
+  // in Bangkok" while qualifyingNichePlaces ranks nationwide, so
+  // /guide/best-yoga-studios-bangkok listed Hat Yai, Krabi, Chiang Mai, Krabi
+  // and Phuket — five venues, none of them in Bangkok, under a heading
+  // promising Bangkok.
+  const nichePlaces = g.nicheSlug
+    ? await loadNicheDb(g.nicheSlug as NicheSlug).then((db) =>
+        qualifyingNichePlaces(g.nicheSlug as string, db.places)
+          .filter((p) => p.city === "Bangkok")
+          .slice(0, 5),
+      )
+    : [];
   const nicheKlook = nichePlaces.length > 0 ? await buildKlookIndex(nichePlaces.map(p => p.id)) : new Map();
 
   const brand = process.env.NEXT_PUBLIC_BRAND || "Thaigle";
@@ -123,7 +135,7 @@ export default async function GuidePage(
         </p>
       </header>
 
-      <AdSlot slot="guide-top" />
+      <AdSlot name="articleMid" />
 
       <div className="prose prose-sm max-w-none mt-8 space-y-8">
         {g.sections.map((s, i) => (

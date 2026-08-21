@@ -40,19 +40,19 @@ const HOTELS = [
 export function BangkokFamilyHotels() {
   return (
     <div className="rounded-2xl border border-blue-100 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-blue-700 mb-3">
         👨‍👩‍👧 Bangkok family hotels — kid-friendly picks
-      </div>
+      </h2>
       <div className="space-y-2">
         {HOTELS.map((h) => (
           <div key={h.name} className="border border-blue-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{h.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{h.name}</div>
+                <h3 className="font-bold text-xs">{h.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{"⭐".repeat(h.stars)} · {h.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{h.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{h.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-1.5 leading-snug">{h.why}</div>
             <div className="flex flex-wrap gap-1">

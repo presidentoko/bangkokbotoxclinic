@@ -31,16 +31,16 @@ const ZONES = [
 export function BangkokStreetArt() {
   return (
     <div className="rounded-2xl border border-fuchsia-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-fuchsia-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-fuchsia-700 mb-3">
         🎨 Bangkok street art — mural districts
-      </div>
+      </h2>
       <div className="space-y-2.5">
         {ZONES.map((z) => (
           <div key={z.name} className="border border-fuchsia-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{z.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{z.name}</div>
+                <h3 className="font-bold text-xs">{z.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {z.area}</div>
               </div>
             </div>

@@ -29,9 +29,9 @@ const TIPS = [
 export function BangkokDrinkingWater() {
   return (
     <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
         💧 Bangkok drinking water — what's safe, what's not
-      </div>
+      </h2>
       <div className="space-y-2">
         {TIPS.map((t) => (
           <div key={t.q} className="border border-cyan-100 rounded-xl p-3">

@@ -8,6 +8,7 @@ import {
 import type { NicheSlug } from "@/lib/niches";
 import { AREA_MIN_VENUES, findArea, nicheAreaCounts, placesInArea } from "@/lib/areas";
 import { NicheGrid } from "@/components/NicheGrid";
+import { toGridPlace, toGridKlook } from "@/lib/gridPlace";
 import { NicheItemListJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ShareButton } from "@/components/ShareButton";
 
@@ -178,8 +179,8 @@ export default async function NicheAreaPage({ params }: Props) {
       </div>
 
       <NicheGrid
-        places={carded}
-        klookData={[...klookMap.entries()]}
+        places={carded.map(toGridPlace)}
+        klookData={toGridKlook([...klookMap.entries()])}
         nicheSlug={niche}
         nicheIcon={info.icon}
         planType={info.planType}
@@ -278,6 +279,7 @@ export default async function NicheAreaPage({ params }: Props) {
           rating: p.rating,
           review_count: p.review_count,
           address: p.address,
+          city: p.city,
         }))}
         url={`/activities/${niche}/area/${areaSlug}`}
       />

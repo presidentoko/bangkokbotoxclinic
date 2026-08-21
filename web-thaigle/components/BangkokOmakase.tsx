@@ -43,19 +43,19 @@ const ETIQUETTE = [
 export function BangkokOmakase() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         🍣 Omakase sushi in Bangkok — Bangkok's best Japanese counter dining
-      </div>
+      </h2>
       <div className="space-y-2 mb-3">
         {RESTAURANTS.map((r) => (
           <div key={r.name} className="border border-indigo-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{r.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{r.name}</div>
+                <h3 className="font-bold text-xs">{r.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{r.stars} · {r.seats} · {r.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{r.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{r.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{r.why}</div>
             <div className="text-[10px] text-indigo-700">💡 {r.tip}</div>

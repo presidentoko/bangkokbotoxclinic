@@ -10,9 +10,9 @@ const ACTIVITIES = [
 export function BangkokCouplesActivities() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         ❤️ Top couples activities ranked
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {ACTIVITIES.map((a) => (
           <div key={a.name} className="flex gap-3 items-start border border-[var(--border)] rounded-xl p-2.5">
@@ -21,7 +21,7 @@ export function BangkokCouplesActivities() {
             </div>
             <span className="text-xl shrink-0">{a.emoji}</span>
             <div className="min-w-0">
-              <div className="font-bold text-xs">{a.name}</div>
+              <h3 className="font-bold text-xs">{a.name}</h3>
               <div className="text-[10px] text-green-700 mb-0.5">{a.cost}</div>
               <div className="text-[10px] text-[var(--muted)] leading-snug">{a.why}</div>
             </div>

@@ -12,9 +12,9 @@ const TERMS = [
 export function BangkokFoodGlossary() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🍜 Essential Thai food vocabulary
-      </div>
+      </h2>
       <div className="grid gap-2">
         {TERMS.map((t) => (
           <div key={t.roman} className="flex items-start gap-3 p-2 rounded-lg bg-gray-50 border border-[var(--border)]">

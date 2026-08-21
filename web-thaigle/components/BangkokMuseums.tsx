@@ -44,19 +44,19 @@ const MUSEUMS = [
 export function BangkokMuseums() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
         🏛️ Bangkok museums — cultural & historical highlights
-      </div>
+      </h2>
       <div className="space-y-2">
         {MUSEUMS.map((m) => (
           <details key={m.name} className="border border-amber-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-amber-50 transition">
               <span className="text-2xl shrink-0">{m.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{m.name}</div>
+                <h3 className="font-bold text-xs">{m.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{m.area} · {m.hours}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{m.admission}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{m.admission}</span>
             </summary>
             <div className="px-3 pb-3 border-t border-amber-100 pt-2 space-y-1">
               <div className="text-[10px] text-[var(--fg)] leading-snug">{m.why}</div>

@@ -43,16 +43,16 @@ const ROUTES = [
 export function BangkokPhotographySpots() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         📷 Bangkok photography walks — curated routes
-      </div>
+      </h2>
       <div className="space-y-3">
         {ROUTES.map((r) => (
           <div key={r.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="text-2xl">{r.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{r.name}</div>
+                <h3 className="font-bold text-xs">{r.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">🕐 {r.duration} · Start: {r.start}</div>
               </div>
             </div>

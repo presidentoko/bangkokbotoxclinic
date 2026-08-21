@@ -49,16 +49,16 @@ const DESSERTS = [
 export function BangkokDessertGuide() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         🍮 Thai desserts in Bangkok — street sweets & where to find them
-      </div>
+      </h2>
       <div className="space-y-2">
         {DESSERTS.map((d) => (
           <details key={d.name} className="border border-pink-100 rounded-xl overflow-hidden group">
             <summary className="px-3 py-2.5 cursor-pointer flex items-center gap-2 hover:bg-pink-50 transition">
               <span className="text-2xl shrink-0">{d.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{d.name}</div>
+                <h3 className="font-bold text-xs">{d.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{d.season} · {d.price}</div>
               </div>
             </summary>

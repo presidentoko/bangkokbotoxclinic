@@ -59,9 +59,9 @@ const HOODS = [
 export function BangkokNeighborhoodProfile() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🗺️ Bangkok neighborhood profiles
-      </div>
+      </h2>
       <div className="space-y-3">
         {HOODS.map((h) => (
           <a key={h.name} href={h.url} className="block border border-[var(--border)] rounded-xl p-3 hover:border-orange-300 hover:bg-orange-50 transition">
@@ -69,7 +69,7 @@ export function BangkokNeighborhoodProfile() {
               <div className="flex items-center gap-2">
                 <span className="text-xl">{h.emoji}</span>
                 <div>
-                  <div className="font-bold text-xs">{h.name}</div>
+                  <h3 className="font-bold text-xs">{h.name}</h3>
                   <div className="text-[10px] text-[var(--muted)]">{h.vibe}</div>
                 </div>
               </div>

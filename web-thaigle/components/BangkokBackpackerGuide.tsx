@@ -25,9 +25,9 @@ const ESSENTIALS = [
 export function BangkokBackpackerGuide() {
   return (
     <div className="rounded-2xl border border-amber-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-amber-700 mb-3">
         🎒 Bangkok backpacker guide — budget travel tips
-      </div>
+      </h2>
       <div className="space-y-2.5">
         {ESSENTIALS.map((e) => (
           <div key={e.topic} className="border border-amber-100 rounded-xl p-3">

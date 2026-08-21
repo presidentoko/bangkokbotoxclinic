@@ -49,16 +49,16 @@ const GEMS = [
 export function BangkokHiddenRestaurants() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🗺️ Bangkok hidden restaurants — what locals actually eat
-      </div>
+      </h2>
       <div className="space-y-2">
         {GEMS.map((g) => (
           <div key={g.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-xl shrink-0">{g.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{g.name}</div>
+                <h3 className="font-bold text-xs">{g.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">📍 {g.area}</div>
               </div>
             </div>

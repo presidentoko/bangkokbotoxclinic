@@ -164,7 +164,20 @@ export async function buildDayPlan(area: AreaSlug, theme: ThemeSlug): Promise<Da
   const nicheMaps = Object.fromEntries(
     await Promise.all(niches.map(async (n) => {
       const db2 = await loadNicheDb(n);
-      return [n, qualifyingNichePlaces(n, db2.places).slice(0, 3)] as const;
+      // Scope to Bangkok before taking the top 3.
+      //
+      // qualifyingNichePlaces ranks nationwide, so a "Bangkok day in Thonglor"
+      // was being built with the country's #1 Muay Thai gym (Chiang Mai) and
+      // yoga studios in Hat Yai, Krabi and Phuket — 700-950 km from the
+      // restaurant stops in the same itinerary. The restaurant slots were
+      // already district-scoped; only the activity slots were not, which is
+      // also why all five areas produced identical activity stops.
+      //
+      // A niche with fewer than 3 Bangkok venues simply yields fewer slots;
+      // the existing `valid` gate downstream drops a plan that ends up too
+      // short, which is the correct outcome for a plan we cannot fill.
+      const inBangkok = qualifyingNichePlaces(n, db2.places).filter((p) => p.city === "Bangkok");
+      return [n, inBangkok.slice(0, 3)] as const;
     }))
   );
 

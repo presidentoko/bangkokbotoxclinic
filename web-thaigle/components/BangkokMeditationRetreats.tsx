@@ -44,19 +44,19 @@ const OPTIONS = [
 export function BangkokMeditationRetreats() {
   return (
     <div className="rounded-2xl border border-teal-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-teal-700 mb-3">
         🧘 Meditation & mindfulness in Bangkok
-      </div>
+      </h2>
       <div className="space-y-2.5">
         {OPTIONS.map((o) => (
           <div key={o.name} className="border border-teal-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{o.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{o.name}</div>
+                <h3 className="font-bold text-xs">{o.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{o.type} · {o.location}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{o.cost}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{o.cost}</span>
             </div>
             <div className="text-[10px] text-teal-700 mb-0.5">🕐 {o.schedule}</div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{o.why}</div>

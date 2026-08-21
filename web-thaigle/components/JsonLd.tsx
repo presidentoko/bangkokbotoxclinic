@@ -154,7 +154,7 @@ export function ItemListJsonLd({ name, items }: {
 
 export function NicheItemListJsonLd({ name, items, url }: {
   name: string;
-  items: { name: string; slug: string; niche: string; rating: number | null; review_count: number | null; address: string }[];
+  items: { name: string; slug: string; niche: string; rating: number | null; review_count: number | null; address: string; city?: string }[];
   url: string;
 }) {
   const fullUrl = url.startsWith("http") ? url : `${SITE}${url}`;
@@ -174,7 +174,13 @@ export function NicheItemListJsonLd({ name, items, url }: {
         // RFC-3986-encoded canonical/sitemap URL for the same page, or
         // strict parsers treat this as a different (non-existent) URL.
         url: `${SITE}/activities/${p.niche}/${encodeURIComponent(p.slug)}`,
-        address: { "@type": "PostalAddress", addressLocality: p.address || "Bangkok", addressCountry: "TH" },
+        // addressLocality is the *city*, not the street address. This put
+        // the full line — "12/3 Soi 4, Khlong Toei, Bangkok 10110, Thailand"
+        // — into the locality field on ~2,100 ItemList entries. The
+        // LocalBusiness builder below already carries a fix for the identical
+        // bug; this copy was missed. Venues outside Bangkok were also all
+        // labelled Bangkok by the fallback.
+        address: { "@type": "PostalAddress", addressLocality: p.city || "Bangkok", addressCountry: "TH" },
         ...(p.rating && p.review_count ? {
           aggregateRating: {
             "@type": "AggregateRating",

@@ -37,16 +37,16 @@ const ROUTES = [
 export function BangkokCycleFriendly() {
   return (
     <div className="rounded-2xl border border-lime-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-lime-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-lime-700 mb-3">
         🚴 Cycling in Bangkok — best routes
-      </div>
+      </h2>
       <div className="space-y-2.5">
         {ROUTES.map((r) => (
           <div key={r.name} className="border border-lime-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{r.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{r.name}</div>
+                <h3 className="font-bold text-xs">{r.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{r.distance} · {r.difficulty} · ⏱️ {r.duration}</div>
               </div>
             </div>

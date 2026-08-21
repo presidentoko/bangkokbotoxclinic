@@ -36,16 +36,16 @@ const FOOD_GLOSSARY = [
 export function BangkokKoreanFood() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🇰🇷 Korean food in Bangkok — where to eat
-      </div>
+      </h2>
       <div className="space-y-3 mb-3">
         {DISTRICTS.map((d) => (
           <div key={d.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{d.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{d.name}</div>
+                <h3 className="font-bold text-xs">{d.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">🚉 {d.stations}</div>
               </div>
             </div>
@@ -70,7 +70,7 @@ export function BangkokKoreanFood() {
               <div className="text-[10px] font-bold">{f.rom}</div>
               <div className="text-[10px] text-[var(--muted)]">{f.mean}</div>
             </div>
-            <div className="shrink-0 text-[10px] font-mono text-green-700">{f.price}</div>
+            <div className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{f.price}</div>
           </div>
         ))}
       </div>

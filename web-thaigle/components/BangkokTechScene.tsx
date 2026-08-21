@@ -23,9 +23,9 @@ const COMMUNITIES = [
 export function BangkokTechScene() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         💻 Bangkok tech & startup scene
-      </div>
+      </h2>
       <div className="text-xs font-black mb-2">Top coworking spaces</div>
       <div className="space-y-1.5 mb-3">
         {COWORKS.map((c) => (

@@ -40,16 +40,16 @@ const ACTIVITIES = [
 export function BangkokChildrenActivities() {
   return (
     <div className="rounded-2xl border border-cyan-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-cyan-700 mb-3">
         👦 Bangkok with kids — top activities for families
-      </div>
+      </h2>
       <div className="space-y-2">
         {ACTIVITIES.map((a) => (
           <div key={a.name} className="border border-cyan-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{a.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{a.name}</div>
+                <h3 className="font-bold text-xs">{a.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">Ages: {a.age} · {a.area}</div>
               </div>
             </div>

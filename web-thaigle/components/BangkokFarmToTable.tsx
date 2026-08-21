@@ -28,9 +28,9 @@ const TOPICS = [
 export function BangkokFarmToTable() {
   return (
     <div className="rounded-2xl border border-emerald-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-3">
         🥬 Bangkok food sourcing — organic markets, vegetarian dining, seafood & specialty ingredients
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-emerald-100 rounded-xl">

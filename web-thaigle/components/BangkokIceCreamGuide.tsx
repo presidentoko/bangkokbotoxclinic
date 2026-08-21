@@ -40,19 +40,19 @@ const OPTIONS = [
 export function BangkokIceCreamGuide() {
   return (
     <div className="rounded-2xl border border-sky-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-sky-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-sky-700 mb-3">
         🍦 Bangkok ice cream & frozen desserts — the essential guide
-      </div>
+      </h2>
       <div className="space-y-2">
         {OPTIONS.map((o) => (
           <div key={o.name} className="border border-sky-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{o.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{o.name}</div>
+                <h3 className="font-bold text-xs">{o.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{o.style}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{o.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{o.price}</span>
             </div>
             <div className="text-[10px] text-sky-700 mb-0.5">📍 {o.where}</div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{o.why}</div>

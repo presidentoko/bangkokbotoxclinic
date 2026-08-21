@@ -22,9 +22,9 @@ const TOPICS = [
 export function BangkokEconomy() {
   return (
     <div className="rounded-2xl border border-green-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-green-700 mb-3">
         📊 Bangkok economy — GDP industries, real cost of living & banking for foreigners
-      </div>
+      </h2>
       <div className="space-y-1.5">
         {TOPICS.map((t) => (
           <details key={t.title} className="border border-green-100 rounded-xl">

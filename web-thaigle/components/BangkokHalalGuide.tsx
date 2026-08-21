@@ -33,16 +33,16 @@ const TIPS = [
 export function BangkokHalalGuide() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🌙 Halal food in Bangkok — where to eat
-      </div>
+      </h2>
       <div className="space-y-3 mb-3">
         {AREAS.map((a) => (
           <div key={a.name} className="border border-[var(--border)] rounded-xl p-3">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="text-xl">{a.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{a.name}</div>
+                <h3 className="font-bold text-xs">{a.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{a.why}</div>
               </div>
             </div>

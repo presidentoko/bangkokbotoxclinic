@@ -48,9 +48,9 @@ const HACKS = [
 export function BangkokTravelHacks() {
   return (
     <div className="rounded-2xl border border-indigo-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-indigo-700 mb-3">
         🧳 Bangkok travel hacks — transport, money & local tips that actually save you
-      </div>
+      </h2>
       <div className="space-y-2">
         {HACKS.map((h) => (
           <details key={h.category} className="border border-indigo-100 rounded-xl overflow-hidden">

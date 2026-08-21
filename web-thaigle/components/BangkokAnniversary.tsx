@@ -40,9 +40,9 @@ const IDEAS = [
 export function BangkokAnniversary() {
   return (
     <div className="rounded-2xl border border-pink-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-pink-700 mb-3">
         💕 Bangkok anniversary celebrations — from mid-range to luxury
-      </div>
+      </h2>
       <div className="space-y-2">
         {IDEAS.map((idea) => (
           <div key={idea.title} className="border border-pink-100 rounded-xl p-3">
@@ -52,7 +52,7 @@ export function BangkokAnniversary() {
                 <div className="font-bold text-xs">{idea.title}</div>
                 <div className="text-[10px] text-[var(--muted)]">{idea.where} · {idea.budget}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-green-700">{idea.price}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{idea.price}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{idea.why}</div>
             <div className="text-[10px] text-pink-700">💡 {idea.tip}</div>

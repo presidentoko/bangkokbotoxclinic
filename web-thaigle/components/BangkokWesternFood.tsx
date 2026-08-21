@@ -34,16 +34,16 @@ const ZONES = [
 export function BangkokWesternFood() {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-3">
         🍔 Western restaurants in Bangkok — where expats eat
-      </div>
+      </h2>
       <div className="space-y-4">
         {ZONES.map((z) => (
           <div key={z.name}>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xl">{z.emoji}</span>
               <div>
-                <div className="font-bold text-xs">{z.name}</div>
+                <h3 className="font-bold text-xs">{z.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{z.vibe}</div>
               </div>
             </div>
@@ -55,7 +55,7 @@ export function BangkokWesternFood() {
                     <div className="text-[10px] text-[var(--muted)]">{p.type}</div>
                     <div className="text-[10px] text-orange-600 mt-0.5">{p.note}</div>
                   </div>
-                  <span className="shrink-0 text-[10px] font-mono text-green-700">{p.price}</span>
+                  <span className="min-w-0 break-words text-right text-[10px] font-mono text-green-700">{p.price}</span>
                 </div>
               ))}
             </div>

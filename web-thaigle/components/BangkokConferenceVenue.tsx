@@ -28,19 +28,19 @@ const VENUES = [
 export function BangkokConferenceVenue() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 my-4">
-      <div className="text-xs font-black uppercase tracking-widest text-slate-700 mb-3">
+      <h2 className="text-xs font-black uppercase tracking-widest text-slate-700 mb-3">
         🏟️ Conference venues in Bangkok — IMPACT, CentralWorld & MICE hotel packages
-      </div>
+      </h2>
       <div className="space-y-2">
         {VENUES.map((v) => (
           <div key={v.name} className="border border-slate-100 rounded-xl p-3">
             <div className="flex items-start gap-2 mb-1.5">
               <span className="text-2xl shrink-0">{v.emoji}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-bold text-xs">{v.name}</div>
+                <h3 className="font-bold text-xs">{v.name}</h3>
                 <div className="text-[10px] text-[var(--muted)]">{v.area}</div>
               </div>
-              <span className="shrink-0 text-[10px] font-mono text-slate-700 text-right max-w-[120px]">{v.capacity}</span>
+              <span className="min-w-0 break-words text-right text-[10px] font-mono text-slate-700 text-right max-w-[120px]">{v.capacity}</span>
             </div>
             <div className="text-[10px] text-[var(--fg)] mb-0.5 leading-snug">{v.why}</div>
             <div className="text-[10px] text-slate-700">💡 {v.tip}</div>
