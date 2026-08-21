@@ -206,13 +206,24 @@ export default async function PlaceDetailPage({
   // risk, not just their own impressions. Thin venues keep their page (they
   // still answer a real search and still pass internal link equity) and
   // simply carry no ad.
+  const hasReviewText = !!(place.reviews_sample && place.reviews_sample.length > 0);
   const contentDepth =
     (place.top_photo_url ? 1 : 0) +
-    (place.reviews_sample && place.reviews_sample.length > 0 ? 1 : 0) +
+    (hasReviewText ? 1 : 0) +
     (openingHours.length > 0 ? 1 : 0) +
     (place.address ? 1 : 0) +
     (similarInNiche.length >= 3 ? 1 : 0);
   const showAds = contentDepth >= 3;
+  // The second unit needs prose on the page, not just structured facts.
+  //
+  // The 2026-08 spa backfill was run with maxReviews: 0, so ~1,700 of these
+  // pages carry a photo, a rating, hours and an address but no review text —
+  // complete as a directory entry, thin as a *document*. Two ad units around
+  // a page with no prose is the shape AdSense reads as made-for-advertising,
+  // and that judgement lands on the account, not the page. One unit keeps the
+  // ratio defensible; the second returns automatically for any venue that
+  // later gets review text.
+  const showSecondAd = showAds && hasReviewText;
 
   const hasStickyBooking = !!(klook?.products?.[0] || viatorUrl || gygUrl || fallback);
 
@@ -546,7 +557,7 @@ export default async function PlaceDetailPage({
         </a>
       </div>
 
-      {showAds && <AdSlot name="detailFoot" />}
+      {showSecondAd && <AdSlot name="detailFoot" />}
 
       {/* Back link + report */}
       <div className="flex items-center justify-between text-sm flex-wrap gap-2">
