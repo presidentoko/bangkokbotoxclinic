@@ -1739,14 +1739,35 @@ def main():
         log.info(f"재시도 예산(3회) 소진: {len(_exhausted)}개 — 수집분으로 완료 처리")
         retry_ids -= _exhausted
         existing_ids |= _exhausted
-    for pid in retry_ids:
+    # 2026-08-21: 예전엔 여기서 retry_ids 전원에게 무조건 +1 을 했다. 즉 예산이
+    # "몇 번 시도했는가"가 아니라 "프로세스가 몇 번 떴는가"로 깎였다.
+    # watchdog 은 progress 정체를 감지하면 이 서비스를 킥하는데, 안 좋은 구간엔
+    # 그게 몇 분 간격으로 난다 — 실제로 2026-08-21 04:23 / 04:30 / 04:38 에 15분
+    # 동안 3번 재시작하면서, 클리닉을 단 한 곳도 건드리지 않고 예산 3을 다 태워
+    # 714건이 영구 제외됐다(전날 리셋한 것이 하룻밤 만에 재소진).
+    # 위 주석이 막으려던 "재시작 140회 × 동일 재시도 큐"가 바로 이 경로다 —
+    # 세는 단위가 세션이라 완화책이 오히려 증상을 만들고 있었다.
+    # 이제는 결과가 실제로 돌아왔을 때만 센다(아래 _bump_retry 호출 2곳).
+    def _persist_retry_budget() -> None:
+        try:
+            _tmp_budget = retry_budget_file.with_suffix(".json.tmp")
+            _tmp_budget.write_text(json.dumps(retry_attempts), encoding="utf-8")
+            os.replace(_tmp_budget, retry_budget_file)
+        except Exception:
+            pass
+
+    # href → pid 역인덱스. skip 결과는 href 만 들고 오는데 예산은 pid 로 센다.
+    _retry_pid_by_href = {href: pid for pid, href in retry_hrefs.items()}
+
+    def _bump_retry(pid: str) -> None:
         retry_attempts[pid] = retry_attempts.get(pid, 0) + 1
-    try:
-        _tmp_budget = retry_budget_file.with_suffix(".json.tmp")
-        _tmp_budget.write_text(json.dumps(retry_attempts), encoding="utf-8")
-        os.replace(_tmp_budget, retry_budget_file)
-    except Exception:
-        pass
+        _persist_retry_budget()
+
+    # 성공 시 카운트를 지우지는 않는다. 재시도 대상의 대다수(526/709)가
+    # "partial" 즉 일부만 수집된 장소인데, 재수집해도 여전히 partial 일 수 있다.
+    # 성공했다고 지우면 그런 장소는 영원히 재시도돼 예산이 무의미해진다 —
+    # 예산의 목적은 "3번 시도해도 안 채워지면 수집분으로 확정"이므로,
+    # 결과가 무엇이든 시도가 끝나면 1을 센다.
 
     log.info(f"기존 완료: {len(existing_ids)} | 부분수집 재시도: {partial_cnt} | 완전실패 재시도: {failed_cnt} | 예산소진 제외: {len(_exhausted)} | 신규 리뷰 재스캔({config.REVIEW_REFRESH_DAYS}일 경과): {len(refresh_ids)}")
 
@@ -1911,6 +1932,11 @@ def main():
             if payload:  # (href, reason)
                 skip_href, skip_reason = payload
                 skipped_hrefs.add(skip_href)  # 세션 내 재큐잉 방지 (메모리)
+                # 실제로 한 번 시도해서 못 건진 경우 — 여기서만 예산을 깎는다.
+                # 차단 출구(/maps/place//)는 SocksDeadError 로 빠지므로 여기 안 온다.
+                _skip_pid = _retry_pid_by_href.get(skip_href)
+                if _skip_pid:
+                    _bump_retry(_skip_pid)
                 # 영구 skip은 콘텐츠성 사유만. goto_failed/no_name 같은
                 # 인프라성 실패를 파일에 쓰면 VPN 장애 기간의 실패가
                 # 영구화되어 큐가 마름 (2026-07-08~10: 재시도 대상 623개
@@ -1927,6 +1953,9 @@ def main():
         if status != "ok" or not payload:
             continue
         rest, feats, hours, reviews, metas = payload
+        # 재시도 대상이 한 번 처리됐다 — 결과가 좋든 나쁘든 시도 1회로 센다.
+        if rest.place_id in retry_ids:
+            _bump_retry(rest.place_id)
         if rest.place_id in seen_ids or rest.place_id in existing_ids:
             continue
         seen_ids.add(rest.place_id)
